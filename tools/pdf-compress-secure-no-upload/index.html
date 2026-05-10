@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8MDDJZGJY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y8MDDJZGJY');
+</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JoinMyPDF Tool</title>
+    <meta name="description" content="Dynamic JoinMyPDF tool page." />
+    <link rel="canonical" href="/tools/pdf-merge/" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#0b1220" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+    <script src="/assets/js/pdf-core.js" defer></script>
+    <script src="/assets/js/ui-core.js" defer></script>
+    <script src="/assets/js/seo-factory.js" defer></script>
+    <script src="/assets/js/share-float.js" defer></script>
+  </head>
+  <body data-page="tool">
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="/">
+          <svg class="brand__logo" viewBox="0 0 420 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="JoinMyPDF">
+            <defs><linearGradient id="tool-g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#2563eb"/></linearGradient></defs>
+            <rect x="6" y="8" width="64" height="64" rx="16" fill="url(#tool-g1)"/><path d="M22 24h30a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H30a8 8 0 0 1-8-8z" fill="#eef6ff"/><path d="M44 24v12a6 6 0 0 0 6 6h12" fill="none" stroke="#b7dbff" stroke-width="3" stroke-linecap="round"/><rect x="28" y="46" width="24" height="4" rx="2" fill="#84c7ff"/><text x="84" y="40" fill="#e5e7eb" font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700">JoinMyPDF</text>
+          </svg>
+          <img class="brand__icon" src="/assets/brand/logo-icon.svg" alt="JoinMyPDF" />
+        </a>
+        <nav class="main-nav" aria-label="Primary">
+          <a href="/tools/pdf-merge/" aria-current="page">Merge</a>
+          <a href="/tools/pdf-compress/">Compress</a>
+          <a href="/tools/pdf-split/">Split</a>
+          <a href="/tools/jpg-to-pdf/">JPG to PDF</a>
+          <a href="/tools/pdf-to-jpg/">PDF to JPG</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <section class="hero">
+        <h1 id="toolHeroTitle">PDF Tool</h1>
+        <p id="toolHeroDesc"></p>
+      </section>
+      <section class="tool-layout">
+        <article class="glass card">
+          <label class="dropzone" id="dropzone"><strong>Drop files here</strong><p>or click to choose files</p></label>
+          <input id="toolInput" type="file" hidden />
+          <label id="qualityLabel" for="qualityRange">Compression level (when applicable)</label>
+          <input id="qualityRange" type="range" min="55" max="95" value="75" />
+          <div class="btn-row"><button id="primaryAction" class="btn btn--primary" type="button" disabled>Run Tool</button><button id="clearAction" class="btn btn--ghost" type="button">Clear</button></div>
+          <p id="statusText" class="status" aria-live="polite"></p>
+          <div id="fileList" class="file-list"></div>
+          <div id="previewGrid" class="preview-grid"></div>
+        </article>
+        <aside class="glass card">
+          <h2>How it works</h2>
+          <ol id="howItWorks"></ol>
+          <div class="ad-slot">AdSense-ready placement area</div>
+        </aside>
+      </section>
+      <section class="glass seo-block">
+        <h2>Use cases</h2>
+        <ul id="useCases"></ul>
+        <h2>SEO content</h2>
+        <div id="seoContent"></div>
+        <h2>JoinMyPDF vs traditional tools</h2>
+        <div id="comparisonBlock"></div>
+        <h3>FAQ</h3>
+        <div class="faq" id="faqContent"></div>
+        <h3>Related tools</h3>
+        <div class="related-links" id="relatedTools"></div>
+        <h3>Users also use</h3>
+        <div class="related-links" id="usersAlsoUse"></div>
+        <h3>Recommended workflows</h3>
+        <ol id="workflowLinks"></ol>
+        <h3>Long-tail landing pages</h3>
+        <div class="related-links" id="longTailLinks"></div>
+        <h3>Category hub links</h3>
+        <div class="related-links" id="categoryLinks"></div>
+        <h3>Related blog guides</h3>
+        <div class="related-links" id="toolBlogLinks"></div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="container">JoinMyPDF - Programmatic SEO PDF factory.<p class="site-footer__cross"><a href="https://mapdiagram.com/" rel="noopener noreferrer" target="_blank">Visualize your ideas → MapDiagram</a></p></div></footer>
+    <script src="/assets/js/pwa-install.js" defer></script>
+    <script src="/assets/js/email-popup.js" defer></script>
+  </body>
+</html>

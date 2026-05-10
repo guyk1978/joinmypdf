@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-05-08T15:38:16.099Z",
+  "approvedDrafts": 4,
+  "rejectedDrafts": 10,
+  "queuedPages": [
+    {
+      "id": "draft-0003",
+      "keyword": "secure online pdf merger",
+      "targetUrl": "/blog/secure-online-pdf-merger/",
+      "qualityScore": 7.25
+    },
+    {
+      "id": "draft-0004",
+      "keyword": "compress pdf under 1mb",
+      "targetUrl": "/tools/pdf-compress-compress-pdf-under-1mb/",
+      "qualityScore": 7.05
+    },
+    {
+      "id": "draft-0010",
+      "keyword": "best pdf compressor for email",
+      "targetUrl": "/tools/pdf-compress/",
+      "qualityScore": 7.05
+    },
+    {
+      "id": "draft-0011",
+      "keyword": "email pdf too big",
+      "targetUrl": "/tools/pdf-compress-email-pdf-too-big/",
+      "qualityScore": 7.3
+    }
+  ],
+  "rejectedDetails": [
+    {
+      "id": "draft-0001",
+      "keyword": "compress pdf android",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.95,
+      "overlapRisk": 0.67
+    },
+    {
+      "id": "draft-0002",
+      "keyword": "merge pdf on iphone",
+      "reason": "Rejected: high overlap/cannibalization risk.",
+      "qualityScore": 6.95,
+      "overlapRisk": 0.75
+    },
+    {
+      "id": "draft-0005",
+      "keyword": "split pdf large file",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.6,
+      "overlapRisk": 0.6
+    },
+    {
+      "id": "draft-0006",
+      "keyword": "merge scanned pdf pages",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.85,
+      "overlapRisk": 0.5
+    },
+    {
+      "id": "draft-0007",
+      "keyword": "split pdf on mobile browser",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.8,
+      "overlapRisk": 0.6
+    },
+    {
+      "id": "draft-0008",
+      "keyword": "how to fix large pdf files",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.85,
+      "overlapRisk": 0.5
+    },
+    {
+      "id": "draft-0009",
+      "keyword": "pdf tools on mobile",
+      "reason": "Rejected: high overlap/cannibalization risk.",
+      "qualityScore": 6.55,
+      "overlapRisk": 0.75
+    },
+    {
+      "id": "draft-0012",
+      "keyword": "adobe vs free pdf tools",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.7,
+      "overlapRisk": 0.43
+    },
+    {
+      "id": "draft-0013",
+      "keyword": "best pdf tools 2026 alternatives",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 5.95,
+      "overlapRisk": 0.67
+    },
+    {
+      "id": "draft-0014",
+      "keyword": "free pdf tools for students",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 5.95,
+      "overlapRisk": 0.67
+    }
+  ],
+  "publishedPages": [
+    {
+      "id": "draft-0011",
+      "slug": "pdf-compress-email-pdf-too-big",
+      "keyword": "email pdf too big",
+      "type": "long-tail",
+      "publishedAt": "2026-05-08T16:59:33.447Z"
+    },
+    {
+      "id": "draft-0003",
+      "slug": "secure-online-pdf-merger",
+      "keyword": "secure online pdf merger",
+      "type": "blog",
+      "publishedAt": "2026-05-08T16:59:33.447Z"
+    },
+    {
+      "id": "draft-0004",
+      "slug": "pdf-compress-compress-pdf-under-1mb",
+      "keyword": "compress pdf under 1mb",
+      "type": "long-tail",
+      "publishedAt": "2026-05-08T16:59:33.447Z"
+    }
+  ]
+}

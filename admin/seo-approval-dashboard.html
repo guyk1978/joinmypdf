@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JoinMyPDF SEO Approval Dashboard</title>
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <style>
+      .dash-wrap { padding: 1.2rem 0 2rem; }
+      .dash-controls {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto;
+        gap: 0.7rem;
+        align-items: center;
+        padding: 0.9rem;
+      }
+      .dash-controls select,
+      .dash-controls input[type="range"] {
+        background: rgba(15, 23, 42, 0.85);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.5rem;
+      }
+      .dash-grid {
+        margin-top: 1rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 0.9rem;
+      }
+      .dash-card h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+      .dash-meta { display: grid; gap: 0.3rem; color: var(--muted); font-size: 0.86rem; }
+      .dash-actions { display: flex; gap: 0.45rem; margin-top: 0.8rem; flex-wrap: wrap; }
+      .dash-badge {
+        display: inline-block;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 0.12rem 0.5rem;
+        font-size: 0.74rem;
+      }
+      .dash-selected { outline: 2px solid rgba(56, 189, 248, 0.5); }
+      .dash-status { min-height: 1.4rem; margin-top: 0.8rem; color: var(--muted); }
+      .dash-modal {
+        position: fixed; inset: 0; display: none; place-items: center;
+        background: rgba(2, 6, 23, 0.65); z-index: 80; padding: 1rem;
+      }
+      .dash-modal[data-open="true"] { display: grid; }
+      .dash-modal__panel {
+        width: min(860px, 95vw); max-height: 85vh; overflow: auto; padding: 1rem;
+      }
+      .dash-modal pre {
+        white-space: pre-wrap; background: rgba(15, 23, 42, 0.75);
+        border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem;
+      }
+      @media (max-width: 900px) {
+        .dash-controls { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="/">
+          <img class="brand__icon" src="/assets/brand/logo-icon.svg" alt="JoinMyPDF" style="display:block" />
+          <span>SEO Approval Dashboard</span>
+        </a>
+      </div>
+    </header>
+    <main class="container dash-wrap">
+      <section class="glass dash-controls">
+        <div>
+          <label for="filterType">Filter type</label>
+          <select id="filterType">
+            <option value="all">All</option>
+            <option value="blog">Blog</option>
+            <option value="tool">Tool</option>
+            <option value="long-tail">Long-tail</option>
+          </select>
+        </div>
+        <div>
+          <label for="minScore">Min score: <span id="minScoreLabel">7</span></label>
+          <input id="minScore" type="range" min="7" max="10" step="0.1" value="7" />
+        </div>
+        <button id="refreshBtn" class="btn btn--ghost" type="button">Refresh list</button>
+        <button id="publishBtn" class="btn btn--primary" type="button">Publish Selected (max 3)</button>
+      </section>
+      <p id="status" class="dash-status"></p>
+      <section id="grid" class="dash-grid"></section>
+    </main>
+
+    <div id="previewModal" class="dash-modal" data-open="false">
+      <article class="glass dash-modal__panel">
+        <div class="btn-row" style="justify-content:space-between;">
+          <h2 id="previewTitle">Draft preview</h2>
+          <button id="closePreview" class="btn btn--ghost" type="button">Close</button>
+        </div>
+        <pre id="previewBody"></pre>
+      </article>
+    </div>
+
+    <script>
+      const state = {
+        drafts: [],
+        selected: new Set(),
+        filterType: "all",
+        minScore: 7,
+      };
+
+      const el = {
+        grid: document.getElementById("grid"),
+        status: document.getElementById("status"),
+        filterType: document.getElementById("filterType"),
+        minScore: document.getElementById("minScore"),
+        minScoreLabel: document.getElementById("minScoreLabel"),
+        refreshBtn: document.getElementById("refreshBtn"),
+        publishBtn: document.getElementById("publishBtn"),
+        previewModal: document.getElementById("previewModal"),
+        previewTitle: document.getElementById("previewTitle"),
+        previewBody: document.getElementById("previewBody"),
+        closePreview: document.getElementById("closePreview"),
+      };
+
+      function setStatus(text) {
+        el.status.textContent = text || "";
+      }
+
+      function filteredDrafts() {
+        return state.drafts.filter((draft) => {
+          if (state.filterType !== "all" && draft.recommendedType !== state.filterType) return false;
+          if (Number(draft.qualityScore || 0) < state.minScore) return false;
+          return true;
+        });
+      }
+
+      function render() {
+        const list = filteredDrafts();
+        if (!list.length) {
+          el.grid.innerHTML = '<article class="glass card"><p>No drafts match current filters.</p></article>';
+          return;
+        }
+        el.grid.innerHTML = list
+          .map((draft) => {
+            const selected = state.selected.has(draft.id);
+            return (
+              '<article class="glass card dash-card ' + (selected ? "dash-selected" : "") + '" data-id="' + draft.id + '">' +
+              "<h3>" + draft.title + "</h3>" +
+              '<div class="dash-meta">' +
+              "<span><strong>Keyword:</strong> " + draft.keyword + "</span>" +
+              "<span><strong>Score:</strong> " + draft.qualityScore + "</span>" +
+              "<span><strong>Type:</strong> " + draft.recommendedType + "</span>" +
+              "<span><strong>Overlap risk:</strong> " + draft.overlapRisk + "</span>" +
+              "<span><strong>Status:</strong> <span class=\"dash-badge\">" + (draft.status || "pending_approval") + "</span></span>" +
+              "</div>" +
+              '<div class="dash-actions">' +
+              '<button class="btn btn--ghost" data-action="preview">Preview</button>' +
+              '<button class="btn btn--primary" data-action="approve">Approve</button>' +
+              '<button class="btn btn--ghost" data-action="reject">Reject</button>' +
+              '<button class="btn btn--ghost" data-action="toggle">' + (selected ? "Unselect" : "Select") + "</button>" +
+              "</div>" +
+              "</article>"
+            );
+          })
+          .join("");
+      }
+
+      async function fetchJSON(url, options) {
+        const res = await fetch(url, options || { headers: { Accept: "application/json" } });
+        if (!res.ok) throw new Error("API failed: " + res.status + " " + res.statusText);
+        const text = await res.text();
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          console.error("Raw response from " + url + ":", text);
+          throw new Error("API returned invalid JSON (received " + (text.startsWith("<") ? "HTML" : "non-JSON") + "). Is the dashboard being served by scripts/seo-approval-server.mjs?");
+        }
+      }
+
+      async function loadDrafts() {
+        setStatus("Loading drafts...");
+        try {
+          const data = await fetchJSON("/drafts/pending-seo-pages.json", {
+            headers: { Accept: "application/json" },
+            cache: "no-store",
+          });
+          state.drafts = Array.isArray(data.drafts) ? data.drafts : [];
+          setStatus("Loaded " + state.drafts.length + " pending drafts.");
+          render();
+        } catch (error) {
+          state.drafts = [];
+          render();
+          throw error;
+        }
+      }
+
+      async function updateStatus(id, status) {
+        try {
+          const data = await fetchJSON("/api/draft-status", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ id, status }),
+          });
+          setStatus(data.message || "Updated");
+          await loadDrafts();
+        } catch (error) {
+          setStatus("Failed updating draft: " + (error && error.message ? error.message : "unknown"));
+        }
+      }
+
+      async function publishSelected() {
+        const ids = Array.from(state.selected);
+        if (!ids.length) {
+          setStatus("Select at least one draft.");
+          return;
+        }
+        if (ids.length > 3) {
+          setStatus("You can publish up to 3 drafts per day.");
+          return;
+        }
+        setStatus("Publishing selected drafts...");
+        try {
+          const data = await fetchJSON("/api/publish", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ ids }),
+          });
+          setStatus(data.message || "Publish completed.");
+          state.selected.clear();
+          await loadDrafts();
+        } catch (error) {
+          setStatus("Publish failed: " + (error && error.message ? error.message : "unknown"));
+        }
+      }
+
+      el.filterType.addEventListener("change", function () {
+        state.filterType = this.value;
+        render();
+      });
+      el.minScore.addEventListener("input", function () {
+        state.minScore = Number(this.value);
+        el.minScoreLabel.textContent = this.value;
+        render();
+      });
+      el.refreshBtn.addEventListener("click", loadDrafts);
+      el.publishBtn.addEventListener("click", publishSelected);
+
+      el.grid.addEventListener("click", function (event) {
+        const btn = event.target.closest("button[data-action]");
+        if (!btn) return;
+        const card = event.target.closest("article[data-id]");
+        if (!card) return;
+        const id = card.getAttribute("data-id");
+        const draft = state.drafts.find((d) => d.id === id);
+        if (!draft) return;
+        const action = btn.getAttribute("data-action");
+        if (action === "toggle") {
+          if (state.selected.has(id)) state.selected.delete(id);
+          else state.selected.add(id);
+          render();
+          return;
+        }
+        if (action === "preview") {
+          el.previewTitle.textContent = draft.title;
+          el.previewBody.textContent = JSON.stringify(draft, null, 2);
+          el.previewModal.dataset.open = "true";
+          return;
+        }
+        if (action === "approve") {
+          if (!(Number(draft.qualityScore || 0) >= 7 && draft.publishEligible === true)) {
+            setStatus("Cannot approve draft that fails quality gate.");
+            return;
+          }
+          updateStatus(id, "approved");
+          return;
+        }
+        if (action === "reject") {
+          updateStatus(id, "rejected");
+        }
+      });
+
+      el.closePreview.addEventListener("click", function () {
+        el.previewModal.dataset.open = "false";
+      });
+      el.previewModal.addEventListener("click", function (event) {
+        if (event.target === el.previewModal) el.previewModal.dataset.open = "false";
+      });
+
+      loadDrafts().catch(function (error) {
+        setStatus("Failed loading drafts: " + (error && error.message ? error.message : "unknown"));
+      });
+    </script>
+  
+    <footer class="site-footer">
+      <div class="container">
+        <p class="site-footer__cross"><a href="https://mapdiagram.com/" rel="noopener noreferrer" target="_blank">Visualize your ideas → MapDiagram</a></p>
+      </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 80" role="img" aria-labelledby="title desc">
+  <title id="title">JoinMyPDF logo</title>
+  <desc id="desc">Minimal geometric logo for JoinMyPDF</desc>
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="8" width="64" height="64" rx="16" fill="url(#g1)"/>
+  <path d="M22 24h30a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H30a8 8 0 0 1-8-8z" fill="#eef6ff"/>
+  <path d="M44 24v12a6 6 0 0 0 6 6h12" fill="none" stroke="#b7dbff" stroke-width="3" stroke-linecap="round"/>
+  <rect x="28" y="46" width="24" height="4" rx="2" fill="#84c7ff"/>
+  <text x="84" y="40" fill="#e5e7eb" font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700">JoinMyPDF</text>
+  <text x="84" y="60" fill="#9ca3af" font-size="12" font-family="Inter, Segoe UI, Arial, sans-serif">PDF workflow platform</text>
+</svg>

@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-05-08T15:38:16.097Z",
+  "policy": {
+    "publishThreshold": 7,
+    "maxPerDay": 3,
+    "manualApprovalRequired": true
+  },
+  "drafts": [
+    {
+      "id": "draft-0010",
+      "slug": "pdf-compress",
+      "title": "Best Pdf Compressor For Email | JoinMyPDF",
+      "keyword": "best pdf compressor for email",
+      "intent": "transactional",
+      "recommendedType": "tool",
+      "targetUrl": "/tools/pdf-compress/",
+      "qualityScore": 7.05,
+      "publishEligible": true,
+      "overlapRisk": 0.5,
+      "monetizationScore": 7,
+      "internalLinkPotential": 8,
+      "reason": "Eligible: strong quality and acceptable overlap risk.",
+      "metaTitle": "Best Pdf Compressor For Email - JoinMyPDF",
+      "metaDescription": "Learn best pdf compressor for email with practical steps, tool integrations, and safe browser-based workflows.",
+      "faqSuggestions": [
+        "What is the best workflow for best pdf compressor for email?",
+        "Is this method suitable for business and team usage?",
+        "How do I keep quality while optimizing speed?",
+        "Which JoinMyPDF tool should I use first?"
+      ],
+      "internalLinkSuggestions": [
+        "/tools/pdf-compress/",
+        "/blog/",
+        "/tools/pdf-compress/"
+      ],
+      "ctaSuggestions": [
+        "Try this tool -> /tools/pdf-compress/",
+        "Open related guide -> /blog/"
+      ],
+      "schemaRecommendations": [
+        "BlogPosting",
+        "FAQPage"
+      ],
+      "estimatedContentStructure": {
+        "wordRange": "600-1200",
+        "headings": [
+          "H1 problem framing",
+          "H2 solution steps",
+          "H2 examples",
+          "H3 FAQ"
+        ]
+      },
+      "status": "pending_approval",
+      "createdAt": "2026-05-08T15:38:16.091Z"
+    }
+  ],
+  "rejected": [
+    {
+      "id": "draft-0001",
+      "keyword": "compress pdf android",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.95,
+      "overlapRisk": 0.67
+    },
+    {
+      "id": "draft-0002",
+      "keyword": "merge pdf on iphone",
+      "reason": "Rejected: high overlap/cannibalization risk.",
+      "qualityScore": 6.95,
+      "overlapRisk": 0.75
+    },
+    {
+      "id": "draft-0005",
+      "keyword": "split pdf large file",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.6,
+      "overlapRisk": 0.6
+    },
+    {
+      "id": "draft-0006",
+      "keyword": "merge scanned pdf pages",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.85,
+      "overlapRisk": 0.5
+    },
+    {
+      "id": "draft-0007",
+      "keyword": "split pdf on mobile browser",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.8,
+      "overlapRisk": 0.6
+    },
+    {
+      "id": "draft-0008",
+      "keyword": "how to fix large pdf files",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.85,
+      "overlapRisk": 0.5
+    },
+    {
+      "id": "draft-0009",
+      "keyword": "pdf tools on mobile",
+      "reason": "Rejected: high overlap/cannibalization risk.",
+      "qualityScore": 6.55,
+      "overlapRisk": 0.75
+    },
+    {
+      "id": "draft-0012",
+      "keyword": "adobe vs free pdf tools",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 6.7,
+      "overlapRisk": 0.43
+    },
+    {
+      "id": "draft-0013",
+      "keyword": "best pdf tools 2026 alternatives",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 5.95,
+      "overlapRisk": 0.67
+    },
+    {
+      "id": "draft-0014",
+      "keyword": "free pdf tools for students",
+      "reason": "Rejected: quality score below threshold.",
+      "qualityScore": 5.95,
+      "overlapRisk": 0.67
+    }
+  ]
+}

@@ -1,0 +1,335 @@
+{
+  "site": {
+    "name": "JoinMyPDF",
+    "baseUrl": "https://joinmypdf.com",
+    "defaultTitle": "JoinMyPDF - Programmatic SEO PDF Tool Factory",
+    "defaultDescription": "JoinMyPDF is a static-first PDF SaaS platform with scalable SEO landing pages for merge, compress, split, and convert workflows."
+  },
+  "clusterDefaults": {
+    "targetVariantCount": 24,
+    "modifiers": [
+      "fast",
+      "free",
+      "online",
+      "mobile",
+      "no-upload",
+      "high-quality",
+      "large-files",
+      "no-signup",
+      "secure",
+      "instant"
+    ]
+  },
+  "categories": [
+    {
+      "slug": "convert",
+      "label": "Convert",
+      "description": "Switch between image and PDF formats with browser-side processing."
+    },
+    {
+      "slug": "optimize",
+      "label": "Optimize",
+      "description": "Reduce PDF delivery size while preserving practical readability."
+    },
+    {
+      "slug": "edit",
+      "label": "Edit",
+      "description": "Merge and split document flows for team-ready output."
+    }
+  ],
+  "tools": [
+    {
+      "slug": "pdf-merge",
+      "category": "edit",
+      "operation": "merge",
+      "title": "Merge PDF Online",
+      "primaryKeyword": "merge pdf online",
+      "intent": "Merge multiple PDF files quickly in one browser session.",
+      "description": "Merge PDF files online with drag-and-drop ordering and instant in-browser output.",
+      "secondaryKeywords": [
+        "combine pdf files",
+        "pdf merger browser",
+        "join pdf documents"
+      ],
+      "useCases": [
+        "Combine monthly reports into one management packet",
+        "Merge legal forms and attachments before submission",
+        "Create onboarding document bundles for HR teams"
+      ],
+      "relatedTools": [
+        "pdf-compress",
+        "pdf-split",
+        "jpg-to-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Can I merge more than two PDF files at once?",
+          "a": "Yes. Add multiple PDFs and drag them into the exact order you need."
+        },
+        {
+          "q": "Is PDF merge processing private?",
+          "a": "Yes. Files are processed client-side in your browser."
+        },
+        {
+          "q": "Will page quality change after merging?",
+          "a": "The merge workflow copies pages into one file without intentional quality loss."
+        },
+        {
+          "q": "Can I merge PDFs on mobile?",
+          "a": "Yes. The upload and reorder UI is responsive for mobile browsers."
+        }
+      ],
+      "longTailPages": [
+        {
+          "slug": "pdf-merge-online-fast",
+          "keyword": "pdf merge online fast",
+          "angle": "Speed-first merging for quick delivery workflows"
+        },
+        {
+          "slug": "pdf-merge-without-quality-loss",
+          "keyword": "merge pdf without quality loss",
+          "angle": "Preserve readability while combining documents"
+        },
+        {
+          "slug": "pdf-merge-for-mobile",
+          "keyword": "merge pdf on mobile",
+          "angle": "Touch-friendly PDF merge workflow for phones"
+        }
+      ],
+      "priority": null,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-08",
+      "signals": {
+        "ctr": 2.5,
+        "impressions": 500,
+        "crawlFrequency": 6
+      }
+    },
+    {
+      "slug": "pdf-compress",
+      "category": "optimize",
+      "operation": "compress",
+      "title": "Compress PDF Online",
+      "primaryKeyword": "compress pdf online",
+      "intent": "Reduce PDF file size for sharing and faster downloads.",
+      "description": "Compress PDF files online using browser-based optimization controls and instant download.",
+      "secondaryKeywords": [
+        "reduce pdf size",
+        "pdf optimizer",
+        "small pdf file online"
+      ],
+      "useCases": [
+        "Shrink proposal decks for email attachments",
+        "Optimize policy documents for faster mobile downloads",
+        "Reduce support manuals for customer sharing"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "pdf-split",
+        "pdf-to-jpg"
+      ],
+      "faq": [
+        {
+          "q": "Does PDF compression affect readability?",
+          "a": "Compression can reduce detail at lower settings, so choose a balanced level."
+        },
+        {
+          "q": "Can I adjust compression intensity?",
+          "a": "Yes. Use the range slider before generating the optimized output."
+        },
+        {
+          "q": "Is this PDF compressor browser-only?",
+          "a": "Yes. The flow runs locally in the browser with no backend processing."
+        },
+        {
+          "q": "Can I use this for business documents?",
+          "a": "Yes. Teams commonly compress reports, contracts, and presentations."
+        }
+      ],
+      "longTailPages": [
+        {
+          "slug": "pdf-compress-small-size",
+          "keyword": "compress pdf to small size",
+          "angle": "Maximum size reduction for lightweight sharing"
+        }
+      ],
+      "priority": null,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-08",
+      "signals": {
+        "ctr": 2.5,
+        "impressions": 500,
+        "crawlFrequency": 6
+      }
+    },
+    {
+      "slug": "pdf-split",
+      "category": "edit",
+      "operation": "split",
+      "title": "Split PDF Online",
+      "primaryKeyword": "split pdf online",
+      "intent": "Split one PDF into page-level files for reuse and archiving.",
+      "description": "Split PDF documents into single-page files with local processing.",
+      "secondaryKeywords": [
+        "extract pdf pages",
+        "separate pdf pages",
+        "pdf page splitter"
+      ],
+      "useCases": [
+        "Extract one signed page from a full contract",
+        "Separate textbook chapters for learning packs",
+        "Archive project appendices as standalone files"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "pdf-compress",
+        "jpg-to-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Can I export all pages separately?",
+          "a": "Yes. Each page is exported as an individual PDF file."
+        },
+        {
+          "q": "Will page order remain correct?",
+          "a": "Yes. Output follows the original PDF order."
+        },
+        {
+          "q": "Is this split tool free?",
+          "a": "Yes. You can split PDFs directly in your browser."
+        },
+        {
+          "q": "Do I need to install software?",
+          "a": "No. This is a browser-based tool."
+        }
+      ],
+      "longTailPages": [
+        {
+          "slug": "pdf-split-large-files",
+          "keyword": "split large pdf files online",
+          "angle": "Handle high-page-count document segmentation"
+        }
+      ],
+      "priority": null,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-05-08",
+      "signals": {
+        "ctr": 2.5,
+        "impressions": 500,
+        "crawlFrequency": 6
+      }
+    },
+    {
+      "slug": "jpg-to-pdf",
+      "category": "convert",
+      "operation": "jpg-to-pdf",
+      "title": "JPG to PDF Converter",
+      "primaryKeyword": "jpg to pdf converter online",
+      "intent": "Convert JPG and PNG images into one ordered PDF.",
+      "description": "Convert JPG and PNG images into one PDF with drag-and-drop ordering.",
+      "secondaryKeywords": [
+        "jpeg to pdf",
+        "images to pdf",
+        "combine photos into pdf"
+      ],
+      "useCases": [
+        "Convert expense receipts to one PDF report",
+        "Create PDF portfolios from design snapshots",
+        "Bundle classroom worksheets from photos"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "pdf-to-jpg",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Can I convert multiple JPG files together?",
+          "a": "Yes. Upload and reorder files to control final page sequence."
+        },
+        {
+          "q": "Are PNG files supported?",
+          "a": "Yes. JPG and PNG files are both supported."
+        },
+        {
+          "q": "Is image conversion secure?",
+          "a": "Yes. Files stay local in your browser session."
+        },
+        {
+          "q": "Can I use this on iPhone or Android?",
+          "a": "Yes. Mobile browsers are supported."
+        }
+      ],
+      "longTailPages": [],
+      "priority": null,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-05-08",
+      "signals": {
+        "ctr": 2.5,
+        "impressions": 500,
+        "crawlFrequency": 6
+      }
+    },
+    {
+      "slug": "pdf-to-jpg",
+      "category": "convert",
+      "operation": "pdf-to-jpg",
+      "title": "PDF to JPG Converter",
+      "primaryKeyword": "pdf to jpg converter online",
+      "intent": "Export PDF pages as JPG images for publishing and sharing.",
+      "description": "Convert PDF pages into JPG images for publishing and sharing.",
+      "secondaryKeywords": [
+        "convert pdf page to image",
+        "pdf to jpeg export",
+        "save pdf as jpg"
+      ],
+      "useCases": [
+        "Create website visuals from PDF documents",
+        "Extract presentation slides as images",
+        "Generate social-ready graphics from PDF pages"
+      ],
+      "relatedTools": [
+        "jpg-to-pdf",
+        "pdf-compress",
+        "pdf-split"
+      ],
+      "faq": [
+        {
+          "q": "Does each PDF page become a JPG file?",
+          "a": "Yes. Each page is exported as a separate JPG."
+        },
+        {
+          "q": "Is output quality web-friendly?",
+          "a": "Yes. Export settings balance quality and file size."
+        },
+        {
+          "q": "Can I convert large PDFs?",
+          "a": "Yes, though processing time depends on page count and device."
+        },
+        {
+          "q": "Do files leave my device?",
+          "a": "No. Conversion is local in your browser."
+        }
+      ],
+      "longTailPages": [],
+      "priority": null,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-05-08",
+      "signals": {
+        "ctr": 2.5,
+        "impressions": 500,
+        "crawlFrequency": 6
+      }
+    }
+  ]
+}

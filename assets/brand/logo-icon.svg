@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JoinMyPDF icon">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#g1)"/>
+  <path d="M16 18h28a8 8 0 0 1 8 8v18a8 8 0 0 1-8 8H23a7 7 0 0 1-7-7z" fill="#eef6ff"/>
+  <path d="M37 18v10a5 5 0 0 0 5 5h10" fill="none" stroke="#b7dbff" stroke-width="3" stroke-linecap="round"/>
+  <rect x="22" y="36" width="20" height="4" rx="2" fill="#84c7ff"/>
+</svg>
