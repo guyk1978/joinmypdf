@@ -153,6 +153,7 @@ await writeFile(publishStatePath, JSON.stringify(publishState, null, 2), "utf8")
 report.publishedPages = (report.publishedPages || []).concat(published);
 await writeFile(reportPath, JSON.stringify(report, null, 2), "utf8");
 
+await runNodeScript(path.join("scripts", "generate-blog-og-images.mjs"));
 await runNodeScript(path.join("scripts", "generate-blog-pages.mjs"));
 await runNodeScript(path.join("scripts", "generate-seo-pages.mjs"));
 await runNodeScript(path.join("scripts", "generate-sitemap.mjs"));

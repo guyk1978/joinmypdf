@@ -718,14 +718,10 @@
     const existingBodyHtml = buildExistingBodyHtml(post);
     const sectionsHtml = buildSectionsHtml(sections, ctaHtml);
 
-    const title = (post.seo && post.seo.metaTitle ? post.seo.metaTitle : post.title + " | JoinMyPDF Blog");
     const description =
       (post.seo && post.seo.metaDescription)
         ? post.seo.metaDescription
         : "Learn " + post.keyword + " with a practical guide, linked tools, and workflow tips from JoinMyPDF.";
-    document.title = title;
-    ensureMeta("description", description);
-    ensureCanonical(pathname);
 
     const blogTitle = document.getElementById("blogTitle");
     const blogIntro = document.getElementById("blogIntro");

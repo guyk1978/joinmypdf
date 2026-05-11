@@ -1,0 +1,13 @@
+{
+  "name": "joinmypdf",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate:blog-og": "node scripts/generate-blog-og-images.mjs",
+    "generate:blog-pages": "node scripts/generate-blog-pages.mjs",
+    "build:blog": "node scripts/generate-blog-og-images.mjs && node scripts/generate-blog-pages.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}
