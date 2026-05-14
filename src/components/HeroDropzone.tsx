@@ -6,6 +6,7 @@ import { useCallback, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { usePendingFiles } from "@/context/PendingFilesContext";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
 
 export function HeroDropzone() {
   const router = useRouter();
@@ -15,9 +16,7 @@ export function HeroDropzone() {
 
   const goMerge = useCallback(
     (files: FileList | File[]) => {
-      const arr = Array.from(files).filter(
-        (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name)
-      );
+      const arr = Array.from(files).filter((f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name));
       if (!arr.length) return;
       setPendingFiles(arr);
       capture(EVENTS.home_drop_files, { count: arr.length });
@@ -41,8 +40,10 @@ export function HeroDropzone() {
         goMerge(e.dataTransfer.files);
       }}
       className={clsx(
-        "rounded-2xl border-2 border-dashed border-white/20 bg-white/[0.03] p-6 text-center shadow-inner shadow-black/20 md:p-10",
-        drag && "border-brand bg-brand/10"
+        "rounded-2xl border-2 border-dashed p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors md:p-8",
+        drag
+          ? "border-brand bg-brand/10"
+          : "border-white/20 bg-gradient-to-b from-white/[0.07] to-white/[0.02]"
       )}
     >
       <input
@@ -56,26 +57,25 @@ export function HeroDropzone() {
           e.target.value = "";
         }}
       />
-      <p className="text-lg font-semibold text-ink md:text-xl">Drop PDFs here to merge</p>
-      <p className="mx-auto mt-2 max-w-xl text-sm text-ink-muted md:text-base">
-        We open the merge tool with your files ready. Everything stays in your browser during processing—no
-        watermark on standard output.
+      <p className="text-base font-semibold text-ink md:text-lg">Drop PDFs here to merge</p>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-muted">
+        Files open in the merge tool, ready to run. Same privacy as everywhere else on JoinMyPDF.
       </p>
-      <div className="mt-6 flex flex-wrap justify-center gap-3">
+      <div className="mt-5 flex flex-wrap justify-center gap-3">
         <button
           type="button"
           onClick={() => {
-            capture(EVENTS.cta_primary_click, { where: "hero_dropzone", action: "choose_pdfs" });
+            capture(EVENTS.cta_primary_click, { where: "hero_dropzone", action: "merge_pdf" });
             inputRef.current?.click();
           }}
-          className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/30 hover:bg-brand-deep"
+          className={ctaPrimary}
         >
-          Choose PDFs
+          Merge PDF
         </button>
         <Link
           href="/tools/pdf-merge/"
           onClick={() => capture(EVENTS.cta_secondary_click, { where: "hero_dropzone" })}
-          className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
+          className={ctaSecondary}
         >
           Open merge tool
         </Link>

@@ -9,11 +9,12 @@ import { ToolGrid } from "@/components/ToolGrid";
 import { TrustBadges } from "@/components/TrustBadges";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
+import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
 
 export const metadata: Metadata = {
-  title: "JoinMyPDF — merge, compress & split PDFs privately",
+  title: "JoinMyPDF — merge, compress & split PDFs in your browser",
   description:
-    "Premium-feeling PDF tools that run in your browser. Files stay on your device, no watermark on standard output, and no forced account for typical use.",
+    "Merge, compress, split, and convert PDFs in your browser. No uploads to our servers, no watermark on standard output, no signup required to start.",
   alternates: { canonical: "/" },
 };
 
@@ -31,59 +32,68 @@ export default function HomePage() {
         }}
       />
       <SiteHeader />
-      <main className="mx-auto max-w-6xl space-y-16 px-4 py-12 md:px-6 md:py-16">
-        <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-          <div className="space-y-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brand">Private · fast · no upload</p>
-            <h1 className="text-4xl font-bold tracking-tight text-ink md:text-5xl">
-              PDF tools that feel premium—because your files never leave your browser.
+      <main className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
+        {/* Phase 1 — Hero */}
+        <section className="text-center">
+          <div className="mx-auto max-w-3xl">
+            <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl md:text-[2.75rem] md:leading-[1.1]">
+              Merge, compress, and edit PDFs in your browser—nothing is uploaded to our servers.
             </h1>
-            <p className="max-w-2xl text-lg text-ink-muted">
-              Merge, split, compress, and convert without sending documents to a remote processing queue. Built for
-              teams that care about control, clarity, and clean downloads—without watermarks on standard output.
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted md:text-xl">
+              JoinMyPDF runs merge, compress, split, and conversions locally for speed and privacy. No install, no queue,
+              no watermark on standard downloads.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/tools/pdf-merge/"
-                className="rounded-xl bg-brand px-6 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/30 hover:bg-brand-deep"
-              >
-                Start merging PDFs
+            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
+              <Link href="/tools/pdf-merge/" className={ctaPrimary}>
+                Start Free
               </Link>
-              <Link
-                href="/privacy-first-pdf-tools/"
-                className="rounded-xl border border-white/15 px-6 py-3 text-sm font-semibold text-ink hover:bg-white/5"
-              >
-                Why local processing
+              <Link href="/tools/" className={ctaSecondary}>
+                View Tools
               </Link>
             </div>
+            <p className="mt-6 text-sm font-medium tracking-wide text-ink-muted">
+              No uploads • No signup • Instant processing
+            </p>
           </div>
-          <HeroDropzone />
+          <div className="mx-auto mt-12 max-w-2xl">
+            <HeroDropzone />
+          </div>
         </section>
 
-        <TrustBadges />
-
-        <SocialProofStrip />
-
-        <section className="space-y-4">
-          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-            <h2 className="text-2xl font-semibold text-ink">Tools</h2>
-            <p className="text-sm text-ink-muted">Pick a workflow—each page explains privacy, steps, and next actions.</p>
+        {/* Phase 4 — Tools */}
+        <section className="mt-20 space-y-5 md:mt-24">
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">Pick a tool</h2>
+            <p className="mx-auto mt-2 max-w-2xl text-sm text-ink-muted md:mx-0 md:text-base">
+              Every workflow opens in one click—same layout, same privacy model.
+            </p>
           </div>
           <ToolGrid />
         </section>
 
-        <ScenarioWins />
+        {/* Phase 4 — Scenarios */}
+        <div className="mt-20 md:mt-24">
+          <ScenarioWins />
+        </div>
 
-        <section className="rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-10 text-center">
-          <h2 className="text-xl font-semibold text-ink">Need guides for email, mobile, or submissions?</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-ink-muted">
-            Practical articles that link straight into the tools—written for humans, not keyword spreadsheets.
+        {/* Phase 2 + 4 — Trust */}
+        <div className="mt-20 md:mt-24">
+          <TrustBadges />
+        </div>
+
+        {/* Browser strip */}
+        <div className="mt-12 md:mt-16">
+          <SocialProofStrip />
+        </div>
+
+        {/* Guides */}
+        <section className="mt-16 rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-12 text-center md:mt-20">
+          <h2 className="text-xl font-semibold text-ink md:text-2xl">Guides for email, mobile & submissions</h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-ink-muted md:text-base">
+            Short tutorials that link straight into the tools so your team can repeat the same steps every time.
           </p>
-          <Link
-            href="/blog/"
-            className="mt-6 inline-flex rounded-xl border border-brand/40 bg-brand/10 px-5 py-3 text-sm font-semibold text-brand hover:bg-brand/20"
-          >
-            Browse guides
+          <Link href="/blog/" className={`${ctaSecondary} mt-8 inline-flex`}>
+            View Guides
           </Link>
         </section>
       </main>

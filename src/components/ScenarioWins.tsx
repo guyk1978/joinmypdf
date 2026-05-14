@@ -6,16 +6,21 @@ export function ScenarioWins() {
     },
     {
       title: "Legal & HR bundles",
-      body: "Keep drafts local while you assemble exhibits, split signed pages, and export only what reviewers need.",
+      body: "Assemble exhibits locally, split signed pages, and export only what reviewers need.",
     },
     {
       title: "Field photos → one PDF",
-      body: "Turn phone photos into a single ordered PDF for claims, inspections, or coursework—without desktop software.",
+      body: "Turn phone photos into a single ordered PDF for claims, inspections, or coursework—no desktop install.",
     },
   ];
   return (
     <section className="space-y-4">
-      <h2 className="text-xl font-semibold text-ink">Common wins</h2>
+      <div>
+        <h2 className="text-2xl font-semibold tracking-tight text-ink">Built for real workflows</h2>
+        <p className="mt-1 max-w-2xl text-sm text-ink-muted">
+          Same tools—whether you are closing the month or shipping a client pack.
+        </p>
+      </div>
       <ul className="grid gap-4 md:grid-cols-3">
         {scenarios.map((s) => (
           <li key={s.title} className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">

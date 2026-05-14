@@ -1,5 +1,17 @@
 import Link from "next/link";
 import { registry } from "@/lib/registry";
+import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
+
+function actionLabel(slug: string, title: string): string {
+  const map: Record<string, string> = {
+    "pdf-merge": "Merge PDF",
+    "pdf-compress": "Compress PDF",
+    "pdf-split": "Split PDF",
+    "jpg-to-pdf": "JPG to PDF",
+    "pdf-to-jpg": "PDF to JPG",
+  };
+  return map[slug] || title;
+}
 
 export function ToolGrid() {
   return (
@@ -11,22 +23,15 @@ export function ToolGrid() {
         >
           <h3 className="text-lg font-semibold text-ink">{t.title}</h3>
           <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">{t.intent}</p>
-          <p className="mt-3 text-xs text-ink-muted">
-            Extra pages cover mobile, tight deadlines, large files, and sensitive documents—same engine, clearer
-            context.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Link
-              className="rounded-lg bg-brand px-3 py-2 text-sm font-semibold text-surface hover:bg-brand-deep"
-              href={`/tools/${t.slug}/`}
-            >
-              Open tool
+          <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+            <Link className={ctaPrimary + " flex-1 text-center sm:flex-none"} href={`/tools/${t.slug}/`}>
+              {actionLabel(t.slug, t.title)}
             </Link>
             <Link
-              className="rounded-lg border border-white/15 px-3 py-2 text-sm text-ink hover:bg-white/5"
+              className={ctaSecondary + " flex-1 text-center sm:flex-none"}
               href={`/tools/${t.slug}/#tool-workspace`}
             >
-              Jump to upload
+              Upload files
             </Link>
           </div>
         </article>
