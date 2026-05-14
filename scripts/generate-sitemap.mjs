@@ -60,10 +60,14 @@ urls.push({ loc: baseUrl + "/blog/", priority: "0.9", changefreq: "daily", lastm
 
 for (const tool of registry.tools || []) {
   const toolLastmod = tool.updatedAt || today;
-  const toolPriority = Number.isFinite(Number(tool.priority)) ? Number(tool.priority).toFixed(2) : "0.90";
-  const longTailPriority = Number.isFinite(Number(tool.longTailPriority))
-    ? Number(tool.longTailPriority).toFixed(2)
-    : "0.60";
+  const toolPriority =
+    tool.priority != null && Number.isFinite(Number(tool.priority))
+      ? Number(tool.priority).toFixed(2)
+      : "0.90";
+  const longTailPriority =
+    tool.longTailPriority != null && Number.isFinite(Number(tool.longTailPriority))
+      ? Number(tool.longTailPriority).toFixed(2)
+      : "0.60";
   urls.push({ loc: baseUrl + "/tools/" + tool.slug + "/", priority: toolPriority, changefreq: "weekly", lastmod: toolLastmod });
   const variants = generateClusterVariants(tool, registry.clusterDefaults || {});
   for (const variant of variants) {
@@ -72,7 +76,10 @@ for (const tool of registry.tools || []) {
 }
 
 for (const post of blogRegistry.blog || []) {
-  const blogPriority = Number.isFinite(Number(post.priority)) ? Number(post.priority).toFixed(2) : "0.80";
+  const blogPriority =
+    post.priority != null && Number.isFinite(Number(post.priority))
+      ? Number(post.priority).toFixed(2)
+      : "0.80";
   urls.push({
     loc: baseUrl + "/blog/" + post.slug + "/",
     priority: blogPriority,

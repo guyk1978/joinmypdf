@@ -237,9 +237,7 @@
             escapeHtml(tool.intent || "") +
             "</p><span class=\"tool-chip\">" +
             escapeHtml(category ? category.label : tool.category) +
-            '</span><p class="tool-chip">Cluster pages: ' +
-            variants.length +
-            '</p><div class="btn-row"><a class="btn btn--ghost" href="/tools/' +
+            '</span><div class="btn-row"><a class="btn btn--ghost" href="/tools/' +
             tool.slug +
             '/">Open Tool</a></div></article>'
           );
@@ -310,7 +308,7 @@
         .slice(0, 3)
         .map((variant) => ({
           title: variant.keyword,
-          subtitle: "Long-tail route",
+          subtitle: "Workflow tip",
           href: "/tools/" + variant.slug + "/",
         }));
       recentUpdates.innerHTML = latestBlogs
@@ -333,33 +331,46 @@
       "@type": "WebSite",
       name: registry.site.name,
       url: registry.site.baseUrl,
-      potentialAction: {
-        "@type": "SearchAction",
-        target: registry.site.baseUrl + "/tools/{query}/",
-        "query-input": "required name=query",
-      },
     });
   }
 
   function buildSeoParagraphs(tool, variant) {
     const keyword = variant ? variant.keyword : tool.primaryKeyword;
-    const intent = tool.intent || "browser-based PDF workflow";
-    const angle = variant ? variant.angle : "core tool workflow";
-    const secondary = (tool.secondaryKeywords || []).join(", ");
-    const useCaseHint = variant
-      ? (MODIFIER_LIBRARY[variant.modifier] || {}).useCase || "specific intent use cases"
-      : "document automation use cases";
-    const modifierHuman = variant ? variant.modifier.replaceAll("-", " ") : "general";
-    return [
-      "JoinMyPDF provides a dedicated route for " + keyword + ", enabling teams and individual users to " + toolActionVerb(tool) + " with a browser-first workflow that does not depend on server-side queues. The current page is tuned for " + angle + ", which means the copy, internal navigation, and intent framing are aligned to a specific search scenario instead of generic utility copy. In practical terms, that creates clearer user journeys and stronger relevance signals for long-tail search visibility.",
-      "The intent for this page is explicit: " + intent + ". When users search a detailed phrase such as " + keyword + ", they usually expect immediate action and minimal friction. This is why the page combines a drag-and-drop workflow, visible action controls, and lightweight previews before execution. The same UI core is reused across the entire platform to keep behavior consistent, while the SEO layer customizes context and messaging per route.",
-      "Keyword coverage is expanded naturally through secondary phrases like " + secondary + ". Instead of repeating terms unnaturally, the system introduces variations in process explanations, use-case language, and workflow links. This pattern improves semantic depth for indexers while preserving readability for humans. The result is a page that performs as both a utility endpoint and a content asset in a broader programmatic SEO cluster.",
-      "Use-case relevance is anchored around " + useCaseHint + ". For operations teams, this can include recurring document cycles where speed and consistency matter. For students and freelancers, it often means quick one-session file processing without account setup. For business users, it frequently means reducing operational risk by keeping sensitive documents local. This mix of audience intent broadens query coverage without fragmenting the product experience.",
-      "Compared with legacy desktop workflows, this route removes installation friction and version mismatch issues. Users can open the tool on modern browsers, complete the task, and download output immediately. Compared with many cloud upload tools, JoinMyPDF keeps processing on-device, which reduces privacy concerns and avoids latency from file transfer. These practical differences create a strong value proposition for transactional and informational queries alike.",
-      "The " + modifierHuman + " angle is not cosmetic. It determines how the page prioritizes explanation and link context. For example, a mobile intent route emphasizes touch-friendly usage and short-session completion, while a large-file route emphasizes processing stability and practical sequencing. This contextualization helps search engines differentiate pages in the same cluster and reduces duplicate-content risk across variant URLs.",
-      "Internal linking is structured as a graph, not a random list. Every page links back to the parent tool, references related tools in the same category, and exposes sibling long-tail pages. This ensures crawl paths remain dense and balanced, even as the platform scales. It also supports user progression: someone arriving from one long-tail query can quickly move into adjacent workflows without leaving the ecosystem.",
-      "From a growth perspective, the page is designed for compounding index coverage. New tools inherit the same template, metadata logic, FAQ generation, and schema injection from a single registry entry. No manual page authoring is required. This architecture enables sustainable expansion toward large page counts while keeping page quality, UX consistency, and Core Web Vitals performance under control.",
-    ];
+    const angle = variant ? variant.angle || "a common document scenario" : "the core workflow";
+    const secondary = (tool.secondaryKeywords || []).slice(0, 4).join(", ");
+    const useCases = (tool.useCases || []).slice(0, 2).join(" and ");
+    const p1 = variant
+      ? "This page helps you " +
+        toolActionVerb(tool) +
+        ' when your goal matches searches like “' +
+        keyword +
+        '”. You get the same JoinMyPDF controls as the main ' +
+        tool.title +
+        " flow—local processing in your browser and a straightforward download when you are done."
+      : tool.description +
+        " Whether you are packaging invoices, coursework, or contract sets, the objective is simple: complete the task without installing desktop software.";
+    const p2 =
+      "Privacy is intentional: files are handled in your browser session on your device rather than uploaded to JoinMyPDF servers for processing. That reduces transfer time for many jobs and is easier to reason about when documents are sensitive.";
+    const p3 = variant
+      ? "Because you landed on a page tuned for “" +
+        keyword +
+        "”, we emphasize " +
+        angle.toLowerCase() +
+        " If you want the generic experience, use the main " +
+        tool.title +
+        " link in the navigation."
+      : "If you need related steps next, many people follow merge with compression for email limits, or split first when only a few pages matter. Use the related links on this page to continue in one sitting.";
+    const p4 = secondary.length
+      ? "Related phrases people use alongside this task include " +
+        secondary +
+        ". You do not need to match wording exactly—follow the checklist, confirm previews where available, and download once the status line shows success."
+      : "Follow the checklist, confirm previews where available, and download once the status line shows success.";
+    const p5 = useCases.length
+      ? "Typical situations include " + useCases + "."
+      : "If you are new to browser-based PDF tools, start with a small test file, verify the output, then run your real documents.";
+    const p6 =
+      "If something fails, it is usually browser memory on very large files, mixed inputs, or a protected PDF. Try fewer pages per run, re-export from the authoring app, or split before converting.";
+    return [p1, p2, p3, p4, p5, p6];
   }
 
   function buildFaq(tool, variant) {
@@ -373,11 +384,12 @@
       ];
     }
     const modifierText = variant.modifier.replaceAll("-", " ");
+    const angle = variant.angle || "We keep the flow short and highlight the controls that matter for your scenario.";
     return [
-      { q: "How does this " + modifierText + " variant differ from the base " + tool.title + " page?", a: "This route targets a specific long-tail intent while using the same core tool engine." },
-      { q: "Can I still use full " + toolActionVerb(tool) + " functionality here?", a: "Yes. The UI and processing workflow are identical to the base route." },
-      { q: "Is " + modifierText + " optimization just SEO text or a functional change?", a: "Functional core stays consistent; the page context, messaging, and suggested workflows match the specific intent." },
-      { q: "Where can I access the main tool page?", a: "Use the parent link in Related Tools to open /tools/" + tool.slug + "/." },
+      { q: "Is this the same " + tool.title + " experience as your main page?", a: "Yes—the same controls and privacy model. This page uses clearer wording for a specific situation so you know what to expect before you start." },
+      { q: "What does “" + variant.keyword + "” mean in practice?", a: angle },
+      { q: "Does this page use a different backend than the main tool?", a: "No. You still run the same in-browser workflow; guidance and context are tuned to your intent." },
+      { q: "Where is the general " + tool.title + " page?", a: "Open /tools/" + tool.slug + "/ from the navigation for the all-purpose entry point." },
     ];
   }
 
@@ -804,7 +816,7 @@
   }
 
   function renderBlogIndex(registry, blogRegistry) {
-    document.title = "JoinMyPDF Blog Hub - SEO Guides";
+    document.title = "JoinMyPDF Guides";
     ensureMeta(
       "description",
       "Browse the latest JoinMyPDF blog posts across tutorials, comparisons, and trust guides."
@@ -829,7 +841,7 @@
     appendSchema({
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      name: "JoinMyPDF Blog Hub",
+      name: "JoinMyPDF Guides",
       url: (registry.site.baseUrl || "https://joinmypdf.com").replace(/\/+$/, "") + "/blog/",
     });
   }
@@ -841,7 +853,8 @@
     const variant = resolved.variant;
     const keyword = variant ? variant.keyword : tool.primaryKeyword;
     const title = (variant ? tool.title + " - " + keyword : tool.title + " | " + keyword) + " | JoinMyPDF";
-    const description = (variant ? "Intent-focused route for " + keyword + ". " : "") + (tool.description || tool.intent || "");
+    const description =
+      (variant ? tool.title + " for searches like “" + keyword + "”. " : "") + (tool.description || tool.intent || "");
     document.title = title;
     ensureMeta("description", description);
     ensureCanonical(pathname);
@@ -864,7 +877,7 @@
     const qualityRange = document.getElementById("qualityRange");
     const qualityLabel = document.getElementById("qualityLabel");
 
-    if (heroTitle) heroTitle.textContent = keyword;
+    if (heroTitle) heroTitle.textContent = variant ? tool.title + " — " + keyword : tool.title;
     if (heroDesc) heroDesc.textContent = tool.intent || "";
     if (howList) {
       const map = {
@@ -885,7 +898,7 @@
         "<li><strong>Privacy:</strong> JoinMyPDF processes files locally, while many traditional tools require upload to remote servers.</li>" +
         "<li><strong>Speed:</strong> Browser-side execution avoids transfer overhead for common tasks and short workflows.</li>" +
         "<li><strong>No Upload Dependency:</strong> Users can complete " + escapeHtml(toolActionVerb(tool)) + " flows without waiting for server queues.</li>" +
-        "<li><strong>Scalability:</strong> One registry-driven template powers base and long-tail routes consistently.</li>" +
+        "<li><strong>Consistent UX:</strong> Every tool follows the same dropzone, status, and download pattern so you spend less time relearning controls.</li>" +
         "</ul>";
     }
     if (useCasesRoot) {

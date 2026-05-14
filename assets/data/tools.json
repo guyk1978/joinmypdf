@@ -2,8 +2,8 @@
   "site": {
     "name": "JoinMyPDF",
     "baseUrl": "https://joinmypdf.com",
-    "defaultTitle": "JoinMyPDF - Programmatic SEO PDF Tool Factory",
-    "defaultDescription": "JoinMyPDF is a static-first PDF SaaS platform with scalable SEO landing pages for merge, compress, split, and convert workflows."
+    "defaultTitle": "JoinMyPDF — Private PDF tools in your browser",
+    "defaultDescription": "Merge, split, compress, and convert PDFs locally in your browser. No watermark on standard output, no forced signup for typical use."
   },
   "clusterDefaults": {
     "targetVariantCount": 24,

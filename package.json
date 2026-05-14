@@ -3,11 +3,30 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "node scripts/sync-public-assets.mjs && next dev",
+    "build": "node scripts/sync-public-assets.mjs && next build",
+    "start": "next start",
     "generate:blog-og": "node scripts/generate-blog-og-images.mjs",
     "generate:blog-pages": "node scripts/generate-blog-pages.mjs",
     "build:blog": "node scripts/generate-blog-og-images.mjs && node scripts/generate-blog-pages.mjs"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
+    "next": "^15.5.18",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.7.284",
+    "posthog-js": "^1.373.4",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^6.0.3"
   }
 }
