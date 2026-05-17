@@ -1,0 +1,25 @@
+{
+  "tier1Slugs": [
+    "adobe-acrobat-alternatives-for-small-business",
+    "adobe-acrobat-alternatives-for-freelancers",
+    "browser-pdf-tools-comparison-for-small-business",
+    "online-vs-offline-pdf-tools-for-small-business",
+    "best-pdf-tools-2026-for-small-business",
+    "client-side-pdf-tools-with-local-processing",
+    "safe-pdf-tools-online-without-cloud-upload",
+    "is-it-safe-to-upload-pdf-without-cloud-upload",
+    "merge-pdf-online-fast",
+    "how-to-reduce-pdf-size-under-1mb-for-gmail",
+    "how-to-merge-pdf-on-mobile-for-gmail",
+    "pdf-too-large-fix-for-gmail",
+    "how-to-send-pdf-via-email-for-gmail",
+    "compress-pdf-free-fast",
+    "split-pdf-tool-fast"
+  ],
+  "hubs": [
+    { "path": "/pdf-guides/", "title": "PDF Guides", "description": "Editorial guides for merge, compress, split, and delivery workflows." },
+    { "path": "/pdf-comparison/", "title": "PDF Tool Comparisons", "description": "Honest comparisons of browser, upload-based, and desktop PDF software." },
+    { "path": "/pdf-privacy/", "title": "PDF Privacy & Security", "description": "Local processing, upload risks, and checklists for sensitive documents." },
+    { "path": "/pdf-workflows/", "title": "PDF Workflows", "description": "Step-by-step workflows for email, mobile, and portal submissions." }
+  ]
+}

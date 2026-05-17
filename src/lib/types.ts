@@ -47,18 +47,42 @@ export type SiteRegistry = {
   tools: ToolDefinition[];
 };
 
+export type BlogSection = {
+  id: string;
+  heading: string;
+  level?: 2 | 3;
+  type?: "methodology" | "workflow";
+  paragraphs?: string[];
+  list?: string[];
+  limitations?: string[];
+  table?: { headers: string[]; rows: string[][] };
+};
+
+export type BlogInternalLink = { href: string; anchor: string };
+
 export type BlogPost = {
   slug: string;
   title: string;
   keyword?: string;
+  cluster?: string;
+  intent?: string;
+  intentType?: string;
   publishDate?: string;
+  tier1?: boolean;
   relatedTools?: string[];
+  relatedBlogs?: string[];
   seo?: { metaTitle?: string; metaDescription?: string };
   description?: string;
   contentBlocks?: {
     intro?: string;
     body?: string | string[];
+    sections?: BlogSection[];
     faq?: ToolFaq[];
+    internalLinks?: BlogInternalLink[];
+    bestFor?: string;
+    primaryTool?: string;
+    editorialNote?: string;
+    wordCount?: number;
   };
 };
 

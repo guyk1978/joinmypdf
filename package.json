@@ -8,7 +8,8 @@
     "start": "next start",
     "generate:blog-og": "node scripts/generate-blog-og-images.mjs",
     "generate:blog-pages": "node scripts/generate-blog-pages.mjs",
-    "build:blog": "node scripts/generate-blog-og-images.mjs && node scripts/generate-blog-pages.mjs"
+    "build:blog": "node scripts/generate-blog-og-images.mjs && node scripts/generate-blog-pages.mjs",
+    "upgrade:blog": "node scripts/upgrade-blog-content.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

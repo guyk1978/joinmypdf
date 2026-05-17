@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { upgradePost } from "./lib/blog-content-engine.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -240,27 +241,22 @@ for (const cluster of clusters) {
       "Learn " +
       keyword +
       " with actionable steps, tool recommendations, and workflow guidance from JoinMyPDF.";
-    generated.push({
-      slug,
-      title,
-      keyword,
-      cluster: cluster.slug,
-      intent: cluster.intent,
-      intentType: cluster.intent,
-      relatedTools,
-      relatedBlogs: [],
-      publishDate,
-      seo: {
-        metaTitle: title,
-        metaDescription: description,
-      },
-      description,
-      contentBlocks: {
-        intro,
-        body: buildBody(keyword, cluster.slug, cluster.intent, relatedTools, clusterCount),
-        faq: buildFaq(keyword, cluster.intent, cluster.slug, clusterCount),
-      },
-    });
+    generated.push(
+      upgradePost({
+        slug,
+        title,
+        keyword,
+        cluster: cluster.slug,
+        intent: cluster.intent,
+        intentType: cluster.intent,
+        relatedTools,
+        relatedBlogs: [],
+        publishDate,
+        seo: { metaTitle: title, metaDescription: description },
+        description,
+        contentBlocks: { intro },
+      })
+    );
     clusterCount += 1;
     i += 1;
   }

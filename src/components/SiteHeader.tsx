@@ -6,7 +6,8 @@ const links = [
   { href: "/tools/pdf-split/", label: "Split" },
   { href: "/tools/jpg-to-pdf/", label: "JPG → PDF" },
   { href: "/tools/pdf-to-jpg/", label: "PDF → JPG" },
-  { href: "/blog/", label: "Guides" },
+  { href: "/pdf-guides/", label: "Guides" },
+  { href: "/pdf-comparison/", label: "Compare" },
   { href: "/privacy/", label: "Privacy" },
 ];
 

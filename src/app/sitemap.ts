@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { blogRegistry } from "@/lib/blog-registry";
+import { pdfHubs } from "@/lib/pdf-hubs";
 import { registry } from "@/lib/registry";
 import { allToolSlugs } from "@/lib/variants";
 import { siteUrl } from "@/lib/site";
@@ -17,6 +18,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/privacy-first-pdf-tools/`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
   ];
 
+  for (const hub of pdfHubs) {
+    entries.push({
+      url: `${siteUrl}${hub.path}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    });
+  }
+
   for (const slug of allToolSlugs(registry)) {
     const isBaseTool = registry.tools.some((t) => t.slug === slug);
     entries.push({
@@ -32,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}/blog/${post.slug}/`,
       lastModified: new Date(post.publishDate || now.toISOString().slice(0, 10)),
       changeFrequency: "weekly",
-      priority: 0.65,
+      priority: post.tier1 ? 0.82 : 0.65,
     });
   }
 
