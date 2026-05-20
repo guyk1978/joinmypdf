@@ -87,6 +87,8 @@ export type FileUploadZoneProps = HTMLAttributes<HTMLDivElement> & {
   input?: ReactNode;
   footer?: ReactNode;
   iconActive?: boolean;
+  /** Hero homepage uses extra vertical rhythm inside the dashed box. */
+  variant?: "default" | "hero";
 };
 
 export function FileUploadZone({
@@ -96,16 +98,21 @@ export function FileUploadZone({
   input,
   footer,
   iconActive,
+  variant = "default",
   className,
   children,
   ...rest
 }: FileUploadZoneProps) {
   const active = drag || iconActive;
+  const isHero = variant === "hero";
 
   return (
     <div
       className={clsx(
-        "relative flex min-h-[220px] flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors md:min-h-[260px] md:px-10 md:py-16",
+        "relative flex flex-col rounded-2xl border-2 border-dashed text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors",
+        isHero
+          ? "min-h-[300px] px-5 md:min-h-[340px] md:px-8"
+          : "min-h-[220px] px-6 md:min-h-[260px] md:px-10",
         active
           ? "border-brand bg-brand/10"
           : "border-white/20 bg-gradient-to-b from-white/[0.07] to-white/[0.02]",
@@ -114,24 +121,31 @@ export function FileUploadZone({
       {...rest}
     >
       {input}
-      <div className="mb-5 flex w-full justify-center px-1">
-        <PrivacyUploadBadge />
-      </div>
-      <UploadArrowIcon
+      <div
         className={clsx(
-          "mb-4 h-14 w-14 transition-colors md:h-16 md:w-16",
-          active ? "text-brand" : "text-ink-muted"
+          "flex w-full flex-1 flex-col items-center justify-center",
+          isHero
+            ? "gap-6 px-1 py-8 md:gap-7 md:px-2 md:py-10"
+            : "gap-5 px-1 py-6 md:gap-6 md:py-8"
         )}
-        active={active}
-      />
-      <p className="text-lg font-semibold tracking-tight text-ink md:text-xl">{title}</p>
-      {description ? (
-        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-muted md:text-base">
-          {description}
-        </p>
-      ) : null}
-      {footer ? <div className="mt-6 w-full">{footer}</div> : null}
-      {children}
+      >
+        <PrivacyUploadBadge className="max-w-xl shrink-0 sm:max-w-2xl" />
+        <UploadArrowIcon
+          className={clsx(
+            "h-12 w-12 shrink-0 transition-colors md:h-14 md:w-14",
+            active ? "text-brand" : "text-ink-muted"
+          )}
+          active={active}
+        />
+        <div className="max-w-md space-y-2">
+          <p className="text-lg font-semibold tracking-tight text-ink md:text-xl">{title}</p>
+          {description ? (
+            <p className="text-sm leading-relaxed text-ink-muted md:text-base">{description}</p>
+          ) : null}
+        </div>
+        {footer ? <div className="w-full shrink-0 pt-1">{footer}</div> : null}
+        {children}
+      </div>
     </div>
   );
 }

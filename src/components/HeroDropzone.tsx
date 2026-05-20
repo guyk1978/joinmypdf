@@ -27,6 +27,7 @@ export function HeroDropzone() {
 
   return (
     <FileUploadZone
+      variant="hero"
       role="region"
       aria-label="Quick merge upload"
       drag={drag}

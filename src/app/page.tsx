@@ -9,7 +9,7 @@ import { ToolGrid } from "@/components/ToolGrid";
 import { TrustBadges } from "@/components/TrustBadges";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
-import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
+import { ctaSecondary } from "@/lib/cta-styles";
 
 export const metadata: Metadata = {
   title: "JoinMyPDF — merge, compress & split PDFs in your browser",
@@ -43,19 +43,11 @@ export default function HomePage() {
               JoinMyPDF runs merge, compress, split, and conversions locally for speed and privacy. No install, no queue,
               no watermark on standard downloads.
             </p>
-            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center">
-              <Link href="/tools/pdf-merge/" className={ctaPrimary}>
-                Start Free
-              </Link>
-              <Link href="/tools/" className={ctaSecondary}>
-                View Tools
-              </Link>
-            </div>
             <p className="mt-6 text-sm font-medium tracking-wide text-ink-muted">
               No uploads • No signup • Instant processing
             </p>
           </div>
-          <div className="mx-auto mt-12 max-w-2xl">
+          <div className="mx-auto mt-8 max-w-2xl sm:mt-10">
             <HeroDropzone />
           </div>
         </section>
