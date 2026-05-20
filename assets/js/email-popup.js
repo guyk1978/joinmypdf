@@ -4,11 +4,9 @@
   if (window.__joinmypdfEmailPopupInitialized) return;
   window.__joinmypdfEmailPopupInitialized = true;
 
-  const STORAGE_SHOWN_KEY = "joinmypdf-popup-shown-at";
+  const STORAGE_SEEN_KEY = "hasSeenSubscriptionModal";
   const STORAGE_SUBSCRIBED_KEY = "joinmypdf-popup-subscribed";
   const STORAGE_PENDING_KEY = "joinmypdf-popup-pending-emails";
-  const COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000;
-  const SHOW_AFTER_MS = 20000;
   const TOOL_COMPLETE_EVENT = "joinmypdf:tool-complete";
   const SUBSCRIBE_ENDPOINT = "/api/subscribe";
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -85,17 +83,18 @@
     } catch (_) {}
   }
 
-  function readNumber(key) {
+  function hasSeenSubscriptionModal() {
     try {
-      const v = Number(window.localStorage.getItem(key) || 0);
-      return Number.isFinite(v) ? v : 0;
+      return window.localStorage.getItem(STORAGE_SEEN_KEY) === "true";
     } catch (_) {
-      return 0;
+      return false;
     }
   }
 
-  function recentlyShown() {
-    return Date.now() - readNumber(STORAGE_SHOWN_KEY) < COOLDOWN_MS;
+  function markSubscriptionModalSeen() {
+    try {
+      window.localStorage.setItem(STORAGE_SEEN_KEY, "true");
+    } catch (_) {}
   }
 
   function alreadySubscribed() {
@@ -106,10 +105,8 @@
     }
   }
 
-  function markShown() {
-    try {
-      window.localStorage.setItem(STORAGE_SHOWN_KEY, String(Date.now()));
-    } catch (_) {}
+  function shouldSuppressPopup() {
+    return hasSeenSubscriptionModal() || alreadySubscribed();
   }
 
   function markSubscribed() {
@@ -207,12 +204,11 @@
   }
 
   function init() {
-    if (alreadySubscribed() || recentlyShown()) return;
+    if (shouldSuppressPopup()) return;
 
     injectStyles();
     let overlay = null;
     let opened = false;
-    let timer = null;
 
     function ensureBuilt() {
       if (!overlay) overlay = buildPopup();
@@ -221,18 +217,13 @@
 
     function open(reason) {
       if (opened) return;
-      if (alreadySubscribed() || recentlyShown()) return;
+      if (shouldSuppressPopup()) return;
       ensureBuilt();
       opened = true;
-      markShown();
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
-      }
       requestAnimationFrame(function () {
         overlay.dataset.open = "true";
       });
-      track("popup_view", { trigger: reason || "timer", path: location.pathname });
+      track("popup_view", { trigger: reason || "tool_complete", path: location.pathname });
       const input = document.getElementById("jmp-popup__email");
       if (input) {
         setTimeout(function () {
@@ -245,6 +236,7 @@
     function close(reason) {
       if (!overlay || overlay.dataset.open !== "true") return;
       overlay.dataset.open = "false";
+      markSubscriptionModalSeen();
       track("popup_close", { reason: reason || "dismiss" });
     }
 
@@ -294,6 +286,7 @@
         bookmarkBtn.__bound = true;
         bookmarkBtn.addEventListener("click", function () {
           track("popup_bookmark_click", {});
+          markSubscriptionModalSeen();
           showBookmarkHint();
         });
       }
@@ -315,23 +308,29 @@
           const result = await submitEmail(value);
           track("popup_submit", { mode: result.mode, path: location.pathname });
           markSubscribed();
+          markSubscriptionModalSeen();
           showSuccess();
         });
       }
     }
 
-    timer = setTimeout(function () { open("timer"); }, SHOW_AFTER_MS);
-
-    window.addEventListener(TOOL_COMPLETE_EVENT, function () { open("tool_complete"); });
+    window.addEventListener(TOOL_COMPLETE_EVENT, function () {
+      open("tool_complete");
+    });
 
     window.JoinMyPDFPopup = {
-      open: function () { open("manual"); },
-      close: function () { close("manual"); },
+      open: function () {
+        if (!shouldSuppressPopup()) open("manual");
+      },
+      close: function () {
+        close("manual");
+      },
       reset: function () {
         try {
-          window.localStorage.removeItem(STORAGE_SHOWN_KEY);
+          window.localStorage.removeItem(STORAGE_SEEN_KEY);
           window.localStorage.removeItem(STORAGE_SUBSCRIBED_KEY);
         } catch (_) {}
+        opened = false;
       },
     };
   }

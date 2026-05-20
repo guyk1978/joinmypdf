@@ -1,12 +1,15 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { FileUploadZone } from "@/components/FileUploadZone";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { usePendingFiles } from "@/context/PendingFilesContext";
 import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
-import { clsx } from "clsx";
+import { dispatchToolComplete } from "@/lib/subscription-modal";
+import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
+import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import {
   useCallback,
   useEffect,
@@ -116,6 +119,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
+  const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [quality, setQuality] = useState(75);
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
@@ -141,6 +145,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
     setFiles([]);
     setStatus("");
     setDone(false);
+    setRunError(null);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
@@ -157,6 +162,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
         return [...prev, ...accepted];
       });
       setDone(false);
+      setRunError(null);
       setStatus(`${accepted.length} file(s) added.`);
       capture(EVENTS.file_selected, { count: accepted.length, operation: tool.operation });
     },
@@ -185,6 +191,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
     }
     setBusy(true);
     setDone(false);
+    setRunError(null);
     setStatus("Processing…");
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     try {
@@ -197,10 +204,20 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       setDone(true);
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
+      // Let the browser start download(s) before showing subscription modal.
+      window.setTimeout(() => {
+        dispatchToolComplete({ operation: tool.operation, slug });
+      }, 400);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Operation failed.";
-      setStatus(msg);
-      capture(EVENTS.tool_run_error, { operation: tool.operation, slug, message: msg });
+      const parsed = classifyPdfError(e);
+      setRunError(parsed);
+      setStatus("");
+      capture(EVENTS.tool_run_error, {
+        operation: tool.operation,
+        slug,
+        message: parsed.message,
+        kind: parsed.kind,
+      });
     } finally {
       setBusy(false);
     }
@@ -220,14 +237,24 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
-      <div
-        className={clsx(
-          "rounded-2xl border-2 border-dashed border-white/20 bg-white/[0.03] p-6 text-center transition-colors",
-          drag && "border-brand bg-brand/10"
-        )}
+      <FileUploadZone
+        drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
+        className="cursor-pointer"
+        title="Drop files here or click to browse"
+        description={
+          tool.operation === "merge"
+            ? "Select two or more PDFs. Reorder before merging."
+            : tool.operation === "compress"
+              ? "Select one PDF. Tune compression, then download."
+              : tool.operation === "split"
+                ? "Select one PDF. Each page exports as its own file."
+                : tool.operation === "jpg-to-pdf"
+                  ? "Select JPG/PNG images. Reorder before creating the PDF."
+                  : "Select one PDF. Each page becomes a JPG."
+        }
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -242,27 +269,20 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
           addRaw(e.dataTransfer.files);
         }}
         onClick={() => inputRef.current?.click()}
-      >
-        <input
-          id={`${baseId}-input`}
-          ref={inputRef}
-          type="file"
-          className="sr-only"
-          multiple={config.multiple}
-          onChange={(e) => {
-            if (e.target.files?.length) addRaw(e.target.files);
-            e.target.value = "";
-          }}
-        />
-        <p className="text-lg font-semibold text-ink">Drop files here or click to browse</p>
-        <p className="mt-2 text-sm text-ink-muted">
-          {tool.operation === "merge" && "Select two or more PDFs. Reorder before merging."}
-          {tool.operation === "compress" && "Select one PDF. Tune compression, then download."}
-          {tool.operation === "split" && "Select one PDF. Each page exports as its own file."}
-          {tool.operation === "jpg-to-pdf" && "Select JPG/PNG images. Reorder before creating the PDF."}
-          {tool.operation === "pdf-to-jpg" && "Select one PDF. Each page becomes a JPG."}
-        </p>
-      </div>
+        input={
+          <input
+            id={`${baseId}-input`}
+            ref={inputRef}
+            type="file"
+            className="sr-only"
+            multiple={config.multiple}
+            onChange={(e) => {
+              if (e.target.files?.length) addRaw(e.target.files);
+              e.target.value = "";
+            }}
+          />
+        }
+      />
 
       {tool.operation === "compress" ? (
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
@@ -350,9 +370,22 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
         </button>
       </div>
 
-      <p className="text-sm text-ink-muted" role="status" aria-live="polite">
-        {status}
-      </p>
+      {runError ? (
+        <ToolErrorRecovery
+          operation={tool.operation}
+          slug={slug}
+          kind={runError.kind}
+          technicalMessage={runError.message}
+          onDismiss={() => {
+            setRunError(null);
+            setStatus("Choose another file or clear the list to try again.");
+          }}
+        />
+      ) : (
+        <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+          {status}
+        </p>
+      )}
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 

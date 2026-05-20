@@ -1,13 +1,22 @@
 "use client";
 
 import { PDFDocument } from "pdf-lib";
+import { classifyPdfError } from "./pdf-errors";
+
+async function loadPdfLibDocument(bytes: ArrayBuffer) {
+  try {
+    return await PDFDocument.load(bytes);
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
 
 export async function mergePdfFiles(files: File[]): Promise<Uint8Array> {
   const valid = (files || []).filter(Boolean);
   if (valid.length < 2) throw new Error("Add at least 2 PDF files.");
   const merged = await PDFDocument.create();
   for (const f of valid) {
-    const source = await PDFDocument.load(await f.arrayBuffer());
+    const source = await loadPdfLibDocument(await f.arrayBuffer());
     const pages = await merged.copyPages(source, source.getPageIndices());
     pages.forEach((p) => merged.addPage(p));
   }
@@ -16,7 +25,7 @@ export async function mergePdfFiles(files: File[]): Promise<Uint8Array> {
 
 export async function compressSimulation(file: File, quality: number) {
   if (!file) throw new Error("No PDF file selected.");
-  const doc = await PDFDocument.load(await file.arrayBuffer());
+  const doc = await loadPdfLibDocument(await file.arrayBuffer());
   const output = await doc.save({ useObjectStreams: true });
   const ratio = Math.max(0.55, Math.min(0.95, Number(quality || 0.75)));
   return { bytes: output, estimatedRatio: ratio };
@@ -24,7 +33,7 @@ export async function compressSimulation(file: File, quality: number) {
 
 export async function splitPdfFile(file: File) {
   if (!file) throw new Error("No PDF file selected.");
-  const source = await PDFDocument.load(await file.arrayBuffer());
+  const source = await loadPdfLibDocument(await file.arrayBuffer());
   const result: { page: number; bytes: Uint8Array }[] = [];
   for (const pageIndex of source.getPageIndices()) {
     const out = await PDFDocument.create();
@@ -55,7 +64,12 @@ export async function pdfToJpgPages(file: File, scale = 1.25) {
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
   const url = URL.createObjectURL(file);
   try {
-    const pdf = await pdfjs.getDocument({ url }).promise;
+    let pdf;
+    try {
+      pdf = await pdfjs.getDocument({ url }).promise;
+    } catch (error) {
+      throw classifyPdfError(error);
+    }
     const pages: { page: number; blob: Blob }[] = [];
     for (let i = 1; i <= pdf.numPages; i += 1) {
       const page = await pdf.getPage(i);
@@ -91,7 +105,12 @@ export async function renderFirstPagePreview(file: File, scale = 0.35) {
   pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
   const url = URL.createObjectURL(file);
   try {
-    const pdf = await pdfjs.getDocument({ url }).promise;
+    let pdf;
+    try {
+      pdf = await pdfjs.getDocument({ url }).promise;
+    } catch (error) {
+      throw classifyPdfError(error);
+    }
     const page = await pdf.getPage(1);
     const viewport = page.getViewport({ scale });
     const canvas = document.createElement("canvas");

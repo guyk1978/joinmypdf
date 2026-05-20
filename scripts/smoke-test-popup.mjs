@@ -25,9 +25,9 @@ async function staticChecks() {
   const src = await readFile(popupPath, "utf8");
 
   assert(
-    "20s timer trigger present",
-    /SHOW_AFTER_MS\s*=\s*20000/.test(src) && /setTimeout\([^,]+,\s*SHOW_AFTER_MS\)/.test(src),
-    "constant + setTimeout call"
+    "No page-load timer trigger",
+    !/SHOW_AFTER_MS/.test(src) && !/setTimeout\([^,]+,\s*SHOW_AFTER_MS\)/.test(src),
+    "timer removed"
   );
 
   assert(
@@ -38,11 +38,17 @@ async function staticChecks() {
   );
 
   assert(
-    "7-day cooldown logic present",
-    /COOLDOWN_MS\s*=\s*7\s*\*\s*24\s*\*\s*60\s*\*\s*60\s*\*\s*1000/.test(src) &&
-      /recentlyShown\(/.test(src) &&
-      /alreadySubscribed\(/.test(src),
-    "constant + cooldown gates"
+    "hasSeenSubscriptionModal persistence",
+    /STORAGE_SEEN_KEY\s*=\s*"hasSeenSubscriptionModal"/.test(src) &&
+      /hasSeenSubscriptionModal\(/.test(src) &&
+      /markSubscriptionModalSeen\(/.test(src),
+    "seen key + helpers"
+  );
+
+  assert(
+    "Subscribed users suppressed",
+    /alreadySubscribed\(/.test(src) && /shouldSuppressPopup\(/.test(src),
+    "subscription gate"
   );
 
   assert(
@@ -223,12 +229,9 @@ async function behavioralChecks() {
 
   const fresh = runSession();
   if (fresh.error) { assert("Popup script loads cleanly (fresh)", false, fresh.error.message); return; }
-  fresh.sandbox.__advance(19000);
-  const before20s = fresh.sandbox.__tracks.some((t) => t.name === "popup_view");
-  fresh.sandbox.__advance(2000);
-  const after20s = fresh.sandbox.__tracks.some((t) => t.name === "popup_view");
-  assert("Popup does NOT open before 20s", !before20s);
-  assert("Popup opens after 20s timer", after20s);
+  fresh.sandbox.__advance(30000);
+  const noTimerOpen = !fresh.sandbox.__tracks.some((t) => t.name === "popup_view");
+  assert("Popup does NOT open on page load / idle timer", noTimerOpen);
 
   const tool = runSession();
   if (tool.error) { assert("Popup script loads cleanly (tool)", false, tool.error.message); }
@@ -238,31 +241,24 @@ async function behavioralChecks() {
   const toolViewed = tool.sandbox.__tracks.some((t) => t.name === "popup_view" && t.payload && t.payload.trigger === "tool_complete");
   assert("Popup opens immediately on joinmypdf:tool-complete event", toolViewed);
 
-  const cooldown = runSession((sb) => {
-    sb.localStorage.setItem("joinmypdf-popup-shown-at", String(sb.Date.now() - 1 * 24 * 60 * 60 * 1000));
+  const seen = runSession((sb) => {
+    sb.localStorage.setItem("hasSeenSubscriptionModal", "true");
   });
-  cooldown.sandbox.__advance(25000);
-  cooldown.sandbox.dispatchEvent({ type: "joinmypdf:tool-complete" });
-  cooldown.sandbox.__advance(50);
-  const blocked = !cooldown.sandbox.__tracks.some((t) => t.name === "popup_view");
-  assert("7-day cooldown blocks reopening within window", blocked);
-
-  const expired = runSession((sb) => {
-    sb.localStorage.setItem("joinmypdf-popup-shown-at", String(sb.Date.now() - 8 * 24 * 60 * 60 * 1000));
-  });
-  expired.sandbox.__advance(21000);
-  const reopened = expired.sandbox.__tracks.some((t) => t.name === "popup_view");
-  assert("Popup reopens after cooldown expires (>7 days)", reopened);
+  seen.sandbox.dispatchEvent({ type: "joinmypdf:tool-complete" });
+  seen.sandbox.__advance(50);
+  const blockedSeen = !seen.sandbox.__tracks.some((t) => t.name === "popup_view");
+  assert("hasSeenSubscriptionModal blocks future tool-complete popups", blockedSeen);
 
   const subscribed = runSession((sb) => {
     sb.localStorage.setItem("joinmypdf-popup-subscribed", "1");
   });
-  subscribed.sandbox.__advance(25000);
+  subscribed.sandbox.dispatchEvent({ type: "joinmypdf:tool-complete" });
+  subscribed.sandbox.__advance(50);
   const blockedSubscriber = !subscribed.sandbox.__tracks.some((t) => t.name === "popup_view");
   assert("Subscribed users never see popup again", blockedSubscriber);
 
   const closeTest = runSession();
-  closeTest.sandbox.__advance(21000);
+  closeTest.sandbox.dispatchEvent({ type: "joinmypdf:tool-complete" });
   closeTest.sandbox.__advance(50);
   const opened = closeTest.sandbox.__tracks.some((t) => t.name === "popup_view");
   const keyListeners = closeTest.sandbox.__listeners.keydown || [];
@@ -270,7 +266,9 @@ async function behavioralChecks() {
   [...keyListeners, ...docKeyHandlers].forEach((fn) => fn({ key: "Escape" }));
   closeTest.sandbox.__advance(50);
   const closeFired = closeTest.sandbox.__tracks.some((t) => t.name === "popup_close");
+  const seenAfterClose = closeTest.sandbox.localStorage.getItem("hasSeenSubscriptionModal") === "true";
   assert("Close path fires popup_close tracking (Escape key)", opened && closeFired);
+  assert("Close sets hasSeenSubscriptionModal", seenAfterClose);
 }
 
 async function backendChecks() {

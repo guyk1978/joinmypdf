@@ -5,6 +5,7 @@ export const EVENTS = {
   tool_run_start: "tool_run_start",
   tool_run_success: "tool_run_success",
   tool_run_error: "tool_run_error",
+  tool_error_recovery_click: "tool_error_recovery_click",
   download_click: "download_click",
   cta_primary_click: "cta_primary_click",
   cta_secondary_click: "cta_secondary_click",

@@ -60,6 +60,13 @@ export type BlogSection = {
 
 export type BlogInternalLink = { href: string; anchor: string };
 
+export type BlogAuthorMeta = {
+  name?: string;
+  role?: string;
+  verifiedLabel?: string;
+  avatarUrl?: string;
+};
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -68,6 +75,7 @@ export type BlogPost = {
   intent?: string;
   intentType?: string;
   publishDate?: string;
+  author?: BlogAuthorMeta;
   tier1?: boolean;
   relatedTools?: string[];
   relatedBlogs?: string[];

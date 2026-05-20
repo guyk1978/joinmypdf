@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArticleAuthorBadge } from "@/components/ArticleAuthorBadge";
 import { BlogArticleBody } from "@/components/BlogArticleBody";
 import { BlogToc } from "@/components/BlogToc";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { blogPostingLd, breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
+import { resolveArticleAuthor } from "@/lib/article-author";
 import { blogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import type { BlogPost } from "@/lib/types";
@@ -53,6 +55,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const sections = post.contentBlocks?.sections || [];
   const internalLinks = post.contentBlocks?.internalLinks || [];
   const displayTitle = post.seo?.metaTitle || post.title;
+  const author = resolveArticleAuthor(post);
   const tools = (post.relatedTools || [])
     .map((s) => registry.tools.find((t) => t.slug === s))
     .filter(Boolean) as typeof registry.tools;
@@ -65,6 +68,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           description,
           pathname,
           datePublished: post.publishDate,
+          authorName: author.name,
+          authorRole: author.role,
         })}
       />
       {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
@@ -78,7 +83,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <SiteHeader />
       <main className="mx-auto max-w-3xl space-y-8 px-4 py-10 md:px-6">
         <article>
-          <header className="space-y-3 border-b border-white/10 pb-6">
+          <header className="space-y-2.5 border-b border-white/10 pb-5 sm:space-y-3 sm:pb-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
               {post.tier1 ? "Editorial guide" : "Guide"}
             </p>
@@ -86,6 +91,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {post.publishDate ? (
               <p className="text-sm text-ink-muted">Updated {post.publishDate}</p>
             ) : null}
+            <ArticleAuthorBadge post={post} />
             {post.contentBlocks?.intro ? (
               <p className="text-lg leading-relaxed text-ink-muted">{post.contentBlocks.intro}</p>
             ) : null}

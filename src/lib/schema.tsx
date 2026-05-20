@@ -60,7 +60,10 @@ export function blogPostingLd(post: {
   description: string;
   pathname: string;
   datePublished?: string;
+  authorName?: string;
+  authorRole?: string;
 }) {
+  const authorName = post.authorName || "Tomer";
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -68,7 +71,11 @@ export function blogPostingLd(post: {
     description: post.description,
     url: absoluteUrl(post.pathname),
     datePublished: post.datePublished,
-    author: { "@type": "Organization", name: "JoinMyPDF" },
+    author: {
+      "@type": "Person",
+      name: authorName,
+      jobTitle: post.authorRole || "Web Tools Engineer",
+    },
     publisher: { "@type": "Organization", name: "JoinMyPDF" },
   };
 }

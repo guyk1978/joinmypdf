@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
-import { clsx } from "clsx";
 import { usePendingFiles } from "@/context/PendingFilesContext";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { FileUploadZone } from "@/components/FileUploadZone";
 import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
 
 export function HeroDropzone() {
@@ -26,9 +26,12 @@ export function HeroDropzone() {
   );
 
   return (
-    <div
+    <FileUploadZone
       role="region"
       aria-label="Quick merge upload"
+      drag={drag}
+      title="Drop PDFs here to merge"
+      description="Your files open in the merge tool, ready to run—reorder pages, then download."
       onDragOver={(e) => {
         e.preventDefault();
         setDrag(true);
@@ -39,47 +42,40 @@ export function HeroDropzone() {
         setDrag(false);
         goMerge(e.dataTransfer.files);
       }}
-      className={clsx(
-        "rounded-2xl border-2 border-dashed p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors md:p-8",
-        drag
-          ? "border-brand bg-brand/10"
-          : "border-white/20 bg-gradient-to-b from-white/[0.07] to-white/[0.02]"
-      )}
-    >
-      <input
-        ref={inputRef}
-        type="file"
-        accept="application/pdf,.pdf"
-        multiple
-        className="sr-only"
-        onChange={(e) => {
-          if (e.target.files?.length) goMerge(e.target.files);
-          e.target.value = "";
-        }}
-      />
-      <p className="text-base font-semibold text-ink md:text-lg">Drop PDFs here to merge</p>
-      <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ink-muted">
-        Files open in the merge tool, ready to run. Same privacy as everywhere else on JoinMyPDF.
-      </p>
-      <div className="mt-5 flex flex-wrap justify-center gap-3">
-        <button
-          type="button"
-          onClick={() => {
-            capture(EVENTS.cta_primary_click, { where: "hero_dropzone", action: "merge_pdf" });
-            inputRef.current?.click();
+      input={
+        <input
+          ref={inputRef}
+          type="file"
+          accept="application/pdf,.pdf"
+          multiple
+          className="sr-only"
+          onChange={(e) => {
+            if (e.target.files?.length) goMerge(e.target.files);
+            e.target.value = "";
           }}
-          className={ctaPrimary}
-        >
-          Merge PDF
-        </button>
-        <Link
-          href="/tools/pdf-merge/"
-          onClick={() => capture(EVENTS.cta_secondary_click, { where: "hero_dropzone" })}
-          className={ctaSecondary}
-        >
-          Open merge tool
-        </Link>
-      </div>
-    </div>
+        />
+      }
+      footer={
+        <div className="flex flex-wrap justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              capture(EVENTS.cta_primary_click, { where: "hero_dropzone", action: "merge_pdf" });
+              inputRef.current?.click();
+            }}
+            className={ctaPrimary}
+          >
+            Merge PDF
+          </button>
+          <Link
+            href="/tools/pdf-merge/"
+            onClick={() => capture(EVENTS.cta_secondary_click, { where: "hero_dropzone" })}
+            className={ctaSecondary}
+          >
+            Open merge tool
+          </Link>
+        </div>
+      }
+    />
   );
 }
