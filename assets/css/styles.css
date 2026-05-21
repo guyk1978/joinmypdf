@@ -512,84 +512,75 @@ a:hover {
   }
 }
 
-/* Custom Robust Footer & SEO Links Grid for Next.js Layout */
-.site-footer {
-  border-top: 1px solid var(--border);
-  padding: 3rem 0 2.5rem;
-  margin-top: 5rem;
-  background: rgba(15, 23, 42, 0.2);
-}
+/* Global Alignment System for Programmatic Links & Footer */
 
-/* Container flexibility to hold layout parts */
+/* 1. Target the standalone dynamic containers directly */
+#categoryBlocks,
+#authorityLinks,
 .site-footer .container {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-/* Automatically target the dynamic row containing link clusters and force 4 columns */
-.site-footer .container > div,
-.site-footer__inner {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 2rem;
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+  gap: 2.5rem 1.5rem !important;
+  width: 100% !important;
   align-items: start;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-/* Style headers/bold texts into clean, muted micro-labels */
-.site-footer strong,
-.site-footer b,
-.site-footer h3,
-.site-footer h4 {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted-soft, #718096);
-  display: block;
-  margin-bottom: 0.6rem;
-}
-
-/* Clean up paragraph styling inside footer if any */
-.site-footer p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--muted-soft, #718096);
-}
-
-/* Individual column link stacking */
+/* 2. Force child containers (the generated rows/columns) to behave as flex columns */
+#categoryBlocks > div,
+#authorityLinks > div,
 .site-footer div:has(> a) {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.65rem !important;
 }
 
-/* Premium feeling links styling */
+/* 3. Style text headers and strong tags into modern, muted micro-labels */
+#categoryBlocks strong, #categoryBlocks b, #categoryBlocks h3, #categoryBlocks h4,
+#authorityLinks strong, #authorityLinks b, #authorityLinks h3, #authorityLinks h4,
+.site-footer strong, .site-footer b {
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  color: var(--muted-soft, #718096) !important;
+  display: block !important;
+  margin-bottom: 0.6rem !important;
+}
+
+/* 4. Ensure premium typography and interactive hover on all footer/SEO links */
+#categoryBlocks a,
+#authorityLinks a,
 .site-footer a {
-  font-size: 0.88rem;
-  color: var(--muted);
-  transition: color 0.2s ease, transform 0.2s ease;
-  text-decoration: none;
-  display: inline-block;
+  font-size: 0.88rem !important;
+  color: var(--muted) !important;
+  transition: color 0.2s ease, transform 0.2s ease !important;
+  text-decoration: none !important;
+  display: inline-block !important;
 }
 
+#categoryBlocks a:hover,
+#authorityLinks a:hover,
 .site-footer a:hover {
-  color: var(--primary);
-  text-decoration: none;
-  transform: translateY(-1px);
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  transform: translateY(-1px) !important;
 }
 
-/* Cross-linking/Partner specific block handling */
-.site-footer__cross {
-  margin: 0;
-  padding: 0;
+/* 5. Handle base footer padding & section separation safely */
+.site-footer {
+  border-top: 1px solid var(--border) !important;
+  padding: 3rem 0 2.5rem !important;
+  margin-top: 5rem !important;
+  background: rgba(15, 23, 42, 0.2) !important;
 }
 
-/* Desktop 4-Column Rule Override */
+/* Desktop 4-Column Rule Lock */
 @media (min-width: 768px) {
-  .site-footer .container > div {
+  #categoryBlocks,
+  #authorityLinks,
+  .site-footer .container {
     grid-template-columns: repeat(4, 1fr) !important;
   }
 }
