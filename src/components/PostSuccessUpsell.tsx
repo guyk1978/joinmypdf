@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { CalnexAppCrossLink } from "@/components/partner/CalnexAppCrossLink";
 
 type Props = {
   operation: string;
@@ -43,22 +44,25 @@ export function PostSuccessUpsell({ operation }: Props) {
   if (!rows.length) return null;
 
   return (
-    <aside className="mt-6 rounded-2xl border border-brand/30 bg-brand/5 p-4">
-      <p className="text-sm font-semibold text-ink">Suggested next step</p>
-      <ul className="mt-3 space-y-3">
-        {rows.map((r) => (
-          <li key={r.href}>
-            <Link
-              href={r.href}
-              onClick={() => capture(EVENTS.upsell_click, { target: r.href, from: operation })}
-              className="block rounded-xl border border-white/10 bg-surface/60 p-3 transition hover:border-brand/50"
-            >
-              <span className="font-medium text-brand">{r.title}</span>
-              <p className="mt-1 text-sm text-ink-muted">{r.body}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </aside>
+    <div className="mt-6 space-y-4">
+      <aside className="rounded-2xl border border-brand/30 bg-brand/5 p-4">
+        <p className="text-sm font-semibold text-ink">Suggested next step</p>
+        <ul className="mt-3 space-y-3">
+          {rows.map((r) => (
+            <li key={r.href}>
+              <Link
+                href={r.href}
+                onClick={() => capture(EVENTS.upsell_click, { target: r.href, from: operation })}
+                className="block rounded-xl border border-white/10 bg-surface/60 p-3 transition hover:border-brand/50"
+              >
+                <span className="font-medium text-brand">{r.title}</span>
+                <p className="mt-1 text-sm text-ink-muted">{r.body}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </aside>
+      <CalnexAppCrossLink />
+    </div>
   );
 }

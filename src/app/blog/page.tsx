@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CalnexAppCrossLink } from "@/components/partner/CalnexAppCrossLink";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { blogRegistry } from "@/lib/blog-registry";
@@ -26,6 +27,7 @@ export default function BlogIndexPage() {
             sensitive documents.
           </p>
         </header>
+        <CalnexAppCrossLink className="max-w-2xl" />
         <ul className="grid gap-4 md:grid-cols-2">
           {posts.slice(0, 48).map((p) => (
             <li key={p.slug}>

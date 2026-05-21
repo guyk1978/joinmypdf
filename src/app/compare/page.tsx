@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CalnexAppCrossLink } from "@/components/partner/CalnexAppCrossLink";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -57,6 +58,8 @@ export default function ComparePage() {
             </tbody>
           </table>
         </div>
+
+        <CalnexAppCrossLink />
 
         <p className="text-sm text-ink-muted">
           Ready to try it? <Link href="/tools/pdf-merge/">Open merge</Link> or read{" "}

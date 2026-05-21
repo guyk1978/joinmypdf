@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CalnexAppCrossLink } from "@/components/partner/CalnexAppCrossLink";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { postsForHub, type PdfHub } from "@/lib/pdf-hubs";
@@ -56,6 +57,8 @@ export function PdfHubPage({ hub }: { hub: PdfHub }) {
             </Link>
           </nav>
         </header>
+
+        <CalnexAppCrossLink />
 
         {featured.length ? (
           <section>

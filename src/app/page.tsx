@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroDropzone } from "@/components/HeroDropzone";
+import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
 import { ScenarioWins } from "@/components/ScenarioWins";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -47,8 +48,9 @@ export default function HomePage() {
               No uploads • No signup • Instant processing
             </p>
           </div>
-          <div className="mx-auto mt-8 max-w-2xl sm:mt-10">
+          <div className="mx-auto mt-8 max-w-2xl space-y-3 sm:mt-10">
             <HeroDropzone />
+            <MapDiagramCrossLink />
           </div>
         </section>
 
