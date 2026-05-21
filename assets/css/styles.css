@@ -511,3 +511,73 @@ a:hover {
     gap: 0.4rem;
   }
 }
+
+/* Modernized Dynamic Blocks & Structural Footer Layout */
+#categoryBlocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Treat the generated block inside category areas or adjacent to footer as clean columns */
+#categoryBlocks h3,
+.site-footer strong {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-soft, #718096);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+/* Structural Refinement for the Actual Footer Section */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 0 2.5rem;
+  margin-top: 4rem;
+  background: rgba(11, 18, 32, 0.4);
+}
+
+.site-footer .container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted-soft, #718096);
+}
+
+.site-footer__cross {
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer__cross a {
+  display: inline-block;
+  font-size: 0.88rem;
+  color: var(--muted);
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0.2rem 0;
+}
+
+.site-footer__cross a:hover {
+  color: var(--primary);
+  text-decoration: none;
+  transform: translateX(2px);
+}
+
+/* Desktop Alignment Transformation */
+@media (min-width: 768px) {
+  .site-footer .container {
+    grid-template-columns: 1.5fr auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #categoryBlocks {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
