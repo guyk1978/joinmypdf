@@ -159,7 +159,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ) : null}
         </article>
       </main>
-      <SiteFooter />
+      <SiteFooter tagline="blog" />
     </>
   );
 }

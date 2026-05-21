@@ -42,7 +42,7 @@ export default function BlogIndexPage() {
           ))}
         </ul>
       </main>
-      <SiteFooter />
+      <SiteFooter tagline="blog" />
     </>
   );
 }

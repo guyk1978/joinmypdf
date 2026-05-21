@@ -36,7 +36,7 @@ export default function ToolsHubPage() {
           ))}
         </ul>
       </main>
-      <SiteFooter />
+      <SiteFooter tagline="tools" />
     </>
   );
 }
