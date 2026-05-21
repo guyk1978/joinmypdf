@@ -31,6 +31,25 @@ export function SiteFooter() {
             Compress PDF
           </Link>
         </div>
+        <p className="mt-6 text-xs text-ink-muted">
+          <a
+            href="https://calnexapp.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-300 hover:text-brand"
+          >
+            Model Loan Repayments ➔ CalnexApp
+          </a>
+          <span className="mx-2 text-ink-muted/50">·</span>
+          <a
+            href="https://mapdiagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-300 hover:text-brand"
+          >
+            Visualize your ideas → MapDiagram
+          </a>
+        </p>
       </div>
     </footer>
   );
