@@ -512,53 +512,62 @@ a:hover {
   }
 }
 
-/* Modern Link Hub & Footer Column Fix */
+/* Modern 4-Column Directory Layout for Cross Links */
 
-/* 1. Target the paragraph wrappers containing the links and make them the grid */
-.site-footer .container > p,
-#categoryBlocks p,
-#authorityLinks p {
+/* 1. Turn the cross-link container into a responsive grid */
+.site-footer__cross {
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
   gap: 2rem 1.5rem !important;
   width: 100% !important;
   align-items: start !important;
-  margin: 1.5rem 0 !important;
+  margin-top: 2rem !important;
+  padding: 0 !important;
+  font-size: 0.88rem !important;
 }
 
-/* 2. Style bold tags/titles if they exist inside these paragraphs to look like micro-labels */
-.site-footer .container > p strong,
-#categoryBlocks p strong,
-#authorityLinks p strong {
-  grid-column: 1 / -1 !important; /* Forces title to span full width above columns if nested */
+/* 2. Remove the old inline bullet points completely */
+.site-footer__cross a + a::before {
+  display: none !important;
+  content: "" !important;
+}
+
+/* 3. Force text/strong items to act as column headers */
+.site-footer__cross strong,
+.site-footer__cross b {
+  grid-column: span 1 !important;
   font-size: 0.78rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.06em !important;
-  color: var(--muted-soft) !important;
-  margin-bottom: 0.5rem !important;
-}
-
-/* 3. Elevate links into clean block elements inside the grid */
-.site-footer .container > p a,
-#categoryBlocks p a,
-#authorityLinks p a {
-  font-size: 0.88rem !important;
   color: var(--muted) !important;
-  transition: color 0.2s ease, transform 0.2s ease !important;
-  text-decoration: none !important;
-  display: block !important; /* Essential to stack cleanly if grid items */
-  padding: 0.2rem 0 !important;
+  display: block !important;
+  margin-bottom: 0.5rem !important;
+  margin-top: 0 !important;
 }
 
-.site-footer .container > p a:hover,
-#categoryBlocks p a:hover,
-#authorityLinks p a:hover {
+/* 4. Make links clean block elements so they stack nicely under headers */
+.site-footer__cross a {
+  display: block !important;
+  color: var(--muted) !important;
+  padding: 0.25rem 0 !important;
+  transition: color 0.2s ease, transform 0.2s ease !important;
+}
+
+.site-footer__cross a:hover {
   color: var(--primary) !important;
+  text-decoration: none !important;
   transform: translateY(-1px) !important;
 }
 
-/* 4. Ensure the actual footer container behaves as a clean vertical wrapper layout */
+/* 5. Update main footer shell to accommodate the new structural width */
+.site-footer {
+  border-top: 1px solid var(--border) !important;
+  padding: 3rem 0 2.5rem !important;
+  margin-top: 4rem !important;
+  background: rgba(15, 23, 42, 0.2) !important;
+}
+
 .site-footer .container {
   display: flex !important;
   flex-direction: column !important;
@@ -566,18 +575,9 @@ a:hover {
   gap: 1.5rem !important;
 }
 
-/* 5. Polish Partner tools cross-links row */
-.site-footer__cross {
-  border-top: 1px solid rgba(148, 163, 184, 0.1) !important;
-  padding-top: 1.5rem !important;
-  margin-top: 1rem !important;
-}
-
-/* Desktop 4-Column Lock Override */
+/* Desktop 4-Column Lock */
 @media (min-width: 768px) {
-  .site-footer .container > p,
-  #categoryBlocks p,
-  #authorityLinks p {
+  .site-footer__cross {
     grid-template-columns: repeat(4, 1fr) !important;
   }
 }
