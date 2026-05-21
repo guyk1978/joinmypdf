@@ -512,75 +512,72 @@ a:hover {
   }
 }
 
-/* Global Alignment System for Programmatic Links & Footer */
+/* Modern Link Hub & Footer Column Fix */
 
-/* 1. Target the standalone dynamic containers directly */
-#categoryBlocks,
-#authorityLinks,
-.site-footer .container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
-  gap: 2.5rem 1.5rem !important;
+/* 1. Target the paragraph wrappers containing the links and make them the grid */
+.site-footer .container > p,
+#categoryBlocks p,
+#authorityLinks p {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+  gap: 2rem 1.5rem !important;
   width: 100% !important;
-  align-items: start;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  align-items: start !important;
+  margin: 1.5rem 0 !important;
 }
 
-/* 2. Force child containers (the generated rows/columns) to behave as flex columns */
-#categoryBlocks > div,
-#authorityLinks > div,
-.site-footer div:has(> a) {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0.65rem !important;
-}
-
-/* 3. Style text headers and strong tags into modern, muted micro-labels */
-#categoryBlocks strong, #categoryBlocks b, #categoryBlocks h3, #categoryBlocks h4,
-#authorityLinks strong, #authorityLinks b, #authorityLinks h3, #authorityLinks h4,
-.site-footer strong, .site-footer b {
+/* 2. Style bold tags/titles if they exist inside these paragraphs to look like micro-labels */
+.site-footer .container > p strong,
+#categoryBlocks p strong,
+#authorityLinks p strong {
+  grid-column: 1 / -1 !important; /* Forces title to span full width above columns if nested */
   font-size: 0.78rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.06em !important;
-  color: var(--muted-soft, #718096) !important;
-  display: block !important;
-  margin-bottom: 0.6rem !important;
+  color: var(--muted-soft) !important;
+  margin-bottom: 0.5rem !important;
 }
 
-/* 4. Ensure premium typography and interactive hover on all footer/SEO links */
-#categoryBlocks a,
-#authorityLinks a,
-.site-footer a {
+/* 3. Elevate links into clean block elements inside the grid */
+.site-footer .container > p a,
+#categoryBlocks p a,
+#authorityLinks p a {
   font-size: 0.88rem !important;
   color: var(--muted) !important;
   transition: color 0.2s ease, transform 0.2s ease !important;
   text-decoration: none !important;
-  display: inline-block !important;
+  display: block !important; /* Essential to stack cleanly if grid items */
+  padding: 0.2rem 0 !important;
 }
 
-#categoryBlocks a:hover,
-#authorityLinks a:hover,
-.site-footer a:hover {
+.site-footer .container > p a:hover,
+#categoryBlocks p a:hover,
+#authorityLinks p a:hover {
   color: var(--primary) !important;
-  text-decoration: none !important;
   transform: translateY(-1px) !important;
 }
 
-/* 5. Handle base footer padding & section separation safely */
-.site-footer {
-  border-top: 1px solid var(--border) !important;
-  padding: 3rem 0 2.5rem !important;
-  margin-top: 5rem !important;
-  background: rgba(15, 23, 42, 0.2) !important;
+/* 4. Ensure the actual footer container behaves as a clean vertical wrapper layout */
+.site-footer .container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 1.5rem !important;
 }
 
-/* Desktop 4-Column Rule Lock */
+/* 5. Polish Partner tools cross-links row */
+.site-footer__cross {
+  border-top: 1px solid rgba(148, 163, 184, 0.1) !important;
+  padding-top: 1.5rem !important;
+  margin-top: 1rem !important;
+}
+
+/* Desktop 4-Column Lock Override */
 @media (min-width: 768px) {
-  #categoryBlocks,
-  #authorityLinks,
-  .site-footer .container {
+  .site-footer .container > p,
+  #categoryBlocks p,
+  #authorityLinks p {
     grid-template-columns: repeat(4, 1fr) !important;
   }
 }
