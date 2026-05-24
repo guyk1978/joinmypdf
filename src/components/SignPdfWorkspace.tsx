@@ -3,6 +3,7 @@
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
+import { SignPageSelect } from "@/components/SignPageSelect";
 import { SignatureModal } from "@/components/SignatureModal";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -524,22 +525,11 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
             </aside>
 
             <div className="sign-main space-y-4">
-              {pageCount > 0 ? (
-                <label className="sign-page-select flex items-center gap-2 text-sm text-ink-muted">
-                  <span className="font-medium text-ink">Active page</span>
-                  <select
-                    className="rounded-lg border border-white/15 bg-white/[0.03] px-3 py-2 text-sm text-ink"
-                    value={activePageIndex}
-                    onChange={(e) => setActivePageIndex(Number(e.target.value))}
-                  >
-                    {Array.from({ length: pageCount }, (_, i) => (
-                      <option key={i} value={i}>
-                        Page {i + 1}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              ) : null}
+              <SignPageSelect
+                pageCount={pageCount}
+                value={activePageIndex}
+                onChange={setActivePageIndex}
+              />
 
               {pageCount > 0 ? (
                 <div className="sign-pages">

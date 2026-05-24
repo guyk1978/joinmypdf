@@ -93,7 +93,11 @@
     var primaryBtn = byId("primaryAction");
     var clearBtn = byId("clearAction");
     var createBtn = byId("signCreateBtn");
-    var pageSelect = byId("signPageSelect");
+    var pageDropdown = byId("signPageDropdown");
+    var pageTrigger = byId("signPageTrigger");
+    var pageTriggerLabel = byId("signPageTriggerLabel");
+    var pageMenu = byId("signPageMenu");
+    var pageSelectRoot = byId("signPageSelectRoot");
     var passwordInput = byId("signPassword");
     var passwordPanel = byId("signPasswordPanel");
     var loadPagesBtn = byId("signLoadPages");
@@ -206,7 +210,12 @@
       workspace.classList.add("is-hidden");
       dropzone.classList.remove("is-hidden");
       pagesRoot.innerHTML = "";
-      if (pageSelect) pageSelect.innerHTML = "";
+      if (pageMenu) {
+        pageMenu.innerHTML = "";
+        pageMenu.classList.add("is-hidden");
+      }
+      if (pageDropdown) pageDropdown.classList.remove("is-open");
+      if (pageSelectRoot) pageSelectRoot.classList.add("is-hidden");
       if (modal) modal.classList.add("is-hidden");
       clearPad();
       renderLibrary();
@@ -219,16 +228,72 @@
       padCtx.clearRect(0, 0, pad.width, pad.height);
     }
 
-    function fillPageSelect() {
-      if (!pageSelect) return;
-      pageSelect.innerHTML = "";
-      for (var i = 0; i < state.pageCount; i += 1) {
-        var opt = document.createElement("option");
-        opt.value = String(i);
-        opt.textContent = "Page " + (i + 1);
-        pageSelect.appendChild(opt);
+    function closePageDropdown() {
+      if (!pageDropdown || !pageMenu || !pageTrigger) return;
+      pageDropdown.classList.remove("is-open");
+      pageMenu.classList.add("is-hidden");
+      pageTrigger.setAttribute("aria-expanded", "false");
+    }
+
+    function openPageDropdown() {
+      if (!pageDropdown || !pageMenu || !pageTrigger) return;
+      pageDropdown.classList.add("is-open");
+      pageMenu.classList.remove("is-hidden");
+      pageTrigger.setAttribute("aria-expanded", "true");
+    }
+
+    function syncPageDropdownLabel() {
+      if (pageTriggerLabel) {
+        pageTriggerLabel.textContent = "Page " + (state.activePageIndex + 1);
       }
-      pageSelect.value = String(state.activePageIndex);
+    }
+
+    function setActivePage(pageIndex) {
+      state.activePageIndex = pageIndex;
+      syncPageDropdownLabel();
+      if (pageMenu) {
+        pageMenu.querySelectorAll(".sign-page-dropdown__option").forEach(function (btn) {
+          var idx = Number(btn.getAttribute("data-page-index"));
+          btn.classList.toggle("is-selected", idx === pageIndex);
+          btn.setAttribute("aria-selected", idx === pageIndex ? "true" : "false");
+        });
+      }
+      closePageDropdown();
+    }
+
+    function rebuildPageDropdown() {
+      if (!pageMenu || !pageSelectRoot) return;
+      pageMenu.innerHTML = "";
+      if (state.pageCount <= 0) {
+        pageSelectRoot.classList.add("is-hidden");
+        return;
+      }
+      pageSelectRoot.classList.remove("is-hidden");
+      for (var i = 0; i < state.pageCount; i += 1) {
+        (function (pageIndex) {
+          var li = document.createElement("li");
+          li.setAttribute("role", "presentation");
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "sign-page-dropdown__option";
+          btn.setAttribute("role", "option");
+          btn.setAttribute("data-page-index", String(pageIndex));
+          btn.textContent = "Page " + (pageIndex + 1);
+          if (pageIndex === state.activePageIndex) {
+            btn.classList.add("is-selected");
+            btn.setAttribute("aria-selected", "true");
+          } else {
+            btn.setAttribute("aria-selected", "false");
+          }
+          btn.addEventListener("click", function () {
+            setActivePage(pageIndex);
+          });
+          li.appendChild(btn);
+          pageMenu.appendChild(li);
+        })(i);
+      }
+      syncPageDropdownLabel();
+      closePageDropdown();
     }
 
     function addInstance(savedId, pageIndex) {
@@ -428,7 +493,7 @@
       dropzone.classList.add("is-hidden");
       workspace.classList.remove("is-hidden");
       if (passwordPanel) passwordPanel.classList.toggle("is-hidden", !state.encrypted);
-      fillPageSelect();
+      rebuildPageDropdown();
       renderLibrary();
       await renderPages();
       setStatus("Create a signature, then click it to place on the document.");
@@ -439,7 +504,7 @@
       if (!state.bytes) return;
       try {
         state.pageCount = await PDFCore.loadPdfPageCount(state.bytes, state.password);
-        fillPageSelect();
+        rebuildPageDropdown();
         await renderPages();
         setStatus("Loaded " + state.pageCount + " page(s).");
       } catch (_) {
@@ -571,11 +636,25 @@
         });
       });
 
-    if (pageSelect) {
-      pageSelect.addEventListener("change", function () {
-        state.activePageIndex = Number(pageSelect.value);
+    if (pageTrigger) {
+      pageTrigger.addEventListener("click", function () {
+        if (pageDropdown && pageDropdown.classList.contains("is-open")) {
+          closePageDropdown();
+        } else {
+          openPageDropdown();
+        }
       });
     }
+
+    document.addEventListener("mousedown", function (e) {
+      if (!pageDropdown || !pageDropdown.classList.contains("is-open")) return;
+      if (pageDropdown.contains(e.target)) return;
+      closePageDropdown();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closePageDropdown();
+    });
 
     dropzone.addEventListener("click", function () {
       input.click();

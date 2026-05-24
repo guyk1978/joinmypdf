@@ -130,10 +130,16 @@
                 <ul id="signSavedList" class="sign-library__list is-hidden"></ul>
               </aside>
               <div class="sign-main">
-                <label class="sign-page-select">
-                  <span>Active page</span>
-                  <select id="signPageSelect"></select>
-                </label>
+                <div class="sign-page-select" id="signPageSelectRoot">
+                  <span class="sign-page-select__label">Active page</span>
+                  <div class="sign-page-dropdown" id="signPageDropdown">
+                    <button type="button" class="sign-page-dropdown__trigger" id="signPageTrigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span id="signPageTriggerLabel">Page 1</span>
+                      <svg class="sign-page-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="sign-page-dropdown__menu is-hidden" id="signPageMenu" role="listbox"></ul>
+                  </div>
+                </div>
                 <div id="signPages" class="sign-pages"></div>
               </div>
             </div>
