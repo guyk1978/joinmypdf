@@ -33,6 +33,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Recombine later",
       body: "Split for review rounds, then merge approved pages back into a single deliverable.",
     });
+  } else if (operation === "protect") {
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Shrink before you send",
+      body: "After protecting, compress if the encrypted file is still too large for email.",
+    });
+    rows.push({
+      href: "/tools/pdf-merge/",
+      title: "Bundle first, then lock",
+      body: "Merge related PDFs, then password-protect the final package in one pass.",
+    });
   } else if (operation === "jpg-to-pdf" || operation === "pdf-to-jpg") {
     rows.push({
       href: "/tools/pdf-compress/",

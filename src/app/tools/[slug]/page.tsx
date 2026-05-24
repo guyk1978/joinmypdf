@@ -1,6 +1,7 @@
 import { RelatedTools } from "@/components/RelatedTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
 import { buildComparisonBullets, buildGuideParagraphs } from "@/lib/tool-copy";
 import { blogRegistry } from "@/lib/blog-registry";
@@ -63,7 +64,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <p className="max-w-3xl text-lg text-ink-muted">{tool.intent}</p>
         </header>
 
-        <ToolWorkspace tool={tool} slug={slug} />
+        {tool.operation === "protect" ? (
+          <ProtectPdfWorkspace tool={tool} slug={slug} />
+        ) : (
+          <ToolWorkspace tool={tool} slug={slug} />
+        )}
 
         <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
           <h2 className="text-xl font-semibold text-ink">Before you start</h2>

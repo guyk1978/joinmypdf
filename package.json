@@ -4,20 +4,15 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/sync-public-assets.mjs && next dev",
-
     "build": "node scripts/sync-public-assets.mjs && next build",
-
     "start": "next start",
-
     "generate:blog-og": "node scripts/generate-blog-og-images.mjs",
-
     "generate:blog-pages": "node scripts/generate-blog-pages.mjs",
-
     "build:blog": "node scripts/generate-blog-og-images.mjs && node scripts/generate-blog-pages.mjs",
-
     "upgrade:blog": "node scripts/upgrade-blog-content.mjs"
   },
   "dependencies": {
+    "@pdfsmaller/pdf-encrypt": "^1.0.2",
     "clsx": "^2.1.1",
     "next": "^15.5.18",
     "pdf-lib": "^1.17.1",

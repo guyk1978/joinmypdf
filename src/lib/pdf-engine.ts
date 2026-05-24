@@ -58,6 +58,45 @@ export async function jpgToPdf(files: File[]) {
   return doc.save();
 }
 
+function isPdfFile(file: File, bytes?: Uint8Array) {
+  if (/pdf$/i.test(file.type) || /\.pdf$/i.test(file.name)) return true;
+  if (bytes && bytes.length >= 4) {
+    const header = String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]);
+    return header === "%PDF";
+  }
+  return false;
+}
+
+export async function protectPdfFile(file: File, password: string): Promise<Uint8Array> {
+  if (!file) throw new Error("No PDF file selected.");
+  const trimmed = String(password || "").trim();
+  if (!trimmed) throw new Error("Enter a password.");
+  if (trimmed.length < 4) throw new Error("Use a password with at least 4 characters.");
+
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!isPdfFile(file, bytes)) {
+    throw new Error("Choose a valid PDF file.");
+  }
+
+  const { encryptPDF } = await import("@pdfsmaller/pdf-encrypt");
+  try {
+    return await encryptPDF(bytes, trimmed, {
+      ownerPassword: trimmed,
+      algorithm: "AES-256",
+      allowPrinting: true,
+      allowHighQualityPrint: true,
+      allowModifying: false,
+      allowCopying: false,
+      allowAnnotating: false,
+      allowFillingForms: false,
+      allowExtraction: false,
+      allowAssembly: false,
+    });
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
 export async function pdfToJpgPages(file: File, scale = 1.25) {
   const pdfjs = await import("pdfjs-dist");
   const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";

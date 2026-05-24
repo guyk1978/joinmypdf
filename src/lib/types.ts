@@ -21,6 +21,7 @@ export type ToolDefinition = {
   relatedTools?: string[];
   faq?: ToolFaq[];
   longTailPages?: { slug: string; keyword: string; angle?: string; modifier?: string }[];
+  skipClusterVariants?: boolean;
   priority?: number | null;
   longTailPriority?: number | null;
   updatedAt?: string;

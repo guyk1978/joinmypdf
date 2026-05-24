@@ -35,6 +35,11 @@
       "slug": "edit",
       "label": "Edit",
       "description": "Merge and split document flows for team-ready output."
+    },
+    {
+      "slug": "security",
+      "label": "Security",
+      "description": "Password protection and privacy controls processed locally in your browser."
     }
   ],
   "tools": [
@@ -330,6 +335,55 @@
         "impressions": 500,
         "crawlFrequency": 6
       }
+    },
+    {
+      "slug": "protect-pdf",
+      "category": "security",
+      "operation": "protect",
+      "title": "Protect PDF with Password",
+      "primaryKeyword": "protect pdf with password online",
+      "intent": "Add a password to your PDF in the browser—files stay on your device.",
+      "description": "Password-protect a PDF locally in your browser. AES-256 encryption with instant download—no upload to our servers.",
+      "secondaryKeywords": [
+        "encrypt pdf online",
+        "pdf password protection",
+        "lock pdf file"
+      ],
+      "useCases": [
+        "Share confidential contracts with a password gate",
+        "Lock HR or payroll packets before email",
+        "Protect client deliverables for freelance handoffs"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "pdf-compress",
+        "pdf-split"
+      ],
+      "faq": [
+        {
+          "q": "Is my password sent to JoinMyPDF servers?",
+          "a": "No. Encryption runs entirely in your browser session. Your file and password never leave your device."
+        },
+        {
+          "q": "What encryption standard is used?",
+          "a": "Protected PDFs use AES-256 encryption compatible with common PDF readers."
+        },
+        {
+          "q": "Can I protect a PDF that already has a password?",
+          "a": "You need to unlock or re-export the file first if it is already encrypted."
+        },
+        {
+          "q": "Will the protected PDF open in Adobe Acrobat and Preview?",
+          "a": "Yes. Standard PDF viewers prompt for the password you set here."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-24"
     }
   ]
 }

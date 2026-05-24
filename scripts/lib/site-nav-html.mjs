@@ -29,7 +29,7 @@ export const NAV_DROPDOWNS = [
     id: "security",
     label: "Security & privacy",
     items: [
-      { href: "/tools/pdf-protect/", label: "Protect PDF", comingSoon: true },
+      { href: "/tools/protect-pdf/", label: "Protect PDF" },
       { href: "/tools/pdf-unlock/", label: "Unlock PDF", comingSoon: true },
       { href: "/tools/pdf-redact/", label: "Redact PDF", comingSoon: true },
     ],

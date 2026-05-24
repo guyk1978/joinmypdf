@@ -7,11 +7,19 @@ const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
 const toolsJsonPath = path.join(root, "assets", "data", "tools.json");
-const templatePath = path.join(root, "tools", "pdf-merge", "index.html");
-const toolsRoot = path.join(root, "tools");
+const defaultTemplatePath = path.join(root, "tools", "pdf-merge", "index.html");
+const protectTemplatePath = path.join(root, "tools", "protect-pdf", "index.html");
 
 const registry = JSON.parse(await readFile(toolsJsonPath, "utf8"));
-const template = await readFile(templatePath, "utf8");
+const defaultTemplate = await readFile(defaultTemplatePath, "utf8");
+let protectTemplate = defaultTemplate;
+try {
+  protectTemplate = await readFile(protectTemplatePath, "utf8");
+} catch {
+  console.warn("protect-pdf template missing — using merge template until created.");
+}
+
+const toolsRoot = path.join(root, "tools");
 
 const MODIFIER_LIBRARY = [
   "fast",
@@ -61,18 +69,21 @@ function generateClusterVariants(tool, config) {
   return Array.from(unique.values()).slice(0, targetCount);
 }
 
-async function ensureToolPage(slug) {
+async function ensureToolPage(slug, tool) {
   const targetDir = path.join(toolsRoot, slug);
   await mkdir(targetDir, { recursive: true });
   const targetFile = path.join(targetDir, "index.html");
-  await writeFile(targetFile, template, "utf8");
+  const html =
+    slug === "protect-pdf" || tool?.operation === "protect" ? protectTemplate : defaultTemplate;
+  await writeFile(targetFile, html, "utf8");
 }
 
 for (const tool of registry.tools) {
-  await ensureToolPage(tool.slug);
+  await ensureToolPage(tool.slug, tool);
+  if (tool.skipClusterVariants) continue;
   const variants = generateClusterVariants(tool, registry.clusterDefaults || {});
   for (const variant of variants) {
-    await ensureToolPage(variant.slug);
+    await ensureToolPage(variant.slug, tool);
   }
 }
 
