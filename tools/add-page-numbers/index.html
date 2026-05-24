@@ -32,32 +32,28 @@
     <header class="site-header">
       <div class="container site-header__inner">
         <a class="brand" href="/">
-          <svg class="brand__logo" viewBox="0 0 420 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="JoinMyPDF">
-            <defs><linearGradient id="tool-g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#2563eb"/></linearGradient></defs>
-            <rect x="6" y="8" width="64" height="64" rx="16" fill="url(#tool-g1)"/><path d="M22 24h30a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H30a8 8 0 0 1-8-8z" fill="#eef6ff"/><path d="M44 24v12a6 6 0 0 0 6 6h12" fill="none" stroke="#b7dbff" stroke-width="3" stroke-linecap="round"/><rect x="28" y="46" width="24" height="4" rx="2" fill="#84c7ff"/><text x="84" y="40" fill="#e5e7eb" font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700">JoinMyPDF</text>
-          </svg>
-          <span class="header-pdf-mini" title="JoinMyPDF Factory" aria-hidden="true">
+          <span class="header-pdf-mini header-pdf-mini--tight" title="JoinMyPDF" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect class="header-pdf-mini__back" x="2" y="4" width="9" height="11" rx="1" stroke="#60a5fa" stroke-width="1.2" fill="rgba(96, 165, 250, 0.1)" />
               <rect class="header-pdf-mini__front" x="5" y="1" width="9" height="11" rx="1" stroke="#3b82f6" stroke-width="1.2" fill="rgba(59, 130, 246, 0.2)" />
             </svg>
           </span>
-          <img class="brand__icon" src="/assets/brand/logo-icon.svg" alt="JoinMyPDF" />
+          <span class="brand__text">JoinMyPDF</span>
         </a>
         <button type="button" class="site-header__menu-btn" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
           <span class="site-header__menu-icon" aria-hidden="true"></span>
         </button>
         <nav id="primary-nav" class="main-nav" aria-label="Primary">
-        <div class="nav-dropdown is-active" data-nav-dropdown="edit">
+        <div class="nav-dropdown" data-nav-dropdown="edit">
           <button type="button" class="nav-dropdown__trigger" aria-expanded="false" aria-haspopup="true">
-            Edit & organize
+            Edit &amp; organize
             <svg class="nav-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="nav-dropdown__panel" role="menu">
             <a class="nav-dropdown__item" href="/tools/pdf-merge/" role="menuitem">Merge PDF</a>
             <a class="nav-dropdown__item" href="/tools/pdf-split/" role="menuitem">Split PDF</a>
             <a class="nav-dropdown__item" href="/tools/delete-pdf-pages/" role="menuitem">Delete PDF Pages</a>
-            <a class="nav-dropdown__item is-active" href="/tools/add-page-numbers/" role="menuitem">Add Page Numbers</a>
+            <a class="nav-dropdown__item" href="/tools/add-page-numbers/" role="menuitem">Add Page Numbers</a>
           </div>
         </div>
         <div class="nav-dropdown" data-nav-dropdown="optimize">
@@ -84,7 +80,7 @@
         </div>
         <div class="nav-dropdown" data-nav-dropdown="security">
           <button type="button" class="nav-dropdown__trigger" aria-expanded="false" aria-haspopup="true">
-            Security & privacy
+            Security &amp; privacy
             <svg class="nav-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="nav-dropdown__panel" role="menu">
@@ -94,7 +90,218 @@
             <a class="nav-dropdown__item" href="/tools/sign-pdf/" role="menuitem">Sign PDF</a>
           </div>
         </div>
-        <a class="nav-link" href="/blog/">Guides</a>
+        <div class="nav-dropdown nav-dropdown--guides" data-nav-dropdown="guides">
+          <button type="button" class="nav-dropdown__trigger" aria-expanded="false" aria-haspopup="true">
+            Guides
+            <svg class="nav-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dropdown__panel nav-dropdown__panel--guides" id="nav-guides-panel" role="menu" data-nav-guides-hydrate="1">
+            <a class="nav-dropdown__item" href="/blog/" role="menuitem">All guides</a>
+            <a class="nav-dropdown__item" href="/blog/merge-pdf-online-fast/" role="menuitem">Merge PDF Online Fast — expert workflow guide</a>
+            <a class="nav-dropdown__item" href="/blog/compress-pdf-free-fast/" role="menuitem">Compress PDF Free Fast — expert workflow guide</a>
+            <a class="nav-dropdown__item" href="/blog/split-pdf-tool-fast/" role="menuitem">Split PDF Tool Fast — expert workflow guide</a>
+            <a class="nav-dropdown__item" href="/blog/jpg-to-pdf-converter-fast/" role="menuitem">JPG To PDF Converter Fast — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-to-jpg-converter-fast/" role="menuitem">PDF To JPG Converter Fast — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/merge-pdf-online-free/" role="menuitem">Merge PDF Online Free — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/compress-pdf-free-free/" role="menuitem">Compress PDF Free Free — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/split-pdf-tool-free/" role="menuitem">Split PDF Tool Free — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/jpg-to-pdf-converter-free/" role="menuitem">JPG To PDF Converter Free — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-to-jpg-converter-free/" role="menuitem">PDF To JPG Converter Free — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/merge-pdf-online-no-signup/" role="menuitem">Merge PDF Online No Signup — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/compress-pdf-free-no-signup/" role="menuitem">Compress PDF Free No Signup — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/split-pdf-tool-no-signup/" role="menuitem">Split PDF Tool No Signup — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/jpg-to-pdf-converter-no-signup/" role="menuitem">JPG To PDF Converter No Signup — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-to-jpg-converter-no-signup/" role="menuitem">PDF To JPG Converter No Signup — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/merge-pdf-online-for-mobile/" role="menuitem">Merge PDF Online For Mobile — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/compress-pdf-free-for-mobile/" role="menuitem">Compress PDF Free For Mobile — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/split-pdf-tool-for-mobile/" role="menuitem">Split PDF Tool For Mobile — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/jpg-to-pdf-converter-for-mobile/" role="menuitem">JPG To PDF Converter For Mobile — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-to-jpg-converter-for-mobile/" role="menuitem">PDF To JPG Converter For Mobile — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/merge-pdf-online-for-work-documents/" role="menuitem">Merge PDF Online For Work Documents — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/compress-pdf-free-for-work-documents/" role="menuitem">Compress PDF Free For Work Documents — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/split-pdf-tool-for-work-documents/" role="menuitem">Split PDF Tool For Work Documents — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/jpg-to-pdf-converter-for-work-documents/" role="menuitem">JPG To PDF Converter For Work Documents — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-to-jpg-converter-for-work-documents/" role="menuitem">PDF To JPG Converter For Work Documents — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/merge-pdf-online-for-invoices/" role="menuitem">Merge PDF Online For Invoices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/compress-pdf-free-for-invoices/" role="menuitem">Compress PDF Free For Invoices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/split-pdf-tool-for-invoices/" role="menuitem">Split PDF Tool For Invoices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/jpg-to-pdf-converter-for-invoices/" role="menuitem">JPG To PDF Converter For Invoices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-to-jpg-converter-for-invoices/" role="menuitem">PDF To JPG Converter For Invoices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/merge-pdf-online-for-reports/" role="menuitem">Merge PDF Online For Reports — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/compress-pdf-free-for-reports/" role="menuitem">Compress PDF Free For Reports — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/split-pdf-tool-for-reports/" role="menuitem">Split PDF Tool For Reports — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/jpg-to-pdf-converter-for-reports/" role="menuitem">JPG To PDF Converter For Reports — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-to-jpg-converter-for-reports/" role="menuitem">PDF To JPG Converter For Reports — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/merge-pdf-online-without-quality-loss/" role="menuitem">Merge PDF Online Without Quality Loss — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/compress-pdf-free-without-quality-loss/" role="menuitem">Compress PDF Free Without Quality Loss — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/split-pdf-tool-without-quality-loss/" role="menuitem">Split PDF Tool Without Quality Loss — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/jpg-to-pdf-converter-without-quality-loss/" role="menuitem">JPG To PDF Converter Without Quality Loss — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-to-jpg-converter-without-quality-loss/" role="menuitem">PDF To JPG Converter Without Quality Loss — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-too-large-fix-quickly/" role="menuitem">PDF Too Large Fix Quickly — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-send-pdf-via-email-quickly/" role="menuitem">How To Send PDF Via Email Quickly — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-reduce-pdf-size-under-1mb-quickly/" role="menuitem">How To Reduce PDF Size Under 1mb Quickly — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-merge-pdf-on-mobile-quickly/" role="menuitem">How To Merge PDF On Mobile Quickly — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-organize-scanned-documents-quickly/" role="menuitem">How To Organize Scanned Documents Quickly — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-too-large-fix-for-gmail/" role="menuitem">PDF Too Large Fix For Gmail — expert workflow guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-send-pdf-via-email-for-gmail/" role="menuitem">How To Send PDF Via Email For Gmail — expert workflow guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-reduce-pdf-size-under-1mb-for-gmail/" role="menuitem">How To Reduce PDF Size Under 1mb For Gmail — expert workflow guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-merge-pdf-on-mobile-for-gmail/" role="menuitem">How To Merge PDF On Mobile For Gmail — expert workflow guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-organize-scanned-documents-for-gmail/" role="menuitem">How To Organize Scanned Documents For Gmail — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-too-large-fix-for-outlook/" role="menuitem">PDF Too Large Fix For Outlook — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-send-pdf-via-email-for-outlook/" role="menuitem">How To Send PDF Via Email For Outlook — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-reduce-pdf-size-under-1mb-for-outlook/" role="menuitem">How To Reduce PDF Size Under 1mb For Outlook — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-merge-pdf-on-mobile-for-outlook/" role="menuitem">How To Merge PDF On Mobile For Outlook — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-organize-scanned-documents-for-outlook/" role="menuitem">How To Organize Scanned Documents For Outlook — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-too-large-fix-for-submissions/" role="menuitem">PDF Too Large Fix For Submissions — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-send-pdf-via-email-for-submissions/" role="menuitem">How To Send PDF Via Email For Submissions — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-reduce-pdf-size-under-1mb-for-submissions/" role="menuitem">How To Reduce PDF Size Under 1mb For Submissions — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-merge-pdf-on-mobile-for-submissions/" role="menuitem">How To Merge PDF On Mobile For Submissions — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-organize-scanned-documents-for-submissions/" role="menuitem">How To Organize Scanned Documents For Submissions — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-too-large-fix-for-clients/" role="menuitem">PDF Too Large Fix For Clients — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-send-pdf-via-email-for-clients/" role="menuitem">How To Send PDF Via Email For Clients — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-reduce-pdf-size-under-1mb-for-clients/" role="menuitem">How To Reduce PDF Size Under 1mb For Clients — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-merge-pdf-on-mobile-for-clients/" role="menuitem">How To Merge PDF On Mobile For Clients — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-organize-scanned-documents-for-clients/" role="menuitem">How To Organize Scanned Documents For Clients — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-too-large-fix-without-installing-software/" role="menuitem">PDF Too Large Fix Without Installing Software — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-send-pdf-via-email-without-installing-software/" role="menuitem">How To Send PDF Via Email Without Installing Software — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-reduce-pdf-size-under-1mb-without-installing-software/" role="menuitem">How To Reduce PDF Size Under 1mb Without Installing Software — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-merge-pdf-on-mobile-without-installing-software/" role="menuitem">How To Merge PDF On Mobile Without Installing Software — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-organize-scanned-documents-without-installing-software/" role="menuitem">How To Organize Scanned Documents Without Installing Software — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-too-large-fix-on-android/" role="menuitem">PDF Too Large Fix On Android — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-send-pdf-via-email-on-android/" role="menuitem">How To Send PDF Via Email On Android — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-reduce-pdf-size-under-1mb-on-android/" role="menuitem">How To Reduce PDF Size Under 1mb On Android — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-merge-pdf-on-mobile-on-android/" role="menuitem">How To Merge PDF On Mobile On Android — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-organize-scanned-documents-on-android/" role="menuitem">How To Organize Scanned Documents On Android — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-too-large-fix-on-iphone/" role="menuitem">PDF Too Large Fix On Iphone — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-send-pdf-via-email-on-iphone/" role="menuitem">How To Send PDF Via Email On Iphone — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-reduce-pdf-size-under-1mb-on-iphone/" role="menuitem">How To Reduce PDF Size Under 1mb On Iphone — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-merge-pdf-on-mobile-on-iphone/" role="menuitem">How To Merge PDF On Mobile On Iphone — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-organize-scanned-documents-on-iphone/" role="menuitem">How To Organize Scanned Documents On Iphone — step-by-step</a>
+            <a class="nav-dropdown__item" href="/blog/safe-pdf-tools-online-for-legal-docs/" role="menuitem">Is safe pdf tools online for legal docs safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/is-it-safe-to-upload-pdf-for-legal-docs/" role="menuitem">Is is it safe to upload pdf for legal docs safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/client-side-pdf-tools-for-legal-docs/" role="menuitem">Is client side pdf tools for legal docs safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-privacy-online-for-legal-docs/" role="menuitem">Is pdf privacy online for legal docs safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/secure-document-tools-browser-for-legal-docs/" role="menuitem">Is secure document tools browser for legal docs safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/safe-pdf-tools-online-for-contracts/" role="menuitem">Is safe pdf tools online for contracts safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/is-it-safe-to-upload-pdf-for-contracts/" role="menuitem">Is is it safe to upload pdf for contracts safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/client-side-pdf-tools-for-contracts/" role="menuitem">Is client side pdf tools for contracts safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-privacy-online-for-contracts/" role="menuitem">Is pdf privacy online for contracts safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/secure-document-tools-browser-for-contracts/" role="menuitem">Is secure document tools browser for contracts safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/safe-pdf-tools-online-for-hr-files/" role="menuitem">Is safe pdf tools online for hr files safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/is-it-safe-to-upload-pdf-for-hr-files/" role="menuitem">Is is it safe to upload pdf for hr files safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/client-side-pdf-tools-for-hr-files/" role="menuitem">Is client side pdf tools for hr files safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-privacy-online-for-hr-files/" role="menuitem">Is pdf privacy online for hr files safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/secure-document-tools-browser-for-hr-files/" role="menuitem">Is secure document tools browser for hr files safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/safe-pdf-tools-online-without-cloud-upload/" role="menuitem">Is safe pdf tools online without cloud upload safe? Local processing explained</a>
+            <a class="nav-dropdown__item" href="/blog/is-it-safe-to-upload-pdf-without-cloud-upload/" role="menuitem">Is is it safe to upload pdf without cloud upload safe? Local processing explained</a>
+            <a class="nav-dropdown__item" href="/blog/client-side-pdf-tools-without-cloud-upload/" role="menuitem">Is client side pdf tools without cloud upload safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-privacy-online-without-cloud-upload/" role="menuitem">Is pdf privacy online without cloud upload safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/secure-document-tools-browser-without-cloud-upload/" role="menuitem">Is secure document tools browser without cloud upload safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/safe-pdf-tools-online-with-local-processing/" role="menuitem">Is safe pdf tools online with local processing safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/is-it-safe-to-upload-pdf-with-local-processing/" role="menuitem">Is is it safe to upload pdf with local processing safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/client-side-pdf-tools-with-local-processing/" role="menuitem">Is client side pdf tools with local processing safe? Local processing explained</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-privacy-online-with-local-processing/" role="menuitem">Is pdf privacy online with local processing safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/secure-document-tools-browser-with-local-processing/" role="menuitem">Is secure document tools browser with local processing safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/safe-pdf-tools-online-for-healthcare-workflows/" role="menuitem">Is safe pdf tools online for healthcare workflows safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/is-it-safe-to-upload-pdf-for-healthcare-workflows/" role="menuitem">Is is it safe to upload pdf for healthcare workflows safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/client-side-pdf-tools-for-healthcare-workflows/" role="menuitem">Is client side pdf tools for healthcare workflows safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-privacy-online-for-healthcare-workflows/" role="menuitem">Is pdf privacy online for healthcare workflows safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/secure-document-tools-browser-for-healthcare-workflows/" role="menuitem">Is secure document tools browser for healthcare workflows safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/safe-pdf-tools-online-for-finance-teams/" role="menuitem">Is safe pdf tools online for finance teams safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/is-it-safe-to-upload-pdf-for-finance-teams/" role="menuitem">Is is it safe to upload pdf for finance teams safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/client-side-pdf-tools-for-finance-teams/" role="menuitem">Is client side pdf tools for finance teams safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-privacy-online-for-finance-teams/" role="menuitem">Is pdf privacy online for finance teams safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/secure-document-tools-browser-for-finance-teams/" role="menuitem">Is secure document tools browser for finance teams safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/safe-pdf-tools-online-for-schools/" role="menuitem">Is safe pdf tools online for schools safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/is-it-safe-to-upload-pdf-for-schools/" role="menuitem">Is is it safe to upload pdf for schools safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/client-side-pdf-tools-for-schools/" role="menuitem">Is client side pdf tools for schools safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-privacy-online-for-schools/" role="menuitem">Is pdf privacy online for schools safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/secure-document-tools-browser-for-schools/" role="menuitem">Is secure document tools browser for schools safe? What to check before you start</a>
+            <a class="nav-dropdown__item" href="/blog/online-vs-offline-pdf-tools-for-small-business/" role="menuitem">Online Vs Offline PDF Tools For Small Business — compared for real workflows</a>
+            <a class="nav-dropdown__item" href="/blog/best-pdf-tools-2026-for-small-business/" role="menuitem">Best PDF tools in 2026 for small businesses</a>
+            <a class="nav-dropdown__item" href="/blog/adobe-acrobat-alternatives-for-small-business/" role="menuitem">Adobe Acrobat alternatives for small businesses (honest 2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/browser-pdf-tools-comparison-for-small-business/" role="menuitem">Browser PDF Tools Comparison For Small Business — compared for real workflows</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-software-alternatives-for-small-business/" role="menuitem">PDF Software Alternatives For Small Business — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/online-vs-offline-pdf-tools-for-freelancers/" role="menuitem">Online Vs Offline PDF Tools For Freelancers — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/best-pdf-tools-2026-for-freelancers/" role="menuitem">Best PDF Tools 2026 For Freelancers (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/adobe-acrobat-alternatives-for-freelancers/" role="menuitem">Adobe Acrobat alternatives for freelancers (honest 2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/browser-pdf-tools-comparison-for-freelancers/" role="menuitem">Browser PDF Tools Comparison For Freelancers — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-software-alternatives-for-freelancers/" role="menuitem">PDF Software Alternatives For Freelancers (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/online-vs-offline-pdf-tools-for-students/" role="menuitem">Online Vs Offline PDF Tools For Students (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/best-pdf-tools-2026-for-students/" role="menuitem">Best PDF Tools 2026 For Students (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/adobe-acrobat-alternatives-for-students/" role="menuitem">Adobe Acrobat Alternatives For Students (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/browser-pdf-tools-comparison-for-students/" role="menuitem">Browser PDF Tools Comparison For Students (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-software-alternatives-for-students/" role="menuitem">PDF Software Alternatives For Students (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/online-vs-offline-pdf-tools-for-legal-teams/" role="menuitem">Online Vs Offline PDF Tools For Legal Teams — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/best-pdf-tools-2026-for-legal-teams/" role="menuitem">Best PDF Tools 2026 For Legal Teams (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/adobe-acrobat-alternatives-for-legal-teams/" role="menuitem">Adobe Acrobat Alternatives For Legal Teams (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/browser-pdf-tools-comparison-for-legal-teams/" role="menuitem">Browser PDF Tools Comparison For Legal Teams — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-software-alternatives-for-legal-teams/" role="menuitem">PDF Software Alternatives For Legal Teams (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/online-vs-offline-pdf-tools-for-operations-managers/" role="menuitem">Online Vs Offline PDF Tools For Operations Managers — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/best-pdf-tools-2026-for-operations-managers/" role="menuitem">Best PDF Tools 2026 For Operations Managers — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/adobe-acrobat-alternatives-for-operations-managers/" role="menuitem">Adobe Acrobat Alternatives For Operations Managers — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/browser-pdf-tools-comparison-for-operations-managers/" role="menuitem">Browser PDF Tools Comparison For Operations Managers — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-software-alternatives-for-operations-managers/" role="menuitem">PDF Software Alternatives For Operations Managers — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/online-vs-offline-pdf-tools-feature-comparison/" role="menuitem">Online Vs Offline PDF Tools Feature Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/best-pdf-tools-2026-feature-comparison/" role="menuitem">Best PDF Tools 2026 Feature Comparison (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/adobe-acrobat-alternatives-feature-comparison/" role="menuitem">Adobe Acrobat Alternatives Feature Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/browser-pdf-tools-comparison-feature-comparison/" role="menuitem">Browser PDF Tools Comparison Feature Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-software-alternatives-feature-comparison/" role="menuitem">PDF Software Alternatives Feature Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/online-vs-offline-pdf-tools-pricing-comparison/" role="menuitem">Online Vs Offline PDF Tools Pricing Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/best-pdf-tools-2026-pricing-comparison/" role="menuitem">Best PDF Tools 2026 Pricing Comparison (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/adobe-acrobat-alternatives-pricing-comparison/" role="menuitem">Adobe Acrobat Alternatives Pricing Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/browser-pdf-tools-comparison-pricing-comparison/" role="menuitem">Browser PDF Tools Comparison Pricing Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-software-alternatives-pricing-comparison/" role="menuitem">PDF Software Alternatives Pricing Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/online-vs-offline-pdf-tools-security-comparison/" role="menuitem">Online Vs Offline PDF Tools Security Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/best-pdf-tools-2026-security-comparison/" role="menuitem">Best PDF Tools 2026 Security Comparison (2026 comparison)</a>
+            <a class="nav-dropdown__item" href="/blog/adobe-acrobat-alternatives-security-comparison/" role="menuitem">Adobe Acrobat Alternatives Security Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/browser-pdf-tools-comparison-security-comparison/" role="menuitem">Browser PDF Tools Comparison Security Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-software-alternatives-security-comparison/" role="menuitem">PDF Software Alternatives Security Comparison — honest comparison</a>
+            <a class="nav-dropdown__item" href="/blog/what-is-a-pdf-explained-simply/" role="menuitem">What Is A PDF Explained Simply — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-compression-works-explained-simply/" role="menuitem">How PDF Compression Works Explained Simply — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/why-pdf-is-used-worldwide-explained-simply/" role="menuitem">Why PDF Is Used Worldwide Explained Simply — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-file-format-works-explained-simply/" role="menuitem">How PDF File Format Works Explained Simply — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-basics-for-beginners-explained-simply/" role="menuitem">PDF Basics For Beginners Explained Simply — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/what-is-a-pdf-with-examples/" role="menuitem">What Is A PDF With Examples — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-compression-works-with-examples/" role="menuitem">How PDF Compression Works With Examples — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/why-pdf-is-used-worldwide-with-examples/" role="menuitem">Why PDF Is Used Worldwide With Examples — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-file-format-works-with-examples/" role="menuitem">How PDF File Format Works With Examples — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-basics-for-beginners-with-examples/" role="menuitem">PDF Basics For Beginners With Examples — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/what-is-a-pdf-for-beginners/" role="menuitem">What Is A PDF For Beginners — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-compression-works-for-beginners/" role="menuitem">How PDF Compression Works For Beginners — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/why-pdf-is-used-worldwide-for-beginners/" role="menuitem">Why PDF Is Used Worldwide For Beginners — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-file-format-works-for-beginners/" role="menuitem">How PDF File Format Works For Beginners — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-basics-for-beginners-for-beginners/" role="menuitem">PDF Basics For Beginners For Beginners — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/what-is-a-pdf-for-business-users/" role="menuitem">What Is A PDF For Business Users — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-compression-works-for-business-users/" role="menuitem">How PDF Compression Works For Business Users — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/why-pdf-is-used-worldwide-for-business-users/" role="menuitem">Why PDF Is Used Worldwide For Business Users — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-file-format-works-for-business-users/" role="menuitem">How PDF File Format Works For Business Users — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-basics-for-beginners-for-business-users/" role="menuitem">PDF Basics For Beginners For Business Users — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/what-is-a-pdf-for-students/" role="menuitem">What Is A PDF For Students — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-compression-works-for-students/" role="menuitem">How PDF Compression Works For Students — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/why-pdf-is-used-worldwide-for-students/" role="menuitem">Why PDF Is Used Worldwide For Students — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-file-format-works-for-students/" role="menuitem">How PDF File Format Works For Students — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-basics-for-beginners-for-students/" role="menuitem">PDF Basics For Beginners For Students — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/what-is-a-pdf-in-modern-workflows/" role="menuitem">What Is A PDF In Modern Workflows — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-compression-works-in-modern-workflows/" role="menuitem">How PDF Compression Works In Modern Workflows — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/why-pdf-is-used-worldwide-in-modern-workflows/" role="menuitem">Why PDF Is Used Worldwide In Modern Workflows — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-file-format-works-in-modern-workflows/" role="menuitem">How PDF File Format Works In Modern Workflows — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-basics-for-beginners-in-modern-workflows/" role="menuitem">PDF Basics For Beginners In Modern Workflows — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/what-is-a-pdf-and-best-practices/" role="menuitem">What Is A PDF And Best Practices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-compression-works-and-best-practices/" role="menuitem">How PDF Compression Works And Best Practices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/why-pdf-is-used-worldwide-and-best-practices/" role="menuitem">Why PDF Is Used Worldwide And Best Practices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-file-format-works-and-best-practices/" role="menuitem">How PDF File Format Works And Best Practices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-basics-for-beginners-and-best-practices/" role="menuitem">PDF Basics For Beginners And Best Practices — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/what-is-a-pdf-and-common-mistakes/" role="menuitem">What Is A PDF And Common Mistakes — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-compression-works-and-common-mistakes/" role="menuitem">How PDF Compression Works And Common Mistakes — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/why-pdf-is-used-worldwide-and-common-mistakes/" role="menuitem">Why PDF Is Used Worldwide And Common Mistakes — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-pdf-file-format-works-and-common-mistakes/" role="menuitem">How PDF File Format Works And Common Mistakes — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/pdf-basics-for-beginners-and-common-mistakes/" role="menuitem">PDF Basics For Beginners And Common Mistakes — practical guide</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-safely-sign-contracts-online/" role="menuitem">How to Safely Sign Contracts Online Without Uploading Your Documents</a>
+            <a class="nav-dropdown__item" href="/blog/hidden-risks-of-free-online-pdf-editors/" role="menuitem">The Hidden Privacy Risks of Free Online PDF Editors (And How to Avoid Them)</a>
+            <a class="nav-dropdown__item" href="/blog/how-to-password-protect-pdf-in-browser/" role="menuitem">How to Password Protect and Encrypt a PDF File Directly in Your Browser</a>
+          </div>
+        </div>
         <a class="nav-link" href="/privacy/">Privacy</a>
         </nav>
       </div>
@@ -109,7 +316,7 @@
           <div class="privacy-callout" role="note">
             <strong>100% Private:</strong> Page numbering is processed entirely in your browser. Your documents never leave your computer.
           </div>
-          <label class="dropzone" id="dropzone"><strong>Drop your PDF here</strong><p>or click to choose a file</p></label>
+          <label class="dropzone dropzone--upload" id="dropzone"><span class="dropzone__inner"><strong>Drop your PDF here</strong><p>or click to choose a file</p></span></label>
           <input id="toolInput" type="file" accept="application/pdf,.pdf" hidden />
           <div id="pageNumbersPanel" class="page-numbers-form is-hidden">
             <p id="pageNumbersFileMeta" class="status"></p>

@@ -5,6 +5,7 @@ import { readFile, writeFile, rename, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { injectSiteNav } from "./lib/site-nav-html.mjs";
+import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -29,6 +30,7 @@ async function atomicWrite(filePath, content) {
 }
 
 async function main() {
+  const blog = await loadMergedBlogRegistry({ root, readFile });
   const files = [];
   await walkHtml(root, files);
   let updated = 0;
@@ -36,7 +38,7 @@ async function main() {
 
   for (const file of files) {
     const html = await readFile(file, "utf8");
-    const result = injectSiteNav(html);
+    const result = injectSiteNav(html, blog.blog);
     if (!result.ok) {
       skipped++;
       continue;

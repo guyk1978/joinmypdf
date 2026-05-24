@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
 import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
+import { injectSiteHeader } from "./lib/site-nav-html.mjs";
 const toolsJsonPath = path.join(root, "assets", "data", "tools.json");
 const blogTemplatePath = path.join(root, "blog", "template", "index.html");
 const blogRoot = path.join(root, "blog");
@@ -99,7 +100,9 @@ for (const post of registryPosts) {
   const targetDir = path.join(blogRoot, post.slug);
   await mkdir(targetDir, { recursive: true });
   const seo = buildArticleSeo(post, baseUrl);
-  const html = applyArticleSeoToTemplate(template, seo);
+  let html = applyArticleSeoToTemplate(template, seo);
+  const headerResult = injectSiteHeader(html, registryPosts);
+  if (headerResult.ok) html = headerResult.html;
   await writeFile(path.join(targetDir, "index.html"), html, "utf8");
 }
 
@@ -118,7 +121,10 @@ for (const entry of dirEntries) {
   }
   orphanArticles += 1;
   const seo = buildArticleSeo(syntheticPostFromSlug(slug), baseUrl);
-  await writeFile(indexPath, applyArticleSeoToTemplate(template, seo), "utf8");
+  let html = applyArticleSeoToTemplate(template, seo);
+  const headerResult = injectSiteHeader(html, registryPosts);
+  if (headerResult.ok) html = headerResult.html;
+  await writeFile(indexPath, html, "utf8");
 }
 
 console.log(

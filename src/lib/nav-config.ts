@@ -56,10 +56,29 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
   },
 ];
 
-export const NAV_LINKS: NavLink[] = [
-  { href: "/blog/", label: "Guides" },
-  { href: "/privacy/", label: "Privacy" },
-];
+export const NAV_GUIDES_DROPDOWN: NavDropdown = {
+  id: "guides",
+  label: "Guides",
+  items: [{ href: "/blog/", label: "All guides" }],
+};
+
+export const NAV_LINKS: NavLink[] = [{ href: "/privacy/", label: "Privacy" }];
+
+export function buildGuidesNavItems(
+  posts: { slug: string; title: string; datePublished?: string; date?: string }[]
+): NavItem[] {
+  const sorted = [...posts].sort((a, b) => {
+    const da = a.datePublished || a.date || "";
+    const db = b.datePublished || b.date || "";
+    return db.localeCompare(da);
+  });
+  const items: NavItem[] = [{ href: "/blog/", label: "All guides" }];
+  for (const post of sorted) {
+    if (!post.slug || !post.title) continue;
+    items.push({ href: `/blog/${post.slug}/`, label: post.title });
+  }
+  return items;
+}
 
 export function isNavItemActive(pathname: string, href: string): boolean {
   if (!href || href === "#") return false;
