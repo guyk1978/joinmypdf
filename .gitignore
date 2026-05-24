@@ -2,3 +2,7 @@ node_modules/
 .next/
 out/
 public/
+
+# Google Indexing API — never commit service account keys
+google-credentials.json
+.indexing-queue-state.json
