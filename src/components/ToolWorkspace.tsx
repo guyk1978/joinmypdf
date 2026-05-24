@@ -4,7 +4,6 @@ import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
-import { usePendingFiles } from "@/context/PendingFilesContext";
 import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
@@ -65,17 +64,6 @@ type OpConfig = {
 
 function buildConfig(tool: ToolDefinition): OpConfig | null {
   const map: Record<string, OpConfig> = {
-    merge: {
-      accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
-      minFiles: 2,
-      multiple: true,
-      buttonLabel: "Merge PDFs",
-      async run(files, { setStatus, downloadBlob }) {
-        const bytes = await pdf.mergePdfFiles(files);
-        downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), "joinmypdf-merged.pdf");
-        setStatus(`Merged ${files.length} file(s).`);
-      },
-    },
     compress: {
       accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
       minFiles: 1,
@@ -149,7 +137,6 @@ function buildConfig(tool: ToolDefinition): OpConfig | null {
 }
 
 export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
-  const { consumePendingFiles } = usePendingFiles();
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -165,16 +152,6 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
-
-  useEffect(() => {
-    const pending = consumePendingFiles();
-    if (!pending?.length || tool.operation !== "merge") return;
-    const accepted = pending.filter((f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name));
-    if (accepted.length) {
-      setFiles(accepted);
-      capture(EVENTS.file_selected, { source: "home_pending", count: accepted.length });
-    }
-  }, [consumePendingFiles, tool.operation]);
 
   const reset = useCallback(() => {
     setFiles([]);
@@ -290,9 +267,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
         className="cursor-pointer"
         title="Drop files here or click to browse"
         description={
-          tool.operation === "merge"
-            ? "Select two or more PDFs. Reorder before merging."
-            : tool.operation === "compress"
+          tool.operation === "compress"
               ? "Select one PDF. Tune compression, then download."
               : tool.operation === "split"
                 ? "Select one PDF. Each page exports as its own file."
@@ -327,8 +302,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
                 ? "image/png,.png"
                 : tool.operation === "jpg-to-pdf"
                   ? "image/jpeg,image/jpg,image/png,.jpg,.jpeg,.png"
-                  : tool.operation === "merge" ||
-                      tool.operation === "compress" ||
+                  : tool.operation === "compress" ||
                       tool.operation === "split"
                     ? "application/pdf,.pdf"
                     : undefined

@@ -8,6 +8,7 @@ import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
+import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
 import { buildComparisonBullets, buildGuideParagraphs } from "@/lib/tool-copy";
 import { blogRegistry } from "@/lib/blog-registry";
@@ -80,6 +81,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <RedactPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "delete-pages" ? (
           <DeletePdfPagesWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "merge" ? (
+          <MergePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-page-numbers" ? (
           <AddPageNumbersWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-png" ? (

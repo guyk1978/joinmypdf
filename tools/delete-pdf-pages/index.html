@@ -23,6 +23,7 @@
     <script src="https://unpkg.com/pdf-lib-with-encrypt@1.2.1/dist/pdf-lib.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
     <script src="/assets/js/pdf-core.js" defer></script>
+    <script src="/assets/js/visual-reorder.js" defer></script>
     <script src="/assets/js/ui-core.js" defer></script>
     <script src="/assets/js/pdf-delete-pages-workspace.js" defer></script>
     <script src="/assets/js/seo-factory.js" defer></script>
@@ -319,7 +320,8 @@
           <label class="dropzone dropzone--upload" id="dropzone"><span class="dropzone__inner"><strong>Drop your PDF here</strong><p>or click to choose a file</p></span></label>
           <input id="toolInput" type="file" accept="application/pdf,.pdf" hidden />
           <div id="deletePagesWorkspace" class="delete-pages-workspace is-hidden">
-            <div id="deletePagesGrid" class="delete-pages-grid" role="list"></div>
+            <p class="visual-reorder-panel__hint">Drag thumbnails to reorder pages. Use the trash icon to mark pages for removal.</p>
+            <div id="deletePagesGrid" class="delete-pages-grid visual-reorder-grid" role="list"></div>
             <div class="delete-pages-toolbar">
               <button id="deleteClearSelection" class="btn btn--ghost" type="button" disabled>Clear selection</button>
               <button id="primaryAction" class="btn btn--primary btn-protect" type="button" disabled>Delete Pages</button>

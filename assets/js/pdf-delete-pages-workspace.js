@@ -1,4 +1,4 @@
-/* global PDFCore, UICore */
+/* global PDFCore, VisualReorder, UICore */
 (function () {
   "use strict";
 
@@ -34,12 +34,13 @@
     var clearSelBtn = byId("deleteClearSelection");
     var clearFileBtn = byId("clearAction");
 
-    if (!dropzone || !input || !workspace || !grid) return;
+    if (!dropzone || !input || !workspace || !grid || !window.VisualReorder) return;
 
     var state = {
       file: null,
       bytes: null,
       pageCount: 0,
+      pageOrder: [],
       marked: {},
       busy: false,
     };
@@ -66,6 +67,7 @@
       state.file = null;
       state.bytes = null;
       state.pageCount = 0;
+      state.pageOrder = [];
       state.marked = {};
       if (input) input.value = "";
       workspace.classList.add("is-hidden");
@@ -75,29 +77,36 @@
       setStatus("");
     }
 
-    function renderThumb(pageIndex) {
+    function renderThumb(originalIndex, displayIndex) {
       var card = document.createElement("div");
-      card.className = "delete-page-thumb";
-      card.dataset.pageIndex = String(pageIndex);
+      card.className = "visual-reorder-card visual-reorder-card--page";
       card.setAttribute("role", "listitem");
+      card.dataset.displayIndex = String(displayIndex);
+      card.dataset.originalIndex = String(originalIndex);
+
       card.innerHTML =
+        '<span class="visual-reorder-card__index">#' +
+        (displayIndex + 1) +
+        "</span>" +
+        '<div class="delete-page-thumb">' +
         '<div class="delete-page-thumb__canvas-wrap"><p class="delete-page-thumb__loading">Loading…</p></div>' +
         '<div class="delete-page-thumb__footer">' +
         '<span class="delete-page-thumb__label">Page ' +
-        (pageIndex + 1) +
+        (originalIndex + 1) +
         "</span>" +
         '<button type="button" class="delete-page-thumb__remove" aria-label="Mark page ' +
-        (pageIndex + 1) +
+        (originalIndex + 1) +
         ' for deletion">' +
         '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3h6l1 2h5v2H3V5h5l1-2zm1 6h2v9h-2V9zm3 0h2v9h-2V9zM7 9h2v9H7V9z" fill="currentColor"/></svg>' +
-        "</button></div>";
+        "</button></div></div>";
 
+      var inner = card.querySelector(".delete-page-thumb");
       var wrap = card.querySelector(".delete-page-thumb__canvas-wrap");
       var btn = card.querySelector(".delete-page-thumb__remove");
 
       function applyMarked() {
-        var on = !!state.marked[pageIndex];
-        card.classList.toggle("is-marked", on);
+        var on = !!state.marked[originalIndex];
+        inner.classList.toggle("is-marked", on);
         btn.setAttribute("aria-pressed", on ? "true" : "false");
         btn.innerHTML = on
           ? '<span class="delete-page-thumb__remove-text">Undo</span>'
@@ -115,25 +124,32 @@
 
       btn.addEventListener("click", function () {
         if (state.busy) return;
-        if (state.marked[pageIndex]) delete state.marked[pageIndex];
-        else state.marked[pageIndex] = true;
+        if (state.marked[originalIndex]) delete state.marked[originalIndex];
+        else state.marked[originalIndex] = true;
         applyMarked();
         updateButtons();
         var n = markedList().length;
         setStatus(n ? n + " page(s) marked for deletion." : "Selection cleared.");
       });
 
-      PDFCore.renderPdfPageThumbnail(state.bytes, pageIndex, "", THUMB_SCALE).then(function (canvas) {
+      PDFCore.renderPdfPageThumbnail(state.bytes, originalIndex, "", THUMB_SCALE).then(function (canvas) {
         wrap.innerHTML = "";
         canvas.className = "delete-page-thumb__canvas";
         wrap.appendChild(canvas);
-        if (state.marked[pageIndex]) {
-          var strike = document.createElement("div");
-          strike.className = "delete-page-thumb__strike";
-          strike.setAttribute("aria-hidden", "true");
-          wrap.appendChild(strike);
-        }
         applyMarked();
+      });
+
+      VisualReorder.attachDragReorder(card, {
+        getIndex: function () {
+          return Number(card.dataset.displayIndex);
+        },
+        onReorder: function (from, to) {
+          state.pageOrder = VisualReorder.moveInArray(state.pageOrder, from, to);
+          renderGrid();
+        },
+        onDragState: function (_index, phase) {
+          if (phase === "end" || phase === "drop") VisualReorder.clearGridDragState(grid);
+        },
       });
 
       return card;
@@ -141,9 +157,9 @@
 
     function renderGrid() {
       grid.innerHTML = "";
-      for (var i = 0; i < state.pageCount; i += 1) {
-        grid.appendChild(renderThumb(i));
-      }
+      state.pageOrder.forEach(function (originalIndex, displayIndex) {
+        grid.appendChild(renderThumb(originalIndex, displayIndex));
+      });
     }
 
     function loadFile(file) {
@@ -154,9 +170,11 @@
         state.bytes = new Uint8Array(buf);
         return PDFCore.loadPdfPageCountForDelete(state.bytes).then(function (count) {
           state.pageCount = count;
+          state.pageOrder = [];
+          for (var i = 0; i < count; i += 1) state.pageOrder.push(i);
           dropzone.classList.add("is-hidden");
           workspace.classList.remove("is-hidden");
-          setStatus("Loaded " + count + " page(s). Click the trash icon on pages to remove.");
+          setStatus("Loaded " + count + " page(s). Drag to reorder, then mark pages to remove.");
           renderGrid();
           updateButtons();
         });
@@ -181,18 +199,7 @@
     if (clearSelBtn) {
       clearSelBtn.addEventListener("click", function () {
         state.marked = {};
-        grid.querySelectorAll(".delete-page-thumb").forEach(function (card) {
-          card.classList.remove("is-marked");
-          var idx = Number(card.dataset.pageIndex);
-          var btn = card.querySelector(".delete-page-thumb__remove");
-          var strike = card.querySelector(".delete-page-thumb__strike");
-          if (strike) strike.remove();
-          if (btn) {
-            btn.setAttribute("aria-pressed", "false");
-            btn.innerHTML =
-              '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3h6l1 2h5v2H3V5h5l1-2zm1 6h2v9h-2V9zm3 0h2v9h-2V9zM7 9h2v9H7V9z" fill="currentColor"/></svg>';
-          }
-        });
+        renderGrid();
         updateButtons();
         setStatus("Selection cleared.");
       });
@@ -207,12 +214,15 @@
         state.busy = true;
         primaryBtn.classList.add("is-busy");
         primaryBtn.disabled = true;
-        setStatus("Removing selected pages…");
-        PDFCore.deletePdfPagesFile(state.file, indices)
+        setStatus("Applying page order and removing selected pages…");
+        PDFCore.deletePdfPagesFile(state.file, indices, state.pageOrder)
           .then(function (bytes) {
             var base = state.file.name.replace(/\.pdf$/i, "") || "document";
+            var remaining = state.pageOrder.filter(function (i) {
+              return !state.marked[i];
+            }).length;
             downloadBlob(new Blob([bytes], { type: "application/pdf" }), base + "-pages-removed.pdf");
-            setStatus("Downloaded " + (state.pageCount - indices.length) + " remaining page(s).");
+            setStatus("Downloaded " + remaining + " remaining page(s).");
           })
           .catch(function (err) {
             setStatus(err && err.message ? err.message : "Delete failed.");

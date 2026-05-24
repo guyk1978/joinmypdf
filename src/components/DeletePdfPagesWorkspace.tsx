@@ -10,6 +10,7 @@ import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { DELETE_PAGES_THUMB_SCALE, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
+import { moveArrayItem, useDragReorder } from "@/hooks/useDragReorder";
 import {
   useCallback,
   useEffect,
@@ -34,14 +35,20 @@ function outputName(file: File) {
 
 function PageThumbnail({
   pageIndex,
+  displayIndex,
   fileBytes,
   marked,
   onToggle,
+  dragProps,
+  className,
 }: {
   pageIndex: number;
+  displayIndex: number;
   fileBytes: Uint8Array;
   marked: boolean;
   onToggle: (pageIndex: number) => void;
+  dragProps: ReturnType<ReturnType<typeof useDragReorder>["getCardProps"]>;
+  className: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loading, setLoading] = useState(true);
@@ -64,32 +71,35 @@ function PageThumbnail({
   }, [fileBytes, pageIndex]);
 
   return (
-    <div className={`delete-page-thumb${marked ? " is-marked" : ""}`}>
-      <div className="delete-page-thumb__canvas-wrap">
-        {loading ? <p className="delete-page-thumb__loading">Loading…</p> : null}
-        <canvas ref={canvasRef} className="delete-page-thumb__canvas" />
-        {marked ? <div className="delete-page-thumb__strike" aria-hidden="true" /> : null}
-      </div>
-      <div className="delete-page-thumb__footer">
-        <span className="delete-page-thumb__label">Page {pageIndex + 1}</span>
-        <button
-          type="button"
-          className="delete-page-thumb__remove"
-          aria-pressed={marked}
-          aria-label={marked ? `Restore page ${pageIndex + 1}` : `Mark page ${pageIndex + 1} for deletion`}
-          onClick={() => onToggle(pageIndex)}
-        >
-          {marked ? (
-            <span className="delete-page-thumb__remove-text">Undo</span>
-          ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M9 3h6l1 2h5v2H3V5h5l1-2zm1 6h2v9h-2V9zm3 0h2v9h-2V9zM7 9h2v9H7V9z"
-                fill="currentColor"
-              />
-            </svg>
-          )}
-        </button>
+    <div className={className} role="listitem" {...dragProps}>
+      <span className="visual-reorder-card__index">#{displayIndex + 1}</span>
+      <div className={`delete-page-thumb${marked ? " is-marked" : ""}`}>
+        <div className="delete-page-thumb__canvas-wrap">
+          {loading ? <p className="delete-page-thumb__loading">Loading…</p> : null}
+          <canvas ref={canvasRef} className="delete-page-thumb__canvas" />
+          {marked ? <div className="delete-page-thumb__strike" aria-hidden="true" /> : null}
+        </div>
+        <div className="delete-page-thumb__footer">
+          <span className="delete-page-thumb__label">Page {pageIndex + 1}</span>
+          <button
+            type="button"
+            className="delete-page-thumb__remove"
+            aria-pressed={marked}
+            aria-label={marked ? `Restore page ${pageIndex + 1}` : `Mark page ${pageIndex + 1} for deletion`}
+            onClick={() => onToggle(pageIndex)}
+          >
+            {marked ? (
+              <span className="delete-page-thumb__remove-text">Undo</span>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M9 3h6l1 2h5v2H3V5h5l1-2zm1 6h2v9h-2V9zm3 0h2v9h-2V9zM7 9h2v9H7V9z"
+                  fill="currentColor"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -99,6 +109,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const [file, setFile] = useState<File | null>(null);
   const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [pageCount, setPageCount] = useState(0);
+  const [pageOrder, setPageOrder] = useState<number[]>([]);
   const [marked, setMarked] = useState<Set<number>>(() => new Set());
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -107,6 +118,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const baseId = useId();
+  const { getCardProps, cardClassName } = useDragReorder();
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
@@ -118,6 +130,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
     setFile(null);
     setFileBytes(null);
     setPageCount(0);
+    setPageOrder([]);
     setMarked(new Set());
     setStatus("");
     setDone(false);
@@ -144,9 +157,11 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
         const { loadPdfPageCount } = await import("@/lib/pdf-delete-pages");
         const count = await loadPdfPageCount(bytes);
         setPageCount(count);
-        setStatus(`Loaded ${count} page(s). Click the trash icon on pages you want to remove.`);
+        setPageOrder(Array.from({ length: count }, (_, i) => i));
+        setStatus(`Loaded ${count} page(s). Drag to reorder, then mark pages to remove.`);
       } catch {
         setPageCount(0);
+        setPageOrder([]);
         setStatus("Could not open this PDF. Try unlocking it first if it is password-protected.");
       }
 
@@ -166,7 +181,11 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
   const clearMarks = useCallback(() => {
     setMarked(new Set());
-    setStatus("Selection cleared. Pick pages to delete.");
+    setStatus("Selection cleared. Drag cards to reorder, then mark pages to delete.");
+  }, []);
+
+  const reorder = useCallback((from: number, to: number) => {
+    setPageOrder((prev) => moveArrayItem(prev, from, to));
   }, []);
 
   const onDelete = async () => {
@@ -180,15 +199,16 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Removing selected pages…");
+    setStatus("Applying page order and removing selected pages…");
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
-      const bytes = await pdf.deletePdfPagesFile(file, indices);
+      const bytes = await pdf.deletePdfPagesFile(file, indices, pageOrder);
       const outName = outputName(file);
+      const remaining = pageOrder.filter((i) => !marked.has(i)).length;
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
-      setStatus(`Downloaded ${outName} (${pageCount - indices.length} page(s) remaining).`);
+      setStatus(`Downloaded ${outName} (${remaining} page(s) remaining).`);
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -227,7 +247,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
           title="Drop a PDF here or click to browse"
-          description="Select one PDF, then mark pages to remove."
+          description="Select one PDF, then drag pages to reorder and mark pages to remove."
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -278,16 +298,24 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
           </div>
 
           {fileBytes && pageCount > 0 ? (
-            <div className="delete-pages-grid" role="list">
-              {Array.from({ length: pageCount }, (_, i) => (
-                <PageThumbnail
-                  key={i}
-                  pageIndex={i}
-                  fileBytes={fileBytes}
-                  marked={marked.has(i)}
-                  onToggle={togglePage}
-                />
-              ))}
+            <div className="visual-reorder-panel">
+              <p className="visual-reorder-panel__hint">
+                Drag thumbnails to reorder pages. Use the trash icon to mark pages for removal.
+              </p>
+              <div className="delete-pages-grid visual-reorder-grid" role="list">
+                {pageOrder.map((originalIndex, displayIndex) => (
+                  <PageThumbnail
+                    key={originalIndex}
+                    pageIndex={originalIndex}
+                    displayIndex={displayIndex}
+                    fileBytes={fileBytes}
+                    marked={marked.has(originalIndex)}
+                    onToggle={togglePage}
+                    dragProps={getCardProps(displayIndex, reorder)}
+                    className={cardClassName(displayIndex, "visual-reorder-card visual-reorder-card--page")}
+                  />
+                ))}
+              </div>
             </div>
           ) : null}
 

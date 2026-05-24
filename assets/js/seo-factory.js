@@ -921,14 +921,14 @@
     if (heroDesc) heroDesc.textContent = tool.intent || "";
     if (howList) {
       const map = {
-        merge: ["Upload two or more PDF files.", "Reorder file sequence.", "Click merge and download."],
+        merge: ["Upload two or more PDF files.", "Drag thumbnails to reorder files.", "Click merge and download."],
         compress: ["Upload one PDF file.", "Set optimization level.", "Download the compressed file."],
         split: ["Upload one PDF file.", "Run split process.", "Download page-level outputs."],
         protect: ["Upload one PDF file.", "Enter and confirm your password.", "Download the protected PDF."],
         unlock: ["Upload a password-protected PDF.", "Enter the current password.", "Download the unlocked PDF."],
         redact: ["Upload a PDF.", "Drag black boxes over sensitive areas.", "Download the redacted PDF."],
         sign: ["Upload a PDF.", "Create and place your signature.", "Download the signed PDF."],
-        "delete-pages": ["Upload a PDF.", "Mark page thumbnails to remove.", "Download the cleaned PDF."],
+        "delete-pages": ["Upload a PDF.", "Drag pages to reorder and mark thumbnails to remove.", "Download the cleaned PDF."],
         "add-page-numbers": ["Upload a PDF.", "Choose position, start page, and format.", "Download the numbered PDF."],
         "jpg-to-pdf": ["Upload JPG/PNG images.", "Reorder image list.", "Create and download PDF."],
         "png-to-pdf": ["Upload PNG images.", "Reorder thumbnails if needed.", "Convert and download PDF."],
@@ -1177,11 +1177,11 @@
       };
       const config = configByOp[tool.operation];
       if (!config) {
-        if (primaryAction && tool.operation !== "redact" && tool.operation !== "sign" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
+        if (primaryAction && tool.operation !== "redact" && tool.operation !== "sign" && tool.operation !== "merge" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
           primaryAction.disabled = true;
           primaryAction.textContent = "Tool module coming soon";
         }
-      } else if (tool.operation !== "redact" && tool.operation !== "sign" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
+      } else if (tool.operation !== "redact" && tool.operation !== "sign" && tool.operation !== "merge" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
         toolInput.multiple = !!config.multiple;
         if (primaryAction) primaryAction.textContent = config.button;
         const showQuality = tool.operation === "compress";

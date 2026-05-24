@@ -612,7 +612,28 @@
     return canvas;
   }
 
-  async function deletePdfPagesFile(file, pageIndicesToRemove) {
+  async function buildPdfFromOrderedPageIndices(sourceBytes, orderedPageIndices) {
+    ensureDeps();
+    if (!orderedPageIndices || !orderedPageIndices.length) {
+      throw new Error("Keep at least one page in the document.");
+    }
+    const doc = await PDFLib.PDFDocument.load(sourceBytes, { ignoreEncryption: true });
+    const total = doc.getPageCount();
+    const unique = orderedPageIndices.filter(function (v, i, arr) {
+      return arr.indexOf(v) === i;
+    });
+    unique.forEach(function (index) {
+      if (index < 0 || index >= total) throw new Error("Invalid page order.");
+    });
+    const out = await PDFLib.PDFDocument.create();
+    const copied = await out.copyPages(doc, unique);
+    copied.forEach(function (page) {
+      out.addPage(page);
+    });
+    return out.save({ useObjectStreams: false });
+  }
+
+  async function deletePdfPagesFile(file, pageIndicesToRemove, orderedPageIndices) {
     if (!file) throw new Error("No PDF file selected.");
     if (!pageIndicesToRemove || !pageIndicesToRemove.length) {
       throw new Error("Select at least one page to delete.");
@@ -624,6 +645,18 @@
       !(bytes.length >= 4 && String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]) === "%PDF")
     ) {
       throw new Error("Choose a valid PDF file.");
+    }
+
+    if (orderedPageIndices && orderedPageIndices.length) {
+      const removeMap = {};
+      pageIndicesToRemove.forEach(function (i) {
+        removeMap[i] = true;
+      });
+      const keep = orderedPageIndices.filter(function (i) {
+        return !removeMap[i];
+      });
+      if (!keep.length) throw new Error("You cannot delete every page. Keep at least one page.");
+      return buildPdfFromOrderedPageIndices(bytes, keep);
     }
 
     ensureDeps();
@@ -676,6 +709,7 @@
     loadPdfPageCountForDelete,
     renderPdfPageThumbnail,
     deletePdfPagesFile,
+    buildPdfFromOrderedPageIndices,
     renderFirstPagePreview,
     formatBytes,
   };
