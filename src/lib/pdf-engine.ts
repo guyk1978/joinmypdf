@@ -91,6 +91,27 @@ export async function unlockPdfFile(file: File, password: string): Promise<Uint8
   }
 }
 
+export async function redactPdfFile(
+  file: File,
+  rects: import("./pdf-redact").NormalizedRedactionRect[],
+  password?: string,
+): Promise<Uint8Array> {
+  if (!file) throw new Error("No PDF file selected.");
+  if (!rects?.length) throw new Error("Draw at least one redaction box.");
+
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!isPdfFile(file, bytes)) {
+    throw new Error("Choose a valid PDF file.");
+  }
+
+  const { redactPdfBytes } = await import("./pdf-redact");
+  try {
+    return await redactPdfBytes(bytes, rects, { password });
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
 export async function protectPdfFile(file: File, password: string): Promise<Uint8Array> {
   if (!file) throw new Error("No PDF file selected.");
   const trimmed = String(password || "").trim();

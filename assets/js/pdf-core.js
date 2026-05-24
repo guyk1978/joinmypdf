@@ -212,6 +212,131 @@
     }
   }
 
+  const REDACT_UI_SCALE = 1.25;
+  const REDACT_FLATTEN_SCALE = 2;
+
+  function ensurePdfJs() {
+    if (!window.pdfjsLib) throw new Error("PDF preview engine failed to load (pdf.js missing).");
+    if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+  }
+
+  async function renderPdfJsPage(pdfDoc, pageNumber, scale) {
+    ensurePdfJs();
+    const page = await pdfDoc.getPage(pageNumber);
+    const viewport = page.getViewport({ scale: scale });
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext("2d");
+    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+    return canvas;
+  }
+
+  function canvasToJpegBytes(canvas, quality) {
+    return new Promise(function (resolve, reject) {
+      canvas.toBlob(
+        function (blob) {
+          if (!blob) {
+            reject(new Error("Failed to encode redacted page."));
+            return;
+          }
+          blob.arrayBuffer().then(function (buf) {
+            resolve(new Uint8Array(buf));
+          }, reject);
+        },
+        "image/jpeg",
+        quality || 0.92,
+      );
+    });
+  }
+
+  async function loadPdfPageCount(bytes, password) {
+    ensurePdfJs();
+    const doc = await pdfjsLib.getDocument({
+      data: bytes.slice ? bytes.slice() : new Uint8Array(bytes),
+      password: password || undefined,
+    }).promise;
+    return doc.numPages;
+  }
+
+  async function renderPdfPageForUi(bytes, pageIndex, password, scale) {
+    ensurePdfJs();
+    const doc = await pdfjsLib.getDocument({
+      data: bytes.slice ? bytes.slice() : new Uint8Array(bytes),
+      password: password || undefined,
+    }).promise;
+    const canvas = await renderPdfJsPage(doc, pageIndex + 1, scale || REDACT_UI_SCALE);
+    return canvas;
+  }
+
+  async function redactPdfFile(file, rects, password) {
+    if (!file) throw new Error("No PDF file selected.");
+    if (!rects || !rects.length) throw new Error("Draw at least one redaction box.");
+
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    if (
+      !(/pdf$/i.test(file.type) || /\.pdf$/i.test(file.name)) &&
+      !(bytes.length >= 4 && String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]) === "%PDF")
+    ) {
+      throw new Error("Choose a valid PDF file.");
+    }
+
+    ensureDeps();
+    ensurePdfJs();
+    const pwd = String(password || "").trim() || undefined;
+
+    const pdfJsDoc = await pdfjsLib.getDocument({ data: bytes.slice(), password: pwd }).promise;
+
+    let libDoc;
+    try {
+      libDoc = await PDFLib.PDFDocument.load(bytes, pwd ? { password: pwd } : {});
+    } catch (_) {
+      libDoc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+    }
+
+    if (libDoc.isEncrypted && !pwd) {
+      throw new Error("This PDF is password-protected. Enter the password to redact it.");
+    }
+
+    const outDoc = await PDFLib.PDFDocument.create();
+    const pageCount = libDoc.getPageCount();
+    const redactedPages = {};
+    rects.forEach(function (r) {
+      redactedPages[r.pageIndex] = true;
+    });
+
+    for (let i = 0; i < pageCount; i += 1) {
+      if (redactedPages[i]) {
+        const pageRef = libDoc.getPage(i);
+        const size = pageRef.getSize();
+        const width = size.width;
+        const height = size.height;
+        const canvas = await renderPdfJsPage(pdfJsDoc, i + 1, REDACT_FLATTEN_SCALE);
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#000000";
+        rects
+          .filter(function (r) {
+            return r.pageIndex === i;
+          })
+          .forEach(function (r) {
+            ctx.fillRect(r.nx * canvas.width, r.ny * canvas.height, r.nw * canvas.width, r.nh * canvas.height);
+          });
+        const jpegBytes = await canvasToJpegBytes(canvas, 0.92);
+        const image = await outDoc.embedJpg(jpegBytes);
+        const newPage = outDoc.addPage([width, height]);
+        newPage.drawImage(image, { x: 0, y: 0, width: width, height: height });
+      } else {
+        const copied = await outDoc.copyPages(libDoc, [i]);
+        outDoc.addPage(copied[0]);
+      }
+    }
+
+    return outDoc.save({ useObjectStreams: false });
+  }
+
   window.PDFCore = {
     mergePdfFiles,
     compressSimulation,
@@ -222,6 +347,9 @@
     protectPdfFile,
     unlockPdfFile,
     isPdfEncrypted,
+    redactPdfFile,
+    loadPdfPageCount,
+    renderPdfPageForUi,
     renderFirstPagePreview,
     formatBytes,
   };

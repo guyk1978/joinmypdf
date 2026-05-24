@@ -55,6 +55,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Compress the unlocked file",
       body: "Smaller attachments are easier to email after you remove the password.",
     });
+  } else if (operation === "redact") {
+    rows.push({
+      href: "/tools/protect-pdf/",
+      title: "Password-protect before sending",
+      body: "After redacting, add a password before you email the sanitized PDF.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress the redacted file",
+      body: "Flattened pages can increase file size—compress if needed for upload limits.",
+    });
   } else if (operation === "jpg-to-pdf" || operation === "pdf-to-jpg") {
     rows.push({
       href: "/tools/pdf-compress/",

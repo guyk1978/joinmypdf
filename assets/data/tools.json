@@ -356,7 +356,7 @@
       ],
       "relatedTools": [
         "unlock-pdf",
-        "pdf-merge",
+        "redact-pdf",
         "pdf-compress"
       ],
       "faq": [
@@ -405,7 +405,7 @@
       ],
       "relatedTools": [
         "protect-pdf",
-        "pdf-merge",
+        "unlock-pdf",
         "pdf-compress"
       ],
       "faq": [
@@ -429,6 +429,55 @@
       "longTailPages": [],
       "skipClusterVariants": true,
       "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-24"
+    },
+    {
+      "slug": "redact-pdf",
+      "category": "security",
+      "operation": "redact",
+      "title": "Redact PDF — Black Out Sensitive Text",
+      "primaryKeyword": "redact pdf online black out text",
+      "intent": "Mark and permanently black out private content in your browser.",
+      "description": "Redact sensitive information from a PDF locally in your browser. Draw black boxes over private content—your document never leaves your device.",
+      "secondaryKeywords": [
+        "pdf redaction tool",
+        "black out pdf text",
+        "remove sensitive data pdf"
+      ],
+      "useCases": [
+        "Hide customer names or account numbers before sharing a statement",
+        "Black out signatures or ID numbers in HR packets",
+        "Sanitize legal exhibits before sending to external counsel"
+      ],
+      "relatedTools": [
+        "protect-pdf",
+        "unlock-pdf",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF servers?",
+          "a": "No. Redaction runs entirely in your browser. Your file never leaves your device."
+        },
+        {
+          "q": "Can redacted text still be copied?",
+          "a": "Pages you mark are flattened to images with black boxes burned in, so underlying text on those pages cannot be selected or copied."
+        },
+        {
+          "q": "Can I redact password-protected PDFs?",
+          "a": "Yes. Enter the document password to preview pages, mark areas, then export the redacted file."
+        },
+        {
+          "q": "Will redaction work in Adobe Acrobat and Preview?",
+          "a": "Yes. The output is a standard PDF with visible black redaction boxes."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,

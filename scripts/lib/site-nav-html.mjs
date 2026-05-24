@@ -31,7 +31,7 @@ export const NAV_DROPDOWNS = [
     items: [
       { href: "/tools/protect-pdf/", label: "Protect PDF" },
       { href: "/tools/unlock-pdf/", label: "Unlock PDF" },
-      { href: "/tools/pdf-redact/", label: "Redact PDF", comingSoon: true },
+      { href: "/tools/redact-pdf/", label: "Redact PDF" },
     ],
   },
 ];

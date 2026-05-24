@@ -82,6 +82,7 @@
       split: "split",
       protect: "password-protect",
       unlock: "unlock",
+      redact: "redact",
       "jpg-to-pdf": "convert JPG to PDF",
       "pdf-to-jpg": "convert PDF to JPG",
     };
@@ -888,6 +889,7 @@
         split: ["Upload one PDF file.", "Run split process.", "Download page-level outputs."],
         protect: ["Upload one PDF file.", "Enter and confirm your password.", "Download the protected PDF."],
         unlock: ["Upload a password-protected PDF.", "Enter the current password.", "Download the unlocked PDF."],
+        redact: ["Upload a PDF.", "Drag black boxes over sensitive areas.", "Download the redacted PDF."],
         "jpg-to-pdf": ["Upload JPG/PNG images.", "Reorder image list.", "Create and download PDF."],
         "pdf-to-jpg": ["Upload one PDF.", "Render pages to JPG.", "Download image files."],
       };
@@ -1119,11 +1121,11 @@
       };
       const config = configByOp[tool.operation];
       if (!config) {
-        if (primaryAction) {
+        if (primaryAction && tool.operation !== "redact") {
           primaryAction.disabled = true;
           primaryAction.textContent = "Tool module coming soon";
         }
-      } else {
+      } else if (tool.operation !== "redact") {
         toolInput.multiple = !!config.multiple;
         if (primaryAction) primaryAction.textContent = config.button;
         const showQuality = tool.operation === "compress";

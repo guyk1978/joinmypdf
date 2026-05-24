@@ -6,6 +6,7 @@ const verb: Record<string, string> = {
   split: "split a PDF",
   protect: "password-protect a PDF",
   unlock: "remove a PDF password",
+  redact: "redact sensitive PDF content",
   "jpg-to-pdf": "turn images into a PDF",
   "pdf-to-jpg": "export PDF pages as JPG images",
 };

@@ -725,6 +725,78 @@ body.site-nav-open {
   }
 }
 
+.redact-pages {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1rem 0;
+}
+
+.redact-page {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.redact-page__label {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.redact-page__stage {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  cursor: crosshair;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.redact-page__canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.redact-page__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.redact-box {
+  position: absolute;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.72);
+  border: 2px solid rgba(248, 113, 113, 0.85);
+  border-radius: 2px;
+}
+
+.redact-box--draft {
+  background: rgba(0, 0, 0, 0.45);
+  border-style: dashed;
+}
+
+.redact-page__hint,
+.redact-page__loading {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.redact-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.redact-workspace.is-hidden {
+  display: none;
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
   padding: 3rem 0 2.5rem;
