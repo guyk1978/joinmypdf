@@ -4,6 +4,7 @@
 
   const DATA_PATH = "/assets/data/tools.json";
   const BLOG_DATA_PATH = "/assets/data/blog.json";
+  const BLOG_EDITORIAL_PATH = "/assets/data/blog-registry.json";
   const MODIFIER_LIBRARY = {
     fast: { text: "fast processing", useCase: "urgent delivery workflows" },
     free: { text: "free usage mode", useCase: "budget-friendly daily tasks" },
@@ -23,10 +24,29 @@
     return response.json();
   }
 
+  function mergeBlogRegistry() {
+    const sources = Array.prototype.slice.call(arguments);
+    const bySlug = new Map();
+    sources.forEach(function (source) {
+      (source && source.blog ? source.blog : []).forEach(function (post) {
+        if (post && post.slug) bySlug.set(post.slug, post);
+      });
+    });
+    return { blog: Array.from(bySlug.values()) };
+  }
+
   async function loadBlogRegistry() {
-    const response = await fetch(BLOG_DATA_PATH, { cache: "no-store" });
-    if (!response.ok) throw new Error("Failed loading blog registry.");
-    return response.json();
+    const mainResponse = await fetch(BLOG_DATA_PATH, { cache: "no-store" });
+    if (!mainResponse.ok) throw new Error("Failed loading blog registry.");
+    const main = await mainResponse.json();
+    let editorial = { blog: [] };
+    try {
+      const editorialResponse = await fetch(BLOG_EDITORIAL_PATH, { cache: "no-store" });
+      if (editorialResponse.ok) editorial = await editorialResponse.json();
+    } catch (_) {
+      editorial = { blog: [] };
+    }
+    return mergeBlogRegistry(main, editorial);
   }
 
   function slugFromPath(pathname) {
@@ -834,16 +854,25 @@
     if (grid) {
       grid.innerHTML = getSortedBlogPosts(blogRegistry)
         .slice(0, 60)
-        .map(
-          (post) =>
-            '<article class="card glass"><h3>' +
+        .map(function (post) {
+          var meta = [];
+          if (post.category) meta.push(escapeHtml(post.category));
+          if (post.publishDate) meta.push(escapeHtml(post.publishDate));
+          if (post.readTime) meta.push(escapeHtml(post.readTime));
+          return (
+            '<article class="card glass blog-card"><p class="blog-card__category">' +
+            (post.category ? escapeHtml(post.category) : "Guide") +
+            "</p><h3>" +
             escapeHtml(post.title) +
-            "</h3><p>" +
-            escapeHtml(post.keyword) +
+            "</h3><p class=\"blog-card__desc\">" +
+            escapeHtml(post.description || (post.seo && post.seo.metaDescription) || post.keyword || "") +
+            '</p><p class="blog-card__meta">' +
+            meta.join(" · ") +
             '</p><div class="btn-row"><a class="btn btn--ghost" href="/blog/' +
             post.slug +
-            '/">Read</a></div></article>'
-        )
+            '/">Read guide</a></div></article>'
+          );
+        })
         .join("");
     }
     appendSchema({

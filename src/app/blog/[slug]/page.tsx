@@ -54,6 +54,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const faqs = faqItems(post);
   const sections = post.contentBlocks?.sections || [];
   const internalLinks = post.contentBlocks?.internalLinks || [];
+  const relatedArticles = (post.relatedBlogs || [])
+    .map((relatedSlug) => blogRegistry.blog.find((entry) => entry.slug === relatedSlug))
+    .filter((entry): entry is BlogPost => Boolean(entry));
   const displayTitle = post.seo?.metaTitle || post.title;
   const author = resolveArticleAuthor(post);
   const tools = (post.relatedTools || [])
@@ -85,11 +88,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <article>
           <header className="space-y-2.5 border-b border-white/10 pb-5 sm:space-y-3 sm:pb-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
-              {post.tier1 ? "Editorial guide" : "Guide"}
+              {post.category || (post.tier1 ? "Editorial guide" : "Guide")}
             </p>
             <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">{displayTitle}</h1>
-            {post.publishDate ? (
-              <p className="text-sm text-ink-muted">Updated {post.publishDate}</p>
+            {post.publishDate || post.readTime ? (
+              <p className="text-sm text-ink-muted">
+                {post.publishDate ? <>Updated {post.publishDate}</> : null}
+                {post.publishDate && post.readTime ? " · " : null}
+                {post.readTime ? <>{post.readTime}</> : null}
+              </p>
             ) : null}
             <ArticleAuthorBadge post={post} />
             {post.contentBlocks?.intro ? (
@@ -137,6 +144,32 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   </details>
                 ))}
               </div>
+            </section>
+          ) : null}
+
+          {relatedArticles.length ? (
+            <section className="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+              <h2 className="text-lg font-semibold text-ink">Related articles</h2>
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                {relatedArticles.map((related) => (
+                  <li key={related.slug}>
+                    <Link
+                      href={`/blog/${related.slug}/`}
+                      className="block rounded-xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-brand/40"
+                    >
+                      {related.category ? (
+                        <p className="text-xs font-semibold uppercase tracking-wide text-brand">
+                          {related.category}
+                        </p>
+                      ) : null}
+                      <p className="mt-1 font-medium text-ink">{related.title}</p>
+                      <p className="mt-1 line-clamp-2 text-sm text-ink-muted">
+                        {related.description || related.seo?.metaDescription}
+                      </p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </section>
           ) : null}
 

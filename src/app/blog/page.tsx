@@ -28,15 +28,25 @@ export default function BlogIndexPage() {
           </p>
         </header>
         <CalnexAppCrossLink className="max-w-2xl" />
-        <ul className="grid gap-4 md:grid-cols-2">
-          {posts.slice(0, 48).map((p) => (
+        <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => (
             <li key={p.slug}>
               <Link
                 href={`/blog/${p.slug}/`}
-                className="block rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-brand/40"
+                className="blog-card block h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-brand/40"
               >
-                <span className="font-semibold text-ink">{p.title}</span>
-                <p className="mt-1 line-clamp-2 text-sm text-ink-muted">{p.description}</p>
+                {p.category ? (
+                  <p className="text-xs font-semibold uppercase tracking-wide text-brand">{p.category}</p>
+                ) : null}
+                <span className="mt-1 block font-semibold text-ink">{p.title}</span>
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-muted">
+                  {p.description || p.seo?.metaDescription}
+                </p>
+                <p className="mt-3 flex flex-wrap gap-2 text-xs text-ink-muted/80">
+                  {p.publishDate ? <span>{p.publishDate}</span> : null}
+                  {p.readTime ? <span aria-hidden="true">·</span> : null}
+                  {p.readTime ? <span>{p.readTime}</span> : null}
+                </p>
               </Link>
             </li>
           ))}

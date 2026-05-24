@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
 const toolsJsonPath = path.join(root, "assets", "data", "tools.json");
-const blogJsonPath = path.join(root, "assets", "data", "blog.json");
+import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
 const outputPath = path.join(root, "sitemap.xml");
 
 const MODIFIER_LIBRARY = [
@@ -50,7 +50,7 @@ function generateClusterVariants(tool, config) {
 }
 
 const registry = JSON.parse(await readFile(toolsJsonPath, "utf8"));
-const blogRegistry = JSON.parse(await readFile(blogJsonPath, "utf8"));
+const blogRegistry = await loadMergedBlogRegistry({ root, readFile });
 const baseUrl = (registry.site && registry.site.baseUrl ? registry.site.baseUrl : "https://joinmypdf.com").replace(/\/+$/, "");
 const today = new Date().toISOString().slice(0, 10);
 
@@ -79,7 +79,9 @@ for (const post of blogRegistry.blog || []) {
   const blogPriority =
     post.priority != null && Number.isFinite(Number(post.priority))
       ? Number(post.priority).toFixed(2)
-      : "0.80";
+      : post.tier1
+        ? "0.85"
+        : "0.80";
   urls.push({
     loc: baseUrl + "/blog/" + post.slug + "/",
     priority: blogPriority,

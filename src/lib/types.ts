@@ -72,10 +72,13 @@ export type BlogPost = {
   slug: string;
   title: string;
   keyword?: string;
+  category?: string;
   cluster?: string;
   intent?: string;
   intentType?: string;
   publishDate?: string;
+  readTime?: string;
+  coverImage?: string;
   author?: BlogAuthorMeta;
   tier1?: boolean;
   relatedTools?: string[];

@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
-const blogJsonPath = path.join(root, "assets", "data", "blog.json");
+import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
 const toolsJsonPath = path.join(root, "assets", "data", "tools.json");
 const blogTemplatePath = path.join(root, "blog", "template", "index.html");
 const blogRoot = path.join(root, "blog");
@@ -89,7 +89,7 @@ function syntheticPostFromSlug(slug) {
 }
 
 const toolsRegistry = JSON.parse(await readFile(toolsJsonPath, "utf8"));
-const blogRegistry = JSON.parse(await readFile(blogJsonPath, "utf8"));
+const blogRegistry = await loadMergedBlogRegistry({ root, readFile });
 const template = await readFile(blogTemplatePath, "utf8");
 const baseUrl = normalizeBaseUrl(toolsRegistry.site && toolsRegistry.site.baseUrl);
 const registryPosts = blogRegistry.blog || [];

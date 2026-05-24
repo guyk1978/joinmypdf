@@ -1,0 +1,360 @@
+{
+  "blog": [
+    {
+      "slug": "how-to-safely-sign-contracts-online",
+      "title": "How to Safely Sign Contracts Online Without Uploading Your Documents",
+      "keyword": "sign contracts online safely",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-05-24",
+      "readTime": "11 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["sign-pdf", "protect-pdf", "redact-pdf"],
+      "relatedBlogs": [
+        "hidden-risks-of-free-online-pdf-editors",
+        "how-to-password-protect-pdf-in-browser"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · May 2026"
+      },
+      "seo": {
+        "metaTitle": "How to Safely Sign Contracts Online Without Uploading Documents",
+        "metaDescription": "Learn how to sign contracts online with client-side PDF tools so sensitive files never leave your browser. Step-by-step workflow, risks to avoid, and a free Sign PDF tool."
+      },
+      "description": "A practical guide to signing contracts online using browser-based tools that process PDFs locally—no cloud upload required.",
+      "contentBlocks": {
+        "intro": "Signing a contract should not mean handing a copy of that contract to an unknown server. When you use JoinMyPDF’s Sign PDF tool, the PDF and your signature image are processed entirely in your browser—so offer letters, NDAs, and client agreements stay on your device.",
+        "editorialNote": "This guide is written for freelancers, HR teams, and small businesses who need a defensible workflow without enterprise e-signature platforms.",
+        "primaryTool": "sign-pdf",
+        "sections": [
+          {
+            "id": "why-upload-risk",
+            "heading": "Why “upload to sign” is a privacy decision",
+            "level": 2,
+            "paragraphs": [
+              "Most free signing sites ask you to upload the full PDF. That single action creates a copy outside your control: on vendor storage, in backup systems, and sometimes in jurisdictions you did not choose.",
+              "For employment contracts, vendor MSAs, or anything with personal data, the safer default is local processing—your file is read in memory in the tab you opened, and the signed output is generated on your machine."
+            ]
+          },
+          {
+            "id": "client-side-signing",
+            "heading": "What 100% client-side signing means",
+            "level": 2,
+            "paragraphs": [
+              "Client-side signing uses JavaScript libraries (such as pdf.js for preview and pdf-lib for writing) inside your browser. The network request you see is for the tool’s HTML and scripts—not for your document bytes.",
+              "You still need to verify the site’s privacy policy and avoid extensions that scrape page content, but you eliminate the largest risk class: bulk document storage on a third-party converter farm."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "Step-by-step: sign a contract in your browser",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Open the contract PDF locally and confirm it is the final version (file name, date, page count).",
+              "Use JoinMyPDF Sign PDF: upload the file, draw or type your signature, and place it on the correct page.",
+              "Drag and resize the signature block until it aligns with the signature line—check zoom at 100%.",
+              "Download the signed PDF and open it in your default viewer to confirm placement and readability.",
+              "If the recipient requires a password, add encryption with Protect PDF before sending.",
+              "Send via your normal secure channel (encrypted email, portal, or drive link with access controls)."
+            ],
+            "paragraphs": [
+              "For multi-page packets, you can place the same saved signature on every page that needs initials—still without re-uploading the source file to a server."
+            ]
+          },
+          {
+            "id": "legal-fit",
+            "heading": "When browser signing is—and is not—enough",
+            "level": 2,
+            "paragraphs": [
+              "Typed or drawn signatures on a PDF are widely used for everyday business agreements. They are not a substitute for qualified electronic signatures (QES) where regulations require them.",
+              "Match the method to the document: internal approvals and standard commercial terms often fit visual PDF signatures; regulated industries may need audited identity providers."
+            ]
+          },
+          {
+            "id": "cta",
+            "heading": "Try Sign PDF now",
+            "level": 2,
+            "paragraphs": [
+              "Ready to sign without uploading? Open Sign PDF, load your contract, create your signature once, place it where you need it, and download *-signed.pdf in seconds—all on your device."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Is client-side signing really private?",
+            "a": "JoinMyPDF Sign PDF processes files in your browser. We do not receive your contract bytes for standard signing. Always review the privacy policy and use a trusted device."
+          },
+          {
+            "q": "Can I sign the same contract on multiple pages?",
+            "a": "Yes. Save your signature once, then place multiple instances on different pages—useful for initials on long agreements."
+          },
+          {
+            "q": "Should I password-protect the signed file?",
+            "a": "If email is your delivery channel, consider Protect PDF to add a password only the recipient knows, especially for financial or HR documents."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/sign-pdf/",
+            "anchor": "Sign PDF (client-side)"
+          },
+          {
+            "href": "/blog/hidden-risks-of-free-online-pdf-editors/",
+            "anchor": "Privacy risks of free PDF editors"
+          },
+          {
+            "href": "/blog/how-to-password-protect-pdf-in-browser/",
+            "anchor": "Password-protect a PDF in your browser"
+          },
+          {
+            "href": "/privacy-first-pdf-tools/",
+            "anchor": "Privacy-first PDF tools hub"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "hidden-risks-of-free-online-pdf-editors",
+      "title": "The Hidden Privacy Risks of Free Online PDF Editors (And How to Avoid Them)",
+      "keyword": "free online pdf editor privacy risks",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-05-24",
+      "readTime": "10 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["sign-pdf", "protect-pdf", "redact-pdf"],
+      "relatedBlogs": [
+        "how-to-safely-sign-contracts-online",
+        "how-to-password-protect-pdf-in-browser"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · May 2026"
+      },
+      "seo": {
+        "metaTitle": "Hidden Privacy Risks of Free Online PDF Editors (And How to Avoid Them)",
+        "metaDescription": "Free PDF editors often upload your files to remote servers. Learn the privacy risks, what to check in a vendor policy, and safer client-side alternatives from JoinMyPDF."
+      },
+      "description": "Understand why “free” PDF tools can cost you confidentiality—and how browser-local processing keeps sensitive documents off third-party servers.",
+      "contentBlocks": {
+        "intro": "A free PDF editor feels convenient until you realize the price may be your data. When you upload a payslip, medical form, or cap table to a random converter site, you are making a trust decision you cannot fully audit. JoinMyPDF is built around a different model: core tools run in your browser so standard tasks do not require sending file bytes to us.",
+        "editorialNote": "We compare common risk patterns—not individual competitor names—so you can evaluate any tool you encounter.",
+        "sections": [
+          {
+            "id": "upload-model",
+            "heading": "The upload model: where files actually go",
+            "level": 2,
+            "paragraphs": [
+              "Many “online PDF” products are thin wrappers around server-side conversion. Your document travels over HTTPS to a data center, is transformed, stored for a retention window, and sometimes used for malware scanning or analytics pipelines.",
+              "Even reputable vendors can be breached, subpoenaed, or misconfigured. The safest architecture for routine edits is the one that never receives the file in the first place."
+            ]
+          },
+          {
+            "id": "risk-table",
+            "heading": "Common risks you should plan for",
+            "level": 2,
+            "paragraphs": [
+              "Retention: “deleted after one hour” policies still mean an hour on someone else’s disk.",
+              "Subprocessors: PDF vendors often use cloud OCR, virus scan APIs, or CDNs that also touch file content.",
+              "Accountless tracking: no login does not mean no logging—IP, user agent, and file metadata may still be recorded.",
+              "Jurisdiction: data may be processed in countries with different surveillance or breach-notification rules."
+            ]
+          },
+          {
+            "id": "checklist",
+            "heading": "Vendor checklist before you upload",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Read the privacy policy for upload, retention, and training use of customer content.",
+              "Confirm whether processing is server-side only or offers a local/browser mode.",
+              "Check if encryption in transit is paired with encryption at rest—and who holds keys.",
+              "Prefer tools that publish a clear subprocessors list and breach process.",
+              "For regulated data (health, finance), use approved enterprise tools—not ad-hoc converters."
+            ]
+          },
+          {
+            "id": "joinmypdf-approach",
+            "heading": "How JoinMyPDF reduces exposure",
+            "level": 2,
+            "paragraphs": [
+              "Merge, compress, split, sign, protect, and redact workflows are designed to execute locally with JavaScript PDF libraries. That limits the blast radius of everyday document tasks.",
+              "When you need to sign an agreement, use Sign PDF so signature images and contract pages are not uploaded for processing. When you need to share securely, combine signing with Protect PDF so recipients need a password even if the email channel is compromised."
+            ]
+          },
+          {
+            "id": "cluster-links",
+            "heading": "Go deeper in this security cluster",
+            "level": 2,
+            "paragraphs": [
+              "If you are building a privacy-conscious workflow, read our guide on signing contracts without uploads, then follow the encryption walkthrough for password-protecting exports before they leave your machine."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Are all free PDF sites unsafe?",
+            "a": "Not all—but many default to server upload. Evaluate each tool on architecture and policy, not on price alone."
+          },
+          {
+            "q": "Is browser processing always offline?",
+            "a": "Scripts still load from the web, but your PDF bytes can remain local. Disable untrusted extensions and use updated browsers."
+          },
+          {
+            "q": "What should I use for signing NDAs?",
+            "a": "Use client-side Sign PDF for visual signatures, and Protect PDF if the file needs a password. For qualified signatures, use regulated providers."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/sign-pdf/",
+            "anchor": "Sign PDF tool"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF (password encryption)"
+          },
+          {
+            "href": "/blog/how-to-safely-sign-contracts-online/",
+            "anchor": "Safely sign contracts online"
+          },
+          {
+            "href": "/blog/how-to-password-protect-pdf-in-browser/",
+            "anchor": "Encrypt PDFs in your browser"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "how-to-password-protect-pdf-in-browser",
+      "title": "How to Password Protect and Encrypt a PDF File Directly in Your Browser",
+      "keyword": "password protect pdf in browser",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-05-24",
+      "readTime": "9 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["protect-pdf", "sign-pdf", "unlock-pdf"],
+      "relatedBlogs": [
+        "how-to-safely-sign-contracts-online",
+        "hidden-risks-of-free-online-pdf-editors"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · May 2026"
+      },
+      "seo": {
+        "metaTitle": "Password Protect a PDF in Your Browser (Client-Side Encryption)",
+        "metaDescription": "Encrypt PDFs with a password without uploading them. Step-by-step guide for financial reports and personal documents using JoinMyPDF Protect PDF—100% in-browser."
+      },
+      "description": "Learn why password protection matters for financial and personal PDFs, and how to encrypt files locally with JoinMyPDF Protect PDF.",
+      "contentBlocks": {
+        "intro": "Email attachments and shared drives are not vaults. A password on the PDF itself adds a second layer: even if the file is forwarded, opened on the wrong laptop, or scraped from a backup, the content stays locked without the passphrase. JoinMyPDF Protect PDF applies encryption in your browser so tax packets, payroll exports, and board materials never need to be uploaded to process.",
+        "editorialNote": "This article focuses on user passwords for standard PDF encryption—not digital certificates or DRM platforms.",
+        "primaryTool": "protect-pdf",
+        "sections": [
+          {
+            "id": "why-encrypt",
+            "heading": "Why encrypt PDFs before you send them",
+            "level": 2,
+            "paragraphs": [
+              "Financial statements, loan applications, and HR records contain data subjects and account details that deserve more than “hope the link is private.”",
+              "PDF password encryption (when implemented with modern algorithms) scrambles file contents. Recipients need the password to view or print—reducing casual exposure if the attachment leaks."
+            ]
+          },
+          {
+            "id": "client-side-encrypt",
+            "heading": "Client-side encryption: what happens on your machine",
+            "level": 2,
+            "paragraphs": [
+              "Protect PDF loads the library that rewrites the PDF structure with encryption flags—inside your tab. The plaintext file is not sent to JoinMyPDF servers for conversion.",
+              "You choose the password, download the protected file, and share the password through a separate channel (phone, password manager share, or in-person). That separation is basic security hygiene."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "Step-by-step: password-protect a PDF",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Open Protect PDF and select your report or personal document.",
+              "Enter a strong password (12+ characters; avoid names and dates tied to the document).",
+              "Confirm the password and run encryption—wait for the download to finish.",
+              "Open the protected PDF locally to verify it prompts for a password.",
+              "Send the file and communicate the password separately.",
+              "Store the password in a manager; do not paste it in the same email as the attachment."
+            ]
+          },
+          {
+            "id": "pair-signing",
+            "heading": "Pair encryption with signing",
+            "level": 2,
+            "paragraphs": [
+              "A common workflow: sign first with Sign PDF (signature stays local), then encrypt with Protect PDF before delivery. Recipients get a signed, password-gated file.",
+              "If you received an encrypted PDF you own, Unlock PDF can remove protection locally when you know the current password—again without uploading the document for conversion."
+            ]
+          },
+          {
+            "id": "limits",
+            "heading": "Know the limits",
+            "level": 2,
+            "limitations": [
+              "Passwords can be guessed if they are weak—use length and uniqueness.",
+              "PDF passwords do not stop someone with full device access and keyloggers.",
+              "Highly regulated environments may require additional controls beyond file passwords."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does Protect PDF upload my file?",
+            "a": "No. Encryption runs in your browser for standard Protect PDF usage."
+          },
+          {
+            "q": "What if I forget the password?",
+            "a": "There is no back door. Store passwords in a password manager or secure record."
+          },
+          {
+            "q": "Can I sign after encrypting?",
+            "a": "Usually sign first, then encrypt—many tools cannot edit encrypted PDFs without unlocking."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF tool"
+          },
+          {
+            "href": "/tools/sign-pdf/",
+            "anchor": "Sign PDF (sign before encrypting)"
+          },
+          {
+            "href": "/blog/how-to-safely-sign-contracts-online/",
+            "anchor": "Sign contracts without uploading"
+          },
+          {
+            "href": "/blog/hidden-risks-of-free-online-pdf-editors/",
+            "anchor": "Risks of upload-based editors"
+          }
+        ]
+      }
+    }
+  ]
+}

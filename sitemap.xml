@@ -289,18 +289,6 @@
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://joinmypdf.com/tools/delete-pdf-pages/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.89</priority>
-  </url>
-  <url>
-    <loc>https://joinmypdf.com/tools/add-page-numbers/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.86</priority>
-  </url>
-  <url>
     <loc>https://joinmypdf.com/tools/pdf-split-large-files/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -425,12 +413,6 @@
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://joinmypdf.com/tools/png-to-pdf/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.88</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/tools/jpg-to-pdf-fast/</loc>
@@ -559,12 +541,6 @@
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://joinmypdf.com/tools/pdf-to-png/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.87</priority>
-  </url>
-  <url>
     <loc>https://joinmypdf.com/tools/pdf-to-jpg-fast/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -691,24 +667,6 @@
     <priority>0.88</priority>
   </url>
   <url>
-    <loc>https://joinmypdf.com/tools/unlock-pdf/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.87</priority>
-  </url>
-  <url>
-    <loc>https://joinmypdf.com/tools/redact-pdf/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.86</priority>
-  </url>
-  <url>
-    <loc>https://joinmypdf.com/tools/sign-pdf/</loc>
-    <lastmod>2026-05-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
     <loc>https://joinmypdf.com/tools/protect-pdf-fast/</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -829,22 +787,904 @@
     <priority>0.60</priority>
   </url>
   <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-free/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-large-files/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-secure/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-instant/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-online-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-free-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-mobile-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-high-quality-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-large-files-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-secure-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-instant-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-free-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-large-files-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/unlock-pdf-no-upload-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-free/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-large-files/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-secure/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-instant/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-online-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-free-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-mobile-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-high-quality-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-large-files-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-secure-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-instant-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-free-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-large-files-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/redact-pdf-no-upload-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.89</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-free/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-large-files/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-secure/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-instant/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-online-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-free-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-mobile-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-high-quality-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-large-files-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-secure-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-instant-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-free-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-large-files-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/delete-pdf-pages-no-upload-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-free/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-large-files/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-secure/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-instant/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-online-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-free-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-mobile-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-high-quality-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-large-files-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-secure-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-instant-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-free-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-large-files-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf-no-upload-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.87</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-free/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-large-files/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-secure/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-instant/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-online-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-free-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-mobile-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-high-quality-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-large-files-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-secure-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-instant-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-free-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-large-files-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/pdf-to-png-no-upload-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.86</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-free/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-large-files/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-secure/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-instant/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-online-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-free-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-mobile-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-high-quality-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-large-files-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-secure-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-instant-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-free-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-large-files-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/add-page-numbers-no-upload-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-free/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-large-files/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-secure/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-instant/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-online-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-free-no-signup/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-mobile-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-high-quality-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-large-files-fast/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-secure-no-upload/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-instant-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-free-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-large-files-high-quality/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/tools/sign-pdf-no-upload-mobile/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
     <loc>https://joinmypdf.com/blog/merge-pdf-online-fast/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/compress-pdf-free-fast/</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/split-pdf-tool-fast/</loc>
     <lastmod>2026-05-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/jpg-to-pdf-converter-fast/</loc>
@@ -1102,25 +1942,25 @@
     <loc>https://joinmypdf.com/blog/pdf-too-large-fix-for-gmail/</loc>
     <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/how-to-send-pdf-via-email-for-gmail/</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/how-to-reduce-pdf-size-under-1mb-for-gmail/</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/how-to-merge-pdf-on-mobile-for-gmail/</loc>
     <lastmod>2026-03-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/how-to-organize-scanned-documents-for-gmail/</loc>
@@ -1402,13 +2242,13 @@
     <loc>https://joinmypdf.com/blog/safe-pdf-tools-online-without-cloud-upload/</loc>
     <lastmod>2026-02-02</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/is-it-safe-to-upload-pdf-without-cloud-upload/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/client-side-pdf-tools-without-cloud-upload/</loc>
@@ -1444,7 +2284,7 @@
     <loc>https://joinmypdf.com/blog/client-side-pdf-tools-with-local-processing/</loc>
     <lastmod>2026-01-26</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/pdf-privacy-online-with-local-processing/</loc>
@@ -1552,25 +2392,25 @@
     <loc>https://joinmypdf.com/blog/online-vs-offline-pdf-tools-for-small-business/</loc>
     <lastmod>2026-01-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/best-pdf-tools-2026-for-small-business/</loc>
     <lastmod>2026-01-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/adobe-acrobat-alternatives-for-small-business/</loc>
     <lastmod>2026-01-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/browser-pdf-tools-comparison-for-small-business/</loc>
     <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/pdf-software-alternatives-for-small-business/</loc>
@@ -1594,7 +2434,7 @@
     <loc>https://joinmypdf.com/blog/adobe-acrobat-alternatives-for-freelancers/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://joinmypdf.com/blog/browser-pdf-tools-comparison-for-freelancers/</loc>
@@ -2027,5 +2867,23 @@
     <lastmod>2025-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/blog/how-to-safely-sign-contracts-online/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/blog/hidden-risks-of-free-online-pdf-editors/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://joinmypdf.com/blog/how-to-password-protect-pdf-in-browser/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
   </url>
 </urlset>
