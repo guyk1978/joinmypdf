@@ -81,14 +81,26 @@ export default function HomePage() {
         </div>
 
         {/* Guides */}
-        <section className="mt-16 rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-12 text-center md:mt-20">
-          <h2 className="text-xl font-semibold text-ink md:text-2xl">Guides for email, mobile & submissions</h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-ink-muted md:text-base">
-            Short tutorials that link straight into the tools so your team can repeat the same steps every time.
-          </p>
-          <Link href="/blog/" className={`${ctaSecondary} mt-8 inline-flex`}>
-            View Guides
-          </Link>
+        <section className="mt-16 grid gap-4 md:grid-cols-2 md:mt-20">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-10 text-center">
+            <h2 className="text-xl font-semibold text-ink md:text-2xl">Browse all tools</h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-ink-muted md:text-base">
+              Full directory of merge, compress, convert, sign, and protect workflows—including long-tail pages for
+              mobile, deadlines, and sensitive documents.
+            </p>
+            <Link href="/tools/" className={`${ctaSecondary} mt-6 inline-flex`}>
+              Open tool directory
+            </Link>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-10 text-center">
+            <h2 className="text-xl font-semibold text-ink md:text-2xl">Guides for email, mobile &amp; submissions</h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-ink-muted md:text-base">
+              Short tutorials that link straight into the tools so your team can repeat the same steps every time.
+            </p>
+            <Link href="/blog/" className={`${ctaSecondary} mt-6 inline-flex`}>
+              View Guides
+            </Link>
+          </div>
         </section>
       </main>
       <SiteFooter />

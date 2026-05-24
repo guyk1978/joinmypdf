@@ -56,6 +56,7 @@ const today = new Date().toISOString().slice(0, 10);
 
 const urls = [];
 urls.push({ loc: baseUrl + "/", priority: "1.0", changefreq: "daily" });
+urls.push({ loc: baseUrl + "/tools/", priority: "0.92", changefreq: "weekly", lastmod: today });
 urls.push({ loc: baseUrl + "/blog/", priority: "0.9", changefreq: "daily", lastmod: today });
 
 for (const tool of registry.tools || []) {

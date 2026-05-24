@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [
     { url: `${siteUrl}/`, lastModified: now, changeFrequency: "daily", priority: 1 },
-    { url: `${siteUrl}/tools/`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${siteUrl}/tools/`, lastModified: now, changeFrequency: "weekly", priority: 0.92 },
     { url: `${siteUrl}/blog/`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/privacy/`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
     { url: `${siteUrl}/compare/`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },

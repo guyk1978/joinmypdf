@@ -239,10 +239,13 @@
     return [];
   }
 
-  function renderHomepage(registry, blogRegistry) {
-    document.title = registry.site.defaultTitle;
-    ensureMeta("description", registry.site.defaultDescription);
-    ensureCanonical("/");
+  function renderToolsHub(registry, blogRegistry) {
+    document.title = "All PDF Tools — JoinMyPDF";
+    ensureMeta(
+      "description",
+      "Browse JoinMyPDF merge, split, compress, convert, sign, and protect tools. Local browser processing—no watermark on standard output."
+    );
+    ensureCanonical("/tools/");
 
     const allTools = document.getElementById("allTools");
     const categoryBlocks = document.getElementById("categoryBlocks");
@@ -1245,7 +1248,7 @@
     const registry = loaded[0];
     const blogRegistry = loaded[1];
     const pageType = document.body.getAttribute("data-page");
-    if (pageType === "home") return renderHomepage(registry, blogRegistry);
+    if (pageType === "tools-hub") return renderToolsHub(registry, blogRegistry);
     if (pageType === "tool") return renderToolPage(registry, blogRegistry, window.location.pathname);
     if (pageType === "blog") return renderBlogPage(registry, blogRegistry, window.location.pathname);
     if (pageType === "blog-index") return renderBlogIndex(registry, blogRegistry);

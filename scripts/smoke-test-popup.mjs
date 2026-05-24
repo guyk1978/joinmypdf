@@ -99,9 +99,10 @@ async function staticChecks() {
   );
 
   console.log("\n== HTML wiring ==");
-  const homepage = await readFile(path.join(root, "index.html"), "utf8");
-  const homeMatches = (homepage.match(/email-popup\.js/g) || []).length;
-  assert("index.html includes email-popup.js exactly once", homeMatches === 1, "occurrences=" + homeMatches);
+  const toolsHub = await readFile(path.join(root, "tools", "index.html"), "utf8");
+  const hubMatches = (toolsHub.match(/email-popup\.js/g) || []).length;
+  assert("tools/index.html includes email-popup.js exactly once", hubMatches === 1, "occurrences=" + hubMatches);
+  assert("tools/index.html uses tools-hub page type", toolsHub.includes('data-page="tools-hub"'));
 
   const toolPage = await readFile(path.join(root, "tools", "pdf-merge", "index.html"), "utf8");
   const toolMatches = (toolPage.match(/email-popup\.js/g) || []).length;

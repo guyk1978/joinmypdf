@@ -1,7 +1,6 @@
-const CACHE_NAME = "joinmypdf-shell-v4";
+const CACHE_NAME = "joinmypdf-shell-v5";
 const CORE_ASSETS = [
   "/",
-  "/index.html",
   "/manifest.webmanifest",
   "/assets/css/styles.css",
   "/assets/js/seo-factory.js",
@@ -50,7 +49,7 @@ self.addEventListener("fetch", (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
           return response;
         })
-        .catch(() => caches.match("/index.html"));
+        .catch(() => caches.match("/"));
     })
   );
 });
