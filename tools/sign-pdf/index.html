@@ -12,23 +12,24 @@
 </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign PDF Online — JoinMyPDF</title>
-    <meta name="description" content="Sign PDF documents locally in your browser. Draw or type your signature, place it on the page, and download—nothing is uploaded to our servers." />
-    <link rel="canonical" href="/tools/sign-pdf/" />
+    <title>JoinMyPDF Tool</title>
+    <meta name="description" content="Dynamic JoinMyPDF tool page." />
+    <link rel="canonical" href="/tools/pdf-merge/" />
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
     <link rel="apple-touch-icon" href="/assets/icons/icon-192.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#0b1220" />
     <link rel="stylesheet" href="/assets/css/styles.css" />
-    <script src="https://unpkg.com/pdf-lib-with-encrypt@1.2.1/dist/pdf-lib.min.js" defer></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
     <script src="/assets/js/pdf-core.js" defer></script>
+    <script src="/assets/js/visual-reorder.js" defer></script>
     <script src="/assets/js/ui-core.js" defer></script>
-    <script src="/assets/js/pdf-sign-workspace.js" defer></script>
+    <script src="/assets/js/pdf-merge-workspace.js" defer></script>
     <script src="/assets/js/seo-factory.js" defer></script>
     <script src="/assets/js/share-float.js" defer></script>
   </head>
-  <body data-page="tool" data-tool-operation="sign">
+  <body data-page="tool">
     <header class="site-header">
       <div class="container site-header__inner">
         <a class="brand" href="/">
@@ -308,81 +309,40 @@
     </header>
     <main class="container">
       <section class="hero">
-        <h1 id="toolHeroTitle">Sign PDF Online</h1>
-        <p id="toolHeroDesc">Draw or type your signature and place it on your PDF in the browser.</p>
+        <h1 id="toolHeroTitle">PDF Tool</h1>
+        <p id="toolHeroDesc"></p>
       </section>
       <section class="tool-layout">
         <article class="glass card">
-          <div class="privacy-callout" role="note">
-            <strong>100% Secure &amp; Confidential:</strong> Your signatures and documents are processed entirely in your browser. We never see, store, or upload your private contracts.
+          <label class="dropzone dropzone--upload" id="dropzone"><span class="dropzone__inner"><strong>Drop PDFs here</strong><p>or click to choose files (2+ PDFs)</p></span></label>
+          <input id="toolInput" type="file" accept="application/pdf,.pdf" multiple hidden />
+          <div id="mergeWorkspace" class="merge-workspace is-hidden">
+            <p class="visual-reorder-panel__hint">Drag cards to reorder. Files merge in the order shown below.</p>
+            <div id="mergeReorderGrid" class="visual-reorder-grid" role="list"></div>
           </div>
-          <label class="dropzone dropzone--upload" id="dropzone"><span class="dropzone__inner"><strong>Drop your PDF here</strong><p>or click to choose a file</p></span></label>
-          <input id="toolInput" type="file" accept="application/pdf,.pdf" hidden />
-          <div id="signWorkspace" class="sign-workspace is-hidden">
-            <div id="signPasswordPanel" class="protect-form is-hidden">
-              <label class="protect-form__label" for="signPassword">PDF password (protected files)</label>
-              <div class="btn-row">
-                <input id="signPassword" class="protect-form__input" type="password" autocomplete="current-password" placeholder="Enter password to preview pages" />
-                <button id="signLoadPages" class="btn btn--ghost" type="button">Load pages</button>
-              </div>
-            </div>
-            <div class="sign-layout">
-              <aside class="sign-library" aria-label="Your signatures">
-                <div class="sign-library__head">
-                  <h2 class="sign-library__title">Your Signatures</h2>
-                  <button id="signCreateBtn" class="btn btn--primary sign-library__add" type="button">+ New</button>
-                </div>
-                <p class="sign-library__hint">Click a signature to place another copy on the active page. Reuse the same signature across pages.</p>
-                <p id="signLibraryEmpty" class="sign-library__empty">No signatures yet. Create one to get started.</p>
-                <ul id="signSavedList" class="sign-library__list is-hidden"></ul>
-              </aside>
-              <div class="sign-main">
-                <div class="sign-page-select" id="signPageSelectRoot">
-                  <span class="sign-page-select__label">Active page</span>
-                  <div class="sign-page-dropdown" id="signPageDropdown">
-                    <button type="button" class="sign-page-dropdown__trigger" id="signPageTrigger" aria-haspopup="listbox" aria-expanded="false">
-                      <span id="signPageTriggerLabel">Page 1</span>
-                      <svg class="sign-page-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </button>
-                    <ul class="sign-page-dropdown__menu is-hidden" id="signPageMenu" role="listbox"></ul>
-                  </div>
-                </div>
-                <div id="signPages" class="sign-pages"></div>
-              </div>
-            </div>
-            <div class="redact-toolbar">
-              <button id="primaryAction" class="btn btn--primary btn-protect" type="button" disabled>Sign &amp; Download PDF</button>
-              <button id="clearAction" class="btn btn--ghost" type="button">Choose another file</button>
-            </div>
-          </div>
-          <div id="signModal" class="sign-modal is-hidden" role="dialog" aria-modal="true">
-            <button type="button" class="sign-modal__backdrop" id="signModalClose" aria-label="Close"></button>
-            <div class="sign-modal__panel glass">
-              <h2 class="sign-modal__title">Create your signature</h2>
-              <div class="sign-tabs">
-                <button type="button" class="sign-tabs__btn is-active" data-sign-tab="draw">Draw</button>
-                <button type="button" class="sign-tabs__btn" data-sign-tab="type">Type</button>
-              </div>
-              <div id="signTabDraw" class="sign-tab-panel">
-                <p class="sign-tab-panel__hint">Use your mouse or finger to draw your signature.</p>
-                <canvas id="signPad" class="sign-pad" width="520" height="160"></canvas>
-                <button type="button" class="btn btn--ghost sign-pad__clear" id="signPadClear">Clear pad</button>
-              </div>
-              <div id="signTabType" class="sign-tab-panel is-hidden">
-                <label class="sign-tab-panel__label" for="signTypeName">Type your name</label>
-                <input id="signTypeName" class="sign-type-input" type="text" placeholder="Your full name" />
-                <p id="signTypePreview" class="sign-type-preview">Preview</p>
-              </div>
-              <p id="signModalError" class="sign-modal__error is-hidden" role="alert"></p>
-              <div class="sign-modal__actions">
-                <button type="button" class="btn btn--ghost" id="signModalCancel">Cancel</button>
-                <button type="button" class="btn btn--primary" id="signModalSave">Use signature</button>
-              </div>
-            </div>
-          </div>
+          <label id="qualityLabel" class="is-hidden" for="qualityRange">Compression level (when applicable)</label>
+          <input id="qualityRange" class="is-hidden" type="range" min="55" max="95" value="75" />
+          <div class="btn-row"><button id="primaryAction" class="btn btn--primary" type="button" disabled>Merge PDFs</button><button id="clearAction" class="btn btn--ghost" type="button">Clear</button></div>
           <p id="statusText" class="status" aria-live="polite"></p>
           <div id="fileList" class="file-list is-hidden"></div>
           <div id="previewGrid" class="preview-grid is-hidden"></div>
+          <div
+            class="partner-mapdiagram"
+            style="margin: 20px 0 0; max-width: 100%; padding: 15px; border: 1px solid rgba(56, 73, 99, 0.85); border-radius: 8px; background: rgba(15, 23, 42, 0.55); text-align: center; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);"
+            aria-label="Partner tool: MapDiagram"
+          >
+            <p style="margin: 0 0 10px 0; color: #e5e7eb; font-size: 0.95rem; line-height: 1.5;">
+              Creating a presentation or workflow? Build flowcharts &amp; system designs visually with
+              <strong style="color: #f8fafc;">MapDiagram</strong>, then bring them here to merge.
+            </p>
+            <a
+              href="https://mapdiagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #38bdf8; text-decoration: none; font-weight: bold;"
+              >Open MapDiagram editor →</a
+            >
+          </div>
         </article>
         <aside class="glass card">
           <h2>How it works</h2>
@@ -441,6 +401,6 @@
     </footer>
     <script src="/assets/js/pwa-install.js" defer></script>
     <script src="/assets/js/email-popup.js" defer></script>
-    <script src="/assets/js/site-nav.js" defer></script>
+      <script src="/assets/js/site-nav.js" defer></script>
   </body>
 </html>

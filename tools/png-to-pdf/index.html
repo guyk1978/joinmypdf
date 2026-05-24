@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
       <!-- Google tag (gtag.js) -->
@@ -12,18 +12,20 @@
 </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PNG to PDF Converter — JoinMyPDF</title>
-    <meta name="description" content="Convert PNG images to PDF locally in your browser. Reorder screenshots, then download—no upload to our servers." />
-    <link rel="canonical" href="/tools/png-to-pdf/" />
+    <title>JoinMyPDF Tool</title>
+    <meta name="description" content="Dynamic JoinMyPDF tool page." />
+    <link rel="canonical" href="/tools/pdf-merge/" />
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
     <link rel="apple-touch-icon" href="/assets/icons/icon-192.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#0b1220" />
     <link rel="stylesheet" href="/assets/css/styles.css" />
-    <script src="https://unpkg.com/pdf-lib-with-encrypt@1.2.1/dist/pdf-lib.min.js" defer></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
     <script src="/assets/js/pdf-core.js" defer></script>
+    <script src="/assets/js/visual-reorder.js" defer></script>
     <script src="/assets/js/ui-core.js" defer></script>
+    <script src="/assets/js/pdf-merge-workspace.js" defer></script>
     <script src="/assets/js/seo-factory.js" defer></script>
     <script src="/assets/js/share-float.js" defer></script>
   </head>
@@ -307,39 +309,40 @@
     </header>
     <main class="container">
       <section class="hero">
-        <h1 id="toolHeroTitle">PNG to PDF Converter</h1>
-        <p id="toolHeroDesc">Convert PNG images into one ordered PDF in your browser.</p>
+        <h1 id="toolHeroTitle">PDF Tool</h1>
+        <p id="toolHeroDesc"></p>
       </section>
       <section class="tool-layout">
         <article class="glass card">
-          <div class="privacy-callout" role="note">
-            <strong>100% Secure:</strong> Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.
+          <label class="dropzone dropzone--upload" id="dropzone"><span class="dropzone__inner"><strong>Drop PDFs here</strong><p>or click to choose files (2+ PDFs)</p></span></label>
+          <input id="toolInput" type="file" accept="application/pdf,.pdf" multiple hidden />
+          <div id="mergeWorkspace" class="merge-workspace is-hidden">
+            <p class="visual-reorder-panel__hint">Drag cards to reorder. Files merge in the order shown below.</p>
+            <div id="mergeReorderGrid" class="visual-reorder-grid" role="list"></div>
           </div>
-          <label class="dropzone dropzone--upload" id="dropzone"><span class="dropzone__inner"><strong>Drop PNG images here</strong><p>or click to choose files</p></span></label>
-          <input id="toolInput" type="file" accept="image/png,.png" multiple hidden />
-          <label id="qualityLabel" for="qualityRange" class="is-hidden">Compression level (when applicable)</label>
-          <input id="qualityRange" type="range" min="55" max="95" value="75" class="is-hidden" />
-          <div class="btn-row"><button id="primaryAction" class="btn btn--primary" type="button" disabled>Convert to PDF</button><button id="clearAction" class="btn btn--ghost" type="button">Clear</button></div>
+          <label id="qualityLabel" class="is-hidden" for="qualityRange">Compression level (when applicable)</label>
+          <input id="qualityRange" class="is-hidden" type="range" min="55" max="95" value="75" />
+          <div class="btn-row"><button id="primaryAction" class="btn btn--primary" type="button" disabled>Merge PDFs</button><button id="clearAction" class="btn btn--ghost" type="button">Clear</button></div>
           <p id="statusText" class="status" aria-live="polite"></p>
-          <div id="fileList" class="file-list"></div>
-          <div id="previewGrid" class="preview-grid"></div>
+          <div id="fileList" class="file-list is-hidden"></div>
+          <div id="previewGrid" class="preview-grid is-hidden"></div>
           <div
-          class="partner-mapdiagram"
-          style="margin: 20px 0 0; max-width: 100%; padding: 15px; border: 1px solid rgba(56, 73, 99, 0.85); border-radius: 8px; background: rgba(15, 23, 42, 0.55); text-align: center; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);"
-          aria-label="Partner tool: MapDiagram"
-        >
-          <p style="margin: 0 0 10px 0; color: #e5e7eb; font-size: 0.95rem; line-height: 1.5;">
-            Creating a presentation or workflow? Build flowcharts &amp; system designs visually with
-            <strong style="color: #f8fafc;">MapDiagram</strong>, then bring them here to merge.
-          </p>
-          <a
-            href="https://mapdiagram.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="color: #38bdf8; text-decoration: none; font-weight: bold;"
-            >Open MapDiagram editor →</a
+            class="partner-mapdiagram"
+            style="margin: 20px 0 0; max-width: 100%; padding: 15px; border: 1px solid rgba(56, 73, 99, 0.85); border-radius: 8px; background: rgba(15, 23, 42, 0.55); text-align: center; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);"
+            aria-label="Partner tool: MapDiagram"
           >
-        </div>
+            <p style="margin: 0 0 10px 0; color: #e5e7eb; font-size: 0.95rem; line-height: 1.5;">
+              Creating a presentation or workflow? Build flowcharts &amp; system designs visually with
+              <strong style="color: #f8fafc;">MapDiagram</strong>, then bring them here to merge.
+            </p>
+            <a
+              href="https://mapdiagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #38bdf8; text-decoration: none; font-weight: bold;"
+              >Open MapDiagram editor →</a
+            >
+          </div>
         </article>
         <aside class="glass card">
           <h2>How it works</h2>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
       <!-- Google tag (gtag.js) -->
@@ -12,24 +12,24 @@
 </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Delete PDF Pages — Remove Pages Online — JoinMyPDF</title>
-    <meta name="description" content="Delete pages from a PDF locally in your browser. Pick thumbnails to remove and download a cleaned file—no upload to our servers." />
-    <link rel="canonical" href="/tools/delete-pdf-pages/" />
+    <title>JoinMyPDF Tool</title>
+    <meta name="description" content="Dynamic JoinMyPDF tool page." />
+    <link rel="canonical" href="/tools/pdf-merge/" />
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
     <link rel="apple-touch-icon" href="/assets/icons/icon-192.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#0b1220" />
     <link rel="stylesheet" href="/assets/css/styles.css" />
-    <script src="https://unpkg.com/pdf-lib-with-encrypt@1.2.1/dist/pdf-lib.min.js" defer></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
     <script src="/assets/js/pdf-core.js" defer></script>
     <script src="/assets/js/visual-reorder.js" defer></script>
     <script src="/assets/js/ui-core.js" defer></script>
-    <script src="/assets/js/pdf-delete-pages-workspace.js" defer></script>
+    <script src="/assets/js/pdf-merge-workspace.js" defer></script>
     <script src="/assets/js/seo-factory.js" defer></script>
     <script src="/assets/js/share-float.js" defer></script>
   </head>
-  <body data-page="tool" data-tool-operation="delete-pages">
+  <body data-page="tool">
     <header class="site-header">
       <div class="container site-header__inner">
         <a class="brand" href="/">
@@ -309,28 +309,40 @@
     </header>
     <main class="container">
       <section class="hero">
-        <h1 id="toolHeroTitle">Delete PDF Pages</h1>
-        <p id="toolHeroDesc">Remove unwanted pages from a PDF in your browser—files stay on your device.</p>
+        <h1 id="toolHeroTitle">PDF Tool</h1>
+        <p id="toolHeroDesc"></p>
       </section>
       <section class="tool-layout">
         <article class="glass card">
-          <div class="privacy-callout" role="note">
-            <strong>100% Private:</strong> Page removal is processed entirely in your browser. Your files never touch our servers.
+          <label class="dropzone dropzone--upload" id="dropzone"><span class="dropzone__inner"><strong>Drop PDFs here</strong><p>or click to choose files (2+ PDFs)</p></span></label>
+          <input id="toolInput" type="file" accept="application/pdf,.pdf" multiple hidden />
+          <div id="mergeWorkspace" class="merge-workspace is-hidden">
+            <p class="visual-reorder-panel__hint">Drag cards to reorder. Files merge in the order shown below.</p>
+            <div id="mergeReorderGrid" class="visual-reorder-grid" role="list"></div>
           </div>
-          <label class="dropzone dropzone--upload" id="dropzone"><span class="dropzone__inner"><strong>Drop your PDF here</strong><p>or click to choose a file</p></span></label>
-          <input id="toolInput" type="file" accept="application/pdf,.pdf" hidden />
-          <div id="deletePagesWorkspace" class="delete-pages-workspace is-hidden">
-            <p class="visual-reorder-panel__hint">Drag thumbnails to reorder pages. Use the trash icon to mark pages for removal.</p>
-            <div id="deletePagesGrid" class="delete-pages-grid visual-reorder-grid" role="list"></div>
-            <div class="delete-pages-toolbar">
-              <button id="deleteClearSelection" class="btn btn--ghost" type="button" disabled>Clear selection</button>
-              <button id="primaryAction" class="btn btn--primary btn-protect" type="button" disabled>Delete Pages</button>
-              <button id="clearAction" class="btn btn--ghost" type="button">Choose another file</button>
-            </div>
-          </div>
+          <label id="qualityLabel" class="is-hidden" for="qualityRange">Compression level (when applicable)</label>
+          <input id="qualityRange" class="is-hidden" type="range" min="55" max="95" value="75" />
+          <div class="btn-row"><button id="primaryAction" class="btn btn--primary" type="button" disabled>Merge PDFs</button><button id="clearAction" class="btn btn--ghost" type="button">Clear</button></div>
           <p id="statusText" class="status" aria-live="polite"></p>
           <div id="fileList" class="file-list is-hidden"></div>
           <div id="previewGrid" class="preview-grid is-hidden"></div>
+          <div
+            class="partner-mapdiagram"
+            style="margin: 20px 0 0; max-width: 100%; padding: 15px; border: 1px solid rgba(56, 73, 99, 0.85); border-radius: 8px; background: rgba(15, 23, 42, 0.55); text-align: center; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);"
+            aria-label="Partner tool: MapDiagram"
+          >
+            <p style="margin: 0 0 10px 0; color: #e5e7eb; font-size: 0.95rem; line-height: 1.5;">
+              Creating a presentation or workflow? Build flowcharts &amp; system designs visually with
+              <strong style="color: #f8fafc;">MapDiagram</strong>, then bring them here to merge.
+            </p>
+            <a
+              href="https://mapdiagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #38bdf8; text-decoration: none; font-weight: bold;"
+              >Open MapDiagram editor →</a
+            >
+          </div>
         </article>
         <aside class="glass card">
           <h2>How it works</h2>
@@ -389,6 +401,6 @@
     </footer>
     <script src="/assets/js/pwa-install.js" defer></script>
     <script src="/assets/js/email-popup.js" defer></script>
-    <script src="/assets/js/site-nav.js" defer></script>
+      <script src="/assets/js/site-nav.js" defer></script>
   </body>
 </html>
