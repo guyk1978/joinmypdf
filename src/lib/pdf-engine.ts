@@ -168,8 +168,7 @@ export function addPageNumbersOutputName(file: File) {
 
 export async function signPdfFile(
   file: File,
-  signaturePng: Uint8Array,
-  placement: import("./pdf-sign").NormalizedSignaturePlacement,
+  stamps: import("./pdf-sign").SignatureStamp[],
   password?: string,
 ): Promise<Uint8Array> {
   if (!file) throw new Error("No PDF file selected.");
@@ -180,7 +179,7 @@ export async function signPdfFile(
 
   const { signPdfBytes } = await import("./pdf-sign");
   try {
-    return await signPdfBytes(bytes, signaturePng, placement, { password });
+    return await signPdfBytes(bytes, stamps, { password });
   } catch (error) {
     throw classifyPdfError(error);
   }

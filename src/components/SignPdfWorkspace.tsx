@@ -10,11 +10,15 @@ import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
+  createSignatureId,
   defaultSignaturePlacement,
+  instanceToPlacement,
   loadPdfPageCount,
+  pngBytesToDataUrl,
   renderPdfPageForUi,
   signPdfOutputName,
-  type NormalizedSignaturePlacement,
+  type SavedSignature,
+  type SignatureInstance,
 } from "@/lib/pdf-sign";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import {
@@ -35,7 +39,13 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-type DragMode = { type: "move" | "resize"; startX: number; startY: number; orig: NormalizedSignaturePlacement };
+type DragMode = {
+  type: "move" | "resize";
+  instanceId: string;
+  startX: number;
+  startY: number;
+  orig: Pick<SignatureInstance, "nx" | "ny" | "nw" | "nh">;
+};
 
 function clamp01(v: number) {
   return Math.max(0, Math.min(1, v));
@@ -45,23 +55,25 @@ function SignPageStage({
   pageIndex,
   fileBytes,
   password,
-  placement,
-  signatureUrl,
-  onPlacementChange,
+  instances,
+  savedById,
+  onInstanceChange,
+  onRemoveInstance,
 }: {
   pageIndex: number;
   fileBytes: Uint8Array;
   password: string;
-  placement: NormalizedSignaturePlacement | null;
-  signatureUrl: string | null;
-  onPlacementChange: (next: NormalizedSignaturePlacement) => void;
+  instances: SignatureInstance[];
+  savedById: Map<string, SavedSignature>;
+  onInstanceChange: (instanceId: string, patch: Partial<SignatureInstance>) => void;
+  onRemoveInstance: (instanceId: string) => void;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
   const [loading, setLoading] = useState(true);
   const dragRef = useRef<DragMode | null>(null);
 
-  const showPlaque = placement && signatureUrl && placement.pageIndex === pageIndex;
+  const pageInstances = instances.filter((i) => i.pageIndex === pageIndex);
 
   useEffect(() => {
     let cancelled = false;
@@ -89,7 +101,10 @@ function SignPageStage({
   const onPointerMove = (event: ReactPointerEvent) => {
     const drag = dragRef.current;
     const stage = stageRef.current;
-    if (!drag || !stage || !placement) return;
+    if (!drag || !stage) return;
+    const inst = pageInstances.find((i) => i.id === drag.instanceId);
+    if (!inst) return;
+
     const w = stage.clientWidth || 1;
     const h = stage.clientHeight || 1;
     const p = pointerInStage(event);
@@ -98,14 +113,12 @@ function SignPageStage({
     const o = drag.orig;
 
     if (drag.type === "move") {
-      onPlacementChange({
-        ...o,
+      onInstanceChange(drag.instanceId, {
         nx: clamp01(o.nx + dx),
         ny: clamp01(o.ny + dy),
       });
     } else {
-      onPlacementChange({
-        ...o,
+      onInstanceChange(drag.instanceId, {
         nw: clamp01(Math.max(0.08, o.nw + dx)),
         nh: clamp01(Math.max(0.04, o.nh + dy)),
       });
@@ -139,40 +152,72 @@ function SignPageStage({
             height={canvasEl.height}
           />
         ) : null}
-        {showPlaque ? (
-          <div
-            className="sign-plaque"
-            style={{
-              left: `${placement.nx * 100}%`,
-              top: `${placement.ny * 100}%`,
-              width: `${placement.nw * 100}%`,
-              height: `${placement.nh * 100}%`,
-            }}
-            onPointerDown={(e) => {
-              if (e.button !== 0) return;
-              e.stopPropagation();
-              const p = pointerInStage(e);
-              dragRef.current = { type: "move", startX: p.x, startY: p.y, orig: placement };
-            }}
-          >
-            <img src={signatureUrl} alt="Your signature" className="sign-plaque__img" draggable={false} />
-            <span
-              className="sign-plaque__handle"
-              aria-label="Resize signature"
+        {pageInstances.map((inst) => {
+          const saved = savedById.get(inst.savedId);
+          if (!saved) return null;
+          return (
+            <div
+              key={inst.id}
+              className="sign-plaque"
+              style={{
+                left: `${inst.nx * 100}%`,
+                top: `${inst.ny * 100}%`,
+                width: `${inst.nw * 100}%`,
+                height: `${inst.nh * 100}%`,
+              }}
               onPointerDown={(e) => {
+                if ((e.target as HTMLElement).closest(".sign-plaque__remove")) return;
+                if ((e.target as HTMLElement).closest(".sign-plaque__handle")) return;
                 if (e.button !== 0) return;
                 e.stopPropagation();
                 const p = pointerInStage(e);
-                dragRef.current = { type: "resize", startX: p.x, startY: p.y, orig: placement };
+                dragRef.current = {
+                  type: "move",
+                  instanceId: inst.id,
+                  startX: p.x,
+                  startY: p.y,
+                  orig: { nx: inst.nx, ny: inst.ny, nw: inst.nw, nh: inst.nh },
+                };
               }}
-            />
-          </div>
-        ) : null}
+            >
+              <img src={saved.dataUrl} alt="Signature" className="sign-plaque__img" draggable={false} />
+              <button
+                type="button"
+                className="sign-plaque__remove"
+                aria-label="Remove this signature"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onRemoveInstance(inst.id);
+                }}
+              >
+                ×
+              </button>
+              <span
+                className="sign-plaque__handle"
+                aria-label="Resize signature"
+                onPointerDown={(e) => {
+                  if (e.button !== 0) return;
+                  e.stopPropagation();
+                  const p = pointerInStage(e);
+                  dragRef.current = {
+                    type: "resize",
+                    instanceId: inst.id,
+                    startX: p.x,
+                    startY: p.y,
+                    orig: { nx: inst.nx, ny: inst.ny, nw: inst.nw, nh: inst.nh },
+                  };
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
-      {showPlaque ? (
-        <p className="sign-page__hint">Drag to move · corner handle to resize</p>
+      {pageInstances.length > 0 ? (
+        <p className="sign-page__hint">
+          {pageInstances.length} signature(s) on this page — drag to move, corner to resize.
+        </p>
       ) : (
-        <p className="sign-page__hint">Select this page below to place your signature here.</p>
+        <p className="sign-page__hint">Click a saved signature below to place it on this page.</p>
       )}
     </div>
   );
@@ -184,9 +229,9 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   const [pageCount, setPageCount] = useState(0);
   const [password, setPassword] = useState("");
   const [encrypted, setEncrypted] = useState(false);
-  const [signatureBytes, setSignatureBytes] = useState<Uint8Array | null>(null);
-  const [signatureUrl, setSignatureUrl] = useState<string | null>(null);
-  const [placement, setPlacement] = useState<NormalizedSignaturePlacement | null>(null);
+  const [savedSignatures, setSavedSignatures] = useState<SavedSignature[]>([]);
+  const [instances, setInstances] = useState<SignatureInstance[]>([]);
+  const [activePageIndex, setActivePageIndex] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -196,34 +241,44 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   const inputRef = useRef<HTMLInputElement>(null);
   const baseId = useId();
 
+  const savedById = new Map(savedSignatures.map((s) => [s.id, s]));
+
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
 
-  const revokeSignatureUrl = useCallback(() => {
-    if (signatureUrl) URL.revokeObjectURL(signatureUrl);
-  }, [signatureUrl]);
-
   const reset = useCallback(() => {
-    revokeSignatureUrl();
     setFile(null);
     setFileBytes(null);
     setPageCount(0);
     setPassword("");
     setEncrypted(false);
-    setSignatureBytes(null);
-    setSignatureUrl(null);
-    setPlacement(null);
+    setSavedSignatures([]);
+    setInstances([]);
+    setActivePageIndex(0);
     setModalOpen(false);
     setStatus("");
     setDone(false);
     setRunError(null);
     if (inputRef.current) inputRef.current.value = "";
-  }, [revokeSignatureUrl]);
+  }, []);
 
-  useEffect(() => () => revokeSignatureUrl(), [revokeSignatureUrl]);
+  const addInstance = useCallback((savedId: string, pageIndex: number) => {
+    const base = defaultSignaturePlacement(pageIndex);
+    const inst: SignatureInstance = {
+      id: createSignatureId(),
+      savedId,
+      pageIndex: base.pageIndex,
+      nx: base.nx,
+      ny: base.ny,
+      nw: base.nw,
+      nh: base.nh,
+    };
+    setInstances((prev) => [...prev, inst]);
+    return inst.id;
+  }, []);
 
   const addFile = useCallback(
     async (incoming: FileList | File[]) => {
@@ -234,12 +289,11 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       }
       const picked = list[0];
       const bytes = new Uint8Array(await picked.arrayBuffer());
-      revokeSignatureUrl();
       setFile(picked);
       setFileBytes(bytes);
-      setSignatureBytes(null);
-      setSignatureUrl(null);
-      setPlacement(null);
+      setSavedSignatures([]);
+      setInstances([]);
+      setActivePageIndex(0);
       setDone(false);
       setRunError(null);
       setPassword("");
@@ -253,7 +307,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       try {
         const count = await loadPdfPageCount(bytes, "");
         setPageCount(count);
-        setStatus(`Loaded ${count} page(s). Create your signature and place it on the page.`);
+        setStatus(`Loaded ${count} page(s). Create a signature, then click it to place on the document.`);
       } catch {
         setPageCount(0);
         setStatus("Could not open this PDF. If it is protected, enter the password below.");
@@ -261,7 +315,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
       capture(EVENTS.file_selected, { count: 1, operation: tool.operation });
     },
-    [acceptPdf, revokeSignatureUrl, tool.operation],
+    [acceptPdf, tool.operation],
   );
 
   const reloadWithPassword = useCallback(async () => {
@@ -276,18 +330,39 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     }
   }, [fileBytes, password]);
 
-  const onSignatureSaved = (bytes: Uint8Array, url: string) => {
-    revokeSignatureUrl();
-    setSignatureBytes(bytes);
-    setSignatureUrl(url);
-    setPlacement(defaultSignaturePlacement(0));
-    setStatus("Drag and resize your signature on the page, then click Sign & Download PDF.");
+  const onSignatureSaved = async (bytes: Uint8Array, label: string) => {
+    const dataUrl = await pngBytesToDataUrl(bytes);
+    const saved: SavedSignature = {
+      id: createSignatureId(),
+      dataUrl,
+      pngBytes: bytes,
+      label,
+    };
+    setSavedSignatures((prev) => [...prev, saved]);
+    addInstance(saved.id, activePageIndex);
+    setStatus("Signature saved. Click it again to add more copies, or drag to position.");
+  };
+
+  const placeSavedSignature = (savedId: string) => {
+    addInstance(savedId, activePageIndex);
+    setStatus(`Added signature on page ${activePageIndex + 1}. Drag to position.`);
+  };
+
+  const removeSavedSignature = (savedId: string) => {
+    setSavedSignatures((prev) => prev.filter((s) => s.id !== savedId));
+    setInstances((prev) => prev.filter((i) => i.savedId !== savedId));
+  };
+
+  const onInstanceChange = (instanceId: string, patch: Partial<SignatureInstance>) => {
+    setInstances((prev) =>
+      prev.map((inst) => (inst.id === instanceId ? { ...inst, ...patch } : inst)),
+    );
   };
 
   const onSign = async () => {
     if (!file || !fileBytes || busy) return;
-    if (!signatureBytes || !placement) {
-      setStatus("Create a signature and place it on a page first.");
+    if (!instances.length) {
+      setStatus("Place at least one signature on the document.");
       return;
     }
     if (encrypted && !password.trim()) {
@@ -295,14 +370,23 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       return;
     }
 
+    const stamps = instances.map((inst) => {
+      const saved = savedById.get(inst.savedId);
+      if (!saved) throw new Error("A placed signature is no longer available.");
+      return {
+        signaturePng: saved.pngBytes,
+        placement: instanceToPlacement(inst),
+      };
+    });
+
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Applying signature…");
+    setStatus("Applying signatures…");
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
-      const bytes = await pdf.signPdfFile(file, signatureBytes, placement, password);
+      const bytes = await pdf.signPdfFile(file, stamps, password);
       const outName = signPdfOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
@@ -327,7 +411,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     }
   };
 
-  const canSign = Boolean(signatureBytes && placement);
+  const canSign = instances.length > 0;
 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
@@ -399,65 +483,102 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
             </div>
           ) : null}
 
-          <div className="flex flex-wrap gap-3">
-            <button type="button" className="btn btn--primary" onClick={() => setModalOpen(true)}>
-              {signatureUrl ? "Change signature" : "Create signature"}
-            </button>
-            {placement && pageCount > 1 ? (
-              <label className="flex items-center gap-2 text-sm text-ink-muted">
-                <span className="font-medium text-ink">Sign on page</span>
-                <select
-                  className="rounded-lg border border-white/15 bg-white/[0.03] px-3 py-2 text-sm text-ink"
-                  value={placement.pageIndex}
-                  onChange={(e) =>
-                    setPlacement((prev) =>
-                      prev ? { ...prev, pageIndex: Number(e.target.value) } : prev,
-                    )
-                  }
-                >
-                  {Array.from({ length: pageCount }, (_, i) => (
-                    <option key={i} value={i}>
-                      Page {i + 1}
-                    </option>
+          <div className="sign-layout">
+            <aside className="sign-library" aria-label="Your signatures">
+              <div className="sign-library__head">
+                <h2 className="sign-library__title">Your Signatures</h2>
+                <button type="button" className="btn btn--primary sign-library__add" onClick={() => setModalOpen(true)}>
+                  + New
+                </button>
+              </div>
+              <p className="sign-library__hint">
+                Click a signature to place another copy on the active page. Reuse the same signature across pages.
+              </p>
+              {savedSignatures.length === 0 ? (
+                <p className="sign-library__empty">No signatures yet. Create one to get started.</p>
+              ) : (
+                <ul className="sign-library__list">
+                  {savedSignatures.map((saved, index) => (
+                    <li key={saved.id} className="sign-saved-item">
+                      <button
+                        type="button"
+                        className="sign-saved-item__place"
+                        onClick={() => placeSavedSignature(saved.id)}
+                        title={`Place on page ${activePageIndex + 1}`}
+                      >
+                        <img src={saved.dataUrl} alt="" className="sign-saved-item__thumb" />
+                        <span className="sign-saved-item__label">{saved.label || `Signature ${index + 1}`}</span>
+                      </button>
+                      <button
+                        type="button"
+                        className="sign-saved-item__delete"
+                        aria-label={`Remove ${saved.label}`}
+                        onClick={() => removeSavedSignature(saved.id)}
+                      >
+                        ×
+                      </button>
+                    </li>
                   ))}
-                </select>
-              </label>
-            ) : null}
-          </div>
+                </ul>
+              )}
+            </aside>
 
-          {pageCount > 0 ? (
-            <div className="sign-pages">
-              {Array.from({ length: pageCount }, (_, pageIndex) => (
-                <SignPageStage
-                  key={pageIndex}
-                  pageIndex={pageIndex}
-                  fileBytes={fileBytes}
-                  password={password}
-                  placement={placement}
-                  signatureUrl={signatureUrl}
-                  onPlacementChange={setPlacement}
-                />
-              ))}
+            <div className="sign-main space-y-4">
+              {pageCount > 0 ? (
+                <label className="sign-page-select flex items-center gap-2 text-sm text-ink-muted">
+                  <span className="font-medium text-ink">Active page</span>
+                  <select
+                    className="rounded-lg border border-white/15 bg-white/[0.03] px-3 py-2 text-sm text-ink"
+                    value={activePageIndex}
+                    onChange={(e) => setActivePageIndex(Number(e.target.value))}
+                  >
+                    {Array.from({ length: pageCount }, (_, i) => (
+                      <option key={i} value={i}>
+                        Page {i + 1}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              ) : null}
+
+              {pageCount > 0 ? (
+                <div className="sign-pages">
+                  {Array.from({ length: pageCount }, (_, pageIndex) => (
+                    <SignPageStage
+                      key={pageIndex}
+                      pageIndex={pageIndex}
+                      fileBytes={fileBytes}
+                      password={password}
+                      instances={instances}
+                      savedById={savedById}
+                      onInstanceChange={onInstanceChange}
+                      onRemoveInstance={(id) =>
+                        setInstances((prev) => prev.filter((i) => i.id !== id))
+                      }
+                    />
+                  ))}
+                </div>
+              ) : null}
+
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  disabled={busy || !canSign}
+                  onClick={() => void onSign()}
+                  className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Sign &amp; Download PDF
+                </button>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={reset}
+                  className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
+                >
+                  Choose another file
+                </button>
+              </div>
             </div>
-          ) : null}
-
-          <div className="flex flex-wrap gap-3">
-            <button
-              type="button"
-              disabled={busy || !canSign}
-              onClick={() => void onSign()}
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Sign &amp; Download PDF
-            </button>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={reset}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
-            >
-              Choose another file
-            </button>
           </div>
         </div>
       ) : null}
@@ -465,7 +586,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       <SignatureModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        onSave={onSignatureSaved}
+        onSave={(bytes, label) => void onSignatureSaved(bytes, label)}
       />
 
       {runError ? (

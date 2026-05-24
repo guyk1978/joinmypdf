@@ -9,6 +9,57 @@ export type NormalizedSignaturePlacement = {
   nh: number;
 };
 
+export type SignatureStamp = {
+  signaturePng: Uint8Array;
+  placement: NormalizedSignaturePlacement;
+};
+
+/** Reusable signature stored in workspace state (client-side only). */
+export type SavedSignature = {
+  id: string;
+  dataUrl: string;
+  pngBytes: Uint8Array;
+  label: string;
+};
+
+/** One placed copy of a saved signature on a PDF page. */
+export type SignatureInstance = {
+  id: string;
+  savedId: string;
+  pageIndex: number;
+  nx: number;
+  ny: number;
+  nw: number;
+  nh: number;
+};
+
+export function createSignatureId(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `sig-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
+export async function pngBytesToDataUrl(pngBytes: Uint8Array): Promise<string> {
+  const blob = new Blob([pngBytes as BlobPart], { type: "image/png" });
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(new Error("Failed to read signature image."));
+    reader.readAsDataURL(blob);
+  });
+}
+
+export function instanceToPlacement(instance: SignatureInstance): NormalizedSignaturePlacement {
+  return {
+    pageIndex: instance.pageIndex,
+    nx: instance.nx,
+    ny: instance.ny,
+    nw: instance.nw,
+    nh: instance.nh,
+  };
+}
+
 export const SIGN_UI_SCALE = 1.25;
 
 async function setupPdfJs() {
@@ -104,14 +155,22 @@ export function defaultSignaturePlacement(pageIndex = 0): NormalizedSignaturePla
   return { pageIndex, nx: 0.32, ny: 0.78, nw: 0.36, nh: 0.1 };
 }
 
-/** Stamp signature PNG onto one PDF page and save. */
+function pngCacheKey(png: Uint8Array): string {
+  let hash = 0;
+  const step = Math.max(1, Math.floor(png.length / 32));
+  for (let i = 0; i < png.length; i += step) {
+    hash = (hash * 31 + png[i]) | 0;
+  }
+  return `${png.length}-${hash}`;
+}
+
+/** Stamp one or more signature instances onto PDF pages and save. */
 export async function signPdfBytes(
   source: Uint8Array,
-  signaturePng: Uint8Array,
-  placement: NormalizedSignaturePlacement,
+  stamps: SignatureStamp[],
   options?: { password?: string },
 ): Promise<Uint8Array> {
-  if (!signaturePng?.length) throw new Error("Create a signature first.");
+  if (!stamps?.length) throw new Error("Place at least one signature on the document.");
 
   const password = options?.password?.trim() || undefined;
   const loadOptions = password ? { password } : {};
@@ -127,21 +186,34 @@ export async function signPdfBytes(
   }
 
   const pageCount = doc.getPageCount();
-  const pageIndex = placement.pageIndex;
-  if (pageIndex < 0 || pageIndex >= pageCount) {
-    throw new Error("Invalid page for signature placement.");
+  const embedded = new Map<string, Awaited<ReturnType<PDFDocument["embedPng"]>>>();
+
+  for (const stamp of stamps) {
+    if (!stamp.signaturePng?.length) {
+      throw new Error("A signature image is missing.");
+    }
+    const { placement } = stamp;
+    const pageIndex = placement.pageIndex;
+    if (pageIndex < 0 || pageIndex >= pageCount) {
+      throw new Error("Invalid page for signature placement.");
+    }
+
+    const key = pngCacheKey(stamp.signaturePng);
+    let image = embedded.get(key);
+    if (!image) {
+      image = await doc.embedPng(stamp.signaturePng);
+      embedded.set(key, image);
+    }
+
+    const page = doc.getPage(pageIndex);
+    const { width: pageW, height: pageH } = page.getSize();
+    const drawW = placement.nw * pageW;
+    const drawH = placement.nh * pageH;
+    const x = placement.nx * pageW;
+    const y = pageH - placement.ny * pageH - drawH;
+
+    page.drawImage(image, { x, y, width: drawW, height: drawH });
   }
-
-  const page = doc.getPage(pageIndex);
-  const { width: pageW, height: pageH } = page.getSize();
-  const image = await doc.embedPng(signaturePng);
-
-  const drawW = placement.nw * pageW;
-  const drawH = placement.nh * pageH;
-  const x = placement.nx * pageW;
-  const y = pageH - placement.ny * pageH - drawH;
-
-  page.drawImage(image, { x, y, width: drawW, height: drawH });
 
   return doc.save({ useObjectStreams: false });
 }

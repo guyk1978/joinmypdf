@@ -19,7 +19,7 @@ export function SignatureModal({
 }: {
   open: boolean;
   onClose: () => void;
-  onSave: (pngBytes: Uint8Array, previewUrl: string) => void;
+  onSave: (pngBytes: Uint8Array, label: string) => void;
 }) {
   const baseId = useId();
   const [tab, setTab] = useState<Tab>("draw");
@@ -124,8 +124,7 @@ export function SignatureModal({
     setError("");
     try {
       const bytes = await canvasToPngBytes(canvas);
-      const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: "image/png" }));
-      onSave(bytes, url);
+      onSave(bytes, `Drawn signature`);
       onClose();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not save signature.");
@@ -139,8 +138,7 @@ export function SignatureModal({
     setError("");
     try {
       const bytes = await createTypedSignaturePng(typedName);
-      const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: "image/png" }));
-      onSave(bytes, url);
+      onSave(bytes, typedName.trim());
       onClose();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not create signature.");

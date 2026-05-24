@@ -299,11 +299,19 @@
     return base + "-numbered.pdf";
   }
 
-  async function signPdfFile(file, signaturePng, placement, password) {
+  function pngCacheKey(png) {
+    var hash = 0;
+    var step = Math.max(1, Math.floor(png.length / 32));
+    for (var i = 0; i < png.length; i += step) {
+      hash = ((hash * 31 + png[i]) | 0);
+    }
+    return png.length + "-" + hash;
+  }
+
+  async function signPdfFile(file, stamps, password) {
     ensureDeps();
     if (!file) throw new Error("No PDF file selected.");
-    if (!signaturePng || !signaturePng.length) throw new Error("Create a signature first.");
-    if (!placement) throw new Error("Place your signature on a page.");
+    if (!stamps || !stamps.length) throw new Error("Place at least one signature on the document.");
 
     var bytes = new Uint8Array(await file.arrayBuffer());
     var pwd = String(password || "").trim() || undefined;
@@ -317,22 +325,36 @@
       throw new Error("This PDF is password-protected. Enter the password to sign it.");
     }
 
-    var pageIndex = placement.pageIndex;
     var pageCount = doc.getPageCount();
-    if (pageIndex < 0 || pageIndex >= pageCount) {
-      throw new Error("Invalid page for signature placement.");
-    }
+    var embedded = Object.create(null);
 
-    var page = doc.getPage(pageIndex);
-    var size = page.getSize();
-    var pageW = size.width;
-    var pageH = size.height;
-    var image = await doc.embedPng(signaturePng);
-    var drawW = placement.nw * pageW;
-    var drawH = placement.nh * pageH;
-    var x = placement.nx * pageW;
-    var y = pageH - placement.ny * pageH - drawH;
-    page.drawImage(image, { x: x, y: y, width: drawW, height: drawH });
+    for (var s = 0; s < stamps.length; s += 1) {
+      var stamp = stamps[s];
+      var signaturePng = stamp.signaturePng;
+      var placement = stamp.placement;
+      if (!signaturePng || !signaturePng.length) {
+        throw new Error("A signature image is missing.");
+      }
+      var pageIndex = placement.pageIndex;
+      if (pageIndex < 0 || pageIndex >= pageCount) {
+        throw new Error("Invalid page for signature placement.");
+      }
+      var key = pngCacheKey(signaturePng);
+      var image = embedded[key];
+      if (!image) {
+        image = await doc.embedPng(signaturePng);
+        embedded[key] = image;
+      }
+      var page = doc.getPage(pageIndex);
+      var size = page.getSize();
+      var pageW = size.width;
+      var pageH = size.height;
+      var drawW = placement.nw * pageW;
+      var drawH = placement.nh * pageH;
+      var x = placement.nx * pageW;
+      var y = pageH - placement.ny * pageH - drawH;
+      page.drawImage(image, { x: x, y: y, width: drawW, height: drawH });
+    }
     return doc.save({ useObjectStreams: false });
   }
 

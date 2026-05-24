@@ -1,4 +1,4 @@
-/* global PDFCore, UICore, pdfjsLib */
+/* global PDFCore, UICore */
 (function () {
   "use strict";
 
@@ -26,6 +26,11 @@
     return Math.max(0, Math.min(1, v));
   }
 
+  function createId() {
+    if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
+    return "sig-" + Date.now() + "-" + Math.random().toString(36).slice(2, 9);
+  }
+
   function defaultPlacement(pageIndex) {
     return { pageIndex: pageIndex || 0, nx: 0.32, ny: 0.78, nw: 0.36, nh: 0.1 };
   }
@@ -44,6 +49,20 @@
         },
         "image/png",
       );
+    });
+  }
+
+  function pngBytesToDataUrl(bytes) {
+    return new Promise(function (resolve, reject) {
+      var blob = new Blob([bytes], { type: "image/png" });
+      var reader = new FileReader();
+      reader.onload = function () {
+        resolve(String(reader.result));
+      };
+      reader.onerror = function () {
+        reject(new Error("Failed to read signature image."));
+      };
+      reader.readAsDataURL(blob);
     });
   }
 
@@ -80,6 +99,8 @@
     var loadPagesBtn = byId("signLoadPages");
     var modal = byId("signModal");
     var modalError = byId("signModalError");
+    var savedList = byId("signSavedList");
+    var libraryEmpty = byId("signLibraryEmpty");
 
     if (!dropzone || !input || !workspace || !pagesRoot || !primaryBtn) return;
 
@@ -89,9 +110,9 @@
       pageCount: 0,
       encrypted: false,
       password: "",
-      signaturePng: null,
-      signatureUrl: null,
-      placement: null,
+      activePageIndex: 0,
+      savedSignatures: [],
+      instances: [],
       drag: null,
       busy: false,
       padDrawing: false,
@@ -100,6 +121,13 @@
 
     var pad = byId("signPad");
     var padCtx = pad ? pad.getContext("2d") : null;
+
+    function savedById(id) {
+      for (var i = 0; i < state.savedSignatures.length; i += 1) {
+        if (state.savedSignatures[i].id === id) return state.savedSignatures[i];
+      }
+      return null;
+    }
 
     function setStatus(text) {
       if (statusEl) statusEl.textContent = text || "";
@@ -117,21 +145,61 @@
     }
 
     function updateButtons() {
-      primaryBtn.disabled = state.busy || !state.signaturePng || !state.placement;
+      primaryBtn.disabled = state.busy || !state.instances.length;
     }
 
-    function revokeSignatureUrl() {
-      if (state.signatureUrl) URL.revokeObjectURL(state.signatureUrl);
+    function renderLibrary() {
+      if (!savedList || !libraryEmpty) return;
+      if (!state.savedSignatures.length) {
+        libraryEmpty.classList.remove("is-hidden");
+        savedList.classList.add("is-hidden");
+        savedList.innerHTML = "";
+        return;
+      }
+      libraryEmpty.classList.add("is-hidden");
+      savedList.classList.remove("is-hidden");
+      savedList.innerHTML = "";
+      state.savedSignatures.forEach(function (saved, index) {
+        var li = document.createElement("li");
+        li.className = "sign-saved-item";
+        li.innerHTML =
+          '<button type="button" class="sign-saved-item__place" title="Place on active page">' +
+          '<img class="sign-saved-item__thumb" alt="" src="' +
+          saved.dataUrl +
+          '" /><span class="sign-saved-item__label">' +
+          (saved.label || "Signature " + (index + 1)) +
+          "</span></button>" +
+          '<button type="button" class="sign-saved-item__delete" aria-label="Remove signature">×</button>';
+        var placeBtn = li.querySelector(".sign-saved-item__place");
+        var deleteBtn = li.querySelector(".sign-saved-item__delete");
+        placeBtn.addEventListener("click", function () {
+          addInstance(saved.id, state.activePageIndex);
+          setStatus("Added signature on page " + (state.activePageIndex + 1) + ". Drag to position.");
+          renderAllPlaques();
+          updateButtons();
+        });
+        deleteBtn.addEventListener("click", function () {
+          state.savedSignatures = state.savedSignatures.filter(function (s) {
+            return s.id !== saved.id;
+          });
+          state.instances = state.instances.filter(function (inst) {
+            return inst.savedId !== saved.id;
+          });
+          renderLibrary();
+          renderAllPlaques();
+          updateButtons();
+        });
+        savedList.appendChild(li);
+      });
     }
 
     function resetAll() {
-      revokeSignatureUrl();
       state.file = null;
       state.bytes = null;
       state.pageCount = 0;
-      state.signaturePng = null;
-      state.signatureUrl = null;
-      state.placement = null;
+      state.savedSignatures = [];
+      state.instances = [];
+      state.activePageIndex = 0;
       if (input) input.value = "";
       if (passwordInput) passwordInput.value = "";
       if (passwordPanel) passwordPanel.classList.add("is-hidden");
@@ -141,6 +209,7 @@
       if (pageSelect) pageSelect.innerHTML = "";
       if (modal) modal.classList.add("is-hidden");
       clearPad();
+      renderLibrary();
       updateButtons();
       setStatus("");
     }
@@ -159,62 +228,113 @@
         opt.textContent = "Page " + (i + 1);
         pageSelect.appendChild(opt);
       }
-      if (state.placement) pageSelect.value = String(state.placement.pageIndex);
+      pageSelect.value = String(state.activePageIndex);
     }
 
-    function renderPlaque(stage, pageIndex) {
-      var existing = stage.querySelector(".sign-plaque");
-      if (existing) existing.remove();
-      if (!state.signatureUrl || !state.placement || state.placement.pageIndex !== pageIndex) return;
-
-      var p = state.placement;
-      var plaque = document.createElement("div");
-      plaque.className = "sign-plaque";
-      plaque.style.left = p.nx * 100 + "%";
-      plaque.style.top = p.ny * 100 + "%";
-      plaque.style.width = p.nw * 100 + "%";
-      plaque.style.height = p.nh * 100 + "%";
-      plaque.innerHTML =
-        '<img class="sign-plaque__img" alt="Your signature" src="' +
-        state.signatureUrl +
-        '" /><span class="sign-plaque__handle" aria-label="Resize"></span>';
-
-      var handle = plaque.querySelector(".sign-plaque__handle");
-
-      plaque.addEventListener("pointerdown", function (e) {
-        if (e.target === handle) return;
-        if (e.button !== 0) return;
-        e.stopPropagation();
-        var rect = stage.getBoundingClientRect();
-        state.drag = {
-          type: "move",
-          pageIndex: pageIndex,
-          startX: e.clientX - rect.left,
-          startY: e.clientY - rect.top,
-          orig: Object.assign({}, p),
-        };
+    function addInstance(savedId, pageIndex) {
+      var base = defaultPlacement(pageIndex);
+      state.instances.push({
+        id: createId(),
+        savedId: savedId,
+        pageIndex: base.pageIndex,
+        nx: base.nx,
+        ny: base.ny,
+        nw: base.nw,
+        nh: base.nh,
       });
+    }
 
-      if (handle) {
-        handle.addEventListener("pointerdown", function (e) {
-          if (e.button !== 0) return;
-          e.stopPropagation();
-          var rect = stage.getBoundingClientRect();
-          state.drag = {
-            type: "resize",
-            pageIndex: pageIndex,
-            startX: e.clientX - rect.left,
-            startY: e.clientY - rect.top,
-            orig: Object.assign({}, p),
-          };
+    function removeInstance(instanceId) {
+      state.instances = state.instances.filter(function (inst) {
+        return inst.id !== instanceId;
+      });
+      updateButtons();
+    }
+
+    function updateInstance(instanceId, patch) {
+      state.instances = state.instances.map(function (inst) {
+        if (inst.id !== instanceId) return inst;
+        var next = Object.assign({}, inst);
+        Object.keys(patch).forEach(function (key) {
+          next[key] = patch[key];
         });
-      }
+        return next;
+      });
+    }
 
-      stage.appendChild(plaque);
+    function renderPlaquesOnStage(stage, pageIndex) {
+      stage.querySelectorAll(".sign-plaque").forEach(function (el) {
+        el.remove();
+      });
+      state.instances
+        .filter(function (inst) {
+          return inst.pageIndex === pageIndex;
+        })
+        .forEach(function (inst) {
+          var saved = savedById(inst.savedId);
+          if (!saved) return;
+
+          var plaque = document.createElement("div");
+          plaque.className = "sign-plaque";
+          plaque.setAttribute("data-instance-id", inst.id);
+          plaque.style.left = inst.nx * 100 + "%";
+          plaque.style.top = inst.ny * 100 + "%";
+          plaque.style.width = inst.nw * 100 + "%";
+          plaque.style.height = inst.nh * 100 + "%";
+          plaque.innerHTML =
+            '<img class="sign-plaque__img" alt="Signature" src="' +
+            saved.dataUrl +
+            '" /><button type="button" class="sign-plaque__remove" aria-label="Remove">×</button>' +
+            '<span class="sign-plaque__handle" aria-label="Resize"></span>';
+
+          var handle = plaque.querySelector(".sign-plaque__handle");
+          var removeBtn = plaque.querySelector(".sign-plaque__remove");
+
+          removeBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            removeInstance(inst.id);
+            renderAllPlaques();
+          });
+
+          plaque.addEventListener("pointerdown", function (e) {
+            if (e.target === handle || e.target === removeBtn) return;
+            if (e.button !== 0) return;
+            e.stopPropagation();
+            var rect = stage.getBoundingClientRect();
+            state.drag = {
+              type: "move",
+              instanceId: inst.id,
+              pageIndex: pageIndex,
+              startX: e.clientX - rect.left,
+              startY: e.clientY - rect.top,
+              orig: { nx: inst.nx, ny: inst.ny, nw: inst.nw, nh: inst.nh },
+            };
+          });
+
+          handle.addEventListener("pointerdown", function (e) {
+            if (e.button !== 0) return;
+            e.stopPropagation();
+            var rect = stage.getBoundingClientRect();
+            state.drag = {
+              type: "resize",
+              instanceId: inst.id,
+              pageIndex: pageIndex,
+              startX: e.clientX - rect.left,
+              startY: e.clientY - rect.top,
+              orig: { nx: inst.nx, ny: inst.ny, nw: inst.nw, nh: inst.nh },
+            };
+          });
+
+          stage.appendChild(plaque);
+        });
     }
 
     function onStagePointerMove(e, stage, pageIndex) {
-      if (!state.drag || state.drag.pageIndex !== pageIndex || !state.placement) return;
+      if (!state.drag || state.drag.pageIndex !== pageIndex) return;
+      var inst = state.instances.find(function (i) {
+        return i.id === state.drag.instanceId;
+      });
+      if (!inst) return;
       var rect = stage.getBoundingClientRect();
       var w = rect.width || 1;
       var h = rect.height || 1;
@@ -224,31 +344,23 @@
       var dy = (y - state.drag.startY) / h;
       var o = state.drag.orig;
       if (state.drag.type === "move") {
-        state.placement = {
-          pageIndex: pageIndex,
+        updateInstance(inst.id, {
           nx: clamp01(o.nx + dx),
           ny: clamp01(o.ny + dy),
-          nw: o.nw,
-          nh: o.nh,
-        };
+        });
       } else {
-        state.placement = {
-          pageIndex: pageIndex,
-          nx: o.nx,
-          ny: o.ny,
+        updateInstance(inst.id, {
           nw: clamp01(Math.max(0.08, o.nw + dx)),
           nh: clamp01(Math.max(0.04, o.nh + dy)),
-        };
+        });
       }
       renderAllPlaques();
-      if (pageSelect) pageSelect.value = String(pageIndex);
     }
 
     function renderAllPlaques() {
-      var stages = pagesRoot.querySelectorAll(".sign-page__stage");
-      stages.forEach(function (stage) {
+      pagesRoot.querySelectorAll(".sign-page__stage").forEach(function (stage) {
         var idx = Number(stage.getAttribute("data-page-index"));
-        renderPlaque(stage, idx);
+        renderPlaquesOnStage(stage, idx);
       });
     }
 
@@ -271,7 +383,7 @@
               stage.innerHTML = "";
               canvas.className = "sign-page__canvas";
               stage.appendChild(canvas);
-              renderPlaque(stage, pageIndex);
+              renderPlaquesOnStage(stage, pageIndex);
               stage.addEventListener("pointermove", function (e) {
                 onStagePointerMove(e, stage, pageIndex);
               });
@@ -294,12 +406,11 @@
         setStatus("Please choose a PDF file.");
         return;
       }
-      revokeSignatureUrl();
       state.file = file;
       state.bytes = new Uint8Array(await file.arrayBuffer());
-      state.signaturePng = null;
-      state.signatureUrl = null;
-      state.placement = null;
+      state.savedSignatures = [];
+      state.instances = [];
+      state.activePageIndex = 0;
       state.password = "";
       setStatus("Loading PDF…");
       try {
@@ -318,8 +429,9 @@
       workspace.classList.remove("is-hidden");
       if (passwordPanel) passwordPanel.classList.toggle("is-hidden", !state.encrypted);
       fillPageSelect();
+      renderLibrary();
       await renderPages();
-      setStatus("Create your signature and place it on the page.");
+      setStatus("Create a signature, then click it to place on the document.");
       updateButtons();
     }
 
@@ -345,6 +457,23 @@
       if (modal) modal.classList.add("is-hidden");
     }
 
+    async function registerSignature(bytes, label) {
+      var dataUrl = await pngBytesToDataUrl(bytes);
+      var saved = {
+        id: createId(),
+        dataUrl: dataUrl,
+        pngBytes: bytes,
+        label: label || "Signature",
+      };
+      state.savedSignatures.push(saved);
+      addInstance(saved.id, state.activePageIndex);
+      renderLibrary();
+      renderAllPlaques();
+      closeModal();
+      setStatus("Signature saved. Click it again to add more copies, or drag to position.");
+      updateButtons();
+    }
+
     async function saveSignatureFromDraw() {
       if (!pad || !padCtx) return;
       var pixels = padCtx.getImageData(0, 0, pad.width, pad.height).data;
@@ -360,29 +489,14 @@
         return;
       }
       var bytes = await canvasToPngBytes(pad);
-      revokeSignatureUrl();
-      state.signaturePng = bytes;
-      state.signatureUrl = URL.createObjectURL(new Blob([bytes], { type: "image/png" }));
-      state.placement = defaultPlacement(pageSelect ? Number(pageSelect.value) : 0);
-      fillPageSelect();
-      renderAllPlaques();
-      closeModal();
-      setStatus("Drag and resize your signature, then click Sign & Download PDF.");
-      updateButtons();
+      await registerSignature(bytes, "Drawn signature");
     }
 
     async function saveSignatureFromType() {
       var nameInput = byId("signTypeName");
-      var bytes = await createTypedSignaturePng(nameInput ? nameInput.value : "");
-      revokeSignatureUrl();
-      state.signaturePng = bytes;
-      state.signatureUrl = URL.createObjectURL(new Blob([bytes], { type: "image/png" }));
-      state.placement = defaultPlacement(pageSelect ? Number(pageSelect.value) : 0);
-      fillPageSelect();
-      renderAllPlaques();
-      closeModal();
-      setStatus("Drag and resize your signature, then click Sign & Download PDF.");
-      updateButtons();
+      var name = nameInput ? nameInput.value : "";
+      var bytes = await createTypedSignaturePng(name);
+      await registerSignature(bytes, String(name).trim());
     }
 
     if (pad) {
@@ -451,22 +565,15 @@
         var active = document.querySelector(".sign-tabs__btn.is-active");
         var tab = active ? active.getAttribute("data-sign-tab") : "draw";
         showModalError("");
-        if (tab === "type") {
-          saveSignatureFromType().catch(function (err) {
-            showModalError(err.message || "Could not create signature.");
-          });
-        } else {
-          saveSignatureFromDraw().catch(function (err) {
-            showModalError(err.message || "Could not create signature.");
-          });
-        }
+        var run = tab === "type" ? saveSignatureFromType : saveSignatureFromDraw;
+        run().catch(function (err) {
+          showModalError(err.message || "Could not create signature.");
+        });
       });
 
     if (pageSelect) {
       pageSelect.addEventListener("change", function () {
-        if (!state.placement) return;
-        state.placement.pageIndex = Number(pageSelect.value);
-        renderAllPlaques();
+        state.activePageIndex = Number(pageSelect.value);
       });
     }
 
@@ -498,11 +605,25 @@
       });
     }
     primaryBtn.addEventListener("click", function () {
-      if (!state.file || !state.signaturePng || !state.placement) return;
+      if (!state.file || !state.instances.length) return;
+      var stamps = state.instances.map(function (inst) {
+        var saved = savedById(inst.savedId);
+        if (!saved) throw new Error("A placed signature is no longer available.");
+        return {
+          signaturePng: saved.pngBytes,
+          placement: {
+            pageIndex: inst.pageIndex,
+            nx: inst.nx,
+            ny: inst.ny,
+            nw: inst.nw,
+            nh: inst.nh,
+          },
+        };
+      });
       state.busy = true;
       updateButtons();
-      setStatus("Applying signature…");
-      PDFCore.signPdfFile(state.file, state.signaturePng, state.placement, state.password)
+      setStatus("Applying signatures…");
+      PDFCore.signPdfFile(state.file, stamps, state.password)
         .then(function (bytes) {
           downloadBlob(new Blob([bytes], { type: "application/pdf" }), PDFCore.signPdfOutputName(state.file));
           setStatus("Signed PDF downloaded.");
@@ -517,6 +638,7 @@
     });
     if (clearBtn) clearBtn.addEventListener("click", resetAll);
 
+    renderLibrary();
     updateButtons();
   }
 

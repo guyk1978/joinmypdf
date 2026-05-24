@@ -119,14 +119,24 @@
                 <button id="signLoadPages" class="btn btn--ghost" type="button">Load pages</button>
               </div>
             </div>
-            <div class="btn-row">
-              <button id="signCreateBtn" class="btn btn--primary" type="button">Create signature</button>
-              <label class="sign-page-select">
-                <span>Sign on page</span>
-                <select id="signPageSelect"></select>
-              </label>
+            <div class="sign-layout">
+              <aside class="sign-library" aria-label="Your signatures">
+                <div class="sign-library__head">
+                  <h2 class="sign-library__title">Your Signatures</h2>
+                  <button id="signCreateBtn" class="btn btn--primary sign-library__add" type="button">+ New</button>
+                </div>
+                <p class="sign-library__hint">Click a signature to place another copy on the active page. Reuse the same signature across pages.</p>
+                <p id="signLibraryEmpty" class="sign-library__empty">No signatures yet. Create one to get started.</p>
+                <ul id="signSavedList" class="sign-library__list is-hidden"></ul>
+              </aside>
+              <div class="sign-main">
+                <label class="sign-page-select">
+                  <span>Active page</span>
+                  <select id="signPageSelect"></select>
+                </label>
+                <div id="signPages" class="sign-pages"></div>
+              </div>
             </div>
-            <div id="signPages" class="sign-pages"></div>
             <div class="redact-toolbar">
               <button id="primaryAction" class="btn btn--primary btn-protect" type="button" disabled>Sign &amp; Download PDF</button>
               <button id="clearAction" class="btn btn--ghost" type="button">Choose another file</button>
