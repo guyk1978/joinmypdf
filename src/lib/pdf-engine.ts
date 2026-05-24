@@ -78,20 +78,9 @@ export async function protectPdfFile(file: File, password: string): Promise<Uint
     throw new Error("Choose a valid PDF file.");
   }
 
-  const { encryptPDF } = await import("@pdfsmaller/pdf-encrypt");
+  const { protectPdfBytesQpdf } = await import("./pdf-protect-qpdf");
   try {
-    return await encryptPDF(bytes, trimmed, {
-      ownerPassword: trimmed,
-      algorithm: "AES-256",
-      allowPrinting: true,
-      allowHighQualityPrint: true,
-      allowModifying: false,
-      allowCopying: false,
-      allowAnnotating: false,
-      allowFillingForms: false,
-      allowExtraction: false,
-      allowAssembly: false,
-    });
+    return await protectPdfBytesQpdf(bytes, trimmed);
   } catch (error) {
     throw classifyPdfError(error);
   }

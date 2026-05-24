@@ -137,23 +137,20 @@
     const trimmed = String(password || "").trim();
     if (!trimmed) throw new Error("Enter a password.");
     if (trimmed.length < 4) throw new Error("Use a password with at least 4 characters.");
+
     const bytes = new Uint8Array(await file.arrayBuffer());
-    if (!(/pdf$/i.test(file.type) || /\.pdf$/i.test(file.name)) && !(bytes.length >= 4 && String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]) === "%PDF")) {
+    if (
+      !(/pdf$/i.test(file.type) || /\.pdf$/i.test(file.name)) &&
+      !(bytes.length >= 4 && String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]) === "%PDF")
+    ) {
       throw new Error("Choose a valid PDF file.");
     }
-    const mod = await import("https://esm.sh/@pdfsmaller/pdf-encrypt@1.0.2");
-    return mod.encryptPDF(bytes, trimmed, {
-      ownerPassword: trimmed,
-      algorithm: "AES-256",
-      allowPrinting: true,
-      allowHighQualityPrint: true,
-      allowModifying: false,
-      allowCopying: false,
-      allowAnnotating: false,
-      allowFillingForms: false,
-      allowExtraction: false,
-      allowAssembly: false,
-    });
+
+    if (!window.PDFProtect || typeof window.PDFProtect.protect !== "function") {
+      throw new Error("Protection engine is still loading. Wait a moment and try again.");
+    }
+
+    return window.PDFProtect.protect(bytes, trimmed);
   }
 
   window.PDFCore = {
