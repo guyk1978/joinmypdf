@@ -638,6 +638,170 @@ body.site-nav-open {
   margin-top: 0.25rem;
 }
 
+/* Tools hub (/tools/) — layout aligned with blog index polish */
+body[data-page="tools-hub"] main.tools-hub.container {
+  width: 100%;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 3rem;
+}
+
+.tools-hub__hero {
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.tools-hub__breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 1rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.tools-hub__breadcrumb a {
+  color: var(--muted-soft);
+  text-decoration: none;
+}
+
+.tools-hub__breadcrumb a:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.tools-hub__breadcrumb-sep {
+  opacity: 0.45;
+  user-select: none;
+}
+
+.tools-hub__breadcrumb [aria-current="page"] {
+  color: var(--text);
+}
+
+.tools-hub__lead {
+  margin: 0;
+  color: #a0aec0;
+  max-width: 70ch;
+  line-height: 1.65;
+}
+
+.tools-hub__workspace {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: var(--radius);
+}
+
+.tools-hub__dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 10.5rem;
+  margin: 0;
+  padding: 1.75rem 1.25rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.tools-hub__dropzone-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.tools-hub__dropzone strong {
+  display: block;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+
+.tools-hub__dropzone p {
+  display: block;
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.tools-hub__drop-actions {
+  justify-content: center;
+  margin: 0;
+  gap: 0.65rem;
+}
+
+.tools-hub__status {
+  margin: 0;
+  text-align: center;
+  min-height: 1.25rem;
+}
+
+.tools-hub__partner {
+  margin: 0 0 1.75rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(56, 73, 99, 0.85);
+  border-radius: var(--radius);
+  background: rgba(15, 23, 42, 0.55);
+  text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.tools-hub__partner p {
+  margin: 0 0 0.65rem;
+  color: #e5e7eb;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.tools-hub__partner strong {
+  color: #f8fafc;
+}
+
+.tools-hub__partner a {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.tools-hub__partner a:hover {
+  text-decoration: underline;
+}
+
+body[data-page="tools-hub"] .seo-block {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+}
+
+body[data-page="tools-hub"] .seo-block > p {
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+  color: var(--muted-soft);
+}
+
+body[data-page="tools-hub"] .seo-block > p:last-child {
+  margin-bottom: 0;
+}
+
+body[data-page="tools-hub"] .grid--tools {
+  margin-bottom: 1.25rem;
+}
+
 .partner-mapdiagram {
   margin-top: 0.5rem;
 }

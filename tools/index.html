@@ -96,51 +96,43 @@
       </div>
     </header>
 
-    <main class="container">
-      <section class="hero">
+    <main class="container tools-hub">
+      <section class="hero tools-hub__hero">
+        <nav class="tools-hub__breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="tools-hub__breadcrumb-sep" aria-hidden="true">/</span>
+          <span aria-current="page">All tools</span>
+        </nav>
         <p class="hero__eyebrow">Tool directory · local processing</p>
         <h1>All JoinMyPDF tools — merge, compress, convert, sign &amp; protect in your browser.</h1>
-        <p>
+        <p class="tools-hub__lead">
           Browse every workflow page and long-tail variant. Files stay on your device during processing—no watermark on
           standard output for typical use.
         </p>
-        <p class="btn-row" style="margin-top: 1rem;">
-          <a class="btn btn--ghost" href="/">← Back to home</a>
-        </p>
       </section>
 
-      <section class="home-dashboard-wrap" style="max-width: 900px; margin: 24px auto 0;">
-        <article class="glass card" id="homeDropDashboard">
-          <label class="dropzone" id="dropzone" for="homeToolInput">
+      <section class="tools-hub__workspace glass" id="homeDropDashboard" aria-label="Quick merge">
+        <label class="dropzone tools-hub__dropzone" id="dropzone" for="homeToolInput">
+          <span class="tools-hub__dropzone-inner">
             <strong>Drop PDFs here to merge</strong>
             <p>or click to choose files — processed locally in your browser</p>
-          </label>
-          <input id="homeToolInput" type="file" accept="application/pdf,.pdf" multiple hidden />
-          <div class="btn-row" style="justify-content: center; margin-top: 12px;">
-            <a class="btn btn--primary" href="/tools/pdf-merge/">Merge PDF</a>
-            <a class="btn btn--ghost" href="/">Home</a>
-          </div>
-          <p id="homeStatusText" class="status" aria-live="polite"></p>
-        </article>
+          </span>
+        </label>
+        <input id="homeToolInput" type="file" accept="application/pdf,.pdf" multiple hidden />
+        <div class="btn-row tools-hub__drop-actions">
+          <a class="btn btn--primary" href="/tools/pdf-merge/">Merge PDF</a>
+          <a class="btn btn--ghost" href="/">Home</a>
+        </div>
+        <p id="homeStatusText" class="status tools-hub__status" aria-live="polite"></p>
       </section>
 
-      <div
-        class="partner-mapdiagram"
-        style="margin: 20px auto; max-width: 900px; padding: 15px; border: 1px solid rgba(56, 73, 99, 0.85); border-radius: 8px; background: rgba(15, 23, 42, 0.55); text-align: center; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);"
-        aria-label="Partner tool: MapDiagram"
-      >
-        <p style="margin: 0 0 10px 0; color: #e5e7eb; font-size: 0.95rem; line-height: 1.5;">
+      <aside class="partner-mapdiagram tools-hub__partner" aria-label="Partner tool: MapDiagram">
+        <p>
           Creating a presentation or workflow? Build flowcharts &amp; system designs visually with
-          <strong style="color: #f8fafc;">MapDiagram</strong>, then bring them here to merge.
+          <strong>MapDiagram</strong>, then bring them here to merge.
         </p>
-        <a
-          href="https://mapdiagram.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          style="color: #38bdf8; text-decoration: none; font-weight: bold;"
-          >Open MapDiagram editor →</a
-        >
-      </div>
+        <a href="https://mapdiagram.com/" target="_blank" rel="noopener noreferrer">Open MapDiagram editor →</a>
+      </aside>
 
       <section class="glass seo-block">
         <h2>Recently updated</h2>
