@@ -299,6 +299,48 @@
     return base + "-numbered.pdf";
   }
 
+  async function signPdfFile(file, signaturePng, placement, password) {
+    ensureDeps();
+    if (!file) throw new Error("No PDF file selected.");
+    if (!signaturePng || !signaturePng.length) throw new Error("Create a signature first.");
+    if (!placement) throw new Error("Place your signature on a page.");
+
+    var bytes = new Uint8Array(await file.arrayBuffer());
+    var pwd = String(password || "").trim() || undefined;
+    var doc;
+    try {
+      doc = await PDFLib.PDFDocument.load(bytes, pwd ? { password: pwd } : {});
+    } catch (_) {
+      doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+    }
+    if (doc.isEncrypted && !pwd) {
+      throw new Error("This PDF is password-protected. Enter the password to sign it.");
+    }
+
+    var pageIndex = placement.pageIndex;
+    var pageCount = doc.getPageCount();
+    if (pageIndex < 0 || pageIndex >= pageCount) {
+      throw new Error("Invalid page for signature placement.");
+    }
+
+    var page = doc.getPage(pageIndex);
+    var size = page.getSize();
+    var pageW = size.width;
+    var pageH = size.height;
+    var image = await doc.embedPng(signaturePng);
+    var drawW = placement.nw * pageW;
+    var drawH = placement.nh * pageH;
+    var x = placement.nx * pageW;
+    var y = pageH - placement.ny * pageH - drawH;
+    page.drawImage(image, { x: x, y: y, width: drawW, height: drawH });
+    return doc.save({ useObjectStreams: false });
+  }
+
+  function signPdfOutputName(file) {
+    var base = file.name.replace(/\.pdf$/i, "") || "document";
+    return base + "-signed.pdf";
+  }
+
   async function protectPdfFile(file, password) {
     if (!file) throw new Error("No PDF file selected.");
     const trimmed = String(password || "").trim();
@@ -584,6 +626,8 @@
     zipBlobEntries,
     addPageNumbersFile,
     addPageNumbersOutputName,
+    signPdfFile,
+    signPdfOutputName,
     protectPdfFile,
     unlockPdfFile,
     isPdfEncrypted,

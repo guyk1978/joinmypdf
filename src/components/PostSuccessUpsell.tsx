@@ -77,6 +77,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Compress the unlocked file",
       body: "Smaller attachments are easier to email after you remove the password.",
     });
+  } else if (operation === "sign") {
+    rows.push({
+      href: "/tools/protect-pdf/",
+      title: "Password-protect the signed PDF",
+      body: "Lock the signed document before emailing it to clients.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for sending",
+      body: "Shrink the signed file if it is too large for your inbox.",
+    });
   } else if (operation === "redact") {
     rows.push({
       href: "/tools/protect-pdf/",

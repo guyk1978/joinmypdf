@@ -348,6 +348,153 @@ body {
   border-style: dashed;
 }
 
+.sign-pages {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.sign-page {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 12px;
+  padding: 0.75rem;
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.sign-page__label {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.sign-page__stage {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+  touch-action: none;
+}
+
+.sign-page__canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.sign-page__loading,
+.sign-page__hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.sign-plaque {
+  position: absolute;
+  z-index: 2;
+  cursor: move;
+  border: 2px dashed rgba(56, 189, 248, 0.75);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.sign-plaque__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.sign-plaque__handle {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: #38bdf8;
+  border: 2px solid #0b1220;
+  cursor: nwse-resize;
+}
+
+.sign-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.sign-modal.is-hidden {
+  display: none;
+}
+
+.sign-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(2, 6, 23, 0.72);
+}
+
+.sign-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(520px, 100%);
+  padding: 1.25rem;
+  border-radius: 14px;
+}
+
+.sign-tabs {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.sign-tabs__btn {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.55);
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.sign-tabs__btn.is-active {
+  border-color: rgba(56, 189, 248, 0.55);
+  color: #bae6fd;
+}
+
+.sign-pad {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 10px;
+  background: #fff;
+  touch-action: none;
+}
+
+.sign-type-input {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.65);
+  color: #e5e7eb;
+}
+
+.sign-type-preview {
+  margin-top: 0.75rem;
+  font-family: "Segoe Script", "Brush Script MT", cursive;
+  font-size: 2rem;
+  text-align: center;
+  color: #e5e7eb;
+}
+
+.sign-tab-panel.is-hidden {
+  display: none;
+}
+
 .redact-page__hint,
 .redact-page__loading {
   margin: 0;

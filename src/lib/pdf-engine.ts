@@ -166,6 +166,26 @@ export function addPageNumbersOutputName(file: File) {
   return `${base}-numbered.pdf`;
 }
 
+export async function signPdfFile(
+  file: File,
+  signaturePng: Uint8Array,
+  placement: import("./pdf-sign").NormalizedSignaturePlacement,
+  password?: string,
+): Promise<Uint8Array> {
+  if (!file) throw new Error("No PDF file selected.");
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!isPdfFile(file, bytes)) {
+    throw new Error("Choose a valid PDF file.");
+  }
+
+  const { signPdfBytes } = await import("./pdf-sign");
+  try {
+    return await signPdfBytes(bytes, signaturePng, placement, { password });
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
 export async function protectPdfFile(file: File, password: string): Promise<Uint8Array> {
   if (!file) throw new Error("No PDF file selected.");
   const trimmed = String(password || "").trim();

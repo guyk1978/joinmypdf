@@ -5,6 +5,7 @@ import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
+import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
@@ -69,7 +70,9 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <p className="max-w-3xl text-lg text-ink-muted">{tool.intent}</p>
         </header>
 
-        {tool.operation === "protect" ? (
+        {tool.operation === "sign" ? (
+          <SignPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "protect" ? (
           <ProtectPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "unlock" ? (
           <UnlockPdfWorkspace tool={tool} slug={slug} />

@@ -453,9 +453,9 @@
         "Sanitize legal exhibits before sending to external counsel"
       ],
       "relatedTools": [
+        "sign-pdf",
         "protect-pdf",
-        "unlock-pdf",
-        "pdf-compress"
+        "unlock-pdf"
       ],
       "faq": [
         {
@@ -675,6 +675,55 @@
       "longTailPages": [],
       "skipClusterVariants": true,
       "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-24"
+    },
+    {
+      "slug": "sign-pdf",
+      "category": "security",
+      "operation": "sign",
+      "title": "Sign PDF Online",
+      "primaryKeyword": "sign pdf online free",
+      "intent": "Draw or type a signature and place it on your PDF in the browser.",
+      "description": "Sign PDF documents locally—draw or type your signature, drag it into place, and download a signed file. Nothing is uploaded to our servers.",
+      "secondaryKeywords": [
+        "add signature to pdf",
+        "electronic signature pdf",
+        "sign contract pdf browser"
+      ],
+      "useCases": [
+        "Sign a freelance contract before sending it back",
+        "Add a handwritten signature to a scanned form",
+        "Initial each page of a short agreement"
+      ],
+      "relatedTools": [
+        "protect-pdf",
+        "redact-pdf",
+        "pdf-merge"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF or signature uploaded to JoinMyPDF?",
+          "a": "No. Signing runs entirely in your browser. Your document and signature never leave your device."
+        },
+        {
+          "q": "Can I draw and type signatures?",
+          "a": "Yes. Use Draw for a mouse or touch signature, or Type for a handwriting-style typed name."
+        },
+        {
+          "q": "Can I place the signature on any page?",
+          "a": "Yes. Choose the page, then drag and resize the signature overlay before downloading."
+        },
+        {
+          "q": "Is this a legally binding e-signature?",
+          "a": "JoinMyPDF provides a visual signature stamp. For regulated agreements, confirm requirements with your jurisdiction or counsel."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.9,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,

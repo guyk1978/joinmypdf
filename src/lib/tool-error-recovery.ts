@@ -20,6 +20,7 @@ const TOOLS = {
   pdfToJpg: { href: "/tools/pdf-to-jpg/", label: "Export pages as JPG" },
   pdfToPng: { href: "/tools/pdf-to-png/", label: "Export pages as PNG" },
   jpgToPdf: { href: "/tools/jpg-to-pdf/", label: "Try JPG to PDF" },
+  protect: { href: "/tools/protect-pdf/", label: "Protect PDF" },
   guides: { href: "/pdf-guides/", label: "Browse PDF workflow guides" },
 } as const;
 
@@ -103,6 +104,10 @@ export function getToolErrorRecovery(
     "add-page-numbers": [
       { ...TOOLS.merge, hint: "Combine sections before numbering", variant: "primary" },
       { ...TOOLS.split, variant: "secondary" },
+    ],
+    sign: [
+      { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
+      { ...TOOLS.merge, variant: "secondary" },
     ],
   };
 

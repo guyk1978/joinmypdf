@@ -83,6 +83,7 @@
       protect: "password-protect",
       unlock: "unlock",
       redact: "redact",
+      sign: "sign a PDF",
       "delete-pages": "delete PDF pages",
       "add-page-numbers": "add page numbers to a PDF",
       "jpg-to-pdf": "convert JPG to PDF",
@@ -894,6 +895,7 @@
         protect: ["Upload one PDF file.", "Enter and confirm your password.", "Download the protected PDF."],
         unlock: ["Upload a password-protected PDF.", "Enter the current password.", "Download the unlocked PDF."],
         redact: ["Upload a PDF.", "Drag black boxes over sensitive areas.", "Download the redacted PDF."],
+        sign: ["Upload a PDF.", "Create and place your signature.", "Download the signed PDF."],
         "delete-pages": ["Upload a PDF.", "Mark page thumbnails to remove.", "Download the cleaned PDF."],
         "add-page-numbers": ["Upload a PDF.", "Choose position, start page, and format.", "Download the numbered PDF."],
         "jpg-to-pdf": ["Upload JPG/PNG images.", "Reorder image list.", "Create and download PDF."],
@@ -1143,11 +1145,11 @@
       };
       const config = configByOp[tool.operation];
       if (!config) {
-        if (primaryAction && tool.operation !== "redact" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
+        if (primaryAction && tool.operation !== "redact" && tool.operation !== "sign" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
           primaryAction.disabled = true;
           primaryAction.textContent = "Tool module coming soon";
         }
-      } else if (tool.operation !== "redact" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
+      } else if (tool.operation !== "redact" && tool.operation !== "sign" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
         toolInput.multiple = !!config.multiple;
         if (primaryAction) primaryAction.textContent = config.button;
         const showQuality = tool.operation === "compress";
