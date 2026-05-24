@@ -77,6 +77,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Compress the redacted file",
       body: "Flattened pages can increase file size—compress if needed for upload limits.",
     });
+  } else if (operation === "png-to-pdf") {
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress the PDF",
+      body: "Large PNG exports can produce big PDFs—compress before emailing.",
+    });
+    rows.push({
+      href: "/tools/jpg-to-pdf/",
+      title: "Also have JPG photos?",
+      body: "Convert JPEG screenshots with our JPG → PDF tool.",
+    });
   } else if (operation === "jpg-to-pdf" || operation === "pdf-to-jpg") {
     rows.push({
       href: "/tools/pdf-compress/",

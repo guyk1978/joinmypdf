@@ -27,6 +27,27 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
+function ImageFilePreview({ file, pageNumber }: { file: File; pageNumber: number }) {
+  const [url, setUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const objectUrl = URL.createObjectURL(file);
+    setUrl(objectUrl);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
+
+  return (
+    <figure className="image-preview-thumb">
+      {url ? (
+        <img src={url} alt={`Preview of ${file.name}`} className="image-preview-thumb__img" />
+      ) : (
+        <div className="image-preview-thumb__placeholder">Loading…</div>
+      )}
+      <figcaption className="image-preview-thumb__caption">Page {pageNumber}</figcaption>
+    </figure>
+  );
+}
+
 type RunHelpers = {
   setStatus: (s: string) => void;
   downloadBlob: (blob: Blob, name: string) => void;
@@ -94,6 +115,20 @@ function buildConfig(tool: ToolDefinition): OpConfig | null {
         const bytes = await pdf.jpgToPdf(files);
         downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), "joinmypdf-images.pdf");
         setStatus(`Created PDF from ${files.length} image(s).`);
+      },
+    },
+    "png-to-pdf": {
+      accept: (f) => /png$/i.test(f.type) || /\.png$/i.test(f.name),
+      minFiles: 1,
+      multiple: true,
+      buttonLabel: "Convert to PDF",
+      async run(files, { setStatus, downloadBlob }) {
+        const bytes = await pdf.pngToPdf(files);
+        downloadBlob(
+          new Blob([bytes as BlobPart], { type: "application/pdf" }),
+          pdf.pngToPdfOutputName(files),
+        );
+        setStatus(`Created PDF from ${files.length} PNG image(s).`);
       },
     },
     "pdf-to-jpg": {
@@ -235,8 +270,18 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
   const stickyLabel = config.buttonLabel;
   const stickyHref = `#tool-workspace`;
 
+  const showImagePreview =
+    (tool.operation === "png-to-pdf" || tool.operation === "jpg-to-pdf") && files.length > 0;
+
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+      {tool.operation === "png-to-pdf" ? (
+        <div className="privacy-callout" role="note">
+          <strong>100% Secure:</strong> Image conversion runs entirely inside your browser. Your private
+          images are never uploaded to any server.
+        </div>
+      ) : null}
+
       <FileUploadZone
         drag={drag}
         role="button"
@@ -253,7 +298,9 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
                 ? "Select one PDF. Each page exports as its own file."
                 : tool.operation === "jpg-to-pdf"
                   ? "Select JPG/PNG images. Reorder before creating the PDF."
-                  : "Select one PDF. Each page becomes a JPG."
+                  : tool.operation === "png-to-pdf"
+                    ? "Select PNG images. Reorder before converting to PDF."
+                    : "Select one PDF. Each page becomes a JPG."
         }
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
@@ -275,6 +322,17 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
             ref={inputRef}
             type="file"
             className="sr-only"
+            accept={
+              tool.operation === "png-to-pdf"
+                ? "image/png,.png"
+                : tool.operation === "jpg-to-pdf"
+                  ? "image/jpeg,image/jpg,image/png,.jpg,.jpeg,.png"
+                  : tool.operation === "merge" ||
+                      tool.operation === "compress" ||
+                      tool.operation === "split"
+                    ? "application/pdf,.pdf"
+                    : undefined
+            }
             multiple={config.multiple}
             onChange={(e) => {
               if (e.target.files?.length) addRaw(e.target.files);
@@ -349,6 +407,14 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
               </li>
             ))}
           </ul>
+        </div>
+      ) : null}
+
+      {showImagePreview ? (
+        <div className="image-preview-grid" aria-label="Image previews">
+          {files.map((f, idx) => (
+            <ImageFilePreview key={`${f.name}-${f.size}-${idx}`} file={f} pageNumber={idx + 1} />
+          ))}
         </div>
       ) : null}
 

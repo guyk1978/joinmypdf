@@ -82,6 +82,34 @@
     return doc.save();
   }
 
+  async function pngToPdf(files) {
+    ensureDeps();
+    const validFiles = (files || []).filter(Boolean);
+    if (!validFiles.length) throw new Error("Add at least one PNG image.");
+    const doc = await PDFLib.PDFDocument.create();
+    for (const file of validFiles) {
+      if (!(/png$/i.test(file.type) || /\.png$/i.test(file.name))) {
+        throw new Error('"' + file.name + '" is not a PNG file.');
+      }
+      const pngBytes = await file.arrayBuffer();
+      const pngImage = await doc.embedPng(pngBytes);
+      const page = doc.addPage([pngImage.width, pngImage.height]);
+      page.drawImage(pngImage, {
+        x: 0,
+        y: 0,
+        width: pngImage.width,
+        height: pngImage.height,
+      });
+    }
+    return doc.save({ useObjectStreams: false });
+  }
+
+  function pngToPdfOutputName(files) {
+    const first = files && files[0];
+    const base = first ? first.name.replace(/\.png$/i, "") : "images";
+    return base + "-converted.pdf";
+  }
+
   async function pdfToJpg(file, scale) {
     ensureWorker();
     if (!window.pdfjsLib) throw new Error("PDF preview engine failed to load.");
@@ -408,6 +436,8 @@
     splitPdfFile,
     splitPdf,
     jpgToPdf,
+    pngToPdf,
+    pngToPdfOutputName,
     pdfToJpg,
     protectPdfFile,
     unlockPdfFile,

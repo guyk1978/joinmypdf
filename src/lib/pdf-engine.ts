@@ -58,6 +58,21 @@ export async function jpgToPdf(files: File[]) {
   return doc.save();
 }
 
+export async function pngToPdf(files: File[]): Promise<Uint8Array> {
+  const { pngToPdfBytes } = await import("./png-to-pdf");
+  try {
+    return await pngToPdfBytes(files);
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
+export function pngToPdfOutputName(files: File[]) {
+  const first = files[0];
+  const base = first?.name.replace(/\.png$/i, "") || "images";
+  return `${base}-converted.pdf`;
+}
+
 function isPdfFile(file: File, bytes?: Uint8Array) {
   if (/pdf$/i.test(file.type) || /\.pdf$/i.test(file.name)) return true;
   if (bytes && bytes.length >= 4) {

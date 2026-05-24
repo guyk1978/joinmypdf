@@ -249,7 +249,7 @@
         "Bundle classroom worksheets from photos"
       ],
       "relatedTools": [
-        "pdf-merge",
+        "png-to-pdf",
         "pdf-to-jpg",
         "pdf-compress"
       ],
@@ -527,6 +527,55 @@
       "longTailPages": [],
       "skipClusterVariants": true,
       "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-24"
+    },
+    {
+      "slug": "png-to-pdf",
+      "category": "convert",
+      "operation": "png-to-pdf",
+      "title": "PNG to PDF Converter",
+      "primaryKeyword": "png to pdf converter online",
+      "intent": "Convert PNG images into one ordered PDF in your browser.",
+      "description": "Convert PNG files to PDF locally with drag-and-drop ordering and instant download—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert png to pdf",
+        "png images to pdf",
+        "combine png into pdf"
+      ],
+      "useCases": [
+        "Bundle UI screenshots into one shareable PDF",
+        "Turn transparent PNG graphics into a print-ready document",
+        "Combine scanned PNG pages from mobile scans"
+      ],
+      "relatedTools": [
+        "jpg-to-pdf",
+        "pdf-to-jpg",
+        "pdf-merge"
+      ],
+      "faq": [
+        {
+          "q": "Is my PNG uploaded to JoinMyPDF servers?",
+          "a": "No. Conversion runs entirely in your browser. Your images never leave your device."
+        },
+        {
+          "q": "Can I convert multiple PNG files at once?",
+          "a": "Yes. Upload several PNGs and reorder them before converting."
+        },
+        {
+          "q": "Are transparent PNG backgrounds preserved?",
+          "a": "Yes. PNG transparency is embedded in the PDF pages as in the original images."
+        },
+        {
+          "q": "Can I use this on mobile?",
+          "a": "Yes. Modern mobile browsers support the full workflow."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,

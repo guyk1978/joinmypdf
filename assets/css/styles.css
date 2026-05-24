@@ -905,6 +905,47 @@ body.site-nav-open {
   display: none;
 }
 
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.image-preview-thumb {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.image-preview-thumb__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  background: #0f172a;
+}
+
+.image-preview-thumb__placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 100px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.image-preview-thumb__caption {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text);
+  border-top: 1px solid var(--border);
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
   padding: 3rem 0 2.5rem;

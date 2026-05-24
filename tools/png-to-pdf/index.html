@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y8MDDJZGJY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y8MDDJZGJY');
+</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PNG to PDF Converter — JoinMyPDF</title>
+    <meta name="description" content="Convert PNG images to PDF locally in your browser. Reorder screenshots, then download—no upload to our servers." />
+    <link rel="canonical" href="/tools/png-to-pdf/" />
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#0b1220" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <script src="https://unpkg.com/pdf-lib-with-encrypt@1.2.1/dist/pdf-lib.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+    <script src="/assets/js/pdf-core.js" defer></script>
+    <script src="/assets/js/ui-core.js" defer></script>
+    <script src="/assets/js/seo-factory.js" defer></script>
+    <script src="/assets/js/share-float.js" defer></script>
+  </head>
+  <body data-page="tool">
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="/">
+          <svg class="brand__logo" viewBox="0 0 420 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="JoinMyPDF">
+            <defs><linearGradient id="tool-g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#2563eb"/></linearGradient></defs>
+            <rect x="6" y="8" width="64" height="64" rx="16" fill="url(#tool-g1)"/><path d="M22 24h30a10 10 0 0 1 10 10v20a10 10 0 0 1-10 10H30a8 8 0 0 1-8-8z" fill="#eef6ff"/><path d="M44 24v12a6 6 0 0 0 6 6h12" fill="none" stroke="#b7dbff" stroke-width="3" stroke-linecap="round"/><rect x="28" y="46" width="24" height="4" rx="2" fill="#84c7ff"/><text x="84" y="40" fill="#e5e7eb" font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700">JoinMyPDF</text>
+          </svg>
+          <span class="header-pdf-mini" title="JoinMyPDF Factory" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect class="header-pdf-mini__back" x="2" y="4" width="9" height="11" rx="1" stroke="#60a5fa" stroke-width="1.2" fill="rgba(96, 165, 250, 0.1)" />
+              <rect class="header-pdf-mini__front" x="5" y="1" width="9" height="11" rx="1" stroke="#3b82f6" stroke-width="1.2" fill="rgba(59, 130, 246, 0.2)" />
+            </svg>
+          </span>
+          <img class="brand__icon" src="/assets/brand/logo-icon.svg" alt="JoinMyPDF" />
+        </a>
+        <button type="button" class="site-header__menu-btn" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+          <span class="site-header__menu-icon" aria-hidden="true"></span>
+        </button>
+        <nav id="primary-nav" class="main-nav" aria-label="Primary">
+        <div class="nav-dropdown" data-nav-dropdown="edit">
+          <button type="button" class="nav-dropdown__trigger" aria-expanded="false" aria-haspopup="true">
+            Edit & organize
+            <svg class="nav-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dropdown__panel" role="menu">
+            <a class="nav-dropdown__item" href="/tools/pdf-merge/" role="menuitem">Merge PDF</a>
+            <a class="nav-dropdown__item" href="/tools/pdf-split/" role="menuitem">Split PDF</a>
+            <a class="nav-dropdown__item" href="/tools/delete-pdf-pages/" role="menuitem">Delete PDF Pages</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" data-nav-dropdown="optimize">
+          <button type="button" class="nav-dropdown__trigger" aria-expanded="false" aria-haspopup="true">
+            Optimization
+            <svg class="nav-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dropdown__panel" role="menu">
+            <a class="nav-dropdown__item" href="/tools/pdf-compress/" role="menuitem">Compress PDF</a>
+            <a class="nav-dropdown__item" href="/compare/" role="menuitem">Compare tools</a>
+          </div>
+        </div>
+        <div class="nav-dropdown is-active" data-nav-dropdown="convert">
+          <button type="button" class="nav-dropdown__trigger" aria-expanded="false" aria-haspopup="true">
+            Convert PDF
+            <svg class="nav-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dropdown__panel" role="menu">
+            <a class="nav-dropdown__item" href="/tools/jpg-to-pdf/" role="menuitem">JPG → PDF</a>
+            <a class="nav-dropdown__item is-active" href="/tools/png-to-pdf/" role="menuitem">PNG → PDF</a>
+            <a class="nav-dropdown__item" href="/tools/pdf-to-jpg/" role="menuitem">PDF → JPG</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" data-nav-dropdown="security">
+          <button type="button" class="nav-dropdown__trigger" aria-expanded="false" aria-haspopup="true">
+            Security & privacy
+            <svg class="nav-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="nav-dropdown__panel" role="menu">
+            <a class="nav-dropdown__item" href="/tools/protect-pdf/" role="menuitem">Protect PDF</a>
+            <a class="nav-dropdown__item" href="/tools/unlock-pdf/" role="menuitem">Unlock PDF</a>
+            <a class="nav-dropdown__item" href="/tools/redact-pdf/" role="menuitem">Redact PDF</a>
+          </div>
+        </div>
+        <a class="nav-link" href="/blog/">Guides</a>
+        <a class="nav-link" href="/privacy/">Privacy</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container">
+      <section class="hero">
+        <h1 id="toolHeroTitle">PNG to PDF Converter</h1>
+        <p id="toolHeroDesc">Convert PNG images into one ordered PDF in your browser.</p>
+      </section>
+      <section class="tool-layout">
+        <article class="glass card">
+          <div class="privacy-callout" role="note">
+            <strong>100% Secure:</strong> Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.
+          </div>
+          <label class="dropzone" id="dropzone"><strong>Drop PNG images here</strong><p>or click to choose files</p></label>
+          <input id="toolInput" type="file" accept="image/png,.png" multiple hidden />
+          <label id="qualityLabel" for="qualityRange" class="is-hidden">Compression level (when applicable)</label>
+          <input id="qualityRange" type="range" min="55" max="95" value="75" class="is-hidden" />
+          <div class="btn-row"><button id="primaryAction" class="btn btn--primary" type="button" disabled>Convert to PDF</button><button id="clearAction" class="btn btn--ghost" type="button">Clear</button></div>
+          <p id="statusText" class="status" aria-live="polite"></p>
+          <div id="fileList" class="file-list"></div>
+          <div id="previewGrid" class="preview-grid"></div>
+          <div
+          class="partner-mapdiagram"
+          style="margin: 20px 0 0; max-width: 100%; padding: 15px; border: 1px solid rgba(56, 73, 99, 0.85); border-radius: 8px; background: rgba(15, 23, 42, 0.55); text-align: center; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);"
+          aria-label="Partner tool: MapDiagram"
+        >
+          <p style="margin: 0 0 10px 0; color: #e5e7eb; font-size: 0.95rem; line-height: 1.5;">
+            Creating a presentation or workflow? Build flowcharts &amp; system designs visually with
+            <strong style="color: #f8fafc;">MapDiagram</strong>, then bring them here to merge.
+          </p>
+          <a
+            href="https://mapdiagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #38bdf8; text-decoration: none; font-weight: bold;"
+            >Open MapDiagram editor →</a
+          >
+        </div>
+        </article>
+        <aside class="glass card">
+          <h2>How it works</h2>
+          <ol id="howItWorks"></ol>
+        </aside>
+      </section>
+      <section class="glass seo-block">
+        <h2>Use cases</h2>
+        <ul id="useCases"></ul>
+        <h2>Before you start</h2>
+        <div id="seoContent"></div>
+        <h2>Why people pick JoinMyPDF</h2>
+        <div id="comparisonBlock"></div>
+        <h3>FAQ</h3>
+        <div class="faq" id="faqContent"></div>
+        <h3>Related tools</h3>
+        <div class="related-links" id="relatedTools"></div>
+        <h3>Users also use</h3>
+        <div class="related-links" id="usersAlsoUse"></div>
+        <h3>Recommended workflows</h3>
+        <ol id="workflowLinks"></ol>
+        <h3>Long-tail landing pages</h3>
+        <div class="related-links" id="longTailLinks"></div>
+        <h3>Category hub links</h3>
+        <div class="related-links" id="categoryLinks"></div>
+        <h3>Related blog guides</h3>
+        <div class="related-links" id="toolBlogLinks"></div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p class="site-footer__tagline">JoinMyPDF — browser-based PDF tools with local processing.</p>
+        <nav class="site-footer__directory" aria-label="Site directory">
+          <div class="site-footer__col">
+            <strong>Privacy &amp; security</strong>
+            <a href="/privacy/">Privacy policy</a>
+            <a href="/privacy-first-pdf-tools/">Privacy-first PDF hub</a>
+          </div>
+          <div class="site-footer__col">
+            <strong>Comparisons</strong>
+            <a href="/compare/">Tool comparisons</a>
+          </div>
+          <div class="site-footer__col">
+            <strong>Guides &amp; tools</strong>
+            <a href="/blog/">Guides</a>
+            <a href="/tools/pdf-merge/">Merge PDF</a>
+            <a href="/tools/pdf-compress/">Compress PDF</a>
+          </div>
+          <div class="site-footer__col site-footer__col--partners">
+            <strong>Partner tools</strong>
+            <a href="https://calnexapp.com/" target="_blank" rel="noopener noreferrer">Model Loan Repayments ➔ CalnexApp</a>
+            <a href="https://mapdiagram.com/" target="_blank" rel="noopener noreferrer">Visualize your ideas → MapDiagram</a>
+          </div>
+        </nav>
+      </div>
+    </footer>
+    <script src="/assets/js/pwa-install.js" defer></script>
+    <script src="/assets/js/email-popup.js" defer></script>
+      <script src="/assets/js/site-nav.js" defer></script>
+  </body>
+</html>

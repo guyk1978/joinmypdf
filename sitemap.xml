@@ -421,6 +421,12 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://joinmypdf.com/tools/png-to-pdf/</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
     <loc>https://joinmypdf.com/tools/jpg-to-pdf-fast/</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>weekly</changefreq>

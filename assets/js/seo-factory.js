@@ -85,6 +85,7 @@
       redact: "redact",
       "delete-pages": "delete PDF pages",
       "jpg-to-pdf": "convert JPG to PDF",
+      "png-to-pdf": "convert PNG to PDF",
       "pdf-to-jpg": "convert PDF to JPG",
     };
     return verbMap[tool.operation] || "process PDF";
@@ -893,6 +894,7 @@
         redact: ["Upload a PDF.", "Drag black boxes over sensitive areas.", "Download the redacted PDF."],
         "delete-pages": ["Upload a PDF.", "Mark page thumbnails to remove.", "Download the cleaned PDF."],
         "jpg-to-pdf": ["Upload JPG/PNG images.", "Reorder image list.", "Create and download PDF."],
+        "png-to-pdf": ["Upload PNG images.", "Reorder thumbnails if needed.", "Convert and download PDF."],
         "pdf-to-jpg": ["Upload one PDF.", "Render pages to JPG.", "Download image files."],
       };
       howList.innerHTML = (map[tool.operation] || map.merge).map((line) => "<li>" + escapeHtml(line) + "</li>").join("");
@@ -1017,6 +1019,20 @@
             const bytes = await PDFCore.jpgToPdf(files);
             helpers.downloadBlob(new Blob([bytes], { type: "application/pdf" }), "joinmypdf-images.pdf");
             helpers.setStatus("Created PDF from " + files.length + " image(s).");
+          },
+        },
+        "png-to-pdf": {
+          accept: (file) => /png$/i.test(file.type) || /\.png$/i.test(file.name),
+          minFilesForAction: 1,
+          multiple: true,
+          button: "Convert to PDF",
+          run: async (files, helpers) => {
+            const bytes = await PDFCore.pngToPdf(files);
+            helpers.downloadBlob(
+              new Blob([bytes], { type: "application/pdf" }),
+              PDFCore.pngToPdfOutputName(files),
+            );
+            helpers.setStatus("Created PDF from " + files.length + " PNG image(s).");
           },
         },
         "pdf-to-jpg": {
