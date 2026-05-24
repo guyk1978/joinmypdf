@@ -1,40 +1,16 @@
 import Link from "next/link";
 import { HeaderPdfMini } from "@/components/HeaderPdfMini";
-
-const links = [
-  { href: "/tools/pdf-merge/", label: "Merge" },
-  { href: "/tools/pdf-compress/", label: "Compress" },
-  { href: "/tools/pdf-split/", label: "Split" },
-  { href: "/tools/jpg-to-pdf/", label: "JPG → PDF" },
-  { href: "/tools/pdf-to-jpg/", label: "PDF → JPG" },
-  { href: "/pdf-guides/", label: "Guides" },
-  { href: "/pdf-comparison/", label: "Compare" },
-  { href: "/privacy/", label: "Privacy" },
-];
+import { SiteNav } from "@/components/SiteNav";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-surface/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 md:px-6">
-        <Link href="/" className="inline-flex items-center gap-2 text-lg font-bold tracking-tight text-ink">
+    <header className="site-header">
+      <div className="site-header__inner container">
+        <Link href="/" className="brand">
           JoinMyPDF
           <HeaderPdfMini className="header-pdf-mini--tight" />
         </Link>
-        <nav
-          aria-label="Primary"
-          className="flex max-w-[72vw] gap-3 overflow-x-auto whitespace-nowrap text-sm md:max-w-none md:flex-wrap md:justify-end md:gap-4"
-        >
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              className="text-ink-muted transition hover:text-brand"
-              href={l.href}
-              prefetch={false}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
+        <SiteNav />
       </div>
     </header>
   );
