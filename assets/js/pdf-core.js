@@ -246,9 +246,23 @@
     return value.toFixed(idx ? 1 : 0) + " " + units[idx];
   }
 
-  function pageNumberCoords(w, h, position, textWidth) {
+  var PAGE_NUMBER_FONT_SIZE_PX = { small: 9, medium: 12, large: 16 };
+
+  function pageNumberFontSizePx(sizeKey) {
+    return PAGE_NUMBER_FONT_SIZE_PX[sizeKey] || PAGE_NUMBER_FONT_SIZE_PX.medium;
+  }
+
+  function hexToPdfRgb(hex) {
+    var normalized = String(hex || "#000000").replace("#", "").trim();
+    if (normalized.length !== 6) return PDFLib.rgb(0, 0, 0);
+    var r = parseInt(normalized.slice(0, 2), 16) / 255;
+    var g = parseInt(normalized.slice(2, 4), 16) / 255;
+    var b = parseInt(normalized.slice(4, 6), 16) / 255;
+    return PDFLib.rgb(r, g, b);
+  }
+
+  function pageNumberCoords(w, h, position, textWidth, fontSize) {
     var margin = 28;
-    var fontSize = 11;
     var x = margin;
     var y = margin;
     if (position.indexOf("top") === 0) y = h - margin - fontSize;
@@ -262,14 +276,17 @@
     if (!file) throw new Error("No PDF file selected.");
     var bytes = await file.arrayBuffer();
     var doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
-    var font = await doc.embedFont(PDFLib.StandardFonts.Helvetica);
+    var isBold = Boolean(options.isBold);
+    var font = await doc.embedFont(
+      isBold ? PDFLib.StandardFonts.HelveticaBold : PDFLib.StandardFonts.Helvetica,
+    );
     var totalPages = doc.getPageCount();
     if (!totalPages) throw new Error("This PDF has no pages.");
     var startPage = Math.max(1, Math.min(Math.floor(options.startPage) || 1, totalPages));
     var numberedCount = totalPages - startPage + 1;
     var displayNum = 1;
-    var fontSize = 11;
-    var color = PDFLib.rgb(0.2, 0.2, 0.2);
+    var fontSize = pageNumberFontSizePx(options.fontSize || "medium");
+    var color = hexToPdfRgb(options.fontColorHex || "#000000");
     var position = options.position || "bottom-center";
     var format = options.format || "number";
 
@@ -281,7 +298,7 @@
           ? "Page " + displayNum + " of " + numberedCount
           : String(displayNum);
       var textWidth = font.widthOfTextAtSize(label, fontSize);
-      var coords = pageNumberCoords(size.width, size.height, position, textWidth);
+      var coords = pageNumberCoords(size.width, size.height, position, textWidth, fontSize);
       page.drawText(label, {
         x: coords.x,
         y: coords.y,

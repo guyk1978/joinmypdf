@@ -5,7 +5,14 @@ import { FileUploadZone } from "@/components/FileUploadZone";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
-import type { AddPageNumbersOptions, PageNumberFormat, PageNumberPosition } from "@/lib/add-page-numbers";
+import {
+  PAGE_NUMBER_COLOR_OPTIONS,
+  type AddPageNumbersOptions,
+  type PageNumberFontColor,
+  type PageNumberFontSize,
+  type PageNumberFormat,
+  type PageNumberPosition,
+} from "@/lib/add-page-numbers";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
@@ -37,12 +44,21 @@ const POSITIONS: { value: PageNumberPosition; label: string }[] = [
   { value: "bottom-right", label: "Bottom Right" },
 ];
 
+const FONT_SIZES: { value: PageNumberFontSize; label: string; hint: string }[] = [
+  { value: "small", label: "Small", hint: "9px" },
+  { value: "medium", label: "Medium", hint: "12px" },
+  { value: "large", label: "Large", hint: "16px" },
+];
+
 export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [position, setPosition] = useState<PageNumberPosition>("bottom-center");
   const [startPage, setStartPage] = useState(1);
   const [format, setFormat] = useState<PageNumberFormat>("number");
+  const [fontSize, setFontSize] = useState<PageNumberFontSize>("medium");
+  const [fontColorHex, setFontColorHex] = useState<PageNumberFontColor>("#000000");
+  const [isBold, setIsBold] = useState(false);
   const [formError, setFormError] = useState("");
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -64,6 +80,9 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
     setPosition("bottom-center");
     setStartPage(1);
     setFormat("number");
+    setFontSize("medium");
+    setFontColorHex("#000000");
+    setIsBold(false);
     setFormError("");
     setStatus("");
     setDone(false);
@@ -134,6 +153,9 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
       position,
       startPage: start,
       format,
+      fontSize,
+      fontColorHex,
+      isBold,
     };
 
     setBusy(true);
@@ -283,6 +305,74 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                 <span>Page X of Y (e.g. Page 1 of 10)</span>
               </label>
             </fieldset>
+
+            <div className="page-numbers-form__row">
+              <span className="page-numbers-form__label" id={`${baseId}-size-label`}>
+                Font size
+              </span>
+              <div className="page-numbers-form__choices" role="group" aria-labelledby={`${baseId}-size-label`}>
+                {FONT_SIZES.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    className={`page-numbers-form__choice${fontSize === opt.value ? " is-active" : ""}`}
+                    aria-pressed={fontSize === opt.value}
+                    disabled={busy}
+                    onClick={() => setFontSize(opt.value)}
+                  >
+                    {opt.label}
+                    <span className="page-numbers-form__choice-hint">{opt.hint}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="page-numbers-form__row">
+              <span className="page-numbers-form__label" id={`${baseId}-color-label`}>
+                Font color
+              </span>
+              <div className="page-numbers-form__swatches" role="group" aria-labelledby={`${baseId}-color-label`}>
+                {PAGE_NUMBER_COLOR_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    className={`page-numbers-form__swatch${fontColorHex === opt.value ? " is-active" : ""}`}
+                    style={{ backgroundColor: opt.value }}
+                    title={opt.label}
+                    aria-label={opt.label}
+                    aria-pressed={fontColorHex === opt.value}
+                    disabled={busy}
+                    onClick={() => setFontColorHex(opt.value)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="page-numbers-form__row">
+              <span className="page-numbers-form__label" id={`${baseId}-style-label`}>
+                Font style
+              </span>
+              <div className="page-numbers-form__choices" role="group" aria-labelledby={`${baseId}-style-label`}>
+                <button
+                  type="button"
+                  className={`page-numbers-form__choice${!isBold ? " is-active" : ""}`}
+                  aria-pressed={!isBold}
+                  disabled={busy}
+                  onClick={() => setIsBold(false)}
+                >
+                  Regular
+                </button>
+                <button
+                  type="button"
+                  className={`page-numbers-form__choice page-numbers-form__choice--bold${isBold ? " is-active" : ""}`}
+                  aria-pressed={isBold}
+                  disabled={busy}
+                  onClick={() => setIsBold(true)}
+                >
+                  Bold
+                </button>
+              </div>
+            </div>
 
             {formError ? (
               <p className="page-numbers-form__error" role="alert">

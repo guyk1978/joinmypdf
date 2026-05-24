@@ -139,6 +139,30 @@
                 <span>Page X of Y (e.g. Page 1 of 10)</span>
               </label>
             </fieldset>
+            <div class="page-numbers-form__row">
+              <span class="page-numbers-form__label">Font size</span>
+              <div class="page-numbers-form__choices" role="group" aria-label="Font size">
+                <button type="button" class="page-numbers-form__choice" data-font-size="small">Small <span class="page-numbers-form__choice-hint">9px</span></button>
+                <button type="button" class="page-numbers-form__choice is-active" data-font-size="medium">Medium <span class="page-numbers-form__choice-hint">12px</span></button>
+                <button type="button" class="page-numbers-form__choice" data-font-size="large">Large <span class="page-numbers-form__choice-hint">16px</span></button>
+              </div>
+            </div>
+            <div class="page-numbers-form__row">
+              <span class="page-numbers-form__label">Font color</span>
+              <div class="page-numbers-form__swatches" role="group" aria-label="Font color">
+                <button type="button" class="page-numbers-form__swatch is-active" data-font-color="#000000" style="background-color:#000000" title="Black" aria-label="Black"></button>
+                <button type="button" class="page-numbers-form__swatch" data-font-color="#6B7280" style="background-color:#6B7280" title="Gray" aria-label="Gray"></button>
+                <button type="button" class="page-numbers-form__swatch" data-font-color="#2563EB" style="background-color:#2563EB" title="Blue" aria-label="Blue"></button>
+                <button type="button" class="page-numbers-form__swatch" data-font-color="#DC2626" style="background-color:#DC2626" title="Red" aria-label="Red"></button>
+              </div>
+            </div>
+            <div class="page-numbers-form__row">
+              <span class="page-numbers-form__label">Font style</span>
+              <div class="page-numbers-form__choices" role="group" aria-label="Font style">
+                <button type="button" class="page-numbers-form__choice is-active" data-font-bold="false">Regular</button>
+                <button type="button" class="page-numbers-form__choice page-numbers-form__choice--bold" data-font-bold="true">Bold</button>
+              </div>
+            </div>
             <p id="pageNumbersFormError" class="page-numbers-form__error is-hidden" role="alert"></p>
           </div>
           <div class="btn-row">

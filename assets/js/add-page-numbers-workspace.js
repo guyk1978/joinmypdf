@@ -58,6 +58,57 @@
       return checked && checked.value === "page-of" ? "page-of" : "number";
     }
 
+    function getFontSize() {
+      var active = panel.querySelector(".page-numbers-form__choice.is-active[data-font-size]");
+      return active ? active.getAttribute("data-font-size") : "medium";
+    }
+
+    function getFontColor() {
+      var active = panel.querySelector(".page-numbers-form__swatch.is-active");
+      return active ? active.getAttribute("data-font-color") : "#000000";
+    }
+
+    function getIsBold() {
+      var active = panel.querySelector('.page-numbers-form__choice.is-active[data-font-bold="true"]');
+      return Boolean(active);
+    }
+
+    function wireStylingControls() {
+      panel.querySelectorAll("[data-font-size]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          panel.querySelectorAll("[data-font-size]").forEach(function (b) {
+            b.classList.toggle("is-active", b === btn);
+          });
+        });
+      });
+      panel.querySelectorAll("[data-font-color]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          panel.querySelectorAll("[data-font-color]").forEach(function (b) {
+            b.classList.toggle("is-active", b === btn);
+          });
+        });
+      });
+      panel.querySelectorAll("[data-font-bold]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          panel.querySelectorAll("[data-font-bold]").forEach(function (b) {
+            b.classList.toggle("is-active", b === btn);
+          });
+        });
+      });
+    }
+
+    function resetStylingControls() {
+      panel.querySelectorAll("[data-font-size]").forEach(function (btn) {
+        btn.classList.toggle("is-active", btn.getAttribute("data-font-size") === "medium");
+      });
+      panel.querySelectorAll("[data-font-color]").forEach(function (btn) {
+        btn.classList.toggle("is-active", btn.getAttribute("data-font-color") === "#000000");
+      });
+      panel.querySelectorAll("[data-font-bold]").forEach(function (btn) {
+        btn.classList.toggle("is-active", btn.getAttribute("data-font-bold") === "false");
+      });
+    }
+
     function updateButtons() {
       primaryBtn.disabled = state.busy || !state.file;
       if (clearBtn) clearBtn.disabled = state.busy;
@@ -74,6 +125,7 @@
       if (startEl) startEl.value = "1";
       var numberRadio = document.querySelector('input[name="pageNumbersFormat"][value="number"]');
       if (numberRadio) numberRadio.checked = true;
+      resetStylingControls();
       showFormError("");
       updateButtons();
       setStatus("");
@@ -143,6 +195,9 @@
           position: positionEl ? positionEl.value : "bottom-center",
           startPage: start,
           format: getFormat(),
+          fontSize: getFontSize(),
+          fontColorHex: getFontColor(),
+          isBold: getIsBold(),
         });
         var name = PDFCore.addPageNumbersOutputName(state.file);
         downloadBlob(new Blob([bytes], { type: "application/pdf" }), name);
@@ -183,6 +238,7 @@
       clearBtn.addEventListener("click", resetAll);
     }
 
+    wireStylingControls();
     updateButtons();
   }
 
