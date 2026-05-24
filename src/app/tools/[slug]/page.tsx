@@ -2,6 +2,7 @@ import { RelatedTools } from "@/components/RelatedTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
+import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
 import { buildComparisonBullets, buildGuideParagraphs } from "@/lib/tool-copy";
 import { blogRegistry } from "@/lib/blog-registry";
@@ -66,6 +67,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
         {tool.operation === "protect" ? (
           <ProtectPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "unlock" ? (
+          <UnlockPdfWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}

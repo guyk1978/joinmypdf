@@ -67,6 +67,30 @@ function isPdfFile(file: File, bytes?: Uint8Array) {
   return false;
 }
 
+export async function isPdfEncrypted(file: File): Promise<boolean> {
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  const { isPdfEncrypted: checkEncrypted } = await import("./pdf-unlock");
+  return checkEncrypted(bytes);
+}
+
+export async function unlockPdfFile(file: File, password: string): Promise<Uint8Array> {
+  if (!file) throw new Error("No PDF file selected.");
+
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!isPdfFile(file, bytes)) {
+    throw new Error("Choose a valid PDF file.");
+  }
+
+  const { unlockPdfBytes } = await import("./pdf-unlock");
+  try {
+    return await unlockPdfBytes(bytes, String(password || ""));
+  } catch (error) {
+    const { IncorrectPasswordError } = await import("./pdf-unlock");
+    if (error instanceof IncorrectPasswordError) throw error;
+    throw classifyPdfError(error);
+  }
+}
+
 export async function protectPdfFile(file: File, password: string): Promise<Uint8Array> {
   if (!file) throw new Error("No PDF file selected.");
   const trimmed = String(password || "").trim();

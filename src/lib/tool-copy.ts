@@ -4,6 +4,8 @@ const verb: Record<string, string> = {
   merge: "merge PDFs",
   compress: "compress a PDF",
   split: "split a PDF",
+  protect: "password-protect a PDF",
+  unlock: "remove a PDF password",
   "jpg-to-pdf": "turn images into a PDF",
   "pdf-to-jpg": "export PDF pages as JPG images",
 };

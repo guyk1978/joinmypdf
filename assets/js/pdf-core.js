@@ -168,6 +168,50 @@
     return doc.save({ useObjectStreams: false });
   }
 
+  async function isPdfEncrypted(file) {
+    ensureDeps();
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+    return doc.isEncrypted;
+  }
+
+  async function unlockPdfFile(file, password) {
+    if (!file) throw new Error("No PDF file selected.");
+
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    if (
+      !(/pdf$/i.test(file.type) || /\.pdf$/i.test(file.name)) &&
+      !(bytes.length >= 4 && String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]) === "%PDF")
+    ) {
+      throw new Error("Choose a valid PDF file.");
+    }
+
+    ensureDeps();
+    const trimmed = String(password || "");
+    try {
+      const loadOptions = trimmed ? { password: trimmed } : {};
+      const doc = await PDFLib.PDFDocument.load(bytes, loadOptions);
+      return doc.save({ useObjectStreams: false });
+    } catch (error) {
+      const msg = error && error.message ? String(error.message) : "";
+      const name = error && error.name ? String(error.name) : "";
+      const isEncrypted =
+        name === "EncryptedPDFError" || /encrypted/i.test(msg);
+      const looksWrong =
+        trimmed &&
+        (isEncrypted ||
+          /incorrect password|wrong password|invalid password|bad password|password.*(fail|invalid|incorrect|wrong)|decrypt|authentication/i.test(
+            msg,
+          ));
+      if (looksWrong) {
+        const err = new Error("Incorrect password. Please try again.");
+        err.name = "IncorrectPasswordError";
+        throw err;
+      }
+      throw error;
+    }
+  }
+
   window.PDFCore = {
     mergePdfFiles,
     compressSimulation,
@@ -176,6 +220,8 @@
     jpgToPdf,
     pdfToJpg,
     protectPdfFile,
+    unlockPdfFile,
+    isPdfEncrypted,
     renderFirstPagePreview,
     formatBytes,
   };

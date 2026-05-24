@@ -355,9 +355,9 @@
         "Protect client deliverables for freelance handoffs"
       ],
       "relatedTools": [
+        "unlock-pdf",
         "pdf-merge",
-        "pdf-compress",
-        "pdf-split"
+        "pdf-compress"
       ],
       "faq": [
         {
@@ -380,6 +380,55 @@
       "longTailPages": [],
       "skipClusterVariants": true,
       "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-24"
+    },
+    {
+      "slug": "unlock-pdf",
+      "category": "security",
+      "operation": "unlock",
+      "title": "Unlock PDF — Remove Password",
+      "primaryKeyword": "unlock pdf remove password online",
+      "intent": "Remove a PDF password in your browser—files stay on your device.",
+      "description": "Unlock a password-protected PDF locally in your browser. Decryption runs on your device with instant download—no upload to our servers.",
+      "secondaryKeywords": [
+        "remove pdf password",
+        "decrypt pdf online",
+        "pdf unlock tool"
+      ],
+      "useCases": [
+        "Open client PDFs you are allowed to edit after entering the shared password",
+        "Remove protection before merging or compressing in JoinMyPDF",
+        "Save an unprotected copy for archival when policy allows"
+      ],
+      "relatedTools": [
+        "protect-pdf",
+        "pdf-merge",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my password sent to JoinMyPDF servers?",
+          "a": "No. Decryption runs entirely in your browser. Your file and password never leave your device."
+        },
+        {
+          "q": "What if I enter the wrong password?",
+          "a": "You will see a clear message to try again. The file is not uploaded anywhere."
+        },
+        {
+          "q": "Can I unlock PDFs I am not authorized to open?",
+          "a": "Only use this tool on files you own or are permitted to access. We do not bypass legal restrictions."
+        },
+        {
+          "q": "Will the unlocked PDF work in Acrobat and Preview?",
+          "a": "Yes. The output is a standard unprotected PDF compatible with common viewers."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,

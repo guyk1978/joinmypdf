@@ -44,6 +44,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Bundle first, then lock",
       body: "Merge related PDFs, then password-protect the final package in one pass.",
     });
+  } else if (operation === "unlock") {
+    rows.push({
+      href: "/tools/protect-pdf/",
+      title: "Re-lock with a new password",
+      body: "After editing, protect the final PDF again before sharing.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress the unlocked file",
+      body: "Smaller attachments are easier to email after you remove the password.",
+    });
   } else if (operation === "jpg-to-pdf" || operation === "pdf-to-jpg") {
     rows.push({
       href: "/tools/pdf-compress/",

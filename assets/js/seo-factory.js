@@ -81,6 +81,7 @@
       compress: "compress",
       split: "split",
       protect: "password-protect",
+      unlock: "unlock",
       "jpg-to-pdf": "convert JPG to PDF",
       "pdf-to-jpg": "convert PDF to JPG",
     };
@@ -886,6 +887,7 @@
         compress: ["Upload one PDF file.", "Set optimization level.", "Download the compressed file."],
         split: ["Upload one PDF file.", "Run split process.", "Download page-level outputs."],
         protect: ["Upload one PDF file.", "Enter and confirm your password.", "Download the protected PDF."],
+        unlock: ["Upload a password-protected PDF.", "Enter the current password.", "Download the unlocked PDF."],
         "jpg-to-pdf": ["Upload JPG/PNG images.", "Reorder image list.", "Create and download PDF."],
         "pdf-to-jpg": ["Upload one PDF.", "Render pages to JPG.", "Download image files."],
       };
@@ -1026,6 +1028,51 @@
             helpers.setStatus("Exported " + pages.length + " JPG file(s).");
           },
         },
+        unlock: {
+          accept: (file) => /pdf$/i.test(file.type) || /\.pdf$/i.test(file.name),
+          minFilesForAction: 1,
+          multiple: false,
+          button: "Unlock PDF",
+          run: async (files, helpers) => {
+            const unlockPassword = document.getElementById("unlockPassword");
+            const unlockFormError = document.getElementById("unlockFormError");
+            const password = unlockPassword ? unlockPassword.value : "";
+            let encrypted = false;
+            try {
+              encrypted = await PDFCore.isPdfEncrypted(files[0]);
+            } catch (_) {
+              encrypted = false;
+            }
+            if (unlockFormError) {
+              unlockFormError.classList.add("is-hidden");
+              unlockFormError.textContent = "";
+            }
+            if (encrypted && !password) {
+              if (unlockFormError) {
+                unlockFormError.textContent = "Enter the current PDF password.";
+                unlockFormError.classList.remove("is-hidden");
+              }
+              throw new Error("Enter the current PDF password.");
+            }
+            helpers.setStatus("Removing password protection…");
+            try {
+              const bytes = await PDFCore.unlockPdfFile(files[0], password);
+              const base = files[0].name.replace(/\.pdf$/i, "") || "document";
+              helpers.downloadBlob(new Blob([bytes], { type: "application/pdf" }), base + "-unlocked.pdf");
+              helpers.setStatus("Unlocked PDF downloaded.");
+            } catch (error) {
+              if (error && error.name === "IncorrectPasswordError") {
+                if (unlockFormError) {
+                  unlockFormError.textContent = error.message || "Incorrect password. Please try again.";
+                  unlockFormError.classList.remove("is-hidden");
+                }
+                helpers.setStatus("");
+                return;
+              }
+              throw error;
+            }
+          },
+        },
         protect: {
           accept: (file) => /pdf$/i.test(file.type) || /\.pdf$/i.test(file.name),
           minFilesForAction: 1,
@@ -1081,6 +1128,7 @@
         if (primaryAction) primaryAction.textContent = config.button;
         const showQuality = tool.operation === "compress";
         const protectPanel = document.getElementById("protectPanel");
+        const unlockPanel = document.getElementById("unlockPanel");
         if (qualityRange) qualityRange.classList.toggle("is-hidden", !showQuality);
         if (qualityLabel) qualityLabel.classList.toggle("is-hidden", !showQuality);
         UICore.createUploader({
@@ -1095,16 +1143,17 @@
           accept: config.accept,
           onStateChange: function (files) {
             if (protectPanel) protectPanel.classList.toggle("is-hidden", !files.length);
+            if (unlockPanel) unlockPanel.classList.toggle("is-hidden", !files.length);
           },
           onPrimaryAction: async function (files, helpers) {
-            if (tool.operation === "protect" && primaryAction) {
+            if ((tool.operation === "protect" || tool.operation === "unlock") && primaryAction) {
               primaryAction.classList.add("is-busy");
               primaryAction.disabled = true;
             }
             try {
               await config.run(files, helpers);
             } finally {
-              if (tool.operation === "protect" && primaryAction) {
+              if ((tool.operation === "protect" || tool.operation === "unlock") && primaryAction) {
                 primaryAction.classList.remove("is-busy");
                 primaryAction.disabled = files.length < config.minFilesForAction;
               }
