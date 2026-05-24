@@ -1,4 +1,5 @@
 import { PDFDocument } from "pdf-lib-with-encrypt";
+import { normalizePngBytes } from "./png-normalize";
 
 function isPngFile(file: File) {
   return /png$/i.test(file.type) || /\.png$/i.test(file.name);
@@ -15,7 +16,7 @@ export async function pngToPdfBytes(files: File[]): Promise<Uint8Array> {
     if (!isPngFile(file)) {
       throw new Error(`"${file.name}" is not a PNG file.`);
     }
-    const pngBytes = await file.arrayBuffer();
+    const pngBytes = await normalizePngBytes(file);
     const pngImage = await doc.embedPng(pngBytes);
     const page = doc.addPage([pngImage.width, pngImage.height]);
     page.drawImage(pngImage, {

@@ -162,6 +162,25 @@ export async function protectPdfFile(file: File, password: string): Promise<Uint
   }
 }
 
+export async function pdfToPngPages(file: File, scale = 2.0) {
+  const { pdfToPngPages: renderPages } = await import("./pdf-to-png");
+  try {
+    return await renderPages(file, scale);
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
+export function pdfToPngFileName(file: File, page: number) {
+  const base = file.name.replace(/\.pdf$/i, "") || "document";
+  return `${base}-page-${page}.png`;
+}
+
+export function pdfToPngZipName(file: File) {
+  const base = file.name.replace(/\.pdf$/i, "") || "document";
+  return `${base}-pages.zip`;
+}
+
 export async function pdfToJpgPages(file: File, scale = 1.25) {
   const pdfjs = await import("pdfjs-dist");
   const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";

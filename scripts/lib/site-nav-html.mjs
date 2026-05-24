@@ -25,6 +25,7 @@ export const NAV_DROPDOWNS = [
       { href: "/tools/jpg-to-pdf/", label: "JPG → PDF" },
       { href: "/tools/png-to-pdf/", label: "PNG → PDF" },
       { href: "/tools/pdf-to-jpg/", label: "PDF → JPG" },
+      { href: "/tools/pdf-to-png/", label: "PDF → PNG" },
     ],
   },
   {

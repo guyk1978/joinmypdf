@@ -303,7 +303,7 @@
       ],
       "relatedTools": [
         "jpg-to-pdf",
-        "pdf-compress",
+        "pdf-to-png",
         "pdf-split"
       ],
       "faq": [
@@ -553,6 +553,7 @@
       "relatedTools": [
         "jpg-to-pdf",
         "pdf-to-jpg",
+        "pdf-to-png",
         "pdf-merge"
       ],
       "faq": [
@@ -576,6 +577,55 @@
       "longTailPages": [],
       "skipClusterVariants": true,
       "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-24"
+    },
+    {
+      "slug": "pdf-to-png",
+      "category": "convert",
+      "operation": "pdf-to-png",
+      "title": "PDF to PNG Converter",
+      "primaryKeyword": "pdf to png converter online",
+      "intent": "Export PDF pages as high-quality PNG images in your browser.",
+      "description": "Convert PDF pages to PNG locally at 2× scale. Download individual pages or a ZIP archive—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert pdf to png",
+        "pdf page to png",
+        "export pdf as png"
+      ],
+      "useCases": [
+        "Extract slides as lossless PNG for design tools",
+        "Save PDF pages with crisp text for presentations",
+        "Get transparent-friendly PNG exports for web assets"
+      ],
+      "relatedTools": [
+        "pdf-to-jpg",
+        "png-to-pdf",
+        "pdf-split"
+      ],
+      "faq": [
+        {
+          "q": "Does each PDF page become a PNG file?",
+          "a": "Yes. Each page is exported as a separate PNG at 2× scale for sharp output."
+        },
+        {
+          "q": "Can I download all pages at once?",
+          "a": "Yes. Use Download all as ZIP after export completes."
+        },
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Rendering runs entirely in your browser on your device."
+        },
+        {
+          "q": "Why PNG instead of JPG?",
+          "a": "PNG is lossless and better when you need maximum quality or transparency in downstream edits."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,

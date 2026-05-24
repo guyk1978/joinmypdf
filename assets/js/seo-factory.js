@@ -87,6 +87,7 @@
       "jpg-to-pdf": "convert JPG to PDF",
       "png-to-pdf": "convert PNG to PDF",
       "pdf-to-jpg": "convert PDF to JPG",
+      "pdf-to-png": "convert PDF to PNG",
     };
     return verbMap[tool.operation] || "process PDF";
   }
@@ -896,6 +897,7 @@
         "jpg-to-pdf": ["Upload JPG/PNG images.", "Reorder image list.", "Create and download PDF."],
         "png-to-pdf": ["Upload PNG images.", "Reorder thumbnails if needed.", "Convert and download PDF."],
         "pdf-to-jpg": ["Upload one PDF.", "Render pages to JPG.", "Download image files."],
+        "pdf-to-png": ["Upload one PDF.", "Export pages as PNG at 2× scale.", "Download pages or a ZIP archive."],
       };
       howList.innerHTML = (map[tool.operation] || map.merge).map((line) => "<li>" + escapeHtml(line) + "</li>").join("");
     }
@@ -1139,11 +1141,11 @@
       };
       const config = configByOp[tool.operation];
       if (!config) {
-        if (primaryAction && tool.operation !== "redact" && tool.operation !== "delete-pages") {
+        if (primaryAction && tool.operation !== "redact" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png") {
           primaryAction.disabled = true;
           primaryAction.textContent = "Tool module coming soon";
         }
-      } else if (tool.operation !== "redact" && tool.operation !== "delete-pages") {
+      } else if (tool.operation !== "redact" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png") {
         toolInput.multiple = !!config.multiple;
         if (primaryAction) primaryAction.textContent = config.button;
         const showQuality = tool.operation === "compress";

@@ -82,6 +82,43 @@
     return doc.save();
   }
 
+  function normalizePngFile(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext("2d");
+        if (!ctx) {
+          URL.revokeObjectURL(url);
+          reject(new Error("Canvas not supported."));
+          return;
+        }
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(
+          function (blob) {
+            URL.revokeObjectURL(url);
+            if (!blob) {
+              reject(new Error('Failed to normalize "' + file.name + '".'));
+              return;
+            }
+            blob.arrayBuffer().then(function (buf) {
+              resolve(new Uint8Array(buf));
+            });
+          },
+          "image/png"
+        );
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        reject(new Error('Could not load image "' + file.name + '".'));
+      };
+      img.src = url;
+    });
+  }
+
   async function pngToPdf(files) {
     ensureDeps();
     const validFiles = (files || []).filter(Boolean);
@@ -91,7 +128,7 @@
       if (!(/png$/i.test(file.type) || /\.png$/i.test(file.name))) {
         throw new Error('"' + file.name + '" is not a PNG file.');
       }
-      const pngBytes = await file.arrayBuffer();
+      const pngBytes = await normalizePngFile(file);
       const pngImage = await doc.embedPng(pngBytes);
       const page = doc.addPage([pngImage.width, pngImage.height]);
       page.drawImage(pngImage, {
@@ -132,6 +169,55 @@
     } finally {
       URL.revokeObjectURL(url);
     }
+  }
+
+  async function pdfToPng(file, scale) {
+    ensureWorker();
+    if (!window.pdfjsLib) throw new Error("PDF preview engine failed to load.");
+    if (!file) throw new Error("No PDF file selected.");
+    const renderScale = scale || 2.0;
+    const url = URL.createObjectURL(file);
+    try {
+      const pdf = await pdfjsLib.getDocument(url).promise;
+      const pages = [];
+      for (let i = 1; i <= pdf.numPages; i += 1) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: renderScale });
+        const canvas = document.createElement("canvas");
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+        if (!blob) throw new Error("PNG export failed for page " + i + ".");
+        pages.push({ page: i, blob: blob });
+      }
+      return pages;
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
+
+  function pdfToPngFileName(file, page) {
+    var base = file.name.replace(/\.pdf$/i, "") || "document";
+    return base + "-page-" + page + ".png";
+  }
+
+  function pdfToPngZipName(file) {
+    var base = file.name.replace(/\.pdf$/i, "") || "document";
+    return base + "-pages.zip";
+  }
+
+  async function zipBlobEntries(entries) {
+    if (!window.fflate || typeof fflate.zipSync !== "function") {
+      throw new Error("ZIP library failed to load.");
+    }
+    var files = {};
+    for (var i = 0; i < entries.length; i += 1) {
+      var entry = entries[i];
+      files[entry.name] = new Uint8Array(await entry.blob.arrayBuffer());
+    }
+    var zipped = fflate.zipSync(files);
+    return new Blob([zipped], { type: "application/zip" });
   }
 
   async function renderFirstPagePreview(file, scale) {
@@ -439,6 +525,10 @@
     pngToPdf,
     pngToPdfOutputName,
     pdfToJpg,
+    pdfToPng,
+    pdfToPngFileName,
+    pdfToPngZipName,
+    zipBlobEntries,
     protectPdfFile,
     unlockPdfFile,
     isPdfEncrypted,

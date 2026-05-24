@@ -18,6 +18,7 @@ const TOOLS = {
   merge: { href: "/tools/pdf-merge/", label: "Try Merge PDF" },
   compress: { href: "/tools/pdf-compress/", label: "Try Compress PDF" },
   pdfToJpg: { href: "/tools/pdf-to-jpg/", label: "Export pages as JPG" },
+  pdfToPng: { href: "/tools/pdf-to-png/", label: "Export pages as PNG" },
   jpgToPdf: { href: "/tools/jpg-to-pdf/", label: "Try JPG to PDF" },
   guides: { href: "/pdf-guides/", label: "Browse PDF workflow guides" },
 } as const;
@@ -94,6 +95,10 @@ export function getToolErrorRecovery(
     "pdf-to-jpg": [
       { ...TOOLS.split, variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },
+    ],
+    "pdf-to-png": [
+      { ...TOOLS.pdfToJpg, hint: "Try JPG export if PNG fails", variant: "primary" },
+      { ...TOOLS.split, variant: "secondary" },
     ],
   };
 

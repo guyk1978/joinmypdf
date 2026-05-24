@@ -88,6 +88,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Also have JPG photos?",
       body: "Convert JPEG screenshots with our JPG → PDF tool.",
     });
+  } else if (operation === "pdf-to-png") {
+    rows.push({
+      href: "/tools/png-to-pdf/",
+      title: "Need PNG back in a PDF?",
+      body: "Combine exported PNGs into one document with PNG → PDF.",
+    });
+    rows.push({
+      href: "/tools/pdf-to-jpg/",
+      title: "Prefer smaller JPG files?",
+      body: "Use PDF → JPG when file size matters more than lossless quality.",
+    });
   } else if (operation === "jpg-to-pdf" || operation === "pdf-to-jpg") {
     rows.push({
       href: "/tools/pdf-compress/",

@@ -1,0 +1,324 @@
+"use client";
+
+import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
+import { StickyMobileCta } from "@/components/StickyMobileCta";
+import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import type { ToolDefinition } from "@/lib/types";
+import * as pdf from "@/lib/pdf-engine";
+import { PDF_TO_PNG_SCALE } from "@/lib/pdf-to-png";
+import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
+import { dispatchToolComplete } from "@/lib/subscription-modal";
+import { zipBlobs } from "@/lib/zip-blobs";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+} from "react";
+
+function downloadBlob(blob: Blob, name: string) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+}
+
+type ExportedPage = { page: number; blob: Blob; previewUrl: string };
+
+function ExportThumb({
+  entry,
+  onDownload,
+}: {
+  entry: ExportedPage;
+  onDownload: (entry: ExportedPage) => void;
+}) {
+  return (
+    <div className="pdf-export-thumb">
+      <div className="pdf-export-thumb__canvas-wrap">
+        <img src={entry.previewUrl} alt={`Page ${entry.page}`} className="pdf-export-thumb__img" />
+      </div>
+      <div className="pdf-export-thumb__footer">
+        <span className="pdf-export-thumb__label">Page {entry.page}</span>
+        <button
+          type="button"
+          className="pdf-export-thumb__download"
+          onClick={() => onDownload(entry)}
+        >
+          Download PNG
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const [file, setFile] = useState<File | null>(null);
+  const [pageCount, setPageCount] = useState(0);
+  const [pages, setPages] = useState<ExportedPage[] | null>(null);
+  const [status, setStatus] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+  const [runError, setRunError] = useState<PdfProcessingError | null>(null);
+  const [drag, setDrag] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const previewUrlsRef = useRef<string[]>([]);
+  const baseId = useId();
+
+  const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
+
+  useEffect(() => {
+    capture(EVENTS.tool_view, { slug, operation: tool.operation });
+  }, [slug, tool.operation]);
+
+  const revokePreviews = useCallback(() => {
+    previewUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+    previewUrlsRef.current = [];
+  }, []);
+
+  const reset = useCallback(() => {
+    revokePreviews();
+    setFile(null);
+    setPageCount(0);
+    setPages(null);
+    setStatus("");
+    setDone(false);
+    setRunError(null);
+    if (inputRef.current) inputRef.current.value = "";
+  }, [revokePreviews]);
+
+  useEffect(() => () => revokePreviews(), [revokePreviews]);
+
+  const loadPdfMeta = async (next: File) => {
+    const pdfjs = await import("pdfjs-dist");
+    const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
+    pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
+    const url = URL.createObjectURL(next);
+    try {
+      const doc = await pdfjs.getDocument({ url }).promise;
+      setPageCount(doc.numPages);
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  };
+
+  const pickFile = async (next: File) => {
+    if (!acceptPdf(next)) {
+      setStatus("Please choose a PDF file.");
+      return;
+    }
+    revokePreviews();
+    setFile(next);
+    setPages(null);
+    setDone(false);
+    setRunError(null);
+    setStatus("Loading PDF…");
+    try {
+      await loadPdfMeta(next);
+      setStatus(`${next.name} ready — export pages as PNG.`);
+      capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
+    } catch (e) {
+      const parsed = classifyPdfError(e);
+      setRunError(parsed);
+      setStatus("");
+      setFile(null);
+      setPageCount(0);
+    }
+  };
+
+  const onExport = async () => {
+    if (!file) return;
+    setBusy(true);
+    setDone(false);
+    setRunError(null);
+    setStatus(`Rendering ${pageCount || "all"} page(s) at ${PDF_TO_PNG_SCALE}×…`);
+    capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
+    revokePreviews();
+    try {
+      const rendered = await pdf.pdfToPngPages(file, PDF_TO_PNG_SCALE);
+      const exported: ExportedPage[] = rendered.map((entry) => {
+        const previewUrl = URL.createObjectURL(entry.blob);
+        previewUrlsRef.current.push(previewUrl);
+        return { page: entry.page, blob: entry.blob, previewUrl };
+      });
+      setPages(exported);
+      setDone(true);
+      setStatus(`Exported ${exported.length} PNG page(s). Download individually or as ZIP.`);
+      capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
+      window.setTimeout(() => {
+        dispatchToolComplete({ operation: tool.operation, slug });
+      }, 400);
+    } catch (e) {
+      const parsed = classifyPdfError(e);
+      setRunError(parsed);
+      setStatus("");
+      capture(EVENTS.tool_run_error, {
+        operation: tool.operation,
+        slug,
+        message: parsed.message,
+        kind: parsed.kind,
+      });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const onDownloadPage = (entry: ExportedPage) => {
+    if (!file) return;
+    downloadBlob(entry.blob, pdf.pdfToPngFileName(file, entry.page));
+    capture(EVENTS.download_click, { operation: tool.operation, slug, page: entry.page });
+  };
+
+  const onDownloadZip = async () => {
+    if (!file || !pages?.length) return;
+    setBusy(true);
+    setStatus("Building ZIP…");
+    try {
+      const zip = await zipBlobs(
+        pages.map((entry) => ({
+          name: pdf.pdfToPngFileName(file, entry.page),
+          blob: entry.blob,
+        })),
+      );
+      downloadBlob(zip, pdf.pdfToPngZipName(file));
+      setStatus(`Downloaded ZIP with ${pages.length} PNG file(s).`);
+      capture(EVENTS.download_click, { operation: tool.operation, slug, format: "zip" });
+    } catch (e) {
+      const parsed = classifyPdfError(e);
+      setRunError(parsed);
+      setStatus("");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const showWorkspace = Boolean(file);
+  const canExport = Boolean(file) && !busy;
+  const hasPages = Boolean(pages?.length);
+
+  return (
+    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+      <div className="privacy-callout" role="note">
+        <strong>100% Secure:</strong> PDF rendering runs entirely inside your browser. Your document never
+        leaves your device.
+      </div>
+
+      {!showWorkspace ? (
+        <FileUploadZone
+          drag={drag}
+          role="button"
+          tabIndex={0}
+          aria-controls={`${baseId}-input`}
+          className="cursor-pointer"
+          title="Drop a PDF here or click to browse"
+          description="Each page exports as a high-quality PNG (2× scale)."
+          onKeyDown={(e: ReactKeyboardEvent) => {
+            if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDrag(true);
+          }}
+          onDragLeave={() => setDrag(false)}
+          onDrop={(e) => {
+            e.preventDefault();
+            setDrag(false);
+            const picked = e.dataTransfer.files?.[0];
+            if (picked) void pickFile(picked);
+          }}
+          onClick={() => inputRef.current?.click()}
+          input={
+            <input
+              id={`${baseId}-input`}
+              ref={inputRef}
+              type="file"
+              className="sr-only"
+              accept="application/pdf,.pdf"
+              onChange={(e) => {
+                const picked = e.target.files?.[0];
+                if (picked) void pickFile(picked);
+                e.target.value = "";
+              }}
+            />
+          }
+        />
+      ) : null}
+
+      {showWorkspace ? (
+        <div className="pdf-export-workspace space-y-4">
+          <p className="text-sm text-ink-muted">
+            <strong className="text-ink">{file?.name}</strong>
+            {pageCount ? ` · ${pageCount} page${pageCount === 1 ? "" : "s"}` : null}
+          </p>
+
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              disabled={!canExport || busy}
+              onClick={() => void onExport()}
+              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {hasPages ? "Re-export PNG pages" : "Export PNG pages"}
+            </button>
+            {hasPages ? (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => void onDownloadZip()}
+                className="rounded-xl border border-brand/40 bg-brand/10 px-5 py-3 text-sm font-semibold text-brand hover:bg-brand/15 disabled:opacity-50"
+              >
+                Download all as ZIP
+              </button>
+            ) : null}
+            <button
+              type="button"
+              disabled={busy}
+              onClick={reset}
+              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
+            >
+              Choose another file
+            </button>
+          </div>
+
+          {hasPages ? (
+            <div className="pdf-export-grid" aria-label="Exported PNG pages">
+              {pages!.map((entry) => (
+                <ExportThumb key={entry.page} entry={entry} onDownload={onDownloadPage} />
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
+      {runError ? (
+        <ToolErrorRecovery
+          operation={tool.operation}
+          slug={slug}
+          kind={runError.kind}
+          technicalMessage={runError.message}
+          onDismiss={() => {
+            setRunError(null);
+            setStatus(file ? "Try exporting again or choose another file." : "");
+          }}
+        />
+      ) : (
+        <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+          {status}
+        </p>
+      )}
+
+      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+
+      <StickyMobileCta
+        href="#tool-workspace"
+        label={hasPages ? "Download ZIP" : "Export PNG"}
+        secondaryHref="/"
+        secondaryLabel="Home"
+      />
+    </div>
+  );
+}
