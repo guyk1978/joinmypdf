@@ -33,6 +33,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Recombine later",
       body: "Split for review rounds, then merge approved pages back into a single deliverable.",
     });
+  } else if (operation === "add-page-numbers") {
+    rows.push({
+      href: "/tools/protect-pdf/",
+      title: "Protect the numbered PDF",
+      body: "Add a password before sharing numbered drafts externally.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for email",
+      body: "Shrink the file if numbering pushed it over attachment limits.",
+    });
   } else if (operation === "delete-pages") {
     rows.push({
       href: "/tools/pdf-merge/",

@@ -246,6 +246,59 @@
     return value.toFixed(idx ? 1 : 0) + " " + units[idx];
   }
 
+  function pageNumberCoords(w, h, position, textWidth) {
+    var margin = 28;
+    var fontSize = 11;
+    var x = margin;
+    var y = margin;
+    if (position.indexOf("top") === 0) y = h - margin - fontSize;
+    if (position.indexOf("right") >= 0) x = w - margin - textWidth;
+    else if (position.indexOf("center") >= 0) x = (w - textWidth) / 2;
+    return { x: x, y: y };
+  }
+
+  async function addPageNumbersFile(file, options) {
+    ensureDeps();
+    if (!file) throw new Error("No PDF file selected.");
+    var bytes = await file.arrayBuffer();
+    var doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+    var font = await doc.embedFont(PDFLib.StandardFonts.Helvetica);
+    var totalPages = doc.getPageCount();
+    if (!totalPages) throw new Error("This PDF has no pages.");
+    var startPage = Math.max(1, Math.min(Math.floor(options.startPage) || 1, totalPages));
+    var numberedCount = totalPages - startPage + 1;
+    var displayNum = 1;
+    var fontSize = 11;
+    var color = PDFLib.rgb(0.2, 0.2, 0.2);
+    var position = options.position || "bottom-center";
+    var format = options.format || "number";
+
+    for (var i = startPage - 1; i < totalPages; i += 1) {
+      var page = doc.getPage(i);
+      var size = page.getSize();
+      var label =
+        format === "page-of"
+          ? "Page " + displayNum + " of " + numberedCount
+          : String(displayNum);
+      var textWidth = font.widthOfTextAtSize(label, fontSize);
+      var coords = pageNumberCoords(size.width, size.height, position, textWidth);
+      page.drawText(label, {
+        x: coords.x,
+        y: coords.y,
+        size: fontSize,
+        font: font,
+        color: color,
+      });
+      displayNum += 1;
+    }
+    return doc.save({ useObjectStreams: false });
+  }
+
+  function addPageNumbersOutputName(file) {
+    var base = file.name.replace(/\.pdf$/i, "") || "document";
+    return base + "-numbered.pdf";
+  }
+
   async function protectPdfFile(file, password) {
     if (!file) throw new Error("No PDF file selected.");
     const trimmed = String(password || "").trim();
@@ -529,6 +582,8 @@
     pdfToPngFileName,
     pdfToPngZipName,
     zipBlobEntries,
+    addPageNumbersFile,
+    addPageNumbersOutputName,
     protectPdfFile,
     unlockPdfFile,
     isPdfEncrypted,

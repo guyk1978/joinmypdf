@@ -1,6 +1,7 @@
 import { RelatedTools } from "@/components/RelatedTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
@@ -76,6 +77,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <RedactPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "delete-pages" ? (
           <DeletePdfPagesWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "add-page-numbers" ? (
+          <AddPageNumbersWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-png" ? (
           <PdfToPngWorkspace tool={tool} slug={slug} />
         ) : (

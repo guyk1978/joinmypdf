@@ -143,6 +143,29 @@ export async function redactPdfFile(
   }
 }
 
+export async function addPageNumbersFile(
+  file: File,
+  options: import("./add-page-numbers").AddPageNumbersOptions,
+): Promise<Uint8Array> {
+  if (!file) throw new Error("No PDF file selected.");
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!isPdfFile(file, bytes)) {
+    throw new Error("Choose a valid PDF file.");
+  }
+
+  const { addPageNumbersBytes } = await import("./add-page-numbers");
+  try {
+    return await addPageNumbersBytes(file, options);
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
+export function addPageNumbersOutputName(file: File) {
+  const base = file.name.replace(/\.pdf$/i, "") || "document";
+  return `${base}-numbered.pdf`;
+}
+
 export async function protectPdfFile(file: File, password: string): Promise<Uint8Array> {
   if (!file) throw new Error("No PDF file selected.");
   const trimmed = String(password || "").trim();

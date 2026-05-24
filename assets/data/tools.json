@@ -192,7 +192,7 @@
       "relatedTools": [
         "pdf-merge",
         "delete-pdf-pages",
-        "pdf-compress"
+        "add-page-numbers"
       ],
       "faq": [
         {
@@ -503,7 +503,7 @@
       ],
       "relatedTools": [
         "pdf-merge",
-        "pdf-split",
+        "add-page-numbers",
         "pdf-compress"
       ],
       "faq": [
@@ -626,6 +626,55 @@
       "longTailPages": [],
       "skipClusterVariants": true,
       "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-24"
+    },
+    {
+      "slug": "add-page-numbers",
+      "category": "edit",
+      "operation": "add-page-numbers",
+      "title": "Add Page Numbers to PDF",
+      "primaryKeyword": "add page numbers to pdf online",
+      "intent": "Stamp page numbers on a PDF with flexible position and format in your browser.",
+      "description": "Add page numbers to PDF files locally—choose corner placement, start page, and simple or Page X of Y format.",
+      "secondaryKeywords": [
+        "number pdf pages",
+        "pdf page numbering tool",
+        "insert page numbers pdf"
+      ],
+      "useCases": [
+        "Number report drafts before client review",
+        "Add footer numbers to scanned document packs",
+        "Start numbering after a cover page"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "pdf-split",
+        "delete-pdf-pages"
+      ],
+      "faq": [
+        {
+          "q": "Can I skip the cover page when numbering?",
+          "a": "Yes. Set Start from page to 2 (or later) to begin numbering after your title page."
+        },
+        {
+          "q": "Which positions are supported?",
+          "a": "Top or bottom, aligned left, center, or right on each page."
+        },
+        {
+          "q": "Is my PDF uploaded to your servers?",
+          "a": "No. Numbering runs entirely in your browser on your device."
+        },
+        {
+          "q": "What format options are available?",
+          "a": "Use a plain number (1) or Page X of Y for the numbered section."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,

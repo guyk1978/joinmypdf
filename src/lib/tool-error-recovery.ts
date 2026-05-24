@@ -100,6 +100,10 @@ export function getToolErrorRecovery(
       { ...TOOLS.pdfToJpg, hint: "Try JPG export if PNG fails", variant: "primary" },
       { ...TOOLS.split, variant: "secondary" },
     ],
+    "add-page-numbers": [
+      { ...TOOLS.merge, hint: "Combine sections before numbering", variant: "primary" },
+      { ...TOOLS.split, variant: "secondary" },
+    ],
   };
 
   if (kind === "encrypted") {

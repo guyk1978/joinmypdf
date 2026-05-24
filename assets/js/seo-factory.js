@@ -84,6 +84,7 @@
       unlock: "unlock",
       redact: "redact",
       "delete-pages": "delete PDF pages",
+      "add-page-numbers": "add page numbers to a PDF",
       "jpg-to-pdf": "convert JPG to PDF",
       "png-to-pdf": "convert PNG to PDF",
       "pdf-to-jpg": "convert PDF to JPG",
@@ -894,6 +895,7 @@
         unlock: ["Upload a password-protected PDF.", "Enter the current password.", "Download the unlocked PDF."],
         redact: ["Upload a PDF.", "Drag black boxes over sensitive areas.", "Download the redacted PDF."],
         "delete-pages": ["Upload a PDF.", "Mark page thumbnails to remove.", "Download the cleaned PDF."],
+        "add-page-numbers": ["Upload a PDF.", "Choose position, start page, and format.", "Download the numbered PDF."],
         "jpg-to-pdf": ["Upload JPG/PNG images.", "Reorder image list.", "Create and download PDF."],
         "png-to-pdf": ["Upload PNG images.", "Reorder thumbnails if needed.", "Convert and download PDF."],
         "pdf-to-jpg": ["Upload one PDF.", "Render pages to JPG.", "Download image files."],
@@ -1141,11 +1143,11 @@
       };
       const config = configByOp[tool.operation];
       if (!config) {
-        if (primaryAction && tool.operation !== "redact" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png") {
+        if (primaryAction && tool.operation !== "redact" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
           primaryAction.disabled = true;
           primaryAction.textContent = "Tool module coming soon";
         }
-      } else if (tool.operation !== "redact" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png") {
+      } else if (tool.operation !== "redact" && tool.operation !== "delete-pages" && tool.operation !== "pdf-to-png" && tool.operation !== "add-page-numbers") {
         toolInput.multiple = !!config.multiple;
         if (primaryAction) primaryAction.textContent = config.button;
         const showQuality = tool.operation === "compress";

@@ -7,6 +7,7 @@ function actionLabel(slug: string, title: string): string {
     "pdf-merge": "Merge PDF",
     "pdf-compress": "Compress PDF",
     "pdf-split": "Split PDF",
+    "add-page-numbers": "Add Page Numbers",
     "jpg-to-pdf": "JPG to PDF",
     "pdf-to-jpg": "PDF to JPG",
     "pdf-to-png": "PDF to PNG",
