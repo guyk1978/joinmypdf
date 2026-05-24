@@ -1,6 +1,6 @@
 "use client";
 
-import { PDFDocument } from "pdf-lib";
+import { PDFDocument } from "pdf-lib-with-encrypt";
 import { classifyPdfError } from "./pdf-errors";
 
 async function loadPdfLibDocument(bytes: ArrayBuffer) {
@@ -78,9 +78,9 @@ export async function protectPdfFile(file: File, password: string): Promise<Uint
     throw new Error("Choose a valid PDF file.");
   }
 
-  const { protectPdfBytesQpdf } = await import("./pdf-protect-qpdf");
+  const { protectPdfBytes } = await import("./pdf-protect");
   try {
-    return await protectPdfBytesQpdf(bytes, trimmed);
+    return await protectPdfBytes(bytes, trimmed);
   } catch (error) {
     throw classifyPdfError(error);
   }

@@ -146,11 +146,26 @@
       throw new Error("Choose a valid PDF file.");
     }
 
-    if (!window.PDFProtect || typeof window.PDFProtect.protect !== "function") {
-      throw new Error("Protection engine is still loading. Wait a moment and try again.");
+    ensureDeps();
+    if (typeof PDFLib.PDFDocument.prototype.encrypt !== "function") {
+      throw new Error("PDF protection requires pdf-lib with encryption support.");
     }
 
-    return window.PDFProtect.protect(bytes, trimmed);
+    const doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+    await doc.encrypt({
+      userPassword: trimmed,
+      ownerPassword: trimmed,
+      permissions: {
+        printing: "highResolution",
+        modifying: false,
+        copying: false,
+        annotating: false,
+        fillingForms: false,
+        contentAccessibility: false,
+        documentAssembly: false,
+      },
+    });
+    return doc.save({ useObjectStreams: false });
   }
 
   window.PDFCore = {
