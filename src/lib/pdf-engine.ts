@@ -91,6 +91,22 @@ export async function unlockPdfFile(file: File, password: string): Promise<Uint8
   }
 }
 
+export async function deletePdfPagesFile(file: File, pageIndicesToRemove: number[]): Promise<Uint8Array> {
+  if (!file) throw new Error("No PDF file selected.");
+
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!isPdfFile(file, bytes)) {
+    throw new Error("Choose a valid PDF file.");
+  }
+
+  const { deletePdfPagesBytes } = await import("./pdf-delete-pages");
+  try {
+    return await deletePdfPagesBytes(bytes, pageIndicesToRemove);
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
 export async function redactPdfFile(
   file: File,
   rects: import("./pdf-redact").NormalizedRedactionRect[],

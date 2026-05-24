@@ -1,6 +1,7 @@
 import { RelatedTools } from "@/components/RelatedTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
@@ -72,6 +73,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <UnlockPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "redact" ? (
           <RedactPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "delete-pages" ? (
+          <DeletePdfPagesWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}

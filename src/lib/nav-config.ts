@@ -22,6 +22,7 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
     items: [
       { href: "/tools/pdf-merge/", label: "Merge PDF" },
       { href: "/tools/pdf-split/", label: "Split PDF" },
+      { href: "/tools/delete-pdf-pages/", label: "Delete PDF Pages" },
     ],
   },
   {

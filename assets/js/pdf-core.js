@@ -337,6 +337,71 @@
     return outDoc.save({ useObjectStreams: false });
   }
 
+  var DELETE_PAGES_THUMB_SCALE = 0.35;
+
+  async function loadPdfPageCountForDelete(bytes, password) {
+    ensurePdfJs();
+    const doc = await pdfjsLib.getDocument({
+      data: bytes.slice ? bytes.slice() : new Uint8Array(bytes),
+      password: password || undefined,
+    }).promise;
+    return doc.numPages;
+  }
+
+  async function renderPdfPageThumbnail(bytes, pageIndex, password, scale) {
+    ensurePdfJs();
+    const doc = await pdfjsLib.getDocument({
+      data: bytes.slice ? bytes.slice() : new Uint8Array(bytes),
+      password: password || undefined,
+    }).promise;
+    const page = await doc.getPage(pageIndex + 1);
+    const viewport = page.getViewport({ scale: scale || DELETE_PAGES_THUMB_SCALE });
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext("2d");
+    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+    return canvas;
+  }
+
+  async function deletePdfPagesFile(file, pageIndicesToRemove) {
+    if (!file) throw new Error("No PDF file selected.");
+    if (!pageIndicesToRemove || !pageIndicesToRemove.length) {
+      throw new Error("Select at least one page to delete.");
+    }
+
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    if (
+      !(/pdf$/i.test(file.type) || /\.pdf$/i.test(file.name)) &&
+      !(bytes.length >= 4 && String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]) === "%PDF")
+    ) {
+      throw new Error("Choose a valid PDF file.");
+    }
+
+    ensureDeps();
+    const doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+    const total = doc.getPageCount();
+    const unique = pageIndicesToRemove
+      .filter(function (v, i, arr) {
+        return arr.indexOf(v) === i;
+      })
+      .filter(function (i) {
+        return i >= 0 && i < total;
+      });
+
+    if (!unique.length) throw new Error("No valid pages selected for deletion.");
+    if (unique.length >= total) throw new Error("You cannot delete every page. Keep at least one page.");
+
+    unique.sort(function (a, b) {
+      return b - a;
+    });
+    unique.forEach(function (index) {
+      doc.removePage(index);
+    });
+
+    return doc.save({ useObjectStreams: false });
+  }
+
   window.PDFCore = {
     mergePdfFiles,
     compressSimulation,
@@ -350,6 +415,9 @@
     redactPdfFile,
     loadPdfPageCount,
     renderPdfPageForUi,
+    loadPdfPageCountForDelete,
+    renderPdfPageThumbnail,
+    deletePdfPagesFile,
     renderFirstPagePreview,
     formatBytes,
   };

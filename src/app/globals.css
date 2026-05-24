@@ -299,6 +299,114 @@ body {
   display: none;
 }
 
+.delete-pages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.delete-page-thumb {
+  display: grid;
+  gap: 0.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 12px;
+  padding: 0.5rem;
+  background: rgba(15, 23, 42, 0.45);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.delete-page-thumb.is-marked {
+  border-color: rgba(248, 113, 113, 0.75);
+  box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.35);
+  opacity: 0.82;
+}
+
+.delete-page-thumb__canvas-wrap {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0f172a;
+  min-height: 80px;
+}
+
+.delete-page-thumb__canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.delete-page-thumb__strike {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 42%,
+    rgba(248, 113, 113, 0.55) 46%,
+    rgba(248, 113, 113, 0.55) 54%,
+    transparent 58%
+  );
+  pointer-events: none;
+}
+
+.delete-page-thumb__loading {
+  margin: 0;
+  padding: 2rem 0.5rem;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.delete-page-thumb__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+}
+
+.delete-page-thumb__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.delete-page-thumb__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.45rem;
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  border-radius: 8px;
+  background: rgba(248, 113, 113, 0.12);
+  color: #fecaca;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.delete-page-thumb__remove:hover {
+  background: rgba(248, 113, 113, 0.22);
+}
+
+.delete-page-thumb.is-marked .delete-page-thumb__remove {
+  border-color: rgba(148, 163, 184, 0.45);
+  background: rgba(148, 163, 184, 0.12);
+  color: #e2e8f0;
+}
+
+.delete-pages-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.delete-pages-workspace.is-hidden {
+  display: none;
+}
+
 .container {
   width: min(1120px, 92vw);
   margin: 0 auto;

@@ -64,7 +64,7 @@
       "relatedTools": [
         "pdf-compress",
         "pdf-split",
-        "jpg-to-pdf"
+        "delete-pdf-pages"
       ],
       "faq": [
         {
@@ -191,8 +191,8 @@
       ],
       "relatedTools": [
         "pdf-merge",
-        "pdf-compress",
-        "jpg-to-pdf"
+        "delete-pdf-pages",
+        "pdf-compress"
       ],
       "faq": [
         {
@@ -478,6 +478,55 @@
       "longTailPages": [],
       "skipClusterVariants": true,
       "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-24"
+    },
+    {
+      "slug": "delete-pdf-pages",
+      "category": "edit",
+      "operation": "delete-pages",
+      "title": "Delete PDF Pages",
+      "primaryKeyword": "delete pages from pdf online",
+      "intent": "Remove unwanted pages from a PDF in your browser—files stay on your device.",
+      "description": "Delete PDF pages locally in your browser. Pick thumbnails to remove and download a cleaned file—no upload to our servers.",
+      "secondaryKeywords": [
+        "remove pdf pages",
+        "delete page from pdf",
+        "pdf page remover"
+      ],
+      "useCases": [
+        "Drop blank or duplicate pages before sending a report",
+        "Remove appendix pages from a client packet",
+        "Trim scanned PDFs to only the pages you need"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "pdf-split",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF servers?",
+          "a": "No. Page removal runs entirely in your browser. Your file never leaves your device."
+        },
+        {
+          "q": "Can I delete multiple pages at once?",
+          "a": "Yes. Mark any combination of pages, then click Delete Pages once."
+        },
+        {
+          "q": "Can I delete every page?",
+          "a": "No. At least one page must remain in the output PDF."
+        },
+        {
+          "q": "Will fonts and layout stay intact on remaining pages?",
+          "a": "Yes. Remaining pages are preserved from the original file without re-compressing content."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
