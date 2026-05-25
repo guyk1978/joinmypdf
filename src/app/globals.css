@@ -1745,3 +1745,25 @@ body.site-nav-open {
     pointer-events: auto;
   }
 }
+
+/* Invoice generator — print only the A4 preview */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #invoice-print-root,
+  #invoice-print-root * {
+    visibility: visible;
+  }
+
+  #invoice-print-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+  }
+}

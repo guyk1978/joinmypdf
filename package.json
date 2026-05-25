@@ -14,6 +14,7 @@
   "dependencies": {
     "clsx": "^2.1.1",
     "fflate": "^0.8.2",
+    "html2canvas": "^1.4.1",
     "next": "^15.5.18",
     "pdf-lib-with-encrypt": "^1.2.1",
     "pdfjs-dist": "^5.7.284",

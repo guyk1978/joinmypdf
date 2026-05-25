@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { blogRegistry } from "@/lib/blog-registry";
 import { pdfHubs } from "@/lib/pdf-hubs";
 import { registry } from "@/lib/registry";
+import { INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
 import { allToolSlugs } from "@/lib/variants";
 import { siteUrl } from "@/lib/site";
 
@@ -16,7 +17,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/privacy/`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
     { url: `${siteUrl}/compare/`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
     { url: `${siteUrl}/privacy-first-pdf-tools/`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    {
+      url: `${siteUrl}/tools/invoice-generator/`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
   ];
+
+  for (const profile of INVOICE_TEMPLATE_PROFILES) {
+    entries.push({
+      url: `${siteUrl}/templates/${profile.slug}/`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.82,
+    });
+  }
 
   for (const hub of pdfHubs) {
     entries.push({
