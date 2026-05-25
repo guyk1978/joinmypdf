@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { InvoiceGenerator } from "@/components/invoice/InvoiceGenerator";
+import { INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -50,19 +51,13 @@ export default function InvoiceGeneratorPage() {
             Start from a pre-filled invoice for your trade—line items and sample rates included.
           </p>
           <ul className="mt-4 flex flex-wrap gap-2 text-sm">
-            {[
-              ["web-designer", "Web designer"],
-              ["photographer", "Photographer"],
-              ["copywriter", "Copywriter"],
-              ["consultant", "Consultant"],
-              ["plumber", "Plumber"],
-            ].map(([slug, label]) => (
-              <li key={slug}>
+            {INVOICE_TEMPLATE_PROFILES.map((profile) => (
+              <li key={profile.slug}>
                 <Link
-                  href={`/templates/${slug}/`}
+                  href={`/templates/${profile.slug}/`}
                   className="inline-flex rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-ink transition hover:border-brand/35 hover:text-brand"
                 >
-                  {label}
+                  {profile.professionLabel}
                 </Link>
               </li>
             ))}
