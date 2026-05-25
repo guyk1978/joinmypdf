@@ -4,7 +4,8 @@ import {
   INVOICE_TEMPLATE_PROFILES,
 } from "@/lib/invoice/templates";
 
-export const runtime = "edge";
+/** Static export (`output: "export"`) pre-renders OG PNGs at build time in Node. */
+export const dynamic = "force-static";
 
 export const alt = "JoinMyPDF — free invoice template preview";
 export const size = { width: 1200, height: 630 };
@@ -31,8 +32,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           padding: "56px 64px",
           background: "linear-gradient(145deg, #0b1220 0%, #101b33 48%, #0f172a 100%)",
           border: "2px solid rgba(56, 189, 248, 0.35)",
-          boxSizing: "border-box",
-          fontFamily: "system-ui, Segoe UI, sans-serif",
+          fontFamily: "sans-serif",
         }}
       >
         <div
@@ -55,7 +55,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               color: "#38bdf8",
               fontSize: 22,
               fontWeight: 700,
-              letterSpacing: "0.04em",
             }}
           >
             JoinMyPDF
@@ -66,8 +65,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               color: "#64748b",
               fontSize: 20,
               fontWeight: 600,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
             }}
           >
             Invoice template
@@ -78,10 +75,10 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           style={{
             display: "flex",
             flexDirection: "column",
-            flex: 1,
             justifyContent: "center",
             marginTop: 24,
             maxWidth: 980,
+            flexGrow: 1,
           }}
         >
           <div
@@ -91,11 +88,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               fontSize: 24,
               fontWeight: 600,
               marginBottom: 16,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
             }}
           >
-            100% client-side · no upload
+            100% client-side - no upload
           </div>
           <div
             style={{
@@ -104,7 +99,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               fontSize: 58,
               fontWeight: 800,
               lineHeight: 1.15,
-              letterSpacing: "-0.02em",
             }}
           >
             {headline}
@@ -119,7 +113,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               fontWeight: 500,
             }}
           >
-            Generate & download client-side PDFs instantly
+            Generate and download client-side PDFs instantly
           </div>
         </div>
 
@@ -129,7 +123,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             alignItems: "center",
             justifyContent: "space-between",
             width: "100%",
-            marginTop: "auto",
           }}
         >
           <div style={{ display: "flex", color: "#64748b", fontSize: 22 }}>
@@ -147,7 +140,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
               fontWeight: 700,
             }}
           >
-            Edit · Preview · Download PDF
+            Edit - Preview - Download PDF
           </div>
         </div>
       </div>
