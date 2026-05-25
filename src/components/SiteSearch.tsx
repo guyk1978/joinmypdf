@@ -214,7 +214,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   return (
     <div
       ref={wrapRef}
-      className="site-search site-search--header w-auto max-w-[12.5rem] shrink-0"
+      className="site-search site-search--header"
       data-site-search
       data-variant="header"
     >

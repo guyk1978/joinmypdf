@@ -11,7 +11,7 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <div className="site-header__inner container">
+      <div className="container site-header__inner">
         <Link href="/" className="brand site-header__brand">
           <HeaderPdfMini className="header-pdf-mini--tight" />
           <span className="brand__text">JoinMyPDF</span>

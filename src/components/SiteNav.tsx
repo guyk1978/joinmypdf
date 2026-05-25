@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   NAV_DROPDOWNS,
   NAV_GUIDES_DROPDOWN,
@@ -42,7 +42,6 @@ type SiteNavProps = {
 
 export function SiteNav({ guidesItems }: SiteNavProps) {
   const pathname = usePathname() || "/";
-  const navId = useId();
   const navRef = useRef<HTMLElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -144,6 +143,7 @@ export function SiteNav({ guidesItems }: SiteNavProps) {
         className={`nav-dropdown${isOpen ? " is-open" : ""}${active ? " is-active" : ""}${
           isGuides ? " nav-dropdown--guides" : ""
         }`}
+        data-nav-dropdown={dropdown.id}
         onMouseEnter={() => onDropdownMouseEnter(dropdown.id)}
         onMouseLeave={onDropdownMouseLeave}
       >
@@ -159,6 +159,7 @@ export function SiteNav({ guidesItems }: SiteNavProps) {
         </button>
         <div
           className={`nav-dropdown__panel${isGuides ? " nav-dropdown__panel--guides" : ""}`}
+          id={isGuides ? "nav-guides-panel" : undefined}
           role="menu"
         >
           {dropdown.items.map((item) =>
@@ -198,7 +199,7 @@ export function SiteNav({ guidesItems }: SiteNavProps) {
         type="button"
         className="site-header__menu-btn"
         aria-expanded={mobileOpen}
-        aria-controls={navId}
+        aria-controls="primary-nav"
         aria-label={mobileOpen ? "Close menu" : "Open menu"}
         onClick={() => setMobileOpen((prev) => !prev)}
       >
@@ -207,7 +208,7 @@ export function SiteNav({ guidesItems }: SiteNavProps) {
 
       <nav
         ref={navRef}
-        id={navId}
+        id="primary-nav"
         className={`main-nav${mobileOpen ? " is-mobile-open" : ""}`}
         aria-label="Primary"
       >

@@ -125,7 +125,7 @@ export function buildSiteHeaderInnerHtml(blogPosts = []) {
 }
 
 export const SITE_HEADER_INNER_RE =
-  /<div class="container site-header__inner">[\s\S]*?<\/div>\s*<\/header>/i;
+  /<div class="(?:container site-header__inner|site-header__inner container)">[\s\S]*?<\/div>\s*<\/header>/i;
 
 const LEGACY_GUIDES_LINK_RE = /<a class="nav-link" href="\/blog\/">Guides<\/a>\s*/i;
 
