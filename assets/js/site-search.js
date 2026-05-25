@@ -151,6 +151,7 @@
   }
 
   function bindInstance(root, index) {
+    if (root.getAttribute("data-react-search") === "true") return;
     var variant = root.getAttribute("data-variant") || "hero";
     var input = root.querySelector(".site-search__input");
     var dropdown = root.querySelector(".site-search__dropdown");
@@ -164,40 +165,44 @@
       input.setAttribute("aria-expanded", open ? "true" : "false");
     }
 
-    function closeAll() {
+    function clearResults() {
       dropdown.hidden = true;
       dropdown.classList.remove("site-search__dropdown--open");
       dropdown.innerHTML = "";
       setExpanded(false);
-      if (variant === "header" && popover) {
-        headerOpen = false;
-        popover.hidden = true;
+    }
+
+    function closeHeader() {
+      headerOpen = false;
+      if (popover) {
         popover.classList.remove("site-search__popover--open");
-        if (toggle) toggle.setAttribute("aria-expanded", "false");
+        popover.setAttribute("hidden", "");
       }
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    }
+
+    function closeAll() {
+      clearResults();
+      if (variant === "header") closeHeader();
     }
 
     function openHeader() {
       if (!popover) return;
       headerOpen = true;
-      popover.hidden = false;
+      popover.removeAttribute("hidden");
       popover.classList.add("site-search__popover--open");
       if (toggle) toggle.setAttribute("aria-expanded", "true");
     }
 
     function onQueryChange() {
       var q = input.value;
+      if (variant === "header" && !headerOpen) openHeader();
       var results = filterIndex(index, q);
-      var show = q.trim().length >= MIN_CHARS && (variant === "hero" || headerOpen);
-      if (show) {
+      if (q.trim().length >= MIN_CHARS) {
         renderResults(dropdown, results, q);
         setExpanded(true);
       } else {
-        closeAll();
-        if (variant === "header" && headerOpen && popover) {
-          popover.hidden = false;
-          popover.classList.add("site-search__popover--open");
-        }
+        clearResults();
       }
     }
 
@@ -219,9 +224,15 @@
       });
     }
 
-    document.addEventListener("mousedown", function (event) {
-      if (!root.contains(event.target)) closeAll();
-    });
+    function onDocumentPointerDown(event) {
+      if (root.contains(event.target)) return;
+      closeAll();
+    }
+
+    document.addEventListener("mousedown", onDocumentPointerDown);
+    root._siteSearchDestroy = function () {
+      document.removeEventListener("mousedown", onDocumentPointerDown);
+    };
 
     root._siteSearchClose = closeAll;
     root._siteSearchFocus = function () {

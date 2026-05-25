@@ -27,15 +27,13 @@ function SearchIcon() {
   );
 }
 
-function ResultsPanel({
-  results,
-  query,
-  listId,
-}: {
+type ResultsPanelProps = {
   results: ReturnType<typeof filterSearchIndex>;
   query: string;
   listId: string;
-}) {
+};
+
+function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
   const hasTools = results.tools.length > 0;
   const hasGuides = results.guides.length > 0;
 
@@ -100,27 +98,36 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState("");
-  const [open, setOpen] = useState(false);
+  const [resultsOpen, setResultsOpen] = useState(false);
   const [headerOpen, setHeaderOpen] = useState(false);
 
   const results = useMemo(() => filterSearchIndex(index, query), [index, query]);
-  const showDropdown =
-    query.trim().length >= 2 && open && (variant === "hero" || headerOpen);
+  const showResults =
+    query.trim().length >= 2 && resultsOpen && (variant === "hero" || headerOpen);
+
+  const clearResults = useCallback(() => {
+    setResultsOpen(false);
+    if (inputRef.current) inputRef.current.setAttribute("aria-expanded", "false");
+  }, []);
 
   const closeAll = useCallback(() => {
-    setOpen(false);
+    setResultsOpen(false);
     setHeaderOpen(false);
     if (inputRef.current) inputRef.current.setAttribute("aria-expanded", "false");
   }, []);
 
+  const openHeader = useCallback(() => {
+    setHeaderOpen(true);
+  }, []);
+
   const focusInput = useCallback(() => {
     if (variant === "header") {
-      setHeaderOpen(true);
+      openHeader();
       requestAnimationFrame(() => inputRef.current?.focus());
     } else {
       inputRef.current?.focus();
     }
-  }, [variant]);
+  }, [variant, openHeader]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -145,7 +152,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   }, [closeAll, focusInput]);
 
   useEffect(() => {
-    if (!showDropdown && !headerOpen) return;
+    if (variant === "header" && !headerOpen) return;
 
     const onPointerDown = (event: MouseEvent) => {
       const node = wrapRef.current;
@@ -154,14 +161,25 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
 
     document.addEventListener("mousedown", onPointerDown);
     return () => document.removeEventListener("mousedown", onPointerDown);
-  }, [showDropdown, headerOpen, closeAll]);
+  }, [variant, headerOpen, closeAll]);
 
-  const onInputChange = (value: string) => {
-    setQuery(value);
-    const shouldOpen = value.trim().length >= 2;
-    setOpen(shouldOpen);
-    if (inputRef.current) inputRef.current.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
-  };
+  const onInputChange = useCallback(
+    (value: string) => {
+      setQuery(value);
+      if (variant === "header") setHeaderOpen(true);
+      const shouldShowResults = value.trim().length >= 2;
+      setResultsOpen(shouldShowResults);
+      if (inputRef.current) {
+        inputRef.current.setAttribute("aria-expanded", shouldShowResults ? "true" : "false");
+      }
+    },
+    [variant],
+  );
+
+  const onInputFocus = useCallback(() => {
+    if (variant === "header") setHeaderOpen(true);
+    if (query.trim().length >= 2) setResultsOpen(true);
+  }, [variant, query]);
 
   const field = (
     <div className="site-search__wrap">
@@ -183,18 +201,15 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
           spellCheck={false}
           aria-autocomplete="list"
           aria-controls={listId}
-          aria-expanded={showDropdown}
+          aria-expanded={showResults}
           onChange={(e) => onInputChange(e.target.value)}
-          onFocus={() => {
-            if (variant === "header") setHeaderOpen(true);
-            if (query.trim().length >= 2) setOpen(true);
-          }}
+          onFocus={onInputFocus}
         />
         <kbd className="site-search__kbd" aria-hidden="true">
           /
         </kbd>
       </div>
-      {showDropdown ? <ResultsPanel results={results} query={query} listId={listId} /> : null}
+      {showResults ? <ResultsPanel results={results} query={query} listId={listId} /> : null}
     </div>
   );
 
@@ -204,6 +219,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
         ref={wrapRef}
         className="site-search site-search--hero w-full max-w-full min-w-0"
         data-site-search
+        data-react-search="true"
         data-variant="hero"
       >
         {field}
@@ -216,6 +232,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
       ref={wrapRef}
       className="site-search site-search--header"
       data-site-search
+      data-react-search="true"
       data-variant="header"
     >
       <button
@@ -225,12 +242,14 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
         aria-expanded={headerOpen}
         aria-controls={popoverId}
         onClick={() => {
-          setHeaderOpen((prev) => {
-            const next = !prev;
-            if (next) requestAnimationFrame(() => inputRef.current?.focus());
-            else closeAll();
-            return next;
-          });
+          if (headerOpen) {
+            setQuery("");
+            clearResults();
+            closeAll();
+          } else {
+            openHeader();
+            requestAnimationFrame(() => inputRef.current?.focus());
+          }
         }}
       >
         <SearchIcon />
@@ -238,7 +257,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
       <div
         id={popoverId}
         className={`site-search__popover${headerOpen ? " site-search__popover--open" : ""}`}
-        hidden={!headerOpen}
+        aria-hidden={!headerOpen}
       >
         {field}
       </div>
