@@ -23,7 +23,15 @@ export const STUDIO_TOOLS: StudioToolDef[] = [
     subtitle:
       "Create visual project schedules, milestones, and interactive Gantt charts 100% client-side. Export directly to A4 Landscape PDF.",
     href: "/tools/timeline-gantt-generator/",
-    badge: "New",
     ctaLabel: "Open timeline builder",
+  },
+  {
+    slug: "data-converter-visualizer",
+    title: "Universal Data Converter & Visualizer",
+    subtitle:
+      "Clean, convert, and format CSV or JSON data instantly 100% client-side. Secure file processing with zero server uploads.",
+    href: "/tools/data-converter-visualizer/",
+    badge: "New",
+    ctaLabel: "Open data converter",
   },
 ];

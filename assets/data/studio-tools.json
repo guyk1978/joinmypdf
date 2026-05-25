@@ -11,6 +11,12 @@
       "title": "Timeline & Gantt Chart Generator",
       "description": "Create visual project schedules, milestones, and interactive Gantt charts. Export to landscape PDF in your browser.",
       "href": "/tools/timeline-gantt-generator/"
+    },
+    {
+      "slug": "data-converter-visualizer",
+      "title": "Universal Data Converter & Visualizer",
+      "description": "Clean, convert, and format CSV or JSON data instantly. Secure client-side processing with zero server uploads.",
+      "href": "/tools/data-converter-visualizer/"
     }
   ]
 }
