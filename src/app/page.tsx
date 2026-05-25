@@ -5,6 +5,9 @@ import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
 import { ScenarioWins } from "@/components/ScenarioWins";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteSearch } from "@/components/SiteSearch";
+import { blogRegistry } from "@/lib/blog-registry";
+import { registry } from "@/lib/registry";
 import { SocialProofStrip } from "@/components/SocialProofStrip";
 import { ToolGrid } from "@/components/ToolGrid";
 import { TrustBadges } from "@/components/TrustBadges";
@@ -47,6 +50,9 @@ export default function HomePage() {
             <p className="mt-6 text-sm font-medium tracking-wide text-ink-muted">
               No uploads • No signup • Instant processing
             </p>
+          </div>
+          <div className="mx-auto mt-8 max-w-2xl">
+            <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
           </div>
           <div className="mx-auto mt-8 max-w-2xl space-y-3 sm:mt-10">
             <HeroDropzone />

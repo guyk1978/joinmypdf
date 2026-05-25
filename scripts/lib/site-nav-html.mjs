@@ -1,4 +1,5 @@
 import { buildBrandHtml } from "./brand-html.mjs";
+import { buildHeaderSearchHtml } from "./site-search-html.mjs";
 
 export const NAV_DROPDOWNS = [
   {
@@ -114,6 +115,7 @@ export function buildSiteNavHtml(blogPosts = []) {
 
 export function buildSiteHeaderInnerHtml(blogPosts = []) {
   return `${buildBrandHtml("/")}
+        ${buildHeaderSearchHtml()}
         <button type="button" class="site-header__menu-btn" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
           <span class="site-header__menu-icon" aria-hidden="true"></span>
         </button>

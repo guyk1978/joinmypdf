@@ -22,6 +22,7 @@ const PATCH_ROOTS = [
 ].map((d) => path.join(root, d));
 
 const SITE_NAV_SCRIPT = '<script src="/assets/js/site-nav.js" defer></script>';
+const SITE_SEARCH_SCRIPT = '<script src="/assets/js/site-search.js" defer></script>';
 
 async function walkHtml(dir, out) {
   let entries;
@@ -56,11 +57,20 @@ function ensureStylesheet(html) {
 }
 
 function ensureSiteNavScript(html) {
-  if (html.includes("/assets/js/site-nav.js")) return html;
-  if (/<\/body>/i.test(html)) {
-    return html.replace(/<\/body>/i, `    ${SITE_NAV_SCRIPT}\n  </body>`);
+  let next = html;
+  if (!next.includes("/assets/js/site-nav.js") && /<\/body>/i.test(next)) {
+    next = next.replace(/<\/body>/i, `    ${SITE_NAV_SCRIPT}\n  </body>`);
   }
-  return html + `\n${SITE_NAV_SCRIPT}\n`;
+  if (!next.includes("/assets/js/site-search.js")) {
+    if (next.includes("</head>")) {
+      next = next.replace(/<\/head>/i, `    ${SITE_SEARCH_SCRIPT}\n  </head>`);
+    } else if (/<\/body>/i.test(next)) {
+      next = next.replace(/<\/body>/i, `    ${SITE_SEARCH_SCRIPT}\n  </body>`);
+    } else {
+      next += `\n${SITE_SEARCH_SCRIPT}\n`;
+    }
+  }
+  return next;
 }
 
 function patchBrandOnly(html) {
