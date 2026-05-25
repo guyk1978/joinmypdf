@@ -114,12 +114,14 @@ export function buildSiteNavHtml(blogPosts = []) {
 }
 
 export function buildSiteHeaderInnerHtml(blogPosts = []) {
-  return `${buildBrandHtml("/")}
+  return `${buildBrandHtml("/").replace('class="brand"', 'class="brand site-header__brand"')}
+        <div class="site-header__cluster">
         ${buildHeaderSearchHtml()}
         <button type="button" class="site-header__menu-btn" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
           <span class="site-header__menu-icon" aria-hidden="true"></span>
         </button>
-        ${buildSiteNavHtml(blogPosts)}`;
+        ${buildSiteNavHtml(blogPosts)}
+        </div>`;
 }
 
 export const SITE_HEADER_INNER_RE =

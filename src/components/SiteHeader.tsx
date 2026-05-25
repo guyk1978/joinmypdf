@@ -12,12 +12,14 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="site-header__inner container">
-        <Link href="/" className="brand">
+        <Link href="/" className="brand site-header__brand">
           <HeaderPdfMini className="header-pdf-mini--tight" />
           <span className="brand__text">JoinMyPDF</span>
         </Link>
-        <SiteSearch variant="header" registry={registry} blog={blogRegistry} />
-        <SiteNav guidesItems={guidesItems} />
+        <div className="site-header__cluster">
+          <SiteSearch variant="header" registry={registry} blog={blogRegistry} />
+          <SiteNav guidesItems={guidesItems} />
+        </div>
       </div>
     </header>
   );
