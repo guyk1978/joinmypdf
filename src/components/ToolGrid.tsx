@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { StudioToolCards } from "@/components/StudioToolCards";
 import { registry } from "@/lib/registry";
 import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
 
@@ -19,7 +20,17 @@ function actionLabel(slug: string, title: string): string {
 
 export function ToolGrid() {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-lg font-semibold text-ink">Studio tools</h3>
+          <p className="mt-1 text-sm text-ink-muted">
+            Live-preview builders with client-side PDF export—no uploads required.
+          </p>
+        </div>
+        <StudioToolCards />
+      </div>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {registry.tools.map((t) => (
         <article
           key={t.slug}
@@ -40,6 +51,7 @@ export function ToolGrid() {
           </div>
         </article>
       ))}
+      </div>
     </div>
   );
 }

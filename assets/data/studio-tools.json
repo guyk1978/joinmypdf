@@ -1,0 +1,16 @@
+{
+  "tools": [
+    {
+      "slug": "invoice-generator",
+      "title": "Fast Invoice & Receipt Generator",
+      "description": "Build professional invoices with live A4 preview, line items, tax, and client-side PDF export.",
+      "href": "/tools/invoice-generator/"
+    },
+    {
+      "slug": "timeline-gantt-generator",
+      "title": "Timeline & Gantt Chart Generator",
+      "description": "Create visual project schedules, milestones, and interactive Gantt charts. Export to landscape PDF in your browser.",
+      "href": "/tools/timeline-gantt-generator/"
+    }
+  ]
+}

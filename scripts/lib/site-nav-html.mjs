@@ -11,6 +11,7 @@ export const NAV_DROPDOWNS = [
       { href: "/tools/delete-pdf-pages/", label: "Delete PDF Pages" },
       { href: "/tools/add-page-numbers/", label: "Add Page Numbers" },
       { href: "/tools/invoice-generator/", label: "Invoice Generator" },
+      { href: "/tools/timeline-gantt-generator/", label: "Timeline & Gantt" },
     ],
   },
   {

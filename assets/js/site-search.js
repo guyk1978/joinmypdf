@@ -21,7 +21,15 @@
     });
   }
 
-  function buildIndex(toolsJson, blogPosts) {
+  function buildIndex(toolsJson, studioJson, blogPosts) {
+    var studio = (studioJson.tools || []).map(function (tool) {
+      return {
+        type: "tool",
+        title: tool.title || "",
+        description: tool.description || "",
+        href: tool.href || "/tools/" + tool.slug + "/",
+      };
+    });
     var tools = (toolsJson.tools || []).map(function (tool) {
       return {
         type: "tool",
@@ -41,7 +49,7 @@
         href: "/blog/" + post.slug + "/",
       };
     });
-    return tools.concat(guides);
+    return studio.concat(tools).concat(guides);
   }
 
   function loadIndex() {
@@ -49,6 +57,9 @@
     if (indexPromise) return indexPromise;
     indexPromise = Promise.all([
       fetch("/assets/data/tools.json", { credentials: "same-origin" }).then(function (r) {
+        return r.ok ? r.json() : { tools: [] };
+      }),
+      fetch("/assets/data/studio-tools.json", { credentials: "same-origin" }).then(function (r) {
         return r.ok ? r.json() : { tools: [] };
       }),
       fetch("/assets/data/blog.json", { credentials: "same-origin" }).then(function (r) {
@@ -62,8 +73,8 @@
           return { blog: [] };
         }),
     ]).then(function (parts) {
-      var blogPosts = mergeBlogPosts(parts[1], parts[2]);
-      indexCache = buildIndex(parts[0], blogPosts);
+      var blogPosts = mergeBlogPosts(parts[2], parts[3]);
+      indexCache = buildIndex(parts[0], parts[1], blogPosts);
       return indexCache;
     });
     return indexPromise;

@@ -1,3 +1,4 @@
+import { STUDIO_TOOLS } from "./studio-tools";
 import type { BlogRegistry } from "./types";
 import type { SiteRegistry } from "./types";
 
@@ -16,6 +17,13 @@ export type SearchResults = {
 };
 
 export function buildSiteSearchIndex(registry: SiteRegistry, blog: BlogRegistry): SearchEntry[] {
+  const studio: SearchEntry[] = STUDIO_TOOLS.map((tool) => ({
+    type: "tool",
+    title: tool.title,
+    description: tool.subtitle,
+    href: tool.href,
+  }));
+
   const tools: SearchEntry[] = (registry.tools || []).map((tool) => ({
     type: "tool",
     title: tool.title,
@@ -30,7 +38,7 @@ export function buildSiteSearchIndex(registry: SiteRegistry, blog: BlogRegistry)
     href: `/blog/${post.slug}/`,
   }));
 
-  return [...tools, ...guides];
+  return [...studio, ...tools, ...guides];
 }
 
 export function filterSearchIndex(

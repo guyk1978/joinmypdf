@@ -1,0 +1,29 @@
+/** Client-side studio apps (not in PDF tool registry). */
+export type StudioToolDef = {
+  slug: string;
+  title: string;
+  subtitle: string;
+  href: string;
+  badge?: string;
+  ctaLabel: string;
+};
+
+export const STUDIO_TOOLS: StudioToolDef[] = [
+  {
+    slug: "invoice-generator",
+    title: "Fast Invoice & Receipt Generator",
+    subtitle:
+      "Build professional invoices with live A4 preview, line items, and tax—export a client-side PDF with no uploads.",
+    href: "/tools/invoice-generator/",
+    ctaLabel: "Open invoice builder",
+  },
+  {
+    slug: "timeline-gantt-generator",
+    title: "Timeline & Gantt Chart Generator",
+    subtitle:
+      "Create visual project schedules, milestones, and interactive Gantt charts 100% client-side. Export directly to A4 Landscape PDF.",
+    href: "/tools/timeline-gantt-generator/",
+    badge: "New",
+    ctaLabel: "Open timeline builder",
+  },
+];

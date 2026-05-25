@@ -3,6 +3,7 @@ import { blogRegistry } from "@/lib/blog-registry";
 import { pdfHubs } from "@/lib/pdf-hubs";
 import { registry } from "@/lib/registry";
 import { INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
+import { TIMELINE_TEMPLATE_PROFILES } from "@/lib/timeline/templates";
 import { allToolSlugs } from "@/lib/variants";
 import { siteUrl } from "@/lib/site";
 
@@ -20,7 +21,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${siteUrl}/tools/invoice-generator/`,
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/tools/timeline-gantt-generator/`,
+      lastModified: now,
+      changeFrequency: "monthly",
       priority: 0.9,
     },
   ];
@@ -28,6 +35,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const profile of INVOICE_TEMPLATE_PROFILES) {
     entries.push({
       url: `${siteUrl}/templates/${profile.slug}/`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.82,
+    });
+  }
+
+  for (const profile of TIMELINE_TEMPLATE_PROFILES) {
+    entries.push({
+      url: `${siteUrl}/templates/timeline/${profile.slug}/`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.82,
