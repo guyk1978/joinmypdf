@@ -24,19 +24,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const profile = getInvoiceTemplateBySlug(slug);
   if (!profile) return {};
 
-  const canonical = `/templates/${profile.slug}/`;
+  const canonicalPath = `/templates/${profile.slug}/`;
+  const pageUrl = absoluteUrl(canonicalPath);
 
   return {
     title: profile.metaTitle,
     description: profile.metaDescription,
     keywords: profile.keywords,
-    alternates: { canonical },
+    alternates: { canonical: canonicalPath },
     openGraph: {
       title: profile.metaTitle,
       description: profile.metaDescription,
-      url: canonical,
+      url: pageUrl,
+      siteName: "JoinMyPDF",
       locale: profile.locale,
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: profile.metaTitle,
+      description: profile.metaDescription,
     },
   };
 }

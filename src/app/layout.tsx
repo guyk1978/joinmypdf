@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
+import { ShareButton } from "@/components/ShareButton";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <ScrollDepthTracker />
           {children}
+          <ShareButton />
         </Providers>
       </body>
     </html>
