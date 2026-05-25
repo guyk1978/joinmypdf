@@ -202,7 +202,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
     return (
       <div
         ref={wrapRef}
-        className="site-search site-search--hero"
+        className="site-search site-search--hero w-full max-w-full min-w-0"
         data-site-search
         data-variant="hero"
       >

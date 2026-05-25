@@ -18,10 +18,18 @@
   box-sizing: border-box;
 }
 
-html,
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  max-width: 100%;
   font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
   background: radial-gradient(circle at top, #101b33, var(--bg));
   color: var(--text);
@@ -44,16 +52,30 @@ a:hover {
 
 .container {
   width: min(1120px, 92vw);
+  max-width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .site-header {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: clip;
   border-bottom: 1px solid var(--border);
   background: rgba(11, 18, 32, 0.85);
   backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
   z-index: 20;
+}
+
+.site-header .site-header__inner {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: clip;
+  padding-inline: clamp(0.75rem, 3vw, 1.25rem);
 }
 
 .site-header__inner {
@@ -78,8 +100,11 @@ a:hover {
   justify-content: flex-end;
   gap: 0.5rem;
   min-width: 0;
+  max-width: 100%;
   flex: 1 1 auto;
   margin-left: auto;
+  box-sizing: border-box;
+  overflow-x: clip;
 }
 
 .site-header__cluster .site-search--header {
@@ -101,12 +126,23 @@ a:hover {
 }
 
 .site-search--hero {
-  max-width: 36rem;
+  width: 100%;
+  max-width: min(36rem, 100%);
   margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.site-search--hero .site-search__wrap,
+.site-search--hero .site-search__field {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .site-search__wrap {
   position: relative;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .site-search__label {
@@ -125,6 +161,9 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 0.55rem 0.85rem;
   border: 1px solid rgba(148, 163, 184, 0.28);
   border-radius: 14px;
@@ -185,8 +224,12 @@ a:hover {
   right: 0;
   top: calc(100% + 0.45rem);
   z-index: 60;
+  width: 100%;
+  max-width: min(100%, 100vw);
+  box-sizing: border-box;
   max-height: min(70vh, 22rem);
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 0.5rem;
   border: 1px solid rgba(148, 163, 184, 0.28);
   border-radius: 14px;
@@ -289,7 +332,9 @@ a:hover {
   right: 0;
   top: calc(100% + 0.5rem);
   z-index: 55;
-  width: min(92vw, 22rem);
+  width: min(22rem, calc(100vw - 1.5rem));
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 0.35rem;
 }
 
@@ -303,6 +348,16 @@ a:hover {
 
 .tools-hub__hero .site-search--hero {
   margin-top: 1.25rem;
+}
+
+@media (max-width: 420px) {
+  .site-search__kbd {
+    display: none;
+  }
+
+  .site-search__field {
+    padding-inline: 0.65rem;
+  }
 }
 
 @media (max-width: 900px) {
@@ -376,7 +431,9 @@ a:hover {
   align-items: center;
   gap: 0.35rem 0.75rem;
   min-width: 0;
+  max-width: 100%;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 @media (min-width: 901px) {
