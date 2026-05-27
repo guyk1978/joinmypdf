@@ -14,6 +14,7 @@ function actionLabel(slug: string, title: string): string {
     "pdf-to-jpg": "PDF to JPG",
     "pdf-to-png": "PDF to PNG",
     "png-to-pdf": "PNG to PDF",
+    "heic-to-pdf": "HEIC to PDF",
   };
   return map[slug] || title;
 }

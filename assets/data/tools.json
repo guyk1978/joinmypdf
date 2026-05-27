@@ -580,7 +580,56 @@
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
-      "updatedAt": "2026-05-24"
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "heic-to-pdf",
+      "category": "convert",
+      "operation": "heic-to-pdf",
+      "title": "HEIC to PDF Converter",
+      "primaryKeyword": "heic to pdf converter online",
+      "intent": "Convert iPhone HEIC photos into a downloadable PDF entirely in your browser.",
+      "description": "Upload .heic or .heif images and download a multi-page PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert heic to pdf",
+        "iphone photos to pdf",
+        "heif to pdf free"
+      ],
+      "useCases": [
+        "Turn iPhone HEIC camera rolls into one shareable PDF",
+        "Submit photo evidence or receipts that were saved as HEIC",
+        "Archive HEIC albums without desktop software"
+      ],
+      "relatedTools": [
+        "jpg-to-pdf",
+        "png-to-pdf",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my HEIC photo uploaded to JoinMyPDF?",
+          "a": "No. Decoding and PDF creation run entirely in your browser on your device."
+        },
+        {
+          "q": "Can I convert multiple HEIC files at once?",
+          "a": "Yes. Add several files, reorder them, and export one PDF with one page per image."
+        },
+        {
+          "q": "Which formats are supported?",
+          "a": "Apple HEIC and HEIF images (.heic, .heif). JPG and PNG files should use our JPG or PNG to PDF tools."
+        },
+        {
+          "q": "Will the PDF keep full photo resolution?",
+          "a": "Yes. Each page uses the converted image dimensions rather than forcing a fixed A4 crop."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-25"
     },
     {
       "slug": "pdf-to-png",

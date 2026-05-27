@@ -110,6 +110,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Also have JPG photos?",
       body: "Convert JPEG screenshots with our JPG → PDF tool.",
     });
+  } else if (operation === "heic-to-pdf") {
+    rows.push({
+      href: "/tools/jpg-to-pdf/",
+      title: "Have JPG photos too?",
+      body: "Combine JPEG camera exports with our JPG → PDF tool.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress the PDF",
+      body: "Shrink large photo PDFs before email or upload limits.",
+    });
   } else if (operation === "pdf-to-png") {
     rows.push({
       href: "/tools/png-to-pdf/",

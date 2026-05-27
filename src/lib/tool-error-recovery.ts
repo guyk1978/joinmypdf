@@ -93,6 +93,10 @@ export function getToolErrorRecovery(
       { ...TOOLS.merge, variant: "primary" },
       { ...TOOLS.compress, variant: "secondary" },
     ],
+    "heic-to-pdf": [
+      { ...TOOLS.jpgToPdf, hint: "Try JPG to PDF for non-HEIC photos", variant: "primary" },
+      { ...TOOLS.compress, variant: "secondary" },
+    ],
     "pdf-to-jpg": [
       { ...TOOLS.split, variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },

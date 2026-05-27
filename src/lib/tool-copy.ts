@@ -12,6 +12,7 @@ const verb: Record<string, string> = {
   sign: "sign a PDF with your signature",
   "jpg-to-pdf": "turn images into a PDF",
   "png-to-pdf": "convert PNG images into a PDF",
+  "heic-to-pdf": "convert HEIC photos into a PDF",
   "pdf-to-jpg": "export PDF pages as JPG images",
   "pdf-to-png": "export PDF pages as PNG images",
 };
