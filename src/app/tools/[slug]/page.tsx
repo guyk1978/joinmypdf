@@ -11,6 +11,8 @@ import { PowerpointToPdfWorkspace } from "@/components/PowerpointToPdfWorkspace"
 import { PdfToPowerpointWorkspace } from "@/components/PdfToPowerpointWorkspace";
 import { PdfToExcelWorkspace } from "@/components/PdfToExcelWorkspace";
 import { HeicToPdfWorkspace } from "@/components/HeicToPdfWorkspace";
+import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
+import { AddWatermarkWorkspace } from "@/components/AddWatermarkWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
@@ -108,6 +110,10 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <PdfToExcelWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "heic-to-pdf" ? (
           <HeicToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "crop-pdf" ? (
+          <CropPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "add-watermark" ? (
+          <AddWatermarkWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}

@@ -33,6 +33,28 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Recombine later",
       body: "Split for review rounds, then merge approved pages back into a single deliverable.",
     });
+  } else if (operation === "crop-pdf") {
+    rows.push({
+      href: "/tools/add-watermark/",
+      title: "Add a draft watermark",
+      body: "Stamp CONFIDENTIAL or DRAFT before sharing the cropped PDF.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for email",
+      body: "Shrink the cropped file if attachment limits are tight.",
+    });
+  } else if (operation === "add-watermark") {
+    rows.push({
+      href: "/tools/protect-pdf/",
+      title: "Password-protect the file",
+      body: "Lock watermarked PDFs before sending them externally.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for sharing",
+      body: "Reduce file size after stamping every page.",
+    });
   } else if (operation === "add-page-numbers") {
     rows.push({
       href: "/tools/protect-pdf/",

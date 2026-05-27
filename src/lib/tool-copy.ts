@@ -6,6 +6,8 @@ const verb: Record<string, string> = {
   split: "split a PDF",
   "delete-pages": "delete pages from a PDF",
   "add-page-numbers": "add page numbers to a PDF",
+  "crop-pdf": "crop a PDF in your browser",
+  "add-watermark": "add a text watermark to a PDF",
   protect: "password-protect a PDF",
   unlock: "remove a PDF password",
   redact: "redact sensitive PDF content",

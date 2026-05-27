@@ -24,6 +24,8 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
       { href: "/tools/pdf-split/", label: "Split PDF" },
       { href: "/tools/delete-pdf-pages/", label: "Delete PDF Pages" },
       { href: "/tools/add-page-numbers/", label: "Add Page Numbers" },
+      { href: "/tools/crop-pdf/", label: "Crop PDF" },
+      { href: "/tools/add-watermark/", label: "Add Watermark" },
       { href: "/tools/invoice-generator/", label: "Invoice Generator" },
       { href: "/tools/timeline-gantt-generator/", label: "Timeline & Gantt" },
       { href: "/tools/data-converter-visualizer/", label: "Data Converter" },

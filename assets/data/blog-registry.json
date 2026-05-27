@@ -377,6 +377,8 @@
         "powerpoint-to-pdf",
         "pdf-to-powerpoint",
         "heic-to-pdf",
+        "crop-pdf",
+        "add-watermark",
         "hidden-risks-of-free-online-pdf-editors",
         "how-to-password-protect-pdf-in-browser"
       ],
@@ -484,7 +486,7 @@
       "tier1": true,
       "priority": 0.88,
       "relatedTools": ["word-to-pdf", "pdf-to-word", "excel-to-pdf", "pdf-to-excel", "powerpoint-to-pdf", "pdf-to-powerpoint", "heic-to-pdf"],
-      "relatedBlogs": ["pdf-to-word", "excel-to-pdf", "pdf-to-excel", "powerpoint-to-pdf", "pdf-to-powerpoint", "heic-to-pdf", "hidden-risks-of-free-online-pdf-editors"],
+      "relatedBlogs": ["pdf-to-word", "excel-to-pdf", "pdf-to-excel", "powerpoint-to-pdf", "pdf-to-powerpoint", "heic-to-pdf", "crop-pdf", "add-watermark", "hidden-risks-of-free-online-pdf-editors"],
       "author": {
         "name": "JoinMyPDF Team",
         "role": "Editorial",
@@ -586,7 +588,7 @@
       "tier1": true,
       "priority": 0.88,
       "relatedTools": ["excel-to-pdf", "pdf-to-excel", "word-to-pdf", "powerpoint-to-pdf", "pdf-to-powerpoint", "heic-to-pdf"],
-      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "pdf-to-excel", "powerpoint-to-pdf", "pdf-to-powerpoint", "heic-to-pdf"],
+      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "pdf-to-excel", "powerpoint-to-pdf", "pdf-to-powerpoint", "heic-to-pdf", "crop-pdf", "add-watermark"],
       "author": {
         "name": "JoinMyPDF Team",
         "role": "Editorial",
@@ -699,7 +701,7 @@
       "tier1": true,
       "priority": 0.88,
       "relatedTools": ["powerpoint-to-pdf", "pdf-to-powerpoint", "word-to-pdf", "excel-to-pdf", "pdf-to-excel", "heic-to-pdf"],
-      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "excel-to-pdf", "pdf-to-excel", "pdf-to-powerpoint", "heic-to-pdf"],
+      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "excel-to-pdf", "pdf-to-excel", "pdf-to-powerpoint", "heic-to-pdf", "crop-pdf", "add-watermark"],
       "author": {
         "name": "JoinMyPDF Team",
         "role": "Editorial",
@@ -816,7 +818,7 @@
       "tier1": true,
       "priority": 0.88,
       "relatedTools": ["pdf-to-powerpoint", "powerpoint-to-pdf", "pdf-to-word", "pdf-to-excel", "heic-to-pdf"],
-      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "pdf-to-excel", "heic-to-pdf"],
+      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "pdf-to-excel", "heic-to-pdf", "crop-pdf", "add-watermark"],
       "author": {
         "name": "JoinMyPDF Team",
         "role": "Editorial",
@@ -929,7 +931,7 @@
       "tier1": true,
       "priority": 0.88,
       "relatedTools": ["pdf-to-excel", "excel-to-pdf", "pdf-to-word", "pdf-to-powerpoint", "heic-to-pdf"],
-      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "pdf-to-powerpoint", "heic-to-pdf"],
+      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "pdf-to-powerpoint", "heic-to-pdf", "crop-pdf", "add-watermark"],
       "author": {
         "name": "JoinMyPDF Team",
         "role": "Editorial",
@@ -1042,7 +1044,7 @@
       "tier1": true,
       "priority": 0.88,
       "relatedTools": ["heic-to-pdf", "jpg-to-pdf", "png-to-pdf", "pdf-compress"],
-      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "pdf-to-powerpoint", "pdf-to-excel"],
+      "relatedBlogs": ["pdf-to-word", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "pdf-to-powerpoint", "pdf-to-excel", "crop-pdf", "add-watermark"],
       "author": {
         "name": "JoinMyPDF Team",
         "role": "Editorial",
@@ -1133,6 +1135,224 @@
           {
             "href": "/tools/pdf-compress/",
             "anchor": "Compress PDF"
+          },
+          {
+            "href": "/privacy-first-pdf-tools/",
+            "anchor": "Privacy-first PDF tools hub"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "crop-pdf",
+      "title": "How to Crop PDF Pages Online Free",
+      "keyword": "crop pdf online free",
+      "category": "PDF Editing",
+      "cluster": "high-intent",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-05-27",
+      "readTime": "3 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["crop-pdf", "add-watermark", "pdf-compress", "heic-to-pdf"],
+      "relatedBlogs": ["add-watermark", "pdf-to-excel", "pdf-to-word"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · May 2026"
+      },
+      "seo": {
+        "metaTitle": "Crop PDF Pages Online Free - 100% Secure Layout Adjustments",
+        "metaDescription": "Trim margins and adjust the visible area of your PDF documents visually inside your web browser. 100% client-side, zero-upload privacy, completely free."
+      },
+      "description": "Learn how to instantly crop PDF pages and adjust document margins entirely in your browser without software installation or privacy leaks.",
+      "contentBlocks": {
+        "intro": "Whether you are preparing an academic paper for an e-reader, trimming empty white margins off an invoice, or aligning scanned document borders for a professional presentation, cropping a PDF is a highly effective formatting solution. Unfortunately, most free online editors force you to upload your personal records to remote clouds, while premium offline tools demand expensive monthly licenses. Our platform provides a 100% free, visual, browser-based PDF Crop tool that handles all document adjustments locally on your own machine.",
+        "editorialNote": "The crop frame on page 1 applies proportionally to every page in the document.",
+        "primaryTool": "crop-pdf",
+        "sections": [
+          {
+            "id": "why-crop-pdf",
+            "heading": "Why Adjust and Crop Your PDF Margins?",
+            "level": 2,
+            "paragraphs": [
+              "PDFs are notoriously rigid structures, meaning their canvas dimensions are usually locked when the file is generated. This can be deeply frustrating if a document contains excessive white space around the edges, making the actual text appear tiny and difficult to read on smaller screens like tablets or mobile devices.",
+              "Cropping your PDF lets you redefine the active bounding box of your document. By clipping out irrelevant borders, header remnants, or blank margins, you draw direct focus to the core data matrix. This significantly improves readability, streamlines text layouts for printing, and ensures compliance with official corporate or academic submission guidelines."
+            ]
+          },
+          {
+            "id": "crop-local-privacy",
+            "heading": "Visual Precision Meets Local Sandbox Privacy",
+            "level": 2,
+            "paragraphs": [
+              "Documents that require precise cropping—such as bank ledgers, sensitive government forms, or corporate strategy decks—should never be exposed to external third-party cloud caches. Passing your private intellectual property over the web creates unacceptable security risks.",
+              "JoinMyPDF eliminates this exposure vector entirely by running a local rendering environment inside your browser sandbox. Our tool displays an interactive visual grid directly over your PDF canvas. Once you define your custom boundaries, our local script adjusts the underlying programmatic MetaBox values inside the document structures. The layout is updated instantly without your file ever leaving your physical device."
+            ]
+          },
+          {
+            "id": "crop-pdf-steps",
+            "heading": "How to Crop PDF Pages Visually",
+            "level": 2,
+            "type": "workflow",
+            "paragraphs": [
+              "Our interactive frontend workspace reframes your PDF layouts in three straightforward phases:"
+            ],
+            "list": [
+              "Drag and drop your target PDF file into our secure graphic editing zone above.",
+              "Adjust the intuitive visual boundary handles over the canvas preview to lock in your desired crop area.",
+              "Click the download button to save your perfectly trimmed, unwatermarked PDF document locally."
+            ]
+          },
+          {
+            "id": "cta",
+            "heading": "Try Crop PDF now",
+            "level": 2,
+            "paragraphs": [
+              "Ready to trim margins? Open Crop PDF, set your frame on the preview, and download a locally processed file—all without uploading your document."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does cropping a PDF reduce the underlying text resolution or quality?",
+            "a": "No. Our tool modifies the document's internal vector bounding coordinates (CropBox and MediaBox) rather than compressing or rasterizing the content. Your digital text remains perfectly selectable, sharp, and crisp at every zoom level."
+          },
+          {
+            "q": "Can I apply different crop margins to different pages in the same PDF?",
+            "a": "By default, our tool applies your selected bounding rectangle uniformly across all pages to guarantee visual consistency. If you need custom margins for unique pages, we recommend splitting the PDF first, cropping the parts individually, and merging them back together."
+          },
+          {
+            "q": "Is there a limit on file size or the number of pages I can crop?",
+            "a": "No! Because the graphic scaling and programmatic reboxing happen entirely via your local device's memory resources, you can process large or multi-page documents completely free without any artificial server caps."
+          },
+          {
+            "q": "Is my PDF uploaded to JoinMyPDF?",
+            "a": "No. Cropping runs entirely in your browser on your device."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF (client-side)"
+          },
+          {
+            "href": "/tools/add-watermark/",
+            "anchor": "Add Watermark to PDF"
+          },
+          {
+            "href": "/blog/add-watermark/",
+            "anchor": "How to add a PDF watermark"
+          },
+          {
+            "href": "/privacy-first-pdf-tools/",
+            "anchor": "Privacy-first PDF tools hub"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "add-watermark",
+      "title": "How to Add Watermark to PDF Online Free",
+      "keyword": "add watermark to pdf online",
+      "category": "PDF Editing",
+      "cluster": "high-intent",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-05-27",
+      "readTime": "3 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["add-watermark", "crop-pdf", "pdf-compress"],
+      "relatedBlogs": ["crop-pdf", "pdf-to-word", "word-to-pdf"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · May 2026"
+      },
+      "seo": {
+        "metaTitle": "Add Watermark to PDF Online Free - 100% Secure Document Protection",
+        "metaDescription": "Stamp text or status watermarks onto your PDF pages securely inside your web browser. 100% client-side, customizable opacity and angles, free."
+      },
+      "description": "Learn how to protect your documents by overlaying custom text or branding watermarks onto PDF pages entirely inside your web browser.",
+      "contentBlocks": {
+        "intro": "When sharing proprietary draft contracts, creative design portfolios, or sensitive financial projections, protecting your intellectual property is essential. Adding a distinct visual watermark—such as 'DRAFT', 'CONFIDENTIAL', or your company name—deters unauthorized distribution and clarifies the document's legal status. Our 100% client-side watermark utility lets you customize text styles, font sizes, opacity, and rotation angles locally, ensuring your documents stay branded and secure without relying on third-party cloud uploads.",
+        "editorialNote": "Text watermarks are stamped on every page with the same settings you choose in the preview.",
+        "primaryTool": "add-watermark",
+        "sections": [
+          {
+            "id": "why-watermark-pdf",
+            "heading": "The Strategic Value of Document Watermarking",
+            "level": 2,
+            "paragraphs": [
+              "Watermarks serve as a permanent, visible security layer embedded into document layouts. They provide an immediate visual cue regarding content classifications, helping teams distinguish between early revisions, finalized agreements, or internal-only briefings.",
+              "Beyond security, watermarks are vital for brand reinforcement. Placing a subtle corporate mark or name across sample invoices or photography collections ensures that your creative outputs are instantly recognizable while preventing plagiarism or uncredited asset sharing across digital channels."
+            ]
+          },
+          {
+            "id": "watermark-privacy",
+            "heading": "Local Overlay Vectorization for Ultimate Privacy",
+            "level": 2,
+            "paragraphs": [
+              "Traditional web converters process watermark operations by transmitting your private vector content to remote hosting servers. This represents a critical vulnerability for sensitive legal frameworks, contract bids, or unpublished patents.",
+              "JoinMyPDF guarantees client-side confidentiality. Our infrastructure opens the file array as a sandboxed document asset inside your browser. When you configure text matrices or placement grids, the engine injects native content streams over existing structural layers in real time. The updated PDF downloads directly from your system memory, completely shielding your confidential records."
+            ]
+          },
+          {
+            "id": "watermark-steps",
+            "heading": "How to Stamp Your PDF in Seconds",
+            "level": 2,
+            "type": "workflow",
+            "paragraphs": [
+              "Our interactive workspace customizes and applies your document stamps in three fast phases:"
+            ],
+            "list": [
+              "Upload your active PDF file into our dark-themed document protection grid above.",
+              "Type your custom watermark text and tune parameters like rotation, size, color, and transparency using the parameter panel.",
+              "Hit the download trigger to instantly obtain your newly protected, custom-stamped PDF document."
+            ]
+          },
+          {
+            "id": "cta",
+            "heading": "Try Add Watermark now",
+            "level": 2,
+            "paragraphs": [
+              "Ready to stamp DRAFT or CONFIDENTIAL? Open Add Watermark, tune the live preview, and download your file—all processed locally on your device."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Can the added watermark be easily removed or deleted by recipients?",
+            "a": "Our script embeds the text string directly into the page content streams as a native graphics layer, making it difficult to strip away using standard reader interfaces."
+          },
+          {
+            "q": "Does adjusting the watermark opacity affect the readability of my PDF?",
+            "a": "Not at all. You have full alpha-channel control (0 to 1). We highly recommend setting the transparency between 15% and 30% so your background security text remains visible without blocking underlying text elements."
+          },
+          {
+            "q": "Will the tool add a watermark to all pages or just the first page?",
+            "a": "By default, our tool loops through every single page in your document to ensure comprehensive, multi-page layout security and consistent branding across your entire file."
+          },
+          {
+            "q": "Is my PDF uploaded to JoinMyPDF?",
+            "a": "No. Watermarking runs entirely in your browser on your device."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/add-watermark/",
+            "anchor": "Add Watermark (client-side)"
+          },
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF"
+          },
+          {
+            "href": "/blog/crop-pdf/",
+            "anchor": "How to crop PDF pages"
           },
           {
             "href": "/privacy-first-pdf-tools/",

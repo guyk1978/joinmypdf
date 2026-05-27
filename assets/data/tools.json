@@ -975,6 +975,104 @@
       "updatedAt": "2026-05-25"
     },
     {
+      "slug": "crop-pdf",
+      "category": "edit",
+      "operation": "crop-pdf",
+      "title": "PDF Crop Tool",
+      "primaryKeyword": "crop pdf online free",
+      "intent": "Crop PDF pages visually in your browser—trim margins on every page without uploading your file.",
+      "description": "Draw a crop frame on page 1 and apply the same trim to all pages locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "trim pdf margins",
+        "pdf crop box tool",
+        "crop pdf pages browser"
+      ],
+      "useCases": [
+        "Remove scanner borders from document scans",
+        "Trim slide decks exported to PDF",
+        "Focus readers on the main content area"
+      ],
+      "relatedTools": [
+        "pdf-split",
+        "delete-pdf-pages",
+        "pdf-merge"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Cropping runs entirely in your browser on your device."
+        },
+        {
+          "q": "Does the same crop apply to every page?",
+          "a": "Yes. The frame you set on page 1 is applied proportionally to all pages."
+        },
+        {
+          "q": "Can I crop different areas per page?",
+          "a": "This tool applies one crop region across the document. Use split or page delete tools for per-page edits."
+        },
+        {
+          "q": "Will cropping remove content permanently?",
+          "a": "The crop box changes the visible page area. Content outside the frame is clipped in the exported PDF."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-27"
+    },
+    {
+      "slug": "add-watermark",
+      "category": "edit",
+      "operation": "add-watermark",
+      "title": "Add Watermark to PDF",
+      "primaryKeyword": "add watermark to pdf online",
+      "intent": "Stamp custom text watermarks on every PDF page in your browser with live preview.",
+      "description": "Add text watermarks with opacity, color, rotation, and placement—processed locally with no upload.",
+      "secondaryKeywords": [
+        "pdf watermark generator",
+        "stamp draft on pdf",
+        "text watermark pdf free"
+      ],
+      "useCases": [
+        "Mark drafts as CONFIDENTIAL before review",
+        "Brand internal reports with a footer stamp",
+        "Discourage unauthorized sharing of PDFs"
+      ],
+      "relatedTools": [
+        "protect-pdf",
+        "sign-pdf",
+        "pdf-merge"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Watermarking runs entirely in your browser on your device."
+        },
+        {
+          "q": "Can I customize opacity and rotation?",
+          "a": "Yes. Adjust opacity, font size, color, rotation angle, and grid position before applying."
+        },
+        {
+          "q": "Does the watermark appear on every page?",
+          "a": "Yes. The same text watermark is stamped on each page of your document."
+        },
+        {
+          "q": "Can I add image watermarks?",
+          "a": "This tool supports text watermarks. For signatures or logos, try Sign PDF."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-27"
+    },
+    {
       "slug": "add-page-numbers",
       "category": "edit",
       "operation": "add-page-numbers",

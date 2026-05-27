@@ -109,6 +109,14 @@ export function getToolErrorRecovery(
       { ...TOOLS.merge, hint: "Combine sections before numbering", variant: "primary" },
       { ...TOOLS.split, variant: "secondary" },
     ],
+    "crop-pdf": [
+      { ...TOOLS.split, hint: "Isolate readable pages", variant: "primary" },
+      { ...TOOLS.pdfToJpg, variant: "secondary" },
+    ],
+    "add-watermark": [
+      { ...TOOLS.split, variant: "primary" },
+      { ...TOOLS.protect, hint: "Lock the file after watermarking", variant: "secondary" },
+    ],
     sign: [
       { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },
