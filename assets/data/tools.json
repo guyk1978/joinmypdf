@@ -632,6 +632,153 @@
       "updatedAt": "2026-05-24"
     },
     {
+      "slug": "pdf-to-word",
+      "category": "convert",
+      "operation": "pdf-to-word",
+      "title": "PDF to Word Converter",
+      "primaryKeyword": "pdf to word converter online",
+      "intent": "Convert PDF text into an editable Word document (.docx) entirely in your browser.",
+      "description": "Extract text from PDF pages and download a structured .docx file locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert pdf to docx",
+        "pdf to word free",
+        "pdf to editable word"
+      ],
+      "useCases": [
+        "Reuse contract or report text in Microsoft Word",
+        "Edit exported PDF content without retyping",
+        "Turn lecture notes PDFs into editable documents"
+      ],
+      "relatedTools": [
+        "pdf-to-jpg",
+        "pdf-to-png",
+        "pdf-split"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Parsing and .docx generation run entirely in your browser on your device."
+        },
+        {
+          "q": "Will formatting match the original PDF exactly?",
+          "a": "The tool preserves paragraphs and page breaks from extractable text. Complex layouts, tables, and images are not recreated pixel-perfect."
+        },
+        {
+          "q": "Does it work on scanned PDFs?",
+          "a": "Scanned image-only PDFs have no selectable text to extract. Use a PDF with real text or run OCR elsewhere first."
+        },
+        {
+          "q": "What file do I download?",
+          "a": "A standard .docx file you can open in Microsoft Word, Google Docs, or LibreOffice."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "word-to-pdf",
+      "category": "convert",
+      "operation": "word-to-pdf",
+      "title": "Word to PDF Converter",
+      "primaryKeyword": "word to pdf converter online",
+      "intent": "Convert Word documents (.docx) into PDF files entirely in your browser.",
+      "description": "Upload a .docx file and download a print-ready PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert docx to pdf",
+        "word to pdf free",
+        "docx to pdf browser"
+      ],
+      "useCases": [
+        "Share editable Word drafts as fixed PDFs",
+        "Submit assignments or forms that require PDF format",
+        "Archive client proposals without opening desktop apps"
+      ],
+      "relatedTools": [
+        "pdf-to-word",
+        "jpg-to-pdf",
+        "pdf-merge"
+      ],
+      "faq": [
+        {
+          "q": "Is my Word file uploaded to JoinMyPDF?",
+          "a": "No. Parsing and PDF generation run entirely in your browser on your device."
+        },
+        {
+          "q": "Which format is supported?",
+          "a": "Modern .docx files (Microsoft Word 2007 and later). Legacy .doc files are not supported."
+        },
+        {
+          "q": "Will the PDF look exactly like Word?",
+          "a": "The tool converts document content through HTML layout. Complex formatting, custom fonts, and some images may differ slightly."
+        },
+        {
+          "q": "Can I convert password-protected documents?",
+          "a": "Encrypted or corrupted files may fail to parse. Remove protection in Word and try again."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "excel-to-pdf",
+      "category": "convert",
+      "operation": "excel-to-pdf",
+      "title": "Excel to PDF Converter",
+      "primaryKeyword": "excel to pdf converter online",
+      "intent": "Convert Excel spreadsheets (.xlsx) into landscape PDF files entirely in your browser.",
+      "description": "Upload a workbook and download a print-ready landscape PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert xlsx to pdf",
+        "excel to pdf free",
+        "spreadsheet to pdf browser"
+      ],
+      "useCases": [
+        "Share budget or forecast sheets as fixed PDFs",
+        "Submit spreadsheet reports that require PDF format",
+        "Archive multi-sheet workbooks without desktop Excel"
+      ],
+      "relatedTools": [
+        "word-to-pdf",
+        "pdf-to-word",
+        "jpg-to-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my Excel file uploaded to JoinMyPDF?",
+          "a": "No. Parsing and PDF generation run entirely in your browser on your device."
+        },
+        {
+          "q": "Which format is supported?",
+          "a": "Modern .xlsx workbooks (Excel 2007 and later). Legacy .xls files are not supported."
+        },
+        {
+          "q": "How are multiple sheets handled?",
+          "a": "Each non-empty sheet is included in the PDF with a sheet title. Output uses landscape A4 orientation for wider tables."
+        },
+        {
+          "q": "Will formulas and charts appear in the PDF?",
+          "a": "The PDF shows cell values as HTML tables. Charts and complex formatting may not transfer exactly."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-25"
+    },
+    {
       "slug": "add-page-numbers",
       "category": "edit",
       "operation": "add-page-numbers",

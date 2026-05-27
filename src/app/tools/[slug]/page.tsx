@@ -4,6 +4,9 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
+import { PdfToWordWorkspace } from "@/components/PdfToWordWorkspace";
+import { WordToPdfWorkspace } from "@/components/WordToPdfWorkspace";
+import { ExcelToPdfWorkspace } from "@/components/ExcelToPdfWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
@@ -87,6 +90,12 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <AddPageNumbersWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-png" ? (
           <PdfToPngWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-word" ? (
+          <PdfToWordWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "word-to-pdf" ? (
+          <WordToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "excel-to-pdf" ? (
+          <ExcelToPdfWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}

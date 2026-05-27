@@ -13,15 +13,19 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "docx": "^9.7.1",
     "fflate": "^0.8.2",
     "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "mammoth": "^1.12.0",
     "next": "^15.5.18",
     "pdf-lib-with-encrypt": "^1.2.1",
     "pdfjs-dist": "^5.7.284",
     "posthog-js": "^1.373.4",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^25.7.0",
