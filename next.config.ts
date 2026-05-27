@@ -1,4 +1,8 @@
+import path from "path";
+import webpack from "webpack";
 import type { NextConfig } from "next";
+
+const nodeStub = path.join(__dirname, "src/lib/node-stub.ts");
 
 /**
  * `/` is the Next.js SaaS homepage (`src/app/page.tsx`).
@@ -10,6 +14,15 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: { unoptimized: true },
   reactStrictMode: true,
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(/^node:fs$/, nodeStub),
+        new webpack.NormalModuleReplacementPlugin(/^node:https$/, nodeStub),
+      );
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

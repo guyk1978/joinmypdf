@@ -779,6 +779,153 @@
       "updatedAt": "2026-05-25"
     },
     {
+      "slug": "powerpoint-to-pdf",
+      "category": "convert",
+      "operation": "powerpoint-to-pdf",
+      "title": "PowerPoint to PDF Converter",
+      "primaryKeyword": "powerpoint to pdf converter online",
+      "intent": "Convert PowerPoint presentations (.pptx) into landscape PDF files entirely in your browser.",
+      "description": "Upload a presentation and download a print-ready landscape PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert pptx to pdf",
+        "powerpoint to pdf free",
+        "presentation to pdf browser"
+      ],
+      "useCases": [
+        "Share slide decks as fixed PDF handouts",
+        "Submit presentations that require PDF format",
+        "Archive slides without desktop PowerPoint"
+      ],
+      "relatedTools": [
+        "pdf-to-powerpoint",
+        "word-to-pdf",
+        "excel-to-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my PowerPoint file uploaded to JoinMyPDF?",
+          "a": "No. Parsing and PDF generation run entirely in your browser on your device."
+        },
+        {
+          "q": "Which format is supported?",
+          "a": "Modern .pptx presentations (PowerPoint 2007 and later). Legacy .ppt files are not supported."
+        },
+        {
+          "q": "How are slides handled?",
+          "a": "Each slide becomes one landscape A4 PDF page with extracted text content."
+        },
+        {
+          "q": "Will images and animations appear in the PDF?",
+          "a": "The PDF shows text extracted from slide XML. Images, charts, and animations may not transfer exactly."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "pdf-to-powerpoint",
+      "category": "convert",
+      "operation": "pdf-to-powerpoint",
+      "title": "PDF to PowerPoint Converter",
+      "primaryKeyword": "pdf to powerpoint converter online",
+      "intent": "Convert PDF pages into an editable PowerPoint (.pptx) presentation entirely in your browser.",
+      "description": "Extract text from each PDF page and download a native .pptx file locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert pdf to pptx",
+        "pdf to powerpoint free",
+        "pdf to slides browser"
+      ],
+      "useCases": [
+        "Reuse PDF report text in a slide deck",
+        "Turn scanned PDF pages into editable slides",
+        "Draft presentations from existing PDF documents"
+      ],
+      "relatedTools": [
+        "powerpoint-to-pdf",
+        "pdf-to-word",
+        "pdf-to-excel"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Text extraction and .pptx generation run entirely in your browser on your device."
+        },
+        {
+          "q": "How is the PowerPoint structured?",
+          "a": "Each PDF page becomes one 16:9 slide with extracted text paragraphs."
+        },
+        {
+          "q": "Will images and layout be preserved?",
+          "a": "This tool extracts text only. Images, tables, and exact formatting may not transfer."
+        },
+        {
+          "q": "Can I edit the downloaded file?",
+          "a": "Yes. The output is a standard .pptx file you can open and edit in PowerPoint or Google Slides."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-25"
+    },
+    {
+      "slug": "pdf-to-excel",
+      "category": "convert",
+      "operation": "pdf-to-excel",
+      "title": "PDF to Excel Converter",
+      "primaryKeyword": "pdf to excel converter online",
+      "intent": "Convert PDF text into an editable Excel (.xlsx) spreadsheet entirely in your browser.",
+      "description": "Parse PDF text by position into rows and columns, then download a native .xlsx workbook locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert pdf to xlsx",
+        "pdf to excel free",
+        "pdf table to spreadsheet browser"
+      ],
+      "useCases": [
+        "Extract tabular data from PDF reports",
+        "Turn invoice or statement PDFs into editable sheets",
+        "Reuse PDF lists and tables in Excel"
+      ],
+      "relatedTools": [
+        "excel-to-pdf",
+        "pdf-to-word",
+        "pdf-to-powerpoint"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Parsing and spreadsheet generation run entirely in your browser on your device."
+        },
+        {
+          "q": "How are rows and columns detected?",
+          "a": "Text fragments are grouped by Y position into rows and by X position into columns on each PDF page."
+        },
+        {
+          "q": "Does each PDF page become a sheet?",
+          "a": "Yes. Each page with extractable text becomes its own worksheet in the workbook."
+        },
+        {
+          "q": "Will complex tables transfer perfectly?",
+          "a": "Simple tabular PDFs work best. Merged cells, images, and scanned pages may need manual cleanup."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.85,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-25"
+    },
+    {
       "slug": "add-page-numbers",
       "category": "edit",
       "operation": "add-page-numbers",

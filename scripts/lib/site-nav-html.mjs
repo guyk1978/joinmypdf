@@ -34,6 +34,9 @@ export const NAV_DROPDOWNS = [
       { href: "/tools/pdf-to-word/", label: "PDF to Word" },
       { href: "/tools/word-to-pdf/", label: "Word to PDF" },
       { href: "/tools/excel-to-pdf/", label: "Excel to PDF" },
+      { href: "/tools/powerpoint-to-pdf/", label: "PowerPoint to PDF" },
+      { href: "/tools/pdf-to-powerpoint/", label: "PDF to PowerPoint" },
+      { href: "/tools/pdf-to-excel/", label: "PDF to Excel" },
     ],
   },
   {

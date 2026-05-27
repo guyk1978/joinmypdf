@@ -7,6 +7,9 @@ import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
 import { PdfToWordWorkspace } from "@/components/PdfToWordWorkspace";
 import { WordToPdfWorkspace } from "@/components/WordToPdfWorkspace";
 import { ExcelToPdfWorkspace } from "@/components/ExcelToPdfWorkspace";
+import { PowerpointToPdfWorkspace } from "@/components/PowerpointToPdfWorkspace";
+import { PdfToPowerpointWorkspace } from "@/components/PdfToPowerpointWorkspace";
+import { PdfToExcelWorkspace } from "@/components/PdfToExcelWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
@@ -96,6 +99,12 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <WordToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "excel-to-pdf" ? (
           <ExcelToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "powerpoint-to-pdf" ? (
+          <PowerpointToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-powerpoint" ? (
+          <PdfToPowerpointWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-excel" ? (
+          <PdfToExcelWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}
