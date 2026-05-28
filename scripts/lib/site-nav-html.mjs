@@ -45,6 +45,7 @@ export const NAV_DROPDOWNS = [
       { href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" },
       { href: "/tools/html-to-pdf/", label: "HTML to PDF" },
       { href: "/tools/ebook-to-pdf/", label: "eBook to PDF" },
+      { href: "/tools/iwork-to-pdf/", label: "iWork to PDF" },
     ],
   },
   {
@@ -54,6 +55,7 @@ export const NAV_DROPDOWNS = [
       { href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" },
       { href: "/tools/html-to-pdf/", label: "HTML to PDF" },
       { href: "/tools/ebook-to-pdf/", label: "eBook to PDF" },
+      { href: "/tools/iwork-to-pdf/", label: "iWork to PDF" },
     ],
   },
   {

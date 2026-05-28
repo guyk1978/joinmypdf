@@ -141,6 +141,10 @@ export function getToolErrorRecovery(
       { href: "/tools/html-to-pdf/", label: "Try HTML to PDF", hint: "For chapter HTML exports", variant: "primary" },
       { ...TOOLS.compress, hint: "Reduce large book PDFs", variant: "secondary" },
     ],
+    "iwork-to-pdf": [
+      { href: "/tools/html-to-pdf/", label: "Try HTML to PDF", hint: "For manually exported web layouts", variant: "primary" },
+      { ...TOOLS.compress, hint: "Compress exported presentation PDFs", variant: "secondary" },
+    ],
     sign: [
       { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },

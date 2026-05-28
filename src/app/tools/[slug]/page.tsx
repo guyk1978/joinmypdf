@@ -19,6 +19,7 @@ import { OpenofficeToPdfWorkspace } from "@/components/OpenofficeToPdfWorkspace"
 import { MarkdownToPdfWorkspace } from "@/components/MarkdownToPdfWorkspace";
 import { HtmlToPdfWorkspace } from "@/components/HtmlToPdfWorkspace";
 import { EbookToPdfWorkspace } from "@/components/EbookToPdfWorkspace";
+import { IworkToPdfWorkspace } from "@/components/IworkToPdfWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
@@ -132,6 +133,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <HtmlToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "ebook-to-pdf" ? (
           <EbookToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "iwork-to-pdf" ? (
+          <IworkToPdfWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}

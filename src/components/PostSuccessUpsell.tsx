@@ -121,6 +121,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Need web layout exports?",
       body: "Use HTML to PDF for template pages or rendered chapter snippets.",
     });
+  } else if (operation === "iwork-to-pdf") {
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for sharing",
+      body: "Reduce large slide decks or reports before sending.",
+    });
+    rows.push({
+      href: "/tools/word-to-pdf/",
+      title: "Also converting DOCX?",
+      body: "Use Word to PDF for Microsoft Word files in the same workflow.",
+    });
   } else if (operation === "add-page-numbers") {
     rows.push({
       href: "/tools/protect-pdf/",

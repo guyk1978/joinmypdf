@@ -1269,6 +1269,55 @@
       "updatedAt": "2026-05-28"
     },
     {
+      "slug": "iwork-to-pdf",
+      "category": "convert",
+      "operation": "iwork-to-pdf",
+      "title": "iWork to PDF Converter",
+      "primaryKeyword": "apple iwork to pdf converter online free",
+      "intent": "Convert Apple Pages, Numbers, and Keynote files into PDFs by extracting embedded QuickLook previews in your browser.",
+      "description": "Upload .pages, .numbers, or .keynote packages and instantly download the embedded preview PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "pages to pdf",
+        "numbers to pdf",
+        "keynote to pdf"
+      ],
+      "useCases": [
+        "Share Apple-only files with Windows and Android users",
+        "Convert Keynote decks into universal PDFs for distribution",
+        "Export Numbers and Pages docs when iCloud is unavailable"
+      ],
+      "relatedTools": [
+        "ebook-to-pdf",
+        "html-to-pdf",
+        "word-to-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my iWork file uploaded to JoinMyPDF?",
+          "a": "No. Archive extraction and preview PDF export run entirely in your browser on your device."
+        },
+        {
+          "q": "Which file types are supported?",
+          "a": "Apple .pages, .numbers, and .keynote package files."
+        },
+        {
+          "q": "How does conversion work so quickly?",
+          "a": "The tool extracts QuickLook/Preview.pdf embedded inside the iWork package and downloads it directly."
+        },
+        {
+          "q": "What if Preview.pdf is missing?",
+          "a": "Re-save or export the document from iWork with previews enabled, then upload the updated file."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-28"
+    },
+    {
       "slug": "crop-pdf",
       "category": "edit",
       "operation": "crop-pdf",
