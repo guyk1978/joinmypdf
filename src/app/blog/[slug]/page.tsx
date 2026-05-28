@@ -13,6 +13,8 @@ import { registry } from "@/lib/registry";
 import type { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
 
+export const dynamicParams = false;
+
 function stripNoise(text: string) {
   return text.replace(/\s*\[[^\]]+\]\s*$/, "").trim();
 }
@@ -23,7 +25,7 @@ function faqItems(post: BlogPost) {
 }
 
 export function generateStaticParams() {
-  return (blogRegistry.blog || []).map((p) => ({ slug: p.slug }));
+  return (blogRegistry.blog || []).map((p) => ({ slug: p.slug.replace(/^\/|\/$/g, "") }));
 }
 
 export async function generateMetadata({

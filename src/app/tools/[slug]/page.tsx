@@ -35,8 +35,10 @@ import { allToolSlugs, resolveToolRoute } from "@/lib/variants";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return allToolSlugs(registry).map((slug) => ({ slug }));
+  return allToolSlugs(registry).map((slug) => ({ slug: slug.replace(/^\/|\/$/g, "") }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
