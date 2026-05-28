@@ -88,6 +88,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Converting Word files?",
       body: "Use Word to PDF for .docx documents from Microsoft Office.",
     });
+  } else if (operation === "markdown-to-pdf") {
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for email",
+      body: "Shrink large Markdown exports before sharing.",
+    });
+    rows.push({
+      href: "/tools/openoffice-to-pdf/",
+      title: "OpenOffice documents?",
+      body: "Convert .odt, .ods, and .odp files with our OpenOffice to PDF tool.",
+    });
   } else if (operation === "add-page-numbers") {
     rows.push({
       href: "/tools/protect-pdf/",

@@ -16,6 +16,7 @@ import { AddWatermarkWorkspace } from "@/components/AddWatermarkWorkspace";
 import { RotatePdfWorkspace } from "@/components/RotatePdfWorkspace";
 import { AutocadToPdfWorkspace } from "@/components/AutocadToPdfWorkspace";
 import { OpenofficeToPdfWorkspace } from "@/components/OpenofficeToPdfWorkspace";
+import { MarkdownToPdfWorkspace } from "@/components/MarkdownToPdfWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
@@ -123,6 +124,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <AutocadToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "openoffice-to-pdf" ? (
           <OpenofficeToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "markdown-to-pdf" ? (
+          <MarkdownToPdfWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}

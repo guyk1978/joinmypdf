@@ -20,6 +20,7 @@ function actionLabel(slug: string, title: string): string {
     "rotate-pdf": "Rotate PDF",
     "autocad-to-pdf": "AutoCAD to PDF",
     "openoffice-to-pdf": "OpenOffice to PDF",
+    "markdown-to-pdf": "Markdown to PDF",
   };
   return map[slug] || title;
 }

@@ -1122,6 +1122,55 @@
       "updatedAt": "2026-05-28"
     },
     {
+      "slug": "markdown-to-pdf",
+      "category": "convert",
+      "operation": "markdown-to-pdf",
+      "title": "Markdown to PDF Converter",
+      "primaryKeyword": "markdown to pdf converter online free",
+      "intent": "Render Markdown text or .md files into styled, print-ready PDFs entirely in your browser.",
+      "description": "Paste Markdown or upload a .md file, pick a theme, and download a formatted PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "md to pdf",
+        "readme to pdf",
+        "obsidian export pdf"
+      ],
+      "useCases": [
+        "Export GitHub README files as shareable PDFs",
+        "Turn Obsidian or Notion Markdown notes into handouts",
+        "Deliver technical docs with code blocks and tables"
+      ],
+      "relatedTools": [
+        "openoffice-to-pdf",
+        "word-to-pdf",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my Markdown uploaded to JoinMyPDF?",
+          "a": "No. Parsing, preview, and PDF rendering run entirely in your browser on your device."
+        },
+        {
+          "q": "Can I paste text instead of uploading a file?",
+          "a": "Yes. Use the editor panel to paste Markdown directly, with a live HTML preview side by side."
+        },
+        {
+          "q": "Which styling themes are available?",
+          "a": "Choose GitHub Markdown, Academic Clean, or Minimal Dark before downloading your PDF."
+        },
+        {
+          "q": "Are tables and code blocks supported?",
+          "a": "Yes. GFM tables, fenced code blocks, lists, and headings are rendered with theme-appropriate styling."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-28"
+    },
+    {
       "slug": "crop-pdf",
       "category": "edit",
       "operation": "crop-pdf",

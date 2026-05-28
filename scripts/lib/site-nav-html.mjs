@@ -42,7 +42,13 @@ export const NAV_DROPDOWNS = [
       { href: "/tools/pdf-to-powerpoint/", label: "PDF to PowerPoint" },
       { href: "/tools/pdf-to-excel/", label: "PDF to Excel" },
       { href: "/tools/openoffice-to-pdf/", label: "OpenOffice to PDF" },
+      { href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" },
     ],
+  },
+  {
+    id: "developer",
+    label: "Developer Utilities",
+    items: [{ href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" }],
   },
   {
     id: "cad",

@@ -129,6 +129,10 @@ export function getToolErrorRecovery(
       { href: "/tools/word-to-pdf/", label: "Try Word to PDF", hint: "For .docx files from Microsoft Word", variant: "primary" },
       { ...TOOLS.compress, hint: "Compress the PDF before emailing", variant: "secondary" },
     ],
+    "markdown-to-pdf": [
+      { href: "/tools/openoffice-to-pdf/", label: "Try OpenOffice to PDF", hint: "For .odt open-source documents", variant: "primary" },
+      { ...TOOLS.compress, hint: "Compress long PDF exports", variant: "secondary" },
+    ],
     sign: [
       { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },

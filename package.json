@@ -21,6 +21,7 @@
     "jspdf": "^4.2.1",
     "jszip": "^3.10.1",
     "mammoth": "^1.12.0",
+    "marked": "^18.0.4",
     "next": "^15.5.18",
     "pdf-lib-with-encrypt": "^1.2.1",
     "pdfjs-dist": "^5.7.284",

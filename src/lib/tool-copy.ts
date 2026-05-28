@@ -11,6 +11,7 @@ const verb: Record<string, string> = {
   "rotate-pdf": "rotate PDF pages in your browser",
   "autocad-to-pdf": "convert AutoCAD DXF drawings to PDF",
   "openoffice-to-pdf": "convert OpenOffice documents to PDF",
+  "markdown-to-pdf": "convert Markdown to PDF",
   protect: "password-protect a PDF",
   unlock: "remove a PDF password",
   redact: "redact sensitive PDF content",
