@@ -18,6 +18,7 @@ import { AutocadToPdfWorkspace } from "@/components/AutocadToPdfWorkspace";
 import { OpenofficeToPdfWorkspace } from "@/components/OpenofficeToPdfWorkspace";
 import { MarkdownToPdfWorkspace } from "@/components/MarkdownToPdfWorkspace";
 import { HtmlToPdfWorkspace } from "@/components/HtmlToPdfWorkspace";
+import { EbookToPdfWorkspace } from "@/components/EbookToPdfWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
@@ -129,6 +130,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <MarkdownToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "html-to-pdf" ? (
           <HtmlToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "ebook-to-pdf" ? (
+          <EbookToPdfWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}

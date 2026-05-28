@@ -13,6 +13,7 @@ const verb: Record<string, string> = {
   "openoffice-to-pdf": "convert OpenOffice documents to PDF",
   "markdown-to-pdf": "convert Markdown to PDF",
   "html-to-pdf": "convert HTML to PDF",
+  "ebook-to-pdf": "convert EPUB eBooks to PDF",
   protect: "password-protect a PDF",
   unlock: "remove a PDF password",
   redact: "redact sensitive PDF content",

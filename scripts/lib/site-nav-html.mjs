@@ -44,6 +44,7 @@ export const NAV_DROPDOWNS = [
       { href: "/tools/openoffice-to-pdf/", label: "OpenOffice to PDF" },
       { href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" },
       { href: "/tools/html-to-pdf/", label: "HTML to PDF" },
+      { href: "/tools/ebook-to-pdf/", label: "eBook to PDF" },
     ],
   },
   {
@@ -52,6 +53,7 @@ export const NAV_DROPDOWNS = [
     items: [
       { href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" },
       { href: "/tools/html-to-pdf/", label: "HTML to PDF" },
+      { href: "/tools/ebook-to-pdf/", label: "eBook to PDF" },
     ],
   },
   {

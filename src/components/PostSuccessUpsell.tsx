@@ -110,6 +110,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Compress for sharing",
       body: "Reduce large rendered PDFs before sending.",
     });
+  } else if (operation === "ebook-to-pdf") {
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress long exports",
+      body: "Large books can produce heavy PDFs—compress before sharing.",
+    });
+    rows.push({
+      href: "/tools/html-to-pdf/",
+      title: "Need web layout exports?",
+      body: "Use HTML to PDF for template pages or rendered chapter snippets.",
+    });
   } else if (operation === "add-page-numbers") {
     rows.push({
       href: "/tools/protect-pdf/",

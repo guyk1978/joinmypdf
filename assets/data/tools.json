@@ -1220,6 +1220,55 @@
       "updatedAt": "2026-05-28"
     },
     {
+      "slug": "ebook-to-pdf",
+      "category": "convert",
+      "operation": "ebook-to-pdf",
+      "title": "eBooks to PDF Converter",
+      "primaryKeyword": "epub to pdf converter online free",
+      "intent": "Convert EPUB eBooks into structured, print-ready PDF files directly in your browser.",
+      "description": "Upload an .epub file, choose typography and margin settings, then download a clean PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "ebook to pdf",
+        "convert epub to pdf",
+        "epub reader to pdf export"
+      ],
+      "useCases": [
+        "Convert study textbooks to fixed-page PDFs for citation",
+        "Archive training manuals from EPUB into printable format",
+        "Share eBook chapters with teams using universal PDF readers"
+      ],
+      "relatedTools": [
+        "html-to-pdf",
+        "markdown-to-pdf",
+        "word-to-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my EPUB uploaded to JoinMyPDF?",
+          "a": "No. EPUB extraction and PDF pagination run entirely in your browser on your device."
+        },
+        {
+          "q": "Can I change the reading layout?",
+          "a": "Yes. Choose font size presets and compact or normal page margins before conversion."
+        },
+        {
+          "q": "Does the tool support DRM-protected files?",
+          "a": "Only standard, non-DRM EPUB files can be parsed successfully in a local browser workflow."
+        },
+        {
+          "q": "Can I convert large books?",
+          "a": "Yes. Processing happens locally; performance depends on your device memory and book size."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-28"
+    },
+    {
       "slug": "crop-pdf",
       "category": "edit",
       "operation": "crop-pdf",
