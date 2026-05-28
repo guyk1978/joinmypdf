@@ -83,8 +83,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <main className="mx-auto max-w-6xl space-y-10 px-4 py-10 md:px-6 md:py-12">
         <header className="space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">JoinMyPDF</p>
-          <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">{h1}</h1>
-          <p className="max-w-3xl text-lg text-ink-muted">{tool.intent}</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">{h1}</h1>
+          <p className="max-w-3xl text-lg text-slate-600 dark:text-slate-300">{tool.intent}</p>
         </header>
 
         {tool.operation === "sign" ? (
@@ -139,30 +139,30 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <ToolWorkspace tool={tool} slug={slug} />
         )}
 
-        <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
-          <h2 className="text-xl font-semibold text-ink">Before you start</h2>
-          <div className="mt-4 max-w-none space-y-4 text-sm leading-relaxed text-ink-muted md:text-base">
+        <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Before you start</h2>
+          <div className="mt-4 max-w-none space-y-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 md:text-base">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
         </section>
 
-        <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
-          <h2 className="text-xl font-semibold text-ink">Why teams choose this model</h2>
+        <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Why teams choose this model</h2>
           <ul className="mt-4 space-y-4">
             {bullets.map((b) => (
               <li key={b.title}>
-                <p className="font-semibold text-ink">{b.title}</p>
-                <p className="text-sm text-ink-muted md:text-base">{b.text}</p>
+                <p className="font-semibold text-slate-900 dark:text-white">{b.title}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 md:text-base">{b.text}</p>
               </li>
             ))}
           </ul>
         </section>
 
         {articles.length ? (
-          <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
-            <h2 className="text-xl font-semibold text-ink">Guides that use this tool</h2>
+          <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Guides that use this tool</h2>
             <ul className="mt-4 space-y-2">
               {articles.map((a) => (
                 <li key={a.slug}>
@@ -177,13 +177,13 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
         <RelatedTools tool={tool} />
 
-        <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
-          <h2 className="text-xl font-semibold text-ink">Questions</h2>
+        <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Questions</h2>
           <div className="mt-4 space-y-2">
             {faqs.map((f) => (
-              <details key={f.q} className="rounded-xl border border-white/10 bg-surface/40 px-4 py-3">
-                <summary className="cursor-pointer font-medium text-ink">{f.q}</summary>
-                <p className="mt-2 text-sm text-ink-muted">{f.a}</p>
+              <details key={f.q} className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-surface/40">
+                <summary className="cursor-pointer font-medium text-slate-900 dark:text-white">{f.q}</summary>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{f.a}</p>
               </details>
             ))}
           </div>

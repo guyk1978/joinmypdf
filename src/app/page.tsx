@@ -40,14 +40,14 @@ export default function HomePage() {
         {/* Phase 1 — Hero */}
         <section className="text-center">
           <div className="mx-auto max-w-3xl">
-            <h1 className="text-4xl font-bold tracking-tight text-ink sm:text-5xl md:text-[2.75rem] md:leading-[1.1]">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-[2.75rem] md:leading-[1.1] dark:text-white">
               Merge, compress, and edit PDFs in your browser—nothing is uploaded to our servers.
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted md:text-xl">
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300 md:text-xl">
               JoinMyPDF runs merge, compress, split, and conversions locally for speed and privacy. No install, no queue,
               no watermark on standard downloads.
             </p>
-            <p className="mt-6 text-sm font-medium tracking-wide text-ink-muted">
+            <p className="mt-6 text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300">
               No uploads • No signup • Instant processing
             </p>
           </div>
@@ -63,8 +63,8 @@ export default function HomePage() {
         {/* Phase 4 — Tools */}
         <section className="mt-20 space-y-5 md:mt-24">
           <div className="text-center md:text-left">
-            <h2 className="text-2xl font-semibold tracking-tight text-ink md:text-3xl">Pick a tool</h2>
-            <p className="mx-auto mt-2 max-w-2xl text-sm text-ink-muted md:mx-0 md:text-base">
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-3xl">Pick a tool</h2>
+            <p className="mx-auto mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300 md:mx-0 md:text-base">
               Every workflow opens in one click—same layout, same privacy model.
             </p>
           </div>
@@ -88,9 +88,9 @@ export default function HomePage() {
 
         {/* Guides */}
         <section className="mt-16 grid gap-4 md:grid-cols-2 md:mt-20">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-10 text-center">
-            <h2 className="text-xl font-semibold text-ink md:text-2xl">Browse all tools</h2>
-            <p className="mx-auto mt-3 max-w-md text-sm text-ink-muted md:text-base">
+          <div className="rounded-2xl border border-slate-200/60 bg-white px-6 py-10 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white md:text-2xl">Browse all tools</h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-slate-600 dark:text-slate-300 md:text-base">
               Full directory of merge, compress, convert, sign, and protect workflows—including long-tail pages for
               mobile, deadlines, and sensitive documents.
             </p>
@@ -98,9 +98,9 @@ export default function HomePage() {
               Open tool directory
             </Link>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.02] px-6 py-10 text-center">
-            <h2 className="text-xl font-semibold text-ink md:text-2xl">Guides for email, mobile &amp; submissions</h2>
-            <p className="mx-auto mt-3 max-w-md text-sm text-ink-muted md:text-base">
+          <div className="rounded-2xl border border-slate-200/60 bg-white px-6 py-10 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white md:text-2xl">Guides for email, mobile &amp; submissions</h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-slate-600 dark:text-slate-300 md:text-base">
               Short tutorials that link straight into the tools so your team can repeat the same steps every time.
             </p>
             <Link href="/blog/" className={`${ctaSecondary} mt-6 inline-flex`}>

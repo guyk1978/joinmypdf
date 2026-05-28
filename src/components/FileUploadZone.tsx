@@ -115,7 +115,7 @@ export function FileUploadZone({
           : "min-h-[220px] px-6 md:min-h-[260px] md:px-10",
         active
           ? "border-blue-400 bg-blue-50/40 dark:border-brand dark:bg-blue-950/20"
-          : "border-blue-300 bg-blue-50/40 dark:border-slate-700 dark:bg-gradient-to-b dark:from-white/[0.07] dark:to-white/[0.02]",
+          : "border-blue-400/70 bg-slate-50/80 dark:border-slate-700 dark:bg-gradient-to-b dark:from-white/[0.07] dark:to-white/[0.02]",
         className
       )}
       {...rest}

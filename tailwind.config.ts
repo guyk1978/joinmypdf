@@ -7,12 +7,15 @@ const config: Config = {
     extend: {
       colors: {
         surface: {
-          DEFAULT: "#f8fafc",
-          muted: "#ffffff",
+          DEFAULT: "rgb(var(--surface) / <alpha-value>)",
+          muted: "rgb(var(--surface-muted) / <alpha-value>)",
           dark: "#0B132B",
           darkMuted: "#1C2541",
         },
-        ink: { DEFAULT: "#0f172a", muted: "#475569" },
+        ink: {
+          DEFAULT: "rgb(var(--ink) / <alpha-value>)",
+          muted: "rgb(var(--ink-muted) / <alpha-value>)",
+        },
         brand: { DEFAULT: "#38bdf8", deep: "#0ea5e9" },
       },
       boxShadow: {

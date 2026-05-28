@@ -3,10 +3,18 @@
 @tailwind utilities;
 
 :root {
+  --surface: 248 250 252;
+  --surface-muted: 255 255 255;
+  --ink: 15 23 42;
+  --ink-muted: 71 85 105;
   color-scheme: light;
 }
 
 html.dark {
+  --surface: 11 19 43;
+  --surface-muted: 28 37 65;
+  --ink: 248 250 252;
+  --ink-muted: 203 213 225;
   color-scheme: dark;
 }
 
@@ -27,11 +35,18 @@ html.dark body {
 
 /* Footer link directory — keep in sync with assets/css/styles.css */
 .site-footer {
-  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
   margin-top: 4rem;
-  background: rgba(15, 23, 42, 0.2);
+  background: #f8fafc;
   padding: 3rem 0 2.5rem;
-  color: #718096;
+  color: #475569;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+html.dark .site-footer {
+  border-top-color: rgba(148, 163, 184, 0.2);
+  background: rgba(11, 19, 43, 0.55);
+  color: #94a3b8;
 }
 
 .site-footer .container {
@@ -49,7 +64,11 @@ html.dark body {
   max-width: 42rem;
   font-size: 0.9rem;
   line-height: 1.6;
-  color: #718096;
+  color: #475569;
+}
+
+html.dark .site-footer__tagline {
+  color: #94a3b8;
 }
 
 .site-footer__directory {
@@ -72,21 +91,33 @@ html.dark body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #718096;
+  color: #334155;
+}
+
+html.dark .site-footer__col strong {
+  color: #cbd5e1;
 }
 
 .site-footer__col a {
   font-size: 0.88rem;
-  color: #9ca3af;
+  color: #334155;
   text-decoration: none;
   padding: 0.15rem 0;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
+html.dark .site-footer__col a {
+  color: #cbd5e1;
+}
+
 .site-footer__col a:hover {
-  color: #38bdf8;
+  color: #0ea5e9;
   text-decoration: none;
   transform: translateY(-1px);
+}
+
+html.dark .site-footer__col a:hover {
+  color: #38bdf8;
 }
 
 .site-footer__col--partners {

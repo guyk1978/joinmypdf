@@ -86,13 +86,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <SiteHeader />
       <main className="mx-auto max-w-3xl space-y-8 px-4 py-10 md:px-6">
         <article>
-          <header className="space-y-2.5 border-b border-white/10 pb-5 sm:space-y-3 sm:pb-6">
+          <header className="space-y-2.5 border-b border-slate-200/80 pb-5 sm:space-y-3 sm:pb-6 dark:border-slate-800">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
               {post.category || (post.tier1 ? "Editorial guide" : "Guide")}
             </p>
-            <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">{displayTitle}</h1>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">{displayTitle}</h1>
             {post.publishDate || post.readTime ? (
-              <p className="text-sm text-ink-muted">
+              <p className="text-sm text-slate-600 dark:text-slate-300">
                 {post.publishDate ? <>Updated {post.publishDate}</> : null}
                 {post.publishDate && post.readTime ? " · " : null}
                 {post.readTime ? <>{post.readTime}</> : null}
@@ -100,10 +100,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             ) : null}
             <ArticleAuthorBadge post={post} />
             {post.contentBlocks?.intro ? (
-              <p className="text-lg leading-relaxed text-ink-muted">{post.contentBlocks.intro}</p>
+              <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300">{post.contentBlocks.intro}</p>
             ) : null}
             {post.contentBlocks?.editorialNote ? (
-              <p className="text-sm text-ink-muted/80">{post.contentBlocks.editorialNote}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{post.contentBlocks.editorialNote}</p>
             ) : null}
           </header>
 
@@ -116,8 +116,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <BlogArticleBody post={post} />
 
           {tools.length ? (
-            <section className="mt-10 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-              <h2 className="text-lg font-semibold text-ink">Tools in this workflow</h2>
+            <section className="mt-10 rounded-2xl border border-slate-200/60 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Tools in this workflow</h2>
               <ul className="mt-3 space-y-2">
                 {tools.map((t) => (
                   <li key={t.slug}>
@@ -132,15 +132,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           {faqs.length ? (
             <section className="mt-10" id="faq">
-              <h2 className="text-xl font-semibold text-ink">Frequently asked questions</h2>
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Frequently asked questions</h2>
               <div className="mt-4 space-y-2">
                 {faqs.map((f) => (
                   <details
                     key={f.q}
-                    className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3"
+                    className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/40"
                   >
-                    <summary className="cursor-pointer font-medium text-ink">{f.q}</summary>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-muted">{f.a}</p>
+                    <summary className="cursor-pointer font-medium text-slate-900 dark:text-white">{f.q}</summary>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{f.a}</p>
                   </details>
                 ))}
               </div>
@@ -148,22 +148,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ) : null}
 
           {relatedArticles.length ? (
-            <section className="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-              <h2 className="text-lg font-semibold text-ink">Related articles</h2>
+            <section className="mt-10 rounded-2xl border border-slate-200/60 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Related articles</h2>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {relatedArticles.map((related) => (
                   <li key={related.slug}>
                     <Link
                       href={`/blog/${related.slug}/`}
-                      className="block rounded-xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-brand/40"
+                      className="block rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-brand/40 dark:border-slate-700 dark:bg-slate-800/40"
                     >
                       {related.category ? (
                         <p className="text-xs font-semibold uppercase tracking-wide text-brand">
                           {related.category}
                         </p>
                       ) : null}
-                      <p className="mt-1 font-medium text-ink">{related.title}</p>
-                      <p className="mt-1 line-clamp-2 text-sm text-ink-muted">
+                      <p className="mt-1 font-medium text-slate-900 dark:text-white">{related.title}</p>
+                      <p className="mt-1 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">
                         {related.description || related.seo?.metaDescription}
                       </p>
                     </Link>
@@ -174,8 +174,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ) : null}
 
           {internalLinks.length ? (
-            <section className="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-              <h2 className="text-lg font-semibold text-ink">Related pages</h2>
+            <section className="mt-10 rounded-2xl border border-slate-200/60 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Related pages</h2>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {internalLinks.map((link) => (
                   <li key={link.href}>
