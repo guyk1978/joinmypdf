@@ -1157,7 +1157,7 @@
       "tier1": true,
       "priority": 0.88,
       "relatedTools": ["crop-pdf", "add-watermark", "pdf-compress", "heic-to-pdf"],
-      "relatedBlogs": ["add-watermark", "pdf-to-excel", "pdf-to-word"],
+      "relatedBlogs": ["add-watermark", "rotate-pdf", "pdf-to-excel", "pdf-to-word"],
       "author": {
         "name": "JoinMyPDF Team",
         "role": "Editorial",
@@ -1266,7 +1266,7 @@
       "tier1": true,
       "priority": 0.88,
       "relatedTools": ["add-watermark", "crop-pdf", "pdf-compress"],
-      "relatedBlogs": ["crop-pdf", "pdf-to-word", "word-to-pdf"],
+      "relatedBlogs": ["crop-pdf", "rotate-pdf", "pdf-to-word", "word-to-pdf"],
       "author": {
         "name": "JoinMyPDF Team",
         "role": "Editorial",
@@ -1353,6 +1353,103 @@
           {
             "href": "/blog/crop-pdf/",
             "anchor": "How to crop PDF pages"
+          },
+          {
+            "href": "/privacy-first-pdf-tools/",
+            "anchor": "Privacy-first PDF tools hub"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "rotate-pdf",
+      "title": "How to Rotate PDF Pages Online Free",
+      "keyword": "rotate pdf pages online free",
+      "category": "PDF Editing",
+      "cluster": "high-intent",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-05-28",
+      "readTime": "3 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["rotate-pdf", "crop-pdf", "add-watermark", "pdf-compress"],
+      "relatedBlogs": ["crop-pdf", "add-watermark", "pdf-to-word"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · May 2026"
+      },
+      "seo": {
+        "metaTitle": "Rotate PDF Pages Online Free - 100% Secure Visual Orientation",
+        "metaDescription": "Permanently rotate individual PDF pages or entire documents 90, 180, or 270 degrees inside your browser. 100% client-side, zero-upload privacy model, free."
+      },
+      "description": "Learn how to instantly rotate individual or all PDF pages and fix upside-down scanned documents entirely in your browser without software installation.",
+      "contentBlocks": {
+        "intro": "Have you ever scanned a multi-page contract, financial ledger, or school assignment only to discover that several pages were captured upside-down or sideways? Reading or presenting a misoriented document is highly unprofessional, yet modifying PDF geometry usually requires premium desktop software. Our platform offers a 100% free, visual, browser-based PDF Rotate tool that allows you to reorient specific pages or the entire document permanently, keeping your private workflow completely sandboxed on your local device.",
+        "editorialNote": "Rotate one page or all pages in 90° steps, then export the corrected PDF instantly.",
+        "primaryTool": "rotate-pdf",
+        "sections": [
+          {
+            "id": "why-rotate-pdf",
+            "heading": "The Importance of Proper PDF Page Orientation",
+            "level": 2,
+            "paragraphs": [
+              "PDF archives are designed to preserve original visual attributes, meaning that if a page is programmatically saved in landscape when it should be portrait, it will remain sideways across all standard viewers. This frequently occurs during bulk feeder scans or when taking document snapshots on smartphones.",
+              "Rotating your PDF pages fixes these orientation mistakes permanently. By ensuring every page aligns perfectly to the correct reading viewport, you make the document comfortable to review on mobile devices and laptops. It also ensures that text layers flow sequentially, preventing printing formatting errors and maintaining a polished layout for formal submissions."
+            ]
+          },
+          {
+            "id": "rotate-local-privacy",
+            "heading": "Visual Thumbnail Grids With Absolute Data Privacy",
+            "level": 2,
+            "paragraphs": [
+              "Documents that require layout corrections—such as legal clauses, business plans, or medical records—should never be transmitted across the web to unverified third-party cloud engines. Uploading files to external networks leaves traces in server caches and exposes your data to interception vectors.",
+              "JoinMyPDF protects your sensitive assets by handling the entire geometric rotation workflow right inside your browser window. Our client-side script parses the PDF metadata locally using pdfjs-dist to render interactive, visual thumbnail grids of your document pages. Once you click to rotate, the engine recalculates the native /Rotate array properties using pdf-lib. The finalized file downloads straight from your computer's local RAM, keeping your metadata 100% private."
+            ]
+          },
+          {
+            "id": "rotate-pdf-steps",
+            "heading": "How to Rotate PDF Pages in Seconds",
+            "level": 2,
+            "type": "workflow",
+            "paragraphs": [
+              "Our interactive workspace updates your document layout in three fast, secure steps:"
+            ],
+            "list": [
+              "Drag and drop your misaligned PDF file into our secure graphic orientation grid above.",
+              "Use the individual page rotation buttons (90, 180, or 270 degrees) to fix specific pages, or use the global control to flip all pages simultaneously.",
+              "Click the save button to instantly download your perfectly aligned, unwatermarked PDF document."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does rotating a page degrade the text quality or compress the images?",
+            "a": "Not at all. Our tool updates the page's structural orientation metadata values inside the internal PDF code instead of re-rendering or rasterizing the document. Your digital text remains fully selectable and vector images stay completely crisp."
+          },
+          {
+            "q": "Can I rotate just one single page inside a large PDF document?",
+            "a": "Yes! Our visual grid interface displays every page as a separate thumbnail. You can rotate individual pages independently to fix a single upside-down sheet without changing the rest of the document."
+          },
+          {
+            "q": "What rotation directions are supported by this local tool?",
+            "a": "You can rotate pages 90 degrees clockwise, 90 degrees counter-clockwise, or flip them completely upside-down (180 degrees) to match the correct reading layout."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/rotate-pdf/",
+            "anchor": "Rotate PDF (client-side)"
+          },
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF"
+          },
+          {
+            "href": "/tools/add-watermark/",
+            "anchor": "Add Watermark"
           },
           {
             "href": "/privacy-first-pdf-tools/",

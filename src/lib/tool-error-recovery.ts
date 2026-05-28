@@ -117,6 +117,10 @@ export function getToolErrorRecovery(
       { ...TOOLS.split, variant: "primary" },
       { ...TOOLS.protect, hint: "Lock the file after watermarking", variant: "secondary" },
     ],
+    "rotate-pdf": [
+      { ...TOOLS.split, hint: "Fix only affected pages first", variant: "primary" },
+      { ...TOOLS.pdfToJpg, hint: "Export pages if orientation still looks wrong", variant: "secondary" },
+    ],
     sign: [
       { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },

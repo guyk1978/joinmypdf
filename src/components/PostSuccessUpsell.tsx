@@ -55,6 +55,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Compress for sharing",
       body: "Reduce file size after stamping every page.",
     });
+  } else if (operation === "rotate-pdf") {
+    rows.push({
+      href: "/tools/crop-pdf/",
+      title: "Trim margins next",
+      body: "After orientation is fixed, crop white borders for cleaner pages.",
+    });
+    rows.push({
+      href: "/tools/add-watermark/",
+      title: "Mark drafts clearly",
+      body: "Stamp DRAFT or CONFIDENTIAL before sharing corrected files.",
+    });
   } else if (operation === "add-page-numbers") {
     rows.push({
       href: "/tools/protect-pdf/",

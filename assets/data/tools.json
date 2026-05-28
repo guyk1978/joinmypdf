@@ -975,6 +975,55 @@
       "updatedAt": "2026-05-25"
     },
     {
+      "slug": "rotate-pdf",
+      "category": "edit",
+      "operation": "rotate-pdf",
+      "title": "Rotate PDF Tool",
+      "primaryKeyword": "rotate pdf pages online free",
+      "intent": "Rotate individual or all PDF pages in your browser to fix sideways or upside-down documents.",
+      "description": "Rotate pages 90° clockwise or counter-clockwise with visual thumbnails, then download locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "fix upside down pdf",
+        "rotate scanned pdf pages",
+        "pdf page orientation tool"
+      ],
+      "useCases": [
+        "Fix scanner output where pages are sideways",
+        "Correct orientation before sharing contracts and forms",
+        "Align mixed portrait and landscape page batches"
+      ],
+      "relatedTools": [
+        "crop-pdf",
+        "add-watermark",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Rotation runs entirely in your browser on your device."
+        },
+        {
+          "q": "Can I rotate only specific pages?",
+          "a": "Yes. Use per-page controls in the thumbnail grid to rotate only the pages you choose."
+        },
+        {
+          "q": "Can I rotate the whole document at once?",
+          "a": "Yes. Global controls apply clockwise or counter-clockwise rotation to all pages."
+        },
+        {
+          "q": "Does rotating reduce quality?",
+          "a": "No. The tool updates page rotation metadata and preserves original PDF quality."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-28"
+    },
+    {
       "slug": "crop-pdf",
       "category": "edit",
       "operation": "crop-pdf",

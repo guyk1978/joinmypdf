@@ -17,6 +17,7 @@ function actionLabel(slug: string, title: string): string {
     "heic-to-pdf": "HEIC to PDF",
     "crop-pdf": "Crop PDF",
     "add-watermark": "Add Watermark",
+    "rotate-pdf": "Rotate PDF",
   };
   return map[slug] || title;
 }

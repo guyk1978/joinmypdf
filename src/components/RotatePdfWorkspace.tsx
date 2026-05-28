@@ -1,0 +1,387 @@
+"use client";
+
+import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
+import { StickyMobileCta } from "@/components/StickyMobileCta";
+import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
+import { dispatchToolComplete } from "@/lib/subscription-modal";
+import type { ToolDefinition } from "@/lib/types";
+import { rotatePdfBytes, rotatePdfOutputName, type PageRotationAdjustment } from "@/lib/rotate-pdf";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+} from "react";
+
+type Thumb = { pageIndex: number; dataUrl: string };
+
+const RIGHT: 90 = 90;
+const LEFT: -90 = -90;
+
+function downloadBlob(blob: Blob, name: string) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+}
+
+function normalizeRightAngle(angle: number): 0 | 90 | 180 | 270 {
+  const normalized = ((Math.round(angle / 90) * 90) % 360 + 360) % 360;
+  if (normalized === 90 || normalized === 180 || normalized === 270) return normalized;
+  return 0;
+}
+
+async function setupPdfJs() {
+  const pdfjs = await import("pdfjs-dist");
+  const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
+  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
+  return pdfjs;
+}
+
+async function renderThumbnails(data: Uint8Array): Promise<Thumb[]> {
+  const pdfjs = await setupPdfJs();
+  const doc = await pdfjs.getDocument({ data: data.slice() }).promise;
+  const thumbs: Thumb[] = [];
+  const scale = 0.26;
+
+  for (let i = 1; i <= doc.numPages; i += 1) {
+    const page = await doc.getPage(i);
+    const viewport = page.getViewport({ scale });
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.max(1, Math.floor(viewport.width));
+    canvas.height = Math.max(1, Math.floor(viewport.height));
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas rendering is not supported in this browser.");
+    await page.render({ canvasContext: ctx, viewport, canvas } as never).promise;
+    thumbs.push({ pageIndex: i - 1, dataUrl: canvas.toDataURL("image/jpeg", 0.9) });
+  }
+
+  return thumbs;
+}
+
+export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const [file, setFile] = useState<File | null>(null);
+  const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
+  const [thumbs, setThumbs] = useState<Thumb[]>([]);
+  const [rotations, setRotations] = useState<Record<number, 0 | 90 | 180 | 270>>({});
+  const [status, setStatus] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [done, setDone] = useState(false);
+  const [runError, setRunError] = useState<PdfProcessingError | null>(null);
+  const [drag, setDrag] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const baseId = useId();
+
+  const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
+
+  useEffect(() => {
+    capture(EVENTS.tool_view, { slug, operation: tool.operation });
+  }, [slug, tool.operation]);
+
+  const reset = useCallback(() => {
+    setFile(null);
+    setFileBytes(null);
+    setThumbs([]);
+    setRotations({});
+    setStatus("");
+    setDone(false);
+    setRunError(null);
+    if (inputRef.current) inputRef.current.value = "";
+  }, []);
+
+  const rotateOne = (pageIndex: number, delta: 90 | -90) => {
+    setRotations((prev) => {
+      const next = { ...prev };
+      next[pageIndex] = normalizeRightAngle((next[pageIndex] || 0) + delta);
+      return next;
+    });
+  };
+
+  const rotateAll = (delta: 90 | -90) => {
+    setRotations((prev) => {
+      const next = { ...prev };
+      for (const page of thumbs) {
+        next[page.pageIndex] = normalizeRightAngle((next[page.pageIndex] || 0) + delta);
+      }
+      return next;
+    });
+  };
+
+  const pickFile = async (next: File) => {
+    if (!acceptPdf(next)) {
+      setStatus("Please choose a PDF file.");
+      return;
+    }
+    if (next.size === 0) {
+      setStatus("That file is empty. Choose another PDF.");
+      return;
+    }
+
+    setBusy(true);
+    setRunError(null);
+    setDone(false);
+    setStatus("Reading PDF pages…");
+
+    try {
+      const bytes = new Uint8Array(await next.arrayBuffer());
+      const rendered = await renderThumbnails(bytes);
+      setFile(next);
+      setFileBytes(bytes);
+      setThumbs(rendered);
+      setRotations({});
+      setStatus(`${next.name} ready — rotate pages, then download.`);
+      capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
+    } catch (error) {
+      const parsed = classifyPdfError(error);
+      setRunError(parsed);
+      setStatus("");
+      setFile(null);
+      setFileBytes(null);
+      setThumbs([]);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const adjustments = useMemo<PageRotationAdjustment[]>(
+    () =>
+      Object.entries(rotations)
+        .map(([pageIndex, angle]) => ({
+          pageIndex: Number(pageIndex),
+          delta: angle as 0 | 90 | 180 | 270,
+        }))
+        .filter((entry) => entry.delta !== 0),
+    [rotations],
+  );
+
+  const onApply = async () => {
+    if (!file || !fileBytes) return;
+    setBusy(true);
+    setDone(false);
+    setRunError(null);
+    setStatus("Applying rotations…");
+    capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
+
+    try {
+      const bytes = await rotatePdfBytes(file, adjustments);
+      downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), rotatePdfOutputName(file));
+      setDone(true);
+      setStatus("Rotation complete. Your download should start automatically.");
+      capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
+      capture(EVENTS.download_click, { operation: tool.operation, slug });
+      window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
+    } catch (error) {
+      const parsed = classifyPdfError(error);
+      setRunError(parsed);
+      setStatus("");
+      capture(EVENTS.tool_run_error, {
+        operation: tool.operation,
+        slug,
+        message: parsed.message,
+        kind: parsed.kind,
+      });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const showWorkspace = Boolean(file && fileBytes);
+
+  return (
+    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+      <div className="privacy-callout" role="note">
+        <strong>100% Secure:</strong> Rotation runs entirely in your browser. Your PDF never leaves your device.
+      </div>
+
+      {!showWorkspace ? (
+        <FileUploadZone
+          drag={drag}
+          role="button"
+          tabIndex={0}
+          aria-controls={`${baseId}-input`}
+          className="cursor-pointer"
+          title="Drop a PDF here or click to browse"
+          description="Rotate specific pages or the whole PDF locally with visual thumbnails."
+          onKeyDown={(e: ReactKeyboardEvent) => {
+            if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDrag(true);
+          }}
+          onDragLeave={() => setDrag(false)}
+          onDrop={(e) => {
+            e.preventDefault();
+            setDrag(false);
+            const picked = e.dataTransfer.files?.[0];
+            if (picked) void pickFile(picked);
+          }}
+          onClick={() => inputRef.current?.click()}
+          input={
+            <input
+              id={`${baseId}-input`}
+              ref={inputRef}
+              type="file"
+              className="sr-only"
+              accept="application/pdf,.pdf"
+              onChange={(e) => {
+                const picked = e.target.files?.[0];
+                if (picked) void pickFile(picked);
+                e.target.value = "";
+              }}
+            />
+          }
+        />
+      ) : null}
+
+      {showWorkspace ? (
+        <div className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-ink">{file?.name}</p>
+              <p className="mt-1 text-xs text-ink-muted">
+                {thumbs.length} page{thumbs.length === 1 ? "" : "s"} · use per-page or global rotate controls
+              </p>
+            </div>
+            <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+              Client-side only
+            </span>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              disabled={busy || !thumbs.length}
+              onClick={() => rotateAll(RIGHT)}
+              className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+            >
+              Rotate all clockwise
+            </button>
+            <button
+              type="button"
+              disabled={busy || !thumbs.length}
+              onClick={() => rotateAll(LEFT)}
+              className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+            >
+              Rotate all counter-clockwise
+            </button>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {thumbs.map((thumb) => {
+              const angle = rotations[thumb.pageIndex] || 0;
+              return (
+                <article
+                  key={thumb.pageIndex}
+                  className="rounded-xl border border-white/10 bg-surface/40 p-3 transition hover:border-white/20"
+                >
+                  <div className="mb-2 flex items-center justify-between text-xs text-ink-muted">
+                    <span>Page {thumb.pageIndex + 1}</span>
+                    <span>{angle}°</span>
+                  </div>
+                  <div className="aspect-[3/4] overflow-hidden rounded-md border border-white/10 bg-black/20 p-2">
+                    <img
+                      src={thumb.dataUrl}
+                      alt={`Page ${thumb.pageIndex + 1}`}
+                      className="h-full w-full object-contain transition-transform duration-300 ease-out"
+                      style={{ transform: `rotate(${angle}deg)` }}
+                    />
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => rotateOne(thumb.pageIndex, RIGHT)}
+                      className="rounded-lg border border-white/15 px-2 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+                    >
+                      ↺ Clockwise
+                    </button>
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => rotateOne(thumb.pageIndex, LEFT)}
+                      className="rounded-lg border border-white/15 px-2 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+                    >
+                      ↻ Counter
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          {busy ? (
+            <div className="space-y-2" aria-live="polite">
+              <div className="flex items-center justify-between text-xs text-ink-muted">
+                <span>{status || "Processing…"}</span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-brand to-brand-deep" />
+              </div>
+            </div>
+          ) : null}
+
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              disabled={busy || !thumbs.length}
+              onClick={() => void onApply()}
+              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Save rotated PDF
+            </button>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => setRotations({})}
+              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+            >
+              Reset rotations
+            </button>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={reset}
+              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+            >
+              Choose another file
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {runError ? (
+        <ToolErrorRecovery
+          operation={tool.operation}
+          slug={slug}
+          kind={runError.kind}
+          technicalMessage={runError.message}
+          onDismiss={() => {
+            setRunError(null);
+            setStatus(file ? "Try again or choose another file." : "");
+          }}
+        />
+      ) : (
+        <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+          {status}
+        </p>
+      )}
+
+      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+
+      <StickyMobileCta
+        href="#tool-workspace"
+        label={showWorkspace ? "Save rotated PDF" : "Rotate PDF"}
+        secondaryHref="/"
+        secondaryLabel="Home"
+      />
+    </div>
+  );
+}

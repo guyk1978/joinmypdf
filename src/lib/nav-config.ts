@@ -26,6 +26,7 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
       { href: "/tools/add-page-numbers/", label: "Add Page Numbers" },
       { href: "/tools/crop-pdf/", label: "Crop PDF" },
       { href: "/tools/add-watermark/", label: "Add Watermark" },
+      { href: "/tools/rotate-pdf/", label: "Rotate PDF" },
       { href: "/tools/invoice-generator/", label: "Invoice Generator" },
       { href: "/tools/timeline-gantt-generator/", label: "Timeline & Gantt" },
       { href: "/tools/data-converter-visualizer/", label: "Data Converter" },
