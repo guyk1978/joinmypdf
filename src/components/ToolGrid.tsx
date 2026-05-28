@@ -21,6 +21,7 @@ function actionLabel(slug: string, title: string): string {
     "autocad-to-pdf": "AutoCAD to PDF",
     "openoffice-to-pdf": "OpenOffice to PDF",
     "markdown-to-pdf": "Markdown to PDF",
+    "html-to-pdf": "HTML to PDF",
   };
   return map[slug] || title;
 }

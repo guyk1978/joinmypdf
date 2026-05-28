@@ -1171,6 +1171,55 @@
       "updatedAt": "2026-05-28"
     },
     {
+      "slug": "html-to-pdf",
+      "category": "convert",
+      "operation": "html-to-pdf",
+      "title": "HTML to PDF Converter",
+      "primaryKeyword": "html to pdf converter online free",
+      "intent": "Render HTML files or pasted markup into print-ready PDF pages entirely in your browser.",
+      "description": "Upload .html files or paste raw HTML code, configure orientation and margins, then download a styled PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert html to pdf",
+        "webpage html to pdf",
+        "raw html code to pdf"
+      ],
+      "useCases": [
+        "Archive web invoice templates as static PDFs",
+        "Export dashboard snippets and tables for review",
+        "Share front-end layout drafts with non-technical stakeholders"
+      ],
+      "relatedTools": [
+        "markdown-to-pdf",
+        "openoffice-to-pdf",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my HTML code uploaded to JoinMyPDF?",
+          "a": "No. Rendering and PDF generation run entirely in your browser on your device."
+        },
+        {
+          "q": "Can I paste HTML directly without uploading a file?",
+          "a": "Yes. Use the Paste Code tab to write or paste raw HTML and convert immediately."
+        },
+        {
+          "q": "Can I set page orientation and margins?",
+          "a": "Yes. Choose portrait or landscape, then select no margin or normal margin before export."
+        },
+        {
+          "q": "Will tables and inline CSS be preserved?",
+          "a": "Standard HTML structure, inline styles, and table layouts are rendered in the browser preview and captured into the PDF output."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-28"
+    },
+    {
       "slug": "crop-pdf",
       "category": "edit",
       "operation": "crop-pdf",

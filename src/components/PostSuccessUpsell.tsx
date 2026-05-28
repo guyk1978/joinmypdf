@@ -99,6 +99,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "OpenOffice documents?",
       body: "Convert .odt, .ods, and .odp files with our OpenOffice to PDF tool.",
     });
+  } else if (operation === "html-to-pdf") {
+    rows.push({
+      href: "/tools/markdown-to-pdf/",
+      title: "Converting Markdown docs?",
+      body: "Use Markdown to PDF for README files and note exports.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for sharing",
+      body: "Reduce large rendered PDFs before sending.",
+    });
   } else if (operation === "add-page-numbers") {
     rows.push({
       href: "/tools/protect-pdf/",

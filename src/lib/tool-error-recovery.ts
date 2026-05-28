@@ -133,6 +133,10 @@ export function getToolErrorRecovery(
       { href: "/tools/openoffice-to-pdf/", label: "Try OpenOffice to PDF", hint: "For .odt open-source documents", variant: "primary" },
       { ...TOOLS.compress, hint: "Compress long PDF exports", variant: "secondary" },
     ],
+    "html-to-pdf": [
+      { href: "/tools/markdown-to-pdf/", label: "Try Markdown to PDF", hint: "For README and note exports", variant: "primary" },
+      { ...TOOLS.compress, hint: "Shrink large rendered PDFs", variant: "secondary" },
+    ],
     sign: [
       { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },

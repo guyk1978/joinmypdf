@@ -57,12 +57,16 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
       { href: "/tools/pdf-to-excel/", label: "PDF to Excel" },
       { href: "/tools/openoffice-to-pdf/", label: "OpenOffice to PDF" },
       { href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" },
+      { href: "/tools/html-to-pdf/", label: "HTML to PDF" },
     ],
   },
   {
     id: "developer",
     label: "Developer Utilities",
-    items: [{ href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" }],
+    items: [
+      { href: "/tools/markdown-to-pdf/", label: "Markdown to PDF" },
+      { href: "/tools/html-to-pdf/", label: "HTML to PDF" },
+    ],
   },
   {
     id: "cad",
