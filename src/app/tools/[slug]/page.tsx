@@ -34,17 +34,35 @@ import { buildToolMetadata, getToolFaqs } from "@/lib/tool-seo";
 import { resolveToolRoute } from "@/lib/variants";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { readdir } from "node:fs/promises";
+import path from "node:path";
 
 export const dynamicParams = false;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   const slugs = new Set<string>();
+  const toolsRoot = path.join(process.cwd(), "tools");
+
+  try {
+    const entries = await readdir(toolsRoot, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+      const slug = entry.name;
+      if (!slug || slug === "index") continue;
+      if (resolveToolRoute(slug, registry)) slugs.add(slug);
+    }
+  } catch {
+    // Fall back to JSON-derived slugs below.
+  }
+
+  // Fallback/source-of-truth completion from registry JSON.
   for (const tool of registry.tools || []) {
     if (tool.slug) slugs.add(tool.slug);
     for (const variant of tool.longTailPages || []) {
       if (variant.slug) slugs.add(variant.slug);
     }
   }
+
   return Array.from(slugs).map((slug) => ({ slug }));
 }
 

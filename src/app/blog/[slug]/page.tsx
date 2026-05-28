@@ -12,6 +12,8 @@ import { blogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import type { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
+import { readdir } from "node:fs/promises";
+import path from "node:path";
 
 export const dynamicParams = false;
 
@@ -24,8 +26,27 @@ function faqItems(post: BlogPost) {
   return raw.map((f) => ({ q: stripNoise(f.q), a: f.a }));
 }
 
-export function generateStaticParams() {
-  return (blogRegistry.blog || []).map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const slugs = new Set<string>();
+  const blogRoot = path.join(process.cwd(), "blog");
+
+  try {
+    const entries = await readdir(blogRoot, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+      const slug = entry.name;
+      if (!slug || slug === "index") continue;
+      slugs.add(slug);
+    }
+  } catch {
+    // Fall back to JSON-derived slugs below.
+  }
+
+  for (const post of blogRegistry.blog || []) {
+    if (post.slug) slugs.add(post.slug);
+  }
+
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
