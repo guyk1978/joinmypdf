@@ -14,6 +14,7 @@ import {
   renderPdfPageForUi,
 } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
+import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import {
   useCallback,
   useEffect,
@@ -124,6 +125,7 @@ function PageCanvas({
   return (
     <div className="redact-page">
       <p className="redact-page__label">Page {pageIndex + 1}</p>
+      <div className="redact-page__studio">
       <div
         ref={wrapRef}
         className="redact-page__stage"
@@ -182,6 +184,7 @@ function PageCanvas({
             <span className="redact-box redact-box--draft" style={draftStyle} />
           ) : null}
         </div>
+      </div>
       </div>
       <p className="redact-page__hint">Click and drag to mark areas to black out.</p>
     </div>
@@ -439,7 +442,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               disabled={busy || !boxes.length}
               onClick={() => void onRedact()}
-              className="btn-protect relative rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+              className={`btn-protect relative ${toolPrimaryBtn}`}
             >
               {busy ? (
                 <>

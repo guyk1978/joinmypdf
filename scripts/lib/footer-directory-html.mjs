@@ -19,7 +19,7 @@ export const FOOTER_DIRECTORY_INNER = `        <p class="site-footer__tagline">_
           </div>
           <div class="site-footer__col site-footer__col--partners">
             <strong>Partner tools</strong>
-            <a href="https://calnexapp.com/" target="_blank" rel="noopener noreferrer">Model Loan Repayments ➔ CalnexApp</a>
+            <a href="https://wattquick.com/" target="_blank" rel="noopener noreferrer">Finance Calculators ➔ WattQuick</a>
             <a href="https://mapdiagram.com/" target="_blank" rel="noopener noreferrer">Visualize your ideas → MapDiagram</a>
           </div>
         </nav>`;

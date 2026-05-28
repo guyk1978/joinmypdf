@@ -22,6 +22,7 @@ import {
   type SignatureInstance,
 } from "@/lib/pdf-sign";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
+import { toolInput, toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import {
   useCallback,
   useEffect,
@@ -129,6 +130,7 @@ function SignPageStage({
   return (
     <div className="sign-page">
       <p className="sign-page__label">Page {pageIndex + 1}</p>
+      <div className="sign-page__studio">
       <div
         ref={stageRef}
         className="sign-page__stage"
@@ -212,6 +214,7 @@ function SignPageStage({
             </div>
           );
         })}
+      </div>
       </div>
       {pageInstances.length > 0 ? (
         <p className="sign-page__hint">
@@ -463,15 +466,15 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       {file && fileBytes ? (
         <div className="sign-workspace space-y-4">
           {encrypted ? (
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-              <label className="text-sm font-medium text-ink" htmlFor={`${baseId}-pwd`}>
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <label className="text-sm font-medium text-slate-900 dark:text-slate-100" htmlFor={`${baseId}-pwd`}>
                 PDF password (protected files)
               </label>
               <div className="mt-2 flex flex-wrap gap-3">
                 <input
                   id={`${baseId}-pwd`}
                   type="password"
-                  className="min-w-[200px] flex-1 rounded-xl border border-white/15 bg-white/[0.03] px-4 py-2.5 text-sm text-ink"
+                  className={`min-w-[200px] flex-1 ${toolInput}`}
                   autoComplete="current-password"
                   placeholder="Enter password to preview pages"
                   value={password}
@@ -555,7 +558,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                   type="button"
                   disabled={busy || !canSign}
                   onClick={() => void onSign()}
-                  className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+                  className={toolPrimaryBtn}
                 >
                   Sign &amp; Download PDF
                 </button>
@@ -563,7 +566,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                   type="button"
                   disabled={busy}
                   onClick={reset}
-                  className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
+                  className={toolSecondaryBtn}
                 >
                   Choose another file
                 </button>

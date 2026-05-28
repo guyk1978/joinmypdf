@@ -7,6 +7,7 @@ import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
+import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import type { ToolDefinition } from "@/lib/types";
 import { rotatePdfBytes, rotatePdfOutputName, type PageRotationAdjustment } from "@/lib/rotate-pdf";
 import {
@@ -280,17 +281,17 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               return (
                 <article
                   key={thumb.pageIndex}
-                  className="rounded-xl border border-white/10 bg-surface/40 p-3 transition hover:border-white/20"
+                  className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:border-blue-200 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
                 >
-                  <div className="mb-2 flex items-center justify-between text-xs text-ink-muted">
+                  <div className="mb-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                     <span>Page {thumb.pageIndex + 1}</span>
                     <span>{angle}°</span>
                   </div>
-                  <div className="aspect-[3/4] overflow-hidden rounded-md border border-white/10 bg-black/20 p-2">
+                  <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-md border border-slate-200 bg-gradient-to-b from-slate-50 to-slate-100 p-3 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900">
                     <img
                       src={thumb.dataUrl}
                       alt={`Page ${thumb.pageIndex + 1}`}
-                      className="h-full w-full object-contain transition-transform duration-300 ease-out"
+                      className="max-h-full max-w-full object-contain shadow-lg shadow-slate-200/60 transition-transform duration-300 ease-out dark:shadow-none"
                       style={{ transform: `rotate(${angle}deg)` }}
                     />
                   </div>
@@ -333,7 +334,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               disabled={busy || !thumbs.length}
               onClick={() => void onApply()}
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+              className={toolPrimaryBtn}
             >
               Save rotated PDF
             </button>

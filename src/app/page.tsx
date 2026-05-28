@@ -10,7 +10,7 @@ import { blogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { SocialProofStrip } from "@/components/SocialProofStrip";
 import { ToolGrid } from "@/components/ToolGrid";
-import { TrustBadges } from "@/components/TrustBadges";
+import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { ctaSecondary } from "@/lib/cta-styles";
@@ -39,18 +39,7 @@ export default function HomePage() {
       <main className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
         {/* Phase 1 — Hero */}
         <section className="text-center">
-          <div className="mx-auto max-w-3xl">
-            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl md:text-[2.75rem] md:leading-[1.1] dark:text-white">
-              Merge, compress, and edit PDFs in your browser—nothing is uploaded to our servers.
-            </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300 md:text-xl">
-              JoinMyPDF runs merge, compress, split, and conversions locally for speed and privacy. No install, no queue,
-              no watermark on standard downloads.
-            </p>
-            <p className="mt-6 text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300">
-              No uploads • No signup • Instant processing
-            </p>
-          </div>
+          <LocalProcessingInfographic />
           <div className="mx-auto mt-8 max-w-2xl">
             <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
           </div>
@@ -74,11 +63,6 @@ export default function HomePage() {
         {/* Phase 4 — Scenarios */}
         <div className="mt-20 md:mt-24">
           <ScenarioWins />
-        </div>
-
-        {/* Phase 2 + 4 — Trust */}
-        <div className="mt-20 md:mt-24">
-          <TrustBadges />
         </div>
 
         {/* Browser strip */}

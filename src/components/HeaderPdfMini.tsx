@@ -2,7 +2,7 @@
 export function HeaderPdfMini({ className = "" }: { className?: string }) {
   return (
     <span
-      className={["header-pdf-mini", className].filter(Boolean).join(" ")}
+      className={["header-pdf-mini text-blue-900 dark:text-blue-200", className].filter(Boolean).join(" ")}
       title="JoinMyPDF Factory"
       aria-hidden="true"
     >
@@ -14,9 +14,10 @@ export function HeaderPdfMini({ className = "" }: { className?: string }) {
           width="9"
           height="11"
           rx="1"
-          stroke="#60a5fa"
+          stroke="currentColor"
           strokeWidth="1.2"
-          fill="rgba(96, 165, 250, 0.1)"
+          fill="currentColor"
+          fillOpacity="0.12"
         />
         <rect
           className="header-pdf-mini__front"
@@ -25,9 +26,10 @@ export function HeaderPdfMini({ className = "" }: { className?: string }) {
           width="9"
           height="11"
           rx="1"
-          stroke="#3b82f6"
+          stroke="currentColor"
           strokeWidth="1.2"
-          fill="rgba(59, 130, 246, 0.2)"
+          fill="currentColor"
+          fillOpacity="0.24"
         />
       </svg>
     </span>

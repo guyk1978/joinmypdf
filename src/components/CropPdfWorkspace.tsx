@@ -2,6 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
+import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -189,43 +190,45 @@ function CropPreview({
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-ink-muted">
+      <p className="text-sm text-slate-600 dark:text-slate-400">
         Drag the frame to move it. Pull corners or edges to resize. The same crop applies to every page.
       </p>
-      <div
-        ref={wrapRef}
-        className="relative mx-auto max-w-full overflow-hidden rounded-xl border border-white/10 bg-surface/30 touch-none select-none"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerLeave={onPointerUp}
-      >
-        {loading ? (
-          <div className="flex min-h-[280px] items-center justify-center text-sm text-ink-muted">
-            Loading preview…
-          </div>
-        ) : null}
-        {canvasEl ? (
-          <canvas
-            ref={(node) => {
-              if (node && canvasEl) {
-                node.width = canvasEl.width;
-                node.height = canvasEl.height;
-                const ctx = node.getContext("2d");
-                if (ctx) ctx.drawImage(canvasEl, 0, 0);
-              }
-            }}
-            className="block h-auto max-w-full"
-          />
-        ) : null}
-        {!loading ? (
-          <>
-            <div className="pointer-events-none absolute inset-0 bg-black/45" aria-hidden />
-            <div
-              className="pointer-events-none absolute border-2 border-brand shadow-[0_0_0_9999px_rgba(0,0,0,0.45)]"
-              style={boxStyle}
-            />
-            {(["nw", "n", "ne", "e", "se", "s", "sw", "w"] as const).map((handle) => {
+      <PdfEditStudio minHeight={loading ? "min-h-[320px]" : undefined}>
+        <PdfStudioPage className="mx-auto max-w-full">
+          <div
+            ref={wrapRef}
+            className="relative touch-none select-none overflow-hidden"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerLeave={onPointerUp}
+          >
+            {loading ? (
+              <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-slate-500 dark:text-slate-400">
+                Loading preview…
+              </div>
+            ) : null}
+            {canvasEl ? (
+              <canvas
+                ref={(node) => {
+                  if (node && canvasEl) {
+                    node.width = canvasEl.width;
+                    node.height = canvasEl.height;
+                    const ctx = node.getContext("2d");
+                    if (ctx) ctx.drawImage(canvasEl, 0, 0);
+                  }
+                }}
+                className="block h-auto max-w-full"
+              />
+            ) : null}
+            {!loading ? (
+              <>
+                <div className="pointer-events-none absolute inset-0 bg-black/45" aria-hidden />
+                <div
+                  className="pointer-events-none absolute border-2 border-blue-600 shadow-[0_0_0_9999px_rgba(0,0,0,0.45)] dark:border-blue-400"
+                  style={boxStyle}
+                />
+                {(["nw", "n", "ne", "e", "se", "s", "sw", "w"] as const).map((handle) => {
               const style: React.CSSProperties = { cursor: HANDLE_CURSORS[handle] };
               if (handle === "nw") Object.assign(style, { left: boxStyle.left, top: boxStyle.top });
               if (handle === "n")
@@ -266,15 +269,17 @@ function CropPreview({
               return (
                 <span
                   key={handle}
-                  className="absolute z-10 h-3 w-3 rounded-full border-2 border-brand bg-surface shadow"
+                  className="absolute z-10 h-3 w-3 rounded-full border-2 border-blue-600 bg-white shadow-md dark:border-blue-400 dark:bg-slate-900"
                   style={style}
                   aria-hidden
                 />
               );
             })}
-          </>
-        ) : null}
-      </div>
+              </>
+            ) : null}
+          </div>
+        </PdfStudioPage>
+      </PdfEditStudio>
     </div>
   );
 }
@@ -424,15 +429,15 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       ) : null}
 
       {showWorkspace && fileBytes ? (
-        <div className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6 dark:border-slate-800 dark:bg-slate-900">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold text-ink">{file?.name}</p>
-              <p className="mt-1 text-xs text-ink-muted">
+              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{file?.name}</p>
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 {pageCount} page{pageCount === 1 ? "" : "s"} · same crop on all pages
               </p>
             </div>
-            <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+            <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-950/40 dark:text-emerald-300">
               Client-side only
             </span>
           </div>
@@ -441,11 +446,11 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
           {busy ? (
             <div className="space-y-2" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-ink-muted">
+              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                 <span>Processing…</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-brand to-brand-deep" />
+              <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-blue-600 to-indigo-600" />
               </div>
             </div>
           ) : null}
@@ -455,7 +460,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               type="button"
               disabled={busy}
               onClick={() => void onApply()}
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Apply crop & download
             </button>
@@ -463,7 +468,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               type="button"
               disabled={busy}
               onClick={() => setCrop(DEFAULT_CROP_RECT)}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               Reset frame
             </button>
@@ -471,7 +476,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               Choose another file
             </button>
@@ -491,7 +496,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           }}
         />
       ) : (
-        <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+        <p className="text-sm text-slate-600 dark:text-slate-400" role="status" aria-live="polite">
           {status}
         </p>
       )}

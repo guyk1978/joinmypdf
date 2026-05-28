@@ -256,6 +256,9 @@
       registry.tools.map((tool) => [tool.slug, generateClusterVariants(tool, registry)])
     );
 
+    const hubLocal = document.getElementById("toolsHubLocalProcessing");
+    if (hubLocal) hubLocal.innerHTML = localProcessingInfographicHtml();
+
     if (allTools) {
       allTools.innerHTML = registry.tools
         .map((tool) => {
@@ -846,6 +849,55 @@
     });
   }
 
+  var BLOG_CARD_ACCENTS = [
+  { id: "red", border: "#dc2626", badgeBg: "#dc2626", badgeText: "#fff", titleHover: "#dc2626" },
+  { id: "blue", border: "#2563eb", badgeBg: "#2563eb", badgeText: "#fff", titleHover: "#2563eb" },
+  { id: "emerald", border: "#059669", badgeBg: "#059669", badgeText: "#fff", titleHover: "#059669" },
+  { id: "amber", border: "#f59e0b", badgeBg: "#f59e0b", badgeText: "#020617", titleHover: "#d97706" },
+  ];
+
+  function getBlogBadgeLabel(post) {
+    var category = (post.category || "").trim();
+    var key = (category + " " + (post.slug || "") + " " + (post.title || "")).toLowerCase();
+    if (key.indexOf("how-to") !== -1 || key.indexOf("how to") !== -1 || key.indexOf("how-") === 0) return "How-To";
+    if (key.indexOf("privacy") !== -1 || key.indexOf("security") !== -1 || key.indexOf("safe") !== -1) {
+      return category || "Privacy";
+    }
+    if (key.indexOf("mobile") !== -1) return "Mobile";
+    if (key.indexOf("tip") !== -1) return "Tips";
+    if (key.indexOf("compare") !== -1 || key.indexOf("vs") !== -1) return "Comparison";
+    return category || "PDF Guide";
+  }
+
+  function getBlogCardAccentForPost(post, index) {
+    var key = ((post.category || "") + " " + (post.slug || "") + " " + (post.title || "")).toLowerCase();
+    if (key.indexOf("how-to") !== -1 || key.indexOf("how to") !== -1 || key.indexOf("how-") === 0) {
+      return BLOG_CARD_ACCENTS[1];
+    }
+    if (key.indexOf("privacy") !== -1 || key.indexOf("security") !== -1 || key.indexOf("safe") !== -1) {
+      return BLOG_CARD_ACCENTS[2];
+    }
+    if (key.indexOf("compare") !== -1 || key.indexOf("vs") !== -1) return BLOG_CARD_ACCENTS[0];
+    if (key.indexOf("mobile") !== -1 || key.indexOf("tip") !== -1) return BLOG_CARD_ACCENTS[3];
+    return BLOG_CARD_ACCENTS[((index % 4) + 4) % 4];
+  }
+
+  function estimateBlogReadTime(post) {
+    if (post.readTime && String(post.readTime).trim()) {
+      var value = String(post.readTime).trim();
+      return value.toLowerCase().indexOf("min") !== -1 ? value : value + " min read";
+    }
+    var words = post.contentBlocks && post.contentBlocks.wordCount;
+    if (words && words > 0) {
+      return Math.max(1, Math.round(words / 200)) + " min read";
+    }
+    var excerpt =
+      post.description || (post.seo && post.seo.metaDescription) || post.keyword || post.title || "";
+    var approxWords = excerpt.split(/\s+/).filter(Boolean).length;
+    var mins = Math.max(3, Math.min(12, Math.round(approxWords / 40) + 2));
+    return mins + " min read";
+  }
+
   function renderBlogIndex(registry, blogRegistry) {
     document.title = "JoinMyPDF Guides";
     ensureMeta(
@@ -857,23 +909,38 @@
     if (grid) {
       grid.innerHTML = getSortedBlogPosts(blogRegistry)
         .slice(0, 60)
-        .map(function (post) {
-          var meta = [];
-          if (post.category) meta.push(escapeHtml(post.category));
-          if (post.publishDate) meta.push(escapeHtml(post.publishDate));
-          if (post.readTime) meta.push(escapeHtml(post.readTime));
+        .map(function (post, index) {
+          var accent = getBlogCardAccentForPost(post, index);
+          var label = getBlogBadgeLabel(post);
+          var excerpt = escapeHtml(
+            post.description || (post.seo && post.seo.metaDescription) || post.keyword || ""
+          );
+          var readTime = escapeHtml(estimateBlogReadTime(post));
           return (
-            '<article class="card glass blog-card"><p class="blog-card__category">' +
-            (post.category ? escapeHtml(post.category) : "Guide") +
-            "</p><h3>" +
+            '<a class="blog-guide-card blog-guide-card--' +
+            accent.id +
+            '" href="/blog/' +
+            escapeHtml(post.slug) +
+            '/">' +
+            '<span class="blog-guide-card__badge blog-guide-card__badge--' +
+            accent.id +
+            '">' +
+            escapeHtml(label) +
+            "</span>" +
+            '<h3 class="blog-guide-card__title">' +
             escapeHtml(post.title) +
-            "</h3><p class=\"blog-card__desc\">" +
-            escapeHtml(post.description || (post.seo && post.seo.metaDescription) || post.keyword || "") +
-            '</p><p class="blog-card__meta">' +
-            meta.join(" · ") +
-            '</p><div class="btn-row"><a class="btn btn--ghost" href="/blog/' +
-            post.slug +
-            '/">Read guide</a></div></article>'
+            "</h3>" +
+            (excerpt ? '<p class="blog-guide-card__excerpt">' + excerpt + "</p>" : "") +
+            '<div class="blog-guide-card__footer">' +
+            '<span class="blog-guide-card__time">' +
+            '<svg class="blog-guide-card__clock" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+            '<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>' +
+            '<path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+            readTime +
+            "</span>" +
+            '<span class="blog-guide-card__cta">Read article →</span>' +
+            "</div>" +
+            "</a>"
           );
         })
         .join("");
@@ -884,6 +951,39 @@
       name: "JoinMyPDF Guides",
       url: (registry.site.baseUrl || "https://joinmypdf.com").replace(/\/+$/, "") + "/blog/",
     });
+  }
+
+  function localProcessingInfographicHtml() {
+    return (
+      '<section class="local-processing" aria-labelledby="local-processing-heading">' +
+      '<h2 id="local-processing-heading" class="local-processing__title">How it works: 100% Local &amp; Secure</h2>' +
+      '<p class="local-processing__lead">Client-side processing — your documents never leave your device.</p>' +
+      '<div class="local-processing__grid">' +
+      '<article class="local-processing-card">' +
+      '<svg class="local-processing-card__icon local-processing-card__icon--red" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' +
+      "</svg>" +
+      '<h3 class="local-processing-card__title">Your Files Stay Yours</h3>' +
+      '<p class="local-processing-card__body">Processing happens entirely in your browser. No server uploads, zero risk.</p>' +
+      "</article>" +
+      '<article class="local-processing-card">' +
+      '<svg class="local-processing-card__icon local-processing-card__icon--blue" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>' +
+      "</svg>" +
+      '<h3 class="local-processing-card__title">Instant Processing</h3>' +
+      '<p class="local-processing-card__body">No upload or download queues. Files are converted or edited in milliseconds.</p>' +
+      "</article>" +
+      '<article class="local-processing-card">' +
+      '<svg class="local-processing-card__icon local-processing-card__icon--emerald" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="m2 2 20 20"/>' +
+      '<path d="M7.96 7.96A10.07 10.07 0 0 1 12 5c5.52 0 10 4.48 10 10a10.07 10.07 0 0 1-2.96 7.04"/>' +
+      '<path d="M15.54 15.54A5 5 0 0 0 12 19c-2.76 0-5-2.24-5-5a5 5 0 0 0 1.46-3.54"/>' +
+      "</svg>" +
+      '<h3 class="local-processing-card__title">Works Anywhere</h3>' +
+      '<p class="local-processing-card__body">Since code runs locally, tools work perfectly even without a network connection.</p>' +
+      "</article>" +
+      "</div></section>"
+    );
   }
 
   function renderToolPage(registry, blogRegistry, pathname) {
@@ -941,13 +1041,7 @@
       seoBody.innerHTML = buildSeoParagraphs(tool, variant).map((p) => "<p>" + escapeHtml(p) + "</p>").join("");
     }
     if (comparisonRoot) {
-      comparisonRoot.innerHTML =
-        "<ul>" +
-        "<li><strong>Privacy:</strong> JoinMyPDF processes files locally, while many traditional tools require upload to remote servers.</li>" +
-        "<li><strong>Speed:</strong> Browser-side execution avoids transfer overhead for common tasks and short workflows.</li>" +
-        "<li><strong>No Upload Dependency:</strong> Users can complete " + escapeHtml(toolActionVerb(tool)) + " flows without waiting for server queues.</li>" +
-        "<li><strong>Consistent UX:</strong> Every tool follows the same dropzone, status, and download pattern so you spend less time relearning controls.</li>" +
-        "</ul>";
+      comparisonRoot.innerHTML = localProcessingInfographicHtml();
     }
     if (useCasesRoot) {
       useCasesRoot.innerHTML = (tool.useCases || []).map((item) => "<li>" + escapeHtml(item) + "</li>").join("");

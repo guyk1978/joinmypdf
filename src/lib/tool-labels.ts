@@ -1,0 +1,38 @@
+/** Short display labels for tools in nav, grid, and mega menu. */
+export function getToolDisplayLabel(slug: string, fallbackTitle: string): string {
+  const map: Record<string, string> = {
+    "pdf-merge": "Merge PDF",
+    "pdf-compress": "Compress PDF",
+    "pdf-split": "Split PDF",
+    "add-page-numbers": "Add Page Numbers",
+    "sign-pdf": "Sign PDF",
+    "protect-pdf": "Protect PDF",
+    "unlock-pdf": "Unlock PDF",
+    "redact-pdf": "Redact PDF",
+    "delete-pdf-pages": "Delete PDF Pages",
+    "jpg-to-pdf": "JPG to PDF",
+    "pdf-to-jpg": "PDF to JPG",
+    "pdf-to-png": "PDF to PNG",
+    "png-to-pdf": "PNG to PDF",
+    "heic-to-pdf": "HEIC to PDF",
+    "pdf-to-word": "PDF to Word",
+    "word-to-pdf": "Word to PDF",
+    "pdf-to-excel": "PDF to Excel",
+    "excel-to-pdf": "Excel to PDF",
+    "pdf-to-powerpoint": "PDF to PowerPoint",
+    "powerpoint-to-pdf": "PowerPoint to PDF",
+    "crop-pdf": "Crop PDF",
+    "add-watermark": "Add Watermark",
+    "rotate-pdf": "Rotate PDF",
+    "autocad-to-pdf": "AutoCAD to PDF",
+    "openoffice-to-pdf": "OpenOffice to PDF",
+    "markdown-to-pdf": "Markdown to PDF",
+    "html-to-pdf": "HTML to PDF",
+    "ebook-to-pdf": "eBook to PDF",
+    "iwork-to-pdf": "iWork to PDF",
+    "invoice-generator": "Invoice Generator",
+    "timeline-gantt-generator": "Timeline & Gantt",
+    "data-converter-visualizer": "Data Converter",
+  };
+  return map[slug] || fallbackTitle;
+}

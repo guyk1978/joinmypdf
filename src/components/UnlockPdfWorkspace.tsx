@@ -10,6 +10,7 @@ import * as pdf from "@/lib/pdf-engine";
 import { IncorrectPasswordError } from "@/lib/pdf-unlock";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
+import { toolPanel, toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import {
   useCallback,
   useEffect,
@@ -196,12 +197,13 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       />
 
       {file ? (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-sm font-semibold text-ink">Selected file</p>
-          <p className="mt-2 truncate text-sm text-ink-muted">
-            <span className="font-medium text-ink">{file.name}</span> · {pdf.formatBytes(file.size)}
+        <div className={toolPanel}>
+          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Selected file</p>
+          <p className="mt-2 truncate text-sm text-slate-600 dark:text-slate-400">
+            <span className="font-medium text-slate-900 dark:text-slate-100">{file.name}</span> ·{" "}
+            {pdf.formatBytes(file.size)}
             {encrypted ? (
-              <span className="ml-2 rounded-md bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-200">
+              <span className="ml-2 rounded-md bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-500/20 dark:text-amber-200">
                 Password protected
               </span>
             ) : null}
@@ -240,7 +242,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             <button
               type="submit"
               disabled={!canSubmit}
-              className="btn-protect relative rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+              className={`btn-protect relative ${toolPrimaryBtn}`}
             >
               {busy ? (
                 <>
@@ -255,7 +257,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               onClick={reset}
               disabled={busy}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
+              className={`${toolSecondaryBtn} disabled:opacity-50`}
             >
               Clear
             </button>
@@ -275,7 +277,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           }}
         />
       ) : (
-        <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+        <p className="text-sm text-slate-600 dark:text-slate-400" role="status" aria-live="polite">
           {status}
         </p>
       )}

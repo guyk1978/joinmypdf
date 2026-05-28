@@ -1,28 +1,14 @@
-import Link from "next/link";
-import { HeaderPdfMini } from "@/components/HeaderPdfMini";
-import { SiteNav } from "@/components/SiteNav";
-import { SiteSearch } from "@/components/SiteSearch";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { SiteHeaderBar } from "@/components/SiteHeaderBar";
 import { blogRegistry } from "@/lib/blog-registry";
-import { buildGuidesNavItems } from "@/lib/nav-config";
+import { buildMegaMenuSections } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 
 export function SiteHeader() {
-  const guidesItems = buildGuidesNavItems(blogRegistry.blog);
+  const megaMenuSections = buildMegaMenuSections();
 
   return (
-    <header className="site-header">
-      <div className="container site-header__inner">
-        <Link href="/" className="brand site-header__brand">
-          <HeaderPdfMini className="header-pdf-mini--tight" />
-          <span className="brand__text">JoinMyPDF</span>
-        </Link>
-        <div className="site-header__cluster">
-          <SiteSearch variant="header" registry={registry} blog={blogRegistry} />
-          <ThemeToggle />
-          <SiteNav guidesItems={guidesItems} />
-        </div>
-      </div>
+    <header className="site-header overflow-visible">
+      <SiteHeaderBar megaMenuSections={megaMenuSections} registry={registry} blog={blogRegistry} />
     </header>
   );
 }

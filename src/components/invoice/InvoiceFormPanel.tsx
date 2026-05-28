@@ -1,5 +1,6 @@
 "use client";
 
+import { toolDownloadBtn } from "@/lib/tool-ui";
 import type { InvoiceDocument, PartyInfo } from "@/lib/invoice/types";
 import { computeTotals, formatMoney } from "@/lib/invoice/calculations";
 import { InvoiceLineItemsEditor } from "@/components/invoice/InvoiceLineItemsEditor";
@@ -155,7 +156,7 @@ export function InvoiceFormPanel({
         type="button"
         onClick={() => void onDownload()}
         disabled={downloadBusy}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3.5 text-sm font-semibold text-surface shadow-lg shadow-brand/25 transition hover:bg-brand-deep active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className={toolDownloadBtn}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path

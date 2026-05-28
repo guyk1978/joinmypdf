@@ -1,6 +1,8 @@
 "use client";
 
 import { TIMELINE_PRINT_ROOT_ID } from "@/lib/timeline/constants";
+import { toolCanvasStudio, toolDownloadBtn } from "@/lib/tool-ui";
+import { clsx } from "clsx";
 import type { TimelineProject } from "@/lib/timeline/types";
 import {
   formatDisplayDate,
@@ -44,7 +46,7 @@ export function TimelineCanvasPanel({
           type="button"
           onClick={() => void onDownload()}
           disabled={downloadBusy || !bounds}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-surface shadow-lg shadow-brand/25 transition hover:bg-brand-deep active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60"
+          className={toolDownloadBtn}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
@@ -59,7 +61,7 @@ export function TimelineCanvasPanel({
         </button>
       </div>
 
-      <div className="flex flex-1 items-start justify-center overflow-auto rounded-2xl border border-white/10 bg-slate-950/60 p-4 md:p-5">
+      <div className={clsx("flex flex-1 items-start justify-center overflow-auto p-4 md:p-5", toolCanvasStudio)}>
         <article
           id={TIMELINE_PRINT_ROOT_ID}
           className="w-full min-w-[640px] max-w-4xl overflow-hidden rounded-xl border border-slate-700/80 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 shadow-2xl shadow-black/40"

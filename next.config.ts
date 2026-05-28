@@ -2,7 +2,7 @@ import path from "path";
 import webpack from "webpack";
 import type { NextConfig } from "next";
 
-const nodeStub = path.join(__dirname, "src/lib/node-stub.ts");
+const nodeStub = path.join(process.cwd(), "src/lib/node-stub.ts");
 
 /**
  * `/` is the Next.js SaaS homepage (`src/app/page.tsx`).

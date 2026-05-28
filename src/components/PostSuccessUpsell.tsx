@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { CalnexAppCrossLink } from "@/components/partner/CalnexAppCrossLink";
+import { WattQuickCrossLink } from "@/components/partner/WattQuickCrossLink";
 
 type Props = {
   operation: string;
@@ -260,7 +260,7 @@ export function PostSuccessUpsell({ operation }: Props) {
           ))}
         </ul>
       </aside>
-      <CalnexAppCrossLink />
+      <WattQuickCrossLink />
     </div>
   );
 }

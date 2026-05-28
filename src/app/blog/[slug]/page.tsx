@@ -28,7 +28,9 @@ function faqItems(post: BlogPost) {
 
 export async function generateStaticParams() {
   const slugs = new Set<string>();
-  const blogRoot = path.join(process.cwd(), "blog");
+  const cwd = typeof process.cwd === "function" ? process.cwd() : "";
+  if (!cwd) return [];
+  const blogRoot = path.join(cwd, "blog");
 
   try {
     const entries = await readdir(blogRoot, { withFileTypes: true });
@@ -54,7 +56,9 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug;
+  if (!slug) return {};
   const post = blogRegistry.blog.find((p) => p.slug === slug);
   if (!post) return {};
   const title = post.seo?.metaTitle || post.title;
@@ -70,7 +74,9 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug;
+  if (!slug) notFound();
   const post = blogRegistry.blog.find((p) => p.slug === slug);
   if (!post) notFound();
   const pathname = `/blog/${slug}/`;

@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 
 const CALNEX_LINK =
-  '<a href="https://calnexapp.com/" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1; text-decoration: none; margin-left: 10px;">Model Loan Repayments ➔ CalnexApp</a>';
+  '<a href="https://wattquick.com/" target="_blank" rel="noopener noreferrer" style="color: #cbd5e1; text-decoration: none; margin-left: 10px;">Finance Calculators ➔ WattQuick</a>';
 
 const MAPDIAGRAM_BLOCK = `<div
           class="partner-mapdiagram"

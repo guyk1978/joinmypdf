@@ -2,6 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
+import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -19,6 +20,7 @@ import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import {
   useCallback,
   useEffect,
@@ -92,12 +94,11 @@ function WatermarkPreview({
   }, [baseCanvas, options]);
 
   return (
-    <div
-      ref={wrapRef}
-      className="relative mx-auto max-w-full overflow-hidden rounded-xl border border-white/10 bg-surface/30"
-    >
+    <PdfEditStudio minHeight={loading ? "min-h-[320px]" : undefined}>
+      <PdfStudioPage className="mx-auto max-w-full">
+        <div ref={wrapRef} className="relative overflow-hidden">
       {loading ? (
-        <div className="flex min-h-[280px] items-center justify-center text-sm text-ink-muted">
+        <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-slate-500 dark:text-slate-400">
           Loading preview…
         </div>
       ) : null}
@@ -121,7 +122,9 @@ function WatermarkPreview({
           />
         </>
       ) : null}
-    </div>
+        </div>
+      </PdfStudioPage>
+    </PdfEditStudio>
   );
 }
 
@@ -400,7 +403,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               type="button"
               disabled={busy}
               onClick={() => void onApply()}
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+              className={toolPrimaryBtn}
             >
               Apply watermark & download
             </button>

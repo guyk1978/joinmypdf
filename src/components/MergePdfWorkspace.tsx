@@ -10,6 +10,7 @@ import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
+import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import { moveArrayItem, useDragReorder } from "@/hooks/useDragReorder";
 import { renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
 import {
@@ -249,14 +250,14 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
           type="button"
           disabled={disabled}
           onClick={() => void onMerge()}
-          className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+          className={toolPrimaryBtn}
         >
           {busy ? "Merging…" : "Merge PDFs"}
         </button>
         <button
           type="button"
           onClick={reset}
-          className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
+          className={toolSecondaryBtn}
         >
           Clear
         </button>
@@ -274,7 +275,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
           }}
         />
       ) : (
-        <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+        <p className="text-sm text-slate-600 dark:text-slate-400" role="status" aria-live="polite">
           {status}
         </p>
       )}

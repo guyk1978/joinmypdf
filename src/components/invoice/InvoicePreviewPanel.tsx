@@ -1,6 +1,8 @@
 "use client";
 
 import { INVOICE_PRINT_ROOT_ID } from "@/lib/invoice/constants";
+import { toolCanvasPage, toolCanvasStudio } from "@/lib/tool-ui";
+import { clsx } from "clsx";
 import type { InvoiceDocument } from "@/lib/invoice/types";
 import {
   computeTotals,
@@ -45,10 +47,18 @@ export function InvoicePreviewPanel({ document }: InvoicePreviewPanelProps) {
         </span>
       </div>
 
-      <div className="flex flex-1 items-start justify-center overflow-auto rounded-2xl border border-white/10 bg-slate-900/40 p-4 md:p-6 print:border-0 print:bg-white print:p-0">
+      <div
+        className={clsx(
+          "flex flex-1 items-start justify-center overflow-auto p-4 md:p-6 print:border-0 print:bg-white print:p-0",
+          toolCanvasStudio,
+        )}
+      >
         <article
           id={INVOICE_PRINT_ROOT_ID}
-          className="w-full max-w-[210mm] bg-white text-slate-900 shadow-2xl shadow-black/40 ring-1 ring-slate-200/80 transition-[box-shadow] duration-300 print:max-w-none print:shadow-none print:ring-0"
+          className={clsx(
+            "w-full max-w-[210mm] text-slate-900 transition-[box-shadow] duration-300 print:max-w-none print:shadow-none print:ring-0",
+            toolCanvasPage,
+          )}
           style={{ aspectRatio: "210 / 297", minHeight: "min(80vh, 297mm)" }}
         >
           <div className="flex h-full flex-col p-[10mm] sm:p-[12mm] md:p-[14mm]">

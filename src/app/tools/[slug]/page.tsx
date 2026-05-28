@@ -1,4 +1,5 @@
 import { RelatedTools } from "@/components/RelatedTools";
+import { ToolPageHero } from "@/components/ToolPageHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
@@ -26,7 +27,8 @@ import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
-import { buildComparisonBullets, buildGuideParagraphs } from "@/lib/tool-copy";
+import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
+import { buildGuideParagraphs } from "@/lib/tool-copy";
 import { blogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
@@ -41,7 +43,9 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const slugs = new Set<string>();
-  const toolsRoot = path.join(process.cwd(), "tools");
+  const cwd = typeof process.cwd === "function" ? process.cwd() : "";
+  if (!cwd) return [];
+  const toolsRoot = path.join(cwd, "tools");
 
   try {
     const entries = await readdir(toolsRoot, { withFileTypes: true });
@@ -67,7 +71,9 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug;
+  if (!slug) return {};
   const resolved = resolveToolRoute(slug, registry);
   if (!resolved) return {};
   return buildToolMetadata({ tool: resolved.tool, variant: resolved.variant, slug });
@@ -80,7 +86,9 @@ function relatedArticlesForTool(toolSlug: string) {
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug;
+  if (!slug) notFound();
   const resolved = resolveToolRoute(slug, registry);
   if (!resolved) notFound();
   const { tool, variant } = resolved;
@@ -91,7 +99,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   const pathname = `/tools/${slug}/`;
   const h1 = variant ? `${tool.title} — ${variant.keyword}` : tool.title;
   const paragraphs = buildGuideParagraphs(tool, variant);
-  const bullets = buildComparisonBullets(tool);
   const articles = relatedArticlesForTool(tool.slug);
 
   const crumbs = [
@@ -108,11 +115,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <JsonLd data={breadcrumbLd(crumbs)} />
       <SiteHeader />
       <main className="mx-auto max-w-6xl space-y-10 px-4 py-10 md:px-6 md:py-12">
-        <header className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">JoinMyPDF</p>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">{h1}</h1>
-          <p className="max-w-3xl text-lg text-slate-600 dark:text-slate-300">{tool.intent}</p>
-        </header>
+        <ToolPageHero slug={tool.slug} title={h1} subtitle={tool.intent} />
 
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
@@ -175,17 +178,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </div>
         </section>
 
-        <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Why teams choose this model</h2>
-          <ul className="mt-4 space-y-4">
-            {bullets.map((b) => (
-              <li key={b.title}>
-                <p className="font-semibold text-slate-900 dark:text-white">{b.title}</p>
-                <p className="text-sm text-slate-600 dark:text-slate-300 md:text-base">{b.text}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <LocalProcessingInfographic />
 
         {articles.length ? (
           <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">

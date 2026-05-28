@@ -6,6 +6,10 @@ import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import type { ToolDefinition } from "@/lib/types";
+import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
+
+const PNG_DOWNLOAD_BTN =
+  "block w-full rounded-lg border border-blue-600 bg-white px-3 py-1.5 text-center text-xs font-bold text-blue-600 shadow-sm transition-colors hover:bg-blue-600 hover:text-white dark:border-slate-700 dark:bg-slate-800 dark:text-blue-400 dark:hover:border-blue-600 dark:hover:bg-blue-600 dark:hover:text-white";
 import * as pdf from "@/lib/pdf-engine";
 import { PDF_TO_PNG_SCALE } from "@/lib/pdf-to-png";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
@@ -46,7 +50,7 @@ function ExportThumb({
         <span className="pdf-export-thumb__label">Page {entry.page}</span>
         <button
           type="button"
-          className="pdf-export-thumb__download"
+          className={`pdf-export-thumb__download ${PNG_DOWNLOAD_BTN}`}
           onClick={() => onDownload(entry)}
         >
           Download PNG
@@ -250,8 +254,8 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
 
       {showWorkspace ? (
         <div className="pdf-export-workspace space-y-4">
-          <p className="text-sm text-ink-muted">
-            <strong className="text-ink">{file?.name}</strong>
+          <p className="text-sm text-slate-600 dark:text-slate-400">
+            <strong className="text-slate-900 dark:text-slate-100">{file?.name}</strong>
             {pageCount ? ` · ${pageCount} page${pageCount === 1 ? "" : "s"}` : null}
           </p>
 
@@ -260,7 +264,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
               type="button"
               disabled={!canExport || busy}
               onClick={() => void onExport()}
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+              className={toolPrimaryBtn}
             >
               {hasPages ? "Re-export PNG pages" : "Export PNG pages"}
             </button>
@@ -269,7 +273,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
                 type="button"
                 disabled={busy}
                 onClick={() => void onDownloadZip()}
-                className="rounded-xl border border-brand/40 bg-brand/10 px-5 py-3 text-sm font-semibold text-brand hover:bg-brand/15 disabled:opacity-50"
+                className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
               >
                 Download all as ZIP
               </button>
@@ -278,7 +282,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
+              className={toolSecondaryBtn}
             >
               Choose another file
             </button>

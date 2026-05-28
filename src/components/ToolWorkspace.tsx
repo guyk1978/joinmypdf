@@ -2,6 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
+import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import type { ToolDefinition } from "@/lib/types";
@@ -249,6 +250,12 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
 
   const showImagePreview =
     (tool.operation === "png-to-pdf" || tool.operation === "jpg-to-pdf") && files.length > 0;
+  const supportedFormats =
+    tool.operation === "png-to-pdf"
+      ? ["PNG"]
+      : tool.operation === "jpg-to-pdf"
+        ? ["JPG", "PNG"]
+        : ["PDF"];
 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
@@ -266,6 +273,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
         title="Drop files here or click to browse"
+        supportedFormats={supportedFormats}
         description={
           tool.operation === "compress"
               ? "Select one PDF. Tune compression, then download."
@@ -315,6 +323,8 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
           />
         }
       />
+
+      <MapDiagramCrossLink className="max-w-3xl" />
 
       {tool.operation === "compress" ? (
         <div className="rounded-2xl border border-slate-200/60 bg-white p-4 shadow-md dark:border-slate-800 dark:bg-slate-900">
