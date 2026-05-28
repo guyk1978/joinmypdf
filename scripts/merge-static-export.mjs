@@ -2,13 +2,14 @@
  * After `next build` (output: export), merges programmatic SEO HTML trees into `out/`
  * without touching `out/index.html` (owned by Next.js App Router).
  */
-import { cp, mkdir, access } from "node:fs/promises";
+import { cp, mkdir, access, rm } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const outDir = path.join(root, "out");
+const generatedOutPaths = [path.join(outDir, "blog"), path.join(outDir, "tools")];
 
 async function exists(p) {
   try {
@@ -25,6 +26,10 @@ async function main() {
     process.exit(1);
   }
 
+  for (const target of generatedOutPaths) {
+    await rm(target, { recursive: true, force: true });
+  }
+
   const copies = [
     { from: "blog", to: "blog" },
     { from: "tools", to: "tools" },
@@ -38,7 +43,11 @@ async function main() {
       continue;
     }
     await mkdir(path.dirname(dest), { recursive: true });
-    await cp(src, dest, { recursive: true, force: true });
+    await cp(src, dest, {
+      recursive: true,
+      force: true,
+      filter: (sourcePath) => path.extname(sourcePath).toLowerCase() !== ".txt",
+    });
     console.log(`merged ${from}/ → out/${to}/`);
   }
 
