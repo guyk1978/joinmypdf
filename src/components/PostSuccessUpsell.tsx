@@ -66,6 +66,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Mark drafts clearly",
       body: "Stamp DRAFT or CONFIDENTIAL before sharing corrected files.",
     });
+  } else if (operation === "autocad-to-pdf") {
+    rows.push({
+      href: "/tools/crop-pdf/",
+      title: "Trim blueprint margins",
+      body: "Crop excess border space from the exported PDF before printing or sharing.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for email",
+      body: "Shrink large vector blueprint PDFs when attachment limits are tight.",
+    });
   } else if (operation === "add-page-numbers") {
     rows.push({
       href: "/tools/protect-pdf/",

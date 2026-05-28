@@ -121,6 +121,10 @@ export function getToolErrorRecovery(
       { ...TOOLS.split, hint: "Fix only affected pages first", variant: "primary" },
       { ...TOOLS.pdfToJpg, hint: "Export pages if orientation still looks wrong", variant: "secondary" },
     ],
+    "autocad-to-pdf": [
+      { href: "/tools/crop-pdf/", label: "Try Crop PDF", hint: "Trim PDF margins after export", variant: "primary" },
+      { ...TOOLS.compress, hint: "Compress large blueprint PDFs", variant: "secondary" },
+    ],
     sign: [
       { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },

@@ -9,6 +9,7 @@ const verb: Record<string, string> = {
   "crop-pdf": "crop a PDF in your browser",
   "add-watermark": "add a text watermark to a PDF",
   "rotate-pdf": "rotate PDF pages in your browser",
+  "autocad-to-pdf": "convert AutoCAD DXF drawings to PDF",
   protect: "password-protect a PDF",
   unlock: "remove a PDF password",
   redact: "redact sensitive PDF content",

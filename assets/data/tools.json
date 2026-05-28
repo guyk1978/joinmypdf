@@ -1024,6 +1024,55 @@
       "updatedAt": "2026-05-28"
     },
     {
+      "slug": "autocad-to-pdf",
+      "category": "convert",
+      "operation": "autocad-to-pdf",
+      "title": "AutoCAD to PDF Converter",
+      "primaryKeyword": "autocad to pdf converter online free",
+      "intent": "Convert AutoCAD DXF vector drawings into scalable PDF blueprints entirely in your browser.",
+      "description": "Upload .dxf drawings and download a vector PDF blueprint locally—no upload to our servers. For .dwg files, save as DXF in AutoCAD first.",
+      "secondaryKeywords": [
+        "dxf to pdf",
+        "cad drawing to pdf",
+        "convert autocad blueprint to pdf"
+      ],
+      "useCases": [
+        "Share engineering schematics with clients who lack CAD software",
+        "Print scale-accurate architectural layouts from DXF exports",
+        "Archive mechanical drawings as universal PDF blueprints"
+      ],
+      "relatedTools": [
+        "crop-pdf",
+        "rotate-pdf",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my AutoCAD file uploaded to JoinMyPDF?",
+          "a": "No. Parsing and PDF rendering run entirely in your browser on your device."
+        },
+        {
+          "q": "Why do I need to save .dwg as .dxf?",
+          "a": "Our serverless engine reads the open-standard DXF text format locally. Binary .dwg files require exporting to DXF inside your CAD application for full precision."
+        },
+        {
+          "q": "Will the PDF stay vector-sharp when zooming?",
+          "a": "Yes. Lines, arcs, circles, and text are drawn as native PDF vector graphics for infinite zoom fidelity."
+        },
+        {
+          "q": "What paper size is used?",
+          "a": "Drawings are scaled and centered on a landscape A4 page with margins for printing."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-28"
+    },
+    {
       "slug": "crop-pdf",
       "category": "edit",
       "operation": "crop-pdf",

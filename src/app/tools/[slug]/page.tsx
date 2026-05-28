@@ -14,6 +14,7 @@ import { HeicToPdfWorkspace } from "@/components/HeicToPdfWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
 import { AddWatermarkWorkspace } from "@/components/AddWatermarkWorkspace";
 import { RotatePdfWorkspace } from "@/components/RotatePdfWorkspace";
+import { AutocadToPdfWorkspace } from "@/components/AutocadToPdfWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
@@ -117,6 +118,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <AddWatermarkWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "rotate-pdf" ? (
           <RotatePdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "autocad-to-pdf" ? (
+          <AutocadToPdfWorkspace tool={tool} slug={slug} />
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}

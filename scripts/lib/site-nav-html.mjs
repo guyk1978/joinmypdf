@@ -44,6 +44,11 @@ export const NAV_DROPDOWNS = [
     ],
   },
   {
+    id: "cad",
+    label: "CAD Utilities",
+    items: [{ href: "/tools/autocad-to-pdf/", label: "AutoCAD to PDF" }],
+  },
+  {
     id: "security",
     label: "Security & privacy",
     items: [
