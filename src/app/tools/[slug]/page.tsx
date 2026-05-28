@@ -31,14 +31,21 @@ import { blogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildToolMetadata, getToolFaqs } from "@/lib/tool-seo";
-import { allToolSlugs, resolveToolRoute } from "@/lib/variants";
+import { resolveToolRoute } from "@/lib/variants";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return allToolSlugs(registry).map((slug) => ({ slug }));
+  const slugs = new Set<string>();
+  for (const tool of registry.tools || []) {
+    if (tool.slug) slugs.add(tool.slug);
+    for (const variant of tool.longTailPages || []) {
+      if (variant.slug) slugs.add(variant.slug);
+    }
+  }
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
