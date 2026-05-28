@@ -8,7 +8,7 @@ export function StudioToolCards() {
         <Link
           key={tool.slug}
           href={tool.href}
-          className="studio-tool-card group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.02] to-transparent p-6 shadow-sm shadow-black/30 transition duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-lg hover:shadow-brand/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          className="studio-tool-card group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-md transition duration-300 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-xl hover:shadow-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand dark:border-slate-800 dark:bg-gradient-to-br dark:from-white/[0.05] dark:via-white/[0.02] dark:to-transparent dark:shadow-black/30 dark:hover:shadow-brand/15"
         >
           <div
             className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-brand/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-60"

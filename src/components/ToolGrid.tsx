@@ -28,6 +28,32 @@ function actionLabel(slug: string, title: string): string {
   return map[slug] || title;
 }
 
+function categoryVisuals(slug: string, title: string) {
+  const label = `${slug} ${title}`.toLowerCase();
+  if (/(word|excel|powerpoint|openoffice|iwork|ebook)/.test(label)) {
+    return {
+      wrap: "bg-cyan-100 text-cyan-800 dark:bg-cyan-500/15 dark:text-cyan-200",
+      glyph: "DOC",
+    };
+  }
+  if (/(compress|split|merge|optimiz)/.test(label)) {
+    return {
+      wrap: "bg-amber-100 text-amber-800 dark:bg-red-500/15 dark:text-red-200",
+      glyph: "OPT",
+    };
+  }
+  if (/(html|markdown|cad|autocad|dev|code)/.test(label)) {
+    return {
+      wrap: "bg-emerald-100 text-emerald-800 dark:bg-purple-500/15 dark:text-purple-200",
+      glyph: "</>",
+    };
+  }
+  return {
+    wrap: "bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-200",
+    glyph: "PDF",
+  };
+}
+
 export function ToolGrid() {
   return (
     <div className="space-y-8">
@@ -41,11 +67,21 @@ export function ToolGrid() {
         <StudioToolCards />
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {registry.tools.map((t) => (
+      {registry.tools.map((t) => {
+        const visuals = categoryVisuals(t.slug, t.title);
+        return (
         <article
           key={t.slug}
-          className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-sm shadow-black/30"
+          className="flex flex-col rounded-2xl border border-slate-200/60 bg-white p-5 shadow-md transition duration-300 hover:-translate-y-0.5 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900"
         >
+          <div className="mb-3 flex items-center justify-between">
+            <span
+              className={`inline-flex h-9 min-w-9 items-center justify-center rounded-xl px-2 text-xs font-bold tracking-wide ${visuals.wrap}`}
+              aria-hidden="true"
+            >
+              {visuals.glyph}
+            </span>
+          </div>
           <h3 className="text-lg font-semibold text-ink">{t.title}</h3>
           <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">{t.intent}</p>
           <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
@@ -60,7 +96,8 @@ export function ToolGrid() {
             </Link>
           </div>
         </article>
-      ))}
+      );
+      })}
       </div>
     </div>
   );

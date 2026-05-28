@@ -66,13 +66,13 @@ export function PrivacyUploadBadge({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        "inline-flex w-full max-w-2xl items-start gap-2.5 rounded-xl border border-brand/35 bg-brand/10 px-3.5 py-2.5 text-left shadow-[0_0_24px_rgba(56,189,248,0.08)] sm:items-center sm:px-4 sm:py-3",
+        "inline-flex w-full max-w-2xl items-start gap-2.5 rounded-xl border border-sky-200 bg-sky-50/80 px-3.5 py-2.5 text-left shadow-sm sm:items-center sm:px-4 sm:py-3 dark:border-brand/35 dark:bg-brand/10 dark:shadow-[0_0_24px_rgba(56,189,248,0.08)]",
         className
       )}
       role="note"
     >
-      <ShieldLockIcon className="mt-0.5 h-5 w-5 shrink-0 text-brand sm:mt-0" />
-      <p className="text-xs font-medium leading-snug text-ink sm:text-sm">
+      <ShieldLockIcon className="mt-0.5 h-5 w-5 shrink-0 text-sky-700 sm:mt-0 dark:text-brand" />
+      <p className="text-xs font-medium leading-snug text-slate-800 sm:text-sm dark:text-ink">
         <span className="text-brand">100% Private &amp; Fast:</span>{" "}
         Files are processed locally in your browser and never leave your device.
       </p>
@@ -109,13 +109,13 @@ export function FileUploadZone({
   return (
     <div
       className={clsx(
-        "relative flex flex-col rounded-2xl border-2 border-dashed text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-colors",
+        "relative flex flex-col rounded-2xl border-2 border-dashed text-center transition-colors duration-300",
         isHero
           ? "min-h-[300px] px-5 md:min-h-[340px] md:px-8"
           : "min-h-[220px] px-6 md:min-h-[260px] md:px-10",
         active
-          ? "border-brand bg-brand/10"
-          : "border-white/20 bg-gradient-to-b from-white/[0.07] to-white/[0.02]",
+          ? "border-blue-400 bg-blue-50/40 dark:border-brand dark:bg-blue-950/20"
+          : "border-blue-300 bg-blue-50/40 dark:border-slate-700 dark:bg-gradient-to-b dark:from-white/[0.07] dark:to-white/[0.02]",
         className
       )}
       {...rest}
@@ -133,14 +133,14 @@ export function FileUploadZone({
         <UploadArrowIcon
           className={clsx(
             "h-12 w-12 shrink-0 transition-colors md:h-14 md:w-14",
-            active ? "text-brand" : "text-ink-muted"
+            active ? "text-blue-700 dark:text-brand" : "text-indigo-700 dark:text-ink-muted"
           )}
           active={active}
         />
         <div className="max-w-md space-y-2">
-          <p className="text-lg font-semibold tracking-tight text-ink md:text-xl">{title}</p>
+          <p className="text-lg font-semibold tracking-tight text-slate-900 dark:text-ink md:text-xl">{title}</p>
           {description ? (
-            <p className="text-sm leading-relaxed text-ink-muted md:text-base">{description}</p>
+            <p className="text-sm leading-relaxed text-slate-600 dark:text-ink-muted md:text-base">{description}</p>
           ) : null}
         </div>
         {footer ? <div className="w-full shrink-0 pt-1">{footer}</div> : null}

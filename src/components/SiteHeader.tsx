@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HeaderPdfMini } from "@/components/HeaderPdfMini";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteSearch } from "@/components/SiteSearch";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { blogRegistry } from "@/lib/blog-registry";
 import { buildGuidesNavItems } from "@/lib/nav-config";
 import { registry } from "@/lib/registry";
@@ -18,6 +19,7 @@ export function SiteHeader() {
         </Link>
         <div className="site-header__cluster">
           <SiteSearch variant="header" registry={registry} blog={blogRegistry} />
+          <ThemeToggle />
           <SiteNav guidesItems={guidesItems} />
         </div>
       </div>

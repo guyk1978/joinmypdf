@@ -237,7 +237,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
 
   if (!config) {
     return (
-      <p className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 text-ink-muted">
+      <p className="rounded-2xl border border-slate-200/60 bg-white p-6 text-slate-600 shadow-md dark:border-slate-800 dark:bg-slate-900 dark:text-ink-muted">
         This tool is not available yet.
       </p>
     );
@@ -317,8 +317,8 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       />
 
       {tool.operation === "compress" ? (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <label className="text-sm font-medium text-ink" htmlFor={`${baseId}-q`}>
+        <div className="rounded-2xl border border-slate-200/60 bg-white p-4 shadow-md dark:border-slate-800 dark:bg-slate-900">
+          <label className="text-sm font-medium text-slate-900 dark:text-ink" htmlFor={`${baseId}-q`}>
             Compression level
           </label>
           <input
@@ -330,18 +330,18 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
             onChange={(e) => setQuality(Number(e.target.value))}
             className="mt-2 w-full"
           />
-          <p className="mt-1 text-xs text-ink-muted">Higher keeps more detail; lower targets smaller files.</p>
+          <p className="mt-1 text-xs text-slate-600 dark:text-ink-muted">Higher keeps more detail; lower targets smaller files.</p>
         </div>
       ) : null}
 
       {files.length > 0 ? (
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-          <p className="text-sm font-semibold text-ink">Files</p>
+        <div className="rounded-2xl border border-slate-200/60 bg-white p-4 shadow-md dark:border-slate-800 dark:bg-slate-900">
+          <p className="text-sm font-semibold text-slate-900 dark:text-ink">Files</p>
           <ul className="mt-3 space-y-2">
             {files.map((f, idx) => (
               <li
                 key={`${f.name}-${idx}`}
-                className="flex flex-wrap items-center gap-2 rounded-xl border border-white/10 bg-surface/40 px-3 py-2 text-sm"
+                className="flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm dark:border-slate-700 dark:bg-surface/40"
                 draggable
                 onDragStart={(e) => e.dataTransfer.setData("text/plain", String(idx))}
                 onDragOver={(e) => e.preventDefault()}
@@ -351,29 +351,29 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
                   move(from, idx);
                 }}
               >
-                <span className="cursor-grab text-ink-muted" aria-hidden>
+                <span className="cursor-grab text-slate-500 dark:text-ink-muted" aria-hidden>
                   ::
                 </span>
-                <span className="min-w-0 flex-1 truncate font-medium text-ink">{f.name}</span>
-                <span className="text-ink-muted">{pdf.formatBytes(f.size)}</span>
-                <span className="text-ink-muted">#{idx + 1}</span>
+                <span className="min-w-0 flex-1 truncate font-medium text-slate-900 dark:text-ink">{f.name}</span>
+                <span className="text-slate-500 dark:text-ink-muted">{pdf.formatBytes(f.size)}</span>
+                <span className="text-slate-500 dark:text-ink-muted">#{idx + 1}</span>
                 <button
                   type="button"
-                  className="rounded-lg border border-white/15 px-2 py-1 text-xs text-ink hover:bg-white/5"
+                  className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 hover:bg-slate-100 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
                   onClick={() => move(idx, idx - 1)}
                 >
                   Up
                 </button>
                 <button
                   type="button"
-                  className="rounded-lg border border-white/15 px-2 py-1 text-xs text-ink hover:bg-white/5"
+                  className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 hover:bg-slate-100 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
                   onClick={() => move(idx, idx + 1)}
                 >
                   Down
                 </button>
                 <button
                   type="button"
-                  className="rounded-lg border border-red-400/40 px-2 py-1 text-xs text-red-300 hover:bg-red-500/10"
+                  className="rounded-lg border border-red-300 bg-red-50 px-2 py-1 text-xs text-red-700 hover:bg-red-100 dark:border-red-400/40 dark:bg-transparent dark:text-red-300 dark:hover:bg-red-500/10"
                   onClick={() => removeAt(idx)}
                 >
                   Remove
@@ -397,14 +397,14 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
           type="button"
           disabled={disabled}
           onClick={onRun}
-          className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-sky-300/60 transition duration-300 hover:-translate-y-0.5 hover:bg-brand-deep hover:shadow-xl hover:shadow-sky-300/70 disabled:cursor-not-allowed disabled:opacity-50 dark:text-surface"
         >
           {config.buttonLabel}
         </button>
         <button
           type="button"
           onClick={reset}
-          className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
+          className="rounded-xl border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-200 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
         >
           Clear
         </button>
@@ -422,7 +422,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
           }}
         />
       ) : (
-        <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+        <p className="text-sm text-slate-600 dark:text-ink-muted" role="status" aria-live="polite">
           {status}
         </p>
       )}
