@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArticleAuthorBadge } from "@/components/ArticleAuthorBadge";
 import { BlogArticleBody } from "@/components/BlogArticleBody";
 import { BlogToc } from "@/components/BlogToc";
+import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { blogPostingLd, breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
@@ -118,15 +119,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {tools.length ? (
             <section className="mt-10 rounded-2xl border border-slate-200/60 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Tools in this workflow</h2>
-              <ul className="mt-3 space-y-2">
-                {tools.map((t) => (
-                  <li key={t.slug}>
-                    <Link className="font-medium text-brand hover:underline" href={`/tools/${t.slug}/`}>
-                      {t.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-4">
+                <CompactToolCardGrid
+                  items={tools.map((t) => ({
+                    href: `/tools/${t.slug}/`,
+                    label: t.title,
+                    slugHint: t.slug,
+                  }))}
+                />
+              </div>
             </section>
           ) : null}
 

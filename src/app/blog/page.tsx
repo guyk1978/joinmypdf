@@ -21,8 +21,8 @@ export default function BlogIndexPage() {
       <SiteHeader />
       <main className="mx-auto max-w-6xl space-y-8 px-4 py-10 md:px-6">
         <header>
-          <h1 className="text-3xl font-bold text-ink">Guides</h1>
-          <p className="mt-2 max-w-2xl text-ink-muted">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Guides</h1>
+          <p className="mt-2 max-w-2xl text-slate-700 dark:text-slate-300">
             Walkthroughs that link straight into the tools—built for real tasks like email limits, mobile workflows, and
             sensitive documents.
           </p>
