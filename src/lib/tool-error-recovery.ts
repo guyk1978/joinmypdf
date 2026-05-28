@@ -125,6 +125,10 @@ export function getToolErrorRecovery(
       { href: "/tools/crop-pdf/", label: "Try Crop PDF", hint: "Trim PDF margins after export", variant: "primary" },
       { ...TOOLS.compress, hint: "Compress large blueprint PDFs", variant: "secondary" },
     ],
+    "openoffice-to-pdf": [
+      { href: "/tools/word-to-pdf/", label: "Try Word to PDF", hint: "For .docx files from Microsoft Word", variant: "primary" },
+      { ...TOOLS.compress, hint: "Compress the PDF before emailing", variant: "secondary" },
+    ],
     sign: [
       { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },

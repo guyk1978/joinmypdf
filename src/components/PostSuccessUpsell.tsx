@@ -77,6 +77,17 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Compress for email",
       body: "Shrink large vector blueprint PDFs when attachment limits are tight.",
     });
+  } else if (operation === "openoffice-to-pdf") {
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress for email",
+      body: "Shrink the exported PDF if attachment limits are tight.",
+    });
+    rows.push({
+      href: "/tools/word-to-pdf/",
+      title: "Converting Word files?",
+      body: "Use Word to PDF for .docx documents from Microsoft Office.",
+    });
   } else if (operation === "add-page-numbers") {
     rows.push({
       href: "/tools/protect-pdf/",

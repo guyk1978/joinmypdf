@@ -19,6 +19,7 @@ function actionLabel(slug: string, title: string): string {
     "add-watermark": "Add Watermark",
     "rotate-pdf": "Rotate PDF",
     "autocad-to-pdf": "AutoCAD to PDF",
+    "openoffice-to-pdf": "OpenOffice to PDF",
   };
   return map[slug] || title;
 }

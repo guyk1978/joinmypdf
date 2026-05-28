@@ -1073,6 +1073,55 @@
       "updatedAt": "2026-05-28"
     },
     {
+      "slug": "openoffice-to-pdf",
+      "category": "convert",
+      "operation": "openoffice-to-pdf",
+      "title": "OpenOffice to PDF Converter",
+      "primaryKeyword": "openoffice to pdf converter online free",
+      "intent": "Convert OpenOffice .odt, .ods, and .odp files into downloadable PDFs entirely in your browser.",
+      "description": "Upload OpenDocument text, spreadsheet, or presentation files and download a clean PDF locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "odt to pdf",
+        "ods to pdf",
+        "odp to pdf free"
+      ],
+      "useCases": [
+        "Share LibreOffice documents with teams that only read PDF",
+        "Archive open-source spreadsheets as print-ready PDFs",
+        "Distribute presentation notes without layout drift"
+      ],
+      "relatedTools": [
+        "word-to-pdf",
+        "excel-to-pdf",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my OpenOffice file uploaded to JoinMyPDF?",
+          "a": "No. Unpacking, XML parsing, and PDF creation run entirely in your browser on your device."
+        },
+        {
+          "q": "Which formats are supported?",
+          "a": "We support .odt (text), .ods (spreadsheet), and .odp (presentation) OpenDocument files."
+        },
+        {
+          "q": "Will complex formatting be preserved exactly?",
+          "a": "The tool extracts text structure and maps it to clean PDF layouts. Highly styled documents may simplify visuals while keeping readable content."
+        },
+        {
+          "q": "Does this work with LibreOffice files?",
+          "a": "Yes. LibreOffice saves the same OpenDocument formats and works with this converter."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-05-28"
+    },
+    {
       "slug": "crop-pdf",
       "category": "edit",
       "operation": "crop-pdf",
