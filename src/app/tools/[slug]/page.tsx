@@ -38,7 +38,7 @@ import { notFound } from "next/navigation";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return allToolSlugs(registry).map((slug) => ({ slug: slug.replace(/^\/|\/$/g, "") }));
+  return allToolSlugs(registry).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {

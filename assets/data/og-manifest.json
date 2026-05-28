@@ -1,7 +1,15 @@
 {
-  "generatedAt": "2026-05-28T10:23:32.566Z",
+  "generatedAt": "2026-05-28T11:39:23.377Z",
   "abVariants": false,
   "items": [
+    {
+      "slug": "merge-pdf-online-fast",
+      "contentType": "tool",
+      "categoryBadge": "High Intent",
+      "hook": "You need this workflow starting today",
+      "variant": "a",
+      "ok": true
+    },
     {
       "slug": "split-pdf-tool-fast",
       "contentType": "tool",
@@ -15,14 +23,6 @@
       "contentType": "tool",
       "categoryBadge": "High Intent",
       "hook": "Built for speed privacy and daily use",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "merge-pdf-online-fast",
-      "contentType": "tool",
-      "categoryBadge": "High Intent",
-      "hook": "You need this workflow starting today",
       "variant": "a",
       "ok": true
     },
@@ -51,10 +51,10 @@
       "ok": true
     },
     {
-      "slug": "split-pdf-tool-free",
+      "slug": "jpg-to-pdf-converter-free",
       "contentType": "tool",
       "categoryBadge": "High Intent",
-      "hook": "Stop wasting time on PDFs right now",
+      "hook": "One tab means your job is done fast",
       "variant": "a",
       "ok": true
     },
@@ -75,10 +75,10 @@
       "ok": true
     },
     {
-      "slug": "jpg-to-pdf-converter-free",
+      "slug": "split-pdf-tool-free",
       "contentType": "tool",
       "categoryBadge": "High Intent",
-      "hook": "One tab means your job is done fast",
+      "hook": "Stop wasting time on PDFs right now",
       "variant": "a",
       "ok": true
     },
@@ -99,14 +99,6 @@
       "ok": true
     },
     {
-      "slug": "split-pdf-tool-no-signup",
-      "contentType": "tool",
-      "categoryBadge": "High Intent",
-      "hook": "Built for speed privacy and daily use",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "merge-pdf-online-for-mobile",
       "contentType": "tool",
       "categoryBadge": "High Intent",
@@ -115,10 +107,10 @@
       "ok": true
     },
     {
-      "slug": "jpg-to-pdf-converter-no-signup",
+      "slug": "split-pdf-tool-no-signup",
       "contentType": "tool",
       "categoryBadge": "High Intent",
-      "hook": "This browser tool replaces five apps",
+      "hook": "Built for speed privacy and daily use",
       "variant": "a",
       "ok": true
     },
@@ -127,6 +119,14 @@
       "contentType": "tool",
       "categoryBadge": "High Intent",
       "hook": "Run it in your browser with no wait",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "jpg-to-pdf-converter-no-signup",
+      "contentType": "tool",
+      "categoryBadge": "High Intent",
+      "hook": "This browser tool replaces five apps",
       "variant": "a",
       "ok": true
     },
@@ -155,14 +155,6 @@
       "ok": true
     },
     {
-      "slug": "jpg-to-pdf-converter-for-mobile",
-      "contentType": "tool",
-      "categoryBadge": "High Intent",
-      "hook": "The shortcut power users pick every day",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "merge-pdf-online-for-work-documents",
       "contentType": "tool",
       "categoryBadge": "High Intent",
@@ -175,6 +167,14 @@
       "contentType": "tool",
       "categoryBadge": "High Intent",
       "hook": "Stop wasting time on PDFs right now",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "jpg-to-pdf-converter-for-mobile",
+      "contentType": "tool",
+      "categoryBadge": "High Intent",
+      "hook": "The shortcut power users pick every day",
       "variant": "a",
       "ok": true
     },
@@ -195,14 +195,6 @@
       "ok": true
     },
     {
-      "slug": "split-pdf-tool-for-invoices",
-      "contentType": "tool",
-      "categoryBadge": "High Intent",
-      "hook": "The shortcut power users pick every day",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "merge-pdf-online-for-invoices",
       "contentType": "tool",
       "categoryBadge": "High Intent",
@@ -211,10 +203,10 @@
       "ok": true
     },
     {
-      "slug": "pdf-to-jpg-converter-for-work-documents",
+      "slug": "split-pdf-tool-for-invoices",
       "contentType": "tool",
       "categoryBadge": "High Intent",
-      "hook": "Local processing with zero extra fluff",
+      "hook": "The shortcut power users pick every day",
       "variant": "a",
       "ok": true
     },
@@ -223,6 +215,14 @@
       "contentType": "tool",
       "categoryBadge": "High Intent",
       "hook": "You need this workflow starting today",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "pdf-to-jpg-converter-for-work-documents",
+      "contentType": "tool",
+      "categoryBadge": "High Intent",
+      "hook": "Local processing with zero extra fluff",
       "variant": "a",
       "ok": true
     },
@@ -251,14 +251,6 @@
       "ok": true
     },
     {
-      "slug": "split-pdf-tool-for-reports",
-      "contentType": "tool",
-      "categoryBadge": "High Intent",
-      "hook": "No upload drama and just fast results",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "jpg-to-pdf-converter-for-reports",
       "contentType": "tool",
       "categoryBadge": "High Intent",
@@ -271,6 +263,14 @@
       "contentType": "tool",
       "categoryBadge": "High Intent",
       "hook": "One tab means your job is done fast",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "split-pdf-tool-for-reports",
+      "contentType": "tool",
+      "categoryBadge": "High Intent",
+      "hook": "No upload drama and just fast results",
       "variant": "a",
       "ok": true
     },
@@ -299,18 +299,18 @@
       "ok": true
     },
     {
-      "slug": "pdf-to-jpg-converter-without-quality-loss",
-      "contentType": "tool",
-      "categoryBadge": "High Intent",
-      "hook": "This browser tool replaces five apps",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "jpg-to-pdf-converter-without-quality-loss",
       "contentType": "tool",
       "categoryBadge": "High Intent",
       "hook": "Local processing with zero extra fluff",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "pdf-to-jpg-converter-without-quality-loss",
+      "contentType": "tool",
+      "categoryBadge": "High Intent",
+      "hook": "This browser tool replaces five apps",
       "variant": "a",
       "ok": true
     },
@@ -323,14 +323,6 @@
       "ok": true
     },
     {
-      "slug": "pdf-too-large-fix-quickly",
-      "contentType": "how-to",
-      "categoryBadge": "Problem Based",
-      "hook": "Get it right the first time now",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "how-to-send-pdf-via-email-quickly",
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
@@ -339,10 +331,10 @@
       "ok": true
     },
     {
-      "slug": "pdf-too-large-fix-for-gmail",
+      "slug": "pdf-too-large-fix-quickly",
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
-      "hook": "Follow this workflow once and win",
+      "hook": "Get it right the first time now",
       "variant": "a",
       "ok": true
     },
@@ -355,18 +347,26 @@
       "ok": true
     },
     {
-      "slug": "how-to-reduce-pdf-size-under-1mb-quickly",
-      "contentType": "how-to",
-      "categoryBadge": "Problem Based",
-      "hook": "Do this before you hit send again",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "how-to-organize-scanned-documents-quickly",
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
       "hook": "Fewer clicks and much cleaner output",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "pdf-too-large-fix-for-gmail",
+      "contentType": "how-to",
+      "categoryBadge": "Problem Based",
+      "hook": "Follow this workflow once and win",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "how-to-reduce-pdf-size-under-1mb-quickly",
+      "contentType": "how-to",
+      "categoryBadge": "Problem Based",
+      "hook": "Do this before you hit send again",
       "variant": "a",
       "ok": true
     },
@@ -395,18 +395,18 @@
       "ok": true
     },
     {
-      "slug": "how-to-merge-pdf-on-mobile-for-gmail",
-      "contentType": "how-to",
-      "categoryBadge": "Problem Based",
-      "hook": "The checklist pros actually use daily",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "pdf-too-large-fix-for-outlook",
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
       "hook": "Follow this workflow once and win",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "how-to-merge-pdf-on-mobile-for-gmail",
+      "contentType": "how-to",
+      "categoryBadge": "Problem Based",
+      "hook": "The checklist pros actually use daily",
       "variant": "a",
       "ok": true
     },
@@ -435,6 +435,14 @@
       "ok": true
     },
     {
+      "slug": "how-to-send-pdf-via-email-for-submissions",
+      "contentType": "how-to",
+      "categoryBadge": "Problem Based",
+      "hook": "Your fastest PDF fix today online",
+      "variant": "a",
+      "ok": true
+    },
+    {
       "slug": "how-to-organize-scanned-documents-for-outlook",
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
@@ -447,14 +455,6 @@
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
       "hook": "Follow this workflow once and win",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "how-to-send-pdf-via-email-for-submissions",
-      "contentType": "how-to",
-      "categoryBadge": "Problem Based",
-      "hook": "Your fastest PDF fix today online",
       "variant": "a",
       "ok": true
     },
@@ -483,6 +483,14 @@
       "ok": true
     },
     {
+      "slug": "how-to-send-pdf-via-email-for-clients",
+      "contentType": "how-to",
+      "categoryBadge": "Problem Based",
+      "hook": "Your fastest PDF fix today online",
+      "variant": "a",
+      "ok": true
+    },
+    {
       "slug": "how-to-merge-pdf-on-mobile-for-clients",
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
@@ -503,14 +511,6 @@
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
       "hook": "Fewer clicks and much cleaner output",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "how-to-send-pdf-via-email-for-clients",
-      "contentType": "how-to",
-      "categoryBadge": "Problem Based",
-      "hook": "Your fastest PDF fix today online",
       "variant": "a",
       "ok": true
     },
@@ -547,14 +547,6 @@
       "ok": true
     },
     {
-      "slug": "how-to-organize-scanned-documents-without-installing-software",
-      "contentType": "how-to",
-      "categoryBadge": "Problem Based",
-      "hook": "Stop redoing the same steps forever",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "how-to-reduce-pdf-size-under-1mb-without-installing-software",
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
@@ -563,7 +555,7 @@
       "ok": true
     },
     {
-      "slug": "how-to-send-pdf-via-email-on-android",
+      "slug": "how-to-organize-scanned-documents-without-installing-software",
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
       "hook": "Stop redoing the same steps forever",
@@ -575,6 +567,14 @@
       "contentType": "how-to",
       "categoryBadge": "Problem Based",
       "hook": "The checklist pros actually use daily",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "how-to-send-pdf-via-email-on-android",
+      "contentType": "how-to",
+      "categoryBadge": "Problem Based",
+      "hook": "Stop redoing the same steps forever",
       "variant": "a",
       "ok": true
     },
@@ -627,10 +627,10 @@
       "ok": true
     },
     {
-      "slug": "safe-pdf-tools-online-for-legal-docs",
+      "slug": "is-it-safe-to-upload-pdf-for-legal-docs",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
-      "hook": "The primer that saves hours of rework",
+      "hook": "Your PDF literacy upgrade starts right here",
       "variant": "a",
       "ok": true
     },
@@ -643,18 +643,18 @@
       "ok": true
     },
     {
-      "slug": "how-to-organize-scanned-documents-on-iphone",
-      "contentType": "how-to",
-      "categoryBadge": "Problem Based",
-      "hook": "Fewer clicks and much cleaner output",
+      "slug": "safe-pdf-tools-online-for-legal-docs",
+      "contentType": "guide",
+      "categoryBadge": "Privacy Trust",
+      "hook": "The primer that saves hours of rework",
       "variant": "a",
       "ok": true
     },
     {
-      "slug": "is-it-safe-to-upload-pdf-for-legal-docs",
-      "contentType": "guide",
-      "categoryBadge": "Privacy Trust",
-      "hook": "Your PDF literacy upgrade starts right here",
+      "slug": "how-to-organize-scanned-documents-on-iphone",
+      "contentType": "how-to",
+      "categoryBadge": "Problem Based",
+      "hook": "Fewer clicks and much cleaner output",
       "variant": "a",
       "ok": true
     },
@@ -675,18 +675,18 @@
       "ok": true
     },
     {
-      "slug": "client-side-pdf-tools-for-contracts",
+      "slug": "is-it-safe-to-upload-pdf-for-contracts",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
-      "hook": "Protect files without slowing your team",
+      "hook": "The primer that saves hours of rework",
       "variant": "a",
       "ok": true
     },
     {
-      "slug": "secure-document-tools-browser-for-legal-docs",
+      "slug": "client-side-pdf-tools-for-contracts",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
-      "hook": "What nobody explains clearly about PDFs",
+      "hook": "Protect files without slowing your team",
       "variant": "a",
       "ok": true
     },
@@ -699,10 +699,10 @@
       "ok": true
     },
     {
-      "slug": "is-it-safe-to-upload-pdf-for-contracts",
+      "slug": "secure-document-tools-browser-for-legal-docs",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
-      "hook": "The primer that saves hours of rework",
+      "hook": "What nobody explains clearly about PDFs",
       "variant": "a",
       "ok": true
     },
@@ -731,14 +731,6 @@
       "ok": true
     },
     {
-      "slug": "safe-pdf-tools-online-for-hr-files",
-      "contentType": "guide",
-      "categoryBadge": "Privacy Trust",
-      "hook": "The primer that saves hours of rework",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "client-side-pdf-tools-for-hr-files",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
@@ -747,7 +739,23 @@
       "ok": true
     },
     {
+      "slug": "safe-pdf-tools-online-for-hr-files",
+      "contentType": "guide",
+      "categoryBadge": "Privacy Trust",
+      "hook": "The primer that saves hours of rework",
+      "variant": "a",
+      "ok": true
+    },
+    {
       "slug": "is-it-safe-to-upload-pdf-for-hr-files",
+      "contentType": "guide",
+      "categoryBadge": "Privacy Trust",
+      "hook": "Your PDF literacy upgrade starts right here",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "safe-pdf-tools-online-without-cloud-upload",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
       "hook": "Your PDF literacy upgrade starts right here",
@@ -763,34 +771,10 @@
       "ok": true
     },
     {
-      "slug": "safe-pdf-tools-online-without-cloud-upload",
-      "contentType": "guide",
-      "categoryBadge": "Privacy Trust",
-      "hook": "Your PDF literacy upgrade starts right here",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "client-side-pdf-tools-without-cloud-upload",
-      "contentType": "guide",
-      "categoryBadge": "Privacy Trust",
-      "hook": "Smarter habits start here with one read",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "is-it-safe-to-upload-pdf-without-cloud-upload",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
       "hook": "What nobody explains clearly about PDFs",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "pdf-privacy-online-without-cloud-upload",
-      "contentType": "guide",
-      "categoryBadge": "Privacy Trust",
-      "hook": "Understand PDFs without the usual jargon",
       "variant": "a",
       "ok": true
     },
@@ -803,10 +787,18 @@
       "ok": true
     },
     {
-      "slug": "safe-pdf-tools-online-with-local-processing",
+      "slug": "pdf-privacy-online-without-cloud-upload",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
-      "hook": "Clarity for everyday documents at work",
+      "hook": "Understand PDFs without the usual jargon",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "client-side-pdf-tools-without-cloud-upload",
+      "contentType": "guide",
+      "categoryBadge": "Privacy Trust",
+      "hook": "Smarter habits start here with one read",
       "variant": "a",
       "ok": true
     },
@@ -819,7 +811,15 @@
       "ok": true
     },
     {
-      "slug": "pdf-privacy-online-with-local-processing",
+      "slug": "safe-pdf-tools-online-with-local-processing",
+      "contentType": "guide",
+      "categoryBadge": "Privacy Trust",
+      "hook": "Clarity for everyday documents at work",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "client-side-pdf-tools-with-local-processing",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
       "hook": "Understand PDFs without the usual jargon",
@@ -835,7 +835,7 @@
       "ok": true
     },
     {
-      "slug": "client-side-pdf-tools-with-local-processing",
+      "slug": "pdf-privacy-online-with-local-processing",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
       "hook": "Understand PDFs without the usual jargon",
@@ -867,14 +867,6 @@
       "ok": true
     },
     {
-      "slug": "pdf-privacy-online-for-healthcare-workflows",
-      "contentType": "guide",
-      "categoryBadge": "Privacy Trust",
-      "hook": "What nobody explains clearly about PDFs",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "is-it-safe-to-upload-pdf-for-finance-teams",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
@@ -891,18 +883,18 @@
       "ok": true
     },
     {
-      "slug": "secure-document-tools-browser-for-healthcare-workflows",
+      "slug": "pdf-privacy-online-for-healthcare-workflows",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
-      "hook": "The primer that saves hours of rework",
+      "hook": "What nobody explains clearly about PDFs",
       "variant": "a",
       "ok": true
     },
     {
-      "slug": "pdf-privacy-online-for-finance-teams",
+      "slug": "secure-document-tools-browser-for-healthcare-workflows",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
-      "hook": "Read this before your next big deadline",
+      "hook": "The primer that saves hours of rework",
       "variant": "a",
       "ok": true
     },
@@ -915,10 +907,10 @@
       "ok": true
     },
     {
-      "slug": "is-it-safe-to-upload-pdf-for-schools",
+      "slug": "pdf-privacy-online-for-finance-teams",
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
-      "hook": "The primer that saves hours of rework",
+      "hook": "Read this before your next big deadline",
       "variant": "a",
       "ok": true
     },
@@ -927,6 +919,14 @@
       "contentType": "guide",
       "categoryBadge": "Privacy Trust",
       "hook": "The guide teams quietly share internally",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "is-it-safe-to-upload-pdf-for-schools",
+      "contentType": "guide",
+      "categoryBadge": "Privacy Trust",
+      "hook": "The primer that saves hours of rework",
       "variant": "a",
       "ok": true
     },
@@ -971,14 +971,6 @@
       "ok": true
     },
     {
-      "slug": "adobe-acrobat-alternatives-for-small-business",
-      "contentType": "comparison",
-      "categoryBadge": "Comparison",
-      "hook": "See the clear winner in just minutes",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "online-vs-offline-pdf-tools-for-small-business",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
@@ -991,6 +983,14 @@
       "contentType": "comparison",
       "categoryBadge": "Comparison",
       "hook": "Choose with confidence after one read",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "adobe-acrobat-alternatives-for-small-business",
+      "contentType": "comparison",
+      "categoryBadge": "Comparison",
+      "hook": "See the clear winner in just minutes",
       "variant": "a",
       "ok": true
     },
@@ -1019,14 +1019,6 @@
       "ok": true
     },
     {
-      "slug": "browser-pdf-tools-comparison-for-freelancers",
-      "contentType": "comparison",
-      "categoryBadge": "Comparison",
-      "hook": "Clear criteria means faster decisions today",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "pdf-software-alternatives-for-freelancers",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
@@ -1043,6 +1035,14 @@
       "ok": true
     },
     {
+      "slug": "browser-pdf-tools-comparison-for-freelancers",
+      "contentType": "comparison",
+      "categoryBadge": "Comparison",
+      "hook": "Clear criteria means faster decisions today",
+      "variant": "a",
+      "ok": true
+    },
+    {
       "slug": "best-pdf-tools-2026-for-students",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
@@ -1052,6 +1052,14 @@
     },
     {
       "slug": "online-vs-offline-pdf-tools-for-students",
+      "contentType": "comparison",
+      "categoryBadge": "Comparison",
+      "hook": "Side by side with absolutely no spin",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "pdf-software-alternatives-for-students",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
       "hook": "Side by side with absolutely no spin",
@@ -1083,14 +1091,6 @@
       "ok": true
     },
     {
-      "slug": "pdf-software-alternatives-for-students",
-      "contentType": "comparison",
-      "categoryBadge": "Comparison",
-      "hook": "Side by side with absolutely no spin",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "best-pdf-tools-2026-for-legal-teams",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
@@ -1107,10 +1107,10 @@
       "ok": true
     },
     {
-      "slug": "best-pdf-tools-2026-for-operations-managers",
+      "slug": "pdf-software-alternatives-for-legal-teams",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
-      "hook": "The honest tradeoff breakdown you need",
+      "hook": "See the clear winner in just minutes",
       "variant": "a",
       "ok": true
     },
@@ -1123,10 +1123,10 @@
       "ok": true
     },
     {
-      "slug": "pdf-software-alternatives-for-legal-teams",
+      "slug": "best-pdf-tools-2026-for-operations-managers",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
-      "hook": "See the clear winner in just minutes",
+      "hook": "The honest tradeoff breakdown you need",
       "variant": "a",
       "ok": true
     },
@@ -1139,14 +1139,6 @@
       "ok": true
     },
     {
-      "slug": "adobe-acrobat-alternatives-for-operations-managers",
-      "contentType": "comparison",
-      "categoryBadge": "Comparison",
-      "hook": "Clear criteria means faster decisions today",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "browser-pdf-tools-comparison-for-operations-managers",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
@@ -1155,10 +1147,10 @@
       "ok": true
     },
     {
-      "slug": "online-vs-offline-pdf-tools-feature-comparison",
+      "slug": "adobe-acrobat-alternatives-for-operations-managers",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
-      "hook": "Stop guessing and start comparing now",
+      "hook": "Clear criteria means faster decisions today",
       "variant": "a",
       "ok": true
     },
@@ -1167,6 +1159,14 @@
       "contentType": "comparison",
       "categoryBadge": "Comparison",
       "hook": "The honest tradeoff breakdown you need",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "online-vs-offline-pdf-tools-feature-comparison",
+      "contentType": "comparison",
+      "categoryBadge": "Comparison",
+      "hook": "Stop guessing and start comparing now",
       "variant": "a",
       "ok": true
     },
@@ -1235,14 +1235,6 @@
       "ok": true
     },
     {
-      "slug": "online-vs-offline-pdf-tools-security-comparison",
-      "contentType": "comparison",
-      "categoryBadge": "Comparison",
-      "hook": "Clear criteria means faster decisions today",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "pdf-software-alternatives-pricing-comparison",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
@@ -1251,18 +1243,18 @@
       "ok": true
     },
     {
-      "slug": "best-pdf-tools-2026-security-comparison",
+      "slug": "online-vs-offline-pdf-tools-security-comparison",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
-      "hook": "What actually matters for PDF workflows",
+      "hook": "Clear criteria means faster decisions today",
       "variant": "a",
       "ok": true
     },
     {
-      "slug": "pdf-software-alternatives-security-comparison",
+      "slug": "best-pdf-tools-2026-security-comparison",
       "contentType": "comparison",
       "categoryBadge": "Comparison",
-      "hook": "See the clear winner in just minutes",
+      "hook": "What actually matters for PDF workflows",
       "variant": "a",
       "ok": true
     },
@@ -1283,10 +1275,10 @@
       "ok": true
     },
     {
-      "slug": "how-pdf-compression-works-explained-simply",
-      "contentType": "guide",
-      "categoryBadge": "Educational",
-      "hook": "What nobody explains clearly about PDFs",
+      "slug": "pdf-software-alternatives-security-comparison",
+      "contentType": "comparison",
+      "categoryBadge": "Comparison",
+      "hook": "See the clear winner in just minutes",
       "variant": "a",
       "ok": true
     },
@@ -1299,10 +1291,18 @@
       "ok": true
     },
     {
-      "slug": "what-is-a-pdf-with-examples",
+      "slug": "how-pdf-compression-works-explained-simply",
       "contentType": "guide",
       "categoryBadge": "Educational",
-      "hook": "Your PDF literacy upgrade starts right here",
+      "hook": "What nobody explains clearly about PDFs",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "pdf-basics-for-beginners-explained-simply",
+      "contentType": "guide",
+      "categoryBadge": "Educational",
+      "hook": "Clarity for everyday documents at work",
       "variant": "a",
       "ok": true
     },
@@ -1315,10 +1315,10 @@
       "ok": true
     },
     {
-      "slug": "pdf-basics-for-beginners-explained-simply",
+      "slug": "what-is-a-pdf-with-examples",
       "contentType": "guide",
       "categoryBadge": "Educational",
-      "hook": "Clarity for everyday documents at work",
+      "hook": "Your PDF literacy upgrade starts right here",
       "variant": "a",
       "ok": true
     },
@@ -1379,6 +1379,14 @@
       "ok": true
     },
     {
+      "slug": "how-pdf-file-format-works-for-beginners",
+      "contentType": "guide",
+      "categoryBadge": "Educational",
+      "hook": "What nobody explains clearly about PDFs",
+      "variant": "a",
+      "ok": true
+    },
+    {
       "slug": "why-pdf-is-used-worldwide-for-beginners",
       "contentType": "guide",
       "categoryBadge": "Educational",
@@ -1387,10 +1395,10 @@
       "ok": true
     },
     {
-      "slug": "how-pdf-file-format-works-for-beginners",
+      "slug": "what-is-a-pdf-for-business-users",
       "contentType": "guide",
       "categoryBadge": "Educational",
-      "hook": "What nobody explains clearly about PDFs",
+      "hook": "The guide teams quietly share internally",
       "variant": "a",
       "ok": true
     },
@@ -1407,14 +1415,6 @@
       "contentType": "guide",
       "categoryBadge": "Educational",
       "hook": "The primer that saves hours of rework",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "what-is-a-pdf-for-business-users",
-      "contentType": "guide",
-      "categoryBadge": "Educational",
-      "hook": "The guide teams quietly share internally",
       "variant": "a",
       "ok": true
     },
@@ -1451,6 +1451,14 @@
       "ok": true
     },
     {
+      "slug": "how-pdf-file-format-works-for-students",
+      "contentType": "guide",
+      "categoryBadge": "Educational",
+      "hook": "The guide teams quietly share internally",
+      "variant": "a",
+      "ok": true
+    },
+    {
       "slug": "how-pdf-compression-works-for-students",
       "contentType": "guide",
       "categoryBadge": "Educational",
@@ -1463,14 +1471,6 @@
       "contentType": "guide",
       "categoryBadge": "Educational",
       "hook": "Understand PDFs without the usual jargon",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "how-pdf-file-format-works-for-students",
-      "contentType": "guide",
-      "categoryBadge": "Educational",
-      "hook": "The guide teams quietly share internally",
       "variant": "a",
       "ok": true
     },
@@ -1499,10 +1499,10 @@
       "ok": true
     },
     {
-      "slug": "how-pdf-file-format-works-in-modern-workflows",
+      "slug": "why-pdf-is-used-worldwide-in-modern-workflows",
       "contentType": "guide",
       "categoryBadge": "Educational",
-      "hook": "Better decisions mean fewer costly mistakes",
+      "hook": "The guide teams quietly share internally",
       "variant": "a",
       "ok": true
     },
@@ -1515,10 +1515,10 @@
       "ok": true
     },
     {
-      "slug": "why-pdf-is-used-worldwide-in-modern-workflows",
+      "slug": "how-pdf-file-format-works-in-modern-workflows",
       "contentType": "guide",
       "categoryBadge": "Educational",
-      "hook": "The guide teams quietly share internally",
+      "hook": "Better decisions mean fewer costly mistakes",
       "variant": "a",
       "ok": true
     },
@@ -1539,23 +1539,7 @@
       "ok": true
     },
     {
-      "slug": "how-pdf-file-format-works-and-best-practices",
-      "contentType": "guide",
-      "categoryBadge": "Educational",
-      "hook": "Understand PDFs without the usual jargon",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "why-pdf-is-used-worldwide-and-best-practices",
-      "contentType": "guide",
-      "categoryBadge": "Educational",
-      "hook": "Better decisions mean fewer costly mistakes",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "what-is-a-pdf-and-common-mistakes",
       "contentType": "guide",
       "categoryBadge": "Educational",
       "hook": "Better decisions mean fewer costly mistakes",
@@ -1567,6 +1551,22 @@
       "contentType": "guide",
       "categoryBadge": "Educational",
       "hook": "Protect files without slowing your team",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "how-pdf-file-format-works-and-best-practices",
+      "contentType": "guide",
+      "categoryBadge": "Educational",
+      "hook": "Understand PDFs without the usual jargon",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "what-is-a-pdf-and-common-mistakes",
+      "contentType": "guide",
+      "categoryBadge": "Educational",
+      "hook": "Better decisions mean fewer costly mistakes",
       "variant": "a",
       "ok": true
     },
@@ -1603,14 +1603,6 @@
       "ok": true
     },
     {
-      "slug": "add-watermark",
-      "contentType": "guide",
-      "categoryBadge": "Article",
-      "hook": "Your PDF literacy upgrade starts right here",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "autocad-to-pdf",
       "contentType": "guide",
       "categoryBadge": "Article",
@@ -1619,7 +1611,7 @@
       "ok": true
     },
     {
-      "slug": "best-free-pdf-tools-online-2026",
+      "slug": "add-watermark",
       "contentType": "guide",
       "categoryBadge": "Article",
       "hook": "Your PDF literacy upgrade starts right here",
@@ -1635,10 +1627,10 @@
       "ok": true
     },
     {
-      "slug": "crop-pdf",
+      "slug": "best-free-pdf-tools-online-2026",
       "contentType": "guide",
       "categoryBadge": "Article",
-      "hook": "Protect files without slowing your team",
+      "hook": "Your PDF literacy upgrade starts right here",
       "variant": "a",
       "ok": true
     },
@@ -1647,6 +1639,14 @@
       "contentType": "guide",
       "categoryBadge": "Article",
       "hook": "What nobody explains clearly about PDFs",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "crop-pdf",
+      "contentType": "guide",
+      "categoryBadge": "Article",
+      "hook": "Protect files without slowing your team",
       "variant": "a",
       "ok": true
     },
@@ -1667,14 +1667,6 @@
       "ok": true
     },
     {
-      "slug": "hidden-risks-of-free-online-pdf-editors",
-      "contentType": "guide",
-      "categoryBadge": "Article",
-      "hook": "Understand PDFs without the usual jargon",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "how-pdf-compression-works",
       "contentType": "guide",
       "categoryBadge": "Article",
@@ -1683,10 +1675,10 @@
       "ok": true
     },
     {
-      "slug": "how-to-compress-pdf-without-losing-quality",
-      "contentType": "how-to",
+      "slug": "hidden-risks-of-free-online-pdf-editors",
+      "contentType": "guide",
       "categoryBadge": "Article",
-      "hook": "Do this before you hit send again",
+      "hook": "Understand PDFs without the usual jargon",
       "variant": "a",
       "ok": true
     },
@@ -1699,15 +1691,7 @@
       "ok": true
     },
     {
-      "slug": "how-to-merge-pdf-on-mobile",
-      "contentType": "how-to",
-      "categoryBadge": "Article",
-      "hook": "Follow this workflow once and win",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "how-to-convert-jpg-to-pdf",
+      "slug": "how-to-compress-pdf-without-losing-quality",
       "contentType": "how-to",
       "categoryBadge": "Article",
       "hook": "Do this before you hit send again",
@@ -1723,7 +1707,31 @@
       "ok": true
     },
     {
+      "slug": "how-to-convert-jpg-to-pdf",
+      "contentType": "how-to",
+      "categoryBadge": "Article",
+      "hook": "Do this before you hit send again",
+      "variant": "a",
+      "ok": true
+    },
+    {
       "slug": "how-to-convert-pdf-to-images",
+      "contentType": "how-to",
+      "categoryBadge": "Article",
+      "hook": "Simple steps that deliver real results",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "how-to-merge-pdf-on-mobile",
+      "contentType": "how-to",
+      "categoryBadge": "Article",
+      "hook": "Follow this workflow once and win",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "how-to-password-protect-pdf-in-browser",
       "contentType": "how-to",
       "categoryBadge": "Article",
       "hook": "Simple steps that deliver real results",
@@ -1739,26 +1747,10 @@
       "ok": true
     },
     {
-      "slug": "how-to-password-protect-pdf-in-browser",
-      "contentType": "how-to",
-      "categoryBadge": "Article",
-      "hook": "Simple steps that deliver real results",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "html-to-pdf",
       "contentType": "guide",
       "categoryBadge": "Article",
       "hook": "Clarity for everyday documents at work",
-      "variant": "a",
-      "ok": true
-    },
-    {
-      "slug": "how-to-reduce-pdf-file-size-under-1mb",
-      "contentType": "how-to",
-      "categoryBadge": "Article",
-      "hook": "Get it right the first time now",
       "variant": "a",
       "ok": true
     },
@@ -1771,18 +1763,18 @@
       "ok": true
     },
     {
-      "slug": "how-to-split-pdf-easily",
+      "slug": "how-to-reduce-pdf-file-size-under-1mb",
       "contentType": "how-to",
       "categoryBadge": "Article",
-      "hook": "Do this before you hit send again",
+      "hook": "Get it right the first time now",
       "variant": "a",
       "ok": true
     },
     {
-      "slug": "iwork-to-pdf",
-      "contentType": "guide",
+      "slug": "how-to-split-pdf-easily",
+      "contentType": "how-to",
       "categoryBadge": "Article",
-      "hook": "Clarity for everyday documents at work",
+      "hook": "Do this before you hit send again",
       "variant": "a",
       "ok": true
     },
@@ -1795,10 +1787,18 @@
       "ok": true
     },
     {
-      "slug": "markdown-to-pdf",
+      "slug": "iwork-to-pdf",
       "contentType": "guide",
       "categoryBadge": "Article",
-      "hook": "The primer that saves hours of rework",
+      "hook": "Clarity for everyday documents at work",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "openoffice-to-pdf",
+      "contentType": "guide",
+      "categoryBadge": "Article",
+      "hook": "Protect files without slowing your team",
       "variant": "a",
       "ok": true
     },
@@ -1811,10 +1811,10 @@
       "ok": true
     },
     {
-      "slug": "openoffice-to-pdf",
+      "slug": "markdown-to-pdf",
       "contentType": "guide",
       "categoryBadge": "Article",
-      "hook": "Protect files without slowing your team",
+      "hook": "The primer that saves hours of rework",
       "variant": "a",
       "ok": true
     },
@@ -1859,18 +1859,18 @@
       "ok": true
     },
     {
-      "slug": "what-is-a-pdf-file",
-      "contentType": "guide",
-      "categoryBadge": "Article",
-      "hook": "Smarter habits start here with one read",
-      "variant": "a",
-      "ok": true
-    },
-    {
       "slug": "secure-online-pdf-merger",
       "contentType": "guide",
       "categoryBadge": "Article",
       "hook": "The guide teams quietly share internally",
+      "variant": "a",
+      "ok": true
+    },
+    {
+      "slug": "what-is-a-pdf-file",
+      "contentType": "guide",
+      "categoryBadge": "Article",
+      "hook": "Smarter habits start here with one read",
       "variant": "a",
       "ok": true
     },

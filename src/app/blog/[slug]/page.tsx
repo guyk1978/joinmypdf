@@ -25,7 +25,7 @@ function faqItems(post: BlogPost) {
 }
 
 export function generateStaticParams() {
-  return (blogRegistry.blog || []).map((p) => ({ slug: p.slug.replace(/^\/|\/$/g, "") }));
+  return (blogRegistry.blog || []).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({

@@ -11,7 +11,7 @@ const nodeStub = path.join(__dirname, "src/lib/node-stub.ts");
  */
 const nextConfig: NextConfig = {
   output: "export",
-  trailingSlash: true,
+  trailingSlash: false,
   images: { unoptimized: true },
   reactStrictMode: true,
   webpack: (config, { isServer }) => {
