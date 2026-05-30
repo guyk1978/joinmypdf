@@ -68,26 +68,36 @@ export async function POST(req: Request) {
     
     // ... אחרי הכותרת Results
     Object.entries(results || {}).forEach(([key, value], index) => {
-      // 1. ניקוי הערך: הסרת מרכאות ופסיקים מיותרים שמגיעים מהמחשבון
-      const cleanValue = String(value).replace(/["',]/g, '').trim();
+      // 1. טיפול חכם בנתונים: אם זה מערך, ניקח את האיבר השני (התוצאה)
+      // אם זה כבר טקסט, נשתמש בו כמו שהוא
+      const rawValue = Array.isArray(value) ? (value[1] || "") : String(value);
+      
+      // 2. ניקוי התוכן ממרכאות ותווים מיותרים
+      const cleanValue = rawValue.replace(/["',]/g, '').trim();
+      
+      // 3. ניקוי המפתח (Key) להצגה יפה בטבלה
+      const cleanKey = key.replace(/["',]/g, '').trim();
+
+      // 4. שליפת צבע לפי הערך הנקי
       const color = getStatusColor(cleanValue);
       
-      // 2. רקע אפור לשורות זוגיות
+      // רקע אפור לשורות זוגיות
       if (index % 2 === 0) {
         doc.setFillColor(245, 245, 245);
         doc.rect(20, y - 6, 170, 9, 'F');
       }
 
-      // 3. הדפסה
+      // הדפסת המפתח
       doc.setTextColor(0, 0, 0);
       doc.setFont("helvetica", "bold");
-      doc.text(key.replace(/["',]/g, ''), 25, y);
+      doc.text(cleanKey, 25, y);
       
+      // הדפסת הערך בצבע
       doc.setTextColor(color[0], color[1], color[2]);
       doc.setFont("helvetica", "normal");
       doc.text(cleanValue, 140, y, { maxWidth: 50 });
       
-      // איפוס צבע לשחור לשורה הבאה
+      // איפוס צבע
       doc.setTextColor(0, 0, 0);
       y += 10;
     });
