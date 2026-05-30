@@ -1,16 +1,11 @@
 import { ImageResponse } from "next/og";
-import {
-  getInvoiceTemplateBySlug,
-  INVOICE_TEMPLATE_PROFILES,
-} from "@/lib/invoice/templates";
+import { getInvoiceTemplateBySlug } from "@/lib/invoice/templates";
+
+export const runtime = "edge";
 
 export const alt = "JoinMyPDF — free invoice template preview";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export function generateStaticParams() {
-  return INVOICE_TEMPLATE_PROFILES.map((profile) => ({ slug: profile.slug }));
-}
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

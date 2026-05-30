@@ -1,16 +1,11 @@
 import { ImageResponse } from "next/og";
-import {
-  getTimelineTemplateBySlug,
-  TIMELINE_TEMPLATE_PROFILES,
-} from "@/lib/timeline/templates";
+import { getTimelineTemplateBySlug } from "@/lib/timeline/templates";
+
+export const runtime = "edge";
 
 export const alt = "JoinMyPDF — free timeline & Gantt template preview";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-export function generateStaticParams() {
-  return TIMELINE_TEMPLATE_PROFILES.map((profile) => ({ slug: profile.slug }));
-}
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
