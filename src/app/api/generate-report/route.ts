@@ -64,29 +64,27 @@ export async function POST(req: Request) {
     });
 
     y += 10;
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 128); // צבע כחול לכותרת התוצאות
-    doc.text("Results:", 20, y);
-    doc.setTextColor(0, 0, 0); // חזרה לשחור
-    doc.setFontSize(12);
-    y += 10;
     
-    Object.entries(results || {}).forEach(([key, value]) => {
+    Object.entries(results || {}).forEach(([key, value], index) => {
       const color = getStatusColor(String(value));
       
-      // הוספת קו מפריד עדין לכל שורה
-      doc.setDrawColor(200, 200, 200);
-      doc.line(20, y - 6, 190, y - 6);
+      // השורות האפורות - מעולה!
+      if (index % 2 === 0) {
+        doc.setFillColor(245, 245, 245);
+        doc.rect(20, y - 6, 170, 9, 'F');
+      }
 
-      // הדפסת המפתח בשחור
-      doc.setTextColor(0, 0, 0);
-      doc.text(`${key}:`, 20, y);
+      // הדפסת המפתח והערך
+      doc.setTextColor(0, 0, 0); 
+      doc.setFont("helvetica", "bold");
+      doc.text(key, 25, y);
       
-      // הדפסת הערך בצבע (לפי הפונקציה שלך)
       doc.setTextColor(color[0], color[1], color[2]);
-      doc.text(`${String(value)}`, 80, y); 
+      doc.setFont("helvetica", "normal");
       
-      doc.setTextColor(0, 0, 0);
+      // וודא שאתה מדפיס את הערך ב-X=140 כמו שרצינו:
+      doc.text(String(value), 140, y, { maxWidth: 50 });
+      
       y += 10;
     });
 
