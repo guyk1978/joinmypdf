@@ -30,10 +30,17 @@ const addFooter = (doc: any) => {
 // פונקציית עזר לצבעים
 const getStatusColor = (value: string | number) => {
   const val = String(value).toLowerCase();
-  if (val.includes("error") || val.includes("danger") || val.includes("high")) return [220, 53, 69];
-  if (val.includes("warning") || val.includes("check")) return [255, 193, 7];
-  if (val.includes("efficiency") || val.includes("ok") || val.includes("success")) return [40, 167, 69];
-  return [0, 0, 0];
+  
+  // 1. צבעים לפי מילות מפתח (כמו שהיה)
+  if (val.includes("error") || val.includes("danger") || val.includes("high")) return [220, 53, 69]; // אדום
+  if (val.includes("warning") || val.includes("check")) return [255, 193, 7]; // צהוב
+  if (val.includes("efficiency") || val.includes("ok") || val.includes("success")) return [40, 167, 69]; // ירוק
+  
+  // 2. תוספת חדשה: צבע כחול לכל ערך שהוא מספר (כדי שיהיה צבעוני יותר)
+  // בודק אם יש ספרות בטקסט
+  if (/\d/.test(val)) return [0, 102, 204]; 
+  
+  return [0, 0, 0]; // שחור ברירת מחדל
 };
 
 // טיפול ב-Preflight של הדפדפן
@@ -68,17 +75,11 @@ export async function POST(req: Request) {
     
     // ... אחרי הכותרת Results
     Object.entries(results || {}).forEach(([key, value], index) => {
-      // 1. טיפול חכם בנתונים: אם זה מערך, ניקח את האיבר השני (התוצאה)
-      // אם זה כבר טקסט, נשתמש בו כמו שהוא
-      const rawValue = Array.isArray(value) ? (value[1] || "") : String(value);
-      
-      // 2. ניקוי התוכן ממרכאות ותווים מיותרים
-      const cleanValue = rawValue.replace(/["',]/g, '').trim();
-      
-      // 3. ניקוי המפתח (Key) להצגה יפה בטבלה
+      // חילוץ חכם: לוקחים את הערך (אינדקס 1 במערך אם קיים)
+      const val = Array.isArray(value) ? (value[1] || "") : String(value);
+      const cleanValue = val.replace(/["',]/g, '').trim();
       const cleanKey = key.replace(/["',]/g, '').trim();
 
-      // 4. שליפת צבע לפי הערך הנקי
       const color = getStatusColor(cleanValue);
       
       // רקע אפור לשורות זוגיות
@@ -87,15 +88,17 @@ export async function POST(req: Request) {
         doc.rect(20, y - 6, 170, 9, 'F');
       }
 
-      // הדפסת המפתח
+      // הדפסת המפתח (ללא צבע)
       doc.setTextColor(0, 0, 0);
       doc.setFont("helvetica", "bold");
       doc.text(cleanKey, 25, y);
       
-      // הדפסת הערך בצבע
+      // הדפסת הערך בצבע - עם יישור שמאלה קשיח כדי למנוע היפוך
       doc.setTextColor(color[0], color[1], color[2]);
       doc.setFont("helvetica", "normal");
-      doc.text(cleanValue, 140, y, { maxWidth: 50 });
+      
+      // ה-null וה-left מבטיחים יישור תקין של ה-PDF
+      doc.text(cleanValue, 140, y, { maxWidth: 50, align: "left" });
       
       // איפוס צבע
       doc.setTextColor(0, 0, 0);
