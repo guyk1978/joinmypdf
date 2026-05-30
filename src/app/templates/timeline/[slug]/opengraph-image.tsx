@@ -4,12 +4,7 @@ import {
   TIMELINE_TEMPLATE_PROFILES,
 } from "@/lib/timeline/templates";
 
-/**
- * Cloudflare Pages (`output: "export"`) pre-renders OG PNGs at build time in Node.
- * Do not set `runtime = "edge"` here: it conflicts with `generateStaticParams` and skips
- * static PNG export. Params are listed below; sibling `page.tsx` shares the same slugs.
- */
-export const dynamic = "force-static";
+export const runtime = "edge";
 
 export const alt = "JoinMyPDF — free timeline & Gantt template preview";
 export const size = { width: 1200, height: 630 };

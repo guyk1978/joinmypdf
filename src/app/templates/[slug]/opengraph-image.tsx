@@ -4,8 +4,7 @@ import {
   INVOICE_TEMPLATE_PROFILES,
 } from "@/lib/invoice/templates";
 
-/** Static export (`output: "export"`) pre-renders OG PNGs at build time in Node. */
-export const dynamic = "force-static";
+export const runtime = "edge";
 
 export const alt = "JoinMyPDF — free invoice template preview";
 export const size = { width: 1200, height: 630 };
