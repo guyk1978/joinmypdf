@@ -97,7 +97,8 @@ export async function POST(req: Request) {
       // הדפסת הערך בצבע
       doc.setTextColor(color[0], color[1], color[2]);
       doc.setFont("helvetica", "normal");
-      doc.text(cleanValue, 140, y, { maxWidth: 50, align: "left" });
+      // נזיז את ה-x ל-120 כדי שיהיה יותר מקום לטקסט ארוך
+doc.text(cleanValue, 120, y, { maxWidth: 70, align: "left" });
       
       // איפוס צבע
       doc.setTextColor(0, 0, 0);
