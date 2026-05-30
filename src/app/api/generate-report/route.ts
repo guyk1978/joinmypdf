@@ -66,24 +66,26 @@ export async function POST(req: Request) {
     y += 10;
     
     Object.entries(results || {}).forEach(([key, value], index) => {
-      const color = getStatusColor(String(value));
+      // במקום מערך, נקבל צבעים בצורה ישירה
+      const color = getStatusColor(String(value)); // color זה מערך כמו [220, 53, 69]
       
-      // השורות האפורות - מעולה!
       if (index % 2 === 0) {
         doc.setFillColor(245, 245, 245);
         doc.rect(20, y - 6, 170, 9, 'F');
       }
 
-      // הדפסת המפתח והערך
       doc.setTextColor(0, 0, 0); 
       doc.setFont("helvetica", "bold");
       doc.text(key, 25, y);
       
+      // כאן השינוי: פריסה של המערך לתוך הפונקציה (spread operator)
       doc.setTextColor(color[0], color[1], color[2]);
       doc.setFont("helvetica", "normal");
       
-      // וודא שאתה מדפיס את הערך ב-X=140 כמו שרצינו:
       doc.text(String(value), 140, y, { maxWidth: 50 });
+      
+      // חשוב: להחזיר לשחור ליתר ביטחון עבור השורה הבאה
+      doc.setTextColor(0, 0, 0);
       
       y += 10;
     });
