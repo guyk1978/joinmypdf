@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/sync-public-assets.mjs && next dev",
-    "build": "next build && npx @cloudflare/next-on-pages",
+    "build": "next build",
+    "build:cloudflare": "next build && npx @cloudflare/next-on-pages --skip-config",
     "build:static": "node scripts/sync-public-assets.mjs && node scripts/generate-blog-pages.mjs && node scripts/generate-blog-og-images.mjs && next build && node scripts/patch-unified-theme.mjs",
     "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat",
     "start": "next start",
