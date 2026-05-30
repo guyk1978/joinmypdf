@@ -30,17 +30,17 @@ const addFooter = (doc: any) => {
 // פונקציית עזר לצבעים
 const getStatusColor = (value: string | number) => {
   const val = String(value).toLowerCase();
-  
-  // 1. צבעים לפי מילות מפתח (כמו שהיה)
-  if (val.includes("error") || val.includes("danger") || val.includes("high")) return [220, 53, 69]; // אדום
-  if (val.includes("warning") || val.includes("check")) return [255, 193, 7]; // צהוב
-  if (val.includes("efficiency") || val.includes("ok") || val.includes("success")) return [40, 167, 69]; // ירוק
-  
-  // 2. תוספת חדשה: צבע כחול לכל ערך שהוא מספר (כדי שיהיה צבעוני יותר)
-  // בודק אם יש ספרות בטקסט
-  if (/\d/.test(val)) return [0, 102, 204]; 
-  
-  return [0, 0, 0]; // שחור ברירת מחדל
+
+  // 1. כחול לכל מה שקשור לכסף או עלות (סימן $)
+  if (val.includes("$")) return [0, 102, 204];
+
+  // 2. ירוק לכל מה שקשור לאחוזים (יעילות, אחוזים)
+  if (val.includes("%")) return [40, 167, 69];
+
+  // 3. כתום לכל מה שקשור למידות חשמליות (W, Wh, V, Ah)
+  if (val.includes("w") || val.includes("v") || val.includes("ah")) return [255, 140, 0];
+
+  return [0, 0, 0]; // שחור לטקסט רגיל
 };
 
 // טיפול ב-Preflight של הדפדפן
