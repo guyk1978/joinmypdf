@@ -247,7 +247,170 @@ export async function POST(req: Request) {
       );
     }
 
-    addFooter(doc);
+    // ==========================
+// ADD TOOLS PAGE
+// ==========================
+
+doc.addPage();
+
+doc.setFillColor(0, 102, 204);
+doc.rect(0, 0, pageWidth, 25, 'F');
+
+doc.setFont('helvetica', 'bold');
+doc.setFontSize(18);
+doc.setTextColor(255, 255, 255);
+doc.text('Explore More PDF Tools', 20, 16);
+
+// SEO text
+doc.setFont('helvetica', 'normal');
+doc.setFontSize(10);
+doc.setTextColor(90, 90, 90);
+
+doc.text(
+  'Free PDF Converter, Merger, Splitter, Compressor and Security Tools',
+  20,
+  32
+);
+
+const toolCategories = [
+  {
+    title: 'Convert & Edit',
+    tools: [
+      { name: 'Word to PDF', url: 'https://joinmypdf.com/word-to-pdf' },
+      { name: 'Excel to PDF', url: 'https://joinmypdf.com/excel-to-pdf' },
+      { name: 'PowerPoint to PDF', url: 'https://joinmypdf.com/powerpoint-to-pdf' },
+      { name: 'Merge PDF', url: 'https://joinmypdf.com/merge-pdf' },
+      { name: 'Split PDF', url: 'https://joinmypdf.com/split-pdf' },
+      { name: 'Compress PDF', url: 'https://joinmypdf.com/compress-pdf' },
+      { name: 'Rotate PDF', url: 'https://joinmypdf.com/rotate-pdf' },
+    ],
+  },
+  {
+    title: 'Security & Legal',
+    tools: [
+      { name: 'Protect PDF', url: 'https://joinmypdf.com/protect-pdf' },
+      { name: 'Unlock PDF', url: 'https://joinmypdf.com/unlock-pdf' },
+      { name: 'Redact PDF', url: 'https://joinmypdf.com/redact-pdf' },
+      { name: 'Sign PDF', url: 'https://joinmypdf.com/sign-pdf' },
+      { name: 'Invoice Generator', url: 'https://joinmypdf.com/invoice-generator' },
+      { name: 'Data Converter', url: 'https://joinmypdf.com/data-converter' },
+    ],
+  },
+];
+
+const cardWidth = 80;
+const cardHeight = 90;
+
+toolCategories.forEach((cat, index) => {
+  const x = index === 0 ? 15 : 110;
+  const y = 45;
+
+  doc.setFillColor(248, 249, 250);
+  doc.roundedRect(
+    x,
+    y,
+    cardWidth,
+    cardHeight,
+    3,
+    3,
+    'F'
+  );
+
+  doc.setDrawColor(220, 220, 220);
+
+  doc.roundedRect(
+    x,
+    y,
+    cardWidth,
+    cardHeight,
+    3,
+    3
+  );
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.setTextColor(0, 102, 204);
+
+  doc.text(
+    cat.title,
+    x + 5,
+    y + 10
+  );
+
+  let toolY = y + 20;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+
+  cat.tools.forEach((tool) => {
+    doc.setTextColor(60, 60, 60);
+
+    doc.text(
+      `• ${tool.name}`,
+      x + 5,
+      toolY
+    );
+
+    doc.link(
+      x + 5,
+      toolY - 5,
+      65,
+      6,
+      {
+        url: tool.url,
+      }
+    );
+
+    toolY += 9;
+  });
+});
+
+// CTA Box
+
+doc.setFillColor(230, 244, 255);
+
+doc.roundedRect(
+  15,
+  145,
+  180,
+  35,
+  3,
+  3,
+  'F'
+);
+
+doc.setFont('helvetica', 'bold');
+doc.setFontSize(14);
+doc.setTextColor(0, 102, 204);
+
+doc.text(
+  'Need more PDF tools?',
+  20,
+  160
+);
+
+doc.setFont('helvetica', 'normal');
+doc.setFontSize(11);
+doc.setTextColor(80, 80, 80);
+
+doc.text(
+  'Visit JoinMyPDF.com for dozens of free PDF utilities.',
+  20,
+  170
+);
+
+doc.link(
+  20,
+  150,
+  120,
+  25,
+  {
+    url: 'https://joinmypdf.com',
+  }
+);
+
+// Footer פעם אחת בסוף בלבד
+addFooter(doc);
 
     const pdfBuffer = Buffer.from(
       doc.output('arraybuffer')
