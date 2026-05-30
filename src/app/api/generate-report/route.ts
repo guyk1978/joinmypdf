@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server';
 import { jsPDF } from 'jspdf';
 
+// הגדרת Headers אחידה למניעת בעיות CORS
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
 // פונקציית עזר להוספת Footer
 const addFooter = (doc: any) => {
   const pageCount = doc.internal.getNumberOfPages();
@@ -18,6 +25,7 @@ const addFooter = (doc: any) => {
   }
 };
 
+// פונקציית עזר לצבעים
 const getStatusColor = (value: string | number) => {
   const val = String(value).toLowerCase();
   if (val.includes("error") || val.includes("danger") || val.includes("high")) return [220, 53, 69];
@@ -26,15 +34,11 @@ const getStatusColor = (value: string | number) => {
   return [0, 0, 0];
 };
 
-// טיפול ב-CORS בבקשות OPTIONS (קריטי לפתרון השגיאה ב-WattQuick)
+// טיפול ב-Preflight של הדפדפן
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    },
+    headers: corsHeaders,
   });
 }
 
@@ -80,13 +84,13 @@ export async function POST(req: Request) {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="wattquick-report.pdf"`,
-        'Access-Control-Allow-Origin': '*', // מאפשר ל-WattQuick לפנות לכאן
+        ...corsHeaders, // כאן אנחנו מוודאים שה-Headers תקינים ב-POST
       },
     });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to generate PDF' }, { 
       status: 500,
-      headers: { 'Access-Control-Allow-Origin': '*' }
+      headers: corsHeaders 
     });
   }
 }
