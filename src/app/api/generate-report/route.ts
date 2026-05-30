@@ -75,11 +75,12 @@ export async function POST(req: Request) {
     
     // ... אחרי הכותרת Results
     Object.entries(results || {}).forEach(([key, value], index) => {
-      // חילוץ חכם: לוקחים את הערך (אינדקס 1 במערך אם קיים)
-      const val = Array.isArray(value) ? (value[1] || "") : String(value);
-      const cleanValue = val.replace(/["',]/g, '').trim();
-      const cleanKey = key.replace(/["',]/g, '').trim();
+      // חילוץ חכם: אם value הוא מערך, ניקח את האיבר השני (הערך). אם לא, ניקח את הכל.
+      const rawVal = Array.isArray(value) ? value[1] : String(value);
+      const cleanValue = String(rawVal).replace(/["',]/g, '').trim();
+      const cleanKey = String(key).replace(/["',]/g, '').trim();
 
+      // עכשיו נשלח לפונקציה רק את הערך הנקי (למשל: "100%")
       const color = getStatusColor(cleanValue);
       
       // רקע אפור לשורות זוגיות
@@ -88,16 +89,14 @@ export async function POST(req: Request) {
         doc.rect(20, y - 6, 170, 9, 'F');
       }
 
-      // הדפסת המפתח (ללא צבע)
+      // הדפסת המפתח
       doc.setTextColor(0, 0, 0);
       doc.setFont("helvetica", "bold");
       doc.text(cleanKey, 25, y);
       
-      // הדפסת הערך בצבע - עם יישור שמאלה קשיח כדי למנוע היפוך
+      // הדפסת הערך בצבע
       doc.setTextColor(color[0], color[1], color[2]);
       doc.setFont("helvetica", "normal");
-      
-      // ה-null וה-left מבטיחים יישור תקין של ה-PDF
       doc.text(cleanValue, 140, y, { maxWidth: 50, align: "left" });
       
       // איפוס צבע
