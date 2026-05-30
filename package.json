@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/sync-public-assets.mjs && next dev",
-    "build": "node scripts/sync-public-assets.mjs && node scripts/generate-blog-pages.mjs && node scripts/generate-blog-og-images.mjs && next build && node scripts/patch-unified-theme.mjs",
+    "build": "next build && npx @cloudflare/next-on-pages",
+    "build:static": "node scripts/sync-public-assets.mjs && node scripts/generate-blog-pages.mjs && node scripts/generate-blog-og-images.mjs && next build && node scripts/patch-unified-theme.mjs",
+    "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat",
     "start": "next start",
     "generate:blog-og": "node scripts/generate-blog-og-images.mjs",
     "generate:blog-pages": "node scripts/generate-blog-pages.mjs",
@@ -12,6 +14,7 @@
     "upgrade:blog": "node scripts/upgrade-blog-content.mjs"
   },
   "dependencies": {
+    "@cloudflare/next-on-pages": "^1.13.16",
     "clsx": "^2.1.1",
     "docx": "^9.7.1",
     "dxf-parser": "^1.1.2",
