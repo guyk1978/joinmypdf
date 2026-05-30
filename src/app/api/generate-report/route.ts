@@ -65,14 +65,27 @@ export async function POST(req: Request) {
 
     y += 10;
     doc.setFontSize(14);
+    doc.setTextColor(0, 0, 128); // צבע כחול לכותרת התוצאות
     doc.text("Results:", 20, y);
+    doc.setTextColor(0, 0, 0); // חזרה לשחור
     doc.setFontSize(12);
     y += 10;
     
     Object.entries(results || {}).forEach(([key, value]) => {
       const color = getStatusColor(String(value));
+      
+      // הוספת קו מפריד עדין לכל שורה
+      doc.setDrawColor(200, 200, 200);
+      doc.line(20, y - 6, 190, y - 6);
+
+      // הדפסת המפתח בשחור
+      doc.setTextColor(0, 0, 0);
+      doc.text(`${key}:`, 20, y);
+      
+      // הדפסת הערך בצבע (לפי הפונקציה שלך)
       doc.setTextColor(color[0], color[1], color[2]);
-      doc.text(`${key}: ${String(value)}`, 20, y);
+      doc.text(`${String(value)}`, 80, y); 
+      
       doc.setTextColor(0, 0, 0);
       y += 10;
     });
