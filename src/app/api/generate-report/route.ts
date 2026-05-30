@@ -71,7 +71,8 @@ export async function POST(req: Request) {
     y += 10;
     
     Object.entries(results || {}).forEach(([key, value]) => {
-      const color = getStatusColor(value); // קבלת צבע דינמי
+      // במקום מה שהיה שם, שנה לזה:
+const color = getStatusColor(String(value)); // המרה מפורשת ל-string
       doc.setTextColor(color[0], color[1], color[2]);
       doc.text(`${key}: ${String(value)}`, 20, y);
       y += 10;
