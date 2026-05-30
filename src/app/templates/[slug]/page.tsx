@@ -13,8 +13,6 @@ import { breadcrumbLd, JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { ctaSecondary } from "@/lib/cta-styles";
 
-export const runtime = "edge";
-
 type PageProps = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
