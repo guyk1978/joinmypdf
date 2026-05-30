@@ -51,7 +51,8 @@ export async function POST(req: Request) {
 
     const doc = new jsPDF();
     doc.setFontSize(20);
-    doc.text(`WattQuick Report: ${calculatorName}`, 20, 20);
+    // הוספתי "TEST" כדי לראות אם זה מתעדכן
+    doc.text(`TEST VERSION - WattQuick Report: ${calculatorName}`, 20, 20);
     
     doc.setFontSize(12);
     doc.text("Inputs & Calculation Data:", 20, 40);
