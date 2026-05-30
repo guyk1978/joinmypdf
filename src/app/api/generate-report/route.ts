@@ -76,25 +76,22 @@ export async function POST(req: Request) {
     // ... אחרי הכותרת Results
     Object.entries(results || {}).forEach(([key, value], index) => {
       const rawVal = Array.isArray(value) ? value[1] : String(value);
-      const cleanValue = String(rawVal).replace(/["',]/g, '').trim();
+      let cleanValue = String(rawVal).replace(/["',]/g, '').trim();
       const cleanKey = String(key).replace(/["',]/g, '').trim();
+
+      // אם הטקסט ארוך מ-45 תווים, נוסיף לו רווח כדי שה-PDF יוכל לרדת שורה
+      if (cleanValue.length > 45) {
+        cleanValue = cleanValue.replace(/([/\\*])/g, '$1 '); 
+      }
 
       const color = getStatusColor(cleanValue);
       
-      if (index % 2 === 0) {
-        doc.setFillColor(245, 245, 245);
-        doc.rect(20, y - 6, 170, 9, 'F');
-      }
-
-      doc.setTextColor(0, 0, 0);
-      doc.setFont("helvetica", "bold");
-      doc.text(cleanKey, 25, y);
-      
+      // ... (שאר הקוד)
       doc.setTextColor(color[0], color[1], color[2]);
       doc.setFont("helvetica", "normal");
       
-      // שינוי כאן: X=110 ו-maxWidth=80
-      doc.text(cleanValue, 110, y, { maxWidth: 80, align: "left" });
+      // הדפסה עם הגבלה מחמירה
+      doc.text(cleanValue, 110, y, { maxWidth: 70, align: "left" });
       
       doc.setTextColor(0, 0, 0);
       y += 10;
