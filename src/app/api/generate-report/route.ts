@@ -75,32 +75,27 @@ export async function POST(req: Request) {
     
     // ... אחרי הכותרת Results
     Object.entries(results || {}).forEach(([key, value], index) => {
-      // חילוץ חכם: אם value הוא מערך, ניקח את האיבר השני (הערך). אם לא, ניקח את הכל.
       const rawVal = Array.isArray(value) ? value[1] : String(value);
       const cleanValue = String(rawVal).replace(/["',]/g, '').trim();
       const cleanKey = String(key).replace(/["',]/g, '').trim();
 
-      // עכשיו נשלח לפונקציה רק את הערך הנקי (למשל: "100%")
       const color = getStatusColor(cleanValue);
       
-      // רקע אפור לשורות זוגיות
       if (index % 2 === 0) {
         doc.setFillColor(245, 245, 245);
         doc.rect(20, y - 6, 170, 9, 'F');
       }
 
-      // הדפסת המפתח
       doc.setTextColor(0, 0, 0);
       doc.setFont("helvetica", "bold");
       doc.text(cleanKey, 25, y);
       
-      // הדפסת הערך בצבע
       doc.setTextColor(color[0], color[1], color[2]);
       doc.setFont("helvetica", "normal");
-      // נזיז את ה-x ל-120 כדי שיהיה יותר מקום לטקסט ארוך
-doc.text(cleanValue, 120, y, { maxWidth: 70, align: "left" });
       
-      // איפוס צבע
+      // שינוי כאן: X=110 ו-maxWidth=80
+      doc.text(cleanValue, 110, y, { maxWidth: 80, align: "left" });
+      
       doc.setTextColor(0, 0, 0);
       y += 10;
     });
