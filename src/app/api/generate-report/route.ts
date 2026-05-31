@@ -3,11 +3,25 @@ import { jsPDF } from 'jspdf';
 
 export const runtime = 'edge';
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://wattquick.com',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Max-Age': '86400',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+const getAllowedHeaders = (origin: string | null) => {
+  const allowedOrigins = [
+    'https://wattquick.com',
+    'https://calnexapp.com',
+  ];
+
+  const isAllowed =
+    origin && allowedOrigins.includes(origin);
+
+  return {
+    'Access-Control-Allow-Origin': isAllowed
+      ? origin
+      : '',
+    'Access-Control-Allow-Methods':
+      'GET, POST, OPTIONS',
+    'Access-Control-Max-Age': '86400',
+    'Access-Control-Allow-Headers':
+      'Content-Type, Authorization',
+  };
 };
 
 const addFooter = (doc: any) => {
@@ -60,14 +74,19 @@ const getStatusColor = (value: string | number) => {
   return [60, 60, 60];
 };
 
-export async function OPTIONS() {
+export async function OPTIONS(req: Request) {
+  const origin = req.headers.get('origin');
+
   return new NextResponse(null, {
     status: 200,
-    headers: corsHeaders,
+    headers: getAllowedHeaders(origin),
   });
 }
 
 export async function POST(req: Request) {
+  const origin = req.headers.get('origin');
+  const headers = getAllowedHeaders(origin);
+
   try {
     const body = await req.json();
 
@@ -417,25 +436,25 @@ addFooter(doc);
     );
 
     return new NextResponse(pdfBuffer, {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/pdf',
-        'Content-Disposition':
-          'attachment; filename="wattquick-report.pdf"',
-        ...corsHeaders,
-      },
-    });
+  status: 200,
+  headers: {
+    'Content-Type': 'application/pdf',
+    'Content-Disposition':
+      'attachment; filename="report.pdf"',
+    ...headers,
+  },
+});
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      {
-        error: 'Failed to generate PDF',
-      },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
-    );
+  {
+    error: 'Failed to generate PDF',
+  },
+  {
+    status: 500,
+    headers,
+  }
+);
   }
 }
