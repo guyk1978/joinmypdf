@@ -84,7 +84,7 @@ export async function OPTIONS(req: Request) {
 
 export async function POST(req: Request) {
   const origin = req.headers.get('origin');
-  const headers = getAllowedHeaders(origin); // הוסף את השורה הזו
+  const headers = getAllowedHeaders(origin);
   try {
     const body = await req.json();
 
@@ -434,19 +434,19 @@ addFooter(doc);
     );
 
     return new NextResponse(pdfBuffer, {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': 'attachment; filename="wattquick-report.pdf"',
-      ...headers, // כאן התיקון
-    },
-});
+      status: 200,
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="wattquick-report.pdf"',
+        ...headers,
+      },
+    });
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-  { error: 'Failed to generate PDF' },
-  { status: 500, headers } // כאן התיקון
-);
+      { error: 'Failed to generate PDF' },
+      { status: 500, headers }
+    );
   }
 }
