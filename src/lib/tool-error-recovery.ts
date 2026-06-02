@@ -162,6 +162,15 @@ export function getToolErrorRecovery(
         variant: "secondary",
       },
     ],
+    "remove-hidden-metadata": [
+      {
+        href: "/tools/redact-pdf/",
+        label: "Redact PDF",
+        hint: "Remove visible sensitive text",
+        variant: "primary",
+      },
+      { ...TOOLS.protect, hint: "Lock the file after cleaning", variant: "secondary" },
+    ],
     redact: [
       { ...TOOLS.protect, hint: "Lock the redacted file before sharing", variant: "primary" },
       {

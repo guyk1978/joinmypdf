@@ -27,6 +27,7 @@ import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { FlattenPdfWorkspace } from "@/components/FlattenPdfWorkspace";
+import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
@@ -130,6 +131,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <RedactPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "flatten-pdf" ? (
           <FlattenPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "remove-hidden-metadata" ? (
+          <RemoveHiddenMetadataWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "delete-pages" ? (
           <DeletePdfPagesWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "merge" ? (

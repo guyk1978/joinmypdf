@@ -3096,6 +3096,252 @@
           { "href": "/tools/pdf-to-text/", "anchor": "PDF to Text" }
         ]
       }
+    },
+    {
+      "slug": "pdf-metadata-privacy-risks",
+      "title": "What's hidden in your PDF? Why metadata can put your privacy at risk",
+      "keyword": "pdf metadata privacy risks",
+      "category": "PDF Privacy",
+      "cluster": "remove-hidden-metadata-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": ["remove-hidden-metadata", "redact-pdf", "protect-pdf", "flatten-pdf"],
+      "relatedBlogs": ["clean-pdf-metadata-locally", "digital-document-anonymity-guide", "pdf-local-processing-benefits"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for document privacy hygiene · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "PDF Metadata Privacy Risks: What's Hidden in Your File?",
+        "metaDescription": "Learn what PDF metadata reveals—author names, software trails, dates, and XMP packets—and how to reduce exposure before sharing."
+      },
+      "description": "An overview of hidden PDF metadata fields and why they matter for privacy-sensitive sharing workflows.",
+      "contentBlocks": {
+        "intro": "A PDF can look innocent on the surface while carrying a trail of author names, editing software, timestamps, and embedded XMP packets. That hidden layer is easy to overlook—and risky when documents leave your organization.",
+        "primaryTool": "remove-hidden-metadata",
+        "sections": [
+          {
+            "id": "what-metadata-includes",
+            "heading": "What metadata can reveal",
+            "level": 2,
+            "paragraphs": [
+              "Common Info fields include Title, Author, Subject, Creator, Producer, and creation or modification dates. XMP packets can duplicate and extend those values with workflow history.",
+              "Recipients—or anyone who inspects file properties—may learn who created the document, which application was used, and when versions were saved."
+            ]
+          },
+          {
+            "id": "why-it-matters",
+            "heading": "Why this matters before external sharing",
+            "level": 2,
+            "paragraphs": [
+              "Legal, HR, and journalism workflows often require minimizing identifying details. Metadata can undermine redaction if visible content is sanitized but properties still name individuals or internal tools.",
+              "Cleaning metadata locally reduces accidental disclosure without uploading files to unknown servers."
+            ]
+          },
+          {
+            "id": "first-step",
+            "heading": "Start with a local metadata scan",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Upload the PDF to Remove Hidden Metadata.",
+              "Review the detected fields in your browser.",
+              "Click Clean & Download to strip Info and XMP data.",
+              "Follow with Redact PDF or Protect PDF when policy requires."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Can metadata expose my location?",
+            "a": "Standard PDF Info fields rarely include GPS, but XMP from some tools can carry extra properties. Scanning locally helps you see what is present."
+          },
+          {
+            "q": "Does removing metadata change page content?",
+            "a": "No. This targets document properties and hidden packets, not visible body text."
+          },
+          {
+            "q": "Is cloud metadata removal safer?",
+            "a": "Uploading sensitive files increases exposure. Browser-side cleaning keeps the file on your device."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Hidden Metadata" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" },
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "clean-pdf-metadata-locally",
+      "title": "How to clean PDF metadata locally without external tools",
+      "keyword": "clean pdf metadata locally",
+      "category": "PDF Privacy",
+      "cluster": "remove-hidden-metadata-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.89,
+      "relatedTools": ["remove-hidden-metadata", "protect-pdf", "flatten-pdf", "unlock-pdf"],
+      "relatedBlogs": ["pdf-metadata-privacy-risks", "digital-document-anonymity-guide", "hidden-risks-of-free-online-pdf-editors"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for local cleanup workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Clean PDF Metadata Locally (No Upload, Browser Guide)",
+        "metaDescription": "Step-by-step guide to scan and strip PDF author, software, date, and XMP metadata in your browser without third-party uploads."
+      },
+      "description": "A practical walkthrough for removing PDF metadata on your own device using a client-side cleaner.",
+      "contentBlocks": {
+        "intro": "Desktop apps can scrub metadata, but many teams want a faster path that never sends files to a cloud queue. A browser-based cleaner lets you preview what exists, then export a stripped copy in one session.",
+        "primaryTool": "remove-hidden-metadata",
+        "sections": [
+          {
+            "id": "why-local",
+            "heading": "Why local cleaning beats random online converters",
+            "level": 2,
+            "paragraphs": [
+              "Upload-and-wait services may log filenames, IPs, and retention windows you cannot audit. Local processing keeps the document in RAM on your machine.",
+              "That model is easier to explain to security reviewers: input local, processing local, output local."
+            ]
+          },
+          {
+            "id": "steps",
+            "heading": "Local cleaning steps",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Open Remove Hidden Metadata and select your PDF.",
+              "Enter a password only if the file is encrypted.",
+              "Review the metadata list shown after the scan.",
+              "Click Clean & Download and verify properties in your PDF viewer."
+            ]
+          },
+          {
+            "id": "after-clean",
+            "heading": "What to do after metadata removal",
+            "level": 2,
+            "paragraphs": [
+              "Metadata cleaning complements—not replaces—content redaction. Use Redact PDF when names or numbers still appear on the page.",
+              "Add Protect PDF if recipients should not open the file without authorization."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Will every hidden field disappear?",
+            "a": "The tool clears standard Info entries and embedded XMP packets. Unusual custom structures may require specialist review."
+          },
+          {
+            "q": "Do I need to install software?",
+            "a": "No. A modern browser is enough for this workflow."
+          },
+          {
+            "q": "Can I clean password-protected PDFs?",
+            "a": "Yes. Provide the password to scan and export locally."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Hidden Metadata" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" },
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" },
+          { "href": "/tools/unlock-pdf/", "anchor": "Unlock PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "digital-document-anonymity-guide",
+      "title": "Guide to full anonymity when sharing digital documents",
+      "keyword": "anonymous document sharing pdf",
+      "category": "PDF Privacy",
+      "cluster": "remove-hidden-metadata-content",
+      "intent": "commercial-investigation",
+      "intentType": "commercial-investigation",
+      "publishDate": "2026-06-02",
+      "readTime": "5 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["remove-hidden-metadata", "redact-pdf", "protect-pdf", "flatten-pdf"],
+      "relatedBlogs": ["pdf-metadata-privacy-risks", "clean-pdf-metadata-locally", "flatten-pdf-before-sharing"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for privacy-first sharing checklists · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Anonymous Document Sharing: PDF Privacy Checklist",
+        "metaDescription": "Combine metadata removal, redaction, flattening, and password protection for safer anonymous PDF sharing."
+      },
+      "description": "A layered checklist for sharing PDFs with fewer identifying traces—metadata, content, interactivity, and access control.",
+      "contentBlocks": {
+        "intro": "True anonymity in document sharing is a stack of controls, not a single button. Metadata cleaning is the first layer; content redaction, flattening, and encryption address what metadata tools cannot see.",
+        "primaryTool": "remove-hidden-metadata",
+        "sections": [
+          {
+            "id": "layer-1",
+            "heading": "Layer 1: strip hidden properties",
+            "level": 2,
+            "paragraphs": [
+              "Start with Remove Hidden Metadata to clear author, software, date fields, and XMP packets before the file leaves your machine.",
+              "Confirm in your viewer's document properties that sensitive values are gone."
+            ]
+          },
+          {
+            "id": "layer-2",
+            "heading": "Layer 2: sanitize visible content",
+            "level": 2,
+            "paragraphs": [
+              "Use Redact PDF to black out names, account numbers, and signatures that still appear on the page.",
+              "Flatten PDF afterward if forms, comments, or annotations must not remain editable."
+            ]
+          },
+          {
+            "id": "layer-3",
+            "heading": "Layer 3: control access",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Remove metadata locally.",
+              "Redact visible sensitive text.",
+              "Flatten interactive layers if needed.",
+              "Protect PDF with a strong password for external recipients."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Is metadata removal enough for whistleblowing workflows?",
+            "a": "It is one step. Follow your organization's legal and operational guidance for high-risk sharing."
+          },
+          {
+            "q": "Should I flatten before or after metadata cleaning?",
+            "a": "Clean metadata first so flattened exports do not carry old properties forward."
+          },
+          {
+            "q": "Does JoinMyPDF store cleaned files?",
+            "a": "No. These tools run in your browser without uploading the PDF for processing."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Hidden Metadata" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" },
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" }
+        ]
+      }
     }
   ]
 }

@@ -19,6 +19,7 @@ const verb: Record<string, string> = {
   unlock: "remove a PDF password",
   redact: "redact sensitive PDF content",
   "flatten-pdf": "flatten a PDF and remove editable layers",
+  "remove-hidden-metadata": "remove hidden PDF metadata before sharing",
   sign: "sign a PDF with your signature",
   "jpg-to-pdf": "turn images into a PDF",
   "png-to-pdf": "convert PNG images into a PDF",

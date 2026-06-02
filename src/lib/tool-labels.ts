@@ -10,6 +10,7 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "unlock-pdf": "Unlock PDF",
     "redact-pdf": "Redact PDF",
     "flatten-pdf": "Flatten PDF",
+    "remove-hidden-metadata": "Remove Metadata",
     "delete-pdf-pages": "Delete PDF Pages",
     "jpg-to-pdf": "JPG to PDF",
     "pdf-to-jpg": "PDF to JPG",

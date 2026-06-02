@@ -1612,6 +1612,55 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "remove-hidden-metadata",
+      "category": "security",
+      "operation": "remove-hidden-metadata",
+      "title": "Remove Hidden Metadata",
+      "primaryKeyword": "remove pdf metadata online",
+      "intent": "Scan and strip PDF metadata locally in your browser before sharing.",
+      "description": "Remove author names, software tags, dates, and hidden XMP metadata from PDF files. Preview what was found, then clean and download—100% in your browser.",
+      "secondaryKeywords": [
+        "strip pdf metadata",
+        "pdf metadata cleaner",
+        "remove pdf author and dates"
+      ],
+      "useCases": [
+        "Anonymize reports before sending to external reviewers",
+        "Remove authoring software trails from client deliverables",
+        "Clean HR or legal PDFs before portal upload"
+      ],
+      "relatedTools": [
+        "redact-pdf",
+        "protect-pdf",
+        "flatten-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Scanning and cleaning run fully in your browser. Your file never leaves your device."
+        },
+        {
+          "q": "What metadata does this remove?",
+          "a": "Standard Info fields (title, author, subject, keywords, creator, producer, dates) and embedded XMP metadata packets when present."
+        },
+        {
+          "q": "Will visible page content change?",
+          "a": "No. This tool targets document properties and hidden metadata, not the visual text and images on each page."
+        },
+        {
+          "q": "Does this work on password-protected PDFs?",
+          "a": "Yes. Enter the document password to scan and clean locally."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "sign-pdf",
       "category": "security",
       "operation": "sign",

@@ -214,6 +214,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Sign after flattening",
       body: "Apply a signature to the finalized, non-editable PDF before distribution.",
     });
+  } else if (operation === "remove-hidden-metadata") {
+    rows.push({
+      href: "/tools/redact-pdf/",
+      title: "Redact visible secrets",
+      body: "Metadata cleaning does not remove on-page text—black out sensitive lines before sharing.",
+    });
+    rows.push({
+      href: "/tools/protect-pdf/",
+      title: "Password-protect the clean PDF",
+      body: "Add encryption after metadata removal for external handoffs.",
+    });
+    rows.push({
+      href: "/tools/flatten-pdf/",
+      title: "Flatten forms and comments",
+      body: "Remove editable layers after metadata is stripped for a fully locked-down file.",
+    });
   } else if (operation === "png-to-pdf") {
     rows.push({
       href: "/tools/pdf-compress/",

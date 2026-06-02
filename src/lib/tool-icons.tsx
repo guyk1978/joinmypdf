@@ -371,6 +371,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("data-converter"), key: "data-converter-visualizer" },
   { test: (s) => s.includes("protect-pdf"), key: "protect-pdf" },
   { test: (s) => s.includes("unlock-pdf"), key: "unlock-pdf" },
+  { test: (s) => s.includes("remove-hidden-metadata"), key: "remove-hidden-metadata" },
   { test: (s) => s.includes("flatten-pdf"), key: "flatten-pdf" },
   { test: (s) => s.includes("redact-pdf"), key: "redact-pdf" },
   { test: (s) => s.includes("rotate-pdf"), key: "rotate-pdf" },
@@ -500,6 +501,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <DeletePagesIcon />,
     wrap: "bg-rose-100 ring-1 ring-rose-200",
     wrapHover: "group-hover:bg-rose-200 group-hover:ring-rose-300",
+  },
+  "remove-hidden-metadata": {
+    icon: <LockClosedIcon />,
+    wrap: "bg-emerald-100 ring-1 ring-emerald-200",
+    wrapHover: "group-hover:bg-emerald-200 group-hover:ring-emerald-300",
   },
   "flatten-pdf": {
     icon: <RedactIcon />,

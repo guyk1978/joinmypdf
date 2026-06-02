@@ -79,6 +79,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("unlock-pdf"),
       toolLink("redact-pdf"),
       toolLink("flatten-pdf"),
+      toolLink("remove-hidden-metadata"),
       toolLink("sign-pdf"),
       studioLink("invoice-generator", "/tools/invoice-generator/", "Invoice Generator"),
     ],
