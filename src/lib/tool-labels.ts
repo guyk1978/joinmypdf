@@ -16,6 +16,7 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "png-to-pdf": "PNG to PDF",
     "heic-to-pdf": "HEIC to PDF",
     "pdf-to-word": "PDF to Word",
+    "pdf-to-text": "PDF to Text",
     "word-to-pdf": "Word to PDF",
     "pdf-to-excel": "PDF to Excel",
     "excel-to-pdf": "Excel to PDF",

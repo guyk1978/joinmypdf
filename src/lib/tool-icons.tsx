@@ -79,6 +79,18 @@ function WordIcon() {
   );
 }
 
+function TextIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
+      <rect x="4" y="3" width="16" height="18" rx="2" fill="#0284C7" />
+      <path d="M8 8H16M8 11H16M8 14H13" stroke="#E0F2FE" strokeWidth="1.4" strokeLinecap="round" />
+      <text x="7.4" y="18.2" fill="white" fontSize="5.5" fontWeight="bold" fontFamily="monospace">
+        TXT
+      </text>
+    </svg>
+  );
+}
+
 function ExcelIcon() {
   return (
     <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
@@ -351,6 +363,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("pdf-to-excel"), key: "pdf-to-excel" },
   { test: (s) => s.includes("excel-to-pdf"), key: "excel-to-pdf" },
   { test: (s) => s.includes("pdf-to-word"), key: "pdf-to-word" },
+  { test: (s) => s.includes("pdf-to-text"), key: "pdf-to-text" },
   { test: (s) => s.includes("word-to-pdf"), key: "word-to-pdf" },
   { test: (s) => s.includes("invoice-generator"), key: "invoice-generator" },
   { test: (s) => s.includes("timeline-gantt"), key: "timeline-gantt-generator" },
@@ -430,6 +443,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <WordIcon />,
     wrap: "bg-blue-100 ring-1 ring-blue-200",
     wrapHover: "group-hover:bg-blue-200 group-hover:ring-blue-300",
+  },
+  "pdf-to-text": {
+    icon: <TextIcon />,
+    wrap: "bg-sky-100 ring-1 ring-sky-200",
+    wrapHover: "group-hover:bg-sky-200 group-hover:ring-sky-300",
   },
   "word-to-pdf": {
     icon: <WordIcon />,

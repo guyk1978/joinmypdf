@@ -49,6 +49,7 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
       { href: "/tools/heic-to-pdf/", label: "HEIC to PDF" },
       { href: "/tools/pdf-to-jpg/", label: "PDF → JPG" },
       { href: "/tools/pdf-to-png/", label: "PDF → PNG" },
+      { href: "/tools/pdf-to-text/", label: "PDF to Text" },
       { href: "/tools/pdf-to-word/", label: "PDF to Word" },
       { href: "/tools/word-to-pdf/", label: "Word to PDF" },
       { href: "/tools/excel-to-pdf/", label: "Excel to PDF" },

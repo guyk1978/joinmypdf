@@ -231,6 +231,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Prefer smaller JPG files?",
       body: "Use PDF → JPG when file size matters more than lossless quality.",
     });
+  } else if (operation === "pdf-to-text") {
+    rows.push({
+      href: "/tools/pdf-to-word/",
+      title: "Need an editable document?",
+      body: "Convert the same PDF into .docx when you want to edit text in Word.",
+    });
+    rows.push({
+      href: "/tools/pdf-split/",
+      title: "Extract only specific pages",
+      body: "Split large documents first, then export just the pages you need as text.",
+    });
+    rows.push({
+      href: "/tools/pdf-merge/",
+      title: "Combine pages before extraction",
+      body: "Merge related files and generate one unified text output for your workflow.",
+    });
   } else if (operation === "jpg-to-pdf" || operation === "pdf-to-jpg") {
     rows.push({
       href: "/tools/pdf-compress/",

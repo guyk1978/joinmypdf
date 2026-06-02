@@ -6,6 +6,7 @@ import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
 import { PdfToWordWorkspace } from "@/components/PdfToWordWorkspace";
+import { PdfToTextWorkspace } from "@/components/PdfToTextWorkspace";
 import { WordToPdfWorkspace } from "@/components/WordToPdfWorkspace";
 import { ExcelToPdfWorkspace } from "@/components/ExcelToPdfWorkspace";
 import { PowerpointToPdfWorkspace } from "@/components/PowerpointToPdfWorkspace";
@@ -135,6 +136,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <PdfToPngWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-word" ? (
           <PdfToWordWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-text" ? (
+          <PdfToTextWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "word-to-pdf" ? (
           <WordToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "excel-to-pdf" ? (

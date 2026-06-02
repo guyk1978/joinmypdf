@@ -24,6 +24,7 @@ const verb: Record<string, string> = {
   "heic-to-pdf": "convert HEIC photos into a PDF",
   "pdf-to-jpg": "export PDF pages as JPG images",
   "pdf-to-png": "export PDF pages as PNG images",
+  "pdf-to-text": "extract text from a PDF",
 };
 
 export function toolActionPhrase(operation: string): string {

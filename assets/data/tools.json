@@ -681,6 +681,55 @@
       "updatedAt": "2026-05-24"
     },
     {
+      "slug": "pdf-to-text",
+      "category": "convert",
+      "operation": "pdf-to-text",
+      "title": "PDF to Text Converter",
+      "primaryKeyword": "pdf to text converter online",
+      "intent": "Extract selectable text from PDF pages into a plain .txt file entirely in your browser.",
+      "description": "Convert PDF pages to plain text locally with browser-side processing and instant .txt download—no upload to our servers.",
+      "secondaryKeywords": [
+        "extract text from pdf",
+        "pdf to txt",
+        "pdf text extractor online"
+      ],
+      "useCases": [
+        "Reuse report content in docs, notes, or AI workflows",
+        "Copy contract clauses without manual retyping",
+        "Export searchable text from text-based PDF handbooks"
+      ],
+      "relatedTools": [
+        "pdf-to-word",
+        "pdf-split",
+        "pdf-merge"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Text extraction runs entirely in your browser on your device."
+        },
+        {
+          "q": "Will formatting look exactly like the PDF?",
+          "a": "The output is plain text. Paragraph flow is preserved where possible, but exact layout, tables, and images are not retained."
+        },
+        {
+          "q": "Can it extract text from scanned PDFs?",
+          "a": "Scanned image-only pages usually have no selectable text. Use OCR software first if needed."
+        },
+        {
+          "q": "What file do I download?",
+          "a": "A standard .txt file that opens in Notepad, VS Code, and any text editor."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "pdf-to-word",
       "category": "convert",
       "operation": "pdf-to-word",
