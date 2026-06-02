@@ -50,6 +50,7 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
       { href: "/tools/pdf-to-jpg/", label: "PDF → JPG" },
       { href: "/tools/pdf-to-png/", label: "PDF → PNG" },
       { href: "/tools/pdf-to-text/", label: "PDF to Text" },
+      { href: "/tools/extract-images/", label: "Extract Images" },
       { href: "/tools/pdf-to-word/", label: "PDF to Word" },
       { href: "/tools/word-to-pdf/", label: "Word to PDF" },
       { href: "/tools/excel-to-pdf/", label: "Excel to PDF" },

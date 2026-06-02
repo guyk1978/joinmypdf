@@ -51,6 +51,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("pdf-to-jpg"),
       toolLink("pdf-to-png"),
       toolLink("pdf-to-text"),
+      toolLink("extract-images"),
       toolLink("pdf-to-word"),
       toolLink("pdf-to-excel"),
       toolLink("pdf-to-powerpoint"),

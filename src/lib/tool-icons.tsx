@@ -364,6 +364,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("excel-to-pdf"), key: "excel-to-pdf" },
   { test: (s) => s.includes("pdf-to-word"), key: "pdf-to-word" },
   { test: (s) => s.includes("pdf-to-text"), key: "pdf-to-text" },
+  { test: (s) => s.includes("extract-images"), key: "extract-images" },
   { test: (s) => s.includes("word-to-pdf"), key: "word-to-pdf" },
   { test: (s) => s.includes("invoice-generator"), key: "invoice-generator" },
   { test: (s) => s.includes("timeline-gantt"), key: "timeline-gantt-generator" },
@@ -448,6 +449,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <TextIcon />,
     wrap: "bg-sky-100 ring-1 ring-sky-200",
     wrapHover: "group-hover:bg-sky-200 group-hover:ring-sky-300",
+  },
+  "extract-images": {
+    icon: <PdfToImageIcon />,
+    wrap: "bg-cyan-100 ring-1 ring-cyan-200",
+    wrapHover: "group-hover:bg-cyan-200 group-hover:ring-cyan-300",
   },
   "word-to-pdf": {
     icon: <WordIcon />,

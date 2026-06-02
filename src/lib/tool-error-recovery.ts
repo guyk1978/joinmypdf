@@ -105,6 +105,10 @@ export function getToolErrorRecovery(
       { ...TOOLS.pdfToJpg, hint: "Try JPG export if PNG fails", variant: "primary" },
       { ...TOOLS.split, variant: "secondary" },
     ],
+    "extract-images": [
+      { ...TOOLS.pdfToPng, hint: "Try page-level PNG export", variant: "primary" },
+      { ...TOOLS.pdfToJpg, hint: "Use JPG when smaller files matter", variant: "secondary" },
+    ],
     "add-page-numbers": [
       { ...TOOLS.merge, hint: "Combine sections before numbering", variant: "primary" },
       { ...TOOLS.split, variant: "secondary" },

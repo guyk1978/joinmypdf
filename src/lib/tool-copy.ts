@@ -25,6 +25,7 @@ const verb: Record<string, string> = {
   "pdf-to-jpg": "export PDF pages as JPG images",
   "pdf-to-png": "export PDF pages as PNG images",
   "pdf-to-text": "extract text from a PDF",
+  "extract-images": "extract embedded images from a PDF",
 };
 
 export function toolActionPhrase(operation: string): string {

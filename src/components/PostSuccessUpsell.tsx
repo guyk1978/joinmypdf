@@ -247,6 +247,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Combine pages before extraction",
       body: "Merge related files and generate one unified text output for your workflow.",
     });
+  } else if (operation === "extract-images") {
+    rows.push({
+      href: "/tools/pdf-to-jpg/",
+      title: "Need full-page image exports?",
+      body: "Use PDF to JPG when you want every page as an image instead of embedded objects only.",
+    });
+    rows.push({
+      href: "/tools/pdf-to-text/",
+      title: "Need the text too?",
+      body: "Extract text from the same document to pair visuals with searchable copy.",
+    });
+    rows.push({
+      href: "/tools/pdf-merge/",
+      title: "Combine documents first",
+      body: "Merge multiple PDFs, then extract all embedded images in one run.",
+    });
   } else if (operation === "jpg-to-pdf" || operation === "pdf-to-jpg") {
     rows.push({
       href: "/tools/pdf-compress/",

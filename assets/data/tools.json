@@ -730,6 +730,55 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "extract-images",
+      "category": "convert",
+      "operation": "extract-images",
+      "title": "Extract Images from PDF",
+      "primaryKeyword": "extract images from pdf online",
+      "intent": "Extract embedded images from PDF files directly in your browser.",
+      "description": "Detect and extract embedded image objects from PDF files locally. Preview each image and download one-by-one or as ZIP—no upload to our servers.",
+      "secondaryKeywords": [
+        "pdf image extractor",
+        "get images from pdf",
+        "extract pictures from pdf"
+      ],
+      "useCases": [
+        "Reuse charts and visuals from reports without screenshot loss",
+        "Extract product images from PDF catalogs",
+        "Collect embedded assets from design or slide PDFs"
+      ],
+      "relatedTools": [
+        "pdf-to-jpg",
+        "pdf-to-png",
+        "pdf-to-text"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Extraction runs fully in your browser and your file stays on your device."
+        },
+        {
+          "q": "Does this extract embedded images or full pages?",
+          "a": "This tool targets embedded image objects inside the PDF. For full-page image exports, use PDF to JPG or PDF to PNG."
+        },
+        {
+          "q": "Can I download all extracted images together?",
+          "a": "Yes. Download everything as a ZIP archive created locally in your browser."
+        },
+        {
+          "q": "Will extracted image quality be preserved?",
+          "a": "Yes. Embedded images are exported directly as PNG files without screenshot compression."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "pdf-to-word",
       "category": "convert",
       "operation": "pdf-to-word",
