@@ -42,7 +42,7 @@ function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
   if (!hasTools && !hasGuides) {
     return (
       <div className="site-search__dropdown site-search__dropdown--open" role="listbox" id={listId}>
-        <p className="site-search__empty">No tools found</p>
+        <p className="site-search__empty">No results found</p>
       </div>
     );
   }

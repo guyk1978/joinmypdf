@@ -28,25 +28,48 @@
         title: tool.title || "",
         description: tool.description || "",
         href: tool.href || "/tools/" + tool.slug + "/",
+        keywords: [tool.title, tool.description, tool.slug].join(" "),
       };
     });
     var tools = (toolsJson.tools || []).map(function (tool) {
+      var keywords = [
+        tool.title,
+        tool.primaryKeyword,
+        tool.intent,
+        tool.slug ? tool.slug.replace(/-/g, " ") : "",
+      ];
+      if (tool.secondaryKeywords && tool.secondaryKeywords.length) {
+        keywords = keywords.concat(tool.secondaryKeywords);
+      }
       return {
         type: "tool",
         title: tool.title || "",
         description: tool.description || tool.intent || "",
         href: "/tools/" + tool.slug + "/",
+        keywords: keywords.filter(Boolean).join(" "),
       };
     });
     var guides = blogPosts.map(function (post) {
       var desc = post.description || "";
       if (!desc && post.seo && post.seo.metaDescription) desc = post.seo.metaDescription;
+      if (!desc && post.contentBlocks && post.contentBlocks.intro) desc = post.contentBlocks.intro;
       if (!desc && post.intent) desc = post.intent;
       return {
         type: "guide",
         title: post.title || "",
         description: desc,
         href: "/blog/" + post.slug + "/",
+        keywords: [
+          post.title,
+          post.keyword,
+          post.category,
+          post.cluster,
+          post.intent,
+          post.contentBlocks && post.contentBlocks.intro,
+          post.slug ? post.slug.replace(/-/g, " ") : "",
+        ]
+          .filter(Boolean)
+          .join(" "),
       };
     });
     return studio.concat(tools).concat(guides);
@@ -85,17 +108,38 @@
       .trim()
       .toLowerCase();
     if (q.length < MIN_CHARS) return { tools: [], guides: [] };
-    function matches(entry) {
-      return (entry.title + " " + entry.description).toLowerCase().indexOf(q) !== -1;
+
+    function score(entry) {
+      var title = String(entry.title || "").toLowerCase();
+      var haystack = (entry.title + " " + entry.description + " " + (entry.keywords || "")).toLowerCase();
+      if (haystack.indexOf(q) === -1) return -1;
+      if (title.indexOf(q) === 0) return 100;
+      if (title.indexOf(q) !== -1) return 80;
+      if (String(entry.keywords || "").toLowerCase().indexOf(q) !== -1) return 60;
+      return 40;
     }
-    var tools = [];
-    var guides = [];
-    index.forEach(function (entry) {
-      if (!matches(entry)) return;
-      if (entry.type === "tool" && tools.length < LIMIT) tools.push(entry);
-      if (entry.type === "guide" && guides.length < LIMIT) guides.push(entry);
-    });
-    return { tools: tools, guides: guides };
+
+    function rank(type) {
+      return index
+        .filter(function (entry) {
+          return entry.type === type;
+        })
+        .map(function (entry) {
+          return { entry: entry, points: score(entry) };
+        })
+        .filter(function (row) {
+          return row.points >= 0;
+        })
+        .sort(function (a, b) {
+          return b.points - a.points || a.entry.title.localeCompare(b.entry.title);
+        })
+        .slice(0, LIMIT)
+        .map(function (row) {
+          return row.entry;
+        });
+    }
+
+    return { tools: rank("tool"), guides: rank("guide") };
   }
 
   function escapeHtml(s) {
@@ -117,7 +161,7 @@
     dropdown.classList.add("site-search__dropdown--open");
 
     if (!results.tools.length && !results.guides.length) {
-      dropdown.innerHTML = '<p class="site-search__empty">No tools found</p>';
+      dropdown.innerHTML = '<p class="site-search__empty">No results found</p>';
       return;
     }
 
