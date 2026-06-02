@@ -36,7 +36,7 @@ function LayoutGridIcon({ className }: { className?: string }) {
 function NavChevron({ open }: { open: boolean }) {
   return (
     <svg
-      className={clsx("transition-transform duration-200", open && "rotate-180")}
+      className={clsx("nav-mega__chevron transition-transform duration-200", open && "rotate-180")}
       width="12"
       height="12"
       viewBox="0 0 12 12"
@@ -150,7 +150,7 @@ export function ToolsMegaMenu({
         className={clsx(
           "nav-mega__trigger inline-flex items-center gap-1.5",
           isMobile && "w-full justify-center",
-          isToolsActive && "ring-2 ring-indigo-300/60",
+          isToolsActive && "nav-mega__trigger--active",
         )}
         aria-expanded={open}
         aria-haspopup="true"
