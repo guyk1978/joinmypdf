@@ -246,6 +246,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Flatten forms and comments",
       body: "Remove editable layers after metadata is stripped for a fully locked-down file.",
     });
+  } else if (operation === "compare-pdf") {
+    rows.push({
+      href: "/tools/pdf-merge/",
+      title: "Merge the approved version",
+      body: "After review, combine the final sections into one signed packet.",
+    });
+    rows.push({
+      href: "/tools/flatten-pdf/",
+      title: "Flatten the final PDF",
+      body: "Remove editable layers before distributing the agreed version.",
+    });
+    rows.push({
+      href: "/tools/redact-pdf/",
+      title: "Redact sensitive lines",
+      body: "Black out confidential clauses that should not leave your firm.",
+    });
   } else if (operation === "batch-rename-pdf") {
     rows.push({
       href: "/tools/pdf-merge/",

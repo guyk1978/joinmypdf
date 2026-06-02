@@ -184,6 +184,21 @@ export function getToolErrorRecovery(
       { ...TOOLS.merge, hint: "Combine files after renaming", variant: "primary" },
       { ...TOOLS.split, hint: "Split large PDFs into parts", variant: "secondary" },
     ],
+    "compare-pdf": [
+      { ...TOOLS.merge, hint: "Combine approved sections into one PDF", variant: "primary" },
+      {
+        href: "/tools/flatten-pdf/",
+        label: "Flatten PDF",
+        hint: "Lock down the final version after review",
+        variant: "secondary",
+      },
+      {
+        href: "/tools/redact-pdf/",
+        label: "Redact PDF",
+        hint: "Remove sensitive lines before sharing",
+        variant: "secondary",
+      },
+    ],
     redact: [
       { ...TOOLS.protect, hint: "Lock the redacted file before sharing", variant: "primary" },
       {

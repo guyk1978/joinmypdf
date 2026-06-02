@@ -3831,6 +3831,261 @@
           { "href": "/tools/add-page-numbers/", "anchor": "Add Page Numbers" }
         ]
       }
+    },
+    {
+      "slug": "compare-contracts-legal-documents-online",
+      "title": "How to compare contracts and legal documents online safely",
+      "keyword": "compare contracts pdf online safely",
+      "category": "PDF Workflows",
+      "cluster": "compare-pdf-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.91,
+      "relatedTools": ["compare-pdf", "redact-pdf", "flatten-pdf", "protect-pdf"],
+      "relatedBlogs": [
+        "find-pdf-version-changes-without-desktop-software",
+        "local-document-comparison-lawyers-finance"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for legal workflow privacy · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Compare Contracts & Legal PDFs Online (Private Browser Guide)",
+        "metaDescription": "Learn how to diff two contract PDFs in your browser without uploading files to a cloud redlining service."
+      },
+      "description": "A practical guide to comparing contract and legal PDF versions locally—before you sign or circulate a counterparty draft.",
+      "contentBlocks": {
+        "intro": "Counterparty PDFs often arrive as flat exports with no track-changes layer. Before you sign, you need a fast way to see what moved—without emailing confidential drafts to another vendor.",
+        "primaryTool": "compare-pdf",
+        "sections": [
+          {
+            "id": "why-browser",
+            "heading": "Why in-browser comparison fits legal review",
+            "level": 2,
+            "paragraphs": [
+              "Traditional redlining tools assume Word track changes. Final deal PDFs rarely include that metadata.",
+              "JoinMyPDF Compare Two PDFs extracts text per page with pdf.js and highlights additions, deletions, and moved blocks side by side—files stay on your device."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "A safe contract-check workflow",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Label the baseline PDF as Original and the counterparty file as Revised.",
+              "Step through pages with differences flagged in the page picker.",
+              "Use red highlights for removed language and green for new obligations.",
+              "If satisfied, flatten or protect the final PDF before external sharing."
+            ]
+          },
+          {
+            "id": "limits",
+            "heading": "Know the limits",
+            "level": 2,
+            "paragraphs": [
+              "Scanned image-only contracts without a text layer may not highlight. OCR in your DMS first, or request a text-based export.",
+              "Font or spacing-only changes may look like moved text (amber). Read the side-by-side view before relying on color alone."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Are contract PDFs uploaded to JoinMyPDF?",
+            "a": "No. Comparison runs locally in your browser session."
+          },
+          {
+            "q": "Can I compare password-protected PDFs?",
+            "a": "Unlock or re-export from your PDF editor first if the file is encrypted."
+          },
+          {
+            "q": "What should I do after I find changes?",
+            "a": "Redact sensitive clauses, flatten forms, or merge exhibits with our related tools linked below."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/compare-pdf/", "anchor": "Compare Two PDFs" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "find-pdf-version-changes-without-desktop-software",
+      "title": "Guide: finding changes between PDF versions without heavy software",
+      "keyword": "find changes between pdf versions",
+      "category": "PDF Workflows",
+      "cluster": "compare-pdf-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": ["compare-pdf", "pdf-merge", "pdf-split", "pdf-compress"],
+      "relatedBlogs": [
+        "compare-contracts-legal-documents-online",
+        "local-document-comparison-lawyers-finance"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for version-control workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Find PDF Version Changes Without Desktop Software",
+        "metaDescription": "Spot additions and deletions between two PDF exports using a lightweight browser diff—no Acrobat install required."
+      },
+      "description": "When stakeholders send v2_final_REAL.pdf, use a browser diff to see what actually changed—without installing desktop suites.",
+      "contentBlocks": {
+        "intro": "Version chaos costs time: the wrong attachment goes to finance, or legal signs a draft missing a liability cap. A quick PDF diff catches those mistakes before they leave your machine.",
+        "primaryTool": "compare-pdf",
+        "sections": [
+          {
+            "id": "desktop-vs-browser",
+            "heading": "Desktop suites vs browser tools",
+            "level": 2,
+            "paragraphs": [
+              "Acrobat and similar apps offer powerful compare modes—but they require installs, licenses, and often cloud accounts.",
+              "A browser-native compare loads pdf.js once, diffs text per page, and renders a side-by-side view without uploading either file."
+            ]
+          },
+          {
+            "id": "tips",
+            "heading": "Tips for cleaner diffs",
+            "level": 2,
+            "list": [
+              "Export both versions from the same source app when possible.",
+              "Compare PDFs with the same page size and orientation.",
+              "If page counts differ, treat extra pages as all-new or all-removed content.",
+              "Compress oversized files only after you confirm the diff—compression should not run before review."
+            ]
+          },
+          {
+            "id": "after-diff",
+            "heading": "After you find changes",
+            "level": 2,
+            "paragraphs": [
+              "Merge approved appendices, split out obsolete sections, or compress the final packet for email limits.",
+              "Use Compare Two PDFs again on the exported final if another round of edits arrives."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does the tool work on Mac and Windows?",
+            "a": "Yes. Any modern Chromium, Safari, or Firefox browser on desktop or tablet works."
+          },
+          {
+            "q": "Will formatting-only edits show up?",
+            "a": "Text moves may appear as amber highlights. Pure visual changes without text may not."
+          },
+          {
+            "q": "Can I compare more than two files?",
+            "a": "Run pairwise compares: baseline vs each candidate version."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/compare-pdf/", "anchor": "Compare Two PDFs" },
+          { "href": "/tools/pdf-merge/", "anchor": "Merge PDF" },
+          { "href": "/tools/pdf-split/", "anchor": "Split PDF" },
+          { "href": "/tools/pdf-compress/", "anchor": "Compress PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "local-document-comparison-lawyers-finance",
+      "title": "Why local document comparison is the safest way for lawyers and finance teams",
+      "keyword": "local pdf comparison privacy lawyers finance",
+      "category": "Privacy & Security",
+      "cluster": "compare-pdf-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.92,
+      "relatedTools": ["compare-pdf", "remove-hidden-metadata", "protect-pdf", "redact-pdf"],
+      "relatedBlogs": [
+        "compare-contracts-legal-documents-online",
+        "find-pdf-version-changes-without-desktop-software"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for privacy-first document workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Local PDF Comparison for Lawyers & Finance (Privacy Guide)",
+        "metaDescription": "Why client-side PDF diffing reduces data-transfer risk for regulated teams—and how to pair it with redaction and encryption."
+      },
+      "description": "Regulated teams handle MNPI, payroll, and board materials daily. Local comparison keeps drafts off third-party diff servers.",
+      "contentBlocks": {
+        "intro": "Uploading two deal PDFs to an unknown cloud diff service creates another data processor in your chain. Local comparison keeps bytes on the reviewer laptop or VDI session.",
+        "primaryTool": "compare-pdf",
+        "sections": [
+          {
+            "id": "risk",
+            "heading": "What cloud upload compares add to your risk register",
+            "level": 2,
+            "paragraphs": [
+              "Every upload is a transfer event: logging, retention policies, and subprocessors you may not have vetted.",
+              "Browser-local processing aligns with minimize-data principles—especially when documents include cap tables, customer lists, or settlement terms."
+            ]
+          },
+          {
+            "id": "stack",
+            "heading": "A privacy-minded review stack",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Compare Two PDFs for text-level changes in the browser.",
+              "Redact PDF to burn out account numbers or PII before wider distribution.",
+              "Remove hidden metadata before external email.",
+              "Protect PDF with a password for counsel-only copies."
+            ]
+          },
+          {
+            "id": "governance",
+            "heading": "Governance tips for IT and legal ops",
+            "level": 2,
+            "paragraphs": [
+              "Document that comparison happens client-side in your acceptable-use FAQ.",
+              "Pair local tools with managed devices and disk encryption—local does not mean careless storage.",
+              "For image-only scans, route through your approved OCR path before diffing."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does JoinMyPDF store compared files?",
+            "a": "Standard compare processing does not upload PDFs to our servers; work happens in the browser."
+          },
+          {
+            "q": "Is local comparison enough for HIPAA or GDPR?",
+            "a": "It reduces transfer risk but does not replace your policies, BAAs, or DPIAs. Consult compliance on your full stack."
+          },
+          {
+            "q": "What if I need a formal audit trail?",
+            "a": "Export comparison notes from your CLM or matter system; use this tool as a fast pre-check before those systems of record."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/compare-pdf/", "anchor": "Compare Two PDFs" },
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Metadata" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" }
+        ]
+      }
     }
   ]
 }

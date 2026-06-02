@@ -280,6 +280,55 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "compare-pdf",
+      "category": "edit",
+      "operation": "compare-pdf",
+      "title": "Compare Two PDFs",
+      "primaryKeyword": "compare two pdfs online side by side",
+      "intent": "Upload two PDFs and see text and layout differences highlighted side by side—100% in your browser.",
+      "description": "Compare two PDF files online with a side-by-side viewer. Highlights added text in green, removed text in red, and moved blocks in amber—processed locally with pdf.js, no uploads.",
+      "secondaryKeywords": [
+        "pdf diff tool",
+        "compare pdf versions",
+        "contract redline pdf"
+      ],
+      "useCases": [
+        "Review contract redlines before signing",
+        "Spot changes between policy or SOW versions",
+        "Verify that a revised PDF matches the approved draft"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "flatten-pdf",
+        "redact-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Are my PDFs uploaded to JoinMyPDF?",
+          "a": "No. Both files are read and compared entirely in your browser using pdf.js."
+        },
+        {
+          "q": "What kinds of changes can the tool detect?",
+          "a": "It compares extractable text per page—additions, deletions, and blocks that moved position. Scanned image-only PDFs without text layers may show no highlights."
+        },
+        {
+          "q": "Can I compare PDFs with different page counts?",
+          "a": "Yes. Extra pages are treated as all-new or all-removed content on that side."
+        },
+        {
+          "q": "Does this replace legal redlining software?",
+          "a": "It is a fast privacy-first check in the browser. For formal track-changes workflows, export from Word or your CLM and use this to verify the final PDF."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "jpg-to-pdf",
       "category": "convert",
       "operation": "jpg-to-pdf",
