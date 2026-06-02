@@ -4,6 +4,7 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "pdf-merge": "Merge PDF",
     "pdf-compress": "Compress PDF",
     "pdf-split": "Split PDF",
+    "batch-rename-pdf": "Batch Rename PDF",
     "add-page-numbers": "Add Page Numbers",
     "sign-pdf": "Sign PDF",
     "protect-pdf": "Protect PDF",

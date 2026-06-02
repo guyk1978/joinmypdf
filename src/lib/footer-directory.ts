@@ -62,6 +62,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
     links: [
       toolLink("pdf-merge"),
       toolLink("pdf-split"),
+      toolLink("batch-rename-pdf"),
       toolLink("pdf-compress"),
       toolLink("rotate-pdf"),
       toolLink("delete-pdf-pages"),

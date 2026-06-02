@@ -231,6 +231,55 @@
       }
     },
     {
+      "slug": "batch-rename-pdf",
+      "category": "edit",
+      "operation": "batch-rename-pdf",
+      "title": "Batch Rename PDF",
+      "primaryKeyword": "batch rename pdf files online",
+      "intent": "Rename many PDF files at once with rules—preview names and download a ZIP locally.",
+      "description": "Batch rename PDF files in your browser. Add prefixes, numbering, find-and-replace, and suffixes—preview every name, then download all renamed files as ZIP.",
+      "secondaryKeywords": [
+        "bulk rename pdf",
+        "rename multiple pdf files",
+        "pdf file organizer"
+      ],
+      "useCases": [
+        "Standardize invoice PDF filenames before accounting upload",
+        "Number scanned document batches with a date prefix",
+        "Clean up client deliverable names before sharing a folder"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "pdf-split",
+        "delete-pdf-pages"
+      ],
+      "faq": [
+        {
+          "q": "Are my PDFs uploaded to JoinMyPDF?",
+          "a": "No. Renaming runs locally in your browser and files are packaged into a ZIP on your device."
+        },
+        {
+          "q": "Can I upload an entire folder?",
+          "a": "Yes. Use Add folder to import every PDF from a directory."
+        },
+        {
+          "q": "Will the PDF content change?",
+          "a": "No. Only filenames change. Page content stays identical."
+        },
+        {
+          "q": "What if two files get the same new name?",
+          "a": "The tool auto-appends a numeric suffix to avoid ZIP collisions."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "jpg-to-pdf",
       "category": "convert",
       "operation": "jpg-to-pdf",

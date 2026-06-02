@@ -180,6 +180,10 @@ export function getToolErrorRecovery(
       },
       { ...TOOLS.protect, hint: "Set a stronger password after unlock", variant: "secondary" },
     ],
+    "batch-rename-pdf": [
+      { ...TOOLS.merge, hint: "Combine files after renaming", variant: "primary" },
+      { ...TOOLS.split, hint: "Split large PDFs into parts", variant: "secondary" },
+    ],
     redact: [
       { ...TOOLS.protect, hint: "Lock the redacted file before sharing", variant: "primary" },
       {

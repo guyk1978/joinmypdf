@@ -246,6 +246,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Flatten forms and comments",
       body: "Remove editable layers after metadata is stripped for a fully locked-down file.",
     });
+  } else if (operation === "batch-rename-pdf") {
+    rows.push({
+      href: "/tools/pdf-merge/",
+      title: "Merge renamed PDFs",
+      body: "Combine the organized files into one deliverable package.",
+    });
+    rows.push({
+      href: "/tools/pdf-split/",
+      title: "Split oversized files",
+      body: "Extract only the pages you need after renaming.",
+    });
+    rows.push({
+      href: "/tools/delete-pdf-pages/",
+      title: "Delete extra pages",
+      body: "Trim blank or duplicate pages before sending the batch.",
+    });
   } else if (operation === "png-to-pdf") {
     rows.push({
       href: "/tools/pdf-compress/",

@@ -29,6 +29,7 @@ import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { FlattenPdfWorkspace } from "@/components/FlattenPdfWorkspace";
 import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
+import { BatchRenamePdfWorkspace } from "@/components/BatchRenamePdfWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
@@ -140,6 +141,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <DeletePdfPagesWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "merge" ? (
           <MergePdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "batch-rename-pdf" ? (
+          <BatchRenamePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-page-numbers" ? (
           <AddPageNumbersWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-png" ? (
