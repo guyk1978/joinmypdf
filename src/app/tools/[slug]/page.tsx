@@ -31,6 +31,7 @@ import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadata
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
 import { BatchRenamePdfWorkspace } from "@/components/BatchRenamePdfWorkspace";
 import { ComparePdfWorkspace } from "@/components/ComparePdfWorkspace";
+import { BookletPdfWorkspace } from "@/components/BookletPdfWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
@@ -146,6 +147,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <BatchRenamePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "compare-pdf" ? (
           <ComparePdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-booklet" ? (
+          <BookletPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-page-numbers" ? (
           <AddPageNumbersWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-png" ? (

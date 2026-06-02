@@ -329,6 +329,55 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "pdf-to-booklet",
+      "category": "edit",
+      "operation": "pdf-to-booklet",
+      "title": "PDF to Booklet (Imposition)",
+      "primaryKeyword": "pdf to booklet imposition online",
+      "intent": "Arrange PDF pages for saddle-stitch booklet printing with a live sheet preview—100% in your browser.",
+      "description": "Turn a PDF into a print-ready booklet with correct page imposition. Choose paper size (Letter, A4, or custom inches/cm), preview each folded sheet, and download locally—no uploads.",
+      "secondaryKeywords": [
+        "booklet printing pdf",
+        "saddle stitch imposition",
+        "duplex booklet pdf"
+      ],
+      "useCases": [
+        "Print event programs or zines at home on a duplex printer",
+        "Impose training manuals for fold-and-staple distribution",
+        "Prepare church bulletins or club newsletters as booklets"
+      ],
+      "relatedTools": [
+        "pdf-merge",
+        "pdf-split",
+        "crop-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Are files uploaded to JoinMyPDF?",
+          "a": "No. Imposition runs locally in your browser with pdf-lib."
+        },
+        {
+          "q": "How should I print the output PDF?",
+          "a": "Use duplex printing. For portrait booklets on Letter/A4, choose flip on the long edge unless your printer guide says otherwise."
+        },
+        {
+          "q": "What if my page count is not a multiple of four?",
+          "a": "The tool pads with blank pages at the end so folding order stays correct."
+        },
+        {
+          "q": "Does this work for perfect-bound books?",
+          "a": "This tool targets saddle-stitch (folded booklet) imposition. Perfect binding needs a different layout."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "jpg-to-pdf",
       "category": "convert",
       "operation": "jpg-to-pdf",

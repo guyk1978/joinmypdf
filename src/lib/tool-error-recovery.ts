@@ -184,6 +184,16 @@ export function getToolErrorRecovery(
       { ...TOOLS.merge, hint: "Combine files after renaming", variant: "primary" },
       { ...TOOLS.split, hint: "Split large PDFs into parts", variant: "secondary" },
     ],
+    "pdf-to-booklet": [
+      { ...TOOLS.merge, hint: "Merge chapters before imposing", variant: "primary" },
+      { ...TOOLS.split, hint: "Split to fix page order first", variant: "secondary" },
+      {
+        href: "/tools/crop-pdf/",
+        label: "Crop PDF",
+        hint: "Trim margins before printing",
+        variant: "secondary",
+      },
+    ],
     "compare-pdf": [
       { ...TOOLS.merge, hint: "Combine approved sections into one PDF", variant: "primary" },
       {

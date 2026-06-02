@@ -43,6 +43,18 @@ function SplitIcon() {
   );
 }
 
+function BookletIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
+      <rect x="2" y="5" width="9" height="14" rx="1.5" fill="#F59E0B" />
+      <rect x="13" y="5" width="9" height="14" rx="1.5" fill="#FBBF24" />
+      <path d="M11.5 5v14" stroke="#B45309" strokeWidth="1.5" strokeDasharray="2 2" />
+      <path d="M5 9h3M5 12h4M5 15h2" stroke="#FFFBEB" strokeWidth="1.2" strokeLinecap="round" />
+      <path d="M16 10h2M16 13h3M16 16h2" stroke="#92400E" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function ComparePdfIcon() {
   return (
     <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
@@ -402,6 +414,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("pdf-to-png"), key: "pdf-to-png" },
   { test: (s) => s.includes("pdf-to-jpg"), key: "pdf-to-jpg" },
   { test: (s) => s.includes("pdf-compress"), key: "pdf-compress" },
+  { test: (s) => s.includes("pdf-to-booklet"), key: "pdf-to-booklet" },
   { test: (s) => s.includes("compare-pdf"), key: "compare-pdf" },
   { test: (s) => s.includes("batch-rename-pdf"), key: "batch-rename-pdf" },
   { test: (s) => s.includes("pdf-split"), key: "pdf-split" },
@@ -431,6 +444,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <SplitIcon />,
     wrap: "bg-purple-100 ring-1 ring-purple-200",
     wrapHover: "group-hover:bg-purple-200 group-hover:ring-purple-300",
+  },
+  "pdf-to-booklet": {
+    icon: <BookletIcon />,
+    wrap: "bg-amber-100 ring-1 ring-amber-200",
+    wrapHover: "group-hover:bg-amber-200 group-hover:ring-amber-300",
   },
   "compare-pdf": {
     icon: <ComparePdfIcon />,

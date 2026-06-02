@@ -246,6 +246,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Flatten forms and comments",
       body: "Remove editable layers after metadata is stripped for a fully locked-down file.",
     });
+  } else if (operation === "pdf-to-booklet") {
+    rows.push({
+      href: "/tools/crop-pdf/",
+      title: "Crop margins before printing",
+      body: "Trim uneven borders so each imposed half aligns on your paper.",
+    });
+    rows.push({
+      href: "/tools/pdf-merge/",
+      title: "Merge sections first",
+      body: "Combine chapters or inserts into one PDF before booklet imposition.",
+    });
+    rows.push({
+      href: "/tools/pdf-split/",
+      title: "Split unwanted pages",
+      body: "Remove covers or blanks you do not want in the folded booklet.",
+    });
   } else if (operation === "compare-pdf") {
     rows.push({
       href: "/tools/pdf-merge/",
