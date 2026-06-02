@@ -17,6 +17,7 @@ const verb: Record<string, string> = {
   "iwork-to-pdf": "convert Apple iWork files to PDF",
   protect: "password-protect a PDF",
   unlock: "remove a PDF password",
+  "pdf-password-recovery": "recover a short forgotten PDF password",
   redact: "redact sensitive PDF content",
   "flatten-pdf": "flatten a PDF and remove editable layers",
   "remove-hidden-metadata": "remove hidden PDF metadata before sharing",

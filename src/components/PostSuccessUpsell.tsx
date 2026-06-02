@@ -176,6 +176,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Compress the unlocked file",
       body: "Smaller attachments are easier to email after you remove the password.",
     });
+  } else if (operation === "pdf-password-recovery") {
+    rows.push({
+      href: "/tools/unlock-pdf/",
+      title: "Already know the password?",
+      body: "Skip guessing and unlock the PDF instantly with Unlock PDF.",
+    });
+    rows.push({
+      href: "/tools/protect-pdf/",
+      title: "Set a stronger password",
+      body: "Re-protect the file with a long, unique password after recovery.",
+    });
+    rows.push({
+      href: "/tools/pdf-compress/",
+      title: "Compress before sending",
+      body: "Shrink the unlocked PDF if attachment limits are tight.",
+    });
   } else if (operation === "sign") {
     rows.push({
       href: "/tools/protect-pdf/",

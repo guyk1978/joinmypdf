@@ -435,6 +435,55 @@
       "updatedAt": "2026-05-24"
     },
     {
+      "slug": "pdf-password-recovery",
+      "category": "security",
+      "operation": "pdf-password-recovery",
+      "title": "PDF Password Recovery",
+      "primaryKeyword": "recover pdf password online brute force",
+      "intent": "Try short forgotten PDF passwords locally in your browser with a Web Worker.",
+      "description": "Recover simple PDF passwords with a client-side brute-force search. Choose character sets and length, watch progress, and download—your file never leaves your device.",
+      "secondaryKeywords": [
+        "pdf password cracker browser",
+        "forgot pdf password",
+        "pdf password recovery tool"
+      ],
+      "useCases": [
+        "Recover a short numeric PIN you set on a personal PDF",
+        "Test likely passwords on files you own before re-creating the document",
+        "Unlock legacy archives when the password was simple"
+      ],
+      "relatedTools": [
+        "unlock-pdf",
+        "protect-pdf",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Recovery runs in a Web Worker inside your browser. The file stays on your device."
+        },
+        {
+          "q": "Will this break strong passwords?",
+          "a": "No. The tool is designed for short, simple passwords. Long or complex passwords are impractical to brute-force in a browser."
+        },
+        {
+          "q": "Can I use this on any PDF?",
+          "a": "Only on files you own or are legally allowed to access. Do not use it to bypass protections on documents you are not authorized to open."
+        },
+        {
+          "q": "What if I already know the password?",
+          "a": "Use Unlock PDF to remove protection instantly without guessing."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "redact-pdf",
       "category": "security",
       "operation": "redact",

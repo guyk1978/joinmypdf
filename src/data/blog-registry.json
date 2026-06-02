@@ -3342,6 +3342,249 @@
           { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" }
         ]
       }
+    },
+    {
+      "slug": "recover-pdf-password-locally",
+      "title": "Forgot your PDF password? How to recover it safely without the cloud",
+      "keyword": "recover pdf password without uploading",
+      "category": "PDF Privacy",
+      "cluster": "pdf-password-recovery-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": ["pdf-password-recovery", "unlock-pdf", "protect-pdf"],
+      "relatedBlogs": ["strong-pdf-password-guide", "dangers-online-password-recovery", "pdf-local-processing-benefits"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for local recovery workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Recover a Forgotten PDF Password Locally (No Cloud Upload)",
+        "metaDescription": "Learn how to try short PDF passwords in your browser with a Web Worker—without uploading files to online crackers."
+      },
+      "description": "A practical guide to recovering simple forgotten PDF passwords on your own device instead of using cloud upload services.",
+      "contentBlocks": {
+        "intro": "Forgetting a PDF password is common on personal archives and old reports. Cloud crackers promise instant results but require uploading the entire file. A local browser workflow keeps the document on your machine while you test likely short passwords.",
+        "primaryTool": "pdf-password-recovery",
+        "sections": [
+          {
+            "id": "when-local-works",
+            "heading": "When local recovery is realistic",
+            "level": 2,
+            "paragraphs": [
+              "Browser brute-force is practical for short numeric PINs and simple words—not for long passphrases. Set a tight character set and max length to keep search time reasonable.",
+              "If you already remember the password, skip recovery and use Unlock PDF for instant decryption."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "Safe local workflow",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Upload your PDF to PDF Password Recovery.",
+              "Select character sets (letters, numbers, symbols) and length range.",
+              "Start recovery and monitor the progress bar in your browser.",
+              "Reveal the password and download an unlocked copy, then set a stronger password with Protect PDF."
+            ]
+          },
+          {
+            "id": "legal",
+            "heading": "Use only on files you may access",
+            "level": 2,
+            "paragraphs": [
+              "Recovery tools are for documents you own or are authorized to open. Attempting to break third-party protections without permission is not appropriate use.",
+              "Local processing supports compliance conversations: the file does not leave the browser session for guessing."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does JoinMyPDF store my PDF during recovery?",
+            "a": "No. Guessing runs in a Web Worker on your device."
+          },
+          {
+            "q": "How long can passwords be?",
+            "a": "The tool caps length for browser safety. Long passwords should be reset at the source document instead."
+          },
+          {
+            "q": "What if recovery fails?",
+            "a": "Try expanding character sets slightly or re-export the PDF from the original application if you still have access."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/pdf-password-recovery/", "anchor": "PDF Password Recovery" },
+          { "href": "/tools/unlock-pdf/", "anchor": "Unlock PDF" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "strong-pdf-password-guide",
+      "title": "Guide: what makes a PDF password truly strong",
+      "keyword": "strong pdf password guide",
+      "category": "PDF Privacy",
+      "cluster": "pdf-password-recovery-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.89,
+      "relatedTools": ["protect-pdf", "unlock-pdf", "pdf-password-recovery"],
+      "relatedBlogs": ["recover-pdf-password-locally", "dangers-online-password-recovery", "hidden-risks-of-free-online-pdf-editors"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for password hygiene · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "What Makes a Strong PDF Password? (Practical Guide)",
+        "metaDescription": "Learn how length, character variety, and unique passphrases protect PDFs from browser brute-force and cloud cracking."
+      },
+      "description": "How to choose PDF passwords that resist guessing and why short PINs fail against local recovery tools.",
+      "contentBlocks": {
+        "intro": "A PDF password is only as strong as the secret you choose. Short numeric codes and dictionary words fall quickly to local brute-force, while long unique passphrases remain impractical to guess in a browser.",
+        "primaryTool": "protect-pdf",
+        "sections": [
+          {
+            "id": "length-matters",
+            "heading": "Length beats clever tricks",
+            "level": 2,
+            "paragraphs": [
+              "Each extra character expands the search space exponentially. A four-digit PIN is tiny; a twelve-character random passphrase is a different category.",
+              "Password recovery tools intentionally cap length because browsers cannot brute-force strong secrets in reasonable time."
+            ]
+          },
+          {
+            "id": "what-to-use",
+            "heading": "What to use after you unlock or recover",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Generate a unique passphrase (not reused from email).",
+              "Apply it with Protect PDF locally in your browser.",
+              "Store the password in a manager—avoid sticky notes on the PDF itself.",
+              "Share through a secure channel, not in the same email as the file."
+            ]
+          },
+          {
+            "id": "aes",
+            "heading": "Encryption still needs a strong secret",
+            "level": 2,
+            "paragraphs": [
+              "JoinMyPDF uses AES-256 encryption for protected outputs, but encryption cannot fix a weak password. Treat the user password as the real gate.",
+              "If you forgot a weak password, recover locally once, then upgrade to a strong one immediately."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Are memorable passphrases OK?",
+            "a": "Yes if they are long and unique. Avoid famous quotes or personal dates tied to you."
+          },
+          {
+            "q": "Should I reuse passwords?",
+            "a": "No. Use a unique PDF password per sensitive file or client."
+          },
+          {
+            "q": "Does Protect PDF upload my file?",
+            "a": "No. Encryption runs locally in your browser."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" },
+          { "href": "/tools/unlock-pdf/", "anchor": "Unlock PDF" },
+          { "href": "/tools/pdf-password-recovery/", "anchor": "PDF Password Recovery" }
+        ]
+      }
+    },
+    {
+      "slug": "dangers-online-password-recovery",
+      "title": "The dangers of using online password recovery tools",
+      "keyword": "online pdf password recovery dangers",
+      "category": "PDF Privacy",
+      "cluster": "pdf-password-recovery-content",
+      "intent": "commercial-investigation",
+      "intentType": "commercial-investigation",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["pdf-password-recovery", "unlock-pdf", "protect-pdf"],
+      "relatedBlogs": ["recover-pdf-password-locally", "strong-pdf-password-guide", "hidden-risks-of-free-online-pdf-editors"],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for third-party risk awareness · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Dangers of Online PDF Password Recovery Services",
+        "metaDescription": "Why uploading locked PDFs to cloud crackers risks data retention, leaks, and compliance violations—and what to do instead."
+      },
+      "description": "Why cloud-based PDF password crackers are risky for sensitive documents and how local browser recovery compares.",
+      "contentBlocks": {
+        "intro": "Online password recovery sites ask for the one thing you are trying to protect: the full PDF. Even if they claim instant deletion, you rarely control retention, jurisdiction, or subprocessors.",
+        "primaryTool": "pdf-password-recovery",
+        "sections": [
+          {
+            "id": "upload-risk",
+            "heading": "Uploading equals disclosure",
+            "level": 2,
+            "paragraphs": [
+              "Contracts, medical records, and financial statements should not be sent to unknown infrastructure just to test passwords.",
+              "Logs, backups, and support access on third-party servers are outside your policy boundary."
+            ]
+          },
+          {
+            "id": "local-alternative",
+            "heading": "The local alternative",
+            "level": 2,
+            "paragraphs": [
+              "PDF Password Recovery runs guessing inside a Web Worker in your browser. The file stays in local memory on your device.",
+              "If you already know the password, Unlock PDF is faster and still fully client-side."
+            ]
+          },
+          {
+            "id": "checklist",
+            "heading": "Safer recovery checklist",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Confirm you may legally access the PDF.",
+              "Try local recovery with a narrow character set first.",
+              "If successful, re-protect with a strong password via Protect PDF.",
+              "Never upload the same sensitive file to multiple online crackers."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Are all online crackers malicious?",
+            "a": "Not necessarily, but you cannot verify handling. Local processing removes that uncertainty."
+          },
+          {
+            "q": "Can IT teams allow local recovery?",
+            "a": "Many prefer on-device tools over arbitrary uploads for audit reasons."
+          },
+          {
+            "q": "What about enterprise password policies?",
+            "a": "Use recovery only under policy, then rotate to a managed strong password."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/pdf-password-recovery/", "anchor": "PDF Password Recovery" },
+          { "href": "/tools/unlock-pdf/", "anchor": "Unlock PDF" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
     }
   ]
 }

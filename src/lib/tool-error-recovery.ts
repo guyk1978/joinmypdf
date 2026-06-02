@@ -171,6 +171,15 @@ export function getToolErrorRecovery(
       },
       { ...TOOLS.protect, hint: "Lock the file after cleaning", variant: "secondary" },
     ],
+    "pdf-password-recovery": [
+      {
+        href: "/tools/unlock-pdf/",
+        label: "Unlock PDF",
+        hint: "Use when you already know the password",
+        variant: "primary",
+      },
+      { ...TOOLS.protect, hint: "Set a stronger password after unlock", variant: "secondary" },
+    ],
     redact: [
       { ...TOOLS.protect, hint: "Lock the redacted file before sharing", variant: "primary" },
       {

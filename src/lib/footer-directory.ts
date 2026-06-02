@@ -77,6 +77,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
     links: [
       toolLink("protect-pdf"),
       toolLink("unlock-pdf"),
+      toolLink("pdf-password-recovery"),
       toolLink("redact-pdf"),
       toolLink("flatten-pdf"),
       toolLink("remove-hidden-metadata"),

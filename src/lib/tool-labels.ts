@@ -8,6 +8,7 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "sign-pdf": "Sign PDF",
     "protect-pdf": "Protect PDF",
     "unlock-pdf": "Unlock PDF",
+    "pdf-password-recovery": "Password Recovery",
     "redact-pdf": "Redact PDF",
     "flatten-pdf": "Flatten PDF",
     "remove-hidden-metadata": "Remove Metadata",

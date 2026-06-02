@@ -28,6 +28,7 @@ import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { FlattenPdfWorkspace } from "@/components/FlattenPdfWorkspace";
 import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
+import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
@@ -127,6 +128,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <ProtectPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "unlock" ? (
           <UnlockPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-password-recovery" ? (
+          <PdfPasswordRecoveryWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "redact" ? (
           <RedactPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "flatten-pdf" ? (

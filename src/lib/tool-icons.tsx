@@ -370,6 +370,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("timeline-gantt"), key: "timeline-gantt-generator" },
   { test: (s) => s.includes("data-converter"), key: "data-converter-visualizer" },
   { test: (s) => s.includes("protect-pdf"), key: "protect-pdf" },
+  { test: (s) => s.includes("pdf-password-recovery"), key: "pdf-password-recovery" },
   { test: (s) => s.includes("unlock-pdf"), key: "unlock-pdf" },
   { test: (s) => s.includes("remove-hidden-metadata"), key: "remove-hidden-metadata" },
   { test: (s) => s.includes("flatten-pdf"), key: "flatten-pdf" },
@@ -491,6 +492,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <LockOpenIcon />,
     wrap: "bg-green-100 ring-1 ring-green-200",
     wrapHover: "group-hover:bg-green-200 group-hover:ring-green-300",
+  },
+  "pdf-password-recovery": {
+    icon: <LockOpenIcon />,
+    wrap: "bg-amber-100 ring-1 ring-amber-200",
+    wrapHover: "group-hover:bg-amber-200 group-hover:ring-amber-300",
   },
   "rotate-pdf": {
     icon: <RotateIcon />,
