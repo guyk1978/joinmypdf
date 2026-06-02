@@ -99,6 +99,7 @@ export const FOOTER_COMPANY_COLUMN: FooterColumn = {
     { href: "/blog/", label: "Guides & Blog" },
     { href: "/tools/", label: "All PDF tools" },
     { href: "/compare/", label: "Compare tools" },
+    { href: "/privacy-first/", label: "Privacy First" },
     { href: "/privacy/", label: "Privacy Policy" },
     { href: "/privacy-first-pdf-tools/", label: "Privacy-first PDF hub" },
   ],

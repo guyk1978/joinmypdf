@@ -105,7 +105,10 @@ export const NAV_GUIDES_DROPDOWN: NavDropdown = {
   items: [{ href: "/blog/", label: "All guides" }],
 };
 
-export const NAV_LINKS: NavLink[] = [{ href: "/privacy/", label: "Privacy" }];
+export const NAV_LINKS: NavLink[] = [
+  { href: "/privacy-first/", label: "Privacy First" },
+  { href: "/privacy/", label: "Privacy" },
+];
 
 export function buildGuidesNavItems(
   posts: { slug: string; title: string; datePublished?: string; date?: string }[]

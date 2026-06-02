@@ -1934,6 +1934,27 @@ html.dark .brand {
   text-decoration: none;
 }
 
+.nav-link--emphasis {
+  color: #059669;
+  font-weight: 600;
+}
+
+.nav-link--emphasis:hover,
+.nav-link--emphasis.is-active {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+html.dark .nav-link--emphasis {
+  color: #34d399;
+}
+
+html.dark .nav-link--emphasis:hover,
+html.dark .nav-link--emphasis.is-active {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.15);
+}
+
 .nav-dropdown {
   position: relative;
 }

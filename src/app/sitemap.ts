@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/`, lastModified: now, changeFrequency: "daily", priority: 1 },
     { url: `${siteUrl}/tools/`, lastModified: now, changeFrequency: "weekly", priority: 0.92 },
     { url: `${siteUrl}/blog/`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${siteUrl}/privacy-first/`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${siteUrl}/privacy/`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
     { url: `${siteUrl}/compare/`, lastModified: now, changeFrequency: "monthly", priority: 0.72 },
     { url: `${siteUrl}/privacy-first-pdf-tools/`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },

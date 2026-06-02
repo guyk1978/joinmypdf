@@ -8,7 +8,7 @@ import { SiteSearch } from "@/components/SiteSearch";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ToolsMegaMenu } from "@/components/ToolsMegaMenu";
 import type { MegaMenuSection } from "@/lib/mega-menu";
-import { isNavItemActive } from "@/lib/nav-config";
+import { isNavItemActive, NAV_LINKS } from "@/lib/nav-config";
 import type { BlogRegistry, SiteRegistry } from "@/lib/types";
 
 type SiteHeaderBarProps = {
@@ -29,6 +29,24 @@ function GuidesLink({ onNavigate, className }: { onNavigate?: () => void; classN
       onClick={onNavigate}
     >
       Guides
+    </Link>
+  );
+}
+
+function PrivacyFirstLink({ onNavigate, className }: { onNavigate?: () => void; className?: string }) {
+  const pathname = usePathname() || "/";
+  const privacyFirst = NAV_LINKS.find((l) => l.href === "/privacy-first/");
+  if (!privacyFirst) return null;
+  const active = isNavItemActive(pathname, privacyFirst.href);
+
+  return (
+    <Link
+      href={privacyFirst.href}
+      className={`nav-link nav-link--emphasis${active ? " is-active" : ""}${className ? ` ${className}` : ""}`}
+      prefetch={false}
+      onClick={onNavigate}
+    >
+      {privacyFirst.label}
     </Link>
   );
 }
@@ -62,6 +80,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
         <div className="absolute left-1/2 z-10 hidden -translate-x-1/2 items-center gap-3 md:flex">
           <ToolsMegaMenu sections={megaMenuSections} />
           <GuidesLink />
+          <PrivacyFirstLink />
         </div>
 
         <div className="z-10 flex shrink-0 items-center gap-2">
@@ -89,6 +108,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
             <ToolsMegaMenu sections={megaMenuSections} onNavigate={closeMobile} variant="mobile" />
             <GuidesLink onNavigate={closeMobile} className="w-full justify-center py-2" />
+            <PrivacyFirstLink onNavigate={closeMobile} className="w-full justify-center py-2" />
           </div>
         </div>
       ) : null}
