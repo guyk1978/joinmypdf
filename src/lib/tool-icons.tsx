@@ -7,6 +7,9 @@ export type ToolIconVisual = {
   wrapHover: string;
 };
 
+/** Shared class: dark-mode icon container styling is defined in globals.css */
+export const TOOL_ICON_WRAP_CLASS = "tool-icon-wrap";
+
 const ICON_CLASS = "h-6 w-6";
 
 function MergeIcon() {
@@ -707,6 +710,7 @@ export function ToolDirectoryIcon({
   return (
     <span
       className={clsx(
+        TOOL_ICON_WRAP_CLASS,
         "mb-3 inline-flex items-center justify-center rounded-2xl p-3 shadow-md transition-transform duration-300 group-hover:scale-105",
         wrap,
         "[&_svg]:h-10 [&_svg]:w-10 md:[&_svg]:h-12 md:[&_svg]:w-12",
@@ -735,6 +739,7 @@ export function ToolIconBadge({
   return (
     <span
       className={clsx(
+        TOOL_ICON_WRAP_CLASS,
         "inline-flex shrink-0 items-center justify-center rounded-lg shadow-sm ring-1 ring-black/5",
         size === "sm" ? "h-6 w-6 [&_svg]:h-4 [&_svg]:w-4" : "h-8 w-8 [&_svg]:h-[18px] [&_svg]:w-[18px]",
         visual.wrap,

@@ -2495,6 +2495,24 @@ html.dark .partner-mapdiagram[style] a {
   color: #60a5fa !important;
 }
 
+/* Tool icon containers (registry grids, mega menu, footer, heroes) — dark mode only */
+html.dark .tool-icon-wrap {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  background-image: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  --tw-ring-width: 0 !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-offset-width: 0 !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  box-shadow: none !important;
+}
+
+html.dark .group:hover .tool-icon-wrap {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
 /* WattQuick partner banner — floating calculator animation */
 @keyframes wattquick-float {
   0%,

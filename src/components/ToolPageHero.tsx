@@ -1,21 +1,6 @@
 import { clsx } from "clsx";
 import { Crop, Scissors } from "lucide-react";
-import { getToolIcon } from "@/lib/tool-icons";
-
-const HERO_ICON_WRAP: Record<string, string> = {
-  "crop-pdf":
-    "bg-red-50 ring-1 ring-red-100 dark:bg-red-950/30 dark:ring-red-900/50",
-  "pdf-merge": "bg-indigo-50 ring-1 ring-indigo-100 dark:bg-indigo-950/30 dark:ring-indigo-900/50",
-  "pdf-compress": "bg-orange-50 ring-1 ring-orange-100 dark:bg-orange-950/30 dark:ring-orange-900/50",
-  "pdf-split": "bg-violet-50 ring-1 ring-violet-100 dark:bg-violet-950/30 dark:ring-violet-900/50",
-  "redact-pdf": "bg-slate-100 ring-1 ring-slate-200 dark:bg-slate-800/60 dark:ring-slate-700",
-  "sign-pdf": "bg-indigo-50 ring-1 ring-indigo-100 dark:bg-indigo-950/30 dark:ring-indigo-900/50",
-  "add-watermark": "bg-sky-50 ring-1 ring-sky-100 dark:bg-sky-950/30 dark:ring-sky-900/50",
-  "rotate-pdf": "bg-blue-50 ring-1 ring-blue-100 dark:bg-blue-950/30 dark:ring-blue-900/50",
-};
-
-const DEFAULT_HERO_WRAP =
-  "bg-indigo-50 ring-1 ring-indigo-100 dark:bg-indigo-950/30 dark:ring-indigo-900/50";
+import { getToolIcon, TOOL_ICON_WRAP_CLASS } from "@/lib/tool-icons";
 
 type Props = {
   slug: string;
@@ -36,7 +21,7 @@ function HeroIconGraphic({ slug }: { slug: string }) {
 }
 
 export function ToolPageHero({ slug, title, subtitle }: Props) {
-  const wrap = HERO_ICON_WRAP[slug] ?? DEFAULT_HERO_WRAP;
+  const visual = getToolIcon(slug);
 
   return (
     <header className="space-y-3">
@@ -46,8 +31,9 @@ export function ToolPageHero({ slug, title, subtitle }: Props) {
       <div className="flex items-start gap-3 sm:gap-4">
         <span
           className={clsx(
+            TOOL_ICON_WRAP_CLASS,
             "mr-0 inline-flex shrink-0 items-center justify-center rounded-2xl p-2.5 shadow-sm sm:mr-1",
-            wrap,
+            visual.wrap,
           )}
           aria-hidden
         >

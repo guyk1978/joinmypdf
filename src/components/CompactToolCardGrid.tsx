@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getToolIcon } from "@/lib/tool-icons";
+import { getToolIcon, TOOL_ICON_WRAP_CLASS } from "@/lib/tool-icons";
 
 export type CompactToolCardItem = {
   href: string;
@@ -19,7 +19,7 @@ export function CompactToolCardGrid({ items }: { items: CompactToolCardItem[] })
             className="group flex min-h-[124px] flex-col items-center justify-center rounded-2xl border border-slate-100 bg-white px-3 py-3.5 text-center shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-slate-200 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700 dark:hover:shadow-md dark:hover:shadow-black/20"
           >
             <span
-              className={`inline-flex h-12 w-12 items-center justify-center rounded-full shadow-sm transition-all duration-300 ease-out ${visual.wrap} ${visual.wrapHover}`}
+              className={`${TOOL_ICON_WRAP_CLASS} inline-flex h-12 w-12 items-center justify-center rounded-full shadow-sm transition-all duration-300 ease-out ${visual.wrap} ${visual.wrapHover}`}
               aria-hidden="true"
             >
               {visual.icon}
