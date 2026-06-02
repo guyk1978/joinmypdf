@@ -86,6 +86,7 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
       { href: "/tools/protect-pdf/", label: "Protect PDF" },
       { href: "/tools/unlock-pdf/", label: "Unlock PDF" },
       { href: "/tools/redact-pdf/", label: "Redact PDF" },
+      { href: "/tools/flatten-pdf/", label: "Flatten PDF" },
       { href: "/tools/sign-pdf/", label: "Sign PDF" },
     ],
   },

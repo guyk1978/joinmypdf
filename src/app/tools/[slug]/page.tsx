@@ -26,6 +26,7 @@ import { IworkToPdfWorkspace } from "@/components/IworkToPdfWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
+import { FlattenPdfWorkspace } from "@/components/FlattenPdfWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
@@ -127,6 +128,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <UnlockPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "redact" ? (
           <RedactPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "flatten-pdf" ? (
+          <FlattenPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "delete-pages" ? (
           <DeletePdfPagesWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "merge" ? (

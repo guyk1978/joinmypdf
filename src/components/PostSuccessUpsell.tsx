@@ -198,6 +198,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Compress the redacted file",
       body: "Flattened pages can increase file size—compress if needed for upload limits.",
     });
+  } else if (operation === "flatten-pdf") {
+    rows.push({
+      href: "/tools/protect-pdf/",
+      title: "Password-protect the flattened PDF",
+      body: "Add a password before emailing the non-editable version to clients.",
+    });
+    rows.push({
+      href: "/tools/redact-pdf/",
+      title: "Hide sensitive content first",
+      body: "Black out private text before flattening if the document still contains visible secrets.",
+    });
+    rows.push({
+      href: "/tools/sign-pdf/",
+      title: "Sign after flattening",
+      body: "Apply a signature to the finalized, non-editable PDF before distribution.",
+    });
   } else if (operation === "png-to-pdf") {
     rows.push({
       href: "/tools/pdf-compress/",

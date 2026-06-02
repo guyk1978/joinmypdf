@@ -18,6 +18,7 @@ const verb: Record<string, string> = {
   protect: "password-protect a PDF",
   unlock: "remove a PDF password",
   redact: "redact sensitive PDF content",
+  "flatten-pdf": "flatten a PDF and remove editable layers",
   sign: "sign a PDF with your signature",
   "jpg-to-pdf": "turn images into a PDF",
   "png-to-pdf": "convert PNG images into a PDF",

@@ -153,6 +153,24 @@ export function getToolErrorRecovery(
       { ...TOOLS.protect, hint: "Lock the signed file after export", variant: "primary" },
       { ...TOOLS.merge, variant: "secondary" },
     ],
+    "flatten-pdf": [
+      { ...TOOLS.protect, hint: "Password-protect the flattened PDF", variant: "primary" },
+      {
+        href: "/tools/redact-pdf/",
+        label: "Redact PDF",
+        hint: "Black out secrets before flattening",
+        variant: "secondary",
+      },
+    ],
+    redact: [
+      { ...TOOLS.protect, hint: "Lock the redacted file before sharing", variant: "primary" },
+      {
+        href: "/tools/flatten-pdf/",
+        label: "Flatten PDF",
+        hint: "Remove remaining editable layers",
+        variant: "secondary",
+      },
+    ],
   };
 
   if (kind === "encrypted") {

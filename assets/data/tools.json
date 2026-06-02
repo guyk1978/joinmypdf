@@ -1563,6 +1563,55 @@
       "updatedAt": "2026-05-24"
     },
     {
+      "slug": "flatten-pdf",
+      "category": "security",
+      "operation": "flatten-pdf",
+      "title": "Flatten PDF",
+      "primaryKeyword": "flatten pdf online remove forms annotations",
+      "intent": "Remove interactive layers and flatten every page locally in your browser.",
+      "description": "Flatten PDF forms, comments, and annotations into a non-editable visual layer. Processing runs entirely in your browser—no upload to our servers.",
+      "secondaryKeywords": [
+        "flatten pdf forms",
+        "remove pdf annotations",
+        "make pdf non editable"
+      ],
+      "useCases": [
+        "Lock contract forms before sending to clients",
+        "Remove comment layers from reviewed drafts",
+        "Share finalized PDFs that cannot be edited in Acrobat"
+      ],
+      "relatedTools": [
+        "protect-pdf",
+        "redact-pdf",
+        "sign-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Flattening runs fully in your browser. Your file never leaves your device."
+        },
+        {
+          "q": "What does flattening remove?",
+          "a": "Interactive form fields, annotations, comments, and other editable layers are burned into rasterized pages so they cannot be changed afterward."
+        },
+        {
+          "q": "Can I still copy text after flattening?",
+          "a": "Text selection may be limited because pages are rendered as images. Use PDF to Text first if you need editable copy."
+        },
+        {
+          "q": "Does this work on password-protected PDFs?",
+          "a": "Yes. Enter the document password when prompted, then flatten locally."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "sign-pdf",
       "category": "security",
       "operation": "sign",
