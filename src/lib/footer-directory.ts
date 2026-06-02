@@ -69,6 +69,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("rotate-pdf"),
       toolLink("delete-pdf-pages"),
       toolLink("crop-pdf"),
+      toolLink("custom-paper-margin"),
       toolLink("add-page-numbers"),
       toolLink("add-watermark"),
       studioLink("timeline-gantt-generator", "/tools/timeline-gantt-generator/", "Timeline & Gantt"),

@@ -209,6 +209,21 @@ export function getToolErrorRecovery(
         variant: "secondary",
       },
     ],
+    "custom-paper-margin": [
+      {
+        href: "/tools/pdf-to-booklet/",
+        label: "PDF to Booklet",
+        hint: "Impose the sized PDF for folded printing",
+        variant: "primary",
+      },
+      {
+        href: "/tools/rotate-pdf/",
+        label: "Rotate PDF",
+        hint: "Fix landscape pages before sizing",
+        variant: "secondary",
+      },
+      { ...TOOLS.merge, hint: "Combine sections first", variant: "secondary" },
+    ],
     "safe-to-share-auditor": [
       {
         href: "/tools/redact-pdf/",

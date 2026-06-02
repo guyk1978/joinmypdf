@@ -246,6 +246,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Flatten forms and comments",
       body: "Remove editable layers after metadata is stripped for a fully locked-down file.",
     });
+  } else if (operation === "custom-paper-margin") {
+    rows.push({
+      href: "/tools/pdf-to-booklet/",
+      title: "Print as a booklet",
+      body: "After margins look right, impose pages for duplex fold-and-staple printing.",
+    });
+    rows.push({
+      href: "/tools/rotate-pdf/",
+      title: "Rotate pages",
+      body: "Fix sideways scans before you apply paper size again.",
+    });
+    rows.push({
+      href: "/tools/pdf-merge/",
+      title: "Merge PDFs",
+      body: "Combine chapters into one file, then size and margin the full document.",
+    });
   } else if (operation === "safe-to-share-auditor") {
     rows.push({
       href: "/tools/redact-pdf/",

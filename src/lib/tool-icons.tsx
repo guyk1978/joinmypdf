@@ -43,6 +43,16 @@ function SplitIcon() {
   );
 }
 
+function PaperMarginIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
+      <rect x="4" y="3" width="16" height="18" rx="1.5" fill="#E2E8F0" stroke="#64748B" strokeWidth="1" />
+      <rect x="7" y="6" width="10" height="12" rx="1" fill="#FFFFFF" stroke="#3B82F6" strokeWidth="1.2" strokeDasharray="3 2" />
+      <path d="M8 9h8M8 12h6M8 15h4" stroke="#94A3B8" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function AuditorIcon() {
   return (
     <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
@@ -425,6 +435,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("pdf-to-png"), key: "pdf-to-png" },
   { test: (s) => s.includes("pdf-to-jpg"), key: "pdf-to-jpg" },
   { test: (s) => s.includes("pdf-compress"), key: "pdf-compress" },
+  { test: (s) => s.includes("custom-paper-margin"), key: "custom-paper-margin" },
   { test: (s) => s.includes("safe-to-share-auditor"), key: "safe-to-share-auditor" },
   { test: (s) => s.includes("pdf-to-booklet"), key: "pdf-to-booklet" },
   { test: (s) => s.includes("compare-pdf"), key: "compare-pdf" },
@@ -586,6 +597,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <SignIcon />,
     wrap: "bg-indigo-100 ring-1 ring-indigo-200",
     wrapHover: "group-hover:bg-indigo-200 group-hover:ring-indigo-300",
+  },
+  "custom-paper-margin": {
+    icon: <PaperMarginIcon />,
+    wrap: "bg-slate-100 ring-1 ring-slate-200",
+    wrapHover: "group-hover:bg-slate-200 group-hover:ring-slate-300",
   },
   "crop-pdf": {
     icon: <CropIcon />,

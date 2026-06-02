@@ -28,6 +28,7 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
       { href: "/tools/delete-pdf-pages/", label: "Delete PDF Pages" },
       { href: "/tools/add-page-numbers/", label: "Add Page Numbers" },
       { href: "/tools/crop-pdf/", label: "Crop PDF" },
+      { href: "/tools/custom-paper-margin/", label: "Paper & Margins" },
       { href: "/tools/add-watermark/", label: "Add Watermark" },
       { href: "/tools/rotate-pdf/", label: "Rotate PDF" },
       { href: "/tools/invoice-generator/", label: "Invoice Generator" },

@@ -1808,6 +1808,56 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "custom-paper-margin",
+      "category": "edit",
+      "operation": "custom-paper-margin",
+      "title": "Custom Paper Size & Margin Cutter",
+      "primaryKeyword": "custom paper size pdf margins online",
+      "intent": "Set target paper (A5, B5, custom mm/in), adjust margins with a live preview, and fit or crop every page locally.",
+      "description": "Resize PDF pages to A5, B5, A4, Letter, or custom dimensions with precise margins. Drag margin guides, preview page 1, and download—100% in your browser with pdf-lib.",
+      "secondaryKeywords": [
+        "pdf margin cutter",
+        "resize pdf to a5",
+        "pdf print margins"
+      ],
+      "useCases": [
+        "Fit wide slides onto A5 handouts for binders",
+        "Add safe margins before home printing on Letter paper",
+        "Standardize mixed PDFs to one notebook size"
+      ],
+      "relatedTools": [
+        "pdf-to-booklet",
+        "rotate-pdf",
+        "pdf-merge",
+        "crop-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Are files uploaded to JoinMyPDF?",
+          "a": "No. Cropping, scaling, and page resizing run locally in your browser."
+        },
+        {
+          "q": "Does this replace Crop PDF?",
+          "a": "This tool combines paper sizing, margins, and scaling. Use Crop PDF for freehand frame editing on one crop region."
+        },
+        {
+          "q": "How is content placed on the new page?",
+          "a": "Each page is scaled to fit inside the margin box (preserving aspect ratio) and centered on the target paper."
+        },
+        {
+          "q": "Can I print a booklet after resizing?",
+          "a": "Yes. Download the sized PDF, then open PDF to Booklet for imposition."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "safe-to-share-auditor",
       "category": "security",
       "operation": "safe-to-share-auditor",

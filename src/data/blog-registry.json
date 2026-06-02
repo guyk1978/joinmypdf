@@ -4532,6 +4532,232 @@
           { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" }
         ]
       }
+    },
+    {
+      "slug": "fit-pdf-home-printer-no-cut-margins",
+      "title": "How to fit a PDF to your home printer without cut-off margins",
+      "keyword": "fit pdf home printer margins",
+      "category": "PDF Workflows",
+      "cluster": "custom-paper-margin-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.91,
+      "relatedTools": ["custom-paper-margin", "crop-pdf", "rotate-pdf", "pdf-compress"],
+      "relatedBlogs": [
+        "custom-paper-sizes-a5-b5-notebooks",
+        "browser-margin-cutter-fastest-print-prep"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for home printing · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Fit PDF to Home Printer — Avoid Cut-Off Margins",
+        "metaDescription": "Resize PDFs to your paper with safe margins and a live preview—locally in the browser before you print."
+      },
+      "description": "Stop clipped headers and footers: size your PDF to the paper in the tray and add predictable margins.",
+      "contentBlocks": {
+        "intro": "Printers need non-printable zones. When your PDF page is wider than the sheet or bleeds to the edge, the driver scales unpredictably. Setting paper size and margins first puts you in control.",
+        "primaryTool": "custom-paper-margin",
+        "sections": [
+          {
+            "id": "steps",
+            "heading": "Quick home-print checklist",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Pick the paper in your tray (Letter, A4, A5) in Custom Paper Size & Margin Cutter.",
+              "Set 10–15 mm margins—or drag the handles in the live preview.",
+              "Download and print at 100% scale (no fit-to-page in the driver).",
+              "If content is still crooked, fix rotation with Rotate PDF first."
+            ]
+          },
+          {
+            "id": "crop",
+            "heading": "When to crop first",
+            "level": 2,
+            "paragraphs": [
+              "Slides exported with huge white borders waste margin space. Trim source edges in the tool or use Crop PDF, then apply paper sizing."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Should I use Fit to Page in the print dialog?",
+            "a": "After this tool sizes the PDF, print at actual size / 100% for predictable results."
+          },
+          {
+            "q": "Are files uploaded?",
+            "a": "No. Processing is local in your browser."
+          },
+          {
+            "q": "Does this shrink text?",
+            "a": "Content scales to fit inside your margin box—smaller margins mean larger text on the sheet."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/custom-paper-margin/", "anchor": "Custom Paper Size & Margin Cutter" },
+          { "href": "/tools/crop-pdf/", "anchor": "Crop PDF" },
+          { "href": "/tools/rotate-pdf/", "anchor": "Rotate PDF" },
+          { "href": "/tools/pdf-compress/", "anchor": "Compress PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "custom-paper-sizes-a5-b5-notebooks",
+      "title": "Guide: creating documents in custom sizes (A5, B5, and notebooks)",
+      "keyword": "pdf a5 b5 custom paper size",
+      "category": "PDF Workflows",
+      "cluster": "custom-paper-margin-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": ["custom-paper-margin", "pdf-to-booklet", "pdf-merge", "crop-pdf"],
+      "relatedBlogs": [
+        "fit-pdf-home-printer-no-cut-margins",
+        "browser-margin-cutter-fastest-print-prep"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for custom print formats · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "PDF A5, B5 & Custom Notebook Sizes (Browser Guide)",
+        "metaDescription": "Resize any PDF to A5, B5, or custom mm/in dimensions with margins—ready for binders and planners."
+      },
+      "description": "How to reflow existing PDFs into planner-friendly and booklet-friendly paper sizes without desktop layout apps.",
+      "contentBlocks": {
+        "intro": "A4 slides feel wrong in an A5 binder. B5 sits between A4 and A5 for journals. Browser resizing lets you standardize mixed sources to one notebook size.",
+        "primaryTool": "custom-paper-margin",
+        "sections": [
+          {
+            "id": "sizes",
+            "heading": "Common sizes at a glance",
+            "level": 2,
+            "table": {
+              "headers": ["Preset", "Typical use"],
+              "rows": [
+                ["A5", "Planners, half-letter handouts"],
+                ["B5", "Journal inserts, medium notebooks"],
+                ["A4 / Letter", "Office print defaults"],
+                ["Custom mm/in", "Discbound or branded stationery"]
+              ]
+            }
+          },
+          {
+            "id": "booklet",
+            "heading": "Next step: booklets",
+            "level": 2,
+            "paragraphs": [
+              "After pages are A5 with margins, run PDF to Booklet to impose spreads for duplex folding."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Will every page become the same size?",
+            "a": "Yes. Each output page uses your selected target dimensions."
+          },
+          {
+            "q": "Can I merge then resize?",
+            "a": "Merge PDF first, then apply paper and margins once on the combined file."
+          },
+          {
+            "q": "What about custom punch margins?",
+            "a": "Increase the left or right margin in mm to leave hole-punch gutter space."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/custom-paper-margin/", "anchor": "Custom Paper Size & Margin Cutter" },
+          { "href": "/tools/pdf-to-booklet/", "anchor": "PDF to Booklet" },
+          { "href": "/tools/pdf-merge/", "anchor": "Merge PDF" },
+          { "href": "/tools/crop-pdf/", "anchor": "Crop PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "browser-margin-cutter-fastest-print-prep",
+      "title": "Why browser margin and crop tools are the fastest print prep solution",
+      "keyword": "browser pdf margin crop tool",
+      "category": "PDF Workflows",
+      "cluster": "custom-paper-margin-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.92,
+      "relatedTools": ["custom-paper-margin", "crop-pdf", "rotate-pdf", "pdf-to-booklet"],
+      "relatedBlogs": [
+        "fit-pdf-home-printer-no-cut-margins",
+        "custom-paper-sizes-a5-b5-notebooks"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for fast print workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Fastest PDF Margin & Crop Prep in the Browser",
+        "metaDescription": "Skip heavy DTP apps—resize paper, set margins, and preview locally before you print or share."
+      },
+      "description": "Desktop publishing tools are overkill for one-off margin fixes. Local browser tools ship the file-ready PDF in minutes.",
+      "contentBlocks": {
+        "intro": "Print prep is often three moves: trim bleed, set paper, add margins. Doing that locally avoids upload queues and keeps drafts on your machine.",
+        "primaryTool": "custom-paper-margin",
+        "sections": [
+          {
+            "id": "speed",
+            "heading": "What makes browser prep fast",
+            "level": 2,
+            "list": [
+              "No install or license—open the tool and drop a PDF.",
+              "Live preview shows paper frame and margin box on page 1.",
+              "One apply pass updates every page with pdf-lib.",
+              "Chain Rotate, Merge, or Booklet tools in the same session."
+            ]
+          },
+          {
+            "id": "privacy",
+            "heading": "Privacy as a bonus",
+            "level": 2,
+            "paragraphs": [
+              "HR, student, and client PDFs stay in the browser tab. That matters when margins are the last step before sharing externally."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "How is this different from Crop PDF?",
+            "a": "Crop PDF trims content. Paper & Margins also changes output page dimensions and scales content into a margin-safe area."
+          },
+          {
+            "q": "Does it work offline?",
+            "a": "After the page loads, processing runs locally without uploading your file."
+          },
+          {
+            "q": "Can teams standardize on A5?",
+            "a": "Yes—pick A5, set team margins, and apply to every uploaded report."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/custom-paper-margin/", "anchor": "Custom Paper Size & Margin Cutter" },
+          { "href": "/tools/crop-pdf/", "anchor": "Crop PDF" },
+          { "href": "/tools/rotate-pdf/", "anchor": "Rotate PDF" },
+          { "href": "/tools/pdf-to-booklet/", "anchor": "PDF to Booklet" }
+        ]
+      }
     }
   ]
 }

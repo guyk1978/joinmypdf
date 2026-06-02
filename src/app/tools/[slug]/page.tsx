@@ -33,6 +33,7 @@ import { BatchRenamePdfWorkspace } from "@/components/BatchRenamePdfWorkspace";
 import { ComparePdfWorkspace } from "@/components/ComparePdfWorkspace";
 import { BookletPdfWorkspace } from "@/components/BookletPdfWorkspace";
 import { SafeShareAuditorWorkspace } from "@/components/SafeShareAuditorWorkspace";
+import { CustomPaperMarginWorkspace } from "@/components/CustomPaperMarginWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
@@ -176,6 +177,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <HeicToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-pdf" ? (
           <CropPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "custom-paper-margin" ? (
+          <CustomPaperMarginWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-watermark" ? (
           <AddWatermarkWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "rotate-pdf" ? (

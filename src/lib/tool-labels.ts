@@ -8,6 +8,7 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "compare-pdf": "Compare PDF",
     "pdf-to-booklet": "PDF to Booklet",
     "safe-to-share-auditor": "Safe-to-Share Auditor",
+    "custom-paper-margin": "Paper & Margins",
     "add-page-numbers": "Add Page Numbers",
     "sign-pdf": "Sign PDF",
     "protect-pdf": "Protect PDF",
