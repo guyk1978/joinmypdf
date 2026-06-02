@@ -4309,6 +4309,229 @@
           { "href": "/tools/pdf-merge/", "anchor": "Merge PDF" }
         ]
       }
+    },
+    {
+      "slug": "check-hidden-sensitive-pdf-before-sending",
+      "title": "Before you send: how to make sure no sensitive info is hidden in your PDF",
+      "keyword": "check pdf for hidden sensitive information",
+      "category": "Privacy & Security",
+      "cluster": "safe-to-share-auditor-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.92,
+      "relatedTools": ["safe-to-share-auditor", "redact-pdf", "remove-hidden-metadata", "flatten-pdf"],
+      "relatedBlogs": [
+        "find-and-remove-sensitive-digital-document-components",
+        "safe-to-share-technology-prevent-document-leaks"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for pre-send PDF hygiene · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Check PDFs for Hidden Sensitive Info Before Sending",
+        "metaDescription": "Audit PDFs for hidden comments, signatures, and confidential text—locally in your browser before you hit send."
+      },
+      "description": "A practical pre-send checklist to catch confidential text, sticky notes, and signature fields you cannot see in Print view.",
+      "contentBlocks": {
+        "intro": "Print Preview looks clean while hidden comments, reply notes, and metadata still travel with the file. A quick local audit catches what your eyes skip.",
+        "primaryTool": "safe-to-share-auditor",
+        "sections": [
+          {
+            "id": "hidden",
+            "heading": "What hides inside a normal-looking PDF",
+            "level": 2,
+            "paragraphs": [
+              "Annotations can sit off-screen or on hidden layers. Signature widgets store placement even when the ink looks small.",
+              "Safe-to-Share Auditor maps regex hits for IDs, cards, and confidential keywords (English and Hebrew) plus annotation boxes on every page."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "Pre-send workflow",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Upload the PDF and run the audit in your browser.",
+              "Review the visual map—red boxes are high-risk findings.",
+              "Click Redact / remove all flagged or open Redact PDF for manual touch-ups.",
+              "Run Remove Metadata and Flatten PDF before external email."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Are files uploaded?",
+            "a": "No. The audit and optional redaction run locally."
+          },
+          {
+            "q": "Does this replace legal review?",
+            "a": "No. It accelerates obvious pattern and annotation checks."
+          },
+          {
+            "q": "What about scanned PDFs?",
+            "a": "Use Redact PDF to draw boxes on image-only pages; the auditor needs selectable text for regex."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/safe-to-share-auditor/", "anchor": "Safe-to-Share Auditor" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Metadata" },
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "find-and-remove-sensitive-digital-document-components",
+      "title": "The complete guide to finding and removing sensitive components in digital documents",
+      "keyword": "remove sensitive components pdf",
+      "category": "Privacy & Security",
+      "cluster": "safe-to-share-auditor-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.91,
+      "relatedTools": ["safe-to-share-auditor", "redact-pdf", "remove-hidden-metadata", "protect-pdf"],
+      "relatedBlogs": [
+        "check-hidden-sensitive-pdf-before-sending",
+        "safe-to-share-technology-prevent-document-leaks"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for document sanitization · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Find & Remove Sensitive PDF Components (Full Guide)",
+        "metaDescription": "Learn how to locate annotations, signatures, PII patterns, and metadata—and remove them with browser tools."
+      },
+      "description": "From regex-visible PII to invisible comments—how to systematically sanitize PDFs before they leave your machine.",
+      "contentBlocks": {
+        "intro": "Sensitive data lives in three places: visible text, interactive layers (comments, forms, signatures), and document properties. A complete cleanup addresses all three.",
+        "primaryTool": "safe-to-share-auditor",
+        "sections": [
+          {
+            "id": "layers",
+            "heading": "Three layers to inspect",
+            "level": 2,
+            "list": [
+              "Text & numbers: emails, phones, IDs, cards, confidential labels.",
+              "Annotations: highlights, sticky notes, pop-up comments, ink markup.",
+              "Metadata: author, software, custom XMP fields."
+            ]
+          },
+          {
+            "id": "tools",
+            "heading": "Matching JoinMyPDF tools to each layer",
+            "level": 2,
+            "paragraphs": [
+              "Start with Safe-to-Share Auditor for automated detection and one-click redaction of flagged regions.",
+              "Follow with Remove Hidden Metadata and Protect PDF if the file will travel outside your organization."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Is redaction reversible?",
+            "a": "Proper redaction burns out pixels. Saving a new copy prevents recovering underlying text on those areas."
+          },
+          {
+            "q": "Can I audit only some pages?",
+            "a": "The auditor scans the whole document; use the page map to focus review, then redact all or switch to manual Redact PDF."
+          },
+          {
+            "q": "Does flattening remove text?",
+            "a": "Flatten removes interactive layers; pair it with redaction first when content itself is sensitive."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/safe-to-share-auditor/", "anchor": "Safe-to-Share Auditor" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Metadata" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "safe-to-share-technology-prevent-document-leaks",
+      "title": "Safe-to-Share: the technology behind preventing leaks in documents",
+      "keyword": "safe to share pdf technology",
+      "category": "Privacy & Security",
+      "cluster": "safe-to-share-auditor-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.93,
+      "relatedTools": ["safe-to-share-auditor", "flatten-pdf", "remove-hidden-metadata", "redact-pdf"],
+      "relatedBlogs": [
+        "check-hidden-sensitive-pdf-before-sending",
+        "find-and-remove-sensitive-digital-document-components"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "Reviewed for privacy-first architecture · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Safe-to-Share PDF Technology — Prevent Document Leaks",
+        "metaDescription": "How client-side pdf.js scanning and local redaction reduce data-exfiltration risk before you share PDFs."
+      },
+      "description": "Why browser-local PDF auditing fits modern privacy requirements—and how it pairs with metadata cleaning.",
+      "contentBlocks": {
+        "intro": "Upload-and-scan vendors add another copy of your contract to their cloud. Safe-to-Share keeps bytes on the device while still surfacing annotations and text coordinates.",
+        "primaryTool": "safe-to-share-auditor",
+        "sections": [
+          {
+            "id": "stack",
+            "heading": "How the auditor works in your browser",
+            "level": 2,
+            "paragraphs": [
+              "pdf.js walks each page’s text items and annotation list. Regex engines flag known-sensitive patterns with bounding boxes mapped to the visual preview.",
+              "Optional redaction reuses the same flattening pipeline as Redact PDF—black boxes rasterized into the page so underlying text cannot be copied."
+            ]
+          },
+          {
+            "id": "limits",
+            "heading": "Honest limits",
+            "level": 2,
+            "paragraphs": [
+              "Image-only scans need OCR elsewhere before automated text rules apply. Human review still matters for context—automation highlights candidates, not legal conclusions.",
+              "Combine automated audit with metadata stripping and flattening for defense in depth."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does JoinMyPDF store audited files?",
+            "a": "Standard processing does not upload PDFs for this tool."
+          },
+          {
+            "q": "Why client-side vs server-side?",
+            "a": "Fewer transfers, simpler compliance story, and faster iteration on sensitive drafts."
+          },
+          {
+            "q": "What comes after Safe-to-Share?",
+            "a": "Remove Metadata, Flatten PDF, and optionally Protect PDF for outbound sharing."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/safe-to-share-auditor/", "anchor": "Safe-to-Share Auditor" },
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" },
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Metadata" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" }
+        ]
+      }
     }
   ]
 }

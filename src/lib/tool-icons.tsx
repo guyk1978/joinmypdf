@@ -43,6 +43,17 @@ function SplitIcon() {
   );
 }
 
+function AuditorIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
+      <path d="M12 3 4 7v5c0 5.25 3.5 9.74 8 11 4.5-1.26 8-5.75 8-11V7l-8-4Z" fill="#10B981" />
+      <path d="M9 12l2 2 4-4" stroke="#ECFDF5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" fill="#F59E0B" opacity="0.9" />
+      <path d="M15.5 17.5h4M17.5 15.5v4" stroke="#FFFBEB" strokeWidth="1.3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function BookletIcon() {
   return (
     <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
@@ -414,6 +425,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("pdf-to-png"), key: "pdf-to-png" },
   { test: (s) => s.includes("pdf-to-jpg"), key: "pdf-to-jpg" },
   { test: (s) => s.includes("pdf-compress"), key: "pdf-compress" },
+  { test: (s) => s.includes("safe-to-share-auditor"), key: "safe-to-share-auditor" },
   { test: (s) => s.includes("pdf-to-booklet"), key: "pdf-to-booklet" },
   { test: (s) => s.includes("compare-pdf"), key: "compare-pdf" },
   { test: (s) => s.includes("batch-rename-pdf"), key: "batch-rename-pdf" },
@@ -559,6 +571,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <RedactIcon />,
     wrap: "bg-violet-100 ring-1 ring-violet-200",
     wrapHover: "group-hover:bg-violet-200 group-hover:ring-violet-300",
+  },
+  "safe-to-share-auditor": {
+    icon: <AuditorIcon />,
+    wrap: "bg-emerald-100 ring-1 ring-emerald-200",
+    wrapHover: "group-hover:bg-emerald-200 group-hover:ring-emerald-300",
   },
   "redact-pdf": {
     icon: <RedactIcon />,

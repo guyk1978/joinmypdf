@@ -32,6 +32,7 @@ import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWo
 import { BatchRenamePdfWorkspace } from "@/components/BatchRenamePdfWorkspace";
 import { ComparePdfWorkspace } from "@/components/ComparePdfWorkspace";
 import { BookletPdfWorkspace } from "@/components/BookletPdfWorkspace";
+import { SafeShareAuditorWorkspace } from "@/components/SafeShareAuditorWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
@@ -135,6 +136,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <PdfPasswordRecoveryWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "redact" ? (
           <RedactPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "safe-to-share-auditor" ? (
+          <SafeShareAuditorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "flatten-pdf" ? (
           <FlattenPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "remove-hidden-metadata" ? (

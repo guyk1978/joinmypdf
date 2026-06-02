@@ -246,6 +246,22 @@ export function PostSuccessUpsell({ operation }: Props) {
       title: "Flatten forms and comments",
       body: "Remove editable layers after metadata is stripped for a fully locked-down file.",
     });
+  } else if (operation === "safe-to-share-auditor") {
+    rows.push({
+      href: "/tools/redact-pdf/",
+      title: "Fine-tune with Redact PDF",
+      body: "Draw extra boxes on scans or odd layouts the automated audit missed.",
+    });
+    rows.push({
+      href: "/tools/remove-hidden-metadata/",
+      title: "Remove hidden metadata",
+      body: "Strip author, software, and XMP fields after sensitive content is gone.",
+    });
+    rows.push({
+      href: "/tools/flatten-pdf/",
+      title: "Flatten the final PDF",
+      body: "Lock down comments and form fields before you attach the file to email.",
+    });
   } else if (operation === "pdf-to-booklet") {
     rows.push({
       href: "/tools/crop-pdf/",

@@ -209,6 +209,26 @@ export function getToolErrorRecovery(
         variant: "secondary",
       },
     ],
+    "safe-to-share-auditor": [
+      {
+        href: "/tools/redact-pdf/",
+        label: "Redact PDF",
+        hint: "Draw precise manual boxes the auditor missed",
+        variant: "primary",
+      },
+      {
+        href: "/tools/remove-hidden-metadata/",
+        label: "Remove Metadata",
+        hint: "Strip author and XMP trails after redaction",
+        variant: "secondary",
+      },
+      {
+        href: "/tools/flatten-pdf/",
+        label: "Flatten PDF",
+        hint: "Remove remaining comments and form layers",
+        variant: "secondary",
+      },
+    ],
     redact: [
       { ...TOOLS.protect, hint: "Lock the redacted file before sharing", variant: "primary" },
       {

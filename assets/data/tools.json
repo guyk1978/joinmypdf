@@ -1808,6 +1808,55 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "safe-to-share-auditor",
+      "category": "security",
+      "operation": "safe-to-share-auditor",
+      "title": "Safe-to-Share Auditor",
+      "primaryKeyword": "pdf sensitive information scanner online",
+      "intent": "Scan PDFs for confidential text, hidden comments, and signatures—see a visual map, then redact all flagged areas locally.",
+      "description": "Audit a PDF before you share it. Regex scans for IDs, cards, and confidential markers; detects annotations and signatures; highlights locations on a page map. One-click redact—all in your browser.",
+      "secondaryKeywords": [
+        "pdf privacy audit",
+        "find hidden comments pdf",
+        "sanitize pdf before sharing"
+      ],
+      "useCases": [
+        "Pre-flight HR or legal PDFs before external email",
+        "Find hidden comments and signature fields in exported contracts",
+        "Bulk-blackout obvious PII patterns before portal upload"
+      ],
+      "relatedTools": [
+        "redact-pdf",
+        "remove-hidden-metadata",
+        "flatten-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Scanning and redaction run entirely in your browser with pdf.js and pdf-lib."
+        },
+        {
+          "q": "What does the auditor detect?",
+          "a": "Pattern matches (emails, phones, ID/credit patterns, confidential keywords in English and Hebrew), PDF annotations, hidden comments, and signature/ink fields."
+        },
+        {
+          "q": "Does Redact All permanently remove content?",
+          "a": "Yes. Flagged areas are burned out with black boxes on affected pages, similar to our Redact PDF tool."
+        },
+        {
+          "q": "Can it read scanned image-only PDFs?",
+          "a": "No OCR is included. Text must be selectable or annotations present. Use Redact PDF for manual boxes on scans."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.9,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "remove-hidden-metadata",
       "category": "security",
       "operation": "remove-hidden-metadata",

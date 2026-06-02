@@ -7,6 +7,7 @@ const verb: Record<string, string> = {
   "batch-rename-pdf": "batch rename PDF files",
   "compare-pdf": "compare two PDFs side by side",
   "pdf-to-booklet": "impose a PDF as a print-ready booklet",
+  "safe-to-share-auditor": "audit a PDF for sensitive content before sharing",
   "delete-pages": "delete pages from a PDF",
   "add-page-numbers": "add page numbers to a PDF",
   "crop-pdf": "crop a PDF in your browser",
