@@ -3644,6 +3644,506 @@
           }
         ]
       }
+    },
+    {
+      "slug": "digital-document-anonymity-guide",
+      "title": "מדריך לאנונימיות מלאה בשיתוף מסמכים דיגיטליים",
+      "keyword": "anonymous document sharing pdf",
+      "category": "PDF Privacy",
+      "cluster": "remove-hidden-metadata-content",
+      "intent": "commercial-investigation",
+      "intentType": "commercial-investigation",
+      "publishDate": "2026-06-02",
+      "readTime": "5 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": [
+        "remove-hidden-metadata",
+        "redact-pdf",
+        "protect-pdf",
+        "flatten-pdf"
+      ],
+      "relatedBlogs": [
+        "pdf-metadata-privacy-risks",
+        "clean-pdf-metadata-locally",
+        "flatten-pdf-before-sharing"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור רשימות בדיקה לשיתוף ממוקד פרטיות · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "שיתוף מסמכים אנונימי: רשימת בדיקה לפרטיות PDF",
+        "metaDescription": "שלבו הסרת מטא-דאטה, הסתרה, שיטוח והגנה בסיסמה לשיתוף PDF אנונימי ובטוח יותר."
+      },
+      "description": "רשימת בדיקה מדורגת לשיתוף PDF עם פחות עקבות מזהות — מטא-דאטה, תוכן, אינטראקטיביות ובקרת גישה.",
+      "contentBlocks": {
+        "intro": "אנונימיות אמיתית בשיתוף מסמכים היא מערך של בקרות, לא כפתור אחד. ניקוי מטא-דאטה הוא השכבה הראשונה; הסתרת תוכן, שיטוח והצפנה מטפלים במה שכלי מטא-דאטה לא רואים.",
+        "primaryTool": "remove-hidden-metadata",
+        "sections": [
+          {
+            "id": "layer-1",
+            "heading": "שכבה 1: הסרת מאפיינים נסתרים",
+            "level": 2,
+            "paragraphs": [
+              "התחילו עם Remove Hidden Metadata כדי לנקות שדות מחבר, תוכנה, תאריך וחבילות XMP לפני שהקובץ עוזב את המכונה שלכם.",
+              "אמתו בתכונות המסמך של תוכנת הצפייה שערכים רגישים נעלמו."
+            ]
+          },
+          {
+            "id": "layer-2",
+            "heading": "שכבה 2: ניקוי תוכן גלוי",
+            "level": 2,
+            "paragraphs": [
+              "השתמשו ב-Redact PDF כדי לסמן בשחור שמות, מספרי חשבון וחתימות שעדיין מופיעים בעמוד.",
+              "השתמשו ב-Flatten PDF לאחר מכן אם טפסים, הערות או הערות שוליים לא אמורים להישאר ניתנים לעריכה."
+            ]
+          },
+          {
+            "id": "layer-3",
+            "heading": "שכבה 3: בקרת גישה",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "הסירו מטא-דאטה באופן מקומי.",
+              "הסתירו טקסט רגיש גלוי.",
+              "שטחו שכבות אינטראקטיביות במידת הצורך.",
+              "הגנו על ה-PDF בסיסמה חזקה לנמענים חיצוניים."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם הסרת מטא-דאטה מספיקה לתהליכי חשיפת מידע?",
+            "a": "זהו צעד אחד. עקבו אחר ההנחיות המשפטיות והתפעוליות של הארגון שלכם לשיתוף בסיכון גבוה."
+          },
+          {
+            "q": "האם לשטח לפני או אחרי ניקוי מטא-דאטה?",
+            "a": "נקו מטא-דאטה קודם כדי שייצואים משוטחים לא יישאו מאפיינים ישנים קדימה."
+          },
+          {
+            "q": "האם JoinMyPDF שומר קבצים מנוקים?",
+            "a": "לא. הכלים האלה רצים בדפדפן שלכם בלי להעלות את ה-PDF לעיבוד."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/remove-hidden-metadata/",
+            "anchor": "Remove Hidden Metadata"
+          },
+          {
+            "href": "/tools/redact-pdf/",
+            "anchor": "Redact PDF"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          },
+          {
+            "href": "/tools/flatten-pdf/",
+            "anchor": "Flatten PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "recover-pdf-password-locally",
+      "title": "שכחתם סיסמת PDF? איך לשחזר אותה בבטחה בלי הענן",
+      "keyword": "recover pdf password without uploading",
+      "category": "PDF Privacy",
+      "cluster": "pdf-password-recovery-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": [
+        "pdf-password-recovery",
+        "unlock-pdf",
+        "protect-pdf"
+      ],
+      "relatedBlogs": [
+        "strong-pdf-password-guide",
+        "dangers-online-password-recovery",
+        "pdf-local-processing-benefits"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור תהליכי שחזור מקומיים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "שחזור סיסמת PDF שנשכחה באופן מקומי (ללא העלאה לענן)",
+        "metaDescription": "למדו איך לנסות סיסמות PDF קצרות בדפדפן שלכם עם Web Worker — בלי להעלות קבצים לפורצי ענן."
+      },
+      "description": "מדריך מעשי לשחזור סיסמות PDF פשוטות שנשכחו במכשיר שלכם, במקום שירותי העלאה לענן.",
+      "contentBlocks": {
+        "intro": "שכחת סיסמת PDF נפוצה בארכיונים אישיים ובדוחות ישנים. פורצי ענן מבטיחים תוצאות מיידיות אבל דורשים העלאת הקובץ המלא. תהליך עבודה מקומי בדפדפן שומר על המסמך במכונה שלכם בזמן שאתם בודקים סיסמות קצרות סבירות.",
+        "primaryTool": "pdf-password-recovery",
+        "sections": [
+          {
+            "id": "when-local-works",
+            "heading": "מתי שחזור מקומי ריאלי",
+            "level": 2,
+            "paragraphs": [
+              "כוח גס בדפדפן מעשי ל-PINים מספריים קצרים ומילים פשוטות — לא לסיסמאות ארוכות. הגדירו קבוצת תווים צרה ואורך מקסימלי כדי לשמור על זמן חיפוש סביר.",
+              "אם כבר זוכרים את הסיסמה, דלגו על השחזור והשתמשו ב-Unlock PDF לפענוח מיידי."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "תהליך עבודה מקומי בטוח",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "העלו את ה-PDF ל-PDF Password Recovery.",
+              "בחרו קבוצות תווים (אותיות, מספרים, סימנים) וטווח אורך.",
+              "התחילו שחזור ועקבו אחר סרגל ההתקדמות בדפדפן.",
+              "חשפו את הסיסמה והורידו עותק לא נעול, ואז הגדירו סיסמה חזקה יותר עם Protect PDF."
+            ]
+          },
+          {
+            "id": "legal",
+            "heading": "השתמשו רק בקבצים שמותר לכם לגשת אליהם",
+            "level": 2,
+            "paragraphs": [
+              "כלי שחזור מיועדים למסמכים שבבעלותכם או שאתם מורשים לפתוח. ניסיון לפרוץ הגנות של צד שלישי ללא הרשאה אינו שימוש מתאים.",
+              "עיבוד מקומי תומך בשיחות ציות: הקובץ לא עוזב את סשן הדפדפן לצורך ניחוש."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם JoinMyPDF שומר את ה-PDF שלי במהלך השחזור?",
+            "a": "לא. הניחוש רץ ב-Web Worker במכשיר שלכם."
+          },
+          {
+            "q": "כמה ארוכות יכולות להיות הסיסמות?",
+            "a": "הכלי מגביל אורך לבטיחות הדפדפן. סיסמאות ארוכות יש לאפס במסמך המקור במקום."
+          },
+          {
+            "q": "מה אם השחזור נכשל?",
+            "a": "נסו להרחיב מעט את קבוצות התווים, או ייצאו מחדש את ה-PDF מהיישום המקורי אם עדיין יש לכם גישה."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/pdf-password-recovery/",
+            "anchor": "PDF Password Recovery"
+          },
+          {
+            "href": "/tools/unlock-pdf/",
+            "anchor": "Unlock PDF"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "strong-pdf-password-guide",
+      "title": "מדריך: מה הופך סיסמת PDF לחזקה באמת",
+      "keyword": "strong pdf password guide",
+      "category": "PDF Privacy",
+      "cluster": "pdf-password-recovery-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.89,
+      "relatedTools": [
+        "protect-pdf",
+        "unlock-pdf",
+        "pdf-password-recovery"
+      ],
+      "relatedBlogs": [
+        "recover-pdf-password-locally",
+        "dangers-online-password-recovery",
+        "hidden-risks-of-free-online-pdf-editors"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור היגיינת סיסמאות · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "מה הופך סיסמת PDF לחזקה? (מדריך מעשי)",
+        "metaDescription": "למדו איך אורך, מגוון תווים וסיסמאות ייחודיות מגנים על PDF מפני כוח גס בדפדפן ופיצוח בענן."
+      },
+      "description": "איך לבחור סיסמאות PDF שעמידות בפני ניחוש ולמה PINים קצרים נכשלים מול כלי שחזור מקומיים.",
+      "contentBlocks": {
+        "intro": "סיסמת PDF חזקה רק כמו הסוד שבחרתם. קודים מספריים קצרים ומילים ממילון נופלים מהר לכוח גס מקומי, בעוד שסיסמאות ארוכות וייחודיות נשארות לא מעשיות לניחוש בדפדפן.",
+        "primaryTool": "protect-pdf",
+        "sections": [
+          {
+            "id": "length-matters",
+            "heading": "אורך מנצח טריקים חכמים",
+            "level": 2,
+            "paragraphs": [
+              "כל תו נוסף מרחיב את מרחב החיפוש באופן אקספוננציאלי. PIN בן ארבע ספרות זעיר; סיסמה אקראית בת 12 תווים היא קטגוריה אחרת.",
+              "כלי שחזור סיסמאות מגבילים אורך בכוונה כי דפדפנים לא יכולים לפרוץ סודות חזקים בזמן סביר."
+            ]
+          },
+          {
+            "id": "what-to-use",
+            "heading": "מה להשתמש אחרי שפותחתם או שחזרתם",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "צרו סיסמה ייחודית (לא ממוחזרת מהדוא\"ל).",
+              "החילו אותה עם Protect PDF באופן מקומי בדפדפן.",
+              "שמרו את הסיסמה במנהל סיסמאות — הימנעו מפתקיות על ה-PDF עצמו.",
+              "שתפו דרך ערוץ מאובטח, לא באותו דוא\"ל כמו הקובץ."
+            ]
+          },
+          {
+            "id": "aes",
+            "heading": "הצפנה עדיין צריכה סוד חזק",
+            "level": 2,
+            "paragraphs": [
+              "JoinMyPDF משתמש בהצפנת AES-256 לפלטים מוגנים, אבל הצפנה לא יכולה לתקן סיסמה חלשה. התייחסו לסיסמת המשתמש כשער האמיתי.",
+              "אם שכחתם סיסמה חלשה, שחזרו מקומית פעם אחת, ואז שדרגו מיד לסיסמה חזקה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם סיסמאות קלות לזכירה בסדר?",
+            "a": "כן, אם הן ארוכות וייחודיות. הימנעו מציטוטים מפורסמים או תאריכים אישיים הקשורים אליכם."
+          },
+          {
+            "q": "האם כדאי למחזר סיסמאות?",
+            "a": "לא. השתמשו בסיסמת PDF ייחודית לכל קובץ רגיש או לקוח."
+          },
+          {
+            "q": "האם Protect PDF מעלה את הקובץ שלי?",
+            "a": "לא. ההצפנה רצה באופן מקומי בדפדפן."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          },
+          {
+            "href": "/tools/unlock-pdf/",
+            "anchor": "Unlock PDF"
+          },
+          {
+            "href": "/tools/pdf-password-recovery/",
+            "anchor": "PDF Password Recovery"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "dangers-online-password-recovery",
+      "title": "הסיכונים בשימוש בכלי שחזור סיסמאות באינטרנט",
+      "keyword": "online pdf password recovery dangers",
+      "category": "PDF Privacy",
+      "cluster": "pdf-password-recovery-content",
+      "intent": "commercial-investigation",
+      "intentType": "commercial-investigation",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": [
+        "pdf-password-recovery",
+        "unlock-pdf",
+        "protect-pdf"
+      ],
+      "relatedBlogs": [
+        "recover-pdf-password-locally",
+        "strong-pdf-password-guide",
+        "hidden-risks-of-free-online-pdf-editors"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור מודעות לסיכוני צד שלישי · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "סיכוני שירותי שחזור סיסמת PDF באינטרנט",
+        "metaDescription": "למה העלאת PDFים נעולים לפורצי ענן מסכנת שמירת נתונים, דליפות והפרות ציות — ומה לעשות במקום."
+      },
+      "description": "למה פורצי סיסמאות PDF מבוססי ענן מסוכנים למסמכים רגישים ואיך שחזור מקומי בדפדפן משתווה.",
+      "contentBlocks": {
+        "intro": "אתרי שחזור סיסמאות באינטרנט מבקשים את הדבר שאתם מנסים להגן עליו: ה-PDF המלא. גם אם הם טוענים למחיקה מיידית, לעיתים רחוקות אתם שולטים בשמירה, בתחום שיפוט או בקבלני משנה.",
+        "primaryTool": "pdf-password-recovery",
+        "sections": [
+          {
+            "id": "upload-risk",
+            "heading": "העלאה שווה גילוי",
+            "level": 2,
+            "paragraphs": [
+              "חוזים, רשומות רפואיות ודוחות כספיים לא אמורים להישלח לתשתית לא מוכרת רק כדי לבדוק סיסמאות.",
+              "יומנים, גיבויים וגישת תמיכה בשרתי צד שלישי נמצאים מחוץ לגבול המדיניות שלכם."
+            ]
+          },
+          {
+            "id": "local-alternative",
+            "heading": "החלופה המקומית",
+            "level": 2,
+            "paragraphs": [
+              "PDF Password Recovery מריץ ניחושים בתוך Web Worker בדפדפן שלכם. הקובץ נשאר בזיכרון מקומי במכשיר.",
+              "אם כבר יודעים את הסיסמה, Unlock PDF מהיר יותר ועדיין לחלוטין בצד הלקוח."
+            ]
+          },
+          {
+            "id": "checklist",
+            "heading": "רשימת בדיקה לשחזור בטוח יותר",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "אשרו שמותר לכם לגשת ל-PDF מבחינה משפטית.",
+              "נסו שחזור מקומי עם קבוצת תווים צרה קודם.",
+              "אם הצליח, הגנו מחדש עם סיסמה חזקה דרך Protect PDF.",
+              "לעולם אל תעלו את אותו קובץ רגיש למספר פורצי ענן."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם כל פורצי הענן זדוניים?",
+            "a": "לא בהכרח, אבל אי אפשר לאמת את הטיפול. עיבוד מקומי מסיר את אי הוודאות הזו."
+          },
+          {
+            "q": "האם צוותי IT יכולים לאשר שחזור מקומי?",
+            "a": "רבים מעדיפים כלים במכשיר על פני העלאות שרירותיות מסיבות ביקורת."
+          },
+          {
+            "q": "מה לגבי מדיניות סיסמאות ארגונית?",
+            "a": "השתמשו בשחזור רק תחת מדיניות, ואז החליפו לסיסמה חזקה מנוהלת."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/pdf-password-recovery/",
+            "anchor": "PDF Password Recovery"
+          },
+          {
+            "href": "/tools/unlock-pdf/",
+            "anchor": "Unlock PDF"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "organize-pdf-folders-batch-rename",
+      "title": "איך לארגן תיקיות PDF עם שינוי שמות אוטומטי",
+      "keyword": "organize pdf files batch rename",
+      "category": "PDF Workflows",
+      "cluster": "batch-rename-pdf-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": [
+        "batch-rename-pdf",
+        "pdf-merge",
+        "pdf-split",
+        "delete-pdf-pages"
+      ],
+      "relatedBlogs": [
+        "manage-many-pdfs-locally",
+        "digital-office-file-productivity",
+        "pdf-workflow-efficiency-tips"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור תהליכי ארגון מסמכים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "ארגון תיקיות PDF עם שינוי שמות באצווה (מדריך בדפדפן)",
+        "metaDescription": "למדו איך לשנות שמות לעשרות PDFים עם קידומות תאריך, מספור וחיפוש-והחלפה — באופן מקומי בדפדפן."
+      },
+      "description": "מדריך מעשי לסידור תיקיות PDF מבולגנות באמצעות שינוי שמות מבוסס כללים, בלי תוכנת שולחן עבודה.",
+      "contentBlocks": {
+        "intro": "תיקיות הורדות מלאות ב-scan_001.pdf ו-Final_v3_REAL.pdf מאטות כל תהליך עבודה. שינוי שמות באצווה מחיל כללים עקביים פעם אחת, כך שצוותי חשבונאות, משפטים ופרויקטים יכולים למצוא קבצים במהירות.",
+        "primaryTool": "batch-rename-pdf",
+        "sections": [
+          {
+            "id": "why-rename",
+            "heading": "למה שינוי שמות אוטומטי עדיף על עריכה ידנית",
+            "level": 2,
+            "paragraphs": [
+              "שינוי שמות ידני מועד לטעויות כשיש עשרים או מאתיים קבצים. כללים כמו קידומות תאריך ומספור רציף יוצרים סדר מיון צפוי בכל דפדפן קבצים.",
+              "תצוגה מקדימה לפני ההורדה מאפשרת לתפוס טעויות לפני שיתוף ZIP עם לקוחות."
+            ]
+          },
+          {
+            "id": "rules",
+            "heading": "כללי שינוי שם נפוצים שעובדים",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "הוסיפו קידומת תאריך YYYY-MM-DD לסריקות יומיות.",
+              "החילו מספור 001-099 לאצוות רב-עמודיות.",
+              "החליפו רווחים במקפים לכתובות URL נקיות יותר.",
+              "הוסיפו סיומת כמו -signed או -client-review."
+            ]
+          },
+          {
+            "id": "next-steps",
+            "heading": "אחרי שינוי השמות: מיזוג, פיצול או קיצוץ",
+            "level": 2,
+            "paragraphs": [
+              "ברגע שהשמות עקביים, מזגו PDFים קשורים לחבילה אחת או פצלו ארכיונים גדולים לפרקים.",
+              "Delete PDF Pages מסיר עמודים ריקים שאינכם צריכים עוד לפני העלאה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם שינוי שם משנה את תוכן ה-PDF?",
+            "a": "לא. רק שמות הקבצים משתנים בתוך ה-ZIP שהורדתם."
+          },
+          {
+            "q": "האם אפשר לשנות שם לתיקייה שלמה?",
+            "a": "כן. ייבאו תיקיית PDFים, הגדירו כללים, והורידו עותקים עם שמות חדשים."
+          },
+          {
+            "q": "האם הקבצים מועלים לשרת?",
+            "a": "לא. Batch Rename PDF רץ באופן מקומי בדפדפן."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/batch-rename-pdf/",
+            "anchor": "Batch Rename PDF"
+          },
+          {
+            "href": "/tools/pdf-merge/",
+            "anchor": "Merge PDF"
+          },
+          {
+            "href": "/tools/pdf-split/",
+            "anchor": "Split PDF"
+          },
+          {
+            "href": "/tools/delete-pdf-pages/",
+            "anchor": "Delete PDF Pages"
+          }
+        ]
+      }
     }
   ]
 }
