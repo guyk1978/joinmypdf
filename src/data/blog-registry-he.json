@@ -3129,6 +3129,521 @@
           }
         ]
       }
+    },
+    {
+      "slug": "pdf-non-editable-before-sending",
+      "title": "איך להפוך PDF לבלתי ניתן לעריכה לפני שליחה",
+      "keyword": "make pdf non editable before sending",
+      "category": "PDF Privacy",
+      "cluster": "flatten-pdf-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": [
+        "flatten-pdf",
+        "protect-pdf",
+        "redact-pdf",
+        "sign-pdf"
+      ],
+      "relatedBlogs": [
+        "flatten-pdf-before-sharing",
+        "remove-pdf-forms-annotations-locally",
+        "pdf-local-processing-benefits"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור תהליכי מסירת מסמכים מאובטחים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "הפיכת PDF לבלתי ניתן לעריכה לפני שליחה (מדריך השטחה בדפדפן)",
+        "metaDescription": "למדו איך להשטיח טפסים והערות ב-PDF באופן מקומי, כך שנמענים לא יוכלו לערוך את המסמך לאחר המסירה."
+      },
+      "description": "מדריך מעשי להשטחת קבצי PDF בדפדפן, כך שטפסים, הערות וסימונים לא ניתנים לשינוי לאחר השליחה.",
+      "contentBlocks": {
+        "intro": "קבצי PDF הניתנים לעריכה נוחים בשלב הביקורת, אבל מסוכנים בזמן המסירה. השטחה ממירה שכבות אינטראקטיביות לעמוד ויזואלי קבוע, כך שנמענים לא יכולים להזיז שדות, לערוך הערות או לשנות ערכים שנשלחו.",
+        "primaryTool": "flatten-pdf",
+        "sections": [
+          {
+            "id": "why-flatten",
+            "heading": "למה להשטיח לפני ששולחים",
+            "level": 2,
+            "paragraphs": [
+              "שדות טופס, פתקים דביקים ושכבות סימון לעיתים קרובות ניתנים לשינוי בקוראי PDF שולחניים. השטחה מסירה את משטח העריכה הזה על ידי רסטריזציה של כל עמוד.",
+              "צוותים משתמשים בשלב זה עבור חוזים, חבילות קליטה ואישורים חתומים, שבהם הקובץ הסופי צריך להיראות בדיוק כפי שאושר."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "תהליך עבודה מהיר: העלאה, השטחה, הורדה",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "העלו את ה-PDF ל-Flatten PDF.",
+              "הזינו את סיסמת המסמך רק אם הקובץ מוגן.",
+              "לחצו על Flatten והורידו את הגרסה הבלתי ניתנת לעריכה באופן מקומי.",
+              "הוסיפו סיסמה עם Protect PDF לפני שיתוף חיצוני, במידת הצורך."
+            ]
+          },
+          {
+            "id": "pair-with-security",
+            "heading": "שילוב השטחה עם הסתרה וסיסמאות",
+            "level": 2,
+            "paragraphs": [
+              "השטחה נועלת פריסה ושדות; היא לא מסתירה אוטומטית טקסט רגיש. השתמשו ב-Redact PDF קודם כששמות, מספרי חשבון או מזהים חייבים להימחק.",
+              "לאחר ההשטחה, Protect PDF מוסיף שער גישה להעלאות בדוא\"ל ובפורטלים."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם ההשטחה רצה בשרתי JoinMyPDF?",
+            "a": "לא. ההשטחה רצה לחלוטין בסשן הדפדפן שלכם במכשיר שלכם."
+          },
+          {
+            "q": "האם נמענים עדיין יכולים לערוך את ה-PDF המושטח?",
+            "a": "שכבות אינטראקטיביות מוסרות. התוכן הוויזואלי קבוע, מה שמונע עריכות טיפוסיות של טפסים והערות."
+          },
+          {
+            "q": "האם כדאי להשטיח לפני או אחרי החתימה?",
+            "a": "צוותים רבים חותמים קודם ואז משטיחים להפצה. בדקו את תהליך העבודה שלכם עם קובץ לדוגמה כדי להתאים למדיניות."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/flatten-pdf/",
+            "anchor": "Flatten PDF"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          },
+          {
+            "href": "/tools/redact-pdf/",
+            "anchor": "Redact PDF"
+          },
+          {
+            "href": "/tools/sign-pdf/",
+            "anchor": "Sign PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "flatten-pdf-before-sharing",
+      "title": "למה כדאי להשטיח קבצי PDF לפני שיתוף מסמכים רגישים",
+      "keyword": "flatten pdf before sharing sensitive documents",
+      "category": "PDF Privacy",
+      "cluster": "flatten-pdf-content",
+      "intent": "commercial-investigation",
+      "intentType": "commercial-investigation",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.89,
+      "relatedTools": [
+        "flatten-pdf",
+        "protect-pdf",
+        "redact-pdf",
+        "unlock-pdf"
+      ],
+      "relatedBlogs": [
+        "pdf-non-editable-before-sending",
+        "remove-pdf-forms-annotations-locally",
+        "hidden-risks-of-free-online-pdf-editors"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור שיטות שיתוף ממוקדות פרטיות · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "למה להשטיח PDF לפני שיתוף מסמכים רגישים",
+        "metaDescription": "הבינו איך השטחה מפחיתה עריכות מקריות ותומכת בשיתוף בטוח יותר של PDFים מ-HR, משפטים ופיננסים."
+      },
+      "description": "למה צוותים משטיחים PDF לפני שיתוף חיצוני — ואיך עיבוד בצד הדפדפן שומר על קבצים רגישים מחוץ לממירי ענן.",
+      "contentBlocks": {
+        "intro": "PDFים רגישים לעיתים קרובות נושאים עריכות נסתרות: שרשורי הערות, ברירות מחדל של טפסים וסימוני ביקורת. השטחה מפחיתה את הסיכוי שנמען ישנה משהו שלא התכוונתם אליו — תוך שמירה על עיבוד מקומי כשמשתמשים בכלי מבוסס דפדפן.",
+        "primaryTool": "flatten-pdf",
+        "sections": [
+          {
+            "id": "risk-of-editable-layers",
+            "heading": "הסיכון בהשארת שכבות אינטראקטיביות שלמות",
+            "level": 2,
+            "paragraphs": [
+              "נמענים עלולים לשנות ערכי טופס, להגיב להערות או לייצא שכבות שחשבתם שהן סופיות. זה יוצר סחיפת גרסאות במהלך ביקורות ומסירות ללקוחות.",
+              "השטחה ממירה את התצוגה המאושרת לעמודים קבועים, מה שקל יותר להגן עליו כרשומה הרשמית."
+            ]
+          },
+          {
+            "id": "local-processing",
+            "heading": "למה השטחה מקומית חשובה לפרטיות",
+            "level": 2,
+            "paragraphs": [
+              "העלאת PDFים מ-HR או משפטים לשרתים לא מוכרים מרחיבה את טביעת הרגל של הנתונים. השטחה בצד הלקוח שומרת על הקבצים במכשיר שכבר מחזיק בהם.",
+              "זה מפשט ביקורות פנימיות: קלט מקומי, עיבוד מקומי, פלט מקומי."
+            ]
+          },
+          {
+            "id": "secure-handoff",
+            "heading": "רשימת בדיקה למסירה מאובטחת",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "הסתירו סודות גלויים במידת הצורך.",
+              "השטיחו את ה-PDF כדי להסיר שכבות ניתנות לעריכה.",
+              "הגנו בסיסמה לנמענים חיצוניים.",
+              "דחסו רק אם מגבלות קבצים מצורפים מחייבות זאת."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם השטחה מחליפה הצפנה?",
+            "a": "לא. השטחה מסירה עריכות; הגנה בסיסמה שולטת במי יכול לפתוח את הקובץ. השתמשו בשניהם כשהמדיניות דורשת."
+          },
+          {
+            "q": "האם השטחה מסתירה מטא-דאטה סודי?",
+            "a": "השטחה מכוונת לשכבות אינטראקטיביות גלויות. השתמשו בהסתרה להסרת תוכן ופעלו לפי מדיניות המטא-דאטה של הארגון."
+          },
+          {
+            "q": "האם השטחה מגדילה את גודל הקובץ?",
+            "a": "עמודים מרוסטרים עלולים להיות גדולים יותר. דחסו לאחר מכן אם מגבלות דוא\"ל הדוקות."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/flatten-pdf/",
+            "anchor": "Flatten PDF"
+          },
+          {
+            "href": "/tools/redact-pdf/",
+            "anchor": "Redact PDF"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          },
+          {
+            "href": "/tools/unlock-pdf/",
+            "anchor": "Unlock PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "remove-pdf-forms-annotations-locally",
+      "title": "מדריך מלא להסרת הערות וטפסים מ-PDF באופן מקומי",
+      "keyword": "remove pdf comments and forms locally",
+      "category": "PDF Conversion",
+      "cluster": "flatten-pdf-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": [
+        "flatten-pdf",
+        "redact-pdf",
+        "protect-pdf",
+        "pdf-to-text"
+      ],
+      "relatedBlogs": [
+        "pdf-non-editable-before-sending",
+        "flatten-pdf-before-sharing",
+        "pdf-workflow-efficiency-tips"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור תהליכי ניקוי PDF מקומיים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "הסרת הערות וטפסים מ-PDF באופן מקומי (שלב-אחר-שלב)",
+        "metaDescription": "מדריך שלב-אחר-שלב להשטחת טפסים, הערות וסימונים ב-PDF בדפדפן שלכם בלי להעלות קבצים."
+      },
+      "description": "תהליך עבודה מקומי מלא להסרת טפסים, הערות וסימונים מקבצי PDF לפני ארכוב או שיתוף.",
+      "contentBlocks": {
+        "intro": "הערות ושדות טופס שימושיים במהלך שיתוף פעולה, אבל לא תמיד מתאימים בקובץ הסופי. מדריך זה מפרט תהליך השטחה מקומי שמסיר שכבות אינטראקטיביות אלה בלי לשלוח את המסמך לממיר ענן.",
+        "primaryTool": "flatten-pdf",
+        "sections": [
+          {
+            "id": "what-gets-removed",
+            "heading": "מה ההשטחה מסירה (ומה לא)",
+            "level": 2,
+            "paragraphs": [
+              "השטחה שורפת טפסים, הערות וסימונים לתוך תמונת העמוד. נמענים כבר לא רואים שדות ניתנים לעריכה או סיכות הערות.",
+              "היא לא מוחקת באופן סלקטיבי טקסט גוף גלוי. השתמשו ב-Redact PDF כשמילים או מספרים ספציפיים חייבים להיות מוסתרים."
+            ]
+          },
+          {
+            "id": "step-by-step",
+            "heading": "תהליך הסרה מקומי שלב-אחר-שלב",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "פתחו את Flatten PDF והעלו את הקובץ.",
+              "ספקו סיסמה אם ה-PDF מוצפן.",
+              "הריצו Flatten והורידו את ה-PDF המנוקה.",
+              "ארכבו או שתפו, ואז Protect PDF אם גישה חיצונית צריכה להיות מוגבלת."
+            ]
+          },
+          {
+            "id": "when-to-extract-text",
+            "heading": "מתי לחלץ טקסט לפני ההשטחה",
+            "level": 2,
+            "paragraphs": [
+              "עמודים מושטחים הם ויזואליים. אם עדיין צריך עותק ניתן לחיפוש או לעריכה, הריצו PDF to Text על המקור לפני השטחת עותק ההפצה.",
+              "שמרו ייצוא עריכה אחד פנימי וייצוא מושטח אחד ללקוחות כשהמדיניות מאפשרת."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם אפשר להסיר רק חלק מההערות?",
+            "a": "כלי זה משטיח את המסמך כולו. מחקו או סגרו הערות בעורך שלכם קודם אם צריך ניקוי סלקטיבי."
+          },
+          {
+            "q": "האם נתוני הטופס יישארו גלויים?",
+            "a": "כן. ערכים שמולאו מופיעים בעמוד המושטח אבל כבר לא ניתנים לעריכה כשדות."
+          },
+          {
+            "q": "האם הפלט תואם ל-Acrobat ו-Preview?",
+            "a": "כן. התוצאה היא PDF סטנדרטי עם עמודים מרוסטרים."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/flatten-pdf/",
+            "anchor": "Flatten PDF"
+          },
+          {
+            "href": "/tools/redact-pdf/",
+            "anchor": "Redact PDF"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          },
+          {
+            "href": "/tools/pdf-to-text/",
+            "anchor": "PDF to Text"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "pdf-metadata-privacy-risks",
+      "title": "מה מוסתר ב-PDF שלכם? למה מטא-דאטה עלול לסכן את הפרטיות",
+      "keyword": "pdf metadata privacy risks",
+      "category": "PDF Privacy",
+      "cluster": "remove-hidden-metadata-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": [
+        "remove-hidden-metadata",
+        "redact-pdf",
+        "protect-pdf",
+        "flatten-pdf"
+      ],
+      "relatedBlogs": [
+        "clean-pdf-metadata-locally",
+        "digital-document-anonymity-guide",
+        "pdf-local-processing-benefits"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור היגיינת פרטיות מסמכים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "סיכוני פרטיות במטא-דאטה של PDF: מה מוסתר בקובץ שלכם?",
+        "metaDescription": "למדו מה מטא-דאטה של PDF חושף — שמות מחברים, עקבות תוכנה, תאריכים וחבילות XMP — ואיך להפחית חשיפה לפני שיתוף."
+      },
+      "description": "סקירה של שדות מטא-דאטה נסתרים ב-PDF ולמה הם חשובים לתהליכי שיתוף רגישים לפרטיות.",
+      "contentBlocks": {
+        "intro": "PDF עלול להיראות תמים על פני השטח תוך שהוא נושא עקבות של שמות מחברים, תוכנות עריכה, חותמות זמן וחבילות XMP מוטמעות. השכבה הנסתרת הזו קלה לפספוס — ומסוכנת כשמסמכים עוזבים את הארגון.",
+        "primaryTool": "remove-hidden-metadata",
+        "sections": [
+          {
+            "id": "what-metadata-includes",
+            "heading": "מה מטא-דאטה עלול לחשוף",
+            "level": 2,
+            "paragraphs": [
+              "שדות Info נפוצים כוללים Title, Author, Subject, Creator, Producer ותאריכי יצירה או שינוי. חבילות XMP יכולות לשכפל ולהרחיב ערכים אלה עם היסטוריית תהליך העבודה.",
+              "נמענים — או כל מי שבודק מאפייני קובץ — עלולים ללמוד מי יצר את המסמך, איזו אפליקציה שימשה ומתי גרסאות נשמרו."
+            ]
+          },
+          {
+            "id": "why-it-matters",
+            "heading": "למה זה חשוב לפני שיתוף חיצוני",
+            "level": 2,
+            "paragraphs": [
+              "תהליכי עבודה משפטיים, HR ועיתונאיים לעיתים קרובות דורשים מזעור פרטים מזהים. מטא-דאטה עלול לערער הסתרה אם תוכן גלוי מסונן אבל המאפיינים עדיין מציינים אנשים או כלים פנימיים.",
+              "ניקוי מטא-דאטה באופן מקומי מפחית חשיפה מקרית בלי להעלות קבצים לשרתים לא מוכרים."
+            ]
+          },
+          {
+            "id": "first-step",
+            "heading": "התחילו בסריקת מטא-דאטה מקומית",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "העלו את ה-PDF ל-Remove Hidden Metadata.",
+              "סקרו את השדות שזוהו בדפדפן שלכם.",
+              "לחצו על Clean & Download כדי להסיר נתוני Info ו-XMP.",
+              "המשיכו עם Redact PDF או Protect PDF כשהמדיניות דורשת."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם מטא-דאטה עלול לחשוף את המיקום שלי?",
+            "a": "שדות Info סטנדרטיים של PDF לרוב לא כוללים GPS, אבל XMP מכלי מסוימים עלול לשאת מאפיינים נוספים. סריקה מקומית עוזרת לראות מה קיים."
+          },
+          {
+            "q": "האם הסרת מטא-דאטה משנה את תוכן העמוד?",
+            "a": "לא. זה מכוון למאפייני מסמך וחבילות נסתרות, לא לטקסט גוף גלוי."
+          },
+          {
+            "q": "האם הסרת מטא-דאטה בענן בטוחה יותר?",
+            "a": "העלאת קבצים רגישים מגדילה חשיפה. ניקוי בצד הדפדפן שומר על הקובץ במכשיר שלכם."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/remove-hidden-metadata/",
+            "anchor": "Remove Hidden Metadata"
+          },
+          {
+            "href": "/tools/redact-pdf/",
+            "anchor": "Redact PDF"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          },
+          {
+            "href": "/tools/flatten-pdf/",
+            "anchor": "Flatten PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "clean-pdf-metadata-locally",
+      "title": "איך לנקות מטא-דאטה של PDF באופן מקומי בלי כלים חיצוניים",
+      "keyword": "clean pdf metadata locally",
+      "category": "PDF Privacy",
+      "cluster": "remove-hidden-metadata-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.89,
+      "relatedTools": [
+        "remove-hidden-metadata",
+        "protect-pdf",
+        "flatten-pdf",
+        "unlock-pdf"
+      ],
+      "relatedBlogs": [
+        "pdf-metadata-privacy-risks",
+        "digital-document-anonymity-guide",
+        "hidden-risks-of-free-online-pdf-editors"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור תהליכי ניקוי מקומיים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "ניקוי מטא-דאטה של PDF באופן מקומי (מדריך בדפדפן, ללא העלאה)",
+        "metaDescription": "מדריך שלב-אחר-שלב לסריקה והסרה של מטא-דאטה של מחבר, תוכנה, תאריך ו-XMP ב-PDF בדפדפן שלכם בלי העלאות לצד שלישי."
+      },
+      "description": "מדריך מעשי להסרת מטא-דאטה של PDF במכשיר שלכם באמצעות מנקה בצד הלקוח.",
+      "contentBlocks": {
+        "intro": "אפליקציות שולחניות יכולות לנקות מטא-דאטה, אבל צוותים רבים רוצים נתיב מהיר יותר שאף פעם לא שולח קבצים לתור ענן. מנקה מבוסס דפדפן מאפשר לכם לתצוגה מקדימה של מה שקיים, ואז לייצא עותק מנוקה בסשן אחד.",
+        "primaryTool": "remove-hidden-metadata",
+        "sections": [
+          {
+            "id": "why-local",
+            "heading": "למה ניקוי מקומי עדיף על ממירי אינטרנט אקראיים",
+            "level": 2,
+            "paragraphs": [
+              "שירותי העלאה-והמתנה עלולים לרשום שמות קבצים, כתובות IP וחלונות שמירה שאי אפשר לבדוק. עיבוד מקומי שומר על המסמך ב-RAM במכונה שלכם.",
+              "מודל זה קל יותר להסבר לבודקי אבטחה: קלט מקומי, עיבוד מקומי, פלט מקומי."
+            ]
+          },
+          {
+            "id": "steps",
+            "heading": "שלבי ניקוי מקומי",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "פתחו את Remove Hidden Metadata ובחרו את ה-PDF.",
+              "הזינו סיסמה רק אם הקובץ מוצפן.",
+              "סקרו את רשימת המטא-דאטה שמוצגת לאחר הסריקה.",
+              "לחצו על Clean & Download ואמתו מאפיינים בקורא ה-PDF שלכם."
+            ]
+          },
+          {
+            "id": "after-clean",
+            "heading": "מה לעשות לאחר הסרת מטא-דאטה",
+            "level": 2,
+            "paragraphs": [
+              "ניקוי מטא-דאטה משלים — ולא מחליף — הסתרת תוכן. השתמשו ב-Redact PDF כששמות או מספרים עדיין מופיעים בעמוד.",
+              "הוסיפו Protect PDF אם נמענים לא אמורים לפתוח את הקובץ ללא הרשאה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם כל שדה נסתר ייעלם?",
+            "a": "הכלי מנקה רשומות Info סטנדרטיות וחבילות XMP מוטמעות. מבנים מותאמים אישית לא שגרתיים עשויים לדרוש בדיקה מקצועית."
+          },
+          {
+            "q": "האם צריך להתקין תוכנה?",
+            "a": "לא. דפדפן מודרני מספיק לתהליך עבודה זה."
+          },
+          {
+            "q": "האם אפשר לנקות PDFים מוגני סיסמה?",
+            "a": "כן. ספקו את הסיסמה לסריקה וייצוא באופן מקומי."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/remove-hidden-metadata/",
+            "anchor": "Remove Hidden Metadata"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          },
+          {
+            "href": "/tools/flatten-pdf/",
+            "anchor": "Flatten PDF"
+          },
+          {
+            "href": "/tools/unlock-pdf/",
+            "anchor": "Unlock PDF"
+          }
+        ]
+      }
     }
   ]
 }
