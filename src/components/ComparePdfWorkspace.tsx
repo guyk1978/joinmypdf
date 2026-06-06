@@ -279,8 +279,8 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
-      <div className="grid gap-2 md:grid-cols-2">
+      <WorkspaceUploadShell>
+            <div className="grid gap-2 md:grid-cols-2">
         <FileSlot
           id={`${baseId}-left`}
           label={ws.wsUi("labelOriginalBaseline")}

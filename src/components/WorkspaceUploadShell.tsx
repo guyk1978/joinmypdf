@@ -1,30 +1,18 @@
 import type { ReactNode } from "react";
 import { clsx } from "clsx";
-import { matteSecurityCallout, toolUploadStack } from "@/lib/tool-ui";
+import { ToolPrivacyStatement } from "@/components/ToolPrivacyStatement";
+import { toolUploadStack } from "@/lib/tool-ui";
 
 type WorkspaceUploadShellProps = {
-  securePrefix: string;
-  privacyNote: ReactNode;
   children: ReactNode;
   className?: string;
-  showBanner?: boolean;
 };
 
-/** Aligns the security callout and upload dropzone to the same industrial-matte width. */
-export function WorkspaceUploadShell({
-  securePrefix,
-  privacyNote,
-  children,
-  className,
-  showBanner = true,
-}: WorkspaceUploadShellProps) {
+/** Aligns the unified privacy statement and upload dropzone as one cohesive block. */
+export function WorkspaceUploadShell({ children, className }: WorkspaceUploadShellProps) {
   return (
-    <div className={clsx(toolUploadStack, className)}>
-      {showBanner ? (
-        <div className={matteSecurityCallout} role="note">
-          <strong className="font-semibold">{securePrefix}</strong> {privacyNote}
-        </div>
-      ) : null}
+    <div className={clsx(toolUploadStack, "tool-upload-stack", className)}>
+      <ToolPrivacyStatement />
       {children}
     </div>
   );

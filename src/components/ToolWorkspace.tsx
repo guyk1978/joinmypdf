@@ -271,12 +271,8 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell
-        securePrefix={ws.securePrefix}
-        privacyNote={tool.operation === "png-to-pdf" ? ws.common("pngPrivacy") : ws.common("privacyBody")}
-        showBanner={tool.operation === "png-to-pdf"}
-      >
-      <FileUploadZone
+      <WorkspaceUploadShell>
+            <FileUploadZone
         operation={tool.operation}
         drag={drag}
         role="button"

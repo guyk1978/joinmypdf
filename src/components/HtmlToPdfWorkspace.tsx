@@ -144,8 +144,8 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <WorkspaceUploadShell>
+            <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex rounded-none border border-white/10 p-1">
           <button
             type="button"

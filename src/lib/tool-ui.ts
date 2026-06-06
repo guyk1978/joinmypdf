@@ -34,13 +34,15 @@ export const mattePanel =
 export const mattePanelInset =
   "rounded-none border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-800 dark:bg-neutral-950/80";
 
-/** Shared max width for tool upload stack (security banner + dropzone). */
-export const toolUploadStack =
-  "mx-auto w-full max-w-2xl space-y-2";
+/** Shared max width for tool upload stack (privacy statement + dropzone). */
+export const toolUploadStack = "mx-auto w-full max-w-2xl";
 
-/** Top-of-workspace security note — matches dropzone width when used inside toolUploadStack */
-export const matteSecurityCallout =
-  "rounded-none border border-dashed border-neutral-400 bg-neutral-100 px-2 py-1.5 text-sm leading-snug text-black dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200";
+/** Unified privacy statement — top segment of the upload block */
+export const toolPrivacyStatement =
+  "rounded-none border border-dashed border-neutral-400 bg-neutral-100 px-2 py-1.5 text-xs leading-snug text-black sm:text-sm dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200";
+
+/** @deprecated Use toolPrivacyStatement via ToolPrivacyStatement */
+export const matteSecurityCallout = toolPrivacyStatement;
 
 /** Drag-and-drop upload zone — light gray surface, dashed border, dark matte in dark mode */
 export const matteDropzone =

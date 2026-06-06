@@ -508,6 +508,7 @@
       "selectFilesAria": "Select files",
       "privacyTitle": "100% Private & Fast:",
       "privacyBody": "Files are processed locally in your browser and never leave your device.",
+      "privacyStatement": "100% Private: All processing happens locally in your browser. Your files never leave your device.",
       "securePrefix": "100% Secure:",
       "pngPrivacy": "Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.",
       "loading": "Loading…",

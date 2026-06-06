@@ -6,6 +6,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { usePendingFiles } from "@/context/PendingFilesContext";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
 
 export function HeroDropzone() {
@@ -27,7 +28,8 @@ export function HeroDropzone() {
   );
 
   return (
-    <FileUploadZone
+    <WorkspaceUploadShell>
+      <FileUploadZone
       variant="hero"
       role="region"
       aria-label={t("ariaLabel")}
@@ -79,5 +81,6 @@ export function HeroDropzone() {
         </div>
       }
     />
+    </WorkspaceUploadShell>
   );
 }

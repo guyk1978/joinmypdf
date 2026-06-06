@@ -38,7 +38,6 @@ export type ConvertToolWorkspaceConfig<TProgress> = {
   dropDescription?: string;
   invalidTypeMessage?: string;
   emptyFileMessage?: string;
-  privacyNote?: string;
   fileTypeLabel?: string;
   convertLabel?: string;
   downloadLabel?: string;
@@ -70,7 +69,6 @@ export function ConvertToolWorkspace<TProgress>({
     config.invalidTypeMessage ?? ws.wsStatus("invalidType") ?? ws.wsCommon("choosePdf");
   const emptyFileMessage =
     config.emptyFileMessage ?? ws.wsStatus("emptyFile") ?? ws.wsCommon("emptyPdf");
-  const privacyNote = config.privacyNote ?? ws.wsText("privacyNote");
   const fileTypeLabel = config.fileTypeLabel ?? ws.wsCommon("formatPdf");
   const convertLabel = config.convertLabel ?? ws.wsText("convertLabel") ?? ws.buttonLabel();
   const downloadLabel = config.downloadLabel ?? ws.wsText("downloadLabel") ?? ws.common("ready");
@@ -193,8 +191,8 @@ export function ConvertToolWorkspace<TProgress>({
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={privacyNote}>
-      {!showWorkspace ? (
+      <WorkspaceUploadShell>
+            {!showWorkspace ? (
         <FileUploadZone
           operation={tool.operation}
           drag={drag}

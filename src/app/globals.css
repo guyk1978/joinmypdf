@@ -2641,6 +2641,16 @@ html.dark .partner-mapdiagram[style] a {
   margin-inline: auto;
 }
 
+.tool-upload-stack .tool-privacy-statement {
+  border-bottom-width: 0;
+  margin-bottom: 0;
+}
+
+.tool-upload-stack .tool-upload-zone {
+  border-top-width: 0;
+  margin-top: 0;
+}
+
 /* Tool icon containers — dark mode */
 html.dark .tool-icon-wrap {
   background-color: rgba(255, 255, 255, 0.08) !important;

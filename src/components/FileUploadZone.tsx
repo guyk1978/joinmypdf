@@ -4,25 +4,7 @@ import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
 import type { HTMLAttributes, ReactNode } from "react";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
-import { matteDropzone, matteDropzoneActive, matteWorkspaceBanner } from "@/lib/tool-ui";
-
-function ShieldLockIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M12 3 4 7v5c0 5.25 3.5 9.74 8 11 4.5-1.26 8-5.75 8-11V7l-8-4Z" />
-      <path d="M9.5 12.5 11 14l3.5-3.5" />
-    </svg>
-  );
-}
+import { matteDropzone, matteDropzoneActive } from "@/lib/tool-ui";
 
 function UploadArrowIcon({ className, active }: { className?: string; active?: boolean }) {
   return (
@@ -53,26 +35,6 @@ function SelectFilesCta({ label, ariaLabel }: { label: string; ariaLabel: string
     >
       {label}
     </button>
-  );
-}
-
-export function PrivacyUploadBadge({ className }: { className?: string }) {
-  const common = useTranslations("Workspace.common");
-
-  return (
-    <div
-      className={clsx(
-        matteWorkspaceBanner,
-        "inline-flex w-full items-start gap-2 text-start sm:items-center",
-        className,
-      )}
-      role="note"
-    >
-      <ShieldLockIcon className="mt-0.5 h-4 w-4 shrink-0 text-neutral-700 dark:text-neutral-300 sm:mt-0" />
-      <p className="text-xs font-medium leading-snug sm:text-sm">
-        <span className="font-semibold">{common("privacyTitle")}</span> {common("privacyBody")}
-      </p>
-    </div>
   );
 }
 
@@ -132,7 +94,6 @@ export function FileUploadZone({
           isHero ? "gap-2 py-4 md:py-3" : "gap-1.5 py-3 md:py-4",
         )}
       >
-        <PrivacyUploadBadge className="w-full shrink-0" />
         <UploadArrowIcon active={active} />
         <div className="max-w-md space-y-1">
           <p className="text-base font-bold tracking-tight text-black dark:text-neutral-200 md:text-lg">{title}</p>

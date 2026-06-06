@@ -149,8 +149,8 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
-      {!file ? (
+      <WorkspaceUploadShell>
+            {!file ? (
         <FileUploadZone
           operation={tool.operation}
           drag={drag}

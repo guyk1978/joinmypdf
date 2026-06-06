@@ -243,8 +243,8 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
-      {!showWorkspace ? (
+      <WorkspaceUploadShell>
+            {!showWorkspace ? (
         <FileUploadZone
           operation={tool.operation}
           drag={drag}
