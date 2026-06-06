@@ -11,7 +11,7 @@ import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { getLocalizedBlogBadgeLabel } from "@/lib/blog-card-i18n";
 import { blogPostingLd, breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
-import { blogRegistry } from "@/lib/blog-registry";
+import { getBlogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import type { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
@@ -53,7 +53,7 @@ export async function generateStaticParams() {
     // Fall back to JSON-derived slugs below.
   }
 
-  for (const post of blogRegistry.blog || []) {
+  for (const post of getBlogRegistry().blog || []) {
     if (post.slug) slugs.add(post.slug);
   }
 
@@ -65,8 +65,9 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   if (!slug) return {};
+  const blogRegistry = getBlogRegistry(locale);
   const post = blogRegistry.blog.find((p) => p.slug === slug);
   if (!post) return {};
   const title = post.seo?.metaTitle || post.title;
@@ -90,6 +91,7 @@ export default async function BlogPostPage({
   setRequestLocale(locale);
 
   if (!slug) notFound();
+  const blogRegistry = getBlogRegistry(locale);
   const post = blogRegistry.blog.find((p) => p.slug === slug);
   if (!post) notFound();
 

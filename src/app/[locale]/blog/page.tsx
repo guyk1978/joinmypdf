@@ -2,7 +2,7 @@ import { BlogGuideCard } from "@/components/BlogGuideCard";
 import { WattQuickCrossLink } from "@/components/partner/WattQuickCrossLink";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { blogRegistry } from "@/lib/blog-registry";
+import { getBlogRegistry } from "@/lib/blog-registry";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 export const runtime = "edge";
@@ -27,6 +27,7 @@ export default async function BlogIndexPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Blog");
 
+  const blogRegistry = getBlogRegistry(locale);
   const posts = [...(blogRegistry.blog || [])].sort(
     (a, b) => Date.parse(b.publishDate || "") - Date.parse(a.publishDate || ""),
   );
