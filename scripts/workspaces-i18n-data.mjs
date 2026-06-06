@@ -58,6 +58,15 @@ function buildWorkspaces(locale) {
     noHeicFiles: isHe
       ? "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif."
       : "No HEIC/HEIF files detected. Choose .heic or .heif images.",
+    resetSample: isHe ? "אפס לדוגמה" : "Reset sample",
+    remove: isHe ? "הסר" : "Remove",
+    dropPdfHint: isHe ? "גרור PDF לכאן או לחץ לעיון" : "Drop a PDF here or click to browse",
+    pageNumber: isHe ? "עמוד {page}" : "Page {page}",
+    readyLabel: isHe ? "מוכן:" : "Ready:",
+    renderingPage: isHe ? "מרנדר עמוד…" : "Rendering page…",
+    clearAll: isHe ? "נקה הכל" : "Clear all",
+    untitledBook: isHe ? "ספר ללא שם" : "Untitled book",
+    chapterCount: isHe ? "{count} פרק/ים" : "{count} chapter(s)",
   };
 
   const convertProgress = {
@@ -268,6 +277,9 @@ function buildWorkspaces(locale) {
       privacyNote: isHe
         ? "שיטוח רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר."
         : "Flattening runs entirely in your browser. Your PDF never leaves your device.",
+      flattenLabel: isHe ? "שטח PDF" : "Flatten PDF",
+      flattenAgainLabel: isHe ? "שטח שוב" : "Flatten again",
+      adjustPassword: isHe ? "התאם את הקובץ או הסיסמה ונסה שוב." : "Adjust your file or password and try again.",
     },
     sign: {
       status: {
@@ -322,6 +334,30 @@ function buildWorkspaces(locale) {
         analyzingPage: isHe
           ? "מנתח עמוד {current} מתוך {total}…"
           : "Analyzing page {current} of {total}…",
+      },
+      privacyNote: isHe
+        ? "הקבצים לא עוזבים את הדפדפן. שני ה-PDF נקראים עם pdf.js מקומית."
+        : "Your files never leave your browser. Both PDFs are parsed with pdf.js locally.",
+      compareLabel: isHe ? "השוואת PDF" : "Compare PDFs",
+      comparingLabel: isHe ? "משווה…" : "Comparing…",
+      ui: {
+        labelOriginalBaseline: isHe ? "מקור (בסיס)" : "Original (baseline)",
+        labelRevised: isHe ? "גרסה מעודכנת (להשוואה)" : "Revised (compare to)",
+        showHighlights: isHe ? "הצג הדגשות" : "Show highlights",
+        legendRemoved: isHe ? "הוסר / רק במקור" : "Removed / original only",
+        legendAdded: isHe ? "נוסף / רק בגרסה המעודכנת" : "Added / revised only",
+        legendMoved: isHe ? "הוזז (אותו טקסט, מיקום חדש)" : "Moved (same text, new position)",
+        pageOf: isHe ? "עמוד {current} מתוך {total}" : "Page {current} of {total}",
+        pagesVs: isHe ? " · {left} מול {right} עמודים" : " · {left} vs {right} pages",
+        previousPage: isHe ? "עמוד קודם" : "Previous page",
+        nextPage: isHe ? "עמוד הבא" : "Next page",
+        jumpToPage: isHe ? "קפיצה לעמוד" : "Jump to page",
+        pageOption: isHe ? "עמוד {page}" : "Page {page}",
+        pageOptionChanges: isHe ? " · יש שינויים" : " · has changes",
+        noDiffsOnPage: isHe ? "אין הבדלי טקסט מודגשים בעמוד זה." : "No highlighted text differences on this page.",
+        panelOriginal: isHe ? "מקור" : "Original",
+        panelRevised: isHe ? "מעודכן" : "Revised",
+        stickyMergePdf: isHe ? "מיזוג PDF" : "Merge PDF",
       },
     },
     "crop-pdf": {
@@ -379,6 +415,18 @@ function buildWorkspaces(locale) {
       convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
       downloadLabel: isHe ? "הורד PDF" : "Download PDF",
       stickyConvertLabel: isHe ? "Markdown ל-PDF" : "Markdown to PDF",
+      ui: {
+        tabEditor: isHe ? "כתיבה / הדבקה" : "Write / paste",
+        tabUpload: isHe ? "העלאת .md" : "Upload .md",
+        themeLabel: isHe ? "ערכת עיצוב" : "Theme",
+        themeGithub: isHe ? "GitHub" : "GitHub",
+        themeMinimalDark: isHe ? "מינימלי כהה" : "Minimal dark",
+        themeAcademic: isHe ? "אקדמי" : "Academic",
+        sourceHeading: isHe ? "מקור Markdown" : "Markdown source",
+        previewHeading: isHe ? "תצוגה מקדימה HTML" : "Live HTML preview",
+        editorPlaceholder: isHe ? "# כותרת\n\nכתוב Markdown כאן…" : "# Title\n\nWrite Markdown here…",
+        editorAriaLabel: isHe ? "עורך מקור Markdown" : "Markdown source editor",
+      },
     },
     "html-to-pdf": {
       status: {
@@ -397,6 +445,23 @@ function buildWorkspaces(locale) {
         : "HTML rendering and PDF compilation run inside your browser sandbox. Your source code never leaves your device.",
       convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
       stickyConvertLabel: isHe ? "HTML ל-PDF" : "HTML to PDF",
+      ui: {
+        tabUpload: isHe ? "העלאת קובץ" : "Upload File",
+        tabPaste: isHe ? "הדבקת קוד" : "Paste Code",
+        orientationLabel: isHe ? "כיוון" : "Orientation",
+        orientationPortrait: isHe ? "לאורך" : "Portrait",
+        orientationLandscape: isHe ? "לרוחב" : "Landscape",
+        marginLabel: isHe ? "שוליים" : "Margin",
+        marginNormal: isHe ? "רגיל" : "Normal",
+        marginNone: isHe ? "ללא" : "None",
+        sourceHeading: isHe ? "מקור HTML" : "HTML source",
+        previewHeading: isHe ? "תצוגה מקדימה" : "Live preview",
+        previewIframeTitle: isHe ? "תצוגה מקדימה HTML" : "HTML Preview",
+        editorPlaceholder: isHe
+          ? "<!doctype html><html><body><h1>שלום</h1></body></html>"
+          : "<!doctype html><html><body><h1>Hello</h1></body></html>",
+        editorAriaLabel: isHe ? "עורך מקור HTML" : "HTML source editor",
+      },
     },
     "ebook-to-pdf": {
       status: {
@@ -421,6 +486,15 @@ function buildWorkspaces(locale) {
         : "EPUB extraction and PDF generation run entirely in your browser memory sandbox. Your eBook never leaves your device.",
       convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
       stickyConvertLabel: isHe ? "ספר אלקטרוני ל-PDF" : "eBook to PDF",
+      ui: {
+        fontSizeLabel: isHe ? "גודל גופן יעד" : "Target font size",
+        fontSmall: isHe ? "קטן" : "Small",
+        fontMedium: isHe ? "בינוני" : "Medium",
+        fontLarge: isHe ? "גדול" : "Large",
+        marginsLabel: isHe ? "שולי עמוד" : "Page margins",
+        marginNormal: isHe ? "רגיל" : "Normal",
+        marginCompact: isHe ? "צפוף" : "Compact",
+      },
     },
     "iwork-to-pdf": {
       status: {
@@ -496,6 +570,13 @@ function buildWorkspaces(locale) {
       downloadLabel: isHe ? "הורד PDF" : "Download PDF",
       stickyConvertLabel: isHe ? "יצירת PDF" : "Create PDF",
       stickyDownloadLabel: isHe ? "הורד PDF" : "Download PDF",
+      ui: {
+        filesSelected: isHe ? "נבחרו {count} קובצ/י HEIC" : "{count} HEIC file(s) selected",
+        totalReorderHint: isHe ? "{size} סה״כ · גרור שורות לסדר עמודים" : "{size} total · drag rows to reorder pages",
+        outputHint: isHe
+          ? "כל HEIC הופך לעמוד PDF ברזולוציה מלאה. Live Photo עלול להוסיף מספר עמודים מקובץ אחד."
+          : "Each HEIC becomes one PDF page at full image resolution. Live Photo bursts may add multiple pages from a single file.",
+      },
     },
   };
 }

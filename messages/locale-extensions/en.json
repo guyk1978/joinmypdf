@@ -735,7 +735,16 @@
       "emptyIwork": "That file is empty. Choose another iWork document.",
       "chooseCad": "Please choose a .dxf or .dwg AutoCAD drawing file.",
       "emptyCad": "That file is empty. Choose another drawing.",
-      "noHeicFiles": "No HEIC/HEIF files detected. Choose .heic or .heif images."
+      "noHeicFiles": "No HEIC/HEIF files detected. Choose .heic or .heif images.",
+      "resetSample": "Reset sample",
+      "remove": "Remove",
+      "dropPdfHint": "Drop a PDF here or click to browse",
+      "pageNumber": "Page {page}",
+      "readyLabel": "Ready:",
+      "renderingPage": "Rendering page…",
+      "clearAll": "Clear all",
+      "untitledBook": "Untitled book",
+      "chapterCount": "{count} chapter(s)"
     },
     "word-to-pdf": {
       "status": {
@@ -878,7 +887,10 @@
         "preparing": "Preparing flatten…",
         "flatteningPage": "Flattening page {current} of {total}…"
       },
-      "privacyNote": "Flattening runs entirely in your browser. Your PDF never leaves your device."
+      "privacyNote": "Flattening runs entirely in your browser. Your PDF never leaves your device.",
+      "flattenLabel": "Flatten PDF",
+      "flattenAgainLabel": "Flatten again",
+      "adjustPassword": "Adjust your file or password and try again."
     },
     "sign": {
       "status": {
@@ -917,6 +929,28 @@
       "progress": {
         "loading": "Loading PDFs…",
         "analyzingPage": "Analyzing page {current} of {total}…"
+      },
+      "privacyNote": "Your files never leave your browser. Both PDFs are parsed with pdf.js locally.",
+      "compareLabel": "Compare PDFs",
+      "comparingLabel": "Comparing…",
+      "ui": {
+        "labelOriginalBaseline": "Original (baseline)",
+        "labelRevised": "Revised (compare to)",
+        "showHighlights": "Show highlights",
+        "legendRemoved": "Removed / original only",
+        "legendAdded": "Added / revised only",
+        "legendMoved": "Moved (same text, new position)",
+        "pageOf": "Page {current} of {total}",
+        "pagesVs": " · {left} vs {right} pages",
+        "previousPage": "Previous page",
+        "nextPage": "Next page",
+        "jumpToPage": "Jump to page",
+        "pageOption": "Page {page}",
+        "pageOptionChanges": " · has changes",
+        "noDiffsOnPage": "No highlighted text differences on this page.",
+        "panelOriginal": "Original",
+        "panelRevised": "Revised",
+        "stickyMergePdf": "Merge PDF"
       }
     },
     "crop-pdf": {
@@ -965,7 +999,19 @@
       "privacyNote": "Markdown parsing and PDF rendering run entirely in your browser. Your notes never leave your device.",
       "convertLabel": "Convert to PDF",
       "downloadLabel": "Download PDF",
-      "stickyConvertLabel": "Markdown to PDF"
+      "stickyConvertLabel": "Markdown to PDF",
+      "ui": {
+        "tabEditor": "Write / paste",
+        "tabUpload": "Upload .md",
+        "themeLabel": "Theme",
+        "themeGithub": "GitHub",
+        "themeMinimalDark": "Minimal dark",
+        "themeAcademic": "Academic",
+        "sourceHeading": "Markdown source",
+        "previewHeading": "Live HTML preview",
+        "editorPlaceholder": "# Title\n\nWrite Markdown here…",
+        "editorAriaLabel": "Markdown source editor"
+      }
     },
     "html-to-pdf": {
       "status": {
@@ -981,7 +1027,22 @@
       },
       "privacyNote": "HTML rendering and PDF compilation run inside your browser sandbox. Your source code never leaves your device.",
       "convertLabel": "Convert to PDF",
-      "stickyConvertLabel": "HTML to PDF"
+      "stickyConvertLabel": "HTML to PDF",
+      "ui": {
+        "tabUpload": "Upload File",
+        "tabPaste": "Paste Code",
+        "orientationLabel": "Orientation",
+        "orientationPortrait": "Portrait",
+        "orientationLandscape": "Landscape",
+        "marginLabel": "Margin",
+        "marginNormal": "Normal",
+        "marginNone": "None",
+        "sourceHeading": "HTML source",
+        "previewHeading": "Live preview",
+        "previewIframeTitle": "HTML Preview",
+        "editorPlaceholder": "<!doctype html><html><body><h1>Hello</h1></body></html>",
+        "editorAriaLabel": "HTML source editor"
+      }
     },
     "ebook-to-pdf": {
       "status": {
@@ -1001,7 +1062,16 @@
       },
       "privacyNote": "EPUB extraction and PDF generation run entirely in your browser memory sandbox. Your eBook never leaves your device.",
       "convertLabel": "Convert to PDF",
-      "stickyConvertLabel": "eBook to PDF"
+      "stickyConvertLabel": "eBook to PDF",
+      "ui": {
+        "fontSizeLabel": "Target font size",
+        "fontSmall": "Small",
+        "fontMedium": "Medium",
+        "fontLarge": "Large",
+        "marginsLabel": "Page margins",
+        "marginNormal": "Normal",
+        "marginCompact": "Compact"
+      }
     },
     "iwork-to-pdf": {
       "status": {
@@ -1060,7 +1130,12 @@
       "convertLabel": "Create PDF",
       "downloadLabel": "Download PDF",
       "stickyConvertLabel": "Create PDF",
-      "stickyDownloadLabel": "Download PDF"
+      "stickyDownloadLabel": "Download PDF",
+      "ui": {
+        "filesSelected": "{count} HEIC file(s) selected",
+        "totalReorderHint": "{size} total · drag rows to reorder pages",
+        "outputHint": "Each HEIC becomes one PDF page at full image resolution. Live Photo bursts may add multiple pages from a single file."
+      }
     }
   }
 }

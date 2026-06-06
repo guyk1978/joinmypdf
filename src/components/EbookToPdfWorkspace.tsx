@@ -201,7 +201,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             <div>
               <p className="text-sm font-semibold text-ink">{file.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
-                {bookTitle || "Untitled book"} · {chapterCount} chapter{chapterCount === 1 ? "" : "s"}
+                {bookTitle || ws.wsCommon("untitledBook")} · {ws.wsCommon("chapterCount", { count: chapterCount })}
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
@@ -211,27 +211,27 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
           <div className="grid gap-3 sm:grid-cols-2">
             <label className="text-sm text-ink-muted">
-              <span className="mb-1 block font-medium text-ink">Target font size</span>
+              <span className="mb-1 block font-medium text-ink">{ws.wsUi("fontSizeLabel")}</span>
               <select
                 value={fontSize}
                 onChange={(e) => setFontSize(e.target.value as EbookFontSizePreset)}
                 className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
               >
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
+                <option value="small">{ws.wsUi("fontSmall")}</option>
+                <option value="medium">{ws.wsUi("fontMedium")}</option>
+                <option value="large">{ws.wsUi("fontLarge")}</option>
               </select>
             </label>
 
             <label className="text-sm text-ink-muted">
-              <span className="mb-1 block font-medium text-ink">Page margins</span>
+              <span className="mb-1 block font-medium text-ink">{ws.wsUi("marginsLabel")}</span>
               <select
                 value={margin}
                 onChange={(e) => setMargin(e.target.value as EbookMarginPreset)}
                 className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
               >
-                <option value="normal">Normal</option>
-                <option value="compact">Compact</option>
+                <option value="normal">{ws.wsUi("marginNormal")}</option>
+                <option value="compact">{ws.wsUi("marginCompact")}</option>
               </select>
             </label>
           </div>

@@ -209,10 +209,10 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-ink">
-                {files.length} HEIC file{files.length === 1 ? "" : "s"} selected
+                {ws.wsUi("filesSelected", { count: files.length })}
               </p>
               <p className="mt-1 text-xs text-ink-muted">
-                {formatBytes(totalBytes)} total · drag rows to reorder pages
+                {ws.wsUi("totalReorderHint", { size: formatBytes(totalBytes) })}
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
@@ -235,7 +235,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 }}
               >
                 <span className="min-w-[4.5rem] text-xs font-medium text-ink-muted">
-                  Page {index + 1}
+                  {ws.wsCommon("pageNumber", { page: index + 1 })}
                 </span>
                 <span className="flex-1 truncate text-ink">{file.name}</span>
                 <span className="text-xs text-ink-muted">{formatBytes(file.size)}</span>
@@ -245,7 +245,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                   onClick={() => removeAt(index)}
                   disabled={busy}
                 >
-                  Remove
+                  {ws.wsCommon("remove")}
                 </button>
               </li>
             ))}
@@ -286,15 +286,12 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
           {hasOutput ? (
             <p className="text-sm text-ink-muted">
-              Ready:{" "}
+              {ws.wsCommon("readyLabel")}{" "}
               <span className="font-medium text-ink">{heicToPdfOutputName(files)}</span>
               {outputBlob ? ` (${formatBytes(outputBlob.size)})` : ""}
             </p>
           ) : (
-            <p className="text-sm text-ink-muted">
-              Each HEIC becomes one PDF page at full image resolution. Live Photo bursts may add
-              multiple pages from a single file.
-            </p>
+            <p className="text-sm text-ink-muted">{ws.wsUi("outputHint")}</p>
           )}
         </div>
       ) : null}
@@ -307,7 +304,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(files.length ? ws.status("tryAgainOrChoose") : "");
+            setStatus(files.length ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (

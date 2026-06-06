@@ -163,19 +163,19 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Private:</strong> Flattening runs entirely in your browser. Your PDF never leaves your
-        device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Remove forms, comments, and annotations by flattening pages locally."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -219,7 +219,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
@@ -248,10 +248,10 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               onClick={() => void onFlatten()}
               className={toolPrimaryBtn}
             >
-              {done ? "Flatten again" : "Flatten PDF"}
+              {done ? ws.wsText("flattenAgainLabel") : ws.wsText("flattenLabel")}
             </button>
             <button type="button" disabled={busy} onClick={reset} className={toolSecondaryBtn}>
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
 
@@ -266,7 +266,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Adjust your file or password and try again." : "");
+            setStatus(file ? ws.wsText("adjustPassword") : "");
           }}
         />
       ) : (
@@ -277,7 +277,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Flatten PDF" secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta href="#tool-workspace" label={ws.wsText("flattenLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

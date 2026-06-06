@@ -156,7 +156,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               mode === "upload" ? "bg-brand text-surface" : "text-ink-muted hover:text-ink"
             }`}
           >
-            Upload File
+            {ws.wsUi("tabUpload")}
           </button>
           <button
             type="button"
@@ -165,31 +165,31 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               mode === "paste" ? "bg-brand text-surface" : "text-ink-muted hover:text-ink"
             }`}
           >
-            Paste Code
+            {ws.wsUi("tabPaste")}
           </button>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
           <label className="text-sm text-ink-muted">
-            <span className="me-2 font-medium text-ink">Orientation</span>
+            <span className="me-2 font-medium text-ink">{ws.wsUi("orientationLabel")}</span>
             <select
               value={orientation}
               onChange={(e) => setOrientation(e.target.value as HtmlPdfOrientation)}
               className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
             >
-              <option value="portrait">Portrait</option>
-              <option value="landscape">Landscape</option>
+              <option value="portrait">{ws.wsUi("orientationPortrait")}</option>
+              <option value="landscape">{ws.wsUi("orientationLandscape")}</option>
             </select>
           </label>
           <label className="text-sm text-ink-muted">
-            <span className="me-2 font-medium text-ink">Margin</span>
+            <span className="me-2 font-medium text-ink">{ws.wsUi("marginLabel")}</span>
             <select
               value={margin}
               onChange={(e) => setMargin(e.target.value as HtmlPdfMargin)}
               className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
             >
-              <option value="normal">Normal</option>
-              <option value="none">None</option>
+              <option value="normal">{ws.wsUi("marginNormal")}</option>
+              <option value="none">{ws.wsUi("marginNone")}</option>
             </select>
           </label>
         </div>
@@ -197,13 +197,14 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       {mode === "upload" ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop an HTML file here"
-          description="Supports .html and .htm. After upload, edit code and preview before exporting."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -239,7 +240,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-ink">HTML source</h2>
+            <h2 className="text-sm font-semibold text-ink">{ws.wsUi("sourceHeading")}</h2>
             {file ? <span className="text-xs text-ink-muted">{file.name}</span> : null}
           </div>
           <textarea
@@ -250,16 +251,16 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             }}
             spellCheck={false}
             className="min-h-[320px] w-full resize-y rounded-xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-sm leading-relaxed text-ink placeholder:text-ink-muted/60 focus:border-brand focus:outline-none lg:min-h-[460px]"
-            placeholder="<!doctype html><html><body><h1>Hello</h1></body></html>"
-            aria-label="HTML source editor"
+            placeholder={ws.wsUi("editorPlaceholder")}
+            aria-label={ws.wsUi("editorAriaLabel")}
           />
         </div>
 
         <div className="space-y-2">
-          <h2 className="text-sm font-semibold text-ink">Live preview</h2>
+          <h2 className="text-sm font-semibold text-ink">{ws.wsUi("previewHeading")}</h2>
           <div className="min-h-[320px] overflow-hidden rounded-xl border border-white/10 bg-white lg:min-h-[460px]">
             <iframe
-              title="HTML Preview"
+              title={ws.wsUi("previewIframeTitle")}
               className="h-[320px] w-full bg-white lg:h-[460px]"
               sandbox="allow-same-origin"
               srcDoc={previewDoc}
@@ -290,7 +291,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           onClick={reset}
           className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
         >
-          Reset sample
+          {ws.wsCommon("resetSample")}
         </button>
       </div>
 

@@ -40,11 +40,13 @@ function ComparePagePanel({
   file,
   pageIndex,
   highlights,
+  loadingLabel,
 }: {
   label: string;
   file: File;
   pageIndex: number;
   highlights: CompareHighlight[];
+  loadingLabel: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
@@ -84,7 +86,7 @@ function ComparePagePanel({
       >
         {loading ? (
           <div className="flex aspect-[3/4] max-h-[70vh] items-center justify-center text-sm text-ink-muted">
-            Rendering page…
+            {loadingLabel}
           </div>
         ) : null}
         {canvasEl ? (
@@ -122,12 +124,16 @@ function FileSlot({
   file,
   onFile,
   onClear,
+  dropHint,
+  removeLabel,
 }: {
   id: string;
   label: string;
   file: File | null;
   onFile: (f: File) => void;
   onClear: () => void;
+  dropHint: string;
+  removeLabel: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
@@ -184,12 +190,12 @@ function FileSlot({
             </span>
           </p>
         ) : (
-          <p className="text-sm text-ink-muted">Drop a PDF here or click to browse</p>
+          <p className="text-sm text-ink-muted">{dropHint}</p>
         )}
       </div>
       {file ? (
         <button type="button" className={`${toolSecondaryBtn} self-start text-xs`} onClick={onClear}>
-          Remove
+          {removeLabel}
         </button>
       ) : null}
     </div>
@@ -275,16 +281,17 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>Your files never leave your browser.</strong> Both PDFs are parsed with pdf.js
-        locally—no upload to JoinMyPDF servers.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <FileSlot
           id={`${baseId}-left`}
-          label="Original (baseline)"
+          label={ws.wsUi("labelOriginalBaseline")}
           file={leftFile}
           onFile={setLeftFile}
+          dropHint={ws.wsCommon("dropPdfHint")}
+          removeLabel={ws.wsCommon("remove")}
           onClear={() => {
             setLeftFile(null);
             setResult(null);
@@ -292,9 +299,11 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         />
         <FileSlot
           id={`${baseId}-right`}
-          label="Revised (compare to)"
+          label={ws.wsUi("labelRevised")}
           file={rightFile}
           onFile={setRightFile}
+          dropHint={ws.wsCommon("dropPdfHint")}
+          removeLabel={ws.wsCommon("remove")}
           onClear={() => {
             setRightFile(null);
             setResult(null);
@@ -304,11 +313,11 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       <div className="flex flex-wrap items-center gap-3">
         <button type="button" className={toolPrimaryBtn} disabled={!canCompare} onClick={() => void runCompare()}>
-          {busy ? "Comparing…" : "Compare PDFs"}
+          {busy ? ws.wsText("comparingLabel") : ws.wsText("compareLabel")}
         </button>
         {(leftFile || rightFile || result) && (
           <button type="button" className={toolSecondaryBtn} onClick={reset}>
-            Clear all
+            {ws.wsCommon("clearAll")}
           </button>
         )}
         {result ? (
@@ -319,7 +328,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               checked={showHighlights}
               onChange={(e) => setShowHighlights(e.target.checked)}
             />
-            Show highlights
+            {ws.wsUi("showHighlights")}
           </label>
         ) : null}
       </div>
@@ -357,21 +366,21 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             <div className="flex flex-wrap gap-4 text-xs text-ink-muted">
               <span className="flex items-center gap-1.5">
                 <span className="inline-block h-3 w-3 rounded bg-red-500/50 ring-1 ring-red-500/70" />
-                Removed / original only
+                {ws.wsUi("legendRemoved")}
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="inline-block h-3 w-3 rounded bg-emerald-500/50 ring-1 ring-emerald-500/70" />
-                Added / revised only
+                {ws.wsUi("legendAdded")}
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="inline-block h-3 w-3 rounded bg-amber-400/50 ring-1 ring-amber-500/70" />
-                Moved (same text, new position)
+                {ws.wsUi("legendMoved")}
               </span>
             </div>
             <p className="text-sm text-ink-muted">
-              Page {pageIndex + 1} of {result.pageCount}
+              {ws.wsUi("pageOf", { current: pageIndex + 1, total: result.pageCount })}
               {result.leftPageCount !== result.rightPageCount
-                ? ` · ${result.leftPageCount} vs ${result.rightPageCount} pages`
+                ? ws.wsUi("pagesVs", { left: result.leftPageCount, right: result.rightPageCount })
                 : ""}
             </p>
           </div>
@@ -383,7 +392,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               disabled={pageIndex <= 0}
               onClick={() => setPageIndex((p) => Math.max(0, p - 1))}
             >
-              Previous page
+              {ws.wsUi("previousPage")}
             </button>
             <button
               type="button"
@@ -391,19 +400,19 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               disabled={pageIndex >= result.pageCount - 1}
               onClick={() => setPageIndex((p) => Math.min(result.pageCount - 1, p + 1))}
             >
-              Next page
+              {ws.wsUi("nextPage")}
             </button>
             <select
               className="rounded-lg border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
               value={pageIndex}
               onChange={(e) => setPageIndex(Number(e.target.value))}
-              aria-label="Jump to page"
+              aria-label={ws.wsUi("jumpToPage")}
             >
               {result.pages.map((_, i) => (
                 <option key={i} value={i}>
-                  Page {i + 1}
+                  {ws.wsUi("pageOption", { page: i + 1 })}
                   {result.pages[i].leftHighlights.length || result.pages[i].rightHighlights.length
-                    ? " · has changes"
+                    ? ws.wsUi("pageOptionChanges")
                     : ""}
                 </option>
               ))}
@@ -411,21 +420,23 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           </div>
 
           {!hasDiff && showHighlights ? (
-            <p className="text-sm text-ink-muted">No highlighted text differences on this page.</p>
+            <p className="text-sm text-ink-muted">{ws.wsUi("noDiffsOnPage")}</p>
           ) : null}
 
           <div className="grid gap-4 lg:grid-cols-2">
             <ComparePagePanel
-              label="Original"
+              label={ws.wsUi("panelOriginal")}
               file={leftFile}
               pageIndex={pageIndex}
               highlights={showHighlights ? currentPage?.leftHighlights ?? [] : []}
+              loadingLabel={ws.wsCommon("renderingPage")}
             />
             <ComparePagePanel
-              label="Revised"
+              label={ws.wsUi("panelRevised")}
               file={rightFile}
               pageIndex={pageIndex}
               highlights={showHighlights ? currentPage?.rightHighlights ?? [] : []}
+              loadingLabel={ws.wsCommon("renderingPage")}
             />
           </div>
 
@@ -435,9 +446,9 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       <StickyMobileCta
         href="#tool-workspace"
-        label="Compare PDFs"
+        label={ws.wsText("compareLabel")}
         secondaryHref="/tools/pdf-merge/"
-        secondaryLabel="Merge PDF"
+        secondaryLabel={ws.wsUi("stickyMergePdf")}
       />
     </div>
   );

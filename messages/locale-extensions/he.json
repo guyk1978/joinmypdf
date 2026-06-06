@@ -735,7 +735,16 @@
       "emptyIwork": "הקובץ ריק. בחר מסמך iWork אחר.",
       "chooseCad": "בחר קובץ שרטוט AutoCAD (.dxf או .dwg).",
       "emptyCad": "הקובץ ריק. בחר שרטוט אחר.",
-      "noHeicFiles": "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif."
+      "noHeicFiles": "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif.",
+      "resetSample": "אפס לדוגמה",
+      "remove": "הסר",
+      "dropPdfHint": "גרור PDF לכאן או לחץ לעיון",
+      "pageNumber": "עמוד {page}",
+      "readyLabel": "מוכן:",
+      "renderingPage": "מרנדר עמוד…",
+      "clearAll": "נקה הכל",
+      "untitledBook": "ספר ללא שם",
+      "chapterCount": "{count} פרק/ים"
     },
     "word-to-pdf": {
       "status": {
@@ -878,7 +887,10 @@
         "preparing": "מכין שיטוח…",
         "flatteningPage": "משטח עמוד {current} מתוך {total}…"
       },
-      "privacyNote": "שיטוח רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר."
+      "privacyNote": "שיטוח רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר.",
+      "flattenLabel": "שטח PDF",
+      "flattenAgainLabel": "שטח שוב",
+      "adjustPassword": "התאם את הקובץ או הסיסמה ונסה שוב."
     },
     "sign": {
       "status": {
@@ -917,6 +929,28 @@
       "progress": {
         "loading": "טוען PDF…",
         "analyzingPage": "מנתח עמוד {current} מתוך {total}…"
+      },
+      "privacyNote": "הקבצים לא עוזבים את הדפדפן. שני ה-PDF נקראים עם pdf.js מקומית.",
+      "compareLabel": "השוואת PDF",
+      "comparingLabel": "משווה…",
+      "ui": {
+        "labelOriginalBaseline": "מקור (בסיס)",
+        "labelRevised": "גרסה מעודכנת (להשוואה)",
+        "showHighlights": "הצג הדגשות",
+        "legendRemoved": "הוסר / רק במקור",
+        "legendAdded": "נוסף / רק בגרסה המעודכנת",
+        "legendMoved": "הוזז (אותו טקסט, מיקום חדש)",
+        "pageOf": "עמוד {current} מתוך {total}",
+        "pagesVs": " · {left} מול {right} עמודים",
+        "previousPage": "עמוד קודם",
+        "nextPage": "עמוד הבא",
+        "jumpToPage": "קפיצה לעמוד",
+        "pageOption": "עמוד {page}",
+        "pageOptionChanges": " · יש שינויים",
+        "noDiffsOnPage": "אין הבדלי טקסט מודגשים בעמוד זה.",
+        "panelOriginal": "מקור",
+        "panelRevised": "מעודכן",
+        "stickyMergePdf": "מיזוג PDF"
       }
     },
     "crop-pdf": {
@@ -965,7 +999,19 @@
       "privacyNote": "ניתוח Markdown ורינדור PDF רצים בדפדפן. ההערות לא עוזבות את המכשיר.",
       "convertLabel": "המר ל-PDF",
       "downloadLabel": "הורד PDF",
-      "stickyConvertLabel": "Markdown ל-PDF"
+      "stickyConvertLabel": "Markdown ל-PDF",
+      "ui": {
+        "tabEditor": "כתיבה / הדבקה",
+        "tabUpload": "העלאת .md",
+        "themeLabel": "ערכת עיצוב",
+        "themeGithub": "GitHub",
+        "themeMinimalDark": "מינימלי כהה",
+        "themeAcademic": "אקדמי",
+        "sourceHeading": "מקור Markdown",
+        "previewHeading": "תצוגה מקדימה HTML",
+        "editorPlaceholder": "# כותרת\n\nכתוב Markdown כאן…",
+        "editorAriaLabel": "עורך מקור Markdown"
+      }
     },
     "html-to-pdf": {
       "status": {
@@ -981,7 +1027,22 @@
       },
       "privacyNote": "רינדור HTML ויצירת PDF רצים ב-sandbox של הדפדפן. הקוד לא עוזב את המכשיר.",
       "convertLabel": "המר ל-PDF",
-      "stickyConvertLabel": "HTML ל-PDF"
+      "stickyConvertLabel": "HTML ל-PDF",
+      "ui": {
+        "tabUpload": "העלאת קובץ",
+        "tabPaste": "הדבקת קוד",
+        "orientationLabel": "כיוון",
+        "orientationPortrait": "לאורך",
+        "orientationLandscape": "לרוחב",
+        "marginLabel": "שוליים",
+        "marginNormal": "רגיל",
+        "marginNone": "ללא",
+        "sourceHeading": "מקור HTML",
+        "previewHeading": "תצוגה מקדימה",
+        "previewIframeTitle": "תצוגה מקדימה HTML",
+        "editorPlaceholder": "<!doctype html><html><body><h1>שלום</h1></body></html>",
+        "editorAriaLabel": "עורך מקור HTML"
+      }
     },
     "ebook-to-pdf": {
       "status": {
@@ -1001,7 +1062,16 @@
       },
       "privacyNote": "חילוץ EPUB ויצירת PDF רצים ב-sandbox של הדפדפן. הספר לא עוזב את המכשיר.",
       "convertLabel": "המר ל-PDF",
-      "stickyConvertLabel": "ספר אלקטרוני ל-PDF"
+      "stickyConvertLabel": "ספר אלקטרוני ל-PDF",
+      "ui": {
+        "fontSizeLabel": "גודל גופן יעד",
+        "fontSmall": "קטן",
+        "fontMedium": "בינוני",
+        "fontLarge": "גדול",
+        "marginsLabel": "שולי עמוד",
+        "marginNormal": "רגיל",
+        "marginCompact": "צפוף"
+      }
     },
     "iwork-to-pdf": {
       "status": {
@@ -1060,7 +1130,12 @@
       "convertLabel": "יצירת PDF",
       "downloadLabel": "הורד PDF",
       "stickyConvertLabel": "יצירת PDF",
-      "stickyDownloadLabel": "הורד PDF"
+      "stickyDownloadLabel": "הורד PDF",
+      "ui": {
+        "filesSelected": "נבחרו {count} קובצ/י HEIC",
+        "totalReorderHint": "{size} סה״כ · גרור שורות לסדר עמודים",
+        "outputHint": "כל HEIC הופך לעמוד PDF ברזולוציה מלאה. Live Photo עלול להוסיף מספר עמודים מקובץ אחד."
+      }
     }
   },
   "Tools": {

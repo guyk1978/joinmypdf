@@ -70,6 +70,12 @@ export function useWorkspaceI18n(operation: string) {
     return "";
   }
 
+  function wsUi(key: string, values?: Record<string, string | number>): string {
+    const opKey = `${operation}.ui.${key}`;
+    if (tw.has(opKey)) return tw(opKey, values);
+    return "";
+  }
+
   return {
     t,
     tw,
@@ -83,6 +89,7 @@ export function useWorkspaceI18n(operation: string) {
     wsProgress,
     wsCommon,
     wsText,
+    wsUi,
     home: common("home"),
     clear: common("clear"),
     processing: common("processing"),

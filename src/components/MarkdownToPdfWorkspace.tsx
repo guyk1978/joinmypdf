@@ -47,6 +47,15 @@ function progressPercent(phase: MarkdownProgressPhase | null, busy: boolean): nu
   return 92;
 }
 
+function themeLabelFor(id: MarkdownTheme, ws: ReturnType<typeof useWorkspaceI18n>): string {
+  const map: Record<MarkdownTheme, string> = {
+    github: ws.wsUi("themeGithub"),
+    "minimal-dark": ws.wsUi("themeMinimalDark"),
+    academic: ws.wsUi("themeAcademic"),
+  };
+  return map[id] || id;
+}
+
 export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN_SAMPLE);
@@ -173,7 +182,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
               inputMode === "editor" ? "bg-brand text-surface" : "text-ink-muted hover:text-ink"
             }`}
           >
-            Write / paste
+            {ws.wsUi("tabEditor")}
           </button>
           <button
             type="button"
@@ -182,12 +191,12 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
               inputMode === "upload" ? "bg-brand text-surface" : "text-ink-muted hover:text-ink"
             }`}
           >
-            Upload .md
+            {ws.wsUi("tabUpload")}
           </button>
         </div>
 
         <label className="flex items-center gap-2 text-sm text-ink-muted">
-          <span className="font-medium text-ink">Theme</span>
+          <span className="font-medium text-ink">{ws.wsUi("themeLabel")}</span>
           <select
             value={theme}
             onChange={(e) => setTheme(e.target.value as MarkdownTheme)}
@@ -195,7 +204,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
           >
             {MARKDOWN_THEMES.map((t) => (
               <option key={t.id} value={t.id}>
-                {t.label}
+                {themeLabelFor(t.id, ws)}
               </option>
             ))}
           </select>
@@ -204,13 +213,14 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
       {inputMode === "upload" ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a Markdown file here"
-          description="Upload a .md file, then switch to Write / paste to edit or preview."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -246,7 +256,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-ink">Markdown source</h2>
+              <h2 className="text-sm font-semibold text-ink">{ws.wsUi("sourceHeading")}</h2>
             {file ? <span className="text-xs text-ink-muted">{file.name}</span> : null}
           </div>
           <textarea
@@ -257,13 +267,13 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
             }}
             spellCheck={false}
             className="min-h-[320px] w-full resize-y rounded-xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-sm leading-relaxed text-ink placeholder:text-ink-muted/60 focus:border-brand focus:outline-none lg:min-h-[420px]"
-            placeholder="# Title&#10;&#10;Write Markdown here…"
-            aria-label="Markdown source editor"
+            placeholder={ws.wsUi("editorPlaceholder")}
+            aria-label={ws.wsUi("editorAriaLabel")}
           />
         </div>
 
         <div className="space-y-2">
-          <h2 className="text-sm font-semibold text-ink">Live HTML preview</h2>
+          <h2 className="text-sm font-semibold text-ink">{ws.wsUi("previewHeading")}</h2>
           <div
             className={`${previewSurfaceClass(theme)} min-h-[320px] overflow-auto text-sm leading-relaxed lg:min-h-[420px] ${previewStyles}`}
             dangerouslySetInnerHTML={{ __html: previewHtml }}
@@ -293,7 +303,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
           onClick={reset}
           className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
         >
-          Reset sample
+          {ws.wsCommon("resetSample")}
         </button>
       </div>
 
