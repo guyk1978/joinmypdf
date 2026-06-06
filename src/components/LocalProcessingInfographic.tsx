@@ -1,19 +1,30 @@
+const DEFAULT_HEADLINE =
+  "Merge, compress, and edit PDFs in your browser—nothing is uploaded to our servers.";
+
 type LocalProcessingInfographicProps = {
   className?: string;
+  headline?: string;
+  headingAs?: "h1" | "h2";
 };
 
-export function LocalProcessingInfographic({ className = "" }: LocalProcessingInfographicProps) {
+export function LocalProcessingInfographic({
+  className = "",
+  headline = DEFAULT_HEADLINE,
+  headingAs = "h2",
+}: LocalProcessingInfographicProps) {
+  const Heading = headingAs;
+
   return (
     <section
       className={`py-16 px-4 max-w-6xl mx-auto text-center ${className}`.trim()}
       aria-labelledby="local-processing-heading"
     >
-      <h2
+      <Heading
         id="local-processing-heading"
-        className="text-3xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white mb-4"
+        className="mx-auto mb-4 max-w-3xl text-2xl font-semibold leading-snug tracking-tight text-slate-900 dark:text-white md:text-4xl"
       >
-        Merge, compress, and edit PDFs in your browser—nothing is uploaded to our servers.
-      </h2>
+        {headline}
+      </Heading>
       <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-12 text-base md:text-lg">
         JoinMyPDF runs tools locally for maximum speed and absolute privacy.
       </p>

@@ -39,7 +39,10 @@ export default function HomePage() {
       <main className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
         {/* Phase 1 — Hero */}
         <section className="text-center">
-          <LocalProcessingInfographic />
+          <LocalProcessingInfographic
+            headingAs="h1"
+            headline="Seamless PDF tasks, right in your browser, running fully-locally."
+          />
           <div className="mx-auto mt-8 max-w-2xl">
             <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
           </div>
