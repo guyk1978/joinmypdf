@@ -1,10 +1,11 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { ToolIconBadge } from "@/lib/tool-icons";
+import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
 import type { MegaMenuSection } from "@/lib/mega-menu";
 import { isNavItemActive } from "@/lib/nav-config";
 
@@ -65,7 +66,9 @@ export function ToolsMegaMenu({
   onNavigate,
   variant = "desktop",
 }: ToolsMegaMenuProps) {
-  const t = useTranslations("Header");
+  const tHeader = useTranslations("Header");
+  const tTools = useTranslations("Tools");
+  const locale = useLocale();
   const pathname = usePathname() || "/";
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -161,7 +164,7 @@ export function ToolsMegaMenu({
         }}
       >
         <LayoutGridIcon className="nav-mega__trigger-icon shrink-0" />
-        <span>{t("allTools")}</span>
+        <span>{tHeader("allTools")}</span>
         <NavChevron open={open} />
       </button>
 
@@ -179,11 +182,15 @@ export function ToolsMegaMenu({
       >
         <div className="nav-mega__panel overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-950">
           <div className="nav-mega__grid">
-            {sections.map((section) => (
+            {sections.map((section) => {
+              const sectionLabel = translateToolSection(tTools, section.id, section.label);
+              return (
               <div key={section.id} className="nav-mega__column min-w-0">
-                <p className="nav-mega__heading text-slate-900 dark:text-slate-400">{section.label}</p>
+                <p className="nav-mega__heading text-slate-900 dark:text-slate-400">{sectionLabel}</p>
                 <ul className="nav-mega__list">
-                  {section.items.map((item) => (
+                  {section.items.map((item) => {
+                    const itemLabel = translateToolItem(tTools, item.slug, item.label);
+                    return (
                     <li key={item.href}>
                       <Link
                         href={item.href}
@@ -198,14 +205,14 @@ export function ToolsMegaMenu({
                           onNavigate?.();
                         }}
                       >
-                        <ToolIconBadge slug={item.slug} label={item.label} />
-                        <span className="nav-mega__link-label">{item.label}</span>
+                        <ToolIconBadge slug={item.slug} label={itemLabel} />
+                        <span className="nav-mega__link-label">{itemLabel}</span>
                       </Link>
                     </li>
-                  ))}
+                  );})}
                 </ul>
               </div>
-            ))}
+            );})}
           </div>
           <div className="nav-mega__footer border-slate-200 dark:border-slate-800">
             <Link
@@ -217,7 +224,7 @@ export function ToolsMegaMenu({
                 onNavigate?.();
               }}
             >
-              {t("viewAllTools")} →
+              {tHeader("viewAllTools")} {locale === "he" ? "←" : "→"}
             </Link>
           </div>
         </div>

@@ -2406,6 +2406,11 @@ html.dark .nav-mega__heading {
   transform: translateX(2px);
 }
 
+[dir="rtl"] .nav-mega__link:hover,
+[dir="rtl"] .nav-mega__link.is-active {
+  transform: translateX(-2px);
+}
+
 html.dark .nav-mega__link {
   color: #e2e8f0;
 }
