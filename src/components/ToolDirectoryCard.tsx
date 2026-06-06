@@ -15,7 +15,7 @@ export function ToolDirectoryCard({ href, label, slug }: ToolDirectoryCardProps)
       prefetch={false}
     >
       <ToolDirectoryIcon slug={slug} label={label} />
-      <h3 className="mb-1 text-center text-base font-extrabold tracking-tight text-slate-900 dark:text-white md:text-left md:text-lg">
+      <h3 className="mb-1 text-center text-base font-extrabold tracking-tight text-slate-900 dark:text-white md:text-start md:text-lg">
         {label}
       </h3>
     </Link>

@@ -390,7 +390,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
                     <li key={f.id}>
                       <button
                         type="button"
-                        className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition ${
+                        className={`w-full rounded-lg border px-3 py-2 text-start text-sm transition ${
                           selectedId === f.id
                             ? "border-brand bg-brand/10"
                             : "border-white/10 bg-white/[0.03] hover:border-white/20"

@@ -205,7 +205,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             <span className="font-medium text-slate-900 dark:text-slate-100">{file.name}</span> ·{" "}
             {pdf.formatBytes(file.size)}
             {encrypted ? (
-              <span className="ml-2 rounded-md bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-500/20 dark:text-amber-200">
+              <span className="ms-2 rounded-md bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-500/20 dark:text-amber-200">
                 Password protected
               </span>
             ) : null}

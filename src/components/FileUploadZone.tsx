@@ -40,7 +40,7 @@ function UploadArrowIcon({ className, active }: { className?: string; active?: b
         <path d="M12.5 19.3V15.7H13.95C15.05 15.7 15.85 16.45 15.85 17.5C15.85 18.55 15.05 19.3 13.95 19.3H12.5Z" fill="white" />
         <path d="M16.8 19.3V15.7H19.45V16.5H17.65V17.1H19.15V17.9H17.65V19.3H16.8Z" fill="white" />
       </svg>
-      <div className="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-green-500" />
+      <div className="absolute -end-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-green-500" />
     </div>
   );
 }
@@ -63,7 +63,7 @@ export function PrivacyUploadBadge({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        "inline-flex w-full max-w-2xl items-start gap-2.5 rounded-xl border border-sky-200 bg-sky-50/80 px-3.5 py-2.5 text-left shadow-sm sm:items-center sm:px-4 sm:py-3 dark:border-brand/35 dark:bg-brand/10 dark:shadow-[0_0_24px_rgba(56,189,248,0.08)]",
+        "inline-flex w-full max-w-2xl items-start gap-2.5 rounded-xl border border-sky-200 bg-sky-50/80 px-3.5 py-2.5 text-start shadow-sm sm:items-center sm:px-4 sm:py-3 dark:border-brand/35 dark:bg-brand/10 dark:shadow-[0_0_24px_rgba(56,189,248,0.08)]",
         className,
       )}
       role="note"

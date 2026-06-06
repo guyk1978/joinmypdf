@@ -171,7 +171,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
         <div className="flex flex-wrap items-center gap-3">
           <label className="text-sm text-ink-muted">
-            <span className="mr-2 font-medium text-ink">Orientation</span>
+            <span className="me-2 font-medium text-ink">Orientation</span>
             <select
               value={orientation}
               onChange={(e) => setOrientation(e.target.value as HtmlPdfOrientation)}
@@ -182,7 +182,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             </select>
           </label>
           <label className="text-sm text-ink-muted">
-            <span className="mr-2 font-medium text-ink">Margin</span>
+            <span className="me-2 font-medium text-ink">Margin</span>
             <select
               value={margin}
               onChange={(e) => setMargin(e.target.value as HtmlPdfMargin)}

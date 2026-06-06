@@ -28,7 +28,7 @@ export function MapDiagramCrossLink({ className }: Props) {
   return (
     <aside
       className={clsx(
-        "partner-mapdiagram w-full rounded-2xl border border-indigo-100 bg-white px-4 py-3.5 text-left shadow-sm sm:px-5 sm:py-4 dark:border-slate-800 dark:bg-slate-950/50",
+        "partner-mapdiagram w-full rounded-2xl border border-indigo-100 bg-white px-4 py-3.5 text-start shadow-sm sm:px-5 sm:py-4 dark:border-slate-800 dark:bg-slate-950/50",
         className,
       )}
       aria-label={t("mapDiagramAria")}

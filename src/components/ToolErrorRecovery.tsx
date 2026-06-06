@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useLocaleLayout } from "@/hooks/useLocaleLayout";
 import { Link } from "@/i18n/navigation";
 import { getToolErrorRecovery } from "@/lib/tool-error-recovery";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
@@ -72,6 +73,7 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
   const tErrors = useTranslations("Workspace.errors");
   const tCommon = useTranslations("Workspace.common");
   const tTools = useTranslations("Tools");
+  const { arrow } = useLocaleLayout();
 
   const content = getToolErrorRecovery(operation, kind, slug);
   const primary = content.actions.find((a) => a.variant === "primary");
@@ -147,11 +149,11 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
 
           {(primary?.hint || secondary.some((a) => a.hint)) && (
             <ul className="space-y-1 text-xs text-ink-muted">
-              {primary?.hint ? <li>→ {translateActionHint(primary.hint, tErrors)}</li> : null}
+              {primary?.hint ? <li>{arrow} {translateActionHint(primary.hint, tErrors)}</li> : null}
               {secondary
                 .filter((a) => a.hint)
                 .map((a) => (
-                  <li key={a.href}>→ {translateActionHint(a.hint, tErrors)}</li>
+                  <li key={a.href}>{arrow} {translateActionHint(a.hint, tErrors)}</li>
                 ))}
             </ul>
           )}

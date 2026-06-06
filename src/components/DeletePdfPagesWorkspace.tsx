@@ -284,7 +284,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
             <p className="truncate text-sm text-ink-muted">
               <span className="font-medium text-ink">{file.name}</span> · {pdf.formatBytes(file.size)}
               {markedCount > 0 ? (
-                <span className="ml-2 text-amber-200">
+                <span className="ms-2 text-amber-200">
                   · {markedCount} page{markedCount === 1 ? "" : "s"} marked
                 </span>
               ) : null}

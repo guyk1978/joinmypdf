@@ -405,7 +405,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
               Preview
             </h2>
             <div className="mt-3 max-h-80 overflow-auto rounded-xl border border-white/10">
-              <table className="w-full text-left text-sm">
+              <table className="w-full text-start text-sm">
                 <thead className="sticky top-0 bg-slate-900/95 text-xs uppercase text-ink-muted">
                   <tr>
                     <th className="px-4 py-2 font-medium">Original</th>

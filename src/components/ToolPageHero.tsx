@@ -33,7 +33,7 @@ export function ToolPageHero({ slug, title, subtitle, eyebrow = "JoinMyPDF" }: P
         <span
           className={clsx(
             TOOL_ICON_WRAP_CLASS,
-            "mr-0 inline-flex shrink-0 items-center justify-center rounded-2xl p-2.5 shadow-sm sm:mr-1",
+            "me-0 inline-flex shrink-0 items-center justify-center rounded-2xl p-2.5 shadow-sm sm:me-1",
             visual.wrap,
           )}
           aria-hidden

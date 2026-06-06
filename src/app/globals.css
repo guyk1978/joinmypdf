@@ -344,7 +344,7 @@ html.dark .visual-reorder-card {
 .visual-reorder-card__index {
   position: absolute;
   top: 8px;
-  left: 8px;
+  inset-inline-start: 8px;
   z-index: 2;
   padding: 0.12rem 0.45rem;
   border-radius: 999px;
@@ -363,7 +363,7 @@ html.dark .visual-reorder-card__index {
 .visual-reorder-card__remove {
   position: absolute;
   top: 6px;
-  right: 6px;
+  inset-inline-end: 6px;
   z-index: 3;
   width: 1.65rem;
   height: 1.65rem;
@@ -669,6 +669,7 @@ html.dark .visual-reorder-card__meta {
   color: #1e3a8a;
   font-size: 0.92rem;
   line-height: 1.55;
+  text-align: start;
 }
 
 .privacy-callout strong {
@@ -1199,7 +1200,7 @@ html.dark .redact-page__stage {
   background: transparent;
   color: #ffffff;
   font-size: 0.88rem;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   transition: background 0.12s;
 }
@@ -1986,8 +1987,8 @@ html.dark .nav-link--emphasis.is-active {
 .nav-dropdown__panel {
   position: absolute;
   top: calc(100% + 0.35rem);
-  left: 0;
-  right: auto;
+  inset-inline-start: 0;
+  inset-inline-end: auto;
   z-index: 50;
   min-width: 220px;
   padding: 0.45rem;
@@ -2004,8 +2005,8 @@ html.dark .nav-link--emphasis.is-active {
 
 .site-header__cluster .nav-dropdown__panel,
 .main-nav .nav-dropdown__panel {
-  left: auto;
-  right: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
 }
 
 .nav-dropdown.is-open .nav-dropdown__panel {
@@ -2558,4 +2559,33 @@ html.dark .group:hover .tool-icon-wrap {
   .animate-wattquick-float {
     animation: none;
   }
+}
+
+/* --- RTL (Hebrew) alignment --- */
+[dir="rtl"] .site-search__result,
+[dir="rtl"] .site-search__result-title,
+[dir="rtl"] .site-search__result-desc,
+[dir="rtl"] .site-search__group-title {
+  text-align: start;
+}
+
+[dir="rtl"] .visual-reorder-panel__hint,
+[dir="rtl"] .visual-reorder-card__name,
+[dir="rtl"] .visual-reorder-card__meta {
+  text-align: start;
+}
+
+[dir="rtl"] .protect-form__label,
+[dir="rtl"] .protect-form__input {
+  text-align: start;
+}
+
+[dir="rtl"] .nav-mega__section-title,
+[dir="rtl"] .nav-mega__link {
+  text-align: start;
+}
+
+/* Progress fill stays LTR; caption row follows document direction */
+[dir="rtl"] .workspace-progress {
+  direction: ltr;
 }
