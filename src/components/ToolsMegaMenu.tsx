@@ -9,6 +9,7 @@ import { ToolMegaGrid } from "@/components/ToolMegaGrid";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { flattenMegaMenuSections, type MegaMenuSection } from "@/lib/mega-menu";
 import { isNavItemActive } from "@/lib/nav-config";
+import { OPEN_TOOLS_GRID_EVENT } from "@/lib/tool-grid-events";
 
 function LayoutGridIcon({ className }: { className?: string }) {
   return (
@@ -78,6 +79,12 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
     document.body.classList.toggle("site-tools-grid-open", open);
     return () => document.body.classList.remove("site-tools-grid-open");
   }, [open]);
+
+  useEffect(() => {
+    const openGrid = () => setOpen(true);
+    window.addEventListener(OPEN_TOOLS_GRID_EVENT, openGrid);
+    return () => window.removeEventListener(OPEN_TOOLS_GRID_EVENT, openGrid);
+  }, []);
 
   useEffect(() => {
     if (!open) return;

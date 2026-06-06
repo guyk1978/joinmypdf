@@ -27,7 +27,35 @@ function toolLink(slug: string): FooterToolLink {
   return { kind: "tool", slug, href: `/tools/${slug}/` };
 }
 
-/** Tool columns for the site footer — grouped for SEO and discoverability. */
+/** Simplified footer columns — category and product links, not individual tools. */
+export const FOOTER_PRODUCT_COLUMN: FooterColumn = {
+  titleKey: "product",
+  links: [
+    { kind: "page", href: "/tools/", labelKey: "features" },
+    { kind: "page", href: "/privacy-first/", labelKey: "privacyFirst" },
+    { kind: "page", href: "/privacy-first-pdf-tools/", labelKey: "security" },
+  ],
+};
+
+export const FOOTER_CATEGORIES_COLUMN: FooterColumn = {
+  titleKey: "categories",
+  links: [
+    { kind: "page", href: "/tools/#convert", labelKey: "converters" },
+    { kind: "page", href: "/tools/#optimize", labelKey: "optimization" },
+    { kind: "page", href: "/tools/#security", labelKey: "securityTools" },
+  ],
+};
+
+export const FOOTER_COMPANY_COLUMN: FooterColumn = {
+  titleKey: "company",
+  links: [
+    { kind: "page", href: "/compare/", labelKey: "about" },
+    { kind: "page", href: "/privacy/", labelKey: "terms" },
+    { kind: "page", href: "/privacy/", labelKey: "contact" },
+  ],
+};
+
+/** @deprecated Footer no longer lists individual tools — kept for tools-directory helpers. */
 export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
   {
     titleKey: "convertToPdf",
@@ -93,19 +121,6 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
   },
 ];
 
-export const FOOTER_COMPANY_COLUMN: FooterColumn = {
-  titleKey: "company",
-  links: [
-    { kind: "page", href: "/", labelKey: "home" },
-    { kind: "page", href: "/blog/", labelKey: "guidesBlog" },
-    { kind: "page", href: "/tools/", labelKey: "allTools" },
-    { kind: "page", href: "/compare/", labelKey: "compare" },
-    { kind: "page", href: "/privacy-first/", labelKey: "privacyFirst" },
-    { kind: "page", href: "/privacy/", labelKey: "privacyPolicy" },
-    { kind: "page", href: "/privacy-first-pdf-tools/", labelKey: "privacyHub" },
-  ],
-};
-
 export const FOOTER_PARTNER_LINKS: FooterExternalLink[] = [
   {
     kind: "external",
@@ -129,12 +144,9 @@ export const FOOTER_TAGLINE_KEYS = {
   blog: "blog",
 } as const;
 
-/** @deprecated Use FOOTER_TOOL_COLUMNS + FOOTER_COMPANY_COLUMN */
+/** @deprecated Use FOOTER_PRODUCT_COLUMN + FOOTER_CATEGORIES_COLUMN + FOOTER_COMPANY_COLUMN */
 export const FOOTER_DIRECTORY_COLUMNS: FooterColumn[] = [
-  ...FOOTER_TOOL_COLUMNS,
+  FOOTER_PRODUCT_COLUMN,
+  FOOTER_CATEGORIES_COLUMN,
   FOOTER_COMPANY_COLUMN,
-  {
-    titleKey: "company",
-    links: FOOTER_PARTNER_LINKS.map((link) => ({ ...link })),
-  },
 ];

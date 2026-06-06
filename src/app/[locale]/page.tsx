@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 export const runtime = "edge";
+import { FeaturedToolsShowcase } from "@/components/FeaturedToolsShowcase";
 import { HeroDropzone } from "@/components/HeroDropzone";
 import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
 import { ScenarioWins } from "@/components/ScenarioWins";
@@ -12,8 +13,8 @@ import { routing } from "@/i18n/routing";
 import { blogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { SocialProofStrip } from "@/components/SocialProofStrip";
-import { ToolGrid } from "@/components/ToolGrid";
 import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
+import { buildFeaturedHomeToolItems, getTotalToolCount } from "@/lib/featured-tools";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { ctaSecondary } from "@/lib/cta-styles";
@@ -40,8 +41,11 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Home");
+  const tTools = await getTranslations("Tools");
 
   const tMeta = await getTranslations("Metadata");
+  const featuredItems = buildFeaturedHomeToolItems(tTools);
+  const toolCount = getTotalToolCount();
 
   return (
     <>
@@ -67,17 +71,7 @@ export default async function HomePage({ params }: Props) {
           </div>
         </section>
 
-        <section className="mt-20 space-y-2 md:mt-24">
-          <div className="text-center md:text-left">
-            <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-neutral-200 dark:text-white md:text-3xl">
-              {t("pickTool")}
-            </h2>
-            <p className="mx-auto mt-2 max-w-2xl text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:mx-0 md:text-base">
-              {t("pickToolDescription")}
-            </p>
-          </div>
-          <ToolGrid />
-        </section>
+        <FeaturedToolsShowcase items={featuredItems} toolCount={toolCount} />
 
         <div className="mt-20 md:mt-24">
           <ScenarioWins />

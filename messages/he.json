@@ -39,6 +39,9 @@
   "Home": {
     "pickTool": "בחר כלי",
     "pickToolDescription": "כל תהליך נפתח בלחיצה אחת — אותו ממשק, אותו מודל פרטיות.",
+    "featuredTools": "כלים מומלצים",
+    "featuredToolsDescription": "התחילו מהתהליכים הנפוצים ביותר — מיזוג, דחיסה, המרה והגנה על PDF בלחיצה אחת.",
+    "viewAllTools": "צפה בכל {count}+ הכלים",
     "browseAllTools": "עיין בכל הכלים",
     "browseAllToolsDescription": "מדריך מלא למיזוג, דחיסה, המרה, חתימה והגנה — כולל דפים לנייד, דדליינים ומסמכים רגישים.",
     "openToolDirectory": "פתח מדריך כלים",
@@ -167,14 +170,24 @@
       "blog": "JoinMyPDF — מדריכים לתהליכי PDF, מגבלות דוא\"ל וטיפים לנייד."
     },
     "columns": {
+      "product": "מוצר",
+      "categories": "קטגוריות",
+      "company": "חברה",
       "convertToPdf": "המרה ל-PDF",
       "convertFromPdf": "המרה מ-PDF",
       "editOptimize": "עריכה ואופטימיזציה",
-      "securityLegal": "אבטחה ומשפט",
-      "company": "חברה ומשאבים"
+      "securityLegal": "אבטחה ומשפט"
     },
     "links": {
       "home": "דף הבית",
+      "features": "יכולות",
+      "security": "אבטחה",
+      "converters": "ממירים",
+      "optimization": "אופטימיזציה",
+      "securityTools": "כלי אבטחה",
+      "about": "אודות",
+      "terms": "תנאים",
+      "contact": "צור קשר",
       "guidesBlog": "מדריכים ובלוג",
       "allTools": "כל כלי ה-PDF",
       "compare": "השוואת כלים",

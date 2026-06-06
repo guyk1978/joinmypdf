@@ -39,6 +39,9 @@
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",
+    "featuredTools": "Featured tools",
+    "featuredToolsDescription": "Start with the workflows people use most—merge, compress, convert, and secure PDFs in one click.",
+    "viewAllTools": "View all {count}+ tools",
     "browseAllTools": "Browse all tools",
     "browseAllToolsDescription": "Full directory of merge, compress, convert, sign, and protect workflows—including long-tail pages for mobile, deadlines, and sensitive documents.",
     "openToolDirectory": "Open tool directory",
@@ -167,14 +170,24 @@
       "blog": "JoinMyPDF — guides for PDF workflows, email limits, and mobile tips."
     },
     "columns": {
+      "product": "Product",
+      "categories": "Categories",
+      "company": "Company",
       "convertToPdf": "Convert to PDF",
       "convertFromPdf": "Convert from PDF",
       "editOptimize": "Edit & Optimize",
-      "securityLegal": "Security & Legal",
-      "company": "Company & Resources"
+      "securityLegal": "Security & Legal"
     },
     "links": {
       "home": "Home",
+      "features": "Features",
+      "security": "Security",
+      "converters": "Converters",
+      "optimization": "Optimization",
+      "securityTools": "Security tools",
+      "about": "About",
+      "terms": "Terms",
+      "contact": "Contact",
       "guidesBlog": "Guides & Blog",
       "allTools": "All PDF tools",
       "compare": "Compare tools",

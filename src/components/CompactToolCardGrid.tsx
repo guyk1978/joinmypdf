@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { clsx } from "clsx";
 import { getToolIcon, TOOL_ICON_WRAP_CLASS } from "@/lib/tool-icons";
 
 export type CompactToolCardItem = {
@@ -7,9 +8,15 @@ export type CompactToolCardItem = {
   slugHint?: string;
 };
 
-export function CompactToolCardGrid({ items }: { items: CompactToolCardItem[] }) {
+export function CompactToolCardGrid({
+  items,
+  className,
+}: {
+  items: CompactToolCardItem[];
+  className?: string;
+}) {
   return (
-    <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
+    <div className={clsx("grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6", className)}>
       {items.map((item) => {
         const visual = getToolIcon(item.slugHint, item.label);
         return (
