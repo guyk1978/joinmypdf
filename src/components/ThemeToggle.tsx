@@ -17,7 +17,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <span
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-none border border-neutral-300 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900"
+        className="inline-flex h-full w-10 shrink-0 items-center justify-center rounded-none"
         aria-hidden="true"
       />
     );
@@ -30,7 +30,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="inline-flex shrink-0 items-center justify-center rounded-none border border-transparent p-2 transition-colors hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 dark:hover:bg-neutral-800 dark:focus-visible:ring-offset-neutral-950"
+      className="inline-flex h-full shrink-0 items-center justify-center rounded-none px-3 transition-colors hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 dark:hover:bg-neutral-800 dark:focus-visible:ring-offset-neutral-950"
       aria-label={label}
       title={label}
       suppressHydrationWarning

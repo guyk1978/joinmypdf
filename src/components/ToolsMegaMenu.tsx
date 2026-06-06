@@ -116,7 +116,7 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
           {tHeader("closeToolsGrid")}
         </button>
 
-        <div className="w-full pt-14">
+        <div className="w-full pt-12">
           <div className="w-full border-b border-neutral-300 px-4 py-3 dark:border-neutral-700">
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-black dark:text-neutral-200">
               {tHeader("allTools")}

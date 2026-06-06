@@ -260,14 +260,14 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   return (
     <div
       ref={wrapRef}
-      className="site-search site-search--header"
+      className="site-search site-search--header relative flex h-full items-center"
       data-site-search
       data-react-search="true"
       data-variant="header"
     >
       <button
         type="button"
-        className="site-search__toggle"
+        className="site-search__toggle h-full rounded-none hover:bg-neutral-200 dark:hover:bg-neutral-800"
         aria-label={t("openSearch")}
         aria-expanded={headerOpen}
         aria-controls={popoverId}
@@ -286,7 +286,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
       </button>
       <div
         id={popoverId}
-        className={`site-search__popover${headerOpen ? " site-search__popover--open" : ""}`}
+        className={`site-search__popover left-auto right-4 max-w-[calc(100vw-20px)] [dir=rtl]:left-4 [dir=rtl]:right-auto${headerOpen ? " site-search__popover--open" : ""}`}
         aria-hidden={!headerOpen}
       >
         {field}

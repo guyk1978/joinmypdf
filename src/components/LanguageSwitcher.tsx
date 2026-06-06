@@ -12,12 +12,12 @@ export function LanguageSwitcher() {
   const router = useRouter();
 
   return (
-    <label className="inline-flex items-center gap-1.5">
+    <label className="inline-flex h-full cursor-pointer items-center px-3 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-800">
       <span className="sr-only">{tHeader("language")}</span>
       <select
         value={locale}
         aria-label={tHeader("language")}
-        className="rounded-none border border-neutral-300 bg-white px-2 py-1 text-xs font-medium text-black transition hover:border-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:border-neutral-600"
+        className="h-full rounded-none border-0 bg-transparent px-1 text-xs font-medium text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:text-neutral-200 dark:focus-visible:ring-neutral-600"
         onChange={(event) => {
           const nextLocale = event.target.value as AppLocale;
           if (!routing.locales.includes(nextLocale) || nextLocale === locale) return;

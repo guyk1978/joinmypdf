@@ -71,22 +71,26 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
   return (
     <>
       <nav
-        className="relative mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-3"
+        className="relative mx-auto flex h-12 max-w-7xl items-stretch justify-between gap-0"
         aria-label={t("siteLabel")}
       >
-        <Link href="/" className="brand z-10 flex shrink-0 items-center" aria-label="JoinMyPDF">
+        <Link href="/" className="brand z-10 flex h-full shrink-0 items-center px-3" aria-label="JoinMyPDF">
           <JoinMyPdfLogo />
         </Link>
 
-        <div className="absolute left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 md:flex">
-          <ToolsMegaMenu sections={megaMenuSections} />
-          <GuidesLink />
-          <PrivacyFirstLink />
+        <div className="absolute left-1/2 z-10 hidden h-full -translate-x-1/2 md:flex">
+          <div className="flex h-full items-stretch divide-x divide-neutral-300 dark:divide-neutral-800">
+            <ToolsMegaMenu sections={megaMenuSections} />
+            <GuidesLink />
+            <PrivacyFirstLink />
+          </div>
         </div>
 
-        <div className="z-10 flex shrink-0 items-center gap-2">
+        <div className="z-10 flex h-full shrink-0 items-stretch divide-x divide-neutral-300 dark:divide-neutral-800">
           <LanguageSwitcher />
-          <SiteSearch variant="header" registry={registry} blog={blog} />
+          <div className="relative flex h-full items-center">
+            <SiteSearch variant="header" registry={registry} blog={blog} />
+          </div>
           <ThemeToggle />
           <button
             type="button"
