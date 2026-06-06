@@ -34,7 +34,7 @@ export default async function BlogIndexPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-2 py-6 md:px-3 md:py-8">
+      <main className="mx-auto max-w-6xl bg-neutral-100 px-2 py-6 dark:bg-neutral-950 md:px-3 md:py-8">
         <header className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-wider text-black dark:text-neutral-200">
             {t("badge")}

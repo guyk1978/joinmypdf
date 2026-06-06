@@ -187,6 +187,41 @@
     "metaDescription": "מדריכי JoinMyPDF מעשיים למיזוג, דחיסה, פיצול ותהליכי PDF ממוקדי פרטיות — כתובים לאנשים.",
     "badge": "מדריכים ומאמרים",
     "title": "מדריכים ומאמרים אחרונים",
-    "description": "מדריכים שמקשרים ישירות לכלים — בנויים למשימות אמיתיות כמו מגבלות דוא\"ל, תהליכי עבודה בנייד ומסמכים רגישים."
+    "description": "מדריכים שמקשרים ישירות לכלים — בנויים למשימות אמיתיות כמו מגבלות דוא\"ל, תהליכי עבודה בנייד ומסמכים רגישים.",
+    "readArticle": "קרא מאמר",
+    "readTimeMinutes": "{mins} דק' קריאה",
+    "badges": {
+      "howTo": "מדריך",
+      "privacy": "פרטיות",
+      "mobile": "נייד",
+      "tips": "טיפים",
+      "comparison": "השוואה",
+      "defaultGuide": "מדריך PDF"
+    },
+    "article": {
+      "categoryEditorial": "מדריך עריכה",
+      "categoryGuide": "מדריך",
+      "updated": "עודכן {date}",
+      "toolsInWorkflow": "כלים בתהליך זה",
+      "faqTitle": "שאלות נפוצות",
+      "relatedArticles": "מאמרים קשורים",
+      "relatedPages": "דפים קשורים"
+    },
+    "tocLabel": "בעמוד זה",
+    "tocAriaLabel": "תוכן העניינים",
+    "breadcrumbs": {
+      "home": "דף הבית",
+      "guides": "מדריכים"
+    }
+  },
+  "Guides": {
+    "hubBadge": "מרכז",
+    "navGuides": "מדריכים",
+    "navComparisons": "השוואות",
+    "navPrivacy": "פרטיות",
+    "navWorkflows": "תהליכי עבודה",
+    "featuredGuides": "מדריכים מומלצים",
+    "moreInTopic": "עוד בנושא זה",
+    "relatedTools": "כלים קשורים"
   }
 }

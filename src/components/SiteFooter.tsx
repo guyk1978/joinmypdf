@@ -45,7 +45,7 @@ function FooterLinkItem({
   label: string;
 }) {
   const className =
-    "inline-flex items-center gap-2 text-sm text-black dark:text-neutral-200 transition-colors hover:text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 dark:hover:text-black dark:text-neutral-200";
+    "inline-flex items-center gap-2 text-xs text-black transition-colors hover:text-neutral-700 dark:text-neutral-200 dark:hover:text-neutral-100";
   const slug = link.kind === "tool" ? link.slug : undefined;
 
   const content = (
@@ -81,7 +81,7 @@ function FooterColumnBlock({
 }) {
   return (
     <div className="min-w-0">
-      <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+      <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-black dark:text-neutral-200">
         {title}
       </h3>
       <ul className="space-y-2">

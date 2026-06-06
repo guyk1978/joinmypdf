@@ -61,37 +61,6 @@ export function getBlogCardAccentForPost(post: BlogPost, index: number): BlogCar
   return getBlogCardAccent(index);
 }
 
-export function getBlogBadgeLabel(post: BlogPost): string {
-  const category = post.category?.trim() || "";
-  const key = `${category} ${post.slug} ${post.title}`.toLowerCase();
-
-  if (key.includes("how-to") || key.includes("how to") || key.startsWith("how-")) return "How-To";
-  if (key.includes("privacy") || key.includes("security") || key.includes("safe")) return category || "Privacy";
-  if (key.includes("mobile")) return "Mobile";
-  if (key.includes("tip")) return "Tips";
-  if (key.includes("compare") || key.includes("vs")) return "Comparison";
-
-  return category || "PDF Guide";
-}
-
 export function getBlogExcerpt(post: BlogPost): string {
   return post.description || post.seo?.metaDescription || "";
-}
-
-export function estimateBlogReadTime(post: BlogPost): string {
-  if (post.readTime?.trim()) {
-    const value = post.readTime.trim();
-    return value.toLowerCase().includes("min") ? value : `${value} min read`;
-  }
-
-  const words = post.contentBlocks?.wordCount;
-  if (words && words > 0) {
-    const mins = Math.max(1, Math.round(words / 200));
-    return `${mins} min read`;
-  }
-
-  const text = getBlogExcerpt(post) || post.title;
-  const approxWords = text.split(/\s+/).filter(Boolean).length;
-  const mins = Math.max(3, Math.min(12, Math.round(approxWords / 40) + 2));
-  return `${mins} min read`;
 }

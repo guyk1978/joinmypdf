@@ -187,6 +187,41 @@
     "metaDescription": "Practical JoinMyPDF guides for merge, compress, split, and privacy-first PDF workflows—written for humans.",
     "badge": "Guides & tutorials",
     "title": "Latest Guides & Articles",
-    "description": "Walkthroughs that link straight into the tools—built for real tasks like email limits, mobile workflows, and sensitive documents."
+    "description": "Walkthroughs that link straight into the tools—built for real tasks like email limits, mobile workflows, and sensitive documents.",
+    "readArticle": "Read article",
+    "readTimeMinutes": "{mins} min read",
+    "badges": {
+      "howTo": "How-To",
+      "privacy": "Privacy",
+      "mobile": "Mobile",
+      "tips": "Tips",
+      "comparison": "Comparison",
+      "defaultGuide": "PDF Guide"
+    },
+    "article": {
+      "categoryEditorial": "Editorial guide",
+      "categoryGuide": "Guide",
+      "updated": "Updated {date}",
+      "toolsInWorkflow": "Tools in this workflow",
+      "faqTitle": "Frequently asked questions",
+      "relatedArticles": "Related articles",
+      "relatedPages": "Related pages"
+    },
+    "tocLabel": "On this page",
+    "tocAriaLabel": "Table of contents",
+    "breadcrumbs": {
+      "home": "Home",
+      "guides": "Guides"
+    }
+  },
+  "Guides": {
+    "hubBadge": "Hub",
+    "navGuides": "Guides",
+    "navComparisons": "Comparisons",
+    "navPrivacy": "Privacy",
+    "navWorkflows": "Workflows",
+    "featuredGuides": "Featured guides",
+    "moreInTopic": "More in this topic",
+    "relatedTools": "Related tools"
   }
 }

@@ -1,18 +1,24 @@
 import { Clock } from "lucide-react";
-import Link from "next/link";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import {
-  estimateBlogReadTime,
-  getBlogBadgeLabel,
   getBlogCardAccentForPost,
   getBlogExcerpt,
 } from "@/lib/blog-card-utils";
+import {
+  getLocalizedBlogBadgeLabel,
+  getLocalizedBlogReadTime,
+} from "@/lib/blog-card-i18n";
 import type { BlogPost } from "@/lib/types";
 
-export function BlogGuideCard({ post, index = 0 }: { post: BlogPost; index?: number }) {
+export async function BlogGuideCard({ post, index = 0 }: { post: BlogPost; index?: number }) {
+  const t = await getTranslations("Blog");
+  const locale = await getLocale();
   const accent = getBlogCardAccentForPost(post, index);
-  const label = getBlogBadgeLabel(post);
+  const label = getLocalizedBlogBadgeLabel(post, t);
   const description = getBlogExcerpt(post);
-  const readTime = estimateBlogReadTime(post);
+  const readTime = getLocalizedBlogReadTime(post, t);
+  const arrow = locale === "he" ? "←" : "→";
 
   return (
     <Link
@@ -39,7 +45,7 @@ export function BlogGuideCard({ post, index = 0 }: { post: BlogPost; index?: num
           {readTime}
         </span>
         <span className="text-xs font-semibold text-black group-hover:underline dark:text-neutral-200">
-          Read article →
+          {t("readArticle")} {arrow}
         </span>
       </div>
     </Link>

@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import { ArticleAuthorBadge } from "@/components/ArticleAuthorBadge";
 import { BlogArticleBody } from "@/components/BlogArticleBody";
@@ -6,16 +7,24 @@ import { BlogToc } from "@/components/BlogToc";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { translateToolItem } from "@/lib/i18n-tool-labels";
+import { getLocalizedBlogBadgeLabel } from "@/lib/blog-card-i18n";
 import { blogPostingLd, breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
 import { blogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import type { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 
 export const dynamicParams = false;
+
+const matteSection =
+  "rounded-none border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-800 dark:bg-neutral-900";
+const matteInset =
+  "rounded-none border border-neutral-300 bg-neutral-100 p-2 dark:border-neutral-800 dark:bg-neutral-950";
 
 function stripNoise(text: string) {
   return text.replace(/\s*\[[^\]]+\]\s*$/, "").trim();
@@ -54,10 +63,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const slug = resolvedParams?.slug;
+  const { slug } = await params;
   if (!slug) return {};
   const post = blogRegistry.blog.find((p) => p.slug === slug);
   if (!post) return {};
@@ -73,12 +81,21 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const slug = resolvedParams?.slug;
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
   if (!slug) notFound();
   const post = blogRegistry.blog.find((p) => p.slug === slug);
   if (!post) notFound();
+
+  const t = await getTranslations("Blog");
+  const tTools = await getTranslations("Tools");
+
   const pathname = `/blog/${slug}/`;
   const description = post.seo?.metaDescription || post.description || "";
   const faqs = faqItems(post);
@@ -90,8 +107,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const displayTitle = post.seo?.metaTitle || post.title;
   const author = resolveArticleAuthor(post);
   const tools = (post.relatedTools || [])
-    .map((s) => registry.tools.find((t) => t.slug === s))
+    .map((s) => registry.tools.find((tool) => tool.slug === s))
     .filter(Boolean) as typeof registry.tools;
+
+  const categoryLabel =
+    post.category ||
+    (post.tier1 ? t("article.categoryEditorial") : t("article.categoryGuide"));
 
   return (
     <>
@@ -108,37 +129,41 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
       <JsonLd
         data={breadcrumbLd([
-          { name: "Home", path: "/" },
-          { name: "Guides", path: "/blog/" },
+          { name: t("breadcrumbs.home"), path: "/" },
+          { name: t("breadcrumbs.guides"), path: "/blog/" },
           { name: displayTitle, path: pathname },
         ])}
       />
       <SiteHeader />
-      <main className="mx-auto max-w-3xl space-y-2 px-4 py-10 md:px-4">
+      <main className="mx-auto max-w-3xl space-y-2 bg-neutral-100 px-2 py-6 dark:bg-neutral-950 md:px-3">
         <article>
-          <header className="space-y-2.5 border-b border-neutral-300 dark:border-neutral-800/80 pb-5 sm:space-y-3 sm:pb-6 dark:border-neutral-300 dark:border-neutral-800">
+          <header className="space-y-2 border-b border-neutral-300 pb-4 dark:border-neutral-800">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200">
-              {post.category || (post.tier1 ? "Editorial guide" : "Guide")}
+              {categoryLabel}
             </p>
-            <h1 className="text-3xl font-bold tracking-tight text-black dark:text-neutral-200 dark:text-white md:text-4xl">{displayTitle}</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-black dark:text-neutral-200 md:text-3xl">
+              {displayTitle}
+            </h1>
             {post.publishDate || post.readTime ? (
-              <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
-                {post.publishDate ? <>Updated {post.publishDate}</> : null}
+              <p className="text-sm text-black dark:text-neutral-200">
+                {post.publishDate ? t("article.updated", { date: post.publishDate }) : null}
                 {post.publishDate && post.readTime ? " · " : null}
                 {post.readTime ? <>{post.readTime}</> : null}
               </p>
             ) : null}
             <ArticleAuthorBadge post={post} />
             {post.contentBlocks?.intro ? (
-              <p className="text-lg leading-relaxed text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{post.contentBlocks.intro}</p>
+              <p className="text-base leading-relaxed text-black dark:text-neutral-200">
+                {post.contentBlocks.intro}
+              </p>
             ) : null}
             {post.contentBlocks?.editorialNote ? (
-              <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{post.contentBlocks.editorialNote}</p>
+              <p className="text-sm text-black dark:text-neutral-200">{post.contentBlocks.editorialNote}</p>
             ) : null}
           </header>
 
           {sections.length ? (
-            <div className="mt-4">
+            <div className="mt-3">
               <BlogToc sections={sections} />
             </div>
           ) : null}
@@ -146,14 +171,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <BlogArticleBody post={post} />
 
           {tools.length ? (
-            <section className="mt-6 rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
-              <h2 className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-white">Tools in this workflow</h2>
-              <div className="mt-4">
+            <section className={`mt-4 ${matteSection}`}>
+              <h2 className="text-base font-semibold text-black dark:text-neutral-200">
+                {t("article.toolsInWorkflow")}
+              </h2>
+              <div className="mt-2">
                 <CompactToolCardGrid
-                  items={tools.map((t) => ({
-                    href: `/tools/${t.slug}/`,
-                    label: t.title,
-                    slugHint: t.slug,
+                  items={tools.map((tool) => ({
+                    href: `/tools/${tool.slug}/`,
+                    label: translateToolItem(tTools, tool.slug, tool.title),
+                    slugHint: tool.slug,
                   }))}
                 />
               </div>
@@ -161,16 +188,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ) : null}
 
           {faqs.length ? (
-            <section className="mt-6" id="faq">
-              <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">Frequently asked questions</h2>
-              <div className="mt-4 space-y-2">
+            <section className="mt-4" id="faq">
+              <h2 className="text-lg font-semibold text-black dark:text-neutral-200">
+                {t("article.faqTitle")}
+              </h2>
+              <div className="mt-2 space-y-2">
                 {faqs.map((f) => (
-                  <details
-                    key={f.q}
-                    className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-4 py-3 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
-                  >
-                    <summary className="cursor-pointer font-medium text-black dark:text-neutral-200 dark:text-white">{f.q}</summary>
-                    <p className="mt-2 text-sm leading-relaxed text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{f.a}</p>
+                  <details key={f.q} className={matteInset}>
+                    <summary className="cursor-pointer font-medium text-black dark:text-neutral-200">
+                      {f.q}
+                    </summary>
+                    <p className="mt-2 text-sm leading-relaxed text-black dark:text-neutral-200">{f.a}</p>
                   </details>
                 ))}
               </div>
@@ -178,22 +206,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ) : null}
 
           {relatedArticles.length ? (
-            <section className="mt-6 rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
-              <h2 className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-white">Related articles</h2>
-              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            <section className={`mt-4 ${matteSection}`}>
+              <h2 className="text-base font-semibold text-black dark:text-neutral-200">
+                {t("article.relatedArticles")}
+              </h2>
+              <ul className="mt-2 grid gap-2 sm:grid-cols-2">
                 {relatedArticles.map((related) => (
                   <li key={related.slug}>
                     <Link
                       href={`/blog/${related.slug}/`}
-                      className="block rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 p-4 transition hover:border-neutral-300 dark:border-neutral-800 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
+                      className={`block ${matteInset} transition hover:border-neutral-500 dark:hover:border-neutral-600`}
                     >
                       {related.category ? (
                         <p className="text-xs font-semibold uppercase tracking-wide text-black dark:text-neutral-200">
-                          {related.category}
+                          {getLocalizedBlogBadgeLabel(related, t)}
                         </p>
                       ) : null}
-                      <p className="mt-1 font-medium text-black dark:text-neutral-200 dark:text-white">{related.title}</p>
-                      <p className="mt-1 line-clamp-2 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+                      <p className="mt-1 font-medium text-black dark:text-neutral-200">{related.title}</p>
+                      <p className="mt-1 line-clamp-2 text-sm text-black dark:text-neutral-200">
                         {related.description || related.seo?.metaDescription}
                       </p>
                     </Link>
@@ -204,13 +234,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ) : null}
 
           {internalLinks.length ? (
-            <section className="mt-6 rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
-              <h2 className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-white">Related pages</h2>
-              <ul className="mt-3 flex flex-wrap gap-2">
+            <section className={`mt-4 ${matteSection}`}>
+              <h2 className="text-base font-semibold text-black dark:text-neutral-200">
+                {t("article.relatedPages")}
+              </h2>
+              <ul className="mt-2 flex flex-wrap gap-2">
                 {internalLinks.map((link) => (
                   <li key={link.href}>
                     <Link
-                      className="inline-flex rounded-none border border-white/15 px-3 py-1.5 text-sm text-black dark:text-neutral-200 hover:bg-white/5"
+                      className="inline-flex rounded-none border border-neutral-300 bg-neutral-100 px-2 py-1 text-sm text-black transition hover:bg-neutral-200 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200 dark:hover:bg-neutral-900"
                       href={link.href}
                     >
                       {link.anchor}
