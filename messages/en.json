@@ -1,0 +1,43 @@
+{
+  "Metadata": {
+    "homeTitle": "JoinMyPDF — merge, compress & split PDFs in your browser",
+    "homeDescription": "Merge, compress, split, and convert PDFs in your browser. No uploads to our servers, no watermark on standard output, no signup required to start.",
+    "siteTitle": "JoinMyPDF — Private PDF tools in your browser",
+    "siteDescription": "Merge, split, compress, and convert PDFs locally in your browser. No watermark on standard output, no forced signup for typical use, and files stay on your device during processing."
+  },
+  "Header": {
+    "siteLabel": "Site",
+    "allTools": "All Tools",
+    "guides": "Guides",
+    "privacyFirst": "Privacy First",
+    "viewAllTools": "View all tools",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language"
+  },
+  "Hero": {
+    "headline": "Seamless PDF tasks, right in your browser, running fully-locally.",
+    "subheadline": "JoinMyPDF runs tools locally for maximum speed and absolute privacy.",
+    "defaultHeadline": "Merge, compress, and edit PDFs in your browser—nothing is uploaded to our servers.",
+    "privateTitle": "100% Private",
+    "privateBody": "Your documents never leave your device. Everything happens in your browser.",
+    "fastTitle": "Blazing Fast",
+    "fastBody": "No queues, no wait times. Files are handled instantly locally.",
+    "limitsTitle": "No Limits",
+    "limitsBody": "Enjoy standard downloads without watermarks or forced signups."
+  },
+  "Home": {
+    "pickTool": "Pick a tool",
+    "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",
+    "browseAllTools": "Browse all tools",
+    "browseAllToolsDescription": "Full directory of merge, compress, convert, sign, and protect workflows—including long-tail pages for mobile, deadlines, and sensitive documents.",
+    "openToolDirectory": "Open tool directory",
+    "guidesSection": "Guides for email, mobile & submissions",
+    "guidesSectionDescription": "Short tutorials that link straight into the tools so your team can repeat the same steps every time.",
+    "viewGuides": "View Guides"
+  },
+  "LanguageSwitcher": {
+    "en": "English",
+    "he": "עברית"
+  }
+}

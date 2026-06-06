@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getTimelineTemplateBySlug } from "@/lib/timeline/templates";
 
+export const dynamic = "force-static";
 export const runtime = "edge";
 
 export const alt = "JoinMyPDF — free timeline & Gantt template preview";

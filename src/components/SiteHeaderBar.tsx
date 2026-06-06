@@ -1,14 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { HeaderPdfMini } from "@/components/HeaderPdfMini";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SiteSearch } from "@/components/SiteSearch";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ToolsMegaMenu } from "@/components/ToolsMegaMenu";
 import type { MegaMenuSection } from "@/lib/mega-menu";
-import { isNavItemActive, NAV_LINKS } from "@/lib/nav-config";
+import { isNavItemActive } from "@/lib/nav-config";
 import type { BlogRegistry, SiteRegistry } from "@/lib/types";
 
 type SiteHeaderBarProps = {
@@ -18,6 +19,7 @@ type SiteHeaderBarProps = {
 };
 
 function GuidesLink({ onNavigate, className }: { onNavigate?: () => void; className?: string }) {
+  const t = useTranslations("Header");
   const pathname = usePathname() || "/";
   const guidesActive = isNavItemActive(pathname, "/blog/");
 
@@ -28,30 +30,30 @@ function GuidesLink({ onNavigate, className }: { onNavigate?: () => void; classN
       prefetch={false}
       onClick={onNavigate}
     >
-      Guides
+      {t("guides")}
     </Link>
   );
 }
 
 function PrivacyFirstLink({ onNavigate, className }: { onNavigate?: () => void; className?: string }) {
+  const t = useTranslations("Header");
   const pathname = usePathname() || "/";
-  const privacyFirst = NAV_LINKS.find((l) => l.href === "/privacy-first/");
-  if (!privacyFirst) return null;
-  const active = isNavItemActive(pathname, privacyFirst.href);
+  const active = isNavItemActive(pathname, "/privacy-first/");
 
   return (
     <Link
-      href={privacyFirst.href}
+      href="/privacy-first/"
       className={`nav-link nav-link--emphasis${active ? " is-active" : ""}${className ? ` ${className}` : ""}`}
       prefetch={false}
       onClick={onNavigate}
     >
-      {privacyFirst.label}
+      {t("privacyFirst")}
     </Link>
   );
 }
 
 export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBarProps) {
+  const t = useTranslations("Header");
   const pathname = usePathname() || "/";
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -70,7 +72,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
     <>
       <nav
         className="relative mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4"
-        aria-label="Site"
+        aria-label={t("siteLabel")}
       >
         <Link href="/" className="brand z-10 flex shrink-0 items-center gap-2">
           <HeaderPdfMini className="header-pdf-mini--tight" />
@@ -84,6 +86,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
         </div>
 
         <div className="z-10 flex shrink-0 items-center gap-2">
+          <LanguageSwitcher />
           <SiteSearch variant="header" registry={registry} blog={blog} />
           <ThemeToggle />
           <button
@@ -91,7 +94,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
             className="site-header__menu-btn md:hidden"
             aria-expanded={mobileOpen}
             aria-controls="primary-nav"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-label={mobileOpen ? t("closeMenu") : t("openMenu")}
             onClick={() => setMobileOpen((prev) => !prev)}
           >
             <span className="site-header__menu-icon" aria-hidden="true" />

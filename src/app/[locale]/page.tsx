@@ -1,0 +1,112 @@
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { HeroDropzone } from "@/components/HeroDropzone";
+import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
+import { ScenarioWins } from "@/components/ScenarioWins";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteSearch } from "@/components/SiteSearch";
+import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
+import { blogRegistry } from "@/lib/blog-registry";
+import { registry } from "@/lib/registry";
+import { SocialProofStrip } from "@/components/SocialProofStrip";
+import { ToolGrid } from "@/components/ToolGrid";
+import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
+import { JsonLd } from "@/lib/schema";
+import { absoluteUrl } from "@/lib/site";
+import { ctaSecondary } from "@/lib/cta-styles";
+
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  return {
+    title: t("homeTitle"),
+    description: t("homeDescription"),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}`])),
+    },
+  };
+}
+
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Home");
+
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "JoinMyPDF",
+          url: absoluteUrl(`/${locale}`),
+          description:
+            "Browser-based PDF merge, split, compress, and image conversion with local processing.",
+        }}
+      />
+      <SiteHeader />
+      <main className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
+        <section className="text-center">
+          <LocalProcessingInfographic headingAs="h1" />
+          <div className="mx-auto mt-8 max-w-2xl">
+            <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
+          </div>
+          <div className="mx-auto mt-8 max-w-2xl space-y-3 sm:mt-10">
+            <HeroDropzone />
+            <MapDiagramCrossLink />
+          </div>
+        </section>
+
+        <section className="mt-20 space-y-5 md:mt-24">
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-3xl">
+              {t("pickTool")}
+            </h2>
+            <p className="mx-auto mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-300 md:mx-0 md:text-base">
+              {t("pickToolDescription")}
+            </p>
+          </div>
+          <ToolGrid />
+        </section>
+
+        <div className="mt-20 md:mt-24">
+          <ScenarioWins />
+        </div>
+
+        <div className="mt-12 md:mt-16">
+          <SocialProofStrip />
+        </div>
+
+        <section className="mt-16 grid gap-4 md:grid-cols-2 md:mt-20">
+          <div className="rounded-2xl border border-slate-200/60 bg-white px-6 py-10 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white md:text-2xl">{t("browseAllTools")}</h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-slate-600 dark:text-slate-300 md:text-base">
+              {t("browseAllToolsDescription")}
+            </p>
+            <Link href="/tools/" className={`${ctaSecondary} mt-6 inline-flex`}>
+              {t("openToolDirectory")}
+            </Link>
+          </div>
+          <div className="rounded-2xl border border-slate-200/60 bg-white px-6 py-10 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white md:text-2xl">{t("guidesSection")}</h2>
+            <p className="mx-auto mt-3 max-w-md text-sm text-slate-600 dark:text-slate-300 md:text-base">
+              {t("guidesSectionDescription")}
+            </p>
+            <Link href="/blog/" className={`${ctaSecondary} mt-6 inline-flex`}>
+              {t("viewGuides")}
+            </Link>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}

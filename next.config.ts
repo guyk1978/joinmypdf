@@ -1,6 +1,9 @@
 import path from "path";
 import webpack from "webpack";
+import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nodeStub = path.join(process.cwd(), "src/lib/node-stub.ts");
 
@@ -29,4 +32,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { ToolIconBadge } from "@/lib/tool-icons";
@@ -65,6 +65,7 @@ export function ToolsMegaMenu({
   onNavigate,
   variant = "desktop",
 }: ToolsMegaMenuProps) {
+  const t = useTranslations("Header");
   const pathname = usePathname() || "/";
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -160,7 +161,7 @@ export function ToolsMegaMenu({
         }}
       >
         <LayoutGridIcon className="nav-mega__trigger-icon shrink-0" />
-        <span>All Tools</span>
+        <span>{t("allTools")}</span>
         <NavChevron open={open} />
       </button>
 
@@ -216,7 +217,7 @@ export function ToolsMegaMenu({
                 onNavigate?.();
               }}
             >
-              View full tool directory →
+              {t("viewAllTools")} →
             </Link>
           </div>
         </div>
