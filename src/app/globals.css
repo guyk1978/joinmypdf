@@ -1809,17 +1809,10 @@ html.dark .pdf-export-thumb__download:hover {
   max-width: 100%;
   box-sizing: border-box;
   overflow: visible !important;
-  border-bottom: 1px solid #d4d4d4;
-  background: #ffffff;
   position: sticky;
   top: 0;
   z-index: 50;
   transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-html.dark .site-header {
-  border-bottom-color: #262626;
-  background: #0a0a0a;
 }
 
 .site-header .site-header__inner {
@@ -2290,17 +2283,7 @@ body.site-nav-open {
   }
 }
 
-/* Theme: matte technical header & nav */
-.site-header {
-  border-bottom: 1px solid #d4d4d4;
-  background: #ffffff;
-}
-
-html.dark .site-header {
-  border-bottom-color: #262626;
-  background: #0a0a0a;
-}
-
+/* Theme: matte technical nav (header surface set via SiteHeader Tailwind classes) */
 .nav-link,
 .nav-dropdown__trigger {
   color: #0a0a0a;

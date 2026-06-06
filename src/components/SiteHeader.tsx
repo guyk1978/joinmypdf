@@ -7,7 +7,7 @@ export function SiteHeader() {
   const megaMenuSections = buildMegaMenuSections();
 
   return (
-    <header className="site-header overflow-visible">
+    <header className="site-header sticky top-0 z-50 w-full overflow-visible border-b border-neutral-300 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900">
       <SiteHeaderBar megaMenuSections={megaMenuSections} registry={registry} blog={blogRegistry} />
     </header>
   );

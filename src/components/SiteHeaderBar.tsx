@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { HeaderPdfMini } from "@/components/HeaderPdfMini";
+import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SiteSearch } from "@/components/SiteSearch";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -71,12 +71,11 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
   return (
     <>
       <nav
-        className="relative mx-auto flex h-12 max-w-7xl items-center justify-between gap-2 px-3"
+        className="relative mx-auto flex h-14 max-w-7xl items-center justify-between gap-2 px-3"
         aria-label={t("siteLabel")}
       >
-        <Link href="/" className="brand z-10 flex shrink-0 items-center gap-2">
-          <HeaderPdfMini className="header-pdf-mini--tight" />
-          <span className="brand__text">JoinMyPDF</span>
+        <Link href="/" className="brand z-10 flex shrink-0 items-center" aria-label="JoinMyPDF">
+          <JoinMyPdfLogo />
         </Link>
 
         <div className="absolute left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 md:flex">
@@ -105,7 +104,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
       {mobileOpen ? (
         <div
           id="primary-nav"
-          className="border-t border-neutral-300 bg-neutral-100 px-3 py-2 md:hidden dark:border-neutral-800 dark:bg-neutral-950"
+          className="border-t border-neutral-300 bg-neutral-50 px-3 py-2 md:hidden dark:border-neutral-800 dark:bg-neutral-900"
           aria-label={t("mobileNav")}
         >
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
