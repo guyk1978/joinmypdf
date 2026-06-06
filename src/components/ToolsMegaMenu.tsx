@@ -113,7 +113,7 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
         role="dialog"
         aria-modal="true"
         aria-label={tHeader("allTools")}
-        className="fixed top-12 left-0 right-0 z-40 flex h-[calc(100dvh-3rem)] flex-col overflow-hidden bg-white dark:bg-neutral-950"
+        className="fixed top-12 bottom-0 left-0 right-0 z-40 flex w-full min-h-[calc(100dvh-3rem)] flex-col bg-white dark:bg-neutral-950 md:max-h-[calc(100dvh-3rem)] md:overflow-hidden"
       >
         <div className="relative w-full shrink-0 border-b border-neutral-300 px-4 py-3 dark:border-neutral-700">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-black dark:text-neutral-200">
@@ -128,7 +128,7 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="w-full flex-1 overflow-y-auto overscroll-y-contain md:min-h-0">
           <ToolMegaGrid items={items} onNavigate={handleNavigate} />
 
           <div className="w-full border-t border-neutral-300 px-4 py-3 dark:border-neutral-700">
