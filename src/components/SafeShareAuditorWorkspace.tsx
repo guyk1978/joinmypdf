@@ -11,11 +11,11 @@ import {
   auditPdfFile,
   auditorRedactOutputName,
   findingsToRedactionRects,
-  kindLabel,
   type AuditFinding,
   type AuditProgress,
   type AuditReport,
 } from "@/lib/pdf-safe-auditor";
+import { auditFindingLabel, auditKindLabel } from "@/lib/workspace-preset-i18n";
 import { redactPdfBytes, renderPdfPageForUi, REDACT_UI_SCALE } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
@@ -416,10 +416,10 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
                                 : "text-sky-300"
                           }`}
                         >
-                          {f.label}
+                          {auditFindingLabel(ws, f)}
                         </span>
                         <span className="mt-0.5 block text-xs text-ink-muted">
-                          {kindLabel(f.kind)}
+                          {auditKindLabel(ws, f.kind)}
                           {f.excerpt ? ` · “${f.excerpt}”` : ""}
                         </span>
                       </button>

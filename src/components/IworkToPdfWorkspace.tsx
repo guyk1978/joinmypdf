@@ -16,6 +16,7 @@ import {
   isIworkFile,
   type IworkProgressPhase,
 } from "@/lib/iwork-to-pdf";
+import { iworkPackageFallbackLabel } from "@/lib/workspace-preset-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
@@ -178,7 +179,7 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-ink">{file.name}</p>
-              <p className="mt-1 text-xs text-ink-muted">{kindLabel || "Apple iWork document package"}</p>
+              <p className="mt-1 text-xs text-ink-muted">{kindLabel || iworkPackageFallbackLabel(ws)}</p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
               {ws.clientSideOnly}

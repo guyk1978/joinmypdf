@@ -78,6 +78,81 @@ function buildWorkspaces(locale) {
     optional: isHe ? "אופציונלי" : "Optional",
     undo: isHe ? "בטל" : "Undo",
     loadingPreview: isHe ? "טוען תצוגה מקדימה…" : "Loading preview…",
+    presets: {
+      paper: {
+        letter: isHe ? 'Letter ארה"ב (8.5" × 11")' : 'US Letter (8.5" × 11")',
+        a4: isHe ? "A4 (210 × 297 מ\"מ)" : "A4 (210 × 297 mm)",
+        a5: isHe ? "A5 (148 × 210 מ\"מ)" : "A5 (148 × 210 mm)",
+        b5: isHe ? "B5 (176 × 250 מ\"מ)" : "B5 (176 × 250 mm)",
+        legal: isHe ? 'Legal ארה"ב (8.5" × 14")' : 'US Legal (8.5" × 14")',
+        tabloid: isHe ? 'Tabloid / A3 (11" × 17")' : 'Tabloid / A3 (11" × 17")',
+      },
+      watermarkPosition: {
+        center: isHe ? "מרכז" : "Center",
+        topLeft: isHe ? "למעלה משמאל" : "Top left",
+        topCenter: isHe ? "למעלה במרכז" : "Top center",
+        topRight: isHe ? "למעלה מימין" : "Top right",
+        middleLeft: isHe ? "אמצע משמאל" : "Middle left",
+        middleRight: isHe ? "אמצע מימין" : "Middle right",
+        bottomLeft: isHe ? "למטה משמאל" : "Bottom left",
+        bottomCenter: isHe ? "למטה במרכז" : "Bottom center",
+        bottomRight: isHe ? "למטה מימין" : "Bottom right",
+      },
+      pageNumberPosition: {
+        topLeft: isHe ? "למעלה משמאל" : "Top Left",
+        topCenter: isHe ? "למעלה במרכז" : "Top Center",
+        topRight: isHe ? "למעלה מימין" : "Top Right",
+        bottomLeft: isHe ? "למטה משמאל" : "Bottom Left",
+        bottomCenter: isHe ? "למטה במרכז" : "Bottom Center",
+        bottomRight: isHe ? "למטה מימין" : "Bottom Right",
+      },
+      pageNumberColor: {
+        black: isHe ? "שחור" : "Black",
+        gray: isHe ? "אפור" : "Gray",
+        blue: isHe ? "כחול" : "Blue",
+        red: isHe ? "אדום" : "Red",
+      },
+      duplexFlip: {
+        longEdge: isHe
+          ? "הדפס duplex עם היפוך על הקצה הארוך (סטנדרטי לחוברות לאורך)."
+          : "Print duplex with flip on the long edge (standard for portrait booklets).",
+        shortEdge: isHe
+          ? "הדפס duplex עם היפוך על הקצה הקצר (נפוץ לפריסות לרוחב)."
+          : "Print duplex with flip on the short edge (common for landscape layouts).",
+      },
+      auditKind: {
+        regex: isHe ? "התאמת דפוס" : "Pattern match",
+        annotation: isHe ? "הערה" : "Annotation",
+        signature: isHe ? "חתימה" : "Signature",
+        hiddenComment: isHe ? "הערה נסתרת" : "Hidden comment",
+      },
+      auditPattern: {
+        "credit-card": isHe ? "מספר כרטיס אשראי / חיוב" : "Credit / debit card number",
+        ssn: isHe ? "מספר ביטוח לאומי (ארה\"ב)" : "US Social Security number",
+        "israel-id": isHe ? "מספר ת.ז (ישראל)" : "Israeli ID number (ת.ז)",
+        "id-label-he": isHe ? "תווית ת.ז / תעודת זהות" : "ID label (ת.ז / תעודת זהות)",
+        iban: isHe ? "IBAN / חשבון בנק" : "IBAN / bank account",
+        email: isHe ? "כתובת דוא\"ל" : "Email address",
+        phone: isHe ? "מספר טלפון" : "Phone number",
+        "confidential-en": isHe ? "סימון סודי (אנגלית)" : "Confidential marker",
+        "confidential-he": isHe ? "סימון סודי (עברית)" : "Hebrew confidential marker",
+        password: isHe ? "תווית סיסמה / אישורים" : "Password / credential label",
+        "signature-text": isHe ? "טקסט בלוק חתימה" : "Signature block text",
+      },
+      auditFinding: {
+        hiddenSignature: isHe ? "שדה חתימה נסתר" : "Hidden signature field",
+        signatureInk: isHe ? "חתימה או סימון דיו" : "Signature or ink markup",
+        hiddenComment: isHe ? "הערת {subtype} נסתרת" : "Hidden {subtype} comment",
+        visibleComment: isHe ? "הערת {subtype}" : "{subtype} annotation",
+      },
+      iworkPackage: isHe ? "חבילת מסמך Apple iWork" : "Apple iWork document package",
+      marginSide: {
+        top: isHe ? "עליון" : "Top",
+        right: isHe ? "ימין" : "Right",
+        bottom: isHe ? "תחתון" : "Bottom",
+        left: isHe ? "שמאל" : "Left",
+      },
+    },
   };
 
   const convertProgress = {
@@ -994,7 +1069,29 @@ function buildWorkspaces(locale) {
       stickyLabel: isHe ? "החל שוליים" : "Apply margins",
       stickyBookletLabel: isHe ? "חוברת" : "Booklet",
       ui: {
+        targetPaper: isHe ? "נייר יעד" : "Target paper",
+        marginUnits: isHe ? "יחידות שוליים" : "Margin units",
+        width: isHe ? "רוחב" : "Width",
+        height: isHe ? "גובה" : "Height",
+        customUnits: isHe ? "יחידות מותאמות" : "Custom units",
+        customSize: isHe ? "גודל מותאם…" : "Custom size…",
+        millimeters: isHe ? "מילימטרים" : "Millimeters",
+        inches: isHe ? "אינץ'" : "Inches",
+        linkMargins: isHe ? "אותו שוליים מכל הצדדים" : "Same margin on all sides",
+        trimHeading: isHe ? "חיתוך קצוות מקור (אופציונלי)" : "Trim source edges (optional)",
+        trimHint: isHe
+          ? "התאם שברי חיתוך (0–1). השתמש ב"
+          : "Adjust crop fractions (0–1). Use ",
+        trimLink: isHe ? "חיתוך PDF" : "Crop PDF",
+        trimHintSuffix: isHe
+          ? " לעורך חיתוך ויזואלי בקבצים מורכבים."
+          : " for a visual crop editor on complex files.",
+        dragHint: isHe ? "גרור ידיות להתאמת שוליים על התצוגה המקדימה." : "Drag handles to adjust margins on the preview.",
+        marginHandle: isHe ? "שוליים {side}" : "{side} margin",
         livePreviewHeading: isHe ? "תצוגה מקדימה חיה — עמוד 1" : "Live preview — page 1",
+        previewLegend: isHe
+          ? "מסגרת חיצונית = נייר שנבחר · פנימית = אזור תוכן"
+          : "Outer frame = selected paper · inner = content area",
         loadingPreview: common.loadingPreview,
       },
     },
@@ -1032,8 +1129,8 @@ function buildWorkspaces(locale) {
         loadingMap: isHe ? "טוען מפה…" : "Loading map…",
         mapAlt: isHe ? "מפת מסמך עמוד {page}" : "Document map page {page}",
         mapLegend: isHe
-          ? "{count} ממצא/ים בעמוד זה — אדום = סיכון גבוה"
-          : "{count} finding(s) on this page — red = high risk",
+          ? "{count} ממצא/ים בעמוד זה — אדום = גבוה, כתום = בינוני, כחול = נמוך"
+          : "{count} finding(s) on this page — red = high, amber = medium, blue = low risk",
         findingsHeading: isHe ? "ממצאים בעמוד {page}" : "Findings on page {page}",
         scanningPage: isHe ? "סורק עמוד {current} מתוך {total}…" : "Scanning page {current} of {total}…",
         pageFlagged: isHe ? " · מסומן" : " · flagged",

@@ -17,6 +17,7 @@ import {
   type WatermarkOptions,
   type WatermarkPosition,
 } from "@/lib/add-watermark";
+import { watermarkPositionLabel } from "@/lib/workspace-preset-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
@@ -376,7 +377,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                           : "border-white/10 text-ink-muted hover:border-white/20"
                       }`}
                     >
-                      {pos.label}
+                      {watermarkPositionLabel(ws, pos.value as WatermarkPosition)}
                     </button>
                   ))}
                 </div>

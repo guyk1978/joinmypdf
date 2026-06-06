@@ -16,6 +16,9 @@ export type AuditFinding = {
   nw: number;
   nh: number;
   excerpt?: string;
+  patternId?: string;
+  findingKey?: "hidden-signature" | "signature-ink" | "hidden-comment" | "visible-comment";
+  annotationSubtype?: string;
 };
 
 export type AuditReport = {
@@ -274,6 +277,7 @@ function scanTextOnPage(
           pageIndex,
           kind: "regex",
           label: pattern.label,
+          patternId: pattern.id,
           severity: pattern.severity,
           excerpt: value.slice(0, 80),
           ...rect,
@@ -313,6 +317,7 @@ async function scanAnnotationsOnPage(
         pageIndex,
         kind: "signature",
         label: hidden ? "Hidden signature field" : "Signature or ink markup",
+        findingKey: hidden ? "hidden-signature" : "signature-ink",
         severity: "high",
         excerpt: contents || annotation.fieldName,
         ...rect,
@@ -327,6 +332,8 @@ async function scanAnnotationsOnPage(
         pageIndex,
         kind: hidden ? "hidden-comment" : "annotation",
         label: hidden ? `Hidden ${subtype} comment` : `${subtype} annotation`,
+        findingKey: hidden ? "hidden-comment" : "visible-comment",
+        annotationSubtype: subtype,
         severity: hidden ? "high" : "medium",
         excerpt: contents.slice(0, 120) || undefined,
         ...rect,

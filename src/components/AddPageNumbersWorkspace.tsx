@@ -14,6 +14,7 @@ import {
   type PageNumberFormat,
   type PageNumberPosition,
 } from "@/lib/add-page-numbers";
+import { pageNumberColorLabel, pageNumberPositionLabel } from "@/lib/workspace-preset-i18n";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
@@ -36,13 +37,13 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-const POSITIONS: { value: PageNumberPosition; label: string }[] = [
-  { value: "top-left", label: "Top Left" },
-  { value: "top-center", label: "Top Center" },
-  { value: "top-right", label: "Top Right" },
-  { value: "bottom-left", label: "Bottom Left" },
-  { value: "bottom-center", label: "Bottom Center" },
-  { value: "bottom-right", label: "Bottom Right" },
+const PAGE_NUMBER_POSITIONS: PageNumberPosition[] = [
+  "top-left",
+  "top-center",
+  "top-right",
+  "bottom-left",
+  "bottom-center",
+  "bottom-right",
 ];
 
 const FONT_SIZES: { value: PageNumberFontSize; label: string; hint: string }[] = [
@@ -258,9 +259,9 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                 onChange={(e) => setPosition(e.target.value as PageNumberPosition)}
                 disabled={busy}
               >
-                {POSITIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
+                {PAGE_NUMBER_POSITIONS.map((value) => (
+                  <option key={value} value={value}>
+                    {pageNumberPositionLabel(ws, value)}
                   </option>
                 ))}
               </select>
@@ -344,8 +345,8 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                     type="button"
                     className={`page-numbers-form__swatch${fontColorHex === opt.value ? " is-active" : ""}`}
                     style={{ backgroundColor: opt.value }}
-                    title={opt.label}
-                    aria-label={opt.label}
+                    title={pageNumberColorLabel(ws, opt.value)}
+                    aria-label={pageNumberColorLabel(ws, opt.value)}
                     aria-pressed={fontColorHex === opt.value}
                     disabled={busy}
                     onClick={() => setFontColorHex(opt.value)}

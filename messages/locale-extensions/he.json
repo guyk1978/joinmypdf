@@ -801,7 +801,78 @@
       "processing": "מעבד…",
       "optional": "אופציונלי",
       "undo": "בטל",
-      "loadingPreview": "טוען תצוגה מקדימה…"
+      "loadingPreview": "טוען תצוגה מקדימה…",
+      "presets": {
+        "paper": {
+          "letter": "Letter ארה\"ב (8.5\" × 11\")",
+          "a4": "A4 (210 × 297 מ\"מ)",
+          "a5": "A5 (148 × 210 מ\"מ)",
+          "b5": "B5 (176 × 250 מ\"מ)",
+          "legal": "Legal ארה\"ב (8.5\" × 14\")",
+          "tabloid": "Tabloid / A3 (11\" × 17\")"
+        },
+        "watermarkPosition": {
+          "center": "מרכז",
+          "topLeft": "למעלה משמאל",
+          "topCenter": "למעלה במרכז",
+          "topRight": "למעלה מימין",
+          "middleLeft": "אמצע משמאל",
+          "middleRight": "אמצע מימין",
+          "bottomLeft": "למטה משמאל",
+          "bottomCenter": "למטה במרכז",
+          "bottomRight": "למטה מימין"
+        },
+        "pageNumberPosition": {
+          "topLeft": "למעלה משמאל",
+          "topCenter": "למעלה במרכז",
+          "topRight": "למעלה מימין",
+          "bottomLeft": "למטה משמאל",
+          "bottomCenter": "למטה במרכז",
+          "bottomRight": "למטה מימין"
+        },
+        "pageNumberColor": {
+          "black": "שחור",
+          "gray": "אפור",
+          "blue": "כחול",
+          "red": "אדום"
+        },
+        "duplexFlip": {
+          "longEdge": "הדפס duplex עם היפוך על הקצה הארוך (סטנדרטי לחוברות לאורך).",
+          "shortEdge": "הדפס duplex עם היפוך על הקצה הקצר (נפוץ לפריסות לרוחב)."
+        },
+        "auditKind": {
+          "regex": "התאמת דפוס",
+          "annotation": "הערה",
+          "signature": "חתימה",
+          "hiddenComment": "הערה נסתרת"
+        },
+        "auditPattern": {
+          "credit-card": "מספר כרטיס אשראי / חיוב",
+          "ssn": "מספר ביטוח לאומי (ארה\"ב)",
+          "israel-id": "מספר ת.ז (ישראל)",
+          "id-label-he": "תווית ת.ז / תעודת זהות",
+          "iban": "IBAN / חשבון בנק",
+          "email": "כתובת דוא\"ל",
+          "phone": "מספר טלפון",
+          "confidential-en": "סימון סודי (אנגלית)",
+          "confidential-he": "סימון סודי (עברית)",
+          "password": "תווית סיסמה / אישורים",
+          "signature-text": "טקסט בלוק חתימה"
+        },
+        "auditFinding": {
+          "hiddenSignature": "שדה חתימה נסתר",
+          "signatureInk": "חתימה או סימון דיו",
+          "hiddenComment": "הערת {subtype} נסתרת",
+          "visibleComment": "הערת {subtype}"
+        },
+        "iworkPackage": "חבילת מסמך Apple iWork",
+        "marginSide": {
+          "top": "עליון",
+          "right": "ימין",
+          "bottom": "תחתון",
+          "left": "שמאל"
+        }
+      }
     },
     "word-to-pdf": {
       "status": {
@@ -1539,7 +1610,23 @@
       "stickyLabel": "החל שוליים",
       "stickyBookletLabel": "חוברת",
       "ui": {
+        "targetPaper": "נייר יעד",
+        "marginUnits": "יחידות שוליים",
+        "width": "רוחב",
+        "height": "גובה",
+        "customUnits": "יחידות מותאמות",
+        "customSize": "גודל מותאם…",
+        "millimeters": "מילימטרים",
+        "inches": "אינץ'",
+        "linkMargins": "אותו שוליים מכל הצדדים",
+        "trimHeading": "חיתוך קצוות מקור (אופציונלי)",
+        "trimHint": "התאם שברי חיתוך (0–1). השתמש ב",
+        "trimLink": "חיתוך PDF",
+        "trimHintSuffix": " לעורך חיתוך ויזואלי בקבצים מורכבים.",
+        "dragHint": "גרור ידיות להתאמת שוליים על התצוגה המקדימה.",
+        "marginHandle": "שוליים {side}",
         "livePreviewHeading": "תצוגה מקדימה חיה — עמוד 1",
+        "previewLegend": "מסגרת חיצונית = נייר שנבחר · פנימית = אזור תוכן",
         "loadingPreview": "טוען תצוגה מקדימה…"
       }
     },
@@ -1572,7 +1659,7 @@
         "visualMapHeading": "מפת רגישות ויזואלית",
         "loadingMap": "טוען מפה…",
         "mapAlt": "מפת מסמך עמוד {page}",
-        "mapLegend": "{count} ממצא/ים בעמוד זה — אדום = סיכון גבוה",
+        "mapLegend": "{count} ממצא/ים בעמוד זה — אדום = גבוה, כתום = בינוני, כחול = נמוך",
         "findingsHeading": "ממצאים בעמוד {page}",
         "scanningPage": "סורק עמוד {current} מתוך {total}…",
         "pageFlagged": " · מסומן"

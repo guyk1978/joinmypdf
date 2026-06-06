@@ -24,6 +24,7 @@ import {
   type PaperMarginOptions,
   type TargetPaperPreset,
 } from "@/lib/pdf-paper-margin";
+import { marginSideLabel, paperPresetLabel } from "@/lib/workspace-preset-i18n";
 import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
@@ -142,11 +143,15 @@ function MarginDragStudio({
   margins,
   marginUnit,
   onMarginsChange,
+  dragHint,
+  marginHandleLabel,
 }: {
   paper: { widthPt: number; heightPt: number };
   margins: MarginInsets;
   marginUnit: MarginUnit;
   onMarginsChange: (m: MarginInsets) => void;
+  dragHint: string;
+  marginHandleLabel: (side: MarginHandle) => string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ handle: MarginHandle; start: MarginInsets } | null>(null);
@@ -231,7 +236,7 @@ function MarginDragStudio({
   return (
     <PdfEditStudio>
       <PdfStudioPage className="mx-auto max-w-md">
-        <p className="mb-2 text-xs text-ink-muted">Drag handles to adjust margins on the paper frame.</p>
+        <p className="mb-2 text-xs text-ink-muted">{dragHint}</p>
         <div
           ref={wrapRef}
           className="relative touch-none select-none overflow-hidden rounded-lg border border-white/20 bg-white"
@@ -250,7 +255,7 @@ function MarginDragStudio({
             <span
               key={h}
               role="slider"
-              aria-label={`${h} margin`}
+              aria-label={marginHandleLabel(h)}
               className="absolute z-10 h-4 w-4 rounded-full border-2 border-emerald-600 bg-white shadow"
               style={handleAt(h)}
               onPointerDown={onPointerDown(h)}
@@ -295,6 +300,8 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
       }),
     [paperPreset, customWidth, customHeight, customUnit],
   );
+  const paperDisplayName =
+    paperPreset === "custom" ? paper.label : paperPresetLabel(ws, paperPreset);
 
   const fractions = useMemo(
     () => marginFractions(paper, marginsToPt(margins, marginUnit)),
@@ -376,7 +383,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
       const out = await applyPaperMarginBytes(file, options);
       downloadBlob(new Blob([out as BlobPart], { type: "application/pdf" }), paperMarginOutputName(file));
       setDone(true);
-      setStatus(ws.wsStatus("downloaded", { count: pageCount, paper: paper.label }));
+      setStatus(ws.wsStatus("downloaded", { count: pageCount, paper: paperDisplayName }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug, format: "pdf" });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -447,7 +454,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
         <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
           <section className="grid gap-4 md:grid-cols-2">
             <label className="block text-sm text-ink">
-              <span className="mb-1 block font-semibold">Target paper</span>
+              <span className="mb-1 block font-semibold">{ws.wsUi("targetPaper")}</span>
               <select
                 className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
                 value={paperPreset}
@@ -455,27 +462,27 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
               >
                 {(Object.keys(TARGET_PAPER_PRESETS) as TargetPaperPreset[]).map((key) => (
                   <option key={key} value={key}>
-                    {TARGET_PAPER_PRESETS[key].label}
+                    {paperPresetLabel(ws, key)}
                   </option>
                 ))}
-                <option value="custom">Custom size…</option>
+                <option value="custom">{ws.wsUi("customSize")}</option>
               </select>
             </label>
             <label className="block text-sm text-ink">
-              <span className="mb-1 block font-semibold">Margin units</span>
+              <span className="mb-1 block font-semibold">{ws.wsUi("marginUnits")}</span>
               <select
                 className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
                 value={marginUnit}
                 onChange={(e) => setMarginUnit(e.target.value as MarginUnit)}
               >
-                <option value="mm">Millimeters</option>
-                <option value="in">Inches</option>
+                <option value="mm">{ws.wsUi("millimeters")}</option>
+                <option value="in">{ws.wsUi("inches")}</option>
               </select>
             </label>
             {paperPreset === "custom" ? (
               <>
                 <label className="block text-sm text-ink">
-                  <span className="mb-1 block font-semibold">Width</span>
+                  <span className="mb-1 block font-semibold">{ws.wsUi("width")}</span>
                   <input
                     type="number"
                     min={1}
@@ -485,7 +492,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
                   />
                 </label>
                 <label className="block text-sm text-ink">
-                  <span className="mb-1 block font-semibold">Height</span>
+                  <span className="mb-1 block font-semibold">{ws.wsUi("height")}</span>
                   <input
                     type="number"
                     min={1}
@@ -495,7 +502,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
                   />
                 </label>
                 <label className="block text-sm text-ink md:col-span-2">
-                  <span className="mb-1 block font-semibold">Custom units</span>
+                  <span className="mb-1 block font-semibold">{ws.wsUi("customUnits")}</span>
                   <select
                     className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
                     value={customUnit}
@@ -516,13 +523,13 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
               checked={linkMargins}
               onChange={(e) => setLinkMargins(e.target.checked)}
             />
-            Same margin on all sides
+            {ws.wsUi("linkMargins")}
           </label>
 
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {(["top", "right", "bottom", "left"] as const).map((side) => (
               <label key={side} className="block text-sm text-ink">
-                <span className="mb-1 block capitalize">{side}</span>
+                <span className="mb-1 block">{marginSideLabel(ws, side)}</span>
                 <input
                   type="number"
                   min={0}
@@ -537,14 +544,14 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
 
           <section aria-labelledby={`${baseId}-trim`}>
             <h2 id={`${baseId}-trim`} className="mb-2 text-sm font-semibold text-ink">
-              Trim source edges (optional)
+              {ws.wsUi("trimHeading")}
             </h2>
             <p className="mb-3 text-xs text-ink-muted">
-              Adjust crop fractions (0–1). Use{" "}
+              {ws.wsUi("trimHint")}
               <a className="text-brand hover:underline" href="/tools/crop-pdf/">
-                Crop PDF
-              </a>{" "}
-              for a visual crop editor on complex files.
+                {ws.wsUi("trimLink")}
+              </a>
+              {ws.wsUi("trimHintSuffix")}
             </p>
             <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
               {(["nx", "ny", "nw", "nh"] as const).map((key) => (
@@ -584,6 +591,8 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
             margins={margins}
             marginUnit={marginUnit}
             onMarginsChange={setMargins}
+            dragHint={ws.wsUi("dragHint")}
+            marginHandleLabel={(side) => ws.wsUi("marginHandle", { side: marginSideLabel(ws, side) })}
           />
 
           <div className="flex flex-wrap gap-3">

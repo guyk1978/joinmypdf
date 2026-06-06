@@ -12,7 +12,6 @@ import {
   bookletOutputName,
   buildSaddleStitchPlan,
   createBookletPdf,
-  duplexFlipHint,
   resolveBookletPaperSize,
   type BookletDuplexFlip,
   type BookletFoldStyle,
@@ -22,6 +21,7 @@ import {
   type BookletSheetSide,
   type CustomPaperUnit,
 } from "@/lib/pdf-booklet";
+import { duplexFlipHintLabel, paperPresetLabel } from "@/lib/workspace-preset-i18n";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
@@ -338,6 +338,8 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     }
   };
 
+  const paperDisplayName =
+    paperPreset === "custom" ? paper.label : paperPresetLabel(ws, paperPreset);
   const canBuild = Boolean(file && plan && !busy && !loadingThumbs);
 
   return (
@@ -407,7 +409,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               >
                 {(Object.keys(BOOKLET_PAPER_PRESETS) as BookletPaperPreset[]).map((key) => (
                   <option key={key} value={key}>
-                    {BOOKLET_PAPER_PRESETS[key].label}
+                    {paperPresetLabel(ws, key)}
                   </option>
                 ))}
                 <option value="custom">{ws.wsUi("customSize")}</option>
@@ -471,13 +473,13 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 <option value="long-edge">{ws.wsUi("flipLongEdge")}</option>
                 <option value="short-edge">{ws.wsUi("flipShortEdge")}</option>
               </select>
-              <span className="mt-1 block text-xs text-ink-muted">{duplexFlipHint(duplexFlip)}</span>
+              <span className="mt-1 block text-xs text-ink-muted">{duplexFlipHintLabel(ws, duplexFlip)}</span>
             </label>
           </section>
 
           <p className="text-sm text-ink-muted">
             {ws.wsUi("outputSummary", {
-              paper: paper.label,
+              paper: paperDisplayName,
               sheets: plan.sheetCount,
               sides: plan.sides.length,
             })}
@@ -511,12 +513,16 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                   onChange={(e) => setPreviewSideIndex(Number(e.target.value))}
                   aria-label={ws.wsUi("jumpToSide")}
                 >
-                  {plan.sides.map((s, i) => (
-                    <option key={i} value={i}>
-                      Sheet {s.sheetIndex} {s.side} — {pageLabel(s.leftPage, plan.sourcePageCount, blankLabel)} |{" "}
-                      {pageLabel(s.rightPage, plan.sourcePageCount, blankLabel)}
-                    </option>
-                  ))}
+                  {plan.sides.map((s, i) => {
+                    const sideLabel = s.side === "front" ? bookletUi.sideFront : bookletUi.sideBack;
+                    return (
+                      <option key={i} value={i}>
+                        {bookletUi.sheetSide({ sheet: s.sheetIndex, side: sideLabel })} —{" "}
+                        {pageLabel(s.leftPage, plan.sourcePageCount, blankLabel)} |{" "}
+                        {pageLabel(s.rightPage, plan.sourcePageCount, blankLabel)}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             </div>
@@ -525,7 +531,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 side={previewSide}
                 plan={plan}
                 thumbs={thumbs}
-                paperLabel={paper.label}
+                paperLabel={paperDisplayName}
                 ui={bookletUi}
               />
             ) : null}

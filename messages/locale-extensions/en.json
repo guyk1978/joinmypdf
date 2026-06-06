@@ -801,7 +801,78 @@
       "processing": "Processing…",
       "optional": "Optional",
       "undo": "Undo",
-      "loadingPreview": "Loading preview…"
+      "loadingPreview": "Loading preview…",
+      "presets": {
+        "paper": {
+          "letter": "US Letter (8.5\" × 11\")",
+          "a4": "A4 (210 × 297 mm)",
+          "a5": "A5 (148 × 210 mm)",
+          "b5": "B5 (176 × 250 mm)",
+          "legal": "US Legal (8.5\" × 14\")",
+          "tabloid": "Tabloid / A3 (11\" × 17\")"
+        },
+        "watermarkPosition": {
+          "center": "Center",
+          "topLeft": "Top left",
+          "topCenter": "Top center",
+          "topRight": "Top right",
+          "middleLeft": "Middle left",
+          "middleRight": "Middle right",
+          "bottomLeft": "Bottom left",
+          "bottomCenter": "Bottom center",
+          "bottomRight": "Bottom right"
+        },
+        "pageNumberPosition": {
+          "topLeft": "Top Left",
+          "topCenter": "Top Center",
+          "topRight": "Top Right",
+          "bottomLeft": "Bottom Left",
+          "bottomCenter": "Bottom Center",
+          "bottomRight": "Bottom Right"
+        },
+        "pageNumberColor": {
+          "black": "Black",
+          "gray": "Gray",
+          "blue": "Blue",
+          "red": "Red"
+        },
+        "duplexFlip": {
+          "longEdge": "Print duplex with flip on the long edge (standard for portrait booklets).",
+          "shortEdge": "Print duplex with flip on the short edge (common for landscape layouts)."
+        },
+        "auditKind": {
+          "regex": "Pattern match",
+          "annotation": "Annotation",
+          "signature": "Signature",
+          "hiddenComment": "Hidden comment"
+        },
+        "auditPattern": {
+          "credit-card": "Credit / debit card number",
+          "ssn": "US Social Security number",
+          "israel-id": "Israeli ID number (ת.ז)",
+          "id-label-he": "ID label (ת.ז / תעודת זהות)",
+          "iban": "IBAN / bank account",
+          "email": "Email address",
+          "phone": "Phone number",
+          "confidential-en": "Confidential marker",
+          "confidential-he": "Hebrew confidential marker",
+          "password": "Password / credential label",
+          "signature-text": "Signature block text"
+        },
+        "auditFinding": {
+          "hiddenSignature": "Hidden signature field",
+          "signatureInk": "Signature or ink markup",
+          "hiddenComment": "Hidden {subtype} comment",
+          "visibleComment": "{subtype} annotation"
+        },
+        "iworkPackage": "Apple iWork document package",
+        "marginSide": {
+          "top": "Top",
+          "right": "Right",
+          "bottom": "Bottom",
+          "left": "Left"
+        }
+      }
     },
     "word-to-pdf": {
       "status": {
@@ -1539,7 +1610,23 @@
       "stickyLabel": "Apply margins",
       "stickyBookletLabel": "Booklet",
       "ui": {
+        "targetPaper": "Target paper",
+        "marginUnits": "Margin units",
+        "width": "Width",
+        "height": "Height",
+        "customUnits": "Custom units",
+        "customSize": "Custom size…",
+        "millimeters": "Millimeters",
+        "inches": "Inches",
+        "linkMargins": "Same margin on all sides",
+        "trimHeading": "Trim source edges (optional)",
+        "trimHint": "Adjust crop fractions (0–1). Use ",
+        "trimLink": "Crop PDF",
+        "trimHintSuffix": " for a visual crop editor on complex files.",
+        "dragHint": "Drag handles to adjust margins on the preview.",
+        "marginHandle": "{side} margin",
         "livePreviewHeading": "Live preview — page 1",
+        "previewLegend": "Outer frame = selected paper · inner = content area",
         "loadingPreview": "Loading preview…"
       }
     },
@@ -1572,7 +1659,7 @@
         "visualMapHeading": "Visual sensitivity map",
         "loadingMap": "Loading map…",
         "mapAlt": "Document map page {page}",
-        "mapLegend": "{count} finding(s) on this page — red = high risk",
+        "mapLegend": "{count} finding(s) on this page — red = high, amber = medium, blue = low risk",
         "findingsHeading": "Findings on page {page}",
         "scanningPage": "Scanning page {current} of {total}…",
         "pageFlagged": " · flagged"
