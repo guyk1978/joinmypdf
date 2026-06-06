@@ -21,8 +21,8 @@ export function ToolMegaGrid({ items, onNavigate, className }: ToolMegaGridProps
   const pathname = usePathname() || "/";
 
   return (
-    <div className={clsx("w-full bg-white dark:bg-neutral-900", className)}>
-      <div className="grid grid-cols-2 gap-px bg-neutral-300 dark:bg-neutral-700 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+    <div className={clsx("w-full bg-white dark:bg-neutral-950", className)}>
+      <div className="grid w-full grid-cols-2 gap-px bg-neutral-300 dark:bg-neutral-700 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
         {items.map((item) => {
           const visual = getToolIcon(item.slugHint, item.label);
           const active = isNavItemActive(pathname, item.href);
@@ -34,8 +34,8 @@ export function ToolMegaGrid({ items, onNavigate, className }: ToolMegaGridProps
               prefetch={false}
               onClick={onNavigate}
               className={clsx(
-                "group flex min-h-[88px] flex-col items-center justify-center rounded-none bg-white px-2 py-3 text-center transition-colors hover:bg-neutral-50 dark:bg-neutral-900 dark:hover:bg-neutral-800",
-                active && "bg-neutral-100 dark:bg-neutral-800",
+                "group flex min-h-[88px] w-full flex-col items-center justify-center rounded-none bg-white px-2 py-3 text-center transition-colors hover:bg-neutral-50 dark:bg-neutral-950 dark:hover:bg-neutral-900",
+                active && "bg-neutral-100 dark:bg-neutral-900",
               )}
             >
               <span

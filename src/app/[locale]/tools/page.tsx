@@ -115,13 +115,13 @@ export default async function ToolsDirectoryPage({ params }: Props) {
         </section>
 
         <section className="mt-12 space-y-2" aria-labelledby="all-tools-grid">
-          <div className="px-4 md:px-0">
+          <div>
             <h2 id="all-tools-grid" className="text-xl font-semibold text-black dark:text-neutral-200 md:text-2xl">
               {tPage("allToolsGridTitle")}
             </h2>
             <p className="mt-1 text-sm text-black dark:text-neutral-200">{tPage("allToolsGridDescription", { count: allToolItems.length })}</p>
           </div>
-          <div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 border-y border-neutral-300 dark:border-neutral-700">
+          <div className="relative left-1/2 w-screen max-w-none -translate-x-1/2">
             <ToolMegaGrid items={allToolItems} />
           </div>
         </section>
