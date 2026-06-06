@@ -1,10 +1,10 @@
 "use client";
 
+import { matteField, mattePanelInset } from "@/lib/tool-ui";
 import type { InvoiceLineItem } from "@/lib/invoice/types";
 import { formatMoney, lineTotal } from "@/lib/invoice/calculations";
 
-const inputClass =
-  "w-full rounded-lg border border-white/10 bg-surface/60 px-3 py-2 text-sm text-ink transition focus:border-brand/50 focus:outline-none focus:ring-2 focus:ring-brand/20";
+const inputClass = matteField;
 
 type InvoiceLineItemsEditorProps = {
   items: InvoiceLineItem[];
@@ -29,7 +29,7 @@ export function InvoiceLineItemsEditor({ items, onChange, onAdd }: InvoiceLineIt
         <button
           type="button"
           onClick={onAdd}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-brand/30 bg-brand/10 px-3 py-1.5 text-xs font-semibold text-brand transition hover:border-brand/50 hover:bg-brand/20 active:scale-[0.98]"
+          className="inline-flex items-center gap-1.5 border border-neutral-700 bg-neutral-800 px-2.5 py-1 text-xs font-semibold text-neutral-200 transition hover:border-neutral-500 hover:bg-neutral-700"
         >
           <span aria-hidden="true">+</span> Add item
         </button>
@@ -39,17 +39,17 @@ export function InvoiceLineItemsEditor({ items, onChange, onAdd }: InvoiceLineIt
         {items.map((item, index) => (
           <li
             key={item.id}
-            className="rounded-xl border border-white/10 bg-white/[0.02] p-3 transition hover:border-white/15"
+            className={`${mattePanelInset} transition hover:border-neutral-700`}
           >
             <div className="mb-2 flex items-center justify-between gap-2">
               <span className="text-xs font-medium text-ink-muted">Item {index + 1}</span>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-ink">{formatMoney(lineTotal(item))}</span>
+                <span className="font-mono text-xs font-semibold tabular-nums text-neutral-200">{formatMoney(lineTotal(item))}</span>
                 <button
                   type="button"
                   onClick={() => removeItem(item.id)}
                   disabled={items.length <= 1}
-                  className="rounded-md px-2 py-0.5 text-xs text-ink-muted transition hover:bg-white/10 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="px-2 py-0.5 text-xs text-neutral-400 transition hover:bg-neutral-800 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-40"
                   aria-label={`Remove item ${index + 1}`}
                 >
                   Remove

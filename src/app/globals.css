@@ -18,17 +18,17 @@
 }
 
 html.dark {
-  --surface: 11 19 43;
-  --surface-muted: 28 37 65;
-  --ink: 248 250 252;
-  --ink-muted: 203 213 225;
-  --nav-all-tools-bg: rgba(255, 255, 255, 0.05);
-  --nav-all-tools-bg-hover: rgba(255, 255, 255, 0.08);
-  --nav-all-tools-border: rgba(100, 200, 255, 0.5);
-  --nav-all-tools-border-hover: rgba(100, 200, 255, 0.72);
-  --nav-all-tools-text: #ffffff;
-  --nav-all-tools-shadow: 0 0 10px rgba(100, 200, 255, 0.22);
-  --nav-all-tools-shadow-hover: 0 0 16px rgba(100, 200, 255, 0.38);
+  --surface: 23 23 23;
+  --surface-muted: 38 38 38;
+  --ink: 229 229 229;
+  --ink-muted: 163 163 163;
+  --nav-all-tools-bg: #171717;
+  --nav-all-tools-bg-hover: #262626;
+  --nav-all-tools-border: #262626;
+  --nav-all-tools-border-hover: #404040;
+  --nav-all-tools-text: #e5e5e5;
+  --nav-all-tools-shadow: none;
+  --nav-all-tools-shadow-hover: none;
   color-scheme: dark;
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 html.dark body {
-  @apply bg-[#0B132B] text-slate-100;
+  @apply bg-neutral-950 text-neutral-200;
 }
 
 /* Footer link directory — keep in sync with assets/css/styles.css */
@@ -662,9 +662,9 @@ html.dark .visual-reorder-card__meta {
 
 .privacy-callout {
   margin: 0 0 1rem;
-  padding: 0.85rem 1rem;
+  padding: 0.65rem 0.85rem;
   border: 1px solid rgba(59, 130, 246, 0.28);
-  border-radius: 12px;
+  border-radius: 0;
   background: #eff6ff;
   color: #1e3a8a;
   font-size: 0.92rem;
@@ -678,13 +678,13 @@ html.dark .visual-reorder-card__meta {
 }
 
 html.dark .privacy-callout {
-  border-color: rgba(59, 130, 246, 0.35);
-  background: rgba(23, 37, 84, 0.3);
-  color: #bfdbfe;
+  border: 1px solid #262626;
+  background: #171717;
+  color: #e5e5e5;
 }
 
 html.dark .privacy-callout strong {
-  color: #dbeafe;
+  color: #fafafa;
 }
 
 .protect-form {
@@ -2612,4 +2612,46 @@ html.dark .group:hover .tool-icon-wrap {
 
 [dir="rtl"] .share-button-root {
   direction: rtl;
+}
+
+/* ——— Dark Matte design system ——— */
+@layer utilities {
+  html.dark .shadow-sm,
+  html.dark .shadow-md,
+  html.dark .shadow-lg,
+  html.dark .shadow-xl,
+  html.dark .shadow-2xl,
+  html.dark .shadow-glow,
+  html.dark .shadow-glow-soft,
+  html.dark [class*="shadow-"] {
+    box-shadow: none !important;
+  }
+
+  html.dark [class*="rounded"] {
+    border-radius: 0 !important;
+  }
+}
+
+html.dark .invoice-generator-workspace,
+html.dark .timeline-generator-workspace,
+html.dark .data-tool-workspace {
+  --matte-border: #262626;
+}
+
+html.dark .invoice-generator-workspace input[type="number"],
+html.dark .invoice-generator-workspace .tabular-nums,
+html.dark .timeline-generator-workspace input[type="number"],
+html.dark .data-tool-workspace td,
+html.dark .data-tool-workspace th {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+html.dark .data-tool-workspace table {
+  border-collapse: collapse;
+}
+
+html.dark .data-tool-workspace th,
+html.dark .data-tool-workspace td {
+  border: 1px solid #262626;
 }

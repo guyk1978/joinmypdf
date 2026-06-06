@@ -47,22 +47,22 @@ export function TimelineGenerator({ initialProject, templateSlug }: TimelineGene
   return (
     <div className="timeline-generator-workspace space-y-4">
       {templateSlug ? (
-        <p className="rounded-xl border border-brand/25 bg-brand/10 px-4 py-2 text-sm text-ink-muted">
+        <p className="border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-neutral-400">
           Template loaded for{" "}
-          <span className="font-medium text-ink">{templateSlug.replace(/-/g, " ")}</span> — edit any
+          <span className="font-medium text-neutral-200">{templateSlug.replace(/-/g, " ")}</span> — edit any
           task or date before you download.
         </p>
       ) : null}
       {status ? (
-        <p className="text-sm text-ink-muted" aria-live="polite">
+        <p className="text-sm text-neutral-400" aria-live="polite">
           {status}
         </p>
       ) : null}
-      <div className="grid gap-8 lg:grid-cols-2 lg:items-start xl:gap-10">
-        <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+      <div className="grid gap-4 lg:grid-cols-12 lg:items-start">
+        <section className="border border-neutral-800 bg-neutral-900 p-4 lg:col-span-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
           <TimelineFormPanel project={project} onChange={setProject} />
         </section>
-        <section className="min-h-[480px] rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6 lg:min-h-[calc(100vh-7rem)]">
+        <section className="min-h-[420px] border border-neutral-800 bg-neutral-900 p-4 lg:col-span-8 lg:min-h-[calc(100vh-6rem)]">
           <TimelineCanvasPanel
             project={project}
             onDownload={onDownload}

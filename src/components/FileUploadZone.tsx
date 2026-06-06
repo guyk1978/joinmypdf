@@ -27,7 +27,8 @@ function UploadArrowIcon({ className, active }: { className?: string; active?: b
   return (
     <div
       className={clsx(
-        "relative mb-4 rounded-2xl bg-gradient-to-br from-rose-50 via-orange-50 to-amber-50 p-4 shadow-sm ring-1 ring-rose-100 transition-transform duration-300 group-hover:scale-110 dark:from-rose-950/50 dark:via-orange-950/40 dark:to-amber-950/40 dark:ring-rose-900/40",
+        "relative mb-3 border border-neutral-800 bg-neutral-900 p-3 transition-colors dark:border-neutral-800 dark:bg-neutral-900",
+        active && "border-neutral-600",
         className,
       )}
       aria-hidden
@@ -40,7 +41,7 @@ function UploadArrowIcon({ className, active }: { className?: string; active?: b
         <path d="M12.5 19.3V15.7H13.95C15.05 15.7 15.85 16.45 15.85 17.5C15.85 18.55 15.05 19.3 13.95 19.3H12.5Z" fill="white" />
         <path d="M16.8 19.3V15.7H19.45V16.5H17.65V17.1H19.15V17.9H17.65V19.3H16.8Z" fill="white" />
       </svg>
-      <div className="absolute -end-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-green-500" />
+      <div className="absolute -end-1 -top-1 h-2.5 w-2.5 bg-neutral-400 dark:bg-neutral-500" />
     </div>
   );
 }
@@ -49,7 +50,7 @@ function SelectFilesCta({ label, ariaLabel }: { label: string; ariaLabel: string
   return (
     <button
       type="button"
-      className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-200 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-indigo-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:shadow-indigo-950/50 dark:focus-visible:ring-offset-slate-900"
+      className="inline-flex items-center justify-center border border-neutral-600 bg-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-950 transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-500 dark:bg-neutral-200 dark:text-neutral-950"
       aria-label={ariaLabel}
     >
       {label}
@@ -63,14 +64,14 @@ export function PrivacyUploadBadge({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        "inline-flex w-full max-w-2xl items-start gap-2.5 rounded-xl border border-sky-200 bg-sky-50/80 px-3.5 py-2.5 text-start shadow-sm sm:items-center sm:px-4 sm:py-3 dark:border-brand/35 dark:bg-brand/10 dark:shadow-[0_0_24px_rgba(56,189,248,0.08)]",
+        "inline-flex w-full max-w-2xl items-start gap-2.5 border border-neutral-800 bg-neutral-900 px-3 py-2 text-start sm:items-center sm:px-3 sm:py-2 dark:border-neutral-800 dark:bg-neutral-900",
         className,
       )}
       role="note"
     >
-      <ShieldLockIcon className="mt-0.5 h-5 w-5 shrink-0 text-sky-700 sm:mt-0 dark:text-brand" />
-      <p className="text-xs font-medium leading-snug text-blue-900 sm:text-sm dark:text-blue-200">
-        <span className="font-semibold text-blue-950 dark:text-blue-100">{common("privacyTitle")}</span>{" "}
+      <ShieldLockIcon className="mt-0.5 h-5 w-5 shrink-0 text-neutral-400 sm:mt-0" />
+      <p className="text-xs font-medium leading-snug text-neutral-300 sm:text-sm">
+        <span className="font-semibold text-neutral-200">{common("privacyTitle")}</span>{" "}
         {common("privacyBody")}
       </p>
     </div>
@@ -107,7 +108,7 @@ function formatBadgeClass(format: string) {
   if (value.includes("PNG") || value.includes("JPG") || value.includes("JPEG") || value.includes("IMAGE")) {
     return "border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-500/30 dark:bg-purple-950/30 dark:text-purple-200";
   }
-  return "border-slate-200 bg-slate-100 text-slate-700 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-200";
+  return "border-neutral-700 bg-neutral-800 text-neutral-200";
 }
 
 export function FileUploadZone({
@@ -135,13 +136,13 @@ export function FileUploadZone({
   return (
     <div
       className={clsx(
-        "group relative mx-auto flex w-full max-w-3xl flex-col rounded-2xl border-2 border-dashed text-center transition-all duration-300",
+        "group relative mx-auto flex w-full max-w-3xl flex-col border border-dashed border-neutral-800 bg-neutral-900 text-center transition-colors dark:border-neutral-800 dark:bg-neutral-900",
         isHero
-          ? "min-h-[300px] px-5 md:min-h-[340px] md:px-8"
-          : "min-h-[220px] px-6 md:min-h-[260px] md:px-10",
+          ? "min-h-[240px] px-4 md:min-h-[280px] md:px-6"
+          : "min-h-[200px] px-4 md:min-h-[220px] md:px-6",
         active
-          ? "border-blue-300 bg-white shadow-lg shadow-blue-100/60 dark:border-blue-500 dark:bg-slate-900/60 dark:shadow-blue-950/30"
-          : "border-slate-200 bg-white shadow-md shadow-slate-100/70 group-hover:border-blue-300 group-hover:bg-white group-hover:shadow-lg group-hover:shadow-blue-100/60 dark:border-slate-800 dark:bg-slate-900/60 dark:shadow-slate-950/20 dark:group-hover:border-blue-500 dark:group-hover:bg-slate-900/70 dark:group-hover:shadow-blue-950/25",
+          ? "border-neutral-600 bg-neutral-900 dark:border-neutral-600 dark:bg-neutral-900"
+          : "border-neutral-800 group-hover:border-neutral-600 dark:border-neutral-800 dark:group-hover:border-neutral-600",
         className,
       )}
       {...rest}
@@ -150,15 +151,15 @@ export function FileUploadZone({
       <div
         className={clsx(
           "flex w-full flex-1 flex-col items-center justify-center",
-          isHero ? "gap-6 px-1 py-8 md:gap-7 md:py-10" : "gap-5 px-1 py-6 md:gap-6 md:py-8",
+          isHero ? "gap-4 px-1 py-5 md:gap-5 md:py-6" : "gap-4 px-1 py-4 md:gap-4 md:py-5",
         )}
       >
         <PrivacyUploadBadge className="max-w-xl shrink-0 sm:max-w-2xl" />
         <UploadArrowIcon active={active} />
         <div className="max-w-md space-y-2">
-          <p className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100 md:text-xl">{title}</p>
+          <p className="text-lg font-bold tracking-tight text-neutral-200 md:text-xl">{title}</p>
           {description ? (
-            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:text-base">{description}</p>
+            <p className="text-sm leading-relaxed text-neutral-400 md:text-base">{description}</p>
           ) : null}
         </div>
         <SelectFilesCta label={common("selectFiles")} ariaLabel={common("selectFilesAria")} />
@@ -168,7 +169,7 @@ export function FileUploadZone({
               <span
                 key={format}
                 className={clsx(
-                  "inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide",
+                  "inline-flex items-center border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide",
                   formatBadgeClass(format),
                 )}
               >

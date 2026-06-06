@@ -1,6 +1,6 @@
-/** Shared homepage / marketing CTA classes (Tailwind) — keep in sync across server + client components. */
+/** Shared homepage / marketing CTA classes — Dark Matte, flat borders. */
 export const ctaPrimary =
-  "inline-flex items-center justify-center rounded-xl bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-sky-300/60 transition duration-300 hover:-translate-y-0.5 hover:bg-brand-deep hover:shadow-xl hover:shadow-sky-300/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand dark:text-surface";
+  "inline-flex items-center justify-center rounded-none border border-neutral-600 bg-neutral-200 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition-colors hover:bg-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 dark:text-neutral-950";
 
 export const ctaSecondary =
-  "inline-flex items-center justify-center rounded-xl border border-slate-200 bg-slate-100 px-6 py-3.5 text-sm font-semibold text-slate-700 shadow-sm transition duration-300 hover:bg-slate-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-300 dark:border-white/20 dark:bg-white/[0.04] dark:text-ink dark:hover:bg-white/[0.09] dark:focus-visible:outline-white/30";
+  "inline-flex items-center justify-center rounded-none border border-neutral-800 bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-neutral-200 transition-colors hover:bg-neutral-800 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800";

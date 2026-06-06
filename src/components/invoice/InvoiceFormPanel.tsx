@@ -1,16 +1,14 @@
 "use client";
 
-import { toolDownloadBtn } from "@/lib/tool-ui";
+import { matteField, matteFieldArea, mattePanel, mattePanelInset, toolDownloadBtn } from "@/lib/tool-ui";
 import type { InvoiceDocument, PartyInfo } from "@/lib/invoice/types";
 import { computeTotals, formatMoney } from "@/lib/invoice/calculations";
 import { InvoiceLineItemsEditor } from "@/components/invoice/InvoiceLineItemsEditor";
 import { createEmptyLineItem } from "@/lib/invoice/defaults";
 
-const inputClass =
-  "w-full rounded-lg border border-white/10 bg-surface/60 px-3 py-2 text-sm text-ink transition focus:border-brand/50 focus:outline-none focus:ring-2 focus:ring-brand/20";
+const inputClass = matteField;
 
-const textareaClass =
-  "w-full resize-y rounded-lg border border-white/10 bg-surface/60 px-3 py-2 text-sm text-ink transition focus:border-brand/50 focus:outline-none focus:ring-2 focus:ring-brand/20 min-h-[4.5rem]";
+const textareaClass = matteFieldArea;
 
 type InvoiceFormPanelProps = {
   document: InvoiceDocument;
@@ -29,7 +27,7 @@ function PartyFields({
   onChange: (party: PartyInfo) => void;
 }) {
   return (
-    <fieldset className="space-y-3 rounded-xl border border-white/10 bg-white/[0.02] p-4">
+    <fieldset className={`space-y-3 ${mattePanelInset}`}>
       <legend className="px-1 text-sm font-semibold text-ink">{title}</legend>
       <label className="block">
         <span className="mb-1 block text-xs text-ink-muted">Company / name</span>
@@ -123,7 +121,7 @@ export function InvoiceFormPanel({
         onAdd={() => patch({ lineItems: [...document.lineItems, createEmptyLineItem()] })}
       />
 
-      <section className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+      <section className={mattePanelInset}>
         <label className="block max-w-xs">
           <span className="mb-1 block text-xs text-ink-muted">Tax / VAT (%)</span>
           <input

@@ -74,38 +74,38 @@ export function DataToolDashboard() {
         <DataDropzone onLoad={handleLoad} onError={handleError} />
       ) : (
         <div className="space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-3 md:px-5">
+          <div className="flex flex-wrap items-center justify-between gap-3 border border-neutral-800 bg-neutral-900 px-3 py-2">
             <div>
-              <p className="text-sm font-medium text-ink">{sourceLabel}</p>
-              <p className="text-xs text-ink-muted">
+              <p className="text-sm font-medium text-neutral-200">{sourceLabel}</p>
+              <p className="font-mono text-xs tabular-nums text-neutral-400">
                 {rows.length.toLocaleString()} rows · {columns.length} columns · client-side only
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               <button
                 type="button"
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-medium text-ink-muted transition hover:border-brand/35 hover:text-brand"
+                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-neutral-200"
                 onClick={() => applyClean("trim")}
               >
                 Trim whitespace
               </button>
               <button
                 type="button"
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-medium text-ink-muted transition hover:border-brand/35 hover:text-brand"
+                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-neutral-200"
                 onClick={() => applyClean("fill")}
               >
                 Fill empty cells
               </button>
               <button
                 type="button"
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-medium text-ink-muted transition hover:border-brand/35 hover:text-brand"
+                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-neutral-200"
                 onClick={() => applyClean("dedupe")}
               >
                 Remove duplicates
               </button>
               <button
                 type="button"
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-medium text-ink-muted transition hover:border-red-400/40 hover:text-red-300"
+                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-red-300"
                 onClick={() => {
                   setDataset(null);
                   setSort(null);
