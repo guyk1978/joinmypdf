@@ -76,11 +76,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
       />
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-4 py-10 md:px-4 md:py-14">
-        <section className="relative overflow-hidden rounded-none border border-neutral-300 dark:border-neutral-800/70 bg-white/90 px-4 py-10 text-center backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.04] md:px-10 md:py-14">
-          <div
-            className="pointer-events-none absolute inset-0 bg-neutral-900 dark:from-white/[0.03] dark:via-transparent dark:to-cyan-500/[0.06]"
-            aria-hidden
-          />
+        <section className="rounded-none border border-neutral-300 bg-white px-4 py-8 text-center dark:border-neutral-800 dark:bg-neutral-900 md:px-8 md:py-10">
           <div className="relative">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-700 dark:text-neutral-400 dark:text-black dark:text-neutral-300">
               {tPage("badge")}

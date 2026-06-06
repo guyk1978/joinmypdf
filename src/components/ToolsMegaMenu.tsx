@@ -174,19 +174,19 @@ export function ToolsMegaMenu({
           "z-[60] transition-[opacity,visibility,transform] duration-200 ease-out",
           isMobile
             ? "relative mt-2 w-full"
-            : "fixed left-1/2 top-16 z-[60] mx-auto w-screen max-w-5xl -translate-x-1/2 px-4 pt-2",
+            : "fixed left-1/2 top-12 z-[60] mx-auto w-screen max-w-5xl -translate-x-1/2 px-3 pt-1",
           open
             ? "visible translate-y-0 opacity-100 pointer-events-auto"
             : "invisible -translate-y-1 opacity-0 pointer-events-none",
         )}
       >
-        <div className="nav-mega__panel overflow-hidden rounded-none border border-neutral-300 dark:border-neutral-800/80 bg-white dark:border-slate-800 dark:bg-slate-950">
+        <div className="nav-mega__panel overflow-hidden rounded-none border border-neutral-300 dark:border-neutral-800">
           <div className="nav-mega__grid">
             {sections.map((section) => {
               const sectionLabel = translateToolSection(tTools, section.id, section.label);
               return (
               <div key={section.id} className="nav-mega__column min-w-0">
-                <p className="nav-mega__heading text-black dark:text-neutral-200 dark:text-slate-400">{sectionLabel}</p>
+                <p className="nav-mega__heading">{sectionLabel}</p>
                 <ul className="nav-mega__list">
                   {section.items.map((item) => {
                     const itemLabel = translateToolItem(tTools, item.slug, item.label);
@@ -195,7 +195,7 @@ export function ToolsMegaMenu({
                       <Link
                         href={item.href}
                         className={clsx(
-                          "nav-mega__link text-black dark:text-neutral-300 dark:text-slate-200 dark:hover:text-black dark:text-neutral-200",
+                          "nav-mega__link",
                           isNavItemActive(pathname, item.href) && "is-active",
                         )}
                         role="menuitem"
@@ -205,7 +205,7 @@ export function ToolsMegaMenu({
                           onNavigate?.();
                         }}
                       >
-                        <ToolIconBadge slug={item.slug} label={itemLabel} />
+                        <ToolIconBadge slug={item.slug} label={itemLabel} size="sm" />
                         <span className="nav-mega__link-label">{itemLabel}</span>
                       </Link>
                     </li>
@@ -214,10 +214,10 @@ export function ToolsMegaMenu({
               </div>
             );})}
           </div>
-          <div className="nav-mega__footer border-neutral-300 dark:border-neutral-800 dark:border-slate-800">
+          <div className="nav-mega__footer">
             <Link
               href="/tools/"
-              className="nav-mega__footer-link text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 dark:hover:text-black dark:text-neutral-200"
+              className="nav-mega__footer-link"
               prefetch={false}
               onClick={() => {
                 close();

@@ -71,7 +71,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
   return (
     <>
       <nav
-        className="relative mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4"
+        className="relative mx-auto flex h-12 max-w-7xl items-center justify-between gap-2 px-3"
         aria-label={t("siteLabel")}
       >
         <Link href="/" className="brand z-10 flex shrink-0 items-center gap-2">
@@ -79,7 +79,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
           <span className="brand__text">JoinMyPDF</span>
         </Link>
 
-        <div className="absolute left-1/2 z-10 hidden -translate-x-1/2 items-center gap-3 md:flex">
+        <div className="absolute left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 md:flex">
           <ToolsMegaMenu sections={megaMenuSections} />
           <GuidesLink />
           <PrivacyFirstLink />
@@ -105,7 +105,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
       {mobileOpen ? (
         <div
           id="primary-nav"
-          className="border-t border-neutral-300 dark:border-neutral-800/80 bg-white px-4 py-3 md:hidden dark:border-slate-800 dark:bg-slate-950"
+          className="border-t border-neutral-300 bg-neutral-100 px-3 py-2 md:hidden dark:border-neutral-800 dark:bg-neutral-950"
           aria-label={t("mobileNav")}
         >
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
