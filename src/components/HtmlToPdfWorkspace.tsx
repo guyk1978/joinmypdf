@@ -142,28 +142,24 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   };
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex rounded-xl border border-white/10 p-1">
+        <div className="flex rounded-none border border-white/10 p-1">
           <button
             type="button"
             onClick={() => setMode("upload")}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-              mode === "upload" ? "bg-brand text-surface" : "text-ink-muted hover:text-ink"
-            }`}
+            className={`rounded-none px-4 py-2 text-sm font-medium transition ${ mode === "upload" ? "bg-neutral-200 dark:bg-neutral-800 text-surface" : "text-ink-muted hover:text-ink" }`}
           >
             {ws.wsUi("tabUpload")}
           </button>
           <button
             type="button"
             onClick={() => setMode("paste")}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-              mode === "paste" ? "bg-brand text-surface" : "text-ink-muted hover:text-ink"
-            }`}
+            className={`rounded-none px-4 py-2 text-sm font-medium transition ${ mode === "paste" ? "bg-neutral-200 dark:bg-neutral-800 text-surface" : "text-ink-muted hover:text-ink" }`}
           >
             {ws.wsUi("tabPaste")}
           </button>
@@ -175,7 +171,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             <select
               value={orientation}
               onChange={(e) => setOrientation(e.target.value as HtmlPdfOrientation)}
-              className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
+              className="rounded-none border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-neutral-300 dark:border-neutral-800 focus:outline-none"
             >
               <option value="portrait">{ws.wsUi("orientationPortrait")}</option>
               <option value="landscape">{ws.wsUi("orientationLandscape")}</option>
@@ -186,7 +182,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             <select
               value={margin}
               onChange={(e) => setMargin(e.target.value as HtmlPdfMargin)}
-              className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
+              className="rounded-none border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-neutral-300 dark:border-neutral-800 focus:outline-none"
             >
               <option value="normal">{ws.wsUi("marginNormal")}</option>
               <option value="none">{ws.wsUi("marginNone")}</option>
@@ -250,7 +246,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               setDone(false);
             }}
             spellCheck={false}
-            className="min-h-[320px] w-full resize-y rounded-xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-sm leading-relaxed text-ink placeholder:text-ink-muted/60 focus:border-brand focus:outline-none lg:min-h-[460px]"
+            className="min-h-[320px] w-full resize-y rounded-none border border-white/10 bg-black/30 px-4 py-3 font-mono text-sm leading-relaxed text-ink placeholder:text-ink-muted/60 focus:border-neutral-300 dark:border-neutral-800 focus:outline-none lg:min-h-[460px]"
             placeholder={ws.wsUi("editorPlaceholder")}
             aria-label={ws.wsUi("editorAriaLabel")}
           />
@@ -258,7 +254,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
         <div className="space-y-2">
           <h2 className="text-sm font-semibold text-ink">{ws.wsUi("previewHeading")}</h2>
-          <div className="min-h-[320px] overflow-hidden rounded-xl border border-white/10 bg-white lg:min-h-[460px]">
+          <div className="min-h-[320px] overflow-hidden rounded-none border border-white/10 bg-white lg:min-h-[460px]">
             <iframe
               title={ws.wsUi("previewIframeTitle")}
               className="h-[320px] w-full bg-white lg:h-[460px]"
@@ -281,7 +277,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           type="button"
           disabled={busy || !htmlCode.trim()}
           onClick={() => void onConvert()}
-          className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-surface transition hover:bg-neutral-200 dark:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {ws.wsText("convertLabel")}
         </button>
@@ -289,7 +285,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           type="button"
           disabled={busy}
           onClick={reset}
-          className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+          className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
         >
           {ws.wsCommon("resetSample")}
         </button>

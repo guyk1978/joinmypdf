@@ -191,7 +191,7 @@ export function ConvertToolWorkspace<TProgress>({
   const percent = config.progressPercent(progress, busy);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {privacyNote}
       </div>
@@ -239,7 +239,7 @@ export function ConvertToolWorkspace<TProgress>({
       ) : null}
 
       {showWorkspace ? (
-        <div className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
@@ -248,7 +248,7 @@ export function ConvertToolWorkspace<TProgress>({
                 {metaLine ? ` · ${metaLine}` : ""} · {fileTypeLabel}
               </p>
             </div>
-            <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -260,7 +260,7 @@ export function ConvertToolWorkspace<TProgress>({
               type="button"
               disabled={!canConvert}
               onClick={() => void onConvert()}
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-surface transition hover:bg-neutral-200 dark:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {hasOutput ? ws.common("convertAgain") : convertLabel}
             </button>
@@ -269,7 +269,7 @@ export function ConvertToolWorkspace<TProgress>({
                 type="button"
                 disabled={busy}
                 onClick={onDownload}
-                className="rounded-xl border border-brand/40 bg-brand/10 px-5 py-3 text-sm font-semibold text-brand transition hover:bg-brand/15 disabled:opacity-50"
+                className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-neutral-800 dark:text-neutral-200 transition hover:bg-neutral-200 dark:bg-neutral-800 disabled:opacity-50"
               >
                 {downloadLabel}
               </button>
@@ -278,7 +278,7 @@ export function ConvertToolWorkspace<TProgress>({
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
               {ws.chooseAnotherFile}
             </button>

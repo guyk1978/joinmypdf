@@ -71,9 +71,9 @@ export function InvoiceFormPanel({
   const patch = (partial: Partial<InvoiceDocument>) => onChange({ ...document, ...partial });
 
   return (
-    <div className="flex h-full flex-col gap-6 print:hidden">
+    <div className="flex h-full flex-col gap-3 print:hidden">
       <div className="space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">Client-side only</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-800 dark:text-neutral-200">Client-side only</p>
         <h2 className="text-xl font-bold text-ink">Invoice details</h2>
         <p className="text-sm text-ink-muted">
           Fill in the form — your preview updates instantly. Nothing is uploaded to our servers.

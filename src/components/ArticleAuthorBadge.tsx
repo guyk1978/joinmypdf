@@ -27,7 +27,7 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
 
   return (
     <aside
-      className={`flex items-center gap-2.5 rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2 sm:gap-3 sm:px-3 sm:py-2.5 ${className}`}
+      className={`flex items-center gap-2.5 rounded-none border border-white/10 bg-white/[0.03] px-2.5 py-2 sm:gap-3 sm:px-3 sm:py-2.5 ${className}`}
       aria-label={`Written by ${author.name}, ${author.role}`}
     >
       {author.avatarUrl ? (
@@ -37,11 +37,11 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
           alt=""
           width={36}
           height={36}
-          className="h-9 w-9 shrink-0 rounded-full border border-white/15 object-cover"
+          className="h-9 w-9 shrink-0 rounded-none border border-white/15 object-cover"
         />
       ) : (
         <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand/25 bg-brand/10 text-xs font-semibold tracking-wide text-brand"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 text-xs font-semibold tracking-wide text-neutral-800 dark:text-neutral-200"
           aria-hidden
         >
           {author.initials}
@@ -55,7 +55,7 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
           <span className="text-ink-muted"> | {author.role}</span>
         </p>
         <p className="mt-0.5 flex items-start gap-1 text-[10px] leading-snug text-ink-muted sm:mt-1 sm:items-center sm:text-[11px]">
-          <CheckBadgeIcon className="mt-px h-3 w-3 shrink-0 text-brand sm:mt-0 sm:h-3.5 sm:w-3.5" />
+          <CheckBadgeIcon className="mt-px h-3 w-3 shrink-0 text-neutral-800 dark:text-neutral-200 sm:mt-0 sm:h-3.5 sm:w-3.5" />
           <span>{author.verifiedLabel}</span>
         </p>
       </div>

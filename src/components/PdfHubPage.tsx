@@ -24,25 +24,25 @@ export function PdfHubPage({ hub }: { hub: PdfHub }) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-6xl space-y-12 px-4 py-10 md:px-6 md:py-14">
-        <header className="max-w-3xl space-y-3 border-b border-slate-200 pb-8 dark:border-slate-800">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">Hub</p>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 md:text-4xl">{hub.title}</h1>
-          <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-400">{hub.description}</p>
+      <main className="mx-auto max-w-6xl space-y-12 px-4 py-10 md:px-4 md:py-14">
+        <header className="max-w-3xl space-y-3 border-b border-neutral-300 dark:border-neutral-800 pb-8 dark:border-slate-800">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">Hub</p>
+          <h1 className="text-3xl font-bold tracking-tight text-black dark:text-neutral-200 dark:text-slate-100 md:text-4xl">{hub.title}</h1>
+          <p className="text-lg leading-relaxed text-neutral-800 dark:text-neutral-400 dark:text-slate-400">{hub.description}</p>
           <nav className="flex flex-wrap gap-2 pt-2 text-sm">
-            <Link href="/pdf-guides/" className="text-indigo-600 hover:underline dark:text-indigo-400">
+            <Link href="/pdf-guides/" className="text-black dark:text-neutral-200 hover:underline dark:text-black dark:text-neutral-200">
               Guides
             </Link>
             <span className="text-slate-400">·</span>
-            <Link href="/pdf-comparison/" className="text-indigo-600 hover:underline dark:text-indigo-400">
+            <Link href="/pdf-comparison/" className="text-black dark:text-neutral-200 hover:underline dark:text-black dark:text-neutral-200">
               Comparisons
             </Link>
             <span className="text-slate-400">·</span>
-            <Link href="/pdf-privacy/" className="text-indigo-600 hover:underline dark:text-indigo-400">
+            <Link href="/pdf-privacy/" className="text-black dark:text-neutral-200 hover:underline dark:text-black dark:text-neutral-200">
               Privacy
             </Link>
             <span className="text-slate-400">·</span>
-            <Link href="/pdf-workflows/" className="text-indigo-600 hover:underline dark:text-indigo-400">
+            <Link href="/pdf-workflows/" className="text-black dark:text-neutral-200 hover:underline dark:text-black dark:text-neutral-200">
               Workflows
             </Link>
           </nav>
@@ -52,8 +52,8 @@ export function PdfHubPage({ hub }: { hub: PdfHub }) {
 
         {featured.length ? (
           <section className="space-y-5">
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Featured guides</h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-slate-100">Featured guides</h2>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
               {featured.map((post, index) => (
                 <BlogGuideCard key={post!.slug} post={post!} index={index} />
               ))}
@@ -63,8 +63,8 @@ export function PdfHubPage({ hub }: { hub: PdfHub }) {
 
         {more.length ? (
           <section className="space-y-5">
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">More in this topic</h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-slate-100">More in this topic</h2>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
               {more.map((post, index) => (
                 <BlogGuideCard key={post.slug} post={post} index={featured.length + index} />
               ))}
@@ -73,8 +73,8 @@ export function PdfHubPage({ hub }: { hub: PdfHub }) {
         ) : null}
 
         {toolItems.length ? (
-          <section className="space-y-4 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Related tools</h2>
+          <section className="space-y-4 rounded-none border border-slate-100 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-slate-100">Related tools</h2>
             <CompactToolCardGrid items={toolItems} />
           </section>
         ) : null}

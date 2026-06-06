@@ -196,7 +196,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const showOptions = Boolean(file);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -248,7 +248,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
           </p>
 
-          <div className="page-numbers-form rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-5">
+          <div className="page-numbers-form rounded-none border border-white/10 bg-white/[0.03] p-4 md:p-3">
             <div className="page-numbers-form__row">
               <label className="page-numbers-form__label" htmlFor={`${baseId}-position`}>
                 {ws.wsUi("positionLabel")}
@@ -393,7 +393,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
             <button
               type="submit"
               disabled={busy}
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
             >
               {ws.wsText("addLabel")}
             </button>
@@ -401,7 +401,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
             >
               {ws.chooseAnotherFile}
             </button>

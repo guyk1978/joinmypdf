@@ -61,42 +61,42 @@ export function TimelineCanvasPanel({
         </button>
       </div>
 
-      <div className={clsx("flex flex-1 items-start justify-center overflow-auto p-4 md:p-5", toolCanvasStudio)}>
+      <div className={clsx("flex flex-1 items-start justify-center overflow-auto p-4 md:p-3", toolCanvasStudio)}>
         <article
           id={TIMELINE_PRINT_ROOT_ID}
-          className="w-full min-w-[640px] max-w-4xl overflow-hidden rounded-xl border border-slate-700/80 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 shadow-2xl shadow-black/40"
+          className="w-full min-w-[640px] max-w-4xl overflow-hidden rounded-none border border-neutral-300 dark:border-neutral-800/80 bg-neutral-900 to-slate-950"
           style={{ minHeight: chartHeight }}
         >
-          <header className="border-b border-slate-700/60 px-6 py-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-400">JoinMyPDF</p>
+          <header className="border-b border-neutral-300 dark:border-neutral-800/60 px-4 py-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200">JoinMyPDF</p>
             <h3 className="mt-1 text-xl font-bold tracking-tight text-slate-50">
               {project.title.trim() || "Timeline"}
             </h3>
             {bounds ? (
               <p className="mt-2 text-sm text-slate-400">
                 {formatDisplayDate(bounds.startIso)} — {formatDisplayDate(bounds.endIso)}
-                <span className="mx-2 text-slate-600">·</span>
+                <span className="mx-2 text-neutral-800 dark:text-neutral-400">·</span>
                 {durationDays} days
-                <span className="mx-2 text-slate-600">·</span>
+                <span className="mx-2 text-neutral-800 dark:text-neutral-400">·</span>
                 {sortedTasks.length} task{sortedTasks.length === 1 ? "" : "s"}
               </p>
             ) : (
-              <p className="mt-2 text-sm text-slate-500">Add a task or milestone to render the chart.</p>
+              <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-400">Add a task or milestone to render the chart.</p>
             )}
           </header>
 
           {bounds ? (
-            <div className="px-4 pb-6 pt-4 md:px-6">
+            <div className="px-4 pb-6 pt-4 md:px-4">
               {/* Milestones row */}
               {project.milestones.length > 0 ? (
                 <div
                   className="mb-3 grid items-center gap-3"
                   style={{ gridTemplateColumns: `${LABEL_WIDTH}px 1fr` }}
                 >
-                  <span className="text-right text-xs font-medium uppercase tracking-wider text-slate-500">
+                  <span className="text-right text-xs font-medium uppercase tracking-wider text-neutral-700 dark:text-neutral-400">
                     Milestones
                   </span>
-                  <div className="relative h-10 rounded-lg border border-slate-700/50 bg-slate-800/40">
+                  <div className="relative h-10 rounded-none border border-neutral-300 dark:border-neutral-800/50 bg-slate-800/40">
                     {project.milestones.map((milestone) => {
                       const { leftPercent } = layoutMilestone(milestone, bounds);
                       return (
@@ -166,9 +166,9 @@ export function TimelineCanvasPanel({
                       >
                         {task.title}
                       </span>
-                      <div className="relative h-9 rounded-lg border border-slate-700/40 bg-slate-800/30">
+                      <div className="relative h-9 rounded-none border border-neutral-300 dark:border-neutral-800/40 bg-slate-800/30">
                         <div
-                          className="absolute top-1/2 h-7 -translate-y-1/2 rounded-md shadow-md"
+                          className="absolute top-1/2 h-7 -translate-y-1/2 rounded-none"
                           style={{
                             left: `${bar.leftPercent}%`,
                             width: `${bar.widthPercent}%`,
@@ -185,12 +185,12 @@ export function TimelineCanvasPanel({
               </div>
             </div>
           ) : (
-            <div className="flex min-h-[200px] items-center justify-center px-6 py-16 text-sm text-slate-500">
+            <div className="flex min-h-[200px] items-center justify-center px-4 py-16 text-sm text-neutral-700 dark:text-neutral-400">
               Your schedule will appear here once you add dates.
             </div>
           )}
 
-          <footer className="border-t border-slate-700/50 px-6 py-3 text-center text-[11px] text-slate-500">
+          <footer className="border-t border-neutral-300 dark:border-neutral-800/50 px-4 py-3 text-center text-[11px] text-neutral-700 dark:text-neutral-400">
             Generated with JoinMyPDF — client-side timeline &amp; Gantt chart
           </footer>
         </article>

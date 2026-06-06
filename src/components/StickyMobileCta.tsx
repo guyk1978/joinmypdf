@@ -22,7 +22,7 @@ export function StickyMobileCta({ href, label, secondaryHref, secondaryLabel }: 
         <Link
           href={href}
           onClick={() => capture(EVENTS.cta_primary_click, { where: "sticky_mobile" })}
-          className="flex-1 rounded-xl bg-brand py-3 text-center text-sm font-semibold text-surface"
+          className="flex-1 rounded-none bg-neutral-200 dark:bg-neutral-800 py-3 text-center text-sm font-semibold text-surface"
         >
           {label}
         </Link>
@@ -30,7 +30,7 @@ export function StickyMobileCta({ href, label, secondaryHref, secondaryLabel }: 
           <Link
             href={secondaryHref}
             onClick={() => capture(EVENTS.cta_secondary_click, { where: "sticky_mobile" })}
-            className="flex-1 rounded-xl border border-white/15 py-3 text-center text-sm font-semibold text-ink"
+            className="flex-1 rounded-none border border-white/15 py-3 text-center text-sm font-semibold text-ink"
           >
             {secondaryLabel}
           </Link>

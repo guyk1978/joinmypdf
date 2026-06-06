@@ -73,7 +73,7 @@ export function DataToolDashboard() {
       {!dataset ? (
         <DataDropzone onLoad={handleLoad} onError={handleError} />
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3 border border-neutral-800 bg-neutral-900 px-3 py-2">
             <div>
               <p className="text-sm font-medium text-neutral-200">{sourceLabel}</p>
@@ -105,7 +105,7 @@ export function DataToolDashboard() {
               </button>
               <button
                 type="button"
-                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-red-300"
+                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-black dark:text-neutral-200"
                 onClick={() => {
                   setDataset(null);
                   setSort(null);

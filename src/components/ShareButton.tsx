@@ -97,16 +97,12 @@ export function ShareButton({ className = "" }: ShareButtonProps) {
         type="button"
         onClick={() => void handleShare()}
         disabled={busy || !shareUrl}
-        className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-surface/90 px-4 py-2.5 text-sm font-semibold text-ink shadow-lg shadow-black/30 backdrop-blur-md transition hover:border-brand/45 hover:bg-surface-muted/95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60"
+        className="group inline-flex items-center gap-2 rounded-none border border-white/20 bg-surface/90 px-4 py-2.5 text-sm font-semibold text-ink backdrop-blur-md transition hover:border-neutral-300 dark:border-neutral-800 hover:bg-surface-muted/95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-500 disabled:cursor-not-allowed disabled:opacity-60"
         aria-label={ariaLabel}
         title={shareUrl || t("shareThisPage")}
       >
         <span
-          className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition ${
-            copied
-              ? "border-emerald-400/50 bg-emerald-500/15 text-emerald-300"
-              : "border-brand/35 bg-brand/10 text-brand group-hover:bg-brand/20"
-          }`}
+          className={`inline-flex h-8 w-8 items-center justify-center rounded-none border transition ${ copied ? "border-neutral-300 dark:border-neutral-800 bg-neutral-900 dark:bg-neutral-200/15 text-black dark:text-neutral-200" : "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 group-hover:bg-neutral-200 dark:bg-neutral-800" }`}
           aria-hidden="true"
         >
           {copied ? (
@@ -131,7 +127,7 @@ export function ShareButton({ className = "" }: ShareButtonProps) {
             </svg>
           )}
         </span>
-        <span className={copied ? "text-emerald-300 transition-colors" : "transition-colors"}>
+        <span className={copied ? "text-black dark:text-neutral-200 transition-colors" : "transition-colors"}>
           {label}
         </span>
       </button>

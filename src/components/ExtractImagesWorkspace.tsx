@@ -223,7 +223,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const hasImages = Boolean(images?.length);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -272,8 +272,8 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
       {showWorkspace ? (
         <div className="pdf-export-workspace space-y-4">
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            <strong className="text-slate-900 dark:text-slate-100">{file?.name}</strong>
+          <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
+            <strong className="text-black dark:text-neutral-200 dark:text-slate-100">{file?.name}</strong>
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
           </p>
 
@@ -291,7 +291,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
                 type="button"
                 disabled={busy}
                 onClick={() => void onDownloadZip()}
-                className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+                className="rounded-none bg-neutral-900 dark:bg-neutral-200 px-5 py-3 text-sm font-bold text-white transition-all hover:bg-neutral-900 dark:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
               >
                 {ws.wsText("downloadZipLabel")}
               </button>

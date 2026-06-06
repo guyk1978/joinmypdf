@@ -458,8 +458,8 @@ function resolveToolKey(slug?: string, label?: string): string {
 const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   "pdf-merge": {
     icon: <MergeIcon />,
-    wrap: "bg-indigo-100 ring-1 ring-indigo-200",
-    wrapHover: "group-hover:bg-indigo-200 group-hover:ring-indigo-300",
+    wrap: "bg-neutral-900 ring-1 ring-indigo-200",
+    wrapHover: "group-hover:bg-neutral-900 group-hover:ring-indigo-300",
   },
   "pdf-compress": {
     icon: <CompressIcon />,
@@ -468,18 +468,18 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "pdf-split": {
     icon: <SplitIcon />,
-    wrap: "bg-purple-100 ring-1 ring-purple-200",
-    wrapHover: "group-hover:bg-purple-200 group-hover:ring-purple-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "pdf-to-booklet": {
     icon: <BookletIcon />,
-    wrap: "bg-amber-100 ring-1 ring-amber-200",
-    wrapHover: "group-hover:bg-amber-200 group-hover:ring-amber-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "compare-pdf": {
     icon: <ComparePdfIcon />,
-    wrap: "bg-sky-100 ring-1 ring-sky-200",
-    wrapHover: "group-hover:bg-sky-200 group-hover:ring-sky-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "batch-rename-pdf": {
     icon: <PageNumbersIcon />,
@@ -498,38 +498,38 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "heic-to-pdf": {
     icon: <HeicIcon />,
-    wrap: "bg-amber-100 ring-1 ring-amber-200",
-    wrapHover: "group-hover:bg-amber-200 group-hover:ring-amber-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "pdf-to-jpg": {
     icon: <PdfToImageIcon />,
-    wrap: "bg-cyan-100 ring-1 ring-cyan-200",
-    wrapHover: "group-hover:bg-cyan-200 group-hover:ring-cyan-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "pdf-to-png": {
     icon: <PdfToImageIcon />,
-    wrap: "bg-sky-100 ring-1 ring-sky-200",
-    wrapHover: "group-hover:bg-sky-200 group-hover:ring-sky-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "pdf-to-word": {
     icon: <WordIcon />,
-    wrap: "bg-blue-100 ring-1 ring-blue-200",
-    wrapHover: "group-hover:bg-blue-200 group-hover:ring-blue-300",
+    wrap: "bg-neutral-900 ring-1 ring-neutral-400 dark:ring-neutral-600",
+    wrapHover: "group-hover:bg-neutral-900 group-hover:ring-neutral-400 dark:ring-neutral-600",
   },
   "pdf-to-text": {
     icon: <TextIcon />,
-    wrap: "bg-sky-100 ring-1 ring-sky-200",
-    wrapHover: "group-hover:bg-sky-200 group-hover:ring-sky-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "extract-images": {
     icon: <PdfToImageIcon />,
-    wrap: "bg-cyan-100 ring-1 ring-cyan-200",
-    wrapHover: "group-hover:bg-cyan-200 group-hover:ring-cyan-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "word-to-pdf": {
     icon: <WordIcon />,
-    wrap: "bg-blue-100 ring-1 ring-blue-300",
-    wrapHover: "group-hover:bg-blue-200 group-hover:ring-blue-400",
+    wrap: "bg-neutral-900 ring-1 ring-neutral-400 dark:ring-neutral-600",
+    wrapHover: "group-hover:bg-neutral-900 group-hover:ring-neutral-400 dark:ring-neutral-600",
   },
   "pdf-to-excel": {
     icon: <ExcelIcon />,
@@ -538,8 +538,8 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "excel-to-pdf": {
     icon: <ExcelIcon />,
-    wrap: "bg-emerald-100 ring-1 ring-emerald-200",
-    wrapHover: "group-hover:bg-emerald-200 group-hover:ring-emerald-300",
+    wrap: "bg-neutral-900 dark:bg-neutral-200 ring-1 ring-neutral-400 dark:ring-neutral-600",
+    wrapHover: "group-hover:bg-neutral-900 dark:bg-neutral-200 group-hover:ring-neutral-400 dark:ring-neutral-600",
   },
   "pdf-to-powerpoint": {
     icon: <PowerPointIcon />,
@@ -548,13 +548,13 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "powerpoint-to-pdf": {
     icon: <PowerPointIcon />,
-    wrap: "bg-red-100 ring-1 ring-red-200",
-    wrapHover: "group-hover:bg-red-200 group-hover:ring-red-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "protect-pdf": {
     icon: <LockClosedIcon />,
-    wrap: "bg-red-100 ring-1 ring-red-200",
-    wrapHover: "group-hover:bg-red-200 group-hover:ring-red-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "unlock-pdf": {
     icon: <LockOpenIcon />,
@@ -563,8 +563,8 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "pdf-password-recovery": {
     icon: <LockOpenIcon />,
-    wrap: "bg-amber-100 ring-1 ring-amber-200",
-    wrapHover: "group-hover:bg-amber-200 group-hover:ring-amber-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "rotate-pdf": {
     icon: <RotateIcon />,
@@ -578,8 +578,8 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "remove-hidden-metadata": {
     icon: <LockClosedIcon />,
-    wrap: "bg-emerald-100 ring-1 ring-emerald-200",
-    wrapHover: "group-hover:bg-emerald-200 group-hover:ring-emerald-300",
+    wrap: "bg-neutral-900 dark:bg-neutral-200 ring-1 ring-neutral-400 dark:ring-neutral-600",
+    wrapHover: "group-hover:bg-neutral-900 dark:bg-neutral-200 group-hover:ring-neutral-400 dark:ring-neutral-600",
   },
   "flatten-pdf": {
     icon: <RedactIcon />,
@@ -588,8 +588,8 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "safe-to-share-auditor": {
     icon: <AuditorIcon />,
-    wrap: "bg-emerald-100 ring-1 ring-emerald-200",
-    wrapHover: "group-hover:bg-emerald-200 group-hover:ring-emerald-300",
+    wrap: "bg-neutral-900 dark:bg-neutral-200 ring-1 ring-neutral-400 dark:ring-neutral-600",
+    wrapHover: "group-hover:bg-neutral-900 dark:bg-neutral-200 group-hover:ring-neutral-400 dark:ring-neutral-600",
   },
   "redact-pdf": {
     icon: <RedactIcon />,
@@ -598,28 +598,28 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "sign-pdf": {
     icon: <SignIcon />,
-    wrap: "bg-indigo-100 ring-1 ring-indigo-200",
-    wrapHover: "group-hover:bg-indigo-200 group-hover:ring-indigo-300",
+    wrap: "bg-neutral-900 ring-1 ring-indigo-200",
+    wrapHover: "group-hover:bg-neutral-900 group-hover:ring-indigo-300",
   },
   "custom-paper-margin": {
     icon: <PaperMarginIcon />,
-    wrap: "bg-slate-100 ring-1 ring-slate-200",
+    wrap: "bg-neutral-100 dark:bg-neutral-900 ring-1 ring-slate-200",
     wrapHover: "group-hover:bg-slate-200 group-hover:ring-slate-300",
   },
   "crop-pdf": {
     icon: <CropIcon />,
-    wrap: "bg-red-100 ring-1 ring-red-200",
-    wrapHover: "group-hover:bg-red-200 group-hover:ring-red-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "add-watermark": {
     icon: <WatermarkIcon />,
-    wrap: "bg-slate-100 ring-1 ring-slate-200",
+    wrap: "bg-neutral-100 dark:bg-neutral-900 ring-1 ring-slate-200",
     wrapHover: "group-hover:bg-slate-200 group-hover:ring-slate-300",
   },
   "add-page-numbers": {
     icon: <PageNumbersIcon />,
-    wrap: "bg-indigo-100 ring-1 ring-indigo-200",
-    wrapHover: "group-hover:bg-indigo-200 group-hover:ring-indigo-300",
+    wrap: "bg-neutral-900 ring-1 ring-indigo-200",
+    wrapHover: "group-hover:bg-neutral-900 group-hover:ring-indigo-300",
   },
   "html-to-pdf": {
     icon: <HtmlIcon />,
@@ -638,8 +638,8 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "autocad-to-pdf": {
     icon: <CadIcon />,
-    wrap: "bg-cyan-100 ring-1 ring-cyan-200",
-    wrapHover: "group-hover:bg-cyan-200 group-hover:ring-cyan-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "openoffice-to-pdf": {
     icon: <OpenOfficeIcon />,
@@ -648,23 +648,23 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
   },
   "iwork-to-pdf": {
     icon: <IworkIcon />,
-    wrap: "bg-slate-100 ring-1 ring-slate-200",
+    wrap: "bg-neutral-100 dark:bg-neutral-900 ring-1 ring-slate-200",
     wrapHover: "group-hover:bg-slate-200 group-hover:ring-slate-300",
   },
   "invoice-generator": {
     icon: <InvoiceIcon />,
-    wrap: "bg-emerald-100 ring-1 ring-emerald-200",
-    wrapHover: "group-hover:bg-emerald-200 group-hover:ring-emerald-300",
+    wrap: "bg-neutral-900 dark:bg-neutral-200 ring-1 ring-neutral-400 dark:ring-neutral-600",
+    wrapHover: "group-hover:bg-neutral-900 dark:bg-neutral-200 group-hover:ring-neutral-400 dark:ring-neutral-600",
   },
   "timeline-gantt-generator": {
     icon: <TimelineIcon />,
-    wrap: "bg-purple-100 ring-1 ring-purple-200",
-    wrapHover: "group-hover:bg-purple-200 group-hover:ring-purple-300",
+    wrap: "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700",
+    wrapHover: "group-hover:bg-neutral-200 dark:bg-neutral-800 group-hover:ring-neutral-300 dark:ring-neutral-700",
   },
   "data-converter-visualizer": {
     icon: <DataIcon />,
-    wrap: "bg-blue-100 ring-1 ring-blue-200",
-    wrapHover: "group-hover:bg-blue-200 group-hover:ring-blue-300",
+    wrap: "bg-neutral-900 ring-1 ring-neutral-400 dark:ring-neutral-600",
+    wrapHover: "group-hover:bg-neutral-900 group-hover:ring-neutral-400 dark:ring-neutral-600",
   },
   default: {
     icon: <DefaultPdfIcon />,
@@ -680,18 +680,18 @@ export function getToolIcon(slug?: string, label?: string): ToolIconVisual {
 
 /** Extra-vivid icon containers for the tools directory grid. */
 const DIRECTORY_ICON_WRAP: Record<string, string> = {
-  "pdf-merge": "bg-indigo-100 ring-2 ring-indigo-300",
+  "pdf-merge": "bg-neutral-900 ring-2 ring-indigo-300",
   "pdf-compress": "bg-orange-100 ring-2 ring-orange-300",
   "pdf-split": "bg-violet-100 ring-2 ring-violet-300",
-  "crop-pdf": "bg-red-100 ring-2 ring-red-300",
-  "sign-pdf": "bg-indigo-100 ring-2 ring-indigo-300",
-  "protect-pdf": "bg-amber-100 ring-2 ring-amber-300",
-  "unlock-pdf": "bg-emerald-100 ring-2 ring-emerald-300",
+  "crop-pdf": "bg-neutral-200 dark:bg-neutral-800 ring-2 ring-neutral-300 dark:ring-neutral-700",
+  "sign-pdf": "bg-neutral-900 ring-2 ring-indigo-300",
+  "protect-pdf": "bg-neutral-200 dark:bg-neutral-800 ring-2 ring-neutral-300 dark:ring-neutral-700",
+  "unlock-pdf": "bg-neutral-900 dark:bg-neutral-200 ring-2 ring-neutral-400 dark:ring-neutral-600",
   "redact-pdf": "bg-slate-200 ring-2 ring-slate-400",
   "jpg-to-pdf": "bg-teal-100 ring-2 ring-teal-300",
-  "pdf-to-jpg": "bg-cyan-100 ring-2 ring-cyan-300",
-  "pdf-to-png": "bg-sky-100 ring-2 ring-sky-300",
-  "invoice-generator": "bg-emerald-100 ring-2 ring-emerald-300",
+  "pdf-to-jpg": "bg-neutral-200 dark:bg-neutral-800 ring-2 ring-neutral-300 dark:ring-neutral-700",
+  "pdf-to-png": "bg-neutral-200 dark:bg-neutral-800 ring-2 ring-neutral-300 dark:ring-neutral-700",
+  "invoice-generator": "bg-neutral-900 dark:bg-neutral-200 ring-2 ring-neutral-400 dark:ring-neutral-600",
 };
 
 /** Large colorful icon for tools directory — app-launcher style. */
@@ -711,7 +711,7 @@ export function ToolDirectoryIcon({
     <span
       className={clsx(
         TOOL_ICON_WRAP_CLASS,
-        "mb-3 inline-flex items-center justify-center rounded-2xl p-3 shadow-md transition-transform duration-300 group-hover:scale-105",
+        "mb-3 inline-flex items-center justify-center rounded-none p-3 transition-transform duration-300 group-hover:scale-105",
         wrap,
         "[&_svg]:h-10 [&_svg]:w-10 md:[&_svg]:h-12 md:[&_svg]:w-12",
         className,
@@ -740,7 +740,7 @@ export function ToolIconBadge({
     <span
       className={clsx(
         TOOL_ICON_WRAP_CLASS,
-        "inline-flex shrink-0 items-center justify-center rounded-lg shadow-sm ring-1 ring-black/5",
+        "inline-flex shrink-0 items-center justify-center rounded-none ring-1 ring-black/5",
         size === "sm" ? "h-6 w-6 [&_svg]:h-4 [&_svg]:w-4" : "h-8 w-8 [&_svg]:h-[18px] [&_svg]:w-[18px]",
         visual.wrap,
         className,

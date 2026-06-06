@@ -23,34 +23,34 @@ export async function LocalProcessingInfographic({
     >
       <Heading
         id="local-processing-heading"
-        className="mx-auto mb-4 max-w-3xl text-2xl font-semibold leading-snug tracking-tight text-slate-900 dark:text-white md:text-4xl"
+        className="mx-auto mb-4 max-w-3xl text-2xl font-semibold leading-snug tracking-tight text-black dark:text-neutral-200 dark:text-white md:text-4xl"
       >
         {headlineText}
       </Heading>
-      <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto mb-12 text-base md:text-lg">
+      <p className="text-neutral-700 dark:text-neutral-400 dark:text-slate-400 max-w-2xl mx-auto mb-12 text-base md:text-lg">
         {t("subheadline")}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-start mb-12">
-        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:border-white/[0.08] dark:bg-white/[0.03] dark:backdrop-blur-md">
-          <div className="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/30 flex items-center justify-center text-red-600 mb-4 text-xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-start mb-12">
+        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-none p-4 dark:border-white/[0.08] dark:bg-white/[0.03] dark:backdrop-blur-md">
+          <div className="w-12 h-12 rounded-none bg-neutral-200 dark:bg-neutral-800 dark:bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center text-black dark:text-neutral-200 mb-4 text-xl">
             🛡️
           </div>
-          <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-2">{t("privateTitle")}</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">{t("privateBody")}</p>
+          <h3 className="text-lg font-extrabold text-black dark:text-neutral-200 dark:text-white mb-2">{t("privateTitle")}</h3>
+          <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">{t("privateBody")}</p>
         </div>
-        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:border-white/[0.08] dark:bg-white/[0.03] dark:backdrop-blur-md">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 mb-4 text-xl">
+        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-none p-4 dark:border-white/[0.08] dark:bg-white/[0.03] dark:backdrop-blur-md">
+          <div className="w-12 h-12 rounded-none bg-neutral-900 dark:bg-neutral-900/30 flex items-center justify-center text-black dark:text-neutral-200 mb-4 text-xl">
             ⚡
           </div>
-          <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-2">{t("fastTitle")}</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">{t("fastBody")}</p>
+          <h3 className="text-lg font-extrabold text-black dark:text-neutral-200 dark:text-white mb-2">{t("fastTitle")}</h3>
+          <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">{t("fastBody")}</p>
         </div>
-        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-sm dark:border-white/[0.08] dark:bg-white/[0.03] dark:backdrop-blur-md">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 flex items-center justify-center text-emerald-600 mb-4 text-xl">
+        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-none p-4 dark:border-white/[0.08] dark:bg-white/[0.03] dark:backdrop-blur-md">
+          <div className="w-12 h-12 rounded-none bg-neutral-900 dark:bg-neutral-200 dark:bg-neutral-900 dark:bg-neutral-200/30 flex items-center justify-center text-black dark:text-neutral-200 mb-4 text-xl">
             ✨
           </div>
-          <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-2">{t("limitsTitle")}</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">{t("limitsBody")}</p>
+          <h3 className="text-lg font-extrabold text-black dark:text-neutral-200 dark:text-white mb-2">{t("limitsTitle")}</h3>
+          <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">{t("limitsBody")}</p>
         </div>
       </div>
     </section>

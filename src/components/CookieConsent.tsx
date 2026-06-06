@@ -54,15 +54,18 @@ export function CookieConsent() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-[70] p-4 sm:p-5"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-[70] p-3"
       role="dialog"
       aria-live="polite"
       aria-label={t("title")}
     >
-      <div className="pointer-events-auto mx-auto flex max-w-4xl flex-col gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-lg backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-5 dark:border-cyan-300/30 dark:bg-[#0B132B]/82 dark:shadow-[0_0_32px_-12px_rgba(100,200,255,0.28)]">
-        <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+      <div className="pointer-events-auto mx-auto flex max-w-4xl flex-col gap-3 rounded-none border border-neutral-300 bg-white p-3 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800 dark:bg-neutral-900">
+        <p className="text-sm leading-relaxed text-black dark:text-neutral-300">
           {t("message")}{" "}
-          <Link href="/privacy/" className="font-medium text-cyan-700 underline-offset-2 hover:underline dark:text-cyan-300">
+          <Link
+            href="/privacy/"
+            className="font-medium text-black underline underline-offset-2 hover:text-neutral-700 dark:text-neutral-200 dark:hover:text-neutral-100"
+          >
             {t("privacyLink")}
           </Link>
         </p>
@@ -70,14 +73,14 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={() => persist("declined")}
-            className="inline-flex items-center justify-center rounded-xl border border-slate-300/90 bg-white/80 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-200 dark:hover:border-white/20 dark:hover:bg-white/[0.07]"
+            className="inline-flex items-center justify-center rounded-none border border-neutral-300 bg-white px-3 py-1.5 text-sm font-semibold text-black transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200 dark:hover:bg-neutral-800"
           >
             {t("decline")}
           </button>
           <button
             type="button"
             onClick={() => persist("accepted")}
-            className="inline-flex items-center justify-center rounded-xl border border-cyan-400/50 bg-[#1a1a1a] px-4 py-2 text-sm font-semibold text-white shadow-[0_0_14px_-4px_rgba(100,200,255,0.45)] transition hover:border-cyan-300/70 hover:bg-[#262626] dark:border-cyan-300/50 dark:bg-white/[0.06] dark:hover:bg-white/[0.09] dark:hover:shadow-[0_0_18px_-4px_rgba(100,200,255,0.55)]"
+            className="inline-flex items-center justify-center rounded-none border border-neutral-800 bg-neutral-900 px-3 py-1.5 text-sm font-semibold text-neutral-100 transition hover:bg-neutral-800 dark:border-neutral-500 dark:bg-neutral-200 dark:text-neutral-950 dark:hover:bg-white"
           >
             {t("accept")}
           </button>

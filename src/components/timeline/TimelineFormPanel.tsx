@@ -6,7 +6,7 @@ import { createDefaultTimelineProject, createEmptyMilestone, createEmptyTask } f
 import { MILESTONE_COLOR_PRESETS, TASK_COLOR_PRESETS } from "@/lib/timeline/constants";
 
 const inputClass =
-  "w-full rounded-lg border border-white/10 bg-surface/60 px-3 py-2 text-sm text-ink transition focus:border-brand/50 focus:outline-none focus:ring-2 focus:ring-brand/20";
+  "w-full rounded-none border border-white/10 bg-surface/60 px-3 py-2 text-sm text-ink transition focus:border-neutral-300 dark:border-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400 dark:ring-neutral-600";
 
 type TimelineFormPanelProps = {
   project: TimelineProject;
@@ -31,9 +31,7 @@ function ColorSwatches({
           title={color}
           aria-label={`Color ${color}`}
           aria-pressed={value === color}
-          className={`h-7 w-7 rounded-full border-2 transition ${
-            value === color ? "border-white scale-110" : "border-transparent opacity-80 hover:opacity-100"
-          }`}
+          className={`h-7 w-7 rounded-none border-2 transition ${ value === color ? "border-white scale-110" : "border-transparent opacity-80 hover:opacity-100" }`}
           style={{ backgroundColor: color }}
           onClick={() => onChange(color)}
         />
@@ -78,9 +76,9 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
     project.tasks.length > 0 ? Math.max(...project.tasks.map((t) => t.rowOrder)) + 1 : 0;
 
   return (
-    <div className="flex h-full flex-col gap-6 print:hidden">
+    <div className="flex h-full flex-col gap-3 print:hidden">
       <div className="space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">Client-side only</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-800 dark:text-neutral-200">Client-side only</p>
         <h2 className="text-xl font-bold text-ink">Timeline editor</h2>
         <p className="text-sm text-ink-muted">
           Add tasks and milestones — the Gantt chart updates instantly in your browser.
@@ -102,7 +100,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
           <h3 className="text-sm font-semibold text-ink">Tasks</h3>
           <button
             type="button"
-            className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-brand transition hover:border-brand/35"
+            className="rounded-none border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-200 transition hover:border-neutral-300 dark:border-neutral-800"
             onClick={() =>
               patch({ tasks: [...project.tasks, createEmptyTask(nextRowOrder)] })
             }
@@ -118,7 +116,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
             {project.tasks.map((task) => (
               <li
                 key={task.id}
-                className="space-y-3 rounded-xl border border-white/10 bg-white/[0.02] p-4"
+                className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-4"
               >
                 <div className="flex items-start justify-between gap-2">
                   <label className="block flex-1">
@@ -132,7 +130,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
                   </label>
                   <button
                     type="button"
-                    className="mt-5 shrink-0 rounded-lg px-2 py-1 text-xs text-ink-muted transition hover:bg-red-500/10 hover:text-red-400"
+                    className="mt-5 shrink-0 rounded-none px-2 py-1 text-xs text-ink-muted transition hover:bg-neutral-200 dark:bg-neutral-800 hover:text-black dark:text-neutral-200"
                     onClick={() => removeTask(task.id)}
                     aria-label={`Remove ${task.title}`}
                   >
@@ -190,7 +188,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
           <h3 className="text-sm font-semibold text-ink">Milestones</h3>
           <button
             type="button"
-            className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-brand transition hover:border-brand/35"
+            className="rounded-none border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-200 transition hover:border-neutral-300 dark:border-neutral-800"
             onClick={() =>
               patch({ milestones: [...project.milestones, createEmptyMilestone()] })
             }
@@ -206,7 +204,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
             {project.milestones.map((milestone) => (
               <li
                 key={milestone.id}
-                className="space-y-3 rounded-xl border border-white/10 bg-white/[0.02] p-4"
+                className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-4"
               >
                 <div className="flex items-start justify-between gap-2">
                   <label className="block flex-1">
@@ -220,7 +218,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
                   </label>
                   <button
                     type="button"
-                    className="mt-5 shrink-0 rounded-lg px-2 py-1 text-xs text-ink-muted transition hover:bg-red-500/10 hover:text-red-400"
+                    className="mt-5 shrink-0 rounded-none px-2 py-1 text-xs text-ink-muted transition hover:bg-neutral-200 dark:bg-neutral-800 hover:text-black dark:text-neutral-200"
                     onClick={() => removeMilestone(milestone.id)}
                     aria-label={`Remove ${milestone.title}`}
                   >
@@ -252,7 +250,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
 
       <button
         type="button"
-        className="text-xs text-ink-muted underline-offset-2 hover:text-brand hover:underline"
+        className="text-xs text-ink-muted underline-offset-2 hover:text-neutral-800 dark:text-neutral-200 hover:underline"
         onClick={() => {
           const sample = createDefaultTimelineProject();
           onChange({ ...sample, title: project.title.trim() || sample.title });

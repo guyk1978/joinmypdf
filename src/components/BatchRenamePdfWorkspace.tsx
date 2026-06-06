@@ -128,7 +128,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const canDownload = files.length > 0 && !busy;
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -216,7 +216,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
       </div>
 
       {showWorkspace ? (
-        <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <p className="text-sm text-ink-muted">{ws.wsUi("fileSummary", { count: files.length })}</p>
 
           <section className="space-y-4" aria-labelledby={`${baseId}-rules`}>
@@ -350,7 +350,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
               </div>
             ) : null}
 
-            <fieldset className="space-y-2 rounded-xl border border-white/10 p-4">
+            <fieldset className="space-y-2 rounded-none border border-white/10 p-4">
               <legend className="text-sm font-medium text-ink">{ws.wsUi("findReplaceLegend")}</legend>
               <label className="flex items-center gap-2 text-sm text-ink">
                 <input
@@ -401,7 +401,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
             <h2 id={`${baseId}-preview`} className="text-sm font-semibold text-ink">
               {ws.wsUi("previewHeading")}
             </h2>
-            <div className="mt-3 max-h-80 overflow-auto rounded-xl border border-white/10">
+            <div className="mt-3 max-h-80 overflow-auto rounded-none border border-white/10">
               <table className="w-full text-start text-sm">
                 <thead className="sticky top-0 bg-slate-900/95 text-xs uppercase text-ink-muted">
                   <tr>
@@ -413,7 +413,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   {preview.map((row) => (
                     <tr key={`${row.originalName}-${row.newName}`}>
                       <td className="px-4 py-2 text-ink-muted">{row.originalName}</td>
-                      <td className="px-4 py-2 font-medium text-brand">{row.newName}</td>
+                      <td className="px-4 py-2 font-medium text-neutral-800 dark:text-neutral-200">{row.newName}</td>
                     </tr>
                   ))}
                 </tbody>

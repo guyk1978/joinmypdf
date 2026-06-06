@@ -10,7 +10,7 @@ import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 
 const PNG_DOWNLOAD_BTN =
-  "block w-full rounded-lg border border-blue-600 bg-white px-3 py-1.5 text-center text-xs font-bold text-blue-600 shadow-sm transition-colors hover:bg-blue-600 hover:text-white dark:border-slate-700 dark:bg-slate-800 dark:text-blue-400 dark:hover:border-blue-600 dark:hover:bg-blue-600 dark:hover:text-white";
+  "block w-full rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-3 py-1.5 text-center text-xs font-bold text-black dark:text-neutral-200 transition-colors hover:bg-neutral-900 hover:text-white dark:border-neutral-300 dark:border-neutral-800 dark:bg-slate-800 dark:text-black dark:text-neutral-200 dark:hover:border-neutral-300 dark:border-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-white";
 import * as pdf from "@/lib/pdf-engine";
 import { PDF_TO_PNG_SCALE } from "@/lib/pdf-to-png";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
@@ -212,7 +212,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
   const hasPages = Boolean(pages?.length);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -261,8 +261,8 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
 
       {showWorkspace ? (
         <div className="pdf-export-workspace space-y-4">
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            <strong className="text-slate-900 dark:text-slate-100">{file?.name}</strong>
+          <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
+            <strong className="text-black dark:text-neutral-200 dark:text-slate-100">{file?.name}</strong>
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
           </p>
 
@@ -280,7 +280,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
                 type="button"
                 disabled={busy}
                 onClick={() => void onDownloadZip()}
-                className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+                className="rounded-none bg-neutral-900 dark:bg-neutral-200 px-5 py-3 text-sm font-bold text-white transition-all hover:bg-neutral-900 dark:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
               >
                 {ws.wsText("downloadZipLabel")}
               </button>

@@ -65,11 +65,7 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
       <div
         role="region"
         aria-label="Upload CSV or JSON"
-        className={`relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-10 text-center transition ${
-          drag
-            ? "border-brand bg-brand/10"
-            : "border-white/15 bg-white/[0.02] hover:border-brand/40 hover:bg-white/[0.04]"
-        }`}
+        className={`relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-none border-2 border-dashed px-4 py-10 text-center transition ${ drag ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800" : "border-white/15 bg-white/[0.02] hover:border-neutral-300 dark:border-neutral-800 hover:bg-white/[0.04]" }`}
         onDragOver={(e) => {
           e.preventDefault();
           setDrag(true);
@@ -101,7 +97,7 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
           }}
         />
         <svg
-          className="mb-4 text-brand"
+          className="mb-4 text-neutral-800 dark:text-neutral-200"
           width="40"
           height="40"
           viewBox="0 0 24 24"
@@ -128,7 +124,7 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
       <div className="flex flex-wrap items-center justify-center gap-3">
         <button
           type="button"
-          className="rounded-xl border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-brand/35 hover:text-brand"
+          className="rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-neutral-800 dark:text-neutral-200"
           disabled={busy}
           onClick={() => onLoad({ ...DEMO_DATASET, rows: DEMO_DATASET.rows.map((r) => ({ ...r })) })}
         >

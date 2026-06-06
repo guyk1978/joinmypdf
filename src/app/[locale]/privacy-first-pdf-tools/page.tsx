@@ -32,13 +32,13 @@ export default function PillarPage() {
         }}
       />
       <SiteHeader />
-      <main className="mx-auto max-w-4xl space-y-6 px-4 py-10 text-slate-700 dark:text-slate-300 md:px-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">Pillar guide</p>
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white md:text-4xl">Privacy-first PDF tools</h1>
+      <main className="mx-auto max-w-4xl space-y-3 px-4 py-10 text-black dark:text-neutral-300 dark:text-slate-300 md:px-4">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-800 dark:text-neutral-200">Pillar guide</p>
+        <h1 className="text-3xl font-bold text-black dark:text-neutral-200 dark:text-white md:text-4xl">Privacy-first PDF tools</h1>
         <p>
           If your policy says “no random cloud converters,” you still need to merge invoices, shrink attachments, and
           split contracts. JoinMyPDF keeps those operations{" "}
-          <Link className="text-brand hover:underline" href="/privacy/">
+          <Link className="text-neutral-800 dark:text-neutral-200 hover:underline" href="/privacy/">
             on your device
           </Link>{" "}
           while preserving a premium, straightforward interface.

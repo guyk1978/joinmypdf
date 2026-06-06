@@ -148,12 +148,12 @@ export async function parseMarkdownToHtml(markdown: string): Promise<string> {
 
 export function previewSurfaceClass(theme: MarkdownTheme): string {
   if (theme === "minimal-dark") {
-    return "rounded-xl border border-white/10 bg-[#0d1117] p-4 md:p-6 text-[#c9d1d9]";
+    return "rounded-none border border-white/10 bg-[#0d1117] p-4 md:p-4 text-[#c9d1d9]";
   }
   if (theme === "academic") {
-    return "rounded-xl border border-white/10 bg-white p-4 md:p-6 text-slate-900";
+    return "rounded-none border border-white/10 bg-white p-4 md:p-4 text-black dark:text-neutral-200";
   }
-  return "rounded-xl border border-white/10 bg-white p-4 md:p-6 text-[#24292f]";
+  return "rounded-none border border-white/10 bg-white p-4 md:p-4 text-[#24292f]";
 }
 
 function buildRenderHost(html: string, theme: MarkdownTheme): HTMLElement {

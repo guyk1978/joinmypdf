@@ -176,7 +176,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
   const mergeLabel = ws.buttonLabel();
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <FileUploadZone
         operation={tool.operation}
         drag={drag}
@@ -266,7 +266,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
           }}
         />
       ) : (
-        <p className="text-sm text-slate-600 dark:text-slate-400" role="status" aria-live="polite">
+        <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400" role="status" aria-live="polite">
           {status}
         </p>
       )}

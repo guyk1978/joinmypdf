@@ -331,7 +331,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   };
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -384,7 +384,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               onClick={reset}
               disabled={busy}
-              className="rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
             >
               {ws.chooseAnotherFile}
             </button>
@@ -410,7 +410,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                   type="button"
                   onClick={() => void reloadWithPassword()}
                   disabled={busy || !password}
-                  className="rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5"
+                  className="rounded-none border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5"
                 >
                   {ws.wsUi("loadPages")}
                 </button>
@@ -443,7 +443,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               disabled={busy || !boxes.length}
               onClick={() => setBoxes([])}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
             >
               {ws.wsUi("clearAll")}
             </button>

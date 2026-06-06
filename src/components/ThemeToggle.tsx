@@ -17,7 +17,7 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <span
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100/80 dark:bg-slate-800/60"
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-none border border-neutral-300 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900"
         aria-hidden="true"
       />
     );
@@ -30,15 +30,15 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="inline-flex shrink-0 items-center justify-center rounded-full p-2 transition-colors hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 dark:hover:bg-slate-800 dark:focus-visible:ring-offset-slate-950"
+      className="inline-flex shrink-0 items-center justify-center rounded-none border border-transparent p-2 transition-colors hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 dark:hover:bg-neutral-800 dark:focus-visible:ring-offset-neutral-950"
       aria-label={label}
       title={label}
       suppressHydrationWarning
     >
       {isDark ? (
-        <Sun className="h-5 w-5 text-amber-400" aria-hidden="true" />
+        <Sun className="h-5 w-5 text-black dark:text-neutral-200" aria-hidden="true" />
       ) : (
-        <Moon className="h-5 w-5 text-slate-700 dark:text-slate-300" aria-hidden="true" />
+        <Moon className="h-5 w-5 text-black" aria-hidden="true" />
       )}
     </button>
   );

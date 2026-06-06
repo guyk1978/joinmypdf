@@ -45,7 +45,7 @@ function FooterLinkItem({
   label: string;
 }) {
   const className =
-    "inline-flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400";
+    "inline-flex items-center gap-2 text-sm text-neutral-800 dark:text-neutral-400 transition-colors hover:text-black dark:text-neutral-200 dark:text-slate-400 dark:hover:text-black dark:text-neutral-200";
   const slug = link.kind === "tool" ? link.slug : undefined;
 
   const content = (
@@ -81,7 +81,7 @@ function FooterColumnBlock({
 }) {
   return (
     <div className="min-w-0">
-      <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+      <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-black dark:text-neutral-200 dark:text-slate-100">
         {title}
       </h3>
       <ul className="space-y-2">
@@ -120,15 +120,15 @@ export async function SiteFooter({ tagline }: SiteFooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="site-footer mt-16 border-t border-slate-100 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-950/40">
-      <div className="container mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-14">
+    <footer className="site-footer mt-16 border-t border-slate-100 bg-neutral-100 dark:bg-neutral-950/80 dark:border-slate-800 dark:bg-slate-950/40">
+      <div className="container mx-auto max-w-6xl px-4 py-12 md:px-4 md:py-14">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">
           <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2 text-slate-900 dark:text-white">
+            <Link href="/" className="inline-flex items-center gap-2 text-black dark:text-neutral-200 dark:text-white">
               <HeaderPdfMini className="header-pdf-mini--tight" />
               <span className="text-base font-bold tracking-tight">{FOOTER_BRAND.name}</span>
             </Link>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
               {brandDescription}
             </p>
           </div>
@@ -149,8 +149,8 @@ export async function SiteFooter({ tagline }: SiteFooterProps) {
           />
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-slate-200/80 pt-6 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-slate-500 dark:text-slate-500">
+        <div className="mt-10 flex flex-col gap-4 border-t border-neutral-300 dark:border-neutral-800/80 pt-6 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-neutral-700 dark:text-neutral-400 dark:text-neutral-700 dark:text-neutral-400">
             © {year} {FOOTER_BRAND.name}. {tFooter("copyright")}
           </p>
           <nav className="flex flex-wrap gap-x-4 gap-y-2" aria-label={tFooter("partnerNavLabel")}>

@@ -95,17 +95,17 @@ function LivePaperPreview({
         trimmed from the source PDF
       </p>
       <div
-        className="relative mx-auto w-full max-w-lg overflow-hidden rounded-xl border-2 border-slate-400/50 bg-white shadow-inner dark:border-slate-500 dark:bg-slate-100"
+        className="relative mx-auto w-full max-w-lg overflow-hidden rounded-none border-2 border-slate-400/50 bg-white dark:border-slate-500 dark:bg-neutral-100 dark:bg-neutral-900"
         style={{ aspectRatio: `${paperAspect}` }}
       >
         {loading ? (
-          <div className="flex h-full min-h-[280px] items-center justify-center text-sm text-slate-500">
+          <div className="flex h-full min-h-[280px] items-center justify-center text-sm text-neutral-700 dark:text-neutral-400">
             {loadingPreviewLabel}
           </div>
         ) : null}
         {!loading && canvasEl ? (
           <div className="absolute inset-0" style={contentStyle}>
-            <div className="relative h-full w-full overflow-hidden bg-slate-50">
+            <div className="relative h-full w-full overflow-hidden bg-neutral-100 dark:bg-neutral-950">
               <canvas
                 ref={(node) => {
                   if (node && canvasEl) {
@@ -128,7 +128,7 @@ function LivePaperPreview({
           </div>
         ) : null}
         <div
-          className="pointer-events-none absolute border-2 border-dashed border-emerald-500/90"
+          className="pointer-events-none absolute border-2 border-dashed border-neutral-300 dark:border-neutral-800"
           style={contentStyle}
           aria-hidden
         />
@@ -239,7 +239,7 @@ function MarginDragStudio({
         <p className="mb-2 text-xs text-ink-muted">{dragHint}</p>
         <div
           ref={wrapRef}
-          className="relative touch-none select-none overflow-hidden rounded-lg border border-white/20 bg-white"
+          className="relative touch-none select-none overflow-hidden rounded-none border border-white/20 bg-white"
           style={{ aspectRatio: `${aspect}` }}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
@@ -248,7 +248,7 @@ function MarginDragStudio({
           <div className="absolute inset-0 bg-slate-200/80" />
           <div className="absolute inset-0 bg-white" style={contentStyle} />
           <div
-            className="pointer-events-none absolute border-2 border-dashed border-emerald-600"
+            className="pointer-events-none absolute border-2 border-dashed border-neutral-300 dark:border-neutral-800"
             style={contentStyle}
           />
           {(["top", "right", "bottom", "left"] as MarginHandle[]).map((h) => (
@@ -256,7 +256,7 @@ function MarginDragStudio({
               key={h}
               role="slider"
               aria-label={marginHandleLabel(h)}
-              className="absolute z-10 h-4 w-4 rounded-full border-2 border-emerald-600 bg-white shadow"
+              className="absolute z-10 h-4 w-4 rounded-none border-2 border-neutral-300 dark:border-neutral-800 bg-white"
               style={handleAt(h)}
               onPointerDown={onPointerDown(h)}
             />
@@ -405,7 +405,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
   const canApply = Boolean(file && fileBytes && !busy);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -451,12 +451,12 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
       />
 
       {file && fileBytes ? (
-        <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <section className="grid gap-4 md:grid-cols-2">
             <label className="block text-sm text-ink">
               <span className="mb-1 block font-semibold">{ws.wsUi("targetPaper")}</span>
               <select
-                className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                 value={paperPreset}
                 onChange={(e) => setPaperPreset(e.target.value as TargetPaperPreset | "custom")}
               >
@@ -471,7 +471,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
             <label className="block text-sm text-ink">
               <span className="mb-1 block font-semibold">{ws.wsUi("marginUnits")}</span>
               <select
-                className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                 value={marginUnit}
                 onChange={(e) => setMarginUnit(e.target.value as MarginUnit)}
               >
@@ -486,7 +486,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
                   <input
                     type="number"
                     min={1}
-                    className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                    className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                     value={customWidth}
                     onChange={(e) => setCustomWidth(e.target.value)}
                   />
@@ -496,7 +496,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
                   <input
                     type="number"
                     min={1}
-                    className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                    className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                     value={customHeight}
                     onChange={(e) => setCustomHeight(e.target.value)}
                   />
@@ -504,7 +504,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
                 <label className="block text-sm text-ink md:col-span-2">
                   <span className="mb-1 block font-semibold">{ws.wsUi("customUnits")}</span>
                   <select
-                    className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                    className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                     value={customUnit}
                     onChange={(e) => setCustomUnit(e.target.value as CustomPaperUnit)}
                   >
@@ -534,7 +534,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
                   type="number"
                   min={0}
                   step={0.5}
-                  className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                  className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                   value={margins[side]}
                   onChange={(e) => setMarginField(side, Number(e.target.value) || 0)}
                 />
@@ -548,7 +548,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
             </h2>
             <p className="mb-3 text-xs text-ink-muted">
               {ws.wsUi("trimHint")}
-              <a className="text-brand hover:underline" href="/tools/crop-pdf/">
+              <a className="text-neutral-800 dark:text-neutral-200 hover:underline" href="/tools/crop-pdf/">
                 {ws.wsUi("trimLink")}
               </a>
               {ws.wsUi("trimHintSuffix")}

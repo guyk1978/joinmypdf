@@ -32,9 +32,9 @@ export default function InvoiceGeneratorPage() {
         }}
       />
       <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-12">
-        <header className="mb-8 max-w-3xl space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">JoinMyPDF</p>
+      <main className="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
+        <header className="mb-4 max-w-3xl space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-800 dark:text-neutral-200">JoinMyPDF</p>
           <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
             Fast Invoice &amp; Receipt Generator
           </h1>
@@ -46,7 +46,7 @@ export default function InvoiceGeneratorPage() {
 
         <InvoiceGenerator />
 
-        <section className="mt-12 rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
+        <section className="mt-12 rounded-none border border-white/10 bg-white/[0.02] p-4 md:p-4">
           <h2 className="text-xl font-semibold text-ink">Templates by profession</h2>
           <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
             Start from a pre-filled invoice for your trade—line items and sample rates included.
@@ -56,7 +56,7 @@ export default function InvoiceGeneratorPage() {
               <li key={profile.slug}>
                 <Link
                   href={`/templates/${profile.slug}/`}
-                  className="inline-flex rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-ink transition hover:border-brand/35 hover:text-brand"
+                  className="inline-flex rounded-none border border-white/10 bg-white/[0.03] px-3 py-1.5 text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-neutral-800 dark:text-neutral-200"
                 >
                   {profile.professionLabel}
                 </Link>
@@ -65,7 +65,7 @@ export default function InvoiceGeneratorPage() {
           </ul>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8">
+        <section className="mt-4 rounded-none border border-white/10 bg-white/[0.02] p-4 md:p-4">
           <h2 className="text-xl font-semibold text-ink">Privacy-first by design</h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted md:text-base">
             Your invoice data never leaves your device during editing. Download uses the same client-side

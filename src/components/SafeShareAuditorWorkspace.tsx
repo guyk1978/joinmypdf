@@ -38,9 +38,9 @@ function downloadBlob(blob: Blob, name: string) {
 }
 
 function boxClass(severity: AuditFinding["severity"]) {
-  if (severity === "high") return "bg-red-500/45 ring-2 ring-red-400/80";
-  if (severity === "medium") return "bg-amber-400/40 ring-2 ring-amber-400/70";
-  return "bg-sky-500/35 ring-2 ring-sky-400/60";
+  if (severity === "high") return "bg-neutral-200 dark:bg-neutral-800 ring-2 ring-neutral-300 dark:ring-neutral-700";
+  if (severity === "medium") return "bg-neutral-200 dark:bg-neutral-800 ring-2 ring-neutral-300 dark:ring-neutral-700";
+  return "bg-neutral-200 dark:bg-neutral-800/35 ring-2 ring-neutral-300 dark:ring-neutral-700";
 }
 
 function AuditPageMap({
@@ -78,7 +78,7 @@ function AuditPageMap({
   }, [fileBytes, pageIndex]);
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/15 bg-slate-950/50">
+    <div className="relative overflow-hidden rounded-none border border-white/15 bg-slate-950/50">
       {loading ? (
         <div className="flex aspect-[3/4] items-center justify-center text-sm text-ink-muted">{loadingLabel}</div>
       ) : null}
@@ -94,9 +94,7 @@ function AuditPageMap({
             {pageFindings.map((f) => (
               <span
                 key={f.id}
-                className={`absolute rounded-sm ${boxClass(f.severity)} ${
-                  selectedId === f.id ? "z-10 brightness-125" : ""
-                }`}
+                className={`absolute rounded-none ${boxClass(f.severity)} ${ selectedId === f.id ? "z-10 brightness-125" : "" }`}
                 style={{
                   left: `${f.nx * 100}%`,
                   top: `${f.ny * 100}%`,
@@ -243,7 +241,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
   const canRedactAll = Boolean(report?.findings.length && fileBytes && !busy && !redacting);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -330,7 +328,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
       )}
 
       {report && fileBytes ? (
-        <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <SummaryCard label={ws.wsUi("totalFindings")} value={String(report.findings.length)} />
             <SummaryCard label={ws.wsUi("highRisk")} value={String(report.bySeverity.high)} tone="high" />
@@ -356,7 +354,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
               {ws.wsUi("nextPage")}
             </button>
             <select
-              className="rounded-lg border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
+              className="rounded-none border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
               value={pageIndex}
               onChange={(e) => setPageIndex(Number(e.target.value))}
               aria-label={ws.wsUi("jumpToPage")}
@@ -397,24 +395,14 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
                     <li key={f.id}>
                       <button
                         type="button"
-                        className={`w-full rounded-lg border px-3 py-2 text-start text-sm transition ${
-                          selectedId === f.id
-                            ? "border-brand bg-brand/10"
-                            : "border-white/10 bg-white/[0.03] hover:border-white/20"
-                        }`}
+                        className={`w-full rounded-none border px-3 py-2 text-start text-sm transition ${ selectedId === f.id ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800" : "border-white/10 bg-white/[0.03] hover:border-white/20" }`}
                         onClick={() => {
                           setSelectedId(f.id);
                           setPageIndex(f.pageIndex);
                         }}
                       >
                         <span
-                          className={`font-medium ${
-                            f.severity === "high"
-                              ? "text-red-400"
-                              : f.severity === "medium"
-                                ? "text-amber-300"
-                                : "text-sky-300"
-                          }`}
+                          className={`font-medium ${ f.severity === "high" ? "text-black dark:text-neutral-200" : f.severity === "medium" ? "text-black dark:text-neutral-200" : "text-black dark:text-neutral-200" }`}
                         >
                           {auditFindingLabel(ws, f)}
                         </span>
@@ -459,9 +447,7 @@ function SummaryCard({
 }) {
   return (
     <div
-      className={`rounded-xl border px-4 py-3 ${
-        tone === "high" ? "border-red-500/30 bg-red-500/10" : "border-white/10 bg-white/[0.03]"
-      }`}
+      className={`rounded-none border px-4 py-3 ${ tone === "high" ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800" : "border-white/10 bg-white/[0.03]" }`}
     >
       <p className="text-xs text-ink-muted">{label}</p>
       <p className="text-2xl font-semibold text-ink">{value}</p>

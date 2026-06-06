@@ -102,7 +102,7 @@ function WatermarkPreview({
       <PdfStudioPage className="mx-auto max-w-full">
         <div ref={wrapRef} className="relative overflow-hidden">
       {loading ? (
-        <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-slate-500 dark:text-slate-400">
+        <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-neutral-700 dark:text-neutral-400 dark:text-slate-400">
           {loadingLabel}
         </div>
       ) : null}
@@ -241,7 +241,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
   const showWorkspace = Boolean(file && fileBytes);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -289,7 +289,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
       ) : null}
 
       {showWorkspace && fileBytes ? (
-        <div className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
@@ -297,13 +297,13 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                 {ws.wsUi("pageSummary", { count: pageCount })}
               </p>
             </div>
-            <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-            <div className="space-y-4 rounded-xl border border-white/10 bg-surface/40 p-4">
+          <div className="grid gap-3 lg:grid-cols-2 lg:items-start">
+            <div className="space-y-4 rounded-none border border-white/10 bg-surface/40 p-4">
               <h2 className="text-sm font-semibold text-ink">{ws.wsUi("settingsHeading")}</h2>
               <label className="block space-y-1.5">
                 <span className="text-xs font-medium text-ink-muted">{ws.wsUi("textLabel")}</span>
@@ -311,7 +311,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                   type="text"
                   value={options.text}
                   onChange={(e) => patchOptions({ text: e.target.value })}
-                  className="w-full rounded-lg border border-white/15 bg-surface px-3 py-2 text-sm text-ink"
+                  className="w-full rounded-none border border-white/15 bg-surface px-3 py-2 text-sm text-ink"
                   placeholder={ws.wsUi("textPlaceholder")}
                 />
               </label>
@@ -336,7 +336,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                     type="color"
                     value={options.colorHex}
                     onChange={(e) => patchOptions({ colorHex: e.target.value })}
-                    className="h-10 w-full cursor-pointer rounded-lg border border-white/15 bg-surface"
+                    className="h-10 w-full cursor-pointer rounded-none border border-white/15 bg-surface"
                   />
                 </label>
                 <label className="block space-y-1.5">
@@ -347,7 +347,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                     max={120}
                     value={options.fontSize}
                     onChange={(e) => patchOptions({ fontSize: Number(e.target.value) || 42 })}
-                    className="w-full rounded-lg border border-white/15 bg-surface px-3 py-2 text-sm text-ink"
+                    className="w-full rounded-none border border-white/15 bg-surface px-3 py-2 text-sm text-ink"
                   />
                 </label>
               </div>
@@ -373,11 +373,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                       key={pos.value}
                       type="button"
                       onClick={() => patchOptions({ position: pos.value as WatermarkPosition })}
-                      className={`rounded-lg border px-2 py-2 text-xs font-medium transition ${
-                        options.position === pos.value
-                          ? "border-brand bg-brand/15 text-brand"
-                          : "border-white/10 text-ink-muted hover:border-white/20"
-                      }`}
+                      className={`rounded-none border px-2 py-2 text-xs font-medium transition ${ options.position === pos.value ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200" : "border-white/10 text-ink-muted hover:border-white/20" }`}
                     >
                       {watermarkPositionLabel(ws, pos.value as WatermarkPosition)}
                     </button>
@@ -401,8 +397,8 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               <div className="flex items-center justify-between text-xs text-ink-muted">
                 <span>{ws.processing}</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-brand to-brand-deep" />
+              <div className="h-2 overflow-hidden rounded-none bg-white/10">
+                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-900" />
               </div>
             </div>
           ) : null}
@@ -420,7 +416,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               type="button"
               disabled={busy}
               onClick={() => setOptions(DEFAULT_WATERMARK_OPTIONS)}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
               {ws.wsUi("resetSettings")}
             </button>
@@ -428,7 +424,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
               {ws.chooseAnotherFile}
             </button>

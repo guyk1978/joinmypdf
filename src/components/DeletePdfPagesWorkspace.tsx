@@ -245,7 +245,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const canDelete = Boolean(file) && markedCount > 0 && markedCount < pageCount && !busy;
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -294,7 +294,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
             <p className="truncate text-sm text-ink-muted">
               <span className="font-medium text-ink">{file.name}</span> · {pdf.formatBytes(file.size)}
               {markedCount > 0 ? (
-                <span className="ms-2 text-amber-200">
+                <span className="ms-2 text-black dark:text-neutral-200">
                   {ws.wsUi("markedCount", { count: markedCount })}
                 </span>
               ) : null}
@@ -303,7 +303,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
               type="button"
               onClick={reset}
               disabled={busy}
-              className="rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
             >
               {ws.chooseAnotherFile}
             </button>
@@ -339,7 +339,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
               type="button"
               disabled={busy || markedCount === 0}
               onClick={clearMarks}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
             >
               {ws.wsUi("clearSelection")}
             </button>
@@ -347,7 +347,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
               type="button"
               disabled={!canDelete}
               onClick={() => void onDelete()}
-              className="btn-protect relative rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
+              className="btn-protect relative rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
             >
               {busy ? (
                 <>

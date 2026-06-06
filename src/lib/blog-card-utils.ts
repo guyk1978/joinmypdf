@@ -1,7 +1,7 @@
 import type { BlogPost } from "@/lib/types";
 
 export type BlogCardAccent = {
-  id: "red" | "blue" | "emerald" | "amber";
+  id: "neutral-a" | "neutral-b" | "neutral-c" | "neutral-d";
   badgeClassName: string;
   borderTopClassName: string;
   titleHoverClassName: string;
@@ -9,41 +9,41 @@ export type BlogCardAccent = {
 
 export const BLOG_CARD_ACCENTS: readonly BlogCardAccent[] = [
   {
-    id: "red",
+    id: "neutral-a",
     badgeClassName:
-      "inline-flex w-fit bg-red-600 px-3 py-1 text-xs font-bold tracking-wide text-white shadow-sm rounded-md",
-    borderTopClassName: "border-t-red-600",
-    titleHoverClassName: "group-hover:text-red-600 dark:group-hover:text-red-400",
+      "inline-flex w-fit bg-neutral-900 px-3 py-1 text-xs font-bold tracking-wide text-neutral-100 rounded-none dark:bg-neutral-200 dark:text-neutral-950",
+    borderTopClassName: "border-t-neutral-900 dark:border-t-neutral-200",
+    titleHoverClassName: "group-hover:text-black dark:group-hover:text-neutral-100",
   },
   {
-    id: "blue",
+    id: "neutral-b",
     badgeClassName:
-      "inline-flex w-fit bg-blue-600 px-3 py-1 text-xs font-bold tracking-wide text-white shadow-sm rounded-md",
-    borderTopClassName: "border-t-blue-600",
-    titleHoverClassName: "group-hover:text-blue-600 dark:group-hover:text-blue-400",
+      "inline-flex w-fit bg-neutral-800 px-3 py-1 text-xs font-bold tracking-wide text-neutral-100 rounded-none dark:bg-neutral-300 dark:text-neutral-950",
+    borderTopClassName: "border-t-neutral-800 dark:border-t-neutral-300",
+    titleHoverClassName: "group-hover:text-black dark:group-hover:text-neutral-100",
   },
   {
-    id: "emerald",
+    id: "neutral-c",
     badgeClassName:
-      "inline-flex w-fit bg-emerald-600 px-3 py-1 text-xs font-bold tracking-wide text-white shadow-sm rounded-md",
-    borderTopClassName: "border-t-emerald-600",
-    titleHoverClassName: "group-hover:text-emerald-600 dark:group-hover:text-emerald-400",
+      "inline-flex w-fit bg-neutral-700 px-3 py-1 text-xs font-bold tracking-wide text-neutral-100 rounded-none dark:bg-neutral-400 dark:text-neutral-950",
+    borderTopClassName: "border-t-neutral-700 dark:border-t-neutral-400",
+    titleHoverClassName: "group-hover:text-black dark:group-hover:text-neutral-100",
   },
   {
-    id: "amber",
+    id: "neutral-d",
     badgeClassName:
-      "inline-flex w-fit bg-amber-500 px-3 py-1 text-xs font-bold tracking-wide text-slate-950 shadow-sm rounded-md",
-    borderTopClassName: "border-t-amber-500",
-    titleHoverClassName: "group-hover:text-amber-600 dark:group-hover:text-amber-400",
+      "inline-flex w-fit bg-neutral-600 px-3 py-1 text-xs font-bold tracking-wide text-neutral-100 rounded-none dark:bg-neutral-500 dark:text-neutral-950",
+    borderTopClassName: "border-t-neutral-600 dark:border-t-neutral-500",
+    titleHoverClassName: "group-hover:text-black dark:group-hover:text-neutral-100",
   },
 ] as const;
 
-/** Strong primary accent — cycles red → blue → green → amber. */
+/** Monochrome accent — cycles four neutral weights. */
 export function getBlogCardAccent(index: number): BlogCardAccent {
   return BLOG_CARD_ACCENTS[((index % 4) + 4) % 4]!;
 }
 
-/** Optional type hint shifts accent while keeping bold primaries. */
+/** Optional type hint shifts accent while keeping neutral primaries. */
 export function getBlogCardAccentForPost(post: BlogPost, index: number): BlogCardAccent {
   const key = `${post.category || ""} ${post.slug} ${post.title}`.toLowerCase();
   if (key.includes("how-to") || key.includes("how to") || key.startsWith("how-")) {

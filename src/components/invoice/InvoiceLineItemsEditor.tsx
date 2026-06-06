@@ -49,7 +49,7 @@ export function InvoiceLineItemsEditor({ items, onChange, onAdd }: InvoiceLineIt
                   type="button"
                   onClick={() => removeItem(item.id)}
                   disabled={items.length <= 1}
-                  className="px-2 py-0.5 text-xs text-neutral-400 transition hover:bg-neutral-800 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="px-2 py-0.5 text-xs text-neutral-400 transition hover:bg-neutral-800 hover:text-black dark:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-40"
                   aria-label={`Remove item ${index + 1}`}
                 >
                   Remove

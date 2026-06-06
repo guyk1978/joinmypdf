@@ -28,20 +28,20 @@ export function MapDiagramCrossLink({ className }: Props) {
   return (
     <aside
       className={clsx(
-        "partner-mapdiagram w-full rounded-2xl border border-indigo-100 bg-white px-4 py-3.5 text-start shadow-sm sm:px-5 sm:py-4 dark:border-slate-800 dark:bg-slate-950/50",
+        "partner-mapdiagram w-full rounded-none border border-indigo-100 bg-white px-4 py-3.5 text-start sm:px-5 sm:py-4 dark:border-slate-800 dark:bg-slate-950/50",
         className,
       )}
       aria-label={t("mapDiagramAria")}
     >
       <div className="flex items-start gap-3">
-        <div className="rounded-xl bg-indigo-50 p-2 shadow-sm ring-1 ring-indigo-100 dark:bg-slate-800/80 dark:ring-slate-700">
+        <div className="rounded-none bg-neutral-900 p-2 ring-1 ring-indigo-100 dark:bg-slate-800/80 dark:ring-slate-700">
           <FlowchartIcon />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+          <p className="text-sm leading-relaxed text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
             {t.rich("mapDiagramBody", {
               brand: (chunks) => (
-                <span className="font-semibold text-slate-900 dark:text-slate-100">{chunks}</span>
+                <span className="font-semibold text-black dark:text-neutral-200 dark:text-slate-100">{chunks}</span>
               ),
             })}
           </p>
@@ -49,7 +49,7 @@ export function MapDiagramCrossLink({ className }: Props) {
             href="https://mapdiagram.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2.5 inline-flex items-center gap-1 text-sm font-semibold text-indigo-700 transition hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+            className="mt-2.5 inline-flex items-center gap-1 text-sm font-semibold text-black dark:text-neutral-200 transition hover:text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 dark:hover:text-black dark:text-neutral-200"
           >
             {t("mapDiagramCta")} {arrow}
           </a>

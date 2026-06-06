@@ -27,7 +27,7 @@ const config: Config = {
           DEFAULT: "rgb(var(--ink) / <alpha-value>)",
           muted: "rgb(var(--ink-muted) / <alpha-value>)",
         },
-        brand: { DEFAULT: "#a3a3a3", deep: "#e5e5e5" },
+        brand: { DEFAULT: "#525252", deep: "#171717" },
         matte: {
           bg: "#0a0a0a",
           panel: "#171717",

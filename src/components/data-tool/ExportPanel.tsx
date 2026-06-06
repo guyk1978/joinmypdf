@@ -20,7 +20,7 @@ export function ExportPanel({ rows, columns, baseName }: ExportPanelProps) {
   const disabled = rows.length === 0;
 
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+    <section className="rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
       <h3 className="text-lg font-semibold text-ink">Export</h3>
       <p className="mt-1 text-sm text-ink-muted">
         Download converted data instantly—files are generated in your browser.
@@ -29,7 +29,7 @@ export function ExportPanel({ rows, columns, baseName }: ExportPanelProps) {
         <button
           type="button"
           disabled={disabled}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-2.5 text-sm font-semibold text-surface transition hover:bg-neutral-200 dark:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() =>
             downloadTextFile(rowsToCsv(rows, columns), `${stem}.csv`, "text/csv;charset=utf-8")
           }
@@ -39,7 +39,7 @@ export function ExportPanel({ rows, columns, baseName }: ExportPanelProps) {
         <button
           type="button"
           disabled={disabled}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-brand/35 hover:text-brand disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-neutral-800 dark:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() =>
             downloadTextFile(
               rowsToJson(rows, true),
@@ -53,7 +53,7 @@ export function ExportPanel({ rows, columns, baseName }: ExportPanelProps) {
         <button
           type="button"
           disabled={disabled}
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-brand/35 hover:text-brand disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-neutral-800 dark:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() =>
             downloadTextFile(
               rowsToXml(rows, columns),

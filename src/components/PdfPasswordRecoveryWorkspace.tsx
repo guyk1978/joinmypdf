@@ -244,7 +244,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
   const canStart = Boolean(file) && encrypted && !busy;
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -292,7 +292,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
       ) : null}
 
       {showWorkspace ? (
-        <div className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div>
             <p className="text-sm font-semibold text-ink">{file?.name}</p>
             <p className="mt-1 text-xs text-ink-muted">
@@ -383,16 +383,16 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
                 <span>{ws.wsUi("workerProgress")}</span>
                 <span>{progressPercent}%</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
+              <div className="h-2 overflow-hidden rounded-none bg-white/10">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
+                  className="h-full rounded-none bg-neutral-900 transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
             </div>
           ) : null}
 
-          {formError ? <p className="text-sm text-red-400">{formError}</p> : null}
+          {formError ? <p className="text-sm text-black dark:text-neutral-200">{formError}</p> : null}
 
           <div className="flex flex-wrap gap-3">
             {!busy ? (
@@ -410,15 +410,15 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
           </div>
 
           {foundPassword !== null ? (
-            <div className="rounded-xl border border-brand/30 bg-brand/5 p-4">
+            <div className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 p-4">
               <p className="text-sm font-semibold text-ink">{ws.wsUi("recoveredPassword")}</p>
-              <p className="mt-2 font-mono text-lg text-brand">
+              <p className="mt-2 font-mono text-lg text-neutral-800 dark:text-neutral-200">
                 {revealPassword ? foundPassword || ws.wsUi("emptyPassword") : "••••••••"}
               </p>
               <div className="mt-3 flex flex-wrap gap-3">
                 <button
                   type="button"
-                  className="text-sm font-medium text-brand hover:underline"
+                  className="text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:underline"
                   onClick={() => setRevealPassword((v) => !v)}
                 >
                   {revealPassword ? ws.wsUi("hide") : ws.wsUi("reveal")}
@@ -427,7 +427,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
                   type="button"
                   disabled={busy}
                   onClick={() => void onDownloadUnlocked()}
-                  className="text-sm font-medium text-brand hover:underline"
+                  className="text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:underline"
                 >
                   {ws.wsText("downloadUnlockedLabel")}
                 </button>

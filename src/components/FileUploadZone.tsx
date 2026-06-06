@@ -34,9 +34,9 @@ function UploadArrowIcon({ className, active }: { className?: string; active?: b
       aria-hidden
     >
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7 2.5H14.5L20.5 8.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V4.25C5.25 3.2835 6.0335 2.5 7 2.5Z" fill={active ? "#DC2626" : "#EF4444"} />
-        <path d="M14.5 2.5V7.5C14.5 8.05228 14.9477 8.5 15.5 8.5H20.5" fill={active ? "#FB7185" : "#F97316"} />
-        <path d="M7.25 14.5H20.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V14.5H7.25Z" fill={active ? "#BE123C" : "#EA580C"} />
+        <path d="M7 2.5H14.5L20.5 8.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V4.25C5.25 3.2835 6.0335 2.5 7 2.5Z" fill={active ? "#525252" : "#737373"} />
+        <path d="M14.5 2.5V7.5C14.5 8.05228 14.9477 8.5 15.5 8.5H20.5" fill={active ? "#737373" : "#a3a3a3"} />
+        <path d="M7.25 14.5H20.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V14.5H7.25Z" fill={active ? "#404040" : "#525252"} />
         <path d="M8.5 17.5V15.7H10.2C10.95 15.7 11.55 16.25 11.55 17C11.55 17.75 10.95 18.3 10.2 18.3H9.35V19.3H8.5V17.5Z" fill="white" />
         <path d="M12.5 19.3V15.7H13.95C15.05 15.7 15.85 16.45 15.85 17.5C15.85 18.55 15.05 19.3 13.95 19.3H12.5Z" fill="white" />
         <path d="M16.8 19.3V15.7H19.45V16.5H17.65V17.1H19.15V17.9H17.65V19.3H16.8Z" fill="white" />
@@ -91,24 +91,8 @@ export type FileUploadZoneProps = HTMLAttributes<HTMLDivElement> & {
   variant?: "default" | "hero";
 };
 
-function formatBadgeClass(format: string) {
-  const value = format.toUpperCase();
-  if (value.includes("PDF")) {
-    return "border-red-200 bg-red-50 text-red-700 dark:border-red-500/30 dark:bg-red-950/30 dark:text-red-200";
-  }
-  if (value.includes("WORD") || value.includes("DOC")) {
-    return "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-500/30 dark:bg-blue-950/30 dark:text-blue-200";
-  }
-  if (value.includes("EXCEL") || value.includes("XLS")) {
-    return "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-950/30 dark:text-emerald-200";
-  }
-  if (value.includes("POWERPOINT") || value.includes("PPT")) {
-    return "border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-950/30 dark:text-amber-200";
-  }
-  if (value.includes("PNG") || value.includes("JPG") || value.includes("JPEG") || value.includes("IMAGE")) {
-    return "border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-500/30 dark:bg-purple-950/30 dark:text-purple-200";
-  }
-  return "border-neutral-700 bg-neutral-800 text-neutral-200";
+function formatBadgeClass(_format: string) {
+  return "border-neutral-300 bg-neutral-100 text-black dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-200";
 }
 
 export function FileUploadZone({
@@ -138,8 +122,8 @@ export function FileUploadZone({
       className={clsx(
         "group relative mx-auto flex w-full max-w-3xl flex-col border border-dashed border-neutral-800 bg-neutral-900 text-center transition-colors dark:border-neutral-800 dark:bg-neutral-900",
         isHero
-          ? "min-h-[240px] px-4 md:min-h-[280px] md:px-6"
-          : "min-h-[200px] px-4 md:min-h-[220px] md:px-6",
+          ? "min-h-[240px] px-4 md:min-h-[280px] md:px-4"
+          : "min-h-[200px] px-4 md:min-h-[220px] md:px-4",
         active
           ? "border-neutral-600 bg-neutral-900 dark:border-neutral-600 dark:bg-neutral-900"
           : "border-neutral-800 group-hover:border-neutral-600 dark:border-neutral-800 dark:group-hover:border-neutral-600",
@@ -151,7 +135,7 @@ export function FileUploadZone({
       <div
         className={clsx(
           "flex w-full flex-1 flex-col items-center justify-center",
-          isHero ? "gap-4 px-1 py-5 md:gap-5 md:py-6" : "gap-4 px-1 py-4 md:gap-4 md:py-5",
+          isHero ? "gap-4 px-1 py-5 md:gap-5 md:py-3" : "gap-4 px-1 py-4 md:gap-4 md:py-5",
         )}
       >
         <PrivacyUploadBadge className="max-w-xl shrink-0 sm:max-w-2xl" />

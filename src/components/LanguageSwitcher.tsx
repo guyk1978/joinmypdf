@@ -17,7 +17,7 @@ export function LanguageSwitcher() {
       <select
         value={locale}
         aria-label={tHeader("language")}
-        className="rounded-lg border border-slate-200/80 bg-white/90 px-2 py-1.5 text-xs font-medium text-slate-700 shadow-sm backdrop-blur-sm transition hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-100 dark:hover:border-cyan-300/40"
+        className="rounded-none border border-neutral-300 dark:border-neutral-800/80 bg-white/90 px-2 py-1.5 text-xs font-medium text-black dark:text-neutral-300 backdrop-blur-sm transition hover:border-neutral-300 dark:border-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300 dark:ring-neutral-700 dark:border-white/10 dark:bg-white/[0.05] dark:text-slate-100 dark:hover:border-neutral-300 dark:border-neutral-800"
         onChange={(event) => {
           const nextLocale = event.target.value as AppLocale;
           if (!routing.locales.includes(nextLocale) || nextLocale === locale) return;

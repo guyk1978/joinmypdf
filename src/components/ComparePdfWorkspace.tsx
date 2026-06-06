@@ -30,9 +30,9 @@ function acceptPdf(f: File) {
 }
 
 function highlightStyle(kind: CompareHighlight["kind"]) {
-  if (kind === "removed") return "bg-red-500/35 ring-1 ring-red-500/60";
-  if (kind === "added") return "bg-emerald-500/35 ring-1 ring-emerald-500/60";
-  return "bg-amber-400/35 ring-1 ring-amber-500/60";
+  if (kind === "removed") return "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700";
+  if (kind === "added") return "bg-neutral-900 dark:bg-neutral-200/35 ring-1 ring-neutral-400 dark:ring-neutral-600";
+  return "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700";
 }
 
 function ComparePagePanel({
@@ -82,7 +82,7 @@ function ComparePagePanel({
       <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted">{label}</p>
       <div
         ref={wrapRef}
-        className="relative overflow-hidden rounded-xl border border-white/10 bg-slate-950/40"
+        className="relative overflow-hidden rounded-none border border-white/10 bg-slate-950/40"
       >
         {loading ? (
           <div className="flex aspect-[3/4] max-h-[70vh] items-center justify-center text-sm text-ink-muted">
@@ -101,7 +101,7 @@ function ComparePagePanel({
               {highlights.map((h, i) => (
                 <span
                   key={`${h.kind}-${i}-${h.nx}-${h.ny}`}
-                  className={`absolute rounded-sm ${highlightStyle(h.kind)}`}
+                  className={`absolute rounded-none ${highlightStyle(h.kind)}`}
                   style={{
                     left: `${h.nx * 100}%`,
                     top: `${h.ny * 100}%`,
@@ -167,11 +167,7 @@ function FileSlot({
           pick(e.dataTransfer.files);
         }}
         onClick={() => inputRef.current?.click()}
-        className={`cursor-pointer rounded-xl border-2 border-dashed px-4 py-8 text-center transition ${
-          drag
-            ? "border-brand bg-brand/10"
-            : "border-white/15 bg-white/[0.02] hover:border-white/25"
-        }`}
+        className={`cursor-pointer rounded-none border-2 border-dashed px-4 py-4 text-center transition ${ drag ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800" : "border-white/15 bg-white/[0.02] hover:border-white/25" }`}
       >
         <input
           id={id}
@@ -281,7 +277,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   );
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -365,19 +361,19 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ) : null}
 
       {result && leftFile && rightFile ? (
-        <div className="space-y-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-4 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap gap-4 text-xs text-ink-muted">
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-3 w-3 rounded bg-red-500/50 ring-1 ring-red-500/70" />
+                <span className="inline-block h-3 w-3 rounded bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700" />
                 {ws.wsUi("legendRemoved")}
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-3 w-3 rounded bg-emerald-500/50 ring-1 ring-emerald-500/70" />
+                <span className="inline-block h-3 w-3 rounded bg-neutral-900 dark:bg-neutral-200/50 ring-1 ring-neutral-400 dark:ring-neutral-600" />
                 {ws.wsUi("legendAdded")}
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-3 w-3 rounded bg-amber-400/50 ring-1 ring-amber-500/70" />
+                <span className="inline-block h-3 w-3 rounded bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700" />
                 {ws.wsUi("legendMoved")}
               </span>
             </div>
@@ -407,7 +403,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               {ws.wsUi("nextPage")}
             </button>
             <select
-              className="rounded-lg border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
+              className="rounded-none border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
               value={pageIndex}
               onChange={(e) => setPageIndex(Number(e.target.value))}
               aria-label={ws.wsUi("jumpToPage")}

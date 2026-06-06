@@ -198,7 +198,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const showWorkspace = Boolean(file && fileBytes);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -246,7 +246,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       ) : null}
 
       {showWorkspace ? (
-        <div className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
@@ -254,7 +254,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 {ws.wsUi("pageSummary", { count: thumbs.length })}
               </p>
             </div>
-            <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -264,7 +264,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               disabled={busy || !thumbs.length}
               onClick={() => rotateAll(RIGHT)}
-              className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
               {ws.wsUi("rotateAllCw")}
             </button>
@@ -272,7 +272,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               disabled={busy || !thumbs.length}
               onClick={() => rotateAll(LEFT)}
-              className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
               {ws.wsUi("rotateAllCcw")}
             </button>
@@ -284,17 +284,17 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               return (
                 <article
                   key={thumb.pageIndex}
-                  className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:border-blue-200 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
+                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 transition hover:border-neutral-300 dark:border-neutral-800 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-neutral-300 dark:border-neutral-800"
                 >
-                  <div className="mb-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <div className="mb-2 flex items-center justify-between text-xs text-neutral-700 dark:text-neutral-400 dark:text-slate-400">
                     <span>{ws.wsCommon("pageNumber", { page: thumb.pageIndex + 1 })}</span>
                     <span>{angle}°</span>
                   </div>
-                  <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-md border border-slate-200 bg-gradient-to-b from-slate-50 to-slate-100 p-3 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900">
+                  <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-900 to-slate-100 p-3 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900">
                     <img
                       src={thumb.dataUrl}
                       alt={ws.wsCommon("pageNumber", { page: thumb.pageIndex + 1 })}
-                      className="max-h-full max-w-full object-contain shadow-lg shadow-slate-200/60 transition-transform duration-300 ease-out dark:shadow-none"
+                      className="max-h-full max-w-full object-contain transition-transform duration-300 ease-out dark:shadow-none"
                       style={{ transform: `rotate(${angle}deg)` }}
                     />
                   </div>
@@ -303,7 +303,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                       type="button"
                       disabled={busy}
                       onClick={() => rotateOne(thumb.pageIndex, RIGHT)}
-                      className="rounded-lg border border-white/15 px-2 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+                      className="rounded-none border border-white/15 px-2 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
                     >
                       {ws.wsUi("clockwise")}
                     </button>
@@ -311,7 +311,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                       type="button"
                       disabled={busy}
                       onClick={() => rotateOne(thumb.pageIndex, LEFT)}
-                      className="rounded-lg border border-white/15 px-2 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+                      className="rounded-none border border-white/15 px-2 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
                     >
                       {ws.wsUi("counterClockwise")}
                     </button>
@@ -326,8 +326,8 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               <div className="flex items-center justify-between text-xs text-ink-muted">
                 <span>{status || ws.processing}</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-brand to-brand-deep" />
+              <div className="h-2 overflow-hidden rounded-none bg-white/10">
+                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-900" />
               </div>
             </div>
           ) : null}
@@ -345,7 +345,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               disabled={busy}
               onClick={() => setRotations({})}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
               {ws.wsUi("resetRotations")}
             </button>
@@ -353,7 +353,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
               {ws.chooseAnotherFile}
             </button>

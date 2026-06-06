@@ -78,7 +78,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
   useEffect(() => {
     let cancelled = false;
-    const unavailable = `<p class='text-red-400'>${ws.wsUi("previewUnavailable")}</p>`;
+    const unavailable = `<p class='text-black dark:text-neutral-200'>${ws.wsUi("previewUnavailable")}</p>`;
     const timer = window.setTimeout(() => {
       void parseMarkdownToHtml(markdown)
         .then((html) => {
@@ -99,7 +99,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
       return `[&_h1]:text-[#f0f6fc] [&_h2]:text-[#f0f6fc] [&_a]:text-[#58a6ff] [&_pre]:bg-[#161b22] [&_pre]:border [&_pre]:border-[#30363d] [&_code]:font-mono [&_table]:border-collapse [&_th]:border [&_th]:border-[#30363d] [&_td]:border [&_td]:border-[#30363d]`;
     }
     if (theme === "academic") {
-      return `[&_h1]:font-serif [&_p]:font-serif [&_pre]:bg-slate-50 [&_table]:border-collapse [&_th]:border [&_td]:border`;
+      return `[&_h1]:font-serif [&_p]:font-serif [&_pre]:bg-neutral-100 dark:bg-neutral-950 [&_table]:border-collapse [&_th]:border [&_td]:border`;
     }
     return `[&_pre]:bg-[#f6f8fa] [&_table]:border-collapse [&_th]:border [&_td]:border [&_a]:text-[#0969da]`;
   }, [theme]);
@@ -169,28 +169,24 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
   };
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex rounded-xl border border-white/10 p-1">
+        <div className="flex rounded-none border border-white/10 p-1">
           <button
             type="button"
             onClick={() => setInputMode("editor")}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-              inputMode === "editor" ? "bg-brand text-surface" : "text-ink-muted hover:text-ink"
-            }`}
+            className={`rounded-none px-4 py-2 text-sm font-medium transition ${ inputMode === "editor" ? "bg-neutral-200 dark:bg-neutral-800 text-surface" : "text-ink-muted hover:text-ink" }`}
           >
             {ws.wsUi("tabEditor")}
           </button>
           <button
             type="button"
             onClick={() => setInputMode("upload")}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-              inputMode === "upload" ? "bg-brand text-surface" : "text-ink-muted hover:text-ink"
-            }`}
+            className={`rounded-none px-4 py-2 text-sm font-medium transition ${ inputMode === "upload" ? "bg-neutral-200 dark:bg-neutral-800 text-surface" : "text-ink-muted hover:text-ink" }`}
           >
             {ws.wsUi("tabUpload")}
           </button>
@@ -201,7 +197,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
           <select
             value={theme}
             onChange={(e) => setTheme(e.target.value as MarkdownTheme)}
-            className="rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
+            className="rounded-none border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-neutral-300 dark:border-neutral-800 focus:outline-none"
           >
             {MARKDOWN_THEMES.map((t) => (
               <option key={t.id} value={t.id}>
@@ -267,7 +263,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
               setDone(false);
             }}
             spellCheck={false}
-            className="min-h-[320px] w-full resize-y rounded-xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-sm leading-relaxed text-ink placeholder:text-ink-muted/60 focus:border-brand focus:outline-none lg:min-h-[420px]"
+            className="min-h-[320px] w-full resize-y rounded-none border border-white/10 bg-black/30 px-4 py-3 font-mono text-sm leading-relaxed text-ink placeholder:text-ink-muted/60 focus:border-neutral-300 dark:border-neutral-800 focus:outline-none lg:min-h-[420px]"
             placeholder={ws.wsUi("editorPlaceholder")}
             aria-label={ws.wsUi("editorAriaLabel")}
           />
@@ -294,7 +290,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
           type="button"
           disabled={busy || !markdown.trim()}
           onClick={() => void onConvert()}
-          className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-surface transition hover:bg-neutral-200 dark:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {ws.wsText("downloadLabel")}
         </button>
@@ -302,7 +298,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
           type="button"
           disabled={busy}
           onClick={reset}
-          className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+          className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
         >
           {ws.wsCommon("resetSample")}
         </button>

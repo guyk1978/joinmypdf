@@ -119,7 +119,7 @@ function BookletSheetPreview({
         })}{" "}
         · {paperLabel}
       </p>
-      <div className="relative grid grid-cols-2 gap-0 overflow-hidden rounded-xl border border-white/15 bg-slate-950/50 shadow-inner">
+      <div className="relative grid grid-cols-2 gap-0 overflow-hidden rounded-none border border-white/15 bg-slate-950/50">
         <div className="relative border-r border-dashed border-white/20 p-2">
           <SlotPreview
             url={leftUrl}
@@ -137,11 +137,11 @@ function BookletSheetPreview({
           />
         </div>
         <div
-          className="pointer-events-none absolute inset-y-4 left-1/2 w-0 -translate-x-1/2 border-l-2 border-dashed border-amber-400/70"
+          className="pointer-events-none absolute inset-y-4 left-1/2 w-0 -translate-x-1/2 border-l-2 border-dashed border-neutral-400 dark:border-neutral-700"
           aria-hidden
           title={ui.foldLine}
         />
-        <span className="pointer-events-none absolute left-1/2 top-1 -translate-x-1/2 rounded bg-amber-500/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-200">
+        <span className="pointer-events-none absolute left-1/2 top-1 -translate-x-1/2 rounded bg-neutral-200 dark:bg-neutral-800 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-black dark:text-neutral-200">
           {ui.fold}
         </span>
       </div>
@@ -171,14 +171,14 @@ function SlotPreview({
     <div
       className={`flex min-h-[140px] flex-col gap-2 ${align === "right" ? "items-end text-right" : "items-start"}`}
     >
-      <span className="rounded-md bg-white/10 px-2 py-0.5 text-xs font-semibold text-ink">
+      <span className="rounded-none bg-white/10 px-2 py-0.5 text-xs font-semibold text-ink">
         {ui.pageLabel({ page: label })}
       </span>
       {url ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={url} alt={ui.previewPageAlt({ page: label })} className="max-h-44 w-full rounded object-contain" />
       ) : (
-        <div className="flex min-h-[120px] w-full items-center justify-center rounded-lg border border-dashed border-white/15 bg-white/[0.03] text-xs text-ink-muted">
+        <div className="flex min-h-[120px] w-full items-center justify-center rounded-none border border-dashed border-white/15 bg-white/[0.03] text-xs text-ink-muted">
           {label === ui.blank ? ui.blankPadding : ui.emptySlot}
         </div>
       )}
@@ -343,7 +343,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   const canBuild = Boolean(file && plan && !busy && !loadingThumbs);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -395,7 +395,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ) : null}
 
       {plan ? (
-        <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <section className="grid gap-4 md:grid-cols-2" aria-labelledby={`${baseId}-paper`}>
             <h2 id={`${baseId}-paper`} className="sr-only">
               {ws.wsUi("settingsHeading")}
@@ -403,7 +403,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             <label className="block text-sm text-ink">
               <span className="mb-1 block font-semibold">{ws.wsUi("paperSize")}</span>
               <select
-                className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                 value={paperPreset}
                 onChange={(e) => setPaperPreset(e.target.value as BookletPaperPreset | "custom")}
               >
@@ -418,7 +418,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             <label className="block text-sm text-ink">
               <span className="mb-1 block font-semibold">{ws.wsUi("foldStyle")}</span>
               <select
-                className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                 value={foldStyle}
                 onChange={(e) => setFoldStyle(e.target.value as BookletFoldStyle)}
               >
@@ -433,7 +433,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                     type="number"
                     min={1}
                     step={0.1}
-                    className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                    className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                     value={customWidth}
                     onChange={(e) => setCustomWidth(e.target.value)}
                   />
@@ -444,7 +444,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                     type="number"
                     min={1}
                     step={0.1}
-                    className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                    className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                     value={customHeight}
                     onChange={(e) => setCustomHeight(e.target.value)}
                   />
@@ -452,7 +452,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 <label className="block text-sm text-ink md:col-span-2">
                   <span className="mb-1 block font-semibold">{ws.wsUi("units")}</span>
                   <select
-                    className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                    className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                     value={customUnit}
                     onChange={(e) => setCustomUnit(e.target.value as CustomPaperUnit)}
                   >
@@ -466,7 +466,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             <label className="block text-sm text-ink md:col-span-2">
               <span className="mb-1 block font-semibold">{ws.wsUi("duplexPrinting")}</span>
               <select
-                className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
+                className="w-full rounded-none border border-white/15 bg-surface/60 px-3 py-2"
                 value={duplexFlip}
                 onChange={(e) => setDuplexFlip(e.target.value as BookletDuplexFlip)}
               >
@@ -508,7 +508,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                   {ws.wsUi("nextSide")}
                 </button>
                 <select
-                  className="rounded-lg border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
+                  className="rounded-none border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
                   value={previewSideIndex}
                   onChange={(e) => setPreviewSideIndex(Number(e.target.value))}
                   aria-label={ws.wsUi("jumpToSide")}

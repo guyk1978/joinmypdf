@@ -150,7 +150,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   };
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -196,7 +196,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           }
         />
       ) : (
-        <div className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-ink">{file.name}</p>
@@ -204,7 +204,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 {bookTitle || ws.wsCommon("untitledBook")} · {ws.wsCommon("chapterCount", { count: chapterCount })}
               </p>
             </div>
-            <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -215,7 +215,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               <select
                 value={fontSize}
                 onChange={(e) => setFontSize(e.target.value as EbookFontSizePreset)}
-                className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
+                className="w-full rounded-none border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-neutral-300 dark:border-neutral-800 focus:outline-none"
               >
                 <option value="small">{ws.wsUi("fontSmall")}</option>
                 <option value="medium">{ws.wsUi("fontMedium")}</option>
@@ -228,7 +228,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               <select
                 value={margin}
                 onChange={(e) => setMargin(e.target.value as EbookMarginPreset)}
-                className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-brand focus:outline-none"
+                className="w-full rounded-none border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-neutral-300 dark:border-neutral-800 focus:outline-none"
               >
                 <option value="normal">{ws.wsUi("marginNormal")}</option>
                 <option value="compact">{ws.wsUi("marginCompact")}</option>
@@ -248,7 +248,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               type="button"
               disabled={busy}
               onClick={() => void onConvert()}
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-surface transition hover:bg-neutral-200 dark:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {ws.wsText("convertLabel")}
             </button>
@@ -256,7 +256,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
               {ws.chooseAnotherFile}
             </button>

@@ -16,15 +16,15 @@ export function CompactToolCardGrid({ items }: { items: CompactToolCardItem[] })
           <Link
             key={`${item.href}-${item.label}`}
             href={item.href}
-            className="group flex min-h-[124px] flex-col items-center justify-center rounded-2xl border border-slate-100 bg-white px-3 py-3.5 text-center shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-slate-200 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700 dark:hover:shadow-md dark:hover:shadow-black/20"
+            className="group flex min-h-[124px] flex-col items-center justify-center rounded-none border border-slate-100 bg-white px-3 py-3.5 text-center transition-all duration-300 ease-out hover:border-neutral-300 dark:border-neutral-800 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-neutral-300 dark:border-neutral-800 dark: dark:"
           >
             <span
-              className={`${TOOL_ICON_WRAP_CLASS} inline-flex h-12 w-12 items-center justify-center rounded-full shadow-sm transition-all duration-300 ease-out ${visual.wrap} ${visual.wrapHover}`}
+              className={`${TOOL_ICON_WRAP_CLASS} inline-flex h-12 w-12 items-center justify-center rounded-none transition-all duration-300 ease-out ${visual.wrap} ${visual.wrapHover}`}
               aria-hidden="true"
             >
               {visual.icon}
             </span>
-            <span className="mt-2.5 line-clamp-2 text-sm font-semibold leading-tight text-slate-900 dark:text-slate-100">
+            <span className="mt-2.5 line-clamp-2 text-sm font-semibold leading-tight text-black dark:text-neutral-200 dark:text-slate-100">
               {item.label}
             </span>
           </Link>

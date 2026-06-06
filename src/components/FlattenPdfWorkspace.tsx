@@ -162,7 +162,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   const percent = progressPercent(progress, busy);
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -210,7 +210,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ) : null}
 
       {showWorkspace ? (
-        <div className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
@@ -219,7 +219,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : ""}
               </p>
             </div>
-            <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -227,7 +227,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           <div className="protect-form__fields max-w-md">
             <label className="protect-form__label" htmlFor={`${baseId}-password`}>
               {ws.wsUi("passwordLabel")}{" "}
-              <span className="font-normal text-slate-500">{ws.wsUi("passwordHint")}</span>
+              <span className="font-normal text-neutral-700 dark:text-neutral-400">{ws.wsUi("passwordHint")}</span>
             </label>
             <input
               id={`${baseId}-password`}

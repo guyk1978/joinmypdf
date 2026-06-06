@@ -432,7 +432,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   const canSign = instances.length > 0;
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -480,8 +480,8 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       {file && fileBytes ? (
         <div className="sign-workspace space-y-4">
           {encrypted ? (
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <label className="text-sm font-medium text-slate-900 dark:text-slate-100" htmlFor={`${baseId}-pwd`}>
+            <div className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+              <label className="text-sm font-medium text-black dark:text-neutral-200 dark:text-slate-100" htmlFor={`${baseId}-pwd`}>
                 {ws.wsUi("passwordLabel")}
               </label>
               <div className="mt-2 flex flex-wrap gap-3">

@@ -180,13 +180,13 @@ export function ToolsMegaMenu({
             : "invisible -translate-y-1 opacity-0 pointer-events-none",
         )}
       >
-        <div className="nav-mega__panel overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-950">
+        <div className="nav-mega__panel overflow-hidden rounded-none border border-neutral-300 dark:border-neutral-800/80 bg-white dark:border-slate-800 dark:bg-slate-950">
           <div className="nav-mega__grid">
             {sections.map((section) => {
               const sectionLabel = translateToolSection(tTools, section.id, section.label);
               return (
               <div key={section.id} className="nav-mega__column min-w-0">
-                <p className="nav-mega__heading text-slate-900 dark:text-slate-400">{sectionLabel}</p>
+                <p className="nav-mega__heading text-black dark:text-neutral-200 dark:text-slate-400">{sectionLabel}</p>
                 <ul className="nav-mega__list">
                   {section.items.map((item) => {
                     const itemLabel = translateToolItem(tTools, item.slug, item.label);
@@ -195,7 +195,7 @@ export function ToolsMegaMenu({
                       <Link
                         href={item.href}
                         className={clsx(
-                          "nav-mega__link text-slate-700 dark:text-slate-200 dark:hover:text-blue-400",
+                          "nav-mega__link text-black dark:text-neutral-300 dark:text-slate-200 dark:hover:text-black dark:text-neutral-200",
                           isNavItemActive(pathname, item.href) && "is-active",
                         )}
                         role="menuitem"
@@ -214,10 +214,10 @@ export function ToolsMegaMenu({
               </div>
             );})}
           </div>
-          <div className="nav-mega__footer border-slate-200 dark:border-slate-800">
+          <div className="nav-mega__footer border-neutral-300 dark:border-neutral-800 dark:border-slate-800">
             <Link
               href="/tools/"
-              className="nav-mega__footer-link text-indigo-600 dark:text-blue-400 dark:hover:text-blue-300"
+              className="nav-mega__footer-link text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 dark:hover:text-black dark:text-neutral-200"
               prefetch={false}
               onClick={() => {
                 close();

@@ -152,7 +152,7 @@ export default async function ToolPage({
       <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <SiteHeader />
-      <main className="mx-auto max-w-6xl space-y-10 px-4 py-10 md:px-6 md:py-12">
+      <main className="mx-auto max-w-6xl space-y-10 px-4 py-10 md:px-4 md:py-12">
         <ToolPageHero slug={tool.slug} title={displayTitle} subtitle={subtitle} eyebrow={tPage("brandEyebrow")} />
 
         {tool.operation === "sign" ? (
@@ -227,9 +227,9 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
 
-        <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{tPage("beforeYouStart")}</h2>
-          <div className="mt-4 max-w-none space-y-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 md:text-base">
+        <section className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 md:p-4 dark:border-slate-800 dark:bg-slate-900">
+          <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("beforeYouStart")}</h2>
+          <div className="mt-4 max-w-none space-y-4 text-sm leading-relaxed text-neutral-800 dark:text-neutral-400 dark:text-slate-300 md:text-base">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -239,12 +239,12 @@ export default async function ToolPage({
         <LocalProcessingInfographic />
 
         {articles.length ? (
-          <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{tPage("relatedGuides")}</h2>
+          <section className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 md:p-4 dark:border-slate-800 dark:bg-slate-900">
+            <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("relatedGuides")}</h2>
             <ul className="mt-4 space-y-2">
               {articles.map((a) => (
                 <li key={a.slug}>
-                  <Link className="text-brand hover:underline" href={`/blog/${a.slug}/`}>
+                  <Link className="text-neutral-800 dark:text-neutral-200 hover:underline" href={`/blog/${a.slug}/`}>
                     {a.title}
                   </Link>
                 </li>
@@ -255,13 +255,13 @@ export default async function ToolPage({
 
         <RelatedTools tool={tool} />
 
-        <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{tPage("questions")}</h2>
+        <section className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 md:p-4 dark:border-slate-800 dark:bg-slate-900">
+          <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("questions")}</h2>
           <div className="mt-4 space-y-2">
             {faqs.map((f) => (
-              <details key={f.q} className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-surface/40">
-                <summary className="cursor-pointer font-medium text-slate-900 dark:text-white">{f.q}</summary>
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{f.a}</p>
+              <details key={f.q} className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-4 py-3 dark:border-neutral-300 dark:border-neutral-800 dark:bg-surface/40">
+                <summary className="cursor-pointer font-medium text-black dark:text-neutral-200 dark:text-white">{f.q}</summary>
+                <p className="mt-2 text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-300">{f.a}</p>
               </details>
             ))}
           </div>

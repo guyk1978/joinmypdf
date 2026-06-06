@@ -6,15 +6,15 @@ export function WattQuickCalculatorIllustration() {
         <title>Financial calculator illustration</title>
 
         {/* Ambient glow pulses */}
-        <circle cx="110" cy="100" r="72" className="fill-blue-400/10 animate-pulse" />
-        <circle cx="168" cy="52" r="18" className="fill-amber-400/25 animate-pulse [animation-delay:400ms]" />
-        <circle cx="48" cy="140" r="14" className="fill-emerald-400/20 animate-pulse [animation-delay:700ms]" />
+        <circle cx="110" cy="100" r="72" className="fill-neutral-400/20 animate-pulse" />
+        <circle cx="168" cy="52" r="18" className="fill-neutral-400/25 animate-pulse [animation-delay:400ms]" />
+        <circle cx="48" cy="140" r="14" className="fill-neutral-500/20 animate-pulse [animation-delay:700ms]" />
 
         {/* Bar chart */}
         <g transform="translate(52, 18)">
-          <rect x="0" y="28" width="22" height="34" rx="4" className="fill-emerald-500 animate-pulse" />
-          <rect x="30" y="14" width="22" height="48" rx="4" className="fill-blue-500 animate-pulse [animation-delay:150ms]" />
-          <rect x="60" y="22" width="22" height="40" rx="4" className="fill-amber-400 animate-pulse [animation-delay:300ms]" />
+          <rect x="0" y="28" width="22" height="34" rx="4" className="fill-neutral-500/20 animate-pulse" />
+          <rect x="30" y="14" width="22" height="48" rx="4" className="fill-neutral-400/20 animate-pulse [animation-delay:150ms]" />
+          <rect x="60" y="22" width="22" height="40" rx="4" className="fill-neutral-400/25 animate-pulse [animation-delay:300ms]" />
           <path
             d="M0 66 H82"
             stroke="rgba(255,255,255,0.35)"

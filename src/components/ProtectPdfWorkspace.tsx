@@ -136,7 +136,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   const canSubmit = Boolean(file) && !busy && password.length > 0 && confirmPassword.length > 0;
 
   return (
-    <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
+    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <div className="privacy-callout" role="note">
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
@@ -181,9 +181,9 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {file ? (
         <div className={toolPanel}>
-          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{ws.wsUi("selectedFile")}</p>
-          <p className="mt-2 truncate text-sm text-slate-600 dark:text-slate-400">
-            <span className="font-medium text-slate-900 dark:text-slate-100">{file.name}</span> ·{" "}
+          <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-slate-100">{ws.wsUi("selectedFile")}</p>
+          <p className="mt-2 truncate text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
+            <span className="font-medium text-black dark:text-neutral-200 dark:text-slate-100">{file.name}</span> ·{" "}
             {pdf.formatBytes(file.size)}
           </p>
         </div>

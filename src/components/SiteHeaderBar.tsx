@@ -105,7 +105,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
       {mobileOpen ? (
         <div
           id="primary-nav"
-          className="border-t border-slate-200/80 bg-white px-4 py-3 md:hidden dark:border-slate-800 dark:bg-slate-950"
+          className="border-t border-neutral-300 dark:border-neutral-800/80 bg-white px-4 py-3 md:hidden dark:border-slate-800 dark:bg-slate-950"
           aria-label={t("mobileNav")}
         >
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
