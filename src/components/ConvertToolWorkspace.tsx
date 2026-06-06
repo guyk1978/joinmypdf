@@ -70,7 +70,7 @@ export function ConvertToolWorkspace<TProgress>({
   const emptyFileMessage =
     config.emptyFileMessage ?? ws.wsStatus("emptyFile") ?? ws.wsCommon("emptyPdf");
   const privacyNote = config.privacyNote ?? ws.wsText("privacyNote");
-  const fileTypeLabel = config.fileTypeLabel ?? ws.wsText("fileTypeLabel") ?? "PDF";
+  const fileTypeLabel = config.fileTypeLabel ?? ws.wsCommon("formatPdf");
   const convertLabel = config.convertLabel ?? ws.wsText("convertLabel") ?? ws.buttonLabel();
   const downloadLabel = config.downloadLabel ?? ws.wsText("downloadLabel") ?? ws.common("ready");
   const outputHint = config.outputHint ?? ws.wsText("outputHint");

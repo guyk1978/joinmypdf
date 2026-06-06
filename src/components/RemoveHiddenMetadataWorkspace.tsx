@@ -6,6 +6,7 @@ import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { metadataFieldLabel } from "@/lib/workspace-preset-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import * as pdf from "@/lib/pdf-engine";
 import {
@@ -242,7 +243,9 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
               <ul className="mt-3 divide-y divide-white/10 rounded-xl border border-white/10 bg-white/[0.03]">
                 {metadata!.map((entry) => (
                   <li key={entry.key} className="px-4 py-3">
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-muted">{entry.label}</p>
+                    <p className="text-xs font-medium uppercase tracking-wide text-ink-muted">
+                      {metadataFieldLabel(ws, entry.key)}
+                    </p>
                     <p className="mt-1 break-words text-sm text-ink">{entry.value}</p>
                   </li>
                 ))}

@@ -1,6 +1,8 @@
 "use client";
 
+import { useLocaleLayout } from "@/hooks/useLocaleLayout";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type ShareButtonProps = {
   className?: string;
@@ -37,15 +39,17 @@ async function copyToClipboard(text: string): Promise<boolean> {
 }
 
 export function ShareButton({ className = "" }: ShareButtonProps) {
+  const t = useTranslations("Share");
+  const { isRtl } = useLocaleLayout();
   const [shareUrl, setShareUrl] = useState("");
-  const [shareTitle, setShareTitle] = useState("JoinMyPDF");
+  const [shareTitle, setShareTitle] = useState("");
   const [copied, setCopied] = useState(false);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     setShareUrl(window.location.href);
-    setShareTitle(document.title || "JoinMyPDF");
-  }, []);
+    setShareTitle(document.title || t("brandFallback"));
+  }, [t]);
 
   const flashCopied = useCallback(() => {
     setCopied(true);
@@ -55,8 +59,8 @@ export function ShareButton({ className = "" }: ShareButtonProps) {
   const handleShare = useCallback(async () => {
     if (busy) return;
     const url = window.location.href;
-    const title = document.title || "JoinMyPDF";
-    const text = "Private PDF tools & invoice templates — processed in your browser.";
+    const title = document.title || t("brandFallback");
+    const text = t("shareText");
 
     setBusy(true);
     try {
@@ -76,15 +80,16 @@ export function ShareButton({ className = "" }: ShareButtonProps) {
     } finally {
       setBusy(false);
     }
-  }, [busy, flashCopied]);
+  }, [busy, flashCopied, t]);
 
-  const label = copied ? "Copied!" : busy ? "Sharing…" : "Share";
+  const label = copied ? t("copied") : busy ? t("sharing") : t("share");
+  const ariaLabel = copied ? t("linkCopied") : t("shareThisPage");
 
   return (
     <div
-      className={`share-button-root fixed z-40 flex flex-col items-end gap-2 ${className}`.trim()}
+      className={`share-button-root fixed z-40 flex flex-col gap-2 ${isRtl ? "items-start" : "items-end"} ${className}`.trim()}
       style={{
-        right: "max(0.75rem, env(safe-area-inset-right))",
+        insetInlineEnd: "max(0.75rem, env(safe-area-inset-right))",
         bottom: "max(1rem, env(safe-area-inset-bottom))",
       }}
     >
@@ -93,8 +98,8 @@ export function ShareButton({ className = "" }: ShareButtonProps) {
         onClick={() => void handleShare()}
         disabled={busy || !shareUrl}
         className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-surface/90 px-4 py-2.5 text-sm font-semibold text-ink shadow-lg shadow-black/30 backdrop-blur-md transition hover:border-brand/45 hover:bg-surface-muted/95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60"
-        aria-label={copied ? "Link copied to clipboard" : "Share this page"}
-        title={shareUrl || "Share this page"}
+        aria-label={ariaLabel}
+        title={shareUrl || t("shareThisPage")}
       >
         <span
           className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition ${
@@ -131,7 +136,7 @@ export function ShareButton({ className = "" }: ShareButtonProps) {
         </span>
       </button>
       {shareTitle && shareUrl ? (
-        <p className="max-w-[11rem] truncate text-right text-[0.65rem] text-ink-muted/80" aria-hidden="true">
+        <p className="max-w-[11rem] truncate text-end text-[0.65rem] text-ink-muted/80" aria-hidden="true">
           {shareTitle}
         </p>
       ) : null}

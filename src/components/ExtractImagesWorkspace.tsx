@@ -11,6 +11,7 @@ import {
   extractImagesZipName,
   type ExtractedPdfImage,
 } from "@/lib/pdf-extract-images";
+import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
@@ -273,7 +274,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
         <div className="pdf-export-workspace space-y-4">
           <p className="text-sm text-slate-600 dark:text-slate-400">
             <strong className="text-slate-900 dark:text-slate-100">{file?.name}</strong>
-            {pageCount ? ` · ${pageCount} page${pageCount === 1 ? "" : "s"}` : null}
+            {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
           </p>
 
           <div className="flex flex-wrap gap-3">

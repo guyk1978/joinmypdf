@@ -96,3 +96,8 @@ export function marginSideLabel(ws: PresetWs, side: "top" | "right" | "bottom" |
 export function iworkPackageFallbackLabel(ws: PresetWs): string {
   return preset(ws, "iworkPackage");
 }
+
+export function metadataFieldLabel(ws: PresetWs, key: string): string {
+  const label = preset(ws, `metadataField.${key}`);
+  return label || key;
+}

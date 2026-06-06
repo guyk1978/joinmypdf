@@ -10,7 +10,6 @@ import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import {
   autocadToPdfOutputName,
   convertAutocadToPdfBytes,
-  DWG_INSTRUCTION_MESSAGE,
   isDwgFile,
   isDxfFile,
   type AutocadProgressPhase,
@@ -191,11 +190,9 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
           {showDwgNotice && (
             <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm text-amber-100/90">
-              <p className="font-semibold text-ink">Save as DXF for full vector precision</p>
-              <p className="mt-2 text-ink-muted">{DWG_INSTRUCTION_MESSAGE}</p>
-              <p className="mt-3 text-xs text-ink-muted">
-                In AutoCAD: File → Save As → AutoCAD DXF (.dxf), then upload the .dxf file here.
-              </p>
+              <p className="font-semibold text-ink">{ws.wsUi("dwgTitle")}</p>
+              <p className="mt-2 text-ink-muted">{ws.wsUi("dwgBody")}</p>
+              <p className="mt-3 text-xs text-ink-muted">{ws.wsUi("dwgSteps")}</p>
             </div>
           )}
 

@@ -126,6 +126,7 @@ function FileSlot({
   onClear,
   dropHint,
   removeLabel,
+  mbUnit,
 }: {
   id: string;
   label: string;
@@ -134,6 +135,7 @@ function FileSlot({
   onClear: () => void;
   dropHint: string;
   removeLabel: string;
+  mbUnit: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
@@ -186,7 +188,7 @@ function FileSlot({
           <p className="text-sm text-ink">
             <span className="font-medium">{file.name}</span>
             <span className="mt-1 block text-xs text-ink-muted">
-              {(file.size / 1024 / 1024).toFixed(2)} MB
+              {(file.size / 1024 / 1024).toFixed(2)} {mbUnit}
             </span>
           </p>
         ) : (
@@ -292,6 +294,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           onFile={setLeftFile}
           dropHint={ws.wsCommon("dropPdfHint")}
           removeLabel={ws.wsCommon("remove")}
+          mbUnit={ws.wsCommon("mbUnit")}
           onClear={() => {
             setLeftFile(null);
             setResult(null);
@@ -304,6 +307,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           onFile={setRightFile}
           dropHint={ws.wsCommon("dropPdfHint")}
           removeLabel={ws.wsCommon("remove")}
+          mbUnit={ws.wsCommon("mbUnit")}
           onClear={() => {
             setRightFile(null);
             setResult(null);

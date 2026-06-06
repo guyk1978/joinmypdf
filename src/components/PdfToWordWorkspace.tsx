@@ -1,6 +1,8 @@
 "use client";
 
 import { ConvertToolWorkspace } from "@/components/ConvertToolWorkspace";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import type { ToolDefinition } from "@/lib/types";
 import {
   convertPdfToDocx,
@@ -8,6 +10,7 @@ import {
   type PdfToWordProgress,
 } from "@/lib/pdf-to-word";
 import { loadPdfDocument } from "@/lib/pdf-text-extract";
+import { useMemo } from "react";
 
 function progressPercent(progress: PdfToWordProgress | null, busy: boolean): number {
   if (progress && progress.totalPages > 0) {
@@ -23,18 +26,22 @@ function progressPercent(progress: PdfToWordProgress | null, busy: boolean): num
   return busy ? 12 : 0;
 }
 
-const CONFIG = {
-  accept: (f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
-  acceptAttr: "application/pdf,.pdf",
-  progressPercent,
-  readMeta: async (file: File) => {
-    const doc = await loadPdfDocument(file);
-    return `${doc.numPages} page${doc.numPages === 1 ? "" : "s"}`;
-  },
-  convert: convertPdfToDocx,
-  outputName: pdfToWordOutputName,
-};
-
 export function PdfToWordWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
-  return <ConvertToolWorkspace tool={tool} slug={slug} config={CONFIG} />;
+  const ws = useWorkspaceI18n(tool.operation);
+  const config = useMemo(
+    () => ({
+      accept: (f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
+      acceptAttr: "application/pdf,.pdf",
+      progressPercent,
+      readMeta: async (file: File) => {
+        const doc = await loadPdfDocument(file);
+        return formatPageCount(ws, doc.numPages);
+      },
+      convert: convertPdfToDocx,
+      outputName: pdfToWordOutputName,
+    }),
+    [ws],
+  );
+
+  return <ConvertToolWorkspace tool={tool} slug={slug} config={config} />;
 }

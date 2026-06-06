@@ -7,6 +7,7 @@ import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
   flattenPdfFromFile,
@@ -215,7 +216,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
                 {file ? pdf.formatBytes(file.size) : ""}
-                {pageCount ? ` · ${pageCount} page${pageCount === 1 ? "" : "s"}` : ""}
+                {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : ""}
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
@@ -225,7 +226,8 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
           <div className="protect-form__fields max-w-md">
             <label className="protect-form__label" htmlFor={`${baseId}-password`}>
-              PDF password <span className="font-normal text-slate-500">(only if the file is protected)</span>
+              {ws.wsUi("passwordLabel")}{" "}
+              <span className="font-normal text-slate-500">{ws.wsUi("passwordHint")}</span>
             </label>
             <input
               id={`${baseId}-password`}
@@ -234,7 +236,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="protect-form__input"
-              placeholder="Optional"
+              placeholder={ws.wsUi("passwordPlaceholder")}
               disabled={busy}
             />
           </div>

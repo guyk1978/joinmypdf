@@ -78,6 +78,16 @@ function buildWorkspaces(locale) {
     optional: isHe ? "אופציונלי" : "Optional",
     undo: isHe ? "בטל" : "Undo",
     loadingPreview: isHe ? "טוען תצוגה מקדימה…" : "Loading preview…",
+    pageCount: isHe ? "{count} עמוד/ים" : "{count} page(s)",
+    slideCount: isHe ? "{count} שקף/ים" : "{count} slide(s)",
+    mbUnit: "MB",
+    formatPdf: "PDF",
+    formatPng: "PNG",
+    formatJpg: "JPG",
+    imagePreviews: isHe ? "תצוגות מקדימות של תמונות" : "Image previews",
+    activePage: isHe ? "עמוד פעיל" : "Active page",
+    close: isHe ? "סגור" : "Close",
+    fontSizePx: "{size}px",
     presets: {
       paper: {
         letter: isHe ? 'Letter ארה"ב (8.5" × 11")' : 'US Letter (8.5" × 11")',
@@ -151,6 +161,21 @@ function buildWorkspaces(locale) {
         right: isHe ? "ימין" : "Right",
         bottom: isHe ? "תחתון" : "Bottom",
         left: isHe ? "שמאל" : "Left",
+      },
+      metadataField: {
+        title: isHe ? "כותרת" : "Title",
+        author: isHe ? "מחבר" : "Author",
+        subject: isHe ? "נושא" : "Subject",
+        keywords: isHe ? "מילות מפתח" : "Keywords",
+        creator: isHe ? "יישום יוצר" : "Creator application",
+        producer: isHe ? "תוכנת ייצור" : "Producer software",
+        creationDate: isHe ? "תאריך יצירה" : "Creation date",
+        modificationDate: isHe ? "תאריך שינוי" : "Modification date",
+        "xmp-packet": isHe ? "חבילת מטא-דאטה XMP" : "XMP metadata packet",
+        "xmp-creator": isHe ? "כלי יוצר XMP" : "XMP creator tool",
+        "xmp-author": isHe ? "מחבר XMP" : "XMP author",
+        "xmp-title": isHe ? "כותרת XMP" : "XMP title",
+        "xmp-software": isHe ? "תוכנה XMP" : "XMP software",
       },
     },
   };
@@ -366,6 +391,11 @@ function buildWorkspaces(locale) {
       flattenLabel: isHe ? "שטח PDF" : "Flatten PDF",
       flattenAgainLabel: isHe ? "שטח שוב" : "Flatten again",
       adjustPassword: isHe ? "התאם את הקובץ או הסיסמה ונסה שוב." : "Adjust your file or password and try again.",
+      ui: {
+        passwordLabel: isHe ? "סיסמת PDF" : "PDF password",
+        passwordHint: isHe ? "(רק אם הקובץ מוגן)" : "(only if the file is protected)",
+        passwordPlaceholder: common.optional,
+      },
     },
     sign: {
       status: {
@@ -412,6 +442,22 @@ function buildWorkspaces(locale) {
         placeOnPage: isHe ? "הנח בעמוד {page}" : "Place on page {page}",
         defaultSignatureLabel: isHe ? "חתימה {n}" : "Signature {n}",
         removeNamed: isHe ? "הסר {label}" : "Remove {label}",
+        modalTitle: isHe ? "צור את החתימה שלך" : "Create your signature",
+        modalClose: common.close,
+        tabDraw: isHe ? "ציור" : "Draw",
+        tabType: isHe ? "הקלדה" : "Type",
+        drawHint: isHe ? "השתמש בעכבר או באצבע כדי לצייר את החתימה." : "Use your mouse or finger to draw your signature.",
+        clearPad: isHe ? "נקה לוח" : "Clear pad",
+        typeLabel: isHe ? "הקלד את שמך" : "Type your name",
+        typePlaceholder: isHe ? "שם מלא" : "Your full name",
+        typePreview: isHe ? "תצוגה מקדימה" : "Preview",
+        cancel: isHe ? "ביטול" : "Cancel",
+        useSignature: isHe ? "השתמש בחתימה" : "Use signature",
+        drawFirst: isHe ? "צייר את החתימה על הלוח קודם." : "Draw your signature on the pad first.",
+        saveFailed: isHe ? "לא ניתן לשמור את החתימה." : "Could not save signature.",
+        createFailed: isHe ? "לא ניתן ליצור חתימה." : "Could not create signature.",
+        drawnSignatureLabel: isHe ? "חתימה מצוירת" : "Drawn signature",
+        activePage: common.activePage,
       },
     },
     redact: {
@@ -649,6 +695,7 @@ function buildWorkspaces(locale) {
         previewHeading: isHe ? "תצוגה מקדימה HTML" : "Live HTML preview",
         editorPlaceholder: isHe ? "# כותרת\n\nכתוב Markdown כאן…" : "# Title\n\nWrite Markdown here…",
         editorAriaLabel: isHe ? "עורך מקור Markdown" : "Markdown source editor",
+        previewUnavailable: isHe ? "תצוגה מקדימה לא זמינה — בדוק תחביר." : "Preview unavailable — check syntax.",
       },
     },
     "html-to-pdf": {
@@ -762,6 +809,15 @@ function buildWorkspaces(locale) {
       convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
       useDxfLabel: isHe ? "השתמש בקובץ DXF" : "Use DXF file",
       stickyConvertLabel: isHe ? "AutoCAD ל-PDF" : "AutoCAD to PDF",
+      ui: {
+        dwgTitle: isHe ? "שמור כ-DXF לדיוק וקטורי מלא" : "Save as DXF for full vector precision",
+        dwgBody: isHe
+          ? "לעיבוד מאובטח לחלוטין בדפדפן, שמור את קובץ AutoCAD בפורמט DXF (.dxf) והעלה אותו כאן."
+          : "To guarantee 100% serverless data security, please save your AutoCAD file as an AutoCAD DXF (.dxf) format within your CAD application and drop it here.",
+        dwgSteps: isHe
+          ? "ב-AutoCAD: קובץ → שמירה בשם → AutoCAD DXF (.dxf), ואז העלה את קובץ ה-.dxf כאן."
+          : "In AutoCAD: File → Save As → AutoCAD DXF (.dxf), then upload the .dxf file here.",
+      },
     },
     "add-watermark": {
       status: {
@@ -790,6 +846,7 @@ function buildWorkspaces(locale) {
         positionLabel: isHe ? "מיקום" : "Position",
         previewHeading: isHe ? "תצוגה מקדימה חיה" : "Live preview",
         resetSettings: isHe ? "אפס הגדרות" : "Reset settings",
+        loadingPreview: common.loadingPreview,
       },
     },
     "add-page-numbers": {
@@ -819,6 +876,9 @@ function buildWorkspaces(locale) {
         sizeLarge: isHe ? "גדול" : "Large",
         styleRegular: isHe ? "רגיל" : "Regular",
         styleBold: isHe ? "מודגש" : "Bold",
+        sizeHintSmall: "9px",
+        sizeHintMedium: "12px",
+        sizeHintLarge: "16px",
       },
     },
     "extract-images": {
@@ -1093,6 +1153,10 @@ function buildWorkspaces(locale) {
           ? "מסגרת חיצונית = נייר שנבחר · פנימית = אזור תוכן"
           : "Outer frame = selected paper · inner = content area",
         loadingPreview: common.loadingPreview,
+        cropNx: isHe ? "שמאל (nx)" : "Left (nx)",
+        cropNy: isHe ? "עליון (ny)" : "Top (ny)",
+        cropNw: isHe ? "רוחב (nw)" : "Width (nw)",
+        cropNh: isHe ? "גובה (nh)" : "Height (nh)",
       },
     },
     "safe-to-share-auditor": {

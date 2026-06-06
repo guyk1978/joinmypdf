@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 export function SignPageSelect({
@@ -11,9 +12,13 @@ export function SignPageSelect({
   value: number;
   onChange: (pageIndex: number) => void;
 }) {
+  const t = useTranslations("Workspaces.common");
+  const tSign = useTranslations("Workspaces.sign.ui");
   const listId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
+
+  const pageLabel = (page: number) => t("pageNumber", { page });
 
   const close = useCallback(() => setOpen(false), []);
 
@@ -38,7 +43,7 @@ export function SignPageSelect({
   return (
     <div className="sign-page-select" ref={rootRef}>
       <span className="sign-page-select__label" id={`${listId}-label`}>
-        Active page
+        {tSign("activePage")}
       </span>
       <div className={`sign-page-dropdown${open ? " is-open" : ""}`}>
         <button
@@ -49,7 +54,7 @@ export function SignPageSelect({
           aria-labelledby={`${listId}-label`}
           onClick={() => setOpen((prev) => !prev)}
         >
-          <span>Page {value + 1}</span>
+          <span>{pageLabel(value + 1)}</span>
           <svg className="sign-page-dropdown__chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
             <path
               d="M3 4.5L6 7.5L9 4.5"
@@ -75,7 +80,7 @@ export function SignPageSelect({
                     close();
                   }}
                 >
-                  Page {i + 1}
+                  {pageLabel(i + 1)}
                 </button>
               </li>
             ))}

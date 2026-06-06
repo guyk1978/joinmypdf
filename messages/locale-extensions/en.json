@@ -489,6 +489,19 @@
       }
     }
   },
+  "Share": {
+    "brandFallback": "JoinMyPDF",
+    "shareText": "Private PDF tools & invoice templates — processed in your browser.",
+    "copied": "Copied!",
+    "sharing": "Sharing…",
+    "share": "Share",
+    "linkCopied": "Link copied to clipboard",
+    "shareThisPage": "Share this page"
+  },
+  "Theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
   "Workspace": {
     "common": {
       "selectFiles": "Select Files",
@@ -522,7 +535,13 @@
       "dismissTryAnother": "Dismiss and try another file",
       "readingFile": "Reading file…",
       "startingConversion": "Starting conversion…",
-      "conversionComplete": "Conversion complete. Download your file below."
+      "conversionComplete": "Conversion complete. Download your file below.",
+      "pageCount": "{count} page(s)",
+      "formatPdf": "PDF",
+      "formatPng": "PNG",
+      "formatJpg": "JPG",
+      "imagePreviews": "Image previews",
+      "mbUnit": "MB"
     },
     "upload": {
       "defaultPdf": {
@@ -802,6 +821,16 @@
       "optional": "Optional",
       "undo": "Undo",
       "loadingPreview": "Loading preview…",
+      "pageCount": "{count} page(s)",
+      "slideCount": "{count} slide(s)",
+      "mbUnit": "MB",
+      "formatPdf": "PDF",
+      "formatPng": "PNG",
+      "formatJpg": "JPG",
+      "imagePreviews": "Image previews",
+      "activePage": "Active page",
+      "close": "Close",
+      "fontSizePx": "{size}px",
       "presets": {
         "paper": {
           "letter": "US Letter (8.5\" × 11\")",
@@ -871,6 +900,21 @@
           "right": "Right",
           "bottom": "Bottom",
           "left": "Left"
+        },
+        "metadataField": {
+          "title": "Title",
+          "author": "Author",
+          "subject": "Subject",
+          "keywords": "Keywords",
+          "creator": "Creator application",
+          "producer": "Producer software",
+          "creationDate": "Creation date",
+          "modificationDate": "Modification date",
+          "xmp-packet": "XMP metadata packet",
+          "xmp-creator": "XMP creator tool",
+          "xmp-author": "XMP author",
+          "xmp-title": "XMP title",
+          "xmp-software": "XMP software"
         }
       }
     },
@@ -1018,7 +1062,12 @@
       "privacyNote": "Flattening runs entirely in your browser. Your PDF never leaves your device.",
       "flattenLabel": "Flatten PDF",
       "flattenAgainLabel": "Flatten again",
-      "adjustPassword": "Adjust your file or password and try again."
+      "adjustPassword": "Adjust your file or password and try again.",
+      "ui": {
+        "passwordLabel": "PDF password",
+        "passwordHint": "(only if the file is protected)",
+        "passwordPlaceholder": "Optional"
+      }
     },
     "sign": {
       "status": {
@@ -1052,7 +1101,23 @@
         "libraryEmpty": "No signatures yet. Create one to get started.",
         "placeOnPage": "Place on page {page}",
         "defaultSignatureLabel": "Signature {n}",
-        "removeNamed": "Remove {label}"
+        "removeNamed": "Remove {label}",
+        "modalTitle": "Create your signature",
+        "modalClose": "Close",
+        "tabDraw": "Draw",
+        "tabType": "Type",
+        "drawHint": "Use your mouse or finger to draw your signature.",
+        "clearPad": "Clear pad",
+        "typeLabel": "Type your name",
+        "typePlaceholder": "Your full name",
+        "typePreview": "Preview",
+        "cancel": "Cancel",
+        "useSignature": "Use signature",
+        "drawFirst": "Draw your signature on the pad first.",
+        "saveFailed": "Could not save signature.",
+        "createFailed": "Could not create signature.",
+        "drawnSignatureLabel": "Drawn signature",
+        "activePage": "Active page"
       }
     },
     "redact": {
@@ -1245,7 +1310,8 @@
         "sourceHeading": "Markdown source",
         "previewHeading": "Live HTML preview",
         "editorPlaceholder": "# Title\n\nWrite Markdown here…",
-        "editorAriaLabel": "Markdown source editor"
+        "editorAriaLabel": "Markdown source editor",
+        "previewUnavailable": "Preview unavailable — check syntax."
       }
     },
     "html-to-pdf": {
@@ -1344,7 +1410,12 @@
       "privacyNote": "AutoCAD conversion runs entirely in your browser. Your drawing never leaves your device.",
       "convertLabel": "Convert to PDF",
       "useDxfLabel": "Use DXF file",
-      "stickyConvertLabel": "AutoCAD to PDF"
+      "stickyConvertLabel": "AutoCAD to PDF",
+      "ui": {
+        "dwgTitle": "Save as DXF for full vector precision",
+        "dwgBody": "To guarantee 100% serverless data security, please save your AutoCAD file as an AutoCAD DXF (.dxf) format within your CAD application and drop it here.",
+        "dwgSteps": "In AutoCAD: File → Save As → AutoCAD DXF (.dxf), then upload the .dxf file here."
+      }
     },
     "add-watermark": {
       "status": {
@@ -1370,7 +1441,8 @@
         "rotationLabel": "Rotation",
         "positionLabel": "Position",
         "previewHeading": "Live preview",
-        "resetSettings": "Reset settings"
+        "resetSettings": "Reset settings",
+        "loadingPreview": "Loading preview…"
       }
     },
     "add-page-numbers": {
@@ -1397,7 +1469,10 @@
         "sizeMedium": "Medium",
         "sizeLarge": "Large",
         "styleRegular": "Regular",
-        "styleBold": "Bold"
+        "styleBold": "Bold",
+        "sizeHintSmall": "9px",
+        "sizeHintMedium": "12px",
+        "sizeHintLarge": "16px"
       }
     },
     "extract-images": {
@@ -1627,7 +1702,11 @@
         "marginHandle": "{side} margin",
         "livePreviewHeading": "Live preview — page 1",
         "previewLegend": "Outer frame = selected paper · inner = content area",
-        "loadingPreview": "Loading preview…"
+        "loadingPreview": "Loading preview…",
+        "cropNx": "Left (nx)",
+        "cropNy": "Top (ny)",
+        "cropNw": "Width (nw)",
+        "cropNh": "Height (nh)"
       }
     },
     "safe-to-share-auditor": {

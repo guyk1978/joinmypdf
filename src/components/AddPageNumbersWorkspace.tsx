@@ -14,6 +14,7 @@ import {
   type PageNumberFormat,
   type PageNumberPosition,
 } from "@/lib/add-page-numbers";
+import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { pageNumberColorLabel, pageNumberPositionLabel } from "@/lib/workspace-preset-i18n";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
@@ -46,10 +47,10 @@ const PAGE_NUMBER_POSITIONS: PageNumberPosition[] = [
   "bottom-right",
 ];
 
-const FONT_SIZES: { value: PageNumberFontSize; label: string; hint: string }[] = [
-  { value: "small", label: "Small", hint: "9px" },
-  { value: "medium", label: "Medium", hint: "12px" },
-  { value: "large", label: "Large", hint: "16px" },
+const FONT_SIZES: { value: PageNumberFontSize; hintKey: "sizeHintSmall" | "sizeHintMedium" | "sizeHintLarge" }[] = [
+  { value: "small", hintKey: "sizeHintSmall" },
+  { value: "medium", hintKey: "sizeHintMedium" },
+  { value: "large", hintKey: "sizeHintLarge" },
 ];
 
 export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
@@ -244,7 +245,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
         <form className="space-y-4" onSubmit={onSubmit}>
           <p className="text-sm text-ink-muted">
             <strong className="text-ink">{file?.name}</strong>
-            {pageCount ? ` · ${pageCount} page${pageCount === 1 ? "" : "s"}` : null}
+            {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
           </p>
 
           <div className="page-numbers-form rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-5">
@@ -328,7 +329,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                       : opt.value === "medium"
                         ? ws.wsUi("sizeMedium")
                         : ws.wsUi("sizeLarge")}
-                    <span className="page-numbers-form__choice-hint">{opt.hint}</span>
+                    <span className="page-numbers-form__choice-hint">{ws.wsUi(opt.hintKey)}</span>
                   </button>
                 ))}
               </div>

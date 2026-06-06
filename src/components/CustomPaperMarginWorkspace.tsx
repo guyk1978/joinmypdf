@@ -554,9 +554,16 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
               {ws.wsUi("trimHintSuffix")}
             </p>
             <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-              {(["nx", "ny", "nw", "nh"] as const).map((key) => (
+              {(
+                [
+                  ["nx", "cropNx"],
+                  ["ny", "cropNy"],
+                  ["nw", "cropNw"],
+                  ["nh", "cropNh"],
+                ] as const
+              ).map(([key, labelKey]) => (
                 <label key={key} className="text-xs text-ink">
-                  {key}
+                  {ws.wsUi(labelKey)}
                   <input
                     type="number"
                     min={0}

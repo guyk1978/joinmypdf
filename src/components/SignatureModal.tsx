@@ -1,6 +1,7 @@
 "use client";
 
 import { canvasToPngBytes, createTypedSignaturePng } from "@/lib/pdf-sign";
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -21,6 +22,7 @@ export function SignatureModal({
   onClose: () => void;
   onSave: (pngBytes: Uint8Array, label: string) => void;
 }) {
+  const t = useTranslations("Workspaces.sign.ui");
   const baseId = useId();
   const [tab, setTab] = useState<Tab>("draw");
   const [typedName, setTypedName] = useState("");
@@ -117,17 +119,17 @@ export function SignatureModal({
       }
     }
     if (!hasInk) {
-      setError("Draw your signature on the pad first.");
+      setError(t("drawFirst"));
       return;
     }
     setBusy(true);
     setError("");
     try {
       const bytes = await canvasToPngBytes(canvas);
-      onSave(bytes, `Drawn signature`);
+      onSave(bytes, t("drawnSignatureLabel"));
       onClose();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not save signature.");
+      setError(e instanceof Error ? e.message : t("saveFailed"));
     } finally {
       setBusy(false);
     }
@@ -141,7 +143,7 @@ export function SignatureModal({
       onSave(bytes, typedName.trim());
       onClose();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not create signature.");
+      setError(e instanceof Error ? e.message : t("createFailed"));
     } finally {
       setBusy(false);
     }
@@ -151,10 +153,10 @@ export function SignatureModal({
 
   return (
     <div className="sign-modal" role="dialog" aria-modal="true" aria-labelledby={`${baseId}-title`}>
-      <button type="button" className="sign-modal__backdrop" aria-label="Close" onClick={onClose} />
+      <button type="button" className="sign-modal__backdrop" aria-label={t("modalClose")} onClick={onClose} />
       <div className="sign-modal__panel glass">
         <h2 id={`${baseId}-title`} className="sign-modal__title">
-          Create your signature
+          {t("modalTitle")}
         </h2>
         <div className="sign-tabs" role="tablist">
           <button
@@ -164,7 +166,7 @@ export function SignatureModal({
             className={`sign-tabs__btn${tab === "draw" ? " is-active" : ""}`}
             onClick={() => setTab("draw")}
           >
-            Draw
+            {t("tabDraw")}
           </button>
           <button
             type="button"
@@ -173,13 +175,13 @@ export function SignatureModal({
             className={`sign-tabs__btn${tab === "type" ? " is-active" : ""}`}
             onClick={() => setTab("type")}
           >
-            Type
+            {t("tabType")}
           </button>
         </div>
 
         {tab === "draw" ? (
           <div className="sign-tab-panel">
-            <p className="sign-tab-panel__hint">Use your mouse or finger to draw your signature.</p>
+            <p className="sign-tab-panel__hint">{t("drawHint")}</p>
             <canvas
               ref={padRef}
               className="sign-pad"
@@ -191,24 +193,24 @@ export function SignatureModal({
               onPointerLeave={endDraw}
             />
             <button type="button" className="btn btn--ghost sign-pad__clear" onClick={resetPad}>
-              Clear pad
+              {t("clearPad")}
             </button>
           </div>
         ) : (
           <div className="sign-tab-panel">
             <label className="sign-tab-panel__label" htmlFor={`${baseId}-name`}>
-              Type your name
+              {t("typeLabel")}
             </label>
             <input
               id={`${baseId}-name`}
               className="sign-type-input"
               type="text"
-              placeholder="Your full name"
+              placeholder={t("typePlaceholder")}
               value={typedName}
               onChange={(e) => setTypedName(e.target.value)}
             />
             <p className="sign-type-preview" aria-hidden="true">
-              {typedName.trim() || "Preview"}
+              {typedName.trim() || t("typePreview")}
             </p>
           </div>
         )}
@@ -221,7 +223,7 @@ export function SignatureModal({
 
         <div className="sign-modal__actions">
           <button type="button" className="btn btn--ghost" disabled={busy} onClick={onClose}>
-            Cancel
+            {t("cancel")}
           </button>
           <button
             type="button"
@@ -229,7 +231,7 @@ export function SignatureModal({
             disabled={busy}
             onClick={() => void (tab === "draw" ? saveDraw() : saveType())}
           >
-            Use signature
+            {t("useSignature")}
           </button>
         </div>
       </div>

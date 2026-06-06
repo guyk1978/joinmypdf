@@ -43,9 +43,11 @@ function downloadBlob(blob: Blob, name: string) {
 function WatermarkPreview({
   fileBytes,
   options,
+  loadingLabel,
 }: {
   fileBytes: Uint8Array;
   options: WatermarkOptions;
+  loadingLabel: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [baseCanvas, setBaseCanvas] = useState<HTMLCanvasElement | null>(null);
@@ -101,7 +103,7 @@ function WatermarkPreview({
         <div ref={wrapRef} className="relative overflow-hidden">
       {loading ? (
         <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-slate-500 dark:text-slate-400">
-          Loading preview…
+          {loadingLabel}
         </div>
       ) : null}
       {baseCanvas ? (
@@ -386,7 +388,11 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
             <div className="space-y-2">
               <h2 className="text-sm font-semibold text-ink">{ws.wsUi("previewHeading")}</h2>
-              <WatermarkPreview fileBytes={fileBytes} options={options} />
+              <WatermarkPreview
+                fileBytes={fileBytes}
+                options={options}
+                loadingLabel={ws.wsUi("loadingPreview")}
+              />
             </div>
           </div>
 

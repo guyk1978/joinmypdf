@@ -13,6 +13,7 @@ const PNG_DOWNLOAD_BTN =
   "block w-full rounded-lg border border-blue-600 bg-white px-3 py-1.5 text-center text-xs font-bold text-blue-600 shadow-sm transition-colors hover:bg-blue-600 hover:text-white dark:border-slate-700 dark:bg-slate-800 dark:text-blue-400 dark:hover:border-blue-600 dark:hover:bg-blue-600 dark:hover:text-white";
 import * as pdf from "@/lib/pdf-engine";
 import { PDF_TO_PNG_SCALE } from "@/lib/pdf-to-png";
+import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { zipBlobs } from "@/lib/zip-blobs";
@@ -262,7 +263,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
         <div className="pdf-export-workspace space-y-4">
           <p className="text-sm text-slate-600 dark:text-slate-400">
             <strong className="text-slate-900 dark:text-slate-100">{file?.name}</strong>
-            {pageCount ? ` · ${pageCount} page${pageCount === 1 ? "" : "s"}` : null}
+            {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
           </p>
 
           <div className="flex flex-wrap gap-3">

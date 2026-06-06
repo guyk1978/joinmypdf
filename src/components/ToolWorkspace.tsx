@@ -84,24 +84,21 @@ function buildConfig(tool: ToolDefinition, ws: ReturnType<typeof useWorkspaceI18
       accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
       minFiles: 1,
       multiple: false,
-      buttonLabel: ws.buttonLabel("Compress PDF"),
+      buttonLabel: ws.buttonLabel(),
       async run(files, { setStatus, downloadBlob, quality: q }) {
         const result = await pdf.compressSimulation(files[0], q / 100);
         downloadBlob(
           new Blob([result.bytes as BlobPart], { type: "application/pdf" }),
           "joinmypdf-compressed.pdf",
         );
-        setStatus(
-          ws.status("complete", { percent: Math.round(result.estimatedRatio * 100) }) ||
-            `Compressed. Estimated size ratio ~${Math.round(result.estimatedRatio * 100)}% of original.`,
-        );
+        setStatus(ws.status("complete", { percent: Math.round(result.estimatedRatio * 100) }));
       },
     },
     split: {
       accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
       minFiles: 1,
       multiple: false,
-      buttonLabel: ws.buttonLabel("Split PDF"),
+      buttonLabel: ws.buttonLabel(),
       async run(files, { setStatus, downloadBlob }) {
         const parts = await pdf.splitPdfFile(files[0]);
         parts.forEach((entry) => {
@@ -110,51 +107,42 @@ function buildConfig(tool: ToolDefinition, ws: ReturnType<typeof useWorkspaceI18
             `joinmypdf-page-${entry.page}.pdf`,
           );
         });
-        setStatus(
-          ws.status("complete", { count: parts.length }) || `Split complete: ${parts.length} file(s).`,
-        );
+        setStatus(ws.status("complete", { count: parts.length }));
       },
     },
     "jpg-to-pdf": {
       accept: (f) => /^image\//i.test(f.type) || /\.(jpg|jpeg|png)$/i.test(f.name),
       minFiles: 1,
       multiple: true,
-      buttonLabel: ws.buttonLabel("Create PDF"),
+      buttonLabel: ws.buttonLabel(),
       async run(files, { setStatus, downloadBlob }) {
         const bytes = await pdf.jpgToPdf(files);
         downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), "joinmypdf-images.pdf");
-        setStatus(
-          ws.status("complete", { count: files.length }) || `Created PDF from ${files.length} image(s).`,
-        );
+        setStatus(ws.status("complete", { count: files.length }));
       },
     },
     "png-to-pdf": {
       accept: (f) => /png$/i.test(f.type) || /\.png$/i.test(f.name),
       minFiles: 1,
       multiple: true,
-      buttonLabel: ws.buttonLabel("Convert to PDF"),
+      buttonLabel: ws.buttonLabel(),
       async run(files, { setStatus, downloadBlob }) {
         const bytes = await pdf.pngToPdf(files);
         downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), pdf.pngToPdfOutputName(files));
-        setStatus(
-          ws.status("complete", { count: files.length }) ||
-            `Created PDF from ${files.length} PNG image(s).`,
-        );
+        setStatus(ws.status("complete", { count: files.length }));
       },
     },
     "pdf-to-jpg": {
       accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
       minFiles: 1,
       multiple: false,
-      buttonLabel: ws.buttonLabel("Export JPG pages"),
+      buttonLabel: ws.buttonLabel(),
       async run(files, { setStatus, downloadBlob }) {
         const pages = await pdf.pdfToJpgPages(files[0], 1.3);
         pages.forEach((entry) => {
           downloadBlob(entry.blob, `joinmypdf-page-${entry.page}.jpg`);
         });
-        setStatus(
-          ws.status("complete", { count: pages.length }) || `Exported ${pages.length} JPG file(s).`,
-        );
+        setStatus(ws.status("complete", { count: pages.length }));
       },
     },
   };
@@ -274,7 +262,11 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
   const showImagePreview =
     (tool.operation === "png-to-pdf" || tool.operation === "jpg-to-pdf") && files.length > 0;
   const supportedFormats =
-    tool.operation === "png-to-pdf" ? ["PNG"] : tool.operation === "jpg-to-pdf" ? ["JPG", "PNG"] : ["PDF"];
+    tool.operation === "png-to-pdf"
+      ? [ws.common("formatPng")]
+      : tool.operation === "jpg-to-pdf"
+        ? [ws.common("formatJpg"), ws.common("formatPng")]
+        : [ws.common("formatPdf")];
 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
@@ -401,7 +393,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       ) : null}
 
       {showImagePreview ? (
-        <div className="image-preview-grid" aria-label="Image previews">
+        <div className="image-preview-grid" aria-label={ws.common("imagePreviews")}>
           {files.map((f, idx) => (
             <ImageFilePreview
               key={`${f.name}-${f.size}-${idx}`}

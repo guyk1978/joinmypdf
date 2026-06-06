@@ -173,7 +173,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
   };
 
   const disabled = busy || files.length < 2;
-  const mergeLabel = ws.buttonLabel("Merge PDFs");
+  const mergeLabel = ws.buttonLabel();
 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">

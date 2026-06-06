@@ -489,6 +489,19 @@
       }
     }
   },
+  "Share": {
+    "brandFallback": "JoinMyPDF",
+    "shareText": "כלי PDF פרטיים ותבניות חשבוניות — מעובדים בדפדפן שלך.",
+    "copied": "הועתק!",
+    "sharing": "משתף…",
+    "share": "שתף",
+    "linkCopied": "הקישור הועתק ללוח",
+    "shareThisPage": "שתף דף זה"
+  },
+  "Theme": {
+    "switchToLight": "עבור למצב בהיר",
+    "switchToDark": "עבור למצב כהה"
+  },
   "Workspace": {
     "common": {
       "selectFiles": "בחר קבצים",
@@ -522,7 +535,13 @@
       "dismissTryAnother": "סגור ונסה קובץ אחר",
       "readingFile": "קורא קובץ…",
       "startingConversion": "מתחיל המרה…",
-      "conversionComplete": "ההמרה הושלמה. הורד את הקובץ למטה."
+      "conversionComplete": "ההמרה הושלמה. הורד את הקובץ למטה.",
+      "pageCount": "{count} עמוד/ים",
+      "formatPdf": "PDF",
+      "formatPng": "PNG",
+      "formatJpg": "JPG",
+      "imagePreviews": "תצוגות מקדימות של תמונות",
+      "mbUnit": "MB"
     },
     "upload": {
       "defaultPdf": {
@@ -802,6 +821,16 @@
       "optional": "אופציונלי",
       "undo": "בטל",
       "loadingPreview": "טוען תצוגה מקדימה…",
+      "pageCount": "{count} עמוד/ים",
+      "slideCount": "{count} שקף/ים",
+      "mbUnit": "MB",
+      "formatPdf": "PDF",
+      "formatPng": "PNG",
+      "formatJpg": "JPG",
+      "imagePreviews": "תצוגות מקדימות של תמונות",
+      "activePage": "עמוד פעיל",
+      "close": "סגור",
+      "fontSizePx": "{size}px",
       "presets": {
         "paper": {
           "letter": "Letter ארה\"ב (8.5\" × 11\")",
@@ -871,6 +900,21 @@
           "right": "ימין",
           "bottom": "תחתון",
           "left": "שמאל"
+        },
+        "metadataField": {
+          "title": "כותרת",
+          "author": "מחבר",
+          "subject": "נושא",
+          "keywords": "מילות מפתח",
+          "creator": "יישום יוצר",
+          "producer": "תוכנת ייצור",
+          "creationDate": "תאריך יצירה",
+          "modificationDate": "תאריך שינוי",
+          "xmp-packet": "חבילת מטא-דאטה XMP",
+          "xmp-creator": "כלי יוצר XMP",
+          "xmp-author": "מחבר XMP",
+          "xmp-title": "כותרת XMP",
+          "xmp-software": "תוכנה XMP"
         }
       }
     },
@@ -1018,7 +1062,12 @@
       "privacyNote": "שיטוח רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר.",
       "flattenLabel": "שטח PDF",
       "flattenAgainLabel": "שטח שוב",
-      "adjustPassword": "התאם את הקובץ או הסיסמה ונסה שוב."
+      "adjustPassword": "התאם את הקובץ או הסיסמה ונסה שוב.",
+      "ui": {
+        "passwordLabel": "סיסמת PDF",
+        "passwordHint": "(רק אם הקובץ מוגן)",
+        "passwordPlaceholder": "אופציונלי"
+      }
     },
     "sign": {
       "status": {
@@ -1052,7 +1101,23 @@
         "libraryEmpty": "אין חתימות עדיין. צור אחת כדי להתחיל.",
         "placeOnPage": "הנח בעמוד {page}",
         "defaultSignatureLabel": "חתימה {n}",
-        "removeNamed": "הסר {label}"
+        "removeNamed": "הסר {label}",
+        "modalTitle": "צור את החתימה שלך",
+        "modalClose": "סגור",
+        "tabDraw": "ציור",
+        "tabType": "הקלדה",
+        "drawHint": "השתמש בעכבר או באצבע כדי לצייר את החתימה.",
+        "clearPad": "נקה לוח",
+        "typeLabel": "הקלד את שמך",
+        "typePlaceholder": "שם מלא",
+        "typePreview": "תצוגה מקדימה",
+        "cancel": "ביטול",
+        "useSignature": "השתמש בחתימה",
+        "drawFirst": "צייר את החתימה על הלוח קודם.",
+        "saveFailed": "לא ניתן לשמור את החתימה.",
+        "createFailed": "לא ניתן ליצור חתימה.",
+        "drawnSignatureLabel": "חתימה מצוירת",
+        "activePage": "עמוד פעיל"
       }
     },
     "redact": {
@@ -1245,7 +1310,8 @@
         "sourceHeading": "מקור Markdown",
         "previewHeading": "תצוגה מקדימה HTML",
         "editorPlaceholder": "# כותרת\n\nכתוב Markdown כאן…",
-        "editorAriaLabel": "עורך מקור Markdown"
+        "editorAriaLabel": "עורך מקור Markdown",
+        "previewUnavailable": "תצוגה מקדימה לא זמינה — בדוק תחביר."
       }
     },
     "html-to-pdf": {
@@ -1344,7 +1410,12 @@
       "privacyNote": "המרת AutoCAD רצה בדפדפן. השרטוט לא עוזב את המכשיר.",
       "convertLabel": "המר ל-PDF",
       "useDxfLabel": "השתמש בקובץ DXF",
-      "stickyConvertLabel": "AutoCAD ל-PDF"
+      "stickyConvertLabel": "AutoCAD ל-PDF",
+      "ui": {
+        "dwgTitle": "שמור כ-DXF לדיוק וקטורי מלא",
+        "dwgBody": "לעיבוד מאובטח לחלוטין בדפדפן, שמור את קובץ AutoCAD בפורמט DXF (.dxf) והעלה אותו כאן.",
+        "dwgSteps": "ב-AutoCAD: קובץ → שמירה בשם → AutoCAD DXF (.dxf), ואז העלה את קובץ ה-.dxf כאן."
+      }
     },
     "add-watermark": {
       "status": {
@@ -1370,7 +1441,8 @@
         "rotationLabel": "סיבוב",
         "positionLabel": "מיקום",
         "previewHeading": "תצוגה מקדימה חיה",
-        "resetSettings": "אפס הגדרות"
+        "resetSettings": "אפס הגדרות",
+        "loadingPreview": "טוען תצוגה מקדימה…"
       }
     },
     "add-page-numbers": {
@@ -1397,7 +1469,10 @@
         "sizeMedium": "בינוני",
         "sizeLarge": "גדול",
         "styleRegular": "רגיל",
-        "styleBold": "מודגש"
+        "styleBold": "מודגש",
+        "sizeHintSmall": "9px",
+        "sizeHintMedium": "12px",
+        "sizeHintLarge": "16px"
       }
     },
     "extract-images": {
@@ -1627,7 +1702,11 @@
         "marginHandle": "שוליים {side}",
         "livePreviewHeading": "תצוגה מקדימה חיה — עמוד 1",
         "previewLegend": "מסגרת חיצונית = נייר שנבחר · פנימית = אזור תוכן",
-        "loadingPreview": "טוען תצוגה מקדימה…"
+        "loadingPreview": "טוען תצוגה מקדימה…",
+        "cropNx": "שמאל (nx)",
+        "cropNy": "עליון (ny)",
+        "cropNw": "רוחב (nw)",
+        "cropNh": "גובה (nh)"
       }
     },
     "safe-to-share-auditor": {

@@ -350,6 +350,12 @@ function buildWorkspace(locale) {
       conversionComplete: isHe
         ? "ההמרה הושלמה. הורד את הקובץ למטה."
         : "Conversion complete. Download your file below.",
+      pageCount: isHe ? "{count} עמוד/ים" : "{count} page(s)",
+      formatPdf: "PDF",
+      formatPng: "PNG",
+      formatJpg: "JPG",
+      imagePreviews: isHe ? "תצוגות מקדימות של תמונות" : "Image previews",
+      mbUnit: "MB",
     },
     upload,
     buttons: {

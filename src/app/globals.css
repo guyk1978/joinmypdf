@@ -2589,3 +2589,27 @@ html.dark .group:hover .tool-icon-wrap {
 [dir="rtl"] .workspace-progress {
   direction: ltr;
 }
+
+[dir="rtl"] .sign-page-select,
+[dir="rtl"] .sign-page-dropdown__trigger,
+[dir="rtl"] .sign-page-dropdown__option,
+[dir="rtl"] .sign-modal__panel,
+[dir="rtl"] .sign-modal__title,
+[dir="rtl"] .sign-tab-panel__hint,
+[dir="rtl"] .sign-tab-panel__label,
+[dir="rtl"] .sign-type-input,
+[dir="rtl"] .sign-modal__actions,
+[dir="rtl"] .page-numbers-form__label,
+[dir="rtl"] .page-numbers-form__select,
+[dir="rtl"] .page-numbers-form__input {
+  text-align: start;
+}
+
+[dir="rtl"] .sign-page-dropdown__menu {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+}
+
+[dir="rtl"] .share-button-root {
+  direction: rtl;
+}

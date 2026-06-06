@@ -78,20 +78,21 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
   useEffect(() => {
     let cancelled = false;
+    const unavailable = `<p class='text-red-400'>${ws.wsUi("previewUnavailable")}</p>`;
     const timer = window.setTimeout(() => {
       void parseMarkdownToHtml(markdown)
         .then((html) => {
           if (!cancelled) setPreviewHtml(html);
         })
         .catch(() => {
-          if (!cancelled) setPreviewHtml("<p class='text-red-400'>Preview unavailable — check syntax.</p>");
+          if (!cancelled) setPreviewHtml(unavailable);
         });
     }, 280);
     return () => {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [markdown]);
+  }, [markdown, ws]);
 
   const previewStyles = useMemo(() => {
     if (theme === "minimal-dark") {
