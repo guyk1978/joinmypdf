@@ -1,25 +1,19 @@
-export function ScenarioWins() {
+import { getTranslations } from "next-intl/server";
+
+export async function ScenarioWins() {
+  const t = await getTranslations("ScenarioWins");
+
   const scenarios = [
-    {
-      title: "Month-end invoice packs",
-      body: "Combine multiple PDFs, compress if your mailbox has a size cap, and send one attachment instead of ten.",
-    },
-    {
-      title: "Legal & HR bundles",
-      body: "Assemble exhibits locally, split signed pages, and export only what reviewers need.",
-    },
-    {
-      title: "Field photos → one PDF",
-      body: "Turn phone photos into a single ordered PDF for claims, inspections, or coursework—no desktop install.",
-    },
+    { title: t("invoicesTitle"), body: t("invoicesBody") },
+    { title: t("legalTitle"), body: t("legalBody") },
+    { title: t("photosTitle"), body: t("photosBody") },
   ];
+
   return (
     <section className="space-y-4">
       <div>
-        <h2 className="text-2xl font-semibold tracking-tight text-ink">Built for real workflows</h2>
-        <p className="mt-1 max-w-2xl text-sm text-ink-muted">
-          Same tools—whether you are closing the month or shipping a client pack.
-        </p>
+        <h2 className="text-2xl font-semibold tracking-tight text-ink">{t("heading")}</h2>
+        <p className="mt-1 max-w-2xl text-sm text-ink-muted">{t("subheading")}</p>
       </div>
       <ul className="grid gap-4 md:grid-cols-3">
         {scenarios.map((s) => (

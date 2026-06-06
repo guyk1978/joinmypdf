@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
   useCallback,
   useEffect,
@@ -9,7 +10,9 @@ import {
   useRef,
   useState,
 } from "react";
+import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { buildSiteSearchIndex, filterSearchIndex } from "@/lib/site-search";
+import type { SearchEntry } from "@/lib/site-search";
 import type { BlogRegistry, SiteRegistry } from "@/lib/types";
 
 type SiteSearchProps = {
@@ -17,6 +20,25 @@ type SiteSearchProps = {
   registry: SiteRegistry;
   blog: BlogRegistry;
 };
+
+function toolSlugFromHref(href: string): string | undefined {
+  const match = href.match(/\/tools\/([^/]+)/);
+  return match?.[1];
+}
+
+function localizeSearchEntry(entry: SearchEntry, tTools: ReturnType<typeof useTranslations>): SearchEntry {
+  if (entry.type !== "tool") return entry;
+
+  const slug = toolSlugFromHref(entry.href);
+  if (!slug) return entry;
+
+  const title = translateToolItem(tTools, slug, entry.title);
+  return {
+    ...entry,
+    title,
+    keywords: `${entry.keywords} ${title}`,
+  };
+}
 
 function SearchIcon() {
   return (
@@ -34,6 +56,7 @@ type ResultsPanelProps = {
 };
 
 function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
+  const t = useTranslations("Search");
   const hasTools = results.tools.length > 0;
   const hasGuides = results.guides.length > 0;
 
@@ -42,7 +65,7 @@ function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
   if (!hasTools && !hasGuides) {
     return (
       <div className="site-search__dropdown site-search__dropdown--open" role="listbox" id={listId}>
-        <p className="site-search__empty">No results found</p>
+        <p className="site-search__empty">{t("noResults")}</p>
       </div>
     );
   }
@@ -51,7 +74,7 @@ function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
     <div className="site-search__dropdown site-search__dropdown--open" role="listbox" id={listId}>
       {hasTools ? (
         <div className="site-search__group">
-          <p className="site-search__group-title">Tools</p>
+          <p className="site-search__group-title">{t("toolsGroup")}</p>
           <ul className="site-search__list">
             {results.tools.map((item) => (
               <li key={item.href}>
@@ -68,7 +91,7 @@ function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
       ) : null}
       {hasGuides ? (
         <div className="site-search__group">
-          <p className="site-search__group-title">Guides &amp; Articles</p>
+          <p className="site-search__group-title">{t("guidesGroup")}</p>
           <ul className="site-search__list">
             {results.guides.map((item) => (
               <li key={item.href}>
@@ -88,12 +111,19 @@ function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
 }
 
 export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
+  const t = useTranslations("Search");
+  const tTools = useTranslations("Tools");
+
   const uid = useId().replace(/:/g, "");
   const inputId = `site-search-input-${variant}-${uid}`;
   const listId = `site-search-results-${variant}-${uid}`;
   const popoverId = `site-search-popover-${variant}-${uid}`;
 
-  const index = useMemo(() => buildSiteSearchIndex(registry, blog), [registry, blog]);
+  const index = useMemo(() => {
+    const base = buildSiteSearchIndex(registry, blog);
+    return base.map((entry) => localizeSearchEntry(entry, tTools));
+  }, [registry, blog, tTools]);
+
   const wrapRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -184,7 +214,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   const field = (
     <div className="site-search__wrap">
       <label className="site-search__label" htmlFor={inputId}>
-        Search tools and guides
+        {t("label")}
       </label>
       <div className="site-search__field">
         <span className="site-search__icon">
@@ -196,7 +226,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
           className="site-search__input"
           type="search"
           value={query}
-          placeholder="Search tools and guides…"
+          placeholder={t("placeholder")}
           autoComplete="off"
           spellCheck={false}
           aria-autocomplete="list"
@@ -238,7 +268,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
       <button
         type="button"
         className="site-search__toggle"
-        aria-label="Open search"
+        aria-label={t("openSearch")}
         aria-expanded={headerOpen}
         aria-controls={popoverId}
         onClick={() => {

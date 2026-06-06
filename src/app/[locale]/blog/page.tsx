@@ -4,16 +4,29 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { blogRegistry } from "@/lib/blog-registry";
 import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 export const runtime = "edge";
 
-export const metadata: Metadata = {
-  title: "Guides & tutorials",
-  description:
-    "Practical JoinMyPDF guides for merge, compress, split, and privacy-first PDF workflows—written for humans.",
-  alternates: { canonical: "/blog/" },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
 
-export default function BlogIndexPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Blog" });
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: { canonical: `/${locale}/blog` },
+  };
+}
+
+export default async function BlogIndexPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Blog");
+
   const posts = [...(blogRegistry.blog || [])].sort(
     (a, b) => Date.parse(b.publishDate || "") - Date.parse(a.publishDate || ""),
   );
@@ -24,14 +37,13 @@ export default function BlogIndexPage() {
       <main className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
         <header className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-            Guides &amp; tutorials
+            {t("badge")}
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100 md:text-4xl">
-            Latest Guides &amp; Articles
+            {t("title")}
           </h1>
           <p className="mt-3 text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-            Walkthroughs that link straight into the tools—built for real tasks like email limits, mobile workflows, and
-            sensitive documents.
+            {t("description")}
           </p>
         </header>
 

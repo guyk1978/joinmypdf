@@ -1,3 +1,6 @@
+"use client";
+
+import { useLocale, useTranslations } from "next-intl";
 import { clsx } from "clsx";
 
 type Props = {
@@ -18,13 +21,17 @@ function FlowchartIcon() {
 
 /** Shown below upload zones on homepage and tool workspaces. */
 export function MapDiagramCrossLink({ className }: Props) {
+  const t = useTranslations("Partners");
+  const locale = useLocale();
+  const arrow = locale === "he" ? "←" : "→";
+
   return (
     <aside
       className={clsx(
         "partner-mapdiagram w-full rounded-2xl border border-indigo-100 bg-white px-4 py-3.5 text-left shadow-sm sm:px-5 sm:py-4 dark:border-slate-800 dark:bg-slate-950/50",
         className,
       )}
-      aria-label="Partner tool: MapDiagram"
+      aria-label={t("mapDiagramAria")}
     >
       <div className="flex items-start gap-3">
         <div className="rounded-xl bg-indigo-50 p-2 shadow-sm ring-1 ring-indigo-100 dark:bg-slate-800/80 dark:ring-slate-700">
@@ -32,9 +39,11 @@ export function MapDiagramCrossLink({ className }: Props) {
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-            Creating a presentation or workflow? Build flowcharts &amp; system designs visually with{" "}
-            <span className="font-semibold text-slate-900 dark:text-slate-100">MapDiagram</span>, then bring them
-            here to merge.
+            {t.rich("mapDiagramBody", {
+              brand: (chunks) => (
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{chunks}</span>
+              ),
+            })}
           </p>
           <a
             href="https://mapdiagram.com/"
@@ -42,7 +51,7 @@ export function MapDiagramCrossLink({ className }: Props) {
             rel="noopener noreferrer"
             className="mt-2.5 inline-flex items-center gap-1 text-sm font-semibold text-indigo-700 transition hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
           >
-            Open MapDiagram editor →
+            {t("mapDiagramCta")} {arrow}
           </a>
         </div>
       </div>

@@ -1,35 +1,36 @@
-import { registry } from "@/lib/registry";
-import { getToolDisplayLabel } from "@/lib/tool-labels";
-
-export type FooterLink = {
+export type FooterToolLink = {
+  kind: "tool";
+  slug: string;
   href: string;
-  label: string;
-  slug?: string;
-  external?: boolean;
 };
+
+export type FooterPageLink = {
+  kind: "page";
+  href: string;
+  labelKey: string;
+};
+
+export type FooterExternalLink = {
+  kind: "external";
+  href: string;
+  labelKey: string;
+};
+
+export type FooterLinkDef = FooterToolLink | FooterPageLink | FooterExternalLink;
 
 export type FooterColumn = {
-  title: string;
-  links: FooterLink[];
+  titleKey: string;
+  links: FooterLinkDef[];
 };
 
-function toolLink(slug: string): FooterLink {
-  const tool = registry.tools.find((t) => t.slug === slug);
-  return {
-    href: `/tools/${slug}/`,
-    label: getToolDisplayLabel(slug, tool?.title ?? slug),
-    slug,
-  };
-}
-
-function studioLink(slug: string, href: string, label: string): FooterLink {
-  return { href, label: getToolDisplayLabel(slug, label), slug };
+function toolLink(slug: string): FooterToolLink {
+  return { kind: "tool", slug, href: `/tools/${slug}/` };
 }
 
 /** Tool columns for the site footer — grouped for SEO and discoverability. */
 export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
   {
-    title: "Convert to PDF",
+    titleKey: "convertToPdf",
     links: [
       toolLink("word-to-pdf"),
       toolLink("excel-to-pdf"),
@@ -46,7 +47,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
     ],
   },
   {
-    title: "Convert from PDF",
+    titleKey: "convertFromPdf",
     links: [
       toolLink("pdf-to-jpg"),
       toolLink("pdf-to-png"),
@@ -58,7 +59,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
     ],
   },
   {
-    title: "Edit & Optimize",
+    titleKey: "editOptimize",
     links: [
       toolLink("pdf-merge"),
       toolLink("pdf-split"),
@@ -72,12 +73,12 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("custom-paper-margin"),
       toolLink("add-page-numbers"),
       toolLink("add-watermark"),
-      studioLink("timeline-gantt-generator", "/tools/timeline-gantt-generator/", "Timeline & Gantt"),
-      studioLink("data-converter-visualizer", "/tools/data-converter-visualizer/", "Data Converter"),
+      toolLink("timeline-gantt-generator"),
+      toolLink("data-converter-visualizer"),
     ],
   },
   {
-    title: "Security & Legal",
+    titleKey: "securityLegal",
     links: [
       toolLink("protect-pdf"),
       toolLink("unlock-pdf"),
@@ -87,47 +88,45 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("flatten-pdf"),
       toolLink("remove-hidden-metadata"),
       toolLink("sign-pdf"),
-      studioLink("invoice-generator", "/tools/invoice-generator/", "Invoice Generator"),
+      toolLink("invoice-generator"),
     ],
   },
 ];
 
 export const FOOTER_COMPANY_COLUMN: FooterColumn = {
-  title: "Company & Resources",
+  titleKey: "company",
   links: [
-    { href: "/", label: "Home" },
-    { href: "/blog/", label: "Guides & Blog" },
-    { href: "/tools/", label: "All PDF tools" },
-    { href: "/compare/", label: "Compare tools" },
-    { href: "/privacy-first/", label: "Privacy First" },
-    { href: "/privacy/", label: "Privacy Policy" },
-    { href: "/privacy-first-pdf-tools/", label: "Privacy-first PDF hub" },
+    { kind: "page", href: "/", labelKey: "home" },
+    { kind: "page", href: "/blog/", labelKey: "guidesBlog" },
+    { kind: "page", href: "/tools/", labelKey: "allTools" },
+    { kind: "page", href: "/compare/", labelKey: "compare" },
+    { kind: "page", href: "/privacy-first/", labelKey: "privacyFirst" },
+    { kind: "page", href: "/privacy/", labelKey: "privacyPolicy" },
+    { kind: "page", href: "/privacy-first-pdf-tools/", labelKey: "privacyHub" },
   ],
 };
 
-export const FOOTER_PARTNER_LINKS: FooterLink[] = [
+export const FOOTER_PARTNER_LINKS: FooterExternalLink[] = [
   {
+    kind: "external",
     href: "https://mapdiagram.com/",
-    label: "MapDiagram — flowcharts & diagrams",
-    external: true,
+    labelKey: "mapDiagram",
   },
   {
+    kind: "external",
     href: "https://wattquick.com/",
-    label: "WattQuick — loan & finance calculators",
-    external: true,
+    labelKey: "wattQuick",
   },
 ];
 
 export const FOOTER_BRAND = {
   name: "JoinMyPDF",
-  description:
-    "Merge, compress, convert, and secure PDFs in your browser. Files stay on your device—no uploads to our servers.",
 } as const;
 
-export const FOOTER_TAGLINES = {
-  default: FOOTER_BRAND.description,
-  tools: "JoinMyPDF — browser-based PDF tools with local processing.",
-  blog: "JoinMyPDF — guides for PDF workflows, email limits, and mobile tips.",
+export const FOOTER_TAGLINE_KEYS = {
+  default: "brandDescription",
+  tools: "tools",
+  blog: "blog",
 } as const;
 
 /** @deprecated Use FOOTER_TOOL_COLUMNS + FOOTER_COMPANY_COLUMN */
@@ -135,7 +134,7 @@ export const FOOTER_DIRECTORY_COLUMNS: FooterColumn[] = [
   ...FOOTER_TOOL_COLUMNS,
   FOOTER_COMPANY_COLUMN,
   {
-    title: "Partners",
-    links: FOOTER_PARTNER_LINKS,
+    titleKey: "company",
+    links: FOOTER_PARTNER_LINKS.map((link) => ({ ...link })),
   },
 ];

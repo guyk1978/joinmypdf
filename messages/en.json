@@ -13,7 +13,16 @@
     "viewAllTools": "View all tools",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "language": "Language"
+    "language": "Language",
+    "mobileNav": "Mobile primary"
+  },
+  "Search": {
+    "label": "Search tools and guides",
+    "placeholder": "Search tools and guides…",
+    "openSearch": "Open search",
+    "noResults": "No results found",
+    "toolsGroup": "Tools",
+    "guidesGroup": "Guides & Articles"
   },
   "Hero": {
     "headline": "Seamless PDF tasks, right in your browser, running fully-locally.",
@@ -114,5 +123,70 @@
     "whyLocalBody": "Upload-based PDF sites copy your file to their servers. JoinMyPDF delivers JavaScript; your browser does the work. Open DevTools → Network and verify—your PDF never leaves your device.",
     "learnPrivacy": "Learn about Privacy First",
     "viewGuides": "View guides"
+  },
+  "HeroDropzone": {
+    "ariaLabel": "Quick merge upload",
+    "title": "Drop PDFs here to merge",
+    "description": "Your files open in the merge tool, ready to run—reorder pages, then download.",
+    "mergePdf": "Merge PDF",
+    "openMergeTool": "Open merge tool"
+  },
+  "ScenarioWins": {
+    "heading": "Built for real workflows",
+    "subheading": "Same tools—whether you are closing the month or shipping a client pack.",
+    "invoicesTitle": "Month-end invoice packs",
+    "invoicesBody": "Combine multiple PDFs, compress if your mailbox has a size cap, and send one attachment instead of ten.",
+    "legalTitle": "Legal & HR bundles",
+    "legalBody": "Assemble exhibits locally, split signed pages, and export only what reviewers need.",
+    "photosTitle": "Field photos → one PDF",
+    "photosBody": "Turn phone photos into a single ordered PDF for claims, inspections, or coursework—no desktop install."
+  },
+  "SocialProof": {
+    "eyebrow": "Works where you work",
+    "body": "Use JoinMyPDF in Chrome, Safari, Firefox, or Edge—desktop or mobile—when you need reliable PDF utilities without routing files through a generic upload service."
+  },
+  "Partners": {
+    "mapDiagramAria": "Partner tool: MapDiagram",
+    "mapDiagramBody": "Creating a presentation or workflow? Build flowcharts & system designs visually with <brand>MapDiagram</brand>, then bring them here to merge.",
+    "mapDiagramCta": "Open MapDiagram editor",
+    "mapDiagram": "MapDiagram — flowcharts & diagrams",
+    "wattQuick": "WattQuick — loan & finance calculators",
+    "wattQuickAria": "Partner tool: WattQuick financial calculators",
+    "wattQuickEyebrow": "Free financial tools",
+    "wattQuickTitle": "Take Control of Your Numbers",
+    "wattQuickBody": "Check out <brand>WattQuick</brand> — our free suite of auto loan trackers, debt calculators, and green home tools.",
+    "wattQuickCta": "Explore WattQuick free"
+  },
+  "Footer": {
+    "brandDescription": "Merge, compress, convert, and secure PDFs in your browser. Files stay on your device—no uploads to our servers.",
+    "taglines": {
+      "tools": "JoinMyPDF — browser-based PDF tools with local processing.",
+      "blog": "JoinMyPDF — guides for PDF workflows, email limits, and mobile tips."
+    },
+    "columns": {
+      "convertToPdf": "Convert to PDF",
+      "convertFromPdf": "Convert from PDF",
+      "editOptimize": "Edit & Optimize",
+      "securityLegal": "Security & Legal",
+      "company": "Company & Resources"
+    },
+    "links": {
+      "home": "Home",
+      "guidesBlog": "Guides & Blog",
+      "allTools": "All PDF tools",
+      "compare": "Compare tools",
+      "privacyFirst": "Privacy First",
+      "privacyPolicy": "Privacy Policy",
+      "privacyHub": "Privacy-first PDF hub"
+    },
+    "copyright": "All rights reserved.",
+    "partnerNavLabel": "Partner tools"
+  },
+  "Blog": {
+    "metaTitle": "Guides & tutorials",
+    "metaDescription": "Practical JoinMyPDF guides for merge, compress, split, and privacy-first PDF workflows—written for humans.",
+    "badge": "Guides & tutorials",
+    "title": "Latest Guides & Articles",
+    "description": "Walkthroughs that link straight into the tools—built for real tasks like email limits, mobile workflows, and sensitive documents."
   }
 }

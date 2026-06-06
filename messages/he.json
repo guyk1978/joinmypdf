@@ -13,7 +13,16 @@
     "viewAllTools": "צפה בכל הכלים",
     "openMenu": "פתח תפריט",
     "closeMenu": "סגור תפריט",
-    "language": "שפה"
+    "language": "שפה",
+    "mobileNav": "ניווט ראשי — נייד"
+  },
+  "Search": {
+    "label": "חיפוש כלים ומדריכים",
+    "placeholder": "חיפוש כלים ומדריכים…",
+    "openSearch": "פתח חיפוש",
+    "noResults": "לא נמצאו תוצאות",
+    "toolsGroup": "כלים",
+    "guidesGroup": "מדריכים ומאמרים"
   },
   "Hero": {
     "headline": "משימות PDF חלקות, ישירות בדפדפן — מקומית לחלוטין.",
@@ -69,7 +78,7 @@
       "unlock-pdf": "הסרת נעילה",
       "pdf-password-recovery": "שחזור סיסמה",
       "redact-pdf": "הסתרת מידע",
-      "flatten-pdf": "Flatten PDF",
+      "flatten-pdf": "שיטוח PDF",
       "remove-hidden-metadata": "הסרת מטא-דאטה",
       "delete-pdf-pages": "מחיקת עמודים",
       "jpg-to-pdf": "JPG ל-PDF",
@@ -114,5 +123,70 @@
     "whyLocalBody": "אתרי PDF מבוססי העלאה מעתיקים את הקובץ לשרתים. JoinMyPDF מספק JavaScript; הדפדפן שלך עושה את העבודה. פתח DevTools → Network וודא — ה-PDF שלך לא עוזב את המכשיר.",
     "learnPrivacy": "למד על פרטיות קודמת",
     "viewGuides": "צפה במדריכים"
+  },
+  "HeroDropzone": {
+    "ariaLabel": "העלאה מהירה למיזוג",
+    "title": "גרור PDF לכאן למיזוג",
+    "description": "הקבצים נפתחים בכלי המיזוג, מוכנים להרצה — סדר עמודים מחדש ואז הורד.",
+    "mergePdf": "מיזוג PDF",
+    "openMergeTool": "פתח כלי מיזוג"
+  },
+  "ScenarioWins": {
+    "heading": "נבנה לתהליכי עבודה אמיתיים",
+    "subheading": "אותם כלים — בין אם אתה סוגר חודש או שולח חבילה ללקוח.",
+    "invoicesTitle": "חבילות חשבוניות לסוף חודש",
+    "invoicesBody": "אחד מספר PDF, דחוס אם לתיבת הדואר יש מגבלת גודל, ושלח קובץ מצורף אחד במקום עשרה.",
+    "legalTitle": "חבילות משפטיות ו-HR",
+    "legalBody": "הרכב נספחים מקומית, פצל עמודים חתומים, וייצא רק מה שצריך לבודקים.",
+    "photosTitle": "תמונות מהשטח → PDF אחד",
+    "photosBody": "הפוך תמונות מהטלפון ל-PDF מסודר אחד לתביעות, בדיקות או coursework — בלי התקנה במחשב."
+  },
+  "SocialProof": {
+    "eyebrow": "עובד איפה שאתה עובד",
+    "body": "השתמש ב-JoinMyPDF ב-Chrome, Safari, Firefox או Edge — במחשב או בנייד — כשצריך כלי PDF אמינים בלי להעביר קבצים דרך שירות העלאה גנרי."
+  },
+  "Partners": {
+    "mapDiagramAria": "כלי שותף: MapDiagram",
+    "mapDiagramBody": "יוצר מצגת או תהליך עבודה? בנה תרשימי זרימה ועיצובי מערכת ויזואלית עם <brand>MapDiagram</brand>, ואז הבא אותם לכאן למיזוג.",
+    "mapDiagramCta": "פתח את עורך MapDiagram",
+    "mapDiagram": "MapDiagram — תרשימי זרימה ודיאגרמות",
+    "wattQuick": "WattQuick — מחשבוני הלוואות ופיננסים",
+    "wattQuickAria": "כלי שותף: מחשבונים פיננסיים של WattQuick",
+    "wattQuickEyebrow": "כלים פיננסיים חינם",
+    "wattQuickTitle": "קח שליטה על המספרים שלך",
+    "wattQuickBody": "בדוק את <brand>WattQuick</brand> — חבילת הכלים החינמית שלנו למעקב הלוואות רכב, מחשבוני חוב וכלי בית ירוק.",
+    "wattQuickCta": "גלה את WattQuick בחינם"
+  },
+  "Footer": {
+    "brandDescription": "מיזוג, דחיסה, המרה והגנה על PDF בדפדפן. הקבצים נשארים על המכשיר — בלי העלאות לשרתים שלנו.",
+    "taglines": {
+      "tools": "JoinMyPDF — כלי PDF בדפדפן עם עיבוד מקומי.",
+      "blog": "JoinMyPDF — מדריכים לתהליכי PDF, מגבלות דוא\"ל וטיפים לנייד."
+    },
+    "columns": {
+      "convertToPdf": "המרה ל-PDF",
+      "convertFromPdf": "המרה מ-PDF",
+      "editOptimize": "עריכה ואופטימיזציה",
+      "securityLegal": "אבטחה ומשפט",
+      "company": "חברה ומשאבים"
+    },
+    "links": {
+      "home": "דף הבית",
+      "guidesBlog": "מדריכים ובלוג",
+      "allTools": "כל כלי ה-PDF",
+      "compare": "השוואת כלים",
+      "privacyFirst": "פרטיות קודמת",
+      "privacyPolicy": "מדיניות פרטיות",
+      "privacyHub": "מרכז PDF ממוקד פרטיות"
+    },
+    "copyright": "כל הזכויות שמורות.",
+    "partnerNavLabel": "כלי שותפים"
+  },
+  "Blog": {
+    "metaTitle": "מדריכים ומאמרים",
+    "metaDescription": "מדריכי JoinMyPDF מעשיים למיזוג, דחיסה, פיצול ותהליכי PDF ממוקדי פרטיות — כתובים לאנשים.",
+    "badge": "מדריכים ומאמרים",
+    "title": "מדריכים ומאמרים אחרונים",
+    "description": "מדריכים שמקשרים ישירות לכלים — בנויים למשימות אמיתיות כמו מגבלות דוא\"ל, תהליכי עבודה בנייד ומסמכים רגישים."
   }
 }

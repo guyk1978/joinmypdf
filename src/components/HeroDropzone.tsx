@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCallback, useRef, useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { usePendingFiles } from "@/context/PendingFilesContext";
@@ -8,6 +9,7 @@ import { FileUploadZone } from "@/components/FileUploadZone";
 import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
 
 export function HeroDropzone() {
+  const t = useTranslations("HeroDropzone");
   const router = useRouter();
   const { setPendingFiles } = usePendingFiles();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -21,17 +23,17 @@ export function HeroDropzone() {
       capture(EVENTS.home_drop_files, { count: arr.length });
       router.push("/tools/pdf-merge/");
     },
-    [router, setPendingFiles]
+    [router, setPendingFiles],
   );
 
   return (
     <FileUploadZone
       variant="hero"
       role="region"
-      aria-label="Quick merge upload"
+      aria-label={t("ariaLabel")}
       drag={drag}
-      title="Drop PDFs here to merge"
-      description="Your files open in the merge tool, ready to run—reorder pages, then download."
+      title={t("title")}
+      description={t("description")}
       onDragOver={(e) => {
         e.preventDefault();
         setDrag(true);
@@ -65,14 +67,14 @@ export function HeroDropzone() {
             }}
             className={ctaPrimary}
           >
-            Merge PDF
+            {t("mergePdf")}
           </button>
           <Link
             href="/tools/pdf-merge/"
             onClick={() => capture(EVENTS.cta_secondary_click, { where: "hero_dropzone" })}
             className={ctaSecondary}
           >
-            Open merge tool
+            {t("openMergeTool")}
           </Link>
         </div>
       }

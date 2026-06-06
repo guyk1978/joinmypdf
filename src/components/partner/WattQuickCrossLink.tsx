@@ -1,3 +1,6 @@
+"use client";
+
+import { useLocale, useTranslations } from "next-intl";
 import { clsx } from "clsx";
 import { WattQuickCalculatorIllustration } from "@/components/partner/WattQuickCalculatorIllustration";
 
@@ -9,6 +12,10 @@ type Props = {
 
 /** Bold financial CTA — loan calculators, debt tools, green home suite (WattQuick). */
 export function WattQuickCrossLink({ className }: Props) {
+  const t = useTranslations("Partners");
+  const locale = useLocale();
+  const arrow = locale === "he" ? "←" : "→";
+
   return (
     <aside
       className={clsx(
@@ -16,17 +23,18 @@ export function WattQuickCrossLink({ className }: Props) {
         "dark:border-amber-500/40 dark:from-slate-900 dark:to-slate-800",
         className,
       )}
-      aria-label="Partner tool: WattQuick financial calculators"
+      aria-label={t("wattQuickAria")}
     >
       <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10">
         <div className="text-white">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">Free financial tools</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">{t("wattQuickEyebrow")}</p>
           <h2 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">
-            Take Control of Your Numbers
+            {t("wattQuickTitle")}
           </h2>
           <p className="mt-3 max-w-md text-sm leading-relaxed text-blue-100 sm:text-base">
-            Check out <span className="font-semibold text-white">WattQuick</span> — our free suite of auto loan
-            trackers, debt calculators, and green home tools.
+            {t.rich("wattQuickBody", {
+              brand: (chunks) => <span className="font-semibold text-white">{chunks}</span>,
+            })}
           </p>
           <a
             href={WATTQUICK_URL}
@@ -34,7 +42,7 @@ export function WattQuickCrossLink({ className }: Props) {
             rel="noopener noreferrer"
             className="mt-5 inline-flex items-center gap-2 rounded-xl bg-amber-400 px-6 py-3 text-sm font-extrabold text-slate-950 shadow-lg transition-transform hover:scale-105 hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200"
           >
-            Explore WattQuick free →
+            {t("wattQuickCta")} {arrow}
           </a>
         </div>
 
