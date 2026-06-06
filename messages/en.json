@@ -13,6 +13,7 @@
     "viewAllTools": "View all tools",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
+    "closeToolsGrid": "Close",
     "language": "Language",
     "mobileNav": "Mobile primary"
   },
@@ -117,6 +118,8 @@
     "privacyFirst": "Privacy First",
     "startHere": "Start here",
     "startHereDescription": "Popular merge, compress, convert, sign, and protect workflows.",
+    "allToolsGridTitle": "Full tool dashboard",
+    "allToolsGridDescription": "Browse all {count} tools in one grid—click any tile to open the workflow.",
     "toolCount": "{count} tool",
     "toolCountPlural": "{count} tools",
     "whyLocalTitle": "Why local processing matters",

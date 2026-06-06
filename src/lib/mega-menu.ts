@@ -56,3 +56,17 @@ export function buildMegaMenuSections(): MegaMenuSection[] {
 
   return sections;
 }
+
+/** Flat list of every tool link from mega-menu sections (deduped by href). */
+export function flattenMegaMenuSections(sections: MegaMenuSection[]): MegaMenuItem[] {
+  const seen = new Set<string>();
+  const items: MegaMenuItem[] = [];
+  for (const section of sections) {
+    for (const item of section.items) {
+      if (seen.has(item.href)) continue;
+      seen.add(item.href);
+      items.push(item);
+    }
+  }
+  return items;
+}

@@ -108,7 +108,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
           aria-label={t("mobileNav")}
         >
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
-            <ToolsMegaMenu sections={megaMenuSections} onNavigate={closeMobile} variant="mobile" />
+            <ToolsMegaMenu sections={megaMenuSections} onNavigate={closeMobile} className="w-full justify-center" />
             <GuidesLink onNavigate={closeMobile} className="w-full justify-center py-2" />
             <PrivacyFirstLink onNavigate={closeMobile} className="w-full justify-center py-2" />
           </div>

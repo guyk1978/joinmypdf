@@ -2,15 +2,12 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { clsx } from "clsx";
-import { ToolIconBadge } from "@/lib/tool-icons";
-import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
-import type { MegaMenuSection } from "@/lib/mega-menu";
+import { ToolMegaGrid } from "@/components/ToolMegaGrid";
+import { translateToolItem } from "@/lib/i18n-tool-labels";
+import { flattenMegaMenuSections, type MegaMenuSection } from "@/lib/mega-menu";
 import { isNavItemActive } from "@/lib/nav-config";
-
-const OPEN_DELAY_MS = 80;
-const CLOSE_DELAY_MS = 280;
 
 function LayoutGridIcon({ className }: { className?: string }) {
   return (
@@ -26,31 +23,10 @@ function LayoutGridIcon({ className }: { className?: string }) {
       strokeLinejoin="round"
       aria-hidden
     >
-      <rect x="3" y="3" width="7" height="7" rx="1" />
-      <rect x="14" y="3" width="7" height="7" rx="1" />
-      <rect x="3" y="14" width="7" height="7" rx="1" />
-      <rect x="14" y="14" width="7" height="7" rx="1" />
-    </svg>
-  );
-}
-
-function NavChevron({ open }: { open: boolean }) {
-  return (
-    <svg
-      className={clsx("nav-mega__chevron transition-transform duration-200", open && "rotate-180")}
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      aria-hidden
-    >
-      <path
-        d="M3 4.5L6 7.5L9 4.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <rect x="3" y="3" width="7" height="7" />
+      <rect x="14" y="3" width="7" height="7" />
+      <rect x="3" y="14" width="7" height="7" />
+      <rect x="14" y="14" width="7" height="7" />
     </svg>
   );
 }
@@ -58,177 +34,119 @@ function NavChevron({ open }: { open: boolean }) {
 type ToolsMegaMenuProps = {
   sections: MegaMenuSection[];
   onNavigate?: () => void;
-  variant?: "desktop" | "mobile";
+  className?: string;
 };
 
-export function ToolsMegaMenu({
-  sections,
-  onNavigate,
-  variant = "desktop",
-}: ToolsMegaMenuProps) {
+export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenuProps) {
   const tHeader = useTranslations("Header");
   const tTools = useTranslations("Tools");
   const locale = useLocale();
   const pathname = usePathname() || "/";
-  const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
-  const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isMobile = variant === "mobile";
 
-  const clearTimers = useCallback(() => {
-    if (openTimerRef.current) clearTimeout(openTimerRef.current);
-    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    openTimerRef.current = null;
-    closeTimerRef.current = null;
-  }, []);
+  const items = useMemo(
+    () =>
+      flattenMegaMenuSections(sections).map((item) => ({
+        href: item.href,
+        label: translateToolItem(tTools, item.slug, item.label),
+        slugHint: item.slug,
+      })),
+    [sections, tTools],
+  );
 
-  const close = useCallback(() => {
-    clearTimers();
-    setOpen(false);
-  }, [clearTimers]);
+  const close = useCallback(() => setOpen(false), []);
 
-  const scheduleOpen = useCallback(() => {
-    if (isMobile) return;
-    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    closeTimerRef.current = null;
-    if (openTimerRef.current) clearTimeout(openTimerRef.current);
-    openTimerRef.current = setTimeout(() => {
-      openTimerRef.current = null;
-      setOpen(true);
-    }, OPEN_DELAY_MS);
-  }, [isMobile, clearTimers]);
-
-  const scheduleClose = useCallback(() => {
-    if (isMobile) return;
-    if (openTimerRef.current) clearTimeout(openTimerRef.current);
-    openTimerRef.current = null;
-    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    closeTimerRef.current = setTimeout(() => {
-      closeTimerRef.current = null;
-      setOpen(false);
-    }, CLOSE_DELAY_MS);
-  }, [isMobile, clearTimers]);
+  const toggle = useCallback(() => {
+    setOpen((prev) => {
+      const next = !prev;
+      if (next) onNavigate?.();
+      return next;
+    });
+  }, [onNavigate]);
 
   useEffect(() => {
     close();
   }, [pathname, close]);
 
   useEffect(() => {
-    if (!open || isMobile) return;
+    document.body.classList.toggle("site-tools-grid-open", open);
+    return () => document.body.classList.remove("site-tools-grid-open");
+  }, [open]);
 
-    const onPointerDown = (event: MouseEvent | TouchEvent) => {
-      const target = event.target as Node | null;
-      if (rootRef.current && target && !rootRef.current.contains(target)) {
-        close();
-      }
-    };
+  useEffect(() => {
+    if (!open) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") close();
     };
 
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("touchstart", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("touchstart", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open, isMobile, close]);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, close]);
 
-  const isToolsActive = sections.some((section) =>
-    section.items.some((item) => isNavItemActive(pathname, item.href)),
-  );
+  const isToolsActive =
+    open ||
+    sections.some((section) => section.items.some((item) => isNavItemActive(pathname, item.href)));
+
+  const handleNavigate = () => {
+    close();
+    onNavigate?.();
+  };
 
   return (
-    <div
-      ref={rootRef}
-      className="static"
-      onMouseEnter={scheduleOpen}
-      onMouseLeave={scheduleClose}
-    >
+    <>
       <button
         type="button"
         className={clsx(
           "nav-mega__trigger inline-flex items-center gap-1.5",
-          isMobile && "w-full justify-center",
+          className,
           isToolsActive && "nav-mega__trigger--active",
         )}
         aria-expanded={open}
-        aria-haspopup="true"
-        onClick={() => {
-          clearTimers();
-          setOpen((prev) => !prev);
-        }}
+        aria-controls="tool-mega-grid-panel"
+        onClick={toggle}
       >
         <LayoutGridIcon className="nav-mega__trigger-icon shrink-0" />
         <span>{tHeader("allTools")}</span>
-        <NavChevron open={open} />
       </button>
 
-      <div
-        role="menu"
-        className={clsx(
-          "z-[60] transition-[opacity,visibility,transform] duration-200 ease-out",
-          isMobile
-            ? "relative mt-2 w-full"
-            : "fixed left-1/2 top-12 z-[60] mx-auto w-screen max-w-5xl -translate-x-1/2 px-3 pt-1",
-          open
-            ? "visible translate-y-0 opacity-100 pointer-events-auto"
-            : "invisible -translate-y-1 opacity-0 pointer-events-none",
-        )}
-      >
-        <div className="nav-mega__panel overflow-hidden rounded-none border border-neutral-300 dark:border-neutral-800">
-          <div className="nav-mega__grid">
-            {sections.map((section) => {
-              const sectionLabel = translateToolSection(tTools, section.id, section.label);
-              return (
-              <div key={section.id} className="nav-mega__column min-w-0">
-                <p className="nav-mega__heading">{sectionLabel}</p>
-                <ul className="nav-mega__list">
-                  {section.items.map((item) => {
-                    const itemLabel = translateToolItem(tTools, item.slug, item.label);
-                    return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className={clsx(
-                          "nav-mega__link",
-                          isNavItemActive(pathname, item.href) && "is-active",
-                        )}
-                        role="menuitem"
-                        prefetch={false}
-                        onClick={() => {
-                          close();
-                          onNavigate?.();
-                        }}
-                      >
-                        <ToolIconBadge slug={item.slug} label={itemLabel} size="sm" />
-                        <span className="nav-mega__link-label">{itemLabel}</span>
-                      </Link>
-                    </li>
-                  );})}
-                </ul>
-              </div>
-            );})}
+      {open ? (
+        <div
+          id="tool-mega-grid-panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label={tHeader("allTools")}
+          className="fixed inset-x-0 top-14 z-40 flex max-h-[calc(100dvh-3.5rem)] flex-col border-t border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-900"
+        >
+          <div className="flex items-center justify-between gap-2 border-b border-neutral-300 px-3 py-2 dark:border-neutral-700">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-black dark:text-neutral-200">
+              {tHeader("allTools")}
+            </p>
+            <button
+              type="button"
+              className="rounded-none border border-neutral-300 px-2 py-1 text-xs font-semibold text-black transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
+              onClick={close}
+            >
+              {tHeader("closeToolsGrid")}
+            </button>
           </div>
-          <div className="nav-mega__footer">
+
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <ToolMegaGrid items={items} onNavigate={handleNavigate} />
+          </div>
+
+          <div className="shrink-0 border-t border-neutral-300 px-3 py-2 dark:border-neutral-700">
             <Link
               href="/tools/"
-              className="nav-mega__footer-link"
               prefetch={false}
-              onClick={() => {
-                close();
-                onNavigate?.();
-              }}
+              className="inline-flex items-center gap-1 text-sm font-semibold text-black hover:underline dark:text-neutral-200"
+              onClick={handleNavigate}
             >
               {tHeader("viewAllTools")} {locale === "he" ? "←" : "→"}
             </Link>
           </div>
         </div>
-      </div>
-    </div>
+      ) : null}
+    </>
   );
 }

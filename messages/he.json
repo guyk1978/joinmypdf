@@ -13,6 +13,7 @@
     "viewAllTools": "צפה בכל הכלים",
     "openMenu": "פתח תפריט",
     "closeMenu": "סגור תפריט",
+    "closeToolsGrid": "סגור",
     "language": "שפה",
     "mobileNav": "ניווט ראשי — נייד"
   },
@@ -117,6 +118,8 @@
     "privacyFirst": "פרטיות קודמת",
     "startHere": "התחל כאן",
     "startHereDescription": "תהליכי מיזוג, דחיסה, המרה, חתימה והגנה פופולריים.",
+    "allToolsGridTitle": "לוח כלים מלא",
+    "allToolsGridDescription": "עיין בכל {count} הכלים ברשת אחת — לחץ על כל אריח לפתיחת התהליך.",
     "toolCount": "{count} כלי",
     "toolCountPlural": "{count} כלים",
     "whyLocalTitle": "למה עיבוד מקומי חשוב",

@@ -38,7 +38,7 @@ html {
 }
 
 body {
-  @apply min-h-screen bg-neutral-100 dark:bg-neutral-950 text-black dark:text-neutral-200 antialiased transition-colors duration-300;
+  @apply min-h-screen bg-neutral-100 pt-14 dark:bg-neutral-950 text-black dark:text-neutral-200 antialiased transition-colors duration-300;
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -1809,8 +1809,10 @@ html.dark .pdf-export-thumb__download:hover {
   max-width: 100%;
   box-sizing: border-box;
   overflow: visible !important;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
@@ -2175,7 +2177,8 @@ html.dark .nav-link--emphasis.is-active {
   text-transform: uppercase;
 }
 
-body.site-nav-open {
+body.site-nav-open,
+body.site-tools-grid-open {
   overflow: hidden;
 }
 

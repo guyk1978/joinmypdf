@@ -3,13 +3,14 @@ export const runtime = "edge";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Lock, Shield } from "lucide-react";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
+import { ToolMegaGrid } from "@/components/ToolMegaGrid";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteSearch } from "@/components/SiteSearch";
 import { Link } from "@/i18n/navigation";
 import { blogRegistry } from "@/lib/blog-registry";
 import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
-import { buildMegaMenuSections } from "@/lib/mega-menu";
+import { buildMegaMenuSections, flattenMegaMenuSections } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { JsonLd } from "@/lib/schema";
@@ -51,6 +52,11 @@ export default async function ToolsDirectoryPage({ params }: Props) {
   const tPage = await getTranslations("ToolsDirectory");
   const sections = buildMegaMenuSections();
   const toolCount = registry.tools.length + 3;
+  const allToolItems = flattenMegaMenuSections(sections).map((item) => ({
+    href: item.href,
+    label: translateToolItem(tTools, item.slug, item.label),
+    slugHint: item.slug,
+  }));
 
   const featuredItems = FEATURED_SLUGS.map((slug) => {
     const tool = registry.tools.find((t) => t.slug === slug);
@@ -108,7 +114,19 @@ export default async function ToolsDirectoryPage({ params }: Props) {
           </div>
         </section>
 
-        <section className="mt-12 space-y-2" aria-labelledby="featured-tools">
+        <section className="mt-12 space-y-2" aria-labelledby="all-tools-grid">
+          <div className="px-4 md:px-0">
+            <h2 id="all-tools-grid" className="text-xl font-semibold text-black dark:text-neutral-200 md:text-2xl">
+              {tPage("allToolsGridTitle")}
+            </h2>
+            <p className="mt-1 text-sm text-black dark:text-neutral-200">{tPage("allToolsGridDescription", { count: allToolItems.length })}</p>
+          </div>
+          <div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 border-y border-neutral-300 dark:border-neutral-700">
+            <ToolMegaGrid items={allToolItems} />
+          </div>
+        </section>
+
+        <section className="mt-12 space-y-2 px-4 md:px-0" aria-labelledby="featured-tools">
           <div>
             <h2 id="featured-tools" className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white md:text-2xl">
               {tPage("startHere")}
