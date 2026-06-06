@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+export { runtime } from "@/lib/cloudflare-runtime";
 import Link from "next/link";
 import { Check, Globe, Lock, Shield, X } from "lucide-react";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";

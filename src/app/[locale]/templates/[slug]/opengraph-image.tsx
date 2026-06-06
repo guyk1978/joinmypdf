@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 import { getInvoiceTemplateBySlug } from "@/lib/invoice/templates";
 
-export const dynamic = "force-static";
 export const runtime = "edge";
 
 export const alt = "JoinMyPDF — free invoice template preview";

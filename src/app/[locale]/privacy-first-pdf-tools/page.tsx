@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+export { runtime } from "@/lib/cloudflare-runtime";
 import Link from "next/link";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { SiteFooter } from "@/components/SiteFooter";

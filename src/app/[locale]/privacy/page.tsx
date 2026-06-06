@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+export { runtime } from "@/lib/cloudflare-runtime";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { JsonLd } from "@/lib/schema";

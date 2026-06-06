@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+export { runtime } from "@/lib/cloudflare-runtime";
 import { PdfHubPage } from "@/components/PdfHubPage";
 import { hubByPath } from "@/lib/pdf-hubs";
 

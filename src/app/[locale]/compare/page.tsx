@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+export { runtime } from "@/lib/cloudflare-runtime";
 import Link from "next/link";
 import { Check, X } from "lucide-react";
 import { WattQuickCrossLink } from "@/components/partner/WattQuickCrossLink";
