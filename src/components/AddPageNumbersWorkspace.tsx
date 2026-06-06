@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -118,10 +118,10 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
       setRunError(null);
       setFormError("");
       setStartPage(1);
-      setStatus("Loading PDF…");
+      setStatus(ws.wsCommon("loadingPdf"));
       try {
         await loadPageCount(next);
-        setStatus("PDF ready — choose numbering options below.");
+        setStatus(ws.wsStatus("fileReady"));
         capture(EVENTS.file_selected, { count: 1, operation: tool.operation });
       } catch (e) {
         const parsed = classifyPdfError(e);
@@ -131,7 +131,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
         setPageCount(0);
       }
     },
-    [acceptPdf, tool.operation],
+    [acceptPdf, tool.operation, ws],
   );
 
   const onSubmit = async (event: FormEvent) => {
@@ -143,11 +143,11 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
     const start = Math.floor(startPage);
     if (!Number.isFinite(start) || start < 1) {
-      setFormError("Start page must be at least 1.");
+      setFormError(ws.wsStatus("startMin"));
       return;
     }
     if (pageCount && start > pageCount) {
-      setFormError(`Start page cannot exceed ${pageCount}.`);
+      setFormError(ws.wsStatus("startMax", { pageCount }));
       return;
     }
 
@@ -162,7 +162,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
     setBusy(true);
     setDone(false);
-    setStatus("Adding page numbers…");
+    setStatus(ws.wsStatus("adding"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -170,7 +170,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
       const outName = pdf.addPageNumbersOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
-      setStatus(`Numbered PDF downloaded as ${outName}.`);
+      setStatus(ws.wsStatus("downloaded", { name: outName }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -196,19 +196,19 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Private:</strong> Page numbering is processed entirely in your browser. Your documents
-        never leave your computer.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showOptions ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Add page numbers with your preferred position and format."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -249,7 +249,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
           <div className="page-numbers-form rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-5">
             <div className="page-numbers-form__row">
               <label className="page-numbers-form__label" htmlFor={`${baseId}-position`}>
-                Position
+                {ws.wsUi("positionLabel")}
               </label>
               <select
                 id={`${baseId}-position`}
@@ -268,7 +268,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
             <div className="page-numbers-form__row">
               <label className="page-numbers-form__label" htmlFor={`${baseId}-start`}>
-                Start from page
+                {ws.wsUi("startLabel")}
               </label>
               <input
                 id={`${baseId}-start`}
@@ -283,7 +283,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
             </div>
 
             <fieldset className="page-numbers-form__fieldset">
-              <legend className="page-numbers-form__label">Format</legend>
+              <legend className="page-numbers-form__label">{ws.wsUi("formatLabel")}</legend>
               <label className="page-numbers-form__radio">
                 <input
                   type="radio"
@@ -293,7 +293,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   onChange={() => setFormat("number")}
                   disabled={busy}
                 />
-                <span>Number only (e.g. 1)</span>
+                <span>{ws.wsUi("formatNumber")}</span>
               </label>
               <label className="page-numbers-form__radio">
                 <input
@@ -304,13 +304,13 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   onChange={() => setFormat("page-of")}
                   disabled={busy}
                 />
-                <span>Page X of Y (e.g. Page 1 of 10)</span>
+                <span>{ws.wsUi("formatPageOf")}</span>
               </label>
             </fieldset>
 
             <div className="page-numbers-form__row">
               <span className="page-numbers-form__label" id={`${baseId}-size-label`}>
-                Font size
+                {ws.wsUi("fontSizeLabel")}
               </span>
               <div className="page-numbers-form__choices" role="group" aria-labelledby={`${baseId}-size-label`}>
                 {FONT_SIZES.map((opt) => (
@@ -322,7 +322,11 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                     disabled={busy}
                     onClick={() => setFontSize(opt.value)}
                   >
-                    {opt.label}
+                    {opt.value === "small"
+                      ? ws.wsUi("sizeSmall")
+                      : opt.value === "medium"
+                        ? ws.wsUi("sizeMedium")
+                        : ws.wsUi("sizeLarge")}
                     <span className="page-numbers-form__choice-hint">{opt.hint}</span>
                   </button>
                 ))}
@@ -331,7 +335,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
             <div className="page-numbers-form__row">
               <span className="page-numbers-form__label" id={`${baseId}-color-label`}>
-                Font color
+                {ws.wsUi("fontColorLabel")}
               </span>
               <div className="page-numbers-form__swatches" role="group" aria-labelledby={`${baseId}-color-label`}>
                 {PAGE_NUMBER_COLOR_OPTIONS.map((opt) => (
@@ -352,7 +356,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
             <div className="page-numbers-form__row">
               <span className="page-numbers-form__label" id={`${baseId}-style-label`}>
-                Font style
+                {ws.wsUi("fontStyleLabel")}
               </span>
               <div className="page-numbers-form__choices" role="group" aria-labelledby={`${baseId}-style-label`}>
                 <button
@@ -362,7 +366,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   disabled={busy}
                   onClick={() => setIsBold(false)}
                 >
-                  Regular
+                  {ws.wsUi("styleRegular")}
                 </button>
                 <button
                   type="button"
@@ -371,7 +375,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   disabled={busy}
                   onClick={() => setIsBold(true)}
                 >
-                  Bold
+                  {ws.wsUi("styleBold")}
                 </button>
               </div>
             </div>
@@ -389,7 +393,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
               disabled={busy}
               className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Add Page Numbers
+              {ws.wsText("addLabel")}
             </button>
             <button
               type="button"
@@ -397,7 +401,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
         </form>
@@ -411,7 +415,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Adjust options and try again." : "");
+            setStatus(file ? ws.wsStatus("adjustOptions") : "");
           }}
         />
       ) : (
@@ -424,7 +428,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
       <StickyMobileCta
         href="#tool-workspace"
-        label="Add Page Numbers"
+        label={ws.wsText("addLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

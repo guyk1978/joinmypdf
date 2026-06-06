@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -55,6 +55,9 @@ function PageCanvas({
   draft,
   onAddBox,
   onDraftChange,
+  pageLabel,
+  loadingLabel,
+  markHint,
 }: {
   pageIndex: number;
   fileBytes: Uint8Array;
@@ -63,6 +66,9 @@ function PageCanvas({
   draft: DragState | null;
   onAddBox: (box: NormalizedRedactionRect) => void;
   onDraftChange: (draft: DragState | null) => void;
+  pageLabel: string;
+  loadingLabel: string;
+  markHint: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
@@ -125,7 +131,7 @@ function PageCanvas({
 
   return (
     <div className="redact-page">
-      <p className="redact-page__label">Page {pageIndex + 1}</p>
+      <p className="redact-page__label">{pageLabel}</p>
       <div className="redact-page__studio">
       <div
         ref={wrapRef}
@@ -152,7 +158,7 @@ function PageCanvas({
         }}
       >
         {loading ? (
-          <p className="redact-page__loading">Rendering page…</p>
+          <p className="redact-page__loading">{loadingLabel}</p>
         ) : canvasEl ? (
           <canvas
             className="redact-page__canvas"
@@ -187,7 +193,7 @@ function PageCanvas({
         </div>
       </div>
       </div>
-      <p className="redact-page__hint">Click and drag to mark areas to black out.</p>
+      <p className="redact-page__hint">{markHint}</p>
     </div>
   );
 }
@@ -327,19 +333,19 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Confidential:</strong> All redaction processes are executed locally in your browser.
-        Your sensitive documents never leave your computer.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!file ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Select one PDF to mark and redact sensitive areas."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -380,14 +386,14 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               disabled={busy}
               className="rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
 
           {encrypted ? (
             <div className="protect-form">
               <label className="protect-form__label" htmlFor={`${baseId}-password`}>
-                PDF password (required for protected files)
+                {ws.wsUi("passwordLabel")}
               </label>
               <div className="flex flex-wrap gap-2">
                 <input
@@ -397,7 +403,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                   className="protect-form__input max-w-md flex-1"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password to preview pages"
+                  placeholder={ws.wsUi("passwordPlaceholder")}
                   disabled={busy}
                 />
                 <button
@@ -406,7 +412,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                   disabled={busy || !password}
                   className="rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5"
                 >
-                  Load pages
+                  {ws.wsUi("loadPages")}
                 </button>
               </div>
             </div>
@@ -424,6 +430,9 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                   draft={draft}
                   onAddBox={(box) => setBoxes((prev) => [...prev, box])}
                   onDraftChange={setDraft}
+                  pageLabel={ws.wsCommon("pageNumber", { page: i + 1 })}
+                  loadingLabel={ws.wsCommon("renderingPage")}
+                  markHint={ws.wsUi("markHint")}
                 />
               ))}
             </div>
@@ -436,7 +445,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               onClick={() => setBoxes([])}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
             >
-              Clear All
+              {ws.wsUi("clearAll")}
             </button>
             <button
               type="button"
@@ -447,10 +456,10 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               {busy ? (
                 <>
                   <span className="tool-spinner" aria-hidden="true" />
-                  <span>Redacting…</span>
+                  <span>{ws.wsText("redactingLabel")}</span>
                 </>
               ) : (
-                "Redact PDF"
+                ws.wsText("redactLabel")
               )}
             </button>
           </div>
@@ -476,7 +485,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Redact PDF" secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta href="#tool-workspace" label={ws.wsText("redactLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

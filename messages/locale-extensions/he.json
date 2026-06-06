@@ -640,6 +640,38 @@
       "custom-paper-margin": {
         "title": "גרור PDF לשינוי גודל נייר ושוליים",
         "description": "הגדר גודל נייר ושוליים, והחל על כל העמודים."
+      },
+      "rotate-pdf": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "סובב עמודים ספציפיים או את כל ה-PDF מקומית עם תמונות ממוזערות."
+      },
+      "crop-pdf": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "חתוך שוליים בכל עמוד באמצעות מסגרת ויזואלית בעמוד 1."
+      },
+      "pdf-to-png": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "כל עמוד מיוצא כתמונת PNG. העיבוד במכשיר שלך."
+      },
+      "extract-images": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "זהה וחלץ תמונות מוטמעות מה-PDF מקומית."
+      },
+      "add-watermark": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "הוסף סימני מים טקסטואליים לכל עמוד מקומית."
+      },
+      "add-page-numbers": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "הוסף מספרי עמודים עם מיקום, פורמט וסגנון."
+      },
+      "remove-hidden-metadata": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "סרוק והסר מחבר, כותרת ומטא-דאטה נסתר אחר."
+      },
+      "flatten-pdf": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "הסר טפסים, הערות והדגשות על ידי שיטוח עמודים מקומית."
       }
     },
     "buttons": {
@@ -687,7 +719,21 @@
       "protect": {
         "pdfReady": "PDF מוכן — הגדר סיסמה למטה.",
         "protecting": "מגן על ה-PDF…",
-        "complete": "PDF מוגן הורד כ-{name}."
+        "encrypting": "מצפין את ה-PDF…",
+        "complete": "PDF מוגן הורד כ-{name}.",
+        "passwordRequired": "הזן סיסמה.",
+        "passwordTooShort": "השתמש בסיסמה של לפחות 4 תווים.",
+        "passwordMismatch": "הסיסמאות אינן תואמות.",
+        "adjustTryAgain": "התאם את הקובץ או הסיסמה ונסה שוב."
+      },
+      "unlock": {
+        "lockedReady": "PDF זה מוגן בסיסמה — הזן את הסיסמה הנוכחית למטה.",
+        "unlockedReady": "PDF מוכן. הזן סיסמה רק אם הקובץ מבקש כזו בפתיחה.",
+        "fallbackReady": "PDF מוכן — הזן סיסמה במידת הצורך, ואז הסר נעילה.",
+        "passwordRequired": "הזן את סיסמת ה-PDF הנוכחית.",
+        "unlocking": "מסיר הגנת סיסמה…",
+        "complete": "PDF ללא נעילה הורד כ-{name}.",
+        "adjustTryAgain": "התאם את הקובץ או הסיסמה ונסה שוב."
       }
     },
     "errors": {
@@ -744,7 +790,18 @@
       "renderingPage": "מרנדר עמוד…",
       "clearAll": "נקה הכל",
       "untitledBook": "ספר ללא שם",
-      "chapterCount": "{count} פרק/ים"
+      "chapterCount": "{count} פרק/ים",
+      "loadPages": "טען עמודים",
+      "enterPasswordPreview": "הזן סיסמה לתצוגה מקדימה",
+      "loadingPdf": "טוען PDF…",
+      "downloadAllZip": "הורד הכל כ-ZIP",
+      "selectedFile": "קובץ נבחר",
+      "chooseAnotherFile": "בחר קובץ אחר",
+      "clientSideOnly": "רק בצד הלקוח",
+      "processing": "מעבד…",
+      "optional": "אופציונלי",
+      "undo": "בטל",
+      "loadingPreview": "טוען תצוגה מקדימה…"
     },
     "word-to-pdf": {
       "status": {
@@ -905,6 +962,26 @@
         "applying": "מחיל חתימות…",
         "downloaded": "PDF חתום הורד כ-{name}.",
         "adjustPlacement": "התאם מיקום ונסה שוב."
+      },
+      "privacyNote": "חתימות מעובדות מקומית בדפדפן. המסמך לא עוזב את המכשיר.",
+      "signDownloadLabel": "חתום והורד PDF",
+      "stickyLabel": "חתום והורד",
+      "ui": {
+        "signatureAlt": "חתימה",
+        "removeSignature": "הסר חתימה זו",
+        "resizeSignature": "שנה גודל חתימה",
+        "signaturesOnPage": "{count} חתימה/ות בעמוד זה — גרור להזזה, פינה לשינוי גודל.",
+        "placeHint": "לחץ על חתימה שמורה למטה כדי למקם בעמוד זה.",
+        "passwordLabel": "סיסמת PDF (קבצים מוגנים)",
+        "passwordPlaceholder": "הזן סיסמה לתצוגה מקדימה",
+        "loadPages": "טען עמודים",
+        "libraryTitle": "החתימות שלך",
+        "newSignature": "+ חדש",
+        "libraryHint": "לחץ על חתימה להוספת עותק נוסף בעמוד הפעיל. השתמש באותה חתימה בין עמודים.",
+        "libraryEmpty": "אין חתימות עדיין. צור אחת כדי להתחיל.",
+        "placeOnPage": "הנח בעמוד {page}",
+        "defaultSignatureLabel": "חתימה {n}",
+        "removeNamed": "הסר {label}"
       }
     },
     "redact": {
@@ -918,6 +995,16 @@
         "applying": "מחיל הסתרות…",
         "downloaded": "PDF מוסתר הורד כ-{name}.",
         "adjustFile": "התאם את הקובץ ונסה שוב."
+      },
+      "privacyNote": "כל תהליכי ההסתרה מתבצעים מקומית בדפדפן.",
+      "redactLabel": "הסתר PDF",
+      "redactingLabel": "מסתיר…",
+      "ui": {
+        "markHint": "לחץ וגרור לסימון אזורים להסתרה.",
+        "passwordLabel": "סיסמת PDF (נדרש לקבצים מוגנים)",
+        "passwordPlaceholder": "הזן סיסמה לתצוגה מקדימה",
+        "loadPages": "טען עמודים",
+        "clearAll": "נקה הכל"
       }
     },
     "compare-pdf": {
@@ -962,6 +1049,83 @@
         "cropping": "חותך עמודים…",
         "complete": "חיתוך הושלם. ההורדה אמורה להתחיל אוטומטית.",
         "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "privacyNote": "חיתוך רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר.",
+      "applyLabel": "החל חיתוך והורד",
+      "stickyApplyLabel": "החל חיתוך",
+      "stickyDefaultLabel": "חיתוך PDF",
+      "ui": {
+        "pageSummary": "{count} עמוד/ים · אותו חיתוך בכל העמודים",
+        "cropInstructions": "גרור את המסגרת להזזה. משוך פינות או קצוות לשינוי גודל. אותו חיתוך חל על כל עמוד.",
+        "resetFrame": "אפס מסגרת"
+      }
+    },
+    "protect": {
+      "privacyNote": "הקובץ מוצפן מקומית בדפדפן ולעולם לא נוגע בשרתים שלנו.",
+      "protectLabel": "הגן על PDF",
+      "protectingLabel": "מגן…",
+      "ui": {
+        "selectedFile": "קובץ נבחר",
+        "passwordLabel": "סיסמה",
+        "confirmPasswordLabel": "אימות סיסמה",
+        "passwordPlaceholder": "הזן סיסמה",
+        "confirmPlaceholder": "הזן סיסמה שוב"
+      }
+    },
+    "unlock": {
+      "privacyNote": "פענוח סיסמה מתבצע מקומית בדפדפן. אנחנו לא שומרים ולא רואים את הסיסמאות או הקבצים שלך.",
+      "unlockLabel": "הסר נעילה",
+      "unlockingLabel": "מסיר נעילה…",
+      "ui": {
+        "selectedFile": "קובץ נבחר",
+        "passwordProtectedBadge": "מוגן בסיסמה",
+        "passwordLabel": "סיסמת PDF נוכחית",
+        "passwordPlaceholderLocked": "הזן סיסמה לפתיחת PDF זה",
+        "passwordPlaceholderUnlocked": "השאר ריק אם לא נדרש"
+      }
+    },
+    "rotate-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "reading": "קורא עמודי PDF…",
+        "fileReady": "{name} מוכן — סובב עמודים, ואז הורד.",
+        "applying": "מחיל סיבובים…",
+        "complete": "הסיבוב הושלם. ההורדה אמורה להתחיל אוטומטית.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "privacyNote": "סיבוב רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר.",
+      "saveLabel": "שמור PDF מסובב",
+      "rotateLabel": "סובב PDF",
+      "ui": {
+        "pageSummary": "{count} עמוד/ים · השתמש בבקרי סיבוב לכל עמוד או גלובליים",
+        "rotateAllCw": "סובב הכל עם כיוון השעון",
+        "rotateAllCcw": "סובב הכל נגד כיוון השעון",
+        "clockwise": "↺ עם כיוון השעון",
+        "counterClockwise": "↻ נגד כיוון השעון",
+        "resetRotations": "אפס סיבובים"
+      }
+    },
+    "delete-pages": {
+      "status": {
+        "loaded": "נטענו {count} עמוד/ים. גרור לסדר, וסמן עמודים להסרה.",
+        "selectionCleared": "הבחירה נוקתה. גרור כרטיסים לסדר מחדש וסמן עמודים להסרה.",
+        "markRequired": "סמן לפחות עמוד אחד למחיקה.",
+        "deleting": "מחיל סדר עמודים ומסיר עמודים שנבחרו…",
+        "downloaded": "הורד {name} ({remaining} עמוד/ים נותרו).",
+        "adjustSelection": "התאם את הבחירה ונסה שוב."
+      },
+      "privacyNote": "הסרת עמודים מתבצעת מקומית בדפדפן. הקובץ לא עוזב את המכשיר.",
+      "deleteLabel": "מחק עמודים",
+      "deletingLabel": "מוחק…",
+      "ui": {
+        "markedCount": "· {count} עמוד/ים מסומנים",
+        "loadingThumb": "טוען…",
+        "restorePage": "שחזר עמוד {page}",
+        "markPage": "סמן עמוד {page} למחיקה",
+        "undo": "בטל",
+        "reorderHint": "גרור תמונות ממוזערות לסדר עמודים. לחץ על סמל הפח לסימון למחיקה.",
+        "clearSelection": "נקה בחירה"
       }
     },
     "openoffice-to-pdf": {
@@ -1110,6 +1274,309 @@
       "convertLabel": "המר ל-PDF",
       "useDxfLabel": "השתמש בקובץ DXF",
       "stickyConvertLabel": "AutoCAD ל-PDF"
+    },
+    "add-watermark": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "fileReady": "{name} מוכן — כוון סימן מים, ואז החל.",
+        "textRequired": "הזן טקסט סימן מים לפני החלה.",
+        "stamping": "מוסיף סימן מים לכל עמוד…",
+        "complete": "סימן מים הוחל. ההורדה אמורה להתחיל אוטומטית.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "privacyNote": "סימני מים רצים לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר.",
+      "applyLabel": "החל סימן מים והורד",
+      "stickyApplyLabel": "הוסף סימן מים",
+      "ui": {
+        "pageSummary": "{count} עמוד/ים · תצוגה מקדימה מציגה עמוד 1",
+        "settingsHeading": "הגדרות סימן מים",
+        "textLabel": "טקסט",
+        "textPlaceholder": "סודי",
+        "opacityLabel": "שקיפות",
+        "colorLabel": "צבע",
+        "fontSizeLabel": "גודל גופן",
+        "rotationLabel": "סיבוב",
+        "positionLabel": "מיקום",
+        "previewHeading": "תצוגה מקדימה חיה",
+        "resetSettings": "אפס הגדרות"
+      }
+    },
+    "add-page-numbers": {
+      "status": {
+        "fileReady": "PDF מוכן — בחר אפשרויות מספור למטה.",
+        "startMin": "עמוד התחלה חייב להיות לפחות 1.",
+        "startMax": "עמוד התחלה לא יכול לעלות על {pageCount}.",
+        "adding": "מוסיף מספרי עמוד…",
+        "downloaded": "PDF עם מספרים הורד כ-{name}.",
+        "adjustOptions": "התאם אפשרויות ונסה שוב."
+      },
+      "privacyNote": "מספור עמודים מתבצע מקומית בדפדפן. הקובץ לא עוזב את המכשיר.",
+      "addLabel": "הוסף מספרי עמודים",
+      "ui": {
+        "positionLabel": "מיקום",
+        "startLabel": "התחל מעמוד",
+        "formatLabel": "פורמט",
+        "fontSizeLabel": "גודל גופן",
+        "fontColorLabel": "צבע גופן",
+        "fontStyleLabel": "סגנון גופן",
+        "formatNumber": "מספר בלבד (למשל 1)",
+        "formatPageOf": "עמוד X מתוך Y (למשל עמוד 1 מתוך 10)",
+        "sizeSmall": "קטן",
+        "sizeMedium": "בינוני",
+        "sizeLarge": "גדול",
+        "styleRegular": "רגיל",
+        "styleBold": "מודגש"
+      }
+    },
+    "extract-images": {
+      "status": {
+        "fileReady": "{name} מוכן — חלץ תמונות מוטמעות.",
+        "scanning": "סורק PDF לאובייקטי תמונה…",
+        "scanningPage": "סורק עמוד {page} מתוך {total}…",
+        "found": "נמצאו {count} אובייקט/י תמונה. מוכן לחילוץ.",
+        "none": "לא נמצאו אובייקטי תמונה מוטמעים.",
+        "buildingZip": "בונה ZIP…",
+        "zipDownloaded": "ZIP עם {count} קובצ/י תמונה הורד.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "privacyNote": "חילוץ תמונות רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר.",
+      "extractLabel": "חלץ תמונות",
+      "extractAgainLabel": "חלץ שוב",
+      "downloadZipLabel": "הורד הכל כ-ZIP",
+      "stickyExtractLabel": "חלץ תמונות",
+      "stickyDownloadLabel": "הורד ZIP",
+      "ui": {
+        "imageAlt": "תמונה {index} בעמוד {page}",
+        "thumbLabel": "עמוד {page} · תמונה {index}",
+        "downloadImage": "הורד תמונה",
+        "gridLabel": "תמונות שחולצו"
+      }
+    },
+    "pdf-to-png": {
+      "status": {
+        "fileReady": "{name} מוכן — ייצא עמודים כ-PNG.",
+        "rendering": "מרנדר {count} עמוד/ים ב-{scale}×…",
+        "exported": "יוצאו {count} עמוד/י PNG.",
+        "zipDownloaded": "ZIP עם {count} קובצ/י PNG הורד.",
+        "tryAgain": "נסה לייצא שוב או בחר קובץ אחר."
+      },
+      "privacyNote": "רינדור PDF רץ לחלוטין בדפדפן. המסמך לא עוזב את המכשיר.",
+      "exportLabel": "ייצא עמודי PNG",
+      "reexportLabel": "ייצא PNG שוב",
+      "downloadZipLabel": "הורד הכל כ-ZIP",
+      "stickyExportLabel": "ייצא PNG",
+      "stickyDownloadLabel": "הורד ZIP",
+      "ui": {
+        "downloadPng": "הורד PNG",
+        "gridLabel": "עמודי PNG שיוצאו"
+      }
+    },
+    "remove-hidden-metadata": {
+      "status": {
+        "scanning": "סורק מטא-דאטה…",
+        "found": "נמצאו {count} שדות מטא-דאטה.",
+        "noneDetected": "לא זוהה מטא-דאטה סטנדרטי.",
+        "removing": "מסיר מטא-דאטה…",
+        "downloaded": "PDF נקי הורד כ-{name}.",
+        "adjustTryAgain": "התאם את הקובץ או הסיסמה ונסה שוב."
+      },
+      "privacyNote": "סריקה והסרת מטא-דאטה מתבצעות מקומית בדפדפן.",
+      "cleanLabel": "נקה והורד",
+      "cleanAgainLabel": "נקה והורד שוב",
+      "stickyLabel": "נקה והורד",
+      "ui": {
+        "passwordLabel": "סיסמת PDF (רק אם הקובץ מוגן)",
+        "passwordPlaceholder": "אופציונלי",
+        "rescan": "סרוק מחדש עם סיסמה זו",
+        "metadataHeading": "מטא-דאטה שנמצא בקובץ",
+        "scanningInline": "סורק…",
+        "noInfoFields": "לא זוהו שדות Info סטנדרטיים. ייתכן שעדיין יש מטא-דאטה מוטמע."
+      }
+    },
+    "pdf-password-recovery": {
+      "status": {
+        "checking": "בודק הצפנה…",
+        "fileReady": "{name} מוכן — הגדר אפשרויות ונסה שחזור.",
+        "notEncrypted": "PDF זה לא נראה מוגן בסיסמה.",
+        "notEncryptedForm": "PDF זה לא נראה מוצפן. השתמש בהסרת נעילה אם אתה זוכר את הסיסמה.",
+        "charsetRequired": "בחר לפחות סט תווים אחד לניסוי.",
+        "lengthOrder": "אורך מינימלי לא יכול לעלות על מקסימלי.",
+        "maxLength": "אורך מקסימלי הוא {max} לשחזור בדפדפן.",
+        "starting": "משחזר סיסמה ב-Worker ברקע — הקובץ לא עוזב את הדפדפן.",
+        "progress": "מנסה סיסמאות… {tried} מתוך ~{total} ניסיונות",
+        "found": "נמצאה סיסמה. אפשר לחשוף ולהוריד PDF ללא נעילה.",
+        "foundEmpty": "נמצאה סיסמה (ריקה). אפשר להוריד PDF ללא נעילה.",
+        "notFound": "לא נמצאה התאמה ב-~{tried} ניסיונות.",
+        "limit": "הגעת למגבלת ניסיונות. צמצם חיפוש או השתמש בהסרת נעילה אם אתה זוכר את הסיסמה.",
+        "stopped": "השחזור נעצר.",
+        "adjustOptions": "התאם אפשרויות ונסה שוב."
+      },
+      "privacyNote": "הקובץ לא עוזב את הדפדפן. brute-force רץ מקומית.",
+      "startLabel": "התחל שחזור",
+      "stopLabel": "עצור",
+      "stickyLabel": "התחל שחזור",
+      "downloadUnlockedLabel": "הורד PDF ללא נעילה",
+      "ui": {
+        "encryptedBadge": "· מוגן בסיסמה",
+        "notEncryptedBadge": "· לא מוצפן",
+        "charsetHeading": "סטי תווים לניסוי",
+        "special": "מיוחדים",
+        "tryCommon": "סיסמאות נפוצות קודם",
+        "customChars": "תווים נוספים (אופציונלי)",
+        "customPlaceholder": "למשל #@",
+        "minLength": "אורך מינימלי",
+        "maxLength": "אורך מקסימלי",
+        "estimatedAttempts": "מרחב חיפוש משוער: ~{count} ניסיונות",
+        "workerProgress": "שחזור בתהליך (Web Worker)",
+        "recoveredPassword": "סיסמה ששוחזרה",
+        "emptyPassword": "(ריק)",
+        "hide": "הסתר",
+        "reveal": "חשוף"
+      }
+    },
+    "batch-rename-pdf": {
+      "status": {
+        "noPdfs": "לא זוהו קבצי PDF.",
+        "filesAdded": "נוספו {count} קובצ/י PDF. התאם כללים ותצוגה מקדימה.",
+        "packaging": "אורז PDF עם שמות חדשים לארכיון ZIP…",
+        "downloaded": "הורדו {count} PDF עם שמות חדשים כקובץ ZIP.",
+        "adjustRules": "התאם כללים ונסה שוב."
+      },
+      "privacyNote": "הקבצים לא עוזבים את הדפדפן. שינוי שם ואריזה מתבצעים מקומית.",
+      "downloadLabel": "שנה שם והורד הכל (ZIP)",
+      "stickyLabel": "שנה שם והורד",
+      "ui": {
+        "addFiles": "הוסף קבצי PDF",
+        "addFolder": "הוסף תיקייה",
+        "clearAll": "נקה הכל",
+        "fileSummary": "נבחרו {count} קובץ/ים · ממוין אלפביתית לפי שם",
+        "previewHeading": "תצוגה מקדימה",
+        "originalColumn": "מקור",
+        "newNameColumn": "שם חדש",
+        "rulesHeading": "כללי שינוי שם",
+        "textPrefix": "קידומת טקסט",
+        "textSuffix": "סיומת טקסט",
+        "prefixPlaceholder": "למשל דוח",
+        "suffixPlaceholder": "למשל סופי",
+        "addSequence": "הוסף מספר סידורי",
+        "preserveExtension": "שמור סיומת .pdf",
+        "lowercase": "המר לאותיות קטנות",
+        "replaceSpaces": "החלף רווחים ב-",
+        "startAt": "התחל מ-",
+        "digits": "ספרות",
+        "numberSeparator": "מפריד מספר",
+        "findReplaceLegend": "חיפוש והחלפה בשם קובץ",
+        "caseSensitive": "רגיש לרישיות",
+        "findPlaceholder": "חפש",
+        "replacePlaceholder": "החלף ב-",
+        "datePrefix": "קידומת תאריך (YYYY-MM-DD)",
+        "sequentialNumbering": "מספור סידורי",
+        "lowercaseNames": "שמות באותיות קטנות",
+        "spacesToDashes": "רווחים → מקפים",
+        "enableTextReplacement": "הפעל החלפת טקסט"
+      }
+    },
+    "pdf-to-booklet": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "loadingPreviews": "טוען תצוגות מקדימות…",
+        "planReady": "{pages} עמוד/ים → {sheets} גיליון/ים פיזיים · {sides} צד/ים להדפסה",
+        "planReadySimple": "מוכן להטלת חוברת.",
+        "planReadyPad": "{count} עמוד/ים ריקים יתווספו לקיפול נכון.",
+        "fileReady": "{pages} עמוד/ים → {sheets} גיליונות, {sides} צד/י הדפסה. {note}",
+        "building": "יוצר PDF חוברת מוטבע מקומית…",
+        "downloaded": "PDF חוברת עם {sides} צד/י הדפסה הורד."
+      },
+      "privacyNote": "הקובץ לא עוזב את הדפדפן. הטלה מקומית להדפסת חוברת.",
+      "createLabel": "צור PDF חוברת",
+      "buildingLabel": "בונה חוברת…",
+      "stickyLabel": "צור חוברת",
+      "stickyCropLabel": "חיתוך PDF",
+      "clearFileLabel": "נקה קובץ",
+      "ui": {
+        "settingsHeading": "הגדרות חוברת",
+        "paperSize": "גודל נייר",
+        "foldStyle": "סגנון קיפול",
+        "width": "רוחב",
+        "height": "גובה",
+        "units": "יחידות",
+        "customSize": "גודל מותאם…",
+        "saddleStitch": "חוברת סיכה (סטנדרטי)",
+        "inches": "אינץ'",
+        "centimeters": "סנטימטרים",
+        "millimeters": "מילימטרים",
+        "duplexPrinting": "הדפסה דuplex",
+        "flipLongEdge": "היפוך על קצה ארוך (חוברות לאורך)",
+        "flipShortEdge": "היפוך על קצה קצר (לרוחב)",
+        "outputSummary": "נייר פלט: {paper} · {sheets} גיליון/ים · {sides} צד/ים להדפסה",
+        "livePreview": "תצוגה מקדימה חיה",
+        "previousSide": "צד קודם",
+        "nextSide": "צד הבא",
+        "jumpToSide": "קפיצה לצד הדפסה",
+        "sheetSide": "גיליון {sheet} · {side}",
+        "sideFront": "קדמי (חיצוני)",
+        "sideBack": "אחורי (פנימי)",
+        "foldLine": "קו קיפול",
+        "fold": "קיפול",
+        "pageLabel": "עמוד {page}",
+        "blank": "ריק",
+        "blankPadding": "ריפוד ריק",
+        "emptySlot": "משבצת ריקה",
+        "foldHint": "לאחר הדפסה דuplex וקיפול, סדר העמודים יתאים לקריאה רציפה. נוספו עמודים ריקים כדי שהמספר יהיה כפולה של 4.",
+        "previewPageAlt": "תצוגה מקדימה עמוד {page}"
+      }
+    },
+    "custom-paper-margin": {
+      "status": {
+        "fileReady": "{name} מוכן — הגדר גודל נייר ושוליים, ואז החל.",
+        "applying": "משנה גודל ומחיל שוליים מקומית…",
+        "downloaded": "הורדו {count} עמוד/ים על {paper} עם השוליים שלך."
+      },
+      "privacyNote": "ה-PDF לא עוזב את הדפדפן. שינוי גודל ושוליים מתבצעים מקומית.",
+      "applyLabel": "החל על כל העמודים",
+      "applyingLabel": "מחיל…",
+      "stickyLabel": "החל שוליים",
+      "stickyBookletLabel": "חוברת",
+      "ui": {
+        "livePreviewHeading": "תצוגה מקדימה חיה — עמוד 1",
+        "loadingPreview": "טוען תצוגה מקדימה…"
+      }
+    },
+    "safe-to-share-auditor": {
+      "status": {
+        "fileLoaded": "PDF נטען. לחץ \"הרץ ביקורת\" לסריקה.",
+        "scanning": "סורק שכבות טקסט, הערות וחתימות…",
+        "found": "נמצאו {count} פריט/ים רגישים.",
+        "none": "לא זוהו דפוסים רגישים ברורים.",
+        "redacting": "מסתיר את כל האזורים שסומנו מקומית…",
+        "redacted": "PDF מוסתר עם {count} אזור/ים הורד."
+      },
+      "privacyNote": "ה-PDF לא עוזב את הדפדפן. הביקורת רצה מקומית.",
+      "auditLabel": "הרץ ביקורת",
+      "auditingLabel": "סורק…",
+      "redactAllLabel": "הסתר / הסר את כל המסומנים",
+      "redactingLabel": "מסתיר…",
+      "stickyAuditLabel": "הרץ ביקורת",
+      "stickyRedactLabel": "הסתר PDF",
+      "ui": {
+        "noFindingsOnPage": "אין פריטים מסומנים בעמוד זה.",
+        "disclaimer": "סריקות אוטומטיות עלולות לפספס תוכן. השתמש בהסתר PDF, הסרת מטא-דאטה ושיטוח לפני שיתוף.",
+        "totalFindings": "סה״כ ממצאים",
+        "highRisk": "סיכון גבוה",
+        "annotations": "הערות",
+        "signaturesInk": "חתימות / דיו",
+        "previousPage": "עמוד קודם",
+        "nextPage": "עמוד הבא",
+        "jumpToPage": "קפיצה לעמוד",
+        "visualMapHeading": "מפת רגישות ויזואלית",
+        "loadingMap": "טוען מפה…",
+        "mapAlt": "מפת מסמך עמוד {page}",
+        "mapLegend": "{count} ממצא/ים בעמוד זה — אדום = סיכון גבוה",
+        "findingsHeading": "ממצאים בעמוד {page}",
+        "scanningPage": "סורק עמוד {current} מתוך {total}…",
+        "pageFlagged": " · מסומן"
+      }
     },
     "heic-to-pdf": {
       "status": {

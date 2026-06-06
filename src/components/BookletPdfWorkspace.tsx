@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -71,9 +71,9 @@ async function renderThumbnails(data: Uint8Array): Promise<Thumb[]> {
   return thumbs;
 }
 
-function pageLabel(n: number | null, sourceCount: number): string {
+function pageLabel(n: number | null, sourceCount: number, blankLabel: string): string {
   if (!n) return "—";
-  if (n > sourceCount) return "Blank";
+  if (n > sourceCount) return blankLabel;
   return String(n);
 }
 
@@ -82,11 +82,25 @@ function BookletSheetPreview({
   plan,
   thumbs,
   paperLabel,
+  ui,
 }: {
   side: BookletSheetSide;
   plan: BookletPlan;
   thumbs: Thumb[];
   paperLabel: string;
+  ui: {
+    sheetSide: (values: { sheet: number; side: string }) => string;
+    sideFront: string;
+    sideBack: string;
+    foldLine: string;
+    fold: string;
+    foldHint: string;
+    pageLabel: (values: { page: string }) => string;
+    blank: string;
+    blankPadding: string;
+    emptySlot: string;
+    previewPageAlt: (values: { page: string }) => string;
+  };
 }) {
   const thumbFor = (oneBased: number | null) => {
     if (!oneBased || oneBased < 1 || oneBased > plan.sourcePageCount) return null;
@@ -99,29 +113,39 @@ function BookletSheetPreview({
   return (
     <div className="space-y-3">
       <p className="text-sm text-ink-muted">
-        Sheet {side.sheetIndex} · {side.side === "front" ? "Front (outside)" : "Back (inside)"} ·{" "}
-        {paperLabel}
+        {ui.sheetSide({
+          sheet: side.sheetIndex,
+          side: side.side === "front" ? ui.sideFront : ui.sideBack,
+        })}{" "}
+        · {paperLabel}
       </p>
       <div className="relative grid grid-cols-2 gap-0 overflow-hidden rounded-xl border border-white/15 bg-slate-950/50 shadow-inner">
         <div className="relative border-r border-dashed border-white/20 p-2">
-          <SlotPreview url={leftUrl} label={pageLabel(side.leftPage, plan.sourcePageCount)} align="left" />
+          <SlotPreview
+            url={leftUrl}
+            label={pageLabel(side.leftPage, plan.sourcePageCount, ui.blank)}
+            align="left"
+            ui={ui}
+          />
         </div>
         <div className="relative p-2">
-          <SlotPreview url={rightUrl} label={pageLabel(side.rightPage, plan.sourcePageCount)} align="right" />
+          <SlotPreview
+            url={rightUrl}
+            label={pageLabel(side.rightPage, plan.sourcePageCount, ui.blank)}
+            align="right"
+            ui={ui}
+          />
         </div>
         <div
           className="pointer-events-none absolute inset-y-4 left-1/2 w-0 -translate-x-1/2 border-l-2 border-dashed border-amber-400/70"
           aria-hidden
-          title="Fold line"
+          title={ui.foldLine}
         />
         <span className="pointer-events-none absolute left-1/2 top-1 -translate-x-1/2 rounded bg-amber-500/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-200">
-          Fold
+          {ui.fold}
         </span>
       </div>
-      <p className="text-xs text-ink-muted">
-        After duplex printing and folding, these spreads nest into reading order. Blank slots are
-        padding so page count is a multiple of four.
-      </p>
+      <p className="text-xs text-ink-muted">{ui.foldHint}</p>
     </div>
   );
 }
@@ -130,24 +154,32 @@ function SlotPreview({
   url,
   label,
   align,
+  ui,
 }: {
   url: string | null;
   label: string;
   align: "left" | "right";
+  ui: {
+    pageLabel: (values: { page: string }) => string;
+    blank: string;
+    blankPadding: string;
+    emptySlot: string;
+    previewPageAlt: (values: { page: string }) => string;
+  };
 }) {
   return (
     <div
       className={`flex min-h-[140px] flex-col gap-2 ${align === "right" ? "items-end text-right" : "items-start"}`}
     >
       <span className="rounded-md bg-white/10 px-2 py-0.5 text-xs font-semibold text-ink">
-        Page {label}
+        {ui.pageLabel({ page: label })}
       </span>
       {url ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={url} alt={`Preview page ${label}`} className="max-h-44 w-full rounded object-contain" />
+        <img src={url} alt={ui.previewPageAlt({ page: label })} className="max-h-44 w-full rounded object-contain" />
       ) : (
         <div className="flex min-h-[120px] w-full items-center justify-center rounded-lg border border-dashed border-white/15 bg-white/[0.03] text-xs text-ink-muted">
-          {label === "Blank" ? "Blank padding" : "Empty slot"}
+          {label === ui.blank ? ui.blankPadding : ui.emptySlot}
         </div>
       )}
     </div>
@@ -156,6 +188,23 @@ function SlotPreview({
 
 export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
+  const bookletUi = useMemo(
+    () => ({
+      sheetSide: (values: { sheet: number; side: string }) => ws.wsUi("sheetSide", values),
+      sideFront: ws.wsUi("sideFront"),
+      sideBack: ws.wsUi("sideBack"),
+      foldLine: ws.wsUi("foldLine"),
+      fold: ws.wsUi("fold"),
+      foldHint: ws.wsUi("foldHint"),
+      pageLabel: (values: { page: string }) => ws.wsUi("pageLabel", values),
+      blank: ws.wsUi("blank"),
+      blankPadding: ws.wsUi("blankPadding"),
+      emptySlot: ws.wsUi("emptySlot"),
+      previewPageAlt: (values: { page: string }) => ws.wsUi("previewPageAlt", values),
+    }),
+    [ws],
+  );
+  const blankLabel = ws.wsUi("blank");
   const baseId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -218,12 +267,12 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsCommon("choosePdf"));
       return;
     }
     setDone(false);
     setRunError(null);
-    setStatus("Loading page previews…");
+    setStatus(ws.wsStatus("loadingPreviews"));
     setLoadingThumbs(true);
     const bytes = new Uint8Array(await next.arrayBuffer());
     try {
@@ -233,10 +282,14 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       setPreviewSideIndex(0);
       const nextPlan = buildSaddleStitchPlan(rendered.length);
       setStatus(
-        `${rendered.length} page(s) → ${nextPlan.sheetCount} physical sheet(s), ${nextPlan.sides.length} print sides. ` +
-          (nextPlan.blankPadCount
-            ? `${nextPlan.blankPadCount} blank page(s) will be added for correct folding.`
-            : "Ready for saddle-stitch imposition."),
+        ws.wsStatus("fileReady", {
+          pages: rendered.length,
+          sheets: nextPlan.sheetCount,
+          sides: nextPlan.sides.length,
+          note: nextPlan.blankPadCount
+            ? ws.wsStatus("planReadyPad", { count: nextPlan.blankPadCount })
+            : ws.wsStatus("planReadySimple"),
+        }),
       );
       capture(EVENTS.file_selected, { operation: tool.operation, pages: rendered.length });
     } catch (e) {
@@ -253,17 +306,14 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Creating imposed booklet PDF locally…");
+    setStatus(ws.wsStatus("building"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
       const { bytes: out, plan: built } = await createBookletPdf(file, options);
       downloadBlob(new Blob([out as BlobPart], { type: "application/pdf" }), bookletOutputName(file));
       setDone(true);
-      setStatus(
-        `Downloaded booklet PDF with ${built.sides.length} print sides (${built.sheetCount} sheet(s)). ` +
-          duplexFlipHint(duplexFlip),
-      );
+      setStatus(ws.wsStatus("downloaded", { sides: built.sides.length }));
       capture(EVENTS.tool_run_success, {
         operation: tool.operation,
         slug,
@@ -293,18 +343,18 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>Your file never leaves your browser.</strong> Imposition runs locally with pdf-lib—no
-        upload to JoinMyPDF servers.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop a PDF to impose as a booklet"
-        description="Works best when page count is a multiple of four; we pad with blanks if needed."
+        title={ws.uploadTitle()}
+        description={ws.uploadDescription()}
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -338,7 +388,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {file ? (
         <button type="button" className={toolSecondaryBtn} onClick={reset}>
-          Clear file
+          {ws.chooseAnotherFile}
         </button>
       ) : null}
 
@@ -346,10 +396,10 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
           <section className="grid gap-4 md:grid-cols-2" aria-labelledby={`${baseId}-paper`}>
             <h2 id={`${baseId}-paper`} className="sr-only">
-              Booklet settings
+              {ws.wsUi("settingsHeading")}
             </h2>
             <label className="block text-sm text-ink">
-              <span className="mb-1 block font-semibold">Paper size</span>
+              <span className="mb-1 block font-semibold">{ws.wsUi("paperSize")}</span>
               <select
                 className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
                 value={paperPreset}
@@ -360,23 +410,23 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                     {BOOKLET_PAPER_PRESETS[key].label}
                   </option>
                 ))}
-                <option value="custom">Custom size…</option>
+                <option value="custom">{ws.wsUi("customSize")}</option>
               </select>
             </label>
             <label className="block text-sm text-ink">
-              <span className="mb-1 block font-semibold">Fold style</span>
+              <span className="mb-1 block font-semibold">{ws.wsUi("foldStyle")}</span>
               <select
                 className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
                 value={foldStyle}
                 onChange={(e) => setFoldStyle(e.target.value as BookletFoldStyle)}
               >
-                <option value="saddle-stitch">Saddle-stitch booklet (standard)</option>
+                <option value="saddle-stitch">{ws.wsUi("saddleStitch")}</option>
               </select>
             </label>
             {paperPreset === "custom" ? (
               <>
                 <label className="block text-sm text-ink">
-                  <span className="mb-1 block font-semibold">Width</span>
+                  <span className="mb-1 block font-semibold">{ws.wsUi("width")}</span>
                   <input
                     type="number"
                     min={1}
@@ -387,7 +437,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                   />
                 </label>
                 <label className="block text-sm text-ink">
-                  <span className="mb-1 block font-semibold">Height</span>
+                  <span className="mb-1 block font-semibold">{ws.wsUi("height")}</span>
                   <input
                     type="number"
                     min={1}
@@ -398,42 +448,45 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                   />
                 </label>
                 <label className="block text-sm text-ink md:col-span-2">
-                  <span className="mb-1 block font-semibold">Units</span>
+                  <span className="mb-1 block font-semibold">{ws.wsUi("units")}</span>
                   <select
                     className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
                     value={customUnit}
                     onChange={(e) => setCustomUnit(e.target.value as CustomPaperUnit)}
                   >
-                    <option value="in">Inches</option>
-                    <option value="cm">Centimeters</option>
-                    <option value="mm">Millimeters</option>
+                    <option value="in">{ws.wsUi("inches")}</option>
+                    <option value="cm">{ws.wsUi("centimeters")}</option>
+                    <option value="mm">{ws.wsUi("millimeters")}</option>
                   </select>
                 </label>
               </>
             ) : null}
             <label className="block text-sm text-ink md:col-span-2">
-              <span className="mb-1 block font-semibold">Duplex printing</span>
+              <span className="mb-1 block font-semibold">{ws.wsUi("duplexPrinting")}</span>
               <select
                 className="w-full rounded-lg border border-white/15 bg-surface/60 px-3 py-2"
                 value={duplexFlip}
                 onChange={(e) => setDuplexFlip(e.target.value as BookletDuplexFlip)}
               >
-                <option value="long-edge">Flip on long edge (portrait booklets)</option>
-                <option value="short-edge">Flip on short edge (landscape)</option>
+                <option value="long-edge">{ws.wsUi("flipLongEdge")}</option>
+                <option value="short-edge">{ws.wsUi("flipShortEdge")}</option>
               </select>
               <span className="mt-1 block text-xs text-ink-muted">{duplexFlipHint(duplexFlip)}</span>
             </label>
           </section>
 
           <p className="text-sm text-ink-muted">
-            Output paper: <strong className="text-ink">{paper.label}</strong> · {plan.sheetCount}{" "}
-            sheet(s) · {plan.sides.length} sides to print
+            {ws.wsUi("outputSummary", {
+              paper: paper.label,
+              sheets: plan.sheetCount,
+              sides: plan.sides.length,
+            })}
           </p>
 
           <section aria-labelledby={`${baseId}-preview`}>
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <h2 id={`${baseId}-preview`} className="text-sm font-semibold text-ink">
-                Live sheet preview
+                {ws.wsUi("livePreview")}
               </h2>
               <div className="flex flex-wrap gap-2">
                 <button
@@ -442,7 +495,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                   disabled={previewSideIndex <= 0}
                   onClick={() => setPreviewSideIndex((i) => Math.max(0, i - 1))}
                 >
-                  Previous side
+                  {ws.wsUi("previousSide")}
                 </button>
                 <button
                   type="button"
@@ -450,18 +503,18 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                   disabled={!plan || previewSideIndex >= plan.sides.length - 1}
                   onClick={() => setPreviewSideIndex((i) => Math.min(plan.sides.length - 1, i + 1))}
                 >
-                  Next side
+                  {ws.wsUi("nextSide")}
                 </button>
                 <select
                   className="rounded-lg border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
                   value={previewSideIndex}
                   onChange={(e) => setPreviewSideIndex(Number(e.target.value))}
-                  aria-label="Jump to print side"
+                  aria-label={ws.wsUi("jumpToSide")}
                 >
                   {plan.sides.map((s, i) => (
                     <option key={i} value={i}>
-                      Sheet {s.sheetIndex} {s.side} — {pageLabel(s.leftPage, plan.sourcePageCount)} |{" "}
-                      {pageLabel(s.rightPage, plan.sourcePageCount)}
+                      Sheet {s.sheetIndex} {s.side} — {pageLabel(s.leftPage, plan.sourcePageCount, blankLabel)} |{" "}
+                      {pageLabel(s.rightPage, plan.sourcePageCount, blankLabel)}
                     </option>
                   ))}
                 </select>
@@ -473,13 +526,14 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 plan={plan}
                 thumbs={thumbs}
                 paperLabel={paper.label}
+                ui={bookletUi}
               />
             ) : null}
           </section>
 
           <div className="flex flex-wrap gap-3">
             <button type="button" className={toolPrimaryBtn} disabled={!canBuild} onClick={() => void buildBooklet()}>
-              {busy ? "Building booklet…" : "Create booklet PDF"}
+              {busy ? ws.wsText("buildingLabel") : ws.wsText("createLabel")}
             </button>
           </div>
         </div>
@@ -495,7 +549,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         />
       ) : (
         <p className="text-sm text-ink-muted" role="status" aria-live="polite">
-          {loadingThumbs ? "Generating previews…" : status}
+          {loadingThumbs ? ws.wsCommon("loadingPreview") : status}
         </p>
       )}
 
@@ -503,9 +557,9 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       <StickyMobileCta
         href="#tool-workspace"
-        label="Create booklet"
+        label={ws.wsText("stickyLabel")}
         secondaryHref="/tools/crop-pdf/"
-        secondaryLabel="Crop PDF"
+        secondaryLabel={ws.wsText("stickyCropLabel")}
       />
     </div>
   );

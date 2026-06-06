@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -95,11 +95,11 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsCommon("choosePdf"));
       return;
     }
     if (next.size === 0) {
-      setStatus("That file is empty. Choose another PDF.");
+      setStatus(ws.wsCommon("emptyPdf"));
       return;
     }
 
@@ -108,7 +108,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
     setFoundPassword(null);
     setRunError(null);
     setFormError("");
-    setStatus("Checking encryption...");
+    setStatus(ws.wsStatus("checking"));
 
     try {
       const buffer = await next.arrayBuffer();
@@ -116,9 +116,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
       const isLocked = await pdf.isPdfEncrypted(next);
       setEncrypted(isLocked);
       setStatus(
-        isLocked
-          ? `${next.name} ready — configure options below, then start recovery.`
-          : "This PDF does not appear to be password-protected. Recovery is only for locked files.",
+        isLocked ? ws.wsStatus("fileReady", { name: next.name }) : ws.wsStatus("notEncrypted"),
       );
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
@@ -134,7 +132,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
     if (!file || !pdfBufferRef.current || busy) return;
 
     if (!encrypted) {
-      setFormError("This PDF does not look encrypted. Use Unlock PDF if you already know the password.");
+      setFormError(ws.wsStatus("notEncryptedForm"));
       return;
     }
 
@@ -145,15 +143,15 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
       (charset.special ? "!" : "") +
       (charset.custom || "");
     if (!tryCommon && !charsetStr) {
-      setFormError("Select at least one character set or enable common passwords.");
+      setFormError(ws.wsStatus("charsetRequired"));
       return;
     }
     if (minLength > maxLength) {
-      setFormError("Minimum length cannot exceed maximum length.");
+      setFormError(ws.wsStatus("lengthOrder"));
       return;
     }
     if (maxLength > MAX_PASSWORD_LENGTH) {
-      setFormError(`Maximum length is ${MAX_PASSWORD_LENGTH} for browser recovery.`);
+      setFormError(ws.wsStatus("maxLength", { max: MAX_PASSWORD_LENGTH }));
       return;
     }
 
@@ -163,7 +161,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
     setDone(false);
     setFoundPassword(null);
     setProgress({ tried: 0, total: estimatedAttempts });
-    setStatus("Recovering password in a background worker — your file never leaves this browser.");
+    setStatus(ws.wsStatus("starting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     sessionRef.current?.cancel();
@@ -176,7 +174,10 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
         onProgress: (p) => {
           setProgress(p);
           setStatus(
-            `Trying passwords… ${formatAttemptCount(p.tried)} of ~${formatAttemptCount(p.total)} attempts`,
+            ws.wsStatus("progress", {
+              tried: formatAttemptCount(p.tried),
+              total: formatAttemptCount(p.total),
+            }),
           );
         },
         onComplete: (result) => {
@@ -188,9 +189,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
             setDone(true);
             setProgress({ tried: result.tried, total: result.total });
             setStatus(
-              result.password
-                ? "Password found. You can reveal it below and download an unlocked copy."
-                : "Password found (empty password). Download the unlocked PDF below.",
+              result.password ? ws.wsStatus("found") : ws.wsStatus("foundEmpty"),
             );
             capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
             window.setTimeout(() => {
@@ -200,14 +199,12 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
           }
 
           if (result.status === "not-found") {
-            setStatus(
-              `No match in ~${formatAttemptCount(result.tried)} attempts. Try a wider character set or longer max length.`,
-            );
+            setStatus(ws.wsStatus("notFound", { tried: formatAttemptCount(result.tried) }));
             return;
           }
 
           if (result.status === "limit") {
-            setStatus("Attempt limit reached. Narrow the search or use Unlock PDF if you remember the password.");
+            setStatus(ws.wsStatus("limit"));
             return;
           }
 
@@ -222,7 +219,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
     sessionRef.current?.cancel();
     sessionRef.current = null;
     setBusy(false);
-    setStatus("Recovery stopped.");
+    setStatus(ws.wsStatus("stopped"));
   };
 
   const onDownloadUnlocked = async () => {
@@ -249,19 +246,19 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>Your file never leaves your browser.</strong> Brute-force runs in a local Web Worker on your
-        device. Use only on PDFs you own or may legally access. Best for short, simple forgotten passwords.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a protected PDF here or click to browse"
-          description="Recover short passwords locally — no cloud upload."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -300,12 +297,12 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
             <p className="text-sm font-semibold text-ink">{file?.name}</p>
             <p className="mt-1 text-xs text-ink-muted">
               {file ? pdf.formatBytes(file.size) : ""}
-              {encrypted ? " · Password-protected" : " · Not encrypted"}
+              {encrypted ? ws.wsUi("encryptedBadge") : ws.wsUi("notEncryptedBadge")}
             </p>
           </div>
 
           <fieldset className="space-y-3" disabled={busy}>
-            <legend className="text-sm font-semibold text-ink">Character sets to try</legend>
+            <legend className="text-sm font-semibold text-ink">{ws.wsUi("charsetHeading")}</legend>
             <div className="flex flex-wrap gap-3 text-sm text-ink">
               <label className="flex items-center gap-2">
                 <input
@@ -329,15 +326,15 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
               </label>
               <label className="flex items-center gap-2">
                 <input type="checkbox" checked={charset.special} onChange={() => toggleCharset("special")} />
-                Special
+                {ws.wsUi("special")}
               </label>
               <label className="flex items-center gap-2">
                 <input type="checkbox" checked={tryCommon} onChange={() => setTryCommon((v) => !v)} />
-                Common passwords first
+                {ws.wsUi("tryCommon")}
               </label>
             </div>
             <label className="block text-xs text-ink-muted" htmlFor={`${baseId}-custom`}>
-              Extra characters (optional)
+              {ws.wsUi("customChars")}
             </label>
             <input
               id={`${baseId}-custom`}
@@ -345,13 +342,13 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
               className="protect-form__input max-w-md"
               value={charset.custom}
               onChange={(e) => setCharset((prev) => ({ ...prev, custom: e.target.value }))}
-              placeholder="e.g. #@"
+              placeholder={ws.wsUi("customPlaceholder")}
             />
           </fieldset>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block text-sm text-ink">
-              <span className="font-medium">Minimum length</span>
+              <span className="font-medium">{ws.wsUi("minLength")}</span>
               <input
                 type="number"
                 min={1}
@@ -363,7 +360,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
               />
             </label>
             <label className="block text-sm text-ink">
-              <span className="font-medium">Maximum length</span>
+              <span className="font-medium">{ws.wsUi("maxLength")}</span>
               <input
                 type="number"
                 min={1}
@@ -377,14 +374,13 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
           </div>
 
           <p className="text-xs text-ink-muted">
-            Estimated search space: ~{formatAttemptCount(estimatedAttempts)} attempts (capped for browser
-            safety).
+            {ws.wsUi("estimatedAttempts", { count: formatAttemptCount(estimatedAttempts) })}
           </p>
 
           {busy ? (
             <div className="space-y-2" aria-live="polite">
               <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>Recovery in progress (Web Worker)</span>
+                <span>{ws.wsUi("workerProgress")}</span>
                 <span>{progressPercent}%</span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-white/10">
@@ -401,23 +397,23 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
           <div className="flex flex-wrap gap-3">
             {!busy ? (
               <button type="button" disabled={!canStart} onClick={onStart} className={toolPrimaryBtn}>
-                Start recovery
+                {ws.wsText("startLabel")}
               </button>
             ) : (
               <button type="button" onClick={onStop} className={toolPrimaryBtn}>
-                Stop
+                {ws.wsText("stopLabel")}
               </button>
             )}
             <button type="button" disabled={busy} onClick={reset} className={toolSecondaryBtn}>
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
 
           {foundPassword !== null ? (
             <div className="rounded-xl border border-brand/30 bg-brand/5 p-4">
-              <p className="text-sm font-semibold text-ink">Recovered password</p>
+              <p className="text-sm font-semibold text-ink">{ws.wsUi("recoveredPassword")}</p>
               <p className="mt-2 font-mono text-lg text-brand">
-                {revealPassword ? foundPassword || "(empty)" : "••••••••"}
+                {revealPassword ? foundPassword || ws.wsUi("emptyPassword") : "••••••••"}
               </p>
               <div className="mt-3 flex flex-wrap gap-3">
                 <button
@@ -425,7 +421,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
                   className="text-sm font-medium text-brand hover:underline"
                   onClick={() => setRevealPassword((v) => !v)}
                 >
-                  {revealPassword ? "Hide" : "Reveal"}
+                  {revealPassword ? ws.wsUi("hide") : ws.wsUi("reveal")}
                 </button>
                 <button
                   type="button"
@@ -433,7 +429,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
                   onClick={() => void onDownloadUnlocked()}
                   className="text-sm font-medium text-brand hover:underline"
                 >
-                  Download unlocked PDF
+                  {ws.wsText("downloadUnlockedLabel")}
                 </button>
               </div>
             </div>
@@ -449,7 +445,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Adjust options and try again." : "");
+            setStatus(file ? ws.wsStatus("adjustOptions") : "");
           }}
         />
       ) : (
@@ -460,7 +456,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Start recovery" secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta href="#tool-workspace" label={ws.wsText("stickyLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { SignPageSelect } from "@/components/SignPageSelect";
 import { SignatureModal } from "@/components/SignatureModal";
@@ -62,6 +62,13 @@ function SignPageStage({
   savedById,
   onInstanceChange,
   onRemoveInstance,
+  pageLabel,
+  renderingPageLabel,
+  signatureAlt,
+  removeSignatureLabel,
+  resizeSignatureLabel,
+  signaturesOnPageHint,
+  placeHint,
 }: {
   pageIndex: number;
   fileBytes: Uint8Array;
@@ -70,6 +77,13 @@ function SignPageStage({
   savedById: Map<string, SavedSignature>;
   onInstanceChange: (instanceId: string, patch: Partial<SignatureInstance>) => void;
   onRemoveInstance: (instanceId: string) => void;
+  pageLabel: string;
+  renderingPageLabel: string;
+  signatureAlt: string;
+  removeSignatureLabel: string;
+  resizeSignatureLabel: string;
+  signaturesOnPageHint: string;
+  placeHint: string;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
@@ -130,7 +144,7 @@ function SignPageStage({
 
   return (
     <div className="sign-page">
-      <p className="sign-page__label">Page {pageIndex + 1}</p>
+      <p className="sign-page__label">{pageLabel}</p>
       <div className="sign-page__studio">
       <div
         ref={stageRef}
@@ -140,7 +154,7 @@ function SignPageStage({
         onPointerLeave={commitDrag}
       >
         {loading ? (
-          <p className="sign-page__loading">Rendering page…</p>
+          <p className="sign-page__loading">{renderingPageLabel}</p>
         ) : canvasEl ? (
           <canvas
             className="sign-page__canvas"
@@ -184,11 +198,11 @@ function SignPageStage({
                 };
               }}
             >
-              <img src={saved.dataUrl} alt="Signature" className="sign-plaque__img" draggable={false} />
+              <img src={saved.dataUrl} alt={signatureAlt} className="sign-plaque__img" draggable={false} />
               <button
                 type="button"
                 className="sign-plaque__remove"
-                aria-label="Remove this signature"
+                aria-label={removeSignatureLabel}
                 onClick={(e) => {
                   e.stopPropagation();
                   onRemoveInstance(inst.id);
@@ -198,7 +212,7 @@ function SignPageStage({
               </button>
               <span
                 className="sign-plaque__handle"
-                aria-label="Resize signature"
+                aria-label={resizeSignatureLabel}
                 onPointerDown={(e) => {
                   if (e.button !== 0) return;
                   e.stopPropagation();
@@ -218,11 +232,9 @@ function SignPageStage({
       </div>
       </div>
       {pageInstances.length > 0 ? (
-        <p className="sign-page__hint">
-          {pageInstances.length} signature(s) on this page — drag to move, corner to resize.
-        </p>
+        <p className="sign-page__hint">{signaturesOnPageHint}</p>
       ) : (
-        <p className="sign-page__hint">Click a saved signature below to place it on this page.</p>
+        <p className="sign-page__hint">{placeHint}</p>
       )}
     </div>
   );
@@ -422,19 +434,19 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure &amp; Confidential:</strong> Your signatures and documents are processed
-        entirely in your browser. We never see, store, or upload your private contracts.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!file ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Upload a contract or form to sign locally in your browser."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -470,7 +482,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           {encrypted ? (
             <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
               <label className="text-sm font-medium text-slate-900 dark:text-slate-100" htmlFor={`${baseId}-pwd`}>
-                PDF password (protected files)
+                {ws.wsUi("passwordLabel")}
               </label>
               <div className="mt-2 flex flex-wrap gap-3">
                 <input
@@ -478,30 +490,28 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                   type="password"
                   className={`min-w-[200px] flex-1 ${toolInput}`}
                   autoComplete="current-password"
-                  placeholder="Enter password to preview pages"
+                  placeholder={ws.wsUi("passwordPlaceholder")}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="button" className="btn btn--ghost" onClick={() => void reloadWithPassword()}>
-                  Load pages
+                  {ws.wsUi("loadPages")}
                 </button>
               </div>
             </div>
           ) : null}
 
           <div className="sign-layout">
-            <aside className="sign-library" aria-label="Your signatures">
+            <aside className="sign-library" aria-label={ws.wsUi("libraryTitle")}>
               <div className="sign-library__head">
-                <h2 className="sign-library__title">Your Signatures</h2>
+                <h2 className="sign-library__title">{ws.wsUi("libraryTitle")}</h2>
                 <button type="button" className="btn btn--primary sign-library__add" onClick={() => setModalOpen(true)}>
-                  + New
+                  {ws.wsUi("newSignature")}
                 </button>
               </div>
-              <p className="sign-library__hint">
-                Click a signature to place another copy on the active page. Reuse the same signature across pages.
-              </p>
+              <p className="sign-library__hint">{ws.wsUi("libraryHint")}</p>
               {savedSignatures.length === 0 ? (
-                <p className="sign-library__empty">No signatures yet. Create one to get started.</p>
+                <p className="sign-library__empty">{ws.wsUi("libraryEmpty")}</p>
               ) : (
                 <ul className="sign-library__list">
                   {savedSignatures.map((saved, index) => (
@@ -510,15 +520,19 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                         type="button"
                         className="sign-saved-item__place"
                         onClick={() => placeSavedSignature(saved.id)}
-                        title={`Place on page ${activePageIndex + 1}`}
+                        title={ws.wsUi("placeOnPage", { page: activePageIndex + 1 })}
                       >
                         <img src={saved.dataUrl} alt="" className="sign-saved-item__thumb" />
-                        <span className="sign-saved-item__label">{saved.label || `Signature ${index + 1}`}</span>
+                        <span className="sign-saved-item__label">
+                          {saved.label || ws.wsUi("defaultSignatureLabel", { n: index + 1 })}
+                        </span>
                       </button>
                       <button
                         type="button"
                         className="sign-saved-item__delete"
-                        aria-label={`Remove ${saved.label}`}
+                        aria-label={ws.wsUi("removeNamed", {
+                          label: saved.label || ws.wsUi("defaultSignatureLabel", { n: index + 1 }),
+                        })}
                         onClick={() => removeSavedSignature(saved.id)}
                       >
                         ×
@@ -550,6 +564,15 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                       onRemoveInstance={(id) =>
                         setInstances((prev) => prev.filter((i) => i.id !== id))
                       }
+                      pageLabel={ws.wsCommon("pageNumber", { page: pageIndex + 1 })}
+                      renderingPageLabel={ws.wsCommon("renderingPage")}
+                      signatureAlt={ws.wsUi("signatureAlt")}
+                      removeSignatureLabel={ws.wsUi("removeSignature")}
+                      resizeSignatureLabel={ws.wsUi("resizeSignature")}
+                      signaturesOnPageHint={ws.wsUi("signaturesOnPage", {
+                        count: instances.filter((i) => i.pageIndex === pageIndex).length,
+                      })}
+                      placeHint={ws.wsUi("placeHint")}
                     />
                   ))}
                 </div>
@@ -562,7 +585,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                   onClick={() => void onSign()}
                   className={toolPrimaryBtn}
                 >
-                  Sign &amp; Download PDF
+                  {ws.wsText("signDownloadLabel")}
                 </button>
                 <button
                   type="button"
@@ -570,7 +593,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                   onClick={reset}
                   className={toolSecondaryBtn}
                 >
-                  Choose another file
+                  {ws.chooseAnotherFile}
                 </button>
               </div>
             </div>
@@ -605,7 +628,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
       <StickyMobileCta
         href="#tool-workspace"
-        label="Sign & Download"
+        label={ws.wsText("stickyLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

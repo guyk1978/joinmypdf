@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -42,6 +42,11 @@ function PageThumbnail({
   onToggle,
   dragProps,
   className,
+  loadingLabel,
+  pageLabel,
+  undoLabel,
+  restoreAria,
+  markAria,
 }: {
   pageIndex: number;
   displayIndex: number;
@@ -50,6 +55,11 @@ function PageThumbnail({
   onToggle: (pageIndex: number) => void;
   dragProps: ReturnType<ReturnType<typeof useDragReorder>["getCardProps"]>;
   className: string;
+  loadingLabel: string;
+  pageLabel: string;
+  undoLabel: string;
+  restoreAria: string;
+  markAria: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loading, setLoading] = useState(true);
@@ -76,21 +86,21 @@ function PageThumbnail({
       <span className="visual-reorder-card__index">#{displayIndex + 1}</span>
       <div className={`delete-page-thumb${marked ? " is-marked" : ""}`}>
         <div className="delete-page-thumb__canvas-wrap">
-          {loading ? <p className="delete-page-thumb__loading">Loading…</p> : null}
+          {loading ? <p className="delete-page-thumb__loading">{loadingLabel}</p> : null}
           <canvas ref={canvasRef} className="delete-page-thumb__canvas" />
           {marked ? <div className="delete-page-thumb__strike" aria-hidden="true" /> : null}
         </div>
         <div className="delete-page-thumb__footer">
-          <span className="delete-page-thumb__label">Page {pageIndex + 1}</span>
+          <span className="delete-page-thumb__label">{pageLabel}</span>
           <button
             type="button"
             className="delete-page-thumb__remove"
             aria-pressed={marked}
-            aria-label={marked ? `Restore page ${pageIndex + 1}` : `Mark page ${pageIndex + 1} for deletion`}
+            aria-label={marked ? restoreAria : markAria}
             onClick={() => onToggle(pageIndex)}
           >
             {marked ? (
-              <span className="delete-page-thumb__remove-text">Undo</span>
+              <span className="delete-page-thumb__remove-text">{undoLabel}</span>
             ) : (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
@@ -160,16 +170,16 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
         const count = await loadPdfPageCount(bytes);
         setPageCount(count);
         setPageOrder(Array.from({ length: count }, (_, i) => i));
-        setStatus(`Loaded ${count} page(s). Drag to reorder, then mark pages to remove.`);
+        setStatus(ws.wsStatus("loaded", { count }));
       } catch {
         setPageCount(0);
         setPageOrder([]);
-        setStatus("Could not open this PDF. Try unlocking it first if it is password-protected.");
+        setStatus(ws.wsCommon("couldNotOpenPdf"));
       }
 
       capture(EVENTS.file_selected, { count: 1, operation: tool.operation });
     },
-    [acceptPdf, tool.operation],
+    [acceptPdf, tool.operation, ws],
   );
 
   const togglePage = useCallback((pageIndex: number) => {
@@ -183,8 +193,8 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
   const clearMarks = useCallback(() => {
     setMarked(new Set());
-    setStatus("Selection cleared. Drag cards to reorder, then mark pages to delete.");
-  }, []);
+    setStatus(ws.wsStatus("selectionCleared"));
+  }, [ws]);
 
   const reorder = useCallback((from: number, to: number) => {
     setPageOrder((prev) => moveArrayItem(prev, from, to));
@@ -194,14 +204,14 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
     if (!file || !fileBytes || busy) return;
     const indices = [...marked];
     if (!indices.length) {
-      setStatus("Mark at least one page for deletion.");
+      setStatus(ws.wsStatus("markRequired"));
       return;
     }
 
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Applying page order and removing selected pages…");
+    setStatus(ws.wsStatus("deleting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -210,7 +220,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
       const remaining = pageOrder.filter((i) => !marked.has(i)).length;
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
-      setStatus(`Downloaded ${outName} (${remaining} page(s) remaining).`);
+      setStatus(ws.wsStatus("downloaded", { name: outName, remaining }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -237,19 +247,19 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Private:</strong> Page removal is processed entirely in your browser. Your files never
-        touch our servers.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!file ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Select one PDF, then drag pages to reorder and mark pages to remove."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -285,7 +295,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
               <span className="font-medium text-ink">{file.name}</span> · {pdf.formatBytes(file.size)}
               {markedCount > 0 ? (
                 <span className="ms-2 text-amber-200">
-                  · {markedCount} page{markedCount === 1 ? "" : "s"} marked
+                  {ws.wsUi("markedCount", { count: markedCount })}
                 </span>
               ) : null}
             </p>
@@ -295,15 +305,13 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
               disabled={busy}
               className="rounded-xl border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
 
           {fileBytes && pageCount > 0 ? (
             <div className="visual-reorder-panel">
-              <p className="visual-reorder-panel__hint">
-                Drag thumbnails to reorder pages. Use the trash icon to mark pages for removal.
-              </p>
+              <p className="visual-reorder-panel__hint">{ws.wsUi("reorderHint")}</p>
               <div className="delete-pages-grid visual-reorder-grid" role="list">
                 {pageOrder.map((originalIndex, displayIndex) => (
                   <PageThumbnail
@@ -315,6 +323,11 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
                     onToggle={togglePage}
                     dragProps={getCardProps(displayIndex, reorder)}
                     className={cardClassName(displayIndex, "visual-reorder-card visual-reorder-card--page")}
+                    loadingLabel={ws.wsUi("loadingThumb")}
+                    pageLabel={ws.wsCommon("pageNumber", { page: originalIndex + 1 })}
+                    undoLabel={ws.wsUi("undo")}
+                    restoreAria={ws.wsUi("restorePage", { page: originalIndex + 1 })}
+                    markAria={ws.wsUi("markPage", { page: originalIndex + 1 })}
                   />
                 ))}
               </div>
@@ -328,7 +341,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
               onClick={clearMarks}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
             >
-              Clear selection
+              {ws.wsUi("clearSelection")}
             </button>
             <button
               type="button"
@@ -339,10 +352,10 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
               {busy ? (
                 <>
                   <span className="tool-spinner" aria-hidden="true" />
-                  <span>Deleting…</span>
+                  <span>{ws.wsText("deletingLabel")}</span>
                 </>
               ) : (
-                "Delete Pages"
+                ws.wsText("deleteLabel")
               )}
             </button>
           </div>
@@ -357,7 +370,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus("Adjust your selection and try again.");
+            setStatus(ws.wsStatus("adjustSelection"));
           }}
         />
       ) : (
@@ -368,7 +381,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Delete Pages" secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta href="#tool-workspace" label={ws.wsText("deleteLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

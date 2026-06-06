@@ -117,6 +117,38 @@ const uploadEn = {
     title: "Drop a PDF to resize to custom paper with margins",
     description: "Set paper size and margins, then apply to all pages.",
   },
+  "rotate-pdf": {
+    title: "Drop a PDF here or click to browse",
+    description: "Rotate specific pages or the whole PDF locally with visual thumbnails.",
+  },
+  "crop-pdf": {
+    title: "Drop a PDF here or click to browse",
+    description: "Crop margins on every page using a visual frame on page 1.",
+  },
+  "pdf-to-png": {
+    title: "Drop a PDF here or click to browse",
+    description: "Each page exports as a PNG image. Processing stays on your device.",
+  },
+  "extract-images": {
+    title: "Drop a PDF here or click to browse",
+    description: "Detect and extract embedded images from your PDF locally.",
+  },
+  "add-watermark": {
+    title: "Drop a PDF here or click to browse",
+    description: "Add custom text watermarks to every page locally.",
+  },
+  "add-page-numbers": {
+    title: "Drop a PDF here or click to browse",
+    description: "Add page numbers with position, format, and style options.",
+  },
+  "remove-hidden-metadata": {
+    title: "Drop a PDF here or click to browse",
+    description: "Scan and remove author, title, and other hidden metadata.",
+  },
+  "flatten-pdf": {
+    title: "Drop a PDF here or click to browse",
+    description: "Remove forms, comments, and annotations by flattening pages locally.",
+  },
 };
 
 const uploadHe = {
@@ -236,6 +268,38 @@ const uploadHe = {
     title: "גרור PDF לשינוי גודל נייר ושוליים",
     description: "הגדר גודל נייר ושוליים, והחל על כל העמודים.",
   },
+  "rotate-pdf": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "סובב עמודים ספציפיים או את כל ה-PDF מקומית עם תמונות ממוזערות.",
+  },
+  "crop-pdf": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "חתוך שוליים בכל עמוד באמצעות מסגרת ויזואלית בעמוד 1.",
+  },
+  "pdf-to-png": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "כל עמוד מיוצא כתמונת PNG. העיבוד במכשיר שלך.",
+  },
+  "extract-images": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "זהה וחלץ תמונות מוטמעות מה-PDF מקומית.",
+  },
+  "add-watermark": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "הוסף סימני מים טקסטואליים לכל עמוד מקומית.",
+  },
+  "add-page-numbers": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "הוסף מספרי עמודים עם מיקום, פורמט וסגנון.",
+  },
+  "remove-hidden-metadata": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "סרוק והסר מחבר, כותרת ומטא-דאטה נסתר אחר.",
+  },
+  "flatten-pdf": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "הסר טפסים, הערות והדגשות על ידי שיטוח עמודים מקומית.",
+  },
 };
 
 function buildWorkspace(locale) {
@@ -339,7 +403,25 @@ function buildWorkspace(locale) {
       protect: {
         pdfReady: isHe ? "PDF מוכן — הגדר סיסמה למטה." : "PDF ready — set a password below.",
         protecting: isHe ? "מגן על ה-PDF…" : "Protecting PDF…",
+        encrypting: isHe ? "מצפין את ה-PDF…" : "Encrypting your PDF…",
         complete: isHe ? "PDF מוגן הורד כ-{name}." : "Protected PDF downloaded as {name}.",
+        passwordRequired: isHe ? "הזן סיסמה." : "Enter a password.",
+        passwordTooShort: isHe ? "השתמש בסיסמה של לפחות 4 תווים." : "Use a password with at least 4 characters.",
+        passwordMismatch: isHe ? "הסיסמאות אינן תואמות." : "Passwords do not match.",
+        adjustTryAgain: isHe ? "התאם את הקובץ או הסיסמה ונסה שוב." : "Adjust your file or password and try again.",
+      },
+      unlock: {
+        lockedReady: isHe
+          ? "PDF זה מוגן בסיסמה — הזן את הסיסמה הנוכחית למטה."
+          : "This PDF is password-protected — enter the current password below.",
+        unlockedReady: isHe
+          ? "PDF מוכן. הזן סיסמה רק אם הקובץ מבקש כזו בפתיחה."
+          : "PDF ready. Enter a password only if the file prompts for one when opened.",
+        fallbackReady: isHe ? "PDF מוכן — הזן סיסמה במידת הצורך, ואז הסר נעילה." : "PDF ready — enter the password if needed, then unlock.",
+        passwordRequired: isHe ? "הזן את סיסמת ה-PDF הנוכחית." : "Enter the current PDF password.",
+        unlocking: isHe ? "מסיר הגנת סיסמה…" : "Removing password protection…",
+        complete: isHe ? "PDF ללא נעילה הורד כ-{name}." : "Unlocked PDF downloaded as {name}.",
+        adjustTryAgain: isHe ? "התאם את הקובץ או הסיסמה ונסה שוב." : "Adjust your file or password and try again.",
       },
     },
     errors: {

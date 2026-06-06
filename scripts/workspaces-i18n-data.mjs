@@ -67,6 +67,17 @@ function buildWorkspaces(locale) {
     clearAll: isHe ? "נקה הכל" : "Clear all",
     untitledBook: isHe ? "ספר ללא שם" : "Untitled book",
     chapterCount: isHe ? "{count} פרק/ים" : "{count} chapter(s)",
+    loadPages: isHe ? "טען עמודים" : "Load pages",
+    enterPasswordPreview: isHe ? "הזן סיסמה לתצוגה מקדימה" : "Enter password to preview pages",
+    loadingPdf: isHe ? "טוען PDF…" : "Loading PDF…",
+    downloadAllZip: isHe ? "הורד הכל כ-ZIP" : "Download all as ZIP",
+    selectedFile: isHe ? "קובץ נבחר" : "Selected file",
+    chooseAnotherFile: isHe ? "בחר קובץ אחר" : "Choose another file",
+    clientSideOnly: isHe ? "רק בצד הלקוח" : "Client-side only",
+    processing: isHe ? "מעבד…" : "Processing…",
+    optional: isHe ? "אופציונלי" : "Optional",
+    undo: isHe ? "בטל" : "Undo",
+    loadingPreview: isHe ? "טוען תצוגה מקדימה…" : "Loading preview…",
   };
 
   const convertProgress = {
@@ -301,6 +312,32 @@ function buildWorkspaces(locale) {
         downloaded: isHe ? "PDF חתום הורד כ-{name}." : "Signed PDF downloaded as {name}.",
         adjustPlacement: isHe ? "התאם מיקום ונסה שוב." : "Adjust placement and try again.",
       },
+      privacyNote: isHe
+        ? "חתימות מעובדות מקומית בדפדפן. המסמך לא עוזב את המכשיר."
+        : "Signatures are processed locally in your browser. Your document never leaves your device.",
+      signDownloadLabel: isHe ? "חתום והורד PDF" : "Sign & Download PDF",
+      stickyLabel: isHe ? "חתום והורד" : "Sign & Download",
+      ui: {
+        signatureAlt: isHe ? "חתימה" : "Signature",
+        removeSignature: isHe ? "הסר חתימה זו" : "Remove this signature",
+        resizeSignature: isHe ? "שנה גודל חתימה" : "Resize signature",
+        signaturesOnPage: isHe
+          ? "{count} חתימה/ות בעמוד זה — גרור להזזה, פינה לשינוי גודל."
+          : "{count} signature(s) on this page — drag to move, corner to resize.",
+        placeHint: isHe ? "לחץ על חתימה שמורה למטה כדי למקם בעמוד זה." : "Click a saved signature below to place it on this page.",
+        passwordLabel: isHe ? "סיסמת PDF (קבצים מוגנים)" : "PDF password (protected files)",
+        passwordPlaceholder: common.enterPasswordPreview,
+        loadPages: common.loadPages,
+        libraryTitle: isHe ? "החתימות שלך" : "Your Signatures",
+        newSignature: isHe ? "+ חדש" : "+ New",
+        libraryHint: isHe
+          ? "לחץ על חתימה להוספת עותק נוסף בעמוד הפעיל. השתמש באותה חתימה בין עמודים."
+          : "Click a signature to place another copy on the active page. Reuse the same signature across pages.",
+        libraryEmpty: isHe ? "אין חתימות עדיין. צור אחת כדי להתחיל." : "No signatures yet. Create one to get started.",
+        placeOnPage: isHe ? "הנח בעמוד {page}" : "Place on page {page}",
+        defaultSignatureLabel: isHe ? "חתימה {n}" : "Signature {n}",
+        removeNamed: isHe ? "הסר {label}" : "Remove {label}",
+      },
     },
     redact: {
       status: {
@@ -317,6 +354,18 @@ function buildWorkspaces(locale) {
         applying: isHe ? "מחיל הסתרות…" : "Applying redactions…",
         downloaded: isHe ? "PDF מוסתר הורד כ-{name}." : "Redacted PDF downloaded as {name}.",
         adjustFile: isHe ? "התאם את הקובץ ונסה שוב." : "Adjust your file and try again.",
+      },
+      privacyNote: isHe
+        ? "כל תהליכי ההסתרה מתבצעים מקומית בדפדפן."
+        : "All redaction processes are executed locally in your browser.",
+      redactLabel: isHe ? "הסתר PDF" : "Redact PDF",
+      redactingLabel: isHe ? "מסתיר…" : "Redacting…",
+      ui: {
+        markHint: isHe ? "לחץ וגרור לסימון אזורים להסתרה." : "Click and drag to mark areas to black out.",
+        passwordLabel: isHe ? "סיסמת PDF (נדרש לקבצים מוגנים)" : "PDF password (required for protected files)",
+        passwordPlaceholder: common.enterPasswordPreview,
+        loadPages: common.loadPages,
+        clearAll: common.clearAll,
       },
     },
     "compare-pdf": {
@@ -371,6 +420,105 @@ function buildWorkspaces(locale) {
         cropping: isHe ? "חותך עמודים…" : "Cropping pages…",
         complete: isHe ? "חיתוך הושלם. ההורדה אמורה להתחיל אוטומטית." : "Crop complete. Your download should start automatically.",
         tryAgain: common.tryAgainOrChoose,
+      },
+      privacyNote: isHe
+        ? "חיתוך רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר."
+        : "Cropping runs entirely in your browser. Your PDF never leaves your device.",
+      applyLabel: isHe ? "החל חיתוך והורד" : "Apply crop & download",
+      stickyApplyLabel: isHe ? "החל חיתוך" : "Apply crop",
+      stickyDefaultLabel: isHe ? "חיתוך PDF" : "Crop PDF",
+      ui: {
+        pageSummary: isHe ? "{count} עמוד/ים · אותו חיתוך בכל העמודים" : "{count} page(s) · same crop on all pages",
+        cropInstructions: isHe
+          ? "גרור את המסגרת להזזה. משוך פינות או קצוות לשינוי גודל. אותו חיתוך חל על כל עמוד."
+          : "Drag the frame to move it. Pull corners or edges to resize. The same crop applies to every page.",
+        resetFrame: isHe ? "אפס מסגרת" : "Reset frame",
+      },
+    },
+    protect: {
+      privacyNote: isHe
+        ? "הקובץ מוצפן מקומית בדפדפן ולעולם לא נוגע בשרתים שלנו."
+        : "Your file is encrypted locally in your browser and never touches our servers.",
+      protectLabel: isHe ? "הגן על PDF" : "Protect PDF",
+      protectingLabel: isHe ? "מגן…" : "Protecting…",
+      ui: {
+        selectedFile: common.selectedFile,
+        passwordLabel: isHe ? "סיסמה" : "Password",
+        confirmPasswordLabel: isHe ? "אימות סיסמה" : "Confirm password",
+        passwordPlaceholder: isHe ? "הזן סיסמה" : "Enter password",
+        confirmPlaceholder: isHe ? "הזן סיסמה שוב" : "Re-enter password",
+      },
+    },
+    unlock: {
+      privacyNote: isHe
+        ? "פענוח סיסמה מתבצע מקומית בדפדפן. אנחנו לא שומרים ולא רואים את הסיסמאות או הקבצים שלך."
+        : "Password decryption happens locally in your browser. We never store or see your passwords or files.",
+      unlockLabel: isHe ? "הסר נעילה" : "Unlock PDF",
+      unlockingLabel: isHe ? "מסיר נעילה…" : "Unlocking…",
+      ui: {
+        selectedFile: common.selectedFile,
+        passwordProtectedBadge: isHe ? "מוגן בסיסמה" : "Password protected",
+        passwordLabel: isHe ? "סיסמת PDF נוכחית" : "Current PDF password",
+        passwordPlaceholderLocked: isHe ? "הזן סיסמה לפתיחת PDF זה" : "Enter password to open this PDF",
+        passwordPlaceholderUnlocked: isHe ? "השאר ריק אם לא נדרש" : "Leave blank if not required",
+      },
+    },
+    "rotate-pdf": {
+      status: {
+        invalidType: common.choosePdf,
+        emptyFile: common.emptyPdf,
+        reading: isHe ? "קורא עמודי PDF…" : "Reading PDF pages…",
+        fileReady: isHe ? "{name} מוכן — סובב עמודים, ואז הורד." : "{name} ready — rotate pages, then download.",
+        applying: isHe ? "מחיל סיבובים…" : "Applying rotations…",
+        complete: isHe ? "הסיבוב הושלם. ההורדה אמורה להתחיל אוטומטית." : "Rotation complete. Your download should start automatically.",
+        tryAgain: common.tryAgainOrChoose,
+      },
+      privacyNote: isHe
+        ? "סיבוב רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר."
+        : "Rotation runs entirely in your browser. Your PDF never leaves your device.",
+      saveLabel: isHe ? "שמור PDF מסובב" : "Save rotated PDF",
+      rotateLabel: isHe ? "סובב PDF" : "Rotate PDF",
+      ui: {
+        pageSummary: isHe
+          ? "{count} עמוד/ים · השתמש בבקרי סיבוב לכל עמוד או גלובליים"
+          : "{count} page(s) · use per-page or global rotate controls",
+        rotateAllCw: isHe ? "סובב הכל עם כיוון השעון" : "Rotate all clockwise",
+        rotateAllCcw: isHe ? "סובב הכל נגד כיוון השעון" : "Rotate all counter-clockwise",
+        clockwise: isHe ? "↺ עם כיוון השעון" : "↺ Clockwise",
+        counterClockwise: isHe ? "↻ נגד כיוון השעון" : "↻ Counter",
+        resetRotations: isHe ? "אפס סיבובים" : "Reset rotations",
+      },
+    },
+    "delete-pages": {
+      status: {
+        loaded: isHe
+          ? "נטענו {count} עמוד/ים. גרור לסדר, וסמן עמודים להסרה."
+          : "Loaded {count} page(s). Drag to reorder, then mark pages to remove.",
+        selectionCleared: isHe
+          ? "הבחירה נוקתה. גרור כרטיסים לסדר מחדש וסמן עמודים להסרה."
+          : "Selection cleared. Drag cards to reorder and mark pages to remove.",
+        markRequired: isHe ? "סמן לפחות עמוד אחד למחיקה." : "Mark at least one page for deletion.",
+        deleting: isHe ? "מחיל סדר עמודים ומסיר עמודים שנבחרו…" : "Applying page order and removing selected pages…",
+        downloaded: isHe
+          ? "הורד {name} ({remaining} עמוד/ים נותרו)."
+          : "Downloaded {name} ({remaining} page(s) remaining).",
+        adjustSelection: isHe ? "התאם את הבחירה ונסה שוב." : "Adjust your selection and try again.",
+      },
+      privacyNote: isHe
+        ? "הסרת עמודים מתבצעת מקומית בדפדפן. הקובץ לא עוזב את המכשיר."
+        : "Page removal is processed locally in your browser. Your file never leaves your device.",
+      deleteLabel: isHe ? "מחק עמודים" : "Delete Pages",
+      deletingLabel: isHe ? "מוחק…" : "Deleting…",
+      ui: {
+        markedCount: isHe ? "· {count} עמוד/ים מסומנים" : "· {count} page(s) marked",
+        loadingThumb: isHe ? "טוען…" : "Loading…",
+        restorePage: isHe ? "שחזר עמוד {page}" : "Restore page {page}",
+        markPage: isHe ? "סמן עמוד {page} למחיקה" : "Mark page {page} for deletion",
+        undo: common.undo,
+        reorderHint: isHe
+          ? "גרור תמונות ממוזערות לסדר עמודים. לחץ על סמל הפח לסימון למחיקה."
+          : "Drag thumbnails to reorder pages. Click the trash icon to mark for deletion.",
+        clearSelection: isHe ? "נקה בחירה" : "Clear selection",
       },
     },
     "openoffice-to-pdf": {
@@ -539,6 +687,357 @@ function buildWorkspaces(locale) {
       convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
       useDxfLabel: isHe ? "השתמש בקובץ DXF" : "Use DXF file",
       stickyConvertLabel: isHe ? "AutoCAD ל-PDF" : "AutoCAD to PDF",
+    },
+    "add-watermark": {
+      status: {
+        invalidType: common.choosePdf,
+        emptyFile: common.emptyPdf,
+        fileReady: isHe ? "{name} מוכן — כוון סימן מים, ואז החל." : "{name} ready — tune the watermark, then apply.",
+        textRequired: isHe ? "הזן טקסט סימן מים לפני החלה." : "Enter watermark text before applying.",
+        stamping: isHe ? "מוסיף סימן מים לכל עמוד…" : "Stamping watermark on every page…",
+        complete: isHe ? "סימן מים הוחל. ההורדה אמורה להתחיל אוטומטית." : "Watermark applied. Your download should start automatically.",
+        tryAgain: common.tryAgainOrChoose,
+      },
+      privacyNote: isHe
+        ? "סימני מים רצים לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר."
+        : "Watermarking runs entirely in your browser. Your PDF never leaves your device.",
+      applyLabel: isHe ? "החל סימן מים והורד" : "Apply watermark & download",
+      stickyApplyLabel: isHe ? "הוסף סימן מים" : "Add watermark",
+      ui: {
+        pageSummary: isHe ? "{count} עמוד/ים · תצוגה מקדימה מציגה עמוד 1" : "{count} page(s) · preview shows page 1",
+        settingsHeading: isHe ? "הגדרות סימן מים" : "Watermark settings",
+        textLabel: isHe ? "טקסט" : "Text",
+        textPlaceholder: isHe ? "סודי" : "CONFIDENTIAL",
+        opacityLabel: isHe ? "שקיפות" : "Opacity",
+        colorLabel: isHe ? "צבע" : "Color",
+        fontSizeLabel: isHe ? "גודל גופן" : "Font size",
+        rotationLabel: isHe ? "סיבוב" : "Rotation",
+        positionLabel: isHe ? "מיקום" : "Position",
+        previewHeading: isHe ? "תצוגה מקדימה חיה" : "Live preview",
+        resetSettings: isHe ? "אפס הגדרות" : "Reset settings",
+      },
+    },
+    "add-page-numbers": {
+      status: {
+        fileReady: isHe ? "PDF מוכן — בחר אפשרויות מספור למטה." : "PDF ready — choose numbering options below.",
+        startMin: isHe ? "עמוד התחלה חייב להיות לפחות 1." : "Start page must be at least 1.",
+        startMax: isHe ? "עמוד התחלה לא יכול לעלות על {pageCount}." : "Start page cannot exceed {pageCount}.",
+        adding: isHe ? "מוסיף מספרי עמוד…" : "Adding page numbers…",
+        downloaded: isHe ? "PDF עם מספרים הורד כ-{name}." : "Numbered PDF downloaded as {name}.",
+        adjustOptions: isHe ? "התאם אפשרויות ונסה שוב." : "Adjust options and try again.",
+      },
+      privacyNote: isHe
+        ? "מספור עמודים מתבצע מקומית בדפדפן. הקובץ לא עוזב את המכשיר."
+        : "Page numbering is processed locally in your browser. Your file never leaves your device.",
+      addLabel: isHe ? "הוסף מספרי עמודים" : "Add Page Numbers",
+      ui: {
+        positionLabel: isHe ? "מיקום" : "Position",
+        startLabel: isHe ? "התחל מעמוד" : "Start from page",
+        formatLabel: isHe ? "פורמט" : "Format",
+        fontSizeLabel: isHe ? "גודל גופן" : "Font size",
+        fontColorLabel: isHe ? "צבע גופן" : "Font color",
+        fontStyleLabel: isHe ? "סגנון גופן" : "Font style",
+        formatNumber: isHe ? "מספר בלבד (למשל 1)" : "Number only (e.g. 1)",
+        formatPageOf: isHe ? "עמוד X מתוך Y (למשל עמוד 1 מתוך 10)" : "Page X of Y (e.g. Page 1 of 10)",
+        sizeSmall: isHe ? "קטן" : "Small",
+        sizeMedium: isHe ? "בינוני" : "Medium",
+        sizeLarge: isHe ? "גדול" : "Large",
+        styleRegular: isHe ? "רגיל" : "Regular",
+        styleBold: isHe ? "מודגש" : "Bold",
+      },
+    },
+    "extract-images": {
+      status: {
+        fileReady: isHe ? "{name} מוכן — חלץ תמונות מוטמעות." : "{name} ready — extract embedded images.",
+        scanning: isHe ? "סורק PDF לאובייקטי תמונה…" : "Scanning PDF for image objects...",
+        scanningPage: isHe ? "סורק עמוד {page} מתוך {total}…" : "Scanning page {page} of {total}...",
+        found: isHe ? "נמצאו {count} אובייקט/י תמונה. מוכן לחילוץ." : "Found {count} image object(s). Ready to extract.",
+        none: isHe ? "לא נמצאו אובייקטי תמונה מוטמעים." : "No embedded image objects detected.",
+        buildingZip: isHe ? "בונה ZIP…" : "Building ZIP...",
+        zipDownloaded: isHe ? "ZIP עם {count} קובצ/י תמונה הורד." : "Downloaded ZIP with {count} image file(s).",
+        tryAgain: common.tryAgainOrChoose,
+      },
+      privacyNote: isHe
+        ? "חילוץ תמונות רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר."
+        : "Image extraction runs entirely in your browser. Your PDF never leaves your device.",
+      extractLabel: isHe ? "חלץ תמונות" : "Extract images",
+      extractAgainLabel: isHe ? "חלץ שוב" : "Extract again",
+      downloadZipLabel: common.downloadAllZip,
+      stickyExtractLabel: isHe ? "חלץ תמונות" : "Extract images",
+      stickyDownloadLabel: isHe ? "הורד ZIP" : "Download ZIP",
+      ui: {
+        imageAlt: isHe ? "תמונה {index} בעמוד {page}" : "Extracted image {index} on page {page}",
+        thumbLabel: isHe ? "עמוד {page} · תמונה {index}" : "Page {page} · Image {index}",
+        downloadImage: isHe ? "הורד תמונה" : "Download image",
+        gridLabel: isHe ? "תמונות שחולצו" : "Extracted images",
+      },
+    },
+    "pdf-to-png": {
+      status: {
+        fileReady: isHe ? "{name} מוכן — ייצא עמודים כ-PNG." : "{name} ready — export pages as PNG.",
+        rendering: isHe ? "מרנדר {count} עמוד/ים ב-{scale}×…" : "Rendering {count} page(s) at {scale}×…",
+        exported: isHe ? "יוצאו {count} עמוד/י PNG." : "Exported {count} PNG page(s).",
+        zipDownloaded: isHe ? "ZIP עם {count} קובצ/י PNG הורד." : "Downloaded ZIP with {count} PNG file(s).",
+        tryAgain: isHe ? "נסה לייצא שוב או בחר קובץ אחר." : "Try exporting again or choose another file.",
+      },
+      privacyNote: isHe
+        ? "רינדור PDF רץ לחלוטין בדפדפן. המסמך לא עוזב את המכשיר."
+        : "PDF rendering runs entirely in your browser. Your document never leaves your device.",
+      exportLabel: isHe ? "ייצא עמודי PNG" : "Export PNG pages",
+      reexportLabel: isHe ? "ייצא PNG שוב" : "Re-export PNG pages",
+      downloadZipLabel: common.downloadAllZip,
+      stickyExportLabel: isHe ? "ייצא PNG" : "Export PNG",
+      stickyDownloadLabel: isHe ? "הורד ZIP" : "Download ZIP",
+      ui: {
+        downloadPng: isHe ? "הורד PNG" : "Download PNG",
+        gridLabel: isHe ? "עמודי PNG שיוצאו" : "Exported PNG pages",
+      },
+    },
+    "remove-hidden-metadata": {
+      status: {
+        scanning: isHe ? "סורק מטא-דאטה…" : "Scanning metadata...",
+        found: isHe ? "נמצאו {count} שדות מטא-דאטה." : "Found {count} metadata field(s).",
+        noneDetected: isHe ? "לא זוהה מטא-דאטה סטנדרטי." : "No document metadata detected.",
+        removing: isHe ? "מסיר מטא-דאטה…" : "Removing metadata...",
+        downloaded: isHe ? "PDF נקי הורד כ-{name}." : "Clean PDF downloaded as {name}.",
+        adjustTryAgain: isHe ? "התאם את הקובץ או הסיסמה ונסה שוב." : "Adjust your file or password and try again.",
+      },
+      privacyNote: isHe
+        ? "סריקה והסרת מטא-דאטה מתבצעות מקומית בדפדפן."
+        : "Metadata scanning and removal happen locally in your browser.",
+      cleanLabel: isHe ? "נקה והורד" : "Clean & download",
+      cleanAgainLabel: isHe ? "נקה והורד שוב" : "Clean & download again",
+      stickyLabel: isHe ? "נקה והורד" : "Clean & download",
+      ui: {
+        passwordLabel: isHe ? "סיסמת PDF (רק אם הקובץ מוגן)" : "PDF password (only if the file is protected)",
+        passwordPlaceholder: common.optional,
+        rescan: isHe ? "סרוק מחדש עם סיסמה זו" : "Rescan with this password",
+        metadataHeading: isHe ? "מטא-דאטה שנמצא בקובץ" : "Metadata found in this file",
+        scanningInline: isHe ? "סורק…" : "Scanning...",
+        noInfoFields: isHe
+          ? "לא זוהו שדות Info סטנדרטיים. ייתכן שעדיין יש מטא-דאטה מוטמע."
+          : "No standard Info fields were detected. Embedded metadata may still exist.",
+      },
+    },
+    "pdf-password-recovery": {
+      status: {
+        checking: isHe ? "בודק הצפנה…" : "Checking encryption...",
+        fileReady: isHe ? "{name} מוכן — הגדר אפשרויות ונסה שחזור." : "{name} ready — configure options and try recovery.",
+        notEncrypted: isHe ? "PDF זה לא נראה מוגן בסיסמה." : "This PDF does not appear to be password-protected.",
+        notEncryptedForm: isHe
+          ? "PDF זה לא נראה מוצפן. השתמש בהסרת נעילה אם אתה זוכר את הסיסמה."
+          : "This PDF does not look encrypted. Use Unlock PDF if you already know the password.",
+        charsetRequired: isHe ? "בחר לפחות סט תווים אחד לניסוי." : "Select at least one character set to try.",
+        lengthOrder: isHe ? "אורך מינימלי לא יכול לעלות על מקסימלי." : "Minimum length cannot exceed maximum length.",
+        maxLength: isHe ? "אורך מקסימלי הוא {max} לשחזור בדפדפן." : "Maximum length is {max} for browser recovery.",
+        starting: isHe
+          ? "משחזר סיסמה ב-Worker ברקע — הקובץ לא עוזב את הדפדפן."
+          : "Recovering password in a background worker — your file never leaves this browser.",
+        progress: isHe ? "מנסה סיסמאות… {tried} מתוך ~{total} ניסיונות" : "Trying passwords… {tried} of ~{total} attempts",
+        found: isHe ? "נמצאה סיסמה. אפשר לחשוף ולהוריד PDF ללא נעילה." : "Password found. You can reveal it and download an unlocked PDF.",
+        foundEmpty: isHe ? "נמצאה סיסמה (ריקה). אפשר להוריד PDF ללא נעילה." : "Password found (empty password). You can download an unlocked PDF.",
+        notFound: isHe ? "לא נמצאה התאמה ב-~{tried} ניסיונות." : "No match in ~{tried} attempts.",
+        limit: isHe
+          ? "הגעת למגבלת ניסיונות. צמצם חיפוש או השתמש בהסרת נעילה אם אתה זוכר את הסיסמה."
+          : "Attempt limit reached. Narrow the search or use Unlock PDF if you remember the password.",
+        stopped: isHe ? "השחזור נעצר." : "Recovery stopped.",
+        adjustOptions: isHe ? "התאם אפשרויות ונסה שוב." : "Adjust options and try again.",
+      },
+      privacyNote: isHe
+        ? "הקובץ לא עוזב את הדפדפן. brute-force רץ מקומית."
+        : "Your file never leaves your browser. Brute-force runs locally.",
+      startLabel: isHe ? "התחל שחזור" : "Start recovery",
+      stopLabel: isHe ? "עצור" : "Stop",
+      stickyLabel: isHe ? "התחל שחזור" : "Start recovery",
+      downloadUnlockedLabel: isHe ? "הורד PDF ללא נעילה" : "Download unlocked PDF",
+      ui: {
+        encryptedBadge: isHe ? "· מוגן בסיסמה" : "· Password-protected",
+        notEncryptedBadge: isHe ? "· לא מוצפן" : "· Not encrypted",
+        charsetHeading: isHe ? "סטי תווים לניסוי" : "Character sets to try",
+        special: isHe ? "מיוחדים" : "Special",
+        tryCommon: isHe ? "סיסמאות נפוצות קודם" : "Common passwords first",
+        customChars: isHe ? "תווים נוספים (אופציונלי)" : "Extra characters (optional)",
+        customPlaceholder: isHe ? "למשל #@" : "e.g. #@",
+        minLength: isHe ? "אורך מינימלי" : "Minimum length",
+        maxLength: isHe ? "אורך מקסימלי" : "Maximum length",
+        estimatedAttempts: isHe ? "מרחב חיפוש משוער: ~{count} ניסיונות" : "Estimated search space: ~{count} attempts",
+        workerProgress: isHe ? "שחזור בתהליך (Web Worker)" : "Recovery in progress (Web Worker)",
+        recoveredPassword: isHe ? "סיסמה ששוחזרה" : "Recovered password",
+        emptyPassword: isHe ? "(ריק)" : "(empty)",
+        hide: isHe ? "הסתר" : "Hide",
+        reveal: isHe ? "חשוף" : "Reveal",
+      },
+    },
+    "batch-rename-pdf": {
+      status: {
+        noPdfs: isHe ? "לא זוהו קבצי PDF." : "No PDF files detected.",
+        filesAdded: isHe ? "נוספו {count} קובצ/י PDF. התאם כללים ותצוגה מקדימה." : "Added {count} PDF file(s). Adjust rules and preview.",
+        packaging: isHe ? "אורז PDF עם שמות חדשים לארכיון ZIP…" : "Packaging renamed PDFs into a ZIP archive...",
+        downloaded: isHe ? "הורדו {count} PDF עם שמות חדשים כקובץ ZIP." : "Downloaded {count} renamed PDF(s) as a ZIP file.",
+        adjustRules: isHe ? "התאם כללים ונסה שוב." : "Adjust rules and try again.",
+      },
+      privacyNote: isHe
+        ? "הקבצים לא עוזבים את הדפדפן. שינוי שם ואריזה מתבצעים מקומית."
+        : "Your files never leave your browser. Renaming and packaging run locally.",
+      downloadLabel: isHe ? "שנה שם והורד הכל (ZIP)" : "Rename & download all (ZIP)",
+      stickyLabel: isHe ? "שנה שם והורד" : "Rename & download",
+      ui: {
+        addFiles: isHe ? "הוסף קבצי PDF" : "Add PDF files",
+        addFolder: isHe ? "הוסף תיקייה" : "Add folder",
+        clearAll: common.clearAll,
+        fileSummary: isHe
+          ? "נבחרו {count} קובץ/ים · ממוין אלפביתית לפי שם"
+          : "{count} file(s) selected · sorted alphabetically by name",
+        previewHeading: isHe ? "תצוגה מקדימה" : "Preview",
+        originalColumn: isHe ? "מקור" : "Original",
+        newNameColumn: isHe ? "שם חדש" : "New name",
+        rulesHeading: isHe ? "כללי שינוי שם" : "Rename rules",
+        textPrefix: isHe ? "קידומת טקסט" : "Text prefix",
+        textSuffix: isHe ? "סיומת טקסט" : "Text suffix",
+        prefixPlaceholder: isHe ? "למשל דוח" : "e.g. Report",
+        suffixPlaceholder: isHe ? "למשל סופי" : "e.g. final",
+        addSequence: isHe ? "הוסף מספר סידורי" : "Add sequence number",
+        preserveExtension: isHe ? "שמור סיומת .pdf" : "Preserve .pdf extension",
+        lowercase: isHe ? "המר לאותיות קטנות" : "Convert to lowercase",
+        replaceSpaces: isHe ? "החלף רווחים ב-" : "Replace spaces with",
+        startAt: isHe ? "התחל מ-" : "Start at",
+        digits: isHe ? "ספרות" : "Digits",
+        numberSeparator: isHe ? "מפריד מספר" : "Number separator",
+        findReplaceLegend: isHe ? "חיפוש והחלפה בשם קובץ" : "Find & replace in filename",
+        caseSensitive: isHe ? "רגיש לרישיות" : "Case sensitive",
+        findPlaceholder: isHe ? "חפש" : "Find",
+        replacePlaceholder: isHe ? "החלף ב-" : "Replace with",
+        datePrefix: isHe ? "קידומת תאריך (YYYY-MM-DD)" : "Date prefix (YYYY-MM-DD)",
+        sequentialNumbering: isHe ? "מספור סידורי" : "Sequential numbering",
+        lowercaseNames: isHe ? "שמות באותיות קטנות" : "Lowercase names",
+        spacesToDashes: isHe ? "רווחים → מקפים" : "Spaces → dashes",
+        enableTextReplacement: isHe ? "הפעל החלפת טקסט" : "Enable text replacement",
+      },
+    },
+    "pdf-to-booklet": {
+      status: {
+        invalidType: common.choosePdf,
+        loadingPreviews: isHe ? "טוען תצוגות מקדימות…" : "Loading page previews…",
+        planReady: isHe
+          ? "{pages} עמוד/ים → {sheets} גיליון/ים פיזיים · {sides} צד/ים להדפסה"
+          : "{pages} page(s) → {sheets} physical sheet(s) · {sides} side(s) to print",
+        planReadySimple: isHe ? "מוכן להטלת חוברת." : "Ready for saddle-stitch imposition.",
+        planReadyPad: isHe
+          ? "{count} עמוד/ים ריקים יתווספו לקיפול נכון."
+          : "{count} blank page(s) will be added for correct folding.",
+        fileReady: isHe
+          ? "{pages} עמוד/ים → {sheets} גיליונות, {sides} צד/י הדפסה. {note}"
+          : "{pages} page(s) → {sheets} physical sheet(s), {sides} print sides. {note}",
+        building: isHe ? "יוצר PDF חוברת מוטבע מקומית…" : "Creating imposed booklet PDF locally…",
+        downloaded: isHe
+          ? "PDF חוברת עם {sides} צד/י הדפסה הורד."
+          : "Downloaded booklet PDF with {sides} print sides.",
+      },
+      privacyNote: isHe
+        ? "הקובץ לא עוזב את הדפדפן. הטלה מקומית להדפסת חוברת."
+        : "Your file never leaves your browser. Imposition runs locally for booklet printing.",
+      createLabel: isHe ? "צור PDF חוברת" : "Create booklet PDF",
+      buildingLabel: isHe ? "בונה חוברת…" : "Building booklet…",
+      stickyLabel: isHe ? "צור חוברת" : "Create booklet",
+      stickyCropLabel: isHe ? "חיתוך PDF" : "Crop PDF",
+      clearFileLabel: isHe ? "נקה קובץ" : "Clear file",
+      ui: {
+        settingsHeading: isHe ? "הגדרות חוברת" : "Booklet settings",
+        paperSize: isHe ? "גודל נייר" : "Paper size",
+        foldStyle: isHe ? "סגנון קיפול" : "Fold style",
+        width: isHe ? "רוחב" : "Width",
+        height: isHe ? "גובה" : "Height",
+        units: isHe ? "יחידות" : "Units",
+        customSize: isHe ? "גודל מותאם…" : "Custom size…",
+        saddleStitch: isHe ? "חוברת סיכה (סטנדרטי)" : "Saddle-stitch booklet (standard)",
+        inches: isHe ? "אינץ'" : "Inches",
+        centimeters: isHe ? "סנטימטרים" : "Centimeters",
+        millimeters: isHe ? "מילימטרים" : "Millimeters",
+        duplexPrinting: isHe ? "הדפסה דuplex" : "Duplex printing",
+        flipLongEdge: isHe ? "היפוך על קצה ארוך (חוברות לאורך)" : "Flip on long edge (portrait booklets)",
+        flipShortEdge: isHe ? "היפוך על קצה קצר (לרוחב)" : "Flip on short edge (landscape)",
+        outputSummary: isHe
+          ? "נייר פלט: {paper} · {sheets} גיליון/ים · {sides} צד/ים להדפסה"
+          : "Output paper: {paper} · {sheets} sheet(s) · {sides} sides to print",
+        livePreview: isHe ? "תצוגה מקדימה חיה" : "Live sheet preview",
+        previousSide: isHe ? "צד קודם" : "Previous side",
+        nextSide: isHe ? "צד הבא" : "Next side",
+        jumpToSide: isHe ? "קפיצה לצד הדפסה" : "Jump to print side",
+        sheetSide: isHe
+          ? "גיליון {sheet} · {side}"
+          : "Sheet {sheet} · {side}",
+        sideFront: isHe ? "קדמי (חיצוני)" : "Front (outside)",
+        sideBack: isHe ? "אחורי (פנימי)" : "Back (inside)",
+        foldLine: isHe ? "קו קיפול" : "Fold line",
+        fold: isHe ? "קיפול" : "Fold",
+        pageLabel: isHe ? "עמוד {page}" : "Page {page}",
+        blank: isHe ? "ריק" : "Blank",
+        blankPadding: isHe ? "ריפוד ריק" : "Blank padding",
+        emptySlot: isHe ? "משבצת ריקה" : "Empty slot",
+        foldHint: isHe
+          ? "לאחר הדפסה דuplex וקיפול, סדר העמודים יתאים לקריאה רציפה. נוספו עמודים ריקים כדי שהמספר יהיה כפולה של 4."
+          : "After duplex printing and folding, page order matches continuous reading. Blank pages pad so page count is a multiple of four.",
+        previewPageAlt: isHe ? "תצוגה מקדימה עמוד {page}" : "Preview page {page}",
+      },
+    },
+    "custom-paper-margin": {
+      status: {
+        fileReady: isHe ? "{name} מוכן — הגדר גודל נייר ושוליים, ואז החל." : "{name} ready — set paper size and margins, then apply.",
+        applying: isHe ? "משנה גודל ומחיל שוליים מקומית…" : "Resizing and applying margins locally…",
+        downloaded: isHe ? "הורדו {count} עמוד/ים על {paper} עם השוליים שלך." : "Downloaded {count} page(s) on {paper} with your margins.",
+      },
+      privacyNote: isHe
+        ? "ה-PDF לא עוזב את הדפדפן. שינוי גודל ושוליים מתבצעים מקומית."
+        : "Your PDF never leaves your browser. Resizing and margins run locally.",
+      applyLabel: isHe ? "החל על כל העמודים" : "Apply to all pages",
+      applyingLabel: isHe ? "מחיל…" : "Applying…",
+      stickyLabel: isHe ? "החל שוליים" : "Apply margins",
+      stickyBookletLabel: isHe ? "חוברת" : "Booklet",
+      ui: {
+        livePreviewHeading: isHe ? "תצוגה מקדימה חיה — עמוד 1" : "Live preview — page 1",
+        loadingPreview: common.loadingPreview,
+      },
+    },
+    "safe-to-share-auditor": {
+      status: {
+        fileLoaded: isHe ? "PDF נטען. לחץ \"הרץ ביקורת\" לסריקה." : 'PDF loaded. Click "Run audit" to scan.',
+        scanning: isHe ? "סורק שכבות טקסט, הערות וחתימות…" : "Scanning text layers, annotations, and signatures…",
+        found: isHe ? "נמצאו {count} פריט/ים רגישים." : "Found {count} sensitive item(s).",
+        none: isHe ? "לא זוהו דפוסים רגישים ברורים." : "No obvious sensitive patterns detected.",
+        redacting: isHe ? "מסתיר את כל האזורים שסומנו מקומית…" : "Redacting all flagged areas locally…",
+        redacted: isHe ? "PDF מוסתר עם {count} אזור/ים הורד." : "Downloaded redacted PDF with {count} area(s) removed.",
+      },
+      privacyNote: isHe
+        ? "ה-PDF לא עוזב את הדפדפן. הביקורת רצה מקומית."
+        : "Your PDF never leaves your browser. The audit runs locally.",
+      auditLabel: isHe ? "הרץ ביקורת" : "Run audit",
+      auditingLabel: isHe ? "סורק…" : "Scanning…",
+      redactAllLabel: isHe ? "הסתר / הסר את כל המסומנים" : "Redact / remove all flagged",
+      redactingLabel: isHe ? "מסתיר…" : "Redacting…",
+      stickyAuditLabel: isHe ? "הרץ ביקורת" : "Run audit",
+      stickyRedactLabel: isHe ? "הסתר PDF" : "Redact PDF",
+      ui: {
+        noFindingsOnPage: isHe ? "אין פריטים מסומנים בעמוד זה." : "No flagged items on this page.",
+        disclaimer: isHe
+          ? "סריקות אוטומטיות עלולות לפספס תוכן. השתמש בהסתר PDF, הסרת מטא-דאטה ושיטוח לפני שיתוף."
+          : "Automated scans can miss content. Use Redact PDF, Remove Metadata, and Flatten PDF before sharing.",
+        totalFindings: isHe ? "סה״כ ממצאים" : "Total findings",
+        highRisk: isHe ? "סיכון גבוה" : "High risk",
+        annotations: isHe ? "הערות" : "Annotations",
+        signaturesInk: isHe ? "חתימות / דיו" : "Signatures / ink",
+        previousPage: isHe ? "עמוד קודם" : "Previous page",
+        nextPage: isHe ? "עמוד הבא" : "Next page",
+        jumpToPage: isHe ? "קפיצה לעמוד" : "Jump to page",
+        visualMapHeading: isHe ? "מפת רגישות ויזואלית" : "Visual sensitivity map",
+        loadingMap: isHe ? "טוען מפה…" : "Loading map…",
+        mapAlt: isHe ? "מפת מסמך עמוד {page}" : "Document map page {page}",
+        mapLegend: isHe
+          ? "{count} ממצא/ים בעמוד זה — אדום = סיכון גבוה"
+          : "{count} finding(s) on this page — red = high risk",
+        findingsHeading: isHe ? "ממצאים בעמוד {page}" : "Findings on page {page}",
+        scanningPage: isHe ? "סורק עמוד {current} מתוך {total}…" : "Scanning page {current} of {total}…",
+        pageFlagged: isHe ? " · מסומן" : " · flagged",
+      },
     },
     "heic-to-pdf": {
       status: {

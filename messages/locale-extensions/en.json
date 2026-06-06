@@ -640,6 +640,38 @@
       "custom-paper-margin": {
         "title": "Drop a PDF to resize to custom paper with margins",
         "description": "Set paper size and margins, then apply to all pages."
+      },
+      "rotate-pdf": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Rotate specific pages or the whole PDF locally with visual thumbnails."
+      },
+      "crop-pdf": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Crop margins on every page using a visual frame on page 1."
+      },
+      "pdf-to-png": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Each page exports as a PNG image. Processing stays on your device."
+      },
+      "extract-images": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Detect and extract embedded images from your PDF locally."
+      },
+      "add-watermark": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Add custom text watermarks to every page locally."
+      },
+      "add-page-numbers": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Add page numbers with position, format, and style options."
+      },
+      "remove-hidden-metadata": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Scan and remove author, title, and other hidden metadata."
+      },
+      "flatten-pdf": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Remove forms, comments, and annotations by flattening pages locally."
       }
     },
     "buttons": {
@@ -687,7 +719,21 @@
       "protect": {
         "pdfReady": "PDF ready — set a password below.",
         "protecting": "Protecting PDF…",
-        "complete": "Protected PDF downloaded as {name}."
+        "encrypting": "Encrypting your PDF…",
+        "complete": "Protected PDF downloaded as {name}.",
+        "passwordRequired": "Enter a password.",
+        "passwordTooShort": "Use a password with at least 4 characters.",
+        "passwordMismatch": "Passwords do not match.",
+        "adjustTryAgain": "Adjust your file or password and try again."
+      },
+      "unlock": {
+        "lockedReady": "This PDF is password-protected — enter the current password below.",
+        "unlockedReady": "PDF ready. Enter a password only if the file prompts for one when opened.",
+        "fallbackReady": "PDF ready — enter the password if needed, then unlock.",
+        "passwordRequired": "Enter the current PDF password.",
+        "unlocking": "Removing password protection…",
+        "complete": "Unlocked PDF downloaded as {name}.",
+        "adjustTryAgain": "Adjust your file or password and try again."
       }
     },
     "errors": {
@@ -744,7 +790,18 @@
       "renderingPage": "Rendering page…",
       "clearAll": "Clear all",
       "untitledBook": "Untitled book",
-      "chapterCount": "{count} chapter(s)"
+      "chapterCount": "{count} chapter(s)",
+      "loadPages": "Load pages",
+      "enterPasswordPreview": "Enter password to preview pages",
+      "loadingPdf": "Loading PDF…",
+      "downloadAllZip": "Download all as ZIP",
+      "selectedFile": "Selected file",
+      "chooseAnotherFile": "Choose another file",
+      "clientSideOnly": "Client-side only",
+      "processing": "Processing…",
+      "optional": "Optional",
+      "undo": "Undo",
+      "loadingPreview": "Loading preview…"
     },
     "word-to-pdf": {
       "status": {
@@ -905,6 +962,26 @@
         "applying": "Applying signatures…",
         "downloaded": "Signed PDF downloaded as {name}.",
         "adjustPlacement": "Adjust placement and try again."
+      },
+      "privacyNote": "Signatures are processed locally in your browser. Your document never leaves your device.",
+      "signDownloadLabel": "Sign & Download PDF",
+      "stickyLabel": "Sign & Download",
+      "ui": {
+        "signatureAlt": "Signature",
+        "removeSignature": "Remove this signature",
+        "resizeSignature": "Resize signature",
+        "signaturesOnPage": "{count} signature(s) on this page — drag to move, corner to resize.",
+        "placeHint": "Click a saved signature below to place it on this page.",
+        "passwordLabel": "PDF password (protected files)",
+        "passwordPlaceholder": "Enter password to preview pages",
+        "loadPages": "Load pages",
+        "libraryTitle": "Your Signatures",
+        "newSignature": "+ New",
+        "libraryHint": "Click a signature to place another copy on the active page. Reuse the same signature across pages.",
+        "libraryEmpty": "No signatures yet. Create one to get started.",
+        "placeOnPage": "Place on page {page}",
+        "defaultSignatureLabel": "Signature {n}",
+        "removeNamed": "Remove {label}"
       }
     },
     "redact": {
@@ -918,6 +995,16 @@
         "applying": "Applying redactions…",
         "downloaded": "Redacted PDF downloaded as {name}.",
         "adjustFile": "Adjust your file and try again."
+      },
+      "privacyNote": "All redaction processes are executed locally in your browser.",
+      "redactLabel": "Redact PDF",
+      "redactingLabel": "Redacting…",
+      "ui": {
+        "markHint": "Click and drag to mark areas to black out.",
+        "passwordLabel": "PDF password (required for protected files)",
+        "passwordPlaceholder": "Enter password to preview pages",
+        "loadPages": "Load pages",
+        "clearAll": "Clear all"
       }
     },
     "compare-pdf": {
@@ -962,6 +1049,83 @@
         "cropping": "Cropping pages…",
         "complete": "Crop complete. Your download should start automatically.",
         "tryAgain": "Try again or choose another file."
+      },
+      "privacyNote": "Cropping runs entirely in your browser. Your PDF never leaves your device.",
+      "applyLabel": "Apply crop & download",
+      "stickyApplyLabel": "Apply crop",
+      "stickyDefaultLabel": "Crop PDF",
+      "ui": {
+        "pageSummary": "{count} page(s) · same crop on all pages",
+        "cropInstructions": "Drag the frame to move it. Pull corners or edges to resize. The same crop applies to every page.",
+        "resetFrame": "Reset frame"
+      }
+    },
+    "protect": {
+      "privacyNote": "Your file is encrypted locally in your browser and never touches our servers.",
+      "protectLabel": "Protect PDF",
+      "protectingLabel": "Protecting…",
+      "ui": {
+        "selectedFile": "Selected file",
+        "passwordLabel": "Password",
+        "confirmPasswordLabel": "Confirm password",
+        "passwordPlaceholder": "Enter password",
+        "confirmPlaceholder": "Re-enter password"
+      }
+    },
+    "unlock": {
+      "privacyNote": "Password decryption happens locally in your browser. We never store or see your passwords or files.",
+      "unlockLabel": "Unlock PDF",
+      "unlockingLabel": "Unlocking…",
+      "ui": {
+        "selectedFile": "Selected file",
+        "passwordProtectedBadge": "Password protected",
+        "passwordLabel": "Current PDF password",
+        "passwordPlaceholderLocked": "Enter password to open this PDF",
+        "passwordPlaceholderUnlocked": "Leave blank if not required"
+      }
+    },
+    "rotate-pdf": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "reading": "Reading PDF pages…",
+        "fileReady": "{name} ready — rotate pages, then download.",
+        "applying": "Applying rotations…",
+        "complete": "Rotation complete. Your download should start automatically.",
+        "tryAgain": "Try again or choose another file."
+      },
+      "privacyNote": "Rotation runs entirely in your browser. Your PDF never leaves your device.",
+      "saveLabel": "Save rotated PDF",
+      "rotateLabel": "Rotate PDF",
+      "ui": {
+        "pageSummary": "{count} page(s) · use per-page or global rotate controls",
+        "rotateAllCw": "Rotate all clockwise",
+        "rotateAllCcw": "Rotate all counter-clockwise",
+        "clockwise": "↺ Clockwise",
+        "counterClockwise": "↻ Counter",
+        "resetRotations": "Reset rotations"
+      }
+    },
+    "delete-pages": {
+      "status": {
+        "loaded": "Loaded {count} page(s). Drag to reorder, then mark pages to remove.",
+        "selectionCleared": "Selection cleared. Drag cards to reorder and mark pages to remove.",
+        "markRequired": "Mark at least one page for deletion.",
+        "deleting": "Applying page order and removing selected pages…",
+        "downloaded": "Downloaded {name} ({remaining} page(s) remaining).",
+        "adjustSelection": "Adjust your selection and try again."
+      },
+      "privacyNote": "Page removal is processed locally in your browser. Your file never leaves your device.",
+      "deleteLabel": "Delete Pages",
+      "deletingLabel": "Deleting…",
+      "ui": {
+        "markedCount": "· {count} page(s) marked",
+        "loadingThumb": "Loading…",
+        "restorePage": "Restore page {page}",
+        "markPage": "Mark page {page} for deletion",
+        "undo": "Undo",
+        "reorderHint": "Drag thumbnails to reorder pages. Click the trash icon to mark for deletion.",
+        "clearSelection": "Clear selection"
       }
     },
     "openoffice-to-pdf": {
@@ -1110,6 +1274,309 @@
       "convertLabel": "Convert to PDF",
       "useDxfLabel": "Use DXF file",
       "stickyConvertLabel": "AutoCAD to PDF"
+    },
+    "add-watermark": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — tune the watermark, then apply.",
+        "textRequired": "Enter watermark text before applying.",
+        "stamping": "Stamping watermark on every page…",
+        "complete": "Watermark applied. Your download should start automatically.",
+        "tryAgain": "Try again or choose another file."
+      },
+      "privacyNote": "Watermarking runs entirely in your browser. Your PDF never leaves your device.",
+      "applyLabel": "Apply watermark & download",
+      "stickyApplyLabel": "Add watermark",
+      "ui": {
+        "pageSummary": "{count} page(s) · preview shows page 1",
+        "settingsHeading": "Watermark settings",
+        "textLabel": "Text",
+        "textPlaceholder": "CONFIDENTIAL",
+        "opacityLabel": "Opacity",
+        "colorLabel": "Color",
+        "fontSizeLabel": "Font size",
+        "rotationLabel": "Rotation",
+        "positionLabel": "Position",
+        "previewHeading": "Live preview",
+        "resetSettings": "Reset settings"
+      }
+    },
+    "add-page-numbers": {
+      "status": {
+        "fileReady": "PDF ready — choose numbering options below.",
+        "startMin": "Start page must be at least 1.",
+        "startMax": "Start page cannot exceed {pageCount}.",
+        "adding": "Adding page numbers…",
+        "downloaded": "Numbered PDF downloaded as {name}.",
+        "adjustOptions": "Adjust options and try again."
+      },
+      "privacyNote": "Page numbering is processed locally in your browser. Your file never leaves your device.",
+      "addLabel": "Add Page Numbers",
+      "ui": {
+        "positionLabel": "Position",
+        "startLabel": "Start from page",
+        "formatLabel": "Format",
+        "fontSizeLabel": "Font size",
+        "fontColorLabel": "Font color",
+        "fontStyleLabel": "Font style",
+        "formatNumber": "Number only (e.g. 1)",
+        "formatPageOf": "Page X of Y (e.g. Page 1 of 10)",
+        "sizeSmall": "Small",
+        "sizeMedium": "Medium",
+        "sizeLarge": "Large",
+        "styleRegular": "Regular",
+        "styleBold": "Bold"
+      }
+    },
+    "extract-images": {
+      "status": {
+        "fileReady": "{name} ready — extract embedded images.",
+        "scanning": "Scanning PDF for image objects...",
+        "scanningPage": "Scanning page {page} of {total}...",
+        "found": "Found {count} image object(s). Ready to extract.",
+        "none": "No embedded image objects detected.",
+        "buildingZip": "Building ZIP...",
+        "zipDownloaded": "Downloaded ZIP with {count} image file(s).",
+        "tryAgain": "Try again or choose another file."
+      },
+      "privacyNote": "Image extraction runs entirely in your browser. Your PDF never leaves your device.",
+      "extractLabel": "Extract images",
+      "extractAgainLabel": "Extract again",
+      "downloadZipLabel": "Download all as ZIP",
+      "stickyExtractLabel": "Extract images",
+      "stickyDownloadLabel": "Download ZIP",
+      "ui": {
+        "imageAlt": "Extracted image {index} on page {page}",
+        "thumbLabel": "Page {page} · Image {index}",
+        "downloadImage": "Download image",
+        "gridLabel": "Extracted images"
+      }
+    },
+    "pdf-to-png": {
+      "status": {
+        "fileReady": "{name} ready — export pages as PNG.",
+        "rendering": "Rendering {count} page(s) at {scale}×…",
+        "exported": "Exported {count} PNG page(s).",
+        "zipDownloaded": "Downloaded ZIP with {count} PNG file(s).",
+        "tryAgain": "Try exporting again or choose another file."
+      },
+      "privacyNote": "PDF rendering runs entirely in your browser. Your document never leaves your device.",
+      "exportLabel": "Export PNG pages",
+      "reexportLabel": "Re-export PNG pages",
+      "downloadZipLabel": "Download all as ZIP",
+      "stickyExportLabel": "Export PNG",
+      "stickyDownloadLabel": "Download ZIP",
+      "ui": {
+        "downloadPng": "Download PNG",
+        "gridLabel": "Exported PNG pages"
+      }
+    },
+    "remove-hidden-metadata": {
+      "status": {
+        "scanning": "Scanning metadata...",
+        "found": "Found {count} metadata field(s).",
+        "noneDetected": "No document metadata detected.",
+        "removing": "Removing metadata...",
+        "downloaded": "Clean PDF downloaded as {name}.",
+        "adjustTryAgain": "Adjust your file or password and try again."
+      },
+      "privacyNote": "Metadata scanning and removal happen locally in your browser.",
+      "cleanLabel": "Clean & download",
+      "cleanAgainLabel": "Clean & download again",
+      "stickyLabel": "Clean & download",
+      "ui": {
+        "passwordLabel": "PDF password (only if the file is protected)",
+        "passwordPlaceholder": "Optional",
+        "rescan": "Rescan with this password",
+        "metadataHeading": "Metadata found in this file",
+        "scanningInline": "Scanning...",
+        "noInfoFields": "No standard Info fields were detected. Embedded metadata may still exist."
+      }
+    },
+    "pdf-password-recovery": {
+      "status": {
+        "checking": "Checking encryption...",
+        "fileReady": "{name} ready — configure options and try recovery.",
+        "notEncrypted": "This PDF does not appear to be password-protected.",
+        "notEncryptedForm": "This PDF does not look encrypted. Use Unlock PDF if you already know the password.",
+        "charsetRequired": "Select at least one character set to try.",
+        "lengthOrder": "Minimum length cannot exceed maximum length.",
+        "maxLength": "Maximum length is {max} for browser recovery.",
+        "starting": "Recovering password in a background worker — your file never leaves this browser.",
+        "progress": "Trying passwords… {tried} of ~{total} attempts",
+        "found": "Password found. You can reveal it and download an unlocked PDF.",
+        "foundEmpty": "Password found (empty password). You can download an unlocked PDF.",
+        "notFound": "No match in ~{tried} attempts.",
+        "limit": "Attempt limit reached. Narrow the search or use Unlock PDF if you remember the password.",
+        "stopped": "Recovery stopped.",
+        "adjustOptions": "Adjust options and try again."
+      },
+      "privacyNote": "Your file never leaves your browser. Brute-force runs locally.",
+      "startLabel": "Start recovery",
+      "stopLabel": "Stop",
+      "stickyLabel": "Start recovery",
+      "downloadUnlockedLabel": "Download unlocked PDF",
+      "ui": {
+        "encryptedBadge": "· Password-protected",
+        "notEncryptedBadge": "· Not encrypted",
+        "charsetHeading": "Character sets to try",
+        "special": "Special",
+        "tryCommon": "Common passwords first",
+        "customChars": "Extra characters (optional)",
+        "customPlaceholder": "e.g. #@",
+        "minLength": "Minimum length",
+        "maxLength": "Maximum length",
+        "estimatedAttempts": "Estimated search space: ~{count} attempts",
+        "workerProgress": "Recovery in progress (Web Worker)",
+        "recoveredPassword": "Recovered password",
+        "emptyPassword": "(empty)",
+        "hide": "Hide",
+        "reveal": "Reveal"
+      }
+    },
+    "batch-rename-pdf": {
+      "status": {
+        "noPdfs": "No PDF files detected.",
+        "filesAdded": "Added {count} PDF file(s). Adjust rules and preview.",
+        "packaging": "Packaging renamed PDFs into a ZIP archive...",
+        "downloaded": "Downloaded {count} renamed PDF(s) as a ZIP file.",
+        "adjustRules": "Adjust rules and try again."
+      },
+      "privacyNote": "Your files never leave your browser. Renaming and packaging run locally.",
+      "downloadLabel": "Rename & download all (ZIP)",
+      "stickyLabel": "Rename & download",
+      "ui": {
+        "addFiles": "Add PDF files",
+        "addFolder": "Add folder",
+        "clearAll": "Clear all",
+        "fileSummary": "{count} file(s) selected · sorted alphabetically by name",
+        "previewHeading": "Preview",
+        "originalColumn": "Original",
+        "newNameColumn": "New name",
+        "rulesHeading": "Rename rules",
+        "textPrefix": "Text prefix",
+        "textSuffix": "Text suffix",
+        "prefixPlaceholder": "e.g. Report",
+        "suffixPlaceholder": "e.g. final",
+        "addSequence": "Add sequence number",
+        "preserveExtension": "Preserve .pdf extension",
+        "lowercase": "Convert to lowercase",
+        "replaceSpaces": "Replace spaces with",
+        "startAt": "Start at",
+        "digits": "Digits",
+        "numberSeparator": "Number separator",
+        "findReplaceLegend": "Find & replace in filename",
+        "caseSensitive": "Case sensitive",
+        "findPlaceholder": "Find",
+        "replacePlaceholder": "Replace with",
+        "datePrefix": "Date prefix (YYYY-MM-DD)",
+        "sequentialNumbering": "Sequential numbering",
+        "lowercaseNames": "Lowercase names",
+        "spacesToDashes": "Spaces → dashes",
+        "enableTextReplacement": "Enable text replacement"
+      }
+    },
+    "pdf-to-booklet": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "loadingPreviews": "Loading page previews…",
+        "planReady": "{pages} page(s) → {sheets} physical sheet(s) · {sides} side(s) to print",
+        "planReadySimple": "Ready for saddle-stitch imposition.",
+        "planReadyPad": "{count} blank page(s) will be added for correct folding.",
+        "fileReady": "{pages} page(s) → {sheets} physical sheet(s), {sides} print sides. {note}",
+        "building": "Creating imposed booklet PDF locally…",
+        "downloaded": "Downloaded booklet PDF with {sides} print sides."
+      },
+      "privacyNote": "Your file never leaves your browser. Imposition runs locally for booklet printing.",
+      "createLabel": "Create booklet PDF",
+      "buildingLabel": "Building booklet…",
+      "stickyLabel": "Create booklet",
+      "stickyCropLabel": "Crop PDF",
+      "clearFileLabel": "Clear file",
+      "ui": {
+        "settingsHeading": "Booklet settings",
+        "paperSize": "Paper size",
+        "foldStyle": "Fold style",
+        "width": "Width",
+        "height": "Height",
+        "units": "Units",
+        "customSize": "Custom size…",
+        "saddleStitch": "Saddle-stitch booklet (standard)",
+        "inches": "Inches",
+        "centimeters": "Centimeters",
+        "millimeters": "Millimeters",
+        "duplexPrinting": "Duplex printing",
+        "flipLongEdge": "Flip on long edge (portrait booklets)",
+        "flipShortEdge": "Flip on short edge (landscape)",
+        "outputSummary": "Output paper: {paper} · {sheets} sheet(s) · {sides} sides to print",
+        "livePreview": "Live sheet preview",
+        "previousSide": "Previous side",
+        "nextSide": "Next side",
+        "jumpToSide": "Jump to print side",
+        "sheetSide": "Sheet {sheet} · {side}",
+        "sideFront": "Front (outside)",
+        "sideBack": "Back (inside)",
+        "foldLine": "Fold line",
+        "fold": "Fold",
+        "pageLabel": "Page {page}",
+        "blank": "Blank",
+        "blankPadding": "Blank padding",
+        "emptySlot": "Empty slot",
+        "foldHint": "After duplex printing and folding, page order matches continuous reading. Blank pages pad so page count is a multiple of four.",
+        "previewPageAlt": "Preview page {page}"
+      }
+    },
+    "custom-paper-margin": {
+      "status": {
+        "fileReady": "{name} ready — set paper size and margins, then apply.",
+        "applying": "Resizing and applying margins locally…",
+        "downloaded": "Downloaded {count} page(s) on {paper} with your margins."
+      },
+      "privacyNote": "Your PDF never leaves your browser. Resizing and margins run locally.",
+      "applyLabel": "Apply to all pages",
+      "applyingLabel": "Applying…",
+      "stickyLabel": "Apply margins",
+      "stickyBookletLabel": "Booklet",
+      "ui": {
+        "livePreviewHeading": "Live preview — page 1",
+        "loadingPreview": "Loading preview…"
+      }
+    },
+    "safe-to-share-auditor": {
+      "status": {
+        "fileLoaded": "PDF loaded. Click \"Run audit\" to scan.",
+        "scanning": "Scanning text layers, annotations, and signatures…",
+        "found": "Found {count} sensitive item(s).",
+        "none": "No obvious sensitive patterns detected.",
+        "redacting": "Redacting all flagged areas locally…",
+        "redacted": "Downloaded redacted PDF with {count} area(s) removed."
+      },
+      "privacyNote": "Your PDF never leaves your browser. The audit runs locally.",
+      "auditLabel": "Run audit",
+      "auditingLabel": "Scanning…",
+      "redactAllLabel": "Redact / remove all flagged",
+      "redactingLabel": "Redacting…",
+      "stickyAuditLabel": "Run audit",
+      "stickyRedactLabel": "Redact PDF",
+      "ui": {
+        "noFindingsOnPage": "No flagged items on this page.",
+        "disclaimer": "Automated scans can miss content. Use Redact PDF, Remove Metadata, and Flatten PDF before sharing.",
+        "totalFindings": "Total findings",
+        "highRisk": "High risk",
+        "annotations": "Annotations",
+        "signaturesInk": "Signatures / ink",
+        "previousPage": "Previous page",
+        "nextPage": "Next page",
+        "jumpToPage": "Jump to page",
+        "visualMapHeading": "Visual sensitivity map",
+        "loadingMap": "Loading map…",
+        "mapAlt": "Document map page {page}",
+        "mapLegend": "{count} finding(s) on this page — red = high risk",
+        "findingsHeading": "Findings on page {page}",
+        "scanningPage": "Scanning page {current} of {total}…",
+        "pageFlagged": " · flagged"
+      }
     },
     "heic-to-pdf": {
       "status": {

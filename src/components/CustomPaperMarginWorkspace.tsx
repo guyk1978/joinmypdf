@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -56,11 +56,13 @@ function LivePaperPreview({
   paperAspect,
   fractions,
   sourceCrop,
+  loadingPreviewLabel,
 }: {
   fileBytes: Uint8Array;
   paperAspect: number;
   fractions: { top: number; right: number; bottom: number; left: number };
   sourceCrop: NormalizedCropRect;
+  loadingPreviewLabel: string;
 }) {
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
   const [loading, setLoading] = useState(true);
@@ -97,7 +99,7 @@ function LivePaperPreview({
       >
         {loading ? (
           <div className="flex h-full min-h-[280px] items-center justify-center text-sm text-slate-500">
-            Loading preview…
+            {loadingPreviewLabel}
           </div>
         ) : null}
         {!loading && canvasEl ? (
@@ -330,7 +332,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsCommon("choosePdf"));
       return;
     }
     setBusy(true);
@@ -342,7 +344,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
       setFile(next);
       setFileBytes(bytes);
       setPageCount(count);
-      setStatus(`${next.name} ready — set paper size and margins, then apply to all ${count} page(s).`);
+      setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -368,13 +370,13 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
     setBusy(true);
     setRunError(null);
     setDone(false);
-    setStatus("Resizing and applying margins locally…");
+    setStatus(ws.wsStatus("applying"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     try {
       const out = await applyPaperMarginBytes(file, options);
       downloadBlob(new Blob([out as BlobPart], { type: "application/pdf" }), paperMarginOutputName(file));
       setDone(true);
-      setStatus(`Downloaded ${pageCount} page(s) on ${paper.label} with your margins.`);
+      setStatus(ws.wsStatus("downloaded", { count: pageCount, paper: paper.label }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug, format: "pdf" });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -398,18 +400,18 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>Your PDF never leaves your browser.</strong> Cropping, scaling, and page resizing use
-        pdf-lib locally—no upload to JoinMyPDF.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop a PDF to resize to custom paper with margins"
-        description="Fit content to A5, B5, Letter, or custom sizes with precise margins."
+        title={ws.uploadTitle()}
+        description={ws.uploadDescription()}
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -566,13 +568,14 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
 
           <section aria-labelledby={`${baseId}-live`}>
             <h2 id={`${baseId}-live`} className="mb-3 text-sm font-semibold text-ink">
-              Live preview — page 1
+              {ws.wsUi("livePreviewHeading")}
             </h2>
             <LivePaperPreview
               fileBytes={fileBytes}
               paperAspect={paper.widthPt / paper.heightPt}
               fractions={fractions}
               sourceCrop={sourceCrop}
+              loadingPreviewLabel={ws.wsUi("loadingPreview")}
             />
           </section>
 
@@ -585,9 +588,9 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
 
           <div className="flex flex-wrap gap-3">
             <button type="button" className={toolPrimaryBtn} disabled={!canApply} onClick={() => void applyPaper()}>
-              {busy ? "Applying…" : "Apply to all pages"}
+              {busy ? ws.wsText("applyingLabel") : ws.wsText("applyLabel")}
             </button>
-            <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.clear}</button>
+            <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.chooseAnotherFile}</button>
           </div>
         </div>
       ) : null}
@@ -610,9 +613,9 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
 
       <StickyMobileCta
         href="#tool-workspace"
-        label="Apply margins"
+        label={ws.wsText("stickyLabel")}
         secondaryHref="/tools/pdf-to-booklet/"
-        secondaryLabel="Booklet"
+        secondaryLabel={ws.wsText("stickyBookletLabel")}
       />
     </div>
   );

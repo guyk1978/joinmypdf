@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -48,11 +48,17 @@ function AuditPageMap({
   pageIndex,
   findings,
   selectedId,
+  loadingLabel,
+  mapAlt,
+  mapLegend,
 }: {
   fileBytes: Uint8Array;
   pageIndex: number;
   findings: AuditFinding[];
   selectedId: string | null;
+  loadingLabel: string;
+  mapAlt: string;
+  mapLegend: string;
 }) {
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
   const [loading, setLoading] = useState(true);
@@ -74,14 +80,14 @@ function AuditPageMap({
   return (
     <div className="relative overflow-hidden rounded-xl border border-white/15 bg-slate-950/50">
       {loading ? (
-        <div className="flex aspect-[3/4] items-center justify-center text-sm text-ink-muted">Loading map…</div>
+        <div className="flex aspect-[3/4] items-center justify-center text-sm text-ink-muted">{loadingLabel}</div>
       ) : null}
       {canvasEl ? (
         <div className="relative mx-auto w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={canvasEl.toDataURL("image/png")}
-            alt={`Document map page ${pageIndex + 1}`}
+            alt={mapAlt}
             className="block h-auto w-full"
           />
           <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -102,9 +108,7 @@ function AuditPageMap({
           </div>
         </div>
       ) : null}
-      <p className="border-t border-white/10 px-3 py-2 text-xs text-ink-muted">
-        {pageFindings.length} finding(s) on this page — red = high, amber = medium, blue = low risk
-      </p>
+      <p className="border-t border-white/10 px-3 py-2 text-xs text-ink-muted">{mapLegend}</p>
     </div>
   );
 }
@@ -146,7 +150,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsCommon("choosePdf"));
       return;
     }
     setDone(false);
@@ -155,7 +159,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
     const bytes = new Uint8Array(await next.arrayBuffer());
     setFile(next);
     setFileBytes(bytes);
-    setStatus('PDF loaded. Click "Run audit" to scan for sensitive content.');
+    setStatus(ws.wsStatus("fileLoaded"));
     capture(EVENTS.file_selected, { operation: tool.operation });
   };
 
@@ -164,7 +168,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
     setBusy(true);
     setRunError(null);
     setDone(false);
-    setStatus("Scanning text layers, annotations, and signatures…");
+    setStatus(ws.wsStatus("scanning"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -174,8 +178,8 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
       setSelectedId(result.findings[0]?.id ?? null);
       setStatus(
         result.findings.length
-          ? `Found ${result.findings.length} sensitive item(s) across ${result.pageCount} page(s). Review the map below.`
-          : "No obvious sensitive patterns detected. Still review manually before sharing.",
+          ? ws.wsStatus("found", { count: result.findings.length })
+          : ws.wsStatus("none"),
       );
       capture(EVENTS.tool_run_success, {
         operation: tool.operation,
@@ -202,7 +206,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
     if (!file || !fileBytes || !report?.findings.length || redacting) return;
     setRedacting(true);
     setRunError(null);
-    setStatus("Redacting all flagged areas locally…");
+    setStatus(ws.wsStatus("redacting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug, action: "redact_all" });
 
     try {
@@ -210,7 +214,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
       const out = await redactPdfBytes(fileBytes, rects);
       downloadBlob(new Blob([out as BlobPart], { type: "application/pdf" }), auditorRedactOutputName(file));
       setDone(true);
-      setStatus(`Downloaded redacted PDF with ${rects.length} area(s) blacked out.`);
+      setStatus(ws.wsStatus("redacted", { count: rects.length }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug, action: "redact_all" });
       capture(EVENTS.download_click, { operation: tool.operation, slug, format: "pdf" });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -241,18 +245,18 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>Your PDF never leaves your browser.</strong> The auditor reads text layers and annotations
-        with pdf.js, then optionally redacts using local pdf-lib—no server upload.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop a PDF to audit before sharing"
-        description="Scans for confidential keywords, ID/credit patterns, hidden comments, and signatures."
+        title={ws.uploadTitle()}
+        description={ws.uploadDescription()}
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -286,7 +290,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
 
       <div className="flex flex-wrap gap-3">
         <button type="button" className={toolPrimaryBtn} disabled={!canAudit} onClick={() => void runAudit()}>
-          {busy ? "Scanning…" : "Run audit"}
+          {busy ? ws.wsText("auditingLabel") : ws.wsText("auditLabel")}
         </button>
         {report?.findings.length ? (
           <button
@@ -295,19 +299,19 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
             disabled={!canRedactAll}
             onClick={() => void redactAll()}
           >
-            {redacting ? "Redacting…" : "Redact / remove all flagged"}
+            {redacting ? ws.wsText("redactingLabel") : ws.wsText("redactAllLabel")}
           </button>
         ) : null}
         {file ? (
-          <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.clear}</button>
+          <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.chooseAnotherFile}</button>
         ) : null}
       </div>
 
       {progress ? (
         <p className="text-sm text-ink-muted" role="status">
           {progress.phase === "loading"
-            ? "Loading PDF…"
-            : `Scanning page ${progress.currentPage} of ${progress.totalPages}…`}
+            ? ws.wsCommon("loadingPdf")
+            : ws.wsCommon("readingPdf")}
         </p>
       ) : null}
 
@@ -328,10 +332,10 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
       {report && fileBytes ? (
         <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <SummaryCard label="Total findings" value={String(report.findings.length)} />
-            <SummaryCard label="High risk" value={String(report.bySeverity.high)} tone="high" />
-            <SummaryCard label="Annotations" value={String(report.byKind.annotation + report.byKind["hidden-comment"])} />
-            <SummaryCard label="Signatures / ink" value={String(report.byKind.signature)} />
+            <SummaryCard label={ws.wsUi("totalFindings")} value={String(report.findings.length)} />
+            <SummaryCard label={ws.wsUi("highRisk")} value={String(report.bySeverity.high)} tone="high" />
+            <SummaryCard label={ws.wsUi("annotations")} value={String(report.byKind.annotation + report.byKind["hidden-comment"])} />
+            <SummaryCard label={ws.wsUi("signaturesInk")} value={String(report.byKind.signature)} />
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -341,7 +345,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
               disabled={pageIndex <= 0}
               onClick={() => setPageIndex((p) => p - 1)}
             >
-              Previous page
+              {ws.wsUi("previousPage")}
             </button>
             <button
               type="button"
@@ -349,18 +353,18 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
               disabled={pageIndex >= report.pageCount - 1}
               onClick={() => setPageIndex((p) => p + 1)}
             >
-              Next page
+              {ws.wsUi("nextPage")}
             </button>
             <select
               className="rounded-lg border border-white/15 bg-surface/60 px-3 py-2 text-sm text-ink"
               value={pageIndex}
               onChange={(e) => setPageIndex(Number(e.target.value))}
-              aria-label="Jump to page"
+              aria-label={ws.wsUi("jumpToPage")}
             >
               {Array.from({ length: report.pageCount }, (_, i) => (
                 <option key={i} value={i}>
-                  Page {i + 1}
-                  {report.findings.some((f) => f.pageIndex === i) ? " · flagged" : ""}
+                  {ws.wsCommon("pageNumber", { page: i + 1 })}
+                  {report.findings.some((f) => f.pageIndex === i) ? ws.wsUi("pageFlagged") : ""}
                 </option>
               ))}
             </select>
@@ -368,20 +372,23 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
 
           <section aria-labelledby={`${baseId}-map`}>
             <h2 id={`${baseId}-map`} className="mb-3 text-sm font-semibold text-ink">
-              Visual sensitivity map
+              {ws.wsUi("visualMapHeading")}
             </h2>
             <AuditPageMap
               fileBytes={fileBytes}
               pageIndex={pageIndex}
               findings={report.findings}
               selectedId={selectedId}
+              loadingLabel={ws.wsUi("loadingMap")}
+              mapAlt={ws.wsUi("mapAlt", { page: pageIndex + 1 })}
+              mapLegend={ws.wsUi("mapLegend", { count: report.findings.filter((f) => f.pageIndex === pageIndex).length })}
             />
           </section>
 
           {report.findings.length ? (
             <section aria-labelledby={`${baseId}-list`}>
               <h2 id={`${baseId}-list`} className="mb-3 text-sm font-semibold text-ink">
-                Findings on page {pageIndex + 1}
+                {ws.wsUi("findingsHeading", { page: pageIndex + 1 })}
               </h2>
               <ul className="max-h-64 space-y-2 overflow-y-auto">
                 {report.findings
@@ -420,18 +427,12 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
                   ))}
               </ul>
               {report.findings.filter((f) => f.pageIndex === pageIndex).length === 0 ? (
-                <p className="text-sm text-ink-muted">No flagged items on this page.</p>
+                <p className="text-sm text-ink-muted">{ws.wsUi("noFindingsOnPage")}</p>
               ) : null}
             </section>
           ) : null}
 
-          <p className="text-xs text-ink-muted">
-            Automated scans can miss image-only text or novel formats. Use{" "}
-            <a className="text-brand hover:underline" href="/tools/redact-pdf/">
-              Redact PDF
-            </a>{" "}
-            for manual touch-ups, then Remove Metadata and Flatten PDF before sharing.
-          </p>
+          <p className="text-xs text-ink-muted">{ws.wsUi("disclaimer")}</p>
         </div>
       ) : null}
 
@@ -439,9 +440,9 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
 
       <StickyMobileCta
         href="#tool-workspace"
-        label="Run audit"
+        label={ws.wsText("stickyAuditLabel")}
         secondaryHref="/tools/redact-pdf/"
-        secondaryLabel="Redact PDF"
+        secondaryLabel={ws.wsText("stickyRedactLabel")}
       />
     </div>
   );

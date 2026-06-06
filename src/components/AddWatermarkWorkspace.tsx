@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -162,24 +162,24 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsStatus("invalidType"));
       return;
     }
     if (next.size === 0) {
-      setStatus("That file is empty. Choose another PDF.");
+      setStatus(ws.wsStatus("emptyFile"));
       return;
     }
     setBusy(true);
     setRunError(null);
     setDone(false);
-    setStatus("Reading PDF…");
+    setStatus(ws.wsCommon("readingPdf"));
     try {
       const bytes = new Uint8Array(await next.arrayBuffer());
       const count = await loadPdfPageCount(bytes);
       setFile(next);
       setFileBytes(bytes);
       setPageCount(count);
-      setStatus(`${next.name} ready — tune the watermark, then apply.`);
+      setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -199,13 +199,13 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
   const onApply = async () => {
     if (!file) return;
     if (!options.text.trim()) {
-      setStatus("Enter watermark text before applying.");
+      setStatus(ws.wsStatus("textRequired"));
       return;
     }
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Stamping watermark on every page…");
+    setStatus(ws.wsStatus("stamping"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     try {
       const bytes = await addWatermarkBytes(file, options);
@@ -214,7 +214,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
         addWatermarkOutputName(file),
       );
       setDone(true);
-      setStatus("Watermark applied. Your download should start automatically.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -240,19 +240,19 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> Watermarking runs entirely in your browser. Your PDF never leaves your
-        device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Add custom text watermarks to every page with a live preview."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -291,30 +291,30 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
-                {pageCount} page{pageCount === 1 ? "" : "s"} · preview shows page 1
+                {ws.wsUi("pageSummary", { count: pageCount })}
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
             <div className="space-y-4 rounded-xl border border-white/10 bg-surface/40 p-4">
-              <h2 className="text-sm font-semibold text-ink">Watermark settings</h2>
+              <h2 className="text-sm font-semibold text-ink">{ws.wsUi("settingsHeading")}</h2>
               <label className="block space-y-1.5">
-                <span className="text-xs font-medium text-ink-muted">Text</span>
+                <span className="text-xs font-medium text-ink-muted">{ws.wsUi("textLabel")}</span>
                 <input
                   type="text"
                   value={options.text}
                   onChange={(e) => patchOptions({ text: e.target.value })}
                   className="w-full rounded-lg border border-white/15 bg-surface px-3 py-2 text-sm text-ink"
-                  placeholder="CONFIDENTIAL"
+                  placeholder={ws.wsUi("textPlaceholder")}
                 />
               </label>
               <label className="block space-y-1.5">
                 <span className="text-xs font-medium text-ink-muted">
-                  Opacity ({Math.round(options.opacity * 100)}%)
+                  {ws.wsUi("opacityLabel")} ({Math.round(options.opacity * 100)}%)
                 </span>
                 <input
                   type="range"
@@ -328,7 +328,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <label className="block space-y-1.5">
-                  <span className="text-xs font-medium text-ink-muted">Color</span>
+                  <span className="text-xs font-medium text-ink-muted">{ws.wsUi("colorLabel")}</span>
                   <input
                     type="color"
                     value={options.colorHex}
@@ -337,7 +337,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                   />
                 </label>
                 <label className="block space-y-1.5">
-                  <span className="text-xs font-medium text-ink-muted">Font size ({options.fontSize}px)</span>
+                  <span className="text-xs font-medium text-ink-muted">{ws.wsUi("fontSizeLabel")} ({options.fontSize}px)</span>
                   <input
                     type="number"
                     min={12}
@@ -350,7 +350,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               </div>
               <label className="block space-y-1.5">
                 <span className="text-xs font-medium text-ink-muted">
-                  Rotation ({options.rotation}°)
+                  {ws.wsUi("rotationLabel")} ({options.rotation}°)
                 </span>
                 <input
                   type="range"
@@ -363,7 +363,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                 />
               </label>
               <fieldset className="space-y-2">
-                <legend className="text-xs font-medium text-ink-muted">Position</legend>
+                <legend className="text-xs font-medium text-ink-muted">{ws.wsUi("positionLabel")}</legend>
                 <div className="grid grid-cols-3 gap-2">
                   {WATERMARK_POSITIONS.map((pos) => (
                     <button
@@ -384,7 +384,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
             </div>
 
             <div className="space-y-2">
-              <h2 className="text-sm font-semibold text-ink">Live preview</h2>
+              <h2 className="text-sm font-semibold text-ink">{ws.wsUi("previewHeading")}</h2>
               <WatermarkPreview fileBytes={fileBytes} options={options} />
             </div>
           </div>
@@ -392,7 +392,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
           {busy ? (
             <div className="space-y-2" aria-live="polite">
               <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>Processing…</span>
+                <span>{ws.processing}</span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-white/10">
                 <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-brand to-brand-deep" />
@@ -407,7 +407,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               onClick={() => void onApply()}
               className={toolPrimaryBtn}
             >
-              Apply watermark & download
+              {ws.wsText("applyLabel")}
             </button>
             <button
               type="button"
@@ -415,7 +415,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               onClick={() => setOptions(DEFAULT_WATERMARK_OPTIONS)}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Reset settings
+              {ws.wsUi("resetSettings")}
             </button>
             <button
               type="button"
@@ -423,7 +423,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
         </div>
@@ -437,7 +437,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try again or choose another file." : "");
+            setStatus(file ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (
@@ -450,7 +450,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={showWorkspace ? "Apply watermark" : "Add watermark"}
+        label={showWorkspace ? ws.wsText("stickyApplyLabel") : ws.wsText("stickyApplyLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

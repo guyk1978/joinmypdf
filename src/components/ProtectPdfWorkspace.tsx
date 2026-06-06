@@ -76,7 +76,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       setDone(false);
       setRunError(null);
       setFormError("");
-      setStatus("PDF ready — set a password below.");
+      setStatus(ws.status("pdfReady"));
       capture(EVENTS.file_selected, { count: 1, operation: tool.operation });
     },
     [acceptPdf, tool.operation],
@@ -90,21 +90,21 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setRunError(null);
 
     if (!password.trim()) {
-      setFormError("Enter a password.");
+      setFormError(ws.status("passwordRequired"));
       return;
     }
     if (password.length < 4) {
-      setFormError("Use a password with at least 4 characters.");
+      setFormError(ws.status("passwordTooShort"));
       return;
     }
     if (password !== confirmPassword) {
-      setFormError("Passwords do not match.");
+      setFormError(ws.status("passwordMismatch"));
       return;
     }
 
     setBusy(true);
     setDone(false);
-    setStatus("Encrypting your PDF…");
+    setStatus(ws.status("encrypting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -112,7 +112,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       const outName = protectOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
-      setStatus(`Protected PDF downloaded as ${outName}.`);
+      setStatus(ws.status("complete", { name: outName }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -138,18 +138,18 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Private:</strong> Your file is encrypted locally in your browser and never touches our
-        servers.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop a PDF here or click to browse"
-        description="Select one PDF to password-protect. Processing stays on your device."
+        title={ws.uploadTitle()}
+        description={ws.uploadDescription()}
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -181,7 +181,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {file ? (
         <div className={toolPanel}>
-          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Selected file</p>
+          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{ws.wsUi("selectedFile")}</p>
           <p className="mt-2 truncate text-sm text-slate-600 dark:text-slate-400">
             <span className="font-medium text-slate-900 dark:text-slate-100">{file.name}</span> ·{" "}
             {pdf.formatBytes(file.size)}
@@ -193,7 +193,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         <form className="protect-form" onSubmit={onSubmit} noValidate>
           <div className="protect-form__fields">
             <label className="protect-form__label" htmlFor={`${baseId}-password`}>
-              Password
+              {ws.wsUi("passwordLabel")}
             </label>
             <input
               id={`${baseId}-password`}
@@ -205,12 +205,12 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 setPassword(e.target.value);
                 setFormError("");
               }}
-              placeholder="Enter password"
+              placeholder={ws.wsUi("passwordPlaceholder")}
               disabled={busy}
             />
 
             <label className="protect-form__label" htmlFor={`${baseId}-confirm`}>
-              Confirm password
+              {ws.wsUi("confirmPasswordLabel")}
             </label>
             <input
               id={`${baseId}-confirm`}
@@ -222,7 +222,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 setConfirmPassword(e.target.value);
                 setFormError("");
               }}
-              placeholder="Re-enter password"
+              placeholder={ws.wsUi("confirmPlaceholder")}
               disabled={busy}
             />
           </div>
@@ -242,10 +242,10 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               {busy ? (
                 <>
                   <span className="tool-spinner" aria-hidden="true" />
-                  <span>Protecting…</span>
+                  <span>{ws.wsText("protectingLabel")}</span>
                 </>
               ) : (
-                "Protect PDF"
+                ws.wsText("protectLabel")
               )}
             </button>
             <button
@@ -266,7 +266,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus("Adjust your file or password and try again.");
+            setStatus(ws.status("adjustTryAgain"));
           }}
         />
       ) : (
@@ -277,7 +277,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Protect PDF" secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta href="#tool-workspace" label={ws.wsText("protectLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

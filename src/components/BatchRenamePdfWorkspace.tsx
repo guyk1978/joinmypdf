@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -70,7 +70,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
     (incoming: FileList | File[]) => {
       const accepted = Array.from(incoming || []).filter(acceptPdf);
       if (!accepted.length) {
-        setStatus("No PDF files detected.");
+        setStatus(ws.wsStatus("noPdfs"));
         return;
       }
       setFiles((prev) => {
@@ -82,10 +82,10 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
       });
       setDone(false);
       setRunError(null);
-      setStatus(`Added ${accepted.length} PDF file(s). Adjust rules and preview new names below.`);
+      setStatus(ws.wsStatus("filesAdded", { count: accepted.length }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: accepted.length });
     },
-    [acceptPdf, tool.operation],
+    [acceptPdf, tool.operation, ws],
   );
 
   const onRenameAndDownload = async () => {
@@ -94,7 +94,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Packaging renamed PDFs into a ZIP archive...");
+    setStatus(ws.wsStatus("packaging"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -103,7 +103,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
       const zip = await zipBlobs(entries);
       downloadBlob(zip, batchRenameZipName());
       setDone(true);
-      setStatus(`Downloaded ${rows.length} renamed PDF(s) as a ZIP file.`);
+      setStatus(ws.wsStatus("downloaded", { count: rows.length }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug, count: rows.length });
       capture(EVENTS.download_click, { operation: tool.operation, slug, format: "zip" });
       window.setTimeout(() => {
@@ -130,18 +130,18 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>Your files never leave your browser.</strong> Renaming uses the File API locally and
-        downloads a ZIP from this device—no upload to JoinMyPDF servers.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop PDF files or a folder here"
-        description="Select multiple PDFs or an entire folder. Files stay on your device."
+        title={ws.uploadTitle()}
+        description={ws.uploadDescription()}
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -196,7 +196,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
             inputRef.current?.click();
           }}
         >
-          Add PDF files
+          {ws.wsUi("addFiles")}
         </button>
         <button
           type="button"
@@ -206,48 +206,45 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
             folderInputRef.current?.click();
           }}
         >
-          Add folder
+          {ws.wsUi("addFolder")}
         </button>
         {files.length ? (
           <button type="button" className={toolSecondaryBtn} onClick={reset}>
-            Clear all
+            {ws.wsUi("clearAll")}
           </button>
         ) : null}
       </div>
 
       {showWorkspace ? (
         <div className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
-          <p className="text-sm text-ink-muted">
-            {files.length} file{files.length === 1 ? "" : "s"} selected · sorted alphabetically for
-            numbering
-          </p>
+          <p className="text-sm text-ink-muted">{ws.wsUi("fileSummary", { count: files.length })}</p>
 
           <section className="space-y-4" aria-labelledby={`${baseId}-rules`}>
             <h2 id={`${baseId}-rules`} className="text-sm font-semibold text-ink">
-              Rename rules
+              {ws.wsUi("rulesHeading")}
             </h2>
 
             <div className="grid gap-4 md:grid-cols-2">
               <label className="block text-sm text-ink">
-                <span className="font-medium">Text prefix</span>
+                <span className="font-medium">{ws.wsUi("textPrefix")}</span>
                 <input
                   type="text"
                   className="protect-form__input mt-1 w-full"
                   value={rules.prefix}
                   disabled={busy}
                   onChange={(e) => setRules((r) => ({ ...r, prefix: e.target.value }))}
-                  placeholder="e.g. Report"
+                  placeholder={ws.wsUi("prefixPlaceholder")}
                 />
               </label>
               <label className="block text-sm text-ink">
-                <span className="font-medium">Text suffix</span>
+                <span className="font-medium">{ws.wsUi("textSuffix")}</span>
                 <input
                   type="text"
                   className="protect-form__input mt-1 w-full"
                   value={rules.suffix}
                   disabled={busy}
                   onChange={(e) => setRules((r) => ({ ...r, suffix: e.target.value }))}
-                  placeholder="e.g. final"
+                  placeholder={ws.wsUi("suffixPlaceholder")}
                 />
               </label>
             </div>
@@ -260,7 +257,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   disabled={busy}
                   onChange={(e) => setRules((r) => ({ ...r, useDatePrefix: e.target.checked }))}
                 />
-                Date prefix (YYYY-MM-DD)
+                {ws.wsUi("datePrefix")}
               </label>
               <label className="flex items-center gap-2">
                 <input
@@ -274,7 +271,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                     }))
                   }
                 />
-                Sequential numbering
+                {ws.wsUi("sequentialNumbering")}
               </label>
               <label className="flex items-center gap-2">
                 <input
@@ -283,7 +280,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   disabled={busy}
                   onChange={(e) => setRules((r) => ({ ...r, lowercase: e.target.checked }))}
                 />
-                Lowercase names
+                {ws.wsUi("lowercaseNames")}
               </label>
               <label className="flex items-center gap-2">
                 <input
@@ -292,14 +289,14 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   disabled={busy}
                   onChange={(e) => setRules((r) => ({ ...r, spacesToDashes: e.target.checked }))}
                 />
-                Spaces → dashes
+                {ws.wsUi("spacesToDashes")}
               </label>
             </div>
 
             {rules.numbering.enabled ? (
               <div className="grid gap-4 sm:grid-cols-3">
                 <label className="block text-sm text-ink">
-                  <span className="font-medium">Start at</span>
+                  <span className="font-medium">{ws.wsUi("startAt")}</span>
                   <input
                     type="number"
                     min={0}
@@ -315,7 +312,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   />
                 </label>
                 <label className="block text-sm text-ink">
-                  <span className="font-medium">Digits</span>
+                  <span className="font-medium">{ws.wsUi("digits")}</span>
                   <input
                     type="number"
                     min={1}
@@ -335,7 +332,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   />
                 </label>
                 <label className="block text-sm text-ink">
-                  <span className="font-medium">Number separator</span>
+                  <span className="font-medium">{ws.wsUi("numberSeparator")}</span>
                   <input
                     type="text"
                     className="protect-form__input mt-1 w-full"
@@ -354,7 +351,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
             ) : null}
 
             <fieldset className="space-y-2 rounded-xl border border-white/10 p-4">
-              <legend className="text-sm font-medium text-ink">Find & replace in filename</legend>
+              <legend className="text-sm font-medium text-ink">{ws.wsUi("findReplaceLegend")}</legend>
               <label className="flex items-center gap-2 text-sm text-ink">
                 <input
                   type="checkbox"
@@ -367,13 +364,13 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                     }))
                   }
                 />
-                Enable text replacement
+                {ws.wsUi("enableTextReplacement")}
               </label>
               <div className="grid gap-3 sm:grid-cols-2">
                 <input
                   type="text"
                   className="protect-form__input w-full"
-                  placeholder="Find"
+                  placeholder={ws.wsUi("findPlaceholder")}
                   disabled={busy || !rules.replace.enabled}
                   value={rules.replace.find}
                   onChange={(e) =>
@@ -386,7 +383,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                 <input
                   type="text"
                   className="protect-form__input w-full"
-                  placeholder="Replace with"
+                  placeholder={ws.wsUi("replacePlaceholder")}
                   disabled={busy || !rules.replace.enabled}
                   value={rules.replace.replaceWith}
                   onChange={(e) =>
@@ -402,14 +399,14 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
           <section aria-labelledby={`${baseId}-preview`}>
             <h2 id={`${baseId}-preview`} className="text-sm font-semibold text-ink">
-              Preview
+              {ws.wsUi("previewHeading")}
             </h2>
             <div className="mt-3 max-h-80 overflow-auto rounded-xl border border-white/10">
               <table className="w-full text-start text-sm">
                 <thead className="sticky top-0 bg-slate-900/95 text-xs uppercase text-ink-muted">
                   <tr>
-                    <th className="px-4 py-2 font-medium">Original</th>
-                    <th className="px-4 py-2 font-medium">New name</th>
+                    <th className="px-4 py-2 font-medium">{ws.wsUi("originalColumn")}</th>
+                    <th className="px-4 py-2 font-medium">{ws.wsUi("newNameColumn")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/10">
@@ -430,7 +427,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
             onClick={() => void onRenameAndDownload()}
             className={toolPrimaryBtn}
           >
-            Rename & download all (ZIP)
+            {ws.wsText("downloadLabel")}
           </button>
         </div>
       ) : null}
@@ -443,7 +440,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(files.length ? "Adjust rules and try again." : "");
+            setStatus(files.length ? ws.wsStatus("adjustRules") : "");
           }}
         />
       ) : (
@@ -456,7 +453,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
       <StickyMobileCta
         href="#tool-workspace"
-        label="Rename & download"
+        label={ws.wsText("stickyLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

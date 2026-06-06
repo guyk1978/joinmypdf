@@ -128,10 +128,14 @@ function CropPreview({
   fileBytes,
   crop,
   onCropChange,
+  cropInstructions,
+  loadingPreviewLabel,
 }: {
   fileBytes: Uint8Array;
   crop: NormalizedCropRect;
   onCropChange: (next: NormalizedCropRect) => void;
+  cropInstructions: string;
+  loadingPreviewLabel: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
@@ -191,9 +195,7 @@ function CropPreview({
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-slate-600 dark:text-slate-400">
-        Drag the frame to move it. Pull corners or edges to resize. The same crop applies to every page.
-      </p>
+      <p className="text-sm text-slate-600 dark:text-slate-400">{cropInstructions}</p>
       <PdfEditStudio minHeight={loading ? "min-h-[320px]" : undefined}>
         <PdfStudioPage className="mx-auto max-w-full">
           <div
@@ -206,7 +208,7 @@ function CropPreview({
           >
             {loading ? (
               <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-slate-500 dark:text-slate-400">
-                Loading preview…
+                {loadingPreviewLabel}
               </div>
             ) : null}
             {canvasEl ? (
@@ -386,18 +388,19 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> Cropping runs entirely in your browser. Your PDF never leaves your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Crop margins on every page using a visual frame on page 1."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -436,20 +439,26 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
             <div>
               <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{file?.name}</p>
               <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                {pageCount} page{pageCount === 1 ? "" : "s"} · same crop on all pages
+                {ws.wsUi("pageSummary", { count: pageCount })}
               </p>
             </div>
             <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-950/40 dark:text-emerald-300">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
-          <CropPreview fileBytes={fileBytes} crop={crop} onCropChange={setCrop} />
+          <CropPreview
+            fileBytes={fileBytes}
+            crop={crop}
+            onCropChange={setCrop}
+            cropInstructions={ws.wsUi("cropInstructions")}
+            loadingPreviewLabel={ws.wsCommon("loadingPreview")}
+          />
 
           {busy ? (
             <div className="space-y-2" aria-live="polite">
               <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                <span>Processing…</span>
+                <span>{ws.processing}</span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
                 <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-blue-600 to-indigo-600" />
@@ -464,7 +473,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               onClick={() => void onApply()}
               className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Apply crop & download
+              {ws.wsText("applyLabel")}
             </button>
             <button
               type="button"
@@ -472,7 +481,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               onClick={() => setCrop(DEFAULT_CROP_RECT)}
               className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
             >
-              Reset frame
+              {ws.wsUi("resetFrame")}
             </button>
             <button
               type="button"
@@ -480,7 +489,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               onClick={reset}
               className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
         </div>
@@ -507,7 +516,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={showWorkspace ? "Apply crop" : "Crop PDF"}
+        label={showWorkspace ? ws.wsText("stickyApplyLabel") : ws.wsText("stickyDefaultLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

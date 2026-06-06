@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -38,25 +38,29 @@ type PreviewImage = ExtractedPdfImage & { previewUrl: string };
 function ImageThumb({
   entry,
   onDownload,
+  imageAlt,
+  thumbLabel,
+  downloadLabel,
 }: {
   entry: PreviewImage;
   onDownload: (entry: PreviewImage) => void;
+  imageAlt: string;
+  thumbLabel: string;
+  downloadLabel: string;
 }) {
   return (
     <div className="pdf-export-thumb">
       <div className="pdf-export-thumb__canvas-wrap">
-        <img src={entry.previewUrl} alt={`Extracted image ${entry.index} on page ${entry.page}`} className="pdf-export-thumb__img" />
+        <img src={entry.previewUrl} alt={imageAlt} className="pdf-export-thumb__img" />
       </div>
       <div className="pdf-export-thumb__footer">
-        <span className="pdf-export-thumb__label">
-          Page {entry.page} · Image {entry.index}
-        </span>
+        <span className="pdf-export-thumb__label">{thumbLabel}</span>
         <button
           type="button"
           className="pdf-export-thumb__download"
           onClick={() => onDownload(entry)}
         >
-          Download image
+          {downloadLabel}
         </button>
       </div>
     </div>
@@ -116,11 +120,11 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsCommon("choosePdf"));
       return;
     }
     if (next.size === 0) {
-      setStatus("That file is empty. Choose another PDF.");
+      setStatus(ws.wsCommon("emptyPdf"));
       return;
     }
     revokePreviews();
@@ -128,10 +132,10 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
     setImages(null);
     setDone(false);
     setRunError(null);
-    setStatus("Loading PDF...");
+    setStatus(ws.wsCommon("loadingPdf"));
     try {
       await loadPdfMeta(next);
-      setStatus(`${next.name} ready — extract embedded images.`);
+      setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -147,12 +151,12 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Scanning PDF for image objects...");
+    setStatus(ws.wsStatus("scanning"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     revokePreviews();
     try {
       const extracted = await extractImagesFromPdf(file, (page, total) => {
-        setStatus(`Scanning page ${page} of ${total}...`);
+        setStatus(ws.wsStatus("scanningPage", { page, total }));
       });
       const withPreview = extracted.map((entry) => {
         const previewUrl = URL.createObjectURL(entry.blob);
@@ -163,8 +167,8 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
       setDone(true);
       setStatus(
         withPreview.length
-          ? `Found ${withPreview.length} image object(s). Download individually or as ZIP.`
-          : "No embedded image objects were found in this PDF.",
+          ? ws.wsStatus("found", { count: withPreview.length })
+          : ws.wsStatus("none"),
       );
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug, count: withPreview.length });
       window.setTimeout(() => {
@@ -198,11 +202,11 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const onDownloadZip = async () => {
     if (!file || !images?.length) return;
     setBusy(true);
-    setStatus("Building ZIP...");
+    setStatus(ws.wsStatus("buildingZip"));
     try {
       const zip = await zipBlobs(images.map((entry) => ({ name: entry.name, blob: entry.blob })));
       downloadBlob(zip, extractImagesZipName(file));
-      setStatus(`Downloaded ZIP with ${images.length} image file(s).`);
+      setStatus(ws.wsStatus("zipDownloaded", { count: images.length }));
       capture(EVENTS.download_click, { operation: tool.operation, slug, format: "zip" });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -220,19 +224,19 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> Image extraction runs entirely in your browser. Your PDF never
-        leaves your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Detect and extract embedded image objects from your PDF."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -279,7 +283,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
               onClick={() => void onExtract()}
               className={toolPrimaryBtn}
             >
-              {hasImages ? "Extract again" : "Extract images"}
+              {hasImages ? ws.wsText("extractAgainLabel") : ws.wsText("extractLabel")}
             </button>
             {hasImages ? (
               <button
@@ -288,7 +292,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
                 onClick={() => void onDownloadZip()}
                 className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
               >
-                Download all as ZIP
+                {ws.wsText("downloadZipLabel")}
               </button>
             ) : null}
             <button
@@ -297,14 +301,21 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
               onClick={reset}
               className={toolSecondaryBtn}
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
 
           {hasImages ? (
-            <div className="pdf-export-grid" aria-label="Extracted images">
+            <div className="pdf-export-grid" aria-label={ws.wsUi("gridLabel")}>
               {images!.map((entry) => (
-                <ImageThumb key={entry.name} entry={entry} onDownload={onDownloadSingle} />
+                <ImageThumb
+                  key={entry.name}
+                  entry={entry}
+                  onDownload={onDownloadSingle}
+                  imageAlt={ws.wsUi("imageAlt", { index: entry.index, page: entry.page })}
+                  thumbLabel={ws.wsUi("thumbLabel", { page: entry.page, index: entry.index })}
+                  downloadLabel={ws.wsUi("downloadImage")}
+                />
               ))}
             </div>
           ) : null}
@@ -319,7 +330,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try again or choose another file." : "");
+            setStatus(file ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (
@@ -332,7 +343,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={hasImages ? "Download ZIP" : "Extract images"}
+        label={hasImages ? ws.wsText("stickyDownloadLabel") : ws.wsText("stickyExtractLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

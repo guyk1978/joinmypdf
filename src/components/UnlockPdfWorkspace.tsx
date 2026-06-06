@@ -85,12 +85,12 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         setEncrypted(isLocked);
         setStatus(
           isLocked
-            ? "This PDF is password-protected — enter the current password below."
-            : "PDF ready. Enter a password only if the file prompts for one when opened.",
+            ? ws.status("lockedReady")
+            : ws.status("unlockedReady"),
         );
       } catch {
         setEncrypted(false);
-        setStatus("PDF ready — enter the password if needed, then unlock.");
+        setStatus(ws.status("fallbackReady"));
       }
 
       capture(EVENTS.file_selected, { count: 1, operation: tool.operation });
@@ -106,13 +106,13 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setRunError(null);
 
     if (encrypted && !password) {
-      setFormError("Enter the current PDF password.");
+      setFormError(ws.status("passwordRequired"));
       return;
     }
 
     setBusy(true);
     setDone(false);
-    setStatus("Removing password protection…");
+    setStatus(ws.status("unlocking"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -120,7 +120,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       const outName = unlockOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
-      setStatus(`Unlocked PDF downloaded as ${outName}.`);
+      setStatus(ws.status("complete", { name: outName }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -157,18 +157,18 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> Password decryption happens locally in your browser. We never store
-        or see your passwords or files.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop a password-protected PDF here or click to browse"
-        description="Select one PDF to unlock. Processing stays on your device."
+        title={ws.uploadTitle()}
+        description={ws.uploadDescription()}
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -200,13 +200,13 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       {file ? (
         <div className={toolPanel}>
-          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">Selected file</p>
+          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{ws.wsUi("selectedFile")}</p>
           <p className="mt-2 truncate text-sm text-slate-600 dark:text-slate-400">
             <span className="font-medium text-slate-900 dark:text-slate-100">{file.name}</span> ·{" "}
             {pdf.formatBytes(file.size)}
             {encrypted ? (
               <span className="ms-2 rounded-md bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-500/20 dark:text-amber-200">
-                Password protected
+                {ws.wsUi("passwordProtectedBadge")}
               </span>
             ) : null}
           </p>
@@ -217,7 +217,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         <form className="protect-form" onSubmit={onSubmit} noValidate>
           <div className="protect-form__fields">
             <label className="protect-form__label" htmlFor={`${baseId}-password`}>
-              Current PDF password
+              {ws.wsUi("passwordLabel")}
             </label>
             <input
               id={`${baseId}-password`}
@@ -229,7 +229,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 setPassword(e.target.value);
                 setFormError("");
               }}
-              placeholder={encrypted ? "Enter password to open this PDF" : "Leave blank if not required"}
+              placeholder={encrypted ? ws.wsUi("passwordPlaceholderLocked") : ws.wsUi("passwordPlaceholderUnlocked")}
               disabled={busy}
             />
           </div>
@@ -249,10 +249,10 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               {busy ? (
                 <>
                   <span className="tool-spinner" aria-hidden="true" />
-                  <span>Unlocking…</span>
+                  <span>{ws.wsText("unlockingLabel")}</span>
                 </>
               ) : (
-                "Unlock PDF"
+                ws.wsText("unlockLabel")
               )}
             </button>
             <button
@@ -273,7 +273,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus("Adjust your file or password and try again.");
+            setStatus(ws.status("adjustTryAgain"));
           }}
         />
       ) : (
@@ -284,7 +284,7 @@ export function UnlockPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Unlock PDF" secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta href="#tool-workspace" label={ws.wsText("unlockLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

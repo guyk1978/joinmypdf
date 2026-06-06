@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -38,23 +38,27 @@ type ExportedPage = { page: number; blob: Blob; previewUrl: string };
 function ExportThumb({
   entry,
   onDownload,
+  pageLabel,
+  downloadLabel,
 }: {
   entry: ExportedPage;
   onDownload: (entry: ExportedPage) => void;
+  pageLabel: string;
+  downloadLabel: string;
 }) {
   return (
     <div className="pdf-export-thumb">
       <div className="pdf-export-thumb__canvas-wrap">
-        <img src={entry.previewUrl} alt={`Page ${entry.page}`} className="pdf-export-thumb__img" />
+        <img src={entry.previewUrl} alt={pageLabel} className="pdf-export-thumb__img" />
       </div>
       <div className="pdf-export-thumb__footer">
-        <span className="pdf-export-thumb__label">Page {entry.page}</span>
+        <span className="pdf-export-thumb__label">{pageLabel}</span>
         <button
           type="button"
           className={`pdf-export-thumb__download ${PNG_DOWNLOAD_BTN}`}
           onClick={() => onDownload(entry)}
         >
-          Download PNG
+          {downloadLabel}
         </button>
       </div>
     </div>
@@ -114,7 +118,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsCommon("choosePdf"));
       return;
     }
     revokePreviews();
@@ -122,10 +126,10 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
     setPages(null);
     setDone(false);
     setRunError(null);
-    setStatus("Loading PDF…");
+    setStatus(ws.wsCommon("loadingPdf"));
     try {
       await loadPdfMeta(next);
-      setStatus(`${next.name} ready — export pages as PNG.`);
+      setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -141,7 +145,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus(`Rendering ${pageCount || "all"} page(s) at ${PDF_TO_PNG_SCALE}×…`);
+    setStatus(ws.wsStatus("rendering", { count: pageCount, scale: PDF_TO_PNG_SCALE }));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     revokePreviews();
     try {
@@ -153,7 +157,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
       });
       setPages(exported);
       setDone(true);
-      setStatus(`Exported ${exported.length} PNG page(s). Download individually or as ZIP.`);
+      setStatus(ws.wsStatus("exported", { count: exported.length }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       window.setTimeout(() => {
         dispatchToolComplete({ operation: tool.operation, slug });
@@ -182,7 +186,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
   const onDownloadZip = async () => {
     if (!file || !pages?.length) return;
     setBusy(true);
-    setStatus("Building ZIP…");
+    setStatus(ws.wsCommon("processing"));
     try {
       const zip = await zipBlobs(
         pages.map((entry) => ({
@@ -191,7 +195,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
         })),
       );
       downloadBlob(zip, pdf.pdfToPngZipName(file));
-      setStatus(`Downloaded ZIP with ${pages.length} PNG file(s).`);
+      setStatus(ws.wsStatus("zipDownloaded", { count: pages.length }));
       capture(EVENTS.download_click, { operation: tool.operation, slug, format: "zip" });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -209,19 +213,19 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> PDF rendering runs entirely inside your browser. Your document never
-        leaves your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Each page exports as a high-quality PNG (2× scale)."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -268,7 +272,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
               onClick={() => void onExport()}
               className={toolPrimaryBtn}
             >
-              {hasPages ? "Re-export PNG pages" : "Export PNG pages"}
+              {hasPages ? ws.wsText("reexportLabel") : ws.wsText("exportLabel")}
             </button>
             {hasPages ? (
               <button
@@ -277,7 +281,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
                 onClick={() => void onDownloadZip()}
                 className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
               >
-                Download all as ZIP
+                {ws.wsText("downloadZipLabel")}
               </button>
             ) : null}
             <button
@@ -286,14 +290,20 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
               onClick={reset}
               className={toolSecondaryBtn}
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
 
           {hasPages ? (
-            <div className="pdf-export-grid" aria-label="Exported PNG pages">
+            <div className="pdf-export-grid" aria-label={ws.wsUi("gridLabel")}>
               {pages!.map((entry) => (
-                <ExportThumb key={entry.page} entry={entry} onDownload={onDownloadPage} />
+                <ExportThumb
+                  key={entry.page}
+                  entry={entry}
+                  onDownload={onDownloadPage}
+                  pageLabel={ws.wsCommon("pageNumber", { page: entry.page })}
+                  downloadLabel={ws.wsUi("downloadPng")}
+                />
               ))}
             </div>
           ) : null}
@@ -308,7 +318,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try exporting again or choose another file." : "");
+            setStatus(file ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (
@@ -321,7 +331,7 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={hasPages ? "Download ZIP" : "Export PNG"}
+        label={hasPages ? ws.wsText("stickyDownloadLabel") : ws.wsText("stickyExportLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

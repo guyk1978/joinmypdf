@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -68,14 +68,14 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
     setScanning(true);
     setMetadata(null);
     setRunError(null);
-    setStatus("Scanning metadata...");
+    setStatus(ws.wsStatus("scanning"));
     try {
       const found = await readPdfMetadata(next, { password: pwd.trim() || undefined });
       setMetadata(found);
       setStatus(
         found.length
-          ? `Found ${found.length} metadata field${found.length === 1 ? "" : "s"}. Review below, then clean.`
-          : "No document metadata detected. You can still clean hidden XMP fields before sharing.",
+          ? ws.wsStatus("found", { count: found.length })
+          : ws.wsStatus("noneDetected"),
       );
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -89,11 +89,11 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsCommon("choosePdf"));
       return;
     }
     if (next.size === 0) {
-      setStatus("That file is empty. Choose another PDF.");
+      setStatus(ws.wsCommon("emptyPdf"));
       return;
     }
 
@@ -114,7 +114,7 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Removing metadata...");
+    setStatus(ws.wsStatus("removing"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -123,7 +123,7 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
       setMetadata([]);
-      setStatus(`Clean PDF downloaded as ${outName}.`);
+      setStatus(ws.wsStatus("downloaded", { name: outName }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -151,19 +151,19 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Private:</strong> Metadata scanning and removal run entirely in your browser. Your PDF
-        never leaves your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Scan and remove author, software, dates, and hidden XMP metadata locally."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -204,13 +204,13 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
               <p className="mt-1 text-xs text-ink-muted">{file ? pdf.formatBytes(file.size) : ""}</p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
           <div className="protect-form__fields max-w-md">
             <label className="protect-form__label" htmlFor={`${baseId}-password`}>
-              PDF password <span className="font-normal text-slate-500">(only if the file is protected)</span>
+              {ws.wsUi("passwordLabel")}
             </label>
             <input
               id={`${baseId}-password`}
@@ -219,7 +219,7 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="protect-form__input"
-              placeholder="Optional"
+              placeholder={ws.wsUi("passwordPlaceholder")}
               disabled={busy || scanning}
             />
             <button
@@ -228,16 +228,16 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
               disabled={busy || scanning}
               onClick={() => void onRescan()}
             >
-              Rescan with this password
+              {ws.wsUi("rescan")}
             </button>
           </div>
 
           <section aria-labelledby={`${baseId}-metadata-heading`}>
             <h2 id={`${baseId}-metadata-heading`} className="text-sm font-semibold text-ink">
-              Metadata found in this file
+              {ws.wsUi("metadataHeading")}
             </h2>
             {scanning ? (
-              <p className="mt-2 text-sm text-ink-muted">Scanning...</p>
+              <p className="mt-2 text-sm text-ink-muted">{ws.wsUi("scanningInline")}</p>
             ) : foundCount > 0 ? (
               <ul className="mt-3 divide-y divide-white/10 rounded-xl border border-white/10 bg-white/[0.03]">
                 {metadata!.map((entry) => (
@@ -248,18 +248,16 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
                 ))}
               </ul>
             ) : (
-              <p className="mt-2 text-sm text-ink-muted">
-                No standard Info fields were detected. Cleaning still removes hidden XMP packets when present.
-              </p>
+              <p className="mt-2 text-sm text-ink-muted">{ws.wsUi("noInfoFields")}</p>
             )}
           </section>
 
           <div className="flex flex-wrap gap-3">
             <button type="button" disabled={!canClean} onClick={() => void onClean()} className={toolPrimaryBtn}>
-              {done ? "Clean & download again" : "Clean & download"}
+              {done ? ws.wsText("cleanAgainLabel") : ws.wsText("cleanLabel")}
             </button>
             <button type="button" disabled={busy || scanning} onClick={reset} className={toolSecondaryBtn}>
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
         </div>
@@ -273,7 +271,7 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Adjust your file or password and try again." : "");
+            setStatus(file ? ws.wsStatus("adjustTryAgain") : "");
           }}
         />
       ) : (
@@ -284,7 +282,7 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Clean & download" secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta href="#tool-workspace" label={ws.wsText("stickyLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

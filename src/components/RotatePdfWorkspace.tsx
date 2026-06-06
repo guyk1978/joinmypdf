@@ -1,8 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -119,18 +119,18 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsStatus("invalidType"));
       return;
     }
     if (next.size === 0) {
-      setStatus("That file is empty. Choose another PDF.");
+      setStatus(ws.wsStatus("emptyFile"));
       return;
     }
 
     setBusy(true);
     setRunError(null);
     setDone(false);
-    setStatus("Reading PDF pages…");
+    setStatus(ws.wsStatus("reading"));
 
     try {
       const bytes = new Uint8Array(await next.arrayBuffer());
@@ -139,7 +139,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       setFileBytes(bytes);
       setThumbs(rendered);
       setRotations({});
-      setStatus(`${next.name} ready — rotate pages, then download.`);
+      setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (error) {
       const parsed = classifyPdfError(error);
@@ -169,14 +169,14 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Applying rotations…");
+    setStatus(ws.wsStatus("applying"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
       const bytes = await rotatePdfBytes(file, adjustments);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), rotatePdfOutputName(file));
       setDone(true);
-      setStatus("Rotation complete. Your download should start automatically.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -200,18 +200,19 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> Rotation runs entirely in your browser. Your PDF never leaves your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a PDF here or click to browse"
-          description="Rotate specific pages or the whole PDF locally with visual thumbnails."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -250,11 +251,11 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
-                {thumbs.length} page{thumbs.length === 1 ? "" : "s"} · use per-page or global rotate controls
+                {ws.wsUi("pageSummary", { count: thumbs.length })}
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
@@ -265,7 +266,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               onClick={() => rotateAll(RIGHT)}
               className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Rotate all clockwise
+              {ws.wsUi("rotateAllCw")}
             </button>
             <button
               type="button"
@@ -273,7 +274,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               onClick={() => rotateAll(LEFT)}
               className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Rotate all counter-clockwise
+              {ws.wsUi("rotateAllCcw")}
             </button>
           </div>
 
@@ -286,13 +287,13 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                   className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:border-blue-200 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
                 >
                   <div className="mb-2 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                    <span>Page {thumb.pageIndex + 1}</span>
+                    <span>{ws.wsCommon("pageNumber", { page: thumb.pageIndex + 1 })}</span>
                     <span>{angle}°</span>
                   </div>
                   <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-md border border-slate-200 bg-gradient-to-b from-slate-50 to-slate-100 p-3 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900">
                     <img
                       src={thumb.dataUrl}
-                      alt={`Page ${thumb.pageIndex + 1}`}
+                      alt={ws.wsCommon("pageNumber", { page: thumb.pageIndex + 1 })}
                       className="max-h-full max-w-full object-contain shadow-lg shadow-slate-200/60 transition-transform duration-300 ease-out dark:shadow-none"
                       style={{ transform: `rotate(${angle}deg)` }}
                     />
@@ -304,7 +305,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                       onClick={() => rotateOne(thumb.pageIndex, RIGHT)}
                       className="rounded-lg border border-white/15 px-2 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
                     >
-                      ↺ Clockwise
+                      {ws.wsUi("clockwise")}
                     </button>
                     <button
                       type="button"
@@ -312,7 +313,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                       onClick={() => rotateOne(thumb.pageIndex, LEFT)}
                       className="rounded-lg border border-white/15 px-2 py-2 text-xs font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
                     >
-                      ↻ Counter
+                      {ws.wsUi("counterClockwise")}
                     </button>
                   </div>
                 </article>
@@ -323,7 +324,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           {busy ? (
             <div className="space-y-2" aria-live="polite">
               <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>{status || "Processing…"}</span>
+                <span>{status || ws.processing}</span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-white/10">
                 <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-brand to-brand-deep" />
@@ -338,7 +339,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               onClick={() => void onApply()}
               className={toolPrimaryBtn}
             >
-              Save rotated PDF
+              {ws.wsText("saveLabel")}
             </button>
             <button
               type="button"
@@ -346,7 +347,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               onClick={() => setRotations({})}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Reset rotations
+              {ws.wsUi("resetRotations")}
             </button>
             <button
               type="button"
@@ -354,7 +355,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
         </div>
@@ -368,7 +369,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try again or choose another file." : "");
+            setStatus(file ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (
@@ -381,7 +382,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={showWorkspace ? "Save rotated PDF" : "Rotate PDF"}
+        label={showWorkspace ? ws.wsText("saveLabel") : ws.wsText("rotateLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />
