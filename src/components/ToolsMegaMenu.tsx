@@ -106,23 +106,22 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
         role="dialog"
         aria-modal="true"
         aria-label={tHeader("allTools")}
-        className="fixed inset-0 z-[60] w-screen overflow-y-auto bg-white dark:bg-neutral-950"
+        className="fixed top-12 left-0 right-0 z-40 flex h-[calc(100dvh-3rem)] flex-col overflow-hidden bg-white dark:bg-neutral-950"
       >
-        <button
-          type="button"
-          className="fixed top-4 end-4 z-[70] rounded-none border border-neutral-300 bg-white px-3 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800"
-          onClick={close}
-        >
-          {tHeader("closeToolsGrid")}
-        </button>
+        <div className="relative w-full shrink-0 border-b border-neutral-300 px-4 py-3 dark:border-neutral-700">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-black dark:text-neutral-200">
+            {tHeader("allTools")}
+          </p>
+          <button
+            type="button"
+            className="absolute top-1/2 end-4 -translate-y-1/2 rounded-none border border-neutral-300 bg-white px-3 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800"
+            onClick={close}
+          >
+            {tHeader("closeToolsGrid")}
+          </button>
+        </div>
 
-        <div className="w-full pt-12">
-          <div className="w-full border-b border-neutral-300 px-4 py-3 dark:border-neutral-700">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-black dark:text-neutral-200">
-              {tHeader("allTools")}
-            </p>
-          </div>
-
+        <div className="min-h-0 flex-1 overflow-y-auto">
           <ToolMegaGrid items={items} onNavigate={handleNavigate} />
 
           <div className="w-full border-t border-neutral-300 px-4 py-3 dark:border-neutral-700">
