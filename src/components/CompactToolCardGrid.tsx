@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { getToolIcon, TOOL_ICON_WRAP_CLASS } from "@/lib/tool-icons";
 
 export type CompactToolCardItem = {

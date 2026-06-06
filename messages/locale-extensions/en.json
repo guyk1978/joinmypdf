@@ -1,0 +1,492 @@
+{
+  "ToolPage": {
+    "breadcrumbHome": "Home",
+    "breadcrumbAllTools": "All tools",
+    "beforeYouStart": "Before you start",
+    "relatedGuides": "Guides that use this tool",
+    "relatedTools": "Related tools",
+    "questions": "Questions",
+    "brandEyebrow": "JoinMyPDF",
+    "metadata": {
+      "titleSuffix": "Free in your browser",
+      "descriptionSuffix": "Private in-browser processing, no watermark on standard output, no forced account for typical use."
+    },
+    "actions": {
+      "merge": "merge PDFs",
+      "compress": "compress a PDF",
+      "split": "split a PDF",
+      "batchRename": "batch rename PDF files",
+      "compare": "compare two PDFs side by side",
+      "booklet": "impose a PDF as a print-ready booklet",
+      "safeShare": "audit a PDF for sensitive content before sharing",
+      "paperMargin": "set custom paper size and margins on a PDF",
+      "deletePages": "delete pages from a PDF",
+      "pageNumbers": "add page numbers to a PDF",
+      "crop": "crop a PDF in your browser",
+      "watermark": "add a text watermark to a PDF",
+      "rotate": "rotate PDF pages in your browser",
+      "autocad": "convert AutoCAD DXF drawings to PDF",
+      "openoffice": "convert OpenOffice documents to PDF",
+      "markdown": "convert Markdown to PDF",
+      "html": "convert HTML to PDF",
+      "ebook": "convert EPUB eBooks to PDF",
+      "iwork": "convert Apple iWork files to PDF",
+      "protect": "password-protect a PDF",
+      "unlock": "remove a PDF password",
+      "passwordRecovery": "recover a short forgotten PDF password",
+      "redact": "redact sensitive PDF content",
+      "flatten": "flatten a PDF and remove editable layers",
+      "removeMetadata": "remove hidden PDF metadata before sharing",
+      "sign": "sign a PDF with your signature",
+      "jpgToPdf": "turn images into a PDF",
+      "pngToPdf": "convert PNG images into a PDF",
+      "heicToPdf": "convert HEIC photos into a PDF",
+      "pdfToJpg": "export PDF pages as JPG images",
+      "pdfToPng": "export PDF pages as PNG images",
+      "pdfToText": "extract text from a PDF",
+      "extractImages": "extract embedded images from a PDF",
+      "wordToPdf": "convert Word documents to PDF",
+      "excelToPdf": "convert Excel spreadsheets to PDF",
+      "powerpointToPdf": "convert PowerPoint slides to PDF",
+      "pdfToPowerpoint": "convert PDF to PowerPoint",
+      "pdfToExcel": "convert PDF to Excel",
+      "default": "work with your PDF"
+    },
+    "guide": {
+      "useCasesJoin": "and",
+      "variantP1": "This page helps you {action} when your search intent is \"{keyword}\". You get the same JoinMyPDF experience as our main {toolTitle} flow—clear steps, local processing in your browser, and a straightforward download when you are done.",
+      "defaultP1": "{description} Whether you are packaging invoices, preparing coursework, or sending a contract pack, the goal is simple: {action} without installing desktop software.",
+      "p2": "Privacy is a product decision here: your files are handled in the browser session on your device rather than uploaded to JoinMyPDF servers for processing. That model reduces transfer time for many jobs and is easier to reason about when documents are sensitive.",
+      "variantP3": "Because you landed on a page tuned for \"{keyword}\", we emphasize {angle} If you ever want the generic experience, you can always switch to the main {toolTitle} page from the navigation.",
+      "defaultP3": "If you need related steps next, many people follow merge with compression for email limits, or split first when only a few pages matter. Internal links on this page point to adjacent tools so you can continue in one sitting.",
+      "p4WithSecondary": "Helpful related phrases people use alongside this task include {secondary}. You do not need to worry about matching exact wording—follow the on-page checklist, confirm the preview looks right, and download.",
+      "p4Default": "Follow the on-page checklist, confirm previews where available, and download once the status line shows success.",
+      "p5WithCases": "Typical situations include {useCases}.",
+      "p5Default": "If you are new to browser-based PDF tools, start with a small test file, verify the output, then run your real documents.",
+      "p6": "If something fails, it is usually a browser memory limit on very large files, a mixed set of inputs, or a protected PDF. Try fewer pages per run, export from the original authoring app again, or split the document before converting."
+    },
+    "faqs": {
+      "freeQ": "Is {toolTitle} free for typical use?",
+      "freeA": "Yes. JoinMyPDF does not require payment for standard in-browser processing of everyday documents.",
+      "uploadQ": "Do my files get uploaded to JoinMyPDF servers?",
+      "uploadA": "These tools process files in your browser session. That helps keep sensitive documents off our infrastructure during processing.",
+      "watermarkQ": "Do you add a watermark?",
+      "watermarkA": "Standard downloads from these tools are not watermarked by JoinMyPDF.",
+      "mobileQ": "Can I use this on a phone or tablet?",
+      "mobileA": "Yes. The interface is responsive and works on modern mobile browsers.",
+      "variantSameQ": "Is this the same {toolTitle} experience as your main page?",
+      "variantSameA": "Yes—the same controls and privacy model. This page uses clearer wording for a specific situation so you know what to expect before you start.",
+      "variantKeywordQ": "What does \"{keyword}\" mean in practice?",
+      "variantAngleDefault": "We keep the flow short and highlight the controls that matter for your scenario.",
+      "variantBackendQ": "Does this variant use a different backend than the main tool?",
+      "variantBackendA": "No. You are still running the same in-browser workflow. Guidance and on-page context are tuned to your intent.",
+      "variantMainPageQ": "Where is the general {toolTitle} page?",
+      "variantMainPageA": "Use the navigation link to /tools/{slug}/ for the all-purpose entry point."
+    }
+  },
+  "PostSuccessUpsell": {
+    "heading": "Suggested next step",
+    "cards": {
+      "compressEmail": {
+        "title": "Tighten file size next",
+        "body": "If email or a portal rejected the attachment, compress before you resend."
+      },
+      "splitFewPages": {
+        "title": "Only need a few pages?",
+        "body": "Split first, then merge the pieces you actually want in the final pack."
+      },
+      "bundleMerge": {
+        "title": "Bundling multiple PDFs?",
+        "body": "Merge related PDFs first, then compress the combined file for one clean attachment."
+      },
+      "recombineMerge": {
+        "title": "Recombine later",
+        "body": "Split for review rounds, then merge approved pages back into a single deliverable."
+      },
+      "draftWatermark": {
+        "title": "Add a draft watermark",
+        "body": "Stamp CONFIDENTIAL or DRAFT before sharing the cropped PDF."
+      },
+      "passwordProtect": {
+        "title": "Password-protect the file",
+        "body": "Lock watermarked PDFs before sending them externally."
+      },
+      "compressSharing": {
+        "title": "Compress for sharing",
+        "body": "Reduce file size after stamping every page."
+      },
+      "trimMargins": {
+        "title": "Trim margins next",
+        "body": "After orientation is fixed, crop white borders for cleaner pages."
+      },
+      "markDrafts": {
+        "title": "Mark drafts clearly",
+        "body": "Stamp DRAFT or CONFIDENTIAL before sharing corrected files."
+      },
+      "trimBlueprint": {
+        "title": "Trim blueprint margins",
+        "body": "Crop excess border space from the exported PDF before printing or sharing."
+      },
+      "compressEmailOpenOffice": {
+        "title": "Compress for email",
+        "body": "Shrink the exported PDF if attachment limits are tight."
+      },
+      "convertingWord": {
+        "title": "Converting Word files?",
+        "body": "Use Word to PDF for .docx documents from Microsoft Office."
+      },
+      "compressMarkdown": {
+        "title": "Compress for email",
+        "body": "Shrink large Markdown exports before sharing."
+      },
+      "openOfficeDocs": {
+        "title": "OpenOffice documents?",
+        "body": "Convert .odt, .ods, and .odp files with our OpenOffice to PDF tool."
+      },
+      "convertingMarkdown": {
+        "title": "Converting Markdown docs?",
+        "body": "Use Markdown to PDF for README files and note exports."
+      },
+      "compressLongExports": {
+        "title": "Compress long exports",
+        "body": "Large books can produce heavy PDFs—compress before sharing."
+      },
+      "webLayoutExports": {
+        "title": "Need web layout exports?",
+        "body": "Use HTML to PDF for template pages or rendered chapter snippets."
+      },
+      "alsoDocx": {
+        "title": "Also converting DOCX?",
+        "body": "Use Word to PDF for Microsoft Word files in the same workflow."
+      },
+      "protectNumbered": {
+        "title": "Protect the numbered PDF",
+        "body": "Add a password before sharing numbered drafts externally."
+      },
+      "combineTrimmed": {
+        "title": "Combine trimmed pages",
+        "body": "Merge the cleaned PDF with other documents into one final package."
+      },
+      "compressBeforeSend": {
+        "title": "Compress before sending",
+        "body": "Shrink the file if email or a portal has size limits."
+      },
+      "shrinkAfterProtect": {
+        "title": "Shrink before you send",
+        "body": "After protecting, compress if the encrypted file is still too large for email."
+      },
+      "bundleThenLock": {
+        "title": "Bundle first, then lock",
+        "body": "Merge related PDFs, then password-protect the final package in one pass."
+      },
+      "relockPassword": {
+        "title": "Re-lock with a new password",
+        "body": "After editing, protect the final PDF again before sharing."
+      },
+      "compressUnlocked": {
+        "title": "Compress the unlocked file",
+        "body": "Smaller attachments are easier to email after you remove the password."
+      },
+      "alreadyKnowPassword": {
+        "title": "Already know the password?",
+        "body": "Skip guessing and unlock the PDF instantly with Unlock PDF."
+      },
+      "strongerPassword": {
+        "title": "Set a stronger password",
+        "body": "Re-protect the file with a long, unique password after recovery."
+      },
+      "protectSigned": {
+        "title": "Password-protect the signed PDF",
+        "body": "Lock the signed document before emailing it to clients."
+      },
+      "compressSending": {
+        "title": "Compress for sending",
+        "body": "Shrink the signed file if it is too large for your inbox."
+      },
+      "protectBeforeSend": {
+        "title": "Password-protect before sending",
+        "body": "After redacting, add a password before you email the sanitized PDF."
+      },
+      "compressRedacted": {
+        "title": "Compress the redacted file",
+        "body": "Flattened pages can increase file size—compress if needed for upload limits."
+      },
+      "protectFlattened": {
+        "title": "Password-protect the flattened PDF",
+        "body": "Add a password before emailing the non-editable version to clients."
+      },
+      "hideSensitiveFirst": {
+        "title": "Hide sensitive content first",
+        "body": "Black out private text before flattening if the document still contains visible secrets."
+      },
+      "signAfterFlatten": {
+        "title": "Sign after flattening",
+        "body": "Apply a signature to the finalized, non-editable PDF before distribution."
+      },
+      "redactVisible": {
+        "title": "Redact visible secrets",
+        "body": "Metadata cleaning does not remove on-page text—black out sensitive lines before sharing."
+      },
+      "protectCleanPdf": {
+        "title": "Password-protect the clean PDF",
+        "body": "Add encryption after metadata removal for external handoffs."
+      },
+      "flattenForms": {
+        "title": "Flatten forms and comments",
+        "body": "Remove editable layers after metadata is stripped for a fully locked-down file."
+      },
+      "printBooklet": {
+        "title": "Print as a booklet",
+        "body": "After margins look right, impose pages for duplex fold-and-staple printing."
+      },
+      "rotatePages": {
+        "title": "Rotate pages",
+        "body": "Fix sideways scans before you apply paper size again."
+      },
+      "mergeChapters": {
+        "title": "Merge PDFs",
+        "body": "Combine chapters into one file, then size and margin the full document."
+      },
+      "fineTuneRedact": {
+        "title": "Fine-tune with Redact PDF",
+        "body": "Draw extra boxes on scans or odd layouts the automated audit missed."
+      },
+      "removeMetadata": {
+        "title": "Remove hidden metadata",
+        "body": "Strip author, software, and XMP fields after sensitive content is gone."
+      },
+      "flattenFinal": {
+        "title": "Flatten the final PDF",
+        "body": "Lock down comments and form fields before you attach the file to email."
+      },
+      "cropBeforePrint": {
+        "title": "Crop margins before printing",
+        "body": "Trim uneven borders so each imposed half aligns on your paper."
+      },
+      "mergeSectionsFirst": {
+        "title": "Merge sections first",
+        "body": "Combine chapters or inserts into one PDF before booklet imposition."
+      },
+      "splitUnwanted": {
+        "title": "Split unwanted pages",
+        "body": "Remove covers or blanks you do not want in the folded booklet."
+      },
+      "mergeApproved": {
+        "title": "Merge the approved version",
+        "body": "After review, combine the final sections into one signed packet."
+      },
+      "flattenFinalVersion": {
+        "title": "Flatten the final PDF",
+        "body": "Remove editable layers before distributing the agreed version."
+      },
+      "redactSensitive": {
+        "title": "Redact sensitive lines",
+        "body": "Black out confidential clauses that should not leave your firm."
+      },
+      "mergeRenamed": {
+        "title": "Merge renamed PDFs",
+        "body": "Combine the organized files into one deliverable package."
+      },
+      "splitOversized": {
+        "title": "Split oversized files",
+        "body": "Extract only the pages you need after renaming."
+      },
+      "deleteExtraPages": {
+        "title": "Delete extra pages",
+        "body": "Trim blank or duplicate pages before sending the batch."
+      },
+      "compressPdf": {
+        "title": "Compress the PDF",
+        "body": "Large exports can produce big PDFs—compress before emailing."
+      },
+      "alsoJpgPhotos": {
+        "title": "Also have JPG photos?",
+        "body": "Convert JPEG screenshots with our JPG → PDF tool."
+      },
+      "haveJpgPhotos": {
+        "title": "Have JPG photos too?",
+        "body": "Combine JPEG camera exports with our JPG → PDF tool."
+      },
+      "pngBackToPdf": {
+        "title": "Need PNG back in a PDF?",
+        "body": "Combine exported PNGs into one document with PNG → PDF."
+      },
+      "preferJpg": {
+        "title": "Prefer smaller JPG files?",
+        "body": "Use PDF → JPG when file size matters more than lossless quality."
+      },
+      "editableDocument": {
+        "title": "Need an editable document?",
+        "body": "Convert the same PDF into .docx when you want to edit text in Word."
+      },
+      "extractPages": {
+        "title": "Extract only specific pages",
+        "body": "Split large documents first, then export just the pages you need as text."
+      },
+      "combineBeforeExtract": {
+        "title": "Combine pages before extraction",
+        "body": "Merge related files and generate one unified text output for your workflow."
+      },
+      "fullPageExports": {
+        "title": "Need full-page image exports?",
+        "body": "Use PDF to JPG when you want every page as an image instead of embedded objects only."
+      },
+      "needTextToo": {
+        "title": "Need the text too?",
+        "body": "Extract text from the same document to pair visuals with searchable copy."
+      },
+      "combineDocumentsFirst": {
+        "title": "Combine documents first",
+        "body": "Merge multiple PDFs, then extract all embedded images in one run."
+      },
+      "optimizeSharing": {
+        "title": "Optimize for sharing",
+        "body": "Compress when your new PDF is close to mailbox or upload limits."
+      }
+    }
+  },
+  "Compare": {
+    "metaTitle": "How JoinMyPDF compares",
+    "metaDescription": "A candid comparison: where JoinMyPDF wins on privacy and speed, and where larger suites still make sense.",
+    "title": "How we compare",
+    "intro": "JoinMyPDF is not trying to clone every feature of giant PDF suites. We optimize for privacy, predictable UX, and fast everyday jobs.",
+    "introPrivacy": "privacy",
+    "introUx": "predictable UX",
+    "introSpeed": "fast everyday jobs",
+    "colTopic": "Topic",
+    "colTypical": "Typical upload-based tools",
+    "colJoin": "JoinMyPDF",
+    "rows": {
+      "processing": {
+        "topic": "Processing location",
+        "typical": "Files often leave your device.",
+        "join": "Core tools run locally in the browser session."
+      },
+      "watermarks": {
+        "topic": "Watermarks",
+        "typical": "Free tiers may add branding.",
+        "join": "No watermark on standard outputs for supported flows."
+      },
+      "breadth": {
+        "topic": "Breadth",
+        "typical": "Huge matrices (OCR, e-sign, desktop).",
+        "join": "Focused merge / split / compress / image conversion."
+      },
+      "bestFor": {
+        "topic": "Best for",
+        "typical": "“Do everything” workflows with accounts.",
+        "join": "Teams with strict data handling and one-off power users."
+      }
+    },
+    "ctaPrefix": "Ready to try it?",
+    "ctaMerge": "Open merge",
+    "ctaMiddle": "or read",
+    "ctaPrivacy": "why local processing matters"
+  },
+  "Privacy": {
+    "metaTitle": "Privacy & security",
+    "metaDescription": "How JoinMyPDF handles files: local browser processing, no watermark on standard output, and clear expectations for sensitive documents.",
+    "title": "Privacy & security",
+    "p1": "JoinMyPDF is designed around local processing: merge, split, compress, and common conversions run in your browser session. Your files are not sent to JoinMyPDF servers to execute those operations.",
+    "p1Strong": "local processing",
+    "p2": "Downloads are generated on-device. Standard outputs from these tools are not watermarked by JoinMyPDF.",
+    "p2Strong": "Downloads",
+    "p3": "Limits still apply: browser memory, device performance, and PDF protections (passwords, restrictions) can block some tasks. Very large files may fail on low-memory devices—split first, then process in batches.",
+    "p3Strong": "Limits",
+    "p4": "Analytics may collect usage signals (for example Google Analytics) to understand which tools help users succeed. Configure an ad/analytics blocker if your policy requires it.",
+    "p4Strong": "Analytics"
+  },
+  "PrivacyFirst": {
+    "metaTitle": "Privacy First — Private PDF Tools & Secure Processing",
+    "metaDescription": "JoinMyPDF runs private PDF tools in your browser. No-upload PDF editing: merge, redact, flatten, and more—files never leave your device.",
+    "badge": "Our privacy promise",
+    "title": "Privacy First",
+    "heroStrong": "No files are ever uploaded to our servers—everything stays on your device.",
+    "heroBody": "JoinMyPDF is built for private PDF tools and secure processing without the upload step every other “online PDF” site requires.",
+    "browseTools": "Browse private PDF tools",
+    "privacyPolicy": "Privacy Policy",
+    "trustLocalTitle": "Local by design",
+    "trustLocalBody": "Core tools use client-side processing: pdf.js reads your file in the tab, and pdf-lib writes the output locally. We do not need your document on a server to merge, redact, or resize it.",
+    "trustMarketingTitle": "Not just marketing",
+    "trustMarketingBody": "Privacy here is a technical fact, not a slogan. When processing runs in the browser, there is no server-side file path to breach for that job.",
+    "trustVerifyTitle": "You can verify",
+    "trustVerifyBody": "Open DevTools → Network, run any tool, and watch for yourself: your PDF should not upload to JoinMyPDF. That is the same check security reviewers use for local-first apps.",
+    "howTitle": "How client-side PDF processing works",
+    "howP1": "Traditional “PDF online tools” ask you to upload a file. Their servers convert it, store it temporarily, and send back a download link. Your data crosses the internet twice and sits on hardware you do not control.",
+    "howP2": "JoinMyPDF flips the model: the website delivers JavaScript; your browser does the work. You pick a file from disk, the tab processes it, and you save the result—like desktop software, without an install.",
+    "howStep1": "You select a PDF (it stays in browser memory on your device).",
+    "howStep2": "Tools load pdf.js / pdf-lib and run the operation locally.",
+    "howStep3": "You download the new PDF from a blob URL—no server copy of your document.",
+    "comparisonTitle": "JoinMyPDF vs typical online PDF tools",
+    "colTopic": "Topic",
+    "colTypical": "Typical PDF online tools",
+    "colJoin": "JoinMyPDF",
+    "rows": {
+      "processing": {
+        "topic": "How your PDF is processed",
+        "typical": "Server-side — file upload to remote infrastructure",
+        "join": "Client-side — processing in your browser only"
+      },
+      "upload": {
+        "topic": "File upload",
+        "typical": "Required for most operations",
+        "join": "No upload — bytes stay on your device"
+      },
+      "storage": {
+        "topic": "Data storage",
+        "typical": "Often retained on servers (hours to days)",
+        "join": "No PDF storage on JoinMyPDF servers"
+      },
+      "privacy": {
+        "topic": "Privacy model",
+        "typical": "Trust the vendor’s policy",
+        "join": "Private, local, verifiable in DevTools"
+      },
+      "sensitive": {
+        "topic": "Best for sensitive docs",
+        "typical": "Depends on vendor compliance",
+        "join": "Financial, medical, legal, and personal files"
+      }
+    },
+    "useCasesTitle": "Built for sensitive documents",
+    "useCases": {
+      "financial": {
+        "title": "Financial",
+        "body": "Statements, tax packets, and payroll exports stay on the accountant’s laptop—not a stranger’s cloud queue."
+      },
+      "medical": {
+        "title": "Medical",
+        "body": "Clinical summaries and insurance forms benefit from local redaction and metadata cleaning before fax or portal upload."
+      },
+      "legal": {
+        "title": "Legal",
+        "body": "Contracts, exhibits, and discovery subsets can be merged, compared, and redacted without a third-party copy."
+      },
+      "personal": {
+        "title": "Personal",
+        "body": "IDs, leases, and school records are poor candidates for random “free PDF” upload sites."
+      }
+    },
+    "toolsTitle": "Privacy in practice — our tools",
+    "toolsBody": "These workflows show how local processing helps you ship documents safely:",
+    "toolsDirectoryPrefix": "Explore the full directory on",
+    "toolsDirectoryLink": "All PDF tools",
+    "toolsHubMiddle": "or read the",
+    "toolsHubLink": "privacy-first PDF hub",
+    "questions": "Questions",
+    "faqs": {
+      "upload": {
+        "q": "Are PDF files uploaded to JoinMyPDF?",
+        "a": "Standard tools process PDFs locally in your browser. No file bytes are sent to our servers to run merge, redact, compress, or similar operations."
+      },
+      "verify": {
+        "q": "How can I verify that myself?",
+        "a": "Open DevTools → Network, run a tool, and confirm you do not see your PDF uploaded to JoinMyPDF domains. Processing should show local scripts (pdf.js, pdf-lib) running in the tab."
+      },
+      "policy": {
+        "q": "Is this the same as the Privacy Policy page?",
+        "a": "This page explains why local processing matters. The Privacy Policy covers analytics, cookies, and legal terms."
+      }
+    }
+  }
+}

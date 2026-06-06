@@ -1,41 +1,28 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 export const runtime = "edge";
-import Link from "next/link";
-import { Check, X } from "lucide-react";
 import { WattQuickCrossLink } from "@/components/partner/WattQuickCrossLink";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { Link } from "@/i18n/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Check, X } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "How JoinMyPDF compares",
-  description:
-    "A candid comparison: where JoinMyPDF wins on privacy and speed, and where larger suites still make sense.",
-  alternates: { canonical: "/compare/" },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
 
-const COMPARISON_ROWS = [
-  {
-    topic: "Processing location",
-    typical: "Files often leave your device.",
-    joinmypdf: "Core tools run locally in the browser session.",
-  },
-  {
-    topic: "Watermarks",
-    typical: "Free tiers may add branding.",
-    joinmypdf: "No watermark on standard outputs for supported flows.",
-  },
-  {
-    topic: "Breadth",
-    typical: "Huge matrices (OCR, e-sign, desktop).",
-    joinmypdf: "Focused merge / split / compress / image conversion.",
-  },
-  {
-    topic: "Best for",
-    typical: "“Do everything” workflows with accounts.",
-    joinmypdf: "Teams with strict data handling and one-off power users.",
-  },
-] as const;
+const ROW_KEYS = ["processing", "watermarks", "breadth", "bestFor"] as const;
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Compare" });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: { canonical: `/${locale}/compare` },
+  };
+}
 
 function TypicalCell({ children }: { children: ReactNode }) {
   return (
@@ -59,18 +46,28 @@ function JoinMyPdfCell({ children }: { children: ReactNode }) {
   );
 }
 
-export default function ComparePage() {
+export default async function ComparePage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Compare");
+
   return (
     <>
       <SiteHeader />
       <main className="mx-auto max-w-4xl space-y-10 px-4 py-10 md:px-6">
         <header className="space-y-2">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">How we compare</h1>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{t("title")}</h1>
           <p className="text-slate-700 dark:text-slate-300">
-            JoinMyPDF is not trying to clone every feature of giant PDF suites. We optimize for{" "}
-            <span className="font-semibold text-slate-900 dark:text-slate-100">privacy</span>,{" "}
-            <span className="font-semibold text-slate-900 dark:text-slate-100">predictable UX</span>, and{" "}
-            <span className="font-semibold text-slate-900 dark:text-slate-100">fast everyday jobs</span>.
+            {locale === "en" ? (
+              <>
+                JoinMyPDF is not trying to clone every feature of giant PDF suites. We optimize for{" "}
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{t("introPrivacy")}</span>,{" "}
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{t("introUx")}</span>, and{" "}
+                <span className="font-semibold text-slate-900 dark:text-slate-100">{t("introSpeed")}</span>.
+              </>
+            ) : (
+              t("intro")
+            )}
           </p>
         </header>
 
@@ -78,22 +75,22 @@ export default function ComparePage() {
           <table className="w-full min-w-[520px] text-left text-sm">
             <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-900 dark:bg-slate-800/80 dark:text-slate-200">
               <tr>
-                <th className="p-4 font-semibold md:p-5">Topic</th>
-                <th className="p-4 font-semibold md:p-5">Typical upload-based tools</th>
+                <th className="p-4 font-semibold md:p-5">{t("colTopic")}</th>
+                <th className="p-4 font-semibold md:p-5">{t("colTypical")}</th>
                 <th className="bg-blue-50/40 p-4 font-extrabold text-blue-600 dark:bg-blue-950/20 dark:text-blue-400 md:p-5">
-                  JoinMyPDF
+                  {t("colJoin")}
                 </th>
               </tr>
             </thead>
             <tbody className="[&_tr:last-child_td]:border-b-0">
-              {COMPARISON_ROWS.map((row) => (
-                  <tr key={row.topic}>
-                    <td className="border-b border-slate-100 p-4 align-top font-semibold text-slate-900 dark:border-slate-800/60 dark:text-slate-100 md:p-5">
-                      {row.topic}
-                    </td>
-                    <TypicalCell>{row.typical}</TypicalCell>
-                    <JoinMyPdfCell>{row.joinmypdf}</JoinMyPdfCell>
-                  </tr>
+              {ROW_KEYS.map((key) => (
+                <tr key={key}>
+                  <td className="border-b border-slate-100 p-4 align-top font-semibold text-slate-900 dark:border-slate-800/60 dark:text-slate-100 md:p-5">
+                    {t(`rows.${key}.topic`)}
+                  </td>
+                  <TypicalCell>{t(`rows.${key}.typical`)}</TypicalCell>
+                  <JoinMyPdfCell>{t(`rows.${key}.join`)}</JoinMyPdfCell>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -102,16 +99,16 @@ export default function ComparePage() {
         <WattQuickCrossLink />
 
         <p className="text-sm text-slate-700 dark:text-slate-300">
-          Ready to try it?{" "}
+          {t("ctaPrefix")}{" "}
           <Link href="/tools/pdf-merge/" className="font-semibold text-blue-600 hover:underline dark:text-blue-400">
-            Open merge
+            {t("ctaMerge")}
           </Link>{" "}
-          or read{" "}
+          {t("ctaMiddle")}{" "}
           <Link
             href="/privacy-first-pdf-tools/"
             className="font-semibold text-blue-600 hover:underline dark:text-blue-400"
           >
-            why local processing matters
+            {t("ctaPrivacy")}
           </Link>
           .
         </p>

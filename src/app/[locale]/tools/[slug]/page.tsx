@@ -38,13 +38,19 @@ import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
 import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
-import { buildGuideParagraphs } from "@/lib/tool-copy";
+import { Link } from "@/i18n/navigation";
+import {
+  buildLocalizedGuideParagraphs,
+  getLocalizedToolFaqs,
+  localizedToolTitle,
+  translateToolIntent,
+} from "@/lib/i18n-tool-page";
 import { blogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
-import { buildToolMetadata, getToolFaqs } from "@/lib/tool-seo";
+import { buildLocalizedToolMetadata } from "@/lib/tool-seo";
 import { resolveToolRoute } from "@/lib/variants";
-import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
@@ -80,13 +86,25 @@ export async function generateStaticParams() {
   return Array.from(slugs).map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const slug = resolvedParams?.slug;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
   if (!slug) return {};
   const resolved = resolveToolRoute(slug, registry);
   if (!resolved) return {};
-  return buildToolMetadata({ tool: resolved.tool, variant: resolved.variant, slug });
+  const tTools = await getTranslations({ locale, namespace: "Tools" });
+  const tPage = await getTranslations({ locale, namespace: "ToolPage" });
+  return buildLocalizedToolMetadata({
+    tool: resolved.tool,
+    variant: resolved.variant,
+    slug,
+    locale,
+    tTools,
+    tPage,
+  });
 }
 
 function relatedArticlesForTool(toolSlug: string) {
@@ -95,26 +113,36 @@ function relatedArticlesForTool(toolSlug: string) {
     .slice(0, 4);
 }
 
-export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const slug = resolvedParams?.slug;
+export default async function ToolPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
   if (!slug) notFound();
+  setRequestLocale(locale);
+
+  const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
+
   const resolved = resolveToolRoute(slug, registry);
   if (!resolved) notFound();
   const { tool, variant } = resolved;
-  const faqs = getToolFaqs(tool, variant);
+
+  const displayTitle = localizedToolTitle(tTools, tool, variant);
+  const subtitle = translateToolIntent(tTools, tool.slug, tool.intent);
+  const faqs = getLocalizedToolFaqs(tPage, tool, variant, displayTitle, locale);
   const description = variant
-    ? `${tool.title} for “${variant.keyword}”. ${tool.description}`
+    ? `${displayTitle} for “${variant.keyword}”. ${tool.description}`
     : `${tool.description}`;
   const pathname = `/tools/${slug}/`;
-  const h1 = variant ? `${tool.title} — ${variant.keyword}` : tool.title;
-  const paragraphs = buildGuideParagraphs(tool, variant);
+  const paragraphs = buildLocalizedGuideParagraphs(tPage, tool, variant);
   const articles = relatedArticlesForTool(tool.slug);
 
   const crumbs = [
-    { name: "Home", path: "/" },
-    { name: "All tools", path: "/tools/" },
-    { name: tool.title, path: `/tools/${tool.slug}/` },
+    { name: tPage("breadcrumbHome"), path: "/" },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: localizedToolTitle(tTools, tool, null), path: `/tools/${tool.slug}/` },
   ];
   if (variant) crumbs.push({ name: variant.keyword, path: pathname });
 
@@ -125,7 +153,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <JsonLd data={breadcrumbLd(crumbs)} />
       <SiteHeader />
       <main className="mx-auto max-w-6xl space-y-10 px-4 py-10 md:px-6 md:py-12">
-        <ToolPageHero slug={tool.slug} title={h1} subtitle={tool.intent} />
+        <ToolPageHero slug={tool.slug} title={displayTitle} subtitle={subtitle} eyebrow={tPage("brandEyebrow")} />
 
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
@@ -200,7 +228,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         )}
 
         <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Before you start</h2>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{tPage("beforeYouStart")}</h2>
           <div className="mt-4 max-w-none space-y-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 md:text-base">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
@@ -212,7 +240,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
 
         {articles.length ? (
           <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Guides that use this tool</h2>
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{tPage("relatedGuides")}</h2>
             <ul className="mt-4 space-y-2">
               {articles.map((a) => (
                 <li key={a.slug}>
@@ -228,7 +256,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         <RelatedTools tool={tool} />
 
         <section className="rounded-2xl border border-slate-200/60 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-slate-900">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Questions</h2>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{tPage("questions")}</h2>
           <div className="mt-4 space-y-2">
             {faqs.map((f) => (
               <details key={f.q} className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-surface/40">

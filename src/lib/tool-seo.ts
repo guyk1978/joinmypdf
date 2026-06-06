@@ -1,23 +1,52 @@
 import type { Metadata } from "next";
 import type { ToolDefinition, ToolVariant } from "./types";
+import { translateToolItem } from "./i18n-tool-labels";
+import type { ToolsTranslator } from "./i18n-tool-page";
 import { siteUrl } from "./site";
+
+function sentenceCase(s: string) {
+  if (!s) return s;
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 
 export function buildToolMetadata(params: {
   tool: ToolDefinition;
   variant: ToolVariant | null;
   slug: string;
 }): Metadata {
-  const { tool, variant, slug } = params;
-  const kw = variant?.keyword || tool.primaryKeyword;
-  const title = variant
-    ? `${tool.title} — ${sentenceCase(kw)} | JoinMyPDF`
-    : `${tool.title} — Free in your browser | JoinMyPDF`;
-  const description = variant
-    ? `${tool.title} for searches like “${kw}”. ${tool.description} Private in-browser processing, no watermark on standard output, no forced account for typical use.`
-    : `${tool.description} Private in-browser processing, no watermark on standard output, no forced account for typical use.`;
+  return buildLocalizedToolMetadata({ ...params, locale: "en", tTools: null, tPage: null });
+}
 
-  const canonicalPath = `/tools/${slug}/`;
-  const ogTitle = variant ? `${tool.title} · ${sentenceCase(kw)}` : tool.title;
+export function buildLocalizedToolMetadata(params: {
+  tool: ToolDefinition;
+  variant: ToolVariant | null;
+  slug: string;
+  locale: string;
+  tTools: ToolsTranslator | null;
+  tPage: { (key: string, values?: Record<string, string>): string; has: (key: string) => boolean } | null;
+}): Metadata {
+  const { tool, variant, slug, locale, tTools, tPage } = params;
+  const toolTitle =
+    tTools && tPage
+      ? translateToolItem(tTools, tool.slug, tool.title)
+      : tool.title;
+  const kw = variant?.keyword || tool.primaryKeyword;
+  const titleSuffix = tPage?.has("metadata.titleSuffix")
+    ? tPage("metadata.titleSuffix")
+    : "Free in your browser";
+  const descriptionSuffix = tPage?.has("metadata.descriptionSuffix")
+    ? tPage("metadata.descriptionSuffix")
+    : "Private in-browser processing, no watermark on standard output, no forced account for typical use.";
+
+  const title = variant
+    ? `${toolTitle} — ${sentenceCase(kw)} | JoinMyPDF`
+    : `${toolTitle} — ${titleSuffix} | JoinMyPDF`;
+  const description = variant
+    ? `${toolTitle} for searches like “${kw}”. ${tool.description} ${descriptionSuffix}`
+    : `${tool.description} ${descriptionSuffix}`;
+
+  const canonicalPath = `/${locale}/tools/${slug}/`;
+  const ogTitle = variant ? `${toolTitle} · ${sentenceCase(kw)}` : toolTitle;
 
   return {
     title,
@@ -30,7 +59,7 @@ export function buildToolMetadata(params: {
       url: canonicalPath,
       siteName: "JoinMyPDF",
       type: "website",
-      locale: "en_US",
+      locale: locale === "he" ? "he_IL" : "en_US",
     },
     twitter: {
       card: "summary_large_image",
@@ -39,11 +68,6 @@ export function buildToolMetadata(params: {
     },
     robots: { index: true, follow: true },
   };
-}
-
-function sentenceCase(s: string) {
-  if (!s) return s;
-  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 export function getToolFaqs(

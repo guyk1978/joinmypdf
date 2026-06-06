@@ -6,6 +6,7 @@ type Props = {
   slug: string;
   title: string;
   subtitle: string;
+  eyebrow?: string;
 };
 
 function HeroIconGraphic({ slug }: { slug: string }) {
@@ -20,13 +21,13 @@ function HeroIconGraphic({ slug }: { slug: string }) {
   return <span className="[&_svg]:h-10 [&_svg]:w-10">{visual.icon}</span>;
 }
 
-export function ToolPageHero({ slug, title, subtitle }: Props) {
+export function ToolPageHero({ slug, title, subtitle, eyebrow = "JoinMyPDF" }: Props) {
   const visual = getToolIcon(slug);
 
   return (
     <header className="space-y-3">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">
-        JoinMyPDF
+        {eyebrow}
       </p>
       <div className="flex items-start gap-3 sm:gap-4">
         <span
