@@ -4656,6 +4656,467 @@
           }
         ]
       }
+    },
+    {
+      "slug": "print-professional-booklet-from-pdf-at-home",
+      "title": "איך להדפיס חוברת מקצועית מ-PDF בבית בקלות",
+      "keyword": "print booklet from pdf at home",
+      "category": "PDF Workflows",
+      "cluster": "pdf-to-booklet-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.91,
+      "relatedTools": [
+        "pdf-to-booklet",
+        "crop-pdf",
+        "pdf-merge",
+        "pdf-compress"
+      ],
+      "relatedBlogs": [
+        "what-is-pdf-imposition-save-paper",
+        "create-duplex-booklet-securely"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור הדפסה ביתית ובמשרד · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "הדפסת חוברת PDF מקצועית בבית (שלב-אחר-שלב)",
+        "metaDescription": "סדרו את ה-PDF להדפסת חוברת במרכז, בחרו גודל נייר והדפיסו duplex — בלי תוכנת imposition לשולחן העבודה."
+      },
+      "description": "מדריך מעשי להפיכת PDF רב-עמודי לחוברת מקופלת על מדפסת duplex ביתית.",
+      "contentBlocks": {
+        "intro": "תוכניות, עלונים וחוברות נראים מלוטשים יותר כחוברות — אבל סדר העמודים מבלבל את כולם בפעם הראשונה. Imposition מסדר מחדש עמודים כך שהדפסת duplex וקיפול במרכז מייצרים סדר קריאה נכון.",
+        "primaryTool": "pdf-to-booklet",
+        "sections": [
+          {
+            "id": "steps",
+            "heading": "שלבי הדפסה מהירים בבית",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "העלו את ה-PDF ל-PDF to Booklet ואשרו את תצוגת הגיליון החיה.",
+              "בחרו Letter, A4 או גודל מותאם שתואם את הנייר במגש.",
+              "הורידו את ה-PDF המסודר והדפיסו duplex (בדרך כלל הפיכה על הקצה הארוך).",
+              "קפלו את כל הגיליונות יחד לאורך קו האמצע והדקו לאורך השדרה במידת הצורך."
+            ]
+          },
+          {
+            "id": "prep",
+            "heading": "הכינו את קובץ המקור קודם",
+            "level": 2,
+            "paragraphs": [
+              "מזגו פרקים נפרדים עם Merge PDF, חתכו שוליים רחבים עם Crop PDF, ודחסו רק אחרי שאימתתם את הפריסה המסודרת.",
+              "אם מספר העמודים לא מתחלק ב-4, הכלי מוסיף עמודי ריפוד ריקים — בדקו בתצוגה המקדימה איפה העמודים הריקים נופלים."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם צריך מדפסת מיוחדת?",
+            "a": "כל מדפסת duplex צבעונית או לייזר מתאימה; השתמשו במגש ההזנה הידני לנייר עבה יותר אם זמין."
+          },
+          {
+            "q": "למה סדר העמודים בחוברת נראה שגוי?",
+            "a": "הגדרות הפיכה שגויות ב-duplex הן הסיבה הנפוצה — נסו long-edge מול short-edge לפי מדריך המדפסת."
+          },
+          {
+            "q": "האם הקבצים מועלים?",
+            "a": "לא. JoinMyPDF מסדר חוברות באופן מקומי בדפדפן שלכם."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/pdf-to-booklet/",
+            "anchor": "PDF to Booklet"
+          },
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF"
+          },
+          {
+            "href": "/tools/pdf-merge/",
+            "anchor": "Merge PDF"
+          },
+          {
+            "href": "/tools/pdf-compress/",
+            "anchor": "Compress PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "what-is-pdf-imposition-save-paper",
+      "title": "מהי imposition ולמה היא חוסכת נייר וכסף",
+      "keyword": "what is pdf imposition",
+      "category": "PDF Workflows",
+      "cluster": "pdf-to-booklet-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": [
+        "pdf-to-booklet",
+        "pdf-split",
+        "crop-pdf",
+        "pdf-compress"
+      ],
+      "relatedBlogs": [
+        "print-professional-booklet-from-pdf-at-home",
+        "create-duplex-booklet-securely"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור כלכלת הדפסה · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "מהי Imposition ב-PDF? חיסכון בנייר בהדפסת חוברות",
+        "metaDescription": "למדו על imposition של חוברת במרכז, למה מדפסות מסדרות מחדש עמודים, ואיך כלי דפדפן חוסכים הדפסות בדיקה מבוזבזות."
+      },
+      "description": "Imposition הוא הסוד של בתי דפוס מאחורי חוברות — כך היא מפחיתה בזבוז והדפסות חוזרות.",
+      "contentBlocks": {
+        "intro": "בלי imposition אולי תדפיסו עמוד 1, ואז עמוד 8, ואז תערבבו ידנית. Imposition ממקמת שני עמודים לוגיים על כל צד פיזי, כך שקיפול מקנן אותם לסדר 1-2-3-4 אוטומטית.",
+        "primaryTool": "pdf-to-booklet",
+        "sections": [
+          {
+            "id": "definition",
+            "heading": "Imposition בשפה פשוטה",
+            "level": 2,
+            "paragraphs": [
+              "חשבו על חוברת במרכז: כל גיליון מכיל ארבעה פני עמוד כשמדפיסים קדמי ואחורי. הגיליון החיצוני עשוי להציג עמודים 8 ו-1 בקדמי ו-2 ו-7 באחורי, במסמך של שמונה עמודים.",
+              "PDF to Booklet מיישם את החישוב הזה עבורכם ומפיק PDF מוכן למדפסות duplex."
+            ]
+          },
+          {
+            "id": "savings",
+            "heading": "חיסכון בנייר ובכסף",
+            "level": 2,
+            "list": [
+              "פחות הדפסות שגויות ממיון ידני — פחות נייר מבוזבז.",
+              "כפול התוכן בכל צד גיליון לעומת טיוטות של עמוד אחד לצד.",
+              "תצוגה מקדימה של גיליונות לפני הדפסת ערימה מלאה של עותקים צבעוניים."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם imposition מיועדת רק לחוברות?",
+            "a": "מדריך זה מתמקד בחוברות במרכז. סוגי כריכה אחרים משתמשים בפריסות שונות."
+          },
+          {
+            "q": "האם imposition מתקנת סדר עמודים שגוי בקובץ המקור?",
+            "a": "לא. סדרו מחדש עמודים עם Split או Merge קודם, ואז סדרו."
+          },
+          {
+            "q": "האם imposition מקטינה את גודל קובץ ה-PDF?",
+            "a": "לא ישירות — השתמשו ב-Compress PDF אחרי שאתם מסיימים את הקובץ המסודר."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/pdf-to-booklet/",
+            "anchor": "PDF to Booklet"
+          },
+          {
+            "href": "/tools/pdf-split/",
+            "anchor": "Split PDF"
+          },
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF"
+          },
+          {
+            "href": "/tools/pdf-compress/",
+            "anchor": "Compress PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "create-duplex-booklet-securely",
+      "title": "מדריך: יצירת חוברת duplex ממסמכים שלכם בצורה מאובטחת",
+      "keyword": "create duplex booklet pdf securely",
+      "category": "Privacy & Security",
+      "cluster": "pdf-to-booklet-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.92,
+      "relatedTools": [
+        "pdf-to-booklet",
+        "crop-pdf",
+        "protect-pdf",
+        "pdf-merge"
+      ],
+      "relatedBlogs": [
+        "print-professional-booklet-from-pdf-at-home",
+        "what-is-pdf-imposition-save-paper"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור הדפסה ממוקדת פרטיות · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "יצירת חוברת Duplex בצורה מאובטחת (Imposition בדפדפן)",
+        "metaDescription": "סדרו PDFים רגישים באופן מקומי — בלי העלאה לענן — ואז הדפיסו duplex בביטחון."
+      },
+      "description": "צוותים שמדפיסים חבילות דירקטוריון או מדריכים פנימיים יכולים לסדר חוברות בלי לשלוח קבצים לשרת אחר.",
+      "contentBlocks": {
+        "intro": "כלי imposition מבוססי העלאה מוסיפים ספק נוסף למפת הנתונים שלכם. יצירת חוברות בצד הלקוח שומרת PDFים של HR, משפטים וכספים במכשיר שכבר מחזיק אותם.",
+        "primaryTool": "pdf-to-booklet",
+        "sections": [
+          {
+            "id": "local",
+            "heading": "למה imposition מקומי חשוב",
+            "level": 2,
+            "paragraphs": [
+              "JoinMyPDF קורא את ה-PDF בדפדפן, בונה את הפריסה המסודרת עם pdf-lib, ומוריד את התוצאה — עיבוד סטנדרטי לא מנתב את הקובץ דרך השרתים שלנו.",
+              "שלבו imposition מקומי עם Crop PDF כדי להסיר שולי סריקה לפני שמישהו מדפיס עותקים פיזיים."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "תהליך עבודה מאובטח ל-duplex",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "מזגו נספחים ל-PDF אחד במידת הצורך.",
+              "הריצו PDF to Booklet ואימתו כל גיליון בתצוגה החיה.",
+              "הדפיסו במדפסת משרדית מהימנה; הימנעו מעמדות ציבוריות לחומר סודי.",
+              "הגנו בסיסמה על ה-PDF אם אתם שולחים את הקובץ המסודר בדוא\"ל חיצוני."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם אפשר לסדר PDFים מוצפנים?",
+            "a": "פתחו או ייצאו מחדש מעורך ה-PDF שלכם אם הקובץ נעול בסיסמה."
+          },
+          {
+            "q": "האם הדפסת duplex שולחת נתונים לענן?",
+            "a": "ההדפסה מקומית למדפסת שלכם — ה-imposition נשאר בדפדפן לפני כן."
+          },
+          {
+            "q": "אילו כלים קשורים עוזרים אחרי imposition?",
+            "a": "Crop PDF לשוליים, Protect PDF לשיתוף, ו-Merge PDF לצירוף קלטים."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/pdf-to-booklet/",
+            "anchor": "PDF to Booklet"
+          },
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          },
+          {
+            "href": "/tools/pdf-merge/",
+            "anchor": "Merge PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "check-hidden-sensitive-pdf-before-sending",
+      "title": "לפני ששולחים: איך לוודא שאין מידע רגיש מוסתר ב-PDF",
+      "keyword": "check pdf for hidden sensitive information",
+      "category": "Privacy & Security",
+      "cluster": "safe-to-share-auditor-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.92,
+      "relatedTools": [
+        "safe-to-share-auditor",
+        "redact-pdf",
+        "remove-hidden-metadata",
+        "flatten-pdf"
+      ],
+      "relatedBlogs": [
+        "find-and-remove-sensitive-digital-document-components",
+        "safe-to-share-technology-prevent-document-leaks"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור היגיינת PDF לפני שליחה · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "בדיקת PDFים למידע רגיש מוסתר לפני שליחה",
+        "metaDescription": "בדקו PDFים להערות מוסתרות, חתימות וטקסט סודי — באופן מקומי בדפדפן לפני שאתם לוחצים שלח."
+      },
+      "description": "רשימת בדיקה מעשית לפני שליחה לתפיסת טקסט סודי, פתקים דביקים ושדות חתימה שלא רואים בתצוגת הדפסה.",
+      "contentBlocks": {
+        "intro": "תצוגה מקדימה להדפסה נראית נקייה בעוד הערות מוסתרות, הערות תגובה ומטא-דאטה עדיין נוסעים עם הקובץ. ביקורת מקומית מהירה תופסת מה שהעיניים מפספסות.",
+        "primaryTool": "safe-to-share-auditor",
+        "sections": [
+          {
+            "id": "hidden",
+            "heading": "מה מסתתר בתוך PDF שנראה רגיל",
+            "level": 2,
+            "paragraphs": [
+              "הערות יכולות לשבת מחוץ למסך או בשכבות מוסתרות. ווידג'טים של חתימה שומרים מיקום גם כשהדיו נראה קטן.",
+              "Safe-to-Share Auditor ממפה התאמות regex למזהים, כרטיסים ומילות מפתח סודיות (באנגלית ובעברית) בתוספת תיבות הערות בכל עמוד."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "תהליך עבודה לפני שליחה",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "העלו את ה-PDF והריצו את הביקורת בדפדפן.",
+              "סקרו את המפה הוויזואלית — תיבות אדומות הן ממצאים בסיכון גבוה.",
+              "לחצו Redact / remove all flagged או פתחו Redact PDF לתיקונים ידניים.",
+              "הריצו Remove Metadata ו-Flatten PDF לפני דוא\"ל חיצוני."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם הקבצים מועלים?",
+            "a": "לא. הביקורת וההסתרה האופציונלית רצים באופן מקומי."
+          },
+          {
+            "q": "האם זה מחליף ביקורת משפטית?",
+            "a": "לא. זה מאיץ בדיקות דפוס והערות ברורות."
+          },
+          {
+            "q": "מה לגבי PDFים סרוקים?",
+            "a": "השתמשו ב-Redact PDF כדי לצייר תיבות על עמודים מבוססי תמונה; הבודק צריך טקסט ניתן לבחירה ל-regex."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/safe-to-share-auditor/",
+            "anchor": "Safe-to-Share Auditor"
+          },
+          {
+            "href": "/tools/redact-pdf/",
+            "anchor": "Redact PDF"
+          },
+          {
+            "href": "/tools/remove-hidden-metadata/",
+            "anchor": "Remove Metadata"
+          },
+          {
+            "href": "/tools/flatten-pdf/",
+            "anchor": "Flatten PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "find-and-remove-sensitive-digital-document-components",
+      "title": "המדריך המלא לאיתור והסרת רכיבים רגישים במסמכים דיגיטליים",
+      "keyword": "remove sensitive components pdf",
+      "category": "Privacy & Security",
+      "cluster": "safe-to-share-auditor-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.91,
+      "relatedTools": [
+        "safe-to-share-auditor",
+        "redact-pdf",
+        "remove-hidden-metadata",
+        "protect-pdf"
+      ],
+      "relatedBlogs": [
+        "check-hidden-sensitive-pdf-before-sending",
+        "safe-to-share-technology-prevent-document-leaks"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור סניטציה של מסמכים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "איתור והסרת רכיבים רגישים ב-PDF (מדריך מלא)",
+        "metaDescription": "למדו איך לאתר הערות, חתימות, דפוסי PII ומטא-דאטה — ולהסירם עם כלי דפדפן."
+      },
+      "description": "מ-PII גלוי ב-regex ועד הערות בלתי נראות — איך לנקות PDFים באופן שיטתי לפני שהם עוזבים את המכונה שלכם.",
+      "contentBlocks": {
+        "intro": "נתונים רגישים חיים בשלושה מקומות: טקסט גלוי, שכבות אינטראקטיביות (הערות, טפסים, חתימות) ומאפייני מסמך. ניקוי מלא מטפל בכל שלושתם.",
+        "primaryTool": "safe-to-share-auditor",
+        "sections": [
+          {
+            "id": "layers",
+            "heading": "שלוש שכבות לבדיקה",
+            "level": 2,
+            "list": [
+              "טקסט ומספרים: דוא\"ל, טלפונים, מזהים, כרטיסים, תוויות סודיות.",
+              "הערות: הדגשות, פתקים דביקים, הערות קופצות, סימון דיו.",
+              "מטא-דאטה: מחבר, תוכנה, שדות XMP מותאמים."
+            ]
+          },
+          {
+            "id": "tools",
+            "heading": "התאמת כלי JoinMyPDF לכל שכבה",
+            "level": 2,
+            "paragraphs": [
+              "התחילו עם Safe-to-Share Auditor לזיהוי אוטומטי והסתרה בלחיצה אחת של אזורים מסומנים.",
+              "המשיכו עם Remove Hidden Metadata ו-Protect PDF אם הקובץ ייסע מחוץ לארגון שלכם."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם הסתרה היא הפיכה?",
+            "a": "הסתרה נכונה שורפת פיקסלים. שמירת עותק חדש מונעת שחזור טקסט תחתון באזורים אלה."
+          },
+          {
+            "q": "האם אפשר לבדוק רק חלק מהעמודים?",
+            "a": "הבודק סורק את המסמך כולו; השתמשו במפת העמודים להתמקד בביקורת, ואז הסתירו הכל או עברו ל-Redact PDF ידני."
+          },
+          {
+            "q": "האם השטחה מסירה טקסט?",
+            "a": "השטחה מסירה שכבות אינטראקטיביות; שלבו אותה עם הסתרה קודם כשהתוכן עצמו רגיש."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/safe-to-share-auditor/",
+            "anchor": "Safe-to-Share Auditor"
+          },
+          {
+            "href": "/tools/redact-pdf/",
+            "anchor": "Redact PDF"
+          },
+          {
+            "href": "/tools/remove-hidden-metadata/",
+            "anchor": "Remove Metadata"
+          },
+          {
+            "href": "/tools/protect-pdf/",
+            "anchor": "Protect PDF"
+          }
+        ]
+      }
     }
   ]
 }
