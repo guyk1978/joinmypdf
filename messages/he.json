@@ -39,5 +39,12 @@
   "LanguageSwitcher": {
     "en": "English",
     "he": "עברית"
+  },
+  "CookieConsent": {
+    "title": "העדפות עוגיות",
+    "message": "אנו משתמשים בעוגיות כדי לשפר את החוויה שלך ולנתח תעבורת אתר באמצעות Google Analytics.",
+    "privacyLink": "מדיניות פרטיות",
+    "accept": "אישור",
+    "decline": "דחייה"
   }
 }

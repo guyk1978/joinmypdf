@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Providers } from "@/components/Providers";
+import { CookieConsent } from "@/components/CookieConsent";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { ShareButton } from "@/components/ShareButton";
 import { routing } from "@/i18n/routing";
@@ -71,6 +72,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <ScrollDepthTracker />
             {children}
             <ShareButton />
+            <CookieConsent />
           </Providers>
         </NextIntlClientProvider>
       </body>

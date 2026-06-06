@@ -39,5 +39,12 @@
   "LanguageSwitcher": {
     "en": "English",
     "he": "עברית"
+  },
+  "CookieConsent": {
+    "title": "Cookie preferences",
+    "message": "We use cookies to improve your experience and analyze site traffic via Google Analytics.",
+    "privacyLink": "Privacy Policy",
+    "accept": "Accept",
+    "decline": "Decline"
   }
 }
