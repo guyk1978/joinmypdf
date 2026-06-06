@@ -73,7 +73,7 @@ export function InvoiceFormPanel({
   return (
     <div className="flex h-full flex-col gap-3 print:hidden">
       <div className="space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-800 dark:text-neutral-200">Client-side only</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black dark:text-neutral-200">Client-side only</p>
         <h2 className="text-xl font-bold text-ink">Invoice details</h2>
         <p className="text-sm text-ink-muted">
           Fill in the form — your preview updates instantly. Nothing is uploaded to our servers.
@@ -110,7 +110,7 @@ export function InvoiceFormPanel({
         </label>
       </section>
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-2 lg:grid-cols-2">
         <PartyFields title="From (sender)" party={document.from} onChange={(from) => patch({ from })} />
         <PartyFields title="To (client)" party={document.to} onChange={(to) => patch({ to })} />
       </div>

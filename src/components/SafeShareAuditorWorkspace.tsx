@@ -78,7 +78,7 @@ function AuditPageMap({
   }, [fileBytes, pageIndex]);
 
   return (
-    <div className="relative overflow-hidden rounded-none border border-white/15 bg-slate-950/50">
+    <div className="relative overflow-hidden rounded-none border border-white/15 bg-neutral-200 dark:bg-neutral-900">
       {loading ? (
         <div className="flex aspect-[3/4] items-center justify-center text-sm text-ink-muted">{loadingLabel}</div>
       ) : null}

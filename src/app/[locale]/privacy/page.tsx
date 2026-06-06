@@ -36,7 +36,7 @@ export default async function PrivacyPage({ params }: Props) {
         }}
       />
       <SiteHeader />
-      <main className="mx-auto max-w-3xl space-y-3 px-4 py-10 text-black dark:text-neutral-300 dark:text-slate-300 md:px-4">
+      <main className="mx-auto max-w-3xl space-y-3 px-4 py-10 text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:px-4">
         <h1 className="text-3xl font-bold text-black dark:text-neutral-200 dark:text-white">{t("title")}</h1>
         <p>{t("p1")}</p>
         <p>{t("p2")}</p>

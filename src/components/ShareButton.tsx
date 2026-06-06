@@ -102,7 +102,7 @@ export function ShareButton({ className = "" }: ShareButtonProps) {
         title={shareUrl || t("shareThisPage")}
       >
         <span
-          className={`inline-flex h-8 w-8 items-center justify-center rounded-none border transition ${ copied ? "border-neutral-300 dark:border-neutral-800 bg-neutral-900 dark:bg-neutral-200/15 text-black dark:text-neutral-200" : "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 group-hover:bg-neutral-200 dark:bg-neutral-800" }`}
+          className={`inline-flex h-8 w-8 items-center justify-center rounded-none border transition ${ copied ? "border-neutral-300 dark:border-neutral-800 bg-neutral-900 dark:bg-neutral-200/15 text-black dark:text-neutral-200" : "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 text-black dark:text-neutral-200 group-hover:bg-neutral-200 dark:bg-neutral-800" }`}
           aria-hidden="true"
         >
           {copied ? (

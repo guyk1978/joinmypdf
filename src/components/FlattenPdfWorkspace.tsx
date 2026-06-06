@@ -210,8 +210,8 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ) : null}
 
       {showWorkspace ? (
-        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
@@ -219,7 +219,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : ""}
               </p>
             </div>
-            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-black dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -227,7 +227,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           <div className="protect-form__fields max-w-md">
             <label className="protect-form__label" htmlFor={`${baseId}-password`}>
               {ws.wsUi("passwordLabel")}{" "}
-              <span className="font-normal text-neutral-700 dark:text-neutral-400">{ws.wsUi("passwordHint")}</span>
+              <span className="font-normal text-black dark:text-neutral-200">{ws.wsUi("passwordHint")}</span>
             </label>
             <input
               id={`${baseId}-password`}

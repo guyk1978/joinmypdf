@@ -22,7 +22,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           width: "100%",
           height: "100%",
           padding: "56px 64px",
-          background: "linear-gradient(145deg, #0b1220 0%, #101b33 48%, #0f172a 100%)",
+          background: "linear-gradient(145deg, #0b1220 0%, #101b33 48%, #0a0a0a 100%)",
           border: "2px solid rgba(56, 189, 248, 0.35)",
           fontFamily: "sans-serif",
         }}
@@ -54,7 +54,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           <div
             style={{
               display: "flex",
-              color: "#64748b",
+              color: "#404040",
               fontSize: 20,
               fontWeight: 600,
             }}
@@ -99,7 +99,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             style={{
               display: "flex",
               marginTop: 22,
-              color: "#94a3b8",
+              color: "#a3a3a3",
               fontSize: 30,
               lineHeight: 1.35,
               fontWeight: 500,
@@ -167,7 +167,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             width: "100%",
           }}
         >
-          <div style={{ display: "flex", color: "#64748b", fontSize: 22 }}>
+          <div style={{ display: "flex", color: "#404040", fontSize: 22 }}>
             joinmypdf.com/templates/timeline/{slug}/
           </div>
           <div

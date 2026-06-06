@@ -93,7 +93,7 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
       role="alert"
       aria-live="assertive"
     >
-      <div className="flex gap-3 sm:gap-4">
+      <div className="flex gap-3 sm:gap-2">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none border border-neutral-400 dark:border-neutral-700 bg-neutral-200 dark:bg-neutral-800 text-black dark:text-neutral-200">
           <LockIcon className="h-5 w-5" />
         </div>
@@ -159,7 +159,7 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
           )}
 
           {onDismiss ? (
-            <button type="button" onClick={onDismiss} className="text-xs font-medium text-neutral-800 dark:text-neutral-200 hover:underline">
+            <button type="button" onClick={onDismiss} className="text-xs font-medium text-black dark:text-neutral-200 hover:underline">
               {tCommon("dismissTryAnother")}
             </button>
           ) : null}

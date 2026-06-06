@@ -58,7 +58,7 @@ function buildRenderHost(html: string): HTMLElement {
     .joinmypdf-docx-render h3 { font-size: 1.15em; margin: 0.85em 0 0.45em; font-weight: 700; }
     .joinmypdf-docx-render ul, .joinmypdf-docx-render ol { margin: 0 0 0.85em 1.25em; padding: 0; }
     .joinmypdf-docx-render table { border-collapse: collapse; width: 100%; margin: 0 0 1em; }
-    .joinmypdf-docx-render th, .joinmypdf-docx-render td { border: 1px solid #cbd5e1; padding: 6px 8px; vertical-align: top; }
+    .joinmypdf-docx-render th, .joinmypdf-docx-render td { border: 1px solid #d4d4d4; padding: 6px 8px; vertical-align: top; }
     .joinmypdf-docx-render img { max-width: 100%; height: auto; }
   `;
 

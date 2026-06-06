@@ -478,10 +478,10 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       ) : null}
 
       {file && fileBytes ? (
-        <div className="sign-workspace space-y-4">
+        <div className="sign-workspace space-y-2">
           {encrypted ? (
-            <div className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-              <label className="text-sm font-medium text-black dark:text-neutral-200 dark:text-slate-100" htmlFor={`${baseId}-pwd`}>
+            <div className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
+              <label className="text-sm font-medium text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" htmlFor={`${baseId}-pwd`}>
                 {ws.wsUi("passwordLabel")}
               </label>
               <div className="mt-2 flex flex-wrap gap-3">
@@ -543,7 +543,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               )}
             </aside>
 
-            <div className="sign-main space-y-4">
+            <div className="sign-main space-y-2">
               <SignPageSelect
                 pageCount={pageCount}
                 value={activePageIndex}

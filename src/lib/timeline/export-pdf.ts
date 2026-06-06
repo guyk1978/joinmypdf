@@ -46,7 +46,7 @@ export async function exportTimelineElementToPdf(
   const canvas = await html2canvas(element, {
     scale: 2,
     useCORS: true,
-    backgroundColor: "#0f172a",
+    backgroundColor: "#0a0a0a",
     logging: false,
     onclone: (clonedDoc) => {
       const node = clonedDoc.getElementById(element.id);

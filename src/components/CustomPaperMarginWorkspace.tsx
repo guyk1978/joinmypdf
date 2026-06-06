@@ -95,11 +95,11 @@ function LivePaperPreview({
         trimmed from the source PDF
       </p>
       <div
-        className="relative mx-auto w-full max-w-lg overflow-hidden rounded-none border-2 border-slate-400/50 bg-white dark:border-slate-500 dark:bg-neutral-100 dark:bg-neutral-900"
+        className="relative mx-auto w-full max-w-lg overflow-hidden rounded-none border-2 border-neutral-300 dark:border-neutral-800 bg-white dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-100 dark:bg-neutral-900"
         style={{ aspectRatio: `${paperAspect}` }}
       >
         {loading ? (
-          <div className="flex h-full min-h-[280px] items-center justify-center text-sm text-neutral-700 dark:text-neutral-400">
+          <div className="flex h-full min-h-[280px] items-center justify-center text-sm text-black dark:text-neutral-200">
             {loadingPreviewLabel}
           </div>
         ) : null}
@@ -132,7 +132,7 @@ function LivePaperPreview({
           style={contentStyle}
           aria-hidden
         />
-        <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-slate-400/40" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-neutral-300 dark:ring-neutral-700" aria-hidden />
       </div>
     </div>
   );
@@ -245,7 +245,7 @@ function MarginDragStudio({
           onPointerUp={onPointerUp}
           onPointerLeave={onPointerUp}
         >
-          <div className="absolute inset-0 bg-slate-200/80" />
+          <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-900" />
           <div className="absolute inset-0 bg-white" style={contentStyle} />
           <div
             className="pointer-events-none absolute border-2 border-dashed border-neutral-300 dark:border-neutral-800"
@@ -452,7 +452,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
 
       {file && fileBytes ? (
         <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
-          <section className="grid gap-4 md:grid-cols-2">
+          <section className="grid gap-2 md:grid-cols-2">
             <label className="block text-sm text-ink">
               <span className="mb-1 block font-semibold">{ws.wsUi("targetPaper")}</span>
               <select
@@ -548,7 +548,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
             </h2>
             <p className="mb-3 text-xs text-ink-muted">
               {ws.wsUi("trimHint")}
-              <a className="text-neutral-800 dark:text-neutral-200 hover:underline" href="/tools/crop-pdf/">
+              <a className="text-black dark:text-neutral-200 hover:underline" href="/tools/crop-pdf/">
                 {ws.wsUi("trimLink")}
               </a>
               {ws.wsUi("trimHintSuffix")}

@@ -102,7 +102,7 @@ function WatermarkPreview({
       <PdfStudioPage className="mx-auto max-w-full">
         <div ref={wrapRef} className="relative overflow-hidden">
       {loading ? (
-        <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-neutral-700 dark:text-neutral-400 dark:text-slate-400">
+        <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
           {loadingLabel}
         </div>
       ) : null}
@@ -289,21 +289,21 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
       ) : null}
 
       {showWorkspace && fileBytes ? (
-        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
                 {ws.wsUi("pageSummary", { count: pageCount })}
               </p>
             </div>
-            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-black dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
 
           <div className="grid gap-3 lg:grid-cols-2 lg:items-start">
-            <div className="space-y-4 rounded-none border border-white/10 bg-surface/40 p-4">
+            <div className="space-y-2 rounded-none border border-white/10 bg-surface/40 p-4">
               <h2 className="text-sm font-semibold text-ink">{ws.wsUi("settingsHeading")}</h2>
               <label className="block space-y-1.5">
                 <span className="text-xs font-medium text-ink-muted">{ws.wsUi("textLabel")}</span>
@@ -373,7 +373,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
                       key={pos.value}
                       type="button"
                       onClick={() => patchOptions({ position: pos.value as WatermarkPosition })}
-                      className={`rounded-none border px-2 py-2 text-xs font-medium transition ${ options.position === pos.value ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200" : "border-white/10 text-ink-muted hover:border-white/20" }`}
+                      className={`rounded-none border px-2 py-2 text-xs font-medium transition ${ options.position === pos.value ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 text-black dark:text-neutral-200" : "border-white/10 text-ink-muted hover:border-white/20" }`}
                     >
                       {watermarkPositionLabel(ws, pos.value as WatermarkPosition)}
                     </button>

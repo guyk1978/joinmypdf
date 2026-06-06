@@ -13,8 +13,8 @@ export async function RelatedTools({ tool }: { tool: ToolDefinition }) {
   const tTools = await getTranslations("Tools");
 
   return (
-    <section className="space-y-4 rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-      <h2 className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("relatedTools")}</h2>
+    <section className="space-y-2 rounded-none border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-800 dark:bg-neutral-900">
+      <h2 className="text-base font-semibold text-black dark:text-neutral-200">{tPage("relatedTools")}</h2>
       <CompactToolCardGrid
         items={others.map((item) => ({
           href: `/tools/${item.slug}/`,

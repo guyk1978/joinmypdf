@@ -60,18 +60,18 @@ export default async function HomePage({ params }: Props) {
           <div className="mx-auto mt-4 max-w-2xl">
             <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
           </div>
-          <div className="mx-auto mt-4 max-w-2xl space-y-3 sm:mt-10">
+          <div className="mx-auto mt-4 max-w-2xl space-y-3 sm:mt-6">
             <HeroDropzone />
             <MapDiagramCrossLink />
           </div>
         </section>
 
-        <section className="mt-20 space-y-5 md:mt-24">
+        <section className="mt-20 space-y-2 md:mt-24">
           <div className="text-center md:text-left">
             <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-neutral-200 dark:text-white md:text-3xl">
               {t("pickTool")}
             </h2>
-            <p className="mx-auto mt-2 max-w-2xl text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-300 md:mx-0 md:text-base">
+            <p className="mx-auto mt-2 max-w-2xl text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:mx-0 md:text-base">
               {t("pickToolDescription")}
             </p>
           </div>
@@ -86,19 +86,19 @@ export default async function HomePage({ params }: Props) {
           <SocialProofStrip />
         </div>
 
-        <section className="mt-16 grid gap-4 md:grid-cols-2 md:mt-20">
-          <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white px-4 py-10 text-center dark:border-slate-800 dark:bg-slate-900">
+        <section className="mt-16 grid gap-2 md:grid-cols-2 md:mt-20">
+          <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white px-4 py-10 text-center dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
             <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white md:text-2xl">{t("browseAllTools")}</h2>
-            <p className="mx-auto mt-3 max-w-md text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-300 md:text-base">
+            <p className="mx-auto mt-3 max-w-md text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:text-base">
               {t("browseAllToolsDescription")}
             </p>
             <Link href="/tools/" className={`${ctaSecondary} mt-6 inline-flex`}>
               {t("openToolDirectory")}
             </Link>
           </div>
-          <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white px-4 py-10 text-center dark:border-slate-800 dark:bg-slate-900">
+          <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white px-4 py-10 text-center dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
             <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white md:text-2xl">{t("guidesSection")}</h2>
-            <p className="mx-auto mt-3 max-w-md text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-300 md:text-base">
+            <p className="mx-auto mt-3 max-w-md text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:text-base">
               {t("guidesSectionDescription")}
             </p>
             <Link href="/blog/" className={`${ctaSecondary} mt-6 inline-flex`}>

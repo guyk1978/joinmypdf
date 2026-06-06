@@ -63,7 +63,7 @@ export function DataToolDashboard() {
   }, [dataset]);
 
   return (
-    <div className="data-tool-workspace space-y-4">
+    <div className="data-tool-workspace space-y-2">
       {status ? (
         <p className="text-sm text-ink-muted" aria-live="polite">
           {status}

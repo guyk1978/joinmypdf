@@ -18,7 +18,7 @@ export function PdfEditStudio({
         className,
       )}
     >
-      <div className={clsx("flex items-center justify-center px-3 py-3 md:px-6 md:py-4", minHeight)}>
+      <div className={clsx("flex items-center justify-center px-3 py-3 md:px-4 md:py-4", minHeight)}>
         {children}
       </div>
     </div>

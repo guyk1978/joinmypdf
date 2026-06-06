@@ -206,8 +206,8 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ) : null}
 
       {showWorkspace ? (
-        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
@@ -215,7 +215,7 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 {sheetCount ? ` · ${sheetCount} sheet${sheetCount === 1 ? "" : "s"}` : ""} · {ws.wsText("fileTypeLabel")}
               </p>
             </div>
-            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-black dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -238,7 +238,7 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 type="button"
                 disabled={busy}
                 onClick={onDownload}
-                className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-neutral-800 dark:text-neutral-200 transition hover:bg-neutral-200 dark:bg-neutral-800 disabled:opacity-50"
+                className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-200 dark:bg-neutral-800 disabled:opacity-50"
               >
                 {ws.wsText("downloadLabel")}
               </button>

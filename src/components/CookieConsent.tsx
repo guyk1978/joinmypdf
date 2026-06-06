@@ -60,11 +60,11 @@ export function CookieConsent() {
       aria-label={t("title")}
     >
       <div className="pointer-events-auto mx-auto flex max-w-4xl flex-col gap-3 rounded-none border border-neutral-300 bg-white p-3 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800 dark:bg-neutral-900">
-        <p className="text-sm leading-relaxed text-black dark:text-neutral-300">
+        <p className="text-sm leading-relaxed text-black dark:text-neutral-200">
           {t("message")}{" "}
           <Link
             href="/privacy/"
-            className="font-medium text-black underline underline-offset-2 hover:text-neutral-700 dark:text-neutral-200 dark:hover:text-neutral-100"
+            className="font-medium text-black underline underline-offset-2 hover:text-black dark:text-neutral-200 dark:hover:text-neutral-100"
           >
             {t("privacyLink")}
           </Link>

@@ -105,15 +105,15 @@ function buildRenderHost(html: string): HTMLElement {
   inner.style.boxSizing = "border-box";
   inner.style.fontFamily = 'Calibri, "Segoe UI", Arial, sans-serif';
   inner.style.background = "#ffffff";
-  inner.style.color = "#0f172a";
+  inner.style.color = "#0a0a0a";
   inner.innerHTML = html;
 
   const style = document.createElement("style");
   style.textContent = `
-    .joinmypdf-pptx-render .slide + .slide { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
-    .joinmypdf-pptx-render h2 { margin: 0 0 0.85rem; font-size: 16pt; color: #1e293b; }
+    .joinmypdf-pptx-render .slide + .slide { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e5e5e5; }
+    .joinmypdf-pptx-render h2 { margin: 0 0 0.85rem; font-size: 16pt; color: #171717; }
     .joinmypdf-pptx-render p { margin: 0 0 0.55rem; font-size: 12pt; line-height: 1.45; }
-    .joinmypdf-pptx-render p.empty { color: #64748b; font-style: italic; }
+    .joinmypdf-pptx-render p.empty { color: #404040; font-style: italic; }
   `;
 
   host.appendChild(style);

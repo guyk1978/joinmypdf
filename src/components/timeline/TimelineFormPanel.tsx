@@ -78,7 +78,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
   return (
     <div className="flex h-full flex-col gap-3 print:hidden">
       <div className="space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-800 dark:text-neutral-200">Client-side only</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black dark:text-neutral-200">Client-side only</p>
         <h2 className="text-xl font-bold text-ink">Timeline editor</h2>
         <p className="text-sm text-ink-muted">
           Add tasks and milestones — the Gantt chart updates instantly in your browser.
@@ -95,12 +95,12 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
         />
       </label>
 
-      <section className="space-y-4">
+      <section className="space-y-2">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-sm font-semibold text-ink">Tasks</h3>
           <button
             type="button"
-            className="rounded-none border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-200 transition hover:border-neutral-300 dark:border-neutral-800"
+            className="rounded-none border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-black dark:text-neutral-200 transition hover:border-neutral-300 dark:border-neutral-800"
             onClick={() =>
               patch({ tasks: [...project.tasks, createEmptyTask(nextRowOrder)] })
             }
@@ -183,12 +183,12 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
         )}
       </section>
 
-      <section className="space-y-4">
+      <section className="space-y-2">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-sm font-semibold text-ink">Milestones</h3>
           <button
             type="button"
-            className="rounded-none border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-neutral-800 dark:text-neutral-200 transition hover:border-neutral-300 dark:border-neutral-800"
+            className="rounded-none border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-black dark:text-neutral-200 transition hover:border-neutral-300 dark:border-neutral-800"
             onClick={() =>
               patch({ milestones: [...project.milestones, createEmptyMilestone()] })
             }
@@ -250,7 +250,7 @@ export function TimelineFormPanel({ project, onChange }: TimelineFormPanelProps)
 
       <button
         type="button"
-        className="text-xs text-ink-muted underline-offset-2 hover:text-neutral-800 dark:text-neutral-200 hover:underline"
+        className="text-xs text-ink-muted underline-offset-2 hover:text-black dark:text-neutral-200 hover:underline"
         onClick={() => {
           const sample = createDefaultTimelineProject();
           onChange({ ...sample, title: project.title.trim() || sample.title });

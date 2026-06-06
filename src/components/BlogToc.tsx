@@ -11,7 +11,7 @@ export function BlogToc({ sections }: { sections: BlogSection[] }) {
       <ol className="mt-3 space-y-2 text-sm">
         {sections.map((s) => (
           <li key={s.id}>
-            <a className="text-neutral-800 dark:text-neutral-200 hover:underline" href={`#${s.id}`}>
+            <a className="text-black dark:text-neutral-200 hover:underline" href={`#${s.id}`}>
               {s.heading}
             </a>
           </li>

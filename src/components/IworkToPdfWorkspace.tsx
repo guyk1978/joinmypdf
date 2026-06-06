@@ -175,13 +175,13 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           }
         />
       ) : (
-        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file.name}</p>
               <p className="mt-1 text-xs text-ink-muted">{kindLabel || iworkPackageFallbackLabel(ws)}</p>
             </div>
-            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-black dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>

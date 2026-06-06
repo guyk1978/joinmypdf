@@ -82,7 +82,7 @@ function ComparePagePanel({
       <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted">{label}</p>
       <div
         ref={wrapRef}
-        className="relative overflow-hidden rounded-none border border-white/10 bg-slate-950/40"
+        className="relative overflow-hidden rounded-none border border-white/10 bg-neutral-200 dark:bg-neutral-900"
       >
         {loading ? (
           <div className="flex aspect-[3/4] max-h-[70vh] items-center justify-center text-sm text-ink-muted">
@@ -282,7 +282,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-2 md:grid-cols-2">
         <FileSlot
           id={`${baseId}-left`}
           label={ws.wsUi("labelOriginalBaseline")}
@@ -361,9 +361,9 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ) : null}
 
       {result && leftFile && rightFile ? (
-        <div className="space-y-4 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap gap-4 text-xs text-ink-muted">
+            <div className="flex flex-wrap gap-2 text-xs text-ink-muted">
               <span className="flex items-center gap-1.5">
                 <span className="inline-block h-3 w-3 rounded bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700" />
                 {ws.wsUi("legendRemoved")}
@@ -423,7 +423,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             <p className="text-sm text-ink-muted">{ws.wsUi("noDiffsOnPage")}</p>
           ) : null}
 
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid gap-2 lg:grid-cols-2">
             <ComparePagePanel
               label={ws.wsUi("panelOriginal")}
               file={leftFile}

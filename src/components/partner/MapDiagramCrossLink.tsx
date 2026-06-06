@@ -10,11 +10,11 @@ type Props = {
 function FlowchartIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-8 w-8 shrink-0" fill="none" aria-hidden>
-      <rect x="3" y="3" width="7" height="5" rx="1.5" fill="#6366F1" />
-      <rect x="14" y="3" width="7" height="5" rx="1.5" fill="#818CF8" />
-      <rect x="8.5" y="16" width="7" height="5" rx="1.5" fill="#4F46E5" />
-      <path d="M6.5 8V11.5H12V13.5M17.5 8V11.5H12" stroke="#93C5FD" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M12 13.5V16" stroke="#6366F1" strokeWidth="1.5" strokeLinecap="round" />
+      <rect x="3" y="3" width="7" height="5" rx="0" fill="#525252" />
+      <rect x="14" y="3" width="7" height="5" rx="0" fill="#737373" />
+      <rect x="8.5" y="16" width="7" height="5" rx="0" fill="#404040" />
+      <path d="M6.5 8V11.5H12V13.5M17.5 8V11.5H12" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M12 13.5V16" stroke="#525252" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -28,20 +28,20 @@ export function MapDiagramCrossLink({ className }: Props) {
   return (
     <aside
       className={clsx(
-        "partner-mapdiagram w-full rounded-none border border-indigo-100 bg-white px-4 py-3.5 text-start sm:px-5 sm:py-4 dark:border-slate-800 dark:bg-slate-950/50",
+        "partner-mapdiagram w-full rounded-none border border-neutral-300 bg-neutral-200 px-2 py-2 text-start dark:border-neutral-800 dark:bg-neutral-900",
         className,
       )}
       aria-label={t("mapDiagramAria")}
     >
       <div className="flex items-start gap-3">
-        <div className="rounded-none bg-neutral-900 p-2 ring-1 ring-indigo-100 dark:bg-slate-800/80 dark:ring-slate-700">
+        <div className="rounded-none border border-neutral-400 bg-neutral-100 p-1.5 dark:border-neutral-700 dark:bg-neutral-800">
           <FlowchartIcon />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm leading-relaxed text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
+          <p className="text-sm leading-relaxed text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
             {t.rich("mapDiagramBody", {
               brand: (chunks) => (
-                <span className="font-semibold text-black dark:text-neutral-200 dark:text-slate-100">{chunks}</span>
+                <span className="font-semibold text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{chunks}</span>
               ),
             })}
           </p>

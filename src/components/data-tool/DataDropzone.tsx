@@ -61,7 +61,7 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       <div
         role="region"
         aria-label="Upload CSV or JSON"
@@ -97,7 +97,7 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
           }}
         />
         <svg
-          className="mb-4 text-neutral-800 dark:text-neutral-200"
+          className="mb-4 text-black dark:text-neutral-200"
           width="40"
           height="40"
           viewBox="0 0 24 24"
@@ -124,7 +124,7 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
       <div className="flex flex-wrap items-center justify-center gap-3">
         <button
           type="button"
-          className="rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-neutral-800 dark:text-neutral-200"
+          className="rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-black dark:text-neutral-200"
           disabled={busy}
           onClick={() => onLoad({ ...DEMO_DATASET, rows: DEMO_DATASET.rows.map((r) => ({ ...r })) })}
         >

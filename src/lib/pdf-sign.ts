@@ -143,7 +143,7 @@ export async function createTypedSignaturePng(text: string): Promise<Uint8Array>
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.font = fontSpec;
-  ctx.fillStyle = "#0f172a";
+  ctx.fillStyle = "#0a0a0a";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText(trimmed, canvas.width / 2, canvas.height / 2);

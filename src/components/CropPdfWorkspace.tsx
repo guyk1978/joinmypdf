@@ -195,7 +195,7 @@ function CropPreview({
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">{cropInstructions}</p>
+      <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{cropInstructions}</p>
       <PdfEditStudio minHeight={loading ? "min-h-[320px]" : undefined}>
         <PdfStudioPage className="mx-auto max-w-full">
           <div
@@ -207,7 +207,7 @@ function CropPreview({
             onPointerLeave={onPointerUp}
           >
             {loading ? (
-              <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-neutral-700 dark:text-neutral-400 dark:text-slate-400">
+              <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
                 {loadingPreviewLabel}
               </div>
             ) : null}
@@ -272,7 +272,7 @@ function CropPreview({
               return (
                 <span
                   key={handle}
-                  className="absolute z-10 h-3 w-3 rounded-none border-2 border-neutral-300 dark:border-neutral-800 bg-white dark:border-neutral-300 dark:border-neutral-800 dark:bg-slate-900"
+                  className="absolute z-10 h-3 w-3 rounded-none border-2 border-neutral-300 dark:border-neutral-800 bg-white dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
                   style={style}
                   aria-hidden
                 />
@@ -434,11 +434,11 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       ) : null}
 
       {showWorkspace && fileBytes ? (
-        <div className="space-y-5 rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 md:p-4 dark:border-slate-800 dark:bg-slate-900">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="space-y-2 rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
+          <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
-              <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-slate-100">{file?.name}</p>
-              <p className="mt-1 text-xs text-neutral-700 dark:text-neutral-400 dark:text-slate-400">
+              <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{file?.name}</p>
+              <p className="mt-1 text-xs text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
                 {ws.wsUi("pageSummary", { count: pageCount })}
               </p>
             </div>
@@ -457,11 +457,11 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
           {busy ? (
             <div className="space-y-2" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-neutral-700 dark:text-neutral-400 dark:text-slate-400">
+              <div className="flex items-center justify-between text-xs text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
                 <span>{ws.processing}</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-none bg-neutral-100 dark:bg-neutral-900 dark:bg-slate-800">
-                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-900 to-indigo-600" />
+              <div className="h-2 overflow-hidden rounded-none bg-neutral-100 dark:bg-neutral-900 dark:bg-neutral-200 dark:bg-neutral-900">
+                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-900" />
               </div>
             </div>
           ) : null}
@@ -479,7 +479,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               type="button"
               disabled={busy}
               onClick={() => setCrop(DEFAULT_CROP_RECT)}
-              className="rounded-none border border-neutral-300 dark:border-neutral-800 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-300 transition hover:bg-neutral-100 dark:bg-neutral-950 disabled:opacity-50 dark:border-neutral-300 dark:border-neutral-800 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="rounded-none border border-neutral-300 dark:border-neutral-800 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-100 dark:bg-neutral-950 disabled:opacity-50 dark:border-neutral-300 dark:border-neutral-800 dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-900"
             >
               {ws.wsUi("resetFrame")}
             </button>
@@ -487,7 +487,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-none border border-neutral-300 dark:border-neutral-800 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-300 transition hover:bg-neutral-100 dark:bg-neutral-950 disabled:opacity-50 dark:border-neutral-300 dark:border-neutral-800 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="rounded-none border border-neutral-300 dark:border-neutral-800 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-100 dark:bg-neutral-950 disabled:opacity-50 dark:border-neutral-300 dark:border-neutral-800 dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-900"
             >
               {ws.chooseAnotherFile}
             </button>
@@ -507,7 +507,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           }}
         />
       ) : (
-        <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400" role="status" aria-live="polite">
+        <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" role="status" aria-live="polite">
           {status}
         </p>
       )}

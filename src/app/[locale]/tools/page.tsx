@@ -76,26 +76,26 @@ export default async function ToolsDirectoryPage({ params }: Props) {
       />
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-4 py-10 md:px-4 md:py-14">
-        <section className="rounded-none border border-neutral-300 bg-white px-4 py-8 text-center dark:border-neutral-800 dark:bg-neutral-900 md:px-8 md:py-10">
+        <section className="rounded-none border border-neutral-300 bg-white px-4 py-4 text-center dark:border-neutral-800 dark:bg-neutral-900 md:px-4 md:py-5">
           <div className="relative">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-700 dark:text-neutral-400 dark:text-black dark:text-neutral-300">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
               {tPage("badge")}
             </p>
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-black dark:text-neutral-200 dark:text-white md:text-4xl lg:text-5xl">
               {tPage("title")}
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-800 dark:text-neutral-400 dark:text-slate-300 md:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:text-lg">
               {tPage("description", { count: toolCount })}
             </p>
             <div className="mx-auto mt-4 max-w-xl">
               <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
             </div>
-            <p className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-neutral-700 dark:text-neutral-400 dark:text-slate-400">
+            <p className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
               <span className="inline-flex items-center gap-1.5">
                 <Lock className="h-4 w-4 text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" aria-hidden />
                 {tPage("clientSide")}
               </span>
-              <span className="hidden text-slate-300 sm:inline dark:text-black dark:text-neutral-300" aria-hidden>
+              <span className="hidden text-black dark:text-neutral-200 sm:inline dark:text-black dark:text-neutral-200" aria-hidden>
                 ·
               </span>
               <span className="inline-flex items-center gap-1.5">
@@ -108,12 +108,12 @@ export default async function ToolsDirectoryPage({ params }: Props) {
           </div>
         </section>
 
-        <section className="mt-12 space-y-4" aria-labelledby="featured-tools">
+        <section className="mt-12 space-y-2" aria-labelledby="featured-tools">
           <div>
             <h2 id="featured-tools" className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white md:text-2xl">
               {tPage("startHere")}
             </h2>
-            <p className="mt-1 text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">{tPage("startHereDescription")}</p>
+            <p className="mt-1 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{tPage("startHereDescription")}</p>
           </div>
           <CompactToolCardGrid items={featuredItems} />
         </section>
@@ -129,7 +129,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
             <section
               key={section.id}
               id={section.id}
-              className="mt-14 scroll-mt-24 space-y-5 rounded-none border border-neutral-300 dark:border-neutral-800/70 bg-white/80 p-4 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.03] md:p-4"
+              className="mt-8 scroll-mt-24 space-y-2 rounded-none border border-neutral-300 dark:border-neutral-800/70 bg-white/80 p-4 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.03] md:p-4"
               aria-labelledby={`section-${section.id}`}
             >
               <div>
@@ -139,7 +139,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
                 >
                   {sectionLabel}
                 </h2>
-                <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-400 dark:text-slate-400">{countLabel}</p>
+                <p className="mt-1 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{countLabel}</p>
               </div>
               <CompactToolCardGrid
                 items={section.items.map((item) => ({
@@ -152,9 +152,9 @@ export default async function ToolsDirectoryPage({ params }: Props) {
           );
         })}
 
-        <section className="mt-14 rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-900 dark:bg-neutral-200/50 px-4 py-4 text-center dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:bg-neutral-200/20 md:px-10">
+        <section className="mt-8 rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-900 dark:bg-neutral-200/50 px-4 py-4 text-center dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:bg-neutral-200/20 md:px-10">
           <h2 className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("whyLocalTitle")}</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-300 md:text-base">
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:text-base">
             {tPage("whyLocalBody")}
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -166,7 +166,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
             </Link>
             <Link
               href="/blog/"
-              className="inline-flex items-center justify-center rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-5 py-2.5 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-100 dark:bg-neutral-950 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+              className="inline-flex items-center justify-center rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-5 py-2.5 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900 dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-900"
             >
               {tPage("viewGuides")}
             </Link>

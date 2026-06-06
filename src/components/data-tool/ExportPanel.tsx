@@ -39,7 +39,7 @@ export function ExportPanel({ rows, columns, baseName }: ExportPanelProps) {
         <button
           type="button"
           disabled={disabled}
-          className="inline-flex items-center justify-center gap-2 rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-neutral-800 dark:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-black dark:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() =>
             downloadTextFile(
               rowsToJson(rows, true),
@@ -53,7 +53,7 @@ export function ExportPanel({ rows, columns, baseName }: ExportPanelProps) {
         <button
           type="button"
           disabled={disabled}
-          className="inline-flex items-center justify-center gap-2 rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-neutral-800 dark:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center justify-center gap-2 rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-black dark:text-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={() =>
             downloadTextFile(
               rowsToXml(rows, columns),

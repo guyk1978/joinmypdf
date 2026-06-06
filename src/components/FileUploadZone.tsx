@@ -135,7 +135,7 @@ export function FileUploadZone({
       <div
         className={clsx(
           "flex w-full flex-1 flex-col items-center justify-center",
-          isHero ? "gap-4 px-1 py-5 md:gap-5 md:py-3" : "gap-4 px-1 py-4 md:gap-4 md:py-5",
+          isHero ? "gap-2 px-1 py-5 md:gap-5 md:py-3" : "gap-2 px-1 py-4 md:gap-2 md:py-5",
         )}
       >
         <PrivacyUploadBadge className="max-w-xl shrink-0 sm:max-w-2xl" />

@@ -246,15 +246,15 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       ) : null}
 
       {showWorkspace ? (
-        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
                 {ws.wsUi("pageSummary", { count: thumbs.length })}
               </p>
             </div>
-            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-neutral-800 dark:text-neutral-200">
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-black dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -278,19 +278,19 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             </button>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {thumbs.map((thumb) => {
               const angle = rotations[thumb.pageIndex] || 0;
               return (
                 <article
                   key={thumb.pageIndex}
-                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 transition hover:border-neutral-300 dark:border-neutral-800 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-neutral-300 dark:border-neutral-800"
+                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 transition hover:border-neutral-300 dark:border-neutral-800 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900 dark:hover:border-neutral-300 dark:border-neutral-800"
                 >
-                  <div className="mb-2 flex items-center justify-between text-xs text-neutral-700 dark:text-neutral-400 dark:text-slate-400">
+                  <div className="mb-2 flex items-center justify-between text-xs text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
                     <span>{ws.wsCommon("pageNumber", { page: thumb.pageIndex + 1 })}</span>
                     <span>{angle}°</span>
                   </div>
-                  <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-900 to-slate-100 p-3 dark:border-slate-800 dark:from-slate-950 dark:to-slate-900">
+                  <div className="flex aspect-[3/4] items-center justify-center overflow-hidden rounded-none border border-neutral-300 bg-neutral-100 p-2 dark:border-neutral-800 dark:bg-neutral-950">
                     <img
                       src={thumb.dataUrl}
                       alt={ws.wsCommon("pageNumber", { page: thumb.pageIndex + 1 })}

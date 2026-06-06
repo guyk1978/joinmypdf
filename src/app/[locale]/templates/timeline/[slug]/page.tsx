@@ -92,14 +92,14 @@ export default async function TimelineTemplatePage({ params }: PageProps) {
       <SiteHeader />
       <main className="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
         <header className="mb-4 max-w-3xl space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-800 dark:text-neutral-200">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black dark:text-neutral-200">
             {profile.professionLabel} template
           </p>
           <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">{profile.h1}</h1>
           <p className="text-lg leading-relaxed text-ink-muted">{profile.lede}</p>
           <p className="text-sm text-ink-muted">
             Need a blank timeline instead?{" "}
-            <Link href="/tools/timeline-gantt-generator/" className="text-neutral-800 dark:text-neutral-200 hover:underline">
+            <Link href="/tools/timeline-gantt-generator/" className="text-black dark:text-neutral-200 hover:underline">
               Open the general timeline &amp; Gantt generator
             </Link>
             .

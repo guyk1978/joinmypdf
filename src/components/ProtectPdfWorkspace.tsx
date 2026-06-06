@@ -181,9 +181,9 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {file ? (
         <div className={toolPanel}>
-          <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-slate-100">{ws.wsUi("selectedFile")}</p>
-          <p className="mt-2 truncate text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
-            <span className="font-medium text-black dark:text-neutral-200 dark:text-slate-100">{file.name}</span> ·{" "}
+          <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{ws.wsUi("selectedFile")}</p>
+          <p className="mt-2 truncate text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+            <span className="font-medium text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{file.name}</span> ·{" "}
             {pdf.formatBytes(file.size)}
           </p>
         </div>

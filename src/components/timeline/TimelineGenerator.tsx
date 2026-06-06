@@ -45,7 +45,7 @@ export function TimelineGenerator({ initialProject, templateSlug }: TimelineGene
   }, [busy, project]);
 
   return (
-    <div className="timeline-generator-workspace space-y-4">
+    <div className="timeline-generator-workspace space-y-2">
       {templateSlug ? (
         <p className="border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-neutral-400">
           Template loaded for{" "}
@@ -58,7 +58,7 @@ export function TimelineGenerator({ initialProject, templateSlug }: TimelineGene
           {status}
         </p>
       ) : null}
-      <div className="grid gap-4 lg:grid-cols-12 lg:items-start">
+      <div className="grid gap-2 lg:grid-cols-12 lg:items-start">
         <section className="border border-neutral-800 bg-neutral-900 p-4 lg:col-span-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
           <TimelineFormPanel project={project} onChange={setProject} />
         </section>

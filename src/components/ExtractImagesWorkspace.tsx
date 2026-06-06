@@ -271,9 +271,9 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
       ) : null}
 
       {showWorkspace ? (
-        <div className="pdf-export-workspace space-y-4">
-          <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
-            <strong className="text-black dark:text-neutral-200 dark:text-slate-100">{file?.name}</strong>
+        <div className="pdf-export-workspace space-y-2">
+          <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+            <strong className="text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{file?.name}</strong>
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
           </p>
 

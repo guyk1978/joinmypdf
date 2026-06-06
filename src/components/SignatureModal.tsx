@@ -83,7 +83,7 @@ export function SignatureModal({
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx || !lastPoint.current) return;
     const p = pointerPos(event);
-    ctx.strokeStyle = "#0f172a";
+    ctx.strokeStyle = "#0a0a0a";
     ctx.lineWidth = 2.5;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";

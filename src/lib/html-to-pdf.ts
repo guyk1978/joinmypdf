@@ -21,13 +21,13 @@ const DEFAULT_HTML_SAMPLE = `<!doctype html>
     <meta charset="utf-8" />
     <title>HTML to PDF Preview</title>
     <style>
-      body { font-family: Inter, Arial, sans-serif; margin: 0; padding: 24px; background: #f8fafc; color: #0f172a; }
-      .card { background: white; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; }
+      body { font-family: Inter, Arial, sans-serif; margin: 0; padding: 24px; background: #f8fafc; color: #0a0a0a; }
+      .card { background: white; border: 1px solid #d4d4d4; border-radius: 12px; padding: 20px; }
       h1 { margin: 0 0 12px; font-size: 26px; }
       p { margin: 0 0 12px; line-height: 1.6; }
       table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-      th, td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; }
-      th { background: #e2e8f0; }
+      th, td { border: 1px solid #d4d4d4; padding: 8px 10px; text-align: left; }
+      th { background: #e5e5e5; }
       code { background: #eef2ff; padding: 2px 6px; border-radius: 4px; font-family: ui-monospace, Menlo, monospace; }
     </style>
   </head>

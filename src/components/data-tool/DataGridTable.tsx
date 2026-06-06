@@ -41,12 +41,12 @@ export function DataGridTable({ rows, columns, sort, onSort }: DataGridTableProp
   }
 
   return (
-    <div className="overflow-hidden rounded-none border border-white/10 bg-slate-950/50">
+    <div className="overflow-hidden rounded-none border border-white/10 bg-neutral-200 dark:bg-neutral-900">
       <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-3">
         <p className="text-sm font-medium text-ink">
-          <span className="text-neutral-800 dark:text-neutral-200">{sortedRows.length.toLocaleString()}</span> rows
+          <span className="text-black dark:text-neutral-200">{sortedRows.length.toLocaleString()}</span> rows
           <span className="mx-2 text-ink-muted">·</span>
-          <span className="text-neutral-800 dark:text-neutral-200">{displayColumns.length}</span> columns
+          <span className="text-black dark:text-neutral-200">{displayColumns.length}</span> columns
         </p>
         {sort ? (
           <p className="text-xs text-ink-muted">
@@ -60,11 +60,11 @@ export function DataGridTable({ rows, columns, sort, onSort }: DataGridTableProp
 
       <div className="max-h-[min(52vh,520px)] overflow-auto">
         <table className="w-full min-w-[640px] border-collapse text-left text-sm">
-          <thead className="sticky top-0 z-10 bg-slate-900/95 backdrop-blur-sm">
+          <thead className="sticky top-0 z-10 bg-neutral-200 dark:bg-neutral-900 backdrop-blur-sm">
             <tr>
               <th
                 scope="col"
-                className="w-12 border-b border-white/10 px-3 py-2.5 text-xs font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-400"
+                className="w-12 border-b border-white/10 px-3 py-2.5 text-xs font-semibold uppercase tracking-wider text-black dark:text-neutral-200"
               >
                 #
               </th>
@@ -75,11 +75,11 @@ export function DataGridTable({ rows, columns, sort, onSort }: DataGridTableProp
                   <th
                     key={col}
                     scope="col"
-                    className="border-b border-white/10 px-3 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-400"
+                    className="border-b border-white/10 px-3 py-2.5 text-xs font-semibold uppercase tracking-wider text-black dark:text-neutral-200"
                   >
                     <button
                       type="button"
-                      className={`inline-flex max-w-full items-center gap-1 truncate transition hover:text-neutral-800 dark:text-neutral-200 ${ active ? "text-neutral-800 dark:text-neutral-200" : "" }`}
+                      className={`inline-flex max-w-full items-center gap-1 truncate transition hover:text-black dark:text-neutral-200 ${ active ? "text-black dark:text-neutral-200" : "" }`}
                       onClick={() => onSort(col)}
                     >
                       {col}
@@ -96,9 +96,9 @@ export function DataGridTable({ rows, columns, sort, onSort }: DataGridTableProp
                 key={`${index}-${row[displayColumns[0]] ?? ""}`}
                 className="border-b border-white/[0.06] transition hover:bg-white/[0.03]"
               >
-                <td className="px-3 py-2 text-xs tabular-nums text-neutral-700 dark:text-neutral-400">{index + 1}</td>
+                <td className="px-3 py-2 text-xs tabular-nums text-black dark:text-neutral-200">{index + 1}</td>
                 {displayColumns.map((col) => (
-                  <td key={col} className="max-w-[240px] truncate px-3 py-2 text-slate-200" title={row[col]}>
+                  <td key={col} className="max-w-[240px] truncate px-3 py-2 text-black dark:text-neutral-200" title={row[col]}>
                     {row[col] ?? ""}
                   </td>
                 ))}

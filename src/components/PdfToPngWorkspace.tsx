@@ -10,7 +10,7 @@ import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 
 const PNG_DOWNLOAD_BTN =
-  "block w-full rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-3 py-1.5 text-center text-xs font-bold text-black dark:text-neutral-200 transition-colors hover:bg-neutral-900 hover:text-white dark:border-neutral-300 dark:border-neutral-800 dark:bg-slate-800 dark:text-black dark:text-neutral-200 dark:hover:border-neutral-300 dark:border-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-white";
+  "block w-full rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-3 py-1.5 text-center text-xs font-bold text-black dark:text-neutral-200 transition-colors hover:bg-neutral-900 hover:text-white dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900 dark:text-black dark:text-neutral-200 dark:hover:border-neutral-300 dark:border-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-white";
 import * as pdf from "@/lib/pdf-engine";
 import { PDF_TO_PNG_SCALE } from "@/lib/pdf-to-png";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
@@ -260,9 +260,9 @@ export function PdfToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
       ) : null}
 
       {showWorkspace ? (
-        <div className="pdf-export-workspace space-y-4">
-          <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400">
-            <strong className="text-black dark:text-neutral-200 dark:text-slate-100">{file?.name}</strong>
+        <div className="pdf-export-workspace space-y-2">
+          <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+            <strong className="text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{file?.name}</strong>
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
           </p>
 

@@ -53,20 +53,20 @@ function themeStyles(theme: MarkdownTheme): string {
         color: #1a1a1a;
         background: #ffffff;
       }
-      .joinmypdf-md-render h1 { font-size: 1.85em; margin: 0 0 0.65em; font-weight: 700; border-bottom: 1px solid #cbd5e1; padding-bottom: 0.25em; }
+      .joinmypdf-md-render h1 { font-size: 1.85em; margin: 0 0 0.65em; font-weight: 700; border-bottom: 1px solid #d4d4d4; padding-bottom: 0.25em; }
       .joinmypdf-md-render h2 { font-size: 1.45em; margin: 1.25em 0 0.5em; font-weight: 700; }
       .joinmypdf-md-render h3 { font-size: 1.2em; margin: 1em 0 0.45em; font-weight: 700; }
       .joinmypdf-md-render p { margin: 0 0 0.9em; }
       .joinmypdf-md-render ul, .joinmypdf-md-render ol { margin: 0 0 0.9em 1.35em; }
-      .joinmypdf-md-render blockquote { margin: 0 0 1em; padding: 0.35em 1em; border-left: 4px solid #94a3b8; color: #475569; font-style: italic; }
-      .joinmypdf-md-render pre { margin: 0 0 1em; padding: 12px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; overflow-x: auto; }
+      .joinmypdf-md-render blockquote { margin: 0 0 1em; padding: 0.35em 1em; border-left: 4px solid #a3a3a3; color: #475569; font-style: italic; }
+      .joinmypdf-md-render pre { margin: 0 0 1em; padding: 12px 14px; background: #f8fafc; border: 1px solid #e5e5e5; border-radius: 4px; overflow-x: auto; }
       .joinmypdf-md-render code { font-family: "Courier New", Courier, monospace; font-size: 0.92em; }
-      .joinmypdf-md-render :not(pre) > code { background: #f1f5f9; padding: 0.12em 0.35em; border-radius: 3px; }
+      .joinmypdf-md-render :not(pre) > code { background: #f5f5f5; padding: 0.12em 0.35em; border-radius: 3px; }
       .joinmypdf-md-render table { border-collapse: collapse; width: 100%; margin: 0 0 1em; font-size: 11pt; }
-      .joinmypdf-md-render th, .joinmypdf-md-render td { border: 1px solid #94a3b8; padding: 8px 10px; text-align: left; vertical-align: top; }
-      .joinmypdf-md-render th { background: #f1f5f9; font-weight: 700; }
+      .joinmypdf-md-render th, .joinmypdf-md-render td { border: 1px solid #a3a3a3; padding: 8px 10px; text-align: left; vertical-align: top; }
+      .joinmypdf-md-render th { background: #f5f5f5; font-weight: 700; }
       .joinmypdf-md-render a { color: #1e40af; text-decoration: underline; }
-      .joinmypdf-md-render hr { border: none; border-top: 1px solid #cbd5e1; margin: 1.5em 0; }
+      .joinmypdf-md-render hr { border: none; border-top: 1px solid #d4d4d4; margin: 1.5em 0; }
     `;
   }
 

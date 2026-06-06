@@ -29,7 +29,7 @@ export function ToolPageHero({ slug, title, subtitle, eyebrow = "JoinMyPDF" }: P
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
         {eyebrow}
       </p>
-      <div className="flex items-start gap-3 sm:gap-4">
+      <div className="flex items-start gap-3 sm:gap-2">
         <span
           className={clsx(
             TOOL_ICON_WRAP_CLASS,
@@ -42,7 +42,7 @@ export function ToolPageHero({ slug, title, subtitle, eyebrow = "JoinMyPDF" }: P
         </span>
         <div className="min-w-0 flex-1 pt-0.5">
           <h1 className="text-3xl font-bold tracking-tight text-black dark:text-neutral-200 dark:text-white md:text-4xl">{title}</h1>
-          <p className="mt-2 max-w-3xl text-lg leading-relaxed text-neutral-800 dark:text-neutral-400 dark:text-slate-300">{subtitle}</p>
+          <p className="mt-2 max-w-3xl text-lg leading-relaxed text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{subtitle}</p>
         </div>
       </div>
     </header>

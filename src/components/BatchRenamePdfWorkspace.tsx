@@ -219,12 +219,12 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
         <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <p className="text-sm text-ink-muted">{ws.wsUi("fileSummary", { count: files.length })}</p>
 
-          <section className="space-y-4" aria-labelledby={`${baseId}-rules`}>
+          <section className="space-y-2" aria-labelledby={`${baseId}-rules`}>
             <h2 id={`${baseId}-rules`} className="text-sm font-semibold text-ink">
               {ws.wsUi("rulesHeading")}
             </h2>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-2 md:grid-cols-2">
               <label className="block text-sm text-ink">
                 <span className="font-medium">{ws.wsUi("textPrefix")}</span>
                 <input
@@ -249,7 +249,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
               </label>
             </div>
 
-            <div className="flex flex-wrap gap-4 text-sm text-ink">
+            <div className="flex flex-wrap gap-2 text-sm text-ink">
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -294,7 +294,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
             </div>
 
             {rules.numbering.enabled ? (
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-2 sm:grid-cols-3">
                 <label className="block text-sm text-ink">
                   <span className="font-medium">{ws.wsUi("startAt")}</span>
                   <input
@@ -403,7 +403,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
             </h2>
             <div className="mt-3 max-h-80 overflow-auto rounded-none border border-white/10">
               <table className="w-full text-start text-sm">
-                <thead className="sticky top-0 bg-slate-900/95 text-xs uppercase text-ink-muted">
+                <thead className="sticky top-0 bg-neutral-200 dark:bg-neutral-900 text-xs uppercase text-ink-muted">
                   <tr>
                     <th className="px-4 py-2 font-medium">{ws.wsUi("originalColumn")}</th>
                     <th className="px-4 py-2 font-medium">{ws.wsUi("newNameColumn")}</th>
@@ -413,7 +413,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
                   {preview.map((row) => (
                     <tr key={`${row.originalName}-${row.newName}`}>
                       <td className="px-4 py-2 text-ink-muted">{row.originalName}</td>
-                      <td className="px-4 py-2 font-medium text-neutral-800 dark:text-neutral-200">{row.newName}</td>
+                      <td className="px-4 py-2 font-medium text-black dark:text-neutral-200">{row.newName}</td>
                     </tr>
                   ))}
                 </tbody>

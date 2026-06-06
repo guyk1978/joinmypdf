@@ -119,7 +119,7 @@ function BookletSheetPreview({
         })}{" "}
         · {paperLabel}
       </p>
-      <div className="relative grid grid-cols-2 gap-0 overflow-hidden rounded-none border border-white/15 bg-slate-950/50">
+      <div className="relative grid grid-cols-2 gap-0 overflow-hidden rounded-none border border-white/15 bg-neutral-200 dark:bg-neutral-900">
         <div className="relative border-r border-dashed border-white/20 p-2">
           <SlotPreview
             url={leftUrl}
@@ -396,7 +396,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {plan ? (
         <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
-          <section className="grid gap-4 md:grid-cols-2" aria-labelledby={`${baseId}-paper`}>
+          <section className="grid gap-2 md:grid-cols-2" aria-labelledby={`${baseId}-paper`}>
             <h2 id={`${baseId}-paper`} className="sr-only">
               {ws.wsUi("settingsHeading")}
             </h2>

@@ -27,7 +27,7 @@ export function WattQuickCalculatorIllustration() {
         {/* Calculator body */}
         <g transform="translate(44, 78)">
           <rect x="0" y="0" width="132" height="108" rx="14" fill="#1e3a8a" stroke="#60a5fa" strokeWidth="2" />
-          <rect x="10" y="10" width="112" height="26" rx="6" fill="#0f172a" />
+          <rect x="10" y="10" width="112" height="26" rx="6" fill="#0a0a0a" />
           <text x="114" y="28" textAnchor="end" fill="#4ade80" fontSize="14" fontWeight="700" fontFamily="ui-monospace, monospace">
             $12,450
           </text>

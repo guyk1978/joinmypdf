@@ -242,7 +242,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
       ) : null}
 
       {showOptions ? (
-        <form className="space-y-4" onSubmit={onSubmit}>
+        <form className="space-y-2" onSubmit={onSubmit}>
           <p className="text-sm text-ink-muted">
             <strong className="text-ink">{file?.name}</strong>
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}

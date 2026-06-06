@@ -47,7 +47,7 @@ function renderSection(section: BlogSection) {
       </Tag>
       {section.type === "methodology" ? (
         <div className="mt-4 rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 p-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-neutral-800 dark:text-neutral-200">Methodology</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-black dark:text-neutral-200">Methodology</p>
           {(section.paragraphs || []).map((p, i) => (
             <p key={i} className="mt-2 text-sm leading-relaxed text-ink-muted md:text-base">
               {p}
@@ -106,7 +106,7 @@ export function BlogArticleBody({ post }: { post: BlogPost }) {
       {sections?.length ? (
         <div className="mt-4 space-y-10">{sections.map(renderSection)}</div>
       ) : (
-        <div className="mt-4 max-w-none space-y-5 text-sm leading-relaxed text-ink-muted md:text-base">
+        <div className="mt-4 max-w-none space-y-2 text-sm leading-relaxed text-ink-muted md:text-base">
           {legacyParagraphs(post).map((p, i) => (
             <p key={i}>{p}</p>
           ))}
@@ -114,7 +114,7 @@ export function BlogArticleBody({ post }: { post: BlogPost }) {
       )}
 
       {blocks?.bestFor ? (
-        <aside className="mt-10 rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 p-3">
+        <aside className="mt-6 rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 p-3">
           <p className="text-sm font-semibold text-ink">Best for</p>
           <p className="mt-1 text-sm text-ink-muted">{blocks.bestFor}</p>
         </aside>

@@ -34,7 +34,7 @@ export default function InvoiceGeneratorPage() {
       <SiteHeader />
       <main className="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
         <header className="mb-4 max-w-3xl space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-800 dark:text-neutral-200">JoinMyPDF</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black dark:text-neutral-200">JoinMyPDF</p>
           <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
             Fast Invoice &amp; Receipt Generator
           </h1>
@@ -56,7 +56,7 @@ export default function InvoiceGeneratorPage() {
               <li key={profile.slug}>
                 <Link
                   href={`/templates/${profile.slug}/`}
-                  className="inline-flex rounded-none border border-white/10 bg-white/[0.03] px-3 py-1.5 text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-neutral-800 dark:text-neutral-200"
+                  className="inline-flex rounded-none border border-white/10 bg-white/[0.03] px-3 py-1.5 text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-black dark:text-neutral-200"
                 >
                   {profile.professionLabel}
                 </Link>

@@ -98,16 +98,16 @@ function buildRenderHost(html: string): HTMLElement {
   inner.style.fontSize = "10pt";
   inner.style.lineHeight = "1.35";
   inner.style.background = "#ffffff";
-  inner.style.color = "#0f172a";
+  inner.style.color = "#0a0a0a";
   inner.innerHTML = html;
 
   const style = document.createElement("style");
   style.textContent = `
-    .joinmypdf-xlsx-render .sheet + .sheet { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; }
-    .joinmypdf-xlsx-render h2 { margin: 0 0 0.75rem; font-size: 13pt; font-weight: 700; color: #1e293b; }
+    .joinmypdf-xlsx-render .sheet + .sheet { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid #e5e5e5; }
+    .joinmypdf-xlsx-render h2 { margin: 0 0 0.75rem; font-size: 13pt; font-weight: 700; color: #171717; }
     .joinmypdf-xlsx-render table { border-collapse: collapse; width: max-content; min-width: 100%; margin: 0; }
     .joinmypdf-xlsx-render th, .joinmypdf-xlsx-render td {
-      border: 1px solid #94a3b8;
+      border: 1px solid #a3a3a3;
       padding: 4px 8px;
       vertical-align: top;
       white-space: nowrap;
@@ -115,7 +115,7 @@ function buildRenderHost(html: string): HTMLElement {
     }
     .joinmypdf-xlsx-render tr:first-child td,
     .joinmypdf-xlsx-render tr:first-child th {
-      background: #f1f5f9;
+      background: #f5f5f5;
       font-weight: 600;
     }
   `;

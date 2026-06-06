@@ -292,7 +292,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
       ) : null}
 
       {showWorkspace ? (
-        <div className="space-y-5 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <div>
             <p className="text-sm font-semibold text-ink">{file?.name}</p>
             <p className="mt-1 text-xs text-ink-muted">
@@ -346,7 +346,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
             />
           </fieldset>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-2 sm:grid-cols-2">
             <label className="block text-sm text-ink">
               <span className="font-medium">{ws.wsUi("minLength")}</span>
               <input
@@ -412,13 +412,13 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
           {foundPassword !== null ? (
             <div className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 p-4">
               <p className="text-sm font-semibold text-ink">{ws.wsUi("recoveredPassword")}</p>
-              <p className="mt-2 font-mono text-lg text-neutral-800 dark:text-neutral-200">
+              <p className="mt-2 font-mono text-lg text-black dark:text-neutral-200">
                 {revealPassword ? foundPassword || ws.wsUi("emptyPassword") : "••••••••"}
               </p>
               <div className="mt-3 flex flex-wrap gap-3">
                 <button
                   type="button"
-                  className="text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:underline"
+                  className="text-sm font-medium text-black dark:text-neutral-200 hover:underline"
                   onClick={() => setRevealPassword((v) => !v)}
                 >
                   {revealPassword ? ws.wsUi("hide") : ws.wsUi("reveal")}
@@ -427,7 +427,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
                   type="button"
                   disabled={busy}
                   onClick={() => void onDownloadUnlocked()}
-                  className="text-sm font-medium text-neutral-800 dark:text-neutral-200 hover:underline"
+                  className="text-sm font-medium text-black dark:text-neutral-200 hover:underline"
                 >
                   {ws.wsText("downloadUnlockedLabel")}
                 </button>

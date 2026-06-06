@@ -250,7 +250,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
 
   if (!config) {
     return (
-      <p className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 text-neutral-800 dark:text-neutral-400 dark:border-slate-800 dark:bg-slate-900 dark:text-ink-muted">
+      <p className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 text-black dark:text-neutral-200 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900 dark:text-ink-muted">
         {ws.common("notAvailable")}
       </p>
     );
@@ -325,7 +325,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       <MapDiagramCrossLink className="max-w-3xl" />
 
       {tool.operation === "compress" ? (
-        <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+        <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
           <label className="text-sm font-medium text-black dark:text-neutral-200 dark:text-ink" htmlFor={`${baseId}-q`}>
             {ws.common("compressionLevel")}
           </label>
@@ -338,12 +338,12 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
             onChange={(e) => setQuality(Number(e.target.value))}
             className="mt-2 w-full"
           />
-          <p className="mt-1 text-xs text-neutral-800 dark:text-neutral-400 dark:text-ink-muted">{ws.common("compressionHint")}</p>
+          <p className="mt-1 text-xs text-black dark:text-neutral-200 dark:text-ink-muted">{ws.common("compressionHint")}</p>
         </div>
       ) : null}
 
       {files.length > 0 ? (
-        <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+        <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
           <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-ink">{ws.common("files")}</p>
           <ul className="mt-3 space-y-2">
             {files.map((f, idx) => (
@@ -359,22 +359,22 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
                   move(from, idx);
                 }}
               >
-                <span className="cursor-grab text-neutral-700 dark:text-neutral-400 dark:text-ink-muted" aria-hidden>
+                <span className="cursor-grab text-black dark:text-neutral-200 dark:text-ink-muted" aria-hidden>
                   ::
                 </span>
                 <span className="min-w-0 flex-1 truncate font-medium text-black dark:text-neutral-200 dark:text-ink">{f.name}</span>
-                <span className="text-neutral-700 dark:text-neutral-400 dark:text-ink-muted">{pdf.formatBytes(f.size)}</span>
-                <span className="text-neutral-700 dark:text-neutral-400 dark:text-ink-muted">#{idx + 1}</span>
+                <span className="text-black dark:text-neutral-200 dark:text-ink-muted">{pdf.formatBytes(f.size)}</span>
+                <span className="text-black dark:text-neutral-200 dark:text-ink-muted">#{idx + 1}</span>
                 <button
                   type="button"
-                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-2 py-1 text-xs text-black dark:text-neutral-300 hover:bg-neutral-100 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
+                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-2 py-1 text-xs text-black dark:text-neutral-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
                   onClick={() => move(idx, idx - 1)}
                 >
                   {ws.common("up")}
                 </button>
                 <button
                   type="button"
-                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-2 py-1 text-xs text-black dark:text-neutral-300 hover:bg-neutral-100 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
+                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-2 py-1 text-xs text-black dark:text-neutral-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
                   onClick={() => move(idx, idx + 1)}
                 >
                   {ws.common("down")}
@@ -419,7 +419,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
         <button
           type="button"
           onClick={reset}
-          className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-300 transition hover:bg-slate-200 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
+          className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-200 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
         >
           {ws.clear}
         </button>
@@ -437,7 +437,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
           }}
         />
       ) : (
-        <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-ink-muted" role="status" aria-live="polite">
+        <p className="text-sm text-black dark:text-neutral-200 dark:text-ink-muted" role="status" aria-live="polite">
           {status}
         </p>
       )}

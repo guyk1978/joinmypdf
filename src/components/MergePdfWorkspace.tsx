@@ -266,7 +266,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
           }}
         />
       ) : (
-        <p className="text-sm text-neutral-800 dark:text-neutral-400 dark:text-slate-400" role="status" aria-live="polite">
+        <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" role="status" aria-live="polite">
           {status}
         </p>
       )}

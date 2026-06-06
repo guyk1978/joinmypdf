@@ -233,7 +233,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         />
       ) : null}
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-2 lg:grid-cols-2">
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-ink">{ws.wsUi("sourceHeading")}</h2>
