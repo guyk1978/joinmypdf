@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -52,6 +53,7 @@ function progressPercent(phase: HtmlToPdfProgressPhase | null, busy: boolean): n
 }
 
 export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [mode, setMode] = useState<InputMode>("upload");
   const [file, setFile] = useState<File | null>(null);
   const [htmlCode, setHtmlCode] = useState(DEFAULT_HTML_SAMPLE);
@@ -325,7 +327,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Convert to PDF" secondaryHref="/" secondaryLabel="Home" />
+      <StickyMobileCta href="#tool-workspace" label="Convert to PDF" secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { FileUploadZone } from "@/components/FileUploadZone";
 import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
@@ -27,7 +28,19 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-function ImageFilePreview({ file, pageNumber }: { file: File; pageNumber: number }) {
+function ImageFilePreview({
+  file,
+  pageNumber,
+  pageLabel,
+  previewLabel,
+  loadingLabel,
+}: {
+  file: File;
+  pageNumber: number;
+  pageLabel: string;
+  previewLabel: string;
+  loadingLabel: string;
+}) {
   const [url, setUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -39,11 +52,13 @@ function ImageFilePreview({ file, pageNumber }: { file: File; pageNumber: number
   return (
     <figure className="image-preview-thumb">
       {url ? (
-        <img src={url} alt={`Preview of ${file.name}`} className="image-preview-thumb__img" />
+        <img src={url} alt={`${previewLabel} ${file.name}`} className="image-preview-thumb__img" />
       ) : (
-        <div className="image-preview-thumb__placeholder">Loading…</div>
+        <div className="image-preview-thumb__placeholder">{loadingLabel}</div>
       )}
-      <figcaption className="image-preview-thumb__caption">Page {pageNumber}</figcaption>
+      <figcaption className="image-preview-thumb__caption">
+        {pageLabel} {pageNumber}
+      </figcaption>
     </figure>
   );
 }
@@ -63,74 +78,83 @@ type OpConfig = {
   run: (files: File[], h: RunHelpers) => Promise<void>;
 };
 
-function buildConfig(tool: ToolDefinition): OpConfig | null {
+function buildConfig(tool: ToolDefinition, ws: ReturnType<typeof useWorkspaceI18n>): OpConfig | null {
   const map: Record<string, OpConfig> = {
     compress: {
       accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
       minFiles: 1,
       multiple: false,
-      buttonLabel: "Compress PDF",
+      buttonLabel: ws.buttonLabel("Compress PDF"),
       async run(files, { setStatus, downloadBlob, quality: q }) {
         const result = await pdf.compressSimulation(files[0], q / 100);
         downloadBlob(
           new Blob([result.bytes as BlobPart], { type: "application/pdf" }),
-          "joinmypdf-compressed.pdf"
+          "joinmypdf-compressed.pdf",
         );
-        setStatus(`Compressed. Estimated size ratio ~${Math.round(result.estimatedRatio * 100)}% of original.`);
+        setStatus(
+          ws.status("complete", { percent: Math.round(result.estimatedRatio * 100) }) ||
+            `Compressed. Estimated size ratio ~${Math.round(result.estimatedRatio * 100)}% of original.`,
+        );
       },
     },
     split: {
       accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
       minFiles: 1,
       multiple: false,
-      buttonLabel: "Split PDF",
+      buttonLabel: ws.buttonLabel("Split PDF"),
       async run(files, { setStatus, downloadBlob }) {
         const parts = await pdf.splitPdfFile(files[0]);
         parts.forEach((entry) => {
           downloadBlob(
             new Blob([entry.bytes as BlobPart], { type: "application/pdf" }),
-            `joinmypdf-page-${entry.page}.pdf`
+            `joinmypdf-page-${entry.page}.pdf`,
           );
         });
-        setStatus(`Split complete: ${parts.length} file(s).`);
+        setStatus(
+          ws.status("complete", { count: parts.length }) || `Split complete: ${parts.length} file(s).`,
+        );
       },
     },
     "jpg-to-pdf": {
       accept: (f) => /^image\//i.test(f.type) || /\.(jpg|jpeg|png)$/i.test(f.name),
       minFiles: 1,
       multiple: true,
-      buttonLabel: "Create PDF",
+      buttonLabel: ws.buttonLabel("Create PDF"),
       async run(files, { setStatus, downloadBlob }) {
         const bytes = await pdf.jpgToPdf(files);
         downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), "joinmypdf-images.pdf");
-        setStatus(`Created PDF from ${files.length} image(s).`);
+        setStatus(
+          ws.status("complete", { count: files.length }) || `Created PDF from ${files.length} image(s).`,
+        );
       },
     },
     "png-to-pdf": {
       accept: (f) => /png$/i.test(f.type) || /\.png$/i.test(f.name),
       minFiles: 1,
       multiple: true,
-      buttonLabel: "Convert to PDF",
+      buttonLabel: ws.buttonLabel("Convert to PDF"),
       async run(files, { setStatus, downloadBlob }) {
         const bytes = await pdf.pngToPdf(files);
-        downloadBlob(
-          new Blob([bytes as BlobPart], { type: "application/pdf" }),
-          pdf.pngToPdfOutputName(files),
+        downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), pdf.pngToPdfOutputName(files));
+        setStatus(
+          ws.status("complete", { count: files.length }) ||
+            `Created PDF from ${files.length} PNG image(s).`,
         );
-        setStatus(`Created PDF from ${files.length} PNG image(s).`);
       },
     },
     "pdf-to-jpg": {
       accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
       minFiles: 1,
       multiple: false,
-      buttonLabel: "Export JPG pages",
+      buttonLabel: ws.buttonLabel("Export JPG pages"),
       async run(files, { setStatus, downloadBlob }) {
         const pages = await pdf.pdfToJpgPages(files[0], 1.3);
         pages.forEach((entry) => {
           downloadBlob(entry.blob, `joinmypdf-page-${entry.page}.jpg`);
         });
-        setStatus(`Exported ${pages.length} JPG file(s).`);
+        setStatus(
+          ws.status("complete", { count: pages.length }) || `Exported ${pages.length} JPG file(s).`,
+        );
       },
     },
   };
@@ -138,6 +162,9 @@ function buildConfig(tool: ToolDefinition): OpConfig | null {
 }
 
 export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
+  const config = buildConfig(tool, ws);
+
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -147,8 +174,6 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
   const baseId = useId();
-
-  const config = buildConfig(tool);
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
@@ -167,7 +192,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       if (!config) return;
       const accepted = Array.from(incoming || []).filter(config.accept);
       if (!accepted.length) {
-        setStatus("No supported files detected.");
+        setStatus(ws.status("noSupportedFiles"));
         return;
       }
       setFiles((prev) => {
@@ -176,10 +201,10 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       });
       setDone(false);
       setRunError(null);
-      setStatus(`${accepted.length} file(s) added.`);
+      setStatus(ws.status("filesAdded", { count: accepted.length }));
       capture(EVENTS.file_selected, { count: accepted.length, operation: tool.operation });
     },
-    [config, tool.operation]
+    [config, tool.operation, ws],
   );
 
   const removeAt = (idx: number) => {
@@ -199,13 +224,13 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
   const onRun = async () => {
     if (!config) return;
     if (files.length < config.minFiles) {
-      setStatus(`Add at least ${config.minFiles} file(s).`);
+      setStatus(ws.status("addAtLeast", { count: config.minFiles }));
       return;
     }
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Processing…");
+    setStatus(ws.processing);
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     try {
       await config.run(files, {
@@ -217,7 +242,6 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       setDone(true);
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
-      // Let the browser start download(s) before showing subscription modal.
       window.setTimeout(() => {
         dispatchToolComplete({ operation: tool.operation, slug });
       }, 400);
@@ -239,52 +263,35 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
   if (!config) {
     return (
       <p className="rounded-2xl border border-slate-200/60 bg-white p-6 text-slate-600 shadow-md dark:border-slate-800 dark:bg-slate-900 dark:text-ink-muted">
-        This tool is not available yet.
+        {ws.common("notAvailable")}
       </p>
     );
   }
 
   const disabled = busy || files.length < config.minFiles;
   const stickyLabel = config.buttonLabel;
-  const stickyHref = `#tool-workspace`;
 
   const showImagePreview =
     (tool.operation === "png-to-pdf" || tool.operation === "jpg-to-pdf") && files.length > 0;
   const supportedFormats =
-    tool.operation === "png-to-pdf"
-      ? ["PNG"]
-      : tool.operation === "jpg-to-pdf"
-        ? ["JPG", "PNG"]
-        : ["PDF"];
+    tool.operation === "png-to-pdf" ? ["PNG"] : tool.operation === "jpg-to-pdf" ? ["JPG", "PNG"] : ["PDF"];
 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       {tool.operation === "png-to-pdf" ? (
         <div className="privacy-callout" role="note">
-          <strong>100% Secure:</strong> Image conversion runs entirely inside your browser. Your private
-          images are never uploaded to any server.
+          <strong>{ws.securePrefix}</strong> {ws.common("pngPrivacy")}
         </div>
       ) : null}
 
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop files here or click to browse"
         supportedFormats={supportedFormats}
-        description={
-          tool.operation === "compress"
-              ? "Select one PDF. Tune compression, then download."
-              : tool.operation === "split"
-                ? "Select one PDF. Each page exports as its own file."
-                : tool.operation === "jpg-to-pdf"
-                  ? "Select JPG/PNG images. Reorder before creating the PDF."
-                  : tool.operation === "png-to-pdf"
-                    ? "Select PNG images. Reorder before converting to PDF."
-                    : "Select one PDF. Each page becomes a JPG."
-        }
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -310,8 +317,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
                 ? "image/png,.png"
                 : tool.operation === "jpg-to-pdf"
                   ? "image/jpeg,image/jpg,image/png,.jpg,.jpeg,.png"
-                  : tool.operation === "compress" ||
-                      tool.operation === "split"
+                  : tool.operation === "compress" || tool.operation === "split"
                     ? "application/pdf,.pdf"
                     : undefined
             }
@@ -329,7 +335,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       {tool.operation === "compress" ? (
         <div className="rounded-2xl border border-slate-200/60 bg-white p-4 shadow-md dark:border-slate-800 dark:bg-slate-900">
           <label className="text-sm font-medium text-slate-900 dark:text-ink" htmlFor={`${baseId}-q`}>
-            Compression level
+            {ws.common("compressionLevel")}
           </label>
           <input
             id={`${baseId}-q`}
@@ -340,13 +346,13 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
             onChange={(e) => setQuality(Number(e.target.value))}
             className="mt-2 w-full"
           />
-          <p className="mt-1 text-xs text-slate-600 dark:text-ink-muted">Higher keeps more detail; lower targets smaller files.</p>
+          <p className="mt-1 text-xs text-slate-600 dark:text-ink-muted">{ws.common("compressionHint")}</p>
         </div>
       ) : null}
 
       {files.length > 0 ? (
         <div className="rounded-2xl border border-slate-200/60 bg-white p-4 shadow-md dark:border-slate-800 dark:bg-slate-900">
-          <p className="text-sm font-semibold text-slate-900 dark:text-ink">Files</p>
+          <p className="text-sm font-semibold text-slate-900 dark:text-ink">{ws.common("files")}</p>
           <ul className="mt-3 space-y-2">
             {files.map((f, idx) => (
               <li
@@ -372,21 +378,21 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
                   className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 hover:bg-slate-100 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
                   onClick={() => move(idx, idx - 1)}
                 >
-                  Up
+                  {ws.common("up")}
                 </button>
                 <button
                   type="button"
                   className="rounded-lg border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700 hover:bg-slate-100 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
                   onClick={() => move(idx, idx + 1)}
                 >
-                  Down
+                  {ws.common("down")}
                 </button>
                 <button
                   type="button"
                   className="rounded-lg border border-red-300 bg-red-50 px-2 py-1 text-xs text-red-700 hover:bg-red-100 dark:border-red-400/40 dark:bg-transparent dark:text-red-300 dark:hover:bg-red-500/10"
                   onClick={() => removeAt(idx)}
                 >
-                  Remove
+                  {ws.common("remove")}
                 </button>
               </li>
             ))}
@@ -397,7 +403,14 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       {showImagePreview ? (
         <div className="image-preview-grid" aria-label="Image previews">
           {files.map((f, idx) => (
-            <ImageFilePreview key={`${f.name}-${f.size}-${idx}`} file={f} pageNumber={idx + 1} />
+            <ImageFilePreview
+              key={`${f.name}-${f.size}-${idx}`}
+              file={f}
+              pageNumber={idx + 1}
+              pageLabel={ws.common("page")}
+              previewLabel={ws.common("previewOf")}
+              loadingLabel={ws.common("loading")}
+            />
           ))}
         </div>
       ) : null}
@@ -409,14 +422,14 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
           onClick={onRun}
           className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-sky-300/60 transition duration-300 hover:-translate-y-0.5 hover:bg-brand-deep hover:shadow-xl hover:shadow-sky-300/70 disabled:cursor-not-allowed disabled:opacity-50 dark:text-surface"
         >
-          {config.buttonLabel}
+          {busy ? ws.processing : config.buttonLabel}
         </button>
         <button
           type="button"
           onClick={reset}
           className="rounded-xl border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-200 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
         >
-          Clear
+          {ws.clear}
         </button>
       </div>
 
@@ -428,7 +441,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus("Choose another file or clear the list to try again.");
+            setStatus(ws.status("chooseAnotherOrClear"));
           }}
         />
       ) : (
@@ -439,12 +452,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta
-        href={stickyHref}
-        label={stickyLabel}
-        secondaryHref="/"
-        secondaryLabel="Home"
-      />
+      <StickyMobileCta href="#tool-workspace" label={stickyLabel} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

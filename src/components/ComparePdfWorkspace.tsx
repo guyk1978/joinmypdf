@@ -4,6 +4,7 @@ import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
   comparePdfFiles,
@@ -196,6 +197,7 @@ function FileSlot({
 }
 
 export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const baseId = useId();
   const [leftFile, setLeftFile] = useState<File | null>(null);
   const [rightFile, setRightFile] = useState<File | null>(null);

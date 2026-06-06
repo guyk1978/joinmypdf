@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -129,6 +130,7 @@ function WatermarkPreview({
 }
 
 export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [pageCount, setPageCount] = useState(0);
@@ -450,7 +452,7 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
         href="#tool-workspace"
         label={showWorkspace ? "Apply watermark" : "Add watermark"}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

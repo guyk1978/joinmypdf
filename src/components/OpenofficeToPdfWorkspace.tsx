@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -43,6 +44,7 @@ function progressLabel(phase: OpenofficeProgressPhase | null): string {
 }
 
 export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [formatLabel, setFormatLabel] = useState("");
   const [phase, setPhase] = useState<OpenofficeProgressPhase | null>(null);
@@ -263,7 +265,7 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
         href="#tool-workspace"
         label={file ? "Convert to PDF" : "OpenOffice to PDF"}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

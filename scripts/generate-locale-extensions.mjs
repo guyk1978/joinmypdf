@@ -2,6 +2,7 @@
 /** Generates messages/locale-extensions/{en,he}.json for phase-3 i18n. */
 import fs from "node:fs";
 import path from "node:path";
+import { workspaceEn, workspaceHe } from "./workspace-i18n-data.mjs";
 
 const cardsEn = {
   compressEmail: { title: "Tighten file size next", body: "If email or a portal rejected the attachment, compress before you resend." },
@@ -374,6 +375,7 @@ const en = {
       policy: { q: "Is this the same as the Privacy Policy page?", a: "This page explains why local processing matters. The Privacy Policy covers analytics, cookies, and legal terms." },
     },
   },
+  Workspace: workspaceEn,
 };
 
 const he = {
@@ -560,6 +562,7 @@ const he = {
       policy: { q: "האם זה אותו דבר כמו דף מדיניות הפרטיות?", a: "דף זה מסביר למה עיבוד מקומי חשוב. מדיניות הפרטיות מכסה אנליטיקה, עוגיות ותנאים משפטיים." },
     },
   },
+  Workspace: workspaceHe,
   Tools: { intents: intentsHe },
 };
 

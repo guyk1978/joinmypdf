@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -68,6 +69,7 @@ async function renderThumbnails(data: Uint8Array): Promise<Thumb[]> {
 }
 
 export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [thumbs, setThumbs] = useState<Thumb[]>([]);
@@ -381,7 +383,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         href="#tool-workspace"
         label={showWorkspace ? "Save rotated PDF" : "Rotate PDF"}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

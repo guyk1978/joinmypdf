@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -39,6 +40,7 @@ function progressLabel(progress: PdfToWordProgress | null): string {
 }
 
 export function PdfToWordWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [docxBlob, setDocxBlob] = useState<Blob | null>(null);
@@ -312,7 +314,7 @@ export function PdfToWordWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         href="#tool-workspace"
         label={hasDocx ? "Download .docx" : "Convert to Word"}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -35,6 +36,7 @@ function downloadBlob(blob: Blob, name: string) {
 }
 
 export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [files, setFiles] = useState<File[]>([]);
   const [rules, setRules] = useState<BatchRenameRules>(DEFAULT_BATCH_RENAME_RULES);
   const [status, setStatus] = useState("");
@@ -456,7 +458,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
         href="#tool-workspace"
         label="Rename & download"
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

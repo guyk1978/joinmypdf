@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -43,6 +44,7 @@ function progressLabel(phase: EbookToPdfProgressPhase | null): string {
 }
 
 export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [bookTitle, setBookTitle] = useState("");
   const [chapterCount, setChapterCount] = useState(0);
@@ -295,7 +297,7 @@ export function EbookToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         href="#tool-workspace"
         label={file ? "Convert to PDF" : "eBook to PDF"}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

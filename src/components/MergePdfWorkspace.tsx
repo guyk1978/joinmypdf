@@ -5,6 +5,7 @@ import { FileUploadZone } from "@/components/FileUploadZone";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { usePendingFiles } from "@/context/PendingFilesContext";
 import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
@@ -30,7 +31,7 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-function PdfFileThumbnail({ file }: { file: File }) {
+function PdfFileThumbnail({ file, loadingLabel }: { file: File; loadingLabel: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
@@ -66,7 +67,7 @@ function PdfFileThumbnail({ file }: { file: File }) {
 
   return (
     <div className="visual-reorder-card__thumb">
-      {loading ? <p className="visual-reorder-card__loading">Loading…</p> : null}
+      {loading ? <p className="visual-reorder-card__loading">{loadingLabel}</p> : null}
       {failed ? (
         <div className="visual-reorder-card__pdf-icon" aria-hidden="true">
           PDF
@@ -79,6 +80,7 @@ function PdfFileThumbnail({ file }: { file: File }) {
 }
 
 export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const { consumePendingFiles } = usePendingFiles();
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState("");
@@ -118,16 +120,16 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
     (incoming: FileList | File[]) => {
       const accepted = Array.from(incoming || []).filter(acceptPdf);
       if (!accepted.length) {
-        setStatus("No supported PDF files detected.");
+        setStatus(ws.status("noSupportedPdf"));
         return;
       }
       setFiles((prev) => [...prev, ...accepted]);
       setDone(false);
       setRunError(null);
-      setStatus(`${accepted.length} file(s) added. Drag cards to set merge order.`);
+      setStatus(ws.status("filesAdded", { count: accepted.length }));
       capture(EVENTS.file_selected, { count: accepted.length, operation: tool.operation });
     },
-    [acceptPdf, tool.operation],
+    [acceptPdf, tool.operation, ws],
   );
 
   const removeAt = (idx: number) => {
@@ -143,13 +145,13 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Merging PDFs…");
+    setStatus(ws.status("merging"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     try {
       const bytes = await pdf.mergePdfFiles(files);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), "joinmypdf-merged.pdf");
       setDone(true);
-      setStatus(`Merged ${files.length} file(s) in your chosen order.`);
+      setStatus(ws.status("complete", { count: files.length }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -171,17 +173,17 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
   };
 
   const disabled = busy || files.length < 2;
+  const mergeLabel = ws.buttonLabel("Merge PDFs");
 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop PDFs here or click to browse"
-        description="Select two or more PDFs. Drag thumbnails to reorder before merging."
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -214,9 +216,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
 
       {files.length > 0 ? (
         <div className="visual-reorder-panel">
-          <p className="visual-reorder-panel__hint">
-            Drag cards to reorder. Files merge left-to-right, top-to-bottom.
-          </p>
+          <p className="visual-reorder-panel__hint">{ws.common("reorderHint")}</p>
           <div className="visual-reorder-grid" role="list">
             {files.map((file, idx) => (
               <article
@@ -228,13 +228,13 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
                 <button
                   type="button"
                   className="visual-reorder-card__remove"
-                  aria-label={`Remove ${file.name}`}
+                  aria-label={ws.common("removeFile", { name: file.name })}
                   onClick={() => removeAt(idx)}
                 >
                   ×
                 </button>
                 <span className="visual-reorder-card__index">#{idx + 1}</span>
-                <PdfFileThumbnail file={file} />
+                <PdfFileThumbnail file={file} loadingLabel={ws.common("loading")} />
                 <p className="visual-reorder-card__name" title={file.name}>
                   {file.name}
                 </p>
@@ -246,20 +246,11 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
       ) : null}
 
       <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          disabled={disabled}
-          onClick={() => void onMerge()}
-          className={toolPrimaryBtn}
-        >
-          {busy ? "Merging…" : "Merge PDFs"}
+        <button type="button" disabled={disabled} onClick={() => void onMerge()} className={toolPrimaryBtn}>
+          {busy ? ws.common("merging") : mergeLabel}
         </button>
-        <button
-          type="button"
-          onClick={reset}
-          className={toolSecondaryBtn}
-        >
-          Clear
+        <button type="button" onClick={reset} className={toolSecondaryBtn}>
+          {ws.clear}
         </button>
       </div>
 
@@ -271,7 +262,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus("Adjust your file list and try again.");
+            setStatus(ws.status("adjustTryAgain"));
           }}
         />
       ) : (
@@ -282,7 +273,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Merge PDFs" secondaryHref="/" secondaryLabel="Home" />
+      <StickyMobileCta href="#tool-workspace" label={mergeLabel} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

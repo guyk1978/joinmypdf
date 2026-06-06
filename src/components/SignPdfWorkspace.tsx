@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { SignPageSelect } from "@/components/SignPageSelect";
 import { SignatureModal } from "@/components/SignatureModal";
@@ -228,6 +229,7 @@ function SignPageStage({
 }
 
 export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [pageCount, setPageCount] = useState(0);
@@ -288,7 +290,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     async (incoming: FileList | File[]) => {
       const list = Array.from(incoming || []).filter(acceptPdf);
       if (!list.length) {
-        setStatus("Choose a valid PDF file.");
+        setStatus(ws.status("chooseValidPdf"));
         return;
       }
       const picked = list[0];
@@ -605,7 +607,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
         href="#tool-workspace"
         label="Sign & Download"
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

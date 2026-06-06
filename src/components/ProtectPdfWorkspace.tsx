@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -34,6 +35,7 @@ function protectOutputName(file: File) {
 }
 
 export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,7 +69,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     (incoming: FileList | File[]) => {
       const list = Array.from(incoming || []).filter(acceptPdf);
       if (!list.length) {
-        setStatus("Choose a valid PDF file.");
+        setStatus(ws.status("chooseValidPdf"));
         return;
       }
       setFile(list[0]);
@@ -251,9 +253,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               onClick={reset}
               disabled={busy}
               className={`${toolSecondaryBtn} disabled:opacity-50`}
-            >
-              Clear
-            </button>
+            >{ws.clear}</button>
           </div>
         </form>
       ) : null}
@@ -277,7 +277,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Protect PDF" secondaryHref="/" secondaryLabel="Home" />
+      <StickyMobileCta href="#tool-workspace" label="Protect PDF" secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

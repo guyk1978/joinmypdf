@@ -488,5 +488,220 @@
         "a": "This page explains why local processing matters. The Privacy Policy covers analytics, cookies, and legal terms."
       }
     }
+  },
+  "Workspace": {
+    "common": {
+      "selectFiles": "Select Files",
+      "selectFilesAria": "Select files",
+      "privacyTitle": "100% Private & Fast:",
+      "privacyBody": "Files are processed locally in your browser and never leave your device.",
+      "securePrefix": "100% Secure:",
+      "pngPrivacy": "Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.",
+      "loading": "Loading…",
+      "page": "Page",
+      "previewOf": "Preview of",
+      "files": "Files",
+      "home": "Home",
+      "clear": "Clear",
+      "up": "Up",
+      "down": "Down",
+      "remove": "Remove",
+      "run": "Run",
+      "processing": "Processing…",
+      "merging": "Merging…",
+      "chooseAnotherFile": "Choose another file",
+      "convertAgain": "Convert again",
+      "clientSideOnly": "Client-side only",
+      "ready": "Ready:",
+      "compressionLevel": "Compression level",
+      "compressionHint": "Higher keeps more detail; lower targets smaller files.",
+      "reorderHint": "Drag cards to reorder. Files merge left-to-right, top-to-bottom.",
+      "removeFile": "Remove {name}",
+      "notAvailable": "This tool is not available yet.",
+      "details": "Details:",
+      "dismissTryAnother": "Dismiss and try another file",
+      "readingFile": "Reading file…",
+      "startingConversion": "Starting conversion…",
+      "conversionComplete": "Conversion complete. Download your file below."
+    },
+    "upload": {
+      "defaultPdf": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Select one PDF. Processing stays on your device."
+      },
+      "defaultFiles": {
+        "title": "Drop files here or click to browse",
+        "description": "Select your files. Processing stays on your device."
+      },
+      "merge": {
+        "title": "Drop PDFs here or click to browse",
+        "description": "Select two or more PDFs. Drag thumbnails to reorder before merging."
+      },
+      "compress": {
+        "title": "Drop files here or click to browse",
+        "description": "Select one PDF. Tune compression, then download."
+      },
+      "split": {
+        "title": "Drop files here or click to browse",
+        "description": "Select one PDF. Each page exports as its own file."
+      },
+      "jpg-to-pdf": {
+        "title": "Drop files here or click to browse",
+        "description": "Select JPG/PNG images. Reorder before creating the PDF."
+      },
+      "png-to-pdf": {
+        "title": "Drop files here or click to browse",
+        "description": "Select PNG images. Reorder before converting to PDF."
+      },
+      "pdf-to-jpg": {
+        "title": "Drop files here or click to browse",
+        "description": "Select one PDF. Each page becomes a JPG."
+      },
+      "protect": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Select one PDF to password-protect. Processing stays on your device."
+      },
+      "unlock": {
+        "title": "Drop a password-protected PDF here or click to browse",
+        "description": "Select one PDF to unlock. Processing stays on your device."
+      },
+      "sign": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Select one PDF to sign. Processing stays on your device."
+      },
+      "redact": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Select one PDF to mark and redact sensitive areas."
+      },
+      "delete-pages": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Select one PDF, then drag pages to reorder and mark pages to remove."
+      },
+      "pdf-to-text": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Extract text and download a .txt file—processed locally."
+      },
+      "heic-to-pdf": {
+        "title": "Drop HEIC photos here or click to browse",
+        "description": "Add one or more .heic / .heif files. Reorder before converting to a multi-page PDF."
+      },
+      "word-to-pdf": {
+        "title": "Drop a Word document here or click to browse",
+        "description": "Select a .docx file to convert to PDF locally."
+      },
+      "excel-to-pdf": {
+        "title": "Drop an Excel workbook here or click to browse",
+        "description": "Select a spreadsheet to convert to PDF locally."
+      },
+      "powerpoint-to-pdf": {
+        "title": "Drop a PowerPoint file here or click to browse",
+        "description": "Select a presentation to convert to PDF locally."
+      },
+      "openoffice-to-pdf": {
+        "title": "Drop an OpenOffice file here",
+        "description": "Select .odt, .ods, or .odp to convert to PDF locally."
+      },
+      "markdown-to-pdf": {
+        "title": "Drop a Markdown file here",
+        "description": "Upload a .md file, then edit or preview before converting."
+      },
+      "html-to-pdf": {
+        "title": "Drop an HTML file here",
+        "description": "Upload HTML to render and export as PDF locally."
+      },
+      "ebook-to-pdf": {
+        "title": "Drop an EPUB file here",
+        "description": "Convert an eBook to PDF in your browser."
+      },
+      "iwork-to-pdf": {
+        "title": "Drop an iWork file here",
+        "description": "Convert Pages, Numbers, or Keynote exports to PDF."
+      },
+      "autocad-to-pdf": {
+        "title": "Drop a DXF or DWG file here",
+        "description": "Convert CAD drawings to PDF locally."
+      },
+      "pdf-password-recovery": {
+        "title": "Drop a protected PDF here or click to browse",
+        "description": "Try short passwords locally—nothing is sent to our servers."
+      },
+      "batch-rename-pdf": {
+        "title": "Drop PDF files or a folder here",
+        "description": "Add PDFs and apply a batch rename pattern before download."
+      },
+      "pdf-to-booklet": {
+        "title": "Drop a PDF to impose as a booklet",
+        "description": "Prepare a PDF for duplex fold-and-staple printing."
+      },
+      "safe-to-share-auditor": {
+        "title": "Drop a PDF to audit before sharing",
+        "description": "Scan for sensitive patterns before you send the file."
+      },
+      "custom-paper-margin": {
+        "title": "Drop a PDF to resize to custom paper with margins",
+        "description": "Set paper size and margins, then apply to all pages."
+      }
+    },
+    "buttons": {
+      "merge": "Merge PDFs",
+      "compress": "Compress PDF",
+      "split": "Split PDF",
+      "jpg-to-pdf": "Create PDF",
+      "png-to-pdf": "Convert to PDF",
+      "pdf-to-jpg": "Export JPG pages",
+      "protect": "Protect PDF",
+      "unlock": "Unlock PDF",
+      "sign": "Sign PDF"
+    },
+    "status": {
+      "common": {
+        "noSupportedFiles": "No supported files detected.",
+        "noSupportedPdf": "No supported PDF files detected.",
+        "chooseValidPdf": "Choose a valid PDF file.",
+        "filesAdded": "{count} file(s) added.",
+        "addAtLeast": "Add at least {count} file(s).",
+        "adjustTryAgain": "Adjust your file list and try again.",
+        "chooseAnotherOrClear": "Choose another file or clear the list to try again.",
+        "tryAgainOrChoose": "Try converting again or choose another file."
+      },
+      "merge": {
+        "filesAdded": "{count} file(s) added. Drag cards to set merge order.",
+        "merging": "Merging PDFs…",
+        "complete": "Merged {count} file(s) in your chosen order."
+      },
+      "compress": {
+        "complete": "Compressed. Estimated size ratio ~{percent}% of original."
+      },
+      "split": {
+        "complete": "Split complete: {count} file(s)."
+      },
+      "jpg-to-pdf": {
+        "complete": "Created PDF from {count} image(s)."
+      },
+      "png-to-pdf": {
+        "complete": "Created PDF from {count} PNG image(s)."
+      },
+      "pdf-to-jpg": {
+        "complete": "Exported {count} JPG file(s)."
+      },
+      "protect": {
+        "pdfReady": "PDF ready — set a password below.",
+        "protecting": "Protecting PDF…",
+        "complete": "Protected PDF downloaded as {name}."
+      }
+    },
+    "errors": {
+      "headline": "This file might be encrypted or corrupted.",
+      "encryptedDetail": "Unlock or re-export the file in your PDF app (Acrobat, Preview, etc.), then return here—or try a different JoinMyPDF tool below.",
+      "corruptDetail": "Re-save or re-export from the original app, then try again. If only part of the file opens elsewhere, split or convert pages below.",
+      "genericDetail": "Try a lighter step below, or re-export the file from the program that created it.",
+      "unlockGuide": "Need to unlock it? See our PDF prep guide",
+      "unlockGuideHint": "Remove encryption in Acrobat, Preview, or your approved editor first",
+      "trySplitFirst": "Try splitting the file first",
+      "trySplitHint": "Useful after unlock or for partial exports",
+      "exportJpgHint": "Extract visible pages as images",
+      "splitReadableHint": "Pull out readable pages only",
+      "bypassDamagedHint": "Bypass damaged PDF structure"
+    }
   }
 }

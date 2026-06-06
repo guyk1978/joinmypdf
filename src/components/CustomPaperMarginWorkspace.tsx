@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -260,6 +261,7 @@ function MarginDragStudio({
 }
 
 export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const baseId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -585,9 +587,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
             <button type="button" className={toolPrimaryBtn} disabled={!canApply} onClick={() => void applyPaper()}>
               {busy ? "Applying…" : "Apply to all pages"}
             </button>
-            <button type="button" className={toolSecondaryBtn} onClick={reset}>
-              Clear
-            </button>
+            <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.clear}</button>
           </div>
         </div>
       ) : null}

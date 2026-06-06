@@ -5,6 +5,7 @@ import { FileUploadZone } from "@/components/FileUploadZone";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import type { ToolDefinition } from "@/lib/types";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
@@ -58,6 +59,7 @@ export function ConvertToolWorkspace<TProgress>({
   slug,
   config,
 }: ConvertToolWorkspaceProps<TProgress>) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [metaLine, setMetaLine] = useState("");
   const [outputBlob, setOutputBlob] = useState<Blob | null>(null);
@@ -98,7 +100,7 @@ export function ConvertToolWorkspace<TProgress>({
     setOutputBlob(null);
     setDone(false);
     setRunError(null);
-    setStatus("Reading file…");
+    setStatus(ws.common("readingFile"));
     try {
       const meta = config.readMeta ? await config.readMeta(next) : "";
       setMetaLine(meta);
@@ -119,7 +121,7 @@ export function ConvertToolWorkspace<TProgress>({
     setDone(false);
     setRunError(null);
     setOutputBlob(null);
-    setStatus("Starting conversion…");
+    setStatus(ws.common("startingConversion"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -129,7 +131,7 @@ export function ConvertToolWorkspace<TProgress>({
       });
       setOutputBlob(blob);
       setDone(true);
-      setStatus("Conversion complete. Download your file below.");
+      setStatus(ws.common("conversionComplete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       window.setTimeout(() => {
         dispatchToolComplete({ operation: tool.operation, slug });
@@ -164,18 +166,19 @@ export function ConvertToolWorkspace<TProgress>({
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> {config.privacyNote}
+        <strong>{ws.securePrefix}</strong> {config.privacyNote}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title={config.dropTitle}
-          description={config.dropDescription}
+          title={ws.uploadTitle(config.dropTitle)}
+          description={ws.uploadDescription(config.dropDescription)}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -219,7 +222,7 @@ export function ConvertToolWorkspace<TProgress>({
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
@@ -245,7 +248,7 @@ export function ConvertToolWorkspace<TProgress>({
               onClick={() => void onConvert()}
               className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {hasOutput ? "Convert again" : config.convertLabel}
+              {hasOutput ? ws.common("convertAgain") : config.convertLabel}
             </button>
             {hasOutput ? (
               <button
@@ -263,13 +266,14 @@ export function ConvertToolWorkspace<TProgress>({
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
 
           {hasOutput && file ? (
             <p className="text-sm text-ink-muted">
-              Ready: <span className="font-medium text-ink">{config.outputName(file)}</span>
+              {ws.common("ready")}{" "}
+              <span className="font-medium text-ink">{config.outputName(file)}</span>
               {outputBlob ? ` (${formatBytes(outputBlob.size)})` : ""}
             </p>
           ) : (
@@ -286,7 +290,7 @@ export function ConvertToolWorkspace<TProgress>({
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try converting again or choose another file." : "");
+            setStatus(file ? ws.status("tryAgainOrChoose") : "");
           }}
         />
       ) : (
@@ -301,7 +305,7 @@ export function ConvertToolWorkspace<TProgress>({
         href="#tool-workspace"
         label={hasOutput ? config.stickyDownloadLabel : config.stickyConvertLabel}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

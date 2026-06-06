@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -52,6 +53,7 @@ function progressPercent(progress: ExcelToPdfProgress | null, busy: boolean): nu
 }
 
 export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [sheetCount, setSheetCount] = useState(0);
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
@@ -308,7 +310,7 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         href="#tool-workspace"
         label={hasPdf ? "Download PDF" : "Convert to PDF"}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

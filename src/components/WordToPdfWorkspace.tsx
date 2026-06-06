@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -46,6 +47,7 @@ function progressPercent(progress: WordToPdfProgress | null, busy: boolean): num
 }
 
 export function WordToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
   const [status, setStatus] = useState("");
@@ -287,7 +289,7 @@ export function WordToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         href="#tool-workspace"
         label={hasPdf ? "Download PDF" : "Convert to PDF"}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

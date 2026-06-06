@@ -1,7 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { getToolErrorRecovery } from "@/lib/tool-error-recovery";
+import { translateToolItem } from "@/lib/i18n-tool-labels";
 import type { PdfErrorKind } from "@/lib/pdf-errors";
 import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
@@ -34,10 +36,54 @@ function LockIcon({ className }: { className?: string }) {
   );
 }
 
+function toolSlugFromHref(href: string): string | undefined {
+  const match = href.match(/\/tools\/([^/]+)/);
+  return match?.[1];
+}
+
+function translateActionLabel(
+  href: string,
+  fallback: string,
+  tErrors: ReturnType<typeof useTranslations>,
+  tTools: ReturnType<typeof useTranslations>,
+): string {
+  if (href.includes("/pdf-guides") || href.includes("/blog/")) {
+    return tErrors("unlockGuide");
+  }
+  const slug = toolSlugFromHref(href);
+  if (slug) return translateToolItem(tTools, slug, fallback);
+  return fallback;
+}
+
+function translateActionHint(hint: string | undefined, tErrors: ReturnType<typeof useTranslations>): string | undefined {
+  if (!hint) return undefined;
+  const map: Record<string, string> = {
+    "Remove encryption in Acrobat, Preview, or your approved editor first": "unlockGuideHint",
+    "Useful after unlock or for partial exports": "trySplitHint",
+    "Extract visible pages as images": "exportJpgHint",
+    "Pull out readable pages only": "splitReadableHint",
+    "Bypass damaged PDF structure": "bypassDamagedHint",
+  };
+  const key = map[hint];
+  return key && tErrors.has(key) ? tErrors(key) : hint;
+}
+
 export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onDismiss }: Props) {
+  const tErrors = useTranslations("Workspace.errors");
+  const tCommon = useTranslations("Workspace.common");
+  const tTools = useTranslations("Tools");
+
   const content = getToolErrorRecovery(operation, kind, slug);
   const primary = content.actions.find((a) => a.variant === "primary");
   const secondary = content.actions.filter((a) => a.variant === "secondary");
+
+  const headline = tErrors("headline");
+  const detail =
+    kind === "encrypted"
+      ? tErrors("encryptedDetail")
+      : kind === "corrupt"
+        ? tErrors("corruptDetail")
+        : tErrors("genericDetail");
 
   return (
     <div
@@ -51,11 +97,11 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
         </div>
         <div className="min-w-0 flex-1 space-y-3">
           <div>
-            <p className="text-sm font-semibold text-ink sm:text-base">{content.headline}</p>
-            <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{content.detail}</p>
+            <p className="text-sm font-semibold text-ink sm:text-base">{headline}</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{detail}</p>
             {technicalMessage && kind === "generic" ? (
               <p className="mt-2 text-xs text-ink-muted/80">
-                <span className="font-medium text-ink-muted">Details: </span>
+                <span className="font-medium text-ink-muted">{tCommon("details")} </span>
                 {technicalMessage}
               </p>
             ) : null}
@@ -76,7 +122,7 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
                   })
                 }
               >
-                {primary.label}
+                {translateActionLabel(primary.href, primary.label, tErrors, tTools)}
               </Link>
             ) : null}
             {secondary.map((action) => (
@@ -94,29 +140,25 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
                   })
                 }
               >
-                {action.label}
+                {translateActionLabel(action.href, action.label, tErrors, tTools)}
               </Link>
             ))}
           </div>
 
           {(primary?.hint || secondary.some((a) => a.hint)) && (
             <ul className="space-y-1 text-xs text-ink-muted">
-              {primary?.hint ? <li>→ {primary.hint}</li> : null}
+              {primary?.hint ? <li>→ {translateActionHint(primary.hint, tErrors)}</li> : null}
               {secondary
                 .filter((a) => a.hint)
                 .map((a) => (
-                  <li key={a.href}>→ {a.hint}</li>
+                  <li key={a.href}>→ {translateActionHint(a.hint, tErrors)}</li>
                 ))}
             </ul>
           )}
 
           {onDismiss ? (
-            <button
-              type="button"
-              onClick={onDismiss}
-              className="text-xs font-medium text-brand hover:underline"
-            >
-              Dismiss and try another file
+            <button type="button" onClick={onDismiss} className="text-xs font-medium text-brand hover:underline">
+              {tCommon("dismissTryAnother")}
             </button>
           ) : null}
         </div>

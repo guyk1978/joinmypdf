@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -109,6 +110,7 @@ function AuditPageMap({
 }
 
 export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const baseId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -297,9 +299,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
           </button>
         ) : null}
         {file ? (
-          <button type="button" className={toolSecondaryBtn} onClick={reset}>
-            Clear
-          </button>
+          <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.clear}</button>
         ) : null}
       </div>
 

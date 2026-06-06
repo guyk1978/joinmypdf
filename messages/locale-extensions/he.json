@@ -489,6 +489,221 @@
       }
     }
   },
+  "Workspace": {
+    "common": {
+      "selectFiles": "בחר קבצים",
+      "selectFilesAria": "בחר קבצים",
+      "privacyTitle": "100% פרטי ומהיר:",
+      "privacyBody": "קבצים מעובדים מקומית בדפדפן ולא עוזבים את המכשיר.",
+      "securePrefix": "100% מאובטח:",
+      "pngPrivacy": "המרת תמונות רצה לחלוטין בדפדפן. התמונות הפרטיות שלך לא מועלות לשום שרת.",
+      "loading": "טוען…",
+      "page": "עמוד",
+      "previewOf": "תצוגה מקדימה של",
+      "files": "קבצים",
+      "home": "דף הבית",
+      "clear": "נקה",
+      "up": "למעלה",
+      "down": "למטה",
+      "remove": "הסר",
+      "run": "הרץ",
+      "processing": "מעבד…",
+      "merging": "ממזג…",
+      "chooseAnotherFile": "בחר קובץ אחר",
+      "convertAgain": "המר שוב",
+      "clientSideOnly": "רק בצד הלקוח",
+      "ready": "מוכן:",
+      "compressionLevel": "רמת דחיסה",
+      "compressionHint": "ערך גבוה שומר יותר פרטים; נמוך יותר מכוון לקבצים קטנים.",
+      "reorderHint": "גרור כרטיסים לסדר. קבצים מתמזגים משמאל לימין, מלמעלה למטה.",
+      "removeFile": "הסר {name}",
+      "notAvailable": "כלי זה עדיין לא זמין.",
+      "details": "פרטים:",
+      "dismissTryAnother": "סגור ונסה קובץ אחר",
+      "readingFile": "קורא קובץ…",
+      "startingConversion": "מתחיל המרה…",
+      "conversionComplete": "ההמרה הושלמה. הורד את הקובץ למטה."
+    },
+    "upload": {
+      "defaultPdf": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד. העיבוד נשאר במכשיר שלך."
+      },
+      "defaultFiles": {
+        "title": "גרור קבצים לכאן או לחץ לעיון",
+        "description": "בחר קבצים. העיבוד נשאר במכשיר שלך."
+      },
+      "merge": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "בחר שני PDF או יותר. גרור תמונות ממוזערות לסדר לפני המיזוג."
+      },
+      "compress": {
+        "title": "גרור קבצים לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד. כוון דחיסה, ואז הורד."
+      },
+      "split": {
+        "title": "גרור קבצים לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד. כל עמוד יייצא כקובץ נפרד."
+      },
+      "jpg-to-pdf": {
+        "title": "גרור קבצים לכאן או לחץ לעיון",
+        "description": "בחר תמונות JPG/PNG. סדר מחדש לפני יצירת ה-PDF."
+      },
+      "png-to-pdf": {
+        "title": "גרור קבצים לכאן או לחץ לעיון",
+        "description": "בחר תמונות PNG. סדר מחדש לפני המרה ל-PDF."
+      },
+      "pdf-to-jpg": {
+        "title": "גרור קבצים לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד. כל עמוד יהפוך ל-JPG."
+      },
+      "protect": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד להגנה בסיסמה. העיבוד במכשיר שלך."
+      },
+      "unlock": {
+        "title": "גרור PDF מוגן לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד להסרת נעילה. העיבוד במכשיר שלך."
+      },
+      "sign": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד לחתימה. העיבוד במכשיר שלך."
+      },
+      "redact": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד לסימון והסתרת אזורים רגישים."
+      },
+      "delete-pages": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "בחר PDF, גרור עמודים לסדר וסמן עמודים להסרה."
+      },
+      "pdf-to-text": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "חלץ טקסט והורד קובץ .txt — מעובד מקומית."
+      },
+      "heic-to-pdf": {
+        "title": "גרור תמונות HEIC לכאן או לחץ לעיון",
+        "description": "הוסף קבצי .heic / .heif. סדר לפני המרה ל-PDF רב-עמודי."
+      },
+      "word-to-pdf": {
+        "title": "גרור מסמך Word לכאן או לחץ לעיון",
+        "description": "בחר קובץ .docx להמרה ל-PDF מקומית."
+      },
+      "excel-to-pdf": {
+        "title": "גרור חוברת Excel לכאן או לחץ לעיון",
+        "description": "בחר גיליון להמרה ל-PDF מקומית."
+      },
+      "powerpoint-to-pdf": {
+        "title": "גרור קובץ PowerPoint לכאן או לחץ לעיון",
+        "description": "בחר מצגת להמרה ל-PDF מקומית."
+      },
+      "openoffice-to-pdf": {
+        "title": "גרור קובץ OpenOffice לכאן",
+        "description": "בחר .odt, .ods או .odp להמרה ל-PDF מקומית."
+      },
+      "markdown-to-pdf": {
+        "title": "גרור קובץ Markdown לכאן",
+        "description": "העלה .md, ערוך או תצוגה מקדימה, ואז המר."
+      },
+      "html-to-pdf": {
+        "title": "גרור קובץ HTML לכאן",
+        "description": "העלה HTML לרינדור וייצוא PDF מקומית."
+      },
+      "ebook-to-pdf": {
+        "title": "גרור קובץ EPUB לכאן",
+        "description": "המר ספר אלקטרוני ל-PDF בדפדפן."
+      },
+      "iwork-to-pdf": {
+        "title": "גרור קובץ iWork לכאן",
+        "description": "המר ייצוא Pages, Numbers או Keynote ל-PDF."
+      },
+      "autocad-to-pdf": {
+        "title": "גרור קובץ DXF או DWG לכאן",
+        "description": "המר שרטוטי CAD ל-PDF מקומית."
+      },
+      "pdf-password-recovery": {
+        "title": "גרור PDF מוגן לכאן או לחץ לעיון",
+        "description": "נסה סיסמאות קצרות מקומית — שום דבר לא נשלח לשרתים."
+      },
+      "batch-rename-pdf": {
+        "title": "גרור קבצי PDF או תיקייה לכאן",
+        "description": "הוסף PDF והחל תבנית שינוי שם לפני ההורדה."
+      },
+      "pdf-to-booklet": {
+        "title": "גרור PDF להטלה כחוברת",
+        "description": "הכן PDF להדפסה duplex קיפול וסיכה."
+      },
+      "safe-to-share-auditor": {
+        "title": "גרור PDF לביקורת לפני שיתוף",
+        "description": "סרוק דפוסים רגישים לפני שליחת הקובץ."
+      },
+      "custom-paper-margin": {
+        "title": "גרור PDF לשינוי גודל נייר ושוליים",
+        "description": "הגדר גודל נייר ושוליים, והחל על כל העמודים."
+      }
+    },
+    "buttons": {
+      "merge": "מיזוג PDF",
+      "compress": "דחיסת PDF",
+      "split": "פיצול PDF",
+      "jpg-to-pdf": "יצירת PDF",
+      "png-to-pdf": "המרה ל-PDF",
+      "pdf-to-jpg": "ייצוא עמודים כ-JPG",
+      "protect": "הגן על PDF",
+      "unlock": "הסר נעילה",
+      "sign": "חתום על PDF"
+    },
+    "status": {
+      "common": {
+        "noSupportedFiles": "לא זוהו קבצים נתמכים.",
+        "noSupportedPdf": "לא זוהו קבצי PDF נתמכים.",
+        "chooseValidPdf": "בחר קובץ PDF תקין.",
+        "filesAdded": "{count} קובץ/ים נוספו.",
+        "addAtLeast": "הוסף לפחות {count} קובץ/ים.",
+        "adjustTryAgain": "התאם את הרשימה ונסה שוב.",
+        "chooseAnotherOrClear": "בחר קובץ אחר או נקה את הרשימה.",
+        "tryAgainOrChoose": "נסה שוב או בחר קובץ אחר."
+      },
+      "merge": {
+        "filesAdded": "{count} קובץ/ים נוספו. גרור כרטיסים לסדר המיזוג.",
+        "merging": "ממזג PDF…",
+        "complete": "מוזגו {count} קובץ/ים בסדר שבחרת."
+      },
+      "compress": {
+        "complete": "דחוס. יחס גודל משוער ~{percent}% מהמקור."
+      },
+      "split": {
+        "complete": "פיצול הושלם: {count} קובץ/ים."
+      },
+      "jpg-to-pdf": {
+        "complete": "נוצר PDF מ-{count} תמונה/ות."
+      },
+      "png-to-pdf": {
+        "complete": "נוצר PDF מ-{count} תמונות PNG."
+      },
+      "pdf-to-jpg": {
+        "complete": "יוצאו {count} קובצ/י JPG."
+      },
+      "protect": {
+        "pdfReady": "PDF מוכן — הגדר סיסמה למטה.",
+        "protecting": "מגן על ה-PDF…",
+        "complete": "PDF מוגן הורד כ-{name}."
+      }
+    },
+    "errors": {
+      "headline": "ייתכן שהקובץ מוצפן או פגום.",
+      "encryptedDetail": "פתח או ייצא מחדש באפליקציית PDF (Acrobat, Preview וכו'), ואז חזור — או נסה כלי JoinMyPDF אחר.",
+      "corruptDetail": "שמור מחדש מהאפליקציה המקורית ונסה שוב. אם רק חלק נפתח, פצל או המר עמודים למטה.",
+      "genericDetail": "נסה שלב קל יותר למטה, או ייצא מחדש מהתוכנה שיצרה את הקובץ.",
+      "unlockGuide": "צריך לפתוח? ראה את מדריך ההכנה",
+      "unlockGuideHint": "הסר הצפנה ב-Acrobat, Preview או עורך מאושר קודם",
+      "trySplitFirst": "נסה לפצל את הקובץ קודם",
+      "trySplitHint": "שימושי אחרי פתיחה או לייצוא חלקי",
+      "exportJpgHint": "חלץ עמודים גלויים כתמונות",
+      "splitReadableHint": "משוך רק עמודים קריאים",
+      "bypassDamagedHint": "עקוף מבנה PDF פגום"
+    }
+  },
   "Tools": {
     "intents": {
       "pdf-merge": "מיזוג מספר קבצי PDF במהירות בסession אחד בדפדפן.",

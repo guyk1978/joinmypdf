@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -41,6 +42,7 @@ function progressLabel(phase: AutocadProgressPhase | null): string {
 }
 
 export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [phase, setPhase] = useState<AutocadProgressPhase | null>(null);
   const [progress, setProgress] = useState(0);
@@ -261,7 +263,7 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
         href="#tool-workspace"
         label={file && !showDwgNotice ? "Convert to PDF" : "AutoCAD to PDF"}
         secondaryHref="/"
-        secondaryLabel="Home"
+        secondaryLabel={ws.home}
       />
     </div>
   );

@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -38,6 +39,7 @@ function downloadBlob(blob: Blob, name: string) {
 }
 
 export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [encrypted, setEncrypted] = useState(false);
   const [charset, setCharset] = useState<CharsetOptions>(DEFAULT_CHARSET);
@@ -458,7 +460,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Start recovery" secondaryHref="/" secondaryLabel="Home" />
+      <StickyMobileCta href="#tool-workspace" label="Start recovery" secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }
