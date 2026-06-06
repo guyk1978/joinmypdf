@@ -1,13 +1,16 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { fillEmptyCells, removeDuplicates, trimWhitespace } from "@/lib/data-tool/cleanHelpers";
 import type { ParsedDataset, SortState } from "@/lib/data-tool/types";
 import { DataDropzone } from "@/components/data-tool/DataDropzone";
 import { DataGridTable } from "@/components/data-tool/DataGridTable";
 import { ExportPanel } from "@/components/data-tool/ExportPanel";
+import { matteWorkspaceSection, toolSecondaryBtn } from "@/lib/tool-ui";
 
 export function DataToolDashboard() {
+  const t = useTranslations("DataTool");
   const [dataset, setDataset] = useState<ParsedDataset | null>(null);
   const [sort, setSort] = useState<SortState>(null);
   const [status, setStatus] = useState("");
@@ -15,13 +18,19 @@ export function DataToolDashboard() {
   const columns = dataset?.columns ?? [];
   const rows = dataset?.rows ?? [];
 
-  const handleLoad = useCallback((next: ParsedDataset) => {
-    setDataset(next);
-    setSort(null);
-    setStatus(
-      `Loaded ${next.rows.length.toLocaleString()} rows from ${next.fileName ?? next.sourceFormat}.`,
-    );
-  }, []);
+  const handleLoad = useCallback(
+    (next: ParsedDataset) => {
+      setDataset(next);
+      setSort(null);
+      setStatus(
+        t("loadedRows", {
+          count: next.rows.length.toLocaleString(),
+          file: next.fileName ?? next.sourceFormat,
+        }),
+      );
+    },
+    [t],
+  );
 
   const handleError = useCallback((message: string) => {
     setStatus(message);
@@ -39,13 +48,13 @@ export function DataToolDashboard() {
       setDataset({ ...dataset, rows: nextRows });
       setStatus(
         action === "dedupe"
-          ? `Removed duplicates — ${nextRows.length.toLocaleString()} rows remaining.`
+          ? t("dedupeDone", { count: nextRows.length.toLocaleString() })
           : action === "trim"
-            ? "Trimmed whitespace on all cells."
-            : "Filled empty cells with —.",
+            ? t("trimDone")
+            : t("fillDone"),
       );
     },
-    [columns, dataset],
+    [columns, dataset, t],
   );
 
   const handleSort = useCallback((column: string) => {
@@ -59,8 +68,11 @@ export function DataToolDashboard() {
   const sourceLabel = useMemo(() => {
     if (!dataset) return "";
     if (dataset.fileName) return dataset.fileName;
-    return dataset.sourceFormat === "demo" ? "Demo dataset" : dataset.sourceFormat.toUpperCase();
-  }, [dataset]);
+    return dataset.sourceFormat === "demo" ? t("demoDataset") : dataset.sourceFormat.toUpperCase();
+  }, [dataset, t]);
+
+  const toolbarBtn =
+    "rounded-none border border-neutral-300 px-2 py-1 text-xs font-medium text-black transition hover:border-neutral-500 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-neutral-500 dark:hover:text-neutral-200";
 
   return (
     <div className="data-tool-workspace space-y-2">
@@ -73,46 +85,37 @@ export function DataToolDashboard() {
       {!dataset ? (
         <DataDropzone onLoad={handleLoad} onError={handleError} />
       ) : (
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center justify-between gap-3 border border-neutral-800 bg-neutral-900 px-3 py-2">
+        <div className="space-y-2">
+          <div className={`flex flex-wrap items-center justify-between gap-2 ${matteWorkspaceSection}`}>
             <div>
-              <p className="text-sm font-medium text-neutral-200">{sourceLabel}</p>
-              <p className="font-mono text-xs tabular-nums text-neutral-400">
-                {rows.length.toLocaleString()} rows · {columns.length} columns · client-side only
+              <p className="text-sm font-medium text-black dark:text-neutral-200">{sourceLabel}</p>
+              <p className="font-mono text-xs tabular-nums text-neutral-600 dark:text-neutral-400">
+                {t("gridMeta", {
+                  rows: rows.length.toLocaleString(),
+                  cols: columns.length,
+                })}
               </p>
             </div>
-            <div className="flex flex-wrap gap-1.5">
-              <button
-                type="button"
-                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-neutral-200"
-                onClick={() => applyClean("trim")}
-              >
-                Trim whitespace
+            <div className="flex flex-wrap gap-1">
+              <button type="button" className={toolbarBtn} onClick={() => applyClean("trim")}>
+                {t("trimWhitespace")}
+              </button>
+              <button type="button" className={toolbarBtn} onClick={() => applyClean("fill")}>
+                {t("fillEmpty")}
+              </button>
+              <button type="button" className={toolbarBtn} onClick={() => applyClean("dedupe")}>
+                {t("removeDuplicates")}
               </button>
               <button
                 type="button"
-                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-neutral-200"
-                onClick={() => applyClean("fill")}
-              >
-                Fill empty cells
-              </button>
-              <button
-                type="button"
-                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-neutral-200"
-                onClick={() => applyClean("dedupe")}
-              >
-                Remove duplicates
-              </button>
-              <button
-                type="button"
-                className="border border-neutral-800 px-2.5 py-1 text-xs font-medium text-neutral-400 transition hover:border-neutral-600 hover:text-black dark:text-neutral-200"
+                className={toolSecondaryBtn}
                 onClick={() => {
                   setDataset(null);
                   setSort(null);
-                  setStatus("Cleared workspace. Upload a new file or load demo data.");
+                  setStatus(t("clearedWorkspace"));
                 }}
               >
-                Clear data
+                {t("clearData")}
               </button>
             </div>
           </div>

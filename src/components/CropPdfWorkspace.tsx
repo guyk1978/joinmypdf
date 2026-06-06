@@ -18,6 +18,7 @@ import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { toolPrimaryBtn } from "@/lib/tool-ui";
 import {
   useCallback,
   useEffect,
@@ -461,7 +462,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                 <span>{ws.processing}</span>
               </div>
               <div className="h-2 overflow-hidden rounded-none bg-neutral-100 dark:bg-neutral-900 dark:bg-neutral-200 dark:bg-neutral-900">
-                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-900" />
+                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-700 dark:bg-neutral-300" />
               </div>
             </div>
           ) : null}
@@ -471,7 +472,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               type="button"
               disabled={busy}
               onClick={() => void onApply()}
-              className="rounded-none bg-neutral-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-50"
+              className={toolPrimaryBtn}
             >
               {ws.wsText("applyLabel")}
             </button>

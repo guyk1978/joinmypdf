@@ -30,9 +30,9 @@ function acceptPdf(f: File) {
 }
 
 function highlightStyle(kind: CompareHighlight["kind"]) {
-  if (kind === "removed") return "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700";
-  if (kind === "added") return "bg-neutral-900 dark:bg-neutral-200/35 ring-1 ring-neutral-400 dark:ring-neutral-600";
-  return "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700";
+  if (kind === "removed") return "bg-neutral-200 dark:bg-neutral-800 ring-1 ring-neutral-600 dark:ring-neutral-500";
+  if (kind === "added") return "bg-neutral-300 dark:bg-neutral-700 ring-1 ring-neutral-500 dark:ring-neutral-400";
+  return "bg-neutral-100 dark:bg-neutral-900 ring-1 ring-neutral-400 dark:ring-neutral-600";
 }
 
 function ComparePagePanel({

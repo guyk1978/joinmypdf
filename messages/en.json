@@ -223,5 +223,35 @@
     "featuredGuides": "Featured guides",
     "moreInTopic": "More in this topic",
     "relatedTools": "Related tools"
+  },
+  "DataTool": {
+    "dropzoneAria": "Upload CSV or JSON",
+    "dropTitle": "Drop CSV or JSON here",
+    "dropTitleBusy": "Reading file…",
+    "dropDescription": "Drag and drop, or click to browse. Parsed entirely in your browser—nothing is uploaded.",
+    "formatsHint": "Supports .csv and .json",
+    "loadDemo": "Load demo data",
+    "errorFormat": "Please upload a .csv or .json file.",
+    "errorEmpty": "No rows found in that file. Check the format and try again.",
+    "errorParse": "Could not parse that file.",
+    "loadedRows": "Loaded {count} rows from {file}.",
+    "dedupeDone": "Removed duplicates — {count} rows remaining.",
+    "trimDone": "Trimmed whitespace on all cells.",
+    "fillDone": "Filled empty cells with —.",
+    "demoDataset": "Demo dataset",
+    "gridMeta": "{rows} rows · {cols} columns · client-side only",
+    "trimWhitespace": "Trim whitespace",
+    "fillEmpty": "Fill empty cells",
+    "removeDuplicates": "Remove duplicates",
+    "clearData": "Clear data",
+    "clearedWorkspace": "Cleared workspace. Upload a new file or load demo data."
+  },
+  "StudioTools": {
+    "invoiceTemplateLoaded": "Template loaded for {slug} — edit any field before you download.",
+    "timelineTemplateLoaded": "Template loaded for {slug} — edit any task or date before you download.",
+    "generatingPdf": "Generating PDF…",
+    "pdfDownloaded": "PDF downloaded.",
+    "pdfExportFailed": "PDF export failed.",
+    "previewNotReady": "Preview is not ready. Try again in a moment."
   }
 }

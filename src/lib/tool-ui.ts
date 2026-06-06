@@ -33,3 +33,17 @@ export const mattePanel =
 
 export const mattePanelInset =
   "rounded-none border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-800 dark:bg-neutral-950/80";
+
+/** Drag-and-drop upload zone — light gray surface, dark matte in dark mode */
+export const matteDropzone =
+  "rounded-none border border-dashed border-neutral-300 bg-neutral-100 text-black transition-colors dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200";
+
+export const matteDropzoneActive =
+  "border-neutral-500 bg-neutral-200 dark:border-neutral-600 dark:bg-neutral-950";
+
+/** Invoice / timeline / data-tool split workspace panels */
+export const matteWorkspaceSection =
+  "rounded-none border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-800 dark:bg-neutral-900";
+
+export const matteWorkspaceBanner =
+  "rounded-none border border-neutral-300 bg-neutral-100 px-2 py-1.5 text-sm text-black dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";

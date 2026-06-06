@@ -291,7 +291,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
                 type="button"
                 disabled={busy}
                 onClick={() => void onDownloadZip()}
-                className="rounded-none bg-neutral-900 dark:bg-neutral-200 px-5 py-3 text-sm font-bold text-white transition-all hover:bg-neutral-900 dark:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+                className={toolPrimaryBtn}
               >
                 {ws.wsText("downloadZipLabel")}
               </button>

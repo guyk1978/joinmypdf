@@ -1,12 +1,14 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { TimelineProject } from "@/lib/timeline/types";
 import { createDefaultTimelineProject } from "@/lib/timeline/defaults";
 import { TIMELINE_PRINT_ROOT_ID } from "@/lib/timeline/constants";
 import { exportTimelineElementToPdf } from "@/lib/timeline/export-pdf";
 import { TimelineFormPanel } from "@/components/timeline/TimelineFormPanel";
 import { TimelineCanvasPanel } from "@/components/timeline/TimelineCanvasPanel";
+import { matteWorkspaceBanner, matteWorkspaceSection } from "@/lib/tool-ui";
 
 type TimelineGeneratorProps = {
   initialProject?: TimelineProject;
@@ -22,6 +24,7 @@ export async function handleTimelineDownload(project: TimelineProject): Promise<
 }
 
 export function TimelineGenerator({ initialProject, templateSlug }: TimelineGeneratorProps) {
+  const t = useTranslations("StudioTools");
   const [project, setProject] = useState<TimelineProject>(
     () => initialProject ?? createDefaultTimelineProject(),
   );
@@ -31,12 +34,12 @@ export function TimelineGenerator({ initialProject, templateSlug }: TimelineGene
   const onDownload = useCallback(async () => {
     if (busy) return;
     setBusy(true);
-    setStatus("Generating PDF…");
+    setStatus(t("generatingPdf"));
     try {
       await handleTimelineDownload(project);
-      setStatus("PDF downloaded.");
+      setStatus(t("pdfDownloaded"));
     } catch (err) {
-      const message = err instanceof Error ? err.message : "PDF export failed.";
+      const message = err instanceof Error ? err.message : t("pdfExportFailed");
       setStatus(message);
       console.error("[TimelineGenerator]", err);
     } finally {
@@ -47,22 +50,20 @@ export function TimelineGenerator({ initialProject, templateSlug }: TimelineGene
   return (
     <div className="timeline-generator-workspace space-y-2">
       {templateSlug ? (
-        <p className="border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-neutral-400">
-          Template loaded for{" "}
-          <span className="font-medium text-neutral-200">{templateSlug.replace(/-/g, " ")}</span> — edit any
-          task or date before you download.
+        <p className={matteWorkspaceBanner}>
+          {t("timelineTemplateLoaded", { slug: templateSlug.replace(/-/g, " ") })}
         </p>
       ) : null}
       {status ? (
-        <p className="text-sm text-neutral-400" aria-live="polite">
+        <p className="text-sm text-black dark:text-neutral-200" aria-live="polite">
           {status}
         </p>
       ) : null}
       <div className="grid gap-2 lg:grid-cols-12 lg:items-start">
-        <section className="border border-neutral-800 bg-neutral-900 p-4 lg:col-span-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
+        <section className={`${matteWorkspaceSection} lg:col-span-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto`}>
           <TimelineFormPanel project={project} onChange={setProject} />
         </section>
-        <section className="min-h-[420px] border border-neutral-800 bg-neutral-900 p-4 lg:col-span-8 lg:min-h-[calc(100vh-6rem)]">
+        <section className={`min-h-[420px] ${matteWorkspaceSection} lg:col-span-8 lg:min-h-[calc(100vh-6rem)]`}>
           <TimelineCanvasPanel
             project={project}
             onDownload={onDownload}

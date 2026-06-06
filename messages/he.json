@@ -223,5 +223,35 @@
     "featuredGuides": "מדריכים מומלצים",
     "moreInTopic": "עוד בנושא זה",
     "relatedTools": "כלים קשורים"
+  },
+  "DataTool": {
+    "dropzoneAria": "העלאת CSV או JSON",
+    "dropTitle": "גרור CSV או JSON לכאן",
+    "dropTitleBusy": "קורא קובץ…",
+    "dropDescription": "גרור ושחרר, או לחץ לבחירה. הניתוח מתבצע בדפדפן — לא מועלה לשרת.",
+    "formatsHint": "תומך ב-.csv ו-.json",
+    "loadDemo": "טען נתוני דמו",
+    "errorFormat": "העלה קובץ .csv או .json.",
+    "errorEmpty": "לא נמצאו שורות בקובץ. בדוק את הפורמט ונסה שוב.",
+    "errorParse": "לא ניתן לנתח את הקובץ.",
+    "loadedRows": "נטענו {count} שורות מ-{file}.",
+    "dedupeDone": "הוסרו כפילויות — נותרו {count} שורות.",
+    "trimDone": "רווחים מיותרים נוקו בכל התאים.",
+    "fillDone": "תאים ריקים מולאו ב-—.",
+    "demoDataset": "מערך נתונים לדוגמה",
+    "gridMeta": "{rows} שורות · {cols} עמודות · עיבוד מקומי בלבד",
+    "trimWhitespace": "ניקוי רווחים",
+    "fillEmpty": "מילוי תאים ריקים",
+    "removeDuplicates": "הסרת כפילויות",
+    "clearData": "ניקוי נתונים",
+    "clearedWorkspace": "סביבת העבודה נוקתה. העלה קובץ חדש או טען נתוני דמו."
+  },
+  "StudioTools": {
+    "invoiceTemplateLoaded": "תבנית נטענה עבור {slug} — ערוך כל שדה לפני ההורדה.",
+    "timelineTemplateLoaded": "תבנית נטענה עבור {slug} — ערוך משימות או תאריכים לפני ההורדה.",
+    "generatingPdf": "מייצר PDF…",
+    "pdfDownloaded": "ה-PDF הורד.",
+    "pdfExportFailed": "ייצוא PDF נכשל.",
+    "previewNotReady": "התצוגה המקדימה לא מוכנה. נסה שוב בעוד רגע."
   }
 }

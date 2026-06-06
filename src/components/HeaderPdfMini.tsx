@@ -2,7 +2,7 @@
 export function HeaderPdfMini({ className = "" }: { className?: string }) {
   return (
     <span
-      className={["header-pdf-mini text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200", className].filter(Boolean).join(" ")}
+      className={["header-pdf-mini text-black dark:text-neutral-200", className].filter(Boolean).join(" ")}
       title="JoinMyPDF Factory"
       aria-hidden="true"
     >

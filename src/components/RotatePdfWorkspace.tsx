@@ -327,7 +327,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 <span>{status || ws.processing}</span>
               </div>
               <div className="h-2 overflow-hidden rounded-none bg-white/10">
-                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-900" />
+                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-700 dark:bg-neutral-300" />
               </div>
             </div>
           ) : null}

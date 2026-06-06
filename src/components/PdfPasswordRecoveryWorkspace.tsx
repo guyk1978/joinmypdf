@@ -385,7 +385,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
               </div>
               <div className="h-2 overflow-hidden rounded-none bg-white/10">
                 <div
-                  className="h-full rounded-none bg-neutral-900 transition-all duration-300"
+                  className="h-full rounded-none bg-neutral-800 transition-all duration-300 dark:bg-neutral-200"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>

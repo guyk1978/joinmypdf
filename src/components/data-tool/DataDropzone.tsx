@@ -1,9 +1,11 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { DEMO_DATASET } from "@/lib/data-tool/demo";
 import { parseFileText } from "@/lib/data-tool/parser";
 import type { ParsedDataset } from "@/lib/data-tool/types";
+import { matteDropzone, matteDropzoneActive, toolSecondaryBtn } from "@/lib/tool-ui";
 
 type DataDropzoneProps = {
   onLoad: (dataset: ParsedDataset) => void;
@@ -20,6 +22,7 @@ function detectFormat(file: File): "csv" | "json" | null {
 }
 
 export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
+  const t = useTranslations("DataTool");
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -28,7 +31,7 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
     async (file: File) => {
       const format = detectFormat(file);
       if (!format) {
-        onError("Please upload a .csv or .json file.");
+        onError(t("errorFormat"));
         return;
       }
 
@@ -37,18 +40,18 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
         const text = await file.text();
         const dataset = parseFileText(text, format, file.name);
         if (!dataset.rows.length) {
-          onError("No rows found in that file. Check the format and try again.");
+          onError(t("errorEmpty"));
           return;
         }
         onLoad(dataset);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Could not parse that file.";
+        const message = err instanceof Error ? err.message : t("errorParse");
         onError(message);
       } finally {
         setBusy(false);
       }
     },
-    [onError, onLoad],
+    [onError, onLoad, t],
   );
 
   const handleFiles = useCallback(
@@ -64,8 +67,8 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
     <div className="space-y-2">
       <div
         role="region"
-        aria-label="Upload CSV or JSON"
-        className={`relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-none border-2 border-dashed px-4 py-10 text-center transition ${ drag ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800" : "border-white/15 bg-white/[0.02] hover:border-neutral-300 dark:border-neutral-800 hover:bg-white/[0.04]" }`}
+        aria-label={t("dropzoneAria")}
+        className={`relative flex min-h-[180px] cursor-pointer flex-col items-center justify-center rounded-none px-2 py-6 text-center transition ${matteDropzone} ${drag ? matteDropzoneActive : "hover:border-neutral-400 dark:hover:border-neutral-600"}`}
         onDragOver={(e) => {
           e.preventDefault();
           setDrag(true);
@@ -97,9 +100,9 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
           }}
         />
         <svg
-          className="mb-4 text-black dark:text-neutral-200"
-          width="40"
-          height="40"
+          className="mb-3 text-neutral-700 dark:text-neutral-200"
+          width="36"
+          height="36"
           viewBox="0 0 24 24"
           fill="none"
           aria-hidden="true"
@@ -112,23 +115,21 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
             strokeLinejoin="round"
           />
         </svg>
-        <p className="text-lg font-semibold text-ink">
-          {busy ? "Reading file…" : "Drop CSV or JSON here"}
+        <p className="text-base font-semibold text-black dark:text-neutral-200">
+          {busy ? t("dropTitleBusy") : t("dropTitle")}
         </p>
-        <p className="mt-2 max-w-md text-sm text-ink-muted">
-          Drag and drop, or click to browse. Parsed entirely in your browser—nothing is uploaded.
-        </p>
-        <p className="mt-3 text-xs text-ink-muted">Supports .csv and .json</p>
+        <p className="mt-1 max-w-md text-sm text-black dark:text-neutral-200">{t("dropDescription")}</p>
+        <p className="mt-2 text-xs text-black dark:text-neutral-200">{t("formatsHint")}</p>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-3">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         <button
           type="button"
-          className="rounded-none border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-black dark:text-neutral-200"
+          className={toolSecondaryBtn}
           disabled={busy}
           onClick={() => onLoad({ ...DEMO_DATASET, rows: DEMO_DATASET.rows.map((r) => ({ ...r })) })}
         >
-          Load demo data
+          {t("loadDemo")}
         </button>
       </div>
     </div>

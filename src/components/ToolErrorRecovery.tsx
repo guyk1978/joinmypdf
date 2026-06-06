@@ -89,7 +89,7 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
 
   return (
     <div
-      className="rounded-none border border-neutral-400 dark:border-neutral-700 bg-neutral-900 p-4 sm:p-3"
+      className="rounded-none border border-neutral-300 bg-neutral-100 p-3 dark:border-neutral-800 dark:bg-neutral-900 sm:p-2"
       role="alert"
       aria-live="assertive"
     >

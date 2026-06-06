@@ -13,9 +13,9 @@ export function WorkspaceProgressBar({ percent, label }: WorkspaceProgressBarPro
         <span className="min-w-0 flex-1">{label}</span>
         <span dir="ltr">{clamped}%</span>
       </div>
-      <div className="workspace-progress h-2 overflow-hidden rounded-none bg-white/10" dir="ltr">
+      <div className="workspace-progress h-2 overflow-hidden rounded-none bg-neutral-200 dark:bg-neutral-800" dir="ltr">
         <div
-          className="workspace-progress__fill h-full rounded-none bg-neutral-900 transition-all duration-300"
+          className="workspace-progress__fill h-full rounded-none bg-neutral-800 transition-all duration-300 dark:bg-neutral-200"
           style={{ width: `${clamped}%` }}
         />
       </div>

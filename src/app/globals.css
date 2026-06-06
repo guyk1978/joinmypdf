@@ -810,17 +810,17 @@ html.dark .protect-form__error {
 .page-numbers-form__label {
   font-size: 0.88rem;
   font-weight: 600;
-  color: #e5e7eb;
+  color: #171717;
 }
 
 .page-numbers-form__select,
 .page-numbers-form__input {
   width: 100%;
   padding: 0.65rem 0.75rem;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 10px;
-  background: rgba(15, 23, 42, 0.65);
-  color: #e5e7eb;
+  border: 1px solid rgba(163, 163, 163, 0.45);
+  border-radius: 0;
+  background: #fafafa;
+  color: #171717;
   font: inherit;
   font-size: 0.95rem;
 }
@@ -828,7 +828,7 @@ html.dark .protect-form__error {
 .page-numbers-form__select:focus,
 .page-numbers-form__input:focus {
   outline: none;
-  border-color: rgba(56, 189, 248, 0.55);
+  border-color: rgba(82, 82, 82, 0.75);
   box-shadow: none;
 }
 
@@ -845,7 +845,7 @@ html.dark .protect-form__error {
   align-items: flex-start;
   gap: 0.55rem;
   font-size: 0.9rem;
-  color: #e5e7eb;
+  color: #171717;
   cursor: pointer;
 }
 
@@ -897,10 +897,10 @@ html.dark .protect-form__error {
   align-items: center;
   gap: 0.1rem;
   padding: 0.45rem 0.75rem;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  border-radius: 10px;
-  background: rgba(15, 23, 42, 0.65);
-  color: #e5e7eb;
+  border: 1px solid rgba(163, 163, 163, 0.45);
+  border-radius: 0;
+  background: #f5f5f5;
+  color: #171717;
   font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
@@ -908,13 +908,13 @@ html.dark .protect-form__error {
 }
 
 .page-numbers-form__choice:hover {
-  border-color: rgba(56, 189, 248, 0.45);
+  border-color: rgba(82, 82, 82, 0.55);
 }
 
 .page-numbers-form__choice.is-active {
-  border-color: rgba(56, 189, 248, 0.75);
-  background: rgba(56, 189, 248, 0.12);
-  color: #e0f2fe;
+  border-color: rgba(64, 64, 64, 0.85);
+  background: rgba(163, 163, 163, 0.25);
+  color: #171717;
 }
 
 .page-numbers-form__choice--bold {
@@ -923,8 +923,45 @@ html.dark .protect-form__error {
 
 .page-numbers-form__choice-hint {
   font-size: 0.72rem;
-  color: #a3a3a3;
+  color: #525252;
   font-weight: 400;
+}
+
+html.dark .page-numbers-form__label,
+html.dark .page-numbers-form__radio {
+  color: #e5e5e5;
+}
+
+html.dark .page-numbers-form__select,
+html.dark .page-numbers-form__input {
+  border-color: rgba(115, 115, 115, 0.35);
+  background: #171717;
+  color: #e5e5e5;
+}
+
+html.dark .page-numbers-form__select:focus,
+html.dark .page-numbers-form__input:focus {
+  border-color: rgba(163, 163, 163, 0.65);
+}
+
+html.dark .page-numbers-form__choice {
+  border-color: rgba(115, 115, 115, 0.35);
+  background: #171717;
+  color: #e5e5e5;
+}
+
+html.dark .page-numbers-form__choice:hover {
+  border-color: rgba(163, 163, 163, 0.55);
+}
+
+html.dark .page-numbers-form__choice.is-active {
+  border-color: rgba(212, 212, 212, 0.75);
+  background: rgba(115, 115, 115, 0.35);
+  color: #fafafa;
+}
+
+html.dark .page-numbers-form__choice-hint {
+  color: #a3a3a3;
 }
 
 .page-numbers-form__swatches {
@@ -1130,7 +1167,7 @@ html.dark .redact-page__stage {
 }
 
 .sign-saved-item__place:hover {
-  border-color: rgba(56, 189, 248, 0.65);
+  border-color: rgba(115, 115, 115, 0.65);
   background: rgba(30, 41, 59, 0.9);
 }
 
@@ -1209,7 +1246,7 @@ html.dark .redact-page__stage {
 
 .sign-page-dropdown__trigger:hover,
 .sign-page-dropdown.is-open .sign-page-dropdown__trigger {
-  border-color: rgba(56, 189, 248, 0.55);
+  border-color: rgba(115, 115, 115, 0.55);
   background: #1f2937;
 }
 
@@ -1261,7 +1298,7 @@ html.dark .redact-page__stage {
 }
 
 .sign-page-dropdown__option.is-selected {
-  background: rgba(56, 189, 248, 0.18);
+  background: rgba(115, 115, 115, 0.18);
   color: #e0f2fe;
 }
 
@@ -1343,7 +1380,7 @@ html.dark .sign-page__stage {
   position: absolute;
   z-index: 2;
   cursor: move;
-  border: 2px dashed rgba(56, 189, 248, 0.75);
+  border: 2px dashed rgba(115, 115, 115, 0.75);
   border-radius: 6px;
   box-sizing: border-box;
 }
@@ -1429,7 +1466,7 @@ html.dark .sign-page__stage {
 }
 
 .sign-tabs__btn.is-active {
-  border-color: rgba(56, 189, 248, 0.55);
+  border-color: rgba(115, 115, 115, 0.55);
   color: #bae6fd;
 }
 
@@ -2135,7 +2172,7 @@ html.dark .nav-link--emphasis.is-active {
   flex-shrink: 0;
   padding: 0.12rem 0.45rem;
   border-radius: 999px;
-  background: rgba(56, 189, 248, 0.12);
+  background: rgba(115, 115, 115, 0.12);
   color: #a3a3a3;
   font-size: 0.68rem;
   font-weight: 700;

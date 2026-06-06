@@ -41,6 +41,8 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Home");
 
+  const tMeta = await getTranslations("Metadata");
+
   return (
     <>
       <JsonLd
@@ -49,8 +51,7 @@ export default async function HomePage({ params }: Props) {
           "@type": "WebSite",
           name: "JoinMyPDF",
           url: absoluteUrl(`/${locale}`),
-          description:
-            "Browser-based PDF merge, split, compress, and image conversion with local processing.",
+          description: tMeta("homeDescription"),
         }}
       />
       <SiteHeader />

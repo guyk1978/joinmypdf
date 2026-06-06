@@ -19,13 +19,13 @@ export function WattQuickCrossLink({ className }: Props) {
   return (
     <aside
       className={clsx(
-        "partner-wattquick w-full overflow-hidden rounded-none border border-neutral-300 bg-neutral-900 p-4 dark:border-neutral-800 dark:bg-neutral-950",
+        "partner-wattquick w-full overflow-hidden rounded-none border border-neutral-300 bg-neutral-200 p-3 dark:border-neutral-800 dark:bg-neutral-950",
         className,
       )}
       aria-label={t("wattQuickAria")}
     >
       <div className="grid items-center gap-2 md:grid-cols-2 md:gap-10">
-        <div className="text-white">
+        <div className="text-black dark:text-neutral-200">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-black dark:text-neutral-200">{t("wattQuickEyebrow")}</p>
           <h2 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">
             {t("wattQuickTitle")}
