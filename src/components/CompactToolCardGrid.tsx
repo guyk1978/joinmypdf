@@ -16,7 +16,7 @@ export function CompactToolCardGrid({ items }: { items: CompactToolCardItem[] })
           <Link
             key={`${item.href}-${item.label}`}
             href={item.href}
-            className="group flex min-h-[80px] flex-col items-center justify-center rounded-none border border-neutral-300 bg-neutral-200 px-2 py-2 text-center transition-colors hover:border-neutral-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-600"
+            className="group flex min-h-[80px] flex-col items-center justify-center rounded-none border border-dashed border-neutral-400 bg-neutral-200 px-2 py-2 text-center transition-colors hover:border-neutral-500 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
           >
             <span
               className={`${TOOL_ICON_WRAP_CLASS} inline-flex h-9 w-9 items-center justify-center rounded-none transition-colors ${visual.wrap} ${visual.wrapHover}`}

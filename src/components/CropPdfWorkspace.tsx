@@ -2,6 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone"
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell"
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
@@ -388,10 +389,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <div className="privacy-callout" role="note">
-        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
-      </div>
-
+      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
       {!showWorkspace ? (
         <FileUploadZone
           operation={tool.operation}
@@ -433,6 +431,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           }
         />
       ) : null}
+      </WorkspaceUploadShell>
 
       {showWorkspace && fileBytes ? (
         <div className="space-y-2 rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">

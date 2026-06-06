@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { SignPageSelect } from "@/components/SignPageSelect";
@@ -433,10 +434,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <div className="privacy-callout" role="note">
-        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
-      </div>
-
+      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
       {!file ? (
         <FileUploadZone
           operation={tool.operation}
@@ -623,7 +621,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           {status}
         </p>
       )}
-
+      </WorkspaceUploadShell>
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
       <StickyMobileCta

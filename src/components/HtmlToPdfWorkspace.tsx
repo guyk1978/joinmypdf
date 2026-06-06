@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
@@ -143,10 +144,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <div className="privacy-callout" role="note">
-        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
-      </div>
-
+      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex rounded-none border border-white/10 p-1">
           <button
@@ -232,6 +230,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           }
         />
       ) : null}
+      </WorkspaceUploadShell>
 
       <div className="grid gap-2 lg:grid-cols-2">
         <div className="space-y-2">

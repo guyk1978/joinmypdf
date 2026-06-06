@@ -34,16 +34,24 @@ export const mattePanel =
 export const mattePanelInset =
   "rounded-none border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-800 dark:bg-neutral-950/80";
 
-/** Drag-and-drop upload zone — light gray surface, dark matte in dark mode */
+/** Shared max width for tool upload stack (security banner + dropzone). */
+export const toolUploadStack =
+  "mx-auto w-full max-w-2xl space-y-2";
+
+/** Top-of-workspace security note — matches dropzone width when used inside toolUploadStack */
+export const matteSecurityCallout =
+  "rounded-none border border-dashed border-neutral-400 bg-neutral-100 px-2 py-1.5 text-sm leading-snug text-black dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200";
+
+/** Drag-and-drop upload zone — light gray surface, dashed border, dark matte in dark mode */
 export const matteDropzone =
-  "rounded-none border border-dashed border-neutral-300 bg-neutral-100 text-black transition-colors dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200";
+  "tool-upload-zone rounded-none border border-dashed border-neutral-400 bg-neutral-100 text-black transition-colors dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200";
 
 export const matteDropzoneActive =
   "border-neutral-500 bg-neutral-200 dark:border-neutral-600 dark:bg-neutral-950";
 
 /** Invoice / timeline / data-tool split workspace panels */
 export const matteWorkspaceSection =
-  "rounded-none border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-800 dark:bg-neutral-900";
+  "rounded-none border border-dashed border-neutral-400 bg-neutral-200 p-2 dark:border-neutral-700 dark:bg-neutral-900";
 
 export const matteWorkspaceBanner =
-  "rounded-none border border-neutral-300 bg-neutral-100 px-2 py-1.5 text-sm text-black dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
+  "rounded-none border border-dashed border-neutral-400 bg-neutral-100 px-2 py-1.5 text-sm text-black dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200";

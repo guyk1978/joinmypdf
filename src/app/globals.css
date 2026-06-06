@@ -712,9 +712,11 @@ html.dark .site-search__popover--open .site-search__field {
 }
 
 .privacy-callout {
-  margin: 0 0 1rem;
+  margin: 0 auto 0.5rem;
   padding: 0.65rem 0.85rem;
-  border: 1px solid #d4d4d4;
+  max-width: 42rem;
+  width: 100%;
+  border: 1px dashed #a3a3a3;
   border-radius: 0;
   background: #f5f5f5;
   color: #0a0a0a;
@@ -724,7 +726,7 @@ html.dark .site-search__popover--open .site-search__field {
 }
 
 html.dark .privacy-callout {
-  border-color: #404040;
+  border-color: #525252;
   background: #171717;
   color: #e5e5e5;
 }
@@ -2631,7 +2633,32 @@ html.dark .partner-mapdiagram[style] a {
   color: #60a5fa !important;
 }
 
-/* Tool icon containers (registry grids, mega menu, footer, heroes) — dark mode only */
+/* Tool icon containers — force neutral matte surfaces in light mode */
+.tool-icon-wrap {
+  background-color: #d4d4d4 !important;
+  background-image: none !important;
+  border: 1px solid #a3a3a3 !important;
+  --tw-ring-width: 0 !important;
+  --tw-ring-color: transparent !important;
+  --tw-ring-offset-width: 0 !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  box-shadow: none !important;
+}
+
+.group:hover .tool-icon-wrap {
+  background-color: #e5e5e5 !important;
+  border-color: #737373 !important;
+}
+
+/* Tool upload dropzone — shared width with security callout */
+.tool-upload-zone {
+  max-width: 42rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+/* Tool icon containers — dark mode */
 html.dark .tool-icon-wrap {
   background-color: rgba(255, 255, 255, 0.08) !important;
   background-image: none !important;

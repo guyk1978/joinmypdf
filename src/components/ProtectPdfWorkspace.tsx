@@ -2,6 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone"
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell"
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -137,10 +138,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <div className="privacy-callout" role="note">
-        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
-      </div>
-
+      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
       <FileUploadZone
         operation={tool.operation}
         drag={drag}
@@ -179,6 +177,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         }
       />
 
+      </WorkspaceUploadShell>
       {file ? (
         <div className={toolPanel}>
           <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{ws.wsUi("selectedFile")}</p>

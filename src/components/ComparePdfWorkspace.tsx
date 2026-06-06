@@ -4,6 +4,7 @@ import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
@@ -278,10 +279,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <div className="privacy-callout" role="note">
-        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
-      </div>
-
+      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
       <div className="grid gap-2 md:grid-cols-2">
         <FileSlot
           id={`${baseId}-left`}
@@ -310,6 +308,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           }}
         />
       </div>
+      </WorkspaceUploadShell>
 
       <div className="flex flex-wrap items-center gap-3">
         <button type="button" className={toolPrimaryBtn} disabled={!canCompare} onClick={() => void runCompare()}>

@@ -28,7 +28,7 @@ function UploadArrowIcon({ className, active }: { className?: string; active?: b
   return (
     <div
       className={clsx(
-        "relative mb-2 border border-neutral-300 bg-neutral-200 p-2 text-neutral-600 transition-colors dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
+        "relative mb-2 border border-dashed border-neutral-400 bg-neutral-300 p-2 text-neutral-800 transition-colors dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200",
         active && "border-neutral-500 text-neutral-800 dark:border-neutral-500 dark:text-neutral-100",
         className,
       )}
@@ -63,7 +63,7 @@ export function PrivacyUploadBadge({ className }: { className?: string }) {
     <div
       className={clsx(
         matteWorkspaceBanner,
-        "inline-flex w-full max-w-2xl items-start gap-2 text-start sm:items-center",
+        "inline-flex w-full items-start gap-2 text-start sm:items-center",
         className,
       )}
       role="note"
@@ -118,7 +118,7 @@ export function FileUploadZone({
     <div
       className={clsx(
         matteDropzone,
-        "group relative mx-auto flex w-full max-w-3xl flex-col text-center",
+        "group relative flex w-full flex-col text-center",
         isHero ? "min-h-[200px] px-2 md:min-h-[220px] md:px-3" : "min-h-[160px] px-2 md:min-h-[180px] md:px-3",
         active ? matteDropzoneActive : "group-hover:border-neutral-400 dark:group-hover:border-neutral-600",
         className,
@@ -132,7 +132,7 @@ export function FileUploadZone({
           isHero ? "gap-2 py-4 md:py-3" : "gap-1.5 py-3 md:py-4",
         )}
       >
-        <PrivacyUploadBadge className="max-w-xl shrink-0 sm:max-w-2xl" />
+        <PrivacyUploadBadge className="w-full shrink-0" />
         <UploadArrowIcon active={active} />
         <div className="max-w-md space-y-1">
           <p className="text-base font-bold tracking-tight text-black dark:text-neutral-200 md:text-lg">{title}</p>

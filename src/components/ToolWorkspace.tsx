@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -270,12 +271,11 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      {tool.operation === "png-to-pdf" ? (
-        <div className="privacy-callout" role="note">
-          <strong>{ws.securePrefix}</strong> {ws.common("pngPrivacy")}
-        </div>
-      ) : null}
-
+      <WorkspaceUploadShell
+        securePrefix={ws.securePrefix}
+        privacyNote={tool.operation === "png-to-pdf" ? ws.common("pngPrivacy") : ws.common("privacyBody")}
+        showBanner={tool.operation === "png-to-pdf"}
+      >
       <FileUploadZone
         operation={tool.operation}
         drag={drag}
@@ -321,8 +321,9 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
           />
         }
       />
+      </WorkspaceUploadShell>
 
-      <MapDiagramCrossLink className="max-w-3xl" />
+      <MapDiagramCrossLink className="max-w-2xl mx-auto" />
 
       {tool.operation === "compress" ? (
         <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">

@@ -1,7 +1,8 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone";
+import { FileUploadZone } from "@/components/FileUploadZone"
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
@@ -406,10 +407,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <div className="privacy-callout" role="note">
-        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
-      </div>
-
+      <WorkspaceUploadShell securePrefix={ws.securePrefix} privacyNote={ws.wsText("privacyNote")}>
       <FileUploadZone
         operation={tool.operation}
         drag={drag}
@@ -450,6 +448,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
         }
       />
 
+      </WorkspaceUploadShell>
       {file && fileBytes ? (
         <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <section className="grid gap-2 md:grid-cols-2">
