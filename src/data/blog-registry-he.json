@@ -5117,6 +5117,388 @@
           }
         ]
       }
+    },
+    {
+      "slug": "safe-to-share-technology-prevent-document-leaks",
+      "title": "Safe-to-Share: הטכנולוגיה שמאחורי מניעת דליפות במסמכים",
+      "keyword": "safe to share pdf technology",
+      "category": "Privacy & Security",
+      "cluster": "safe-to-share-auditor-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.93,
+      "relatedTools": [
+        "safe-to-share-auditor",
+        "flatten-pdf",
+        "remove-hidden-metadata",
+        "redact-pdf"
+      ],
+      "relatedBlogs": [
+        "check-hidden-sensitive-pdf-before-sending",
+        "find-and-remove-sensitive-digital-document-components"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור ארכיטקטורה ממוקדת פרטיות · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "טכנולוגיית Safe-to-Share PDF — מניעת דליפות במסמכים",
+        "metaDescription": "איך סריקת pdf.js בצד הלקוח והסתרה מקומית מפחיתות סיכון לדליפת נתונים לפני ששיתפתם PDFים."
+      },
+      "description": "למה ביקורת PDF מקומית בדפדפן מתאימה לדרישות פרטיות מודרניות — ואיך היא משתלבת עם ניקוי מטא-דאטה.",
+      "contentBlocks": {
+        "intro": "ספקי העלאה-וסריקה מוסיפים עוד עותק של החוזה שלכם לענן שלהם. Safe-to-Share שומר את הבתים במכשיר תוך חשיפת הערות וקואורדינטות טקסט.",
+        "primaryTool": "safe-to-share-auditor",
+        "sections": [
+          {
+            "id": "stack",
+            "heading": "איך הבודק עובד בדפדפן שלכם",
+            "level": 2,
+            "paragraphs": [
+              "pdf.js עובר על פריטי הטקסט ורשימת ההערות של כל עמוד. מנועי regex מסמנים דפוסים רגישים מוכרים עם תיבות גבול הממופות לתצוגה המקדימה.",
+              "הסתרה אופציונלית משתמשת באותו צינור השטחה כמו Redact PDF — תיבות שחורות מרוסטרות לעמוד כך שלא ניתן להעתיק את הטקסט שמתחת."
+            ]
+          },
+          {
+            "id": "limits",
+            "heading": "מגבלות כנה",
+            "level": 2,
+            "paragraphs": [
+              "סריקות מבוססות תמונה בלבד דורשות OCR במקום אחר לפני שכללי טקסט אוטומטיים חלים. ביקורת אנושית עדיין חשובה להקשר — האוטומציה מדגישה מועמדים, לא מסקנות משפטיות.",
+              "שלבו ביקורת אוטומטית עם הסרת מטא-דאטה והשטחה להגנה בעומק."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם JoinMyPDF שומר קבצים שנבדקו?",
+            "a": "עיבוד סטנדרטי לא מעלה PDFים לכלי זה."
+          },
+          {
+            "q": "למה בצד הלקוח לעומת בצד השרת?",
+            "a": "פחות העברות, סיפור תאימות פשוט יותר, ואיטרציה מהירה יותר על טיוטות רגישות."
+          },
+          {
+            "q": "מה אחרי Safe-to-Share?",
+            "a": "Remove Metadata, Flatten PDF, ובאופציה Protect PDF לשיתוף חיצוני."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/safe-to-share-auditor/",
+            "anchor": "Safe-to-Share Auditor"
+          },
+          {
+            "href": "/tools/flatten-pdf/",
+            "anchor": "Flatten PDF"
+          },
+          {
+            "href": "/tools/remove-hidden-metadata/",
+            "anchor": "Remove Metadata"
+          },
+          {
+            "href": "/tools/redact-pdf/",
+            "anchor": "Redact PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "fit-pdf-home-printer-no-cut-margins",
+      "title": "איך להתאים PDF למדפסת הבית בלי שוליים חתוכים",
+      "keyword": "fit pdf home printer margins",
+      "category": "PDF Workflows",
+      "cluster": "custom-paper-margin-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "5 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.91,
+      "relatedTools": [
+        "custom-paper-margin",
+        "crop-pdf",
+        "rotate-pdf",
+        "pdf-compress"
+      ],
+      "relatedBlogs": [
+        "custom-paper-sizes-a5-b5-notebooks",
+        "browser-margin-cutter-fastest-print-prep"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור הדפסה ביתית · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "התאמת PDF למדפסת בית — הימנעות משוליים חתוכים",
+        "metaDescription": "שנו גודל PDF לנייר שלכם עם שוליים בטוחים ותצוגה מקדימה חיה — מקומית בדפדפן לפני ההדפסה."
+      },
+      "description": "עצרו כותרות וכותרות תחתונות חתוכות: התאימו את ה-PDF לנייר במגש והוסיפו שוליים צפויים.",
+      "contentBlocks": {
+        "intro": "מדפסות דורשות אזורים לא-ניתנים להדפסה. כשעמוד ה-PDF רחב יותר מהגיליון או נשפך לקצה, מנהל ההתקן משנה קנה מידה בצורה בלתי צפויה. הגדרת גודל נייר ושוליים קודם מחזירה לכם שליטה.",
+        "primaryTool": "custom-paper-margin",
+        "sections": [
+          {
+            "id": "steps",
+            "heading": "רשימת בדיקה מהירה להדפסה ביתית",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "בחרו את הנייר במגש (Letter, A4, A5) ב-Custom Paper Size & Margin Cutter.",
+              "הגדירו שוליים של 10–15 מ\"מ — או גררו את הידיות בתצוגה המקדימה החיה.",
+              "הורידו והדפיסו בקנה מידה 100% (ללא התאמה לעמוד במנהל ההתקן).",
+              "אם התוכן עדיין עקום, תקנו סיבוב עם Rotate PDF קודם."
+            ]
+          },
+          {
+            "id": "crop",
+            "heading": "מתי לחתוך קודם",
+            "level": 2,
+            "paragraphs": [
+              "שקופיות שיוצאו עם שוליים לבנים ענקיים מבזבזים מקום שוליים. חתכו שולי מקור בכלי או השתמשו ב-Crop PDF, ואז החילו התאמת גודל נייר."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם להשתמש ב'התאמה לעמוד' בדיאלוג ההדפסה?",
+            "a": "אחרי שהכלי מתאים את ה-PDF, הדפיסו בגודל אמיתי / 100% לתוצאות צפויות."
+          },
+          {
+            "q": "האם הקבצים מועלים?",
+            "a": "לא. העיבוד מקומי בדפדפן שלכם."
+          },
+          {
+            "q": "האם זה מקטין טקסט?",
+            "a": "התוכן מתכווץ להתאמה בתוך תיבת השוליים שלכם — שוליים קטנים יותר אומרים טקסט גדול יותר על הגיליון."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/custom-paper-margin/",
+            "anchor": "Custom Paper Size & Margin Cutter"
+          },
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF"
+          },
+          {
+            "href": "/tools/rotate-pdf/",
+            "anchor": "Rotate PDF"
+          },
+          {
+            "href": "/tools/pdf-compress/",
+            "anchor": "Compress PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "custom-paper-sizes-a5-b5-notebooks",
+      "title": "מדריך: יצירת מסמכים בגדלים מותאמים (A5, B5 ומחברות)",
+      "keyword": "pdf a5 b5 custom paper size",
+      "category": "PDF Workflows",
+      "cluster": "custom-paper-margin-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": [
+        "custom-paper-margin",
+        "pdf-to-booklet",
+        "pdf-merge",
+        "crop-pdf"
+      ],
+      "relatedBlogs": [
+        "fit-pdf-home-printer-no-cut-margins",
+        "browser-margin-cutter-fastest-print-prep"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור פורמטי הדפסה מותאמים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "PDF בגדלי A5, B5 ומחברות מותאמות (מדריך דפדפן)",
+        "metaDescription": "שנו גודל כל PDF ל-A5, B5 או ממדים מותאמים במ\"מ/אינץ' עם שוליים — מוכן לקלסרים ומתכננים."
+      },
+      "description": "איך לעצב מחדש PDFים קיימים לגדלי נייר ידידותיים למתכננים ולחוברות בלי אפליקציות פריסה לשולחן העבודה.",
+      "contentBlocks": {
+        "intro": "שקופיות A4 מרגישות לא נכונות בקלסר A5. B5 נמצא בין A4 ל-A5 למחברות. שינוי גודל בדפדפן מאפשר לסטנדרט מקורות מעורבים לגודל מחברת אחד.",
+        "primaryTool": "custom-paper-margin",
+        "sections": [
+          {
+            "id": "sizes",
+            "heading": "גדלים נפוצים במבט אחד",
+            "level": 2,
+            "table": {
+              "headers": [
+                "הגדרה מראש",
+                "שימוש נפוץ"
+              ],
+              "rows": [
+                [
+                  "A5",
+                  "מתכננים, דפי עזר בחצי Letter"
+                ],
+                [
+                  "B5",
+                  "הכנסות למחברות, מחברות בינוניות"
+                ],
+                [
+                  "A4 / Letter",
+                  "ברירות מחדל להדפסה במשרד"
+                ],
+                [
+                  "מ\"מ/אינץ' מותאם",
+                  "Discbound או דפי מכתבים ממותגים"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "booklet",
+            "heading": "השלב הבא: חוברות",
+            "level": 2,
+            "paragraphs": [
+              "אחרי שהעמודים הם A5 עם שוליים, הריצו PDF to Booklet כדי לסדר פריסות לקיפול duplex."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם כל עמוד יהיה באותו גודל?",
+            "a": "כן. כל עמוד פלט משתמש בממדי היעד שבחרתם."
+          },
+          {
+            "q": "האם אפשר למזג ואז לשנות גודל?",
+            "a": "מזגו PDF קודם, ואז החילו נייר ושוליים פעם אחת על הקובץ המאוחד."
+          },
+          {
+            "q": "מה לגבי שוליים מותאמים לניקוב?",
+            "a": "הגדילו את השוליים השמאלי או הימני במ\"מ כדי להשאיר מרווח לניקוב חורים."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/custom-paper-margin/",
+            "anchor": "Custom Paper Size & Margin Cutter"
+          },
+          {
+            "href": "/tools/pdf-to-booklet/",
+            "anchor": "PDF to Booklet"
+          },
+          {
+            "href": "/tools/pdf-merge/",
+            "anchor": "Merge PDF"
+          },
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "browser-margin-cutter-fastest-print-prep",
+      "title": "למה כלי שוליים וחיתוך בדפדפן הם פתרון הכנת ההדפסה המהיר ביותר",
+      "keyword": "browser pdf margin crop tool",
+      "category": "PDF Workflows",
+      "cluster": "custom-paper-margin-content",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "4 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.92,
+      "relatedTools": [
+        "custom-paper-margin",
+        "crop-pdf",
+        "rotate-pdf",
+        "pdf-to-booklet"
+      ],
+      "relatedBlogs": [
+        "fit-pdf-home-printer-no-cut-margins",
+        "custom-paper-sizes-a5-b5-notebooks"
+      ],
+      "author": {
+        "name": "JoinMyPDF Team",
+        "role": "Editorial",
+        "verifiedLabel": "נבדק עבור תהליכי הדפסה מהירים · יונ' 2026"
+      },
+      "seo": {
+        "metaTitle": "הכנת שוליים וחיתוך PDF המהירה ביותר בדפדפן",
+        "metaDescription": "דלגו על אפליקציות DTP כבדות — שנו גודל נייר, הגדירו שוליים ותצוגה מקדימה מקומית לפני הדפסה או שיתוף."
+      },
+      "description": "כלי פרסום לשולחן העבודה מוגזמים לתיקוני שוליים חד-פעמיים. כלי דפדפן מקומיים מספקים PDF מוכן לקובץ תוך דקות.",
+      "contentBlocks": {
+        "intro": "הכנת הדפסה היא לעיתים קרובות שלושה צעדים: חיתוך bleed, הגדרת נייר, הוספת שוליים. ביצוע מקומי נמנע מתורי העלאה ושומר טיוטות במכונה שלכם.",
+        "primaryTool": "custom-paper-margin",
+        "sections": [
+          {
+            "id": "speed",
+            "heading": "מה הופך הכנה בדפדפן למהירה",
+            "level": 2,
+            "list": [
+              "ללא התקנה או רישיון — פתחו את הכלי ושחררו PDF.",
+              "תצוגה מקדימה חיה מציגה מסגרת נייר ותיבת שוליים בעמוד 1.",
+              "מעבר החלה אחד מעדכן כל עמוד עם pdf-lib.",
+              "שרשרו Rotate, Merge או Booklet באותה סשן."
+            ]
+          },
+          {
+            "id": "privacy",
+            "heading": "פרטיות כבונוס",
+            "level": 2,
+            "paragraphs": [
+              "PDFים של HR, סטודנטים ולקוחות נשארים בלשונית הדפדפן. זה חשוב כששוליים הם הצעד האחרון לפני שיתוף חיצוני."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "מה ההבדל מ-Crop PDF?",
+            "a": "Crop PDF חותך תוכן. Paper & Margins גם משנה ממדי עמוד פלט ומשנה קנה מידה לתוכן לאזור בטוח שוליים."
+          },
+          {
+            "q": "האם זה עובד לא מקוון?",
+            "a": "אחרי טעינת העמוד, העיבוד רץ מקומית בלי להעלות את הקובץ."
+          },
+          {
+            "q": "האם צוותים יכולים לסטנדרט על A5?",
+            "a": "כן — בחרו A5, הגדירו שוליים צוותיים, והחילו על כל דוח שהועלה."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/custom-paper-margin/",
+            "anchor": "Custom Paper Size & Margin Cutter"
+          },
+          {
+            "href": "/tools/crop-pdf/",
+            "anchor": "Crop PDF"
+          },
+          {
+            "href": "/tools/rotate-pdf/",
+            "anchor": "Rotate PDF"
+          },
+          {
+            "href": "/tools/pdf-to-booklet/",
+            "anchor": "PDF to Booklet"
+          }
+        ]
+      }
     }
   ]
 }
