@@ -46,7 +46,7 @@ export const matteSecurityCallout = toolPrivacyStatement;
 
 /** Drag-and-drop upload zone — light gray surface, dashed border, dark matte in dark mode */
 export const matteDropzone =
-  "tool-upload-zone rounded-none border border-dashed border-neutral-400 bg-neutral-100 text-black transition-colors dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200";
+  "tool-upload-zone rounded-none border border-dashed border-neutral-500 bg-neutral-100 text-black transition-colors dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200";
 
 export const matteDropzoneActive =
   "border-neutral-500 bg-neutral-200 dark:border-neutral-600 dark:bg-neutral-950";
