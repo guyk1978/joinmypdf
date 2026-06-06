@@ -726,7 +726,16 @@
       "enterPassword": "הזן את סיסמת ה-PDF כדי לפתוח את הקובץ.",
       "adjustTryAgain": "התאם ונסה שוב.",
       "tryAgainOrChoose": "נסה שוב או בחר קובץ אחר.",
-      "downloadedAs": "הורד כ-{name}."
+      "conversionCompleteAuto": "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית.",
+      "chooseOdf": "בחר קובץ OpenOffice (.odt, .ods או .odp).",
+      "emptyOdf": "הקובץ ריק. בחר מסמך אחר.",
+      "chooseEpub": "בחר קובץ .epub.",
+      "emptyEpub": "הקובץ ריק. בחר ספר אלקטרוני אחר.",
+      "chooseIwork": "בחר קובץ .pages, .numbers או .keynote.",
+      "emptyIwork": "הקובץ ריק. בחר מסמך iWork אחר.",
+      "chooseCad": "בחר קובץ שרטוט AutoCAD (.dxf או .dwg).",
+      "emptyCad": "הקובץ ריק. בחר שרטוט אחר.",
+      "noHeicFiles": "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif."
     },
     "word-to-pdf": {
       "status": {
@@ -920,6 +929,138 @@
         "complete": "חיתוך הושלם. ההורדה אמורה להתחיל אוטומטית.",
         "tryAgain": "נסה שוב או בחר קובץ אחר."
       }
+    },
+    "openoffice-to-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ OpenOffice (.odt, .ods או .odp).",
+        "emptyFile": "הקובץ ריק. בחר מסמך אחר.",
+        "readingStructure": "קורא מבנה OpenDocument…",
+        "extracting": "מחלץ תוכן…",
+        "fileReadyMeta": "{name} מוכן ({format}, {size}) — המר כשתהיה מוכן.",
+        "complete": "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "progress": {
+        "extracting": "פותח ארכיון OpenDocument…",
+        "parsing": "מנתח content.xml…",
+        "layout": "בונה פריסת PDF…",
+        "finalizing": "מסיים הורדה…"
+      },
+      "privacyNote": "המרת OpenOffice פותחת ומרכיבה את הקובץ לחלוטין בדפדפן. שום דבר לא מועלה לשרתים.",
+      "convertLabel": "המר ל-PDF",
+      "stickyConvertLabel": "OpenOffice ל-PDF"
+    },
+    "markdown-to-pdf": {
+      "status": {
+        "fileLoaded": "{name} נטען — ערוך או המר כשתרצה.",
+        "compiling": "מרכיב Markdown…",
+        "complete": "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית.",
+        "adjustMarkdown": "התאם את ה-Markdown ונסה שוב."
+      },
+      "progress": {
+        "parsing": "מנתח Markdown…",
+        "rendering": "מחיל ערכת פריסה…",
+        "building": "בונה PDF…"
+      },
+      "privacyNote": "ניתוח Markdown ורינדור PDF רצים בדפדפן. ההערות לא עוזבות את המכשיר.",
+      "convertLabel": "המר ל-PDF",
+      "downloadLabel": "הורד PDF",
+      "stickyConvertLabel": "Markdown ל-PDF"
+    },
+    "html-to-pdf": {
+      "status": {
+        "fileLoaded": "{name} נטען — התאם הגדרות והמר.",
+        "preparingSandbox": "מכין sandbox…",
+        "complete": "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית.",
+        "adjustHtml": "התאם את ה-HTML ונסה שוב."
+      },
+      "progress": {
+        "rendering": "מרנדר HTML ב-sandbox…",
+        "capturing": "לוכד פריסת DOM…",
+        "building": "בונה עמודי PDF…"
+      },
+      "privacyNote": "רינדור HTML ויצירת PDF רצים ב-sandbox של הדפדפן. הקוד לא עוזב את המכשיר.",
+      "convertLabel": "המר ל-PDF",
+      "stickyConvertLabel": "HTML ל-PDF"
+    },
+    "ebook-to-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ .epub.",
+        "emptyFile": "הקובץ ריק. בחר ספר אלקטרוני אחר.",
+        "readingStructure": "קורא מבנה ספר אלקטרוני…",
+        "preparing": "מכין המרה…",
+        "fileReadyChapters": "{name} מוכן — זוהו {count} פרק/ים ({size}).",
+        "complete": "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "progress": {
+        "extracting": "פותח ארכיון EPUB…",
+        "parsing": "קורא מבנה פרקים…",
+        "layout": "מדפדף מסמך PDF…",
+        "finalizing": "מסיים הורדה…"
+      },
+      "privacyNote": "חילוץ EPUB ויצירת PDF רצים ב-sandbox של הדפדפן. הספר לא עוזב את המכשיר.",
+      "convertLabel": "המר ל-PDF",
+      "stickyConvertLabel": "ספר אלקטרוני ל-PDF"
+    },
+    "iwork-to-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ .pages, .numbers או .keynote.",
+        "emptyFile": "הקובץ ריק. בחר מסמך iWork אחר.",
+        "fileReady": "{name} מוכן ({size}). לחץ המר ל-PDF.",
+        "preparing": "מכין חילוץ…",
+        "complete": "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "progress": {
+        "reading": "קורא מיכל iWork…",
+        "extracting": "מחלץ PDF תצוגה מקדימה…",
+        "finalizing": "מסיים הורדה…"
+      },
+      "privacyNote": "חילוץ iWork רץ ב-sandbox של הדפדפן. הקבצים לא עוזבים את המכשיר.",
+      "convertLabel": "המר ל-PDF",
+      "stickyConvertLabel": "iWork ל-PDF"
+    },
+    "autocad-to-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ שרטוט AutoCAD (.dxf או .dwg).",
+        "emptyFile": "הקובץ ריק. בחר שרטוט אחר.",
+        "readingDrawing": "קורא שרטוט…",
+        "dwgDetected": "זוהה .dwg בינארי — שמור כ-DXF ב-AutoCAD כדי להמיר כאן.",
+        "fileReady": "{name} מוכן — לחץ המר ל-PDF כשתהיה מוכן.",
+        "complete": "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "progress": {
+        "parsing": "מנתח ישויות וקטור DXF…",
+        "layout": "מרנדר PDF שרטוט…",
+        "finalizing": "מסיים הורדה…"
+      },
+      "privacyNote": "המרת AutoCAD רצה בדפדפן. השרטוט לא עוזב את המכשיר.",
+      "convertLabel": "המר ל-PDF",
+      "useDxfLabel": "השתמש בקובץ DXF",
+      "stickyConvertLabel": "AutoCAD ל-PDF"
+    },
+    "heic-to-pdf": {
+      "status": {
+        "noHeic": "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif.",
+        "filesAddedSkipped": "נוספו {count} קובצ/י HEIC. דולגו {skipped} קובץ/ים לא נתמכים.",
+        "filesAdded": "נוספו {count} קובצ/י HEIC. סדר מחדש במידת הצורך, ואז המר.",
+        "starting": "מתחיל המרה…",
+        "complete": "ההמרה הושלמה. הורד את ה-PDF למטה.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "progress": {
+        "preparing": "מכין תמונות HEIC…",
+        "decoding": "מפענח {name} ({current} מתוך {total})…",
+        "buildingPage": "בונה PDF — עמוד {current} מתוך {total}…",
+        "building": "בונה PDF…"
+      },
+      "privacyNote": "פענוח HEIC ויצירת PDF רצים בדפדפן. התמונות לא עוזבות את המכשיר.",
+      "convertLabel": "יצירת PDF",
+      "downloadLabel": "הורד PDF",
+      "stickyConvertLabel": "יצירת PDF",
+      "stickyDownloadLabel": "הורד PDF"
     }
   },
   "Tools": {

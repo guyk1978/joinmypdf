@@ -1,8 +1,9 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -18,6 +19,7 @@ import {
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { wsProgressPhase } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -36,13 +38,6 @@ function downloadBlob(blob: Blob, name: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
-}
-
-function progressLabel(phase: HtmlToPdfProgressPhase | null): string {
-  if (!phase) return "";
-  if (phase === "rendering") return "Rendering HTML in sandbox…";
-  if (phase === "capturing") return "Capturing DOM layout…";
-  return "Building PDF pages…";
 }
 
 function progressPercent(phase: HtmlToPdfProgressPhase | null, busy: boolean): number {
@@ -99,7 +94,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       setMode("paste");
       setDone(false);
       setRunError(null);
-      setStatus(`${picked.name} loaded — adjust settings and convert.`);
+      setStatus(ws.wsStatus("fileLoaded", { name: picked.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (error) {
       const parsed = classifyPdfError(error);
@@ -113,7 +108,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setDone(false);
     setRunError(null);
     setPhase("rendering");
-    setStatus("Preparing sandbox…");
+    setStatus(ws.wsStatus("preparingSandbox"));
 
     try {
       const blob = await convertHtmlToPdf(
@@ -121,12 +116,12 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         { orientation, margin },
         (nextPhase) => {
           setPhase(nextPhase);
-          setStatus(progressLabel(nextPhase));
+          setStatus(wsProgressPhase(ws, nextPhase));
         },
       );
       downloadBlob(blob, htmlToPdfOutputName(file));
       setDone(true);
-      setStatus("Conversion complete. Your download should start automatically.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -149,8 +144,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> HTML rendering and PDF compilation run inside your browser sandbox. Your source
-        code never leaves your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -275,18 +269,10 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       </div>
 
       {busy ? (
-        <div className="space-y-3 rounded-xl border border-white/10 bg-white/[0.02] p-4" aria-live="polite">
-          <div className="flex items-center justify-between text-xs text-ink-muted">
-            <span>{progressLabel(phase)}</span>
-            <span>{progressPercent(phase, busy)}%</span>
-          </div>
-          <div className="h-2 overflow-hidden rounded-full bg-white/10">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
-              style={{ width: `${Math.max(8, progressPercent(phase, busy))}%` }}
-            />
-          </div>
-        </div>
+        <WorkspaceProgressBar
+          percent={progressPercent(phase, busy)}
+          label={wsProgressPhase(ws, phase)}
+        />
       ) : null}
 
       <div className="flex flex-wrap gap-3">
@@ -296,7 +282,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           onClick={() => void onConvert()}
           className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Convert to PDF
+          {ws.wsText("convertLabel")}
         </button>
         <button
           type="button"
@@ -316,7 +302,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus("Adjust your HTML and try again.");
+            setStatus(ws.wsStatus("adjustHtml"));
           }}
         />
       ) : (
@@ -327,7 +313,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label="Convert to PDF" secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta href="#tool-workspace" label={ws.wsText("convertLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

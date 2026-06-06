@@ -1,8 +1,9 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -16,6 +17,7 @@ import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { formatBytes } from "@/lib/pdf-to-word";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { heicProgressLabel } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -31,20 +33,6 @@ function downloadBlob(blob: Blob, name: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
-}
-
-function progressLabel(progress: HeicToPdfProgress | null): string {
-  if (!progress) return "";
-  if (progress.phase === "converting") {
-    if (progress.fileName) {
-      return `Decoding ${progress.fileName} (${progress.currentFile} of ${progress.totalFiles})…`;
-    }
-    return "Preparing HEIC images…";
-  }
-  if (progress.currentPage && progress.totalPages) {
-    return `Building PDF — page ${progress.currentPage} of ${progress.totalPages}…`;
-  }
-  return "Building PDF…";
 }
 
 function progressPercent(progress: HeicToPdfProgress | null, busy: boolean): number {
@@ -89,7 +77,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const addFiles = (incoming: FileList | File[]) => {
     const accepted = Array.from(incoming || []).filter(isHeicFile);
     if (!accepted.length) {
-      setStatus("No HEIC/HEIF files detected. Choose .heic or .heif images.");
+      setStatus(ws.wsStatus("noHeic"));
       return;
     }
     const rejected = Array.from(incoming || []).filter((file) => !isHeicFile(file));
@@ -99,8 +87,8 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setRunError(null);
     setStatus(
       rejected.length
-        ? `${accepted.length} HEIC file(s) added. Skipped ${rejected.length} unsupported file(s).`
-        : `${accepted.length} HEIC file(s) added. Reorder if needed, then convert.`,
+        ? ws.wsStatus("filesAddedSkipped", { count: accepted.length, skipped: rejected.length })
+        : ws.wsStatus("filesAdded", { count: accepted.length }),
     );
     capture(EVENTS.file_selected, { operation: tool.operation, count: accepted.length });
   };
@@ -129,17 +117,17 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setDone(false);
     setRunError(null);
     setOutputBlob(null);
-    setStatus("Starting conversion…");
+    setStatus(ws.wsStatus("starting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
       const blob = await heicToPdf(files, (p) => {
         setProgress(p);
-        setStatus(progressLabel(p));
+        setStatus(heicProgressLabel(p, ws));
       });
       setOutputBlob(blob);
       setDone(true);
-      setStatus("Conversion complete. Download your PDF below.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       window.setTimeout(() => {
         dispatchToolComplete({ operation: tool.operation, slug });
@@ -174,18 +162,18 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> HEIC decoding and PDF generation run entirely in your browser.
-        Your photos never leave your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <FileUploadZone
+        operation={tool.operation}
         drag={drag}
         role="button"
         tabIndex={0}
         aria-controls={`${baseId}-input`}
         className="cursor-pointer"
-        title="Drop HEIC photos here or click to browse"
-        description="Add one or more .heic / .heif files. Reorder before converting to a multi-page PDF."
+        title={ws.uploadTitle()}
+        description={ws.uploadDescription()}
         onKeyDown={(e: ReactKeyboardEvent) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -228,7 +216,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
@@ -264,18 +252,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           </ul>
 
           {busy ? (
-            <div className="space-y-2" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>{progressLabel(progress)}</span>
-                <span>{percent}%</span>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
-            </div>
+            <WorkspaceProgressBar percent={percent} label={heicProgressLabel(progress, ws)} />
           ) : null}
 
           <div className="flex flex-wrap gap-3">
@@ -285,7 +262,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               onClick={() => void onConvert()}
               className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {hasOutput ? "Convert again" : "Convert to PDF"}
+              {hasOutput ? ws.common("convertAgain") : ws.wsText("convertLabel")}
             </button>
             {hasOutput ? (
               <button
@@ -294,7 +271,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 onClick={onDownload}
                 className="rounded-xl border border-brand/40 bg-brand/10 px-5 py-3 text-sm font-semibold text-brand transition hover:bg-brand/15 disabled:opacity-50"
               >
-                Download PDF
+                {ws.wsText("downloadLabel")}
               </button>
             ) : null}
             <button
@@ -303,7 +280,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Clear all
+              {ws.clear}
             </button>
           </div>
 
@@ -330,7 +307,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(files.length ? "Try converting again or adjust your file list." : "");
+            setStatus(files.length ? ws.status("tryAgainOrChoose") : "");
           }}
         />
       ) : (
@@ -343,7 +320,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={hasOutput ? "Download PDF" : "Convert to PDF"}
+        label={hasOutput ? ws.wsText("stickyDownloadLabel") : ws.wsText("stickyConvertLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

@@ -1,11 +1,12 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import {
   convertOpenofficeToPdfBytes,
   detectOpenofficeFormat,
@@ -18,6 +19,7 @@ import {
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { wsProgressPhase } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -33,14 +35,6 @@ function downloadBlob(blob: Blob, name: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
-}
-
-function progressLabel(phase: OpenofficeProgressPhase | null): string {
-  if (!phase) return "";
-  if (phase === "extracting") return "Unpacking OpenDocument archive…";
-  if (phase === "parsing") return "Parsing content.xml…";
-  if (phase === "layout") return "Building PDF layout…";
-  return "Finalizing download…";
 }
 
 export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
@@ -76,11 +70,11 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
 
   const pickFile = async (picked: File) => {
     if (!acceptOdf(picked)) {
-      setStatus("Please choose a .odt, .ods, or .odp OpenOffice file.");
+      setStatus(ws.wsStatus("invalidType"));
       return;
     }
     if (picked.size === 0) {
-      setStatus("That file is empty. Choose another document.");
+      setStatus(ws.wsStatus("emptyFile"));
       return;
     }
     setFile(picked);
@@ -88,12 +82,16 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
     setRunError(null);
     setPhase(null);
     setProgress(0);
-    setStatus("Reading OpenDocument structure…");
+    setStatus(ws.wsStatus("readingStructure"));
     try {
       const meta = await readOpenofficeMeta(picked);
       setFormatLabel(meta.label);
       setStatus(
-        `${picked.name} ready (${meta.label}, ${formatBytes(picked.size)}) — convert when you are set.`,
+        ws.wsStatus("fileReadyMeta", {
+          name: picked.name,
+          format: meta.label,
+          size: formatBytes(picked.size),
+        }),
       );
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
@@ -112,13 +110,13 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
     setRunError(null);
     setPhase("extracting");
     setProgress(10);
-    setStatus("Extracting content…");
+    setStatus(ws.wsStatus("extracting"));
 
     try {
       const bytes = await convertOpenofficeToPdfBytes(file, (p, pct) => {
         setPhase(p);
         setProgress(pct);
-        setStatus(progressLabel(p));
+        setStatus(wsProgressPhase(ws, p));
       });
 
       downloadBlob(
@@ -126,7 +124,7 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
         openofficeToPdfOutputName(file),
       );
       setDone(true);
-      setStatus("Conversion complete. Your download should start automatically.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -146,22 +144,24 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
     }
   };
 
+  const progressPct = Math.min(100, Math.max(5, progress));
+
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> OpenOffice conversion unpacks and compiles your file entirely in your browser.
-        Nothing is uploaded to our servers.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!file ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop an OpenOffice file here"
-          description="Supports .odt documents, .ods spreadsheets, and .odp presentations."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -198,28 +198,23 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
             <div>
               <p className="text-sm font-semibold text-ink">{file.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
-                {formatLabel || (detectOpenofficeFormat(file) ? openofficeFormatLabel(detectOpenofficeFormat(file)!) : "")}
+                {formatLabel ||
+                  (detectOpenofficeFormat(file)
+                    ? openofficeFormatLabel(detectOpenofficeFormat(file)!)
+                    : "")}
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
-          {busy && (
-            <div className="space-y-3" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>{progressLabel(phase)}</span>
-                <span>{Math.min(100, Math.max(5, progress))}%</span>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
-                  style={{ width: `${Math.max(8, progress)}%` }}
-                />
-              </div>
-            </div>
-          )}
+          {busy ? (
+            <WorkspaceProgressBar
+              percent={progressPct}
+              label={wsProgressPhase(ws, phase)}
+            />
+          ) : null}
 
           <div className="flex flex-wrap gap-3">
             <button
@@ -228,7 +223,7 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
               onClick={() => void onConvert()}
               className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Convert to PDF
+              {ws.wsText("convertLabel")}
             </button>
             <button
               type="button"
@@ -236,7 +231,7 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
         </div>
@@ -250,7 +245,7 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try again or choose another file." : "");
+            setStatus(file ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (
@@ -263,7 +258,7 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={file ? "Convert to PDF" : "OpenOffice to PDF"}
+        label={file ? ws.wsText("convertLabel") : ws.wsText("stickyConvertLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

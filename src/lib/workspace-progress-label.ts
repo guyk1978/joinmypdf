@@ -66,3 +66,33 @@ export function progressLabelFromPhase(
 
   return ws.wsProgress("processing") || "";
 }
+
+/** Resolve a simple phase string to a Workspaces progress label. */
+export function wsProgressPhase(
+  ws: WorkspaceProgressHelper,
+  phase: string | null | undefined,
+): string {
+  if (!phase) return "";
+  return ws.wsProgress(phase) || ws.wsProgress("processing") || "";
+}
+
+/** HEIC multi-file progress objects. */
+export function heicProgressLabel(progress: unknown, ws: WorkspaceProgressHelper): string {
+  if (!progress || typeof progress !== "object") return "";
+  const p = progress as Record<string, unknown>;
+  if (p.phase === "converting") {
+    if (typeof p.fileName === "string" && typeof p.currentFile === "number" && typeof p.totalFiles === "number") {
+      const labeled = ws.wsProgress("decoding", {
+        name: p.fileName,
+        current: p.currentFile,
+        total: p.totalFiles,
+      });
+      if (labeled) return labeled;
+    }
+    return ws.wsProgress("preparing") || "";
+  }
+  if (typeof p.currentPage === "number" && typeof p.totalPages === "number") {
+    return ws.wsProgress("buildingPage", { current: p.currentPage, total: p.totalPages }) || "";
+  }
+  return ws.wsProgress("building") || "";
+}

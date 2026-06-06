@@ -1,8 +1,9 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -18,6 +19,7 @@ import {
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { wsProgressPhase } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -33,13 +35,6 @@ function downloadBlob(blob: Blob, name: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
-}
-
-function progressLabel(phase: IworkProgressPhase | null): string {
-  if (!phase) return "";
-  if (phase === "reading") return "Reading iWork container…";
-  if (phase === "extracting") return "Extracting QuickLook preview PDF…";
-  return "Finalizing download…";
 }
 
 export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
@@ -75,11 +70,11 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
   const pickFile = (picked: File) => {
     if (!acceptIwork(picked)) {
-      setStatus("Please choose a .pages, .numbers, or .keynote file.");
+      setStatus(ws.wsStatus("invalidType"));
       return;
     }
     if (picked.size === 0) {
-      setStatus("That file is empty. Choose another iWork document.");
+      setStatus(ws.wsStatus("emptyFile"));
       return;
     }
 
@@ -90,7 +85,7 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setRunError(null);
     setPhase(null);
     setProgress(0);
-    setStatus(`${picked.name} ready (${formatBytes(picked.size)}). Click Convert to PDF.`);
+    setStatus(ws.wsStatus("fileReady", { name: picked.name, size: formatBytes(picked.size) }));
     capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
   };
 
@@ -101,18 +96,18 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setRunError(null);
     setPhase("reading");
     setProgress(10);
-    setStatus("Preparing extraction…");
+    setStatus(ws.wsStatus("preparing"));
 
     try {
       const bytes = await extractIworkPreviewPdfBytes(file, (nextPhase, percent) => {
         setPhase(nextPhase);
         setProgress(percent);
-        setStatus(progressLabel(nextPhase));
+        setStatus(wsProgressPhase(ws, nextPhase));
       });
 
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), iworkToPdfOutputName(file));
       setDone(true);
-      setStatus("Conversion complete. Your download should start automatically.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -135,19 +130,19 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> iWork extraction runs entirely in your browser sandbox. Files never leave your
-        device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!file ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop an iWork file here"
-          description="Supports .pages, .numbers, and .keynote packages with embedded QuickLook preview PDFs."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -186,23 +181,15 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               <p className="mt-1 text-xs text-ink-muted">{kindLabel || "Apple iWork document package"}</p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
           {busy ? (
-            <div className="space-y-3" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>{progressLabel(phase)}</span>
-                <span>{Math.min(100, Math.max(5, progress))}%</span>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
-                  style={{ width: `${Math.max(8, progress)}%` }}
-                />
-              </div>
-            </div>
+            <WorkspaceProgressBar
+              percent={Math.min(100, Math.max(5, progress))}
+              label={wsProgressPhase(ws, phase)}
+            />
           ) : null}
 
           <div className="flex flex-wrap gap-3">
@@ -212,7 +199,7 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               onClick={() => void onConvert()}
               className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Convert to PDF
+              {ws.wsText("convertLabel")}
             </button>
             <button
               type="button"
@@ -220,7 +207,7 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
         </div>
@@ -234,7 +221,7 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try again or choose another file." : "");
+            setStatus(file ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (
@@ -247,7 +234,7 @@ export function IworkToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={file ? "Convert to PDF" : "iWork to PDF"}
+        label={file ? ws.wsText("convertLabel") : ws.wsText("stickyConvertLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

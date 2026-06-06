@@ -726,7 +726,16 @@
       "enterPassword": "Enter the PDF password to open this file.",
       "adjustTryAgain": "Adjust and try again.",
       "tryAgainOrChoose": "Try again or choose another file.",
-      "downloadedAs": "Downloaded as {name}."
+      "conversionCompleteAuto": "Conversion complete. Your download should start automatically.",
+      "chooseOdf": "Please choose a .odt, .ods, or .odp OpenOffice file.",
+      "emptyOdf": "That file is empty. Choose another document.",
+      "chooseEpub": "Please choose an .epub file.",
+      "emptyEpub": "That file is empty. Choose another eBook.",
+      "chooseIwork": "Please choose a .pages, .numbers, or .keynote file.",
+      "emptyIwork": "That file is empty. Choose another iWork document.",
+      "chooseCad": "Please choose a .dxf or .dwg AutoCAD drawing file.",
+      "emptyCad": "That file is empty. Choose another drawing.",
+      "noHeicFiles": "No HEIC/HEIF files detected. Choose .heic or .heif images."
     },
     "word-to-pdf": {
       "status": {
@@ -920,6 +929,138 @@
         "complete": "Crop complete. Your download should start automatically.",
         "tryAgain": "Try again or choose another file."
       }
+    },
+    "openoffice-to-pdf": {
+      "status": {
+        "invalidType": "Please choose a .odt, .ods, or .odp OpenOffice file.",
+        "emptyFile": "That file is empty. Choose another document.",
+        "readingStructure": "Reading OpenDocument structure…",
+        "extracting": "Extracting content…",
+        "fileReadyMeta": "{name} ready ({format}, {size}) — convert when you are set.",
+        "complete": "Conversion complete. Your download should start automatically.",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "extracting": "Unpacking OpenDocument archive…",
+        "parsing": "Parsing content.xml…",
+        "layout": "Building PDF layout…",
+        "finalizing": "Finalizing download…"
+      },
+      "privacyNote": "OpenOffice conversion unpacks and compiles your file entirely in your browser. Nothing is uploaded to our servers.",
+      "convertLabel": "Convert to PDF",
+      "stickyConvertLabel": "OpenOffice to PDF"
+    },
+    "markdown-to-pdf": {
+      "status": {
+        "fileLoaded": "{name} loaded — edit or convert when ready.",
+        "compiling": "Compiling Markdown…",
+        "complete": "Conversion complete. Your download should start automatically.",
+        "adjustMarkdown": "Adjust your Markdown and try again."
+      },
+      "progress": {
+        "parsing": "Parsing Markdown…",
+        "rendering": "Applying layout theme…",
+        "building": "Building PDF…"
+      },
+      "privacyNote": "Markdown parsing and PDF rendering run entirely in your browser. Your notes never leave your device.",
+      "convertLabel": "Convert to PDF",
+      "downloadLabel": "Download PDF",
+      "stickyConvertLabel": "Markdown to PDF"
+    },
+    "html-to-pdf": {
+      "status": {
+        "fileLoaded": "{name} loaded — adjust settings and convert.",
+        "preparingSandbox": "Preparing sandbox…",
+        "complete": "Conversion complete. Your download should start automatically.",
+        "adjustHtml": "Adjust your HTML and try again."
+      },
+      "progress": {
+        "rendering": "Rendering HTML in sandbox…",
+        "capturing": "Capturing DOM layout…",
+        "building": "Building PDF pages…"
+      },
+      "privacyNote": "HTML rendering and PDF compilation run inside your browser sandbox. Your source code never leaves your device.",
+      "convertLabel": "Convert to PDF",
+      "stickyConvertLabel": "HTML to PDF"
+    },
+    "ebook-to-pdf": {
+      "status": {
+        "invalidType": "Please choose an .epub file.",
+        "emptyFile": "That file is empty. Choose another eBook.",
+        "readingStructure": "Reading eBook structure…",
+        "preparing": "Preparing conversion…",
+        "fileReadyChapters": "{name} ready — {count} chapter(s) detected ({size}).",
+        "complete": "Conversion complete. Your download should start automatically.",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "extracting": "Unpacking EPUB archive…",
+        "parsing": "Reading chapter structure…",
+        "layout": "Paginating PDF document…",
+        "finalizing": "Finalizing download…"
+      },
+      "privacyNote": "EPUB extraction and PDF generation run entirely in your browser memory sandbox. Your eBook never leaves your device.",
+      "convertLabel": "Convert to PDF",
+      "stickyConvertLabel": "eBook to PDF"
+    },
+    "iwork-to-pdf": {
+      "status": {
+        "invalidType": "Please choose a .pages, .numbers, or .keynote file.",
+        "emptyFile": "That file is empty. Choose another iWork document.",
+        "fileReady": "{name} ready ({size}). Click Convert to PDF.",
+        "preparing": "Preparing extraction…",
+        "complete": "Conversion complete. Your download should start automatically.",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "reading": "Reading iWork container…",
+        "extracting": "Extracting QuickLook preview PDF…",
+        "finalizing": "Finalizing download…"
+      },
+      "privacyNote": "iWork extraction runs entirely in your browser sandbox. Files never leave your device.",
+      "convertLabel": "Convert to PDF",
+      "stickyConvertLabel": "iWork to PDF"
+    },
+    "autocad-to-pdf": {
+      "status": {
+        "invalidType": "Please choose a .dxf or .dwg AutoCAD drawing file.",
+        "emptyFile": "That file is empty. Choose another drawing.",
+        "readingDrawing": "Reading drawing…",
+        "dwgDetected": "Binary .dwg detected — save as DXF in AutoCAD to convert here.",
+        "fileReady": "{name} ready — click Convert to PDF when you are set.",
+        "complete": "Conversion complete. Your download should start automatically.",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "parsing": "Parsing DXF vector entities…",
+        "layout": "Rendering blueprint PDF…",
+        "finalizing": "Finalizing download…"
+      },
+      "privacyNote": "AutoCAD conversion runs entirely in your browser. Your drawing never leaves your device.",
+      "convertLabel": "Convert to PDF",
+      "useDxfLabel": "Use DXF file",
+      "stickyConvertLabel": "AutoCAD to PDF"
+    },
+    "heic-to-pdf": {
+      "status": {
+        "noHeic": "No HEIC/HEIF files detected. Choose .heic or .heif images.",
+        "filesAddedSkipped": "{count} HEIC file(s) added. Skipped {skipped} unsupported file(s).",
+        "filesAdded": "{count} HEIC file(s) added. Reorder if needed, then convert.",
+        "starting": "Starting conversion…",
+        "complete": "Conversion complete. Download your PDF below.",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "preparing": "Preparing HEIC images…",
+        "decoding": "Decoding {name} ({current} of {total})…",
+        "buildingPage": "Building PDF — page {current} of {total}…",
+        "building": "Building PDF…"
+      },
+      "privacyNote": "HEIC decoding and PDF creation run entirely in your browser. Your photos never leave your device.",
+      "convertLabel": "Create PDF",
+      "downloadLabel": "Download PDF",
+      "stickyConvertLabel": "Create PDF",
+      "stickyDownloadLabel": "Download PDF"
     }
   }
 }

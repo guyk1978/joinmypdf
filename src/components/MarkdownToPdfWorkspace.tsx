@@ -1,8 +1,9 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -20,6 +21,7 @@ import {
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { wsProgressPhase } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -36,13 +38,6 @@ function downloadBlob(blob: Blob, name: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
-}
-
-function progressLabel(phase: MarkdownProgressPhase | null): string {
-  if (!phase) return "";
-  if (phase === "parsing") return "Parsing Markdown…";
-  if (phase === "rendering") return "Applying layout theme…";
-  return "Building PDF…";
 }
 
 function progressPercent(phase: MarkdownProgressPhase | null, busy: boolean): number {
@@ -118,7 +113,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
       setInputMode("editor");
       setDone(false);
       setRunError(null);
-      setStatus(`${picked.name} loaded — edit or convert when ready.`);
+      setStatus(ws.wsStatus("fileLoaded", { name: picked.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -132,18 +127,18 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
     setDone(false);
     setRunError(null);
     setPhase("parsing");
-    setStatus("Compiling Markdown…");
+    setStatus(ws.wsStatus("compiling"));
 
     try {
       const blob = await convertMarkdownToPdf(markdown, theme, (p) => {
         setPhase(p);
-        setStatus(progressLabel(p));
+        setStatus(wsProgressPhase(ws, p));
       });
 
       const titleLine = markdown.match(/^#\s+(.+)$/m)?.[1];
       downloadBlob(blob, markdownToPdfOutputName(file, titleLine));
       setDone(true);
-      setStatus("Conversion complete. Your download should start automatically.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -166,8 +161,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> Markdown parsing and PDF rendering run entirely in your browser. Your notes
-        never leave your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -277,20 +271,12 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
         </div>
       </div>
 
-      {busy && (
-        <div className="space-y-3 rounded-xl border border-white/10 bg-white/[0.02] p-4" aria-live="polite">
-          <div className="flex items-center justify-between text-xs text-ink-muted">
-            <span>{progressLabel(phase)}</span>
-            <span>{progressPercent(phase, busy)}%</span>
-          </div>
-          <div className="h-2 overflow-hidden rounded-full bg-white/10">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
-              style={{ width: `${Math.max(8, progressPercent(phase, busy))}%` }}
-            />
-          </div>
-        </div>
-      )}
+      {busy ? (
+        <WorkspaceProgressBar
+          percent={progressPercent(phase, busy)}
+          label={wsProgressPhase(ws, phase)}
+        />
+      ) : null}
 
       <div className="flex flex-wrap gap-3">
         <button
@@ -299,7 +285,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
           onClick={() => void onConvert()}
           className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Download PDF
+          {ws.wsText("downloadLabel")}
         </button>
         <button
           type="button"
@@ -319,7 +305,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus("Adjust your Markdown and try again.");
+            setStatus(ws.wsStatus("adjustMarkdown"));
           }}
         />
       ) : (
@@ -332,7 +318,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
       <StickyMobileCta
         href="#tool-workspace"
-        label="Download PDF"
+        label={ws.wsText("downloadLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

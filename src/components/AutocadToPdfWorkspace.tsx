@@ -1,8 +1,9 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -17,6 +18,7 @@ import {
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { wsProgressPhase } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -32,13 +34,6 @@ function downloadBlob(blob: Blob, name: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
-}
-
-function progressLabel(phase: AutocadProgressPhase | null): string {
-  if (!phase) return "";
-  if (phase === "parsing") return "Parsing DXF vector entities…";
-  if (phase === "layout") return "Rendering blueprint PDF…";
-  return "Finalizing download…";
 }
 
 export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
@@ -75,11 +70,11 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
   const pickFile = (picked: File) => {
     if (!acceptCad(picked)) {
-      setStatus("Please choose a .dxf or .dwg AutoCAD drawing file.");
+      setStatus(ws.wsStatus("invalidType"));
       return;
     }
     if (picked.size === 0) {
-      setStatus("That file is empty. Choose another drawing.");
+      setStatus(ws.wsStatus("emptyFile"));
       return;
     }
     setFile(picked);
@@ -89,8 +84,8 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
     setProgress(0);
     setStatus(
       isDwgFile(picked)
-        ? "Binary .dwg detected — save as DXF in AutoCAD to convert here."
-        : `${picked.name} ready — click Convert to PDF when you are set.`,
+        ? ws.wsStatus("dwgDetected")
+        : ws.wsStatus("fileReady", { name: picked.name }),
     );
     capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
   };
@@ -103,18 +98,18 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
     setRunError(null);
     setPhase("parsing");
     setProgress(10);
-    setStatus("Reading drawing…");
+    setStatus(ws.wsStatus("readingDrawing"));
 
     try {
       const bytes = await convertAutocadToPdfBytes(file, (p, pct) => {
         setPhase(p);
         setProgress(pct);
-        setStatus(progressLabel(p));
+        setStatus(wsProgressPhase(ws, p));
       });
 
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), autocadToPdfOutputName(file));
       setDone(true);
-      setStatus("Conversion complete. Your download should start automatically.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
@@ -139,19 +134,19 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> AutoCAD conversion runs entirely in your browser. Your drawing never leaves your
-        device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!file ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop a DXF or DWG file here"
-          description="DXF converts locally to a vector PDF. For .dwg files, save as DXF in AutoCAD first."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -187,10 +182,10 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-ink">{file.name}</p>
-              <p className="mt-1 text-xs text-ink-muted">{progressLabel(phase)}</p>
+              <p className="mt-1 text-xs text-ink-muted">{wsProgressPhase(ws, phase)}</p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
@@ -204,20 +199,12 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
             </div>
           )}
 
-          {busy && (
-            <div className="space-y-3" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>{progressLabel(phase)}</span>
-                <span>{Math.min(100, Math.max(5, progress))}%</span>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
-                  style={{ width: `${Math.max(8, progress)}%` }}
-                />
-              </div>
-            </div>
-          )}
+          {busy ? (
+            <WorkspaceProgressBar
+              percent={Math.min(100, Math.max(5, progress))}
+              label={wsProgressPhase(ws, phase)}
+            />
+          ) : null}
 
           <div className="flex flex-wrap gap-3">
             <button
@@ -226,7 +213,7 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               onClick={() => void onConvert()}
               className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {showDwgNotice ? "Use DXF file" : "Convert to PDF"}
+              {showDwgNotice ? ws.wsText("useDxfLabel") : ws.wsText("convertLabel")}
             </button>
             <button
               type="button"
@@ -234,7 +221,7 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
         </div>
@@ -248,7 +235,7 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try again or choose another file." : "");
+            setStatus(file ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (
@@ -261,7 +248,7 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={file && !showDwgNotice ? "Convert to PDF" : "AutoCAD to PDF"}
+        label={file && !showDwgNotice ? ws.wsText("convertLabel") : ws.wsText("stickyConvertLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

@@ -38,7 +38,26 @@ function buildWorkspaces(locale) {
     enterPassword: isHe ? "הזן את סיסמת ה-PDF כדי לפתוח את הקובץ." : "Enter the PDF password to open this file.",
     adjustTryAgain: isHe ? "התאם ונסה שוב." : "Adjust and try again.",
     tryAgainOrChoose: isHe ? "נסה שוב או בחר קובץ אחר." : "Try again or choose another file.",
-    downloadedAs: isHe ? "הורד כ-{name}." : "Downloaded as {name}.",
+    conversionCompleteAuto: isHe
+      ? "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית."
+      : "Conversion complete. Your download should start automatically.",
+    chooseOdf: isHe
+      ? "בחר קובץ OpenOffice (.odt, .ods או .odp)."
+      : "Please choose a .odt, .ods, or .odp OpenOffice file.",
+    emptyOdf: isHe ? "הקובץ ריק. בחר מסמך אחר." : "That file is empty. Choose another document.",
+    chooseEpub: isHe ? "בחר קובץ .epub." : "Please choose an .epub file.",
+    emptyEpub: isHe ? "הקובץ ריק. בחר ספר אלקטרוני אחר." : "That file is empty. Choose another eBook.",
+    chooseIwork: isHe
+      ? "בחר קובץ .pages, .numbers או .keynote."
+      : "Please choose a .pages, .numbers, or .keynote file.",
+    emptyIwork: isHe ? "הקובץ ריק. בחר מסמך iWork אחר." : "That file is empty. Choose another iWork document.",
+    chooseCad: isHe
+      ? "בחר קובץ שרטוט AutoCAD (.dxf או .dwg)."
+      : "Please choose a .dxf or .dwg AutoCAD drawing file.",
+    emptyCad: isHe ? "הקובץ ריק. בחר שרטוט אחר." : "That file is empty. Choose another drawing.",
+    noHeicFiles: isHe
+      ? "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif."
+      : "No HEIC/HEIF files detected. Choose .heic or .heif images.",
   };
 
   const convertProgress = {
@@ -317,6 +336,166 @@ function buildWorkspaces(locale) {
         complete: isHe ? "חיתוך הושלם. ההורדה אמורה להתחיל אוטומטית." : "Crop complete. Your download should start automatically.",
         tryAgain: common.tryAgainOrChoose,
       },
+    },
+    "openoffice-to-pdf": {
+      status: {
+        invalidType: common.chooseOdf,
+        emptyFile: common.emptyOdf,
+        readingStructure: isHe ? "קורא מבנה OpenDocument…" : "Reading OpenDocument structure…",
+        extracting: isHe ? "מחלץ תוכן…" : "Extracting content…",
+        fileReadyMeta: isHe
+          ? "{name} מוכן ({format}, {size}) — המר כשתהיה מוכן."
+          : "{name} ready ({format}, {size}) — convert when you are set.",
+        complete: common.conversionCompleteAuto,
+        tryAgain: common.tryAgainOrChoose,
+      },
+      progress: {
+        extracting: isHe ? "פותח ארכיון OpenDocument…" : "Unpacking OpenDocument archive…",
+        parsing: isHe ? "מנתח content.xml…" : "Parsing content.xml…",
+        layout: isHe ? "בונה פריסת PDF…" : "Building PDF layout…",
+        finalizing: isHe ? "מסיים הורדה…" : "Finalizing download…",
+      },
+      privacyNote: isHe
+        ? "המרת OpenOffice פותחת ומרכיבה את הקובץ לחלוטין בדפדפן. שום דבר לא מועלה לשרתים."
+        : "OpenOffice conversion unpacks and compiles your file entirely in your browser. Nothing is uploaded to our servers.",
+      convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
+      stickyConvertLabel: isHe ? "OpenOffice ל-PDF" : "OpenOffice to PDF",
+    },
+    "markdown-to-pdf": {
+      status: {
+        fileLoaded: isHe ? "{name} נטען — ערוך או המר כשתרצה." : "{name} loaded — edit or convert when ready.",
+        compiling: isHe ? "מרכיב Markdown…" : "Compiling Markdown…",
+        complete: common.conversionCompleteAuto,
+        adjustMarkdown: isHe ? "התאם את ה-Markdown ונסה שוב." : "Adjust your Markdown and try again.",
+      },
+      progress: {
+        parsing: isHe ? "מנתח Markdown…" : "Parsing Markdown…",
+        rendering: isHe ? "מחיל ערכת פריסה…" : "Applying layout theme…",
+        building: convertProgress.buildingPdf,
+      },
+      privacyNote: isHe
+        ? "ניתוח Markdown ורינדור PDF רצים בדפדפן. ההערות לא עוזבות את המכשיר."
+        : "Markdown parsing and PDF rendering run entirely in your browser. Your notes never leave your device.",
+      convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
+      downloadLabel: isHe ? "הורד PDF" : "Download PDF",
+      stickyConvertLabel: isHe ? "Markdown ל-PDF" : "Markdown to PDF",
+    },
+    "html-to-pdf": {
+      status: {
+        fileLoaded: isHe ? "{name} נטען — התאם הגדרות והמר." : "{name} loaded — adjust settings and convert.",
+        preparingSandbox: isHe ? "מכין sandbox…" : "Preparing sandbox…",
+        complete: common.conversionCompleteAuto,
+        adjustHtml: isHe ? "התאם את ה-HTML ונסה שוב." : "Adjust your HTML and try again.",
+      },
+      progress: {
+        rendering: isHe ? "מרנדר HTML ב-sandbox…" : "Rendering HTML in sandbox…",
+        capturing: isHe ? "לוכד פריסת DOM…" : "Capturing DOM layout…",
+        building: isHe ? "בונה עמודי PDF…" : "Building PDF pages…",
+      },
+      privacyNote: isHe
+        ? "רינדור HTML ויצירת PDF רצים ב-sandbox של הדפדפן. הקוד לא עוזב את המכשיר."
+        : "HTML rendering and PDF compilation run inside your browser sandbox. Your source code never leaves your device.",
+      convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
+      stickyConvertLabel: isHe ? "HTML ל-PDF" : "HTML to PDF",
+    },
+    "ebook-to-pdf": {
+      status: {
+        invalidType: common.chooseEpub,
+        emptyFile: common.emptyEpub,
+        readingStructure: isHe ? "קורא מבנה ספר אלקטרוני…" : "Reading eBook structure…",
+        preparing: isHe ? "מכין המרה…" : "Preparing conversion…",
+        fileReadyChapters: isHe
+          ? "{name} מוכן — זוהו {count} פרק/ים ({size})."
+          : "{name} ready — {count} chapter(s) detected ({size}).",
+        complete: common.conversionCompleteAuto,
+        tryAgain: common.tryAgainOrChoose,
+      },
+      progress: {
+        extracting: isHe ? "פותח ארכיון EPUB…" : "Unpacking EPUB archive…",
+        parsing: isHe ? "קורא מבנה פרקים…" : "Reading chapter structure…",
+        layout: isHe ? "מדפדף מסמך PDF…" : "Paginating PDF document…",
+        finalizing: isHe ? "מסיים הורדה…" : "Finalizing download…",
+      },
+      privacyNote: isHe
+        ? "חילוץ EPUB ויצירת PDF רצים ב-sandbox של הדפדפן. הספר לא עוזב את המכשיר."
+        : "EPUB extraction and PDF generation run entirely in your browser memory sandbox. Your eBook never leaves your device.",
+      convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
+      stickyConvertLabel: isHe ? "ספר אלקטרוני ל-PDF" : "eBook to PDF",
+    },
+    "iwork-to-pdf": {
+      status: {
+        invalidType: common.chooseIwork,
+        emptyFile: common.emptyIwork,
+        fileReady: isHe ? "{name} מוכן ({size}). לחץ המר ל-PDF." : "{name} ready ({size}). Click Convert to PDF.",
+        preparing: isHe ? "מכין חילוץ…" : "Preparing extraction…",
+        complete: common.conversionCompleteAuto,
+        tryAgain: common.tryAgainOrChoose,
+      },
+      progress: {
+        reading: isHe ? "קורא מיכל iWork…" : "Reading iWork container…",
+        extracting: isHe ? "מחלץ PDF תצוגה מקדימה…" : "Extracting QuickLook preview PDF…",
+        finalizing: isHe ? "מסיים הורדה…" : "Finalizing download…",
+      },
+      privacyNote: isHe
+        ? "חילוץ iWork רץ ב-sandbox של הדפדפן. הקבצים לא עוזבים את המכשיר."
+        : "iWork extraction runs entirely in your browser sandbox. Files never leave your device.",
+      convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
+      stickyConvertLabel: isHe ? "iWork ל-PDF" : "iWork to PDF",
+    },
+    "autocad-to-pdf": {
+      status: {
+        invalidType: common.chooseCad,
+        emptyFile: common.emptyCad,
+        readingDrawing: isHe ? "קורא שרטוט…" : "Reading drawing…",
+        dwgDetected: isHe
+          ? "זוהה .dwg בינארי — שמור כ-DXF ב-AutoCAD כדי להמיר כאן."
+          : "Binary .dwg detected — save as DXF in AutoCAD to convert here.",
+        fileReady: isHe ? "{name} מוכן — לחץ המר ל-PDF כשתהיה מוכן." : "{name} ready — click Convert to PDF when you are set.",
+        complete: common.conversionCompleteAuto,
+        tryAgain: common.tryAgainOrChoose,
+      },
+      progress: {
+        parsing: isHe ? "מנתח ישויות וקטור DXF…" : "Parsing DXF vector entities…",
+        layout: isHe ? "מרנדר PDF שרטוט…" : "Rendering blueprint PDF…",
+        finalizing: isHe ? "מסיים הורדה…" : "Finalizing download…",
+      },
+      privacyNote: isHe
+        ? "המרת AutoCAD רצה בדפדפן. השרטוט לא עוזב את המכשיר."
+        : "AutoCAD conversion runs entirely in your browser. Your drawing never leaves your device.",
+      convertLabel: isHe ? "המר ל-PDF" : "Convert to PDF",
+      useDxfLabel: isHe ? "השתמש בקובץ DXF" : "Use DXF file",
+      stickyConvertLabel: isHe ? "AutoCAD ל-PDF" : "AutoCAD to PDF",
+    },
+    "heic-to-pdf": {
+      status: {
+        noHeic: common.noHeicFiles,
+        filesAddedSkipped: isHe
+          ? "נוספו {count} קובצ/י HEIC. דולגו {skipped} קובץ/ים לא נתמכים."
+          : "{count} HEIC file(s) added. Skipped {skipped} unsupported file(s).",
+        filesAdded: isHe
+          ? "נוספו {count} קובצ/י HEIC. סדר מחדש במידת הצורך, ואז המר."
+          : "{count} HEIC file(s) added. Reorder if needed, then convert.",
+        starting: isHe ? "מתחיל המרה…" : "Starting conversion…",
+        complete: isHe ? "ההמרה הושלמה. הורד את ה-PDF למטה." : "Conversion complete. Download your PDF below.",
+        tryAgain: common.tryAgainOrChoose,
+      },
+      progress: {
+        preparing: isHe ? "מכין תמונות HEIC…" : "Preparing HEIC images…",
+        decoding: isHe
+          ? "מפענח {name} ({current} מתוך {total})…"
+          : "Decoding {name} ({current} of {total})…",
+        buildingPage: isHe
+          ? "בונה PDF — עמוד {current} מתוך {total}…"
+          : "Building PDF — page {current} of {total}…",
+        building: convertProgress.buildingPdf,
+      },
+      privacyNote: isHe
+        ? "פענוח HEIC ויצירת PDF רצים בדפדפן. התמונות לא עוזבות את המכשיר."
+        : "HEIC decoding and PDF creation run entirely in your browser. Your photos never leave your device.",
+      convertLabel: isHe ? "יצירת PDF" : "Create PDF",
+      downloadLabel: isHe ? "הורד PDF" : "Download PDF",
+      stickyConvertLabel: isHe ? "יצירת PDF" : "Create PDF",
+      stickyDownloadLabel: isHe ? "הורד PDF" : "Download PDF",
     },
   };
 }
