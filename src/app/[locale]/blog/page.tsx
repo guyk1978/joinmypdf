@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { blogRegistry } from "@/lib/blog-registry";
 import type { Metadata } from "next";
-export { runtime } from "@/lib/cloudflare-runtime";
+export const runtime = "edge";
 
 export const metadata: Metadata = {
   title: "Guides & tutorials",

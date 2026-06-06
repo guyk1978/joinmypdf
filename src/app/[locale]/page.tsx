@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-export { runtime } from "@/lib/cloudflare-runtime";
+export const runtime = "edge";
 import { HeroDropzone } from "@/components/HeroDropzone";
 import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
 import { ScenarioWins } from "@/components/ScenarioWins";

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-export { runtime } from "@/lib/cloudflare-runtime";
+export const runtime = "edge";
 import { PdfHubPage } from "@/components/PdfHubPage";
 import { hubByPath } from "@/lib/pdf-hubs";
 

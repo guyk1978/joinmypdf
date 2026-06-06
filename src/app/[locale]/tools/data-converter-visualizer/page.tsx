@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-export { runtime } from "@/lib/cloudflare-runtime";
+export const runtime = "edge";
 import { DataToolDashboard } from "@/components/data-tool/DataToolDashboard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";

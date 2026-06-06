@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-export { runtime } from "@/lib/cloudflare-runtime";
+export const runtime = "edge";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { TimelineGenerator } from "@/components/timeline/TimelineGenerator";

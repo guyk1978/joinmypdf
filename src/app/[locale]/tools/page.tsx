@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-export { runtime } from "@/lib/cloudflare-runtime";
+export const runtime = "edge";
 import Link from "next/link";
 import { Lock, Shield } from "lucide-react";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
