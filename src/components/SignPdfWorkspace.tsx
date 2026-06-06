@@ -313,10 +313,10 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       try {
         const count = await loadPdfPageCount(bytes, "");
         setPageCount(count);
-        setStatus(`Loaded ${count} page(s). Create a signature, then click it to place on the document.`);
+        setStatus(ws.wsStatus("loadedSign", { count }));
       } catch {
         setPageCount(0);
-        setStatus("Could not open this PDF. If it is protected, enter the password below.");
+        setStatus(ws.wsStatus("couldNotOpen"));
       }
 
       capture(EVENTS.file_selected, { count: 1, operation: tool.operation });
@@ -329,10 +329,10 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     try {
       const count = await loadPdfPageCount(fileBytes, password);
       setPageCount(count);
-      setStatus(`Loaded ${count} page(s).`);
+      setStatus(ws.wsStatus("loaded", { count }));
       setRunError(null);
     } catch {
-      setStatus("Could not open with that password. Check and try again.");
+      setStatus(ws.wsStatus("wrongPassword"));
     }
   }, [fileBytes, password]);
 
@@ -346,12 +346,12 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     };
     setSavedSignatures((prev) => [...prev, saved]);
     addInstance(saved.id, activePageIndex);
-    setStatus("Signature saved. Click it again to add more copies, or drag to position.");
+    setStatus(ws.wsStatus("signatureSaved"));
   };
 
   const placeSavedSignature = (savedId: string) => {
     addInstance(savedId, activePageIndex);
-    setStatus(`Added signature on page ${activePageIndex + 1}. Drag to position.`);
+    setStatus(ws.wsStatus("addedOnPage", { page: activePageIndex + 1 }));
   };
 
   const removeSavedSignature = (savedId: string) => {
@@ -368,11 +368,11 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   const onSign = async () => {
     if (!file || !fileBytes || busy) return;
     if (!instances.length) {
-      setStatus("Place at least one signature on the document.");
+      setStatus(ws.wsStatus("placeSignature"));
       return;
     }
     if (encrypted && !password.trim()) {
-      setStatus("Enter the PDF password to open this file.");
+      setStatus(ws.wsStatus("enterPassword"));
       return;
     }
 
@@ -388,7 +388,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Applying signatures…");
+    setStatus(ws.wsStatus("applying"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -396,7 +396,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       const outName = signPdfOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
-      setStatus(`Signed PDF downloaded as ${outName}.`);
+      setStatus(ws.wsStatus("downloaded", { name: outName }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -592,7 +592,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Adjust placement and try again." : "");
+            setStatus(file ? ws.wsStatus("adjustPlacement") : "");
           }}
         />
       ) : (

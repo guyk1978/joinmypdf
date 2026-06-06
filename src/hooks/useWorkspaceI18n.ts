@@ -4,7 +4,9 @@ import { useTranslations } from "next-intl";
 
 export function useWorkspaceI18n(operation: string) {
   const t = useTranslations("Workspace");
+  const tw = useTranslations("Workspaces");
   const common = useTranslations("Workspace.common");
+  const twCommon = useTranslations("Workspaces.common");
 
   function uploadTitle(fallback?: string): string {
     const key = `upload.${operation}.title`;
@@ -23,6 +25,8 @@ export function useWorkspaceI18n(operation: string) {
   function buttonLabel(fallback?: string): string {
     const key = `buttons.${operation}`;
     if (t.has(key)) return t(key);
+    const wsKey = `${operation}.buttons.convert`;
+    if (tw.has(wsKey)) return tw(wsKey);
     return fallback ?? common("run");
   }
 
@@ -42,14 +46,43 @@ export function useWorkspaceI18n(operation: string) {
     return "";
   }
 
+  function wsStatus(key: string, values?: Record<string, string | number>): string {
+    const opKey = `${operation}.status.${key}`;
+    if (tw.has(opKey)) return tw(opKey, values);
+    return status(key, values);
+  }
+
+  function wsProgress(key: string, values?: Record<string, string | number>): string {
+    const opKey = `${operation}.progress.${key}`;
+    if (tw.has(opKey)) return tw(opKey, values);
+    return progress(key, values);
+  }
+
+  function wsCommon(key: string, values?: Record<string, string | number>): string {
+    if (twCommon.has(key)) return twCommon(key, values);
+    if (common.has(key)) return common(key, values);
+    return "";
+  }
+
+  function wsText(key: string, values?: Record<string, string | number>): string {
+    const opKey = `${operation}.${key}`;
+    if (tw.has(opKey)) return tw(opKey, values);
+    return "";
+  }
+
   return {
     t,
+    tw,
     common,
     uploadTitle,
     uploadDescription,
     buttonLabel,
     status,
     progress,
+    wsStatus,
+    wsProgress,
+    wsCommon,
+    wsText,
     home: common("home"),
     clear: common("clear"),
     processing: common("processing"),

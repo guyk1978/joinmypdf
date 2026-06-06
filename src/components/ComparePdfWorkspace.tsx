@@ -230,7 +230,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setRunError(null);
     setResult(null);
     setPageIndex(0);
-    setStatus("Comparing documents in your browser…");
+    setStatus(ws.wsStatus("comparing"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -241,8 +241,8 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ).length;
       setStatus(
         diffPages
-          ? `Found differences on ${diffPages} of ${compared.pageCount} page(s). Use the legend and page controls below.`
-          : "No text differences detected on compared pages (layout-only changes may not appear).",
+          ? ws.wsStatus("foundDiffs", { diffPages, pageCount: compared.pageCount })
+          : ws.wsStatus("noDiffs"),
       );
       capture(EVENTS.tool_run_success, {
         operation: tool.operation,
@@ -327,8 +327,11 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       {progress ? (
         <p className="text-sm text-ink-muted" role="status">
           {progress.phase === "loading"
-            ? "Loading PDFs…"
-            : `Analyzing page ${progress.currentPage} of ${progress.totalPages}…`}
+            ? ws.wsProgress("loading")
+            : ws.wsProgress("analyzingPage", {
+                current: progress.currentPage,
+                total: progress.totalPages,
+              })}
         </p>
       ) : null}
 

@@ -2,7 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -318,17 +318,17 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsStatus("invalidType"));
       return;
     }
     if (next.size === 0) {
-      setStatus("That file is empty. Choose another PDF.");
+      setStatus(ws.wsStatus("emptyFile"));
       return;
     }
     setBusy(true);
     setRunError(null);
     setDone(false);
-    setStatus("Reading PDF…");
+    setStatus(ws.wsStatus("reading"));
     try {
       const bytes = new Uint8Array(await next.arrayBuffer());
       const count = await loadPdfPageCount(bytes);
@@ -336,7 +336,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       setFileBytes(bytes);
       setPageCount(count);
       setCrop(DEFAULT_CROP_RECT);
-      setStatus(`${next.name} ready — adjust the crop frame, then apply.`);
+      setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -354,13 +354,13 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Cropping pages…");
+    setStatus(ws.wsStatus("cropping"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     try {
       const bytes = await cropPdfBytes(file, crop);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), cropPdfOutputName(file));
       setDone(true);
-      setStatus("Crop complete. Your download should start automatically.");
+      setStatus(ws.wsStatus("complete"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -494,7 +494,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try again or choose another file." : "");
+            setStatus(file ? ws.wsStatus("tryAgain") : "");
           }}
         />
       ) : (

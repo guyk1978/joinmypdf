@@ -3,6 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { workspaceEn, workspaceHe } from "./workspace-i18n-data.mjs";
+import { workspacesEn, workspacesHe } from "./workspaces-i18n-data.mjs";
 
 const cardsEn = {
   compressEmail: { title: "Tighten file size next", body: "If email or a portal rejected the attachment, compress before you resend." },
@@ -376,6 +377,7 @@ const en = {
     },
   },
   Workspace: workspaceEn,
+  Workspaces: workspacesEn,
 };
 
 const he = {
@@ -563,6 +565,7 @@ const he = {
     },
   },
   Workspace: workspaceHe,
+  Workspaces: workspacesHe,
   Tools: { intents: intentsHe },
 };
 

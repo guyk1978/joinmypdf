@@ -257,12 +257,10 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         const { loadPdfPageCount } = await import("@/lib/pdf-redact");
         const count = await loadPdfPageCount(bytes, "");
         setPageCount(count);
-        setStatus(
-          `Loaded ${count} page(s). Drag rectangles over sensitive content, then click Redact PDF.`,
-        );
+        setStatus(ws.wsStatus("loadedMarkDrag", { count }));
       } catch {
         setPageCount(0);
-        setStatus("Could not open this PDF. If it is protected, enter the password below.");
+        setStatus(ws.wsStatus("couldNotOpen"));
       }
 
       capture(EVENTS.file_selected, { count: 1, operation: tool.operation });
@@ -276,28 +274,28 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       const { loadPdfPageCount } = await import("@/lib/pdf-redact");
       const count = await loadPdfPageCount(fileBytes, password);
       setPageCount(count);
-      setStatus(`Loaded ${count} page(s). Mark areas to redact.`);
+      setStatus(ws.wsStatus("loadedMark", { count }));
       setRunError(null);
     } catch {
-      setStatus("Could not open with that password. Check and try again.");
+      setStatus(ws.wsStatus("wrongPassword"));
     }
   }, [fileBytes, password]);
 
   const onRedact = async () => {
     if (!file || !fileBytes || busy) return;
     if (!boxes.length) {
-      setStatus("Draw at least one redaction box before saving.");
+      setStatus(ws.wsStatus("drawBox"));
       return;
     }
     if (encrypted && !password.trim()) {
-      setStatus("Enter the PDF password to open this file.");
+      setStatus(ws.wsStatus("enterPassword"));
       return;
     }
 
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setStatus("Applying redactions…");
+    setStatus(ws.wsStatus("applying"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -305,7 +303,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       const outName = redactOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
-      setStatus(`Redacted PDF downloaded as ${outName}.`);
+      setStatus(ws.wsStatus("downloaded", { name: outName }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -467,7 +465,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus("Adjust your file and try again.");
+            setStatus(ws.wsStatus("adjustFile"));
           }}
         />
       ) : (

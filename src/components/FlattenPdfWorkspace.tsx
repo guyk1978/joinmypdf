@@ -1,8 +1,9 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -16,6 +17,7 @@ import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
+import { progressLabelFromPhase } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -33,15 +35,17 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-function progressLabel(progress: FlattenPdfProgress | null): string {
-  if (!progress) return "";
-  if (progress.phase === "loading") return "Loading PDF...";
-  if (!progress.totalPages) return "Preparing flatten...";
-  return `Flattening page ${progress.currentPage} of ${progress.totalPages}...`;
+function progressPercent(progress: FlattenPdfProgress | null, busy: boolean): number {
+  if (progress && progress.totalPages > 0) {
+    return Math.min(100, Math.round((progress.currentPage / progress.totalPages) * 100));
+  }
+  return busy ? 12 : 0;
 }
 
 export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
+  const labelProgress = (p: FlattenPdfProgress | null) =>
+    progressLabelFromPhase(tool.operation, p, ws);
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [password, setPassword] = useState("");
@@ -73,18 +77,18 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
-      setStatus("Please choose a PDF file.");
+      setStatus(ws.wsStatus("invalidType"));
       return;
     }
     if (next.size === 0) {
-      setStatus("That file is empty. Choose another PDF.");
+      setStatus(ws.wsStatus("emptyFile"));
       return;
     }
 
     setFile(next);
     setDone(false);
     setRunError(null);
-    setStatus("Reading PDF...");
+    setStatus(ws.wsCommon("readingPdf"));
 
     try {
       const pdfjs = await import("pdfjs-dist");
@@ -98,7 +102,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         URL.revokeObjectURL(url);
       }
 
-      setStatus(`${next.name} ready — flatten when you are.`);
+      setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -116,7 +120,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setDone(false);
     setRunError(null);
     setProgress({ phase: "loading", currentPage: 0, totalPages: pageCount });
-    setStatus("Starting flatten...");
+    setStatus(ws.wsStatus("starting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
@@ -124,13 +128,13 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         password: password.trim() || undefined,
         onProgress: (p) => {
           setProgress(p);
-          setStatus(progressLabel(p));
+          setStatus(labelProgress(p));
         },
       });
       const outName = flattenPdfOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
-      setStatus(`Flattened PDF downloaded as ${outName}.`);
+      setStatus(ws.wsStatus("downloaded", { name: outName }));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
@@ -154,12 +158,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
   const showWorkspace = Boolean(file);
   const canFlatten = Boolean(file) && !busy;
-  const progressPercent =
-    progress && progress.totalPages > 0
-      ? Math.min(100, Math.round((progress.currentPage / progress.totalPages) * 100))
-      : busy
-        ? 12
-        : 0;
+  const percent = progressPercent(progress, busy);
 
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
@@ -240,20 +239,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             />
           </div>
 
-          {busy ? (
-            <div className="space-y-2" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>{progressLabel(progress)}</span>
-                <span>{progressPercent}%</span>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-            </div>
-          ) : null}
+          {busy ? <WorkspaceProgressBar percent={percent} label={labelProgress(progress)} /> : null}
 
           <div className="flex flex-wrap gap-3">
             <button

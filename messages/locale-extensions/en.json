@@ -703,5 +703,223 @@
       "splitReadableHint": "Pull out readable pages only",
       "bypassDamagedHint": "Bypass damaged PDF structure"
     }
+  },
+  "Workspaces": {
+    "common": {
+      "choosePdf": "Please choose a PDF file.",
+      "emptyPdf": "That file is empty. Choose another PDF.",
+      "chooseDocx": "Please choose a .docx Word file.",
+      "emptyDocx": "That file is empty. Choose another document.",
+      "chooseXlsx": "Please choose a .xlsx Excel file.",
+      "emptyXlsx": "That file is empty. Choose another workbook.",
+      "choosePptx": "Please choose a .pptx PowerPoint file.",
+      "emptyPptx": "That file is empty. Choose another presentation.",
+      "readingPdf": "Reading PDF…",
+      "readingWorkbook": "Reading workbook…",
+      "fileReadyAction": "{name} ready — {action} when you are.",
+      "conversionCompletePdf": "Conversion complete. Download your PDF below.",
+      "conversionCompleteLandscapePdf": "Conversion complete. Download your landscape PDF below.",
+      "conversionCompleteWord": "Conversion complete. Download your Word document below.",
+      "conversionCompleteText": "Conversion complete. Download your text file below.",
+      "couldNotOpenPdf": "Could not open this PDF. If it is protected, enter the password below.",
+      "wrongPassword": "Could not open with that password. Check and try again.",
+      "enterPassword": "Enter the PDF password to open this file.",
+      "adjustTryAgain": "Adjust and try again.",
+      "tryAgainOrChoose": "Try again or choose another file.",
+      "downloadedAs": "Downloaded as {name}."
+    },
+    "word-to-pdf": {
+      "status": {
+        "invalidType": "Please choose a .docx Word file.",
+        "emptyFile": "That file is empty. Choose another document.",
+        "fileReady": "{name} ready — convert to PDF when you are."
+      },
+      "progress": {
+        "parsing": "Parsing Word document…",
+        "rendering": "Rendering document layout…",
+        "building": "Building PDF…"
+      },
+      "privacyNote": "Word parsing and PDF generation run entirely in your browser. Your document never leaves your device.",
+      "convertLabel": "Convert to PDF",
+      "downloadLabel": "Download PDF",
+      "stickyDownloadLabel": "Download PDF",
+      "stickyConvertLabel": "Convert to PDF"
+    },
+    "excel-to-pdf": {
+      "status": {
+        "invalidType": "Please choose a .xlsx Excel file.",
+        "emptyFile": "That file is empty. Choose another workbook.",
+        "sheetsReady": "{name} ready — {count} sheet(s) detected."
+      },
+      "progress": {
+        "parsing": "Reading Excel workbook…",
+        "rendering": "Rendering spreadsheet tables…",
+        "renderingSheets": "Rendering {count} sheet(s)…",
+        "building": "Building landscape PDF…"
+      },
+      "privacyNote": "Excel parsing and PDF generation run entirely in your browser. Your spreadsheet never leaves your device.",
+      "fileTypeLabel": "Excel (.xlsx)",
+      "convertLabel": "Convert to PDF",
+      "downloadLabel": "Download PDF",
+      "outputHint": "All non-empty sheets export into one landscape PDF. Wide tables may shrink to fit page width.",
+      "readySuffix": " · landscape A4",
+      "stickyDownloadLabel": "Download PDF",
+      "stickyConvertLabel": "Convert to PDF"
+    },
+    "powerpoint-to-pdf": {
+      "status": {
+        "invalidType": "Please choose a .pptx PowerPoint file.",
+        "emptyFile": "That file is empty. Choose another presentation."
+      },
+      "progress": {
+        "parsing": "Reading presentation…",
+        "readingSlide": "Reading slide {current} of {total}…",
+        "rendering": "Rendering slide layout…",
+        "building": "Building landscape PDF…"
+      },
+      "privacyNote": "PowerPoint parsing and PDF generation run entirely in your browser. Your presentation never leaves your device.",
+      "fileTypeLabel": "PowerPoint (.pptx)",
+      "convertLabel": "Convert to PDF",
+      "downloadLabel": "Download PDF",
+      "outputHint": "Slide text exports into a landscape PDF. Images, animations, and complex layouts may simplify.",
+      "stickyDownloadLabel": "Download PDF",
+      "stickyConvertLabel": "Convert to PDF"
+    },
+    "pdf-to-word": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — convert to Word when you are."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "building": "Building Word document…",
+        "extractingPage": "Extracting text — page {current} of {total}…"
+      },
+      "privacyNote": "PDF parsing and Word export run entirely in your browser. Your document never leaves your device.",
+      "convertLabel": "Convert to Word",
+      "downloadLabel": "Download Word document (.docx)",
+      "outputHint": "Best for PDFs with selectable text. Scanned image-only pages may need OCR in another app.",
+      "stickyDownloadLabel": "Download .docx",
+      "stickyConvertLabel": "Convert to Word"
+    },
+    "pdf-to-excel": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "building": "Building Excel workbook…",
+        "extractingPage": "Extracting rows — page {current} of {total}…"
+      },
+      "privacyNote": "PDF parsing and Excel generation run entirely in your browser. Your document never leaves your device.",
+      "fileTypeLabel": "PDF",
+      "convertLabel": "Convert to Excel",
+      "downloadLabel": "Download Excel (.xlsx)",
+      "outputHint": "Each PDF page becomes a worksheet with text grouped into rows and columns by position. Tables may need cleanup.",
+      "stickyDownloadLabel": "Download .xlsx",
+      "stickyConvertLabel": "Convert to Excel"
+    },
+    "pdf-to-powerpoint": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "building": "Building PowerPoint file…",
+        "extractingPage": "Extracting text — page {current} of {total}…"
+      },
+      "privacyNote": "PDF parsing and PowerPoint generation run entirely in your browser. Your document never leaves your device.",
+      "convertLabel": "Convert to PowerPoint",
+      "downloadLabel": "Download PowerPoint (.pptx)",
+      "outputHint": "Each PDF page becomes one slide with extracted text. Scanned pages without selectable text may be blank.",
+      "stickyDownloadLabel": "Download .pptx",
+      "stickyConvertLabel": "Convert to PowerPoint"
+    },
+    "pdf-to-text": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — convert to text when you are."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "building": "Building text file…",
+        "extractingPage": "Extracting text — page {current} of {total}…"
+      },
+      "privacyNote": "PDF text extraction runs entirely in your browser. Your document never leaves your device.",
+      "convertLabel": "Convert to Text",
+      "downloadLabel": "Download text file (.txt)",
+      "outputHint": "Best for PDFs with selectable text. Scanned image-only pages may need OCR in another app.",
+      "stickyDownloadLabel": "Download .txt",
+      "stickyConvertLabel": "Convert to Text"
+    },
+    "flatten-pdf": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — flatten when you are.",
+        "starting": "Starting flatten…",
+        "downloaded": "Flattened PDF downloaded as {name}."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "preparing": "Preparing flatten…",
+        "flatteningPage": "Flattening page {current} of {total}…"
+      },
+      "privacyNote": "Flattening runs entirely in your browser. Your PDF never leaves your device."
+    },
+    "sign": {
+      "status": {
+        "loadedSign": "Loaded {count} page(s). Create a signature, then click it to place on the document.",
+        "loaded": "Loaded {count} page(s).",
+        "couldNotOpen": "Could not open this PDF. If it is protected, enter the password below.",
+        "wrongPassword": "Could not open with that password. Check and try again.",
+        "signatureSaved": "Signature saved. Click it again to add more copies, or drag to position.",
+        "addedOnPage": "Added signature on page {page}. Drag to position.",
+        "placeSignature": "Place at least one signature on the document.",
+        "enterPassword": "Enter the PDF password to open this file.",
+        "applying": "Applying signatures…",
+        "downloaded": "Signed PDF downloaded as {name}.",
+        "adjustPlacement": "Adjust placement and try again."
+      }
+    },
+    "redact": {
+      "status": {
+        "loadedMarkDrag": "Loaded {count} page(s). Drag rectangles over sensitive content, then click Redact PDF.",
+        "loadedMark": "Loaded {count} page(s). Mark areas to redact.",
+        "couldNotOpen": "Could not open this PDF. If it is protected, enter the password below.",
+        "wrongPassword": "Could not open with that password. Check and try again.",
+        "drawBox": "Draw at least one redaction box before saving.",
+        "enterPassword": "Enter the PDF password to open this file.",
+        "applying": "Applying redactions…",
+        "downloaded": "Redacted PDF downloaded as {name}.",
+        "adjustFile": "Adjust your file and try again."
+      }
+    },
+    "compare-pdf": {
+      "status": {
+        "comparing": "Comparing documents in your browser…",
+        "foundDiffs": "Found differences on {diffPages} of {pageCount} page(s). Use the legend and page controls below.",
+        "noDiffs": "No text differences detected on compared pages (layout-only changes may not appear)."
+      },
+      "progress": {
+        "loading": "Loading PDFs…",
+        "analyzingPage": "Analyzing page {current} of {total}…"
+      }
+    },
+    "crop-pdf": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "reading": "Reading PDF…",
+        "fileReady": "{name} ready — adjust the crop frame, then apply.",
+        "cropping": "Cropping pages…",
+        "complete": "Crop complete. Your download should start automatically.",
+        "tryAgain": "Try again or choose another file."
+      }
+    }
   }
 }

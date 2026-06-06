@@ -704,6 +704,224 @@
       "bypassDamagedHint": "עקוף מבנה PDF פגום"
     }
   },
+  "Workspaces": {
+    "common": {
+      "choosePdf": "בחר קובץ PDF.",
+      "emptyPdf": "הקובץ ריק. בחר PDF אחר.",
+      "chooseDocx": "בחר קובץ Word בפורמט .docx.",
+      "emptyDocx": "הקובץ ריק. בחר מסמך אחר.",
+      "chooseXlsx": "בחר קובץ Excel בפורמט .xlsx.",
+      "emptyXlsx": "הקובץ ריק. בחר חוברת עבודה אחרת.",
+      "choosePptx": "בחר קובץ PowerPoint בפורמט .pptx.",
+      "emptyPptx": "הקובץ ריק. בחר מצגת אחרת.",
+      "readingPdf": "קורא PDF…",
+      "readingWorkbook": "קורא חוברת עבודה…",
+      "fileReadyAction": "{name} מוכן — {action} כשתרצה.",
+      "conversionCompletePdf": "ההמרה הושלמה. הורד את ה-PDF למטה.",
+      "conversionCompleteLandscapePdf": "ההמרה הושלמה. הורד את ה-PDF לרוחב למטה.",
+      "conversionCompleteWord": "ההמרה הושלמה. הורד את מסמך Word למטה.",
+      "conversionCompleteText": "ההמרה הושלמה. הורד את קובץ הטקסט למטה.",
+      "couldNotOpenPdf": "לא ניתן לפתוח את ה-PDF. אם הוא מוגן, הזן את הסיסמה למטה.",
+      "wrongPassword": "לא ניתן לפתוח עם הסיסמה הזו. בדוק ונסה שוב.",
+      "enterPassword": "הזן את סיסמת ה-PDF כדי לפתוח את הקובץ.",
+      "adjustTryAgain": "התאם ונסה שוב.",
+      "tryAgainOrChoose": "נסה שוב או בחר קובץ אחר.",
+      "downloadedAs": "הורד כ-{name}."
+    },
+    "word-to-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ Word בפורמט .docx.",
+        "emptyFile": "הקובץ ריק. בחר מסמך אחר.",
+        "fileReady": "{name} מוכן — המר ל-PDF כשתרצה."
+      },
+      "progress": {
+        "parsing": "מנתח מסמך Word…",
+        "rendering": "מרנדר פריסת מסמך…",
+        "building": "בונה PDF…"
+      },
+      "privacyNote": "ניתוח Word ויצירת PDF רצים לחלוטין בדפדפן. המסמך לא עוזב את המכשיר.",
+      "convertLabel": "המר ל-PDF",
+      "downloadLabel": "הורד PDF",
+      "stickyDownloadLabel": "הורד PDF",
+      "stickyConvertLabel": "המר ל-PDF"
+    },
+    "excel-to-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ Excel בפורמט .xlsx.",
+        "emptyFile": "הקובץ ריק. בחר חוברת עבודה אחרת.",
+        "sheetsReady": "{name} מוכן — זוהו {count} גיליון/ים."
+      },
+      "progress": {
+        "parsing": "קורא חוברת Excel…",
+        "rendering": "מרנדר טבלאות…",
+        "renderingSheets": "מרנדר {count} גיליון/ים…",
+        "building": "בונה PDF לרוחב…"
+      },
+      "privacyNote": "ניתוח Excel ויצירת PDF רצים לחלוטין בדפדפן. הגיליון לא עוזב את המכשיר.",
+      "fileTypeLabel": "Excel (.xlsx)",
+      "convertLabel": "המר ל-PDF",
+      "downloadLabel": "הורד PDF",
+      "outputHint": "כל הגיליונות הלא-ריקים מיוצאים ל-PDF לרוחב. טבלאות רחבות עלולות להתכווץ.",
+      "readySuffix": " · A4 לרוחב",
+      "stickyDownloadLabel": "הורד PDF",
+      "stickyConvertLabel": "המר ל-PDF"
+    },
+    "powerpoint-to-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ PowerPoint בפורמט .pptx.",
+        "emptyFile": "הקובץ ריק. בחר מצגת אחרת."
+      },
+      "progress": {
+        "parsing": "קורא מצגת…",
+        "readingSlide": "קורא שקף {current} מתוך {total}…",
+        "rendering": "מרנדר פריסת שקפים…",
+        "building": "בונה PDF לרוחב…"
+      },
+      "privacyNote": "ניתוח PowerPoint ויצירת PDF רצים בדפדפן. המצגת לא עוזבת את המכשיר.",
+      "fileTypeLabel": "PowerPoint (.pptx)",
+      "convertLabel": "המר ל-PDF",
+      "downloadLabel": "הורד PDF",
+      "outputHint": "טקסט השקפים מיוצא ל-PDF לרוחב. תמונות, אנימציות ופריסות מורכבות עלולות להפשט.",
+      "stickyDownloadLabel": "הורד PDF",
+      "stickyConvertLabel": "המר ל-PDF"
+    },
+    "pdf-to-word": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "fileReady": "{name} מוכן — המר ל-Word כשתרצה."
+      },
+      "progress": {
+        "loading": "טוען PDF…",
+        "building": "בונה מסמך Word…",
+        "extractingPage": "מחלץ טקסט — עמוד {current} מתוך {total}…"
+      },
+      "privacyNote": "ניתוח PDF וייצוא Word רצים בדפדפן. המסמך לא עוזב את המכשיר.",
+      "convertLabel": "המר ל-Word",
+      "downloadLabel": "הורד מסמך Word (.docx)",
+      "outputHint": "מתאים ל-PDF עם טקסט ניתן לבחירה. עמודים סרוקים בלבד עשויים לדרוש OCR.",
+      "stickyDownloadLabel": "הורד .docx",
+      "stickyConvertLabel": "המר ל-Word"
+    },
+    "pdf-to-excel": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר."
+      },
+      "progress": {
+        "loading": "טוען PDF…",
+        "building": "בונה חוברת Excel…",
+        "extractingPage": "מחלץ שורות — עמוד {current} מתוך {total}…"
+      },
+      "privacyNote": "ניתוח PDF ויצירת Excel רצים בדפדפן. המסמך לא עוזב את המכשיר.",
+      "fileTypeLabel": "PDF",
+      "convertLabel": "המר ל-Excel",
+      "downloadLabel": "הורד Excel (.xlsx)",
+      "outputHint": "כל עמוד PDF הופך לגיליון עם טקסט מקובץ לפי מיקום. טבלאות עשויות לדרוש ניקוי.",
+      "stickyDownloadLabel": "הורד .xlsx",
+      "stickyConvertLabel": "המר ל-Excel"
+    },
+    "pdf-to-powerpoint": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר."
+      },
+      "progress": {
+        "loading": "טוען PDF…",
+        "building": "בונה קובץ PowerPoint…",
+        "extractingPage": "מחלץ טקסט — עמוד {current} מתוך {total}…"
+      },
+      "privacyNote": "ניתוח PDF ויצירת PowerPoint רצים בדפדפן. המסמך לא עוזב את המכשיר.",
+      "convertLabel": "המר ל-PowerPoint",
+      "downloadLabel": "הורד PowerPoint (.pptx)",
+      "outputHint": "כל עמוד PDF הופך לשקף עם טקסט מחולץ. עמודים סרוקים ללא טקסט עלולים להיות ריקים.",
+      "stickyDownloadLabel": "הורד .pptx",
+      "stickyConvertLabel": "המר ל-PowerPoint"
+    },
+    "pdf-to-text": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "fileReady": "{name} מוכן — המר לטקסט כשתרצה."
+      },
+      "progress": {
+        "loading": "טוען PDF…",
+        "building": "בונה קובץ טקסט…",
+        "extractingPage": "מחלץ טקסט — עמוד {current} מתוך {total}…"
+      },
+      "privacyNote": "חילוץ טקסט מ-PDF רץ בדפדפן. המסמך לא עוזב את המכשיר.",
+      "convertLabel": "המר לטקסט",
+      "downloadLabel": "הורד קובץ טקסט (.txt)",
+      "outputHint": "מתאים ל-PDF עם טקסט ניתן לבחירה. עמודים סרוקים בלבד עשויים לדרוש OCR.",
+      "stickyDownloadLabel": "הורד .txt",
+      "stickyConvertLabel": "המר לטקסט"
+    },
+    "flatten-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "fileReady": "{name} מוכן — שטח כשתרצה.",
+        "starting": "מתחיל שיטוח…",
+        "downloaded": "PDF משוטח הורד כ-{name}."
+      },
+      "progress": {
+        "loading": "טוען PDF…",
+        "preparing": "מכין שיטוח…",
+        "flatteningPage": "משטח עמוד {current} מתוך {total}…"
+      },
+      "privacyNote": "שיטוח רץ לחלוטין בדפדפן. ה-PDF לא עוזב את המכשיר."
+    },
+    "sign": {
+      "status": {
+        "loadedSign": "נטענו {count} עמוד/ים. צור חתימה, ואז לחץ עליה כדי למקם במסמך.",
+        "loaded": "נטענו {count} עמוד/ים.",
+        "couldNotOpen": "לא ניתן לפתוח את ה-PDF. אם הוא מוגן, הזן את הסיסמה למטה.",
+        "wrongPassword": "לא ניתן לפתוח עם הסיסמה הזו. בדוק ונסה שוב.",
+        "signatureSaved": "החתימה נשמרה. לחץ שוב להוספת עותקים, או גרור למיקום.",
+        "addedOnPage": "נוספה חתימה בעמוד {page}. גרור למיקום.",
+        "placeSignature": "הנח לפחות חתימה אחת במסמך.",
+        "enterPassword": "הזן את סיסמת ה-PDF כדי לפתוח את הקובץ.",
+        "applying": "מחיל חתימות…",
+        "downloaded": "PDF חתום הורד כ-{name}.",
+        "adjustPlacement": "התאם מיקום ונסה שוב."
+      }
+    },
+    "redact": {
+      "status": {
+        "loadedMarkDrag": "נטענו {count} עמוד/ים. גרור מלבנים על תוכן רגיש, ואז לחץ על הסתר PDF.",
+        "loadedMark": "נטענו {count} עמוד/ים. סמן אזורים להסתרה.",
+        "couldNotOpen": "לא ניתן לפתוח את ה-PDF. אם הוא מוגן, הזן את הסיסמה למטה.",
+        "wrongPassword": "לא ניתן לפתוח עם הסיסמה הזו. בדוק ונסה שוב.",
+        "drawBox": "צייר לפחות תיבת הסתרה אחת לפני שמירה.",
+        "enterPassword": "הזן את סיסמת ה-PDF כדי לפתוח את הקובץ.",
+        "applying": "מחיל הסתרות…",
+        "downloaded": "PDF מוסתר הורד כ-{name}.",
+        "adjustFile": "התאם את הקובץ ונסה שוב."
+      }
+    },
+    "compare-pdf": {
+      "status": {
+        "comparing": "משווה מסמכים בדפדפן…",
+        "foundDiffs": "נמצאו הבדלים ב-{diffPages} מתוך {pageCount} עמוד/ים. השתמש במקרא ובבקרי העמודים למטה.",
+        "noDiffs": "לא זוהו הבדלי טקסט בעמודים שהושוו (שינויי פריסה בלבד עלולים לא להופיע)."
+      },
+      "progress": {
+        "loading": "טוען PDF…",
+        "analyzingPage": "מנתח עמוד {current} מתוך {total}…"
+      }
+    },
+    "crop-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "reading": "קורא PDF…",
+        "fileReady": "{name} מוכן — התאם את מסגרת החיתוך, ואז החל.",
+        "cropping": "חותך עמודים…",
+        "complete": "חיתוך הושלם. ההורדה אמורה להתחיל אוטומטית.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      }
+    }
+  },
   "Tools": {
     "intents": {
       "pdf-merge": "מיזוג מספר קבצי PDF במהירות בסession אחד בדפדפן.",

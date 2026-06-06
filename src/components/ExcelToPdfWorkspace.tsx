@@ -1,8 +1,9 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { FileUploadZone } from "@/components/FileUploadZone"
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
+import { FileUploadZone } from "@/components/FileUploadZone";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -16,6 +17,7 @@ import {
   readExcelWorkbookMeta,
   type ExcelToPdfProgress,
 } from "@/lib/excel-to-pdf";
+import { progressLabelFromPhase } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -33,18 +35,6 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-function progressLabel(progress: ExcelToPdfProgress | null): string {
-  if (!progress) return "";
-  if (progress.phase === "parsing") return "Reading Excel workbook…";
-  if (progress.phase === "rendering") {
-    if (progress.totalSheets) {
-      return `Rendering ${progress.totalSheets} sheet${progress.totalSheets === 1 ? "" : "s"}…`;
-    }
-    return "Rendering spreadsheet tables…";
-  }
-  return "Building landscape PDF…";
-}
-
 function progressPercent(progress: ExcelToPdfProgress | null, busy: boolean): number {
   if (!progress) return busy ? 10 : 0;
   if (progress.phase === "parsing") return 28;
@@ -54,6 +44,8 @@ function progressPercent(progress: ExcelToPdfProgress | null, busy: boolean): nu
 
 export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
+  const labelProgress = (p: ExcelToPdfProgress | null) =>
+    progressLabelFromPhase(tool.operation, p, ws);
   const [file, setFile] = useState<File | null>(null);
   const [sheetCount, setSheetCount] = useState(0);
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
@@ -90,24 +82,22 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
   const pickFile = async (next: File) => {
     if (!acceptXlsx(next)) {
-      setStatus("Please choose a .xlsx Excel file.");
+      setStatus(ws.wsStatus("invalidType"));
       return;
     }
     if (next.size === 0) {
-      setStatus("That file is empty. Choose another workbook.");
+      setStatus(ws.wsStatus("emptyFile"));
       return;
     }
     setFile(next);
     setPdfBlob(null);
     setDone(false);
     setRunError(null);
-    setStatus("Reading workbook…");
+    setStatus(ws.wsCommon("readingWorkbook"));
     try {
       const meta = await readExcelWorkbookMeta(next);
       setSheetCount(meta.sheetCount);
-      setStatus(
-        `${next.name} ready — ${meta.sheetCount} sheet${meta.sheetCount === 1 ? "" : "s"} detected.`,
-      );
+      setStatus(ws.wsStatus("sheetsReady", { name: next.name, count: meta.sheetCount }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -125,17 +115,17 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setRunError(null);
     setPdfBlob(null);
     setProgress({ phase: "parsing" });
-    setStatus("Starting conversion…");
+    setStatus(ws.common("startingConversion"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
       const blob = await convertXlsxToPdf(file, (p) => {
         setProgress(p);
-        setStatus(progressLabel(p));
+        setStatus(labelProgress(p));
       });
       setPdfBlob(blob);
       setDone(true);
-      setStatus("Conversion complete. Download your landscape PDF below.");
+      setStatus(ws.wsCommon("conversionCompleteLandscapePdf"));
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
       window.setTimeout(() => {
         dispatchToolComplete({ operation: tool.operation, slug });
@@ -170,19 +160,19 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   return (
     <div id="tool-workspace" className="space-y-6 pb-24 md:pb-8">
       <div className="privacy-callout" role="note">
-        <strong>100% Secure:</strong> Excel parsing and PDF generation run entirely in your browser. Your
-        spreadsheet never leaves your device.
+        <strong>{ws.securePrefix}</strong> {ws.wsText("privacyNote")}
       </div>
 
       {!showWorkspace ? (
         <FileUploadZone
+          operation={tool.operation}
           drag={drag}
           role="button"
           tabIndex={0}
           aria-controls={`${baseId}-input`}
           className="cursor-pointer"
-          title="Drop an Excel workbook here or click to browse"
-          description="Convert .xlsx to a landscape PDF locally—no upload required."
+          title={ws.uploadTitle()}
+          description={ws.uploadDescription()}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}
@@ -222,27 +212,16 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
                 {file ? formatBytes(file.size) : ""}
-                {sheetCount ? ` · ${sheetCount} sheet${sheetCount === 1 ? "" : "s"}` : ""} · Excel (.xlsx)
+                {sheetCount ? ` · ${sheetCount} sheet${sheetCount === 1 ? "" : "s"}` : ""} · {ws.wsText("fileTypeLabel")}
               </p>
             </div>
             <span className="rounded-full border border-brand/30 bg-brand/10 px-3 py-1 text-xs font-medium text-brand">
-              Client-side only
+              {ws.clientSideOnly}
             </span>
           </div>
 
           {busy ? (
-            <div className="space-y-2" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-ink-muted">
-                <span>{progressLabel(progress)}</span>
-                <span>{percent}%</span>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-brand to-brand-deep transition-all duration-300"
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
-            </div>
+            <WorkspaceProgressBar percent={percent} label={labelProgress(progress)} />
           ) : null}
 
           <div className="flex flex-wrap gap-3">
@@ -252,7 +231,7 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               onClick={() => void onConvert()}
               className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-surface shadow-lg shadow-brand/20 transition hover:bg-brand-deep disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {hasPdf ? "Convert again" : "Convert to PDF"}
+              {hasPdf ? ws.common("convertAgain") : ws.wsText("convertLabel")}
             </button>
             {hasPdf ? (
               <button
@@ -261,7 +240,7 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 onClick={onDownload}
                 className="rounded-xl border border-brand/40 bg-brand/10 px-5 py-3 text-sm font-semibold text-brand transition hover:bg-brand/15 disabled:opacity-50"
               >
-                Download PDF
+                {ws.wsText("downloadLabel")}
               </button>
             ) : null}
             <button
@@ -270,19 +249,19 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               onClick={reset}
               className="rounded-xl border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
             >
-              Choose another file
+              {ws.chooseAnotherFile}
             </button>
           </div>
 
           {hasPdf && file ? (
             <p className="text-sm text-ink-muted">
-              Ready: <span className="font-medium text-ink">{excelToPdfOutputName(file)}</span>
-              {pdfBlob ? ` (${formatBytes(pdfBlob.size)})` : ""} · landscape A4
+              {ws.common("ready")}{" "}
+              <span className="font-medium text-ink">{excelToPdfOutputName(file)}</span>
+              {pdfBlob ? ` (${formatBytes(pdfBlob.size)})` : ""}
+              {ws.wsText("readySuffix")}
             </p>
           ) : (
-            <p className="text-sm text-ink-muted">
-              All non-empty sheets export into one landscape PDF. Wide tables may shrink to fit page width.
-            </p>
+            <p className="text-sm text-ink-muted">{ws.wsText("outputHint")}</p>
           )}
         </div>
       ) : null}
@@ -295,7 +274,7 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? "Try converting again or choose another file." : "");
+            setStatus(file ? ws.status("tryAgainOrChoose") : "");
           }}
         />
       ) : (
@@ -308,7 +287,7 @@ export function ExcelToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={hasPdf ? "Download PDF" : "Convert to PDF"}
+        label={hasPdf ? ws.wsText("stickyDownloadLabel") : ws.wsText("stickyConvertLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
       />
