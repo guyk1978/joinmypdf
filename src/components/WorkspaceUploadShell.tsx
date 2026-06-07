@@ -18,8 +18,7 @@ type WorkspaceUploadShellProps = {
 };
 
 /**
- * Strict layout matching reference mockup:
- * Title → Description → Main glass container (drop-zone) → Privacy badge (outside, centered).
+ * Reference layout: centered header (title + description) → glass card (p-10) → privacy badge.
  */
 export function WorkspaceUploadShell({
   children,
@@ -32,33 +31,37 @@ export function WorkspaceUploadShell({
   const pageShell = useToolPageShell();
   const headline = headlineProp ?? pageShell.headline;
   const subline = sublineProp ?? pageShell.subline;
+  const hasHeader = Boolean(headline || subline);
 
   return (
-    <div className={clsx(toolUploadStack, "tool-upload-stack tool-glass-shell", className)}>
-      {headline ? (
-        <h1 className="tool-glass-headline text-center text-3xl font-bold tracking-tight text-ink dark:text-white md:text-4xl">
-          {headline}
-        </h1>
+    <div
+      className={clsx(
+        toolUploadStack,
+        "tool-upload-stack tool-glass-shell flex w-full flex-col items-center",
+        className,
+      )}
+    >
+      {hasHeader ? (
+        <header className="tool-glass-header mb-6 w-full text-center">
+          {headline ? (
+            <h1 className="tool-glass-headline text-3xl font-bold tracking-tight text-ink dark:text-white md:text-4xl">
+              {headline}
+            </h1>
+          ) : null}
+          {subline ? (
+            <p className="tool-glass-subline mt-2 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 md:text-base">
+              {subline}
+            </p>
+          ) : null}
+        </header>
       ) : null}
 
-      {subline ? (
-        <p className="tool-glass-subline mt-3 text-center text-sm leading-relaxed text-ink-muted dark:text-neutral-400 md:text-base">
-          {subline}
-        </p>
-      ) : null}
-
-      <div
-        className={clsx(
-          "tool-glass-container mt-8 w-full px-8 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14",
-          theme.shell,
-          headline || subline ? "" : "mt-0",
-        )}
-      >
+      <div className={clsx("tool-glass-container w-full p-10", theme.shell)}>
         <div className="tool-glass-shell__body">{children}</div>
       </div>
 
       {showPrivacyBadge ? (
-        <div className="tool-glass-privacy-wrap mt-4 flex justify-center">
+        <div className="tool-glass-privacy-wrap mt-6 flex justify-center">
           <ToolPrivacyBadge />
         </div>
       ) : null}

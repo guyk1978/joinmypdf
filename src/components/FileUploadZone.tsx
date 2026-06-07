@@ -93,7 +93,7 @@ export function FileUploadZone({
   return (
     <div
       className={clsx(
-        "tool-upload-zone group relative flex w-full flex-col items-center justify-center p-10 text-center md:p-12",
+        "tool-upload-zone group relative flex w-full flex-col items-center justify-center p-8 text-center md:p-10",
         theme.dropzone,
         isHero ? "min-h-[260px] md:min-h-[280px]" : "min-h-[240px] md:min-h-[260px]",
         active && theme.dropzoneActive,
@@ -102,18 +102,18 @@ export function FileUploadZone({
       {...rest}
     >
       {input}
-      <div className="flex w-full flex-col items-center justify-center gap-6">
+      <div className="flex w-full flex-col items-center justify-center">
         <UploadDocumentIcon active={active} />
-        <div className="max-w-md space-y-2.5">
+        <div className="mt-5 max-w-md space-y-2 text-center">
           <p className="text-base font-bold tracking-tight text-ink dark:text-white md:text-lg">{instruction}</p>
           {description ? (
-            <p className="text-xs leading-relaxed text-ink-muted dark:text-neutral-400 md:text-sm">{description}</p>
+            <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400 md:text-sm">{description}</p>
           ) : null}
         </div>
         <SelectFilesCta
           label={common("selectFiles")}
           ariaLabel={common("selectFilesAria")}
-          className={clsx(theme.cta, theme.ctaHover)}
+          className={clsx("mt-4", theme.cta, theme.ctaHover)}
         />
         {showFormatBadges && supportedFormats.length ? (
           <div className="flex w-full flex-wrap items-center justify-center gap-1.5 pt-1">

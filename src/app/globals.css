@@ -2846,7 +2846,8 @@ html.dark .partner-mapdiagram[style] a {
   isolation: isolate;
 }
 
-.tool-glass-container::before {
+/* Dark — glass depth via radial highlight */
+html.dark .tool-glass-container::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -2856,7 +2857,7 @@ html.dark .partner-mapdiagram[style] a {
   z-index: 0;
 }
 
-.tool-glass-container::after {
+html.dark .tool-glass-container::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -2866,27 +2867,51 @@ html.dark .partner-mapdiagram[style] a {
   z-index: 0;
 }
 
+/* Light — subtle inner highlight, no heavy shadow */
+html:not(.dark) .tool-glass-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 90% 65% at 50% 0%, rgba(255, 255, 255, 0.65) 0%, transparent 58%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .tool-glass-shell__body {
   position: relative;
   z-index: 1;
 }
 
-/* Inner drop-zone — neon glow frame via theme CSS variable */
+/* Inner drop-zone — neon glow on inner ring only */
 .tool-upload-zone {
   max-width: none;
   width: 100%;
   margin-inline: auto;
   border: none;
   box-shadow:
-    0 0 20px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.2),
-    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.3);
+    0 0 15px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.18),
+    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.28);
+}
+
+html.dark .tool-upload-zone {
+  box-shadow:
+    0 0 15px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.3),
+    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.35);
 }
 
 .tool-upload-zone:hover,
 .tool-upload-zone.tool-upload-zone--active {
   box-shadow:
-    0 0 28px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.32),
-    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.48);
+    0 0 22px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.26),
+    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.4);
+}
+
+html.dark .tool-upload-zone:hover,
+html.dark .tool-upload-zone.tool-upload-zone--active {
+  box-shadow:
+    0 0 24px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.38),
+    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.5);
 }
 
 .tool-glass-privacy-wrap .tool-privacy-badge {

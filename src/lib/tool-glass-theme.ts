@@ -21,13 +21,16 @@ export type ToolGlassTheme = {
   ctaHover: string;
 };
 
-/** Outer glass shell — reference: gray-900/40, blur-2xl, white/10 border, 24px radius */
+/** Outer glass shell — reference: rounded-[20px], light + dark variants */
 export const TOOL_GLASS_SHELL_BASE =
-  "rounded-[24px] border border-white/10 bg-gray-900/40 backdrop-blur-2xl";
+  "rounded-[20px] border border-neutral-200 bg-white/80 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/40 dark:shadow-none dark:backdrop-blur-2xl";
 
-/** Inner drop-zone box — no solid border; neon ring rendered in CSS */
+/** Inner drop-zone — neon ring rendered in CSS on .tool-upload-zone */
 export const TOOL_GLASS_DROPZONE_BASE =
-  "tool-upload-zone-inner rounded-[20px] bg-black/20 backdrop-blur-[2px] transition-[box-shadow,background-color] duration-200";
+  "tool-upload-zone-inner rounded-[16px] bg-black/[0.03] backdrop-blur-[2px] transition-[box-shadow,background-color] duration-200 dark:bg-black/20";
+
+const CTA_BASE =
+  "rounded-lg border bg-transparent px-6 py-2.5 text-sm font-semibold border-neutral-400 text-ink dark:border-white/80 dark:text-white";
 
 export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
   convert: {
@@ -39,10 +42,10 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     dropzoneActive: "tool-upload-zone--active",
     dropzoneHover: "",
     panel:
-      "rounded-[24px] border border-white/10 bg-gray-900/40 backdrop-blur-2xl ring-1 ring-red-500/10",
+      "rounded-[20px] border border-neutral-200 bg-white/80 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/40 dark:shadow-none dark:backdrop-blur-2xl ring-1 ring-red-500/10",
     badgeIcon: "text-neutral-500",
-    cta: "rounded-lg border border-white/80 bg-transparent px-6 py-2.5 text-sm font-semibold text-white shadow-[0_0_16px_rgba(239,68,68,0.15)]",
-    ctaHover: "hover:border-white hover:bg-white/[0.04] hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]",
+    cta: `${CTA_BASE} dark:shadow-[0_0_15px_rgba(239,68,68,0.3)]`,
+    ctaHover: "hover:border-neutral-600 hover:bg-neutral-50 dark:hover:border-white dark:hover:bg-white/[0.04] dark:hover:shadow-[0_0_20px_rgba(239,68,68,0.35)]",
   },
   edit: {
     id: "edit",
@@ -53,10 +56,10 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     dropzoneActive: "tool-upload-zone--active",
     dropzoneHover: "",
     panel:
-      "rounded-[24px] border border-white/10 bg-gray-900/40 backdrop-blur-2xl ring-1 ring-emerald-500/10",
+      "rounded-[20px] border border-neutral-200 bg-white/80 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/40 dark:shadow-none dark:backdrop-blur-2xl ring-1 ring-emerald-500/10",
     badgeIcon: "text-neutral-500",
-    cta: "rounded-lg border border-white/80 bg-transparent px-6 py-2.5 text-sm font-semibold text-white",
-    ctaHover: "hover:border-white hover:bg-white/[0.04]",
+    cta: CTA_BASE,
+    ctaHover: "hover:border-neutral-600 hover:bg-neutral-50 dark:hover:border-white dark:hover:bg-white/[0.04]",
   },
   optimize: {
     id: "optimize",
@@ -67,10 +70,10 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     dropzoneActive: "tool-upload-zone--active",
     dropzoneHover: "",
     panel:
-      "rounded-[24px] border border-white/10 bg-gray-900/40 backdrop-blur-2xl ring-1 ring-orange-500/10",
+      "rounded-[20px] border border-neutral-200 bg-white/80 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/40 dark:shadow-none dark:backdrop-blur-2xl ring-1 ring-orange-500/10",
     badgeIcon: "text-neutral-500",
-    cta: "rounded-lg border border-white/80 bg-transparent px-6 py-2.5 text-sm font-semibold text-white",
-    ctaHover: "hover:border-white hover:bg-white/[0.04]",
+    cta: CTA_BASE,
+    ctaHover: "hover:border-neutral-600 hover:bg-neutral-50 dark:hover:border-white dark:hover:bg-white/[0.04]",
   },
   security: {
     id: "security",
@@ -81,10 +84,10 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     dropzoneActive: "tool-upload-zone--active",
     dropzoneHover: "",
     panel:
-      "rounded-[24px] border border-white/10 bg-gray-900/40 backdrop-blur-2xl ring-1 ring-violet-500/10",
+      "rounded-[20px] border border-neutral-200 bg-white/80 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/40 dark:shadow-none dark:backdrop-blur-2xl ring-1 ring-violet-500/10",
     badgeIcon: "text-neutral-500",
-    cta: "rounded-lg border border-white/80 bg-transparent px-6 py-2.5 text-sm font-semibold text-white",
-    ctaHover: "hover:border-white hover:bg-white/[0.04]",
+    cta: CTA_BASE,
+    ctaHover: "hover:border-neutral-600 hover:bg-neutral-50 dark:hover:border-white dark:hover:bg-white/[0.04]",
   },
 };
 
