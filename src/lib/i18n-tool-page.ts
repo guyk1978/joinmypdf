@@ -10,6 +10,7 @@ const ACTION_KEYS: Record<string, string> = {
   compress: "compress",
   split: "split",
   "batch-rename-pdf": "batchRename",
+  "pdf-text-editor": "textEditor",
   "compare-pdf": "compare",
   "pdf-to-booklet": "booklet",
   "safe-to-share-auditor": "safeShare",

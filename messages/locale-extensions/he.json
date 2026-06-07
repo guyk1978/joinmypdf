@@ -16,6 +16,7 @@
       "compress": "לדחוס PDF",
       "split": "לפצל PDF",
       "batchRename": "לשנות שם קבוצתי לקבצי PDF",
+      "textEditor": "להוסיף או להחליף טקסט גלוי ב-PDF מקומית",
       "compare": "להשוות שני PDF זה לצד זה",
       "booklet": "להציג PDF כחוברת מוכנה להדפסה",
       "safeShare": "לבדוק PDF לתוכן רגיש לפני שיתוף",
@@ -508,7 +509,9 @@
       "selectFilesAria": "בחר קבצים",
       "privacyTitle": "100% פרטי ומהיר:",
       "privacyBody": "קבצים מעובדים מקומית בדפדפן ולא עוזבים את המכשיר.",
-      "privacyStatement": "100% פרטי: כל העיבוד מתבצע מקומית בדפדפן. הקבצים שלך לעולם לא עוזבים את המכשיר.",
+      "privacyStatement": "100% פרטי: כל העיבוד מתבצע מקומית בדפדפן. הקבצים שלך לא עוזבים את המכשיר.",
+      "privacyGuaranteeTitle": "ערבות פרטיות",
+      "privacyGuaranteeBody": "כלי זה רץ מקומית בדפדפן. לא מועלים קבצים לשרת. הנתונים נשארים במכשיר שלך.",
       "securePrefix": "100% מאובטח:",
       "pngPrivacy": "המרת תמונות רצה לחלוטין בדפדפן. התמונות הפרטיות שלך לא מועלות לשום שרת.",
       "loading": "טוען…",
@@ -649,6 +652,10 @@
         "title": "גרור קבצי PDF או תיקייה לכאן",
         "description": "הוסף PDF והחל תבנית שינוי שם לפני ההורדה."
       },
+      "pdf-text-editor": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "בחר PDF אחד להוספת או החלפת טקסט גלוי — מעובד מקומית."
+      },
       "pdf-to-booklet": {
         "title": "גרור PDF להטלה כחוברת",
         "description": "הכן PDF להדפסה duplex קיפול וסיכה."
@@ -703,7 +710,8 @@
       "pdf-to-jpg": "ייצוא עמודים כ-JPG",
       "protect": "הגן על PDF",
       "unlock": "הסר נעילה",
-      "sign": "חתום על PDF"
+      "sign": "חתום על PDF",
+      "pdf-text-editor": "החל והורד PDF"
     },
     "status": {
       "common": {
@@ -1131,7 +1139,11 @@
         "enterPassword": "הזן את סיסמת ה-PDF כדי לפתוח את הקובץ.",
         "applying": "מחיל הסתרות…",
         "downloaded": "PDF מוסתר הורד כ-{name}.",
-        "adjustFile": "התאם את הקובץ ונסה שוב."
+        "adjustFile": "התאם את הקובץ ונסה שוב.",
+        "enterKeyword": "הזן מילה או ביטוי לחיפוש.",
+        "searchingKeyword": "מחפש התאמות טקסט…",
+        "noKeywordMatches": "לא נמצאו התאמות לביטוי שחיפשת.",
+        "keywordMatchesAdded": "נוספו {count} תיבת/ות הסתרה מהחיפוש. כוונן ידנית לפני ייצוא."
       },
       "privacyNote": "כל תהליכי ההסתרה מתבצעים מקומית בדפדפן.",
       "redactLabel": "הסתר PDF",
@@ -1141,7 +1153,14 @@
         "passwordLabel": "סיסמת PDF (נדרש לקבצים מוגנים)",
         "passwordPlaceholder": "הזן סיסמה לתצוגה מקדימה",
         "loadPages": "טען עמודים",
-        "clearAll": "נקה הכל"
+        "clearAll": "נקה הכל",
+        "keywordHeading": "חיפוש לפי מילת מפתח",
+        "keywordHint": "מצא טקסט ניתן לחילוץ והוסף תיבות הסתרה אוטומטית. עמודים מסומנים נשרפים לתמונה — לא רק מכוסים.",
+        "keywordLabel": "מילה או ביטוי",
+        "keywordPlaceholder": "למשל שם לקוח או מספר חשבון",
+        "keywordCaseSensitive": "רגיש לרישיות",
+        "keywordFind": "מצא והוסף תיבות",
+        "keywordSearching": "מחפש…"
       }
     },
     "compare-pdf": {
@@ -1624,6 +1643,35 @@
         "enableTextReplacement": "הפעל החלפת טקסט"
       }
     },
+    "pdf-text-editor": {
+      "status": {
+        "loadedClick": "נטענו {count} עמוד/ים. הקלד טקסט, בחר עמוד, ולחץ על התצוגה לשיבוץ.",
+        "couldNotOpen": "לא ניתן לפתוח את ה-PDF. אם הוא מוגן, הזן את הסיסמה למטה.",
+        "enterText": "הקלד טקסט לפני שיבוץ.",
+        "layerAdded": "שכבת טקסט נוספה ({count} סה\"כ).",
+        "addLayer": "הוסף לפחות שכבת טקסט אחת לפני הורדה.",
+        "enterPassword": "הזן את סיסמת ה-PDF כדי לפתוח את הקובץ.",
+        "applying": "מחיל שכבות טקסט…",
+        "downloaded": "PDF ערוך הורד כ-{name}.",
+        "adjustFile": "התאם את הקובץ ונסה שוב."
+      },
+      "privacyNote": "עריכת טקסט מתבצעת לחלוטין בדפדפן — הקובץ לא עוזב את המכשיר.",
+      "stickyLabel": "החל והורד",
+      "ui": {
+        "passwordLabel": "סיסמת PDF (לקבצים מוגנים)",
+        "textLabel": "טקסט להוספה",
+        "textPlaceholder": "למשל תאריך מעודכן או הערה",
+        "pageLabel": "עמוד פעיל",
+        "pageOption": "עמוד {page}",
+        "fontSizeLabel": "גודל גופן",
+        "colorLabel": "צבע",
+        "coverExistingLabel": "כסה טקסט קיים (רקע לבן)",
+        "loadingPreview": "טוען תצוגה מקדימה…",
+        "clickToPlace": "לחץ על התצוגה לשיבוץ הטקסט",
+        "layerSummary": "עמוד {page}: {text}",
+        "removeLayer": "הסר"
+      }
+    },
     "pdf-to-booklet": {
       "status": {
         "invalidType": "בחר קובץ PDF.",
@@ -1778,6 +1826,7 @@
       "pdf-compress": "הקטנת גודל PDF לשליחה בדוא\"ל או העלאה — בלי להעלות לשרת.",
       "pdf-split": "פיצול PDF לעמודים או קטעים נפרדים מקומית בדפדפן.",
       "batch-rename-pdf": "שינוי שם קבוצתי לקבצי PDF לפי כללים עקביים.",
+      "pdf-text-editor": "הוספת או החלפת טקסט גלוי ב-PDF בדפדפן — בלי העלאה לענן.",
       "compare-pdf": "השוואת שני PDF זה לצד זה בדפדפן.",
       "pdf-to-booklet": "המרת PDF לפריסת חוברת מוכנה להדפסה.",
       "jpg-to-pdf": "המרת תמונות JPG ל-PDF אחד מסודר.",

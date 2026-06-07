@@ -133,3 +133,62 @@ export async function renderPdfPageForUi(
   const canvas = await renderPdfJsPage(doc, pageIndex + 1, scale);
   return { canvas, width: canvas.width, height: canvas.height };
 }
+
+/** Find keyword matches and return normalized redaction rectangles (top-left origin). */
+export async function findKeywordRedactionRects(
+  source: Uint8Array,
+  keyword: string,
+  options?: { password?: string; caseSensitive?: boolean },
+): Promise<NormalizedRedactionRect[]> {
+  const query = keyword.trim();
+  if (!query) return [];
+
+  const password = options?.password?.trim() || undefined;
+  const caseSensitive = options?.caseSensitive ?? false;
+  const pdfjs = await setupPdfJs();
+  const doc = await pdfjs.getDocument({
+    data: source.slice(),
+    password,
+  }).promise;
+
+  const rects: NormalizedRedactionRect[] = [];
+  const needle = caseSensitive ? query : query.toLowerCase();
+
+  for (let pageIndex = 0; pageIndex < doc.numPages; pageIndex += 1) {
+    const page = await doc.getPage(pageIndex + 1);
+    const viewport = page.getViewport({ scale: 1 });
+    const pageWidth = viewport.width;
+    const pageHeight = viewport.height;
+    const content = await page.getTextContent();
+
+    for (const item of content.items) {
+      if (!("str" in item) || typeof item.str !== "string") continue;
+      const haystack = caseSensitive ? item.str : item.str.toLowerCase();
+      if (!haystack.includes(needle)) continue;
+
+      const transform = item.transform;
+      const x = transform[4] ?? 0;
+      const y = transform[5] ?? 0;
+      const itemWidth =
+        typeof (item as { width?: number }).width === "number"
+          ? (item as { width: number }).width
+          : query.length * 6;
+      const itemHeight =
+        typeof (item as { height?: number }).height === "number"
+          ? (item as { height: number }).height
+          : Math.abs(transform[3] ?? 12) || 12;
+
+      const pad = 2;
+      const nx = Math.max(0, (x - pad) / pageWidth);
+      const ny = Math.max(0, (pageHeight - y - itemHeight - pad) / pageHeight);
+      const nw = Math.min(1 - nx, (itemWidth + pad * 2) / pageWidth);
+      const nh = Math.min(1 - ny, (itemHeight + pad * 2) / pageHeight);
+
+      if (nw > 0 && nh > 0) {
+        rects.push({ pageIndex, nx, ny, nw, nh });
+      }
+    }
+  }
+
+  return rects;
+}

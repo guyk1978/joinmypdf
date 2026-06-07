@@ -5,6 +5,7 @@ import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
+import { PrivacyGuaranteeBanner } from "@/components/PrivacyGuaranteeBanner";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import type { ToolDefinition } from "@/lib/types";
@@ -12,6 +13,7 @@ import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
   REDACT_UI_SCALE,
+  findKeywordRedactionRects,
   type NormalizedRedactionRect,
   renderPdfPageForUi,
 } from "@/lib/pdf-redact";
@@ -208,6 +210,9 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const [encrypted, setEncrypted] = useState(false);
   const [boxes, setBoxes] = useState<NormalizedRedactionRect[]>([]);
   const [draft, setDraft] = useState<DragState | null>(null);
+  const [keywordQuery, setKeywordQuery] = useState("");
+  const [keywordCaseSensitive, setKeywordCaseSensitive] = useState(false);
+  const [keywordBusy, setKeywordBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -230,6 +235,8 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setEncrypted(false);
     setBoxes([]);
     setDraft(null);
+    setKeywordQuery("");
+    setKeywordCaseSensitive(false);
     setStatus("");
     setDone(false);
     setRunError(null);
@@ -249,6 +256,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       setFileBytes(bytes);
       setBoxes([]);
       setDraft(null);
+      setKeywordQuery("");
       setDone(false);
       setRunError(null);
       setPassword("");
@@ -287,6 +295,41 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       setStatus(ws.wsStatus("wrongPassword"));
     }
   }, [fileBytes, password]);
+
+  const onFindKeywords = async () => {
+    if (!fileBytes || keywordBusy) return;
+    const query = keywordQuery.trim();
+    if (!query) {
+      setStatus(ws.wsStatus("enterKeyword"));
+      return;
+    }
+    if (encrypted && !password.trim()) {
+      setStatus(ws.wsStatus("enterPassword"));
+      return;
+    }
+
+    setKeywordBusy(true);
+    setRunError(null);
+    setStatus(ws.wsStatus("searchingKeyword"));
+    try {
+      const found = await findKeywordRedactionRects(fileBytes, query, {
+        password,
+        caseSensitive: keywordCaseSensitive,
+      });
+      if (!found.length) {
+        setStatus(ws.wsStatus("noKeywordMatches"));
+        return;
+      }
+      setBoxes((prev) => [...prev, ...found]);
+      setStatus(ws.wsStatus("keywordMatchesAdded", { count: found.length }));
+    } catch (e) {
+      const parsed = classifyPdfError(e);
+      setRunError(parsed);
+      setStatus("");
+    } finally {
+      setKeywordBusy(false);
+    }
+  };
 
   const onRedact = async () => {
     if (!file || !fileBytes || busy) return;
@@ -333,6 +376,8 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+      <PrivacyGuaranteeBanner />
+
       <WorkspaceUploadShell>
             {!file ? (
         <FileUploadZone
@@ -411,6 +456,46 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                   className="rounded-none border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5"
                 >
                   {ws.wsUi("loadPages")}
+                </button>
+              </div>
+            </div>
+          ) : null}
+
+          {fileBytes && pageCount > 0 ? (
+            <div className="grid gap-3 rounded-none border border-emerald-400/25 bg-emerald-500/[0.06] p-4 ring-1 ring-emerald-400/20 backdrop-blur-md dark:border-emerald-400/35 dark:bg-emerald-500/10">
+              <p className="text-sm font-semibold text-ink">{ws.wsUi("keywordHeading")}</p>
+              <p className="text-xs text-ink-muted">{ws.wsUi("keywordHint")}</p>
+              <div className="flex flex-wrap items-end gap-3">
+                <label className="block min-w-[200px] flex-1 text-sm">
+                  <span className="font-medium text-ink">{ws.wsUi("keywordLabel")}</span>
+                  <input
+                    type="search"
+                    value={keywordQuery}
+                    onChange={(e) => setKeywordQuery(e.target.value)}
+                    placeholder={ws.wsUi("keywordPlaceholder")}
+                    className="protect-form__input mt-1 w-full"
+                    disabled={busy || keywordBusy}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") void onFindKeywords();
+                    }}
+                  />
+                </label>
+                <label className="flex items-center gap-2 pb-2 text-sm text-ink">
+                  <input
+                    type="checkbox"
+                    checked={keywordCaseSensitive}
+                    onChange={(e) => setKeywordCaseSensitive(e.target.checked)}
+                    disabled={busy || keywordBusy}
+                  />
+                  <span>{ws.wsUi("keywordCaseSensitive")}</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => void onFindKeywords()}
+                  disabled={busy || keywordBusy || !keywordQuery.trim()}
+                  className="rounded-none border border-white/15 px-4 py-2 text-sm font-semibold text-ink hover:bg-white/5 disabled:opacity-50"
+                >
+                  {keywordBusy ? ws.wsUi("keywordSearching") : ws.wsUi("keywordFind")}
                 </button>
               </div>
             </div>

@@ -4758,6 +4758,411 @@
           { "href": "/tools/pdf-to-booklet/", "anchor": "PDF to Booklet" }
         ]
       }
+    },
+    {
+      "slug": "how-to-edit-pdf-text-locally-safely",
+      "title": "Beginner's Guide: Edit PDF Text Easily and Safely in Your Browser",
+      "keyword": "edit pdf text locally safely",
+      "category": "Edit & Organize",
+      "cluster": "edit-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "9 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["pdf-text-editor", "add-watermark", "compare-pdf"],
+      "relatedBlogs": [
+        "five-things-before-uploading-pdf-to-unknown-editors",
+        "add-text-to-official-documents-without-breaking-layout"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "How to Edit PDF Text Locally and Safely (Browser Guide)",
+        "metaDescription": "Learn to overlay and fix PDF text in your browser without uploading files. Step-by-step workflow with JoinMyPDF PDF Text Editor."
+      },
+      "description": "A practical guide to editing PDF text locally—why browser processing beats cloud editors for sensitive documents.",
+      "contentBlocks": {
+        "intro": "Editing a PDF should not require sending the whole file to an unknown server. JoinMyPDF PDF Text Editor lets you place text layers and optional white covers on top of existing content—entirely in your browser.",
+        "editorialNote": "This guide focuses on overlay edits (notes, dates, corrected labels)—not rewriting native PDF text objects.",
+        "primaryTool": "pdf-text-editor",
+        "sections": [
+          {
+            "id": "why-local",
+            "heading": "Why local editing is safer than cloud editors",
+            "level": 2,
+            "paragraphs": [
+              "Cloud PDF editors upload your bytes to remote infrastructure. Even with HTTPS, you create copies you cannot fully audit: retention windows, backups, and subprocessors.",
+              "Client-side editing keeps the document in your tab's memory. The network loads HTML and JavaScript—not your contract, invoice, or medical form."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "Step-by-step: overlay text on a PDF",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Open PDF Text Editor and load your file.",
+              "Type the text you need (date, reference number, corrected label).",
+              "Pick the page, adjust font size and color, and enable white cover if replacing visible text.",
+              "Click the preview to place the layer; repeat for other pages if needed.",
+              "Download *-edited.pdf and verify placement at 100% zoom."
+            ]
+          },
+          {
+            "id": "limits",
+            "heading": "What this tool does—and does not—change",
+            "level": 2,
+            "paragraphs": [
+              "PDF Text Editor adds new text layers on the page. It does not rewrite embedded font objects inside the original text stream—use PDF to Word for deep rewrites.",
+              "Optional white cover masks underlying content visually before your new text is drawn—ideal for typos on forms and scanned packets."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Is my PDF uploaded?",
+            "a": "No. Editing runs locally with pdf-lib in your browser."
+          },
+          {
+            "q": "Can I edit password-protected PDFs?",
+            "a": "Yes—enter the password, place layers, then download."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/pdf-text-editor/", "anchor": "PDF Text Editor" },
+          { "href": "/blog/five-things-before-uploading-pdf-to-unknown-editors/", "anchor": "Privacy risks of unknown editors" },
+          { "href": "/privacy-first-pdf-tools/", "anchor": "Privacy-first PDF tools hub" }
+        ]
+      }
+    },
+    {
+      "slug": "five-things-before-uploading-pdf-to-unknown-editors",
+      "title": "5 Things to Know Before Uploading a Document to Unknown PDF Editors",
+      "keyword": "pdf editor upload privacy risks",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["pdf-text-editor", "redact-pdf", "protect-pdf"],
+      "relatedBlogs": [
+        "how-to-edit-pdf-text-locally-safely",
+        "hidden-risks-of-free-online-pdf-editors"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "5 Things Before Uploading PDFs to Unknown Editors",
+        "metaDescription": "Retention, jurisdiction, and copy risk—five checks before you upload a sensitive PDF to a random editor site."
+      },
+      "description": "Five privacy checks before you trust a free PDF editor with contracts, payroll, or medical files.",
+      "contentBlocks": {
+        "intro": "Unknown PDF sites feel convenient until you realize the upload is a copy outside your control. Before you edit text, sign, or redact—ask these five questions.",
+        "primaryTool": "pdf-text-editor",
+        "sections": [
+          {
+            "id": "five-things",
+            "heading": "Five checks before you upload",
+            "level": 2,
+            "list": [
+              "Where is the file processed—your browser or their server?",
+              "How long is the file retained after conversion?",
+              "Which subprocessors (OCR, virus scan, storage) touch the bytes?",
+              "Which country's law governs the vendor and your data?",
+              "Can you verify in DevTools that no upload occurred?"
+            ]
+          },
+          {
+            "id": "safer-default",
+            "heading": "The safer default for everyday edits",
+            "level": 2,
+            "paragraphs": [
+              "For text overlays, redaction, merge, and protect workflows, prefer tools that run pdf.js and pdf-lib locally. JoinMyPDF PDF Text Editor and Redact PDF follow that model—no document bytes sent for standard processing."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Is 'no account required' the same as private?",
+            "a": "No. Many sites log IP, user agent, and file metadata even without login."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/pdf-text-editor/", "anchor": "PDF Text Editor" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/blog/hidden-risks-of-free-online-pdf-editors/", "anchor": "Hidden risks of free PDF editors" }
+        ]
+      }
+    },
+    {
+      "slug": "add-text-to-official-documents-without-breaking-layout",
+      "title": "How to Add Notes and Text to Official PDFs Without Breaking Layout",
+      "keyword": "add text to official pdf without breaking layout",
+      "category": "Edit & Organize",
+      "cluster": "edit-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": false,
+      "priority": 0.85,
+      "relatedTools": ["pdf-text-editor", "add-watermark", "sign-pdf"],
+      "relatedBlogs": ["how-to-edit-pdf-text-locally-safely"],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for utility PDF workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Add Text to Official PDFs Without Breaking Layout",
+        "metaDescription": "Overlay reference numbers, dates, and notes on official PDFs locally—preserve page size and structure with PDF Text Editor."
+      },
+      "description": "Utility-focused guide to adding text to government forms, certificates, and official packets without re-exporting from source apps.",
+      "contentBlocks": {
+        "intro": "Official PDFs often forbid structural edits—but you still need a reference number, date stamp, or short note. Overlay text locally instead of re-building the document.",
+        "primaryTool": "pdf-text-editor",
+        "sections": [
+          {
+            "id": "preserve-layout",
+            "heading": "Preserve structure with overlay layers",
+            "level": 2,
+            "paragraphs": [
+              "PDF Text Editor keeps original page dimensions and content streams intact. You add visible layers on top—similar to a transparent stamp, but with precise placement.",
+              "Enable white cover when replacing a visible typo so the old characters do not show through."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "Recommended workflow",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Duplicate the original PDF locally before editing.",
+              "Place minimal text—only what the recipient needs to see.",
+              "Use Add Watermark for DRAFT or CONFIDENTIAL stamps across all pages.",
+              "Protect PDF with a password before external email if required."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Will page size change?",
+            "a": "No. Only your placed text layers are added."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/pdf-text-editor/", "anchor": "PDF Text Editor" },
+          { "href": "/tools/add-watermark/", "anchor": "Add Watermark" },
+          { "href": "/tools/sign-pdf/", "anchor": "Sign PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "pdf-redaction-guide-remove-sensitive-data-before-sharing",
+      "title": "Redaction Guide: Remove Sensitive Data from PDFs Before Sharing",
+      "keyword": "pdf redaction guide remove sensitive data",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "10 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["redact-pdf", "protect-pdf", "safe-to-share-auditor"],
+      "relatedBlogs": [
+        "why-black-box-redaction-is-not-enough",
+        "protect-id-medical-pdfs-with-local-tools"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for privacy-first PDF workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "PDF Redaction Guide: Remove Sensitive Data Before Sharing",
+        "metaDescription": "Practical redaction workflow—draw boxes or search keywords, flatten pages locally, and share sanitized PDFs with JoinMyPDF Redact PDF."
+      },
+      "description": "Step-by-step guide to redacting names, account numbers, and private lines before you email or upload a PDF.",
+      "contentBlocks": {
+        "intro": "Sharing a PDF with visible PII is a data-handling decision. Redact PDF lets you mark sensitive areas—or search for keywords—and export a file where marked pages are burned to images with black boxes, all in your browser.",
+        "primaryTool": "redact-pdf",
+        "sections": [
+          {
+            "id": "workflow",
+            "heading": "Redaction workflow in your browser",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Load the PDF in Redact PDF.",
+              "Search for recurring sensitive strings (names, IDs) or draw boxes manually on scans.",
+              "Review every page preview—automated boxes may need resizing.",
+              "Click Redact PDF and download *-redacted.pdf.",
+              "Optionally run Safe-to-Share Auditor for a second pass."
+            ]
+          },
+          {
+            "id": "local-benefit",
+            "heading": "Why local redaction matters",
+            "level": 2,
+            "paragraphs": [
+              "HR packets, bank statements, and legal exhibits should not be uploaded to random redaction sites. Client-side processing keeps the source file on your device during the entire workflow."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Can I search for keywords?",
+            "a": "Yes. Enter a phrase to add redaction boxes on matching text, then fine-tune before export."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/safe-to-share-auditor/", "anchor": "Safe-to-Share Auditor" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "why-black-box-redaction-is-not-enough",
+      "title": "Why a Black Box Cover Is Not Enough: True PDF Redaction Explained",
+      "keyword": "true pdf redaction vs black box overlay",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "9 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["redact-pdf", "flatten-pdf", "remove-hidden-metadata"],
+      "relatedBlogs": ["pdf-redaction-guide-remove-sensitive-data-before-sharing"],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for security-focused PDF workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Why Black Box Cover Is Not True PDF Redaction",
+        "metaDescription": "Annotation blackouts can leave recoverable text. Learn how flatten-to-image redaction removes underlying data—and try Redact PDF locally."
+      },
+      "description": "Technical explainer: overlay black rectangles vs destructive redaction that removes selectable text.",
+      "contentBlocks": {
+        "intro": "Drawing a black rectangle in a PDF viewer often creates an annotation—not a deletion. Underlying text may still be copy-pasted or extracted. True redaction destroys the content on affected pages.",
+        "primaryTool": "redact-pdf",
+        "sections": [
+          {
+            "id": "overlay-vs-destructive",
+            "heading": "Overlay vs destructive redaction",
+            "level": 2,
+            "paragraphs": [
+              "Overlay: a black shape sits above text. The text object may remain in the file structure.",
+              "Destructive: the page (or region) is rasterized with black boxes burned in—text on those pages is not recoverable via normal copy tools."
+            ]
+          },
+          {
+            "id": "joinmypdf-approach",
+            "heading": "How JoinMyPDF Redact PDF handles this",
+            "level": 2,
+            "paragraphs": [
+              "Marked pages are flattened to JPEG with black boxes applied during rasterization. Processing runs locally—your unredacted source never needs to leave your machine for standard use."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does metadata cleaning replace redaction?",
+            "a": "No. Remove Metadata strips hidden fields; Redact PDF handles visible secrets on the page."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" },
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Metadata" }
+        ]
+      }
+    },
+    {
+      "slug": "protect-id-medical-pdfs-with-local-tools",
+      "title": "Protecting ID Cards and Medical PDFs: Why Local Tools Matter",
+      "keyword": "protect id medical pdf local tools privacy",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["redact-pdf", "protect-pdf", "remove-hidden-metadata"],
+      "relatedBlogs": [
+        "pdf-redaction-guide-remove-sensitive-data-before-sharing",
+        "why-black-box-redaction-is-not-enough"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for compliance-minded workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Protect ID & Medical PDFs with Local Browser Tools",
+        "metaDescription": "IDs, insurance forms, and lab results deserve local redaction and encryption—not random cloud converters. Workflow with JoinMyPDF."
+      },
+      "description": "Privacy and compliance focus: handle identity documents and medical PDFs with local redaction, metadata cleaning, and password protection.",
+      "contentBlocks": {
+        "intro": "Government IDs, insurance cards, and lab summaries are high-impact data. Uploading them to ad-hoc PDF sites expands breach surface. Local tools reduce exposure while still letting you redact, clean metadata, and encrypt.",
+        "primaryTool": "redact-pdf",
+        "sections": [
+          {
+            "id": "workflow",
+            "heading": "Suggested local workflow",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Redact PDF: black out ID numbers, member IDs, and diagnosis lines.",
+              "Remove Metadata: strip author/software fields before external share.",
+              "Protect PDF: add a strong password for email or portal upload.",
+              "Verify the output on a second device before sending."
+            ]
+          },
+          {
+            "id": "compliance-note",
+            "heading": "Compliance is contextual",
+            "level": 2,
+            "paragraphs": [
+              "Local processing reduces third-party exposure but does not replace HIPAA programs, DPA agreements, or enterprise DLP. Match the tool to your organization's policy."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Are files uploaded to JoinMyPDF?",
+            "a": "Standard redact, protect, and metadata tools process files in your browser."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Metadata" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
     }
   ]
 }

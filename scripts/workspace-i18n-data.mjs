@@ -105,6 +105,10 @@ const uploadEn = {
     title: "Drop PDF files or a folder here",
     description: "Add PDFs and apply a batch rename pattern before download.",
   },
+  "pdf-text-editor": {
+    title: "Drop a PDF here or click to browse",
+    description: "Select one PDF to overlay or replace visible text—processed locally.",
+  },
   "pdf-to-booklet": {
     title: "Drop a PDF to impose as a booklet",
     description: "Prepare a PDF for duplex fold-and-staple printing.",
@@ -256,6 +260,10 @@ const uploadHe = {
     title: "גרור קבצי PDF או תיקייה לכאן",
     description: "הוסף PDF והחל תבנית שינוי שם לפני ההורדה.",
   },
+  "pdf-text-editor": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "בחר PDF אחד להוספת או החלפת טקסט גלוי — מעובד מקומית.",
+  },
   "pdf-to-booklet": {
     title: "גרור PDF להטלה כחוברת",
     description: "הכן PDF להדפסה duplex קיפול וסיכה.",
@@ -314,6 +322,13 @@ function buildWorkspace(locale) {
       privacyBody: isHe
         ? "קבצים מעובדים מקומית בדפדפן ולא עוזבים את המכשיר."
         : "Files are processed locally in your browser and never leave your device.",
+      privacyStatement: isHe
+        ? "100% פרטי: כל העיבוד מתבצע מקומית בדפדפן. הקבצים שלך לא עוזבים את המכשיר."
+        : "100% Private: All processing happens locally in your browser. Your files never leave your device.",
+      privacyGuaranteeTitle: isHe ? "ערבות פרטיות" : "Privacy guarantee",
+      privacyGuaranteeBody: isHe
+        ? "כלי זה רץ מקומית בדפדפן. לא מועלים קבצים לשרת. הנתונים נשארים במכשיר שלך."
+        : "This tool runs locally in your browser. No files are uploaded to any server. Your data stays on your device.",
       securePrefix: isHe ? "100% מאובטח:" : "100% Secure:",
       pngPrivacy: isHe
         ? "המרת תמונות רצה לחלוטין בדפדפן. התמונות הפרטיות שלך לא מועלות לשום שרת."
@@ -368,6 +383,7 @@ function buildWorkspace(locale) {
       protect: isHe ? "הגן על PDF" : "Protect PDF",
       unlock: isHe ? "הסר נעילה" : "Unlock PDF",
       sign: isHe ? "חתום על PDF" : "Sign PDF",
+      "pdf-text-editor": isHe ? "החל והורד PDF" : "Apply & download PDF",
     },
     status: {
       common: {

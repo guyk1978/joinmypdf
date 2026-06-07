@@ -475,6 +475,12 @@ function buildWorkspaces(locale) {
         applying: isHe ? "מחיל הסתרות…" : "Applying redactions…",
         downloaded: isHe ? "PDF מוסתר הורד כ-{name}." : "Redacted PDF downloaded as {name}.",
         adjustFile: isHe ? "התאם את הקובץ ונסה שוב." : "Adjust your file and try again.",
+        enterKeyword: isHe ? "הזן מילה או ביטוי לחיפוש." : "Enter a word or phrase to search.",
+        searchingKeyword: isHe ? "מחפש התאמות טקסט…" : "Searching for text matches…",
+        noKeywordMatches: isHe ? "לא נמצאו התאמות לביטוי שחיפשת." : "No matches found for that phrase.",
+        keywordMatchesAdded: isHe
+          ? "נוספו {count} תיבת/ות הסתרה מהחיפוש. כוונן ידנית לפני ייצוא."
+          : "Added {count} redaction box(es) from search. Fine-tune manually before export.",
       },
       privacyNote: isHe
         ? "כל תהליכי ההסתרה מתבצעים מקומית בדפדפן."
@@ -487,6 +493,15 @@ function buildWorkspaces(locale) {
         passwordPlaceholder: common.enterPasswordPreview,
         loadPages: common.loadPages,
         clearAll: common.clearAll,
+        keywordHeading: isHe ? "חיפוש לפי מילת מפתח" : "Search by keyword",
+        keywordHint: isHe
+          ? "מצא טקסט ניתן לחילוץ והוסף תיבות הסתרה אוטומטית. עמודים מסומנים נשרפים לתמונה — לא רק מכוסים."
+          : "Find extractable text and add redaction boxes automatically. Marked pages are burned to images—not just covered.",
+        keywordLabel: isHe ? "מילה או ביטוי" : "Word or phrase",
+        keywordPlaceholder: isHe ? "למשל שם לקוח או מספר חשבון" : "e.g. customer name or account number",
+        keywordCaseSensitive: isHe ? "רגיש לרישיות" : "Case sensitive",
+        keywordFind: isHe ? "מצא והוסף תיבות" : "Find & add boxes",
+        keywordSearching: isHe ? "מחפש…" : "Searching…",
       },
     },
     "compare-pdf": {
@@ -1047,6 +1062,39 @@ function buildWorkspaces(locale) {
         lowercaseNames: isHe ? "שמות באותיות קטנות" : "Lowercase names",
         spacesToDashes: isHe ? "רווחים → מקפים" : "Spaces → dashes",
         enableTextReplacement: isHe ? "הפעל החלפת טקסט" : "Enable text replacement",
+      },
+    },
+    "pdf-text-editor": {
+      status: {
+        loadedClick: isHe
+          ? "נטענו {count} עמוד/ים. הקלד טקסט, בחר עמוד, ולחץ על התצוגה לשיבוץ."
+          : "Loaded {count} page(s). Type text, pick a page, then click the preview to place it.",
+        couldNotOpen: common.couldNotOpenPdf,
+        enterText: isHe ? "הקלד טקסט לפני שיבוץ." : "Enter text before placing.",
+        layerAdded: isHe ? "שכבת טקסט נוספה ({count} סה\"כ)." : "Text layer added ({count} total).",
+        addLayer: isHe ? "הוסף לפחות שכבת טקסט אחת לפני הורדה." : "Add at least one text layer before downloading.",
+        enterPassword: common.enterPassword,
+        applying: isHe ? "מחיל שכבות טקסט…" : "Applying text layers…",
+        downloaded: isHe ? "PDF ערוך הורד כ-{name}." : "Edited PDF downloaded as {name}.",
+        adjustFile: isHe ? "התאם את הקובץ ונסה שוב." : "Adjust your file and try again.",
+      },
+      privacyNote: isHe
+        ? "עריכת טקסט מתבצעת לחלוטין בדפדפן — הקובץ לא עוזב את המכשיר."
+        : "Text editing runs entirely in your browser—your file never leaves your device.",
+      stickyLabel: isHe ? "החל והורד" : "Apply & download",
+      ui: {
+        passwordLabel: isHe ? "סיסמת PDF (לקבצים מוגנים)" : "PDF password (for protected files)",
+        textLabel: isHe ? "טקסט להוספה" : "Text to add",
+        textPlaceholder: isHe ? "למשל תאריך מעודכן או הערה" : "e.g. updated date or note",
+        pageLabel: isHe ? "עמוד פעיל" : "Active page",
+        pageOption: isHe ? "עמוד {page}" : "Page {page}",
+        fontSizeLabel: isHe ? "גודל גופן" : "Font size",
+        colorLabel: isHe ? "צבע" : "Color",
+        coverExistingLabel: isHe ? "כסה טקסט קיים (רקע לבן)" : "Cover existing text (white background)",
+        loadingPreview: isHe ? "טוען תצוגה מקדימה…" : "Loading preview…",
+        clickToPlace: isHe ? "לחץ על התצוגה לשיבוץ הטקסט" : "Click the preview to place text",
+        layerSummary: isHe ? "עמוד {page}: {text}" : "Page {page}: {text}",
+        removeLayer: isHe ? "הסר" : "Remove",
       },
     },
     "pdf-to-booklet": {

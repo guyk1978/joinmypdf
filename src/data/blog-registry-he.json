@@ -5499,6 +5499,362 @@
           }
         ]
       }
+    },
+    {
+      "slug": "how-to-edit-pdf-text-locally-safely",
+      "title": "מדריך למתחילים: איך לערוך טקסט ב-PDF בקלות ובבטחה",
+      "keyword": "edit pdf text locally safely",
+      "category": "Edit & Organize",
+      "cluster": "edit-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "9 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["pdf-text-editor", "add-watermark", "compare-pdf"],
+      "relatedBlogs": [
+        "five-things-before-uploading-pdf-to-unknown-editors",
+        "add-text-to-official-documents-without-breaking-layout"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי PDF ממוקדי פרטיות · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "איך לערוך טקסט ב-PDF מקומית ובבטחה (מדריך דפדפן)",
+        "metaDescription": "למדו להוסיף ולתקן טקסט ב-PDF בדפדפן בלי להעלות קבצים. תהליך עבודה עם כלי PDF Text Editor של JoinMyPDF."
+      },
+      "description": "מדריך מעשי לעריכת טקסט ב-PDF מקומית — למה עיבוד בדפדפן עדיף על עורכי ענן למסמכים רגישים.",
+      "contentBlocks": {
+        "intro": "עריכת PDF לא אמורה לדרוש שליחת הקובץ המלא לשרת לא מוכר. כלי PDF Text Editor של JoinMyPDF מאפשר לשבץ שכבות טקסט וכיסוי לבן אופציונלי — לחלוטין בדפדפן.",
+        "editorialNote": "מדריך זה מתמקד בעריכות overlay (הערות, תאריכים, תוויות מתוקנות) — לא בכתיבה מחדש של אובייקטי טקסט מקוריים.",
+        "primaryTool": "pdf-text-editor",
+        "sections": [
+          {
+            "id": "why-local",
+            "heading": "למה עריכה מקומית בטוחה יותר מעורכי ענן",
+            "level": 2,
+            "paragraphs": [
+              "עורכי PDF בענן מעלים את הקובץ לתשתית מרוחקת. גם עם HTTPS, נוצרים עותקים שלא ניתן לבדוק במלואם: חלונות שמירה, גיבויים וספקי משנה.",
+              "עריכה בצד הלקוח שומרת את המסמך בזיכרון הלשונית. הרשת טוענת HTML ו-JavaScript — לא את החוזה, החשבונית או טופס הרפואה."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "שלב-אחר-שלב: הוספת טקסט על PDF",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "פתחו PDF Text Editor וטענו את הקובץ.",
+              "הקלידו את הטקסט (תאריך, מספר סימוכין, תווית מתוקנת).",
+              "בחרו עמוד, התאימו גודל וצבע, והפעילו כיסוי לבן אם מחליפים טקסט גלוי.",
+              "לחצו על התצוגה לשיבוץ; חזרו לעמודים נוספים לפי הצורך.",
+              "הורידו *-edited.pdf וודאו מיקום ב-100% zoom."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם ה-PDF מועלה?",
+            "a": "לא. העריכה רצה מקומית עם pdf-lib בדפדפן."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/pdf-text-editor/", "anchor": "PDF Text Editor" },
+          { "href": "/blog/five-things-before-uploading-pdf-to-unknown-editors/", "anchor": "סיכוני פרטיות בעורכים לא מוכרים" },
+          { "href": "/privacy-first-pdf-tools/", "anchor": "מרכז כלי PDF ממוקדי פרטיות" }
+        ]
+      }
+    },
+    {
+      "slug": "five-things-before-uploading-pdf-to-unknown-editors",
+      "title": "5 דברים שצריך לדעת לפני שמעלים מסמך לעריכה באתרים לא מוכרים",
+      "keyword": "pdf editor upload privacy risks",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["pdf-text-editor", "redact-pdf", "protect-pdf"],
+      "relatedBlogs": [
+        "how-to-edit-pdf-text-locally-safely",
+        "hidden-risks-of-free-online-pdf-editors"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי PDF ממוקדי פרטיות · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "5 דברים לפני העלאת PDF לעורכים לא מוכרים",
+        "metaDescription": "שמירה, שיפוט וסיכון עותק — חמישה בדיקות לפני שמעלים PDF רגיש לאתר עריכה אקראי."
+      },
+      "description": "חמישה בדיקות פרטיות לפני שסומכים על עורך PDF חינמי עם חוזים, שכר או קבצים רפואיים.",
+      "contentBlocks": {
+        "intro": "אתרי PDF לא מוכרים נוחים — עד שמבינים שההעלאה היא עותק מחוץ לשליטה. לפני עריכת טקסט, חתימה או השחרה — שאלו חמש שאלות.",
+        "primaryTool": "pdf-text-editor",
+        "sections": [
+          {
+            "id": "five-things",
+            "heading": "חמש בדיקות לפני העלאה",
+            "level": 2,
+            "list": [
+              "איפה הקובץ מעובד — בדפדפן או בשרת?",
+              "כמה זמן נשמר הקובץ אחרי ההמרה?",
+              "אילו ספקי משנה (OCR, סריקת וירוס, אחסון) נוגעים ב-bytes?",
+              "באיזו מדינה חל החוק על הספק והנתונים?",
+              "האם אפשר לוודא ב-DevTools שלא הייתה העלאה?"
+            ]
+          },
+          {
+            "id": "safer-default",
+            "heading": "ברירת המחדל הבטוחה לעריכות יומיומיות",
+            "level": 2,
+            "paragraphs": [
+              "ל-overlay טקסט, השחרה, מיזוג והגנה — העדיפו כלים עם pdf.js ו-pdf-lib מקומית. PDF Text Editor ו-Redact PDF של JoinMyPDF עוקבים אחרי מודל זה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם 'ללא חשבון' שווה פרטי?",
+            "a": "לא. אתרים רבים רושמים IP, user agent ומטא-דאטה גם בלי התחברות."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/pdf-text-editor/", "anchor": "PDF Text Editor" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/blog/hidden-risks-of-free-online-pdf-editors/", "anchor": "סיכונים נסתרים בעורכי PDF חינמיים" }
+        ]
+      }
+    },
+    {
+      "slug": "add-text-to-official-documents-without-breaking-layout",
+      "title": "איך להוסיף הערות וטקסט למסמכים רשמיים מבלי לשנות את המבנה שלהם",
+      "keyword": "add text to official pdf without breaking layout",
+      "category": "Edit & Organize",
+      "cluster": "edit-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": false,
+      "priority": 0.85,
+      "relatedTools": ["pdf-text-editor", "add-watermark", "sign-pdf"],
+      "relatedBlogs": ["how-to-edit-pdf-text-locally-safely"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי PDF שימושיים · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "הוספת טקסט למסמכים רשמיים בלי לשבור פריסה",
+        "metaDescription": "שכבו מספרי סימוכין, תאריכים והערות על PDF רשמי מקומית — שמרו גודל עמוד ומבנה עם PDF Text Editor."
+      },
+      "description": "מדריך שימושי להוספת טקסט לטפסים ממשלתיים, תעודות וחבילות רשמיות בלי לייצא מחדש מהאפליקציה המקורית.",
+      "contentBlocks": {
+        "intro": "PDF רשמי לעיתים אוסר עריכות מבניות — אבל עדיין צריך מספר סימוכין, חותמת תאריך או הערה קצרה. שכבו טקסט מקומית במקום לבנות מחדש.",
+        "primaryTool": "pdf-text-editor",
+        "sections": [
+          {
+            "id": "preserve-layout",
+            "heading": "שמרו מבנה עם שכבות overlay",
+            "level": 2,
+            "paragraphs": [
+              "PDF Text Editor שומר ממדי עמוד וזרמי תוכן מקוריים. מוסיפים שכבות גלויות מעל — כמו חותמת שקופה, עם מיקום מדויק.",
+              "הפעילו כיסוי לבן כשמחליפים שגיאת הקלדה גלויה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם גודל העמוד ישתנה?",
+            "a": "לא. רק שכבות הטקסט ששיבצתם נוספות."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/pdf-text-editor/", "anchor": "PDF Text Editor" },
+          { "href": "/tools/add-watermark/", "anchor": "Add Watermark" },
+          { "href": "/tools/sign-pdf/", "anchor": "Sign PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "pdf-redaction-guide-remove-sensitive-data-before-sharing",
+      "title": "מדריך השחרת מידע: איך למחוק נתונים רגישים מ-PDF לפני שמשתפים",
+      "keyword": "pdf redaction guide remove sensitive data",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "10 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["redact-pdf", "protect-pdf", "safe-to-share-auditor"],
+      "relatedBlogs": [
+        "why-black-box-redaction-is-not-enough",
+        "protect-id-medical-pdfs-with-local-tools"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי PDF ממוקדי פרטיות · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "מדריך השחרת PDF: הסרת נתונים רגישים לפני שיתוף",
+        "metaDescription": "תהליך השחרה מעשי — ציירו תיבות או חפשו מילות מפתח, שטחו עמודים מקומית, ושתפו PDF מנוקה עם Redact PDF."
+      },
+      "description": "מדריך שלב-אחר-שלב להסתרת שמות, מספרי חשבון ושורות פרטיות לפני שליחת PDF.",
+      "contentBlocks": {
+        "intro": "שיתוף PDF עם PII גלוי הוא החלטת טיפול בנתונים. Redact PDF מאפשר לסמן אזורים רגישים — או לחפש מילות מפתח — ולייצא קובץ שבו עמודים מסומנים נשרפים לתמונות עם תיבות שחורות, הכל בדפדפן.",
+        "primaryTool": "redact-pdf",
+        "sections": [
+          {
+            "id": "workflow",
+            "heading": "תהליך השחרה בדפדפן",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "טענו את ה-PDF ב-Redact PDF.",
+              "חפשו מחרוזות רגישות חוזרות או ציירו תיבות ידנית על סריקות.",
+              "עברו על כל תצוגת עמוד — תיבות אוטומטיות עשויות לדרוש כיוונון.",
+              "לחצו Redact PDF והורידו *-redacted.pdf.",
+              "אופציונלי: הריצו Safe-to-Share Auditor לסבב שני."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם אפשר לחפש מילות מפתח?",
+            "a": "כן. הזינו ביטוי להוספת תיבות על טקסט תואם, וכווננו לפני ייצוא."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/safe-to-share-auditor/", "anchor": "Safe-to-Share Auditor" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "why-black-box-redaction-is-not-enough",
+      "title": "למה רק 'כיסוי' שחור לא מספיק? איך לבצע השחרה אמיתית ב-PDF",
+      "keyword": "true pdf redaction vs black box overlay",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "9 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["redact-pdf", "flatten-pdf", "remove-hidden-metadata"],
+      "relatedBlogs": ["pdf-redaction-guide-remove-sensitive-data-before-sharing"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי PDF ממוקדי אבטחה · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "למה כיסוי שחור אינו השחרה אמיתית ב-PDF",
+        "metaDescription": "הסתרות annotation עלולות להשאיר טקסט recoverable. למדו על השחרה destructive שמסירה נתונים — ונסו Redact PDF מקומית."
+      },
+      "description": "הסבר טכני: מלבן שחור overlay מול השחרה destructive שמסירה טקסט ניתן לבחירה.",
+      "contentBlocks": {
+        "intro": "ציור מלבן שחור ב-viewer לעיתים יוצר annotation — לא מחיקה. הטקסט מתחת עשוי להישאר copy-paste. השחרה אמיתית משמידה את התוכן בעמודים המושפעים.",
+        "primaryTool": "redact-pdf",
+        "sections": [
+          {
+            "id": "overlay-vs-destructive",
+            "heading": "Overlay מול השחרה destructive",
+            "level": 2,
+            "paragraphs": [
+              "Overlay: צורה שחורה מעל הטקסט. אובייקט הטקסט עלול להישאר במבנה הקובץ.",
+              "Destructive: העמוד (או האזור) מ-rasterize עם תיבות שחורות — הטקסט לא recoverable בכלי copy רגילים."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם ניקוי מטא-דאטה מחליף השחרה?",
+            "a": "לא. Remove Metadata מסיר שדות נסתרים; Redact PDF מטפל בסודות גלויים בעמוד."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" },
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Metadata" }
+        ]
+      }
+    },
+    {
+      "slug": "protect-id-medical-pdfs-with-local-tools",
+      "title": "הגנה על תעודות זהות ומסמכים רפואיים: למה חשוב לעבוד עם כלים מקומיים",
+      "keyword": "protect id medical pdf local tools privacy",
+      "category": "Security & Privacy",
+      "cluster": "security-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["redact-pdf", "protect-pdf", "remove-hidden-metadata"],
+      "relatedBlogs": [
+        "pdf-redaction-guide-remove-sensitive-data-before-sharing",
+        "why-black-box-redaction-is-not-enough"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי עבודה מודעי compliance · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "הגנת תעודות זהות ו-PDF רפואיים עם כלים מקומיים",
+        "metaDescription": "תעודות, טפסי ביטוח ותוצאות מעבדה ראויות להשחרה והצפנה מקומית — לא ממירי ענן אקראיים."
+      },
+      "description": "מיקוד פרטיות ו-compliance: טיפול בתעודות זהות ו-PDF רפואיים עם השחרה, ניקוי מטא-דאטה והגנה בסיסמה מקומית.",
+      "contentBlocks": {
+        "intro": "תעודות ממשלתיות, כרטיסי ביטוח וסיכומי מעבדה הם נתונים בעלי השפעה גבוהה. העלאה לאתרי PDF אקראיים מרחיבה את שטח הפריצה. כלים מקומיים מצמצמים חשיפה.",
+        "primaryTool": "redact-pdf",
+        "sections": [
+          {
+            "id": "workflow",
+            "heading": "תהליך מקומי מומלץ",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Redact PDF: הסתירו מספרי זהות, מזהי חבר ושורות אבחנה.",
+              "Remove Metadata: הסירו שדות מחבר/תוכנה לפני שיתוף חיצוני.",
+              "Protect PDF: הוסיפו סיסמה חזקה לדוא\"ל או פורטל.",
+              "ודאו פלט במכשיר שני לפני שליחה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם קבצים מועלים ל-JoinMyPDF?",
+            "a": "כלים סטנדרטיים להשחרה, הגנה ומטא-דאטה מעבדים קבצים בדפדפן."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" },
+          { "href": "/tools/remove-hidden-metadata/", "anchor": "Remove Metadata" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
     }
   ]
 }

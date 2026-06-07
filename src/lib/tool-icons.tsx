@@ -443,6 +443,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("pdf-to-booklet"), key: "pdf-to-booklet" },
   { test: (s) => s.includes("compare-pdf"), key: "compare-pdf" },
   { test: (s) => s.includes("batch-rename-pdf"), key: "batch-rename-pdf" },
+  { test: (s) => s.includes("pdf-text-editor"), key: "pdf-text-editor" },
   { test: (s) => s.includes("pdf-split"), key: "pdf-split" },
   { test: (s) => s.includes("pdf-merge"), key: "pdf-merge" },
 ];
@@ -485,6 +486,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <PageNumbersIcon />,
     wrap: "bg-teal-100 ring-1 ring-teal-200",
     wrapHover: "group-hover:bg-teal-200 group-hover:ring-teal-300",
+  },
+  "pdf-text-editor": {
+    icon: <TextIcon />,
+    wrap: "bg-violet-100 ring-1 ring-violet-200",
+    wrapHover: "group-hover:bg-violet-200 group-hover:ring-violet-300",
   },
   "jpg-to-pdf": {
     icon: <ImageToPdfIcon />,

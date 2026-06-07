@@ -16,6 +16,7 @@
       "compress": "compress a PDF",
       "split": "split a PDF",
       "batchRename": "batch rename PDF files",
+      "textEditor": "overlay or edit visible PDF text locally",
       "compare": "compare two PDFs side by side",
       "booklet": "impose a PDF as a print-ready booklet",
       "safeShare": "audit a PDF for sensitive content before sharing",
@@ -509,6 +510,8 @@
       "privacyTitle": "100% Private & Fast:",
       "privacyBody": "Files are processed locally in your browser and never leave your device.",
       "privacyStatement": "100% Private: All processing happens locally in your browser. Your files never leave your device.",
+      "privacyGuaranteeTitle": "Privacy guarantee",
+      "privacyGuaranteeBody": "This tool runs locally in your browser. No files are uploaded to any server. Your data stays on your device.",
       "securePrefix": "100% Secure:",
       "pngPrivacy": "Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.",
       "loading": "Loading…",
@@ -649,6 +652,10 @@
         "title": "Drop PDF files or a folder here",
         "description": "Add PDFs and apply a batch rename pattern before download."
       },
+      "pdf-text-editor": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Select one PDF to overlay or replace visible text—processed locally."
+      },
       "pdf-to-booklet": {
         "title": "Drop a PDF to impose as a booklet",
         "description": "Prepare a PDF for duplex fold-and-staple printing."
@@ -703,7 +710,8 @@
       "pdf-to-jpg": "Export JPG pages",
       "protect": "Protect PDF",
       "unlock": "Unlock PDF",
-      "sign": "Sign PDF"
+      "sign": "Sign PDF",
+      "pdf-text-editor": "Apply & download PDF"
     },
     "status": {
       "common": {
@@ -1131,7 +1139,11 @@
         "enterPassword": "Enter the PDF password to open this file.",
         "applying": "Applying redactions…",
         "downloaded": "Redacted PDF downloaded as {name}.",
-        "adjustFile": "Adjust your file and try again."
+        "adjustFile": "Adjust your file and try again.",
+        "enterKeyword": "Enter a word or phrase to search.",
+        "searchingKeyword": "Searching for text matches…",
+        "noKeywordMatches": "No matches found for that phrase.",
+        "keywordMatchesAdded": "Added {count} redaction box(es) from search. Fine-tune manually before export."
       },
       "privacyNote": "All redaction processes are executed locally in your browser.",
       "redactLabel": "Redact PDF",
@@ -1141,7 +1153,14 @@
         "passwordLabel": "PDF password (required for protected files)",
         "passwordPlaceholder": "Enter password to preview pages",
         "loadPages": "Load pages",
-        "clearAll": "Clear all"
+        "clearAll": "Clear all",
+        "keywordHeading": "Search by keyword",
+        "keywordHint": "Find extractable text and add redaction boxes automatically. Marked pages are burned to images—not just covered.",
+        "keywordLabel": "Word or phrase",
+        "keywordPlaceholder": "e.g. customer name or account number",
+        "keywordCaseSensitive": "Case sensitive",
+        "keywordFind": "Find & add boxes",
+        "keywordSearching": "Searching…"
       }
     },
     "compare-pdf": {
@@ -1622,6 +1641,35 @@
         "lowercaseNames": "Lowercase names",
         "spacesToDashes": "Spaces → dashes",
         "enableTextReplacement": "Enable text replacement"
+      }
+    },
+    "pdf-text-editor": {
+      "status": {
+        "loadedClick": "Loaded {count} page(s). Type text, pick a page, then click the preview to place it.",
+        "couldNotOpen": "Could not open this PDF. If it is protected, enter the password below.",
+        "enterText": "Enter text before placing.",
+        "layerAdded": "Text layer added ({count} total).",
+        "addLayer": "Add at least one text layer before downloading.",
+        "enterPassword": "Enter the PDF password to open this file.",
+        "applying": "Applying text layers…",
+        "downloaded": "Edited PDF downloaded as {name}.",
+        "adjustFile": "Adjust your file and try again."
+      },
+      "privacyNote": "Text editing runs entirely in your browser—your file never leaves your device.",
+      "stickyLabel": "Apply & download",
+      "ui": {
+        "passwordLabel": "PDF password (for protected files)",
+        "textLabel": "Text to add",
+        "textPlaceholder": "e.g. updated date or note",
+        "pageLabel": "Active page",
+        "pageOption": "Page {page}",
+        "fontSizeLabel": "Font size",
+        "colorLabel": "Color",
+        "coverExistingLabel": "Cover existing text (white background)",
+        "loadingPreview": "Loading preview…",
+        "clickToPlace": "Click the preview to place text",
+        "layerSummary": "Page {page}: {text}",
+        "removeLayer": "Remove"
       }
     },
     "pdf-to-booklet": {

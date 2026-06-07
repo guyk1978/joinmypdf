@@ -184,6 +184,10 @@ export function getToolErrorRecovery(
       { ...TOOLS.merge, hint: "Combine files after renaming", variant: "primary" },
       { ...TOOLS.split, hint: "Split large PDFs into parts", variant: "secondary" },
     ],
+    "pdf-text-editor": [
+      { href: "/tools/unlock-pdf/", label: "Unlock PDF", hint: "Remove encryption before editing", variant: "primary" },
+      { href: "/tools/add-watermark/", label: "Add Watermark", hint: "Stamp DRAFT on edited exports", variant: "secondary" },
+    ],
     "pdf-to-booklet": [
       { ...TOOLS.merge, hint: "Merge chapters before imposing", variant: "primary" },
       { ...TOOLS.split, hint: "Split to fix page order first", variant: "secondary" },

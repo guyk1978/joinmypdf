@@ -92,6 +92,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("pdf-merge"),
       toolLink("pdf-split"),
       toolLink("batch-rename-pdf"),
+      toolLink("pdf-text-editor"),
       toolLink("compare-pdf"),
       toolLink("pdf-to-booklet"),
       toolLink("pdf-compress"),

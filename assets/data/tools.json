@@ -280,6 +280,55 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "pdf-text-editor",
+      "category": "edit",
+      "operation": "pdf-text-editor",
+      "title": "PDF Text Editor",
+      "primaryKeyword": "edit pdf text online locally",
+      "intent": "Overlay or replace visible text on PDF pages in your browser—no cloud upload.",
+      "description": "Add or overlay text on PDF pages locally in your browser. Place text layers with optional white cover behind edits—your document never leaves your device.",
+      "secondaryKeywords": [
+        "pdf text editor online",
+        "add text to pdf browser",
+        "edit pdf text without upload"
+      ],
+      "useCases": [
+        "Fix a typo or date on a form without re-exporting from Word",
+        "Add a note or reference number to an official PDF",
+        "Overlay corrected labels on scanned PDF packets"
+      ],
+      "relatedTools": [
+        "add-watermark",
+        "compare-pdf",
+        "sign-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Text editing runs entirely in your browser with pdf-lib. Your file never leaves your device."
+        },
+        {
+          "q": "Can I edit existing text inside the PDF?",
+          "a": "This tool overlays new text layers and can cover underlying content with a white box. It does not rewrite native PDF text objects—use PDF to Word for deep text edits."
+        },
+        {
+          "q": "Will the layout change?",
+          "a": "Original page dimensions and structure stay the same. Only the text layers you place are added on top."
+        },
+        {
+          "q": "Can I edit password-protected PDFs?",
+          "a": "Yes. Enter the document password, place your text layers, then download the edited file."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "compare-pdf",
       "category": "edit",
       "operation": "compare-pdf",
@@ -637,7 +686,7 @@
       "title": "Redact PDF — Black Out Sensitive Text",
       "primaryKeyword": "redact pdf online black out text",
       "intent": "Mark and permanently black out private content in your browser.",
-      "description": "Redact sensitive information from a PDF locally in your browser. Draw black boxes over private content—your document never leaves your device.",
+      "description": "Redact sensitive information from a PDF locally in your browser. Draw boxes or search for keywords to permanently black out private content—your document never leaves your device.",
       "secondaryKeywords": [
         "pdf redaction tool",
         "black out pdf text",
@@ -661,6 +710,10 @@
         {
           "q": "Can redacted text still be copied?",
           "a": "Pages you mark are flattened to images with black boxes burned in, so underlying text on those pages cannot be selected or copied."
+        },
+        {
+          "q": "Can I redact by keyword search?",
+          "a": "Yes. Enter a word or phrase to find matching text and add redaction boxes automatically, then fine-tune with manual boxes before exporting."
         },
         {
           "q": "Can I redact password-protected PDFs?",

@@ -111,6 +111,11 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/pdf-split/", card: "splitOversized" },
     { href: "/tools/delete-pdf-pages/", card: "deleteExtraPages" },
   ],
+  "pdf-text-editor": [
+    { href: "/tools/add-watermark/", card: "markDrafts" },
+    { href: "/tools/sign-pdf/", card: "protectSigned" },
+    { href: "/tools/protect-pdf/", card: "passwordProtect" },
+  ],
   "png-to-pdf": [
     { href: "/tools/pdf-compress/", card: "compressPdf" },
     { href: "/tools/jpg-to-pdf/", card: "alsoJpgPhotos" },
