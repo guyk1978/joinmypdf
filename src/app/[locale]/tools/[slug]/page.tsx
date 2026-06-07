@@ -52,7 +52,7 @@ import {
   localizedToolTitle,
   translateToolIntent,
 } from "@/lib/i18n-tool-page";
-import { blogRegistry } from "@/lib/blog-registry";
+import { getBlogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildLocalizedToolMetadata } from "@/lib/tool-seo";
@@ -114,8 +114,8 @@ export async function generateMetadata({
   });
 }
 
-function relatedArticlesForTool(toolSlug: string) {
-  return (blogRegistry.blog || [])
+function relatedArticlesForTool(toolSlug: string, locale: string) {
+  return (getBlogRegistry(locale).blog || [])
     .filter((p) => (p.relatedTools || []).includes(toolSlug))
     .slice(0, 4);
 }
@@ -144,7 +144,7 @@ export default async function ToolPage({
     : `${tool.description}`;
   const pathname = `/tools/${slug}/`;
   const paragraphs = buildLocalizedGuideParagraphs(tPage, tool, variant);
-  const articles = relatedArticlesForTool(tool.slug);
+  const articles = relatedArticlesForTool(tool.slug, locale);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
