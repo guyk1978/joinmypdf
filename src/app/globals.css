@@ -54,7 +54,7 @@ body {
   max-width: 100%;
 }
 
-/* Homepage FREE PDF watermark — light/dark tile backgrounds */
+/* Homepage FREE PDF watermark — single stretched light/dark backgrounds */
 .home-watermark {
   pointer-events: none;
   position: fixed;
@@ -67,8 +67,8 @@ body {
   position: absolute;
   inset: 0;
   background-position: center;
-  background-repeat: repeat;
-  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   transition: opacity 0.5s ease-in-out;
 }
 
