@@ -3,6 +3,11 @@ type ToolsTranslator = {
   has: (key: string) => boolean;
 };
 
+export function translateToolGridCategory(t: ToolsTranslator, categoryId: string): string {
+  const key = `gridCategories.${categoryId}`;
+  return t.has(key) ? t(key) : categoryId;
+}
+
 export function translateToolSection(
   t: ToolsTranslator,
   sectionId: string,

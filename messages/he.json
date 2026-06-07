@@ -68,6 +68,12 @@
       "optimize": "אופטימיזציה",
       "security": "אבטחה ופרטיות"
     },
+    "gridCategories": {
+      "conversion": "המרה",
+      "editing": "עריכה",
+      "security": "אבטחה",
+      "advanced": "מתקדם"
+    },
     "items": {
       "pdf-merge": "מיזוג PDF",
       "pdf-compress": "דחיסת PDF",

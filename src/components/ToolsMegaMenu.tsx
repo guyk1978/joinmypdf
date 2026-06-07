@@ -6,8 +6,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { clsx } from "clsx";
 import { ToolMegaGrid } from "@/components/ToolMegaGrid";
-import { translateToolItem } from "@/lib/i18n-tool-labels";
-import { flattenMegaMenuSections, type MegaMenuSection } from "@/lib/mega-menu";
+import { translateToolItem, translateToolGridCategory } from "@/lib/i18n-tool-labels";
+import { buildToolMegaGridGroups, flattenMegaMenuSections, type MegaMenuSection } from "@/lib/mega-menu";
 import { isNavItemActive } from "@/lib/nav-config";
 import { OPEN_TOOLS_GRID_EVENT } from "@/lib/tool-grid-events";
 
@@ -47,14 +47,18 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const items = useMemo(
+  const groups = useMemo(
     () =>
-      flattenMegaMenuSections(sections).map((item) => ({
-        href: item.href,
-        label: translateToolItem(tTools, item.slug, item.label),
-        slugHint: item.slug,
+      buildToolMegaGridGroups().map((group) => ({
+        id: group.id,
+        label: translateToolGridCategory(tTools, group.id),
+        items: group.items.map((item) => ({
+          href: item.href,
+          label: translateToolItem(tTools, item.slug, item.label),
+          slugHint: item.slug,
+        })),
       })),
-    [sections, tTools],
+    [tTools],
   );
 
   const close = useCallback(() => setOpen(false), []);
@@ -129,7 +133,7 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
         </div>
 
         <div className="w-full flex-1 overflow-y-auto overscroll-y-contain md:min-h-0">
-          <ToolMegaGrid items={items} onNavigate={handleNavigate} />
+          <ToolMegaGrid groups={groups} onNavigate={handleNavigate} />
 
           <div className="w-full border-t border-neutral-300 px-4 py-3 dark:border-neutral-700">
             <Link

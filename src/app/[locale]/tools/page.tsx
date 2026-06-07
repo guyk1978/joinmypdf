@@ -9,8 +9,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteSearch } from "@/components/SiteSearch";
 import { Link } from "@/i18n/navigation";
 import { blogRegistry } from "@/lib/blog-registry";
-import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
-import { buildMegaMenuSections, flattenMegaMenuSections } from "@/lib/mega-menu";
+import { translateToolItem, translateToolGridCategory, translateToolSection } from "@/lib/i18n-tool-labels";
+import { buildMegaMenuSections, buildToolMegaGridGroups } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { JsonLd } from "@/lib/schema";
@@ -52,11 +52,16 @@ export default async function ToolsDirectoryPage({ params }: Props) {
   const tPage = await getTranslations("ToolsDirectory");
   const sections = buildMegaMenuSections();
   const toolCount = registry.tools.length + 3;
-  const allToolItems = flattenMegaMenuSections(sections).map((item) => ({
-    href: item.href,
-    label: translateToolItem(tTools, item.slug, item.label),
-    slugHint: item.slug,
+  const toolGroups = buildToolMegaGridGroups().map((group) => ({
+    id: group.id,
+    label: translateToolGridCategory(tTools, group.id),
+    items: group.items.map((item) => ({
+      href: item.href,
+      label: translateToolItem(tTools, item.slug, item.label),
+      slugHint: item.slug,
+    })),
   }));
+  const allToolCount = toolGroups.reduce((sum, group) => sum + group.items.length, 0);
 
   const featuredItems = FEATURED_SLUGS.map((slug) => {
     const tool = registry.tools.find((t) => t.slug === slug);
@@ -119,10 +124,10 @@ export default async function ToolsDirectoryPage({ params }: Props) {
             <h2 id="all-tools-grid" className="text-xl font-semibold text-black dark:text-neutral-200 md:text-2xl">
               {tPage("allToolsGridTitle")}
             </h2>
-            <p className="mt-1 text-sm text-black dark:text-neutral-200">{tPage("allToolsGridDescription", { count: allToolItems.length })}</p>
+            <p className="mt-1 text-sm text-black dark:text-neutral-200">{tPage("allToolsGridDescription", { count: allToolCount })}</p>
           </div>
           <div className="w-full overflow-x-hidden md:relative md:left-1/2 md:w-screen md:max-w-none md:-translate-x-1/2">
-            <ToolMegaGrid items={allToolItems} />
+            <ToolMegaGrid groups={toolGroups} />
           </div>
         </section>
 

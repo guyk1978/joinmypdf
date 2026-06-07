@@ -68,6 +68,12 @@
       "optimize": "Optimize",
       "security": "Security & Privacy"
     },
+    "gridCategories": {
+      "conversion": "Conversion",
+      "editing": "Editing",
+      "security": "Security",
+      "advanced": "Advanced"
+    },
     "items": {
       "pdf-merge": "Merge PDF",
       "pdf-compress": "Compress PDF",
