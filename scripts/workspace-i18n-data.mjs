@@ -163,7 +163,11 @@ const uploadEn = {
   },
   "flatten-pdf": {
     title: "Drop a PDF here or click to browse",
-    description: "Remove forms, comments, and annotations by flattening pages locally.",
+    description: "Flatten forms and annotations locally—vector text stays searchable on clean pages.",
+  },
+  "repair-pdf": {
+    title: "Drop a damaged PDF here or click to browse",
+    description: "Scan structure and rebuild corrupted PDFs locally—your file never leaves the browser.",
   },
 };
 
@@ -330,7 +334,11 @@ const uploadHe = {
   },
   "flatten-pdf": {
     title: "גרור PDF לכאן או לחץ לעיון",
-    description: "הסר טפסים, הערות והדגשות על ידי שיטוח עמודים מקומית.",
+    description: "שטח טפסים והערות מקומית — טקסט וקטורי נשאר ניתן לחיפוש בעמודים נקיים.",
+  },
+  "repair-pdf": {
+    title: "גרור PDF פגום לכאן או לחץ לעיון",
+    description: "סרוק מבנה ובנה מחדש PDF פגום מקומית — הקובץ לא עוזב את הדפדפן.",
   },
 };
 
@@ -356,6 +364,9 @@ function buildWorkspace(locale) {
       pageManageNotice: isHe
         ? "העיבוד מתבצע מקומית — הקבצים שלך נשארים במכשיר."
         : "Process happens locally—your files stay on your device.",
+      optimizationRepairNotice: isHe
+        ? "גם בתיקונים מתקדמים, הקובץ שלך לא עוזב את הדפדפן."
+        : "Even for advanced repairs, your file never leaves your browser.",
       securePrefix: isHe ? "100% מאובטח:" : "100% Secure:",
       pngPrivacy: isHe
         ? "המרת תמונות רצה לחלוטין בדפדפן. התמונות הפרטיות שלך לא מועלות לשום שרת."
@@ -414,6 +425,8 @@ function buildWorkspace(locale) {
       "annotate-pdf": isHe ? "הורד PDF עם הערות" : "Download annotated PDF",
       "reorder-pdf-pages": isHe ? "הורד PDF מסודר" : "Download reordered PDF",
       "extract-pdf-pages": isHe ? "הורד עמודים שחולצו" : "Download extracted PDF",
+      "flatten-pdf": isHe ? "הורד PDF משוטח" : "Download flattened PDF",
+      "repair-pdf": isHe ? "הורד PDF מתוקן" : "Download repaired PDF",
     },
     status: {
       common: {

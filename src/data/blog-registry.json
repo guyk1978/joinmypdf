@@ -5830,6 +5830,267 @@
           { "href": "/tools/pdf-compress/", "anchor": "Compress PDF" }
         ]
       }
+    },
+    {
+      "slug": "why-pdf-looks-different-on-devices-flatten-pdf-solution",
+      "title": "Why Your PDF Looks Different on Different Computers (Flatten PDF Fix)",
+      "keyword": "pdf looks different on different computers flatten",
+      "category": "Optimization",
+      "cluster": "flatten-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["flatten-pdf", "repair-pdf", "protect-pdf"],
+      "relatedBlogs": ["protect-filled-forms-flatten-pdf-before-sending", "edited-pdf-vs-flattened-pdf-when-to-use"],
+      "author": { "name": "Tomer", "role": "Web Tools Engineer", "verifiedLabel": "Reviewed for PDF compatibility · Jun 2026" },
+      "seo": {
+        "metaTitle": "PDF Looks Different on Every Device? Flatten PDF Online",
+        "metaDescription": "Interactive PDF layers render differently across viewers. Flatten PDF locally for consistent appearance—JoinMyPDF browser guide."
+      },
+      "description": "Compatibility focus: why forms and annotations shift between devices and how flattening stabilizes layout.",
+      "contentBlocks": {
+        "intro": "The same PDF can show different field positions on Windows, Mac, and mobile because interactive layers depend on each viewer's engine. Flatten PDF merges those layers into stable page content so everyone sees the same thing.",
+        "primaryTool": "flatten-pdf",
+        "sections": [
+          {
+            "id": "compatibility",
+            "heading": "Interactive layers are viewer-dependent",
+            "level": 2,
+            "paragraphs": [
+              "AcroForm fields, comment bubbles, and ink annotations live in separate structures. Some apps honor them; others ignore or misplace them.",
+              "JoinMyPDF flattens only pages that need it—clean pages keep vector text for search and smaller files."
+            ]
+          }
+        ],
+        "faq": [{ "q": "Does flatten PDF online require upload?", "a": "No. Flattening runs locally in your browser." }],
+        "internalLinks": [
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" },
+          { "href": "/tools/repair-pdf/", "anchor": "Repair PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "protect-filled-forms-flatten-pdf-before-sending",
+      "title": "How to Protect Forms You Filled: Flatten PDF Before Sending",
+      "keyword": "flatten pdf before sending filled form",
+      "category": "Optimization",
+      "cluster": "flatten-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["flatten-pdf", "protect-pdf", "sign-pdf"],
+      "relatedBlogs": ["why-pdf-looks-different-on-devices-flatten-pdf-solution"],
+      "author": { "name": "Tomer", "role": "Web Tools Engineer", "verifiedLabel": "Reviewed for professional PDF delivery · Jun 2026" },
+      "seo": {
+        "metaTitle": "Protect Filled PDF Forms — Flatten Before Sending",
+        "metaDescription": "Stop recipients from editing your completed fields. Flatten PDF locally before email or portal upload."
+      },
+      "description": "Security and professionalism: lock completed form values before delivery.",
+      "contentBlocks": {
+        "intro": "A filled W-9 or onboarding packet should read as final. If form fields stay editable, anyone can change amounts or checkboxes after you send. Flatten burns field appearances into the page.",
+        "primaryTool": "flatten-pdf",
+        "sections": [
+          {
+            "id": "workflow",
+            "heading": "Send-ready flatten workflow",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Complete every required field in your PDF.",
+              "Open Flatten PDF and upload the file.",
+              "Download the flattened export.",
+              "Optional: Protect PDF with a password before sharing."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "edited-pdf-vs-flattened-pdf-when-to-use",
+      "title": "Edited PDF vs Flattened PDF: When to Use Each",
+      "keyword": "edited pdf vs flattened pdf",
+      "category": "Optimization",
+      "cluster": "flatten-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["flatten-pdf", "pdf-text-editor", "annotate-pdf"],
+      "relatedBlogs": ["why-pdf-looks-different-on-devices-flatten-pdf-solution"],
+      "author": { "name": "Tomer", "role": "Web Tools Engineer", "verifiedLabel": "Reviewed for PDF workflow education · Jun 2026" },
+      "seo": {
+        "metaTitle": "Edited vs Flattened PDF — When to Use Each",
+        "metaDescription": "Learn when to keep PDF layers editable versus flattening for final delivery. Practical browser workflow guide."
+      },
+      "description": "Educational comparison between editable and flattened PDFs.",
+      "contentBlocks": {
+        "intro": "Editable PDFs are for collaboration; flattened PDFs are for delivery. Mixing the two causes version chaos—teams annotate in Acrobat while finance expects a locked export.",
+        "primaryTool": "flatten-pdf",
+        "sections": [
+          {
+            "id": "compare",
+            "heading": "Choose the right stage",
+            "level": 2,
+            "paragraphs": [
+              "Keep editable during review: Annotate PDF, PDF Text Editor, Sign PDF.",
+              "Flatten when the document is final: contracts, tax forms, compliance packets."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [
+          { "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" },
+          { "href": "/tools/annotate-pdf/", "anchor": "Annotate PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "pdf-wont-open-fix-corrupted-files-three-clicks",
+      "title": "PDF Won't Open? Fix Corrupted Files in 3 Clicks",
+      "keyword": "how to fix corrupted pdf online",
+      "category": "Optimization",
+      "cluster": "repair-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["repair-pdf", "flatten-pdf", "pdf-merge"],
+      "relatedBlogs": ["why-pdf-files-break-and-how-to-make-readable", "repair-pdf-online-why-browser-not-cloud"],
+      "author": { "name": "Tomer", "role": "Web Tools Engineer", "verifiedLabel": "Reviewed for corrupted PDF recovery · Jun 2026" },
+      "seo": {
+        "metaTitle": "Fix Corrupted PDF Online in 3 Clicks (Local Repair)",
+        "metaDescription": "PDF won't open? Repair corrupted structure in your browser with progress feedback—no cloud upload."
+      },
+      "description": "Problem-solving guide for broken PDFs that fail to open.",
+      "contentBlocks": {
+        "intro": "A download that stops at 98%, an email attachment that Acrobat rejects, a merge gone wrong—Repair PDF scans structure locally and rebuilds what it can in three steps: upload, repair, download.",
+        "primaryTool": "repair-pdf",
+        "sections": [
+          {
+            "id": "steps",
+            "heading": "Three-click repair",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Drop the damaged PDF into Repair PDF.",
+              "Watch the structure scan progress bar.",
+              "Download *-repaired.pdf if validation succeeds."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "What if repair fails?",
+            "a": "JoinMyPDF shows: This file structure is too corrupted to be repaired locally—so you know to re-export from the source app."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/repair-pdf/", "anchor": "Repair PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "why-pdf-files-break-and-how-to-make-readable",
+      "title": "Why PDF Files Break and How to Make Them Readable Again",
+      "keyword": "why pdf files get corrupted",
+      "category": "Optimization",
+      "cluster": "repair-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["repair-pdf", "pdf-merge", "pdf-compress"],
+      "relatedBlogs": ["pdf-wont-open-fix-corrupted-files-three-clicks"],
+      "author": { "name": "Tomer", "role": "Web Tools Engineer", "verifiedLabel": "Reviewed for PDF structure basics · Jun 2026" },
+      "seo": {
+        "metaTitle": "Why PDFs Break (xref, Streams) and How to Fix Them",
+        "metaDescription": "Technical but accessible guide to corrupted xref tables, truncated downloads, and local browser repair."
+      },
+      "description": "Technical/informative explainer on common PDF corruption causes.",
+      "contentBlocks": {
+        "intro": "PDFs are byte maps: header, body objects, xref table, trailer, %%EOF. Interrupt any link—bad upload, disk error, bad merge—and viewers refuse to open the file even when most bytes look fine.",
+        "primaryTool": "repair-pdf",
+        "sections": [
+          {
+            "id": "causes",
+            "heading": "Common break patterns",
+            "level": 2,
+            "paragraphs": [
+              "Truncated downloads cut off the xref table.",
+              "Duplicate %%EOF markers confuse parsers.",
+              "Bad startxref pointers send readers to garbage offsets."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [
+          { "href": "/tools/repair-pdf/", "anchor": "Repair PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "repair-pdf-online-why-browser-not-cloud",
+      "title": "Repair PDF Online: Why Do It in the Browser, Not the Cloud?",
+      "keyword": "repair pdf online privacy browser",
+      "category": "Optimization",
+      "cluster": "repair-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["repair-pdf", "protect-pdf", "redact-pdf"],
+      "relatedBlogs": ["pdf-wont-open-fix-corrupted-files-three-clicks"],
+      "author": { "name": "Tomer", "role": "Web Tools Engineer", "verifiedLabel": "Reviewed for privacy-first repair · Jun 2026" },
+      "seo": {
+        "metaTitle": "Repair PDF in Browser — Not the Cloud (Privacy Guide)",
+        "metaDescription": "Broken contracts and medical PDFs should not hit unknown servers. Repair locally with JoinMyPDF."
+      },
+      "description": "Privacy/security focus for advanced PDF repair workflows.",
+      "contentBlocks": {
+        "intro": "Corrupted PDFs often contain the same sensitive data as healthy ones—uploading them to a cloud repair service duplicates risk. Browser repair keeps bytes on your machine with a clear privacy guarantee.",
+        "primaryTool": "repair-pdf",
+        "sections": [
+          {
+            "id": "privacy",
+            "heading": "Local repair = auditable repair",
+            "level": 2,
+            "paragraphs": [
+              "You can disconnect from the network, run repair, download, and delete the tab.",
+              "Even for advanced repairs, your file never leaves your browser."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [
+          { "href": "/tools/repair-pdf/", "anchor": "Repair PDF" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
     }
   ]
 }

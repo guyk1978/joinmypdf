@@ -3,24 +3,24 @@
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { OptimizationRepairNotice } from "@/components/OptimizationRepairNotice";
-import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
-import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
-import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
+import { classifyPdfError, PdfProcessingError, type PdfProcessingError as PdfProcessingErrorType } from "@/lib/pdf-errors";
 import {
-  flattenPdfFromFile,
-  flattenPdfOutputName,
-  type FlattenPdfProgress,
-} from "@/lib/pdf-flatten";
+  PdfRepairTooCorruptedError,
+  repairPdfFromFile,
+  repairPdfOutputName,
+  type RepairPdfProgress,
+} from "@/lib/pdf-repair";
 import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
-import { progressLabelFromPhase } from "@/lib/workspace-progress-label";
 import {
   useCallback,
   useEffect,
@@ -38,25 +38,26 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-function progressPercent(progress: FlattenPdfProgress | null, busy: boolean): number {
-  if (progress && progress.totalPages > 0) {
-    return Math.min(100, Math.round((progress.currentPage / progress.totalPages) * 100));
-  }
-  return busy ? 12 : 0;
+function repairProgressLabel(progress: RepairPdfProgress | null, ws: ReturnType<typeof useWorkspaceI18n>): string {
+  if (!progress) return "";
+  const keyed = ws.wsProgress(progress.phase, {
+    percent: progress.percent,
+  });
+  if (keyed) return keyed;
+  return progress.detail || ws.wsProgress("processing") || "";
 }
 
-export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+export function RepairPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
-  const labelProgress = (p: FlattenPdfProgress | null) =>
-    progressLabelFromPhase(tool.operation, p, ws);
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
-  const [progress, setProgress] = useState<FlattenPdfProgress | null>(null);
+  const [progress, setProgress] = useState<RepairPdfProgress | null>(null);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
-  const [runError, setRunError] = useState<PdfProcessingError | null>(null);
+  const [runError, setRunError] = useState<PdfProcessingErrorType | null>(null);
+  const [tooCorrupt, setTooCorrupt] = useState(false);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const baseId = useId();
@@ -75,6 +76,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setProgress(null);
     setDone(false);
     setRunError(null);
+    setTooCorrupt(false);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
@@ -91,6 +93,7 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setFile(next);
     setDone(false);
     setRunError(null);
+    setTooCorrupt(false);
     setStatus(ws.wsCommon("readingPdf"));
 
     try {
@@ -99,13 +102,16 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
       const url = URL.createObjectURL(next);
       try {
-        const doc = await pdfjs.getDocument({ url }).promise;
+        const doc = await pdfjs.getDocument({ url, password: password.trim() || undefined }).promise;
         setPageCount(doc.numPages);
+        setStatus(ws.wsStatus("fileReady", { name: next.name }));
+      } catch {
+        setPageCount(0);
+        setStatus(ws.wsStatus("fileReadyDamaged", { name: next.name }));
       } finally {
         URL.revokeObjectURL(url);
       }
 
-      setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -116,25 +122,26 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     }
   };
 
-  const onFlatten = async () => {
+  const onRepair = async () => {
     if (!file || busy) return;
 
     setBusy(true);
     setDone(false);
     setRunError(null);
-    setProgress({ phase: "loading", currentPage: 0, totalPages: pageCount });
+    setTooCorrupt(false);
+    setProgress({ phase: "scanning", percent: 0 });
     setStatus(ws.wsStatus("starting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
-      const bytes = await flattenPdfFromFile(file, {
+      const bytes = await repairPdfFromFile(file, {
         password: password.trim() || undefined,
         onProgress: (p) => {
           setProgress(p);
-          setStatus(labelProgress(p));
+          setStatus(repairProgressLabel(p, ws));
         },
       });
-      const outName = flattenPdfOutputName(file);
+      const outName = repairPdfOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
       setStatus(ws.wsStatus("downloaded", { name: outName }));
@@ -144,14 +151,20 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
         dispatchToolComplete({ operation: tool.operation, slug });
       }, 400);
     } catch (e) {
-      const parsed = classifyPdfError(e);
-      setRunError(parsed);
-      setStatus("");
+      if (e instanceof PdfRepairTooCorruptedError) {
+        setTooCorrupt(true);
+        setStatus(ws.wsStatus("tooCorrupted"));
+        setRunError(new PdfProcessingError("corrupt", e.userMessage, e));
+      } else {
+        const parsed = classifyPdfError(e);
+        setRunError(parsed);
+        setStatus("");
+      }
       capture(EVENTS.tool_run_error, {
         operation: tool.operation,
         slug,
-        message: parsed.message,
-        kind: parsed.kind,
+        message: e instanceof Error ? e.message : "repair failed",
+        kind: e instanceof PdfRepairTooCorruptedError ? "corrupt" : "generic",
       });
     } finally {
       setBusy(false);
@@ -160,55 +173,55 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   };
 
   const showWorkspace = Boolean(file);
-  const canFlatten = Boolean(file) && !busy;
-  const percent = progressPercent(progress, busy);
+  const canRepair = Boolean(file) && !busy;
+  const percent = progress?.percent ?? (busy ? 8 : 0);
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <OptimizationRepairNotice />
 
       <WorkspaceUploadShell>
-            {!showWorkspace ? (
-        <FileUploadZone
-          operation={tool.operation}
-          drag={drag}
-          role="button"
-          tabIndex={0}
-          aria-controls={`${baseId}-input`}
-          className="cursor-pointer"
-          title={ws.uploadTitle()}
-          description={ws.uploadDescription()}
-          onKeyDown={(e: ReactKeyboardEvent) => {
-            if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
-          }}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDrag(true);
-          }}
-          onDragLeave={() => setDrag(false)}
-          onDrop={(e) => {
-            e.preventDefault();
-            setDrag(false);
-            const picked = e.dataTransfer.files?.[0];
-            if (picked) void pickFile(picked);
-          }}
-          onClick={() => inputRef.current?.click()}
-          input={
-            <input
-              id={`${baseId}-input`}
-              ref={inputRef}
-              type="file"
-              className="sr-only"
-              accept="application/pdf,.pdf"
-              onChange={(e) => {
-                const picked = e.target.files?.[0];
-                if (picked) void pickFile(picked);
-                e.target.value = "";
-              }}
-            />
-          }
-        />
-      ) : null}
+        {!showWorkspace ? (
+          <FileUploadZone
+            operation={tool.operation}
+            drag={drag}
+            role="button"
+            tabIndex={0}
+            aria-controls={`${baseId}-input`}
+            className="cursor-pointer"
+            title={ws.uploadTitle()}
+            description={ws.uploadDescription()}
+            onKeyDown={(e: ReactKeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+            }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDrag(true);
+            }}
+            onDragLeave={() => setDrag(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDrag(false);
+              const picked = e.dataTransfer.files?.[0];
+              if (picked) void pickFile(picked);
+            }}
+            onClick={() => inputRef.current?.click()}
+            input={
+              <input
+                id={`${baseId}-input`}
+                ref={inputRef}
+                type="file"
+                className="sr-only"
+                accept="application/pdf,.pdf"
+                onChange={(e) => {
+                  const picked = e.target.files?.[0];
+                  if (picked) void pickFile(picked);
+                  e.target.value = "";
+                }}
+              />
+            }
+          />
+        ) : null}
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
@@ -218,10 +231,10 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
               <p className="mt-1 text-xs text-ink-muted">
                 {file ? pdf.formatBytes(file.size) : ""}
-                {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : ""}
+                {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : ` · ${ws.wsUi("unknownPageCount")}`}
               </p>
             </div>
-            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-black dark:text-neutral-200">
+            <span className="rounded-none border border-neutral-300 bg-neutral-200 px-3 py-1 text-xs font-medium text-black dark:border-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -243,22 +256,23 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             />
           </div>
 
-          {busy ? <WorkspaceProgressBar percent={percent} label={labelProgress(progress)} /> : null}
+          {busy ? (
+            <WorkspaceProgressBar percent={percent} label={repairProgressLabel(progress, ws)} />
+          ) : null}
 
           <div className="flex flex-wrap gap-3">
             <button
               type="button"
-              disabled={!canFlatten}
-              onClick={() => void onFlatten()}
+              disabled={!canRepair}
+              onClick={() => void onRepair()}
               className={toolPrimaryBtn}
             >
-              {done ? ws.wsText("flattenAgainLabel") : ws.wsText("flattenLabel")}
+              {done ? ws.wsText("repairAgainLabel") : ws.wsText("repairLabel")}
             </button>
             <button type="button" disabled={busy} onClick={reset} className={toolSecondaryBtn}>
               {ws.chooseAnotherFile}
             </button>
           </div>
-
         </div>
       ) : null}
 
@@ -267,9 +281,10 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           operation={tool.operation}
           slug={slug}
           kind={runError.kind}
-          technicalMessage={runError.message}
+          technicalMessage={tooCorrupt ? ws.wsStatus("tooCorrupted") : runError.message}
           onDismiss={() => {
             setRunError(null);
+            setTooCorrupt(false);
             setStatus(file ? ws.wsText("adjustPassword") : "");
           }}
         />
@@ -281,7 +296,12 @@ export function FlattenPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
-      <StickyMobileCta href="#tool-workspace" label={ws.wsText("flattenLabel")} secondaryHref="/" secondaryLabel={ws.home} />
+      <StickyMobileCta
+        href="#tool-workspace"
+        label={ws.wsText("repairLabel")}
+        secondaryHref="/"
+        secondaryLabel={ws.home}
+      />
     </div>
   );
 }

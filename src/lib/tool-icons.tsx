@@ -432,6 +432,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("unlock-pdf"), key: "unlock-pdf" },
   { test: (s) => s.includes("remove-hidden-metadata"), key: "remove-hidden-metadata" },
   { test: (s) => s.includes("flatten-pdf"), key: "flatten-pdf" },
+  { test: (s) => s.includes("repair-pdf"), key: "repair-pdf" },
   { test: (s) => s.includes("redact-pdf"), key: "redact-pdf" },
   { test: (s) => s.includes("rotate-pdf"), key: "rotate-pdf" },
   { test: (s) => s.includes("crop-pdf"), key: "crop-pdf" },
@@ -619,6 +620,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <RedactIcon />,
     wrap: "bg-violet-100 ring-1 ring-violet-200",
     wrapHover: "group-hover:bg-violet-200 group-hover:ring-violet-300",
+  },
+  "repair-pdf": {
+    icon: <CompressIcon />,
+    wrap: "bg-amber-100 ring-1 ring-amber-200",
+    wrapHover: "group-hover:bg-amber-200 group-hover:ring-amber-300",
   },
   "safe-to-share-auditor": {
     icon: <AuditorIcon />,

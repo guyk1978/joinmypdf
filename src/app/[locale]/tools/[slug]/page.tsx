@@ -27,6 +27,7 @@ import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { FlattenPdfWorkspace } from "@/components/FlattenPdfWorkspace";
+import { RepairPdfWorkspace } from "@/components/RepairPdfWorkspace";
 import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
 import { AnnotatePdfWorkspace } from "@/components/AnnotatePdfWorkspace";
@@ -173,6 +174,8 @@ export default async function ToolPage({
           <SafeShareAuditorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "flatten-pdf" ? (
           <FlattenPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "repair-pdf" ? (
+          <RepairPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "remove-hidden-metadata" ? (
           <RemoveHiddenMetadataWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "delete-pages" ? (

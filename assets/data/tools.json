@@ -1813,12 +1813,12 @@
     },
     {
       "slug": "flatten-pdf",
-      "category": "security",
+      "category": "optimize",
       "operation": "flatten-pdf",
-      "title": "Flatten PDF",
+      "title": "Flatten PDF Online — Forms & Annotations",
       "primaryKeyword": "flatten pdf online remove forms annotations",
-      "intent": "Remove interactive layers and flatten every page locally in your browser.",
-      "description": "Flatten PDF forms, comments, and annotations into a non-editable visual layer. Processing runs entirely in your browser—no upload to our servers.",
+      "intent": "Flatten interactive PDF layers locally while preserving selectable text on clean pages.",
+      "description": "Flatten PDF forms, comments, and annotations into a non-editable layer. Vector text stays searchable where possible—100% in your browser.",
       "secondaryKeywords": [
         "flatten pdf forms",
         "remove pdf annotations",
@@ -1830,6 +1830,7 @@
         "Share finalized PDFs that cannot be edited in Acrobat"
       ],
       "relatedTools": [
+        "repair-pdf",
         "protect-pdf",
         "redact-pdf",
         "sign-pdf"
@@ -1841,15 +1842,64 @@
         },
         {
           "q": "What does flattening remove?",
-          "a": "Interactive form fields, annotations, comments, and other editable layers are burned into rasterized pages so they cannot be changed afterward."
+          "a": "Interactive form fields, annotations, comments, and watermarks are merged into the page. Pages without markup keep vector text when possible."
         },
         {
           "q": "Can I still copy text after flattening?",
-          "a": "Text selection may be limited because pages are rendered as images. Use PDF to Text first if you need editable copy."
+          "a": "Yes on pages that had no annotations—those pages are copied as-is. Only pages with forms or markup are rasterized."
         },
         {
           "q": "Does this work on password-protected PDFs?",
           "a": "Yes. Enter the document password when prompted, then flatten locally."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
+      "slug": "repair-pdf",
+      "category": "optimize",
+      "operation": "repair-pdf",
+      "title": "Repair PDF Online — Fix Corrupted Files",
+      "primaryKeyword": "repair pdf online fix corrupted pdf",
+      "intent": "Fix malformed PDF structures locally with scan progress and a clear result when repair is not possible.",
+      "description": "Repair corrupted PDF files in your browser—scan structure, rebuild xref tables, and download a readable file. Advanced repairs never leave your device.",
+      "secondaryKeywords": [
+        "fix corrupted pdf browser",
+        "pdf xref repair online",
+        "how to fix corrupted pdf"
+      ],
+      "useCases": [
+        "Recover a contract that stopped opening after email transfer",
+        "Fix PDFs with damaged cross-reference tables before merging",
+        "Salvage pages from a partially downloaded report"
+      ],
+      "relatedTools": [
+        "flatten-pdf",
+        "pdf-compress",
+        "pdf-merge"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded for repair?",
+          "a": "No. Repair scans and rebuilds the file entirely in your browser."
+        },
+        {
+          "q": "What kinds of damage can be fixed?",
+          "a": "Common issues like trailing garbage after EOF, broken xref pointers, and some missing stream objects. Severely truncated files may not be recoverable locally."
+        },
+        {
+          "q": "What if repair fails?",
+          "a": "You will see a clear message that the structure is too corrupted for local repair—instead of the page hanging silently."
+        },
+        {
+          "q": "Will repaired PDFs keep text selectable?",
+          "a": "Yes when pages are copied successfully—repair rebuilds structure without rasterizing pages."
         }
       ],
       "longTailPages": [],

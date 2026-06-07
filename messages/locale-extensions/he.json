@@ -40,6 +40,7 @@
       "passwordRecovery": "לשחזר סיסמת PDF קצרה שנשכחה",
       "redact": "להסתיר תוכן רגיש ב-PDF",
       "flatten": "לשטח PDF ולהסיר שכבות ניתנות לעריכה",
+      "repair": "לתקן PDF פגום או מבנה שבור",
       "removeMetadata": "להסיר מטא-דאטה נסתר לפני שיתוף",
       "sign": "לחתום על PDF עם החתימה שלך",
       "jpgToPdf": "להפוך תמונות ל-PDF",
@@ -238,6 +239,10 @@
       "flattenForms": {
         "title": "שטח טפסים והערות",
         "body": "הסר שכבות ניתנות לעריכה אחרי ניקוי מטא-דאטה."
+      },
+      "repairCorrupt": {
+        "title": "ה-PDF לא נפתח?",
+        "body": "נסו Repair PDF לבנייה מחדש של מבנה פגום לפני שיטוח או מיזוג."
       },
       "printBooklet": {
         "title": "הדפס כחוברת",
@@ -516,6 +521,7 @@
       "privacyGuaranteeTitle": "ערבות פרטיות",
       "privacyGuaranteeBody": "כלי זה רץ מקומית בדפדפן. לא מועלים קבצים לשרת. הנתונים נשארים במכשיר שלך.",
       "pageManageNotice": "העיבוד מתבצע מקומית — הקבצים שלך נשארים במכשיר.",
+      "optimizationRepairNotice": "גם בתיקונים מתקדמים, הקובץ שלך לא עוזב את הדפדפן.",
       "securePrefix": "100% מאובטח:",
       "pngPrivacy": "המרת תמונות רצה לחלוטין בדפדפן. התמונות הפרטיות שלך לא מועלות לשום שרת.",
       "loading": "טוען…",
@@ -714,7 +720,11 @@
       },
       "flatten-pdf": {
         "title": "גרור PDF לכאן או לחץ לעיון",
-        "description": "הסר טפסים, הערות והדגשות על ידי שיטוח עמודים מקומית."
+        "description": "שטח טפסים והערות מקומית — טקסט וקטורי נשאר ניתן לחיפוש בעמודים נקיים."
+      },
+      "repair-pdf": {
+        "title": "גרור PDF פגום לכאן או לחץ לעיון",
+        "description": "סרוק מבנה ובנה מחדש PDF פגום מקומית — הקובץ לא עוזב את הדפדפן."
       }
     },
     "buttons": {
@@ -730,7 +740,9 @@
       "pdf-text-editor": "החל והורד PDF",
       "annotate-pdf": "הורד PDF עם הערות",
       "reorder-pdf-pages": "הורד PDF מסודר",
-      "extract-pdf-pages": "הורד עמודים שחולצו"
+      "extract-pdf-pages": "הורד עמודים שחולצו",
+      "flatten-pdf": "הורד PDF משוטח",
+      "repair-pdf": "הורד PDF מתוקן"
     },
     "status": {
       "common": {
@@ -1095,6 +1107,35 @@
         "passwordLabel": "סיסמת PDF",
         "passwordHint": "(רק אם הקובץ מוגן)",
         "passwordPlaceholder": "אופציונלי"
+      }
+    },
+    "repair-pdf": {
+      "status": {
+        "invalidType": "בחר קובץ PDF.",
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "fileReady": "{name} מוכן — תקן כשתרצה.",
+        "fileReadyDamaged": "{name} נטען — נראה פגום. נסה תיקון מקומי.",
+        "starting": "מתחיל סריקה ותיקון…",
+        "downloaded": "PDF מתוקן הורד כ-{name}.",
+        "tooCorrupted": "מבנה הקובץ פגום מדי לתיקון מקומי."
+      },
+      "progress": {
+        "scanning": "סורק כותרת וסמני PDF…",
+        "structure": "סורק מבנה מסמך…",
+        "xref": "מנתח טבלאות cross-reference…",
+        "rebuild": "בונה מחדש אובייקטים וזרמי עמודים…",
+        "validate": "מאמת PDF מתוקן…",
+        "processing": "מעבד…"
+      },
+      "privacyNote": "תיקון PDF רץ לחלוטין בדפדפן — הקובץ לא עוזב את המכשיר.",
+      "repairLabel": "תקן PDF",
+      "repairAgainLabel": "תקן שוב",
+      "adjustPassword": "התאם את הקובץ או הסיסמה ונסה שוב.",
+      "ui": {
+        "passwordLabel": "סיסמת PDF",
+        "passwordHint": "(רק אם הקובץ מוגן)",
+        "passwordPlaceholder": "אופציונלי",
+        "unknownPageCount": "מספר עמודים לא ידוע"
       }
     },
     "sign": {
@@ -1966,6 +2007,7 @@
       "add-watermark": "הוספת סימן מים טקסטואלי ל-PDF.",
       "add-page-numbers": "הוספת מספרי עמוד ל-PDF.",
       "flatten-pdf": "שיטוח PDF והסרת שכבות ניתנות לעריכה.",
+      "repair-pdf": "תיקון PDF פגום — סריקה ובנייה מחדש מקומית בדפדפן.",
       "custom-paper-margin": "הגדרת גודל נייר ושוליים מותאמים.",
       "safe-to-share-auditor": "ביקורת PDF לפני שיתוף — זיהוי תוכן רגיש.",
       "remove-hidden-metadata": "הסרת מטא-דאטה נסתר לפני שיתוף.",

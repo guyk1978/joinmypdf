@@ -34,6 +34,7 @@ const ACTION_KEYS: Record<string, string> = {
   "pdf-password-recovery": "passwordRecovery",
   redact: "redact",
   "flatten-pdf": "flatten",
+  "repair-pdf": "repair",
   "remove-hidden-metadata": "removeMetadata",
   sign: "sign",
   "jpg-to-pdf": "jpgToPdf",

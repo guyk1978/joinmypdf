@@ -40,6 +40,7 @@
       "passwordRecovery": "recover a short forgotten PDF password",
       "redact": "redact sensitive PDF content",
       "flatten": "flatten a PDF and remove editable layers",
+      "repair": "repair a corrupted or malformed PDF",
       "removeMetadata": "remove hidden PDF metadata before sharing",
       "sign": "sign a PDF with your signature",
       "jpgToPdf": "turn images into a PDF",
@@ -238,6 +239,10 @@
       "flattenForms": {
         "title": "Flatten forms and comments",
         "body": "Remove editable layers after metadata is stripped for a fully locked-down file."
+      },
+      "repairCorrupt": {
+        "title": "PDF won't open?",
+        "body": "Try Repair PDF to rebuild damaged structure before flattening or merging."
       },
       "printBooklet": {
         "title": "Print as a booklet",
@@ -516,6 +521,7 @@
       "privacyGuaranteeTitle": "Privacy guarantee",
       "privacyGuaranteeBody": "This tool runs locally in your browser. No files are uploaded to any server. Your data stays on your device.",
       "pageManageNotice": "Process happens locally—your files stay on your device.",
+      "optimizationRepairNotice": "Even for advanced repairs, your file never leaves your browser.",
       "securePrefix": "100% Secure:",
       "pngPrivacy": "Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.",
       "loading": "Loading…",
@@ -714,7 +720,11 @@
       },
       "flatten-pdf": {
         "title": "Drop a PDF here or click to browse",
-        "description": "Remove forms, comments, and annotations by flattening pages locally."
+        "description": "Flatten forms and annotations locally—vector text stays searchable on clean pages."
+      },
+      "repair-pdf": {
+        "title": "Drop a damaged PDF here or click to browse",
+        "description": "Scan structure and rebuild corrupted PDFs locally—your file never leaves the browser."
       }
     },
     "buttons": {
@@ -730,7 +740,9 @@
       "pdf-text-editor": "Apply & download PDF",
       "annotate-pdf": "Download annotated PDF",
       "reorder-pdf-pages": "Download reordered PDF",
-      "extract-pdf-pages": "Download extracted PDF"
+      "extract-pdf-pages": "Download extracted PDF",
+      "flatten-pdf": "Download flattened PDF",
+      "repair-pdf": "Download repaired PDF"
     },
     "status": {
       "common": {
@@ -1095,6 +1107,35 @@
         "passwordLabel": "PDF password",
         "passwordHint": "(only if the file is protected)",
         "passwordPlaceholder": "Optional"
+      }
+    },
+    "repair-pdf": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — repair when you are.",
+        "fileReadyDamaged": "{name} loaded — appears damaged. Try local repair.",
+        "starting": "Starting scan and repair…",
+        "downloaded": "Repaired PDF downloaded as {name}.",
+        "tooCorrupted": "This file structure is too corrupted to be repaired locally."
+      },
+      "progress": {
+        "scanning": "Scanning PDF header and markers…",
+        "structure": "Scanning document structure…",
+        "xref": "Analyzing cross-reference tables…",
+        "rebuild": "Rebuilding objects and page streams…",
+        "validate": "Validating repaired PDF…",
+        "processing": "Processing…"
+      },
+      "privacyNote": "PDF repair runs entirely in your browser—your file never leaves your device.",
+      "repairLabel": "Repair PDF",
+      "repairAgainLabel": "Repair again",
+      "adjustPassword": "Adjust your file or password and try again.",
+      "ui": {
+        "passwordLabel": "PDF password",
+        "passwordHint": "(only if the file is protected)",
+        "passwordPlaceholder": "Optional",
+        "unknownPageCount": "Page count unknown"
       }
     },
     "sign": {

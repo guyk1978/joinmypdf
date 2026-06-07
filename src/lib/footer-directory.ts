@@ -99,6 +99,8 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("compare-pdf"),
       toolLink("pdf-to-booklet"),
       toolLink("pdf-compress"),
+      toolLink("flatten-pdf"),
+      toolLink("repair-pdf"),
       toolLink("rotate-pdf"),
       toolLink("delete-pdf-pages"),
       toolLink("crop-pdf"),

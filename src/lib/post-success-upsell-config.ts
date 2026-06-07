@@ -85,9 +85,12 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/pdf-compress/", card: "compressRedacted" },
   ],
   "flatten-pdf": [
+    { href: "/tools/repair-pdf/", card: "repairCorrupt" },
     { href: "/tools/protect-pdf/", card: "protectFlattened" },
-    { href: "/tools/redact-pdf/", card: "hideSensitiveFirst" },
-    { href: "/tools/sign-pdf/", card: "signAfterFlatten" },
+  ],
+  "repair-pdf": [
+    { href: "/tools/flatten-pdf/", card: "flattenForms" },
+    { href: "/tools/pdf-compress/", card: "compressBeforeSend" },
   ],
   "remove-hidden-metadata": [
     { href: "/tools/redact-pdf/", card: "redactVisible" },

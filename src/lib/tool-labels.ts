@@ -20,6 +20,7 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "pdf-password-recovery": "Password Recovery",
     "redact-pdf": "Redact PDF",
     "flatten-pdf": "Flatten PDF",
+    "repair-pdf": "Repair PDF",
     "remove-hidden-metadata": "Remove Metadata",
     "delete-pdf-pages": "Delete PDF Pages",
     "jpg-to-pdf": "JPG to PDF",

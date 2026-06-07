@@ -29,6 +29,7 @@ const verb: Record<string, string> = {
   "pdf-password-recovery": "recover a short forgotten PDF password",
   redact: "redact sensitive PDF content",
   "flatten-pdf": "flatten a PDF and remove editable layers",
+  "repair-pdf": "repair a corrupted or malformed PDF",
   "remove-hidden-metadata": "remove hidden PDF metadata before sharing",
   sign: "sign a PDF with your signature",
   "jpg-to-pdf": "turn images into a PDF",

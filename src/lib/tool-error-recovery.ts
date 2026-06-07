@@ -154,13 +154,12 @@ export function getToolErrorRecovery(
       { ...TOOLS.merge, variant: "secondary" },
     ],
     "flatten-pdf": [
-      { ...TOOLS.protect, hint: "Password-protect the flattened PDF", variant: "primary" },
-      {
-        href: "/tools/redact-pdf/",
-        label: "Redact PDF",
-        hint: "Black out secrets before flattening",
-        variant: "secondary",
-      },
+      { href: "/tools/repair-pdf/", label: "Repair PDF", hint: "Fix structure before flattening damaged files", variant: "primary" },
+      { ...TOOLS.protect, hint: "Password-protect the flattened PDF", variant: "secondary" },
+    ],
+    "repair-pdf": [
+      { href: "/tools/flatten-pdf/", label: "Flatten PDF", hint: "Lock forms after a successful repair", variant: "primary" },
+      { href: "/tools/pdf-merge/", label: "Merge PDF", hint: "Combine repaired sections", variant: "secondary" },
     ],
     "remove-hidden-metadata": [
       {

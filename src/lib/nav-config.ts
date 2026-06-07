@@ -45,6 +45,8 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
     label: "Optimization",
     items: [
       { href: "/tools/pdf-compress/", label: "Compress PDF" },
+      { href: "/tools/flatten-pdf/", label: "Flatten PDF" },
+      { href: "/tools/repair-pdf/", label: "Repair PDF" },
       { href: "/compare/", label: "Compare tools" },
     ],
   },

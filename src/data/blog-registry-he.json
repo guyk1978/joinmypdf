@@ -6489,6 +6489,180 @@
           { "href": "/tools/pdf-compress/", "anchor": "Compress PDF" }
         ]
       }
+    },
+    {
+      "slug": "why-pdf-looks-different-on-devices-flatten-pdf-solution",
+      "title": "למה ה-PDF שלי נראה שונה במחשבים שונים? הפתרון: Flatten PDF",
+      "keyword": "pdf looks different flatten hebrew",
+      "category": "Optimization",
+      "cluster": "flatten-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["flatten-pdf", "repair-pdf", "protect-pdf"],
+      "relatedBlogs": ["protect-filled-forms-flatten-pdf-before-sending"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור תאימות PDF · יוני 2026" },
+      "seo": {
+        "metaTitle": "PDF נראה שונה בכל מכשיר? Flatten PDF בדפדפן",
+        "metaDescription": "שכבות אינטראקטיביות מוצגות אחרת בין תוכנות. שטחו PDF מקומית לתצוגה עקבית."
+      },
+      "description": "דגש תאימות: למה טפסים והערות זזים בין מכשירים ואיך שיטוח מייצב פריסה.",
+      "contentBlocks": {
+        "intro": "אותו PDF יכול להציג שדות במיקומים שונים ב-Windows, Mac ומובייל כי שכבות אינטראקטיביות תלויות במנוע התצוגה. Flatten PDF מאחד אותן לתוכן עמוד יציב.",
+        "primaryTool": "flatten-pdf",
+        "sections": [{ "id": "compatibility", "heading": "שכבות אינטראקטיביות תלויות-viewer", "level": 2, "paragraphs": ["שדות AcroForm, בועות הערות ודיו חיים במבנים נפרדים.", "JoinMyPDF משטח רק עמודים שצריכים — עמודים נקיים שומרים טקסט וקטורי."] }],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" }]
+      }
+    },
+    {
+      "slug": "protect-filled-forms-flatten-pdf-before-sending",
+      "title": "איך להגן על טפסים שמילאתם: השטחת (Flatten) קובץ PDF לפני השליחה",
+      "keyword": "flatten filled form hebrew",
+      "category": "Optimization",
+      "cluster": "flatten-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["flatten-pdf", "protect-pdf", "sign-pdf"],
+      "relatedBlogs": ["why-pdf-looks-different-on-devices-flatten-pdf-solution"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור מסירה מקצועית · יוני 2026" },
+      "seo": {
+        "metaTitle": "הגנה על טפסים ממולאים — Flatten לפני שליחה",
+        "metaDescription": "מנעו עריכה של שדות שהשלמתם. שטחו PDF מקומית לפני מייל או פורטל."
+      },
+      "description": "אבטחה ומקצועיות: נעלו ערכי טופס לפני מסירה.",
+      "contentBlocks": {
+        "intro": "W-9 או חבילת קליטה ממולאת צריכה להיראות סופית. אם השדות נשארים ניתנים לעריכה, כל אחד יכול לשנות סכומים אחרי השליחה.",
+        "primaryTool": "flatten-pdf",
+        "sections": [],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" }]
+      }
+    },
+    {
+      "slug": "edited-pdf-vs-flattened-pdf-when-to-use",
+      "title": "הבדל בין PDF ערוך ל-PDF שטוח: מתי כדאי להשתמש בכל אחד?",
+      "keyword": "edited vs flattened pdf hebrew",
+      "category": "Optimization",
+      "cluster": "flatten-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["flatten-pdf", "pdf-text-editor", "annotate-pdf"],
+      "relatedBlogs": [],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור חינוך תהליכי PDF · יוני 2026" },
+      "seo": {
+        "metaTitle": "PDF ערוך מול PDF שטוח — מתי להשתמש",
+        "metaDescription": "מתי לשמור שכבות לעריכה ומתי לשטח למסירה סופית."
+      },
+      "description": "השוואה חינוכית בין PDF ניתן לעריכה לשטוח.",
+      "contentBlocks": {
+        "intro": "PDF ניתן לעריכה מיועד לשיתוף פעולה; PDF שטוח למסירה. ערבוב השניים יוצר כאוס גרסאות.",
+        "primaryTool": "flatten-pdf",
+        "sections": [],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/flatten-pdf/", "anchor": "Flatten PDF" }]
+      }
+    },
+    {
+      "slug": "pdf-wont-open-fix-corrupted-files-three-clicks",
+      "title": "ה-PDF לא נפתח? איך לתקן קבצים פגומים ב-3 לחיצות",
+      "keyword": "fix corrupted pdf hebrew",
+      "category": "Optimization",
+      "cluster": "repair-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["repair-pdf", "flatten-pdf", "pdf-merge"],
+      "relatedBlogs": ["why-pdf-files-break-and-how-to-make-readable"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור שחזור PDF · יוני 2026" },
+      "seo": {
+        "metaTitle": "תיקון PDF פגום ב-3 לחיצות (מקומי)",
+        "metaDescription": "PDF לא נפתח? תקנו מבנה בדפדפן עם פס התקדמות — בלי ענן."
+      },
+      "description": "פתרון בעיות ל-PDF שלא נפתח.",
+      "contentBlocks": {
+        "intro": "הורדה שנעצרה, קובץ מצורף ש-Acrobat דוחה — Repair PDF סורק מבנה מקומית ובונה מחדש: העלאה, תיקון, הורדה.",
+        "primaryTool": "repair-pdf",
+        "sections": [],
+        "faq": [{ "q": "מה אם התיקון נכשל?", "a": "תוצג הודעה: מבנה הקובץ פגום מדי לתיקון מקומי." }],
+        "internalLinks": [{ "href": "/tools/repair-pdf/", "anchor": "Repair PDF" }]
+      }
+    },
+    {
+      "slug": "why-pdf-files-break-and-how-to-make-readable",
+      "title": "למה קבצי PDF נשברים ואיך הופכים אותם לקריאים שוב",
+      "keyword": "why pdf corrupted hebrew",
+      "category": "Optimization",
+      "cluster": "repair-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["repair-pdf", "pdf-merge", "pdf-compress"],
+      "relatedBlogs": [],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור מבנה PDF · יוני 2026" },
+      "seo": {
+        "metaTitle": "למה PDF נשבר (xref, streams) ואיך לתקן",
+        "metaDescription": "מדריך נגיש לטבלאות xref פגומות, הורדות קטועות ותיקון מקומי."
+      },
+      "description": "הסבר טכני-נגיש על סיבות נפוצות לשבירת PDF.",
+      "contentBlocks": {
+        "intro": "PDF הוא מפת בתים: כותרת, אובייקטים, xref, trailer, %%EOF. שבירת קישור אחד — וה-viewer מסרב לפתוח.",
+        "primaryTool": "repair-pdf",
+        "sections": [],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/repair-pdf/", "anchor": "Repair PDF" }]
+      }
+    },
+    {
+      "slug": "repair-pdf-online-why-browser-not-cloud",
+      "title": "תיקון PDF אונליין: למה לעשות זאת בדפדפן ולא להעלות לענן",
+      "keyword": "repair pdf privacy hebrew",
+      "category": "Optimization",
+      "cluster": "repair-optimize",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["repair-pdf", "protect-pdf", "redact-pdf"],
+      "relatedBlogs": [],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור תיקון ממוקד פרטיות · יוני 2026" },
+      "seo": {
+        "metaTitle": "תיקון PDF בדפדפן — לא בענן (מדריך פרטיות)",
+        "metaDescription": "חוזים ו-PDF רפואי פגום לא צריכים לעבור בשרתים. תקנו מקומית."
+      },
+      "description": "דגש פרטיות לתיקון PDF מתקדם.",
+      "contentBlocks": {
+        "intro": "PDF פגום מכיל לרוב את אותם נתונים רגישים. תיקון בענן מכפיל סיכון. תיקון בדפדפן שומר bytes במכונה.",
+        "primaryTool": "repair-pdf",
+        "sections": [],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/repair-pdf/", "anchor": "Repair PDF" }]
+      }
     }
   ]
 }

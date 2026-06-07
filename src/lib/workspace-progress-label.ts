@@ -61,6 +61,11 @@ export function progressLabelFromPhase(
     if (prep) return prep;
   }
 
+  if (typeof p.percent === "number" && ["scanning", "structure", "xref", "rebuild", "validate"].includes(phase)) {
+    const repair = ws.wsProgress(phase, { percent: p.percent });
+    if (repair) return repair;
+  }
+
   const byPhase = ws.wsProgress(phase);
   if (byPhase) return byPhase;
 

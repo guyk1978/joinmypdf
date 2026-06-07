@@ -397,6 +397,41 @@ function buildWorkspaces(locale) {
         passwordPlaceholder: common.optional,
       },
     },
+    "repair-pdf": {
+      status: {
+        invalidType: common.choosePdf,
+        emptyFile: common.emptyPdf,
+        fileReady: op(locale, "{name} ready — repair when you are.", "{name} מוכן — תקן כשתרצה."),
+        fileReadyDamaged: isHe
+          ? "{name} נטען — נראה פגום. נסה תיקון מקומי."
+          : "{name} loaded — appears damaged. Try local repair.",
+        starting: isHe ? "מתחיל סריקה ותיקון…" : "Starting scan and repair…",
+        downloaded: isHe ? "PDF מתוקן הורד כ-{name}." : "Repaired PDF downloaded as {name}.",
+        tooCorrupted: isHe
+          ? "מבנה הקובץ פגום מדי לתיקון מקומי."
+          : "This file structure is too corrupted to be repaired locally.",
+      },
+      progress: {
+        scanning: isHe ? "סורק כותרת וסמני PDF…" : "Scanning PDF header and markers…",
+        structure: isHe ? "סורק מבנה מסמך…" : "Scanning document structure…",
+        xref: isHe ? "מנתח טבלאות cross-reference…" : "Analyzing cross-reference tables…",
+        rebuild: isHe ? "בונה מחדש אובייקטים וזרמי עמודים…" : "Rebuilding objects and page streams…",
+        validate: isHe ? "מאמת PDF מתוקן…" : "Validating repaired PDF…",
+        processing: common.processing,
+      },
+      privacyNote: isHe
+        ? "תיקון PDF רץ לחלוטין בדפדפן — הקובץ לא עוזב את המכשיר."
+        : "PDF repair runs entirely in your browser—your file never leaves your device.",
+      repairLabel: isHe ? "תקן PDF" : "Repair PDF",
+      repairAgainLabel: isHe ? "תקן שוב" : "Repair again",
+      adjustPassword: isHe ? "התאם את הקובץ או הסיסמה ונסה שוב." : "Adjust your file or password and try again.",
+      ui: {
+        passwordLabel: isHe ? "סיסמת PDF" : "PDF password",
+        passwordHint: isHe ? "(רק אם הקובץ מוגן)" : "(only if the file is protected)",
+        passwordPlaceholder: common.optional,
+        unknownPageCount: isHe ? "מספר עמודים לא ידוע" : "Page count unknown",
+      },
+    },
     sign: {
       status: {
         loadedSign: isHe
