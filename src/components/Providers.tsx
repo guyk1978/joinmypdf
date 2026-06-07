@@ -11,8 +11,10 @@ export function Providers({ children }: { children: ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
       <PostHogProvider>
         <PendingFilesProvider>
-          <EmailPopupScript />
-          {children}
+          <div className="theme-transition min-h-screen">
+            <EmailPopupScript />
+            {children}
+          </div>
         </PendingFilesProvider>
       </PostHogProvider>
     </ThemeProvider>

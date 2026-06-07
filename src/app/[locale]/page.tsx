@@ -59,10 +59,10 @@ export default async function HomePage({ params }: Props) {
         }}
       />
       <div className="relative">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-0 bg-[url('/assets/images/watermark/watermarked_img_3687248108699289583.png')] bg-center bg-repeat bg-fixed opacity-10 dark:bg-[url('/assets/images/watermark/watermarked_img_12115464384613891207.png')]"
-        />
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-500 ease-in-out">
+          <div className="absolute inset-0 bg-[url('/assets/images/watermark/watermarked_img_3687248108699289583.png')] bg-center bg-repeat bg-fixed opacity-10 transition-opacity duration-500 ease-in-out dark:opacity-0" />
+          <div className="absolute inset-0 bg-[url('/assets/images/watermark/watermarked_img_12115464384613891207.png')] bg-center bg-repeat bg-fixed opacity-0 transition-opacity duration-500 ease-in-out dark:opacity-10" />
+        </div>
         <div className="relative z-10">
           <SiteHeader />
           <main className="mx-auto max-w-6xl px-4 py-14 md:px-4 md:py-20">

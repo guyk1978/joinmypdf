@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .theme-transition {
+    @apply transition-colors duration-500 ease-in-out;
+  }
+
+  .theme-transition-delayed {
+    @apply transition-colors duration-500 ease-in-out delay-75;
+  }
+}
+
 :root {
   --surface: 255 255 255;
   --surface-muted: 245 245 245;
@@ -35,10 +45,11 @@ html.dark {
 html {
   overflow-x: hidden;
   max-width: 100%;
+  @apply transition-[color-scheme] duration-500 ease-in-out;
 }
 
 body {
-  @apply min-h-screen bg-neutral-100 pt-12 dark:bg-neutral-950 text-black dark:text-neutral-200 antialiased transition-colors duration-300;
+  @apply min-h-screen bg-neutral-100 pt-12 text-black antialiased transition-colors duration-500 ease-in-out dark:bg-neutral-950 dark:text-neutral-200;
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -54,7 +65,7 @@ html.dark body {
   background: #f5f5f5;
   padding: 2rem 0 1.5rem;
   color: #404040;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, border-color 0.5s ease-in-out;
 }
 
 html.dark .site-footer {
@@ -1815,7 +1826,7 @@ html.dark .pdf-export-thumb__download:hover {
   left: 0;
   right: 0;
   z-index: 50;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.5s ease-in-out, border-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
 .site-header .site-header__inner {

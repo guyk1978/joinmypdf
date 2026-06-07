@@ -14,7 +14,7 @@ export function FeaturedToolsShowcase({ items, toolCount }: FeaturedToolsShowcas
   const t = useTranslations("Home");
 
   return (
-    <section className="mt-20 space-y-4 md:mt-24" aria-labelledby="featured-tools">
+    <section className="theme-transition-delayed mt-20 space-y-4 md:mt-24" aria-labelledby="featured-tools">
       <div className="text-center md:text-left">
         <h2
           id="featured-tools"

@@ -70,7 +70,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <head>
         <GoogleAnalytics />
       </head>
-      <body className="font-sans">
+      <body className="theme-transition font-sans">
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <ScrollDepthTracker />
