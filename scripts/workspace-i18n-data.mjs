@@ -109,6 +109,10 @@ const uploadEn = {
     title: "Drop a PDF here or click to browse",
     description: "Select one PDF to overlay or replace visible text—processed locally.",
   },
+  "annotate-pdf": {
+    title: "Drop a PDF here or click to browse",
+    description: "Highlight, draw, and add sticky notes—annotations bake into your download locally.",
+  },
   "pdf-to-booklet": {
     title: "Drop a PDF to impose as a booklet",
     description: "Prepare a PDF for duplex fold-and-staple printing.",
@@ -264,6 +268,10 @@ const uploadHe = {
     title: "גרור PDF לכאן או לחץ לעיון",
     description: "בחר PDF אחד להוספת או החלפת טקסט גלוי — מעובד מקומית.",
   },
+  "annotate-pdf": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "הדגש, צייר והוסף פתקיות — ההערות נאפות בהורדה מקומית.",
+  },
   "pdf-to-booklet": {
     title: "גרור PDF להטלה כחוברת",
     description: "הכן PDF להדפסה duplex קיפול וסיכה.",
@@ -384,6 +392,7 @@ function buildWorkspace(locale) {
       unlock: isHe ? "הסר נעילה" : "Unlock PDF",
       sign: isHe ? "חתום על PDF" : "Sign PDF",
       "pdf-text-editor": isHe ? "החל והורד PDF" : "Apply & download PDF",
+      "annotate-pdf": isHe ? "הורד PDF עם הערות" : "Download annotated PDF",
     },
     status: {
       common: {

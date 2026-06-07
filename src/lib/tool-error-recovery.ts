@@ -188,6 +188,10 @@ export function getToolErrorRecovery(
       { href: "/tools/unlock-pdf/", label: "Unlock PDF", hint: "Remove encryption before editing", variant: "primary" },
       { href: "/tools/add-watermark/", label: "Add Watermark", hint: "Stamp DRAFT on edited exports", variant: "secondary" },
     ],
+    "annotate-pdf": [
+      { href: "/tools/sign-pdf/", label: "Sign PDF", hint: "Sign the annotated document", variant: "primary" },
+      { href: "/tools/protect-pdf/", label: "Protect PDF", hint: "Password-protect before sharing", variant: "secondary" },
+    ],
     "pdf-to-booklet": [
       { ...TOOLS.merge, hint: "Merge chapters before imposing", variant: "primary" },
       { ...TOOLS.split, hint: "Split to fix page order first", variant: "secondary" },

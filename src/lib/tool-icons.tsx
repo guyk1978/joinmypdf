@@ -391,6 +391,16 @@ function DataIcon() {
   );
 }
 
+function AnnotateIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
+      <path strokeLinecap="round" d="M4 20h4l10-10-4-4L4 16v4Z" />
+      <path strokeLinecap="round" d="m13 7 4 4" />
+      <path strokeLinecap="round" d="M3 21l2-2" opacity="0.5" />
+    </svg>
+  );
+}
+
 function DefaultPdfIcon() {
   return (
     <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
@@ -444,6 +454,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("compare-pdf"), key: "compare-pdf" },
   { test: (s) => s.includes("batch-rename-pdf"), key: "batch-rename-pdf" },
   { test: (s) => s.includes("pdf-text-editor"), key: "pdf-text-editor" },
+  { test: (s) => s.includes("annotate-pdf"), key: "annotate-pdf" },
   { test: (s) => s.includes("pdf-split"), key: "pdf-split" },
   { test: (s) => s.includes("pdf-merge"), key: "pdf-merge" },
 ];
@@ -491,6 +502,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <TextIcon />,
     wrap: "bg-violet-100 ring-1 ring-violet-200",
     wrapHover: "group-hover:bg-violet-200 group-hover:ring-violet-300",
+  },
+  "annotate-pdf": {
+    icon: <AnnotateIcon />,
+    wrap: "bg-amber-100 ring-1 ring-amber-200",
+    wrapHover: "group-hover:bg-amber-200 group-hover:ring-amber-300",
   },
   "jpg-to-pdf": {
     icon: <ImageToPdfIcon />,

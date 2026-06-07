@@ -17,6 +17,7 @@
       "split": "לפצל PDF",
       "batchRename": "לשנות שם קבוצתי לקבצי PDF",
       "textEditor": "להוסיף או להחליף טקסט גלוי ב-PDF מקומית",
+      "annotate": "להדגיש, לצייר ולהוסיף פתקיות על PDF",
       "compare": "להשוות שני PDF זה לצד זה",
       "booklet": "להציג PDF כחוברת מוכנה להדפסה",
       "safeShare": "לבדוק PDF לתוכן רגיש לפני שיתוף",
@@ -656,6 +657,10 @@
         "title": "גרור PDF לכאן או לחץ לעיון",
         "description": "בחר PDF אחד להוספת או החלפת טקסט גלוי — מעובד מקומית."
       },
+      "annotate-pdf": {
+        "title": "גרור PDF לכאן או לחץ לעיון",
+        "description": "הדגש, צייר והוסף פתקיות — ההערות נאפות בהורדה מקומית."
+      },
       "pdf-to-booklet": {
         "title": "גרור PDF להטלה כחוברת",
         "description": "הכן PDF להדפסה duplex קיפול וסיכה."
@@ -711,7 +716,8 @@
       "protect": "הגן על PDF",
       "unlock": "הסר נעילה",
       "sign": "חתום על PDF",
-      "pdf-text-editor": "החל והורד PDF"
+      "pdf-text-editor": "החל והורד PDF",
+      "annotate-pdf": "הורד PDF עם הערות"
     },
     "status": {
       "common": {
@@ -1126,7 +1132,14 @@
         "saveFailed": "לא ניתן לשמור את החתימה.",
         "createFailed": "לא ניתן ליצור חתימה.",
         "drawnSignatureLabel": "חתימה מצוירת",
-        "activePage": "עמוד פעיל"
+        "activePage": "עמוד פעיל",
+        "extrasHeading": "פרטים ליד החתימה",
+        "includeDateLabel": "הוסף תאריך אוטומטי ליד כל חתימה",
+        "signerNameLabel": "שם (טקסט חופשי)",
+        "signerNamePlaceholder": "למשל ישראל ישראלי",
+        "signerTitleLabel": "תפקיד / כותרת",
+        "signerTitlePlaceholder": "למשל מנהל/ת פרויקטים",
+        "extrasHint": "תאריך, שם ותפקיד מודפסים ליד כל חתימה שמיקמת — ניתן לגרור את החתימה והתוויות יתעדכנו."
       }
     },
     "redact": {
@@ -1672,6 +1685,47 @@
         "removeLayer": "הסר"
       }
     },
+    "annotate-pdf": {
+      "status": {
+        "loaded": "נטענו {count} עמוד/ים. בחר כלי, סמן את העמוד, והורד כשמוכן.",
+        "couldNotOpen": "לא ניתן לפתוח את ה-PDF. אם הוא מוגן, הזן את הסיסמה למטה.",
+        "enterPassword": "הזן את סיסמת ה-PDF כדי לפתוח את הקובץ.",
+        "addAnnotation": "הוסף לפחות הערה אחת לפני ההורדה.",
+        "applying": "אופה הערות ל-PDF…",
+        "downloaded": "PDF עם הערות הורד כ-{name}.",
+        "adjustFile": "התאם את הקובץ ונסה שוב.",
+        "undone": "בוטל הצעד האחרון.",
+        "highlightAdded": "הדגשה נוספה.",
+        "strokeAdded": "קו ציור נוסף.",
+        "stickyAdded": "פתקית נוספה."
+      },
+      "privacyNote": "הערות PDF מעובדות לחלוטין בדפדפן — הקובץ לא עוזב את המכשיר.",
+      "stickyLabel": "הורד עם הערות",
+      "ui": {
+        "passwordLabel": "סיסמת PDF (קבצים מוגנים)",
+        "toolbarLabel": "כלי הערות",
+        "tool_highlight": "הדגשה",
+        "tool_draw": "ציור חופשי",
+        "tool_sticky": "פתקית",
+        "undoLabel": "↶ בטל",
+        "colorLabel": "צבע",
+        "thicknessLabel": "עובי קו",
+        "stickyTextLabel": "טקסט הפתקית",
+        "stickyTextPlaceholder": "הקלד הערה, ואז לחץ על העמוד",
+        "stickyColorLabel": "צבע פתקית",
+        "sticky_yellow": "צהוב",
+        "sticky_green": "ירוק",
+        "sticky_violet": "סגול",
+        "sticky_cyan": "ציאן",
+        "hint_highlight": "גרור מלבן על טקסט להדגשה.",
+        "hint_draw": "צייר עם העכבר או האצבע — Undo לטעות.",
+        "hint_sticky": "הקלד טקסט, בחר צבע ניאון, ולחץ על העמוד.",
+        "pageLabel": "עמוד",
+        "pageOption": "עמוד {page}",
+        "annotationCount": "{count} הערה/ות",
+        "loadingPreview": "טוען תצוגה…"
+      }
+    },
     "pdf-to-booklet": {
       "status": {
         "invalidType": "בחר קובץ PDF.",
@@ -1827,6 +1881,7 @@
       "pdf-split": "פיצול PDF לעמודים או קטעים נפרדים מקומית בדפדפן.",
       "batch-rename-pdf": "שינוי שם קבוצתי לקבצי PDF לפי כללים עקביים.",
       "pdf-text-editor": "הוספת או החלפת טקסט גלוי ב-PDF בדפדפן — בלי העלאה לענן.",
+      "annotate-pdf": "הדגשת טקסט, ציור חופשי ופתקיות על PDF — מקומית בדפדפן.",
       "compare-pdf": "השוואת שני PDF זה לצד זה בדפדפן.",
       "pdf-to-booklet": "המרת PDF לפריסת חוברת מוכנה להדפסה.",
       "jpg-to-pdf": "המרת תמונות JPG ל-PDF אחד מסודר.",

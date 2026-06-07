@@ -184,6 +184,7 @@ export async function signPdfFile(
   file: File,
   stamps: import("./pdf-sign").SignatureStamp[],
   password?: string,
+  textStamps?: import("./pdf-sign").TextStamp[],
 ): Promise<Uint8Array> {
   if (!file) throw new Error("No PDF file selected.");
   const bytes = new Uint8Array(await file.arrayBuffer());
@@ -193,7 +194,7 @@ export async function signPdfFile(
 
   const { signPdfBytes } = await import("./pdf-sign");
   try {
-    return await signPdfBytes(bytes, stamps, { password });
+    return await signPdfBytes(bytes, stamps, { password, textStamps });
   } catch (error) {
     throw classifyPdfError(error);
   }

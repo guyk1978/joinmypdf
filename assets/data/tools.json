@@ -2009,13 +2009,62 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "annotate-pdf",
+      "category": "edit",
+      "operation": "annotate-pdf",
+      "title": "Annotate PDF — Highlights, Draw & Sticky Notes",
+      "primaryKeyword": "annotate pdf online highlight draw notes",
+      "intent": "Highlight text, draw freehand, and add sticky notes on PDF pages in your browser.",
+      "description": "Annotate PDFs locally with highlights, freehand ink, and neon sticky notes. Annotations bake into the download—nothing is uploaded to our servers.",
+      "secondaryKeywords": [
+        "pdf highlight tool browser",
+        "draw on pdf online",
+        "pdf sticky notes local"
+      ],
+      "useCases": [
+        "Review a contract and highlight key clauses without printing",
+        "Circle errors on a scanned form before sending back",
+        "Leave sticky-note reminders on design proofs"
+      ],
+      "relatedTools": [
+        "sign-pdf",
+        "pdf-text-editor",
+        "compare-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Annotation runs entirely in your browser. Your file never leaves your device."
+        },
+        {
+          "q": "Are annotations permanent in the downloaded file?",
+          "a": "Yes. Annotated pages are baked into the exported PDF so highlights and drawings appear for all viewers."
+        },
+        {
+          "q": "Can I undo a mistake?",
+          "a": "Yes. Use the Undo button in the toolbar to step back through your annotations."
+        },
+        {
+          "q": "Does this work on large PDFs?",
+          "a": "Yes. Edit one page at a time for smooth performance on long documents."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-02"
+    },
+    {
       "slug": "sign-pdf",
       "category": "security",
       "operation": "sign",
       "title": "Sign PDF Online",
       "primaryKeyword": "sign pdf online free",
       "intent": "Draw or type a signature and place it on your PDF in the browser.",
-      "description": "Sign PDF documents locally—draw or type your signature, drag it into place, and download a signed file. Nothing is uploaded to our servers.",
+      "description": "Sign PDF documents locally—draw or type your signature, add date and name fields, drag into place, and download. Nothing is uploaded to our servers.",
       "secondaryKeywords": [
         "add signature to pdf",
         "electronic signature pdf",
@@ -2045,6 +2094,10 @@
           "a": "Yes. Choose the page, then drag and resize the signature overlay before downloading."
         },
         {
+          "q": "Can I add a date and printed name next to my signature?",
+          "a": "Yes. Enable the date field and enter your name or job title—labels appear beside each placed signature in the exported PDF."
+        },
+        {
           "q": "Is this a legally binding e-signature?",
           "a": "JoinMyPDF provides a visual signature stamp. For regulated agreements, confirm requirements with your jurisdiction or counsel."
         }
@@ -2055,7 +2108,7 @@
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
-      "updatedAt": "2026-05-24"
+      "updatedAt": "2026-06-02"
     }
   ]
 }

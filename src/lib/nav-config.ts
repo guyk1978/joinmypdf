@@ -24,6 +24,7 @@ export const NAV_DROPDOWNS: NavDropdown[] = [
       { href: "/tools/pdf-split/", label: "Split PDF" },
       { href: "/tools/batch-rename-pdf/", label: "Batch Rename PDF" },
       { href: "/tools/pdf-text-editor/", label: "PDF Text Editor" },
+      { href: "/tools/annotate-pdf/", label: "Annotate PDF" },
       { href: "/tools/compare-pdf/", label: "Compare PDF" },
       { href: "/tools/pdf-to-booklet/", label: "PDF to Booklet" },
       { href: "/tools/delete-pdf-pages/", label: "Delete PDF Pages" },

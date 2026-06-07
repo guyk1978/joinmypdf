@@ -5855,6 +5855,328 @@
           { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
         ]
       }
+    },
+    {
+      "slug": "add-pdf-annotations-without-printing",
+      "title": "איך להוסיף הערות וסימוני טקסט ל-PDF מבלי להדפיס",
+      "keyword": "add pdf annotations without printing",
+      "category": "Edit & Organize",
+      "cluster": "annotate-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["annotate-pdf", "sign-pdf", "compare-pdf"],
+      "relatedBlogs": [
+        "highlight-and-draw-fastest-way-review-contracts",
+        "are-my-pdf-annotations-private-local-browser-editing"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי PDF ללא נייר · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "הוספת הערות ל-PDF בלי הדפסה (מדריך דפדפן)",
+        "metaDescription": "הדגש, צייר ופתקיות על PDF בדפדפן — בלי מדפסת ובלי העלאה. Annotate PDF של JoinMyPDF."
+      },
+      "description": "מדריך paperless: סימון PDF מקומית במקום הדפסה, סימון ידני וסריקה מחדש.",
+      "contentBlocks": {
+        "intro": "הדפסת חוזה של 40 עמודים רק כדי להדגיש שני סעיפים — איטי, יקר וקשה לעקוב. Annotate PDF רץ בדפדפן: הדגשה, ציור ופתקיות, ואז הורדת PDF מסומן.",
+        "primaryTool": "annotate-pdf",
+        "sections": [
+          {
+            "id": "workflow",
+            "heading": "תהליך markup ללא נייר",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "פתחו Annotate PDF וטענו את המסמך.",
+              "הדגישו סעיפים שדורשים תשומת לב.",
+              "הוסיפו פתקיות ניאון לשאלות לצוות משפטי או כספים.",
+              "הורידו וצרפו את ה-PDF המסומן לתשובה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "צריך Acrobat?",
+            "a": "לא. Annotate PDF עובד בדפדפן מודרני עם עיבוד מקומי."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/annotate-pdf/", "anchor": "Annotate PDF" },
+          { "href": "/tools/sign-pdf/", "anchor": "Sign PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "highlight-and-draw-fastest-way-review-contracts",
+      "title": "הדגשת טקסט וציור חופשי: הדרך הכי מהירה לעבור על חוזים",
+      "keyword": "highlight pdf contract review fast",
+      "category": "Edit & Organize",
+      "cluster": "annotate-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": false,
+      "priority": 0.86,
+      "relatedTools": ["annotate-pdf", "compare-pdf", "pdf-text-editor"],
+      "relatedBlogs": ["add-pdf-annotations-without-printing"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור מהירות · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "הדגשה וציור על PDF — סקירת חוזים מהירה",
+        "metaDescription": "גררו הדגשות ועיגלו בעיות על חוזים ב-PDF בשניות. Annotate PDF מקומי עם Undo."
+      },
+      "description": "מדריך שימושי: הדגשת מונחים וסימון בעיות על חוזים ב-PDF בדפדפן.",
+      "contentBlocks": {
+        "intro": "סקירת חוזים חוזרת על עצמה. כלי Highlight מסמן טקסט מדויק; Draw מעגל מספרים מוזרים על סריקות. שניהם יוצאים בקובץ אחד.",
+        "primaryTool": "annotate-pdf",
+        "sections": [
+          {
+            "id": "speed-tips",
+            "heading": "טיפים למהירות",
+            "level": 2,
+            "list": [
+              "עבדו עמוד-עמוד במסמכים ארוכים.",
+              "השתמשו ב-Undo — קל לטעות בעכבר.",
+              "שלבו עם Compare PDF כשיש שתי גרסאות."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "אפשר לשנות צבע הדגשה?",
+            "a": "כן — צהוב, ירוק, סגול, ציאן או ורוד לפני גרירת המלבן."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/annotate-pdf/", "anchor": "Annotate PDF" },
+          { "href": "/tools/compare-pdf/", "anchor": "Compare PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "are-my-pdf-annotations-private-local-browser-editing",
+      "title": "האם הסימונים שלי פרטיים? למה עריכת הערות בדפדפן היא האופציה הכי מאובטחת",
+      "keyword": "pdf annotation privacy local browser",
+      "category": "Security & Privacy",
+      "cluster": "annotate-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["annotate-pdf", "redact-pdf", "protect-pdf"],
+      "relatedBlogs": ["add-pdf-annotations-without-printing"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור פרטיות · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "האם הערות PDF פרטיות? עריכה מקומית בדפדפן",
+        "metaDescription": "כלי markup בענן מעלים את הקובץ. למה הערות מקומיות שומרות את החוזה והסימונים במכשיר."
+      },
+      "description": "מיקוד פרטיות: איפה נשמרות הערות בענן לעומת כלים מקומיים.",
+      "contentBlocks": {
+        "intro": "ההדגשות שלכם חושפות על מה אכפת לכם בעסקה — שכר, תקרות אחריות, סעיפי סיום. העלאת טיוטה מסומנת לאתר אקראי מעתיקה גם את המסמך וגם את המחשבה שלכם.",
+        "primaryTool": "annotate-pdf",
+        "sections": [
+          {
+            "id": "local-model",
+            "heading": "מודל הערות מקומי",
+            "level": 2,
+            "paragraphs": [
+              "Annotate PDF טוען pdf.js בלשונית, מצייר על canvas מקומית, ואופה סימונים רק בלחיצה על הורדה.",
+              "אמתו ב-DevTools → Network: לא אמורה להיות העלאת PDF לדומיינים של JoinMyPDF."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "פתקיות מועלות בנפרד?",
+            "a": "לא. הן חלק מאותה session מקומית ויוצאות עם ה-PDF."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/annotate-pdf/", "anchor": "Annotate PDF" },
+          { "href": "/privacy-first-pdf-tools/", "anchor": "מרכז PDF ממוקד פרטיות" }
+        ]
+      }
+    },
+    {
+      "slug": "sign-official-contract-digitally-in-seconds",
+      "title": "איך לחתום על חוזה רשמי בצורה דיגיטלית תוך שניות",
+      "keyword": "sign official contract digitally fast",
+      "category": "Security & Privacy",
+      "cluster": "sign-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "9 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["sign-pdf", "protect-pdf", "annotate-pdf"],
+      "relatedBlogs": [
+        "digital-signature-guide-add-date-and-name",
+        "online-vs-local-signatures-where-data-stored"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור חתימה מקצועית · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "חתימה דיגיטלית על חוזה רשמי תוך שניות",
+        "metaDescription": "ציירו או הקלידו חתימה, הוסיפו תאריך ושם, הורידו *-signed.pdf בדפדפן — בלי העלאה."
+      },
+      "description": "מקצועיות ומהירות: חתימה מקומית עם שדות תאריך ושם ליד החתימה.",
+      "contentBlocks": {
+        "intro": "פלטפורמות e-sign ארגוניות מוגזמות ל-NDA או SOW סטנדרטי. Sign PDF מאפשר לצייר או להקליד, להפעיל תאריך אוטומטי, להוסיף שם ותפקיד, למקם ולהוריד — הכל מקומית.",
+        "primaryTool": "sign-pdf",
+        "sections": [
+          {
+            "id": "workflow",
+            "heading": "תהליך חתימה מהיר",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "טענו את ה-PDF הסופי ב-Sign PDF.",
+              "צרו חתימה (Draw או Type).",
+              "הפעילו תאריך והזינו שם/תפקיד.",
+              "מקמו על קו החתימה, גררו ליישור, הורידו."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "זו חתימה מחייבת?",
+            "a": "JoinMyPDF מספק חותמת חזותית. אמתו דרישות עם יועץ משפטי לעסקאות מוסדרות."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/sign-pdf/", "anchor": "Sign PDF" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "digital-signature-guide-add-date-and-name",
+      "title": "המדריך לחתימה דיגיטלית: למה חשוב להוסיף תאריך ושם ליד החתימה",
+      "keyword": "add date and name to pdf signature",
+      "category": "Security & Privacy",
+      "cluster": "sign-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["sign-pdf", "protect-pdf", "flatten-pdf"],
+      "relatedBlogs": ["sign-official-contract-digitally-in-seconds"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור best practice · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "הוספת תאריך ושם ליד חתימת PDF",
+        "metaDescription": "חתימה בלבד לא מזהה חותם או תאריך. למה שדות תאריך ושם חשובים — והוסיפו אותם ב-Sign PDF."
+      },
+      "description": "מדריך משפטי-מעשי: תאריך ושם מודפסים מבהירים חתימות PDF חזותיות.",
+      "contentBlocks": {
+        "intro": "שרבוט בודד ב-PDF לא אומר מי חתם ומתי. צד שני ומבקרים מצפים לתאריך ושם מודפסים ליד החתימה — במיוחד בטפסי HR, ספקים ונדל\"ן.",
+        "primaryTool": "sign-pdf",
+        "sections": [
+          {
+            "id": "best-practice",
+            "heading": "מה לכלול ליד החתימה",
+            "level": 2,
+            "list": [
+              "תאריך חתימה (פורמט locale אוטומטי).",
+              "שם מלא מודפס התואם לצד בחוזה.",
+              "תפקיד כשחותמים בשם חברה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "התאריך מתעדכן אוטומטית?",
+            "a": "כן — Sign PDF משתמש בתאריך היום ב-locale של הדפדפן."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/sign-pdf/", "anchor": "Sign PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "online-vs-local-signatures-where-data-stored",
+      "title": "חתימות אונליין מול מקומיות: איפה החתימה שלך באמת נשמרת?",
+      "keyword": "online vs local pdf signature privacy",
+      "category": "Security & Privacy",
+      "cluster": "sign-privacy",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "9 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.88,
+      "relatedTools": ["sign-pdf", "redact-pdf", "protect-pdf"],
+      "relatedBlogs": [
+        "sign-official-contract-digitally-in-seconds",
+        "how-to-safely-sign-contracts-online"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור אבטחת חתימה · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "חתימות PDF אונליין מול מקומיות — איפה הנתונים",
+        "metaDescription": "חתימה בענן שומרת חוזה ותמונת חתימה בשרתים. השוו עם Sign PDF מקומי ב-JoinMyPDF."
+      },
+      "description": "השוואת אבטחה: פלטפורמות ענן מול חתימה בדפדפן שלא מעלה קבצים.",
+      "contentBlocks": {
+        "intro": "כשמעלים חוזה לחתימה אונליין, לרוב מעלים גם תמונת חתימה — שניהם על תשתית ספק. חתימה מקומית שומרת PNG ו-PDF בלשונית עד שאתם שומרים את הפלט.",
+        "primaryTool": "sign-pdf",
+        "sections": [
+          {
+            "id": "comparison",
+            "heading": "ענן מול client-side",
+            "level": 2,
+            "paragraphs": [
+              "ענן: bytes של מסמך וחתימה נוסעים לשרת; עותקים עלולים להישמר בגיבויים.",
+              "Client-side: pdf-lib כותב חותמת בזיכרון; ההורדה היא העותק שיוצא מהמכונה בכוונה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "JoinMyPDF שומר את ספריית החתימות?",
+            "a": "חתימות שמורות ב-Sign PDF נמצאות ב-session הדפדפן — לא מועלות לשרתים שלנו."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/sign-pdf/", "anchor": "Sign PDF" },
+          { "href": "/blog/how-to-safely-sign-contracts-online/", "anchor": "מדריך חתימה בטוחה" }
+        ]
+      }
     }
   ]
 }

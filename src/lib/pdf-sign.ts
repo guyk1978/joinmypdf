@@ -1,4 +1,5 @@
-import { PDFDocument } from "pdf-lib-with-encrypt";
+import { PDFDocument, StandardFonts } from "pdf-lib-with-encrypt";
+import { hexToPdfRgb } from "./add-page-numbers";
 
 /** Signature box in normalized page coordinates (0–1, origin top-left). */
 export type NormalizedSignaturePlacement = {
@@ -12,6 +13,16 @@ export type NormalizedSignaturePlacement = {
 export type SignatureStamp = {
   signaturePng: Uint8Array;
   placement: NormalizedSignaturePlacement;
+};
+
+/** Text label stamped next to a signature (date, name, title). */
+export type TextStamp = {
+  text: string;
+  pageIndex: number;
+  nx: number;
+  ny: number;
+  fontSize: number;
+  colorHex?: string;
 };
 
 /** Reusable signature stored in workspace state (client-side only). */
@@ -155,6 +166,73 @@ export function defaultSignaturePlacement(pageIndex = 0): NormalizedSignaturePla
   return { pageIndex, nx: 0.32, ny: 0.78, nw: 0.36, nh: 0.1 };
 }
 
+export function formatSignatureDate(date = new Date(), locale?: string): string {
+  try {
+    return date.toLocaleDateString(locale || undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  } catch {
+    return date.toISOString().slice(0, 10);
+  }
+}
+
+/** Build text stamps (date, name, title) relative to a signature placement. */
+export function buildSignatureTextStamps(
+  placement: NormalizedSignaturePlacement,
+  options: {
+    includeDate?: boolean;
+    signerName?: string;
+    signerTitle?: string;
+    dateText?: string;
+  },
+): TextStamp[] {
+  const stamps: TextStamp[] = [];
+  const { pageIndex, nx, ny, nw, nh } = placement;
+
+  if (options.includeDate) {
+    stamps.push({
+      text: options.dateText || formatSignatureDate(),
+      pageIndex,
+      nx: clampNorm(nx + nw + 0.015),
+      ny: clampNorm(ny + nh * 0.35),
+      fontSize: 10,
+      colorHex: "#374151",
+    });
+  }
+
+  const name = options.signerName?.trim();
+  if (name) {
+    stamps.push({
+      text: name,
+      pageIndex,
+      nx: clampNorm(nx),
+      ny: clampNorm(ny + nh + 0.012),
+      fontSize: 11,
+      colorHex: "#111827",
+    });
+  }
+
+  const title = options.signerTitle?.trim();
+  if (title) {
+    stamps.push({
+      text: title,
+      pageIndex,
+      nx: clampNorm(nx),
+      ny: clampNorm(ny + nh + (name ? 0.038 : 0.012)),
+      fontSize: 9,
+      colorHex: "#6B7280",
+    });
+  }
+
+  return stamps;
+}
+
+function clampNorm(v: number) {
+  return Math.max(0, Math.min(0.98, v));
+}
+
 function pngCacheKey(png: Uint8Array): string {
   let hash = 0;
   const step = Math.max(1, Math.floor(png.length / 32));
@@ -164,15 +242,16 @@ function pngCacheKey(png: Uint8Array): string {
   return `${png.length}-${hash}`;
 }
 
-/** Stamp one or more signature instances onto PDF pages and save. */
+/** Stamp signature images and optional text labels onto PDF pages and save. */
 export async function signPdfBytes(
   source: Uint8Array,
   stamps: SignatureStamp[],
-  options?: { password?: string },
+  options?: { password?: string; textStamps?: TextStamp[] },
 ): Promise<Uint8Array> {
   if (!stamps?.length) throw new Error("Place at least one signature on the document.");
 
   const password = options?.password?.trim() || undefined;
+  const textStamps = options?.textStamps ?? [];
   const loadOptions = password ? { password } : {};
   let doc: PDFDocument;
   try {
@@ -213,6 +292,27 @@ export async function signPdfBytes(
     const y = pageH - placement.ny * pageH - drawH;
 
     page.drawImage(image, { x, y, width: drawW, height: drawH });
+  }
+
+  if (textStamps.length) {
+    const font = await doc.embedFont(StandardFonts.Helvetica);
+    for (const label of textStamps) {
+      const text = label.text.trim();
+      if (!text) continue;
+      if (label.pageIndex < 0 || label.pageIndex >= pageCount) continue;
+      const page = doc.getPage(label.pageIndex);
+      const { width: pageW, height: pageH } = page.getSize();
+      const fontSize = Math.max(7, Math.min(label.fontSize, 24));
+      const x = clampNorm(label.nx) * pageW;
+      const y = pageH - clampNorm(label.ny) * pageH - fontSize;
+      page.drawText(text, {
+        x,
+        y: Math.max(0, y),
+        size: fontSize,
+        font,
+        color: hexToPdfRgb(label.colorHex || "#111827"),
+      });
+    }
   }
 
   return doc.save({ useObjectStreams: false });

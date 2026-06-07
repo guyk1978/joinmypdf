@@ -116,6 +116,11 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/sign-pdf/", card: "protectSigned" },
     { href: "/tools/protect-pdf/", card: "passwordProtect" },
   ],
+  "annotate-pdf": [
+    { href: "/tools/sign-pdf/", card: "protectSigned" },
+    { href: "/tools/pdf-text-editor/", card: "editableDocument" },
+    { href: "/tools/compare-pdf/", card: "mergeApproved" },
+  ],
   "png-to-pdf": [
     { href: "/tools/pdf-compress/", card: "compressPdf" },
     { href: "/tools/jpg-to-pdf/", card: "alsoJpgPhotos" },

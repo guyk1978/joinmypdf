@@ -29,6 +29,7 @@ import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { FlattenPdfWorkspace } from "@/components/FlattenPdfWorkspace";
 import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
+import { AnnotatePdfWorkspace } from "@/components/AnnotatePdfWorkspace";
 import { BatchRenamePdfWorkspace } from "@/components/BatchRenamePdfWorkspace";
 import { PdfTextEditorWorkspace } from "@/components/PdfTextEditorWorkspace";
 import { ComparePdfWorkspace } from "@/components/ComparePdfWorkspace";
@@ -180,6 +181,8 @@ export default async function ToolPage({
           <BatchRenamePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-text-editor" ? (
           <PdfTextEditorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "annotate-pdf" ? (
+          <AnnotatePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "compare-pdf" ? (
           <ComparePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-booklet" ? (

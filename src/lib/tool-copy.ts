@@ -6,6 +6,7 @@ const verb: Record<string, string> = {
   split: "split a PDF",
   "batch-rename-pdf": "batch rename PDF files",
   "pdf-text-editor": "edit or overlay text on a PDF",
+  "annotate-pdf": "highlight, draw, and add sticky notes on a PDF",
   "compare-pdf": "compare two PDFs side by side",
   "pdf-to-booklet": "impose a PDF as a print-ready booklet",
   "safe-to-share-auditor": "audit a PDF for sensitive content before sharing",

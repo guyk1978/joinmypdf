@@ -5,6 +5,7 @@ import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
+import { PrivacyGuaranteeBanner } from "@/components/PrivacyGuaranteeBanner";
 import { SignPageSelect } from "@/components/SignPageSelect";
 import { SignatureModal } from "@/components/SignatureModal";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -13,8 +14,10 @@ import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
+  buildSignatureTextStamps,
   createSignatureId,
   defaultSignaturePlacement,
+  formatSignatureDate,
   instanceToPlacement,
   loadPdfPageCount,
   pngBytesToDataUrl,
@@ -22,7 +25,9 @@ import {
   signPdfOutputName,
   type SavedSignature,
   type SignatureInstance,
+  type TextStamp,
 } from "@/lib/pdf-sign";
+import { useLocale } from "next-intl";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { toolInput, toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import {
@@ -70,6 +75,10 @@ function SignPageStage({
   resizeSignatureLabel,
   signaturesOnPageHint,
   placeHint,
+  includeDate,
+  signerName,
+  signerTitle,
+  datePreviewLabel,
 }: {
   pageIndex: number;
   fileBytes: Uint8Array;
@@ -85,6 +94,10 @@ function SignPageStage({
   resizeSignatureLabel: string;
   signaturesOnPageHint: string;
   placeHint: string;
+  includeDate: boolean;
+  signerName: string;
+  signerTitle: string;
+  datePreviewLabel: string;
 }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
@@ -174,17 +187,23 @@ function SignPageStage({
         {pageInstances.map((inst) => {
           const saved = savedById.get(inst.savedId);
           if (!saved) return null;
+          const textLabels = buildSignatureTextStamps(instanceToPlacement(inst), {
+            includeDate,
+            signerName,
+            signerTitle,
+            dateText: datePreviewLabel,
+          });
           return (
-            <div
-              key={inst.id}
-              className="sign-plaque"
-              style={{
-                left: `${inst.nx * 100}%`,
-                top: `${inst.ny * 100}%`,
-                width: `${inst.nw * 100}%`,
-                height: `${inst.nh * 100}%`,
-              }}
-              onPointerDown={(e) => {
+            <div key={inst.id}>
+              <div
+                className="sign-plaque"
+                style={{
+                  left: `${inst.nx * 100}%`,
+                  top: `${inst.ny * 100}%`,
+                  width: `${inst.nw * 100}%`,
+                  height: `${inst.nh * 100}%`,
+                }}
+                onPointerDown={(e) => {
                 if ((e.target as HTMLElement).closest(".sign-plaque__remove")) return;
                 if ((e.target as HTMLElement).closest(".sign-plaque__handle")) return;
                 if (e.button !== 0) return;
@@ -228,6 +247,20 @@ function SignPageStage({
                 }}
               />
             </div>
+              {textLabels.map((label, idx) => (
+                <div
+                  key={`${inst.id}-label-${idx}`}
+                  className="sign-text-label pointer-events-none absolute text-[10px] font-medium leading-tight text-neutral-700 dark:text-neutral-300 sm:text-xs"
+                  style={{
+                    left: `${label.nx * 100}%`,
+                    top: `${label.ny * 100}%`,
+                    maxWidth: "40%",
+                  }}
+                >
+                  {label.text}
+                </div>
+              ))}
+            </div>
           );
         })}
       </div>
@@ -243,6 +276,7 @@ function SignPageStage({
 
 export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
+  const locale = useLocale();
   const [file, setFile] = useState<File | null>(null);
   const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [pageCount, setPageCount] = useState(0);
@@ -251,6 +285,9 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   const [savedSignatures, setSavedSignatures] = useState<SavedSignature[]>([]);
   const [instances, setInstances] = useState<SignatureInstance[]>([]);
   const [activePageIndex, setActivePageIndex] = useState(0);
+  const [includeDate, setIncludeDate] = useState(true);
+  const [signerName, setSignerName] = useState("");
+  const [signerTitle, setSignerTitle] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -277,6 +314,9 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     setSavedSignatures([]);
     setInstances([]);
     setActivePageIndex(0);
+    setIncludeDate(true);
+    setSignerName("");
+    setSignerTitle("");
     setModalOpen(false);
     setStatus("");
     setDone(false);
@@ -398,6 +438,16 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       };
     });
 
+    const dateText = formatSignatureDate(new Date(), locale);
+    const textStamps: TextStamp[] = instances.flatMap((inst) =>
+      buildSignatureTextStamps(instanceToPlacement(inst), {
+        includeDate,
+        signerName,
+        signerTitle,
+        dateText,
+      }),
+    );
+
     setBusy(true);
     setDone(false);
     setRunError(null);
@@ -405,7 +455,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
-      const bytes = await pdf.signPdfFile(file, stamps, password);
+      const bytes = await pdf.signPdfFile(file, stamps, password, textStamps);
       const outName = signPdfOutputName(file);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
@@ -434,6 +484,8 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+      <PrivacyGuaranteeBanner />
+
       <WorkspaceUploadShell>
             {!file ? (
         <FileUploadZone
@@ -542,6 +594,41 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
             </aside>
 
             <div className="sign-main space-y-2">
+              <div className="grid gap-3 rounded-none border border-violet-400/30 bg-violet-500/[0.06] p-4 ring-1 ring-violet-400/20 backdrop-blur-md dark:border-violet-400/40 dark:bg-violet-500/10">
+                <p className="text-sm font-semibold text-ink">{ws.wsUi("extrasHeading")}</p>
+                <label className="flex items-center gap-2 text-sm text-ink">
+                  <input
+                    type="checkbox"
+                    checked={includeDate}
+                    onChange={(e) => setIncludeDate(e.target.checked)}
+                  />
+                  <span>{ws.wsUi("includeDateLabel")}</span>
+                </label>
+                <div className="grid gap-3 md:grid-cols-2">
+                  <label className="block text-sm">
+                    <span className="font-semibold text-ink">{ws.wsUi("signerNameLabel")}</span>
+                    <input
+                      type="text"
+                      value={signerName}
+                      onChange={(e) => setSignerName(e.target.value)}
+                      className="mt-1 w-full rounded-none border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+                      placeholder={ws.wsUi("signerNamePlaceholder")}
+                    />
+                  </label>
+                  <label className="block text-sm">
+                    <span className="font-semibold text-ink">{ws.wsUi("signerTitleLabel")}</span>
+                    <input
+                      type="text"
+                      value={signerTitle}
+                      onChange={(e) => setSignerTitle(e.target.value)}
+                      className="mt-1 w-full rounded-none border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+                      placeholder={ws.wsUi("signerTitlePlaceholder")}
+                    />
+                  </label>
+                </div>
+                <p className="text-xs text-ink-muted">{ws.wsUi("extrasHint")}</p>
+              </div>
+
               <SignPageSelect
                 pageCount={pageCount}
                 value={activePageIndex}
@@ -571,6 +658,10 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                         count: instances.filter((i) => i.pageIndex === pageIndex).length,
                       })}
                       placeHint={ws.wsUi("placeHint")}
+                      includeDate={includeDate}
+                      signerName={signerName}
+                      signerTitle={signerTitle}
+                      datePreviewLabel={formatSignatureDate(new Date(), locale)}
                     />
                   ))}
                 </div>

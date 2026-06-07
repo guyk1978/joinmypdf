@@ -11,6 +11,7 @@ const ACTION_KEYS: Record<string, string> = {
   split: "split",
   "batch-rename-pdf": "batchRename",
   "pdf-text-editor": "textEditor",
+  "annotate-pdf": "annotate",
   "compare-pdf": "compare",
   "pdf-to-booklet": "booklet",
   "safe-to-share-auditor": "safeShare",

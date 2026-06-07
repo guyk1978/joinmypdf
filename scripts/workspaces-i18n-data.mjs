@@ -458,6 +458,15 @@ function buildWorkspaces(locale) {
         createFailed: isHe ? "לא ניתן ליצור חתימה." : "Could not create signature.",
         drawnSignatureLabel: isHe ? "חתימה מצוירת" : "Drawn signature",
         activePage: common.activePage,
+        extrasHeading: isHe ? "פרטים ליד החתימה" : "Details beside signature",
+        includeDateLabel: isHe ? "הוסף תאריך אוטומטי ליד כל חתימה" : "Add automatic date beside each signature",
+        signerNameLabel: isHe ? "שם (טקסט חופשי)" : "Name (free text)",
+        signerNamePlaceholder: isHe ? "למשל ישראל ישראלי" : "e.g. Jane Smith",
+        signerTitleLabel: isHe ? "תפקיד / כותרת" : "Job title",
+        signerTitlePlaceholder: isHe ? "למשל מנהל/ת פרויקטים" : "e.g. Project Manager",
+        extrasHint: isHe
+          ? "תאריך, שם ותפקיד מודפסים ליד כל חתימה שמיקמת — ניתן לגרור את החתימה והתוויות יתעדכנו."
+          : "Date, name, and title print beside each signature you place—they move when you drag the signature.",
       },
     },
     redact: {
@@ -1095,6 +1104,51 @@ function buildWorkspaces(locale) {
         clickToPlace: isHe ? "לחץ על התצוגה לשיבוץ הטקסט" : "Click the preview to place text",
         layerSummary: isHe ? "עמוד {page}: {text}" : "Page {page}: {text}",
         removeLayer: isHe ? "הסר" : "Remove",
+      },
+    },
+    "annotate-pdf": {
+      status: {
+        loaded: isHe
+          ? "נטענו {count} עמוד/ים. בחר כלי, סמן את העמוד, והורד כשמוכן."
+          : "Loaded {count} page(s). Pick a tool, mark the page, and download when ready.",
+        couldNotOpen: common.couldNotOpenPdf,
+        enterPassword: common.enterPassword,
+        addAnnotation: isHe ? "הוסף לפחות הערה אחת לפני ההורדה." : "Add at least one annotation before downloading.",
+        applying: isHe ? "אופה הערות ל-PDF…" : "Baking annotations into PDF…",
+        downloaded: isHe ? "PDF עם הערות הורד כ-{name}." : "Annotated PDF downloaded as {name}.",
+        adjustFile: isHe ? "התאם את הקובץ ונסה שוב." : "Adjust your file and try again.",
+        undone: isHe ? "בוטל הצעד האחרון." : "Undid the last step.",
+        highlightAdded: isHe ? "הדגשה נוספה." : "Highlight added.",
+        strokeAdded: isHe ? "קו ציור נוסף." : "Drawing stroke added.",
+        stickyAdded: isHe ? "פתקית נוספה." : "Sticky note added.",
+      },
+      privacyNote: isHe
+        ? "הערות PDF מעובדות לחלוטין בדפדפן — הקובץ לא עוזב את המכשיר."
+        : "PDF annotations run entirely in your browser—your file never leaves your device.",
+      stickyLabel: isHe ? "הורד עם הערות" : "Download annotated",
+      ui: {
+        passwordLabel: isHe ? "סיסמת PDF (קבצים מוגנים)" : "PDF password (protected files)",
+        toolbarLabel: isHe ? "כלי הערות" : "Annotation tools",
+        tool_highlight: isHe ? "הדגשה" : "Highlight",
+        tool_draw: isHe ? "ציור חופשי" : "Draw",
+        tool_sticky: isHe ? "פתקית" : "Sticky note",
+        undoLabel: isHe ? "↶ בטל" : "↶ Undo",
+        colorLabel: isHe ? "צבע" : "Color",
+        thicknessLabel: isHe ? "עובי קו" : "Line thickness",
+        stickyTextLabel: isHe ? "טקסט הפתקית" : "Note text",
+        stickyTextPlaceholder: isHe ? "הקלד הערה, ואז לחץ על העמוד" : "Type a note, then click the page",
+        stickyColorLabel: isHe ? "צבע פתקית" : "Note color",
+        sticky_yellow: isHe ? "צהוב" : "Yellow",
+        sticky_green: isHe ? "ירוק" : "Green",
+        sticky_violet: isHe ? "סגול" : "Violet",
+        sticky_cyan: isHe ? "ציאן" : "Cyan",
+        hint_highlight: isHe ? "גרור מלבן על טקסט להדגשה." : "Drag a rectangle over text to highlight.",
+        hint_draw: isHe ? "צייר עם העכבר או האצבע — Undo לטעות." : "Draw with mouse or finger—Undo fixes mistakes.",
+        hint_sticky: isHe ? "הקלד טקסט, בחר צבע ניאון, ולחץ על העמוד." : "Type text, pick a neon color, and click the page.",
+        pageLabel: isHe ? "עמוד" : "Page",
+        pageOption: isHe ? "עמוד {page}" : "Page {page}",
+        annotationCount: isHe ? "{count} הערה/ות" : "{count} annotation(s)",
+        loadingPreview: isHe ? "טוען תצוגה…" : "Loading preview…",
       },
     },
     "pdf-to-booklet": {

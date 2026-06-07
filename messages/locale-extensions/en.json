@@ -17,6 +17,7 @@
       "split": "split a PDF",
       "batchRename": "batch rename PDF files",
       "textEditor": "overlay or edit visible PDF text locally",
+      "annotate": "highlight, draw, and add sticky notes on a PDF",
       "compare": "compare two PDFs side by side",
       "booklet": "impose a PDF as a print-ready booklet",
       "safeShare": "audit a PDF for sensitive content before sharing",
@@ -656,6 +657,10 @@
         "title": "Drop a PDF here or click to browse",
         "description": "Select one PDF to overlay or replace visible text—processed locally."
       },
+      "annotate-pdf": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Highlight, draw, and add sticky notes—annotations bake into your download locally."
+      },
       "pdf-to-booklet": {
         "title": "Drop a PDF to impose as a booklet",
         "description": "Prepare a PDF for duplex fold-and-staple printing."
@@ -711,7 +716,8 @@
       "protect": "Protect PDF",
       "unlock": "Unlock PDF",
       "sign": "Sign PDF",
-      "pdf-text-editor": "Apply & download PDF"
+      "pdf-text-editor": "Apply & download PDF",
+      "annotate-pdf": "Download annotated PDF"
     },
     "status": {
       "common": {
@@ -1126,7 +1132,14 @@
         "saveFailed": "Could not save signature.",
         "createFailed": "Could not create signature.",
         "drawnSignatureLabel": "Drawn signature",
-        "activePage": "Active page"
+        "activePage": "Active page",
+        "extrasHeading": "Details beside signature",
+        "includeDateLabel": "Add automatic date beside each signature",
+        "signerNameLabel": "Name (free text)",
+        "signerNamePlaceholder": "e.g. Jane Smith",
+        "signerTitleLabel": "Job title",
+        "signerTitlePlaceholder": "e.g. Project Manager",
+        "extrasHint": "Date, name, and title print beside each signature you place—they move when you drag the signature."
       }
     },
     "redact": {
@@ -1670,6 +1683,47 @@
         "clickToPlace": "Click the preview to place text",
         "layerSummary": "Page {page}: {text}",
         "removeLayer": "Remove"
+      }
+    },
+    "annotate-pdf": {
+      "status": {
+        "loaded": "Loaded {count} page(s). Pick a tool, mark the page, and download when ready.",
+        "couldNotOpen": "Could not open this PDF. If it is protected, enter the password below.",
+        "enterPassword": "Enter the PDF password to open this file.",
+        "addAnnotation": "Add at least one annotation before downloading.",
+        "applying": "Baking annotations into PDF…",
+        "downloaded": "Annotated PDF downloaded as {name}.",
+        "adjustFile": "Adjust your file and try again.",
+        "undone": "Undid the last step.",
+        "highlightAdded": "Highlight added.",
+        "strokeAdded": "Drawing stroke added.",
+        "stickyAdded": "Sticky note added."
+      },
+      "privacyNote": "PDF annotations run entirely in your browser—your file never leaves your device.",
+      "stickyLabel": "Download annotated",
+      "ui": {
+        "passwordLabel": "PDF password (protected files)",
+        "toolbarLabel": "Annotation tools",
+        "tool_highlight": "Highlight",
+        "tool_draw": "Draw",
+        "tool_sticky": "Sticky note",
+        "undoLabel": "↶ Undo",
+        "colorLabel": "Color",
+        "thicknessLabel": "Line thickness",
+        "stickyTextLabel": "Note text",
+        "stickyTextPlaceholder": "Type a note, then click the page",
+        "stickyColorLabel": "Note color",
+        "sticky_yellow": "Yellow",
+        "sticky_green": "Green",
+        "sticky_violet": "Violet",
+        "sticky_cyan": "Cyan",
+        "hint_highlight": "Drag a rectangle over text to highlight.",
+        "hint_draw": "Draw with mouse or finger—Undo fixes mistakes.",
+        "hint_sticky": "Type text, pick a neon color, and click the page.",
+        "pageLabel": "Page",
+        "pageOption": "Page {page}",
+        "annotationCount": "{count} annotation(s)",
+        "loadingPreview": "Loading preview…"
       }
     },
     "pdf-to-booklet": {
