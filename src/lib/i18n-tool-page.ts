@@ -12,6 +12,8 @@ const ACTION_KEYS: Record<string, string> = {
   "batch-rename-pdf": "batchRename",
   "pdf-text-editor": "textEditor",
   "annotate-pdf": "annotate",
+  "reorder-pdf-pages": "reorderPages",
+  "extract-pdf-pages": "extractPages",
   "compare-pdf": "compare",
   "pdf-to-booklet": "booklet",
   "safe-to-share-auditor": "safeShare",

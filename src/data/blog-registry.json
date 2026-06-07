@@ -5494,6 +5494,342 @@
           { "href": "/blog/how-to-safely-sign-contracts-online/", "anchor": "Sign contracts safely guide" }
         ]
       }
+    },
+    {
+      "slug": "how-to-reorder-pdf-pages-in-seconds-complete-guide",
+      "title": "How to Reorder PDF Pages in Seconds: The Complete Guide",
+      "keyword": "reorder pdf pages in seconds",
+      "category": "Edit & Organize",
+      "cluster": "page-management-reorder",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["reorder-pdf-pages", "delete-pdf-pages", "pdf-merge"],
+      "relatedBlogs": [
+        "forgot-page-middle-of-contract-reorder-pdf-without-converting",
+        "why-browser-page-reorder-is-safest-for-personal-docs"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for local PDF page workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Reorder PDF Pages in Seconds (Drag & Drop Guide)",
+        "metaDescription": "Drag page thumbnails to reorder a PDF in your browser—no upload, no desktop app. Step-by-step with JoinMyPDF Reorder PDF Pages."
+      },
+      "description": "Ease-of-use guide: fix page order with visual thumbnails and download a reordered PDF locally.",
+      "contentBlocks": {
+        "intro": "Wrong page order turns a polished PDF into a puzzle. Reorder PDF Pages shows every page as a thumbnail so you can drag cards into place—or tap arrows on mobile—and download a corrected file in seconds.",
+        "primaryTool": "reorder-pdf-pages",
+        "sections": [
+          {
+            "id": "why-visual",
+            "heading": "Why thumbnails beat guessing page numbers",
+            "level": 2,
+            "paragraphs": [
+              "Typing page indices is error-prone on long contracts. Thumbnails let you recognize signatures, charts, and cover pages instantly.",
+              "JoinMyPDF loads previews lazily and virtualizes large grids so 100+ page files stay responsive."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "Reorder workflow in four steps",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Open Reorder PDF Pages and drop your file.",
+              "Drag thumbnails until the sequence matches your intent.",
+              "On touch devices, use the up/down buttons beside each page if drag feels sticky.",
+              "Click Download reordered PDF—processing stays on your device."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Do I need Adobe Acrobat?",
+            "a": "No. Reordering runs in a modern browser with local processing."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/reorder-pdf-pages/", "anchor": "Reorder PDF Pages" },
+          { "href": "/tools/extract-pdf-pages/", "anchor": "Extract PDF Pages" }
+        ]
+      }
+    },
+    {
+      "slug": "forgot-page-middle-of-contract-reorder-pdf-without-converting",
+      "title": "Forgot a Page in the Middle of a Contract? Reorder Your PDF Without Converting It",
+      "keyword": "reorder pdf contract page order",
+      "category": "Edit & Organize",
+      "cluster": "page-management-reorder",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["reorder-pdf-pages", "sign-pdf", "pdf-merge"],
+      "relatedBlogs": ["how-to-reorder-pdf-pages-in-seconds-complete-guide"],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for contract PDF workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Fix Contract PDF Page Order Without Converting",
+        "metaDescription": "A signature page landed in the wrong spot? Reorder PDF pages in the browser—no Word round-trip, no upload."
+      },
+      "description": "Pain-point fix when a page was inserted out of sequence in a contract packet.",
+      "contentBlocks": {
+        "intro": "You merged exhibits, exported from email, and suddenly page 7 should be page 4. Converting to Word destroys layout; reordering in-browser copies pages in a new sequence without re-encoding text.",
+        "primaryTool": "reorder-pdf-pages",
+        "sections": [
+          {
+            "id": "pain",
+            "heading": "The merge mistake nobody notices until send",
+            "level": 2,
+            "paragraphs": [
+              "Counterparties judge professionalism by flow: cover, terms, signatures, exhibits. One stray page breaks trust.",
+              "Browser reorder keeps fonts, stamps, and vector graphics intact because pages are copied—not rasterized."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Will signatures stay valid-looking?",
+            "a": "Visual signatures and stamps remain on their pages; reorder only changes sequence."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/reorder-pdf-pages/", "anchor": "Reorder PDF Pages" },
+          { "href": "/tools/sign-pdf/", "anchor": "Sign PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "why-browser-page-reorder-is-safest-for-personal-docs",
+      "title": "Why Browser Page Reordering Is the Safest Way to Work With Personal PDFs",
+      "keyword": "reorder pdf pages privacy browser",
+      "category": "Edit & Organize",
+      "cluster": "page-management-reorder",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["reorder-pdf-pages", "protect-pdf", "redact-pdf"],
+      "relatedBlogs": ["how-to-reorder-pdf-pages-in-seconds-complete-guide"],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for privacy-first PDF editing · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Safest Way to Reorder Personal PDF Pages (Local Browser)",
+        "metaDescription": "Keep medical, financial, and HR PDFs on your device. Reorder pages locally with JoinMyPDF—no cloud upload."
+      },
+      "description": "Privacy benefit: local reordering keeps sensitive documents off third-party servers.",
+      "contentBlocks": {
+        "intro": "Personal PDFs—tax returns, medical records, school forms—should not ride through unknown servers just to swap two pages. Client-side reordering keeps bytes in your browser tab.",
+        "primaryTool": "reorder-pdf-pages",
+        "sections": [
+          {
+            "id": "privacy",
+            "heading": "Control beats convenience when data is sensitive",
+            "level": 2,
+            "paragraphs": [
+              "Cloud converters create copies you cannot audit. Local tools let you disconnect Wi‑Fi, reorder, download, and close the tab.",
+              "JoinMyPDF shows a clear notice: processing happens locally—your files stay on your device."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Are files uploaded during reorder?",
+            "a": "No. Page copies are built in memory in your browser."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/reorder-pdf-pages/", "anchor": "Reorder PDF Pages" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "how-to-extract-specific-pages-from-long-pdf",
+      "title": "How to Extract Specific Pages From a Long PDF Document",
+      "keyword": "extract specific pages from pdf",
+      "category": "Edit & Organize",
+      "cluster": "page-management-extract",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["extract-pdf-pages", "pdf-split", "reorder-pdf-pages"],
+      "relatedBlogs": [
+        "send-only-what-you-need-separate-sensitive-pdf-pages",
+        "extract-pdf-page-ranges-without-quality-loss"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for PDF extraction workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Extract Specific PDF Pages (Ranges Like 1, 3-5)",
+        "metaDescription": "Pull only the pages you need from a long PDF. Enter ranges, preview selections, download locally with JoinMyPDF."
+      },
+      "description": "Practical guide to extracting page numbers and ranges into a new PDF.",
+      "contentBlocks": {
+        "intro": "A 200-page vendor packet might contain three pages you actually need. Extract PDF Pages accepts specs like 1, 3-5, 12 and builds a smaller file without splitting every page.",
+        "primaryTool": "extract-pdf-pages",
+        "sections": [
+          {
+            "id": "ranges",
+            "heading": "Page range syntax that just works",
+            "level": 2,
+            "paragraphs": [
+              "Commas separate individual pages; dashes define inclusive ranges. Mix them: 2, 5-8, 11.",
+              "The tool validates against total page count before download so you catch typos early."
+            ]
+          },
+          {
+            "id": "workflow",
+            "heading": "Extract workflow",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "Upload the source PDF.",
+              "Type the pages to keep (e.g. 4-6).",
+              "Review the selection summary and thumbnail preview.",
+              "Download extracted PDF—100% local processing."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Is this different from Split PDF?",
+            "a": "Split exports every page. Extract keeps only the numbers you specify in one file."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/extract-pdf-pages/", "anchor": "Extract PDF Pages" },
+          { "href": "/tools/pdf-split/", "anchor": "Split PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "send-only-what-you-need-separate-sensitive-pdf-pages",
+      "title": "Send Only What You Need: How to Separate Sensitive Pages From a Large PDF",
+      "keyword": "separate sensitive pdf pages before sending",
+      "category": "Edit & Organize",
+      "cluster": "page-management-extract",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["extract-pdf-pages", "redact-pdf", "protect-pdf"],
+      "relatedBlogs": ["how-to-extract-specific-pages-from-long-pdf"],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for secure sharing workflows · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Separate Sensitive PDF Pages Before Sending",
+        "metaDescription": "Extract only non-sensitive pages for email attachments. Local browser processing with JoinMyPDF Extract PDF Pages."
+      },
+      "description": "Security-conscious workflow: share a subset instead of the full document.",
+      "contentBlocks": {
+        "intro": "Forwarding a full HR dossier when someone asked for one payslip is a data-minimization failure. Extract the pages they requested, then protect or redact if needed.",
+        "primaryTool": "extract-pdf-pages",
+        "sections": [
+          {
+            "id": "minimize",
+            "heading": "Data minimization starts with page selection",
+            "level": 2,
+            "paragraphs": [
+              "Smaller attachments reduce leak blast radius if an inbox is compromised.",
+              "Local extraction means the full source file never leaves your machine—only the subset you download is what you attach."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Should I extract before or after redaction?",
+            "a": "Extract first when only some pages are sensitive; redact visible content on pages you still need to share."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/extract-pdf-pages/", "anchor": "Extract PDF Pages" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "extract-pdf-page-ranges-without-quality-loss",
+      "title": "User Guide: Extract PDF Page Ranges Without Losing Quality",
+      "keyword": "extract pdf pages without quality loss",
+      "category": "Edit & Organize",
+      "cluster": "page-management-extract",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["extract-pdf-pages", "reorder-pdf-pages", "pdf-compress"],
+      "relatedBlogs": ["how-to-extract-specific-pages-from-long-pdf"],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for lossless PDF page copy · Jun 2026"
+      },
+      "seo": {
+        "metaTitle": "Extract PDF Pages Without Quality Loss",
+        "metaDescription": "Copy pages into a new PDF without re-compression. Quality assurance guide for JoinMyPDF Extract PDF Pages."
+      },
+      "description": "Quality assurance: page copy preserves original encoding and resolution.",
+      "contentBlocks": {
+        "intro": "Some tools rasterize pages during extraction, blurring text and bloating file size. JoinMyPDF copies page objects from the source PDF so vectors, fonts, and embedded images stay intact.",
+        "primaryTool": "extract-pdf-pages",
+        "sections": [
+          {
+            "id": "lossless",
+            "heading": "Copy vs convert",
+            "level": 2,
+            "paragraphs": [
+              "Extraction here is a structural copy—like moving chapters between binders—not a screenshot.",
+              "If you need smaller files after extraction, run Compress PDF separately so you control the trade-off."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Will extracted pages look identical?",
+            "a": "Yes for standard PDFs—the output uses the same page content streams as the source."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/extract-pdf-pages/", "anchor": "Extract PDF Pages" },
+          { "href": "/tools/pdf-compress/", "anchor": "Compress PDF" }
+        ]
+      }
     }
   ]
 }

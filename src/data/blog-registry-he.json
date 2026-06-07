@@ -6177,6 +6177,318 @@
           { "href": "/blog/how-to-safely-sign-contracts-online/", "anchor": "מדריך חתימה בטוחה" }
         ]
       }
+    },
+    {
+      "slug": "how-to-reorder-pdf-pages-in-seconds-complete-guide",
+      "title": "איך לסדר מחדש דפים ב-PDF תוך שניות: המדריך המלא",
+      "keyword": "reorder pdf pages in seconds hebrew",
+      "category": "Edit & Organize",
+      "cluster": "page-management-reorder",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["reorder-pdf-pages", "delete-pdf-pages", "pdf-merge"],
+      "relatedBlogs": [
+        "forgot-page-middle-of-contract-reorder-pdf-without-converting",
+        "why-browser-page-reorder-is-safest-for-personal-docs"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור סידור עמודי PDF מקומי · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "סידור מחדש של דפי PDF תוך שניות (גרירה בדפדפן)",
+        "metaDescription": "גררו תמונות ממוזערות לסדר מחדש ב-PDF בדפדפן — בלי העלאה. מדריך עם Reorder PDF Pages של JoinMyPDF."
+      },
+      "description": "מדריך נוחות שימוש: תיקון סדר עמודים עם תמונות ממוזערות והורדה מקומית.",
+      "contentBlocks": {
+        "intro": "סדר עמודים שגוי הופך PDF מסודר לפuzzle. Reorder PDF Pages מציג כל עמוד כתמונה ממוזערת — גררו לסדר, או השתמשו בחצים במובייל — והורידו קובץ מתוקן תוך שניות.",
+        "primaryTool": "reorder-pdf-pages",
+        "sections": [
+          {
+            "id": "why-visual",
+            "heading": "למה תמונות ממוזערות עדיפות על ניחוש מספרים",
+            "level": 2,
+            "paragraphs": [
+              "הקלדת מספרי עמודים מסוכנת בחוזים ארוכים. תמונות ממוזערות מאפשרות לזהות חתימות, גרפים ועמודי שער מיד.",
+              "JoinMyPDF טוען תצוגות מקדימות בעצלנות ומשתמש בווירטואליזציה ל-grids גדולים כדי שקבצים של 100+ עמודים יישארו חלקים."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "צריך Adobe Acrobat?",
+            "a": "לא. הסידור מחדש רץ בדפדפן מודרני עם עיבוד מקומי."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/reorder-pdf-pages/", "anchor": "Reorder PDF Pages" },
+          { "href": "/tools/extract-pdf-pages/", "anchor": "Extract PDF Pages" }
+        ]
+      }
+    },
+    {
+      "slug": "forgot-page-middle-of-contract-reorder-pdf-without-converting",
+      "title": "שכחת דף באמצע החוזה? ככה תסדר את ה-PDF בלי להמיר אותו",
+      "keyword": "reorder pdf contract hebrew",
+      "category": "Edit & Organize",
+      "cluster": "page-management-reorder",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["reorder-pdf-pages", "sign-pdf", "pdf-merge"],
+      "relatedBlogs": ["how-to-reorder-pdf-pages-in-seconds-complete-guide"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור חוזים ב-PDF · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "תיקון סדר עמודים בחוזה PDF בלי המרה",
+        "metaDescription": "עמוד חתימה במקום הלא נכון? סדרו מחדש בדפדפן — בלי Word ובלי העלאה."
+      },
+      "description": "פתרון כאב כשעמוד הוכנס לא בסדר בחבילת חוזה.",
+      "contentBlocks": {
+        "intro": "מיזגתם נספחים, ייצאתם ממייל, ופתאום עמוד 7 צריך להיות עמוד 4. המרה ל-Word משחיתה פריסה; סידור בדפדפן מעתיק עמודים בסדר חדש בלי לקודד מחדש טקסט.",
+        "primaryTool": "reorder-pdf-pages",
+        "sections": [
+          {
+            "id": "pain",
+            "heading": "טעות המיזוג שמגלים רק לפני שליחה",
+            "level": 2,
+            "paragraphs": [
+              "צדדים שופטים מקצועיות לפי זרימה: שער, תנאים, חתימות, נספחים. עמוד אחד במקום הלא נכון שובר אמון.",
+              "סידור בדפדפן שומר גופנים, חותמות וגרפיקה וקטורית כי העמודים מועתקים — לא מרasterים."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "החתימות יישארו תקינות ויזואלית?",
+            "a": "חתימות וחותמות נשארות על העמודים; הסידור משנה רק רצף."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/reorder-pdf-pages/", "anchor": "Reorder PDF Pages" },
+          { "href": "/tools/sign-pdf/", "anchor": "Sign PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "why-browser-page-reorder-is-safest-for-personal-docs",
+      "title": "למה עריכת סדר דפים בדפדפן היא הדרך הבטוחה ביותר לעבוד עם מסמכים אישיים",
+      "keyword": "reorder pdf privacy hebrew",
+      "category": "Edit & Organize",
+      "cluster": "page-management-reorder",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["reorder-pdf-pages", "protect-pdf", "redact-pdf"],
+      "relatedBlogs": ["how-to-reorder-pdf-pages-in-seconds-complete-guide"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור PDF אישי ופרטיות · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "הדרך הבטוחה לסדר מחדש PDF אישי (מקומי בדפדפן)",
+        "metaDescription": "שמרו PDF רפואי, פיננסי או HR במכשיר. סידור מחדש מקומי עם JoinMyPDF — בלי ענן."
+      },
+      "description": "יתרון פרטיות: סידור מקומי שומר מסמכים רגישים מחוץ לשרתים.",
+      "contentBlocks": {
+        "intro": "PDF אישי — מס הכנסה, רפואי, טפסי בית ספר — לא צריך לעבור בשרתים לא מוכרים רק כדי להחליף שני עמודים. סידור בצד הלקוח שומר bytes בלשונית הדפדפן.",
+        "primaryTool": "reorder-pdf-pages",
+        "sections": [
+          {
+            "id": "privacy",
+            "heading": "שליטה עדיפה על נוחות כשהנתונים רגישים",
+            "level": 2,
+            "paragraphs": [
+              "ממירי ענן יוצרים עותקים שלא ניתן לבדוק. כלים מקומיים מאפשרים לנתק Wi‑Fi, לסדר, להוריד ולסגור.",
+              "JoinMyPDF מציג הודעה ברורה: העיבוד מתבצע מקומית — הקבצים נשארים במכשיר."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם קבצים מועלים במהלך סידור?",
+            "a": "לא. העתקות עמודים נבנות בזיכרון בדפדפן."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/reorder-pdf-pages/", "anchor": "Reorder PDF Pages" },
+          { "href": "/tools/protect-pdf/", "anchor": "Protect PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "how-to-extract-specific-pages-from-long-pdf",
+      "title": "איך להוציא עמודים ספציפיים מתוך מסמך PDF ארוך",
+      "keyword": "extract pdf pages hebrew",
+      "category": "Edit & Organize",
+      "cluster": "page-management-extract",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.87,
+      "relatedTools": ["extract-pdf-pages", "pdf-split", "reorder-pdf-pages"],
+      "relatedBlogs": [
+        "send-only-what-you-need-separate-sensitive-pdf-pages",
+        "extract-pdf-page-ranges-without-quality-loss"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור חילוץ עמודי PDF · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "חילוץ עמודי PDF ספציפיים (טווחים כמו 1, 3-5)",
+        "metaDescription": "משכו רק את העמודים שצריך מ-PDF ארוך. הזינו טווחים, תצוגה מקדימה, הורדה מקומית עם JoinMyPDF."
+      },
+      "description": "מדריך מעשי לחילוץ מספרי עמודים וטווחים ל-PDF חדש.",
+      "contentBlocks": {
+        "intro": "חבילת ספק של 200 עמודים אולי מכילה שלושה שצריך. Extract PDF Pages מקבל מפרטים כמו 1, 3-5, 12 ובונה קובץ קטן בלי לפצל כל עמוד.",
+        "primaryTool": "extract-pdf-pages",
+        "sections": [
+          {
+            "id": "ranges",
+            "heading": "תחביר טווח עמודים שפשוט עובד",
+            "level": 2,
+            "paragraphs": [
+              "פסיקים מפרידים עמודים בודדים; מקף מגדיר טווח כולל. אפשר לערבב: 2, 5-8, 11.",
+              "הכלי מאמת מול סך העמודים לפני ההורדה כדי לתפוס טעויות מוקדם."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "מה ההבדל מ-Split PDF?",
+            "a": "Split מייצא כל עמוד. Extract שומר רק את המספרים שציינתם בקובץ אחד."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/extract-pdf-pages/", "anchor": "Extract PDF Pages" },
+          { "href": "/tools/pdf-split/", "anchor": "Split PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "send-only-what-you-need-separate-sensitive-pdf-pages",
+      "title": "שולחים רק מה שצריך: כך תפרידו דפים רגישים ממסמך גדול",
+      "keyword": "separate sensitive pdf pages hebrew",
+      "category": "Edit & Organize",
+      "cluster": "page-management-extract",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["extract-pdf-pages", "redact-pdf", "protect-pdf"],
+      "relatedBlogs": ["how-to-extract-specific-pages-from-long-pdf"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור שיתוף מאובטח · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "הפרדת עמודי PDF רגישים לפני שליחה",
+        "metaDescription": "חלצו רק עמודים לא רגישים לצרופות מייל. עיבוד מקומי עם Extract PDF Pages."
+      },
+      "description": "תהליך מודע לאבטחה: שיתוף תת-קבוצה במקום המסמך המלא.",
+      "contentBlocks": {
+        "intro": "העברת תיק HR מלא כשביקשו תלוש אחד היא כשל במזעור נתונים. חלצו את העמודים שביקשו, ואז הגנו או הסתירו לפי הצורך.",
+        "primaryTool": "extract-pdf-pages",
+        "sections": [
+          {
+            "id": "minimize",
+            "heading": "מזעור נתונים מתחיל בבחירת עמודים",
+            "level": 2,
+            "paragraphs": [
+              "צרופות קטנות מקטינות נזק אם תיבת דואר נפרצת.",
+              "חילוץ מקומי אומר שהקובץ המלא לא עוזב את המכונה — רק התת-קבוצה שמורידים היא מה שמצרפים."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "לחלץ לפני או אחרי הסתרה?",
+            "a": "חלצו קודם כשרק חלק מהעמודים רגישים; הסתירו תוכן גלוי בעמודים שעדיין צריך לשתף."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/extract-pdf-pages/", "anchor": "Extract PDF Pages" },
+          { "href": "/tools/redact-pdf/", "anchor": "Redact PDF" }
+        ]
+      }
+    },
+    {
+      "slug": "extract-pdf-page-ranges-without-quality-loss",
+      "title": "מדריך למשתמש: איך לחלץ טווחי עמודים ללא אובדן איכות",
+      "keyword": "extract pdf quality hebrew",
+      "category": "Edit & Organize",
+      "cluster": "page-management-extract",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-06-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.86,
+      "relatedTools": ["extract-pdf-pages", "reorder-pdf-pages", "pdf-compress"],
+      "relatedBlogs": ["how-to-extract-specific-pages-from-long-pdf"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור העתקת עמודים ללא אובדן · יוני 2026"
+      },
+      "seo": {
+        "metaTitle": "חילוץ עמודי PDF ללא אובדן איכות",
+        "metaDescription": "העתיקו עמודים ל-PDF חדש בלי דחיסה מחדש. מדריך איכות ל-Extract PDF Pages."
+      },
+      "description": "הבטחת איכות: העתקת עמודים שומרת קידוד ורזולוציה מקוריים.",
+      "contentBlocks": {
+        "intro": "כלים מסוימים מרasterים עמודים בחילוץ ומטשטשים טקסט. JoinMyPDF מעתיק אובייקטי עמוד מהמקור כך שוקטורים, גופנים ותמונות מוטמעות נשארים שלמים.",
+        "primaryTool": "extract-pdf-pages",
+        "sections": [
+          {
+            "id": "lossless",
+            "heading": "העתקה לעומת המרה",
+            "level": 2,
+            "paragraphs": [
+              "חילוץ כאן הוא העתקה מבנית — כמו העברת פרקים בין כרכים — לא צילום מסך.",
+              "אם צריך קובץ קטן אחרי החילוץ, הריצו Compress PDF בנפרד כדי לשלוט בפשרה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "העמודים שחולצו ייראו זהים?",
+            "a": "כן ב-PDF סטנדרטי — הפלט משתמש באותם content streams כמו המקור."
+          }
+        ],
+        "internalLinks": [
+          { "href": "/tools/extract-pdf-pages/", "anchor": "Extract PDF Pages" },
+          { "href": "/tools/pdf-compress/", "anchor": "Compress PDF" }
+        ]
+      }
     }
   ]
 }

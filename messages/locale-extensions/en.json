@@ -18,6 +18,8 @@
       "batchRename": "batch rename PDF files",
       "textEditor": "overlay or edit visible PDF text locally",
       "annotate": "highlight, draw, and add sticky notes on a PDF",
+      "reorderPages": "reorder PDF pages with drag-and-drop",
+      "extractPages": "extract specific pages from a PDF",
       "compare": "compare two PDFs side by side",
       "booklet": "impose a PDF as a print-ready booklet",
       "safeShare": "audit a PDF for sensitive content before sharing",
@@ -513,6 +515,7 @@
       "privacyStatement": "100% Private: All processing happens locally in your browser. Your files never leave your device.",
       "privacyGuaranteeTitle": "Privacy guarantee",
       "privacyGuaranteeBody": "This tool runs locally in your browser. No files are uploaded to any server. Your data stays on your device.",
+      "pageManageNotice": "Process happens locally—your files stay on your device.",
       "securePrefix": "100% Secure:",
       "pngPrivacy": "Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.",
       "loading": "Loading…",
@@ -661,6 +664,14 @@
         "title": "Drop a PDF here or click to browse",
         "description": "Highlight, draw, and add sticky notes—annotations bake into your download locally."
       },
+      "reorder-pdf-pages": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Drag page thumbnails to reorder, then download—processed locally in your browser."
+      },
+      "extract-pdf-pages": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Enter page numbers or ranges (e.g. 1, 3-5) and extract to a new PDF locally."
+      },
       "pdf-to-booklet": {
         "title": "Drop a PDF to impose as a booklet",
         "description": "Prepare a PDF for duplex fold-and-staple printing."
@@ -717,7 +728,9 @@
       "unlock": "Unlock PDF",
       "sign": "Sign PDF",
       "pdf-text-editor": "Apply & download PDF",
-      "annotate-pdf": "Download annotated PDF"
+      "annotate-pdf": "Download annotated PDF",
+      "reorder-pdf-pages": "Download reordered PDF",
+      "extract-pdf-pages": "Download extracted PDF"
     },
     "status": {
       "common": {
@@ -1295,6 +1308,44 @@
         "undo": "Undo",
         "reorderHint": "Drag thumbnails to reorder pages. Click the trash icon to mark for deletion.",
         "clearSelection": "Clear selection"
+      }
+    },
+    "reorder-pdf-pages": {
+      "status": {
+        "loaded": "Loaded {count} page(s). Drag thumbnails to reorder, then download.",
+        "couldNotOpen": "Could not open this PDF. If it is protected, enter the password below.",
+        "applying": "Applying new page order…",
+        "downloaded": "Reordered PDF downloaded as {name}.",
+        "adjustFile": "Adjust your file and try again."
+      },
+      "applyingLabel": "Applying…",
+      "ui": {
+        "loadingThumb": "Loading…",
+        "moveUp": "Move page up",
+        "moveDown": "Move page down",
+        "reorderHint": "Drag thumbnails to reorder pages. On mobile, use the up/down arrows."
+      }
+    },
+    "extract-pdf-pages": {
+      "status": {
+        "loaded": "Loaded {count} page(s). Enter a page range to extract.",
+        "couldNotOpen": "Could not open this PDF. If it is protected, enter the password below.",
+        "enterRange": "Enter at least one page or range (e.g. 1, 3-5).",
+        "invalidRange": "Invalid page range.",
+        "applying": "Extracting pages…",
+        "downloaded": "Extracted PDF with {count} page(s) downloaded as {name}.",
+        "adjustFile": "Adjust your range and try again."
+      },
+      "applyingLabel": "Extracting…",
+      "ui": {
+        "pageCountLabel": "· {count} page(s)",
+        "rangeLabel": "Pages to extract",
+        "rangePlaceholder": "e.g. 1, 3-5, 8",
+        "rangeHint": "Separate pages with commas. Use a dash for ranges (3-5 = pages 3 through 5).",
+        "selectionSummary": "{count} page(s) selected for extraction.",
+        "previewHint": "Preview of first selected pages:",
+        "previewMore": "+ {more} more page(s) in the download",
+        "loadingThumb": "Loading…"
       }
     },
     "openoffice-to-pdf": {

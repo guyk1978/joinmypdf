@@ -666,6 +666,52 @@ function buildWorkspaces(locale) {
         clearSelection: isHe ? "נקה בחירה" : "Clear selection",
       },
     },
+    "reorder-pdf-pages": {
+      status: {
+        loaded: isHe
+          ? "נטענו {count} עמוד/ים. גרור תמונות ממוזערות לסדר, ואז הורד."
+          : "Loaded {count} page(s). Drag thumbnails to reorder, then download.",
+        couldNotOpen: common.couldNotOpenPdf,
+        applying: isHe ? "מיישם סדר עמודים חדש…" : "Applying new page order…",
+        downloaded: isHe ? "PDF מסודר הורד כ-{name}." : "Reordered PDF downloaded as {name}.",
+        adjustFile: isHe ? "התאם את הקובץ ונסה שוב." : "Adjust your file and try again.",
+      },
+      applyingLabel: isHe ? "מיישם…" : "Applying…",
+      ui: {
+        loadingThumb: isHe ? "טוען…" : "Loading…",
+        moveUp: isHe ? "הזז עמוד למעלה" : "Move page up",
+        moveDown: isHe ? "הזז עמוד למטה" : "Move page down",
+        reorderHint: isHe
+          ? "גרור תמונות ממוזערות לסדר מחדש. במובייל השתמש בחצים למעלה/למטה."
+          : "Drag thumbnails to reorder pages. On mobile, use the up/down arrows.",
+      },
+    },
+    "extract-pdf-pages": {
+      status: {
+        loaded: isHe ? "נטענו {count} עמוד/ים. הזן טווח עמודים לחילוץ." : "Loaded {count} page(s). Enter a page range to extract.",
+        couldNotOpen: common.couldNotOpenPdf,
+        enterRange: isHe ? "הזן לפחות עמוד אחד או טווח (למשל 1, 3-5)." : "Enter at least one page or range (e.g. 1, 3-5).",
+        invalidRange: isHe ? "טווח עמודים לא תקין." : "Invalid page range.",
+        applying: isHe ? "מחלץ עמודים…" : "Extracting pages…",
+        downloaded: isHe
+          ? "PDF עם {count} עמוד/ים הורד כ-{name}."
+          : "Extracted PDF with {count} page(s) downloaded as {name}.",
+        adjustFile: isHe ? "התאם את הטווח ונסה שוב." : "Adjust your range and try again.",
+      },
+      applyingLabel: isHe ? "מחלץ…" : "Extracting…",
+      ui: {
+        pageCountLabel: isHe ? "· {count} עמוד/ים" : "· {count} page(s)",
+        rangeLabel: isHe ? "עמודים לחילוץ" : "Pages to extract",
+        rangePlaceholder: isHe ? "למשל 1, 3-5, 8" : "e.g. 1, 3-5, 8",
+        rangeHint: isHe
+          ? "הפרד עמודים בפסיקים. השתמש במקף לטווחים (3-5 = עמודים 3 עד 5)."
+          : "Separate pages with commas. Use a dash for ranges (3-5 = pages 3 through 5).",
+        selectionSummary: isHe ? "{count} עמוד/ים נבחרו לחילוץ." : "{count} page(s) selected for extraction.",
+        previewHint: isHe ? "תצוגה מקדימה של העמודים הראשונים שנבחרו:" : "Preview of first selected pages:",
+        previewMore: isHe ? "+ {more} עמוד/ים נוספים בקובץ שיורד" : "+ {more} more page(s) in the download",
+        loadingThumb: isHe ? "טוען…" : "Loading…",
+      },
+    },
     "openoffice-to-pdf": {
       status: {
         invalidType: common.chooseOdf,

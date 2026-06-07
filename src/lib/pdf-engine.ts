@@ -106,6 +106,65 @@ export async function unlockPdfFile(file: File, password: string): Promise<Uint8
   }
 }
 
+export async function reorderPdfPagesFile(
+  file: File,
+  orderedPageIndices: number[],
+  password?: string,
+): Promise<Uint8Array> {
+  if (!file) throw new Error("No PDF file selected.");
+  if (!orderedPageIndices.length) throw new Error("Select at least one page.");
+
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!isPdfFile(file, bytes)) {
+    throw new Error("Choose a valid PDF file.");
+  }
+
+  try {
+    const sourceBytes: Uint8Array = password
+      ? await (async () => {
+          const { unlockPdfBytes } = await import("./pdf-unlock");
+          return unlockPdfBytes(bytes, String(password));
+        })()
+      : bytes;
+    const { buildPdfFromPageSequence } = await import("./pdf-pages");
+    return await buildPdfFromPageSequence(sourceBytes, orderedPageIndices);
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
+export async function extractPdfPagesFile(
+  file: File,
+  rangeSpec: string,
+  password?: string,
+): Promise<Uint8Array> {
+  if (!file) throw new Error("No PDF file selected.");
+
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  if (!isPdfFile(file, bytes)) {
+    throw new Error("Choose a valid PDF file.");
+  }
+
+  try {
+    const sourceBytes: Uint8Array = password
+      ? await (async () => {
+          const { unlockPdfBytes } = await import("./pdf-unlock");
+          return unlockPdfBytes(bytes, String(password));
+        })()
+      : bytes;
+    const { buildPdfFromPageSequence, parsePageRangeSpec } = await import("./pdf-pages");
+    const { loadPdfPageCount } = await import("./pdf-delete-pages");
+    const pageCount = await loadPdfPageCount(sourceBytes);
+    const indices = parsePageRangeSpec(rangeSpec, pageCount);
+    if (!indices.length) {
+      throw new Error("Enter at least one page or range (e.g. 1, 3-5).");
+    }
+    return await buildPdfFromPageSequence(sourceBytes, indices);
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
 export async function deletePdfPagesFile(
   file: File,
   pageIndicesToRemove: number[],

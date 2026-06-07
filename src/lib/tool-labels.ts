@@ -7,6 +7,8 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "batch-rename-pdf": "Batch Rename PDF",
     "pdf-text-editor": "PDF Text Editor",
     "annotate-pdf": "Annotate PDF",
+    "reorder-pdf-pages": "Reorder PDF Pages",
+    "extract-pdf-pages": "Extract PDF Pages",
     "compare-pdf": "Compare PDF",
     "pdf-to-booklet": "PDF to Booklet",
     "safe-to-share-auditor": "Safe-to-Share Auditor",

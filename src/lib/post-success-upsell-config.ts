@@ -55,6 +55,14 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/pdf-merge/", card: "combineTrimmed" },
     { href: "/tools/pdf-compress/", card: "compressBeforeSend" },
   ],
+  "reorder-pdf-pages": [
+    { href: "/tools/extract-pdf-pages/", card: "extractPages" },
+    { href: "/tools/delete-pdf-pages/", card: "combineTrimmed" },
+  ],
+  "extract-pdf-pages": [
+    { href: "/tools/reorder-pdf-pages/", card: "extractPages" },
+    { href: "/tools/pdf-split/", card: "fullPageExports" },
+  ],
   protect: [
     { href: "/tools/pdf-compress/", card: "shrinkAfterProtect" },
     { href: "/tools/pdf-merge/", card: "bundleThenLock" },

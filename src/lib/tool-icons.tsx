@@ -455,6 +455,8 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("batch-rename-pdf"), key: "batch-rename-pdf" },
   { test: (s) => s.includes("pdf-text-editor"), key: "pdf-text-editor" },
   { test: (s) => s.includes("annotate-pdf"), key: "annotate-pdf" },
+  { test: (s) => s.includes("reorder-pdf-pages"), key: "reorder-pdf-pages" },
+  { test: (s) => s.includes("extract-pdf-pages"), key: "extract-pdf-pages" },
   { test: (s) => s.includes("pdf-split"), key: "pdf-split" },
   { test: (s) => s.includes("pdf-merge"), key: "pdf-merge" },
 ];
@@ -507,6 +509,16 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <AnnotateIcon />,
     wrap: "bg-amber-100 ring-1 ring-amber-200",
     wrapHover: "group-hover:bg-amber-200 group-hover:ring-amber-300",
+  },
+  "reorder-pdf-pages": {
+    icon: <SplitIcon />,
+    wrap: "bg-violet-100 ring-1 ring-violet-200",
+    wrapHover: "group-hover:bg-violet-200 group-hover:ring-violet-300",
+  },
+  "extract-pdf-pages": {
+    icon: <SplitIcon />,
+    wrap: "bg-teal-100 ring-1 ring-teal-200",
+    wrapHover: "group-hover:bg-teal-200 group-hover:ring-teal-300",
   },
   "jpg-to-pdf": {
     icon: <ImageToPdfIcon />,

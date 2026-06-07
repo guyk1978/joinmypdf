@@ -94,6 +94,8 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("batch-rename-pdf"),
       toolLink("pdf-text-editor"),
       toolLink("annotate-pdf"),
+      toolLink("reorder-pdf-pages"),
+      toolLink("extract-pdf-pages"),
       toolLink("compare-pdf"),
       toolLink("pdf-to-booklet"),
       toolLink("pdf-compress"),

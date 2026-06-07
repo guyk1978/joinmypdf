@@ -192,6 +192,14 @@ export function getToolErrorRecovery(
       { href: "/tools/sign-pdf/", label: "Sign PDF", hint: "Sign the annotated document", variant: "primary" },
       { href: "/tools/protect-pdf/", label: "Protect PDF", hint: "Password-protect before sharing", variant: "secondary" },
     ],
+    "reorder-pdf-pages": [
+      { href: "/tools/extract-pdf-pages/", label: "Extract PDF Pages", hint: "Pull only the pages you need next", variant: "primary" },
+      { href: "/tools/delete-pdf-pages/", label: "Delete PDF Pages", hint: "Remove pages after reordering", variant: "secondary" },
+    ],
+    "extract-pdf-pages": [
+      { href: "/tools/reorder-pdf-pages/", label: "Reorder PDF Pages", hint: "Fix page order in the extract", variant: "primary" },
+      { href: "/tools/pdf-split/", label: "Split PDF", hint: "Split every page when you need all of them", variant: "secondary" },
+    ],
     "pdf-to-booklet": [
       { ...TOOLS.merge, hint: "Merge chapters before imposing", variant: "primary" },
       { ...TOOLS.split, hint: "Split to fix page order first", variant: "secondary" },

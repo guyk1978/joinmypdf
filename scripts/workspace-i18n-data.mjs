@@ -113,6 +113,14 @@ const uploadEn = {
     title: "Drop a PDF here or click to browse",
     description: "Highlight, draw, and add sticky notes—annotations bake into your download locally.",
   },
+  "reorder-pdf-pages": {
+    title: "Drop a PDF here or click to browse",
+    description: "Drag page thumbnails to reorder, then download—processed locally in your browser.",
+  },
+  "extract-pdf-pages": {
+    title: "Drop a PDF here or click to browse",
+    description: "Enter page numbers or ranges (e.g. 1, 3-5) and extract to a new PDF locally.",
+  },
   "pdf-to-booklet": {
     title: "Drop a PDF to impose as a booklet",
     description: "Prepare a PDF for duplex fold-and-staple printing.",
@@ -272,6 +280,14 @@ const uploadHe = {
     title: "גרור PDF לכאן או לחץ לעיון",
     description: "הדגש, צייר והוסף פתקיות — ההערות נאפות בהורדה מקומית.",
   },
+  "reorder-pdf-pages": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "גרור תמונות ממוזערות לסדר מחדש, ואז הורד — מעובד מקומית בדפדפן.",
+  },
+  "extract-pdf-pages": {
+    title: "גרור PDF לכאן או לחץ לעיון",
+    description: "הזן מספרי עמודים או טווחים (למשל 1, 3-5) וחלץ ל-PDF חדש מקומית.",
+  },
   "pdf-to-booklet": {
     title: "גרור PDF להטלה כחוברת",
     description: "הכן PDF להדפסה duplex קיפול וסיכה.",
@@ -337,6 +353,9 @@ function buildWorkspace(locale) {
       privacyGuaranteeBody: isHe
         ? "כלי זה רץ מקומית בדפדפן. לא מועלים קבצים לשרת. הנתונים נשארים במכשיר שלך."
         : "This tool runs locally in your browser. No files are uploaded to any server. Your data stays on your device.",
+      pageManageNotice: isHe
+        ? "העיבוד מתבצע מקומית — הקבצים שלך נשארים במכשיר."
+        : "Process happens locally—your files stay on your device.",
       securePrefix: isHe ? "100% מאובטח:" : "100% Secure:",
       pngPrivacy: isHe
         ? "המרת תמונות רצה לחלוטין בדפדפן. התמונות הפרטיות שלך לא מועלות לשום שרת."
@@ -393,6 +412,8 @@ function buildWorkspace(locale) {
       sign: isHe ? "חתום על PDF" : "Sign PDF",
       "pdf-text-editor": isHe ? "החל והורד PDF" : "Apply & download PDF",
       "annotate-pdf": isHe ? "הורד PDF עם הערות" : "Download annotated PDF",
+      "reorder-pdf-pages": isHe ? "הורד PDF מסודר" : "Download reordered PDF",
+      "extract-pdf-pages": isHe ? "הורד עמודים שחולצו" : "Download extracted PDF",
     },
     status: {
       common: {
