@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SiteSearch } from "@/components/SiteSearch";
+import { InstallPwaButton } from "@/components/InstallPwaButton";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ToolsMegaMenu } from "@/components/ToolsMegaMenu";
 import type { MegaMenuSection } from "@/lib/mega-menu";
@@ -91,6 +92,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
           <div className="relative flex h-full items-center">
             <SiteSearch variant="header" registry={registry} blog={blog} />
           </div>
+          <InstallPwaButton />
           <ThemeToggle />
           <button
             type="button"

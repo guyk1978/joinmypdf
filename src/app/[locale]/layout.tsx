@@ -49,6 +49,7 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
       description: messages.Metadata.siteDescription,
     },
     robots: { index: true, follow: true },
+    manifest: "/manifest.webmanifest",
     alternates: {
       languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}`])),
     },
