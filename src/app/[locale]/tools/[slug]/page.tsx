@@ -1,5 +1,6 @@
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
+import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
 import { RelatedTools } from "@/components/RelatedTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -245,14 +246,11 @@ export default async function ToolPage({
         </ToolGlassProvider>
         </ToolPageShellProvider>
 
-        <section className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
-          <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("beforeYouStart")}</h2>
-          <div className="mt-4 max-w-none space-y-2 text-sm leading-relaxed text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:text-base">
-            {paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-        </section>
+        <ToolBeforeYouStart title={tPage("beforeYouStart")}>
+          {paragraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </ToolBeforeYouStart>
 
         <LocalProcessingInfographic />
 

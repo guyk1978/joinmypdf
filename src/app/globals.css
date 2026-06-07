@@ -2918,6 +2918,11 @@ html.dark .tool-upload-zone.tool-upload-zone--active {
   max-width: 100%;
 }
 
+/* Tool page — subtle glass footer note ("Before you start") */
+.tool-before-you-start {
+  width: 100%;
+}
+
 /* Post-upload settings panel — shared across workspaces */
 .tool-workspace-panel {
   border-radius: 1rem;
