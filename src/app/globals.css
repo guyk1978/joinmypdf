@@ -2842,12 +2842,51 @@ html.dark .partner-mapdiagram[style] a {
 
 .tool-glass-container {
   width: 100%;
+  position: relative;
+  isolation: isolate;
 }
 
+.tool-glass-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 90% 70% at 50% 15%, rgba(255, 255, 255, 0.1) 0%, transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tool-glass-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tool-glass-shell__body {
+  position: relative;
+  z-index: 1;
+}
+
+/* Inner drop-zone — neon glow frame via theme CSS variable */
 .tool-upload-zone {
   max-width: none;
   width: 100%;
   margin-inline: auto;
+  border: none;
+  box-shadow:
+    0 0 20px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.2),
+    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.3);
+}
+
+.tool-upload-zone:hover,
+.tool-upload-zone.tool-upload-zone--active {
+  box-shadow:
+    0 0 28px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.32),
+    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.48);
 }
 
 .tool-glass-privacy-wrap .tool-privacy-badge {

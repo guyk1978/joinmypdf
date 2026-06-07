@@ -36,20 +36,20 @@ export function WorkspaceUploadShell({
   return (
     <div className={clsx(toolUploadStack, "tool-upload-stack tool-glass-shell", className)}>
       {headline ? (
-        <h1 className="tool-glass-headline text-center text-2xl font-bold tracking-tight text-ink dark:text-white md:text-3xl">
+        <h1 className="tool-glass-headline text-center text-3xl font-bold tracking-tight text-ink dark:text-white md:text-4xl">
           {headline}
         </h1>
       ) : null}
 
       {subline ? (
-        <p className="tool-glass-subline mt-2 text-center text-sm leading-relaxed text-ink-muted dark:text-neutral-400 md:text-base">
+        <p className="tool-glass-subline mt-3 text-center text-sm leading-relaxed text-ink-muted dark:text-neutral-400 md:text-base">
           {subline}
         </p>
       ) : null}
 
       <div
         className={clsx(
-          "tool-glass-container mt-6 w-full px-4 py-5 sm:px-6 sm:py-6",
+          "tool-glass-container mt-8 w-full px-8 py-10 sm:px-10 sm:py-12 md:px-12 md:py-14",
           theme.shell,
           headline || subline ? "" : "mt-0",
         )}

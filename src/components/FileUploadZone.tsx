@@ -8,21 +8,23 @@ import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 
 function UploadDocumentIcon({ className, active }: { className?: string; active?: boolean }) {
   return (
-    <div
+    <svg
+      width="56"
+      height="56"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
       className={clsx(
-        "relative flex h-16 w-16 items-center justify-center rounded-xl border border-neutral-600/80 bg-neutral-800/80 text-neutral-300 shadow-inner transition-transform duration-200",
-        active && "scale-[1.03] border-neutral-500",
+        "text-neutral-500 transition-transform duration-200 dark:text-neutral-400",
+        active && "scale-105 text-neutral-400 dark:text-neutral-300",
         className,
       )}
       aria-hidden
     >
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M7 2.5H14.5L20.5 8.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V4.25C5.25 3.2835 6.0335 2.5 7 2.5Z" opacity="0.9" />
-        <path d="M14.5 2.5V7.5C14.5 8.05228 14.9477 8.5 15.5 8.5H20.5" opacity="0.55" />
-        <path d="M7.25 14.5H20.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V14.5H7.25Z" opacity="0.95" />
-      </svg>
-      <div className="absolute -end-0.5 -top-0.5 h-2 w-2 rounded-sm bg-neutral-500" />
-    </div>
+      <path d="M7 2.5H14.5L20.5 8.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V4.25C5.25 3.2835 6.0335 2.5 7 2.5Z" opacity="0.85" />
+      <path d="M14.5 2.5V7.5C14.5 8.05228 14.9477 8.5 15.5 8.5H20.5" opacity="0.45" />
+      <path d="M7.25 14.5H20.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V14.5H7.25Z" opacity="0.95" />
+    </svg>
   );
 }
 
@@ -91,20 +93,22 @@ export function FileUploadZone({
   return (
     <div
       className={clsx(
-        "tool-upload-zone group relative flex w-full flex-col items-center justify-center p-6 text-center md:p-8",
+        "tool-upload-zone group relative flex w-full flex-col items-center justify-center p-10 text-center md:p-12",
         theme.dropzone,
-        isHero ? "min-h-[220px] md:min-h-[240px]" : "min-h-[200px] md:min-h-[220px]",
-        active ? theme.dropzoneActive : theme.dropzoneHover,
+        isHero ? "min-h-[260px] md:min-h-[280px]" : "min-h-[240px] md:min-h-[260px]",
+        active && theme.dropzoneActive,
         className,
       )}
       {...rest}
     >
       {input}
-      <div className="flex w-full flex-col items-center justify-center gap-5">
+      <div className="flex w-full flex-col items-center justify-center gap-6">
         <UploadDocumentIcon active={active} />
-        <div className="max-w-md space-y-2">
-          <p className="text-sm font-bold tracking-tight text-ink dark:text-white md:text-base">{instruction}</p>
-          {description ? <p className="text-xs leading-relaxed text-ink-muted dark:text-neutral-400">{description}</p> : null}
+        <div className="max-w-md space-y-2.5">
+          <p className="text-base font-bold tracking-tight text-ink dark:text-white md:text-lg">{instruction}</p>
+          {description ? (
+            <p className="text-xs leading-relaxed text-ink-muted dark:text-neutral-400 md:text-sm">{description}</p>
+          ) : null}
         </div>
         <SelectFilesCta
           label={common("selectFiles")}
