@@ -61,7 +61,7 @@ export default async function HomePage({ params }: Props) {
       <div className="relative">
         <div
           aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-0 bg-[url('/watermarked_img_3687248108699289583.png')] bg-center bg-repeat bg-fixed opacity-10 dark:bg-[url('/watermarked_img_12115464384613891207.png')]"
+          className="pointer-events-none fixed inset-0 z-0 bg-[url('/assets/images/watermark/watermarked_img_3687248108699289583.png')] bg-center bg-repeat bg-fixed opacity-10 dark:bg-[url('/assets/images/watermark/watermarked_img_12115464384613891207.png')]"
         />
         <div className="relative z-10">
           <SiteHeader />
