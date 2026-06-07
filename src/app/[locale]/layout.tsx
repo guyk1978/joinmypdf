@@ -5,6 +5,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Providers } from "@/components/Providers";
 import { CookieConsent } from "@/components/CookieConsent";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { ShareButton } from "@/components/ShareButton";
 import { routing } from "@/i18n/routing";
@@ -66,6 +67,9 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} dir={locale === "he" ? "rtl" : "ltr"} className={inter.variable} suppressHydrationWarning>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body className="font-sans">
         <NextIntlClientProvider messages={messages}>
           <Providers>

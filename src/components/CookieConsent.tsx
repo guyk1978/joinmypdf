@@ -8,11 +8,7 @@ import {
   setCookieConsent,
   type CookieConsentChoice,
 } from "@/lib/cookie-consent";
-import {
-  disableGoogleAnalytics,
-  enableGoogleAnalytics,
-  isGoogleAnalyticsConfigured,
-} from "@/lib/google-analytics";
+import { isGoogleAnalyticsConfigured, updateConsent } from "@/lib/google-analytics";
 
 type ConsentUiState = "checking" | "pending" | CookieConsentChoice;
 
@@ -28,7 +24,6 @@ export function CookieConsent() {
 
     const stored = getCookieConsent();
     if (stored === "accepted") {
-      enableGoogleAnalytics();
       setUiState("accepted");
       return;
     }
@@ -44,11 +39,7 @@ export function CookieConsent() {
 
   const persist = (choice: CookieConsentChoice) => {
     setCookieConsent(choice);
-    if (choice === "accepted") {
-      enableGoogleAnalytics();
-    } else {
-      disableGoogleAnalytics();
-    }
+    updateConsent(choice === "accepted");
     setUiState(choice);
   };
 
