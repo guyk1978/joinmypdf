@@ -2,6 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -177,6 +178,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+      <WorkspaceUploadShell>
       <FileUploadZone
         operation={tool.operation}
         drag={drag}
@@ -213,6 +215,7 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
           />
         }
       />
+      </WorkspaceUploadShell>
 
       {files.length > 0 ? (
         <div className="visual-reorder-panel">

@@ -5,7 +5,6 @@ import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
-import { PrivacyGuaranteeBanner } from "@/components/PrivacyGuaranteeBanner";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import type { ToolDefinition } from "@/lib/types";
@@ -376,8 +375,6 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <PrivacyGuaranteeBanner />
-
       <WorkspaceUploadShell>
             {!file ? (
         <FileUploadZone

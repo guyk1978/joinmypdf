@@ -291,7 +291,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
-        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div className="tool-workspace-panel space-y-2">
           <div>
             <p className="text-sm font-semibold text-ink">{file?.name}</p>
             <p className="mt-1 text-xs text-ink-muted">

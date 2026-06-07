@@ -1,59 +1,58 @@
-/** Shared Tailwind classes for tool workspaces — Matte Technical, sharp edges, flat borders. */
+/** Shared Tailwind classes for tool workspaces — Dark Glassmorphism design system. */
 
 export const toolPrimaryBtn =
-  "rounded-none border border-neutral-800 bg-neutral-900 px-4 py-2 text-sm font-bold text-neutral-100 transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-500 dark:bg-neutral-200 dark:text-neutral-950 dark:hover:bg-white";
+  "rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-ink shadow-sm backdrop-blur-sm transition-[background-color,box-shadow,border-color] hover:border-white/25 hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/15";
 
 export const toolSecondaryBtn =
-  "rounded-none border border-neutral-300 bg-white px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-neutral-100 disabled:opacity-50 dark:border-neutral-800 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-800/80";
+  "rounded-xl border border-white/10 bg-transparent px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:border-white/20 hover:bg-white/[0.04] hover:text-ink disabled:opacity-50 dark:border-white/15 dark:text-neutral-300 dark:hover:bg-white/[0.06] dark:hover:text-white";
 
 export const toolInput =
-  "w-full rounded-none border border-neutral-300 bg-white px-3 py-2 text-sm text-black transition-colors placeholder:text-neutral-500 focus:border-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-600 disabled:opacity-60 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
+  "w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-ink backdrop-blur-sm transition-colors placeholder:text-ink-muted focus:border-white/25 focus:outline-none focus:ring-1 focus:ring-white/20 disabled:opacity-60 dark:bg-black/30 dark:text-neutral-100";
 
 export const toolDownloadBtn =
-  "inline-flex w-full items-center justify-center gap-2 rounded-none border border-neutral-800 bg-neutral-900 px-4 py-2.5 text-sm font-bold text-neutral-100 transition-colors hover:bg-neutral-800 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto dark:border-neutral-500 dark:bg-neutral-200 dark:text-neutral-950 dark:hover:bg-white";
+  "inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-semibold text-ink backdrop-blur-sm transition-colors hover:bg-white/15 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-white/30 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto dark:text-white";
 
 export const toolPanel =
-  "rounded-none border border-neutral-300 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-900";
+  "rounded-2xl border border-white/10 bg-white/[0.03] p-3 ring-1 ring-white/5 backdrop-blur-md dark:border-white/10 dark:bg-black/25";
+
+export const toolGlassPanel = toolPanel;
 
 export const toolCanvasStudio =
-  "overflow-hidden rounded-none border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-900";
+  "overflow-hidden rounded-2xl border border-white/10 bg-black/20 ring-1 ring-white/5 backdrop-blur-md dark:bg-black/30";
 
 export const toolCanvasPage =
-  "overflow-hidden rounded-none border border-neutral-300 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-950";
+  "overflow-hidden rounded-xl border border-white/10 bg-black/10 ring-1 ring-white/5 backdrop-blur-sm dark:bg-black/20";
 
 /** Calculator / invoice numeric fields */
-export const matteField =
-  "w-full rounded-none border border-neutral-300 bg-white px-3 py-2 font-mono text-sm tabular-nums text-black transition-colors placeholder:text-neutral-500 focus:border-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
+export const matteField = toolInput;
 
 export const matteFieldArea =
-  "w-full min-h-[4.5rem] resize-y rounded-none border border-neutral-300 bg-white px-3 py-2 text-sm text-black transition-colors placeholder:text-neutral-500 focus:border-neutral-600 focus:outline-none focus:ring-1 focus:ring-neutral-600 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-200";
+  "w-full min-h-[4.5rem] resize-y rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-ink backdrop-blur-sm transition-colors placeholder:text-ink-muted focus:border-white/25 focus:outline-none focus:ring-1 focus:ring-white/20 dark:bg-black/30 dark:text-neutral-100";
 
-export const mattePanel =
-  "rounded-none border border-neutral-300 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-900";
+export const mattePanel = toolPanel;
 
 export const mattePanelInset =
-  "rounded-none border border-neutral-300 bg-neutral-50 p-2 dark:border-neutral-800 dark:bg-neutral-950/80";
+  "rounded-xl border border-white/10 bg-black/15 p-2 ring-1 ring-white/5 backdrop-blur-sm dark:bg-black/20";
 
-/** Shared max width for tool upload stack (privacy statement + dropzone). */
+/** Shared max width for tool upload stack — full width within column, capped for readability */
 export const toolUploadStack = "mx-auto w-full max-w-2xl";
 
-/** Unified privacy statement — top segment of the upload block */
+/** @deprecated Privacy moved to ToolPrivacyBadge inside WorkspaceUploadShell */
 export const toolPrivacyStatement =
-  "rounded-none border border-dashed border-neutral-400 bg-neutral-100 px-2 py-1.5 text-xs leading-snug text-black sm:text-sm dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200";
+  "rounded-xl border border-white/10 bg-white/[0.03] px-2 py-1.5 text-xs leading-snug text-ink-muted backdrop-blur-sm";
 
-/** @deprecated Use toolPrivacyStatement via ToolPrivacyStatement */
+/** @deprecated Use ToolPrivacyBadge via ToolPrivacyStatement */
 export const matteSecurityCallout = toolPrivacyStatement;
 
-/** Drag-and-drop upload zone — light gray surface, dashed border, dark matte in dark mode */
+/** @deprecated Use glass dropzone via FileUploadZone + tool-glass-theme */
 export const matteDropzone =
-  "tool-upload-zone rounded-none border border-dashed border-neutral-500 bg-neutral-100 text-black transition-colors dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-200";
+  "tool-upload-zone rounded-2xl border border-dashed border-white/20 bg-white/[0.03] text-ink backdrop-blur-md transition-[border-color,box-shadow] dark:border-white/15 dark:bg-black/20";
 
-export const matteDropzoneActive =
-  "border-neutral-500 bg-neutral-200 dark:border-neutral-600 dark:bg-neutral-950";
+export const matteDropzoneActive = "border-white/40 ring-1 ring-white/20";
 
 /** Invoice / timeline / data-tool split workspace panels */
 export const matteWorkspaceSection =
-  "rounded-none border border-dashed border-neutral-400 bg-neutral-200 p-2 dark:border-neutral-700 dark:bg-neutral-900";
+  "rounded-2xl border border-white/10 bg-white/[0.03] p-2 ring-1 ring-white/5 backdrop-blur-md dark:bg-black/25";
 
 export const matteWorkspaceBanner =
-  "rounded-none border border-dashed border-neutral-400 bg-neutral-100 px-2 py-1.5 text-sm text-black dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200";
+  "rounded-xl border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-ink-muted backdrop-blur-sm dark:bg-black/20";

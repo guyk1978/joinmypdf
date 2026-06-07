@@ -175,7 +175,7 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
           }
         />
       ) : (
-        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div className="tool-workspace-panel space-y-2">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file.name}</p>

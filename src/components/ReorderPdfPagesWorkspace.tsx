@@ -2,7 +2,6 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
-import { PageManageLocalNotice } from "@/components/PageManageLocalNotice";
 import { PageManageSortableGrid } from "@/components/PageManageSortableGrid";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -132,8 +131,6 @@ export function ReorderPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <PageManageLocalNotice />
-
       <WorkspaceUploadShell>
         {!file ? (
           <FileUploadZone

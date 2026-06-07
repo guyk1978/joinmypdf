@@ -2827,39 +2827,63 @@ html.dark .partner-mapdiagram[style] a {
   border-color: #737373 !important;
 }
 
-/* Tool upload dropzone — shared width with security callout */
+/* Tool upload — glass shell; dropzone is standalone inside shell */
 .tool-upload-zone {
-  max-width: 42rem;
+  max-width: none;
   width: 100%;
   margin-inline: auto;
 }
 
+.tool-glass-shell .tool-upload-zone {
+  border-width: 1px;
+}
+
+.tool-upload-stack .tool-privacy-badge {
+  max-width: 100%;
+}
+
+/* Legacy fused borders — no longer used */
 .tool-upload-stack .tool-privacy-statement {
-  border-bottom-width: 0;
-  margin-bottom: 0;
+  display: none;
 }
 
 .tool-upload-stack .tool-upload-zone {
-  border-top-width: 0;
   margin-top: 0;
+}
+
+/* Post-upload settings panel — shared across workspaces */
+.tool-workspace-panel {
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.75rem;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+@media (min-width: 768px) {
+  .tool-workspace-panel {
+    padding: 1rem;
+  }
+}
+
+html.dark .tool-workspace-panel {
+  background: rgba(0, 0, 0, 0.25);
 }
 
 /* Tool icon containers — dark mode */
 html.dark .tool-icon-wrap {
-  background-color: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
   background-image: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(12px);
   --tw-ring-width: 0 !important;
-  --tw-ring-color: transparent !important;
-  --tw-ring-offset-width: 0 !important;
-  --tw-ring-shadow: 0 0 #0000 !important;
-  --tw-ring-offset-shadow: 0 0 #0000 !important;
-  box-shadow: none;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.04);
 }
 
 html.dark .group:hover .tool-icon-wrap {
-  background-color: rgba(255, 255, 255, 0.12) !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
 }
 
 /* WattQuick partner banner — floating calculator animation */

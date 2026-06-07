@@ -5,6 +5,7 @@ import { useCallback, useRef, useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { usePendingFiles } from "@/context/PendingFilesContext";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
@@ -28,6 +29,7 @@ export function HeroDropzone() {
   );
 
   return (
+    <ToolGlassProvider category="edit">
     <WorkspaceUploadShell>
       <FileUploadZone
       variant="hero"
@@ -82,5 +84,6 @@ export function HeroDropzone() {
       }
     />
     </WorkspaceUploadShell>
+    </ToolGlassProvider>
   );
 }

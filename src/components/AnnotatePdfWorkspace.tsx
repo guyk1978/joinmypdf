@@ -4,7 +4,6 @@ import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
-import { PrivacyGuaranteeBanner } from "@/components/PrivacyGuaranteeBanner";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
@@ -461,8 +460,6 @@ export function AnnotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slu
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <PrivacyGuaranteeBanner />
-
       <WorkspaceUploadShell>
         {!file ? (
           <FileUploadZone

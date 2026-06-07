@@ -2,7 +2,6 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
-import { PageManageLocalNotice } from "@/components/PageManageLocalNotice";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -206,8 +205,6 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <PageManageLocalNotice />
-
       <WorkspaceUploadShell>
         {!file ? (
           <FileUploadZone

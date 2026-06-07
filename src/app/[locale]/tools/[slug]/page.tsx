@@ -1,3 +1,4 @@
+import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { RelatedTools } from "@/components/RelatedTools";
 import { ToolPageHero } from "@/components/ToolPageHero";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -160,6 +161,7 @@ export default async function ToolPage({
       <main className="mx-auto max-w-6xl space-y-10 px-4 py-10 md:px-4 md:py-12">
         <ToolPageHero slug={tool.slug} title={displayTitle} subtitle={subtitle} eyebrow={tPage("brandEyebrow")} />
 
+        <ToolGlassProvider category={tool.category}>
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "protect" ? (
@@ -241,6 +243,7 @@ export default async function ToolPage({
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}
+        </ToolGlassProvider>
 
         <section className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
           <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("beforeYouStart")}</h2>

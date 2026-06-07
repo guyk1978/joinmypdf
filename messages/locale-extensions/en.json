@@ -522,6 +522,7 @@
       "privacyGuaranteeBody": "This tool runs locally in your browser. No files are uploaded to any server. Your data stays on your device.",
       "pageManageNotice": "Process happens locally—your files stay on your device.",
       "optimizationRepairNotice": "Even for advanced repairs, your file never leaves your browser.",
+      "privacyBadge": "100% Private: Local processing. Files stay on your device.",
       "securePrefix": "100% Secure:",
       "pngPrivacy": "Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.",
       "loading": "Loading…",

@@ -360,7 +360,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ) : null}
 
       {result && leftFile && rightFile ? (
-        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div className="tool-workspace-panel space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap gap-2 text-xs text-ink-muted">
               <span className="flex items-center gap-1.5">

@@ -5,7 +5,6 @@ import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
-import { PrivacyGuaranteeBanner } from "@/components/PrivacyGuaranteeBanner";
 import { SignPageSelect } from "@/components/SignPageSelect";
 import { SignatureModal } from "@/components/SignatureModal";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -484,8 +483,6 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <PrivacyGuaranteeBanner />
-
       <WorkspaceUploadShell>
             {!file ? (
         <FileUploadZone

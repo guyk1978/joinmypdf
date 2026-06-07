@@ -2,7 +2,6 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
-import { OptimizationRepairNotice } from "@/components/OptimizationRepairNotice";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -178,8 +177,6 @@ export function RepairPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <OptimizationRepairNotice />
-
       <WorkspaceUploadShell>
         {!showWorkspace ? (
           <FileUploadZone
@@ -225,7 +222,7 @@ export function RepairPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
-        <div className="space-y-2 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div className="tool-workspace-panel space-y-2">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>

@@ -367,6 +367,9 @@ function buildWorkspace(locale) {
       optimizationRepairNotice: isHe
         ? "גם בתיקונים מתקדמים, הקובץ שלך לא עוזב את הדפדפן."
         : "Even for advanced repairs, your file never leaves your browser.",
+      privacyBadge: isHe
+        ? "100% פרטי: עיבוד מקומי. הקבצים נשארים במכשיר שלך."
+        : "100% Private: Local processing. Files stay on your device.",
       securePrefix: isHe ? "100% מאובטח:" : "100% Secure:",
       pngPrivacy: isHe
         ? "המרת תמונות רצה לחלוטין בדפדפן. התמונות הפרטיות שלך לא מועלות לשום שרת."
