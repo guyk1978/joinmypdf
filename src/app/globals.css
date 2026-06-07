@@ -2827,28 +2827,31 @@ html.dark .partner-mapdiagram[style] a {
   border-color: #737373 !important;
 }
 
-/* Tool upload — glass shell; dropzone is standalone inside shell */
+/* Tool upload — reference layout: title → description → glass container → privacy badge */
+.tool-upload-stack {
+  width: 100%;
+}
+
+.tool-glass-headline {
+  text-wrap: balance;
+}
+
+.tool-glass-subline {
+  text-wrap: balance;
+}
+
+.tool-glass-container {
+  width: 100%;
+}
+
 .tool-upload-zone {
   max-width: none;
   width: 100%;
   margin-inline: auto;
 }
 
-.tool-glass-shell .tool-upload-zone {
-  border-width: 1px;
-}
-
-.tool-upload-stack .tool-privacy-badge {
+.tool-glass-privacy-wrap .tool-privacy-badge {
   max-width: 100%;
-}
-
-/* Legacy fused borders — no longer used */
-.tool-upload-stack .tool-privacy-statement {
-  display: none;
-}
-
-.tool-upload-stack .tool-upload-zone {
-  margin-top: 0;
 }
 
 /* Post-upload settings panel — shared across workspaces */

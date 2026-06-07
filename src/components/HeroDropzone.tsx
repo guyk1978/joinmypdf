@@ -30,14 +30,13 @@ export function HeroDropzone() {
 
   return (
     <ToolGlassProvider category="edit">
-    <WorkspaceUploadShell>
+    <WorkspaceUploadShell headline={t("title")} subline={t("description")}>
       <FileUploadZone
-      variant="hero"
-      role="region"
-      aria-label={t("ariaLabel")}
-      drag={drag}
-      title={t("title")}
-      description={t("description")}
+        variant="hero"
+        role="region"
+        aria-label={t("ariaLabel")}
+        drag={drag}
+        title={t("title")}
       onDragOver={(e) => {
         e.preventDefault();
         setDrag(true);

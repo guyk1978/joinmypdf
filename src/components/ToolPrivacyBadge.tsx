@@ -9,7 +9,7 @@ type ToolPrivacyBadgeProps = {
   className?: string;
 };
 
-/** Discreet trusted privacy badge — footer of the tool glass shell. */
+/** Centered privacy notice below the main glass container — reference layout. */
 export function ToolPrivacyBadge({ className }: ToolPrivacyBadgeProps) {
   const t = useTranslations("Workspace.common");
   const theme = useToolGlassTheme();
@@ -17,8 +17,7 @@ export function ToolPrivacyBadge({ className }: ToolPrivacyBadgeProps) {
   return (
     <p
       className={clsx(
-        "tool-privacy-badge flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-[11px] leading-snug backdrop-blur-sm",
-        theme.badge,
+        "tool-privacy-badge inline-flex max-w-lg items-center justify-center gap-1.5 text-center text-[11px] leading-snug text-neutral-500 sm:text-xs",
         className,
       )}
       role="note"

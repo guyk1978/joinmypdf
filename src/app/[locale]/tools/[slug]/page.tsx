@@ -1,6 +1,6 @@
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
+import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { RelatedTools } from "@/components/RelatedTools";
-import { ToolPageHero } from "@/components/ToolPageHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
@@ -159,8 +159,7 @@ export default async function ToolPage({
       <JsonLd data={breadcrumbLd(crumbs)} />
       <SiteHeader />
       <main className="mx-auto max-w-6xl space-y-10 px-4 py-10 md:px-4 md:py-12">
-        <ToolPageHero slug={tool.slug} title={displayTitle} subtitle={subtitle} eyebrow={tPage("brandEyebrow")} />
-
+        <ToolPageShellProvider headline={displayTitle} subline={subtitle}>
         <ToolGlassProvider category={tool.category}>
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
@@ -244,6 +243,7 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolGlassProvider>
+        </ToolPageShellProvider>
 
         <section className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
           <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("beforeYouStart")}</h2>
