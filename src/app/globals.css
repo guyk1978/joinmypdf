@@ -54,6 +54,42 @@ body {
   max-width: 100%;
 }
 
+/* Homepage FREE PDF watermark — light/dark tile backgrounds */
+.home-watermark {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.home-watermark__layer {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.home-watermark__layer--light {
+  background-image: url("/assets/images/watermark/watermarked_img_3687248108699289583.png");
+  opacity: 1;
+}
+
+html.dark .home-watermark__layer--light {
+  opacity: 0;
+}
+
+.home-watermark__layer--dark {
+  background-image: url("/assets/images/watermark/watermarked_img_12115464384613891207.png");
+  opacity: 0;
+}
+
+html.dark .home-watermark__layer--dark {
+  opacity: 1;
+}
+
 html.dark body {
   @apply bg-neutral-950 text-neutral-200;
 }

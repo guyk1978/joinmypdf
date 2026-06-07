@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 export const runtime = "edge";
 import { FeaturedToolsShowcase } from "@/components/FeaturedToolsShowcase";
+import { HomeWatermarkBackground } from "@/components/HomeWatermarkBackground";
 import { HeroDropzone } from "@/components/HeroDropzone";
 import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
 import { ScenarioWins } from "@/components/ScenarioWins";
@@ -58,17 +59,8 @@ export default async function HomePage({ params }: Props) {
           description: tMeta("homeDescription"),
         }}
       />
-      <div className="relative">
-        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0">
-          {/* Light mode watermark */}
-          <div
-            className="absolute inset-0 bg-[url('/assets/images/watermark/watermarked_img_3687248108699289583.png')] bg-center bg-repeat bg-fixed opacity-100 transition-opacity duration-500 ease-in-out dark:opacity-0"
-          />
-          {/* Dark mode watermark */}
-          <div
-            className="absolute inset-0 bg-[url('/assets/images/watermark/watermarked_img_12115464384613891207.png')] bg-center bg-repeat bg-fixed opacity-0 transition-opacity duration-500 ease-in-out dark:opacity-100"
-          />
-        </div>
+      <div className="relative isolate">
+        <HomeWatermarkBackground />
         <div className="relative z-10">
           <SiteHeader />
           <main className="mx-auto max-w-6xl px-4 py-14 md:px-4 md:py-20">
