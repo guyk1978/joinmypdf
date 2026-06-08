@@ -2,19 +2,20 @@ import type { Metadata } from "next";
 export const runtime = "edge";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Lock, Shield } from "lucide-react";
-import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
-import { ToolMegaGrid } from "@/components/ToolMegaGrid";
+import { ToolsDirectoryToolGrid } from "@/components/ToolsDirectoryToolGrid";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteSearch } from "@/components/SiteSearch";
 import { Link } from "@/i18n/navigation";
 import { blogRegistry } from "@/lib/blog-registry";
-import { translateToolItem, translateToolGridCategory, translateToolSection } from "@/lib/i18n-tool-labels";
-import { buildMegaMenuSections, buildToolMegaGridGroups } from "@/lib/mega-menu";
+import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
+import { buildMegaMenuSections } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
+import { appShell, homeSecondaryPillBtn } from "@/lib/tool-ui";
+import type { ToolGridItem } from "@/lib/tool-grid";
 
 const FEATURED_SLUGS = [
   "pdf-merge",
@@ -44,34 +45,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function toGridItem(
+  tTools: Awaited<ReturnType<typeof getTranslations>>,
+  slug: string,
+  label: string,
+): ToolGridItem {
+  return {
+    href: `/tools/${slug}/`,
+    label: translateToolItem(tTools, slug, label),
+    slugHint: slug,
+  };
+}
+
 export default async function ToolsDirectoryPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolsDirectory");
+  const tHome = await getTranslations({ locale, namespace: "Home" });
   const sections = buildMegaMenuSections();
   const toolCount = registry.tools.length + 3;
-  const toolGroups = buildToolMegaGridGroups().map((group) => ({
-    id: group.id,
-    label: translateToolGridCategory(tTools, group.id),
-    items: group.items.map((item) => ({
-      href: item.href,
-      label: translateToolItem(tTools, item.slug, item.label),
-      slugHint: item.slug,
-    })),
-  }));
-  const allToolCount = toolGroups.reduce((sum, group) => sum + group.items.length, 0);
 
   const featuredItems = FEATURED_SLUGS.map((slug) => {
     const tool = registry.tools.find((t) => t.slug === slug);
     if (!tool) return null;
-    return {
-      href: `/tools/${tool.slug}/`,
-      label: translateToolItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title)),
-      slugHint: tool.slug,
-    };
-  }).filter((item): item is NonNullable<typeof item> => Boolean(item));
+    return toGridItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title));
+  }).filter((item): item is ToolGridItem => Boolean(item));
+
+  const convertSection = sections.find((section) => section.id === "convert");
+  const convertItems: ToolGridItem[] =
+    convertSection?.items.map((item) => toGridItem(tTools, item.slug, item.label)) ?? [];
 
   return (
     <>
@@ -85,118 +89,78 @@ export default async function ToolsDirectoryPage({ params }: Props) {
           numberOfItems: toolCount,
         }}
       />
-      <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4 py-10 md:px-4 md:py-14">
-        <section className="rounded-none border border-neutral-300 bg-white px-4 py-4 text-center dark:border-neutral-800 dark:bg-neutral-900 md:px-4 md:py-5">
-          <div className="relative">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
-              {tPage("badge")}
-            </p>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight text-black dark:text-neutral-200 dark:text-white md:text-4xl lg:text-5xl">
-              {tPage("title")}
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:text-lg">
-              {tPage("description", { count: toolCount })}
-            </p>
-            <div className="mx-auto mt-4 max-w-xl">
-              <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
-            </div>
-            <p className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
-              <span className="inline-flex items-center gap-1.5">
-                <Lock className="h-4 w-4 text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" aria-hidden />
-                {tPage("clientSide")}
-              </span>
-              <span className="hidden text-black dark:text-neutral-200 sm:inline dark:text-black dark:text-neutral-200" aria-hidden>
-                ·
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Shield className="h-4 w-4 text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" aria-hidden />
-                <Link href="/privacy-first/" className="font-medium text-black dark:text-neutral-200 hover:underline dark:text-black dark:text-neutral-200">
-                  {tPage("privacyFirst")}
-                </Link>
-              </span>
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-12 space-y-2" aria-labelledby="all-tools-grid">
-          <div>
-            <h2 id="all-tools-grid" className="text-xl font-semibold text-black dark:text-neutral-200 md:text-2xl">
-              {tPage("allToolsGridTitle")}
-            </h2>
-            <p className="mt-1 text-sm text-black dark:text-neutral-200">{tPage("allToolsGridDescription", { count: allToolCount })}</p>
-          </div>
-          <div className="w-full overflow-x-hidden md:relative md:left-1/2 md:w-screen md:max-w-none md:-translate-x-1/2">
-            <ToolMegaGrid groups={toolGroups} />
-          </div>
-        </section>
-
-        <section className="mt-12 space-y-2 px-4 md:px-0" aria-labelledby="featured-tools">
-          <div>
-            <h2 id="featured-tools" className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white md:text-2xl">
-              {tPage("startHere")}
-            </h2>
-            <p className="mt-1 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{tPage("startHereDescription")}</p>
-          </div>
-          <CompactToolCardGrid items={featuredItems} />
-        </section>
-
-        {sections.map((section) => {
-          const sectionLabel = translateToolSection(tTools, section.id, section.label);
-          const countLabel =
-            section.items.length === 1
-              ? tPage("toolCount", { count: section.items.length })
-              : tPage("toolCountPlural", { count: section.items.length });
-
-          return (
-            <section
-              key={section.id}
-              id={section.id}
-              className="mt-8 scroll-mt-24 space-y-2 rounded-none border border-neutral-300 dark:border-neutral-800/70 bg-white/80 p-4 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.03] md:p-4"
-              aria-labelledby={`section-${section.id}`}
-            >
-              <div>
-                <h2
-                  id={`section-${section.id}`}
-                  className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-white md:text-xl"
-                >
-                  {sectionLabel}
-                </h2>
-                <p className="mt-1 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{countLabel}</p>
+      <div className={appShell}>
+        <SiteHeader />
+        <main className="home-tool-grid-page">
+          <div className="home-tool-grid-shell mx-auto w-full max-w-[1400px]">
+            <header className="mb-10 max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
+                {tPage("badge")}
+              </p>
+              <h1 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
+                {tPage("title")}
+              </h1>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 md:text-base">
+                {tPage("description", { count: toolCount })}
+              </p>
+              <div className="mt-5 max-w-xl">
+                <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
               </div>
-              <CompactToolCardGrid
-                items={section.items.map((item) => ({
-                  href: item.href,
-                  label: translateToolItem(tTools, item.slug, item.label),
-                  slugHint: item.slug,
-                }))}
-              />
-            </section>
-          );
-        })}
+              <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-500 dark:text-neutral-400">
+                <span className="inline-flex items-center gap-1.5">
+                  <Lock className="h-4 w-4 shrink-0" aria-hidden />
+                  {tPage("clientSide")}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Shield className="h-4 w-4 shrink-0" aria-hidden />
+                  <Link
+                    href="/privacy-first/"
+                    className="font-medium text-neutral-700 hover:underline dark:text-neutral-300"
+                  >
+                    {tPage("privacyFirst")}
+                  </Link>
+                </span>
+              </p>
+            </header>
 
-        <section className="mt-8 rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-900 dark:bg-neutral-200/50 px-4 py-4 text-center dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:bg-neutral-200/20 md:px-10">
-          <h2 className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("whyLocalTitle")}</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 md:text-base">
-            {tPage("whyLocalBody")}
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/privacy-first/"
-              className="inline-flex items-center justify-center rounded-none bg-neutral-900 dark:bg-neutral-200 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-900 dark:bg-neutral-200 dark:bg-neutral-900 dark:bg-neutral-200 dark:hover:bg-neutral-900 dark:bg-neutral-200"
-            >
-              {tPage("learnPrivacy")}
-            </Link>
-            <Link
-              href="/blog/"
-              className="inline-flex items-center justify-center rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-5 py-2.5 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900 dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-900"
-            >
-              {tPage("viewGuides")}
-            </Link>
+            <section className="space-y-6" aria-labelledby="featured-tools">
+              <div>
+                <h2 id="featured-tools" className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl">
+                  {tPage("startHere")}
+                </h2>
+                <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{tPage("startHereDescription")}</p>
+              </div>
+              <ToolsDirectoryToolGrid items={featuredItems} />
+            </section>
+
+            {convertItems.length ? (
+              <section className="mt-14 space-y-6 scroll-mt-24" aria-labelledby="convert-tools" id="convert">
+                <div>
+                  <h2
+                    id="convert-tools"
+                    className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl"
+                  >
+                    {translateToolSection(tTools, "convert", convertSection?.label ?? "Convert PDF")}
+                  </h2>
+                  <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                    {convertItems.length === 1
+                      ? tPage("toolCount", { count: convertItems.length })
+                      : tPage("toolCountPlural", { count: convertItems.length })}
+                  </p>
+                </div>
+                <ToolsDirectoryToolGrid items={convertItems} />
+              </section>
+            ) : null}
+
+            <div className="mt-14 flex justify-center">
+              <Link href="/favorites/" className={homeSecondaryPillBtn}>
+                {tHome("viewFavorites")}
+              </Link>
+            </div>
           </div>
-        </section>
-      </main>
-      <SiteFooter />
+        </main>
+        <SiteFooter />
+      </div>
     </>
   );
 }
