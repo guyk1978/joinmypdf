@@ -1,6 +1,7 @@
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
+import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import { RelatedTools } from "@/components/RelatedTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -57,6 +58,7 @@ import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildLocalizedToolMetadata } from "@/lib/tool-seo";
 import { resolveToolRoute } from "@/lib/variants";
+import { toolPageDashboardStack, toolPageDashboardWidth } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { readdir } from "node:fs/promises";
@@ -159,8 +161,9 @@ export default async function ToolPage({
       <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <SiteHeader />
-      <main className="mx-auto max-w-6xl space-y-10 px-4 py-10 md:px-4 md:py-12">
-        <ToolPageShellProvider headline={displayTitle} subline={subtitle}>
+      <main className={`${toolPageDashboardWidth} px-4 py-8 md:py-10`}>
+        <div className={toolPageDashboardStack}>
+        <ToolPageShellProvider headline={displayTitle} subline={subtitle} stacked>
         <ToolGlassProvider category={tool.category}>
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
@@ -246,42 +249,58 @@ export default async function ToolPage({
         </ToolGlassProvider>
         </ToolPageShellProvider>
 
-        <ToolBeforeYouStart title={tPage("beforeYouStart")}>
-          {paragraphs.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-        </ToolBeforeYouStart>
+        <ToolPageDashboardSection>
+          <ToolBeforeYouStart title={tPage("beforeYouStart")}>
+            {paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </ToolBeforeYouStart>
+        </ToolPageDashboardSection>
 
-        <LocalProcessingInfographic />
+        <LocalProcessingInfographic layout="dashboard" />
 
         {articles.length ? (
-          <section className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
-            <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("relatedGuides")}</h2>
-            <ul className="mt-4 space-y-2">
+          <ToolPageDashboardSection aria-labelledby="related-guides-heading">
+            <h2
+              id="related-guides-heading"
+              className="mb-3 text-sm font-semibold tracking-wide text-ink dark:text-white"
+            >
+              {tPage("relatedGuides")}
+            </h2>
+            <ul className="space-y-2">
               {articles.map((a) => (
                 <li key={a.slug}>
-                  <Link className="text-black dark:text-neutral-200 hover:underline" href={`/blog/${a.slug}/`}>
+                  <Link
+                    className="text-xs leading-relaxed text-neutral-700 hover:underline dark:text-neutral-400 md:text-sm"
+                    href={`/blog/${a.slug}/`}
+                  >
                     {a.title}
                   </Link>
                 </li>
               ))}
             </ul>
-          </section>
+          </ToolPageDashboardSection>
         ) : null}
 
         <RelatedTools tool={tool} />
 
-        <section className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
-          <h2 className="text-xl font-semibold text-black dark:text-neutral-200 dark:text-white">{tPage("questions")}</h2>
-          <div className="mt-4 space-y-2">
+        <ToolPageDashboardSection aria-labelledby="tool-faq-heading">
+          <h2 id="tool-faq-heading" className="mb-3 text-sm font-semibold tracking-wide text-ink dark:text-white">
+            {tPage("questions")}
+          </h2>
+          <div className="flex flex-col gap-[3px]">
             {faqs.map((f) => (
-              <details key={f.q} className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-4 py-3 dark:border-neutral-300 dark:border-neutral-800 dark:bg-surface/40">
-                <summary className="cursor-pointer font-medium text-black dark:text-neutral-200 dark:text-white">{f.q}</summary>
-                <p className="mt-2 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{f.a}</p>
+              <details
+                key={f.q}
+                className="rounded-[12px] border border-neutral-200/80 bg-black/[0.03] px-4 py-3 dark:border-white/5 dark:bg-black/20"
+              >
+                <summary className="cursor-pointer text-sm font-medium text-ink dark:text-white">{f.q}</summary>
+                <p className="mt-2 text-xs leading-relaxed text-neutral-700 dark:text-neutral-400 md:text-sm">{f.a}</p>
               </details>
             ))}
           </div>
-        </section>
+        </ToolPageDashboardSection>
+        </div>
       </main>
       <SiteFooter tagline="tools" />
     </>

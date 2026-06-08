@@ -2950,6 +2950,51 @@ html.dark .tool-upload-zone.tool-upload-zone--active {
   width: 100%;
 }
 
+/* Tool page — flush unified dashboard stack */
+.tool-page-dashboard .tool-upload-stack {
+  max-width: none;
+  margin-inline: 0;
+}
+
+.tool-page-dashboard #tool-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-bottom: 0;
+}
+
+.tool-page-dashboard .tool-workspace-panel {
+  border-radius: 20px;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(17, 24, 39, 0.4);
+  backdrop-filter: blur(24px);
+}
+
+html:not(.dark) .tool-page-dashboard .tool-workspace-panel {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.tool-page-dashboard-panel {
+  position: relative;
+  isolation: isolate;
+}
+
+html.dark .tool-page-dashboard-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 90% 70% at 50% 15%, rgba(255, 255, 255, 0.08) 0%, transparent 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tool-page-dashboard-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* Post-upload settings panel — shared across workspaces */
 .tool-workspace-panel {
   border-radius: 1rem;

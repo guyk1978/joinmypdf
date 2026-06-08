@@ -11,19 +11,27 @@ export type CompactToolCardItem = {
 export function CompactToolCardGrid({
   items,
   className,
+  variant = "default",
 }: {
   items: CompactToolCardItem[];
   className?: string;
+  variant?: "default" | "glass";
 }) {
+  const isGlass = variant === "glass";
+
   return (
-    <div className={clsx("grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6", className)}>
+    <div className={clsx("grid grid-cols-2 gap-[3px] md:grid-cols-4 lg:grid-cols-6", isGlass ? "" : "gap-2", className)}>
       {items.map((item) => {
         const visual = getToolIcon(item.slugHint, item.label);
         return (
           <Link
             key={`${item.href}-${item.label}`}
             href={item.href}
-            className="group flex min-h-[80px] flex-col items-center justify-center rounded-none border border-dashed border-neutral-400 bg-neutral-200 px-2 py-2 text-center transition-colors hover:border-neutral-500 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
+            className={
+              isGlass
+                ? "group flex min-h-[80px] flex-col items-center justify-center rounded-[12px] border border-white/5 bg-black/20 px-2 py-2 text-center backdrop-blur-sm transition-colors hover:bg-black/30 dark:bg-black/20 dark:hover:bg-black/30"
+                : "group flex min-h-[80px] flex-col items-center justify-center rounded-none border border-dashed border-neutral-400 bg-neutral-200 px-2 py-2 text-center transition-colors hover:border-neutral-500 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
+            }
           >
             <span
               className={`${TOOL_ICON_WRAP_CLASS} inline-flex h-9 w-9 items-center justify-center rounded-none transition-colors ${visual.wrap} ${visual.wrapHover}`}

@@ -31,18 +31,19 @@ export function WorkspaceUploadShell({
   const pageShell = useToolPageShell();
   const headline = headlineProp ?? pageShell.headline;
   const subline = sublineProp ?? pageShell.subline;
+  const stacked = pageShell.stacked;
   const hasHeader = Boolean(headline || subline);
 
   return (
     <div
       className={clsx(
-        toolUploadStack,
+        stacked ? "w-full" : toolUploadStack,
         "tool-upload-stack tool-glass-shell flex w-full flex-col items-center",
         className,
       )}
     >
       {hasHeader ? (
-        <header className="tool-glass-header mb-6 w-full text-center">
+        <header className={clsx("tool-glass-header w-full text-center", stacked ? "mb-3" : "mb-6")}>
           {headline ? (
             <h1 className="tool-glass-headline text-3xl font-bold tracking-tight text-ink dark:text-white md:text-4xl">
               {headline}
@@ -61,7 +62,12 @@ export function WorkspaceUploadShell({
       </div>
 
       {showPrivacyBadge ? (
-        <div className="tool-glass-privacy-wrap mt-6 flex justify-center">
+        <div
+          className={clsx(
+            "tool-glass-privacy-wrap flex w-full justify-center",
+            stacked ? "mt-3" : "mt-6",
+          )}
+        >
           <ToolPrivacyBadge />
         </div>
       ) : null}

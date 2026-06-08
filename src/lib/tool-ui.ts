@@ -37,6 +37,17 @@ export const mattePanelInset =
 /** Shared max width for tool upload stack — full width within column, capped for readability */
 export const toolUploadStack = "mx-auto w-full max-w-2xl";
 
+/** Tool page — unified dashboard column and flush glass panels */
+export const toolPageDashboardWidth = "mx-auto w-full max-w-2xl";
+
+export const toolPageDashboardStack = "tool-page-dashboard flex w-full flex-col gap-[3px]";
+
+export const toolPageDashboardPanel =
+  "tool-page-dashboard-panel w-full rounded-[20px] border border-neutral-200 bg-white/80 p-6 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/40 dark:shadow-none dark:backdrop-blur-2xl";
+
+export const toolPageDashboardInset =
+  "rounded-[12px] border border-neutral-200/80 bg-black/[0.03] p-4 dark:border-white/5 dark:bg-black/20";
+
 /** @deprecated Privacy moved to ToolPrivacyBadge inside WorkspaceUploadShell */
 export const toolPrivacyStatement =
   "rounded-xl border border-white/10 bg-white/[0.03] px-2 py-1.5 text-xs leading-snug text-ink-muted backdrop-blur-sm";

@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
+import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import { registry } from "@/lib/registry";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import type { ToolDefinition } from "@/lib/types";
@@ -13,15 +14,21 @@ export async function RelatedTools({ tool }: { tool: ToolDefinition }) {
   const tTools = await getTranslations("Tools");
 
   return (
-    <section className="space-y-2 rounded-none border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-800 dark:bg-neutral-900">
-      <h2 className="text-base font-semibold text-black dark:text-neutral-200">{tPage("relatedTools")}</h2>
+    <ToolPageDashboardSection aria-labelledby="related-tools-heading">
+      <h2
+        id="related-tools-heading"
+        className="mb-3 text-sm font-semibold tracking-wide text-ink dark:text-white"
+      >
+        {tPage("relatedTools")}
+      </h2>
       <CompactToolCardGrid
+        variant="glass"
         items={others.map((item) => ({
           href: `/tools/${item.slug}/`,
           label: translateToolItem(tTools, item.slug, item.title),
           slugHint: item.slug,
         }))}
       />
-    </section>
+    </ToolPageDashboardSection>
   );
 }
