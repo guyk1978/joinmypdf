@@ -35,15 +35,15 @@ export default async function BlogIndexPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-6xl bg-neutral-100 px-2 py-6 dark:bg-neutral-950 md:px-3 md:py-8">
+      <main className="mx-auto max-w-6xl bg-neutral-50 px-2 py-6 dark:bg-neutral-950 md:px-3 md:py-8">
         <header className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-wider text-black dark:text-neutral-200">
+          <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
             {t("badge")}
           </p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-black dark:text-neutral-200 md:text-3xl">
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 md:text-3xl">
             {t("title")}
           </h1>
-          <p className="mt-2 text-sm leading-relaxed text-black dark:text-neutral-200">
+          <p className="mt-2 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
             {t("description")}
           </p>
         </header>

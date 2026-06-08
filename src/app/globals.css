@@ -49,7 +49,7 @@ html {
 }
 
 body {
-  @apply min-h-screen bg-neutral-100 pt-12 text-black antialiased transition-colors duration-500 ease-in-out dark:bg-neutral-950 dark:text-neutral-200;
+  @apply min-h-screen bg-neutral-50 pt-12 text-neutral-900 antialiased transition-colors duration-500 ease-in-out dark:bg-neutral-950 dark:text-neutral-200;
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -2973,6 +2973,22 @@ html.dark .tool-upload-zone.tool-upload-zone--active {
 html:not(.dark) .tool-page-dashboard .tool-workspace-panel {
   border-color: rgba(0, 0, 0, 0.08);
   background: rgba(255, 255, 255, 0.8);
+}
+
+html:not(.dark) .tool-page-dashboard-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 90% 65% at 50% 0%, rgba(255, 255, 255, 0.85) 0%, transparent 58%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+html:not(.dark) .tool-upload-zone {
+  box-shadow:
+    0 0 12px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.12),
+    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.22);
 }
 
 .tool-page-dashboard-panel {

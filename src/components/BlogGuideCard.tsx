@@ -21,11 +21,11 @@ export async function BlogGuideCard({ post }: { post: BlogPost; index?: number }
   return (
     <Link
       href={`/blog/${post.slug}/`}
-      className="group flex h-full flex-col rounded-xl bg-transparent p-4 transition-colors hover:bg-neutral-100/80 dark:hover:bg-neutral-900/50"
+      className="group flex h-full flex-col rounded-xl bg-transparent p-4 transition-colors hover:bg-white/60 hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:hover:bg-neutral-900/50 dark:hover:shadow-none"
       prefetch={false}
     >
       <span className={badgeClass}>{label}</span>
-      <h2 className="mt-3 line-clamp-3 text-base font-bold leading-snug tracking-tight text-ink transition-colors group-hover:text-ink dark:text-neutral-100 dark:group-hover:text-white md:text-lg">
+      <h2 className="mt-3 line-clamp-3 text-base font-bold leading-snug tracking-tight text-neutral-900 transition-colors group-hover:text-neutral-950 dark:text-neutral-100 dark:group-hover:text-white md:text-lg">
         {post.title}
       </h2>
       <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-500">

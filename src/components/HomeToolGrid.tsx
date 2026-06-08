@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { ToolGridCard } from "@/components/ToolGridCard";
 import type { ToolGridItem } from "@/lib/tool-grid";
+import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
 
 type HomeToolGridProps = {
   items: ToolGridItem[];
@@ -21,16 +22,10 @@ export function HomeToolGrid({ items }: HomeToolGridProps) {
       </div>
 
       <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-        <Link
-          href="/favorites/"
-          className="inline-flex items-center justify-center rounded-full border border-white/15 bg-neutral-900/50 px-8 py-3.5 text-sm font-bold tracking-wide text-neutral-200 backdrop-blur-md transition-colors hover:border-white/25 hover:bg-neutral-900/70"
-        >
+        <Link href="/favorites/" className={homeSecondaryPillBtn}>
           {t("viewFavorites")}
         </Link>
-        <Link
-          href="/tools/"
-          className="inline-flex items-center justify-center rounded-full bg-emerald-600/90 px-10 py-3.5 text-sm font-bold tracking-wide text-white shadow-inner transition-[background-color,box-shadow] hover:bg-emerald-600 hover:shadow-[inset_0_2px_8px_rgba(0,0,0,0.25)]"
-        >
+        <Link href="/tools/" className={homePrimaryPillBtn}>
           {t("allTools")}
         </Link>
       </div>

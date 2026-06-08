@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { routing } from "@/i18n/routing";
 import { buildAllHomeToolItems } from "@/lib/featured-tools";
+import { appShell } from "@/lib/tool-ui";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -44,7 +45,7 @@ export default async function FavoritesPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/favorites`),
         }}
       />
-      <div className="min-h-screen bg-neutral-950 text-neutral-200">
+      <div className={appShell}>
         <SiteHeader />
         <main className="home-tool-grid-page">
           <FavoritesToolGrid items={toolItems} />
