@@ -95,7 +95,7 @@ html.dark .home-watermark__layer--dark {
   width: 100%;
 }
 
-/* Homepage hero — copy left, sword accent, mascot right (flexbox) */
+/* Homepage hero — LTR: copy left / mascot right; RTL: mascot left / copy right */
 .home-hero {
   display: flex;
   width: 100%;
@@ -104,8 +104,6 @@ html.dark .home-watermark__layer--dark {
   align-items: center;
   gap: 1.25rem;
   padding-block: 1.25rem 1.75rem;
-  /* Keep mascot visually on the right in both LTR and RTL locales */
-  direction: ltr;
 }
 
 .home-hero__copy {
@@ -116,6 +114,10 @@ html.dark .home-watermark__layer--dark {
   order: 2;
   min-width: 0;
   flex: 1 1 auto;
+}
+
+[dir="rtl"] .home-hero__copy {
+  order: 1;
 }
 
 .home-hero__title {
@@ -151,6 +153,10 @@ html.dark .home-hero__sub {
   opacity: 0.85;
 }
 
+[dir="rtl"] .home-hero__visual {
+  order: 2;
+}
+
 .home-hero__visual {
   order: 1;
   flex: 0 0 auto;
@@ -176,21 +182,28 @@ html.dark .home-hero__sub {
     padding-block: 1.5rem 2rem;
   }
 
+  .home-hero__copy,
+  .home-hero__sword,
+  .home-hero__visual {
+    order: unset;
+  }
+
   .home-hero__copy {
-    order: 1;
     text-align: start;
     flex: 1 1 0%;
   }
 
   .home-hero__sword {
-    order: 2;
     height: 7.5rem;
     width: 2.25rem;
   }
 
-  .home-hero__visual {
-    order: 3;
+  [dir="ltr"] .home-hero__visual {
     justify-content: flex-end;
+  }
+
+  [dir="rtl"] .home-hero__visual {
+    justify-content: flex-start;
   }
 
   .home-hero__image {
