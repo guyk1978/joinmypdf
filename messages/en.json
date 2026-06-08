@@ -16,7 +16,8 @@
     "closeToolsGrid": "Close",
     "language": "Language",
     "mobileNav": "Mobile primary",
-    "installApp": "Install app"
+    "installApp": "Install app",
+    "favorites": "Favorites"
   },
   "Search": {
     "label": "Search tools and guides",

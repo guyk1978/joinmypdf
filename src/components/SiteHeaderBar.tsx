@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SiteSearch } from "@/components/SiteSearch";
+import { HeaderFavoritesButton } from "@/components/HeaderFavoritesButton";
 import { InstallPwaButton } from "@/components/InstallPwaButton";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ToolsMegaMenu } from "@/components/ToolsMegaMenu";
@@ -93,6 +94,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
             <SiteSearch variant="header" registry={registry} blog={blog} />
           </div>
           <InstallPwaButton />
+          <HeaderFavoritesButton />
           <ThemeToggle />
           <button
             type="button"
