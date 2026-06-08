@@ -201,6 +201,12 @@ const en = {
       titleSuffix: "Free in your browser",
       descriptionSuffix:
         "Private in-browser processing, no watermark on standard output, no forced account for typical use.",
+      titleTemplate: "{toolTitle} — Free, Secure & Fast in Browser | JoinMyPDF",
+      variantTitleTemplate: "{toolTitle} — {keyword} | Free, Secure & Fast | JoinMyPDF",
+      descriptionTemplate:
+        "{toolTitle} free and secure in your browser. No server uploads, full privacy, fast and unlimited. JoinMyPDF.",
+      variantDescriptionTemplate:
+        '{toolTitle} free for "{keyword}" — secure in-browser processing, no uploads, fast and unlimited. JoinMyPDF.',
     },
     actions: {
       merge: "merge PDFs",
@@ -417,6 +423,12 @@ const he = {
     metadata: {
       titleSuffix: "חינם בדפדפן",
       descriptionSuffix: "עיבוד פרטי בדפדפן, בלי סימן מים בפלט רגיל, ובלי חשבון כפוי לשימוש טיפוסי.",
+      titleTemplate: "{toolTitle} בחינם — מאובטח ומהיר בדפדפן | JoinMyPDF",
+      variantTitleTemplate: "{keyword} — {toolTitle} בחינם | מאובטח ומהיר בדפדפן | JoinMyPDF",
+      descriptionTemplate:
+        "{toolTitle} בחינם ובאופן מאובטח בדפדפן. ללא העלאות לשרת, פרטיות מלאה, מהיר וללא הגבלות. JoinMyPDF.",
+      variantDescriptionTemplate:
+        '{toolTitle} בחינם עבור "{keyword}" — מאובטח בדפדפן, ללא העלאות, מהיר וללא הגבלות. JoinMyPDF.',
     },
     actions: {
       merge: "למזג PDF",

@@ -9,7 +9,11 @@
     "brandEyebrow": "JoinMyPDF",
     "metadata": {
       "titleSuffix": "חינם בדפדפן",
-      "descriptionSuffix": "עיבוד פרטי בדפדפן, בלי סימן מים בפלט רגיל, ובלי חשבון כפוי לשימוש טיפוסי."
+      "descriptionSuffix": "עיבוד פרטי בדפדפן, בלי סימן מים בפלט רגיל, ובלי חשבון כפוי לשימוש טיפוסי.",
+      "titleTemplate": "{toolTitle} בחינם — מאובטח ומהיר בדפדפן | JoinMyPDF",
+      "variantTitleTemplate": "{keyword} — {toolTitle} בחינם | מאובטח ומהיר בדפדפן | JoinMyPDF",
+      "descriptionTemplate": "{toolTitle} בחינם ובאופן מאובטח בדפדפן. ללא העלאות לשרת, פרטיות מלאה, מהיר וללא הגבלות. JoinMyPDF.",
+      "variantDescriptionTemplate": "{toolTitle} בחינם עבור \"{keyword}\" — מאובטח בדפדפן, ללא העלאות, מהיר וללא הגבלות. JoinMyPDF."
     },
     "actions": {
       "merge": "למזג PDF",

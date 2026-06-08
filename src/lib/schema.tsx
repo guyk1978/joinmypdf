@@ -16,23 +16,62 @@ export function JsonLd({ data }: { data: unknown }) {
   );
 }
 
+function schemaFeatureList(locale?: string): string[] {
+  if (locale === "he") {
+    return [
+      "ממוקד בפרטיות",
+      "עיבוד מקומי בדפדפן",
+      "ללא התקנה",
+      "שימוש ללא הגבלה",
+      "חינם לחלוטין",
+      "ללא העלאת קבצים לשרת",
+    ];
+  }
+
+  return [
+    "Privacy-focused",
+    "Local processing",
+    "No installation required",
+    "Unlimited usage",
+    "Free",
+    "No server uploads",
+  ];
+}
+
 export function softwareApplicationLd(args: {
   tool: ToolDefinition;
   variant: ToolVariant | null;
   pathname: string;
   description: string;
+  locale?: string;
+  name?: string;
 }) {
-  const { tool, variant, pathname, description } = args;
-  const name = variant ? `${tool.title} — ${variant.keyword}` : tool.title;
+  const { tool, variant, pathname, description, locale, name } = args;
+  const appName = name || (variant ? `${tool.title} — ${variant.keyword}` : tool.title);
+  const priceCurrency = locale === "he" ? "ILS" : "USD";
+
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name,
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    name: appName,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any (Web Browser)",
+    browserRequirements: "Requires JavaScript. Requires HTML5.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency,
+      availability: "https://schema.org/InStock",
+    },
+    isAccessibleForFree: true,
     description,
     url: absoluteUrl(pathname),
+    featureList: schemaFeatureList(locale),
+    provider: {
+      "@type": "Organization",
+      name: "JoinMyPDF",
+      url: absoluteUrl("/"),
+    },
   };
 }
 

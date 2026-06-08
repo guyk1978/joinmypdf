@@ -4,9 +4,63 @@ import { translateToolItem } from "./i18n-tool-labels";
 import type { ToolsTranslator } from "./i18n-tool-page";
 import { siteUrl } from "./site";
 
+const META_DESCRIPTION_MAX = 155;
+
 function sentenceCase(s: string) {
   if (!s) return s;
   return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+export function truncateMetaDescription(text: string, max = META_DESCRIPTION_MAX): string {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (normalized.length <= max) return normalized;
+  return `${normalized.slice(0, max - 1).trimEnd()}…`;
+}
+
+type ToolPageTranslator = {
+  (key: string, values?: Record<string, string>): string;
+  has: (key: string) => boolean;
+};
+
+export type ToolSeoCopy = {
+  title: string;
+  description: string;
+  ogTitle: string;
+};
+
+export function buildToolSeoCopy(params: {
+  tool: ToolDefinition;
+  variant: ToolVariant | null;
+  locale: string;
+  tTools: ToolsTranslator | null;
+  tPage: ToolPageTranslator | null;
+}): ToolSeoCopy {
+  const { tool, variant, tTools, tPage } = params;
+  const toolTitle =
+    tTools && tPage ? translateToolItem(tTools, tool.slug, tool.title) : tool.title;
+  const kw = variant?.keyword || tool.primaryKeyword;
+  const keyword = sentenceCase(kw);
+
+  const titleTemplate = variant
+    ? tPage?.has("metadata.variantTitleTemplate")
+      ? tPage("metadata.variantTitleTemplate", { toolTitle, keyword })
+      : `${toolTitle} — ${keyword} | Free, Secure & Fast | JoinMyPDF`
+    : tPage?.has("metadata.titleTemplate")
+      ? tPage("metadata.titleTemplate", { toolTitle })
+      : `${toolTitle} — Free, Secure & Fast in Browser | JoinMyPDF`;
+
+  const descriptionTemplate = variant
+    ? tPage?.has("metadata.variantDescriptionTemplate")
+      ? tPage("metadata.variantDescriptionTemplate", { toolTitle, keyword })
+      : `${toolTitle} free for “${keyword}” — secure in-browser processing, no uploads, fast and unlimited. JoinMyPDF.`
+    : tPage?.has("metadata.descriptionTemplate")
+      ? tPage("metadata.descriptionTemplate", { toolTitle })
+      : `${toolTitle} free and secure in your browser. No server uploads, full privacy, fast and unlimited. JoinMyPDF.`;
+
+  const description = truncateMetaDescription(descriptionTemplate);
+  const ogTitle = variant ? `${toolTitle} · ${keyword}` : toolTitle;
+
+  return { title: titleTemplate, description, ogTitle };
 }
 
 export function buildToolMetadata(params: {
@@ -23,30 +77,11 @@ export function buildLocalizedToolMetadata(params: {
   slug: string;
   locale: string;
   tTools: ToolsTranslator | null;
-  tPage: { (key: string, values?: Record<string, string>): string; has: (key: string) => boolean } | null;
+  tPage: ToolPageTranslator | null;
 }): Metadata {
-  const { tool, variant, slug, locale, tTools, tPage } = params;
-  const toolTitle =
-    tTools && tPage
-      ? translateToolItem(tTools, tool.slug, tool.title)
-      : tool.title;
-  const kw = variant?.keyword || tool.primaryKeyword;
-  const titleSuffix = tPage?.has("metadata.titleSuffix")
-    ? tPage("metadata.titleSuffix")
-    : "Free in your browser";
-  const descriptionSuffix = tPage?.has("metadata.descriptionSuffix")
-    ? tPage("metadata.descriptionSuffix")
-    : "Private in-browser processing, no watermark on standard output, no forced account for typical use.";
-
-  const title = variant
-    ? `${toolTitle} — ${sentenceCase(kw)} | JoinMyPDF`
-    : `${toolTitle} — ${titleSuffix} | JoinMyPDF`;
-  const description = variant
-    ? `${toolTitle} for searches like “${kw}”. ${tool.description} ${descriptionSuffix}`
-    : `${tool.description} ${descriptionSuffix}`;
-
+  const { slug, locale } = params;
+  const { title, description, ogTitle } = buildToolSeoCopy(params);
   const canonicalPath = `/${locale}/tools/${slug}/`;
-  const ogTitle = variant ? `${toolTitle} · ${sentenceCase(kw)}` : toolTitle;
 
   return {
     title,

@@ -56,7 +56,7 @@ import {
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
-import { buildLocalizedToolMetadata } from "@/lib/tool-seo";
+import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
 import { resolveToolRoute } from "@/lib/variants";
 import { toolPageDashboardStack, toolPageDashboardWidth } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -141,9 +141,13 @@ export default async function ToolPage({
   const displayTitle = localizedToolTitle(tTools, tool, variant);
   const subtitle = translateToolIntent(tTools, tool.slug, tool.intent);
   const faqs = getLocalizedToolFaqs(tPage, tool, variant, displayTitle, locale);
-  const description = variant
-    ? `${displayTitle} for “${variant.keyword}”. ${tool.description}`
-    : `${tool.description}`;
+  const { description } = buildToolSeoCopy({
+    tool,
+    variant,
+    locale,
+    tTools,
+    tPage,
+  });
   const pathname = `/tools/${slug}/`;
   const paragraphs = buildLocalizedGuideParagraphs(tPage, tool, variant);
   const articles = relatedArticlesForTool(tool.slug, locale);
@@ -157,7 +161,16 @@ export default async function ToolPage({
 
   return (
     <>
-      <JsonLd data={softwareApplicationLd({ tool, variant, pathname, description })} />
+      <JsonLd
+        data={softwareApplicationLd({
+          tool,
+          variant,
+          pathname,
+          description,
+          locale,
+          name: displayTitle,
+        })}
+      />
       <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <SiteHeader />
