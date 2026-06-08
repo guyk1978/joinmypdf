@@ -7,6 +7,7 @@ import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SiteSearch } from "@/components/SiteSearch";
 import { HeaderFavoritesButton } from "@/components/HeaderFavoritesButton";
+import { HeaderShareButton } from "@/components/HeaderShareButton";
 import { InstallPwaButton } from "@/components/InstallPwaButton";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ToolsMegaMenu } from "@/components/ToolsMegaMenu";
@@ -95,6 +96,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
           </div>
           <InstallPwaButton />
           <HeaderFavoritesButton />
+          <HeaderShareButton />
           <ThemeToggle />
           <button
             type="button"

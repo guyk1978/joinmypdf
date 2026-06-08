@@ -7,7 +7,6 @@ import { Providers } from "@/components/Providers";
 import { CookieConsent } from "@/components/CookieConsent";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
-import { ShareButton } from "@/components/ShareButton";
 import { routing } from "@/i18n/routing";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
@@ -76,7 +75,6 @@ export default async function LocaleLayout({ children, params }: Props) {
           <Providers>
             <ScrollDepthTracker />
             {children}
-            <ShareButton />
             <CookieConsent />
           </Providers>
         </NextIntlClientProvider>

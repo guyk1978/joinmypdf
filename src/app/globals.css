@@ -3252,11 +3252,6 @@ html.dark .group:hover .tool-icon-wrap {
   inset-inline-start: 0;
   inset-inline-end: auto;
 }
-
-[dir="rtl"] .share-button-root {
-  direction: rtl;
-}
-
 /* ——— Matte Technical design system (light + dark) ——— */
 @layer utilities {
   [class*="shadow-"] {
