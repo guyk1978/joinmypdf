@@ -1,7 +1,7 @@
 /** Flat background colors sampled from homepage header banners (upper field area). */
 export const HOME_HERO_BG = {
-  dark: { en: "#090b10", he: "#090b10" },
-  light: { en: "#f6f7ef", he: "#f8f8ee" },
+  dark: { en: "#0a0b10", he: "#0a0b10" },
+  light: { en: "#fefefe", he: "#fefefe" },
 } as const;
 
 export const HOME_GRID_THEME = {

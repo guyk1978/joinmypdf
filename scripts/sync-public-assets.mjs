@@ -63,10 +63,10 @@ await cp(path.join(root, "assets"), path.join(publicDir, "assets"), {
 await cp(path.join(root, "manifest.webmanifest"), path.join(publicDir, "manifest.webmanifest"));
 
 const publicRootAssets = [
-  "heder-EN-2.png",
-  "heder-HE-2.png",
-  "heder-light-EN-3.png",
-  "heder-light-HE-2.png",
+  "heder-dark-EN.png",
+  "heder-dark-HE.png",
+  "heder-light-EN.png",
+  "heder-light-HE.png",
 ];
 for (const filename of publicRootAssets) {
   await copyFile(
