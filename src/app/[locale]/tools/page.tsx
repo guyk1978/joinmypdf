@@ -130,7 +130,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
             </header>
 
             <div className={contentDashboardStack}>
-              <section className="flex flex-col gap-[3px]" aria-labelledby="featured-tools">
+              <section className="flex flex-col gap-3" aria-labelledby="featured-tools">
                 <div>
                   <h2 id="featured-tools" className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl">
                     {tPage("startHere")}
@@ -143,7 +143,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
               {categorySections.map((section) => (
                 <section
                   key={section.id}
-                  className="flex flex-col gap-[3px] scroll-mt-24"
+                  className="flex flex-col gap-3 scroll-mt-24"
                   aria-labelledby={`${section.id}-tools`}
                   id={section.id}
                 >

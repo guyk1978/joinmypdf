@@ -20,7 +20,7 @@ export function CompactToolCardGrid({
   const isGlass = variant === "glass";
 
   return (
-    <div className={clsx("grid grid-cols-2 gap-[3px] md:grid-cols-4 lg:grid-cols-6", isGlass ? "" : "gap-2", className)}>
+    <div className={clsx("grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6", !isGlass && "gap-2", className)}>
       {items.map((item) => {
         const visual = getToolIcon(item.slugHint, item.label);
         return (

@@ -74,13 +74,13 @@ function ToolMegaGridCells({
 export function ToolMegaGrid({ groups, onNavigate, className }: ToolMegaGridProps) {
   return (
     <div className={clsx("w-full bg-transparent px-3 py-3 md:px-4", className)}>
-      <div className="flex w-full flex-col gap-[3px]">
+      <div className="flex w-full flex-col gap-4">
         {groups.map((group, index) => (
           <section
             key={group.id}
             aria-labelledby={`tool-mega-group-${group.id}`}
             className={clsx(
-              "flex flex-col gap-[3px] pb-3",
+              "flex flex-col gap-3 pb-3",
               index < groups.length - 1 && "border-b border-neutral-200/80 dark:border-white/5",
             )}
           >

@@ -37,6 +37,9 @@ export const mattePanelInset =
 /** App page shell — neutral-50 light / neutral-950 dark */
 export const appShell = "min-h-screen bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-200";
 
+/** Shared gap between tool cards — matches .home-tool-grid in globals.css */
+export const toolGridGap = "gap-3";
+
 /** Homepage & favorites tool grid cards */
 export const homeToolGridCard =
   "relative flex min-h-[124px] flex-col items-center justify-center rounded-[20px] border border-neutral-200 bg-white/70 p-5 text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] backdrop-blur-md transition-[background-color,box-shadow] hover:bg-white/85 hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] dark:border-white/5 dark:bg-neutral-900/50 dark:shadow-none dark:hover:bg-neutral-900/60 dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)]";
