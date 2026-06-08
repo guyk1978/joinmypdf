@@ -48,7 +48,10 @@
     "openToolDirectory": "Open tool directory",
     "guidesSection": "Guides for email, mobile & submissions",
     "guidesSectionDescription": "Short tutorials that link straight into the tools so your team can repeat the same steps every time.",
-    "viewGuides": "View Guides"
+    "viewGuides": "View Guides",
+    "allTools": "All Tools",
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites"
   },
   "LanguageSwitcher": {
     "en": "English",

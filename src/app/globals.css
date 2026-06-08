@@ -90,6 +90,33 @@ html.dark .home-watermark__layer--dark {
   opacity: 1;
 }
 
+/* Homepage — premium tool grid dashboard */
+.home-tool-grid-page {
+  width: 100%;
+}
+
+.home-tool-grid-shell {
+  padding: 2rem;
+}
+
+@media (min-width: 640px) {
+  .home-tool-grid-shell {
+    padding: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-tool-grid-shell {
+    padding: 4rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-tool-grid-shell {
+    padding: 100px;
+  }
+}
+
 html.dark body {
   @apply bg-neutral-950 text-neutral-200;
 }

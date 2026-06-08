@@ -35,3 +35,11 @@ export function buildFeaturedHomeToolItems(tTools: ToolsTranslator) {
     };
   }).filter((item): item is NonNullable<typeof item> => Boolean(item));
 }
+
+export function buildAllHomeToolItems(tTools: ToolsTranslator) {
+  return flattenMegaMenuSections(buildMegaMenuSections()).map((item) => ({
+    href: item.href,
+    label: translateToolItem(tTools, item.slug, item.label),
+    slugHint: item.slug,
+  }));
+}

@@ -48,7 +48,10 @@
     "openToolDirectory": "פתח מדריך כלים",
     "guidesSection": "מדריכים לדוא\"ל, נייד והגשות",
     "guidesSectionDescription": "מדריכים קצרים שמקשרים ישירות לכלים — כדי שהצוות יחזור על אותם שלבים בכל פעם.",
-    "viewGuides": "צפה במדריכים"
+    "viewGuides": "צפה במדריכים",
+    "allTools": "כל הכלים",
+    "addToFavorites": "הוסף למועדפים",
+    "removeFromFavorites": "הסר מהמועדפים"
   },
   "LanguageSwitcher": {
     "en": "English",
