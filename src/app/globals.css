@@ -2831,6 +2831,28 @@ html.dark .site-search__dropdown {
   background: #171717;
 }
 
+/* Tools mega grid overlay — subtle entrance */
+@keyframes tool-mega-overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tool-mega-overlay {
+  animation: tool-mega-overlay-in 0.18s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-mega-overlay {
+    animation: none;
+  }
+}
+
 /* —— Tools mega menu (header) — matte technical, compact —— */
 .nav-mega__trigger {
   display: inline-flex;

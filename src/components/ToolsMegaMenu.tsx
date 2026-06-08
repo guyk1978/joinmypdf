@@ -7,7 +7,7 @@ import { createPortal } from "react-dom";
 import { clsx } from "clsx";
 import { ToolMegaGrid } from "@/components/ToolMegaGrid";
 import { translateToolItem, translateToolGridCategory } from "@/lib/i18n-tool-labels";
-import { buildToolMegaGridGroups, flattenMegaMenuSections, type MegaMenuSection } from "@/lib/mega-menu";
+import { buildToolMegaGridGroups, type MegaMenuSection } from "@/lib/mega-menu";
 import { isNavItemActive } from "@/lib/nav-config";
 import { OPEN_TOOLS_GRID_EVENT } from "@/lib/tool-grid-events";
 
@@ -117,15 +117,15 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
         role="dialog"
         aria-modal="true"
         aria-label={tHeader("allTools")}
-        className="fixed top-12 bottom-0 left-0 right-0 z-40 flex w-full min-h-[calc(100dvh-3rem)] flex-col bg-white dark:bg-neutral-950 md:max-h-[calc(100dvh-3rem)] md:overflow-hidden"
+        className="tool-mega-overlay fixed top-12 bottom-0 left-0 right-0 z-40 flex w-full min-h-[calc(100dvh-3rem)] flex-col bg-white/95 backdrop-blur-xl dark:bg-neutral-900/95 md:max-h-[calc(100dvh-3rem)] md:overflow-hidden"
       >
-        <div className="relative w-full shrink-0 border-b border-neutral-300 px-4 py-3 dark:border-neutral-700">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-black dark:text-neutral-200">
+        <div className="relative w-full shrink-0 border-b border-neutral-200/80 px-4 py-2.5 dark:border-white/5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-500">
             {tHeader("allTools")}
           </p>
           <button
             type="button"
-            className="absolute top-1/2 end-4 -translate-y-1/2 rounded-none border border-neutral-300 bg-white px-3 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800"
+            className="absolute top-1/2 end-4 -translate-y-1/2 rounded-md border border-neutral-300/80 bg-transparent px-3 py-1.5 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 dark:border-white/10 dark:text-neutral-300 dark:hover:bg-neutral-800"
             onClick={close}
           >
             {tHeader("closeToolsGrid")}
@@ -135,11 +135,11 @@ export function ToolsMegaMenu({ sections, onNavigate, className }: ToolsMegaMenu
         <div className="w-full flex-1 overflow-y-auto overscroll-y-contain md:min-h-0">
           <ToolMegaGrid groups={groups} onNavigate={handleNavigate} />
 
-          <div className="w-full border-t border-neutral-300 px-4 py-3 dark:border-neutral-700">
+          <div className="w-full border-t border-neutral-200/80 px-4 py-2.5 dark:border-white/5">
             <Link
               href="/tools/"
               prefetch={false}
-              className="inline-flex items-center gap-1 text-sm font-semibold text-black hover:underline dark:text-neutral-200"
+              className="inline-flex items-center gap-1 text-sm font-medium text-neutral-700 hover:underline dark:text-neutral-300"
               onClick={handleNavigate}
             >
               {tHeader("viewAllTools")} {locale === "he" ? "←" : "→"}
