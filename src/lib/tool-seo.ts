@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ToolDefinition, ToolVariant } from "./types";
 import { translateToolItem } from "./i18n-tool-labels";
 import type { ToolsTranslator } from "./i18n-tool-page";
+import { buildDefaultSocialImages, localeOgImageUrl } from "./og-images";
 import { siteUrl } from "./site";
 
 const META_DESCRIPTION_MAX = 155;
@@ -82,6 +83,7 @@ export function buildLocalizedToolMetadata(params: {
   const { slug, locale } = params;
   const { title, description, ogTitle } = buildToolSeoCopy(params);
   const canonicalPath = `/${locale}/tools/${slug}/`;
+  const social = buildDefaultSocialImages(locale, { alt: ogTitle });
 
   return {
     title,
@@ -95,11 +97,12 @@ export function buildLocalizedToolMetadata(params: {
       siteName: "JoinMyPDF",
       type: "website",
       locale: locale === "he" ? "he_IL" : "en_US",
+      ...social.openGraph,
     },
     twitter: {
-      card: "summary_large_image",
       title: ogTitle,
       description,
+      ...social.twitter,
     },
     robots: { index: true, follow: true },
   };
@@ -153,6 +156,6 @@ export function getToolFaqs(
   ];
 }
 
-export function toolOgImageUrl(): string | undefined {
-  return undefined;
+export function toolOgImageUrl(locale: string): string {
+  return localeOgImageUrl(locale);
 }

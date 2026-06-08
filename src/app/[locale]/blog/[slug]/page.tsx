@@ -12,6 +12,7 @@ import { getLocalizedBlogBadgeLabel } from "@/lib/blog-card-i18n";
 import { blogPostingLd, breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
 import { getBlogRegistry } from "@/lib/blog-registry";
+import { buildDefaultSocialImages, resolveBlogOgImagePath } from "@/lib/og-images";
 import { registry } from "@/lib/registry";
 import type { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
@@ -72,13 +73,26 @@ export async function generateMetadata({
   if (!post) return {};
   const title = post.seo?.metaTitle || post.title;
   const description = post.seo?.metaDescription || post.description || "";
+  const ogImagePath = resolveBlogOgImagePath(post, locale);
+  const social = buildDefaultSocialImages(locale, { alt: title, imagePath: ogImagePath });
+
   return {
     title,
     description,
     alternates: { canonical: `/blog/${slug}/` },
     robots: { index: true, follow: true },
-    openGraph: { title, description, url: `/blog/${slug}/`, type: "article" },
-    twitter: { card: "summary_large_image", title, description },
+    openGraph: {
+      title,
+      description,
+      url: `/blog/${slug}/`,
+      type: "article",
+      ...social.openGraph,
+    },
+    twitter: {
+      title,
+      description,
+      ...social.twitter,
+    },
   };
 }
 

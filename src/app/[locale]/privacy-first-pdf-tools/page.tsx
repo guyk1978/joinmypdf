@@ -4,18 +4,40 @@ import Link from "next/link";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { registry } from "@/lib/registry";
 import { absoluteUrl } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Privacy-first PDF tools",
-  description:
-    "A hub page for teams that need PDF utilities without routing confidential files through unknown servers.",
-  alternates: { canonical: "/privacy-first-pdf-tools/" },
-};
+type Props = { params: Promise<{ locale: string }> };
 
-export default function PillarPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const title = "Privacy-first PDF tools";
+  const description =
+    "A hub page for teams that need PDF utilities without routing confidential files through unknown servers.";
+  const social = buildDefaultSocialImages(locale, { alt: title });
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/${locale}/privacy-first-pdf-tools/` },
+    openGraph: {
+      title,
+      description,
+      url: absoluteUrl(`/${locale}/privacy-first-pdf-tools/`),
+      ...social.openGraph,
+    },
+    twitter: {
+      title,
+      description,
+      ...social.twitter,
+    },
+  };
+}
+
+export default async function PillarPage({ params }: Props) {
+  await params;
   const featuredSlugs = ["pdf-merge", "pdf-compress", "pdf-split", "jpg-to-pdf"];
   const featuredTools = featuredSlugs
     .map((slug) => registry.tools.find((tool) => tool.slug === slug))

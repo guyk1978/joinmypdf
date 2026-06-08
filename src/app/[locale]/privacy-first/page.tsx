@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Link } from "@/i18n/navigation";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { JsonLd, faqLd } from "@/lib/schema";
+import { buildDefaultSocialImages } from "@/lib/og-images";
 import { absoluteUrl } from "@/lib/site";
 import {
   contentDashboardInset,
@@ -40,6 +41,7 @@ const SECTION_TITLE = "text-sm font-semibold tracking-wide text-neutral-900 dark
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "PrivacyFirst" });
+  const social = buildDefaultSocialImages(locale, { alt: t("metaTitle") });
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
@@ -48,6 +50,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t("metaTitle"),
       description: t("metaDescription"),
       url: absoluteUrl(`/${locale}/privacy-first`),
+      ...social.openGraph,
+    },
+    twitter: {
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      ...social.twitter,
     },
   };
 }

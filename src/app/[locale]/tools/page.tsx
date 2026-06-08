@@ -13,6 +13,7 @@ import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels"
 import { buildMegaMenuSections } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
+import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { appShell, contentDashboardStack, homeSecondaryPillBtn } from "@/lib/tool-ui";
@@ -34,6 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "ToolsDirectory" });
   const toolCount = getTotalToolCount();
+  const social = buildDefaultSocialImages(locale, { alt: t("title") });
 
   return {
     title: t("title"),
@@ -43,6 +45,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t("title"),
       description: t("description", { count: toolCount }),
       url: absoluteUrl(`/${locale}/tools`),
+      ...social.openGraph,
+    },
+    twitter: {
+      title: t("title"),
+      description: t("description", { count: toolCount }),
+      ...social.twitter,
     },
   };
 }

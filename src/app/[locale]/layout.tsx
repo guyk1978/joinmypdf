@@ -8,6 +8,7 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { routing } from "@/i18n/routing";
+import { buildDefaultSocialImages } from "@/lib/og-images";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
 
@@ -28,6 +29,8 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
     Metadata: { siteTitle: string; siteDescription: string };
   };
 
+  const social = buildDefaultSocialImages(locale, { alt: messages.Metadata.siteTitle });
+
   return {
     metadataBase: new URL(siteUrl),
     title: {
@@ -41,11 +44,13 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
       title: messages.Metadata.siteTitle,
       description: messages.Metadata.siteDescription,
       url: `/${locale}`,
+      locale: locale === "he" ? "he_IL" : "en_US",
+      ...social.openGraph,
     },
     twitter: {
-      card: "summary_large_image",
       title: messages.Metadata.siteTitle,
       description: messages.Metadata.siteDescription,
+      ...social.twitter,
     },
     robots: { index: true, follow: true },
     manifest: "/manifest.webmanifest",
