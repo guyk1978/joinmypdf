@@ -15,6 +15,8 @@ type ComparisonTableProps = {
     join: string;
   };
   rows: ComparisonTableRow[];
+  /** Flush inside a dashboard panel — no outer border/background */
+  flush?: boolean;
 };
 
 function TypicalCell({ children }: { children: ReactNode }) {
@@ -47,11 +49,17 @@ function JoinCell({ children }: { children: ReactNode }) {
   );
 }
 
-export function ComparisonTable({ locale, headers, rows }: ComparisonTableProps) {
+export function ComparisonTable({ locale, headers, rows, flush = false }: ComparisonTableProps) {
   const isRtl = locale === "he";
 
   return (
-    <div className="w-full overflow-x-auto rounded-none border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+    <div
+      className={
+        flush
+          ? "w-full overflow-x-auto"
+          : "w-full overflow-x-auto rounded-none border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-900"
+      }
+    >
       <table
         dir={isRtl ? "rtl" : "ltr"}
         className="w-full table-fixed text-sm"

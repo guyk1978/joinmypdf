@@ -9,7 +9,14 @@ import { Link } from "@/i18n/navigation";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { JsonLd, faqLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
+import {
+  contentDashboardInset,
+  contentDashboardPanel,
+  contentDashboardStack,
+  toolPageDashboardWidth,
+} from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { clsx } from "clsx";
 import { Globe, Lock, Shield } from "lucide-react";
 
 type Props = {
@@ -27,6 +34,8 @@ const PRIVACY_TOOL_SLUGS = [
   "compare-pdf",
 ] as const;
 const FAQ_KEYS = ["upload", "verify", "policy"] as const;
+
+const SECTION_TITLE = "text-sm font-semibold tracking-wide text-neutral-900 dark:text-white";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -53,12 +62,12 @@ function TrustCard({
   children: ReactNode;
 }) {
   return (
-    <article className="rounded-none border border-neutral-300 dark:border-neutral-800/80 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-none bg-neutral-900 dark:bg-neutral-200 text-black dark:text-neutral-200 dark:bg-neutral-900 dark:bg-neutral-200/50 dark:text-black dark:text-neutral-200">
+    <article className={contentDashboardInset}>
+      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-[10px] bg-black/[0.06] text-neutral-900 dark:bg-white/[0.06] dark:text-neutral-200">
         {icon}
       </div>
-      <h3 className="text-lg font-semibold text-black dark:text-neutral-200 dark:text-white">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{children}</p>
+      <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">{title}</h3>
+      <p className="mt-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm">{children}</p>
     </article>
   );
 }
@@ -87,139 +96,150 @@ export default async function PrivacyFirstPage({ params }: Props) {
       />
       <JsonLd data={faqLd(faqs)} />
       <SiteHeader />
-      <main className="mx-auto max-w-5xl px-4 py-10 md:px-4 md:py-14">
-        <section className="rounded-none border border-neutral-300 bg-white px-4 py-4 text-center dark:border-neutral-800 dark:bg-neutral-900 md:px-4 md:py-5">
-          <p className="text-sm font-semibold uppercase tracking-wider text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
-            {t("badge")}
-          </p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-black dark:text-neutral-200 dark:text-white md:text-4xl lg:text-5xl">
-            {t("title")}
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
-            <strong className="text-black dark:text-neutral-200 dark:text-white">{t("heroStrong")}</strong>
-          </p>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{t("heroBody")}</p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-            <Link
-              href="/tools/"
-              className="inline-flex items-center justify-center rounded-none bg-neutral-900 dark:bg-neutral-200 px-4 py-3 text-sm font-semibold text-white transition hover:bg-neutral-900 dark:bg-neutral-200 dark:bg-neutral-900 dark:bg-neutral-200 dark:hover:bg-neutral-900 dark:bg-neutral-200"
-            >
-              {t("browseTools")}
-            </Link>
-            <Link
-              href="/privacy/"
-              className="inline-flex items-center justify-center rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-4 py-3 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-100 dark:bg-neutral-950 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900 dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-900"
-            >
-              {t("privacyPolicy")}
-            </Link>
-          </div>
-        </section>
-
-        <section className="mt-8 grid gap-3 md:grid-cols-3">
-          <TrustCard icon={<Lock className="h-6 w-6" aria-hidden />} title={t("trustLocalTitle")}>
-            {t("trustLocalBody")}
-          </TrustCard>
-          <TrustCard icon={<Shield className="h-6 w-6" aria-hidden />} title={t("trustMarketingTitle")}>
-            {t("trustMarketingBody")}
-          </TrustCard>
-          <TrustCard icon={<Globe className="h-6 w-6" aria-hidden />} title={t("trustVerifyTitle")}>
-            {t("trustVerifyBody")}
-          </TrustCard>
-        </section>
-
-        <section className="mt-16 space-y-3" aria-labelledby="how-it-works">
-          <h2 id="how-it-works" className="text-2xl font-bold text-black dark:text-neutral-200 dark:text-white">
-            {t("howTitle")}
-          </h2>
-          <div className="space-y-2 text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
-            <p>{t("howP1")}</p>
-            <p>{t("howP2")}</p>
-            <ol className="list-decimal space-y-2 pl-5 text-sm md:text-base">
-              <li>{t("howStep1")}</li>
-              <li>{t("howStep2")}</li>
-              <li>{t("howStep3")}</li>
-            </ol>
-          </div>
-        </section>
-
-        <section className="mt-16 space-y-3" aria-labelledby="comparison">
-          <h2 id="comparison" className="text-2xl font-bold text-black dark:text-neutral-200 dark:text-white">
-            {t("comparisonTitle")}
-          </h2>
-          <ComparisonTable
-            locale={locale}
-            headers={{
-              topic: t("colTopic"),
-              typical: t("colTypical"),
-              join: t("colJoin"),
-            }}
-            rows={COMPARISON_ROW_KEYS.map((key) => ({
-              topic: t(`rows.${key}.topic`),
-              typical: t(`rows.${key}.typical`),
-              join: t(`rows.${key}.join`),
-            }))}
-          />
-        </section>
-
-        <section className="mt-16 space-y-3" aria-labelledby="use-cases">
-          <h2 id="use-cases" className="text-2xl font-bold text-black dark:text-neutral-200 dark:text-white">
-            {t("useCasesTitle")}
-          </h2>
-          <div className="grid gap-2 sm:grid-cols-2">
-            {USE_CASE_KEYS.map((key) => (
-              <article
-                key={key}
-                className="rounded-none border border-neutral-300 dark:border-neutral-800/80 bg-neutral-100 dark:bg-neutral-950/80 p-3 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
+      <main className={clsx(toolPageDashboardWidth, "px-4 py-8 md:py-10")}>
+        <div className={contentDashboardStack}>
+          <section className={clsx(contentDashboardPanel, "text-center")}>
+            <p className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+              {t("badge")}
+            </p>
+            <h1 className="mt-3 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
+              {t("title")}
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 md:text-base">
+              <strong className="text-neutral-900 dark:text-white">{t("heroStrong")}</strong>
+            </p>
+            <p className="mx-auto mt-2 max-w-2xl text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm">
+              {t("heroBody")}
+            </p>
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-[3px]">
+              <Link
+                href="/tools/"
+                className="inline-flex items-center justify-center rounded-md border border-neutral-400 bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800 dark:border-neutral-500 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-white"
               >
-                <h3 className="font-semibold text-black dark:text-neutral-200 dark:text-white">{t(`useCases.${key}.title`)}</h3>
-                <p className="mt-2 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{t(`useCases.${key}.body`)}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-16 space-y-3" aria-labelledby="privacy-tools">
-          <h2 id="privacy-tools" className="text-2xl font-bold text-black dark:text-neutral-200 dark:text-white">
-            {t("toolsTitle")}
-          </h2>
-          <p className="text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{t("toolsBody")}</p>
-          <CompactToolCardGrid
-            items={PRIVACY_TOOL_SLUGS.map((slug) => ({
-              href: `/tools/${slug}/`,
-              label: translateToolItem(tTools, slug, slug),
-              slugHint: slug,
-            }))}
-          />
-          <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
-            {t("toolsDirectoryPrefix")}{" "}
-            <Link href="/tools/" className="font-semibold text-black dark:text-neutral-200 hover:underline dark:text-black dark:text-neutral-200">
-              {t("toolsDirectoryLink")}
-            </Link>{" "}
-            {t("toolsHubMiddle")}{" "}
-            <Link
-              href="/privacy-first-pdf-tools/"
-              className="font-semibold text-black dark:text-neutral-200 hover:underline dark:text-black dark:text-neutral-200"
-            >
-              {t("toolsHubLink")}
-            </Link>
-            .
-          </p>
-        </section>
-
-        <section className="mt-16 rounded-none border border-neutral-300 dark:border-neutral-800/80 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900 md:p-4">
-          <h2 className="text-xl font-bold text-black dark:text-neutral-200 dark:text-white">{t("questions")}</h2>
-          <div className="mt-4 space-y-2">
-            {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-4 py-3 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
+                {t("browseTools")}
+              </Link>
+              <Link
+                href="/privacy/"
+                className="inline-flex items-center justify-center rounded-md border border-neutral-300 bg-transparent px-5 py-2.5 text-sm font-semibold text-neutral-900 transition hover:bg-neutral-100 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800"
               >
-                <summary className="cursor-pointer font-medium text-black dark:text-neutral-200 dark:text-white">{f.q}</summary>
-                <p className="mt-2 text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
+                {t("privacyPolicy")}
+              </Link>
+            </div>
+          </section>
+
+          <section className={contentDashboardPanel}>
+            <div className="grid gap-[3px] md:grid-cols-3">
+              <TrustCard icon={<Lock className="h-5 w-5" aria-hidden />} title={t("trustLocalTitle")}>
+                {t("trustLocalBody")}
+              </TrustCard>
+              <TrustCard icon={<Shield className="h-5 w-5" aria-hidden />} title={t("trustMarketingTitle")}>
+                {t("trustMarketingBody")}
+              </TrustCard>
+              <TrustCard icon={<Globe className="h-5 w-5" aria-hidden />} title={t("trustVerifyTitle")}>
+                {t("trustVerifyBody")}
+              </TrustCard>
+            </div>
+          </section>
+
+          <section className={contentDashboardPanel} aria-labelledby="how-it-works">
+            <h2 id="how-it-works" className={SECTION_TITLE}>
+              {t("howTitle")}
+            </h2>
+            <div className="space-y-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm">
+              <p>{t("howP1")}</p>
+              <p>{t("howP2")}</p>
+              <ol className="list-decimal space-y-1.5 ps-5">
+                <li>{t("howStep1")}</li>
+                <li>{t("howStep2")}</li>
+                <li>{t("howStep3")}</li>
+              </ol>
+            </div>
+          </section>
+
+          <section className={clsx(contentDashboardPanel, "p-0")} aria-labelledby="comparison">
+            <h2 id="comparison" className={clsx(SECTION_TITLE, "px-6 pt-6")}>
+              {t("comparisonTitle")}
+            </h2>
+            <div className="mt-3">
+              <ComparisonTable
+                locale={locale}
+                flush
+                headers={{
+                  topic: t("colTopic"),
+                  typical: t("colTypical"),
+                  join: t("colJoin"),
+                }}
+                rows={COMPARISON_ROW_KEYS.map((key) => ({
+                  topic: t(`rows.${key}.topic`),
+                  typical: t(`rows.${key}.typical`),
+                  join: t(`rows.${key}.join`),
+                }))}
+              />
+            </div>
+          </section>
+
+          <section className={contentDashboardPanel} aria-labelledby="use-cases">
+            <h2 id="use-cases" className={SECTION_TITLE}>
+              {t("useCasesTitle")}
+            </h2>
+            <div className="mt-3 grid gap-[3px] sm:grid-cols-2">
+              {USE_CASE_KEYS.map((key) => (
+                <article key={key} className={contentDashboardInset}>
+                  <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">{t(`useCases.${key}.title`)}</h3>
+                  <p className="mt-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm">
+                    {t(`useCases.${key}.body`)}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className={contentDashboardPanel} aria-labelledby="privacy-tools">
+            <h2 id="privacy-tools" className={SECTION_TITLE}>
+              {t("toolsTitle")}
+            </h2>
+            <p className="mt-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm">{t("toolsBody")}</p>
+            <div className="mt-3">
+              <CompactToolCardGrid
+                variant="glass"
+                items={PRIVACY_TOOL_SLUGS.map((slug) => ({
+                  href: `/tools/${slug}/`,
+                  label: translateToolItem(tTools, slug, slug),
+                  slugHint: slug,
+                }))}
+              />
+            </div>
+            <p className="mt-3 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm">
+              {t("toolsDirectoryPrefix")}{" "}
+              <Link href="/tools/" className="font-semibold text-neutral-900 hover:underline dark:text-neutral-200">
+                {t("toolsDirectoryLink")}
+              </Link>{" "}
+              {t("toolsHubMiddle")}{" "}
+              <Link
+                href="/privacy-first-pdf-tools/"
+                className="font-semibold text-neutral-900 hover:underline dark:text-neutral-200"
+              >
+                {t("toolsHubLink")}
+              </Link>
+              .
+            </p>
+          </section>
+
+          <section className={contentDashboardPanel}>
+            <h2 className={SECTION_TITLE}>{t("questions")}</h2>
+            <div className="mt-3 flex flex-col gap-[3px]">
+              {faqs.map((f) => (
+                <details
+                  key={f.q}
+                  className={contentDashboardInset}
+                >
+                  <summary className="cursor-pointer text-sm font-medium text-neutral-900 dark:text-white">{f.q}</summary>
+                  <p className="mt-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
       <SiteFooter />
     </>

@@ -61,6 +61,15 @@ export const toolPageDashboardWidth = "mx-auto w-full max-w-2xl";
 
 export const toolPageDashboardStack = "tool-page-dashboard flex w-full flex-col gap-0";
 
+/** Marketing / info pages — flush vertical stack with hairline gaps */
+export const contentDashboardStack = "flex w-full flex-col gap-[3px]";
+
+export const contentDashboardPanel =
+  "w-full rounded-none border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900/50";
+
+export const contentDashboardInset =
+  "rounded-none border border-neutral-200/80 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-950/50";
+
 export const toolPageDashboardPanel = "tool-page-dashboard-panel w-full p-6";
 
 export const toolPageDashboardInset =
