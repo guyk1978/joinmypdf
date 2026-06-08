@@ -73,15 +73,12 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
 
   return (
     <>
-      <nav
-        className="relative mx-auto flex h-12 max-w-7xl items-stretch justify-between gap-0"
-        aria-label={t("siteLabel")}
-      >
-        <Link href="/" className="brand z-10 flex h-full shrink-0 items-center px-3" aria-label="JoinMyPDF">
+      <nav className="site-header__bar h-12" aria-label={t("siteLabel")}>
+        <Link href="/" className="brand flex h-full shrink-0 items-center" aria-label="JoinMyPDF">
           <JoinMyPdfLogo />
         </Link>
 
-        <div className="absolute left-1/2 z-10 hidden h-full -translate-x-1/2 md:flex">
+        <div className="site-header__center hidden h-full flex-1 items-stretch justify-center md:flex">
           <div className="flex h-full items-stretch divide-x divide-neutral-300 dark:divide-neutral-800">
             <ToolsMegaMenu sections={megaMenuSections} />
             <GuidesLink />
@@ -89,7 +86,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
           </div>
         </div>
 
-        <div className="z-10 flex h-full shrink-0 items-stretch divide-x divide-neutral-300 dark:divide-neutral-800">
+        <div className="site-header__actions flex h-full items-stretch divide-x divide-neutral-300 dark:divide-neutral-800">
           <LanguageSwitcher />
           <div className="relative flex h-full items-center">
             <SiteSearch variant="header" registry={registry} blog={blog} />
@@ -114,10 +111,10 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
       {mobileOpen ? (
         <div
           id="primary-nav"
-          className="border-t border-neutral-300 bg-neutral-50 px-3 py-2 md:hidden dark:border-neutral-800 dark:bg-neutral-900"
+          className="site-header__mobile-panel border-t border-neutral-300 bg-neutral-50 py-2 md:hidden dark:border-neutral-800 dark:bg-neutral-900"
           aria-label={t("mobileNav")}
         >
-          <div className="mx-auto flex max-w-7xl flex-col gap-2">
+          <div className="flex w-full flex-col gap-2">
             <ToolsMegaMenu sections={megaMenuSections} onNavigate={closeMobile} className="w-full justify-center" />
             <GuidesLink onNavigate={closeMobile} className="w-full justify-center py-2" />
             <PrivacyFirstLink onNavigate={closeMobile} className="w-full justify-center py-2" />

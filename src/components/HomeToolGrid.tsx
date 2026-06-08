@@ -14,8 +14,8 @@ export function HomeToolGrid({ items }: HomeToolGridProps) {
   const t = useTranslations("Home");
 
   return (
-    <div className="home-tool-grid-shell mx-auto flex w-full max-w-[1400px] flex-col items-center">
-      <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 xl:gap-8">
+    <div className="home-tool-grid-shell mx-auto flex w-full flex-col items-center">
+      <div className="home-tool-grid">
         {items.map((item) => (
           <ToolGridCard key={item.href} item={item} />
         ))}

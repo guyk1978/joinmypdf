@@ -92,7 +92,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
       <div className={appShell}>
         <SiteHeader />
         <main className="home-tool-grid-page">
-          <div className="home-tool-grid-shell mx-auto w-full max-w-[1400px]">
+          <div className="home-tool-grid-shell mx-auto w-full">
             <header className="mb-10 max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
                 {tPage("badge")}

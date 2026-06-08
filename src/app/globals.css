@@ -96,24 +96,71 @@ html.dark .home-watermark__layer--dark {
 }
 
 .home-tool-grid-shell {
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 @media (min-width: 640px) {
   .home-tool-grid-shell {
-    padding: 3rem;
+    padding: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .home-tool-grid-shell {
-    padding: 4rem;
+    padding: 3rem;
   }
 }
 
 @media (min-width: 1280px) {
   .home-tool-grid-shell {
-    padding: 100px;
+    padding: 60px;
+  }
+}
+
+.home-tool-grid {
+  display: grid;
+  width: 100%;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .home-tool-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .home-tool-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-tool-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-tool-grid {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .home-tool-grid .home-tool-grid-card {
+    min-height: 108px;
+    padding: 1rem 0.75rem;
+  }
+
+  .home-tool-grid .home-tool-grid-card__label {
+    margin-top: 0.5rem;
+    font-size: 0.6875rem;
+    line-height: 1.3;
+  }
+
+  .home-tool-grid .home-tool-grid-card__icon {
+    height: 2.25rem;
+    width: 2.25rem;
   }
 }
 
@@ -2153,6 +2200,63 @@ html.dark .pdf-export-thumb__download:hover {
   right: 0;
   z-index: 50;
   transition: background-color 0.5s ease-in-out, border-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+.site-header__bar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-inline: 2rem;
+}
+
+@media (min-width: 640px) {
+  .site-header__bar {
+    padding-inline: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-header__bar {
+    padding-inline: 4rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-header__bar {
+    padding-inline: 60px;
+  }
+}
+
+.site-header__center {
+  min-width: 0;
+}
+
+.site-header__actions {
+  flex-shrink: 0;
+}
+
+.site-header__mobile-panel {
+  padding-inline: 2rem;
+}
+
+@media (min-width: 640px) {
+  .site-header__mobile-panel {
+    padding-inline: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-header__mobile-panel {
+    padding-inline: 4rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-header__mobile-panel {
+    padding-inline: 60px;
+  }
 }
 
 .site-header .site-header__inner {

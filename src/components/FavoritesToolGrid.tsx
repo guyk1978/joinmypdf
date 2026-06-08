@@ -19,7 +19,7 @@ export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
   const favoriteItems = items.filter((item) => favoriteIds.includes(item.slugHint));
 
   return (
-    <div className="home-tool-grid-shell mx-auto flex w-full max-w-[1400px] flex-col items-center">
+    <div className="home-tool-grid-shell mx-auto flex w-full flex-col items-center">
       <header className="mb-8 w-full text-center">
         <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
           {t("title")}
@@ -37,7 +37,7 @@ export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
           </Link>
         </div>
       ) : (
-        <div className="grid w-full grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 xl:gap-8">
+        <div className="home-tool-grid">
           {favoriteItems.map((item) => (
             <ToolGridCard key={item.href} item={item} favoritesView />
           ))}

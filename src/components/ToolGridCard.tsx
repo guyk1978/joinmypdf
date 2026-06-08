@@ -35,7 +35,7 @@ export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
   const visual = getToolIcon(item.slugHint, item.label);
 
   return (
-    <Link href={item.href} className={clsx("group", homeToolGridCard)} prefetch={false}>
+    <Link href={item.href} className={clsx("group home-tool-grid-card", homeToolGridCard)} prefetch={false}>
       <button
         type="button"
         onClick={onFavoriteAction}
@@ -68,6 +68,7 @@ export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
       </button>
       <span
         className={clsx(
+          "home-tool-grid-card__icon",
           TOOL_ICON_WRAP_CLASS,
           "inline-flex h-10 w-10 items-center justify-center rounded-xl transition-colors",
           visual.wrap,
@@ -77,7 +78,7 @@ export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
       >
         {visual.icon}
       </span>
-      <span className={homeToolGridCardLabel}>{item.label}</span>
+      <span className={clsx("home-tool-grid-card__label", homeToolGridCardLabel)}>{item.label}</span>
     </Link>
   );
 }
