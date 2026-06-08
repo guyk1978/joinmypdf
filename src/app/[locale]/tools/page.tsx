@@ -8,13 +8,14 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteSearch } from "@/components/SiteSearch";
 import { Link } from "@/i18n/navigation";
 import { blogRegistry } from "@/lib/blog-registry";
+import { getTotalToolCount } from "@/lib/featured-tools";
 import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
 import { buildMegaMenuSections } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
-import { appShell, homeSecondaryPillBtn } from "@/lib/tool-ui";
+import { appShell, contentDashboardStack, homeSecondaryPillBtn } from "@/lib/tool-ui";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 const FEATURED_SLUGS = [
@@ -32,14 +33,15 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "ToolsDirectory" });
+  const toolCount = getTotalToolCount();
 
   return {
     title: t("title"),
-    description: t("description", { count: registry.tools.length + 3 }),
+    description: t("description", { count: toolCount }),
     alternates: { canonical: `/${locale}/tools` },
     openGraph: {
       title: t("title"),
-      description: t("description", { count: registry.tools.length + 3 }),
+      description: t("description", { count: toolCount }),
       url: absoluteUrl(`/${locale}/tools`),
     },
   };
@@ -65,7 +67,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
   const tPage = await getTranslations("ToolsDirectory");
   const tHome = await getTranslations({ locale, namespace: "Home" });
   const sections = buildMegaMenuSections();
-  const toolCount = registry.tools.length + 3;
+  const toolCount = getTotalToolCount();
 
   const featuredItems = FEATURED_SLUGS.map((slug) => {
     const tool = registry.tools.find((t) => t.slug === slug);
@@ -73,9 +75,13 @@ export default async function ToolsDirectoryPage({ params }: Props) {
     return toGridItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title));
   }).filter((item): item is ToolGridItem => Boolean(item));
 
-  const convertSection = sections.find((section) => section.id === "convert");
-  const convertItems: ToolGridItem[] =
-    convertSection?.items.map((item) => toGridItem(tTools, item.slug, item.label)) ?? [];
+  const categorySections = sections
+    .map((section) => ({
+      id: section.id,
+      label: translateToolSection(tTools, section.id, section.label),
+      items: section.items.map((item) => toGridItem(tTools, item.slug, item.label)),
+    }))
+    .filter((section) => section.items.length > 0);
 
   return (
     <>
@@ -93,7 +99,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
         <SiteHeader />
         <main className="home-tool-grid-page">
           <div className="home-tool-grid-shell mx-auto w-full">
-            <header className="mb-10 max-w-2xl">
+            <header className="mb-[3px] max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
                 {tPage("badge")}
               </p>
@@ -123,36 +129,43 @@ export default async function ToolsDirectoryPage({ params }: Props) {
               </p>
             </header>
 
-            <section className="space-y-6" aria-labelledby="featured-tools">
-              <div>
-                <h2 id="featured-tools" className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl">
-                  {tPage("startHere")}
-                </h2>
-                <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{tPage("startHereDescription")}</p>
-              </div>
-              <ToolsDirectoryToolGrid items={featuredItems} />
-            </section>
-
-            {convertItems.length ? (
-              <section className="mt-14 space-y-6 scroll-mt-24" aria-labelledby="convert-tools" id="convert">
+            <div className={contentDashboardStack}>
+              <section className="flex flex-col gap-[3px]" aria-labelledby="featured-tools">
                 <div>
-                  <h2
-                    id="convert-tools"
-                    className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl"
-                  >
-                    {translateToolSection(tTools, "convert", convertSection?.label ?? "Convert PDF")}
+                  <h2 id="featured-tools" className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl">
+                    {tPage("startHere")}
                   </h2>
-                  <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-                    {convertItems.length === 1
-                      ? tPage("toolCount", { count: convertItems.length })
-                      : tPage("toolCountPlural", { count: convertItems.length })}
-                  </p>
+                  <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{tPage("startHereDescription")}</p>
                 </div>
-                <ToolsDirectoryToolGrid items={convertItems} />
+                <ToolsDirectoryToolGrid items={featuredItems} />
               </section>
-            ) : null}
 
-            <div className="mt-14 flex justify-center">
+              {categorySections.map((section) => (
+                <section
+                  key={section.id}
+                  className="flex flex-col gap-[3px] scroll-mt-24"
+                  aria-labelledby={`${section.id}-tools`}
+                  id={section.id}
+                >
+                  <div>
+                    <h2
+                      id={`${section.id}-tools`}
+                      className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl"
+                    >
+                      {section.label}
+                    </h2>
+                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+                      {section.items.length === 1
+                        ? tPage("toolCount", { count: section.items.length })
+                        : tPage("toolCountPlural", { count: section.items.length })}
+                    </p>
+                  </div>
+                  <ToolsDirectoryToolGrid items={section.items} />
+                </section>
+              ))}
+            </div>
+
+            <div className="mt-[3px] flex justify-center pt-6">
               <Link href="/favorites/" className={homeSecondaryPillBtn}>
                 {tHome("viewFavorites")}
               </Link>
