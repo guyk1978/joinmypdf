@@ -51,7 +51,17 @@
     "viewGuides": "צפה במדריכים",
     "allTools": "כל הכלים",
     "addToFavorites": "הוסף למועדפים",
-    "removeFromFavorites": "הסר מהמועדפים"
+    "removeFromFavorites": "הסר מהמועדפים",
+    "viewFavorites": "המועדפים שלי"
+  },
+  "Favorites": {
+    "metaTitle": "כלי PDF מועדפים — JoinMyPDF",
+    "metaDescription": "הכלים ששמרת — נשמרים מקומית בדפדפן, בלי חשבון.",
+    "title": "המועדפים שלי",
+    "description": "כלים שסימנת בכוכב בדף הבית. נשמרים רק במכשיר הזה.",
+    "emptyState": "אין עדיין מועדפים. סמן כוכב בדף הבית כדי לשמור כלים כאן.",
+    "loading": "טוען מועדפים…",
+    "removeFromList": "הסר מהמועדפים"
   },
   "LanguageSwitcher": {
     "en": "English",
