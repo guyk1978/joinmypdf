@@ -95,6 +95,30 @@ html.dark .home-watermark__layer--dark {
   width: 100%;
 }
 
+.home-sub-header {
+  width: 100%;
+  padding-block: 1.5rem;
+  text-align: center;
+}
+
+.home-sub-header__text {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #525252;
+}
+
+html.dark .home-sub-header__text {
+  color: #a3a3a3;
+}
+
+@media (min-width: 768px) {
+  .home-sub-header__text {
+    font-size: 1.125rem;
+  }
+}
+
 .home-tool-grid-shell {
   padding: 1.5rem;
 }
