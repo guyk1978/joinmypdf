@@ -7,6 +7,8 @@ import { ToolGridCard } from "@/components/ToolGridCard";
 import type { ToolGridItem } from "@/lib/tool-grid";
 import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
 
+const HOME_HERO_TITLE_EN = "/heder-EN.png";
+const HOME_HERO_TITLE_HE = "/heder-HE.png";
 const HOME_HERO_IMAGE_EN = "/Gemini_Generated_Image_geptrcgeptrcgept-removebg-preview_3.png";
 const HOME_HERO_IMAGE_HE = "/Gemini_Generated_Image_ficp5pficp5pficp-removebg-preview.png";
 
@@ -17,13 +19,22 @@ type HomeToolGridProps = {
 export function HomeToolGrid({ items }: HomeToolGridProps) {
   const t = useTranslations("Home");
   const locale = useLocale();
+  const heroTitleImage = locale === "he" ? HOME_HERO_TITLE_HE : HOME_HERO_TITLE_EN;
   const heroImage = locale === "he" ? HOME_HERO_IMAGE_HE : HOME_HERO_IMAGE_EN;
 
   return (
     <div className="home-tool-grid-shell mx-auto flex w-full flex-col items-center">
       <header className="home-hero">
         <div className="home-hero__copy">
-          <h1 className="home-hero__title">{t("headline")}</h1>
+          <h1 className="home-hero__title">
+            <img
+              src={heroTitleImage}
+              alt={t("headline")}
+              className="home-hero__title-image"
+              width={480}
+              height={120}
+            />
+          </h1>
           <p className="home-hero__sub">{t("subHeader")}</p>
         </div>
 

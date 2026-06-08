@@ -122,15 +122,15 @@ html.dark .home-watermark__layer--dark {
 
 .home-hero__title {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 3.75rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: #171717;
+  line-height: 0;
 }
 
-html.dark .home-hero__title {
-  color: #e5e5e5;
+.home-hero__title-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: min(100%, 28rem);
+  object-fit: contain;
 }
 
 .home-hero__sub {
