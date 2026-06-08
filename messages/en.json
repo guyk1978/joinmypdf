@@ -23,6 +23,7 @@
     "label": "Search tools and guides",
     "placeholder": "Search tools and guides…",
     "openSearch": "Open search",
+    "closeSearch": "Close search",
     "noResults": "No results found",
     "toolsGroup": "Tools",
     "guidesGroup": "Guides & Articles"

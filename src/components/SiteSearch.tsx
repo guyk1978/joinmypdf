@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import {
   useCallback,
   useEffect,
@@ -10,6 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { buildSiteSearchIndex, filterSearchIndex } from "@/lib/site-search";
 import type { SearchEntry } from "@/lib/site-search";
@@ -53,25 +54,30 @@ type ResultsPanelProps = {
   results: ReturnType<typeof filterSearchIndex>;
   query: string;
   listId: string;
+  inHeaderPanel?: boolean;
 };
 
-function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
+function ResultsPanel({ results, query, listId, inHeaderPanel }: ResultsPanelProps) {
   const t = useTranslations("Search");
   const hasTools = results.tools.length > 0;
   const hasGuides = results.guides.length > 0;
 
   if (query.trim().length < 2) return null;
 
+  const dropdownClass = inHeaderPanel
+    ? "site-search__dropdown site-search__dropdown--header-panel site-search__dropdown--open"
+    : "site-search__dropdown site-search__dropdown--open";
+
   if (!hasTools && !hasGuides) {
     return (
-      <div className="site-search__dropdown site-search__dropdown--open" role="listbox" id={listId}>
+      <div className={dropdownClass} role="listbox" id={listId}>
         <p className="site-search__empty">{t("noResults")}</p>
       </div>
     );
   }
 
   return (
-    <div className="site-search__dropdown site-search__dropdown--open" role="listbox" id={listId}>
+    <div className={dropdownClass} role="listbox" id={listId}>
       {hasTools ? (
         <div className="site-search__group">
           <p className="site-search__group-title">{t("toolsGroup")}</p>
@@ -113,11 +119,12 @@ function ResultsPanel({ results, query, listId }: ResultsPanelProps) {
 export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   const t = useTranslations("Search");
   const tTools = useTranslations("Tools");
+  const pathname = usePathname() || "/";
 
   const uid = useId().replace(/:/g, "");
   const inputId = `site-search-input-${variant}-${uid}`;
   const listId = `site-search-results-${variant}-${uid}`;
-  const popoverId = `site-search-popover-${variant}-${uid}`;
+  const panelId = `site-search-panel-${variant}-${uid}`;
 
   const index = useMemo(() => {
     const base = buildSiteSearchIndex(registry, blog);
@@ -125,15 +132,21 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   }, [registry, blog, tTools]);
 
   const wrapRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState("");
   const [resultsOpen, setResultsOpen] = useState(false);
   const [headerOpen, setHeaderOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const results = useMemo(() => filterSearchIndex(index, query), [index, query]);
   const showResults =
     query.trim().length >= 2 && resultsOpen && (variant === "hero" || headerOpen);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const clearResults = useCallback(() => {
     setResultsOpen(false);
@@ -141,6 +154,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   }, []);
 
   const closeAll = useCallback(() => {
+    setQuery("");
     setResultsOpen(false);
     setHeaderOpen(false);
     if (inputRef.current) inputRef.current.setAttribute("aria-expanded", "false");
@@ -158,6 +172,10 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
       inputRef.current?.focus();
     }
   }, [variant, openHeader]);
+
+  useEffect(() => {
+    closeAll();
+  }, [pathname, closeAll]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -182,16 +200,24 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   }, [closeAll, focusInput]);
 
   useEffect(() => {
-    if (variant === "header" && !headerOpen) return;
+    if (variant !== "header" || !headerOpen) return;
 
     const onPointerDown = (event: MouseEvent) => {
-      const node = wrapRef.current;
-      if (node && !node.contains(event.target as Node)) closeAll();
+      const target = event.target as Node;
+      if (wrapRef.current?.contains(target)) return;
+      if (panelRef.current?.contains(target)) return;
+      closeAll();
     };
 
     document.addEventListener("mousedown", onPointerDown);
     return () => document.removeEventListener("mousedown", onPointerDown);
   }, [variant, headerOpen, closeAll]);
+
+  useEffect(() => {
+    if (variant !== "header") return;
+    document.body.classList.toggle("site-search-open", headerOpen);
+    return () => document.body.classList.remove("site-search-open");
+  }, [variant, headerOpen]);
 
   const onInputChange = useCallback(
     (value: string) => {
@@ -211,12 +237,12 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
     if (query.trim().length >= 2) setResultsOpen(true);
   }, [variant, query]);
 
-  const field = (
+  const field = (inHeaderPanel?: boolean) => (
     <div className="site-search__wrap">
       <label className="site-search__label" htmlFor={inputId}>
         {t("label")}
       </label>
-      <div className="site-search__field">
+      <div className={`site-search__field${inHeaderPanel ? " site-search__field--header-panel" : ""}`}>
         <span className="site-search__icon">
           <SearchIcon />
         </span>
@@ -239,7 +265,9 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
           /
         </kbd>
       </div>
-      {showResults ? <ResultsPanel results={results} query={query} listId={listId} /> : null}
+      {showResults ? (
+        <ResultsPanel results={results} query={query} listId={listId} inHeaderPanel={inHeaderPanel} />
+      ) : null}
     </div>
   );
 
@@ -252,45 +280,64 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
         data-react-search="true"
         data-variant="hero"
       >
-        {field}
+        {field()}
       </div>
     );
   }
 
+  const headerPanel =
+    headerOpen && mounted
+      ? createPortal(
+          <>
+            <button
+              type="button"
+              className="site-search__backdrop"
+              aria-label={t("closeSearch")}
+              onClick={closeAll}
+            />
+            <div
+              ref={panelRef}
+              id={panelId}
+              className="site-search__header-panel site-search__header-panel--open"
+              role="dialog"
+              aria-modal="true"
+              aria-label={t("label")}
+            >
+              <div className="site-search__header-panel-inner">{field(true)}</div>
+            </div>
+          </>,
+          document.body,
+        )
+      : null;
+
   return (
-    <div
-      ref={wrapRef}
-      className="site-search site-search--header relative flex h-full items-center"
-      data-site-search
-      data-react-search="true"
-      data-variant="header"
-    >
-      <button
-        type="button"
-        className="site-search__toggle h-full rounded-none hover:bg-neutral-200 dark:hover:bg-neutral-800"
-        aria-label={t("openSearch")}
-        aria-expanded={headerOpen}
-        aria-controls={popoverId}
-        onClick={() => {
-          if (headerOpen) {
-            setQuery("");
-            clearResults();
-            closeAll();
-          } else {
-            openHeader();
-            requestAnimationFrame(() => inputRef.current?.focus());
-          }
-        }}
-      >
-        <SearchIcon />
-      </button>
+    <>
       <div
-        id={popoverId}
-        className={`site-search__popover left-auto right-4 max-w-[calc(100vw-20px)] [dir=rtl]:left-4 [dir=rtl]:right-auto${headerOpen ? " site-search__popover--open" : ""}`}
-        aria-hidden={!headerOpen}
+        ref={wrapRef}
+        className="site-search site-search--header relative flex h-full items-center"
+        data-site-search
+        data-react-search="true"
+        data-variant="header"
       >
-        {field}
+        <button
+          type="button"
+          className={`site-search__toggle h-full rounded-none hover:bg-neutral-200 dark:hover:bg-neutral-800${headerOpen ? " site-search__toggle--active" : ""}`}
+          aria-label={headerOpen ? t("closeSearch") : t("openSearch")}
+          aria-expanded={headerOpen}
+          aria-controls={panelId}
+          onClick={() => {
+            if (headerOpen) {
+              closeAll();
+            } else {
+              openHeader();
+              requestAnimationFrame(() => inputRef.current?.focus());
+            }
+          }}
+        >
+          <SearchIcon />
+        </button>
       </div>
-    </div>
+      {headerPanel}
+    </>
   );
 }
