@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 export const runtime = "edge";
+import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
 import { HomeToolGrid } from "@/components/HomeToolGrid";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { routing } from "@/i18n/routing";
 import { buildAllHomeToolItems } from "@/lib/featured-tools";
-import { appShell } from "@/lib/tool-ui";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -46,7 +46,8 @@ export default async function HomePage({ params }: Props) {
           description: tMeta("homeDescription"),
         }}
       />
-      <div className={appShell}>
+      <div className="home-page-shell min-h-screen text-neutral-900 dark:text-neutral-100">
+        <HomePageSeamlessBg />
         <SiteHeader />
         <main className="home-tool-grid-page">
           <HomeToolGrid items={toolItems} />

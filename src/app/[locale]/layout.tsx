@@ -1,23 +1,32 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { Providers } from "@/components/Providers";
 import { CookieConsent } from "@/components/CookieConsent";
+import { DocumentLocaleAttributes } from "@/components/DocumentLocaleAttributes";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { Providers } from "@/components/Providers";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { routing } from "@/i18n/routing";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { siteUrl } from "@/lib/site";
-import "../globals.css";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
+
+function LocaleHtmlBootstrap({ locale }: { locale: string }) {
+  const dir = locale === "he" ? "rtl" : "ltr";
+
+  return (
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `document.documentElement.lang="${locale}";document.documentElement.dir="${dir}";`,
+      }}
+    />
+  );
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -71,19 +80,15 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={locale === "he" ? "rtl" : "ltr"} className={inter.variable} suppressHydrationWarning>
-      <head>
-        <GoogleAnalytics />
-      </head>
-      <body className="theme-transition font-sans">
-        <NextIntlClientProvider messages={messages}>
-          <Providers>
-            <ScrollDepthTracker />
-            {children}
-            <CookieConsent />
-          </Providers>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <LocaleHtmlBootstrap locale={locale} />
+      <DocumentLocaleAttributes />
+      <GoogleAnalytics />
+      <Providers>
+        <ScrollDepthTracker />
+        {children}
+        <CookieConsent />
+      </Providers>
+    </NextIntlClientProvider>
   );
 }

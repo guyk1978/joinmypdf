@@ -24,14 +24,14 @@ export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
         <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
           {t("title")}
         </h1>
-        <p className="mt-2 text-sm text-neutral-500 md:text-base">{t("description")}</p>
+        <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400 md:text-base">{t("description")}</p>
       </header>
 
       {!hydrated ? (
-        <p className="text-sm text-neutral-500">{t("loading")}</p>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">{t("loading")}</p>
       ) : favoriteItems.length === 0 ? (
-        <div className={homeGlassPanel}>
-          <p className="text-sm text-neutral-500">{t("emptyState")}</p>
+        <div className={`${homeGlassPanel} favorites-empty-panel`}>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">{t("emptyState")}</p>
           <Link href="/" className={`${homePrimaryPillBtn} mt-6 px-8`}>
             {tHome("allTools")}
           </Link>

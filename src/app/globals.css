@@ -49,7 +49,8 @@ html {
 }
 
 body {
-  @apply min-h-screen bg-neutral-50 pt-12 text-neutral-900 antialiased transition-colors duration-500 ease-in-out dark:bg-neutral-950 dark:text-neutral-200;
+  @apply min-h-screen pt-12 text-neutral-900 antialiased transition-colors duration-500 ease-in-out dark:text-neutral-200;
+  background-color: var(--site-page-bg, rgb(250 250 249));
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -95,117 +96,61 @@ html.dark .home-watermark__layer--dark {
   width: 100%;
 }
 
+/* Homepage — seamless hero banner into page body (colors via --home-page-bg) */
+.home-page-shell {
+  background-color: var(--home-page-bg, var(--site-page-bg, rgb(250 250 249)));
+  transition: background-color 0.5s ease-in-out;
+}
+
+html.dark .home-page-shell {
+  background-color: var(--home-page-bg, #090b10);
+}
+
+.home-page-shell .home-tool-grid-page {
+  background-color: var(--home-page-bg, inherit);
+}
+
 /* Homepage hero — LTR: copy left / mascot right; RTL: mascot left / copy right */
 .home-hero {
-  display: flex;
   width: 100%;
-  max-width: 72rem;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-  padding-block: 1.25rem 1.75rem;
-}
-
-.home-hero__copy {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  text-align: center;
-  order: 2;
-  min-width: 0;
-  flex: 1 1 auto;
-}
-
-[dir="rtl"] .home-hero__copy {
-  order: 1;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: var(--home-page-bg, transparent);
 }
 
 .home-hero__title {
   margin: 0;
   line-height: 0;
+  width: 100%;
 }
 
 .home-hero__title-image {
   display: block;
   width: 100%;
   height: auto;
-  max-width: min(100%, 28rem);
-  object-fit: contain;
-}
-
-.home-hero__sub {
-  margin: 0;
-  max-width: 36rem;
-  font-size: clamp(1rem, 2.2vw, 1.25rem);
-  font-weight: 500;
-  line-height: 1.5;
-  color: #737373;
-}
-
-html.dark .home-hero__sub {
-  color: #a3a3a3;
-}
-
-[dir="rtl"] .home-hero__visual {
-  order: 2;
-}
-
-.home-hero__visual {
-  order: 1;
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.home-hero__image {
-  width: auto;
-  height: auto;
-  max-height: 9.375rem;
-  max-width: min(100%, 16rem);
-  object-fit: contain;
-}
-
-@media (min-width: 768px) {
-  .home-hero {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem 2rem;
-    padding-block: 1.5rem 2rem;
-  }
-
-  .home-hero__copy,
-  .home-hero__visual {
-    order: unset;
-  }
-
-  .home-hero__copy {
-    text-align: start;
-    flex: 1 1 0%;
-  }
-
-  [dir="ltr"] .home-hero__visual {
-    justify-content: flex-end;
-  }
-
-  [dir="rtl"] .home-hero__visual {
-    justify-content: flex-start;
-  }
-
-  .home-hero__image {
-    max-height: 12.5rem;
-    max-width: 20rem;
-  }
+  max-width: none;
 }
 
 .home-tool-grid-shell {
   padding: 1.5rem;
 }
 
+.home-page-shell .home-tool-grid-shell--homepage {
+  margin-top: 0;
+  padding-top: clamp(1.5rem, 4vw, 2.75rem);
+  border: none;
+  background-color: var(--home-page-bg, inherit);
+}
+
 @media (min-width: 640px) {
   .home-tool-grid-shell {
     padding: 2rem;
+  }
+
+  .home-page-shell .home-tool-grid-shell--homepage {
+    padding-top: clamp(1.75rem, 3.5vw, 3rem);
   }
 }
 
@@ -213,12 +158,92 @@ html.dark .home-hero__sub {
   .home-tool-grid-shell {
     padding: 3rem;
   }
+
+  .home-page-shell .home-tool-grid-shell--homepage {
+    padding-top: clamp(2rem, 3vw, 3.25rem);
+  }
 }
 
 @media (min-width: 1280px) {
   .home-tool-grid-shell {
     padding: 60px;
   }
+
+  .home-page-shell .home-tool-grid-shell--homepage {
+    padding-top: 3rem;
+  }
+}
+
+/* Homepage grid cards — match header banner palette (light / dark) */
+.home-page-shell .home-tool-grid--homepage .home-tool-grid-card {
+  border: none;
+  background-color: var(--home-card-bg, inherit);
+  box-shadow: none;
+  backdrop-filter: none;
+  transition: background-color 0.35s ease;
+}
+
+.home-page-shell .home-tool-grid--homepage .home-tool-grid-card:hover {
+  border: none;
+  background-color: var(--home-card-bg-hover, inherit);
+  box-shadow: none;
+}
+
+.home-page-shell .home-tool-grid--homepage .home-tool-grid-card__label {
+  color: var(--home-card-text, inherit);
+}
+
+.home-page-shell .home-tool-grid--homepage .home-tool-grid-card .tool-icon-wrap {
+  background-color: var(--home-icon-bg, inherit) !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.home-page-shell .home-tool-grid--homepage .home-tool-grid-card:hover .tool-icon-wrap {
+  background-color: var(--home-icon-bg-hover, inherit) !important;
+  border: none !important;
+}
+
+.home-page-shell .home-tool-grid--homepage .home-tool-grid-card > button[type="button"] {
+  color: var(--home-card-muted, inherit);
+}
+
+.home-page-shell .home-tool-grid--homepage .home-tool-grid-card > button[type="button"]:hover {
+  color: var(--home-card-text, inherit);
+}
+
+/* Favorites page — dark matte grid (matches homepage dark cards) */
+html.dark .favorites-page-shell .home-tool-grid-card {
+  border: none;
+  background-color: #262626;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+html.dark .favorites-page-shell .home-tool-grid-card:hover {
+  background-color: #2e2e2e;
+}
+
+html.dark .favorites-page-shell .home-tool-grid-card__label {
+  color: #f0f0f0;
+}
+
+html.dark .favorites-page-shell .home-tool-grid-card .tool-icon-wrap {
+  background-color: #303030 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+html.dark .favorites-page-shell .home-tool-grid-card:hover .tool-icon-wrap {
+  background-color: #383838 !important;
+}
+
+html.dark .favorites-page-shell .favorites-empty-panel {
+  border: none;
+  background-color: #262626;
+  box-shadow: none;
 }
 
 .home-tool-grid {
@@ -268,8 +293,13 @@ html.dark .home-hero__sub {
   }
 }
 
+html.dark {
+  --site-page-bg: #090b10;
+}
+
 html.dark body {
-  @apply bg-neutral-950 text-neutral-200;
+  background-color: var(--site-page-bg);
+  color: rgb(245 245 244);
 }
 
 /* Footer link directory — keep in sync with assets/css/styles.css */
@@ -283,9 +313,9 @@ html.dark body {
 }
 
 html.dark .site-footer {
-  border-top-color: #262626;
-  background: #0a0a0a;
-  color: #a3a3a3;
+  border-top-color: #4e4940;
+  background: var(--site-page-bg);
+  color: #e7e5e0;
 }
 
 .site-footer .container {
@@ -366,7 +396,7 @@ html.dark .site-footer__col a:hover {
 }
 
 html.dark .site-footer__col--partners {
-  border-top-color: #262626;
+  border-top-color: #4e4940;
 }
 
 @media (min-width: 768px) {

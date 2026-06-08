@@ -62,6 +62,19 @@ await cp(path.join(root, "assets"), path.join(publicDir, "assets"), {
 });
 await cp(path.join(root, "manifest.webmanifest"), path.join(publicDir, "manifest.webmanifest"));
 
+const publicRootAssets = [
+  "heder-EN-2.png",
+  "heder-HE-2.png",
+  "heder-light-EN-3.png",
+  "heder-light-HE-2.png",
+];
+for (const filename of publicRootAssets) {
+  await copyFile(
+    path.join(root, "assets", "brand", filename),
+    path.join(publicDir, filename),
+  );
+}
+
 await mkdir(path.join(publicDir, "tools"), { recursive: true });
 await copyFile(toolsHubSrc, toolsHubPublic);
 

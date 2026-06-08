@@ -34,8 +34,9 @@ export const mattePanel = toolPanel;
 export const mattePanelInset =
   "rounded-xl border border-white/10 bg-black/15 p-2 ring-1 ring-white/5 backdrop-blur-sm dark:bg-black/20";
 
-/** App page shell — neutral-50 light / neutral-950 dark */
-export const appShell = "min-h-screen bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-200";
+/** App page shell — neutral-50 light / matte charcoal dark */
+export const appShell =
+  "min-h-screen bg-neutral-50 text-neutral-900 dark:bg-[var(--site-page-bg,#090b10)] dark:text-neutral-200";
 
 /** Shared gap between tool cards — matches .home-tool-grid in globals.css */
 export const toolGridGap = "gap-3";

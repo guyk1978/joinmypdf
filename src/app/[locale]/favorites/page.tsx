@@ -45,7 +45,7 @@ export default async function FavoritesPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/favorites`),
         }}
       />
-      <div className={appShell}>
+      <div className={`${appShell} favorites-page-shell`}>
         <SiteHeader />
         <main className="home-tool-grid-page">
           <FavoritesToolGrid items={toolItems} />

@@ -15,9 +15,11 @@ const nodeStub = path.join(process.cwd(), "src/lib/node-stub.ts");
  * Static export is disabled on Cloudflare Pages (`CF_PAGES=1`) so `/api/*` can run on Workers.
  */
 const isCloudflarePages = process.env.CF_PAGES === "1";
+const useStaticExport =
+  !isCloudflarePages && process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
-  ...(isCloudflarePages ? {} : { output: "export" }),
+  ...(useStaticExport ? { output: "export" } : {}),
   trailingSlash: false,
   images: { unoptimized: true },
   reactStrictMode: true,
