@@ -59,13 +59,12 @@ export const toolUploadStack = "mx-auto w-full max-w-2xl";
 /** Tool page — unified dashboard column and flush glass panels */
 export const toolPageDashboardWidth = "mx-auto w-full max-w-2xl";
 
-export const toolPageDashboardStack = "tool-page-dashboard flex w-full flex-col gap-[3px]";
+export const toolPageDashboardStack = "tool-page-dashboard flex w-full flex-col gap-0";
 
-export const toolPageDashboardPanel =
-  "tool-page-dashboard-panel w-full rounded-[20px] border border-neutral-200 bg-white/70 p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] backdrop-blur-md dark:border-white/10 dark:bg-gray-900/40 dark:shadow-none dark:backdrop-blur-2xl";
+export const toolPageDashboardPanel = "tool-page-dashboard-panel w-full p-6";
 
 export const toolPageDashboardInset =
-  "rounded-[12px] border border-neutral-200/80 bg-black/[0.03] p-4 dark:border-white/5 dark:bg-black/20";
+  "rounded-none border border-neutral-200/80 bg-black/[0.03] p-4 dark:border-white/10 dark:bg-black/25";
 
 /** @deprecated Privacy moved to ToolPrivacyBadge inside WorkspaceUploadShell */
 export const toolPrivacyStatement =

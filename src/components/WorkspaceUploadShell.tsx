@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { clsx } from "clsx";
-import { ToolPrivacyBadge } from "@/components/ToolPrivacyBadge";
+import { ToolLocalProcessingBar } from "@/components/ToolLocalProcessingBar";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { useToolGlassTheme } from "@/context/ToolGlassContext";
 import { toolUploadStack } from "@/lib/tool-ui";
@@ -18,7 +18,7 @@ type WorkspaceUploadShellProps = {
 };
 
 /**
- * Reference layout: centered header (title + description) → glass card (p-10) → privacy badge.
+ * Upper tool page block: title → flat upload panel → slim local-processing accent bar.
  */
 export function WorkspaceUploadShell({
   children,
@@ -38,39 +38,29 @@ export function WorkspaceUploadShell({
     <div
       className={clsx(
         stacked ? "w-full" : toolUploadStack,
-        "tool-upload-stack tool-glass-shell flex w-full flex-col items-center",
+        "tool-upload-stack tool-upload-upper-block flex w-full flex-col",
         className,
       )}
     >
       {hasHeader ? (
-        <header className={clsx("tool-glass-header w-full text-center", stacked ? "mb-3" : "mb-6")}>
+        <header className={clsx("tool-upload-header w-full text-center", stacked ? "mb-4 px-4 pt-4" : "mb-6")}>
           {headline ? (
-            <h1 className="tool-glass-headline text-3xl font-bold tracking-tight text-ink dark:text-white md:text-4xl">
+            <h1 className="tool-glass-headline text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
               {headline}
             </h1>
           ) : null}
           {subline ? (
-            <p className="tool-glass-subline mt-2 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 md:text-base">
+            <p className="tool-glass-subline mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-base">
               {subline}
             </p>
           ) : null}
         </header>
       ) : null}
 
-      <div className={clsx("tool-glass-container w-full p-10", theme.shell)}>
-        <div className="tool-glass-shell__body">{children}</div>
+      <div className={clsx("tool-glass-container w-full", theme.shell)}>
+        <div className="tool-glass-shell__body p-6 md:p-8">{children}</div>
+        {showPrivacyBadge ? <ToolLocalProcessingBar /> : null}
       </div>
-
-      {showPrivacyBadge ? (
-        <div
-          className={clsx(
-            "tool-glass-privacy-wrap flex w-full justify-center",
-            stacked ? "mt-3" : "mt-6",
-          )}
-        >
-          <ToolPrivacyBadge />
-        </div>
-      ) : null}
     </div>
   );
 }

@@ -3130,84 +3130,122 @@ html.dark .partner-mapdiagram[style] a {
 .tool-glass-container {
   width: 100%;
   position: relative;
-  isolation: isolate;
-}
-
-/* Dark — glass depth via radial highlight */
-html.dark .tool-glass-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(ellipse 90% 70% at 50% 15%, rgba(255, 255, 255, 0.1) 0%, transparent 62%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-html.dark .tool-glass-container::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Light — subtle inner highlight, no heavy shadow */
-html:not(.dark) .tool-glass-container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(ellipse 90% 65% at 50% 0%, rgba(255, 255, 255, 0.65) 0%, transparent 58%);
-  pointer-events: none;
-  z-index: 0;
+  overflow: hidden;
 }
 
 .tool-glass-shell__body {
   position: relative;
-  z-index: 1;
 }
 
-/* Inner drop-zone — neon glow on inner ring only */
+/* Upper upload block — flat panel, sharp edge to info section */
+.tool-upload-upper-panel {
+  border-bottom: 0;
+}
+
+.tool-local-accent-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgb(var(--tool-accent-rgb, 16, 185, 129));
+  background: rgba(var(--tool-accent-rgb, 16, 185, 129), 0.12);
+  border-top: 2px solid rgb(var(--tool-accent-rgb, 16, 185, 129));
+}
+
+html.dark .tool-local-accent-bar {
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(var(--tool-accent-rgb, 16, 185, 129), 0.18);
+}
+
+/* Inner drop-zone — flat dashed frame, no neon glow */
 .tool-upload-zone {
   max-width: none;
   width: 100%;
   margin-inline: auto;
-  border: none;
-  box-shadow:
-    0 0 15px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.18),
-    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.28);
-}
-
-html.dark .tool-upload-zone {
-  box-shadow:
-    0 0 15px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.3),
-    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.35);
+  box-shadow: none;
 }
 
 .tool-upload-zone:hover,
 .tool-upload-zone.tool-upload-zone--active {
-  box-shadow:
-    0 0 22px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.26),
-    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.4);
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.04);
 }
 
 html.dark .tool-upload-zone:hover,
 html.dark .tool-upload-zone.tool-upload-zone--active {
-  box-shadow:
-    0 0 24px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.38),
-    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.5);
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.tool-glass-privacy-wrap .tool-privacy-badge {
-  max-width: 100%;
+/* Category-tinted info block below upload zone */
+.tool-page-info-block {
+  padding: 1.5rem;
 }
 
-/* Tool page — subtle glass footer note ("Before you start") */
-.tool-before-you-start {
-  width: 100%;
+html.dark .tool-page-info-block {
+  background: rgba(23, 23, 23, 0.8);
+}
+
+html:not(.dark) .tool-page-info-block {
+  background: #f5f5f5;
+}
+
+html.dark [data-tool-glass="convert"] .tool-page-info-block {
+  background: rgba(23, 37, 84, 0.55);
+}
+
+html:not(.dark) [data-tool-glass="convert"] .tool-page-info-block {
+  background: #eff6ff;
+}
+
+html.dark [data-tool-glass="edit"] .tool-page-info-block {
+  background: rgba(67, 20, 7, 0.45);
+}
+
+html:not(.dark) [data-tool-glass="edit"] .tool-page-info-block {
+  background: #fff7ed;
+}
+
+html.dark [data-tool-glass="optimize"] .tool-page-info-block {
+  background: rgba(67, 32, 6, 0.45);
+}
+
+html:not(.dark) [data-tool-glass="optimize"] .tool-page-info-block {
+  background: #fffbeb;
+}
+
+html.dark [data-tool-glass="security"] .tool-page-info-block {
+  background: rgba(46, 16, 101, 0.45);
+}
+
+html:not(.dark) [data-tool-glass="security"] .tool-page-info-block {
+  background: #f5f3ff;
+}
+
+.tool-page-info-block .tool-page-dashboard-panel {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0 0 1.5rem;
+  margin: 0;
+}
+
+.tool-page-info-block .tool-page-dashboard-panel + .tool-page-dashboard-panel {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+html.dark .tool-page-info-block .tool-page-dashboard-panel + .tool-page-dashboard-panel {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.tool-page-info-block .tool-page-dashboard-panel:last-child {
+  padding-bottom: 0;
 }
 
 /* Tool page — flush unified dashboard stack */
@@ -3219,56 +3257,31 @@ html.dark .tool-upload-zone.tool-upload-zone--active {
 .tool-page-dashboard #tool-workspace {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 0;
   padding-bottom: 0;
 }
 
 .tool-page-dashboard .tool-workspace-panel {
-  border-radius: 20px;
+  border-radius: 0;
   border-color: rgba(255, 255, 255, 0.1);
-  background: rgba(17, 24, 39, 0.4);
-  backdrop-filter: blur(24px);
+  background: rgba(23, 23, 23, 0.6);
 }
 
 html:not(.dark) .tool-page-dashboard .tool-workspace-panel {
   border-color: rgba(0, 0, 0, 0.08);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-html:not(.dark) .tool-page-dashboard-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(ellipse 90% 65% at 50% 0%, rgba(255, 255, 255, 0.85) 0%, transparent 58%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-html:not(.dark) .tool-upload-zone {
-  box-shadow:
-    0 0 12px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.12),
-    0 0 0 1px rgba(var(--tool-glow-rgb, 16, 185, 129), 0.22);
+  background: #fafafa;
 }
 
 .tool-page-dashboard-panel {
   position: relative;
-  isolation: isolate;
-}
-
-html.dark .tool-page-dashboard-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(ellipse 90% 70% at 50% 15%, rgba(255, 255, 255, 0.08) 0%, transparent 62%);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .tool-page-dashboard-panel > * {
   position: relative;
-  z-index: 1;
+}
+
+.tool-before-you-start {
+  width: 100%;
 }
 
 /* Post-upload settings panel — shared across workspaces */

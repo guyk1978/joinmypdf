@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { clsx } from "clsx";
 import { Shield } from "lucide-react";
-import { useToolGlassTheme } from "@/context/ToolGlassContext";
 
 type ToolPrivacyBadgeProps = {
   className?: string;
@@ -12,7 +11,6 @@ type ToolPrivacyBadgeProps = {
 /** Centered privacy notice below the main glass container — reference layout. */
 export function ToolPrivacyBadge({ className }: ToolPrivacyBadgeProps) {
   const t = useTranslations("Workspace.common");
-  const theme = useToolGlassTheme();
 
   return (
     <p
@@ -22,7 +20,7 @@ export function ToolPrivacyBadge({ className }: ToolPrivacyBadgeProps) {
       )}
       role="note"
     >
-      <Shield className={clsx("h-3.5 w-3.5 shrink-0", theme.badgeIcon)} aria-hidden />
+      <Shield className="h-3.5 w-3.5 shrink-0 text-neutral-500" aria-hidden />
       <span>{t.has("privacyBadge") ? t("privacyBadge") : t("privacyStatement")}</span>
     </p>
   );

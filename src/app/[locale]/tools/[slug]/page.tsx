@@ -2,6 +2,7 @@ import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
+import { ToolPageInfoBlock } from "@/components/ToolPageInfoBlock";
 import { RelatedTools } from "@/components/RelatedTools";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -176,8 +177,8 @@ export default async function ToolPage({
       <SiteHeader />
       <main className={`${toolPageDashboardWidth} px-4 py-8 md:py-10`}>
         <div className={toolPageDashboardStack}>
-        <ToolPageShellProvider headline={displayTitle} subline={subtitle} stacked>
         <ToolGlassProvider category={tool.category}>
+        <ToolPageShellProvider headline={displayTitle} subline={subtitle} stacked>
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "protect" ? (
@@ -259,9 +260,9 @@ export default async function ToolPage({
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}
-        </ToolGlassProvider>
         </ToolPageShellProvider>
 
+        <ToolPageInfoBlock>
         <ToolPageDashboardSection>
           <ToolBeforeYouStart title={tPage("beforeYouStart")}>
             {paragraphs.map((p, i) => (
@@ -301,11 +302,11 @@ export default async function ToolPage({
           <h2 id="tool-faq-heading" className="mb-3 text-sm font-semibold tracking-wide text-ink dark:text-white">
             {tPage("questions")}
           </h2>
-          <div className="flex flex-col gap-[3px]">
+          <div className="flex flex-col gap-3">
             {faqs.map((f) => (
               <details
                 key={f.q}
-                className="rounded-[12px] border border-neutral-200/80 bg-black/[0.03] px-4 py-3 dark:border-white/5 dark:bg-black/20"
+                className="rounded-none border border-neutral-200/80 bg-black/[0.03] px-4 py-3 dark:border-white/10 dark:bg-black/25"
               >
                 <summary className="cursor-pointer text-sm font-medium text-ink dark:text-white">{f.q}</summary>
                 <p className="mt-2 text-xs leading-relaxed text-neutral-700 dark:text-neutral-400 md:text-sm">{f.a}</p>
@@ -313,6 +314,8 @@ export default async function ToolPage({
             ))}
           </div>
         </ToolPageDashboardSection>
+        </ToolPageInfoBlock>
+        </ToolGlassProvider>
         </div>
       </main>
       <SiteFooter tagline="tools" />

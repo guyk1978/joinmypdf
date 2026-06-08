@@ -48,7 +48,7 @@ export async function LocalProcessingInfographic({
       >
         {t("subheadline")}
       </p>
-      <div className={isDashboard ? "mt-4 grid grid-cols-1 gap-[3px] text-start md:grid-cols-3" : "mb-10 grid grid-cols-1 gap-2 text-start md:grid-cols-3"}>
+      <div className={isDashboard ? "mt-4 grid grid-cols-1 gap-3 text-start md:grid-cols-3" : "mb-10 grid grid-cols-1 gap-2 text-start md:grid-cols-3"}>
         <div className={cardClass}>
           <div className={iconClass}>🛡️</div>
           <h3 className={isDashboard ? "mb-1 text-sm font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>

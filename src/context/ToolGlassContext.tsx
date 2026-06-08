@@ -18,7 +18,12 @@ export function ToolGlassProvider({
       <div
         data-tool-glass={theme.id}
         className="contents"
-        style={{ "--tool-glow-rgb": theme.glowRgb } as CSSProperties}
+        style={
+          {
+            "--tool-accent-rgb": theme.accentRgb,
+            "--tool-glow-rgb": theme.glowRgb,
+          } as CSSProperties
+        }
       >
         {children}
       </div>
