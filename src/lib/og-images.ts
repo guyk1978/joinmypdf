@@ -1,10 +1,16 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
+import ogManifest from "../../assets/data/og-manifest.json";
 import { absoluteUrl } from "@/lib/site";
 
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
+
+/** Slugs with pre-generated blog OG JPEGs (build-time manifest — edge-safe, no node:fs). */
+const BLOG_OG_SLUGS = new Set(
+  (ogManifest.items ?? [])
+    .filter((item) => item.ok !== false && item.slug)
+    .map((item) => item.slug as string),
+);
 
 /** Locale-specific default social preview (public/og-image-*.png). */
 export function localeOgImagePath(locale: string): string {
@@ -41,27 +47,18 @@ type BlogOgPost = {
   };
 };
 
-/** Blog article OG — per-slug JPEG when generated, else locale default. */
+/** Blog article OG — per-slug JPEG when listed in og-manifest, else locale default. */
 export function resolveBlogOgImagePath(post: BlogOgPost, locale: string): string {
   if (post.seo?.ogImage) {
     return post.seo.ogImage;
   }
 
   const slug = post.slug || "";
-  const cwd = typeof process.cwd === "function" ? process.cwd() : "";
-
-  if (slug && cwd) {
-    const variant = post.seo?.ogVariant === "b" ? "b" : "a";
-    const ogRoot = path.join(cwd, "assets", "og");
-    const variantFile = path.join(ogRoot, "variants", `${slug}-b.jpg`);
-    const primaryFile = path.join(ogRoot, `${slug}.jpg`);
-    const defaultFile = path.join(ogRoot, "default.jpg");
-    const legacyDefault = path.join(cwd, "assets", "images", "blog", "og-default.jpg");
-
-    if (variant === "b" && existsSync(variantFile)) return `/assets/og/variants/${slug}-b.jpg`;
-    if (existsSync(primaryFile)) return `/assets/og/${slug}.jpg`;
-    if (existsSync(defaultFile)) return "/assets/og/default.jpg";
-    if (existsSync(legacyDefault)) return "/assets/images/blog/og-default.jpg";
+  if (slug && BLOG_OG_SLUGS.has(slug)) {
+    if (post.seo?.ogVariant === "b") {
+      return `/assets/og/variants/${slug}-b.jpg`;
+    }
+    return `/assets/og/${slug}.jpg`;
   }
 
   return localeOgImagePath(locale);
