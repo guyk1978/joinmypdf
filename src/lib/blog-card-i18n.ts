@@ -1,36 +1,29 @@
 import type { BlogPost } from "@/lib/types";
+import {
+  resolveBlogDisplayCategory,
+  type BlogDisplayCategory,
+} from "@/lib/blog-categories";
 
 type BlogTranslator = {
-  (key: "badges.howTo"): string;
-  (key: "badges.privacy"): string;
-  (key: "badges.mobile"): string;
-  (key: "badges.tips"): string;
-  (key: "badges.comparison"): string;
-  (key: "badges.defaultGuide"): string;
-  (key: "readTimeMinutes", values: { mins: number }): string;
+  (key: string, values?: { mins: number }): string;
 };
 
-function postHintKey(post: BlogPost): string {
-  const category = post.category?.trim() || "";
-  return `${category} ${post.slug} ${post.title}`.toLowerCase();
+const CATEGORY_LABEL_KEYS: Record<BlogDisplayCategory, "categories.conversion" | "categories.editing" | "categories.security" | "categories.advanced"> = {
+  conversion: "categories.conversion",
+  editing: "categories.editing",
+  security: "categories.security",
+  advanced: "categories.advanced",
+};
+
+/** Localized category pill for blog cards and article headers. */
+export function getLocalizedBlogCategoryLabel(post: BlogPost, t: BlogTranslator): string {
+  const category = resolveBlogDisplayCategory(post);
+  return t(CATEGORY_LABEL_KEYS[category]);
 }
 
-/** Localized badge label for blog cards and article headers. */
+/** @deprecated Use getLocalizedBlogCategoryLabel */
 export function getLocalizedBlogBadgeLabel(post: BlogPost, t: BlogTranslator): string {
-  const category = post.category?.trim() || "";
-  const key = postHintKey(post);
-
-  if (key.includes("how-to") || key.includes("how to") || key.startsWith("how-")) {
-    return t("badges.howTo");
-  }
-  if (key.includes("privacy") || key.includes("security") || key.includes("safe")) {
-    return category || t("badges.privacy");
-  }
-  if (key.includes("mobile")) return t("badges.mobile");
-  if (key.includes("tip")) return t("badges.tips");
-  if (key.includes("compare") || key.includes("vs")) return t("badges.comparison");
-
-  return category || t("badges.defaultGuide");
+  return getLocalizedBlogCategoryLabel(post, t);
 }
 
 /** Localized read-time string for blog cards. */

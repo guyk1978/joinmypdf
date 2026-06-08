@@ -228,6 +228,12 @@
     "description": "Walkthroughs that link straight into the tools—built for real tasks like email limits, mobile workflows, and sensitive documents.",
     "readArticle": "Read article",
     "readTimeMinutes": "{mins} min read",
+    "categories": {
+      "conversion": "Conversion",
+      "editing": "Editing",
+      "security": "Security",
+      "advanced": "Advanced"
+    },
     "badges": {
       "howTo": "How-To",
       "privacy": "Privacy",

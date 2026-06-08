@@ -48,7 +48,7 @@ export default async function BlogIndexPage({ params }: Props) {
           </p>
         </header>
 
-        <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {posts.map((post, index) => (
             <BlogGuideCard key={post.slug} post={post} index={index} />
           ))}

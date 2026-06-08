@@ -228,6 +228,12 @@
     "description": "מדריכים שמקשרים ישירות לכלים — בנויים למשימות אמיתיות כמו מגבלות דוא\"ל, תהליכי עבודה בנייד ומסמכים רגישים.",
     "readArticle": "קרא מאמר",
     "readTimeMinutes": "{mins} דק' קריאה",
+    "categories": {
+      "conversion": "המרה",
+      "editing": "עריכה",
+      "security": "אבטחה",
+      "advanced": "מתקדם"
+    },
     "badges": {
       "howTo": "מדריך",
       "privacy": "פרטיות",

@@ -1,53 +1,37 @@
 import { Clock } from "lucide-react";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import {
-  getBlogCardAccentForPost,
-  getBlogExcerpt,
-} from "@/lib/blog-card-utils";
+  getBlogCategoryBadgeClass,
+  resolveBlogDisplayCategory,
+} from "@/lib/blog-categories";
 import {
-  getLocalizedBlogBadgeLabel,
+  getLocalizedBlogCategoryLabel,
   getLocalizedBlogReadTime,
 } from "@/lib/blog-card-i18n";
 import type { BlogPost } from "@/lib/types";
 
-export async function BlogGuideCard({ post, index = 0 }: { post: BlogPost; index?: number }) {
+export async function BlogGuideCard({ post }: { post: BlogPost; index?: number }) {
   const t = await getTranslations("Blog");
-  const locale = await getLocale();
-  const accent = getBlogCardAccentForPost(post, index);
-  const label = getLocalizedBlogBadgeLabel(post, t);
-  const description = getBlogExcerpt(post);
+  const category = resolveBlogDisplayCategory(post);
+  const label = getLocalizedBlogCategoryLabel(post, t);
   const readTime = getLocalizedBlogReadTime(post, t);
-  const arrow = locale === "he" ? "←" : "→";
+  const badgeClass = getBlogCategoryBadgeClass(category);
 
   return (
     <Link
       href={`/blog/${post.slug}/`}
-      className={`group flex h-full cursor-pointer flex-col justify-between rounded-none border border-neutral-300 border-t-2 bg-neutral-200 p-2 transition-colors hover:border-neutral-500 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-neutral-600 ${accent.borderTopClassName}`}
+      className="group flex h-full flex-col rounded-xl bg-transparent p-4 transition-colors hover:bg-neutral-100/80 dark:hover:bg-neutral-900/50"
       prefetch={false}
     >
-      <div>
-        <span className={accent.badgeClassName}>{label}</span>
-        <h2
-          className={`mb-1 mt-2 line-clamp-2 text-base font-bold text-black transition-colors dark:text-neutral-200 ${accent.titleHoverClassName}`}
-        >
-          {post.title}
-        </h2>
-        {description ? (
-          <p className="mb-2 line-clamp-3 text-xs text-black dark:text-neutral-200">{description}</p>
-        ) : (
-          <div className="mb-2" />
-        )}
-      </div>
-      <div className="flex items-center justify-between gap-2 border-t border-neutral-300 pt-2 dark:border-neutral-800">
-        <span className="inline-flex items-center gap-1 text-xs text-black dark:text-neutral-200">
-          <Clock className="h-3 w-3 shrink-0" aria-hidden="true" />
-          {readTime}
-        </span>
-        <span className="text-xs font-semibold text-black group-hover:underline dark:text-neutral-200">
-          {t("readArticle")} {arrow}
-        </span>
-      </div>
+      <span className={badgeClass}>{label}</span>
+      <h2 className="mt-3 line-clamp-3 text-base font-bold leading-snug tracking-tight text-ink transition-colors group-hover:text-ink dark:text-neutral-100 dark:group-hover:text-white md:text-lg">
+        {post.title}
+      </h2>
+      <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-500">
+        <Clock className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+        {readTime}
+      </p>
     </Link>
   );
 }
