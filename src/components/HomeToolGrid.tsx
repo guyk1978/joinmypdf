@@ -15,9 +15,14 @@ export function HomeToolGrid({ items }: HomeToolGridProps) {
 
   return (
     <div className="home-tool-grid-shell mx-auto flex w-full flex-col items-center">
-      <div className="home-sub-header">
-        <p className="home-sub-header__text">{t("subHeader")}</p>
-      </div>
+      <header className="home-sub-header flex flex-col items-center gap-1.5 text-center">
+        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-200 md:text-4xl">
+          {t("headline")}
+        </h1>
+        <p className="text-lg font-medium leading-snug text-neutral-500 dark:text-neutral-400">
+          {t("subHeader")}
+        </p>
+      </header>
 
       <div className="home-tool-grid">
         {items.map((item) => (
