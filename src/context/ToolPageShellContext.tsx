@@ -6,27 +6,31 @@ type ToolPageShellContextValue = {
   headline: string;
   subline: string;
   stacked: boolean;
+  slug: string;
 };
 
 const ToolPageShellContext = createContext<ToolPageShellContextValue>({
   headline: "",
   subline: "",
   stacked: false,
+  slug: "",
 });
 
 export function ToolPageShellProvider({
   headline,
   subline,
+  slug = "",
   stacked = false,
   children,
 }: {
   headline: string;
   subline: string;
+  slug?: string;
   stacked?: boolean;
   children: ReactNode;
 }) {
   return (
-    <ToolPageShellContext.Provider value={{ headline, subline, stacked }}>
+    <ToolPageShellContext.Provider value={{ headline, subline, stacked, slug }}>
       {children}
     </ToolPageShellContext.Provider>
   );

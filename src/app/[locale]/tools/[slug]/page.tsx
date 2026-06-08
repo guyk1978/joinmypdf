@@ -178,7 +178,7 @@ export default async function ToolPage({
       <main className={`${toolPageDashboardWidth} px-4 py-8 md:py-10`}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
-        <ToolPageShellProvider headline={displayTitle} subline={subtitle} stacked>
+        <ToolPageShellProvider headline={displayTitle} subline={subtitle} slug={slug} stacked>
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "protect" ? (

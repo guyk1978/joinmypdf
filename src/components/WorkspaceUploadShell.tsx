@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { clsx } from "clsx";
+import { ToolFavoriteButton } from "@/components/ToolFavoriteButton";
 import { ToolLocalProcessingBar } from "@/components/ToolLocalProcessingBar";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { useToolGlassTheme } from "@/context/ToolGlassContext";
@@ -32,6 +33,7 @@ export function WorkspaceUploadShell({
   const headline = headlineProp ?? pageShell.headline;
   const subline = sublineProp ?? pageShell.subline;
   const stacked = pageShell.stacked;
+  const slug = pageShell.slug;
   const hasHeader = Boolean(headline || subline);
 
   return (
@@ -43,9 +45,22 @@ export function WorkspaceUploadShell({
       )}
     >
       {hasHeader ? (
-        <header className={clsx("tool-upload-header w-full text-center", stacked ? "mb-4 px-4 pt-4" : "mb-6")}>
+        <header
+          className={clsx(
+            "tool-upload-header relative w-full text-center",
+            stacked ? "mb-4 px-4 pt-4" : "mb-6",
+          )}
+        >
+          {slug ? (
+            <ToolFavoriteButton slug={slug} className="absolute end-0 top-0" />
+          ) : null}
           {headline ? (
-            <h1 className="tool-glass-headline text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
+            <h1
+              className={clsx(
+                "tool-glass-headline text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl",
+                slug && "px-9",
+              )}
+            >
               {headline}
             </h1>
           ) : null}
