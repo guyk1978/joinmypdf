@@ -146,13 +146,6 @@ html.dark .home-hero__sub {
   color: #a3a3a3;
 }
 
-.home-hero__sword {
-  order: 3;
-  height: 6.5rem;
-  width: 2rem;
-  opacity: 0.85;
-}
-
 [dir="rtl"] .home-hero__visual {
   order: 2;
 }
@@ -168,8 +161,8 @@ html.dark .home-hero__sub {
 .home-hero__image {
   width: auto;
   height: auto;
-  max-height: 11rem;
-  max-width: min(100%, 18rem);
+  max-height: 9.375rem;
+  max-width: min(100%, 16rem);
   object-fit: contain;
 }
 
@@ -183,7 +176,6 @@ html.dark .home-hero__sub {
   }
 
   .home-hero__copy,
-  .home-hero__sword,
   .home-hero__visual {
     order: unset;
   }
@@ -191,11 +183,6 @@ html.dark .home-hero__sub {
   .home-hero__copy {
     text-align: start;
     flex: 1 1 0%;
-  }
-
-  .home-hero__sword {
-    height: 7.5rem;
-    width: 2.25rem;
   }
 
   [dir="ltr"] .home-hero__visual {
@@ -207,19 +194,8 @@ html.dark .home-hero__sub {
   }
 
   .home-hero__image {
-    max-height: 16rem;
-    max-width: 22rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .home-hero__image {
-    max-height: 18rem;
-    max-width: 26rem;
-  }
-
-  .home-hero__sword {
-    height: 8.5rem;
+    max-height: 12.5rem;
+    max-width: 20rem;
   }
 }
 
