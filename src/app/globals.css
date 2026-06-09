@@ -103,7 +103,7 @@ html.dark .home-watermark__layer--dark {
 }
 
 html.dark .home-page-shell {
-  background-color: var(--home-page-bg, #1a1e21);
+  background-color: var(--home-page-bg, #1c2023);
 }
 
 .home-page-shell .home-tool-grid-page {
@@ -294,7 +294,7 @@ html.dark .favorites-page-shell .favorites-empty-panel {
 }
 
 html.dark {
-  --site-page-bg: #1a1e21;
+  --site-page-bg: #1c2023;
 }
 
 html.dark body {
