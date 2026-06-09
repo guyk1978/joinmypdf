@@ -7,10 +7,10 @@ import { ToolGridCard } from "@/components/ToolGridCard";
 import type { ToolGridItem } from "@/lib/tool-grid";
 import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
 
-const HOME_HERO_TITLE_EN_DARK = "/heder-dark-EN.png";
-const HOME_HERO_TITLE_HE_DARK = "/heder-dark-HE.png";
-const HOME_HERO_TITLE_EN_LIGHT = "/heder-light-EN.png";
-const HOME_HERO_TITLE_HE_LIGHT = "/heder-light-HE.png";
+const HOME_HERO_TITLE_EN_DARK = "/heder-dark-EN-1.png";
+const HOME_HERO_TITLE_HE_DARK = "/heder-dark-HE-1.png";
+const HOME_HERO_TITLE_EN_LIGHT = "/heder-light-EN-1.png";
+const HOME_HERO_TITLE_HE_LIGHT = "/heder-light-HE-1.png";
 
 type HomeToolGridProps = {
   items: ToolGridItem[];

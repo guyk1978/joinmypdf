@@ -36,7 +36,7 @@ export const mattePanelInset =
 
 /** App page shell — neutral-50 light / matte charcoal dark */
 export const appShell =
-  "min-h-screen bg-neutral-50 text-neutral-900 dark:bg-[var(--site-page-bg,#0a0b10)] dark:text-neutral-200";
+  "min-h-screen bg-neutral-50 text-neutral-900 dark:bg-[var(--site-page-bg,#1a1e21)] dark:text-neutral-200";
 
 /** Shared gap between tool cards — matches .home-tool-grid in globals.css */
 export const toolGridGap = "gap-3";
