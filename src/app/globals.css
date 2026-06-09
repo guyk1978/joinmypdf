@@ -133,6 +133,10 @@ html.dark .home-page-shell {
   max-width: none;
 }
 
+.privacy-first-hero {
+  background-color: var(--site-page-bg, transparent);
+}
+
 .home-tool-grid-shell {
   padding: 1.5rem;
 }

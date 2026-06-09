@@ -67,6 +67,8 @@ const publicRootAssets = [
   "heder-dark-HE-2.png",
   "heder-light-EN-2.png",
   "heder-light-HE-2.png",
+  "heder-privacy-first-EN.png",
+  "heder-privacy-first-HE.png",
 ];
 for (const filename of publicRootAssets) {
   await copyFile(

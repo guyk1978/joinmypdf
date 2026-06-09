@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 export const runtime = "edge";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
+import { PrivacyFirstHero } from "@/components/PrivacyFirstHero";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -104,22 +105,11 @@ export default async function PrivacyFirstPage({ params }: Props) {
       />
       <JsonLd data={faqLd(faqs)} />
       <SiteHeader />
+      <PrivacyFirstHero locale={locale} alt={t("title")} />
       <main className={clsx(toolPageDashboardWidth, "px-4 py-8 md:py-10")}>
         <div className={contentDashboardStack}>
           <section className={clsx(contentDashboardPanel, "text-center")}>
-            <p className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-              {t("badge")}
-            </p>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
-              {t("title")}
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 md:text-base">
-              <strong className="text-neutral-900 dark:text-white">{t("heroStrong")}</strong>
-            </p>
-            <p className="mx-auto mt-2 max-w-2xl text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm">
-              {t("heroBody")}
-            </p>
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-[3px]">
+            <div className="flex flex-wrap items-center justify-center gap-[3px]">
               <Link
                 href="/tools/"
                 className="inline-flex items-center justify-center rounded-md border border-neutral-400 bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800 dark:border-neutral-500 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-white"
