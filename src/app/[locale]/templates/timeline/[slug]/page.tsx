@@ -10,22 +10,24 @@ import {
   TIMELINE_TEMPLATE_PROFILES,
 } from "@/lib/timeline/templates";
 import { breadcrumbLd, JsonLd } from "@/lib/schema";
+import { buildDefaultSocialImages } from "@/lib/og-images";
 import { absoluteUrl } from "@/lib/site";
 import { ctaSecondary } from "@/lib/cta-styles";
 
-type PageProps = { params: Promise<{ slug: string }> };
+type PageProps = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
   return TIMELINE_TEMPLATE_PROFILES.map((profile) => ({ slug: profile.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const profile = getTimelineTemplateBySlug(slug);
   if (!profile) return {};
 
   const canonicalPath = `/templates/timeline/${profile.slug}/`;
   const pageUrl = absoluteUrl(canonicalPath);
+  const social = buildDefaultSocialImages(locale, { alt: profile.metaTitle });
 
   return {
     title: profile.metaTitle,
@@ -39,20 +41,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "JoinMyPDF",
       locale: profile.locale,
       type: "website",
-      images: [
-        {
-          url: absoluteUrl(`${canonicalPath}opengraph-image`),
-          width: 1200,
-          height: 630,
-          alt: profile.metaTitle,
-        },
-      ],
+      ...social.openGraph,
     },
     twitter: {
       card: "summary_large_image",
       title: profile.metaTitle,
       description: profile.metaDescription,
-      images: [absoluteUrl(`${canonicalPath}opengraph-image`)],
+      ...social.twitter,
     },
   };
 }
