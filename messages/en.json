@@ -73,7 +73,8 @@
   },
   "CookieConsent": {
     "title": "Cookie preferences",
-    "message": "We use cookies to improve your experience and analyze site traffic via Google Analytics.",
+    "message": "This site uses cookies for Google Analytics. To continue using our tools, you must accept our cookie policy.",
+    "declineDenied": "Access denied: You must accept the cookie policy to use this site.",
     "privacyLink": "Privacy Policy",
     "accept": "Accept",
     "decline": "Decline"
