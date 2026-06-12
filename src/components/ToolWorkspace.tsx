@@ -319,7 +319,7 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
       />
       </WorkspaceUploadShell>
 
-      <MapDiagramCrossLink className="max-w-2xl mx-auto" />
+      <MapDiagramCrossLink className="mx-auto mt-6 max-w-2xl" />
 
       {tool.operation === "compress" ? (
         <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">

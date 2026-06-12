@@ -39,14 +39,17 @@ export const appShell =
   "min-h-screen bg-neutral-50 text-neutral-900 dark:bg-[var(--site-page-bg,#1c2023)] dark:text-neutral-200";
 
 /** Shared gap between tool cards — matches .home-tool-grid in globals.css */
-export const toolGridGap = "gap-3";
+export const toolGridGap = "gap-6";
 
 /** Homepage & favorites tool grid cards */
 export const homeToolGridCard =
-  "relative flex min-h-[124px] flex-col items-center justify-center rounded-[20px] border border-neutral-200 bg-white/70 p-5 text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] backdrop-blur-md transition-[background-color,box-shadow] hover:bg-white/85 hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] dark:border-white/5 dark:bg-neutral-900/50 dark:shadow-none dark:hover:bg-neutral-900/60 dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)]";
+  "relative flex min-h-[148px] flex-col items-center justify-center rounded-2xl border border-neutral-200 bg-white/70 p-6 text-center shadow-[0_4px_24px_rgba(0,0,0,0.05)] backdrop-blur-md transition-all duration-300 ease-out hover:z-10 hover:scale-[1.02] hover:border-neutral-400 hover:bg-white/85 hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500/50 dark:border-neutral-800 dark:bg-neutral-900/50 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] dark:hover:border-neutral-600 dark:hover:bg-white/[0.06] dark:hover:shadow-[0_20px_56px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)]";
 
 export const homeToolGridCardLabel =
-  "mt-3 line-clamp-2 text-xs font-semibold leading-snug tracking-wide text-neutral-900 dark:text-neutral-200";
+  "mt-4 line-clamp-2 text-sm font-bold leading-snug tracking-tight text-neutral-900 dark:text-neutral-50";
+
+export const homeToolGridCardFavorite =
+  "home-tool-grid-card__favorite absolute end-3 top-3 rounded-lg border border-white/10 bg-black/25 p-1.5 opacity-0 backdrop-blur-sm transition-all duration-200 max-sm:opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 dark:border-white/10 dark:bg-black/40";
 
 export const homeSecondaryPillBtn =
   "inline-flex items-center justify-center rounded-full border border-neutral-200 bg-white/70 px-8 py-3.5 text-sm font-bold tracking-wide text-neutral-900 shadow-[0_4px_20px_rgba(0,0,0,0.05)] backdrop-blur-md transition-[background-color,box-shadow] hover:border-neutral-300 hover:bg-white hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] dark:border-white/15 dark:bg-neutral-900/50 dark:text-neutral-200 dark:shadow-none dark:hover:border-white/25 dark:hover:bg-neutral-900/70";

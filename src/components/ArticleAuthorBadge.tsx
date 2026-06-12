@@ -1,4 +1,5 @@
 import { resolveArticleAuthor } from "@/lib/article-author";
+import { clsx } from "clsx";
 import type { BlogPost } from "@/lib/types";
 
 type Props = {
@@ -27,7 +28,10 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
 
   return (
     <aside
-      className={`flex items-center gap-2.5 rounded-none border border-white/10 bg-white/[0.03] px-2.5 py-2 sm:gap-3 sm:px-3 sm:py-2.5 ${className}`}
+      className={clsx(
+        "article-author-badge flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/50 px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md sm:gap-4 sm:px-5 sm:py-4 dark:border-neutral-800 dark:bg-neutral-900/50",
+        className,
+      )}
       aria-label={`Written by ${author.name}, ${author.role}`}
     >
       {author.avatarUrl ? (
@@ -35,13 +39,13 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
         <img
           src={author.avatarUrl}
           alt=""
-          width={36}
-          height={36}
-          className="h-9 w-9 shrink-0 rounded-none border border-white/15 object-cover"
+          width={44}
+          height={44}
+          className="h-11 w-11 shrink-0 rounded-lg border border-white/10 object-cover"
         />
       ) : (
         <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 text-xs font-semibold tracking-wide text-black dark:text-neutral-200"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-neutral-700 bg-white/[0.04] text-sm font-semibold tracking-wide text-neutral-200"
           aria-hidden
         >
           {author.initials}
@@ -49,13 +53,13 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
       )}
 
       <div className="min-w-0 flex-1">
-        <p className="text-xs leading-snug text-ink sm:text-sm">
-          <span className="text-ink-muted">Written by </span>
-          <span className="font-medium text-ink">{author.name}</span>
-          <span className="text-ink-muted"> | {author.role}</span>
+        <p className="text-sm leading-snug text-neutral-300 sm:text-base">
+          <span className="text-neutral-500">Written by </span>
+          <span className="font-semibold text-neutral-100">{author.name}</span>
+          <span className="text-neutral-500"> · {author.role}</span>
         </p>
-        <p className="mt-0.5 flex items-start gap-1 text-[10px] leading-snug text-ink-muted sm:mt-1 sm:items-center sm:text-[11px]">
-          <CheckBadgeIcon className="mt-px h-3 w-3 shrink-0 text-black dark:text-neutral-200 sm:mt-0 sm:h-3.5 sm:w-3.5" />
+        <p className="mt-1 flex items-start gap-1.5 text-xs leading-relaxed text-neutral-500 sm:items-center">
+          <CheckBadgeIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400 sm:mt-0" />
           <span>{author.verifiedLabel}</span>
         </p>
       </div>

@@ -48,7 +48,7 @@ export function WorkspaceUploadShell({
         <header
           className={clsx(
             "tool-upload-header relative w-full text-center",
-            stacked ? "mb-4 px-4 pt-4" : "mb-6",
+            stacked ? "mb-6 px-4 pt-2" : "mb-8",
           )}
         >
           {slug ? (
@@ -57,23 +57,23 @@ export function WorkspaceUploadShell({
           {headline ? (
             <h1
               className={clsx(
-                "tool-glass-headline text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl",
-                slug && "px-9",
+                "tool-glass-headline text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white md:text-5xl",
+                slug && "px-10",
               )}
             >
               {headline}
             </h1>
           ) : null}
           {subline ? (
-            <p className="tool-glass-subline mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-base">
+            <p className="tool-glass-subline mx-auto mt-3 max-w-xl text-base font-normal leading-relaxed text-neutral-500 dark:text-neutral-400 md:text-lg">
               {subline}
             </p>
           ) : null}
         </header>
       ) : null}
 
-      <div className={clsx("tool-glass-container w-full", theme.shell)}>
-        <div className="tool-glass-shell__body p-6 md:p-8">{children}</div>
+      <div className={clsx("tool-glass-container relative w-full", theme.shell)}>
+        <div className="tool-glass-shell__body p-8 pb-16 md:p-10 md:pb-[4.5rem]">{children}</div>
         {showPrivacyBadge ? <ToolLocalProcessingBar /> : null}
       </div>
     </div>

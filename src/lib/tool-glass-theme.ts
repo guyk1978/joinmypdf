@@ -8,9 +8,9 @@ export type ToolGlassTheme = {
   accentRgb: string;
   /** @deprecated Use accentRgb — kept for CSS var compatibility */
   glowRgb: string;
-  /** Upper upload shell — flat neutral panel */
+  /** Upper upload shell — industrial glass workspace panel */
   shell: string;
-  /** Inner drop-zone — minimalist dashed frame */
+  /** Inner drop-zone — minimalist dashed glass frame */
   dropzone: string;
   dropzoneActive: string;
   dropzoneHover: string;
@@ -22,13 +22,22 @@ export type ToolGlassTheme = {
 };
 
 export const TOOL_UPLOAD_SHELL =
-  "tool-upload-upper-panel rounded-none border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900";
+  "tool-upload-upper-panel overflow-hidden rounded-2xl border border-neutral-200 bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]";
 
 export const TOOL_GLASS_DROPZONE_BASE =
-  "tool-upload-zone-inner rounded-none border border-dashed border-neutral-300 bg-neutral-50 transition-colors duration-150 dark:border-neutral-700 dark:bg-neutral-950/60";
+  "tool-upload-zone-inner rounded-xl border border-dashed border-neutral-300 bg-neutral-50/40 transition-all duration-300 dark:border-neutral-800 dark:bg-white/[0.02]";
+
+export const TOOL_GLASS_DROPZONE_HOVER =
+  "hover:border-neutral-400 hover:bg-white/60 dark:hover:border-neutral-600 dark:hover:bg-white/[0.04] dark:hover:shadow-[0_0_32px_rgba(var(--tool-accent-rgb),0.14)]";
 
 const CTA_BASE =
-  "rounded-md border border-neutral-400 bg-transparent px-6 py-2.5 text-sm font-semibold text-neutral-900 dark:border-neutral-500 dark:text-neutral-100";
+  "tool-upload-cta rounded-xl border border-[rgba(var(--tool-accent-rgb),0.45)] bg-[rgba(var(--tool-accent-rgb),0.1)] px-8 py-3 text-sm font-bold tracking-wide text-neutral-900 shadow-[0_0_20px_rgba(var(--tool-accent-rgb),0.18),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-sm dark:text-white";
+
+const CTA_HOVER =
+  "hover:border-[rgba(var(--tool-accent-rgb),0.7)] hover:bg-[rgba(var(--tool-accent-rgb),0.18)] hover:shadow-[0_0_32px_rgba(var(--tool-accent-rgb),0.32),inset_0_1px_0_rgba(255,255,255,0.16)]";
+
+const TOOL_GLASS_PANEL =
+  "rounded-xl border border-neutral-200 bg-white/70 p-5 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/50";
 
 export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
   convert: {
@@ -38,11 +47,12 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     glowRgb: "239, 68, 68",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
-    dropzoneActive: "tool-upload-zone--active border-neutral-400 dark:border-neutral-500",
-    dropzoneHover: "",
-    panel: "rounded-none border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900/80",
+    dropzoneActive:
+      "tool-upload-zone--active !border-[rgba(var(--tool-accent-rgb),0.55)] !bg-[rgba(var(--tool-accent-rgb),0.06)] shadow-[0_0_36px_rgba(var(--tool-accent-rgb),0.22)]",
+    dropzoneHover: TOOL_GLASS_DROPZONE_HOVER,
+    panel: TOOL_GLASS_PANEL,
     cta: CTA_BASE,
-    ctaHover: "hover:border-neutral-600 hover:bg-neutral-100 dark:hover:border-neutral-400 dark:hover:bg-neutral-800",
+    ctaHover: CTA_HOVER,
   },
   edit: {
     id: "edit",
@@ -51,11 +61,12 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     glowRgb: "16, 185, 129",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
-    dropzoneActive: "tool-upload-zone--active border-neutral-400 dark:border-neutral-500",
-    dropzoneHover: "",
-    panel: "rounded-none border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900/80",
+    dropzoneActive:
+      "tool-upload-zone--active !border-[rgba(var(--tool-accent-rgb),0.55)] !bg-[rgba(var(--tool-accent-rgb),0.06)] shadow-[0_0_36px_rgba(var(--tool-accent-rgb),0.22)]",
+    dropzoneHover: TOOL_GLASS_DROPZONE_HOVER,
+    panel: TOOL_GLASS_PANEL,
     cta: CTA_BASE,
-    ctaHover: "hover:border-neutral-600 hover:bg-neutral-100 dark:hover:border-neutral-400 dark:hover:bg-neutral-800",
+    ctaHover: CTA_HOVER,
   },
   optimize: {
     id: "optimize",
@@ -64,11 +75,12 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     glowRgb: "249, 115, 22",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
-    dropzoneActive: "tool-upload-zone--active border-neutral-400 dark:border-neutral-500",
-    dropzoneHover: "",
-    panel: "rounded-none border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900/80",
+    dropzoneActive:
+      "tool-upload-zone--active !border-[rgba(var(--tool-accent-rgb),0.55)] !bg-[rgba(var(--tool-accent-rgb),0.06)] shadow-[0_0_36px_rgba(var(--tool-accent-rgb),0.22)]",
+    dropzoneHover: TOOL_GLASS_DROPZONE_HOVER,
+    panel: TOOL_GLASS_PANEL,
     cta: CTA_BASE,
-    ctaHover: "hover:border-neutral-600 hover:bg-neutral-100 dark:hover:border-neutral-400 dark:hover:bg-neutral-800",
+    ctaHover: CTA_HOVER,
   },
   security: {
     id: "security",
@@ -77,11 +89,12 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     glowRgb: "139, 92, 246",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
-    dropzoneActive: "tool-upload-zone--active border-neutral-400 dark:border-neutral-500",
-    dropzoneHover: "",
-    panel: "rounded-none border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900/80",
+    dropzoneActive:
+      "tool-upload-zone--active !border-[rgba(var(--tool-accent-rgb),0.55)] !bg-[rgba(var(--tool-accent-rgb),0.06)] shadow-[0_0_36px_rgba(var(--tool-accent-rgb),0.22)]",
+    dropzoneHover: TOOL_GLASS_DROPZONE_HOVER,
+    panel: TOOL_GLASS_PANEL,
     cta: CTA_BASE,
-    ctaHover: "hover:border-neutral-600 hover:bg-neutral-100 dark:hover:border-neutral-400 dark:hover:bg-neutral-800",
+    ctaHover: CTA_HOVER,
   },
 };
 

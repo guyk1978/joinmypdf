@@ -1,32 +1,11 @@
 "use client";
 
 import { clsx } from "clsx";
+import { Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { HTMLAttributes, ReactNode } from "react";
 import { useToolGlassTheme } from "@/context/ToolGlassContext";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
-
-function UploadDocumentIcon({ className, active }: { className?: string; active?: boolean }) {
-  return (
-    <svg
-      width="56"
-      height="56"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-      className={clsx(
-        "text-neutral-500 transition-transform duration-200 dark:text-neutral-400",
-        active && "scale-105 text-neutral-400 dark:text-neutral-300",
-        className,
-      )}
-      aria-hidden
-    >
-      <path d="M7 2.5H14.5L20.5 8.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V4.25C5.25 3.2835 6.0335 2.5 7 2.5Z" opacity="0.85" />
-      <path d="M14.5 2.5V7.5C14.5 8.05228 14.9477 8.5 15.5 8.5H20.5" opacity="0.45" />
-      <path d="M7.25 14.5H20.5V19.25C20.5 20.2165 19.7165 21 18.75 21H7C6.0335 21 5.25 20.2165 5.25 19.25V14.5H7.25Z" opacity="0.95" />
-    </svg>
-  );
-}
 
 function SelectFilesCta({
   label,
@@ -40,7 +19,7 @@ function SelectFilesCta({
   return (
     <span
       className={clsx(
-        "inline-flex items-center justify-center transition-all duration-200",
+        "inline-flex items-center justify-center transition-all duration-300",
         className,
       )}
       aria-label={ariaLabel}
@@ -93,41 +72,65 @@ export function FileUploadZone({
   return (
     <div
       className={clsx(
-        "tool-upload-zone group relative flex w-full flex-col items-center justify-center p-8 text-center md:p-10",
+        "tool-upload-zone group relative flex w-full flex-col items-center justify-center px-6 py-12 text-center md:px-10 md:py-14",
         theme.dropzone,
-        isHero ? "min-h-[260px] md:min-h-[280px]" : "min-h-[240px] md:min-h-[260px]",
+        theme.dropzoneHover,
+        isHero ? "min-h-[280px] md:min-h-[300px]" : "min-h-[260px] md:min-h-[280px]",
         active && theme.dropzoneActive,
         className,
       )}
       {...rest}
     >
       {input}
-      <div className="flex w-full flex-col items-center justify-center">
-        <UploadDocumentIcon active={active} />
-        <div className="mt-5 max-w-md space-y-2 text-center">
-          <p className="text-base font-bold tracking-tight text-ink dark:text-white md:text-lg">{instruction}</p>
-          {description ? (
-            <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400 md:text-sm">{description}</p>
-          ) : null}
+      <div className="flex w-full max-w-md flex-col items-center justify-center">
+        <div
+          className={clsx(
+            "flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-200/80 bg-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-sm transition-all duration-300 dark:border-neutral-700 dark:bg-white/[0.04] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
+            active && "scale-105 border-[rgba(var(--tool-accent-rgb),0.45)] shadow-[0_0_28px_rgba(var(--tool-accent-rgb),0.2)]",
+            "group-hover:border-neutral-400 group-hover:shadow-[0_0_24px_rgba(var(--tool-accent-rgb),0.12)] dark:group-hover:border-neutral-600",
+          )}
+          aria-hidden
+        >
+          <Upload
+            className={clsx(
+              "h-7 w-7 text-neutral-500 transition-colors duration-300 dark:text-neutral-400",
+              active && "text-[rgb(var(--tool-accent-rgb))] dark:text-[rgb(var(--tool-accent-rgb))]",
+            )}
+          />
         </div>
+
+        {instruction ? (
+          <p className="mt-6 text-sm font-medium tracking-tight text-neutral-600 dark:text-neutral-300 md:text-base">
+            {instruction}
+          </p>
+        ) : null}
+
+        {description ? (
+          <p className="mt-2 text-xs font-normal leading-relaxed text-neutral-500 dark:text-neutral-500 md:text-sm">
+            {description}
+          </p>
+        ) : null}
+
         <SelectFilesCta
           label={common("selectFiles")}
           ariaLabel={common("selectFilesAria")}
-          className={clsx("mt-4", theme.cta, theme.ctaHover)}
+          className={clsx("mt-6", theme.cta, theme.ctaHover)}
         />
+
         {showFormatBadges && supportedFormats.length ? (
-          <div className="flex w-full flex-wrap items-center justify-center gap-1.5 pt-1">
+          <div className="mt-5 flex w-full flex-wrap items-center justify-center gap-2">
             {supportedFormats.map((format) => (
               <span
                 key={format}
-                className="inline-flex items-center rounded-md border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-neutral-400"
+                className="inline-flex items-center rounded-full border border-neutral-200/80 bg-white/50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-neutral-500 backdrop-blur-sm dark:border-neutral-700 dark:bg-white/[0.04] dark:text-neutral-400"
               >
                 {format}
               </span>
             ))}
           </div>
         ) : null}
-        {footer ? <div className="w-full shrink-0 pt-2">{footer}</div> : null}
+
+        {footer ? <div className="w-full shrink-0 pt-4">{footer}</div> : null}
         {children}
       </div>
     </div>

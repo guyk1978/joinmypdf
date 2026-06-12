@@ -1,25 +1,25 @@
-/** Flat background colors sampled from homepage header banners (upper field area). */
+/** Industrial dark glassmorphism theme tokens for the homepage. */
 export const HOME_HERO_BG = {
-  dark: { en: "#1c2023", he: "#1c2023" },
-  light: { en: "#ffffff", he: "#ffffff" },
+  dark: { en: "#0c0e12", he: "#0c0e12" },
+  light: { en: "#f4f5f7", he: "#f4f5f7" },
 } as const;
 
 export const HOME_GRID_THEME = {
   light: {
-    cardBg: "#e5e6de",
-    cardBgHover: "#ecece5",
-    cardText: "#2a3d52",
-    iconBg: "#d8d9d1",
-    iconBgHover: "#dfe0d8",
-    muted: "#8a8378",
+    cardBg: "rgba(255, 255, 255, 0.72)",
+    cardBgHover: "rgba(255, 255, 255, 0.88)",
+    cardText: "#0f172a",
+    iconBg: "rgba(255, 255, 255, 0.9)",
+    iconBgHover: "rgba(255, 255, 255, 0.98)",
+    muted: "#64748b",
   },
   dark: {
-    cardBg: "#262626",
-    cardBgHover: "#2e2e2e",
-    cardText: "#f0f0f0",
-    iconBg: "#303030",
-    iconBgHover: "#383838",
-    muted: "#a3a3a3",
+    cardBg: "rgba(23, 23, 23, 0.5)",
+    cardBgHover: "rgba(255, 255, 255, 0.06)",
+    cardText: "#fafafa",
+    iconBg: "rgba(255, 255, 255, 0.06)",
+    iconBgHover: "rgba(255, 255, 255, 0.1)",
+    muted: "#94a3b8",
   },
 } as const;
 
@@ -31,6 +31,8 @@ export type HomePageThemeVars = {
   "--home-icon-bg": string;
   "--home-icon-bg-hover": string;
   "--home-card-muted": string;
+  "--home-card-border": string;
+  "--home-card-border-hover": string;
 };
 
 export function getHomePageThemeVars(locale: string, isLight: boolean): HomePageThemeVars {
@@ -45,6 +47,8 @@ export function getHomePageThemeVars(locale: string, isLight: boolean): HomePage
     "--home-icon-bg": palette.iconBg,
     "--home-icon-bg-hover": palette.iconBgHover,
     "--home-card-muted": palette.muted,
+    "--home-card-border": isLight ? "rgb(229, 229, 229)" : "rgb(38, 38, 38)",
+    "--home-card-border-hover": isLight ? "rgb(163, 163, 163)" : "rgb(82, 82, 82)",
   };
 }
 

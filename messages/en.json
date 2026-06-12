@@ -55,15 +55,24 @@
     "addToFavorites": "Add to favorites",
     "removeFromFavorites": "Remove from favorites",
     "viewFavorites": "My favorites",
-    "headline": "Join My PDF",
-    "subHeader": "All PDF tools in one place: clean, easy, secure, and free!"
+    "headline": "PDF Tools Suite",
+    "subHeader": "Fast, private PDF processing in your browser. Files never leave your device.",
+    "privacyBadge": "Privacy First",
+    "heroFeaturesLabel": "Core benefits",
+    "heroFast": "Instant speed",
+    "heroLocal": "Local processing",
+    "heroPrivate": "Zero uploads"
   },
   "Favorites": {
     "metaTitle": "Favorite PDF tools — JoinMyPDF",
     "metaDescription": "Your saved PDF tools — stored locally in your browser, no account required.",
     "title": "My favorites",
     "description": "Tools you starred on the homepage. Saved only on this device.",
-    "emptyState": "No favorites yet. Star tools on the homepage to pin them here.",
+    "heroBadge": "Your command center",
+    "emptyTitle": "No favorites yet",
+    "emptyState": "Star tools from the homepage or All Tools directory to pin them here for quick access.",
+    "exploreAllTools": "Explore All Tools",
+    "savedCount": "{count, plural, one {# tool saved} other {# tools saved}}",
     "loading": "Loading favorites…",
     "removeFromList": "Remove from favorites"
   },
@@ -142,7 +151,7 @@
   },
   "ToolsDirectory": {
     "badge": "Tool directory",
-    "title": "All PDF tools",
+    "title": "All PDF Tools",
     "description": "{count}+ workflows for merge, compress, convert, sign, and protect—every tool runs locally in your browser. No uploads to our servers.",
     "clientSide": "Client-side processing",
     "privacyFirst": "Privacy First",
@@ -180,6 +189,7 @@
   },
   "Partners": {
     "mapDiagramAria": "Partner tool: MapDiagram",
+    "relatedToolEyebrow": "Related tool",
     "mapDiagramBody": "Creating a presentation or workflow? Build flowcharts & system designs visually with <brand>MapDiagram</brand>, then bring them here to merge.",
     "mapDiagramCta": "Open MapDiagram editor",
     "mapDiagram": "MapDiagram — flowcharts & diagrams",
@@ -232,6 +242,8 @@
     "title": "Latest Guides & Articles",
     "description": "Walkthroughs that link straight into the tools—built for real tasks like email limits, mobile workflows, and sensitive documents.",
     "readArticle": "Read article",
+    "featuredGuide": "Featured guide",
+    "allGuides": "All guides",
     "readTimeMinutes": "{mins} min read",
     "categories": {
       "conversion": "Conversion",
@@ -254,7 +266,8 @@
       "toolsInWorkflow": "Tools in this workflow",
       "faqTitle": "Frequently asked questions",
       "relatedArticles": "Related articles",
-      "relatedPages": "Related pages"
+      "relatedPages": "Related pages",
+      "openPrimaryTool": "Try {tool}"
     },
     "tocLabel": "On this page",
     "tocAriaLabel": "Table of contents",

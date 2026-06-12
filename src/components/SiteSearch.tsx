@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
+import { Search } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -41,13 +42,8 @@ function localizeSearchEntry(entry: SearchEntry, tTools: ReturnType<typeof useTr
   };
 }
 
-function SearchIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
-      <path d="M20 20L16.5 16.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
+function SearchIcon({ className }: { className?: string }) {
+  return <Search className={className ?? "site-search__icon-svg"} strokeWidth={2} aria-hidden="true" />;
 }
 
 type ResultsPanelProps = {
@@ -65,7 +61,7 @@ function ResultsPanel({ results, query, listId, inHeaderPanel }: ResultsPanelPro
   if (query.trim().length < 2) return null;
 
   const dropdownClass = inHeaderPanel
-    ? "site-search__dropdown site-search__dropdown--header-panel site-search__dropdown--open"
+    ? "site-search__dropdown site-search__dropdown--integrated site-search__dropdown--open"
     : "site-search__dropdown site-search__dropdown--open";
 
   if (!hasTools && !hasGuides) {
@@ -138,6 +134,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   const [query, setQuery] = useState("");
   const [resultsOpen, setResultsOpen] = useState(false);
   const [headerOpen, setHeaderOpen] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   const results = useMemo(() => filterSearchIndex(index, query), [index, query]);
@@ -157,6 +154,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
     setQuery("");
     setResultsOpen(false);
     setHeaderOpen(false);
+    setInputFocused(false);
     if (inputRef.current) inputRef.current.setAttribute("aria-expanded", "false");
   }, []);
 
@@ -242,7 +240,9 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
       <label className="site-search__label" htmlFor={inputId}>
         {t("label")}
       </label>
-      <div className={`site-search__field${inHeaderPanel ? " site-search__field--header-panel" : ""}`}>
+      <div
+        className={`site-search__field site-search__field--glass${inHeaderPanel ? " site-search__field--palette" : ""}`}
+      >
         <span className="site-search__icon">
           <SearchIcon />
         </span>
@@ -259,11 +259,17 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
           aria-controls={listId}
           aria-expanded={showResults}
           onChange={(e) => onInputChange(e.target.value)}
-          onFocus={onInputFocus}
+          onFocus={() => {
+            setInputFocused(true);
+            onInputFocus();
+          }}
+          onBlur={() => setInputFocused(false)}
         />
-        <kbd className="site-search__kbd" aria-hidden="true">
-          /
-        </kbd>
+        {!query && !inputFocused ? (
+          <kbd className="site-search__kbd" aria-hidden="true">
+            /
+          </kbd>
+        ) : null}
       </div>
       {showResults ? (
         <ResultsPanel results={results} query={query} listId={listId} inHeaderPanel={inHeaderPanel} />
@@ -298,12 +304,12 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
             <div
               ref={panelRef}
               id={panelId}
-              className="site-search__header-panel site-search__header-panel--open"
+              className="site-search__palette site-search__palette--open"
               role="dialog"
               aria-modal="true"
               aria-label={t("label")}
             >
-              <div className="site-search__header-panel-inner">{field(true)}</div>
+              <div className="site-search__palette-card">{field(true)}</div>
             </div>
           </>,
           document.body,
@@ -321,7 +327,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
       >
         <button
           type="button"
-          className={`site-search__toggle h-full rounded-none hover:bg-neutral-200 dark:hover:bg-neutral-800${headerOpen ? " site-search__toggle--active" : ""}`}
+          className={`site-search__toggle${headerOpen ? " site-search__toggle--active" : ""}`}
           aria-label={headerOpen ? t("closeSearch") : t("openSearch")}
           aria-expanded={headerOpen}
           aria-controls={panelId}
@@ -334,7 +340,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
             }
           }}
         >
-          <SearchIcon />
+          <SearchIcon className="site-search__toggle-icon" />
         </button>
       </div>
       {headerPanel}

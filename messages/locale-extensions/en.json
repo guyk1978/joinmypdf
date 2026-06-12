@@ -407,7 +407,27 @@
     "p3": "Limits still apply: browser memory, device performance, and PDF protections (passwords, restrictions) can block some tasks. Very large files may fail on low-memory devices—split first, then process in batches.",
     "p3Strong": "Limits",
     "p4": "Analytics may collect usage signals (for example Google Analytics) to understand which tools help users succeed. Configure an ad/analytics blocker if your policy requires it.",
-    "p4Strong": "Analytics"
+    "p4Strong": "Analytics",
+    "heroBadge": "Privacy & security",
+    "intro": "How JoinMyPDF handles your files — transparent, readable, and built on local browser processing.",
+    "localProcessingBadge": "Local processing",
+    "localProcessingHighlight": "Merge, split, compress, and convert in your browser. Your files are not sent to JoinMyPDF servers to execute those operations.",
+    "privacyFirstLink": "Learn about Privacy First",
+    "relatedLabel": "Related privacy resources",
+    "sections": {
+      "philosophy": {
+        "title": "Core philosophy"
+      },
+      "onDevice": {
+        "title": "On-device processing"
+      },
+      "performance": {
+        "title": "Performance constraints"
+      },
+      "analytics": {
+        "title": "Analytics"
+      }
+    }
   },
   "PrivacyFirst": {
     "metaTitle": "Privacy First — Private PDF Tools & Secure Processing",

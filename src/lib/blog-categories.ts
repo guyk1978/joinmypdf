@@ -12,10 +12,14 @@ const TOOL_CATEGORY_TO_BLOG: Record<string, BlogDisplayCategory> = {
 };
 
 export const BLOG_CATEGORY_BADGE_CLASS: Record<BlogDisplayCategory, string> = {
-  conversion: "inline-flex w-fit rounded-full bg-blue-500/20 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-blue-400",
-  editing: "inline-flex w-fit rounded-full bg-orange-500/20 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-orange-400",
-  security: "inline-flex w-fit rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-emerald-400",
-  advanced: "inline-flex w-fit rounded-full bg-purple-500/20 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-purple-400",
+  conversion:
+    "guide-category-badge guide-category-badge--conversion inline-flex w-fit rounded-full border border-blue-500/25 bg-blue-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-blue-300 backdrop-blur-sm",
+  editing:
+    "guide-category-badge guide-category-badge--editing inline-flex w-fit rounded-full border border-orange-500/25 bg-orange-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-orange-300 backdrop-blur-sm",
+  security:
+    "guide-category-badge guide-category-badge--security inline-flex w-fit rounded-full border border-emerald-500/25 bg-emerald-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-emerald-300 backdrop-blur-sm",
+  advanced:
+    "guide-category-badge guide-category-badge--advanced inline-flex w-fit rounded-full border border-purple-500/25 bg-purple-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-purple-300 backdrop-blur-sm",
 };
 
 function postHint(post: BlogPost): string {

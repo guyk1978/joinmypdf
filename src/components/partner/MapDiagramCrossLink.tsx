@@ -1,47 +1,39 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { clsx } from "clsx";
+import { ArrowUpRight, GitBranch } from "lucide-react";
 
 type Props = {
   className?: string;
 };
 
-function FlowchartIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-8 w-8 shrink-0" fill="none" aria-hidden>
-      <rect x="3" y="3" width="7" height="5" rx="0" fill="#525252" />
-      <rect x="14" y="3" width="7" height="5" rx="0" fill="#737373" />
-      <rect x="8.5" y="16" width="7" height="5" rx="0" fill="#404040" />
-      <path d="M6.5 8V11.5H12V13.5M17.5 8V11.5H12" stroke="#a3a3a3" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M12 13.5V16" stroke="#525252" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-/** Shown below upload zones on homepage and tool workspaces. */
+/** Related-tool glass card shown below tool workspaces. */
 export function MapDiagramCrossLink({ className }: Props) {
   const t = useTranslations("Partners");
-  const locale = useLocale();
-  const arrow = locale === "he" ? "←" : "→";
 
   return (
     <aside
       className={clsx(
-        "partner-mapdiagram w-full rounded-none border border-neutral-300 bg-neutral-200 px-2 py-2 text-start dark:border-neutral-800 dark:bg-neutral-900",
+        "tool-related-card partner-mapdiagram w-full rounded-2xl border border-neutral-200 bg-white/70 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] md:p-6",
         className,
       )}
       aria-label={t("mapDiagramAria")}
     >
-      <div className="flex items-start gap-3">
-        <div className="rounded-none border border-neutral-400 bg-neutral-100 p-1.5 dark:border-neutral-700 dark:bg-neutral-800">
-          <FlowchartIcon />
+      <p className="tool-related-card__eyebrow mb-3 text-[10px] font-bold uppercase tracking-[0.14em] text-neutral-500 dark:text-neutral-500">
+        {t("relatedToolEyebrow")}
+      </p>
+
+      <div className="flex items-start gap-4">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-neutral-200/80 bg-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-sm dark:border-neutral-700 dark:bg-white/[0.04]">
+          <GitBranch className="h-6 w-6 text-neutral-600 dark:text-neutral-300" aria-hidden />
         </div>
+
         <div className="min-w-0 flex-1">
-          <p className="text-sm leading-relaxed text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+          <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 md:text-base">
             {t.rich("mapDiagramBody", {
               brand: (chunks) => (
-                <span className="font-semibold text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{chunks}</span>
+                <span className="font-semibold text-neutral-900 dark:text-white">{chunks}</span>
               ),
             })}
           </p>
@@ -49,9 +41,10 @@ export function MapDiagramCrossLink({ className }: Props) {
             href="https://mapdiagram.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2.5 inline-flex items-center gap-1 text-sm font-semibold text-black dark:text-neutral-200 transition hover:text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200 dark:hover:text-black dark:text-neutral-200"
+            className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-neutral-200/80 bg-white/50 px-3 py-2 text-sm font-semibold text-neutral-800 transition-all duration-200 hover:border-neutral-400 hover:bg-white/80 dark:border-neutral-700 dark:bg-white/[0.04] dark:text-neutral-100 dark:hover:border-neutral-600 dark:hover:bg-white/[0.08]"
           >
-            {t("mapDiagramCta")} {arrow}
+            {t("mapDiagramCta")}
+            <ArrowUpRight className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
           </a>
         </div>
       </div>

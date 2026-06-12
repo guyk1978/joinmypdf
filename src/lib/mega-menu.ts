@@ -57,7 +57,7 @@ export function buildMegaMenuSections(): MegaMenuSection[] {
   return sections;
 }
 
-/** Flat list of every tool link from mega-menu sections (deduped by href). */
+/** @deprecated Overlay grid removed — use buildMegaMenuSections on /tools page. */
 export function flattenMegaMenuSections(sections: MegaMenuSection[]): MegaMenuItem[] {
   const seen = new Set<string>();
   const items: MegaMenuItem[] = [];
@@ -69,50 +69,4 @@ export function flattenMegaMenuSections(sections: MegaMenuSection[]): MegaMenuIt
     }
   }
   return items;
-}
-
-export type ToolMegaGridGroupId = "conversion" | "editing" | "security" | "advanced";
-
-export type ToolMegaGridGroup = {
-  id: ToolMegaGridGroupId;
-  items: MegaMenuItem[];
-};
-
-const MEGA_GRID_GROUP_ORDER: ToolMegaGridGroupId[] = ["conversion", "editing", "security", "advanced"];
-
-function toolToMegaItem(tool: (typeof registry.tools)[number]): MegaMenuItem {
-  return {
-    href: `/tools/${tool.slug}/`,
-    label: getToolDisplayLabel(tool.slug, tool.title),
-    slug: tool.slug,
-  };
-}
-
-/** Category groups for the full-width All Tools mega grid. */
-export function buildToolMegaGridGroups(): ToolMegaGridGroup[] {
-  const conversion = registry.tools.filter((tool) => tool.category === "convert").map(toolToMegaItem);
-  const editing = registry.tools.filter((tool) => tool.category === "edit").map(toolToMegaItem);
-  const security = registry.tools.filter((tool) => tool.category === "security").map(toolToMegaItem);
-  const advanced: MegaMenuItem[] = [
-    ...registry.tools.filter((tool) => tool.category === "optimize").map(toolToMegaItem),
-    ...STUDIO_TOOLS.map((studio) => ({
-      href: studio.href,
-      label: getToolDisplayLabel(studio.slug, studio.ctaLabel),
-      slug: studio.slug,
-    })),
-    {
-      href: "/compare/",
-      label: "Compare tools",
-      slug: "compare",
-    },
-  ];
-
-  const byId: Record<ToolMegaGridGroupId, MegaMenuItem[]> = {
-    conversion,
-    editing,
-    security,
-    advanced,
-  };
-
-  return MEGA_GRID_GROUP_ORDER.map((id) => ({ id, items: byId[id] })).filter((group) => group.items.length > 0);
 }

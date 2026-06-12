@@ -9,14 +9,14 @@ import { SiteSearch } from "@/components/SiteSearch";
 import { HeaderFavoritesButton } from "@/components/HeaderFavoritesButton";
 import { HeaderShareButton } from "@/components/HeaderShareButton";
 import { InstallPwaButton } from "@/components/InstallPwaButton";
+import { HeaderPrivacyIndicator } from "@/components/HeaderPrivacyIndicator";
+import { AllToolsNavLink } from "@/components/AllToolsNavLink";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { ToolsMegaMenu } from "@/components/ToolsMegaMenu";
-import type { MegaMenuSection } from "@/lib/mega-menu";
+import { BookOpen } from "lucide-react";
 import { isNavItemActive } from "@/lib/nav-config";
 import type { BlogRegistry, SiteRegistry } from "@/lib/types";
 
 type SiteHeaderBarProps = {
-  megaMenuSections: MegaMenuSection[];
   registry: SiteRegistry;
   blog: BlogRegistry;
 };
@@ -33,29 +33,13 @@ function GuidesLink({ onNavigate, className }: { onNavigate?: () => void; classN
       prefetch={false}
       onClick={onNavigate}
     >
+      <BookOpen className="nav-link__icon shrink-0" aria-hidden />
       {t("guides")}
     </Link>
   );
 }
 
-function PrivacyFirstLink({ onNavigate, className }: { onNavigate?: () => void; className?: string }) {
-  const t = useTranslations("Header");
-  const pathname = usePathname() || "/";
-  const active = isNavItemActive(pathname, "/privacy-first/");
-
-  return (
-    <Link
-      href="/privacy-first/"
-      className={`nav-link nav-link--emphasis${active ? " is-active" : ""}${className ? ` ${className}` : ""}`}
-      prefetch={false}
-      onClick={onNavigate}
-    >
-      {t("privacyFirst")}
-    </Link>
-  );
-}
-
-export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBarProps) {
+export function SiteHeaderBar({ registry, blog }: SiteHeaderBarProps) {
   const t = useTranslations("Header");
   const pathname = usePathname() || "/";
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,20 +57,21 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
 
   return (
     <>
-      <nav className="site-header__bar h-12" aria-label={t("siteLabel")}>
+      <nav className="site-header__bar h-[var(--site-header-height,6rem)]" aria-label={t("siteLabel")}>
         <Link href="/" className="brand flex h-full shrink-0 items-center" aria-label="JoinMyPDF">
           <JoinMyPdfLogo />
         </Link>
 
-        <div className="site-header__center hidden h-full flex-1 items-stretch justify-center md:flex">
-          <div className="flex h-full items-stretch divide-x divide-neutral-300 dark:divide-neutral-800">
-            <ToolsMegaMenu sections={megaMenuSections} />
+        <div className="site-header__center hidden h-full flex-1 items-center justify-center md:flex">
+          <div className="site-header__nav-cluster flex items-center">
+            <AllToolsNavLink />
             <GuidesLink />
-            <PrivacyFirstLink />
           </div>
         </div>
 
-        <div className="site-header__actions flex h-full items-stretch divide-x divide-neutral-300 dark:divide-neutral-800">
+        <div className="site-header__actions flex h-full items-center">
+          <HeaderPrivacyIndicator />
+          <div className="site-header__utility-cluster flex h-full items-stretch divide-x divide-neutral-200/80 dark:divide-white/10">
           <LanguageSwitcher />
           <div className="relative flex h-full items-center">
             <SiteSearch variant="header" registry={registry} blog={blog} />
@@ -95,6 +80,7 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
           <HeaderFavoritesButton />
           <HeaderShareButton />
           <ThemeToggle />
+          </div>
           <button
             type="button"
             className="site-header__menu-btn md:hidden"
@@ -111,13 +97,16 @@ export function SiteHeaderBar({ megaMenuSections, registry, blog }: SiteHeaderBa
       {mobileOpen ? (
         <div
           id="primary-nav"
-          className="site-header__mobile-panel border-t border-neutral-300 bg-neutral-50 py-2 md:hidden dark:border-neutral-800 dark:bg-neutral-900"
+          className="site-header__mobile-panel border-t border-neutral-200/80 bg-white/90 py-3 backdrop-blur-xl md:hidden dark:border-white/10 dark:bg-neutral-950/90"
           aria-label={t("mobileNav")}
         >
-          <div className="flex w-full flex-col gap-2">
-            <ToolsMegaMenu sections={megaMenuSections} onNavigate={closeMobile} className="w-full justify-center" />
+          <div className="flex w-full flex-col items-center gap-2">
+            <AllToolsNavLink onNavigate={closeMobile} className="w-full justify-center py-2" />
             <GuidesLink onNavigate={closeMobile} className="w-full justify-center py-2" />
-            <PrivacyFirstLink onNavigate={closeMobile} className="w-full justify-center py-2" />
+            <HeaderPrivacyIndicator
+              onNavigate={closeMobile}
+              className="!inline-flex sm:!hidden mt-2 w-full max-w-xs justify-center"
+            />
           </div>
         </div>
       ) : null}

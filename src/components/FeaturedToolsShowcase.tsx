@@ -1,9 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { CompactToolCardGrid, type CompactToolCardItem } from "@/components/CompactToolCardGrid";
 import { ctaSecondary } from "@/lib/cta-styles";
-import { openToolsGrid } from "@/lib/tool-grid-events";
 
 type FeaturedToolsShowcaseProps = {
   items: CompactToolCardItem[];
@@ -32,9 +32,9 @@ export function FeaturedToolsShowcase({ items, toolCount }: FeaturedToolsShowcas
       </div>
 
       <div className="flex justify-center md:justify-start">
-        <button type="button" className={ctaSecondary} onClick={openToolsGrid}>
+        <Link href="/tools/" className={ctaSecondary} prefetch={false}>
           {t("viewAllTools", { count: toolCount })}
-        </button>
+        </Link>
       </div>
     </section>
   );

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Lock, Shield } from "lucide-react";
-import { ToolsDirectoryToolGrid } from "@/components/ToolsDirectoryToolGrid";
+import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteSearch } from "@/components/SiteSearch";
+import { ToolsDirectoryHero } from "@/components/ToolsDirectoryHero";
+import { ToolsDirectoryToolGrid } from "@/components/ToolsDirectoryToolGrid";
 import { Link } from "@/i18n/navigation";
 import { blogRegistry } from "@/lib/blog-registry";
 import { getTotalToolCount } from "@/lib/featured-tools";
@@ -16,7 +17,7 @@ import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
-import { appShell, contentDashboardStack, homeSecondaryPillBtn } from "@/lib/tool-ui";
+import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 const FEATURED_SLUGS = [
@@ -103,79 +104,54 @@ export default async function ToolsDirectoryPage({ params }: Props) {
           numberOfItems: toolCount,
         }}
       />
-      <div className={appShell}>
+      <div className="home-page-shell min-h-screen text-neutral-900 dark:text-neutral-100">
+        <HomePageSeamlessBg />
         <SiteHeader />
         <main className="home-tool-grid-page">
-          <div className="home-tool-grid-shell mx-auto w-full">
-            <header className="mb-[3px] max-w-2xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
-                {tPage("badge")}
-              </p>
-              <h1 className="mt-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white md:text-4xl">
-                {tPage("title")}
-              </h1>
-              <p className="mt-3 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 md:text-base">
-                {tPage("description", { count: toolCount })}
-              </p>
-              <div className="mt-5 max-w-xl">
-                <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
-              </div>
-              <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-500 dark:text-neutral-400">
-                <span className="inline-flex items-center gap-1.5">
-                  <Lock className="h-4 w-4 shrink-0" aria-hidden />
-                  {tPage("clientSide")}
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Shield className="h-4 w-4 shrink-0" aria-hidden />
-                  <Link
-                    href="/privacy-first/"
-                    className="font-medium text-neutral-700 hover:underline dark:text-neutral-300"
-                  >
-                    {tPage("privacyFirst")}
-                  </Link>
-                </span>
-              </p>
-            </header>
+          <ToolsDirectoryHero toolCount={toolCount} />
 
-            <div className={contentDashboardStack}>
-              <section className="flex flex-col gap-3" aria-labelledby="featured-tools">
-                <div>
-                  <h2 id="featured-tools" className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl">
-                    {tPage("startHere")}
-                  </h2>
-                  <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{tPage("startHereDescription")}</p>
-                </div>
-                <ToolsDirectoryToolGrid items={featuredItems} />
-              </section>
-
-              {categorySections.map((section) => (
-                <section
-                  key={section.id}
-                  className="flex flex-col gap-3 scroll-mt-24"
-                  aria-labelledby={`${section.id}-tools`}
-                  id={section.id}
-                >
-                  <div>
-                    <h2
-                      id={`${section.id}-tools`}
-                      className="text-xl font-semibold text-neutral-900 dark:text-white md:text-2xl"
-                    >
-                      {section.label}
-                    </h2>
-                    <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-                      {section.items.length === 1
-                        ? tPage("toolCount", { count: section.items.length })
-                        : tPage("toolCountPlural", { count: section.items.length })}
-                    </p>
-                  </div>
-                  <ToolsDirectoryToolGrid items={section.items} />
-                </section>
-              ))}
+          <div className="tools-directory-content home-tool-grid-shell mx-auto w-full max-w-[1440px]">
+            <div className="tools-directory-search mx-auto max-w-2xl px-4">
+              <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
             </div>
 
-            <div className="mt-[3px] flex justify-center pt-6">
+            <section className="tools-directory-section" aria-labelledby="featured-tools">
+              <header className="tools-directory-section__header">
+                <h2 id="featured-tools" className="tools-directory-section__title">
+                  {tPage("startHere")}
+                </h2>
+                <p className="tools-directory-section__description">{tPage("startHereDescription")}</p>
+              </header>
+              <ToolsDirectoryToolGrid items={featuredItems} className="mt-8" />
+            </section>
+
+            {categorySections.map((section) => (
+              <section
+                key={section.id}
+                className="tools-directory-section scroll-mt-28"
+                aria-labelledby={`${section.id}-tools`}
+                id={section.id}
+              >
+                <header className="tools-directory-section__header">
+                  <h2 id={`${section.id}-tools`} className="tools-directory-section__title">
+                    {section.label}
+                  </h2>
+                  <p className="tools-directory-section__description">
+                    {section.items.length === 1
+                      ? tPage("toolCount", { count: section.items.length })
+                      : tPage("toolCountPlural", { count: section.items.length })}
+                  </p>
+                </header>
+                <ToolsDirectoryToolGrid items={section.items} className="mt-8" />
+              </section>
+            ))}
+
+            <div className="mt-16 flex flex-wrap items-center justify-center gap-4 pb-4">
               <Link href="/favorites/" className={homeSecondaryPillBtn}>
                 {tHome("viewFavorites")}
+              </Link>
+              <Link href="/privacy-first/" className={homePrimaryPillBtn}>
+                {tPage("learnPrivacy")}
               </Link>
             </div>
           </div>

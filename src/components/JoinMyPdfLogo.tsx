@@ -9,8 +9,8 @@ function LogoEye({ className }: { className?: string }) {
   return (
     <svg
       className={clsx(
-        "joinmypdf-logo__eye inline-block h-[14px] w-[11px] shrink-0 align-[-2px]",
-        "stroke-neutral-800 text-neutral-800 dark:stroke-neutral-200 dark:text-neutral-200",
+        "joinmypdf-logo__eye inline-block h-[1.05em] w-[0.78em] shrink-0 align-[-0.08em]",
+        "stroke-neutral-800 text-neutral-800 dark:stroke-neutral-100 dark:text-neutral-100",
         className,
       )}
       viewBox="0 0 11 14"
@@ -33,7 +33,7 @@ export function JoinMyPdfLogo({ className }: JoinMyPdfLogoProps) {
   return (
     <span
       className={clsx(
-        "joinmypdf-logo inline-flex items-center text-[14px] font-extrabold leading-none tracking-[0.08em] text-neutral-900 dark:text-neutral-200",
+        "joinmypdf-logo inline-flex items-center text-lg font-black leading-none tracking-[0.12em] text-neutral-900 sm:text-xl lg:text-[1.625rem] dark:text-neutral-100",
         className,
       )}
     >

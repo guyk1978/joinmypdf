@@ -13,6 +13,8 @@ const THEME_VAR_KEYS = [
   "--home-icon-bg",
   "--home-icon-bg-hover",
   "--home-card-muted",
+  "--home-card-border",
+  "--home-card-border-hover",
 ] as const;
 
 /** Applies sampled header-banner theme tokens to the homepage for a seamless hero → grid blend. */

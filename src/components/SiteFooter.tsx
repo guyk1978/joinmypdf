@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { HeaderPdfMini } from "@/components/HeaderPdfMini";
+import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { Link } from "@/i18n/navigation";
 import {
   FOOTER_BRAND,
@@ -38,19 +38,16 @@ function resolveLinkLabel(
 }
 
 function FooterLinkItem({ link, label }: { link: FooterLinkDef; label: string }) {
-  const className =
-    "text-sm text-neutral-500 transition-colors hover:text-neutral-700 hover:underline dark:text-neutral-400 dark:hover:text-neutral-200";
-
   if (link.kind === "external") {
     return (
-      <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+      <a href={link.href} target="_blank" rel="noopener noreferrer" className="site-footer__link">
         {label}
       </a>
     );
   }
 
   return (
-    <Link href={link.href} className={className} prefetch={false}>
+    <Link href={link.href} className="site-footer__link" prefetch={false}>
       {label}
     </Link>
   );
@@ -66,11 +63,9 @@ function FooterColumnBlock({
   resolveLabel: (link: FooterLinkDef) => string;
 }) {
   return (
-    <div className="min-w-0">
-      <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-900 dark:text-neutral-200">
-        {title}
-      </h3>
-      <ul className="space-y-2">
+    <div className="site-footer__column">
+      <h3 className="site-footer__column-title">{title}</h3>
+      <ul className="site-footer__link-list">
         {links.map((link) => {
           const label = resolveLabel(link);
           const key = link.kind === "tool" ? link.slug : `${link.href}-${link.labelKey}`;
@@ -107,17 +102,14 @@ export async function SiteFooter({ tagline }: SiteFooterProps) {
   const footerColumns = [FOOTER_PRODUCT_COLUMN, FOOTER_CATEGORIES_COLUMN, FOOTER_COMPANY_COLUMN];
 
   return (
-    <footer className="site-footer mt-8 border-t border-neutral-300 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-950">
-      <div className="container mx-auto max-w-6xl px-4 py-10 md:px-6">
-        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
-          <div className="col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-2 text-neutral-900 dark:text-neutral-200">
-              <HeaderPdfMini className="header-pdf-mini--tight" />
-              <span className="text-sm font-bold tracking-tight">{FOOTER_BRAND.name}</span>
+    <footer className="site-footer">
+      <div className="site-footer__inner">
+        <div className="site-footer__grid">
+          <div className="site-footer__brand">
+            <Link href="/" className="site-footer__brand-link" aria-label={FOOTER_BRAND.name}>
+              <JoinMyPdfLogo className="site-footer__logo" />
             </Link>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-              {brandDescription}
-            </p>
+            <p className="site-footer__brand-desc">{brandDescription}</p>
           </div>
 
           {footerColumns.map((column) => (
@@ -130,11 +122,11 @@ export async function SiteFooter({ tagline }: SiteFooterProps) {
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-neutral-300 pt-6 dark:border-neutral-800 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+        <div className="site-footer__bottom">
+          <p className="site-footer__copyright">
             © {year} {FOOTER_BRAND.name}. {tFooter("copyright")}
           </p>
-          <nav className="flex flex-wrap gap-x-4 gap-y-2" aria-label={tFooter("partnerNavLabel")}>
+          <nav className="site-footer__partners" aria-label={tFooter("partnerNavLabel")}>
             {FOOTER_PARTNER_LINKS.map((link) => (
               <FooterLinkItem key={link.href} link={link} label={resolveLabel(link)} />
             ))}

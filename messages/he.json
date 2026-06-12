@@ -55,15 +55,24 @@
     "addToFavorites": "הוסף למועדפים",
     "removeFromFavorites": "הסר מהמועדפים",
     "viewFavorites": "המועדפים שלי",
-    "headline": "הצטרף ל-PDF שלי",
-    "subHeader": "כל כלי ה-PDF במקום אחד: נקי, קל, בטוח וחינם!"
+    "headline": "PDF Tools Suite",
+    "subHeader": "עיבוד PDF מהיר ופרטי בדפדפן. הקבצים לא עוזבים את המכשיר שלך.",
+    "privacyBadge": "פרטיות קודמת",
+    "heroFeaturesLabel": "יתרונות מרכזיים",
+    "heroFast": "מהירות מיידית",
+    "heroLocal": "עיבוד מקומי",
+    "heroPrivate": "ללא העלאות"
   },
   "Favorites": {
     "metaTitle": "כלי PDF מועדפים — JoinMyPDF",
     "metaDescription": "הכלים ששמרת — נשמרים מקומית בדפדפן, בלי חשבון.",
     "title": "המועדפים שלי",
     "description": "כלים שסימנת בכוכב בדף הבית. נשמרים רק במכשיר הזה.",
-    "emptyState": "אין עדיין מועדפים. סמן כוכב בדף הבית כדי לשמור כלים כאן.",
+    "heroBadge": "מרכז הפיקוד שלך",
+    "emptyTitle": "אין עדיין מועדפים",
+    "emptyState": "סמן כוכב בדף הבית או במדריך הכלים כדי לשמור כלים כאן לגישה מהירה.",
+    "exploreAllTools": "גלו את כל הכלים",
+    "savedCount": "{count, plural, one {כלי # שמור} other {# כלים שמורים}}",
     "loading": "טוען מועדפים…",
     "removeFromList": "הסר מהמועדפים"
   },
@@ -180,6 +189,7 @@
   },
   "Partners": {
     "mapDiagramAria": "כלי שותף: MapDiagram",
+    "relatedToolEyebrow": "כלי קשור",
     "mapDiagramBody": "יוצר מצגת או תהליך עבודה? בנה תרשימי זרימה ועיצובי מערכת ויזואלית עם <brand>MapDiagram</brand>, ואז הבא אותם לכאן למיזוג.",
     "mapDiagramCta": "פתח את עורך MapDiagram",
     "mapDiagram": "MapDiagram — תרשימי זרימה ודיאגרמות",
@@ -232,6 +242,8 @@
     "title": "מדריכים ומאמרים אחרונים",
     "description": "מדריכים שמקשרים ישירות לכלים — בנויים למשימות אמיתיות כמו מגבלות דוא\"ל, תהליכי עבודה בנייד ומסמכים רגישים.",
     "readArticle": "קרא מאמר",
+    "featuredGuide": "מדריך מומלץ",
+    "allGuides": "כל המדריכים",
     "readTimeMinutes": "{mins} דק' קריאה",
     "categories": {
       "conversion": "המרה",
@@ -254,7 +266,8 @@
       "toolsInWorkflow": "כלים בתהליך זה",
       "faqTitle": "שאלות נפוצות",
       "relatedArticles": "מאמרים קשורים",
-      "relatedPages": "דפים קשורים"
+      "relatedPages": "דפים קשורים",
+      "openPrimaryTool": "נסו את {tool}"
     },
     "tocLabel": "בעמוד זה",
     "tocAriaLabel": "תוכן העניינים",
