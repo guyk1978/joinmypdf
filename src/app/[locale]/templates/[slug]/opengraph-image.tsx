@@ -1,13 +1,20 @@
 import { ImageResponse } from "next/og";
-import { getInvoiceTemplateBySlug } from "@/lib/invoice/templates";
+import { routing } from "@/i18n/routing";
+import { getInvoiceTemplateBySlug, INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
 
-export const runtime = "edge";
+export const dynamic = "force-static";
 
 export const alt = "JoinMyPDF — free invoice template preview";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+export function generateStaticParams() {
+  return routing.locales.flatMap((locale) =>
+    INVOICE_TEMPLATE_PROFILES.map((profile) => ({ locale, slug: profile.slug })),
+  );
+}
+
+export default async function Image({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { slug } = await params;
   const profile = getInvoiceTemplateBySlug(slug);
   const profession = profile?.professionLabel ?? "Professional";

@@ -72,8 +72,8 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
           <section className="space-y-2">
             <h2 className="text-base font-semibold text-black dark:text-neutral-200">{t("featuredGuides")}</h2>
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-              {featured.map((post, index) => (
-                <BlogGuideCard key={post!.slug} post={post!} index={index} />
+              {featured.map((post) => (
+                <BlogGuideCard key={post!.slug} post={post!} />
               ))}
             </div>
           </section>
@@ -83,8 +83,8 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
           <section className="space-y-2">
             <h2 className="text-base font-semibold text-black dark:text-neutral-200">{t("moreInTopic")}</h2>
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-              {more.map((post, index) => (
-                <BlogGuideCard key={post.slug} post={post} index={featured.length + index} />
+              {more.map((post) => (
+                <BlogGuideCard key={post.slug} post={post} />
               ))}
             </div>
           </section>
