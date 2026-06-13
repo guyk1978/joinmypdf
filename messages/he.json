@@ -17,7 +17,8 @@
     "language": "שפה",
     "mobileNav": "ניווט ראשי — נייד",
     "installApp": "התקנת אפליקציה",
-    "favorites": "מועדפים"
+    "favorites": "מועדפים",
+    "projects": "הפרויקטים שלי"
   },
   "Search": {
     "label": "חיפוש כלים ומדריכים",
@@ -74,7 +75,36 @@
     "exploreAllTools": "גלו את כל הכלים",
     "savedCount": "{count, plural, one {כלי # שמור} other {# כלים שמורים}}",
     "loading": "טוען מועדפים…",
-    "removeFromList": "הסר מהמועדפים"
+    "removeFromList": "הסר מהמועדפים",
+    "viewProjects": "הפרויקטים שלי"
+  },
+  "Projects": {
+    "metaTitle": "הפרויקטים שלי — JoinMyPDF",
+    "metaDescription": "חזרו לסשנים שמורים של כלי PDF — נשמרים מקומית במכשיר, בלי חשבון.",
+    "title": "הפרויקטים שלי",
+    "description": "סשנים שמורים במכשיר הזה. המשיכו מיזוג, דחיסה והמרות מהמקום שבו עצרתם.",
+    "heroBadge": "כספת פרויקטים מקומית",
+    "emptyTitle": "התחילו את הפרויקט הראשון",
+    "emptyState": "פתחו כלי, הוסיפו קבצים, ולחצו שמור פרויקט כדי לשמור את הסשן מקומית.",
+    "exploreAllTools": "גלו את כל הכלים",
+    "savedCount": "{count, plural, one {פרויקט # שמור} other {# פרויקטים שמורים}}",
+    "loading": "טוען פרויקטים…",
+    "lastModified": "עודכן לאחרונה {date}",
+    "fileCount": "{count, plural, one {קובץ #} other {# קבצים}}",
+    "resume": "המשך",
+    "delete": "מחק",
+    "deleteProject": "מחק פרויקט {name}",
+    "saveProject": "שמור פרויקט",
+    "modalTitle": "שמירת פרויקט מקומית",
+    "modalHint": "נשמר רק בדפדפן הזה. הקבצים לא עוזבים את המכשיר.",
+    "projectNameLabel": "שם הפרויקט",
+    "projectNamePlaceholder": "מיזוג דוח רבעוני",
+    "save": "שמור",
+    "saving": "שומר…",
+    "cancel": "ביטול",
+    "savedToast": "הפרויקט נשמר מקומית",
+    "saveFailed": "לא ניתן לשמור את הפרויקט",
+    "restoredStatus": "הפרויקט \"{name}\" שוחזר"
   },
   "LanguageSwitcher": {
     "en": "English",

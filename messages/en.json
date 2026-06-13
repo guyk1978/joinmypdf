@@ -17,7 +17,8 @@
     "language": "Language",
     "mobileNav": "Mobile primary",
     "installApp": "Install app",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "projects": "My Projects"
   },
   "Search": {
     "label": "Search tools and guides",
@@ -74,7 +75,36 @@
     "exploreAllTools": "Explore All Tools",
     "savedCount": "{count, plural, one {# tool saved} other {# tools saved}}",
     "loading": "Loading favorites…",
-    "removeFromList": "Remove from favorites"
+    "removeFromList": "Remove from favorites",
+    "viewProjects": "My Projects"
+  },
+  "Projects": {
+    "metaTitle": "My Projects — JoinMyPDF",
+    "metaDescription": "Resume saved PDF tool sessions locally. Your projects stay on this device — no account required.",
+    "title": "My Projects",
+    "description": "Saved tool sessions on this device. Pick up merge, compress, and conversion workflows where you left off.",
+    "heroBadge": "Local project vault",
+    "emptyTitle": "Start your first project",
+    "emptyState": "Open any tool, add your files, and use Save Project to store the session locally for later.",
+    "exploreAllTools": "Explore All Tools",
+    "savedCount": "{count, plural, one {# project saved} other {# projects saved}}",
+    "loading": "Loading projects…",
+    "lastModified": "Last modified {date}",
+    "fileCount": "{count, plural, one {# file} other {# files}}",
+    "resume": "Resume",
+    "delete": "Delete",
+    "deleteProject": "Delete project {name}",
+    "saveProject": "Save Project",
+    "modalTitle": "Save project locally",
+    "modalHint": "Stored only in this browser. Files never leave your device.",
+    "projectNameLabel": "Project name",
+    "projectNamePlaceholder": "Quarterly report merge",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "savedToast": "Project saved locally",
+    "saveFailed": "Could not save project",
+    "restoredStatus": "Restored project “{name}”"
   },
   "LanguageSwitcher": {
     "en": "English",

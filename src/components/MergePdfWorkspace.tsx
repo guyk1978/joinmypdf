@@ -6,16 +6,18 @@ import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { WorkspaceActionRow } from "@/components/WorkspaceActionRow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { useProjectResume } from "@/hooks/useProjectResume";
 import { usePendingFiles } from "@/context/PendingFilesContext";
 import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
-import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import { moveArrayItem, useDragReorder } from "@/hooks/useDragReorder";
 import { renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
 import {
+  Suspense,
   useCallback,
   useEffect,
   useId,
@@ -23,6 +25,7 @@ import {
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
+import { useTranslations } from "next-intl";
 
 function downloadBlob(blob: Blob, name: string) {
   const a = document.createElement("a");
@@ -81,7 +84,16 @@ function PdfFileThumbnail({ file, loadingLabel }: { file: File; loadingLabel: st
 }
 
 export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  return (
+    <Suspense fallback={null}>
+      <MergePdfWorkspaceInner tool={tool} slug={slug} />
+    </Suspense>
+  );
+}
+
+function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
+  const tProjects = useTranslations("Projects");
   const { consumePendingFiles } = usePendingFiles();
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState("");
@@ -108,6 +120,18 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
       capture(EVENTS.file_selected, { source: "home_pending", count: accepted.length });
     }
   }, [consumePendingFiles, acceptPdf]);
+
+  const onRestoreProject = useCallback(
+    (payload: { files: File[]; settings: Record<string, unknown>; projectName: string }) => {
+      setFiles(payload.files);
+      setDone(false);
+      setRunError(null);
+      setStatus(tProjects("restoredStatus", { name: payload.projectName }));
+    },
+    [tProjects],
+  );
+
+  useProjectResume({ toolSlug: slug, onRestore: onRestoreProject });
 
   const reset = useCallback(() => {
     setFiles([]);
@@ -248,14 +272,22 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
         </div>
       ) : null}
 
-      <div className="flex flex-wrap gap-3">
-        <button type="button" disabled={disabled} onClick={() => void onMerge()} className={toolPrimaryBtn}>
-          {busy ? ws.common("merging") : mergeLabel}
-        </button>
-        <button type="button" onClick={reset} className={toolSecondaryBtn}>
-          {ws.clear}
-        </button>
-      </div>
+      <WorkspaceActionRow
+        primaryLabel={mergeLabel}
+        primaryBusyLabel={ws.common("merging")}
+        busy={busy}
+        disabled={disabled}
+        onPrimary={() => void onMerge()}
+        onClear={reset}
+        clearLabel={ws.clear}
+        save={{
+          toolSlug: slug,
+          operation: tool.operation,
+          files,
+          settings: {},
+          disabled: files.length === 0,
+        }}
+      />
 
       {runError ? (
         <ToolErrorRecovery

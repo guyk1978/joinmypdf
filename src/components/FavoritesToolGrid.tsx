@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { ToolGridCard } from "@/components/ToolGridCard";
 import { useFavorites } from "@/hooks/useFavorites";
 import type { ToolGridItem } from "@/lib/tool-grid";
-import { homePrimaryPillBtn } from "@/lib/tool-ui";
+import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
 
 type FavoritesToolGridProps = {
   items: ToolGridItem[];
@@ -45,6 +45,11 @@ export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
             {favoriteItems.map((item) => (
               <ToolGridCard key={item.href} item={item} favoritesView />
             ))}
+          </div>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <Link href="/projects/" className={homeSecondaryPillBtn} prefetch={false}>
+              {t("viewProjects")}
+            </Link>
           </div>
         </>
       )}

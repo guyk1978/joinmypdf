@@ -7,6 +7,7 @@ import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SiteSearch } from "@/components/SiteSearch";
 import { HeaderFavoritesButton } from "@/components/HeaderFavoritesButton";
+import { HeaderProjectsButton } from "@/components/HeaderProjectsButton";
 import { HeaderShareButton } from "@/components/HeaderShareButton";
 import { InstallPwaButton } from "@/components/InstallPwaButton";
 import { HeaderPrivacyIndicator } from "@/components/HeaderPrivacyIndicator";
@@ -77,6 +78,7 @@ export function SiteHeaderBar({ registry, blog }: SiteHeaderBarProps) {
             <SiteSearch variant="header" registry={registry} blog={blog} />
           </div>
           <InstallPwaButton />
+          <HeaderProjectsButton />
           <HeaderFavoritesButton />
           <HeaderShareButton />
           <ThemeToggle />

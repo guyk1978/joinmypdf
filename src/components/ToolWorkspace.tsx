@@ -12,7 +12,10 @@ import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { WorkspaceActionRow } from "@/components/WorkspaceActionRow";
+import { useProjectResume } from "@/hooks/useProjectResume";
 import {
+  Suspense,
   useCallback,
   useEffect,
   useId,
@@ -20,6 +23,7 @@ import {
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
+import { useTranslations } from "next-intl";
 
 function downloadBlob(blob: Blob, name: string) {
   const a = document.createElement("a");
@@ -151,7 +155,16 @@ function buildConfig(tool: ToolDefinition, ws: ReturnType<typeof useWorkspaceI18
 }
 
 export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
+  return (
+    <Suspense fallback={null}>
+      <ToolWorkspaceInner tool={tool} slug={slug} />
+    </Suspense>
+  );
+}
+
+function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
+  const tProjects = useTranslations("Projects");
   const config = buildConfig(tool, ws);
 
   const [files, setFiles] = useState<File[]>([]);
@@ -167,6 +180,21 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
+
+  const onRestoreProject = useCallback(
+    (payload: { files: File[]; settings: Record<string, unknown>; projectName: string }) => {
+      setFiles(payload.files);
+      setDone(false);
+      setRunError(null);
+      if (typeof payload.settings.quality === "number") {
+        setQuality(payload.settings.quality);
+      }
+      setStatus(tProjects("restoredStatus", { name: payload.projectName }));
+    },
+    [tProjects],
+  );
+
+  useProjectResume({ toolSlug: slug, onRestore: onRestoreProject });
 
   const reset = useCallback(() => {
     setFiles([]);
@@ -404,23 +432,22 @@ export function ToolWorkspace({ tool, slug }: { tool: ToolDefinition; slug: stri
         </div>
       ) : null}
 
-      <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          disabled={disabled}
-          onClick={onRun}
-          className="rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-neutral-200 dark:bg-neutral-700 hover: disabled:cursor-not-allowed disabled:opacity-50 dark:text-surface"
-        >
-          {busy ? ws.processing : config.buttonLabel}
-        </button>
-        <button
-          type="button"
-          onClick={reset}
-          className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-200 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
-        >
-          {ws.clear}
-        </button>
-      </div>
+      <WorkspaceActionRow
+        primaryLabel={config.buttonLabel}
+        primaryBusyLabel={ws.processing}
+        busy={busy}
+        disabled={disabled}
+        onPrimary={() => void onRun()}
+        onClear={reset}
+        clearLabel={ws.clear}
+        save={{
+          toolSlug: slug,
+          operation: tool.operation,
+          files,
+          settings: tool.operation === "compress" ? { quality } : {},
+          disabled: files.length === 0,
+        }}
+      />
 
       {runError ? (
         <ToolErrorRecovery
