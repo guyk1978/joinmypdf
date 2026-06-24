@@ -48,13 +48,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    const isConfig = message.includes("RESEND_API_KEY");
-
     console.error("[contact]", message);
-
-    return NextResponse.json(
-      { error: isConfig ? "not_configured" : "send_failed" },
-      { status: isConfig ? 503 : 500 },
-    );
+    return NextResponse.json({ error: "send_failed" }, { status: 500 });
   }
 }
