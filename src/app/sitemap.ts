@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/privacy-first/",
     "/privacy/",
     "/compare/",
+    "/contact/",
     "/privacy-first-pdf-tools/",
     "/tools/invoice-generator/",
     "/tools/timeline-gantt-generator/",

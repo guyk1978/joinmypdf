@@ -1,4 +1,3 @@
-import { Shield } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export async function PrivacyPolicyHero() {
@@ -6,21 +5,10 @@ export async function PrivacyPolicyHero() {
 
   return (
     <section className="privacy-policy-hero" aria-labelledby="privacy-policy-title">
-      <div className="privacy-policy-hero__bg" aria-hidden="true">
-        <div className="privacy-policy-hero__mesh" />
-        <div className="privacy-policy-hero__grain" />
-      </div>
-
-      <div className="privacy-policy-hero__content">
-        <p className="privacy-policy-hero__badge">
-          <Shield className="h-3.5 w-3.5 shrink-0 text-neutral-400" aria-hidden />
-          {t("heroBadge")}
-        </p>
-        <h1 id="privacy-policy-title" className="privacy-policy-hero__title">
-          {t("title")}
-        </h1>
-        <p className="privacy-policy-hero__subtitle">{t("intro")}</p>
-      </div>
+      <h1 id="privacy-policy-title" className="privacy-policy-hero__title">
+        {t("title")}
+      </h1>
+      <p className="privacy-policy-hero__subtitle">{t("intro")}</p>
     </section>
   );
 }

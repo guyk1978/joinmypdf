@@ -396,6 +396,25 @@
     "ctaMiddle": "או קרא",
     "ctaPrivacy": "למה עיבוד מקומי חשוב"
   },
+  "Contact": {
+    "metaTitle": "צור קשר — JoinMyPDF",
+    "metaDescription": "צרו קשר עם צוות JoinMyPDF — שאלות, משוב ופניות לשיתופי פעולה.",
+    "title": "צור קשר",
+    "intro": "שאלות, משוב או רעיון לשיתוף פעולה? שלחו לנו הודעה.",
+    "nameLabel": "שם",
+    "emailLabel": "אימייל",
+    "subjectLabel": "נושא",
+    "messageLabel": "הודעה",
+    "submit": "שליחת הודעה",
+    "sending": "שולח…",
+    "success": "תודה — קיבלנו את ההודעה ונחזור אליכם בהקדם.",
+    "error": "משהו השתבש. נסו שוב.",
+    "errorConfig": "טופס יצירת הקשר עדיין לא מוגדר. אפשר לכתוב ישירות ל-dgartists@gmail.com.",
+    "nameRequired": "נא להזין שם.",
+    "emailRequired": "נא להזין כתובת אימייל תקינה.",
+    "subjectRequired": "נא להזין נושא.",
+    "messageRequired": "נא להזין הודעה."
+  },
   "Privacy": {
     "metaTitle": "פרטיות ואבטחה",
     "metaDescription": "איך JoinMyPDF מטפל בקבצים: עיבוד מקומי בדפדפן, בלי סימן מים בפלט רגיל, וציפיות ברורות למסמכים רגישים.",

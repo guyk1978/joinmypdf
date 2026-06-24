@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
+import { clsx } from "clsx";
 import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
 import { PrivacyPolicyHero } from "@/components/PrivacyPolicyHero";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -8,7 +9,7 @@ import { Link } from "@/i18n/navigation";
 import { getBrandName } from "@/lib/brand";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
-import { homeSecondaryPillBtn } from "@/lib/tool-ui";
+import { contentDashboardInset, contentDashboardPanel, homeSecondaryPillBtn } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Cpu, Gauge, LineChart, ShieldCheck } from "lucide-react";
 
@@ -62,7 +63,7 @@ export default async function PrivacyPage({ params }: Props) {
         <HomePageSeamlessBg />
         <SiteHeader />
         <PrivacyPolicyHero />
-        <main className="privacy-policy-content mx-auto w-full max-w-4xl px-4 py-12 md:px-8 md:py-16 lg:max-w-5xl">
+        <main className="privacy-policy-content home-tool-grid-shell mx-auto w-full max-w-4xl lg:max-w-5xl">
           <div className="flex flex-col gap-8 md:gap-10">
             {SECTION_KEYS.map((key) => {
               const Icon = sectionIcons[key];
@@ -71,22 +72,22 @@ export default async function PrivacyPage({ params }: Props) {
               return (
                 <section
                   key={key}
-                  className="privacy-glass-panel privacy-policy-section"
+                  className={clsx(contentDashboardPanel, "privacy-section")}
                   aria-labelledby={`privacy-section-${key}`}
                 >
-                  <div className="privacy-policy-section__header">
-                    <div className="privacy-policy-section__icon-wrap" aria-hidden>
-                      <Icon className="h-5 w-5 text-neutral-400" />
-                    </div>
-                    <h2 id={`privacy-section-${key}`} className="privacy-section__title">
+                  <div className="flex items-center gap-3">
+                    <Icon className="h-5 w-5 shrink-0 text-neutral-400" aria-hidden />
+                    <h2 id={`privacy-section-${key}`} className="privacy-section__title text-lg md:text-xl">
                       {t(`sections.${key}.title`)}
                     </h2>
                   </div>
 
                   {showLocalHighlight ? (
-                    <aside className="privacy-local-highlight mt-6">
-                      <p className="privacy-local-highlight__badge">{t("localProcessingBadge")}</p>
-                      <p className="privacy-local-highlight__body">{t("localProcessingHighlight")}</p>
+                    <aside className={clsx(contentDashboardInset, "mt-6")}>
+                      <p className="privacy-section__prose text-sm font-semibold uppercase tracking-wide">
+                        {t("localProcessingBadge")}
+                      </p>
+                      <p className="privacy-section__prose mt-2">{t("localProcessingHighlight")}</p>
                     </aside>
                   ) : null}
 

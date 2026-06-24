@@ -396,6 +396,25 @@
     "ctaMiddle": "or read",
     "ctaPrivacy": "why local processing matters"
   },
+  "Contact": {
+    "metaTitle": "Contact — JoinMyPDF",
+    "metaDescription": "Get in touch with the JoinMyPDF team — questions, feedback, and partnership inquiries.",
+    "title": "Contact",
+    "intro": "Questions, feedback, or partnership ideas? Send us a message.",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "subjectLabel": "Subject",
+    "messageLabel": "Message",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "success": "Thanks — we received your message and will get back to you soon.",
+    "error": "Something went wrong. Please try again.",
+    "errorConfig": "The contact form is not configured yet. Please email dgartists@gmail.com directly.",
+    "nameRequired": "Please enter your name.",
+    "emailRequired": "Please enter a valid email address.",
+    "subjectRequired": "Please enter a subject.",
+    "messageRequired": "Please enter a message."
+  },
   "Privacy": {
     "metaTitle": "Privacy & security",
     "metaDescription": "How JoinMyPDF handles files: local browser processing, no watermark on standard output, and clear expectations for sensitive documents.",

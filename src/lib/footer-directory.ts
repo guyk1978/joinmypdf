@@ -51,7 +51,7 @@ export const FOOTER_COMPANY_COLUMN: FooterColumn = {
   links: [
     { kind: "page", href: "/compare/", labelKey: "about" },
     { kind: "page", href: "/privacy/", labelKey: "terms" },
-    { kind: "page", href: "/privacy/", labelKey: "contact" },
+    { kind: "page", href: "/contact/", labelKey: "contact" },
   ],
 };
 
