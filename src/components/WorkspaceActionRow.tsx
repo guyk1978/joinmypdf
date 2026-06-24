@@ -12,6 +12,8 @@ type WorkspaceActionRowProps = {
   onPrimary: () => void;
   onClear: () => void;
   clearLabel: ReactNode;
+  onNewUpload?: () => void;
+  newUploadLabel?: ReactNode;
   save: {
     toolSlug: string;
     operation: string;
@@ -29,6 +31,8 @@ export function WorkspaceActionRow({
   onPrimary,
   onClear,
   clearLabel,
+  onNewUpload,
+  newUploadLabel,
   save,
 }: WorkspaceActionRowProps) {
   return (
@@ -39,6 +43,11 @@ export function WorkspaceActionRow({
       <button type="button" onClick={onClear} className={toolSecondaryBtn}>
         {clearLabel}
       </button>
+      {onNewUpload && newUploadLabel ? (
+        <button type="button" onClick={onNewUpload} className={toolSecondaryBtn}>
+          {newUploadLabel}
+        </button>
+      ) : null}
       <SaveProjectButton
         toolSlug={save.toolSlug}
         operation={save.operation}

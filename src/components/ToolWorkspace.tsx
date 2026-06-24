@@ -13,6 +13,8 @@ import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceActionRow } from "@/components/WorkspaceActionRow";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useProjectResume } from "@/hooks/useProjectResume";
 import {
   Suspense,
@@ -174,6 +176,7 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [quality, setQuality] = useState(75);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, files.length);
   const [drag, setDrag] = useState(false);
   const baseId = useId();
 
@@ -368,7 +371,10 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
       ) : null}
 
       {files.length > 0 ? (
-        <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
+        <div
+          id={WORKSPACE_OPERATIONS_ID}
+          className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
+        >
           <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-ink">{ws.common("files")}</p>
           <ul className="mt-3 space-y-2">
             {files.map((f, idx) => (
@@ -440,6 +446,8 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
         onPrimary={() => void onRun()}
         onClear={reset}
         clearLabel={ws.clear}
+        onNewUpload={() => startNewUpload(reset)}
+        newUploadLabel={ws.uploadNewFile}
         save={{
           toolSlug: slug,
           operation: tool.operation,

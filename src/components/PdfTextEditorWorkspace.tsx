@@ -1,12 +1,15 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import * as pdf from "@/lib/pdf-engine";
@@ -185,6 +188,7 @@ export function PdfTextEditorWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   useEffect(() => {
@@ -347,14 +351,19 @@ export function PdfTextEditorWorkspace({ tool, slug }: { tool: ToolDefinition; s
             }
           />
         ) : (
-          <>
-            <div className="flex flex-wrap items-center justify-between gap-3">
+        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="truncate text-sm text-ink-muted">
                 <span className="font-medium text-ink">{file.name}</span> · {pdf.formatBytes(file.size)}
               </p>
               <button type="button" onClick={reset} disabled={busy} className={toolSecondaryBtn}>
                 {ws.chooseAnotherFile}
               </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
             </div>
 
             {encrypted ? (
@@ -492,7 +501,7 @@ export function PdfTextEditorWorkspace({ tool, slug }: { tool: ToolDefinition; s
                 {ws.buttonLabel()}
               </button>
             </div>
-          </>
+          </div>
         )}
       </WorkspaceUploadShell>
 

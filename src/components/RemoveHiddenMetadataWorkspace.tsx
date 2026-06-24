@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -48,6 +51,7 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
@@ -197,7 +201,7 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
-        <div className="tool-workspace-panel space-y-2">
+        <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-2">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
@@ -261,6 +265,11 @@ export function RemoveHiddenMetadataWorkspace({ tool, slug }: { tool: ToolDefini
             <button type="button" disabled={busy || scanning} onClick={reset} className={toolSecondaryBtn}>
               {ws.chooseAnotherFile}
             </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
         </div>
       ) : null}

@@ -1,12 +1,15 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import {
   ANNOTATE_UI_SCALE,
@@ -339,6 +342,7 @@ export function AnnotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slu
   const [drag, setDrag] = useState(false);
   const activeStrokeIdRef = useRef<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   useEffect(() => {
@@ -500,14 +504,19 @@ export function AnnotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slu
             }
           />
         ) : (
-          <>
-            <div className="flex flex-wrap items-center justify-between gap-3">
+        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="truncate text-sm text-ink-muted">
                 <span className="font-medium text-ink">{file.name}</span>
               </p>
               <button type="button" onClick={reset} disabled={busy} className={toolSecondaryBtn}>
                 {ws.chooseAnotherFile}
               </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
             </div>
 
             {encrypted ? (
@@ -719,7 +728,7 @@ export function AnnotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slu
                 {ws.buttonLabel()}
               </button>
             </div>
-          </>
+          </div>
         )}
       </WorkspaceUploadShell>
 

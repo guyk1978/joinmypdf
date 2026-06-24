@@ -7,6 +7,8 @@ import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceActionRow } from "@/components/WorkspaceActionRow";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { useProjectResume } from "@/hooks/useProjectResume";
 import { usePendingFiles } from "@/context/PendingFilesContext";
@@ -102,6 +104,7 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, files.length);
   const baseId = useId();
   const { getCardProps, cardClassName } = useDragReorder();
 
@@ -242,7 +245,7 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
       </WorkspaceUploadShell>
 
       {files.length > 0 ? (
-        <div className="visual-reorder-panel">
+        <div id={WORKSPACE_OPERATIONS_ID} className="visual-reorder-panel">
           <p className="visual-reorder-panel__hint">{ws.common("reorderHint")}</p>
           <div className="visual-reorder-grid" role="list">
             {files.map((file, idx) => (
@@ -280,6 +283,8 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
         onPrimary={() => void onMerge()}
         onClear={reset}
         clearLabel={ws.clear}
+        onNewUpload={() => startNewUpload(reset)}
+        newUploadLabel={ws.uploadNewFile}
         save={{
           toolSlug: slug,
           operation: tool.operation,

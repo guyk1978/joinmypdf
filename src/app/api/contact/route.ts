@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { sendContactEmail } from "@/lib/send-contact-email";
+import { validateContactPayload } from "@/lib/submit-contact-form";
 
 export const runtime = "edge";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type ContactBody = {
   name?: string;
@@ -18,6 +17,10 @@ function trimField(value: unknown, max: number): string {
 }
 
 export async function POST(request: Request) {
+  if (!process.env.RESEND_API_KEY?.trim()) {
+    return NextResponse.json({ error: "not_configured" }, { status: 503 });
+  }
+
   try {
     const body = (await request.json()) as ContactBody;
 
@@ -25,25 +28,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    const name = trimField(body.name, 120);
-    const email = trimField(body.email, 254);
-    const subject = trimField(body.subject, 200);
-    const message = trimField(body.message, 5000);
-
-    if (!name) {
-      return NextResponse.json({ error: "name_required" }, { status: 400 });
-    }
-    if (!email || !EMAIL_RE.test(email)) {
-      return NextResponse.json({ error: "email_invalid" }, { status: 400 });
-    }
-    if (!subject) {
-      return NextResponse.json({ error: "subject_required" }, { status: 400 });
-    }
-    if (!message) {
-      return NextResponse.json({ error: "message_required" }, { status: 400 });
+    const validated = validateContactPayload(body);
+    if (!validated.ok) {
+      return NextResponse.json({ error: validated.error }, { status: 400 });
     }
 
-    await sendContactEmail({ name, email, subject, message });
+    await sendContactEmail(validated.data);
 
     return NextResponse.json({ ok: true });
   } catch (error) {

@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -218,6 +221,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
@@ -415,7 +419,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           }
         />
       ) : (
-        <>
+        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="truncate text-sm text-ink-muted">
               <span className="font-medium text-ink">{file.name}</span> · {pdf.formatBytes(file.size)}
@@ -428,6 +432,11 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             >
               {ws.chooseAnotherFile}
             </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
 
           {encrypted ? (
@@ -543,7 +552,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               )}
             </button>
           </div>
-        </>
+        </div>
       )}
       </WorkspaceUploadShell>
       {runError ? (

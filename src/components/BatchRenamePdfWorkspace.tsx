@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -46,6 +49,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, files.length);
   const folderInputRef = useRef<HTMLInputElement>(null);
   const baseId = useId();
 
@@ -207,15 +211,22 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
           {ws.wsUi("addFolder")}
         </button>
         {files.length ? (
-          <button type="button" className={toolSecondaryBtn} onClick={reset}>
-            {ws.wsUi("clearAll")}
-          </button>
+          <>
+            <button type="button" className={toolSecondaryBtn} onClick={reset}>
+              {ws.wsUi("clearAll")}
+            </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
+          </>
         ) : null}
       </div>
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
-        <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <p className="text-sm text-ink-muted">{ws.wsUi("fileSummary", { count: files.length })}</p>
 
           <section className="space-y-2" aria-labelledby={`${baseId}-rules`}>

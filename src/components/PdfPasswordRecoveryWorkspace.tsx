@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -57,6 +60,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
   const [formError, setFormError] = useState("");
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const sessionRef = useRef<RecoverySession | null>(null);
   const pdfBufferRef = useRef<ArrayBuffer | null>(null);
   const baseId = useId();
@@ -291,7 +295,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
-        <div className="tool-workspace-panel space-y-2">
+        <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-2">
           <div>
             <p className="text-sm font-semibold text-ink">{file?.name}</p>
             <p className="mt-1 text-xs text-ink-muted">
@@ -406,6 +410,11 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
             <button type="button" disabled={busy} onClick={reset} className={toolSecondaryBtn}>
               {ws.chooseAnotherFile}
             </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
 
           {foundPassword !== null ? (

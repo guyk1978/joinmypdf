@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
@@ -288,6 +291,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file && fileBytes));
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
@@ -450,7 +454,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
 
       </WorkspaceUploadShell>
       {file && fileBytes ? (
-        <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <section className="grid gap-2 md:grid-cols-2">
             <label className="block text-sm text-ink">
               <span className="mb-1 block font-semibold">{ws.wsUi("targetPaper")}</span>
@@ -606,6 +610,11 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
               {busy ? ws.wsText("applyingLabel") : ws.wsText("applyLabel")}
             </button>
             <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.chooseAnotherFile}</button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
         </div>
       ) : null}

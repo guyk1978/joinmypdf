@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -71,6 +74,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
@@ -240,7 +244,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
       ) : null}
 
       {showOptions ? (
-        <form className="space-y-2" onSubmit={onSubmit}>
+        <form id={WORKSPACE_OPERATIONS_ID} className="space-y-2" onSubmit={onSubmit}>
           <p className="text-sm text-ink-muted">
             <strong className="text-ink">{file?.name}</strong>
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
@@ -403,6 +407,11 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
             >
               {ws.chooseAnotherFile}
             </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
         </form>
       ) : null}

@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell"
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
@@ -301,6 +304,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file && fileBytes));
   const baseId = useId();
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
@@ -434,7 +438,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       </WorkspaceUploadShell>
 
       {showWorkspace && fileBytes ? (
-        <div className="space-y-2 rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
+        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-2 rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{file?.name}</p>
@@ -491,6 +495,11 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
             >
               {ws.chooseAnotherFile}
             </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
         </div>
       ) : null}

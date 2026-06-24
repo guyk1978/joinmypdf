@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell"
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -47,6 +50,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
@@ -189,7 +193,7 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       ) : null}
 
       {file ? (
-        <form className="protect-form" onSubmit={onSubmit} noValidate>
+        <form id={WORKSPACE_OPERATIONS_ID} className="protect-form" onSubmit={onSubmit} noValidate>
           <div className="protect-form__fields">
             <label className="protect-form__label" htmlFor={`${baseId}-password`}>
               {ws.wsUi("passwordLabel")}
@@ -253,6 +257,11 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
               disabled={busy}
               className={`${toolSecondaryBtn} disabled:opacity-50`}
             >{ws.clear}</button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
         </form>
       ) : null}

@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -128,6 +131,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const [progress, setProgress] = useState<AuditProgress | null>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
@@ -284,7 +288,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
         }
       />
       </WorkspaceUploadShell>
-      <div className="flex flex-wrap gap-3">
+      <div id={WORKSPACE_OPERATIONS_ID} className="flex flex-wrap gap-3">
         <button type="button" className={toolPrimaryBtn} disabled={!canAudit} onClick={() => void runAudit()}>
           {busy ? ws.wsText("auditingLabel") : ws.wsText("auditLabel")}
         </button>
@@ -299,7 +303,14 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
           </button>
         ) : null}
         {file ? (
-          <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.chooseAnotherFile}</button>
+          <>
+            <button type="button" className={toolSecondaryBtn} onClick={reset}>{ws.chooseAnotherFile}</button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
+          </>
         ) : null}
       </div>
 

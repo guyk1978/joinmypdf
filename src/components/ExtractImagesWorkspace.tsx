@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -80,6 +83,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const previewUrlsRef = useRef<string[]>([]);
   const baseId = useId();
 
@@ -270,7 +274,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
-        <div className="pdf-export-workspace space-y-2">
+        <div id={WORKSPACE_OPERATIONS_ID} className="pdf-export-workspace space-y-2">
           <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
             <strong className="text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{file?.name}</strong>
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
@@ -303,6 +307,11 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
             >
               {ws.chooseAnotherFile}
             </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
 
           {hasImages ? (

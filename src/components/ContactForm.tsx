@@ -4,6 +4,12 @@ import { FormEvent, useId, useState } from "react";
 import { useTranslations } from "next-intl";
 import { clsx } from "clsx";
 import { contentDashboardPanel, homePrimaryPillBtn } from "@/lib/tool-ui";
+import {
+  isContactValidationError,
+  submitContactForm,
+  validateContactPayload,
+  type ContactSubmitErrorCode,
+} from "@/lib/submit-contact-form";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
@@ -11,7 +17,7 @@ export function ContactForm() {
   const t = useTranslations("Contact");
   const baseId = useId();
   const [status, setStatus] = useState<FormStatus>("idle");
-  const [errorCode, setErrorCode] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<ContactSubmitErrorCode | null>(null);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,47 +27,54 @@ export function ContactForm() {
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          subject: data.get("subject"),
-          message: data.get("message"),
-          website: data.get("website"),
-        }),
-      });
-
-      const payload = (await response.json().catch(() => ({}))) as { error?: string };
-
-      if (!response.ok) {
-        setErrorCode(payload.error ?? "send_failed");
-        setStatus("error");
-        return;
-      }
-
+    if (trimField(data.get("website"))) {
       setStatus("success");
       form.reset();
-    } catch {
-      setErrorCode("send_failed");
+      return;
+    }
+
+    const validated = validateContactPayload({
+      name: data.get("name"),
+      email: data.get("email"),
+      subject: data.get("subject"),
+      message: data.get("message"),
+    });
+
+    if (!validated.ok) {
+      setErrorCode(validated.error);
+      setStatus("error");
+      return;
+    }
+
+    try {
+      await submitContactForm(validated.data);
+      setStatus("success");
+      form.reset();
+    } catch (error) {
+      const code = error instanceof Error ? error.message : "send_failed";
+      if (code === "activation_required") {
+        setErrorCode("activation_required");
+      } else if (isContactValidationError(code)) {
+        setErrorCode(code);
+      } else {
+        setErrorCode("send_failed");
+      }
       setStatus("error");
     }
   };
 
   const errorMessage =
-    errorCode === "not_configured"
-      ? t("errorConfig")
+    errorCode === "activation_required"
+      ? t("errorActivation")
       : errorCode === "name_required"
-        ? t("nameRequired")
-        : errorCode === "email_invalid"
-          ? t("emailRequired")
-          : errorCode === "subject_required"
-            ? t("subjectRequired")
-            : errorCode === "message_required"
-              ? t("messageRequired")
-              : t("error");
+          ? t("nameRequired")
+          : errorCode === "email_invalid"
+            ? t("emailRequired")
+            : errorCode === "subject_required"
+              ? t("subjectRequired")
+              : errorCode === "message_required"
+                ? t("messageRequired")
+                : t("error");
 
   return (
     <section className={clsx(contentDashboardPanel, "privacy-section max-w-2xl mx-auto w-full")}>
@@ -147,4 +160,8 @@ export function ContactForm() {
       )}
     </section>
   );
+}
+
+function trimField(value: FormDataEntryValue | null): string {
+  return typeof value === "string" ? value.trim() : "";
 }

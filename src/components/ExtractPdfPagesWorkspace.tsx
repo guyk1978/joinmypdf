@@ -1,11 +1,14 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import * as pdf from "@/lib/pdf-engine";
@@ -92,6 +95,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   useEffect(() => {
@@ -256,6 +260,11 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
               <button type="button" onClick={reset} disabled={busy} className={toolSecondaryBtn}>
                 {ws.chooseAnotherFile}
               </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
             </div>
 
             <div className="grid gap-3 rounded-none border border-neutral-400/30 bg-neutral-500/[0.06] p-4 ring-1 ring-neutral-400/20 backdrop-blur-md dark:border-neutral-400/40 dark:bg-neutral-500/10">
@@ -280,7 +289,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
             </div>
 
             {fileBytes && previewIndices.length > 0 && !parseError ? (
-              <div className="visual-reorder-panel">
+              <div id={WORKSPACE_OPERATIONS_ID} className="visual-reorder-panel">
                 <p className="visual-reorder-panel__hint">{ws.wsUi("previewHint")}</p>
                 <div className="delete-pages-grid visual-reorder-grid page-manage-grid" role="list">
                   {previewIndices.map((pageIndex) => (

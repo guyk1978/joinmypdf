@@ -5,6 +5,7 @@ import { clsx } from "clsx";
 import { AdContainer } from "@/components/AdContainer";
 import { ToolLocalProcessingBar } from "@/components/ToolLocalProcessingBar";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
+import { WORKSPACE_UPLOAD_ID } from "@/lib/workspace-flow";
 import { toolUploadStack } from "@/lib/tool-ui";
 
 type WorkspaceUploadShellProps = {
@@ -25,6 +26,7 @@ export function WorkspaceUploadShell({
 
   return (
     <div
+      id={WORKSPACE_UPLOAD_ID}
       className={clsx(
         stacked ? "w-full" : toolUploadStack,
         "tool-upload-stack tool-upload-upper-block flex w-full flex-col",

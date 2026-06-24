@@ -92,6 +92,7 @@ export function useWorkspaceI18n(operation: string) {
     wsUi,
     home: common("home"),
     clear: common("clear"),
+    uploadNewFile: common("uploadNewFile"),
     processing: common("processing"),
     chooseAnotherFile: common("chooseAnotherFile"),
     clientSideOnly: common("clientSideOnly"),

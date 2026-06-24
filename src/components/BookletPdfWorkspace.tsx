@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
@@ -223,6 +226,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const [loadingThumbs, setLoadingThumbs] = useState(false);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
@@ -388,13 +392,20 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
 
       </WorkspaceUploadShell>
       {file ? (
-        <button type="button" className={toolSecondaryBtn} onClick={reset}>
-          {ws.chooseAnotherFile}
-        </button>
+        <>
+          <button type="button" className={toolSecondaryBtn} onClick={reset}>
+            {ws.chooseAnotherFile}
+          </button>
+          <WorkspaceNewUploadButton
+            label={ws.uploadNewFile}
+            disabled={busy}
+            onClick={() => startNewUpload(reset)}
+          />
+        </>
       ) : null}
 
       {plan ? (
-        <div className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
+        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3 rounded-none border border-white/10 bg-white/[0.02] p-3 md:p-4">
           <section className="grid gap-2 md:grid-cols-2" aria-labelledby={`${baseId}-paper`}>
             <h2 id={`${baseId}-paper`} className="sr-only">
               {ws.wsUi("settingsHeading")}

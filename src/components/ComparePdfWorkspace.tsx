@@ -4,7 +4,10 @@ import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
@@ -24,6 +27,7 @@ import {
   useState,
   type ChangeEvent,
   type DragEvent,
+  type RefObject,
 } from "react";
 
 function acceptPdf(f: File) {
@@ -128,6 +132,7 @@ function FileSlot({
   dropHint,
   removeLabel,
   mbUnit,
+  inputRef: externalInputRef,
 }: {
   id: string;
   label: string;
@@ -137,8 +142,10 @@ function FileSlot({
   dropHint: string;
   removeLabel: string;
   mbUnit: string;
+  inputRef?: RefObject<HTMLInputElement | null>;
 }) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const internalInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = externalInputRef ?? internalInputRef;
   const [drag, setDrag] = useState(false);
 
   const pick = (list: FileList | null) => {
@@ -204,6 +211,7 @@ function FileSlot({
 export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const baseId = useId();
+  const leftInputRef = useRef<HTMLInputElement>(null);
   const [leftFile, setLeftFile] = useState<File | null>(null);
   const [rightFile, setRightFile] = useState<File | null>(null);
   const [result, setResult] = useState<PdfCompareResult | null>(null);
@@ -213,6 +221,10 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   const [progress, setProgress] = useState<CompareProgress | null>(null);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [showHighlights, setShowHighlights] = useState(true);
+  const { startNewUpload } = useWorkspaceFileFlow(
+    leftInputRef,
+    (leftFile ? 1 : 0) + (rightFile ? 1 : 0),
+  );
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
@@ -289,6 +301,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
           dropHint={ws.wsCommon("dropPdfHint")}
           removeLabel={ws.wsCommon("remove")}
           mbUnit={ws.wsCommon("mbUnit")}
+          inputRef={leftInputRef}
           onClear={() => {
             setLeftFile(null);
             setResult(null);
@@ -310,15 +323,22 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
       </div>
       </WorkspaceUploadShell>
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div id={WORKSPACE_OPERATIONS_ID} className="flex flex-wrap items-center gap-3">
         <button type="button" className={toolPrimaryBtn} disabled={!canCompare} onClick={() => void runCompare()}>
           {busy ? ws.wsText("comparingLabel") : ws.wsText("compareLabel")}
         </button>
-        {(leftFile || rightFile || result) && (
-          <button type="button" className={toolSecondaryBtn} onClick={reset}>
-            {ws.wsCommon("clearAll")}
-          </button>
-        )}
+        {(leftFile || rightFile || result) ? (
+          <>
+            <button type="button" className={toolSecondaryBtn} onClick={reset}>
+              {ws.wsCommon("clearAll")}
+            </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
+          </>
+        ) : null}
         {result ? (
           <label className="flex cursor-pointer items-center gap-2 text-sm text-ink-muted">
             <input

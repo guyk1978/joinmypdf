@@ -1,8 +1,11 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { SignPageSelect } from "@/components/SignPageSelect";
@@ -294,6 +297,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file && fileBytes));
   const baseId = useId();
 
   const savedById = new Map(savedSignatures.map((s) => [s.id, s]));
@@ -525,7 +529,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       ) : null}
 
       {file && fileBytes ? (
-        <div className="sign-workspace space-y-2">
+        <div id={WORKSPACE_OPERATIONS_ID} className="sign-workspace space-y-2">
           {encrypted ? (
             <div className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
               <label className="text-sm font-medium text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" htmlFor={`${baseId}-pwd`}>
@@ -681,6 +685,11 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
                 >
                   {ws.chooseAnotherFile}
                 </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
               </div>
             </div>
           </div>

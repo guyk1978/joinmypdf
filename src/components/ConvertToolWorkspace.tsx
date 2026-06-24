@@ -7,7 +7,10 @@ import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
+import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
+import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import type { ToolDefinition } from "@/lib/types";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
@@ -93,6 +96,7 @@ export function ConvertToolWorkspace<TProgress>({
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   useEffect(() => {
@@ -236,7 +240,7 @@ export function ConvertToolWorkspace<TProgress>({
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
-        <div className="tool-workspace-panel space-y-2">
+        <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-2">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file?.name}</p>
@@ -279,6 +283,11 @@ export function ConvertToolWorkspace<TProgress>({
             >
               {ws.chooseAnotherFile}
             </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+            />
           </div>
 
           {hasOutput && file ? (
