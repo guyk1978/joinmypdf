@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
-import { Link } from "@/i18n/navigation";
+import { SiteFooterClient } from "@/components/SiteFooterClient";
 import {
   FOOTER_BRAND,
   FOOTER_CATEGORIES_COLUMN,
@@ -37,49 +36,6 @@ function resolveLinkLabel(
   return tFooter(`links.${link.labelKey}` as "links.home");
 }
 
-function FooterLinkItem({ link, label }: { link: FooterLinkDef; label: string }) {
-  if (link.kind === "external") {
-    return (
-      <a href={link.href} target="_blank" rel="noopener noreferrer" className="site-footer__link">
-        {label}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={link.href} className="site-footer__link" prefetch={false}>
-      {label}
-    </Link>
-  );
-}
-
-function FooterColumnBlock({
-  title,
-  links,
-  resolveLabel,
-}: {
-  title: string;
-  links: FooterLinkDef[];
-  resolveLabel: (link: FooterLinkDef) => string;
-}) {
-  return (
-    <div className="site-footer__column">
-      <h3 className="site-footer__column-title">{title}</h3>
-      <ul className="site-footer__link-list">
-        {links.map((link) => {
-          const label = resolveLabel(link);
-          const key = link.kind === "tool" ? link.slug : `${link.href}-${link.labelKey}`;
-          return (
-            <li key={key}>
-              <FooterLinkItem link={link} label={label} />
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-}
-
 export async function SiteFooter({ tagline }: SiteFooterProps) {
   const tFooter = await getTranslations("Footer");
   const tTools = await getTranslations("Tools");
@@ -102,37 +58,23 @@ export async function SiteFooter({ tagline }: SiteFooterProps) {
   const footerColumns = [FOOTER_PRODUCT_COLUMN, FOOTER_CATEGORIES_COLUMN, FOOTER_COMPANY_COLUMN];
 
   return (
-    <footer className="site-footer">
-      <div className="site-footer__inner">
-        <div className="site-footer__grid">
-          <div className="site-footer__brand">
-            <Link href="/" className="site-footer__brand-link" aria-label={FOOTER_BRAND.name}>
-              <JoinMyPdfLogo className="site-footer__logo" />
-            </Link>
-            <p className="site-footer__brand-desc">{brandDescription}</p>
-          </div>
-
-          {footerColumns.map((column) => (
-            <FooterColumnBlock
-              key={column.titleKey}
-              title={tFooter(`columns.${column.titleKey}` as "columns.product")}
-              links={column.links}
-              resolveLabel={resolveLabel}
-            />
-          ))}
-        </div>
-
-        <div className="site-footer__bottom">
-          <p className="site-footer__copyright">
-            © {year} {FOOTER_BRAND.name}. {tFooter("copyright")}
-          </p>
-          <nav className="site-footer__partners" aria-label={tFooter("partnerNavLabel")}>
-            {FOOTER_PARTNER_LINKS.map((link) => (
-              <FooterLinkItem key={link.href} link={link} label={resolveLabel(link)} />
-            ))}
-          </nav>
-        </div>
-      </div>
-    </footer>
+    <SiteFooterClient
+      brandDescription={brandDescription}
+      columns={footerColumns.map((column) => ({
+        title: tFooter(`columns.${column.titleKey}` as "columns.product"),
+        links: column.links.map((link) => ({
+          href: link.href,
+          label: resolveLabel(link),
+          external: link.kind === "external",
+        })),
+      }))}
+      copyrightText={`© ${year} ${FOOTER_BRAND.name}. ${tFooter("copyright")}`}
+      partnerLinks={FOOTER_PARTNER_LINKS.map((link) => ({
+        href: link.href,
+        label: resolveLabel(link),
+        external: true,
+      }))}
+      partnerNavLabel={tFooter("partnerNavLabel")}
+    />
   );
 }

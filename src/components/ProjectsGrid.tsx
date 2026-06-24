@@ -1,5 +1,6 @@
 "use client";
 
+import { clsx } from "clsx";
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -7,7 +8,7 @@ import { FolderOpen, LayoutGrid, Play, Trash2 } from "lucide-react";
 import { useSavedProjects } from "@/hooks/useSavedProjects";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { registry } from "@/lib/registry";
-import { homePrimaryPillBtn } from "@/lib/tool-ui";
+import { contentDashboardPanel, homePrimaryPillBtn } from "@/lib/tool-ui";
 
 function formatDate(timestamp: number, locale: string) {
   try {
@@ -44,13 +45,11 @@ export function ProjectsGrid({ locale }: { locale: string }) {
 
   if (projects.length === 0) {
     return (
-      <div className="projects-empty-state">
-        <div className="projects-empty-state__icon-wrap" aria-hidden>
-          <FolderOpen className="h-9 w-9 text-sky-400" strokeWidth={1.75} />
-        </div>
+      <div className={clsx(contentDashboardPanel, "projects-empty-state")}>
+        <FolderOpen className="projects-empty-state__icon" strokeWidth={1.75} aria-hidden />
         <h2 className="projects-empty-state__title">{t("emptyTitle")}</h2>
         <p className="projects-empty-state__body">{t("emptyState")}</p>
-        <Link href="/tools/" className={`${homePrimaryPillBtn} mt-8 gap-2 px-10`} prefetch={false}>
+        <Link href="/tools/" className={`${homePrimaryPillBtn} mt-6 gap-2 px-10`} prefetch={false}>
           <LayoutGrid className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
           {t("exploreAllTools")}
         </Link>
@@ -67,7 +66,7 @@ export function ProjectsGrid({ locale }: { locale: string }) {
         {projects.map((project) => {
           const toolLabel = toolLabels.get(project.toolSlug) ?? project.toolSlug;
           return (
-            <article key={project.id} className="project-card">
+            <article key={project.id} className={clsx(contentDashboardPanel, "project-card")}>
               <div className="project-card__header">
                 <p className="project-card__tool">{toolLabel}</p>
                 <h2 className="project-card__title">{project.name}</h2>

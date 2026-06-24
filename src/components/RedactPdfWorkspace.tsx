@@ -459,7 +459,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           ) : null}
 
           {fileBytes && pageCount > 0 ? (
-            <div className="grid gap-3 rounded-none border border-emerald-400/25 bg-emerald-500/[0.06] p-4 ring-1 ring-emerald-400/20 backdrop-blur-md dark:border-emerald-400/35 dark:bg-emerald-500/10">
+            <div className="grid gap-3 rounded-none border border-neutral-400/25 bg-neutral-500/[0.06] p-4 ring-1 ring-neutral-400/20 backdrop-blur-md dark:border-neutral-400/35 dark:bg-neutral-500/10">
               <p className="text-sm font-semibold text-ink">{ws.wsUi("keywordHeading")}</p>
               <p className="text-xs text-ink-muted">{ws.wsUi("keywordHint")}</p>
               <div className="flex flex-wrap items-end gap-3">

@@ -6,6 +6,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { usePendingFiles } from "@/context/PendingFilesContext";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
+import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { ctaPrimary, ctaSecondary } from "@/lib/cta-styles";
@@ -30,13 +31,14 @@ export function HeroDropzone() {
 
   return (
     <ToolGlassProvider category="edit">
-    <WorkspaceUploadShell headline={t("title")} subline={t("description")}>
-      <FileUploadZone
-        variant="hero"
-        role="region"
-        aria-label={t("ariaLabel")}
-        drag={drag}
-        title={t("title")}
+      <ToolPageShellProvider headline={t("title")} subline={t("description")} slug="pdf-merge">
+        <WorkspaceUploadShell showPrivacyBadge={false}>
+          <FileUploadZone
+            variant="hero"
+            slug="pdf-merge"
+            role="region"
+            aria-label={t("ariaLabel")}
+            drag={drag}
       onDragOver={(e) => {
         e.preventDefault();
         setDrag(true);
@@ -82,7 +84,8 @@ export function HeroDropzone() {
         </div>
       }
     />
-    </WorkspaceUploadShell>
+        </WorkspaceUploadShell>
+      </ToolPageShellProvider>
     </ToolGlassProvider>
   );
 }

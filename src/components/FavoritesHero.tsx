@@ -13,7 +13,7 @@ export async function FavoritesHero() {
 
       <div className="favorites-hero__content">
         <p className="favorites-hero__badge">
-          <Star className="h-3.5 w-3.5 shrink-0 fill-amber-400/90 text-amber-400" aria-hidden />
+          <Star className="h-3.5 w-3.5 shrink-0 fill-neutral-400/90 text-neutral-400" aria-hidden />
           {t("heroBadge")}
         </p>
         <h1 id="favorites-page-title" className="favorites-hero__title">

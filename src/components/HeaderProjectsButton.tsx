@@ -24,7 +24,7 @@ export function HeaderProjectsButton() {
       <FolderKanban
         className={clsx(
           "h-5 w-5 text-black dark:text-neutral-200",
-          active && "text-sky-500 dark:text-sky-400",
+          active && "text-neutral-500 dark:text-neutral-400",
         )}
         aria-hidden="true"
       />

@@ -38,12 +38,12 @@ export default async function ProjectsPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/projects`),
         }}
       />
-      <div className="home-page-shell projects-page-shell min-h-screen text-neutral-900 dark:text-neutral-100">
+      <div className="home-page-shell projects-page-shell min-h-screen text-black dark:text-white">
         <HomePageSeamlessBg />
         <SiteHeader />
         <main className="home-tool-grid-page">
           <ProjectsHero />
-          <div className="projects-page-content home-tool-grid-shell mx-auto w-full max-w-[1440px]">
+          <div className="projects-page-content home-tool-grid-shell mx-auto w-full max-w-4xl">
             <ProjectsGrid locale={locale} />
           </div>
         </main>

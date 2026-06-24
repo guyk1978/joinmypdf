@@ -46,7 +46,7 @@ export default async function FavoritesPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/favorites`),
         }}
       />
-      <div className="home-page-shell favorites-page-shell min-h-screen text-neutral-900 dark:text-neutral-100">
+      <div className="home-page-shell favorites-page-shell min-h-screen text-black dark:text-white">
         <HomePageSeamlessBg />
         <SiteHeader />
         <main className="home-tool-grid-page">

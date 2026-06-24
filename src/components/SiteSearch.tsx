@@ -18,7 +18,7 @@ import type { SearchEntry } from "@/lib/site-search";
 import type { BlogRegistry, SiteRegistry } from "@/lib/types";
 
 type SiteSearchProps = {
-  variant: "hero" | "header";
+  variant: "hero" | "header" | "header-bar";
   registry: SiteRegistry;
   blog: BlogRegistry;
 };
@@ -138,8 +138,11 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   const [mounted, setMounted] = useState(false);
 
   const results = useMemo(() => filterSearchIndex(index, query), [index, query]);
+  const isInlineBar = variant === "header-bar";
   const showResults =
-    query.trim().length >= 2 && resultsOpen && (variant === "hero" || headerOpen);
+    query.trim().length >= 2 &&
+    resultsOpen &&
+    (variant === "hero" || isInlineBar || headerOpen);
 
   useEffect(() => {
     setMounted(true);
@@ -198,6 +201,19 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   }, [closeAll, focusInput]);
 
   useEffect(() => {
+    if (variant !== "header-bar") return;
+
+    const onPointerDown = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (wrapRef.current?.contains(target)) return;
+      clearResults();
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    return () => document.removeEventListener("mousedown", onPointerDown);
+  }, [variant, clearResults]);
+
+  useEffect(() => {
     if (variant !== "header" || !headerOpen) return;
 
     const onPointerDown = (event: MouseEvent) => {
@@ -241,7 +257,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
         {t("label")}
       </label>
       <div
-        className={`site-search__field site-search__field--glass${inHeaderPanel ? " site-search__field--palette" : ""}`}
+        className={`site-search__field site-search__field--glass${inHeaderPanel ? " site-search__field--palette" : ""}${isInlineBar ? " site-search__field--header-bar" : ""}`}
       >
         <span className="site-search__icon">
           <SearchIcon />
@@ -285,6 +301,20 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
         data-site-search
         data-react-search="true"
         data-variant="hero"
+      >
+        {field()}
+      </div>
+    );
+  }
+
+  if (variant === "header-bar") {
+    return (
+      <div
+        ref={wrapRef}
+        className="site-search site-search--header-bar w-full min-w-0"
+        data-site-search
+        data-react-search="true"
+        data-variant="header-bar"
       >
         {field()}
       </div>

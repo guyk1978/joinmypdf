@@ -1,4 +1,5 @@
 import { absoluteUrl } from "./site";
+import { getBrandName } from "./brand";
 import type { ToolDefinition, ToolVariant } from "./types";
 
 export function JsonLd({ data }: { data: unknown }) {
@@ -69,7 +70,7 @@ export function softwareApplicationLd(args: {
     featureList: schemaFeatureList(locale),
     provider: {
       "@type": "Organization",
-      name: "JoinMyPDF",
+      name: getBrandName(locale),
       url: absoluteUrl("/"),
     },
   };
@@ -107,6 +108,7 @@ export function blogPostingLd(post: {
   datePublished?: string;
   authorName?: string;
   authorRole?: string;
+  locale?: string;
 }) {
   const authorName = post.authorName || "Tomer";
   return {
@@ -121,6 +123,6 @@ export function blogPostingLd(post: {
       name: authorName,
       jobTitle: post.authorRole || "Web Tools Engineer",
     },
-    publisher: { "@type": "Organization", name: "JoinMyPDF" },
+    publisher: { "@type": "Organization", name: getBrandName(post.locale) },
   };
 }

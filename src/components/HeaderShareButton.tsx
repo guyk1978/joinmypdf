@@ -20,7 +20,7 @@ export function HeaderShareButton() {
       title={title}
     >
       {copied ? (
-        <Check className="h-5 w-5 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
+        <Check className="h-5 w-5 text-neutral-600 dark:text-neutral-400" aria-hidden="true" />
       ) : (
         <Share2 className="h-5 w-5 text-black dark:text-neutral-200" aria-hidden="true" />
       )}

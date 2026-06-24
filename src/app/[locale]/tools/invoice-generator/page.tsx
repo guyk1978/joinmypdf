@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
 import Link from "next/link";
+import { BrandEyebrow } from "@/components/BrandEyebrow";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { InvoiceGenerator } from "@/components/invoice/InvoiceGenerator";
 import { INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
+import { getBrandName } from "@/lib/brand";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -15,14 +17,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tools/invoice-generator/" },
 };
 
-export default function InvoiceGeneratorPage() {
+type PageProps = { params: Promise<{ locale: string }> };
+
+export default async function InvoiceGeneratorPage({ params }: PageProps) {
+  const { locale } = await params;
+  const brand = getBrandName(locale);
+
   return (
     <>
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "WebApplication",
-          name: "JoinMyPDF Invoice Generator",
+          name: `${brand} Invoice Generator`,
           url: absoluteUrl("/tools/invoice-generator/"),
           applicationCategory: "BusinessApplication",
           operatingSystem: "Web browser",
@@ -34,7 +41,7 @@ export default function InvoiceGeneratorPage() {
       <SiteHeader />
       <main className="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
         <header className="mb-4 max-w-3xl space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black dark:text-neutral-200">JoinMyPDF</p>
+          <BrandEyebrow />
           <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
             Fast Invoice &amp; Receipt Generator
           </h1>

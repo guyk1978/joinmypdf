@@ -1,22 +1,22 @@
 /** Shared Tailwind classes for tool workspaces — Dark Glassmorphism design system. */
 
 export const toolPrimaryBtn =
-  "rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-ink shadow-sm backdrop-blur-sm transition-[background-color,box-shadow,border-color] hover:border-white/25 hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/20 dark:bg-white/10 dark:text-white dark:hover:bg-white/15";
+  "rounded-none bg-neutral-800 px-4 py-2 text-sm font-semibold text-white shadow-[var(--surface-elevate)] transition-colors hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-neutral-200 dark:text-black dark:hover:bg-white";
 
 export const toolSecondaryBtn =
-  "rounded-xl border border-white/10 bg-transparent px-4 py-2 text-sm font-medium text-ink-muted transition-colors hover:border-white/20 hover:bg-white/[0.04] hover:text-ink disabled:opacity-50 dark:border-white/15 dark:text-neutral-300 dark:hover:bg-white/[0.06] dark:hover:text-white";
+  "rounded-none bg-transparent px-4 py-2 text-sm font-medium text-neutral-600 transition-colors hover:text-black disabled:opacity-50 dark:text-neutral-400 dark:hover:text-white";
 
 export const toolOutlineBtn =
-  "inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-transparent px-4 py-2 text-sm font-semibold text-neutral-200 backdrop-blur-sm transition-[background-color,border-color,color] hover:border-white/25 hover:bg-white/[0.05] hover:text-white disabled:cursor-not-allowed disabled:opacity-45 dark:border-white/20 dark:text-neutral-200 dark:hover:border-white/30 dark:hover:bg-white/[0.06] dark:hover:text-white";
+  "inline-flex items-center justify-center gap-2 rounded-none bg-transparent px-4 py-2 text-sm font-semibold text-neutral-700 transition-colors hover:text-black disabled:cursor-not-allowed disabled:opacity-45 dark:text-neutral-300 dark:hover:text-white";
 
 export const toolInput =
-  "w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-ink backdrop-blur-sm transition-colors placeholder:text-ink-muted focus:border-white/25 focus:outline-none focus:ring-1 focus:ring-white/20 disabled:opacity-60 dark:bg-black/30 dark:text-neutral-100";
+  "w-full rounded-none bg-black/5 px-3 py-2 text-sm text-ink shadow-[var(--surface-separate)] transition-colors placeholder:text-ink-muted focus:outline-none focus:ring-1 focus:ring-neutral-400 disabled:opacity-60 dark:bg-white/5 dark:text-neutral-100 dark:focus:ring-neutral-600";
 
 export const toolDownloadBtn =
   "inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-semibold text-ink backdrop-blur-sm transition-colors hover:bg-white/15 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-white/30 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto dark:text-white";
 
 export const toolPanel =
-  "rounded-2xl border border-white/10 bg-white/[0.03] p-3 ring-1 ring-white/5 backdrop-blur-md dark:border-white/10 dark:bg-black/25";
+  "rounded-none bg-transparent p-3 shadow-[var(--surface-elevate)] dark:bg-transparent";
 
 export const toolGlassPanel = toolPanel;
 
@@ -37,31 +37,31 @@ export const mattePanel = toolPanel;
 export const mattePanelInset =
   "rounded-xl border border-white/10 bg-black/15 p-2 ring-1 ring-white/5 backdrop-blur-sm dark:bg-black/20";
 
-/** App page shell — neutral-50 light / matte charcoal dark */
+/** App page shell — pure monochrome */
 export const appShell =
-  "min-h-screen bg-neutral-50 text-neutral-900 dark:bg-[var(--site-page-bg,#1c2023)] dark:text-neutral-200";
+  "min-h-screen bg-white text-black dark:bg-black dark:text-white";
 
 /** Shared gap between tool cards — matches .home-tool-grid in globals.css */
 export const toolGridGap = "gap-6";
 
 /** Homepage & favorites tool grid cards */
 export const homeToolGridCard =
-  "relative flex min-h-[148px] flex-col items-center justify-center rounded-2xl border border-neutral-200 bg-white/70 p-6 text-center shadow-[0_4px_24px_rgba(0,0,0,0.05)] backdrop-blur-md transition-all duration-300 ease-out hover:z-10 hover:scale-[1.02] hover:border-neutral-400 hover:bg-white/85 hover:shadow-[0_16px_48px_rgba(0,0,0,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500/50 dark:border-neutral-800 dark:bg-neutral-900/50 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] dark:hover:border-neutral-600 dark:hover:bg-white/[0.06] dark:hover:shadow-[0_20px_56px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)]";
+  "relative flex min-h-[172px] flex-col items-center justify-center rounded-none bg-transparent p-5 text-center shadow-none transition-all duration-300 ease-out hover:z-10 hover:scale-[1.008] hover:shadow-[var(--surface-elevate)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-500 dark:bg-transparent dark:hover:shadow-[var(--surface-elevate)]";
 
 export const homeToolGridCardLabel =
-  "mt-4 line-clamp-2 text-sm font-bold leading-snug tracking-tight text-neutral-900 dark:text-neutral-50";
+  "mt-3 line-clamp-2 text-sm font-bold leading-snug tracking-tight text-black dark:text-white";
 
 export const homeToolGridCardFavorite =
-  "home-tool-grid-card__favorite absolute end-3 top-3 rounded-lg border border-white/10 bg-black/25 p-1.5 opacity-0 backdrop-blur-sm transition-all duration-200 max-sm:opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 dark:border-white/10 dark:bg-black/40";
+  "home-tool-grid-card__favorite absolute end-3 top-3 p-0 opacity-0 transition-opacity duration-200 max-sm:opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100";
 
 export const homeSecondaryPillBtn =
-  "inline-flex items-center justify-center rounded-full border border-neutral-200 bg-white/70 px-8 py-3.5 text-sm font-bold tracking-wide text-neutral-900 shadow-[0_4px_20px_rgba(0,0,0,0.05)] backdrop-blur-md transition-[background-color,box-shadow] hover:border-neutral-300 hover:bg-white hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)] dark:border-white/15 dark:bg-neutral-900/50 dark:text-neutral-200 dark:shadow-none dark:hover:border-white/25 dark:hover:bg-neutral-900/70";
+  "inline-flex items-center justify-center rounded-none bg-transparent px-8 py-3.5 text-sm font-bold tracking-wide text-black shadow-[var(--surface-separate)] transition-colors hover:shadow-[var(--surface-elevate)] dark:text-white";
 
 export const homePrimaryPillBtn =
-  "inline-flex items-center justify-center rounded-full bg-emerald-700 px-10 py-3.5 text-sm font-bold tracking-wide text-white shadow-[0_4px_16px_rgba(4,120,87,0.28)] transition-[background-color,box-shadow] hover:bg-emerald-800 hover:shadow-[0_6px_20px_rgba(4,120,87,0.32)] dark:bg-emerald-600/90 dark:shadow-inner dark:hover:bg-emerald-600 dark:hover:shadow-[inset_0_2px_8px_rgba(0,0,0,0.25)]";
+  "inline-flex items-center justify-center rounded-none bg-neutral-900 px-10 py-3.5 text-sm font-bold tracking-wide text-white shadow-[var(--surface-elevate)] transition-colors hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200";
 
 export const homeGlassPanel =
-  "rounded-[20px] border border-neutral-200 bg-white/70 p-8 text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] backdrop-blur-md dark:border-white/5 dark:bg-neutral-900/50 dark:shadow-none";
+  "rounded-[20px] border border-neutral-200 bg-white p-8 text-center shadow-none dark:border-neutral-800 dark:bg-neutral-950";
 
 /** Shared max width for tool upload stack — full width within column, capped for readability */
 export const toolUploadStack = "mx-auto w-full max-w-2xl";
@@ -75,7 +75,7 @@ export const toolPageDashboardStack = "tool-page-dashboard flex w-full flex-col 
 export const contentDashboardStack = "flex w-full flex-col gap-[3px]";
 
 export const contentDashboardPanel =
-  "w-full rounded-none border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900/50";
+  "w-full rounded-none bg-transparent p-6 shadow-[var(--surface-elevate)] dark:bg-transparent";
 
 export const contentDashboardInset =
   "rounded-none border border-neutral-200/80 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-950/50";

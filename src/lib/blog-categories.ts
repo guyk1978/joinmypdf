@@ -11,6 +11,13 @@ const TOOL_CATEGORY_TO_BLOG: Record<string, BlogDisplayCategory> = {
   optimize: "advanced",
 };
 
+export const BLOG_CATEGORY_ACCENT: Record<BlogDisplayCategory, string> = {
+  conversion: "#3B82F6",
+  editing: "#F97316",
+  security: "#10B981",
+  advanced: "#8B5CF6",
+};
+
 export const BLOG_CATEGORY_BADGE_CLASS: Record<BlogDisplayCategory, string> = {
   conversion:
     "guide-category-badge guide-category-badge--conversion inline-flex w-fit rounded-full border border-blue-500/25 bg-blue-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-blue-300 backdrop-blur-sm",
@@ -79,6 +86,10 @@ export function resolveBlogDisplayCategory(post: BlogPost): BlogDisplayCategory 
   if (editorial.includes("edit")) return "editing";
 
   return "advanced";
+}
+
+export function getBlogCategoryAccent(category: BlogDisplayCategory): string {
+  return BLOG_CATEGORY_ACCENT[category];
 }
 
 export function getBlogCategoryBadgeClass(category: BlogDisplayCategory): string {

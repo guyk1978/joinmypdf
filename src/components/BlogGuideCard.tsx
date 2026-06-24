@@ -72,7 +72,7 @@ export async function BlogGuideCard({ post, locale, variant = "default" }: BlogG
         )}
       >
         {isFeatured ? (
-          <p className="guide-card__eyebrow mb-3 text-[10px] font-bold uppercase tracking-[0.14em] text-blue-400">
+          <p className="guide-card__eyebrow mb-3 text-[10px] font-bold uppercase tracking-[0.14em] text-neutral-400">
             {t("featuredGuide")}
           </p>
         ) : null}

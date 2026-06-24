@@ -1,5 +1,6 @@
 import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
+import { localizeHebrewPdfDeep } from "@/lib/hebrew-pdf-term";
 import { routing } from "./routing";
 
 function mergeTools(
@@ -27,12 +28,14 @@ export default getRequestConfig(async ({ requestLocale }) => {
     [key: string]: unknown;
   };
 
+  const messages = {
+    ...base,
+    ...restExtension,
+    Tools: mergeTools(base.Tools as Record<string, unknown>, extraTools),
+  };
+
   return {
     locale,
-    messages: {
-      ...base,
-      ...restExtension,
-      Tools: mergeTools(base.Tools as Record<string, unknown>, extraTools),
-    },
+    messages: locale === "he" ? localizeHebrewPdfDeep(messages) : messages,
   };
 });

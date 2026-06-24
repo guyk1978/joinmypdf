@@ -1,25 +1,25 @@
 /** Industrial dark glassmorphism theme tokens for the homepage. */
 export const HOME_HERO_BG = {
-  dark: { en: "#0c0e12", he: "#0c0e12" },
-  light: { en: "#f4f5f7", he: "#f4f5f7" },
+  dark: { en: "#000000", he: "#000000" },
+  light: { en: "#ffffff", he: "#ffffff" },
 } as const;
 
 export const HOME_GRID_THEME = {
   light: {
-    cardBg: "rgba(255, 255, 255, 0.72)",
-    cardBgHover: "rgba(255, 255, 255, 0.88)",
-    cardText: "#0f172a",
-    iconBg: "rgba(255, 255, 255, 0.9)",
-    iconBgHover: "rgba(255, 255, 255, 0.98)",
-    muted: "#64748b",
+    cardBg: "#ffffff",
+    cardBgHover: "#f5f5f5",
+    cardText: "#000000",
+    iconBg: "transparent",
+    iconBgHover: "transparent",
+    muted: "#737373",
   },
   dark: {
-    cardBg: "rgba(23, 23, 23, 0.5)",
-    cardBgHover: "rgba(255, 255, 255, 0.06)",
-    cardText: "#fafafa",
-    iconBg: "rgba(255, 255, 255, 0.06)",
-    iconBgHover: "rgba(255, 255, 255, 0.1)",
-    muted: "#94a3b8",
+    cardBg: "#0a0a0a",
+    cardBgHover: "#171717",
+    cardText: "#ffffff",
+    iconBg: "transparent",
+    iconBgHover: "transparent",
+    muted: "#a3a3a3",
   },
 } as const;
 

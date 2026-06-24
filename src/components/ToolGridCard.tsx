@@ -6,7 +6,7 @@ import { Star, X } from "lucide-react";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
 import { useFavorites } from "@/hooks/useFavorites";
-import { getToolIcon, TOOL_ICON_WRAP_CLASS } from "@/lib/tool-icons";
+import { getToolIcon, TOOL_ICON_BARE_CLASS } from "@/lib/tool-icons";
 import {
   homeToolGridCard,
   homeToolGridCardFavorite,
@@ -48,11 +48,11 @@ export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
           homeToolGridCardFavorite,
           showFavoriteAlways && "opacity-100",
           showRemove &&
-            "text-neutral-400 hover:border-neutral-600/40 hover:bg-white/[0.08] hover:text-neutral-100 dark:text-neutral-500 dark:hover:border-neutral-500/40 dark:hover:text-neutral-100",
+            "text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300",
           !showRemove &&
             (favorited
-              ? "border-amber-500/30 bg-amber-500/10 text-amber-500 opacity-100 hover:border-amber-500/50 hover:bg-amber-500/15 dark:text-amber-400"
-              : "text-neutral-500 hover:border-amber-500/30 hover:bg-amber-500/10 hover:text-amber-500 dark:text-neutral-400 dark:hover:text-amber-400"),
+              ? "text-amber-500 opacity-100 hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300"
+              : "text-neutral-400 hover:text-amber-500 dark:text-neutral-500 dark:hover:text-amber-400"),
         )}
         aria-label={
           showRemove
@@ -77,11 +77,9 @@ export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
       <span
         className={clsx(
           "home-tool-grid-card__icon",
-          TOOL_ICON_WRAP_CLASS,
-          "inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-105",
-          "[&_svg]:h-8 [&_svg]:w-8",
-          visual.wrap,
-          visual.wrapHover,
+          TOOL_ICON_BARE_CLASS,
+          "inline-flex items-center justify-center transition-transform duration-300 group-hover:scale-105",
+          "[&_svg]:h-16 [&_svg]:w-16 sm:[&_svg]:h-[4.5rem] sm:[&_svg]:w-[4.5rem] md:[&_svg]:h-20 md:[&_svg]:w-20",
         )}
         aria-hidden
       >

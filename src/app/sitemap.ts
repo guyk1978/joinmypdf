@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const basePaths = [
     "/",
     "/tools/",
+    "/premium-tools/",
     "/blog/",
     "/privacy-first/",
     "/privacy/",

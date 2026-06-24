@@ -1,8 +1,10 @@
 "use client";
 
 import { INVOICE_PRINT_ROOT_ID } from "@/lib/invoice/constants";
+import { getBrandName } from "@/lib/brand";
 import { toolCanvasPage, toolCanvasStudio } from "@/lib/tool-ui";
 import { clsx } from "clsx";
+import { useLocale } from "next-intl";
 import type { InvoiceDocument } from "@/lib/invoice/types";
 import {
   computeTotals,
@@ -30,6 +32,8 @@ function AddressBlock({ lines }: { lines: string }) {
 }
 
 export function InvoicePreviewPanel({ document }: InvoicePreviewPanelProps) {
+  const locale = useLocale();
+  const brand = getBrandName(locale);
   const totals = computeTotals(document);
   const hasItems = document.lineItems.some(
     (item) => item.description.trim() || item.quantity > 0 || item.price > 0,
@@ -166,7 +170,7 @@ export function InvoicePreviewPanel({ document }: InvoicePreviewPanelProps) {
                 </div>
               </div>
               <p className="mt-4 text-center text-xs text-black dark:text-neutral-200">
-                Thank you for your business · Generated with JoinMyPDF
+                Thank you for your business · Generated with {brand}
               </p>
             </footer>
           </div>

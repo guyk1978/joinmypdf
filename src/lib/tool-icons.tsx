@@ -10,6 +10,9 @@ export type ToolIconVisual = {
 /** Shared class: dark-mode icon container styling is defined in globals.css */
 export const TOOL_ICON_WRAP_CLASS = "tool-icon-wrap";
 
+/** Large bare icons on tool grid cards — no matte border box */
+export const TOOL_ICON_BARE_CLASS = "tool-icon-bare";
+
 const ICON_CLASS = "h-6 w-6";
 
 function MergeIcon() {

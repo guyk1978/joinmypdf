@@ -13,7 +13,7 @@ export async function PrivacyPolicyHero() {
 
       <div className="privacy-policy-hero__content">
         <p className="privacy-policy-hero__badge">
-          <Shield className="h-3.5 w-3.5 shrink-0 text-emerald-400" aria-hidden />
+          <Shield className="h-3.5 w-3.5 shrink-0 text-neutral-400" aria-hidden />
           {t("heroBadge")}
         </p>
         <h1 id="privacy-policy-title" className="privacy-policy-hero__title">

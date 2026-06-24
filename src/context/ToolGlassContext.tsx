@@ -22,6 +22,8 @@ export function ToolGlassProvider({
           {
             "--tool-accent-rgb": theme.accentRgb,
             "--tool-glow-rgb": theme.glowRgb,
+            "--tool-upload-cta-bg": theme.ctaBg,
+            "--tool-upload-cta-bg-hover": theme.ctaBgHover,
           } as CSSProperties
         }
       >

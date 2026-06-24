@@ -1,10 +1,14 @@
+"use client";
+
 import { clsx } from "clsx";
+import { useLocale } from "next-intl";
+import { BRAND_LOGO_HE_AFTER, BRAND_LOGO_HE_BEFORE } from "@/lib/brand";
 
 type JoinMyPdfLogoProps = {
   className?: string;
 };
 
-/** Angular geometric eye replacing the letter O — monochromatic, theme-aware via currentColor. */
+/** Angular geometric eye — monochromatic, theme-aware via currentColor. */
 function LogoEye({ className }: { className?: string }) {
   return (
     <svg
@@ -29,19 +33,35 @@ function LogoEye({ className }: { className?: string }) {
   );
 }
 
+const logoSizeClass =
+  "text-lg font-black leading-none sm:text-xl lg:text-[1.625rem]";
+
 export function JoinMyPdfLogo({ className }: JoinMyPdfLogoProps) {
+  const locale = useLocale();
+  const isHe = locale === "he";
+
   return (
     <span
       className={clsx(
-        "joinmypdf-logo inline-flex items-center text-lg font-black leading-none tracking-[0.12em] text-neutral-900 sm:text-xl lg:text-[1.625rem] dark:text-neutral-100",
+        "joinmypdf-logo inline-flex items-center text-neutral-900 dark:text-neutral-100",
+        isHe ? "joinmypdf-logo--he" : "tracking-[0.12em]",
+        logoSizeClass,
         className,
       )}
     >
-      <span className="inline-flex items-center" aria-hidden="true">
-        <span>JOINMY</span>
-        <LogoEye />
-        <span>PDF</span>
-      </span>
+      {isHe ? (
+        <span className="joinmypdf-logo__he-inner inline-flex items-center" dir="rtl" aria-hidden="true">
+          <span>{BRAND_LOGO_HE_BEFORE}</span>
+          <LogoEye className="joinmypdf-logo__eye--he" />
+          <span>{BRAND_LOGO_HE_AFTER}</span>
+        </span>
+      ) : (
+        <span className="inline-flex items-center" aria-hidden="true">
+          <span>JOINMY</span>
+          <LogoEye />
+          <span>PDF</span>
+        </span>
+      )}
     </span>
   );
 }

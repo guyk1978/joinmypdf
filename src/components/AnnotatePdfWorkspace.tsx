@@ -526,7 +526,7 @@ export function AnnotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slu
               </div>
             ) : null}
 
-            <div className="grid gap-3 rounded-none border border-violet-400/30 bg-violet-500/[0.06] p-4 ring-1 ring-violet-400/20 backdrop-blur-md dark:border-violet-400/40 dark:bg-violet-500/10">
+            <div className="grid gap-3 rounded-none border border-neutral-400/30 bg-neutral-500/[0.06] p-4 ring-1 ring-neutral-400/20 backdrop-blur-md dark:border-neutral-400/40 dark:bg-neutral-500/10">
               <div className="flex flex-wrap items-center gap-2" role="toolbar" aria-label={ws.wsUi("toolbarLabel")}>
                 {(["highlight", "draw", "sticky"] as const).map((t) => (
                   <button
@@ -537,7 +537,7 @@ export function AnnotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slu
                     className={clsx(
                       "rounded-none border px-3 py-2 text-sm font-semibold transition",
                       annotateTool === t
-                        ? "border-violet-400/60 bg-violet-500/20 text-ink"
+                        ? "border-neutral-400/60 bg-neutral-500/20 text-ink"
                         : "border-white/15 text-ink hover:bg-white/5",
                     )}
                   >

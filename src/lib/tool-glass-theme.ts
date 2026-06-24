@@ -8,9 +8,13 @@ export type ToolGlassTheme = {
   accentRgb: string;
   /** @deprecated Use accentRgb — kept for CSS var compatibility */
   glowRgb: string;
-  /** Upper upload shell — industrial glass workspace panel */
+  /** Select-files button background */
+  ctaBg: string;
+  /** Select-files button hover background */
+  ctaBgHover: string;
+  /** Upper upload shell — transparent, no container box */
   shell: string;
-  /** Inner drop-zone — minimalist dashed glass frame */
+  /** Inner drop-zone — invisible frame; interaction only */
   dropzone: string;
   dropzoneActive: string;
   dropzoneHover: string;
@@ -21,23 +25,20 @@ export type ToolGlassTheme = {
   ctaHover: string;
 };
 
-export const TOOL_UPLOAD_SHELL =
-  "tool-upload-upper-panel overflow-hidden rounded-2xl border border-neutral-200 bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/50 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]";
+/** No visible outer panel — content floats on page background */
+export const TOOL_UPLOAD_SHELL = "tool-upload-shell w-full";
 
-export const TOOL_GLASS_DROPZONE_BASE =
-  "tool-upload-zone-inner rounded-xl border border-dashed border-neutral-300 bg-neutral-50/40 transition-all duration-300 dark:border-neutral-800 dark:bg-white/[0.02]";
+/** Drop zone — no border, background, or shadow */
+export const TOOL_GLASS_DROPZONE_BASE = "tool-upload-zone-base border-0 bg-transparent shadow-none";
 
-export const TOOL_GLASS_DROPZONE_HOVER =
-  "hover:border-neutral-400 hover:bg-white/60 dark:hover:border-neutral-600 dark:hover:bg-white/[0.04] dark:hover:shadow-[0_0_32px_rgba(var(--tool-accent-rgb),0.14)]";
+export const TOOL_GLASS_DROPZONE_HOVER = "";
 
-const CTA_BASE =
-  "tool-upload-cta rounded-xl border border-[rgba(var(--tool-accent-rgb),0.45)] bg-[rgba(var(--tool-accent-rgb),0.1)] px-8 py-3 text-sm font-bold tracking-wide text-neutral-900 shadow-[0_0_20px_rgba(var(--tool-accent-rgb),0.18),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-sm dark:text-white";
+const CTA_BASE = "tool-upload-cta px-14 py-4 text-base font-bold tracking-wide text-white transition-colors";
 
-const CTA_HOVER =
-  "hover:border-[rgba(var(--tool-accent-rgb),0.7)] hover:bg-[rgba(var(--tool-accent-rgb),0.18)] hover:shadow-[0_0_32px_rgba(var(--tool-accent-rgb),0.32),inset_0_1px_0_rgba(255,255,255,0.16)]";
+const CTA_HOVER = "";
 
 const TOOL_GLASS_PANEL =
-  "rounded-xl border border-neutral-200 bg-white/70 p-5 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/50";
+  "rounded-none bg-transparent p-5 shadow-[var(--surface-elevate)] dark:bg-transparent";
 
 export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
   convert: {
@@ -45,10 +46,11 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     label: "Convert",
     accentRgb: "239, 68, 68",
     glowRgb: "239, 68, 68",
+    ctaBg: "#7B1113",
+    ctaBgHover: "#922024",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
-    dropzoneActive:
-      "tool-upload-zone--active !border-[rgba(var(--tool-accent-rgb),0.55)] !bg-[rgba(var(--tool-accent-rgb),0.06)] shadow-[0_0_36px_rgba(var(--tool-accent-rgb),0.22)]",
+    dropzoneActive: "tool-upload-zone--active",
     dropzoneHover: TOOL_GLASS_DROPZONE_HOVER,
     panel: TOOL_GLASS_PANEL,
     cta: CTA_BASE,
@@ -59,10 +61,11 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     label: "Edit",
     accentRgb: "16, 185, 129",
     glowRgb: "16, 185, 129",
+    ctaBg: "#0B5D4A",
+    ctaBgHover: "#0D7059",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
-    dropzoneActive:
-      "tool-upload-zone--active !border-[rgba(var(--tool-accent-rgb),0.55)] !bg-[rgba(var(--tool-accent-rgb),0.06)] shadow-[0_0_36px_rgba(var(--tool-accent-rgb),0.22)]",
+    dropzoneActive: "tool-upload-zone--active",
     dropzoneHover: TOOL_GLASS_DROPZONE_HOVER,
     panel: TOOL_GLASS_PANEL,
     cta: CTA_BASE,
@@ -73,10 +76,11 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     label: "Optimize",
     accentRgb: "249, 115, 22",
     glowRgb: "249, 115, 22",
+    ctaBg: "#7B3B00",
+    ctaBgHover: "#934600",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
-    dropzoneActive:
-      "tool-upload-zone--active !border-[rgba(var(--tool-accent-rgb),0.55)] !bg-[rgba(var(--tool-accent-rgb),0.06)] shadow-[0_0_36px_rgba(var(--tool-accent-rgb),0.22)]",
+    dropzoneActive: "tool-upload-zone--active",
     dropzoneHover: TOOL_GLASS_DROPZONE_HOVER,
     panel: TOOL_GLASS_PANEL,
     cta: CTA_BASE,
@@ -87,10 +91,11 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     label: "Security",
     accentRgb: "139, 92, 246",
     glowRgb: "139, 92, 246",
+    ctaBg: "#4C1D95",
+    ctaBgHover: "#5B2D82",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
-    dropzoneActive:
-      "tool-upload-zone--active !border-[rgba(var(--tool-accent-rgb),0.55)] !bg-[rgba(var(--tool-accent-rgb),0.06)] shadow-[0_0_36px_rgba(var(--tool-accent-rgb),0.22)]",
+    dropzoneActive: "tool-upload-zone--active",
     dropzoneHover: TOOL_GLASS_DROPZONE_HOVER,
     panel: TOOL_GLASS_PANEL,
     cta: CTA_BASE,

@@ -18,7 +18,10 @@ export function ToolFavoriteButton({ slug, className }: ToolFavoriteButtonProps)
   return (
     <button
       type="button"
-      onClick={() => toggleFavorite(slug)}
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleFavorite(slug);
+      }}
       className={clsx(
         "rounded-full p-1.5 transition-all hover:scale-105 active:scale-110",
         favorited
@@ -31,7 +34,7 @@ export function ToolFavoriteButton({ slug, className }: ToolFavoriteButtonProps)
     >
       <Star
         className={clsx(
-          "h-5 w-5",
+          "h-6 w-6",
           favorited && "fill-amber-500 text-amber-500 dark:fill-amber-400 dark:text-amber-400",
         )}
       />

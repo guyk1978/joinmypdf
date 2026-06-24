@@ -6,6 +6,7 @@ import { HomeToolGrid } from "@/components/HomeToolGrid";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { routing } from "@/i18n/routing";
+import { getBrandName } from "@/lib/brand";
 import { buildAllHomeToolItems } from "@/lib/featured-tools";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
@@ -41,12 +42,12 @@ export default async function HomePage({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "JoinMyPDF",
+          name: getBrandName(locale),
           url: absoluteUrl(`/${locale}`),
           description: tMeta("homeDescription"),
         }}
       />
-      <div className="home-page-shell min-h-screen text-neutral-900 dark:text-neutral-100">
+      <div className="home-page-shell min-h-screen text-black dark:text-white">
         <HomePageSeamlessBg />
         <SiteHeader />
         <main className="home-tool-grid-page">

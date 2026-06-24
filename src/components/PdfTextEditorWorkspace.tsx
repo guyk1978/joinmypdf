@@ -373,7 +373,7 @@ export function PdfTextEditorWorkspace({ tool, slug }: { tool: ToolDefinition; s
               </div>
             ) : null}
 
-            <div className="grid gap-3 rounded-none border border-violet-400/30 bg-violet-500/[0.06] p-4 ring-1 ring-violet-400/20 backdrop-blur-md dark:border-violet-400/40 dark:bg-violet-500/10">
+            <div className="grid gap-3 rounded-none border border-neutral-400/30 bg-neutral-500/[0.06] p-4 ring-1 ring-neutral-400/20 backdrop-blur-md dark:border-neutral-400/40 dark:bg-neutral-500/10">
               <div className="grid gap-3 md:grid-cols-2">
                 <label className="block text-sm">
                   <span className="font-semibold text-black dark:text-neutral-200">{ws.wsUi("textLabel")}</span>

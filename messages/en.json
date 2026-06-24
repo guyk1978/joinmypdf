@@ -18,7 +18,9 @@
     "mobileNav": "Mobile primary",
     "installApp": "Install app",
     "favorites": "Favorites",
-    "projects": "My Projects"
+    "projects": "My Projects",
+    "premiumTools": "Premium Tools",
+    "moreMenu": "More options"
   },
   "Search": {
     "label": "Search tools and guides",
@@ -196,6 +198,12 @@
     "learnPrivacy": "Learn about Privacy First",
     "viewGuides": "View guides"
   },
+  "PremiumTools": {
+    "metaTitle": "Premium PDF Tools",
+    "metaDescription": "Sign, protect, redact, compare, and convert PDFs—plus invoice, timeline, and data studio apps. All run locally in your browser.",
+    "title": "Premium Tools",
+    "browseAllTools": "Browse all tools"
+  },
   "HeroDropzone": {
     "ariaLabel": "Quick merge upload",
     "title": "Drop PDFs here to merge",
@@ -263,6 +271,8 @@
       "privacyHub": "Privacy-first PDF hub"
     },
     "copyright": "All rights reserved.",
+    "expandFooter": "Site links",
+    "collapseFooter": "Hide site links",
     "partnerNavLabel": "Partner tools"
   },
   "Blog": {

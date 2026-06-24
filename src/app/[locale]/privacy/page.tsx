@@ -5,6 +5,7 @@ import { PrivacyPolicyHero } from "@/components/PrivacyPolicyHero";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Link } from "@/i18n/navigation";
+import { getBrandName } from "@/lib/brand";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { homeSecondaryPillBtn } from "@/lib/tool-ui";
@@ -52,12 +53,12 @@ export default async function PrivacyPage({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: `${t("title")} — JoinMyPDF`,
+          name: `${t("title")} — ${getBrandName(locale)}`,
           description: t("metaDescription"),
           url: absoluteUrl(`/${locale}/privacy`),
         }}
       />
-      <div className="home-page-shell min-h-screen text-neutral-900 dark:text-neutral-100">
+      <div className="home-page-shell min-h-screen text-black dark:text-white">
         <HomePageSeamlessBg />
         <SiteHeader />
         <PrivacyPolicyHero />
@@ -75,7 +76,7 @@ export default async function PrivacyPage({ params }: Props) {
                 >
                   <div className="privacy-policy-section__header">
                     <div className="privacy-policy-section__icon-wrap" aria-hidden>
-                      <Icon className="h-5 w-5 text-emerald-400" />
+                      <Icon className="h-5 w-5 text-neutral-400" />
                     </div>
                     <h2 id={`privacy-section-${key}`} className="privacy-section__title">
                       {t(`sections.${key}.title`)}

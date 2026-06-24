@@ -29,8 +29,8 @@ export function CompactToolCardGrid({
             href={item.href}
             className={
               isGlass
-                ? "group flex min-h-[88px] flex-col items-center justify-center rounded-xl border border-neutral-800 bg-neutral-900/50 px-2 py-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-neutral-600 hover:bg-white/[0.06] hover:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:border-neutral-800 dark:bg-neutral-900/50"
-                : "group flex min-h-[80px] flex-col items-center justify-center rounded-none border border-dashed border-neutral-400 bg-neutral-200 px-2 py-2 text-center transition-colors hover:border-neutral-500 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:border-neutral-600"
+                ? "compact-tool-card compact-tool-card--glass group flex min-h-[88px] flex-col items-center justify-center rounded-none px-2 py-3 text-center transition-all duration-300 hover:shadow-[var(--surface-elevate)]"
+                : "group flex min-h-[80px] flex-col items-center justify-center rounded-none bg-transparent px-2 py-2 text-center shadow-[var(--surface-separate)] transition-all hover:shadow-[var(--surface-elevate)] dark:bg-transparent"
             }
           >
             <span

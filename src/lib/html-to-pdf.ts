@@ -21,7 +21,7 @@ const DEFAULT_HTML_SAMPLE = `<!doctype html>
     <meta charset="utf-8" />
     <title>HTML to PDF Preview</title>
     <style>
-      body { font-family: Inter, Arial, sans-serif; margin: 0; padding: 24px; background: #f8fafc; color: #0a0a0a; }
+      body { font-family: Inter, Arial, sans-serif; margin: 0; padding: 24px; background: #ffffff; color: #0a0a0a; }
       .card { background: white; border: 1px solid #d4d4d4; border-radius: 12px; padding: 20px; }
       h1 { margin: 0 0 12px; font-size: 26px; }
       p { margin: 0 0 12px; line-height: 1.6; }

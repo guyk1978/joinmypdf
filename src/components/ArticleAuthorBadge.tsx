@@ -59,7 +59,7 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
           <span className="text-neutral-500"> · {author.role}</span>
         </p>
         <p className="mt-1 flex items-start gap-1.5 text-xs leading-relaxed text-neutral-500 sm:items-center">
-          <CheckBadgeIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400 sm:mt-0" />
+          <CheckBadgeIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neutral-400 sm:mt-0" />
           <span>{author.verifiedLabel}</span>
         </p>
       </div>

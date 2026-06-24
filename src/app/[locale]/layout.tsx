@@ -8,6 +8,8 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Providers } from "@/components/Providers";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { routing } from "@/i18n/routing";
+import { getBrandName } from "@/lib/brand";
+import { localizeHebrewCopyInText } from "@/lib/hebrew-pdf-term";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { siteUrl } from "@/lib/site";
 
@@ -38,27 +40,37 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
     Metadata: { siteTitle: string; siteDescription: string };
   };
 
-  const social = buildDefaultSocialImages(locale, { alt: messages.Metadata.siteTitle });
+  const siteTitle =
+    locale === "he"
+      ? localizeHebrewCopyInText(messages.Metadata.siteTitle)
+      : messages.Metadata.siteTitle;
+  const siteDescription =
+    locale === "he"
+      ? localizeHebrewCopyInText(messages.Metadata.siteDescription)
+      : messages.Metadata.siteDescription;
+  const brandName = getBrandName(locale);
+
+  const social = buildDefaultSocialImages(locale, { alt: siteTitle });
 
   return {
     metadataBase: new URL(siteUrl),
     title: {
-      default: messages.Metadata.siteTitle,
-      template: "%s | JoinMyPDF",
+      default: siteTitle,
+      template: `%s | ${brandName}`,
     },
-    description: messages.Metadata.siteDescription,
+    description: siteDescription,
     openGraph: {
       type: "website",
-      siteName: "JoinMyPDF",
-      title: messages.Metadata.siteTitle,
-      description: messages.Metadata.siteDescription,
+      siteName: brandName,
+      title: siteTitle,
+      description: siteDescription,
       url: `/${locale}`,
       locale: locale === "he" ? "he_IL" : "en_US",
       ...social.openGraph,
     },
     twitter: {
-      title: messages.Metadata.siteTitle,
-      description: messages.Metadata.siteDescription,
+      title: siteTitle,
+      description: siteDescription,
       ...social.twitter,
     },
     robots: { index: true, follow: true },

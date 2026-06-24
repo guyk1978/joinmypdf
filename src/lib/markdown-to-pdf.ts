@@ -58,8 +58,8 @@ function themeStyles(theme: MarkdownTheme): string {
       .joinmypdf-md-render h3 { font-size: 1.2em; margin: 1em 0 0.45em; font-weight: 700; }
       .joinmypdf-md-render p { margin: 0 0 0.9em; }
       .joinmypdf-md-render ul, .joinmypdf-md-render ol { margin: 0 0 0.9em 1.35em; }
-      .joinmypdf-md-render blockquote { margin: 0 0 1em; padding: 0.35em 1em; border-left: 4px solid #a3a3a3; color: #475569; font-style: italic; }
-      .joinmypdf-md-render pre { margin: 0 0 1em; padding: 12px 14px; background: #f8fafc; border: 1px solid #e5e5e5; border-radius: 4px; overflow-x: auto; }
+      .joinmypdf-md-render blockquote { margin: 0 0 1em; padding: 0.35em 1em; border-left: 4px solid #a3a3a3; color: #525252; font-style: italic; }
+      .joinmypdf-md-render pre { margin: 0 0 1em; padding: 12px 14px; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 4px; overflow-x: auto; }
       .joinmypdf-md-render code { font-family: "Courier New", Courier, monospace; font-size: 0.92em; }
       .joinmypdf-md-render :not(pre) > code { background: #f5f5f5; padding: 0.12em 0.35em; border-radius: 3px; }
       .joinmypdf-md-render table { border-collapse: collapse; width: 100%; margin: 0 0 1em; font-size: 11pt; }

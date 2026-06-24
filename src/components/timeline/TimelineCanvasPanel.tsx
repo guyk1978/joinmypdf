@@ -1,8 +1,10 @@
 "use client";
 
 import { TIMELINE_PRINT_ROOT_ID } from "@/lib/timeline/constants";
+import { getBrandName } from "@/lib/brand";
 import { toolCanvasStudio, toolDownloadBtn } from "@/lib/tool-ui";
 import { clsx } from "clsx";
+import { useLocale } from "next-intl";
 import type { TimelineProject } from "@/lib/timeline/types";
 import {
   formatDisplayDate,
@@ -29,6 +31,9 @@ export function TimelineCanvasPanel({
   onDownload,
   downloadBusy = false,
 }: TimelineCanvasPanelProps) {
+  const locale = useLocale();
+  const brand = getBrandName(locale);
+  const isHe = locale === "he";
   const bounds = getProjectBounds(project.tasks, project.milestones);
   const sortedTasks = sortTasksByRow(project.tasks);
   const ticks = bounds ? generateTimeAxisTicks(bounds, 7) : [];
@@ -68,7 +73,14 @@ export function TimelineCanvasPanel({
           style={{ minHeight: chartHeight }}
         >
           <header className="border-b border-neutral-300 dark:border-neutral-800/60 px-4 py-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200">JoinMyPDF</p>
+            <p
+              className={clsx(
+                "text-xs font-semibold text-black dark:text-neutral-200",
+                isHe ? "tracking-normal" : "uppercase tracking-[0.2em]",
+              )}
+            >
+              {brand}
+            </p>
             <h3 className="mt-1 text-xl font-bold tracking-tight text-black dark:text-neutral-200">
               {project.title.trim() || "Timeline"}
             </h3>
@@ -191,7 +203,7 @@ export function TimelineCanvasPanel({
           )}
 
           <footer className="border-t border-neutral-300 dark:border-neutral-800/50 px-4 py-3 text-center text-[11px] text-black dark:text-neutral-200">
-            Generated with JoinMyPDF — client-side timeline &amp; Gantt chart
+            Generated with {brand} — client-side timeline &amp; Gantt chart
           </footer>
         </article>
       </div>

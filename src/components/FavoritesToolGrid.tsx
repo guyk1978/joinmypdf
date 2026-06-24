@@ -27,7 +27,7 @@ export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
       ) : favoriteItems.length === 0 ? (
         <div className="favorites-empty-state">
           <div className="favorites-empty-state__icon-wrap" aria-hidden>
-            <Star className="h-9 w-9 fill-amber-400/20 text-amber-400" strokeWidth={1.75} />
+            <Star className="h-9 w-9 fill-neutral-400/20 text-neutral-400" strokeWidth={1.75} />
           </div>
           <h2 className="favorites-empty-state__title">{t("emptyTitle")}</h2>
           <p className="favorites-empty-state__body">{t("emptyState")}</p>

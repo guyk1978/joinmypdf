@@ -4,11 +4,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { SiteSearch } from "@/components/SiteSearch";
 import { ToolsDirectoryHero } from "@/components/ToolsDirectoryHero";
 import { ToolsDirectoryToolGrid } from "@/components/ToolsDirectoryToolGrid";
 import { Link } from "@/i18n/navigation";
-import { blogRegistry } from "@/lib/blog-registry";
 import { getTotalToolCount } from "@/lib/featured-tools";
 import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
 import { buildMegaMenuSections } from "@/lib/mega-menu";
@@ -104,23 +102,18 @@ export default async function ToolsDirectoryPage({ params }: Props) {
           numberOfItems: toolCount,
         }}
       />
-      <div className="home-page-shell min-h-screen text-neutral-900 dark:text-neutral-100">
+      <div className="home-page-shell min-h-screen text-black dark:text-white">
         <HomePageSeamlessBg />
         <SiteHeader />
         <main className="home-tool-grid-page">
-          <ToolsDirectoryHero toolCount={toolCount} />
+          <ToolsDirectoryHero />
 
           <div className="tools-directory-content home-tool-grid-shell mx-auto w-full max-w-[1440px]">
-            <div className="tools-directory-search mx-auto max-w-2xl px-4">
-              <SiteSearch variant="hero" registry={registry} blog={blogRegistry} />
-            </div>
-
             <section className="tools-directory-section" aria-labelledby="featured-tools">
               <header className="tools-directory-section__header">
                 <h2 id="featured-tools" className="tools-directory-section__title">
                   {tPage("startHere")}
                 </h2>
-                <p className="tools-directory-section__description">{tPage("startHereDescription")}</p>
               </header>
               <ToolsDirectoryToolGrid items={featuredItems} className="mt-8" />
             </section>

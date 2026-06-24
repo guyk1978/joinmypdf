@@ -29,10 +29,10 @@ const config: Config = {
         },
         brand: { DEFAULT: "#525252", deep: "#171717" },
         matte: {
-          bg: "#0a0a0a",
-          panel: "#171717",
+          bg: "#000000",
+          panel: "#0a0a0a",
           border: "#262626",
-          text: "#e5e5e5",
+          text: "#ffffff",
           muted: "#a3a3a3",
         },
       },

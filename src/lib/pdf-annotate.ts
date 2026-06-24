@@ -59,7 +59,7 @@ export const STICKY_NOTE_STYLES: Record<
   { fill: string; border: string; text: string }
 > = {
   yellow: { fill: "rgba(250, 204, 21, 0.88)", border: "#EAB308", text: "#422006" },
-  green: { fill: "rgba(52, 211, 153, 0.88)", border: "#10B981", text: "#064E3B" },
+  green: { fill: "rgba(163, 163, 163, 0.88)", border: "#10B981", text: "#064E3B" },
   violet: { fill: "rgba(167, 139, 250, 0.88)", border: "#8B5CF6", text: "#2E1065" },
   cyan: { fill: "rgba(34, 211, 238, 0.88)", border: "#06B6D4", text: "#083344" },
 };

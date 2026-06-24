@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ToolDefinition, ToolVariant } from "./types";
+import { getBrandName } from "./brand";
 import { translateToolItem } from "./i18n-tool-labels";
 import type { ToolsTranslator } from "./i18n-tool-page";
 import { buildDefaultSocialImages, localeOgImageUrl } from "./og-images";
@@ -94,7 +95,7 @@ export function buildLocalizedToolMetadata(params: {
       title: ogTitle,
       description,
       url: canonicalPath,
-      siteName: "JoinMyPDF",
+      siteName: getBrandName(locale),
       type: "website",
       locale: locale === "he" ? "he_IL" : "en_US",
       ...social.openGraph,

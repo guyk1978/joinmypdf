@@ -258,7 +258,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
               </button>
             </div>
 
-            <div className="grid gap-3 rounded-none border border-violet-400/30 bg-violet-500/[0.06] p-4 ring-1 ring-violet-400/20 backdrop-blur-md dark:border-violet-400/40 dark:bg-violet-500/10">
+            <div className="grid gap-3 rounded-none border border-neutral-400/30 bg-neutral-500/[0.06] p-4 ring-1 ring-neutral-400/20 backdrop-blur-md dark:border-neutral-400/40 dark:bg-neutral-500/10">
               <label className="block text-sm">
                 <span className="font-semibold text-ink">{ws.wsUi("rangeLabel")}</span>
                 <input
@@ -271,7 +271,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
                 />
               </label>
               <p className="text-xs text-ink-muted">{ws.wsUi("rangeHint")}</p>
-              {parseError ? <p className="text-xs text-red-600 dark:text-red-400">{parseError}</p> : null}
+              {parseError ? <p className="text-xs text-neutral-600 dark:text-neutral-400">{parseError}</p> : null}
               {!parseError && selectedIndices.length ? (
                 <p className="text-sm text-ink">
                   {ws.wsUi("selectionSummary", { count: selectedIndices.length })}

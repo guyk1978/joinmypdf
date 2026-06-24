@@ -1,5 +1,6 @@
-import { BlogGuideCard } from "@/components/BlogGuideCard";
+import { BlogGuideListItem } from "@/components/BlogGuideListItem";
 import { BlogGuidesHero } from "@/components/BlogGuidesHero";
+import { AdContainer } from "@/components/AdContainer";
 import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
 import { WattQuickCrossLink } from "@/components/partner/WattQuickCrossLink";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -8,6 +9,8 @@ import { getBlogRegistry } from "@/lib/blog-registry";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 export const runtime = "edge";
+
+const GUIDE_AD_INTERVAL = 9;
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -34,46 +37,42 @@ export default async function BlogIndexPage({ params }: Props) {
     (a, b) => Date.parse(b.publishDate || "") - Date.parse(a.publishDate || ""),
   );
 
-  const featuredPost = posts.find((post) => post.tier1) ?? posts[0] ?? null;
-  const gridPosts = featuredPost ? posts.filter((post) => post.slug !== featuredPost.slug) : posts;
+  const listItems = posts.flatMap((post, index) => {
+    const nodes = [
+      <li key={post.slug}>
+        <BlogGuideListItem post={post} />
+      </li>,
+    ];
+
+    const isInterval = (index + 1) % GUIDE_AD_INTERVAL === 0;
+    const hasMore = index < posts.length - 1;
+    if (isInterval && hasMore) {
+      nodes.push(
+        <li key={`guide-ad-${index}`} className="guide-list__ad">
+          <AdContainer variant="article" />
+        </li>,
+      );
+    }
+
+    return nodes;
+  });
 
   return (
     <>
-      <div className="home-page-shell min-h-screen text-neutral-900 dark:text-neutral-100">
+      <div className="home-page-shell min-h-screen text-black dark:text-white">
         <HomePageSeamlessBg />
         <SiteHeader />
         <main className="guides-learning-page">
           <BlogGuidesHero />
 
-          <div className="guides-learning-content mx-auto w-full max-w-6xl px-4 py-12 md:px-8 md:py-16 lg:max-w-7xl">
-            {featuredPost ? (
-              <section className="guides-featured-section" aria-labelledby="featured-guide-heading">
-                <h2 id="featured-guide-heading" className="guides-section__title">
-                  {t("featuredGuide")}
-                </h2>
-                <div className="mt-8">
-                  <BlogGuideCard post={featuredPost} locale={locale} variant="featured" />
-                </div>
+          <div className="guides-learning-content mx-auto w-full max-w-3xl px-4 md:px-8">
+            {posts.length > 0 ? (
+              <section aria-label={t("allGuides")}>
+                <ul className="guide-list">{listItems}</ul>
               </section>
             ) : null}
 
-            {gridPosts.length > 0 ? (
-              <section
-                className={featuredPost ? "guides-grid-section mt-16 md:mt-20" : "guides-grid-section"}
-                aria-labelledby="all-guides-heading"
-              >
-                <h2 id="all-guides-heading" className="guides-section__title">
-                  {t("allGuides")}
-                </h2>
-                <div className="guides-grid mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                  {gridPosts.map((post) => (
-                    <BlogGuideCard key={post.slug} post={post} locale={locale} />
-                  ))}
-                </div>
-              </section>
-            ) : null}
-
-            <WattQuickCrossLink className="mt-16 rounded-2xl border border-neutral-800 bg-neutral-900/50 backdrop-blur-md dark:border-neutral-800" />
+            <WattQuickCrossLink className="mt-12" />
           </div>
         </main>
         <SiteFooter tagline="blog" />

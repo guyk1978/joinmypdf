@@ -306,7 +306,7 @@ export default async function ToolPage({
             {faqs.map((f) => (
               <details
                 key={f.q}
-                className="rounded-none border border-neutral-200/80 bg-black/[0.03] px-4 py-3 dark:border-white/10 dark:bg-black/25"
+                className="tool-page-faq-item"
               >
                 <summary className="cursor-pointer text-sm font-medium text-ink dark:text-white">{f.q}</summary>
                 <p className="mt-2 text-xs leading-relaxed text-neutral-700 dark:text-neutral-400 md:text-sm">{f.a}</p>

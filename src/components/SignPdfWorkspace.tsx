@@ -591,7 +591,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
             </aside>
 
             <div className="sign-main space-y-2">
-              <div className="grid gap-3 rounded-none border border-violet-400/30 bg-violet-500/[0.06] p-4 ring-1 ring-violet-400/20 backdrop-blur-md dark:border-violet-400/40 dark:bg-violet-500/10">
+              <div className="grid gap-3 rounded-none border border-neutral-400/30 bg-neutral-500/[0.06] p-4 ring-1 ring-neutral-400/20 backdrop-blur-md dark:border-neutral-400/40 dark:bg-neutral-500/10">
                 <p className="text-sm font-semibold text-ink">{ws.wsUi("extrasHeading")}</p>
                 <label className="flex items-center gap-2 text-sm text-ink">
                   <input
