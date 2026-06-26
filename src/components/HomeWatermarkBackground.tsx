@@ -1,9 +1,4 @@
-/** Fixed homepage watermark — light/dark images swapped via CSS in globals.css */
+/** Site-wide JOINMYPDF pattern is applied via CSS on `body` in globals.css. */
 export function HomeWatermarkBackground() {
-  return (
-    <div aria-hidden="true" className="home-watermark">
-      <div className="home-watermark__layer home-watermark__layer--light" />
-      <div className="home-watermark__layer home-watermark__layer--dark" />
-    </div>
-  );
+  return null;
 }

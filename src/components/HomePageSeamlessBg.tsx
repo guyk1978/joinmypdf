@@ -28,12 +28,10 @@ export function HomePageSeamlessBg() {
     for (const key of THEME_VAR_KEYS) {
       root.style.setProperty(key, vars[key]);
     }
-    root.style.setProperty("--site-page-bg", vars["--home-page-bg"]);
     return () => {
       for (const key of THEME_VAR_KEYS) {
         root.style.removeProperty(key);
       }
-      root.style.removeProperty("--site-page-bg");
     };
   }, [locale, isLight]);
 

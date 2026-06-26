@@ -46,13 +46,13 @@ export const toolGridGap = "gap-6";
 
 /** Homepage & favorites tool grid cards */
 export const homeToolGridCard =
-  "relative flex min-h-[172px] flex-col items-center justify-center rounded-none bg-transparent p-5 text-center shadow-none transition-all duration-300 ease-out hover:z-10 hover:scale-[1.008] hover:shadow-[var(--surface-elevate)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-500 dark:bg-transparent dark:hover:shadow-[var(--surface-elevate)]";
+  "relative flex min-h-[108px] flex-col items-center justify-center rounded-none bg-transparent p-2 text-center shadow-none transition-transform duration-300 ease-out hover:z-10 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-500";
 
 export const homeToolGridCardLabel =
-  "mt-3 line-clamp-2 text-sm font-bold leading-snug tracking-tight text-black dark:text-white";
+  "mt-2 line-clamp-2 text-sm font-bold leading-snug tracking-tight text-black dark:text-white";
 
 export const homeToolGridCardFavorite =
-  "home-tool-grid-card__favorite absolute end-3 top-3 p-0 opacity-0 transition-opacity duration-200 max-sm:opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100";
+  "home-tool-grid-card__favorite absolute end-1.5 top-1.5 p-0 opacity-0 transition-opacity duration-200 max-sm:opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100";
 
 export const homeSecondaryPillBtn =
   "inline-flex items-center justify-center rounded-none bg-transparent px-8 py-3.5 text-sm font-bold tracking-wide text-black shadow-[var(--surface-separate)] transition-colors hover:shadow-[var(--surface-elevate)] dark:text-white";
@@ -66,8 +66,10 @@ export const homeGlassPanel =
 /** Shared max width for tool upload stack — full width within column, capped for readability */
 export const toolUploadStack = "mx-auto w-full max-w-2xl";
 
-/** Tool page — unified dashboard column and flush glass panels */
-export const toolPageDashboardWidth = "mx-auto w-full max-w-2xl";
+/** Tool page — full-width shell; solid tool surface is 70% centered in CSS */
+export const toolPageDashboardWidth = "tool-page-main mx-auto w-full max-w-none";
+
+export const toolPageInfoWidth = "mx-auto w-full max-w-2xl px-4";
 
 export const toolPageDashboardStack = "tool-page-dashboard flex w-full flex-col gap-0";
 

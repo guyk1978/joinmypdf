@@ -9,6 +9,7 @@ import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { getToolIcon, TOOL_ICON_BARE_CLASS } from "@/lib/tool-icons";
 import { localizeHebrewPdfInText } from "@/lib/hebrew-pdf-term";
 import { ToolFavoriteButton } from "@/components/ToolFavoriteButton";
+import { ToolPageIconWatermark } from "@/components/ToolPageIconWatermark";
 
 function SelectFilesCta({
   label,
@@ -76,6 +77,7 @@ export function FileUploadZone({
 
   const slug = slugProp || pageShell.slug;
   const visual = getToolIcon(slug, pageShell.headline || titleProp);
+  const showToolWatermark = pageShell.stacked && Boolean(slug) && !isHero;
 
   const displayTitle =
     pageShell.headline ||
@@ -102,9 +104,11 @@ export function FileUploadZone({
       )}
       {...rest}
     >
+      {showToolWatermark && slug ? <ToolPageIconWatermark slug={slug} headline={displayTitle} /> : null}
+
       {input}
 
-      <div className="flex w-full max-w-2xl flex-col items-center justify-center">
+      <div className="relative z-[1] flex w-full max-w-2xl flex-col items-center justify-center">
         {displayTitle ? (
           <div className="tool-upload-zone__title-row inline-flex max-w-full items-center justify-center gap-2.5">
             <h1 className="tool-upload-zone__title text-4xl font-extrabold tracking-tight text-black dark:text-white md:text-5xl">

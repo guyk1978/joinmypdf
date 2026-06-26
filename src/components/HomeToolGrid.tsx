@@ -25,7 +25,7 @@ export function HomeToolGrid({ items }: HomeToolGridProps) {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link href="/favorites/" className={homeSecondaryPillBtn}>
             {t("viewFavorites")}
           </Link>

@@ -1,10 +1,12 @@
 import type { ReactNode } from "react";
+import { clsx } from "clsx";
 
 type ToolPageInfoBlockProps = {
   children: ReactNode;
+  className?: string;
 };
 
-/** Solid category-tinted block for guides, related tools, and FAQ below the upload zone. */
-export function ToolPageInfoBlock({ children }: ToolPageInfoBlockProps) {
-  return <div className="tool-page-info-block">{children}</div>;
+/** Guides, related tools, and FAQ below the upload zone. */
+export function ToolPageInfoBlock({ children, className }: ToolPageInfoBlockProps) {
+  return <div className={clsx("tool-page-info-block", className)}>{children}</div>;
 }

@@ -30,7 +30,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="inline-flex h-full shrink-0 items-center justify-center rounded-none px-3 transition-colors duration-500 ease-in-out hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 dark:hover:bg-neutral-800 dark:focus-visible:ring-offset-neutral-950"
+      className="theme-toggle inline-flex h-full shrink-0 items-center justify-center rounded-none px-3 transition-colors duration-500 ease-in-out hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
       aria-label={label}
       title={label}
       suppressHydrationWarning
@@ -40,9 +40,9 @@ export function ThemeToggle() {
         aria-hidden="true"
       >
         {isDark ? (
-          <Sun className="h-5 w-5 text-black dark:text-neutral-200" />
+          <Sun className="h-5 w-5 text-neutral-200" />
         ) : (
-          <Moon className="h-5 w-5 text-black" />
+          <Moon className="h-5 w-5 text-neutral-200" />
         )}
       </span>
     </button>

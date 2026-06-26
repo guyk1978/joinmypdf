@@ -19,8 +19,8 @@ export function JoinMyPdfLogo({ className }: JoinMyPdfLogoProps) {
     <Image
       src={LOGO_SRC}
       alt={brandName}
-      width={160}
-      height={48}
+      width={200}
+      height={60}
       className={clsx("joinmypdf-logo w-auto", className)}
       priority
     />

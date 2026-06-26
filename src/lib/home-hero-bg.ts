@@ -1,6 +1,6 @@
 /** Industrial dark glassmorphism theme tokens for the homepage. */
 export const HOME_HERO_BG = {
-  dark: { en: "#000000", he: "#000000" },
+  dark: { en: "rgb(21 26 32)", he: "rgb(21 26 32)" },
   light: { en: "#ffffff", he: "#ffffff" },
 } as const;
 

@@ -59,7 +59,7 @@ import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
 import { resolveToolRoute } from "@/lib/variants";
-import { toolPageDashboardStack, toolPageDashboardWidth } from "@/lib/tool-ui";
+import { toolPageDashboardStack, toolPageDashboardWidth, toolPageInfoWidth } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { readdir } from "node:fs/promises";
@@ -175,7 +175,7 @@ export default async function ToolPage({
       <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <SiteHeader />
-      <main className={`${toolPageDashboardWidth} px-4 py-8 md:py-10`}>
+      <main className={`${toolPageDashboardWidth} py-8 md:py-10`}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
         <ToolPageShellProvider headline={displayTitle} subline={subtitle} slug={slug} stacked>
@@ -262,7 +262,7 @@ export default async function ToolPage({
         )}
         </ToolPageShellProvider>
 
-        <ToolPageInfoBlock>
+        <ToolPageInfoBlock className={toolPageInfoWidth}>
         <ToolPageDashboardSection>
           <ToolBeforeYouStart title={tPage("beforeYouStart")}>
             {paragraphs.map((p, i) => (

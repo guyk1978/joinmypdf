@@ -56,21 +56,16 @@ export function SiteHeaderBar({ registry, blog }: SiteHeaderBarProps) {
       </Link>
 
       {isWide ? (
-        <div className="site-header__center flex min-w-0 flex-1 items-center gap-3 px-3 lg:px-5">
-          <div className="site-header__nav-inline flex shrink-0 items-center gap-0.5">
-            <AllToolsNavLink compact />
-            <GuidesLink />
-            <HeaderPrivacyIndicator className="!inline-flex" />
-          </div>
-          <div className="site-header__search min-w-0 flex-1">
-            <SiteSearch variant="header-bar" registry={registry} blog={blog} />
-          </div>
+        <div className="site-header__nav-inline flex shrink-0 items-center gap-0.5">
+          <AllToolsNavLink compact />
+          <GuidesLink />
+          <HeaderPrivacyIndicator className="!inline-flex" />
         </div>
-      ) : (
-        <div className="site-header__search-compact flex min-w-0 flex-1 justify-end px-2">
-          <SiteSearch variant="header" registry={registry} blog={blog} />
-        </div>
-      )}
+      ) : null}
+
+      <div className="site-header__search-trigger flex shrink-0 items-center">
+        <SiteSearch variant="header" registry={registry} blog={blog} />
+      </div>
 
       <div className="site-header__end flex shrink-0 items-center gap-2">
         <Link

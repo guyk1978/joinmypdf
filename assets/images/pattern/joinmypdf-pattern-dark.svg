@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="128" viewBox="0 0 400 128" aria-hidden="true">
+  <rect width="400" height="128" fill="#14181c" />
+  <defs>
+    <g id="doc-icon">
+      <rect x="0" y="0" width="20" height="26" rx="1.5" fill="none" stroke="#b8bec6" stroke-width="1.25" />
+      <path d="M12 0 L20 8 L12 8 Z" fill="none" stroke="#b8bec6" stroke-width="1.1" />
+      <path d="M10 14 L14 18 L10 22 L6 18 Z" fill="none" stroke="#b8bec6" stroke-width="1.1" />
+    </g>
+  </defs>
+  <path
+    d="M-20 96 C 80 24, 180 120, 280 48 S 420 88, 460 20"
+    fill="none"
+    stroke="#ffffff"
+    stroke-opacity="0.05"
+    stroke-width="0.75"
+  />
+  <path
+    d="M-10 28 C 90 108, 210 8, 300 72 S 430 36, 470 108"
+    fill="none"
+    stroke="#ffffff"
+    stroke-opacity="0.04"
+    stroke-width="0.75"
+  />
+  <use href="#doc-icon" transform="translate(78 38)" />
+  <text
+    x="268"
+    y="48"
+    fill="#b8bec6"
+    font-family="Inter, Segoe UI, Arial, sans-serif"
+    font-size="13"
+    font-weight="700"
+    letter-spacing="0.14em"
+  >
+    JOINMYPDF
+  </text>
+  <text
+    x="68"
+    y="108"
+    fill="#b8bec6"
+    font-family="Inter, Segoe UI, Arial, sans-serif"
+    font-size="13"
+    font-weight="700"
+    letter-spacing="0.14em"
+  >
+    JOINMYPDF
+  </text>
+  <use href="#doc-icon" transform="translate(278 78)" />
+</svg>

@@ -138,19 +138,14 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   const [mounted, setMounted] = useState(false);
 
   const results = useMemo(() => filterSearchIndex(index, query), [index, query]);
-  const isInlineBar = variant === "header-bar";
+  const isPaletteVariant = variant === "header" || variant === "header-bar";
   const showResults =
     query.trim().length >= 2 &&
     resultsOpen &&
-    (variant === "hero" || isInlineBar || headerOpen);
+    (variant === "hero" || isPaletteVariant);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  const clearResults = useCallback(() => {
-    setResultsOpen(false);
-    if (inputRef.current) inputRef.current.setAttribute("aria-expanded", "false");
   }, []);
 
   const closeAll = useCallback(() => {
@@ -166,13 +161,13 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   }, []);
 
   const focusInput = useCallback(() => {
-    if (variant === "header") {
+    if (isPaletteVariant) {
       openHeader();
       requestAnimationFrame(() => inputRef.current?.focus());
     } else {
       inputRef.current?.focus();
     }
-  }, [variant, openHeader]);
+  }, [isPaletteVariant, openHeader]);
 
   useEffect(() => {
     closeAll();
@@ -201,20 +196,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
   }, [closeAll, focusInput]);
 
   useEffect(() => {
-    if (variant !== "header-bar") return;
-
-    const onPointerDown = (event: MouseEvent) => {
-      const target = event.target as Node;
-      if (wrapRef.current?.contains(target)) return;
-      clearResults();
-    };
-
-    document.addEventListener("mousedown", onPointerDown);
-    return () => document.removeEventListener("mousedown", onPointerDown);
-  }, [variant, clearResults]);
-
-  useEffect(() => {
-    if (variant !== "header" || !headerOpen) return;
+    if (!isPaletteVariant || !headerOpen) return;
 
     const onPointerDown = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -225,31 +207,31 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
 
     document.addEventListener("mousedown", onPointerDown);
     return () => document.removeEventListener("mousedown", onPointerDown);
-  }, [variant, headerOpen, closeAll]);
+  }, [isPaletteVariant, headerOpen, closeAll]);
 
   useEffect(() => {
-    if (variant !== "header") return;
+    if (!isPaletteVariant) return;
     document.body.classList.toggle("site-search-open", headerOpen);
     return () => document.body.classList.remove("site-search-open");
-  }, [variant, headerOpen]);
+  }, [isPaletteVariant, headerOpen]);
 
   const onInputChange = useCallback(
     (value: string) => {
       setQuery(value);
-      if (variant === "header") setHeaderOpen(true);
+      if (isPaletteVariant) setHeaderOpen(true);
       const shouldShowResults = value.trim().length >= 2;
       setResultsOpen(shouldShowResults);
       if (inputRef.current) {
         inputRef.current.setAttribute("aria-expanded", shouldShowResults ? "true" : "false");
       }
     },
-    [variant],
+    [isPaletteVariant],
   );
 
   const onInputFocus = useCallback(() => {
-    if (variant === "header") setHeaderOpen(true);
+    if (isPaletteVariant) setHeaderOpen(true);
     if (query.trim().length >= 2) setResultsOpen(true);
-  }, [variant, query]);
+  }, [isPaletteVariant, query]);
 
   const field = (inHeaderPanel?: boolean) => (
     <div className="site-search__wrap">
@@ -257,7 +239,7 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
         {t("label")}
       </label>
       <div
-        className={`site-search__field site-search__field--glass${inHeaderPanel ? " site-search__field--palette" : ""}${isInlineBar ? " site-search__field--header-bar" : ""}`}
+        className={`site-search__field site-search__field--glass${inHeaderPanel ? " site-search__field--palette" : ""}`}
       >
         <span className="site-search__icon">
           <SearchIcon />
@@ -307,73 +289,60 @@ export function SiteSearch({ variant, registry, blog }: SiteSearchProps) {
     );
   }
 
-  if (variant === "header-bar") {
+  if (isPaletteVariant) {
     return (
-      <div
-        ref={wrapRef}
-        className="site-search site-search--header-bar w-full min-w-0"
-        data-site-search
-        data-react-search="true"
-        data-variant="header-bar"
-      >
-        {field()}
-      </div>
+      <>
+        <div
+          ref={wrapRef}
+          className="site-search site-search--header relative flex h-full items-center"
+          data-site-search
+          data-react-search="true"
+          data-variant={variant}
+        >
+          <button
+            type="button"
+            className={`site-search__toggle${headerOpen ? " site-search__toggle--active" : ""}`}
+            aria-label={headerOpen ? t("closeSearch") : t("openSearch")}
+            aria-expanded={headerOpen}
+            aria-controls={panelId}
+            onClick={() => {
+              if (headerOpen) {
+                closeAll();
+              } else {
+                openHeader();
+                requestAnimationFrame(() => inputRef.current?.focus());
+              }
+            }}
+          >
+            <SearchIcon className="site-search__toggle-icon" />
+          </button>
+        </div>
+        {headerOpen && mounted
+          ? createPortal(
+              <>
+                <button
+                  type="button"
+                  className="site-search__backdrop"
+                  aria-label={t("closeSearch")}
+                  onClick={closeAll}
+                />
+                <div
+                  ref={panelRef}
+                  id={panelId}
+                  className="site-search__palette site-search__palette--open"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={t("label")}
+                >
+                  <div className="site-search__palette-card">{field(true)}</div>
+                </div>
+              </>,
+              document.body,
+            )
+          : null}
+      </>
     );
   }
 
-  const headerPanel =
-    headerOpen && mounted
-      ? createPortal(
-          <>
-            <button
-              type="button"
-              className="site-search__backdrop"
-              aria-label={t("closeSearch")}
-              onClick={closeAll}
-            />
-            <div
-              ref={panelRef}
-              id={panelId}
-              className="site-search__palette site-search__palette--open"
-              role="dialog"
-              aria-modal="true"
-              aria-label={t("label")}
-            >
-              <div className="site-search__palette-card">{field(true)}</div>
-            </div>
-          </>,
-          document.body,
-        )
-      : null;
-
-  return (
-    <>
-      <div
-        ref={wrapRef}
-        className="site-search site-search--header relative flex h-full items-center"
-        data-site-search
-        data-react-search="true"
-        data-variant="header"
-      >
-        <button
-          type="button"
-          className={`site-search__toggle${headerOpen ? " site-search__toggle--active" : ""}`}
-          aria-label={headerOpen ? t("closeSearch") : t("openSearch")}
-          aria-expanded={headerOpen}
-          aria-controls={panelId}
-          onClick={() => {
-            if (headerOpen) {
-              closeAll();
-            } else {
-              openHeader();
-              requestAnimationFrame(() => inputRef.current?.focus());
-            }
-          }}
-        >
-          <SearchIcon className="site-search__toggle-icon" />
-        </button>
-      </div>
-      {headerPanel}
-    </>
-  );
+  return null;
 }
