@@ -41,7 +41,7 @@ async function removeTxtArtifacts(baseDir) {
       await removeTxtArtifacts(fullPath);
       continue;
     }
-    if (entry.isFile() && path.extname(entry.name).toLowerCase() === ".txt") {
+    if (entry.isFile() && path.extname(entry.name).toLowerCase() === ".txt" && entry.name !== "ads.txt") {
       await rm(fullPath, { force: true });
     }
   }
@@ -61,6 +61,7 @@ await cp(path.join(root, "assets"), path.join(publicDir, "assets"), {
   filter: shouldCopyAsset,
 });
 await cp(path.join(root, "manifest.webmanifest"), path.join(publicDir, "manifest.webmanifest"));
+await copyFile(path.join(root, "ads.txt"), path.join(publicDir, "ads.txt"));
 
 const publicRootAssets = [
   "heder-dark-EN-2.png",

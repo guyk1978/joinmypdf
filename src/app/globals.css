@@ -1906,7 +1906,8 @@ html:not(.dark) .site-footer__toggle:hover {
 }
 
 .site-footer__logo {
-  font-size: clamp(1.125rem, 2vw, 1.375rem) !important;
+  height: clamp(2rem, 4vw, 2.5rem) !important;
+  width: auto !important;
 }
 
 .site-footer__brand-desc {
@@ -4142,16 +4143,17 @@ html:not(.dark) .site-header--glass {
 
 /* Header — Industrial Matte (Picjumbo-style: search + CTA + overflow) */
 .site-header--matte {
+  --site-header-logo-bg: rgb(21 26 32);
   border-bottom: 0;
-  background: rgb(0 0 0);
+  background: var(--site-header-logo-bg);
   color: rgb(255 255 255);
   box-shadow: var(--surface-separate);
 }
 
 html:not(.dark) .site-header--matte {
   border-bottom: 0;
-  background: rgb(255 255 255);
-  color: rgb(0 0 0);
+  background: var(--site-header-logo-bg);
+  color: rgb(255 255 255);
   box-shadow: var(--surface-separate);
 }
 
@@ -4175,7 +4177,8 @@ html:not(.dark) .site-header--matte {
 }
 
 .site-header--matte .nav-link,
-.site-header--matte .nav-link--privacy {
+.site-header--matte .nav-link--privacy,
+.site-header--matte .nav-dropdown__trigger {
   border-radius: 0;
   padding: 0.375rem 0.625rem;
   font-size: 0.8125rem;
@@ -4183,30 +4186,43 @@ html:not(.dark) .site-header--matte {
   background: transparent;
   border: 0;
   box-shadow: none;
+  color: rgb(229 229 229);
 }
 
 .site-header--matte .nav-link:hover,
-.site-header--matte .nav-link.is-active {
-  background: rgb(38 38 38);
+.site-header--matte .nav-link.is-active,
+.site-header--matte .nav-dropdown__trigger:hover,
+.site-header--matte .nav-dropdown.is-active > .nav-dropdown__trigger,
+.site-header--matte .nav-dropdown.is-open > .nav-dropdown__trigger {
+  background: rgb(38 42 48);
   color: rgb(250 250 249);
 }
 
+html:not(.dark) .site-header--matte .nav-link,
+html:not(.dark) .site-header--matte .nav-link--privacy,
+html:not(.dark) .site-header--matte .nav-dropdown__trigger {
+  color: rgb(229 229 229);
+}
+
 html:not(.dark) .site-header--matte .nav-link:hover,
-html:not(.dark) .site-header--matte .nav-link.is-active {
-  background: rgb(229 229 229);
-  color: rgb(23 23 23);
+html:not(.dark) .site-header--matte .nav-link.is-active,
+html:not(.dark) .site-header--matte .nav-dropdown__trigger:hover,
+html:not(.dark) .site-header--matte .nav-dropdown.is-active > .nav-dropdown__trigger,
+html:not(.dark) .site-header--matte .nav-dropdown.is-open > .nav-dropdown__trigger {
+  background: rgb(38 42 48);
+  color: rgb(250 250 249);
 }
 
 .site-header--matte .nav-link--privacy:hover,
 .site-header--matte .nav-link--privacy.is-active {
   color: #d4d4d4;
-  background: rgb(38 38 38);
+  background: rgb(38 42 48);
 }
 
 html:not(.dark) .site-header--matte .nav-link--privacy:hover,
 html:not(.dark) .site-header--matte .nav-link--privacy.is-active {
-  color: #404040;
-  background: rgb(229 229 229);
+  color: #d4d4d4;
+  background: rgb(38 42 48);
 }
 
 .site-header__cta {
@@ -4398,8 +4414,33 @@ html:not(.dark) .site-search__field--header-bar:focus-within {
   box-shadow: none;
 }
 
+html:not(.dark) .site-header--matte .site-header__cta {
+  background: rgb(245 245 244);
+  color: rgb(23 23 23);
+}
+
+html:not(.dark) .site-header--matte .site-header__cta:hover {
+  background: rgb(229 229 229);
+  color: rgb(10 10 10);
+}
+
+html:not(.dark) .site-header--matte .site-header__overflow-trigger {
+  color: rgb(212 212 212);
+}
+
+html:not(.dark) .site-header--matte .site-header__overflow-trigger:hover {
+  background: rgb(38 42 48);
+  color: rgb(250 250 249);
+}
+
 html:not(.dark) .site-header--matte .site-search__toggle {
-  border-color: rgb(212 212 212);
+  border-color: rgb(64 64 64);
+  color: rgb(212 212 212);
+}
+
+html:not(.dark) .site-header--matte .site-search__toggle:hover {
+  background: rgb(38 42 48);
+  color: rgb(250 250 249);
 }
 
 .site-header__nav-cluster {
@@ -4662,6 +4703,25 @@ html:not(.dark) .site-header--glass .site-header__utility-cluster button:hover {
 
 .site-header__brand {
   flex-shrink: 0;
+  line-height: 0;
+}
+
+.site-header__brand .joinmypdf-logo {
+  display: block;
+  width: auto;
+  height: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  .site-header__brand .joinmypdf-logo {
+    height: 3.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-header__brand .joinmypdf-logo {
+    height: 3.75rem;
+  }
 }
 
 .joinmypdf-logo--he {
