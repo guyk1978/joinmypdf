@@ -277,10 +277,19 @@ function PngIcon() {
   return (
     <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
       <rect x="2" y="5" width="9" height="9" rx="2" fill="#8B5CF6" />
-      <text x="3.5" y="12" fill="white" fontSize="5" fontWeight="bold" fontFamily="monospace">
+      <text
+        x="6.5"
+        y="10.8"
+        textAnchor="middle"
+        fill="white"
+        fontSize="4"
+        fontWeight="bold"
+        fontFamily="ui-monospace, monospace"
+      >
         PNG
       </text>
       <rect x="13" y="10" width="9" height="11" rx="1.5" fill="#EF4444" />
+      <path d="M15.5 17H19.5" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
       <path d="M11 9.5H14" stroke="#7C3AED" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
@@ -290,10 +299,19 @@ function HeicIcon() {
   return (
     <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
       <rect x="2" y="5" width="9" height="9" rx="2" fill="#F59E0B" />
-      <text x="3.2" y="12" fill="white" fontSize="4.5" fontWeight="bold" fontFamily="monospace">
+      <text
+        x="6.5"
+        y="10.8"
+        textAnchor="middle"
+        fill="white"
+        fontSize="3.6"
+        fontWeight="bold"
+        fontFamily="ui-monospace, monospace"
+      >
         HEIC
       </text>
       <rect x="13" y="10" width="9" height="11" rx="1.5" fill="#EF4444" />
+      <path d="M15.5 17H19.5" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
     </svg>
   );
 }

@@ -6,10 +6,10 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { useToolGlassTheme } from "@/context/ToolGlassContext";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
-import { getToolIcon, TOOL_ICON_BARE_CLASS } from "@/lib/tool-icons";
 import { localizeHebrewPdfInText } from "@/lib/hebrew-pdf-term";
 import { ToolFavoriteButton } from "@/components/ToolFavoriteButton";
-import { ToolPageIconWatermark } from "@/components/ToolPageIconWatermark";
+import { ToolUploadHeroIcon } from "@/components/ToolUploadHeroIcon";
+import { ToolUploadZoneBackdrop } from "@/components/ToolUploadZoneBackdrop";
 
 function SelectFilesCta({
   label,
@@ -76,8 +76,7 @@ export function FileUploadZone({
   const isHero = variant === "hero";
 
   const slug = slugProp || pageShell.slug;
-  const visual = getToolIcon(slug, pageShell.headline || titleProp);
-  const showToolWatermark = pageShell.stacked && Boolean(slug) && !isHero;
+  const showToolBackdrop = pageShell.stacked && Boolean(slug) && !isHero;
 
   const displayTitle =
     pageShell.headline ||
@@ -95,56 +94,56 @@ export function FileUploadZone({
   return (
     <div
       className={clsx(
-        "tool-upload-zone group relative flex w-full flex-col items-center justify-center px-4 py-6 text-center md:px-6 md:py-8",
+        "tool-upload-zone group relative flex w-full flex-col items-center justify-center px-4 py-8 text-center md:px-8 md:py-10",
         theme.dropzone,
         theme.dropzoneHover,
-        isHero ? "min-h-[400px] md:min-h-[460px]" : "min-h-[420px] md:min-h-[500px]",
+        isHero ? "min-h-[400px] md:min-h-[460px]" : "tool-upload-zone--tool-page",
         active && theme.dropzoneActive,
         className,
       )}
       {...rest}
     >
-      {showToolWatermark && slug ? <ToolPageIconWatermark slug={slug} headline={displayTitle} /> : null}
+      {showToolBackdrop && slug ? <ToolUploadZoneBackdrop slug={slug} headline={displayTitle} /> : null}
 
       {input}
 
-      <div className="relative z-[1] flex w-full max-w-2xl flex-col items-center justify-center">
+      <div className="tool-upload-zone__content relative z-[1] flex w-full max-w-2xl flex-col items-center">
         {displayTitle ? (
-          <div className="tool-upload-zone__title-row inline-flex max-w-full items-center justify-center gap-2.5">
-            <h1 className="tool-upload-zone__title text-4xl font-extrabold tracking-tight text-black dark:text-white md:text-5xl">
-              {displayTitle}
-            </h1>
-            {slug ? <ToolFavoriteButton slug={slug} className="shrink-0 self-center" /> : null}
-          </div>
+          <header className="tool-upload-zone__header flex w-full flex-col items-center">
+            <div className="tool-upload-zone__title-row inline-flex max-w-full items-center justify-center gap-2.5">
+              <h1 className="tool-upload-zone__title text-4xl font-extrabold tracking-tight text-black dark:text-white md:text-5xl">
+                {displayTitle}
+              </h1>
+              {slug ? <ToolFavoriteButton slug={slug} className="shrink-0 self-center" /> : null}
+            </div>
+
+            {displayDescription ? (
+              <p className="tool-upload-zone__description mt-3 max-w-xl text-base font-normal leading-relaxed text-neutral-600 dark:text-neutral-200 md:text-lg">
+                {displayDescription}
+              </p>
+            ) : null}
+          </header>
+        ) : displayDescription ? (
+          <header className="tool-upload-zone__header flex w-full flex-col items-center">
+            <p className="tool-upload-zone__description max-w-xl text-base font-normal leading-relaxed text-neutral-600 dark:text-neutral-200 md:text-lg">
+              {displayDescription}
+            </p>
+          </header>
         ) : null}
 
-        {displayDescription ? (
-          <p className="tool-upload-zone__description mt-2 max-w-xl text-base font-normal leading-relaxed text-neutral-700 dark:text-white md:text-lg">
-            {displayDescription}
-          </p>
-        ) : null}
+        <div className="tool-upload-zone__stage flex w-full items-center justify-center">
+          <ToolUploadHeroIcon slug={slug} headline={displayTitle} active={active} />
+        </div>
 
-        <span
-          className={clsx(
-            "tool-upload-zone__icon mt-5 md:mt-6",
-            TOOL_ICON_BARE_CLASS,
-            "inline-flex items-center justify-center transition-transform duration-300",
-            "[&_svg]:h-[15rem] [&_svg]:w-[15rem] sm:[&_svg]:h-[18rem] sm:[&_svg]:w-[18rem] md:[&_svg]:h-[22rem] md:[&_svg]:w-[22rem]",
-            active && "scale-[1.03]",
-          )}
-          aria-hidden
-        >
-          {visual.icon}
-        </span>
-
-        <SelectFilesCta
-          label={common("selectFiles")}
-          ariaLabel={common("selectFilesAria")}
-          className={clsx("mt-5 md:mt-6", theme.cta, theme.ctaHover)}
-        />
+        <footer className="tool-upload-zone__actions flex w-full flex-col items-center">
+          <SelectFilesCta
+            label={common("selectFiles")}
+            ariaLabel={common("selectFilesAria")}
+            className={clsx(theme.cta, theme.ctaHover)}
+          />
 
         {showFormatBadges && supportedFormats.length ? (
-          <div className="mt-6 flex w-full flex-wrap items-center justify-center gap-2">
+          <div className="mt-5 flex w-full flex-wrap items-center justify-center gap-2">
             {supportedFormats.map((format) => (
               <span
                 key={format}
@@ -156,8 +155,9 @@ export function FileUploadZone({
           </div>
         ) : null}
 
-        {footer ? <div className="w-full shrink-0 pt-8">{footer}</div> : null}
+        {footer ? <div className="w-full shrink-0 pt-6">{footer}</div> : null}
         {children}
+        </footer>
       </div>
     </div>
   );

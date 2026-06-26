@@ -85,7 +85,7 @@ export const contentDashboardInset =
 export const toolPageDashboardPanel = "tool-page-dashboard-panel w-full p-6";
 
 export const toolPageDashboardInset =
-  "rounded-none border border-neutral-200/80 bg-black/[0.03] p-4 dark:border-white/10 dark:bg-black/25";
+  "rounded-none border border-neutral-200/80 bg-transparent p-4 dark:border-white/10";
 
 /** @deprecated Privacy moved to ToolPrivacyBadge inside WorkspaceUploadShell */
 export const toolPrivacyStatement =

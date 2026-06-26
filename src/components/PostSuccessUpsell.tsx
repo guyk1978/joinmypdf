@@ -17,8 +17,8 @@ export function PostSuccessUpsell({ operation }: Props) {
   if (!config.length) return null;
 
   return (
-    <div className="mt-6 space-y-2">
-      <aside className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 p-4">
+    <div className="post-success-upsell mt-6 space-y-2">
+      <aside className="rounded-none border border-neutral-300/80 bg-transparent p-4 dark:border-white/10">
         <p className="text-sm font-semibold text-ink">{t("heading")}</p>
         <ul className="mt-3 space-y-3">
           {config.map((row) => (
@@ -26,7 +26,7 @@ export function PostSuccessUpsell({ operation }: Props) {
               <Link
                 href={row.href}
                 onClick={() => capture(EVENTS.upsell_click, { target: row.href, from: operation })}
-                className="block rounded-none border border-white/10 bg-surface/60 p-3 transition hover:border-neutral-300 dark:border-neutral-800"
+                className="block rounded-none border border-neutral-300/80 bg-transparent p-3 transition hover:border-neutral-400 dark:border-white/10 dark:hover:border-white/20"
               >
                 <span className="font-medium text-black dark:text-neutral-200">{t(`cards.${row.card}.title`)}</span>
                 <p className="mt-1 text-sm text-ink-muted">{t(`cards.${row.card}.body`)}</p>

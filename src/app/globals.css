@@ -34,8 +34,8 @@
 }
 
 html.dark {
-  --surface: 0 0 0;
-  --surface-muted: 23 23 23;
+  --surface: 21 26 32;
+  --surface-muted: 21 26 32;
   --ink: 255 255 255;
   --ink-muted: 163 163 163;
   --site-page-bg: var(--site-header-logo-bg);
@@ -3964,8 +3964,8 @@ html.dark .redact-page__loading {
 }
 
 html.dark .pdf-export-thumb {
-  border-color: #262626;
-  background: #0a0a0a;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: var(--tool-surface-bg);
 }
 
 .pdf-export-thumb__canvas-wrap {
@@ -3975,7 +3975,7 @@ html.dark .pdf-export-thumb {
 }
 
 html.dark .pdf-export-thumb__canvas-wrap {
-  background: #020617;
+  background: var(--tool-surface-bg);
 }
 
 .pdf-export-thumb__canvas-wrap img,
@@ -4045,15 +4045,15 @@ html.dark .pdf-export-thumb__label {
 }
 
 html.dark .pdf-export-thumb__download {
-  border-color: #262626;
-  background: #171717;
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--tool-surface-bg);
   color: #60a5fa;
   box-shadow: none;
 }
 
 html.dark .pdf-export-thumb__download:hover {
-  background: #404040;
-  border-color: #404040;
+  background: rgb(38 42 48);
+  border-color: rgb(38 42 48);
   color: #ffffff;
 }
 
@@ -5690,36 +5690,157 @@ html.dark .tool-privacy-seal__icon {
   transition: background-color 0.5s ease-in-out;
 }
 
-.tool-upload-zone__watermark {
+.tool-upload-zone--tool-page {
+  min-height: clamp(30rem, 78vh, 40rem);
+}
+
+.tool-upload-zone__backdrop {
   position: absolute;
   inset: 0;
   z-index: 0;
-  display: flex;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tool-upload-zone__pattern {
+  position: absolute;
+  inset: 0;
+}
+
+.tool-upload-zone__pattern-card {
+  position: absolute;
+  border-radius: 1.35rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+html.dark .tool-upload-zone__pattern-card {
+  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.tool-upload-zone__pattern-card--a {
+  width: min(58vw, 26rem);
+  height: min(42vw, 18rem);
+  left: 6%;
+  top: 14%;
+  transform: rotate(-7deg);
+}
+
+.tool-upload-zone__pattern-card--b {
+  width: min(52vw, 23rem);
+  height: min(38vw, 16rem);
+  right: 4%;
+  top: 28%;
+  transform: rotate(5deg);
+}
+
+.tool-upload-zone__pattern-card--c {
+  width: min(48vw, 21rem);
+  height: min(34vw, 14rem);
+  left: 22%;
+  bottom: 8%;
+  transform: rotate(-2deg);
+}
+
+.tool-upload-zone__watermarks {
+  position: absolute;
+  inset: 0;
+}
+
+.tool-upload-zone__watermark {
+  position: absolute;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   pointer-events: none;
 }
 
-.tool-upload-zone__watermark-inner {
+.tool-upload-zone__watermark svg {
+  width: min(72vw, 34rem);
+  height: min(72vw, 34rem);
+}
+
+.tool-upload-zone__watermark--center {
+  inset: 0;
+  margin: auto;
+  width: min(72vw, 34rem);
+  height: min(72vw, 34rem);
+  transform: translateY(6%);
+}
+
+.tool-upload-zone__watermark--bottom-left {
+  left: -4%;
+  bottom: 2%;
+  width: min(62vw, 30rem);
+  height: min(62vw, 30rem);
+}
+
+.tool-upload-zone__watermark--top-right {
+  right: -4%;
+  top: 0;
+  width: min(62vw, 30rem);
+  height: min(62vw, 30rem);
+}
+
+html.dark .tool-upload-zone__watermark {
+  opacity: 0.055;
+  filter: brightness(2) saturate(0.1);
+}
+
+html:not(.dark) .tool-upload-zone__watermark {
+  opacity: 0.04;
+  filter: grayscale(1) brightness(0.55) saturate(0);
+}
+
+.tool-upload-zone__content {
+  gap: 0;
+}
+
+.tool-upload-zone__header {
+  width: 100%;
+  padding-bottom: 0.25rem;
+}
+
+.tool-upload-zone__stage {
+  min-height: clamp(16rem, 40vw, 24rem);
+  padding-block: clamp(2rem, 5vw, 3rem);
+}
+
+.tool-upload-zone__actions {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+.tool-upload-zone__hero-convert {
+  transition: transform 0.3s ease;
+}
+
+.tool-upload-zone__hero-format {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 6%;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
 }
 
-.tool-upload-zone__watermark-inner svg {
-  width: min(92vw, 44rem);
-  height: min(92vw, 44rem);
+.tool-upload-zone__hero-format svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  max-height: none;
 }
 
-html.dark .tool-upload-zone__watermark-inner {
-  opacity: 0.06;
-  filter: brightness(2.1) saturate(0.12);
+html.dark .tool-upload-zone__hero-format {
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
 }
 
-html:not(.dark) .tool-upload-zone__watermark-inner {
-  opacity: 0.04;
-  filter: grayscale(1) brightness(0.5) saturate(0);
+.tool-upload-zone__hero-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .tool-upload-zone-base {
@@ -5881,7 +6002,7 @@ html.dark .tool-page-info-block .tool-page-dashboard-panel + .tool-page-dashboar
   border-radius: 0;
   border: 0;
   background: var(--tool-surface-bg);
-  box-shadow: var(--surface-elevate);
+  box-shadow: none;
   transition: background-color 0.5s ease-in-out;
 }
 
@@ -5907,7 +6028,7 @@ html:not(.dark) .tool-page-dashboard .tool-workspace-panel {
   border: 0;
   background: var(--tool-surface-bg);
   padding: 0.75rem;
-  box-shadow: var(--surface-elevate);
+  box-shadow: none;
   backdrop-filter: none;
   transition: background-color 0.5s ease-in-out;
 }
@@ -5951,6 +6072,37 @@ html.dark .group:hover .tool-icon-bare {
   border: none !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
+}
+
+/* Tool page — flatten patchy panel backgrounds to the shared surface color */
+html.dark .tool-page-dashboard #tool-workspace #workspace-operations,
+html.dark .tool-page-dashboard #tool-workspace > div.rounded-none.border[class*="dark:bg-"],
+html.dark .tool-page-dashboard #tool-workspace .pdf-export-workspace {
+  background-color: var(--tool-surface-bg);
+}
+
+html.dark .tool-page-dashboard #tool-workspace #workspace-operations [class~="dark:bg-neutral-800"],
+html.dark .tool-page-dashboard #tool-workspace #workspace-operations [class~="dark:bg-neutral-900"],
+html.dark .tool-page-dashboard #tool-workspace #workspace-operations [class~="dark:bg-neutral-950"],
+html.dark .tool-page-dashboard #tool-workspace .space-y-2.rounded-none.border[class*="dark:bg-"],
+html.dark .tool-page-dashboard #tool-workspace .space-y-3.rounded-none.border[class*="dark:bg-"] {
+  background-color: var(--tool-surface-bg) !important;
+}
+
+html:not(.dark) .tool-page-dashboard #tool-workspace #workspace-operations [class~="bg-neutral-200"],
+html:not(.dark) .tool-page-dashboard #tool-workspace .space-y-2.rounded-none.border[class*="bg-neutral-"],
+html:not(.dark) .tool-page-dashboard #tool-workspace .space-y-3.rounded-none.border[class*="bg-white"] {
+  background-color: var(--tool-surface-bg) !important;
+}
+
+html.dark .tool-page-dashboard #tool-workspace [class*="dark:bg-white/"],
+html:not(.dark) .tool-page-dashboard #tool-workspace [class*="bg-white/"] {
+  background-color: transparent !important;
+}
+
+html.dark .tool-page-dashboard .partner-wattquick [class~="dark:bg-neutral-800"],
+html.dark .tool-page-dashboard .partner-wattquick [class~="dark:bg-neutral-900"] {
+  background-color: transparent !important;
 }
 
 /* WattQuick partner banner — floating calculator animation */
