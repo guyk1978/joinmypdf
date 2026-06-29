@@ -21,3 +21,8 @@ export function translateToolItem(t: ToolsTranslator, slug: string, fallback: st
   const key = `items.${slug}`;
   return t.has(key) ? t(key) : fallback;
 }
+
+export function translateToolIntent(t: ToolsTranslator, slug: string, fallback: string): string {
+  const key = `intents.${slug}`;
+  return t.has(key) ? t(key) : fallback;
+}

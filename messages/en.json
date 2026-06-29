@@ -64,7 +64,15 @@
     "heroFeaturesLabel": "Core benefits",
     "heroFast": "Instant speed",
     "heroLocal": "Local processing",
-    "heroPrivate": "Zero uploads"
+    "heroPrivate": "Zero uploads",
+    "trustSignalsLabel": "Privacy and security",
+    "trustClientSide": "100% Client-Side Processing",
+    "trustNoServers": "Files Never Reach Our Servers",
+    "trustInstantDownload": "Instant Browser Download",
+    "viewFullToolsList": "View full list of {count}+ tools",
+    "goToTool": "Go to {toolName}",
+    "marketingTitle": "Leading PDF Tools",
+    "marketingDescription": "Upgrade your PDF! A professional, secure, and easy-to-use solution"
   },
   "Favorites": {
     "metaTitle": "Favorite PDF tools — JoinMyPDF",

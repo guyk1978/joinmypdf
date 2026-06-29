@@ -7,8 +7,8 @@ export const HOME_HERO_BG = {
 export const HOME_GRID_THEME = {
   light: {
     cardBg: "#ffffff",
-    cardBgHover: "#f5f5f5",
-    cardText: "#000000",
+    cardBgHover: "#fafafa",
+    cardText: "#171717",
     iconBg: "transparent",
     iconBgHover: "transparent",
     muted: "#737373",
@@ -47,8 +47,8 @@ export function getHomePageThemeVars(locale: string, isLight: boolean): HomePage
     "--home-icon-bg": palette.iconBg,
     "--home-icon-bg-hover": palette.iconBgHover,
     "--home-card-muted": palette.muted,
-    "--home-card-border": isLight ? "rgb(229, 229, 229)" : "rgb(45, 50, 58)",
-    "--home-card-border-hover": isLight ? "rgb(163, 163, 163)" : "rgb(82, 88, 98)",
+    "--home-card-border": isLight ? "rgb(229, 57, 53)" : "rgb(45, 50, 58)",
+    "--home-card-border-hover": isLight ? "rgb(198, 40, 40)" : "rgb(82, 88, 98)",
   };
 }
 

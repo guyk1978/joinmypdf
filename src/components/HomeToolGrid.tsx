@@ -3,37 +3,40 @@
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { HomeHero } from "@/components/HomeHero";
-import { ToolGridCard } from "@/components/ToolGridCard";
-import type { ToolGridItem } from "@/lib/tool-grid";
-import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
+import { HomeMarketingBanner } from "@/components/HomeMarketingBanner";
+import { HomeToolAccordionGrid } from "@/components/HomeToolAccordionGrid";
+import type { HomeGridToolItem } from "@/lib/featured-tools";
 
 type HomeToolGridProps = {
-  items: ToolGridItem[];
+  gridItems: HomeGridToolItem[];
+  toolCount: number;
 };
 
-export function HomeToolGrid({ items }: HomeToolGridProps) {
+export function HomeToolGrid({ gridItems, toolCount }: HomeToolGridProps) {
   const t = useTranslations("Home");
 
   return (
     <>
       <HomeHero />
 
-      <div className="home-tool-grid-shell home-tool-grid-shell--homepage mx-auto flex w-full max-w-[1440px] flex-col items-center">
-        <div className="home-tool-grid home-tool-grid--homepage">
-          {items.map((item) => (
-            <ToolGridCard key={item.href} item={item} />
-          ))}
-        </div>
+      <section className="home-focus-section" aria-labelledby="home-featured-tools">
+        <h2 id="home-featured-tools" className="sr-only">
+          {t("featuredTools")}
+        </h2>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link href="/favorites/" className={homeSecondaryPillBtn}>
-            {t("viewFavorites")}
-          </Link>
-          <Link href="/tools/" className={homePrimaryPillBtn}>
-            {t("allTools")}
-          </Link>
+        <div className="home-split-layout">
+          <div className="home-split-layout__tools">
+            <HomeToolAccordionGrid items={gridItems} />
+            <p className="home-focus-section__footer">
+              <Link href="/tools/" className="home-focus-section__all-tools-link" prefetch={false}>
+                {t("viewFullToolsList", { count: toolCount })}
+              </Link>
+            </p>
+          </div>
+
+          <HomeMarketingBanner />
         </div>
-      </div>
+      </section>
     </>
   );
 }

@@ -3,11 +3,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 export const runtime = "edge";
 import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
 import { HomeToolGrid } from "@/components/HomeToolGrid";
-import { SiteFooter } from "@/components/SiteFooter";
+import { HomePageFooter } from "@/components/HomePageFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { routing } from "@/i18n/routing";
 import { getBrandName } from "@/lib/brand";
-import { buildAllHomeToolItems } from "@/lib/featured-tools";
+import { buildHomepageGridToolItems, getTotalToolCount } from "@/lib/featured-tools";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -34,7 +34,8 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale);
   const tTools = await getTranslations("Tools");
   const tMeta = await getTranslations("Metadata");
-  const toolItems = buildAllHomeToolItems(tTools);
+  const gridItems = buildHomepageGridToolItems(tTools);
+  const toolCount = getTotalToolCount();
 
   return (
     <>
@@ -47,13 +48,13 @@ export default async function HomePage({ params }: Props) {
           description: tMeta("homeDescription"),
         }}
       />
-      <div className="home-page-shell min-h-screen text-black dark:text-white">
+      <div className="home-page-shell flex min-h-screen flex-col text-black dark:text-white">
         <HomePageSeamlessBg />
         <SiteHeader />
-        <main className="home-tool-grid-page">
-          <HomeToolGrid items={toolItems} />
+        <main className="home-tool-grid-page flex-1">
+          <HomeToolGrid gridItems={gridItems} toolCount={toolCount} />
         </main>
-        <SiteFooter />
+        <HomePageFooter />
       </div>
     </>
   );

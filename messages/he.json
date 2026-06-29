@@ -64,7 +64,15 @@
     "heroFeaturesLabel": "יתרונות מרכזיים",
     "heroFast": "מהירות מיידית",
     "heroLocal": "עיבוד מקומי",
-    "heroPrivate": "ללא העלאות"
+    "heroPrivate": "ללא העלאות",
+    "trustSignalsLabel": "פרטיות ואבטחה",
+    "trustClientSide": "עיבוד 100% בצד הלקוח",
+    "trustNoServers": "הקבצים לא מגיעים לשרתים שלנו",
+    "trustInstantDownload": "הורדה מיידית בדפדפן",
+    "viewFullToolsList": "צפה ברשימה המלאה של {count}+ כלים",
+    "goToTool": "עבור ל{toolName}",
+    "marketingTitle": "כלי PDF מובילים",
+    "marketingDescription": "שדרג את ה-PDF שלך! פתרון מקצועי, מאובטח וקל לשימוש"
   },
   "Favorites": {
     "metaTitle": "כלי PDF מועדפים — JoinMyPDF",
