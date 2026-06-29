@@ -2,6 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
+import { FileUploadZone } from "@/components/FileUploadZone";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
@@ -175,7 +176,7 @@ function FileSlot({
           pick(e.dataTransfer.files);
         }}
         onClick={() => inputRef.current?.click()}
-        className={`cursor-pointer rounded-none border-2 border-dashed px-4 py-4 text-center transition ${ drag ? "border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800" : "border-white/15 bg-white/[0.02] hover:border-white/25" }`}
+        className={`cursor-pointer rounded-lg border border-dashed px-4 py-5 text-center transition ${drag ? "border-blue-400 bg-blue-50/80 dark:border-blue-500 dark:bg-blue-950/30" : "border-neutral-300 bg-neutral-50 hover:border-neutral-400 dark:border-neutral-600 dark:bg-neutral-900/50 dark:hover:border-neutral-500"}`}
       >
         <input
           id={id}
@@ -292,35 +293,42 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell>
-            <div className="grid gap-2 md:grid-cols-2">
-        <FileSlot
-          id={`${baseId}-left`}
-          label={ws.wsUi("labelOriginalBaseline")}
-          file={leftFile}
-          onFile={setLeftFile}
-          dropHint={ws.wsCommon("dropPdfHint")}
-          removeLabel={ws.wsCommon("remove")}
-          mbUnit={ws.wsCommon("mbUnit")}
-          inputRef={leftInputRef}
-          onClear={() => {
-            setLeftFile(null);
-            setResult(null);
-          }}
+        <FileUploadZone
+          operation={tool.operation}
+          className="cursor-default"
+          showCloudLinks={false}
+          footer={
+            <div className="grid w-full gap-4 text-left md:grid-cols-2">
+              <FileSlot
+                id={`${baseId}-left`}
+                label={ws.wsUi("labelOriginalBaseline")}
+                file={leftFile}
+                onFile={setLeftFile}
+                dropHint={ws.wsCommon("dropPdfHint")}
+                removeLabel={ws.wsCommon("remove")}
+                mbUnit={ws.wsCommon("mbUnit")}
+                inputRef={leftInputRef}
+                onClear={() => {
+                  setLeftFile(null);
+                  setResult(null);
+                }}
+              />
+              <FileSlot
+                id={`${baseId}-right`}
+                label={ws.wsUi("labelRevised")}
+                file={rightFile}
+                onFile={setRightFile}
+                dropHint={ws.wsCommon("dropPdfHint")}
+                removeLabel={ws.wsCommon("remove")}
+                mbUnit={ws.wsCommon("mbUnit")}
+                onClear={() => {
+                  setRightFile(null);
+                  setResult(null);
+                }}
+              />
+            </div>
+          }
         />
-        <FileSlot
-          id={`${baseId}-right`}
-          label={ws.wsUi("labelRevised")}
-          file={rightFile}
-          onFile={setRightFile}
-          dropHint={ws.wsCommon("dropPdfHint")}
-          removeLabel={ws.wsCommon("remove")}
-          mbUnit={ws.wsCommon("mbUnit")}
-          onClear={() => {
-            setRightFile(null);
-            setResult(null);
-          }}
-        />
-      </div>
       </WorkspaceUploadShell>
 
       <div id={WORKSPACE_OPERATIONS_ID} className="flex flex-wrap items-center gap-3">

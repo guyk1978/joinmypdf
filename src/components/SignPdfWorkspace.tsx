@@ -488,7 +488,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell>
-            {!file ? (
+        {!file ? (
         <FileUploadZone
           operation={tool.operation}
           drag={drag}
@@ -526,10 +526,11 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
             />
           }
         />
-      ) : null}
+        ) : null}
+      </WorkspaceUploadShell>
 
       {file && fileBytes ? (
-        <div id={WORKSPACE_OPERATIONS_ID} className="sign-workspace space-y-2">
+        <div id={WORKSPACE_OPERATIONS_ID} className="sign-workspace tool-workspace-panel space-y-2">
           {encrypted ? (
             <div className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
               <label className="text-sm font-medium text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" htmlFor={`${baseId}-pwd`}>
@@ -718,7 +719,6 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           {status}
         </p>
       )}
-      </WorkspaceUploadShell>
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
       <StickyMobileCta

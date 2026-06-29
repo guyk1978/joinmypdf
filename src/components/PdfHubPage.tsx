@@ -32,16 +32,14 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-6xl space-y-6 bg-neutral-100 px-2 py-6 dark:bg-neutral-950 md:px-3 md:py-8">
-        <header className="max-w-3xl space-y-2 border-b border-neutral-300 pb-4 dark:border-neutral-800">
+      <main className="home-page-shell min-h-screen text-black dark:text-white">
+        <header className="site-page-header border-b border-neutral-300 dark:border-neutral-800">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200">
             {t("hubBadge")}
           </p>
-          <h1 className="text-2xl font-bold tracking-tight text-black dark:text-neutral-200 md:text-3xl">
-            {hub.title}
-          </h1>
-          <p className="text-sm leading-relaxed text-black dark:text-neutral-200">{hub.description}</p>
-          <nav className="flex flex-wrap gap-2 pt-1 text-sm">
+          <h1 className="site-page-header__title">{hub.title}</h1>
+          <p className="site-page-header__subtitle">{hub.description}</p>
+          <nav className="flex flex-wrap gap-2 pt-3 text-sm">
             <Link href="/pdf-guides/" className="text-black hover:underline dark:text-neutral-200">
               {t("navGuides")}
             </Link>
@@ -66,6 +64,7 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
           </nav>
         </header>
 
+        <div className="mx-auto max-w-6xl space-y-6 px-2 py-6 md:px-3 md:py-8">
         <WattQuickCrossLink />
 
         {featured.length ? (
@@ -96,6 +95,7 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
             <CompactToolCardGrid items={toolItems} />
           </section>
         ) : null}
+        </div>
       </main>
       <SiteFooter />
     </>

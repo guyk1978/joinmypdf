@@ -350,8 +350,11 @@ export function PdfTextEditorWorkspace({ tool, slug }: { tool: ToolDefinition; s
               />
             }
           />
-        ) : (
-        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3">
+        ) : null}
+      </WorkspaceUploadShell>
+
+      {file ? (
+        <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="truncate text-sm text-ink-muted">
                 <span className="font-medium text-ink">{file.name}</span> · {pdf.formatBytes(file.size)}
@@ -502,8 +505,7 @@ export function PdfTextEditorWorkspace({ tool, slug }: { tool: ToolDefinition; s
               </button>
             </div>
           </div>
-        )}
-      </WorkspaceUploadShell>
+        ) : null}
 
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
       <StickyMobileCta href="#tool-workspace" label={ws.buttonLabel()} secondaryHref="/" secondaryLabel={ws.home} />

@@ -1,6 +1,7 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { CompressionLevelPicker } from "@/components/CompressionLevelPicker";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { MapDiagramCrossLink } from "@/components/partner/MapDiagramCrossLink";
@@ -11,6 +12,11 @@ import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
+import {
+  DEFAULT_PDF_COMPRESSION_PRESET,
+  normalizeCompressionPreset,
+  type PdfCompressionPreset,
+} from "@/lib/pdf-compress-presets";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceActionRow } from "@/components/WorkspaceActionRow";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
@@ -74,7 +80,7 @@ type RunHelpers = {
   setStatus: (s: string) => void;
   downloadBlob: (blob: Blob, name: string) => void;
   reset: () => void;
-  quality: number;
+  compressionPreset: PdfCompressionPreset;
 };
 
 type OpConfig = {
@@ -92,13 +98,14 @@ function buildConfig(tool: ToolDefinition, ws: ReturnType<typeof useWorkspaceI18
       minFiles: 1,
       multiple: false,
       buttonLabel: ws.buttonLabel(),
-      async run(files, { setStatus, downloadBlob, quality: q }) {
-        const result = await pdf.compressSimulation(files[0], q / 100);
+      async run(files, { setStatus, downloadBlob, compressionPreset }) {
+        setStatus(ws.status("compressing"));
+        const result = await pdf.compressPdfFile(files[0], compressionPreset);
         downloadBlob(
           new Blob([result.bytes as BlobPart], { type: "application/pdf" }),
           "joinmypdf-compressed.pdf",
         );
-        setStatus(ws.status("complete", { percent: Math.round(result.estimatedRatio * 100) }));
+        setStatus(ws.status("complete", { percent: Math.round(result.sizeRatio * 100) }));
       },
     },
     split: {
@@ -174,7 +181,9 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
-  const [quality, setQuality] = useState(75);
+  const [compressionPreset, setCompressionPreset] = useState<PdfCompressionPreset>(
+    DEFAULT_PDF_COMPRESSION_PRESET,
+  );
   const inputRef = useRef<HTMLInputElement>(null);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, files.length);
   const [drag, setDrag] = useState(false);
@@ -189,8 +198,10 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
       setFiles(payload.files);
       setDone(false);
       setRunError(null);
-      if (typeof payload.settings.quality === "number") {
-        setQuality(payload.settings.quality);
+      if (payload.settings.compressionPreset !== undefined) {
+        setCompressionPreset(normalizeCompressionPreset(payload.settings.compressionPreset));
+      } else if (payload.settings.quality !== undefined) {
+        setCompressionPreset(normalizeCompressionPreset(payload.settings.quality));
       }
       setStatus(tProjects("restoredStatus", { name: payload.projectName }));
     },
@@ -257,7 +268,7 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
         setStatus,
         downloadBlob,
         reset,
-        quality,
+        compressionPreset,
       });
       setDone(true);
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
@@ -353,21 +364,24 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
       <MapDiagramCrossLink className="mx-auto mt-6 max-w-2xl" />
 
       {tool.operation === "compress" ? (
-        <div className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
-          <label className="text-sm font-medium text-black dark:text-neutral-200 dark:text-ink" htmlFor={`${baseId}-q`}>
-            {ws.common("compressionLevel")}
-          </label>
-          <input
-            id={`${baseId}-q`}
-            type="range"
-            min={55}
-            max={95}
-            value={quality}
-            onChange={(e) => setQuality(Number(e.target.value))}
-            className="mt-2 w-full"
-          />
-          <p className="mt-1 text-xs text-black dark:text-neutral-200 dark:text-ink-muted">{ws.common("compressionHint")}</p>
-        </div>
+        <CompressionLevelPicker
+          className="tool-workspace-panel"
+          name={`${baseId}-compression`}
+          value={compressionPreset}
+          onChange={setCompressionPreset}
+          label={ws.common("compressionLevel")}
+          hint={ws.common("compressionHint")}
+          optionLabels={{
+            high: ws.common("compressionPresetHigh"),
+            medium: ws.common("compressionPresetMedium"),
+            max: ws.common("compressionPresetMax"),
+          }}
+          optionDescriptions={{
+            high: ws.common("compressionPresetHighDesc"),
+            medium: ws.common("compressionPresetMediumDesc"),
+            max: ws.common("compressionPresetMaxDesc"),
+          }}
+        />
       ) : null}
 
       {files.length > 0 ? (
@@ -452,7 +466,7 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
           toolSlug: slug,
           operation: tool.operation,
           files,
-          settings: tool.operation === "compress" ? { quality } : {},
+          settings: tool.operation === "compress" ? { compressionPreset } : {},
           disabled: files.length === 0,
         }}
       />

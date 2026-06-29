@@ -2,6 +2,7 @@
 
 import { PDFDocument } from "pdf-lib-with-encrypt";
 import { classifyPdfError } from "./pdf-errors";
+import type { PdfCompressionPreset } from "./pdf-compress-presets";
 
 async function loadPdfLibDocument(bytes: ArrayBuffer) {
   try {
@@ -23,12 +24,20 @@ export async function mergePdfFiles(files: File[]): Promise<Uint8Array> {
   return merged.save();
 }
 
+export async function compressPdfFile(file: File, preset: PdfCompressionPreset) {
+  const { compressPdfFile: compress } = await import("./pdf-compress");
+  try {
+    return await compress(file, preset);
+  } catch (error) {
+    throw classifyPdfError(error);
+  }
+}
+
+/** @deprecated Use compressPdfFile with a preset instead. */
 export async function compressSimulation(file: File, quality: number) {
-  if (!file) throw new Error("No PDF file selected.");
-  const doc = await loadPdfLibDocument(await file.arrayBuffer());
-  const output = await doc.save({ useObjectStreams: true });
-  const ratio = Math.max(0.55, Math.min(0.95, Number(quality || 0.75)));
-  return { bytes: output, estimatedRatio: ratio };
+  const preset = quality >= 0.85 ? "high" : quality >= 0.7 ? "medium" : "max";
+  const result = await compressPdfFile(file, preset);
+  return { bytes: result.bytes, estimatedRatio: result.sizeRatio };
 }
 
 export async function splitPdfFile(file: File) {

@@ -18,7 +18,7 @@ export function HomeToolGrid({ items }: HomeToolGridProps) {
     <>
       <HomeHero />
 
-      <div className="home-tool-grid-shell home-tool-grid-shell--homepage mx-auto flex w-full flex-col items-center">
+      <div className="home-tool-grid-shell home-tool-grid-shell--homepage mx-auto flex w-full max-w-[1440px] flex-col items-center">
         <div className="home-tool-grid home-tool-grid--homepage">
           {items.map((item) => (
             <ToolGridCard key={item.href} item={item} />

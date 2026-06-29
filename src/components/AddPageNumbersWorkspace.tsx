@@ -242,9 +242,10 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
           }
         />
       ) : null}
+      </WorkspaceUploadShell>
 
       {showOptions ? (
-        <form id={WORKSPACE_OPERATIONS_ID} className="space-y-2" onSubmit={onSubmit}>
+        <form id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-2" onSubmit={onSubmit}>
           <p className="text-sm text-ink-muted">
             <strong className="text-ink">{file?.name}</strong>
             {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : null}
@@ -432,7 +433,6 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
           {status}
         </p>
       )}
-      </WorkspaceUploadShell>
       {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
 
       <StickyMobileCta

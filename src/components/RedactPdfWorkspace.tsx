@@ -418,8 +418,11 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             />
           }
         />
-      ) : (
-        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3">
+      ) : null}
+      </WorkspaceUploadShell>
+
+      {file ? (
+        <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="truncate text-sm text-ink-muted">
               <span className="font-medium text-ink">{file.name}</span> · {pdf.formatBytes(file.size)}
@@ -553,8 +556,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             </button>
           </div>
         </div>
-      )}
-      </WorkspaceUploadShell>
+      ) : null}
       {runError ? (
         <ToolErrorRecovery
           operation={tool.operation}

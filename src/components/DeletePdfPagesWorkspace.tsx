@@ -290,7 +290,10 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
             />
           }
         />
-      ) : (
+      ) : null}
+      </WorkspaceUploadShell>
+
+      {file ? (
         <>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="truncate text-sm text-ink-muted">
@@ -367,8 +370,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
             </button>
           </div>
         </>
-      )}
-      </WorkspaceUploadShell>
+      ) : null}
       {runError ? (
         <ToolErrorRecovery
           operation={tool.operation}

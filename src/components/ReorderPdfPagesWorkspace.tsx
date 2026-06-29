@@ -174,8 +174,11 @@ export function ReorderPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
               />
             }
           />
-        ) : (
-          <div id={WORKSPACE_OPERATIONS_ID} className="space-y-3">
+        ) : null}
+      </WorkspaceUploadShell>
+
+      {file ? (
+          <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="truncate text-sm text-ink-muted">
                 <span className="font-medium text-ink">{file.name}</span>
@@ -215,8 +218,7 @@ export function ReorderPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
               </button>
             </div>
           </div>
-        )}
-      </WorkspaceUploadShell>
+        ) : null}
 
       {runError ? (
         <ToolErrorRecovery

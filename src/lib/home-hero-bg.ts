@@ -14,8 +14,8 @@ export const HOME_GRID_THEME = {
     muted: "#737373",
   },
   dark: {
-    cardBg: "#0a0a0a",
-    cardBgHover: "#171717",
+    cardBg: "rgb(28 33 40)",
+    cardBgHover: "rgb(36 42 50)",
     cardText: "#ffffff",
     iconBg: "transparent",
     iconBgHover: "transparent",
@@ -47,8 +47,8 @@ export function getHomePageThemeVars(locale: string, isLight: boolean): HomePage
     "--home-icon-bg": palette.iconBg,
     "--home-icon-bg-hover": palette.iconBgHover,
     "--home-card-muted": palette.muted,
-    "--home-card-border": isLight ? "rgb(229, 229, 229)" : "rgb(38, 38, 38)",
-    "--home-card-border-hover": isLight ? "rgb(163, 163, 163)" : "rgb(82, 82, 82)",
+    "--home-card-border": isLight ? "rgb(229, 229, 229)" : "rgb(45, 50, 58)",
+    "--home-card-border-hover": isLight ? "rgb(163, 163, 163)" : "rgb(82, 88, 98)",
   };
 }
 

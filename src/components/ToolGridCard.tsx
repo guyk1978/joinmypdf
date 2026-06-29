@@ -78,8 +78,8 @@ export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
         className={clsx(
           "home-tool-grid-card__icon",
           TOOL_ICON_BARE_CLASS,
-          "inline-flex items-center justify-center transition-transform duration-300 group-hover:scale-105",
-          "[&_svg]:h-16 [&_svg]:w-16 sm:[&_svg]:h-[4.5rem] sm:[&_svg]:w-[4.5rem] md:[&_svg]:h-20 md:[&_svg]:w-20",
+          "inline-flex items-center justify-center",
+          "[&_svg]:h-14 [&_svg]:w-14 sm:[&_svg]:h-16 sm:[&_svg]:w-16 md:[&_svg]:h-[4.25rem] md:[&_svg]:w-[4.25rem]",
         )}
         aria-hidden
       >

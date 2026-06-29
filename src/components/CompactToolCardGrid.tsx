@@ -1,6 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { clsx } from "clsx";
-import { getToolIcon, TOOL_ICON_WRAP_CLASS } from "@/lib/tool-icons";
+import { getToolIcon, TOOL_ICON_BARE_CLASS } from "@/lib/tool-icons";
 
 export type CompactToolCardItem = {
   href: string;
@@ -34,7 +34,7 @@ export function CompactToolCardGrid({
             }
           >
             <span
-              className={`${TOOL_ICON_WRAP_CLASS} inline-flex h-9 w-9 items-center justify-center rounded-none transition-colors ${visual.wrap} ${visual.wrapHover}`}
+              className={`${TOOL_ICON_BARE_CLASS} inline-flex h-9 w-9 items-center justify-center [&_svg]:h-7 [&_svg]:w-7`}
               aria-hidden="true"
             >
               {visual.icon}

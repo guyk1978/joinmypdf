@@ -46,10 +46,10 @@ export const toolGridGap = "gap-6";
 
 /** Homepage & favorites tool grid cards */
 export const homeToolGridCard =
-  "relative flex min-h-[108px] flex-col items-center justify-center rounded-none bg-transparent p-2 text-center shadow-none transition-transform duration-300 ease-out hover:z-10 hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-500";
+  "relative flex min-h-[7.5rem] flex-col items-center justify-center rounded-lg border border-transparent bg-transparent p-3 text-center shadow-none transition-[background-color,border-color,box-shadow] duration-200 ease-out hover:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-500";
 
 export const homeToolGridCardLabel =
-  "mt-2 line-clamp-2 text-sm font-bold leading-snug tracking-tight text-black dark:text-white";
+  "mt-1.5 line-clamp-2 text-xs font-semibold leading-snug tracking-tight sm:text-sm";
 
 export const homeToolGridCardFavorite =
   "home-tool-grid-card__favorite absolute end-1.5 top-1.5 p-0 opacity-0 transition-opacity duration-200 max-sm:opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100";

@@ -12,6 +12,11 @@ export type ToolUploadWatermark = {
 
 const HERO_ICON_CLASS = "h-full w-full";
 
+/** Red & white — matches tool grid icons */
+const R = "#E53935";
+const RD = "#C62828";
+const W = "#FFFFFF";
+
 /** Canonical from → to for every conversion tool slug. */
 const CONVERT_TOOL_PAIRS: Record<string, { from: string; to: string }> = {
   "pdf-to-png": { from: "pdf", to: "png" },
@@ -38,8 +43,8 @@ const CONVERT_TOOL_PAIRS: Record<string, { from: string; to: string }> = {
 function PdfFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#EF4444" />
-      <path d="M8 16H16" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={R} />
+      <path d="M8 16H16" stroke={W} strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
@@ -47,12 +52,12 @@ function PdfFormatIcon() {
 function HeicFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#F59E0B" />
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={W} stroke={R} strokeWidth="1.2" />
       <text
         x="12"
         y="13.5"
         textAnchor="middle"
-        fill="white"
+        fill={R}
         fontSize="5"
         fontWeight="bold"
         fontFamily="ui-monospace, monospace"
@@ -66,11 +71,11 @@ function HeicFormatIcon() {
 function PngFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#06B6D4" />
-      <circle cx="8.5" cy="9" r="1.5" fill="#CFFAFE" />
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={W} stroke={R} strokeWidth="1.2" />
+      <circle cx="8.5" cy="9" r="1.5" fill={R} />
       <path
         d="M6.5 16L9.5 12.5L12 15L15.5 11L18.5 16"
-        stroke="#CFFAFE"
+        stroke={R}
         strokeWidth="1.4"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -82,11 +87,11 @@ function PngFormatIcon() {
 function JpgFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#14B8A6" />
-      <circle cx="8.5" cy="9" r="1.5" fill="#CCFBF1" />
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={R} />
+      <circle cx="8.5" cy="9" r="1.5" fill={W} />
       <path
         d="M6.5 16L9.5 12.5L12 15L15.5 11L18.5 16"
-        stroke="#CCFBF1"
+        stroke={W}
         strokeWidth="1.4"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -98,14 +103,15 @@ function JpgFormatIcon() {
 function WordFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#2563EB" />
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={W} stroke={R} strokeWidth="1.2" />
       <path
         d="M8 8.5L10.5 15.5L12 11.5L13.5 15.5L16 8.5"
-        stroke="white"
+        stroke={R}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      <rect x="3" y="6" width="3" height="12" rx="0.5" fill={R} />
     </svg>
   );
 }
@@ -113,8 +119,8 @@ function WordFormatIcon() {
 function ExcelFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#16A34A" />
-      <text x="12" y="14.5" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold" fontFamily="system-ui,sans-serif">
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={W} stroke={R} strokeWidth="1.2" />
+      <text x="12" y="14.5" textAnchor="middle" fill={R} fontSize="7" fontWeight="bold" fontFamily="system-ui,sans-serif">
         X
       </text>
     </svg>
@@ -124,9 +130,9 @@ function ExcelFormatIcon() {
 function PowerPointFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#C2410C" />
-      <rect x="7" y="7.5" width="10" height="6.5" rx="1" fill="#FB923C" />
-      <circle cx="12" cy="10.5" r="1.8" fill="white" opacity="0.95" />
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={R} />
+      <rect x="7" y="7.5" width="10" height="6.5" rx="1" fill={RD} />
+      <circle cx="12" cy="10.5" r="1.8" fill={W} opacity="0.95" />
     </svg>
   );
 }
@@ -134,8 +140,8 @@ function PowerPointFormatIcon() {
 function TextFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#0284C7" />
-      <path d="M8 8.5H16M8 11.5H16M8 14.5H13" stroke="#E0F2FE" strokeWidth="1.5" strokeLinecap="round" />
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={R} />
+      <path d="M8 8.5H16M8 11.5H16M8 14.5H13" stroke={W} strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -143,10 +149,10 @@ function TextFormatIcon() {
 function HtmlFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#E11D48" />
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={R} />
       <path
         d="M8.5 9L6.5 12L8.5 15M15.5 9L17.5 12L15.5 15"
-        stroke="white"
+        stroke={W}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -158,8 +164,8 @@ function HtmlFormatIcon() {
 function MarkdownFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="2.5" fill="#404040" />
-      <text x="12" y="14.5" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold" fontFamily="monospace">
+      <rect x="3" y="3" width="18" height="18" rx="2.5" fill={R} />
+      <text x="12" y="14.5" textAnchor="middle" fill={W} fontSize="7" fontWeight="bold" fontFamily="monospace">
         M↓
       </text>
     </svg>
@@ -169,8 +175,8 @@ function MarkdownFormatIcon() {
 function BookletFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
-      <rect x="3" y="4" width="8" height="16" rx="1.5" fill="#F59E0B" />
-      <rect x="13" y="4" width="8" height="16" rx="1.5" fill="#FBBF24" />
+      <rect x="3" y="4" width="8" height="16" rx="1.5" fill={W} stroke={R} strokeWidth="1" />
+      <rect x="13" y="4" width="8" height="16" rx="1.5" fill={R} />
     </svg>
   );
 }
@@ -255,9 +261,18 @@ export function getToolUploadWatermarks(slug?: string, headline?: string): ToolU
   return [{ placement: "center", icon: getToolIcon(slug, headline).icon }];
 }
 
-export function ConvertFlowArrow() {
+export function ConvertFlowArrow({ compact = false }: { compact?: boolean }) {
   return (
-    <svg viewBox="0 0 48 24" className="h-12 w-16 shrink-0 sm:h-14 sm:w-20 md:h-16 md:w-24" fill="none" aria-hidden>
+    <svg
+      viewBox="0 0 48 24"
+      className={
+        compact
+          ? "h-7 w-10 shrink-0 sm:h-8 sm:w-12"
+          : "h-12 w-16 shrink-0 sm:h-14 sm:w-20 md:h-16 md:w-24"
+      }
+      fill="none"
+      aria-hidden
+    >
       <path
         d="M6 12H38M38 12L30 6M38 12L30 18"
         stroke="currentColor"

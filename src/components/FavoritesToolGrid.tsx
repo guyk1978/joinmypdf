@@ -19,7 +19,7 @@ export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
   const favoriteItems = items.filter((item) => favoriteIds.includes(item.slugHint));
 
   return (
-    <div className="favorites-page-content home-tool-grid-shell mx-auto flex w-full max-w-[1180px] flex-col items-center">
+    <div className="favorites-page-content home-tool-grid-shell mx-auto flex w-full max-w-[1440px] flex-col items-center">
       {!hydrated ? (
         <p className="favorites-page-content__loading text-sm text-neutral-500 dark:text-neutral-400">
           {t("loading")}

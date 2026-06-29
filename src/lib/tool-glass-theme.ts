@@ -33,7 +33,8 @@ export const TOOL_GLASS_DROPZONE_BASE = "tool-upload-zone-base border-0 bg-trans
 
 export const TOOL_GLASS_DROPZONE_HOVER = "";
 
-const CTA_BASE = "tool-upload-cta px-14 py-4 text-base font-bold tracking-wide text-white transition-colors";
+const CTA_BASE =
+  "tool-upload-cta tool-upload-zone__cta-shell px-6 py-3 text-[0.8125rem] font-bold uppercase tracking-[0.1em] text-white transition-colors";
 
 const CTA_HOVER = "";
 
@@ -46,8 +47,8 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     label: "Convert",
     accentRgb: "239, 68, 68",
     glowRgb: "239, 68, 68",
-    ctaBg: "#7B1113",
-    ctaBgHover: "#922024",
+    ctaBg: "#2D7FF9",
+    ctaBgHover: "#1A6FE8",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
     dropzoneActive: "tool-upload-zone--active",
@@ -61,8 +62,8 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     label: "Edit",
     accentRgb: "16, 185, 129",
     glowRgb: "16, 185, 129",
-    ctaBg: "#0B5D4A",
-    ctaBgHover: "#0D7059",
+    ctaBg: "#2D7FF9",
+    ctaBgHover: "#1A6FE8",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
     dropzoneActive: "tool-upload-zone--active",
@@ -76,8 +77,8 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     label: "Optimize",
     accentRgb: "249, 115, 22",
     glowRgb: "249, 115, 22",
-    ctaBg: "#7B3B00",
-    ctaBgHover: "#934600",
+    ctaBg: "#2D7FF9",
+    ctaBgHover: "#1A6FE8",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
     dropzoneActive: "tool-upload-zone--active",
@@ -91,8 +92,8 @@ export const TOOL_GLASS_THEME: Record<ToolGlassCategory, ToolGlassTheme> = {
     label: "Security",
     accentRgb: "139, 92, 246",
     glowRgb: "139, 92, 246",
-    ctaBg: "#4C1D95",
-    ctaBgHover: "#5B2D82",
+    ctaBg: "#2D7FF9",
+    ctaBgHover: "#1A6FE8",
     shell: TOOL_UPLOAD_SHELL,
     dropzone: TOOL_GLASS_DROPZONE_BASE,
     dropzoneActive: "tool-upload-zone--active",

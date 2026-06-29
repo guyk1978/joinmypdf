@@ -194,7 +194,10 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
             />
           }
         />
-      ) : (
+      ) : null}
+      </WorkspaceUploadShell>
+
+      {file ? (
         <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-2">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
@@ -242,8 +245,7 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
             />
           </div>
         </div>
-      )}
-      </WorkspaceUploadShell>
+      ) : null}
       {runError ? (
         <ToolErrorRecovery
           operation={tool.operation}

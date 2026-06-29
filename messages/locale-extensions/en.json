@@ -559,6 +559,16 @@
     "common": {
       "selectFiles": "Select Files",
       "selectFilesAria": "Select files",
+      "selectFile": "Select File",
+      "selectFileAria": "Select file",
+      "selectPdfFiles": "Select PDF files",
+      "selectPdfFilesAria": "Select PDF files",
+      "selectPdfFile": "Select PDF",
+      "selectPdfFileAria": "Select PDF file",
+      "dropYourFileHere": "Drop your file here",
+      "uploadFromGoogleDrive": "Upload from Google Drive",
+      "uploadFromDropbox": "Upload from Dropbox",
+      "uploadFromCloudServices": "Upload from Google Drive / Dropbox",
       "privacyTitle": "100% Private & Fast:",
       "privacyBody": "Files are processed locally in your browser and never leave your device.",
       "privacyStatement": "100% Private: All processing happens locally in your browser. Your files never leave your device.",
@@ -587,7 +597,13 @@
       "clientSideOnly": "Client-side only",
       "ready": "Ready:",
       "compressionLevel": "Compression level",
-      "compressionHint": "Higher keeps more detail; lower targets smaller files.",
+      "compressionHint": "Choose how aggressively to shrink the file. All processing stays in your browser.",
+      "compressionPresetHigh": "High Quality (Low Compression)",
+      "compressionPresetMedium": "Medium",
+      "compressionPresetMax": "Max Compression (Smallest File)",
+      "compressionPresetHighDesc": "Typically ~65–85% of original size. Best for print, presentations, and sharp text.",
+      "compressionPresetMediumDesc": "Typically ~40–65% of original size. A balanced choice for email and everyday sharing.",
+      "compressionPresetMaxDesc": "Typically ~20–45% of original size. Smallest file when upload limits are tight.",
       "reorderHint": "Drag cards to reorder. Files merge left-to-right, top-to-bottom.",
       "removeFile": "Remove {name}",
       "notAvailable": "This tool is not available yet.",
@@ -618,7 +634,7 @@
       },
       "compress": {
         "title": "Drop files here or click to browse",
-        "description": "Select one PDF. Tune compression, then download."
+        "description": "Select one PDF. Choose a compression level, then download."
       },
       "split": {
         "title": "Drop files here or click to browse",
@@ -807,7 +823,8 @@
         "complete": "Merged {count} file(s) in your chosen order."
       },
       "compress": {
-        "complete": "Compressed. Estimated size ratio ~{percent}% of original."
+        "compressing": "Compressing PDF in your browser…",
+        "complete": "Compressed to ~{percent}% of original size."
       },
       "split": {
         "complete": "Split complete: {count} file(s)."

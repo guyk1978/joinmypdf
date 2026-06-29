@@ -559,6 +559,16 @@
     "common": {
       "selectFiles": "בחר קבצים",
       "selectFilesAria": "בחר קבצים",
+      "selectFile": "בחר קובץ",
+      "selectFileAria": "בחר קובץ",
+      "selectPdfFiles": "בחר קובצי PDF",
+      "selectPdfFilesAria": "בחר קובצי PDF",
+      "selectPdfFile": "בחר PDF",
+      "selectPdfFileAria": "בחר קובץ PDF",
+      "dropYourFileHere": "גרור את הקובץ לכאן",
+      "uploadFromGoogleDrive": "העלאה מ-Google Drive",
+      "uploadFromDropbox": "העלאה מ-Dropbox",
+      "uploadFromCloudServices": "העלאה מ-Google Drive / Dropbox",
       "privacyTitle": "100% פרטי ומהיר:",
       "privacyBody": "קבצים מעובדים מקומית בדפדפן ולא עוזבים את המכשיר.",
       "privacyStatement": "100% פרטי: כל העיבוד מתבצע מקומית בדפדפן. הקבצים שלך לא עוזבים את המכשיר.",
@@ -587,7 +597,13 @@
       "clientSideOnly": "רק בצד הלקוח",
       "ready": "מוכן:",
       "compressionLevel": "רמת דחיסה",
-      "compressionHint": "ערך גבוה שומר יותר פרטים; נמוך יותר מכוון לקבצים קטנים.",
+      "compressionHint": "בחר עד כמה לכווץ את הקובץ. כל העיבוד נשאר בדפדפן שלך.",
+      "compressionPresetHigh": "איכות גבוהה (דחיסה נמוכה)",
+      "compressionPresetMedium": "בינוני",
+      "compressionPresetMax": "דחיסה מקסימלית (קובץ הכי קטן)",
+      "compressionPresetHighDesc": "בדרך כלל ~65–85% מגודל המקור. מתאים להדפסה, מצגות וטקסט חד.",
+      "compressionPresetMediumDesc": "בדרך כלל ~40–65% מגודל המקור. איזון טוב למייל ושיתוף יומיומי.",
+      "compressionPresetMaxDesc": "בדרך כלל ~20–45% מגודל המקור. הקובץ הכי קטן כשיש מגבלת העלאה.",
       "reorderHint": "גרור כרטיסים לסדר. קבצים מתמזגים משמאל לימין, מלמעלה למטה.",
       "removeFile": "הסר {name}",
       "notAvailable": "כלי זה עדיין לא זמין.",
@@ -618,7 +634,7 @@
       },
       "compress": {
         "title": "גרור קבצים לכאן או לחץ לעיון",
-        "description": "בחר PDF אחד. כוון דחיסה, ואז הורד."
+        "description": "בחר PDF אחד. בחר רמת דחיסה, ואז הורד."
       },
       "split": {
         "title": "גרור קבצים לכאן או לחץ לעיון",
@@ -807,7 +823,8 @@
         "complete": "מוזגו {count} קובץ/ים בסדר שבחרת."
       },
       "compress": {
-        "complete": "דחוס. יחס גודל משוער ~{percent}% מהמקור."
+        "compressing": "דוחס PDF בדפדפן שלך…",
+        "complete": "דחוס לכ־{percent}% מגודל המקור."
       },
       "split": {
         "complete": "פיצול הושלם: {count} קובץ/ים."

@@ -178,7 +178,10 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
             />
           }
         />
-      ) : (
+      ) : null}
+      </WorkspaceUploadShell>
+
+      {file ? (
         <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-2">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
@@ -229,8 +232,7 @@ export function AutocadToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
             />
           </div>
         </div>
-      )}
-      </WorkspaceUploadShell>
+      ) : null}
       {runError ? (
         <ToolErrorRecovery
           operation={tool.operation}

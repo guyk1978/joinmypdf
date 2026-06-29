@@ -175,7 +175,7 @@ export default async function ToolPage({
       <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <SiteHeader />
-      <main className={`${toolPageDashboardWidth} py-8 md:py-10`}>
+      <main className={`${toolPageDashboardWidth} pb-8 pt-14 md:pb-10 md:pt-20`}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
         <ToolPageShellProvider headline={displayTitle} subline={subtitle} slug={slug} stacked>
