@@ -78,6 +78,15 @@ for (const filename of publicRootAssets) {
   );
 }
 
+const homepageMarketingImages = ["home-photo-en.png", "home-photo-he.png"];
+await mkdir(path.join(publicDir, "img"), { recursive: true });
+for (const filename of homepageMarketingImages) {
+  await copyFile(
+    path.join(root, "assets", "img", filename),
+    path.join(publicDir, "img", filename),
+  );
+}
+
 await mkdir(path.join(publicDir, "tools"), { recursive: true });
 await copyFile(toolsHubSrc, toolsHubPublic);
 
