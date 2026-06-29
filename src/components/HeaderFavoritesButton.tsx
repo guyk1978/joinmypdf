@@ -1,6 +1,6 @@
 "use client";
 
-import { Star } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -21,11 +21,12 @@ export function HeaderFavoritesButton() {
       title={t("favorites")}
       prefetch={false}
     >
-      <Star
+      <Bookmark
         className={clsx(
-          "h-5 w-5 text-black dark:text-neutral-200",
-          active && "fill-amber-500 text-amber-500 dark:fill-amber-400 dark:text-amber-400",
+          "h-5 w-5 text-neutral-500 transition-colors dark:text-neutral-500",
+          active && "fill-current text-neutral-900 dark:text-neutral-100",
         )}
+        strokeWidth={2}
         aria-hidden="true"
       />
     </Link>

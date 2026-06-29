@@ -1,8 +1,9 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { LayoutGrid, Star } from "lucide-react";
+import { LayoutGrid } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { ToolFavoriteBookmarkIcon } from "@/components/ToolFavoriteBookmarkIcon";
 import { ToolGridCard } from "@/components/ToolGridCard";
 import { useFavorites } from "@/hooks/useFavorites";
 import type { ToolGridItem } from "@/lib/tool-grid";
@@ -27,7 +28,7 @@ export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
       ) : favoriteItems.length === 0 ? (
         <div className="favorites-empty-state">
           <div className="favorites-empty-state__icon-wrap" aria-hidden>
-            <Star className="h-9 w-9 fill-neutral-400/20 text-neutral-400" strokeWidth={1.75} />
+            <ToolFavoriteBookmarkIcon favorited={false} size="empty" className="text-neutral-500" />
           </div>
           <h2 className="favorites-empty-state__title">{t("emptyTitle")}</h2>
           <p className="favorites-empty-state__body">{t("emptyState")}</p>

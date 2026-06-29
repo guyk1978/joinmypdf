@@ -1,4 +1,4 @@
-import { translateToolItem } from "@/lib/i18n-tool-labels";
+import { translateToolIntent, translateToolItem } from "@/lib/i18n-tool-labels";
 import { registry } from "@/lib/registry";
 import { STUDIO_TOOLS } from "@/lib/studio-tools";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
@@ -39,6 +39,11 @@ export function buildPremiumToolItems(tTools: ToolsTranslator): ToolGridItem[] {
         href: `/tools/${slug}/`,
         label: translateToolItem(tTools, slug, getToolDisplayLabel(slug, registryTool.title)),
         slugHint: slug,
+        description: translateToolIntent(
+          tTools,
+          slug,
+          registryTool.intent || registryTool.description,
+        ),
       });
       continue;
     }
@@ -49,6 +54,7 @@ export function buildPremiumToolItems(tTools: ToolsTranslator): ToolGridItem[] {
         href: studio.href,
         label: translateToolItem(tTools, slug, studio.title),
         slugHint: slug,
+        description: translateToolIntent(tTools, slug, studio.subtitle),
       });
     }
   }

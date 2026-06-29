@@ -10,7 +10,7 @@ import {
   MoreHorizontal,
   Share2,
   Shield,
-  Star,
+  Bookmark,
   Sun,
 } from "lucide-react";
 import { clsx } from "clsx";
@@ -255,7 +255,7 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
               close();
             }}
           >
-            <Star className="site-header__overflow-icon" aria-hidden />
+            <Bookmark className="site-header__overflow-icon" strokeWidth={2} aria-hidden />
             {t("favorites")}
           </Link>
 

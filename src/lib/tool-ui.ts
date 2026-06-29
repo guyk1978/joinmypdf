@@ -51,8 +51,8 @@ export const homeToolGridCard =
 export const homeToolGridCardLabel =
   "mt-1.5 line-clamp-2 text-xs font-semibold leading-snug tracking-tight sm:text-sm";
 
-export const homeToolGridCardFavorite =
-  "home-tool-grid-card__favorite absolute end-1.5 top-1.5 p-0 opacity-0 transition-opacity duration-200 max-sm:opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100";
+export const homeToolGridCardBookmark =
+  "home-tool-grid-card__bookmark absolute end-1.5 top-1.5 z-[1] flex items-center justify-center p-0.5 opacity-0 transition-[opacity,color] duration-200 max-sm:opacity-80 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100";
 
 export const homeSecondaryPillBtn =
   "inline-flex items-center justify-center rounded-none bg-transparent px-8 py-3.5 text-sm font-bold tracking-wide text-black shadow-[var(--surface-separate)] transition-colors hover:shadow-[var(--surface-elevate)] dark:text-white";

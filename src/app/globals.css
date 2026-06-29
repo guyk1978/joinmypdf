@@ -293,7 +293,7 @@ html.dark .home-hero-industrial__subtitle--prominent {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(1.25rem, 3vw, 2rem);
-  align-items: stretch;
+  align-items: start;
 }
 
 @media (min-width: 1024px) {
@@ -305,6 +305,11 @@ html.dark .home-hero-industrial__subtitle--prominent {
 
 .home-split-layout__tools {
   min-width: 0;
+}
+
+.home-split-layout .home-marketing-banner {
+  align-self: start;
+  height: auto;
 }
 
 .home-tool-accordion-grid {
@@ -448,10 +453,10 @@ html.dark .home-hero-industrial__subtitle--prominent {
 
 /* Marketing banner — locale hero photo */
 .home-marketing-banner {
-  display: flex;
-  align-items: stretch;
+  display: block;
   width: 100%;
   min-width: 0;
+  height: auto;
   border: 1px solid #1f1f1f;
   border-radius: 0;
   background-color: #8b1538;
@@ -756,6 +761,160 @@ html:not(.dark) .tools-directory-section__title {
 
 html:not(.dark) .tools-directory-section__description {
   color: #737373;
+}
+
+/* Tools directory — accordion grid (matches .home-tool-grid breakpoints) */
+.tools-directory-accordion-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+.tools-directory-accordion-grid__row {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .tools-directory-accordion-grid {
+    gap: 0.875rem;
+  }
+
+  .tools-directory-accordion-grid__row {
+    gap: 0.875rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .tools-directory-accordion-grid__row {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .tools-directory-accordion-grid {
+    gap: 1rem;
+  }
+
+  .tools-directory-accordion-grid__row {
+    gap: 1rem;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .tools-directory-accordion-grid__row {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+
+.home-tool-grid-card--accordion {
+  width: 100%;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+}
+
+.home-tool-grid-card--selected {
+  border-color: var(--home-card-border-hover, rgb(82 82 82)) !important;
+  background-color: var(--home-card-bg-hover, #171717) !important;
+  box-shadow: 0 0 0 1px var(--home-card-border-hover, rgb(82 82 82)) !important;
+}
+
+html:not(.dark) .home-tool-grid-card--selected {
+  background-color: var(--home-card-bg-hover, #f5f5f5) !important;
+  border-color: var(--home-card-border-hover, rgb(163 163 163)) !important;
+}
+
+.tools-directory-accordion-grid__panel-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.tools-directory-accordion-grid__panel-wrap--open {
+  grid-template-rows: 1fr;
+}
+
+.tools-directory-accordion-grid__panel {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.tools-directory-accordion-grid__panel-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 1.125rem;
+  border: 1px solid #404040;
+  border-radius: 0;
+  background-color: #262626;
+  text-align: center;
+}
+
+html:not(.dark) .tools-directory-accordion-grid__panel-inner {
+  border-color: #d4d4d4;
+  background-color: #ececec;
+}
+
+.tools-directory-accordion-grid__description {
+  margin: 0;
+  max-width: 36rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #a3a3a3;
+}
+
+html:not(.dark) .tools-directory-accordion-grid__description {
+  color: #525252;
+}
+
+.tools-directory-accordion-grid__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10rem;
+  padding: 0.5625rem 1.25rem;
+  border: 2px solid #e53935;
+  border-radius: 0;
+  background-color: transparent;
+  color: #f5f5f5;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tools-directory-accordion-grid__cta:hover {
+  background-color: #e53935;
+  border-color: #e53935;
+  color: #ffffff;
+}
+
+.tools-directory-accordion-grid__cta:focus-visible {
+  outline: 2px solid #e53935;
+  outline-offset: 2px;
+}
+
+html:not(.dark) .tools-directory-accordion-grid__cta {
+  color: #c62828;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tools-directory-accordion-grid__panel-wrap {
+    transition: none;
+  }
 }
 
 /* Guides learning center — blog index */
@@ -1768,9 +1927,79 @@ html:not(.dark) .privacy-faq-item__body {
   border-color: transparent !important;
 }
 
-.home-page-shell .home-tool-grid--homepage .home-tool-grid-card__favorite,
-.home-page-shell .tools-directory-content .home-tool-grid--homepage .home-tool-grid-card__favorite {
-  color: var(--home-card-muted, inherit);
+.home-page-shell .home-tool-grid--homepage .home-tool-grid-card__bookmark,
+.home-page-shell .tools-directory-content .home-tool-grid--homepage .home-tool-grid-card__bookmark {
+  color: #737373;
+}
+
+.home-tool-grid-card__bookmark--active {
+  opacity: 1 !important;
+  color: #fafafa !important;
+}
+
+.home-tool-grid-card__bookmark--remove {
+  color: #a3a3a3 !important;
+}
+
+.home-tool-grid-card__bookmark--remove:hover {
+  color: #e5e5e5 !important;
+}
+
+html:not(.dark) .home-tool-grid-card__bookmark {
+  color: #a3a3a3;
+}
+
+html:not(.dark) .home-tool-grid-card__bookmark--active {
+  color: #171717 !important;
+}
+
+html:not(.dark) .home-tool-grid-card__bookmark--remove {
+  color: #737373 !important;
+}
+
+html:not(.dark) .home-tool-grid-card__bookmark--remove:hover {
+  color: #171717 !important;
+}
+
+.tool-favorite-bookmark-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #737373;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tool-favorite-bookmark-btn:hover {
+  color: #a3a3a3;
+}
+
+.tool-favorite-bookmark-btn--active {
+  color: #fafafa;
+}
+
+.tool-favorite-bookmark-btn--active:hover {
+  color: #ffffff;
+}
+
+html:not(.dark) .tool-favorite-bookmark-btn {
+  color: #a3a3a3;
+}
+
+html:not(.dark) .tool-favorite-bookmark-btn:hover {
+  color: #737373;
+}
+
+html:not(.dark) .tool-favorite-bookmark-btn--active {
+  color: #171717;
+}
+
+html:not(.dark) .tool-favorite-bookmark-btn--active:hover {
+  color: #000000;
 }
 
 html:not(.dark) .home-tool-grid-card {

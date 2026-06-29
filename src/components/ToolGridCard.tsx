@@ -2,25 +2,32 @@
 
 import { type MouseEvent } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Star, X } from "lucide-react";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
+import { ToolFavoriteBookmarkIcon } from "@/components/ToolFavoriteBookmarkIcon";
 import { useFavorites } from "@/hooks/useFavorites";
 import { getToolIcon, TOOL_ICON_BARE_CLASS } from "@/lib/tool-icons";
 import {
   homeToolGridCard,
-  homeToolGridCardFavorite,
+  homeToolGridCardBookmark,
   homeToolGridCardLabel,
 } from "@/lib/tool-ui";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
-type ToolGridCardProps = {
-  item: ToolGridItem;
-  /** Force favorites view (trash icon). Defaults to route detection. */
-  favoritesView?: boolean;
+type ToolGridCardAccordionProps = {
+  isSelected: boolean;
+  onToggle: () => void;
+  panelId: string;
 };
 
-export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
+type ToolGridCardProps = {
+  item: ToolGridItem;
+  /** Force favorites view (remove icon). Defaults to route detection. */
+  favoritesView?: boolean;
+  accordion?: ToolGridCardAccordionProps;
+};
+
+export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardProps) {
   const t = useTranslations("Home");
   const tFav = useTranslations("Favorites");
   const pathname = usePathname() || "/";
@@ -28,9 +35,10 @@ export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
   const slug = item.slugHint;
   const favorited = isFavorite(slug);
   const showRemove = favoritesView ?? pathname.includes("/favorites");
-  const showFavoriteAlways = !showRemove && favorited;
+  const showBookmarkAlways = !showRemove && favorited;
+  const isAccordion = Boolean(accordion);
 
-  const onFavoriteAction = (e: MouseEvent<HTMLButtonElement>) => {
+  const onBookmarkAction = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     if (showRemove) removeFavorite(slug);
@@ -39,54 +47,76 @@ export function ToolGridCard({ item, favoritesView }: ToolGridCardProps) {
 
   const visual = getToolIcon(item.slugHint, item.label);
 
-  return (
-    <Link href={item.href} className={clsx("group home-tool-grid-card", homeToolGridCard)} prefetch={false}>
+  const cardClassName = clsx(
+    "group home-tool-grid-card",
+    homeToolGridCard,
+    isAccordion && "home-tool-grid-card--accordion",
+    accordion?.isSelected && "home-tool-grid-card--selected",
+  );
+
+  const bookmarkButton = (
+    <button
+      type="button"
+      onClick={onBookmarkAction}
+      className={clsx(
+        homeToolGridCardBookmark,
+        (showBookmarkAlways || showRemove) && "opacity-100",
+        favorited && !showRemove && "home-tool-grid-card__bookmark--active",
+        showRemove && "home-tool-grid-card__bookmark--remove",
+      )}
+      aria-label={
+        showRemove
+          ? tFav("removeFromList")
+          : favorited
+            ? t("removeFromFavorites")
+            : t("addToFavorites")
+      }
+      aria-pressed={!showRemove && favorited}
+    >
+      <ToolFavoriteBookmarkIcon favorited={favorited} showRemove={showRemove} />
+    </button>
+  );
+
+  const icon = (
+    <span
+      className={clsx(
+        "home-tool-grid-card__icon",
+        TOOL_ICON_BARE_CLASS,
+        "inline-flex items-center justify-center",
+        "[&_svg]:h-14 [&_svg]:w-14 sm:[&_svg]:h-16 sm:[&_svg]:w-16 md:[&_svg]:h-[4.25rem] md:[&_svg]:w-[4.25rem]",
+      )}
+      aria-hidden
+    >
+      {visual.icon}
+    </span>
+  );
+
+  const label = (
+    <span className={clsx("home-tool-grid-card__label", homeToolGridCardLabel)}>{item.label}</span>
+  );
+
+  if (isAccordion && accordion) {
+    return (
       <button
         type="button"
-        onClick={onFavoriteAction}
-        className={clsx(
-          homeToolGridCardFavorite,
-          showFavoriteAlways && "opacity-100",
-          showRemove &&
-            "text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300",
-          !showRemove &&
-            (favorited
-              ? "text-amber-500 opacity-100 hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300"
-              : "text-neutral-400 hover:text-amber-500 dark:text-neutral-500 dark:hover:text-amber-400"),
-        )}
-        aria-label={
-          showRemove
-            ? tFav("removeFromList")
-            : favorited
-              ? t("removeFromFavorites")
-              : t("addToFavorites")
-        }
+        role="listitem"
+        className={cardClassName}
+        aria-expanded={accordion.isSelected}
+        aria-controls={accordion.panelId}
+        onClick={accordion.onToggle}
       >
-        {showRemove ? (
-          <X className="h-3.5 w-3.5" strokeWidth={2.25} />
-        ) : (
-          <Star
-            className={clsx(
-              "h-4 w-4",
-              favorited && "fill-amber-500 text-amber-500 dark:fill-amber-400 dark:text-amber-400",
-            )}
-          />
-        )}
+        {bookmarkButton}
+        {icon}
+        {label}
       </button>
+    );
+  }
 
-      <span
-        className={clsx(
-          "home-tool-grid-card__icon",
-          TOOL_ICON_BARE_CLASS,
-          "inline-flex items-center justify-center",
-          "[&_svg]:h-14 [&_svg]:w-14 sm:[&_svg]:h-16 sm:[&_svg]:w-16 md:[&_svg]:h-[4.25rem] md:[&_svg]:w-[4.25rem]",
-        )}
-        aria-hidden
-      >
-        {visual.icon}
-      </span>
-
-      <span className={clsx("home-tool-grid-card__label", homeToolGridCardLabel)}>{item.label}</span>
+  return (
+    <Link href={item.href} className={cardClassName} prefetch={false}>
+      {bookmarkButton}
+      {icon}
+      {label}
     </Link>
   );
 }

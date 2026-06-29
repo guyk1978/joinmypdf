@@ -6,16 +6,9 @@ import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
 import { getToolIcon, TOOL_ICON_BARE_CLASS } from "@/lib/tool-icons";
 import type { HomeGridToolItem } from "@/lib/featured-tools";
+import { chunkToolGridRows } from "@/lib/tool-grid";
 
 const GRID_COLUMNS = 3;
-
-function chunkRows<T>(items: T[], columns = GRID_COLUMNS): T[][] {
-  const rows: T[][] = [];
-  for (let i = 0; i < items.length; i += columns) {
-    rows.push(items.slice(i, i + columns));
-  }
-  return rows;
-}
 
 type HomeToolAccordionGridProps = {
   items: HomeGridToolItem[];
@@ -31,7 +24,7 @@ export function HomeToolAccordionGrid({ items }: HomeToolAccordionGridProps) {
     : -1;
   const selectedRow = selectedIndex >= 0 ? Math.floor(selectedIndex / GRID_COLUMNS) : -1;
   const selectedItem = selectedIndex >= 0 ? items[selectedIndex] : null;
-  const rows = chunkRows(items, GRID_COLUMNS);
+  const rows = chunkToolGridRows(items, GRID_COLUMNS);
 
   const onCardClick = (slug: string) => {
     setSelectedToolId((current) => (current === slug ? null : slug));

@@ -16,6 +16,7 @@ import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
+import { resolveToolGridDescription } from "@/lib/tool-grid-descriptions";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 const FEATURED_SLUGS = [
@@ -58,11 +59,13 @@ function toGridItem(
   tTools: Awaited<ReturnType<typeof getTranslations>>,
   slug: string,
   label: string,
+  href?: string,
 ): ToolGridItem {
   return {
-    href: `/tools/${slug}/`,
+    href: href ?? `/tools/${slug}/`,
     label: translateToolItem(tTools, slug, label),
     slugHint: slug,
+    description: resolveToolGridDescription(tTools, slug),
   };
 }
 
@@ -86,7 +89,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
     .map((section) => ({
       id: section.id,
       label: translateToolSection(tTools, section.id, section.label),
-      items: section.items.map((item) => toGridItem(tTools, item.slug, item.label)),
+      items: section.items.map((item) => toGridItem(tTools, item.slug, item.label, item.href)),
     }))
     .filter((section) => section.items.length > 0);
 
