@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { getToolIcon, TOOL_ICON_BARE_CLASS } from "@/lib/tool-icons";
 import type { HomeGridToolItem } from "@/lib/featured-tools";
 import { chunkToolGridRows } from "@/lib/tool-grid";
+import { imBtnCta, imCardAccent } from "@/lib/design-system";
 
 const GRID_COLUMNS = 3;
 
@@ -49,8 +50,9 @@ export function HomeToolAccordionGrid({ items }: HomeToolAccordionGridProps) {
                     type="button"
                     role="listitem"
                     className={clsx(
+                      imCardAccent,
                       "home-tool-accordion-grid__card",
-                      isSelected && "home-tool-accordion-grid__card--selected",
+                      isSelected && "im-card-accent--selected home-tool-accordion-grid__card--selected",
                     )}
                     aria-expanded={isSelected}
                     aria-controls={panelId}
@@ -62,7 +64,7 @@ export function HomeToolAccordionGrid({ items }: HomeToolAccordionGridProps) {
                     >
                       {visual.icon}
                     </span>
-                    <span className="home-tool-accordion-grid__label">{item.label}</span>
+                    <span className="im-card-accent__label home-tool-accordion-grid__label">{item.label}</span>
                   </button>
                 );
               })}
@@ -78,11 +80,13 @@ export function HomeToolAccordionGrid({ items }: HomeToolAccordionGridProps) {
             >
               <div className="home-tool-accordion-grid__panel">
                 {isRowOpen && selectedItem ? (
-                  <div className="home-tool-accordion-grid__panel-inner">
-                    <p className="home-tool-accordion-grid__description">{selectedItem.description}</p>
+                  <div className="im-panel-expanded home-tool-accordion-grid__panel-inner">
+                    <p className="im-panel-expanded__description home-tool-accordion-grid__description">
+                      {selectedItem.description}
+                    </p>
                     <Link
                       href={selectedItem.href}
-                      className="home-tool-accordion-grid__cta"
+                      className={clsx(imBtnCta, "home-tool-accordion-grid__cta")}
                       prefetch={false}
                     >
                       {t("goToTool", { toolName: selectedItem.label })}

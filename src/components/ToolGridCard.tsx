@@ -12,6 +12,7 @@ import {
   homeToolGridCardBookmark,
   homeToolGridCardLabel,
 } from "@/lib/tool-ui";
+import { imCardSurface } from "@/lib/design-system";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 type ToolGridCardAccordionProps = {
@@ -48,10 +49,10 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
   const visual = getToolIcon(item.slugHint, item.label);
 
   const cardClassName = clsx(
-    "group home-tool-grid-card",
+    "group home-tool-grid-card im-card-surface",
     homeToolGridCard,
     isAccordion && "home-tool-grid-card--accordion",
-    accordion?.isSelected && "home-tool-grid-card--selected",
+    accordion?.isSelected && "im-card-surface--selected home-tool-grid-card--selected",
   );
 
   const bookmarkButton = (
@@ -92,7 +93,7 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
   );
 
   const label = (
-    <span className={clsx("home-tool-grid-card__label", homeToolGridCardLabel)}>{item.label}</span>
+    <span className={clsx("im-card-surface__label home-tool-grid-card__label", homeToolGridCardLabel)}>{item.label}</span>
   );
 
   if (isAccordion && accordion) {

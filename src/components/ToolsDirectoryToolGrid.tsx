@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { ToolGridCard } from "@/components/ToolGridCard";
 import { useToolGridColumns } from "@/hooks/useToolGridColumns";
 import { chunkToolGridRows, type ToolGridItem } from "@/lib/tool-grid";
+import { imBtnCta, imPanelExpanded } from "@/lib/design-system";
 
 type ToolsDirectoryToolGridProps = {
   items: ToolGridItem[];
@@ -62,15 +63,15 @@ export function ToolsDirectoryToolGrid({ items, className }: ToolsDirectoryToolG
             >
               <div className="tools-directory-accordion-grid__panel">
                 {isRowOpen && selectedItem ? (
-                  <div className="tools-directory-accordion-grid__panel-inner">
+                  <div className={clsx(imPanelExpanded, "tools-directory-accordion-grid__panel-inner")}>
                     {selectedItem.description ? (
-                      <p className="tools-directory-accordion-grid__description">
+                      <p className="im-panel-expanded__description tools-directory-accordion-grid__description">
                         {selectedItem.description}
                       </p>
                     ) : null}
                     <Link
                       href={selectedItem.href}
-                      className="tools-directory-accordion-grid__cta"
+                      className={clsx(imBtnCta, "tools-directory-accordion-grid__cta")}
                       prefetch={false}
                     >
                       {t("goToTool", { toolName: selectedItem.label })}
