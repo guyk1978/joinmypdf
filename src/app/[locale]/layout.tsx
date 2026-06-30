@@ -6,11 +6,17 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { DocumentLocaleAttributes } from "@/components/DocumentLocaleAttributes";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Providers } from "@/components/Providers";
+import { PwaServiceWorkerRegister } from "@/components/PwaServiceWorkerRegister";
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { routing } from "@/i18n/routing";
 import { getBrandName } from "@/lib/brand";
 import { localizeHebrewCopyInText } from "@/lib/hebrew-pdf-term";
 import { buildDefaultSocialImages } from "@/lib/og-images";
+import {
+  PWA_BACKGROUND_COLOR,
+  PWA_THEME_COLOR,
+  siteIconMetadata,
+} from "@/lib/site-icons";
 import { siteUrl } from "@/lib/site";
 
 type Props = {
@@ -75,6 +81,16 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
     },
     robots: { index: true, follow: true },
     manifest: "/manifest.webmanifest",
+    icons: siteIconMetadata,
+    themeColor: PWA_THEME_COLOR,
+    appleWebApp: {
+      capable: true,
+      title: brandName,
+      statusBarStyle: "black-translucent",
+    },
+    other: {
+      "msapplication-TileColor": PWA_BACKGROUND_COLOR,
+    },
     alternates: {
       languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}`])),
     },
@@ -96,6 +112,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <LocaleHtmlBootstrap locale={locale} />
       <DocumentLocaleAttributes />
       <GoogleAnalytics />
+      <PwaServiceWorkerRegister />
       <Providers>
         <ScrollDepthTracker />
         {children}

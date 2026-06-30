@@ -55,6 +55,10 @@ function shouldCopyAsset(src) {
 
 await purgeGeneratedTargets();
 await mkdir(publicDir, { recursive: true });
+
+const { execSync } = await import("node:child_process");
+execSync("node scripts/generate-pwa-icons.mjs", { cwd: root, stdio: "inherit" });
+
 await cp(path.join(root, "assets"), path.join(publicDir, "assets"), {
   recursive: true,
   force: true,
@@ -86,6 +90,27 @@ for (const filename of homepageMarketingImages) {
     path.join(publicDir, "img", filename),
   );
 }
+
+const pwaIconFiles = [
+  "favicon-16x16.png",
+  "favicon-32x32.png",
+  "favicon.ico",
+  "favicon.svg",
+  "apple-touch-icon.png",
+  "android-chrome-192x192.png",
+  "android-chrome-512x512.png",
+  "icon-192.svg",
+  "icon-512.svg",
+];
+await mkdir(path.join(publicDir, "icons"), { recursive: true });
+for (const filename of pwaIconFiles) {
+  await copyFile(
+    path.join(root, "assets", "icons", filename),
+    path.join(publicDir, "icons", filename),
+  );
+}
+
+await copyFile(path.join(root, "sw.js"), path.join(publicDir, "sw.js"));
 
 await mkdir(path.join(publicDir, "tools"), { recursive: true });
 await copyFile(toolsHubSrc, toolsHubPublic);

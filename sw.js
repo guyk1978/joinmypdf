@@ -1,7 +1,12 @@
-const CACHE_NAME = "joinmypdf-shell-v7";
+const CACHE_NAME = "joinmypdf-shell-v8";
 const CORE_ASSETS = [
   "/",
   "/manifest.webmanifest",
+  "/sw.js",
+  "/icons/favicon.svg",
+  "/icons/favicon-32x32.png",
+  "/icons/android-chrome-192x192.png",
+  "/icons/android-chrome-512x512.png",
   "/assets/css/styles.css",
   "/assets/js/seo-factory.js",
   "/assets/js/ui-core.js",
@@ -9,10 +14,7 @@ const CORE_ASSETS = [
   "/assets/js/share-float.js",
   "/assets/js/pwa-install.js",
   "/assets/js/email-popup.js",
-  "/assets/icons/favicon.svg",
-  "/assets/icons/icon-192.svg",
-  "/assets/icons/icon-512.svg",
-  "/assets/brand/logo-icon.svg"
+  "/assets/brand/logo-icon.svg",
 ];
 
 self.addEventListener("install", (event) => {

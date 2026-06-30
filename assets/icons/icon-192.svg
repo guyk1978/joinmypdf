@@ -1,12 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="100%" stop-color="#2563eb"/>
-    </linearGradient>
-  </defs>
-  <rect x="8" y="8" width="176" height="176" rx="42" fill="url(#g)"/>
-  <path d="M46 50h84a24 24 0 0 1 24 24v52a24 24 0 0 1-24 24H68a20 20 0 0 1-20-20z" fill="#eef6ff"/>
-  <path d="M111 50v30a16 16 0 0 0 16 16h28" fill="none" stroke="#b7dbff" stroke-width="9" stroke-linecap="round"/>
-  <rect x="64" y="101" width="60" height="10" rx="5" fill="#84c7ff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="JoinMyPDF">
+  <rect width="512" height="512" fill="#151a20"/>
+  <rect x="20" y="20" width="472" height="472" fill="none" stroke="#e53935" stroke-width="12"/>
+  <path d="M148 124h148l88 88v196H148z" fill="#fafafa"/>
+  <path d="M296 124v88h88" fill="none" stroke="#e53935" stroke-width="12" stroke-linejoin="miter"/>
+  <rect x="184" y="268" width="144" height="18" fill="#e53935"/>
+  <rect x="184" y="308" width="104" height="14" fill="#737373"/>
+  <rect x="184" y="342" width="120" height="14" fill="#737373"/>
 </svg>

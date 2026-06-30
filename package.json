@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "node scripts/sync-public-assets.mjs && next dev",
     "build": "node scripts/sync-public-assets.mjs && next build",
+    "icons:generate": "node scripts/generate-pwa-icons.mjs",
     "build:cloudflare": "node scripts/sync-public-assets.mjs && next build && npx @cloudflare/next-on-pages --outdir .vercel/output/static",
     "build:static": "node scripts/sync-public-assets.mjs && node scripts/generate-blog-pages.mjs && node scripts/generate-blog-og-images.mjs && next build && node scripts/patch-unified-theme.mjs",
     "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat",
