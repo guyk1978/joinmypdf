@@ -158,7 +158,7 @@ async function frameFromImageData(
   bitCount: number,
 ): Promise<IcoFrame> {
   const pngBlob = isPngData(imageData)
-    ? new Blob([imageData], { type: "image/png" })
+    ? new Blob([imageData as BlobPart], { type: "image/png" })
     : await dibToPngBlob(imageData);
 
   const previewUrl = URL.createObjectURL(pngBlob);
