@@ -1,31 +1,19 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
-import { ToolsDirectoryHero } from "@/components/ToolsDirectoryHero";
-import { ToolsDirectoryToolGrid } from "@/components/ToolsDirectoryToolGrid";
-import { Link } from "@/i18n/navigation";
-import { getTotalToolCount } from "@/lib/featured-tools";
+import { AppPageShell } from "@/components/AppPageShell";
+import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
 import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
 import { buildMegaMenuSections } from "@/lib/mega-menu";
+import { getTotalToolCount } from "@/lib/featured-tools";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
-import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
-import { resolveToolGridDescription } from "@/lib/tool-grid-descriptions";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
-const FEATURED_SLUGS = [
-  "pdf-merge",
-  "pdf-compress",
-  "jpg-to-pdf",
-  "sign-pdf",
-  "protect-pdf",
-] as const;
+const FEATURED_SLUGS = ["pdf-merge", "pdf-compress", "pdf-split"] as const;
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -65,8 +53,18 @@ function toGridItem(
     href: href ?? `/tools/${slug}/`,
     label: translateToolItem(tTools, slug, label),
     slugHint: slug,
-    description: resolveToolGridDescription(tTools, slug),
   };
+}
+
+function renderToolCards(items: ToolGridItem[]) {
+  return items.map((item) => (
+    <HomeFeaturedToolCard
+      key={item.slugHint}
+      href={item.href}
+      label={item.label}
+      slugHint={item.slugHint}
+    />
+  ));
 }
 
 export default async function ToolsDirectoryPage({ params }: Props) {
@@ -75,7 +73,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
 
   const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolsDirectory");
-  const tHome = await getTranslations({ locale, namespace: "Home" });
+  const tHome = await getTranslations("Home");
   const sections = buildMegaMenuSections();
   const toolCount = getTotalToolCount();
 
@@ -105,55 +103,34 @@ export default async function ToolsDirectoryPage({ params }: Props) {
           numberOfItems: toolCount,
         }}
       />
-      <div className="home-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
-        <main className="home-tool-grid-page">
-          <ToolsDirectoryHero />
+      <AppPageShell>
+        <div className="home-minimal-layout home-minimal-layout--directory">
+          <h1 className="home-minimal-tagline">{tPage("title")}</h1>
 
-          <div className="tools-directory-content home-tool-grid-shell mx-auto w-full max-w-[1440px]">
-            <section className="tools-directory-section" aria-labelledby="featured-tools">
-              <header className="tools-directory-section__header">
-                <h2 id="featured-tools" className="tools-directory-section__title">
-                  {tPage("startHere")}
-                </h2>
-              </header>
-              <ToolsDirectoryToolGrid items={featuredItems} className="mt-8" />
-            </section>
+          <HomeFeaturedSection
+            id="featured-pdf-tools"
+            title={tPage("startHere")}
+            viewAllHref="/"
+            viewAllLabel={tHome("backToHome")}
+            hideTitle
+          >
+            {renderToolCards(featuredItems)}
+          </HomeFeaturedSection>
 
-            {categorySections.map((section) => (
-              <section
-                key={section.id}
-                className="tools-directory-section scroll-mt-28"
-                aria-labelledby={`${section.id}-tools`}
-                id={section.id}
-              >
-                <header className="tools-directory-section__header">
-                  <h2 id={`${section.id}-tools`} className="tools-directory-section__title">
-                    {section.label}
-                  </h2>
-                  <p className="tools-directory-section__description">
-                    {section.items.length === 1
-                      ? tPage("toolCount", { count: section.items.length })
-                      : tPage("toolCountPlural", { count: section.items.length })}
-                  </p>
-                </header>
-                <ToolsDirectoryToolGrid items={section.items} className="mt-8" />
-              </section>
-            ))}
-
-            <div className="mt-16 flex flex-wrap items-center justify-center gap-4 pb-4">
-              <Link href="/favorites/" className={homeSecondaryPillBtn}>
-                {tHome("viewFavorites")}
-              </Link>
-              <Link href="/privacy-first/" className={homePrimaryPillBtn}>
-                {tPage("learnPrivacy")}
-              </Link>
-            </div>
-          </div>
-        </main>
-        <SiteFooter />
-      </div>
+          {categorySections.map((section) => (
+            <HomeFeaturedSection
+              key={section.id}
+              id={`${section.id}-tools`}
+              title={section.label}
+              viewAllHref="/tools/"
+              viewAllLabel={tPage("title")}
+              className="home-minimal-section--image"
+            >
+              {renderToolCards(section.items)}
+            </HomeFeaturedSection>
+          ))}
+        </div>
+      </AppPageShell>
     </>
   );
 }

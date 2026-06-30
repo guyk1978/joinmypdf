@@ -7,6 +7,7 @@
   },
   "Header": {
     "siteLabel": "אתר",
+    "primaryNav": "ראשי",
     "allTools": "כל הכלים",
     "guides": "מדריכים",
     "privacyFirst": "פרטיות קודמת",
@@ -20,7 +21,77 @@
     "favorites": "מועדפים",
     "projects": "הפרויקטים שלי",
     "premiumTools": "כלים מתקדמים",
-    "moreMenu": "אפשרויות נוספות"
+    "moreMenu": "אפשרויות נוספות",
+    "login": "התחברות",
+    "signup": "הרשמה",
+    "nav": {
+      "image": "תמונה",
+      "pdf": "PDF",
+      "favicon": "Favicon"
+    },
+    "navItems": {
+      "resizeImage": "שינוי גודל תמונה",
+      "convertToPng": "המרה ל-PNG",
+      "cropImage": "חיתוך תמונה",
+      "rotateImage": "סיבוב תמונה",
+      "compressImage": "דחיסת תמונה",
+      "heicToJpg": "HEIC ל-JPG",
+      "imageToPdf": "תמונה ל-PDF",
+      "pngToPdf": "PNG ל-PDF",
+      "heicToPdf": "HEIC ל-PDF",
+      "generateFavicon": "יצירת Favicon",
+      "pngToIco": "PNG ל-ICO",
+      "icoToPng": "ICO ל-PNG",
+      "svgToFavicon": "SVG ל-Favicon",
+      "faviconPack": "חבילת Favicon",
+      "appleTouchIcon": "Apple Touch Icon",
+      "faviconCompressor": "דחיסת Favicon",
+      "faviconCropper": "חיתוך Favicon",
+      "transparentFavicon": "Favicon שקוף",
+      "faviconCodeGenerator": "מחולל קוד Favicon",
+      "faviconPreviewer": "תצוגת Favicon",
+      "mergePdf": "מיזוג PDF",
+      "splitPdf": "פיצול PDF",
+      "compressPdf": "דחיסת PDF",
+      "rotatePdf": "סיבוב PDF",
+      "cropPdf": "חיתוך PDF",
+      "deletePdfPages": "מחיקת עמודי PDF",
+      "reorderPdfPages": "סידור עמודי PDF",
+      "extractPdfPages": "חילוץ עמודי PDF",
+      "addPageNumbers": "הוספת מספרי עמוד",
+      "addWatermark": "הוספת סימן מים",
+      "signPdf": "חתימה על PDF",
+      "annotatePdf": "הערות על PDF",
+      "comparePdf": "השוואת PDF",
+      "pdfToBooklet": "PDF לחוברת",
+      "batchRenamePdf": "שינוי שם קבצי PDF",
+      "pdfTextEditor": "עורך טקסט PDF",
+      "customPaperMargin": "נייר ושוליים",
+      "flattenPdf": "שיטוח PDF",
+      "repairPdf": "תיקון PDF",
+      "protectPdf": "הגנת PDF",
+      "unlockPdf": "פתיחת PDF",
+      "pdfPasswordRecovery": "שחזור סיסמה",
+      "redactPdf": "הסרת מידע רגיש",
+      "safeToShareAuditor": "ביקורת בטוח לשיתוף",
+      "removeHiddenMetadata": "הסרת מטא-דאטה",
+      "pdfToJpg": "PDF ל-JPG",
+      "pdfToPng": "PDF ל-PNG",
+      "pdfToText": "PDF לטקסט",
+      "extractImages": "חילוץ תמונות",
+      "pdfToWord": "PDF ל-Word",
+      "wordToPdf": "Word ל-PDF",
+      "excelToPdf": "Excel ל-PDF",
+      "pdfToExcel": "PDF ל-Excel",
+      "powerpointToPdf": "PowerPoint ל-PDF",
+      "pdfToPowerpoint": "PDF ל-PowerPoint",
+      "markdownToPdf": "Markdown ל-PDF",
+      "htmlToPdf": "HTML ל-PDF",
+      "ebookToPdf": "ספר אלקטרוני ל-PDF",
+      "iworkToPdf": "iWork ל-PDF",
+      "openofficeToPdf": "OpenOffice ל-PDF",
+      "autocadToPdf": "AutoCAD ל-PDF"
+    }
   },
   "Search": {
     "label": "חיפוש כלים ומדריכים",
@@ -60,6 +131,7 @@
     "viewFavorites": "המועדפים שלי",
     "headline": "חבילת כלי PDF",
     "subHeader": "עיבוד PDF מהיר ופרטי בדפדפן. הקבצים לא עוזבים את המכשיר שלך.",
+    "minimalTagline": "עיבוד מהיר, פרטי וברמה ארגונית בדפדפן — עם דגש על ציות ופרטיות.",
     "privacyBadge": "פרטיות קודמת",
     "heroFeaturesLabel": "יתרונות מרכזיים",
     "heroFast": "מהירות מיידית",
@@ -70,9 +142,101 @@
     "trustNoServers": "הקבצים לא מגיעים לשרתים שלנו",
     "trustInstantDownload": "הורדה מיידית בדפדפן",
     "viewFullToolsList": "צפה ברשימה המלאה של {count}+ כלים",
+    "viewAllPdfTools": "צפה בכל כלי ה-PDF",
+    "viewAllImageTools": "צפה בכל כלי התמונה",
+    "viewAllFaviconTools": "צפה בכל כלי ה-Favicon",
+    "pdfSectionTitle": "PDF",
+    "imageSectionTitle": "תמונה",
+    "faviconSectionTitle": "Favicon",
+    "imageToolsDirectoryTitle": "כלי תמונה",
+    "imageToolsDirectoryDescription": "שינוי גודל, המרה, חיתוך, סיבוב ודחיסת תמונות בדפדפן.",
+    "faviconToolsDirectoryTitle": "כלי Favicon",
+    "faviconToolsDirectoryDescription": "יצירת favicon והמרה בין ICO, PNG ו-SVG — הכל בדפדפן.",
+    "backToHome": "חזרה לדף הבית",
     "goToTool": "עבור ל{toolName}",
     "marketingTitle": "כלי PDF מובילים",
-    "marketingDescription": "שדרג את ה-PDF שלך! פתרון מקצועי, מאובטח וקל לשימוש"
+    "marketingDescription": "שדרג את ה-PDF שלך! פתרון מקצועי, מאובטח וקל לשימוש",
+    "imageTools": {
+      "badge": "חדש!",
+      "title": "כלי עיבוד תמונה",
+      "description": "שינוי גודל, המרה, חיתוך, סיבוב ודחיסה של תמונות — הכל בדפדפן.",
+      "items": {
+        "resizeImage": {
+          "label": "שינוי גודל תמונה",
+          "description": "שנה מימדי תמונה בפיקסלים או באחוזים תוך שמירה על חדות."
+        },
+        "convertToPng": {
+          "label": "המרה ל-PNG",
+          "description": "הפוך JPG, WebP או פורמטים אחרים לקבצי PNG ללא אובדן איכות."
+        },
+        "cropImage": {
+          "label": "חיתוך תמונה",
+          "description": "חתוך שוליים והתמקד באזור הרצוי עם שליטה מדויקת."
+        },
+        "rotateImage": {
+          "label": "סיבוב תמונה",
+          "description": "סובב תמונות ב-90°, 180° או בכל זווית והורד את הקובץ המתוקן."
+        },
+        "compressImage": {
+          "label": "דחיסת תמונה",
+          "description": "הקטן גודל קובץ למייל ולאינטרנט בלי אובדן איכות נראה לעין."
+        },
+        "heicToJpg": {
+          "label": "HEIC ל-JPG",
+          "description": "המר תמונות HEIC מאייפון ל-JPG תואם לכל מכשיר."
+        }
+      }
+    },
+    "faviconTools": {
+      "title": "כלי FAVICON",
+      "description": "יצירת favicon והמרת פורמטי אייקון — הכל בדפדפן.",
+      "items": {
+        "generateFavicon": {
+          "label": "יצירת Favicon",
+          "description": "צור favicon.ico וגדלי PNG מכל תמונה — מוכן לאתר שלך."
+        },
+        "pngToIco": {
+          "label": "PNG ל-ICO",
+          "description": "המר תמונות PNG לפורמט ICO של Windows."
+        },
+        "icoToPng": {
+          "label": "ICO ל-PNG",
+          "description": "חלץ תמונות PNG מקבצי ICO לעריכה או שימוש מודרני."
+        },
+        "svgToFavicon": {
+          "label": "SVG ל-Favicon",
+          "description": "המר איור SVG לגדלי favicon סטנדרטיים מקומית."
+        },
+        "faviconPack": {
+          "label": "חבילת Favicon",
+          "description": "ייצא סט מלא של גדלי favicon (16×16 עד 512×512) ב-ZIP אחד."
+        },
+        "appleTouchIcon": {
+          "label": "Apple Touch Icon",
+          "description": "צור אייקוני Apple Touch בגודל 180×180 לסימניות במסך הבית."
+        },
+        "faviconCompressor": {
+          "label": "דחיסת Favicon",
+          "description": "הקטן קבצי ICO, PNG או JPG של favicon מקומית—הסר מטא-דאטה והפחת גודל."
+        },
+        "faviconCropper": {
+          "label": "חיתוך Favicon",
+          "description": "חתוך PNG, JPG או SVG לאזור ריבועי ל-favicon בדפדפן."
+        },
+        "transparentFavicon": {
+          "label": "Favicon שקוף",
+          "description": "לחץ על צבע רקע כדי להפוך אותו לשקוף והורד PNG של favicon."
+        },
+        "faviconCodeGenerator": {
+          "label": "מחולל קוד Favicon",
+          "description": "צור תגיות HTML סטנדרטיות ל-favicon, Apple Touch, Android ומניפסט."
+        },
+        "faviconPreviewer": {
+          "label": "תצוגת Favicon",
+          "description": "צפה ב-favicon בלשוניות דפדפן, סרגל סימניות וקיצורי מסך הבית."
+        }
+      }
+    }
   },
   "Favorites": {
     "metaTitle": "כלי PDF מועדפים — JoinMyPDF",
@@ -175,6 +339,22 @@
       "pdf-to-powerpoint": "PDF ל-PowerPoint",
       "powerpoint-to-pdf": "PowerPoint ל-PDF",
       "crop-pdf": "חיתוך PDF",
+      "crop-image": "חיתוך תמונה",
+      "resize-image": "שינוי גודל תמונה",
+      "convert-to-png": "המרה ל-PNG",
+      "rotate-image": "סיבוב תמונה",
+      "compress-image": "דחיסת תמונה",
+      "generate-favicon": "יצירת Favicon",
+      "png-to-ico": "PNG ל-ICO",
+      "ico-to-png": "ICO ל-PNG",
+      "svg-to-favicon": "SVG ל-Favicon",
+      "favicon-pack": "חבילת Favicon",
+      "apple-touch-icon": "Apple Touch Icon",
+      "favicon-compressor": "דחיסת Favicon",
+      "favicon-cropper": "חיתוך Favicon",
+      "transparent-favicon": "Favicon שקוף",
+      "favicon-code-generator": "מחולל קוד Favicon",
+      "favicon-previewer": "תצוגת Favicon",
       "add-watermark": "הוספת סימן מים",
       "rotate-pdf": "סיבוב PDF",
       "autocad-to-pdf": "AutoCAD ל-PDF",
@@ -363,5 +543,273 @@
     "pdfDownloaded": "ה-PDF הורד.",
     "pdfExportFailed": "ייצוא PDF נכשל.",
     "previewNotReady": "התצוגה המקדימה לא מוכנה. נסה שוב בעוד רגע."
+  },
+  "CropImage": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — מעובד מקומית בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר קובץ תמונה לחיתוך",
+    "cropAndDownload": "חתוך והורד",
+    "cropping": "חותך…",
+    "cropInstructions": "גרור את המסגרת להזזה. משוך פינות או קצוות לשינוי גודל אזור החיתוך.",
+    "invalidFile": "בחר קובץ תמונה נתמך.",
+    "replaceImage": "החלף תמונה"
+  },
+  "ResizeImage": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — מעובד מקומית בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר קובץ תמונה לשינוי גודל",
+    "resizeInstructions": "הגדר רוחב וגובה בפיקסלים. נעל יחס גובה-רוחב לשמירה על פרופורציות.",
+    "widthLabel": "רוחב (px)",
+    "heightLabel": "גובה (px)",
+    "lockAspectRatio": "נעל יחס גובה-רוחב",
+    "originalSize": "גודל מקורי: {width} × {height} px",
+    "resizeAndDownload": "שנה גודל והורד",
+    "resizing": "משנה גודל…",
+    "invalidFile": "בחר קובץ תמונה נתמך.",
+    "invalidDimensions": "הזן ערכי רוחב וגובה תקינים.",
+    "replaceImage": "החלף תמונה"
+  },
+  "ConvertToPng": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "JPG, WebP, HEIC, GIF — מומר מקומית ל-PNG בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר קובץ תמונה להמרה ל-PNG",
+    "convertInstructions": "צפה בתצוגה מקדימה, ואז ייצא קובץ PNG באיכות גבוהה.",
+    "fileInfo": "{name} · {width} × {height} px",
+    "convertAndDownload": "המר והורד PNG",
+    "converting": "ממיר…",
+    "convertingProgress": "ממיר ל-PNG…",
+    "invalidFile": "בחר קובץ תמונה נתמך.",
+    "replaceImage": "החלף תמונה"
+  },
+  "RotateImage": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — מסובב מקומית בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר קובץ תמונה לסיבוב",
+    "rotateInstructions": "השתמש בכפתורי הסיבוב להתאמת הכיוון, ואז הורד.",
+    "rotateLeft": "סובב שמאלה",
+    "rotateRight": "סובב ימינה",
+    "rotation": "סיבוב נוכחי: {degrees}°",
+    "download": "הורד",
+    "downloading": "מכין…",
+    "invalidFile": "בחר קובץ תמונה נתמך.",
+    "replaceImage": "החלף תמונה"
+  },
+  "CompressImage": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — נדחס מקומית בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר קובץ תמונה לדחיסה",
+    "compressInstructions": "התאם איכות, השווה גדלי קבצים, ואז הורד את התמונה הדחוסה.",
+    "qualityLabel": "איכות דחיסה",
+    "qualityValue": "{percent}%",
+    "originalSize": "גודל מקורי",
+    "compressedSize": "גודל דחוס",
+    "estimatingSize": "מחשב…",
+    "savings": "−{percent}% קטן יותר",
+    "compressAndDownload": "דחוס והורד",
+    "compressing": "דוחס…",
+    "invalidFile": "בחר קובץ תמונה נתמך.",
+    "replaceImage": "החלף תמונה"
+  },
+  "GenerateFavicon": {
+    "instructions": "הזן 1–2 תווים, בחר צבעים, וצפה בתצוגה מקדימה בזמן אמת. הכל רץ מקומית בדפדפן.",
+    "textLabel": "טקסט ל-favicon",
+    "textPlaceholder": "א",
+    "textHint": "תו אחד או שניים מתאימים ביותר לאייקונים קטנים בלשונית.",
+    "backgroundColorLabel": "צבע רקע",
+    "textColorLabel": "צבע טקסט",
+    "previewLabel": "תצוגה מקדימה",
+    "previewSize": "{size}×{size}",
+    "formatLabel": "פורמט הורדה",
+    "formatPng": "PNG (32×32)",
+    "formatIco": "ICO (מספר גדלים)",
+    "download": "הורדה",
+    "downloading": "מכין…",
+    "emptyTextError": "הזן לפחות תו אחד לפני ההורדה."
+  },
+  "PngToIco": {
+    "dropTitle": "גרור PNG לכאן או לחץ לעיון",
+    "dropHint": "קבצי PNG בלבד — מומרים ל-ICO מקומית בדפדפן.",
+    "selectFile": "בחר PNG",
+    "selectFileAria": "בחר קובץ PNG להמרה ל-ICO",
+    "convertInstructions": "צפה ב-PNG, בדוק תצוגה מקדימה 32×32, ואז הורד קובץ ICO עם מספר גדלים.",
+    "fileInfo": "{name} · {width} × {height} פיקסל",
+    "previewFaviconLabel": "תצוגה מקדימה 32×32",
+    "downloadIco": "הורד ICO",
+    "converting": "ממיר…",
+    "convertingProgress": "בונה קובץ ICO…",
+    "invalidFile": "בחר קובץ PNG תקין.",
+    "convertFailed": "לא ניתן להמיר את ה-PNG. נסה קובץ אחר או תמונה קטנה יותר.",
+    "replaceImage": "החלף PNG"
+  },
+  "IcoToPng": {
+    "dropTitle": "גרור ICO לכאן או לחץ לעיון",
+    "dropHint": "קבצי ICO בלבד — מפוענחים מקומית בדפדפן.",
+    "selectFile": "בחר ICO",
+    "selectFileAria": "בחר קובץ ICO להמרה ל-PNG",
+    "convertInstructions": "בחר איזה גודל אייקון לייצא, צפה בתצוגה מקדימה, ואז הורד PNG.",
+    "fileInfo": "{name} · {frameCount} אייקונים מוטמעים",
+    "framesLabel": "אייקונים זמינים",
+    "frameSize": "{width}×{height} · {bitCount} סיביות",
+    "previewLabel": "תצוגה מקדימה",
+    "downloadPng": "הורד PNG",
+    "converting": "מכין…",
+    "convertingProgress": "מכין הורדת PNG…",
+    "invalidFile": "בחר קובץ ICO תקין.",
+    "convertFailed": "לא ניתן לקרוא את קובץ ה-ICO. נסה קובץ אחר.",
+    "replaceFile": "החלף ICO"
+  },
+  "SvgToFavicon": {
+    "dropTitle": "גרור SVG לכאן או לחץ לעיון",
+    "dropHint": "קבצי SVG בלבד — מרונדרים מקומית ל-ICO favicon בדפדפן.",
+    "selectFile": "בחר SVG",
+    "selectFileAria": "בחר קובץ SVG להמרה ל-favicon",
+    "convertInstructions": "צפה בלוגו הווקטורי, בחר גודל פלט, בדוק תצוגה מקדימה, ואז הורד קובץ ICO.",
+    "fileInfo": "{name}",
+    "sizeLabel": "גודל פלט",
+    "sizeOption": "{size}×{size}",
+    "previewLabel": "תצוגת SVG",
+    "previewFaviconLabel": "תצוגת favicon",
+    "downloadFavicon": "הורד Favicon",
+    "converting": "מרנדר…",
+    "convertingProgress": "בונה ICO favicon…",
+    "invalidFile": "בחר קובץ SVG תקין.",
+    "convertFailed": "לא ניתן לרנדר את ה-SVG. נסה קובץ פשוט יותר או בדוק את הסימון.",
+    "replaceFile": "החלף SVG"
+  },
+  "FaviconPack": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "PNG או JPG — חבילת favicon מלאה נבנית מקומית בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר PNG או JPG לבניית חבילת favicon",
+    "convertInstructions": "צפה בתמונת המקור, עיין בקבצים שיכללו בחבילה, ואז הורד ZIP אחד.",
+    "fileInfo": "{name} · {width} × {height} פיקסל",
+    "includesLabel": "תוכן החבילה",
+    "includesIco": "favicon.ico (16×16, 32×32, 48×48)",
+    "sizes": {
+      "size16": "16×16 ללשונית",
+      "size32": "32×32 ללשונית",
+      "size48": "48×48 ללשונית",
+      "size180": "180×180 Apple Touch",
+      "size192": "192×192 לאנדרואיד",
+      "size256": "256×256 למניפסט",
+      "size512": "512×512 ל-PWA"
+    },
+    "downloadPack": "הורד חבילת Favicon",
+    "generating": "מייצר…",
+    "generatingProgress": "מרנדר גדלי אייקון…",
+    "zippingProgress": "בונה ארכיון ZIP…",
+    "invalidFile": "בחר קובץ PNG או JPG.",
+    "convertFailed": "לא ניתן לבנות את חבילת ה-favicon. נסה תמונה קטנה או פשוטה יותר.",
+    "replaceImage": "החלף תמונה"
+  },
+  "AppleTouchIcon": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "PNG או JPG — אייקוני Apple Touch נוצרים מקומית בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר PNG או JPG ליצירת אייקון Apple Touch",
+    "convertInstructions": "בחר גדלי אייקון ורקע, צפה בתצוגה בסגנון iOS, ואז הורד.",
+    "fileInfo": "{name} · {width} × {height} פיקסל",
+    "sizesLabel": "גדלי אייקון",
+    "sizes": {
+      "size180": "180×180 (סטנדרט)",
+      "size167": "167×167 (iPad Pro)",
+      "size152": "152×152 (iPad)"
+    },
+    "backgroundLabel": "צבע רקע",
+    "transparentBackground": "רקע שקוף",
+    "iosPreviewLabel": "תצוגה מקדימה למסך הבית ב-iOS",
+    "downloadAppleIcon": "הורד אייקון Apple",
+    "generating": "מייצר…",
+    "generatingProgress": "מרנדר אייקון Apple Touch…",
+    "invalidFile": "בחר קובץ PNG או JPG.",
+    "convertFailed": "לא ניתן ליצור את אייקון Apple Touch. נסה תמונה קטנה או פשוטה יותר.",
+    "replaceImage": "החלף תמונה"
+  },
+  "FaviconCompressor": {
+    "dropTitle": "גרור favicon לכאן או לחץ לעיון",
+    "dropHint": "ICO, PNG או JPG — האופטימיזציה רצה מקומית בדפדפן.",
+    "selectFile": "בחר favicon",
+    "selectFileAria": "בחר קובץ ICO, PNG או JPG לדחיסה",
+    "compressInstructions": "צפה ב-favicon, השווה גדלי קבצים, ואז הורד את הגרסה המאופטמת.",
+    "fileInfo": "{name} · {width} × {height} פיקסל",
+    "icoFileInfo": "{name} · {frameCount, plural, one {מסגרת #} other {# מסגרות}}",
+    "originalSize": "גודל מקורי",
+    "compressedSize": "גודל מאופטם",
+    "estimatingSize": "מחשב…",
+    "formatSavings": "−{percent}% קטן יותר",
+    "downloadOptimized": "הורד Favicon מאופטם",
+    "optimizing": "מבצע אופטימיזציה…",
+    "optimizingProgress": "מבצע אופטימיזציה ל-favicon…",
+    "invalidFile": "בחר קובץ favicon מסוג ICO, PNG או JPG.",
+    "optimizeFailed": "לא ניתן לאופטם את ה-favicon. נסה קובץ אחר.",
+    "replaceFile": "החלף favicon"
+  },
+  "FaviconCropper": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "PNG, JPG או SVG — חיתוך ריבועי רץ מקומית בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר PNG, JPG או SVG לחיתוך favicon",
+    "cropInstructions": "גרור את אזור החיתוך הריבועי למסגור האייקון, בחר גודל פלט, ואז הורד.",
+    "outputSizeLabel": "גודל פלט",
+    "outputSizes": {
+      "native": "PNG (רזולוציית החיתוך)",
+      "size32": "PNG 32×32",
+      "size48": "PNG 48×48"
+    },
+    "downloadCropped": "הורד",
+    "cropping": "מייצא…",
+    "invalidFile": "בחר קובץ PNG, JPG או SVG.",
+    "replaceImage": "החלף תמונה"
+  },
+  "TransparentFavicon": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "PNG או JPG — השקפות מוחלות מקומית בדפדפן.",
+    "selectFile": "בחר תמונה",
+    "selectFileAria": "בחר PNG או JPG ליצירת favicon שקוף",
+    "pickInstructions": "לחץ על צבע הרקע בתמונה כדי להפוך אותו לשקוף.",
+    "pickedColor": "צבע נבחר: {color}",
+    "downloadTransparent": "הורד Favicon שקוף",
+    "exporting": "מייצא…",
+    "invalidFile": "בחר קובץ PNG או JPG.",
+    "exportFailed": "לא ניתן לייצא favicon שקוף. נסה תמונה אחרת.",
+    "replaceImage": "החלף תמונה"
+  },
+  "FaviconCodeGenerator": {
+    "instructions": "הזן את הנתיב לקובץ ה-favicon המאוחסן. קטע ה-HTML מתעדכן מיד עם כל תגית הקישור הסטנדרטית.",
+    "pathLabel": "נתיב favicon",
+    "pathPlaceholder": "/favicon.ico",
+    "pathHint": "השתמש בנתיב יחסי לאתר כמו /favicon.ico או /assets/favicon.png. קבצים נלווים מניחים להיות באותה תיקייה.",
+    "codeLabel": "קטע HTML",
+    "copyCode": "העתק קוד",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח. בחר את הקוד והעתק ידנית."
+  },
+  "FaviconPreviewer": {
+    "dropTitle": "גרור favicon לכאן או לחץ לעיון",
+    "dropHint": "PNG, JPG, ICO או SVG — התצוגה המקדימה רצה מקומית בדפדפן.",
+    "selectFile": "בחר favicon",
+    "selectFileAria": "בחר קובץ favicon לתצוגה מקדימה",
+    "orUseUrl": "או הדבק כתובת URL של favicon",
+    "urlLabel": "כתובת favicon",
+    "urlPlaceholder": "https://example.com/favicon.ico",
+    "applyUrl": "תצוגה",
+    "titleLabel": "כותרת דף",
+    "titlePlaceholder": "האתר שלי",
+    "uiThemeLabel": "ערכת ממשק דפדפן",
+    "themeLight": "בהיר",
+    "themeDark": "כהה",
+    "previewInstructions": "התאם את כותרת הדף וערכת הממשק כדי לראות איך ה-favicon נראה בהקשרים נפוצים.",
+    "browserTabLabel": "לשונית דפדפן",
+    "bookmarksLabel": "סרגל סימניות",
+    "homeScreenLabel": "מסך הבית",
+    "bookmarkOtherSite": "מסמכים",
+    "invalidFile": "בחר קובץ favicon מסוג PNG, JPG, ICO או SVG.",
+    "invalidUrl": "לא ניתן לטעון את כתובת ה-favicon. בדוק את הכתובת או העלה את הקובץ.",
+    "replaceFavicon": "החלף favicon"
   }
 }

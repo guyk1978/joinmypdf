@@ -141,6 +141,26 @@ const uploadEn = {
     title: "Drop a PDF here or click to browse",
     description: "Crop margins on every page using a visual frame on page 1.",
   },
+  "crop-image": {
+    title: "Drop an image here or click to browse",
+    description: "Drag the crop frame, then export a high-quality PNG locally.",
+  },
+  "resize-image": {
+    title: "Drop an image here or click to browse",
+    description: "Set width and height in pixels, then download a resized image locally.",
+  },
+  "convert-to-png": {
+    title: "Drop an image here or click to browse",
+    description: "Convert JPG, WebP, HEIC, or GIF to a high-quality PNG locally.",
+  },
+  "rotate-image": {
+    title: "Drop an image here or click to browse",
+    description: "Rotate your image 90° left or right, then download locally.",
+  },
+  "compress-image": {
+    title: "Drop an image here or click to browse",
+    description: "Adjust compression quality and download a smaller image locally.",
+  },
   "pdf-to-png": {
     title: "Drop a PDF here or click to browse",
     description: "Each page exports as a PNG image. Processing stays on your device.",
@@ -311,6 +331,26 @@ const uploadHe = {
   "crop-pdf": {
     title: "גרור PDF לכאן או לחץ לעיון",
     description: "חתוך שוליים בכל עמוד באמצעות מסגרת ויזואלית בעמוד 1.",
+  },
+  "crop-image": {
+    title: "גרור תמונה לכאן או לחץ לעיון",
+    description: "גרור את מסגרת החיתוך, ואז ייצא PNG באיכות גבוהה מקומית.",
+  },
+  "resize-image": {
+    title: "גרור תמונה לכאן או לחץ לעיון",
+    description: "הגדר רוחב וגובה בפיקסלים, ואז הורד תמונה מוקטנת/מוגדלת מקומית.",
+  },
+  "convert-to-png": {
+    title: "גרור תמונה לכאן או לחץ לעיון",
+    description: "המר JPG, WebP, HEIC או GIF ל-PNG באיכות גבוהה מקומית.",
+  },
+  "rotate-image": {
+    title: "גרור תמונה לכאן או לחץ לעיון",
+    description: "סובב את התמונה ב-90° שמאלה או ימינה, ואז הורד מקומית.",
+  },
+  "compress-image": {
+    title: "גרור תמונה לכאן או לחץ לעיון",
+    description: "התאם איכות דחיסה והורד תמונה קטנה יותר מקומית.",
   },
   "pdf-to-png": {
     title: "גרור PDF לכאן או לחץ לעיון",

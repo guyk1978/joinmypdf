@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
 import { BrandEyebrow } from "@/components/BrandEyebrow";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import { TimelineGenerator } from "@/components/timeline/TimelineGenerator";
 import { getBrandName } from "@/lib/brand";
 import { JsonLd } from "@/lib/schema";
@@ -36,8 +35,7 @@ export default async function TimelineGanttGeneratorPage({ params }: PageProps) 
             "Client-side timeline and Gantt chart builder with live preview and landscape PDF export.",
         }}
       />
-      <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
+      <AppPageShell mainClassName="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
         <header className="mb-4 max-w-3xl space-y-3">
           <BrandEyebrow />
           <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
@@ -68,8 +66,7 @@ export default async function TimelineGanttGeneratorPage({ params }: PageProps) 
             browser: the live chart is rasterized and saved locally—no server processing.
           </p>
         </section>
-      </main>
-      <SiteFooter tagline="tools" />
+      </AppPageShell>
     </>
   );
 }

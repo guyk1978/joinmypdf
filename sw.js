@@ -1,6 +1,6 @@
-const CACHE_NAME = "joinmypdf-shell-v8";
+const CACHE_NAME = "joinmypdf-shell-v9";
+
 const CORE_ASSETS = [
-  "/",
   "/manifest.webmanifest",
   "/sw.js",
   "/icons/favicon.svg",
@@ -17,9 +17,15 @@ const CORE_ASSETS = [
   "/assets/brand/logo-icon.svg",
 ];
 
+function isDocumentRequest(request) {
+  if (request.mode === "navigate") return true;
+  const accept = request.headers.get("accept") ?? "";
+  return accept.includes("text/html");
+}
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)),
   );
   self.skipWaiting();
 });
@@ -27,31 +33,39 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(
-        keys
-          .filter((key) => key !== CACHE_NAME)
-          .map((key) => caches.delete(key))
-      )
-    )
+      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))),
+    ),
   );
   self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+
+  if (isDocumentRequest(event.request)) {
+    event.respondWith(
+      fetch(event.request).catch(async () => {
+        const cached = await caches.match(event.request);
+        return cached ?? Response.error();
+      }),
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request)
+      const network = fetch(event.request)
         .then((response) => {
           if (!response || response.status !== 200 || response.type !== "basic") {
             return response;
           }
           const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          void caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
           return response;
         })
-        .catch(() => caches.match("/"));
-    })
+        .catch(() => cached);
+
+      return cached ?? network;
+    }),
   );
 });

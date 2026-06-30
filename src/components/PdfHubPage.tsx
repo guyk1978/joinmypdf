@@ -1,17 +1,12 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { AppPageShell } from "@/components/AppPageShell";
 import { BlogGuideCard } from "@/components/BlogGuideCard";
-import { WattQuickCrossLink } from "@/components/partner/WattQuickCrossLink";
-import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { postsForHub, type PdfHub } from "@/lib/pdf-hubs";
 import { registry } from "@/lib/registry";
 import type { BlogPost, ToolDefinition } from "@/lib/types";
-
-const matteSection =
-  "rounded-none border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-800 dark:bg-neutral-900";
 
 export async function PdfHubPage({ hub }: { hub: PdfHub }) {
   const t = await getTranslations("Guides");
@@ -22,7 +17,7 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
   const toolItems = Array.from(new Set(allPosts.flatMap((post) => post.relatedTools || [])))
     .map((slug) => registry.tools.find((tool) => tool.slug === slug))
     .filter((tool): tool is ToolDefinition => Boolean(tool))
-    .slice(0, 12)
+    .slice(0, 3)
     .map((tool) => ({
       href: `/tools/${tool.slug}/`,
       label: translateToolItem(tTools, tool.slug, tool.title),
@@ -30,47 +25,32 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
     }));
 
   return (
-    <>
-      <SiteHeader />
-      <main className="home-page-shell min-h-screen text-black dark:text-white">
-        <header className="site-page-header border-b border-neutral-300 dark:border-neutral-800">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200">
-            {t("hubBadge")}
-          </p>
-          <h1 className="site-page-header__title">{hub.title}</h1>
-          <p className="site-page-header__subtitle">{hub.description}</p>
-          <nav className="flex flex-wrap gap-2 pt-3 text-sm">
-            <Link href="/pdf-guides/" className="text-black hover:underline dark:text-neutral-200">
-              {t("navGuides")}
-            </Link>
-            <span className="text-black dark:text-neutral-200" aria-hidden="true">
-              ·
-            </span>
-            <Link href="/pdf-comparison/" className="text-black hover:underline dark:text-neutral-200">
-              {t("navComparisons")}
-            </Link>
-            <span className="text-black dark:text-neutral-200" aria-hidden="true">
-              ·
-            </span>
-            <Link href="/pdf-privacy/" className="text-black hover:underline dark:text-neutral-200">
-              {t("navPrivacy")}
-            </Link>
-            <span className="text-black dark:text-neutral-200" aria-hidden="true">
-              ·
-            </span>
-            <Link href="/pdf-workflows/" className="text-black hover:underline dark:text-neutral-200">
-              {t("navWorkflows")}
-            </Link>
-          </nav>
-        </header>
+    <AppPageShell mainClassName="guides-learning-page">
+      <div className="home-minimal-layout home-minimal-layout--directory">
+        <h1 className="home-minimal-tagline">{hub.title}</h1>
+        <p className="home-minimal-section__title !mb-6 !text-center !normal-case !tracking-normal">
+          {hub.description}
+        </p>
 
-        <div className="mx-auto max-w-6xl space-y-6 px-2 py-6 md:px-3 md:py-8">
-        <WattQuickCrossLink />
+        <nav className="mb-8 flex flex-wrap justify-center gap-3 text-sm">
+          <Link href="/pdf-guides/" className="home-minimal-section__link">
+            {t("navGuides")}
+          </Link>
+          <Link href="/pdf-comparison/" className="home-minimal-section__link">
+            {t("navComparisons")}
+          </Link>
+          <Link href="/pdf-privacy/" className="home-minimal-section__link">
+            {t("navPrivacy")}
+          </Link>
+          <Link href="/pdf-workflows/" className="home-minimal-section__link">
+            {t("navWorkflows")}
+          </Link>
+        </nav>
 
         {featured.length ? (
-          <section className="space-y-2">
-            <h2 className="text-base font-semibold text-black dark:text-neutral-200">{t("featuredGuides")}</h2>
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+          <section className="home-minimal-section">
+            <h2 className="home-minimal-section__title">{t("featuredGuides")}</h2>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
               {featured.map((post) => (
                 <BlogGuideCard key={post!.slug} post={post!} />
               ))}
@@ -79,9 +59,9 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
         ) : null}
 
         {more.length ? (
-          <section className="space-y-2">
-            <h2 className="text-base font-semibold text-black dark:text-neutral-200">{t("moreInTopic")}</h2>
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+          <section className="home-minimal-section">
+            <h2 className="home-minimal-section__title">{t("moreInTopic")}</h2>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
               {more.map((post) => (
                 <BlogGuideCard key={post.slug} post={post} />
               ))}
@@ -90,14 +70,23 @@ export async function PdfHubPage({ hub }: { hub: PdfHub }) {
         ) : null}
 
         {toolItems.length ? (
-          <section className={`space-y-2 ${matteSection}`}>
-            <h2 className="text-base font-semibold text-black dark:text-neutral-200">{t("relatedTools")}</h2>
-            <CompactToolCardGrid items={toolItems} />
-          </section>
+          <HomeFeaturedSection
+            id="hub-related-tools"
+            title={t("relatedTools")}
+            viewAllHref="/tools/"
+            viewAllLabel={t("relatedTools")}
+          >
+            {toolItems.map((item) => (
+              <HomeFeaturedToolCard
+                key={item.slugHint}
+                href={item.href}
+                label={item.label}
+                slugHint={item.slugHint}
+              />
+            ))}
+          </HomeFeaturedSection>
         ) : null}
-        </div>
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppPageShell>
   );
 }

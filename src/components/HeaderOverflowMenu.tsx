@@ -1,26 +1,49 @@
 "use client";
 
 import {
-  BookOpen,
   Check,
   Download,
   FolderKanban,
-  LayoutGrid,
-  Moon,
   MoreHorizontal,
   Share2,
-  Shield,
   Bookmark,
-  Sun,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { usePageShare } from "@/hooks/usePageShare";
+import { buildHeaderNavDropdowns } from "@/lib/header-nav";
 import { isNavItemActive } from "@/lib/nav-config";
 import { routing, type AppLocale } from "@/i18n/routing";
+
+type PanelPosition = {
+  top: number;
+  left: number;
+  width: number;
+};
+
+const PANEL_WIDTH = 240;
+const VIEWPORT_MARGIN = 12;
+
+function getPanelPosition(trigger: HTMLElement): PanelPosition {
+  const rect = trigger.getBoundingClientRect();
+  const isRtl = document.documentElement.dir === "rtl";
+  const width = PANEL_WIDTH;
+  const top = rect.bottom + 6;
+
+  if (isRtl) {
+    const left = Math.max(VIEWPORT_MARGIN, Math.min(rect.left, window.innerWidth - width - VIEWPORT_MARGIN));
+    return { top, left, width };
+  }
+
+  const left = Math.max(
+    VIEWPORT_MARGIN,
+    Math.min(rect.right - width, window.innerWidth - width - VIEWPORT_MARGIN),
+  );
+  return { top, left, width };
+}
 
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -43,32 +66,50 @@ type HeaderOverflowMenuProps = {
 export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderOverflowMenuProps) {
   const t = useTranslations("Header");
   const tLang = useTranslations("LanguageSwitcher");
-  const tTheme = useTranslations("Theme");
   const tShare = useTranslations("Share");
   const locale = useLocale() as AppLocale;
   const pathname = usePathname() || "/";
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
   const { handleShare, copied, busy } = usePageShare();
 
   const panelId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  const [panelPosition, setPanelPosition] = useState<PanelPosition | null>(null);
   const [mounted, setMounted] = useState(false);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [installVisible, setInstallVisible] = useState(false);
 
   const close = useCallback(() => setOpen(false), []);
-  const isDark = theme === "dark";
-  const guidesActive = isNavItemActive(pathname, "/blog/");
-  const toolsActive = (pathname.endsWith("/") ? pathname : `${pathname}/`) === "/tools/";
-  const privacyActive = isNavItemActive(pathname, "/privacy-first/");
   const favoritesActive = pathname.includes("/favorites");
   const projectsActive = pathname.includes("/projects");
+  const headerNavDropdowns = buildHeaderNavDropdowns((key) => t(key as "nav.image"));
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useLayoutEffect(() => {
+    if (!open || !triggerRef.current) {
+      setPanelPosition(null);
+      return;
+    }
+
+    const updatePosition = () => {
+      if (!triggerRef.current) return;
+      setPanelPosition(getPanelPosition(triggerRef.current));
+    };
+
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
+    };
+  }, [open]);
 
   useEffect(() => {
     if (isStandaloneDisplay()) return;
@@ -96,7 +137,9 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
     if (!open) return;
 
     const onPointerDown = (event: MouseEvent) => {
-      if (rootRef.current && !rootRef.current.contains(event.target as Node)) close();
+      const target = event.target as Node;
+      if (rootRef.current?.contains(target) || panelRef.current?.contains(target)) return;
+      close();
     };
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -130,64 +173,80 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
     close();
   };
 
+  const toggleOpen = () => {
+    setOpen((prev) => {
+      const next = !prev;
+      if (next && triggerRef.current) {
+        setPanelPosition(getPanelPosition(triggerRef.current));
+      } else if (!next) {
+        setPanelPosition(null);
+      }
+      return next;
+    });
+  };
+
   const itemClass = "site-header__overflow-item";
 
-  return (
-    <div ref={rootRef} className="relative flex shrink-0 items-center">
-      <button
-        type="button"
-        className="site-header__overflow-trigger"
-        aria-label={t("moreMenu")}
-        aria-expanded={open}
-        aria-haspopup="menu"
-        aria-controls={panelId}
-        onClick={() => setOpen((prev) => !prev)}
+  const panel =
+    open && panelPosition ? (
+      <div
+        ref={panelRef}
+        id={panelId}
+        className="site-header__overflow-panel site-header__overflow-panel--floating"
+        role="menu"
+        style={{
+          top: panelPosition.top,
+          left: panelPosition.left,
+          width: panelPosition.width,
+        }}
       >
-        <MoreHorizontal className="h-5 w-5" aria-hidden />
-      </button>
-
-      {open ? (
-        <div id={panelId} className="site-header__overflow-panel" role="menu">
           {showNavLinks ? (
             <>
+              {headerNavDropdowns.map((dropdown, index) => (
+                <div key={dropdown.id}>
+                  {index > 0 ? <div className="site-header__overflow-divider" role="separator" /> : null}
+                  <p className="site-header__overflow-heading">{dropdown.label}</p>
+                  {dropdown.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      role="menuitem"
+                      className={clsx(itemClass, isNavItemActive(pathname, item.href) && "is-active")}
+                      prefetch={false}
+                      onClick={() => {
+                        onNavigate?.();
+                        close();
+                      }}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+              <div className="site-header__overflow-divider" role="separator" />
               <Link
-                href="/tools/"
+                href="/contact/"
                 role="menuitem"
-                className={clsx(itemClass, toolsActive && "is-active")}
+                className={itemClass}
                 prefetch={false}
                 onClick={() => {
                   onNavigate?.();
                   close();
                 }}
               >
-                <LayoutGrid className="site-header__overflow-icon" aria-hidden />
-                {t("allTools")}
+                {t("login")}
               </Link>
               <Link
-                href="/blog/"
+                href="/contact/"
                 role="menuitem"
-                className={clsx(itemClass, guidesActive && "is-active")}
+                className={clsx(itemClass, "site-header__overflow-item--signup")}
                 prefetch={false}
                 onClick={() => {
                   onNavigate?.();
                   close();
                 }}
               >
-                <BookOpen className="site-header__overflow-icon" aria-hidden />
-                {t("guides")}
-              </Link>
-              <Link
-                href="/privacy-first/"
-                role="menuitem"
-                className={clsx(itemClass, "site-header__overflow-item--privacy", privacyActive && "is-active")}
-                prefetch={false}
-                onClick={() => {
-                  onNavigate?.();
-                  close();
-                }}
-              >
-                <Shield className="site-header__overflow-icon" aria-hidden />
-                {t("privacyFirst")}
+                {t("signup")}
               </Link>
               <div className="site-header__overflow-divider" role="separator" />
             </>
@@ -207,25 +266,6 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
           ))}
 
           <div className="site-header__overflow-divider" role="separator" />
-
-          {mounted ? (
-            <button
-              type="button"
-              role="menuitem"
-              className={itemClass}
-              onClick={() => {
-                setTheme(isDark ? "light" : "dark");
-                close();
-              }}
-            >
-              {isDark ? (
-                <Sun className="site-header__overflow-icon" aria-hidden />
-              ) : (
-                <Moon className="site-header__overflow-icon" aria-hidden />
-              )}
-              {isDark ? tTheme("switchToLight") : tTheme("switchToDark")}
-            </button>
-          ) : null}
 
           <button
             type="button"
@@ -279,8 +319,25 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
               {t("installApp")}
             </button>
           ) : null}
-        </div>
-      ) : null}
+      </div>
+    ) : null;
+
+  return (
+    <div ref={rootRef} className="relative flex shrink-0 items-center">
+      <button
+        ref={triggerRef}
+        type="button"
+        className="site-header__overflow-trigger"
+        aria-label={t("moreMenu")}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        aria-controls={panelId}
+        onClick={toggleOpen}
+      >
+        <MoreHorizontal className="h-5 w-5" aria-hidden />
+      </button>
+
+      {mounted && panel ? createPortal(panel, document.body) : null}
     </div>
   );
 }

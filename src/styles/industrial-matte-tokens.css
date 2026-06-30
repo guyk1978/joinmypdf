@@ -1,57 +1,51 @@
 /**
- * Industrial Matte — unified design tokens
+ * Industrial Matte — dark-only design tokens
  * Use var(--im-*) in CSS; Tailwind aliases in tailwind.config.ts
  */
 
 :root {
-  /* —— Color: accent (matte red) —— */
-  --im-accent: #e53935;
-  --im-accent-strong: #c62828;
-  --im-accent-surface: #fff5f5;
-  --im-marketing-bg: #8b1538;
-  --im-marketing-border: #1f1f1f;
+  --im-accent: #a1a1aa;
+  --im-accent-strong: #d4d4d8;
+  --im-accent-surface: #252525;
+  --im-marketing-bg: #050608;
+  --im-marketing-border: #262626;
 
-  /* —— Color: neutrals (light mode defaults) —— */
-  --im-bg-page: #ffffff;
-  --im-bg-shell: #ffffff;
-  --im-surface-card: #ffffff;
-  --im-surface-card-hover: #fafafa;
-  --im-surface-panel: #ececec;
-  --im-surface-elevated: #f5f5f5;
-  --im-border: #e5e5e5;
-  --im-border-strong: #d4d4d4;
-  --im-border-muted: #a3a3a3;
-  --im-border-subtle: #262626;
-  --im-text: #171717;
-  --im-text-inverse: #fafafa;
-  --im-text-muted: #525252;
-  --im-text-subtle: #737373;
-  --im-text-on-accent: #ffffff;
+  --im-bg-page: #050608;
+  --im-bg-shell: #050608;
+  --im-surface-card: transparent;
+  --im-surface-card-hover: rgba(255, 255, 255, 0.03);
+  --im-surface-panel: #171717;
+  --im-surface-elevated: #262626;
+  --im-border: rgba(255, 255, 255, 0.12);
+  --im-border-strong: rgba(255, 255, 255, 0.22);
+  --im-border-muted: #525252;
+  --im-border-subtle: rgba(255, 255, 255, 0.12);
+  --im-text: #fafafa;
+  --im-text-inverse: #050608;
+  --im-text-muted: #a1a1aa;
+  --im-text-subtle: #71717a;
+  --im-text-on-accent: #fafafa;
 
-  /* —— Geometry —— */
-  --im-radius: 0;
+  --im-radius: 0.125rem;
   --im-border-width: 1px;
-  --im-border-width-accent: 1.5px;
-  --im-border-width-cta: 2px;
+  --im-border-width-accent: 1px;
+  --im-border-width-cta: 1px;
 
-  /* —— Spacing —— */
-  --im-gap-grid: 0.5rem;
+  --im-gap-grid: 1rem;
   --im-gap-panel: 0.875rem;
-  --im-padding-card: 0.5rem 0.625rem;
+  --im-padding-card: 1rem 1.125rem;
   --im-padding-panel: 1rem 1.125rem;
   --im-padding-cta: 0.5625rem 1.25rem;
-  --im-min-height-card-row: 3.25rem;
+  --im-min-height-card-row: 3.75rem;
 
-  /* —— Motion —— */
-  --im-transition-fast: 0.2s ease;
-  --im-transition-panel: 0.35s ease;
+  --im-transition-fast: 0.15s ease;
+  --im-transition-panel: 0.25s ease;
 
-  /* —— Typography scale —— */
-  --im-font-card-label: 0.6875rem;
-  --im-font-body-sm: 0.8125rem;
-  --im-font-body: 0.9375rem;
-  --im-font-lead: clamp(1rem, 2.25vw, 1.1875rem);
-  --im-font-section: clamp(1.5rem, 3.75vw, 2.125rem);
+  --im-font-card-label: 0.9375rem;
+  --im-font-body-sm: 0.9375rem;
+  --im-font-body: 1.0625rem;
+  --im-font-lead: clamp(1.0625rem, 2.4vw, 1.25rem);
+  --im-font-section: 0.875rem;
   --im-weight-medium: 500;
   --im-weight-semibold: 600;
   --im-weight-bold: 700;
@@ -59,192 +53,88 @@
   --im-leading-snug: 1.35;
   --im-leading-body: 1.55;
   --im-tracking-tight: -0.01em;
-  --im-tracking-heading: -0.02em;
-
-  /* —— Component aliases (layout cards) —— */
-  --home-card-bg: var(--im-surface-card);
-  --home-card-bg-hover: var(--im-surface-card-hover);
-  --home-card-border: var(--im-border-subtle);
-  --home-card-border-hover: var(--im-border-muted);
-  --home-card-text: var(--im-text);
-  --home-page-bg: var(--im-bg-page);
-}
-
-html.dark {
-  --im-bg-page: rgb(21 26 32);
-  --im-bg-shell: rgb(21 26 32);
-  --im-surface-card: #0a0a0a;
-  --im-surface-card-hover: #171717;
-  --im-surface-panel: #2e2e2e;
-  --im-surface-elevated: #262626;
-  --im-border: #262626;
-  --im-border-strong: #404040;
-  --im-border-muted: #525252;
-  --im-border-subtle: rgb(38 38 38);
-  --im-text: #fafafa;
-  --im-text-muted: #d4d4d4;
-  --im-text-subtle: #a3a3a3;
-  --im-accent-surface: #252525;
+  --im-tracking-heading: 0.06em;
 
   --home-card-bg: var(--im-surface-card);
   --home-card-bg-hover: var(--im-surface-card-hover);
   --home-card-border: var(--im-border-subtle);
-  --home-card-border-hover: var(--im-border-muted);
+  --home-card-border-hover: var(--im-border-strong);
   --home-card-text: var(--im-text);
   --home-page-bg: var(--im-bg-page);
 }
 
 /* Shared expanded accordion panel */
 .im-panel-expanded {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--im-gap-panel);
-    padding: var(--im-padding-panel);
-    border: var(--im-border-width) solid var(--im-border-strong);
-    border-radius: var(--im-radius);
-    background-color: var(--im-surface-panel);
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--im-gap-panel);
+  padding: var(--im-padding-panel);
+  border: var(--im-border-width) solid var(--im-border-strong);
+  border-radius: var(--im-radius);
+  background-color: var(--im-surface-panel);
+  text-align: center;
+}
 
-  .im-panel-expanded__description {
-    margin: 0;
-    max-width: 36rem;
-    font-size: var(--im-font-body-sm);
-    font-weight: 400;
-    line-height: var(--im-leading-body);
-    color: var(--im-text-muted);
-  }
+.im-panel-expanded__description {
+  margin: 0;
+  max-width: 36rem;
+  font-size: var(--im-font-body-sm);
+  font-weight: 400;
+  line-height: var(--im-leading-body);
+  color: var(--im-text-muted);
+}
 
-  /* Shared CTA — matte red outline */
-  .im-btn-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 10rem;
-    padding: var(--im-padding-cta);
-    border: var(--im-border-width-cta) solid var(--im-accent);
-    border-radius: var(--im-radius);
-    background-color: transparent;
-    color: var(--im-accent-strong);
-    font-size: var(--im-font-body-sm);
-    font-weight: var(--im-weight-bold);
-    letter-spacing: var(--im-tracking-tight);
-    text-decoration: none;
-    transition:
-      background-color var(--im-transition-fast),
-      color var(--im-transition-fast),
-      border-color var(--im-transition-fast);
-  }
+.im-btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10rem;
+  padding: var(--im-padding-cta);
+  border: var(--im-border-width) solid var(--im-border-strong);
+  border-radius: var(--im-radius);
+  background-color: transparent;
+  color: var(--im-text);
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  letter-spacing: var(--im-tracking-tight);
+  text-decoration: none;
+  transition:
+    background-color var(--im-transition-fast),
+    color var(--im-transition-fast),
+    border-color var(--im-transition-fast);
+}
 
-  .im-btn-cta:hover {
-    background-color: var(--im-accent);
-    border-color: var(--im-accent);
-    color: var(--im-text-on-accent);
-  }
+.im-btn-cta:hover {
+  background-color: var(--im-surface-card-hover);
+  border-color: var(--im-border-strong);
+  color: var(--im-text);
+}
 
-  .im-btn-cta:focus-visible {
-    outline: var(--im-border-width-cta) solid var(--im-accent);
-    outline-offset: 2px;
-  }
+.im-btn-cta:focus-visible {
+  outline: 2px solid rgba(161, 161, 170, 0.45);
+  outline-offset: 2px;
+}
 
-  html.dark .im-btn-cta {
-    color: var(--im-text-inverse);
-  }
+.im-card-surface {
+  border: var(--im-border-width) solid var(--home-card-border);
+  border-radius: var(--im-radius);
+  background-color: var(--home-card-bg) !important;
+  box-shadow: none;
+  transition:
+    background-color var(--im-transition-fast),
+    border-color var(--im-transition-fast);
+}
 
-  /* Homepage row card — red industrial border */
-  .im-card-accent {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: var(--im-gap-grid);
-    min-height: var(--im-min-height-card-row);
-    padding: var(--im-padding-card);
-    border: var(--im-border-width-accent) solid var(--im-accent);
-    border-radius: var(--im-radius);
-    background-color: var(--im-surface-card);
-    color: var(--im-text);
-    cursor: pointer;
-    text-align: start;
-    font: inherit;
-    transition:
-      background-color var(--im-transition-fast),
-      border-color var(--im-transition-fast),
-      box-shadow var(--im-transition-fast);
-  }
+.im-card-surface:hover {
+  border-color: var(--home-card-border-hover);
+  background-color: var(--home-card-bg-hover) !important;
+}
 
-  .im-card-accent:hover {
-    border-color: var(--im-accent-strong);
-    background-color: var(--im-surface-card-hover);
-  }
-
-  .im-card-accent--selected {
-    border-color: var(--im-accent-strong);
-    background-color: var(--im-accent-surface);
-    box-shadow: inset 0 0 0 1px var(--im-accent);
-  }
-
-  .im-card-accent:focus-visible {
-    outline: var(--im-border-width-cta) solid var(--im-accent);
-    outline-offset: 2px;
-  }
-
-  .im-card-accent__label {
-    flex: 1;
-    min-width: 0;
-    font-size: var(--im-font-card-label);
-    font-weight: var(--im-weight-semibold);
-    letter-spacing: var(--im-tracking-tight);
-    line-height: var(--im-leading-tight);
-  }
-
-  /* Directory / favorites tile card */
-  .im-card-surface {
-    border: var(--im-border-width) solid var(--home-card-border);
-    border-radius: var(--im-radius);
-    background-color: var(--home-card-bg) !important;
-    box-shadow: none;
-    transition:
-      background-color var(--im-transition-fast),
-      border-color var(--im-transition-fast),
-      box-shadow var(--im-transition-fast);
-  }
-
-  .im-card-surface:hover {
-    border-color: var(--home-card-border-hover);
-    background-color: var(--home-card-bg-hover) !important;
-    box-shadow: 0 0 0 1px var(--home-card-border-hover);
-  }
-
-  .im-card-surface--selected {
-    border-color: var(--home-card-border-hover);
-    background-color: var(--home-card-bg-hover);
-    box-shadow: 0 0 0 1px var(--home-card-border-hover);
-  }
-
-  .im-card-surface__label {
-    font-size: var(--im-font-card-label);
-    font-weight: var(--im-weight-semibold);
-    line-height: var(--im-leading-tight);
-    letter-spacing: var(--im-tracking-tight);
-  }
-
-  @media (min-width: 640px) {
-    .im-card-surface__label {
-      font-size: var(--im-font-body-sm);
-    }
-  }
-
-  html.dark .im-card-accent {
-    background-color: #1a1a1a;
-    color: var(--im-text);
-  }
-
-  html.dark .im-card-accent:hover {
-    background-color: #1f1f1f;
-  }
-
-html.dark .im-card-accent--selected {
-  background-color: var(--im-accent-surface);
+.im-card-surface__label {
+  font-size: var(--im-font-card-label);
+  font-weight: var(--im-weight-semibold);
+  line-height: var(--im-leading-tight);
+  letter-spacing: var(--im-tracking-heading);
+  text-transform: uppercase;
 }

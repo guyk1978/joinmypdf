@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { PremiumToolsHero } from "@/components/PremiumToolsHero";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
-import { ToolsDirectoryToolGrid } from "@/components/ToolsDirectoryToolGrid";
+import { AppPageShell } from "@/components/AppPageShell";
+import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
 import { Link } from "@/i18n/navigation";
 import { buildPremiumToolItems } from "@/lib/premium-tools";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
-import { homeSecondaryPillBtn } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type Props = {
@@ -60,24 +56,27 @@ export default async function PremiumToolsPage({ params }: Props) {
           numberOfItems: items.length,
         }}
       />
-      <div className="home-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
-        <main className="home-tool-grid-page">
-          <PremiumToolsHero />
-
-          <div className="tools-directory-content home-tool-grid-shell mx-auto w-full max-w-[1440px]">
-            <ToolsDirectoryToolGrid items={items} />
-
-            <div className="mt-12 flex justify-center pb-4">
-              <Link href="/tools/" className={homeSecondaryPillBtn} prefetch={false}>
-                {tPage("browseAllTools")}
-              </Link>
-            </div>
-          </div>
-        </main>
-        <SiteFooter tagline="tools" />
-      </div>
+      <AppPageShell>
+        <div className="home-minimal-layout home-minimal-layout--directory">
+          <h1 className="home-minimal-tagline">{tPage("title")}</h1>
+          <HomeFeaturedSection
+            id="premium-tools"
+            title={tPage("title")}
+            viewAllHref="/tools/"
+            viewAllLabel={tPage("browseAllTools")}
+            hideTitle
+          >
+            {items.map((item) => (
+              <HomeFeaturedToolCard
+                key={item.slugHint}
+                href={item.href}
+                label={item.label}
+                slugHint={item.slugHint}
+              />
+            ))}
+          </HomeFeaturedSection>
+        </div>
+      </AppPageShell>
     </>
   );
 }

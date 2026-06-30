@@ -4,8 +4,7 @@ import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import { ToolPageInfoBlock } from "@/components/ToolPageInfoBlock";
 import { RelatedTools } from "@/components/RelatedTools";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
@@ -19,6 +18,11 @@ import { PdfToPowerpointWorkspace } from "@/components/PdfToPowerpointWorkspace"
 import { PdfToExcelWorkspace } from "@/components/PdfToExcelWorkspace";
 import { HeicToPdfWorkspace } from "@/components/HeicToPdfWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
+import { CropImageWorkspace } from "@/components/CropImageWorkspace";
+import { ConvertToPngWorkspace } from "@/components/ConvertToPngWorkspace";
+import { RotateImageWorkspace } from "@/components/RotateImageWorkspace";
+import { CompressImageWorkspace } from "@/components/CompressImageWorkspace";
+import { ResizeImageWorkspace } from "@/components/ResizeImageWorkspace";
 import { AddWatermarkWorkspace } from "@/components/AddWatermarkWorkspace";
 import { RotatePdfWorkspace } from "@/components/RotatePdfWorkspace";
 import { AutocadToPdfWorkspace } from "@/components/AutocadToPdfWorkspace";
@@ -44,6 +48,17 @@ import { BookletPdfWorkspace } from "@/components/BookletPdfWorkspace";
 import { SafeShareAuditorWorkspace } from "@/components/SafeShareAuditorWorkspace";
 import { CustomPaperMarginWorkspace } from "@/components/CustomPaperMarginWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
+import { AppleTouchIconWorkspace } from "@/components/AppleTouchIconWorkspace";
+import { FaviconCompressorWorkspace } from "@/components/FaviconCompressorWorkspace";
+import { FaviconCodeGeneratorWorkspace } from "@/components/FaviconCodeGeneratorWorkspace";
+import { FaviconPreviewerWorkspace } from "@/components/FaviconPreviewerWorkspace";
+import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
+import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
+import { FaviconPackWorkspace } from "@/components/FaviconPackWorkspace";
+import { SvgToFaviconWorkspace } from "@/components/SvgToFaviconWorkspace";
+import { IcoToPngWorkspace } from "@/components/IcoToPngWorkspace";
+import { PngToIcoWorkspace } from "@/components/PngToIcoWorkspace";
+import { GenerateFaviconWorkspace } from "@/components/GenerateFaviconWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
 import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
@@ -174,8 +189,7 @@ export default async function ToolPage({
       />
       <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
-      <SiteHeader />
-      <main className={`${toolPageDashboardWidth} pb-8 pt-14 md:pb-10 md:pt-20`}>
+      <AppPageShell mainClassName={`${toolPageDashboardWidth} pb-8 pt-14 md:pb-10 md:pt-20`}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
         <ToolPageShellProvider headline={displayTitle} subline={subtitle} slug={slug} stacked>
@@ -239,6 +253,38 @@ export default async function ToolPage({
           <HeicToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-pdf" ? (
           <CropPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "crop-image" ? (
+          <CropImageWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "resize-image" ? (
+          <ResizeImageWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "convert-to-png" ? (
+          <ConvertToPngWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "rotate-image" ? (
+          <RotateImageWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "compress-image" ? (
+          <CompressImageWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "generate-favicon" ? (
+          <GenerateFaviconWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "png-to-ico" ? (
+          <PngToIcoWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "ico-to-png" ? (
+          <IcoToPngWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "svg-to-favicon" ? (
+          <SvgToFaviconWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "favicon-pack" ? (
+          <FaviconPackWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "apple-touch-icon" ? (
+          <AppleTouchIconWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "favicon-compressor" ? (
+          <FaviconCompressorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "favicon-cropper" ? (
+          <FaviconCropperWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "transparent-favicon" ? (
+          <TransparentFaviconWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "favicon-code-generator" ? (
+          <FaviconCodeGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "favicon-previewer" ? (
+          <FaviconPreviewerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "custom-paper-margin" ? (
           <CustomPaperMarginWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-watermark" ? (
@@ -277,15 +323,15 @@ export default async function ToolPage({
           <ToolPageDashboardSection aria-labelledby="related-guides-heading">
             <h2
               id="related-guides-heading"
-              className="mb-3 text-sm font-semibold tracking-wide text-ink dark:text-white"
+              className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
             >
               {tPage("relatedGuides")}
             </h2>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {articles.map((a) => (
                 <li key={a.slug}>
                   <Link
-                    className="text-xs leading-relaxed text-neutral-700 hover:underline dark:text-neutral-400 md:text-sm"
+                    className="text-base leading-relaxed text-neutral-400 hover:underline"
                     href={`/blog/${a.slug}/`}
                   >
                     {a.title}
@@ -299,17 +345,14 @@ export default async function ToolPage({
         <RelatedTools tool={tool} />
 
         <ToolPageDashboardSection aria-labelledby="tool-faq-heading">
-          <h2 id="tool-faq-heading" className="mb-3 text-sm font-semibold tracking-wide text-ink dark:text-white">
+          <h2 id="tool-faq-heading" className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white">
             {tPage("questions")}
           </h2>
-          <div className="flex flex-col gap-3">
+          <div className="tool-page-faq-list">
             {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="tool-page-faq-item"
-              >
-                <summary className="cursor-pointer text-sm font-medium text-ink dark:text-white">{f.q}</summary>
-                <p className="mt-2 text-xs leading-relaxed text-neutral-700 dark:text-neutral-400 md:text-sm">{f.a}</p>
+              <details key={f.q} className="tool-page-faq-item">
+                <summary className="cursor-pointer text-ink dark:text-white">{f.q}</summary>
+                <p>{f.a}</p>
               </details>
             ))}
           </div>
@@ -317,8 +360,7 @@ export default async function ToolPage({
         </ToolPageInfoBlock>
         </ToolGlassProvider>
         </div>
-      </main>
-      <SiteFooter tagline="tools" />
+      </AppPageShell>
     </>
   );
 }

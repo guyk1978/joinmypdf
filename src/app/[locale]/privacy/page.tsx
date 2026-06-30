@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
 import { clsx } from "clsx";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { PrivacyPolicyHero } from "@/components/PrivacyPolicyHero";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import { Link } from "@/i18n/navigation";
 import { getBrandName } from "@/lib/brand";
 import { JsonLd } from "@/lib/schema";
@@ -59,11 +56,9 @@ export default async function PrivacyPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/privacy`),
         }}
       />
-      <div className="home-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
-        <PrivacyPolicyHero />
-        <main className="privacy-policy-content home-tool-grid-shell mx-auto w-full max-w-4xl lg:max-w-5xl">
+      <AppPageShell>
+        <div className="home-minimal-layout home-minimal-layout--directory">
+          <h1 className="home-minimal-tagline">{t("title")}</h1>
           <div className="flex flex-col gap-8 md:gap-10">
             {SECTION_KEYS.map((key) => {
               const Icon = sectionIcons[key];
@@ -102,9 +97,8 @@ export default async function PrivacyPage({ params }: Props) {
               </Link>
             </section>
           </div>
-        </main>
-        <SiteFooter />
-      </div>
+        </div>
+      </AppPageShell>
     </>
   );
 }

@@ -7,6 +7,7 @@
   },
   "Header": {
     "siteLabel": "Site",
+    "primaryNav": "Primary",
     "allTools": "All Tools",
     "guides": "Guides",
     "privacyFirst": "Privacy First",
@@ -20,7 +21,77 @@
     "favorites": "Favorites",
     "projects": "My Projects",
     "premiumTools": "Premium Tools",
-    "moreMenu": "More options"
+    "moreMenu": "More options",
+    "login": "Login",
+    "signup": "Signup",
+    "nav": {
+      "image": "Image",
+      "pdf": "PDF",
+      "favicon": "Favicon"
+    },
+    "navItems": {
+      "resizeImage": "Resize Image",
+      "convertToPng": "Convert to PNG",
+      "cropImage": "Crop Image",
+      "rotateImage": "Rotate Image",
+      "compressImage": "Compress Image",
+      "heicToJpg": "HEIC to JPG",
+      "imageToPdf": "Image to PDF",
+      "pngToPdf": "PNG to PDF",
+      "heicToPdf": "HEIC to PDF",
+      "generateFavicon": "Generate Favicon",
+      "pngToIco": "PNG to ICO",
+      "icoToPng": "ICO to PNG",
+      "svgToFavicon": "SVG to Favicon",
+      "faviconPack": "Favicon Pack",
+      "appleTouchIcon": "Apple Touch Icon",
+      "faviconCompressor": "Favicon Compressor",
+      "faviconCropper": "Favicon Cropper",
+      "transparentFavicon": "Transparent Favicon",
+      "faviconCodeGenerator": "Favicon Code Generator",
+      "faviconPreviewer": "Favicon Previewer",
+      "mergePdf": "Merge PDF",
+      "splitPdf": "Split PDF",
+      "compressPdf": "Compress PDF",
+      "rotatePdf": "Rotate PDF",
+      "cropPdf": "Crop PDF",
+      "deletePdfPages": "Delete PDF Pages",
+      "reorderPdfPages": "Reorder PDF Pages",
+      "extractPdfPages": "Extract PDF Pages",
+      "addPageNumbers": "Add Page Numbers",
+      "addWatermark": "Add Watermark",
+      "signPdf": "Sign PDF",
+      "annotatePdf": "Annotate PDF",
+      "comparePdf": "Compare PDF",
+      "pdfToBooklet": "PDF to Booklet",
+      "batchRenamePdf": "Batch Rename PDF",
+      "pdfTextEditor": "PDF Text Editor",
+      "customPaperMargin": "Paper & Margins",
+      "flattenPdf": "Flatten PDF",
+      "repairPdf": "Repair PDF",
+      "protectPdf": "Protect PDF",
+      "unlockPdf": "Unlock PDF",
+      "pdfPasswordRecovery": "Password Recovery",
+      "redactPdf": "Redact PDF",
+      "safeToShareAuditor": "Safe-to-Share Auditor",
+      "removeHiddenMetadata": "Remove Metadata",
+      "pdfToJpg": "PDF to JPG",
+      "pdfToPng": "PDF to PNG",
+      "pdfToText": "PDF to Text",
+      "extractImages": "Extract Images",
+      "pdfToWord": "PDF to Word",
+      "wordToPdf": "Word to PDF",
+      "excelToPdf": "Excel to PDF",
+      "pdfToExcel": "PDF to Excel",
+      "powerpointToPdf": "PowerPoint to PDF",
+      "pdfToPowerpoint": "PDF to PowerPoint",
+      "markdownToPdf": "Markdown to PDF",
+      "htmlToPdf": "HTML to PDF",
+      "ebookToPdf": "eBook to PDF",
+      "iworkToPdf": "iWork to PDF",
+      "openofficeToPdf": "OpenOffice to PDF",
+      "autocadToPdf": "AutoCAD to PDF"
+    }
   },
   "Search": {
     "label": "Search tools and guides",
@@ -60,6 +131,7 @@
     "viewFavorites": "My favorites",
     "headline": "PDF Tools Suite",
     "subHeader": "Fast, private PDF processing in your browser. Files never leave your device.",
+    "minimalTagline": "Fast, private, enterprise-grade processing in your browser. Compliance-focused.",
     "privacyBadge": "Privacy First",
     "heroFeaturesLabel": "Core benefits",
     "heroFast": "Instant speed",
@@ -70,9 +142,101 @@
     "trustNoServers": "Files Never Reach Our Servers",
     "trustInstantDownload": "Instant Browser Download",
     "viewFullToolsList": "View full list of {count}+ tools",
+    "viewAllPdfTools": "View all PDF tools",
+    "viewAllImageTools": "View all Image tools",
+    "viewAllFaviconTools": "View all Favicon tools",
+    "pdfSectionTitle": "PDF",
+    "imageSectionTitle": "Image",
+    "faviconSectionTitle": "Favicon",
+    "imageToolsDirectoryTitle": "Image tools",
+    "imageToolsDirectoryDescription": "Resize, convert, crop, rotate, and compress images in your browser.",
+    "faviconToolsDirectoryTitle": "Favicon tools",
+    "faviconToolsDirectoryDescription": "Generate favicons and convert between ICO, PNG, and SVG — all in your browser.",
+    "backToHome": "Back to home",
     "goToTool": "Go to {toolName}",
     "marketingTitle": "Leading PDF Tools",
-    "marketingDescription": "Upgrade your PDF! A professional, secure, and easy-to-use solution"
+    "marketingDescription": "Upgrade your PDF! A professional, secure, and easy-to-use solution",
+    "imageTools": {
+      "badge": "New!",
+      "title": "IMAGE PROCESSING TOOLS",
+      "description": "Resize, convert, crop, rotate, and compress images — all in your browser.",
+      "items": {
+        "resizeImage": {
+          "label": "Resize Image",
+          "description": "Change image dimensions by pixels or percentage while keeping quality sharp."
+        },
+        "convertToPng": {
+          "label": "Convert to PNG",
+          "description": "Turn JPG, WebP, or other formats into lossless PNG files instantly."
+        },
+        "cropImage": {
+          "label": "Crop Image",
+          "description": "Trim borders and focus on the area you need with precise crop controls."
+        },
+        "rotateImage": {
+          "label": "Rotate Image",
+          "description": "Rotate photos 90°, 180°, or any angle and download the corrected file."
+        },
+        "compressImage": {
+          "label": "Compress Image",
+          "description": "Reduce file size for email and web without visible quality loss."
+        },
+        "heicToJpg": {
+          "label": "HEIC to JPG",
+          "description": "Convert iPhone HEIC photos to widely compatible JPG images."
+        }
+      }
+    },
+    "faviconTools": {
+      "title": "FAVICON TOOLS",
+      "description": "Generate favicons and convert icon formats — all in your browser.",
+      "items": {
+        "generateFavicon": {
+          "label": "Generate Favicon",
+          "description": "Create favicon.ico and PNG sizes from any image — ready for your website."
+        },
+        "pngToIco": {
+          "label": "PNG to ICO",
+          "description": "Convert PNG images to Windows ICO format for legacy browser tabs."
+        },
+        "icoToPng": {
+          "label": "ICO to PNG",
+          "description": "Extract PNG images from ICO files for editing or modern web use."
+        },
+        "svgToFavicon": {
+          "label": "SVG to Favicon",
+          "description": "Rasterize SVG artwork into standard favicon sizes locally."
+        },
+        "faviconPack": {
+          "label": "Favicon Pack",
+          "description": "Export a full set of favicon sizes (16×16 through 512×512) in one ZIP."
+        },
+        "appleTouchIcon": {
+          "label": "Apple Touch Icon",
+          "description": "Generate 180×180 Apple touch icons for iOS home-screen bookmarks."
+        },
+        "faviconCompressor": {
+          "label": "Favicon Compressor",
+          "description": "Shrink ICO, PNG, or JPG favicons locally—strip metadata and reduce file size."
+        },
+        "faviconCropper": {
+          "label": "Favicon Cropper",
+          "description": "Crop PNG, JPG, or SVG artwork to a square favicon region in your browser."
+        },
+        "transparentFavicon": {
+          "label": "Transparent Favicon",
+          "description": "Click a background color to make it transparent and download a PNG favicon."
+        },
+        "faviconCodeGenerator": {
+          "label": "Favicon Code Generator",
+          "description": "Generate standard HTML link tags for favicons, Apple Touch, Android, and manifest."
+        },
+        "faviconPreviewer": {
+          "label": "Favicon Previewer",
+          "description": "Preview your favicon in browser tabs, bookmarks, and home-screen shortcuts."
+        }
+      }
+    }
   },
   "Favorites": {
     "metaTitle": "Favorite PDF tools — JoinMyPDF",
@@ -175,6 +339,22 @@
       "pdf-to-powerpoint": "PDF to PowerPoint",
       "powerpoint-to-pdf": "PowerPoint to PDF",
       "crop-pdf": "Crop PDF",
+      "crop-image": "Crop Image",
+      "resize-image": "Resize Image",
+      "convert-to-png": "Convert to PNG",
+      "rotate-image": "Rotate Image",
+      "compress-image": "Compress Image",
+      "generate-favicon": "Generate Favicon",
+      "png-to-ico": "PNG to ICO",
+      "ico-to-png": "ICO to PNG",
+      "svg-to-favicon": "SVG to Favicon",
+      "favicon-pack": "Favicon Pack",
+      "apple-touch-icon": "Apple Touch Icon",
+      "favicon-compressor": "Favicon Compressor",
+      "favicon-cropper": "Favicon Cropper",
+      "transparent-favicon": "Transparent Favicon",
+      "favicon-code-generator": "Favicon Code Generator",
+      "favicon-previewer": "Favicon Previewer",
       "add-watermark": "Add Watermark",
       "rotate-pdf": "Rotate PDF",
       "autocad-to-pdf": "AutoCAD to PDF",
@@ -363,5 +543,273 @@
     "pdfDownloaded": "PDF downloaded.",
     "pdfExportFailed": "PDF export failed.",
     "previewNotReady": "Preview is not ready. Try again in a moment."
+  },
+  "CropImage": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — processed locally in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select an image file to crop",
+    "cropAndDownload": "Crop & Download",
+    "cropping": "Cropping…",
+    "cropInstructions": "Drag the frame to move it. Pull corners or edges to resize the crop area.",
+    "invalidFile": "Please choose a supported image file.",
+    "replaceImage": "Replace image"
+  },
+  "ResizeImage": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — processed locally in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select an image file to resize",
+    "resizeInstructions": "Set the output width and height in pixels. Lock aspect ratio to scale proportionally.",
+    "widthLabel": "Width (px)",
+    "heightLabel": "Height (px)",
+    "lockAspectRatio": "Lock aspect ratio",
+    "originalSize": "Original size: {width} × {height} px",
+    "resizeAndDownload": "Resize & Download",
+    "resizing": "Resizing…",
+    "invalidFile": "Please choose a supported image file.",
+    "invalidDimensions": "Enter valid width and height values.",
+    "replaceImage": "Replace image"
+  },
+  "ConvertToPng": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "JPG, WebP, HEIC, GIF — converted locally to PNG in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select an image file to convert to PNG",
+    "convertInstructions": "Preview your image, then export a high-quality PNG file.",
+    "fileInfo": "{name} · {width} × {height} px",
+    "convertAndDownload": "Convert & Download PNG",
+    "converting": "Converting…",
+    "convertingProgress": "Converting to PNG…",
+    "invalidFile": "Please choose a supported image file.",
+    "replaceImage": "Replace image"
+  },
+  "RotateImage": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — rotated locally in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select an image file to rotate",
+    "rotateInstructions": "Use the rotate buttons to adjust orientation, then download.",
+    "rotateLeft": "Rotate left",
+    "rotateRight": "Rotate right",
+    "rotation": "Current rotation: {degrees}°",
+    "download": "Download",
+    "downloading": "Preparing…",
+    "invalidFile": "Please choose a supported image file.",
+    "replaceImage": "Replace image"
+  },
+  "CompressImage": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — compressed locally in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select an image file to compress",
+    "compressInstructions": "Adjust quality, compare file sizes, then download the compressed image.",
+    "qualityLabel": "Compression quality",
+    "qualityValue": "{percent}%",
+    "originalSize": "Original size",
+    "compressedSize": "Compressed size",
+    "estimatingSize": "Calculating…",
+    "savings": "−{percent}% smaller",
+    "compressAndDownload": "Compress & Download",
+    "compressing": "Compressing…",
+    "invalidFile": "Please choose a supported image file.",
+    "replaceImage": "Replace image"
+  },
+  "GenerateFavicon": {
+    "instructions": "Enter 1–2 characters, pick colors, and preview your favicon in real time. Everything runs locally in your browser.",
+    "textLabel": "Favicon text",
+    "textPlaceholder": "A",
+    "textHint": "One or two characters work best for small tab icons.",
+    "backgroundColorLabel": "Background color",
+    "textColorLabel": "Text color",
+    "previewLabel": "Live preview",
+    "previewSize": "{size}×{size}",
+    "formatLabel": "Download format",
+    "formatPng": "PNG (32×32)",
+    "formatIco": "ICO (multi-size)",
+    "download": "Download",
+    "downloading": "Preparing…",
+    "emptyTextError": "Enter at least one character before downloading."
+  },
+  "PngToIco": {
+    "dropTitle": "Drop a PNG here or click to browse",
+    "dropHint": "PNG files only — converted locally to ICO in your browser.",
+    "selectFile": "Select PNG",
+    "selectFileAria": "Select a PNG file to convert to ICO",
+    "convertInstructions": "Preview your PNG, check the 32×32 favicon preview, then download a multi-size ICO file.",
+    "fileInfo": "{name} · {width} × {height} px",
+    "previewFaviconLabel": "32×32 favicon preview",
+    "downloadIco": "Download ICO",
+    "converting": "Converting…",
+    "convertingProgress": "Building ICO file…",
+    "invalidFile": "Please choose a valid PNG file.",
+    "convertFailed": "Could not convert this PNG. Try another file or a smaller image.",
+    "replaceImage": "Replace PNG"
+  },
+  "IcoToPng": {
+    "dropTitle": "Drop an ICO here or click to browse",
+    "dropHint": "ICO files only — decoded locally in your browser.",
+    "selectFile": "Select ICO",
+    "selectFileAria": "Select an ICO file to convert to PNG",
+    "convertInstructions": "Choose which embedded icon size to export, preview it, then download a PNG.",
+    "fileInfo": "{name} · {frameCount} embedded icons",
+    "framesLabel": "Available icons",
+    "frameSize": "{width}×{height} · {bitCount}-bit",
+    "previewLabel": "Selected preview",
+    "downloadPng": "Download PNG",
+    "converting": "Preparing…",
+    "convertingProgress": "Preparing PNG download…",
+    "invalidFile": "Please choose a valid ICO file.",
+    "convertFailed": "Could not read this ICO file. Try another file.",
+    "replaceFile": "Replace ICO"
+  },
+  "SvgToFavicon": {
+    "dropTitle": "Drop an SVG here or click to browse",
+    "dropHint": "SVG files only — rasterized locally into a favicon ICO in your browser.",
+    "selectFile": "Select SVG",
+    "selectFileAria": "Select an SVG file to convert to favicon",
+    "convertInstructions": "Preview your vector logo, choose an output size, check the favicon preview, then download an ICO file.",
+    "fileInfo": "{name}",
+    "sizeLabel": "Output size",
+    "sizeOption": "{size}×{size}",
+    "previewLabel": "SVG preview",
+    "previewFaviconLabel": "Favicon preview",
+    "downloadFavicon": "Download Favicon",
+    "converting": "Rendering…",
+    "convertingProgress": "Building favicon ICO…",
+    "invalidFile": "Please choose a valid SVG file.",
+    "convertFailed": "Could not render this SVG. Try a simpler file or check the markup.",
+    "replaceFile": "Replace SVG"
+  },
+  "FaviconPack": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "PNG or JPG — a complete favicon ZIP is built locally in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select a PNG or JPG to build a favicon pack",
+    "convertInstructions": "Preview your source image, review the files included in the pack, then download one ZIP.",
+    "fileInfo": "{name} · {width} × {height} px",
+    "includesLabel": "Pack contents",
+    "includesIco": "favicon.ico (16×16, 32×32, 48×48)",
+    "sizes": {
+      "size16": "16×16 tab icon",
+      "size32": "32×32 tab icon",
+      "size48": "48×48 tab icon",
+      "size180": "180×180 Apple Touch",
+      "size192": "192×192 Android",
+      "size256": "256×256 manifest",
+      "size512": "512×512 PWA splash"
+    },
+    "downloadPack": "Download Favicon Pack",
+    "generating": "Generating…",
+    "generatingProgress": "Rendering icon sizes…",
+    "zippingProgress": "Building ZIP archive…",
+    "invalidFile": "Please choose a PNG or JPG file.",
+    "convertFailed": "Could not build the favicon pack. Try a smaller or simpler image.",
+    "replaceImage": "Replace image"
+  },
+  "AppleTouchIcon": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "PNG or JPG — Apple touch icons are rendered locally in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select a PNG or JPG to generate an Apple touch icon",
+    "convertInstructions": "Choose icon sizes and background, preview on an iOS-style tile, then download.",
+    "fileInfo": "{name} · {width} × {height} px",
+    "sizesLabel": "Icon sizes",
+    "sizes": {
+      "size180": "180×180 (standard)",
+      "size167": "167×167 (iPad Pro)",
+      "size152": "152×152 (iPad)"
+    },
+    "backgroundLabel": "Background color",
+    "transparentBackground": "Transparent background",
+    "iosPreviewLabel": "iOS home screen preview",
+    "downloadAppleIcon": "Download Apple Icon",
+    "generating": "Generating…",
+    "generatingProgress": "Rendering Apple touch icon…",
+    "invalidFile": "Please choose a PNG or JPG file.",
+    "convertFailed": "Could not generate the Apple touch icon. Try a smaller or simpler image.",
+    "replaceImage": "Replace image"
+  },
+  "FaviconCompressor": {
+    "dropTitle": "Drop a favicon here or click to browse",
+    "dropHint": "ICO, PNG, or JPG — optimization runs locally in your browser.",
+    "selectFile": "Select favicon",
+    "selectFileAria": "Select an ICO, PNG, or JPG favicon to compress",
+    "compressInstructions": "Preview your favicon, compare file sizes, then download the optimized version.",
+    "fileInfo": "{name} · {width} × {height} px",
+    "icoFileInfo": "{name} · {frameCount, plural, one {# frame} other {# frames}}",
+    "originalSize": "Original size",
+    "compressedSize": "Optimized size",
+    "estimatingSize": "Calculating…",
+    "formatSavings": "−{percent}% smaller",
+    "downloadOptimized": "Download Optimized Favicon",
+    "optimizing": "Optimizing…",
+    "optimizingProgress": "Optimizing favicon…",
+    "invalidFile": "Please choose an ICO, PNG, or JPG favicon file.",
+    "optimizeFailed": "Could not optimize this favicon. Try a different file.",
+    "replaceFile": "Replace favicon"
+  },
+  "FaviconCropper": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "PNG, JPG, or SVG — square cropping runs locally in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select a PNG, JPG, or SVG to crop for a favicon",
+    "cropInstructions": "Drag the square crop area to frame your icon, choose an output size, then download.",
+    "outputSizeLabel": "Output size",
+    "outputSizes": {
+      "native": "PNG (crop resolution)",
+      "size32": "32×32 PNG",
+      "size48": "48×48 PNG"
+    },
+    "downloadCropped": "Download",
+    "cropping": "Exporting…",
+    "invalidFile": "Please choose a PNG, JPG, or SVG file.",
+    "replaceImage": "Replace image"
+  },
+  "TransparentFavicon": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "PNG or JPG — transparency is applied locally in your browser.",
+    "selectFile": "Select image",
+    "selectFileAria": "Select a PNG or JPG to make a transparent favicon",
+    "pickInstructions": "Click the background color in your image to make it transparent.",
+    "pickedColor": "Selected color: {color}",
+    "downloadTransparent": "Download Transparent Favicon",
+    "exporting": "Exporting…",
+    "invalidFile": "Please choose a PNG or JPG file.",
+    "exportFailed": "Could not export the transparent favicon. Try a different image.",
+    "replaceImage": "Replace image"
+  },
+  "FaviconCodeGenerator": {
+    "instructions": "Enter the path to your hosted favicon file. The HTML snippet updates instantly with every standard link tag.",
+    "pathLabel": "Favicon path",
+    "pathPlaceholder": "/favicon.ico",
+    "pathHint": "Use a site-relative path such as /favicon.ico or /assets/favicon.png. Companion files are assumed to live in the same folder.",
+    "codeLabel": "HTML snippet",
+    "copyCode": "Copy Code",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard. Select the code and copy manually."
+  },
+  "FaviconPreviewer": {
+    "dropTitle": "Drop a favicon here or click to browse",
+    "dropHint": "PNG, JPG, ICO, or SVG — preview runs locally in your browser.",
+    "selectFile": "Select favicon",
+    "selectFileAria": "Select a favicon file to preview",
+    "orUseUrl": "or paste a favicon URL",
+    "urlLabel": "Favicon URL",
+    "urlPlaceholder": "https://example.com/favicon.ico",
+    "applyUrl": "Preview",
+    "titleLabel": "Page title",
+    "titlePlaceholder": "My Website",
+    "uiThemeLabel": "Browser UI theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "previewInstructions": "Adjust the page title and UI theme to see how your favicon looks in common contexts.",
+    "browserTabLabel": "Browser tab",
+    "bookmarksLabel": "Bookmarks bar",
+    "homeScreenLabel": "Home screen",
+    "bookmarkOtherSite": "Docs",
+    "invalidFile": "Please choose a PNG, JPG, ICO, or SVG favicon file.",
+    "invalidUrl": "Could not load that favicon URL. Check the address or upload the file instead.",
+    "replaceFavicon": "Replace favicon"
   }
 }

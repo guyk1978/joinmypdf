@@ -17,7 +17,7 @@ export async function RelatedTools({ tool }: { tool: ToolDefinition }) {
     <ToolPageDashboardSection aria-labelledby="related-tools-heading">
       <h2
         id="related-tools-heading"
-        className="mb-3 text-sm font-semibold tracking-wide text-ink dark:text-white"
+        className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
       >
         {tPage("relatedTools")}
       </h2>

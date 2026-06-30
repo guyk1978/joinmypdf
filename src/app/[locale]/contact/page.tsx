@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
 import { ContactForm } from "@/components/ContactForm";
-import { ContactHero } from "@/components/ContactHero";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import { routing } from "@/i18n/routing";
 import { getBrandName } from "@/lib/brand";
 import { JsonLd } from "@/lib/schema";
@@ -45,15 +42,12 @@ export default async function ContactPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/contact`),
         }}
       />
-      <div className="home-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
-        <ContactHero />
-        <main className="contact-content home-tool-grid-shell mx-auto w-full max-w-4xl lg:max-w-5xl">
+      <AppPageShell>
+        <div className="home-minimal-layout home-minimal-layout--directory">
+          <h1 className="home-minimal-tagline">{t("title")}</h1>
           <ContactForm />
-        </main>
-        <SiteFooter />
-      </div>
+        </div>
+      </AppPageShell>
     </>
   );
 }

@@ -31,6 +31,8 @@
       "deletePages": "delete pages from a PDF",
       "pageNumbers": "add page numbers to a PDF",
       "crop": "crop a PDF in your browser",
+      "resize": "resize an image in your browser",
+      "convert": "convert an image to PNG in your browser",
       "watermark": "add a text watermark to a PDF",
       "rotate": "rotate PDF pages in your browser",
       "autocad": "convert AutoCAD DXF drawings to PDF",
@@ -83,6 +85,22 @@
       "watermarkA": "Standard downloads from these tools are not watermarked by JoinMyPDF.",
       "mobileQ": "Can I use this on a phone or tablet?",
       "mobileA": "Yes. The interface is responsive and works on modern mobile browsers.",
+      "limitsQ": "Are there file size or page limits for {toolTitle}?",
+      "limitsA": "Very large PDFs can hit browser memory limits. If a job fails, try fewer pages at once, close other tabs, or split the document first and run {toolTitle} on smaller parts.",
+      "browserQ": "Which browsers work best with {toolTitle}?",
+      "browserA": "Recent Chrome, Edge, Firefox, and Safari on desktop and mobile are supported. Keep your browser updated for the best speed and stability.",
+      "offlineQ": "Does {toolTitle} work offline?",
+      "offlineA": "After the page loads once, many tools keep working without a connection because processing stays in your browser. You still need network access for the first visit.",
+      "accountQ": "Do I need an account to use {toolTitle}?",
+      "accountA": "No account is required for everyday use. Open the tool, add your files, and download the result when processing finishes.",
+      "retentionQ": "What happens to my files after I close the tab?",
+      "retentionA": "Files stay in your browser session only. When you close the tab or refresh, that working copy is cleared from memory on your device.",
+      "formatsQ": "What file types does {toolTitle} accept?",
+      "formatsA": "Supported formats are listed on the tool page and in the upload area. Use the original export from your app when possible for the cleanest result.",
+      "errorsQ": "What should I do if {toolTitle} fails or freezes?",
+      "errorsA": "Try a smaller file, disable heavy browser extensions, or export the PDF again from the source app. Password-protected or damaged files may need repair or unlock steps first.",
+      "securityQ": "How does JoinMyPDF keep {toolTitle} private?",
+      "securityA": "Processing runs locally in your browser tab, so document bytes are not sent to JoinMyPDF servers for standard tools. That reduces exposure for contracts, invoices, and personal files.",
       "variantSameQ": "Is this the same {toolTitle} experience as your main page?",
       "variantSameA": "Yes—the same controls and privacy model. This page uses clearer wording for a specific situation so you know what to expect before you start.",
       "variantKeywordQ": "What does \"{keyword}\" mean in practice?",
@@ -760,6 +778,26 @@
         "title": "Drop a PDF here or click to browse",
         "description": "Crop margins on every page using a visual frame on page 1."
       },
+      "crop-image": {
+        "title": "Drop an image here or click to browse",
+        "description": "Drag the crop frame, then export a high-quality PNG locally."
+      },
+      "resize-image": {
+        "title": "Drop an image here or click to browse",
+        "description": "Set width and height in pixels, then download a resized image locally."
+      },
+      "convert-to-png": {
+        "title": "Drop an image here or click to browse",
+        "description": "Convert JPG, WebP, HEIC, or GIF to a high-quality PNG locally."
+      },
+      "rotate-image": {
+        "title": "Drop an image here or click to browse",
+        "description": "Rotate your image 90° left or right, then download locally."
+      },
+      "compress-image": {
+        "title": "Drop an image here or click to browse",
+        "description": "Adjust compression quality and download a smaller image locally."
+      },
       "pdf-to-png": {
         "title": "Drop a PDF here or click to browse",
         "description": "Each page exports as a PNG image. Processing stays on your device."
@@ -1345,6 +1383,54 @@
         "cropInstructions": "Drag the frame to move it. Pull corners or edges to resize. The same crop applies to every page.",
         "resetFrame": "Reset frame"
       }
+    },
+    "crop-image": {
+      "privacyNote": "Cropping runs entirely in your browser. Your image never leaves your device."
+    },
+    "resize-image": {
+      "privacyNote": "Resizing runs entirely in your browser. Your image never leaves your device."
+    },
+    "convert-to-png": {
+      "privacyNote": "Conversion runs entirely in your browser. Your image never leaves your device."
+    },
+    "rotate-image": {
+      "privacyNote": "Rotation runs entirely in your browser. Your image never leaves your device."
+    },
+    "compress-image": {
+      "privacyNote": "Compression runs entirely in your browser. Your image never leaves your device."
+    },
+    "generate-favicon": {
+      "privacyNote": "Favicon generation runs entirely in your browser. Nothing is uploaded to our servers."
+    },
+    "png-to-ico": {
+      "privacyNote": "PNG to ICO conversion runs entirely in your browser. Your file never leaves your device."
+    },
+    "ico-to-png": {
+      "privacyNote": "ICO to PNG conversion runs entirely in your browser. Your file never leaves your device."
+    },
+    "svg-to-favicon": {
+      "privacyNote": "SVG to favicon rendering runs entirely in your browser. Your file never leaves your device."
+    },
+    "favicon-pack": {
+      "privacyNote": "Favicon pack generation and ZIP export run entirely in your browser. Your image never leaves your device."
+    },
+    "apple-touch-icon": {
+      "privacyNote": "Apple touch icon rendering runs entirely in your browser. Your image never leaves your device."
+    },
+    "favicon-compressor": {
+      "privacyNote": "Favicon compression runs entirely in your browser. Your file never leaves your device."
+    },
+    "favicon-cropper": {
+      "privacyNote": "Favicon cropping runs entirely in your browser. Your image never leaves your device."
+    },
+    "transparent-favicon": {
+      "privacyNote": "Transparent favicon processing runs entirely in your browser. Your image never leaves your device."
+    },
+    "favicon-code-generator": {
+      "privacyNote": "Favicon HTML code generation runs entirely in your browser. Nothing is sent to a server."
+    },
+    "favicon-previewer": {
+      "privacyNote": "Favicon preview rendering runs entirely in your browser. Your file or URL is never uploaded to our servers."
     },
     "protect": {
       "privacyNote": "Your file is encrypted locally in your browser and never touches our servers.",

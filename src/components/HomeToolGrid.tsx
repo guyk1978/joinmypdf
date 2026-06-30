@@ -1,42 +1,78 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { HomeHero } from "@/components/HomeHero";
-import { HomeMarketingBanner } from "@/components/HomeMarketingBanner";
-import { HomeToolAccordionGrid } from "@/components/HomeToolAccordionGrid";
-import type { HomeGridToolItem } from "@/lib/featured-tools";
+import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
+import type { HomeFeaturedToolItem } from "@/lib/featured-tools";
+import type { HomeFeaturedImageItem } from "@/lib/image-tools";
+import type { HomeFeaturedFaviconItem } from "@/lib/favicon-tools";
 
 type HomeToolGridProps = {
-  gridItems: HomeGridToolItem[];
-  toolCount: number;
+  pdfItems: HomeFeaturedToolItem[];
+  imageItems: HomeFeaturedImageItem[];
+  faviconItems: HomeFeaturedFaviconItem[];
 };
 
-export function HomeToolGrid({ gridItems, toolCount }: HomeToolGridProps) {
+export function HomeToolGrid({ pdfItems, imageItems, faviconItems }: HomeToolGridProps) {
   const t = useTranslations("Home");
 
   return (
-    <>
-      <HomeHero />
+    <div className="home-minimal-layout">
+      <p className="home-minimal-tagline">{t("minimalTagline")}</p>
 
-      <section className="home-focus-section" aria-labelledby="home-featured-tools">
-        <h2 id="home-featured-tools" className="sr-only">
-          {t("featuredTools")}
-        </h2>
+      <HomeFeaturedSection
+        id="home-pdf-tools"
+        title={t("pdfSectionTitle")}
+        viewAllHref="/tools/"
+        viewAllLabel={t("viewAllPdfTools")}
+        hideTitle
+      >
+        {pdfItems.map((item) => (
+          <HomeFeaturedToolCard
+            key={item.slugHint}
+            href={item.href}
+            label={item.label}
+            slugHint={item.slugHint}
+          />
+        ))}
+      </HomeFeaturedSection>
 
-        <div className="home-split-layout">
-          <div className="home-split-layout__tools">
-            <HomeToolAccordionGrid items={gridItems} />
-            <p className="home-focus-section__footer">
-              <Link href="/tools/" className="home-focus-section__all-tools-link" prefetch={false}>
-                {t("viewFullToolsList", { count: toolCount })}
-              </Link>
-            </p>
-          </div>
+      <HomeFeaturedSection
+        id="home-image-tools"
+        title={t("imageSectionTitle")}
+        viewAllHref="/image-tools/"
+        viewAllLabel={t("viewAllImageTools")}
+        className="home-minimal-section--image"
+        hideTitle
+      >
+        {imageItems.map((item) => (
+          <HomeFeaturedToolCard
+            key={item.id}
+            href={item.href}
+            label={item.label}
+            slugHint={item.id}
+            imageIconKey={item.iconKey}
+          />
+        ))}
+      </HomeFeaturedSection>
 
-          <HomeMarketingBanner />
-        </div>
-      </section>
-    </>
+      <HomeFeaturedSection
+        id="home-favicon-tools"
+        title={t("faviconSectionTitle")}
+        viewAllHref="/favicon-tools/"
+        viewAllLabel={t("viewAllFaviconTools")}
+        className="home-minimal-section--favicon"
+        hideTitle
+      >
+        {faviconItems.map((item) => (
+          <HomeFeaturedToolCard
+            key={item.id}
+            href={item.href}
+            label={item.label}
+            slugHint={item.id}
+            faviconIconKey={item.iconKey}
+          />
+        ))}
+      </HomeFeaturedSection>
+    </div>
   );
 }

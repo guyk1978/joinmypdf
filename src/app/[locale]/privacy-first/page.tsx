@@ -3,11 +3,8 @@ import type { ReactNode } from "react";
 export const runtime = "edge";
 import { clsx } from "clsx";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { PrivacyFirstHero } from "@/components/PrivacyFirstHero";
 import { ComparisonTable } from "@/components/ComparisonTable";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import { Link } from "@/i18n/navigation";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { getBrandName } from "@/lib/brand";
@@ -99,11 +96,9 @@ export default async function PrivacyFirstPage({ params }: Props) {
         }}
       />
       <JsonLd data={faqLd(faqs)} />
-      <div className="home-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
-        <PrivacyFirstHero />
-        <main className="privacy-first-content home-tool-grid-shell mx-auto w-full max-w-5xl lg:max-w-6xl">
+      <AppPageShell>
+        <div className="home-minimal-layout home-minimal-layout--directory">
+          <h1 className="home-minimal-tagline">{t("title")}</h1>
           <div className="flex flex-col gap-10 md:gap-12">
             <section className="privacy-section privacy-section--center" aria-label={t("browseTools")}>
               <div className="flex flex-wrap items-center justify-center gap-4">
@@ -226,9 +221,8 @@ export default async function PrivacyFirstPage({ params }: Props) {
               </div>
             </section>
           </div>
-        </main>
-        <SiteFooter />
-      </div>
+        </div>
+      </AppPageShell>
     </>
   );
 }

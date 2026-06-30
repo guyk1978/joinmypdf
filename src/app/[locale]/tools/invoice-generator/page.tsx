@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 export const runtime = "edge";
 import Link from "next/link";
 import { BrandEyebrow } from "@/components/BrandEyebrow";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import { InvoiceGenerator } from "@/components/invoice/InvoiceGenerator";
 import { INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
 import { getBrandName } from "@/lib/brand";
@@ -38,8 +37,7 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
             "Client-side invoice and receipt builder with live A4 preview and PDF download.",
         }}
       />
-      <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
+      <AppPageShell mainClassName="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
         <header className="mb-4 max-w-3xl space-y-3">
           <BrandEyebrow />
           <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
@@ -80,8 +78,7 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
             locally—no server upload.
           </p>
         </section>
-      </main>
-      <SiteFooter tagline="tools" />
+      </AppPageShell>
     </>
   );
 }

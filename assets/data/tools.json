@@ -1714,6 +1714,231 @@
       "updatedAt": "2026-05-27"
     },
     {
+      "slug": "resize-image",
+      "category": "edit",
+      "operation": "resize-image",
+      "title": "Resize Image",
+      "primaryKeyword": "resize image online free",
+      "intent": "Resize photos and images in your browser—set exact dimensions, keep aspect ratio, no upload.",
+      "description": "Upload an image, enter width and height, and download a high-quality resized file—all processed locally on your device.",
+      "secondaryKeywords": [
+        "resize photo online",
+        "change image dimensions",
+        "scale image browser"
+      ],
+      "useCases": [
+        "Shrink large photos for email attachments",
+        "Match image dimensions for social posts",
+        "Scale screenshots to a required pixel size"
+      ],
+      "relatedTools": [
+        "crop-image",
+        "compress-image",
+        "convert-to-png"
+      ],
+      "faq": [
+        {
+          "q": "Is my image uploaded to JoinMyPDF?",
+          "a": "No. Resizing runs entirely in your browser on your device."
+        },
+        {
+          "q": "Can I keep the original aspect ratio?",
+          "a": "Yes. Enable lock aspect ratio to update width and height together."
+        },
+        {
+          "q": "Will resizing reduce image quality?",
+          "a": "Downscaling uses high-quality canvas smoothing. Upscaling may soften fine detail, as with any resizer."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.83,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "convert-to-png",
+      "category": "convert",
+      "operation": "convert-to-png",
+      "title": "Convert to PNG",
+      "primaryKeyword": "convert image to png online free",
+      "intent": "Convert JPG, WebP, HEIC, and other images to PNG in your browser—lossless output, no upload.",
+      "description": "Upload any image and download a high-quality PNG file—all conversion runs locally on your device.",
+      "secondaryKeywords": [
+        "jpg to png converter",
+        "webp to png browser",
+        "heic to png free"
+      ],
+      "useCases": [
+        "Export JPG photos as PNG for design tools",
+        "Convert WebP assets to widely compatible PNG",
+        "Turn iPhone HEIC shots into PNG files"
+      ],
+      "relatedTools": [
+        "resize-image",
+        "crop-image",
+        "compress-image"
+      ],
+      "faq": [
+        {
+          "q": "Is my image uploaded to JoinMyPDF?",
+          "a": "No. Conversion runs entirely in your browser on your device."
+        },
+        {
+          "q": "What formats can I convert?",
+          "a": "JPG, WebP, GIF, BMP, HEIC, and other common image formats."
+        },
+        {
+          "q": "Will transparency be preserved?",
+          "a": "Yes. Sources with alpha channels (such as WebP or PNG) keep transparency in the output PNG."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "rotate-image",
+      "category": "edit",
+      "operation": "rotate-image",
+      "title": "Rotate Image",
+      "primaryKeyword": "rotate image online free",
+      "intent": "Rotate photos 90° left or right in your browser—live preview, instant download, no upload.",
+      "description": "Upload an image, rotate in 90-degree steps, and download the corrected file—all processed locally on your device.",
+      "secondaryKeywords": [
+        "rotate photo online",
+        "turn image 90 degrees",
+        "fix image orientation browser"
+      ],
+      "useCases": [
+        "Fix sideways phone photos before sharing",
+        "Rotate scanned documents to the correct orientation",
+        "Prepare images for slides or print layouts"
+      ],
+      "relatedTools": [
+        "crop-image",
+        "resize-image",
+        "convert-to-png"
+      ],
+      "faq": [
+        {
+          "q": "Is my image uploaded to JoinMyPDF?",
+          "a": "No. Rotation runs entirely in your browser on your device."
+        },
+        {
+          "q": "Can I rotate by angles other than 90°?",
+          "a": "This tool rotates in 90-degree steps for precise, lossless orientation fixes."
+        },
+        {
+          "q": "Will image quality be preserved?",
+          "a": "Yes. Export uses high-quality canvas rendering with smoothing enabled."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.81,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "compress-image",
+      "category": "optimize",
+      "operation": "compress-image",
+      "title": "Compress Image",
+      "primaryKeyword": "compress image online free",
+      "intent": "Reduce image file size in your browser—adjust quality with a slider, compare sizes, no upload.",
+      "description": "Upload a photo, tune compression quality, and download a smaller file—all processed locally on your device.",
+      "secondaryKeywords": [
+        "reduce image file size",
+        "compress jpg online",
+        "shrink photo for email"
+      ],
+      "useCases": [
+        "Shrink photos before emailing attachments",
+        "Reduce image weight for faster web uploads",
+        "Optimize screenshots without visible quality loss"
+      ],
+      "relatedTools": [
+        "resize-image",
+        "convert-to-png",
+        "crop-image"
+      ],
+      "faq": [
+        {
+          "q": "Is my image uploaded to JoinMyPDF?",
+          "a": "No. Compression runs entirely in your browser on your device."
+        },
+        {
+          "q": "What quality setting should I use?",
+          "a": "Start around 80–90% for photos. Lower values shrink files more; higher values preserve finer detail."
+        },
+        {
+          "q": "Will PNG transparency be preserved?",
+          "a": "PNG files compressed below 100% export as WebP, which supports transparency with strong size reduction."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.8,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "crop-image",
+      "category": "edit",
+      "operation": "crop-image",
+      "title": "Crop Image",
+      "primaryKeyword": "crop image online free",
+      "intent": "Crop photos and images in your browser—drag a frame, export a high-quality PNG, no upload.",
+      "description": "Upload an image, adjust the crop area interactively, and download a crisp PNG—all processed locally on your device.",
+      "secondaryKeywords": [
+        "crop photo online",
+        "image crop tool browser",
+        "trim image free"
+      ],
+      "useCases": [
+        "Trim screenshots before sharing",
+        "Focus on a subject in a photo",
+        "Remove unwanted borders from scans"
+      ],
+      "relatedTools": [
+        "resize-image",
+        "rotate-image",
+        "compress-image"
+      ],
+      "faq": [
+        {
+          "q": "Is my image uploaded to JoinMyPDF?",
+          "a": "No. Cropping runs entirely in your browser on your device."
+        },
+        {
+          "q": "What format is the download?",
+          "a": "The cropped result downloads as a high-quality PNG file."
+        },
+        {
+          "q": "Can I crop HEIC photos from iPhone?",
+          "a": "Yes. HEIC files are converted locally in your browser before cropping."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.84,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-29"
+    },
+    {
       "slug": "add-watermark",
       "category": "edit",
       "operation": "add-watermark",
@@ -2257,6 +2482,505 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
       "updatedAt": "2026-06-02"
+    },
+    {
+      "slug": "generate-favicon",
+      "category": "convert",
+      "operation": "generate-favicon",
+      "title": "Generate Favicon",
+      "primaryKeyword": "generate favicon online free",
+      "intent": "Type 1–2 characters, pick colors, and download favicon.ico or PNG—all in your browser, no upload.",
+      "description": "Enter initials or a short label, customize background and text colors, preview live, and download ICO or PNG favicons locally on your device.",
+      "secondaryKeywords": [
+        "favicon generator browser",
+        "text favicon maker",
+        "website icon maker"
+      ],
+      "useCases": [
+        "Create a quick monogram favicon for a new site",
+        "Match tab icon colors to your brand palette",
+        "Export ICO or PNG without design software"
+      ],
+      "relatedTools": [
+        "png-to-ico",
+        "favicon-pack",
+        "apple-touch-icon"
+      ],
+      "faq": [
+        {
+          "q": "What sizes does the favicon generator create?",
+          "a": "ICO downloads include 16×16, 32×32, and 48×48 frames. PNG downloads export a crisp 32×32 file."
+        },
+        {
+          "q": "Can I use letters instead of uploading an image?",
+          "a": "Yes. Enter one or two characters, choose background and text colors, and preview the result instantly."
+        },
+        {
+          "q": "Is my logo uploaded to JoinMyPDF?",
+          "a": "No. Favicon generation runs entirely in your browser on your device."
+        },
+        {
+          "q": "Can I use a PNG or JPG as the source?",
+          "a": "Yes. Upload common image formats and download ICO plus PNG outputs."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "png-to-ico",
+      "category": "convert",
+      "operation": "png-to-ico",
+      "title": "PNG to ICO",
+      "primaryKeyword": "png to ico converter online",
+      "intent": "Convert PNG images to ICO format in your browser—private, fast, no upload.",
+      "description": "Upload a PNG and download a Windows-compatible ICO file—all conversion runs locally on your device.",
+      "secondaryKeywords": [
+        "convert png to icon file",
+        "png to favicon ico",
+        "ico converter browser"
+      ],
+      "useCases": [
+        "Prepare legacy favicon.ico files",
+        "Convert app icons for Windows shortcuts",
+        "Bundle PNG artwork into a single ICO"
+      ],
+      "relatedTools": [
+        "ico-to-png",
+        "generate-favicon",
+        "svg-to-favicon"
+      ],
+      "faq": [
+        {
+          "q": "Does PNG to ICO keep transparency?",
+          "a": "Yes. PNG alpha channels are preserved when supported by the ICO container."
+        },
+        {
+          "q": "Is conversion done on your servers?",
+          "a": "No. The PNG is converted locally in your browser session."
+        },
+        {
+          "q": "Can I convert multiple sizes into one ICO?",
+          "a": "Yes. Multi-size ICO output is supported when your source image is large enough."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.8,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "ico-to-png",
+      "category": "convert",
+      "operation": "ico-to-png",
+      "title": "ICO to PNG",
+      "primaryKeyword": "ico to png converter online",
+      "intent": "Extract PNG images from ICO files in your browser—no upload, full privacy.",
+      "description": "Upload an ICO file and download crisp PNG images for editing or modern web use—all processing stays on your device.",
+      "secondaryKeywords": [
+        "extract png from ico",
+        "ico to image converter",
+        "open ico file online"
+      ],
+      "useCases": [
+        "Edit favicon artwork in design tools",
+        "Recover PNG assets from legacy ICO files",
+        "Migrate icons to PNG-first workflows"
+      ],
+      "relatedTools": [
+        "png-to-ico",
+        "generate-favicon",
+        "favicon-pack"
+      ],
+      "faq": [
+        {
+          "q": "Can I extract every size embedded in an ICO?",
+          "a": "Yes. Each embedded frame can be exported as its own PNG when present."
+        },
+        {
+          "q": "Are ICO files uploaded to JoinMyPDF?",
+          "a": "No. Extraction runs locally in your browser."
+        },
+        {
+          "q": "Will transparency be preserved?",
+          "a": "PNG exports keep alpha channels when the ICO frame includes transparency."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.8,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "svg-to-favicon",
+      "category": "convert",
+      "operation": "svg-to-favicon",
+      "title": "SVG to Favicon",
+      "primaryKeyword": "svg to favicon converter",
+      "intent": "Rasterize SVG artwork into crisp favicon ICO files in your browser—pick your output size, no cloud upload.",
+      "description": "Upload an SVG logo, choose 32×32, 48×48, or 64×64 output, preview the result, and download a multi-size ICO locally.",
+      "secondaryKeywords": [
+        "svg to png favicon",
+        "vector logo to favicon",
+        "svg icon generator"
+      ],
+      "useCases": [
+        "Turn vector brand marks into raster favicons",
+        "Export crisp icons from SVG source files",
+        "Prepare PNG fallbacks from SVG logos"
+      ],
+      "relatedTools": [
+        "generate-favicon",
+        "png-to-ico",
+        "favicon-pack"
+      ],
+      "faq": [
+        {
+          "q": "Why convert SVG to favicon ICO?",
+          "a": "Browsers expect raster favicons in ICO format. This tool renders your vector logo at sharp pixel sizes locally."
+        },
+        {
+          "q": "Is my SVG uploaded?",
+          "a": "No. Rendering happens locally in your browser tab."
+        },
+        {
+          "q": "Can I choose output sizes?",
+          "a": "Yes. Pick standard favicon dimensions before download."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.78,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "favicon-pack",
+      "category": "convert",
+      "operation": "favicon-pack",
+      "title": "Favicon Pack",
+      "primaryKeyword": "favicon pack generator",
+      "intent": "Export a full favicon size pack (16×16 through 512×512) in one ZIP—browser-only processing.",
+      "description": "Upload one source image and download every common favicon size in a single ZIP—all generated on your device.",
+      "secondaryKeywords": [
+        "favicon zip download",
+        "all favicon sizes",
+        "pwa icon pack generator"
+      ],
+      "useCases": [
+        "Ship a complete icon set for a new website",
+        "Prepare PWA manifest icons quickly",
+        "Hand off favicon assets to developers in one file"
+      ],
+      "relatedTools": [
+        "generate-favicon",
+        "apple-touch-icon",
+        "png-to-ico"
+      ],
+      "faq": [
+        {
+          "q": "Which sizes are included in the pack?",
+          "a": "Common tab, touch, and manifest sizes from 16×16 up to 512×512."
+        },
+        {
+          "q": "Is the ZIP built on your servers?",
+          "a": "No. Files are generated and zipped locally in your browser."
+        },
+        {
+          "q": "Can I use one square logo as the source?",
+          "a": "Yes. A high-resolution square image produces the sharpest results."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.78,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "apple-touch-icon",
+      "category": "convert",
+      "operation": "apple-touch-icon",
+      "title": "Apple Touch Icon",
+      "primaryKeyword": "apple touch icon generator",
+      "intent": "Generate 180×180 Apple touch icons for iOS home-screen bookmarks—in your browser.",
+      "description": "Upload a logo and download a properly sized Apple touch icon—all processing stays local.",
+      "secondaryKeywords": [
+        "ios home screen icon",
+        "apple-touch-icon.png generator",
+        "iphone bookmark icon"
+      ],
+      "useCases": [
+        "Add iOS home-screen icons for web apps",
+        "Meet Apple touch icon guidelines",
+        "Refresh mobile bookmark artwork"
+      ],
+      "relatedTools": [
+        "favicon-pack",
+        "generate-favicon",
+        "png-to-ico"
+      ],
+      "faq": [
+        {
+          "q": "What size should an Apple touch icon be?",
+          "a": "180×180 pixels is the standard size for modern iOS home-screen icons."
+        },
+        {
+          "q": "Is my image uploaded?",
+          "a": "No. The icon is rendered locally in your browser."
+        },
+        {
+          "q": "Can I add padding around my logo?",
+          "a": "Yes. Optional padding helps logos look balanced on iOS home screens."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.77,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "favicon-compressor",
+      "category": "convert",
+      "operation": "favicon-compressor",
+      "title": "Favicon Compressor",
+      "primaryKeyword": "favicon compressor",
+      "intent": "Compress ICO, PNG, or JPG favicons locally—strip metadata and reduce file size in your browser.",
+      "description": "Upload a favicon and download a smaller optimized version—all processing stays local.",
+      "secondaryKeywords": [
+        "compress favicon online",
+        "optimize favicon file size",
+        "reduce ico file size"
+      ],
+      "useCases": [
+        "Speed up page loads with lighter favicon files",
+        "Remove unnecessary metadata from icon assets",
+        "Shrink legacy ICO files for modern browsers"
+      ],
+      "relatedTools": [
+        "favicon-pack",
+        "png-to-ico",
+        "generate-favicon"
+      ],
+      "faq": [
+        {
+          "q": "Which favicon formats are supported?",
+          "a": "ICO, PNG, and JPG favicon files are supported."
+        },
+        {
+          "q": "Is my favicon uploaded?",
+          "a": "No. Compression runs entirely in your browser."
+        },
+        {
+          "q": "Will compression hurt icon quality?",
+          "a": "The optimizer targets small file sizes while keeping favicons visually sharp at tab and bookmark sizes."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.76,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "favicon-cropper",
+      "category": "convert",
+      "operation": "favicon-cropper",
+      "title": "Favicon Cropper",
+      "primaryKeyword": "favicon cropper",
+      "intent": "Crop PNG, JPG, or SVG artwork to a square favicon region—in your browser.",
+      "description": "Upload artwork, crop to a square favicon frame, and download PNG—all processing stays local.",
+      "secondaryKeywords": [
+        "crop favicon online",
+        "square favicon crop tool",
+        "favicon image cropper"
+      ],
+      "useCases": [
+        "Frame logos for favicon use",
+        "Trim excess padding from icon artwork",
+        "Prepare square crops before generating favicon packs"
+      ],
+      "relatedTools": [
+        "generate-favicon",
+        "favicon-pack",
+        "png-to-ico"
+      ],
+      "faq": [
+        {
+          "q": "Which file types can I crop?",
+          "a": "PNG, JPG, and SVG files are supported."
+        },
+        {
+          "q": "Is my image uploaded?",
+          "a": "No. Cropping runs entirely in your browser."
+        },
+        {
+          "q": "What output sizes are available?",
+          "a": "You can download the native crop resolution or resize to 32×32 or 48×48 PNG."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.75,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "transparent-favicon",
+      "category": "convert",
+      "operation": "transparent-favicon",
+      "title": "Transparent Favicon",
+      "primaryKeyword": "transparent favicon maker",
+      "intent": "Click a background color to make it transparent and download a PNG favicon—in your browser.",
+      "description": "Upload a PNG or JPG, pick the background color to remove, and download a transparent favicon locally.",
+      "secondaryKeywords": [
+        "remove favicon background",
+        "make favicon transparent",
+        "color to alpha favicon"
+      ],
+      "useCases": [
+        "Remove solid backgrounds from logo favicons",
+        "Prepare transparent PNGs for modern browsers",
+        "Clean up JPG favicon artwork before conversion"
+      ],
+      "relatedTools": [
+        "generate-favicon",
+        "favicon-cropper",
+        "png-to-ico"
+      ],
+      "faq": [
+        {
+          "q": "Which file types are supported?",
+          "a": "PNG and JPG files are supported."
+        },
+        {
+          "q": "Is my image uploaded?",
+          "a": "No. Transparency is applied locally in your browser."
+        },
+        {
+          "q": "Can I remove more than one color?",
+          "a": "Yes. Click additional background colors to make each one transparent."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.74,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "favicon-code-generator",
+      "category": "convert",
+      "operation": "favicon-code-generator",
+      "title": "Favicon Code Generator",
+      "primaryKeyword": "favicon html code generator",
+      "intent": "Generate standard HTML link tags for favicons, Apple Touch icons, Android Chrome, and web manifests—in your browser.",
+      "description": "Enter your favicon path and copy a complete HTML snippet for modern browsers—all generation stays local.",
+      "secondaryKeywords": [
+        "favicon link tags",
+        "apple touch icon html",
+        "site webmanifest link"
+      ],
+      "useCases": [
+        "Add favicon tags to a new website quickly",
+        "Copy Apple Touch and Android icon references",
+        "Standardize favicon HTML across projects"
+      ],
+      "relatedTools": [
+        "favicon-pack",
+        "generate-favicon",
+        "apple-touch-icon"
+      ],
+      "faq": [
+        {
+          "q": "What HTML tags are generated?",
+          "a": "The snippet includes standard favicon, PNG sizes, Apple Touch Icon, Android Chrome icons, SVG, and web manifest link tags."
+        },
+        {
+          "q": "Is anything uploaded?",
+          "a": "No. You only enter a path and the HTML is generated locally in your browser."
+        },
+        {
+          "q": "Can I use a path in a subfolder?",
+          "a": "Yes. Enter paths like /assets/favicon.png and companion files are assumed to live in the same folder."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.73,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "favicon-previewer",
+      "category": "convert",
+      "operation": "favicon-previewer",
+      "title": "Favicon Previewer",
+      "primaryKeyword": "favicon previewer",
+      "intent": "Preview your favicon in browser tabs, bookmarks, and home-screen shortcuts—in your browser.",
+      "description": "Upload a favicon or paste a URL, then preview it in light and dark browser UI contexts locally.",
+      "secondaryKeywords": [
+        "favicon preview online",
+        "test favicon in browser tab",
+        "favicon bookmark preview"
+      ],
+      "useCases": [
+        "Check favicon legibility in browser tabs",
+        "Compare light and dark UI backgrounds",
+        "Validate icons before publishing with the code generator"
+      ],
+      "relatedTools": [
+        "favicon-code-generator",
+        "generate-favicon",
+        "favicon-pack"
+      ],
+      "faq": [
+        {
+          "q": "Can I preview a hosted favicon URL?",
+          "a": "Yes. Paste a direct favicon URL or upload a file from your device."
+        },
+        {
+          "q": "Is my favicon uploaded?",
+          "a": "No. File previews stay in your browser. URL previews are loaded directly by your browser."
+        },
+        {
+          "q": "Which contexts are shown?",
+          "a": "The preview includes a browser tab, bookmarks bar, and home-screen shortcut mockup."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.72,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
     }
   ]
 }

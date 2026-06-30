@@ -24,6 +24,9 @@ export const FEATURED_HOME_TOOL_SLUGS = [
   "word-to-pdf",
 ] as const;
 
+/** Homepage — 3 most popular PDF tools */
+export const HOMEPAGE_FEATURED_PDF_SLUGS = ["pdf-merge", "pdf-compress", "pdf-split"] as const;
+
 /** Homepage grid — 12 most popular tools in a 3×4 accordion */
 export const HOMEPAGE_GRID_TOOL_SLUGS = [
   "pdf-merge",
@@ -55,6 +58,25 @@ export function buildFeaturedHomeToolItems(tTools: ToolsTranslator) {
       slugHint: tool.slug,
     };
   }).filter((item): item is NonNullable<typeof item> => Boolean(item));
+}
+
+export type HomeFeaturedToolItem = {
+  href: string;
+  label: string;
+  slugHint: string;
+};
+
+export function buildHomepageFeaturedPdfItems(tTools: ToolsTranslator): HomeFeaturedToolItem[] {
+  return HOMEPAGE_FEATURED_PDF_SLUGS.map((slug) => {
+    const tool = registry.tools.find((item) => item.slug === slug);
+    if (!tool) return null;
+
+    return {
+      href: `/tools/${tool.slug}/`,
+      label: translateToolItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title)),
+      slugHint: tool.slug,
+    };
+  }).filter((item): item is HomeFeaturedToolItem => Boolean(item));
 }
 
 export function buildHomepageGridToolItems(tTools: ToolsTranslator): HomeGridToolItem[] {

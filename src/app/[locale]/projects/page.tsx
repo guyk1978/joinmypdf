@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
+import { AppPageShell } from "@/components/AppPageShell";
 import { ProjectsGrid } from "@/components/ProjectsGrid";
-import { ProjectsHero } from "@/components/ProjectsHero";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -38,17 +35,12 @@ export default async function ProjectsPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/projects`),
         }}
       />
-      <div className="home-page-shell projects-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
-        <main className="home-tool-grid-page">
-          <ProjectsHero />
-          <div className="projects-page-content home-tool-grid-shell mx-auto w-full max-w-4xl">
-            <ProjectsGrid locale={locale} />
-          </div>
-        </main>
-        <SiteFooter tagline="tools" />
-      </div>
+      <AppPageShell>
+        <div className="home-minimal-layout home-minimal-layout--directory">
+          <h1 className="home-minimal-tagline">{t("title")}</h1>
+          <ProjectsGrid locale={locale} />
+        </div>
+      </AppPageShell>
     </>
   );
 }

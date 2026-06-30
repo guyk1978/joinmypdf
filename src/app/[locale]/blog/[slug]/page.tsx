@@ -7,9 +7,7 @@ import { AdContainer } from "@/components/AdContainer";
 import { BlogArticleBody } from "@/components/BlogArticleBody";
 import { BlogArticleTemplate } from "@/components/BlogArticleTemplate";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import { blogPostingLd, breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
@@ -148,9 +146,7 @@ export default async function BlogPostPage({
           { name: displayTitle, path: pathname },
         ])}
       />
-      <div className="home-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
+      <AppPageShell mainClassName="guides-learning-page">
         <BlogArticleTemplate>
           <article className="article-template__content">
             <header className="article-header text-center">
@@ -289,8 +285,7 @@ export default async function BlogPostPage({
             </div>
           </article>
         </BlogArticleTemplate>
-        <SiteFooter tagline="blog" />
-      </div>
+      </AppPageShell>
     </>
   );
 }

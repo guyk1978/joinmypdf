@@ -1,5 +1,6 @@
 import type { getTranslations } from "next-intl/server";
 import type { ToolDefinition, ToolVariant } from "./types";
+import { buildLocalizedToolFaqs } from "./tool-faqs";
 import { translateToolItem } from "./i18n-tool-labels";
 
 export type ToolPageTranslator = Awaited<ReturnType<typeof getTranslations<"ToolPage">>>;
@@ -21,6 +22,22 @@ const ACTION_KEYS: Record<string, string> = {
   "delete-pages": "deletePages",
   "add-page-numbers": "pageNumbers",
   "crop-pdf": "crop",
+  "crop-image": "crop",
+  "resize-image": "resize",
+  "convert-to-png": "convert",
+  "rotate-image": "rotate",
+  "compress-image": "compress",
+  "generate-favicon": "default",
+  "png-to-ico": "default",
+  "ico-to-png": "default",
+  "svg-to-favicon": "default",
+  "favicon-pack": "default",
+  "apple-touch-icon": "default",
+  "favicon-compressor": "default",
+  "favicon-cropper": "default",
+  "transparent-favicon": "default",
+  "favicon-code-generator": "default",
+  "favicon-previewer": "default",
   "add-watermark": "watermark",
   "rotate-pdf": "rotate",
   "autocad-to-pdf": "autocad",
@@ -109,22 +126,5 @@ export function getLocalizedToolFaqs(
   toolTitle: string,
   locale: string,
 ): { q: string; a: string }[] {
-  if (!variant && tool.faq?.length && locale === "en") return tool.faq;
-
-  if (!variant) {
-    return [
-      { q: t("faqs.freeQ", { toolTitle }), a: t("faqs.freeA") },
-      { q: t("faqs.uploadQ"), a: t("faqs.uploadA") },
-      { q: t("faqs.watermarkQ"), a: t("faqs.watermarkA") },
-      { q: t("faqs.mobileQ"), a: t("faqs.mobileA") },
-    ];
-  }
-
-  const angle = variant.angle || t("faqs.variantAngleDefault");
-  return [
-    { q: t("faqs.variantSameQ", { toolTitle }), a: t("faqs.variantSameA") },
-    { q: t("faqs.variantKeywordQ", { keyword: variant.keyword }), a: angle },
-    { q: t("faqs.variantBackendQ"), a: t("faqs.variantBackendA") },
-    { q: t("faqs.variantMainPageQ", { toolTitle }), a: t("faqs.variantMainPageA", { slug: tool.slug }) },
-  ];
+  return buildLocalizedToolFaqs(t, tool, variant, toolTitle, locale);
 }

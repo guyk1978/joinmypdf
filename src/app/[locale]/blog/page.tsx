@@ -1,10 +1,6 @@
 import { BlogGuideListItem } from "@/components/BlogGuideListItem";
-import { BlogGuidesHero } from "@/components/BlogGuidesHero";
 import { AdContainer } from "@/components/AdContainer";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { WattQuickCrossLink } from "@/components/partner/WattQuickCrossLink";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -58,25 +54,15 @@ export default async function BlogIndexPage({ params }: Props) {
   });
 
   return (
-    <>
-      <div className="home-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
-        <main className="guides-learning-page">
-          <BlogGuidesHero />
-
-          <div className="guides-learning-content mx-auto w-full max-w-3xl px-4 md:px-8">
-            {posts.length > 0 ? (
-              <section aria-label={t("allGuides")}>
-                <ul className="guide-list">{listItems}</ul>
-              </section>
-            ) : null}
-
-            <WattQuickCrossLink className="mt-12" />
-          </div>
-        </main>
-        <SiteFooter tagline="blog" />
+    <AppPageShell mainClassName="guides-learning-page">
+      <div className="home-minimal-layout home-minimal-layout--directory">
+        <h1 className="home-minimal-tagline">{t("metaTitle")}</h1>
+        {posts.length > 0 ? (
+          <section aria-label={t("allGuides")}>
+            <ul className="guide-list">{listItems}</ul>
+          </section>
+        ) : null}
       </div>
-    </>
+    </AppPageShell>
   );
 }

@@ -77,7 +77,7 @@ const config: Config = {
         "glow-soft": "none",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Segoe UI", "Roboto", "Arial", "sans-serif"],
+        sans: ["Arial", "Helvetica Neue", "Helvetica", "Segoe UI", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
       },
     },

@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { InvoiceGenerator } from "@/components/invoice/InvoiceGenerator";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AppPageShell } from "@/components/AppPageShell";
 import {
   createInvoiceDocumentForTemplate,
   getInvoiceTemplateBySlug,
@@ -80,8 +79,7 @@ export default async function InvoiceTemplatePage({ params }: PageProps) {
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         }}
       />
-      <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
+      <AppPageShell mainClassName="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
         <header className="mb-4 max-w-3xl space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black dark:text-neutral-200">
             {profile.professionLabel} template
@@ -125,8 +123,7 @@ export default async function InvoiceTemplatePage({ params }: PageProps) {
             Blank invoice generator
           </Link>
         </section>
-      </main>
-      <SiteFooter tagline="tools" />
+      </AppPageShell>
     </>
   );
 }

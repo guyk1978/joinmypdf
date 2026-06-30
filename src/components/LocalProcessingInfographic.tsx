@@ -42,37 +42,37 @@ export async function LocalProcessingInfographic({
       <p
         className={
           isDashboard
-            ? "mt-2 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-sm"
+            ? "mt-3 text-base leading-relaxed text-neutral-400"
             : "mx-auto mb-10 max-w-2xl text-base text-black dark:text-neutral-200 md:text-lg"
         }
       >
         {t("subheadline")}
       </p>
-      <div className={isDashboard ? "mt-4 grid grid-cols-1 gap-3 text-start md:grid-cols-3" : "mb-10 grid grid-cols-1 gap-2 text-start md:grid-cols-3"}>
+      <div className={isDashboard ? "mt-5 grid grid-cols-1 gap-4 text-start md:grid-cols-3" : "mb-10 grid grid-cols-1 gap-2 text-start md:grid-cols-3"}>
         <div className={cardClass}>
           <div className={iconClass}>🛡️</div>
-          <h3 className={isDashboard ? "mb-1 text-sm font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
+          <h3 className={isDashboard ? "mb-2 text-base font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
             {t("privateTitle")}
           </h3>
-          <p className={isDashboard ? "text-xs leading-relaxed text-neutral-600 dark:text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
+          <p className={isDashboard ? "text-base leading-relaxed text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
             {t("privateBody")}
           </p>
         </div>
         <div className={cardClass}>
           <div className={iconClass}>⚡</div>
-          <h3 className={isDashboard ? "mb-1 text-sm font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
+          <h3 className={isDashboard ? "mb-2 text-base font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
             {t("fastTitle")}
           </h3>
-          <p className={isDashboard ? "text-xs leading-relaxed text-neutral-600 dark:text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
+          <p className={isDashboard ? "text-base leading-relaxed text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
             {t("fastBody")}
           </p>
         </div>
         <div className={cardClass}>
           <div className={iconClass}>✨</div>
-          <h3 className={isDashboard ? "mb-1 text-sm font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
+          <h3 className={isDashboard ? "mb-2 text-base font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
             {t("limitsTitle")}
           </h3>
-          <p className={isDashboard ? "text-xs leading-relaxed text-neutral-600 dark:text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
+          <p className={isDashboard ? "text-base leading-relaxed text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
             {t("limitsBody")}
           </p>
         </div>

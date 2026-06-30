@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 export const runtime = "edge";
-import { FavoritesHero } from "@/components/FavoritesHero";
+import { AppPageShell } from "@/components/AppPageShell";
 import { FavoritesToolGrid } from "@/components/FavoritesToolGrid";
-import { HomePageSeamlessBg } from "@/components/HomePageSeamlessBg";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
 import { routing } from "@/i18n/routing";
 import { buildAllHomeToolItems } from "@/lib/featured-tools";
 import { JsonLd } from "@/lib/schema";
@@ -46,15 +43,12 @@ export default async function FavoritesPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/favorites`),
         }}
       />
-      <div className="home-page-shell favorites-page-shell min-h-screen text-black dark:text-white">
-        <HomePageSeamlessBg />
-        <SiteHeader />
-        <main className="home-tool-grid-page">
-          <FavoritesHero />
+      <AppPageShell>
+        <div className="home-minimal-layout home-minimal-layout--directory">
+          <h1 className="home-minimal-tagline">{t("title")}</h1>
           <FavoritesToolGrid items={toolItems} />
-        </main>
-        <SiteFooter tagline="tools" />
-      </div>
+        </div>
+      </AppPageShell>
     </>
   );
 }
