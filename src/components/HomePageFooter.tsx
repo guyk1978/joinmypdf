@@ -3,7 +3,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
-import { HomeTrustSignals } from "@/components/HomeTrustSignals";
 import { routing, type AppLocale } from "@/i18n/routing";
 
 export function HomePageFooter() {
@@ -20,17 +19,14 @@ export function HomePageFooter() {
   return (
     <footer className="home-page-footer">
       <div className="home-page-footer__inner">
-        <div className="home-page-footer__start">
-          <button
-            type="button"
-            className="home-locale-orb"
-            onClick={switchLocale}
-            aria-label={nextLocale === "he" ? "עברית" : "English"}
-          >
-            {locale === "he" ? "א" : "En"}
-          </button>
-          <HomeTrustSignals />
-        </div>
+        <button
+          type="button"
+          className="home-locale-orb"
+          onClick={switchLocale}
+          aria-label={nextLocale === "he" ? "עברית" : "English"}
+        >
+          {locale === "he" ? "א" : "En"}
+        </button>
 
         <nav className="home-page-footer__end" aria-label={tFooter("expandFooter")}>
           <Link href="/" className="home-page-footer__link" prefetch={false}>
@@ -42,10 +38,11 @@ export function HomePageFooter() {
           <Link href="/contact/" className="home-page-footer__link" prefetch={false}>
             {tFooter("links.contact")}
           </Link>
-          <Link href="/" className="home-page-footer__logo-link" aria-label="JoinMyPDF">
-            <JoinMyPdfLogo className="home-page-footer__logo" />
-          </Link>
         </nav>
+
+        <Link href="/" className="home-page-footer__logo-link" aria-label="JoinMyPDF">
+          <JoinMyPdfLogo className="home-page-footer__logo" />
+        </Link>
       </div>
     </footer>
   );

@@ -12,10 +12,12 @@ type AppPageShellProps = {
 /** Unified dark minimalist page shell — header, main, footer. */
 export function AppPageShell({ children, className, mainClassName }: AppPageShellProps) {
   return (
-    <div className={clsx("app-page-shell flex min-h-screen flex-col", className)}>
-      <SiteHeader />
-      <main className={clsx("home-tool-grid-page flex-1", mainClassName)}>{children}</main>
-      <HomePageFooter />
+    <div className={clsx("app-page-shell", className)}>
+      <div className="app-page-canvas">
+        <SiteHeader />
+        <main className={clsx("home-tool-grid-page flex-1", mainClassName)}>{children}</main>
+        <HomePageFooter />
+      </div>
     </div>
   );
 }

@@ -27,7 +27,11 @@
     "nav": {
       "image": "Image",
       "pdf": "PDF",
-      "favicon": "Favicon"
+      "utilities": "Utilities"
+    },
+    "navSections": {
+      "utilitiesFaviconSection": "Favicon Tools",
+      "utilitiesTextJsonSection": "Text & JSON Tools"
     },
     "navItems": {
       "resizeImage": "Resize Image",
@@ -50,6 +54,16 @@
       "transparentFavicon": "Transparent Favicon",
       "faviconCodeGenerator": "Favicon Code Generator",
       "faviconPreviewer": "Favicon Previewer",
+      "jsonFormatter": "JSON Formatter",
+      "jsonToCsv": "JSON to CSV",
+      "jsonMinifier": "JSON Minifier",
+      "csvToJson": "CSV to JSON",
+      "base64EncoderDecoder": "Base64 Encoder/Decoder",
+      "urlEncoderDecoder": "URL Encoder/Decoder",
+      "textDiffChecker": "Text Diff Checker",
+      "stringGenerator": "String Generator",
+      "htmlMarkdownConverter": "HTML/Markdown Converter",
+      "wordCharacterCounter": "Word & Character Counter",
       "mergePdf": "Merge PDF",
       "splitPdf": "Split PDF",
       "compressPdf": "Compress PDF",
@@ -145,9 +159,13 @@
     "viewAllPdfTools": "View all PDF tools",
     "viewAllImageTools": "View all Image tools",
     "viewAllFaviconTools": "View all Favicon tools",
+    "viewAllUtilities": "View all Utilities",
+    "viewAllTextJsonTools": "View all Text & JSON tools",
     "pdfSectionTitle": "PDF",
     "imageSectionTitle": "Image",
     "faviconSectionTitle": "Favicon",
+    "utilitiesSectionTitle": "Utilities",
+    "textJsonSectionTitle": "Text & JSON",
     "imageToolsDirectoryTitle": "Image tools",
     "imageToolsDirectoryDescription": "Resize, convert, crop, rotate, and compress images in your browser.",
     "faviconToolsDirectoryTitle": "Favicon tools",
@@ -236,7 +254,57 @@
           "description": "Preview your favicon in browser tabs, bookmarks, and home-screen shortcuts."
         }
       }
-    }
+    },
+    "textJsonTools": {
+      "title": "TEXT & JSON TOOLS",
+      "description": "Format and validate JSON locally — no uploads, no servers.",
+      "items": {
+        "jsonFormatter": {
+          "label": "JSON Formatter",
+          "description": "Paste raw JSON, validate syntax, and copy a clean indented result."
+        },
+        "jsonToCsv": {
+          "label": "JSON to CSV",
+          "description": "Flatten nested JSON and export a standard CSV file with automatic headers."
+        },
+        "jsonMinifier": {
+          "label": "JSON Minifier",
+          "description": "Strip whitespace and compress JSON into a compact single-line format."
+        },
+        "csvToJson": {
+          "label": "CSV to JSON",
+          "description": "Parse CSV data and convert it into a JSON array of objects in your browser."
+        },
+        "base64EncoderDecoder": {
+          "label": "Base64 Encoder/Decoder",
+          "description": "Encode text or files to Base64 and decode Base64 strings locally in your browser."
+        },
+        "urlEncoderDecoder": {
+          "label": "URL Encoder/Decoder",
+          "description": "Encode and decode URL strings for query parameters, SEO, and safe data transfer."
+        },
+        "textDiffChecker": {
+          "label": "Text Diff Checker",
+          "description": "Compare two text versions side by side with clear additions and deletions."
+        },
+        "stringGenerator": {
+          "label": "String Generator",
+          "description": "Generate secure random strings or UUID v4 values in batches — locally in your browser."
+        },
+        "htmlMarkdownConverter": {
+          "label": "HTML/Markdown Converter",
+          "description": "Convert Markdown to HTML or HTML back to Markdown in real time — entirely in your browser."
+        },
+        "wordCharacterCounter": {
+          "label": "Word & Character Counter",
+          "description": "Count characters, words, paragraphs, and reading time in real time — supports English and Hebrew."
+        }
+      }
+    },
+    "utilitiesDirectoryTitle": "Utilities",
+    "utilitiesDirectoryDescription": "Favicon generators and text utilities — all processed locally in your browser.",
+    "textJsonToolsDirectoryTitle": "Text & JSON tools",
+    "textJsonToolsDirectoryDescription": "Format and validate JSON in your browser — private, fast, and server-free."
   },
   "Favorites": {
     "metaTitle": "Favorite PDF tools — JoinMyPDF",
@@ -811,5 +879,121 @@
     "invalidFile": "Please choose a PNG, JPG, ICO, or SVG favicon file.",
     "invalidUrl": "Could not load that favicon URL. Check the address or upload the file instead.",
     "replaceFavicon": "Replace favicon"
+  },
+  "JsonFormatter": {
+    "inputLabel": "JSON input",
+    "inputPlaceholder": "Paste minified or messy JSON here…",
+    "formatButton": "Format / Validate",
+    "outputLabel": "Formatted JSON",
+    "copyButton": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard. Select the output and copy manually.",
+    "emptyInput": "JSON input is empty."
+  },
+  "JsonToCsv": {
+    "inputLabel": "JSON input",
+    "inputPlaceholder": "Paste a JSON array or object here…",
+    "convertButton": "Convert to CSV",
+    "previewLabel": "CSV preview",
+    "previewMoreRows": "+{count} more rows in the full export",
+    "downloadButton": "Download CSV",
+    "emptyInput": "JSON input is empty."
+  },
+  "JsonMinifier": {
+    "inputLabel": "JSON input",
+    "inputPlaceholder": "Paste formatted or readable JSON here…",
+    "minifyButton": "Minify",
+    "outputLabel": "Minified JSON",
+    "copyButton": "Copy Minified",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard. Select the output and copy manually."
+  },
+  "CsvToJson": {
+    "inputLabel": "CSV input",
+    "inputPlaceholder": "Paste raw CSV data here…",
+    "headersLabel": "Use first row as headers",
+    "convertButton": "Convert to JSON",
+    "outputLabel": "Generated JSON",
+    "copyButton": "Copy JSON",
+    "downloadButton": "Download JSON File",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard. Select the output and copy manually."
+  },
+  "Base64EncoderDecoder": {
+    "inputLabel": "Input",
+    "inputPlaceholder": "Paste plain text or a Base64 string here…",
+    "outputLabel": "Result",
+    "encodeButton": "Encode to Base64",
+    "decodeButton": "Decode from Base64",
+    "uploadButton": "Upload File to Base64",
+    "uploadAria": "Select a file to encode as Base64",
+    "uploadedFile": "Encoded from file: {fileName}",
+    "copyButton": "Copy Result",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard. Select the output and copy manually."
+  },
+  "UrlEncoderDecoder": {
+    "inputLabel": "Input",
+    "inputPlaceholder": "Paste a string or URL here…",
+    "outputLabel": "Result",
+    "encodeButton": "Encode URL",
+    "decodeButton": "Decode URL",
+    "copyButton": "Copy",
+    "clearButton": "Clear",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard. Select the output and copy manually."
+  },
+  "TextDiffChecker": {
+    "originalLabel": "Original Text",
+    "originalPlaceholder": "Paste the original text here…",
+    "changedLabel": "Changed Text",
+    "changedPlaceholder": "Paste the revised text here…",
+    "compareButton": "Compare",
+    "resultOriginalLabel": "Original",
+    "resultChangedLabel": "Changed",
+    "emptyDiff": "No differences to display.",
+    "statsLabel": "+{added} added · −{removed} removed · {unchanged} unchanged"
+  },
+  "StringGenerator": {
+    "settingsTitle": "Generator settings",
+    "lengthLabel": "String length",
+    "quantityLabel": "Quantity",
+    "uppercaseLabel": "Include uppercase",
+    "numbersLabel": "Include numbers",
+    "specialLabel": "Include special characters",
+    "generateButton": "Generate random string",
+    "uuidButton": "Generate UUID v4",
+    "outputLabel": "Generated output",
+    "copyButton": "Copy",
+    "regenerateButton": "Regenerate",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard. Select the output and copy manually."
+  },
+  "HtmlMarkdownConverter": {
+    "modeMarkdownToHtml": "Markdown → HTML",
+    "modeHtmlToMarkdown": "HTML → Markdown",
+    "markdownInputLabel": "Markdown Input",
+    "htmlOutputLabel": "HTML Output",
+    "htmlInputLabel": "HTML Input",
+    "markdownOutputLabel": "Markdown Output",
+    "markdownPlaceholder": "Type or paste Markdown here…",
+    "htmlPlaceholder": "Type or paste HTML here…",
+    "copyHtmlButton": "Copy HTML",
+    "copyMarkdownButton": "Copy Markdown",
+    "previewButton": "Preview",
+    "codeButton": "Code",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard. Select the output and copy manually."
+  },
+  "WordCharacterCounter": {
+    "inputLabel": "Text input",
+    "inputPlaceholder": "Type or paste your text here…",
+    "statsTitle": "Statistics",
+    "charactersWithSpacesLabel": "Characters (with spaces)",
+    "charactersWithoutSpacesLabel": "Characters (no spaces)",
+    "wordsLabel": "Words",
+    "paragraphsLabel": "Paragraphs",
+    "readingTimeLabel": "Reading time",
+    "readingTimeValue": "{minutes} min"
   }
 }

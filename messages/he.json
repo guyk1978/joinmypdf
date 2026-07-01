@@ -27,7 +27,11 @@
     "nav": {
       "image": "תמונה",
       "pdf": "PDF",
-      "favicon": "Favicon"
+      "utilities": "כלי עזר"
+    },
+    "navSections": {
+      "utilitiesFaviconSection": "כלי Favicon",
+      "utilitiesTextJsonSection": "טקסט ו-JSON"
     },
     "navItems": {
       "resizeImage": "שינוי גודל תמונה",
@@ -50,6 +54,16 @@
       "transparentFavicon": "Favicon שקוף",
       "faviconCodeGenerator": "מחולל קוד Favicon",
       "faviconPreviewer": "תצוגת Favicon",
+      "jsonFormatter": "מעצב JSON",
+      "jsonToCsv": "JSON ל-CSV",
+      "jsonMinifier": "מכווץ JSON",
+      "csvToJson": "CSV ל-JSON",
+      "base64EncoderDecoder": "מקודד/מפענח Base64",
+      "urlEncoderDecoder": "מקודד/מפענח URL",
+      "textDiffChecker": "בודק הבדלי טקסט",
+      "stringGenerator": "מחולל מחרוזות",
+      "htmlMarkdownConverter": "ממיר HTML/Markdown",
+      "wordCharacterCounter": "מונה מילים ותווים",
       "mergePdf": "מיזוג PDF",
       "splitPdf": "פיצול PDF",
       "compressPdf": "דחיסת PDF",
@@ -145,9 +159,13 @@
     "viewAllPdfTools": "צפה בכל כלי ה-PDF",
     "viewAllImageTools": "צפה בכל כלי התמונה",
     "viewAllFaviconTools": "צפה בכל כלי ה-Favicon",
+    "viewAllUtilities": "צפה בכל כלי העזר",
+    "viewAllTextJsonTools": "צפה בכל כלי הטקסט ו-JSON",
     "pdfSectionTitle": "PDF",
     "imageSectionTitle": "תמונה",
     "faviconSectionTitle": "Favicon",
+    "utilitiesSectionTitle": "כלי עזר",
+    "textJsonSectionTitle": "טקסט ו-JSON",
     "imageToolsDirectoryTitle": "כלי תמונה",
     "imageToolsDirectoryDescription": "שינוי גודל, המרה, חיתוך, סיבוב ודחיסת תמונות בדפדפן.",
     "faviconToolsDirectoryTitle": "כלי Favicon",
@@ -236,7 +254,57 @@
           "description": "צפה ב-favicon בלשוניות דפדפן, סרגל סימניות וקיצורי מסך הבית."
         }
       }
-    }
+    },
+    "textJsonTools": {
+      "title": "כלי טקסט ו-JSON",
+      "description": "עיצוב ואימות JSON מקומית — בלי העלאות ובלי שרתים.",
+      "items": {
+        "jsonFormatter": {
+          "label": "מעצב JSON",
+          "description": "הדבק JSON גולמי, אמת תחביר והעתק תוצאה מסודרת עם הזחה."
+        },
+        "jsonToCsv": {
+          "label": "JSON ל-CSV",
+          "description": "שטח JSON מקונן וייצא קובץ CSV סטנדרטי עם כותרות אוטומטיות."
+        },
+        "jsonMinifier": {
+          "label": "מכווץ JSON",
+          "description": "הסר רווחים ודחוס JSON לפורמט קומפקטי בשורה אחת."
+        },
+        "csvToJson": {
+          "label": "CSV ל-JSON",
+          "description": "נתח נתוני CSV והמר אותם למערך JSON של אובייקטים בדפדפן."
+        },
+        "base64EncoderDecoder": {
+          "label": "מקודד/מפענח Base64",
+          "description": "קודד טקסט או קבצים ל-Base64 ופענח מחרוזות Base64 מקומית בדפדפן."
+        },
+        "urlEncoderDecoder": {
+          "label": "מקודד/מפענח URL",
+          "description": "קודד ופענח מחרוזות URL לפרמטרי שאילתה, SEO והעברת נתונים בטוחה."
+        },
+        "textDiffChecker": {
+          "label": "בודק הבדלי טקסט",
+          "description": "השווה שתי גרסאות טקסט זו לצד זו עם סימון ברור של תוספות ומחיקות."
+        },
+        "stringGenerator": {
+          "label": "מחולל מחרוזות",
+          "description": "צור מחרוזות אקראיות מאובטחות או מזהי UUID v4 בכמות — מקומית בדפדפן."
+        },
+        "htmlMarkdownConverter": {
+          "label": "ממיר HTML/Markdown",
+          "description": "המר Markdown ל-HTML או HTML חזרה ל-Markdown בזמן אמת — לחלוטין בדפדפן."
+        },
+        "wordCharacterCounter": {
+          "label": "מונה מילים ותווים",
+          "description": "ספור תווים, מילים, פסקאות וזמן קריאה בזמן אמת — תומך בעברית ובאנגלית."
+        }
+      }
+    },
+    "utilitiesDirectoryTitle": "כלי עזר",
+    "utilitiesDirectoryDescription": "מחוללי favicon וכלי טקסט — הכל מעובד מקומית בדפדפן.",
+    "textJsonToolsDirectoryTitle": "כלי טקסט ו-JSON",
+    "textJsonToolsDirectoryDescription": "עיצוב ואימות JSON בדפדפן — פרטי, מהיר וללא שרת."
   },
   "Favorites": {
     "metaTitle": "כלי PDF מועדפים — JoinMyPDF",
@@ -811,5 +879,121 @@
     "invalidFile": "בחר קובץ favicon מסוג PNG, JPG, ICO או SVG.",
     "invalidUrl": "לא ניתן לטעון את כתובת ה-favicon. בדוק את הכתובת או העלה את הקובץ.",
     "replaceFavicon": "החלף favicon"
+  },
+  "JsonFormatter": {
+    "inputLabel": "קלט JSON",
+    "inputPlaceholder": "הדבק JSON דחוס או לא מסודר כאן…",
+    "formatButton": "עיצוב / אימות",
+    "outputLabel": "JSON מעוצב",
+    "copyButton": "העתק",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח. בחר את הפלט והעתק ידנית.",
+    "emptyInput": "קלט JSON ריק."
+  },
+  "JsonToCsv": {
+    "inputLabel": "קלט JSON",
+    "inputPlaceholder": "הדבק מערך JSON או אובייקט כאן…",
+    "convertButton": "המר ל-CSV",
+    "previewLabel": "תצוגת CSV",
+    "previewMoreRows": "+{count} שורות נוספות בייצוא המלא",
+    "downloadButton": "הורד CSV",
+    "emptyInput": "קלט JSON ריק."
+  },
+  "JsonMinifier": {
+    "inputLabel": "קלט JSON",
+    "inputPlaceholder": "הדבק JSON מעוצב או קריא כאן…",
+    "minifyButton": "כווץ",
+    "outputLabel": "JSON דחוס",
+    "copyButton": "העתק דחוס",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח. בחר את הפלט והעתק ידנית."
+  },
+  "CsvToJson": {
+    "inputLabel": "קלט CSV",
+    "inputPlaceholder": "הדבק נתוני CSV גולמיים כאן…",
+    "headersLabel": "השתמש בשורה הראשונה ככותרות",
+    "convertButton": "המר ל-JSON",
+    "outputLabel": "JSON שנוצר",
+    "copyButton": "העתק JSON",
+    "downloadButton": "הורד קובץ JSON",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח. בחר את הפלט והעתק ידנית."
+  },
+  "Base64EncoderDecoder": {
+    "inputLabel": "קלט",
+    "inputPlaceholder": "הדבק טקסט רגיל או מחרוזת Base64 כאן…",
+    "outputLabel": "תוצאה",
+    "encodeButton": "קודד ל-Base64",
+    "decodeButton": "פענח מ-Base64",
+    "uploadButton": "העלה קובץ ל-Base64",
+    "uploadAria": "בחר קובץ לקידוד כ-Base64",
+    "uploadedFile": "קודד מקובץ: {fileName}",
+    "copyButton": "העתק תוצאה",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח. בחר את הפלט והעתק ידנית."
+  },
+  "UrlEncoderDecoder": {
+    "inputLabel": "קלט",
+    "inputPlaceholder": "הדבק מחרוזת או URL כאן…",
+    "outputLabel": "תוצאה",
+    "encodeButton": "קודד URL",
+    "decodeButton": "פענח URL",
+    "copyButton": "העתק",
+    "clearButton": "נקה",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח. בחר את הפלט והעתק ידנית."
+  },
+  "TextDiffChecker": {
+    "originalLabel": "טקסט מקורי",
+    "originalPlaceholder": "הדבק את הטקסט המקורי כאן…",
+    "changedLabel": "טקסט משתנה",
+    "changedPlaceholder": "הדבק את הטקסט המעודכן כאן…",
+    "compareButton": "השווה",
+    "resultOriginalLabel": "מקורי",
+    "resultChangedLabel": "משתנה",
+    "emptyDiff": "אין הבדלים להצגה.",
+    "statsLabel": "+{added} נוספו · −{removed} הוסרו · {unchanged} ללא שינוי"
+  },
+  "StringGenerator": {
+    "settingsTitle": "הגדרות מחולל",
+    "lengthLabel": "אורך מחרוזת",
+    "quantityLabel": "כמות",
+    "uppercaseLabel": "כלול אותיות גדולות",
+    "numbersLabel": "כלול ספרות",
+    "specialLabel": "כלול תווים מיוחדים",
+    "generateButton": "צור מחרוזת אקראית",
+    "uuidButton": "צור UUID v4",
+    "outputLabel": "פלט שנוצר",
+    "copyButton": "העתק",
+    "regenerateButton": "צור מחדש",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח. בחר את הפלט והעתק ידנית."
+  },
+  "HtmlMarkdownConverter": {
+    "modeMarkdownToHtml": "Markdown → HTML",
+    "modeHtmlToMarkdown": "HTML → Markdown",
+    "markdownInputLabel": "קלט Markdown",
+    "htmlOutputLabel": "פלט HTML",
+    "htmlInputLabel": "קלט HTML",
+    "markdownOutputLabel": "פלט Markdown",
+    "markdownPlaceholder": "הקלד או הדבק Markdown כאן…",
+    "htmlPlaceholder": "הקלד או הדבק HTML כאן…",
+    "copyHtmlButton": "העתק HTML",
+    "copyMarkdownButton": "העתק Markdown",
+    "previewButton": "תצוגה מקדימה",
+    "codeButton": "קוד",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח. בחר את הפלט והעתק ידנית."
+  },
+  "WordCharacterCounter": {
+    "inputLabel": "קלט טקסט",
+    "inputPlaceholder": "הקלד או הדבק את הטקסט כאן…",
+    "statsTitle": "סטטיסטיקה",
+    "charactersWithSpacesLabel": "תווים (כולל רווחים)",
+    "charactersWithoutSpacesLabel": "תווים (ללא רווחים)",
+    "wordsLabel": "מילים",
+    "paragraphsLabel": "פסקאות",
+    "readingTimeLabel": "זמן קריאה",
+    "readingTimeValue": "{minutes} דק׳"
   }
 }

@@ -4,10 +4,17 @@ export type NavItem = {
   comingSoon?: boolean;
 };
 
-export type NavDropdown = {
+export type NavDropdownSection = {
   id: string;
   label: string;
   items: NavItem[];
+};
+
+export type NavDropdown = {
+  id: string;
+  label: string;
+  items?: NavItem[];
+  sections?: NavDropdownSection[];
 };
 
 export type NavLink = {
@@ -141,5 +148,13 @@ export function isNavItemActive(pathname: string, href: string): boolean {
 }
 
 export function isDropdownActive(pathname: string, dropdown: NavDropdown): boolean {
-  return dropdown.items.some((item) => !item.comingSoon && isNavItemActive(pathname, item.href));
+  if (dropdown.sections?.length) {
+    return dropdown.sections.some((section) =>
+      section.items.some((item) => !item.comingSoon && isNavItemActive(pathname, item.href)),
+    );
+  }
+
+  return (dropdown.items ?? []).some(
+    (item) => !item.comingSoon && isNavItemActive(pathname, item.href),
+  );
 }

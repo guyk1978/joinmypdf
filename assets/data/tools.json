@@ -2981,6 +2981,686 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "json-formatter",
+      "category": "convert",
+      "operation": "json-formatter",
+      "title": "JSON Formatter",
+      "primaryKeyword": "json formatter online",
+      "intent": "Format, validate, and beautify JSON in your browser with instant syntax feedback.",
+      "description": "Paste raw JSON, validate syntax, and copy a clean indented result — all processing stays local.",
+      "secondaryKeywords": [
+        "json beautifier",
+        "json validator",
+        "format json online"
+      ],
+      "useCases": [
+        "Clean up API responses before sharing or documenting",
+        "Validate config files during development",
+        "Pretty-print minified JSON logs for debugging"
+      ],
+      "relatedTools": [
+        "json-to-csv",
+        "json-minifier"
+      ],
+      "faq": [
+        {
+          "q": "Is my JSON uploaded to a server?",
+          "a": "No. Parsing and formatting happen entirely in your browser. Your JSON never leaves your device."
+        },
+        {
+          "q": "What happens if the JSON is invalid?",
+          "a": "The tool shows a concise parse error message so you can fix the syntax without leaving the page."
+        },
+        {
+          "q": "Can I copy the formatted output?",
+          "a": "Yes. Use the Copy button to place the indented JSON on your clipboard."
+        },
+        {
+          "q": "Does formatting change my data?",
+          "a": "Formatting only changes whitespace and line breaks. The parsed values remain the same."
+        },
+        {
+          "q": "Can I format large JSON files?",
+          "a": "Yes, within your browser memory limits. Very large payloads may take longer to parse locally."
+        },
+        {
+          "q": "Does this tool support JSON with comments?",
+          "a": "Standard JSON only. Comments and trailing commas are not valid JSON and will show a parse error."
+        },
+        {
+          "q": "Is there a file size limit?",
+          "a": "There is no server upload limit because nothing is uploaded. Performance depends on your device."
+        },
+        {
+          "q": "Can I use this offline?",
+          "a": "Once the page is loaded, formatting works offline because processing is fully client-side."
+        },
+        {
+          "q": "What indentation does the formatter use?",
+          "a": "The output uses two-space indentation for readable, diff-friendly formatting."
+        },
+        {
+          "q": "Is the JSON Formatter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.7,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "json-to-csv",
+      "category": "convert",
+      "operation": "json-to-csv",
+      "title": "JSON to CSV",
+      "primaryKeyword": "json to csv converter",
+      "intent": "Flatten nested JSON and export standard CSV with automatic headers — entirely in your browser.",
+      "description": "Paste JSON arrays or objects, preview the CSV table, and download a file locally with no uploads.",
+      "secondaryKeywords": [
+        "convert json to csv online",
+        "json flatten to csv",
+        "export json as csv"
+      ],
+      "useCases": [
+        "Export API responses to spreadsheet-friendly CSV",
+        "Flatten nested configuration JSON for analysis",
+        "Convert JSON logs into tabular reports"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "csv-to-json"
+      ],
+      "faq": [
+        {
+          "q": "Is my JSON uploaded to a server?",
+          "a": "No. Parsing, flattening, and CSV generation happen entirely in your browser."
+        },
+        {
+          "q": "What JSON shapes are supported?",
+          "a": "You can paste a JSON array of objects, a single object, or an array of primitive values."
+        },
+        {
+          "q": "How are nested objects handled?",
+          "a": "Nested keys are flattened with dot notation, such as address.city."
+        },
+        {
+          "q": "How are arrays handled?",
+          "a": "Array values are serialized as JSON strings inside the CSV cell."
+        },
+        {
+          "q": "Are CSV headers created automatically?",
+          "a": "Yes. Column headers are derived from the flattened JSON keys across all rows."
+        },
+        {
+          "q": "Can I preview before downloading?",
+          "a": "Yes. The tool shows a read-only preview table of the converted rows before you download."
+        },
+        {
+          "q": "What file format is downloaded?",
+          "a": "A standard UTF-8 CSV file suitable for Excel, Google Sheets, and data tools."
+        },
+        {
+          "q": "What happens if the JSON is invalid?",
+          "a": "The tool shows a concise parse error so you can fix the syntax locally."
+        },
+        {
+          "q": "Is there a row limit?",
+          "a": "There is no server limit because nothing is uploaded. Very large JSON may depend on your device memory."
+        },
+        {
+          "q": "Is JSON to CSV free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.69,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "json-minifier",
+      "category": "convert",
+      "operation": "json-minifier",
+      "title": "JSON Minifier",
+      "primaryKeyword": "json minifier online",
+      "intent": "Compress JSON by removing whitespace and newlines — entirely in your browser.",
+      "description": "Paste readable JSON and get a compact single-line result. Copy the minified output locally with no uploads.",
+      "secondaryKeywords": [
+        "minify json",
+        "compress json online",
+        "json compressor"
+      ],
+      "useCases": [
+        "Shrink JSON payloads for APIs and network transfer",
+        "Compact config files for production bundles",
+        "Reduce JSON size before embedding in HTML or scripts"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "json-to-csv"
+      ],
+      "faq": [
+        {
+          "q": "Is my JSON uploaded to a server?",
+          "a": "No. Minification runs entirely in your browser using standard JSON parsing."
+        },
+        {
+          "q": "Does minifying change the JSON data?",
+          "a": "No. Only whitespace is removed. The parsed values remain identical."
+        },
+        {
+          "q": "What does the minifier output look like?",
+          "a": "The result is a compact single-line JSON string with no extra spaces or line breaks."
+        },
+        {
+          "q": "Can I copy the minified JSON?",
+          "a": "Yes. Use the Copy Minified button to place the result on your clipboard."
+        },
+        {
+          "q": "What happens if the JSON is invalid?",
+          "a": "The tool shows a concise parse error so you can fix the syntax locally."
+        },
+        {
+          "q": "Is this different from the JSON Formatter?",
+          "a": "Yes. The formatter adds readable indentation. The minifier removes all unnecessary whitespace."
+        },
+        {
+          "q": "Can I minify large JSON files?",
+          "a": "Yes, within your browser memory limits. Very large payloads may take longer locally."
+        },
+        {
+          "q": "Does it support JSON with comments?",
+          "a": "Standard JSON only. Comments and trailing commas are not valid and will show a parse error."
+        },
+        {
+          "q": "Can I use this offline?",
+          "a": "Once the page is loaded, minification works offline because processing is fully client-side."
+        },
+        {
+          "q": "Is the JSON Minifier free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.68,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "csv-to-json",
+      "category": "convert",
+      "operation": "csv-to-json",
+      "title": "CSV to JSON",
+      "primaryKeyword": "csv to json converter",
+      "intent": "Parse CSV and convert it into a JSON array of objects — entirely in your browser.",
+      "description": "Paste CSV data, optionally use the first row as headers, and copy or download formatted JSON locally.",
+      "secondaryKeywords": [
+        "convert csv to json online",
+        "csv parser json",
+        "export csv as json"
+      ],
+      "useCases": [
+        "Turn spreadsheet exports into JSON for APIs and apps",
+        "Convert legacy CSV reports into structured JSON",
+        "Preview CSV-to-JSON output before integrating data pipelines"
+      ],
+      "relatedTools": [
+        "json-to-csv",
+        "json-formatter"
+      ],
+      "faq": [
+        {
+          "q": "Is my CSV uploaded to a server?",
+          "a": "No. Parsing and JSON generation happen entirely in your browser."
+        },
+        {
+          "q": "Does the parser handle quoted fields?",
+          "a": "Yes. Commas, quotes, and newlines inside quoted CSV fields are handled correctly."
+        },
+        {
+          "q": "What does 'Use first row as headers' do?",
+          "a": "When enabled, the first CSV row becomes JSON object keys. When disabled, generic column names are used."
+        },
+        {
+          "q": "What JSON format is produced?",
+          "a": "The output is a JSON array of objects with two-space indentation for readability."
+        },
+        {
+          "q": "Can I download the JSON file?",
+          "a": "Yes. Use Download JSON File to save a UTF-8 .json file locally."
+        },
+        {
+          "q": "Can I copy the JSON output?",
+          "a": "Yes. Use Copy JSON to place the generated JSON on your clipboard."
+        },
+        {
+          "q": "What happens if the CSV is empty?",
+          "a": "The tool shows a concise message indicating there is no data to convert."
+        },
+        {
+          "q": "Are duplicate header names supported?",
+          "a": "Duplicate headers are automatically deduplicated with numeric suffixes."
+        },
+        {
+          "q": "Can I use this offline?",
+          "a": "Once the page is loaded, conversion works offline because processing is fully client-side."
+        },
+        {
+          "q": "Is CSV to JSON free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.67,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "base64-encoder-decoder",
+      "category": "convert",
+      "operation": "base64-encoder-decoder",
+      "title": "Base64 Encoder/Decoder",
+      "primaryKeyword": "base64 encoder decoder online",
+      "intent": "Encode text or files to Base64 and decode Base64 strings — entirely in your browser.",
+      "description": "Paste text, encode or decode with native Base64 functions, upload a file to Base64, and copy results locally.",
+      "secondaryKeywords": [
+        "base64 encode text",
+        "base64 decode online",
+        "file to base64 converter"
+      ],
+      "useCases": [
+        "Encode API payloads and tokens for transport",
+        "Decode Base64 strings from logs or configs",
+        "Convert small files to Base64 for data URIs or embeds"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "json-minifier"
+      ],
+      "faq": [
+        {
+          "q": "Is my data uploaded to a server?",
+          "a": "No. Encoding, decoding, and file reading happen entirely in your browser."
+        },
+        {
+          "q": "Does file upload send my file anywhere?",
+          "a": "No. The file is read locally in your browser and converted to Base64 on your device."
+        },
+        {
+          "q": "What happens if I decode invalid Base64?",
+          "a": "The tool shows a concise warning without disrupting the rest of the interface."
+        },
+        {
+          "q": "Does encoding support Unicode text?",
+          "a": "Yes. Text is encoded as UTF-8 bytes before Base64 conversion."
+        },
+        {
+          "q": "Can I copy the result?",
+          "a": "Yes. Use Copy Result to place the output on your clipboard."
+        },
+        {
+          "q": "What is Upload File to Base64?",
+          "a": "It reads any local file and outputs its raw bytes as a Base64 string."
+        },
+        {
+          "q": "Is there a file size limit?",
+          "a": "There is no server limit because nothing is uploaded. Very large files depend on your device memory."
+        },
+        {
+          "q": "Which functions are used?",
+          "a": "The tool uses native btoa() and atob() with UTF-8 safe byte handling for text."
+        },
+        {
+          "q": "Can I use this offline?",
+          "a": "Once the page is loaded, encoding and decoding work offline."
+        },
+        {
+          "q": "Is the Base64 tool free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.66,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "url-encoder-decoder",
+      "category": "convert",
+      "operation": "url-encoder-decoder",
+      "title": "URL Encoder/Decoder",
+      "primaryKeyword": "url encoder decoder online",
+      "intent": "Encode and decode URL strings with encodeURIComponent — entirely in your browser.",
+      "description": "Paste a string or URL, encode special characters for query strings, decode encoded URLs, and copy results locally.",
+      "secondaryKeywords": [
+        "url encode online",
+        "decode url component",
+        "percent encoding tool"
+      ],
+      "useCases": [
+        "Encode query parameters for APIs and web forms",
+        "Decode URL-encoded strings from analytics or logs",
+        "Prepare SEO-friendly and safe URL fragments"
+      ],
+      "relatedTools": [
+        "base64-encoder-decoder",
+        "json-formatter"
+      ],
+      "faq": [
+        {
+          "q": "Is my data uploaded to a server?",
+          "a": "No. Encoding and decoding happen entirely in your browser."
+        },
+        {
+          "q": "Which encoding function is used?",
+          "a": "The tool uses native encodeURIComponent and decodeURIComponent."
+        },
+        {
+          "q": "What happens if decoding fails?",
+          "a": "You see a concise warning when the input is not valid URL-encoded text."
+        },
+        {
+          "q": "Can I encode spaces and special characters?",
+          "a": "Yes. Spaces, question marks, slashes, and other reserved characters are encoded safely."
+        },
+        {
+          "q": "Can I copy the result?",
+          "a": "Yes. Use the Copy button to place the output on your clipboard."
+        },
+        {
+          "q": "What does Clear do?",
+          "a": "It resets the input, output, and any warning message."
+        },
+        {
+          "q": "Is this for full URLs or query values?",
+          "a": "encodeURIComponent is ideal for query parameter values and individual URL components."
+        },
+        {
+          "q": "Can I use this offline?",
+          "a": "Once the page is loaded, encoding and decoding work offline."
+        },
+        {
+          "q": "Does encoding change the meaning of my text?",
+          "a": "Decoding restores the original readable text when the input was properly encoded."
+        },
+        {
+          "q": "Is the URL Encoder/Decoder free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.65,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "text-diff-checker",
+      "category": "convert",
+      "operation": "text-diff-checker",
+      "title": "Text Diff Checker",
+      "primaryKeyword": "text diff checker online",
+      "intent": "Compare two text versions side by side with highlighted additions and deletions — in your browser.",
+      "description": "Paste original and changed text, run a line-by-line diff, and review additions and deletions locally.",
+      "secondaryKeywords": [
+        "compare text online",
+        "text difference tool",
+        "side by side diff"
+      ],
+      "useCases": [
+        "Review copy edits before publishing",
+        "Compare config or code snippets quickly",
+        "Spot changes between document drafts"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "url-encoder-decoder"
+      ],
+      "faq": [
+        {
+          "q": "Is my text uploaded to a server?",
+          "a": "No. Comparison runs entirely in your browser."
+        },
+        {
+          "q": "How does the diff work?",
+          "a": "The tool compares text line by line and aligns additions and deletions side by side."
+        },
+        {
+          "q": "How are additions and deletions shown?",
+          "a": "Additions use a subtle green highlight and deletions use a subtle red highlight in dark mode."
+        },
+        {
+          "q": "Can I compare long documents?",
+          "a": "Yes. Input and result panes support synchronized scrolling for easier review."
+        },
+        {
+          "q": "Is comparison automatic?",
+          "a": "Click Compare to run the diff when you are ready."
+        },
+        {
+          "q": "Does it work with JSON or code?",
+          "a": "Yes. Any plain text works, including JSON, code, and prose."
+        },
+        {
+          "q": "Are blank lines compared?",
+          "a": "Yes. Line breaks are preserved in the comparison."
+        },
+        {
+          "q": "Can I use this offline?",
+          "a": "Once the page is loaded, comparison works offline."
+        },
+        {
+          "q": "Is there a character limit?",
+          "a": "There is no server limit because nothing is uploaded. Very large texts depend on your device."
+        },
+        {
+          "q": "Is the Text Diff Checker free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.64,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "string-generator",
+      "category": "convert",
+      "operation": "string-generator",
+      "title": "String Generator (UUID/Random)",
+      "primaryKeyword": "random string generator online",
+      "intent": "Generate secure random strings or UUID v4 values in batches — entirely in your browser.",
+      "description": "Configure length, character sets, and quantity; generate UUIDs or custom random strings; copy results locally.",
+      "secondaryKeywords": [
+        "uuid generator v4",
+        "secure random string",
+        "batch id generator"
+      ],
+      "useCases": [
+        "Create API keys and test tokens locally",
+        "Generate multiple UUIDs for database seeding",
+        "Produce passwords or slugs with custom character rules"
+      ],
+      "relatedTools": [
+        "base64-encoder-decoder",
+        "url-encoder-decoder"
+      ],
+      "faq": [
+        {
+          "q": "Is generation done on a server?",
+          "a": "No. Random strings and UUIDs are created entirely in your browser using crypto APIs."
+        },
+        {
+          "q": "How are random strings generated?",
+          "a": "The tool uses crypto.getRandomValues() to pick characters from your selected charset."
+        },
+        {
+          "q": "How are UUIDs generated?",
+          "a": "UUID v4 values use the browser's crypto.randomUUID() function."
+        },
+        {
+          "q": "Can I generate multiple values at once?",
+          "a": "Yes. Set Quantity to generate up to 100 strings or UUIDs, one per line."
+        },
+        {
+          "q": "What character sets can I include?",
+          "a": "Lowercase letters are always included. You can toggle uppercase, numbers, and special characters."
+        },
+        {
+          "q": "What is the maximum string length?",
+          "a": "Custom random strings support lengths from 1 to 4096 characters."
+        },
+        {
+          "q": "Is this tool free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.64,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "html-markdown-converter",
+      "category": "convert",
+      "operation": "html-markdown-converter",
+      "title": "HTML/Markdown Converter",
+      "primaryKeyword": "markdown to html converter online",
+      "intent": "Convert Markdown to HTML or HTML back to Markdown in real time — entirely in your browser.",
+      "description": "Split-screen editor with live conversion, reverse mode, rich HTML preview, and one-click copy.",
+      "secondaryKeywords": [
+        "html to markdown converter",
+        "markdown html converter",
+        "live markdown preview"
+      ],
+      "useCases": [
+        "Draft blog posts and preview rendered HTML instantly",
+        "Convert legacy HTML snippets into Markdown for docs",
+        "Prototype README content before publishing"
+      ],
+      "relatedTools": [
+        "markdown-to-pdf",
+        "text-diff-checker"
+      ],
+      "faq": [
+        {
+          "q": "Is conversion done on a server?",
+          "a": "No. Markdown and HTML are converted entirely in your browser."
+        },
+        {
+          "q": "Does conversion update in real time?",
+          "a": "Yes. The output column updates as you type in the input column."
+        },
+        {
+          "q": "Can I convert HTML back to Markdown?",
+          "a": "Yes. Toggle HTML → Markdown mode to reverse the direction."
+        },
+        {
+          "q": "What libraries are used?",
+          "a": "The tool uses marked for Markdown to HTML and Turndown for HTML to Markdown, loaded on demand."
+        },
+        {
+          "q": "What does Preview show?",
+          "a": "Preview renders your HTML output as rich text so you can see how it will look on a page."
+        },
+        {
+          "q": "Is the HTML/Markdown Converter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.64,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "word-character-counter",
+      "category": "convert",
+      "operation": "word-character-counter",
+      "title": "Word & Character Counter",
+      "primaryKeyword": "word and character counter online",
+      "intent": "Count characters, words, paragraphs, and reading time in real time — entirely in your browser.",
+      "description": "Paste or type text and get instant statistics with support for English, Hebrew, and mixed RTL content.",
+      "secondaryKeywords": [
+        "character count tool",
+        "word count online",
+        "reading time estimator"
+      ],
+      "useCases": [
+        "Check article length before publishing",
+        "Verify Hebrew or bilingual copy limits",
+        "Estimate reading time for blog posts"
+      ],
+      "relatedTools": [
+        "text-diff-checker",
+        "html-markdown-converter"
+      ],
+      "faq": [
+        {
+          "q": "Is my text uploaded to a server?",
+          "a": "No. All counting runs entirely in your browser."
+        },
+        {
+          "q": "Does it support Hebrew text?",
+          "a": "Yes. The counter handles Hebrew, English, and mixed RTL/LTR text, including standard punctuation."
+        },
+        {
+          "q": "How is reading time calculated?",
+          "a": "Reading time is estimated at about 200 words per minute, rounded up to at least one minute when text is present."
+        },
+        {
+          "q": "What counts as a paragraph?",
+          "a": "Paragraphs are blocks of text separated by one or more blank lines."
+        },
+        {
+          "q": "What is the difference between character counts?",
+          "a": "Characters with spaces includes every character and whitespace. Characters without spaces excludes all whitespace."
+        },
+        {
+          "q": "Do statistics update in real time?",
+          "a": "Yes. Counters update instantly as you type."
+        },
+        {
+          "q": "Is the Word & Character Counter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.64,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
     }
   ]
 }

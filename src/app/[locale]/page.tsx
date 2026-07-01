@@ -21,7 +21,7 @@ import { getBrandName } from "@/lib/brand";
 import { buildHomepageFeaturedPdfItems } from "@/lib/featured-tools";
 
 import { buildHomepageFeaturedImageItems } from "@/lib/image-tools";
-import { buildHomepageFeaturedFaviconItems } from "@/lib/favicon-tools";
+import { buildHomepageFeaturedUtilityItems } from "@/lib/utilities-tools";
 
 import { JsonLd } from "@/lib/schema";
 
@@ -80,7 +80,7 @@ export default async function HomePage({ params }: Props) {
   const pdfItems = buildHomepageFeaturedPdfItems(tTools);
 
   const imageItems = buildHomepageFeaturedImageItems(tHome);
-  const faviconItems = buildHomepageFeaturedFaviconItems(tHome);
+  const utilityItems = buildHomepageFeaturedUtilityItems(tHome);
 
 
 
@@ -110,7 +110,7 @@ export default async function HomePage({ params }: Props) {
 
         <h1 className="sr-only">{tHome("headline")}</h1>
 
-        <HomeToolGrid pdfItems={pdfItems} imageItems={imageItems} faviconItems={faviconItems} />
+        <HomeToolGrid pdfItems={pdfItems} imageItems={imageItems} utilityItems={utilityItems} />
 
       </AppPageShell>
 

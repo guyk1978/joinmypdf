@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { clsx } from "clsx";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { isDropdownActive, isNavItemActive, type NavDropdown } from "@/lib/nav-config";
+import { isDropdownActive, isNavItemActive, type NavDropdown, type NavItem } from "@/lib/nav-config";
 
 const OPEN_DELAY = 100;
 const CLOSE_DELAY = 320;
@@ -16,6 +16,14 @@ type HeaderNavDropdownProps = {
 
 const SCROLL_ITEM_THRESHOLD = 10;
 
+function getDropdownItems(dropdown: NavDropdown): NavItem[] {
+  if (dropdown.sections?.length) {
+    return dropdown.sections.flatMap((section) => section.items);
+  }
+
+  return dropdown.items ?? [];
+}
+
 export function HeaderNavDropdown({ dropdown, onNavigate }: HeaderNavDropdownProps) {
   const pathname = usePathname() || "/";
   const panelId = useId();
@@ -24,6 +32,7 @@ export function HeaderNavDropdown({ dropdown, onNavigate }: HeaderNavDropdownPro
   const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [open, setOpen] = useState(false);
   const active = isDropdownActive(pathname, dropdown);
+  const allItems = getDropdownItems(dropdown);
 
   const clearTimer = (timerRef: { current: ReturnType<typeof setTimeout> | null }) => {
     if (timerRef.current != null) {
@@ -80,6 +89,25 @@ export function HeaderNavDropdown({ dropdown, onNavigate }: HeaderNavDropdownPro
     };
   }, [open, setDropdownOpen]);
 
+  const renderItem = (item: NavItem) => {
+    const itemActive = isNavItemActive(pathname, item.href);
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        role="menuitem"
+        className={clsx("nav-dropdown__item", itemActive && "is-active")}
+        prefetch={false}
+        onClick={() => {
+          onNavigate?.();
+          setDropdownOpen(false);
+        }}
+      >
+        {item.label}
+      </Link>
+    );
+  };
+
   return (
     <div
       ref={rootRef}
@@ -104,30 +132,21 @@ export function HeaderNavDropdown({ dropdown, onNavigate }: HeaderNavDropdownPro
         id={panelId}
         className={clsx(
           "nav-dropdown__panel",
-          dropdown.items.length > SCROLL_ITEM_THRESHOLD && "nav-dropdown__panel--scroll",
+          dropdown.sections?.length && "nav-dropdown__panel--sectioned",
+          allItems.length > SCROLL_ITEM_THRESHOLD && "nav-dropdown__panel--scroll",
         )}
         role="menu"
         onMouseEnter={scheduleOpen}
         onMouseLeave={scheduleClose}
       >
-        {dropdown.items.map((item) => {
-          const itemActive = isNavItemActive(pathname, item.href);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              role="menuitem"
-              className={clsx("nav-dropdown__item", itemActive && "is-active")}
-              prefetch={false}
-              onClick={() => {
-                onNavigate?.();
-                setDropdownOpen(false);
-              }}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
+        {dropdown.sections?.length
+          ? dropdown.sections.map((section) => (
+              <div key={section.id} className="nav-dropdown__section" role="group" aria-label={section.label}>
+                <p className="nav-dropdown__section-label">{section.label}</p>
+                {section.items.map(renderItem)}
+              </div>
+            ))
+          : allItems.map(renderItem)}
       </div>
     </div>
   );

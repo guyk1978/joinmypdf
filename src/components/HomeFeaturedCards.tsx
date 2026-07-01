@@ -3,10 +3,11 @@
 import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { clsx } from "clsx";
-import { Braces, Crop, Expand, FileCode, FileImage, ImageDown, Layers, Minimize2, PanelTop, Pipette, RotateCw, Smartphone, Sparkles, Split, Combine, type LucideIcon } from "lucide-react";
+import { Braces, Binary, CodeXml, Crop, Dices, Expand, FileCode, FileImage, FileJson, GitCompare, ImageDown, Layers, LetterText, Link as LinkIcon, Minimize2, PanelTop, Pipette, RotateCw, Smartphone, Sparkles, Split, Combine, Table, type LucideIcon } from "lucide-react";
 import { getToolIcon } from "@/lib/tool-icons";
 import type { HomeImageToolIconKey } from "@/lib/image-tools";
 import type { HomeFaviconToolIconKey } from "@/lib/favicon-tools";
+import type { HomeTextJsonToolIconKey } from "@/lib/text-json-tools";
 
 const IMAGE_TOOL_ICONS = {
   expand: Expand,
@@ -37,20 +38,42 @@ const FAVICON_TOOL_ICONS = {
   "panel-top": PanelTop,
 } satisfies Record<HomeFaviconToolIconKey, LucideIcon>;
 
+const TEXT_JSON_TOOL_ICONS = {
+  braces: Braces,
+  table: Table,
+  "minimize-2": Minimize2,
+  "file-json": FileJson,
+  binary: Binary,
+  link: LinkIcon,
+  "git-compare": GitCompare,
+  dices: Dices,
+  "code-xml": CodeXml,
+  "letter-text": LetterText,
+} satisfies Record<HomeTextJsonToolIconKey, LucideIcon>;
+
 type HomeFeaturedToolCardProps = {
   href: string;
   label: string;
   slugHint: string;
   imageIconKey?: HomeImageToolIconKey;
   faviconIconKey?: HomeFaviconToolIconKey;
+  textJsonIconKey?: HomeTextJsonToolIconKey;
 };
 
-export function HomeFeaturedToolCard({ href, label, slugHint, imageIconKey, faviconIconKey }: HomeFeaturedToolCardProps) {
+export function HomeFeaturedToolCard({
+  href,
+  label,
+  slugHint,
+  imageIconKey,
+  faviconIconKey,
+  textJsonIconKey,
+}: HomeFeaturedToolCardProps) {
   const ImageIcon = imageIconKey ? IMAGE_TOOL_ICONS[imageIconKey] : null;
   const FaviconIcon = faviconIconKey ? FAVICON_TOOL_ICONS[faviconIconKey] : null;
-  const PdfIcon = !ImageIcon && !FaviconIcon ? PDF_FEATURED_ICONS[slugHint] : null;
-  const pdfVisual = !ImageIcon && !FaviconIcon && !PdfIcon ? getToolIcon(slugHint, label) : null;
-  const MonochromeIcon = ImageIcon || FaviconIcon || PdfIcon;
+  const TextJsonIcon = textJsonIconKey ? TEXT_JSON_TOOL_ICONS[textJsonIconKey] : null;
+  const PdfIcon = !ImageIcon && !FaviconIcon && !TextJsonIcon ? PDF_FEATURED_ICONS[slugHint] : null;
+  const pdfVisual = !ImageIcon && !FaviconIcon && !TextJsonIcon && !PdfIcon ? getToolIcon(slugHint, label) : null;
+  const MonochromeIcon = ImageIcon || FaviconIcon || TextJsonIcon || PdfIcon;
 
   return (
     <Link href={href} className="home-feature-card" prefetch={false}>

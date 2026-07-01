@@ -95,9 +95,46 @@ function dedupeHeaders(headers: string[]): string[] {
  * Parse raw CSV text into row objects. Drops malformed rows and normalizes headers.
  */
 export function parseCsvString(raw: string): ParsedDataset {
+  return parseCsvStringWithOptions(raw, { useFirstRowAsHeaders: true });
+}
+
+export type ParseCsvOptions = {
+  useFirstRowAsHeaders?: boolean;
+};
+
+/**
+ * Parse raw CSV text into row objects with optional header handling.
+ */
+export function parseCsvStringWithOptions(
+  raw: string,
+  options: ParseCsvOptions = {},
+): ParsedDataset {
+  const useFirstRowAsHeaders = options.useFirstRowAsHeaders !== false;
   const lines = splitCsvRows(raw.replace(/^\uFEFF/, ""));
   if (!lines.length) {
     return { rows: [], columns: [], sourceFormat: "csv" };
+  }
+
+  if (!useFirstRowAsHeaders) {
+    const parsedLines = lines
+      .map((line) => parseCsvLine(line))
+      .filter((cells) => cells.some((cell) => cell.length > 0));
+
+    if (!parsedLines.length) {
+      return { rows: [], columns: [], sourceFormat: "csv" };
+    }
+
+    const columnCount = Math.max(...parsedLines.map((cells) => cells.length), 0);
+    const columns = Array.from({ length: columnCount }, (_, index) => `column_${index + 1}`);
+    const rows: DataRow[] = [];
+
+    for (const cells of parsedLines) {
+      while (cells.length < columns.length) cells.push("");
+      const row = rowFromCells(columns, cells.slice(0, columns.length));
+      if (row) rows.push(row);
+    }
+
+    return { rows, columns, sourceFormat: "csv" };
   }
 
   const headerCells = parseCsvLine(lines[0]);

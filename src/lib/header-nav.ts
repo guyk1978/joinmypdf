@@ -1,16 +1,27 @@
-import type { NavDropdown } from "@/lib/nav-config";
+import type { NavDropdown, NavDropdownSection } from "@/lib/nav-config";
 
-export type HeaderNavDropdownId = "image" | "pdf" | "favicon";
+export type HeaderNavDropdownId = "image" | "pdf" | "utilities";
 
 type HeaderNavItemSpec = {
   href: string;
   labelKey: string;
 };
 
-type HeaderNavDropdownSpec = {
-  id: HeaderNavDropdownId;
+type HeaderNavSectionSpec = {
+  id: string;
+  labelKey: string;
   items: HeaderNavItemSpec[];
 };
+
+type HeaderNavDropdownSpec =
+  | {
+      id: "image" | "pdf";
+      items: HeaderNavItemSpec[];
+    }
+  | {
+      id: "utilities";
+      sections: HeaderNavSectionSpec[];
+    };
 
 /** Image-only tools and image conversion workflows. */
 const IMAGE_NAV_ITEMS: HeaderNavItemSpec[] = [
@@ -26,7 +37,7 @@ const IMAGE_NAV_ITEMS: HeaderNavItemSpec[] = [
 ];
 
 /** Favicon generation and icon format conversion tools. */
-const FAVICON_NAV_ITEMS: HeaderNavItemSpec[] = [
+export const FAVICON_NAV_ITEMS: HeaderNavItemSpec[] = [
   { href: "/tools/generate-favicon/", labelKey: "generateFavicon" },
   { href: "/tools/png-to-ico/", labelKey: "pngToIco" },
   { href: "/tools/ico-to-png/", labelKey: "icoToPng" },
@@ -38,6 +49,20 @@ const FAVICON_NAV_ITEMS: HeaderNavItemSpec[] = [
   { href: "/tools/transparent-favicon/", labelKey: "transparentFavicon" },
   { href: "/tools/favicon-code-generator/", labelKey: "faviconCodeGenerator" },
   { href: "/tools/favicon-previewer/", labelKey: "faviconPreviewer" },
+];
+
+/** Text and JSON utility tools. */
+export const TEXT_JSON_NAV_ITEMS: HeaderNavItemSpec[] = [
+  { href: "/tools/json-formatter/", labelKey: "jsonFormatter" },
+  { href: "/tools/json-to-csv/", labelKey: "jsonToCsv" },
+  { href: "/tools/json-minifier/", labelKey: "jsonMinifier" },
+  { href: "/tools/csv-to-json/", labelKey: "csvToJson" },
+  { href: "/tools/base64-encoder-decoder/", labelKey: "base64EncoderDecoder" },
+  { href: "/tools/url-encoder-decoder/", labelKey: "urlEncoderDecoder" },
+  { href: "/tools/text-diff-checker/", labelKey: "textDiffChecker" },
+  { href: "/tools/string-generator/", labelKey: "stringGenerator" },
+  { href: "/tools/html-markdown-converter/", labelKey: "htmlMarkdownConverter" },
+  { href: "/tools/word-character-counter/", labelKey: "wordCharacterCounter" },
 ];
 
 /** PDF edit, security, and document conversion tools. */
@@ -88,20 +113,49 @@ const PDF_NAV_ITEMS: HeaderNavItemSpec[] = [
 export const HEADER_NAV_SPECS: HeaderNavDropdownSpec[] = [
   { id: "image", items: IMAGE_NAV_ITEMS },
   { id: "pdf", items: PDF_NAV_ITEMS },
-  { id: "favicon", items: FAVICON_NAV_ITEMS },
+  {
+    id: "utilities",
+    sections: [
+      { id: "favicon", labelKey: "utilitiesFaviconSection", items: FAVICON_NAV_ITEMS },
+      { id: "textJson", labelKey: "utilitiesTextJsonSection", items: TEXT_JSON_NAV_ITEMS },
+    ],
+  },
 ];
 
 type HeaderNavTranslator = {
   (key: string): string;
 };
 
-export function buildHeaderNavDropdowns(t: HeaderNavTranslator): NavDropdown[] {
-  return HEADER_NAV_SPECS.map((spec) => ({
-    id: spec.id,
-    label: t(`nav.${spec.id}`),
-    items: spec.items.map((item) => ({
-      href: item.href,
-      label: t(`navItems.${item.labelKey}`),
-    })),
+function mapNavItems(
+  t: HeaderNavTranslator,
+  items: HeaderNavItemSpec[],
+): NavDropdownSection["items"] {
+  return items.map((item) => ({
+    href: item.href,
+    label: t(`navItems.${item.labelKey}`),
   }));
+}
+
+export function buildHeaderNavDropdowns(t: HeaderNavTranslator): NavDropdown[] {
+  return HEADER_NAV_SPECS.map((spec) => {
+    if (spec.id === "utilities") {
+      const sections: NavDropdownSection[] = spec.sections.map((section) => ({
+        id: section.id,
+        label: t(`navSections.${section.labelKey}`),
+        items: mapNavItems(t, section.items),
+      }));
+
+      return {
+        id: spec.id,
+        label: t(`nav.${spec.id}`),
+        sections,
+      };
+    }
+
+    return {
+      id: spec.id,
+      label: t(`nav.${spec.id}`),
+      items: mapNavItems(t, spec.items),
+    };
+  });
 }

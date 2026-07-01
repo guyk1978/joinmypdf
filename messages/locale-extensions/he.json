@@ -1432,6 +1432,36 @@
     "favicon-previewer": {
       "privacyNote": "תצוגת favicon רצה לחלוטין בדפדפן. הקובץ או ה-URL שלך לא מועלים לשרתים שלנו."
     },
+    "json-formatter": {
+      "privacyNote": "עיצוב ואימות JSON מתבצעים לחלוטין בדפדפן. הטקסט שלך לא עוזב את המכשיר."
+    },
+    "json-to-csv": {
+      "privacyNote": "המרת JSON ל-CSV מתבצעת לחלוטין בדפדפן. הנתונים שלך לא מועלים לשרת."
+    },
+    "json-minifier": {
+      "privacyNote": "כיווץ JSON מתבצע לחלוטין בדפדפן. הטקסט שלך לא עוזב את המכשיר."
+    },
+    "csv-to-json": {
+      "privacyNote": "המרת CSV ל-JSON מתבצעת לחלוטין בדפדפן. הנתונים שלך לא מועלים לשרת."
+    },
+    "base64-encoder-decoder": {
+      "privacyNote": "קידוד ופענוח Base64 מתבצעים לחלוטין בדפדפן. הטקסט והקבצים שלך לא עוזבים את המכשיר."
+    },
+    "url-encoder-decoder": {
+      "privacyNote": "קידוד ופענוח URL מתבצעים לחלוטין בדפדפן. המחרוזות שלך לא עוזבות את המכשיר."
+    },
+    "text-diff-checker": {
+      "privacyNote": "השוואת טקסט מתבצעת לחלוטין בדפדפן. התוכן שלך לא עוזב את המכשיר."
+    },
+    "string-generator": {
+      "privacyNote": "יצירת מחרוזות אקראיות ו-UUID מתבצעת לחלוטין בדפדפן. שום דבר לא נשלח לשרת."
+    },
+    "html-markdown-converter": {
+      "privacyNote": "המרת Markdown ו-HTML מתבצעת לחלוטין בדפדפן. התוכן שלך לא עוזב את המכשיר."
+    },
+    "word-character-counter": {
+      "privacyNote": "ניתוח הטקסט מתבצע לחלוטין בדפדפן. התוכן שלך לא עוזב את המכשיר."
+    },
     "protect": {
       "privacyNote": "הקובץ מוצפן מקומית בדפדפן ולעולם לא נוגע בשרתים שלנו.",
       "protectLabel": "הגן על PDF",

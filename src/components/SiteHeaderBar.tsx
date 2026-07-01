@@ -31,13 +31,7 @@ export function SiteHeaderBar() {
 
       <div className="site-header__spacer" aria-hidden />
 
-      <div className="site-header__end flex shrink-0 items-center gap-2">
-        <Link href="/contact/" className="site-header__login hidden sm:inline-flex" prefetch={false}>
-          {t("login")}
-        </Link>
-        <Link href="/contact/" className="site-header__signup hidden sm:inline-flex" prefetch={false}>
-          {t("signup")}
-        </Link>
+      <div className="site-header__end">
         <HeaderOverflowMenu showNavLinks={!isWide} />
       </div>
     </nav>

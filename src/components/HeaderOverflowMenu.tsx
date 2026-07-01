@@ -206,48 +206,44 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
                 <div key={dropdown.id}>
                   {index > 0 ? <div className="site-header__overflow-divider" role="separator" /> : null}
                   <p className="site-header__overflow-heading">{dropdown.label}</p>
-                  {dropdown.items.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      role="menuitem"
-                      className={clsx(itemClass, isNavItemActive(pathname, item.href) && "is-active")}
-                      prefetch={false}
-                      onClick={() => {
-                        onNavigate?.();
-                        close();
-                      }}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                  {dropdown.sections?.length
+                    ? dropdown.sections.map((section) => (
+                        <div key={section.id}>
+                          <p className="site-header__overflow-subheading">{section.label}</p>
+                          {section.items.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              role="menuitem"
+                              className={clsx(itemClass, isNavItemActive(pathname, item.href) && "is-active")}
+                              prefetch={false}
+                              onClick={() => {
+                                onNavigate?.();
+                                close();
+                              }}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      ))
+                    : (dropdown.items ?? []).map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          role="menuitem"
+                          className={clsx(itemClass, isNavItemActive(pathname, item.href) && "is-active")}
+                          prefetch={false}
+                          onClick={() => {
+                            onNavigate?.();
+                            close();
+                          }}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
                 </div>
               ))}
-              <div className="site-header__overflow-divider" role="separator" />
-              <Link
-                href="/contact/"
-                role="menuitem"
-                className={itemClass}
-                prefetch={false}
-                onClick={() => {
-                  onNavigate?.();
-                  close();
-                }}
-              >
-                {t("login")}
-              </Link>
-              <Link
-                href="/contact/"
-                role="menuitem"
-                className={clsx(itemClass, "site-header__overflow-item--signup")}
-                prefetch={false}
-                onClick={() => {
-                  onNavigate?.();
-                  close();
-                }}
-              >
-                {t("signup")}
-              </Link>
               <div className="site-header__overflow-divider" role="separator" />
             </>
           ) : null}

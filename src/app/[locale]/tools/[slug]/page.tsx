@@ -52,6 +52,16 @@ import { AppleTouchIconWorkspace } from "@/components/AppleTouchIconWorkspace";
 import { FaviconCompressorWorkspace } from "@/components/FaviconCompressorWorkspace";
 import { FaviconCodeGeneratorWorkspace } from "@/components/FaviconCodeGeneratorWorkspace";
 import { FaviconPreviewerWorkspace } from "@/components/FaviconPreviewerWorkspace";
+import { JsonFormatterWorkspace } from "@/components/JsonFormatterWorkspace";
+import { JsonToCsvWorkspace } from "@/components/JsonToCsvWorkspace";
+import { JsonMinifierWorkspace } from "@/components/JsonMinifierWorkspace";
+import { CsvToJsonWorkspace } from "@/components/CsvToJsonWorkspace";
+import { Base64EncoderDecoderWorkspace } from "@/components/Base64EncoderDecoderWorkspace";
+import { UrlEncoderDecoderWorkspace } from "@/components/UrlEncoderDecoderWorkspace";
+import { TextDiffCheckerWorkspace } from "@/components/TextDiffCheckerWorkspace";
+import { StringGeneratorWorkspace } from "@/components/StringGeneratorWorkspace";
+import { HtmlMarkdownConverterWorkspace } from "@/components/HtmlMarkdownConverterWorkspace";
+import { WordCharacterCounterWorkspace } from "@/components/WordCharacterCounterWorkspace";
 import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
 import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
 import { FaviconPackWorkspace } from "@/components/FaviconPackWorkspace";
@@ -189,7 +199,7 @@ export default async function ToolPage({
       />
       <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
-      <AppPageShell mainClassName={`${toolPageDashboardWidth} pb-8 pt-14 md:pb-10 md:pt-20`}>
+      <AppPageShell mainClassName={`${toolPageDashboardWidth} pb-8 pt-6 md:pb-10 md:pt-10`}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
         <ToolPageShellProvider headline={displayTitle} subline={subtitle} slug={slug} stacked>
@@ -285,6 +295,26 @@ export default async function ToolPage({
           <FaviconCodeGeneratorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "favicon-previewer" ? (
           <FaviconPreviewerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "json-formatter" ? (
+          <JsonFormatterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "json-to-csv" ? (
+          <JsonToCsvWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "json-minifier" ? (
+          <JsonMinifierWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "csv-to-json" ? (
+          <CsvToJsonWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "base64-encoder-decoder" ? (
+          <Base64EncoderDecoderWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "url-encoder-decoder" ? (
+          <UrlEncoderDecoderWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "text-diff-checker" ? (
+          <TextDiffCheckerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "string-generator" ? (
+          <StringGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "html-markdown-converter" ? (
+          <HtmlMarkdownConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "word-character-counter" ? (
+          <WordCharacterCounterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "custom-paper-margin" ? (
           <CustomPaperMarginWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-watermark" ? (

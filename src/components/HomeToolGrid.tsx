@@ -4,15 +4,21 @@ import { useTranslations } from "next-intl";
 import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
 import type { HomeFeaturedToolItem } from "@/lib/featured-tools";
 import type { HomeFeaturedImageItem } from "@/lib/image-tools";
-import type { HomeFeaturedFaviconItem } from "@/lib/favicon-tools";
+import type { HomeFeaturedUtilityItem } from "@/lib/utilities-tools";
+import type { HomeFeaturedTextJsonItem } from "@/lib/text-json-tools";
+import { isHomeTextJsonToolId } from "@/lib/text-json-tools";
 
 type HomeToolGridProps = {
   pdfItems: HomeFeaturedToolItem[];
   imageItems: HomeFeaturedImageItem[];
-  faviconItems: HomeFeaturedFaviconItem[];
+  utilityItems: HomeFeaturedUtilityItem[];
 };
 
-export function HomeToolGrid({ pdfItems, imageItems, faviconItems }: HomeToolGridProps) {
+function isTextJsonUtilityItem(item: HomeFeaturedUtilityItem): item is HomeFeaturedTextJsonItem {
+  return isHomeTextJsonToolId(item.id);
+}
+
+export function HomeToolGrid({ pdfItems, imageItems, utilityItems }: HomeToolGridProps) {
   const t = useTranslations("Home");
 
   return (
@@ -56,20 +62,21 @@ export function HomeToolGrid({ pdfItems, imageItems, faviconItems }: HomeToolGri
       </HomeFeaturedSection>
 
       <HomeFeaturedSection
-        id="home-favicon-tools"
-        title={t("faviconSectionTitle")}
-        viewAllHref="/favicon-tools/"
-        viewAllLabel={t("viewAllFaviconTools")}
-        className="home-minimal-section--favicon"
+        id="home-utility-tools"
+        title={t("utilitiesSectionTitle")}
+        viewAllHref="/utilities/"
+        viewAllLabel={t("viewAllUtilities")}
+        className="home-minimal-section--utilities"
         hideTitle
       >
-        {faviconItems.map((item) => (
+        {utilityItems.map((item) => (
           <HomeFeaturedToolCard
             key={item.id}
             href={item.href}
             label={item.label}
             slugHint={item.id}
-            faviconIconKey={item.iconKey}
+            faviconIconKey={!isTextJsonUtilityItem(item) ? item.iconKey : undefined}
+            textJsonIconKey={isTextJsonUtilityItem(item) ? item.iconKey : undefined}
           />
         ))}
       </HomeFeaturedSection>

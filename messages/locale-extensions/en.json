@@ -1432,6 +1432,36 @@
     "favicon-previewer": {
       "privacyNote": "Favicon preview rendering runs entirely in your browser. Your file or URL is never uploaded to our servers."
     },
+    "json-formatter": {
+      "privacyNote": "JSON formatting and validation run entirely in your browser. Your text never leaves your device."
+    },
+    "json-to-csv": {
+      "privacyNote": "JSON to CSV conversion runs entirely in your browser. Your data is never uploaded to a server."
+    },
+    "json-minifier": {
+      "privacyNote": "JSON minification runs entirely in your browser. Your text never leaves your device."
+    },
+    "csv-to-json": {
+      "privacyNote": "CSV to JSON conversion runs entirely in your browser. Your data is never uploaded to a server."
+    },
+    "base64-encoder-decoder": {
+      "privacyNote": "Base64 encoding and decoding run entirely in your browser. Your text and files never leave your device."
+    },
+    "url-encoder-decoder": {
+      "privacyNote": "URL encoding and decoding run entirely in your browser. Your strings never leave your device."
+    },
+    "text-diff-checker": {
+      "privacyNote": "Text comparison runs entirely in your browser. Your content never leaves your device."
+    },
+    "string-generator": {
+      "privacyNote": "Random string and UUID generation run entirely in your browser. Nothing is sent to a server."
+    },
+    "html-markdown-converter": {
+      "privacyNote": "Markdown and HTML conversion run entirely in your browser. Your content never leaves your device."
+    },
+    "word-character-counter": {
+      "privacyNote": "Text analysis runs entirely in your browser. Your content never leaves your device."
+    },
     "protect": {
       "privacyNote": "Your file is encrypted locally in your browser and never touches our servers.",
       "protectLabel": "Protect PDF",
