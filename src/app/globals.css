@@ -220,7 +220,7 @@ html:has(.home-page-shell--minimal) body {
   padding: 1rem 1.125rem;
   overflow: hidden;
   border: 1px solid var(--home-feature-card-border);
-  border-radius: 0.125rem;
+  border-radius: 0.5rem;
   background: var(--home-feature-card-bg);
   color: var(--home-feature-text);
   text-decoration: none;
@@ -287,18 +287,24 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .home-minimal-section__link {
-  color: #71717a;
-  font-size: 0.8125rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  text-underline-offset: 0.22em;
-  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4d4d8;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 212, 216, 0.45);
+  text-underline-offset: 0.28em;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 }
 
 .home-minimal-section__link:hover {
-  color: #a1a1aa;
-  text-decoration: underline;
+  color: #fafafa;
+  text-decoration-color: rgba(250, 250, 250, 0.7);
 }
 
 /* Site canvas — solid dark only, no patterns or hero images */

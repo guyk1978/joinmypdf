@@ -193,11 +193,19 @@
     "viewAllFaviconTools": "צפה בכל כלי ה-Favicon",
     "viewAllUtilities": "צפה בכל כלי העזר",
     "viewAllTextJsonTools": "צפה בכל כלי הטקסט ו-JSON",
+    "viewAllDeveloperTools": "צפה בכל כלי המפתחים",
+    "viewAllDataConversionTools": "צפה בכל כלי הנתונים וההמרה",
+    "viewAllSecurityTools": "צפה בכל כלי האבטחה",
+    "viewAllProductivityTools": "צפה בכל כלי הפרודוקטיביות",
     "pdfSectionTitle": "PDF",
     "imageSectionTitle": "תמונה",
     "faviconSectionTitle": "Favicon",
     "utilitiesSectionTitle": "כלי עזר",
     "textJsonSectionTitle": "טקסט ו-JSON",
+    "developerSectionTitle": "מפתחים",
+    "dataConversionSectionTitle": "נתונים והמרה",
+    "securitySectionTitle": "אבטחה",
+    "productivitySectionTitle": "פרודוקטיביות",
     "imageToolsDirectoryTitle": "כלי תמונה",
     "imageToolsDirectoryDescription": "שינוי גודל, המרה, חיתוך, סיבוב ודחיסת תמונות בדפדפן.",
     "faviconToolsDirectoryTitle": "כלי Favicon",
@@ -349,6 +357,62 @@
         }
       }
     },
+    "dataConversionTools": {
+      "items": {
+        "yamlJsonConverter": {
+          "label": "YAML ↔ JSON",
+          "description": "המר YAML ו-JSON בשני הכיוונים — מעובד ומעוצב לחלוטין בדפדפן."
+        },
+        "csvToMarkdownTable": {
+          "label": "CSV לטבלת Markdown",
+          "description": "הפוך נתונים מופרדים בפסיקים לטבלת Markdown נקייה למסמכים ו-README."
+        },
+        "sqlQueryFormatter": {
+          "label": "מעצב שאילתות SQL",
+          "description": "ייפה SQL עם הזחה עקבית ורישיות מילות מפתח — ללא העלאה לשרת."
+        }
+      }
+    },
+    "securityTools": {
+      "items": {
+        "passwordGenerator": {
+          "label": "מחולל סיסמאות",
+          "description": "צור סיסמאות אקראיות חזקות עם שליטה באורך ובסט תווים — נוצר מקומית."
+        },
+        "hashGenerator": {
+          "label": "מחולל Hash",
+          "description": "חשב Hash לטקסט או קבצים עם MD5, SHA-1, SHA-256 או SHA-512 — בדפדפן."
+        },
+        "uuidGenerator": {
+          "label": "מחולל UUID",
+          "description": "צור מזהי UUID מסוג v1, v4 או v7 בכמות — אקראי קריפטוגרפית, ללא העלאה."
+        }
+      }
+    },
+    "productivityTools": {
+      "items": {
+        "unitConverter": {
+          "label": "ממיר יחידות",
+          "description": "המר יחידות משקל, אורך ושטח מיידית — שימושי למתכונים, נסיעות ומפרטים."
+        },
+        "timezoneConverter": {
+          "label": "ממיר אזורי זמן",
+          "description": "השווה שעוני ערים בעולם זה לצד זה — הוסף או הסר ערים ואפס בכל עת."
+        },
+        "wordCharacterCounter": {
+          "label": "מונה מילים ותווים",
+          "description": "ספור תווים, מילים, משפטים ופסקאות בזמן אמת — תומך בעברית ובאנגלית."
+        }
+      }
+    },
+    "developerToolsDirectoryTitle": "כלי מפתחים",
+    "developerToolsDirectoryDescription": "נתח User-Agent, פענח JWT וצור קודי QR — הכל מעובד מקומית בדפדפן.",
+    "dataConversionToolsDirectoryTitle": "כלי נתונים והמרה",
+    "dataConversionToolsDirectoryDescription": "המר פורמטי YAML, CSV ו-SQL בדפדפן — פרטי, מהיר וללא שרת.",
+    "securityToolsDirectoryTitle": "כלי אבטחה",
+    "securityToolsDirectoryDescription": "צור סיסמאות, Hash ו-UUID מקומית — שום דבר לא עוזב את המכשיר.",
+    "productivityToolsDirectoryTitle": "כלי פרודוקטיביות",
+    "productivityToolsDirectoryDescription": "המר יחידות, השווה אזורי זמן וספור מילים — עוזרים קלים בדפדפן.",
     "utilitiesDirectoryTitle": "כלי עזר",
     "utilitiesDirectoryDescription": "מחוללי favicon וכלי טקסט — הכל מעובד מקומית בדפדפן.",
     "textJsonToolsDirectoryTitle": "כלי טקסט ו-JSON",

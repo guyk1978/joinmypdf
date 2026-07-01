@@ -1,4 +1,6 @@
-import { registry } from "@/lib/registry";
+import { resolveHomeToolCopy } from "@/lib/home-tool-copy";
+
+const DEVELOPER_ITEMS_NS = "developerTools";
 
 export type HomeDeveloperToolId = "user-agent-parser" | "qr-code-generator" | "jwt-debugger";
 
@@ -23,17 +25,24 @@ const DEVELOPER_TOOL_META: Record<
 
 export const HOME_DEVELOPER_TOOL_IDS = Object.keys(DEVELOPER_TOOL_META) as HomeDeveloperToolId[];
 
+/** Homepage — 3 flagship developer tools */
+export const HOMEPAGE_FEATURED_DEVELOPER_IDS = [
+  "user-agent-parser",
+  "jwt-debugger",
+  "qr-code-generator",
+] as const;
+
+export type HomeFeaturedDeveloperItem = {
+  id: HomeDeveloperToolId;
+  href: string;
+  label: string;
+  iconKey: HomeDeveloperToolIconKey;
+};
+
 type HomeTranslator = {
   (key: string): string;
   has: (key: string) => boolean;
 };
-
-function isMissingHomeTranslation(value: string, messageKey: string, field: "label" | "description"): boolean {
-  if (!value) return true;
-  const leaf = `developerTools.items.${messageKey}.${field}`;
-  if (value === leaf) return true;
-  return value.includes("developerTools.items.") && value.endsWith(`.${field}`);
-}
 
 function resolveDeveloperToolCopy(
   tHome: HomeTranslator,
@@ -41,15 +50,19 @@ function resolveDeveloperToolCopy(
   messageKey: string,
   field: "label" | "description",
 ): string {
-  const key = `developerTools.items.${messageKey}.${field}`;
-  if (tHome.has(key)) {
-    const value = tHome(key);
-    if (!isMissingHomeTranslation(value, messageKey, field)) return value;
-  }
+  return resolveHomeToolCopy(tHome, DEVELOPER_ITEMS_NS, messageKey, field, id);
+}
 
-  const tool = registry.tools.find((entry) => entry.slug === id);
-  if (!tool) return id;
-  return field === "label" ? tool.title : tool.description;
+export function buildHomepageFeaturedDeveloperItems(tHome: HomeTranslator): HomeFeaturedDeveloperItem[] {
+  return HOMEPAGE_FEATURED_DEVELOPER_IDS.map((id) => {
+    const { iconKey, messageKey } = DEVELOPER_TOOL_META[id];
+    return {
+      id,
+      href: `/tools/${id}/`,
+      label: resolveDeveloperToolCopy(tHome, id, messageKey, "label"),
+      iconKey,
+    };
+  });
 }
 
 export function buildHomeDeveloperToolItems(tHome: HomeTranslator): HomeDeveloperToolItem[] {

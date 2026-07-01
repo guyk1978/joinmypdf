@@ -193,11 +193,19 @@
     "viewAllFaviconTools": "View all Favicon tools",
     "viewAllUtilities": "View all Utilities",
     "viewAllTextJsonTools": "View all Text & JSON tools",
+    "viewAllDeveloperTools": "View all Developer tools",
+    "viewAllDataConversionTools": "View all Data & Conversion tools",
+    "viewAllSecurityTools": "View all Security tools",
+    "viewAllProductivityTools": "View all Productivity tools",
     "pdfSectionTitle": "PDF",
     "imageSectionTitle": "Image",
     "faviconSectionTitle": "Favicon",
     "utilitiesSectionTitle": "Utilities",
     "textJsonSectionTitle": "Text & JSON",
+    "developerSectionTitle": "Developer",
+    "dataConversionSectionTitle": "Data & Conversion",
+    "securitySectionTitle": "Security",
+    "productivitySectionTitle": "Productivity",
     "imageToolsDirectoryTitle": "Image tools",
     "imageToolsDirectoryDescription": "Resize, convert, crop, rotate, and compress images in your browser.",
     "faviconToolsDirectoryTitle": "Favicon tools",
@@ -349,6 +357,62 @@
         }
       }
     },
+    "dataConversionTools": {
+      "items": {
+        "yamlJsonConverter": {
+          "label": "YAML ↔ JSON",
+          "description": "Convert YAML and JSON in both directions — parsed and formatted entirely in your browser."
+        },
+        "csvToMarkdownTable": {
+          "label": "CSV to Markdown Table",
+          "description": "Turn comma-separated data into a clean Markdown table ready for docs and README files."
+        },
+        "sqlQueryFormatter": {
+          "label": "SQL Query Formatter",
+          "description": "Beautify SQL with consistent indentation and keyword casing — no server upload required."
+        }
+      }
+    },
+    "securityTools": {
+      "items": {
+        "passwordGenerator": {
+          "label": "Password Generator",
+          "description": "Create strong random passwords with length and character-set controls — generated locally."
+        },
+        "hashGenerator": {
+          "label": "Hash Generator",
+          "description": "Hash text or files with MD5, SHA-1, SHA-256, or SHA-512 — computed in your browser."
+        },
+        "uuidGenerator": {
+          "label": "UUID Generator",
+          "description": "Generate UUID v1, v4, or v7 identifiers in bulk — cryptographically random, no upload."
+        }
+      }
+    },
+    "productivityTools": {
+      "items": {
+        "unitConverter": {
+          "label": "Unit Converter",
+          "description": "Convert weight, length, and area units instantly — handy for recipes, travel, and specs."
+        },
+        "timezoneConverter": {
+          "label": "Timezone Converter",
+          "description": "Compare world city clocks side by side — add or remove cities and reset anytime."
+        },
+        "wordCharacterCounter": {
+          "label": "Word & Character Counter",
+          "description": "Count characters, words, sentences, and paragraphs in real time — supports English and Hebrew."
+        }
+      }
+    },
+    "developerToolsDirectoryTitle": "Developer tools",
+    "developerToolsDirectoryDescription": "Parse user agents, debug JWTs, and generate QR codes — all processed locally in your browser.",
+    "dataConversionToolsDirectoryTitle": "Data & Conversion tools",
+    "dataConversionToolsDirectoryDescription": "Convert YAML, CSV, and SQL formats in your browser — private, fast, and server-free.",
+    "securityToolsDirectoryTitle": "Security tools",
+    "securityToolsDirectoryDescription": "Generate passwords, hashes, and UUIDs locally — nothing leaves your device.",
+    "productivityToolsDirectoryTitle": "Productivity tools",
+    "productivityToolsDirectoryDescription": "Convert units, compare timezones, and count words — lightweight helpers in your browser.",
     "utilitiesDirectoryTitle": "Utilities",
     "utilitiesDirectoryDescription": "Favicon generators and text utilities — all processed locally in your browser.",
     "textJsonToolsDirectoryTitle": "Text & JSON tools",
