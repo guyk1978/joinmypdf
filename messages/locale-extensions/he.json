@@ -1462,6 +1462,42 @@
     "word-character-counter": {
       "privacyNote": "ניתוח הטקסט מתבצע לחלוטין בדפדפן. התוכן שלך לא עוזב את המכשיר."
     },
+    "user-agent-parser": {
+      "privacyNote": "ניתוח User-Agent מתבצע לחלוטין בדפדפן. לא נשלחים נתונים לשרת."
+    },
+    "qr-code-generator": {
+      "privacyNote": "קודי QR נוצרים לחלוטין בדפדפן. התוכן שלך לא עוזב את המכשיר."
+    },
+    "jwt-debugger": {
+      "privacyNote": "פענוח JWT מתבצע לחלוטין בדפדפן. טוקנים לא נשלחים לשרת."
+    },
+    "yaml-json-converter": {
+      "privacyNote": "המרת YAML ו-JSON מתבצעת לחלוטין בדפדפן. הנתונים שלך לא עוזבים את המכשיר."
+    },
+    "csv-to-markdown-table": {
+      "privacyNote": "ניתוח CSV ויצירת Markdown מתבצעים לחלוטין בדפדפן."
+    },
+    "sql-query-formatter": {
+      "privacyNote": "עיצוב SQL מתבצע לחלוטין בדפדפן. שאילתות לא נשלחות לשרת."
+    },
+    "password-generator": {
+      "privacyNote": "סיסמאות נוצרות מקומית בדפדפן באמצעות crypto.getRandomValues."
+    },
+    "hash-generator": {
+      "privacyNote": "חישוב Hash מתבצע לחלוטין בדפדפן. טקסט וקבצים לא עוזבים את המכשיר."
+    },
+    "uuid-generator": {
+      "privacyNote": "UUIDs נוצרים מקומית בדפדפן. לא נשלחים נתונים לשרת."
+    },
+    "unit-converter": {
+      "privacyNote": "המרת יחידות מתבצעת לחלוטין בדפדפן. לא נשלחים נתונים לשרת."
+    },
+    "timezone-converter": {
+      "privacyNote": "חישובי זמן מתבצעים מקומית בדפדפן באמצעות שעון המכשיר ונתוני אזור זמן."
+    },
+    "reading-time-calculator": {
+      "privacyNote": "הערכת זמן קריאה מתבצעת לחלוטין בדפדפן. הטקסט שלך לא עוזב את המכשיר."
+    },
     "protect": {
       "privacyNote": "הקובץ מוצפן מקומית בדפדפן ולעולם לא נוגע בשרתים שלנו.",
       "protectLabel": "הגן על PDF",

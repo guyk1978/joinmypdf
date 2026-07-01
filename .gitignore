@@ -10,4 +10,4 @@ google-credentials.json
 .next/  
 out/  
 blog/  
-tools/ 
+/tools/

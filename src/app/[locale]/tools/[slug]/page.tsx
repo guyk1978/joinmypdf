@@ -62,6 +62,18 @@ import { TextDiffCheckerWorkspace } from "@/components/TextDiffCheckerWorkspace"
 import { StringGeneratorWorkspace } from "@/components/StringGeneratorWorkspace";
 import { HtmlMarkdownConverterWorkspace } from "@/components/HtmlMarkdownConverterWorkspace";
 import { WordCharacterCounterWorkspace } from "@/components/WordCharacterCounterWorkspace";
+import { UserAgentParserWorkspace } from "@/components/tools/developer/UserAgentParserWorkspace";
+import { QRCodeGeneratorWorkspace } from "@/components/tools/developer/QRCodeGeneratorWorkspace";
+import { JWTDebuggerWorkspace } from "@/components/tools/developer/JWTDebuggerWorkspace";
+import { YamlJsonConverterWorkspace } from "@/components/tools/data-conversion/YamlJsonConverterWorkspace";
+import { CsvMarkdownConverterWorkspace } from "@/components/tools/data-conversion/CsvMarkdownConverterWorkspace";
+import { SqlQueryFormatterWorkspace } from "@/components/tools/data-conversion/SqlQueryFormatterWorkspace";
+import { PasswordGeneratorWorkspace } from "@/components/tools/security/PasswordGeneratorWorkspace";
+import { HashGeneratorWorkspace } from "@/components/tools/security/HashGeneratorWorkspace";
+import { UuidGeneratorWorkspace } from "@/components/tools/security/UuidGeneratorWorkspace";
+import { UnitConverterWorkspace } from "@/components/tools/productivity/UnitConverterWorkspace";
+import { TimezoneConverterWorkspace } from "@/components/tools/productivity/TimezoneConverterWorkspace";
+import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/ReadingTimeCalculatorWorkspace";
 import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
 import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
 import { FaviconPackWorkspace } from "@/components/FaviconPackWorkspace";
@@ -315,6 +327,30 @@ export default async function ToolPage({
           <HtmlMarkdownConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "word-character-counter" ? (
           <WordCharacterCounterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "user-agent-parser" ? (
+          <UserAgentParserWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "qr-code-generator" ? (
+          <QRCodeGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "jwt-debugger" ? (
+          <JWTDebuggerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "yaml-json-converter" ? (
+          <YamlJsonConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "csv-to-markdown-table" ? (
+          <CsvMarkdownConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "sql-query-formatter" ? (
+          <SqlQueryFormatterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "password-generator" ? (
+          <PasswordGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "hash-generator" ? (
+          <HashGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "uuid-generator" ? (
+          <UuidGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "unit-converter" ? (
+          <UnitConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "timezone-converter" ? (
+          <TimezoneConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "reading-time-calculator" ? (
+          <ReadingTimeCalculatorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "custom-paper-margin" ? (
           <CustomPaperMarginWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-watermark" ? (

@@ -3661,6 +3661,602 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "user-agent-parser",
+      "category": "convert",
+      "operation": "user-agent-parser",
+      "title": "User Agent Parser",
+      "primaryKeyword": "user agent parser online",
+      "intent": "Detect browser, OS, device type, and rendering engine from any User-Agent string — instantly in your browser.",
+      "description": "Auto-detect your current browser or paste any User-Agent string for a clean breakdown of browser, version, OS, device, and engine.",
+      "secondaryKeywords": [
+        "user agent analyzer",
+        "browser detection tool",
+        "ua string parser"
+      ],
+      "useCases": [
+        "Debug responsive layouts by simulating different browsers",
+        "Inspect crawler or bot User-Agent strings",
+        "Document client environments for support tickets"
+      ],
+      "relatedTools": [
+        "string-generator",
+        "base64-encoder-decoder"
+      ],
+      "faq": [
+        {
+          "q": "Is my User-Agent sent to a server?",
+          "a": "No. Parsing runs entirely in your browser using ua-parser-js."
+        },
+        {
+          "q": "Does it detect my current browser automatically?",
+          "a": "Yes. On load, the tool reads navigator.userAgent and displays parsed results immediately."
+        },
+        {
+          "q": "Can I parse a custom User-Agent string?",
+          "a": "Yes. Paste any UA string into the input field and the table updates in real time."
+        },
+        {
+          "q": "What fields are shown?",
+          "a": "Browser name, version, operating system, device type, and rendering engine."
+        },
+        {
+          "q": "Can I copy the parsed report?",
+          "a": "Yes. Use Copy JSON to export the structured result to your clipboard."
+        },
+        {
+          "q": "Is the User Agent Parser free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.63,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "qr-code-generator",
+      "category": "convert",
+      "operation": "qr-code-generator",
+      "title": "QR Code Generator",
+      "primaryKeyword": "qr code generator online",
+      "intent": "Create high-quality QR codes from URLs, text, or email addresses — entirely in your browser.",
+      "description": "Generate downloadable QR codes with configurable size, error correction, and foreground color. No upload, no account.",
+      "secondaryKeywords": [
+        "free qr code maker",
+        "qr code png download",
+        "custom color qr code"
+      ],
+      "useCases": [
+        "Create QR codes for website links or landing pages",
+        "Encode contact emails or plain-text messages",
+        "Export branded QR codes with custom dark foreground colors"
+      ],
+      "relatedTools": [
+        "user-agent-parser",
+        "string-generator"
+      ],
+      "faq": [
+        {
+          "q": "Is my content uploaded to a server?",
+          "a": "No. QR codes are generated locally in your browser using the qrcode library."
+        },
+        {
+          "q": "What can I encode?",
+          "a": "URLs, plain text, email addresses, and other text-based content."
+        },
+        {
+          "q": "What do the size options mean?",
+          "a": "Small, Medium, and Large control the output pixel dimensions (200, 320, and 480 px)."
+        },
+        {
+          "q": "What is error correction?",
+          "a": "Higher correction levels make the QR code more resilient to damage or partial obstruction, at the cost of density."
+        },
+        {
+          "q": "Can I change the QR code color?",
+          "a": "Yes. Pick a foreground color with the color picker or presets. The background stays white for reliable scanning."
+        },
+        {
+          "q": "Can I copy the QR code as an image?",
+          "a": "Yes. Use Copy image to paste the PNG into documents or chat apps that support image clipboard data."
+        },
+        {
+          "q": "Is the QR Code Generator free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.62,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "jwt-debugger",
+      "category": "convert",
+      "operation": "jwt-debugger",
+      "title": "JWT Debugger",
+      "primaryKeyword": "jwt debugger online",
+      "intent": "Decode JWT header, payload, and signature in your browser with human-readable expiration and copy-friendly JSON.",
+      "description": "Paste a JSON Web Token to inspect its claims, spot expiration issues, and copy each section — entirely local, no server upload.",
+      "secondaryKeywords": [
+        "jwt decoder",
+        "jwt parser",
+        "json web token debugger"
+      ],
+      "useCases": [
+        "Inspect API access tokens during development",
+        "Verify exp, iss, and aud claims before debugging auth flows",
+        "Share decoded JWT sections without sending tokens to third-party sites"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "base64-encoder-decoder"
+      ],
+      "faq": [
+        {
+          "q": "Is my JWT sent to a server?",
+          "a": "No. Decoding runs entirely in your browser using jwt-decode and Base64Url parsing."
+        },
+        {
+          "q": "Does this verify the signature?",
+          "a": "No. Without your secret or public key, signature verification is not possible. Malformed signatures and insecure alg=none tokens are flagged."
+        },
+        {
+          "q": "How is expiration shown?",
+          "a": "If the payload includes exp, the tool shows a human-readable relative time (for example, \"in 2 hours\") plus the absolute local date."
+        },
+        {
+          "q": "What if my token is expired?",
+          "a": "Expired tokens are highlighted with a warning and the payload card is marked accordingly."
+        },
+        {
+          "q": "Can I copy each section?",
+          "a": "Yes. Header and Payload copy as formatted JSON. Signature copies the raw Base64Url segment."
+        },
+        {
+          "q": "Is the JWT Debugger free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.61,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "yaml-json-converter",
+      "category": "convert",
+      "operation": "yaml-json-converter",
+      "title": "YAML ↔ JSON Converter",
+      "primaryKeyword": "yaml to json converter online",
+      "intent": "Convert YAML to JSON and JSON to YAML in your browser with a split editor and instant output.",
+      "description": "Two-way YAML and JSON conversion with a switch-direction control — private, fast, and entirely client-side.",
+      "secondaryKeywords": [
+        "json to yaml converter",
+        "yaml json transform",
+        "yaml parser online"
+      ],
+      "useCases": [
+        "Convert config files between YAML and JSON",
+        "Inspect API payloads in a different format",
+        "Migrate Kubernetes or CI configs locally"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "csv-to-json"
+      ],
+      "faq": [
+        {
+          "q": "Is my data uploaded?",
+          "a": "No. Conversion uses js-yaml entirely in your browser."
+        },
+        {
+          "q": "Can I convert both directions?",
+          "a": "Yes. Use the switch-direction button to flip between YAML→JSON and JSON→YAML."
+        },
+        {
+          "q": "Does output update automatically?",
+          "a": "Yes. The output refreshes as you type."
+        },
+        {
+          "q": "Is the YAML ↔ JSON Converter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.6,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "csv-to-markdown-table",
+      "category": "convert",
+      "operation": "csv-to-markdown-table",
+      "title": "CSV to Markdown Table",
+      "primaryKeyword": "csv to markdown table converter",
+      "intent": "Turn CSV spreadsheets into clean Markdown table syntax — instantly in your browser.",
+      "description": "Paste CSV and get a ready-to-copy Markdown table with a header row and alignment row.",
+      "secondaryKeywords": [
+        "csv markdown generator",
+        "spreadsheet to markdown table",
+        "csv table formatter"
+      ],
+      "useCases": [
+        "Embed spreadsheet data in README files",
+        "Convert exports for documentation wikis",
+        "Preview Markdown tables before publishing"
+      ],
+      "relatedTools": [
+        "csv-to-json",
+        "html-markdown-converter"
+      ],
+      "faq": [
+        {
+          "q": "Does the first row become headers?",
+          "a": "Yes. The first CSV row is used as the Markdown table header."
+        },
+        {
+          "q": "Are pipe characters escaped?",
+          "a": "Yes. Pipe characters inside cells are escaped for valid Markdown tables."
+        },
+        {
+          "q": "Is conversion local?",
+          "a": "Yes. Parsing and generation run entirely in your browser."
+        },
+        {
+          "q": "Is the CSV to Markdown Table tool free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.59,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "sql-query-formatter",
+      "category": "convert",
+      "operation": "sql-query-formatter",
+      "title": "SQL Query Formatter",
+      "primaryKeyword": "sql formatter online",
+      "intent": "Beautify messy SQL with indentation controls and uppercase or lowercase keywords — entirely in your browser.",
+      "description": "Format SQL queries with 2-space, 4-space, or tab indentation plus keyword case options. Copy-ready output.",
+      "secondaryKeywords": [
+        "sql beautifier",
+        "format sql query",
+        "sql indent tool"
+      ],
+      "useCases": [
+        "Clean up logged or minified SQL before code review",
+        "Standardize keyword casing for team style guides",
+        "Prepare queries for documentation snippets"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "text-diff-checker"
+      ],
+      "faq": [
+        {
+          "q": "Is my SQL sent to a server?",
+          "a": "No. Formatting uses sql-formatter locally in your browser."
+        },
+        {
+          "q": "Can I choose indentation?",
+          "a": "Yes. Pick 2 spaces, 4 spaces, or tabs."
+        },
+        {
+          "q": "Can I uppercase SQL keywords?",
+          "a": "Yes. Toggle keywords between UPPERCASE and lowercase."
+        },
+        {
+          "q": "Does formatting update live?",
+          "a": "Yes. Output refreshes as you edit the query or change settings."
+        },
+        {
+          "q": "Is the SQL Query Formatter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.58,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "password-generator",
+      "category": "convert",
+      "operation": "password-generator",
+      "title": "Password Generator",
+      "primaryKeyword": "password generator online",
+      "intent": "Generate strong random passwords with configurable length and character sets — entirely in your browser.",
+      "description": "Create secure passwords from 8–64 characters with uppercase, lowercase, numbers, and symbols. Includes a live strength meter and one-click copy.",
+      "secondaryKeywords": [
+        "secure password maker",
+        "random password generator",
+        "strong password tool"
+      ],
+      "useCases": [
+        "Create unique passwords for new accounts",
+        "Generate API keys or temporary credentials",
+        "Tune character sets for site-specific password rules"
+      ],
+      "relatedTools": [
+        "string-generator",
+        "hash-generator"
+      ],
+      "faq": [
+        {
+          "q": "Are passwords generated securely?",
+          "a": "Yes. Passwords use crypto.getRandomValues in your browser — nothing is sent to a server."
+        },
+        {
+          "q": "What length can I choose?",
+          "a": "Between 8 and 64 characters."
+        },
+        {
+          "q": "How does the strength meter work?",
+          "a": "It scores length and character variety to show weak, fair, good, or strong ratings."
+        },
+        {
+          "q": "Is the Password Generator free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.57,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "hash-generator",
+      "category": "convert",
+      "operation": "hash-generator",
+      "title": "Hash Generator",
+      "primaryKeyword": "hash generator online",
+      "intent": "Compute MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files — locally in your browser.",
+      "description": "Hash strings or drag-and-drop files to verify checksums. Supports MD5, SHA-1, SHA-256, and SHA-512 with copy-ready hex output.",
+      "secondaryKeywords": [
+        "file checksum tool",
+        "sha256 generator",
+        "md5 hash online"
+      ],
+      "useCases": [
+        "Verify download checksums for installers or archives",
+        "Hash API payloads during debugging",
+        "Compare file integrity before and after transfer"
+      ],
+      "relatedTools": [
+        "password-generator",
+        "base64-encoder-decoder"
+      ],
+      "faq": [
+        {
+          "q": "Are files uploaded to a server?",
+          "a": "No. File hashing reads files locally using crypto-js in your browser."
+        },
+        {
+          "q": "Which algorithms are supported?",
+          "a": "MD5, SHA-1, SHA-256, and SHA-512."
+        },
+        {
+          "q": "Can I drag and drop a file?",
+          "a": "Yes. Drop any file onto the hash zone to compute its checksum."
+        },
+        {
+          "q": "Is the Hash Generator free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.56,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "uuid-generator",
+      "category": "convert",
+      "operation": "uuid-generator",
+      "title": "UUID Generator",
+      "primaryKeyword": "uuid generator online",
+      "intent": "Generate UUID v1, v4, and v7 values in your browser with optional bulk output.",
+      "description": "Create one or many UUIDs, copy individually or all at once. Supports v4 (random), v1 (time-based), and v7 (time-ordered).",
+      "secondaryKeywords": [
+        "uuid v4 generator",
+        "bulk uuid generator",
+        "guid generator"
+      ],
+      "useCases": [
+        "Generate IDs for database seeds or test fixtures",
+        "Create correlation IDs for logging and tracing",
+        "Bulk-generate UUIDs for mock data"
+      ],
+      "relatedTools": [
+        "string-generator",
+        "password-generator"
+      ],
+      "faq": [
+        {
+          "q": "Which UUID versions are supported?",
+          "a": "v4 (random), v1 (time-based), and v7 (time-ordered)."
+        },
+        {
+          "q": "Can I generate multiple UUIDs at once?",
+          "a": "Yes. Choose 1, 5, 10, or 20 and use Copy all."
+        },
+        {
+          "q": "Is generation local?",
+          "a": "Yes. UUIDs are created entirely in your browser."
+        },
+        {
+          "q": "Is the UUID Generator free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.55,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "unit-converter",
+      "category": "convert",
+      "operation": "unit-converter",
+      "title": "Unit Converter",
+      "primaryKeyword": "unit converter online",
+      "intent": "Convert weight, length, and area units instantly in your browser.",
+      "description": "Convert kg to lb, meters to feet, square meters to acres, and more with a clean from/to interface.",
+      "secondaryKeywords": [
+        "weight converter",
+        "length converter",
+        "area converter"
+      ],
+      "useCases": [
+        "Convert recipe or shipping weights",
+        "Translate metric and imperial lengths",
+        "Estimate land area across unit systems"
+      ],
+      "relatedTools": [
+        "reading-time-calculator",
+        "word-character-counter"
+      ],
+      "faq": [
+        {
+          "q": "Which categories are supported?",
+          "a": "Weight, length, and area."
+        },
+        {
+          "q": "Is conversion local?",
+          "a": "Yes. All math runs in your browser."
+        },
+        {
+          "q": "Is the Unit Converter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.54,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "timezone-converter",
+      "category": "convert",
+      "operation": "timezone-converter",
+      "title": "Timezone Converter",
+      "primaryKeyword": "timezone converter online",
+      "intent": "Compare your local time with clocks for cities around the world — live in your browser.",
+      "description": "See your timezone alongside world city clocks. Add or remove cities and reset the dashboard anytime.",
+      "secondaryKeywords": [
+        "world clock",
+        "time zone dashboard",
+        "meeting time converter"
+      ],
+      "useCases": [
+        "Plan meetings across remote teams",
+        "Check market open times in other regions",
+        "Track family or partner time zones"
+      ],
+      "relatedTools": [
+        "reading-time-calculator",
+        "unit-converter"
+      ],
+      "faq": [
+        {
+          "q": "Does it update live?",
+          "a": "Yes. Clocks refresh every second."
+        },
+        {
+          "q": "Can I add multiple cities?",
+          "a": "Yes. Add cities from the dropdown and remove them individually."
+        },
+        {
+          "q": "Is the Timezone Converter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.53,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "reading-time-calculator",
+      "category": "convert",
+      "operation": "reading-time-calculator",
+      "title": "Reading Time Calculator",
+      "primaryKeyword": "reading time calculator online",
+      "intent": "Estimate how long text takes to read at about 200 words per minute — instantly in your browser.",
+      "description": "Paste an article, blog post, or script and get an estimated reading time in minutes.",
+      "secondaryKeywords": [
+        "read time estimator",
+        "article reading time",
+        "words per minute calculator"
+      ],
+      "useCases": [
+        "Estimate blog post reading time before publishing",
+        "Check speech or script duration",
+        "Validate content length for newsletters"
+      ],
+      "relatedTools": [
+        "word-character-counter",
+        "unit-converter"
+      ],
+      "faq": [
+        {
+          "q": "What reading speed is used?",
+          "a": "About 200 words per minute, rounded up to at least one minute when text is present."
+        },
+        {
+          "q": "Is my text uploaded?",
+          "a": "No. Estimation runs entirely in your browser."
+        },
+        {
+          "q": "Is the Reading Time Calculator free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.52,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-06-30"
     }
   ]
 }

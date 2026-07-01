@@ -1462,6 +1462,42 @@
     "word-character-counter": {
       "privacyNote": "Text analysis runs entirely in your browser. Your content never leaves your device."
     },
+    "user-agent-parser": {
+      "privacyNote": "User-Agent parsing runs entirely in your browser. No data is sent to a server."
+    },
+    "qr-code-generator": {
+      "privacyNote": "QR codes are generated entirely in your browser. Your content never leaves your device."
+    },
+    "jwt-debugger": {
+      "privacyNote": "JWT decoding runs entirely in your browser. Tokens are never sent to a server."
+    },
+    "yaml-json-converter": {
+      "privacyNote": "YAML and JSON conversion runs entirely in your browser. Your data never leaves your device."
+    },
+    "csv-to-markdown-table": {
+      "privacyNote": "CSV parsing and Markdown generation run entirely in your browser."
+    },
+    "sql-query-formatter": {
+      "privacyNote": "SQL formatting runs entirely in your browser. Queries are never sent to a server."
+    },
+    "password-generator": {
+      "privacyNote": "Passwords are generated locally in your browser using crypto.getRandomValues."
+    },
+    "hash-generator": {
+      "privacyNote": "Hashing runs entirely in your browser. Text and files never leave your device."
+    },
+    "uuid-generator": {
+      "privacyNote": "UUIDs are generated locally in your browser. No data is sent to a server."
+    },
+    "unit-converter": {
+      "privacyNote": "Unit conversion runs entirely in your browser. No data is sent to a server."
+    },
+    "timezone-converter": {
+      "privacyNote": "Time calculations run locally in your browser using your device clock and timezone data."
+    },
+    "reading-time-calculator": {
+      "privacyNote": "Reading time estimation runs entirely in your browser. Your text never leaves your device."
+    },
     "protect": {
       "privacyNote": "Your file is encrypted locally in your browser and never touches our servers.",
       "protectLabel": "Protect PDF",

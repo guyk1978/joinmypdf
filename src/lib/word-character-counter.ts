@@ -10,6 +10,7 @@ export type TextAnalysisStats = {
   charactersWithSpaces: number;
   charactersWithoutSpaces: number;
   words: number;
+  sentences: number;
   paragraphs: number;
   readingTimeMinutes: number;
 };
@@ -43,6 +44,16 @@ export function countParagraphs(text: string): number {
     .filter((block) => block.length > 0).length;
 }
 
+export function countSentences(text: string): number {
+  const normalized = normalizeTextForAnalysis(text).trim();
+  if (!normalized) return 0;
+
+  const matches = normalized.match(/[^.!?]+[.!?]+|[^.!?]+$/gu);
+  if (!matches) return 0;
+
+  return matches.map((segment) => segment.trim()).filter((segment) => segment.length > 0).length;
+}
+
 export function estimateReadingTimeMinutes(wordCount: number, wordsPerMinute = READING_WORDS_PER_MINUTE): number {
   if (wordCount <= 0) return 0;
   return Math.max(1, Math.ceil(wordCount / wordsPerMinute));
@@ -55,6 +66,7 @@ export function analyzeText(text: string): TextAnalysisStats {
     charactersWithSpaces: countCharactersWithSpaces(text),
     charactersWithoutSpaces: countCharactersWithoutSpaces(text),
     words,
+    sentences: countSentences(text),
     paragraphs: countParagraphs(text),
     readingTimeMinutes: estimateReadingTimeMinutes(words),
   };
