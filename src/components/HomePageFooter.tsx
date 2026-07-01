@@ -35,6 +35,15 @@ export function HomePageFooter() {
           <Link href="/tools/" className="home-page-footer__link" prefetch={false}>
             {tFooter("links.allTools")}
           </Link>
+          <Link href="/about/" className="home-page-footer__link" prefetch={false}>
+            {tFooter("links.about")}
+          </Link>
+          <Link href="/terms/" className="home-page-footer__link" prefetch={false}>
+            {tFooter("links.terms")}
+          </Link>
+          <Link href="/privacy-policy/" className="home-page-footer__link" prefetch={false}>
+            {tFooter("links.privacyPolicy")}
+          </Link>
           <Link href="/contact/" className="home-page-footer__link" prefetch={false}>
             {tFooter("links.contact")}
           </Link>

@@ -3,11 +3,14 @@
 import { Link } from "@/i18n/navigation";
 import { LayoutGrid } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { clsx } from "clsx";
+import { EmptyState } from "@/components/EmptyState";
+import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { ToolFavoriteBookmarkIcon } from "@/components/ToolFavoriteBookmarkIcon";
 import { ToolGridCard } from "@/components/ToolGridCard";
 import { useFavorites } from "@/hooks/useFavorites";
+import { imBtnCta } from "@/lib/design-system";
 import type { ToolGridItem } from "@/lib/tool-grid";
-import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
 
 type FavoritesToolGridProps = {
   items: ToolGridItem[];
@@ -16,44 +19,44 @@ type FavoritesToolGridProps = {
 export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
   const t = useTranslations("Favorites");
   const { favoriteIds, hydrated } = useFavorites();
-
   const favoriteItems = items.filter((item) => favoriteIds.includes(item.slugHint));
 
+  if (!hydrated) {
+    return <p className="product-page-meta text-center">{t("loading")}</p>;
+  }
+
+  if (favoriteItems.length === 0) {
+    return (
+      <EmptyState
+        icon={<ToolFavoriteBookmarkIcon favorited={false} size="empty" />}
+        title={t("emptyTitle")}
+        description={t("emptyState")}
+      >
+        <Link href="/tools/" className={clsx(imBtnCta, "im-btn-cta--rounded inline-flex gap-2")} prefetch={false}>
+          <LayoutGrid className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
+          {t("exploreAllTools")}
+        </Link>
+      </EmptyState>
+    );
+  }
+
   return (
-    <div className="favorites-page-content home-tool-grid-shell mx-auto flex w-full max-w-[1440px] flex-col items-center">
-      {!hydrated ? (
-        <p className="favorites-page-content__loading text-sm text-neutral-500 dark:text-neutral-400">
-          {t("loading")}
-        </p>
-      ) : favoriteItems.length === 0 ? (
-        <div className="favorites-empty-state">
-          <div className="favorites-empty-state__icon-wrap" aria-hidden>
-            <ToolFavoriteBookmarkIcon favorited={false} size="empty" className="text-neutral-500" />
-          </div>
-          <h2 className="favorites-empty-state__title">{t("emptyTitle")}</h2>
-          <p className="favorites-empty-state__body">{t("emptyState")}</p>
-          <Link href="/tools/" className={`${homePrimaryPillBtn} mt-8 gap-2 px-10`} prefetch={false}>
-            <LayoutGrid className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
-            {t("exploreAllTools")}
-          </Link>
-        </div>
-      ) : (
-        <>
-          <p className="favorites-page-content__count" aria-live="polite">
-            {t("savedCount", { count: favoriteItems.length })}
-          </p>
-          <div className="home-tool-grid home-tool-grid--homepage favorites-tool-grid w-full">
-            {favoriteItems.map((item) => (
-              <ToolGridCard key={item.href} item={item} favoritesView />
-            ))}
-          </div>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Link href="/projects/" className={homeSecondaryPillBtn} prefetch={false}>
-              {t("viewProjects")}
-            </Link>
-          </div>
-        </>
-      )}
+    <div className="product-page-dashboard w-full">
+      <p className="product-page-meta" aria-live="polite">
+        {t("savedCount", { count: favoriteItems.length })}
+      </p>
+
+      <ToolCardGrid className="tool-card-grid--directory favorites-tool-grid">
+        {favoriteItems.map((item) => (
+          <ToolGridCard key={item.href} item={item} favoritesView />
+        ))}
+      </ToolCardGrid>
+
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <Link href="/projects/" className={clsx(imBtnCta, "im-btn-cta--rounded")} prefetch={false}>
+          {t("viewProjects")}
+        </Link>
+      </div>
     </div>
   );
 }

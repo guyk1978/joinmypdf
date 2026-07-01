@@ -1,18 +1,13 @@
 "use client";
 
 import { type MouseEvent } from "react";
-import { Link, usePathname } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
+import { ToolCard } from "@/components/ToolCard";
 import { ToolFavoriteBookmarkIcon } from "@/components/ToolFavoriteBookmarkIcon";
 import { useFavorites } from "@/hooks/useFavorites";
-import { getToolIcon, TOOL_ICON_BARE_CLASS } from "@/lib/tool-icons";
-import {
-  homeToolGridCard,
-  homeToolGridCardBookmark,
-  homeToolGridCardLabel,
-} from "@/lib/tool-ui";
-import { imCardSurface } from "@/lib/design-system";
+import { getToolIcon } from "@/lib/tool-icons";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 type ToolGridCardAccordionProps = {
@@ -48,22 +43,15 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
 
   const visual = getToolIcon(item.slugHint, item.label);
 
-  const cardClassName = clsx(
-    "group home-tool-grid-card im-card-surface",
-    homeToolGridCard,
-    isAccordion && "home-tool-grid-card--accordion",
-    accordion?.isSelected && "im-card-surface--selected home-tool-grid-card--selected",
-  );
-
   const bookmarkButton = (
     <button
       type="button"
       onClick={onBookmarkAction}
       className={clsx(
-        homeToolGridCardBookmark,
-        (showBookmarkAlways || showRemove) && "opacity-100",
-        favorited && !showRemove && "home-tool-grid-card__bookmark--active",
-        showRemove && "home-tool-grid-card__bookmark--remove",
+        "tool-card-bookmark",
+        (showBookmarkAlways || showRemove) && "tool-card-bookmark--visible",
+        favorited && !showRemove && "tool-card-bookmark--active",
+        showRemove && "tool-card-bookmark--remove",
       )}
       aria-label={
         showRemove
@@ -78,46 +66,28 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
     </button>
   );
 
-  const icon = (
-    <span
-      className={clsx(
-        "home-tool-grid-card__icon",
-        TOOL_ICON_BARE_CLASS,
-        "inline-flex items-center justify-center",
-        "[&_svg]:h-14 [&_svg]:w-14 sm:[&_svg]:h-16 sm:[&_svg]:w-16 md:[&_svg]:h-[4.25rem] md:[&_svg]:w-[4.25rem]",
-      )}
-      aria-hidden
-    >
-      {visual.icon}
-    </span>
-  );
-
-  const label = (
-    <span className={clsx("im-card-surface__label home-tool-grid-card__label", homeToolGridCardLabel)}>{item.label}</span>
-  );
-
   if (isAccordion && accordion) {
     return (
-      <button
-        type="button"
-        role="listitem"
-        className={cardClassName}
-        aria-expanded={accordion.isSelected}
-        aria-controls={accordion.panelId}
+      <ToolCard
+        label={item.label}
+        icon={visual.icon}
         onClick={accordion.onToggle}
-      >
-        {bookmarkButton}
-        {icon}
-        {label}
-      </button>
+        actionSlot={bookmarkButton}
+        selected={accordion.isSelected}
+        accordionAria={{
+          expanded: accordion.isSelected,
+          controls: accordion.panelId,
+        }}
+      />
     );
   }
 
   return (
-    <Link href={item.href} className={cardClassName} prefetch={false}>
-      {bookmarkButton}
-      {icon}
-      {label}
-    </Link>
+    <ToolCard
+      href={item.href}
+      label={item.label}
+      icon={visual.icon}
+      actionSlot={bookmarkButton}
+    />
   );
 }

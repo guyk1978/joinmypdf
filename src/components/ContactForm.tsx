@@ -3,7 +3,7 @@
 import { FormEvent, useId, useState } from "react";
 import { useTranslations } from "next-intl";
 import { clsx } from "clsx";
-import { contentDashboardPanel, homePrimaryPillBtn } from "@/lib/tool-ui";
+import { imBtnCta } from "@/lib/design-system";
 import {
   isContactValidationError,
   submitContactForm,
@@ -77,9 +77,9 @@ export function ContactForm() {
                 : t("error");
 
   return (
-    <section className={clsx(contentDashboardPanel, "privacy-section max-w-2xl mx-auto w-full")}>
+    <section className="im-content-panel privacy-section mx-auto w-full max-w-2xl">
       {status === "success" ? (
-        <p className="privacy-section__prose text-center" role="status">
+        <p className="info-prose-document__paragraph text-center" role="status">
           {t("success")}
         </p>
       ) : (
@@ -150,7 +150,7 @@ export function ContactForm() {
           <div className="pt-2">
             <button
               type="submit"
-              className={clsx(homePrimaryPillBtn, "w-full sm:w-auto")}
+              className={clsx(imBtnCta, "im-btn-cta--rounded w-full sm:w-auto")}
               disabled={status === "sending"}
             >
               {status === "sending" ? t("sending") : t("submit")}

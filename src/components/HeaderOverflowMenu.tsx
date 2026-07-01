@@ -85,6 +85,10 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
   const close = useCallback(() => setOpen(false), []);
   const favoritesActive = pathname.includes("/favorites");
   const projectsActive = pathname.includes("/projects");
+  const aboutActive = pathname.includes("/about");
+  const termsActive = pathname.includes("/terms");
+  const privacyPolicyActive = pathname.includes("/privacy-policy");
+  const contactActive = pathname.includes("/contact");
   const headerNavDropdowns = buildHeaderNavDropdowns((key) => t(key as "nav.image"));
 
   useEffect(() => {
@@ -307,6 +311,62 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
           >
             <FolderKanban className="site-header__overflow-icon" aria-hidden />
             {t("projects")}
+          </Link>
+
+          <div className="site-header__overflow-divider" role="separator" />
+
+          <p className="site-header__overflow-heading">{t("siteLabel")}</p>
+
+          <Link
+            href="/about/"
+            role="menuitem"
+            className={clsx(itemClass, aboutActive && "is-active")}
+            prefetch={false}
+            onClick={() => {
+              onNavigate?.();
+              close();
+            }}
+          >
+            {t("about")}
+          </Link>
+
+          <Link
+            href="/terms/"
+            role="menuitem"
+            className={clsx(itemClass, termsActive && "is-active")}
+            prefetch={false}
+            onClick={() => {
+              onNavigate?.();
+              close();
+            }}
+          >
+            {t("termsOfService")}
+          </Link>
+
+          <Link
+            href="/privacy-policy/"
+            role="menuitem"
+            className={clsx(itemClass, privacyPolicyActive && "is-active")}
+            prefetch={false}
+            onClick={() => {
+              onNavigate?.();
+              close();
+            }}
+          >
+            {t("privacyPolicy")}
+          </Link>
+
+          <Link
+            href="/contact/"
+            role="menuitem"
+            className={clsx(itemClass, contactActive && "is-active")}
+            prefetch={false}
+            onClick={() => {
+              onNavigate?.();
+              close();
+            }}
+          >
+            {t("contact")}
           </Link>
 
           {installVisible && installPrompt ? (

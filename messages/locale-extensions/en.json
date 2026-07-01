@@ -467,6 +467,84 @@
       }
     }
   },
+  "About": {
+    "metaTitle": "About JoinMyPDF",
+    "metaDescription": "JoinMyPDF is a privacy-first browser toolkit for PDF, image, and utility workflows — fast, local, and free to use.",
+    "title": "About JoinMyPDF",
+    "description": "A focused toolkit for everyday document work — built for speed, clarity, and on-device privacy.",
+    "sections": {
+      "mission": {
+        "title": "Our mission",
+        "p1": "JoinMyPDF helps people merge, compress, convert, and secure documents without sending files to a remote server for core workflows.",
+        "p2": "We optimize for predictable UX, fast results, and transparency — so teams with strict data handling can trust what happens in the browser tab."
+      },
+      "approach": {
+        "title": "How we build",
+        "p1": "Most tools run client-side using modern web APIs. You open a page, process locally, and download the result.",
+        "p2": "We ship focused utilities instead of bloated suites — the workflows people repeat every week, not checkbox feature matrices."
+      },
+      "contact": {
+        "title": "Get in touch",
+        "p1": "Questions, feedback, or partnership ideas? Visit our contact page — we read every message.",
+        "p2": "For product comparisons and privacy details, see How we compare and Privacy & security."
+      }
+    }
+  },
+  "Terms": {
+    "metaTitle": "Terms of Service — JoinMyPDF",
+    "metaDescription": "Terms of Service for using JoinMyPDF — acceptable use, disclaimers, and limitations.",
+    "title": "Terms of Service",
+    "description": "Please read these terms before using JoinMyPDF.",
+    "sections": {
+      "acceptance": {
+        "title": "Acceptance",
+        "p1": "By accessing or using JoinMyPDF you agree to these Terms of Service. If you do not agree, do not use the site.",
+        "p2": "We may update these terms from time to time. Continued use after changes are posted constitutes acceptance."
+      },
+      "use": {
+        "title": "Acceptable use",
+        "p1": "Use JoinMyPDF only for lawful purposes. Do not attempt to disrupt the service, probe systems without permission, or upload malware.",
+        "p2": "You are responsible for the content you process and for complying with laws that apply to your documents and jurisdiction."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "p1": "JoinMyPDF is provided “as is” without warranties of any kind. Results depend on your browser, device, and file characteristics.",
+        "p2": "We are not liable for indirect, incidental, or consequential damages arising from use of the service to the fullest extent permitted by law."
+      },
+      "contact": {
+        "title": "Contact",
+        "p1": "For questions about these terms, contact us through the Contact page on this site."
+      }
+    }
+  },
+  "PrivacyPolicy": {
+    "metaTitle": "Privacy Policy — JoinMyPDF",
+    "metaDescription": "Privacy Policy for JoinMyPDF — what we collect, how analytics works, and how local processing protects your files.",
+    "title": "Privacy Policy",
+    "description": "How we handle information when you use JoinMyPDF.",
+    "sections": {
+      "overview": {
+        "title": "Overview",
+        "p1": "JoinMyPDF is designed so core document tools run in your browser. For supported workflows, your files are not sent to our servers to perform the operation.",
+        "p2": "This policy explains what limited data we may collect, how cookies and analytics work, and your choices."
+      },
+      "files": {
+        "title": "Files you process",
+        "p1": "Processing happens locally in your browser session for supported tools. We do not receive your document contents for those operations.",
+        "p2": "Saved favorites and projects are stored in your browser’s local storage on your device — not in a JoinMyPDF account."
+      },
+      "analytics": {
+        "title": "Analytics & cookies",
+        "p1": "We may use analytics (for example Google Analytics) to understand which tools are useful and to improve the product.",
+        "p2": "You can block analytics cookies through your browser or our cookie consent controls where shown."
+      },
+      "rights": {
+        "title": "Your choices",
+        "p1": "You may stop using the site at any time. Clear site data in your browser to remove locally stored favorites or projects.",
+        "p2": "For privacy questions, contact us via the Contact page."
+      }
+    }
+  },
   "PrivacyFirst": {
     "metaTitle": "Privacy First — Private PDF Tools & Secure Processing",
     "metaDescription": "JoinMyPDF runs private PDF tools in your browser. No-upload PDF editing: merge, redact, flatten, and more—files never leave your device.",

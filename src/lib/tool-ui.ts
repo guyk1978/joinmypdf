@@ -66,8 +66,11 @@ export const homeGlassPanel =
 /** Shared max width for tool upload stack — full width within column, capped for readability */
 export const toolUploadStack = "mx-auto w-full max-w-2xl";
 
-/** Tool page — full-width shell; solid tool surface is 70% centered in CSS */
+/** Tool page — full-width shell; solid tool surface is centered in the app canvas */
 export const toolPageDashboardWidth = "tool-page-main mx-auto w-full max-w-none";
+
+/** Shared main padding for tool pages and product dashboard pages */
+export const productPageMainClassName = "tool-page-main mx-auto w-full max-w-none pb-8 pt-6 md:pb-10 md:pt-10";
 
 export const toolPageInfoWidth = "mx-auto w-full max-w-2xl px-4";
 

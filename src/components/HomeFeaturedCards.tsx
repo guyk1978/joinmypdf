@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { clsx } from "clsx";
 import { Braces, Binary, Clock, CodeXml, Crop, Database, Dices, Expand, FileCode, FileImage, FileJson, Fingerprint, GitCompare, Globe, Hash, ImageDown, KeyRound, Layers, LetterText, Link as LinkIcon, Minimize2, PanelTop, Pipette, QrCode, RotateCw, Scale, Smartphone, Sparkles, Split, Combine, Table, ArrowLeftRight, type LucideIcon } from "lucide-react";
+import { ToolCard } from "@/components/ToolCard";
+import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { getToolIcon } from "@/lib/tool-icons";
 import type { HomeImageToolIconKey } from "@/lib/image-tools";
 import type { HomeFaviconToolIconKey } from "@/lib/favicon-tools";
@@ -143,12 +145,11 @@ export function HomeFeaturedToolCard({
     PdfIcon;
 
   return (
-    <Link href={href} className="home-feature-card" prefetch={false}>
-      <span className="home-feature-card__icon" aria-hidden>
-        {MonochromeIcon ? <MonochromeIcon strokeWidth={1.5} /> : pdfVisual?.icon}
-      </span>
-      <span className="home-feature-card__label">{label}</span>
-    </Link>
+    <ToolCard
+      href={href}
+      label={label}
+      icon={MonochromeIcon ? <MonochromeIcon strokeWidth={1.5} /> : pdfVisual?.icon}
+    />
   );
 }
 
@@ -176,7 +177,7 @@ export function HomeFeaturedSection({
       <h2 id={id} className={hideTitle ? "sr-only" : "home-minimal-section__title"}>
         {title}
       </h2>
-      <div className="home-feature-grid">{children}</div>
+      <ToolCardGrid>{children}</ToolCardGrid>
       <p className="home-minimal-section__footer">
         <Link href={viewAllHref} className="home-minimal-section__link" prefetch={false}>
           {viewAllLabel}

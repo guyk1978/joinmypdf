@@ -112,7 +112,7 @@ export function FileUploadZone({
         isToolPage ? "tool-upload-zone--tool-page" : isHero ? "tool-upload-zone--hero" : "",
       )}
     >
-      {(displayTitle || displayDescription) ? (
+      {!isToolPage && (displayTitle || displayDescription) ? (
         <header className="tool-upload-zone__page-header">
           {displayTitle ? (
             <div className="tool-upload-zone__title-row">

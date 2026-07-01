@@ -96,7 +96,7 @@ import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
 import { resolveToolRoute } from "@/lib/variants";
-import { toolPageDashboardStack, toolPageDashboardWidth, toolPageInfoWidth } from "@/lib/tool-ui";
+import { toolPageDashboardStack, toolPageDashboardWidth, toolPageInfoWidth, productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { readdir } from "node:fs/promises";
@@ -211,7 +211,7 @@ export default async function ToolPage({
       />
       <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
-      <AppPageShell mainClassName={`${toolPageDashboardWidth} pb-8 pt-6 md:pb-10 md:pt-10`}>
+      <AppPageShell mainClassName={productPageMainClassName}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
         <ToolPageShellProvider headline={displayTitle} subline={subtitle} slug={slug} stacked>

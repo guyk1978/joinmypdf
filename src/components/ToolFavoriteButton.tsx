@@ -1,8 +1,8 @@
 "use client";
 
 import { clsx } from "clsx";
+import { Star } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ToolFavoriteBookmarkIcon } from "@/components/ToolFavoriteBookmarkIcon";
 import { useFavorites } from "@/hooks/useFavorites";
 
 type ToolFavoriteButtonProps = {
@@ -23,14 +23,18 @@ export function ToolFavoriteButton({ slug, className }: ToolFavoriteButtonProps)
         toggleFavorite(slug);
       }}
       className={clsx(
-        "tool-favorite-bookmark-btn",
-        favorited && "tool-favorite-bookmark-btn--active",
+        "tool-page-favorite-btn",
+        favorited && "tool-page-favorite-btn--active",
         className,
       )}
       aria-label={favorited ? t("removeFromFavorites") : t("addToFavorites")}
       aria-pressed={favorited}
     >
-      <ToolFavoriteBookmarkIcon favorited={favorited} size="toolbar" />
+      <Star
+        className={clsx("tool-page-favorite-btn__icon", favorited && "fill-current")}
+        strokeWidth={1.75}
+        aria-hidden
+      />
     </button>
   );
 }

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+
 export const runtime = "edge";
+
 import { clsx } from "clsx";
 import { AppPageShell } from "@/components/AppPageShell";
+import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { Link } from "@/i18n/navigation";
 import { getBrandName } from "@/lib/brand";
+import { imBtnCta } from "@/lib/design-system";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
-import { contentDashboardInset, contentDashboardPanel, homeSecondaryPillBtn } from "@/lib/tool-ui";
+import { productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Cpu, Gauge, LineChart, ShieldCheck } from "lucide-react";
 
@@ -56,10 +60,9 @@ export default async function PrivacyPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/privacy`),
         }}
       />
-      <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
-          <h1 className="home-minimal-tagline">{t("title")}</h1>
-          <div className="flex flex-col gap-8 md:gap-10">
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <ProductPageLayout title={t("title")} description={t("intro")} variant="document">
+          <div className="product-page-document-stack flex flex-col gap-6">
             {SECTION_KEYS.map((key) => {
               const Icon = sectionIcons[key];
               const showLocalHighlight = key === "onDevice";
@@ -67,37 +70,35 @@ export default async function PrivacyPage({ params }: Props) {
               return (
                 <section
                   key={key}
-                  className={clsx(contentDashboardPanel, "privacy-section")}
+                  className="im-content-panel privacy-section"
                   aria-labelledby={`privacy-section-${key}`}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className="h-5 w-5 shrink-0 text-neutral-400" aria-hidden />
-                    <h2 id={`privacy-section-${key}`} className="privacy-section__title text-lg md:text-xl">
+                    <Icon className="h-5 w-5 shrink-0 text-[var(--im-text-subtle)]" aria-hidden />
+                    <h2 id={`privacy-section-${key}`} className="info-prose-document__heading m-0">
                       {t(`sections.${key}.title`)}
                     </h2>
                   </div>
 
                   {showLocalHighlight ? (
-                    <aside className={clsx(contentDashboardInset, "mt-6")}>
-                      <p className="privacy-section__prose text-sm font-semibold uppercase tracking-wide">
-                        {t("localProcessingBadge")}
-                      </p>
-                      <p className="privacy-section__prose mt-2">{t("localProcessingHighlight")}</p>
+                    <aside className="im-content-panel im-content-panel--inset">
+                      <p className="product-page-meta m-0">{t("localProcessingBadge")}</p>
+                      <p className="info-prose-document__paragraph mt-2 mb-0">{t("localProcessingHighlight")}</p>
                     </aside>
                   ) : null}
 
-                  <p className="privacy-section__prose mt-6">{t(bodyKeys[key])}</p>
+                  <p className="info-prose-document__paragraph mt-6 mb-0">{t(bodyKeys[key])}</p>
                 </section>
               );
             })}
 
-            <section className="privacy-section privacy-section--center" aria-label={t("relatedLabel")}>
-              <Link href="/privacy-first/" className={homeSecondaryPillBtn} prefetch={false}>
+            <section className="privacy-section privacy-section--center text-center" aria-label={t("relatedLabel")}>
+              <Link href="/privacy-first/" className={clsx(imBtnCta, "im-btn-cta--rounded")} prefetch={false}>
                 {t("privacyFirstLink")}
               </Link>
             </section>
           </div>
-        </div>
+        </ProductPageLayout>
       </AppPageShell>
     </>
   );

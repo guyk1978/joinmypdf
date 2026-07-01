@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { clsx } from "clsx";
-import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { ToolPageLayout } from "@/components/ToolPageLayout";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 
 type ToolLayoutProps = {
@@ -11,13 +11,11 @@ type ToolLayoutProps = {
   pageClassName?: string;
 };
 
-/** Shared Industrial Matte shell for utility tools (favicon, text & JSON). */
+/** Utility tool workspaces — wraps ToolPageLayout with the operations anchor. */
 export function ToolLayout({ children, className, pageClassName }: ToolLayoutProps) {
   return (
-    <WorkspaceUploadShell showPrivacyBadge className={className}>
-      <div id={WORKSPACE_OPERATIONS_ID} className={clsx("utility-tool-layout", pageClassName)}>
-        {children}
-      </div>
-    </WorkspaceUploadShell>
+    <ToolPageLayout className={className} contentClassName={clsx("utility-tool-layout", pageClassName)}>
+      <div id={WORKSPACE_OPERATIONS_ID}>{children}</div>
+    </ToolPageLayout>
   );
 }

@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 export const runtime = "edge";
 import { ContactForm } from "@/components/ContactForm";
 import { AppPageShell } from "@/components/AppPageShell";
+import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { routing } from "@/i18n/routing";
 import { getBrandName } from "@/lib/brand";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
+import { productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type Props = {
@@ -21,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t("metaDescription"),
     alternates: {
       canonical: `/${locale}/contact`,
-      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}/contact`])),
+      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}/contact`])),
     },
   };
 }
@@ -42,11 +44,10 @@ export default async function ContactPage({ params }: Props) {
           url: absoluteUrl(`/${locale}/contact`),
         }}
       />
-      <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
-          <h1 className="home-minimal-tagline">{t("title")}</h1>
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <ProductPageLayout title={t("title")} description={t("intro")} variant="document">
           <ContactForm />
-        </div>
+        </ProductPageLayout>
       </AppPageShell>
     </>
   );

@@ -5,10 +5,11 @@ import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { FolderOpen, LayoutGrid, Play, Trash2 } from "lucide-react";
+import { EmptyState } from "@/components/EmptyState";
 import { useSavedProjects } from "@/hooks/useSavedProjects";
+import { imBtnCta } from "@/lib/design-system";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { registry } from "@/lib/registry";
-import { contentDashboardPanel, homePrimaryPillBtn } from "@/lib/tool-ui";
 
 function formatDate(timestamp: number, locale: string) {
   try {
@@ -40,33 +41,35 @@ export function ProjectsGrid({ locale }: { locale: string }) {
   }, [projects, tTools]);
 
   if (!hydrated) {
-    return <p className="projects-page-content__loading">{t("loading")}</p>;
+    return <p className="product-page-meta text-center">{t("loading")}</p>;
   }
 
   if (projects.length === 0) {
     return (
-      <div className={clsx(contentDashboardPanel, "projects-empty-state")}>
-        <FolderOpen className="projects-empty-state__icon" strokeWidth={1.75} aria-hidden />
-        <h2 className="projects-empty-state__title">{t("emptyTitle")}</h2>
-        <p className="projects-empty-state__body">{t("emptyState")}</p>
-        <Link href="/tools/" className={`${homePrimaryPillBtn} mt-6 gap-2 px-10`} prefetch={false}>
+      <EmptyState
+        icon={<FolderOpen strokeWidth={1.75} />}
+        title={t("emptyTitle")}
+        description={t("emptyState")}
+      >
+        <Link href="/tools/" className={clsx(imBtnCta, "im-btn-cta--rounded inline-flex gap-2")} prefetch={false}>
           <LayoutGrid className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
           {t("exploreAllTools")}
         </Link>
-      </div>
+      </EmptyState>
     );
   }
 
   return (
-    <>
-      <p className="projects-page-content__count" aria-live="polite">
+    <div className="product-page-dashboard w-full">
+      <p className="product-page-meta" aria-live="polite">
         {t("savedCount", { count: projects.length })}
       </p>
+
       <div className="projects-grid">
         {projects.map((project) => {
           const toolLabel = toolLabels.get(project.toolSlug) ?? project.toolSlug;
           return (
-            <article key={project.id} className={clsx(contentDashboardPanel, "project-card")}>
+            <article key={project.id} className="im-surface-card project-card">
               <div className="project-card__header">
                 <p className="project-card__tool">{toolLabel}</p>
                 <h2 className="project-card__title">{project.name}</h2>
@@ -77,10 +80,11 @@ export function ProjectsGrid({ locale }: { locale: string }) {
                   {t("fileCount", { count: project.fileRefs.length })}
                 </p>
               </div>
+
               <div className="project-card__actions">
                 <Link
                   href={`/tools/${project.toolSlug}/?project=${project.id}`}
-                  className={`${homePrimaryPillBtn} project-card__resume gap-2`}
+                  className={clsx(imBtnCta, "im-btn-cta--rounded project-card__resume inline-flex gap-2")}
                   prefetch={false}
                 >
                   <Play className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
@@ -88,11 +92,11 @@ export function ProjectsGrid({ locale }: { locale: string }) {
                 </Link>
                 <button
                   type="button"
-                  className="project-card__delete"
+                  className={clsx(imBtnCta, "im-btn-cta--rounded project-card__delete inline-flex gap-2")}
                   aria-label={t("deleteProject", { name: project.name })}
                   onClick={() => void removeProject(project.id)}
                 >
-                  <Trash2 className="h-4 w-4" aria-hidden />
+                  <Trash2 className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
                   {t("delete")}
                 </button>
               </div>
@@ -100,6 +104,6 @@ export function ProjectsGrid({ locale }: { locale: string }) {
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
