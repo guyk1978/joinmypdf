@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import { HomePageFooter } from "@/components/HomePageFooter";
+import { PageContentTransition } from "@/components/PageContentTransition";
 import { SiteHeader } from "@/components/SiteHeader";
 
 type AppPageShellProps = {
@@ -15,7 +16,9 @@ export function AppPageShell({ children, className, mainClassName }: AppPageShel
     <div className={clsx("app-page-shell", className)}>
       <div className="app-page-canvas">
         <SiteHeader />
-        <main className={clsx("home-tool-grid-page flex-1", mainClassName)}>{children}</main>
+        <main className={clsx("home-tool-grid-page flex-1", mainClassName)}>
+          <PageContentTransition className="page-content-transition--main">{children}</PageContentTransition>
+        </main>
         <HomePageFooter />
       </div>
     </div>

@@ -110,6 +110,37 @@ html:has(.home-page-shell--minimal) body {
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
 }
 
+/* Client-side page transitions — main content only (header/footer stay static) */
+.page-content-transition--main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+}
+
+@keyframes page-content-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.page-content-transition--enter {
+  animation: page-content-fade-in 0.22s ease-out both;
+  will-change: opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-content-transition--enter {
+    animation: none;
+    will-change: auto;
+  }
+}
+
 /* Unified dark minimalist page shell */
 .app-page-shell,
 .home-page-shell--minimal {
