@@ -12,11 +12,13 @@ const nodeStub = path.join(process.cwd(), "src/lib/node-stub.ts");
  * The programmatic SEO tool directory is static at `tools/index.html` → `/tools/`
  * (merged into `out/` via scripts/merge-static-export.mjs). Do not add a root `index.html`.
  *
- * Static export is disabled on Cloudflare Pages (`CF_PAGES=1`) so `/api/*` can run on Workers.
+ * IMPORTANT:
+ * `@cloudflare/next-on-pages` calls `npm run build` internally during `vercel build`.
+ * If static export is enabled for generic production builds, Cloudflare receives
+ * incompatible prerender config for app routes. Restrict static export to the
+ * explicit `build:static` script only.
  */
-const isCloudflarePages = process.env.CF_PAGES === "1";
-const useStaticExport =
-  !isCloudflarePages && process.env.NODE_ENV === "production";
+const useStaticExport = process.env.npm_lifecycle_event === "build:static";
 
 const nextConfig: NextConfig = {
   ...(useStaticExport ? { output: "export" } : {}),
