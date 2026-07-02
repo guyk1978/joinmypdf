@@ -52,6 +52,7 @@
       "jpgToPdf": "להפוך תמונות ל-PDF",
       "pngToPdf": "להמיר תמונות PNG ל-PDF",
       "heicToPdf": "להמיר תמונות HEIC ל-PDF",
+      "heicToJpg": "להמיר תמונות HEIC ל-JPG",
       "pdfToJpg": "לייצא עמודי PDF כ-JPG",
       "pdfToPng": "לייצא עמודי PDF כ-PNG",
       "pdfToText": "לחלץ טקסט מ-PDF",
@@ -776,6 +777,10 @@
         "title": "גרור תמונות HEIC לכאן או לחץ לעיון",
         "description": "הוסף קבצי .heic / .heif. סדר לפני המרה ל-PDF רב-עמודי."
       },
+      "heic-to-jpg": {
+        "title": "גרור תמונות HEIC לכאן או לחץ לעיון",
+        "description": "הוסף קבצי .heic / .heif והורד תמונות JPG מקומית."
+      },
       "word-to-pdf": {
         "title": "גרור מסמך Word לכאן או לחץ לעיון",
         "description": "בחר קובץ .docx להמרה ל-PDF מקומית."
@@ -1473,6 +1478,9 @@
     },
     "rotate-image": {
       "privacyNote": "הסיבוב רץ לחלוטין בדפדפן. התמונה לא עוזבת את המכשיר."
+    },
+    "heic-to-jpg": {
+      "privacyNote": "פענוח HEIC וייצוא JPG רצים בדפדפן. התמונות לא עוזבות את המכשיר."
     },
     "compress-image": {
       "privacyNote": "הדחיסה רצה לחלוטין בדפדפן. התמונה לא עוזבת את המכשיר."
@@ -2257,6 +2265,32 @@
         "totalReorderHint": "{size} סה״כ · גרור שורות לסדר עמודים",
         "outputHint": "כל HEIC הופך לעמוד PDF ברזולוציה מלאה. Live Photo עלול להוסיף מספר עמודים מקובץ אחד."
       }
+    },
+    "heic-to-jpg": {
+      "status": {
+        "noHeic": "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif.",
+        "filesAddedSkipped": "נוספו {count} קובצ/י HEIC. דולגו {skipped} קובץ/ים לא נתמכים.",
+        "filesAdded": "נוספו {count} קובצ/י HEIC. המר כשאתה מוכן.",
+        "starting": "מתחיל המרה…",
+        "complete": "ההמרה הושלמה. הורד את קובצי ה-JPG למטה.",
+        "packaging": "אורז קבצי JPG ל-ZIP…",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "progress": {
+        "preparing": "מכין תמונות HEIC…",
+        "decoding": "מפענח {name} ({current} מתוך {total})…"
+      },
+      "privacyNote": "פענוח HEIC וייצוא JPG רצים בדפדפן. התמונות לא עוזבות את המכשיר.",
+      "convertLabel": "המרה ל-JPG",
+      "downloadLabel": "הורד JPG",
+      "downloadZipLabel": "הורד ZIP",
+      "stickyConvertLabel": "המרה ל-JPG",
+      "stickyDownloadLabel": "הורד JPG",
+      "ui": {
+        "filesSelected": "נבחרו {count} קובצ/י HEIC",
+        "totalHint": "{size} סה״כ",
+        "outputHint": "כל HEIC מיוצא כ-JPG באיכות גבוהה. מספר קבצים יורדו כ-ZIP."
+      }
     }
   },
   "Tools": {
@@ -2280,6 +2314,7 @@
       "delete-pdf-pages": "מחיקת עמודים לא רצויים מ-PDF.",
       "png-to-pdf": "המרת תמונות PNG ל-PDF.",
       "heic-to-pdf": "המרת תמונות HEIC מה-iPhone ל-PDF.",
+      "heic-to-jpg": "המרת תמונות HEIC מה-iPhone ל-JPG.",
       "pdf-to-png": "ייצוא עמודי PDF כ-PNG.",
       "pdf-to-text": "חילוץ טקסט מ-PDF לעריכה או ארכיון.",
       "extract-images": "חילוץ תמונות מוטמעות מ-PDF.",

@@ -516,6 +516,7 @@
       "pdf-to-png": "PDF to PNG",
       "png-to-pdf": "PNG to PDF",
       "heic-to-pdf": "HEIC to PDF",
+      "heic-to-jpg": "HEIC to JPG",
       "pdf-to-word": "PDF to Word",
       "pdf-to-text": "PDF to Text",
       "extract-images": "Extract Images",

@@ -1849,6 +1849,51 @@
       "updatedAt": "2026-06-30"
     },
     {
+      "slug": "heic-to-jpg",
+      "category": "convert",
+      "operation": "heic-to-jpg",
+      "title": "HEIC to JPG Converter",
+      "primaryKeyword": "heic to jpg converter online",
+      "intent": "Convert iPhone HEIC photos to JPG images entirely in your browser—no upload.",
+      "description": "Upload .heic or .heif images and download JPG files locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert heic to jpg",
+        "iphone heic to jpeg",
+        "heif to jpg free"
+      ],
+      "useCases": [
+        "Share iPhone photos on platforms that do not accept HEIC",
+        "Convert HEIC shots for email attachments and CMS uploads",
+        "Batch-export camera roll images as JPG files"
+      ],
+      "relatedTools": [
+        "heic-to-pdf",
+        "convert-to-png",
+        "compress-image"
+      ],
+      "faq": [
+        {
+          "q": "Is my HEIC photo uploaded to JoinMyPDF?",
+          "a": "No. Decoding and JPG export run entirely in your browser on your device."
+        },
+        {
+          "q": "Can I convert multiple HEIC files at once?",
+          "a": "Yes. Add several files and download a ZIP of JPG images when you convert more than one output."
+        },
+        {
+          "q": "Which formats are supported?",
+          "a": "Apple HEIC and HEIF images (.heic, .heif)."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-02"
+    },
+    {
       "slug": "compress-image",
       "category": "optimize",
       "operation": "compress-image",

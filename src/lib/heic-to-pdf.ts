@@ -25,7 +25,7 @@ function heicErrorMessage(fileName: string, cause?: unknown): string {
   return `"${fileName}" could not be converted. It may be corrupted, password-protected, or not a valid HEIC/HEIF image.${detail}`;
 }
 
-async function heicFileToJpegBlobs(file: File): Promise<Blob[]> {
+export async function heicFileToJpegBlobs(file: File): Promise<Blob[]> {
   const heic2any = (await import("heic2any")).default;
   try {
     const result = await heic2any({

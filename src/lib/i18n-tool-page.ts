@@ -79,6 +79,7 @@ const ACTION_KEYS: Record<string, string> = {
   "jpg-to-pdf": "jpgToPdf",
   "png-to-pdf": "pngToPdf",
   "heic-to-pdf": "heicToPdf",
+  "heic-to-jpg": "heicToJpg",
   "pdf-to-jpg": "pdfToJpg",
   "pdf-to-png": "pdfToPng",
   "pdf-to-text": "pdfToText",

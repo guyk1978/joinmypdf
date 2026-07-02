@@ -17,6 +17,7 @@ import { PowerpointToPdfWorkspace } from "@/components/PowerpointToPdfWorkspace"
 import { PdfToPowerpointWorkspace } from "@/components/PdfToPowerpointWorkspace";
 import { PdfToExcelWorkspace } from "@/components/PdfToExcelWorkspace";
 import { HeicToPdfWorkspace } from "@/components/HeicToPdfWorkspace";
+import { HeicToJpgWorkspace } from "@/components/HeicToJpgWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
 import { CropImageWorkspace } from "@/components/CropImageWorkspace";
 import { ConvertToPngWorkspace } from "@/components/ConvertToPngWorkspace";
@@ -273,6 +274,8 @@ export default async function ToolPage({
           <PdfToExcelWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "heic-to-pdf" ? (
           <HeicToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "heic-to-jpg" ? (
+          <HeicToJpgWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-pdf" ? (
           <CropPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-image" ? (

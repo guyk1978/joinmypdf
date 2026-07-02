@@ -52,6 +52,7 @@
       "jpgToPdf": "turn images into a PDF",
       "pngToPdf": "convert PNG images into a PDF",
       "heicToPdf": "convert HEIC photos into a PDF",
+      "heicToJpg": "convert HEIC photos into JPG images",
       "pdfToJpg": "export PDF pages as JPG images",
       "pdfToPng": "export PDF pages as PNG images",
       "pdfToText": "extract text from a PDF",
@@ -776,6 +777,10 @@
         "title": "Drop HEIC photos here or click to browse",
         "description": "Add one or more .heic / .heif files. Reorder before converting to a multi-page PDF."
       },
+      "heic-to-jpg": {
+        "title": "Drop HEIC photos here or click to browse",
+        "description": "Add one or more .heic / .heif files and download JPG images locally."
+      },
       "word-to-pdf": {
         "title": "Drop a Word document here or click to browse",
         "description": "Select a .docx file to convert to PDF locally."
@@ -1473,6 +1478,9 @@
     },
     "rotate-image": {
       "privacyNote": "Rotation runs entirely in your browser. Your image never leaves your device."
+    },
+    "heic-to-jpg": {
+      "privacyNote": "HEIC decoding and JPG export run entirely in your browser. Your photos never leave your device."
     },
     "compress-image": {
       "privacyNote": "Compression runs entirely in your browser. Your image never leaves your device."
@@ -2256,6 +2264,32 @@
         "filesSelected": "{count} HEIC file(s) selected",
         "totalReorderHint": "{size} total · drag rows to reorder pages",
         "outputHint": "Each HEIC becomes one PDF page at full image resolution. Live Photo bursts may add multiple pages from a single file."
+      }
+    },
+    "heic-to-jpg": {
+      "status": {
+        "noHeic": "No HEIC/HEIF files detected. Choose .heic or .heif images.",
+        "filesAddedSkipped": "{count} HEIC file(s) added. Skipped {skipped} unsupported file(s).",
+        "filesAdded": "{count} HEIC file(s) added. Convert when ready.",
+        "starting": "Starting conversion…",
+        "complete": "Conversion complete. Download your JPG file(s) below.",
+        "packaging": "Packaging JPG files into a ZIP…",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "preparing": "Preparing HEIC images…",
+        "decoding": "Decoding {name} ({current} of {total})…"
+      },
+      "privacyNote": "HEIC decoding and JPG export run entirely in your browser. Your photos never leave your device.",
+      "convertLabel": "Convert to JPG",
+      "downloadLabel": "Download JPG",
+      "downloadZipLabel": "Download ZIP",
+      "stickyConvertLabel": "Convert to JPG",
+      "stickyDownloadLabel": "Download JPG",
+      "ui": {
+        "filesSelected": "{count} HEIC file(s) selected",
+        "totalHint": "{size} total",
+        "outputHint": "Each HEIC exports as a high-quality JPG. Multiple outputs download as a ZIP."
       }
     }
   }
