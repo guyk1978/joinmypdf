@@ -12,16 +12,23 @@ const nodeStub = path.join(process.cwd(), "src/lib/node-stub.ts");
  * The programmatic SEO tool directory is static at `tools/index.html` → `/tools/`
  * (merged into `out/` via scripts/merge-static-export.mjs). Do not add a root `index.html`.
  *
- * IMPORTANT:
- * `@cloudflare/next-on-pages` calls `npm run build` internally during `vercel build`.
- * If static export is enabled for generic production builds, Cloudflare receives
- * incompatible prerender config for app routes. Restrict static export to the
- * explicit `build:static` script only.
+ * Enable static export for:
+ * - explicit local static builds (`build:static`)
+ * - Cloudflare build script (`build:cloudflare`)
+ * - CI-forced static export (`NEXT_FORCE_STATIC_EXPORT=1`) used by next-on-pages
+ * - Cloudflare Pages builds (`CF_PAGES=1`) when present
  */
-const useStaticExport = process.env.npm_lifecycle_event === "build:static";
+const isCloudflarePages = process.env.CF_PAGES === "1";
+const forceStaticExport = process.env.NEXT_FORCE_STATIC_EXPORT === "1";
+const lifecycleEvent = process.env.npm_lifecycle_event;
+const shouldExportStatic =
+  forceStaticExport ||
+  isCloudflarePages ||
+  lifecycleEvent === "build:static" ||
+  lifecycleEvent === "build:cloudflare";
 
 const nextConfig: NextConfig = {
-  ...(useStaticExport ? { output: "export" } : {}),
+  ...(shouldExportStatic ? { output: "export" } : {}),
   trailingSlash: false,
   images: { unoptimized: true },
   reactStrictMode: true,
