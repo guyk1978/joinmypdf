@@ -10,6 +10,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 
 import { HomeAuthoritySection } from "@/components/HomeAuthoritySection";
+import { HomeStructuredData } from "@/components/HomeStructuredData";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { getRecentBlogPosts } from "@/lib/blog-index";
 
@@ -85,7 +86,9 @@ export default async function HomePage({ params }: Props) {
   const latestPosts = getRecentBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   return (
-    <AppPageShell>
+    <>
+      <HomeStructuredData locale={locale} />
+      <AppPageShell>
         <div className="home-minimal-layout home-minimal-layout--dashboard">
           <HomeToolGrid
             pdfItems={pdfItems}
@@ -99,6 +102,7 @@ export default async function HomePage({ params }: Props) {
           <HomeAuthoritySection latestPosts={latestPosts} />
         </div>
       </AppPageShell>
+    </>
   );
 }
 
