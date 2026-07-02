@@ -6,7 +6,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 
 
-export const runtime = "edge";
 
 
 

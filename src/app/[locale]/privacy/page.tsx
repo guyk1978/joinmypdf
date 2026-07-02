@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-export const runtime = "edge";
 
 import { clsx } from "clsx";
 import { AppPageShell } from "@/components/AppPageShell";

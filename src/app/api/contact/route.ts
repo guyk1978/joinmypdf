@@ -1,8 +1,9 @@
+export const runtime = "edge";
+
 import { NextResponse } from "next/server";
 import { sendContactEmail } from "@/lib/send-contact-email";
 import { validateContactPayload } from "@/lib/submit-contact-form";
 
-export const runtime = "edge";
 
 type ContactBody = {
   name?: string;

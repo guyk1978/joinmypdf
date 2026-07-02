@@ -8,7 +8,6 @@ import { isAdminInventoryEnabled } from "@/lib/admin-inventory";
 import { buildSiteInventory, getSiteInventoryTotals } from "@/lib/site-inventory";
 import { productPageMainClassName } from "@/lib/tool-ui";
 
-export const runtime = "edge";
 
 type Props = {
   params: Promise<{ locale: string }>;

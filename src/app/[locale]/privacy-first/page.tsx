@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-export const runtime = "edge";
 import { clsx } from "clsx";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { ComparisonTable } from "@/components/ComparisonTable";

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-export const runtime = "edge";
 import { DataToolDashboard } from "@/components/data-tool/DataToolDashboard";
 import { BrandEyebrow } from "@/components/BrandEyebrow";
 import { AppPageShell } from "@/components/AppPageShell";

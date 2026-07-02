@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-export const runtime = "edge";
 
 import { AppPageShell } from "@/components/AppPageShell";
 import { ComparisonTable } from "@/components/ComparisonTable";

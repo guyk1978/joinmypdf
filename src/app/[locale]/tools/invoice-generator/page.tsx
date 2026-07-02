@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-export const runtime = "edge";
 import Link from "next/link";
 import { BrandEyebrow } from "@/components/BrandEyebrow";
 import { AppPageShell } from "@/components/AppPageShell";

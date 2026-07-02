@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-export const runtime = "edge";
+import { setRequestLocale } from "next-intl/server";
 import { PdfHubPage } from "@/components/PdfHubPage";
 import { hubByPath } from "@/lib/pdf-hubs";
 
@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   alternates: { canonical: hub.path },
 };
 
-export default function PdfComparisonHub() {
-  return <PdfHubPage hub={hub} />;
+type Props = { params: Promise<{ locale: string }> };
+
+export default async function PdfComparisonHub({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  return <PdfHubPage hub={hub} locale={locale} />;
 }

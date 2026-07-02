@@ -2,11 +2,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "joinmypdf",
   "compatibility_date": "2026-05-10",
+  "pages_build_output_dir": ".vercel/output/static",
   "observability": {
     "enabled": true
-  },
-  "assets": {
-    "directory": "."
   },
   "compatibility_flags": [
     "nodejs_compat"

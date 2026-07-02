@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-export const runtime = "edge";
 
 import { getTranslations, setRequestLocale } from "next-intl/server";
 

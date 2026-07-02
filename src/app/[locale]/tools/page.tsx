@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-export const runtime = "edge";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";

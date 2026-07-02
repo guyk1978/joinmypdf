@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { AppPageShell } from "@/components/AppPageShell";
 import { BlogGuideCard } from "@/components/BlogGuideCard";
@@ -8,7 +8,8 @@ import { postsForHub, type PdfHub } from "@/lib/pdf-hubs";
 import { registry } from "@/lib/registry";
 import type { BlogPost, ToolDefinition } from "@/lib/types";
 
-export async function PdfHubPage({ hub }: { hub: PdfHub }) {
+export async function PdfHubPage({ hub, locale }: { hub: PdfHub; locale: string }) {
+  setRequestLocale(locale);
   const t = await getTranslations("Guides");
   const tTools = await getTranslations("Tools");
 

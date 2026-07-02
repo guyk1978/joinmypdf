@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-export const runtime = "edge";
 import { ContactForm } from "@/components/ContactForm";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ProductPageLayout } from "@/components/ProductPageLayout";

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-export const runtime = "edge";
 import { AppPageShell } from "@/components/AppPageShell";
 import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
 import { Link } from "@/i18n/navigation";
