@@ -38,15 +38,15 @@ export function HomeToolGrid({
   const t = useTranslations("Home");
 
   return (
-    <div className="home-minimal-layout">
-      <p className="home-minimal-tagline">{t("minimalTagline")}</p>
+    <div className="home-minimal-layout home-minimal-layout--dashboard">
+      <p className="home-minimal-tagline home-minimal-tagline--dashboard">{t("minimalTagline")}</p>
 
       <HomeFeaturedSection
         id="home-pdf-tools"
         title={t("pdfSectionTitle")}
         viewAllHref="/tools/"
         viewAllLabel={t("viewAllPdfTools")}
-        hideTitle
+        variant="dashboard"
       >
         {pdfItems.map((item) => (
           <HomeFeaturedToolCard
@@ -64,7 +64,7 @@ export function HomeToolGrid({
         viewAllHref="/image-tools/"
         viewAllLabel={t("viewAllImageTools")}
         className="home-minimal-section--image"
-        hideTitle
+        variant="dashboard"
       >
         {imageItems.map((item) => (
           <HomeFeaturedToolCard
@@ -83,7 +83,7 @@ export function HomeToolGrid({
         viewAllHref="/developer-tools/"
         viewAllLabel={t("viewAllDeveloperTools")}
         className="home-minimal-section--developer"
-        hideTitle
+        variant="dashboard"
       >
         {developerItems.map((item) => (
           <HomeFeaturedToolCard
@@ -102,7 +102,7 @@ export function HomeToolGrid({
         viewAllHref="/data-conversion-tools/"
         viewAllLabel={t("viewAllDataConversionTools")}
         className="home-minimal-section--data-conversion"
-        hideTitle
+        variant="dashboard"
       >
         {dataConversionItems.map((item) => (
           <HomeFeaturedToolCard
@@ -121,7 +121,7 @@ export function HomeToolGrid({
         viewAllHref="/security-tools/"
         viewAllLabel={t("viewAllSecurityTools")}
         className="home-minimal-section--security"
-        hideTitle
+        variant="dashboard"
       >
         {securityItems.map((item) => (
           <HomeFeaturedToolCard
@@ -140,7 +140,7 @@ export function HomeToolGrid({
         viewAllHref="/productivity-tools/"
         viewAllLabel={t("viewAllProductivityTools")}
         className="home-minimal-section--productivity"
-        hideTitle
+        variant="dashboard"
       >
         {productivityItems.map((item) => (
           <HomeFeaturedToolCard
@@ -159,7 +159,7 @@ export function HomeToolGrid({
         viewAllHref="/utilities/"
         viewAllLabel={t("viewAllUtilities")}
         className="home-minimal-section--utilities"
-        hideTitle
+        variant="dashboard"
       >
         {utilityItems.map((item) => (
           <HomeFeaturedToolCard
