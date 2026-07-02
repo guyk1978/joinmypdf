@@ -184,6 +184,27 @@
     "headline": "PDF Tools Suite",
     "subHeader": "Fast, private PDF processing in your browser. Files never leave your device.",
     "minimalTagline": "Fast, private, enterprise-grade processing in your browser. Compliance-focused.",
+    "seoHeadline": "Privacy-First Web Tools: Local Processing for PDF, Image, and Developer Tasks.",
+    "localProcessingBadge": "⚡ Local-Only: 100% Private",
+    "authorityOverviewTitle": "About JoinMyPDF",
+    "seoOverview": "JoinMyPDF is a privacy-focused suite of browser-based tools for PDF, image, and developer workflows. Every task runs through local processing in your browser—files stay on your device with no mandatory uploads to our servers. Our enterprise-grade architecture supports offline-capable workflows where supported, so you can merge, compress, convert, and secure documents with maximum control. Built for professionals who need fast results without sacrificing security or compliance.",
+    "faqTitle": "Frequently asked questions",
+    "faq": {
+      "upload": {
+        "q": "Is my data uploaded to servers?",
+        "a": "No. Files and data are processed locally on your device in the browser. They are not uploaded to our servers for standard tool workflows."
+      },
+      "free": {
+        "q": "Is it free to use?",
+        "a": "Yes. All tools are free to use and run entirely in your browser—no account is required for typical workflows."
+      },
+      "professional": {
+        "q": "Are these tools safe for professional use?",
+        "a": "Yes. By processing files locally and offering metadata removal workflows, we help teams handle sensitive documents with maximum security and control."
+      }
+    },
+    "latestGuidesTitle": "Latest Guides",
+    "viewAllGuides": "View all guides",
     "privacyBadge": "Privacy First",
     "heroFeaturesLabel": "Core benefits",
     "heroFast": "Instant speed",

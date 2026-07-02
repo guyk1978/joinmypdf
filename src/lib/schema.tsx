@@ -2,17 +2,19 @@ import { absoluteUrl } from "./site";
 import { getBrandName } from "./brand";
 import type { ToolDefinition, ToolVariant } from "./types";
 
-export function JsonLd({ data }: { data: unknown }) {
-  const serialized = JSON.stringify(data)
+export function serializeJsonLd(data: unknown): string {
+  return JSON.stringify(data)
     .replace(/</g, "\\u003c")
     .replace(/\u2028/g, "\\u2028")
     .replace(/\u2029/g, "\\u2029");
+}
 
+export function JsonLd({ data }: { data: unknown }) {
   return (
     <script
       type="application/ld+json"
       suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: serialized }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
     />
   );
 }
@@ -37,6 +39,40 @@ function schemaFeatureList(locale?: string): string[] {
     "Free",
     "No server uploads",
   ];
+}
+
+export function homeSoftwareApplicationLd(args: {
+  locale: string;
+  name: string;
+  description: string;
+  pathname: string;
+}) {
+  const { locale, name, description, pathname } = args;
+  const priceCurrency = locale === "he" ? "ILS" : "USD";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any (Web Browser)",
+    browserRequirements: "Requires JavaScript. Requires HTML5.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency,
+      availability: "https://schema.org/InStock",
+    },
+    isAccessibleForFree: true,
+    description,
+    url: absoluteUrl(pathname),
+    featureList: schemaFeatureList(locale),
+    provider: {
+      "@type": "Organization",
+      name: getBrandName(locale),
+      url: absoluteUrl(`/${locale}`),
+    },
+  };
 }
 
 export function softwareApplicationLd(args: {

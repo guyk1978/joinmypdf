@@ -38,8 +38,13 @@ export function HomeToolGrid({
   const t = useTranslations("Home");
 
   return (
-    <div className="home-minimal-layout home-minimal-layout--dashboard">
-      <p className="home-minimal-tagline home-minimal-tagline--dashboard">{t("minimalTagline")}</p>
+    <>
+      <header className="home-seo-hero">
+        <p className="home-local-processing-badge" role="status">
+          {t("localProcessingBadge")}
+        </p>
+        <h1 className="home-seo-hero__title">{t("seoHeadline")}</h1>
+      </header>
 
       <HomeFeaturedSection
         id="home-pdf-tools"
@@ -172,6 +177,6 @@ export function HomeToolGrid({
           />
         ))}
       </HomeFeaturedSection>
-    </div>
+    </>
   );
 }

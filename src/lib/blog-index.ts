@@ -33,3 +33,9 @@ export function groupBlogPostsByCategory(posts: BlogPost[]): BlogCategorySection
 export function blogCategorySectionId(category: BlogDisplayCategory): string {
   return `blog-category-${category}`;
 }
+
+export function getRecentBlogPosts(posts: BlogPost[], limit = 3): BlogPost[] {
+  return [...posts]
+    .sort((a, b) => Date.parse(b.publishDate || "") - Date.parse(a.publishDate || ""))
+    .slice(0, limit);
+}
