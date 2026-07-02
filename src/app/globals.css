@@ -120,6 +120,10 @@ html:has(.home-page-shell--minimal) body {
   transform-origin: center top;
 }
 
+.page-content-transition--exiting {
+  pointer-events: none;
+}
+
 /* Unified dark minimalist page shell */
 .app-page-shell,
 .home-page-shell--minimal {
