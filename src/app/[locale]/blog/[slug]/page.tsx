@@ -131,6 +131,7 @@ export default async function BlogPostPage({
   const categoryLabel = getLocalizedBlogCategoryLabel(post, t);
   const readTime = getLocalizedBlogReadTime(post, t);
   const category = resolveBlogDisplayCategory(post);
+  const bottomCtaLabel = post.contentBlocks?.bottomCtaLabel?.trim();
 
   return (
     <>
@@ -269,7 +270,10 @@ export default async function BlogPostPage({
                     className={clsx(imBtnCta, "im-btn-cta--rounded inline-flex gap-2")}
                     prefetch={false}
                   >
-                    {t("article.openPrimaryTool", { tool: translateToolItem(tTools, tools[0].slug, tools[0].title) })}
+                    {bottomCtaLabel ||
+                      t("article.openPrimaryTool", {
+                        tool: translateToolItem(tTools, tools[0].slug, tools[0].title),
+                      })}
                     <ArrowUpRight className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
                   </Link>
                 </div>

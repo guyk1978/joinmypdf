@@ -6663,6 +6663,384 @@
         "faq": [],
         "internalLinks": [{ "href": "/tools/repair-pdf/", "anchor": "Repair PDF" }]
       }
+    },
+    {
+      "slug": "how-to-compress-images-privacy-first",
+      "title": "איך לדחוס תמונות בדפדפן בלי להעלות לשרת (פרטיות מעל הכל)",
+      "keyword": "דחיסת תמונות בדפדפן פרטיות",
+      "category": "Security",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-07-02",
+      "readTime": "6 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.9,
+      "relatedTools": ["compress-image"],
+      "relatedBlogs": ["browser-image-processing-privacy", "hidden-risks-of-free-online-pdf-editors"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור פרטיות בעיבוד תמונות מקומי · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "איך לדחוס תמונות בדפדפן בלי להעלות לשרת (פרטיות מעל הכל)",
+        "metaDescription": "למדו איך לדחוס תמונות בצורה מאובטחת ישירות בדפדפן. בטלו את הצורך בהעלאת קבצים לענן, שמרו על הפרטיות שלכם ושפרו את מהירות העבודה שלכם."
+      },
+      "description": "דחיסת תמונות מקומית בדפדפן שומרת על פרטיות מלאה ומזרזת את תהליך העבודה.",
+      "contentBlocks": {
+        "intro": "בעידן שבו פרטיות המידע היא בראש סדר העדיפויות, העלאת מסמכים רגישים או תמונות אישיות לשרתים חיצוניים לעיבוד היא סיכון מיותר. המידע שלכם מאובטח ביותר כשהוא נשאר במכשיר שלכם.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Try the Compress Image Tool",
+        "bottomCtaLabel": "Try the Compress Image Tool",
+        "sections": [
+          {
+            "id": "why-local-compression-matters",
+            "heading": "למה דחיסת תמונות מקומית היא חשובה?",
+            "level": 2,
+            "paragraphs": [
+              "רוב כלי הדחיסה המקוונים עובדים דרך שרת: מעלים קובץ, השרת דוחס, ואז מורידים. כך הקבצים חשופים ליומני שרת, מטמון (Cache), או גישה לא מורשית בתשתית צד שלישי.",
+              "בכלי Compress Image בעיבוד מקומי, כל התהליך מתרחש ישירות בדפדפן בעזרת APIs מתקדמים. הקבצים נשארים אצלכם על המכשיר מתחילת התהליך ועד סופו."
+            ]
+          },
+          {
+            "id": "benefits",
+            "heading": "יתרונות מרכזיים לעיבוד מקומי",
+            "level": 2,
+            "list": [
+              "פרטיות מוחלטת: הקבצים לעולם לא עוזבים את המחשב.",
+              "מהירות: אין זמני העלאה והורדה לענן.",
+              "שליטה מלאה: כוונון איכות הדחיסה עם משוב מיידי."
+            ]
+          },
+          {
+            "id": "how-to-use",
+            "heading": "איך להשתמש בכלי?",
+            "level": 2,
+            "type": "workflow",
+            "list": [
+              "היכנסו לכלי Compress Image.",
+              "גררו את התמונה לאזור העבודה.",
+              "כוונו את הגדרות הדחיסה המועדפות עליכם.",
+              "הורידו את התמונה המותאמת באופן מיידי."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/compress-image/", "anchor": "Try the Compress Image Tool" }]
+      }
+    },
+    {
+      "slug": "lossy-vs-lossless-image-compression",
+      "title": "השוואה בין דחיסה מאבדת נתונים (Lossy) לדחיסה ללא אובדן (Lossless): מה מתאים לאתר שלך?",
+      "keyword": "lossy vs lossless דחיסת תמונות",
+      "category": "Conversion",
+      "cluster": "image-compression-guides",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-07-02",
+      "readTime": "6 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.91,
+      "relatedTools": ["compress-image"],
+      "relatedBlogs": ["how-to-compress-images-privacy-first", "browser-image-processing-privacy"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור אופטימיזציית תמונות לווב · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "השוואה בין דחיסה מאבדת נתונים (Lossy) לדחיסה ללא אובדן (Lossless): מה מתאים לאתר שלך?",
+        "metaDescription": "מתלבטים באיזו דחיסת תמונות לבחור? הכירו את ההבדלים בין דחיסת Lossy ל-Lossless ולמדו איך לייעל את התמונות שלכם לאתר מושלם."
+      },
+      "description": "מדריך פרקטי לבחירת דחיסת תמונות נכונה בין איכות, משקל קובץ ומהירות טעינה.",
+      "contentBlocks": {
+        "intro": "אופטימיזציה של תמונות היא קריטית לביצועי האתר, אבל בחירת שיטת הדחיסה עלולה להיות מבלבלת. כשאתר נטען לאט או תמונה נראית מפוקסלת, לרוב מדובר בבחירה בין Lossy ל-Lossless.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Try the Compress Image Tool",
+        "bottomCtaLabel": "Try the Compress Image Tool",
+        "sections": [
+          {
+            "id": "what-is-lossless",
+            "heading": "מהי דחיסה ללא אובדן נתונים (Lossless)?",
+            "level": 2,
+            "paragraphs": [
+              "דחיסת Lossless מקטינה את נפח הקובץ באמצעות הסרת נתונים עודפים בלי לפגוע באיכות כלל. לאחר פריסה, התמונה זהה לחלוטין למקור.",
+              "מתאים ללוגואים, אייקונים, תרשימים טכניים והדפסות איכות שבהן כל פיקסל חשוב."
+            ]
+          },
+          {
+            "id": "what-is-lossy",
+            "heading": "מהי דחיסה מאבדת נתונים (Lossy)?",
+            "level": 2,
+            "paragraphs": [
+              "דחיסת Lossy מסירה בצורה סלקטיבית מידע חזותי פחות חשוב. כך מתקבל חיסכון גדול במשקל הקובץ, במחיר של אובדן איכות קל.",
+              "מתאים לצילומים מורכבים וכותרות אתר, שבהם ירידה קטנה באיכות כמעט לא מורגשת אך מהירות הטעינה משתפרת מאוד."
+            ]
+          },
+          {
+            "id": "how-to-choose",
+            "heading": "איך בוחרים בכלי שלנו?",
+            "level": 2,
+            "paragraphs": ["כלי Compress Image נותן שליטה מלאה. השתמשו בסליידר האיכות כדי למצוא את נקודת האיזון:"],
+            "list": [
+              "איכות גבוהה (80-90%): לתמונות Hero שבהן נאמנות למקור חשובה במיוחד.",
+              "מאוזן (60-75%): אידיאלי לתמונות בבלוג ולתוכן אתר כללי.",
+              "אגרסיבי (30-50%): מתאים לתמונות ממוזערות או לדרישות טעינה קיצוניות."
+            ]
+          },
+          {
+            "id": "verdict",
+            "heading": "בשורה התחתונה",
+            "level": 2,
+            "paragraphs": [
+              "ברוב תרחישי הווב, דחיסת Lossy באיכות 70-80% היא תקן הזהב בתעשייה: הפחתה גדולה במשקל תוך שמירה על חדות טובה."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/compress-image/", "anchor": "Try the Compress Image Tool" }]
+      }
+    },
+    {
+      "slug": "5-ways-optimize-images-faster-loading",
+      "title": "5 דרכים לאופטימיזציה של תמונות לטעינה מהירה של אתרים",
+      "keyword": "אופטימיזציה לתמונות מהירות אתר",
+      "category": "Productivity",
+      "cluster": "image-performance-guides",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-07-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.92,
+      "relatedTools": ["compress-image"],
+      "relatedBlogs": ["lossy-vs-lossless-image-compression", "how-to-compress-images-privacy-first"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי ביצועי ווב · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "5 דרכים לאופטימיזציה של תמונות לטעינה מהירה של אתרים",
+        "metaDescription": "שפרו את ביצועי האתר שלכם עם 5 אסטרטגיות מקצועיות לאופטימיזציה של תמונות. שפרו את ה-SEO, הפחיתו את אחוזי הנטישה ושלוטו בניהול נכסים דיגיטליים."
+      },
+      "description": "חמש טקטיקות פרקטיות לשיפור מהירות, SEO והמרות דרך אופטימיזציית תמונות.",
+      "contentBlocks": {
+        "intro": "תמונות ברזולוציה גבוהה חיוניות לעיצוב מודרני, אך הן לרוב הגורם המרכזי לזמני טעינה איטיים. עבור מפתחים ובעלי אתרים, אופטימיזציית תמונות היא אסטרטגיית ביצועים מהותית.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Try the Compress Image Tool",
+        "bottomCtaLabel": "Try the Compress Image Tool",
+        "sections": [
+          {
+            "id": "right-format",
+            "heading": "1. בחרו את פורמט הקובץ הנכון",
+            "level": 2,
+            "paragraphs": [
+              "אל תסתמכו רק על PNG ו-JPEG. פורמטים מודרניים כמו WebP ו-AVIF מציעים דחיסה יעילה יותר תוך שמירה טובה על איכות, עם קבצים קטנים משמעותית."
+            ]
+          },
+          {
+            "id": "proper-sizing",
+            "heading": "2. השתמשו במידות הנכונות",
+            "level": 2,
+            "paragraphs": [
+              "הגשת תמונת 4000px לתיבה של 300px היא בזבוז רוחב פס. חשוב להגיש תמונות במידות שבהן הן מוצגות בפועל כדי למנוע הורדת פיקסלים מיותרים."
+            ]
+          },
+          {
+            "id": "lazy-loading",
+            "heading": "3. הטמיעו Lazy Loading",
+            "level": 2,
+            "paragraphs": [
+              "תמונות מתחת לקפל לא צריכות להתחרות בטעינת התוכן הקריטי. שימוש ב-loading=\"lazy\" דוחה טעינת תמונות לא דחופות ומשפר מהירות טעינה התחלתית."
+            ]
+          },
+          {
+            "id": "local-compression",
+            "heading": "4. השתמשו בדחיסה מקומית (Local Compression)",
+            "level": 2,
+            "paragraphs": [
+              "העלאה לשרת יוצרת השהיה מיותרת. תהליך דחיסה מקומי מאובטח מאפשר לעבד נכסים במהירות לפני העלאה, כך שהם מגיעים מותאמים כבר מהמקור."
+            ]
+          },
+          {
+            "id": "strip-metadata",
+            "heading": "5. הסירו Metadata מיותר",
+            "level": 2,
+            "paragraphs": [
+              "תמונות כוללות לעיתים נתוני EXIF סמויים כמו הגדרות מצלמה ומיקום GPS. הסרת הנתונים הלא נחוצים מפחיתה משקל קובץ ומשפרת פרטיות משתמשים."
+            ]
+          },
+          {
+            "id": "performance-impact",
+            "heading": "השפעה על ביצועים",
+            "level": 2,
+            "paragraphs": [
+              "אופטימיזציה נכונה משפרת את Largest Contentful Paint (LCP), מדד מרכזי בדירוג גוגל. אתר מהיר יותר מפחית נטישה ומשפר סיכויי המרה."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/compress-image/", "anchor": "Try the Compress Image Tool" }]
+      }
+    },
+    {
+      "slug": "why-local-image-processing-is-safer",
+      "title": "למה עיבוד תמונות מקומי בטוח יותר למסמכים רגישים ולצילום מקצועי",
+      "keyword": "עיבוד תמונות מקומי פרטיות אבטחה",
+      "category": "Security",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-07-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.93,
+      "relatedTools": ["compress-image"],
+      "relatedBlogs": ["how-to-compress-images-privacy-first", "browser-image-processing-privacy"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור תהליכי פרטיות מקצועיים · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "למה עיבוד תמונות מקומי בטוח יותר למסמכים רגישים ולצילום מקצועי",
+        "metaDescription": "הגנו על הפרטיות והמידע המקצועי שלכם. גלו מדוע עיבוד תמונות מקומי ישירות בדפדפן הוא הבחירה הבטוחה ביותר לטיפול במסמכים רגישים וצילום מקצועי."
+      },
+      "description": "מדריך פרטיות מקצועי לעיבוד מקומי של מסמכים רגישים ותמונות צילום ישירות בדפדפן.",
+      "contentBlocks": {
+        "intro": "בעולם המקצועי מידע הוא גם נכס וגם התחייבות. כשמעלים קבצים לענן מאבדים חלק מהשליטה עליהם — בין אם מדובר בחוזים, רשומות רפואיות או קבצי צילום מקצועיים.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Try the Compress Image Tool",
+        "bottomCtaLabel": "Try the Compress Image Tool",
+        "sections": [
+          {
+            "id": "hidden-risk-cloud",
+            "heading": "הסיכון הנסתר בעיבוד בענן",
+            "level": 2,
+            "paragraphs": [
+              "בעורכי ודוחסי תמונות מסורתיים, הקבצים נשלחים לשרת צד שלישי. מרגע זה אין לכם שליטה מלאה על מחזור החיים של הנתונים ועל השימוש המשני בהם."
+            ],
+            "list": [
+              "שמירה ביומני שרת: קבצים או נתונים יכולים להישמר הרבה אחרי סיום הסשן.",
+              "חשיפת Metadata: נתוני EXIF עלולים לחשוף GPS, מזהי מצלמה וגרסאות תוכנה.",
+              "גישה של צד ג': ספקי ענן עשויים להשתמש בנתונים לאנליטיקה, אימון AI או עיבודים נוספים."
+            ]
+          },
+          {
+            "id": "privacy-first-advantage",
+            "heading": "היתרון של Privacy-First",
+            "level": 2,
+            "paragraphs": [
+              "כלי Compress Image עובד בארכיטקטורה מקומית בדפדפן, כך שהנכסים הרגישים נשארים במכשיר שלכם.",
+              "הגישה הזו מצמצמת משטח תקיפה ושומרת על סודיות מקצועית בתהליכי עבודה רגישים."
+            ],
+            "list": [
+              "אפס העברה: הקובץ לא נשלח לשרת במהלך הדחיסה.",
+              "הבטחת פרטיות: אין תעבורה ולכן אין סיכון ליירוט בדרך.",
+              "יושרה מקצועית: השליטה ב-Metadata נשארת בידיים שלכם."
+            ]
+          },
+          {
+            "id": "secure-workflow",
+            "heading": "אבטחו את סביבת העבודה שלכם",
+            "level": 2,
+            "paragraphs": [
+              "בחירה בכלים מקומיים אינה רק החלטת מהירות; זו גם אחריות מקצועית, עמידה בתקנים ושמירה על אמון לקוחות. במסמכים רגישים ובצילום מקצועי, שמרו את העיבוד במכשיר."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/compress-image/", "anchor": "Try the Compress Image Tool" }]
+      }
+    },
+    {
+      "slug": "best-image-format-guide",
+      "title": "הפורמט הטוב ביותר לתמונות שלכם: PNG, JPEG או WebP? מדריך פשוט",
+      "keyword": "פורמט תמונה png jpeg webp",
+      "category": "Conversion",
+      "cluster": "image-format-guides",
+      "intent": "informational",
+      "intentType": "informational",
+      "publishDate": "2026-07-02",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.94,
+      "relatedTools": ["compress-image"],
+      "relatedBlogs": ["lossy-vs-lossless-image-compression", "5-ways-optimize-images-faster-loading"],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור אסטרטגיית פורמטים מעשית · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "הפורמט הטוב ביותר לתמונות שלכם: PNG, JPEG או WebP? מדריך פשוט",
+        "metaDescription": "מבולבלים בין פורמטים של תמונות? למדו את ההבדלים בין PNG, JPEG ו-WebP, וגלו מדוע הכלי שלנו הוא הפתרון הכל-באחד הטוב ביותר לאופטימיזציה."
+      },
+      "description": "מדריך פשוט לבחירת JPEG, PNG או WebP לאיזון נכון בין איכות, מהירות ותאימות.",
+      "contentBlocks": {
+        "intro": "בחירת פורמט הקובץ הנכון היא הצעד הראשון בניהול תמונות אפקטיבי. הפורמט משפיע ישירות על מהירות האתר, איכות התמונה והתאימות לדפדפנים.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Try the Compress Image Tool",
+        "bottomCtaLabel": "Try the Compress Image Tool",
+        "sections": [
+          {
+            "id": "quick-breakdown",
+            "heading": "סקירה מהירה של הפורמטים",
+            "level": 2,
+            "list": [
+              "JPEG: הסטנדרט הוותיק לצילומים. תומך במיליוני צבעים ודחיסה יעילה, אך ללא שקיפות.",
+              "PNG: מתאים במיוחד לנכסים עם שקיפות כמו לוגואים ואייקונים. איכות Lossless עם קבצים שיכולים להיות גדולים.",
+              "WebP: פורמט מודרני שמציע דחיסה חזקה ב-Lossy וגם ב-Lossless, כולל שקיפות, עם נפחים קטנים יותר ברוב המקרים."
+            ]
+          },
+          {
+            "id": "which-to-choose",
+            "heading": "במה כדאי לבחור?",
+            "level": 2,
+            "paragraphs": [
+              "בחרו JPEG כשנדרשת תאימות רחבה ועבודה עם צילומים מורכבים ללא שקיפות.",
+              "בחרו PNG לגרפיקה איכותית, צילומי מסך ולוגואים עם רקע שקוף.",
+              "בחרו WebP לרוב תרחישי הווב כדי לקבל קבצים קטנים יותר תוך שמירה על חדות טובה."
+            ]
+          },
+          {
+            "id": "all-in-one-solution",
+            "heading": "הפתרון הכל-באחד (All-in-One)",
+            "level": 2,
+            "paragraphs": [
+              "במקום לעבור בין כמה כלים, עדיף לעבוד במרחב מקומי אחד לניהול ודחיסת תמונות.",
+              "כלי Compress Image שלנו עוזר לצמצם PNG כבדים, לבצע אופטימיזציה ל-JPEG ולעבוד בצורה יעילה גם עם WebP."
+            ]
+          },
+          {
+            "id": "why-use-our-tool",
+            "heading": "למה להשתמש בכלי שלנו?",
+            "level": 2,
+            "list": [
+              "פרטיות תחילה: התמונות מעובדות מקומית על המכשיר, ללא העלאה לשרת.",
+              "מהירות: עיבוד מיידי ללא השהיות העלאה.",
+              "רב-תכליתיות: ניהול, המרה ודחיסה במקום אחד."
+            ]
+          },
+          {
+            "id": "closing",
+            "heading": "פשטו את תהליך העבודה שלכם",
+            "level": 2,
+            "paragraphs": [
+              "הפסיקו לבזבז זמן על תהליכים מפוצלים. נהלו תמונות בצורה מקצועית, מאובטחת ומהירה בעזרת זרימת עבודה אחת."
+            ]
+          }
+        ],
+        "faq": [],
+        "internalLinks": [{ "href": "/tools/compress-image/", "anchor": "Try the Compress Image Tool" }]
+      }
     }
   ]
 }

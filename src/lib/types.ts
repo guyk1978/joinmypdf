@@ -93,6 +93,8 @@ export type BlogPost = {
     internalLinks?: BlogInternalLink[];
     bestFor?: string;
     primaryTool?: string;
+    primaryToolCtaLabel?: string;
+    bottomCtaLabel?: string;
     editorialNote?: string;
     wordCount?: number;
   };

@@ -50,6 +50,7 @@ export function BlogArticleBody({ post }: { post: BlogPost }) {
   const sections = blocks?.sections;
   const primarySlug = blocks?.primaryTool;
   const primaryTool = primarySlug ? registry.tools.find((t) => t.slug === primarySlug) : null;
+  const primaryToolCtaLabel = blocks?.primaryToolCtaLabel?.trim();
 
   let paragraphCount = 0;
   let midAdInserted = false;
@@ -133,7 +134,7 @@ export function BlogArticleBody({ post }: { post: BlogPost }) {
       {primaryTool ? (
         <aside className="article-cta flex justify-center">
           <Link href={`/tools/${primaryTool.slug}/`} className={`${homePrimaryPillBtn} gap-2`} prefetch={false}>
-            Open {primaryTool.title}
+            {primaryToolCtaLabel || `Open ${primaryTool.title}`}
             <ArrowUpRight className="ms-2 h-4 w-4 shrink-0 opacity-90" aria-hidden />
           </Link>
         </aside>
