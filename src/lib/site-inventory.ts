@@ -1,7 +1,5 @@
 import "server-only";
 
-import { readdirSync, statSync } from "node:fs";
-import path from "node:path";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { HOME_DATA_CONVERSION_TOOL_IDS } from "@/lib/data-conversion-tools";
 import { HOME_DEVELOPER_TOOL_IDS } from "@/lib/developer-tools";
@@ -74,59 +72,6 @@ function resolveToolCategory(slug: string): InventoryCategoryId {
   return CATEGORY_SLUG_MAP.get(slug) ?? "pdf";
 }
 
-function pascalToKebab(value: string): string {
-  return value
-    .replace(/Workspace$/, "")
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2")
-    .toLowerCase();
-}
-
-/** Scan src/components/tools for workspace modules (build-time / server runtime). */
-function scanComponentToolSlugs(): { slug: string; componentPath: string; folder: string }[] {
-  const toolsRoot = path.join(process.cwd(), "src", "components", "tools");
-  const discovered: { slug: string; componentPath: string; folder: string }[] = [];
-  const seen = new Set<string>();
-
-  let folders: string[] = [];
-  try {
-    folders = readdirSync(toolsRoot).filter((entry) => {
-      try {
-        return statSync(path.join(toolsRoot, entry)).isDirectory();
-      } catch {
-        return false;
-      }
-    });
-  } catch {
-    return discovered;
-  }
-
-  for (const folder of folders) {
-    const folderPath = path.join(toolsRoot, folder);
-    let files: string[] = [];
-    try {
-      files = readdirSync(folderPath).filter((file) => file.endsWith(".tsx"));
-    } catch {
-      continue;
-    }
-
-    for (const file of files) {
-      if (!file.endsWith("Workspace.tsx")) continue;
-      const base = file.replace(/\.tsx$/, "");
-      const slug = pascalToKebab(base);
-      if (!slug || seen.has(slug)) continue;
-      seen.add(slug);
-      discovered.push({
-        slug,
-        folder,
-        componentPath: `src/components/tools/${folder}/${file}`,
-      });
-    }
-  }
-
-  return discovered.sort((a, b) => a.slug.localeCompare(b.slug));
-}
-
 function buildToolInventoryItems(): InventoryItem[] {
   const items: InventoryItem[] = [];
   const seen = new Set<string>();
@@ -141,19 +86,6 @@ function buildToolInventoryItems(): InventoryItem[] {
       source: "assets/data/tools.json",
     });
     seen.add(tool.slug);
-  }
-
-  for (const entry of scanComponentToolSlugs()) {
-    if (seen.has(entry.slug)) continue;
-    const registryTool = registry.tools.find((tool) => tool.slug === entry.slug);
-    items.push({
-      id: entry.slug,
-      name: registryTool?.title ?? entry.slug,
-      category: resolveToolCategory(entry.slug),
-      path: `/tools/${entry.slug}/`,
-      source: entry.componentPath,
-    });
-    seen.add(entry.slug);
   }
 
   return items.sort((a, b) => a.name.localeCompare(b.name));
@@ -172,7 +104,7 @@ function buildArticleInventoryItems(): InventoryItem[] {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-/** Master site inventory — rebuilt from registry, blog data, and component scan. */
+/** Master site inventory — rebuilt from registry and blog data. */
 export function buildSiteInventory(): InventoryCategoryGroup[] {
   const allItems = [...buildToolInventoryItems(), ...buildArticleInventoryItems()];
 
