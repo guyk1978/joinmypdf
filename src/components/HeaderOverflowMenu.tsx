@@ -7,6 +7,7 @@ import {
   MoreHorizontal,
   Share2,
   Bookmark,
+  BookOpen,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
@@ -85,6 +86,7 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
   const close = useCallback(() => setOpen(false), []);
   const favoritesActive = pathname.includes("/favorites");
   const projectsActive = pathname.includes("/projects");
+  const blogActive = pathname.includes("/blog");
   const aboutActive = pathname.includes("/about");
   const termsActive = pathname.includes("/terms");
   const privacyPolicyActive = pathname.includes("/privacy-policy");
@@ -313,6 +315,20 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
             {t("projects")}
           </Link>
 
+          <Link
+            href="/blog/"
+            role="menuitem"
+            className={clsx(itemClass, blogActive && "is-active")}
+            prefetch={false}
+            onClick={() => {
+              onNavigate?.();
+              close();
+            }}
+          >
+            <BookOpen className="site-header__overflow-icon" aria-hidden />
+            {t("blog")}
+          </Link>
+
           <div className="site-header__overflow-divider" role="separator" />
 
           <p className="site-header__overflow-heading">{t("siteLabel")}</p>
@@ -368,6 +384,24 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
           >
             {t("contact")}
           </Link>
+
+          {process.env.NEXT_PUBLIC_ADMIN_INVENTORY === "true" ? (
+            <>
+              <div className="site-header__overflow-divider" role="separator" />
+              <Link
+                href="/admin/inventory/"
+                role="menuitem"
+                className={clsx(itemClass, pathname.includes("/admin/inventory") && "is-active")}
+                prefetch={false}
+                onClick={() => {
+                  onNavigate?.();
+                  close();
+                }}
+              >
+                {t("siteInventory")}
+              </Link>
+            </>
+          ) : null}
 
           {installVisible && installPrompt ? (
             <button type="button" role="menuitem" className={itemClass} onClick={() => void onInstall()}>

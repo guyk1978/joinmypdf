@@ -20,10 +20,12 @@
     "installApp": "התקנת אפליקציה",
     "favorites": "מועדפים",
     "projects": "הפרויקטים שלי",
+    "blog": "בלוג",
     "about": "אודות",
     "termsOfService": "תנאי שימוש",
     "privacyPolicy": "מדיניות פרטיות",
     "contact": "צור קשר",
+    "siteInventory": "מלאי האתר",
     "premiumTools": "כלים מתקדמים",
     "moreMenu": "אפשרויות נוספות",
     "login": "התחברות",
@@ -635,6 +637,7 @@
       "about": "אודות",
       "terms": "תנאי שימוש",
       "contact": "צור קשר",
+      "blog": "בלוג",
       "guidesBlog": "מדריכים ובלוג",
       "allTools": "כל כלי ה-PDF",
       "compare": "השוואת כלים",
@@ -656,6 +659,8 @@
     "readArticle": "קרא מאמר",
     "featuredGuide": "מדריך מומלץ",
     "allGuides": "כל המדריכים",
+    "categoryNavLabel": "קפיצה לקטגוריה",
+    "categoryArticleCount": "{count, plural, one {מאמר אחד} other {# מאמרים}}",
     "readTimeMinutes": "{mins} דק' קריאה",
     "categories": {
       "conversion": "המרה",
@@ -687,6 +692,12 @@
       "home": "דף הבית",
       "guides": "מדריכים"
     }
+  },
+  "AdminInventory": {
+    "metaTitle": "מלאי האתר",
+    "metaDescription": "אינדקס פרטי לכל הכלים והמאמרים ב-JoinMyPDF.",
+    "title": "מלאי האתר",
+    "description": "אינדקס אוטומטי של {items} כלים ומאמרים ב-{categories} קטגוריות."
   },
   "Guides": {
     "hubBadge": "מרכז",

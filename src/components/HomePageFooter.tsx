@@ -47,6 +47,9 @@ export function HomePageFooter() {
           <Link href="/contact/" className="home-page-footer__link" prefetch={false}>
             {tFooter("links.contact")}
           </Link>
+          <Link href="/blog/" className="home-page-footer__link" prefetch={false}>
+            {tFooter("links.blog")}
+          </Link>
         </nav>
 
         <Link href="/" className="home-page-footer__logo-link" aria-label="JoinMyPDF">

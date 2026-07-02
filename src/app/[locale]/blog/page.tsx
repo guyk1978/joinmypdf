@@ -1,12 +1,12 @@
-import { BlogGuideListItem } from "@/components/BlogGuideListItem";
-import { AdContainer } from "@/components/AdContainer";
+import { BlogCategorizedIndex } from "@/components/BlogCategorizedIndex";
 import { AppPageShell } from "@/components/AppPageShell";
+import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { getBlogRegistry } from "@/lib/blog-registry";
+import { productPageMainClassName } from "@/lib/tool-ui";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-export const runtime = "edge";
 
-const GUIDE_AD_INTERVAL = 9;
+export const runtime = "edge";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -33,36 +33,13 @@ export default async function BlogIndexPage({ params }: Props) {
     (a, b) => Date.parse(b.publishDate || "") - Date.parse(a.publishDate || ""),
   );
 
-  const listItems = posts.flatMap((post, index) => {
-    const nodes = [
-      <li key={post.slug}>
-        <BlogGuideListItem post={post} />
-      </li>,
-    ];
-
-    const isInterval = (index + 1) % GUIDE_AD_INTERVAL === 0;
-    const hasMore = index < posts.length - 1;
-    if (isInterval && hasMore) {
-      nodes.push(
-        <li key={`guide-ad-${index}`} className="guide-list__ad">
-          <AdContainer variant="article" />
-        </li>,
-      );
-    }
-
-    return nodes;
-  });
-
   return (
-    <AppPageShell mainClassName="guides-learning-page">
-      <div className="home-minimal-layout home-minimal-layout--directory">
-        <h1 className="home-minimal-tagline">{t("metaTitle")}</h1>
+    <AppPageShell mainClassName={productPageMainClassName}>
+      <ProductPageLayout title={t("title")} description={t("description")}>
         {posts.length > 0 ? (
-          <section aria-label={t("allGuides")}>
-            <ul className="guide-list">{listItems}</ul>
-          </section>
+          <BlogCategorizedIndex posts={posts} />
         ) : null}
-      </div>
+      </ProductPageLayout>
     </AppPageShell>
   );
 }

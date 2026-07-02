@@ -18,6 +18,13 @@ const CATEGORY_LABEL_KEYS: Record<BlogDisplayCategory, "categories.conversion" |
 /** Localized category pill for blog cards and article headers. */
 export function getLocalizedBlogCategoryLabel(post: BlogPost, t: BlogTranslator): string {
   const category = resolveBlogDisplayCategory(post);
+  return getLocalizedBlogCategoryLabelById(category, t);
+}
+
+export function getLocalizedBlogCategoryLabelById(
+  category: BlogDisplayCategory,
+  t: BlogTranslator,
+): string {
   return t(CATEGORY_LABEL_KEYS[category]);
 }
 

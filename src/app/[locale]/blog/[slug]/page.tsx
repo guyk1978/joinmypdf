@@ -1,14 +1,18 @@
+import { clsx } from "clsx";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Clock } from "lucide-react";
 import { ArticleAuthorBadge } from "@/components/ArticleAuthorBadge";
 import { AdContainer } from "@/components/AdContainer";
 import { BlogArticleBody } from "@/components/BlogArticleBody";
 import { BlogArticleTemplate } from "@/components/BlogArticleTemplate";
+import { BlogGuideListItem } from "@/components/BlogGuideListItem";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { AppPageShell } from "@/components/AppPageShell";
+import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
+import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
 import { blogPostingLd, breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
 import { getBlogRegistry } from "@/lib/blog-registry";
@@ -16,7 +20,8 @@ import { resolveBlogOgImagePath } from "@/lib/og-images-blog";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { registry } from "@/lib/registry";
-import { homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
+import { imBtnCta } from "@/lib/design-system";
+import { productPageMainClassName } from "@/lib/tool-ui";
 import type { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -125,6 +130,7 @@ export default async function BlogPostPage({
 
   const categoryLabel = getLocalizedBlogCategoryLabel(post, t);
   const readTime = getLocalizedBlogReadTime(post, t);
+  const category = resolveBlogDisplayCategory(post);
 
   return (
     <>
@@ -146,41 +152,43 @@ export default async function BlogPostPage({
           { name: displayTitle, path: pathname },
         ])}
       />
-      <AppPageShell mainClassName="guides-learning-page">
+      <AppPageShell mainClassName={productPageMainClassName}>
         <BlogArticleTemplate>
-          <article className="article-template__content">
-            <header className="article-header text-center">
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <span className="article-header__category">{categoryLabel}</span>
-                {post.readTime ? (
-                  <span className="article-header__meta text-sm">{readTime}</span>
+          <article className="blog-article">
+            <header className="blog-article-header">
+              <div className="blog-article-header__meta">
+                <span className={clsx("blog-category-badge", `blog-category-badge--${category}`)}>
+                  {categoryLabel}
+                </span>
+                {post.publishDate ? (
+                  <time className="blog-article-header__meta-item" dateTime={post.publishDate}>
+                    {t("article.updated", { date: post.publishDate })}
+                  </time>
+                ) : null}
+                {readTime ? (
+                  <span className="blog-article-header__meta-item blog-article-header__read-time">
+                    <Clock className="blog-article-header__meta-icon" aria-hidden />
+                    {readTime}
+                  </span>
                 ) : null}
               </div>
 
-              <h1 className="article-header__title mt-5">{displayTitle}</h1>
+              <h1 className="tool-page-layout__title blog-article-header__title">{displayTitle}</h1>
 
-              {post.publishDate ? (
-                <p className="article-header__meta mt-4 text-sm">
-                  {t("article.updated", { date: post.publishDate })}
-                </p>
-              ) : null}
-
-              <div className="mt-6 flex justify-center">
-                <ArticleAuthorBadge post={post} className="w-full max-w-lg" />
+              <div className="blog-article-header__author">
+                <ArticleAuthorBadge post={post} />
               </div>
 
               {post.contentBlocks?.intro ? (
-                <p className="article-lead mt-8">{post.contentBlocks.intro}</p>
+                <p className="tool-page-layout__description blog-article-header__lead">{post.contentBlocks.intro}</p>
               ) : null}
 
               {post.contentBlocks?.editorialNote ? (
-                <p className="article-note mt-4 text-sm leading-relaxed">
-                  {post.contentBlocks.editorialNote}
-                </p>
+                <p className="blog-article-header__note">{post.contentBlocks.editorialNote}</p>
               ) : null}
             </header>
 
-            <div className="article-main">
+            <div className="blog-article-prose">
               <BlogArticleBody post={post} />
 
               {tools.length ? (
@@ -224,27 +232,11 @@ export default async function BlogPostPage({
                   <h2 id="related-articles" className="article-panel__title">
                     {t("article.relatedArticles")}
                   </h2>
-                  <ul className="article-panel__body grid gap-4 sm:grid-cols-2">
+                  <ToolCardGrid className="tool-card-grid--directory blog-index-grid article-related-grid">
                     {relatedArticles.map((related) => (
-                      <li key={related.slug}>
-                        <Link
-                          href={`/blog/${related.slug}/`}
-                          className="article-related-card group block h-full"
-                          prefetch={false}
-                        >
-                          <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
-                            {getLocalizedBlogCategoryLabel(related, t)}
-                          </p>
-                          <p className="mt-2 text-base font-semibold leading-snug text-white transition-colors group-hover:text-neutral-200 dark:text-white dark:group-hover:text-neutral-200">
-                            {related.title}
-                          </p>
-                          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-neutral-500">
-                            {related.description || related.seo?.metaDescription}
-                          </p>
-                        </Link>
-                      </li>
+                      <BlogGuideListItem key={related.slug} post={related} />
                     ))}
-                  </ul>
+                  </ToolCardGrid>
                 </section>
               ) : null}
 
@@ -258,7 +250,7 @@ export default async function BlogPostPage({
                       <li key={link.href}>
                         <Link
                           href={link.href}
-                          className={`${homeSecondaryPillBtn} gap-2 px-6 py-2.5 text-sm`}
+                          className={clsx(imBtnCta, "im-btn-cta--rounded inline-flex gap-2")}
                           prefetch={false}
                         >
                           {link.anchor}
@@ -274,7 +266,7 @@ export default async function BlogPostPage({
                 <div className="article-cta flex justify-center">
                   <Link
                     href={`/tools/${tools[0].slug}/`}
-                    className={`${homePrimaryPillBtn} gap-2`}
+                    className={clsx(imBtnCta, "im-btn-cta--rounded inline-flex gap-2")}
                     prefetch={false}
                   >
                     {t("article.openPrimaryTool", { tool: translateToolItem(tTools, tools[0].slug, tools[0].title) })}

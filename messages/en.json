@@ -20,10 +20,12 @@
     "installApp": "Install app",
     "favorites": "Favorites",
     "projects": "My Projects",
+    "blog": "Blog",
     "about": "About",
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy",
     "contact": "Contact",
+    "siteInventory": "Site Inventory",
     "premiumTools": "Premium Tools",
     "moreMenu": "More options",
     "login": "Login",
@@ -635,6 +637,7 @@
       "about": "About",
       "terms": "Terms of Service",
       "contact": "Contact",
+      "blog": "Blog",
       "guidesBlog": "Guides & Blog",
       "allTools": "All PDF tools",
       "compare": "Compare tools",
@@ -656,6 +659,8 @@
     "readArticle": "Read article",
     "featuredGuide": "Featured guide",
     "allGuides": "All guides",
+    "categoryNavLabel": "Jump to category",
+    "categoryArticleCount": "{count, plural, one {# article} other {# articles}}",
     "readTimeMinutes": "{mins} min read",
     "categories": {
       "conversion": "Conversion",
@@ -687,6 +692,12 @@
       "home": "Home",
       "guides": "Guides"
     }
+  },
+  "AdminInventory": {
+    "metaTitle": "Site Inventory",
+    "metaDescription": "Private master index of JoinMyPDF tools and articles.",
+    "title": "Site Inventory",
+    "description": "Auto-generated index of {items} tools and articles across {categories} categories."
   },
   "Guides": {
     "hubBadge": "Hub",

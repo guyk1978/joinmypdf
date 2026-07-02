@@ -4,6 +4,13 @@ import type { BlogPost } from "@/lib/types";
 /** Blog card category — aligned with JoinMyPDF tool groups. */
 export type BlogDisplayCategory = "conversion" | "editing" | "security" | "advanced";
 
+export const BLOG_CATEGORY_ORDER: BlogDisplayCategory[] = [
+  "conversion",
+  "editing",
+  "security",
+  "advanced",
+];
+
 const TOOL_CATEGORY_TO_BLOG: Record<string, BlogDisplayCategory> = {
   convert: "conversion",
   edit: "editing",

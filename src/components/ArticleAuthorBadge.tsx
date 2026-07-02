@@ -28,10 +28,7 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
 
   return (
     <aside
-      className={clsx(
-        "article-author-badge flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/50 px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md sm:gap-4 sm:px-5 sm:py-4 dark:border-neutral-800 dark:bg-neutral-900/50",
-        className,
-      )}
+      className={clsx("article-author-badge", className)}
       aria-label={`Written by ${author.name}, ${author.role}`}
     >
       {author.avatarUrl ? (
@@ -39,27 +36,24 @@ export function ArticleAuthorBadge({ post, className = "" }: Props) {
         <img
           src={author.avatarUrl}
           alt=""
-          width={44}
-          height={44}
-          className="h-11 w-11 shrink-0 rounded-lg border border-white/10 object-cover"
+          width={40}
+          height={40}
+          className="article-author-badge__avatar"
         />
       ) : (
-        <span
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-neutral-700 bg-white/[0.04] text-sm font-semibold tracking-wide text-neutral-200"
-          aria-hidden
-        >
+        <span className="article-author-badge__initials" aria-hidden>
           {author.initials}
         </span>
       )}
 
-      <div className="min-w-0 flex-1">
-        <p className="text-sm leading-snug text-neutral-300 sm:text-base">
-          <span className="text-neutral-500">Written by </span>
-          <span className="font-semibold text-neutral-100">{author.name}</span>
-          <span className="text-neutral-500"> · {author.role}</span>
+      <div className="article-author-badge__copy">
+        <p className="article-author-badge__name">
+          <span className="article-author-badge__label">Written by </span>
+          {author.name}
+          <span className="article-author-badge__role"> · {author.role}</span>
         </p>
-        <p className="mt-1 flex items-start gap-1.5 text-xs leading-relaxed text-neutral-500 sm:items-center">
-          <CheckBadgeIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neutral-400 sm:mt-0" />
+        <p className="article-author-badge__verified">
+          <CheckBadgeIcon className="article-author-badge__verified-icon" />
           <span>{author.verifiedLabel}</span>
         </p>
       </div>

@@ -1,16 +1,15 @@
 import type { ReactNode } from "react";
+import { toolPageDashboardStack } from "@/lib/tool-ui";
 
 type BlogArticleTemplateProps = {
   children: ReactNode;
 };
 
-/** Fixed centered layout for all JoinMyPDF blog articles — no sidebar, monochrome, uniform spacing. */
+/** Blog article shell — same width and spacing as tool / product pages. */
 export function BlogArticleTemplate({ children }: BlogArticleTemplateProps) {
   return (
-    <main className="article-page">
-      <div className="article-template mx-auto w-full max-w-3xl px-4 py-10 md:px-8 md:py-14">
-        {children}
-      </div>
-    </main>
+    <div className={toolPageDashboardStack}>
+      <div className="tool-page-layout tool-page-layout--stacked blog-article-layout">{children}</div>
+    </div>
   );
 }
