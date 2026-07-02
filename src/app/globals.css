@@ -7608,6 +7608,18 @@ body.site-tools-grid-open {
   text-wrap: balance;
 }
 
+.tool-page-layout__tagline {
+  margin: 0.5rem 0 0;
+  max-width: 42rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  color: var(--im-text-subtle);
+  text-wrap: balance;
+}
+
 .tool-page-layout__description {
   margin: 0.75rem 0 0;
   max-width: 42rem;
@@ -7631,6 +7643,37 @@ body.site-tools-grid-open {
 .tool-page-layout__footer .tool-privacy-seal {
   width: 100%;
   max-width: 40rem;
+}
+
+.tool-seo-workflow-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tool-seo-workflow-links__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5625rem 1rem;
+  border: 1px solid var(--im-border-subtle);
+  border-radius: var(--im-radius);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--im-text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    border-color var(--im-transition-fast),
+    background-color var(--im-transition-fast),
+    color var(--im-transition-fast);
+}
+
+.tool-seo-workflow-links__link:hover {
+  border-color: var(--im-border-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--im-text);
+  text-decoration: none;
 }
 
 /* Product pages — favorites, projects, legal docs (same shell as tool pages) */

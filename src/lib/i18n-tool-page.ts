@@ -126,9 +126,91 @@ export function buildLocalizedGuideParagraphs(
   const useCases = (tool.useCases || []).slice(0, 2).join(` ${t("guide.useCasesJoin")} `);
   const toolTitle = tool.title;
 
-  const p1 = variant
-    ? t("guide.variantP1", { action, keyword: kw, toolTitle })
-    : t("guide.defaultP1", { description: tool.description, action });
+  const overrideKey =
+    !variant && tool.slug === "pdf-merge"
+      ? "pdfMerge"
+      : !variant && tool.slug === "pdf-split"
+        ? "pdfSplit"
+        : !variant && tool.slug === "pdf-compress"
+          ? "pdfCompress"
+          : !variant && tool.slug === "rotate-pdf"
+            ? "pdfRotate"
+            : !variant && tool.slug === "crop-pdf"
+              ? "pdfCrop"
+              : !variant && tool.slug === "delete-pdf-pages"
+                ? "pdfDeletePages"
+                : !variant && tool.slug === "reorder-pdf-pages"
+                  ? "pdfReorderPages"
+                  : !variant && tool.slug === "extract-pdf-pages"
+                    ? "pdfExtractPages"
+                    : !variant && tool.slug === "add-page-numbers"
+                      ? "pdfAddPageNumbers"
+                      : !variant && tool.slug === "add-watermark"
+                        ? "pdfAddWatermark"
+                        : !variant && tool.slug === "annotate-pdf"
+                          ? "pdfAnnotate"
+                          : !variant && tool.slug === "compare-pdf"
+                            ? "pdfCompare"
+                            : !variant && tool.slug === "pdf-to-booklet"
+                              ? "pdfToBooklet"
+                              : !variant && tool.slug === "batch-rename-pdf"
+                                ? "pdfBatchRename"
+                                : !variant && tool.slug === "pdf-text-editor"
+                                  ? "pdfTextEditor"
+                                  : !variant && tool.slug === "custom-paper-margin"
+                                    ? "pdfPaperMargin"
+                                    : !variant && tool.slug === "flatten-pdf"
+                                      ? "pdfFlatten"
+                                      : !variant && tool.slug === "repair-pdf"
+                                        ? "pdfRepair"
+                                        : !variant && tool.slug === "protect-pdf"
+                                          ? "pdfProtect"
+                                          : !variant && tool.slug === "unlock-pdf"
+                                            ? "pdfUnlock"
+                                            : !variant && tool.slug === "redact-pdf"
+                                              ? "pdfRedact"
+                                              : !variant && tool.slug === "safe-to-share-auditor"
+                                                ? "pdfSafeShareAuditor"
+                                                : !variant && tool.slug === "remove-hidden-metadata"
+                                                  ? "pdfRemoveMetadata"
+                                                  : !variant && tool.slug === "sign-pdf"
+                                                    ? "pdfSign"
+                                                    : !variant && tool.slug === "word-to-pdf"
+                                                      ? "wordToPdf"
+                                                      : !variant && tool.slug === "excel-to-pdf"
+                                                        ? "excelToPdf"
+                                                        : !variant && tool.slug === "powerpoint-to-pdf"
+                                                          ? "powerpointToPdf"
+                                                          : !variant && tool.slug === "openoffice-to-pdf"
+                                                            ? "openofficeToPdf"
+                                                            : !variant && tool.slug === "ebook-to-pdf"
+                                                              ? "ebookToPdf"
+                                                              : !variant && tool.slug === "iwork-to-pdf"
+                                                                ? "iworkToPdf"
+                                                                : !variant && tool.slug === "autocad-to-pdf"
+                                                                  ? "autocadToPdf"
+                                                                  : !variant && tool.slug === "pdf-to-jpg"
+                                                                    ? "pdfToJpg"
+                                                                    : !variant && tool.slug === "pdf-to-png"
+                                                                      ? "pdfToPng"
+                                                                      : !variant && tool.slug === "pdf-to-text"
+                                                                        ? "pdfToText"
+                                                                        : !variant && tool.slug === "extract-images"
+                                                                          ? "extractImages"
+                                                                          : !variant && tool.slug === "pdf-to-word"
+                                                                            ? "pdfToWord"
+                                                                            : !variant && tool.slug === "pdf-to-excel"
+                                                                              ? "pdfToExcel"
+                                                                              : !variant && tool.slug === "pdf-to-powerpoint"
+                                                                                ? "pdfToPowerpoint"
+                                                                                : null;
+
+  const p1 =
+    overrideKey && t.has(`guide.toolOverrides.${overrideKey}.p1`)
+      ? t(`guide.toolOverrides.${overrideKey}.p1`)
+      : variant
+        ? t("guide.variantP1", { action, keyword: kw, toolTitle })
+        : t("guide.defaultP1", { description: tool.description, action });
 
   const p2 = t("guide.p2");
   const p3 = variant?.angle

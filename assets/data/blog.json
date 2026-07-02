@@ -8765,7 +8765,8 @@
       "relatedTools": [
         "pdf-compress",
         "pdf-merge",
-        "pdf-split"
+        "pdf-split",
+        "rotate-pdf"
       ],
       "relatedBlogs": [
         "pdf-too-large-fix-for-gmail",

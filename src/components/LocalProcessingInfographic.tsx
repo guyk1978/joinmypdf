@@ -2,9 +2,13 @@ import { getTranslations } from "next-intl/server";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import { toolPageDashboardInset } from "@/lib/tool-ui";
 
+import type { ToolSeoBenefitCard } from "@/lib/tool-seo-overrides";
+
 type LocalProcessingInfographicProps = {
   className?: string;
   headline?: string;
+  subheadline?: string;
+  benefits?: ToolSeoBenefitCard[];
   headingAs?: "h1" | "h2";
   layout?: "default" | "dashboard";
 };
@@ -12,6 +16,8 @@ type LocalProcessingInfographicProps = {
 export async function LocalProcessingInfographic({
   className = "",
   headline,
+  subheadline,
+  benefits,
   headingAs = "h2",
   layout = "default",
 }: LocalProcessingInfographicProps) {
@@ -19,6 +25,13 @@ export async function LocalProcessingInfographic({
   const Heading = headingAs;
   const headlineText = headline ?? (headingAs === "h1" ? t("headline") : t("defaultHeadline"));
   const isDashboard = layout === "dashboard";
+
+  const defaultBenefits: ToolSeoBenefitCard[] = [
+    { icon: "🛡️", title: t("privateTitle"), body: t("privateBody") },
+    { icon: "⚡", title: t("fastTitle"), body: t("fastBody") },
+    { icon: "✨", title: t("limitsTitle"), body: t("limitsBody") },
+  ];
+  const benefitCards = benefits ?? defaultBenefits;
 
   const cardClass = isDashboard
     ? toolPageDashboardInset
@@ -46,36 +59,20 @@ export async function LocalProcessingInfographic({
             : "mx-auto mb-10 max-w-2xl text-base text-black dark:text-neutral-200 md:text-lg"
         }
       >
-        {t("subheadline")}
+        {subheadline ?? t("subheadline")}
       </p>
       <div className={isDashboard ? "mt-5 grid grid-cols-1 gap-4 text-start md:grid-cols-3" : "mb-10 grid grid-cols-1 gap-2 text-start md:grid-cols-3"}>
-        <div className={cardClass}>
-          <div className={iconClass}>🛡️</div>
-          <h3 className={isDashboard ? "mb-2 text-base font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
-            {t("privateTitle")}
-          </h3>
-          <p className={isDashboard ? "text-base leading-relaxed text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
-            {t("privateBody")}
-          </p>
-        </div>
-        <div className={cardClass}>
-          <div className={iconClass}>⚡</div>
-          <h3 className={isDashboard ? "mb-2 text-base font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
-            {t("fastTitle")}
-          </h3>
-          <p className={isDashboard ? "text-base leading-relaxed text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
-            {t("fastBody")}
-          </p>
-        </div>
-        <div className={cardClass}>
-          <div className={iconClass}>✨</div>
-          <h3 className={isDashboard ? "mb-2 text-base font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
-            {t("limitsTitle")}
-          </h3>
-          <p className={isDashboard ? "text-base leading-relaxed text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
-            {t("limitsBody")}
-          </p>
-        </div>
+        {benefitCards.map((benefit) => (
+          <div key={benefit.title} className={cardClass}>
+            <div className={iconClass}>{benefit.icon}</div>
+            <h3 className={isDashboard ? "mb-2 text-base font-bold text-ink dark:text-white" : "mb-1.5 text-lg font-extrabold text-black dark:text-neutral-200"}>
+              {benefit.title}
+            </h3>
+            <p className={isDashboard ? "text-base leading-relaxed text-neutral-400" : "text-sm text-black dark:text-neutral-200"}>
+              {benefit.body}
+            </p>
+          </div>
+        ))}
       </div>
     </>
   );

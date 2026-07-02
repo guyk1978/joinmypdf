@@ -27,7 +27,7 @@ export function ToolPageLayout({
   showPrivacyBadge = true,
   showHeader = true,
 }: ToolPageLayoutProps) {
-  const { headline, subline, slug, stacked } = useToolPageShell();
+  const { headline, subline, tagline, slug, stacked } = useToolPageShell();
   const showPageHeader = showHeader && stacked && Boolean(headline);
 
   return (
@@ -40,7 +40,7 @@ export function ToolPageLayout({
       )}
     >
       {showPageHeader ? (
-        <ToolPageHeader title={headline} description={subline} slug={slug} />
+        <ToolPageHeader title={headline} description={subline} tagline={tagline} slug={slug} />
       ) : null}
 
       <div className={clsx("tool-page-layout__content", contentClassName)}>{children}</div>

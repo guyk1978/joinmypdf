@@ -4,8 +4,1227 @@
     "breadcrumbAllTools": "All tools",
     "beforeYouStart": "Before you start",
     "relatedGuides": "Guides that use this tool",
+    "relatedGuideLink": "Read our guide on {topic}",
     "relatedTools": "Related tools",
-    "questions": "Questions",
+    "questions": "Frequently Asked Questions",
+    "whyChooseLocalProcessing": "Why choose local processing",
+    "toolSeo": {
+      "pdfMerge": {
+        "h1": "Merge PDF Online",
+        "introSectionTitle": "Before you start",
+        "whySectionTitle": "Why choose local processing",
+        "schemaDescription": "Merge PDF online for free in your browser. Combine multiple PDF files locally with drag-and-drop ordering—no uploads, no watermarks, and instant download.",
+        "complementaryTool": {
+          "prompt": "Need to split pages instead?",
+          "linkLabel": "Try our Split PDF tool here"
+        }
+      },
+      "pdfSplit": {
+        "h1": "Split PDF Online",
+        "introSectionTitle": "How to Split PDF Pages",
+        "whySectionTitle": "Why Use Our Split PDF Tool",
+        "whySectionSubheadline": "Split PDF files with local processing in your browser—privacy-first by design, with no upload limits for everyday documents.",
+        "schemaDescription": "Split PDF pages into separate files and extract pages from PDF online for free. Local browser processing—privacy-first, no uploads, and instant downloads.",
+        "complementaryTool": {
+          "prompt": "Need to combine documents instead?",
+          "linkLabel": "Try our Merge PDF tool here"
+        }
+      },
+      "pdfCompress": {
+        "h1": "Compress PDF Online",
+        "heroTagline": "Supports large files, high-resolution images, and encrypted documents.",
+        "introSectionTitle": "Reduce PDF Size Without Losing Quality",
+        "whySectionTitle": "Why Use Our PDF Compressor?",
+        "whySectionSubheadline": "Compress PDF online free with efficient compression, maintain document quality, and instant local processing—built for files too large to email.",
+        "schemaDescription": "Compress PDF online free and reduce PDF file size in your browser. Make PDF smaller for email and web uploads with local processing—no uploads and instant download.",
+        "featuredGuide": {
+          "slug": "compress-pdf-free-fast",
+          "label": "Check out our guide on how to optimize PDFs for professional web use"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "splitLabel": "Split PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Lossless compression",
+            "body": "Use efficient compression settings to make PDF smaller while keeping text crisp and layouts intact."
+          },
+          "quality": {
+            "title": "No quality degradation",
+            "body": "Maintain document quality for contracts, reports, and professional client deliverables."
+          },
+          "local": {
+            "title": "Instant local processing",
+            "body": "Compress in your browser—no uploads, no server queues, and no file-size limits from third-party servers."
+          }
+        }
+      },
+      "pdfRotate": {
+        "h1": "Rotate PDF Online",
+        "introSectionTitle": "How to Rotate PDF Pages Permanently",
+        "whySectionTitle": "Why Use Our PDF Rotator?",
+        "whySectionSubheadline": "Rotate PDF pages clockwise or counter-clockwise, flip PDF orientation, and save rotated PDF instantly—all with local processing in your browser.",
+        "schemaDescription": "Rotate PDF pages online for free—rotate PDF clockwise, counter-clockwise, or flip PDF orientation in your browser. Correct page orientation for scanned documents with instant local processing and download.",
+        "featuredGuide": {
+          "slug": "how-to-organize-scanned-documents-quickly",
+          "label": "Check out our guide on how to organize your documents efficiently"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "splitLabel": "Split PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant rotation",
+            "body": "Rotate individual pages or the whole document 90° clockwise, counter-clockwise, or 180°—then save rotated PDF instantly."
+          },
+          "quality": {
+            "title": "Maintain file quality",
+            "body": "Correct page orientation without re-scanning or re-exporting—original text and image quality stay intact."
+          },
+          "local": {
+            "title": "Local processing for privacy",
+            "body": "Fix upside-down scanned pages in your browser—no uploads, no server queues, and sensitive documents never leave your device."
+          }
+        }
+      },
+      "pdfCrop": {
+        "h1": "Crop PDF Online",
+        "introSectionTitle": "How to Crop PDF Pages Easily",
+        "whySectionTitle": "Why Use Our PDF Cropper?",
+        "whySectionSubheadline": "Crop PDF online with precise PDF cropping—remove PDF margins, trim PDF borders, adjust document margins, and get instant local processing in your browser.",
+        "schemaDescription": "Crop PDF online for free—remove PDF margins, trim PDF pages, and adjust PDF page size in your browser. Precise PDF cropping with instant local processing and download.",
+        "featuredGuide": {
+          "slug": "crop-pdf",
+          "label": "Check out our guide on how to prep documents for professional printing"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "rotateLabel": "Rotate PDF",
+          "compressLabel": "Compress PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant preview",
+            "body": "Draw a crop frame on page 1 and see exactly what will be trimmed—precise PDF cropping before you download."
+          },
+          "quality": {
+            "title": "Custom crop areas",
+            "body": "Remove PDF margins and adjust document margins to focus readers on the content that matters."
+          },
+          "local": {
+            "title": "Local privacy",
+            "body": "Trim PDF pages in your browser—no uploads, no server queues, and sensitive scans never leave your device."
+          }
+        }
+      },
+      "pdfDeletePages": {
+        "h1": "Delete PDF Pages Online",
+        "introSectionTitle": "How to Remove Pages from PDF",
+        "whySectionTitle": "Why Use Our PDF Page Deleter?",
+        "whySectionSubheadline": "Delete pages from PDF with fast page removal—select and delete pages from scanned or multi-page documents with instant local processing in your browser.",
+        "schemaDescription": "Delete pages from PDF online for free—remove unwanted PDF pages with a visual PDF page remover in your browser. Fast page removal with instant local processing and download.",
+        "featuredGuide": {
+          "slug": "manage-many-pdfs-locally",
+          "label": "Check out our guide on how to manage your PDF documents with precision"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "splitLabel": "Split PDF",
+          "mergeLabel": "Merge PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant selection",
+            "body": "Select and delete pages from a thumbnail grid—drop blank scans, duplicates, or appendix pages in one click."
+          },
+          "quality": {
+            "title": "Preserve document structure",
+            "body": "Remaining pages keep original fonts, layout, and quality—only the pages you mark are removed."
+          },
+          "local": {
+            "title": "Local privacy",
+            "body": "Remove unwanted PDF pages in your browser—no uploads, no server queues, and sensitive documents never leave your device."
+          }
+        }
+      },
+      "pdfReorderPages": {
+        "h1": "Reorder PDF Pages Online",
+        "heroTagline": "Drag & drop page thumbnails to rearrange your PDF instantly.",
+        "introSectionTitle": "How to Rearrange PDF Pages with Drag & Drop",
+        "whySectionTitle": "Why Use Our PDF Reorder Tool?",
+        "whySectionSubheadline": "Reorder PDF pages with an intuitive drag-and-drop interface—sort PDF pages, rearrange PDF pages instantly, and enjoy local-only page sorting in your browser.",
+        "schemaDescription": "Reorder PDF pages online for free—drag and drop PDF organizer with visual thumbnails to sort PDF pages in your browser. Rearrange PDF pages instantly with zero-upload privacy.",
+        "featuredGuide": {
+          "slug": "how-to-reorder-pdf-pages-in-seconds-complete-guide",
+          "label": "Check out our guide on mastering document organization"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "deleteLabel": "Delete PDF Pages"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant visual feedback",
+            "body": "See every page as a thumbnail and watch the new sequence update as you drag—rearrange PDF pages instantly."
+          },
+          "quality": {
+            "title": "Drag-and-drop simplicity",
+            "body": "Use an intuitive drag-and-drop interface on desktop, or arrow buttons on mobile—no page numbers to guess."
+          },
+          "local": {
+            "title": "Zero-upload privacy",
+            "body": "Sort PDF pages with local-only page sorting—no uploads, no server queues, and documents never leave your device."
+          }
+        }
+      },
+      "pdfExtractPages": {
+        "h1": "Extract PDF Pages Online",
+        "heroTagline": "Enter page ranges like 1, 3-5, 8 to pull only the pages you need.",
+        "introSectionTitle": "How to Extract PDF Pages by Range",
+        "whySectionTitle": "Why Use Our PDF Extractor?",
+        "whySectionSubheadline": "Extract pages from PDF with flexible range selection—extract specific page ranges, create new PDF from selection, and get instant local extraction in your browser.",
+        "schemaDescription": "Extract pages from PDF online for free—save specific PDF pages with a PDF range extractor in your browser. Extract pages 1-5 or any custom selection with instant local extraction.",
+        "featuredGuide": {
+          "slug": "how-to-extract-specific-pages-from-long-pdf",
+          "label": "Check out our guide on how to manage large PDF documents efficiently"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "splitLabel": "Split PDF",
+          "mergeLabel": "Merge PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Flexible range selection",
+            "body": "Extract specific page ranges with comma-separated numbers and dashes—e.g. 1, 3-5, 12—for contracts, exhibits, and academic papers."
+          },
+          "quality": {
+            "title": "Instant output",
+            "body": "Create new PDF from selection in one step—pages are copied without re-compression so text and images stay sharp."
+          },
+          "local": {
+            "title": "No upload privacy",
+            "body": "Instant local extraction in your browser—no uploads, no server queues, and sensitive documents never leave your device."
+          }
+        }
+      },
+      "pdfAddPageNumbers": {
+        "h1": "Add Page Numbers to PDF Online",
+        "introSectionTitle": "How to Number PDF Pages Easily",
+        "whySectionTitle": "Why Use Our Page Numbering Tool?",
+        "whySectionSubheadline": "Add page numbers to PDF with customizable page numbering—position page numbers precisely for reports, theses, and formal submissions with secure local processing in your browser.",
+        "schemaDescription": "Add page numbers to PDF online for free—insert page numbers to PDF online with a flexible PDF numbering tool in your browser. Customizable placement with secure local processing and instant download.",
+        "featuredGuide": {
+          "slug": "digital-office-file-productivity",
+          "label": "Check out our guide on preparing professional documents for submissions"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "reorderLabel": "Reorder PDF Pages"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Flexible placement options",
+            "body": "Position page numbers precisely—top or bottom, left, center, or right—with plain numbers or Page X of Y format."
+          },
+          "quality": {
+            "title": "No file uploads/privacy",
+            "body": "Secure local processing in your browser—contracts, theses, and client reports never leave your device."
+          },
+          "local": {
+            "title": "Fast batch processing",
+            "body": "Number every page in one pass—skip cover pages, set a custom start page, and download instantly."
+          }
+        }
+      },
+      "pdfAddWatermark": {
+        "h1": "Add Watermark to PDF Online",
+        "introSectionTitle": "How to Watermark PDF Documents",
+        "whySectionTitle": "Why Use Our PDF Watermark Tool?",
+        "whySectionSubheadline": "Add watermark to PDF for document protection and branding—custom text watermarks, adjust opacity and position, and secure local processing in your browser.",
+        "schemaDescription": "Add watermark to PDF online for free—watermark PDF online free with custom text stamps to protect PDF with watermark. Adjust opacity and position with secure local processing and instant download.",
+        "featuredGuide": {
+          "slug": "add-watermark",
+          "label": "Check out our guide on protecting your intellectual property with digital watermarks"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "compressLabel": "Compress PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant customization",
+            "body": "Custom text watermarks with live preview—tune opacity, rotation, color, font size, and grid position before you apply."
+          },
+          "quality": {
+            "title": "No quality loss",
+            "body": "Stamp DRAFT, CONFIDENTIAL, or your brand name without re-compressing pages—original content stays sharp."
+          },
+          "local": {
+            "title": "Complete privacy (files never leave your browser)",
+            "body": "Secure local processing for contracts and sensitive drafts—no uploads, no server queues, and documents never leave your device."
+          }
+        }
+      },
+      "pdfAnnotate": {
+        "h1": "Annotate PDF Online",
+        "introSectionTitle": "How to Add Annotations to PDF Documents",
+        "whySectionTitle": "Why Use Our PDF Annotation Tool?",
+        "whySectionSubheadline": "Annotate PDF online with precise annotation tools—add notes and highlights, mark up contracts and coursework, and enjoy secure local-only processing in your browser.",
+        "schemaDescription": "Annotate PDF online for free—add comments to PDF, highlight and mark up PDF pages with a flexible PDF annotation tool in your browser. Secure local-only processing with instant download.",
+        "featuredGuide": {
+          "slug": "add-pdf-annotations-without-printing",
+          "label": "Check out our guide on collaborating efficiently with digital document markup"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "pageNumbersLabel": "Add Page Numbers",
+          "watermarkLabel": "Add Watermark"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Intuitive markup interface",
+            "body": "Highlight text, draw freehand, and add sticky notes—precise annotation tools with undo for fast contract and coursework review."
+          },
+          "quality": {
+            "title": "No file uploads/privacy",
+            "body": "Secure local-only processing in your browser—marked-up contracts and student papers never leave your device."
+          },
+          "local": {
+            "title": "Fast annotation rendering",
+            "body": "Edit page by page with smooth canvas performance—annotations bake into your download so everyone sees the same markup."
+          }
+        }
+      },
+      "pdfCompare": {
+        "h1": "Compare PDF Files Online",
+        "introSectionTitle": "How to Compare Two PDF Documents",
+        "whySectionTitle": "Why Use Our PDF Comparison Tool?",
+        "whySectionSubheadline": "Compare PDF files to identify document changes—side-by-side PDF comparison with additions, deletions, and moved text highlighted in secure local-only processing.",
+        "schemaDescription": "Compare PDF files online for free—find differences in PDF documents with a PDF comparison tool that helps detect changes in PDF versions. Side-by-side review with complete privacy in your browser.",
+        "featuredGuide": {
+          "slug": "compare-contracts-legal-documents-online",
+          "label": "Check out our guide on ensuring document integrity in professional workflows"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "annotateLabel": "Annotate PDF",
+          "mergeLabel": "Merge PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "High-precision detection",
+            "body": "Detect changes in PDF text per page—additions in green, deletions in red, and moved blocks in amber."
+          },
+          "quality": {
+            "title": "Instant visual results",
+            "body": "Side-by-side PDF comparison with a page picker—identify document changes without desktop redlining software."
+          },
+          "local": {
+            "title": "Complete privacy (files never leave your browser)",
+            "body": "Secure local-only processing for contracts and policy drafts—both PDFs stay on your device during comparison."
+          }
+        }
+      },
+      "pdfToBooklet": {
+        "h1": "Convert PDF to Booklet Online",
+        "heroTagline": "Automatic page imposition with live sheet preview—ready for duplex booklet printing.",
+        "introSectionTitle": "How to Create a Booklet from PDF",
+        "whySectionTitle": "Why Use Our PDF Booklet Maker?",
+        "whySectionSubheadline": "Convert PDF to booklet with automatic page imposition—easy booklet layout for programs, catalogs, and zines with secure local-only processing in your browser.",
+        "schemaDescription": "Convert PDF to booklet online for free—PDF booklet maker with saddle-stitch imposition for printing. Create booklet from PDF online with live preview and 100% privacy in your browser.",
+        "featuredGuide": {
+          "slug": "print-professional-booklet-from-pdf-at-home",
+          "label": "Check out our guide on preparing your documents for professional printing"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "rotateLabel": "Rotate PDF",
+          "pageNumbersLabel": "Add Page Numbers"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Professional imposition",
+            "body": "Saddle-stitch page imposition for duplex printing—correct fold order for booklets, programs, and handouts."
+          },
+          "quality": {
+            "title": "Instant preview",
+            "body": "Preview each imposed sheet before download—verify page pairing on Letter, A4, or custom paper sizes."
+          },
+          "local": {
+            "title": "100% Privacy",
+            "body": "Secure local-only processing—your catalog or manuscript never uploads to a server."
+          }
+        }
+      },
+      "pdfBatchRename": {
+        "h1": "Batch Rename PDF Files Online",
+        "heroTagline": "Bulk file renaming with live preview—prefixes, numbering, and find-replace in one pass.",
+        "introSectionTitle": "How to Rename Multiple PDF Files at Once",
+        "whySectionTitle": "Why Use Our Batch Renamer?",
+        "whySectionSubheadline": "Batch rename PDF files with bulk file renaming and systematic document organization—preview every new filename with secure local-only processing in your browser.",
+        "schemaDescription": "Batch rename PDF files online for free—rename multiple PDF files online with a bulk PDF renamer in your browser. Custom naming patterns with secure local-only processing and instant ZIP download.",
+        "featuredGuide": {
+          "slug": "digital-office-file-productivity",
+          "label": "Check out our guide on streamlining your digital document workflow"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "reorderLabel": "Reorder PDF Pages"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Fast bulk renaming",
+            "body": "Rename dozens of PDFs in one pass—date prefixes, sequential numbers, and find-replace without renaming files one by one."
+          },
+          "quality": {
+            "title": "Custom naming patterns",
+            "body": "Build consistent filename rules with prefixes, suffixes, and numbering—preview every new name before you download the ZIP."
+          },
+          "local": {
+            "title": "Complete privacy (no file uploads)",
+            "body": "Secure local-only processing—your invoices, scans, and client folders never leave your device."
+          }
+        }
+      },
+      "pdfTextEditor": {
+        "h1": "Edit PDF Text Online",
+        "heroTagline": "Precision text modification with WYSIWYG placement—overlay edits without leaving your browser.",
+        "introSectionTitle": "How to Modify PDF Text Instantly",
+        "whySectionTitle": "Why Use Our PDF Text Editor?",
+        "whySectionSubheadline": "Edit PDF text online with edit existing text workflows—maintain original formatting and precision text modification with secure local-only processing in your browser.",
+        "schemaDescription": "Edit PDF text online for free—modify text in PDF and change PDF content with a PDF text editing tool in your browser. WYSIWYG placement with secure local-only processing and instant download.",
+        "featuredGuide": {
+          "slug": "how-to-edit-pdf-text-locally-safely",
+          "label": "Check out our guide on refining your documents: a guide to professional PDF editing"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "annotateLabel": "Annotate PDF",
+          "watermarkLabel": "Add Watermark"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "WYSIWYG editing",
+            "body": "Click to place text layers with live preview—fix typos, dates, and labels with precision text modification on every page."
+          },
+          "quality": {
+            "title": "Preserve fonts and layout",
+            "body": "Maintain original formatting—page dimensions and structure stay intact while you overlay corrected text with optional white cover."
+          },
+          "local": {
+            "title": "Complete privacy (no file uploads)",
+            "body": "Secure local-only processing—contracts, forms, and official PDFs never leave your device."
+          }
+        }
+      },
+      "pdfPaperMargin": {
+        "h1": "Adjust PDF Paper Size & Margins Online",
+        "heroTagline": "Precise margin adjustments with live preview—standardize page formats before print or imposition.",
+        "introSectionTitle": "How to Customize PDF Layouts",
+        "whySectionTitle": "Why Use Our Paper & Margin Adjuster?",
+        "whySectionSubheadline": "Change PDF paper size and adjust PDF margins with precise margin adjustments—custom paper dimensions and standardize page formats with secure local-only processing in your browser.",
+        "schemaDescription": "Change PDF paper size online for free—adjust PDF margins with a PDF page layout tool in your browser. A4 to Letter conversion with accurate dimension control and secure local-only processing.",
+        "featuredGuide": {
+          "slug": "browser-margin-cutter-fastest-print-prep",
+          "label": "Check out our guide on mastering document layout for professional printing"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "bookletLabel": "PDF to Booklet",
+          "cropLabel": "Crop PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Accurate dimension control",
+            "body": "Set Letter, A4, A5, B5, or custom mm/in dimensions—standardize page formats across mixed PDFs before print or booklet imposition."
+          },
+          "quality": {
+            "title": "No layout shifting",
+            "body": "Content scales inside your margin box with aspect ratio preserved—no layout shifting when you change paper size or margin guides."
+          },
+          "local": {
+            "title": "Local-only privacy",
+            "body": "Secure local-only processing—client proofs, student portfolios, and architectural sheets never upload to a server."
+          }
+        }
+      },
+      "pdfFlatten": {
+        "h1": "Flatten PDF Online",
+        "heroTagline": "Flatten layers and annotations into a fixed page—prepare for final submission without uploads.",
+        "introSectionTitle": "How to Flatten PDF Layers Instantly",
+        "whySectionTitle": "Why Use Our PDF Flattener?",
+        "whySectionSubheadline": "Flatten PDF online to make PDF uneditable—flatten layers and annotations and prepare for final submission with secure local-only processing in your browser.",
+        "schemaDescription": "Flatten PDF online for free—merge PDF layers and convert interactive PDF to static with a PDF flattener tool in your browser. Lock forms and annotations with secure local-only processing.",
+        "featuredGuide": {
+          "slug": "flatten-pdf-before-sharing",
+          "label": "Check out our guide on preparing your PDFs for professional distribution"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "annotateLabel": "Annotate PDF",
+          "watermarkLabel": "Add Watermark"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Maintain visual integrity",
+            "body": "Flatten forms, comments, and markup into fixed page content—recipients see the same layout on every device."
+          },
+          "quality": {
+            "title": "Remove interactivity",
+            "body": "Make PDF uneditable by merging interactive layers—stop field edits and annotation changes after delivery."
+          },
+          "local": {
+            "title": "100% Privacy (no server uploads)",
+            "body": "Secure local-only processing—contracts, onboarding packets, and signed approvals never leave your device."
+          }
+        }
+      },
+      "pdfRepair": {
+        "h1": "Repair PDF Online",
+        "heroTagline": "Restore damaged PDF files with structure scan and rebuild—recover content without cloud uploads.",
+        "introSectionTitle": "How to Fix Corrupted PDF Files",
+        "whySectionTitle": "Why Use Our PDF Repair Tool?",
+        "whySectionSubheadline": "Repair corrupted PDF files to restore damaged PDF files—fix rendering errors and recover content from unreadable PDFs with secure local-only processing in your browser.",
+        "schemaDescription": "Repair corrupted PDF online for free—fix broken PDF file structure and recover PDF content with an online PDF repair tool in your browser. Fast local scan with secure local-only processing.",
+        "featuredGuide": {
+          "slug": "why-pdf-files-break-and-how-to-make-readable",
+          "label": "Check out our guide on troubleshooting common PDF issues"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "compressLabel": "Compress PDF",
+          "flattenLabel": "Flatten PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Fast recovery process",
+            "body": "Scan structure and rebuild xref tables in seconds—clear progress feedback when a file is too damaged for local repair."
+          },
+          "quality": {
+            "title": "No file corruption risk (local processing)",
+            "body": "Secure local-only processing—your broken contract or report never uploads to a server while you attempt recovery."
+          },
+          "local": {
+            "title": "Data integrity",
+            "body": "Recover PDF content with structure preserved—pages copy as-is when repair succeeds, keeping text selectable where possible."
+          }
+        }
+      },
+      "pdfProtect": {
+        "h1": "Protect PDF with Password Online",
+        "heroTagline": "AES-256 encryption in your browser—password-protect PDFs instantly without uploads.",
+        "introSectionTitle": "How to Secure PDF Files",
+        "whySectionTitle": "Why Use Our PDF Encryption Tool?",
+        "whySectionSubheadline": "Protect PDF with password using strong encryption—secure your sensitive documents and password-protect PDFs instantly with secure local-only processing in your browser.",
+        "schemaDescription": "Protect PDF with password online for free—encrypt PDF online and secure PDF file access with a PDF password protection tool in your browser. AES-256 encryption with secure local-only processing.",
+        "featuredGuide": {
+          "slug": "how-to-password-protect-pdf-in-browser",
+          "label": "Check out our guide on best practices for securing sensitive digital documents"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "unlockLabel": "Unlock PDF",
+          "flattenLabel": "Flatten PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant encryption",
+            "body": "Password-protect PDFs in seconds with AES-256—compatible with Adobe Acrobat, Preview, and common readers."
+          },
+          "quality": {
+            "title": "Files never leave your device",
+            "body": "Secure local-only processing—contracts, medical records, and financial reports stay in your browser tab."
+          },
+          "local": {
+            "title": "Zero server-side risks",
+            "body": "Your file and password never upload to JoinMyPDF—encryption runs entirely on your machine."
+          }
+        }
+      },
+      "pdfUnlock": {
+        "h1": "Unlock PDF Online",
+        "heroTagline": "Remove password protection in your browser—instantly unlock PDF files you are authorized to open.",
+        "introSectionTitle": "How to Remove Password from PDF",
+        "whySectionTitle": "Why Use Our PDF Unlocker?",
+        "whySectionSubheadline": "Unlock PDF online to instantly unlock PDF files—remove password protection with fast and secure removal and secure local-only processing in your browser.",
+        "schemaDescription": "Remove PDF password online for free—unlock PDF online and remove security from PDF with a PDF password remover in your browser. Fast decryption with secure local-only processing.",
+        "featuredGuide": {
+          "slug": "strong-pdf-password-guide",
+          "label": "Check out our guide on managing your document access and security"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "protectLabel": "Protect PDF",
+          "flattenLabel": "Flatten PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant results",
+            "body": "Enter the password once and download an unprotected copy—no upload queues or cloud decryption services."
+          },
+          "quality": {
+            "title": "Retain document quality",
+            "body": "Decryption preserves page content and layout—text and images stay intact for editing or merging next."
+          },
+          "local": {
+            "title": "Complete privacy (files never leave your browser)",
+            "body": "Secure local-only processing—your file and password never leave your device during unlock."
+          }
+        }
+      },
+      "pdfRedact": {
+        "h1": "Redact PDF Online",
+        "heroTagline": "Permanently black out sensitive text in your browser—secure redaction with no uploads.",
+        "introSectionTitle": "How to Redact Sensitive Information from PDF",
+        "whySectionTitle": "Why Use Our PDF Redaction Tool?",
+        "whySectionSubheadline": "Redact PDF online to permanently black out text—secure redaction of sensitive data, protect private information, and process files with secure local-only processing in your browser.",
+        "schemaDescription": "Redact PDF online for free—censor PDF sensitive information, permanently remove text from PDF, and black out private data with a PDF redaction tool in your browser. Irreversible removal with secure local-only processing.",
+        "featuredGuide": {
+          "slug": "pdf-redaction-guide-remove-sensitive-data-before-sharing",
+          "label": "Check out our guide on safe sharing: how to properly redact documents"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "flattenLabel": "Flatten PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Irreversible data removal",
+            "body": "Marked areas are burned into the page—underlying text on redacted regions cannot be recovered, copied, or searched."
+          },
+          "quality": {
+            "title": "No metadata traces",
+            "body": "Redaction flattens affected pages so hidden layers, comments, or selectable text under black boxes do not leak in the export."
+          },
+          "local": {
+            "title": "100% Privacy (files processed locally)",
+            "body": "Secure local-only processing—contracts, medical records, and legal exhibits never leave your browser tab."
+          }
+        }
+      },
+      "pdfSafeShareAuditor": {
+        "h1": "Safe-to-Share PDF Auditor",
+        "heroTagline": "Scan for hidden metadata, annotations, and sensitive patterns—generate an instant risk report in your browser.",
+        "introSectionTitle": "How to Audit and Clean Your PDF for Sharing",
+        "whySectionTitle": "Why Use Our Safe-to-Share Auditor?",
+        "whySectionSubheadline": "Audit PDF for sensitive info before sharing—detect hidden metadata, remove sensitive annotations, ensure file privacy, and run secure local-only auditing in your browser.",
+        "schemaDescription": "PDF metadata cleaner and secure PDF inspection in your browser—audit PDF for sensitive info, prepare PDF for sharing, and generate an instant risk report with secure local-only processing. No uploads required.",
+        "featuredGuide": {
+          "slug": "check-hidden-sensitive-pdf-before-sending",
+          "label": "Check out our guide: the ultimate checklist for sharing sensitive documents"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "redactLabel": "Redact PDF",
+          "flattenLabel": "Flatten PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Comprehensive privacy scan",
+            "body": "Regex scans for emails, IDs, cards, and confidential keywords plus annotations, comments, and signature fields—mapped on every page."
+          },
+          "quality": {
+            "title": "No file uploads / 100% Local",
+            "body": "Secure local-only auditing—your document never uploads to JoinMyPDF servers while the scanner runs."
+          },
+          "local": {
+            "title": "Instant risk report generation",
+            "body": "See flagged findings on a visual page map with counts per category—then redact all or open Redact PDF for manual fixes."
+          }
+        }
+      },
+      "pdfRemoveMetadata": {
+        "h1": "Remove PDF Metadata Online",
+        "heroTagline": "Strip author names, software trails, and hidden XMP data—clean and download in your browser.",
+        "introSectionTitle": "How to Strip Metadata from PDF Files",
+        "whySectionTitle": "Why Use Our Metadata Remover?",
+        "whySectionSubheadline": "Remove PDF metadata online to permanently wipe metadata—ensure document anonymity, remove hidden file information, and clean files with secure local-only processing in your browser.",
+        "schemaDescription": "Remove PDF metadata for free—clean PDF metadata online, strip EXIF and PDF data, and sanitize files with a PDF privacy tool in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-metadata-privacy-risks",
+          "label": "Check out our guide on why metadata matters: protecting your digital footprint"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "auditorLabel": "Safe-to-Share Auditor",
+          "redactLabel": "Redact PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Total metadata erasure",
+            "body": "Clears standard Info fields—title, author, subject, creator, producer, dates—and embedded XMP packets when present."
+          },
+          "quality": {
+            "title": "Compliance with privacy standards",
+            "body": "Reduce accidental disclosure in legal, HR, and journalism workflows before documents leave your organization."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—scan what was found, clean, and download without sending your PDF to JoinMyPDF servers."
+          }
+        }
+      },
+      "pdfSign": {
+        "h1": "Sign PDF Online",
+        "heroTagline": "Draw or type your signature, drag into place, and download—secure electronic signing with no uploads.",
+        "introSectionTitle": "How to Add a Signature to PDF Online",
+        "whySectionTitle": "Why Use Our PDF Signature Tool?",
+        "whySectionSubheadline": "Sign PDF online with a secure electronic signature—draw or upload your signature, add date and name fields, and process files with secure local-only processing in your browser.",
+        "schemaDescription": "Sign PDF online for free—add electronic signature to PDF, e-sign PDF free, and place visual signatures with a secure PDF signing tool in your browser. No server uploads with secure local-only processing.",
+        "featuredGuide": {
+          "slug": "how-to-safely-sign-contracts-online",
+          "label": "Check out our guide on how to electronically sign documents safely"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "flattenLabel": "Flatten PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant digital signing",
+            "body": "Draw, type, or upload a signature image—drag into place on any page and download a signed PDF in one session."
+          },
+          "quality": {
+            "title": "Support for drawing/uploading",
+            "body": "Mouse, touch, or stylus drawing plus typed handwriting-style names and optional date and printed-name fields beside each signature."
+          },
+          "local": {
+            "title": "Complete privacy (files never leave your browser)",
+            "body": "Secure local-only processing—your contract, signature image, and signed output never upload to JoinMyPDF servers."
+          }
+        }
+      },
+      "wordToPdf": {
+        "h1": "Convert Word to PDF Online",
+        "heroTagline": "Turn .docx files into print-ready PDFs—retain formatting with drag-and-drop conversion in your browser.",
+        "introSectionTitle": "How to Convert DOCX to PDF Easily",
+        "whySectionTitle": "Why Use Our Word to PDF Converter?",
+        "whySectionSubheadline": "Convert Word to PDF online with fast Word to PDF conversion—retain original formatting, export professional documents, and process files with secure local-only processing in your browser.",
+        "schemaDescription": "Convert Word to PDF for free—DOCX to PDF converter, Word to PDF online free, and professional PDF conversion in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "flatten-pdf-before-sharing",
+          "label": "Check out our guide on preparing your documents for professional distribution"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Preserve fonts and layout",
+            "body": "Convert .docx content into a fixed PDF snapshot—headings, paragraphs, and images stay in place for sharing and submission."
+          },
+          "quality": {
+            "title": "No file uploads / 100% Privacy",
+            "body": "Secure local-only processing—your Word document is parsed and exported in your browser tab, never uploaded to JoinMyPDF servers."
+          },
+          "local": {
+            "title": "High-speed conversion engine",
+            "body": "Drop a .docx file and download a PDF in seconds—no desktop apps, accounts, or cloud conversion queues."
+          }
+        }
+      },
+      "excelToPdf": {
+        "h1": "Convert Excel to PDF Online",
+        "heroTagline": "Export spreadsheets to landscape PDFs—maintain table formatting with local conversion in your browser.",
+        "introSectionTitle": "How to Convert XLSX to PDF Properly",
+        "whySectionTitle": "Why Use Our Excel to PDF Converter?",
+        "whySectionSubheadline": "Convert Excel to PDF online with fast Excel document conversion—maintain table formatting, export spreadsheets to PDF, and process workbooks with secure local-only processing in your browser.",
+        "schemaDescription": "Convert Excel to PDF for free—XLSX to PDF online, Excel to PDF converter, and preserve Excel formatting in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "excel-to-pdf",
+          "label": "Check out our guide on preparing Excel spreadsheets for professional reports"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Layout preservation",
+            "body": "Each sheet exports with column boundaries and cell values locked—landscape A4 orientation keeps wider tables readable."
+          },
+          "quality": {
+            "title": "No file uploads / 100% Privacy",
+            "body": "Secure local-only processing—financial models and inventory sheets are parsed in your browser, never uploaded to JoinMyPDF servers."
+          },
+          "local": {
+            "title": "High-speed spreadsheet rendering",
+            "body": "Drop an .xlsx workbook and download a multi-sheet PDF in seconds—no Excel desktop app or cloud conversion queues."
+          }
+        }
+      },
+      "powerpointToPdf": {
+        "h1": "Convert PowerPoint to PDF Online",
+        "heroTagline": "Turn .pptx decks into landscape PDFs—retain slide layouts with high-fidelity local conversion.",
+        "introSectionTitle": "How to Convert PPTX to PDF Instantly",
+        "whySectionTitle": "Why Use Our PowerPoint to PDF Converter?",
+        "whySectionSubheadline": "Convert PowerPoint to PDF online with high-fidelity conversion—retain slide layouts, share presentations professionally, and process decks with secure local-only processing in your browser.",
+        "schemaDescription": "Convert PowerPoint to PDF for free—PPTX to PDF online, PowerPoint to PDF converter, and professional presentation export in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "powerpoint-to-pdf",
+          "label": "Check out our guide on optimizing presentations for professional PDF distribution"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "flattenLabel": "Flatten PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Preserve slide layouts (as static pages)",
+            "body": "Each slide becomes a fixed landscape PDF page—text, shapes, and layout stay locked for handouts and read-only sharing."
+          },
+          "quality": {
+            "title": "No file uploads / 100% Privacy",
+            "body": "Secure local-only processing—pitch decks and lecture slides are parsed in your browser, never uploaded to JoinMyPDF servers."
+          },
+          "local": {
+            "title": "High-speed conversion engine",
+            "body": "Drop a .pptx presentation and download a slide-by-slide PDF in seconds—no PowerPoint desktop app or cloud conversion queues."
+          }
+        }
+      },
+      "openofficeToPdf": {
+        "h1": "Convert OpenOffice to PDF Online",
+        "heroTagline": "Convert ODT, ODS, and ODP files to PDF—high-fidelity open-format export in your browser.",
+        "introSectionTitle": "How to Convert ODT and ODP to PDF",
+        "whySectionTitle": "Why Use Our OpenOffice Converter?",
+        "whySectionSubheadline": "Convert OpenOffice to PDF online—convert OpenOffice Writer and Impress files with high-fidelity conversion, professional document export for open formats, and secure local-only processing in your browser.",
+        "schemaDescription": "Convert OpenOffice to PDF for free—ODT to PDF converter, convert ODP to PDF online, and open-source document conversion in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "openoffice-to-pdf",
+          "label": "Check out our guide on working with open-source document formats for professional needs"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Supports ODT, ODP, ODS formats",
+            "body": "Convert OpenDocument text, presentation, and spreadsheet files—including LibreOffice exports—in one local workflow."
+          },
+          "quality": {
+            "title": "No file uploads / 100% Privacy",
+            "body": "Secure local-only processing—your OpenOffice files are unpacked and rendered in your browser, never uploaded to JoinMyPDF servers."
+          },
+          "local": {
+            "title": "Maintain document structure",
+            "body": "Headings, paragraphs, tables, and slide content map into clean PDF layouts for sharing beyond open-source suites."
+          }
+        }
+      },
+      "ebookToPdf": {
+        "h1": "Convert eBook to PDF Online",
+        "heroTagline": "Turn EPUB files into fixed-page PDFs—readable, printable, and local in your browser.",
+        "introSectionTitle": "How to Convert EPUB to PDF",
+        "whySectionTitle": "Why Use Our eBook Converter?",
+        "whySectionSubheadline": "Convert eBook to PDF online—convert your digital books to portable PDF, maintain layout integrity, and process EPUB files with secure local-only processing in your browser.",
+        "schemaDescription": "Convert eBook to PDF for free—EPUB to PDF online and eBook conversion tool in your browser. Easy eBook to PDF conversion with secure local-only processing and no uploads.",
+        "featuredGuide": {
+          "slug": "ebook-to-pdf",
+          "label": "Check out our guide on making your eBooks portable: a simple guide"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "pageNumbersLabel": "Add Page Numbers"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "EPUB to fixed-page PDF",
+            "body": "Convert standard EPUB eBooks into structured PDFs with typography and margin presets—ideal for study, citation, and printing."
+          },
+          "quality": {
+            "title": "No file uploads / 100% Privacy",
+            "body": "Secure local-only processing—your eBook is extracted and paginated in your browser, never uploaded to JoinMyPDF servers."
+          },
+          "local": {
+            "title": "Fast and reliable conversion",
+            "body": "Drop an .epub file and download a paginated PDF in seconds—no reader apps, accounts, or cloud conversion queues."
+          }
+        }
+      },
+      "iworkToPdf": {
+        "h1": "Convert iWork to PDF Online",
+        "heroTagline": "Export Pages, Numbers, and Keynote to PDF—the bridge for Mac and iPad users, locally in your browser.",
+        "introSectionTitle": "How to Convert Pages, Numbers, and Keynote to PDF",
+        "whySectionTitle": "Why Use Our iWork Converter?",
+        "whySectionSubheadline": "Convert iWork to PDF online—export Apple iWork files to PDF, preserve layout and design, and process Pages, Numbers, and Keynote with secure local-only processing in your browser.",
+        "schemaDescription": "Convert iWork to PDF for free—convert Pages to PDF, convert Numbers to PDF, convert Keynote to PDF, and iWork to PDF converter in your browser. Fast iWork document conversion with secure local-only processing and no uploads.",
+        "featuredGuide": {
+          "slug": "iwork-to-pdf",
+          "label": "Check out our guide on seamless workflow: moving from Apple iWork to professional PDF"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Support for .pages, .numbers, .key files",
+            "body": "Extract embedded QuickLook preview PDFs from Apple Pages, Numbers, and Keynote packages—including .key and .keynote decks."
+          },
+          "quality": {
+            "title": "No file uploads / 100% Privacy",
+            "body": "Secure local-only processing—your iWork package is unpacked in your browser, never uploaded to JoinMyPDF servers."
+          },
+          "local": {
+            "title": "High-fidelity export",
+            "body": "Download the same preview PDF Apple embeds in each file—fast conversion without re-rendering on a remote server."
+          }
+        }
+      },
+      "autocadToPdf": {
+        "h1": "Convert AutoCAD (DWG/DXF) to PDF Online",
+        "heroTagline": "Turn DXF vector drawings into scalable PDF blueprints—precise CAD rendering in your browser.",
+        "introSectionTitle": "How to Convert CAD Drawings to PDF",
+        "whySectionTitle": "Why Use Our AutoCAD to PDF Converter?",
+        "whySectionSubheadline": "Convert AutoCAD to PDF online with precise CAD rendering—export high-quality blueprints, scale-accurate vector output, and professional CAD document conversion with secure local-only processing in your browser.",
+        "schemaDescription": "Convert AutoCAD to PDF for free—convert DWG to PDF workflow via DXF, convert DXF to PDF online, AutoCAD to PDF converter, and CAD drawing to PDF in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "autocad-to-pdf",
+          "label": "Check out our guide on preparing technical drawings for professional printing"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "flattenLabel": "Flatten PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Scale and line-weight preservation",
+            "body": "Lines, arcs, circles, and text render as native PDF vectors—zoom without pixelation on engineering blueprints."
+          },
+          "quality": {
+            "title": "Support for complex drawing formats",
+            "body": "Parse open-standard DXF CAD files locally—export .dwg drawings as DXF in AutoCAD for full precision."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—proprietary schematics are parsed and rendered in your browser, never uploaded to JoinMyPDF servers."
+          }
+        }
+      },
+      "pdfToJpg": {
+        "h1": "Convert PDF to JPG Online",
+        "heroTagline": "Export PDF pages as sharp JPG images—high-resolution output with live preview in your browser.",
+        "introSectionTitle": "How to Convert PDF Pages to JPG Images",
+        "whySectionTitle": "Why Use Our PDF to Image Converter?",
+        "whySectionSubheadline": "Convert PDF to JPG online with high-resolution PDF to JPG export—extract images from PDF pages, fast PDF conversion to image, and secure local-only processing in your browser.",
+        "schemaDescription": "Convert PDF to JPG for free—PDF to image converter, save PDF as JPG online, high-quality PDF to JPG conversion, and export PDF pages as JPG images in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-to-image-gallery-guide",
+          "label": "Check out our guide on using PDF content in your creative projects"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "pngLabel": "PDF to PNG",
+          "cropImageLabel": "Crop Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Maintain original image quality",
+            "body": "High-resolution PDF to JPG export keeps text edges and photo detail sharp—each page renders at export quality you can preview before download."
+          },
+          "quality": {
+            "title": "Convert individual pages or whole documents",
+            "body": "Export one page or every page as separate JPG files—ideal for slides, social graphics, and presentation assets pulled from PDF documents."
+          },
+          "local": {
+            "title": "Complete privacy (files processed in-browser)",
+            "body": "Secure local-only processing—your PDF never uploads to JoinMyPDF servers. Fast PDF conversion to image runs entirely in your browser tab."
+          }
+        }
+      },
+      "pdfToPng": {
+        "h1": "Convert PDF to PNG Online",
+        "heroTagline": "Export PDF pages as lossless PNG images—2× scale output with transparency-friendly quality in your browser.",
+        "introSectionTitle": "How to Convert PDF to High-Quality PNG",
+        "whySectionTitle": "Why Use Our PDF to PNG Converter?",
+        "whySectionSubheadline": "Convert PDF to PNG online with lossless PDF to PNG conversion—extract high-quality images from PDF, professional image format conversion, and secure local-only processing in your browser.",
+        "schemaDescription": "Convert PDF to PNG for free—PDF to PNG converter, save PDF as transparent PNG, high-quality image conversion, and export PDF pages as lossless PNG images in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "best-image-format-guide",
+          "label": "Check out our guide on when to use PNG vs JPG for your documents"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "jpgLabel": "PDF to JPG",
+          "cropImageLabel": "Crop Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Lossless quality preservation",
+            "body": "Lossless PDF to PNG conversion keeps text edges and graphics crisp—no JPEG compression artifacts when you need maximum fidelity."
+          },
+          "quality": {
+            "title": "Support for high-resolution output",
+            "body": "Each page exports at 2× scale for sharp slides, design assets, and transparent-friendly PNGs ready for downstream edits."
+          },
+          "local": {
+            "title": "Complete privacy (files processed in-browser)",
+            "body": "Secure local-only processing—your PDF never uploads to JoinMyPDF servers. Professional image format conversion runs entirely in your browser tab."
+          }
+        }
+      },
+      "pdfToText": {
+        "h1": "Convert PDF to Text Online",
+        "heroTagline": "Extract clean plain text from PDF pages—drop, extract, copy, or download .txt in your browser.",
+        "introSectionTitle": "How to Extract Text from PDF Documents",
+        "whySectionTitle": "Why Use Our PDF to Text Converter?",
+        "whySectionSubheadline": "Convert PDF to text online with precise text extraction—clean text conversion, easy PDF content retrieval, and secure local-only processing in your browser.",
+        "schemaDescription": "Convert PDF to text for free—PDF to text converter, extract text from PDF, convert PDF to TXT, and online PDF text extractor in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on efficient data extraction: converting PDFs for AI and analysis"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related document workflows:",
+          "mergeLabel": "Merge PDF",
+          "redactLabel": "Redact PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "High-accuracy extraction",
+            "body": "Precise text extraction from selectable PDF content—clean paragraphs you can copy, search, or pipe into Word, Excel, code, and AI tools."
+          },
+          "quality": {
+            "title": "Preservation of logical text order",
+            "body": "Clean text conversion keeps reading flow intact—page content exports in logical order for analysis, scripting, and document processing workflows."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—sensitive contracts, reports, and research PDFs are parsed in your browser tab, never uploaded to JoinMyPDF servers."
+          }
+        }
+      },
+      "extractImages": {
+        "h1": "Extract Images from PDF Online",
+        "heroTagline": "Pull embedded images at original quality—grid preview, single downloads, or ZIP export in your browser.",
+        "introSectionTitle": "How to Save PDF Images as Separate Files",
+        "whySectionTitle": "Why Use Our Image Extractor?",
+        "whySectionSubheadline": "Extract images from PDF online with extract original image files—lossless image retrieval, fast PDF asset extraction, and secure local-only processing in your browser.",
+        "schemaDescription": "Extract images from PDF for free—PDF image extractor, save images from PDF online, get high-quality images from PDF, and download embedded assets in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "extract-images-without-quality-loss",
+          "label": "Check out our guide on professional image extraction: keeping your assets high-quality"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "jpgLabel": "PDF to JPG",
+          "cropImageLabel": "Crop Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Extract multiple images at once",
+            "body": "Fast PDF asset extraction surfaces every embedded image in a grid preview—download individual files or export everything as a local ZIP archive."
+          },
+          "quality": {
+            "title": "Maintain original resolution/format",
+            "body": "Lossless image retrieval exports embedded objects directly as PNG—no screenshot compression, no re-encoding of the original asset quality."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—catalogs, reports, and design PDFs are parsed in your browser tab, never uploaded to JoinMyPDF servers."
+          }
+        }
+      },
+      "pdfToWord": {
+        "h1": "Convert PDF to Word Online",
+        "heroTagline": "Turn PDF pages into editable .docx files—drop, convert, and download in your browser.",
+        "introSectionTitle": "How to Convert PDF to DOCX Easily",
+        "whySectionTitle": "Why Use Our PDF to Word Converter?",
+        "whySectionSubheadline": "Convert PDF to Word online with retain original formatting—accurate PDF to Word conversion, fast and reliable document conversion, and secure local-only processing in your browser.",
+        "schemaDescription": "Convert PDF to Word for free—PDF to DOCX converter, PDF to Word online free, editable PDF to Word, and download structured .docx files in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-to-word",
+          "label": "Check out our guide on editing PDF files: how to convert and modify your documents"
+        },
+        "complementaryTool": {
+          "prompt": "Finished editing? Convert back to PDF.",
+          "linkLabel": "Try our Word to PDF tool here"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related document workflows:",
+          "wordToPdfLabel": "Word to PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Maintain fonts and layout",
+            "body": "Retain original formatting where extractable—paragraphs, headings, and page breaks export into an editable .docx you can open in Microsoft Word or Google Docs."
+          },
+          "quality": {
+            "title": "Advanced document structure preservation",
+            "body": "Accurate PDF to Word conversion keeps logical reading order and document structure—ideal for contracts, reports, and lecture notes you need to edit professionally."
+          },
+          "local": {
+            "title": "No file uploads / 100% Privacy",
+            "body": "Secure local-only processing—business and personal PDFs are parsed in your browser tab, never uploaded to JoinMyPDF servers."
+          }
+        }
+      },
+      "pdfToExcel": {
+        "h1": "Convert PDF to Excel Online",
+        "heroTagline": "Map PDF tables into editable .xlsx sheets—preview rows and columns, then download in your browser.",
+        "introSectionTitle": "How to Convert PDF to XLSX Accurately",
+        "whySectionTitle": "Why Use Our PDF to Excel Converter?",
+        "whySectionSubheadline": "Convert PDF to Excel online with precise data extraction—maintain table formatting, professional spreadsheet export, and secure local-only processing in your browser.",
+        "schemaDescription": "Convert PDF to Excel for free—PDF to XLSX converter, PDF table extraction, extract data from PDF to Excel, and download native .xlsx workbooks in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-to-excel",
+          "label": "Check out our guide on data analysis: efficiently importing PDF tables into Excel"
+        },
+        "complementaryTool": {
+          "prompt": "Need to publish the sheet as PDF again?",
+          "linkLabel": "Try our Excel to PDF tool here"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related data workflows:",
+          "mergeLabel": "Merge PDF",
+          "pdfToTextLabel": "PDF to Text"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Accurate data mapping",
+            "body": "Precise data extraction groups text by position into rows and columns—turn statement grids, invoices, and reports into editable spreadsheet cells."
+          },
+          "quality": {
+            "title": "Supports complex table structures",
+            "body": "Maintain table formatting where geometry allows—each PDF page with extractable text becomes its own worksheet for analysis in Excel or Google Sheets."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—financial PDFs and proprietary reports are parsed in your browser tab, never uploaded to JoinMyPDF servers."
+          }
+        }
+      },
+      "pdfToPowerpoint": {
+        "h1": "Convert PDF to PowerPoint Online",
+        "heroTagline": "Turn PDF pages into editable .pptx slides—drag, convert, and download in your browser.",
+        "introSectionTitle": "How to Convert PDF to PPTX Easily",
+        "whySectionTitle": "Why Use Our PDF to PowerPoint Converter?",
+        "whySectionSubheadline": "Convert PDF to PowerPoint online with retain slide layouts—high-fidelity conversion, professional presentation export, and secure local-only processing in your browser.",
+        "schemaDescription": "Convert PDF to PowerPoint for free—PDF to PPTX converter, PDF to PowerPoint online free, professional PDF to presentation conversion, and download native .pptx decks in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-to-powerpoint",
+          "label": "Check out our guide on transforming PDF reports into compelling presentations"
+        },
+        "complementaryTool": {
+          "prompt": "Need to publish slides as PDF again?",
+          "linkLabel": "Try our PowerPoint to PDF tool here"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related presentation workflows:",
+          "wordToPdfLabel": "Word to PDF",
+          "flattenLabel": "Flatten PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Maintain fonts and slide structure",
+            "body": "Retain slide layouts where extractable—each PDF page maps to a 16:9 slide with paragraph blocks you can edit in PowerPoint or Google Slides."
+          },
+          "quality": {
+            "title": "No file uploads / 100% Privacy",
+            "body": "Secure local-only processing—corporate decks, lecture PDFs, and pitch materials are parsed in your browser tab, never uploaded to JoinMyPDF servers."
+          },
+          "local": {
+            "title": "High-speed conversion engine",
+            "body": "High-fidelity conversion runs locally—drop a PDF and download a .pptx presentation in seconds without cloud queues or desktop software."
+          }
+        }
+      }
+    },
+    "schema": {
+      "mergePdfDescription": "Merge PDF online for free in your browser. Combine multiple PDF files locally with drag-and-drop ordering—no uploads, no watermarks, and instant download."
+    },
+    "relatedGuideAnchors": {
+      "merge-pdf-online-fast": "how to merge PDF files fast",
+      "how-to-merge-pdf-on-mobile-for-gmail": "merging PDF files on mobile",
+      "how-to-combine-pdf-files-for-email": "combining PDF files for email",
+      "how-to-merge-pdf-without-quality-loss": "merging PDF files without quality loss",
+      "how-to-merge-pdf-files-for-contracts": "merging PDF files for contracts and exhibits",
+      "compress-pdf-free-fast": "how to optimize PDFs for professional web use",
+      "compress-pdf-free-free": "compressing PDF files for free",
+      "split-pdf-tool-fast": "how to split PDF files fast",
+      "split-pdf-tool-free": "splitting PDF files for free",
+      "how-to-organize-scanned-documents-quickly": "how to organize your documents efficiently",
+      "rotate-pdf": "how to rotate PDF pages",
+      "crop-pdf": "how to crop PDF pages and remove margins",
+      "manage-many-pdfs-locally": "managing your PDF documents with precision",
+      "organize-pdf-folders-batch-rename": "organizing PDF folders with batch rename",
+      "how-to-reorder-pdf-pages-in-seconds-complete-guide": "mastering document organization",
+      "how-to-extract-specific-pages-from-long-pdf": "managing large PDF documents efficiently",
+      "digital-office-file-productivity": "preparing professional documents for submissions",
+      "add-watermark": "protecting your intellectual property with digital watermarks",
+      "add-pdf-annotations-without-printing": "collaborating efficiently with digital document markup",
+      "compare-contracts-legal-documents-online": "ensuring document integrity in professional workflows",
+      "local-document-comparison-lawyers-finance": "local document comparison for lawyers and finance teams",
+      "print-professional-booklet-from-pdf-at-home": "preparing your documents for professional printing",
+      "what-is-pdf-imposition-save-paper": "what PDF imposition is and why it saves paper",
+      "how-to-edit-pdf-text-locally-safely": "refining your documents with professional PDF editing",
+      "add-text-to-official-documents-without-breaking-layout": "adding text to official PDFs without breaking layout",
+      "browser-margin-cutter-fastest-print-prep": "mastering document layout for professional printing",
+      "fit-pdf-home-printer-no-cut-margins": "fitting PDFs to your home printer without cut-off margins",
+      "custom-paper-sizes-a5-b5-notebooks": "creating documents in custom paper sizes like A5 and B5",
+      "flatten-pdf-before-sharing": "preparing your PDFs for professional distribution",
+      "pdf-non-editable-before-sending": "making a PDF non-editable before sending",
+      "remove-pdf-forms-annotations-locally": "removing PDF forms and annotations locally",
+      "why-pdf-files-break-and-how-to-make-readable": "troubleshooting common PDF issues",
+      "pdf-wont-open-fix-corrupted-files-three-clicks": "fixing corrupted PDF files in three clicks",
+      "repair-pdf-online-why-browser-not-cloud": "why browser PDF repair beats cloud upload",
+      "how-to-password-protect-pdf-in-browser": "best practices for securing sensitive digital documents",
+      "how-to-safely-sign-contracts-online": "how to electronically sign documents safely",
+      "sign-official-contract-digitally-in-seconds": "signing an official contract digitally in seconds",
+      "digital-signature-guide-add-date-and-name": "adding date and printed name beside PDF signatures",
+      "online-vs-local-signatures-where-data-stored": "online vs local PDF signatures and where your data is stored",
+      "word-to-pdf": "converting Word documents to PDF online",
+      "excel-to-pdf": "converting Excel spreadsheets to PDF for professional reports",
+      "powerpoint-to-pdf": "optimizing presentations for professional PDF distribution",
+      "openoffice-to-pdf": "working with open-source document formats for professional needs",
+      "ebook-to-pdf": "making your eBooks portable with a simple guide",
+      "iwork-to-pdf": "moving from Apple iWork to professional PDF seamlessly",
+      "autocad-to-pdf": "preparing technical drawings for professional printing",
+      "pdf-to-image-gallery-guide": "using PDF content in your creative projects",
+      "best-image-format-guide": "when to use PNG vs JPG for your documents",
+      "pdf-workflow-efficiency-tips": "efficient data extraction: converting PDFs for AI and analysis",
+      "extract-images-without-quality-loss": "professional image extraction: keeping your assets high-quality",
+      "pdf-to-word": "editing PDF files: how to convert and modify your documents",
+      "pdf-to-excel": "data analysis: efficiently importing PDF tables into Excel",
+      "pdf-to-powerpoint": "transforming PDF reports into compelling presentations",
+      "strong-pdf-password-guide": "managing your document access and security",
+      "recover-pdf-password-locally": "recovering a forgotten PDF password locally",
+      "dangers-online-password-recovery": "the dangers of online password recovery tools",
+      "pdf-redaction-guide-remove-sensitive-data-before-sharing": "safe sharing and proper document redaction",
+      "why-black-box-redaction-is-not-enough": "why black box overlays are not true redaction",
+      "protect-id-medical-pdfs-with-local-tools": "protecting ID and medical PDFs with local tools",
+      "five-things-before-uploading-pdf-to-unknown-editors": "privacy risks before uploading PDFs to unknown editors",
+      "check-hidden-sensitive-pdf-before-sending": "the ultimate checklist for sharing sensitive documents",
+      "find-and-remove-sensitive-digital-document-components": "finding and removing sensitive components in digital documents",
+      "safe-to-share-technology-prevent-document-leaks": "the technology behind preventing document leaks",
+      "pdf-metadata-privacy-risks": "why metadata matters and protecting your digital footprint",
+      "clean-pdf-metadata-locally": "cleaning PDF metadata locally in your browser",
+      "digital-document-anonymity-guide": "full anonymity when sharing digital documents",
+      "how-to-extract-pages-from-pdf": "extracting specific pages from a PDF",
+      "batch-rename-pdf-files-online": "renaming PDF files before you split them"
+    },
     "brandEyebrow": "JoinMyPDF",
     "metadata": {
       "titleSuffix": "Free in your browser",
@@ -68,6 +1287,122 @@
       "useCasesJoin": "and",
       "variantP1": "This page helps you {action} when your search intent is \"{keyword}\". You get the same JoinMyPDF experience as our main {toolTitle} flow—clear steps, local processing in your browser, and a straightforward download when you are done.",
       "defaultP1": "{description} Whether you are packaging invoices, preparing coursework, or sending a contract pack, the goal is simple: {action} without installing desktop software.",
+      "toolOverrides": {
+        "pdfMerge": {
+          "p1": "Merge PDF online for free in your browser—combine multiple files in the order you choose, with drag-and-drop reordering and instant download. No account, no upload to our servers, and no desktop software required."
+        },
+        "pdfSplit": {
+          "p1": "Split PDF files online for free—extract specific pages or split PDF pages into separate files, all in your browser. Local processing keeps documents private, with no upload limits and instant downloads."
+        },
+        "pdfCompress": {
+          "p1": "Compress PDF online when your file is too large to email—reduce PDF file size with efficient compression, maintain document quality, and get instant local processing in your browser. No uploads, no account, and no waiting in server queues."
+        },
+        "pdfRotate": {
+          "p1": "Rotate PDF pages online to fix upside-down or sideways scanned documents—correct page orientation with clockwise, counter-clockwise, or 180° rotation, then save rotated PDF instantly in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfCrop": {
+          "p1": "Crop PDF online to remove unwanted margins and focus your content—use precise PDF cropping to trim PDF borders, adjust document margins, and adjust PDF page size with instant local processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfDeletePages": {
+          "p1": "Delete PDF pages online to remove unwanted pages from scanned or multi-page documents—use fast page removal to select and delete pages from a thumbnail grid with instant local processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfReorderPages": {
+          "p1": "Reorder PDF pages online with an intuitive drag-and-drop interface—drag page thumbnails to rearrange PDF pages instantly, sort PDF pages in the correct sequence, and download with local-only page sorting in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfExtractPages": {
+          "p1": "Extract PDF pages online from long contracts or academic papers—extract specific page ranges like 1, 3-5, create new PDF from selection, and download with instant local extraction in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfAddPageNumbers": {
+          "p1": "Add page numbers to PDF online for professional document preparation—use customizable page numbering to position page numbers precisely on reports and submissions with secure local processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfAddWatermark": {
+          "p1": "Add watermark to PDF online for document protection and branding—use custom text watermarks, adjust opacity and position on every page, and download with secure local processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfAnnotate": {
+          "p1": "Annotate PDF online for markup, highlighting, and collaboration—use precise annotation tools to add notes and highlights on contracts and coursework with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfCompare": {
+          "p1": "Compare PDF files online to identify document changes between versions—use side-by-side PDF comparison to find differences in contracts and policy drafts with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfToBooklet": {
+          "p1": "Convert PDF to booklet online for print-ready imposition—use automatic page imposition and easy booklet layout for programs, catalogs, and zines with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfBatchRename": {
+          "p1": "Batch rename PDF files online for faster document organization—use bulk file renaming and systematic document organization with prefixes, numbering, and find-replace with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfTextEditor": {
+          "p1": "Edit PDF text online for quick document fixes—edit existing text with precision text modification, maintain original formatting with overlay layers, and download with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfPaperMargin": {
+          "p1": "Adjust PDF paper size and margins online for prepress-ready layouts—use precise margin adjustments, custom paper dimensions, and standardize page formats with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfFlatten": {
+          "p1": "Flatten PDF online to lock your final document—make PDF uneditable, flatten layers and annotations, and prepare for final submission with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfRepair": {
+          "p1": "Repair PDF online to recover unreadable documents—restore damaged PDF files, fix rendering errors, and recover content from unreadable PDFs with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfProtect": {
+          "p1": "Protect PDF with password online to secure sensitive documents—use military-grade AES-256 encryption, secure your sensitive documents, and password-protect PDFs instantly with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfUnlock": {
+          "p1": "Unlock PDF online for documents you own or are authorized to edit—instantly unlock PDF files, remove password protection with fast and secure removal, and download with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfRedact": {
+          "p1": "Redact PDF online to permanently black out text—secure redaction of sensitive data, protect private information, and censor PDF sensitive information with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfSafeShareAuditor": {
+          "p1": "Audit PDF for sensitive info before sharing—detect hidden metadata, remove sensitive annotations, ensure file privacy, and prepare PDF for sharing with secure local-only auditing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfRemoveMetadata": {
+          "p1": "Remove PDF metadata online to permanently wipe metadata—ensure document anonymity, remove hidden file information, and clean PDF metadata with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfSign": {
+          "p1": "Sign PDF online with a secure electronic signature—draw or upload your signature, add date and name fields, and e-sign contracts and forms with no server uploads and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "wordToPdf": {
+          "p1": "Convert Word to PDF online with fast Word to PDF conversion—retain original formatting, export professional documents, and transform .docx files with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "excelToPdf": {
+          "p1": "Convert Excel to PDF online with fast Excel document conversion—maintain table formatting, export spreadsheets to PDF, and transform .xlsx workbooks with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "powerpointToPdf": {
+          "p1": "Convert PowerPoint to PDF online with high-fidelity conversion—retain slide layouts, export presentations for professional sharing, and transform .pptx decks with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "openofficeToPdf": {
+          "p1": "Convert OpenOffice to PDF online—convert OpenOffice Writer and Impress files with high-fidelity conversion, professional document export for open formats, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "ebookToPdf": {
+          "p1": "Convert eBook to PDF online—convert your digital books to portable PDF, maintain layout integrity, and transform EPUB files with easy eBook to PDF conversion and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "iworkToPdf": {
+          "p1": "Convert iWork to PDF online—export Apple iWork files to PDF, preserve layout and design, and transform Pages, Numbers, and Keynote with fast iWork document conversion and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "autocadToPdf": {
+          "p1": "Convert AutoCAD to PDF online with precise CAD rendering—export high-quality blueprints, scale-accurate vector output, and professional CAD document conversion with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfToJpg": {
+          "p1": "Convert PDF to JPG online with high-resolution PDF to JPG export—extract images from PDF pages, fast PDF conversion to image, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfToPng": {
+          "p1": "Convert PDF to PNG online with lossless PDF to PNG conversion—extract high-quality images from PDF, professional image format conversion, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfToText": {
+          "p1": "Convert PDF to text online with precise text extraction—clean text conversion, easy PDF content retrieval, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "extractImages": {
+          "p1": "Extract images from PDF online with extract original image files—lossless image retrieval, fast PDF asset extraction, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfToWord": {
+          "p1": "Convert PDF to Word online with retain original formatting—accurate PDF to Word conversion, fast and reliable document conversion, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfToExcel": {
+          "p1": "Convert PDF to Excel online with precise data extraction—maintain table formatting, professional spreadsheet export, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfToPowerpoint": {
+          "p1": "Convert PDF to PowerPoint online with retain slide layouts—high-fidelity conversion, professional presentation export, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        }
+      },
       "p2": "Privacy is a product decision here: your files are handled in the browser session on your device rather than uploaded to JoinMyPDF servers for processing. That model reduces transfer time for many jobs and is easier to reason about when documents are sensitive.",
       "variantP3": "Because you landed on a page tuned for \"{keyword}\", we emphasize {angle} If you ever want the generic experience, you can always switch to the main {toolTitle} page from the navigation.",
       "defaultP3": "If you need related steps next, many people follow merge with compression for email limits, or split first when only a few pages matter. Internal links on this page point to adjacent tools so you can continue in one sitting.",

@@ -250,8 +250,8 @@
       ],
       "relatedTools": [
         "pdf-merge",
-        "pdf-split",
-        "delete-pdf-pages"
+        "reorder-pdf-pages",
+        "pdf-split"
       ],
       "faq": [
         {
@@ -298,9 +298,9 @@
         "Overlay corrected labels on scanned PDF packets"
       ],
       "relatedTools": [
+        "annotate-pdf",
         "add-watermark",
-        "compare-pdf",
-        "sign-pdf"
+        "compare-pdf"
       ],
       "faq": [
         {
@@ -347,8 +347,8 @@
         "Verify that a revised PDF matches the approved draft"
       ],
       "relatedTools": [
+        "annotate-pdf",
         "pdf-merge",
-        "flatten-pdf",
         "redact-pdf"
       ],
       "faq": [
@@ -396,9 +396,9 @@
         "Prepare church bulletins or club newsletters as booklets"
       ],
       "relatedTools": [
-        "pdf-merge",
-        "pdf-split",
-        "crop-pdf"
+        "rotate-pdf",
+        "add-page-numbers",
+        "pdf-merge"
       ],
       "faq": [
         {
@@ -498,9 +498,9 @@
         "Generate social-ready graphics from PDF pages"
       ],
       "relatedTools": [
-        "jpg-to-pdf",
         "pdf-to-png",
-        "pdf-split"
+        "crop-image",
+        "extract-images"
       ],
       "faq": [
         {
@@ -552,8 +552,8 @@
       ],
       "relatedTools": [
         "unlock-pdf",
-        "redact-pdf",
-        "pdf-compress"
+        "flatten-pdf",
+        "redact-pdf"
       ],
       "faq": [
         {
@@ -601,8 +601,8 @@
       ],
       "relatedTools": [
         "protect-pdf",
-        "unlock-pdf",
-        "pdf-compress"
+        "flatten-pdf",
+        "pdf-password-recovery"
       ],
       "faq": [
         {
@@ -698,9 +698,9 @@
         "Sanitize legal exhibits before sending to external counsel"
       ],
       "relatedTools": [
-        "sign-pdf",
+        "flatten-pdf",
         "protect-pdf",
-        "unlock-pdf"
+        "safe-to-share-auditor"
       ],
       "faq": [
         {
@@ -751,9 +751,10 @@
         "Trim scanned PDFs to only the pages you need"
       ],
       "relatedTools": [
+        "pdf-split",
         "pdf-merge",
-        "add-page-numbers",
-        "pdf-compress"
+        "rotate-pdf",
+        "crop-pdf"
       ],
       "faq": [
         {
@@ -900,8 +901,8 @@
       ],
       "relatedTools": [
         "pdf-to-jpg",
-        "png-to-pdf",
-        "pdf-split"
+        "crop-image",
+        "extract-images"
       ],
       "faq": [
         {
@@ -948,9 +949,9 @@
         "Export searchable text from text-based PDF handbooks"
       ],
       "relatedTools": [
-        "pdf-to-word",
-        "pdf-split",
-        "pdf-merge"
+        "pdf-merge",
+        "redact-pdf",
+        "pdf-to-word"
       ],
       "faq": [
         {
@@ -998,8 +999,8 @@
       ],
       "relatedTools": [
         "pdf-to-jpg",
-        "pdf-to-png",
-        "pdf-to-text"
+        "crop-image",
+        "pdf-to-png"
       ],
       "faq": [
         {
@@ -1046,9 +1047,9 @@
         "Turn lecture notes PDFs into editable documents"
       ],
       "relatedTools": [
-        "pdf-to-jpg",
-        "pdf-to-png",
-        "pdf-split"
+        "word-to-pdf",
+        "protect-pdf",
+        "pdf-to-text"
       ],
       "faq": [
         {
@@ -1095,9 +1096,9 @@
         "Archive client proposals without opening desktop apps"
       ],
       "relatedTools": [
-        "pdf-to-word",
-        "jpg-to-pdf",
-        "pdf-merge"
+        "pdf-merge",
+        "protect-pdf",
+        "pdf-compress"
       ],
       "faq": [
         {
@@ -1144,9 +1145,9 @@
         "Archive multi-sheet workbooks without desktop Excel"
       ],
       "relatedTools": [
-        "word-to-pdf",
-        "pdf-to-word",
-        "jpg-to-pdf"
+        "pdf-merge",
+        "protect-pdf",
+        "pdf-compress"
       ],
       "faq": [
         {
@@ -1193,9 +1194,9 @@
         "Archive slides without desktop PowerPoint"
       ],
       "relatedTools": [
-        "pdf-to-powerpoint",
-        "word-to-pdf",
-        "excel-to-pdf"
+        "pdf-merge",
+        "flatten-pdf",
+        "pdf-compress"
       ],
       "faq": [
         {
@@ -1242,9 +1243,9 @@
         "Draft presentations from existing PDF documents"
       ],
       "relatedTools": [
-        "powerpoint-to-pdf",
-        "pdf-to-word",
-        "pdf-to-excel"
+        "word-to-pdf",
+        "flatten-pdf",
+        "powerpoint-to-pdf"
       ],
       "faq": [
         {
@@ -1291,9 +1292,9 @@
         "Reuse PDF lists and tables in Excel"
       ],
       "relatedTools": [
-        "excel-to-pdf",
-        "pdf-to-word",
-        "pdf-to-powerpoint"
+        "pdf-merge",
+        "pdf-to-text",
+        "excel-to-pdf"
       ],
       "faq": [
         {
@@ -1340,9 +1341,9 @@
         "Align mixed portrait and landscape page batches"
       ],
       "relatedTools": [
-        "crop-pdf",
-        "add-watermark",
-        "pdf-compress"
+        "pdf-merge",
+        "pdf-split",
+        "crop-pdf"
       ],
       "faq": [
         {
@@ -1389,8 +1390,8 @@
         "Archive mechanical drawings as universal PDF blueprints"
       ],
       "relatedTools": [
-        "crop-pdf",
-        "rotate-pdf",
+        "flatten-pdf",
+        "protect-pdf",
         "pdf-compress"
       ],
       "faq": [
@@ -1438,8 +1439,8 @@
         "Distribute presentation notes without layout drift"
       ],
       "relatedTools": [
-        "word-to-pdf",
-        "excel-to-pdf",
+        "pdf-merge",
+        "protect-pdf",
         "pdf-compress"
       ],
       "faq": [
@@ -1585,9 +1586,9 @@
         "Share eBook chapters with teams using universal PDF readers"
       ],
       "relatedTools": [
-        "html-to-pdf",
-        "markdown-to-pdf",
-        "word-to-pdf"
+        "pdf-merge",
+        "add-page-numbers",
+        "pdf-compress"
       ],
       "faq": [
         {
@@ -1634,9 +1635,9 @@
         "Export Numbers and Pages docs when iCloud is unavailable"
       ],
       "relatedTools": [
-        "ebook-to-pdf",
-        "html-to-pdf",
-        "word-to-pdf"
+        "pdf-merge",
+        "protect-pdf",
+        "pdf-compress"
       ],
       "faq": [
         {
@@ -1683,9 +1684,9 @@
         "Focus readers on the main content area"
       ],
       "relatedTools": [
-        "pdf-split",
-        "delete-pdf-pages",
-        "pdf-merge"
+        "rotate-pdf",
+        "pdf-compress",
+        "custom-paper-margin"
       ],
       "faq": [
         {
@@ -2002,9 +2003,9 @@
         "Discourage unauthorized sharing of PDFs"
       ],
       "relatedTools": [
-        "protect-pdf",
-        "sign-pdf",
-        "pdf-merge"
+        "pdf-merge",
+        "pdf-compress",
+        "protect-pdf"
       ],
       "faq": [
         {
@@ -2052,8 +2053,8 @@
       ],
       "relatedTools": [
         "pdf-merge",
-        "pdf-split",
-        "delete-pdf-pages"
+        "reorder-pdf-pages",
+        "pdf-split"
       ],
       "faq": [
         {
@@ -2100,10 +2101,9 @@
         "Share finalized PDFs that cannot be edited in Acrobat"
       ],
       "relatedTools": [
-        "repair-pdf",
-        "protect-pdf",
-        "redact-pdf",
-        "sign-pdf"
+        "annotate-pdf",
+        "add-watermark",
+        "protect-pdf"
       ],
       "faq": [
         {
@@ -2150,8 +2150,8 @@
         "Salvage pages from a partially downloaded report"
       ],
       "relatedTools": [
-        "flatten-pdf",
         "pdf-compress",
+        "flatten-pdf",
         "pdf-merge"
       ],
       "faq": [
@@ -2200,9 +2200,8 @@
       ],
       "relatedTools": [
         "pdf-to-booklet",
-        "rotate-pdf",
-        "pdf-merge",
-        "crop-pdf"
+        "crop-pdf",
+        "rotate-pdf"
       ],
       "faq": [
         {
@@ -2250,8 +2249,8 @@
       ],
       "relatedTools": [
         "redact-pdf",
-        "remove-hidden-metadata",
-        "flatten-pdf"
+        "flatten-pdf",
+        "remove-hidden-metadata"
       ],
       "faq": [
         {
@@ -2298,9 +2297,9 @@
         "Clean HR or legal PDFs before portal upload"
       ],
       "relatedTools": [
+        "safe-to-share-auditor",
         "redact-pdf",
-        "protect-pdf",
-        "flatten-pdf"
+        "protect-pdf"
       ],
       "faq": [
         {
@@ -2347,9 +2346,9 @@
         "Leave sticky-note reminders on design proofs"
       ],
       "relatedTools": [
-        "sign-pdf",
-        "pdf-text-editor",
-        "compare-pdf"
+        "add-page-numbers",
+        "add-watermark",
+        "sign-pdf"
       ],
       "faq": [
         {
@@ -2396,9 +2395,9 @@
         "Put the cover and table of contents before the body"
       ],
       "relatedTools": [
+        "pdf-merge",
         "delete-pdf-pages",
-        "extract-pdf-pages",
-        "pdf-merge"
+        "extract-pdf-pages"
       ],
       "faq": [
         {
@@ -2445,9 +2444,9 @@
         "Extract exhibits for a separate email attachment"
       ],
       "relatedTools": [
-        "reorder-pdf-pages",
         "pdf-split",
-        "delete-pdf-pages"
+        "pdf-merge",
+        "reorder-pdf-pages"
       ],
       "faq": [
         {
@@ -2494,8 +2493,8 @@
         "Initial each page of a short agreement"
       ],
       "relatedTools": [
+        "flatten-pdf",
         "protect-pdf",
-        "redact-pdf",
         "pdf-merge"
       ],
       "faq": [

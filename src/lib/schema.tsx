@@ -82,8 +82,10 @@ export function softwareApplicationLd(args: {
   description: string;
   locale?: string;
   name?: string;
+  operatingSystem?: string;
+  applicationCategory?: string;
 }) {
-  const { tool, variant, pathname, description, locale, name } = args;
+  const { tool, variant, pathname, description, locale, name, operatingSystem, applicationCategory } = args;
   const appName = name || (variant ? `${tool.title} — ${variant.keyword}` : tool.title);
   const priceCurrency = locale === "he" ? "ILS" : "USD";
 
@@ -91,8 +93,8 @@ export function softwareApplicationLd(args: {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: appName,
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "Any (Web Browser)",
+    applicationCategory: applicationCategory || "UtilitiesApplication",
+    operatingSystem: operatingSystem || "Any (Web Browser)",
     browserRequirements: "Requires JavaScript. Requires HTML5.",
     offers: {
       "@type": "Offer",

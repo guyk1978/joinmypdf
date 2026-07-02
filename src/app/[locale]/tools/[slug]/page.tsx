@@ -86,6 +86,8 @@ import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
 import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
 import { Link } from "@/i18n/navigation";
+import { getRelatedGuideLinkLabel } from "@/lib/tool-related-guides";
+import { resolveToolSeoPageOverride } from "@/lib/tool-seo-overrides";
 import {
   buildLocalizedGuideParagraphs,
   getLocalizedToolFaqs,
@@ -179,7 +181,9 @@ export default async function ToolPage({
 
   const displayTitle = localizedToolTitle(tTools, tool, variant);
   const subtitle = translateToolIntent(tTools, tool.slug, tool.intent);
-  const faqs = getLocalizedToolFaqs(tPage, tool, variant, displayTitle, locale);
+  const seoOverride = resolveToolSeoPageOverride(tool, variant, tPage);
+  const pageHeadline = seoOverride?.h1 ?? displayTitle;
+  const faqs = getLocalizedToolFaqs(tPage, tool, variant, pageHeadline, locale);
   const { description } = buildToolSeoCopy({
     tool,
     variant,
@@ -190,6 +194,9 @@ export default async function ToolPage({
   const pathname = `/tools/${slug}/`;
   const paragraphs = buildLocalizedGuideParagraphs(tPage, tool, variant);
   const articles = relatedArticlesForTool(tool.slug, locale);
+  const schemaDescription = seoOverride?.schemaDescription ?? description;
+  const schemaName = seoOverride?.h1 ?? displayTitle;
+  const useEnhancedSchema = Boolean(seoOverride);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
@@ -205,9 +212,11 @@ export default async function ToolPage({
           tool,
           variant,
           pathname,
-          description,
+          description: schemaDescription,
           locale,
-          name: displayTitle,
+          name: schemaName,
+          operatingSystem: useEnhancedSchema ? "Web Browser" : undefined,
+          applicationCategory: useEnhancedSchema ? "UtilitiesApplication" : undefined,
         })}
       />
       <JsonLd data={faqLd(faqs)} />
@@ -215,7 +224,7 @@ export default async function ToolPage({
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
-        <ToolPageShellProvider headline={displayTitle} subline={subtitle} slug={slug} stacked>
+        <ToolPageShellProvider headline={pageHeadline} subline={subtitle} tagline={seoOverride?.heroTagline} slug={slug} stacked>
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "protect" ? (
@@ -379,37 +388,19 @@ export default async function ToolPage({
 
         <ToolPageInfoBlock className={toolPageInfoWidth}>
         <ToolPageDashboardSection>
-          <ToolBeforeYouStart title={tPage("beforeYouStart")}>
+          <ToolBeforeYouStart title={seoOverride?.introSectionTitle ?? tPage("beforeYouStart")}>
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </ToolBeforeYouStart>
         </ToolPageDashboardSection>
 
-        <LocalProcessingInfographic layout="dashboard" />
-
-        {articles.length ? (
-          <ToolPageDashboardSection aria-labelledby="related-guides-heading">
-            <h2
-              id="related-guides-heading"
-              className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
-            >
-              {tPage("relatedGuides")}
-            </h2>
-            <ul className="space-y-3">
-              {articles.map((a) => (
-                <li key={a.slug}>
-                  <Link
-                    className="text-base leading-relaxed text-neutral-400 hover:underline"
-                    href={`/blog/${a.slug}/`}
-                  >
-                    {a.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </ToolPageDashboardSection>
-        ) : null}
+        <LocalProcessingInfographic
+          layout="dashboard"
+          headline={seoOverride?.whySectionTitle ?? tPage("whyChooseLocalProcessing")}
+          subheadline={seoOverride?.whySectionSubheadline}
+          benefits={seoOverride?.whyBenefits}
+        />
 
         <RelatedTools tool={tool} />
 
@@ -426,6 +417,74 @@ export default async function ToolPage({
             ))}
           </div>
         </ToolPageDashboardSection>
+
+        {articles.length ? (
+          <ToolPageDashboardSection aria-labelledby="related-guides-heading">
+            <h2
+              id="related-guides-heading"
+              className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
+            >
+              {tPage("relatedGuides")}
+            </h2>
+            <ul className="space-y-3">
+              {articles.map((a) => (
+                <li key={a.slug}>
+                  <Link
+                    className="text-base leading-relaxed text-neutral-400 hover:underline"
+                    href={`/blog/${a.slug}/`}
+                  >
+                    {getRelatedGuideLinkLabel(a, tPage)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </ToolPageDashboardSection>
+        ) : null}
+
+        {seoOverride?.featuredGuide ? (
+          <ToolPageDashboardSection>
+            <Link
+              href={`/blog/${seoOverride.featuredGuide.slug}/`}
+              className="text-base leading-relaxed text-neutral-300 hover:underline"
+              prefetch={false}
+            >
+              {seoOverride.featuredGuide.label}
+            </Link>
+          </ToolPageDashboardSection>
+        ) : null}
+
+        {seoOverride?.relatedWorkflowLinks ? (
+          <ToolPageDashboardSection>
+            <p className="mb-3 text-base leading-relaxed text-neutral-400">{seoOverride.relatedWorkflowLinks.prompt}</p>
+            <div className="tool-seo-workflow-links">
+              {seoOverride.relatedWorkflowLinks.links.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="tool-seo-workflow-links__link"
+                  prefetch={false}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </ToolPageDashboardSection>
+        ) : null}
+
+        {seoOverride?.complementaryTool ? (
+          <ToolPageDashboardSection>
+            <p className="text-base leading-relaxed text-neutral-400">
+              {seoOverride.complementaryTool.prompt}{" "}
+              <Link
+                href={seoOverride.complementaryTool.href}
+                className="font-medium text-neutral-300 hover:underline"
+                prefetch={false}
+              >
+                {seoOverride.complementaryTool.linkLabel}
+              </Link>
+            </p>
+          </ToolPageDashboardSection>
+        ) : null}
         </ToolPageInfoBlock>
         </ToolGlassProvider>
         </div>
