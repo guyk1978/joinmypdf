@@ -7,6 +7,8 @@
     "relatedGuideLink": "Read our guide on {topic}",
     "relatedTools": "Related tools",
     "questions": "Frequently Asked Questions",
+    "invoiceTemplatesByProfession": "Templates by profession",
+    "invoiceTemplatesByProfessionHint": "Start from a pre-filled invoice for your trade—line items and sample rates included.",
     "whyChooseLocalProcessing": "Why choose local processing",
     "toolSeo": {
       "pdfMerge": {
@@ -1553,6 +1555,596 @@
             "body": "Privacy-first architecture with a validation status bar—see Valid JSON or pinpoint invalid syntax without uploading sensitive corporate data."
           }
         }
+      },
+      "jsonToCsv": {
+        "h1": "Convert JSON to CSV Online",
+        "heroTagline": "Paste nested JSON—flatten structures with dot notation, preview the table, and download CSV instantly in your browser.",
+        "introSectionTitle": "How to Flatten and Export JSON to CSV",
+        "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
+        "whySectionSubheadline": "Automatic header detection, flatten nested JSON structures, secure local-only processing, and instant CSV export—API data never leaves your device.",
+        "schemaDescription": "JSON to CSV converter online for free—convert JSON to CSV, flatten JSON to CSV, JSON to spreadsheet, and data transformation tool in your browser. 100% client-side with no server storage.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on data transformation: converting API JSON to CSV for Excel analysis"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related data workflows:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "pdfToExcelLabel": "PDF to Excel"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side conversion (no server storage)",
+            "body": "Secure local-only processing—flatten API responses and internal JSON logs without cloud converters that store your datasets."
+          },
+          "quality": {
+            "title": "Intelligent flattening of nested objects",
+            "body": "Automatic header detection with dot-notation mapping—turn nested objects into spreadsheet-ready columns with a live table preview."
+          },
+          "local": {
+            "title": "High-speed batch processing",
+            "body": "Privacy-first data handling with instant CSV export—process large JSON arrays in the browser and download when the conversion status is ready."
+          }
+        }
+      },
+      "jsonMinifier": {
+        "h1": "JSON Minifier (Compress JSON)",
+        "heroTagline": "Paste readable JSON—strip whitespace and newlines, then copy a compact single-line result in your browser.",
+        "introSectionTitle": "How to Minify JSON Online",
+        "whySectionTitle": "Why Use Our JoinMyPDF JSON Minifier?",
+        "whySectionSubheadline": "Efficient JSON compression, remove whitespace and newlines, secure local-only processing, and minify JSON for web performance—config payloads never leave your device.",
+        "schemaDescription": "JSON minifier online for free—compress JSON, minify JSON online, JSON compressor, and remove whitespace from JSON in your browser. 100% client-side with no tracking or logging.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on optimizing JSON payloads for better API performance"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related JSON utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "jsonToCsvLabel": "JSON to CSV"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side processing (keep your data private)",
+            "body": "Secure local-only processing—minify API configs and production JSON without cloud compressors that log your payloads."
+          },
+          "quality": {
+            "title": "Lightning-fast compression",
+            "body": "Efficient JSON compression removes whitespace and newlines in milliseconds—structural integrity preserved with standard JSON.parse validation."
+          },
+          "local": {
+            "title": "Handles large JSON strings",
+            "body": "No tracking or logging—process large config files and API responses in the browser, then one-click copy to clipboard for production bundles."
+          }
+        }
+      },
+      "csvToJson": {
+        "h1": "Convert CSV to JSON Online",
+        "heroTagline": "Paste spreadsheet CSV—map headers to keys, preview the JSON array, and copy or download locally in your browser.",
+        "introSectionTitle": "How to Parse CSV to JSON Array",
+        "whySectionTitle": "Why Use Our JoinMyPDF CSV Converter?",
+        "whySectionSubheadline": "Automatic header detection, robust CSV parsing, secure local-only processing, and instant data conversion—customer lists and sales exports never leave your device.",
+        "schemaDescription": "CSV to JSON converter online for free—convert CSV to JSON online, parse CSV to JSON, CSV to JSON array, and data migration tool in your browser. 100% client-side with privacy-first processing.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on data preparation: converting spreadsheet CSVs into JSON for web apps"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related data utilities:",
+          "jsonToCsvLabel": "JSON to CSV",
+          "jsonFormatterLabel": "JSON Formatter"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side conversion",
+            "body": "Secure local-only processing—turn spreadsheet exports into structured JSON for APIs and backends without cloud parsers that store your CSV files."
+          },
+          "quality": {
+            "title": "Privacy-first (your data never leaves your browser)",
+            "body": "Robust CSV parsing with automatic header detection—handle quoted fields, commas in cells, and delimiter options for professional data migration."
+          },
+          "local": {
+            "title": "Handle complex data sets",
+            "body": "Instant JSON output with real-time preview—process large CSV exports in the browser, then copy or download an array of objects ready for JavaScript or APIs."
+          }
+        }
+      },
+      "htmlMarkdownConverter": {
+        "h1": "HTML/Markdown Converter Online",
+        "heroTagline": "Two-pane editor with live conversion—toggle Markdown to HTML or reverse, preview rendered output, and copy either side in your browser.",
+        "introSectionTitle": "How to Convert Between Markdown and HTML",
+        "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
+        "whySectionSubheadline": "Real-time conversion, instant syntax rendering, secure local-only processing, and professional content conversion—drafts and CMS snippets never leave your computer.",
+        "schemaDescription": "Markdown to HTML and HTML to Markdown converter online for free—convert HTML to Markdown online, text to HTML, and Markdown converter tool in your browser. 100% client-side with privacy-first processing.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on optimizing content workflows: Markdown vs. HTML for web publishing"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related content tools:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side processing",
+            "body": "Secure local-only processing—convert blog drafts and CMS snippets without cloud editors that store your unpublished content."
+          },
+          "quality": {
+            "title": "Privacy-first (your content stays on your computer)",
+            "body": "Real-time conversion with instant syntax rendering—toggle direction between Markdown and HTML with one-click copy on both panels."
+          },
+          "local": {
+            "title": "Support for GitHub Flavored Markdown",
+            "body": "Immediate visual results in a split editor—preview headings, lists, and code blocks before publishing to WordPress, Ghost, or static sites."
+          }
+        }
+      },
+      "generateFavicon": {
+        "h1": "Free Favicon Generator Online",
+        "heroTagline": "Type 1–2 characters, pick brand colors and shape, preview live, and download .ico or .png favicons in your browser.",
+        "introSectionTitle": "Generate Custom Favicons in Seconds",
+        "whySectionTitle": "How to Design Your Favicon",
+        "whySectionSubheadline": "Free and fast favicon creation, create professional favicons online, custom character and color selection, secure local-only generation, and instant .ico and .png export—brand assets never leave your device.",
+        "schemaDescription": "Free favicon generator online—create favicon online, generate favicon.ico, free website icon maker, and custom favicon creator in your browser. 100% client-side with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on essential branding: creating the perfect favicon for your website"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related branding tools:",
+          "qrCodeGeneratorLabel": "QR Code Generator",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side generation (no uploads)",
+            "body": "Secure local-only generation—design tab icons from initials or short labels without uploading brand assets to third-party servers."
+          },
+          "quality": {
+            "title": "Multiple size support",
+            "body": "Instant preview with square, circle, or rounded shapes—download multi-size .ico frames plus crisp .png exports ready for modern browsers."
+          },
+          "local": {
+            "title": "Instant preview",
+            "body": "Privacy-first branding with real-time live preview—customize primary and secondary colors, then export professional favicons in seconds."
+          }
+        }
+      },
+      "pngToIco": {
+        "h1": "Free PNG to ICO Converter Online",
+        "heroTagline": "Drop a PNG logo—preview 16×16, 32×32, and 48×48 icon sizes, then download a Windows-compatible .ico file in your browser.",
+        "introSectionTitle": "Convert PNG to ICO in Seconds",
+        "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
+        "whySectionSubheadline": "Free and fast PNG to ICO conversion, convert images to favicon format, secure local-only processing, and instant download without server uploads—your logo never leaves your device.",
+        "schemaDescription": "PNG to ICO converter online for free—convert PNG to ICO online, free ICO generator, PNG to icon file, and favicon converter in your browser. 100% client-side with no file uploads.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on preparing your website assets: how to create professional favicons from PNGs"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "generateFaviconLabel": "Favicon Generator",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side conversion",
+            "body": "Secure local-only processing—bundle PNG artwork into favicon.ico without cloud converters that store your brand logos."
+          },
+          "quality": {
+            "title": "Full support for Alpha transparency",
+            "body": "High-fidelity output with preserved PNG alpha channels—real-time preview at standard icon sizes before you download."
+          },
+          "local": {
+            "title": "Privacy-first architecture (no file uploads)",
+            "body": "Instant download without server uploads—convert legacy favicon.ico files and Windows shortcut icons locally in your browser tab."
+          }
+        }
+      },
+      "icoToPng": {
+        "h1": "Free ICO to PNG Converter Online",
+        "heroTagline": "Drop an ICO file—preview extracted frames, pick embedded icon sizes, and download crisp PNG images in your browser.",
+        "introSectionTitle": "Extract PNG from ICO Instantly",
+        "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
+        "whySectionSubheadline": "Free and fast ICO to PNG conversion, extract high-quality images from icon files, secure local-only processing, and instant download without server uploads—legacy favicon assets never leave your device.",
+        "schemaDescription": "ICO to PNG converter online for free—convert ICO to PNG online, extract PNG from ICO, favicon to image, and icon file converter in your browser. 100% client-side with no file uploads.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on modernizing web icons: extracting and updating your favicon assets"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "pngToIcoLabel": "PNG to ICO",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side conversion",
+            "body": "Secure local-only processing—recover PNG artwork from legacy ICO files without cloud extractors that store your company icons."
+          },
+          "quality": {
+            "title": "Full transparency preservation",
+            "body": "Lossless image extraction with preserved alpha channels—real-time preview of each embedded frame before you download."
+          },
+          "local": {
+            "title": "Privacy-first architecture (no file uploads)",
+            "body": "Instant download without server uploads—select specific icon sizes from multi-frame ICO files and export PNGs for modern web workflows."
+          }
+        }
+      },
+      "svgToFavicon": {
+        "h1": "Free SVG to Favicon Converter Online",
+        "heroTagline": "Drop vector SVG artwork—preview rasterized icon output, pick 16×16 through 128×128 sizes, and download a crisp ICO file in your browser.",
+        "introSectionTitle": "Convert SVG to ICO Instantly",
+        "whySectionTitle": "Why Use Our JoinMyPDF SVG Converter?",
+        "whySectionSubheadline": "Free and fast SVG to ICO conversion, maintain crisp edges and transparency, secure local-only processing, and professional favicon creation without server uploads—vector logos never leave your device.",
+        "schemaDescription": "SVG to favicon converter online for free—convert SVG to ICO online, free SVG to favicon, vector to icon converter, and SVG favicon generator in your browser. 100% client-side with no server storage.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on mastering favicons: from scalable vectors to web icons"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "pngToIcoLabel": "PNG to ICO",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side conversion",
+            "body": "Secure local-only processing—rasterize vector brand marks into favicon ICO files without cloud renderers that store your SVG source files."
+          },
+          "quality": {
+            "title": "Lossless vector rendering",
+            "body": "Maintain crisp edges and transparency—preview how your SVG looks rendered as an icon before you export custom sizes."
+          },
+          "local": {
+            "title": "Privacy-first (no server storage)",
+            "body": "Custom size export with instant download—turn scalable logos into web-ready favicons locally without uploading design assets."
+          }
+        }
+      },
+      "faviconPack": {
+        "h1": "Free Favicon Pack Generator Online",
+        "heroTagline": "Upload one PNG or SVG—preview every standard icon size, then download a complete favicon ZIP pack in your browser.",
+        "introSectionTitle": "Generate All Favicon Sizes in One Click",
+        "whySectionTitle": "Why Use Our JoinMyPDF Pack Generator?",
+        "whySectionSubheadline": "Generate complete favicon sets, all standard sizes from 16×16 to 512×512, secure local-only generation, and instant download as ZIP—brand images never leave your device.",
+        "schemaDescription": "Favicon pack generator online for free—create all favicon sizes, generate web icon zip, multi-size favicon maker, and website icon set generator in your browser. 100% client-side with no images stored.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on the complete guide to favicon best practices for 2026"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "generateFaviconLabel": "Favicon Generator",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side processing",
+            "body": "Secure local-only generation—build a complete favicon ZIP from one source image without cloud pack builders that store your logos."
+          },
+          "quality": {
+            "title": "Privacy-first (no images stored)",
+            "body": "Covers all device requirements for Apple, Android, and Windows—real-time preview of the full icon set before you download."
+          },
+          "local": {
+            "title": "Optimized file compression",
+            "body": "Instant download as ZIP with every common tab, touch, and manifest size—hand off a professional icon set to developers in one file."
+          }
+        }
+      },
+      "appleTouchIcon": {
+        "h1": "Free Apple Touch Icon Generator Online",
+        "heroTagline": "Upload a PNG or SVG logo—preview how it looks on an iPhone home screen, then download a crisp 180×180 Apple touch icon in your browser.",
+        "introSectionTitle": "Generate 180×180 Apple Touch Icons",
+        "whySectionTitle": "Why Use Our JoinMyPDF Icon Generator?",
+        "whySectionSubheadline": "Free and fast Apple touch icon generation, perfect for iOS home screen bookmarks, secure local-only processing, and instant download of 180×180 icons—your brand logo never leaves your device.",
+        "schemaDescription": "Apple touch icon generator online for free—180×180 icon maker, create iOS home screen icon, generate Apple touch icon online, and favicon for iOS in your browser. 100% client-side with no images stored.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on enhancing user experience: how to add Apple touch icons to your website"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "faviconPackLabel": "Favicon Pack",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side conversion",
+            "body": "Secure local-only processing—render a properly sized Apple touch icon from your logo without cloud generators that store your images."
+          },
+          "quality": {
+            "title": "Privacy-first (no images stored)",
+            "body": "Optimized for iOS retina displays—real-time preview of how your icon appears when users save your site to the home screen."
+          },
+          "local": {
+            "title": "Fast and free",
+            "body": "Instant download of 180×180 PNG files—meet Apple touch icon guidelines for web apps and mobile bookmarks in seconds."
+          }
+        }
+      },
+      "faviconCompressor": {
+        "h1": "Free Favicon Compressor Online",
+        "heroTagline": "Upload ICO, PNG, or JPG favicons—compare before and after file size, see bytes saved, and download an optimized icon in your browser.",
+        "introSectionTitle": "Compress Favicons Instantly",
+        "whySectionTitle": "Why Use Our JoinMyPDF Compressor?",
+        "whySectionSubheadline": "Free and fast favicon compression, strip unnecessary metadata, secure local-only optimization, and perfect for Core Web Vitals—your icon files never leave your device.",
+        "schemaDescription": "Favicon compressor online for free—reduce favicon file size, online image optimizer, compress ICO files, and fast favicon optimizer in your browser. 100% client-side with no server storage.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on optimizing your website assets for maximum performance"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "faviconPackLabel": "Favicon Pack",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side processing",
+            "body": "Secure local-only optimization—shrink ICO, PNG, and JPG favicons without cloud compressors that store your brand assets."
+          },
+          "quality": {
+            "title": "Privacy-first (no server storage)",
+            "body": "Lossless and lossy compression options—strip unnecessary metadata with a clear before vs. after size comparison."
+          },
+          "local": {
+            "title": "Improved page load speeds",
+            "body": "See size saved at a glance—download optimized favicons that help Core Web Vitals and faster first paint."
+          }
+        }
+      },
+      "faviconCropper": {
+        "h1": "Free Favicon Cropper Online",
+        "heroTagline": "Upload PNG, JPG, or SVG artwork—crop with a fixed 1:1 frame, preview the square favicon live, and download PNG in your browser.",
+        "introSectionTitle": "Crop Images to Perfect Square Favicons",
+        "whySectionTitle": "Why Use Our JoinMyPDF Cropper?",
+        "whySectionSubheadline": "Free and fast image cropping, perfect square aspect ratio for favicons, secure local-only processing, and precision control for your website icons—your artwork never leaves your device.",
+        "schemaDescription": "Favicon cropper online for free—crop image to square for favicon, online favicon cropper, square image resizer, and image cropping tool in your browser. 100% client-side with no image storage.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on preparing your assets: the art of cropping for favicons"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "generateFaviconLabel": "Favicon Generator",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side processing",
+            "body": "Secure local-only processing—crop PNG, JPG, and SVG artwork on the Canvas API without cloud editors that store your logos."
+          },
+          "quality": {
+            "title": "Privacy-first (no images stored)",
+            "body": "Preserves high image quality with a fixed 1:1 crop box—trim excess padding without stretching rectangular logos out of proportion."
+          },
+          "local": {
+            "title": "Simple, distraction-free interface",
+            "body": "Focused canvas with clean handles and live favicon preview—prepare square artwork before generating or compressing your final icons."
+          }
+        }
+      },
+      "transparentFavicon": {
+        "h1": "Free Transparent Favicon Maker Online",
+        "heroTagline": "Upload a logo or icon—click to remove background colors, preview transparency on a checkerboard grid, and download a PNG favicon in your browser.",
+        "introSectionTitle": "Remove Background and Create Transparent Favicons",
+        "whySectionTitle": "Why Use Our JoinMyPDF Tool?",
+        "whySectionSubheadline": "Free and fast background removal, create transparent icons in one click, secure local-only processing, and perfect transparency for any website theme—your logo never leaves your device.",
+        "schemaDescription": "Transparent favicon maker online for free—remove background from icon online, make favicon transparent, PNG transparency tool, and remove background from image in your browser. 100% client-side with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on why transparency matters: ensuring your favicon looks great on every background"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "faviconCropperLabel": "Favicon Cropper",
+          "pngToIcoLabel": "PNG to ICO"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side processing",
+            "body": "Secure local-only processing—remove solid backgrounds from PNG and JPG logos on the Canvas API without external remove-bg APIs."
+          },
+          "quality": {
+            "title": "Privacy-first (your logo is never uploaded)",
+            "body": "Preserves anti-aliased edges with click-to-remove color picking—strip white or solid-color backgrounds without sending brand assets to the cloud."
+          },
+          "local": {
+            "title": "Supports multiple background removals",
+            "body": "Remove more than one color in a session—preview transparency on a grid and download a clean PNG ready for ICO conversion."
+          }
+        }
+      },
+      "faviconCodeGenerator": {
+        "h1": "Free Favicon Code Generator Online",
+        "heroTagline": "Toggle Apple Touch, Android manifest, Safari pinned tab, and standard favicon tags—preview syntax-highlighted HTML in real time and copy to clipboard in your browser.",
+        "introSectionTitle": "Generate Web-Ready Favicon HTML Tags",
+        "whySectionTitle": "Why Use Our JoinMyPDF Code Generator?",
+        "whySectionSubheadline": "Free and fast favicon code generation, support for all modern browsers, secure local-only generation, and copy-paste ready HTML snippets—your site paths never leave your device.",
+        "schemaDescription": "Favicon code generator online for free—generate favicon HTML link tags, Apple touch icon code, web manifest generator, and add favicon to website snippets in your browser. 100% client-side with no server storage.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on favicon implementation: the ultimate guide to modern web standards"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "faviconPackLabel": "Favicon Pack",
+          "htmlMarkdownConverterLabel": "HTML/Markdown Converter"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side generation",
+            "body": "Secure local-only generation—build complete favicon link tag sets without cloud snippet tools that store your project paths."
+          },
+          "quality": {
+            "title": "Privacy-first (your site data is never stored)",
+            "body": "Follows modern web standards (HTML5)—include Apple Touch, Android Chrome, SVG, and web manifest references with accurate syntax."
+          },
+          "local": {
+            "title": "Instant code preview",
+            "body": "Real-time updates as you toggle options—copy-paste ready HTML with syntax highlighting and one-click clipboard copy."
+          }
+        }
+      },
+      "faviconPreviewer": {
+        "h1": "Free Favicon Previewer Online",
+        "heroTagline": "Upload ICO, PNG, or SVG—or paste a URL—then preview your favicon in browser tabs, bookmarks, and mobile home-screen mockups with light and dark themes.",
+        "introSectionTitle": "See How Your Favicon Looks in Browsers",
+        "whySectionTitle": "Why Use Our JoinMyPDF Previewer?",
+        "whySectionSubheadline": "Free and fast favicon testing, simulate icons in browser tabs and bookmarks, secure local-only processing, and verify your favicon design before deployment—your icon files never leave your device.",
+        "schemaDescription": "Favicon previewer online for free—test favicon online, see favicon in browser tab, favicon simulator, and website icon preview in your browser. 100% client-side with no image uploads.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on the importance of icon visibility: why your favicon needs a quality check"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related favicon tools:",
+          "faviconCodeGeneratorLabel": "Favicon Code Generator",
+          "faviconCompressorLabel": "Favicon Compressor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side preview",
+            "body": "Secure local-only processing—upload or paste a favicon URL and preview without cloud validators that store your brand assets."
+          },
+          "quality": {
+            "title": "Privacy-first (no images uploaded)",
+            "body": "Simulates diverse device environments—browser tab, bookmark bar, and home-screen overlays in light and dark UI themes."
+          },
+          "local": {
+            "title": "Instant visual feedback",
+            "body": "Realistic mockups show exactly how visitors perceive your icon—validate legibility and contrast before you deploy."
+          }
+        }
+      },
+      "markdownToPdf": {
+        "h1": "Free Markdown to PDF Converter Online",
+        "heroTagline": "Paste Markdown or upload a .md file—preview styled layout in real time, customize fonts and page size, then download a print-ready PDF in your browser.",
+        "introSectionTitle": "Convert Markdown to Styled PDF Documents",
+        "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
+        "whySectionSubheadline": "Fast Markdown to PDF conversion, generate styled print-ready documents, secure local-only processing, and professional document export without server uploads—your drafts never leave your device.",
+        "schemaDescription": "Markdown to PDF converter online for free—convert Markdown to PDF online, MD to PDF generator, print-ready PDF from Markdown, and Markdown converter tool in your browser. 100% client-side with privacy-first architecture.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on streamlining documentation: converting Markdown to professional PDFs"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related document tools:",
+          "htmlMarkdownConverterLabel": "HTML/Markdown Converter",
+          "compressLabel": "Compress PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side conversion",
+            "body": "Secure local-only processing—render README files and technical docs to PDF without cloud converters that store confidential content."
+          },
+          "quality": {
+            "title": "Privacy-first architecture (no file uploads)",
+            "body": "GitHub Flavored Markdown support—code blocks, tables, and headings render with live preview before you export."
+          },
+          "local": {
+            "title": "Customizable document styling",
+            "body": "Choose fonts, page size, and header/footer options—download polished PDFs ready to share with clients or print."
+          }
+        }
+      },
+      "htmlToPdf": {
+        "h1": "Free HTML to PDF Converter Online",
+        "heroTagline": "Paste HTML or upload a .html file—preview page structure in real time, set A4 or Letter with portrait or landscape margins, then download a print-ready PDF in your browser.",
+        "introSectionTitle": "Convert HTML to Print-Ready PDF",
+        "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
+        "whySectionSubheadline": "Free and fast HTML to PDF rendering, preserve CSS styles and layout, secure local-only processing, and instant download of PDF documents—your markup never leaves your device.",
+        "schemaDescription": "HTML to PDF converter online for free—convert HTML to PDF online, save webpage as PDF, HTML markup to PDF, and print-ready PDF generator in your browser. 100% client-side with no server storage.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on beyond print: transforming web UI into professional PDF reports"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related document tools:",
+          "markdownToPdfLabel": "Markdown to PDF",
+          "compressLabel": "Compress PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side conversion",
+            "body": "Secure local-only processing—render HTML reports and UI layouts to PDF without cloud services that break your CSS or store sensitive markup."
+          },
+          "quality": {
+            "title": "Privacy-first (no server storage)",
+            "body": "Support for modern CSS and HTML5—preserve styles, tables, and layout fidelity with a live preview before export."
+          },
+          "local": {
+            "title": "No watermarks or limits",
+            "body": "Configure page size, orientation, and margins—download clean PDFs ready to share with clients or archive as static reports."
+          }
+        }
+      },
+      "invoiceGenerator": {
+        "h1": "Free Invoice & Receipt Generator Online",
+        "heroTagline": "Fill company and client details, line items, tax, and totals—watch a live A4 invoice preview update as you type, then download a professional PDF in your browser.",
+        "introSectionTitle": "Build Professional Invoices in Seconds",
+        "whySectionTitle": "Why Use Our JoinMyPDF Invoice Tool?",
+        "whySectionSubheadline": "Free and fast invoice generation, no account required, secure local-only processing, and instant professional PDF export—your billing data never leaves your device.",
+        "schemaDescription": "Free invoice generator online—create receipt online, professional invoice maker, invoice template generator, and business billing tool in your browser. 100% client-side with privacy-first architecture.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on managing your freelance finances: creating perfect invoices without complexity"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related document tools:",
+          "htmlToPdfLabel": "HTML to PDF",
+          "compressLabel": "Compress PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side privacy (no server uploads)",
+            "body": "Secure local-only processing—build invoices and receipts without cloud billing tools that store your client details and rates."
+          },
+          "quality": {
+            "title": "Professional and clean layout",
+            "body": "Live A4 preview updates as you type—crisp typography and readable totals ready for official business use."
+          },
+          "local": {
+            "title": "Free to use with no hidden fees",
+            "body": "Perfect for freelancers and small businesses—download polished PDF invoices with no account, watermark, or subscription."
+          }
+        }
+      },
+      "dataConverterVisualizer": {
+        "h1": "Universal Data Converter & Visualizer Online",
+        "heroTagline": "Upload CSV, JSON, or XML—preview rows in a sortable, filterable grid, run quick clean-up actions, and export in your browser.",
+        "introSectionTitle": "Convert, Visualize, and Clean Data Instantly",
+        "whySectionTitle": "Why Use Our Universal Data Tool?",
+        "whySectionSubheadline": "All-in-one data transformation, secure local-only file handling, real-time sortable grid preview, and clean and convert data without server uploads—your datasets never leave your device.",
+        "schemaDescription": "Universal data converter online—JSON to CSV visualizer, CSV data cleaner, XML data converter, online data transformation tool, and sortable data grid in your browser. 100% client-side with privacy-first architecture.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on modern data workflows: from raw CSV to structured JSON"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related data tools:",
+          "csvToJsonLabel": "CSV to JSON",
+          "jsonFormatterLabel": "JSON Formatter",
+          "htmlMarkdownConverterLabel": "HTML/Markdown Converter"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side privacy (your sensitive data never leaves your browser)",
+            "body": "Secure local-only file handling—parse, clean, and export CSV, JSON, and XML without cloud converters that store proprietary datasets."
+          },
+          "quality": {
+            "title": "Handle large datasets locally",
+            "body": "High-performance sortable grid preview—sort columns, remove duplicates, trim whitespace, and fix nulls without round-trips to a server."
+          },
+          "local": {
+            "title": "Zero-latency conversion",
+            "body": "Clean, professional UI for data analysts—toggle CSV, JSON, or XML output and download instantly with no account required."
+          }
+        }
       }
     },
     "schema": {
@@ -1846,6 +2438,63 @@
         },
         "jsonFormatter": {
           "p1": "Instant JSON pretty printing with real-time syntax validation—secure local-only processing using a developer-friendly JSON tool in your browser. No uploads, no account, and no desktop software required."
+        },
+        "jsonToCsv": {
+          "p1": "Automatic header detection with flatten nested JSON structures—secure local-only processing and instant CSV export in your browser. No uploads, no account, and no desktop software required."
+        },
+        "jsonMinifier": {
+          "p1": "Efficient JSON compression with remove whitespace and newlines—secure local-only processing and minify JSON for web performance in your browser. No uploads, no account, and no desktop software required."
+        },
+        "csvToJson": {
+          "p1": "Automatic header detection with robust CSV parsing—secure local-only processing and instant data conversion in your browser. No uploads, no account, and no desktop software required."
+        },
+        "htmlMarkdownConverter": {
+          "p1": "Real-time conversion with instant syntax rendering—secure local-only processing and professional content conversion in your browser. No uploads, no account, and no desktop software required."
+        },
+        "generateFavicon": {
+          "p1": "Free and fast favicon creation with custom character and color selection—secure local-only generation and instant .ico and .png export in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pngToIco": {
+          "p1": "Free and fast PNG to ICO conversion with convert images to favicon format—secure local-only processing and instant download without server uploads in your browser. No uploads, no account, and no desktop software required."
+        },
+        "icoToPng": {
+          "p1": "Free and fast ICO to PNG conversion with extract high-quality images from icon files—secure local-only processing and instant download without server uploads in your browser. No uploads, no account, and no desktop software required."
+        },
+        "svgToFavicon": {
+          "p1": "Free and fast SVG to ICO conversion with maintain crisp edges and transparency—secure local-only processing and professional favicon creation without server uploads in your browser. No uploads, no account, and no desktop software required."
+        },
+        "faviconPack": {
+          "p1": "Generate complete favicon sets with all standard sizes from 16×16 to 512×512—secure local-only generation and instant download as ZIP in your browser. No uploads, no account, and no desktop software required."
+        },
+        "appleTouchIcon": {
+          "p1": "Free and fast Apple touch icon generation perfect for iOS home screen bookmarks—secure local-only processing and instant download of 180×180 icons in your browser. No uploads, no account, and no desktop software required."
+        },
+        "faviconCompressor": {
+          "p1": "Free and fast favicon compression with strip unnecessary metadata—secure local-only optimization perfect for Core Web Vitals in your browser. No uploads, no account, and no desktop software required."
+        },
+        "faviconCropper": {
+          "p1": "Free and fast image cropping with perfect square aspect ratio for favicons—secure local-only processing and precision control for your website icons in your browser. No uploads, no account, and no desktop software required."
+        },
+        "transparentFavicon": {
+          "p1": "Free and fast background removal to create transparent icons in one click—secure local-only processing and perfect transparency for any website theme in your browser. No uploads, no account, and no desktop software required."
+        },
+        "faviconCodeGenerator": {
+          "p1": "Free and fast favicon code generation with support for all modern browsers—secure local-only generation and copy-paste ready HTML snippets in your browser. No uploads, no account, and no desktop software required."
+        },
+        "faviconPreviewer": {
+          "p1": "Free and fast favicon testing to simulate icons in browser tabs and bookmarks—secure local-only processing and verify your favicon design before deployment in your browser. No uploads, no account, and no desktop software required."
+        },
+        "markdownToPdf": {
+          "p1": "Fast Markdown to PDF conversion to generate styled, print-ready documents—secure local-only processing and professional document export without server uploads in your browser. No uploads, no account, and no desktop software required."
+        },
+        "htmlToPdf": {
+          "p1": "Free and fast HTML to PDF rendering that preserves CSS styles and layout—secure local-only processing and instant download of PDF documents in your browser. No uploads, no account, and no desktop software required."
+        },
+        "invoiceGenerator": {
+          "p1": "Free and fast invoice generation with no account required—secure local-only processing and instant professional PDF export in your browser. No uploads, no account, and no desktop software required."
+        },
+        "dataConverterVisualizer": {
+          "p1": "All-in-one data transformation with secure local-only file handling and real-time sortable grid preview—clean and convert data without server uploads in your browser. No uploads, no account, and no desktop software required."
         }
       },
       "p2": "Privacy is a product decision here: your files are handled in the browser session on your device rather than uploaded to JoinMyPDF servers for processing. That model reduces transfer time for many jobs and is easier to reason about when documents are sensitive.",

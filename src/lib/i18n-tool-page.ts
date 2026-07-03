@@ -38,6 +38,8 @@ const ACTION_KEYS: Record<string, string> = {
   "transparent-favicon": "default",
   "favicon-code-generator": "default",
   "favicon-previewer": "default",
+  "invoice-generator": "default",
+  "data-converter-visualizer": "default",
   "json-formatter": "default",
   "json-to-csv": "default",
   "json-minifier": "default",
@@ -229,7 +231,45 @@ export function buildLocalizedGuideParagraphs(
                                                                                                         ? "qrCodeGenerator"
                                                                                                         : !variant && tool.slug === "json-formatter"
                                                                                                           ? "jsonFormatter"
-                                                                                                          : null;
+                                                                                                          : !variant && tool.slug === "json-to-csv"
+                                                                                                            ? "jsonToCsv"
+                                                                                                            : !variant && tool.slug === "json-minifier"
+                                                                                                              ? "jsonMinifier"
+                                                                                                              : !variant && tool.slug === "csv-to-json"
+                                                                                                                ? "csvToJson"
+                                                                                                                : !variant && tool.slug === "html-markdown-converter"
+                                                                                                                  ? "htmlMarkdownConverter"
+                                                                                                                  : !variant && tool.slug === "generate-favicon"
+                                                                                                                    ? "generateFavicon"
+                                                                                                                    : !variant && tool.slug === "png-to-ico"
+                                                                                                                      ? "pngToIco"
+                                                                                                                      : !variant && tool.slug === "ico-to-png"
+                                                                                                                        ? "icoToPng"
+                                                                                                                        : !variant && tool.slug === "svg-to-favicon"
+                                                                                                                          ? "svgToFavicon"
+                                                                                                                          : !variant && tool.slug === "favicon-pack"
+                                                                                                                            ? "faviconPack"
+                                                                                                                            : !variant && tool.slug === "apple-touch-icon"
+                                                                                                                              ? "appleTouchIcon"
+                                                                                                                              : !variant && tool.slug === "favicon-compressor"
+                                                                                                                                ? "faviconCompressor"
+                                                                                                                                : !variant && tool.slug === "favicon-cropper"
+                                                                                                                                  ? "faviconCropper"
+                                                                                                                                  : !variant && tool.slug === "transparent-favicon"
+                                                                                                                                    ? "transparentFavicon"
+                                                                                                                                    : !variant && tool.slug === "favicon-code-generator"
+                                                                                                                                      ? "faviconCodeGenerator"
+                                                                                                                                      : !variant && tool.slug === "favicon-previewer"
+                                                                                                                                        ? "faviconPreviewer"
+                                                                                                                                        : !variant && tool.slug === "markdown-to-pdf"
+                                                                                                                                          ? "markdownToPdf"
+                                                                                                                                          : !variant && tool.slug === "html-to-pdf"
+                                                                                                                                            ? "htmlToPdf"
+                                                                                                                                            : !variant && tool.slug === "invoice-generator"
+                                                                                                                                              ? "invoiceGenerator"
+                                                                                                                                              : !variant && tool.slug === "data-converter-visualizer"
+                                                                                                                                                ? "dataConverterVisualizer"
+                                                                                                                                                : null;
 
   const p1 =
     overrideKey && t.has(`guide.toolOverrides.${overrideKey}.p1`)

@@ -1,82 +1,207 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { BrandEyebrow } from "@/components/BrandEyebrow";
+import { ToolGlassProvider } from "@/context/ToolGlassContext";
+import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
+import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
+import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
+import { ToolPageInfoBlock } from "@/components/ToolPageInfoBlock";
+import { RelatedTools } from "@/components/RelatedTools";
 import { AppPageShell } from "@/components/AppPageShell";
+import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
+import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { InvoiceGenerator } from "@/components/invoice/InvoiceGenerator";
 import { INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
-import { getBrandName } from "@/lib/brand";
-import { JsonLd } from "@/lib/schema";
-import { absoluteUrl } from "@/lib/site";
+import {
+  buildLocalizedGuideParagraphs,
+  getLocalizedToolFaqs,
+  localizedToolTitle,
+  translateToolIntent,
+} from "@/lib/i18n-tool-page";
+import { registry } from "@/lib/registry";
+import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
+import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
+import { resolveToolSeoPageOverride } from "@/lib/tool-seo-overrides";
+import { productPageMainClassName, toolPageDashboardStack, toolPageInfoWidth } from "@/lib/tool-ui";
+import { Link } from "@/i18n/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Fast Invoice & Receipt Generator",
-  description:
-    "Create professional invoices and receipts in your browser. Real-time A4 preview, line items, tax, and client-side PDF export—nothing uploaded to our servers.",
-  alternates: { canonical: "/tools/invoice-generator/" },
-};
+const SLUG = "invoice-generator";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const tool = registry.tools.find((item) => item.slug === SLUG);
+  if (!tool) return {};
+
+  const tTools = await getTranslations({ locale, namespace: "Tools" });
+  const tPage = await getTranslations({ locale, namespace: "ToolPage" });
+
+  return buildLocalizedToolMetadata({
+    tool,
+    variant: null,
+    slug: SLUG,
+    locale,
+    tTools,
+    tPage,
+  });
+}
+
 export default async function InvoiceGeneratorPage({ params }: PageProps) {
   const { locale } = await params;
-  const brand = getBrandName(locale);
+  setRequestLocale(locale);
+
+  const tool = registry.tools.find((item) => item.slug === SLUG);
+  if (!tool) notFound();
+
+  const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
+
+  const displayTitle = localizedToolTitle(tTools, tool, null);
+  const subtitle = translateToolIntent(tTools, tool.slug, tool.intent);
+  const seoOverride = resolveToolSeoPageOverride(tool, null, tPage);
+  const pageHeadline = seoOverride?.h1 ?? displayTitle;
+  const faqs = getLocalizedToolFaqs(tPage, tool, null, pageHeadline, locale);
+  const { description } = buildToolSeoCopy({
+    tool,
+    variant: null,
+    locale,
+    tTools,
+    tPage,
+  });
+  const pathname = `/tools/${SLUG}/`;
+  const paragraphs = buildLocalizedGuideParagraphs(tPage, tool, null);
+  const schemaDescription = seoOverride?.schemaDescription ?? description;
+  const schemaName = seoOverride?.h1 ?? displayTitle;
+
+  const crumbs = [
+    { name: tPage("breadcrumbHome"), path: "/" },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: displayTitle, path: pathname },
+  ];
 
   return (
     <>
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          name: `${brand} Invoice Generator`,
-          url: absoluteUrl("/tools/invoice-generator/"),
+        data={softwareApplicationLd({
+          tool,
+          variant: null,
+          pathname,
+          description: schemaDescription,
+          locale,
+          name: schemaName,
+          operatingSystem: "Web Browser",
           applicationCategory: "BusinessApplication",
-          operatingSystem: "Web browser",
-          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-          description:
-            "Client-side invoice and receipt builder with live A4 preview and PDF download.",
-        }}
+        })}
       />
-      <AppPageShell mainClassName="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
-        <header className="mb-4 max-w-3xl space-y-3">
-          <BrandEyebrow />
-          <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            Fast Invoice &amp; Receipt Generator
-          </h1>
-          <p className="text-lg leading-relaxed text-ink-muted">
-            Build a polished invoice with a live A4 preview. All processing stays in your browser—no
-            uploads, no account required.
-          </p>
-        </header>
+      <JsonLd data={faqLd(faqs)} />
+      <JsonLd data={breadcrumbLd(crumbs)} />
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <div className={toolPageDashboardStack}>
+          <ToolGlassProvider category={tool.category}>
+            <ToolPageShellProvider
+              headline={pageHeadline}
+              subline={subtitle}
+              tagline={seoOverride?.heroTagline}
+              slug={SLUG}
+              stacked
+            >
+              <WorkspaceUploadShell>
+                <InvoiceGenerator />
+              </WorkspaceUploadShell>
+            </ToolPageShellProvider>
 
-        <InvoiceGenerator />
+            <ToolPageDashboardSection className="mt-8">
+              <h2 className="text-lg font-semibold tracking-wide text-ink dark:text-white">
+                {tPage("invoiceTemplatesByProfession")}
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-400 md:text-base">
+                {tPage("invoiceTemplatesByProfessionHint")}
+              </p>
+              <ul className="mt-4 flex flex-wrap gap-2 text-sm">
+                {INVOICE_TEMPLATE_PROFILES.map((profile) => (
+                  <li key={profile.slug}>
+                    <Link
+                      href={`/templates/${profile.slug}/`}
+                      className="tool-seo-workflow-links__link inline-flex"
+                      prefetch={false}
+                    >
+                      {profile.professionLabel}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </ToolPageDashboardSection>
 
-        <section className="mt-12 rounded-none border border-white/10 bg-white/[0.02] p-4 md:p-4">
-          <h2 className="text-xl font-semibold text-ink">Templates by profession</h2>
-          <p className="mt-2 max-w-2xl text-sm text-ink-muted md:text-base">
-            Start from a pre-filled invoice for your trade—line items and sample rates included.
-          </p>
-          <ul className="mt-4 flex flex-wrap gap-2 text-sm">
-            {INVOICE_TEMPLATE_PROFILES.map((profile) => (
-              <li key={profile.slug}>
-                <Link
-                  href={`/templates/${profile.slug}/`}
-                  className="inline-flex rounded-none border border-white/10 bg-white/[0.03] px-3 py-1.5 text-ink transition hover:border-neutral-300 dark:border-neutral-800 hover:text-black dark:text-neutral-200"
+            <ToolPageInfoBlock className={toolPageInfoWidth}>
+              <ToolPageDashboardSection>
+                <ToolBeforeYouStart title={seoOverride?.introSectionTitle ?? tPage("beforeYouStart")}>
+                  {paragraphs.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </ToolBeforeYouStart>
+              </ToolPageDashboardSection>
+
+              <LocalProcessingInfographic
+                layout="dashboard"
+                headline={seoOverride?.whySectionTitle ?? tPage("whyChooseLocalProcessing")}
+                subheadline={seoOverride?.whySectionSubheadline}
+                benefits={seoOverride?.whyBenefits}
+              />
+
+              <RelatedTools tool={tool} />
+
+              <ToolPageDashboardSection aria-labelledby="tool-faq-heading">
+                <h2
+                  id="tool-faq-heading"
+                  className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
                 >
-                  {profile.professionLabel}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+                  {tPage("questions")}
+                </h2>
+                <div className="tool-page-faq-list">
+                  {faqs.map((f) => (
+                    <details key={f.q} className="tool-page-faq-item">
+                      <summary className="cursor-pointer text-ink dark:text-white">{f.q}</summary>
+                      <p>{f.a}</p>
+                    </details>
+                  ))}
+                </div>
+              </ToolPageDashboardSection>
 
-        <section className="mt-4 rounded-none border border-white/10 bg-white/[0.02] p-4 md:p-4">
-          <h2 className="text-xl font-semibold text-ink">Privacy-first by design</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted md:text-base">
-            Your invoice data never leaves your device during editing. Download uses the same client-side
-            pdf-lib stack as our merge and sign tools: the live A4 preview is captured and saved as a PDF
-            locally—no server upload.
-          </p>
-        </section>
+              {seoOverride?.featuredGuide ? (
+                <ToolPageDashboardSection>
+                  <Link
+                    href={`/blog/${seoOverride.featuredGuide.slug}/`}
+                    className="text-base leading-relaxed text-neutral-300 hover:underline"
+                    prefetch={false}
+                  >
+                    {seoOverride.featuredGuide.label}
+                  </Link>
+                </ToolPageDashboardSection>
+              ) : null}
+
+              {seoOverride?.relatedWorkflowLinks ? (
+                <ToolPageDashboardSection>
+                  <p className="mb-3 text-base leading-relaxed text-neutral-400">
+                    {seoOverride.relatedWorkflowLinks.prompt}
+                  </p>
+                  <div className="tool-seo-workflow-links">
+                    {seoOverride.relatedWorkflowLinks.links.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="tool-seo-workflow-links__link"
+                        prefetch={false}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </ToolPageDashboardSection>
+              ) : null}
+            </ToolPageInfoBlock>
+          </ToolGlassProvider>
+        </div>
       </AppPageShell>
     </>
   );

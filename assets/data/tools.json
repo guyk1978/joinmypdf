@@ -1484,8 +1484,7 @@
         "Deliver technical docs with code blocks and tables"
       ],
       "relatedTools": [
-        "openoffice-to-pdf",
-        "word-to-pdf",
+        "html-markdown-converter",
         "pdf-compress"
       ],
       "faq": [
@@ -1534,7 +1533,6 @@
       ],
       "relatedTools": [
         "markdown-to-pdf",
-        "openoffice-to-pdf",
         "pdf-compress"
       ],
       "faq": [
@@ -1562,6 +1560,106 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
       "updatedAt": "2026-05-28"
+    },
+    {
+      "slug": "invoice-generator",
+      "category": "convert",
+      "operation": "invoice-generator",
+      "title": "Fast Invoice & Receipt Generator",
+      "primaryKeyword": "free invoice generator online",
+      "intent": "Build professional invoices and receipts with live A4 preview, line items, and tax—export a client-side PDF with no uploads.",
+      "description": "Fill company and client details, add line items and tax, preview a polished invoice, and download PDF locally—no account and no server uploads.",
+      "secondaryKeywords": [
+        "create receipt online",
+        "professional invoice maker",
+        "invoice template generator",
+        "business billing tool"
+      ],
+      "useCases": [
+        "Send polished invoices to freelance clients",
+        "Generate receipts for small business billing",
+        "Export private invoices without cloud accounting tools"
+      ],
+      "relatedTools": [
+        "html-to-pdf",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my invoice data uploaded to JoinMyPDF?",
+          "a": "No. Editing, preview, and PDF export run entirely in your browser on your device."
+        },
+        {
+          "q": "Do I need an account to create invoices?",
+          "a": "No account is required. Open the tool, fill in your details, and download when ready."
+        },
+        {
+          "q": "Can I start from a profession-specific template?",
+          "a": "Yes. Use the template links below the editor to pre-fill line items for designers, consultants, trades, and more."
+        },
+        {
+          "q": "Are there watermarks on downloaded invoices?",
+          "a": "No. Standard PDF downloads from this tool are not watermarked by JoinMyPDF."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-03"
+    },
+    {
+      "slug": "data-converter-visualizer",
+      "category": "convert",
+      "operation": "data-converter-visualizer",
+      "title": "Universal Data Converter & Visualizer",
+      "primaryKeyword": "universal data converter online",
+      "intent": "Convert, clean, and visualize CSV, JSON, and XML in a sortable grid—export locally with zero server uploads.",
+      "description": "Upload CSV, JSON, or XML, preview in a sortable grid, run quick clean-up actions, and download exports—all processing stays in your browser.",
+      "secondaryKeywords": [
+        "JSON to CSV visualizer",
+        "CSV data cleaner",
+        "XML data converter",
+        "online data transformation tool",
+        "sortable data grid"
+      ],
+      "useCases": [
+        "Clean messy CSV exports before analysis",
+        "Convert JSON API responses to spreadsheet-friendly CSV",
+        "Preview and dedupe datasets without uploading to the cloud"
+      ],
+      "relatedTools": [
+        "csv-to-json",
+        "json-formatter",
+        "html-markdown-converter"
+      ],
+      "faq": [
+        {
+          "q": "Is my data uploaded to JoinMyPDF?",
+          "a": "No. Parsing, grid preview, clean-up actions, and exports run entirely in your browser on your device."
+        },
+        {
+          "q": "Which file formats are supported?",
+          "a": "CSV, JSON, and XML uploads are supported. You can export the current grid as CSV, JSON, or XML."
+        },
+        {
+          "q": "Can I sort and filter the data grid?",
+          "a": "Yes. Sort by any column and use quick actions like remove duplicates, trim whitespace, and fix null values."
+        },
+        {
+          "q": "Does this work with large datasets?",
+          "a": "Processing stays local in your browser. Very large files may hit memory limits—try smaller samples if a job feels slow."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.92,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-03"
     },
     {
       "slug": "ebook-to-pdf",
@@ -2540,9 +2638,8 @@
         "Export ICO or PNG without design software"
       ],
       "relatedTools": [
-        "png-to-ico",
-        "favicon-pack",
-        "apple-touch-icon"
+        "qr-code-generator",
+        "compress-image"
       ],
       "faq": [
         {
@@ -2589,9 +2686,8 @@
         "Bundle PNG artwork into a single ICO"
       ],
       "relatedTools": [
-        "ico-to-png",
         "generate-favicon",
-        "svg-to-favicon"
+        "compress-image"
       ],
       "faq": [
         {
@@ -2635,8 +2731,7 @@
       ],
       "relatedTools": [
         "png-to-ico",
-        "generate-favicon",
-        "favicon-pack"
+        "compress-image"
       ],
       "faq": [
         {
@@ -2679,9 +2774,8 @@
         "Prepare PNG fallbacks from SVG logos"
       ],
       "relatedTools": [
-        "generate-favicon",
         "png-to-ico",
-        "favicon-pack"
+        "compress-image"
       ],
       "faq": [
         {
@@ -2725,8 +2819,7 @@
       ],
       "relatedTools": [
         "generate-favicon",
-        "apple-touch-icon",
-        "png-to-ico"
+        "compress-image"
       ],
       "faq": [
         {
@@ -2770,8 +2863,7 @@
       ],
       "relatedTools": [
         "favicon-pack",
-        "generate-favicon",
-        "png-to-ico"
+        "compress-image"
       ],
       "faq": [
         {
@@ -2815,8 +2907,7 @@
       ],
       "relatedTools": [
         "favicon-pack",
-        "png-to-ico",
-        "generate-favicon"
+        "compress-image"
       ],
       "faq": [
         {
@@ -2860,8 +2951,7 @@
       ],
       "relatedTools": [
         "generate-favicon",
-        "favicon-pack",
-        "png-to-ico"
+        "compress-image"
       ],
       "faq": [
         {
@@ -2904,7 +2994,6 @@
         "Clean up JPG favicon artwork before conversion"
       ],
       "relatedTools": [
-        "generate-favicon",
         "favicon-cropper",
         "png-to-ico"
       ],
@@ -2950,8 +3039,7 @@
       ],
       "relatedTools": [
         "favicon-pack",
-        "generate-favicon",
-        "apple-touch-icon"
+        "html-markdown-converter"
       ],
       "faq": [
         {
@@ -2995,8 +3083,7 @@
       ],
       "relatedTools": [
         "favicon-code-generator",
-        "generate-favicon",
-        "favicon-pack"
+        "favicon-compressor"
       ],
       "faq": [
         {
@@ -3112,7 +3199,7 @@
       ],
       "relatedTools": [
         "json-formatter",
-        "csv-to-json"
+        "pdf-to-excel"
       ],
       "faq": [
         {
@@ -3603,8 +3690,8 @@
         "Prototype README content before publishing"
       ],
       "relatedTools": [
-        "markdown-to-pdf",
-        "text-diff-checker"
+        "json-formatter",
+        "compress-image"
       ],
       "faq": [
         {
