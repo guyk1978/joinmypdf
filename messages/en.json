@@ -582,14 +582,13 @@
       "timeline-gantt-generator": "Timeline & Gantt",
       "data-converter-visualizer": "Universal Data Converter & Visualizer Online",
       "compare": "Compare tools",
-      "user-agent-parser": "User Agent Parser",
-      "json-formatter": "JSON Formatter",
-      "jwt-debugger": "JWT Debugger",
+      "user-agent-parser": "Free User Agent Parser Online",
+      "json-formatter": "Free JSON Formatter & Validator Online",
+      "jwt-debugger": "Free JWT Debugger Online",
       "base64-encoder-decoder": "Base64 Encoder/Decoder",
       "qr-code-generator": "Create QR Codes Online",
-      "json-formatter": "JSON Formatter & Validator",
       "json-to-csv": "Convert JSON to CSV Online",
-      "json-minifier": "JSON Minifier (Compress JSON)",
+      "json-minifier": "Free JSON Minifier Online",
       "csv-to-json": "Convert CSV to JSON Online",
       "html-markdown-converter": "HTML/Markdown Converter Online"
     }

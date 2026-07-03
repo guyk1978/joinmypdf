@@ -578,14 +578,13 @@
       "timeline-gantt-generator": "ציר זמן וגאנט",
       "data-converter-visualizer": "ממיר ומדמיין נתונים אוניברסלי אונליין",
       "compare": "השוואת כלים",
-      "user-agent-parser": "מנתח User-Agent",
-      "json-formatter": "מפרמט JSON",
-      "jwt-debugger": "מנתח JWT",
+      "user-agent-parser": "מנתח User-Agent חינם אונליין",
+      "json-formatter": "מפרמט ומאמת JSON חינם אונליין",
+      "jwt-debugger": "מנתח JWT חינם אונליין",
       "base64-encoder-decoder": "מקודד/מפענח Base64",
       "qr-code-generator": "יצירת קודי QR אונליין",
-      "json-formatter": "מפרמט ומאמת JSON",
       "json-to-csv": "המרת JSON ל-CSV אונליין",
-      "json-minifier": "מכווץ JSON (דחיסת JSON)",
+      "json-minifier": "מכווץ JSON חינם אונליין",
       "csv-to-json": "המרת CSV ל-JSON אונליין",
       "html-markdown-converter": "ממיר HTML/Markdown אונליין"
     }

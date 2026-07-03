@@ -1433,7 +1433,7 @@
         }
       },
       "userAgentParser": {
-        "h1": "User Agent Parser",
+        "h1": "Free User Agent Parser Online",
         "heroTagline": "Paste any UA string or auto-detect your browser—see browser, OS, device, and engine in a clean structured table instantly.",
         "introSectionTitle": "Analyze User Agent Strings Instantly",
         "whySectionTitle": "How Our User Agent Parser Works",
@@ -1464,7 +1464,7 @@
         }
       },
       "jwtDebugger": {
-        "h1": "JWT Debugger",
+        "h1": "Free JWT Debugger Online",
         "heroTagline": "Paste an encoded JWT—inspect Header, Payload, and Signature panels with human-readable JSON and expiration insights in your browser.",
         "introSectionTitle": "Decode and Verify JWT Tokens Instantly",
         "whySectionTitle": "Why Use Our Secure JWT Debugger?",
@@ -1526,7 +1526,7 @@
         }
       },
       "jsonFormatter": {
-        "h1": "JSON Formatter & Validator",
+        "h1": "Free JSON Formatter & Validator Online",
         "heroTagline": "Paste raw JSON—pretty-print, minify, and validate syntax with instant error feedback in your browser.",
         "introSectionTitle": "How to Beautify and Validate JSON",
         "whySectionTitle": "Why Use Our JoinMyPDF JSON Tool?",
@@ -1588,7 +1588,7 @@
         }
       },
       "jsonMinifier": {
-        "h1": "JSON Minifier (Compress JSON)",
+        "h1": "Free JSON Minifier Online",
         "heroTagline": "Paste readable JSON—strip whitespace and newlines, then copy a compact single-line result in your browser.",
         "introSectionTitle": "How to Minify JSON Online",
         "whySectionTitle": "Why Use Our JoinMyPDF JSON Minifier?",
