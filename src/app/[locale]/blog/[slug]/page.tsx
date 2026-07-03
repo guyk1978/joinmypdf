@@ -13,7 +13,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
-import { blogPostingLd, breadcrumbLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, privacySecurityAppLd, technicalFormatAppLd } from "@/lib/schema";
+import { blogPostingLd, breadcrumbLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, losslessQualityAppLd, privacySecurityAppLd, technicalFormatAppLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { resolveBlogOgImagePath } from "@/lib/og-images-blog";
@@ -139,6 +139,7 @@ export default async function BlogPostPage({
   const primaryToolDef = primarySlug ? registry.tools.find((t) => t.slug === primarySlug) : null;
   const emitPrivacySecurity = post.contentBlocks?.privacySecuritySchema && primaryToolDef;
   const emitTechnicalFormat = post.contentBlocks?.technicalSoftwareSchema && primaryToolDef;
+  const emitLosslessQuality = post.contentBlocks?.losslessQualitySchema && primaryToolDef;
 
   return (
     <>
@@ -186,6 +187,16 @@ export default async function BlogPostPage({
       {emitTechnicalFormat ? (
         <JsonLd
           data={technicalFormatAppLd({
+            name: translateToolItem(tTools, primaryToolDef.slug, primaryToolDef.title),
+            description: primaryToolDef.description,
+            toolPath: `/tools/${primaryToolDef.slug}/`,
+            locale,
+          })}
+        />
+      ) : null}
+      {emitLosslessQuality ? (
+        <JsonLd
+          data={losslessQualityAppLd({
             name: translateToolItem(tTools, primaryToolDef.slug, primaryToolDef.title),
             description: primaryToolDef.description,
             toolPath: `/tools/${primaryToolDef.slug}/`,

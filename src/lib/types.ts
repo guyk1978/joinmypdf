@@ -105,6 +105,8 @@ export type BlogPost = {
     privacySecuritySchema?: boolean;
     /** Emits SoftwareApplication schema highlighting multi-format local decode (WebP, HEIC, etc.). */
     technicalSoftwareSchema?: boolean;
+    /** Emits SoftwareApplication schema highlighting lossless local rotation without server re-compression. */
+    losslessQualitySchema?: boolean;
   };
 };
 

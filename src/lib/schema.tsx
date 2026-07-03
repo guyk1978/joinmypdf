@@ -366,3 +366,64 @@ export function technicalFormatAppLd(args: {
     },
   };
 }
+
+/** Lossless-quality / no server compression positioning for local image rotation workflows. */
+export function losslessQualityAppLd(args: {
+  name: string;
+  description: string;
+  toolPath: string;
+  locale?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: args.name,
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Any (Web Browser)",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: args.locale === "he" ? "ILS" : "USD",
+      availability: "https://schema.org/InStock",
+    },
+    isAccessibleForFree: true,
+    description: args.description,
+    url: absoluteUrl(args.toolPath),
+    featureList: [
+      ...(args.locale === "he"
+        ? [
+            "סיבוב תמונה ללא אובדן איכות מקומי",
+            "ללא דחיסה כפויה בשרת",
+            "שמירה על PNG, WebP ו-HEIC",
+            "ללא קידוד מחדש סמוי",
+            "שליטה במטא-דאטה ופרופיל צבע",
+            "עיבוד מקומי בדפדפן",
+          ]
+        : [
+            "Local lossless image rotation",
+            "No forced server-side compression",
+            "Preserve PNG, WebP, and HEIC quality",
+            "No hidden re-encode on export",
+            "Metadata and color profile control",
+            "Client-side browser processing",
+          ]),
+    ],
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Quality model",
+        value: "Local-first; avoids generational loss from cloud re-encoding",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Processing mode",
+        value: "Browser-native rotation without server bandwidth compression",
+      },
+    ],
+    provider: {
+      "@type": "Organization",
+      name: getBrandName(args.locale),
+      url: absoluteUrl("/"),
+    },
+  };
+}
