@@ -445,8 +445,7 @@
         "Bundle classroom worksheets from photos"
       ],
       "relatedTools": [
-        "png-to-pdf",
-        "pdf-to-jpg",
+        "pdf-merge",
         "pdf-compress"
       ],
       "faq": [
@@ -802,9 +801,7 @@
       ],
       "relatedTools": [
         "jpg-to-pdf",
-        "pdf-to-jpg",
-        "pdf-to-png",
-        "pdf-merge"
+        "pdf-compress"
       ],
       "faq": [
         {
@@ -851,9 +848,8 @@
         "Archive HEIC albums without desktop software"
       ],
       "relatedTools": [
-        "jpg-to-pdf",
-        "png-to-pdf",
-        "pdf-compress"
+        "heic-to-jpg",
+        "pdf-merge"
       ],
       "faq": [
         {
@@ -1733,9 +1729,9 @@
         "Scale screenshots to a required pixel size"
       ],
       "relatedTools": [
-        "crop-image",
+        "pdf-to-jpg",
         "compress-image",
-        "convert-to-png"
+        "crop-image"
       ],
       "faq": [
         {
@@ -1778,8 +1774,8 @@
         "Turn iPhone HEIC shots into PNG files"
       ],
       "relatedTools": [
-        "resize-image",
         "crop-image",
+        "resize-image",
         "compress-image"
       ],
       "faq": [
@@ -1825,7 +1821,7 @@
       "relatedTools": [
         "crop-image",
         "resize-image",
-        "convert-to-png"
+        "compress-image"
       ],
       "faq": [
         {
@@ -1868,9 +1864,8 @@
         "Batch-export camera roll images as JPG files"
       ],
       "relatedTools": [
-        "heic-to-pdf",
         "convert-to-png",
-        "compress-image"
+        "resize-image"
       ],
       "faq": [
         {
@@ -1914,8 +1909,7 @@
       ],
       "relatedTools": [
         "resize-image",
-        "convert-to-png",
-        "crop-image"
+        "convert-to-png"
       ],
       "faq": [
         {
@@ -1959,7 +1953,7 @@
       ],
       "relatedTools": [
         "resize-image",
-        "rotate-image",
+        "convert-to-png",
         "compress-image"
       ],
       "faq": [

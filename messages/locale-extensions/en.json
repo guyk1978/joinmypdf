@@ -1150,6 +1150,285 @@
             "body": "High-fidelity conversion runs locally—drop a PDF and download a .pptx presentation in seconds without cloud queues or desktop software."
           }
         }
+      },
+      "resizeImage": {
+        "h1": "Resize Image Online (Pixel & Percentage)",
+        "heroTagline": "Scale photos by exact pixels or percentage—live preview, aspect lock, and instant download in your browser.",
+        "introSectionTitle": "How to Resize Images Without Quality Loss",
+        "whySectionTitle": "Why Use Our JoinMyPDF Image Resizer?",
+        "whySectionSubheadline": "Resize images online with fast image resizing—scale images for web, adjust photo dimensions with ease, and secure local-only processing in your browser.",
+        "schemaDescription": "Resize image for free—image resizer online, change image dimensions, compress and resize workflow, and maintain aspect ratio in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "5-ways-optimize-images-faster-loading",
+          "label": "Check out our guide on optimizing images for professional document use"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "jpgLabel": "PDF to JPG",
+          "compressImageLabel": "Compress Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Real-time preview",
+            "body": "Fast image resizing with a live canvas preview—set width and height in pixels or percentage and see results before you download."
+          },
+          "quality": {
+            "title": "Maintain aspect ratio option",
+            "body": "Lock aspect ratio to scale proportionally—supports common formats like JPG and PNG with high-quality canvas smoothing on downscale."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—photos and document scans are resized in your browser tab, never uploaded to JoinMyPDF servers."
+          }
+        }
+      },
+      "convertToPng": {
+        "h1": "Convert Image to PNG Online",
+        "heroTagline": "Turn JPG, WebP, HEIC, and more into lossless PNG—drag, convert, and download in your browser.",
+        "introSectionTitle": "How to Convert JPG, WebP, and HEIC to PNG",
+        "whySectionTitle": "Why Use Our Image to PNG Converter?",
+        "whySectionSubheadline": "Convert to PNG online with convert high-quality images to PNG—lossless image conversion, instant format conversion without uploads, and secure local-only processing in your browser.",
+        "schemaDescription": "Convert to PNG for free—JPG to PNG, WebP to PNG converter, HEIC to PNG, and lossless image conversion in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "best-image-format-guide",
+          "label": "Check out our guide on understanding image formats: when and why to use PNG"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "cropImageLabel": "Crop Image",
+          "resizeImageLabel": "Resize Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Support for various formats (JPG, WebP, HEIC)",
+            "body": "Convert high-quality images to PNG from JPG, WebP, GIF, BMP, and iPhone HEIC—alpha channels preserved when your source includes transparency."
+          },
+          "quality": {
+            "title": "Lossless quality preservation",
+            "body": "Lossless image conversion exports a full PNG raster—no server re-encoding, ideal for design assets that need transparency or crisp edges."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—instant format conversion without uploads. Your photos never leave your browser tab."
+          }
+        }
+      },
+      "cropImage": {
+        "h1": "Crop Image Online (Free & Fast)",
+        "heroTagline": "Drag a crop frame, pick an aspect ratio, and download a crisp PNG—instantly in your browser.",
+        "introSectionTitle": "How to Crop Images to Specific Aspect Ratios",
+        "whySectionTitle": "Why Use Our JoinMyPDF Crop Tool?",
+        "whySectionSubheadline": "Crop images online with precise image cropping—custom aspect ratios, instant photo adjustment, and secure local-only processing in your browser.",
+        "schemaDescription": "Crop image online for free—image cropper, crop photo aspect ratio, online image editor, and fast image cropping in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "5-ways-optimize-images-faster-loading",
+          "label": "Check out our guide on mastering composition: how to properly crop your images"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "resizeImageLabel": "Resize Image",
+          "convertToPngLabel": "Convert to PNG"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Real-time drag-and-crop interface",
+            "body": "Precise image cropping on a high-performance canvas—drag handles, reposition the frame, and preview your composition before download."
+          },
+          "quality": {
+            "title": "Preset aspect ratios (1:1, 16:9, 4:3)",
+            "body": "Custom aspect ratios for stories, social posts, and documents—high-resolution PNG output keeps edges sharp after you crop."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—fast image cropping with zero server delay. Your photos never upload to JoinMyPDF servers."
+          }
+        }
+      },
+      "rotateImage": {
+        "h1": "Rotate Image Online",
+        "heroTagline": "Fix sideways photos and scans in one click—90° rotation, live preview, and instant download in your browser.",
+        "introSectionTitle": "How to Rotate Your Images Instantly",
+        "whySectionTitle": "Why Use Our JoinMyPDF Image Rotator?",
+        "whySectionSubheadline": "Rotate images clockwise or counter-clockwise, fix photo orientation, and get instant rotation without quality loss—all with secure local-only processing in your browser.",
+        "schemaDescription": "Rotate image online for free—rotate photo online, flip image orientation, rotate image 90 degrees, and fast image rotation in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "how-to-organize-scanned-documents-quickly",
+          "label": "Check out our guide on fixing your scanned documents and photos easily"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "cropImageLabel": "Crop Image",
+          "resizeImageLabel": "Resize Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "90°, 180°, and 270° rotation",
+            "body": "Rotate images clockwise or counter-clockwise in 90-degree steps—fix photo orientation from phone shots or misaligned document scans in seconds."
+          },
+          "quality": {
+            "title": "Instant live preview",
+            "body": "See every turn on the canvas before you download—lossless processing keeps text and edges sharp for contracts, receipts, and official scans."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—fast image rotation with zero server delay. Your photos never upload to JoinMyPDF servers."
+          }
+        }
+      },
+      "compressImage": {
+        "h1": "Compress Images Online (Reduce File Size)",
+        "heroTagline": "Shrink JPG, PNG, and WebP photos with a quality slider—compare sizes live and download instantly in your browser.",
+        "introSectionTitle": "How to Compress Images Without Losing Quality",
+        "whySectionTitle": "Why Use Our JoinMyPDF Image Compressor?",
+        "whySectionSubheadline": "Lossless image compression when you need it, optimize photos for website performance and Core Web Vitals—all with secure local-only processing and fast, efficient size reduction in your browser.",
+        "schemaDescription": "Compress image online for free—reduce image size, JPG compressor, PNG optimization, and fast image compression in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "5-ways-optimize-images-faster-loading",
+          "label": "Check out our guide on improving your website speed: a guide to image optimization"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "resizeImageLabel": "Resize Image",
+          "convertToPngLabel": "Convert to PNG"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "High-quality compression algorithms",
+            "body": "Tune the optimization level with a quality slider—balance file weight and clarity for email attachments, blogs, and landing pages without sending files to external servers."
+          },
+          "quality": {
+            "title": "Support for multiple formats (JPG, PNG, WebP)",
+            "body": "Compress JPG, PNG, and WebP with live size comparison—see how much you save before download and pick the right trade-off for web optimization."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing with immediate download—your photos never upload to JoinMyPDF servers, unlike cloud compressors that process files on remote infrastructure."
+          }
+        }
+      },
+      "heicToJpg": {
+        "h1": "Convert HEIC to JPG Online",
+        "heroTagline": "Turn iPhone HEIC photos into universal JPG files—drag, drop, convert, and download instantly in your browser.",
+        "introSectionTitle": "How to Convert HEIC Images to JPG Easily",
+        "whySectionTitle": "Why Use Our HEIC Converter?",
+        "whySectionSubheadline": "Convert HEIC to JPG without quality loss, batch HEIC conversion for your camera roll, and fast HEIC to JPEG conversion—all with secure local-only processing in your browser.",
+        "schemaDescription": "HEIC to JPG converter online for free—convert HEIC to JPG online, HEIC to JPG free, and iPhone photo converter in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "heic-to-pdf",
+          "label": "Check out our guide on why your iPhone uses HEIC and how to manage it"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "convertToPngLabel": "Convert to PNG",
+          "resizeImageLabel": "Resize Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Maintain EXIF data (where possible)",
+            "body": "Convert HEIC to JPG without quality loss—preserve photo metadata when your browser supports it so dates, orientation, and camera details stay attached."
+          },
+          "quality": {
+            "title": "High-speed local processing",
+            "body": "Fast HEIC to JPEG conversion with batch HEIC conversion—decode .heic and .heif files on your device and download JPG or a ZIP without waiting on cloud queues."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—your iPhone photos never upload to JoinMyPDF servers, unlike online converters that send private images to unknown infrastructure."
+          }
+        }
+      },
+      "jpgToPdf": {
+        "h1": "Convert JPG to PDF Online",
+        "heroTagline": "Drag JPG and PNG photos, sort page order, and generate a polished PDF—instantly in your browser.",
+        "introSectionTitle": "How to Convert Images to PDF in Seconds",
+        "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
+        "whySectionSubheadline": "High-quality image to PDF conversion with customizable page margins and sizes, secure local-only processing, and instant PDF generation—all in a sort-and-convert workflow.",
+        "schemaDescription": "JPG to PDF converter online for free—convert images to PDF, JPG to PDF online free, and fast image to PDF conversion in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "how-to-organize-scanned-documents-quickly",
+          "label": "Check out our guide on creating professional PDF documents from your image collections"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "mergeLabel": "Merge PDF",
+          "compressLabel": "Compress PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Batch conversion of multiple images",
+            "body": "Upload dozens of JPG or PNG files, drag to reorder pages, and build one PDF—ideal for receipts, worksheets, and photo portfolios without server upload limits."
+          },
+          "quality": {
+            "title": "Maintain original image resolution",
+            "body": "High-quality image to PDF conversion embeds each photo at full resolution with support for various orientations—portrait, landscape, and mixed layouts stay print-ready."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing with instant PDF generation—your images never upload to JoinMyPDF servers, even when converting large batches locally."
+          }
+        }
+      },
+      "pngToPdf": {
+        "h1": "Convert PNG to PDF Online",
+        "heroTagline": "Drag transparent PNG graphics, sort pages, and download a high-quality PDF—instantly in your browser.",
+        "introSectionTitle": "How to Convert PNG Images to PDF Documents",
+        "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
+        "whySectionSubheadline": "Retain image transparency, lossless PNG to PDF conversion, secure local-only processing, and create high-quality PDF from images—all without converting to JPG first.",
+        "schemaDescription": "PNG to PDF converter online for free—convert PNG to PDF online, best PNG to PDF tool, and lossless image to PDF in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "best-image-format-guide",
+          "label": "Check out our guide on preparing high-quality assets for professional PDF documents"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "jpgToPdfLabel": "JPG to PDF",
+          "compressLabel": "Compress PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Preservation of transparency and colors",
+            "body": "Lossless PNG to PDF conversion retains alpha channels and accurate color data—ideal for logos, UI screenshots, and design assets that must not be flattened to JPG."
+          },
+          "quality": {
+            "title": "Batch processing capabilities",
+            "body": "Upload multiple PNG files with adjustable page layouts—drag to reorder, set margins, and build one print-ready PDF from heavy high-resolution assets locally."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—large PNG files decode in your browser tab without bandwidth-heavy uploads or third-party cloud conversion servers."
+          }
+        }
+      },
+      "heicToPdf": {
+        "h1": "Convert HEIC to PDF Online",
+        "heroTagline": "Turn iPhone HEIC photos into a professional PDF—drag from your gallery, reorder pages, and download instantly in your browser.",
+        "introSectionTitle": "How to Convert iPhone HEIC Photos to PDF",
+        "whySectionTitle": "Why Use Our JoinMyPDF HEIC Converter?",
+        "whySectionSubheadline": "Convert HEIC to professional PDF with high-speed local conversion, secure local-only processing, and easy iPhone document creation—no JPG detour required.",
+        "schemaDescription": "HEIC to PDF converter online for free—convert iPhone photos to PDF, HEIC to PDF free online, and fast image to PDF in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "heic-to-pdf",
+          "label": "Check out our guide on digitizing your paperwork: from iPhone HEIC to organized PDF"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related PDF workflows:",
+          "heicToJpgLabel": "HEIC to JPG",
+          "mergeLabel": "Merge PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant conversion of iPhone HEIC files",
+            "body": "Decode .heic and .heif photos directly into PDF pages—submit receipts, contracts, and ID scans without installing Apple-only apps or cloud upload tools."
+          },
+          "quality": {
+            "title": "Maintain image quality",
+            "body": "Fast image to PDF conversion embeds each photo at full resolution with batch file processing—reorder gallery shots before you export one organized document."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—personal iPhone photos never upload to JoinMyPDF servers, unlike converters that route sensitive images through remote infrastructure."
+          }
+        }
       }
     },
     "schema": {
@@ -1209,6 +1488,8 @@
       "pdf-to-word": "editing PDF files: how to convert and modify your documents",
       "pdf-to-excel": "data analysis: efficiently importing PDF tables into Excel",
       "pdf-to-powerpoint": "transforming PDF reports into compelling presentations",
+      "5-ways-optimize-images-faster-loading": "optimizing images for professional document use",
+      "heic-to-pdf": "digitizing your paperwork from iPhone HEIC to organized PDF",
       "strong-pdf-password-guide": "managing your document access and security",
       "recover-pdf-password-locally": "recovering a forgotten PDF password locally",
       "dangers-online-password-recovery": "the dangers of online password recovery tools",
@@ -1401,6 +1682,33 @@
         },
         "pdfToPowerpoint": {
           "p1": "Convert PDF to PowerPoint online with retain slide layouts—high-fidelity conversion, professional presentation export, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "resizeImage": {
+          "p1": "Resize images online with fast image resizing—scale images for web, adjust photo dimensions with ease, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "convertToPng": {
+          "p1": "Convert to PNG online with convert high-quality images to PNG—lossless image conversion, instant format conversion without uploads, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "cropImage": {
+          "p1": "Crop images online with precise image cropping—custom aspect ratios, instant photo adjustment, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "rotateImage": {
+          "p1": "Rotate images clockwise or counter-clockwise to fix photo orientation—secure local-only processing delivers instant rotation without quality loss in your browser. No uploads, no account, and no desktop software required."
+        },
+        "compressImage": {
+          "p1": "Compress images online with lossless image compression when you need it—optimize photos for website performance, secure local-only processing, and fast, efficient size reduction in your browser. No uploads, no account, and no desktop software required."
+        },
+        "heicToJpg": {
+          "p1": "Convert HEIC to JPG without quality loss—batch HEIC conversion, secure local-only processing, and fast HEIC to JPEG conversion in your browser. No uploads, no account, and no desktop software required."
+        },
+        "jpgToPdf": {
+          "p1": "High-quality image to PDF conversion with customizable page margins and sizes—secure local-only processing and instant PDF generation in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pngToPdf": {
+          "p1": "Retain image transparency with lossless PNG to PDF conversion—secure local-only processing and create high-quality PDF from images in your browser. No uploads, no account, and no desktop software required."
+        },
+        "heicToPdf": {
+          "p1": "Convert HEIC to professional PDF with high-speed local conversion—secure local-only processing and easy iPhone document creation in your browser. No uploads, no account, and no desktop software required."
         }
       },
       "p2": "Privacy is a product decision here: your files are handled in the browser session on your device rather than uploaded to JoinMyPDF servers for processing. That model reduces transfer time for many jobs and is easier to reason about when documents are sensitive.",

@@ -203,7 +203,25 @@ export function buildLocalizedGuideParagraphs(
                                                                               ? "pdfToExcel"
                                                                               : !variant && tool.slug === "pdf-to-powerpoint"
                                                                                 ? "pdfToPowerpoint"
-                                                                                : null;
+                                                                                : !variant && tool.slug === "resize-image"
+                                                                                  ? "resizeImage"
+                                                                                  : !variant && tool.slug === "convert-to-png"
+                                                                                    ? "convertToPng"
+                                                                                    : !variant && tool.slug === "crop-image"
+                                                                                      ? "cropImage"
+                                                                                      : !variant && tool.slug === "rotate-image"
+                                                                                        ? "rotateImage"
+                                                                                        : !variant && tool.slug === "compress-image"
+                                                                                          ? "compressImage"
+                                                                                          : !variant && tool.slug === "heic-to-jpg"
+                                                                                            ? "heicToJpg"
+                                                                                            : !variant && tool.slug === "jpg-to-pdf"
+                                                                                              ? "jpgToPdf"
+                                                                                              : !variant && tool.slug === "png-to-pdf"
+                                                                                                ? "pngToPdf"
+                                                                                                : !variant && tool.slug === "heic-to-pdf"
+                                                                                                  ? "heicToPdf"
+                                                                                                  : null;
 
   const p1 =
     overrideKey && t.has(`guide.toolOverrides.${overrideKey}.p1`)
