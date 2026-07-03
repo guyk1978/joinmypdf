@@ -581,7 +581,13 @@
       "invoice-generator": "Invoice Generator",
       "timeline-gantt-generator": "Timeline & Gantt",
       "data-converter-visualizer": "Data Converter",
-      "compare": "Compare tools"
+      "compare": "Compare tools",
+      "user-agent-parser": "User Agent Parser",
+      "json-formatter": "JSON Formatter",
+      "jwt-debugger": "JWT Debugger",
+      "base64-encoder-decoder": "Base64 Encoder/Decoder",
+      "qr-code-generator": "Create QR Codes Online",
+      "json-formatter": "JSON Formatter & Validator"
     }
   },
   "ToolsDirectory": {

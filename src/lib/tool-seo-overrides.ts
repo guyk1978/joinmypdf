@@ -1,7 +1,7 @@
 import type { ToolPageTranslator } from "./i18n-tool-page";
 import type { ToolDefinition, ToolVariant } from "./types";
 
-const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "extract-images", "pdf-to-word", "pdf-to-excel", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "heic-to-jpg", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf"] as const;
+const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "extract-images", "pdf-to-word", "pdf-to-excel", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "heic-to-jpg", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter"] as const;
 
 export type SeoToolSlug = (typeof SEO_TOOL_SLUGS)[number];
 
@@ -53,6 +53,10 @@ const SLUG_TO_OVERRIDE_KEY: Record<SeoToolSlug, string> = {
   "jpg-to-pdf": "jpgToPdf",
   "png-to-pdf": "pngToPdf",
   "heic-to-pdf": "heicToPdf",
+  "user-agent-parser": "userAgentParser",
+  "jwt-debugger": "jwtDebugger",
+  "qr-code-generator": "qrCodeGenerator",
+  "json-formatter": "jsonFormatter",
 };
 
 const COMPLEMENTARY_TOOL_HREF: Partial<Record<SeoToolSlug, string>> = {
@@ -175,6 +179,10 @@ export function resolveToolSeoPageOverride(
     { href: "/tools/convert-to-png/", labelKey: "convertToPngLabel" },
     { href: "/tools/jpg-to-pdf/", labelKey: "jpgToPdfLabel" },
     { href: "/tools/heic-to-jpg/", labelKey: "heicToJpgLabel" },
+    { href: "/tools/json-formatter/", labelKey: "jsonFormatterLabel" },
+    { href: "/tools/jwt-debugger/", labelKey: "jwtDebuggerLabel" },
+    { href: "/tools/base64-encoder-decoder/", labelKey: "base64EncoderDecoderLabel" },
+    { href: "/tools/user-agent-parser/", labelKey: "userAgentParserLabel" },
   ] as const;
 
   const workflowLinks = workflowLinkDefs

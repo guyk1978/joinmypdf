@@ -221,7 +221,15 @@ export function buildLocalizedGuideParagraphs(
                                                                                                 ? "pngToPdf"
                                                                                                 : !variant && tool.slug === "heic-to-pdf"
                                                                                                   ? "heicToPdf"
-                                                                                                  : null;
+                                                                                                  : !variant && tool.slug === "user-agent-parser"
+                                                                                                    ? "userAgentParser"
+                                                                                                    : !variant && tool.slug === "jwt-debugger"
+                                                                                                      ? "jwtDebugger"
+                                                                                                      : !variant && tool.slug === "qr-code-generator"
+                                                                                                        ? "qrCodeGenerator"
+                                                                                                        : !variant && tool.slug === "json-formatter"
+                                                                                                          ? "jsonFormatter"
+                                                                                                          : null;
 
   const p1 =
     overrideKey && t.has(`guide.toolOverrides.${overrideKey}.p1`)

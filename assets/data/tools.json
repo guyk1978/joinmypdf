@@ -3039,8 +3039,8 @@
         "Pretty-print minified JSON logs for debugging"
       ],
       "relatedTools": [
-        "json-to-csv",
-        "json-minifier"
+        "jwt-debugger",
+        "user-agent-parser"
       ],
       "faq": [
         {
@@ -3719,8 +3719,8 @@
         "Document client environments for support tickets"
       ],
       "relatedTools": [
-        "string-generator",
-        "base64-encoder-decoder"
+        "json-formatter",
+        "jwt-debugger"
       ],
       "faq": [
         {
@@ -3775,8 +3775,8 @@
         "Export branded QR codes with custom dark foreground colors"
       ],
       "relatedTools": [
-        "user-agent-parser",
-        "string-generator"
+        "compress-image",
+        "convert-to-png"
       ],
       "faq": [
         {
@@ -3835,7 +3835,7 @@
         "Share decoded JWT sections without sending tokens to third-party sites"
       ],
       "relatedTools": [
-        "json-formatter",
+        "user-agent-parser",
         "base64-encoder-decoder"
       ],
       "faq": [

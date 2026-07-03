@@ -1429,6 +1429,130 @@
             "body": "Secure local-only processing—personal iPhone photos never upload to JoinMyPDF servers, unlike converters that route sensitive images through remote infrastructure."
           }
         }
+      },
+      "userAgentParser": {
+        "h1": "User Agent Parser",
+        "heroTagline": "Paste any UA string or auto-detect your browser—see browser, OS, device, and engine in a clean structured table instantly.",
+        "introSectionTitle": "Analyze User Agent Strings Instantly",
+        "whySectionTitle": "How Our User Agent Parser Works",
+        "whySectionSubheadline": "Precise browser detection, identify rendering engine and OS, instant parsing in the browser, and a developer-friendly debugging tool—no server round trips.",
+        "schemaDescription": "User agent parser online for free—parse user agent string, browser detector, OS and device detector, and developer tools in your browser. Privacy-first client-side parsing with no uploads.",
+        "featuredGuide": {
+          "slug": "hidden-risks-of-free-online-pdf-editors",
+          "label": "Check out our guide on understanding user agent strings for web debugging"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related developer utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "jwtDebuggerLabel": "JWT Debugger"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Instant client-side parsing",
+            "body": "Parse user agent strings in real time with ua-parser-js—auto-detect navigator.userAgent on load or paste custom crawler, bot, and mobile UA samples."
+          },
+          "quality": {
+            "title": "Supports all modern UA string formats",
+            "body": "Identify rendering engine and OS with structured output for browser, version, device type, and engine—copy JSON for tickets, tests, and analytics pipelines."
+          },
+          "local": {
+            "title": "Privacy-first (data never leaves your browser)",
+            "body": "Your UA strings stay in your browser tab—no logging, no cloud APIs, and no account required for precise browser detection workflows."
+          }
+        }
+      },
+      "jwtDebugger": {
+        "h1": "JWT Debugger",
+        "heroTagline": "Paste an encoded JWT—inspect Header, Payload, and Signature panels with human-readable JSON and expiration insights in your browser.",
+        "introSectionTitle": "Decode and Verify JWT Tokens Instantly",
+        "whySectionTitle": "Why Use Our Secure JWT Debugger?",
+        "whySectionSubheadline": "Secure local-only decoding, real-time token analysis, parse Header, Payload, and Signature, and a privacy-first developer tool—tokens never leave your machine.",
+        "schemaDescription": "JWT debugger online for free—decode JWT token, JSON Web Token decoder, verify JWT signature context, and secure JWT tool in your browser. 100% client-side with no uploads or logging.",
+        "featuredGuide": {
+          "slug": "how-to-password-protect-pdf-in-browser",
+          "label": "Check out our guide on understanding JSON Web Tokens: a quick guide for developers"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related developer utilities:",
+          "userAgentParserLabel": "User Agent Parser",
+          "base64EncoderDecoderLabel": "Base64 Encoder/Decoder"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your machine)",
+            "body": "Secure local-only decoding with jwt-decode—paste API access tokens, session JWTs, and OIDC id_tokens without sending secrets to third-party debugger sites."
+          },
+          "quality": {
+            "title": "Human-readable JSON output",
+            "body": "Real-time token analysis splits Header, Payload, and Signature into clear panels—copy formatted JSON, spot exp/iss/aud claims, and flag alg=none or malformed signatures."
+          },
+          "local": {
+            "title": "Instant debugging with no tracking/logging",
+            "body": "Privacy-first developer tool for auth workflows—no server upload, no analytics on your token content, and no account required for daily JWT inspection."
+          }
+        }
+      },
+      "qrCodeGenerator": {
+        "h1": "Create QR Codes Online",
+        "heroTagline": "Type a URL, text, or email—watch a live QR preview update and download a high-resolution PNG in your browser.",
+        "introSectionTitle": "How to Generate Custom QR Codes",
+        "whySectionTitle": "Why Use Our JoinMyPDF QR Generator?",
+        "whySectionSubheadline": "Generate high-quality QR codes, supports URLs, text, and email, secure local-only processing, and instant download without tracking.",
+        "schemaDescription": "QR code generator online for free—create QR code online, free QR code maker, URL to QR code, and custom QR codes in your browser. 100% client-side with no data logging.",
+        "featuredGuide": {
+          "slug": "how-to-combine-pdf-files-for-email",
+          "label": "Check out our guide on using QR codes to share documents and links effectively"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "compressImageLabel": "Compress Image",
+          "convertToPngLabel": "Convert to PNG"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side generation",
+            "body": "Secure local-only processing—encode landing pages, Wi-Fi strings, and PDF download links without cloud generators that store your URLs."
+          },
+          "quality": {
+            "title": "Instant preview",
+            "body": "Real-time preview canvas updates as you type—tune size, error correction, and foreground color, then download PNG for print or slides."
+          },
+          "local": {
+            "title": "No data logging or tracking",
+            "body": "Downloadable high-res files with instant download without tracking—your encoded content never uploads to JoinMyPDF servers."
+          }
+        }
+      },
+      "jsonFormatter": {
+        "h1": "JSON Formatter & Validator",
+        "heroTagline": "Paste raw JSON—pretty-print, minify, and validate syntax with instant error feedback in your browser.",
+        "introSectionTitle": "How to Beautify and Validate JSON",
+        "whySectionTitle": "Why Use Our JoinMyPDF JSON Tool?",
+        "whySectionSubheadline": "Instant JSON pretty printing, real-time syntax validation, secure local-only processing, and a developer-friendly JSON tool—API payloads never leave your machine.",
+        "schemaDescription": "JSON formatter online for free—JSON beautifier, validate JSON online, JSON validator, and format JSON code in your browser. 100% client-side with no data logging.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Check out our guide on debugging API responses: tips for developers"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related developer utilities:",
+          "jwtDebuggerLabel": "JWT Debugger",
+          "userAgentParserLabel": "User Agent Parser"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data logging)",
+            "body": "Secure local-only processing—format config files, API responses, and internal JSON logs without cloud beautifiers that store your payloads."
+          },
+          "quality": {
+            "title": "Handle large JSON files with ease",
+            "body": "Instant JSON pretty printing and minify in the browser—real-time syntax validation with clear parse errors so you fix issues fast."
+          },
+          "local": {
+            "title": "Instant error detection",
+            "body": "Privacy-first architecture with a validation status bar—see Valid JSON or pinpoint invalid syntax without uploading sensitive corporate data."
+          }
+        }
       }
     },
     "schema": {
@@ -1497,6 +1621,7 @@
       "why-black-box-redaction-is-not-enough": "why black box overlays are not true redaction",
       "protect-id-medical-pdfs-with-local-tools": "protecting ID and medical PDFs with local tools",
       "five-things-before-uploading-pdf-to-unknown-editors": "privacy risks before uploading PDFs to unknown editors",
+      "hidden-risks-of-free-online-pdf-editors": "understanding user agent strings for web debugging",
       "check-hidden-sensitive-pdf-before-sending": "the ultimate checklist for sharing sensitive documents",
       "find-and-remove-sensitive-digital-document-components": "finding and removing sensitive components in digital documents",
       "safe-to-share-technology-prevent-document-leaks": "the technology behind preventing document leaks",
@@ -1709,6 +1834,18 @@
         },
         "heicToPdf": {
           "p1": "Convert HEIC to professional PDF with high-speed local conversion—secure local-only processing and easy iPhone document creation in your browser. No uploads, no account, and no desktop software required."
+        },
+        "userAgentParser": {
+          "p1": "Precise browser detection with instant parsing in the browser—identify rendering engine and OS using a developer-friendly debugging tool. No uploads, no account, and no desktop software required."
+        },
+        "jwtDebugger": {
+          "p1": "Secure local-only decoding with real-time token analysis—parse Header, Payload, and Signature using a privacy-first developer tool in your browser. No uploads, no account, and no desktop software required."
+        },
+        "qrCodeGenerator": {
+          "p1": "Generate high-quality QR codes supporting URLs, text, and email—secure local-only processing and instant download without tracking in your browser. No uploads, no account, and no desktop software required."
+        },
+        "jsonFormatter": {
+          "p1": "Instant JSON pretty printing with real-time syntax validation—secure local-only processing using a developer-friendly JSON tool in your browser. No uploads, no account, and no desktop software required."
         }
       },
       "p2": "Privacy is a product decision here: your files are handled in the browser session on your device rather than uploaded to JoinMyPDF servers for processing. That model reduces transfer time for many jobs and is easier to reason about when documents are sensitive.",

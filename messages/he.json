@@ -577,7 +577,13 @@
       "invoice-generator": "מחולל חשבוניות",
       "timeline-gantt-generator": "ציר זמן וגאנט",
       "data-converter-visualizer": "ממיר נתונים",
-      "compare": "השוואת כלים"
+      "compare": "השוואת כלים",
+      "user-agent-parser": "מנתח User-Agent",
+      "json-formatter": "מפרמט JSON",
+      "jwt-debugger": "מנתח JWT",
+      "base64-encoder-decoder": "מקודד/מפענח Base64",
+      "qr-code-generator": "יצירת קודי QR אונליין",
+      "json-formatter": "מפרמט ומאמת JSON"
     }
   },
   "ToolsDirectory": {
