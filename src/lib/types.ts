@@ -103,6 +103,8 @@ export type BlogPost = {
       steps: { name: string; text: string }[];
     };
     privacySecuritySchema?: boolean;
+    /** Emits SoftwareApplication schema highlighting multi-format local decode (WebP, HEIC, etc.). */
+    technicalSoftwareSchema?: boolean;
   };
 };
 

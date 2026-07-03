@@ -305,3 +305,64 @@ export function privacySecurityAppLd(args: {
     },
   };
 }
+
+/** Multi-format / technical decode positioning for WebP, HEIC, and mixed-format crop workflows. */
+export function technicalFormatAppLd(args: {
+  name: string;
+  description: string;
+  toolPath: string;
+  locale?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: args.name,
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Any (Web Browser)",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: args.locale === "he" ? "ILS" : "USD",
+      availability: "https://schema.org/InStock",
+    },
+    isAccessibleForFree: true,
+    description: args.description,
+    url: absoluteUrl(args.toolPath),
+    featureList: [
+      ...(args.locale === "he"
+        ? [
+            "חיתוך WebP מקומי בדפדפן",
+            "תמיכה ב-HEIC/HEIF מאייפון",
+            "חיתוך PNG עם שקיפות",
+            "ללא המרה מוקדמת ל-JPEG",
+            "פענוח מקומי ללא העלאה",
+            "ייצוא PNG איכותי",
+          ]
+        : [
+            "Local WebP crop in browser",
+            "HEIC/HEIF support from iPhone",
+            "PNG crop with transparency preserved",
+            "No pre-conversion to JPEG required",
+            "Client-side decode without upload",
+            "High-quality PNG export",
+          ]),
+    ],
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Supported input formats",
+        value: "JPEG, PNG, WebP, HEIC, HEIF, GIF",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Processing mode",
+        value: "Browser-native decode; format-agnostic crop",
+      },
+    ],
+    provider: {
+      "@type": "Organization",
+      name: getBrandName(args.locale),
+      url: absoluteUrl("/"),
+    },
+  };
+}
