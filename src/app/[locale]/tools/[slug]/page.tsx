@@ -99,6 +99,7 @@ import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
 import { resolveToolRoute } from "@/lib/variants";
+import { STUDIO_TOOL_SLUGS } from "@/lib/studio-tools";
 import { toolPageDashboardStack, toolPageDashboardWidth, toolPageInfoWidth, productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -127,7 +128,10 @@ export async function generateStaticParams() {
 
   // Fallback/source-of-truth completion from registry JSON.
   for (const tool of registry.tools || []) {
-    if (tool.slug) slugs.add(tool.slug);
+    if (tool.slug) {
+      if (STUDIO_TOOL_SLUGS.includes(tool.slug)) continue;
+      slugs.add(tool.slug);
+    }
     for (const variant of tool.longTailPages || []) {
       if (variant.slug) slugs.add(variant.slug);
     }

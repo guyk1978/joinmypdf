@@ -35,3 +35,6 @@ export const STUDIO_TOOLS: StudioToolDef[] = [
     ctaLabel: "Open data converter",
   },
 ];
+
+/** Slugs with dedicated `/tools/<slug>/` pages — exclude from generic `[slug]` static generation. */
+export const STUDIO_TOOL_SLUGS = STUDIO_TOOLS.map((tool) => tool.slug);
