@@ -13,7 +13,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
-import { blogPostingLd, breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
+import { blogPostingLd, breadcrumbLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, privacySecurityAppLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { resolveBlogOgImagePath } from "@/lib/og-images-blog";
@@ -76,12 +76,14 @@ export async function generateMetadata({
   if (!post) return {};
   const title = post.seo?.metaTitle || post.title;
   const description = post.seo?.metaDescription || post.description || "";
+  const keywords = post.seo?.keywords;
   const ogImagePath = resolveBlogOgImagePath(post, locale);
   const social = buildDefaultSocialImages(locale, { alt: title, imagePath: ogImagePath });
 
   return {
     title,
     description,
+    ...(keywords ? { keywords } : {}),
     alternates: { canonical: `/blog/${slug}/` },
     robots: { index: true, follow: true },
     openGraph: {
@@ -118,6 +120,7 @@ export default async function BlogPostPage({
   const pathname = `/blog/${slug}/`;
   const description = post.seo?.metaDescription || post.description || "";
   const faqs = faqItems(post);
+  const howTo = post.contentBlocks?.howTo;
   const internalLinks = post.contentBlocks?.internalLinks || [];
   const relatedArticles = (post.relatedBlogs || [])
     .map((relatedSlug) => blogRegistry.blog.find((entry) => entry.slug === relatedSlug))
@@ -132,6 +135,9 @@ export default async function BlogPostPage({
   const readTime = getLocalizedBlogReadTime(post, t);
   const category = resolveBlogDisplayCategory(post);
   const bottomCtaLabel = post.contentBlocks?.bottomCtaLabel?.trim();
+  const primarySlug = post.contentBlocks?.primaryTool;
+  const primaryToolDef = primarySlug ? registry.tools.find((t) => t.slug === primarySlug) : null;
+  const emitPrivacySecurity = post.contentBlocks?.privacySecuritySchema && primaryToolDef;
 
   return (
     <>
@@ -146,6 +152,36 @@ export default async function BlogPostPage({
         })}
       />
       {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
+      {howTo?.steps?.length ? (
+        <JsonLd
+          data={howToLd({
+            name: howTo.name || displayTitle,
+            description: howTo.description || description,
+            pathname,
+            steps: howTo.steps,
+          })}
+        />
+      ) : null}
+      {primaryToolDef ? (
+        <JsonLd
+          data={localPerformanceAppLd({
+            name: translateToolItem(tTools, primaryToolDef.slug, primaryToolDef.title),
+            description: primaryToolDef.description,
+            toolPath: `/tools/${primaryToolDef.slug}/`,
+            locale,
+          })}
+        />
+      ) : null}
+      {emitPrivacySecurity ? (
+        <JsonLd
+          data={privacySecurityAppLd({
+            name: translateToolItem(tTools, primaryToolDef.slug, primaryToolDef.title),
+            description: primaryToolDef.description,
+            toolPath: `/tools/${primaryToolDef.slug}/`,
+            locale,
+          })}
+        />
+      ) : null}
       <JsonLd
         data={breadcrumbLd([
           { name: t("breadcrumbs.home"), path: "/" },

@@ -83,7 +83,7 @@ export type BlogPost = {
   tier1?: boolean;
   relatedTools?: string[];
   relatedBlogs?: string[];
-  seo?: { metaTitle?: string; metaDescription?: string };
+  seo?: { metaTitle?: string; metaDescription?: string; keywords?: string };
   description?: string;
   contentBlocks?: {
     intro?: string;
@@ -97,6 +97,12 @@ export type BlogPost = {
     bottomCtaLabel?: string;
     editorialNote?: string;
     wordCount?: number;
+    howTo?: {
+      name?: string;
+      description?: string;
+      steps: { name: string; text: string }[];
+    };
+    privacySecuritySchema?: boolean;
   };
 };
 

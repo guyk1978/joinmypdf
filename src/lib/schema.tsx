@@ -164,3 +164,144 @@ export function blogPostingLd(post: {
     publisher: { "@type": "Organization", name: getBrandName(post.locale) },
   };
 }
+
+export function howToLd(args: {
+  name: string;
+  description: string;
+  pathname: string;
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: args.name,
+    description: args.description,
+    url: absoluteUrl(args.pathname),
+    step: args.steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      url: absoluteUrl(`${args.pathname}#howto-step-${index + 1}`),
+    })),
+    tool: [{ "@type": "HowToTool", name: "Web browser" }],
+  };
+}
+
+/** Highlights local, no-upload performance for fast-converter SEO. */
+export function localPerformanceAppLd(args: {
+  name: string;
+  description: string;
+  toolPath: string;
+  locale?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: args.name,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any (Web Browser)",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: args.locale === "he" ? "ILS" : "USD",
+      availability: "https://schema.org/InStock",
+    },
+    isAccessibleForFree: true,
+    description: args.description,
+    url: absoluteUrl(args.toolPath),
+    featureList: [
+      ...(args.locale === "he"
+        ? [
+            "התחלה מיידית ללא העלאה",
+            "עיבוד מקומי בדפדפן",
+            "עובד אופליין אחרי טעינת הדף",
+            "עיבוד אצווה ללא תור שרת",
+            "ללא הגבלת העלאה לענן",
+          ]
+        : [
+            "Instant start with no upload",
+            "Local browser processing",
+            "Works offline after page load",
+            "Batch processing without server queue",
+            "No cloud upload limits",
+          ]),
+    ],
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Processing mode",
+        value: "Local-first, client-side",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Performance",
+        value: "Zero upload latency; CPU-bound conversion",
+      },
+    ],
+    provider: {
+      "@type": "Organization",
+      name: getBrandName(args.locale),
+      url: absoluteUrl("/"),
+    },
+  };
+}
+
+/** Data-security / privacy-first positioning for local conversion tools. */
+export function privacySecurityAppLd(args: {
+  name: string;
+  description: string;
+  toolPath: string;
+  locale?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: args.name,
+    applicationCategory: "SecurityApplication",
+    operatingSystem: "Any (Web Browser)",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: args.locale === "he" ? "ILS" : "USD",
+      availability: "https://schema.org/InStock",
+    },
+    isAccessibleForFree: true,
+    description: args.description,
+    url: absoluteUrl(args.toolPath),
+    featureList: [
+      ...(args.locale === "he"
+        ? [
+            "עיבוד מקומי ללא העלאת קבצים",
+            "נתונים נשארים במכשיר המשתמש",
+            "מפחית חשיפת מטא-דאטה EXIF",
+            "תואם זרימות GDPR",
+            "אין שמירת קבצים בשרת",
+          ]
+        : [
+            "Local processing with no file uploads",
+            "Data stays on the user device",
+            "Reduces EXIF metadata exposure",
+            "Supports GDPR-conscious workflows",
+            "No server-side file retention",
+          ]),
+    ],
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Data security",
+        value: "Client-side sandbox; no backend transfer for standard conversion",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Privacy model",
+        value: "Privacy-first, local-only image conversion",
+      },
+    ],
+    provider: {
+      "@type": "Organization",
+      name: getBrandName(args.locale),
+      url: absoluteUrl("/"),
+    },
+  };
+}
