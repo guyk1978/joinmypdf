@@ -20176,6 +20176,1286 @@
           }
         ]
       }
+    },
+    {
+      "slug": "jwt-security-risks-local-processing",
+      "title": "סיכוני JWT Debuggers מקוונים: למה עיבוד מקומי הוא חובה",
+      "keyword": "online jwt debugger risks local jwt decoder",
+      "category": "Security",
+      "cluster": "jwt-debugger",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-11-07",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.97,
+      "relatedTools": [
+        "jwt-debugger",
+        "json-formatter",
+        "user-agent-parser"
+      ],
+      "relatedBlogs": [
+        "jwt-in-modern-api-development",
+        "managing-jwt-expiration",
+        "debug-jwt-tokens-quickly",
+        "understanding-jwt-guide",
+        "pdf-local-processing-benefits",
+        "hidden-risks-of-free-online-pdf-editors",
+        "user-agent-privacy-fingerprinting",
+        "client-side-vs-server-side-parsing",
+        "pdf-metadata-privacy-risks",
+        "why-local-image-processing-is-safer"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור JWT debugger privacy · נוב 2026"
+      },
+      "seo": {
+        "metaTitle": "האם JWT Debugger מקוון בטוח? למה עיבוד מקומי חובה",
+        "metaDescription": "Debuggers מקוונים שומרים session tokens ומפרים GDPR. JoinMyPDF JWT Debugger — פענוח מקומי, אפס upload. אמתו ב-Network tab.",
+        "keywords": "is online jwt debugger safe, private jwt decoder, jwt debugger מקומי, jwt privacy עברית"
+      },
+      "description": "למה הדבקת JWT production ל-debuggers בענן יוצרת retention, compliance וסיכון breach — ואיך פענוח מקומי מבטל את החשיפה.",
+      "contentBlocks": {
+        "intro": "בעולם אבטחת הווב, JSON Web Tokens הם המפתחות לממלכה — claims, הרשאות ונתוני זהות. ניפוי שגיאות שלהם צריך להתבצע באותה רמת זהירות כמו טיפול בסיסמה גולמית למסד נתונים. אתרי JWT Debugger מקוונים רבים שולחים את הטוקן לשרת שלהם לפענוח ואימות חתימה. זוהי פגיעות קריטית: חשיפת session tokens פעילים, תיעוד בשרת צד שלישי, והפרת GDPR או SOC2. JoinMyPDF JWT Debugger בנוי privacy-first: המידע שלכם לעולם לא עוזב את המכשיר. פענוח jwt-decode בדפדפן, אפס תעבורת רשת, ללא לוגים נסתרים. מאמר 3: אחרי understanding-jwt-guide ו-debug-jwt-tokens-quickly — למה עיבוד מקומי חובה ל-production tokens.",
+        "editorialNote": "JoinMyPDF JWT Debugger פועל בדפדפן עם jwt-decode. פענוח סטנדרטי לא מעלה JWT לשרתים שלנו.",
+        "primaryTool": "jwt-debugger",
+        "primaryToolCtaLabel": "פענוח JWT מקומי — חינם, מיידי, פרטי",
+        "bottomCtaLabel": "פתחו JWT Debugger לבדיקה מאובטחת",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "privacySecuritySchema": true,
+        "howTo": {
+          "name": "איך לבדוק JWT בצורה מאובטחת ללא upload לענן",
+          "description": "workflow אבטחה עם JoinMyPDF JWT Debugger.",
+          "steps": [
+            {
+              "name": "לא להדביק production tokens לאתרים לא מוכרים",
+              "text": "Treat tokens כמו passwords. השתמשו ב-JoinMyPDF JWT Debugger או scripts offline."
+            },
+            {
+              "name": "פתיחת JoinMyPDF JWT Debugger",
+              "text": "הדביקו JWT — parsing ב-jwt-decode בזיכרון הדף, לא ב-API remote."
+            },
+            {
+              "name": "סקירת header, payload, warnings",
+              "text": "alg, exp, iss, aud, sub — בדיקת expiration ו-alg:none alerts."
+            },
+            {
+              "name": "אימות אפס תעבורת רשת",
+              "text": "פתחו DevTools → Network, הדביקו token — אין API call עם JWT. JoinMyPDF = zero outbound traffic."
+            },
+            {
+              "name": "Copy JSON — redact לפני שיתוף",
+              "text": "ייצוא ל-tickets — הסירו sub, email, tenant_id מחוץ ל-trust boundary."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "why-jwt-debugging-is-sensitive",
+            "heading": "למה JWT debugging הוא אירוע אבטחה",
+            "level": 2,
+            "paragraphs": [
+              "JWT לא ciphertext — כל מי שמחזיק את המחרוזת יכול לפענח payload בלי secret.",
+              "מפתחים מדביקים tokens מ-DevTools, אפליקציות mobile או תמיכה — כל paste לענן משכפל credentials.",
+              "JoinMyPDF JWT Debugger שומר inspection על אותה מכונה שכבר מחזיקה את ה-token."
+            ]
+          },
+          {
+            "id": "what-jwts-expose",
+            "heading": "מה JWT payloads חושפים",
+            "level": 2,
+            "paragraphs": [
+              "Claims: sub, iss, aud, exp, iat — plus roles, scopes, tenant_id, email.",
+              "Refresh tokens שגויים מסוכנים במיוחד — חיים יותר מ-access tokens.",
+              "פענוח מקומי מראה אותו JSON בלי עותק שני מחוץ ל-boundary."
+            ]
+          },
+          {
+            "id": "online-debugger-risks",
+            "heading": "סיכוני JWT Debuggers מקוונים",
+            "level": 2,
+            "paragraphs": [
+              "כלים חינמיים מניחים test tokens — לא bearer strings של לקוחות paying."
+            ]
+          },
+          {
+            "id": "data-retention",
+            "heading": "שמירת נתונים ו-log aggregation",
+            "level": 3,
+            "paragraphs": [
+              "Decoders בשרת log bodies, IP, User-Agent, timestamps.",
+              "GDPR/CCPA — identifiers ב-tokens = personal data.",
+              "JoinMyPDF — אין artifact בשרת; סגירת tab מוחקת parse מזיכרון."
+            ]
+          },
+          {
+            "id": "breach-surface",
+            "heading": "הרחבת surface של breach",
+            "level": 3,
+            "paragraphs": [
+              "כל vendor = מערכת נוספת לפריצה. Compromise חושף session tokens של אלפי מפתחים.",
+              "Attackers scrape logs — backends של debuggers הם targets בעלי ערך."
+            ]
+          },
+          {
+            "id": "compliance-violations",
+            "heading": "הפרות compliance ומדיניות",
+            "level": 3,
+            "paragraphs": [
+              "מדיניות enterprise אוסרת exfiltration של auth artifacts ל-SaaS לא מאושר.",
+              "PCI-DSS, HIPAA — decoders כלליים לא חותמים BAA.",
+              "JoinMyPDF JWT Debugger — local-only, aligned עם pdf-local-processing-benefits."
+            ]
+          },
+          {
+            "id": "mitm-and-transport",
+            "heading": "Transport ואמון supply-chain",
+            "level": 3,
+            "paragraphs": [
+              "HTTPS upload חושף tokens למפעיל ו-CDN.",
+              "Typosquatted domains harvest tokens — \"jwt decode online\".",
+              "JoinMyPDF — jwt-decode client-side, אפס POST של token body."
+            ]
+          },
+          {
+            "id": "comparison-table",
+            "heading": "Online מול Local JWT debugging",
+            "level": 2,
+            "table": {
+              "headers": [
+                "גורם",
+                "Cloud Debugger",
+                "JoinMyPDF (Local)"
+              ],
+              "rows": [
+                [
+                  "Token עוזב מכשיר",
+                  "כן",
+                  "לא"
+                ],
+                [
+                  "סיכון retention",
+                  "תלוי vendor",
+                  "אין בשרתים שלנו"
+                ],
+                [
+                  "GDPR DPA",
+                  "לרוב חסר",
+                  "לא נדרש"
+                ],
+                [
+                  "Offline",
+                  "לא",
+                  "כן אחרי load"
+                ],
+                [
+                  "Production token",
+                  "לא — הפרת policy",
+                  "כן"
+                ],
+                [
+                  "מהירות",
+                  "Round-trip",
+                  "jwt-decode מיידי"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "local-processing-mandatory",
+            "heading": "למה עיבוד מקומי הוא חובה",
+            "level": 2,
+            "paragraphs": [
+              "Local processing = control. Token לא חוצה trust boundary שלא אתם own.",
+              "JoinMyPDF JWT Debugger — אותו mandate כמו PDF/image tools.",
+              "jwt-decode client-side + warnings — alg:none, expired, unverified signature."
+            ]
+          },
+          {
+            "id": "local-workflow",
+            "heading": "Workflow debugging מאובטח",
+            "level": 2,
+            "paragraphs": [
+              "החליפו \"תוצאה ראשונה ב-Google\" ב-workflow חוזר לכל engineer."
+            ]
+          },
+          {
+            "id": "synthetic-vs-production",
+            "heading": "Synthetic מול Production tokens",
+            "level": 3,
+            "paragraphs": [
+              "Cloud decoders רק ל-synthetic — fake sub, short exp, iss test.local.",
+              "Token שנגע ב-session אמיתי = production = decode מקומי."
+            ]
+          },
+          {
+            "id": "redaction-discipline",
+            "heading": "Redaction לפני שיתוף",
+            "level": 3,
+            "paragraphs": [
+              "Copy JSON ל-Slack — redact sub, email, IDs.",
+              "JSON Formatter ל-pretty-print claims מredacted."
+            ]
+          },
+          {
+            "id": "incident-response",
+            "heading": "אם token הודבק online",
+            "level": 3,
+            "paragraphs": [
+              "Assume compromise: revoke refresh, rotate keys, force re-auth.",
+              "Document incident — compliance דורש notification.",
+              "עדכנו onboarding ל-JoinMyPDF JWT Debugger."
+            ]
+          },
+          {
+            "id": "developer-mandate",
+            "heading": "מנדט האבטחה של המפתח",
+            "level": 2,
+            "paragraphs": [
+              "Code review — flag tokens ב-PRs.",
+              "JWT visibility ≠ shareability — המחרוזת = session.",
+              "כמו user-agent-privacy — convenience לא מעל data custody."
+            ]
+          },
+          {
+            "id": "verify-tooling-network",
+            "heading": "אימות הכלים: בדיקת Network Tab",
+            "level": 2,
+            "paragraphs": [
+              "פתחו DevTools → Network והדביקו JWT. אם יש קריאת API — הפסיקו להשתמש בכלי.",
+              "JoinMyPDF JWT Debugger — אפס תעבורה יוצאת הקשורה ל-token.",
+              "פענוח Base64Url במנוע JavaScript של הדפדפן — ללא backend.",
+              "הפכו את הבדיקה לחלק מ-onboarding אבטחה."
+            ]
+          },
+          {
+            "id": "joinmypdf-jwt-debugger",
+            "heading": "JoinMyPDF JWT Debugger: Local-First",
+            "level": 2,
+            "paragraphs": [
+              "Header, payload, signature — JSON מעוצב + exp קריא.",
+              "Warnings: expired, alg:none, unverified signature.",
+              "ללא account, ללא upload quota — inspect כמו browser tooling intended."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "הקשר בסדרה",
+            "level": 2,
+            "paragraphs": [
+              "מאמר 1: anatomy ו-auth. מאמר 2: exp, aud, signature triage.",
+              "מאמר 3 (זה): production inspection stays local.",
+              "מאמר 4: managing-jwt-expiration — exp, nbf, iat. מאמר 5: jwt-in-modern-api-development — workflow capstone."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: אבטחה מתחילה בכלים שלכם",
+            "level": 2,
+            "paragraphs": [
+              "Debugger מקוון ש\"מתקשר הביתה\" עם JWT — כשל אבטחתי משמעותי.",
+              "אימצו JoinMyPDF JWT Debugger — local-only, מבטל attack vector מרכזי.",
+              "אבטחו tokens, שמרו פרטיות — עיבוד על המכשיר שלכם."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "האם JWT Debugger מקוון בטוח?",
+            "a": "לא ל-production tokens. Decoders בשרת log credentials ומפרים GDPR. JoinMyPDF — local + אימות Network tab."
+          },
+          {
+            "q": "בטוח להדביק JWT ל-debuggers online?",
+            "a": "לא ל-production. Cloud log credentials. JoinMyPDF JWT Debugger — local, או synthetic בלבד."
+          },
+          {
+            "q": "JoinMyPDF מעלה token?",
+            "a": "לא — jwt-decode בדפדפן."
+          },
+          {
+            "q": "למה local mandatory?",
+            "a": "JWTs = session credentials. Local = ללא retention, compliance violations, breach surface."
+          },
+          {
+            "q": "אימות חתימה locally?",
+            "a": "JoinMyPDF מראה signature + warnings. Verification מלא = secret — never online."
+          },
+          {
+            "q": "הודבק prod token online?",
+            "a": "Incident: revoke, rotate, re-login, switch ל-local tools."
+          },
+          {
+            "q": "Private JWT debugger?",
+            "a": "JoinMyPDF JWT Debugger — jwt-decode, JSON structured, ללא vendor logs."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/jwt-debugger/",
+            "anchor": "JWT Debugger"
+          },
+          {
+            "href": "/blog/understanding-jwt-guide/",
+            "anchor": "מדריך JWT"
+          },
+          {
+            "href": "/blog/user-agent-privacy-fingerprinting/",
+            "anchor": "פרטיות local parsing"
+          },
+          {
+            "href": "/blog/pdf-local-processing-benefits/",
+            "anchor": "יתרונות עיבוד מקומי"
+          },
+          {
+            "href": "/tools/json-formatter/",
+            "anchor": "JSON Formatter"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "debug-jwt-tokens-quickly",
+      "title": "איך לנפות שגיאות בטוקני JWT במהירות: פתרון תקלות אימות",
+      "keyword": "how to debug jwt troubleshoot authentication",
+      "category": "Developer Tools",
+      "cluster": "jwt-debugger",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-10-31",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.97,
+      "relatedTools": [
+        "jwt-debugger",
+        "json-formatter",
+        "user-agent-parser"
+      ],
+      "relatedBlogs": [
+        "jwt-in-modern-api-development",
+        "managing-jwt-expiration",
+        "understanding-jwt-guide",
+        "jwt-security-risks-local-processing",
+        "debugging-browser-compatibility",
+        "client-side-vs-server-side-parsing",
+        "pdf-local-processing-benefits",
+        "what-is-user-agent"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור JWT auth troubleshooting · אוק 2026"
+      },
+      "seo": {
+        "metaTitle": "איך לנפות JWT: תיקון 401 וכשלי אימות (מדריך מקומי)",
+        "metaDescription": "פתרון JWT expired, alg mismatch ו-claims חסרים. JoinMyPDF JWT Debugger — header/payload מיידי, ללא upload, בטוח ל-production.",
+        "keywords": "how to debug jwt, troubleshoot jwt authentication, jwt 401, jwt debugger עברית"
+      },
+      "description": "workflow מעשי לאבחון כשלי JWT — exp, claims, algorithms — עם פענוח מקומי בדפדפן.",
+      "contentBlocks": {
+        "intro": "אימות הוא עמוד השדרה של כל אפליקציה מאובטחת, אך כשהוא משתבש קשה לאבחן. logout פתאומי, 401 Unauthorized, או אפליקציה תקועה — לרוב הבעיה ב-JWT. JoinMyPDF JWT Debugger מפענח header, payload ו-signature מיידית בדפדפן — exp, alg ו-claims בלי upload לענן. מאמר 2 בסדרת JWT Debugger: אחרי understanding-jwt-guide — triage מעשי: חילוץ tokens, בדיקת claims ותיקון כשלי אימות נפוצים.",
+        "editorialNote": "JoinMyPDF JWT Debugger פועל בדפדפן עם jwt-decode. פענוח סטנדרטי לא מעלה JWT לשרתים שלנו.",
+        "primaryTool": "jwt-debugger",
+        "primaryToolCtaLabel": "Debug JWT מקומי — חינם, מיידי, פרטי",
+        "bottomCtaLabel": "פתחו JWT Debugger לפתרון תקלות אימות",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לנפות כשלי JWT authentication במהירות",
+          "description": "שלב-אחר-שלב עם JoinMyPDF JWT Debugger.",
+          "steps": [
+            {
+              "name": "חילוץ token מהבקשה",
+              "text": "העתיקו מ-Authorization Bearer, localStorage או Network → Headers ב-DevTools."
+            },
+            {
+              "name": "הדבקה ב-JoinMyPDF JWT Debugger",
+              "text": "Parsing מקומי ב-jwt-decode — ללא backend, ללא vendor log."
+            },
+            {
+              "name": "בדיקת Header, Payload, warnings",
+              "text": "alg, exp/nbf/aud/iss/sub — warnings ל-expired, alg:none, signature."
+            },
+            {
+              "name": "השוואת claims ל-API",
+              "text": "roles, scopes, tenant_id — Copy JSON ל-tickets או diff מול token תקין."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "auth-failure-symptoms",
+            "heading": "כשאימות נכשל: תסמינים",
+            "level": 2,
+            "paragraphs": [
+              "401 = bearer token נדחה. 403 = token תקין אך חסרות הרשאות.",
+              "logout שקט ב-SPA — refresh נכשל או tokens rotated.",
+              "כשלים לסירוגין — clock skew על exp/nbf או aud שגוי.",
+              "לפני שינוי middleware — decode את ה-token שה-client שלח."
+            ]
+          },
+          {
+            "id": "hidden-complexity",
+            "heading": "המורכבות הנסתרת של שגיאות JWT",
+            "level": 2,
+            "paragraphs": [
+              "\"Invalid token\" יכול להיות exp, iss, aud, או signature — כל fix שונה.",
+              "JoinMyPDF מפריד structure, semantic ו-temporal problems.",
+              "understanding-jwt-guide = anatomy; מאמר זה = failure modes ב-production."
+            ]
+          },
+          {
+            "id": "expired-tokens",
+            "heading": "טוקנים שפג תוקפם ו-Refresh",
+            "level": 3,
+            "paragraphs": [
+              "exp = הסיבה הנפוצה ביותר ל-401.",
+              "JoinMyPDF מציג exp קריא ומסמן expired automatically.",
+              "בדקו גם nbf — tokens עם nbf עתידי נכשלים עד שהשעון עובר."
+            ]
+          },
+          {
+            "id": "malformed-payloads",
+            "heading": "Payload פגום ו-Claims חסרים",
+            "level": 3,
+            "paragraphs": [
+              "typo ב-claim names — roles vs role — עובר signature אך נכשל authorization.",
+              "השוו failing vs working token — Copy JSON ו-diff ב-JSON Formatter.",
+              "aud חסר — token תקין ל-auth service אך נדחה ב-resource API."
+            ]
+          },
+          {
+            "id": "algorithm-mismatch",
+            "heading": "חוסר התאמה באלגוריתמים",
+            "level": 3,
+            "paragraphs": [
+              "alg ב-header — HS256 vs RS256. שרת RS256 דוחה HS256.",
+              "JoinMyPDF מזהיר על alg:none — misconfiguration קריטי.",
+              "Key rotation — kid חדש לפני JWKS cache מתעדכן."
+            ]
+          },
+          {
+            "id": "signature-issues",
+            "heading": "בעיות חתימה",
+            "level": 3,
+            "paragraphs": [
+              "Debugger מdecode בלי verify — נכון לבדיקה. 401 signature = secret/key שגוי או token truncated.",
+              "הסירו Bearer prefix לפני paste. העתיקו מחרוזת מלאה מ-DevTools."
+            ]
+          },
+          {
+            "id": "debug-workflow",
+            "heading": "ייעול debugging עם JoinMyPDF JWT Debugger",
+            "level": 2,
+            "paragraphs": [
+              "workflow בן 4 שלבים שכל engineer בצוות משתף."
+            ]
+          },
+          {
+            "id": "extract-token",
+            "heading": "שלב 1: חילוץ Token",
+            "level": 3,
+            "paragraphs": [
+              "Browser: Local Storage, Session Storage, Network headers.",
+              "Mobile: proxy debug — לא log tokens ב-production analytics."
+            ]
+          },
+          {
+            "id": "paste-inspect",
+            "heading": "שלב 2: הדבקה ובדיקה",
+            "level": 3,
+            "paragraphs": [
+              "Header, Payload, Signature — JSON מעוצב.",
+              "Warnings: expired, alg:none, signature_malformed, signature_unverified.",
+              "exp ו-iat קריאים — אותה שעון ב-standup."
+            ]
+          },
+          {
+            "id": "identify-mismatch",
+            "heading": "שלב 3: זיהוי חוסר התאמה",
+            "level": 3,
+            "paragraphs": [
+              "סדר: structure → exp/nbf → iss/aud → custom claims → alg.",
+              "Staging token על production API — aud/iss mismatch."
+            ]
+          },
+          {
+            "id": "speed-and-security",
+            "heading": "למה מהירות ואבטחה יחד",
+            "level": 2,
+            "paragraphs": [
+              "Incidents לא מחכים ל-log pipeline. Local decode בשניות.",
+              "לא להדביק production tokens ל-jwt.io clones — ראו jwt-security-risks-local-processing.",
+              "JoinMyPDF — instant + 100% private processing."
+            ]
+          },
+          {
+            "id": "common-errors-table",
+            "heading": "שגיאות JWT נפוצות",
+            "level": 2,
+            "table": {
+              "headers": [
+                "תסמין",
+                "סיבה סבירה",
+                "בדיקה ב-Debugger"
+              ],
+              "rows": [
+                [
+                  "401 אחרי ~15 דק",
+                  "exp, refresh נכשל",
+                  "exp warning"
+                ],
+                [
+                  "401 מיד אחרי login",
+                  "aud/iss שגוי",
+                  "aud, iss"
+                ],
+                [
+                  "403 עם token תקין",
+                  "role/scope חסר",
+                  "custom claims"
+                ],
+                [
+                  "401 לכל המשתמשים",
+                  "key rotation / alg",
+                  "header alg, kid"
+                ],
+                [
+                  "401 client אחד",
+                  "token truncated",
+                  "structure error"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "best-practices",
+            "heading": "שיטות עבודה מומלצות",
+            "level": 2,
+            "paragraphs": [
+              "הרגלים שמפחיתים incidents חוזרים."
+            ]
+          },
+          {
+            "id": "check-expiration-first",
+            "heading": "בדקו קודם את התפוגה",
+            "level": 3,
+            "paragraphs": [
+              "exp לפני signature — 40%+ tickets ב-SPA stacks.",
+              "clock skew tolerance — 30–60 שניות בחלק מה-APIs."
+            ]
+          },
+          {
+            "id": "validate-header",
+            "heading": "אמתו את ה-Header",
+            "level": 3,
+            "paragraphs": [
+              "alg תואם config — never alg:none ב-production.",
+              "JWE encrypted — debugger מראה blob — recognize format."
+            ]
+          },
+          {
+            "id": "copy-friendly-json",
+            "heading": "JSON נוח ל-tickets",
+            "level": 3,
+            "paragraphs": [
+              "Copy JSON — redact sub/email לפני Jira/Linear.",
+              "JSON Formatter ל-schema validation מול OpenAPI."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "הקשר בסדרה",
+            "level": 2,
+            "paragraphs": [
+              "מאמר 1: anatomy. מאמר 2 (זה): 401/403 triage.",
+              "מאמר 3: jwt-security-risks-local-processing — local mandatory.",
+              "מאמר 4: expiration. מאמר 5: jwt-in-modern-api-development — API workflow."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: ה-JWT מחזיק את האמת",
+            "level": 2,
+            "paragraphs": [
+              "\"שגיאת אימות\" מעורפלת — payload ספציפי.",
+              "JoinMyPDF JWT Debugger = roadmap לתיקון auth logic.",
+              "Debug מהר, tokens מאובטחים, users חוזרים online."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "איך לנפות JWT עם 401?",
+            "a": "Copy → JoinMyPDF locally → exp, iss/aud, claims, alg. השוו ל-token תקין."
+          },
+          {
+            "q": "JWT expired אחרי login?",
+            "a": "exp, nbf, clock skew, stale cache. Debugger מציג exp קריא."
+          },
+          {
+            "q": "Debug production JWTs בבטחה?",
+            "a": "כן עם JoinMyPDF — local, ללא upload."
+          },
+          {
+            "q": "כשל auth נפוץ ביותר?",
+            "a": "exp expired בלי refresh מוצלח."
+          },
+          {
+            "q": "השוואת שני payloads?",
+            "a": "Decode שניהם, Copy JSON, diff ב-JSON Formatter."
+          },
+          {
+            "q": "JoinMyPDF מאמת signatures?",
+            "a": "Decode + warnings. Verification מלא = secret/key בשרת."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/jwt-debugger/",
+            "anchor": "JWT Debugger"
+          },
+          {
+            "href": "/blog/understanding-jwt-guide/",
+            "anchor": "מדריך JWT"
+          },
+          {
+            "href": "/blog/jwt-security-risks-local-processing/",
+            "anchor": "סיכוני JWT debugger מקוון"
+          },
+          {
+            "href": "/tools/json-formatter/",
+            "anchor": "JSON Formatter"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "managing-jwt-expiration",
+      "title": "ניהול תוקף JWT: איך לבדוק ולאמת חותמות זמן של טוקנים",
+      "keyword": "jwt expiration time how to check jwt exp",
+      "category": "Developer Tools",
+      "cluster": "jwt-debugger",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-11-14",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.97,
+      "relatedTools": [
+        "jwt-debugger",
+        "json-formatter",
+        "user-agent-parser"
+      ],
+      "relatedBlogs": [
+        "jwt-in-modern-api-development",
+        "understanding-jwt-guide",
+        "debug-jwt-tokens-quickly",
+        "jwt-security-risks-local-processing",
+        "pdf-local-processing-benefits",
+        "client-side-vs-server-side-parsing",
+        "what-is-user-agent"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור JWT expiration workflows · נוב 2026"
+      },
+      "seo": {
+        "metaTitle": "JWT exp: איך לבדוק תוקף טוקן ולאמת timestamps מקומית",
+        "metaDescription": "פענוח exp מיידי. JoinMyPDF JWT Debugger — תאריך קריא, TTL, expired warnings — local, פרטי, ללא upload.",
+        "keywords": "jwt expiration time, how to check jwt exp, jwt exp claim, validate jwt timestamps עברית"
+      },
+      "description": "איך לבדוק ולאמת exp, nbf, iat — תאריכים קריאים, clock skew, ו-best practices עם debugging מקומי.",
+      "contentBlocks": {
+        "intro": "במחזור חיים של אפליקציה מאובטחת, טענת exp (Expiration Time) היא השדה הקריטי ביותר ב-JWT. היא קובעת כמה זמן הטוקן בתוקף. ניהול לקוי גורם ל\"סשן קצר מדי\" או לסשני זומבי — פרצות אבטחה. 1719830400 לא אומר אם הטוקן פג או בתוקף לשעה. JoinMyPDF JWT Debugger ממיר epoch לתאריכים קריאים, TTL יחסי ו-warnings — מקומית. מאמר 4: אחרי anatomy, triage ו-local mandate — lifecycle של expiration.",
+        "editorialNote": "JoinMyPDF JWT Debugger פועל בדפדפן. בדיקת exp לא מעלה JWT לשרתים שלנו.",
+        "primaryTool": "jwt-debugger",
+        "primaryToolCtaLabel": "בדיקת exp — חינם, מיידי, מקומי",
+        "bottomCtaLabel": "פתחו JWT Debugger לאימות timestamps",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לבדוק JWT expiration עם JoinMyPDF",
+          "description": "אימות exp ו-TTL מקומית.",
+          "steps": [
+            {
+              "name": "הדביקו JWT",
+              "text": "JoinMyPDF JWT Debugger — מ-Authorization, localStorage או ticket."
+            },
+            {
+              "name": "צפו ב-exp ב-Payload",
+              "text": "JSON + בלוק expiration — תאריך מוחלט וזמן יחסי."
+            },
+            {
+              "name": "השוו לשעה הנוכחית",
+              "text": "ללא המרת epoch ידנית. expired = warning."
+            },
+            {
+              "name": "אמתו מול policy",
+              "text": "TTL access (15 דק?), iat, nbf — Copy JSON ל-tickets."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "exp-lifecycle",
+            "heading": "למה exp שולט ב-lifecycle",
+            "level": 2,
+            "paragraphs": [
+              "JWT = credential stateless — השרת סומך על exp. ללא kill switch אלא denylist או TTL קצר.",
+              "exp קצר מדי — refresh storms. exp ארוך — zombie sessions."
+            ]
+          },
+          {
+            "id": "understanding-exp-claim",
+            "heading": "הבנת טענת exp",
+            "level": 2,
+            "paragraphs": [
+              "exp = NumericDate — שניות מ-Unix epoch, לא milliseconds.",
+              "iat = issued at; nbf = not before — חסימה עד זמן עתידי.",
+              "JoinMyPDF מציג את שלושתם + exp מודגש."
+            ]
+          },
+          {
+            "id": "human-readable-inspection",
+            "heading": "בדיקת timestamps עם JoinMyPDF JWT Debugger",
+            "level": 2,
+            "paragraphs": [
+              "workflow שמחליף חישובי epoch בפרשנות מיידית."
+            ]
+          },
+          {
+            "id": "paste-and-view",
+            "heading": "הדבקה, Payload, בלוק Expiration",
+            "level": 3,
+            "paragraphs": [
+              "header, payload, signature — אוטומטי.",
+              "exp גולמי ב-JSON + UI יחסי (\"פג לפני 3 שעות\").",
+              "expired מדגיש panel + warning."
+            ]
+          },
+          {
+            "id": "instant-interpretation",
+            "heading": "פרשנות מיידית מול decoders גolמיים",
+            "level": 3,
+            "paragraphs": [
+              "Base64 decoders משאירים 1719830400 — טעויות timezone ו-milliseconds.",
+              "JoinMyPDF — getExpirationInfo, seconds×1000 נכון."
+            ]
+          },
+          {
+            "id": "manual-inspection-fails",
+            "heading": "למה בדיקה ידנית נכשלת",
+            "level": 2,
+            "paragraphs": [
+              "milliseconds vs seconds — הבאג הנפוץ ב-JWT expiration."
+            ]
+          },
+          {
+            "id": "milliseconds-vs-seconds",
+            "heading": "Milliseconds מול Seconds",
+            "level": 3,
+            "paragraphs": [
+              "Date.now() = ms; exp = seconds. 13 ספרות = חשד ל-ms.",
+              "JoinMyPDF מציג תאריך — TTL absurd בולט."
+            ]
+          },
+          {
+            "id": "ttl-context",
+            "heading": "הקשר TTL",
+            "level": 3,
+            "paragraphs": [
+              "\"expires in 47 seconds\" — race על exp.",
+              "access קצר vs refresh ארוך — השוואה מיידית."
+            ]
+          },
+          {
+            "id": "local-safety",
+            "heading": "בדיקה בטוחה בכל סביבה",
+            "level": 3,
+            "paragraphs": [
+              "production tokens — jwt-security-risks-local-processing.",
+              "Redact ב-tickets — TTL text במקום JWT מלא."
+            ]
+          },
+          {
+            "id": "temporal-claims-table",
+            "heading": "Temporal claims",
+            "level": 2,
+            "table": {
+              "headers": [
+                "Claim",
+                "תפקיד",
+                "Debugger"
+              ],
+              "rows": [
+                [
+                  "exp",
+                  "לא בתוקף אחרי",
+                  "תאריך + TTL + warning"
+                ],
+                [
+                  "nbf",
+                  "לא לפני",
+                  "JSON"
+                ],
+                [
+                  "iat",
+                  "הונפק",
+                  "JSON — lifetime"
+                ],
+                [
+                  "ללא exp",
+                  "ללא expiry",
+                  "expirationNone"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "expiration-best-practices",
+            "heading": "Best practices לתוקף JWT",
+            "level": 2,
+            "paragraphs": [
+              "TTL מכוון — לא defaults של frameworks בלבד."
+            ]
+          },
+          {
+            "id": "short-lived-access",
+            "heading": "Access tokens קצרי-טווח",
+            "level": 3,
+            "paragraphs": [
+              "5–15 דק access + refresh ארוך ב-httpOnly.",
+              "Login → JoinMyPDF: access ~15m, refresh ~7d."
+            ]
+          },
+          {
+            "id": "clock-skew",
+            "heading": "Clock skew ו-Leeway",
+            "level": 3,
+            "paragraphs": [
+              "leeway 30–60 שניות על exp/nbf.",
+              "expired ב-12 שניות + API מקבל = skew — בדקו NTP."
+            ]
+          },
+          {
+            "id": "regular-inspection",
+            "heading": "בדיקה קבועה בפיתוח",
+            "level": 3,
+            "paragraphs": [
+              "PR checklist — paste token, confirm exp.",
+              "אחרי deploy auth — staging token מיד."
+            ]
+          },
+          {
+            "id": "zombie-sessions",
+            "heading": "הימנעות מסשני זומבי",
+            "level": 3,
+            "paragraphs": [
+              "access ארוך — stolen token שורד password reset.",
+              "logout = invalidate refresh server-side."
+            ]
+          },
+          {
+            "id": "joinmypdf-exp-features",
+            "heading": "תכונות Expiration ב-JoinMyPDF",
+            "level": 2,
+            "paragraphs": [
+              "warnings, relative, absolute, highlight expired.",
+              "offline אחרי load — בלי upload."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "הקשר בסדרה",
+            "level": 2,
+            "paragraphs": [
+              "מאמרים 1–3: anatomy, triage, local mandate.",
+              "מאמר 4 (זה): exp, nbf, iat.",
+              "מאמר 5 (jwt-in-modern-api-development) סוגר את הסדרה — שילוב inspection מקומי ב-workflow מודרני."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: שליטה ב-lifecycle",
+            "level": 2,
+            "paragraphs": [
+              "ניהול תפוגה = איזון אבטחה ו-UX.",
+              "JoinMyPDF — inspect, validate, TTL ברור.",
+              "Paste, read exp, confirm — expire by design."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "איך לבדוק JWT expiration?",
+            "a": "JoinMyPDF JWT Debugger — exp + תאריך קריא + warning."
+          },
+          {
+            "q": "exp בשניות או milliseconds?",
+            "a": "שניות (RFC 7519). 13 ספרות = חשד ל-ms."
+          },
+          {
+            "q": "expired אבל אמור valid?",
+            "a": "clock skew, nbf, timezone, token truncated."
+          },
+          {
+            "q": "כמה זמן access token?",
+            "a": "5–15 דק נפוץ. אמתו ב-JoinMyPDF אחרי login."
+          },
+          {
+            "q": "production exp safely?",
+            "a": "JoinMyPDF local — jwt-security-risks-local-processing."
+          },
+          {
+            "q": "מה זה JWT TTL?",
+            "a": "זמן שנותר עד exp — relative ב-JoinMyPDF."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/jwt-debugger/",
+            "anchor": "JWT Debugger"
+          },
+          {
+            "href": "/blog/debug-jwt-tokens-quickly/",
+            "anchor": "debug JWT"
+          },
+          {
+            "href": "/blog/jwt-security-risks-local-processing/",
+            "anchor": "JWT security local"
+          },
+          {
+            "href": "/blog/understanding-jwt-guide/",
+            "anchor": "מדריך JWT"
+          },
+          {
+            "href": "/tools/json-formatter/",
+            "anchor": "JSON Formatter"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "jwt-in-modern-api-development",
+      "title": "JWT בפיתוח API מודרני: ייעול זרימת העבודה של האימות שלכם",
+      "keyword": "jwt in api development streamline auth workflow",
+      "category": "Developer Tools",
+      "cluster": "jwt-debugger",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-11-21",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.97,
+      "relatedTools": [
+        "jwt-debugger",
+        "json-formatter",
+        "user-agent-parser"
+      ],
+      "relatedBlogs": [
+        "understanding-jwt-guide",
+        "debug-jwt-tokens-quickly",
+        "jwt-security-risks-local-processing",
+        "managing-jwt-expiration",
+        "client-side-vs-server-side-parsing",
+        "pdf-local-processing-benefits",
+        "what-is-user-agent"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור JWT API workflow · נוב 2026"
+      },
+      "seo": {
+        "metaTitle": "JWT בפיתוח API: ייעול Authentication Workflow (2026)",
+        "metaDescription": "שלבו JWT debugging ב-microservices. JoinMyPDF JWT Debugger — claim validation מקומי, JSON, zero upload.",
+        "keywords": "jwt in api development, streamline authentication workflow, jwt api testing עברית"
+      },
+      "description": "איך לשלב JoinMyPDF JWT Debugger בפיתוח API מודרני — validation, integration testing, local-first auth.",
+      "contentBlocks": {
+        "intro": "Microservices הפכו stateless token auth לברירת מחדל. JWT נושא identity על פני gateways ו-services. JoinMyPDF JWT Debugger — לא רק ל-401, אלא ל-integration testing ו-prototyping. מאמר 5 סוגר את הסדרה: anatomy, triage, privacy, expiration — capstone ל-workflow מודרני.",
+        "editorialNote": "JoinMyPDF JWT Debugger פועל בדפדפן. integration testing לא מעלה JWT לשרתים.",
+        "primaryTool": "jwt-debugger",
+        "primaryToolCtaLabel": "JWT testing — חינם, מקומי, מיידי",
+        "bottomCtaLabel": "פתחו JWT Debugger ל-API auth workflow",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לייעל JWT auth testing בפיתוח API",
+          "description": "שילוב JoinMyPDF JWT Debugger ב-microservices.",
+          "steps": [
+            {
+              "name": "capture test token",
+              "text": "מ-auth service, Postman או CI אחרי deploy."
+            },
+            {
+              "name": "Paste ב-JoinMyPDF",
+              "text": "decode מקומי — JSON מיידי, בלי scripts או cloud."
+            },
+            {
+              "name": "Validate claims",
+              "text": "role, user_id, tenant_id, scopes, exp מול OpenAPI."
+            },
+            {
+              "name": "Copy JSON ו-iterate",
+              "text": "diff גרסאות — swap tokens ל-scenario testing."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "stateless-shift",
+            "heading": "המעבר ל-Stateless API Auth",
+            "level": 2,
+            "paragraphs": [
+              "JWTs על microservices — ללא session DB מרכזי.",
+              "Gateways מעבירים Authorization — כל service מאמת claims.",
+              "Local inspection סוגר loop בין auth output ל-consumer expectations."
+            ]
+          },
+          {
+            "id": "dev-lifecycle",
+            "heading": "שילוב JWT ב-lifecycle",
+            "level": 2,
+            "paragraphs": [
+              "Tokens בכל login, refresh, rotation — broken logic אם claims invisible.",
+              "JoinMyPDF ליד Postman ו-OpenAPI — paste, read, code.",
+              "Local-first כמו pdf-local-processing-benefits."
+            ]
+          },
+          {
+            "id": "debugger-speeds-dev",
+            "heading": "איך JoinMyPDF מאיץ פיתוח",
+            "level": 2,
+            "paragraphs": [
+              "claim verification, schema alignment, scenario iteration."
+            ]
+          },
+          {
+            "id": "quick-validation",
+            "heading": "אימות מהיר",
+            "level": 3,
+            "paragraphs": [
+              "endpoint דורש admin? paste token — confirm role.",
+              "warnings: expired, alg:none — לפני downstream."
+            ]
+          },
+          {
+            "id": "standardized-json",
+            "heading": "JSON סטנדרטי",
+            "level": 3,
+            "paragraphs": [
+              "Copy JSON ל-OpenAPI, Slack, mobile team.",
+              "diff לפני/אחרי auth deploy — JSON Formatter."
+            ]
+          },
+          {
+            "id": "seamless-iteration",
+            "heading": "איטרציות חלקות",
+            "level": 3,
+            "paragraphs": [
+              "swap tokens: user, admin, expired, wrong aud — milliseconds.",
+              "RBAC matrix — 5 roles, 5 local pastes."
+            ]
+          },
+          {
+            "id": "security-automation",
+            "heading": "אוטומציה ממוקדת אבטחה",
+            "level": 2,
+            "paragraphs": [
+              "Cloud decoders ב-CI = חשיפת service identities.",
+              "JoinMyPDF — speed + zero upload — jwt-security-risks-local-processing."
+            ]
+          },
+          {
+            "id": "microservices-patterns",
+            "heading": "JWT patterns ב-microservices",
+            "level": 2,
+            "paragraphs": [
+              "Gateway pass-through, BFF tokens, service accounts, multi-tenant."
+            ]
+          },
+          {
+            "id": "gateway-to-service",
+            "heading": "Gateway ל-Service",
+            "level": 3,
+            "paragraphs": [
+              "paste at gateway exit ו-service entry — claims match.",
+              "BFF JWT vs IdP token — trace mapping bugs."
+            ]
+          },
+          {
+            "id": "service-accounts",
+            "heading": "Service accounts",
+            "level": 3,
+            "paragraphs": [
+              "client_id, scope, exp — machine tokens."
+            ]
+          },
+          {
+            "id": "multi-tenant-claims",
+            "heading": "Multi-tenant",
+            "level": 3,
+            "paragraphs": [
+              "tenant_id שגוי = cross-tenant leak — debugger verify.",
+              "aud per microservice — 403 triage."
+            ]
+          },
+          {
+            "id": "api-best-practices",
+            "heading": "Best practices ל-API auth",
+            "level": 2,
+            "paragraphs": [
+              "habits ל-teams — fast ו-secure."
+            ]
+          },
+          {
+            "id": "centralize-validation",
+            "heading": "ריכוז validation",
+            "level": 3,
+            "paragraphs": [
+              "shared auth library — debugger על token מכל service."
+            ]
+          },
+          {
+            "id": "log-minimally",
+            "heading": "log מינימלי",
+            "level": 3,
+            "paragraphs": [
+              "לא full tokens ב-production — JoinMyPDF ל-one-off inspection."
+            ]
+          },
+          {
+            "id": "schema-testing",
+            "heading": "schema testing",
+            "level": 3,
+            "paragraphs": [
+              "OpenAPI + JSON Schema = debugger samples.",
+              "QA checklist — paste לפני sign-off."
+            ]
+          },
+          {
+            "id": "workflow-table",
+            "heading": "Workflow cheat sheet",
+            "level": 2,
+            "table": {
+              "headers": [
+                "משימה",
+                "בלי debugger",
+                "JoinMyPDF"
+              ],
+              "rows": [
+                [
+                  "verify role",
+                  "throwaway script",
+                  "paste + JSON"
+                ],
+                [
+                  "staging vs prod",
+                  "cloud upload",
+                  "local diff"
+                ],
+                [
+                  "check exp",
+                  "epoch math",
+                  "expiration block"
+                ],
+                [
+                  "prod 401",
+                  "log dive",
+                  "local paste"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "joinmypdf-daily-routine",
+            "heading": "JoinMyPDF בשגרה",
+            "level": 2,
+            "paragraphs": [
+              "Bookmark ליד API docs. onboarding pin.",
+              "Block cloud decode domains — JoinMyPDF approved."
+            ]
+          },
+          {
+            "id": "series-capstone",
+            "heading": "Capstone: toolkit מלא",
+            "level": 2,
+            "paragraphs": [
+              "1: anatomy. 2: 401. 3: privacy. 4: expiration. 5: workflow integration."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: build better, faster",
+            "level": 2,
+            "paragraphs": [
+              "API security complexity לא מאט delivery.",
+              "JoinMyPDF — clarity, local, ship secure APIs."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "test claims ב-API dev?",
+            "a": "JoinMyPDF local — role, sub, scopes, exp."
+          },
+          {
+            "q": "microservices workflow?",
+            "a": "כן — אחרי auth changes, gateway tracing, RBAC matrix."
+          },
+          {
+            "q": "automate cloud decode?",
+            "a": "לא ל-real tokens. CI + vault; JoinMyPDF ל-manual."
+          },
+          {
+            "q": "align API docs?",
+            "a": "Copy JSON ל-OpenAPI — diff tokens."
+          },
+          {
+            "q": "streamline auth workflow?",
+            "a": "JoinMyPDF — local, instant, Copy JSON."
+          },
+          {
+            "q": "סדרת JWT Debugger?",
+            "a": "5 מאמרים — anatomy עד workflow capstone."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/jwt-debugger/",
+            "anchor": "JWT Debugger"
+          },
+          {
+            "href": "/blog/debug-jwt-tokens-quickly/",
+            "anchor": "debug JWT"
+          },
+          {
+            "href": "/blog/managing-jwt-expiration/",
+            "anchor": "JWT expiration"
+          },
+          {
+            "href": "/blog/jwt-security-risks-local-processing/",
+            "anchor": "JWT security"
+          },
+          {
+            "href": "/blog/understanding-jwt-guide/",
+            "anchor": "מדריך JWT"
+          },
+          {
+            "href": "/tools/json-formatter/",
+            "anchor": "JSON Formatter"
+          }
+        ]
+      }
     }
   ]
 }
