@@ -107,6 +107,8 @@ export type BlogPost = {
     technicalSoftwareSchema?: boolean;
     /** Emits SoftwareApplication schema highlighting lossless local rotation without server re-compression. */
     losslessQualitySchema?: boolean;
+    /** Emits Article schema for format/workflow comparison content (e.g. HEIC vs JPG). */
+    comparisonArticleSchema?: boolean;
   };
 };
 

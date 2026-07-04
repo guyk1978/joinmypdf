@@ -427,3 +427,38 @@ export function losslessQualityAppLd(args: {
     },
   };
 }
+
+/** Format or workflow comparison articles (e.g. HEIC vs JPG). */
+export function comparisonArticleLd(args: {
+  headline: string;
+  description: string;
+  pathname: string;
+  datePublished?: string;
+  about?: string[];
+  locale?: string;
+}) {
+  const subjects =
+    args.about ??
+    (args.locale === "he" ? ["HEIC", "JPEG"] : ["HEIC", "JPEG"]);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: args.headline,
+    description: args.description,
+    url: absoluteUrl(args.pathname),
+    datePublished: args.datePublished,
+    articleSection: args.locale === "he" ? "השוואת פורמטים" : "Format Comparison",
+    genre: args.locale === "he" ? "השוואה" : "Comparison",
+    about: subjects.map((name) => ({ "@type": "Thing", name })),
+    author: {
+      "@type": "Organization",
+      name: getBrandName(args.locale),
+      url: absoluteUrl("/"),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: getBrandName(args.locale),
+      url: absoluteUrl("/"),
+    },
+  };
+}

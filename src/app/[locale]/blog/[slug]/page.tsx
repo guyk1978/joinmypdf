@@ -13,7 +13,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
-import { blogPostingLd, breadcrumbLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, losslessQualityAppLd, privacySecurityAppLd, technicalFormatAppLd } from "@/lib/schema";
+import { blogPostingLd, breadcrumbLd, comparisonArticleLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, losslessQualityAppLd, privacySecurityAppLd, technicalFormatAppLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { resolveBlogOgImagePath } from "@/lib/og-images-blog";
@@ -140,6 +140,7 @@ export default async function BlogPostPage({
   const emitPrivacySecurity = post.contentBlocks?.privacySecuritySchema && primaryToolDef;
   const emitTechnicalFormat = post.contentBlocks?.technicalSoftwareSchema && primaryToolDef;
   const emitLosslessQuality = post.contentBlocks?.losslessQualitySchema && primaryToolDef;
+  const emitComparisonArticle = post.contentBlocks?.comparisonArticleSchema;
 
   return (
     <>
@@ -200,6 +201,17 @@ export default async function BlogPostPage({
             name: translateToolItem(tTools, primaryToolDef.slug, primaryToolDef.title),
             description: primaryToolDef.description,
             toolPath: `/tools/${primaryToolDef.slug}/`,
+            locale,
+          })}
+        />
+      ) : null}
+      {emitComparisonArticle ? (
+        <JsonLd
+          data={comparisonArticleLd({
+            headline: displayTitle,
+            description,
+            pathname,
+            datePublished: post.publishDate,
             locale,
           })}
         />
