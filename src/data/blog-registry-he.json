@@ -6994,6 +6994,7 @@
         "compress-image"
       ],
       "relatedBlogs": [
+        "private-image-compression",
         "privacy-first-conversion",
         "instant-local-conversion",
         "browser-image-processing-privacy",
@@ -11523,6 +11524,1532 @@
           {
             "href": "/blog/format-versatility/",
             "anchor": "crop רב-פורמט"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "private-image-compression",
+      "title": "מדוע כדאי לדחוס תמונות רגישות באופן מקומי ולא להעלותן לשרתי ענן",
+      "keyword": "דחיסת תמונות רגישות מקומית פרטיות",
+      "category": "Security",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-12",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.96,
+      "relatedTools": [
+        "compress-image",
+        "crop-image",
+        "convert-to-png",
+        "resize-image"
+      ],
+      "relatedBlogs": [
+        "browser-vs-server-compression",
+        "shrink-any-format",
+        "mastering-quality-slider",
+        "website-load-speed-compression",
+        "how-to-compress-images-privacy-first",
+        "crop-locally-privacy",
+        "privacy-first-conversion",
+        "why-local-image-processing-is-safer",
+        "local-vs-cloud-conversion"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור דחיסת תמונות מקומית ופרטיות · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "דחיסת תמונות רגישות מקומית: דוחס פרטי בדפדפן (מדריך חינם)",
+        "metaDescription": "למה דוחסי ענן דולפים סריקות ותמונות אישיות. הקטינו קבצים מקומית עם Compress Image של JoinMyPDF — בלי upload, סיכוני EXIF.",
+        "keywords": "דוחס תמונות פרטי, דחיסת תמונות מקומית, דחיסת תמונה מאובטחת, דחיסת תמונה אונליין בלי upload, EXIF דחיסה"
+      },
+      "description": "דחיסת סריקות ותמונות אישיות בלי העלאה לענן. סיכוני דוחסים מקוונים ו-Compress Image מקומי.",
+      "contentBlocks": {
+        "intro": "ב-workflow מודרני צריך קבצים קטנים — אחסון, email, מגבלות פורטלים, מהירות. הפתרון הנפוץ: \"דוחס תמונות מקוון\" + סרגל upload. נוחות = אובדן שליטה. JoinMyPDF Compress Image: 100% פרטיות, עיבוד מקומי, הקבצים לא עוזבים המכשיר. מאמר ראשון בסדרת הדחיסה — יסוד פרטיות לפני מהירות, איכות, פורמטים ו-workflows. שמאי ביטוח, מורים ומוכרים online — דוחסים שבועית; כל upload = החלטה על מי מחזיק בנתונים.",
+        "editorialNote": "Compress Image של JoinMyPDF רץ בדפדפן. workflows סטנדרטיים לא מעלים קבצי תמונה לשרתים.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "נסו Compress Image — חינם, מקומי, פרטי",
+        "bottomCtaLabel": "פתחו דוחס מקומי פרטי",
+        "privacySecuritySchema": true,
+        "howTo": {
+          "name": "איך לדחוס תמונות רגישות מקומית בדפדפן",
+          "description": "workflow פרטיות לדחיסה בלי upload עם Compress Image.",
+          "steps": [
+            {
+              "name": "פתחו Compress Image",
+              "text": "דפדפן מודרני — בלי חשבון."
+            },
+            {
+              "name": "גררו קובץ",
+              "text": "JPG, PNG, WebP, HEIC — מקומי, בלי upload."
+            },
+            {
+              "name": "התאימו איכות",
+              "text": "slider + preview בזיכרון."
+            },
+            {
+              "name": "ייצוא וסגירה",
+              "text": "הורידו, סגרו טאב. אופציונלי: offline."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "why-compress-risky",
+            "heading": "למה דחיסה נראית זניחה — אבל לא",
+            "level": 2,
+            "paragraphs": [
+              "הקטנת MB = housekeeping — אבל המקור המלא עובר לענן.",
+              "סריקת דרכון דחוסה = עדיין PII.",
+              "HR, עורכי דין, מטופלים — דחיסה = upload בסיכון.",
+              "attachments לא עוברים review פרטיות — מרגיש infrastructure.",
+              "GDPR: upload = processing event."
+            ]
+          },
+          {
+            "id": "cloud-compression-risk",
+            "heading": "הסיכון בדחיסה בענן",
+            "level": 2,
+            "paragraphs": [
+              "Select image + progress bar = transmit לשרת.",
+              "חשיפה, EXIF, אימון AI — גם לחיסכון ב-MB.",
+              "Compress Image: RAM, לא farm של ספק.",
+              "מובייל מנרמל שליחת טפסים לספק לא ידוע.",
+              "ספקי ענן שומרים קבצים לניתוח תקלות — כולל דחיסות 'זמניות'."
+            ]
+          },
+          {
+            "id": "third-party-exposure",
+            "heading": "1. חשיפה לצד שלישי",
+            "level": 3,
+            "paragraphs": [
+              "שרת של מישהו אחר — גיבויים, breach, discovery.",
+              "העלאה שלא נשלחת = לא דולפת.",
+              "breach — סריקות דחוסות ב-blast radius."
+            ]
+          },
+          {
+            "id": "metadata-leaks",
+            "heading": "2. דליפות מטא-דאטה",
+            "level": 3,
+            "paragraphs": [
+              "EXIF + GPS — upload = מסירה לצד שלישי.",
+              "מקומי: שליטה בייצוא.",
+              "GPS מבית — upload = דליפת מיקום."
+            ]
+          },
+          {
+            "id": "training-potential",
+            "heading": "3. פוטנציאל אימון AI",
+            "level": 3,
+            "paragraphs": [
+              "terms עם רישיון רחב — ML pipelines.",
+              "מקומי: בלי העברת זכויות.",
+              "קראו terms פעם — העדיפו מקומי."
+            ]
+          },
+          {
+            "id": "local-advantage",
+            "heading": "יתרון עיבוד מקומי",
+            "level": 2,
+            "paragraphs": [
+              "sandbox בדפדפן — RAM ו-CPU מקומיים.",
+              "כמו crop-locally-privacy — לדחיסה.",
+              "Wasm+Canvas — encode יעיל בלי round trip.",
+              "JoinMyPDF Compress Image — preview מיידי, בלי תור שרת."
+            ]
+          },
+          {
+            "id": "zero-transmission",
+            "heading": "אפס העברה",
+            "level": 3,
+            "paragraphs": [
+              "בלי transit — DevTools Network לבדיקה.",
+              "Wi-Fi אורח — בייטים לא על הרשת."
+            ]
+          },
+          {
+            "id": "volatile-memory",
+            "heading": "זיכרון נדיף",
+            "level": 3,
+            "paragraphs": [
+              "סגירת טאב — עותק עבודה נמחק.",
+              "ענן = breach/subpoena שאינם בשליטתכם."
+            ]
+          },
+          {
+            "id": "no-tos-risks",
+            "heading": "בלי סיכוני תנאי שימוש",
+            "level": 3,
+            "paragraphs": [
+              "בלי DB מרוחק — בלי data brokers.",
+              "מדיניות משתנה בשקט — מקומי = תשובה יציבה."
+            ]
+          },
+          {
+            "id": "best-practices",
+            "heading": "שיטות עבודה לפרטיות",
+            "level": 2,
+            "list": [
+              "100% Private / Files stay on device.",
+              "בלי login לדחיסה.",
+              "דפדפן מודרני מספיק.",
+              "החליפו bookmarks של compress online."
+            ],
+            "paragraphs": [
+              "מדיניות צוות: מסמכים רגישים רק בכלים מקומיים."
+            ]
+          },
+          {
+            "id": "check-local",
+            "heading": "חיווי מקומי",
+            "level": 3,
+            "paragraphs": [
+              "upload bar = ענן. Compress Image = preview מיידי.",
+              "CAPTCHA, watermark = ענן."
+            ]
+          },
+          {
+            "id": "avoid-login",
+            "heading": "הימנעו מ-login",
+            "level": 3,
+            "paragraphs": [
+              "חשבון = upload מקושר לזהות.",
+              "login = פרופיל מקושר לקבצים."
+            ]
+          },
+          {
+            "id": "trust-browser",
+            "heading": "בטחו בדפדפן",
+            "level": 3,
+            "paragraphs": [
+              "Compress + Crop מקומית — אפס ענן.",
+              "IT מאשר מקומי קל מ-domains משתנים.",
+              "Compress + Convert to PNG — אותה ארכיטקטורה מקומית."
+            ]
+          },
+          {
+            "id": "who-needs-this",
+            "heading": "מי צריך לדחוס מקומית",
+            "level": 2,
+            "list": [
+              "פרילנסרים: קבלות לפורטל.",
+              "מטופלים: תוצאות מעבדה.",
+              "עורכי דין: exhibits.",
+              "remote: whiteboard ל-Slack.",
+              "עיתונאים: מקורות."
+            ],
+            "paragraphs": [
+              "נדל\"ן: דחיסה לפני MLS בלי farm."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "מאמר ראשון בסדרת הדחיסה",
+            "level": 2,
+            "paragraphs": [
+              "כמו crop ו-rotate — פרטיות קודם.",
+              "Compress Image — מאובטח כברירת מחדל.",
+              "מאמרים הבאים: מהירות, איכות, פורמטים."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: פרטיות אינה אופציונלית",
+            "level": 2,
+            "paragraphs": [
+              "דחיסה ≠ ויתור פרטיות.",
+              "Compress Image מקומי — דחסו בביטחון.",
+              "החליפו default — מאות uploads שנמנעות בשנה.",
+              "90% quality slider מקומי > דחיסה סמוית בענן."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "דוחסים חינמיים בטוחים?",
+            "a": "upload = אחסון מרוחק. מקומי = בלי חשיפה."
+          },
+          {
+            "q": "JoinMyPDF מעלה בדחיסה?",
+            "a": "workflows סטנדרטיים — מקומי."
+          },
+          {
+            "q": "דחיסה offline?",
+            "a": "כן — אחרי load."
+          },
+          {
+            "q": "EXIF?",
+            "a": "ענן = EXIF מלא; מקומי = שליטה."
+          },
+          {
+            "q": "למה לא בטלפון?",
+            "a": "desktop + שליטה באיכות בלי cloud sync."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "Compress Image — מקומי ופרטי"
+          },
+          {
+            "href": "/blog/how-to-compress-images-privacy-first/",
+            "anchor": "מדריך דחיסה privacy-first"
+          },
+          {
+            "href": "/blog/crop-locally-privacy/",
+            "anchor": "חיתוך פרטי"
+          },
+          {
+            "href": "/blog/privacy-first-conversion/",
+            "anchor": "המרה privacy-first"
+          },
+          {
+            "href": "/privacy-first/",
+            "anchor": "גישת privacy-first"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "website-load-speed-compression",
+      "title": "ההשפעה של דחיסת תמונות על מהירות הטעינה של אתרים: גישת \"מקומי תחילה\"",
+      "keyword": "דחיסת תמונות מהירות אתר core web vitals",
+      "category": "Conversion",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-13",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.95,
+      "relatedTools": [
+        "compress-image",
+        "convert-to-png",
+        "resize-image",
+        "crop-image"
+      ],
+      "relatedBlogs": [
+        "browser-vs-server-compression",
+        "shrink-any-format",
+        "mastering-quality-slider",
+        "private-image-compression",
+        "how-to-compress-images-privacy-first",
+        "lossy-vs-lossless-image-compression",
+        "instant-local-conversion",
+        "local-vs-cloud-conversion"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור דחיסה מקומית וביצועי web · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "דחיסת תמונות לאתר מהיר: מדריך Local-First ל-LCP",
+        "metaDescription": "שפרו LCP ו-Core Web Vitals עם דחיסה מקומית. Compress Image של JoinMyPDF — בלי latency, WebP/JPG בדפדפן.",
+        "keywords": "דחיסת תמונות מהירות, אופטימיזציה מהירות אתר, דחיסת תמונות web מקומית, core web vitals תמונות, LCP אופטימיזציה"
+      },
+      "description": "איך משקל תמונות פוגע ב-LCP ולמה דחיסה מקומית מנצחת round-trip לענן.",
+      "contentBlocks": {
+        "intro": "בעידן Core Web Vitals ו-mobile-first, מהירות אתר = דרישה עסקית. גוגל מעדיף דפים מהירים; משתמשים עוזבים איטיים. האשם? תמונות כבדות. ה\"איך\" חשוב כמו ה\"מה\" — ענן = latency וסיכון. Compress Image של JoinMyPDF: Local-First, בלי upload. מאמר שני בסדרת הדחיסה — אחרי private-image-compression, ביצועי web ו-load times. מנועי חיפוש מתעדפים דפים מהירים; משתמשים חסרי סבלנות. עיכוב שנייה אחת = ירידה בהמרות.",
+        "editorialNote": "Compress Image מעבד בדפדפן. workflows סטנדרטיים לא מעלים קבצים.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "דחסו למהירות web — חינם, מקומי, מיידי",
+        "bottomCtaLabel": "פתחו דוחס ביצועים",
+        "howTo": {
+          "name": "איך לדחוס תמונות לטעינה מהירה מקומית",
+          "description": "אופטימיזציה בלי upload עם Compress Image.",
+          "steps": [
+            {
+              "name": "טענו Compress Image",
+              "text": "פעם אחת — בלי הרשמה."
+            },
+            {
+              "name": "גררו heroes ותוכן",
+              "text": "JPG, PNG, WebP — slider + preview."
+            },
+            {
+              "name": "כוונו ל-LCP",
+              "text": "גודל מינימלי שנראה חד — WebP/JPG."
+            },
+            {
+              "name": "פרסמו נכסים",
+              "text": "החליפו ב-CDN/CMS. batch באותו טאב."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "speed-business",
+            "heading": "למה מהירות = עסק",
+            "level": 2,
+            "paragraphs": [
+              "Core Web Vitals = נראות בחיפוש.",
+              "bounce גבוה = כסף שרוף על marketing.",
+              "דחיסה מקומית — בלי farm בין כל tweak.",
+              "אתרים עם photography עשיר — bytes חייבים להתאים ל-bandwidth."
+            ]
+          },
+          {
+            "id": "image-weight",
+            "heading": "מדוע גודל תמונות שובר load time",
+            "level": 2,
+            "paragraphs": [
+              "תמונות = רוב byte weight.",
+              "hero 5MB — delay לפני render."
+            ]
+          },
+          {
+            "id": "lcp-impact",
+            "heading": "LCP (Largest Contentful Paint)",
+            "level": 3,
+            "paragraphs": [
+              "hero = LCP element לרוב.",
+              "דחיסה לפני deploy — lever מהיר.",
+              "יעד ~200KB ל-hero טיפוסי.",
+              "PageSpeed מציג URL ו-transfer size של LCP — דחסו אותו קודם."
+            ]
+          },
+          {
+            "id": "data-consumption",
+            "heading": "צריכת נתונים",
+            "level": 3,
+            "paragraphs": [
+              "מובייל עם חבילה מוגבלת — תמונות כבדות = כאב כפול.",
+              "WebP/JPG מכוונים — פחות bytes."
+            ]
+          },
+          {
+            "id": "poor-ux",
+            "heading": "UX ו-bounce",
+            "level": 3,
+            "paragraphs": [
+              "מסך ריק — משתמשים עוזבים.",
+              "נכסים דחוסים — paint מהיר."
+            ]
+          },
+          {
+            "id": "cloud-dilemma",
+            "heading": "דילמת דחיסה בענן",
+            "level": 2,
+            "list": [
+              "Latency — upload/download.",
+              "פרטיות — נכסים בשרת זר.",
+              "round-trip > encode מקומי."
+            ]
+          },
+          {
+            "id": "upload-latency",
+            "heading": "עומס upload/download",
+            "level": 3,
+            "paragraphs": [
+              "uplink א-symmetric — 10 heroes 4MB = זמן.",
+              "מקומי = CPU, לא Mbps."
+            ]
+          },
+          {
+            "id": "local-first-solution",
+            "heading": "פתרון \"מקומי תחילה\"",
+            "level": 2,
+            "paragraphs": [
+              "Compress Image — בלי round-trip.",
+              "כמו instant-cropping-speed — לbytes.",
+              "WebAssembly + canvas — מהירות כמו desktop בלי התקנה."
+            ]
+          },
+          {
+            "id": "instant-optimization",
+            "heading": "אופטימיזציה מיידית",
+            "level": 3,
+            "paragraphs": [
+              "heroes — slider, WebP/JPG במילישניות.",
+              "איטרציה בזמן אמת."
+            ]
+          },
+          {
+            "id": "no-network-overhead",
+            "heading": "אין עומס רשת",
+            "level": 3,
+            "paragraphs": [
+              "מאות תמונות = זמן upload של אחת בענן."
+            ]
+          },
+          {
+            "id": "quality-control",
+            "heading": "בקרת איכות",
+            "level": 3,
+            "paragraphs": [
+              "לא 75% default של ספק.",
+              "Resize Image לspecs מדויקים."
+            ]
+          },
+          {
+            "id": "best-practices",
+            "heading": "שיטות עבודה לאתר מהיר",
+            "level": 2,
+            "list": [
+              "batch מקומי בסשן אחד.",
+              "WebP כשאפשר; JPG fallback.",
+              "slider מכוון — לא blind compress.",
+              "derivatives ל-CMS; masters נפרד."
+            ]
+          },
+          {
+            "id": "batch-local",
+            "heading": "Batch מקומי",
+            "level": 3,
+            "paragraphs": [
+              "heroes, blog, products — טאb אחד."
+            ]
+          },
+          {
+            "id": "right-format",
+            "heading": "פורמט נכון",
+            "level": 3,
+            "paragraphs": [
+              "WebP < JPG; PNG לשקיפות."
+            ]
+          },
+          {
+            "id": "quality-slider",
+            "heading": "סליידר איכות",
+            "level": 3,
+            "paragraphs": [
+              "retina — artifacts = יותר מדי דחיסה."
+            ]
+          },
+          {
+            "id": "cwv-checklist",
+            "heading": "צ'קליסט Core Web Vitals",
+            "level": 2,
+            "paragraphs": [
+              "לפני launch: משקל LCP element.",
+              "אחרי deploy: PageSpeed Insights."
+            ]
+          },
+          {
+            "id": "mobile-first",
+            "heading": "Mobile-First Indexing וביצועי חיפוש",
+            "level": 2,
+            "paragraphs": [
+              "גוגל מאנדקס קודם את גרסת המובייל. heroes בגודל desktop על מובייל = עונש בדירוג וב-UX.",
+              "דחיסה ל-viewports מובייל לפני srcset — budget bytes סביר לכל breakpoint.",
+              "צוותי SEO בודקים JS/CSS ומתעלמים מתמונות — תיקון תמונות = הכי הרבה CWV לשעה."
+            ]
+          },
+          {
+            "id": "cdn-limits",
+            "heading": "למה CDN לא מתקן מקור לא מותאם",
+            "level": 2,
+            "paragraphs": [
+              "CDN מאיץ משלוח — לא מקטין PNG של 6MB. APIs ב-edge = עלות ו-lock-in.",
+              "דחיסה מקומית לפני S3/R2/WordPress — bytes מותאמים ב-cache.",
+              "PageSpeed משתפר בלי שינוי הגדרות CDN."
+            ]
+          },
+          {
+            "id": "ecommerce-scenario",
+            "heading": "תרחיש: grid מוצרים באיקומרס",
+            "level": 2,
+            "paragraphs": [
+              "20 thumbnails × 800KB = 16MB לפני HTML.",
+              "batch דחיסה 70–80%, WebP — LCP משניות ל-<2.5s.",
+              "marketing מעדכן heroes בלי ticket ל-IT."
+            ]
+          },
+          {
+            "id": "workflow-comparison",
+            "heading": "Local vs Cloud — workflow",
+            "level": 2,
+            "list": [
+              "ענן: upload 50×, המתנה, download 50× — 30–60+ דקות.",
+              "מקומי: folder + slider + export — דקות.",
+              "מקומי מנצח במהירות, פרטיות, חזרתיות."
+            ]
+          },
+          {
+            "id": "responsive-images",
+            "heading": "דחיסה + markup רספונסיבי",
+            "level": 2,
+            "paragraphs": [
+              "דחיסה = פחות bytes; srcset = גודל נכון למכשיר. שניהם.",
+              "srcset לא עוזר אם כל variant = original מהמצלמה.",
+              "Resize Image + Compress Image ל-specs מדויקים."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "מאמר שני בסדרת הדחיסה",
+            "level": 2,
+            "paragraphs": [
+              "private-image-compression = אבטחה. כאן = ביצועים."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: מהירות בלי פשרות",
+            "level": 2,
+            "paragraphs": [
+              "ביצועים + פרטיות — יד ביד.",
+              "Compress Image — התחילו היום.",
+              "שלבו עם מאמר 1 לפרטיות — אסטרטגיית דחיסה מקומית מלאה."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "דחיסה משפרת load time?",
+            "a": "כן — פחות bytes, LCP טוב יותר."
+          },
+          {
+            "q": "מקומי מהיר מענן?",
+            "a": "כן — בלי upload/download."
+          },
+          {
+            "q": "איכות ל-hero?",
+            "a": "75–85% + slider."
+          },
+          {
+            "q": "WebP?",
+            "a": "לרוב קטן מ-JPG — export מקומי."
+          },
+          {
+            "q": "אפשר לדחוס ל-Core Web Vitals בלי upload?",
+            "a": "כן — Compress Image בדפדפן, קבצים נשארים במכשיר."
+          },
+          {
+            "q": "כמה דחיסה מקצרת LCP?",
+            "a": "hero מ-3MB ל-150KB — לעיתים 1–3 שניות במובייל."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "Compress Image — מהיר ומקומי"
+          },
+          {
+            "href": "/blog/private-image-compression/",
+            "anchor": "דחיסה פרטית"
+          },
+          {
+            "href": "/blog/lossy-vs-lossless-image-compression/",
+            "anchor": "lossy vs lossless"
+          },
+          {
+            "href": "/tools/resize-image/",
+            "anchor": "Resize"
+          },
+          {
+            "href": "/blog/instant-local-conversion/",
+            "anchor": "המרה מקומית"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "mastering-quality-slider",
+      "title": "שליטה בסליידר האיכות: איך להקטין את גודל הקובץ בלי לאבד פרטים ויזואליים",
+      "keyword": "סליידר איכות דחיסת תמונות הקטנת קובץ בלי איבוד איכות",
+      "category": "Conversion",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-14",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.94,
+      "relatedTools": [
+        "compress-image",
+        "convert-to-png",
+        "resize-image",
+        "crop-image"
+      ],
+      "relatedBlogs": [
+        "browser-vs-server-compression",
+        "shrink-any-format",
+        "website-load-speed-compression",
+        "private-image-compression",
+        "lossy-vs-lossless-image-compression",
+        "lossless-rotation-quality",
+        "how-to-compress-images-privacy-first"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור סליידר איכות ושמירת fidelity · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "סליידר איכות לדחיסת תמונות: הקטנה בלי איבוד פרטים",
+        "metaDescription": "מצאו את הנקודה המתוקה בין גודל קובץ לאיכות. Compress Image — slider חי, preview בזמן אמת, בלי upload חוזר.",
+        "keywords": "סליידר איכות דחיסת תמונות, הקטנת קובץ בלי איבוד איכות, הגדרות איכות דחיסה, webp quality slider, sweet spot דחיסה"
+      },
+      "description": "איך להשתמש בסליידר האיכות לנקודה המתוקה — שליטה מקומית בזמן אמת.",
+      "contentBlocks": {
+        "intro": "סליידר האיכות (Quality Slider) הוא אחד הכלים העוצמתיים בדחיסת תמונות — שליטה ישירה על כמה דחיסה להחיל. רבים מתקשים למצוא את הנקודה המתוקה: גודל קובץ קטן משמעותית, איכות ללא הבדל מהמקור. עם Compress Image של JoinMyPDF — התנסות בזמן אמת בלי upload חוזר. מאמר שלישי בסדרה: אחרי private-image-compression (פרטיות) ו-website-load-speed-compression (מהירות), כיוון fine-tuning של איכות. Shopify, WordPress, או static — slider = נתיב מהיר מbloated ל-crisp.",
+        "editorialNote": "Compress Image מעבד בדפדפן. workflows סטנדרטיים לא מעלים קבצים.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "כוונו איכות מקומית — slider חי, חינם",
+        "bottomCtaLabel": "פתחו דוחס איכות",
+        "losslessQualitySchema": true,
+        "howTo": {
+          "name": "איך למצוא sweet spot עם סליידר איכות",
+          "description": "הקטנת קובץ בלי איבוד איכות נראה לעין — Compress Image מקומי.",
+          "steps": [
+            {
+              "name": "טענו master",
+              "text": "גררו מקור באיכות מקסימלית — לא עותק שעבר ענן."
+            },
+            {
+              "name": "התחילו ב-80%",
+              "text": "slider ל-80%, בדקו גודל ו-preview."
+            },
+            {
+              "name": "Zoom 200%",
+              "text": "בדקו עור, טקסט, gradients — artifacts = יותר מדי."
+            },
+            {
+              "name": "ייצוא עותק",
+              "text": "WebP/JPG ל-web; master נשאר בנפרד."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "slider-power",
+            "heading": "למה הסליידר משנה הכל",
+            "level": 2,
+            "paragraphs": [
+              "דחיסה לא בינארית — 75% מענן מושלם לנוף, גרוע לפורטרט.",
+              "slider = intent → אלגוריתם.",
+              "מקומי = feedback מיידי."
+            ]
+          },
+          {
+            "id": "sweet-spot",
+            "heading": "הבנת ה\"נקודה המתוקה\"",
+            "level": 2,
+            "paragraphs": [
+              "JPG/WebP/HEIC מסירים נתונים שהעין פחות תופסת.",
+              "מטרה: equivalence תפיסתי במרחק צפייה רגיל."
+            ]
+          },
+          {
+            "id": "high-quality",
+            "heading": "איכות גבוהה (90–100%)",
+            "level": 3,
+            "paragraphs": [
+              "איבוד מינימלי, קובץ גדול — גalerias, הדפסה.",
+              "בזהירות ב-web — אולי צריך Resize."
+            ]
+          },
+          {
+            "id": "balanced",
+            "heading": "מאוזן (70–85%): הנקודה המתוקה",
+            "level": 3,
+            "paragraphs": [
+              "רוב המשתמשים לא רואים הבדל — 50–80% פחות bytes.",
+              "התחילו 80%, רדו ב-5% עד artifacts."
+            ]
+          },
+          {
+            "id": "high-compression",
+            "heading": "דחיסה גבוהה (40–60%)",
+            "level": 3,
+            "paragraphs": [
+              "artifacts — thumbnails, רקעים.",
+              "לא ללוגואים, screenshots, רפואי/משפטי."
+            ]
+          },
+          {
+            "id": "real-time-control",
+            "heading": "למה שליטה בזמן אמת קריטית",
+            "level": 2,
+            "paragraphs": [
+              "ענן = one-size-fits-all — פורטרט ל-75% = עור עכור.",
+              "Compress Image — השוואה חיה, בלי upload."
+            ]
+          },
+          {
+            "id": "adjust-on-fly",
+            "heading": "כיוונון תוך כדי תנועה",
+            "level": 3,
+            "paragraphs": [
+              "slider → גודל קובץ מיידי.",
+              "איטרציה חינם — בלי quota."
+            ]
+          },
+          {
+            "id": "visual-feedback",
+            "heading": "משוב ויזואלי",
+            "level": 3,
+            "paragraphs": [
+              "zoom לפרטים, טקסט, קצוות.",
+              "screenshots — edges קודם."
+            ]
+          },
+          {
+            "id": "no-retries",
+            "heading": "ללא ניסיונות חוזרים",
+            "level": 3,
+            "paragraphs": [
+              "10 tweaks — בלי עלות שרת.",
+              "קמפיינים — private-image-compression."
+            ]
+          },
+          {
+            "id": "pro-tips",
+            "heading": "טיפים לשמירה על איכות",
+            "level": 2,
+            "list": [
+              "כלל 80% ל-web.",
+              "zoom 200% לבדיקה.",
+              "master נשאר; עותקים לייצוא.",
+              "presets לפי סוג נכס."
+            ]
+          },
+          {
+            "id": "eighty-rule",
+            "heading": "כלל ה-80%",
+            "level": 3,
+            "paragraphs": [
+              "80% = הפחתה מאסיבית, אפס איבוד נראה.",
+              "עדיין גדול? 75%, לא 60%."
+            ]
+          },
+          {
+            "id": "zoom-200",
+            "heading": "Zoom ל-200%",
+            "level": 3,
+            "paragraphs": [
+              "retina חושף blocking.",
+              "gradients ו-edges — עדיפות."
+            ]
+          },
+          {
+            "id": "keep-original",
+            "heading": "שמרו מקור לגיבוי",
+            "level": 3,
+            "paragraphs": [
+              "master לא דחוס — derivatives ל-web.",
+              "generational loss — בלתי הפיך."
+            ]
+          },
+          {
+            "id": "format-notes",
+            "heading": "איכות לפי פורמט",
+            "level": 2,
+            "paragraphs": [
+              "JPG: 75–85% לתמונות.",
+              "WebP: אותה איכות, פחות bytes — השוו preview.",
+              "PNG: lossless; WebP lossy לתמונות."
+            ]
+          },
+          {
+            "id": "subject-types",
+            "heading": "כיוון לפי סוג תוכן",
+            "level": 2,
+            "paragraphs": [
+              "פורטרטים: 75–85%.",
+              "נופים: 70–80%.",
+              "screenshots: 85–90% או PNG.",
+              "thumbnails: 60–70%."
+            ]
+          },
+          {
+            "id": "cloud-vs-local-slider",
+            "heading": "ענן vs מקומי",
+            "level": 2,
+            "paragraphs": [
+              "ענן = throughput שלהם, לא standards שלכם.",
+              "מקומי = LCP + fidelity — website-load-speed-compression + כאן."
+            ]
+          },
+          {
+            "id": "workflow-checklist",
+            "heading": "צ'קליסט workflow לסליידר",
+            "level": 2,
+            "paragraphs": [
+              "לפני batch: master, 80%, zoom 200%, תיעוד איכות, export עם שם ברור.",
+              "תיעוד presets — בלי drift בין contractors.",
+              "שינוי width — בדקו presets מחדש."
+            ]
+          },
+          {
+            "id": "common-mistakes",
+            "heading": "טעויות נפוצות",
+            "level": 2,
+            "list": [
+              "דחיסת download מרשת חברתית במקום original.",
+              "75% WebP ≠ 75% JPG.",
+              "דריסת master.",
+              "דילוג על zoom בטקסט/לוגו."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "מאמר שלישי בסדרת הדחיסה",
+            "level": 2,
+            "paragraphs": [
+              "1=פרטיות, 2=מהירות, 3=slider ביניהם.",
+              "הבאים: multi-format, batch."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: שליטה על הנכסים",
+            "level": 2,
+            "paragraphs": [
+              "לא צריך להתפשר — slider ב-Compress Image.",
+              "מצאו איזון — מקומי ופרטי."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "איזו איכות ל-web?",
+            "a": "80% התחלה; 70–85% לרוב התמונות."
+          },
+          {
+            "q": "דחיסה בלי איבוד?",
+            "a": "slider מקומי + zoom 200% + master נפרד."
+          },
+          {
+            "q": "למה slider מקומי?",
+            "a": "איטרציה מיידית; ענן = presets קבועים."
+          },
+          {
+            "q": "אותה איכות לכל תמונה?",
+            "a": "לא — presets לפי סוג."
+          },
+          {
+            "q": "WebP = JPG באותו מספר?",
+            "a": "לא — השוו bytes ו-preview."
+          },
+          {
+            "q": "preview גודל לפני download?",
+            "a": "כן — גודל מתעדכן עם slider."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "Compress Image — סליידר איכות"
+          },
+          {
+            "href": "/blog/website-load-speed-compression/",
+            "anchor": "מדריך מהירות טעינה"
+          },
+          {
+            "href": "/blog/private-image-compression/",
+            "anchor": "דחיסה פרטית"
+          },
+          {
+            "href": "/blog/lossy-vs-lossless-image-compression/",
+            "anchor": "lossy vs lossless"
+          },
+          {
+            "href": "/tools/resize-image/",
+            "anchor": "Resize לפני דחיסה"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "shrink-any-format",
+      "title": "כיווץ מהיר לכל פורמט: מ-WebP ועד HEIC ללא פגיעה באיכות",
+      "keyword": "דחיסת webp heic פורמטים מקומית בלי איבוד איכות",
+      "category": "Conversion",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-15",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.94,
+      "relatedTools": [
+        "compress-image",
+        "convert-to-png",
+        "resize-image",
+        "crop-image"
+      ],
+      "relatedBlogs": [
+        "browser-vs-server-compression",
+        "mastering-quality-slider",
+        "website-load-speed-compression",
+        "private-image-compression",
+        "format-versatility",
+        "rotate-any-format",
+        "heic-to-png-guide",
+        "webp-to-png-guide",
+        "lossy-vs-lossless-image-compression"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור דחיסה multi-format מקומית · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "דחיסת WebP ו-HEIC מקומית: כיווץ בלי המרה מוקדמת",
+        "metaDescription": "כווצו WebP, HEIC, PNG ו-JPG בלי pre-convert. Compress Image — פורמטים מודרניים בדפדפן, בלי upload.",
+        "keywords": "דוחס HEIC מקומי, דחיסת WebP דפדפן, דחוס heic בלי המרה, כיווץ webp מקומי, דוחס multi format"
+      },
+      "description": "דחיסת WebP, HEIC, PNG מקומית בלי conversion loops.",
+      "contentBlocks": {
+        "intro": "עולם התמונות מגוון: JPEG, WebP, HEIC, PNG, GIF. ענן format-stubborn — המרה ל-JPG לפני דחיסה = זמן + degradation. Compress Image מקומי — כיווץ ישיר. מאמר רביעי: אחרי private-image-compression, website-load-speed-compression, mastering-quality-slider — גמישות פורמט. ecommerce + HEIC מאייפון — tab אחד במקום שרשרת ענן.",
+        "editorialNote": "Compress Image מפענח ודוחס בדפדפן. לא מעלים קבצים.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "כווצו כל פורמט — חינם, מקומי",
+        "bottomCtaLabel": "פתחו דוחס multi-format",
+        "technicalSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לדחוס WebP, HEIC ופורמטים מעורבים מקומית",
+          "description": "כיווץ בלי pre-conversion — Compress Image.",
+          "steps": [
+            {
+              "name": "דפדפן מודרני",
+              "text": "Chrome, Edge, Firefox, Safari."
+            },
+            {
+              "name": "גררו קובץ",
+              "text": "WebP, HEIC, PNG, JPEG, GIF — decode מקומי."
+            },
+            {
+              "name": "slider לפי פורמט",
+              "text": "mastering-quality-slider — preview לכל קובץ."
+            },
+            {
+              "name": "ייצוא",
+              "text": "HEIC→HEIC, WebP→WebP כשאפשר — בלי loops."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "format-diversity",
+            "heading": "למה פורמטים מכפילים כאב",
+            "level": 2,
+            "paragraphs": [
+              "WebP ל-LCP; HEIC מאייפון; PNG לשקיפות.",
+              "ענן = edge case מ-beyond JPG.",
+              "מקומי = tab אחד, תיקייה מעורבת."
+            ]
+          },
+          {
+            "id": "compatibility-gap",
+            "heading": "פער התאימות",
+            "level": 2,
+            "list": [
+              "איבוד איכות: HEIC→JPG = detail lost.",
+              "חיכוך: לא צריך ממיר נפרד.",
+              "פרטיות: יותר אתרים = יותר exposure."
+            ]
+          },
+          {
+            "id": "quality-loss-conversion",
+            "heading": "איבוד איכות מהמרה",
+            "level": 3,
+            "paragraphs": [
+              "כל lossy hop = generational loss.",
+              "מקומי: decode אחד, encode מכוון."
+            ]
+          },
+          {
+            "id": "workflow-friction",
+            "heading": "Tool sprawl",
+            "level": 3,
+            "paragraphs": [
+              "converter→compressor→CMS = 3 כשלים.",
+              "Compress Image = צעד אחד."
+            ]
+          },
+          {
+            "id": "local-universal",
+            "heading": "עיבוד מקומי: שפה אוניברסלית",
+            "level": 2,
+            "paragraphs": [
+              "מנוע render של הדפדפן — WebP, HEIC, PNG, GIF."
+            ]
+          },
+          {
+            "id": "native-decoding",
+            "heading": "פענוח native",
+            "level": 3,
+            "paragraphs": [
+              "עדכוני דפדפן = codec חדש — בלי migration שרת."
+            ]
+          },
+          {
+            "id": "format-integrity",
+            "heading": "שלמות פורמט",
+            "level": 3,
+            "paragraphs": [
+              ".webp→.webp — אותה pipeline.",
+              "CMS מקבל WebP — אל תכפו JPG."
+            ]
+          },
+          {
+            "id": "lossless-precision",
+            "heading": "דיוק ו-slider",
+            "level": 3,
+            "paragraphs": [
+              "שליטה באלגוריתם — presets לפי פורמט."
+            ]
+          },
+          {
+            "id": "format-spotlight-webp",
+            "heading": "WebP",
+            "level": 2,
+            "paragraphs": [
+              "קטן מ-JPG — heroes/products.",
+              "דחיסה מקומית — CDN ישיר."
+            ]
+          },
+          {
+            "id": "format-spotlight-heic",
+            "heading": "HEIC",
+            "level": 2,
+            "paragraphs": [
+              "אייפון — פורטals דוחים לעיתים.",
+              "דחיסה מקומית לפני share."
+            ]
+          },
+          {
+            "id": "format-spotlight-png-gif",
+            "heading": "PNG ו-GIF",
+            "level": 2,
+            "paragraphs": [
+              "שקיפות — לא JPG ענן.",
+              "GIF animation — מקומי."
+            ]
+          },
+          {
+            "id": "mastering-assets",
+            "heading": "נכסים מגוונים",
+            "level": 2,
+            "list": [
+              "WebP ל-web; HEIC ל-Apple.",
+              "בלי conversion loops.",
+              "batch מעורב בביטחון."
+            ]
+          },
+          {
+            "id": "avoid-conversion-loops",
+            "heading": "הימנעו מלולאות המרה",
+            "level": 3,
+            "paragraphs": [
+              "HEIC→JPG→WebP→JPG = artifacts.",
+              "מקור אחד, דחיסה אחת."
+            ]
+          },
+          {
+            "id": "batch-mixed",
+            "heading": "Batch מעורב",
+            "level": 3,
+            "paragraphs": [
+              "תיקייה WebP+HEIC+PNG — session אחד."
+            ]
+          },
+          {
+            "id": "cloud-vs-local-formats",
+            "heading": "ענן vs מקומי",
+            "level": 2,
+            "paragraphs": [
+              "allowlist שרת vs decode של הדפדפן."
+            ]
+          },
+          {
+            "id": "browser-matrix",
+            "heading": "תמיכת דפדפנים",
+            "level": 2,
+            "paragraphs": [
+              "Chrome/Edge — WebP + HEIC רחב.",
+              "Safari — HEIC מאייפון native.",
+              "עדכון דפדפן = codec טוב יותר."
+            ]
+          },
+          {
+            "id": "team-playbook",
+            "heading": "Playbook לצוותים",
+            "level": 2,
+            "paragraphs": [
+              "marketing=WebP, שטח=HEIC, design=PNG — intake אחד.",
+              "תיעוד slider לפי פורמט.",
+              "spot check 200% לפני CMS."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "מאמר רביעי בסדרה",
+            "level": 2,
+            "paragraphs": [
+              "1–3: פרטיות, מהירות, slider. כאן: פורמטים."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: גמישות בלי פשרות",
+            "level": 2,
+            "paragraphs": [
+              "HEIC, WebP, PNG — Compress Image מקומי."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "HEIC בלי JPG?",
+            "a": "כן — decode מקומי בדפדפן נתמך."
+          },
+          {
+            "q": "WebP→WebP?",
+            "a": "כן — slider + download WebP."
+          },
+          {
+            "q": "למה ענן דוחה HEIC?",
+            "a": "codec חסר — דפדפן native."
+          },
+          {
+            "q": "PNG שקיפות?",
+            "a": "export PNG שומר alpha."
+          },
+          {
+            "q": "batch מעורב?",
+            "a": "כן — כל פורמט לפי properties."
+          },
+          {
+            "q": "SoftwareApplication ל-SEO?",
+            "a": "כן — דחיסה multi-format בדפדפן."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "Compress Image — כל פורמט"
+          },
+          {
+            "href": "/blog/mastering-quality-slider/",
+            "anchor": "סליידר איכות"
+          },
+          {
+            "href": "/blog/website-load-speed-compression/",
+            "anchor": "ביצועי web"
+          },
+          {
+            "href": "/blog/heic-to-png-guide/",
+            "anchor": "מדריך HEIC"
+          },
+          {
+            "href": "/blog/webp-to-png-guide/",
+            "anchor": "מדריך WebP"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "browser-vs-server-compression",
+      "title": "דחיסה בדפדפן לעומת דחיסה בשרת: למה כלים מקומיים מנצחים בפרטיות",
+      "keyword": "דחיסת תמונות דפדפן מול שרת פרטיות",
+      "category": "Security",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-16",
+      "readTime": "12 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.96,
+      "relatedTools": [
+        "compress-image",
+        "convert-to-png",
+        "resize-image",
+        "crop-image"
+      ],
+      "relatedBlogs": [
+        "private-image-compression",
+        "website-load-speed-compression",
+        "mastering-quality-slider",
+        "shrink-any-format",
+        "local-vs-cloud-conversion",
+        "how-to-compress-images-privacy-first",
+        "why-local-image-processing-is-safer",
+        "browser-image-processing-privacy"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "מהנדס כלי אינטרנט",
+        "verifiedLabel": "נבדק עבור דחיסה דפדפן vs שרת · יולי 2026"
+      },
+      "seo": {
+        "metaTitle": "דחיסת תמונות: דפדפן מול שרת — למה מקומי מנצח",
+        "metaDescription": "השוואת דחיסה בשרת מול דפדפן. Compress Image — 100% פרטי, בלי latency, בלי אחסון ענן.",
+        "keywords": "דוחס תמונות דפדפן, דחיסה מקומית מול שרת, דחיסה פרטית בלי upload, browser-based compressor"
+      },
+      "description": "השוואה: פרטיות, מהירות, אבטחה, עלות — Compress Image מקומי.",
+      "contentBlocks": {
+        "intro": "האינטרנט = client-server, אבל לדוחסי תמונות המודל מיושן. upload→process→download = חסרונות אבטחה ומהירות. מנועי דפדפן = דחיסה מקומית. Compress Image — בלי פשרה על פרטיות. מאמר חמישי וסיום הסדרה: private-image-compression, website-load-speed-compression, mastering-quality-slider, shrink-any-format — local-first כברירת מחדל. freelancers, agencies — ארכיטקטורה חוזרת בכל קובץ.",
+        "editorialNote": "Compress Image רץ בדפדפן. לא מעלים קבצים.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "דחסו מקומית — חינם, פרטי",
+        "bottomCtaLabel": "פתחו דוחס דפדפן",
+        "privacySecuritySchema": true,
+        "howTo": {
+          "name": "איך לעבור משרת לדחיסה בדפדפן",
+          "description": "החליפו upload compressors ב-Compress Image.",
+          "steps": [
+            {
+              "name": "זיהוי uploads",
+              "text": "דרכונים, לקוחות, creative — לא לענן."
+            },
+            {
+              "name": "פתחו Compress Image",
+              "text": "דפדפן מודרני — בלי חשבון."
+            },
+            {
+              "name": "slider + preview",
+              "text": "CPU שלכם, לא cluster."
+            },
+            {
+              "name": "סגרו טאb",
+              "text": "זיכרון משתחרר — בלי cache שרת."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "architecture-shift",
+            "heading": "למה ארכיטקטורה חשובה",
+            "level": 2,
+            "paragraphs": [
+              "דחיסה = החלטת data-flow.",
+              "GDPR, incidents, heroes על דיסק זר."
+            ]
+          },
+          {
+            "id": "server-side-model",
+            "heading": "מודל Server-Side: מיושן",
+            "level": 2,
+            "paragraphs": [
+              "שליחה לשרת = שליטה אבudה:"
+            ]
+          },
+          {
+            "id": "data-transit",
+            "heading": "פגיעות במעבר",
+            "level": 3,
+            "paragraphs": [
+              "HTTPS ≠ endpoints. מקומי = בלי transit לencode."
+            ]
+          },
+          {
+            "id": "permanent-storage",
+            "heading": "אחסון ו-cache",
+            "level": 3,
+            "paragraphs": [
+              "שעות/ימים/לצמיתות — private-image-compression."
+            ]
+          },
+          {
+            "id": "hidden-costs",
+            "heading": "עלויות נסתרות",
+            "level": 3,
+            "paragraphs": [
+              "חשמל, bandwidth → ads, caps, tracking."
+            ]
+          },
+          {
+            "id": "local-advantage",
+            "heading": "יתרון מקומי",
+            "level": 2,
+            "paragraphs": [
+              "לוגיקה במכשיר — CPU שלכם.",
+              "כמו local-vs-cloud-conversion."
+            ]
+          },
+          {
+            "id": "true-privacy",
+            "heading": "פרטיות 100%",
+            "level": 3,
+            "paragraphs": [
+              "לא עוזב את המחשב — בלתי נראה לרשת."
+            ]
+          },
+          {
+            "id": "speed-no-latency",
+            "heading": "מהירות בלי latency",
+            "level": 3,
+            "paragraphs": [
+              "ענן = uplink; מקומי = CPU.",
+              "website-load-speed-compression."
+            ]
+          },
+          {
+            "id": "cost-efficiency",
+            "heading": "יעילות עלויות",
+            "level": 3,
+            "paragraphs": [
+              "בלי GPU farm — חינם, privacy-first."
+            ]
+          },
+          {
+            "id": "workflow-comparison",
+            "heading": "השוואת workflows",
+            "level": 2,
+            "table": {
+              "headers": [
+                "תכונה",
+                "Server-Side",
+                "דפדפן (מקומי)"
+              ],
+              "rows": [
+                [
+                  "פרטיות",
+                  "נמוכה — upload",
+                  "מקסימלית — local"
+                ],
+                [
+                  "מהירות",
+                  "תלוי אינטרנט",
+                  "מיידי — חומרה"
+                ],
+                [
+                  "אבטחה",
+                  "יירוט + retention",
+                  "אין — לא עוזב"
+                ],
+                [
+                  "עלויות",
+                  "ads/בתשלום",
+                  "חינם/privacy-first"
+                ],
+                [
+                  "איכות",
+                  "presets",
+                  "slider חי"
+                ],
+                [
+                  "פורמטים",
+                  "allowlist",
+                  "native — shrink-any-format"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "wasm-engines",
+            "heading": "WebAssembly ומנועי דפדפן",
+            "level": 2,
+            "paragraphs": [
+              "Wasm + Canvas — מהירות כמעט native."
+            ]
+          },
+          {
+            "id": "when-server-still-used",
+            "heading": "מתי עדיין שרת?",
+            "level": 2,
+            "paragraphs": [
+              "RAW ענק — נדיר ל-web assets.",
+              "מדיניות on-prem — עדיין לא SaaS ציבורי."
+            ]
+          },
+          {
+            "id": "compliance-lens",
+            "heading": "Compliance ו-Privacy Policy",
+            "level": 2,
+            "paragraphs": [
+              "כל ענן = subprocessor.",
+              "policy: compression client-side."
+            ]
+          },
+          {
+            "id": "enterprise-adoption",
+            "heading": "אימוץ ארגוני",
+            "level": 2,
+            "paragraphs": [
+              "IT חוסם compressors ציבוריים — browser-local מאושר.",
+              "security review: האם bytes עוברים? לא."
+            ]
+          },
+          {
+            "id": "series-recap",
+            "heading": "סיכום סדרה — 5 עדשות, כלי אחד",
+            "level": 2,
+            "paragraphs": [
+              "1=פרטיות, 2=LCP, 3=slider, 4=פורמטים, 5=ארכיטקטורה."
+            ]
+          },
+          {
+            "id": "migration-checklist",
+            "heading": "צ'קליסט מיגרציה",
+            "level": 2,
+            "list": [
+              "Bookmark Compress Image.",
+              "חסמו URLים אקראיים.",
+              "הדרכה slider + LCP + formats."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "סיכום: קחו שליטה",
+            "level": 2,
+            "paragraphs": [
+              "נוחות vs שליטה — local-first.",
+              "Compress Image — המידע שלכם."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "דפדפן בטוח יותר?",
+            "a": "כן — בלי upload לדחיסה."
+          },
+          {
+            "q": "הבדל local vs server?",
+            "a": "CPU מקומי vs transit + storage."
+          },
+          {
+            "q": "איכות כמו שרת?",
+            "a": "כן — codecs + slider."
+          },
+          {
+            "q": "offline?",
+            "a": "אחרי load — עד סגירת טאb."
+          },
+          {
+            "q": "למה ads בענן?",
+            "a": "עלות שרת — מקומי = compute שלכם."
+          },
+          {
+            "q": "Compress Image שומר בשרת?",
+            "a": "לא — עיבוד בדפדפן."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "Compress Image — דפדפן"
+          },
+          {
+            "href": "/blog/private-image-compression/",
+            "anchor": "דחיסה פרטית"
+          },
+          {
+            "href": "/blog/local-vs-cloud-conversion/",
+            "anchor": "local vs cloud"
+          },
+          {
+            "href": "/blog/website-load-speed-compression/",
+            "anchor": "LCP"
+          },
+          {
+            "href": "/blog/shrink-any-format/",
+            "anchor": "multi-format"
           }
         ]
       }

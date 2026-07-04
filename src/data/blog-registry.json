@@ -7161,6 +7161,7 @@
         "compress-image"
       ],
       "relatedBlogs": [
+        "private-image-compression",
         "privacy-first-conversion",
         "instant-local-conversion",
         "browser-image-processing-privacy",
@@ -11652,6 +11653,1623 @@
           {
             "href": "/blog/format-versatility/",
             "anchor": "Multi-format crop guide"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "private-image-compression",
+      "title": "Why You Should Compress Sensitive Photos Locally Instead of Uploading to Cloud Servers",
+      "keyword": "compress sensitive photos locally private image compressor",
+      "category": "Security",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-12",
+      "readTime": "12 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.96,
+      "relatedTools": [
+        "compress-image",
+        "crop-image",
+        "convert-to-png",
+        "resize-image"
+      ],
+      "relatedBlogs": [
+        "browser-vs-server-compression",
+        "shrink-any-format",
+        "mastering-quality-slider",
+        "website-load-speed-compression",
+        "how-to-compress-images-privacy-first",
+        "crop-locally-privacy",
+        "privacy-first-conversion",
+        "why-local-image-processing-is-safer",
+        "local-vs-cloud-conversion"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for local-first image compression privacy · Jul 2026"
+      },
+      "seo": {
+        "metaTitle": "Compress Sensitive Photos Locally: Private Image Compressor (Free Guide)",
+        "metaDescription": "Why cloud image compressors leak passport scans and personal photos. Shrink files locally in your browser with JoinMyPDF Compress Image—no upload, EXIF risks explained.",
+        "keywords": "private image compressor, compress images locally, secure image compression, compress photo online no upload, EXIF privacy compress, local image shrink browser"
+      },
+      "description": "Compress passport scans, receipts, and personal photos without cloud upload. Learn risks of online compressors and use JoinMyPDF Compress Image locally.",
+      "contentBlocks": {
+        "intro": "Modern workflows demand smaller images—storage limits, email attachments, portal upload caps, and faster page loads all push us to compress. The default fix is an online image compressor: select file, watch the upload bar, download result. That convenience trades away control. When bytes leave your device for a remote server, you cannot verify retention, access logs, or secondary use. JoinMyPDF Compress Image follows a different philosophy: 100% privacy through local processing. Files never leave your device; sensitive photos stay yours alone. This is article one in our compression series—the privacy foundation before speed, quality tuning, formats, and professional workflows. Insurance adjusters shrinking claim photos, teachers uploading graded scans, and ecommerce sellers meeting marketplace size caps all compress weekly—each cloud upload is a decision about who holds your data.",
+        "editorialNote": "JoinMyPDF Compress Image runs entirely in your browser. For standard compression workflows, image files are not uploaded to our servers.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Try Compress Image — free, local, private",
+        "bottomCtaLabel": "Open private local compress tool",
+        "privacySecuritySchema": true,
+        "howTo": {
+          "name": "How to Compress Sensitive Photos Locally in Your Browser",
+          "description": "A privacy-first workflow to shrink images without cloud upload using JoinMyPDF Compress Image.",
+          "steps": [
+            {
+              "name": "Open Compress Image",
+              "text": "Load JoinMyPDF Compress Image in a modern browser. No account or email is required for standard compression."
+            },
+            {
+              "name": "Drop your file",
+              "text": "Drag a JPG, PNG, WebP, or HEIC image into the workspace. Processing begins locally—watch for absence of an upload progress bar."
+            },
+            {
+              "name": "Adjust quality settings",
+              "text": "Use the quality slider with real-time preview. Compression runs in browser memory on your hardware."
+            },
+            {
+              "name": "Export and close",
+              "text": "Download the optimized file. Close the tab when finished to release volatile memory. Verify offline by disconnecting network after page load."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "why-compress-risky",
+            "heading": "Why Compression Feels Safe—but Often Is Not",
+            "level": 2,
+            "paragraphs": [
+              "Shrinking a file looks like housekeeping: reduce megabytes, meet upload limits, send email faster. The edit feels utilitarian; the privacy stakes are high because the full original transits to cloud servers.",
+              "Sensitive compressions are among the most dangerous uploads because users underestimate them. A compressed passport scan still contains biographic data; a receipt still reveals account numbers.",
+              "HR teams shrinking employee ID photos, lawyers preparing exhibit attachments, and patients uploading lab results all share the same mistake: treating compress as low-risk because the goal is smaller bytes.",
+              "Compression happens dozens of times per month in back-office workflows—each cloud upload is another row in someone else's database.",
+              "Unlike public social posts, compressed attachments rarely get a privacy review—they feel like infrastructure, not sharing.",
+              "Compliance frameworks treat uploaded media as processing events; a one-second compress upload still creates a processor relationship you may need to disclose."
+            ]
+          },
+          {
+            "id": "cloud-compression-risk",
+            "heading": "The Cloud Compression Risk",
+            "level": 2,
+            "paragraphs": [
+              "Most free online tools operate server-side. When you click Select image and see a progress bar, you transmit the file over the internet.",
+              "That single action creates third-party exposure, metadata leaks, and training potential—even when you only wanted to save a megabyte.",
+              "JoinMyPDF Compress Image never triggers that bar for standard workflows: compression algorithms run in browser RAM, not on a vendor CPU farm.",
+              "Mobile browsers normalize sending tax forms to unknown jurisdictions when upload bars feel routine.",
+              "HTTPS encrypts transit but does not answer retention, subprocessors, or training use."
+            ]
+          },
+          {
+            "id": "third-party-exposure",
+            "heading": "1. Third-Party Exposure",
+            "level": 3,
+            "paragraphs": [
+              "Even if a site claims security, your file processes on someone else's server. You cannot verify who accesses storage or how long files persist in backups.",
+              "Enterprise stacks use replication and snapshots. A deleted upload may survive on cold storage for weeks—recoverable after breaches or legal discovery.",
+              "The only upload that cannot leak is the one you never send. Local compression keeps document photos off stranger disks.",
+              "Vendor breach notifications rarely list utility uploads—but compressed ID scans still sit in the blast radius.",
+              "GDPR erasure requests take time; your file may circulate in logs until processed."
+            ]
+          },
+          {
+            "id": "metadata-leaks",
+            "heading": "2. Metadata Leaks",
+            "level": 3,
+            "paragraphs": [
+              "Photos carry EXIF: timestamps, device models, and often precise GPS coordinates. Cloud compressors receive the full file before re-encoding.",
+              "Uploading an un-scrubbed scan can leak location history alongside document content. Local tools let you control what leaves the machine after export.",
+              "Compression does not automatically strip EXIF on cloud servers—the full file arrives first. Local export gives you a clean breakpoint.",
+              "Document photos taken at home embed GPS in EXIF—compress upload shares where you live, not just what you scanned."
+            ]
+          },
+          {
+            "id": "training-potential",
+            "heading": "3. Training Potential",
+            "level": 3,
+            "paragraphs": [
+              "Some platforms use uploads to train AI models without meaningful consent. Faces, document text, and branded UI can enter ML pipelines.",
+              "Free compressor sites monetize through ads, analytics, and sometimes secondary use of uploads. Terms often grant broad licenses to uploaded content.",
+              "Local-first compression removes that license transfer: no upload means no implied rights grant to a converter farm.",
+              "Read terms once on free compressor sites; then prefer tools that never receive the upload."
+            ]
+          },
+          {
+            "id": "local-advantage",
+            "heading": "The Local-Processing Advantage",
+            "level": 2,
+            "paragraphs": [
+              "JoinMyPDF Compress Image operates entirely in your browser sandbox. Compression algorithms execute using local RAM and CPU.",
+              "Same local-first philosophy as crop-locally-privacy and rotate-locally-privacy—applied to file size reduction.",
+              "Canvas and modern web APIs decode, re-encode, and export without a backend path for standard workflows.",
+              "WebAssembly and Canvas APIs encode efficiently on laptops and phones without server round trips."
+            ]
+          },
+          {
+            "id": "zero-transmission",
+            "heading": "Zero Transmission",
+            "level": 3,
+            "paragraphs": [
+              "Your image never crosses the internet to a server. No interception or theft during transit because bytes never leave for processing.",
+              "Verify with DevTools: open Network, compress a test scan. External POST requests mean bytes left; silence means local.",
+              "Corporate proxies and guest Wi-Fi are common MITM environments—local compress never puts document bytes on those networks for editing."
+            ]
+          },
+          {
+            "id": "volatile-memory",
+            "heading": "Volatile Memory",
+            "level": 3,
+            "paragraphs": [
+              "Compression happens in active browser memory. Close the tab and working copies clear from volatile storage.",
+              "High-security users pair tab closure with cache clear on shared machines—compress without persistent cloud copies.",
+              "Forensic recovery on your own device is your risk model; cloud upload adds vendor breach surfaces you cannot control."
+            ]
+          },
+          {
+            "id": "no-tos-risks",
+            "heading": "No \"Terms of Service\" Risks",
+            "level": 3,
+            "paragraphs": [
+              "No remote backend storage means no archival in vendor databases or sale to data brokers from the compress step itself.",
+              "Privacy policies update silently; local processing gives a stable answer year over year: no upload, no new processor."
+            ]
+          },
+          {
+            "id": "best-practices",
+            "heading": "Best Practices for Privacy-Conscious Users",
+            "level": 2,
+            "paragraphs": [
+              "Adopt a Local-First approach for every sensitive shrink:"
+            ],
+            "list": [
+              "Look for Local or 100% Private labels—no upload progress bar on file drop.",
+              "Avoid login requirements for simple compression tasks.",
+              "Trust modern browsers for JPEG, PNG, and WebP encode natively.",
+              "Audit tools quarterly: replace cloud compressor bookmarks with JoinMyPDF Compress Image."
+            ]
+          },
+          {
+            "id": "check-local",
+            "heading": "Check for Local Indicators",
+            "level": 3,
+            "paragraphs": [
+              "Upload bar, percentage counter, or email gate before download—all signal cloud processing.",
+              "JoinMyPDF Compress Image starts on file drop with instant preview—no queue, no account.",
+              "Red flags: CAPTCHA before download, watermarked preview, or create account to remove watermark after compress."
+            ]
+          },
+          {
+            "id": "avoid-login",
+            "heading": "Avoid Login Requirements",
+            "level": 3,
+            "paragraphs": [
+              "If compression requires an account, the product likely links uploads to identity.",
+              "Instant access with no strings attached is the baseline for utility tasks on sensitive files."
+            ]
+          },
+          {
+            "id": "trust-browser",
+            "heading": "Trust Your Browser",
+            "level": 3,
+            "paragraphs": [
+              "Modern Chrome, Edge, and Firefox handle complex encode tasks locally. Server-side compression is legacy architecture, not necessity.",
+              "Pair Compress Image with Crop Image or Convert to PNG locally when pipelines need multiple steps—zero cloud hops.",
+              "IT departments can allowlist browser-local tools easier than unknown upload domains that change monthly."
+            ]
+          },
+          {
+            "id": "who-needs-this",
+            "heading": "Who Should Compress Locally",
+            "level": 2,
+            "list": [
+              "Freelancers submitting expense receipts under portal size limits.",
+              "Patients uploading lab results to telehealth portals.",
+              "Lawyers shrinking exhibit attachments before e-filing.",
+              "Remote workers compressing whiteboard captures before Slack.",
+              "Journalists preparing source document photos for secure handoff."
+            ],
+            "paragraphs": [
+              "Real estate agents compress listing photos before MLS upload without sending masters to random compress farms."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "Article One in Our Compression Series",
+            "level": 2,
+            "paragraphs": [
+              "This series mirrors our crop and rotation guides: privacy first, then speed, quality, formats, and workflows.",
+              "JoinMyPDF Compress Image is the anchor tool—secure by default before we cover performance and tuning.",
+              "Upcoming compression articles will cover speed, quality sliders, multi-format encode, and batch workflows."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "Conclusion: Privacy Is Not Optional",
+            "level": 2,
+            "paragraphs": [
+              "Compressing to save space should not require sacrificing privacy.",
+              "Choose local-only Compress Image and keep photos local, metadata secure, and confidence intact.",
+              "Do not risk sensitive documents in the cloud for a smaller file size. Reclaim control over your digital assets today.",
+              "Share this workflow with teams that email oversized scans daily—one local default prevents hundreds of silent uploads per year."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Is it safe to compress photos on free online compressors?",
+            "a": "Upload-based compressors store files remotely and may retain copies. Local browser compression avoids that exposure."
+          },
+          {
+            "q": "Does JoinMyPDF upload images when I compress?",
+            "a": "Standard Compress Image workflows process files locally without uploading to our servers."
+          },
+          {
+            "q": "Can I compress document scans offline?",
+            "a": "Yes. Load Compress Image once, then compress without network after the page is cached."
+          },
+          {
+            "q": "Does compression remove EXIF metadata?",
+            "a": "Local compression lets you control export. Cloud upload sends full EXIF to the server before any re-encode."
+          },
+          {
+            "q": "Why not use my phone's built-in compress?",
+            "a": "Phone tools work for casual photos; browser-local Compress Image helps when files are on desktop or need explicit quality control without cloud sync."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "JoinMyPDF Compress Image — local & private"
+          },
+          {
+            "href": "/blog/how-to-compress-images-privacy-first/",
+            "anchor": "Privacy-first compression guide"
+          },
+          {
+            "href": "/blog/crop-locally-privacy/",
+            "anchor": "Private local cropping"
+          },
+          {
+            "href": "/blog/privacy-first-conversion/",
+            "anchor": "Privacy-first conversion"
+          },
+          {
+            "href": "/privacy-first/",
+            "anchor": "JoinMyPDF privacy-first approach"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "website-load-speed-compression",
+      "title": "The Impact of Image Compression on Website Load Times: A Local-First Approach",
+      "keyword": "image compression website load time core web vitals local",
+      "category": "Conversion",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-13",
+      "readTime": "12 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.95,
+      "relatedTools": [
+        "compress-image",
+        "convert-to-png",
+        "resize-image",
+        "crop-image"
+      ],
+      "relatedBlogs": [
+        "browser-vs-server-compression",
+        "shrink-any-format",
+        "mastering-quality-slider",
+        "private-image-compression",
+        "how-to-compress-images-privacy-first",
+        "lossy-vs-lossless-image-compression",
+        "instant-local-conversion",
+        "local-vs-cloud-conversion"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for local-first compression and web performance · Jul 2026"
+      },
+      "seo": {
+        "metaTitle": "Image Compression for Faster Sites: Local-First Load Time Guide",
+        "metaDescription": "Improve LCP and Core Web Vitals with local image compression. JoinMyPDF Compress Image—no upload latency, batch WebP/JPG optimization in your browser.",
+        "keywords": "image compression speed, website load time optimization, compress images for web local, core web vitals images, fast image compression browser, LCP image optimization"
+      },
+      "description": "How image weight hurts LCP and why local browser compression beats cloud round-trips for faster, secure web performance.",
+      "contentBlocks": {
+        "intro": "In the era of Core Web Vitals and mobile-first indexing, website speed is a core business requirement—not a technical luxury. Google prioritizes fast pages; users abandon slow ones. Studies show even a one-second delay can drop conversion rates significantly. The primary culprit? Unoptimized, massive image files. Compressing images is essential—but how you compress matters as much as whether you do. Cloud compressors add latency and security risk. JoinMyPDF Compress Image uses a Local-First strategy: optimize in your browser, skip upload round-trips, ship lighter assets faster. Article two in our compression series—after privacy in private-image-compression, we focus on web performance and load times. Search engines like Google prioritize fast-loading pages, and users are notoriously impatient. Even a one-second delay can lead to a significant drop in conversion rates.",
+        "editorialNote": "JoinMyPDF Compress Image processes compression in your browser. Standard workflows do not upload image files to our servers.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Compress for web speed — free, local, instant",
+        "bottomCtaLabel": "Open performance compress tool",
+        "howTo": {
+          "name": "How to Compress Images for Faster Load Times Locally",
+          "description": "Optimize web images without cloud upload using JoinMyPDF Compress Image in your browser.",
+          "steps": [
+            {
+              "name": "Load Compress Image",
+              "text": "Open JoinMyPDF Compress Image once. No sign-up—processing starts on file drop."
+            },
+            {
+              "name": "Drop hero and content images",
+              "text": "Drag JPG, PNG, or WebP files. Adjust quality slider with real-time preview—no upload bar."
+            },
+            {
+              "name": "Tune quality for LCP",
+              "text": "Find the smallest file size that still looks sharp on retina displays. Export WebP or JPG locally."
+            },
+            {
+              "name": "Deploy optimized assets",
+              "text": "Replace heavy originals on your CDN or CMS. Batch additional files in the same tab without server queues."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "speed-business",
+            "heading": "Why Speed Is a Business Requirement",
+            "level": 2,
+            "paragraphs": [
+              "Core Web Vitals tie search visibility to real user experience. LCP, INP, and CLS are not abstract metrics—they reflect whether visitors see content quickly.",
+              "Ecommerce, SaaS landing pages, and content sites all compete on perceived speed. Heavy images undermine marketing spend when bounce rates rise.",
+              "Local-first compression lets developers and marketers optimize assets without waiting on cloud upload farms between every tweak.",
+              "Retail and media sites with rich photography feel fast only when bytes match bandwidth. Local compression is the lowest-friction path to that balance."
+            ]
+          },
+          {
+            "id": "image-weight",
+            "heading": "Why Image Size Breaks Your Load Times",
+            "level": 2,
+            "paragraphs": [
+              "Images often account for the majority of a page's total byte weight. A single uncompressed hero can exceed 5MB.",
+              "Browsers must download those bytes before rendering—delaying paint, interaction, and conversion."
+            ]
+          },
+          {
+            "id": "lcp-impact",
+            "heading": "Increased LCP (Largest Contentful Paint)",
+            "level": 3,
+            "paragraphs": [
+              "LCP measures when the largest visible content element loads—often a hero image. Multi-megabyte sources push LCP into red territory.",
+              "Compressing heroes locally before deploy is the fastest lever to improve LCP without rewriting your entire stack.",
+              "Target under 200KB for typical hero widths when quality allows—use the slider until artifacts appear, then back off slightly.",
+              "PageSpeed Insights flags LCP element URL and transfer size—compress that asset first. It is usually the highest-ROI fix on content-heavy pages."
+            ]
+          },
+          {
+            "id": "data-consumption",
+            "heading": "Data Consumption",
+            "level": 3,
+            "paragraphs": [
+              "Mobile users on limited plans pay twice for bloated images: slower loads and higher data bills.",
+              "Optimized WebP and quality-tuned JPG reduce bytes without sacrificing brand presentation on modern devices."
+            ]
+          },
+          {
+            "id": "poor-ux",
+            "heading": "Poor UX and Bounce Rate",
+            "level": 3,
+            "paragraphs": [
+              "Blank or partially loaded screens increase bounce rate—users assume the site is broken.",
+              "Pre-compressed assets load progressively; heavy originals stall the entire critical path."
+            ]
+          },
+          {
+            "id": "cloud-dilemma",
+            "heading": "The Cloud Compression Dilemma",
+            "level": 2,
+            "paragraphs": [
+              "Webmasters often upload raw assets to online compressors—creating secondary problems:",
+              "Security-conscious teams also avoid sending unreleased campaign creative to unknown processors—a concern we covered in private-image-compression."
+            ],
+            "list": [
+              "Latency: upload and download interrupt development workflow.",
+              "Privacy risk: proprietary or sensitive project assets on third-party servers.",
+              "Lost workflow speed: round-trip time often exceeds local encode on modern hardware."
+            ]
+          },
+          {
+            "id": "upload-latency",
+            "heading": "Upload and Download Overhead",
+            "level": 3,
+            "paragraphs": [
+              "Asymmetric home uplink bottlenecks batch optimization. Uploading ten 4MB heroes sequentially dominates the calendar.",
+              "Local compression reads from disk instantly—encode limited by CPU, not Mbps."
+            ]
+          },
+          {
+            "id": "local-first-solution",
+            "heading": "The \"Local-First\" Solution",
+            "level": 2,
+            "paragraphs": [
+              "JoinMyPDF Compress Image performs compression locally in your browser—eliminating round-trip delay entirely.",
+              "Same performance philosophy as instant-cropping-speed and instant-local-conversion—applied to byte reduction for the web.",
+              "Browser-based encode uses WebAssembly and native canvas paths on modern engines. You get near-desktop tool speed without installing software."
+            ]
+          },
+          {
+            "id": "instant-optimization",
+            "heading": "Instant Optimization",
+            "level": 3,
+            "paragraphs": [
+              "Drop high-resolution hero images, adjust quality, export optimized WebP or JPG in milliseconds on modern laptops.",
+              "Iterate quality settings in real time—no waiting for server queues between slider adjustments."
+            ]
+          },
+          {
+            "id": "no-network-overhead",
+            "heading": "No Network Overhead",
+            "level": 3,
+            "paragraphs": [
+              "No upload step means no uplink ceiling. Optimize hundreds of images in the time one file uploads to a cloud server.",
+              "Agencies preparing client launches compress entire asset folders locally before CDN deploy."
+            ]
+          },
+          {
+            "id": "quality-control",
+            "heading": "Predictable Quality Control",
+            "level": 3,
+            "paragraphs": [
+              "You control compression settings—not a vendor's hidden 75% default. Find the sweet spot between file size and clarity on your display.",
+              "Pair with Resize Image locally when platforms publish exact pixel dimensions for heroes and thumbnails."
+            ]
+          },
+          {
+            "id": "best-practices",
+            "heading": "Best Practices for a Faster Web",
+            "level": 2,
+            "paragraphs": [
+              "Follow this local-first workflow for site optimization:",
+              "Document your quality presets per asset type so contractors and teammates produce consistent output sprint after sprint."
+            ],
+            "list": [
+              "Batch process all site assets locally in one session.",
+              "Export WebP when browsers in your audience support it; JPG fallback when needed.",
+              "Use quality slider deliberately—do not blindly max compress.",
+              "Replace CMS originals with optimized derivatives; keep masters archived separately."
+            ]
+          },
+          {
+            "id": "batch-local",
+            "heading": "Batch Process Locally",
+            "level": 3,
+            "paragraphs": [
+              "Process heroes, blog headers, and product shots in one Compress Image tab before deploy day.",
+              "Name outputs: hero-home-webp.webp, product-sku-42.jpg for clean handoffs to dev."
+            ]
+          },
+          {
+            "id": "right-format",
+            "heading": "Choose the Right Format",
+            "level": 3,
+            "paragraphs": [
+              "WebP typically beats JPG on size at similar visual quality. PNG for logos with transparency.",
+              "Convert to PNG or WebP locally after compress when pipelines require format shifts—no cloud hop."
+            ]
+          },
+          {
+            "id": "quality-slider",
+            "heading": "Prioritize Quality Sliders",
+            "level": 3,
+            "paragraphs": [
+              "High-DPI displays reveal over-compression instantly. Tune until artifacts appear, then increase quality one notch.",
+              "Blog inline images often tolerate 60–75%; heroes may need 75–85% depending on subject."
+            ]
+          },
+          {
+            "id": "cwv-checklist",
+            "heading": "Core Web Vitals Checklist for Images",
+            "level": 2,
+            "paragraphs": [
+              "Before launch: measure LCP element weight, confirm compressed hero under budget, lazy-load below-fold images in markup.",
+              "After local compress deploy: re-run PageSpeed Insights—LCP should reflect new byte counts within one crawl cycle."
+            ]
+          },
+          {
+            "id": "mobile-first",
+            "heading": "Mobile-First Indexing and Search Performance",
+            "level": 2,
+            "paragraphs": [
+              "Google indexes the mobile version of your site first. If mobile users download desktop-sized 4000px heroes, you pay a ranking and UX penalty simultaneously.",
+              "Compressing for mobile viewports locally—before responsive srcset generation—ensures every breakpoint starts from a sane byte budget.",
+              "Technical SEO teams often audit JavaScript and CSS while ignoring image weight. Fixing images delivers the largest CWV gains per hour of effort."
+            ]
+          },
+          {
+            "id": "cdn-limits",
+            "heading": "Why CDNs Cannot Fix Unoptimized Sources",
+            "level": 2,
+            "paragraphs": [
+              "A CDN accelerates delivery—it does not magically shrink a 6MB PNG. On-the-fly image APIs add cost, cold-start latency, and vendor lock-in.",
+              "Pre-compressing at source with JoinMyPDF Compress Image means your CDN caches already-optimized bytes. Fewer transforms at the edge equals simpler architecture and predictable bills.",
+              "Teams that compress locally before upload to S3, Cloudflare R2, or WordPress media libraries see immediate PageSpeed score improvements without CDN configuration changes."
+            ]
+          },
+          {
+            "id": "ecommerce-scenario",
+            "heading": "Real-World Scenario: Ecommerce Product Grid",
+            "level": 2,
+            "paragraphs": [
+              "A catalog page with twenty product thumbnails at 800KB each adds 16MB before HTML and scripts. Mobile shoppers on 4G abandon before the grid paints.",
+              "Batch compress all product shots locally at 70–80% quality, export WebP, and swap CMS assets in one afternoon. LCP on category pages often drops from seconds to under 2.5s.",
+              "Marketing can iterate seasonal hero banners without filing IT tickets—drop, slider, download, upload to the CMS. No cloud queue, no asset exposure."
+            ]
+          },
+          {
+            "id": "workflow-comparison",
+            "heading": "Local vs Cloud Compression Workflow",
+            "level": 2,
+            "paragraphs": [
+              "Compare typical prep time for fifty web images:"
+            ],
+            "list": [
+              "Cloud: select files, upload 50× (uplink bound), wait for processing, download 50×, rename, verify quality—often 30–60+ minutes on home broadband.",
+              "Local: drop folder into Compress Image, set quality once, export batch—minutes on modern hardware with zero egress.",
+              "Local wins on speed, privacy, and repeatability when you revisit the same asset library each sprint."
+            ]
+          },
+          {
+            "id": "responsive-images",
+            "heading": "Pair Compression with Responsive Markup",
+            "level": 2,
+            "paragraphs": [
+              "Compression reduces bytes per file; responsive srcset ensures devices load appropriately sized variants. Do both: compress masters locally, then generate widths in your build pipeline.",
+              "Even a perfect srcset fails if each variant is an uncompressed camera original. Start local-first at the source file, then automate derivatives.",
+              "Use Resize Image alongside Compress Image when you need exact pixel outputs for Shopify, WordPress, or static site generators."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "Article Two in Our Compression Series",
+            "level": 2,
+            "paragraphs": [
+              "private-image-compression covered security. This guide is the performance lens—same JoinMyPDF Compress Image, zero latency tax.",
+              "Upcoming articles will cover quality tuning, multi-format encode, and batch workflows for teams."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "Conclusion: Speed Without Security Trade-offs",
+            "level": 2,
+            "paragraphs": [
+              "Performance and privacy should go hand-in-hand. Local-first compression loads sites faster while keeping assets on your device.",
+              "Start optimizing with JoinMyPDF Compress Image today—your users and search engines will thank you.",
+              "Combine this performance workflow with the privacy practices from article one for a complete local-first compression strategy."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Does image compression improve website load time?",
+            "a": "Yes. Smaller image files reduce download time and improve LCP—a Core Web Vitals metric."
+          },
+          {
+            "q": "Is local compression faster than cloud compressors?",
+            "a": "Yes. Local compression avoids upload and download latency. Processing runs at CPU speed on your device."
+          },
+          {
+            "q": "What quality setting should I use for web heroes?",
+            "a": "Start around 75–85% and adjust with the slider until quality looks sharp on retina displays without excess bytes."
+          },
+          {
+            "q": "Should I use WebP for faster pages?",
+            "a": "WebP often reduces size versus JPG at similar quality. Export WebP locally when your audience browsers support it."
+          },
+          {
+            "q": "Can I compress images for Core Web Vitals without uploading them?",
+            "a": "Yes. JoinMyPDF Compress Image runs in your browser—files stay on your device while you tune quality and export WebP or JPG."
+          },
+          {
+            "q": "How much can compression reduce LCP time?",
+            "a": "Cutting a 3MB hero to 150KB often saves 1–3 seconds on mobile networks—the exact gain depends on connection speed and CDN caching."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "JoinMyPDF Compress Image — fast & local"
+          },
+          {
+            "href": "/blog/private-image-compression/",
+            "anchor": "Private local compression"
+          },
+          {
+            "href": "/blog/lossy-vs-lossless-image-compression/",
+            "anchor": "Lossy vs lossless guide"
+          },
+          {
+            "href": "/tools/resize-image/",
+            "anchor": "Resize for exact dimensions"
+          },
+          {
+            "href": "/blog/instant-local-conversion/",
+            "anchor": "Instant local conversion"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "mastering-quality-slider",
+      "title": "Mastering the Quality Slider: How to Reduce File Size Without Losing Visual Detail",
+      "keyword": "image compression quality slider reduce file size without losing quality",
+      "category": "Conversion",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-14",
+      "readTime": "12 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.94,
+      "relatedTools": [
+        "compress-image",
+        "convert-to-png",
+        "resize-image",
+        "crop-image"
+      ],
+      "relatedBlogs": [
+        "browser-vs-server-compression",
+        "shrink-any-format",
+        "website-load-speed-compression",
+        "private-image-compression",
+        "lossy-vs-lossless-image-compression",
+        "lossless-rotation-quality",
+        "how-to-compress-images-privacy-first"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for quality-slider compression and visual fidelity · Jul 2026"
+      },
+      "seo": {
+        "metaTitle": "Image Compression Quality Slider: Reduce Size Without Losing Detail",
+        "metaDescription": "Find the sweet spot between file size and visual quality. JoinMyPDF Compress Image—live slider, real-time preview, no upload retries in your browser.",
+        "keywords": "image compression quality slider, reduce file size without losing quality, compress images quality settings, webp quality slider local, jpg compression sweet spot"
+      },
+      "description": "How to use the quality slider to hit the compression sweet spot—real-time local control without cloud one-size-fits-all defaults.",
+      "contentBlocks": {
+        "intro": "One of the most powerful features in advanced image compression tools is the Quality Slider. It puts control directly in your hands, letting you decide exactly how much compression to apply. Many users struggle to find the sweet spot—where file size drops significantly but visual quality stays indistinguishable from the original. With local tools like JoinMyPDF Compress Image, you experiment in real time without the penalty of multiple uploads. Article three in our compression series: after privacy in private-image-compression and load-time gains in website-load-speed-compression, we focus on fine-tuning quality so you never over-compress or under-optimize. Whether you manage a Shopify catalog, a WordPress blog, or a static marketing site, the slider is the fastest path from bloated uploads to crisp, lightweight pages.",
+        "editorialNote": "JoinMyPDF Compress Image processes compression in your browser. Standard workflows do not upload image files to our servers.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Tune quality locally — free, live slider",
+        "bottomCtaLabel": "Open quality compress tool",
+        "losslessQualitySchema": true,
+        "howTo": {
+          "name": "How to Find the Compression Sweet Spot with a Quality Slider",
+          "description": "Reduce file size without visible quality loss using JoinMyPDF Compress Image locally in your browser.",
+          "steps": [
+            {
+              "name": "Load your master file",
+              "text": "Open JoinMyPDF Compress Image and drop your highest-quality source—never a previously cloud-compressed copy."
+            },
+            {
+              "name": "Start at 80%",
+              "text": "Set the quality slider to 80%. Check estimated file size and preview—adjust down only if bytes remain too high."
+            },
+            {
+              "name": "Zoom to 200% for inspection",
+              "text": "Inspect skin tones, text edges, and gradients at high zoom. Back off quality if blockiness or banding appears."
+            },
+            {
+              "name": "Export optimized copy",
+              "text": "Download WebP or JPG for web use. Archive the original master separately—never overwrite your only high-res source."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "slider-power",
+            "heading": "Why the Quality Slider Changes Everything",
+            "level": 2,
+            "paragraphs": [
+              "Compression is not binary. A fixed 75% preset from a cloud service may be perfect for a landscape and disastrous for a portrait with subtle skin gradients.",
+              "The slider maps human intent to algorithm behavior: you choose how aggressively the codec discards imperceptible detail.",
+              "Local browser tools expose that control with instant feedback—cloud queues hide it behind opaque defaults."
+            ]
+          },
+          {
+            "id": "sweet-spot",
+            "heading": "Understanding the \"Sweet Spot\"",
+            "level": 2,
+            "paragraphs": [
+              "Compression algorithms for JPG, WebP, and HEIC selectively remove visual data the human eye is less likely to notice. Dragging the slider down trades bytes for discarded frequency information.",
+              "The goal is perceptual equivalence: visitors cannot tell the optimized file from the master at normal viewing distance."
+            ]
+          },
+          {
+            "id": "high-quality",
+            "heading": "High Quality (90–100%)",
+            "level": 3,
+            "paragraphs": [
+              "Minimal data loss, larger file size. Best for high-end photography galleries, print-ready assets, or when every pixel must survive editorial review.",
+              "Use sparingly on the open web—heroes at 95% may still exceed LCP budgets if dimensions are huge. Pair with Resize Image when width is the real problem."
+            ]
+          },
+          {
+            "id": "balanced",
+            "heading": "Balanced (70–85%): The Sweet Spot",
+            "level": 3,
+            "paragraphs": [
+              "Most users cannot detect visual difference from the original, yet file size often drops 50–80%. This is the default hunting range for blog images, product shots, and marketing heroes.",
+              "Start at 80% and walk down in 5-point steps until artifacts appear—then increase one notch. That single notch is often your site-wide preset.",
+              "Ecommerce teams often standardize on 78% for product grids and 82% for hero banners—small differences visible only when A/B testing zoomed crops."
+            ]
+          },
+          {
+            "id": "high-compression",
+            "heading": "High Compression (40–60%)",
+            "level": 3,
+            "paragraphs": [
+              "Noticeable artifacts may appear: blurriness, color banding in skies, muddy shadows. Reserve for thumbnails, blurred backgrounds, or low-priority decorative assets.",
+              "Never use aggressive presets on logos, screenshots with text, or medical and legal imagery where fine detail carries meaning."
+            ]
+          },
+          {
+            "id": "real-time-control",
+            "heading": "Why Real-Time Control Matters",
+            "level": 2,
+            "paragraphs": [
+              "Traditional cloud tools apply one-size-fits-all compression. They might crush a portrait to 75% automatically, muddying skin tones you spent hours color-grading.",
+              "JoinMyPDF Compress Image enables live comparison—adjust, preview, and export without upload round-trips."
+            ]
+          },
+          {
+            "id": "adjust-on-fly",
+            "heading": "Adjust on the Fly",
+            "level": 3,
+            "paragraphs": [
+              "Move the slider and watch estimated file size update instantly. Compare byte savings against the previous setting before committing.",
+              "Because processing is local, iteration is free—no API quota, no queue, no re-upload after every tweak."
+            ]
+          },
+          {
+            "id": "visual-feedback",
+            "heading": "Visual Feedback in the Browser",
+            "level": 3,
+            "paragraphs": [
+              "Zoom into fine details, text, and sharp edges while the preview reflects your current quality setting.",
+              "Screenshots, infographics, and UI captures need edge inspection—lossy codecs destroy small type first.",
+              "Local preview latency is milliseconds; cloud tools often require a full upload cycle per adjustment."
+            ]
+          },
+          {
+            "id": "no-retries",
+            "heading": "No Retries, No Upload Cost",
+            "level": 3,
+            "paragraphs": [
+              "Adjust the slider ten times if needed—there is no server cost and no privacy exposure from repeated uploads.",
+              "This matters for unreleased campaign creative and client assets covered in private-image-compression."
+            ]
+          },
+          {
+            "id": "pro-tips",
+            "heading": "Pro Tips for Quality Preservation",
+            "level": 2,
+            "paragraphs": [
+              "Treat these habits as a checklist before every batch export:"
+            ],
+            "list": [
+              "Test the 80% rule first for standard web images.",
+              "Zoom to 200% when evaluating—if artifacts are invisible there, they will be invisible to visitors.",
+              "Keep the original as master; export optimized copies only.",
+              "Document presets per asset type so teammates stay consistent."
+            ]
+          },
+          {
+            "id": "eighty-rule",
+            "heading": "Test the 80% Rule",
+            "level": 3,
+            "paragraphs": [
+              "In the vast majority of web cases, 80% delivers massive size reduction with zero perceptible loss on laptop and phone screens.",
+              "If file size still exceeds your CMS cap, lower to 75% and re-inspect—do not jump straight to 60%."
+            ]
+          },
+          {
+            "id": "zoom-200",
+            "heading": "Zoom to 200%",
+            "level": 3,
+            "paragraphs": [
+              "Normal viewing distance hides minor blocking. Editors who approve assets at 100% zoom miss problems that appear on retina displays.",
+              "Pay special attention to gradients (skies, skin) and high-contrast edges (hair against background, diagram lines)."
+            ]
+          },
+          {
+            "id": "keep-original",
+            "heading": "Keep the Original for Backups",
+            "level": 3,
+            "paragraphs": [
+              "Your uncompressed photo is the master. Use JoinMyPDF Compress Image to create web derivatives—never overwrite the only full-resolution archive.",
+              "Future re-crops, print requests, and format changes need that master. Generational loss from repeated lossy saves is irreversible."
+            ]
+          },
+          {
+            "id": "format-notes",
+            "heading": "Quality Settings by Format",
+            "level": 2,
+            "paragraphs": [
+              "JPG: mature codec, predictable at 75–85% for photos. Avoid for logos with flat color.",
+              "WebP: often achieves same visual quality at lower quality numbers than JPG—compare byte size, not slider position alone.",
+              "PNG: lossless by default; use when transparency or crisp UI matters. Compress Image helps when you intentionally export lossy WebP from photo sources."
+            ]
+          },
+          {
+            "id": "subject-types",
+            "heading": "Tune by Subject Type",
+            "level": 2,
+            "paragraphs": [
+              "Portraits and product skin: stay 75–85%; banding in cheeks appears before landscapes show issues.",
+              "Landscapes and architecture: often tolerate 70–80%; watch sky gradients.",
+              "Screenshots and documents: prioritize edge clarity—may need 85–90% or PNG/WebP lossless paths.",
+              "Thumbnails and cards: 60–70% is often acceptable at small display sizes."
+            ]
+          },
+          {
+            "id": "cloud-vs-local-slider",
+            "heading": "Cloud Defaults vs Local Fine-Tuning",
+            "level": 2,
+            "paragraphs": [
+              "Cloud compressors optimize for their infrastructure throughput—not your brand's visual standards.",
+              "Local slider control aligns compression with your LCP targets from website-load-speed-compression and your quality bar from this guide.",
+              "Same tool, two lenses: speed deployment and pixel fidelity—both without upload."
+            ]
+          },
+          {
+            "id": "workflow-checklist",
+            "heading": "Quality Slider Workflow Checklist",
+            "level": 2,
+            "paragraphs": [
+              "Before exporting a batch of site images, run each file through this five-step pass: load master, set 80%, inspect at 200% zoom, note final quality in a spreadsheet, export derivative with descriptive filename.",
+              "Teams that document slider values per campaign avoid the drift where one contractor exports heroes at 60% and another at 90%—inconsistent brand presentation and unpredictable LCP.",
+              "Revisit presets when you change display width. A quality that worked at 1920px may show banding when the same file serves a 768px breakpoint without resize."
+            ]
+          },
+          {
+            "id": "common-mistakes",
+            "heading": "Common Quality Slider Mistakes",
+            "level": 2,
+            "list": [
+              "Compressing an already-compressed social download instead of the camera original—artifacts stack invisibly until zoom.",
+              "Matching cloud preset numbers blindly—WebP at 75% is not equivalent to JPG at 75%.",
+              "Overwriting the only master file after export—always keep an archived original folder.",
+              "Skipping zoom review on images with text, logos, or fine line art."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "Article Three in Our Compression Series",
+            "level": 2,
+            "paragraphs": [
+              "private-image-compression established trust. website-load-speed-compression tied bytes to Core Web Vitals. Here you control the dial between them.",
+              "Upcoming articles cover multi-format encode and batch workflows for teams shipping large asset libraries."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "Conclusion: Take Control of Your Assets",
+            "level": 2,
+            "paragraphs": [
+              "You do not have to compromise visual quality for a fast-loading website. Master the quality slider in JoinMyPDF Compress Image and become the architect of your own performance.",
+              "Start testing today—find your perfect balance between file size and stunning visual detail, locally and privately.",
+              "Pair this guide with lossy-vs-lossless-image-compression when you need to decide whether lossy export is appropriate at all."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "What is the best quality setting for web images?",
+            "a": "Start at 80% and adjust with the slider. Most web photos look identical to the original at 70–85% while file size drops 50–80%."
+          },
+          {
+            "q": "How do I compress without losing quality?",
+            "a": "Use a local quality slider with live preview. Inspect at 200% zoom, export a copy, and keep your uncompressed master archived."
+          },
+          {
+            "q": "Why is a local quality slider better than cloud compression?",
+            "a": "Local tools let you iterate instantly without uploads. Cloud services often apply fixed presets that over-compress portraits or under-compress heroes."
+          },
+          {
+            "q": "Should I use the same quality for every image?",
+            "a": "No. Tune per subject—portraits need higher settings than small thumbnails. Document presets per asset type for consistency."
+          },
+          {
+            "q": "Does WebP need the same quality number as JPG?",
+            "a": "WebP often achieves similar visuals at lower quality values. Compare file size and preview, not the numeric slider alone."
+          },
+          {
+            "q": "Can I preview file size before downloading?",
+            "a": "Yes. JoinMyPDF Compress Image updates estimated output size as you move the quality slider—no export required for each test."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "JoinMyPDF Compress Image — quality slider"
+          },
+          {
+            "href": "/blog/website-load-speed-compression/",
+            "anchor": "Load time compression guide"
+          },
+          {
+            "href": "/blog/private-image-compression/",
+            "anchor": "Private local compression"
+          },
+          {
+            "href": "/blog/lossy-vs-lossless-image-compression/",
+            "anchor": "Lossy vs lossless explained"
+          },
+          {
+            "href": "/tools/resize-image/",
+            "anchor": "Resize before compress"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "shrink-any-format",
+      "title": "Shrink Any Image Format Instantly: From WebP to HEIC Without Quality Loss",
+      "keyword": "compress webp heic image format browser shrink without quality loss",
+      "category": "Conversion",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-15",
+      "readTime": "12 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.94,
+      "relatedTools": [
+        "compress-image",
+        "convert-to-png",
+        "resize-image",
+        "crop-image"
+      ],
+      "relatedBlogs": [
+        "browser-vs-server-compression",
+        "mastering-quality-slider",
+        "website-load-speed-compression",
+        "private-image-compression",
+        "format-versatility",
+        "rotate-any-format",
+        "heic-to-png-guide",
+        "webp-to-png-guide",
+        "lossy-vs-lossless-image-compression"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for multi-format local compression · Jul 2026"
+      },
+      "seo": {
+        "metaTitle": "Compress WebP & HEIC Locally: Multi-Format Shrink Without Conversion",
+        "metaDescription": "Shrink WebP, HEIC, PNG, and JPG without pre-converting. JoinMyPDF Compress Image handles modern formats in your browser—no upload, no format-stubborn cloud limits.",
+        "keywords": "HEIC compressor local, WebP compression browser, compress heic without converting, shrink webp locally, multi format image compressor, compress any image format"
+      },
+      "description": "Compress WebP, HEIC, PNG, and GIF locally without conversion loops. Why browser-native decode beats format-stubborn cloud compressors.",
+      "contentBlocks": {
+        "intro": "Digital imagery is more diverse than ever. JPEG served us for decades, but WebP delivers superior web compression and HEIC gives Apple users high quality at a fraction of file size. The more formats you use, the harder management becomes. Most cloud compressors are format-stubborn—they force conversion to JPG before compression, adding time and risking data degradation. JoinMyPDF Compress Image leverages browser-native technology to shrink diverse formats directly in your browser. Article four in our compression series: after privacy, load times, and quality sliders in private-image-compression, website-load-speed-compression, and mastering-quality-slider, we focus on format flexibility without compromise. Ecommerce catalogs mix supplier WebP with photographer JPEG; agencies inherit iPhone HEIC from client shoots—one local compress tab replaces a chain of single-format cloud tools.",
+        "editorialNote": "JoinMyPDF Compress Image decodes and compresses supported formats in your browser. Standard workflows do not upload image files to our servers.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Shrink any format — free, local, instant",
+        "bottomCtaLabel": "Open multi-format compress tool",
+        "technicalSoftwareSchema": true,
+        "howTo": {
+          "name": "How to Compress WebP, HEIC, and Mixed Formats Locally",
+          "description": "Shrink modern image formats without pre-conversion using JoinMyPDF Compress Image in your browser.",
+          "steps": [
+            {
+              "name": "Open Compress Image in a modern browser",
+              "text": "Use Chrome, Edge, Firefox, or Safari with current decode support. No account required."
+            },
+            {
+              "name": "Drop any supported file",
+              "text": "Drag WebP, HEIC, PNG, JPEG, or GIF. The browser decodes locally—no upload bar."
+            },
+            {
+              "name": "Adjust quality per format",
+              "text": "Use the quality slider from mastering-quality-slider. WebP and JPG respond differently—preview each file."
+            },
+            {
+              "name": "Export in original or target format",
+              "text": "Download compressed output. Keep HEIC as HEIC or WebP as WebP when your pipeline allows—avoid unnecessary conversion loops."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "format-diversity",
+            "heading": "Why Modern Formats Multiply Workflow Pain",
+            "level": 2,
+            "paragraphs": [
+              "Web teams ship WebP for LCP gains. iPhone shooters capture HEIC by default. Designers rely on PNG transparency. GIF still powers lightweight motion.",
+              "Each format solves a real problem—but generic cloud tools often treat anything beyond JPG as an edge case.",
+              "Local browser compression unifies the workflow: one tab, mixed folders, format-aware processing without server codec gaps."
+            ]
+          },
+          {
+            "id": "compatibility-gap",
+            "heading": "The Format Compatibility Gap",
+            "level": 2,
+            "paragraphs": [
+              "Generic online compressors are limited by server backend capabilities. Missing HEIC or WebP codecs mean rejection or brute-force conversion.",
+              "That workflow fails teams in three ways:"
+            ],
+            "list": [
+              "Quality loss: HEIC → JPG re-encode strips fine detail every hop.",
+              "Workflow friction: you should not hunt a separate HEIC-to-JPG converter just to compress.",
+              "Data privacy: more conversion sites means more third parties touching personal files—see private-image-compression."
+            ]
+          },
+          {
+            "id": "quality-loss-conversion",
+            "heading": "Quality Loss from Forced Conversion",
+            "level": 3,
+            "paragraphs": [
+              "Every lossy conversion is generational loss. Cloud compressors that decode HEIC server-side often re-encode at opaque quality defaults.",
+              "Local compression keeps you in control: one decode in browser memory, one intentional encode at your slider setting.",
+              "Pair with lossless-rotation-quality mindset: minimize unnecessary re-encode steps across your toolchain."
+            ]
+          },
+          {
+            "id": "workflow-friction",
+            "heading": "Workflow Friction and Tool Sprawl",
+            "level": 3,
+            "paragraphs": [
+              "Format-stubborn clouds push teams into converter → compressor → CMS upload chains. Three tabs, three privacy policies, three failure points.",
+              "JoinMyPDF Compress Image collapses compress into one local step—same philosophy as format-versatility for crop and rotate-any-format for orientation."
+            ]
+          },
+          {
+            "id": "local-universal",
+            "heading": "Local Processing: The Universal Language",
+            "level": 2,
+            "paragraphs": [
+              "JoinMyPDF Compress Image processes locally, tapping the browser rendering engine built for modern image standards.",
+              "Chrome, Firefox, Safari, and Edge already decode WebP, HEIC (where supported), PNG, and GIF natively—no external conversion farm."
+            ]
+          },
+          {
+            "id": "native-decoding",
+            "heading": "Native Decoding in the Browser",
+            "level": 3,
+            "paragraphs": [
+              "Browser decode paths are updated with each release—your tool inherits codec improvements without server migrations.",
+              "When Safari adds HEIC improvements or Chrome optimizes WebP encode, local tools benefit automatically on the user's machine."
+            ]
+          },
+          {
+            "id": "format-integrity",
+            "heading": "Format Integrity on Export",
+            "level": 3,
+            "paragraphs": [
+              "Compress while keeping original format when possible: shrink .webp and download .webp—same extension, same pipeline expectations.",
+              "CMS and static generators increasingly accept WebP natively; forcing JPG 'for compatibility' often wastes the format's byte advantage."
+            ]
+          },
+          {
+            "id": "lossless-precision",
+            "heading": "Lossless Precision and Slider Control",
+            "level": 3,
+            "paragraphs": [
+              "Shrinking inside browser memory gives precise algorithm control—quality stays where it matters regardless of container.",
+              "Apply mastering-quality-slider presets per format: WebP may look identical at lower numbers than JPG for the same subject."
+            ]
+          },
+          {
+            "id": "format-spotlight-webp",
+            "heading": "WebP: Web Performance Default",
+            "level": 2,
+            "paragraphs": [
+              "WebP typically beats JPG on size at similar visual quality—ideal for heroes and product grids from website-load-speed-compression.",
+              "Compress WebP locally without converting to JPG first. Re-export optimized WebP straight to your CDN.",
+              "When legacy browsers need fallback, generate JPG locally in the same session—not via a cloud converter queue.",
+              "Static site generators and Next.js image pipelines increasingly assume WebP sources—compress locally before git commit to keep repo size and deploy times under control."
+            ]
+          },
+          {
+            "id": "format-spotlight-heic",
+            "heading": "HEIC: iPhone and Apple Ecosystem",
+            "level": 2,
+            "paragraphs": [
+              "HEIC stores high-quality iPhone captures efficiently—but many web portals still reject the container.",
+              "Compress HEIC locally before sharing or uploading where size caps apply, without sending originals to unknown servers.",
+              "When true JPG delivery is required, convert intentionally in one local step—then compress with known slider values rather than chained cloud defaults.",
+              "Insurance and real-estate workflows often receive HEIC from mobile inspectors. Local compress meets portal caps without exposing claim imagery to third-party converters."
+            ]
+          },
+          {
+            "id": "format-spotlight-png-gif",
+            "heading": "PNG and GIF: Transparency and Motion",
+            "level": 2,
+            "paragraphs": [
+              "PNG preserves transparency cloud JPG converters destroy. Compress PNG directly for UI assets, logos, and screenshots.",
+              "GIF compression for lightweight animations stays local—no upload of animated assets to third-party processors.",
+              "For photos trapped in PNG, consider WebP export after local compress when transparency is not needed."
+            ]
+          },
+          {
+            "id": "mastering-assets",
+            "heading": "Mastering Diverse Assets",
+            "level": 2,
+            "paragraphs": [
+              "Keep your media library optimized regardless of source format:"
+            ],
+            "list": [
+              "Standardize on modern formats where platforms allow—WebP for web, HEIC for Apple capture workflows.",
+              "Avoid conversion loops: do not PNG → JPG just to compress.",
+              "Batch mixed folders with confidence—local processor treats each file by its properties."
+            ]
+          },
+          {
+            "id": "avoid-conversion-loops",
+            "heading": "Avoid \"Conversion Loops\"",
+            "level": 3,
+            "paragraphs": [
+              "Each loop—HEIC to JPG to WebP to compressed JPG—accumulates artifacts. Start from the best source format and compress once.",
+              "Local-only tools preserve transparency and color depth that standard converters flatten or band."
+            ]
+          },
+          {
+            "id": "batch-mixed",
+            "heading": "Batch Mixed Formats with Confidence",
+            "level": 3,
+            "paragraphs": [
+              "Drag a folder of WebP heroes, HEIC field shots, and PNG UI captures into one Compress Image session.",
+              "Document output naming: product-42.webp, shoot-heic-compressed.heic, logo-ui.png for clean CMS imports.",
+              "The series finale—browser-vs-server-compression—explains why local batch processing beats upload farms for privacy and speed."
+            ]
+          },
+          {
+            "id": "cloud-vs-local-formats",
+            "heading": "Cloud Format Limits vs Local Flexibility",
+            "level": 2,
+            "paragraphs": [
+              "Server-side compressors maintain codec allowlists—your file either fits or gets rejected.",
+              "Browser-local compress inherits the user's environment: if their browser opens the file, the tool can optimize it.",
+              "That model scales with the web platform instead of fighting it."
+            ]
+          },
+          {
+            "id": "browser-matrix",
+            "heading": "Browser Support Matrix for Local Compression",
+            "level": 2,
+            "paragraphs": [
+              "Chrome and Edge lead WebP and broad HEIC decode on desktop. Safari natively handles HEIC from iPhone exports—ideal for compress-before-share workflows on Mac.",
+              "Firefox continues expanding modern codec coverage. If one browser rejects a container, try the same file in the browser your audience uses most—local decode follows platform support, not vendor allowlists.",
+              "Keep browsers updated: codec improvements ship silently in release notes but materially affect compress quality and speed."
+            ]
+          },
+          {
+            "id": "team-playbook",
+            "heading": "Team Playbook for Mixed-Format Libraries",
+            "level": 2,
+            "paragraphs": [
+              "Assign format ownership: marketing ships WebP heroes, field teams upload HEIC rushes, product design exports PNG UI. Compress Image accepts all in one intake folder.",
+              "Log which slider values worked per format in a shared doc—WebP product shots at 76%, HEIC event photos at 82%, PNG icons lossless or high quality only.",
+              "Before CMS publish, run a five-file spot check: open compressed outputs at 200% zoom per mastering-quality-slider standards."
+            ]
+          },
+          {
+            "id": "series-context",
+            "heading": "Article Four in Our Compression Series",
+            "level": 2,
+            "paragraphs": [
+              "Articles one through three covered privacy, speed, and quality sliders. Here format diversity stops being a bottleneck.",
+              "One JoinMyPDF Compress Image tab replaces converter sprawl—secure, fast, sharp, and format-flexible."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "Conclusion: Flexibility Without Compromise",
+            "level": 2,
+            "paragraphs": [
+              "Image format variety should be a benefit, not a bottleneck. Browser-based local compression reclaims freedom to work with any file type.",
+              "Shrink HEIC, WebP, and PNG instantly with JoinMyPDF Compress Image—the modern workflow for mixed-format media libraries.",
+              "Read the full compression series to build team policy: private by default, fast for Core Web Vitals, quality-tuned, and format-flexible."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Can I compress HEIC files without converting to JPG first?",
+            "a": "Yes. JoinMyPDF Compress Image decodes HEIC locally in supported browsers. Compress directly or export to your chosen format in one session."
+          },
+          {
+            "q": "Does WebP to WebP compression work locally?",
+            "a": "Yes. Drop a WebP file, adjust quality, and download optimized WebP—no pre-conversion and no cloud upload."
+          },
+          {
+            "q": "Why do cloud compressors reject HEIC or WebP?",
+            "a": "Server backends often lack modern codecs or force JPG conversion. Browser-local tools use native decode built into Chrome, Safari, Firefox, and Edge."
+          },
+          {
+            "q": "Will compressing PNG remove transparency?",
+            "a": "Local PNG compression preserves transparency when exporting PNG. Avoid cloud JPG converters for UI assets that need alpha channels."
+          },
+          {
+            "q": "Can I batch compress mixed formats in one session?",
+            "a": "Yes. Drag WebP, HEIC, PNG, and JPG together. Each file is processed according to its format locally in your browser."
+          },
+          {
+            "q": "Is JoinMyPDF Compress Image a SoftwareApplication for SEO?",
+            "a": "Yes. Structured data marks it as browser-based image compression software supporting multiple modern formats without cloud upload."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "JoinMyPDF Compress Image — any format"
+          },
+          {
+            "href": "/blog/mastering-quality-slider/",
+            "anchor": "Quality slider guide"
+          },
+          {
+            "href": "/blog/website-load-speed-compression/",
+            "anchor": "Web performance compression"
+          },
+          {
+            "href": "/blog/heic-to-png-guide/",
+            "anchor": "HEIC conversion guide"
+          },
+          {
+            "href": "/blog/webp-to-png-guide/",
+            "anchor": "WebP conversion guide"
+          }
+        ]
+      }
+    },
+    {
+      "slug": "browser-vs-server-compression",
+      "title": "Browser-Based vs. Server-Side Compression: Why Local Tools Win for Privacy",
+      "keyword": "browser-based image compressor local vs server side compression privacy",
+      "category": "Security",
+      "cluster": "privacy-image-processing",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2026-07-16",
+      "readTime": "12 min read",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.96,
+      "relatedTools": [
+        "compress-image",
+        "convert-to-png",
+        "resize-image",
+        "crop-image"
+      ],
+      "relatedBlogs": [
+        "private-image-compression",
+        "website-load-speed-compression",
+        "mastering-quality-slider",
+        "shrink-any-format",
+        "local-vs-cloud-conversion",
+        "how-to-compress-images-privacy-first",
+        "why-local-image-processing-is-safer",
+        "browser-image-processing-privacy"
+      ],
+      "author": {
+        "name": "Tomer",
+        "role": "Web Tools Engineer",
+        "verifiedLabel": "Reviewed for browser vs server compression privacy · Jul 2026"
+      },
+      "seo": {
+        "metaTitle": "Browser vs Server Image Compression: Why Local Tools Win (Privacy Guide)",
+        "metaDescription": "Compare server-side upload compressors vs browser-based local tools. JoinMyPDF Compress Image—100% private, no latency, no cloud storage of your photos.",
+        "keywords": "browser-based image compressor, local vs server side compression, private image compression no upload, server side compression risks, local first image shrink"
+      },
+      "description": "Server-side vs browser-based compression compared: privacy, speed, security, and cost. Why JoinMyPDF Compress Image keeps files on your device.",
+      "contentBlocks": {
+        "intro": "The internet is built on client-server architecture, but for utility tools like image compressors, that traditional model is becoming obsolete. For years, the standard workflow was upload → server process → download. Effective in the past, server-side compression now carries significant security, speed, and efficiency drawbacks. High-performance browser engines enable a new standard: browser-based local compression. JoinMyPDF Compress Image represents this shift—you no longer compromise privacy for professional-grade results. Article five and series finale: we tie together private-image-compression, website-load-speed-compression, mastering-quality-slider, and shrink-any-format into one architectural choice—local-first by default. Freelancers, agencies, and in-house marketing teams compress daily; the architecture choice repeats across every file. Defaulting to browser-based processing scales privacy without training everyone on CLI tooling.",
+        "editorialNote": "JoinMyPDF Compress Image runs compression in your browser. Standard workflows do not upload image files to our servers.",
+        "primaryTool": "compress-image",
+        "primaryToolCtaLabel": "Compress locally — free, private, instant",
+        "bottomCtaLabel": "Open browser-based compress tool",
+        "privacySecuritySchema": true,
+        "howTo": {
+          "name": "How to Switch from Server-Side to Browser-Based Compression",
+          "description": "Replace cloud upload compressors with JoinMyPDF Compress Image for private, instant results.",
+          "steps": [
+            {
+              "name": "Stop uploading sensitive assets",
+              "text": "Identify images you currently send to online compressors—passport scans, client work, unreleased creative."
+            },
+            {
+              "name": "Open Compress Image once",
+              "text": "Load JoinMyPDF Compress Image in a modern browser. The engine initializes locally—no account or upload queue."
+            },
+            {
+              "name": "Compress with live preview",
+              "text": "Drop files, adjust the quality slider, export optimized WebP or JPG. Processing uses your CPU, not a remote cluster."
+            },
+            {
+              "name": "Close the tab when done",
+              "text": "Working copies release from browser memory. No server cache retains your photos hours or days later."
+            }
+          ]
+        },
+        "sections": [
+          {
+            "id": "architecture-shift",
+            "heading": "Why Compression Architecture Matters",
+            "level": 2,
+            "paragraphs": [
+              "Compression is not just an algorithm—it is a data-flow decision. Server-side tools move your bytes to their infrastructure; browser-based tools move code to your device.",
+              "That distinction affects GDPR processor lists, incident response, and whether a marketing hero ever sits on a stranger's disk.",
+              "Teams adopting local-first compression treat upload compressors like unencrypted email attachments—convenient but avoidable."
+            ]
+          },
+          {
+            "id": "server-side-model",
+            "heading": "The Server-Side Model: An Outdated Standard",
+            "level": 2,
+            "paragraphs": [
+              "Traditional compression websites rely on remote infrastructure. When you send files to their servers, several things happen outside your control:",
+              "Upload compressors also create shadow IT: employees pick whichever site ranks first in search—each with different terms, ad networks, and retention policies."
+            ]
+          },
+          {
+            "id": "data-transit",
+            "heading": "Data Transit Vulnerability",
+            "level": 3,
+            "paragraphs": [
+              "Files travel across the public internet to the provider. HTTPS encrypts transit, but endpoints remain: the vendor's load balancer, storage layer, and employee access paths.",
+              "Local compression eliminates transit for the transform itself—pixels never leave your machine for the core encode step."
+            ]
+          },
+          {
+            "id": "permanent-storage",
+            "heading": "Permanent Storage and Cache Risk",
+            "level": 3,
+            "paragraphs": [
+              "Many server tools cache uploads for hours, days, or indefinitely. Policies promise deletion; verification is impossible from your desk.",
+              "You trust strangers to hold private photos—IDs, medical imagery, unreleased product shots. private-image-compression covered why that trust gap matters for regulated teams."
+            ]
+          },
+          {
+            "id": "hidden-costs",
+            "heading": "Hidden Costs of Server Infrastructure",
+            "level": 3,
+            "paragraphs": [
+              "Servers consume electricity, hardware maintenance, and cloud bandwidth. Providers recover costs through ads, usage caps, data tracking, or paid tiers.",
+              "Browser-based tools shift compute to your CPU—developers skip server bills, users often get ad-free, privacy-first experiences."
+            ]
+          },
+          {
+            "id": "local-advantage",
+            "heading": "The Local Advantage: Why Browser-Based Wins",
+            "level": 2,
+            "paragraphs": [
+              "Browser-based tools move software logic to your device. JoinMyPDF Compress Image downloads its engine once, then runs locally powered by your CPU.",
+              "Same architectural win as local-vs-cloud-conversion and instant-local-conversion—applied specifically to byte reduction."
+            ]
+          },
+          {
+            "id": "true-privacy",
+            "heading": "True Privacy (100%)",
+            "level": 3,
+            "paragraphs": [
+              "Your image never leaves your computer—it cannot be leaked, stolen, or archived on a vendor bucket.",
+              "Data stays invisible to the internet for the compression step. Close the tab; working memory clears on your device."
+            ]
+          },
+          {
+            "id": "speed-no-latency",
+            "heading": "Speed Without Upload Latency",
+            "level": 3,
+            "paragraphs": [
+              "Server-side tools are bounded by uplink and downlink speed. Local tools are bounded by your processor—often faster for batches on asymmetric home broadband.",
+              "website-load-speed-compression showed how skipping upload round-trips accelerates deploy prep; here the same physics apply to every compress session."
+            ]
+          },
+          {
+            "id": "cost-efficiency",
+            "heading": "Cost Efficiency for Users and Builders",
+            "level": 3,
+            "paragraphs": [
+              "No server GPU farms means no metered processing fees passed to users. Free, ad-free, high-performance compression becomes sustainable.",
+              "Enterprises reduce third-party processor count in GDPR records when compression stays client-side."
+            ]
+          },
+          {
+            "id": "workflow-comparison",
+            "heading": "Comparing the Workflows",
+            "level": 2,
+            "paragraphs": [
+              "Side-by-side view of server-side upload tools versus browser-based local compression:"
+            ],
+            "table": {
+              "headers": [
+                "Feature",
+                "Server-Side Tools",
+                "Browser-Based (Local)"
+              ],
+              "rows": [
+                [
+                  "Privacy",
+                  "Low — files are uploaded",
+                  "Maximum — files stay local"
+                ],
+                [
+                  "Speed",
+                  "Dependent on internet",
+                  "Instant — hardware-based"
+                ],
+                [
+                  "Security",
+                  "Risk of interception and retention",
+                  "None — data does not leave device"
+                ],
+                [
+                  "Costs",
+                  "Often ad-supported or paid",
+                  "Free / privacy-first"
+                ],
+                [
+                  "Quality control",
+                  "Opaque presets",
+                  "Live slider — mastering-quality-slider"
+                ],
+                [
+                  "Format support",
+                  "Codec allowlists",
+                  "Browser-native — shrink-any-format"
+                ]
+              ]
+            }
+          },
+          {
+            "id": "wasm-engines",
+            "heading": "WebAssembly and Modern Browser Engines",
+            "level": 2,
+            "paragraphs": [
+              "Local compression is viable because browsers run WebAssembly, Canvas, and native codec paths at near-native speed.",
+              "The compress engine loads once per session; subsequent files reuse warm memory—no cold server queue per upload.",
+              "Safari, Chrome, Firefox, and Edge all participate—your audience's browser becomes the compute platform.",
+              "Hardware acceleration on Apple Silicon and modern Intel/AMD chips makes local encode feel instant for typical 2–8MB camera JPEGs and iPhone HEIC exports."
+            ]
+          },
+          {
+            "id": "when-server-still-used",
+            "heading": "When Teams Still Choose Server-Side (And the Local Alternative)",
+            "level": 2,
+            "paragraphs": [
+              "Very large RAW batches or video-adjacent pipelines sometimes justify server farms—but JPEG, PNG, WebP, and HEIC web assets rarely need that scale for daily work.",
+              "When policy mandates on-prem processing, local browser tools still beat uploading to public SaaS compressors from a managed laptop.",
+              "Document a local-first exception process rather than defaulting every employee to random upload sites."
+            ]
+          },
+          {
+            "id": "compliance-lens",
+            "heading": "Compliance and Privacy Policy Lens",
+            "level": 2,
+            "paragraphs": [
+              "Each cloud compressor becomes a subprocessors entry: name, purpose, retention, DPA status. Local browser compression removes that row for the shrink step.",
+              "Privacy policies can state clearly: standard image compression occurs client-side; files are not transmitted for processing.",
+              "Security questionnaires from clients increasingly ask where pixels go—local-first answers are shorter and stronger."
+            ]
+          },
+          {
+            "id": "enterprise-adoption",
+            "heading": "Enterprise Adoption Patterns",
+            "level": 2,
+            "paragraphs": [
+              "Legal, finance, and healthcare teams block public compressor domains at the firewall—yet employees still need smaller attachments. Approved browser-local tools satisfy IT without opening upload exceptions.",
+              "Vendor security reviews ask: Does the tool transmit file contents? For JoinMyPDF Compress Image the answer is no for standard workflows—a shorter path to approval than SaaS upload farms.",
+              "Roll out via internal wiki link plus a five-minute Loom on quality slider basics from mastering-quality-slider."
+            ]
+          },
+          {
+            "id": "incident-lessons",
+            "heading": "What Server Leaks Teach Us",
+            "level": 2,
+            "paragraphs": [
+              "Breached conversion and compression buckets appear in news cycles with uncomfortable regularity. Files users treated as ephemeral often persisted in misconfigured storage.",
+              "Local-first compression removes an entire attack surface: there is no multi-tenant disk holding your passport scan next to someone else's product render.",
+              "Defense in depth still requires device security—but you eliminate vendor retention risk from the compress step."
+            ]
+          },
+          {
+            "id": "series-recap",
+            "heading": "Compression Series Recap: Five Lenses, One Tool",
+            "level": 2,
+            "paragraphs": [
+              "private-image-compression — security and EXIF exposure.",
+              "website-load-speed-compression — Core Web Vitals and LCP.",
+              "mastering-quality-slider — perceptual quality vs bytes.",
+              "shrink-any-format — WebP, HEIC, PNG without conversion loops.",
+              "This finale — architecture: browser beats server for privacy, speed, and control."
+            ]
+          },
+          {
+            "id": "migration-checklist",
+            "heading": "Migration Checklist: Server to Local",
+            "level": 2,
+            "paragraphs": [
+              "Move your team off upload compressors in one sprint:"
+            ],
+            "list": [
+              "Bookmark JoinMyPDF Compress Image as the approved shrink tool.",
+              "Block or discourage random compressor URLs in acceptable-use policy.",
+              "Train on quality slider presets from article three.",
+              "Measure LCP before/after optimized deploys from article two.",
+              "Support mixed formats per article four—no converter detours."
+            ]
+          },
+          {
+            "id": "conclusion",
+            "heading": "Conclusion: Take Back Your Digital Workflow",
+            "level": 2,
+            "paragraphs": [
+              "The choice between server-side and browser-based compression is convenience versus control. For years we thought upload was required. Now we know better.",
+              "JoinMyPDF Compress Image respects privacy, leverages your hardware, and delivers professional results without exposing files to the cloud.",
+              "Make the switch to local-first processing. Your data is your own—keep it that way.",
+              "Share this series with stakeholders who approve tools: five articles, one consistent recommendation—JoinMyPDF Compress Image, local-first, every time."
+            ]
+          }
+        ],
+        "faq": [
+          {
+            "q": "Is browser-based image compression safer than server-side?",
+            "a": "Yes. Browser-based tools process files on your device without uploading them for compression. Server-side tools store and process files on remote infrastructure."
+          },
+          {
+            "q": "What is the difference between local and server-side compression?",
+            "a": "Local compression runs in your browser using your CPU. Server-side compression requires upload and download, exposing files to transit and vendor storage."
+          },
+          {
+            "q": "Can browser compressors match server quality?",
+            "a": "Yes. JoinMyPDF Compress Image uses the same modern codecs with live quality slider control—often with better preview iteration than opaque cloud presets."
+          },
+          {
+            "q": "Do local compressors work offline?",
+            "a": "After the page loads, compression can continue without network access until you close the tab—ideal for travel and restricted networks."
+          },
+          {
+            "q": "Why are server-side compressors often ad-supported?",
+            "a": "Server processing, storage, and bandwidth cost money. Browser-based tools shift compute to your device, enabling free privacy-first models."
+          },
+          {
+            "q": "Does JoinMyPDF store compressed images on a server?",
+            "a": "Standard Compress Image workflows process files in your browser without uploading them for compression. See our privacy-first approach in private-image-compression."
+          }
+        ],
+        "internalLinks": [
+          {
+            "href": "/tools/compress-image/",
+            "anchor": "JoinMyPDF Compress Image — browser-based"
+          },
+          {
+            "href": "/blog/private-image-compression/",
+            "anchor": "Private compression guide"
+          },
+          {
+            "href": "/blog/local-vs-cloud-conversion/",
+            "anchor": "Local vs cloud conversion"
+          },
+          {
+            "href": "/blog/website-load-speed-compression/",
+            "anchor": "Speed & LCP guide"
+          },
+          {
+            "href": "/blog/shrink-any-format/",
+            "anchor": "Multi-format compression"
           }
         ]
       }
