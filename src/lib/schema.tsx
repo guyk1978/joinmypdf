@@ -428,6 +428,104 @@ export function losslessQualityAppLd(args: {
   };
 }
 
+/** Developer-focused technical guides (User-Agent, HTTP headers, debugging). */
+export function techArticleLd(args: {
+  headline: string;
+  description: string;
+  pathname: string;
+  datePublished?: string;
+  locale?: string;
+  about?: string[];
+  proficiencyLevel?: string;
+}) {
+  const subjects =
+    args.about ??
+    (args.locale === "he" ? ["User-Agent", "HTTP"] : ["User-Agent", "HTTP"]);
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: args.headline,
+    description: args.description,
+    url: absoluteUrl(args.pathname),
+    datePublished: args.datePublished,
+    proficiencyLevel: args.proficiencyLevel ?? (args.locale === "he" ? "מתקדם" : "Expert"),
+    dependencies: args.locale === "he" ? "HTTP, כותרות User-Agent" : "HTTP, User-Agent headers",
+    articleSection: args.locale === "he" ? "כלי מפתחים" : "Developer Tools",
+    about: subjects.map((name) => ({ "@type": "Thing", name })),
+    author: {
+      "@type": "Person",
+      name: "Tomer",
+      jobTitle: "Web Tools Engineer",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: getBrandName(args.locale),
+      url: absoluteUrl("/"),
+    },
+  };
+}
+
+/** Developer utility positioning for UA parser, JWT debugger, JSON formatter, etc. */
+export function developerUtilityAppLd(args: {
+  name: string;
+  description: string;
+  toolPath: string;
+  locale?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: args.name,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Any (Web Browser)",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: args.locale === "he" ? "ILS" : "USD",
+      availability: "https://schema.org/InStock",
+    },
+    isAccessibleForFree: true,
+    description: args.description,
+    url: absoluteUrl(args.toolPath),
+    featureList: [
+      ...(args.locale === "he"
+        ? [
+            "פענוח User-Agent בזמן אמת",
+            "זיהוי אוטומטי של navigator.userAgent",
+            "הדבקת מחרוזות UA מותאמות (בוטים, זחלים)",
+            "פלט JSON מובנה להעתקה",
+            "עיבוד מקומי בדפדפן ללא העלאה",
+            "פירוק דפדפן, OS, מכשיר ומנוע",
+          ]
+        : [
+            "Real-time User-Agent parsing",
+            "Auto-detect navigator.userAgent on load",
+            "Paste custom crawler, bot, and mobile UA strings",
+            "Structured JSON output for clipboard export",
+            "Local browser processing with no upload",
+            "Browser, OS, device, and engine breakdown",
+          ]),
+    ],
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Processing mode",
+        value: "Client-side with ua-parser-js",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Output format",
+        value: "Structured table and JSON",
+      },
+    ],
+    provider: {
+      "@type": "Organization",
+      name: getBrandName(args.locale),
+      url: absoluteUrl("/"),
+    },
+  };
+}
+
 /** Format or workflow comparison articles (e.g. HEIC vs JPG). */
 export function comparisonArticleLd(args: {
   headline: string;

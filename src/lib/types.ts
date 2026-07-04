@@ -109,6 +109,10 @@ export type BlogPost = {
     losslessQualitySchema?: boolean;
     /** Emits Article schema for format/workflow comparison content (e.g. HEIC vs JPG). */
     comparisonArticleSchema?: boolean;
+    /** Emits TechArticle schema for developer-focused technical guides. */
+    techArticleSchema?: boolean;
+    /** Emits SoftwareApplication schema for developer utility tools (UA parser, JWT, etc.). */
+    developerSoftwareSchema?: boolean;
   };
 };
 

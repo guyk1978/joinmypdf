@@ -13,7 +13,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
-import { blogPostingLd, breadcrumbLd, comparisonArticleLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, losslessQualityAppLd, privacySecurityAppLd, technicalFormatAppLd } from "@/lib/schema";
+import { blogPostingLd, breadcrumbLd, comparisonArticleLd, developerUtilityAppLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, losslessQualityAppLd, privacySecurityAppLd, technicalFormatAppLd, techArticleLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { resolveBlogOgImagePath } from "@/lib/og-images-blog";
@@ -141,6 +141,8 @@ export default async function BlogPostPage({
   const emitTechnicalFormat = post.contentBlocks?.technicalSoftwareSchema && primaryToolDef;
   const emitLosslessQuality = post.contentBlocks?.losslessQualitySchema && primaryToolDef;
   const emitComparisonArticle = post.contentBlocks?.comparisonArticleSchema;
+  const emitTechArticle = post.contentBlocks?.techArticleSchema;
+  const emitDeveloperSoftware = post.contentBlocks?.developerSoftwareSchema && primaryToolDef;
 
   return (
     <>
@@ -165,9 +167,19 @@ export default async function BlogPostPage({
           })}
         />
       ) : null}
-      {primaryToolDef ? (
+      {primaryToolDef && !emitDeveloperSoftware ? (
         <JsonLd
           data={localPerformanceAppLd({
+            name: translateToolItem(tTools, primaryToolDef.slug, primaryToolDef.title),
+            description: primaryToolDef.description,
+            toolPath: `/tools/${primaryToolDef.slug}/`,
+            locale,
+          })}
+        />
+      ) : null}
+      {emitDeveloperSoftware ? (
+        <JsonLd
+          data={developerUtilityAppLd({
             name: translateToolItem(tTools, primaryToolDef.slug, primaryToolDef.title),
             description: primaryToolDef.description,
             toolPath: `/tools/${primaryToolDef.slug}/`,
@@ -213,6 +225,18 @@ export default async function BlogPostPage({
             pathname,
             datePublished: post.publishDate,
             locale,
+          })}
+        />
+      ) : null}
+      {emitTechArticle ? (
+        <JsonLd
+          data={techArticleLd({
+            headline: displayTitle,
+            description,
+            pathname,
+            datePublished: post.publishDate,
+            locale,
+            about: locale === "he" ? ["User-Agent", "HTTP", "דפדפנים"] : ["User-Agent", "HTTP", "Web browsers"],
           })}
         />
       ) : null}
