@@ -35049,6 +35049,330 @@
           { "href": "/blog/beyond-tab-full-favicon-pack/", "anchor": "פריסת favicon pack מלא" }
         ]
       }
+    },
+    {
+      "slug": "favicon-cropper-square-standard",
+      "title": "הסטנדרט הריבועי: מדוע הפאביקון שלכם זקוק לחיתוך 1:1 מושלם",
+      "keyword": "favicon cropper חיתוך 1:1 ריבוע aspect ratio אייקון לשונית מקצועי",
+      "category": "Productivity",
+      "cluster": "favicon-cropper",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-08-28",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.98,
+      "relatedTools": ["favicon-cropper", "generate-favicon", "png-to-ico", "favicon-pack", "favicon-compressor"],
+      "relatedBlogs": ["favicon-cropper-local-first-privacy", "favicon-cropper-focal-point-composition", "favicon-cropper-png-jpg-svg-formats", "favicon-cropper-precision-quick-reset", "hidden-power-of-favicons", "beyond-tab-full-favicon-pack", "local-first-favicon-generation", "speed-matters-favicon-optimization", "local-first-png-to-ico-conversion"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור חיתוך favicon 1:1 ו-UX לשונית · אוג 2027" },
+      "seo": {
+        "metaTitle": "חיתוך Favicon 1:1 | הסטנדרט הריבועי",
+        "metaDescription": "דפדפנים מרנדרים favicon במכולות ריבועיות. JoinMyPDF Free Favicon Cropper Online עם חיתוך 1:1 ותצוגה חיה ב-16×16, 32×32 ו-48×48 לפני ההורדה.",
+        "keywords": "favicon cropper, חיתוך favicon 1:1, favicon ריבועי, חיתוך favicon אונליין, free favicon cropper online"
+      },
+      "description": "מדוע חיתוך 1:1 מושלם חשוב לאייקוני לשונית — ואיך פאנל התצוגה החיה של JoinMyPDF מציג 16×16, 32×32 ו-48×48 לפני ההורדה.",
+      "contentBlocks": {
+        "intro": "בהיררכיה הוויזואלית של הדפדפן, הפאביקון הוא השגריר הקטן ביותר של המותג — הדבר הראשון שהמשתמש רואה בלשונית. דפדפנים מרנדרים את האייקון במכולה ריבועית קשיחה. תמונה שנחתכה בצורה לא טובה תיראה מתוחה, קטועה או לא מקצועית. JoinMyPDF Free Favicon Cropper Online עוזר לעמוד בסטנדרט הריבועי עם חיתוך 1:1 מדויק ופאנל תצוגה חיה בגדלי אייקון אמיתיים. מאמר 1 בסדרת favicon cropper: שליטה בקומפוזיציה לפני פרטיות מקומית ו-workflows מתקדמים במאמרים הבאים.",
+        "editorialNote": "JoinMyPDF Favicon Cropper רץ בדפדפן. שימוש רגיל לא מעלה קבצי לוגו לשרתים שלנו.",
+        "primaryTool": "favicon-cropper",
+        "primaryToolCtaLabel": "חתכו favicon 1:1 — תצוגה חיה 16×16, 32×32, 48×48, PNG JPG SVG",
+        "bottomCtaLabel": "פתחו Free Favicon Cropper ועמדו בסטנדרט הריבועי היום",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לחתוך favicon 1:1 מושלם עם תצוגה מקדימה בגדלים אמיתיים",
+          "description": "השתמשו במסגרת הריבועית ופאנל התצוגה של JoinMyPDF לבדיקת בהירות בלשונית.",
+          "steps": [
+            { "name": "העלו PNG, JPG או SVG", "text": "גררו לוגו או artwork — JoinMyPDF טוען מסגרת חיתוך ריבועית אוטומטית." },
+            { "name": "כוונו את מסגרת 1:1", "text": "גררו ושנו גודל כדי לשמר את החלק החיוני של סימן המותג." },
+            { "name": "סקירת פאנל תצוגה חיה", "text": "התצוגה מתעדכנת ב-16×16, 32×32 ו-48×48 — גדלי אייקון אמיתיים." },
+            { "name": "בחרו גודל פלט", "text": "ייצוא ברזולוציית החיתוך, 32×32 או 48×48 PNG." },
+            { "name": "הורידו favicon מוכן לריבוע", "text": "החליפו נכסים ב-/public — ללא עיוות או חיתוך אוטומטי גרוע." }
+          ]
+        },
+        "sections": [
+          { "id": "square-standard", "heading": "מדוע 1:1 זה חשוב", "level": 2, "paragraphs": ["דפדפנים אינם סלחניים לגבי מימדי אייקונים.", "מקור מלבני נדחס לריבוע — עיוות — או נחתך גרוע.", "JoinMyPDF Free Favicon Cropper Online נותן שליטה בקומפוזיציה.", "אתם מחליטים איזה חלק מהיצירה נשמר ב-1:1.", "המותג נשאר מזוהה בקנה המידה הקטן ביותר."] },
+          { "id": "live-preview-panel", "heading": "תצוגה חיה בגדלי דפדפן אמיתיים", "level": 2, "paragraphs": ["JoinMyPDF כולל פאנל Preview Panel שמתעדכן בזמן שמזיזים את החיתוך.", "ראו תוצאה 1:1 ב-16×16, 32×32 ו-48×48 פיקסל.", "רינדור pixelated מדמה מראה בלשוניות.", "אמתו בהירות lettermarks וקווים דקים לפני ייצוא.", "מה שרואים ב-16×16 — זה מה שהמשתמשים מקבלים."] },
+          { "id": "professionalism", "heading": "מקצועיות בכל הדפדפנים", "level": 2, "paragraphs": ["פרויקט מקצועי מוגדר בתשומת לב לפרטים.", "אייקון מיושר וחתום ב-1:1 מאותת על איכות.", "מסכי desktop ו-mobile HD מרוויחים מחיתוך מכוון.", "שלבו עם Favicon Pack או PNG to ICO אחרי החיתוך.", "חיתוך ריבועי הוא הבסיס לפני דחיסה ו-multi-size."] },
+          { "id": "series-context", "heading": "הקשר הסדרה", "level": 2, "paragraphs": ["מאמר 1 (מדריך זה): הסטנדרט הריבועי, חיתוך 1:1 ו-Preview Panel.", "מאמר 2: פרטיות מקומית ו-Privacy Badge.", "מאמר 3: מצב Focal Point ללוגואים רחבים — מדריך צלב ורשת.", "מאמר 4: זיהוי PNG, JPG ו-SVG עם משוב מיידי.", "מאמר 5 (סיום): Quick Reset לחיתוך מדויק בשניות.", "כלי עוגן: JoinMyPDF Free Favicon Cropper Online."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["אל תתנו לאייקון מעוות לפגוע ברושם הראשוני.", "JoinMyPDF Free Favicon Cropper Online יוצר נכסים נקיים ומוכנים לריבוע.", "תצוגה ב-16×16 לפני ההורדה — ליטוש פשוט לנוכחות מקצועית."] }
+        ],
+        "faq": [
+          { "q": "מדוע favicon חייב להיות ריבוע 1:1?", "a": "דפדפנים מרנדרים במכולות ריבועיות. מקור לא-ריבועי נמתח או נחתך אוטומטית." },
+          { "q": "אילו גדלים מציג Preview Panel?", "a": "16×16, 32×32 ו-48×48 — גדלי favicon סטנדרטיים." },
+          { "q": "האם התצוגה מתעדכנת בזמן גרירת החיתוך?", "a": "כן. הפאנל מתרענן כשמזיזים או משנים גודל את מסגרת הריבוע." },
+          { "q": "אילו פורמטים נתמכים?", "a": "PNG, JPG ו-SVG — עיבוד מקומי בדפדפן." },
+          { "q": "אילו גדלי פלט אפשר לייצא?", "a": "PNG ברזולוציית החיתוך, או 32×32 ו-48×48 קבועים." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/favicon-cropper/", "anchor": "JoinMyPDF Free Favicon Cropper" },
+          { "href": "/tools/generate-favicon/", "anchor": "כלי Generate Favicon" },
+          { "href": "/tools/favicon-pack/", "anchor": "מחולל Favicon Pack" },
+          { "href": "/blog/hidden-power-of-favicons/", "anchor": "הכוח הנסתר של favicon" },
+          { "href": "/tools/favicon-compressor/", "anchor": "Favicon Compressor" }
+        ]
+      }
+    },
+    {
+      "slug": "favicon-cropper-local-first-privacy",
+      "title": "חיתוך פרטי: מדוע עיבוד מקומי הוא הדרך היחידה עבור הלוגו שלכם",
+      "keyword": "favicon cropper פרטיות עיבוד מקומי לוגו מאובטח ללא העלאה חיתוך דפדפן",
+      "category": "Security",
+      "cluster": "favicon-cropper",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-09-04",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.97,
+      "relatedTools": ["favicon-cropper", "generate-favicon", "png-to-ico", "favicon-pack", "svg-to-favicon"],
+      "relatedBlogs": ["favicon-cropper-square-standard", "favicon-cropper-focal-point-composition", "favicon-cropper-png-jpg-svg-formats", "favicon-cropper-precision-quick-reset", "privacy-first-favicon-pack-local", "favicon-compressor-local-first-privacy", "local-first-favicon-generation", "why-local-image-processing-is-safer", "hidden-power-of-favicons"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור favicon cropper local-first privacy · ספט 2027" },
+      "seo": {
+        "metaTitle": "חיתוך Favicon פרטי | עיבוד לוגו מקומי",
+        "metaDescription": "חיתוך בענן מעלה את הלוגו. JoinMyPDF Free Favicon Cropper Online רץ 100% בדפדפן — Privacy Badge מאשר שהתמונה מעובדת מקומית.",
+        "keywords": "favicon cropper פרטיות, חיתוך favicon מקומי, חיתוך לוגו ללא העלאה, favicon cropper פרטי, free favicon cropper online"
+      },
+      "description": "מדוע חיתוך לוגו צריך להישאר על המכשיר — ואיך Privacy Badge של JoinMyPDF מרגיע שה-artwork הרגיש לא עוזב את הדפדפן.",
+      "contentBlocks": {
+        "intro": "כשמכינים לוגו לאתר, מטפלים בקניין רוחני רגיש. כלי חיתוך מקוונים רבים דורשים העלאה לשרת — סיכון אבטחה משמעותי. JoinMyPDF Free Favicon Cropper Online מסיר את הסיכון עם עיבוד מקומי פרטי ב-100%. Privacy Badge בולט מצהיר שהתמונה מעובדת מקומית בדפדפן לאורך כל תהליך החיתוך. מאמר 2 בסדרה: אבטחה אחרי מאמר 1 על חיתוך 1:1 ו-Preview Panel.",
+        "editorialNote": "JoinMyPDF Favicon Cropper מעבד בדפדפן. שימוש רגיל לא מעלה קבצי לוגו לשרתים שלנו.",
+        "primaryTool": "favicon-cropper",
+        "primaryToolCtaLabel": "חתכו favicon בפרטיות — Privacy Badge, פאנל תצוגה 1:1, PNG JPG SVG",
+        "bottomCtaLabel": "פתחו Free Favicon Cropper והגנו על נכסי המותג היום",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "privacySecuritySchema": true,
+        "howTo": {
+          "name": "איך לחתוך favicon בלי להעלות את הלוגו",
+          "description": "אמתו חיתוך favicon מקומי עם Privacy Badge של JoinMyPDF.",
+          "steps": [
+            { "name": "פתחו JoinMyPDF Favicon Cropper", "text": "Privacy Badge מציג חיתוך מקומי פרטי לפני העלאה." },
+            { "name": "העלו PNG, JPG או SVG", "text": "התג מתעדכן: התמונה מעובדת מקומית בדפדפן — עם אייקון מנעול." },
+            { "name": "כוונו מסגרת 1:1", "text": "חיתוך Canvas על המכשיר — ללא תקשורת שרת." },
+            { "name": "סקירת Preview Panel", "text": "16×16, 32×32, 48×48 ממאמר 1 — עדיין מקומי לחלוטין." },
+            { "name": "הורידו favicon חתוך", "text": "ייצוא PNG — הקבצים לא עזבו את המכשיר." }
+          ]
+        },
+        "sections": [
+          { "id": "server-side-risk", "heading": "סיכון חיתוך בצד השרת", "level": 2, "paragraphs": ["חיתוך מקוון סטנדרטי מסתמך על pipelines בשרת.", "הלוגו עוזב את המכשיר.", "אין נראות לגישה, שמירה או logging.", "לסוכנויות וארגונים — חבות בלתי מקובלת.", "מותגים לפני השקה לא יכולים להסתכן בחשיפה."] },
+          { "id": "local-first-advantage", "heading": "מדוע עיבוד מקומי הוא טוב יותר", "level": 2, "paragraphs": ["JoinMyPDF מבצע את כל העריכה בדפדפן.", "הקבצים לא עוזבים את המכשיר — אין שרת או DB.", "אין סיכון ליירוט או שימוש לרעה בנכסי מותג.", "למפתחים ועסקים — local-first הוא הסטנדרט.", "אותו מודל כמו Favicon Compressor, Favicon Pack ו-PNG to ICO."] },
+          { "id": "privacy-badge", "heading": "תוכנן לאבטחה: Privacy Badge", "level": 2, "paragraphs": ["JoinMyPDF מציג Privacy Badge בולט לאורך החיתוך.", "לפני העלאה: מגן + ציפייה לחיתוך מקומי.", "בזמן חיתוך: מנעול + התמונה מעובדת מקומית בדפדפן.", "התג נראה ב-dropzone וב-workspace — הרגעה מתמדת.", "אבטחה בלי לוותר על נוחות — חיתוך 1:1 מושלם.", "אמתו ב-DevTools Network — אין POST עם bytes של לוגו."] },
+          { "id": "series-context", "heading": "הקשר הסדרה", "level": 2, "paragraphs": ["מאמר 1: הסטנדרט הריבועי, 1:1 ו-Preview Panel.", "מאמר 2 (מדריך זה): פרטיות מקומית ו-Privacy Badge.", "מאמר 3: מצב Focal Point — ממלבן לריבוע.", "מאמר 4: זיהוי PNG, JPG ו-SVG עם משוב מיידי.", "מאמר 5 (סיום): Quick Reset לחיתוך מדויק בשניות.", "כלי עוגן: JoinMyPDF Free Favicon Cropper Online — פרטי וריבועי."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["אל תהמרו על נכסי המותג.", "JoinMyPDF Free Favicon Cropper Online שומר משמורת מלאה לאורך החיתוך.", "המיתוג נשאר פרטי, מאובטח ותחת שליטתכם."] }
+        ],
+        "faq": [
+          { "q": "האם JoinMyPDF מעלה לוגו בזמן חיתוך?", "a": "לא. Canvas ו-PNG export בדפדפן. Privacy Badge משקף עיבוד על המכשיר." },
+          { "q": "מה Privacy Badge אומר בזמן חיתוך?", "a": "התמונה מעובדת מקומית בדפדפן — עם אייקון מנעול." },
+          { "q": "מדוע חיתוך בשרת מסוכן?", "a": "סימן המותג עובר באינטרנט ועלול להישמר על חומרה של צד שלישי." },
+          { "q": "אפשר לאמת ב-DevTools?", "a": "כן. Network בזמן חיתוך — אין POST עם bytes." },
+          { "q": "האם זה עובד עם SVG?", "a": "כן. rasterization וחיתוך ריבועי בדפדפן — artwork נשאר על המכשיר." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/favicon-cropper/", "anchor": "JoinMyPDF Free Favicon Cropper" },
+          { "href": "/blog/favicon-cropper-square-standard/", "anchor": "מאמר 1 בסדרת favicon cropper" },
+          { "href": "/blog/favicon-compressor-local-first-privacy/", "anchor": "פרטיות favicon compressor" },
+          { "href": "/blog/why-local-image-processing-is-safer/", "anchor": "למה עיבוד מקומי בטוח יותר" },
+          { "href": "/tools/favicon-pack/", "anchor": "מחולל Favicon Pack" }
+        ]
+      }
+    },
+    {
+      "slug": "favicon-cropper-focal-point-composition",
+      "title": "ממלבן לריבוע: השתלטות על קומפוזיציית הפאביקון",
+      "keyword": "favicon cropper נקודת מיקוד לוגו רחב קומפוזיציה ריבוע favicon מלבני",
+      "category": "Productivity",
+      "cluster": "favicon-cropper",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-09-11",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.96,
+      "relatedTools": ["favicon-cropper", "generate-favicon", "png-to-ico", "favicon-pack", "svg-to-favicon"],
+      "relatedBlogs": ["favicon-cropper-square-standard", "favicon-cropper-local-first-privacy", "favicon-cropper-png-jpg-svg-formats", "favicon-cropper-precision-quick-reset", "hidden-power-of-favicons", "beyond-tab-full-favicon-pack", "local-first-favicon-generation"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור קומפוזיציית focal point · ספט 2027" },
+      "seo": {
+        "metaTitle": "קומפוזיציית Favicon | מלוגו מלבני לאייקון ריבועי",
+        "metaDescription": "לוגואים רחבים נראים קטנים ב-favicon ריבועי. מצב Focal Point של JoinMyPDF עם מדריך צלב עוזר לחתוך את הסמל המזוהה לקריאות ב-16×16.",
+        "keywords": "קומפוזיציית favicon, לוגו רחב favicon, חיתוך focal point, favicon cropper ריבועי, free favicon cropper online"
+      },
+      "description": "איך להפוך לוגואים מלבניים רחבים ל-favicon ריבועי קריא — עם מצב Focal Point, מדריך צלב וחיתוך אסטרטגי ב-JoinMyPDF.",
+      "contentBlocks": {
+        "intro": "לוגו המותג הראשי לעיתים רחב או מלבני — מעוצב לכותרת אתר או כרטיס ביקור. פאביקונים דורשים יחס ריבועי 1:1 קשיח. דחיפת כל הרוחב לתוך אייקון לשונית הופכת את הסמל לקטן או בלתי ניתן לזיהוי. JoinMyPDF Free Favicon Cropper Online פותר את אתגר הקומפוזיציה עם מצב Focal Point: לחיצה לעיגון החיתוך הריבועי על החלק המזוהה ביותר, עם מדריך צלב ורשת ליישור מושלם. מאמר 3 בסדרה: קומפוזיציה אחרי מאמרים 1–2 על חיתוך 1:1, Preview Panel ופרטיות מקומית.",
+        "editorialNote": "JoinMyPDF Favicon Cropper מעבד בדפדפן. מצב Focal Point ממקם מחדש את החיתוך הריבועי בלי להעלות את הלוגו.",
+        "primaryTool": "favicon-cropper",
+        "primaryToolCtaLabel": "חתכו עם Focal Point — מדריך צלב, פאנל תצוגה 1:1, PNG JPG SVG",
+        "bottomCtaLabel": "פתחו Free Favicon Cropper ושלטו בקומפוזיציית הפאביקון היום",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לחתוך לוגו רחב ל-favicon ריבועי",
+          "description": "השתמשו במצב Focal Point של JoinMyPDF למרכז סמל המותג במסגרת 1:1.",
+          "steps": [
+            { "name": "פתחו JoinMyPDF Favicon Cropper", "text": "העלו PNG, JPG או SVG רחב — העיבוד נשאר מקומי בדפדפן." },
+            { "name": "הפעילו מצב Focal Point", "text": "הפעילו את המתג בפאנל הבקרה. מדריך צלב ורשת rule-of-thirds מופיעים במסגרת." },
+            { "name": "לחצו על סמל הלוגו", "text": "לחצו על החלק המזוהה ביותר — סמל, פנים או ראשי תיבות. החיתוך הריבועי מתמקד מחדש בנקודה." },
+            { "name": "כוונו עם ידיות", "text": "גררו ידיות פינה לפי הצורך. כפתור מרכז נקודת מיקוד חוזר למרכז התמונה." },
+            { "name": "סקירת Preview Panel והורדה", "text": "אמתו קריאות ב-16×16, 32×32 ו-48×48 לפני ייצוא PNG ריבועי." }
+          ]
+        },
+        "sections": [
+          { "id": "rectangle-square-gap", "heading": "אתגר מלבן לריבוע", "level": 2, "paragraphs": ["לוגואים ראשיים לעיתים כוללים wordmark, tagline ופריסה אופקית.", "דפדפנים מרנדרים favicon במכולות ריבועיות קטנות — עד 16×16.", "הקטנת כל הלוגו הרחב משאירה סמל בלתי קריא בלשוניות.", "חיתוך אוטומטי לעיתים קרובות חותך את הסמל שרציתם.", "JoinMyPDF נותן שליטה מלאה על המסגור במקום לתת לדפדפן לנחש."] },
+          { "id": "focal-point-art", "heading": "אמנות נקודות המיקוד", "level": 2, "paragraphs": ["אין צורך לדחוף את כל רוחב הלוגו ל-favicon.", "זהו את נקודת המיקוד — החלק המזוהה ביותר.", "מצב Focal Point מאפשר לחץ לעיגון החיתוך על הסמל או ראשי התיבות.", "מדריך צלב מראה את מרכז מסגרת 1:1 ליישור מדויק.", "קווי rule-of-thirds עוזרים לאזן את הסמל — קריטי ב-16×16."] },
+          { "id": "why-composition-matters", "heading": "מדוע הקומפוזיציה חשובה", "level": 2, "paragraphs": ["favicon הוא לא לוגו מוקטן — הוא ייצוג סמלי ומפושט.", "חיתוך אסטרטגי מסיר רעש של לוגו רחב ומדגיש מה שחשוב.", "סמלים בניגודיות גבוהה ותווים נועזים שורדים בחלל ריבועי קטן.", "שלבו עם Preview Panel ממאמר 1 לאימות לפני ייצוא.", "favicon מורכב היטב שומר זהות מותג בלשוניות, סימניות ומסך הבית."] },
+          { "id": "focal-point-mode", "heading": "מצב Focal Point ב-JoinMyPDF", "level": 2, "paragraphs": ["הפעילו מצב Focal Point בבקרות החיתוך — ללא כלי נפרד.", "לחצו על התמונה כדי למקם מחדש את החיתוך הריבועי סביב הנקודה.", "צלב צהוב מסמן מרכז המסגרת; רשת עוזרת ביישור.", "כפתור מרכז נקודת מיקוד חוזר למרכז התמונה ללוגואים סימטריים.", "ידיות הפינה עדיין פעילות — שילוב לחץ-לעיגון עם כיוון ידני.", "כל העיבוד נשאר מקומי — Privacy Badge ממאמר 2 פעיל."] },
+          { "id": "series-context", "heading": "הקשר הסדרה", "level": 2, "paragraphs": ["מאמר 1: הסטנדרט הריבועי, 1:1 ו-Preview Panel.", "מאמר 2: פרטיות מקומית ו-Privacy Badge.", "מאמר 3 (מדריך זה): מצב Focal Point ממלבן לריבוע.", "מאמר 4: זיהוי PNG, JPG ו-SVG עם משוב מיידי.", "מאמר 5 (סיום): Quick Reset לחיתוך מדויק בשניות.", "כלי עוגן: JoinMyPDF Free Favicon Cropper Online."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["אל תתנו למגבלות הפריסה להכתיב את איכות המיתוג.", "שלטו בקומפוזיציה עם מצב Focal Point — מדריך צלב, לחץ-לעיגון ותצוגות חיות.", "המותג בולט בלשוניות כשהסמל — לא ה-wordmark המלא — מוביל."] }
+        ],
+        "faq": [
+          { "q": "מה זה מצב Focal Point?", "a": "מתג ב-JoinMyPDF Favicon Cropper שמאפשר לחץ על התמונה למרכז החיתוך הריבועי על סמל הלוגו, עם מדריך צלב ורשת." },
+          { "q": "האם צריך להכניס את כל הלוגו הרחב?", "a": "לא. חתכו לסמל או ראשי תיבות המזוהים ביותר. wordmarks מלאים לעיתים לא קריאים ב-16×16." },
+          { "q": "אילו מדריכים מופיעים במצב Focal Point?", "a": "צלב צהוב במרכז החיתוך וקווי rule-of-thirds בתוך מסגרת 1:1." },
+          { "q": "אפשר עדיין לגרור ידיות?", "a": "כן. מצב Focal Point מוסיף לחץ-לעיגון; ידיות הפינה זמינות לכיוון עדין." },
+          { "q": "האם מצב Focal Point מעלה את הלוגו?", "a": "לא. החיתוך רץ בדפדפן — אותו מודל פרטיות מקומי כמו במאמר 2." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/favicon-cropper/", "anchor": "JoinMyPDF Free Favicon Cropper" },
+          { "href": "/blog/favicon-cropper-square-standard/", "anchor": "מאמר 1 בסדרת favicon cropper" },
+          { "href": "/blog/favicon-cropper-local-first-privacy/", "anchor": "פרטיות favicon cropper" },
+          { "href": "/tools/favicon-pack/", "anchor": "מחולל Favicon Pack" },
+          { "href": "/blog/hidden-power-of-favicons/", "anchor": "הכוח הנסתר של favicon" }
+        ]
+      }
+    },
+    {
+      "slug": "favicon-cropper-png-jpg-svg-formats",
+      "title": "רב-גוניות בעיצוב: חיתוך PNG, JPG ו-SVG עבור אייקונים לאתר",
+      "keyword": "favicon cropper PNG JPG SVG זיהוי פורמט לוגו חיתוך אוניברסלי",
+      "category": "Productivity",
+      "cluster": "favicon-cropper",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-09-18",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.95,
+      "relatedTools": ["favicon-cropper", "generate-favicon", "svg-to-favicon", "png-to-ico", "favicon-pack"],
+      "relatedBlogs": ["favicon-cropper-square-standard", "favicon-cropper-local-first-privacy", "favicon-cropper-focal-point-composition", "favicon-cropper-precision-quick-reset", "local-first-favicon-generation", "hidden-power-of-favicons"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור תמיכת PNG JPG SVG · ספט 2027" },
+      "seo": {
+        "metaTitle": "חיתוך PNG, JPG ו-SVG ל-Favicon | תמיכה אוניברסלית",
+        "metaDescription": "נכסי עיצוב מגיעים כ-PNG, JPG או SVG. JoinMyPDF Free Favicon Cropper Online מזהה את הפורמט מיד — תג זוהה: SVG לפני החיתוך.",
+        "keywords": "favicon cropper PNG JPG SVG, חיתוך SVG favicon, favicon cropper אוניברסלי, זיהוי פורמט favicon, free favicon cropper online"
+      },
+      "description": "מדוע חיתוך favicon צריך לקבל PNG, JPG ו-SVG באותה מידה — ואיך זיהוי פורמט מיידי של JoinMyPDF שומר על workflows מעורבים עקביים.",
+      "contentBlocks": {
+        "intro": "תהליכי עבודה עיצוביים לעיתים נדירות אחידים. ייתכן שתקבלו PNG ברזולוציה גבוהה מלקוח, JPG ישן מארכיון, או SVG חד מצוות המיתוג. כשמגיע הזמן ליצור favicon, אתם צריכים כלי שלא מפלה בין סוגי קבצים. JoinMyPDF Free Favicon Cropper Online משמש כגשר אוניברסלי — העלאת artwork מגוון ופלט אייקון ריבועי 1:1 סטנדרטי. זיהוי פורמט מיידי מציג זוהה: PNG, זוהה: JPG או זוהה: SVG לפני הפעלת בקרות החיתוך. מאמר 4 בסדרה: רב-גוניות פורמטים אחרי מאמרים על 1:1, פרטיות ו-Focal Point.",
+        "editorialNote": "JoinMyPDF Favicon Cropper מקבל PNG, JPG ו-SVG. rasterization וחיתוך רצים מקומית בדפדפן.",
+        "primaryTool": "favicon-cropper",
+        "primaryToolCtaLabel": "חתכו כל פורמט — זיהוי PNG JPG SVG מיידי, פאנל תצוגה 1:1",
+        "bottomCtaLabel": "פתחו Free Favicon Cropper ואחדו את workflow ה-favicon היום",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לחתוך PNG, JPG או SVG ל-favicon ריבועי",
+          "description": "השתמשו בזיהוי פורמט ובחיתוך מאוחד של JoinMyPDF לכל מקור לוגו.",
+          "steps": [
+            { "name": "פתחו JoinMyPDF Favicon Cropper", "text": "גררו PNG, JPG או SVG — ללא המרה מוקדמת ב-Photoshop או Illustrator." },
+            { "name": "אשרו פורמט מזוהה", "text": "התג מציג זוהה: PNG, זוהה: JPG או זוהה: SVG מיד אחרי ההעלאה." },
+            { "name": "המתינו לתצוגה מקדימה", "text": "SVG עובר rasterization מקומית; קבצי raster נפתחים על המכשיר. בקרות נפתחות כשהתצוגה מוכנה." },
+            { "name": "חתכו לריבוע 1:1", "text": "השתמשו ב-Focal Point ממאמר 3 ללוגואים רחבים, או גררו את המסגרת ידנית." },
+            { "name": "סקירת Preview Panel והורדה", "text": "אמתו ב-16×16, 32×32 ו-48×48 — ייצוא PNG ריבועי סטנדרטי ללא קשר לפורמט המקור." }
+          ]
+        },
+        "sections": [
+          { "id": "universal-bridge", "heading": "גשר אוניברסלי לאייקוני אתר", "level": 2, "paragraphs": ["לקוחות שולחים PNG. ארכיונים מחזיקים JPG ישן. צוותי מיתוג מספקים SVG.", "לכל פורמט יתרונות — שקיפות ב-PNG, תאימות ב-JPG, קנה מידה ב-SVG.", "פריסת favicon עדיין דורשת פלט raster ריבועי.", "JoinMyPDF מקבל את שלושת הפורמטים בלי שלב המרה נפרד.", "workflow אחד מחליף כלים מרובים והכנה ידנית."] },
+          { "id": "unified-processing", "heading": "עיבוד מאוחד לנכסים מגוונים", "level": 2, "paragraphs": ["בין אם המקור raster או vector, JoinMyPDF מבצע המרה חלקה.", "SVG עובר rasterization בדפדפן לפני חיתוך ריבועי — ללא pipeline בשרת.", "PNG ו-JPG נפתחים באותו cropper מקומי כמו שאר הסדרה.", "סטנדרטיזציה חוסכת זמן המרה ידנית בתוכנות כבדות.", "גררו, אשרו את תג הפורמט, חתכו והורידו אייקון ריבועי אחיד."] },
+          { "id": "format-detection", "heading": "שקיפות באמצעות זיהוי", "level": 2, "paragraphs": ["JoinMyPDF כולל זיהוי חכם של סוג קובץ בכל העלאה.", "לפני תחילת החיתוך, הממשק מציג זוהה: PNG, JPG או SVG.", "משוב מיידי מאשר שאתם עובדים על הנכס הנכון.", "חיוני כשמנהלים גרסאות לוגו במספר פורמטים.", "מבטל ניחושים ומבטיח תוצאה איכותית בכל פעם."] },
+          { "id": "format-detection-ui", "heading": "תג פורמט בכלי", "level": 2, "paragraphs": ["תג הפורמט מופיע ב-workspace מיד אחרי גרירת הקובץ.", "הודעת טעינה מוצגת בזמן rasterization של SVG או פתיחת PNG גדול.", "ערך monospace תואם לדפוס Favicon Compressor לעקביות.", "Privacy Badge ממאמר 2 נשאר — זיהוי פורמט לא מוסיף תקשורת שרת.", "שלבו עם Preview Panel ממאמר 1 לאימות פלט בכל פורמט."] },
+          { "id": "series-context", "heading": "הקשר הסדרה", "level": 2, "paragraphs": ["מאמר 1: הסטנדרט הריבועי, 1:1 ו-Preview Panel.", "מאמר 2: פרטיות מקומית ו-Privacy Badge.", "מאמר 3: מצב Focal Point ממלבן לריבוע.", "מאמר 4 (מדריך זה): זיהוי PNG, JPG ו-SVG.", "מאמר 5 (סיום): Quick Reset לחיתוך מדויק בשניות.", "כלי עוגן: JoinMyPDF Free Favicon Cropper Online."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["רב-גוניות בעיצוב צריכה להיות בסיס, לא צוואר בקבוק.", "JoinMyPDF נותן גמישות לעבוד עם כל פורמט גרפי.", "זיהוי מיידי, חיתוך מאוחד ופלט ריבועי עקבי שומרים על אייקונים מקצועיים בכל דפדפן."] }
+        ],
+        "faq": [
+          { "q": "אילו פורמטים JoinMyPDF Favicon Cropper מקבל?", "a": "PNG, JPG ו-SVG. תג הפורמט המזוהה מאשר את הסוג לפני תחילת החיתוך." },
+          { "q": "איך עובד חיתוך SVG?", "a": "SVG עובר rasterization מקומית בדפדפן, ואז אותו cropper ריבועי 1:1. ה-artwork לא עוזב את המכשיר." },
+          { "q": "מתי מופיע תג הפורמט?", "a": "מיד אחרי ההעלאה — לפני הפעלת ידיות חיתוך ובקרות פלט." },
+          { "q": "האם כל הפורמטים מייצאים אותו פלט?", "a": "כן. כל מקור מייצא PNG ריבועי — רזולוציית חיתוך, 32×32 או 48×48." },
+          { "q": "אפשר לערבב פורמטים ב-workflow צוותי?", "a": "כן. מעצבים שולחים SVG, לקוחות PNG, ארכיונים JPG — כלי ו-workflow אחד לכולם." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/favicon-cropper/", "anchor": "JoinMyPDF Free Favicon Cropper" },
+          { "href": "/blog/favicon-cropper-focal-point-composition/", "anchor": "קומפוזיציית focal point" },
+          { "href": "/tools/svg-to-favicon/", "anchor": "כלי SVG to Favicon" },
+          { "href": "/tools/png-to-ico/", "anchor": "ממיר PNG to ICO" },
+          { "href": "/blog/local-first-favicon-generation/", "anchor": "יצירת favicon מקומית" }
+        ]
+      }
+    },
+    {
+      "slug": "favicon-cropper-precision-quick-reset",
+      "title": "חיתוך מדויק: איך להוציא את הפאביקון שלכם מושלם תוך שניות",
+      "keyword": "favicon cropper quick reset חיתוך מדויק מהיר workflow מפתח שניות",
+      "category": "Productivity",
+      "cluster": "favicon-cropper",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-09-25",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.94,
+      "relatedTools": ["favicon-cropper", "generate-favicon", "favicon-pack", "favicon-compressor", "png-to-ico"],
+      "relatedBlogs": ["favicon-cropper-square-standard", "favicon-cropper-local-first-privacy", "favicon-cropper-focal-point-composition", "favicon-cropper-png-jpg-svg-formats", "speed-matters-favicon-optimization", "hidden-power-of-favicons"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור Quick Reset UX · ספט 2027" },
+      "seo": {
+        "metaTitle": "חיתוך Favicon מדויק בשניות | Quick Reset",
+        "metaDescription": "דלגו על תוכנות עריכה כבדות. JoinMyPDF Free Favicon Cropper Online מספק חיתוך 1:1 בשניות — עם Quick Reset לאיפוס מסגרת מיידי.",
+        "keywords": "favicon cropper מהיר, חיתוך favicon מדויק, quick reset crop, favicon בשניות, free favicon cropper online"
+      },
+      "description": "איך Quick Reset ו-cropper ממוקד 1:1 של JoinMyPDF עוזרים למפתחים ומעצבים להוציא favicon מושלם בשניות — בלי מורכבות של תוכנות ארגוניות.",
+      "contentBlocks": {
+        "intro": "זמן הוא משאב יקר למפתחים ומעצבים. כשצריך favicon, הדבר האחרון שרוצים הוא תוכנת עריכה כבדה רק לחיתוך ריבוע. JoinMyPDF Free Favicon Cropper Online מסיר מורכבות ומספק תוצאות מקצועיות בשניות. Quick Reset מחזיר מיד את מסגרת החיתוך לריבוע 1:1 הממורכז המקורי — איטרציה בלי טעינה מחדש. מאמר 5 וסיום הסדרה: מהירות ודיוק אחרי מאמרים על 1:1, פרטיות, focal point וזיהוי פורמט.",
+        "editorialNote": "JoinMyPDF Favicon Cropper רץ בדפדפן. Quick Reset מכוון את המסגרת מקומית — ללא round-trip לשרת.",
+        "primaryTool": "favicon-cropper",
+        "primaryToolCtaLabel": "חתכו בשניות — Quick Reset, Preview Panel, PNG JPG SVG",
+        "bottomCtaLabel": "פתחו Free Favicon Cropper וסיימו favicon בשניות",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לחתוך favicon בשניות עם Quick Reset",
+          "description": "השתמשו ב-cropper ממוקד 1:1 וב-Quick Reset של JoinMyPDF לחיתוך מהיר וחסין טעויות.",
+          "steps": [
+            { "name": "פתחו JoinMyPDF Favicon Cropper", "text": "גררו PNG, JPG או SVG — ללא Photoshop או Illustrator לחיתוך ריבוע פשוט." },
+            { "name": "כוונו מסגרת 1:1", "text": "גררו ידיות או השתמשו ב-Focal Point ממאמר 3 — Preview Panel מתעדכן ב-16×16, 32×32, 48×48." },
+            { "name": "איטרציה עם Quick Reset", "text": "החיתוך לא מדויק? לחצו Quick Reset לשחזור מיידי של מסגרת 1:1 ממורכזת." },
+            { "name": "כוונו ואשרו", "text": "נסו בחופשיות — איפוס בלחיצה אחת, התמונה נשארת טעונה." },
+            { "name": "הורידו PNG ריבועי", "text": "ייצוא ברזולוציה מקורית, 32×32 או 48×48 — שלבו עם Favicon Compressor או Favicon Pack." }
+          ]
+        },
+        "sections": [
+          { "id": "seconds-not-minutes", "heading": "favicon בשניות, לא בדקות", "level": 2, "paragraphs": ["עורכי תמונה ארגוניים חזקים — אבל overkill לאייקון 16×16.", "זמן הפעלה, toolbars ו-export מוסיפים חיכוך למשימה של חמש שניות.", "JoinMyPDF מתמקד רק בחיתוך ריבועי favicon.", "העלאה, מסגור, תצוגה, הורדה — workflow בשניות.", "אותה פרטיות מקומית ממאמר 2 — מהירות בלי latency של העלאה."] },
+          { "id": "efficiency-without-complexity", "heading": "יעילות ללא מורכבות", "level": 2, "paragraphs": ["התמקדות במשימה אחת — חיתוך favicon ריבועי — שומרת על ממשק אינטואיטיבי.", "דלגו על עקומת למידה של Photoshop, GIMP או Figma export.", "batch לנכסים מרובים או אייקון מהיר לפרויקט חדש — שניהם זריזים.", "Preview Panel ממאמר 1 מאשר קריאות לפני ייצוא.", "זיהוי פורמט ממאמר 4 מסיר שלבי המרה מוקדמים."] },
+          { "id": "quick-reset", "heading": "workflow חסין טעויות: Quick Reset", "level": 2, "paragraphs": ["דיוק דורש ניסוי — חיתוך הוא איטרטיבי.", "Quick Reset מחזיר את המסגרת לריבוע 1:1 ממורכז מקורי מיד.", "לחיצה אחת מבטלת התאמות ידניות בלי טעינת דף או העלאה מחדש.", "מצב Focal Point נכבה באיפוס — baseline נקי לניסיון חדש.", "איטרציה מהירה עד ש-Preview Panel מראה 16×16 מושלם."] },
+          { "id": "quick-reset-ui", "heading": "Quick Reset בכלי", "level": 2, "paragraphs": ["Quick Reset בראש פאנל בקרות החיתוך.", "אייקון Rotate ותווית ברורה — נראה לפני גודל פלט והורדה.", "מושבת רק בזמן ייצוא או לפני שהתצוגה מוכנה.", "טקסט הסבר: חזרה ל-1:1 ממורכז, ללא reload.", "משלים Replace image להחלפת קובץ מול איפוס מסגרת בלבד."] },
+          { "id": "series-context", "heading": "הקשר הסדרה (הושלמה)", "level": 2, "paragraphs": ["מאמר 1: הסטנדרט הריבועי, 1:1 ו-Preview Panel.", "מאמר 2: פרטיות מקומית ו-Privacy Badge.", "מאמר 3: מצב Focal Point ממלבן לריבוע.", "מאמר 4: זיהוי PNG, JPG ו-SVG.", "מאמר 5 (מדריך זה, סיום): Quick Reset לדיוק בשניות.", "חמש שכבות — ריבוע, פרטיות, קומפוזיציה, פורמטים, מהירות — כלי אחד."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["תוצר מקצועי לא צריך מורכבות של תוכנה ברמה גבוהה.", "הטמיעו JoinMyPDF Free Favicon Cropper Online — חסכו זמן, הפחיתו חיכוך.", "השיגו דיוק, שמרו על מהירות, קבלו favicon מושלם — או אפסו ונסו שוב בלחיצה."] }
+        ],
+        "faq": [
+          { "q": "מה Quick Reset עושה?", "a": "מחזיר מיד את מסגרת החיתוך לריבוע 1:1 ממורכז מקורי — מבטל גרירה ידנית ו-Focal Point בלי reload." },
+          { "q": "האם Quick Reset מחליף את התמונה?", "a": "לא. רק מאפס את המסגרת. Replace image להעלאת קובץ אחר." },
+          { "q": "למה לא Photoshop?", "a": "אפשר — אבל כלי דפדפן ממוקד מהיר יותר לחיתוך ריבוע בודד, עם תצוגות 16×16 חיות." },
+          { "q": "האם איפוס מכבה Focal Point?", "a": "כן. Quick Reset מכבה Focal Point וחוזר לחיתוך ריבועי ברירת מחדל." },
+          { "q": "זה המאמר האחרון בסדרה?", "a": "כן. חמישה מאמרים — ריבוע, פרטיות, קומפוזיציה, פורמטים, מהירות — JoinMyPDF Free Favicon Cropper Online." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/favicon-cropper/", "anchor": "JoinMyPDF Free Favicon Cropper" },
+          { "href": "/blog/favicon-cropper-square-standard/", "anchor": "מאמר 1 בסדרת favicon cropper" },
+          { "href": "/blog/favicon-cropper-png-jpg-svg-formats/", "anchor": "תמיכת PNG JPG SVG" },
+          { "href": "/tools/favicon-compressor/", "anchor": "Favicon Compressor" },
+          { "href": "/tools/favicon-pack/", "anchor": "מחולל Favicon Pack" }
+        ]
+      }
     }
   ]
 }

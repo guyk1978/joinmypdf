@@ -1153,7 +1153,25 @@
     "downloadCropped": "Download",
     "cropping": "Exporting…",
     "invalidFile": "Please choose a PNG, JPG, or SVG file.",
-    "replaceImage": "Replace image"
+    "replaceImage": "Replace image",
+    "previewPanelTitle": "Live favicon preview",
+    "previewPanelHint": "See your 1:1 crop at real browser icon sizes before download.",
+    "previewPanelUpdating": "Updating preview…",
+    "previewPanelSize": "{size}×{size} px",
+    "privacyBadgeWaiting": "100% private — local cropping in your browser",
+    "privacyBadgeLocal": "Your image is being processed locally in your browser.",
+    "focalPointLabel": "Focal Point mode",
+    "focalPointHint": "Click the image to anchor the square crop on your logo symbol or initials. Crosshair and grid guides help you center the focal point.",
+    "focalPointCenter": "Center focal point",
+    "formatDetectedLabel": "Detected:",
+    "formatLoadingHint": "Analyzing your file — crop controls unlock once the preview is ready.",
+    "formats": {
+      "png": "PNG",
+      "jpg": "JPG",
+      "svg": "SVG"
+    },
+    "quickReset": "Quick Reset",
+    "quickResetHint": "Instantly revert the crop frame to the original centered 1:1 square—no page reload needed."
   },
   "TransparentFavicon": {
     "dropTitle": "Drop an image here or click to browse",

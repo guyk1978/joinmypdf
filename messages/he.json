@@ -1149,7 +1149,25 @@
     "downloadCropped": "הורד",
     "cropping": "מייצא…",
     "invalidFile": "בחר קובץ PNG, JPG או SVG.",
-    "replaceImage": "החלף תמונה"
+    "replaceImage": "החלף תמונה",
+    "previewPanelTitle": "תצוגה מקדימה חיה",
+    "previewPanelHint": "ראו את החיתוך 1:1 בגדלי אייקון אמיתיים של הדפדפן לפני ההורדה.",
+    "previewPanelUpdating": "מעדכן תצוגה…",
+    "previewPanelSize": "{size}×{size} px",
+    "privacyBadgeWaiting": "100% פרטי — חיתוך מקומי בדפדפן",
+    "privacyBadgeLocal": "התמונה שלכם מעובדת מקומית בדפדפן.",
+    "focalPointLabel": "מצב נקודת מיקוד",
+    "focalPointHint": "לחצו על התמונה כדי לעגן את החיתוך הריבועי על הסמל או ראשי התיבות. מדריך צלב ורשת עוזרים למרכז את נקודת המיקוד.",
+    "focalPointCenter": "מרכז נקודת מיקוד",
+    "formatDetectedLabel": "זוהה:",
+    "formatLoadingHint": "מנתח את הקובץ — בקרות החיתוך יופעלו כשהתצוגה המקדימה תהיה מוכנה.",
+    "formats": {
+      "png": "PNG",
+      "jpg": "JPG",
+      "svg": "SVG"
+    },
+    "quickReset": "איפוס מהיר",
+    "quickResetHint": "החזירו מיד את מסגרת החיתוך לריבוע 1:1 הממורכז המקורי — ללא טעינה מחדש של הדף."
   },
   "TransparentFavicon": {
     "dropTitle": "גרור תמונה לכאן או לחץ לעיון",

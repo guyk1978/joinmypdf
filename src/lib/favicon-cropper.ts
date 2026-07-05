@@ -13,6 +13,10 @@ export { downloadBlob };
 
 export const FAVICON_CROP_MIN_FRACTION = 0.08;
 
+export const FAVICON_CROP_PREVIEW_SIZES = [16, 32, 48] as const;
+
+export type FaviconCropPreviewSize = (typeof FAVICON_CROP_PREVIEW_SIZES)[number];
+
 export const FAVICON_CROP_OUTPUT_OPTIONS = [
   { value: "native" as const, labelKey: "native" },
   { value: 32 as const, labelKey: "size32" },
@@ -21,8 +25,22 @@ export const FAVICON_CROP_OUTPUT_OPTIONS = [
 
 export type FaviconCropOutputSize = (typeof FAVICON_CROP_OUTPUT_OPTIONS)[number]["value"];
 
+export type FaviconCropSourceFormat = "png" | "jpg" | "svg";
+
 export function isAcceptedFaviconCropFile(file: File): boolean {
   return isAcceptedFaviconPackFile(file) || isAcceptedSvgFile(file);
+}
+
+function isJpegFaviconCropFile(file: File): boolean {
+  const type = file.type.toLowerCase();
+  if (type === "image/jpeg" || type === "image/jpg") return true;
+  return /\.jpe?g$/i.test(file.name);
+}
+
+export function detectFaviconCropFormat(file: File): FaviconCropSourceFormat {
+  if (isAcceptedSvgFile(file)) return "svg";
+  if (isJpegFaviconCropFile(file)) return "jpg";
+  return "png";
 }
 
 export function faviconCropOutputName(
@@ -38,23 +56,33 @@ export function defaultSquareCropForImage(
   naturalWidth: number,
   naturalHeight: number,
 ): NormalizedCropRect {
-  if (naturalWidth >= naturalHeight) {
-    const size = naturalHeight / naturalWidth;
-    return clampSquareCropRect({
-      nx: (1 - size) / 2,
-      ny: 0,
-      nw: size,
-      nh: size,
-    });
-  }
+  return focalPointSquareCrop(naturalWidth, naturalHeight, 0.5, 0.5);
+}
 
-  const size = naturalWidth / naturalHeight;
+export function focalPointSquareCrop(
+  naturalWidth: number,
+  naturalHeight: number,
+  focalNx: number,
+  focalNy: number,
+): NormalizedCropRect {
+  const side =
+    naturalWidth >= naturalHeight
+      ? naturalHeight / naturalWidth
+      : naturalWidth / naturalHeight;
+
   return clampSquareCropRect({
-    nx: 0,
-    ny: (1 - size) / 2,
-    nw: size,
-    nh: size,
+    nx: focalNx - side / 2,
+    ny: focalNy - side / 2,
+    nw: side,
+    nh: side,
   });
+}
+
+export function cropRectFocalPoint(rect: NormalizedCropRect): { fx: number; fy: number } {
+  return {
+    fx: rect.nx + rect.nw / 2,
+    fy: rect.ny + rect.nh / 2,
+  };
 }
 
 export function clampSquareCropRect(rect: NormalizedCropRect): NormalizedCropRect {
@@ -157,6 +185,39 @@ async function resizeCroppedPngToSquare(blob: Blob, size: number): Promise<Blob>
   } finally {
     URL.revokeObjectURL(url);
   }
+}
+
+export async function getFaviconCropPreviewDataUrls(
+  imageSrc: string,
+  pixelCrop: PixelCrop,
+): Promise<Record<FaviconCropPreviewSize, string>> {
+  const image = await createImage(imageSrc);
+  const previews = {} as Record<FaviconCropPreviewSize, string>;
+
+  for (const size of FAVICON_CROP_PREVIEW_SIZES) {
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas rendering is not supported in this browser.");
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(
+      image,
+      pixelCrop.x,
+      pixelCrop.y,
+      pixelCrop.width,
+      pixelCrop.height,
+      0,
+      0,
+      size,
+      size,
+    );
+    previews[size] = canvas.toDataURL("image/png");
+  }
+
+  return previews;
 }
 
 export async function getCroppedFaviconBlob(

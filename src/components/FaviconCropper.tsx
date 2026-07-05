@@ -1,7 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Upload } from "lucide-react";
+import { Download, Lock, RotateCcw, Shield, Upload } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -14,8 +14,15 @@ import {
 } from "react";
 import { imBtnCta } from "@/lib/design-system";
 import {
+  FaviconCropperPreviewPanel,
+  type FaviconCropperPreviewPanelLabels,
+} from "@/components/FaviconCropperPreviewPanel";
+import {
   clampSquareCropRect,
+  cropRectFocalPoint,
   defaultSquareCropForImage,
+  detectFaviconCropFormat,
+  focalPointSquareCrop,
   FAVICON_CROP_OUTPUT_OPTIONS,
   faviconCropOutputName,
   getCroppedFaviconBlob,
@@ -44,6 +51,17 @@ export type FaviconCropperLabels = {
   cropping: string;
   invalidFile: string;
   replaceImage: string;
+  previewPanel: FaviconCropperPreviewPanelLabels;
+  privacyBadgeWaiting: string;
+  privacyBadgeLocal: string;
+  focalPointLabel: string;
+  focalPointHint: string;
+  focalPointCenter: string;
+  formatDetectedLabel: string;
+  formatLoadingHint: string;
+  formatLabel: (format: string) => string;
+  quickReset: string;
+  quickResetHint: string;
 };
 
 export type FaviconCropperProps = {
@@ -165,6 +183,7 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
   const [dragActive, setDragActive] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [focalPointMode, setFocalPointMode] = useState(false);
 
   const revokeObjectUrl = useCallback(() => {
     if (objectUrlRef.current) {
@@ -203,6 +222,7 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
     setLayout(null);
     setCrop({ nx: 0.1, ny: 0.1, nw: 0.8, nh: 0.8 });
     setOutputSize("native");
+    setFocalPointMode(false);
     setError("");
     if (inputRef.current) inputRef.current.value = "";
   }, [revokeObjectUrl]);
@@ -225,6 +245,7 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
         setNaturalSize(null);
         setLayout(null);
         setOutputSize("native");
+        setFocalPointMode(false);
       } catch {
         setError(labels.invalidFile);
       }
@@ -251,12 +272,41 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
     return { x: event.clientX - rect.left, y: event.clientY - rect.top };
   };
 
+  const applyFocalPoint = useCallback(
+    (focalNx: number, focalNy: number) => {
+      if (!naturalSize) return;
+      setCrop(
+        focalPointSquareCrop(
+          naturalSize.width,
+          naturalSize.height,
+          focalNx,
+          focalNy,
+        ),
+      );
+    },
+    [naturalSize],
+  );
+
+  const quickResetCrop = useCallback(() => {
+    if (!naturalSize) return;
+    setFocalPointMode(false);
+    setCrop(defaultSquareCropForImage(naturalSize.width, naturalSize.height));
+  }, [naturalSize]);
+
   const onPointerDown = (event: ReactPointerEvent) => {
     const overlay = overlayRef.current;
     if (!overlay || !layout) return;
 
     const { x, y } = pointerPos(event);
     const handle = hitHandle(crop, x, y, layout.displayWidth, layout.displayHeight);
+
+    if (focalPointMode && !handle) {
+      const focalNx = x / layout.displayWidth;
+      const focalNy = y / layout.displayHeight;
+      applyFocalPoint(focalNx, focalNy);
+      return;
+    }
+
     if (!handle) return;
 
     event.preventDefault();
@@ -313,6 +363,31 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
     height: `${crop.nh * 100}%`,
   };
 
+  const privacyBadge = (
+    <p
+      className={clsx(
+        "favicon-cropper-tool__privacy-badge",
+        imageSrc
+          ? "favicon-cropper-tool__privacy-badge--local"
+          : "favicon-cropper-tool__privacy-badge--waiting",
+      )}
+      role="status"
+      aria-live="polite"
+    >
+      {imageSrc ? (
+        <>
+          <Lock className="favicon-cropper-tool__privacy-badge-icon" strokeWidth={2} aria-hidden />
+          <span>{labels.privacyBadgeLocal}</span>
+        </>
+      ) : (
+        <>
+          <Shield className="favicon-cropper-tool__privacy-badge-icon" strokeWidth={2} aria-hidden />
+          <span>{labels.privacyBadgeWaiting}</span>
+        </>
+      )}
+    </p>
+  );
+
   return (
     <div className={clsx("crop-image-tool favicon-cropper-tool", className)}>
       {!imageSrc ? (
@@ -350,6 +425,8 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
           <p className="crop-image-tool__dropzone-title">{labels.dropTitle}</p>
           <p className="crop-image-tool__dropzone-hint">{labels.dropHint}</p>
 
+          {privacyBadge}
+
           <button
             type="button"
             className={clsx(imBtnCta, "crop-image-tool__select-btn")}
@@ -360,7 +437,24 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
         </div>
       ) : (
         <div className="crop-image-tool__workspace">
-          <p className="crop-image-tool__instructions">{labels.cropInstructions}</p>
+          {privacyBadge}
+
+          {sourceFile ? (
+            <p className="favicon-cropper-tool__format-badge" role="status" aria-live="polite">
+              <span className="favicon-cropper-tool__format-label">{labels.formatDetectedLabel}</span>
+              <span className="favicon-cropper-tool__format-value">
+                {labels.formatLabel(detectFaviconCropFormat(sourceFile))}
+              </span>
+            </p>
+          ) : null}
+
+          {!naturalSize ? (
+            <p className="favicon-cropper-tool__format-loading" role="status">
+              {labels.formatLoadingHint}
+            </p>
+          ) : (
+            <p className="crop-image-tool__instructions">{labels.cropInstructions}</p>
+          )}
 
           <div ref={stageRef} className="crop-image-tool__stage favicon-cropper-tool__stage">
             <img
@@ -380,7 +474,10 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
             {layout ? (
               <div
                 ref={overlayRef}
-                className="crop-image-tool__overlay"
+                className={clsx(
+                  "crop-image-tool__overlay",
+                  focalPointMode && "favicon-cropper-tool__overlay--focal",
+                )}
                 style={{
                   left: layout.offsetX,
                   top: layout.offsetY,
@@ -392,8 +489,20 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
                 onPointerUp={onPointerUp}
                 onPointerLeave={onPointerUp}
               >
-                <div className="crop-image-tool__frame favicon-cropper-tool__frame" style={frameStyle}>
+                <div
+                  className={clsx(
+                    "crop-image-tool__frame favicon-cropper-tool__frame",
+                    focalPointMode && "favicon-cropper-tool__frame--focal",
+                  )}
+                  style={frameStyle}
+                >
                   <div className="crop-image-tool__grid favicon-cropper-tool__grid" aria-hidden />
+                  {focalPointMode ? (
+                    <>
+                      <div className="favicon-cropper-tool__focal-thirds" aria-hidden />
+                      <div className="favicon-cropper-tool__focal-crosshair" aria-hidden />
+                    </>
+                  ) : null}
                 </div>
 
                 {HANDLES.map((handle) => (
@@ -408,7 +517,62 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
             ) : null}
           </div>
 
+          {naturalSize ? (
+            <FaviconCropperPreviewPanel
+              imageSrc={imageSrc}
+              crop={crop}
+              naturalWidth={naturalSize.width}
+              naturalHeight={naturalSize.height}
+              labels={labels.previewPanel}
+            />
+          ) : null}
+
           <div className="favicon-cropper-tool__controls tool-workspace-panel">
+            <div className="favicon-cropper-tool__quick-reset-field">
+              <button
+                type="button"
+                className="favicon-cropper-tool__quick-reset-btn"
+                onClick={quickResetCrop}
+                disabled={busy || !naturalSize}
+              >
+                <RotateCcw className="favicon-cropper-tool__quick-reset-icon" strokeWidth={2} aria-hidden />
+                {labels.quickReset}
+              </button>
+              <p className="favicon-cropper-tool__quick-reset-hint">{labels.quickResetHint}</p>
+            </div>
+
+            <div className="favicon-cropper-tool__focal-field">
+              <label className="favicon-cropper-tool__focal-toggle">
+                <input
+                  type="checkbox"
+                  checked={focalPointMode}
+                  onChange={(event) => {
+                    const enabled = event.target.checked;
+                    setFocalPointMode(enabled);
+                    if (enabled && naturalSize) {
+                      const { fx, fy } = cropRectFocalPoint(crop);
+                      applyFocalPoint(fx, fy);
+                    }
+                  }}
+                  disabled={busy || !naturalSize}
+                />
+                <span className="favicon-cropper-tool__focal-toggle-title">{labels.focalPointLabel}</span>
+              </label>
+              <p className="favicon-cropper-tool__focal-hint">{labels.focalPointHint}</p>
+              {focalPointMode ? (
+                <button
+                  type="button"
+                  className="favicon-cropper-tool__focal-center-btn"
+                  onClick={() => {
+                    if (naturalSize) applyFocalPoint(0.5, 0.5);
+                  }}
+                  disabled={busy || !naturalSize}
+                >
+                  {labels.focalPointCenter}
+                </button>
+              ) : null}
+            </div>
+
             <span className="favicon-cropper-tool__section-label" id="favicon-crop-size-label">
               {labels.outputSizeLabel}
             </span>
