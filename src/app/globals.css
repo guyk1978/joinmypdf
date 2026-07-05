@@ -9644,11 +9644,97 @@ body.site-tools-grid-open {
   gap: 0.75rem;
 }
 
-@media (min-width: 768px) {
-  .png-to-ico-tool__preview-grid {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
-    align-items: stretch;
+.png-to-ico-tool__size-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1rem;
+}
+
+.png-to-ico-tool__size-preview-title {
+  margin: 0;
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: var(--im-text);
+}
+
+.png-to-ico-tool__size-preview-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--im-text-muted);
+}
+
+.png-to-ico-tool__size-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (max-width: 520px) {
+  .png-to-ico-tool__size-preview-grid {
+    grid-template-columns: 1fr;
   }
+}
+
+.png-to-ico-tool__size-preview-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.png-to-ico-tool__size-preview-label {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: var(--im-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--im-text-muted);
+}
+
+.png-to-ico-tool__size-preview-canvas-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 5rem;
+  padding: 0.75rem;
+  border: var(--im-border-width) solid var(--im-border-strong);
+  background-color: #0f1114;
+  background-image:
+    linear-gradient(45deg, #1a1c21 25%, transparent 25%),
+    linear-gradient(-45deg, #1a1c21 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1a1c21 75%),
+    linear-gradient(-45deg, transparent 75%, #1a1c21 75%);
+  background-size: 12px 12px;
+  background-position:
+    0 0,
+    0 6px,
+    6px -6px,
+    -6px 0;
+}
+
+.png-to-ico-tool__size-preview-canvas {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.png-to-ico-tool__size-preview-canvas--16 {
+  width: 2rem;
+  height: 2rem;
+}
+
+.png-to-ico-tool__size-preview-canvas--32 {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.png-to-ico-tool__size-preview-canvas--64 {
+  width: 4rem;
+  height: 4rem;
 }
 
 .png-to-ico-tool__favicon-preview {
@@ -9659,6 +9745,185 @@ body.site-tools-grid-open {
   gap: 0.75rem;
   min-height: 10rem;
   padding: 1rem;
+}
+
+.png-to-ico-tool__padding-hint {
+  margin-top: -0.25rem;
+}
+
+.png-to-ico-tool__local-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0 0;
+  padding: 0.4375rem 0.75rem;
+  border: var(--im-border-width) solid var(--im-border-strong);
+  border-radius: var(--im-radius);
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: var(--im-text-muted);
+  line-height: 1.35;
+}
+
+.png-to-ico-tool__local-badge--processing {
+  border-color: rgba(96, 165, 250, 0.35);
+  background: rgba(59, 130, 246, 0.08);
+  color: #93c5fd;
+}
+
+.png-to-ico-tool__local-badge--success {
+  border-color: rgba(34, 197, 94, 0.35);
+  background: rgba(34, 197, 94, 0.1);
+  color: #86efac;
+}
+
+.png-to-ico-tool__local-badge-icon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.png-to-ico-tool__local-badge-icon--spin {
+  animation: png-to-ico-local-badge-spin 0.9s linear infinite;
+}
+
+@keyframes png-to-ico-local-badge-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.png-to-ico-tool__batch-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.png-to-ico-tool__batch-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.png-to-ico-tool__batch-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border: var(--im-border-width) solid var(--im-border-strong);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.png-to-ico-tool__batch-name {
+  flex: 1 1 12rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--im-font-body-sm);
+  color: var(--im-text);
+}
+
+.png-to-ico-tool__batch-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: var(--im-weight-semibold);
+  color: var(--im-text-muted);
+}
+
+.png-to-ico-tool__batch-status--processing {
+  color: #93c5fd;
+}
+
+.png-to-ico-tool__batch-status--done {
+  color: #86efac;
+}
+
+.png-to-ico-tool__batch-status--error {
+  color: #fca5a5;
+}
+
+.png-to-ico-tool__batch-status-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+.png-to-ico-tool__header-code {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.png-to-ico-tool__header-code-heading {
+  margin: 0;
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: var(--im-text);
+}
+
+.png-to-ico-tool__header-code-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.png-to-ico-tool__header-code-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.png-to-ico-tool__header-code-label {
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: var(--im-text);
+}
+
+.png-to-ico-tool__header-code-output {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+@media (min-width: 640px) {
+  .png-to-ico-tool__header-code-output {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.png-to-ico-tool__header-code-snippet {
+  flex: 1 1 auto;
+  min-height: 3rem;
+  padding: 0.625rem 0.75rem;
+  border: var(--im-border-width) solid var(--im-border-strong);
+  border-radius: 0;
+  background-color: #0f1114;
+  color: #e5e7eb;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.png-to-ico-tool__header-code-snippet:focus-visible {
+  outline: var(--im-border-width-cta) solid var(--im-accent);
+  outline-offset: 1px;
+}
+
+.png-to-ico-tool__header-code-copy-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
 }
 
 .png-to-ico-tool__favicon-label {

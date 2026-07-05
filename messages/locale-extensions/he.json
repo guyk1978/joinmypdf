@@ -1713,14 +1713,14 @@
       },
       "pngToIco": {
         "h1": "ממיר PNG ל-ICO חינם אונליין",
-        "heroTagline": "גרירת לוגו PNG — תצוגה מקדימה בגדלים 16×16, 32×32 ו-48×48, ואז הורדת קובץ .ico תואם Windows בדפדפן.",
+        "heroTagline": "גרירת לוגו PNG — תצוגה מקדימה בגדלים 16×16, 32×32 ו-64×64, ואז הורדת קובץ .ico תואם Windows בדפדפן.",
         "introSectionTitle": "המרת PNG ל-ICO בשניות",
         "whySectionTitle": "למה להשתמש בממיר של JoinMyPDF?",
         "whySectionSubheadline": "המרת PNG ל-ICO חינמית ומהירה, המרת תמונות לפורמט favicon, עיבוד מקומי מאובטח בלבד והורדה מיידית ללא העלאות לשרת — הלוגו שלך לא עוזב את המכשיר.",
         "schemaDescription": "ממיר PNG ל-ICO אונליין בחינם — המרת PNG ל-ICO אונליין, מחולל ICO חינם, PNG לקובץ אייקון וממיר favicon בדפדפן. 100% בצד הלקוח ללא העלאת קבצים.",
         "featuredGuide": {
-          "slug": "pdf-workflow-efficiency-tips",
-          "label": "קרא את המדריך שלנו: הכנת נכסי אתר — איך ליצור favicon מקצועי מקבצי PNG"
+          "slug": "from-png-to-production-ico-favicons",
+          "label": "קראו את מדריך הסיום: הטמיעו favicon ICO בפרודקשן עם HTML להעתקה"
         },
         "relatedWorkflowLinks": {
           "prompt": "כלי favicon קשורים:",

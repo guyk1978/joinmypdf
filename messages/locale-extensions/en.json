@@ -1713,14 +1713,14 @@
       },
       "pngToIco": {
         "h1": "Free PNG to ICO Converter Online",
-        "heroTagline": "Drop a PNG logo—preview 16×16, 32×32, and 48×48 icon sizes, then download a Windows-compatible .ico file in your browser.",
+        "heroTagline": "Drop a PNG logo—preview 16×16, 32×32, and 64×64 icon sizes, then download a Windows-compatible .ico file in your browser.",
         "introSectionTitle": "Convert PNG to ICO in Seconds",
         "whySectionTitle": "Why Use Our JoinMyPDF Converter?",
         "whySectionSubheadline": "Free and fast PNG to ICO conversion, convert images to favicon format, secure local-only processing, and instant download without server uploads—your logo never leaves your device.",
         "schemaDescription": "PNG to ICO converter online for free—convert PNG to ICO online, free ICO generator, PNG to icon file, and favicon converter in your browser. 100% client-side with no file uploads.",
         "featuredGuide": {
-          "slug": "pdf-workflow-efficiency-tips",
-          "label": "Check out our guide on preparing your website assets: how to create professional favicons from PNGs"
+          "slug": "from-png-to-production-ico-favicons",
+          "label": "Read our capstone guide: deploy your ICO favicon to production with copy-paste HTML"
         },
         "relatedWorkflowLinks": {
           "prompt": "Related favicon tools:",
