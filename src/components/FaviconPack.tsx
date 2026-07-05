@@ -1,17 +1,21 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Upload } from "lucide-react";
+import { Download, Lock, Maximize2, Shield, Upload } from "lucide-react";
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type ChangeEvent,
   type DragEvent,
-  type SyntheticEvent,
 } from "react";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
+import { FaviconPackConsistencyCheck } from "@/components/FaviconPackConsistencyCheck";
+import { FaviconPackFormatPreview } from "@/components/FaviconPackFormatPreview";
+import { FaviconPackHeaderCode } from "@/components/FaviconPackHeaderCode";
+import { FaviconPackSourcePreview } from "@/components/FaviconPackSourcePreview";
 import { imBtnCta } from "@/lib/design-system";
 import {
   buildFaviconPackZip,
@@ -20,6 +24,7 @@ import {
   faviconPackOutputName,
   isAcceptedFaviconPackFile,
   loadFaviconPackPreview,
+  needsFaviconPackAutoFit,
 } from "@/lib/favicon-pack";
 
 export type FaviconPackLabels = {
@@ -31,6 +36,7 @@ export type FaviconPackLabels = {
   formatFileInfo: (name: string, width: number, height: number) => string;
   includesLabel: string;
   includesIco: string;
+  includesManifest: string;
   sizeLabel: (key: string) => string;
   downloadPack: string;
   generating: string;
@@ -39,6 +45,26 @@ export type FaviconPackLabels = {
   invalidFile: string;
   convertFailed: string;
   replaceImage: string;
+  formatPreviewTitle: string;
+  formatPreviewHint: string;
+  browserTabLabel: string;
+  iosHomeScreenLabel: string;
+  androidAppIconLabel: string;
+  windowsTaskbarLabel: string;
+  defaultSiteTitle: string;
+  privacyBadgeWaiting: string;
+  privacyBadgeLocal: string;
+  autoFitBadge: string;
+  autoFitBadgeSquare: string;
+  consistencyTitle: string;
+  consistencyHint: string;
+  consistencyPass: string;
+  consistencyWarning: (upscale: string, shortSide: number, recommended: number) => string;
+  headerCodeTitle: string;
+  headerCodeHint: string;
+  copyHtmlCode: string;
+  copiedHtmlCode: string;
+  copyHtmlCodeFailed: string;
 };
 
 export type FaviconPackProps = {
@@ -61,6 +87,36 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
   const [progress, setProgress] = useState(0);
   const [statusMessage, setStatusMessage] = useState("");
   const [error, setError] = useState("");
+  const [showHeaderCode, setShowHeaderCode] = useState(false);
+
+  const siteTitle = useMemo(() => {
+    if (!sourceFile) return labels.defaultSiteTitle;
+    const base = sourceFile.name.replace(/\.[^.]+$/, "").trim();
+    return base || labels.defaultSiteTitle;
+  }, [sourceFile, labels.defaultSiteTitle]);
+
+  const consistencyLabels = useMemo(
+    () => ({
+      consistencyTitle: labels.consistencyTitle,
+      consistencyHint: labels.consistencyHint,
+      consistencyPass: labels.consistencyPass,
+      consistencyWarning: labels.consistencyWarning,
+    }),
+    [labels],
+  );
+
+  const formatPreviewLabels = useMemo(
+    () => ({
+      title: labels.formatPreviewTitle,
+      hint: labels.formatPreviewHint,
+      browserTabLabel: labels.browserTabLabel,
+      iosHomeScreenLabel: labels.iosHomeScreenLabel,
+      androidAppIconLabel: labels.androidAppIconLabel,
+      windowsTaskbarLabel: labels.windowsTaskbarLabel,
+      defaultSiteTitle: labels.defaultSiteTitle,
+    }),
+    [labels],
+  );
 
   const revokeObjectUrl = useCallback(() => {
     if (objectUrlRef.current) {
@@ -83,6 +139,7 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
     setProgress(0);
     setStatusMessage("");
     setError("");
+    setShowHeaderCode(false);
     if (inputRef.current) inputRef.current.value = "";
   }, [revokeObjectUrl]);
 
@@ -96,6 +153,7 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
       setError("");
       setProgress(0);
       setStatusMessage("");
+      setShowHeaderCode(false);
       revokeObjectUrl();
 
       try {
@@ -123,13 +181,9 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
     if (file) void loadFile(file);
   };
 
-  const onImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
-    const img = event.currentTarget;
-    setNaturalSize({
-      width: img.naturalWidth,
-      height: img.naturalHeight,
-    });
-  };
+  const onImageDimensions = useCallback((width: number, height: number) => {
+    setNaturalSize({ width, height });
+  }, []);
 
   const handleDownloadPack = async () => {
     if (!sourceFile || !imageSrc || busy) return;
@@ -140,13 +194,17 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
     setStatusMessage(labels.generating);
 
     try {
-      const blob = await buildFaviconPackZip(imageSrc, ({ percent, stage }) => {
-        setProgress(percent);
-        setStatusMessage(stage === "zipping" ? labels.zippingProgress : labels.generatingProgress);
+      const blob = await buildFaviconPackZip(imageSrc, {
+        siteTitle,
+        onProgress: ({ percent, stage }) => {
+          setProgress(percent);
+          setStatusMessage(stage === "zipping" ? labels.zippingProgress : labels.generatingProgress);
+        },
       });
       const filename = faviconPackOutputName(sourceFile.name);
       downloadBlob(blob, filename);
       onDownload?.(blob, filename);
+      setShowHeaderCode(true);
     } catch {
       setProgress(0);
       setStatusMessage("");
@@ -159,6 +217,49 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
       }, 800);
     }
   };
+
+  const isLocallyProcessed = Boolean(imageSrc && naturalSize);
+  const showAutoFitBadge = Boolean(naturalSize && needsFaviconPackAutoFit(naturalSize.width, naturalSize.height));
+
+  const autoFitBadge = naturalSize ? (
+    <p
+      className={clsx(
+        "favicon-pack-tool__auto-fit-badge",
+        showAutoFitBadge
+          ? "favicon-pack-tool__auto-fit-badge--active"
+          : "favicon-pack-tool__auto-fit-badge--square",
+      )}
+      role="status"
+    >
+      <Maximize2 className="favicon-pack-tool__auto-fit-badge-icon" strokeWidth={2} aria-hidden />
+      <span>{showAutoFitBadge ? labels.autoFitBadge : labels.autoFitBadgeSquare}</span>
+    </p>
+  ) : null;
+
+  const privacyBadge = (
+    <p
+      className={clsx(
+        "favicon-pack-tool__privacy-badge",
+        isLocallyProcessed
+          ? "favicon-pack-tool__privacy-badge--local"
+          : "favicon-pack-tool__privacy-badge--waiting",
+      )}
+      role="status"
+      aria-live="polite"
+    >
+      {isLocallyProcessed ? (
+        <>
+          <Lock className="favicon-pack-tool__privacy-badge-icon" strokeWidth={2} aria-hidden />
+          <span>{labels.privacyBadgeLocal}</span>
+        </>
+      ) : (
+        <>
+          <Shield className="favicon-pack-tool__privacy-badge-icon" strokeWidth={2} aria-hidden />
+          <span>{labels.privacyBadgeWaiting}</span>
+        </>
+      )}
+    </p>
+  );
 
   return (
     <div className={clsx("crop-image-tool favicon-pack-tool", className)}>
@@ -197,6 +298,8 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
           <p className="crop-image-tool__dropzone-title">{labels.dropTitle}</p>
           <p className="crop-image-tool__dropzone-hint">{labels.dropHint}</p>
 
+          {privacyBadge}
+
           <button
             type="button"
             className={clsx(imBtnCta, "crop-image-tool__select-btn")}
@@ -209,21 +312,20 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
         <div className="crop-image-tool__workspace">
           <p className="crop-image-tool__instructions">{labels.convertInstructions}</p>
 
+          {privacyBadge}
+
+          {autoFitBadge}
+
           <div className="favicon-pack-tool__layout">
             <div className="crop-image-tool__stage crop-image-tool__stage--preview favicon-pack-tool__preview">
-              <img
-                src={imageSrc}
-                alt=""
-                className="crop-image-tool__img"
-                draggable={false}
-                onLoad={onImageLoad}
-              />
+              <FaviconPackSourcePreview imageSrc={imageSrc} onDimensions={onImageDimensions} />
             </div>
 
             <div className="favicon-pack-tool__includes tool-workspace-panel">
               <p className="favicon-pack-tool__section-label">{labels.includesLabel}</p>
               <ul className="favicon-pack-tool__file-list">
                 <li>{labels.includesIco}</li>
+                <li>{labels.includesManifest}</li>
                 {FAVICON_PACK_PNG_ENTRIES.map((entry) => (
                   <li key={entry.filename}>
                     {entry.filename}{" "}
@@ -236,10 +338,38 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
             </div>
           </div>
 
+          {naturalSize ? (
+            <FaviconPackConsistencyCheck
+              width={naturalSize.width}
+              height={naturalSize.height}
+              labels={consistencyLabels}
+            />
+          ) : null}
+
+          {naturalSize && imageSrc ? (
+            <FaviconPackFormatPreview
+              imageSrc={imageSrc}
+              siteTitle={siteTitle}
+              labels={formatPreviewLabels}
+            />
+          ) : null}
+
           {sourceFile && naturalSize ? (
             <p className="crop-image-tool__meta">
               {labels.formatFileInfo(sourceFile.name, naturalSize.width, naturalSize.height)}
             </p>
+          ) : null}
+
+          {showHeaderCode ? (
+            <FaviconPackHeaderCode
+              labels={{
+                title: labels.headerCodeTitle,
+                hint: labels.headerCodeHint,
+                copyHtmlCode: labels.copyHtmlCode,
+                copiedHtmlCode: labels.copiedHtmlCode,
+                copyHtmlCodeFailed: labels.copyHtmlCodeFailed,
+              }}
+            />
           ) : null}
 
           {busy ? (

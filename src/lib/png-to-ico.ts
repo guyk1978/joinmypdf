@@ -35,8 +35,10 @@ export function buildPngToIcoHeaderSnippet(iconPath: string): string {
 }
 
 export type DrawImageToSquareOptions = {
-  /** When true, fit the image inside the square with black letterbox bars (no stretch). */
+  /** When true, fit the image inside the square with padding bars (no stretch). */
   letterboxPadding?: boolean;
+  /** Background fill when letterboxing. Defaults to `#000000`. Use `"transparent"` for PNG exports. */
+  letterboxFill?: string;
 };
 
 export type PngToIcoConvertOptions = {
@@ -68,8 +70,11 @@ export function drawImageToSquareCanvas(
 
   ctx.clearRect(0, 0, size, size);
   if (letterbox) {
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, size, size);
+    const fill = options.letterboxFill ?? "#000000";
+    if (fill !== "transparent") {
+      ctx.fillStyle = fill;
+      ctx.fillRect(0, 0, size, size);
+    }
   }
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
