@@ -1,10 +1,11 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Upload } from "lucide-react";
+import { Download, Loader2, Lock, Upload } from "lucide-react";
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type ChangeEvent,
@@ -12,18 +13,20 @@ import {
   type SyntheticEvent,
 } from "react";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
+import { SvgToFaviconSizePreview } from "@/components/SvgToFaviconSizePreview";
+import { SvgToFaviconMobilePreview } from "@/components/SvgToFaviconMobilePreview";
+import { SvgToFaviconContrastChecker } from "@/components/SvgToFaviconContrastChecker";
+import { SvgToFaviconHeaderCode } from "@/components/SvgToFaviconHeaderCode";
 import { imBtnCta } from "@/lib/design-system";
 import {
   convertSvgImageToIco,
+  detectSmartIconSizes,
   downloadBlob,
-  drawSvgToSquareCanvas,
   isAcceptedSvgFile,
   loadSvgPreviewUrl,
-  SVG_FAVICON_SIZE_OPTIONS,
+  readSvgFileText,
   svgToFaviconOutputName,
-  type SvgFaviconOutputSize,
 } from "@/lib/svg-to-favicon";
-import { createImage } from "@/lib/crop-image";
 
 export type SvgToFaviconLabels = {
   dropTitle: string;
@@ -32,10 +35,31 @@ export type SvgToFaviconLabels = {
   selectFileAria: string;
   convertInstructions: string;
   formatFileInfo: (name: string) => string;
-  sizeLabel: string;
-  formatSizeOption: (size: number) => string;
   previewLabel: string;
-  previewFaviconLabel: string;
+  sizePreviewTitle: string;
+  sizePreviewHint: string;
+  sizePreviewSize: (size: number) => string;
+  smartScalingActive: string;
+  mobilePreviewTitle: string;
+  mobilePreviewHint: string;
+  desktopTabLabel: string;
+  iosTabSwitcherLabel: string;
+  androidTabSwitcherLabel: string;
+  defaultSiteTitle: string;
+  inactiveTabLabel: string;
+  contrastTitle: string;
+  contrastHint: string;
+  contrastChecking: string;
+  contrastPass: (ratio: string) => string;
+  contrastWarning: (ratio: string) => string;
+  contrastInvalid: string;
+  headerCodeTitle: string;
+  headerCodeHint: string;
+  copyHtmlCode: string;
+  copiedHtmlCode: string;
+  copyHtmlCodeFailed: string;
+  privacyProcessing: string;
+  privacyComplete: string;
   downloadFavicon: string;
   converting: string;
   convertingProgress: string;
@@ -52,20 +76,80 @@ export type SvgToFaviconProps = {
 
 const ACCEPT = "image/svg+xml,.svg";
 
+type PrivacyStatus = "idle" | "processing" | "success";
+
 export function SvgToFavicon({ labels, className, onDownload }: SvgToFaviconProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const objectUrlRef = useRef<string | null>(null);
-  const faviconPreviewRef = useRef<HTMLCanvasElement>(null);
   const progressTimerRef = useRef<number | null>(null);
 
   const [sourceFile, setSourceFile] = useState<File | null>(null);
   const [svgSrc, setSvgSrc] = useState<string | null>(null);
+  const [svgText, setSvgText] = useState<string | null>(null);
   const [naturalSize, setNaturalSize] = useState<{ width: number; height: number } | null>(null);
-  const [outputSize, setOutputSize] = useState<SvgFaviconOutputSize>(48);
   const [dragActive, setDragActive] = useState(false);
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
+  const [privacyStatus, setPrivacyStatus] = useState<PrivacyStatus>("idle");
+  const [headerCodeFilename, setHeaderCodeFilename] = useState<string | null>(null);
+
+  const smartSizes = useMemo(() => {
+    if (!svgText) return [];
+    return detectSmartIconSizes(svgText, naturalSize);
+  }, [svgText, naturalSize]);
+
+  const sizePreviewLabels = useMemo(
+    () => ({
+      title: labels.sizePreviewTitle,
+      hint: labels.sizePreviewHint,
+      sizeLabel: labels.sizePreviewSize,
+      smartScalingActive: labels.smartScalingActive,
+    }),
+    [labels],
+  );
+
+  const mobilePreviewLabels = useMemo(
+    () => ({
+      mobilePreviewTitle: labels.mobilePreviewTitle,
+      mobilePreviewHint: labels.mobilePreviewHint,
+      desktopTabLabel: labels.desktopTabLabel,
+      iosTabSwitcherLabel: labels.iosTabSwitcherLabel,
+      androidTabSwitcherLabel: labels.androidTabSwitcherLabel,
+      defaultSiteTitle: labels.defaultSiteTitle,
+      inactiveTabLabel: labels.inactiveTabLabel,
+    }),
+    [labels],
+  );
+
+  const contrastLabels = useMemo(
+    () => ({
+      contrastTitle: labels.contrastTitle,
+      contrastHint: labels.contrastHint,
+      contrastChecking: labels.contrastChecking,
+      contrastPass: labels.contrastPass,
+      contrastWarning: labels.contrastWarning,
+      contrastInvalid: labels.contrastInvalid,
+    }),
+    [labels],
+  );
+
+  const headerCodeLabels = useMemo(
+    () => ({
+      title: labels.headerCodeTitle,
+      hint: labels.headerCodeHint,
+      copyHtmlCode: labels.copyHtmlCode,
+      copiedHtmlCode: labels.copiedHtmlCode,
+      copyHtmlCodeFailed: labels.copyHtmlCodeFailed,
+    }),
+    [labels],
+  );
+
+  const siteTitle = useMemo(() => {
+    if (!sourceFile) return labels.defaultSiteTitle;
+    const base = sourceFile.name.replace(/\.[^.]+$/, "").trim();
+    return base || labels.defaultSiteTitle;
+  }, [sourceFile, labels.defaultSiteTitle]);
 
   const revokeObjectUrl = useCallback(() => {
     if (objectUrlRef.current) {
@@ -87,10 +171,12 @@ export function SvgToFavicon({ labels, className, onDownload }: SvgToFaviconProp
     revokeObjectUrl();
     setSourceFile(null);
     setSvgSrc(null);
+    setSvgText(null);
     setNaturalSize(null);
-    setOutputSize(48);
     setProgress(0);
     setError("");
+    setPrivacyStatus("idle");
+    setHeaderCodeFilename(null);
     if (inputRef.current) inputRef.current.value = "";
   }, [revokeObjectUrl]);
 
@@ -103,13 +189,16 @@ export function SvgToFavicon({ labels, className, onDownload }: SvgToFaviconProp
 
       setError("");
       setProgress(0);
+      setPrivacyStatus("idle");
+      setHeaderCodeFilename(null);
       revokeObjectUrl();
 
       try {
-        const url = await loadSvgPreviewUrl(file);
+        const [url, text] = await Promise.all([loadSvgPreviewUrl(file), readSvgFileText(file)]);
         objectUrlRef.current = url;
         setSourceFile(file);
         setSvgSrc(url);
+        setSvgText(text);
         setNaturalSize(null);
       } catch {
         setError(labels.invalidFile);
@@ -138,28 +227,6 @@ export function SvgToFavicon({ labels, className, onDownload }: SvgToFaviconProp
     });
   };
 
-  useEffect(() => {
-    if (!svgSrc || !naturalSize) return;
-    const canvas = faviconPreviewRef.current;
-    if (!canvas) return;
-
-    let cancelled = false;
-    void createImage(svgSrc).then((image) => {
-      if (cancelled) return;
-      const square = drawSvgToSquareCanvas(image, outputSize);
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-      canvas.width = outputSize;
-      canvas.height = outputSize;
-      ctx.clearRect(0, 0, outputSize, outputSize);
-      ctx.drawImage(square, 0, 0);
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [svgSrc, naturalSize, outputSize]);
-
   const startProgress = () => {
     setProgress(10);
     if (progressTimerRef.current !== null) {
@@ -179,21 +246,25 @@ export function SvgToFavicon({ labels, className, onDownload }: SvgToFaviconProp
   };
 
   const handleDownloadFavicon = async () => {
-    if (!sourceFile || !svgSrc || busy) return;
+    if (!sourceFile || !svgSrc || !smartSizes.length || busy) return;
 
     setBusy(true);
     setError("");
+    setPrivacyStatus("processing");
     startProgress();
 
     try {
-      const blob = await convertSvgImageToIco(svgSrc, outputSize);
+      const blob = await convertSvgImageToIco(svgSrc, smartSizes);
       const filename = svgToFaviconOutputName(sourceFile.name);
       stopProgress();
       downloadBlob(blob, filename);
       onDownload?.(blob, filename);
+      setHeaderCodeFilename(filename);
+      setPrivacyStatus("success");
     } catch {
       stopProgress();
       setProgress(0);
+      setPrivacyStatus("idle");
       setError(labels.convertFailed);
     } finally {
       setBusy(false);
@@ -268,48 +339,61 @@ export function SvgToFavicon({ labels, className, onDownload }: SvgToFaviconProp
               </div>
             </div>
 
-            <div className="svg-to-favicon-tool__controls tool-workspace-panel">
-              <div className="svg-to-favicon-tool__field">
-                <span className="svg-to-favicon-tool__section-label" id="svg-favicon-size-label">
-                  {labels.sizeLabel}
-                </span>
-                <div
-                  className="svg-to-favicon-tool__size-row"
-                  role="radiogroup"
-                  aria-labelledby="svg-favicon-size-label"
-                >
-                  {SVG_FAVICON_SIZE_OPTIONS.map((size) => (
-                    <label key={size} className="svg-to-favicon-tool__size-option">
-                      <input
-                        type="radio"
-                        name="svg-favicon-size"
-                        value={size}
-                        checked={outputSize === size}
-                        onChange={() => setOutputSize(size)}
-                      />
-                      <span>{labels.formatSizeOption(size)}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div className="svg-to-favicon-tool__favicon-preview">
-                <p className="svg-to-favicon-tool__section-label">{labels.previewFaviconLabel}</p>
-                <div className="svg-to-favicon-tool__favicon-canvas-wrap">
-                  <canvas
-                    ref={faviconPreviewRef}
-                    width={outputSize}
-                    height={outputSize}
-                    className="svg-to-favicon-tool__favicon-canvas"
-                    aria-hidden
-                  />
-                </div>
-              </div>
-            </div>
+            {naturalSize && smartSizes.length ? (
+              <SvgToFaviconSizePreview
+                imageSrc={svgSrc}
+                sizes={smartSizes}
+                labels={sizePreviewLabels}
+              />
+            ) : null}
           </div>
+
+          {naturalSize && svgSrc ? (
+            <SvgToFaviconMobilePreview
+              imageSrc={svgSrc}
+              siteTitle={siteTitle}
+              labels={mobilePreviewLabels}
+            />
+          ) : null}
+
+          {naturalSize && svgSrc ? (
+            <SvgToFaviconContrastChecker imageSrc={svgSrc} labels={contrastLabels} />
+          ) : null}
 
           {busy ? (
             <WorkspaceProgressBar percent={progress} label={labels.convertingProgress} />
+          ) : null}
+
+          {privacyStatus !== "idle" ? (
+            <p
+              className={clsx(
+                "svg-to-favicon-tool__privacy-badge",
+                privacyStatus === "processing" && "svg-to-favicon-tool__privacy-badge--processing",
+                privacyStatus === "success" && "svg-to-favicon-tool__privacy-badge--success",
+              )}
+              role="status"
+              aria-live="polite"
+            >
+              {privacyStatus === "processing" ? (
+                <>
+                  <Loader2
+                    className="svg-to-favicon-tool__privacy-badge-icon svg-to-favicon-tool__privacy-badge-icon--spin"
+                    strokeWidth={2}
+                    aria-hidden
+                  />
+                  <span>{labels.privacyProcessing}</span>
+                </>
+              ) : (
+                <>
+                  <Lock className="svg-to-favicon-tool__privacy-badge-icon" strokeWidth={2} aria-hidden />
+                  <span>{labels.privacyComplete}</span>
+                </>
+              )}
+            </p>
+          ) : null}
+
+          {headerCodeFilename && privacyStatus === "success" ? (
+            <SvgToFaviconHeaderCode outputFilename={headerCodeFilename} labels={headerCodeLabels} />
           ) : null}
 
           <div className="crop-image-tool__actions">
@@ -325,7 +409,7 @@ export function SvgToFavicon({ labels, className, onDownload }: SvgToFaviconProp
               type="button"
               className={clsx(imBtnCta, "crop-image-tool__primary-btn")}
               onClick={() => void handleDownloadFavicon()}
-              disabled={busy || !naturalSize}
+              disabled={busy || !naturalSize || !smartSizes.length}
             >
               <Download className="h-4 w-4" aria-hidden />
               {busy ? labels.converting : labels.downloadFavicon}
