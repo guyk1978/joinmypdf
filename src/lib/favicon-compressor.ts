@@ -13,12 +13,44 @@ import {
 
 export { compressionSavingsPercent, downloadBlob, formatBytes };
 
+export type FaviconCompressionMode = "lossy" | "lossless";
+
+export const DEFAULT_FAVICON_COMPRESSION_MODE: FaviconCompressionMode = "lossy";
+
+export type FaviconSourceFormat = "ico" | "png" | "jpg";
+
 export type FaviconCompressorResult = {
   blob: Blob;
   originalBytes: number;
   compressedBytes: number;
   mime: string;
 };
+
+export type FaviconCompressionSavingsAnalysis = {
+  originalBytes: number;
+  compressedBytes: number;
+  savedBytes: number;
+  savingsPercent: number;
+  hasSavings: boolean;
+  alreadyOptimal: boolean;
+};
+
+export function analyzeFaviconCompressionSavings(
+  originalBytes: number,
+  compressedBytes: number,
+): FaviconCompressionSavingsAnalysis {
+  const savedBytes = Math.max(0, originalBytes - compressedBytes);
+  const savingsPercent = compressionSavingsPercent(originalBytes, compressedBytes);
+
+  return {
+    originalBytes,
+    compressedBytes,
+    savedBytes,
+    savingsPercent,
+    hasSavings: savingsPercent > 0,
+    alreadyOptimal: compressedBytes >= originalBytes,
+  };
+}
 
 export function isAcceptedFaviconCompressorFile(file: File): boolean {
   return isAcceptedIcoFile(file) || isAcceptedFaviconPackFile(file);
@@ -32,6 +64,12 @@ export function isJpegFaviconSource(file: File): boolean {
   const type = file.type.toLowerCase();
   if (type === "image/jpeg" || type === "image/jpg") return true;
   return /\.jpe?g$/i.test(file.name);
+}
+
+export function detectFaviconSourceFormat(file: File): FaviconSourceFormat {
+  if (isIcoFaviconSource(file)) return "ico";
+  if (isJpegFaviconSource(file)) return "jpg";
+  return "png";
 }
 
 export function faviconCompressorOutputName(sourceName: string, mime: string): string {
@@ -107,7 +145,10 @@ async function pickSmallerBlob(candidates: Blob[]): Promise<Blob> {
   return candidates.reduce((best, current) => (current.size < best.size ? current : best));
 }
 
-async function optimizePngCanvas(canvas: HTMLCanvasElement): Promise<Blob> {
+async function optimizePngCanvas(
+  canvas: HTMLCanvasElement,
+  mode: FaviconCompressionMode,
+): Promise<Blob> {
   const width = canvas.width;
   const height = canvas.height;
   const ctx = canvas.getContext("2d");
@@ -115,7 +156,7 @@ async function optimizePngCanvas(canvas: HTMLCanvasElement): Promise<Blob> {
 
   const candidates: Blob[] = [await canvasToPngBlob(canvas)];
 
-  if (width * height <= 256 * 256) {
+  if (mode === "lossy" && width * height <= 256 * 256) {
     const hasAlpha = canvasHasTransparency(ctx, width, height);
     const bitsOptions = hasAlpha ? [5, 6] : [5, 6, 7];
 
@@ -137,8 +178,12 @@ async function optimizePngCanvas(canvas: HTMLCanvasElement): Promise<Blob> {
   return pickSmallerBlob(candidates);
 }
 
-async function optimizeJpegCanvas(canvas: HTMLCanvasElement): Promise<Blob> {
-  const qualities = [0.92, 0.88, 0.85, 0.82, 0.78];
+async function optimizeJpegCanvas(
+  canvas: HTMLCanvasElement,
+  mode: FaviconCompressionMode,
+): Promise<Blob> {
+  const qualities =
+    mode === "lossless" ? [0.95, 0.92] : [0.92, 0.88, 0.85, 0.82, 0.78, 0.72];
   const candidates: Blob[] = [];
 
   for (const quality of qualities) {
@@ -158,20 +203,24 @@ async function blobToCanvas(blob: Blob, width: number, height: number): Promise<
   }
 }
 
-async function compressRasterImage(file: File, imageSrc: string): Promise<Blob> {
+async function compressRasterImage(
+  file: File,
+  imageSrc: string,
+  mode: FaviconCompressionMode,
+): Promise<Blob> {
   const image = await createImage(imageSrc);
   const width = Math.max(1, image.naturalWidth);
   const height = Math.max(1, image.naturalHeight);
   const canvas = drawImageToCanvas(image, width, height);
 
   if (isJpegFaviconSource(file)) {
-    return optimizeJpegCanvas(canvas);
+    return optimizeJpegCanvas(canvas, mode);
   }
 
-  return optimizePngCanvas(canvas);
+  return optimizePngCanvas(canvas, mode);
 }
 
-async function compressIcoFile(file: File): Promise<Blob> {
+async function compressIcoFile(file: File, mode: FaviconCompressionMode): Promise<Blob> {
   const frames = await parseIcoFile(file);
 
   try {
@@ -179,7 +228,7 @@ async function compressIcoFile(file: File): Promise<Blob> {
 
     for (const frame of frames) {
       const canvas = await blobToCanvas(frame.pngBlob, frame.width, frame.height);
-      const optimizedPng = await optimizePngCanvas(canvas);
+      const optimizedPng = await optimizePngCanvas(canvas, mode);
       const optimizedCanvas = await blobToCanvas(optimizedPng, frame.width, frame.height);
       optimizedFrames.push({
         size: Math.max(frame.width, frame.height),
@@ -193,11 +242,15 @@ async function compressIcoFile(file: File): Promise<Blob> {
   }
 }
 
-export async function compressFaviconFile(file: File, imageSrc?: string): Promise<FaviconCompressorResult> {
+export async function compressFaviconFile(
+  file: File,
+  imageSrc?: string,
+  mode: FaviconCompressionMode = DEFAULT_FAVICON_COMPRESSION_MODE,
+): Promise<FaviconCompressorResult> {
   const originalBytes = file.size;
 
   if (isIcoFaviconSource(file)) {
-    const blob = await compressIcoFile(file);
+    const blob = await compressIcoFile(file, mode);
     return {
       blob,
       originalBytes,
@@ -210,7 +263,7 @@ export async function compressFaviconFile(file: File, imageSrc?: string): Promis
   const shouldRevoke = !imageSrc;
 
   try {
-    const blob = await compressRasterImage(file, src);
+    const blob = await compressRasterImage(file, src, mode);
     return {
       blob,
       originalBytes,

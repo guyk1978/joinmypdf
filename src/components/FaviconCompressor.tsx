@@ -1,7 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Upload } from "lucide-react";
+import { Download, Loader2, Lock, Shield, Upload } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -12,18 +12,38 @@ import {
   type SyntheticEvent,
 } from "react";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
+import {
+  FaviconCompressorSavingsCalculator,
+  type FaviconCompressorSavingsCalculatorLabels,
+} from "@/components/FaviconCompressorSavingsCalculator";
+import {
+  FaviconCompressorBeforeAfterCompare,
+  type FaviconCompressorBeforeAfterLabels,
+} from "@/components/FaviconCompressorBeforeAfterCompare";
+import {
+  FaviconCompressorMetadataReport,
+  type FaviconCompressorMetadataReportLabels,
+} from "@/components/FaviconCompressorMetadataReport";
 import { imBtnCta } from "@/lib/design-system";
 import {
   compressFaviconFile,
   compressionSavingsPercent,
+  DEFAULT_FAVICON_COMPRESSION_MODE,
+  detectFaviconSourceFormat,
   downloadBlob,
   faviconCompressorOutputName,
   formatBytes,
   isAcceptedFaviconCompressorFile,
   isIcoFaviconSource,
   loadFaviconCompressorPreview,
+  type FaviconCompressionMode,
   type FaviconCompressorResult,
+  type FaviconSourceFormat,
 } from "@/lib/favicon-compressor";
+import {
+  analyzeFaviconMetadata,
+  type FaviconMetadataReport,
+} from "@/lib/favicon-compressor-metadata";
 
 export type FaviconCompressorLabels = {
   dropTitle: string;
@@ -37,12 +57,25 @@ export type FaviconCompressorLabels = {
   compressedSize: string;
   estimatingSize: string;
   formatSavings: (percent: number) => string;
+  savingsCalculator: FaviconCompressorSavingsCalculatorLabels;
   downloadOptimized: string;
   optimizing: string;
   optimizingProgress: string;
   invalidFile: string;
   optimizeFailed: string;
   replaceFile: string;
+  privacyBadgeWaiting: string;
+  privacyBadgeProcessing: string;
+  privacyBadgeLocal: string;
+  compressionModeLabel: string;
+  compressionModeLossy: string;
+  compressionModeLossyHint: string;
+  compressionModeLossless: string;
+  compressionModeLosslessHint: string;
+  formatDetectedLabel: string;
+  formatLabel: (format: FaviconSourceFormat) => string;
+  metadataReport: FaviconCompressorMetadataReportLabels;
+  beforeAfterCompare: FaviconCompressorBeforeAfterLabels;
 };
 
 export type FaviconCompressorProps = {
@@ -54,9 +87,27 @@ export type FaviconCompressorProps = {
 const ACCEPT = "image/x-icon,image/vnd.microsoft.icon,.ico,image/png,image/jpeg,.ico,.png,.jpg,.jpeg";
 const ESTIMATE_DEBOUNCE_MS = 280;
 
+type PrivacyStatus = "waiting" | "processing" | "local";
+
+function resolvePrivacyStatus(
+  previewUrl: string | null,
+  sourceFile: File | null,
+  naturalSize: { width: number; height: number } | null,
+  estimating: boolean,
+  busy: boolean,
+  result: FaviconCompressorResult | null,
+): PrivacyStatus {
+  if (!previewUrl || !sourceFile) return "waiting";
+  if (estimating || busy) return "processing";
+  if (result) return "local";
+  if (isIcoFaviconSource(sourceFile) || naturalSize) return "processing";
+  return "waiting";
+}
+
 export function FaviconCompressor({ labels, className, onDownload }: FaviconCompressorProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const previewUrlRef = useRef<string | null>(null);
+  const compressedPreviewUrlRef = useRef<string | null>(null);
   const estimateTimerRef = useRef<number | null>(null);
   const estimateRequestRef = useRef(0);
 
@@ -71,6 +122,11 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
+  const [compressionMode, setCompressionMode] = useState<FaviconCompressionMode>(
+    DEFAULT_FAVICON_COMPRESSION_MODE,
+  );
+  const [metadataReport, setMetadataReport] = useState<FaviconMetadataReport | null>(null);
+  const [compressedPreviewUrl, setCompressedPreviewUrl] = useState<string | null>(null);
 
   const revokePreviewUrl = useCallback(() => {
     if (previewUrlRef.current) {
@@ -79,14 +135,23 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
     }
   }, []);
 
+  const revokeCompressedPreviewUrl = useCallback(() => {
+    if (compressedPreviewUrlRef.current) {
+      URL.revokeObjectURL(compressedPreviewUrlRef.current);
+      compressedPreviewUrlRef.current = null;
+    }
+    setCompressedPreviewUrl(null);
+  }, []);
+
   useEffect(() => {
     return () => {
       revokePreviewUrl();
+      revokeCompressedPreviewUrl();
       if (estimateTimerRef.current !== null) {
         window.clearTimeout(estimateTimerRef.current);
       }
     };
-  }, [revokePreviewUrl]);
+  }, [revokePreviewUrl, revokeCompressedPreviewUrl]);
 
   const reset = useCallback(() => {
     revokePreviewUrl();
@@ -99,8 +164,10 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
     setEstimating(false);
     setProgress(0);
     setError("");
+    setMetadataReport(null);
+    revokeCompressedPreviewUrl();
     if (inputRef.current) inputRef.current.value = "";
-  }, [revokePreviewUrl]);
+  }, [revokePreviewUrl, revokeCompressedPreviewUrl]);
 
   const loadFile = useCallback(
     async (file: File) => {
@@ -113,15 +180,18 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
       setResult(null);
       setNaturalSize(null);
       setIcoFrameCount(null);
+      setMetadataReport(null);
       revokePreviewUrl();
 
       try {
         const preview = await loadFaviconCompressorPreview(file);
+        const metadata = await analyzeFaviconMetadata(file);
         previewUrlRef.current = preview.previewUrl;
         setSourceFile(file);
         setPreviewUrl(preview.previewUrl);
         setImageSrc(isIcoFaviconSource(file) ? null : preview.previewUrl);
         setIcoFrameCount(preview.frameCount ?? null);
+        setMetadataReport(metadata);
       } catch {
         setError(labels.invalidFile);
       }
@@ -169,7 +239,7 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
     estimateRequestRef.current = requestId;
 
     estimateTimerRef.current = window.setTimeout(() => {
-      void compressFaviconFile(sourceFile, imageSrc ?? undefined)
+      void compressFaviconFile(sourceFile, imageSrc ?? undefined, compressionMode)
         .then((compressed) => {
           if (estimateRequestRef.current !== requestId) return;
           setResult(compressed);
@@ -190,7 +260,28 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
         window.clearTimeout(estimateTimerRef.current);
       }
     };
-  }, [sourceFile, previewUrl, imageSrc, naturalSize, labels.optimizeFailed]);
+  }, [sourceFile, previewUrl, imageSrc, naturalSize, compressionMode, labels.optimizeFailed]);
+
+  useEffect(() => {
+    if (!result?.blob) {
+      revokeCompressedPreviewUrl();
+      return;
+    }
+
+    const url = URL.createObjectURL(result.blob);
+    if (compressedPreviewUrlRef.current) {
+      URL.revokeObjectURL(compressedPreviewUrlRef.current);
+    }
+    compressedPreviewUrlRef.current = url;
+    setCompressedPreviewUrl(url);
+
+    return () => {
+      URL.revokeObjectURL(url);
+      if (compressedPreviewUrlRef.current === url) {
+        compressedPreviewUrlRef.current = null;
+      }
+    };
+  }, [result?.blob, revokeCompressedPreviewUrl]);
 
   const handleDownload = async () => {
     if (!sourceFile || busy) return;
@@ -200,7 +291,8 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
     setProgress(25);
 
     try {
-      const compressed = result ?? (await compressFaviconFile(sourceFile, imageSrc ?? undefined));
+      const compressed =
+        result ?? (await compressFaviconFile(sourceFile, imageSrc ?? undefined, compressionMode));
       setProgress(100);
       const filename = faviconCompressorOutputName(sourceFile.name, compressed.mime);
       downloadBlob(compressed.blob, filename);
@@ -225,6 +317,49 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
     (isIcoFaviconSource(sourceFile!) || Boolean(naturalSize)) &&
     !estimating &&
     Boolean(result);
+
+  const privacyStatus = resolvePrivacyStatus(
+    previewUrl,
+    sourceFile,
+    naturalSize,
+    estimating,
+    busy,
+    result,
+  );
+
+  const privacyBadge = (
+    <p
+      className={clsx(
+        "favicon-compressor-tool__privacy-badge",
+        privacyStatus === "local" && "favicon-compressor-tool__privacy-badge--local",
+        privacyStatus === "processing" && "favicon-compressor-tool__privacy-badge--processing",
+        privacyStatus === "waiting" && "favicon-compressor-tool__privacy-badge--waiting",
+      )}
+      role="status"
+      aria-live="polite"
+    >
+      {privacyStatus === "local" ? (
+        <>
+          <Lock className="favicon-compressor-tool__privacy-badge-icon" strokeWidth={2} aria-hidden />
+          <span>{labels.privacyBadgeLocal}</span>
+        </>
+      ) : privacyStatus === "processing" ? (
+        <>
+          <Loader2
+            className="favicon-compressor-tool__privacy-badge-icon favicon-compressor-tool__privacy-badge-icon--spin"
+            strokeWidth={2}
+            aria-hidden
+          />
+          <span>{labels.privacyBadgeProcessing}</span>
+        </>
+      ) : (
+        <>
+          <Shield className="favicon-compressor-tool__privacy-badge-icon" strokeWidth={2} aria-hidden />
+          <span>{labels.privacyBadgeWaiting}</span>
+        </>
+      )}
+    </p>
+  );
 
   return (
     <div className={clsx("crop-image-tool favicon-compressor-tool", className)}>
@@ -263,6 +398,8 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
           <p className="crop-image-tool__dropzone-title">{labels.dropTitle}</p>
           <p className="crop-image-tool__dropzone-hint">{labels.dropHint}</p>
 
+          {privacyBadge}
+
           <button
             type="button"
             className={clsx(imBtnCta, "crop-image-tool__select-btn")}
@@ -275,19 +412,21 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
         <div className="crop-image-tool__workspace">
           <p className="crop-image-tool__instructions">{labels.compressInstructions}</p>
 
-          <div className="favicon-compressor-tool__layout">
-            <div className="crop-image-tool__stage crop-image-tool__stage--preview favicon-compressor-tool__preview tool-workspace-panel">
-              <img
-                src={previewUrl}
-                alt=""
-                className="crop-image-tool__img"
-                draggable={false}
-                onLoad={onImageLoad}
-              />
-            </div>
+          <FaviconCompressorBeforeAfterCompare
+            beforeSrc={previewUrl}
+            afterSrc={compressedPreviewUrl}
+            originalBytes={sourceFile?.size ?? 0}
+            compressedBytes={result?.compressedBytes ?? null}
+            estimating={estimating}
+            ready={readyToDownload}
+            labels={labels.beforeAfterCompare}
+            onBeforeImageLoad={onImageLoad}
+          />
 
-            {sourceFile ? (
-              <div className="favicon-compressor-tool__metrics tool-workspace-panel">
+          {sourceFile ? (
+            <div className="favicon-compressor-tool__metrics tool-workspace-panel">
+                {privacyBadge}
+
                 {naturalSize ? (
                   <p className="crop-image-tool__meta">
                     {labels.formatFileInfo(sourceFile.name, naturalSize.width, naturalSize.height)}
@@ -297,6 +436,64 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
                     {labels.formatIcoFileInfo(sourceFile.name, icoFrameCount)}
                   </p>
                 ) : null}
+
+                <p className="favicon-compressor-tool__format-badge" role="status">
+                  <span className="favicon-compressor-tool__format-label">{labels.formatDetectedLabel}</span>
+                  <span className="favicon-compressor-tool__format-value">
+                    {labels.formatLabel(detectFaviconSourceFormat(sourceFile))}
+                  </span>
+                </p>
+
+                <div className="favicon-compressor-tool__mode-field">
+                  <span className="favicon-compressor-tool__mode-label" id="favicon-compressor-mode-label">
+                    {labels.compressionModeLabel}
+                  </span>
+                  <div
+                    className="favicon-compressor-tool__mode-toggle"
+                    role="group"
+                    aria-labelledby="favicon-compressor-mode-label"
+                  >
+                    <label
+                      className={clsx(
+                        "favicon-compressor-tool__mode-option",
+                        compressionMode === "lossy" && "favicon-compressor-tool__mode-option--active",
+                      )}
+                    >
+                      <input
+                        type="radio"
+                        name="favicon-compression-mode"
+                        checked={compressionMode === "lossy"}
+                        onChange={() => setCompressionMode("lossy")}
+                      />
+                      <span className="favicon-compressor-tool__mode-option-title">
+                        {labels.compressionModeLossy}
+                      </span>
+                      <span className="favicon-compressor-tool__mode-option-hint">
+                        {labels.compressionModeLossyHint}
+                      </span>
+                    </label>
+                    <label
+                      className={clsx(
+                        "favicon-compressor-tool__mode-option",
+                        compressionMode === "lossless" &&
+                          "favicon-compressor-tool__mode-option--active",
+                      )}
+                    >
+                      <input
+                        type="radio"
+                        name="favicon-compression-mode"
+                        checked={compressionMode === "lossless"}
+                        onChange={() => setCompressionMode("lossless")}
+                      />
+                      <span className="favicon-compressor-tool__mode-option-title">
+                        {labels.compressionModeLossless}
+                      </span>
+                      <span className="favicon-compressor-tool__mode-option-hint">
+                        {labels.compressionModeLosslessHint}
+                      </span>
+                    </label>
+                  </div>
+                </div>
 
                 <div className="crop-image-tool__size-compare">
                   <div className="crop-image-tool__size-card">
@@ -319,9 +516,22 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
                     ) : null}
                   </div>
                 </div>
-              </div>
-            ) : null}
-          </div>
+
+                <FaviconCompressorSavingsCalculator
+                  originalBytes={sourceFile.size}
+                  compressedBytes={result?.compressedBytes ?? null}
+                  estimating={estimating}
+                  labels={labels.savingsCalculator}
+                />
+
+                <FaviconCompressorMetadataReport
+                  report={metadataReport}
+                  estimating={estimating}
+                  ready={readyToDownload}
+                  labels={labels.metadataReport}
+                />
+            </div>
+          ) : null}
 
           {busy ? <WorkspaceProgressBar percent={progress} label={labels.optimizingProgress} /> : null}
 
