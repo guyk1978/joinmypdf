@@ -34410,6 +34410,325 @@
           }
         ]
       }
+    },
+    {
+      "slug": "ios-edge-custom-apple-touch-icon",
+      "title": "היתרון של iOS: מדוע האתר שלכם חייב Apple Touch Icon מותאם אישית",
+      "keyword": "מחולל apple touch icon ios הוספה למסך הבית 180x180",
+      "category": "Developer Tools",
+      "cluster": "apple-touch-icon",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-07-25",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.98,
+      "relatedTools": ["apple-touch-icon", "favicon-pack", "favicon-code-generator", "generate-favicon", "favicon-previewer"],
+      "relatedBlogs": ["apple-touch-icon-local-first-privacy", "apple-touch-icon-retina-precision-180", "apple-touch-icon-ios-home-screen-branding", "apple-touch-icon-html-integration", "beyond-tab-full-favicon-pack", "tab-to-bookmark-svg-favicon-ux", "hidden-power-of-favicons", "integrating-custom-favicons-developer-guide", "consistent-favicons-ux-brand-recognition"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור Apple Touch Icon · יולי 2027" },
+      "seo": {
+        "metaTitle": "מדריך Apple Touch Icon | הוספה למסך הבית iOS",
+        "metaDescription": "בלי apple-touch-icon, iOS משתמשת ב-thumbnail מטושטש. JoinMyPDF מייצר 180×180 מקומית עם תצוגת iPhone חיה.",
+        "keywords": "מחולל apple touch icon, אייקון מסך בית ios, 180x180"
+      },
+      "description": "למה Apple Touch Icon חשוב ל-Add to Home Screen — ואיך JoinMyPDF מרנדר 180×180 עם תצוגת iPhone חיה.",
+      "contentBlocks": {
+        "intro": "בעידן Mobile-first, הנוכחות לא מוגבלת לכרטיסיות. Add to Home Screen דורש Apple Touch Icon — בלי זה screenshot דהוי. JoinMyPDF יוצר 180×180 עם mockup חי של מסך בית iPhone. מאמר 1 בסדרת apple-touch-icon.",
+        "editorialNote": "JoinMyPDF Apple Touch Icon רץ בדפדפן.",
+        "primaryTool": "apple-touch-icon",
+        "primaryToolCtaLabel": "צרו Apple Touch Icon — תצוגת iPhone, 180×180",
+        "bottomCtaLabel": "פתחו Free Apple Touch Icon Generator",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך ליצור Apple Touch Icon ל-iOS",
+          "description": "תצוגת מסך בית iPhone לפני ייצוא.",
+          "steps": [
+            { "name": "העלו לוגו", "text": "PNG או JPG מקומית." },
+            { "name": "סקור תצוגת iPhone", "text": "180×180 עם פינות מעוגלות וצל." },
+            { "name": "בחרו רקע", "text": "צבע או שקוף — עדכון מיידי." },
+            { "name": "בחרו גדלים", "text": "180 סטנדרט; 167/152 ל-iPad." },
+            { "name": "הורידו והטמיעו", "text": "apple-touch-icon.png + link tag." }
+          ]
+        },
+        "sections": [
+          { "id": "add-to-home-screen", "heading": "הכוח של הוספה למסך הבית", "level": 2, "paragraphs": ["חוויה דמוית-אפליקציה.", "קיצור דרך קבוע על מסך הבית.", "תנועה חוזרת ומיתוג.", "בלי icon — screenshot לא מקצועי."] },
+          { "id": "professional-180", "heading": "מקצועיות ב-180×180", "level": 2, "paragraphs": ["סטנדרט Retina.", "Canvas עם inset.", "ללא טשטוש thumbnail."] },
+          { "id": "iphone-home-screen-preview", "heading": "תצוגת מסך בית iPhone", "level": 2, "paragraphs": ["Mockup חי.", "masking 22% וצל.", "תווית מהקובץ.", "עדכון רקע בזמן אמת."] },
+          { "id": "series-context", "heading": "הקשר הסדרה", "level": 2, "paragraphs": ["מאמר 1 (מדריך זה): Apple Touch Icon ותצוגת iPhone.", "מאמר 2: פרטיות תחילה — עיבוד מקומי ו-Privacy Shield.", "מאמר 3: דיוק Retina — supersampling ו-anti-aliasing ל-180×180.", "מאמר 4: מיתוג מובייל — שכבת אזור בטוח iOS.", "מאמר 5: אינטגרציית HTML — העתקת תגית link.", "שלבו עם Favicon Pack."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["לא סימנייה נשכחת.", "חוויה מקצועית.", "שליטה במיתוג iOS."] }
+        ],
+        "faq": [
+          { "q": "איזה גודל?", "a": "180×180; גם 167/152 ל-iPad." },
+          { "q": "בלי icon?", "a": "screenshot של העמוד." },
+          { "q": "מה בתצוגה?", "a": "Mockup iPhone 180×180." },
+          { "q": "רקע?", "a": "צבע או שקוף." },
+          { "q": "העלאה לשרת?", "a": "לא — בדפדפן." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/apple-touch-icon/", "anchor": "JoinMyPDF Apple Touch Icon Generator" },
+          { "href": "/tools/favicon-pack/", "anchor": "Favicon Pack" },
+          { "href": "/tools/favicon-code-generator/", "anchor": "Favicon Code Generator" },
+          { "href": "/blog/beyond-tab-full-favicon-pack/", "anchor": "מאמר favicon pack" }
+        ]
+      }
+    },
+    {
+      "slug": "apple-touch-icon-local-first-privacy",
+      "title": "המרה פרטית: מדוע עיבוד מקומי (Local-First) הוא קריטי",
+      "keyword": "מחולל apple touch icon פרטיות עיבוד מקומי לוגו ללא העלאה דפדפן מאובטח",
+      "category": "Security",
+      "cluster": "apple-touch-icon",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-07-26",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.97,
+      "relatedTools": ["apple-touch-icon", "favicon-pack", "png-to-ico", "generate-favicon", "compress-image"],
+      "relatedBlogs": ["ios-edge-custom-apple-touch-icon", "apple-touch-icon-retina-precision-180", "apple-touch-icon-ios-home-screen-branding", "apple-touch-icon-html-integration", "local-first-svg-to-favicon-conversion", "privacy-first-favicon-pack-local", "local-first-png-to-ico-conversion", "why-local-image-processing-is-safer", "hidden-power-of-favicons"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור Apple Touch Icon local-first privacy · יולי 2027" },
+      "seo": {
+        "metaTitle": "Apple Touch Icon מקומי | פרטיות לוגו בדפדפן",
+        "metaDescription": "ממירי אייקון בענן מעלים את הלוגו. JoinMyPDF Free Apple Touch Icon Generator רץ 100% בדפדפן — Privacy Shield מאשר שהלוגו עובד מקומית לאחר ההורדה.",
+        "keywords": "apple touch icon פרטיות, מחולל apple touch icon מקומי, המרת לוגו ללא העלאה, apple touch icon מאובטח בדפדפן"
+      },
+      "description": "למה לוגואים רגישים צריכים להישאר על המכשיר בעת יצירת Apple Touch Icon — ואיך JoinMyPDF Privacy Shield מאשר עיבוד מקומי לאחר הייצוא.",
+      "contentBlocks": {
+        "intro": "כשאתם בונים את המותג שלכם, הלוגו הוא הנכס היקר ביותר שלכם. אתם לא צריכים להתפשר על אבטחה רק כדי להתאים אותו למכשירים ניידים. כלי המרה מקוונים רבים מעלים קבצים לשרתים מרוחקים — סיכון משמעותי לחשיפת נתונים. JoinMyPDF Free Apple Touch Icon Generator Online מתעדף אבטחה באמצעות עיבוד מקומי פרטי ב-100%. כל רינדור 180×180 רץ בטאב הדפדפן; לאחר ההורדה, Privacy Shield עם אייקון מגן מאשר: הלוגו עובד מקומית — לא עזב את המכשיר. מאמר 2 בסדרת Apple Touch Icon: פרטיות ואמון אחרי מאמר 1 על מיתוג מסך הבית ב-iOS.",
+        "editorialNote": "JoinMyPDF Apple Touch Icon מעבד קבצים בדפדפן. שימוש רגיל לא מעלה קבצי לוגו לשרתים שלנו.",
+        "primaryTool": "apple-touch-icon",
+        "primaryToolCtaLabel": "צרו Apple Touch Icon מקומית — תצוגת iPhone, Privacy Shield, ללא העלאה",
+        "bottomCtaLabel": "פתחו Free Apple Touch Icon Generator והגנו על נכסי המותג היום",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "privacySecuritySchema": true,
+        "howTo": {
+          "name": "איך ליצור Apple Touch Icon בלי להעלות את הלוגו",
+          "description": "אמתו את זרימת העבודה local-first עם אינדיקטור Privacy Shield.",
+          "steps": [
+            { "name": "פתחו JoinMyPDF Apple Touch Icon", "text": "ללא חשבון — גררו PNG או JPG וסקרו תצוגת מסך בית iPhone מקומית." },
+            { "name": "התאימו גדלים ורקע", "text": "180×180 סטנדרט וגדלי iPad אופציונליים — רינדור Canvas בטאב, ללא payload לרשת." },
+            { "name": "הורידו Apple Touch Icon", "text": "ייצוא PNG או ZIP — קידוד על המכשיר ללא תקשורת שרת." },
+            { "name": "אשרו Privacy Shield", "text": "לאחר ההורדה מופיע תג המגן: הלוגו עובד מקומית — לא עזב את המכשיר." },
+            { "name": "אמתו ב-DevTools (אופציונלי)", "text": "לשונית Network בזמן הייצוא: אין POST עם bytes של תמונה — אותו דפוס כמו PNG to ICO ו-Favicon Pack." }
+          ]
+        },
+        "sections": [
+          { "id": "server-side-risk", "heading": "מדוע עיבוד מקומי הוא הכרחי", "level": 2, "paragraphs": ["בממיר סטנדרטי בצד השרת, קובץ הלוגו עובר דרך האינטרנט לשרת צד שלישי.", "מרגע שהוא שם, אין לכם שקיפות לגבי זמן אחסון, גישה או תיעוד.", "למפתחים מקצועיים ובעלי עסקים — חשיפה מיותרת שניתן להימנע ממנה.", "מוצרים לפני השקה, עבודת לקוח תחת NDA ו-rebrand שלא פורסם לא יכולים להרשות לחשוף לוגו על תשתית לא מוכרת."] },
+          { "id": "privacy-advantage", "heading": "היתרון של הפרטיות", "level": 2, "paragraphs": ["JoinMyPDF Free Apple Touch Icon Generator Online פועל על ארכיטקטורת Local-First.", "כל פיקסל בתהליך ההמרה מתרחש ישירות בדפדפן.", "כוח העיבוד מהמכשיר שלכם — הקבצים לעולם לא עוזבים את המחשב.", "אפס תקשורת שרת — הנכסים נשארים בשליטתכם המלאה.", "Local-first: קריאת File בטאב, ציור ל-Canvas ב-180/167/152, קידוד PNG ל-Blob, הורדה. ללא API המרה בדרך."] },
+          { "id": "privacy-shield", "heading": "אינדיקטור Privacy Shield", "level": 2, "paragraphs": ["לאחר הורדה מוצלחת, JoinMyPDF מציג תג Privacy Shield עם אייקון מגן ירוק.", "הודעה: הלוגו עובד מקומית — לא עזב את המכשיר — UX מפורש שאין תקשורת רשת עם סימן המותג.", "המגן מתאפס בהחלפת תמונה או סשן חדש — כל ייצוא מקבל אישור פרטיות מחודש.", "אינדיקטורי סטטוס הופכים הבטחות פרטיות מופשטות ל-UI נצפה — במיוחד כשבודקי אבטחה שואלים איך יודעים שהקבצים נשארו מקומית.", "שלבו עם תצוגת מסך בית iPhone ממאמר 1 — מיתוג ואישור פרטיות בזרימה אחת."] },
+          { "id": "professional-privacy", "heading": "פרטיות כסטנדרט מקצועי", "level": 2, "paragraphs": ["פרטיות צריכה להיות הבסיס לכל כלי מקצועי.", "בבחירה ב-JoinMyPDF Apple Touch Icon Generator, נכסי המיתוג נשארים פרטיים, מאובטחים ותחת משמורתכם לאורך כל היצירה.", "שלבו אישור ויזואלי עם בדיקת Network ב-DevTools — אותה שקיפות כמו local-first-svg-to-favicon-conversion ו-privacy-first-favicon-pack-local.", "צוותי enterprise שמבקרים זרימות נתונים מעדיפים קלט מקומי, עיבוד מקומי, פלט מקומי — JoinMyPDF Apple Touch Icon עוקב אחרי המודל."] },
+          { "id": "series-context", "heading": "הקשר הסדרה", "level": 2, "paragraphs": ["מאמר 1: Apple Touch Icon ותצוגת iPhone.", "מאמר 2 (מדריך זה): עיבוד מקומי, Privacy Shield.", "מאמר 3: דיוק Retina.", "מאמר 4: שכבת safe zone.", "מאמר 5: העתקת קטע HTML — deploy בשורה אחת."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["אין צורך להתפשר על אבטחה רק כדי להתאים לוגו למכשירים ניידים.", "JoinMyPDF Free Apple Touch Icon Generator Online שומר על המרה מקומית — ו-Privacy Shield מאשר זאת אחרי כל הורדה.", "הלוגואים שלכם שייכים למכשיר שלכם — לא לשרת של זר."] }
+        ],
+        "faq": [
+          { "q": "האם JoinMyPDF מעלה את הלוגו בזמן יצירת Apple Touch Icon?", "a": "לא. רינדור Canvas וקידוד PNG רצים בדפדפן. Privacy Shield משקף עבודה על המכשיר — שימוש רגיל לא שולח קבצי תמונה לשרתים שלנו." },
+          { "q": "מתי מופיע Privacy Shield?", "a": "מיד לאחר הורדה מוצלחת — מאשר שהלוגו עובד מקומית ולא עזב את המכשיר." },
+          { "q": "מדוע ממירי אייקון בצד השרת מסוכנים?", "a": "הלוגו עובר באינטרנט ועלול להישמר על חומרה של צד שלישי — מאבדים שליטה על שמירה, גישה ושימוש." },
+          { "q": "האם אפשר לאמת עיבוד מקומי ב-DevTools?", "a": "כן. פתחו Network בזמן ההורדה — אין POST עם bytes של תמונה. אותו דפוס כמו PNG to ICO ו-Favicon Pack." },
+          { "q": "האם עיבוד מקומי פוגע באיכות?", "a": "לא. Canvas מרנדר בגדלי ייצוא מדויקים (180, 167, 152) באותה איכות כמו כלי שרת — בלי לחשוף קבצים." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/apple-touch-icon/", "anchor": "JoinMyPDF Free Apple Touch Icon Generator" },
+          { "href": "/blog/ios-edge-custom-apple-touch-icon/", "anchor": "מאמר 1 בסדרת Apple Touch Icon" },
+          { "href": "/tools/favicon-pack/", "anchor": "מחולל Favicon Pack" },
+          { "href": "/blog/privacy-first-favicon-pack-local/", "anchor": "מדריך פרטיות favicon pack" }
+        ]
+      }
+    },
+    {
+      "slug": "apple-touch-icon-retina-precision-180",
+      "title": "הדיוק קובע: יצירת אייקונים חדים בגודל 180x180 פיקסלים לצגי רזולוציה גבוהה",
+      "keyword": "apple touch icon 180x180 retina high dpi חד anti-aliasing supersampling איכות אייקון",
+      "category": "Developer Tools",
+      "cluster": "apple-touch-icon",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-07-27",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.96,
+      "relatedTools": ["apple-touch-icon", "svg-to-favicon", "favicon-pack", "png-to-ico", "generate-favicon"],
+      "relatedBlogs": ["ios-edge-custom-apple-touch-icon", "apple-touch-icon-local-first-privacy", "apple-touch-icon-ios-home-screen-branding", "apple-touch-icon-html-integration", "svg-advantage-vector-favicon", "local-first-svg-to-favicon-conversion", "beyond-tab-full-favicon-pack", "hidden-power-of-favicons"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור Apple Touch Icon Retina rendering · יולי 2027" },
+      "seo": {
+        "metaTitle": "Apple Touch Icon חד 180×180 | Anti-Aliasing ל-Retina",
+        "metaDescription": "אייקונים ברזולוציה נמוכה נראים מטושטשים ב-iPhone Retina. JoinMyPDF Free Apple Touch Icon Generator מבצע supersampling ו-anti-aliasing מקומי ל-180×180 — עם בדיקת איכות Retina חיה.",
+        "keywords": "apple touch icon 180x180, retina apple touch icon, אייקון ios חד, anti-aliasing apple touch icon, מחולל אייקון high dpi"
+      },
+      "description": "מדוע 180×180 הוא סטנדרט הזהב של אפל לצגי Retina — ואיך JoinMyPDF מספק ייצוא PNG חד עם supersampling ובדיקת איכות חיה.",
+      "contentBlocks": {
+        "intro": "בעולם מכשירי אפל, Retina הוא סטנדרט ויזואלי — לא רק שיווק. מסכי high-DPI דורשים נכסים שעוברים רינדור בדיוק מוחלט. Apple Touch Icon ברזולוציה נמוכה נראה מטושטש או משונן ב-iPhone ו-iPad ופוגע במותג מיידית. JoinMyPDF Free Apple Touch Icon Generator Online תוכנן לסטנדרט הזה: כל ייצוא 180×180 משתמש ב-rasterization של Canvas עם supersampling ו-anti-aliasing באיכות גבוהה — כולו בדפדפן. בדיקת איכות Retina חיה מאשרת אם המקור חד מספיק ומדווחת על מקדם ה-supersampling. מאמר 3 בסדרת Apple Touch Icon: דיוק אחרי מאמר 1 על מיתוג מסך הבית ומאמר 2 על פרטיות מקומית.",
+        "editorialNote": "JoinMyPDF Apple Touch Icon מרנדר בדפדפן עם supersampling עד פי 4 לפני downscale. שימוש רגיל לא מעלה קבצי לוגו לשרתים שלנו.",
+        "primaryTool": "apple-touch-icon",
+        "primaryToolCtaLabel": "צרו Apple Touch Icon חד 180×180 — בדיקת Retina, supersampling מקומי",
+        "bottomCtaLabel": "פתחו Free Apple Touch Icon Generator וספקו אייקון מוכן ל-Retina",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך ליצור Apple Touch Icon חד 180×180 לצגי Retina",
+          "description": "השתמשו ב-rasterization של JoinMyPDF ובדיקת איכות Retina לפני ההורדה.",
+          "steps": [
+            { "name": "העלו PNG, JPG או SVG", "text": "נתיבי SVG וקטוריים ולוגואים raster ברזולוציה גבוהה — rasterization מקומי ללא העלאה." },
+            { "name": "סקרו בדיקת איכות Retina", "text": "סטטוס ירוק: המקור חד מספיק ל-180×180 עם anti-aliasing. אזהרה: העלו לוגו גדול יותר לתוצאה חדה יותר." },
+            { "name": "תצוגת mockup מסך בית iPhone", "text": "צורת אייקון iOS מעוגלת, צל ותווית ב-180×180 חי לפני ייצוא." },
+            { "name": "בחרו גדלים ורקע", "text": "180×180 סטנדרט וגדלי iPad אופציונליים — אותו מנוע anti-aliasing." },
+            { "name": "הורידו PNG מוכן ל-Retina", "text": "ייצוא PNG או ZIP — supersampling מקומי, ואז Privacy Shield לאחר ההורדה." }
+          ]
+        },
+        "sections": [
+          { "id": "retina-standard", "heading": "מדוע 180×180 הוא סטנדרט הזהב", "level": 2, "paragraphs": ["מכשירי iOS מודרניים משתמשים במסכי high-DPI.", "כדי שאייקון ייראה חד, הוא חייב לעבור רינדור בגודל שלוקח בחשבון לוגיקת scaling של מערכת ההפעלה.", "180×180 פיקסלים היא הדרישה הספציפית של אפל לאייקונים חדים וחיים בצגי Retina.", "יצירה ברזולוציה מדויקת זו מבטיחה שהאתר ייראה מהוקצע כמו אפליקציה native ב-Add to Home Screen.", "JoinMyPDF תמיד מייצא 180×180 כברירת מחדל — ומציג תצוגה מקדימה בגודל זה ב-mockup מסך הבית."] },
+          { "id": "anti-aliasing-engine", "heading": "תפקיד ה-Anti-Aliasing", "level": 2, "paragraphs": ["גרפיקה וקטורית (SVG) ניתנת להגדלה אינסופית, אך המרתה לרשת 180×180 דורשת חישובים מתוחכמים.", "ללא anti-aliasing מתאים, קווים אלכסוניים ועיקולים מפתחים שינון (jaggies).", "JoinMyPDF מרנדר ברזולוציה פנימית עד פי 4, ואז מבצע downscale עם imageSmoothingQuality high — מחליק נתיבים לפני קידוד PNG.", "מקורות PNG ו-JPG נהנים מאותו supersampling בהקטנת לוגואים גדולים; SVG עובר באותו pipeline.", "בדיקת איכות Retina מציגה את מקדם ה-supersampling — לא רק resize חד-שלבי."] },
+          { "id": "retina-quality-check", "heading": "בדיקת איכות Retina", "level": 2, "paragraphs": ["לאחר העלאה, JoinMyPDF מנתח מימדי מקור מול אזור הציור ב-180×180 (עם inset סטנדרטי).", "מצב עבר: הצד הקצר עומד במינימום המומלץ — supersampling ו-anti-aliasing מופעלים לייצוא.", "מצב אזהרה: המקור קטן מ-180×180 — הייצוא עלול להיראות רך כי נדרש upscale. העלו master ברזולוציה גבוהה יותר.", "שלבו עם תצוגת מסך בית iPhone ממאמר 1 — ראו חדות ומיתוג לפני ההורדה.", "כל הניתוח רץ בצד הלקוח — מטא-דאטת איכות לא עוזב את המכשיר."] },
+          { "id": "local-first-precision", "heading": "גרפיקה מקצועית, מקומית", "level": 2, "paragraphs": ["ממירים בשרת יכולים לייצר PNG חד — אבל במחיר העלאת הלוגו.", "JoinMyPDF מספק supersampling של Canvas בדפדפן, עם Privacy Shield ממאמר 2.", "צוותים מקבלים איכות נצפית (בדיקת Retina) ופרטיות נצפית (מגן אחרי הורדה) — בלי להתפשר.", "שלבו עם SVG to Favicon לכרטיסיות ב-16×16 ו-Apple Touch Icon למסך הבית ב-180×180 — מותג אחד, שני pipelines מדויקים."] },
+          { "id": "series-context", "heading": "הקשר הסדרה", "level": 2, "paragraphs": ["מאמר 1: Apple Touch Icon ותצוגת iPhone.", "מאמר 2: Privacy Shield ופרטיות.", "מאמר 3 (מדריך זה): Retina ו-supersampling.", "מאמר 4: safe zone.", "מאמר 5: אינטגרציית HTML."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["אל תסתפקו ב\"מספיק טוב\" כשהחנות הדיגיטלית של המותג על הפרק.", "דיוק ביצירת אייקונים הוא סימן ההיכר של פרויקט אינטרנט איכותי.", "השתמשו ב-JoinMyPDF Free Apple Touch Icon Generator Online ליצירת אייקון 180×180 — וספקו חוויה חדה ומוכנה ל-Retina לכל משתמש אפל."] }
+        ],
+        "faq": [
+          { "q": "מדוע נדרש 180×180 ל-Apple Touch Icon?", "a": "אפל מגדירה 180×180 לאייקוני מסך בית Retina ב-iPhone מודרני. JoinMyPDF מייצא גם 167×167 ו-152×152 ל-iPad." },
+          { "q": "מהו supersampled anti-aliasing?", "a": "המנוע מרנדר עד פי 4 מהגודל הסופי, ואז מבצע downscale עם smoothing באיכות גבוהה — מפחית שינון על עיקולים וקצוות אלכסוניים." },
+          { "q": "האם אפשר להעלות לוגו SVG?", "a": "כן. נתיבי SVG עוברים באותו pipeline של supersampling כמו PNG ו-JPG — אידיאלי לעיקולים חדים ב-180×180." },
+          { "q": "מה משמעות אזהרת איכות Retina?", "a": "הצד הקצר של הלוגו מתחת ל-180px — הכלי חייב לבצע upscale, מה שעלול להיראות רך. העלו לפחות 180×180px לתוצאה החדה ביותר." },
+          { "q": "האם רינדור באיכות גבוהה דורש העלאה לשרת?", "a": "לא. כל ה-supersampling וקידוד PNG רצים בדפדפן — Privacy Shield מאשר עיבוד מקומי אחרי ההורדה." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/apple-touch-icon/", "anchor": "JoinMyPDF Free Apple Touch Icon Generator" },
+          { "href": "/blog/ios-edge-custom-apple-touch-icon/", "anchor": "מאמר 1 בסדרת Apple Touch Icon" },
+          { "href": "/blog/apple-touch-icon-local-first-privacy/", "anchor": "מדריך פרטיות מקומית" },
+          { "href": "/tools/svg-to-favicon/", "anchor": "ממיר SVG ל-Favicon" }
+        ]
+      }
+    },
+    {
+      "slug": "apple-touch-icon-ios-home-screen-branding",
+      "title": "מיתוג מובייל: עיצוב למסך הבית של ה-iOS",
+      "keyword": "apple touch icon ios מסך בית אזור בטוח safe zone ריבוע מעוגל מיתוג מובייל padding",
+      "category": "Developer Tools",
+      "cluster": "apple-touch-icon",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-07-28",
+      "readTime": "8 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.95,
+      "relatedTools": ["apple-touch-icon", "favicon-pack", "favicon-code-generator", "svg-to-favicon", "generate-favicon"],
+      "relatedBlogs": ["ios-edge-custom-apple-touch-icon", "apple-touch-icon-local-first-privacy", "apple-touch-icon-retina-precision-180", "apple-touch-icon-html-integration", "consistent-favicons-ux-brand-recognition", "beyond-tab-full-favicon-pack", "tab-to-bookmark-svg-favicon-ux", "hidden-power-of-favicons"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור מיתוג מסך בית iOS ו-safe zone · יולי 2027" },
+      "seo": {
+        "metaTitle": "עיצוב אייקון מסך בית iOS | אזור בטוח ומיתוג",
+        "metaDescription": "iOS חותכת אייקונים לריבוע מעוגל. JoinMyPDF Free Apple Touch Icon Generator מציג שכבת אזור בטוח בתצוגה חיה — יישרו את הלוגו לפני ההורדה.",
+        "keywords": "עיצוב אייקון מסך בית ios, apple touch icon safe zone, ריבוע מעוגל ios, מיתוג מובייל apple touch icon"
+      },
+      "description": "כיצד מסיכת הריבוע המעוגל של iOS משפיעה על Apple Touch Icon — ואיך שכבת אזור הבטוח של JoinMyPDF עוזרת ליישר לוגואים לפני הייצוא.",
+      "contentBlocks": {
+        "intro": "כששומרים אתר למסך הבית באייפון, האייקון הוא ריבוע מעוגל עם אסתטיקה שקבעה אפל — לא סתם ריבוע. לוגו גדול מדי או קרוב לקצוות עלול להיחתם או להיראות דחוס. JoinMyPDF Free Apple Touch Icon Generator Online כולל שכבת אזור בטוח iOS הניתנת להחלפה בתצוגה החיה. ראו את קצה החיתוך של הריבוע המעוגל, את האזור הפנימי המומלץ, ואת הלוגו ב-mockup מלא של מסך בית iPhone — לפני סגירת האייקון. מאמר 4 בסדרה: עיצוב ו-UX אחרי יסודות מסך הבית, פרטיות מקומית ודיוק Retina.",
+        "editorialNote": "JoinMyPDF מיישם inset של 10% בעת רינדור לוגואים ל-Apple Touch Icon — תואם לאזור הבטוח בשכבת התצוגה.",
+        "primaryTool": "apple-touch-icon",
+        "primaryToolCtaLabel": "עצבו Apple Touch Icon ל-iOS — שכבת safe zone, תצוגת iPhone, ייצוא 180×180",
+        "bottomCtaLabel": "פתחו Free Apple Touch Icon Generator ויישרו את הלוגו לסטנדרטים של iOS",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך לעצב Apple Touch Icon למסך הבית של iOS",
+          "description": "השתמשו בשכבת אזור הבטוח ובתצוגת iPhone כדי להימנע מחיתוך בקצוות.",
+          "steps": [
+            { "name": "העלו לוגו", "text": "PNG, JPG או SVG — רינדור מקומי עם padding inset של 10%." },
+            { "name": "הפעילו שכבת אזור בטוח", "text": "הציגו את קצה החיתוך של הריבוע המעוגל ומדריכי האזור הפנימי." },
+            { "name": "סקרו תצוגה שטוחה 180×180", "text": "תצוגה גדולה יותר ממחישה חיתוך פינות ואזור בטוח." },
+            { "name": "בדקו mockup מסך בית iPhone", "text": "ראו איך המותג נראה בין אייקונים אחרים עם תווית iOS וטפט." },
+            { "name": "הורידו כשמיושר", "text": "ייצוא PNG או ZIP — Privacy Shield מאשר עיבוד מקומי." }
+          ]
+        },
+        "sections": [
+          { "id": "ios-rounded-square", "heading": "הבנת הריבוע המעוגל של iOS", "level": 2, "paragraphs": ["iOS מחילה מסיכת פינות מעוגלות על כל אייקון במסך הבית — כ-22% מרוחב האייקון.", "הלוגו חייב להימצא באזור בטוח כדי שסימנים חשובים לא ייחתכו.", "אייקונים מקצועיים שומרים על ריווח הולם — המסיכה יוצרת מראה מהוקצע בלי לפגוע בנראות.", "JoinMyPDF מרנדר עם inset של 10% מכל צד — אותו אזור בטוח שמודגש בשכבה."] },
+          { "id": "safe-zone-overlay", "heading": "שכבת אזור הבטוח (Safe Zone)", "level": 2, "paragraphs": ["JoinMyPDF מציג שכבה עדינה על תצוגת האייקון כשמופעלת.", "מדריך חיצוני מקווקו: גבול החיתוך של הריבוע המעוגל ש-iOS מחילה.", "מדריך פנימי: אזור בטוח מומלץ שבו הלוגו מצויר — אל תמקמו אלמנטים קריטיים מחוצה לו.", "הצללה בפינות ממחישה אזורים שנחתכים על ידי המסיכה.", "כבו את השכבה לתצוגת האייקון הסופי בדיוק כפי שמשתמשים יראו."] },
+          { "id": "preview-for-perfection", "heading": "תצוגה מקדימה לשלמות", "level": 2, "paragraphs": ["חלונית התצוגה מתעדכנת בזמן אמת כשמשנים רקע או מחליפים לוגו.", "תצוגה שטוחה 180×180 בקנה מידה גדול מקלה על יישור אזור הבטוח.", "mockup מסך בית iPhone מציג צורה מעוגלת, צל, טפט ותווית יחד.", "שלבו עם בדיקת איכות Retina ממאמר 3 — חד וממוסגר נכון לפני ההורדה.", "כל הרינדור מקומי — נכסי המותג לא עוזבים את הדפדפן."] },
+          { "id": "mobile-branding-native", "heading": "לוגו שמרגיש native", "level": 2, "paragraphs": ["מיתוג מובייל הוא עקביות — האייקון צריך להרגיש בבית ליד אפליקציות native.", "הימנעו מלוגואים edge-to-edge שנלחמים במסיכת iOS — מרכזו בתוך אזור הבטוח.", "רקעים אחידים לרוב קריאים יותר במסך הבית משקיפות שחושפת עומס ויזואלי.", "שלבו Favicon Pack עם Apple Touch Icon לכרטיסיות ומסך בית — מותג אחד, מסגור מותאם פלטפורמה."] },
+          { "id": "series-context", "heading": "הקשר הסדרה", "level": 2, "paragraphs": ["מאמר 1: Apple Touch Icon ותצוגת iPhone.", "מאמר 2: Privacy Shield.", "מאמר 3: Retina.", "מאמר 4 (מדריך זה): safe zone.", "מאמר 5 (סיום): אינטגרציית HTML."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["מיתוג מובייל אומר שהלוגו ירגיש native למכשיר.", "JoinMyPDF Free Apple Touch Icon Generator Online מבטיח אייקון עקבי ונקי בכל iPhone ו-iPad.", "הקדישו רגע להתאמה לסטנדרטים של iOS — וספקו חוויה איכותית דמוית-אפליקציה."] }
+        ],
+        "faq": [
+          { "q": "מהו אזור הבטוח של iOS ל-Apple Touch Icon?", "a": "JoinMyPDF מצייר לוגואים בתוך 80% פנימיים (inset 10% מכל צד) — תואם למדריך הפנימי המקווקו בשכבה." },
+          { "q": "האם אפשר להסתיר את המדריכים?", "a": "כן. כבו את \"הצג שכבת אזור בטוח iOS\" לתצוגה סופית ללא מדריכים." },
+          { "q": "מדוע הלוגו נראה חתוך באייפון?", "a": "iOS מחילה מסיכת פינות ~22%. לוגואים קרובים לקצוות מאבדים פינות — השתמשו בשכבה לשמירה על סימנים באזור הבטוח." },
+          { "q": "האם השכבה תואמת ל-PNG המיוצא?", "a": "כן. הייצוא משתמש באותו inset ורינדור 180×180 כמו בתצוגה השטוחה וב-mockup." },
+          { "q": "האם התצוגה מועלית לשרת?", "a": "לא. תצוגה ושכבה רצים בדפדפן — Privacy Shield מאשר עיבוד מקומי אחרי ההורדה." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/apple-touch-icon/", "anchor": "JoinMyPDF Free Apple Touch Icon Generator" },
+          { "href": "/blog/ios-edge-custom-apple-touch-icon/", "anchor": "מאמר 1 בסדרת Apple Touch Icon" },
+          { "href": "/blog/apple-touch-icon-retina-precision-180/", "anchor": "מדריך דיוק Retina" },
+          { "href": "/tools/favicon-pack/", "anchor": "מחולל Favicon Pack" }
+        ]
+      }
+    },
+    {
+      "slug": "apple-touch-icon-html-integration",
+      "title": "אינטגרציה ללא מאמץ: איך להוסיף את ה-Apple Touch Icon ל-HTML שלכם",
+      "keyword": "apple touch icon html link tag head integration copy snippet deploy ios",
+      "category": "Developer Tools",
+      "cluster": "apple-touch-icon",
+      "intent": "informational",
+      "intentType": "how-to",
+      "publishDate": "2027-07-29",
+      "readTime": "7 דק' קריאה",
+      "coverImage": "/assets/images/blog/og-default.jpg",
+      "tier1": true,
+      "priority": 0.94,
+      "relatedTools": ["apple-touch-icon", "favicon-code-generator", "favicon-pack", "generate-favicon", "favicon-previewer"],
+      "relatedBlogs": ["ios-edge-custom-apple-touch-icon", "apple-touch-icon-local-first-privacy", "apple-touch-icon-retina-precision-180", "apple-touch-icon-ios-home-screen-branding", "deploy-favicon-pack-developer-shortcut", "integrating-custom-favicons-developer-guide", "beyond-tab-full-favicon-pack", "hidden-power-of-favicons"],
+      "author": { "name": "Tomer", "role": "מהנדס כלי אינטרנט", "verifiedLabel": "נבדק עבור Apple Touch Icon HTML integration · יולי 2027" },
+      "seo": {
+        "metaTitle": "הוספת Apple Touch Icon ל-HTML | העתקת תגית link",
+        "metaDescription": "שורה אחת ב-<head> מאפשרת ל-iOS למצוא את אייקון מסך הבית. JoinMyPDF Free Apple Touch Icon Generator מעתיק תגית apple-touch-icon מוכנה אחרי ההורדה.",
+        "keywords": "apple touch icon html, link rel apple-touch-icon, הוספת apple touch icon לאתר, העתקת html snippet"
+      },
+      "description": "איך להוסיף apple-touch-icon ל-head של HTML — ואיך Copy HTML Snippet של JoinMyPDF מספק תגית link מוכנה עם href נכון.",
+      "contentBlocks": {
+        "intro": "יצרתם Apple Touch Icon 180×180 איכותי עם JoinMyPDF Free Apple Touch Icon Generator Online. השלב האחרון: לוודא ש-iPhone ו-iPad ימצאו ויציגו אותו. האינטegrציה פשוטה — תגית link אחת ב-head. JoinMyPDF מספק Copy HTML Snippet אחרי ההורדה: textarea read-only עם <link rel=\"apple-touch-icon\"> וכפתור Copy to Clipboard. ערכו את נתיב האייקון אם ה-PNG לא ב-root — ה-href מתעדכן מייד. מאמר 5 וסיום הסדרה: deploy אחרי יצירה, פרטיות, Retina ו-safe zone במאמרים 1–4.",
+        "editorialNote": "שימו apple-touch-icon.png ב-public root (או עדכנו נתיב ב-snippet). JoinMyPDF מייצר את התגית מקומית.",
+        "primaryTool": "apple-touch-icon",
+        "primaryToolCtaLabel": "צרו Apple Touch Icon והעתיקו HTML — 180×180, deploy בשורה",
+        "bottomCtaLabel": "פתחו Free Apple Touch Icon Generator והשלימו אינטegrציית מסך בית iOS",
+        "techArticleSchema": true,
+        "developerSoftwareSchema": true,
+        "howTo": {
+          "name": "איך להוסיף Apple Touch Icon ל-HTML של האתר",
+          "description": "הורידו מ-JoinMyPDF, העלו PNG ל-/public, העתיקו תגית link ל-<head>.",
+          "steps": [
+            { "name": "יצירה והורדה", "text": "ייצוא apple-touch-icon.png (או ZIP עם גדלי iPad) — מקומית." },
+            { "name": "העלאה לאתר", "text": "שימו קבצי PNG ב-/public — התאימו לנתיבים ב-snippet." },
+            { "name": "העתקת HTML snippet", "text": "אחרי ההורדה — Copy to Clipboard לתגית המפורמטת." },
+            { "name": "הדבקה ב-<head>", "text": "הוסיפו ל-layout או index.html." },
+            { "name": "אימות במכשיר", "text": "Add to Home Screen באייפון — האייקון המותאם אמור להופיע." }
+          ]
+        },
+        "sections": [
+          { "id": "html-link-tag", "heading": "תגית ה-HTML שאתם צריכים", "level": 2, "paragraphs": ["כדי ליידע iOS על האייקון, הוסיפו תגית link בתוך head.", "מבנה סטנדרטי: <link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\">", "iOS מגלה את הנכס ב-Add to Home Screen — ללא JavaScript.", "בייצוא מרובה גדלים, JoinMyPDF מייצר תגיות נוספות עם sizes."] },
+          { "id": "copy-html-snippet", "heading": "Deploy יעיל עם Copy HTML Snippet", "level": 2, "paragraphs": ["הקלדה ידנית ואימות נתיבים מובילים לטעויות.", "אחרי הורדה מוצלחת — Copy HTML Snippet עם textarea read-only וכפתור העתקה.", "ערכו שדה נתיב האייקון — ה-href מתעדכן דינמית.", "ZIP עם גדלים מרובים — שורת link לכל PNG.", "שלבו עם Privacy Shield — יצירה ו-metadata מקומיים."] },
+          { "id": "path-and-sizes", "heading": "נתיבים ותגיות multi-size", "level": 2, "paragraphs": ["ברירת מחדל: /apple-touch-icon.png — הקונבנציה שאפל ורוב frameworks מצפים לה.", "נתיבים מותאמים מנורמלים — slash מוביל אם חסר.", "167×167 ו-152×152 מוסיפים תגיות sized אם נבחרו בייצוא.", "Favicon Code Generator ו-Favicon Pack משלימים favicon.ico ו-manifest."] },
+          { "id": "series-finale", "heading": "סיום הסדרה: מיצירה ל-deploy", "level": 2, "paragraphs": ["מאמר 1: תצוגת iPhone.", "מאמר 2: Privacy Shield.", "מאמר 3: Retina supersampling.", "מאמר 4: safe zone.", "מאמר 5 (מדריך זה): אינטegrציית HTML בשורה אחת."] },
+          { "id": "conclusion", "heading": "לסיכום", "level": 2, "paragraphs": ["השלב האחרון במיתוג מובייל חשוב כמו הראשון.", "JoinMyPDF מטפל ביצירה וב-metadata של ההטמעה.", "העתיקו, הדביקו ב-head — האתר מוכן למסך הבית iOS תוך שניות."] }
+        ],
+        "faq": [
+          { "q": "איזו תגית HTML נדרשת?", "a": "<link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\"> ב-<head>. JoinMyPDF מעתיק בשבילכם." },
+          { "q": "מתי מופיע Copy HTML Snippet?", "a": "מיד אחרי הורדה מוצלחת — לצד Privacy Shield." },
+          { "q": "האם אפשר לשנות נתיב?", "a": "כן. ערכו שדה נתיב האייקון — ה-href מתעדכן." },
+          { "q": "האם צריך תגיות מרובות ל-iPad?", "a": "אם ייצאתם 167 ו-152, JoinMyPDF מייצר תגית לכל קובץ." },
+          { "q": "איפה לשים את ה-PNG?", "a": "בדרך כלל /public/apple-touch-icon.png — הנתיב חייב להתאים ל-href." }
+        ],
+        "internalLinks": [
+          { "href": "/tools/apple-touch-icon/", "anchor": "JoinMyPDF Free Apple Touch Icon Generator" },
+          { "href": "/blog/ios-edge-custom-apple-touch-icon/", "anchor": "מאמר 1 בסדרת Apple Touch Icon" },
+          { "href": "/tools/favicon-code-generator/", "anchor": "Favicon Code Generator" },
+          { "href": "/blog/deploy-favicon-pack-developer-shortcut/", "anchor": "מדריך deploy favicon pack" }
+        ]
+      }
     }
   ]
 }

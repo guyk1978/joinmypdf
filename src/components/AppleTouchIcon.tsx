@@ -1,17 +1,21 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Upload } from "lucide-react";
+import { Download, Shield, Upload } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type DragEvent, type SyntheticEvent } from "react";
 import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type DragEvent,
-  type SyntheticEvent,
-} from "react";
+  AppleTouchIconHeaderCode,
+  type AppleTouchIconHeaderCodeLabels,
+} from "@/components/AppleTouchIconHeaderCode";
+import {
+  AppleTouchIconHomeScreenPreview,
+  type AppleTouchIconHomeScreenPreviewLabels,
+} from "@/components/AppleTouchIconHomeScreenPreview";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
+import {
+  AppleTouchIconRetinaQuality,
+  type AppleTouchIconRetinaQualityLabels,
+} from "@/components/AppleTouchIconRetinaQuality";
 import { imBtnCta } from "@/lib/design-system";
 import {
   APPLE_TOUCH_ICON_SIZES,
@@ -36,13 +40,16 @@ export type AppleTouchIconLabels = {
   formatSizeOption: (key: string) => string;
   backgroundLabel: string;
   transparentBackground: string;
-  iosPreviewLabel: string;
+  iosPreview: AppleTouchIconHomeScreenPreviewLabels;
   downloadAppleIcon: string;
   generating: string;
   generatingProgress: string;
   invalidFile: string;
   convertFailed: string;
   replaceImage: string;
+  privacyShieldMessage: string;
+  retinaQuality: AppleTouchIconRetinaQualityLabels;
+  headerCode: AppleTouchIconHeaderCodeLabels;
 };
 
 export type AppleTouchIconProps = {
@@ -51,7 +58,7 @@ export type AppleTouchIconProps = {
   onDownload?: (blob: Blob, filename: string) => void;
 };
 
-const ACCEPT = "image/png,image/jpeg,.png,.jpg,.jpeg";
+const ACCEPT = "image/png,image/jpeg,image/svg+xml,.png,.jpg,.jpeg,.svg";
 const DEFAULT_SELECTED: AppleTouchIconSize[] = [180];
 
 export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIconProps) {
@@ -70,6 +77,16 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
+  const [showPrivacyShield, setShowPrivacyShield] = useState(false);
+  const [showHeaderCode, setShowHeaderCode] = useState(false);
+  const [headerCodeFilename, setHeaderCodeFilename] = useState<string | null>(null);
+  const [headerCodeSizes, setHeaderCodeSizes] = useState<AppleTouchIconSize[]>(DEFAULT_SELECTED);
+
+  const siteTitle = useMemo(() => {
+    if (!sourceFile) return labels.iosPreview.defaultSiteTitle;
+    const base = sourceFile.name.replace(/\.[^.]+$/, "").trim();
+    return base || labels.iosPreview.defaultSiteTitle;
+  }, [sourceFile, labels.iosPreview.defaultSiteTitle]);
 
   const revokeObjectUrl = useCallback(() => {
     if (objectUrlRef.current) {
@@ -104,6 +121,10 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
     setPreviewUrl(null);
     setProgress(0);
     setError("");
+    setShowPrivacyShield(false);
+    setShowHeaderCode(false);
+    setHeaderCodeFilename(null);
+    setHeaderCodeSizes(DEFAULT_SELECTED);
     if (inputRef.current) inputRef.current.value = "";
   }, [revokeObjectUrl, revokePreviewUrl]);
 
@@ -116,6 +137,10 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
 
       setError("");
       setProgress(0);
+      setShowPrivacyShield(false);
+      setShowHeaderCode(false);
+      setHeaderCodeFilename(null);
+      if (inputRef.current) inputRef.current.value = "";
       revokeObjectUrl();
       revokePreviewUrl();
 
@@ -156,7 +181,7 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
   const effectiveBackground = transparentBackground ? null : backgroundColor;
 
   useEffect(() => {
-    if (!imageSrc || !naturalSize) return;
+    if (!imageSrc) return;
 
     let cancelled = false;
     void renderAppleTouchPreviewUrl(imageSrc, 180, effectiveBackground).then((url) => {
@@ -169,7 +194,7 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
     return () => {
       cancelled = true;
     };
-  }, [imageSrc, naturalSize, effectiveBackground, revokePreviewUrl]);
+  }, [imageSrc, effectiveBackground, revokePreviewUrl]);
 
   const toggleSize = (size: AppleTouchIconSize) => {
     setSelectedSizes((current) => {
@@ -198,6 +223,10 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
       const filename = appleTouchIconOutputName(sourceFile.name, multiple);
       downloadBlob(blob, filename);
       onDownload?.(blob, filename);
+      setShowPrivacyShield(true);
+      setHeaderCodeFilename(filename);
+      setHeaderCodeSizes([...selectedSizes]);
+      setShowHeaderCode(true);
     } catch {
       setProgress(0);
       setError(labels.convertFailed);
@@ -309,27 +338,32 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
                   </div>
                 ) : null}
               </div>
-            </div>
 
-            <div className="apple-touch-icon-tool__preview tool-workspace-panel">
-              <p className="apple-touch-icon-tool__section-label">{labels.iosPreviewLabel}</p>
-              <div className="apple-touch-icon-tool__ios-shell">
-                <div className="apple-touch-icon-tool__ios-icon">
-                  {previewUrl ? (
-                    <img src={previewUrl} alt="" className="apple-touch-icon-tool__ios-image" draggable={false} />
-                  ) : (
-                    <img
-                      src={imageSrc}
-                      alt=""
-                      className="apple-touch-icon-tool__ios-image"
-                      draggable={false}
-                      onLoad={onImageLoad}
-                    />
-                  )}
-                </div>
-              </div>
+              {naturalSize ? (
+                <AppleTouchIconRetinaQuality
+                  width={naturalSize.width}
+                  height={naturalSize.height}
+                  labels={labels.retinaQuality}
+                />
+              ) : null}
             </div>
           </div>
+
+          <img
+            src={imageSrc}
+            alt=""
+            className="sr-only"
+            draggable={false}
+            onLoad={onImageLoad}
+            aria-hidden
+          />
+
+          <AppleTouchIconHomeScreenPreview
+            imageSrc={imageSrc}
+            previewUrl={previewUrl}
+            siteTitle={siteTitle}
+            labels={labels.iosPreview}
+          />
 
           {sourceFile && naturalSize ? (
             <p className="crop-image-tool__meta">
@@ -338,6 +372,25 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
           ) : null}
 
           {busy ? <WorkspaceProgressBar percent={progress} label={labels.generatingProgress} /> : null}
+
+          {showPrivacyShield ? (
+            <p
+              className="apple-touch-icon-tool__privacy-shield"
+              role="status"
+              aria-live="polite"
+            >
+              <Shield className="apple-touch-icon-tool__privacy-shield-icon" strokeWidth={2} aria-hidden />
+              <span>{labels.privacyShieldMessage}</span>
+            </p>
+          ) : null}
+
+          {showHeaderCode && headerCodeFilename ? (
+            <AppleTouchIconHeaderCode
+              outputFilename={headerCodeFilename}
+              selectedSizes={headerCodeSizes}
+              labels={labels.headerCode}
+            />
+          ) : null}
 
           <div className="crop-image-tool__actions">
             <button
