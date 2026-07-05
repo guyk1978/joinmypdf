@@ -1,15 +1,17 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, copyFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { pingSearchEngines } from "./ping-search-engines.mjs";
+import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
 const toolsJsonPath = path.join(root, "assets", "data", "tools.json");
-import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
 const outputPath = path.join(root, "sitemap.xml");
+
+const LOCALES = ["en", "he"];
 
 const MODIFIER_LIBRARY = [
   "fast",
@@ -23,6 +25,41 @@ const MODIFIER_LIBRARY = [
   "secure",
   "instant",
 ];
+
+const BASE_PATHS = [
+  "/",
+  "/tools/",
+  "/premium-tools/",
+  "/blog/",
+  "/privacy-first/",
+  "/privacy/",
+  "/compare/",
+  "/contact/",
+  "/privacy-first-pdf-tools/",
+  "/favicon-tools/",
+  "/utilities/",
+  "/text-json-tools/",
+  "/developer-tools/",
+  "/image-tools/",
+  "/data-conversion-tools/",
+  "/security-tools/",
+  "/productivity-tools/",
+  "/pdf-guides/",
+  "/pdf-comparison/",
+  "/pdf-privacy/",
+  "/pdf-workflows/",
+  "/tools/invoice-generator/",
+  "/tools/timeline-gantt-generator/",
+  "/tools/data-converter-visualizer/",
+];
+
+function localizedPaths(routePath) {
+  const normalized = routePath.startsWith("/") ? routePath : `/${routePath}`;
+  return LOCALES.map((locale) => {
+    if (normalized === "/") return `/${locale}/`;
+    return `/${locale}${normalized}`;
+  });
+}
 
 function generateClusterVariants(tool, config) {
   const modifiers = config.modifiers || MODIFIER_LIBRARY;
@@ -49,15 +86,47 @@ function generateClusterVariants(tool, config) {
   return Array.from(unique.values()).slice(0, targetCount);
 }
 
+function pushEntry(urls, seen, entry) {
+  if (seen.has(entry.loc)) return;
+  seen.add(entry.loc);
+  urls.push(entry);
+}
+
 const registry = JSON.parse(await readFile(toolsJsonPath, "utf8"));
+
+await copyFile(
+  path.join(root, "src/data/blog-registry.json"),
+  path.join(root, "assets/data/blog-registry.json"),
+);
+try {
+  await copyFile(
+    path.join(root, "src/data/blog-registry-he.json"),
+    path.join(root, "assets/data/blog-registry-he.json"),
+  );
+} catch {
+  /* optional Hebrew editorial registry */
+}
+
 const blogRegistry = await loadMergedBlogRegistry({ root, readFile });
-const baseUrl = (registry.site && registry.site.baseUrl ? registry.site.baseUrl : "https://joinmypdf.com").replace(/\/+$/, "");
+const baseUrl = (registry.site && registry.site.baseUrl ? registry.site.baseUrl : "https://joinmypdf.com").replace(
+  /\/+$/,
+  "",
+);
 const today = new Date().toISOString().slice(0, 10);
 
 const urls = [];
-urls.push({ loc: baseUrl + "/", priority: "1.0", changefreq: "daily" });
-urls.push({ loc: baseUrl + "/tools/", priority: "0.92", changefreq: "weekly", lastmod: today });
-urls.push({ loc: baseUrl + "/blog/", priority: "0.9", changefreq: "daily", lastmod: today });
+const seen = new Set();
+
+for (const routePath of BASE_PATHS) {
+  for (const urlPath of localizedPaths(routePath)) {
+    pushEntry(urls, seen, {
+      loc: baseUrl + urlPath,
+      priority: routePath === "/" ? "1.0" : routePath.startsWith("/tools") ? "0.92" : "0.85",
+      changefreq: routePath === "/" ? "daily" : "weekly",
+      lastmod: today,
+    });
+  }
+}
 
 for (const tool of registry.tools || []) {
   const toolLastmod = tool.updatedAt || today;
@@ -69,10 +138,26 @@ for (const tool of registry.tools || []) {
     tool.longTailPriority != null && Number.isFinite(Number(tool.longTailPriority))
       ? Number(tool.longTailPriority).toFixed(2)
       : "0.60";
-  urls.push({ loc: baseUrl + "/tools/" + tool.slug + "/", priority: toolPriority, changefreq: "weekly", lastmod: toolLastmod });
+
+  for (const urlPath of localizedPaths(`/tools/${tool.slug}/`)) {
+    pushEntry(urls, seen, {
+      loc: baseUrl + urlPath,
+      priority: toolPriority,
+      changefreq: "weekly",
+      lastmod: toolLastmod,
+    });
+  }
+
   const variants = generateClusterVariants(tool, registry.clusterDefaults || {});
   for (const variant of variants) {
-    urls.push({ loc: baseUrl + "/tools/" + variant.slug + "/", priority: longTailPriority, changefreq: "weekly", lastmod: toolLastmod });
+    for (const urlPath of localizedPaths(`/tools/${variant.slug}/`)) {
+      pushEntry(urls, seen, {
+        loc: baseUrl + urlPath,
+        priority: longTailPriority,
+        changefreq: "weekly",
+        lastmod: toolLastmod,
+      });
+    }
   }
 }
 
@@ -81,14 +166,16 @@ for (const post of blogRegistry.blog || []) {
     post.priority != null && Number.isFinite(Number(post.priority))
       ? Number(post.priority).toFixed(2)
       : post.tier1
-        ? "0.85"
-        : "0.80";
-  urls.push({
-    loc: baseUrl + "/blog/" + post.slug + "/",
-    priority: blogPriority,
-    changefreq: "weekly",
-    lastmod: post.publishDate || today,
-  });
+        ? "0.82"
+        : "0.65";
+  for (const urlPath of localizedPaths(`/blog/${post.slug}/`)) {
+    pushEntry(urls, seen, {
+      loc: baseUrl + urlPath,
+      priority: blogPriority,
+      changefreq: "weekly",
+      lastmod: post.publishDate || today,
+    });
+  }
 }
 
 const xml =
@@ -110,13 +197,13 @@ const xml =
         "    <priority>" +
         entry.priority +
         "</priority>\n" +
-        "  </url>"
+        "  </url>",
     )
     .join("\n") +
   "\n</urlset>\n";
 
 await writeFile(outputPath, xml, "utf8");
-console.log("Sitemap generated:", outputPath);
+console.log("Sitemap generated:", outputPath, `(${urls.length} URLs)`);
 
 const sitemapUrl = baseUrl + "/sitemap.xml";
 try {

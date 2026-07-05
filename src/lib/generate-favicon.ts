@@ -4,7 +4,8 @@ export type FaviconDesign = {
   textColor: string;
 };
 
-export const FAVICON_EXPORT_SIZES = [16, 32, 48] as const;
+/** Multi-resolution ICO frames — 64×64 included for Retina / high-DPI tabs. */
+export const FAVICON_EXPORT_SIZES = [16, 32, 64] as const;
 
 export const DEFAULT_FAVICON_DESIGN: FaviconDesign = {
   text: "J",
@@ -142,4 +143,32 @@ export async function exportFaviconIco(design: FaviconDesign): Promise<Blob> {
     canvas: createFaviconCanvas(size, design),
   }));
   return encodeIcoBlob(frames);
+}
+
+export function deriveFaviconAssetPath(text: string, format: "png" | "ico"): string {
+  const slug =
+    normalizeFaviconText(text)
+      .toLowerCase()
+      .replace(/[^a-z0-9]/gi, "") || "favicon";
+  return `/${slug}-favicon.${format === "ico" ? "ico" : "png"}`;
+}
+
+export function buildGenerateFaviconHeaderSnippet(
+  path: string,
+  format: "png" | "ico",
+): string {
+  const trimmed = path.trim();
+  const href =
+    trimmed.startsWith("/") || /^https?:\/\//i.test(trimmed)
+      ? trimmed
+      : `/${trimmed.replace(/^\//, "")}`;
+
+  const comment =
+    "<!-- Paste inside <head> — before stylesheets for earliest tab icon discovery -->";
+  const tag =
+    format === "ico"
+      ? `<link rel="icon" href="${href}" type="image/x-icon">`
+      : `<link rel="icon" href="${href}" type="image/png">`;
+
+  return `${comment}\n${tag}`;
 }

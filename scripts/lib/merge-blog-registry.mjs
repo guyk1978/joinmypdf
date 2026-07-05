@@ -10,13 +10,19 @@ export function mergeBlogRegistry(...sources) {
 
 export async function loadMergedBlogRegistry({ root, readFile }) {
   const blogJsonPath = `${root}/assets/data/blog.json`;
-  const editorialPath = `${root}/assets/data/blog-registry.json`;
+  const editorialPaths = [
+    `${root}/src/data/blog-registry.json`,
+    `${root}/assets/data/blog-registry.json`,
+  ];
   const main = JSON.parse(await readFile(blogJsonPath, "utf8"));
   let editorial = { blog: [] };
-  try {
-    editorial = JSON.parse(await readFile(editorialPath, "utf8"));
-  } catch {
-    /* optional editorial registry */
+  for (const editorialPath of editorialPaths) {
+    try {
+      editorial = JSON.parse(await readFile(editorialPath, "utf8"));
+      break;
+    } catch {
+      /* try next editorial source */
+    }
   }
   return mergeBlogRegistry(main, editorial);
 }
