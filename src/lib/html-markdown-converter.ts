@@ -1,8 +1,10 @@
+import { downloadTextFile } from "@/lib/data-tool/converter";
 import { copyTextToClipboard } from "@/lib/favicon-code-generator";
 
 export { copyTextToClipboard };
 
 export type HtmlMarkdownConverterMode = "markdown-to-html" | "html-to-markdown";
+export type MarkdownFlavor = "gfm" | "commonmark";
 
 export type ConverterResult =
   | { ok: true; output: string }
@@ -22,27 +24,11 @@ Write **bold**, *italic*, and \`inline code\`.
 [Link](https://example.com)
 `;
 
-type MarkedParser = {
-  use: (options: object) => void;
-  parse: (markdown: string) => string | Promise<string>;
-};
-
 type TurndownInstance = {
   turndown: (html: string) => string;
 };
 
-let markedReady: Promise<MarkedParser> | null = null;
 let turndownReady: Promise<TurndownInstance> | null = null;
-
-async function getMarked() {
-  if (!markedReady) {
-    markedReady = import("marked").then(({ marked }) => {
-      marked.use({ gfm: true, breaks: true });
-      return marked;
-    });
-  }
-  return markedReady;
-}
 
 async function getTurndown() {
   if (!turndownReady) {
@@ -57,16 +43,28 @@ async function getTurndown() {
   return turndownReady;
 }
 
-export async function convertMarkdownToHtml(markdown: string): Promise<ConverterResult> {
+async function parseMarkdown(markdown: string, flavor: MarkdownFlavor): Promise<string> {
+  const { Marked } = await import("marked");
+  const parser = new Marked({
+    gfm: flavor === "gfm",
+    breaks: flavor === "gfm",
+  });
+  const html = await parser.parse(markdown);
+  return typeof html === "string" ? html : "";
+}
+
+export async function convertMarkdownToHtml(
+  markdown: string,
+  options: { flavor?: MarkdownFlavor } = {},
+): Promise<ConverterResult> {
   const trimmed = markdown.trim();
   if (!trimmed) {
     return { ok: true, output: "" };
   }
 
   try {
-    const marked = await getMarked();
-    const html = await marked.parse(trimmed);
-    return { ok: true, output: typeof html === "string" ? html : "" };
+    const html = await parseMarkdown(trimmed, options.flavor ?? "gfm");
+    return { ok: true, output: html };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Could not convert Markdown to HTML.";
     return { ok: false, error: message };
@@ -138,4 +136,94 @@ const PREVIEW_STYLES = `
 
 export function buildHtmlPreviewDocument(html: string): string {
   return `<!DOCTYPE html><html><head><meta charset="utf-8"><style>${PREVIEW_STYLES}</style></head><body>${html}</body></html>`;
+}
+
+/** Minimal semantic HTML5 document for export — no inline styles on content nodes. */
+export function buildProductionHtmlDocument(html: string, title = "Document"): string {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title.replace(/[<>&"]/g, "")}</title>
+</head>
+<body>
+${html}
+</body>
+</html>
+`;
+}
+
+export function downloadHtmlExport(html: string, fileName = "document.html"): void {
+  if (!html.trim()) return;
+  downloadTextFile(buildProductionHtmlDocument(html), fileName, "text/html;charset=utf-8");
+}
+
+export function downloadMarkdownExport(markdown: string, fileName = "document.md"): void {
+  if (!markdown.trim()) return;
+  downloadTextFile(markdown, fileName, "text/markdown;charset=utf-8");
+}
+
+/** Collapse inter-tag whitespace for compact HTML export (preserves pre/code blocks roughly). */
+export function minifyHtmlOutput(html: string): string {
+  return html
+    .split(/(<pre[\s\S]*?<\/pre>)/gi)
+    .map((part, index) => {
+      if (index % 2 === 1) return part;
+      return part.replace(/>\s+</g, "><").replace(/\s+/g, " ").trim();
+    })
+    .join("")
+    .trim();
+}
+
+export const HTML_MD_STORAGE_KEY = "joinmypdf-html-markdown-converter";
+
+export type HtmlMarkdownPersistedState = {
+  mode: HtmlMarkdownConverterMode;
+  flavor: MarkdownFlavor;
+  markdown: string;
+  html: string;
+  syncScroll?: boolean;
+};
+
+/** Proportional scroll sync for two-pane editors (lightweight, no layout reads beyond scroll metrics). */
+export function syncProportionalScroll(source: HTMLElement, target: HTMLElement): void {
+  const sourceMax = source.scrollHeight - source.clientHeight;
+  const targetMax = target.scrollHeight - target.clientHeight;
+  if (sourceMax <= 0 || targetMax <= 0) return;
+  target.scrollTop = (source.scrollTop / sourceMax) * targetMax;
+}
+
+export function loadHtmlMarkdownState(): HtmlMarkdownPersistedState | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(HTML_MD_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as HtmlMarkdownPersistedState;
+    if (typeof parsed.markdown !== "string" || typeof parsed.html !== "string") return null;
+    return {
+      ...parsed,
+      syncScroll: parsed.syncScroll !== false,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function saveHtmlMarkdownState(state: HtmlMarkdownPersistedState): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(HTML_MD_STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    /* Quota or private mode — non-fatal */
+  }
+}
+
+export function clearHtmlMarkdownState(): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(HTML_MD_STORAGE_KEY);
+  } catch {
+    /* non-fatal */
+  }
 }
