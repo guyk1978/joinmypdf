@@ -34,13 +34,19 @@ export function ToolSuccessFeedback({ pageTitle, fileContext, className }: ToolS
 
   const sendFeedback = useCallback(
     async (type: "happy" | "bug", reasonKey: string) => {
+      const reasonLabel = t(`reasons.${reasonKey}` as "reasons.workedAsExpected");
+      const submitPageUrl =
+        typeof window !== "undefined" && window.location?.href
+          ? window.location.href
+          : pageUrl;
+
       setErrorCode(null);
       setStatus("submitting");
       try {
         await submitFeedback({
           type,
-          reasonLabel: t(`reasons.${reasonKey}` as "reasons.workedAsExpected"),
-          pageUrl,
+          reasonLabel,
+          pageUrl: submitPageUrl,
           pageTitle,
           pageType: "tool",
           fileContext: type === "bug" ? resolvedFileContext : undefined,
@@ -137,7 +143,10 @@ export function ToolSuccessFeedback({ pageTitle, fileContext, className }: ToolS
               type="button"
               className="feedback-widget__submit"
               disabled={status === "submitting"}
-              onClick={() => void sendFeedback("bug", selectedReason)}
+              onClick={() => {
+                const reasonKey = selectedReason;
+                void sendFeedback("bug", reasonKey);
+              }}
             >
               {status === "submitting" ? (
                 <>

@@ -38,14 +38,17 @@ export function RatingWidget({ pageTitle, fileContext, className }: RatingWidget
   }, [pathname]);
 
   const sendRating = useCallback(
-    async (impactKey: ImpactScoreKey) => {
+    async (impactKey: ImpactScoreKey, impactLabel: string) => {
       setErrorCode(null);
       setStatus("submitting");
       try {
         await submitRating({
           impactKey,
-          impactLabel: t(`impacts.${impactKey}` as "impacts.savedTime"),
-          pageUrl,
+          impactLabel,
+          pageUrl:
+            typeof window !== "undefined" && window.location?.href
+              ? window.location.href
+              : pageUrl,
           pageTitle,
           fileContext: resolvedFileContext,
         });
@@ -56,7 +59,7 @@ export function RatingWidget({ pageTitle, fileContext, className }: RatingWidget
         setStatus("idle");
       }
     },
-    [pageTitle, pageUrl, resolvedFileContext, t],
+    [pageTitle, pageUrl, resolvedFileContext],
   );
 
   if (status === "thanks") {
@@ -94,7 +97,7 @@ export function RatingWidget({ pageTitle, fileContext, className }: RatingWidget
               className="rating-widget__card"
               disabled={status === "submitting"}
               aria-label={label}
-              onClick={() => void sendRating(impactKey)}
+              onClick={() => void sendRating(impactKey, label)}
             >
               {status === "submitting" ? (
                 <Loader2 className="rating-widget__card-icon rating-widget__card-icon--spin" aria-hidden />

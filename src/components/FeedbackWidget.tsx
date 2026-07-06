@@ -50,13 +50,19 @@ export function FeedbackWidget({ pageType, pageTitle, className }: FeedbackWidge
   const onSubmit = async () => {
     if (!activeType || !selectedReason) return;
 
+    const reasonLabel = t(`reasons.${selectedReason}` as "reasons.workedAsExpected");
+    const submitPageUrl =
+      typeof window !== "undefined" && window.location?.href
+        ? window.location.href
+        : pageUrl;
+
     setErrorCode(null);
     setStatus("submitting");
     try {
       await submitFeedback({
         type: activeType,
-        reasonLabel: t(`reasons.${selectedReason}` as "reasons.workedAsExpected"),
-        pageUrl,
+        reasonLabel,
+        pageUrl: submitPageUrl,
         pageTitle,
         pageType,
       });
