@@ -12037,12 +12037,124 @@ body.site-tools-grid-open {
   max-width: 50rem;
 }
 
+.transparent-favicon-tool__security-status {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.375rem 0.5rem;
+  margin: 0 0 0.75rem;
+  padding: 0.4375rem 0.75rem;
+  border: var(--im-border-width) solid var(--im-border-strong);
+  border-radius: var(--im-radius);
+  font-size: var(--im-font-body-sm);
+  line-height: 1.35;
+}
+
+.transparent-favicon-tool__security-status--waiting {
+  color: var(--im-text-muted);
+  border-color: rgba(148, 163, 184, 0.35);
+  background: rgba(148, 163, 184, 0.08);
+}
+
+.transparent-favicon-tool__security-status--local {
+  color: #86efac;
+  border-color: rgba(34, 197, 94, 0.35);
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.transparent-favicon-tool__security-status-icon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.transparent-favicon-tool__security-status-label {
+  font-weight: var(--im-weight-semibold);
+  color: inherit;
+}
+
+.transparent-favicon-tool__security-status-value {
+  font-weight: var(--im-weight-semibold);
+}
+
 .transparent-favicon-tool__preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: min(45vh, 22rem);
+  padding: 1rem;
+}
+
+.transparent-favicon-tool__preview-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-bottom: 0.25rem;
+}
+
+.transparent-favicon-tool__preview-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+.transparent-favicon-tool__preview-toggle input {
+  margin-top: 0.2rem;
+  accent-color: var(--im-accent);
+}
+
+.transparent-favicon-tool__preview-toggle-title {
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: #e5e5e5;
+  line-height: 1.45;
+}
+
+.transparent-favicon-tool__preview-toggle-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--im-text-muted);
+}
+
+.transparent-favicon-tool__stage-bg {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: min(45vh, 22rem);
-  padding: 1rem;
+  max-width: 100%;
+  padding: 0.75rem;
+  border: var(--im-border-width) solid var(--im-border-strong);
+}
+
+.transparent-favicon-tool__stage-bg--solid {
+  background-color: #e8e8ec;
+}
+
+.transparent-favicon-tool__stage-bg--checkerboard {
+  background-color: #2a2a2e;
+  background-image:
+    linear-gradient(45deg, #3a3a40 25%, transparent 25%),
+    linear-gradient(-45deg, #3a3a40 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #3a3a40 75%),
+    linear-gradient(-45deg, transparent 75%, #3a3a40 75%);
+  background-size: 16px 16px;
+  background-position:
+    0 0,
+    0 8px,
+    8px -8px,
+    -8px 0;
+}
+
+.transparent-favicon-tool__checkerboard-legend {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--im-text-muted);
+  text-align: center;
 }
 
 .transparent-favicon-tool__checkerboard {
@@ -12089,6 +12201,166 @@ body.site-tools-grid-open {
   height: 1rem;
   flex-shrink: 0;
   border: var(--im-border-width) solid var(--im-border-strong);
+}
+
+.transparent-favicon-tool__auto-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.transparent-favicon-tool__auto-select-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.transparent-favicon-tool__auto-select-swatch {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  border: var(--im-border-width) solid var(--im-border-strong);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
+}
+
+.transparent-favicon-tool__auto-select-text {
+  margin: 0;
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  line-height: 1.45;
+  color: #e5e5e5;
+}
+
+.transparent-favicon-tool__auto-select-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.transparent-favicon-tool__auto-select-confirm {
+  padding: 0.4375rem 0.875rem;
+  font-size: var(--im-font-body-sm);
+}
+
+.transparent-favicon-tool__auto-select-dismiss {
+  padding: 0.4375rem 0.875rem;
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: #e5e5e5;
+  background-color: transparent;
+  border: var(--im-border-width) solid var(--im-border-strong);
+  cursor: pointer;
+}
+
+.transparent-favicon-tool__auto-select-dismiss:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.transparent-favicon-tool__auto-select-dismiss:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.transparent-favicon-tool__export-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.transparent-favicon-tool__export-label {
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: var(--im-text-muted);
+}
+
+.transparent-favicon-tool__export-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--im-text-muted);
+}
+
+.transparent-favicon-tool__export-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.transparent-favicon-tool__export-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--im-font-body-sm);
+  line-height: 1.45;
+  color: #e5e5e5;
+  cursor: pointer;
+}
+
+.transparent-favicon-tool__export-option input {
+  accent-color: var(--im-accent);
+}
+
+.transparent-favicon-tool__mockup-title {
+  margin: 0;
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: #e5e5e5;
+}
+
+.transparent-favicon-tool__mockup-hint {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--im-text-muted);
+}
+
+.transparent-favicon-tool__mockup-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.transparent-favicon-tool__mockup-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.transparent-favicon-tool__mockup-theme {
+  font-size: 0.75rem;
+  font-weight: var(--im-weight-semibold);
+  color: var(--im-text-muted);
+}
+
+.transparent-favicon-tool__mockup-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 4.5rem;
+  padding: 0.75rem;
+  border: var(--im-border-width) solid var(--im-border-strong);
+  border-radius: var(--im-radius);
+}
+
+.transparent-favicon-tool__mockup-frame--light {
+  background-color: #f5f5f7;
+}
+
+.transparent-favicon-tool__mockup-frame--dark {
+  background-color: #1a1c21;
+}
+
+.transparent-favicon-tool__mockup-img {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  image-rendering: pixelated;
 }
 
 .favicon-code-generator-tool-page {

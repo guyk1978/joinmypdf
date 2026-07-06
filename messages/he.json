@@ -1180,7 +1180,28 @@
     "exporting": "מייצא…",
     "invalidFile": "בחר קובץ PNG או JPG.",
     "exportFailed": "לא ניתן לייצא favicon שקוף. נסה תמונה אחרת.",
-    "replaceImage": "החלף תמונה"
+    "replaceImage": "החלף תמונה",
+    "checkerboardPreviewLabel": "תצוגת לוח שחמט",
+    "checkerboardPreviewHint": "עברו לדפוס לוח שחמט קלאסי כדי לאמת אילו פיקסלים שקופים לפני ההורדה. תצוגה אחידה מתאימה לבחירת צבע ראשונית.",
+    "checkerboardLegend": "ריבועי לוח השחמט מייצגים פיקסלים שקופים (ריקים).",
+    "securityStatusTitle": "סטטוס אבטחה",
+    "securityStatusWaiting": "100% פרטי — עיבוד מקומי בדפדפן",
+    "securityStatusLocal": "הקבצים נשארים על המכשיר שלכם.",
+    "autoSelectPrompt": "זוהה צבע רקע {color}. להסיר אותו?",
+    "autoSelectConfirm": "הסר רקע",
+    "autoSelectDismiss": "לא עכשיו",
+    "exportSettingsLabel": "הגדרות ייצוא",
+    "exportSettingsHint": "בחרו גודל פלט PNG — שכבת השקיפות (alpha) נשמרת בכל רזולוציה.",
+    "exportSizes": {
+      "native": "PNG (רזולוציית המקור)",
+      "size16": "PNG 16×16",
+      "size32": "PNG 32×32",
+      "size64": "PNG 64×64"
+    },
+    "browserMockupTitle": "הדמיית דפדפן",
+    "browserMockupHint": "תצוגה מקדימה של הפאביקון השקוף על רקע לשונית בהיר וכהה — אשרו ניגודיות לפני ההורדה.",
+    "browserMockupLight": "מצב בהיר",
+    "browserMockupDark": "מצב כהה"
   },
   "FaviconCodeGenerator": {
     "instructions": "הזן את הנתיב לקובץ ה-favicon המאוחסן. קטע ה-HTML מתעדכן מיד עם כל תגית הקישור הסטנדרטית.",

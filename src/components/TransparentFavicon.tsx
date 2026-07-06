@@ -1,7 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Upload } from "lucide-react";
+import { Download, Lock, Shield, Upload } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -12,17 +12,25 @@ import {
   type MouseEvent,
 } from "react";
 import { imBtnCta } from "@/lib/design-system";
+import {
+  TransparentFaviconBrowserMockup,
+  type TransparentFaviconBrowserMockupLabels,
+} from "@/components/TransparentFaviconBrowserMockup";
 import { loadImageFileForCrop } from "@/lib/crop-image";
 import {
   applyColorsToAlpha,
+  colorsMatch,
   DEFAULT_TRANSPARENT_COLOR_TOLERANCE,
+  detectDominantBackgroundColor,
   downloadBlob,
+  exportTransparentFaviconPng,
   formatRgbColor,
-  imageDataToPngBlob,
   isAcceptedTransparentFaviconFile,
   loadTransparentFaviconImageData,
   sampleColorAtPixel,
+  TRANSPARENT_FAVICON_EXPORT_OPTIONS,
   transparentFaviconOutputName,
+  type TransparentFaviconExportSize,
   type RgbColor,
 } from "@/lib/transparent-favicon";
 
@@ -38,6 +46,19 @@ export type TransparentFaviconLabels = {
   invalidFile: string;
   exportFailed: string;
   replaceImage: string;
+  checkerboardPreviewLabel: string;
+  checkerboardPreviewHint: string;
+  checkerboardLegend: string;
+  securityStatusTitle: string;
+  securityStatusWaiting: string;
+  securityStatusLocal: string;
+  formatAutoSelectPrompt: (color: string) => string;
+  autoSelectConfirm: string;
+  autoSelectDismiss: string;
+  exportSettingsLabel: string;
+  exportSettingsHint: string;
+  formatExportSize: (key: string) => string;
+  browserMockup: TransparentFaviconBrowserMockupLabels;
 };
 
 export type TransparentFaviconProps = {
@@ -62,6 +83,11 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
   const [dragActive, setDragActive] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [checkerboardPreview, setCheckerboardPreview] = useState(false);
+  const [autoDetectedColor, setAutoDetectedColor] = useState<RgbColor | null>(null);
+  const [autoSelectDismissed, setAutoSelectDismissed] = useState(false);
+  const [exportSize, setExportSize] = useState<TransparentFaviconExportSize>("native");
+  const [mockupDataUrl, setMockupDataUrl] = useState<string | null>(null);
 
   const revokeObjectUrl = useCallback(() => {
     if (objectUrlRef.current) {
@@ -93,6 +119,20 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas || !pickedColors.length) {
+      setMockupDataUrl(null);
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      setMockupDataUrl(canvas.toDataURL("image/png"));
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pickedColors, naturalSize, drawProcessedImage]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
     const original = originalImageDataRef.current;
     if (!canvas || !original || !naturalSize) return;
 
@@ -109,9 +149,23 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
     setNaturalSize(null);
     setPickedColors([]);
     setLastPickedColor(null);
+    setCheckerboardPreview(false);
+    setAutoDetectedColor(null);
+    setAutoSelectDismissed(false);
+    setExportSize("native");
+    setMockupDataUrl(null);
     setError("");
     if (inputRef.current) inputRef.current.value = "";
   }, [revokeObjectUrl]);
+
+  const applyPickedColor = useCallback((color: RgbColor) => {
+    setLastPickedColor(color);
+    setPickedColors((current) => {
+      const exists = current.some((entry) => colorsMatch(entry, color));
+      if (exists) return current;
+      return [...current, color];
+    });
+  }, []);
 
   const loadFile = useCallback(
     async (file: File) => {
@@ -134,6 +188,10 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
         setNaturalSize({ width, height });
         setPickedColors([]);
         setLastPickedColor(null);
+        setCheckerboardPreview(false);
+        setAutoSelectDismissed(false);
+        setExportSize("native");
+        setAutoDetectedColor(detectDominantBackgroundColor(imageData));
       } catch {
         setError(labels.invalidFile);
       }
@@ -167,14 +225,8 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
     const color = sampleColorAtPixel(original, x, y);
     if (!color) return;
 
-    setLastPickedColor(color);
-    setPickedColors((current) => {
-      const exists = current.some(
-        (entry) => entry.r === color.r && entry.g === color.g && entry.b === color.b,
-      );
-      if (exists) return current;
-      return [...current, color];
-    });
+    applyPickedColor(color);
+    setAutoSelectDismissed(true);
   };
 
   const handleDownload = async () => {
@@ -189,8 +241,8 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
         pickedColors,
         DEFAULT_TRANSPARENT_COLOR_TOLERANCE,
       );
-      const blob = await imageDataToPngBlob(processed);
-      const filename = transparentFaviconOutputName(sourceFile.name);
+      const blob = await exportTransparentFaviconPng(processed, exportSize);
+      const filename = transparentFaviconOutputName(sourceFile.name, exportSize);
       downloadBlob(blob, filename);
       onDownload?.(blob, filename);
     } catch {
@@ -199,6 +251,70 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
       setBusy(false);
     }
   };
+
+  const securityStatus = (
+    <p
+      className={clsx(
+        "transparent-favicon-tool__security-status",
+        imageSrc
+          ? "transparent-favicon-tool__security-status--local"
+          : "transparent-favicon-tool__security-status--waiting",
+      )}
+      role="status"
+      aria-live="polite"
+    >
+      {imageSrc ? (
+        <Lock className="transparent-favicon-tool__security-status-icon" strokeWidth={2} aria-hidden />
+      ) : (
+        <Shield className="transparent-favicon-tool__security-status-icon" strokeWidth={2} aria-hidden />
+      )}
+      <span className="transparent-favicon-tool__security-status-label">{labels.securityStatusTitle}</span>
+      <span className="transparent-favicon-tool__security-status-value">
+        {imageSrc ? labels.securityStatusLocal : labels.securityStatusWaiting}
+      </span>
+    </p>
+  );
+
+  const showAutoSelectPrompt =
+    autoDetectedColor &&
+    !autoSelectDismissed &&
+    !pickedColors.some((color) => colorsMatch(color, autoDetectedColor));
+
+  const autoSelectPrompt = showAutoSelectPrompt ? (
+    <div className="transparent-favicon-tool__auto-select tool-workspace-panel" role="status">
+      <div className="transparent-favicon-tool__auto-select-header">
+        <span
+          className="transparent-favicon-tool__auto-select-swatch"
+          style={{ backgroundColor: formatRgbColor(autoDetectedColor) }}
+          aria-hidden
+        />
+        <p className="transparent-favicon-tool__auto-select-text">
+          {labels.formatAutoSelectPrompt(formatRgbColor(autoDetectedColor))}
+        </p>
+      </div>
+      <div className="transparent-favicon-tool__auto-select-actions">
+        <button
+          type="button"
+          className={clsx(imBtnCta, "transparent-favicon-tool__auto-select-confirm")}
+          onClick={() => {
+            applyPickedColor(autoDetectedColor);
+            setAutoSelectDismissed(true);
+          }}
+          disabled={busy}
+        >
+          {labels.autoSelectConfirm}
+        </button>
+        <button
+          type="button"
+          className="transparent-favicon-tool__auto-select-dismiss"
+          onClick={() => setAutoSelectDismissed(true)}
+          disabled={busy}
+        >
+          {labels.autoSelectDismiss}
+        </button>
+      </div>
+    </div>
+  ) : null;
 
   return (
     <div className={clsx("crop-image-tool transparent-favicon-tool", className)}>
@@ -237,6 +353,8 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
           <p className="crop-image-tool__dropzone-title">{labels.dropTitle}</p>
           <p className="crop-image-tool__dropzone-hint">{labels.dropHint}</p>
 
+          {securityStatus}
+
           <button
             type="button"
             className={clsx(imBtnCta, "crop-image-tool__select-btn")}
@@ -247,10 +365,38 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
         </div>
       ) : (
         <div className="crop-image-tool__workspace">
+          {securityStatus}
+
           <p className="crop-image-tool__instructions">{labels.pickInstructions}</p>
 
+          {autoSelectPrompt}
+
+          <div className="transparent-favicon-tool__preview-controls tool-workspace-panel">
+            <label className="transparent-favicon-tool__preview-toggle">
+              <input
+                type="checkbox"
+                checked={checkerboardPreview}
+                onChange={(event) => setCheckerboardPreview(event.target.checked)}
+                disabled={busy}
+              />
+              <span className="transparent-favicon-tool__preview-toggle-title">
+                {labels.checkerboardPreviewLabel}
+              </span>
+            </label>
+            <p className="transparent-favicon-tool__preview-toggle-hint">
+              {labels.checkerboardPreviewHint}
+            </p>
+          </div>
+
           <div className="transparent-favicon-tool__preview tool-workspace-panel">
-            <div className="transparent-favicon-tool__checkerboard">
+            <div
+              className={clsx(
+                "transparent-favicon-tool__stage-bg",
+                checkerboardPreview
+                  ? "transparent-favicon-tool__stage-bg--checkerboard"
+                  : "transparent-favicon-tool__stage-bg--solid",
+              )}
+            >
               <canvas
                 ref={canvasRef}
                 className="transparent-favicon-tool__canvas"
@@ -259,7 +405,17 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
                 aria-label={labels.pickInstructions}
               />
             </div>
+            {checkerboardPreview ? (
+              <p className="transparent-favicon-tool__checkerboard-legend" role="note">
+                {labels.checkerboardLegend}
+              </p>
+            ) : null}
           </div>
+
+          <TransparentFaviconBrowserMockup
+            previewDataUrl={mockupDataUrl}
+            labels={labels.browserMockup}
+          />
 
           {lastPickedColor ? (
             <p className="transparent-favicon-tool__color-meta">
@@ -277,6 +433,31 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
               {naturalSize.width} × {naturalSize.height} px
             </p>
           ) : null}
+
+          <div className="transparent-favicon-tool__export-settings tool-workspace-panel">
+            <span className="transparent-favicon-tool__export-label" id="transparent-favicon-export-label">
+              {labels.exportSettingsLabel}
+            </span>
+            <p className="transparent-favicon-tool__export-hint">{labels.exportSettingsHint}</p>
+            <div
+              className="transparent-favicon-tool__export-row"
+              role="radiogroup"
+              aria-labelledby="transparent-favicon-export-label"
+            >
+              {TRANSPARENT_FAVICON_EXPORT_OPTIONS.map((option) => (
+                <label key={String(option.value)} className="transparent-favicon-tool__export-option">
+                  <input
+                    type="radio"
+                    name="transparent-favicon-export-size"
+                    checked={exportSize === option.value}
+                    onChange={() => setExportSize(option.value)}
+                    disabled={busy || !naturalSize}
+                  />
+                  <span>{labels.formatExportSize(option.labelKey)}</span>
+                </label>
+              ))}
+            </div>
+          </div>
 
           <div className="crop-image-tool__actions">
             <button

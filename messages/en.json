@@ -1184,7 +1184,28 @@
     "exporting": "Exporting…",
     "invalidFile": "Please choose a PNG or JPG file.",
     "exportFailed": "Could not export the transparent favicon. Try a different image.",
-    "replaceImage": "Replace image"
+    "replaceImage": "Replace image",
+    "checkerboardPreviewLabel": "Checkerboard preview",
+    "checkerboardPreviewHint": "Switch to the classic checkerboard pattern to verify which pixels are transparent before download. Solid view is best for initial color picking.",
+    "checkerboardLegend": "Checkerboard squares represent transparent (empty) pixels.",
+    "securityStatusTitle": "Security Status",
+    "securityStatusWaiting": "100% private — local processing in your browser",
+    "securityStatusLocal": "Files stay on your device.",
+    "autoSelectPrompt": "Detected background color {color}. Remove it?",
+    "autoSelectConfirm": "Remove background",
+    "autoSelectDismiss": "Not now",
+    "exportSettingsLabel": "Export settings",
+    "exportSettingsHint": "Choose PNG output size—alpha transparency is preserved at every resolution.",
+    "exportSizes": {
+      "native": "PNG (source resolution)",
+      "size16": "16×16 PNG",
+      "size32": "32×32 PNG",
+      "size64": "64×64 PNG"
+    },
+    "browserMockupTitle": "Browser mockup",
+    "browserMockupHint": "Preview your transparent favicon on light and dark tab backgrounds—confirm contrast before download.",
+    "browserMockupLight": "Light mode",
+    "browserMockupDark": "Dark mode"
   },
   "FaviconCodeGenerator": {
     "instructions": "Enter the path to your hosted favicon file. The HTML snippet updates instantly with every standard link tag.",

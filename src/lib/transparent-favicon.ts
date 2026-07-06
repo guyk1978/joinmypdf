@@ -6,6 +6,16 @@ export { downloadBlob };
 
 export const DEFAULT_TRANSPARENT_COLOR_TOLERANCE = 32;
 
+export const TRANSPARENT_FAVICON_EXPORT_OPTIONS = [
+  { value: "native" as const, labelKey: "native" },
+  { value: 16 as const, labelKey: "size16" },
+  { value: 32 as const, labelKey: "size32" },
+  { value: 64 as const, labelKey: "size64" },
+] as const;
+
+export type TransparentFaviconExportSize =
+  (typeof TRANSPARENT_FAVICON_EXPORT_OPTIONS)[number]["value"];
+
 export type RgbColor = {
   r: number;
   g: number;
@@ -16,9 +26,13 @@ export function isAcceptedTransparentFaviconFile(file: File): boolean {
   return isAcceptedFaviconPackFile(file);
 }
 
-export function transparentFaviconOutputName(sourceName: string): string {
+export function transparentFaviconOutputName(
+  sourceName: string,
+  outputSize: TransparentFaviconExportSize = "native",
+): string {
   const base = sourceName.replace(/\.[^.]+$/, "") || "favicon";
-  return `${base}-transparent.png`;
+  if (outputSize === "native") return `${base}-transparent.png`;
+  return `${base}-transparent-${outputSize}x${outputSize}.png`;
 }
 
 export function matchesTargetColor(
@@ -109,6 +123,49 @@ export async function imageDataToPngBlob(imageData: ImageData): Promise<Blob> {
   return canvasToPngBlob(canvas);
 }
 
+export async function exportTransparentFaviconPng(
+  imageData: ImageData,
+  outputSize: TransparentFaviconExportSize,
+): Promise<Blob> {
+  if (outputSize === "native") {
+    return imageDataToPngBlob(imageData);
+  }
+
+  const sourceCanvas = document.createElement("canvas");
+  sourceCanvas.width = imageData.width;
+  sourceCanvas.height = imageData.height;
+  const sourceCtx = sourceCanvas.getContext("2d");
+  if (!sourceCtx) {
+    throw new Error("Canvas rendering is not supported in this browser.");
+  }
+
+  sourceCtx.putImageData(imageData, 0, 0);
+
+  const outputCanvas = document.createElement("canvas");
+  outputCanvas.width = outputSize;
+  outputCanvas.height = outputSize;
+  const outputCtx = outputCanvas.getContext("2d");
+  if (!outputCtx) {
+    throw new Error("Canvas rendering is not supported in this browser.");
+  }
+
+  outputCtx.imageSmoothingEnabled = true;
+  outputCtx.imageSmoothingQuality = "high";
+  outputCtx.drawImage(
+    sourceCanvas,
+    0,
+    0,
+    imageData.width,
+    imageData.height,
+    0,
+    0,
+    outputSize,
+    outputSize,
+  );
+
+  return canvasToPngBlob(outputCanvas);
+}
+
 export function sampleColorAtPixel(
   imageData: ImageData,
   x: number,
@@ -128,4 +185,66 @@ export function sampleColorAtPixel(
 
 export function formatRgbColor(color: RgbColor): string {
   return `rgb(${color.r}, ${color.g}, ${color.b})`;
+}
+
+function quantizeChannel(value: number, bucket = 8): number {
+  return Math.min(255, Math.round(value / bucket) * bucket);
+}
+
+function colorBucketKey(color: RgbColor): string {
+  return `${quantizeChannel(color.r)},${quantizeChannel(color.g)},${quantizeChannel(color.b)}`;
+}
+
+export function colorsMatch(a: RgbColor, b: RgbColor, tolerance = DEFAULT_TRANSPARENT_COLOR_TOLERANCE): boolean {
+  return matchesTargetColor(a.r, a.g, a.b, b.r, b.g, b.b, tolerance);
+}
+
+export function detectDominantBackgroundColor(imageData: ImageData): RgbColor | null {
+  const { width, height, data } = imageData;
+  if (width < 1 || height < 1) return null;
+
+  const counts = new Map<string, { count: number; color: RgbColor }>();
+
+  const addSample = (x: number, y: number) => {
+    const index = (y * width + x) * 4;
+    const color: RgbColor = {
+      r: data[index] ?? 0,
+      g: data[index + 1] ?? 0,
+      b: data[index + 2] ?? 0,
+    };
+    const key = colorBucketKey(color);
+    const existing = counts.get(key);
+    if (existing) {
+      existing.count += 1;
+    } else {
+      counts.set(key, { count: 1, color });
+    }
+  };
+
+  addSample(0, 0);
+  addSample(width - 1, 0);
+  addSample(0, height - 1);
+  addSample(width - 1, height - 1);
+
+  const stepX = Math.max(1, Math.floor(width / 24));
+  const stepY = Math.max(1, Math.floor(height / 24));
+
+  for (let x = 0; x < width; x += stepX) {
+    addSample(x, 0);
+    addSample(x, height - 1);
+  }
+
+  for (let y = 0; y < height; y += stepY) {
+    addSample(0, y);
+    addSample(width - 1, y);
+  }
+
+  let dominant: { count: number; color: RgbColor } | null = null;
+  for (const entry of counts.values()) {
+    if (!dominant || entry.count > dominant.count) {
+      dominant = entry;
+    }
+  }
+
+  return dominant?.color ?? null;
 }
