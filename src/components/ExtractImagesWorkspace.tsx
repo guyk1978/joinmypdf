@@ -13,6 +13,7 @@ import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import {
   extractImagesFromPdf,
   extractImagesZipName,
+  loadExtractImagesPdfPageCount,
   type ExtractedPdfImage,
 } from "@/lib/pdf-extract-images";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
@@ -112,16 +113,8 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
   useEffect(() => () => revokePreviews(), [revokePreviews]);
 
   const loadPdfMeta = async (next: File) => {
-    const pdfjs = await import("pdfjs-dist");
-    const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
-    pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-    const url = URL.createObjectURL(next);
-    try {
-      const doc = await pdfjs.getDocument({ url }).promise;
-      setPageCount(doc.numPages);
-    } finally {
-      URL.revokeObjectURL(url);
-    }
+    const numPages = await loadExtractImagesPdfPageCount(next);
+    setPageCount(numPages);
   };
 
   const pickFile = async (next: File) => {

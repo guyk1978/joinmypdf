@@ -1,12 +1,12 @@
 import { classifyPdfError } from "./pdf-errors";
 
+type ObjectStore = {
+  get: (name: string, cb?: (obj: unknown) => void) => unknown;
+};
+
 type PdfJsPageProxy = {
-  objs: {
-    get: (name: string, cb?: (obj: unknown) => void) => unknown;
-  };
-  commonObjs: {
-    get: (name: string, cb?: (obj: unknown) => void) => unknown;
-  };
+  objs: ObjectStore;
+  commonObjs: ObjectStore;
   getOperatorList: () => Promise<{
     fnArray: number[];
     argsArray: unknown[][];
@@ -30,6 +30,8 @@ export type ExtractedPdfImage = {
   blob: Blob;
 };
 
+const IMAGE_RESOLVE_TIMEOUT_MS = 12_000;
+
 function sanitizePart(value: string): string {
   return value.replace(/[^\w.-]+/g, "-").replace(/^-+|-+$/g, "") || "document";
 }
@@ -46,31 +48,71 @@ export function extractImagesZipName(file: File): string {
   return `${fileBase(file)}-images.zip`;
 }
 
+function isReadyImage(obj: unknown): obj is ExtractableImage {
+  if (!obj || typeof obj !== "object") return false;
+
+  if ("bitmap" in obj) {
+    const bitmap = (obj as { bitmap?: ImageBitmap }).bitmap;
+    return Boolean(bitmap && bitmap.width > 0 && bitmap.height > 0);
+  }
+
+  if ("data" in obj && "width" in obj && "height" in obj) {
+    const raw = obj as { data: unknown; width: number; height: number };
+    return raw.width > 0 && raw.height > 0 && raw.data != null;
+  }
+
+  const source = obj as { width?: number; height?: number };
+  return Boolean(source.width && source.height);
+}
+
+function imageStoreForName(page: PdfJsPageProxy, name: string): ObjectStore {
+  // pdf.js stores shared/repeated XObject images in commonObjs (names start with "g_").
+  return name.startsWith("g_") ? page.commonObjs : page.objs;
+}
+
 function resolveImageObject(page: PdfJsPageProxy, name: string): Promise<ExtractableImage | null> {
-  const getFromStore = (store: PdfJsPageProxy["objs"] | PdfJsPageProxy["commonObjs"]) =>
-    new Promise<ExtractableImage | null>((resolve) => {
-      try {
-        const sync = store.get(name) as ExtractableImage | undefined;
-        if (sync) {
-          resolve(sync);
-          return;
-        }
-      } catch {
-        // Ignore and wait for async callback path.
-      }
+  const store = imageStoreForName(page, name);
 
-      try {
-        store.get(name, (obj) => resolve((obj as ExtractableImage) || null));
-      } catch {
-        resolve(null);
-      }
-    });
+  return new Promise<ExtractableImage | null>((resolve) => {
+    let settled = false;
+    const finish = (value: ExtractableImage | null) => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timer);
+      resolve(value);
+    };
 
-  return (async () => {
-    const primary = await getFromStore(page.objs);
-    if (primary) return primary;
-    return getFromStore(page.commonObjs);
-  })();
+    const timer = window.setTimeout(() => finish(null), IMAGE_RESOLVE_TIMEOUT_MS);
+
+    try {
+      const sync = store.get(name);
+      if (isReadyImage(sync)) {
+        finish(sync);
+        return;
+      }
+    } catch {
+      // Fall through to async callback path.
+    }
+
+    try {
+      store.get(name, (obj) => {
+        finish(isReadyImage(obj) ? obj : null);
+      });
+    } catch {
+      finish(null);
+    }
+  });
+}
+
+function operatorImageName(args: unknown): string {
+  if (typeof args === "string") return args;
+  if (Array.isArray(args) && typeof args[0] === "string") return args[0];
+  return "";
+}
+
+function operatorInlineImage(args: unknown): ExtractableImage | null {
+  const candidate = Array.isArray(args) ? args[0] : args;
+  return isReadyImage(candidate) ? candidate : null;
 }
 
 function toRgba(data: Uint8ClampedArray | Uint8Array, width: number, height: number): Uint8ClampedArray {
@@ -128,19 +170,28 @@ async function imageToBlob(image: ExtractableImage): Promise<Blob | null> {
   return new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
 }
 
+async function loadPdfForImageExtraction(file: File): Promise<PdfJsDocProxy> {
+  const pdfjs = await import("pdfjs-dist");
+  const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
+  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
+  const data = new Uint8Array(await file.arrayBuffer());
+  return pdfjs.getDocument({
+    data,
+    // Required so embedded image pixel data is exposed to objs.get callbacks (pdf.js #16282).
+    isOffscreenCanvasSupported: false,
+  }).promise as Promise<PdfJsDocProxy>;
+}
+
 export async function extractImagesFromPdf(
   file: File,
   onProgress?: (currentPage: number, totalPages: number) => void,
 ): Promise<ExtractedPdfImage[]> {
   const pdfjs = await import("pdfjs-dist");
-  const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
-  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
   const OPS = (pdfjs as unknown as { OPS?: Record<string, number> }).OPS || {};
 
-  const url = URL.createObjectURL(file);
   const base = fileBase(file);
   try {
-    const doc = (await pdfjs.getDocument({ url }).promise) as PdfJsDocProxy;
+    const doc = await loadPdfForImageExtraction(file);
     const totalPages = doc.numPages;
     const out: ExtractedPdfImage[] = [];
 
@@ -148,27 +199,48 @@ export async function extractImagesFromPdf(
       onProgress?.(pageNumber, totalPages);
       const page = await doc.getPage(pageNumber);
       const opList = await page.getOperatorList();
-      const names: string[] = [];
+      const namedRefs: string[] = [];
+      const inlineImages: ExtractableImage[] = [];
 
       for (let i = 0; i < opList.fnArray.length; i++) {
         const fn = opList.fnArray[i];
-        const args = opList.argsArray[i] || [];
+        const args = opList.argsArray[i];
+
+        if (fn === OPS.paintInlineImageXObject) {
+          const inline = operatorInlineImage(args);
+          if (inline) inlineImages.push(inline);
+          continue;
+        }
+
         if (
           fn === OPS.paintImageXObject ||
           fn === OPS.paintImageXObjectRepeat ||
           fn === OPS.paintJpegXObject
         ) {
-          const name = typeof args[0] === "string" ? (args[0] as string) : "";
-          if (name) names.push(name);
+          const name = operatorImageName(args);
+          if (name) namedRefs.push(name);
         }
       }
 
-      const unique = Array.from(new Set(names));
       let pageIndex = 0;
-      for (const name of unique) {
+      const uniqueNames = Array.from(new Set(namedRefs));
+
+      for (const name of uniqueNames) {
         const obj = await resolveImageObject(page, name);
         if (!obj) continue;
         const blob = await imageToBlob(obj);
+        if (!blob) continue;
+        pageIndex += 1;
+        out.push({
+          page: pageNumber,
+          index: pageIndex,
+          name: imageName(base, pageNumber, pageIndex),
+          blob,
+        });
+      }
+
+      for (const inline of inlineImages) {
+        const blob = await imageToBlob(inline);
         if (!blob) continue;
         pageIndex += 1;
         out.push({
@@ -183,7 +255,10 @@ export async function extractImagesFromPdf(
     return out;
   } catch (error) {
     throw classifyPdfError(error);
-  } finally {
-    URL.revokeObjectURL(url);
   }
+}
+
+export async function loadExtractImagesPdfPageCount(file: File): Promise<number> {
+  const doc = await loadPdfForImageExtraction(file);
+  return doc.numPages;
 }
