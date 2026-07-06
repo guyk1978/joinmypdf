@@ -1215,6 +1215,50 @@
           }
         }
       },
+      "videoToMp4": {
+        "h1": "Video to MP4 Converter Online",
+        "heroTagline": "TODO: SEO hero tagline — fill in later.",
+        "introSectionTitle": "How to Convert Video to MP4 in Your Browser",
+        "whySectionTitle": "Why Use JoinMyPDF Video to MP4?",
+        "whySectionSubheadline": "TODO: SEO why subheadline — fill in later.",
+        "schemaDescription": "TODO: SEO schema description — fill in later.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Fast stream copy when possible",
+            "body": "Compatible MP4 sources remux without re-encoding for speed."
+          },
+          "quality": {
+            "title": "H.264 fallback with standard CRF",
+            "body": "Other formats encode with libx264 (CRF 23) and AAC audio for universal playback."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "ffmpeg.wasm runs in a Web Worker on your device—no server upload."
+          }
+        }
+      },
+      "videoCompressor": {
+        "h1": "Video Compressor Online",
+        "heroTagline": "TODO: SEO hero tagline — fill in later.",
+        "introSectionTitle": "How to Compress Video in Your Browser",
+        "whySectionTitle": "Why Use JoinMyPDF Video Compressor?",
+        "whySectionSubheadline": "TODO: SEO why subheadline — fill in later.",
+        "schemaDescription": "TODO: SEO schema description — fill in later.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Adjustable compression levels",
+            "body": "Low, balanced, and high compression map to libx264 CRF 23–28."
+          },
+          "quality": {
+            "title": "Before/after size comparison",
+            "body": "See original vs. compressed file size and bytes saved before you share."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+          }
+        }
+      },
       "cropImage": {
         "h1": "Crop Image Online (Free & Fast)",
         "heroTagline": "Drag a crop frame, pick an aspect ratio, and download a crisp PNG—instantly in your browser.",
@@ -3310,6 +3354,14 @@
         "title": "Drop an image here or click to browse",
         "description": "Adjust compression quality and download a smaller image locally."
       },
+      "video-to-mp4": {
+        "title": "Drop a video here or click to browse",
+        "description": "Convert MOV, WebM, MKV, or other videos to MP4 locally in your browser."
+      },
+      "video-compressor": {
+        "title": "Drop a video here or click to browse",
+        "description": "Compress video file size locally—adjust quality vs. size, no upload."
+      },
       "pdf-to-png": {
         "title": "Drop a PDF here or click to browse",
         "description": "Each page exports as a PNG image. Processing stays on your device."
@@ -3913,6 +3965,12 @@
     },
     "compress-image": {
       "privacyNote": "Compression runs entirely in your browser. Your image never leaves your device."
+    },
+    "video-to-mp4": {
+      "privacyNote": "Video conversion runs entirely in your browser inside a Web Worker. Your file never leaves your device."
+    },
+    "video-compressor": {
+      "privacyNote": "Video compression runs entirely in your browser inside a Web Worker. Your file never leaves your device."
     },
     "generate-favicon": {
       "privacyNote": "Favicon generation runs entirely in your browser. Nothing is uploaded to our servers."

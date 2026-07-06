@@ -13,6 +13,9 @@ import {
   type SyntheticEvent,
 } from "react";
 import { imBtnCta } from "@/lib/design-system";
+import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
+import { useToolFeedback } from "@/context/ToolFeedbackContext";
+import { useToolPageShell } from "@/context/ToolPageShellContext";
 import {
   clampDimension,
   dimensionsWithAspect,
@@ -51,6 +54,8 @@ const ACCEPT =
 
 export function ResizeImage({ labels, className, onDownload }: ResizeImageProps) {
   const formId = useId();
+  const { headline, slug } = useToolPageShell();
+  const { registerFile } = useToolFeedback();
   const inputRef = useRef<HTMLInputElement>(null);
   const objectUrlRef = useRef<string | null>(null);
 
@@ -63,6 +68,7 @@ export function ResizeImage({ labels, className, onDownload }: ResizeImageProps)
   const [dragActive, setDragActive] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const aspectRatio =
     naturalSize && naturalSize.height > 0 ? naturalSize.width / naturalSize.height : 1;
@@ -85,8 +91,10 @@ export function ResizeImage({ labels, className, onDownload }: ResizeImageProps)
     setHeightInput("");
     setLockAspectRatio(true);
     setError("");
+    setShowFeedback(false);
+    registerFile(null);
     if (inputRef.current) inputRef.current.value = "";
-  }, [revokeObjectUrl]);
+  }, [registerFile, revokeObjectUrl]);
 
   const loadFile = useCallback(
     async (file: File) => {
@@ -198,6 +206,8 @@ export function ResizeImage({ labels, className, onDownload }: ResizeImageProps)
       const filename = resizeImageOutputName(sourceFile.name, blob.type);
       downloadBlob(blob, filename);
       onDownload?.(blob, filename);
+      registerFile(sourceFile, slug);
+      setShowFeedback(true);
     } catch {
       setError(labels.invalidFile);
     } finally {
@@ -312,6 +322,8 @@ export function ResizeImage({ labels, className, onDownload }: ResizeImageProps)
               </label>
             </div>
           ) : null}
+
+          {showFeedback ? <ToolSuccessEngagement pageTitle={headline} /> : null}
 
           <div className="crop-image-tool__actions">
             <button

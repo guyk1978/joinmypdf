@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
+import { ToolFeedbackProvider } from "@/context/ToolFeedbackContext";
 
 type ToolPageShellContextValue = {
   headline: string;
@@ -34,9 +35,11 @@ export function ToolPageShellProvider({
   children: ReactNode;
 }) {
   return (
-    <ToolPageShellContext.Provider value={{ headline, subline, tagline, stacked, slug }}>
-      {children}
-    </ToolPageShellContext.Provider>
+    <ToolFeedbackProvider>
+      <ToolPageShellContext.Provider value={{ headline, subline, tagline, stacked, slug }}>
+        {children}
+      </ToolPageShellContext.Provider>
+    </ToolFeedbackProvider>
   );
 }
 

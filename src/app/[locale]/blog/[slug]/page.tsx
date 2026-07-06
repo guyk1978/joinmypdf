@@ -9,6 +9,7 @@ import { BlogArticleBody } from "@/components/BlogArticleBody";
 import { BlogArticleTemplate } from "@/components/BlogArticleTemplate";
 import { BlogGuideListItem } from "@/components/BlogGuideListItem";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
+import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
@@ -372,6 +373,8 @@ export default async function BlogPostPage({
                   </Link>
                 </div>
               ) : null}
+
+              <FeedbackWidget pageType="article" pageTitle={displayTitle} />
             </div>
           </article>
         </BlogArticleTemplate>

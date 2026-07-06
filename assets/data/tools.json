@@ -2032,6 +2032,97 @@
       "updatedAt": "2026-06-30"
     },
     {
+      "slug": "video-to-mp4",
+      "category": "convert",
+      "operation": "video-to-mp4",
+      "title": "Video to MP4 Converter",
+      "primaryKeyword": "video to mp4 converter online",
+      "intent": "Convert videos to MP4 in your browser—fast stream copy or H.264 encode, no upload.",
+      "description": "Upload MOV, WebM, MKV, AVI, or other video files and download a universal MP4—all processed locally with ffmpeg.wasm in a Web Worker.",
+      "secondaryKeywords": [
+        "convert video to mp4 free",
+        "mov to mp4 online",
+        "webm to mp4 browser"
+      ],
+      "useCases": [
+        "Convert iPhone MOV clips for wider compatibility",
+        "Remux or re-encode WebM for social uploads",
+        "Standardize client deliverables to MP4 before sharing"
+      ],
+      "relatedTools": [
+        "video-compressor",
+        "compress-image",
+        "convert-to-png",
+        "heic-to-jpg"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Conversion runs entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "Does the tool re-encode every file?",
+          "a": "MP4 sources try fast stream copy first. If that fails, the tool falls back to libx264 (CRF 23) with AAC audio."
+        },
+        {
+          "q": "Which formats can I convert?",
+          "a": "Common formats including MP4, MOV, WebM, MKV, and AVI. Output is always MP4."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-06"
+    },
+    {
+      "slug": "video-compressor",
+      "category": "optimize",
+      "operation": "video-compressor",
+      "title": "Video Compressor",
+      "primaryKeyword": "compress video online free",
+      "intent": "Compress videos in your browser with libx264—adjust quality vs. size, no upload.",
+      "description": "Reduce video file size locally with ffmpeg.wasm. Pick compression strength, compare before/after sizes, and download MP4—all in a Web Worker on your device.",
+      "secondaryKeywords": [
+        "video compressor browser",
+        "reduce video file size online",
+        "compress mp4 without uploading"
+      ],
+      "useCases": [
+        "Shrink screen recordings before email or chat",
+        "Optimize hero videos for faster page loads",
+        "Compress client deliverables without cloud upload"
+      ],
+      "relatedTools": [
+        "video-to-mp4",
+        "compress-image",
+        "pdf-compress"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Compression runs entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "How does the quality slider work?",
+          "a": "Low compression keeps higher quality (CRF 23). Balanced uses CRF 25. High compression prioritizes smaller files (CRF 28)."
+        },
+        {
+          "q": "What format is the output?",
+          "a": "Compressed videos download as MP4 with H.264 video and AAC audio for broad compatibility."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.85,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-06"
+    },
+    {
       "slug": "crop-image",
       "category": "edit",
       "operation": "crop-image",

@@ -65,6 +65,7 @@ export default async function TimelineGanttGeneratorPage({ params }: PageProps) 
             browser: the live chart is rasterized and saved locally—no server processing.
           </p>
         </section>
+
       </AppPageShell>
     </>
   );

@@ -311,7 +311,7 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
         </p>
       )}
 
-      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={files[0]} /> : null}
 
       <StickyMobileCta href="#tool-workspace" label={mergeLabel} secondaryHref="/" secondaryLabel={ws.home} />
     </div>

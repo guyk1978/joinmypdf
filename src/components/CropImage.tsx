@@ -13,6 +13,9 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { imBtnCta } from "@/lib/design-system";
+import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
+import { useToolFeedback } from "@/context/ToolFeedbackContext";
+import { useToolPageShell } from "@/context/ToolPageShellContext";
 import {
   clampCropRect,
   DEFAULT_CROP_RECT,
@@ -193,6 +196,8 @@ function handleStyle(handle: (typeof HANDLES)[number], crop: NormalizedCropRect)
 }
 
 export function CropImage({ labels, className, onDownload }: CropImageProps) {
+  const { headline, slug } = useToolPageShell();
+  const { registerFile } = useToolFeedback();
   const inputRef = useRef<HTMLInputElement>(null);
   const objectUrlRef = useRef<string | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -207,6 +212,7 @@ export function CropImage({ labels, className, onDownload }: CropImageProps) {
   const [dragActive, setDragActive] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const revokeObjectUrl = useCallback(() => {
     if (objectUrlRef.current) {
@@ -245,8 +251,10 @@ export function CropImage({ labels, className, onDownload }: CropImageProps) {
     setLayout(null);
     setCrop(DEFAULT_CROP_RECT);
     setError("");
+    setShowFeedback(false);
+    registerFile(null);
     if (inputRef.current) inputRef.current.value = "";
-  }, [revokeObjectUrl]);
+  }, [registerFile, revokeObjectUrl]);
 
   const loadFile = useCallback(
     async (file: File) => {
@@ -335,6 +343,8 @@ export function CropImage({ labels, className, onDownload }: CropImageProps) {
       const filename = cropImageOutputName(sourceFile.name);
       downloadBlob(blob, filename);
       onDownload?.(blob, filename);
+      registerFile(sourceFile, slug);
+      setShowFeedback(true);
     } catch {
       setError(labels.invalidFile);
     } finally {
@@ -440,6 +450,8 @@ export function CropImage({ labels, className, onDownload }: CropImageProps) {
               </div>
             ) : null}
           </div>
+
+          {showFeedback ? <ToolSuccessEngagement pageTitle={headline} /> : null}
 
           <div className="crop-image-tool__actions">
             <button

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 
 import { AppPageShell } from "@/components/AppPageShell";
+import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { InfoProseDocument } from "@/components/InfoProseDocument";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { getBrandName } from "@/lib/brand";
@@ -53,6 +54,7 @@ export default async function AboutPage({ params }: Props) {
       <AppPageShell mainClassName={productPageMainClassName}>
         <ProductPageLayout title={t("title")} description={t("description")} variant="document">
           <InfoProseDocument sections={sections} />
+          <FeedbackWidget pageType="article" pageTitle={t("title")} />
         </ProductPageLayout>
       </AppPageShell>
     </>

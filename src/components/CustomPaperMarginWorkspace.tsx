@@ -633,7 +633,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
         </p>
       )}
 
-      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={file} /> : null}
 
       <StickyMobileCta
         href="#tool-workspace"

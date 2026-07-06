@@ -12,6 +12,9 @@ import {
   type SyntheticEvent,
 } from "react";
 import { imBtnCta } from "@/lib/design-system";
+import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
+import { useToolFeedback } from "@/context/ToolFeedbackContext";
+import { useToolPageShell } from "@/context/ToolPageShellContext";
 import {
   downloadBlob,
   getRotatedImageBlob,
@@ -47,6 +50,8 @@ const ACCEPT =
   "image/jpeg,image/png,image/webp,image/gif,image/bmp,image/heic,image/heif,.heic,.heif";
 
 export function RotateImage({ labels, className, onDownload }: RotateImageProps) {
+  const { headline, slug } = useToolPageShell();
+  const { registerFile } = useToolFeedback();
   const inputRef = useRef<HTMLInputElement>(null);
   const objectUrlRef = useRef<string | null>(null);
 
@@ -57,6 +62,7 @@ export function RotateImage({ labels, className, onDownload }: RotateImageProps)
   const [dragActive, setDragActive] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const revokeObjectUrl = useCallback(() => {
     if (objectUrlRef.current) {
@@ -74,8 +80,10 @@ export function RotateImage({ labels, className, onDownload }: RotateImageProps)
     setNaturalSize(null);
     setRotation(0);
     setError("");
+    setShowFeedback(false);
+    registerFile(null);
     if (inputRef.current) inputRef.current.value = "";
-  }, [revokeObjectUrl]);
+  }, [registerFile, revokeObjectUrl]);
 
   const loadFile = useCallback(
     async (file: File) => {
@@ -137,6 +145,8 @@ export function RotateImage({ labels, className, onDownload }: RotateImageProps)
       const filename = rotateImageOutputName(sourceFile.name, blob.type);
       downloadBlob(blob, filename);
       onDownload?.(blob, filename);
+      registerFile(sourceFile, slug);
+      setShowFeedback(true);
     } catch {
       setError(labels.invalidFile);
     } finally {
@@ -237,6 +247,8 @@ export function RotateImage({ labels, className, onDownload }: RotateImageProps)
               <span>{labels.rotateRight}</span>
             </button>
           </div>
+
+          {showFeedback ? <ToolSuccessEngagement pageTitle={headline} /> : null}
 
           <div className="crop-image-tool__actions">
             <button

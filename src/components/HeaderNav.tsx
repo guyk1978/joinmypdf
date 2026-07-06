@@ -1,23 +1,35 @@
 "use client";
 
-import { useMemo } from "react";
-import { useTranslations } from "next-intl";
-import { HeaderNavDropdown } from "@/components/HeaderNavDropdown";
-import { buildHeaderNavDropdowns } from "@/lib/header-nav";
+import { HeaderCategoryButtons, HeaderCategoryNavProvider, HeaderAllToolsButton } from "@/components/HeaderCategoryNav";
+import type { HeaderCategoryId } from "@/lib/tool-registry";
 
 type HeaderNavProps = {
+  open?: boolean;
+  activeCategory?: HeaderCategoryId;
+  onOpenChange?: (open: boolean) => void;
+  onCategoryChange?: (category: HeaderCategoryId) => void;
   onNavigate?: () => void;
 };
 
-export function HeaderNav({ onNavigate }: HeaderNavProps) {
-  const t = useTranslations("Header");
-  const dropdowns = useMemo(() => buildHeaderNavDropdowns((key) => t(key as "nav.image")), [t]);
-
+export function HeaderNav({
+  open,
+  activeCategory,
+  onOpenChange,
+  onCategoryChange,
+  onNavigate,
+}: HeaderNavProps) {
   return (
-    <nav className="site-header__primary-nav" aria-label={t("primaryNav")}>
-      {dropdowns.map((dropdown) => (
-        <HeaderNavDropdown key={dropdown.id} dropdown={dropdown} onNavigate={onNavigate} />
-      ))}
-    </nav>
+    <div className="site-header__primary-nav">
+      <HeaderCategoryNavProvider
+        open={open}
+        activeCategory={activeCategory}
+        onOpenChange={onOpenChange}
+        onCategoryChange={onCategoryChange}
+        onNavigate={onNavigate}
+      >
+        <HeaderCategoryButtons />
+        <HeaderAllToolsButton />
+      </HeaderCategoryNavProvider>
+    </div>
   );
 }

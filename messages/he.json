@@ -8,7 +8,12 @@
   "Header": {
     "siteLabel": "אתר",
     "primaryNav": "ראשי",
-    "allTools": "כל הכלים",
+    "allTools": {
+      "button": "כל הכלים",
+      "title": "כל הכלים",
+      "close": "סגור",
+      "seoNavLabel": "כל כלי האתר"
+    },
     "guides": "מדריכים",
     "privacyFirst": "פרטיות קודמת",
     "viewAllTools": "צפה בכל הכלים",
@@ -33,11 +38,54 @@
     "nav": {
       "pdf": "PDF",
       "image": "תמונה",
+      "video": "וידאו",
       "developer": "מפתחים",
       "utilities": "כלי עזר",
       "dataConversion": "נתונים והמרה",
       "security": "אבטחה ופרטיות",
       "productivity": "פרודוקטיביות"
+    },
+    "registry": {
+      "compress": "דחיסה",
+      "favicon": "כלי Favicon"
+    },
+    "headerNav": {
+      "resize": "שינוי גודל"
+    },
+    "search": {
+      "label": "חיפוש כלים ומאמרים",
+      "placeholder": "חיפוש כלים ומאמרים…",
+      "empty": "לא נמצאו תוצאות",
+      "toolsGroup": "כלים",
+      "articlesGroup": "מאמרים",
+      "toolTag": "כלי",
+      "articleTag": "מאמר",
+      "open": "פתח חיפוש",
+      "close": "סגור חיפוש"
+    },
+    "megaMenu": {
+      "convert": "המרה",
+      "compress": "דחיסה",
+      "security": "אבטחה",
+      "design": "עיצוב",
+      "close": "סגור תפריט",
+      "columns": {
+        "pdf": "PDF",
+        "pdfOrganize": "PDF — ארגון",
+        "pdfTo": "PDF — המרה ל",
+        "pdfFrom": "PDF — ייצוא מ",
+        "pdfEdit": "PDF — עריכה",
+        "pdfSecurity": "PDF — אבטחה",
+        "securityGenerators": "מחוללים",
+        "video": "וידאו",
+        "images": "תמונות",
+        "image": "תמונה",
+        "imageFormats": "פורמטי תמונה ואייקון",
+        "favicon": "Favicon",
+        "faviconTools": "כלי Favicon",
+        "developer": "מפתחים",
+        "utilities": "כלי עזר ופרודוקטיביות"
+      }
     },
     "navSections": {
       "pdfEditSection": "עריכה וארגון",
@@ -62,6 +110,8 @@
       "cropImage": "חיתוך תמונה",
       "rotateImage": "סיבוב תמונה",
       "compressImage": "דחיסת תמונה",
+      "videoToMp4": "וידאו ל-MP4",
+      "videoCompressor": "דחיסת וידאו",
       "heicToJpg": "HEIC ל-JPG",
       "imageToPdf": "תמונה ל-PDF",
       "pngToPdf": "PNG ל-PDF",
@@ -555,6 +605,8 @@
       "convert-to-png": "המרת תמונה ל-PNG אונליין",
       "rotate-image": "סיבוב תמונה אונליין",
       "compress-image": "דחיסת תמונות אונליין (הקטנת גודל קובץ)",
+      "video-to-mp4": "ממיר וידאו ל-MP4 אונליין",
+      "video-compressor": "דחיסת וידאו אונליין (הקטנת גודל קובץ)",
       "generate-favicon": "מחולל Favicon חינם אונליין",
       "png-to-ico": "ממיר PNG ל-ICO חינם אונליין",
       "ico-to-png": "ממיר ICO ל-PNG חינם אונליין",
@@ -682,7 +734,12 @@
     "copyright": "כל הזכויות שמורות.",
     "expandFooter": "קישורי האתר",
     "collapseFooter": "הסתר קישורי האתר",
-    "partnerNavLabel": "כלי שותפים"
+    "partnerNavLabel": "כלי שותפים",
+    "toolsPanel": {
+      "label": "מדריך כל הכלים",
+      "toggle": "עיון בכל הכלים",
+      "toggleClose": "הסתר את כל הכלים"
+    }
   },
   "Blog": {
     "metaTitle": "מדריכים ומאמרים",
@@ -765,6 +822,21 @@
     "clearData": "ניקוי נתונים",
     "clearedWorkspace": "סביבת העבודה נוקתה. העלה קובץ חדש או טען נתוני דמו."
   },
+  "MediaTool": {
+    "dropzoneAria": "העלאת אודיו או וידאו",
+    "dropTitle": "גרור קובץ מדיה לכאן",
+    "dropTitleBusy": "קורא קובץ…",
+    "dropDescription": "גרור ושחרר, או לחץ לעיון. כל ההמרה מתבצעת מקומית בדפדפן.",
+    "privacyBadge": "Local-Only: 100% Private",
+    "formatsHint": "תומך בפורמטי אודיו ווידאו נפוצים",
+    "selectLabel": "בחר קובץ",
+    "errorAudioFormat": "העלה קובץ אודיו נתמך.",
+    "errorVideoFormat": "העלה קובץ וידאו נתמך.",
+    "statusLoading": "טוען מנוע FFmpeg…",
+    "statusProcessing": "מעבד מדיה…",
+    "statusSuccess": "העיבוד הושלם.",
+    "statusError": "העיבוד נכשל."
+  },
   "StudioTools": {
     "invoiceTemplateLoaded": "תבנית נטענה עבור {slug} — ערוך כל שדה לפני ההורדה.",
     "timelineTemplateLoaded": "תבנית נטענה עבור {slug} — ערוך משימות או תאריכים לפני ההורדה.",
@@ -772,6 +844,50 @@
     "pdfDownloaded": "ה-PDF הורד.",
     "pdfExportFailed": "ייצוא PDF נכשל.",
     "previewNotReady": "התצוגה המקדימה לא מוכנה. נסה שוב בעוד רגע."
+  },
+  "VideoToMp4": {
+    "dropTitle": "גרור וידאו לכאן",
+    "dropTitleBusy": "מכין המרה…",
+    "dropDescription": "גרור ושחרר, או לחץ לעיון. ההמרה רצה מקומית ב-Web Worker — ללא העלאה.",
+    "privacyBadge": "Local-Only: 100% Private",
+    "formatsHint": "MP4, MOV, WebM, MKV, AVI ועוד",
+    "selectLabel": "בחר וידאו",
+    "invalidFile": "העלה קובץ וידאו נתמך.",
+    "statusLoading": "טוען מנוע FFmpeg…",
+    "statusProcessing": "ממיר ל-MP4…",
+    "statusSuccess": "ההמרה הושלמה — ההורדה התחילה.",
+    "statusError": "ההמרה נכשלה. נסה קובץ או פורמט אחר.",
+    "convertAnother": "המר וידאו נוסף",
+    "fileReady": "נסה שוב",
+    "codecCopy": "מנסה stream copy מהיר",
+    "codecEncode": "מקודד עם H.264 (libx264)"
+  },
+  "VideoCompressor": {
+    "dropTitle": "גרור וידאו לכאן",
+    "dropTitleBusy": "מכין דחיסה…",
+    "dropDescription": "גרור ושחרר, או לחץ לעיון. הדחיסה רצה מקומית ב-Web Worker — ללא העלאה.",
+    "privacyBadge": "Local-Only: 100% Private",
+    "formatsHint": "MP4, MOV, WebM, MKV, AVI ועוד",
+    "selectLabel": "בחר וידאו",
+    "invalidFile": "העלה קובץ וידאו נתמך.",
+    "compressInstructions": "בחר עוצמת דחיסה, השווה גדלי קבצים, ואז דחוס והורד.",
+    "qualityLabel": "איכות מול גודל",
+    "compressionLow": "דחיסה נמוכה",
+    "compressionMedium": "מאוזן",
+    "compressionHigh": "דחיסה גבוהה",
+    "compressAndDownload": "דחוס והורד",
+    "compressing": "דוחס וידאו…",
+    "statusLoading": "טוען מנוע FFmpeg…",
+    "statusProcessing": "דוחס עם libx264…",
+    "statusSuccess": "הדחיסה הושלמה — ההורדה התחילה.",
+    "statusError": "הדחיסה נכשלה. נסה קובץ או רמת דחיסה אחרת.",
+    "compressAnother": "דחוס וידאו נוסף",
+    "tryAgain": "נסה שוב",
+    "originalSize": "גודל מקורי",
+    "compressedSize": "גודל אחרי דחיסה",
+    "pendingSize": "—",
+    "formatSavings": "−{percent}% קטן יותר",
+    "bytesSaved": "נחסכו {saved} ({bytes, number} בתים)"
   },
   "CropImage": {
     "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
@@ -1583,5 +1699,62 @@
     "resultValue": "זמן קריאה משוער: {minutes} דק׳",
     "wordsLabel": "{count} מילים",
     "emptyHint": "הדבק טקסט למעלה כדי להעריך זמן קריאה."
+  },
+  "Feedback": {
+    "title": "משוב מהיר",
+    "subtitle": "עזרו לנו להשתפר — בחרו אפשרות (ללא צורך בחשבון).",
+    "toolPrompt": "איך היה?",
+    "chooseType": "סוג משוב",
+    "types": {
+      "happy": "עבד טוב",
+      "bug": "דווח על תקלה",
+      "suggestion": "הצעה"
+    },
+    "prompts": {
+      "happy": "מה עבד טוב?",
+      "bug": "מה השתבש?",
+      "suggestion": "מה כדאי לשפר?"
+    },
+    "reasons": {
+      "workedAsExpected": "עבד כמצופה",
+      "fastProcessing": "עיבוד מהיר",
+      "easyToUse": "קל לשימוש",
+      "greatQuality": "איכות פלט מצוינת",
+      "conversionFailed": "ההמרה נכשלה",
+      "slowProcessing": "עיבוד איטי",
+      "uploadFailed": "הקובץ לא עלה",
+      "wrongOutput": "פלט שגוי או פגום",
+      "pageError": "שגיאת דף או קריסה",
+      "otherBug": "משהו אחר",
+      "newFeature": "רעיון לתכונה חדשה",
+      "betterQuality": "איכות פלט טובה יותר",
+      "moreFormats": "תמיכה בפורמטים נוספים",
+      "uiImprovement": "ממשק / שימושיות",
+      "documentation": "הוראות ברורות יותר",
+      "otherSuggestion": "משהו אחר"
+    },
+    "submit": "שלח משוב",
+    "sending": "שולח…",
+    "cancel": "ביטול",
+    "thankYou": "תודה — המשוב שלך עוזר לנו להשתפר.",
+    "errors": {
+      "notConfigured": "משוב אינו זמין כרגע. נסה שוב מאוחר יותר.",
+      "sendFailed": "לא ניתן לשלוח משוב. נסה שוב."
+    }
+  },
+  "Rating": {
+    "title": "עד כמה זה עזר?",
+    "chooseImpact": "השפעת שימוש",
+    "impacts": {
+      "savedTime": "חסך לי זמן",
+      "solvedProblem": "פתר לי בעיה",
+      "superFast": "סופר מהיר",
+      "easyToUse": "קל לשימוש"
+    },
+    "thankYou": "תודה על הדירוג!",
+    "errors": {
+      "notConfigured": "דירוגים אינם זמינים כרגע. נסה שוב מאוחר יותר.",
+      "sendFailed": "לא ניתן לשלוח דירוג. נסה שוב."
+    }
   }
 }

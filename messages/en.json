@@ -8,7 +8,12 @@
   "Header": {
     "siteLabel": "Site",
     "primaryNav": "Primary",
-    "allTools": "All Tools",
+    "allTools": {
+      "button": "All Tools",
+      "title": "All Tools",
+      "close": "Close",
+      "seoNavLabel": "All site tools"
+    },
     "guides": "Guides",
     "privacyFirst": "Privacy First",
     "viewAllTools": "View all tools",
@@ -33,11 +38,54 @@
     "nav": {
       "pdf": "PDF",
       "image": "Image",
+      "video": "Video",
       "developer": "Developer",
       "utilities": "Utilities",
       "dataConversion": "Data & Conversion",
       "security": "Security",
       "productivity": "Productivity"
+    },
+    "registry": {
+      "compress": "Compress",
+      "favicon": "Favicon tools"
+    },
+    "headerNav": {
+      "resize": "Resize"
+    },
+    "search": {
+      "label": "Search tools and articles",
+      "placeholder": "Search tools and articles…",
+      "empty": "No results found",
+      "toolsGroup": "Tools",
+      "articlesGroup": "Articles",
+      "toolTag": "Tool",
+      "articleTag": "Article",
+      "open": "Open search",
+      "close": "Close search"
+    },
+    "megaMenu": {
+      "convert": "Convert",
+      "compress": "Compress",
+      "security": "Security",
+      "design": "Design",
+      "close": "Close menu",
+      "columns": {
+        "pdf": "PDF",
+        "pdfOrganize": "PDF — Organize",
+        "pdfTo": "PDF — Convert to",
+        "pdfFrom": "PDF — Export from",
+        "pdfEdit": "PDF — Edit",
+        "pdfSecurity": "PDF — Security",
+        "securityGenerators": "Generators",
+        "video": "Video",
+        "images": "Images",
+        "image": "Image",
+        "imageFormats": "Image & icon formats",
+        "favicon": "Favicon",
+        "faviconTools": "Favicon tools",
+        "developer": "Developer",
+        "utilities": "Utilities & productivity"
+      }
     },
     "navSections": {
       "pdfEditSection": "Edit & organize",
@@ -62,6 +110,8 @@
       "cropImage": "Crop Image",
       "rotateImage": "Rotate Image",
       "compressImage": "Compress Image",
+      "videoToMp4": "Video to MP4",
+      "videoCompressor": "Video Compressor",
       "heicToJpg": "HEIC to JPG",
       "imageToPdf": "Image to PDF",
       "pngToPdf": "PNG to PDF",
@@ -559,6 +609,8 @@
       "convert-to-png": "Convert Image to PNG Online",
       "rotate-image": "Rotate Image Online",
       "compress-image": "Compress Images Online (Reduce File Size)",
+      "video-to-mp4": "Video to MP4 Converter Online",
+      "video-compressor": "Video Compressor Online (Reduce File Size)",
       "generate-favicon": "Free Favicon Generator Online",
       "png-to-ico": "Free PNG to ICO Converter Online",
       "ico-to-png": "Free ICO to PNG Converter Online",
@@ -686,7 +738,12 @@
     "copyright": "All rights reserved.",
     "expandFooter": "Site links",
     "collapseFooter": "Hide site links",
-    "partnerNavLabel": "Partner tools"
+    "partnerNavLabel": "Partner tools",
+    "toolsPanel": {
+      "label": "All tools directory",
+      "toggle": "Browse all tools",
+      "toggleClose": "Hide all tools"
+    }
   },
   "Blog": {
     "metaTitle": "Guides & tutorials",
@@ -769,6 +826,21 @@
     "clearData": "Clear data",
     "clearedWorkspace": "Cleared workspace. Upload a new file or load demo data."
   },
+  "MediaTool": {
+    "dropzoneAria": "Upload audio or video",
+    "dropTitle": "Drop your media file here",
+    "dropTitleBusy": "Reading file…",
+    "dropDescription": "Drag and drop, or click to browse. All conversion runs locally in your browser.",
+    "privacyBadge": "Local-Only: 100% Private",
+    "formatsHint": "Supports common audio and video formats",
+    "selectLabel": "Select file",
+    "errorAudioFormat": "Please upload a supported audio file.",
+    "errorVideoFormat": "Please upload a supported video file.",
+    "statusLoading": "Loading FFmpeg engine…",
+    "statusProcessing": "Processing media…",
+    "statusSuccess": "Processing complete.",
+    "statusError": "Processing failed."
+  },
   "StudioTools": {
     "invoiceTemplateLoaded": "Template loaded for {slug} — edit any field before you download.",
     "timelineTemplateLoaded": "Template loaded for {slug} — edit any task or date before you download.",
@@ -776,6 +848,50 @@
     "pdfDownloaded": "PDF downloaded.",
     "pdfExportFailed": "PDF export failed.",
     "previewNotReady": "Preview is not ready. Try again in a moment."
+  },
+  "VideoToMp4": {
+    "dropTitle": "Drop your video here",
+    "dropTitleBusy": "Preparing conversion…",
+    "dropDescription": "Drag and drop, or click to browse. Conversion runs locally in a Web Worker—nothing is uploaded.",
+    "privacyBadge": "Local-Only: 100% Private",
+    "formatsHint": "MP4, MOV, WebM, MKV, AVI, and more",
+    "selectLabel": "Select video",
+    "invalidFile": "Please upload a supported video file.",
+    "statusLoading": "Loading FFmpeg engine…",
+    "statusProcessing": "Converting to MP4…",
+    "statusSuccess": "Conversion complete — download started.",
+    "statusError": "Conversion failed. Try another file or format.",
+    "convertAnother": "Convert another video",
+    "fileReady": "Try again",
+    "codecCopy": "Trying fast stream copy",
+    "codecEncode": "Encoding with H.264 (libx264)"
+  },
+  "VideoCompressor": {
+    "dropTitle": "Drop your video here",
+    "dropTitleBusy": "Preparing compression…",
+    "dropDescription": "Drag and drop, or click to browse. Compression runs locally in a Web Worker—nothing is uploaded.",
+    "privacyBadge": "Local-Only: 100% Private",
+    "formatsHint": "MP4, MOV, WebM, MKV, AVI, and more",
+    "selectLabel": "Select video",
+    "invalidFile": "Please upload a supported video file.",
+    "compressInstructions": "Choose compression strength, compare file sizes, then compress and download.",
+    "qualityLabel": "Quality vs. size",
+    "compressionLow": "Low compression",
+    "compressionMedium": "Balanced",
+    "compressionHigh": "High compression",
+    "compressAndDownload": "Compress & Download",
+    "compressing": "Compressing video…",
+    "statusLoading": "Loading FFmpeg engine…",
+    "statusProcessing": "Compressing with libx264…",
+    "statusSuccess": "Compression complete — download started.",
+    "statusError": "Compression failed. Try another file or compression level.",
+    "compressAnother": "Compress another video",
+    "tryAgain": "Try again",
+    "originalSize": "Original size",
+    "compressedSize": "Compressed size",
+    "pendingSize": "—",
+    "formatSavings": "−{percent}% smaller",
+    "bytesSaved": "{saved} saved ({bytes, number} bytes)"
   },
   "CropImage": {
     "dropTitle": "Drop an image here or click to browse",
@@ -1587,5 +1703,62 @@
     "resultValue": "Estimated reading time: {minutes} min",
     "wordsLabel": "{count} words",
     "emptyHint": "Paste text above to estimate reading time."
+  },
+  "Feedback": {
+    "title": "Quick feedback",
+    "subtitle": "Help us improve — pick an option below (no account required).",
+    "toolPrompt": "How did it go?",
+    "chooseType": "Feedback type",
+    "types": {
+      "happy": "Worked well",
+      "bug": "Report issue",
+      "suggestion": "Suggestion"
+    },
+    "prompts": {
+      "happy": "What went well?",
+      "bug": "What went wrong?",
+      "suggestion": "What should we improve?"
+    },
+    "reasons": {
+      "workedAsExpected": "Worked as expected",
+      "fastProcessing": "Fast processing",
+      "easyToUse": "Easy to use",
+      "greatQuality": "Great output quality",
+      "conversionFailed": "Conversion failed",
+      "slowProcessing": "Slow processing",
+      "uploadFailed": "File would not upload",
+      "wrongOutput": "Wrong or broken output",
+      "pageError": "Page error or crash",
+      "otherBug": "Something else",
+      "newFeature": "New feature idea",
+      "betterQuality": "Better output quality",
+      "moreFormats": "Support more formats",
+      "uiImprovement": "UI / usability",
+      "documentation": "Clearer instructions",
+      "otherSuggestion": "Something else"
+    },
+    "submit": "Send feedback",
+    "sending": "Sending…",
+    "cancel": "Cancel",
+    "thankYou": "Thank you — your feedback helps us improve.",
+    "errors": {
+      "notConfigured": "Feedback is temporarily unavailable. Please try again later.",
+      "sendFailed": "Could not send feedback. Please try again."
+    }
+  },
+  "Rating": {
+    "title": "How much did this help?",
+    "chooseImpact": "Utility impact",
+    "impacts": {
+      "savedTime": "Saved me time",
+      "solvedProblem": "Solved my problem",
+      "superFast": "Super fast",
+      "easyToUse": "Easy to use"
+    },
+    "thankYou": "Thank you for the rating!",
+    "errors": {
+      "notConfigured": "Ratings are temporarily unavailable. Please try again later.",
+      "sendFailed": "Could not send rating. Please try again."
+    }
   }
 }

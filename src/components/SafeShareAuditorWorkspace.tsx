@@ -433,7 +433,7 @@ export function SafeShareAuditorWorkspace({ tool, slug }: { tool: ToolDefinition
         </div>
       ) : null}
 
-      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={file} /> : null}
 
       <StickyMobileCta
         href="#tool-workspace"

@@ -199,6 +199,7 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
                   </div>
                 </ToolPageDashboardSection>
               ) : null}
+
             </ToolPageInfoBlock>
           </ToolGlassProvider>
         </div>

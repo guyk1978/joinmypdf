@@ -316,7 +316,7 @@ export function HtmlToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         </p>
       )}
 
-      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={file} /> : null}
 
       <StickyMobileCta href="#tool-workspace" label={ws.wsText("convertLabel")} secondaryHref="/" secondaryLabel={ws.home} />
     </div>

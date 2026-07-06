@@ -14,6 +14,9 @@ import {
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PngToIcoSizePreview } from "@/components/PngToIcoSizePreview";
 import { PngToIcoHeaderCode } from "@/components/PngToIcoHeaderCode";
+import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
+import { useToolFeedback } from "@/context/ToolFeedbackContext";
+import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { imBtnCta } from "@/lib/design-system";
 import {
   convertPngImageToIco,
@@ -96,6 +99,8 @@ function collectPngFiles(fileList: FileList | File[]): File[] {
 }
 
 export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
+  const { headline, slug } = useToolPageShell();
+  const { registerFile } = useToolFeedback();
   const inputRef = useRef<HTMLInputElement>(null);
   const objectUrlRef = useRef<string | null>(null);
   const progressTimerRef = useRef<number | null>(null);
@@ -398,6 +403,19 @@ export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
     batchItems.length > 0 && batchItems.every((item) => item.status === "done" || item.status === "error");
   const batchReadyForDownload = batchAllDone && batchDoneCount > 0 && !batchBusy;
   const showWorkspace = Boolean(imageSrc) || batchItems.length > 0;
+  const feedbackReady = localProcessingStatus === "success" || batchReadyForDownload;
+  const isBatchMode = batchItems.length > 0;
+
+  useEffect(() => {
+    if (!feedbackReady) {
+      registerFile(null);
+      return;
+    }
+    const feedbackFile = isBatchMode
+      ? batchItems.find((item) => item.status === "done")?.file
+      : sourceFile;
+    if (feedbackFile) registerFile(feedbackFile, slug);
+  }, [feedbackReady, isBatchMode, batchItems, sourceFile, slug, registerFile]);
 
   return (
     <div className={clsx("crop-image-tool png-to-ico-tool", className)}>
@@ -542,6 +560,8 @@ export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
             <PngToIcoHeaderCode outputFilename={headerCodeFilename} labels={headerCodeLabels} />
           ) : null}
 
+          {feedbackReady ? <ToolSuccessEngagement pageTitle={headline} /> : null}
+
           <div className="crop-image-tool__actions">
             <button
               type="button"
@@ -648,6 +668,8 @@ export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
           {headerCodeFilename && localProcessingStatus === "success" ? (
             <PngToIcoHeaderCode outputFilename={headerCodeFilename} labels={headerCodeLabels} />
           ) : null}
+
+          {feedbackReady ? <ToolSuccessEngagement pageTitle={headline} /> : null}
 
           <div className="crop-image-tool__actions">
             <button

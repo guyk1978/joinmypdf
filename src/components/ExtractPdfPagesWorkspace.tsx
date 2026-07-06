@@ -346,7 +346,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
         </p>
       ) : null}
 
-      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={file} /> : null}
       <StickyMobileCta
         href="#tool-workspace"
         label={ws.buttonLabel()}

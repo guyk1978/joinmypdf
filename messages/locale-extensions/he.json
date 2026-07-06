@@ -1215,6 +1215,50 @@
           }
         }
       },
+      "videoToMp4": {
+        "h1": "ממיר וידאו ל-MP4 אונליין",
+        "heroTagline": "TODO: תגית SEO — למלא מאוחר יותר.",
+        "introSectionTitle": "איך להמיר וידאו ל-MP4 בדפדפן",
+        "whySectionTitle": "למה JoinMyPDF Video to MP4?",
+        "whySectionSubheadline": "TODO: כותרת משנה SEO — למלא מאוחר יותר.",
+        "schemaDescription": "TODO: תיאור schema SEO — למלא מאוחר יותר.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Stream copy מהיר כשאפשר",
+            "body": "מקורות MP4 תואמים עוברים remux ללא קידוד מחדש."
+          },
+          "quality": {
+            "title": "גיבוי H.264 עם CRF סטנדרטי",
+            "body": "פורמטים אחרים מקודדים ב-libx264 (CRF 23) ו-AAC לתאימות אוניברסלית."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "ffmpeg.wasm רץ ב-Web Worker על המכשיר — ללא העלאה לשרת."
+          }
+        }
+      },
+      "videoCompressor": {
+        "h1": "דחיסת וידאו אונליין",
+        "heroTagline": "TODO: תגית SEO — למלא מאוחר יותר.",
+        "introSectionTitle": "איך לדחוס וידאו בדפדפן",
+        "whySectionTitle": "למה JoinMyPDF Video Compressor?",
+        "whySectionSubheadline": "TODO: כותרת משנה SEO — למלא מאוחר יותר.",
+        "schemaDescription": "TODO: תיאור schema SEO — למלא מאוחר יותר.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "רמות דחיסה מתכווננות",
+            "body": "דחיסה נמוכה, מאוזנת וגבוהה ממופות ל-libx264 CRF 23–28."
+          },
+          "quality": {
+            "title": "השוואת גודל לפני/אחרי",
+            "body": "ראו גודל מקורי מול דחוס וכמה בתים נחסכו לפני השיתוף."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "ffmpeg.wasm רץ ב-Web Worker — הווידאו לא מועלה."
+          }
+        }
+      },
       "cropImage": {
         "h1": "חיתוך תמונה אונליין (חינם ומהיר)",
         "heroTagline": "גרירת מסגרת חיתוך, בחירת יחס גובה-רוחב והורדת PNG חד — מיידית בדפדפן.",
@@ -3310,6 +3354,14 @@
         "title": "גרור תמונה לכאן או לחץ לעיון",
         "description": "התאם איכות דחיסה והורד תמונה קטנה יותר מקומית."
       },
+      "video-to-mp4": {
+        "title": "גרור וידאו לכאן או לחץ לעיון",
+        "description": "המר MOV, WebM, MKV או וידאו אחר ל-MP4 מקומית בדפדפן."
+      },
+      "video-compressor": {
+        "title": "גרור וידאו לכאן או לחץ לעיון",
+        "description": "דחוס גודל קובץ וידאו מקומית — כוונן איכות מול גודל, ללא העלאה."
+      },
       "pdf-to-png": {
         "title": "גרור PDF לכאן או לחץ לעיון",
         "description": "כל עמוד מיוצא כתמונת PNG. העיבוד במכשיר שלך."
@@ -3913,6 +3965,12 @@
     },
     "compress-image": {
       "privacyNote": "הדחיסה רצה לחלוטין בדפדפן. התמונה לא עוזבת את המכשיר."
+    },
+    "video-to-mp4": {
+      "privacyNote": "המרת וידאו רצה בדפדפן בתוך Web Worker. הקובץ לא עוזב את המכשיר."
+    },
+    "video-compressor": {
+      "privacyNote": "דחיסת וידאו רצה בדפדפן בתוך Web Worker. הקובץ לא עוזב את המכשיר."
     },
     "generate-favicon": {
       "privacyNote": "יצירת ה-favicon רצה לחלוטין בדפדפן. שום דבר לא מועלה לשרתים שלנו."

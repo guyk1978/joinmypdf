@@ -467,7 +467,7 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
             />
           </div>
 
-          <PostSuccessUpsell operation={tool.operation} />
+          <PostSuccessUpsell operation={tool.operation} sourceFile={leftFile} />
         </div>
       ) : null}
 

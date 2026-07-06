@@ -329,7 +329,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
         </p>
       )}
 
-      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={file} /> : null}
 
       <StickyMobileCta
         href="#tool-workspace"

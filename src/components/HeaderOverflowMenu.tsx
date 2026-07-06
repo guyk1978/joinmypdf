@@ -15,8 +15,7 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePageShare } from "@/hooks/usePageShare";
-import { buildHeaderNavDropdowns } from "@/lib/header-nav";
-import { isNavItemActive } from "@/lib/nav-config";
+import { HEADER_CATEGORY_BUTTONS, type HeaderCategoryId } from "@/lib/tool-registry";
 import { routing, type AppLocale } from "@/i18n/routing";
 
 type PanelPosition = {
@@ -62,9 +61,10 @@ function isStandaloneDisplay(): boolean {
 type HeaderOverflowMenuProps = {
   showNavLinks?: boolean;
   onNavigate?: () => void;
+  onOpenCategory?: (category: HeaderCategoryId) => void;
 };
 
-export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderOverflowMenuProps) {
+export function HeaderOverflowMenu({ showNavLinks = false, onNavigate, onOpenCategory }: HeaderOverflowMenuProps) {
   const t = useTranslations("Header");
   const tLang = useTranslations("LanguageSwitcher");
   const tShare = useTranslations("Share");
@@ -91,8 +91,6 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
   const termsActive = pathname.includes("/terms");
   const privacyPolicyActive = pathname.includes("/privacy-policy");
   const contactActive = pathname.includes("/contact");
-  const headerNavDropdowns = buildHeaderNavDropdowns((key) => t(key as "nav.image"));
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -208,47 +206,19 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate }: HeaderO
       >
           {showNavLinks ? (
             <>
-              {headerNavDropdowns.map((dropdown, index) => (
-                <div key={dropdown.id}>
-                  {index > 0 ? <div className="site-header__overflow-divider" role="separator" /> : null}
-                  <p className="site-header__overflow-heading">{dropdown.label}</p>
-                  {dropdown.sections?.length
-                    ? dropdown.sections.map((section) => (
-                        <div key={section.id}>
-                          <p className="site-header__overflow-subheading">{section.label}</p>
-                          {section.items.map((item) => (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              role="menuitem"
-                              className={clsx(itemClass, isNavItemActive(pathname, item.href) && "is-active")}
-                              prefetch={false}
-                              onClick={() => {
-                                onNavigate?.();
-                                close();
-                              }}
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
-                        </div>
-                      ))
-                    : (dropdown.items ?? []).map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          role="menuitem"
-                          className={clsx(itemClass, isNavItemActive(pathname, item.href) && "is-active")}
-                          prefetch={false}
-                          onClick={() => {
-                            onNavigate?.();
-                            close();
-                          }}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                </div>
+              {HEADER_CATEGORY_BUTTONS.map((entry) => (
+                <button
+                  key={entry.id}
+                  type="button"
+                  role="menuitem"
+                  className={itemClass}
+                  onClick={() => {
+                    onOpenCategory?.(entry.id);
+                    close();
+                  }}
+                >
+                  {t(entry.labelKey as "nav.image")}
+                </button>
               ))}
               <div className="site-header__overflow-divider" role="separator" />
             </>

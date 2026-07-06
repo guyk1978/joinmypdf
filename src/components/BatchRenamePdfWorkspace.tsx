@@ -459,7 +459,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
         </p>
       )}
 
-      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={files[0]} /> : null}
 
       <StickyMobileCta
         href="#tool-workspace"

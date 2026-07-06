@@ -19,6 +19,8 @@ import { PdfToExcelWorkspace } from "@/components/PdfToExcelWorkspace";
 import { HeicToPdfWorkspace } from "@/components/HeicToPdfWorkspace";
 import { HeicToJpgWorkspace } from "@/components/HeicToJpgWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
+import { VideoToMp4Workspace } from "@/components/VideoToMp4Workspace";
+import { VideoCompressorWorkspace } from "@/components/VideoCompressorWorkspace";
 import { CropImageWorkspace } from "@/components/CropImageWorkspace";
 import { ConvertToPngWorkspace } from "@/components/ConvertToPngWorkspace";
 import { RotateImageWorkspace } from "@/components/RotateImageWorkspace";
@@ -293,6 +295,10 @@ export default async function ToolPage({
           <CropPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-image" ? (
           <CropImageWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-to-mp4" ? (
+          <VideoToMp4Workspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-compressor" ? (
+          <VideoCompressorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "resize-image" ? (
           <ResizeImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "convert-to-png" ? (
@@ -489,6 +495,7 @@ export default async function ToolPage({
             </p>
           </ToolPageDashboardSection>
         ) : null}
+
         </ToolPageInfoBlock>
         </ToolGlassProvider>
         </div>

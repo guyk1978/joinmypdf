@@ -488,7 +488,7 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
         </p>
       )}
 
-      {done ? <PostSuccessUpsell operation={tool.operation} /> : null}
+      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={files[0]} /> : null}
 
       <StickyMobileCta href="#tool-workspace" label={stickyLabel} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
