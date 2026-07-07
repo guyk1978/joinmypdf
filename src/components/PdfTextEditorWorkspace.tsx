@@ -310,7 +310,7 @@ export function PdfTextEditorWorkspace({ tool, slug }: { tool: ToolDefinition; s
   };
 
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell>
         {!file ? (
           <FileUploadZone

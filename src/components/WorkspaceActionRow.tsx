@@ -36,7 +36,7 @@ export function WorkspaceActionRow({
   save,
 }: WorkspaceActionRowProps) {
   return (
-    <div className="workspace-action-row flex flex-wrap gap-3">
+    <div className="workspace-action-row flex flex-wrap items-center gap-4">
       <button type="button" disabled={disabled} onClick={onPrimary} className={toolPrimaryBtn}>
         {busy && primaryBusyLabel ? primaryBusyLabel : primaryLabel}
       </button>

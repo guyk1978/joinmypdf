@@ -1,6 +1,10 @@
 const OUTPUT_BY_SLUG: Record<string, string> = {
   "video-to-mp4": "MP4",
   "video-compressor": "MP4",
+  "video-resizer": "MP4",
+  "video-rotator": "MP4",
+  "video-speed-controller": "MP4",
+  "video-to-gif": "GIF",
   "heic-to-jpg": "JPG",
   "convert-to-png": "PNG",
   "png-to-ico": "ICO",

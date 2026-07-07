@@ -7,7 +7,7 @@ import {
   Base64EncoderDecoder,
   type Base64EncoderDecoderLabels,
 } from "@/components/Base64EncoderDecoder";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 
 type Base64EncoderDecoderWorkspaceProps = {
@@ -40,8 +40,8 @@ export function Base64EncoderDecoderWorkspace({ tool, slug }: Base64EncoderDecod
   );
 
   return (
-    <ToolLayout pageClassName="base64-tool-page">
+    <UtilityWorkspaceShell pageClassName="base64-tool-page">
       <Base64EncoderDecoder labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

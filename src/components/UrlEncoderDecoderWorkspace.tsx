@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { UrlEncoderDecoder, type UrlEncoderDecoderLabels } from "@/components/UrlEncoderDecoder";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 
 type UrlEncoderDecoderWorkspaceProps = {
@@ -35,8 +35,8 @@ export function UrlEncoderDecoderWorkspace({ tool, slug }: UrlEncoderDecoderWork
   );
 
   return (
-    <ToolLayout pageClassName="url-codec-tool-page">
+    <UtilityWorkspaceShell pageClassName="url-codec-tool-page">
       <UrlEncoderDecoder labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

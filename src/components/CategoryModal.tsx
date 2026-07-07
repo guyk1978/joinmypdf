@@ -1,9 +1,9 @@
 "use client";
 
 import { clsx } from "clsx";
-import { X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useEffect, useId, useMemo } from "react";
+import { Fragment, useEffect, useId, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { createPortal } from "react-dom";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -22,45 +22,74 @@ type CategoryModalProps = {
   onNavigate?: () => void;
 };
 
-function CategoryColumns({
-  columns,
+type ToolBlockColumn = ReturnType<typeof buildCategoryNav>[number]["columns"][number];
+
+/** Number of "core" tools shown before the Show all / Show less toggle appears. */
+const DEFAULT_VISIBLE_TOOLS = 7;
+
+function ToolBlock({
+  column,
   pathname,
+  showAllLabel,
+  collapseLabel,
   onNavigate,
   onClose,
 }: {
-  columns: ReturnType<typeof buildCategoryNav>[number]["columns"];
+  column: ToolBlockColumn;
   pathname: string;
+  showAllLabel: string;
+  collapseLabel: string;
   onNavigate?: () => void;
   onClose: () => void;
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const hasOverflow = column.items.length > DEFAULT_VISIBLE_TOOLS;
+  const visibleItems =
+    expanded || !hasOverflow ? column.items : column.items.slice(0, DEFAULT_VISIBLE_TOOLS);
+
   return (
-    <div className="category-modal__columns">
-      {columns.map((column) => (
-        <div key={column.id} className="category-modal__column">
-          <p className="category-modal__column-title">{column.label}</p>
-          <ul className="category-modal__list">
-            {column.items.map((item) => (
-              <li key={item.slug}>
-                <Link
-                  href={item.href}
-                  className={clsx(
-                    "category-modal__link",
-                    isNavItemActive(pathname, item.href) && "is-active",
-                  )}
-                  prefetch={false}
-                  onClick={() => {
-                    onNavigate?.();
-                    onClose();
-                  }}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
+    <section className="category-modal__block">
+      <h4 className="category-modal__block-title">{column.label}</h4>
+      <ul className="category-modal__list">
+        {visibleItems.map((item) => (
+          <li key={item.slug}>
+            <Link
+              href={item.href}
+              className={clsx(
+                "category-modal__link",
+                isNavItemActive(pathname, item.href) && "is-active",
+              )}
+              prefetch={false}
+              onClick={() => {
+                onNavigate?.();
+                onClose();
+              }}
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      {hasOverflow ? (
+        <button
+          type="button"
+          className="category-modal__toggle"
+          aria-expanded={expanded}
+          onClick={() => setExpanded((value) => !value)}
+        >
+          <span>
+            {expanded ? collapseLabel : `${showAllLabel} (${column.items.length})`}
+          </span>
+          <ChevronDown
+            className={clsx(
+              "category-modal__toggle-icon",
+              expanded && "category-modal__toggle-icon--open",
+            )}
+            aria-hidden
+          />
+        </button>
+      ) : null}
+    </section>
   );
 }
 
@@ -77,6 +106,8 @@ export function CategoryModal({ open, activeCategory, onClose, onNavigate }: Cat
 
   const title = t(getCategoryTitleKey(activeCategory) as "nav.image");
   const isAllView = activeCategory === "all";
+  const showAllLabel = t("allTools.showAll");
+  const collapseLabel = t("allTools.collapse");
 
   useEffect(() => {
     if (!open) return;
@@ -140,39 +171,31 @@ export function CategoryModal({ open, activeCategory, onClose, onNavigate }: Cat
               </button>
             </div>
             <div className="category-modal__body">
-              {isAllView ? (
-                <div className="category-modal__categories">
-                  {groups.map((group) => (
-                    <section
-                      key={group.id}
-                      className="category-modal__category"
-                      aria-labelledby={`${titleId}-${group.id}`}
-                    >
-                      <h3 id={`${titleId}-${group.id}`} className="category-modal__category-title">
+              <div className="category-modal__grid">
+                {groups.map((group) => (
+                  <Fragment key={group.id}>
+                    {isAllView ? (
+                      <h3
+                        id={`${titleId}-${group.id}`}
+                        className="category-modal__group-band"
+                      >
                         {group.label}
                       </h3>
-                      <CategoryColumns
-                        columns={group.columns}
+                    ) : null}
+                    {group.columns.map((column) => (
+                      <ToolBlock
+                        key={`${group.id}-${column.id}`}
+                        column={column}
                         pathname={pathname}
+                        showAllLabel={showAllLabel}
+                        collapseLabel={collapseLabel}
                         onNavigate={onNavigate}
                         onClose={onClose}
                       />
-                    </section>
-                  ))}
-                </div>
-              ) : (
-                <div className="category-modal__single">
-                  {groups.flatMap((group) => (
-                    <CategoryColumns
-                      key={group.id}
-                      columns={group.columns}
-                      pathname={pathname}
-                      onNavigate={onNavigate}
-                      onClose={onClose}
-                    />
-                  ))}
-                </div>
-              )}
+                    ))}
+                  </Fragment>
+                ))}
+              </div>
             </div>
           </motion.div>
         </motion.div>

@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 import {
   ReadingTimeCalculator,
@@ -36,8 +36,8 @@ export function ReadingTimeCalculatorWorkspace({ tool, slug }: ReadingTimeCalcul
   );
 
   return (
-    <ToolLayout pageClassName="reading-time-tool-page">
+    <UtilityWorkspaceShell pageClassName="reading-time-tool-page">
       <ReadingTimeCalculator labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

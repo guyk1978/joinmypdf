@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { FooterToolsColumn } from "@/components/FooterToolsColumn";
 import { buildFooterToolsColumns } from "@/lib/tool-registry";
 
 export function FooterToolsPanel() {
@@ -48,18 +48,12 @@ export function FooterToolsPanel() {
             >
               <div className="footer-tools-panel__grid">
                 {columns.map((column) => (
-                  <div key={column.id} className="footer-tools-panel__column">
-                    <h3 className="footer-tools-panel__column-title">{column.label}</h3>
-                    <ul className="footer-tools-panel__list">
-                      {column.items.map((item) => (
-                        <li key={item.slug}>
-                          <Link href={item.href} className="footer-tools-panel__link" prefetch={false}>
-                            {item.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <FooterToolsColumn
+                    key={column.id}
+                    id={column.id}
+                    label={column.label}
+                    items={column.items}
+                  />
                 ))}
               </div>
             </motion.div>

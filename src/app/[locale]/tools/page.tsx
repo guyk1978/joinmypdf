@@ -112,6 +112,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
             viewAllHref="/"
             viewAllLabel={tHome("backToHome")}
             hideTitle
+            paginate
           >
             {renderToolCards(featuredItems)}
           </HomeFeaturedSection>
@@ -124,6 +125,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
               viewAllHref="/tools/"
               viewAllLabel={tPage("title")}
               className="home-minimal-section--image"
+              paginate
             >
               {renderToolCards(section.items)}
             </HomeFeaturedSection>

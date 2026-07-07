@@ -1,7 +1,7 @@
 import type { ToolPageTranslator } from "./i18n-tool-page";
 import type { ToolDefinition, ToolVariant } from "./types";
 
-const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "extract-images", "pdf-to-word", "pdf-to-excel", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "video-to-mp4", "video-compressor", "heic-to-jpg", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "markdown-to-pdf", "html-to-pdf", "invoice-generator", "data-converter-visualizer", "generate-favicon", "png-to-ico", "ico-to-png", "svg-to-favicon", "favicon-pack", "apple-touch-icon", "favicon-compressor", "favicon-cropper", "transparent-favicon", "favicon-code-generator", "favicon-previewer", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter", "json-to-csv", "json-minifier", "csv-to-json", "html-markdown-converter"] as const;
+const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "extract-images", "pdf-to-word", "pdf-to-excel", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "video-to-mp4", "video-compressor", "video-resizer", "video-rotator", "video-speed-controller", "video-to-gif", "heic-to-jpg", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "markdown-to-pdf", "html-to-pdf", "invoice-generator", "data-converter-visualizer", "generate-favicon", "png-to-ico", "ico-to-png", "svg-to-favicon", "favicon-pack", "apple-touch-icon", "favicon-compressor", "favicon-cropper", "transparent-favicon", "favicon-code-generator", "favicon-previewer", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter", "json-to-csv", "json-minifier", "csv-to-json", "html-markdown-converter"] as const;
 
 export type SeoToolSlug = (typeof SEO_TOOL_SLUGS)[number];
 
@@ -51,6 +51,10 @@ const SLUG_TO_OVERRIDE_KEY: Record<SeoToolSlug, string> = {
   "compress-image": "compressImage",
   "video-to-mp4": "videoToMp4",
   "video-compressor": "videoCompressor",
+  "video-resizer": "videoResizer",
+  "video-rotator": "videoRotator",
+  "video-speed-controller": "videoSpeedController",
+  "video-to-gif": "videoToGif",
   "heic-to-jpg": "heicToJpg",
   "jpg-to-pdf": "jpgToPdf",
   "png-to-pdf": "pngToPdf",

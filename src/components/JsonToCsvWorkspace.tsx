@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { JsonToCsv, type JsonToCsvLabels } from "@/components/JsonToCsv";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 
 type JsonToCsvWorkspaceProps = {
@@ -33,8 +33,8 @@ export function JsonToCsvWorkspace({ tool, slug }: JsonToCsvWorkspaceProps) {
   );
 
   return (
-    <ToolLayout pageClassName="json-to-csv-tool-page">
+    <UtilityWorkspaceShell pageClassName="json-to-csv-tool-page">
       <JsonToCsv labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

@@ -221,7 +221,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const hasImages = Boolean(images?.length);
 
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell>
             {!showWorkspace ? (
         <FileUploadZone

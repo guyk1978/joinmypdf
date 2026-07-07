@@ -1259,6 +1259,620 @@
           }
         }
       },
+      "videoResizer": {
+        "h1": "Video Resizer Online — Change Resolution",
+        "heroTagline": "Scale videos to 480p, 720p, or 1080p in your browser with ffmpeg.wasm—no upload.",
+        "introSectionTitle": "How to Change Video Resolution Locally",
+        "whySectionTitle": "Why Use JoinMyPDF Video Resizer?",
+        "whySectionSubheadline": "Downscale 4K to 1080p or 720p without sending files to a server.",
+        "schemaDescription": "Free browser video resizer. Change resolution to 480p, 720p, or 1080p with local ffmpeg.wasm processing.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Preset resolutions",
+            "body": "Pick 480p, 720p, or 1080p height—width scales automatically."
+          },
+          "quality": {
+            "title": "Audio stream copy",
+            "body": "Original audio is copied when possible for faster processing."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+          }
+        }
+      },
+      "videoRotator": {
+        "h1": "Rotate Video Online Free",
+        "heroTagline": "Fix sideways footage with 90°, 180°, or 270° rotation—100% local in your browser.",
+        "introSectionTitle": "How to Rotate Video in Your Browser",
+        "whySectionTitle": "Why Use JoinMyPDF Video Rotator?",
+        "whySectionSubheadline": "Correct phone orientation and upside-down clips without cloud upload.",
+        "schemaDescription": "Free browser video rotator. Rotate MP4, MOV, and WebM locally with ffmpeg.wasm transpose filters.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "One-click angles",
+            "body": "Toggle 90°, 180°, or 270° clockwise rotation before download."
+          },
+          "quality": {
+            "title": "Universal MP4 output",
+            "body": "Rotated videos download as MP4 for easy sharing."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+          }
+        }
+      },
+      "videoSpeedController": {
+        "h1": "Change Video Speed Online",
+        "heroTagline": "Speed up or slow down video from 0.5× to 2.0×—local ffmpeg.wasm, no upload.",
+        "introSectionTitle": "How to Adjust Video Speed Locally",
+        "whySectionTitle": "Why Use JoinMyPDF Video Speed Controller?",
+        "whySectionSubheadline": "Create timelapse or slow-motion clips in your browser.",
+        "schemaDescription": "Free browser video speed tool. Adjust playback from half speed to 2× with synced audio via atempo.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "0.5× to 2.0× range",
+            "body": "Fine-tune speed with a slider in 0.1× steps."
+          },
+          "quality": {
+            "title": "Synced audio",
+            "body": "setpts and atempo keep video and audio aligned."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+          }
+        }
+      },
+      "videoToGif": {
+        "h1": "Video to GIF Converter Online",
+        "heroTagline": "Turn short clips into shareable GIFs—local ffmpeg.wasm at 10 fps with Lanczos scaling.",
+        "introSectionTitle": "How to Convert Video to GIF Locally",
+        "whySectionTitle": "Why Use JoinMyPDF Video to GIF?",
+        "whySectionSubheadline": "Create reaction GIFs and UI demos without uploading to a server.",
+        "schemaDescription": "Free browser video to GIF converter. Export animated GIFs from MP4 and MOV with local processing.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Built-in preview",
+            "body": "Watch your clip before creating the GIF."
+          },
+          "quality": {
+            "title": "Optimized output",
+            "body": "10 fps and 480px width balance quality and file size."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+          }
+        }
+      },
+      "mp3Converter": {
+        "h1": "MP3 Converter Online",
+        "heroTagline": "Convert WAV, OGG, AAC, and M4A to MP3 in your browser—pick a bitrate and download without uploading.",
+        "introSectionTitle": "How to Convert Audio to MP3 Locally",
+        "whySectionTitle": "Why Use Our MP3 Converter?",
+        "whySectionSubheadline": "Convert audio to MP3 with ffmpeg.wasm—secure local-only processing, adjustable bitrate, and no server uploads.",
+        "schemaDescription": "Convert audio to MP3 online for free—WAV to MP3, OGG to MP3, AAC to MP3, and M4A to MP3 in your browser with ffmpeg.wasm. Secure local-only processing with no uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster",
+          "wavToMp3Label": "WAV to MP3"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Adjustable MP3 bitrate",
+            "body": "Choose 128–320 kbps before encoding so you balance file size and listening quality for podcasts, music, or voice memos."
+          },
+          "quality": {
+            "title": "Broad input format support",
+            "body": "Import WAV, OGG, AAC, or M4A and export a standard MP3 that plays everywhere—phones, car stereos, and editors."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "ffmpeg.wasm runs in a Web Worker on your device. Your audio never leaves the browser tab during conversion."
+          }
+        }
+      },
+      "audioCompressor": {
+        "h1": "Audio Compressor Online",
+        "heroTagline": "Reduce MP3 file size in your browser—pick 64–192 kbps, see estimated savings, and download without uploading.",
+        "introSectionTitle": "How to Compress Audio Files Locally",
+        "whySectionTitle": "Why Use Our Audio Compressor?",
+        "whySectionSubheadline": "Reduce your audio file size significantly without leaving your browser. Fast, secure, and private with ffmpeg.wasm.",
+        "schemaDescription": "Compress audio online for free—reduce MP3 file size with adjustable bitrate, local ffmpeg.wasm processing, and instant download. No server uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Target bitrate control",
+            "body": "Choose 64, 96, 128, or 192 kbps before compressing—lower bitrates save more space for voice; higher bitrates keep music clearer."
+          },
+          "quality": {
+            "title": "Size preview before you start",
+            "body": "Compare original size vs estimated new size so you know the trade-off before ffmpeg runs."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Compression runs in a Web Worker on your device. Your MP3 never leaves the browser tab."
+          }
+        }
+      },
+      "mp3Compressor": {
+        "h1": "MP3 Compressor Online",
+        "heroTagline": "Reduce your MP3 file size by adjusting the bitrate. Maintain control over quality and file size locally in your browser.",
+        "introSectionTitle": "How to Compress MP3 Files Locally",
+        "whySectionTitle": "Why Use Our MP3 Compressor?",
+        "whySectionSubheadline": "Pick a target bitrate from 96–320 kbps, preview estimated file size savings, and download a smaller MP3—all in-browser with ffmpeg.wasm.",
+        "schemaDescription": "Reduce your MP3 file size by adjusting the bitrate. Maintain control over quality and file size locally in your browser with ffmpeg.wasm.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "wavToMp3Label": "WAV to MP3"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Bitrate control (96–320 kbps)",
+            "body": "Choose 320 kbps for near-CD quality or step down to 96 kbps when file size matters more than fidelity."
+          },
+          "quality": {
+            "title": "Size estimate before encoding",
+            "body": "See original vs estimated output size so you know the trade-off before ffmpeg runs."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Compression runs in a Web Worker on your device. Your MP3 never leaves the browser tab."
+          }
+        }
+      },
+      "mp3MetadataEditor": {
+        "h1": "MP3 Metadata Editor (ID3) Online",
+        "heroTagline": "Edit your MP3 tags, including title, artist, album, and album art directly in your browser. Fast, secure, and 100% private.",
+        "introSectionTitle": "How to Edit MP3 ID3 Tags Locally",
+        "whySectionTitle": "Why Use Our MP3 Metadata Editor?",
+        "whySectionSubheadline": "Update ID3 text tags and embedded album art with ffmpeg.wasm stream copy—preview changes before download, all in-browser.",
+        "schemaDescription": "Edit MP3 ID3 metadata online—title, artist, album, year, and album art with local ffmpeg.wasm processing. No uploads, 100% private.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "mp3CompressorLabel": "MP3 Compressor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Stream-copy audio preservation",
+            "body": "ffmpeg writes metadata with -c copy so the audio stream is not re-encoded—only tags and cover art change."
+          },
+          "quality": {
+            "title": "Live tag preview",
+            "body": "See title, artist, album, year, and cover art update in the preview panel as you edit fields."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "ID3 editing runs in a Web Worker on your device. Your MP3 never leaves the browser tab."
+          }
+        }
+      },
+      "audioMerger": {
+        "h1": "Audio Merger Online",
+        "heroTagline": "Combine multiple MP3 files into one seamless audio track locally. Fast, secure, and 100% private.",
+        "introSectionTitle": "How to Merge MP3 Files Locally",
+        "whySectionTitle": "Why Use Our Audio Merger?",
+        "whySectionSubheadline": "Upload multiple MP3s, drag to reorder, and join them with ffmpeg concat demuxer stream copy—all in your browser.",
+        "schemaDescription": "Combine multiple MP3 files into one seamless audio track locally. Fast, secure, and 100% private with ffmpeg.wasm concat demuxer.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "mp3ConverterLabel": "MP3 Converter",
+          "mp3CompressorLabel": "MP3 Compressor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Concat demuxer with stream copy",
+            "body": "ffmpeg joins MP3s with -f concat and -c copy so audio is not re-encoded—fast, seamless merging."
+          },
+          "quality": {
+            "title": "Drag-to-reorder playlist",
+            "body": "Arrange tracks in the exact playback order before you merge—podcast parts, chapters, or album sides."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Merging runs in a Web Worker on your device. Your MP3 files never leave the browser tab."
+          }
+        }
+      },
+      "voiceRemover": {
+        "h1": "Voice Remover (Instrumental Maker) Online",
+        "heroTagline": "Isolate instrumentals by removing vocals from your audio tracks locally. 100% private, no server processing.",
+        "introSectionTitle": "How to Remove Vocals Locally",
+        "whySectionTitle": "Why Use Our Voice Remover?",
+        "whySectionSubheadline": "Estimate instrumentals with ffmpeg center-channel phase cancellation—preview before download, all in your browser.",
+        "schemaDescription": "Isolate instrumentals by removing vocals from your audio tracks locally. 100% private phase-cancellation processing with ffmpeg.wasm.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "mp3CompressorLabel": "MP3 Compressor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Center-channel phase cancellation",
+            "body": "ffmpeg applies pan=stereo|c0=c0-c1|c1=c1-c0 to attenuate center-panned vocals—no server-side stem models required."
+          },
+          "quality": {
+            "title": "Honest estimation disclaimer",
+            "body": "We explain upfront that results vary with the mix. Compare original vs instrumental previews before you share."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Vocal removal runs in a Web Worker on your device. Your audio never leaves the browser tab."
+          }
+        }
+      },
+      "mp3SpeedChanger": {
+        "h1": "MP3 Speed Changer Online",
+        "heroTagline": "Change the playback speed of your MP3 files without altering the pitch. Perfect for podcasts and audiobooks. 100% private and local.",
+        "introSectionTitle": "How to Change MP3 Speed Locally",
+        "whySectionTitle": "Why Use Our MP3 Speed Changer?",
+        "whySectionSubheadline": "Adjust playback from 0.5× to 2.0× with ffmpeg atempo—pitch stays the same, processing stays in your browser.",
+        "schemaDescription": "Change MP3 playback speed without altering pitch. Local ffmpeg.wasm atempo processing for podcasts and audiobooks—100% private.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster",
+          "mp3CompressorLabel": "MP3 Compressor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Pitch-preserving atempo",
+            "body": "ffmpeg atempo changes tempo without the chipmunk effect of simple resampling—ideal for faster podcasts or slower study playback."
+          },
+          "quality": {
+            "title": "0.5× to 2.0× slider",
+            "body": "Pick any speed in the supported atempo range with live labels before you process and download."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Speed changes run in a Web Worker on your device. Your MP3 never leaves the browser tab."
+          }
+        }
+      },
+      "fadeInOutCreator": {
+        "h1": "Fade In/Out Creator Online",
+        "heroTagline": "Add professional fade-in and fade-out effects to your audio files locally. Fast, secure, and 100% private.",
+        "introSectionTitle": "How to Add Audio Fades Locally",
+        "whySectionTitle": "Why Use Our Fade In/Out Creator?",
+        "whySectionSubheadline": "Set fade-in and fade-out durations in seconds—ffmpeg afade aligns the tail fade to your track length automatically.",
+        "schemaDescription": "Add professional fade-in and fade-out effects to MP3 audio locally with ffmpeg.wasm afade—100% private, no server processing.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "audioMergerLabel": "Audio Merger",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Precise afade control",
+            "body": "Set fade-in from the start and fade-out from the end—ffmpeg calculates fade-out start time from track duration."
+          },
+          "quality": {
+            "title": "Duration validation built in",
+            "body": "The tool blocks fades longer than your file and shows when the fade-out will begin before you process."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Fade rendering runs in a Web Worker on your device. Your MP3 never leaves the browser tab."
+          }
+        }
+      },
+      "audioNormalizer": {
+        "h1": "Audio Normalizer Online",
+        "heroTagline": "Unify the volume levels of your MP3 files effortlessly. Perfect for creating consistent-sounding playlists. 100% private and local processing.",
+        "introSectionTitle": "How to Normalize MP3 Volume Locally",
+        "whySectionTitle": "Why Use Our Audio Normalizer?",
+        "whySectionSubheadline": "Batch-normalize MP3 tracks with ffmpeg loudnorm so every song plays at a similar perceived loudness—ideal for playlists and podcast archives.",
+        "schemaDescription": "Normalize MP3 volume levels locally with ffmpeg.wasm loudnorm—batch processing, ZIP download, 100% private, no server uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster",
+          "audioMergerLabel": "Audio Merger",
+          "mp3CompressorLabel": "MP3 Compressor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "EBU R128 loudnorm targets",
+            "body": "Each track is processed with loudnorm=I=-16:TP=-1.5:LRA=11—the same professional loudness profile used across streaming platforms."
+          },
+          "quality": {
+            "title": "Batch with per-file status",
+            "body": "Upload multiple MP3s, normalize one-by-one with clear progress, and download everything as a ZIP when finished."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Normalization runs in a Web Worker on your device. Your music never leaves the browser tab."
+          }
+        }
+      },
+      "wavToMp3": {
+        "h1": "WAV to MP3 Converter Online",
+        "heroTagline": "Turn lossless WAV into compact MP3 instantly — best VBR quality with -q:a 0, no uploads.",
+        "introSectionTitle": "How to Convert WAV to MP3 Locally",
+        "whySectionTitle": "Why Use Our WAV to MP3 Converter?",
+        "whySectionSubheadline": "Turn lossless WAV into compact MP3 instantly. No server uploads, 100% private and local with ffmpeg.wasm.",
+        "schemaDescription": "Convert WAV to MP3 online for free — lossless WAV to compact MP3, highest VBR quality, local ffmpeg.wasm processing. No server uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "audioCompressorLabel": "Audio Compressor",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "mp3ToWavLabel": "MP3 to WAV"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Best VBR MP3 quality",
+            "body": "ffmpeg uses -q:a 0 for libmp3lame’s highest variable bitrate setting — strong quality from your WAV source."
+          },
+          "quality": {
+            "title": "Much smaller than WAV",
+            "body": "MP3 shrinks lossless masters for sharing, streaming, and mobile playback without desktop software."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Conversion runs in a Web Worker on your device. Your WAV never leaves the browser tab."
+          }
+        }
+      },
+      "oggConverter": {
+        "h1": "OGG Converter Online",
+        "heroTagline": "Convert OGG Vorbis and Opus to MP3 in your browser — high-quality VBR with -q:a 2, no uploads.",
+        "introSectionTitle": "How to Convert OGG to MP3 Locally",
+        "whySectionTitle": "Why Use Our OGG Converter?",
+        "whySectionSubheadline": "Convert OGG Vorbis and Opus files to MP3 locally in your browser. No uploads, no server processing, 100% private.",
+        "schemaDescription": "Convert OGG to MP3 online for free — OGG Vorbis and Opus to MP3, high-quality local ffmpeg.wasm processing. No server uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "audioCompressorLabel": "Audio Compressor",
+          "wavToMp3Label": "WAV to MP3"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Vorbis and Opus support",
+            "body": "ffmpeg decodes common OGG containers—including Opus tracks—and exports widely compatible MP3."
+          },
+          "quality": {
+            "title": "High-quality VBR MP3",
+            "body": "Uses libmp3lame -q:a 2 for strong quality while keeping files practical for sharing and playback."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Conversion runs in a Web Worker on your device. Your OGG file never leaves the browser tab."
+          }
+        }
+      },
+      "flacConverter": {
+        "h1": "FLAC Converter Online",
+        "heroTagline": "Transcode your lossless FLAC files to MP3, WAV, or other formats locally. High-quality output, 100% private and secure.",
+        "introSectionTitle": "How to Convert FLAC Locally",
+        "whySectionTitle": "Why Use Our FLAC Converter?",
+        "whySectionSubheadline": "Transcode lossless FLAC to MP3, WAV, or AAC in your browser—high-quality ffmpeg.wasm output with no server uploads.",
+        "schemaDescription": "Convert FLAC to MP3, WAV, or AAC online for free — local ffmpeg.wasm transcoding, FLAC integrity checks, 100% private processing.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "wavToMp3Label": "WAV to MP3",
+          "oggConverterLabel": "OGG Converter"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "FLAC header validation",
+            "body": "The tool checks the fLaC magic bytes before transcoding so corrupted or mislabeled files fail fast with a clear message."
+          },
+          "quality": {
+            "title": "High-quality output presets",
+            "body": "MP3 uses -q:a 0 VBR, WAV exports lossless PCM, and AAC uses 256 kbps in an M4A container."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Transcoding runs in a Web Worker on your device. Your FLAC masters never leave the browser tab."
+          }
+        }
+      },
+      "m4aConverter": {
+        "h1": "M4A Converter Online",
+        "heroTagline": "Convert your M4A and AAC audio tracks to MP3 or WAV quickly and securely. 100% local browser-based processing.",
+        "introSectionTitle": "How to Convert M4A Locally",
+        "whySectionTitle": "Why Use Our M4A Converter?",
+        "whySectionSubheadline": "Turn Apple M4A and AAC tracks into MP3 or WAV in your browser—high-quality ffmpeg.wasm output with no server uploads.",
+        "schemaDescription": "Convert M4A to MP3 or WAV online for free — local ffmpeg.wasm conversion, container validation, 100% private processing.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "audioCompressorLabel": "Audio Compressor",
+          "oggConverterLabel": "OGG Converter"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "M4A and AAC container checks",
+            "body": "The tool validates MP4 ftyp or ADTS headers before converting so corrupted or mislabeled files fail fast with a clear message."
+          },
+          "quality": {
+            "title": "High-quality MP3 or lossless WAV",
+            "body": "MP3 uses -q:a 0 VBR for strong listening quality. WAV exports uncompressed PCM for editing in a DAW."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Conversion runs in a Web Worker on your device. Your M4A tracks never leave the browser tab."
+          }
+        }
+      },
+      "mp4ToMp3": {
+        "h1": "MP4 to MP3 Converter Online",
+        "heroTagline": "Extract audio from MP4 videos as high-quality MP3 locally. Strip the video track and download audio — 100% private browser processing.",
+        "introSectionTitle": "How to Extract MP3 from MP4 Locally",
+        "whySectionTitle": "Why Use Our MP4 to MP3 Converter?",
+        "whySectionSubheadline": "Pull the audio track from MP4 videos in your browser—ffmpeg.wasm uses -vn and libmp3lame with no server uploads.",
+        "schemaDescription": "Convert MP4 to MP3 online for free — extract audio from video locally with ffmpeg.wasm, high VBR quality, 100% private processing.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "mp3CompressorLabel": "MP3 Compressor",
+          "mp3ConverterLabel": "MP3 Converter"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "MP4 container validation",
+            "body": "The tool checks the ftyp header before extracting so corrupted or mislabeled uploads fail fast with a clear message."
+          },
+          "quality": {
+            "title": "High-quality MP3 output",
+            "body": "Audio is encoded with libmp3lame -q:a 2 for strong VBR quality—ideal for podcasts, music, and voice clips ripped from video."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Extraction runs in a Web Worker on your device. Your MP4 never leaves the browser tab."
+          }
+        }
+      },
+      "mp3ToMp4": {
+        "h1": "MP3 to MP4 Converter Online",
+        "heroTagline": "Turn an MP3 and cover image into a shareable MP4 video for YouTube and social media. 100% local and private ffmpeg.wasm processing.",
+        "introSectionTitle": "How to Create MP4 from MP3 Locally",
+        "whySectionTitle": "Why Use Our MP3 to MP4 Converter?",
+        "whySectionSubheadline": "Combine a static cover image with your MP3 to export an H.264 MP4—perfect for uploading audio to video platforms.",
+        "schemaDescription": "Create MP4 from MP3 and image online for free — local ffmpeg.wasm still-image video, AAC audio, 100% private processing.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3MetadataEditorLabel": "MP3 Metadata Editor",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster",
+          "mp3TrimmerLabel": "MP3 Trimmer"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Still-image H.264 encode",
+            "body": "ffmpeg loops your cover art with -tune stillimage and libx264 so platforms get a proper video file, not just audio."
+          },
+          "quality": {
+            "title": "AAC audio at 192 kbps",
+            "body": "The MP3 track is re-encoded to AAC for broad MP4 compatibility while keeping strong listening quality."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Video creation runs in a Web Worker on your device. Your MP3 and image never leave the browser tab."
+          }
+        }
+      },
+      "mp3Trimmer": {
+        "h1": "MP3 Trimmer Online",
+        "heroTagline": "Cut precise start and end points from MP3 files—preview in the browser, then download the trimmed clip locally.",
+        "introSectionTitle": "How to Trim MP3 Files in Your Browser",
+        "whySectionTitle": "Why Use Our MP3 Trimmer?",
+        "whySectionSubheadline": "Trim MP3 audio with ffmpeg.wasm—set mm:ss start and end times, preview before export, and keep files on your device.",
+        "schemaDescription": "Trim MP3 online for free—cut audio clips, remove intros or outros, and download trimmed MP3 files with local ffmpeg.wasm processing. No uploads required.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster",
+          "wavToMp3Label": "WAV to MP3"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Stream-copy trimming when possible",
+            "body": "ffmpeg uses -c copy for fast cuts without re-encoding when your trim points align with frame boundaries."
+          },
+          "quality": {
+            "title": "Built-in audio preview",
+            "body": "Scrub the timeline to find exact start and end points before you trim—enter times as mm:ss for clarity."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Trimming runs entirely in your browser session. Sensitive recordings and voice notes stay on your device."
+          }
+        }
+      },
+      "mp3ToWav": {
+        "h1": "MP3 to WAV Converter Online",
+        "heroTagline": "Decode MP3 to uncompressed WAV in your browser — lossless PCM export with ffmpeg.wasm, no uploads.",
+        "introSectionTitle": "How to Convert MP3 to WAV Locally",
+        "whySectionTitle": "Why Use Our MP3 to WAV Converter?",
+        "whySectionSubheadline": "Export MP3 sources to WAV with ffmpeg.wasm — secure local-only decoding for editing, mastering, and archival workflows.",
+        "schemaDescription": "Convert MP3 to WAV online for free — decode MP3 to uncompressed WAV, local ffmpeg.wasm processing, and instant download with no server uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "wavToMp3Label": "WAV to MP3"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Uncompressed PCM output",
+            "body": "WAV stores decoded audio samples — ideal for DAWs, editors, and workflows that need a lossless working copy."
+          },
+          "quality": {
+            "title": "No generation loss beyond MP3 source",
+            "body": "ffmpeg decodes your MP3 to PCM WAV without re-encoding to another lossy format — the WAV reflects your MP3 source faithfully."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Decoding runs in a Web Worker on your device. Your MP3 never leaves the browser tab."
+          }
+        }
+      },
+      "mp3VolumeBooster": {
+        "h1": "MP3 Volume Booster Online",
+        "heroTagline": "Boost your MP3 volume to professional levels without quality loss. All processing is 100% local and private.",
+        "introSectionTitle": "How to Boost MP3 Volume in Your Browser",
+        "whySectionTitle": "Why Use Our MP3 Volume Booster?",
+        "whySectionSubheadline": "Normalize quiet MP3 tracks with loudnorm, optionally add gain up to 3×, preview before download—all in-browser.",
+        "schemaDescription": "Boost your MP3 volume to professional levels without quality loss. All processing is 100% local and private with ffmpeg.wasm loudnorm.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3ConverterLabel": "MP3 Converter",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "audioCompressorLabel": "Audio Compressor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "EBU R128 loudnorm baseline",
+            "body": "ffmpeg loudnorm evens perceived loudness before optional gain—helpful when tracks from different sources vary in volume."
+          },
+          "quality": {
+            "title": "Side-by-side preview",
+            "body": "Listen to the original and boosted versions before downloading so you can pick a level that sounds right."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Volume processing stays in a Web Worker on your device—no server upload, no account required."
+          }
+        }
+      },
+      "audioGeneric": {
+        "h1": "{toolName}",
+        "heroTagline": "Process audio locally in your browser with ffmpeg.wasm—no uploads required.",
+        "introSectionTitle": "How to Use {toolName}",
+        "whySectionTitle": "Why choose local audio processing?",
+        "whySectionSubheadline": "Secure local-only audio tools powered by ffmpeg.wasm in your browser.",
+        "schemaDescription": "Free browser-based audio tools with local ffmpeg.wasm processing—no uploads, no account, and instant download.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "ffmpeg.wasm in a Web Worker",
+            "body": "Heavy encoding runs off the main thread so the page stays responsive while your file processes."
+          },
+          "quality": {
+            "title": "Standard output formats",
+            "body": "Export MP3 and other common formats compatible with phones, editors, and sharing apps."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Your audio files are processed in the browser session on your device—not on JoinMyPDF servers."
+          }
+        }
+      },
       "cropImage": {
         "h1": "Crop Image Online (Free & Fast)",
         "heroTagline": "Drag a crop frame, pick an aspect ratio, and download a crisp PNG—instantly in your browser.",
@@ -2539,7 +3153,144 @@
         },
         "dataConverterVisualizer": {
           "p1": "All-in-one data transformation with secure local-only file handling and real-time sortable grid preview—clean and convert data without server uploads in your browser. No uploads, no account, and no desktop software required."
+        },
+        "mp3Converter": {
+          "p1": "Convert audio to MP3 online—upload WAV, OGG, AAC, or M4A, choose a bitrate from 128 to 320 kbps, and download a standard MP3 file. ffmpeg.wasm runs locally in your browser with no uploads and no account required.",
+          "p3": "Open the tool, drop your source file or browse from your device, pick an MP3 bitrate that matches your use case (128 kbps for voice, 256–320 kbps for music), then click Convert to MP3. When processing finishes, download the result and play it in any media app.",
+          "p4": "Helpful search phrases include WAV to MP3, OGG to MP3, AAC to MP3, and M4A to MP3. You do not need exact wording—follow the upload area, wait for the status line to show success, then download.",
+          "p5": "Typical situations include converting voice memos for podcasts, shrinking WAV exports for email, and creating MP3 versions of tracks for phones or car stereos.",
+          "p6": "If conversion fails, try a shorter clip first, close heavy browser tabs, or export again from your audio editor. Very large files can hit browser memory limits—trim first or convert in smaller segments."
+        },
+        "audioCompressor": {
+          "p1": "Compress audio online—upload an MP3, choose a target bitrate (64–192 kbps), and download a smaller file encoded locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your MP3, review original vs estimated size, pick a bitrate that matches your use case (64 kbps for voice memos, 128–192 kbps for music), then click Compress audio.",
+          "p4": "Common searches include compress MP3, reduce audio file size, and shrink MP3 for email attachments.",
+          "p5": "Typical situations include shrinking podcast episodes for upload limits, reducing voice memo size for messaging apps, and preparing lighter MP3s for mobile playback.",
+          "p6": "If the output is not smaller than the original, your source may already use a similar or lower bitrate—try a lower target or trim silence first with the MP3 Trimmer."
+        },
+        "mp3Compressor": {
+          "p1": "Compress MP3 online—upload an MP3, choose a target bitrate from 96–320 kbps, and download a smaller file encoded locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your MP3, review the file size reduction estimate, pick a bitrate that matches your use case (128 kbps for balanced quality, 96 kbps for voice), then click Compress & Download.",
+          "p4": "Common searches include compress MP3, reduce MP3 file size, and shrink MP3 for email attachments.",
+          "p5": "Typical situations include shrinking podcast episodes for upload limits, reducing music file size for messaging apps, and preparing lighter MP3s for mobile playback.",
+          "p6": "If the output is not smaller than the original, your source may already use a similar or lower bitrate—try a lower target or trim silence first with the MP3 Trimmer."
+        },
+        "mp3MetadataEditor": {
+          "p1": "Edit MP3 metadata online—upload an MP3, update ID3 tags (title, artist, album, year), add or replace album art, and download locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your MP3, edit the tag fields or attach a cover image, review the live preview panel, then click Save Metadata & Download. Files without existing tags start with empty fields you can fill in.",
+          "p4": "Common searches include edit MP3 tags, change ID3 metadata, add album art to MP3, and update MP3 artist title.",
+          "p5": "Typical situations include fixing mislabeled downloads, adding cover art to podcast episodes, and organizing music libraries before sharing.",
+          "p6": "If saving fails, confirm the MP3 is not corrupted, use JPG/PNG/WebP for cover art, and try a shorter file if browser memory is low."
+        },
+        "audioMerger": {
+          "p1": "Merge MP3 files online—upload two or more tracks, drag to reorder, and download one combined MP3 encoded locally with ffmpeg.wasm concat demuxer. No uploads, no account, and no desktop software required.",
+          "p3": "Drop multiple MP3s into the upload area, arrange them with the grip handles, then click Merge & Download. The merged file plays tracks back-to-back in the order shown.",
+          "p4": "Common searches include merge MP3 files, combine audio tracks, join MP3 podcast parts, and concatenate MP3 locally.",
+          "p5": "Typical situations include joining podcast segments, combining lecture recordings, stitching audiobook chapters, and building one playlist file from separate downloads.",
+          "p6": "If merging fails, confirm every file is a valid MP3 with matching codec settings, try fewer files at once, or close other tabs if memory is low."
+        },
+        "voiceRemover": {
+          "p1": "Remove vocals online—upload a stereo MP3, WAV, or M4A track and download an instrumental estimate processed locally with ffmpeg.wasm phase cancellation. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your track, read the estimation disclaimer, click Process & Remove Vocals, and wait for the progress bar. Compare original vs instrumental previews before sharing—the result depends on how vocals were mixed.",
+          "p4": "Common searches include remove vocals from song, make instrumental MP3, karaoke maker online, and isolate instrumentals locally.",
+          "p5": "Typical situations include creating rough karaoke backing tracks, previewing instrumentals for remix ideas, and experimenting with podcast or song stems when a full DAW is not available.",
+          "p6": "If processing fails, try a shorter stereo clip with center-panned vocals, close other browser tabs, or use a different export from your source. This tool estimates instrumentals—it is not AI stem separation."
+        },
+        "mp3SpeedChanger": {
+          "p1": "Change MP3 speed online—upload an MP3, pick a playback factor from 0.5× to 2.0×, and download a pitch-preserving version processed locally with ffmpeg.wasm atempo. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your MP3, move the speed slider to your target rate, then click Change Speed & Download. Compare original vs adjusted previews—1.0× is normal speed.",
+          "p4": "Common searches include speed up MP3, slow down podcast MP3, change audiobook playback speed, and atempo MP3 online.",
+          "p5": "Typical situations include speeding through podcast intros, slowing dense lectures for study, and fitting long voice memos into tighter deadlines.",
+          "p6": "If processing fails, confirm the speed is between 0.5× and 2.0×, try a shorter clip, or close other browser tabs if memory is low."
+        },
+        "fadeInOutCreator": {
+          "p1": "Add audio fades online—upload an MP3, set fade-in and fade-out durations in seconds, and download a polished track processed locally with ffmpeg.wasm afade. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your MP3, enter fade durations (defaults are 2 seconds each), confirm the fade-out start preview, then click Apply & Download.",
+          "p4": "Common searches include MP3 fade in fade out, audio fade effect online, podcast intro fade, and smooth audio ending.",
+          "p5": "Typical situations include softening podcast intros, preventing abrupt song endings, and preparing voice clips for video or presentation beds.",
+          "p6": "If fades fail validation, shorten fade durations so they fit inside the track length, or trim the file first with the MP3 Trimmer."
+        },
+        "audioNormalizer": {
+          "p1": "Normalize MP3 volume online—upload one or many MP3 files and download tracks balanced to a consistent perceived loudness with ffmpeg.wasm loudnorm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your MP3s, review the batch list, then click Normalize & Download All. Each file is processed sequentially with per-file status; successful outputs download as a single MP3 or ZIP.",
+          "p4": "Common searches include normalize MP3 volume, balance playlist loudness, even out song volume, and batch audio normalization online.",
+          "p5": "Typical situations include fixing volume jumps in playlists, preparing podcast episode archives, and matching levels across tracks from different recording sessions.",
+          "p6": "If one file fails, others still process. Re-export corrupted sources, try shorter clips, or close other browser tabs if memory is low on very large batches."
+        },
+        "wavToMp3": {
+          "p1": "Convert WAV to MP3 online—upload a lossless WAV and download a compact MP3 encoded locally with ffmpeg.wasm at highest VBR quality (-q:a 0). No uploads, no account, and no desktop software required.",
+          "p3": "Upload your WAV file, click Convert & Download, and wait for the progress bar to finish. When processing completes, save the MP3 to your device.",
+          "p4": "Common searches include WAV to MP3, convert WAV to MP3 free, and shrink WAV for email or messaging.",
+          "p5": "Typical situations include sharing studio exports, reducing podcast master file size, and creating portable MP3s from lossless recordings.",
+          "p6": "WAV files are large—if conversion fails, try a shorter clip, close other browser tabs, or split the recording before converting."
+        },
+        "oggConverter": {
+          "p1": "Convert OGG to MP3 online—upload OGG Vorbis or Opus audio and download MP3 encoded locally with ffmpeg.wasm at high VBR quality (-q:a 2). No uploads, no account, and no desktop software required.",
+          "p3": "Upload your OGG or Opus file, click Convert & Download, and wait for the progress bar to finish. Save the MP3 when processing completes.",
+          "p4": "Common searches include OGG to MP3, convert Opus to MP3, and OGG Vorbis to MP3 free.",
+          "p5": "Typical situations include playing game or app audio on devices that prefer MP3, sharing voice clips, and archiving web-exported OGG tracks.",
+          "p6": "If conversion fails, confirm the file is a valid OGG/Opus container. Corrupted downloads may need to be re-exported from the source app."
+        },
+        "flacConverter": {
+          "p1": "Convert FLAC online—upload a lossless FLAC file and transcode to MP3, WAV, or AAC locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your FLAC, choose an output format from the dropdown, then click Convert & Download. Watch the progress bar while ffmpeg transcodes in a Web Worker.",
+          "p4": "Common searches include FLAC to MP3, convert FLAC to WAV, FLAC to AAC, and lossless to MP3 online.",
+          "p5": "Typical situations include shrinking archival FLAC for phones, exporting WAV for DAW editing, and creating AAC/M4A copies for Apple devices.",
+          "p6": "If validation fails, confirm the file is a real FLAC (fLaC header). For AAC errors, try MP3 or WAV—some browser FFmpeg builds lack AAC encoding."
+        },
+        "m4aConverter": {
+          "p1": "Convert M4A online—upload an M4A or AAC track and export MP3 or WAV locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your M4A/AAC file, choose MP3 or WAV from the dropdown, then click Convert & Download. Watch the progress bar while ffmpeg converts in a Web Worker.",
+          "p4": "Common searches include M4A to MP3, convert AAC to WAV, Apple Music to MP3, and M4A converter online free.",
+          "p5": "Typical situations include playing iTunes or Voice Memo exports on devices that prefer MP3, editing AAC in a DAW as WAV, and sharing podcasts recorded as M4A.",
+          "p6": "If conversion fails with a codec error, the track may use an unsupported profile or DRM. Re-export as standard AAC/M4A from the source app and try again."
+        },
+        "mp4ToMp3": {
+          "p1": "Extract MP3 from MP4 online—upload a video and download the audio track as MP3 encoded locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your MP4, click Convert & Download MP3, and watch the progress bar while ffmpeg strips the video track and encodes audio in a Web Worker.",
+          "p4": "Common searches include MP4 to MP3, extract audio from video, rip audio from MP4, and video to MP3 converter online free.",
+          "p5": "Typical situations include saving podcast video as audio, ripping talk tracks from screen recordings, and creating MP3 ringtones from video clips.",
+          "p6": "If extraction fails, confirm the MP4 has an audio stream and is not DRM-protected. Re-export from your editor with AAC audio and try a shorter clip if memory is low."
+        },
+        "mp3ToMp4": {
+          "p1": "Create MP4 from MP3 online—upload a cover image and MP3 track to generate a shareable video locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload a JPG/PNG/WebP cover and your MP3, then click Create Video & Download. ffmpeg loops the still image over your audio with H.264 + AAC.",
+          "p4": "Common searches include MP3 to MP4, add image to audio for YouTube, create video from MP3, and audio to video converter online.",
+          "p5": "Typical situations include uploading podcast episodes to YouTube, sharing music on Instagram with cover art, and posting audio lectures as video.",
+          "p6": "If video creation fails, try a smaller image, a shorter MP3, or Chrome/Edge on desktop. Some browser FFmpeg builds lack libx264 encoding."
+        },
+        "mp3Trimmer": {
+          "p1": "Trim MP3 files online—upload an MP3, preview it in the built-in player, set start and end times in mm:ss format, and download the trimmed clip. ffmpeg.wasm cuts locally in your browser with no uploads.",
+          "p3": "Upload your MP3, scrub the preview timeline to find your cut points, then enter start and end times (for example 00:30 and 02:15). Click Trim & Download when the range looks right. The tool exports only the selected segment.",
+          "p4": "People often search for cut MP3, trim audio clip, remove intro from MP3, or shorten podcast episode. The mm:ss fields accept minutes and seconds separated by a colon.",
+          "p5": "Typical situations include removing silence at the start of a recording, extracting a quote from an interview, and shortening ringtones or notification sounds.",
+          "p6": "If trimming fails, confirm the end time is after the start time and both fall within the track duration. Very long files may need more memory—try closing other tabs or trimming a smaller section first."
+        },
+        "mp3ToWav": {
+          "p1": "Convert MP3 to WAV online—upload an MP3 and download an uncompressed WAV file decoded locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Upload your MP3, click Convert to WAV, and wait for the progress bar to finish. When processing completes, download the WAV and open it in your editor or DAW.",
+          "p4": "Common searches include MP3 to WAV, decode MP3 to WAV, and export MP3 as WAV for editing.",
+          "p5": "Typical situations include preparing tracks for audio editing, creating lossless working copies from MP3 sources, and exporting samples for video or game projects.",
+          "p6": "WAV files are much larger than MP3. If download or processing fails, try a shorter clip or close other browser tabs to free memory."
+        },
+        "mp3VolumeBooster": {
+          "p1": "Boost MP3 volume online—upload a quiet track, adjust the boost slider from 1× to 3×, preview original vs boosted audio, and download the louder version. loudnorm and gain run locally with ffmpeg.wasm.",
+          "p3": "Upload an MP3, listen to the original preview, move the boost slider to your target level, then click Boost & Download. Compare the boosted preview before saving so you avoid clipping or over-compression artifacts.",
+          "p4": "Related searches include normalize MP3 volume, make quiet MP3 louder, balance podcast levels, and fix low-volume recordings.",
+          "p5": "Typical situations include evening out podcast episodes recorded at different levels, boosting quiet voice memos, and preparing tracks for playlists where volume jumps are distracting.",
+          "p6": "If output sounds distorted, lower the boost slider and try again. Extremely quiet source files may need normalization in a DAW for best results—this tool targets quick fixes in the browser."
+        },
+        "audioGeneric": {
+          "p1": "{toolName} runs locally in your browser with ffmpeg.wasm—{toolTitle}. No uploads, no account, and no desktop software required."
         }
+      },
+      "audio": {
+        "defaultP1": "{toolName} processes audio locally in your browser—{toolTitle}. No uploads and no account required.",
+        "p2": "Privacy is built in: ffmpeg.wasm loads in a Web Worker and your audio stays in the browser session on your device. That model is easier to trust for voice memos, interviews, and unreleased tracks.",
+        "p3": "Upload your file, adjust the on-page controls, and download when the status shows success. Related audio tools are linked below if you need to convert, trim, or boost next.",
+        "p4": "Follow the on-page checklist, use previews where available, and confirm the output sounds right before you share or archive the file.",
+        "p5": "If you are new to browser-based audio tools, start with a short test clip, verify the result, then process your full recording.",
+        "p6": "If something fails, it is usually a browser memory limit on very large files, an unsupported codec, or a corrupted source. Try a smaller file, refresh the page to reload ffmpeg.wasm, or re-export from your audio app."
       },
       "p2": "Privacy is a product decision here: your files are handled in the browser session on your device rather than uploaded to JoinMyPDF servers for processing. That model reduces transfer time for many jobs and is easier to reason about when documents are sensitive.",
       "variantP3": "Because you landed on a page tuned for \"{keyword}\", we emphasize {angle} If you ever want the generic experience, you can always switch to the main {toolTitle} page from the navigation.",
@@ -2549,6 +3300,360 @@
       "p5WithCases": "Typical situations include {useCases}.",
       "p5Default": "If you are new to browser-based PDF tools, start with a small test file, verify the output, then run your real documents.",
       "p6": "If something fails, it is usually a browser memory limit on very large files, a mixed set of inputs, or a protected PDF. Try fewer pages per run, export from the original authoring app again, or split the document before converting."
+    },
+    "audioFaqs": {
+      "freeQ": "Is {toolTitle} free for typical use?",
+      "freeA": "Yes. JoinMyPDF does not charge for standard in-browser audio processing with ffmpeg.wasm.",
+      "uploadQ": "Do my audio files get uploaded to JoinMyPDF servers?",
+      "uploadA": "No. These audio tools process files in your browser session with ffmpeg.wasm. Your tracks are not sent to our servers for conversion, trimming, or boosting.",
+      "watermarkQ": "Do you add a watermark to exported audio?",
+      "watermarkA": "No. Downloads are plain audio files without JoinMyPDF branding or embedded watermarks.",
+      "mobileQ": "Can I use this on a phone or tablet?",
+      "mobileA": "Yes on modern mobile browsers, though large files and first-time ffmpeg.wasm loading work best on desktop with more memory.",
+      "limitsQ": "Are there file size limits for {toolTitle}?",
+      "limitsA": "Very large audio files can hit browser memory limits. If a job fails, try a shorter clip, close other tabs, or split the recording before processing.",
+      "browserQ": "Which browsers work best with {toolTitle}?",
+      "browserA": "Recent Chrome, Edge, and Firefox on desktop are recommended. Safari works for many jobs; keep your browser updated for WebAssembly performance.",
+      "offlineQ": "Does {toolTitle} work offline?",
+      "offlineA": "After the page and ffmpeg.wasm load once, many jobs keep working without a network connection because processing stays in your browser.",
+      "accountQ": "Do I need an account to use {toolTitle}?",
+      "accountA": "No account is required. Open the tool, add your file, and download when processing finishes.",
+      "retentionQ": "What happens to my audio after I close the tab?",
+      "retentionA": "Files stay in your browser session only. Closing the tab clears the working copy from memory on your device.",
+      "formatsQ": "What audio formats does {toolTitle} accept?",
+      "formatsA": "Supported formats are listed in the upload area on each tool page. MP3 tools accept MP3; the converter also accepts WAV, OGG, AAC, and M4A.",
+      "errorsQ": "What should I do if {toolTitle} fails or freezes?",
+      "errorsA": "Try a smaller file, disable heavy browser extensions, or re-export from your audio editor. Refresh the page if ffmpeg.wasm fails to load on first use.",
+      "securityQ": "How does JoinMyPDF keep {toolTitle} private?",
+      "securityA": "Processing runs locally in your browser tab with ffmpeg.wasm, so audio bytes are not sent to JoinMyPDF servers during standard tool runs."
+    },
+    "audioToolFaqs": {
+      "mp3Converter": {
+        "formatsQ": "What formats can I convert to MP3?",
+        "formatsA": "The converter accepts WAV, OGG, AAC, and M4A source files and outputs a standard MP3. Check the upload area for the current accept list.",
+        "bitrateQ": "Which MP3 bitrate should I choose?",
+        "bitrateA": "Use 128 kbps for voice and podcasts, 192 kbps for balanced quality, and 256–320 kbps for music where file size matters less.",
+        "qualityQ": "Will converting to MP3 reduce quality?",
+        "qualityA": "MP3 is lossy compression. Higher bitrates preserve more detail; lower bitrates save space. You pick the trade-off before encoding.",
+        "firstLoadQ": "Why does the first conversion take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster because the worker is already warm.",
+        "workerQ": "Does processing block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so you can still scroll and read instructions while conversion runs.",
+        "privacyQ": "Is my audio uploaded during conversion?",
+        "privacyA": "No. The entire encode happens in your browser. JoinMyPDF servers never receive your source file or the MP3 output.",
+        "mobileUseQ": "Can I convert audio on my phone?",
+        "mobileUseA": "Yes on supported mobile browsers, but desktop is recommended for large files and faster WebAssembly performance.",
+        "limitsQ": "Is there a maximum file size?",
+        "limitsA": "There is no fixed server limit because files stay local, but very large sources may exceed available browser memory. Try shorter clips if a job fails."
+      },
+      "mp3Trimmer": {
+        "trimPointsQ": "How do I set trim start and end points?",
+        "trimPointsA": "Enter times in mm:ss format (for example 01:30 for one minute thirty seconds). Use the audio preview to find the right moments before trimming.",
+        "copyModeQ": "Does trimming re-encode the MP3?",
+        "copyModeA": "ffmpeg uses stream copy (-c copy) when possible for fast cuts without quality loss. Some edge alignments may require re-encoding.",
+        "previewQ": "Can I preview before downloading?",
+        "previewA": "Yes. An HTML audio player lets you scrub the full track before you enter start and end times.",
+        "formatsQ": "What format does the trimmer accept?",
+        "formatsA": "Currently MP3 input and MP3 output. Convert other formats to MP3 first using the MP3 Converter tool.",
+        "firstLoadQ": "Why does the first trim take longer?",
+        "firstLoadA": "ffmpeg.wasm loads on first use. Subsequent trims on the same page start faster.",
+        "privacyQ": "Is my MP3 uploaded when I trim?",
+        "privacyA": "No. Trimming runs entirely in your browser session with ffmpeg.wasm.",
+        "mobileUseQ": "Can I trim audio on mobile?",
+        "mobileUseA": "Supported on modern mobile browsers; desktop offers more memory for long recordings.",
+        "limitsQ": "Can I trim very long podcasts?",
+        "limitsA": "Long files work when your device has enough memory. If trimming fails, try a shorter segment or close other tabs."
+      },
+      "mp3ToWav": {
+        "localConversionQ": "Is this conversion local?",
+        "localConversionA": "Yes. ffmpeg.wasm decodes your MP3 entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your file.",
+        "qualityLossQ": "Does it lose quality?",
+        "qualityLossA": "The WAV is uncompressed PCM decoded from your MP3. You cannot recover quality lost when the MP3 was originally encoded, but the WAV export does not add another lossy compression step.",
+        "fileRetentionQ": "What happens to my file?",
+        "fileRetentionA": "Your MP3 stays in browser memory during processing. When you close the tab, that working copy is cleared. Only you choose whether to download the WAV output.",
+        "wavSizeQ": "Why is the WAV file so much larger?",
+        "wavSizeA": "WAV stores raw PCM audio without compression. A decoded WAV is typically several times larger than the source MP3 — that is expected.",
+        "formatsQ": "What input format is supported?",
+        "formatsA": "This tool accepts MP3 files only. Convert other formats with the MP3 Converter first if needed.",
+        "firstLoadQ": "Why does the first conversion take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later conversions on the same page are faster.",
+        "workerQ": "Does processing block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the UI stays responsive while decoding runs.",
+        "editingQ": "Why convert MP3 to WAV for editing?",
+        "editingA": "Many audio editors prefer WAV for timeline editing, slicing, and effects because it is uncompressed and widely supported."
+      },
+      "audioCompressor": {
+        "spaceSavingsQ": "How much space can I save?",
+        "spaceSavingsA": "Savings depend on your source bitrate and the target you choose. Re-encoding a 320 kbps MP3 to 128 kbps can cut file size by roughly half; voice tracks at 64 kbps shrink even more.",
+        "qualityAffectedQ": "Is the quality affected?",
+        "qualityAffectedA": "Yes—lower bitrates remove more audio detail. Use 128–192 kbps for music and 64–96 kbps for speech when smaller files matter more than fidelity.",
+        "privacyQ": "Is it 100% private?",
+        "privacyA": "Yes. ffmpeg.wasm compresses your MP3 entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your file.",
+        "bitrateQ": "Which bitrate should I choose?",
+        "bitrateA": "64 kbps for voice, 96 kbps for spoken podcasts, 128 kbps for balanced quality, and 192 kbps when you need clearer music at a moderate size.",
+        "formatsQ": "What files can I compress?",
+        "formatsA": "This tool accepts MP3 input and outputs MP3. Convert other formats with the MP3 Converter first if needed.",
+        "firstLoadQ": "Why does the first compression take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster.",
+        "workerQ": "Does compression block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the UI stays responsive while encoding runs.",
+        "limitsQ": "What if my file fails to compress?",
+        "limitsA": "Corrupted or non-MP3 files may fail. Try re-exporting from your audio app, use a shorter clip, or close other tabs if memory is low."
+      },
+      "mp3Compressor": {
+        "bitrateQualityQ": "How does bitrate affect audio quality?",
+        "bitrateQualityA": "Higher bitrates (256–320 kbps) preserve more detail for music. Lower bitrates (96–128 kbps) shrink files faster but remove more high-frequency content—best for voice or casual listening.",
+        "reversibleQ": "Is the compression reversible?",
+        "reversibleA": "No. Re-encoding MP3 at a lower bitrate permanently discards audio data. Keep your original file if you may need full quality later.",
+        "privacyQ": "Does this service keep my files private?",
+        "privacyA": "Yes. ffmpeg.wasm compresses your MP3 entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your file.",
+        "targetBitrateQ": "Which bitrate should I choose?",
+        "targetBitrateA": "96 kbps for voice, 128 kbps for balanced everyday use, 160–192 kbps for podcasts and music, and 256–320 kbps when you want the smallest loss from the original.",
+        "sizeEstimateQ": "How accurate is the size estimate?",
+        "sizeEstimateA": "The estimate uses track duration and your target bitrate. Actual output can vary slightly with encoder overhead and embedded metadata.",
+        "formatsQ": "What files can I compress?",
+        "formatsA": "This tool accepts MP3 input and outputs MP3. Convert other formats with the MP3 Converter first if needed.",
+        "firstLoadQ": "Why does the first compression take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster.",
+        "workerQ": "Does compression block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the UI stays responsive while encoding runs."
+      },
+      "mp3MetadataEditor": {
+        "id3VersionsQ": "Which ID3 versions are supported?",
+        "id3VersionsA": "ffmpeg.wasm writes standard ID3v2 tags compatible with most players and libraries. Older ID3v1 tags may coexist; new text metadata is stored in ID3v2 frames.",
+        "privacyQ": "Is my original file kept private?",
+        "privacyA": "Yes. Your MP3 is processed entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your audio or cover images.",
+        "removeArtQ": "How can I remove the existing album art?",
+        "removeArtA": "After uploading an MP3 with embedded art, check Remove existing album art before saving. ffmpeg exports audio only with -map 0:a and stream copy, dropping the attached picture.",
+        "emptyTagsQ": "What if my MP3 has no existing metadata?",
+        "emptyTagsA": "The form starts empty and the preview shows placeholders. Fill in any fields you need—ffmpeg adds new ID3 tags on save without re-encoding audio.",
+        "coverFormatsQ": "Which cover image formats are accepted?",
+        "coverFormatsA": "JPG, PNG, and WebP images work for album art. Other formats are rejected with a clear error before processing starts.",
+        "streamCopyQ": "Does editing metadata reduce audio quality?",
+        "streamCopyA": "No. The tool uses ffmpeg -c copy so only container metadata changes—the MP3 audio stream is copied as-is.",
+        "firstLoadQ": "Why does the first save take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later saves on the same page are faster.",
+        "workerQ": "Does metadata editing block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the form stays responsive while tags are written."
+      },
+      "audioMerger": {
+        "reorderQ": "Can I reorder the files?",
+        "reorderA": "Yes. Drag the grip handle on each row to change merge order. The combined MP3 plays tracks in the list order from top to bottom.",
+        "qualityQ": "Does merging affect audio quality?",
+        "qualityA": "No re-encoding occurs when stream copy succeeds. ffmpeg uses -c copy with the concat demuxer, so each MP3 segment is joined as-is.",
+        "localQ": "Is it 100% local?",
+        "localA": "Yes. All files stay in your browser tab. ffmpeg.wasm runs in a Web Worker—JoinMyPDF servers never receive your audio.",
+        "concatMethodQ": "How does seamless merging work?",
+        "concatMethodA": "ffmpeg writes a concat list file, then runs -f concat -safe 0 -i list.txt -c copy to join MP3s without transcoding.",
+        "formatsQ": "What files can I merge?",
+        "formatsA": "MP3 input only. Convert other formats with the MP3 Converter first, then merge the MP3 outputs here.",
+        "minFilesQ": "How many files do I need?",
+        "minFilesA": "At least two MP3 files. You can add more in multiple upload batches and reorder before merging.",
+        "firstLoadQ": "Why does the first merge take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later merges on the same page are faster.",
+        "workerQ": "Does merging block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so you can keep reading instructions while tracks are concatenated."
+      },
+      "voiceRemover": {
+        "howItWorksQ": "How does it work?",
+        "howItWorksA": "ffmpeg applies center-channel phase cancellation (pan=stereo|c0=c0-c1|c1=c1-c0). Vocals are often center-panned in stereo mixes, so subtracting left and right attenuates the middle—an estimation, not true stem separation.",
+        "qualityQ": "Will the quality be perfect?",
+        "qualityA": "No. Results depend on the original mix. Wide-panned vocals, heavy reverb, or dense arrangements may leave bleed or artifacts. Use the previews to judge whether the estimate is good enough for your use case.",
+        "privacyQ": "Is it 100% private?",
+        "privacyA": "Yes. ffmpeg.wasm processes your file entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your audio.",
+        "stereoQ": "Does it work on mono tracks?",
+        "stereoA": "This technique targets stereo files where vocals sit in the center. Mono or strongly dual-mono sources may not separate well—use a stereo export when possible.",
+        "estimationQ": "Is this the same as AI stem separation?",
+        "estimationA": "No. We use lightweight ffmpeg filtering in the browser. Dedicated AI stem tools can be more accurate but require heavier models—often on servers. This tool trades accuracy for privacy and speed.",
+        "formatsQ": "What files can I upload?",
+        "formatsA": "MP3, WAV, and M4A stereo tracks. Output is MP3. Convert other formats with the MP3 Converter first if needed.",
+        "processingTimeQ": "Why does processing take so long?",
+        "processingTimeA": "Re-encoding with libmp3lame after filtering is CPU-intensive in WebAssembly. Longer songs take more time, but the UI stays responsive because ffmpeg runs in a worker.",
+        "firstLoadQ": "Why is the first run slower?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster."
+      },
+      "mp3SpeedChanger": {
+        "pitchQ": "Does this change the pitch?",
+        "pitchA": "No. ffmpeg atempo changes playback speed while preserving pitch—unlike simple resampling that makes audio sound higher or lower.",
+        "speedRangeQ": "How much can I speed it up?",
+        "speedRangeA": "The slider runs from 0.5× (half speed) to 2.0× (double speed). Each atempo filter supports 0.5–2.0; values outside that range are chained automatically if extended in the future.",
+        "privacyQ": "Is my file kept private?",
+        "privacyA": "Yes. ffmpeg.wasm processes your MP3 entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your audio.",
+        "atempoQ": "What is the atempo filter?",
+        "atempoA": "atempo is ffmpeg's tempo scaler. It stretches or compresses audio in time without shifting frequency content—the standard approach for podcast/audiobook speed controls.",
+        "podcastsQ": "Is this good for podcasts and audiobooks?",
+        "podcastsA": "Yes. Many listeners use 1.25×–1.5× for podcasts or 0.75× for dense material. Export a new MP3 and use it in any player.",
+        "formatsQ": "What files are supported?",
+        "formatsA": "MP3 input and MP3 output. Convert other formats with the MP3 Converter first if needed.",
+        "firstLoadQ": "Why does the first speed change take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster.",
+        "workerQ": "Does speed processing block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the slider and upload UI stay responsive during encoding."
+      },
+      "fadeInOutCreator": {
+        "durationQ": "Can I choose the duration?",
+        "durationA": "Yes. Enter fade-in and fade-out lengths in seconds. Fade-in starts at 0s; fade-out end-aligns to your track so the file fades to silence before it stops.",
+        "qualityQ": "Does it affect quality?",
+        "qualityA": "Fades are applied during re-encode to MP3 at 192 kbps. You may notice minimal generation loss from encoding, but the fade curves themselves are smooth volume ramps.",
+        "privacyQ": "Is the process 100% local?",
+        "privacyA": "Yes. ffmpeg.wasm renders fades entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your audio.",
+        "afadeQ": "What does the afade filter do?",
+        "afadeA": "afade=t=in ramps volume up from silence; afade=t=out ramps down at the end. We chain both in one -af filter string, matching ffmpeg's standard fade syntax.",
+        "timingQ": "What if my fades are longer than the track?",
+        "timingA": "The tool validates durations before processing. If fade-in plus fade-out exceed track length—or either fade alone is too long—you get a clear error with suggested fixes.",
+        "formatsQ": "What files are supported?",
+        "formatsA": "MP3 input and MP3 output. Convert other formats with the MP3 Converter first if needed.",
+        "firstLoadQ": "Why does the first fade take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster.",
+        "workerQ": "Does fade processing block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so inputs and progress stay responsive during encoding."
+      },
+      "audioNormalizer": {
+        "whyNormalizeQ": "Why normalize audio?",
+        "whyNormalizeA": "Tracks from different albums, podcasts, or recording sessions often play at very different volumes. Loudness normalization evens perceived level so listeners do not reach for the volume knob between songs.",
+        "structureQ": "Does it change the song structure?",
+        "structureA": "No. Normalization adjusts overall loudness and limits peaks—it does not cut, rearrange, or speed up your audio. Song length and musical structure stay the same.",
+        "privacyQ": "Is it 100% private?",
+        "privacyA": "Yes. ffmpeg.wasm processes your MP3s entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your files.",
+        "loudnormQ": "What does loudnorm do?",
+        "loudnormA": "ffmpeg loudnorm applies EBU R128 loudness normalization with integrated loudness I=-16 LUFS, true peak TP=-1.5 dB, and loudness range LRA=11—targets similar to many streaming platforms.",
+        "playlistQ": "Can I normalize a whole playlist?",
+        "playlistA": "Yes. Upload multiple MP3s, click Normalize & Download All, and get a ZIP of balanced tracks—handy before importing into DJ software or a phone music library.",
+        "batchErrorsQ": "What if one file in the batch fails?",
+        "batchErrorsA": "Failed files show an error in the list while successful tracks still normalize and download. Fix or remove bad files and run again without re-processing successes.",
+        "formatsQ": "What files are supported?",
+        "formatsA": "Standard MP3 input and MP3 output. Convert other formats with the MP3 Converter first if needed.",
+        "firstLoadQ": "Why does the first normalization take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later files in the same batch and future runs on the page are faster.",
+        "workerQ": "Does batch normalization block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the file list and progress bar stay responsive while each track encodes."
+      },
+      "wavToMp3": {
+        "whyConvertQ": "Why convert WAV to MP3?",
+        "whyConvertA": "WAV files are uncompressed and very large. MP3 makes them practical for email, messaging, web playback, and portable devices while keeping strong quality at VBR setting -q:a 0.",
+        "qualityChangeQ": "Does this process change the audio quality?",
+        "qualityChangeA": "Yes—MP3 is lossy compression. -q:a 0 uses libmp3lame’s highest VBR quality, but some detail from the WAV is discarded compared to the lossless original.",
+        "freePrivateQ": "Is it free and private?",
+        "freePrivateA": "Yes. JoinMyPDF does not charge for this tool, and ffmpeg.wasm converts your WAV entirely in your browser—no server upload.",
+        "vbrQualityQ": "What does -q:a 0 mean?",
+        "vbrQualityA": "It tells libmp3lame to use its best variable bitrate preset—higher quality than low fixed bitrates while still producing a smaller MP3 than WAV.",
+        "formatsQ": "What input format is supported?",
+        "formatsA": "Standard WAV files (.wav) with common PCM audio. If upload fails, re-export WAV from your editor or use the MP3 Converter for other formats.",
+        "firstLoadQ": "Why does the first conversion take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later conversions on the same page are faster.",
+        "workerQ": "Does conversion block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so you can keep reading instructions while encoding runs.",
+        "limitsQ": "What if my WAV file fails to convert?",
+        "limitsA": "Invalid or corrupted WAV files may fail. Very large files can exceed browser memory—try a shorter clip or close other tabs."
+      },
+      "oggConverter": {
+        "opusFilesQ": "Can I convert Opus files?",
+        "opusFilesA": "Yes. Opus audio stored in .ogg or .opus containers is supported when ffmpeg can decode the stream. Upload the file and export MP3.",
+        "qualityAffectedQ": "Does it affect audio quality?",
+        "qualityAffectedA": "Yes—MP3 is lossy. -q:a 2 uses a high libmp3lame VBR preset, but some detail from the OGG/Opus source is discarded compared to the original.",
+        "privacyQ": "Is it 100% private?",
+        "privacyA": "Yes. ffmpeg.wasm converts your file entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your audio.",
+        "vbrQualityQ": "What does -q:a 2 mean?",
+        "vbrQualityA": "It selects a high variable bitrate preset in libmp3lame—strong MP3 quality for everyday listening and sharing.",
+        "formatsQ": "Which formats are accepted?",
+        "formatsA": "OGG Vorbis and Opus files (.ogg, .opus) with common MIME types. Other formats should use the MP3 Converter tool first.",
+        "firstLoadQ": "Why does the first conversion take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later conversions on the same page are faster.",
+        "workerQ": "Does conversion block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the UI stays responsive during encoding.",
+        "limitsQ": "What if my OGG file fails to convert?",
+        "limitsA": "Invalid, truncated, or non-audio OGG files may fail with a clear error. Re-download or re-export from the source and try again."
+      },
+      "flacConverter": {
+        "whyTranscodeQ": "Why transcode FLAC?",
+        "whyTranscodeA": "FLAC preserves full quality but files are large and not every phone, car stereo, or web player supports FLAC playback. Converting to MP3, WAV, or AAC makes tracks easier to share and play everywhere.",
+        "qualityQ": "Does the output retain high quality?",
+        "qualityA": "WAV stays lossless PCM from your FLAC source. MP3 uses -q:a 0 (libmp3lame's best VBR preset)—excellent for listening but still lossy. AAC at 256 kbps is high quality but also lossy compared to FLAC.",
+        "localMachineQ": "Is the conversion processed on my machine?",
+        "localMachineA": "Yes. ffmpeg.wasm loads in your browser and transcodes inside a Web Worker on your device. JoinMyPDF servers never receive your FLAC file.",
+        "outputFormatsQ": "Which output formats are supported?",
+        "outputFormatsA": "MP3 (high VBR), uncompressed WAV, and AAC packaged as M4A at 256 kbps. Pick the format from the dropdown before converting.",
+        "integrityQ": "How do you validate FLAC files?",
+        "integrityA": "Before transcoding, the tool checks the fLaC magic header and minimum file size. Corrupted or mislabeled files are rejected with a clear error instead of failing mid-encode.",
+        "formatsQ": "What input format is accepted?",
+        "formatsA": "Standard FLAC files (.flac) with audio/flac MIME type. Other lossless formats should be converted with the MP3 Converter or OGG Converter first if needed.",
+        "firstLoadQ": "Why does the first FLAC conversion take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later conversions on the same page are faster.",
+        "workerQ": "Does transcoding block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the upload area, format dropdown, and progress bar stay responsive during heavy FLAC transcoding."
+      },
+      "m4aConverter": {
+        "whyConvertQ": "Why convert M4A?",
+        "whyConvertA": "M4A and AAC are common on iPhones, iTunes, and voice recorders, but many players, editors, and car stereos prefer MP3 or WAV. Converting makes Apple-format tracks easier to share and edit everywhere.",
+        "qualityQ": "Is the audio quality preserved?",
+        "qualityA": "WAV exports lossless PCM decoded from your AAC source—best for editing. MP3 uses -q:a 0 (libmp3lame's highest VBR preset)—excellent for listening but still lossy compared to the original AAC.",
+        "privacyQ": "Is it 100% private?",
+        "privacyA": "Yes. ffmpeg.wasm converts your M4A/AAC file entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your audio.",
+        "outputFormatsQ": "Which output formats can I choose?",
+        "outputFormatsA": "MP3 (high VBR) or uncompressed WAV. Pick your preferred format from the dropdown before clicking Convert & Download.",
+        "codecIssuesQ": "What if my M4A file is unsupported?",
+        "codecIssuesA": "DRM-protected purchases, unusual codec profiles, or corrupted files may fail with a clear codec error. Re-export as standard AAC/M4A from the source app, or try the MP3 Converter for other audio formats.",
+        "formatsQ": "What input files are accepted?",
+        "formatsA": "Standard M4A and AAC files (.m4a, .aac) with common MIME types. The tool checks for MP4 ftyp or ADTS headers before converting.",
+        "firstLoadQ": "Why does the first M4A conversion take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later conversions on the same page are faster.",
+        "workerQ": "Does conversion block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the upload zone, format selector, and progress bar stay responsive during encoding."
+      },
+      "mp4ToMp3": {
+        "whyExtractQ": "Why extract audio from MP4?",
+        "whyExtractA": "MP4 is great for video playback but bulky if you only need the sound—podcasts, music, or voice from screen recordings. Extracting MP3 gives you a smaller, universally playable audio file.",
+        "qualityQ": "Is the audio quality preserved?",
+        "qualityA": "ffmpeg encodes with libmp3lame -q:a 2—a high VBR preset with strong listening quality. Because MP3 is lossy, some detail from the source AAC track is discarded compared to the original video audio.",
+        "privacyQ": "Is it 100% private?",
+        "privacyA": "Yes. ffmpeg.wasm extracts audio entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your MP4 file.",
+        "noVideoQ": "Does the output include video?",
+        "noVideoA": "No. The -vn flag strips the video stream so you download MP3 audio only.",
+        "codecIssuesQ": "What if my MP4 file is unsupported?",
+        "codecIssuesA": "Videos without audio, DRM-protected files, or unusual codecs may fail with a clear error. Re-export with AAC audio from your editor or try a shorter clip.",
+        "formatsQ": "What input format is accepted?",
+        "formatsA": "Standard MP4 video files (.mp4) with an audio stream. The tool validates the MP4 ftyp header before processing.",
+        "firstLoadQ": "Why does the first extraction take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later extractions on the same page are faster.",
+        "workerQ": "Does extraction block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the upload zone and progress bar stay responsive during encoding."
+      },
+      "mp3ToMp4": {
+        "whyCreateQ": "Why turn MP3 into MP4?",
+        "whyCreateA": "Many social and video platforms require a video file even for audio-only content. Combining a cover image with your MP3 creates an upload-ready MP4 for YouTube, Instagram, and similar sites.",
+        "imageFormatsQ": "Which cover images are supported?",
+        "imageFormatsA": "JPG, PNG, and WebP. Use square or 16:9 artwork for best results on social platforms.",
+        "qualityQ": "How is quality handled?",
+        "qualityA": "Video uses libx264 with -tune stillimage for efficient still-frame encoding. Audio is encoded to AAC at 192 kbps for broad MP4 compatibility.",
+        "privacyQ": "Is it 100% private?",
+        "privacyA": "Yes. ffmpeg.wasm creates the MP4 entirely in your browser inside a Web Worker. Your MP3 and image never leave the browser tab.",
+        "socialShareQ": "Can I upload the result to YouTube?",
+        "socialShareA": "Yes. The output is a standard H.264/AAC MP4 with yuv420p pixel format—widely accepted by YouTube, Instagram, and other platforms.",
+        "formatsQ": "What files do I need to upload?",
+        "formatsA": "One MP3 audio file and one cover image (JPG, PNG, or WebP). Both are required before video creation starts.",
+        "firstLoadQ": "Why does the first video creation take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster.",
+        "workerQ": "Does video creation block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so upload slots and the progress bar stay responsive during H.264 encoding."
+      },
+      "mp3VolumeBooster": {
+        "distortionQ": "Will this cause distortion?",
+        "distortionA": "At 1× the loudnorm filter caps true peak to prevent digital clipping. Higher slider values add gain on top—use the side-by-side preview and lower the boost if the output sounds harsh.",
+        "securityQ": "Is the process secure?",
+        "securityA": "Yes. Your MP3 never leaves your device. ffmpeg.wasm runs in a Web Worker in your browser tab—no upload, no account, and no server-side processing.",
+        "allMp3Q": "Does it work on all MP3 files?",
+        "allMp3A": "Standard MP3 files from phones, DAWs, and download services work well. Corrupted, truncated, or non-audio files may fail with a clear error—re-export from the source and try again.",
+        "loudnormQ": "What does loudnorm do?",
+        "loudnormA": "ffmpeg loudnorm applies EBU R128 loudness normalization to maximize perceived volume while limiting true peak so quiet tracks sound louder without clipping.",
+        "boostRangeQ": "How much can I boost volume?",
+        "boostRangeA": "The slider runs from 1× (loudnorm only) up to 3× additional gain. Use previews to avoid harsh clipping.",
+        "previewQ": "Can I compare original and boosted audio?",
+        "previewA": "Yes. After processing, original and boosted players appear side by side so you can listen before downloading.",
+        "firstLoadQ": "Why is the first boost slow?",
+        "firstLoadA": "ffmpeg.wasm initializes on first use. Later boosts on the same page are quicker.",
+        "workerQ": "Does normalization block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the UI stays responsive during loudnorm processing."
+      }
     },
     "faqs": {
       "freeQ": "Is {toolTitle} free for typical use?",
@@ -2847,6 +3952,30 @@
       "optimizeSharing": {
         "title": "Optimize for sharing",
         "body": "Compress when your new PDF is close to mailbox or upload limits."
+      },
+      "trimMp3": {
+        "title": "Trim the clip next",
+        "body": "Cut intros, outros, or silence from your new MP3 before sharing."
+      },
+      "boostMp3": {
+        "title": "Balance volume",
+        "body": "Normalize or boost quiet tracks so they match the rest of your playlist."
+      },
+      "convertAudio": {
+        "title": "Convert another format",
+        "body": "Turn WAV, OGG, AAC, or M4A into MP3 before trimming or boosting."
+      },
+      "wavToMp3": {
+        "title": "Compress to MP3 next",
+        "body": "After editing the WAV, export a smaller MP3 for sharing or streaming."
+      },
+      "compressMp3": {
+        "title": "Shrink the MP3 further",
+        "body": "Use the MP3 compressor to lower bitrate and save space for email or messaging."
+      },
+      "editMp3Metadata": {
+        "title": "Fix tags or cover art",
+        "body": "Open the metadata editor to update title, artist, album, or embedded album art."
       }
     }
   },

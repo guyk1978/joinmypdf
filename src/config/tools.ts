@@ -109,6 +109,10 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
 
   // Video
   { slug: "video-to-mp4", labelKey: "videoToMp4", categories: [c.video] },
+  { slug: "video-resizer", labelKey: "videoResizer", categories: [c.video, c.image] },
+  { slug: "video-rotator", labelKey: "videoRotator", categories: [c.video, c.image] },
+  { slug: "video-speed-controller", labelKey: "videoSpeedController", categories: [c.video] },
+  { slug: "video-to-gif", labelKey: "videoToGif", categories: [c.video] },
 
   // Favicon
   { slug: "generate-favicon", labelKey: "generateFavicon", categories: [c.favicon] },
@@ -277,6 +281,7 @@ export const TOOL_REGISTRY = {
     "heic-to-jpg",
     "convert-to-png",
     "video-to-mp4",
+    "video-to-gif",
     "png-to-ico",
     "ico-to-png",
     "svg-to-favicon",
@@ -294,6 +299,8 @@ export const TOOL_REGISTRY = {
     "resize-image",
     "crop-image",
     "rotate-image",
+    "video-resizer",
+    "video-rotator",
     "crop-pdf",
     "rotate-pdf",
     "custom-paper-margin",
@@ -376,7 +383,10 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "video",
         labelKey: "megaMenu.columns.video",
-        slugs: columnSlugs(["video-to-mp4"], CONVERT_SLUGS),
+        slugs: columnSlugs(
+          ["video-to-mp4", "video-to-gif", "video-speed-controller"],
+          CONVERT_SLUGS,
+        ),
       },
       {
         id: "image-formats",
@@ -424,7 +434,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "video",
         labelKey: "megaMenu.columns.video",
-        slugs: ["video-compressor"],
+        slugs: ["video-compressor", "video-resizer", "video-rotator"],
       },
       {
         id: "favicon",

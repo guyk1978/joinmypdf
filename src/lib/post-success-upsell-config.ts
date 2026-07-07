@@ -156,4 +156,76 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
   ],
   "jpg-to-pdf": [{ href: "/tools/pdf-compress/", card: "optimizeSharing" }],
   "pdf-to-jpg": [{ href: "/tools/pdf-compress/", card: "optimizeSharing" }],
+  "mp3-converter": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
+  ],
+  "mp3-trimmer": [
+    { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
+    { href: "/tools/mp3-converter/", card: "convertAudio" },
+  ],
+  "mp3-volume-booster": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-converter/", card: "convertAudio" },
+  ],
+  "mp3-to-wav": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/wav-to-mp3/", card: "wavToMp3" },
+  ],
+  "audio-compressor": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+  ],
+  "mp3-compressor": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-metadata-editor/", card: "editMp3Metadata" },
+  ],
+  "mp3-metadata-editor": [
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+  ],
+  "audio-merger": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+  ],
+  "voice-remover": [
+    { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+  ],
+  "mp3-speed-changer": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
+  ],
+  "fade-in-out-creator": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
+  ],
+  "audio-normalizer": [
+    { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+  ],
+  "flac-converter": [
+    { href: "/tools/wav-to-mp3/", card: "wavToMp3" },
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+  ],
+  "m4a-converter": [
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+  ],
+  "mp4-to-mp3": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+  ],
+  "mp3-to-mp4": [
+    { href: "/tools/mp3-metadata-editor/", card: "editMp3Metadata" },
+    { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
+  ],
+  "wav-to-mp3": [
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+  ],
+  "ogg-converter": [
+    { href: "/tools/mp3-compressor/", card: "compressMp3" },
+    { href: "/tools/mp3-converter/", card: "convertAudio" },
+  ],
 };

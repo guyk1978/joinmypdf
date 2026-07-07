@@ -32,10 +32,33 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   images: { unoptimized: true },
   reactStrictMode: true,
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+        ],
+      },
+    ];
+  },
   webpack: (config, { isServer }) => {
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+    };
     if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+      };
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(/^node:fs$/, nodeStub),
+        new webpack.NormalModuleReplacementPlugin(/^fs$/, nodeStub),
+        new webpack.NormalModuleReplacementPlugin(/^node:path$/, nodeStub),
+        new webpack.NormalModuleReplacementPlugin(/^path$/, nodeStub),
         new webpack.NormalModuleReplacementPlugin(/^node:https$/, nodeStub),
       );
     }

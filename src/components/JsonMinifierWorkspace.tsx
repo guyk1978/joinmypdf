@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { JsonMinifier, type JsonMinifierLabels } from "@/components/JsonMinifier";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 
 type JsonMinifierWorkspaceProps = {
@@ -33,8 +33,8 @@ export function JsonMinifierWorkspace({ tool, slug }: JsonMinifierWorkspaceProps
   );
 
   return (
-    <ToolLayout pageClassName="json-minifier-tool-page">
+    <UtilityWorkspaceShell pageClassName="json-minifier-tool-page">
       <JsonMinifier labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

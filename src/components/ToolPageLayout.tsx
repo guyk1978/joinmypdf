@@ -17,8 +17,8 @@ export type ToolPageLayoutProps = {
 };
 
 /**
- * Standard Industrial Matte shell for every tool page:
- * prominent H1, one-line description, favorite control, tool body, privacy badge.
+ * Legacy workspace chrome (header + privacy bar only).
+ * Prefer `layout/ToolLayout` on tool routes — it adds FAQ and feedback automatically.
  */
 export function ToolPageLayout({
   children,

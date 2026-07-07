@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { StringGenerator, type StringGeneratorLabels } from "@/components/StringGenerator";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 
 type StringGeneratorWorkspaceProps = {
@@ -39,8 +39,8 @@ export function StringGeneratorWorkspace({ tool, slug }: StringGeneratorWorkspac
   );
 
   return (
-    <ToolLayout pageClassName="string-generator-tool-page">
+    <UtilityWorkspaceShell pageClassName="string-generator-tool-page">
       <StringGenerator labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

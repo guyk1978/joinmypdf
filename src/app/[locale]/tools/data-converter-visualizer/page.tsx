@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
-import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
-import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
-import { ToolPageInfoBlock } from "@/components/ToolPageInfoBlock";
-import { RelatedTools } from "@/components/RelatedTools";
+import { ToolLayout } from "@/components/layout/ToolLayout";
+import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
 import { AppPageShell } from "@/components/AppPageShell";
 import { DataToolDashboard } from "@/components/data-tool/DataToolDashboard";
-import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import {
   buildLocalizedGuideParagraphs,
@@ -19,8 +16,7 @@ import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
 import { resolveToolSeoPageOverride } from "@/lib/tool-seo-overrides";
-import { productPageMainClassName, toolPageDashboardStack, toolPageInfoWidth } from "@/lib/tool-ui";
-import { Link } from "@/i18n/navigation";
+import { productPageMainClassName, toolPageDashboardStack } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
@@ -105,78 +101,28 @@ export default async function DataConverterVisualizerPage({ params }: PageProps)
               slug={SLUG}
               stacked
             >
-              <WorkspaceUploadShell>
-                <DataToolDashboard />
-              </WorkspaceUploadShell>
+              <ToolLayout
+                faqs={faqs}
+                marketing={
+                  <ToolMarketingSections
+                    tool={tool}
+                    paragraphs={paragraphs}
+                    articles={[]}
+                    seoOverride={seoOverride}
+                    beforeYouStartTitle={seoOverride?.introSectionTitle ?? tPage("beforeYouStart")}
+                    whySectionTitle={seoOverride?.whySectionTitle ?? tPage("whyChooseLocalProcessing")}
+                    whySectionSubheadline={seoOverride?.whySectionSubheadline}
+                    whyBenefits={seoOverride?.whyBenefits}
+                    relatedGuidesTitle={tPage("relatedGuides")}
+                    tPage={tPage}
+                  />
+                }
+              >
+                <WorkspaceUploadShell>
+                  <DataToolDashboard />
+                </WorkspaceUploadShell>
+              </ToolLayout>
             </ToolPageShellProvider>
-
-            <ToolPageInfoBlock className={toolPageInfoWidth}>
-              <ToolPageDashboardSection>
-                <ToolBeforeYouStart title={seoOverride?.introSectionTitle ?? tPage("beforeYouStart")}>
-                  {paragraphs.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </ToolBeforeYouStart>
-              </ToolPageDashboardSection>
-
-              <LocalProcessingInfographic
-                layout="dashboard"
-                headline={seoOverride?.whySectionTitle ?? tPage("whyChooseLocalProcessing")}
-                subheadline={seoOverride?.whySectionSubheadline}
-                benefits={seoOverride?.whyBenefits}
-              />
-
-              <RelatedTools tool={tool} />
-
-              <ToolPageDashboardSection aria-labelledby="tool-faq-heading">
-                <h2
-                  id="tool-faq-heading"
-                  className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
-                >
-                  {tPage("questions")}
-                </h2>
-                <div className="tool-page-faq-list">
-                  {faqs.map((f) => (
-                    <details key={f.q} className="tool-page-faq-item">
-                      <summary className="cursor-pointer text-ink dark:text-white">{f.q}</summary>
-                      <p>{f.a}</p>
-                    </details>
-                  ))}
-                </div>
-              </ToolPageDashboardSection>
-
-              {seoOverride?.featuredGuide ? (
-                <ToolPageDashboardSection>
-                  <Link
-                    href={`/blog/${seoOverride.featuredGuide.slug}/`}
-                    className="text-base leading-relaxed text-neutral-300 hover:underline"
-                    prefetch={false}
-                  >
-                    {seoOverride.featuredGuide.label}
-                  </Link>
-                </ToolPageDashboardSection>
-              ) : null}
-
-              {seoOverride?.relatedWorkflowLinks ? (
-                <ToolPageDashboardSection>
-                  <p className="mb-3 text-base leading-relaxed text-neutral-400">
-                    {seoOverride.relatedWorkflowLinks.prompt}
-                  </p>
-                  <div className="tool-seo-workflow-links">
-                    {seoOverride.relatedWorkflowLinks.links.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="tool-seo-workflow-links__link"
-                        prefetch={false}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </ToolPageDashboardSection>
-              ) : null}
-            </ToolPageInfoBlock>
           </ToolGlassProvider>
         </div>
       </AppPageShell>

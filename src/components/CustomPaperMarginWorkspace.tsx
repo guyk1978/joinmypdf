@@ -410,7 +410,7 @@ export function CustomPaperMarginWorkspace({ tool, slug }: { tool: ToolDefinitio
   const canApply = Boolean(file && fileBytes && !busy);
 
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell>
             <FileUploadZone
         operation={tool.operation}

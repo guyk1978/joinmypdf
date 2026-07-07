@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { TextDiffChecker, type TextDiffCheckerLabels } from "@/components/TextDiffChecker";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 
 type TextDiffCheckerWorkspaceProps = {
@@ -35,8 +35,8 @@ export function TextDiffCheckerWorkspace({ tool, slug }: TextDiffCheckerWorkspac
   );
 
   return (
-    <ToolLayout pageClassName="text-diff-tool-page">
+    <UtilityWorkspaceShell pageClassName="text-diff-tool-page">
       <TextDiffChecker labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

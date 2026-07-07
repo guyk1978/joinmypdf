@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 import { UuidGenerator, type UuidGeneratorLabels } from "@/components/tools/security/UuidGenerator";
 
@@ -36,8 +36,8 @@ export function UuidGeneratorWorkspace({ tool, slug }: UuidGeneratorWorkspacePro
   );
 
   return (
-    <ToolLayout pageClassName="uuid-generator-tool-page">
+    <UtilityWorkspaceShell pageClassName="uuid-generator-tool-page">
       <UuidGenerator labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

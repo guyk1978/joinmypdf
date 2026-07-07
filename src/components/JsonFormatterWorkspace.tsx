@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { JsonFormatter, type JsonFormatterLabels } from "@/components/JsonFormatter";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 
 type JsonFormatterWorkspaceProps = {
@@ -34,8 +34,8 @@ export function JsonFormatterWorkspace({ tool, slug }: JsonFormatterWorkspacePro
   );
 
   return (
-    <ToolLayout pageClassName="json-formatter-tool-page">
+    <UtilityWorkspaceShell pageClassName="json-formatter-tool-page">
       <JsonFormatter labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

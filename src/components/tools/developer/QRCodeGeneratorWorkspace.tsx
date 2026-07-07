@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 import {
   QRCodeGenerator,
@@ -50,8 +50,8 @@ export function QRCodeGeneratorWorkspace({ tool, slug }: QRCodeGeneratorWorkspac
   );
 
   return (
-    <ToolLayout pageClassName="qr-generator-tool-page">
+    <UtilityWorkspaceShell pageClassName="qr-generator-tool-page">
       <QRCodeGenerator labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

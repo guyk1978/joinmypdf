@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 import { JWTDebugger, type JWTDebuggerLabels } from "@/components/tools/developer/JWTDebugger";
 
@@ -48,8 +48,8 @@ export function JWTDebuggerWorkspace({ tool, slug }: JWTDebuggerWorkspaceProps) 
   );
 
   return (
-    <ToolLayout pageClassName="jwt-debugger-tool-page">
+    <UtilityWorkspaceShell pageClassName="jwt-debugger-tool-page">
       <JWTDebugger labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

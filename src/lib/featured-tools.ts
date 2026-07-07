@@ -27,6 +27,20 @@ export const FEATURED_HOME_TOOL_SLUGS = [
 /** Homepage — 3 most popular PDF tools */
 export const HOMEPAGE_FEATURED_PDF_SLUGS = ["pdf-merge", "pdf-compress", "pdf-split"] as const;
 
+/** Homepage "PDF Powerhouse" — 10 core PDF tools shown in the hero-anchored grid */
+export const HOMEPAGE_PDF_POWERHOUSE_SLUGS = [
+  "pdf-merge",
+  "pdf-compress",
+  "pdf-split",
+  "pdf-to-word",
+  "word-to-pdf",
+  "jpg-to-pdf",
+  "protect-pdf",
+  "sign-pdf",
+  "pdf-text-editor",
+  "rotate-pdf",
+] as const;
+
 /** Homepage grid — 12 most popular tools in a 3×4 accordion */
 export const HOMEPAGE_GRID_TOOL_SLUGS = [
   "pdf-merge",
@@ -68,6 +82,19 @@ export type HomeFeaturedToolItem = {
 
 export function buildHomepageFeaturedPdfItems(tTools: ToolsTranslator): HomeFeaturedToolItem[] {
   return HOMEPAGE_FEATURED_PDF_SLUGS.map((slug) => {
+    const tool = registry.tools.find((item) => item.slug === slug);
+    if (!tool) return null;
+
+    return {
+      href: `/tools/${tool.slug}/`,
+      label: translateToolItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title)),
+      slugHint: tool.slug,
+    };
+  }).filter((item): item is HomeFeaturedToolItem => Boolean(item));
+}
+
+export function buildHomepagePdfPowerhouseItems(tTools: ToolsTranslator): HomeFeaturedToolItem[] {
+  return HOMEPAGE_PDF_POWERHOUSE_SLUGS.map((slug) => {
     const tool = registry.tools.find((item) => item.slug === slug);
     if (!tool) return null;
 

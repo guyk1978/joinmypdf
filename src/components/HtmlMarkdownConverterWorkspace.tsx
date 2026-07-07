@@ -7,7 +7,7 @@ import {
   HtmlMarkdownConverter,
   type HtmlMarkdownConverterLabels,
 } from "@/components/HtmlMarkdownConverter";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 
 type HtmlMarkdownConverterWorkspaceProps = {
@@ -78,8 +78,8 @@ export function HtmlMarkdownConverterWorkspace({ tool, slug }: HtmlMarkdownConve
   );
 
   return (
-    <ToolLayout pageClassName="html-md-converter-tool-page">
+    <UtilityWorkspaceShell pageClassName="html-md-converter-tool-page">
       <HtmlMarkdownConverter labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

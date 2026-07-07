@@ -26,6 +26,9 @@
   --im-text-subtle: #71717a;
   --im-text-on-accent: #fafafa;
 
+  /* Shared width for the standard upload-tool column (dropzone + panels + action bar). */
+  --tool-content-width: 40rem;
+
   --im-radius: 0.125rem;
   --im-border-width: 1px;
   --im-border-width-accent: 1px;

@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 import {
   WordCharacterCounter,
@@ -37,8 +37,8 @@ export function WordCharacterCounterWorkspace({ tool, slug }: WordCharacterCount
   );
 
   return (
-    <ToolLayout pageClassName="productivity-counter-tool-page">
+    <UtilityWorkspaceShell pageClassName="productivity-counter-tool-page">
       <WordCharacterCounter labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 import {
   PasswordGenerator,
@@ -45,8 +45,8 @@ export function PasswordGeneratorWorkspace({ tool, slug }: PasswordGeneratorWork
   );
 
   return (
-    <ToolLayout pageClassName="password-generator-tool-page">
+    <UtilityWorkspaceShell pageClassName="password-generator-tool-page">
       <PasswordGenerator labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

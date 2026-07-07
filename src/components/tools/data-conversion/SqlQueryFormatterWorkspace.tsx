@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
-import { ToolLayout } from "@/components/utility/ToolLayout";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 import {
   SqlQueryFormatter,
@@ -45,8 +45,8 @@ export function SqlQueryFormatterWorkspace({ tool, slug }: SqlQueryFormatterWork
   );
 
   return (
-    <ToolLayout pageClassName="sql-query-tool-page">
+    <UtilityWorkspaceShell pageClassName="sql-query-tool-page">
       <SqlQueryFormatter labels={labels} />
-    </ToolLayout>
+    </UtilityWorkspaceShell>
   );
 }

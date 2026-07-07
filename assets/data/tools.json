@@ -2123,6 +2123,190 @@
       "updatedAt": "2026-07-06"
     },
     {
+      "slug": "video-resizer",
+      "category": "edit",
+      "operation": "video-resizer",
+      "title": "Video Resizer",
+      "primaryKeyword": "change video resolution online",
+      "intent": "Resize videos to 480p, 720p, or 1080p in your browser—no upload, 100% local ffmpeg.wasm.",
+      "description": "Change video resolution locally with ffmpeg.wasm. Scale 4K to 1080p, 1080p to 720p, and more—all processed in a Web Worker on your device.",
+      "secondaryKeywords": [
+        "video resolution changer",
+        "resize video to 720p",
+        "scale video online free"
+      ],
+      "useCases": [
+        "Downscale 4K screen recordings for faster sharing",
+        "Standardize client deliverables to 1080p or 720p",
+        "Reduce file size by lowering resolution before upload"
+      ],
+      "relatedTools": [
+        "video-compressor",
+        "video-to-mp4",
+        "compress-image",
+        "resize-image"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Resolution changes run entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "Which resolutions are supported?",
+          "a": "Choose 480p, 720p, or 1080p height. Width scales automatically to preserve aspect ratio."
+        },
+        {
+          "q": "Does audio stay intact?",
+          "a": "Yes. The tool uses -c:a copy to keep the original audio stream when possible."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.84,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "slug": "video-rotator",
+      "category": "edit",
+      "operation": "video-rotator",
+      "title": "Video Rotator",
+      "primaryKeyword": "rotate video online free",
+      "intent": "Rotate videos 90°, 180°, or 270° in your browser with ffmpeg.wasm—no upload.",
+      "description": "Fix sideways phone footage or flip orientation locally. Rotate MP4, MOV, WebM, and more with transpose filters—all in a Web Worker.",
+      "secondaryKeywords": [
+        "rotate mp4 90 degrees",
+        "flip video orientation",
+        "video rotator browser"
+      ],
+      "useCases": [
+        "Fix vertical phone videos recorded sideways",
+        "Flip upside-down screen captures",
+        "Prepare clips for social platforms with correct orientation"
+      ],
+      "relatedTools": [
+        "video-resizer",
+        "rotate-image",
+        "video-to-mp4",
+        "video-compressor"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Rotation runs entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "Which rotation angles are supported?",
+          "a": "90° clockwise, 180°, and 270° clockwise (90° counter-clockwise)."
+        },
+        {
+          "q": "What format is the output?",
+          "a": "Rotated videos download as MP4 for broad compatibility."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.84,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "slug": "video-speed-controller",
+      "category": "edit",
+      "operation": "video-speed-controller",
+      "title": "Video Speed Controller",
+      "primaryKeyword": "change video speed online",
+      "intent": "Speed up or slow down video from 0.5x to 2.0x in your browser—local ffmpeg.wasm processing.",
+      "description": "Adjust playback speed locally with setpts and atempo filters. Create timelapse or slow-motion clips—all processed in a Web Worker, no upload.",
+      "secondaryKeywords": [
+        "speed up video online",
+        "slow down video free",
+        "video timelapse browser"
+      ],
+      "useCases": [
+        "Create quick timelapse from long screen recordings",
+        "Slow down tutorial clips for clarity",
+        "Match pacing for social media edits"
+      ],
+      "relatedTools": [
+        "video-compressor",
+        "video-to-gif",
+        "video-resizer",
+        "video-to-mp4"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Speed changes run entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "What speed range is supported?",
+          "a": "From 0.5× (half speed) to 2.0× (double speed) in 0.1× steps."
+        },
+        {
+          "q": "Does audio pitch change with speed?",
+          "a": "Yes. The atempo filter adjusts audio tempo to match the new speed without chipmunk or deep-voice artifacts within the supported range."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.83,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
+      "slug": "video-to-gif",
+      "category": "convert",
+      "operation": "video-to-gif",
+      "title": "Video to GIF",
+      "primaryKeyword": "convert video to gif online",
+      "intent": "Convert short video clips to high-quality GIFs in your browser—local ffmpeg.wasm, no upload.",
+      "description": "Turn MP4, MOV, or WebM clips into animated GIFs locally. Lanczos scaling at 10 fps for crisp results—all in a Web Worker on your device.",
+      "secondaryKeywords": [
+        "mp4 to gif free",
+        "video to gif converter browser",
+        "make gif from video online"
+      ],
+      "useCases": [
+        "Create reaction GIFs from short clips",
+        "Share product demos in chat-friendly GIF format",
+        "Export UI animations for documentation"
+      ],
+      "relatedTools": [
+        "video-compressor",
+        "video-speed-controller",
+        "convert-to-png",
+        "video-to-mp4"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. GIF conversion runs entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "How long can the video be?",
+          "a": "Short clips (under ~30 seconds) work best in the browser. Longer videos may run out of memory."
+        },
+        {
+          "q": "What GIF settings are used?",
+          "a": "Output uses 10 fps with Lanczos scaling to 480px width—balanced quality and file size for web sharing."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.83,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-07"
+    },
+    {
       "slug": "crop-image",
       "category": "edit",
       "operation": "crop-image",

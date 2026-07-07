@@ -1,9 +1,7 @@
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
-import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
-import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
-import { ToolPageInfoBlock } from "@/components/ToolPageInfoBlock";
-import { RelatedTools } from "@/components/RelatedTools";
+import { ToolLayout } from "@/components/layout/ToolLayout";
+import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
 import { AppPageShell } from "@/components/AppPageShell";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
@@ -21,6 +19,10 @@ import { HeicToJpgWorkspace } from "@/components/HeicToJpgWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
 import { VideoToMp4Workspace } from "@/components/VideoToMp4Workspace";
 import { VideoCompressorWorkspace } from "@/components/VideoCompressorWorkspace";
+import { VideoResizerWorkspace } from "@/components/tools/VideoResizerWorkspace";
+import { VideoRotatorWorkspace } from "@/components/tools/VideoRotatorWorkspace";
+import { VideoSpeedControllerWorkspace } from "@/components/tools/VideoSpeedControllerWorkspace";
+import { VideoToGifWorkspace } from "@/components/tools/VideoToGifWorkspace";
 import { CropImageWorkspace } from "@/components/CropImageWorkspace";
 import { ConvertToPngWorkspace } from "@/components/ConvertToPngWorkspace";
 import { RotateImageWorkspace } from "@/components/RotateImageWorkspace";
@@ -85,10 +87,9 @@ import { IcoToPngWorkspace } from "@/components/IcoToPngWorkspace";
 import { PngToIcoWorkspace } from "@/components/PngToIcoWorkspace";
 import { GenerateFaviconWorkspace } from "@/components/GenerateFaviconWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
+import { AudioToolPage, buildAudioToolMetadata } from "@/components/tools/AudioToolPage";
+import { AUDIO_TOOL_IDS, getAudioToolById } from "@/lib/audio-tools";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
-import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
-import { Link } from "@/i18n/navigation";
-import { getRelatedGuideLinkLabel } from "@/lib/tool-related-guides";
 import { resolveToolSeoPageOverride } from "@/lib/tool-seo-overrides";
 import {
   buildLocalizedGuideParagraphs,
@@ -102,7 +103,7 @@ import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
 import { resolveToolRoute } from "@/lib/variants";
 import { STUDIO_TOOL_SLUGS } from "@/lib/studio-tools";
-import { toolPageDashboardStack, toolPageDashboardWidth, toolPageInfoWidth, productPageMainClassName } from "@/lib/tool-ui";
+import { toolPageDashboardStack, toolPageDashboardWidth, productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { readdir } from "node:fs/promises";
@@ -139,6 +140,10 @@ export async function generateStaticParams() {
     }
   }
 
+  for (const audioId of AUDIO_TOOL_IDS) {
+    slugs.add(audioId);
+  }
+
   return Array.from(slugs).map((slug) => ({ slug }));
 }
 
@@ -149,6 +154,11 @@ export async function generateMetadata({
 }) {
   const { locale, slug } = await params;
   if (!slug) return {};
+  const audioTool = getAudioToolById(slug);
+  if (audioTool) {
+    const tPage = await getTranslations({ locale, namespace: "ToolPage" });
+    return buildAudioToolMetadata(audioTool, locale, tPage);
+  }
   const resolved = resolveToolRoute(slug, registry);
   if (!resolved) return {};
   const tTools = await getTranslations({ locale, namespace: "Tools" });
@@ -180,6 +190,11 @@ export default async function ToolPage({
 
   const tPage = await getTranslations("ToolPage");
   const tTools = await getTranslations("Tools");
+
+  const audioTool = getAudioToolById(slug);
+  if (audioTool) {
+    return <AudioToolPage tool={audioTool} slug={slug} locale={locale} />;
+  }
 
   const resolved = resolveToolRoute(slug, registry);
   if (!resolved) notFound();
@@ -231,6 +246,23 @@ export default async function ToolPage({
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
         <ToolPageShellProvider headline={pageHeadline} subline={subtitle} tagline={seoOverride?.heroTagline} slug={slug} stacked>
+        <ToolLayout
+          faqs={faqs}
+          marketing={
+            <ToolMarketingSections
+              tool={tool}
+              paragraphs={paragraphs}
+              articles={articles}
+              seoOverride={seoOverride}
+              beforeYouStartTitle={seoOverride?.introSectionTitle ?? tPage("beforeYouStart")}
+              whySectionTitle={seoOverride?.whySectionTitle ?? tPage("whyChooseLocalProcessing")}
+              whySectionSubheadline={seoOverride?.whySectionSubheadline}
+              whyBenefits={seoOverride?.whyBenefits}
+              relatedGuidesTitle={tPage("relatedGuides")}
+              tPage={tPage}
+            />
+          }
+        >
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "protect" ? (
@@ -299,6 +331,14 @@ export default async function ToolPage({
           <VideoToMp4Workspace tool={tool} slug={slug} />
         ) : tool.operation === "video-compressor" ? (
           <VideoCompressorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-resizer" ? (
+          <VideoResizerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-rotator" ? (
+          <VideoRotatorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-speed-controller" ? (
+          <VideoSpeedControllerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-to-gif" ? (
+          <VideoToGifWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "resize-image" ? (
           <ResizeImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "convert-to-png" ? (
@@ -394,109 +434,8 @@ export default async function ToolPage({
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}
+        </ToolLayout>
         </ToolPageShellProvider>
-
-        <ToolPageInfoBlock className={toolPageInfoWidth}>
-        <ToolPageDashboardSection>
-          <ToolBeforeYouStart title={seoOverride?.introSectionTitle ?? tPage("beforeYouStart")}>
-            {paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </ToolBeforeYouStart>
-        </ToolPageDashboardSection>
-
-        <LocalProcessingInfographic
-          layout="dashboard"
-          headline={seoOverride?.whySectionTitle ?? tPage("whyChooseLocalProcessing")}
-          subheadline={seoOverride?.whySectionSubheadline}
-          benefits={seoOverride?.whyBenefits}
-        />
-
-        <RelatedTools tool={tool} />
-
-        <ToolPageDashboardSection aria-labelledby="tool-faq-heading">
-          <h2 id="tool-faq-heading" className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white">
-            {tPage("questions")}
-          </h2>
-          <div className="tool-page-faq-list">
-            {faqs.map((f) => (
-              <details key={f.q} className="tool-page-faq-item">
-                <summary className="cursor-pointer text-ink dark:text-white">{f.q}</summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </ToolPageDashboardSection>
-
-        {articles.length ? (
-          <ToolPageDashboardSection aria-labelledby="related-guides-heading">
-            <h2
-              id="related-guides-heading"
-              className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
-            >
-              {tPage("relatedGuides")}
-            </h2>
-            <ul className="space-y-3">
-              {articles.map((a) => (
-                <li key={a.slug}>
-                  <Link
-                    className="text-base leading-relaxed text-neutral-400 hover:underline"
-                    href={`/blog/${a.slug}/`}
-                  >
-                    {getRelatedGuideLinkLabel(a, tPage)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </ToolPageDashboardSection>
-        ) : null}
-
-        {seoOverride?.featuredGuide ? (
-          <ToolPageDashboardSection>
-            <Link
-              href={`/blog/${seoOverride.featuredGuide.slug}/`}
-              className="text-base leading-relaxed text-neutral-300 hover:underline"
-              prefetch={false}
-            >
-              {seoOverride.featuredGuide.label}
-            </Link>
-          </ToolPageDashboardSection>
-        ) : null}
-
-        {seoOverride?.relatedWorkflowLinks ? (
-          <ToolPageDashboardSection>
-            <p className="mb-3 text-base leading-relaxed text-neutral-400">{seoOverride.relatedWorkflowLinks.prompt}</p>
-            <div className="tool-seo-workflow-links">
-              {seoOverride.relatedWorkflowLinks.links.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="tool-seo-workflow-links__link"
-                  prefetch={false}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </ToolPageDashboardSection>
-        ) : null}
-
-        {seoOverride?.complementaryTool ? (
-          <ToolPageDashboardSection>
-            <p className="text-base leading-relaxed text-neutral-400">
-              {seoOverride.complementaryTool.prompt}{" "}
-              <Link
-                href={seoOverride.complementaryTool.href}
-                className="font-medium text-neutral-300 hover:underline"
-                prefetch={false}
-              >
-                {seoOverride.complementaryTool.linkLabel}
-              </Link>
-            </p>
-          </ToolPageDashboardSection>
-        ) : null}
-
-        </ToolPageInfoBlock>
         </ToolGlassProvider>
         </div>
       </AppPageShell>
