@@ -16238,8 +16238,8 @@ body.site-tools-grid-open {
 
 /* —— Footer tools panel (Industrial Matte) —— */
 .footer-tools-panel {
-  border-top: 1px solid #262626;
-  background: #0f0f10;
+  border-top: none;
+  background: transparent;
 }
 
 .footer-tools-panel__shell {
@@ -16250,24 +16250,34 @@ body.site-tools-grid-open {
   padding: 0 clamp(1rem, 4vw, 2rem);
 }
 
+/* Compact, centered glass pill — no full-width band */
 .footer-tools-panel__toggle {
   display: flex;
-  width: 100%;
+  width: fit-content;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 0;
-  border: none;
-  background: transparent;
+  margin: 1.25rem auto;
+  padding: 0.5rem 1.5rem; /* px-6 py-2 */
+  border: 1px solid #262626; /* border-neutral-800 */
+  border-radius: 9999px; /* rounded-full */
+  background: rgba(23, 23, 23, 0.5); /* bg-neutral-900/50 */
+  backdrop-filter: blur(4px); /* subtle glass-morphism */
+  -webkit-backdrop-filter: blur(4px);
   color: #d4d4d4;
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.02em;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .footer-tools-panel__toggle:hover {
+  border-color: #404040; /* brighter border */
+  background: #262626; /* neutral-800 */
   color: #fafafa;
 }
 
