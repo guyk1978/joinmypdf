@@ -78,6 +78,8 @@ const ACTION_KEYS: Record<string, string> = {
   "repair-pdf": "repair",
   "pdf-a-converter": "pdfA",
   "pdf-linearization": "pdfLinearize",
+  "n-up-pdf": "nUpPdf",
+  "grayscale-pdf": "grayscalePdf",
   "remove-hidden-metadata": "removeMetadata",
   "pdf-metadata-editor": "metadataEditor",
   sign: "sign",
@@ -88,6 +90,7 @@ const ACTION_KEYS: Record<string, string> = {
   "pdf-to-jpg": "pdfToJpg",
   "pdf-to-png": "pdfToPng",
   "pdf-to-text": "pdfToText",
+  "pdf-to-html": "pdfToHtml",
   "extract-images": "extractImages",
   "word-to-pdf": "wordToPdf",
   "excel-to-pdf": "excelToPdf",
@@ -172,7 +175,11 @@ export function buildLocalizedGuideParagraphs(
                                           ? "pdfAConverter"
                                           : !variant && tool.slug === "pdf-linearization"
                                             ? "pdfLinearization"
-                                            : !variant && tool.slug === "protect-pdf"
+                                            : !variant && tool.slug === "n-up-pdf"
+                                              ? "nUpPdf"
+                                              : !variant && tool.slug === "grayscale-pdf"
+                                                ? "grayscalePdf"
+                                                : !variant && tool.slug === "protect-pdf"
                                           ? "pdfProtect"
                                           : !variant && tool.slug === "unlock-pdf"
                                             ? "pdfUnlock"
@@ -206,7 +213,9 @@ export function buildLocalizedGuideParagraphs(
                                                                       ? "pdfToPng"
                                                                       : !variant && tool.slug === "pdf-to-text"
                                                                         ? "pdfToText"
-                                                                        : !variant && tool.slug === "extract-images"
+                                                                        : !variant && tool.slug === "pdf-to-html"
+                                                                          ? "pdfToHtml"
+                                                                          : !variant && tool.slug === "extract-images"
                                                                           ? "extractImages"
                                                                           : !variant && tool.slug === "pdf-to-word"
                                                                             ? "pdfToWord"

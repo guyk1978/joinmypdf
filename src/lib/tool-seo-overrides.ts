@@ -1,7 +1,7 @@
 import type { ToolPageTranslator } from "./i18n-tool-page";
 import type { ToolDefinition, ToolVariant } from "./types";
 
-const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "pdf-a-converter", "pdf-linearization", "pdf-metadata-editor", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "extract-images", "pdf-to-word", "pdf-to-excel", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "video-to-mp4", "video-compressor", "video-resizer", "video-rotator", "video-speed-controller", "video-to-gif", "heic-to-jpg", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "markdown-to-pdf", "html-to-pdf", "invoice-generator", "data-converter-visualizer", "generate-favicon", "png-to-ico", "ico-to-png", "svg-to-favicon", "favicon-pack", "apple-touch-icon", "favicon-compressor", "favicon-cropper", "transparent-favicon", "favicon-code-generator", "favicon-previewer", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter", "json-to-csv", "json-minifier", "csv-to-json", "html-markdown-converter"] as const;
+const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "pdf-a-converter", "pdf-linearization", "n-up-pdf", "grayscale-pdf", "pdf-metadata-editor", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "pdf-to-html", "extract-images", "pdf-to-word", "pdf-to-excel", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "video-to-mp4", "video-compressor", "video-resizer", "video-rotator", "video-speed-controller", "video-to-gif", "heic-to-jpg", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "markdown-to-pdf", "html-to-pdf", "invoice-generator", "data-converter-visualizer", "generate-favicon", "png-to-ico", "ico-to-png", "svg-to-favicon", "favicon-pack", "apple-touch-icon", "favicon-compressor", "favicon-cropper", "transparent-favicon", "favicon-code-generator", "favicon-previewer", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter", "json-to-csv", "json-minifier", "csv-to-json", "html-markdown-converter"] as const;
 
 export type SeoToolSlug = (typeof SEO_TOOL_SLUGS)[number];
 
@@ -26,6 +26,8 @@ const SLUG_TO_OVERRIDE_KEY: Record<SeoToolSlug, string> = {
   "repair-pdf": "pdfRepair",
   "pdf-a-converter": "pdfAConverter",
   "pdf-linearization": "pdfLinearization",
+  "n-up-pdf": "nUpPdf",
+  "grayscale-pdf": "grayscalePdf",
   "pdf-metadata-editor": "pdfMetadataEditor",
   "protect-pdf": "pdfProtect",
   "unlock-pdf": "pdfUnlock",
@@ -43,6 +45,7 @@ const SLUG_TO_OVERRIDE_KEY: Record<SeoToolSlug, string> = {
   "pdf-to-jpg": "pdfToJpg",
   "pdf-to-png": "pdfToPng",
   "pdf-to-text": "pdfToText",
+  "pdf-to-html": "pdfToHtml",
   "extract-images": "extractImages",
   "pdf-to-word": "pdfToWord",
   "pdf-to-excel": "pdfToExcel",
@@ -195,6 +198,8 @@ export function resolveToolSeoPageOverride(
     { href: "/tools/flatten-pdf/", labelKey: "flattenLabel" },
     { href: "/tools/pdf-a-converter/", labelKey: "pdfAConverterLabel" },
     { href: "/tools/pdf-linearization/", labelKey: "pdfLinearizationLabel" },
+    { href: "/tools/n-up-pdf/", labelKey: "nUpPdfLabel" },
+    { href: "/tools/grayscale-pdf/", labelKey: "grayscalePdfLabel" },
     { href: "/tools/redact-pdf/", labelKey: "redactLabel" },
     { href: "/tools/safe-to-share-auditor/", labelKey: "auditorLabel" },
     { href: "/tools/remove-hidden-metadata/", labelKey: "removeMetadataLabel" },
@@ -206,6 +211,7 @@ export function resolveToolSeoPageOverride(
     { href: "/tools/crop-image/", labelKey: "cropImageLabel" },
     { href: "/tools/word-to-pdf/", labelKey: "wordToPdfLabel" },
     { href: "/tools/pdf-to-text/", labelKey: "pdfToTextLabel" },
+    { href: "/tools/pdf-to-html/", labelKey: "pdfToHtmlLabel" },
     { href: "/tools/compress-image/", labelKey: "compressImageLabel" },
     { href: "/tools/resize-image/", labelKey: "resizeImageLabel" },
     { href: "/tools/convert-to-png/", labelKey: "convertToPngLabel" },

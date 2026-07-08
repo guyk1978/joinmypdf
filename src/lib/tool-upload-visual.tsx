@@ -25,6 +25,7 @@ const CONVERT_TOOL_PAIRS: Record<string, { from: string; to: string }> = {
   "pdf-to-excel": { from: "pdf", to: "excel" },
   "pdf-to-powerpoint": { from: "pdf", to: "powerpoint" },
   "pdf-to-text": { from: "pdf", to: "text" },
+  "pdf-to-html": { from: "pdf", to: "html" },
   "pdf-to-booklet": { from: "pdf", to: "booklet" },
   "jpg-to-pdf": { from: "jpg", to: "pdf" },
   "png-to-pdf": { from: "png", to: "pdf" },

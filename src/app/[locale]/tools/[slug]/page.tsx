@@ -8,6 +8,7 @@ import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
 import { PdfToWordWorkspace } from "@/components/PdfToWordWorkspace";
 import { PdfToTextWorkspace } from "@/components/PdfToTextWorkspace";
+import { PdfToHtmlWorkspace } from "@/components/PdfToHtmlWorkspace";
 import { ExtractImagesWorkspace } from "@/components/ExtractImagesWorkspace";
 import { WordToPdfWorkspace } from "@/components/WordToPdfWorkspace";
 import { ExcelToPdfWorkspace } from "@/components/ExcelToPdfWorkspace";
@@ -45,6 +46,8 @@ import { RepairPdfWorkspace } from "@/components/RepairPdfWorkspace";
 import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
 import { PdfMetadataEditorWorkspace } from "@/components/PdfMetadataEditorWorkspace";
 import { PdfLinearizationWorkspace } from "@/components/PdfLinearizationWorkspace";
+import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
+import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
 import { AnnotatePdfWorkspace } from "@/components/AnnotatePdfWorkspace";
 import { ReorderPdfPagesWorkspace } from "@/components/ReorderPdfPagesWorkspace";
@@ -290,6 +293,10 @@ export default async function ToolPage({
           <PdfMetadataEditorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-linearization" ? (
           <PdfLinearizationWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "n-up-pdf" ? (
+          <NUpPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "grayscale-pdf" ? (
+          <GrayscalePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "delete-pages" ? (
           <DeletePdfPagesWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "merge" ? (
@@ -316,6 +323,8 @@ export default async function ToolPage({
           <PdfToWordWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-text" ? (
           <PdfToTextWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-html" ? (
+          <PdfToHtmlWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "extract-images" ? (
           <ExtractImagesWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "word-to-pdf" ? (

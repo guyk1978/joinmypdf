@@ -976,6 +976,61 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "pdf-to-html",
+      "category": "convert",
+      "operation": "pdf-to-html",
+      "title": "PDF to HTML Converter",
+      "primaryKeyword": "pdf to html converter online",
+      "intent": "Convert PDF documents into clean, structured HTML for web publishing, CMS import, and developer workflows—entirely in your browser.",
+      "description": "Convert PDF to HTML online with semantic structure—headings, paragraphs, and lists preserved for web designers, developers, and content managers. 100% local-first with no uploads.",
+      "secondaryKeywords": [
+        "extract pdf to html",
+        "pdf html export browser",
+        "semantic html from pdf",
+        "pdf content for web publishing"
+      ],
+      "useCases": [
+        "Republish legacy PDF reports as accessible HTML pages in a CMS",
+        "Extract structured content for design prototypes and static site generators",
+        "Give developers clean markup to pipe into React, Vue, or documentation sites"
+      ],
+      "relatedTools": [
+        "pdf-to-text",
+        "html-to-pdf",
+        "pdf-to-word",
+        "html-markdown-converter"
+      ],
+      "faq": [
+        {
+          "q": "How does this tool handle complex layouts?",
+          "a": "JoinMyPDF analyzes text position and font size to rebuild logical structure—headings, paragraphs, and lists—per page. Multi-column layouts and tables may need manual cleanup in your editor, especially for design-heavy brochures."
+        },
+        {
+          "q": "Is the output clean, semantic HTML?",
+          "a": "Yes. Each page becomes a section with heading, paragraph, and list elements—no table soup or inline PDF styling. A minimal stylesheet improves readability; you can replace it with your design system CSS."
+        },
+        {
+          "q": "Does it preserve CSS styling from the PDF?",
+          "a": "No. PDF visual styling (exact fonts, colors, absolute positioning) is not copied. The tool focuses on semantic structure and readable content you can restyle—ideal for web publishing rather than pixel-perfect reproduction."
+        },
+        {
+          "q": "Is my PDF uploaded to a server?",
+          "a": "No. Parsing and HTML generation run entirely in your browser. Confidential product specs and client documents never leave your device."
+        },
+        {
+          "q": "Can it convert scanned PDFs?",
+          "a": "Scanned image-only pages have no selectable text to parse. Use OCR software first, or try PDF to Text if you only need plain text extraction."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-08"
+    },
+    {
       "slug": "extract-images",
       "category": "convert",
       "operation": "extract-images",
@@ -2653,6 +2708,116 @@
       "longTailPages": [],
       "skipClusterVariants": true,
       "priority": 0.9,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "slug": "n-up-pdf",
+      "category": "edit",
+      "operation": "n-up-pdf",
+      "title": "N-Up PDF (Multiple Pages per Sheet)",
+      "primaryKeyword": "n-up pdf multiple pages per sheet online",
+      "intent": "Arrange multiple PDF pages onto a single sheet with 2-up, 4-up, 6-up, or custom grid layouts—ideal for handouts, review packs, and eco-friendly printing.",
+      "description": "Create N-Up PDF layouts locally—fit 2, 4, 6, or more pages per sheet to save paper, cut printing costs, and prepare handouts. 100% client-side with no uploads.",
+      "secondaryKeywords": [
+        "pdf 2 up printing online",
+        "4 up pdf layout",
+        "multiple pages per sheet pdf",
+        "pdf handout layout browser"
+      ],
+      "useCases": [
+        "Print lecture slides four-to-a-page for student handouts and study guides",
+        "Reduce paper use for internal review drafts before final publication",
+        "Prepare compact proof packs for legal or design review meetings"
+      ],
+      "relatedTools": [
+        "pdf-to-booklet",
+        "custom-paper-margin",
+        "pdf-compress",
+        "add-page-numbers"
+      ],
+      "faq": [
+        {
+          "q": "How does N-Up printing work?",
+          "a": "N-Up imposition places multiple source pages on each output sheet in a grid—for example, four pages in a 2×2 layout. Each page is scaled to fit its cell while keeping aspect ratio, so you print more content per physical sheet."
+        },
+        {
+          "q": "Does this preserve the original page order?",
+          "a": "Yes. Pages are arranged left-to-right, top-to-bottom within each sheet, then continue on the next sheet in reading order. Page 1 stays first; only the number of pages per sheet changes."
+        },
+        {
+          "q": "Can I use this for double-sided printing?",
+          "a": "Yes. Download the N-Up PDF and print duplex from your OS or printer dialog. For saddle-stitch booklets with fold imposition, use our PDF to Booklet tool instead."
+        },
+        {
+          "q": "Is my file uploaded to a server?",
+          "a": "No. Layout and rearrangement run entirely in your browser. Your document never leaves your device."
+        },
+        {
+          "q": "What layout should I choose?",
+          "a": "Use 2-up for readable drafts, 4-up for standard handouts, and 6-up or 9-up for thumbnail review packs. Custom grid lets you set columns and rows up to 4×4 when you need a specific imposition."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "slug": "grayscale-pdf",
+      "category": "optimize",
+      "operation": "grayscale-pdf",
+      "title": "Grayscale PDF Converter",
+      "primaryKeyword": "convert pdf to grayscale black and white online",
+      "intent": "Convert color PDFs to grayscale for archival storage, lower printing costs, and smaller file sizes—processed entirely in your browser.",
+      "description": "Convert PDF to grayscale online—turn color documents into black-and-white PDFs that use less ink, reduce file size, and archive cleanly. 100% local-first with no uploads.",
+      "secondaryKeywords": [
+        "pdf black and white converter",
+        "grayscale pdf for printing",
+        "reduce pdf ink usage",
+        "monochrome pdf online"
+      ],
+      "useCases": [
+        "Archive contracts and reports in monochrome for long-term records management",
+        "Print training manuals and policy packs with less color toner",
+        "Shrink slide decks and scanned brochures before email distribution"
+      ],
+      "relatedTools": [
+        "pdf-compress",
+        "flatten-pdf",
+        "pdf-a-converter",
+        "n-up-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Why convert to Grayscale?",
+          "a": "Grayscale PDFs use less ink and toner when printed, often produce smaller files than full-color raster content, and present a consistent monochrome look for archival copies, legal bundles, and internal distribution."
+        },
+        {
+          "q": "Does this affect text readability?",
+          "a": "Text remains sharp. JoinMyPDF renders each page at high resolution before applying a standard luminance grayscale formula—body copy, tables, and line art stay legible for printing and on-screen review."
+        },
+        {
+          "q": "Is this tool free to use?",
+          "a": "Yes. Grayscale conversion is free with no account required. Processing runs in your browser, so you are not charged cloud conversion fees and your files are not uploaded to JoinMyPDF servers."
+        },
+        {
+          "q": "Will the file size always shrink?",
+          "a": "Often yes—especially for image-heavy color PDFs—because pages are rebuilt as compressed grayscale JPEG streams. Vector-only documents may see modest change; use Compress PDF afterward if you need an even smaller file."
+        },
+        {
+          "q": "Is my PDF private?",
+          "a": "Yes. The entire rendering and conversion pipeline is local-first. Your document never leaves your device during grayscale conversion."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,

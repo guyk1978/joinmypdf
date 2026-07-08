@@ -54,6 +54,9 @@ async function main() {
     "pdf-a-converter",
     "pdf-metadata-editor",
     "pdf-linearization",
+    "n-up-pdf",
+    "grayscale-pdf",
+    "pdf-to-html",
   ];
   const missingRequired = requiredExtras.filter((slug) => !bySlug.has(slug));
 

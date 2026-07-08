@@ -74,6 +74,10 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "pdf-a-converter", labelKey: "pdfAConverter", categories: [c.pdfExport] },
   /** Linearize PDFs for Fast Web View and progressive browser loading. */
   { slug: "pdf-linearization", labelKey: "pdfLinearization", categories: [c.pdfExport] },
+  /** Arrange multiple PDF pages per sheet (N-Up imposition). */
+  { slug: "n-up-pdf", labelKey: "nUpPdf", categories: [c.pdfExport] },
+  /** Convert color PDFs to grayscale for print and archival optimization. */
+  { slug: "grayscale-pdf", labelKey: "grayscalePdf", categories: [c.pdfExport] },
 
   // PDF — Security
   { slug: "protect-pdf", labelKey: "protectPdf", categories: [c.pdfSecurity] },
@@ -97,6 +101,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "pdf-to-jpg", labelKey: "pdfToJpg", categories: [c.pdfExport] },
   { slug: "pdf-to-png", labelKey: "pdfToPng", categories: [c.pdfExport] },
   { slug: "pdf-to-text", labelKey: "pdfToText", categories: [c.pdfExport] },
+  { slug: "pdf-to-html", labelKey: "pdfToHtml", categories: [c.pdfExport] },
   { slug: "extract-images", labelKey: "extractImages", categories: [c.pdfExport] },
   { slug: "pdf-to-word", labelKey: "pdfToWord", categories: [c.pdfExport] },
   { slug: "pdf-to-excel", labelKey: "pdfToExcel", categories: [c.pdfExport] },
@@ -278,12 +283,15 @@ export const TOOL_REGISTRY = {
     "pdf-to-jpg",
     "pdf-to-png",
     "pdf-to-text",
+    "pdf-to-html",
     "extract-images",
     "pdf-to-word",
     "pdf-to-excel",
     "pdf-to-powerpoint",
     "pdf-a-converter",
     "pdf-linearization",
+    "n-up-pdf",
+    "grayscale-pdf",
     // Image & video formats
     "heic-to-jpg",
     "convert-to-png",
@@ -379,12 +387,15 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
             "pdf-to-jpg",
             "pdf-to-png",
             "pdf-to-text",
+            "pdf-to-html",
             "extract-images",
             "pdf-to-word",
             "pdf-to-excel",
             "pdf-to-powerpoint",
             "pdf-a-converter",
             "pdf-linearization",
+            "n-up-pdf",
+            "grayscale-pdf",
           ],
           CONVERT_SLUGS,
         ),

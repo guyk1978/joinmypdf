@@ -732,6 +732,62 @@
           }
         }
       },
+      "nUpPdf": {
+        "h1": "N-Up PDF (Multiple Pages per Sheet)",
+        "heroTagline": "Fit 2, 4, 6, or more pages on each sheet—save paper, cut printing costs, and prepare handouts locally in your browser.",
+        "introSectionTitle": "How to Create an N-Up PDF Layout",
+        "whySectionTitle": "Why N-Up Printing Saves Paper and Time",
+        "whySectionSubheadline": "N-Up imposition packs multiple document pages onto one physical sheet. Teams print fewer pages for drafts, handouts, and review packs—reducing cost and environmental impact without sending files to the cloud.",
+        "schemaDescription": "Create N-Up PDF layouts online for free—arrange 2-up, 4-up, 6-up, or custom grid pages per sheet with secure local-only processing in your browser. No uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related print workflows:",
+          "bookletLabel": "PDF to Booklet",
+          "compressLabel": "Compress PDF",
+          "pageNumbersLabel": "Add Page Numbers"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Less paper per document",
+            "body": "Four-up and six-up layouts turn long PDFs into compact handouts—ideal for training packets, syllabus prints, and design review thumbnails."
+          },
+          "quality": {
+            "title": "Readable scaled pages",
+            "body": "Each source page scales proportionally inside its cell—text and graphics stay sharp without cropping or recompression."
+          },
+          "local": {
+            "title": "100% client-side privacy",
+            "body": "Your PDF is rearranged on your device. Confidential drafts and client materials never upload to JoinMyPDF."
+          }
+        }
+      },
+      "grayscalePdf": {
+        "h1": "Grayscale PDF Converter",
+        "heroTagline": "Convert color PDFs to black-and-white—save ink, shrink files, and archive documents professionally, all in your browser.",
+        "introSectionTitle": "How to Convert a PDF to Grayscale",
+        "whySectionTitle": "Why Grayscale PDFs Are Better for Print and Archive",
+        "whySectionSubheadline": "Monochrome PDFs reduce toner and ink costs, produce cleaner archival copies, and often weigh less than full-color raster exports—without uploading sensitive files to the cloud.",
+        "schemaDescription": "Convert PDF to grayscale online for free—turn color documents into black-and-white PDFs with local-first processing for printing, archiving, and file size optimization. No uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related optimization workflows:",
+          "compressLabel": "Compress PDF",
+          "flattenLabel": "Flatten PDF",
+          "nUpLabel": "N-Up PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Lower printing costs",
+            "body": "Grayscale output avoids color toner and ink on every page—ideal for policy manuals, contracts, and internal reports printed in volume."
+          },
+          "quality": {
+            "title": "Sharp readable text",
+            "body": "High-resolution rendering keeps body copy and tables legible after conversion—optimized for both screen review and office printers."
+          },
+          "local": {
+            "title": "Local-first privacy",
+            "body": "Rendering and conversion happen on your device. Confidential HR, legal, and financial PDFs never leave your browser."
+          }
+        }
+      },
       "pdfMetadataEditor": {
         "h1": "PDF Metadata Editor Online",
         "heroTagline": "Edit title, author, subject, keywords, creator, and producer—organize documents and improve discoverability locally.",
@@ -1097,6 +1153,34 @@
           "local": {
             "title": "100% Privacy (no file uploads)",
             "body": "Secure local-only processing—sensitive contracts, reports, and research PDFs are parsed in your browser tab, never uploaded to JoinMyPDF servers."
+          }
+        }
+      },
+      "pdfToHtml": {
+        "h1": "PDF to HTML Converter",
+        "heroTagline": "Turn PDF content into clean, semantic HTML—structured headings, paragraphs, and lists for web publishing, all in your browser.",
+        "introSectionTitle": "How to Convert PDF to HTML for the Web",
+        "whySectionTitle": "Why Developers and Content Teams Choose HTML Export",
+        "whySectionSubheadline": "Semantic HTML is the fastest path from static PDFs to CMS pages, documentation sites, and design systems—without uploading confidential source files to a cloud converter.",
+        "schemaDescription": "Convert PDF to HTML online for free—extract structured headings, paragraphs, and lists with a browser-based PDF to HTML converter. Secure local-only processing with no uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related publishing workflows:",
+          "textLabel": "PDF to Text",
+          "htmlToPdfLabel": "HTML to PDF",
+          "markdownLabel": "HTML/Markdown Converter"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Structured semantic output",
+            "body": "Pages export as sections with h2, h3, p, ul, and ol elements—ready for CMS import, static site generators, and component libraries."
+          },
+          "quality": {
+            "title": "Logical reading order",
+            "body": "Text position and font size inform headings and lists so content managers get markup that reflects document hierarchy—not a wall of unstyled spans."
+          },
+          "local": {
+            "title": "Local-first privacy",
+            "body": "Parsing runs on your device. Product briefs, client decks, and internal specs never upload to JoinMyPDF."
           }
         }
       },
@@ -3007,6 +3091,8 @@
       "repair": "repair a corrupted or malformed PDF",
       "pdfA": "convert a PDF to archival PDF/A format",
       "pdfLinearize": "linearize a PDF for Fast Web View",
+      "nUpPdf": "arrange multiple PDF pages per sheet (N-Up)",
+      "grayscalePdf": "convert a PDF to grayscale (black and white)",
       "removeMetadata": "remove hidden PDF metadata before sharing",
       "metadataEditor": "edit PDF metadata fields",
       "sign": "sign a PDF with your signature",
@@ -3017,6 +3103,7 @@
       "pdfToJpg": "export PDF pages as JPG images",
       "pdfToPng": "export PDF pages as PNG images",
       "pdfToText": "extract text from a PDF",
+      "pdfToHtml": "convert a PDF to semantic HTML",
       "extractImages": "extract embedded images from a PDF",
       "wordToPdf": "convert Word documents to PDF",
       "excelToPdf": "convert Excel spreadsheets to PDF",
@@ -3094,6 +3181,16 @@
           "p2": "How it works: (1) Upload your PDF or drag it into the workspace. (2) Enter a password only if the file is protected. (3) Click Convert & Download. JoinMyPDF rebuilds the document with pages in order, disables object streams for compatibility, and sets the Linearized catalog flag so viewers can render early pages while the file streams.",
           "p3": "Fast Web View improves web accessibility and perceived performance: users on mobile networks and large manuals benefit when the first screen appears in seconds. Because processing is 100% client-side, confidential reports and customer-facing documentation never leave your machine."
         },
+        "nUpPdf": {
+          "p1": "Create N-Up PDF layouts online—fit multiple pages per sheet for handouts, review packs, and sustainable printing with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How it works: (1) Upload your PDF. (2) Choose a layout—2-up, 4-up, 6-up, 9-up, or a custom grid with up to 4 columns and 4 rows. (3) Click Convert & Download. Each output sheet contains your chosen grid; pages keep reading order left-to-right, top-to-bottom.",
+          "p3": "N-Up printing reduces paper and toner for drafts, lecture notes, and internal reviews. Because imposition runs locally, sensitive contracts and unreleased designs stay on your machine."
+        },
+        "grayscalePdf": {
+          "p1": "Convert PDF to grayscale online—turn color documents into black-and-white PDFs for printing, archiving, and file size optimization with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How to convert: (1) Upload your color PDF. (2) Enter a password only if the file is protected. (3) Click Convert to Grayscale. JoinMyPDF renders each page locally, applies a luminance grayscale transform, and rebuilds an optimized monochrome PDF.",
+          "p3": "Grayscale conversion helps teams cut ink costs, standardize archival copies, and shrink image-heavy PDFs before email. Because everything runs local-first, privacy-sensitive documents never upload to JoinMyPDF servers."
+        },
         "pdfProtect": {
           "p1": "Protect PDF with password online to secure sensitive documents—use military-grade AES-256 encryption, secure your sensitive documents, and password-protect PDFs instantly with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
         },
@@ -3146,6 +3243,11 @@
         },
         "pdfToText": {
           "p1": "Convert PDF to text online with precise text extraction—clean text conversion, easy PDF content retrieval, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfToHtml": {
+          "p1": "Convert PDF to HTML online for web publishing—extract structured headings, paragraphs, and lists with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How to convert (developer workflow): (1) Upload your PDF. (2) Click Convert and wait for page-by-page parsing. (3) Download the .html file and open it in your editor, CMS, or static site pipeline. (4) Replace the included minimal CSS with your design tokens or framework styles.",
+          "p3": "Semantic HTML helps content managers republish legacy PDFs on the web and gives developers markup they can hydrate in React, Vue, or documentation frameworks—without sending confidential documents to a server-side converter."
         },
         "extractImages": {
           "p1": "Extract images from PDF online with extract original image files—lossless image retrieval, fast PDF asset extraction, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
@@ -3950,6 +4052,10 @@
         "title": "Publishing on the web?",
         "body": "Linearize the PDF for Fast Web View so browsers show the first pages while the rest downloads."
       },
+      "printHandouts": {
+        "title": "Printing handouts?",
+        "body": "Use N-Up PDF to fit multiple pages per sheet after grayscale conversion."
+      },
       "protectArchival": {
         "title": "Password-protect the archive",
         "body": "Add encryption after PDF/A conversion when your policy requires controlled access."
@@ -4065,6 +4171,14 @@
       "needTextToo": {
         "title": "Need the text too?",
         "body": "Extract text from the same document to pair visuals with searchable copy."
+      },
+      "semanticHtml": {
+        "title": "Need semantic HTML?",
+        "body": "Convert the PDF to structured HTML with headings and lists for your CMS or site."
+      },
+      "roundTripHtml": {
+        "title": "Publishing a final PDF?",
+        "body": "Use HTML to PDF after you style the exported markup for print or share."
       },
       "combineDocumentsFirst": {
         "title": "Combine documents first",
@@ -4502,6 +4616,10 @@
         "title": "Drop a PDF here or click to browse",
         "description": "Extract text and download a .txt file—processed locally."
       },
+      "pdf-to-html": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Convert to clean, semantic HTML—headings, paragraphs, and lists, 100% local."
+      },
       "heic-to-pdf": {
         "title": "Drop HEIC photos here or click to browse",
         "description": "Add one or more .heic / .heif files. Reorder before converting to a multi-page PDF."
@@ -4654,6 +4772,14 @@
         "title": "Drop your PDF here or click to browse",
         "description": "Linearize for Fast Web View—progressive loading in browsers, processed entirely on your device."
       },
+      "n-up-pdf": {
+        "title": "Drop your PDF here or click to browse",
+        "description": "Choose 2-up, 4-up, 6-up, or a custom grid—multiple pages per sheet, 100% local."
+      },
+      "grayscale-pdf": {
+        "title": "Drop your PDF here or click to browse",
+        "description": "Convert color PDFs to grayscale—save ink, reduce file size, processed on your device."
+      },
       "pdf-metadata-editor": {
         "title": "Drop your PDF here or click to browse",
         "description": "Edit title, author, subject, keywords, creator, and producer—saved locally in your browser."
@@ -4677,6 +4803,8 @@
       "repair-pdf": "Download repaired PDF",
       "pdf-a-converter": "Download PDF/A file",
       "pdf-linearization": "Convert & download linearized PDF",
+      "n-up-pdf": "Convert & download N-Up PDF",
+      "grayscale-pdf": "Convert to grayscale & download",
       "pdf-metadata-editor": "Save PDF with metadata"
     },
     "status": {
@@ -5022,6 +5150,24 @@
       "stickyDownloadLabel": "Download .txt",
       "stickyConvertLabel": "Convert to Text"
     },
+    "pdf-to-html": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — convert to HTML when you are."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "building": "Building HTML document…",
+        "extractingPage": "Parsing page {current} of {total}…"
+      },
+      "privacyNote": "PDF parsing and HTML generation run entirely in your browser. Your document never leaves your device.",
+      "convertLabel": "Convert",
+      "downloadLabel": "Download HTML file (.html)",
+      "outputHint": "Best for text-based PDFs. Complex tables and scanned pages may need manual cleanup in your editor.",
+      "stickyDownloadLabel": "Download .html",
+      "stickyConvertLabel": "Convert to HTML"
+    },
     "flatten-pdf": {
       "status": {
         "invalidType": "Please choose a PDF file.",
@@ -5117,6 +5263,63 @@
       },
       "privacyNote": "PDF linearization runs entirely in your browser. Your file never leaves your device.",
       "convertLabel": "Convert & Download",
+      "convertAgainLabel": "Convert again",
+      "adjustPassword": "Adjust your file or password and try again.",
+      "ui": {
+        "passwordLabel": "PDF password",
+        "passwordHint": "(only if the file is protected)",
+        "passwordPlaceholder": "Optional"
+      }
+    },
+    "n-up-pdf": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — choose a layout and convert.",
+        "starting": "Starting N-Up layout…",
+        "downloaded": "N-Up PDF downloaded as {name} ({sheets} output sheet(s))."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "arranging": "Arranging sheet {current} of {total}…",
+        "finalizing": "Finalizing N-Up PDF…"
+      },
+      "privacyNote": "N-Up layout runs entirely in your browser. Your PDF never leaves your device.",
+      "convertLabel": "Convert & Download",
+      "convertAgainLabel": "Convert again",
+      "adjustPassword": "Adjust your file, layout, or password and try again.",
+      "ui": {
+        "layoutLegend": "Pages per sheet",
+        "preset_2_up": "2-up",
+        "preset_4_up": "4-up",
+        "preset_6_up": "6-up",
+        "preset_9_up": "9-up",
+        "preset_custom": "Custom grid",
+        "customCols": "Columns",
+        "customRows": "Rows",
+        "customGridHint": "{cols} columns × {rows} rows per sheet",
+        "layoutHint": "Pages flow left-to-right, top-to-bottom. Use Booklet for fold-and-staple imposition.",
+        "outputSheets": "{count} output sheet(s)",
+        "passwordLabel": "PDF password",
+        "passwordHint": "(only if the file is protected)",
+        "passwordPlaceholder": "Optional"
+      }
+    },
+    "grayscale-pdf": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — convert to grayscale when you are.",
+        "starting": "Starting grayscale conversion…",
+        "downloaded": "Grayscale PDF downloaded as {name}."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "rendering": "Rendering page {current} of {total}…",
+        "finalizing": "Finalizing grayscale PDF…"
+      },
+      "privacyNote": "Grayscale conversion runs entirely in your browser. Your PDF never leaves your device.",
+      "convertLabel": "Convert to Grayscale",
       "convertAgainLabel": "Convert again",
       "adjustPassword": "Adjust your file or password and try again.",
       "ui": {

@@ -104,6 +104,16 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/flatten-pdf/", card: "flattenForms" },
     { href: "/tools/pdf-a-converter/", card: "archivalPdfA" },
   ],
+  "n-up-pdf": [
+    { href: "/tools/pdf-to-booklet/", card: "printBooklet" },
+    { href: "/tools/custom-paper-margin/", card: "mergeChapters" },
+    { href: "/tools/pdf-compress/", card: "compressBeforeSend" },
+  ],
+  "grayscale-pdf": [
+    { href: "/tools/pdf-compress/", card: "compressEmail" },
+    { href: "/tools/n-up-pdf/", card: "printHandouts" },
+    { href: "/tools/flatten-pdf/", card: "flattenForms" },
+  ],
   "remove-hidden-metadata": [
     { href: "/tools/redact-pdf/", card: "redactVisible" },
     { href: "/tools/protect-pdf/", card: "protectCleanPdf" },
@@ -164,8 +174,14 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
   ],
   "pdf-to-text": [
     { href: "/tools/pdf-to-word/", card: "editableDocument" },
+    { href: "/tools/pdf-to-html/", card: "semanticHtml" },
     { href: "/tools/pdf-split/", card: "extractPages" },
     { href: "/tools/pdf-merge/", card: "combineBeforeExtract" },
+  ],
+  "pdf-to-html": [
+    { href: "/tools/html-to-pdf/", card: "roundTripHtml" },
+    { href: "/tools/pdf-to-text/", card: "needTextToo" },
+    { href: "/tools/html-markdown-converter/", card: "convertingMarkdown" },
   ],
   "extract-images": [
     { href: "/tools/pdf-to-jpg/", card: "fullPageExports" },
