@@ -3,7 +3,7 @@
 import { clsx } from "clsx";
 import { ChevronDown, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Fragment, useEffect, useId, useMemo, useState } from "react";
+import { Fragment, useEffect, useId, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { createPortal } from "react-dom";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -42,33 +42,67 @@ function ToolBlock({
   onNavigate?: () => void;
   onClose: () => void;
 }) {
+  const reduceMotion = useReducedMotion();
   const [expanded, setExpanded] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const wasExpanded = useRef(false);
+
   const hasOverflow = column.items.length > DEFAULT_VISIBLE_TOOLS;
-  const visibleItems =
-    expanded || !hasOverflow ? column.items : column.items.slice(0, DEFAULT_VISIBLE_TOOLS);
+  const coreItems = hasOverflow ? column.items.slice(0, DEFAULT_VISIBLE_TOOLS) : column.items;
+  const extraItems = hasOverflow ? column.items.slice(DEFAULT_VISIBLE_TOOLS) : [];
+  const totalCount = column.items.length;
+
+  // Keep the just-collapsed block anchored in view so the list does not jump.
+  useEffect(() => {
+    if (wasExpanded.current && !expanded) {
+      sectionRef.current?.scrollIntoView({
+        block: "nearest",
+        behavior: reduceMotion ? "auto" : "smooth",
+      });
+    }
+    wasExpanded.current = expanded;
+  }, [expanded, reduceMotion]);
+
+  const renderLink = (item: ToolBlockColumn["items"][number]) => (
+    <Link
+      href={item.href}
+      className={clsx(
+        "category-modal__link",
+        isNavItemActive(pathname, item.href) && "is-active",
+      )}
+      prefetch={false}
+      onClick={() => {
+        onNavigate?.();
+        onClose();
+      }}
+    >
+      {item.label}
+    </Link>
+  );
 
   return (
-    <section className="category-modal__block">
+    <section className="category-modal__block" ref={sectionRef}>
       <h4 className="category-modal__block-title">{column.label}</h4>
       <ul className="category-modal__list">
-        {visibleItems.map((item) => (
-          <li key={item.slug}>
-            <Link
-              href={item.href}
-              className={clsx(
-                "category-modal__link",
-                isNavItemActive(pathname, item.href) && "is-active",
-              )}
-              prefetch={false}
-              onClick={() => {
-                onNavigate?.();
-                onClose();
-              }}
-            >
-              {item.label}
-            </Link>
-          </li>
+        {coreItems.map((item) => (
+          <li key={item.slug}>{renderLink(item)}</li>
         ))}
+        <AnimatePresence initial={false}>
+          {expanded
+            ? extraItems.map((item) => (
+                <motion.li
+                  key={item.slug}
+                  className="category-modal__list-extra"
+                  initial={reduceMotion ? false : { opacity: 0, height: 0 }}
+                  animate={reduceMotion ? undefined : { opacity: 1, height: "auto" }}
+                  exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                >
+                  {renderLink(item)}
+                </motion.li>
+              ))
+            : null}
+        </AnimatePresence>
       </ul>
       {hasOverflow ? (
         <button
@@ -78,7 +112,7 @@ function ToolBlock({
           onClick={() => setExpanded((value) => !value)}
         >
           <span>
-            {expanded ? collapseLabel : `${showAllLabel} (${column.items.length})`}
+            {expanded ? `${collapseLabel} (${totalCount})` : `${showAllLabel} (${totalCount})`}
           </span>
           <ChevronDown
             className={clsx(

@@ -352,6 +352,7 @@
     "audioToolsDirectoryTitle": "כלי אודיו",
     "audioToolsDirectoryDescription": "המרה, חיתוך והגברת MP3 בדפדפן עם ffmpeg.wasm — ללא העלאה לשרת.",
     "showMoreTools": "הצג עוד ({count})",
+    "showLessTools": "הצג פחות ({count})",
     "pdfSectionTitle": "כלי PDF",
     "imageSectionTitle": "כלי תמונה",
     "faviconSectionTitle": "כלי Favicon",

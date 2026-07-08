@@ -348,6 +348,7 @@
     "audioToolsDirectoryTitle": "Audio tools",
     "audioToolsDirectoryDescription": "Convert, trim, and boost MP3 files in your browser with ffmpeg.wasm — no uploads.",
     "showMoreTools": "Show more ({count})",
+    "showLessTools": "Show less ({count})",
     "pdfSectionTitle": "PDF Tools",
     "imageSectionTitle": "Image Tools",
     "faviconSectionTitle": "Favicon Tools",
