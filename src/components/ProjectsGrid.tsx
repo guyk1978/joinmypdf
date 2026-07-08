@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { FolderOpen, LayoutGrid, Play, Trash2 } from "lucide-react";
 import { EmptyState } from "@/components/EmptyState";
+import { ToolListIcon } from "@/components/ToolListIcon";
 import { useSavedProjects } from "@/hooks/useSavedProjects";
 import { imBtnCta } from "@/lib/design-system";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
@@ -69,8 +70,11 @@ export function ProjectsGrid({ locale }: { locale: string }) {
         {projects.map((project) => {
           const toolLabel = toolLabels.get(project.toolSlug) ?? project.toolSlug;
           return (
-            <article key={project.id} className="im-surface-card project-card">
+            <article key={project.id} className="project-card">
               <div className="project-card__header">
+                <div className="project-card__icon" aria-hidden>
+                  <ToolListIcon slug={project.toolSlug} label={toolLabel} />
+                </div>
                 <p className="project-card__tool">{toolLabel}</p>
                 <h2 className="project-card__title">{project.name}</h2>
                 <p className="project-card__meta">
@@ -84,7 +88,7 @@ export function ProjectsGrid({ locale }: { locale: string }) {
               <div className="project-card__actions">
                 <Link
                   href={`/tools/${project.toolSlug}/?project=${project.id}`}
-                  className={clsx(imBtnCta, "im-btn-cta--rounded project-card__resume inline-flex gap-2")}
+                  className="project-card__resume"
                   prefetch={false}
                 >
                   <Play className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
@@ -92,7 +96,7 @@ export function ProjectsGrid({ locale }: { locale: string }) {
                 </Link>
                 <button
                   type="button"
-                  className={clsx(imBtnCta, "im-btn-cta--rounded project-card__delete inline-flex gap-2")}
+                  className="project-card__delete"
                   aria-label={t("deleteProject", { name: project.name })}
                   onClick={() => void removeProject(project.id)}
                 >

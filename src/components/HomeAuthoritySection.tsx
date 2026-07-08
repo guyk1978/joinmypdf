@@ -1,8 +1,10 @@
 import { ArrowRight, BadgeCheck, ServerOff, Zap, type LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { BlogThumbnailGenerator } from "@/components/BlogThumbnailGenerator";
 import { getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
-import { resolveBlogOgImagePath } from "@/lib/og-images-blog";
+import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
+import { resolveBlogCardCoverImage } from "@/lib/blog-cover-image";
 import type { BlogPost } from "@/lib/types";
 
 const FAQ_KEYS = ["upload", "free", "professional"] as const;
@@ -96,6 +98,8 @@ export async function HomeAuthoritySection({ latestPosts, locale }: HomeAuthorit
           <div className="home-resources__grid">
             {latestPosts.map((post) => {
               const excerpt = getGuideExcerpt(post);
+              const category = resolveBlogDisplayCategory(post);
+              const coverImage = resolveBlogCardCoverImage(post);
               return (
                 <Link
                   key={post.slug}
@@ -104,12 +108,16 @@ export async function HomeAuthoritySection({ latestPosts, locale }: HomeAuthorit
                   prefetch={false}
                 >
                   <span className="home-resource-card__thumb">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={post.coverImage || resolveBlogOgImagePath(post, locale)}
-                      alt={tHome("landing.resourceThumbAlt")}
-                      loading="lazy"
-                    />
+                    {coverImage ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={coverImage}
+                        alt={tHome("landing.resourceThumbAlt")}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <BlogThumbnailGenerator slug={post.slug} category={category} />
+                    )}
                   </span>
                   <span className="home-resource-card__body">
                     <span className="home-resource-card__title">{post.title}</span>

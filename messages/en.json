@@ -728,6 +728,20 @@
     "privacyFirst": "Privacy First",
     "startHere": "Start here",
     "startHereDescription": "Popular merge, compress, convert, sign, and protect workflows.",
+    "workflows": {
+      "convert-create": {
+        "title": "Convert & Create",
+        "description": "Turn documents into PDFs and export to other formats."
+      },
+      "organize-edit": {
+        "title": "Organize & Edit",
+        "description": "Merge, split, reorder, annotate, and refine your pages."
+      },
+      "security-optimize": {
+        "title": "Security & Optimize",
+        "description": "Protect, clean metadata, compress, and prepare files for sharing."
+      }
+    },
     "allToolsGridTitle": "Full tool dashboard",
     "allToolsGridDescription": "Browse all {count} tools in one grid—click any tile to open the workflow.",
     "toolCount": "{count} tool",
@@ -736,6 +750,158 @@
     "whyLocalBody": "Upload-based PDF sites copy your file to their servers. JoinMyPDF delivers JavaScript; your browser does the work. Open DevTools → Network and verify—your PDF never leaves your device.",
     "learnPrivacy": "Learn about Privacy First",
     "viewGuides": "View guides"
+  },
+  "CategoryDirectory": {
+    "badge": "Tool category",
+    "backToHome": "Back to home",
+    "browseAllTools": "Browse all tools",
+    "footerNavLabel": "Category navigation",
+    "startHere": "Start here",
+    "startHereDescription": {
+      "security": "Password, hash, and UUID generators for secure local workflows.",
+      "image": "Popular resize, crop, and compress workflows.",
+      "audio": "Convert, trim, and compress audio locally with ffmpeg.wasm.",
+      "developer": "Parse agents, debug JWTs, and generate QR codes.",
+      "data-conversion": "Convert YAML, CSV, and SQL formats in your browser.",
+      "productivity": "Units, timezones, and word counts at a glance.",
+      "favicon": "Generate and convert favicons for every platform.",
+      "text-json": "Format JSON, encode data, and compare text."
+    },
+    "categories": {
+      "utilities": {
+        "faviconCreate": "Favicon — create & convert",
+        "faviconEdit": "Favicon — edit & publish",
+        "textJson": "Text & JSON"
+      }
+    },
+    "workflows": {
+      "security": {
+        "passwords": {
+          "title": "Passwords",
+          "description": "Generate strong passwords locally."
+        },
+        "hashing": {
+          "title": "Hashing",
+          "description": "Create secure hashes in your browser."
+        },
+        "identifiers": {
+          "title": "Identifiers",
+          "description": "Generate UUIDs and unique IDs."
+        }
+      },
+      "image": {
+        "transform": {
+          "title": "Transform",
+          "description": "Resize, crop, and rotate images."
+        },
+        "convert": {
+          "title": "Convert",
+          "description": "Change formats and export files."
+        },
+        "optimize": {
+          "title": "Optimize",
+          "description": "Compress for web and email."
+        }
+      },
+      "audio": {
+        "convert": {
+          "title": "Convert",
+          "description": "Transcode between MP3, WAV, FLAC, and more."
+        },
+        "edit": {
+          "title": "Edit & Enhance",
+          "description": "Trim, boost volume, normalize, and remove vocals."
+        },
+        "mix-metadata": {
+          "title": "Mix & Metadata",
+          "description": "Merge tracks, edit tags, and create MP4."
+        }
+      },
+      "developer": {
+        "parse": {
+          "title": "Parse",
+          "description": "Inspect user agents and request headers."
+        },
+        "generate": {
+          "title": "Generate",
+          "description": "Create QR codes instantly."
+        },
+        "debug": {
+          "title": "Debug",
+          "description": "Decode and inspect JWT tokens."
+        }
+      },
+      "data-conversion": {
+        "interchange": {
+          "title": "Interchange",
+          "description": "Convert between YAML and JSON."
+        },
+        "tables": {
+          "title": "Tables",
+          "description": "Turn CSV into Markdown tables."
+        },
+        "sql": {
+          "title": "SQL",
+          "description": "Format and beautify SQL queries."
+        }
+      },
+      "productivity": {
+        "measure": {
+          "title": "Measure",
+          "description": "Convert units across systems."
+        },
+        "time": {
+          "title": "Time",
+          "description": "Compare timezones worldwide."
+        },
+        "text": {
+          "title": "Text",
+          "description": "Count words and characters."
+        }
+      },
+      "favicon": {
+        "create": {
+          "title": "Create & Convert",
+          "description": "Generate favicons and convert ICO, PNG, SVG."
+        },
+        "edit": {
+          "title": "Edit & Refine",
+          "description": "Crop, compress, and tune transparency."
+        },
+        "publish": {
+          "title": "Publish",
+          "description": "Export packs, code snippets, and previews."
+        }
+      },
+      "text-json": {
+        "json": {
+          "title": "JSON",
+          "description": "Format, minify, and convert JSON data."
+        },
+        "encode": {
+          "title": "Encode",
+          "description": "Base64 and URL encoding utilities."
+        },
+        "text": {
+          "title": "Text",
+          "description": "Diff, generate strings, and convert markup."
+        }
+      },
+      "utilities": {
+        "favicon-create": {
+          "title": "Favicon",
+          "description": "Create and convert favicon assets."
+        },
+        "favicon-edit": {
+          "title": "Favicon tools",
+          "description": "Edit, compress, and publish favicons."
+        },
+        "text-json": {
+          "title": "Text & JSON",
+          "description": "Format, encode, and compare text data."
+        }
+      }
+    }
   },
   "PremiumTools": {
     "metaTitle": "Premium PDF Tools",
@@ -831,6 +997,23 @@
     "allGuides": "All guides",
     "categoryNavLabel": "Jump to category",
     "categoryArticleCount": "{count, plural, one {# article} other {# articles}}",
+    "featuredSpotlight": "Featured spotlight",
+    "featuredSpotlightEyebrow": "Editor's pick",
+    "curatedTopics": "Curated topics",
+    "curatedTopicsEyebrow": "Browse by topic",
+    "topicFiltersLabel": "Filter articles by topic",
+    "allTopics": "All topics",
+    "loadMoreArticles": "Load more ({count})",
+    "noArticlesInCategory": "No articles in this topic yet.",
+    "mustRead": "Must read",
+    "mustReadEyebrow": "Trending",
+    "keepReading": "Keep reading",
+    "keepReadingDescription": "Related guides based on this topic and workflow.",
+    "youMightAlsoLike": "You might also like",
+    "youMightAlsoLikeDescription": "More guides picked from the same category and cluster.",
+    "workflowBridgeEyebrow": "Try the workflow",
+    "workflowBridgeTitle": "Put this guide into action with {tool}",
+    "workflowBridgeCta": "Open {tool}",
     "readTimeMinutes": "{mins} min read",
     "categories": {
       "conversion": "Conversion",

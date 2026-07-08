@@ -46,7 +46,7 @@ export function FavoritesToolGrid({ items }: FavoritesToolGridProps) {
         {t("savedCount", { count: favoriteItems.length })}
       </p>
 
-      <ToolCardGrid className="tool-card-grid--directory favorites-tool-grid">
+      <ToolCardGrid className="tool-card-grid--dashboard favorites-tool-grid">
         {favoriteItems.map((item) => (
           <ToolGridCard key={item.href} item={item} favoritesView />
         ))}

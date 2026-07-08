@@ -7,21 +7,13 @@ import {
   getLocalizedBlogReadTime,
 } from "@/lib/blog-card-i18n";
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
+import { getGuideExcerpt } from "@/lib/blog-excerpt";
 import type { BlogPost } from "@/lib/types";
 
 type BlogGuideListItemProps = {
   post: BlogPost;
   showCategoryBadge?: boolean;
 };
-
-function getGuideExcerpt(post: BlogPost): string {
-  return (
-    post.description?.trim() ||
-    post.contentBlocks?.intro?.trim() ||
-    post.seo?.metaDescription?.trim() ||
-    ""
-  );
-}
 
 export async function BlogGuideListItem({ post, showCategoryBadge = true }: BlogGuideListItemProps) {
   const t = await getTranslations("Blog");

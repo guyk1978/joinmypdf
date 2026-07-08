@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
-import { buildHomeAudioToolItems } from "@/lib/audio-tools";
+import { CategoryDirectoryShell } from "@/components/CategoryDirectoryShell";
+import { getCategoryDirectoryItemCount, getCategoryDirectoryPageProps } from "@/lib/category-directory-config";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -25,7 +25,9 @@ export default async function AudioToolsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const tHome = await getTranslations("Home");
-  const audioItems = buildHomeAudioToolItems();
+  const tCategory = await getTranslations("CategoryDirectory");
+  const page = getCategoryDirectoryPageProps("audio", tHome, tCategory);
+  const itemCount = getCategoryDirectoryItemCount("audio", tHome);
 
   return (
     <>
@@ -33,33 +35,14 @@ export default async function AudioToolsPage({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: tHome("audioToolsDirectoryTitle"),
-          description: tHome("audioToolsDirectoryDescription"),
+          name: page.title,
+          description: page.description,
           url: absoluteUrl(`/${locale}/audio-tools`),
-          numberOfItems: audioItems.length,
+          numberOfItems: itemCount,
         }}
       />
       <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
-          <h1 className="home-minimal-tagline">{tHome("audioToolsDirectoryTitle")}</h1>
-          <HomeFeaturedSection
-            id="audio-tools-directory"
-            title={tHome("audioSectionTitle")}
-            viewAllHref="/"
-            viewAllLabel={tHome("backToHome")}
-            hideTitle
-          >
-            {audioItems.map((item) => (
-              <HomeFeaturedToolCard
-                key={item.id}
-                href={item.href}
-                label={item.label}
-                slugHint={item.id}
-                audioIconKey={item.iconKey}
-              />
-            ))}
-          </HomeFeaturedSection>
-        </div>
+        <CategoryDirectoryShell {...page} />
       </AppPageShell>
     </>
   );

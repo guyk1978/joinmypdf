@@ -10,13 +10,11 @@ import { HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
 import type { HomeFeaturedToolItem } from "@/lib/featured-tools";
 import type { HomeFeaturedImageItem } from "@/lib/image-tools";
 import type { HomeFeaturedUtilityItem } from "@/lib/utilities-tools";
-import type { HomeFeaturedTextJsonItem } from "@/lib/text-json-tools";
 import type { HomeFeaturedDeveloperItem } from "@/lib/developer-tools";
 import type { HomeFeaturedDataConversionItem } from "@/lib/data-conversion-tools";
 import type { HomeFeaturedSecurityItem } from "@/lib/security-tools";
 import type { HomeFeaturedProductivityItem } from "@/lib/productivity-tools";
 import type { HomeFeaturedAudioItem } from "@/lib/audio-tools";
-import { isHomeTextJsonToolId } from "@/lib/text-json-tools";
 
 const CATEGORY_PREVIEW = 3;
 
@@ -30,10 +28,6 @@ type HomeToolGridProps = {
   utilityItems: HomeFeaturedUtilityItem[];
   audioItems: HomeFeaturedAudioItem[];
 };
-
-function isTextJsonUtilityItem(item: HomeFeaturedUtilityItem): item is HomeFeaturedTextJsonItem {
-  return isHomeTextJsonToolId(item.id);
-}
 
 type CategoryBlockProps = {
   id: string;
@@ -104,7 +98,6 @@ export function HomeToolGrid({
           href={item.href}
           label={item.label}
           slugHint={item.id}
-          imageIconKey={item.iconKey}
         />
       )),
     },
@@ -119,7 +112,6 @@ export function HomeToolGrid({
           href={item.href}
           label={item.label}
           slugHint={item.id}
-          audioIconKey={item.iconKey}
         />
       )),
     },
@@ -134,7 +126,6 @@ export function HomeToolGrid({
           href={item.href}
           label={item.label}
           slugHint={item.id}
-          developerIconKey={item.iconKey}
         />
       )),
     },
@@ -149,7 +140,6 @@ export function HomeToolGrid({
           href={item.href}
           label={item.label}
           slugHint={item.id}
-          dataConversionIconKey={item.iconKey}
         />
       )),
     },
@@ -164,7 +154,6 @@ export function HomeToolGrid({
           href={item.href}
           label={item.label}
           slugHint={item.id}
-          securityIconKey={item.iconKey}
         />
       )),
     },
@@ -179,7 +168,6 @@ export function HomeToolGrid({
           href={item.href}
           label={item.label}
           slugHint={item.id}
-          productivityIconKey={item.iconKey}
         />
       )),
     },
@@ -194,8 +182,6 @@ export function HomeToolGrid({
           href={item.href}
           label={item.label}
           slugHint={item.id}
-          faviconIconKey={!isTextJsonUtilityItem(item) ? item.iconKey : undefined}
-          textJsonIconKey={isTextJsonUtilityItem(item) ? item.iconKey : undefined}
         />
       )),
     },

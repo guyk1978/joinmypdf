@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-
-
 import { getTranslations, setRequestLocale } from "next-intl/server";
-
 import { AppPageShell } from "@/components/AppPageShell";
-import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
-import { buildHomeProductivityToolItems } from "@/lib/productivity-tools";
+import { CategoryDirectoryShell } from "@/components/CategoryDirectoryShell";
+import { getCategoryDirectoryItemCount, getCategoryDirectoryPageProps } from "@/lib/category-directory-config";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -28,7 +25,9 @@ export default async function ProductivityToolsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const tHome = await getTranslations("Home");
-  const productivityItems = buildHomeProductivityToolItems(tHome);
+  const tCategory = await getTranslations("CategoryDirectory");
+  const page = getCategoryDirectoryPageProps("productivity", tHome, tCategory);
+  const itemCount = getCategoryDirectoryItemCount("productivity", tHome);
 
   return (
     <>
@@ -36,33 +35,14 @@ export default async function ProductivityToolsPage({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: tHome("productivityToolsDirectoryTitle"),
-          description: tHome("productivityToolsDirectoryDescription"),
+          name: page.title,
+          description: page.description,
           url: absoluteUrl(`/${locale}/productivity-tools`),
-          numberOfItems: productivityItems.length,
+          numberOfItems: itemCount,
         }}
       />
       <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
-          <h1 className="home-minimal-tagline">{tHome("productivityToolsDirectoryTitle")}</h1>
-          <HomeFeaturedSection
-            id="productivity-tools-directory"
-            title={tHome("productivitySectionTitle")}
-            viewAllHref="/"
-            viewAllLabel={tHome("backToHome")}
-            hideTitle
-          >
-            {productivityItems.map((item) => (
-              <HomeFeaturedToolCard
-                key={item.id}
-                href={item.href}
-                label={item.label}
-                slugHint={item.id}
-                productivityIconKey={item.iconKey}
-              />
-            ))}
-          </HomeFeaturedSection>
-        </div>
+        <CategoryDirectoryShell {...page} />
       </AppPageShell>
     </>
   );

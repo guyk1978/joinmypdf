@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { ToolCard } from "@/components/ToolCard";
 import { ToolFavoriteBookmarkIcon } from "@/components/ToolFavoriteBookmarkIcon";
 import { useFavorites } from "@/hooks/useFavorites";
-import { getToolIcon } from "@/lib/tool-icons";
+import { ToolListIcon } from "@/components/ToolListIcon";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 type ToolGridCardAccordionProps = {
@@ -41,7 +41,7 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
     else toggleFavorite(slug);
   };
 
-  const visual = getToolIcon(item.slugHint, item.label);
+  const icon = <ToolListIcon slug={item.slugHint} label={item.label} />;
 
   const bookmarkButton = (
     <button
@@ -70,7 +70,7 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
     return (
       <ToolCard
         label={item.label}
-        icon={visual.icon}
+        icon={icon}
         onClick={accordion.onToggle}
         actionSlot={bookmarkButton}
         selected={accordion.isSelected}
@@ -86,7 +86,7 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
     <ToolCard
       href={item.href}
       label={item.label}
-      icon={visual.icon}
+      icon={icon}
       actionSlot={bookmarkButton}
     />
   );

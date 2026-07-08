@@ -1,4 +1,4 @@
-import { BlogCategorizedIndex } from "@/components/BlogCategorizedIndex";
+import { BlogMagazineIndex } from "@/components/BlogMagazineIndex";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { getBlogRegistry } from "@/lib/blog-registry";
@@ -34,9 +34,9 @@ export default async function BlogIndexPage({ params }: Props) {
 
   return (
     <AppPageShell mainClassName={productPageMainClassName}>
-      <ProductPageLayout title={t("title")} description={t("description")}>
+      <ProductPageLayout title={t("title")} description={t("description")} variant="magazine">
         {posts.length > 0 ? (
-          <BlogCategorizedIndex posts={posts} />
+          <BlogMagazineIndex posts={posts} />
         ) : null}
       </ProductPageLayout>
     </AppPageShell>

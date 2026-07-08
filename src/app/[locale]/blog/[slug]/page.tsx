@@ -7,13 +7,14 @@ import { ArticleAuthorBadge } from "@/components/ArticleAuthorBadge";
 import { AdContainer } from "@/components/AdContainer";
 import { BlogArticleBody } from "@/components/BlogArticleBody";
 import { BlogArticleTemplate } from "@/components/BlogArticleTemplate";
-import { BlogGuideListItem } from "@/components/BlogGuideListItem";
+import { BlogKeepReading, BlogYouMightLike } from "@/components/BlogArticleRelated";
+import { BlogWorkflowBridge } from "@/components/BlogWorkflowBridge";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { AppPageShell } from "@/components/AppPageShell";
-import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
+import { getRelatedBlogPosts, getYouMightAlsoLikePosts } from "@/lib/blog-related";
 import { blogPostingLd, breadcrumbLd, comparisonArticleLd, developerUtilityAppLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, losslessQualityAppLd, privacySecurityAppLd, technicalFormatAppLd, techArticleLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
 import { getBlogRegistry } from "@/lib/blog-registry";
@@ -123,9 +124,9 @@ export default async function BlogPostPage({
   const faqs = faqItems(post);
   const howTo = post.contentBlocks?.howTo;
   const internalLinks = post.contentBlocks?.internalLinks || [];
-  const relatedArticles = (post.relatedBlogs || [])
-    .map((relatedSlug) => blogRegistry.blog.find((entry) => entry.slug === relatedSlug))
-    .filter((entry): entry is BlogPost => Boolean(entry));
+  const keepReading = getRelatedBlogPosts(post, blogRegistry.blog || [], 4);
+  const keepReadingSlugs = new Set(keepReading.map((entry) => entry.slug));
+  const youMightLike = getYouMightAlsoLikePosts(post, blogRegistry.blog || [], keepReadingSlugs, 4);
   const displayTitle = post.seo?.metaTitle || post.title;
   const author = resolveArticleAuthor(post);
   const tools = (post.relatedTools || [])
@@ -287,6 +288,8 @@ export default async function BlogPostPage({
             <div className="blog-article-prose">
               <BlogArticleBody post={post} />
 
+              <BlogWorkflowBridge post={post} />
+
               {tools.length ? (
                 <section className="article-panel" aria-labelledby="workflow-tools">
                   <h2 id="workflow-tools" className="article-panel__title">
@@ -323,17 +326,10 @@ export default async function BlogPostPage({
                 </>
               ) : null}
 
-              {relatedArticles.length ? (
-                <section className="article-panel" aria-labelledby="related-articles">
-                  <h2 id="related-articles" className="article-panel__title">
-                    {t("article.relatedArticles")}
-                  </h2>
-                  <ToolCardGrid className="tool-card-grid--directory blog-index-grid article-related-grid">
-                    {relatedArticles.map((related) => (
-                      <BlogGuideListItem key={related.slug} post={related} />
-                    ))}
-                  </ToolCardGrid>
-                </section>
+              {keepReading.length ? (
+                <div className="article-panel article-panel--flush">
+                  <BlogKeepReading posts={keepReading} />
+                </div>
               ) : null}
 
               {internalLinks.length ? (
@@ -373,6 +369,8 @@ export default async function BlogPostPage({
                   </Link>
                 </div>
               ) : null}
+
+              {youMightLike.length ? <BlogYouMightLike posts={youMightLike} /> : null}
 
               <FeedbackWidget pageType="article" pageTitle={displayTitle} />
             </div>

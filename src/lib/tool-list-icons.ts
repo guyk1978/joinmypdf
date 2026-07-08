@@ -1,0 +1,309 @@
+import { toolsList } from "@/data/tools";
+import type { HomeAudioToolIconKey } from "@/lib/tool-module";
+import {
+  ArrowLeftRight,
+  AudioLines,
+  Binary,
+  BookOpen,
+  Braces,
+  CalendarRange,
+  Clock,
+  Code,
+  CodeXml,
+  Combine,
+  Copy,
+  Crop,
+  Database,
+  Dices,
+  Disc3,
+  Eraser,
+  Expand,
+  EyeOff,
+  File,
+  FileAudio,
+  FileCode,
+  FileImage,
+  FileJson,
+  FileMusic,
+  FileText,
+  FileType2,
+  Fingerprint,
+  GitCompare,
+  Globe,
+  Hash,
+  ImageDown,
+  KeyRound,
+  Layers,
+  LetterText,
+  Link as LinkIcon,
+  ListOrdered,
+  Minimize2,
+  Music,
+  PanelTop,
+  PenLine,
+  Pipette,
+  Presentation,
+  QrCode,
+  Receipt,
+  RotateCw,
+  Scale,
+  Scissors,
+  Settings,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Split,
+  SquarePen,
+  Stamp,
+  Table,
+  Tags,
+  Trash2,
+  Unlock,
+  Video,
+  Volume2,
+  Wrench,
+  type LucideIcon,
+} from "lucide-react";
+
+const LUCIDE_BY_KEY = {
+  expand: Expand,
+  "file-image": FileImage,
+  crop: Crop,
+  "rotate-cw": RotateCw,
+  "minimize-2": Minimize2,
+  "image-down": ImageDown,
+  sparkles: Sparkles,
+  "file-code": FileCode,
+  layers: Layers,
+  smartphone: Smartphone,
+  pipette: Pipette,
+  braces: Braces,
+  table: Table,
+  "file-json": FileJson,
+  binary: Binary,
+  link: LinkIcon,
+  "git-compare": GitCompare,
+  dices: Dices,
+  "code-xml": CodeXml,
+  "letter-text": LetterText,
+  globe: Globe,
+  "qr-code": QrCode,
+  "key-round": KeyRound,
+  hash: Hash,
+  fingerprint: Fingerprint,
+  scale: Scale,
+  clock: Clock,
+  "arrow-left-right": ArrowLeftRight,
+  database: Database,
+  music: Music,
+  "file-audio": FileAudio,
+  scissors: Scissors,
+  "audio-waveform": AudioLines,
+  disc: Disc3,
+  "file-music": FileMusic,
+  "volume-2": Volume2,
+  tags: Tags,
+  "panel-top": PanelTop,
+} satisfies Record<string, LucideIcon>;
+
+const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
+  "resize-image": "expand",
+  "convert-to-png": "file-image",
+  "crop-image": "crop",
+  "rotate-image": "rotate-cw",
+  "compress-image": "minimize-2",
+  "heic-to-jpg": "image-down",
+  "generate-favicon": "sparkles",
+  "png-to-ico": "file-image",
+  "ico-to-png": "image-down",
+  "svg-to-favicon": "braces",
+  "favicon-pack": "layers",
+  "apple-touch-icon": "smartphone",
+  "favicon-compressor": "minimize-2",
+  "favicon-cropper": "crop",
+  "transparent-favicon": "pipette",
+  "favicon-code-generator": "braces",
+  "favicon-previewer": "panel-top",
+  "json-formatter": "braces",
+  "json-to-csv": "table",
+  "json-minifier": "minimize-2",
+  "csv-to-json": "file-json",
+  "base64-encoder-decoder": "binary",
+  "url-encoder-decoder": "link",
+  "text-diff-checker": "git-compare",
+  "string-generator": "dices",
+  "html-markdown-converter": "code-xml",
+  "word-character-counter": "letter-text",
+  "user-agent-parser": "globe",
+  "qr-code-generator": "qr-code",
+  "jwt-debugger": "key-round",
+  "yaml-json-converter": "arrow-left-right",
+  "csv-to-markdown-table": "table",
+  "sql-query-formatter": "database",
+  "password-generator": "key-round",
+  "hash-generator": "hash",
+  "uuid-generator": "fingerprint",
+  "unit-converter": "scale",
+  "timezone-converter": "clock",
+};
+
+for (const tool of toolsList) {
+  SLUG_ICON_KEYS[tool.id] = tool.iconKey as HomeAudioToolIconKey;
+}
+
+const PDF_TOOL_LUCIDE: Record<string, LucideIcon> = {
+  "pdf-merge": Combine,
+  "pdf-compress": Minimize2,
+  "pdf-split": Split,
+  "pdf-to-booklet": BookOpen,
+  "compare-pdf": GitCompare,
+  "batch-rename-pdf": Tags,
+  "pdf-text-editor": SquarePen,
+  "annotate-pdf": PenLine,
+  "reorder-pdf-pages": ListOrdered,
+  "extract-pdf-pages": Copy,
+  "jpg-to-pdf": FileImage,
+  "png-to-pdf": FileImage,
+  "heic-to-pdf": FileImage,
+  "pdf-to-jpg": FileImage,
+  "pdf-to-png": FileImage,
+  "pdf-to-text": FileText,
+  "extract-images": FileImage,
+  "word-to-pdf": FileText,
+  "pdf-to-word": FileType2,
+  "pdf-to-excel": Table,
+  "excel-to-pdf": Table,
+  "pdf-to-powerpoint": Presentation,
+  "powerpoint-to-pdf": Presentation,
+  "protect-pdf": ShieldCheck,
+  "pdf-password-recovery": KeyRound,
+  "unlock-pdf": Unlock,
+  "remove-hidden-metadata": EyeOff,
+  "flatten-pdf": Layers,
+  "repair-pdf": Wrench,
+  "redact-pdf": Eraser,
+  "rotate-pdf": RotateCw,
+  "crop-pdf": Crop,
+  "sign-pdf": PenLine,
+  "autocad-to-pdf": FileCode,
+  "openoffice-to-pdf": FileText,
+  "markdown-to-pdf": FileCode,
+  "html-to-pdf": CodeXml,
+  "ebook-to-pdf": BookOpen,
+  "iwork-to-pdf": FileText,
+  "custom-paper-margin": Expand,
+  "safe-to-share-auditor": ShieldCheck,
+  "add-page-numbers": Hash,
+  "add-watermark": Stamp,
+  "delete-pdf-pages": Trash2,
+  "invoice-generator": Receipt,
+  "timeline-gantt-generator": CalendarRange,
+  "data-converter-visualizer": Database,
+  "video-compressor": Minimize2,
+  "video-resizer": Expand,
+  "video-rotator": RotateCw,
+  "video-to-mp4": Video,
+  "video-to-gif": Video,
+  default: FileText,
+};
+
+const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
+  { test: (s) => s.includes("delete-pdf-pages"), key: "delete-pdf-pages" },
+  { test: (s) => s.includes("add-page-numbers"), key: "add-page-numbers" },
+  { test: (s) => s.includes("add-watermark"), key: "add-watermark" },
+  { test: (s) => s.includes("pdf-to-powerpoint"), key: "pdf-to-powerpoint" },
+  { test: (s) => s.includes("powerpoint-to-pdf"), key: "powerpoint-to-pdf" },
+  { test: (s) => s.includes("pdf-to-excel"), key: "pdf-to-excel" },
+  { test: (s) => s.includes("excel-to-pdf"), key: "excel-to-pdf" },
+  { test: (s) => s.includes("pdf-to-word"), key: "pdf-to-word" },
+  { test: (s) => s.includes("pdf-to-text"), key: "pdf-to-text" },
+  { test: (s) => s.includes("extract-images"), key: "extract-images" },
+  { test: (s) => s.includes("word-to-pdf"), key: "word-to-pdf" },
+  { test: (s) => s.includes("invoice-generator"), key: "invoice-generator" },
+  { test: (s) => s.includes("timeline-gantt"), key: "timeline-gantt-generator" },
+  { test: (s) => s.includes("data-converter"), key: "data-converter-visualizer" },
+  { test: (s) => s.includes("protect-pdf"), key: "protect-pdf" },
+  { test: (s) => s.includes("pdf-password-recovery"), key: "pdf-password-recovery" },
+  { test: (s) => s.includes("unlock-pdf"), key: "unlock-pdf" },
+  { test: (s) => s.includes("remove-hidden-metadata"), key: "remove-hidden-metadata" },
+  { test: (s) => s.includes("flatten-pdf"), key: "flatten-pdf" },
+  { test: (s) => s.includes("repair-pdf"), key: "repair-pdf" },
+  { test: (s) => s.includes("redact-pdf"), key: "redact-pdf" },
+  { test: (s) => s.includes("rotate-pdf"), key: "rotate-pdf" },
+  { test: (s) => s.includes("crop-pdf"), key: "crop-pdf" },
+  { test: (s) => s.includes("sign-pdf"), key: "sign-pdf" },
+  { test: (s) => s.includes("autocad-to-pdf"), key: "autocad-to-pdf" },
+  { test: (s) => s.includes("openoffice-to-pdf"), key: "openoffice-to-pdf" },
+  { test: (s) => s.includes("markdown-to-pdf"), key: "markdown-to-pdf" },
+  { test: (s) => s.includes("html-to-pdf"), key: "html-to-pdf" },
+  { test: (s) => s.includes("ebook-to-pdf"), key: "ebook-to-pdf" },
+  { test: (s) => s.includes("iwork-to-pdf"), key: "iwork-to-pdf" },
+  { test: (s) => s.includes("heic-to-pdf"), key: "heic-to-pdf" },
+  { test: (s) => s.includes("png-to-pdf"), key: "png-to-pdf" },
+  { test: (s) => s.includes("jpg-to-pdf"), key: "jpg-to-pdf" },
+  { test: (s) => s.includes("pdf-to-png"), key: "pdf-to-png" },
+  { test: (s) => s.includes("pdf-to-jpg"), key: "pdf-to-jpg" },
+  { test: (s) => s.includes("pdf-compress"), key: "pdf-compress" },
+  { test: (s) => s.includes("custom-paper-margin"), key: "custom-paper-margin" },
+  { test: (s) => s.includes("safe-to-share-auditor"), key: "safe-to-share-auditor" },
+  { test: (s) => s.includes("pdf-to-booklet"), key: "pdf-to-booklet" },
+  { test: (s) => s.includes("compare-pdf"), key: "compare-pdf" },
+  { test: (s) => s.includes("batch-rename-pdf"), key: "batch-rename-pdf" },
+  { test: (s) => s.includes("pdf-text-editor"), key: "pdf-text-editor" },
+  { test: (s) => s.includes("annotate-pdf"), key: "annotate-pdf" },
+  { test: (s) => s.includes("reorder-pdf-pages"), key: "reorder-pdf-pages" },
+  { test: (s) => s.includes("extract-pdf-pages"), key: "extract-pdf-pages" },
+  { test: (s) => s.includes("pdf-split"), key: "pdf-split" },
+  { test: (s) => s.includes("pdf-merge"), key: "pdf-merge" },
+  { test: (s) => s.includes("video-compressor"), key: "video-compressor" },
+  { test: (s) => s.includes("video-resizer"), key: "video-resizer" },
+  { test: (s) => s.includes("video-rotator"), key: "video-rotator" },
+  { test: (s) => s.includes("video-to-mp4"), key: "video-to-mp4" },
+  { test: (s) => s.includes("video-to-gif"), key: "video-to-gif" },
+];
+
+function resolveToolKey(slug?: string, label?: string): string {
+  const source = `${slug || ""} ${label || ""}`.toLowerCase();
+  for (const { test, key } of SLUG_RESOLVERS) {
+    if (test(source)) return key;
+  }
+  return "default";
+}
+
+function inferLucideFromText(slug?: string, label?: string): LucideIcon {
+  const source = `${slug || ""} ${label || ""}`.toLowerCase();
+
+  if (/video|mp4|gif/.test(source)) return Video;
+  if (/audio|mp3|wav|flac|ogg|m4a/.test(source)) return FileAudio;
+  if (/image|jpg|jpeg|png|ico|svg|heic|favicon|crop|resize/.test(source)) return FileImage;
+  if (/json|yaml|csv|sql|code|developer|jwt|base64|markdown|html/.test(source)) return Code;
+  if (/security|password|protect|unlock|hash|uuid|shield|redact|metadata/.test(source)) return ShieldCheck;
+  if (/compress|minify|optim/.test(source)) return Minimize2;
+  if (/convert|transcode|to-/.test(source)) return ArrowLeftRight;
+  if (/merge|combine|join/.test(source)) return Combine;
+  if (/split|extract|trim/.test(source)) return Split;
+  if (/sign|annotate|edit|watermark/.test(source)) return PenLine;
+  if (/setting|config/.test(source)) return Settings;
+
+  return File;
+}
+
+/** Neutral Lucide icon for any tool slug — never returns null. */
+export function getToolListLucideIcon(slug?: string, label?: string): LucideIcon {
+  if (slug && SLUG_ICON_KEYS[slug]) {
+    const mapped = LUCIDE_BY_KEY[SLUG_ICON_KEYS[slug]];
+    if (mapped) return mapped;
+  }
+
+  const resolvedKey = resolveToolKey(slug, label);
+  if (PDF_TOOL_LUCIDE[resolvedKey]) return PDF_TOOL_LUCIDE[resolvedKey];
+
+  if (slug && PDF_TOOL_LUCIDE[slug]) return PDF_TOOL_LUCIDE[slug];
+
+  return inferLucideFromText(slug, label);
+}
+
+/** @deprecated Use getToolListLucideIcon — kept for transitional imports. */
+export function getCategoryDirectoryLucideIcon(slug?: string): LucideIcon {
+  return getToolListLucideIcon(slug);
+}

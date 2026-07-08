@@ -6,6 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { ToolListIcon } from "@/components/ToolListIcon";
 import { FOOTER_COLUMN_INITIAL_VISIBLE } from "@/lib/tool-grid-config";
 
 export type FooterToolsColumnItem = {
@@ -44,8 +45,9 @@ export function FooterToolsColumn({ label, items }: FooterToolsColumnProps) {
   }, [expanded, reduceMotion]);
 
   const renderLink = (item: FooterToolsColumnItem) => (
-    <Link href={item.href} className="footer-tools-panel__link" prefetch={false}>
-      {item.label}
+    <Link href={item.href} className="footer-tools-panel__link group flex items-center gap-2" prefetch={false}>
+      <ToolListIcon slug={item.slug} label={item.label} />
+      <span>{item.label}</span>
     </Link>
   );
 

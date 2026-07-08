@@ -7,6 +7,7 @@ import { Fragment, useEffect, useId, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { createPortal } from "react-dom";
 import { Link, usePathname } from "@/i18n/navigation";
+import { ToolListIcon } from "@/components/ToolListIcon";
 import { isNavItemActive } from "@/lib/nav-config";
 import {
   buildAllToolsNav,
@@ -67,7 +68,7 @@ function ToolBlock({
     <Link
       href={item.href}
       className={clsx(
-        "category-modal__link",
+        "category-modal__link group flex items-center gap-2",
         isNavItemActive(pathname, item.href) && "is-active",
       )}
       prefetch={false}
@@ -76,7 +77,8 @@ function ToolBlock({
         onClose();
       }}
     >
-      {item.label}
+      <ToolListIcon slug={item.slug} label={item.label} />
+      <span>{item.label}</span>
     </Link>
   );
 

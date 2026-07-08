@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
+import { getToolListLucideIcon } from "@/lib/tool-list-icons";
 
 export type ToolIconVisual = {
   icon: ReactNode;
@@ -507,7 +508,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("pdf-merge"), key: "pdf-merge" },
 ];
 
-function resolveToolKey(slug?: string, label?: string): string {
+export function resolveToolKey(slug?: string, label?: string): string {
   const source = `${slug || ""} ${label || ""}`.toLowerCase();
   for (const { test, key } of SLUG_RESOLVERS) {
     if (test(source)) return key;
@@ -781,26 +782,25 @@ export function ToolDirectoryIcon({
   label?: string;
   className?: string;
 }) {
-  const key = resolveToolKey(slug, label);
-  const visual = getToolIcon(slug, label);
-  const wrap = DIRECTORY_ICON_WRAP[key] ?? ICON_WRAP;
+  const Icon = getToolListLucideIcon(slug, label);
   return (
     <span
       className={clsx(
         "mb-3 inline-flex items-center justify-center rounded-none p-3 transition-transform duration-300 group-hover:scale-105",
         TOOL_ICON_BARE_CLASS,
-        wrap,
-        "[&_svg]:h-10 [&_svg]:w-10 md:[&_svg]:h-12 md:[&_svg]:w-12",
         className,
       )}
       aria-hidden
     >
-      {visual.icon}
+      <Icon
+        className="tool-list-icon h-10 w-10 text-neutral-400 transition-colors group-hover:text-white md:h-12 md:w-12"
+        strokeWidth={1.5}
+      />
     </span>
   );
 }
 
-/** Compact colorful badge for nav mega menu rows. */
+/** Compact neutral badge for tool list rows and nav links. */
 export function ToolIconBadge({
   slug,
   label,
@@ -812,18 +812,16 @@ export function ToolIconBadge({
   size?: "sm" | "md";
   className?: string;
 }) {
-  const visual = getToolIcon(slug, label);
+  const Icon = getToolListLucideIcon(slug, label);
   return (
-    <span
+    <Icon
       className={clsx(
-        TOOL_ICON_BARE_CLASS,
-        "inline-flex shrink-0 items-center justify-center rounded-none",
-        size === "sm" ? "h-6 w-6 [&_svg]:h-4 [&_svg]:w-4" : "h-8 w-8 [&_svg]:h-[18px] [&_svg]:w-[18px]",
+        "tool-list-icon shrink-0 text-neutral-400 transition-colors group-hover:text-white",
+        size === "sm" ? "size-5" : "size-6",
         className,
       )}
+      strokeWidth={1.5}
       aria-hidden
-    >
-      {visual.icon}
-    </span>
+    />
   );
 }

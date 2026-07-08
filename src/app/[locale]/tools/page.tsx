@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
+import { ToolsDirectoryDashboard } from "@/components/ToolsDirectoryDashboard";
 import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
 import { buildMegaMenuSections } from "@/lib/mega-menu";
 import { getTotalToolCount } from "@/lib/featured-tools";
@@ -11,6 +11,7 @@ import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import type { ToolGridItem } from "@/lib/tool-grid";
+import { groupSectionsByWorkflow } from "@/lib/tools-directory-workflows";
 
 const FEATURED_SLUGS = ["pdf-merge", "pdf-compress", "pdf-split"] as const;
 
@@ -55,24 +56,12 @@ function toGridItem(
   };
 }
 
-function renderToolCards(items: ToolGridItem[]) {
-  return items.map((item) => (
-    <HomeFeaturedToolCard
-      key={item.slugHint}
-      href={item.href}
-      label={item.label}
-      slugHint={item.slugHint}
-    />
-  ));
-}
-
 export default async function ToolsDirectoryPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolsDirectory");
-  const tHome = await getTranslations("Home");
   const sections = buildMegaMenuSections();
   const toolCount = getTotalToolCount();
 
@@ -82,13 +71,16 @@ export default async function ToolsDirectoryPage({ params }: Props) {
     return toGridItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title));
   }).filter((item): item is ToolGridItem => Boolean(item));
 
-  const categorySections = sections
-    .map((section) => ({
+  const workflowColumns = groupSectionsByWorkflow(sections).map(({ workflow, sections: workflowSections }) => ({
+    id: workflow.id,
+    title: tPage(`workflows.${workflow.id}.title`),
+    description: tPage(`workflows.${workflow.id}.description`),
+    categories: workflowSections.map((section) => ({
       id: section.id,
-      label: translateToolSection(tTools, section.id, section.label),
+      title: translateToolSection(tTools, section.id, section.label),
       items: section.items.map((item) => toGridItem(tTools, item.slug, item.label, item.href)),
-    }))
-    .filter((section) => section.items.length > 0);
+    })),
+  }));
 
   return (
     <>
@@ -103,33 +95,19 @@ export default async function ToolsDirectoryPage({ params }: Props) {
         }}
       />
       <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
-          <h1 className="home-minimal-tagline">{tPage("title")}</h1>
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page">
+          <header className="tools-directory-page__head">
+            <p className="tools-directory-page__eyebrow">{tPage("badge")}</p>
+            <h1 className="tools-directory-page__title">{tPage("title")}</h1>
+            <p className="tools-directory-page__desc">{tPage("description", { count: toolCount })}</p>
+          </header>
 
-          <HomeFeaturedSection
-            id="featured-pdf-tools"
-            title={tPage("startHere")}
-            viewAllHref="/"
-            viewAllLabel={tHome("backToHome")}
-            hideTitle
-            paginate
-          >
-            {renderToolCards(featuredItems)}
-          </HomeFeaturedSection>
-
-          {categorySections.map((section) => (
-            <HomeFeaturedSection
-              key={section.id}
-              id={`${section.id}-tools`}
-              title={section.label}
-              viewAllHref="/tools/"
-              viewAllLabel={tPage("title")}
-              className="home-minimal-section--image"
-              paginate
-            >
-              {renderToolCards(section.items)}
-            </HomeFeaturedSection>
-          ))}
+          <ToolsDirectoryDashboard
+            featuredItems={featuredItems}
+            featuredTitle={tPage("startHere")}
+            featuredDescription={tPage("startHereDescription")}
+            workflowColumns={workflowColumns}
+          />
         </div>
       </AppPageShell>
     </>

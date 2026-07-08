@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-
-
 import { getTranslations, setRequestLocale } from "next-intl/server";
-
 import { AppPageShell } from "@/components/AppPageShell";
-import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
-import { buildHomeSecurityToolItems } from "@/lib/security-tools";
+import { CategoryDirectoryShell } from "@/components/CategoryDirectoryShell";
+import { getCategoryDirectoryItemCount, getCategoryDirectoryPageProps } from "@/lib/category-directory-config";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 
@@ -28,7 +25,9 @@ export default async function SecurityToolsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const tHome = await getTranslations("Home");
-  const securityItems = buildHomeSecurityToolItems(tHome);
+  const tCategory = await getTranslations("CategoryDirectory");
+  const page = getCategoryDirectoryPageProps("security", tHome, tCategory);
+  const itemCount = getCategoryDirectoryItemCount("security", tHome);
 
   return (
     <>
@@ -36,33 +35,14 @@ export default async function SecurityToolsPage({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: tHome("securityToolsDirectoryTitle"),
-          description: tHome("securityToolsDirectoryDescription"),
+          name: page.title,
+          description: page.description,
           url: absoluteUrl(`/${locale}/security-tools`),
-          numberOfItems: securityItems.length,
+          numberOfItems: itemCount,
         }}
       />
       <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
-          <h1 className="home-minimal-tagline">{tHome("securityToolsDirectoryTitle")}</h1>
-          <HomeFeaturedSection
-            id="security-tools-directory"
-            title={tHome("securitySectionTitle")}
-            viewAllHref="/"
-            viewAllLabel={tHome("backToHome")}
-            hideTitle
-          >
-            {securityItems.map((item) => (
-              <HomeFeaturedToolCard
-                key={item.id}
-                href={item.href}
-                label={item.label}
-                slugHint={item.id}
-                securityIconKey={item.iconKey}
-              />
-            ))}
-          </HomeFeaturedSection>
-        </div>
+        <CategoryDirectoryShell {...page} />
       </AppPageShell>
     </>
   );

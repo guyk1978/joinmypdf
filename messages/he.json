@@ -728,6 +728,20 @@
     "privacyFirst": "פרטיות קודמת",
     "startHere": "התחל כאן",
     "startHereDescription": "תהליכי מיזוג, דחיסה, המרה, חתימה והגנה פופולריים.",
+    "workflows": {
+      "convert-create": {
+        "title": "המרה ויצירה",
+        "description": "הפוך מסמכים ל-PDF וייצא לפורמטים אחרים."
+      },
+      "organize-edit": {
+        "title": "ארגון ועריכה",
+        "description": "מיזוג, פיצול, סידור מחדש, הערות ושיפור עמודים."
+      },
+      "security-optimize": {
+        "title": "אבטחה ואופטימיזציה",
+        "description": "הגנה, ניקוי מטא-דאטה, דחיסה והכנת קבצים לשיתוף."
+      }
+    },
     "allToolsGridTitle": "לוח כלים מלא",
     "allToolsGridDescription": "עיין בכל {count} הכלים ברשת אחת — לחץ על כל אריח לפתיחת התהליך.",
     "toolCount": "{count} כלי",
@@ -736,6 +750,77 @@
     "whyLocalBody": "אתרי PDF מבוססי העלאה מעתיקים את הקובץ לשרתים. JoinMyPDF מספק JavaScript; הדפדפן שלך עושה את העבודה. פתח DevTools → Network וודא — ה-PDF שלך לא עוזב את המכשיר.",
     "learnPrivacy": "למד על פרטיות קודמת",
     "viewGuides": "צפה במדריכים"
+  },
+  "CategoryDirectory": {
+    "badge": "קטגוריית כלים",
+    "backToHome": "חזרה לדף הבית",
+    "browseAllTools": "עיין בכל הכלים",
+    "footerNavLabel": "ניווט בקטגוריה",
+    "startHere": "התחל כאן",
+    "startHereDescription": {
+      "security": "מחוללי סיסמאות, האש ו-UUID — מקומי ובטוח.",
+      "image": "שינוי גודל, חיתוך ודחיסת תמונות.",
+      "audio": "המרה, חיתוך ודחיסת אודיו עם ffmpeg.wasm.",
+      "developer": "ניתוח User Agent, JWT ויצירת QR.",
+      "data-conversion": "המרת YAML, CSV ו-SQL בדפדפן.",
+      "productivity": "יחידות, אזורי זמן וספירת מילים.",
+      "favicon": "יצירה והמרה של favicon לכל פלטפורמה.",
+      "text-json": "עיצוב JSON, קידוד והשוואת טקסט."
+    },
+    "categories": {
+      "utilities": {
+        "faviconCreate": "Favicon — יצירה והמרה",
+        "faviconEdit": "Favicon — עריכה ופרסום",
+        "textJson": "טקסט ו-JSON"
+      }
+    },
+    "workflows": {
+      "security": {
+        "passwords": { "title": "סיסמאות", "description": "יצירת סיסמאות חזקות מקומית." },
+        "hashing": { "title": "האש", "description": "יצירת האש מאובטח בדפדפן." },
+        "identifiers": { "title": "מזהים", "description": "יצירת UUID ומזהים ייחודיים." }
+      },
+      "image": {
+        "transform": { "title": "שינוי צורה", "description": "שינוי גודל, חיתוך וסיבוב." },
+        "convert": { "title": "המרה", "description": "החלפת פורמטים וייצוא." },
+        "optimize": { "title": "אופטימיזציה", "description": "דחיסה לאינטרנט ואימייל." }
+      },
+      "audio": {
+        "convert": { "title": "המרה", "description": "המרה בין MP3, WAV, FLAC ועוד." },
+        "edit": { "title": "עריכה ושיפור", "description": "חיתוך, הגברת עוצמה ונרמול." },
+        "mix-metadata": { "title": "מיקס ומטא-דאטה", "description": "מיזוג, תגיות ויצירת MP4." }
+      },
+      "developer": {
+        "parse": { "title": "ניתוח", "description": "בדיקת User Agent וכותרות." },
+        "generate": { "title": "יצירה", "description": "יצירת קודי QR מיידית." },
+        "debug": { "title": "דיבוג", "description": "פענוח ובדיקת JWT." }
+      },
+      "data-conversion": {
+        "interchange": { "title": "המרה", "description": "המרה בין YAML ל-JSON." },
+        "tables": { "title": "טבלאות", "description": "המרת CSV לטבלאות Markdown." },
+        "sql": { "title": "SQL", "description": "עיצוב שאילתות SQL." }
+      },
+      "productivity": {
+        "measure": { "title": "מדידה", "description": "המרת יחידות." },
+        "time": { "title": "זמן", "description": "השוואת אזורי זמן." },
+        "text": { "title": "טקסט", "description": "ספירת מילים ותווים." }
+      },
+      "favicon": {
+        "create": { "title": "יצירה והמרה", "description": "יצירת favicon והמרת ICO, PNG, SVG." },
+        "edit": { "title": "עריכה", "description": "חיתוך, דחיסה ושקיפות." },
+        "publish": { "title": "פרסום", "description": "חבילות, קוד ותצוגה מקדימה." }
+      },
+      "text-json": {
+        "json": { "title": "JSON", "description": "עיצוב, מיזעור והמרת JSON." },
+        "encode": { "title": "קידוד", "description": "Base64 ו-URL." },
+        "text": { "title": "טקסט", "description": "השוואה, יצירה והמרת סימון." }
+      },
+      "utilities": {
+        "favicon-create": { "title": "Favicon", "description": "יצירה והמרת נכסי favicon." },
+        "favicon-edit": { "title": "כלי Favicon", "description": "עריכה, דחיסה ופרסום." },
+        "text-json": { "title": "טקסט ו-JSON", "description": "עיצוב, קידוד והשוואת נתונים." }
+      }
+    }
   },
   "PremiumTools": {
     "metaTitle": "כלי PDF מתקדמים",
@@ -831,6 +916,23 @@
     "allGuides": "כל המדריכים",
     "categoryNavLabel": "קפיצה לקטגוריה",
     "categoryArticleCount": "{count, plural, one {מאמר אחד} other {# מאמרים}}",
+    "featuredSpotlight": "בחירות מומלצות",
+    "featuredSpotlightEyebrow": "בחירת העורך",
+    "curatedTopics": "נושאים נבחרים",
+    "curatedTopicsEyebrow": "עיון לפי נושא",
+    "topicFiltersLabel": "סינון מאמרים לפי נושא",
+    "allTopics": "כל הנושאים",
+    "loadMoreArticles": "טען עוד ({count})",
+    "noArticlesInCategory": "אין מאמרים בנושא זה עדיין.",
+    "mustRead": "חובה לקרוא",
+    "mustReadEyebrow": "פופולרי",
+    "keepReading": "המשך לקרוא",
+    "keepReadingDescription": "מדריכים קשורים לפי הנושא והתהליך.",
+    "youMightAlsoLike": "אולי יעניין אותך גם",
+    "youMightAlsoLikeDescription": "מדריכים נוספים מאותה קטגוריה וקבוצה.",
+    "workflowBridgeEyebrow": "נסה את התהליך",
+    "workflowBridgeTitle": "יישם את המדריך עם {tool}",
+    "workflowBridgeCta": "פתח את {tool}",
     "readTimeMinutes": "{mins} דק' קריאה",
     "categories": {
       "conversion": "המרה",

@@ -10,8 +10,8 @@ export type ProductPageLayoutProps = {
   title: string;
   description?: string;
   children: ReactNode;
-  /** dashboard = favorites/projects; document = about/terms/privacy prose */
-  variant?: "dashboard" | "document";
+  /** dashboard = favorites/projects; document = about/terms/privacy prose; magazine = full-width blog index */
+  variant?: "dashboard" | "document" | "magazine";
   showPrivacyBadge?: boolean;
 };
 
@@ -31,6 +31,9 @@ export function ProductPageLayout({
         className={clsx(
           "tool-page-layout tool-page-layout--stacked product-page-layout",
           variant === "document" && "product-page-layout--document",
+          (variant === "magazine" || variant === "dashboard") &&
+            "product-page-layout--wide tool-page-layout--magazine",
+          variant === "magazine" && "product-page-layout--magazine",
         )}
       >
         <ToolPageHeader title={title} description={description} />
