@@ -76,7 +76,10 @@ const ACTION_KEYS: Record<string, string> = {
   redact: "redact",
   "flatten-pdf": "flatten",
   "repair-pdf": "repair",
+  "pdf-a-converter": "pdfA",
+  "pdf-linearization": "pdfLinearize",
   "remove-hidden-metadata": "removeMetadata",
+  "pdf-metadata-editor": "metadataEditor",
   sign: "sign",
   "jpg-to-pdf": "jpgToPdf",
   "png-to-pdf": "pngToPdf",
@@ -165,7 +168,11 @@ export function buildLocalizedGuideParagraphs(
                                       ? "pdfFlatten"
                                       : !variant && tool.slug === "repair-pdf"
                                         ? "pdfRepair"
-                                        : !variant && tool.slug === "protect-pdf"
+                                        : !variant && tool.slug === "pdf-a-converter"
+                                          ? "pdfAConverter"
+                                          : !variant && tool.slug === "pdf-linearization"
+                                            ? "pdfLinearization"
+                                            : !variant && tool.slug === "protect-pdf"
                                           ? "pdfProtect"
                                           : !variant && tool.slug === "unlock-pdf"
                                             ? "pdfUnlock"
@@ -175,7 +182,9 @@ export function buildLocalizedGuideParagraphs(
                                                 ? "pdfSafeShareAuditor"
                                                 : !variant && tool.slug === "remove-hidden-metadata"
                                                   ? "pdfRemoveMetadata"
-                                                  : !variant && tool.slug === "sign-pdf"
+                                                  : !variant && tool.slug === "pdf-metadata-editor"
+                                                    ? "pdfMetadataEditor"
+                                                    : !variant && tool.slug === "sign-pdf"
                                                     ? "pdfSign"
                                                     : !variant && tool.slug === "word-to-pdf"
                                                       ? "wordToPdf"
@@ -278,10 +287,16 @@ export function buildLocalizedGuideParagraphs(
         ? t("guide.variantP1", { action, keyword: kw, toolTitle })
         : t("guide.defaultP1", { description: tool.description, action });
 
-  const p2 = t("guide.p2");
-  const p3 = variant?.angle
-    ? t("guide.variantP3", { keyword: kw, angle: variant.angle.toLowerCase(), toolTitle })
-    : t("guide.defaultP3");
+  const p2 =
+    overrideKey && t.has(`guide.toolOverrides.${overrideKey}.p2`)
+      ? t(`guide.toolOverrides.${overrideKey}.p2`)
+      : t("guide.p2");
+  const p3 =
+    overrideKey && t.has(`guide.toolOverrides.${overrideKey}.p3`)
+      ? t(`guide.toolOverrides.${overrideKey}.p3`)
+      : variant?.angle
+        ? t("guide.variantP3", { keyword: kw, angle: variant.angle.toLowerCase(), toolTitle })
+        : t("guide.defaultP3");
   const p4 =
     secondary.length > 0 ? t("guide.p4WithSecondary", { secondary }) : t("guide.p4Default");
   const p5 = useCases.length > 0 ? t("guide.p5WithCases", { useCases }) : t("guide.p5Default");

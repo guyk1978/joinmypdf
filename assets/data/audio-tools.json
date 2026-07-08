@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "mp3-converter",
+    "title": "MP3 Converter",
+    "description": "Convert audio to MP3 locally"
+  },
+  {
+    "slug": "audio-compressor",
+    "title": "Audio Compressor",
+    "description": "Reduce your audio file size significantly without leaving your browser. Fast, secure, and private."
+  },
+  {
+    "slug": "mp3-compressor",
+    "title": "MP3 Compressor",
+    "description": "Reduce your MP3 file size by adjusting the bitrate. Maintain control over quality and file size locally in your browser."
+  },
+  {
+    "slug": "wav-to-mp3",
+    "title": "WAV to MP3 Converter",
+    "description": "Turn lossless WAV into compact MP3 instantly. No server uploads, 100% private and local."
+  },
+  {
+    "slug": "mp3-to-wav",
+    "title": "MP3 to WAV",
+    "description": "Export MP3 sources to uncompressed WAV"
+  },
+  {
+    "slug": "mp3-trimmer",
+    "title": "MP3 Trimmer",
+    "description": "Cut and trim MP3 files by start and end time. Preview, set mm:ss points, and download locally with ffmpeg.wasm — 100% private."
+  },
+  {
+    "slug": "mp4-to-mp3",
+    "title": "MP4 to MP3",
+    "description": "Extract audio from MP4 videos as high-quality MP3 locally. Strip the video track and download audio — 100% private browser processing."
+  },
+  {
+    "slug": "mp3-to-mp4",
+    "title": "MP3 to MP4",
+    "description": "Turn an MP3 and cover image into a shareable MP4 video for YouTube and social media. 100% local and private ffmpeg.wasm processing."
+  },
+  {
+    "slug": "ogg-converter",
+    "title": "OGG Converter",
+    "description": "Convert OGG Vorbis and Opus files to MP3 locally in your browser. No uploads, no server processing, 100% private."
+  },
+  {
+    "slug": "flac-converter",
+    "title": "FLAC Converter",
+    "description": "Transcode your lossless FLAC files to MP3, WAV, or other formats locally. High-quality output, 100% private and secure."
+  },
+  {
+    "slug": "m4a-converter",
+    "title": "M4A Converter",
+    "description": "Convert your M4A and AAC audio tracks to MP3 or WAV quickly and securely. 100% local browser-based processing."
+  },
+  {
+    "slug": "mp3-volume-booster",
+    "title": "MP3 Volume Booster",
+    "description": "Boost your MP3 volume to professional levels without quality loss. All processing is 100% local and private."
+  },
+  {
+    "slug": "mp3-metadata-editor",
+    "title": "MP3 Metadata Editor (ID3)",
+    "description": "Edit your MP3 tags, including title, artist, album, and album art directly in your browser. Fast, secure, and 100% private."
+  },
+  {
+    "slug": "audio-merger",
+    "title": "Audio Merger",
+    "description": "Combine multiple MP3 files into one seamless audio track locally. Fast, secure, and 100% private."
+  },
+  {
+    "slug": "voice-remover",
+    "title": "Voice Remover (Instrumental Maker)",
+    "description": "Isolate instrumentals by removing vocals from your audio tracks locally. 100% private, no server processing."
+  },
+  {
+    "slug": "mp3-speed-changer",
+    "title": "MP3 Speed Changer",
+    "description": "Change the playback speed of your MP3 files without altering the pitch. Perfect for podcasts and audiobooks. 100% private and local."
+  },
+  {
+    "slug": "fade-in-out-creator",
+    "title": "Fade In/Out Creator",
+    "description": "Add professional fade-in and fade-out effects to your audio files locally. Fast, secure, and 100% private."
+  },
+  {
+    "slug": "audio-normalizer",
+    "title": "Audio Normalizer",
+    "description": "Unify the volume levels of your MP3 files effortlessly. Perfect for creating consistent-sounding playlists. 100% private and local processing."
+  }
+]

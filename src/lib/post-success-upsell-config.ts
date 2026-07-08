@@ -91,11 +91,29 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
   "repair-pdf": [
     { href: "/tools/flatten-pdf/", card: "flattenForms" },
     { href: "/tools/pdf-compress/", card: "compressBeforeSend" },
+    { href: "/tools/pdf-a-converter/", card: "archivalPdfA" },
+  ],
+  "pdf-a-converter": [
+    { href: "/tools/pdf-linearization/", card: "webLinearize" },
+    { href: "/tools/flatten-pdf/", card: "flattenForms" },
+    { href: "/tools/remove-hidden-metadata/", card: "removeMetadata" },
+    { href: "/tools/protect-pdf/", card: "protectArchival" },
+  ],
+  "pdf-linearization": [
+    { href: "/tools/pdf-compress/", card: "compressEmail" },
+    { href: "/tools/flatten-pdf/", card: "flattenForms" },
+    { href: "/tools/pdf-a-converter/", card: "archivalPdfA" },
   ],
   "remove-hidden-metadata": [
     { href: "/tools/redact-pdf/", card: "redactVisible" },
     { href: "/tools/protect-pdf/", card: "protectCleanPdf" },
     { href: "/tools/flatten-pdf/", card: "flattenForms" },
+    { href: "/tools/pdf-metadata-editor/", card: "editMetadata" },
+  ],
+  "pdf-metadata-editor": [
+    { href: "/tools/remove-hidden-metadata/", card: "removeMetadata" },
+    { href: "/tools/safe-to-share-auditor/", card: "auditBeforeShare" },
+    { href: "/tools/protect-pdf/", card: "protectCleanPdf" },
   ],
   "custom-paper-margin": [
     { href: "/tools/pdf-to-booklet/", card: "printBooklet" },

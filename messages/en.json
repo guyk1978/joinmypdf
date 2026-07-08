@@ -177,6 +177,9 @@
       "customPaperMargin": "Paper & Margins",
       "flattenPdf": "Flatten PDF",
       "repairPdf": "Repair PDF",
+      "pdfAConverter": "PDF/A Converter",
+      "pdfLinearization": "PDF Linearization",
+      "pdfMetadataEditor": "PDF Metadata Editor",
       "protectPdf": "Protect PDF",
       "unlockPdf": "Unlock PDF",
       "pdfPasswordRecovery": "Password Recovery",
@@ -665,7 +668,10 @@
       "redact-pdf": "Redact PDF Online",
       "flatten-pdf": "Flatten PDF Online",
       "repair-pdf": "Repair PDF Online",
+      "pdf-a-converter": "PDF/A Converter Online",
+      "pdf-linearization": "PDF Linearization (Fast Web View) Online",
       "remove-hidden-metadata": "Remove PDF Metadata Online",
+      "pdf-metadata-editor": "PDF Metadata Editor Online",
       "delete-pdf-pages": "Delete PDF Pages Online",
       "jpg-to-pdf": "Convert JPG to PDF Online",
       "pdf-to-jpg": "Convert PDF to JPG Online",
@@ -1053,7 +1059,7 @@
     "metaTitle": "Site Inventory",
     "metaDescription": "Private master index of JoinMyPDF tools and articles.",
     "title": "Site Inventory",
-    "description": "Auto-generated index of {items} tools and articles across {categories} categories."
+    "description": "Auto-generated index of {items} tools and articles across {categories} categories. Active tools feed the sitemap; toggle status from the table."
   },
   "Guides": {
     "hubBadge": "Hub",

@@ -181,6 +181,9 @@
       "customPaperMargin": "נייר ושוליים",
       "flattenPdf": "שיטוח PDF",
       "repairPdf": "תיקון PDF",
+      "pdfAConverter": "ממיר PDF/A",
+      "pdfLinearization": "ליניאריזציה PDF (Fast Web View)",
+      "pdfMetadataEditor": "מעורך מטא-דאטה PDF",
       "protectPdf": "הגנת PDF",
       "unlockPdf": "פתיחת PDF",
       "pdfPasswordRecovery": "שחזור סיסמה",
@@ -665,6 +668,9 @@
       "redact-pdf": "הסתרת מידע ב-PDF אונליין",
       "flatten-pdf": "שיטוח PDF אונליין",
       "repair-pdf": "תיקון PDF אונליין",
+      "pdf-a-converter": "ממיר PDF/A אונליין",
+      "pdf-linearization": "ליניאריזציה PDF (Fast Web View) אונליין",
+      "pdf-metadata-editor": "מעורך מטא-דאטה PDF אונליין",
       "remove-hidden-metadata": "הסרת מטא-דאטה מ-PDF אונליין",
       "delete-pdf-pages": "מחיקת עמודי PDF אונליין",
       "jpg-to-pdf": "המרת JPG ל-PDF אונליין",
@@ -972,7 +978,7 @@
     "metaTitle": "מלאי האתר",
     "metaDescription": "אינדקס פרטי לכל הכלים והמאמרים ב-JoinMyPDF.",
     "title": "מלאי האתר",
-    "description": "אינדקס אוטומטי של {items} כלים ומאמרים ב-{categories} קטגוריות."
+    "description": "אינדקס אוטומטי של {items} כלים ומאמרים ב-{categories} קטגוריות. כלים פעילים נכנסים ל-sitemap; ניתן לשנות סטטוס בטבלה."
   },
   "Guides": {
     "hubBadge": "מרכז",

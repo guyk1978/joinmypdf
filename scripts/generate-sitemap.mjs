@@ -9,6 +9,9 @@ const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
 const toolsJsonPath = path.join(root, "assets", "data", "tools.json");
+const audioToolsJsonPath = path.join(root, "assets", "data", "audio-tools.json");
+const studioToolsJsonPath = path.join(root, "assets", "data", "studio-tools.json");
+const inventoryStatusPath = path.join(root, "logs", "inventory-tool-status.json");
 const outputPath = path.join(root, "sitemap.xml");
 
 const LOCALES = ["en", "he"];
@@ -48,9 +51,6 @@ const BASE_PATHS = [
   "/pdf-comparison/",
   "/pdf-privacy/",
   "/pdf-workflows/",
-  "/tools/invoice-generator/",
-  "/tools/timeline-gantt-generator/",
-  "/tools/data-converter-visualizer/",
 ];
 
 function localizedPaths(routePath) {
@@ -93,6 +93,21 @@ function pushEntry(urls, seen, entry) {
 }
 
 const registry = JSON.parse(await readFile(toolsJsonPath, "utf8"));
+const audioTools = JSON.parse(await readFile(audioToolsJsonPath, "utf8"));
+const studioToolsFile = JSON.parse(await readFile(studioToolsJsonPath, "utf8"));
+const studioTools = studioToolsFile.tools || [];
+
+let inventoryStatus = {};
+try {
+  const statusFile = JSON.parse(await readFile(inventoryStatusPath, "utf8"));
+  inventoryStatus = statusFile.tools || {};
+} catch {
+  inventoryStatus = {};
+}
+
+function isActiveSlug(slug) {
+  return (inventoryStatus[slug] || "active") === "active";
+}
 
 await copyFile(
   path.join(root, "src/data/blog-registry.json"),
@@ -128,25 +143,60 @@ for (const routePath of BASE_PATHS) {
   }
 }
 
+const canonicalSlugs = new Map();
+
 for (const tool of registry.tools || []) {
+  if (!isActiveSlug(tool.slug)) continue;
+  canonicalSlugs.set(tool.slug, {
+    slug: tool.slug,
+    priority:
+      tool.priority != null && Number.isFinite(Number(tool.priority))
+        ? Number(tool.priority).toFixed(2)
+        : "0.90",
+    lastmod: tool.updatedAt || today,
+  });
+}
+
+for (const tool of audioTools || []) {
+  if (!tool.slug || !isActiveSlug(tool.slug)) continue;
+  if (!canonicalSlugs.has(tool.slug)) {
+    canonicalSlugs.set(tool.slug, {
+      slug: tool.slug,
+      priority: "0.88",
+      lastmod: today,
+    });
+  }
+}
+
+for (const tool of studioTools) {
+  if (!tool.slug || !isActiveSlug(tool.slug)) continue;
+  if (!canonicalSlugs.has(tool.slug)) {
+    canonicalSlugs.set(tool.slug, {
+      slug: tool.slug,
+      priority: "0.92",
+      lastmod: today,
+    });
+  }
+}
+
+for (const tool of canonicalSlugs.values()) {
+  for (const urlPath of localizedPaths(`/tools/${tool.slug}/`)) {
+    pushEntry(urls, seen, {
+      loc: baseUrl + urlPath,
+      priority: tool.priority,
+      changefreq: "weekly",
+      lastmod: tool.lastmod,
+    });
+  }
+}
+
+for (const tool of registry.tools || []) {
+  if (!isActiveSlug(tool.slug)) continue;
   const toolLastmod = tool.updatedAt || today;
-  const toolPriority =
-    tool.priority != null && Number.isFinite(Number(tool.priority))
-      ? Number(tool.priority).toFixed(2)
-      : "0.90";
   const longTailPriority =
     tool.longTailPriority != null && Number.isFinite(Number(tool.longTailPriority))
       ? Number(tool.longTailPriority).toFixed(2)
       : "0.60";
-
-  for (const urlPath of localizedPaths(`/tools/${tool.slug}/`)) {
-    pushEntry(urls, seen, {
-      loc: baseUrl + urlPath,
-      priority: toolPriority,
-      changefreq: "weekly",
-      lastmod: toolLastmod,
-    });
-  }
 
   const variants = generateClusterVariants(tool, registry.clusterDefaults || {});
   for (const variant of variants) {

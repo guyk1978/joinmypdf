@@ -13,7 +13,8 @@
     "generate:blog-og": "node scripts/generate-blog-og-images.mjs",
     "generate:blog-pages": "node scripts/generate-blog-pages.mjs",
     "build:blog": "node scripts/generate-blog-og-images.mjs && node scripts/generate-blog-pages.mjs",
-    "upgrade:blog": "node scripts/upgrade-blog-content.mjs"
+    "upgrade:blog": "node scripts/upgrade-blog-content.mjs",
+    "verify:inventory-sitemap": "node scripts/verify-inventory-sitemap-sync.mjs"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",

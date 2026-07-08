@@ -1,10 +1,15 @@
 import type { MetadataRoute } from "next";
 import { blogRegistry } from "@/lib/blog-registry";
+import { getCanonicalTools } from "@/lib/canonical-tools";
+import {
+  isSitemapIndexableStatus,
+  readInventoryStatusMap,
+} from "@/lib/inventory-status";
 import { pdfHubs } from "@/lib/pdf-hubs";
 import { registry } from "@/lib/registry";
 import { INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
 import { TIMELINE_TEMPLATE_PROFILES } from "@/lib/timeline/templates";
-import { allToolSlugs } from "@/lib/variants";
+import { generateClusterVariants } from "@/lib/variants";
 import { siteUrl } from "@/lib/site";
 import { routing } from "@/i18n/routing";
 
@@ -17,6 +22,12 @@ function localizedPaths(path: string): string[] {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+  const statusMap = readInventoryStatusMap();
+  const canonicalTools = getCanonicalTools().filter((tool) =>
+    isSitemapIndexableStatus(statusMap[tool.slug]),
+  );
+  const canonicalSlugSet = new Set(canonicalTools.map((tool) => tool.slug));
+
   const basePaths = [
     "/",
     "/tools/",
@@ -39,23 +50,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/pdf-comparison/",
     "/pdf-privacy/",
     "/pdf-workflows/",
-    "/tools/invoice-generator/",
-    "/tools/timeline-gantt-generator/",
-    "/tools/data-converter-visualizer/",
   ];
 
-  const entries: MetadataRoute.Sitemap = basePaths.flatMap((path) =>
-    localizedPaths(path).map((urlPath) => ({
-      url: `${siteUrl}${urlPath}`,
-      lastModified: now,
-      changeFrequency: path === "/" ? ("daily" as const) : ("weekly" as const),
-      priority: path === "/" ? 1 : path.startsWith("/tools") ? 0.92 : 0.85,
-    })),
-  );
+  const entries: MetadataRoute.Sitemap = [];
+  const seen = new Set<string>();
+
+  const push = (entry: MetadataRoute.Sitemap[number]) => {
+    if (seen.has(entry.url)) return;
+    seen.add(entry.url);
+    entries.push(entry);
+  };
+
+  for (const path of basePaths) {
+    for (const urlPath of localizedPaths(path)) {
+      push({
+        url: `${siteUrl}${urlPath}`,
+        lastModified: now,
+        changeFrequency: path === "/" ? "daily" : "weekly",
+        priority: path === "/" ? 1 : 0.85,
+      });
+    }
+  }
 
   for (const profile of INVOICE_TEMPLATE_PROFILES) {
     for (const urlPath of localizedPaths(`/templates/${profile.slug}/`)) {
-      entries.push({
+      push({
         url: `${siteUrl}${urlPath}`,
         lastModified: now,
         changeFrequency: "weekly",
@@ -66,7 +85,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const profile of TIMELINE_TEMPLATE_PROFILES) {
     for (const urlPath of localizedPaths(`/templates/timeline/${profile.slug}/`)) {
-      entries.push({
+      push({
         url: `${siteUrl}${urlPath}`,
         lastModified: now,
         changeFrequency: "weekly",
@@ -77,7 +96,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   for (const hub of pdfHubs) {
     for (const urlPath of localizedPaths(hub.path)) {
-      entries.push({
+      push({
         url: `${siteUrl}${urlPath}`,
         lastModified: now,
         changeFrequency: "weekly",
@@ -86,21 +105,43 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  for (const slug of allToolSlugs(registry)) {
-    const isBaseTool = registry.tools.some((t) => t.slug === slug);
-    for (const urlPath of localizedPaths(`/tools/${slug}/`)) {
-      entries.push({
+  // Inventory → sitemap: every active canonical tool (incl. audio + studio)
+  for (const tool of canonicalTools) {
+    const lastModified = tool.updatedAt ? new Date(tool.updatedAt) : now;
+    for (const urlPath of localizedPaths(tool.path)) {
+      push({
         url: `${siteUrl}${urlPath}`,
-        lastModified: now,
+        lastModified,
         changeFrequency: "weekly",
-        priority: isBaseTool ? 0.92 : 0.58,
+        priority: tool.priority,
       });
+    }
+  }
+
+  // SEO cluster variants for registry tools (active only)
+  for (const tool of registry.tools) {
+    if (!canonicalSlugSet.has(tool.slug)) continue;
+    const lastModified = tool.updatedAt ? new Date(tool.updatedAt) : now;
+    const longTailPriority =
+      tool.longTailPriority != null && Number.isFinite(Number(tool.longTailPriority))
+        ? Number(tool.longTailPriority)
+        : 0.58;
+
+    for (const variant of generateClusterVariants(tool, registry)) {
+      for (const urlPath of localizedPaths(`/tools/${variant.slug}/`)) {
+        push({
+          url: `${siteUrl}${urlPath}`,
+          lastModified,
+          changeFrequency: "weekly",
+          priority: longTailPriority,
+        });
+      }
     }
   }
 
   for (const post of blogRegistry.blog || []) {
     for (const urlPath of localizedPaths(`/blog/${post.slug}/`)) {
-      entries.push({
+      push({
         url: `${siteUrl}${urlPath}`,
         lastModified: new Date(post.publishDate || now.toISOString().slice(0, 10)),
         changeFrequency: "weekly",

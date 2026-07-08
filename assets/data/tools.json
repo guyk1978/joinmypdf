@@ -2548,6 +2548,117 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "pdf-a-converter",
+      "category": "optimize",
+      "operation": "pdf-a-converter",
+      "title": "PDF/A Converter — Archival PDF Online",
+      "primaryKeyword": "convert pdf to pdf/a online archival",
+      "intent": "Convert standard PDFs into PDF/A-oriented archival files with embedded preservation metadata—locally for law firms, government archives, and academic records.",
+      "description": "Convert any PDF to PDF/A for long-term preservation and compliance. Normalize structure, embed archival XMP metadata, and download a PDF/A-1b or PDF/A-2b oriented file—100% in your browser with no uploads.",
+      "secondaryKeywords": [
+        "pdf/a converter online",
+        "archival pdf format",
+        "pdf long term preservation",
+        "government records pdf/a",
+        "law firm pdf archival"
+      ],
+      "useCases": [
+        "Prepare closing binders and court filings for records-management systems that require PDF/A",
+        "Convert policy manuals and gazette scans for government digital archives",
+        "Package thesis chapters, accreditation reports, and research annexes for university repositories"
+      ],
+      "relatedTools": [
+        "flatten-pdf",
+        "remove-hidden-metadata",
+        "pdf-compress",
+        "protect-pdf"
+      ],
+      "faq": [
+        {
+          "q": "What is the difference between PDF and PDF/A?",
+          "a": "Standard PDF is a flexible delivery format—fonts, colors, and interactive layers can vary between viewers. PDF/A is an ISO archival subset designed for long-term preservation: it restricts features that break over decades (like reliance on external content) and embeds metadata that records how the file should be interpreted in the future."
+        },
+        {
+          "q": "Is this conversion secure?",
+          "a": "Yes. The entire workflow runs locally in your browser. Your contracts, filings, and institutional records are never uploaded to JoinMyPDF servers—ideal for privileged legal material and sensitive government documents."
+        },
+        {
+          "q": "Does this support batch conversion?",
+          "a": "This release converts one PDF at a time so you can verify output before submission. For multi-file archival batches, convert each document individually, then merge with our PDF Merge tool if your repository accepts a single deliverable."
+        },
+        {
+          "q": "Will my PDF/A file pass every validator?",
+          "a": "JoinMyPDF applies archival-oriented normalization—flattening interactive forms, rebuilding a clean structure, disabling object streams, and embedding PDF/A identification metadata. Complex source files (missing font embedding, transparency-heavy artwork, or scanned-only pages) may still require institutional preflight with tools like veraPDF before final deposit."
+        },
+        {
+          "q": "Which PDF/A profile should I choose?",
+          "a": "PDF/A-1b is the most widely requested baseline for digital archives and many court e-filing portals. PDF/A-2b supports newer PDF features such as JPEG 2000 compression—choose it when your receiving authority explicitly allows PDF/A-2."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.9,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-08"
+    },
+    {
+      "slug": "pdf-linearization",
+      "category": "optimize",
+      "operation": "pdf-linearization",
+      "title": "PDF Linearization (Fast Web View)",
+      "primaryKeyword": "pdf linearization fast web view online",
+      "intent": "Convert PDFs to linearized, web-optimized files so browsers can display the first pages while the rest downloads—ideal for manuals, reports, and embedded viewers.",
+      "description": "Linearize PDF for Fast Web View—rebuild structure for progressive browser loading, enable web-optimized delivery, and download locally. 100% client-side processing with no uploads.",
+      "secondaryKeywords": [
+        "linearize pdf online",
+        "pdf fast web view",
+        "web optimized pdf",
+        "progressive pdf loading browser"
+      ],
+      "useCases": [
+        "Publish product manuals and white papers on your website so readers see page one instantly",
+        "Prepare large annual reports for in-browser viewing without forcing a full download first",
+        "Optimize PDFs embedded in customer portals and knowledge bases for faster perceived load times"
+      ],
+      "relatedTools": [
+        "pdf-compress",
+        "flatten-pdf",
+        "pdf-a-converter",
+        "repair-pdf"
+      ],
+      "faq": [
+        {
+          "q": "What is PDF Linearization?",
+          "a": "Linearization (also called Fast Web View) reorganizes a PDF so the first page and supporting objects appear at the start of the file. Web browsers and PDF.js viewers can then render early pages while the remainder of the document streams in—instead of waiting for the entire file to download."
+        },
+        {
+          "q": "Does this affect file quality?",
+          "a": "No. Linearization changes how the PDF is structured on disk, not how pages look. Text, images, vectors, and fonts are copied as-is—there is no recompression or downsampling."
+        },
+        {
+          "q": "Why is it better for web viewing?",
+          "a": "Large PDFs on slow connections feel instant when linearized: users read the cover and table of contents while later chapters download in the background. That improves bounce rates, accessibility on mobile networks, and satisfaction in embedded document viewers."
+        },
+        {
+          "q": "Is this tool private and local?",
+          "a": "Yes. Your PDF is processed entirely in your browser with WebAssembly and JavaScript. Nothing is uploaded to JoinMyPDF servers—ideal for confidential reports and internal documentation."
+        },
+        {
+          "q": "How does JoinMyPDF linearize a PDF?",
+          "a": "The tool rebuilds a clean PDF with pages in order, disables object streams for broad viewer compatibility, and sets the catalog Linearized flag. For mission-critical publishing pipelines that require full hint-table linearization, validate output with your CMS or a dedicated preflight tool."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.9,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-08"
+    },
+    {
       "slug": "custom-paper-margin",
       "category": "edit",
       "operation": "custom-paper-margin",
@@ -2693,6 +2804,61 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
       "updatedAt": "2026-06-02"
+    },
+    {
+      "slug": "pdf-metadata-editor",
+      "category": "edit",
+      "operation": "pdf-metadata-editor",
+      "title": "PDF Metadata Editor Online",
+      "primaryKeyword": "edit pdf metadata online title author",
+      "intent": "Edit PDF document properties—title, author, subject, keywords, creator, and producer—locally in your browser.",
+      "description": "Edit PDF metadata fields for better search, organization, and compliance. Update title, author, subject, keywords, creator, and producer—then download locally with no uploads.",
+      "secondaryKeywords": [
+        "change pdf title and author",
+        "pdf document properties editor",
+        "update pdf keywords online",
+        "pdf metadata organizer"
+      ],
+      "useCases": [
+        "Standardize report titles and authors before publishing to an intranet or DAM",
+        "Add descriptive keywords so legal and finance teams can find contracts faster",
+        "Correct creator and producer tags left by legacy desktop software"
+      ],
+      "relatedTools": [
+        "remove-hidden-metadata",
+        "pdf-a-converter",
+        "safe-to-share-auditor",
+        "protect-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Why does metadata matter?",
+          "a": "PDF metadata powers search results in document libraries, email attachments, and desktop file browsers. Clean titles, authors, and keywords make contracts, policies, and research papers easier to find and audit."
+        },
+        {
+          "q": "Does this tool work locally?",
+          "a": "Yes. Your PDF is read, updated, and saved entirely in your browser. JoinMyPDF never receives your file or the values you enter."
+        },
+        {
+          "q": "Which fields can I edit?",
+          "a": "Title, Author, Subject, Keywords, Creator, and Producer—the core Info dictionary fields most systems use for organization and discovery."
+        },
+        {
+          "q": "Will page content change?",
+          "a": "No. This tool updates document properties only. Visible text, images, and layout on each page stay the same."
+        },
+        {
+          "q": "How should I format keywords?",
+          "a": "Separate keywords with commas or semicolons—for example: contract, Q4, finance. They are stored as a searchable keyword list in the PDF."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-08"
     },
     {
       "slug": "annotate-pdf",

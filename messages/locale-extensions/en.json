@@ -521,6 +521,34 @@
           }
         }
       },
+      "pdfAConverter": {
+        "h1": "PDF/A Converter Online",
+        "heroTagline": "Convert standard PDFs into archival PDF/A files for records compliance—law firms, government archives, and university repositories.",
+        "introSectionTitle": "How to Convert PDF to PDF/A for Archival Submission",
+        "whySectionTitle": "Why PDF/A Is Critical for Long-Term Preservation",
+        "whySectionSubheadline": "PDF/A is the ISO standard for documents that must remain readable for decades. Courts, national archives, and research libraries increasingly require PDF/A deliverables so fonts, colors, and metadata stay self-contained—without depending on obsolete software years from now.",
+        "schemaDescription": "Convert PDF to PDF/A online for free—create archival PDF/A-1b or PDF/A-2b oriented files for legal, government, and academic compliance with secure local-only processing in your browser.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related archival workflows:",
+          "flattenLabel": "Flatten PDF",
+          "compressLabel": "Compress PDF",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Built for records compliance",
+            "body": "Normalize structure, flatten interactive forms, and embed PDF/A identification metadata—aligned with how law firms, agencies, and universities prepare deposit packages."
+          },
+          "quality": {
+            "title": "Self-contained archival output",
+            "body": "Archival PDF/A discourages reliance on external fonts, scripts, and transient features that break when legacy systems are retired."
+          },
+          "local": {
+            "title": "Privileged documents stay local",
+            "body": "Matter files, classified annexes, and thesis manuscripts never leave your browser—critical when ethics rules and data-sovereignty policies forbid cloud upload."
+          }
+        }
+      },
       "pdfProtect": {
         "h1": "Protect PDF with Password Online",
         "heroTagline": "AES-256 encryption in your browser—password-protect PDFs instantly without uploads.",
@@ -673,6 +701,61 @@
           "local": {
             "title": "100% Privacy (no file uploads)",
             "body": "Secure local-only processing—scan what was found, clean, and download without sending your PDF to JoinMyPDF servers."
+          }
+        }
+      },
+      "pdfLinearization": {
+        "h1": "PDF Linearization (Fast Web View)",
+        "heroTagline": "Convert PDFs to web-optimized, linearized files so browsers display the first pages while the rest downloads—faster perceived load for manuals, reports, and embedded viewers.",
+        "introSectionTitle": "How to Linearize a PDF for Fast Web View",
+        "whySectionTitle": "Why Linearized PDFs Load Faster on the Web",
+        "whySectionSubheadline": "Fast Web View reorganizes a PDF so early pages and their dependencies sit at the front of the file. Visitors start reading immediately on slow connections instead of staring at a blank viewer until the entire document finishes downloading.",
+        "schemaDescription": "Linearize PDF online for Fast Web View—create web-optimized PDFs for progressive browser loading with secure local-only processing in your browser. No uploads, no account, and no server-side conversion.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related web publishing workflows:",
+          "compressLabel": "Compress PDF",
+          "flattenLabel": "Flatten PDF",
+          "pdfAConverterLabel": "PDF/A Converter"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Faster time-to-first-page",
+            "body": "Readers see the cover, summary, and table of contents while later chapters stream in—critical for long annual reports and product documentation hosted on your site."
+          },
+          "quality": {
+            "title": "No visual quality loss",
+            "body": "Linearization reorders structure, not pixels. Text sharpness, image resolution, and vector artwork stay exactly as in your source PDF."
+          },
+          "local": {
+            "title": "100% client-side privacy",
+            "body": "Your PDF never uploads to JoinMyPDF. Sensitive board packs and internal manuals stay on your device during conversion."
+          }
+        }
+      },
+      "pdfMetadataEditor": {
+        "h1": "PDF Metadata Editor Online",
+        "heroTagline": "Edit title, author, subject, keywords, creator, and producer—organize documents and improve discoverability locally.",
+        "introSectionTitle": "How to Edit PDF Metadata Online",
+        "whySectionTitle": "Why Clean PDF Metadata Matters",
+        "whySectionSubheadline": "Accurate metadata helps search engines, DAM systems, and desktop file browsers surface the right document. Titles and keywords turn anonymous scans into searchable assets your team can trust.",
+        "schemaDescription": "Edit PDF metadata online for free—update title, author, subject, keywords, creator, and producer with a browser-based PDF metadata editor. Secure local-only processing with no uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related document workflows:",
+          "auditorLabel": "Safe-to-Share Auditor",
+          "removeMetadataLabel": "Remove Metadata"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Better findability",
+            "body": "Descriptive titles and keyword lists help legal, finance, and research teams locate the right PDF without opening every file."
+          },
+          "quality": {
+            "title": "Professional document identity",
+            "body": "Set author, subject, and producer fields so shared reports look consistent in Outlook, SharePoint, and macOS Preview."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Metadata is read and written on your device—ideal for confidential contracts and internal policy libraries."
           }
         }
       },
@@ -2922,7 +3005,10 @@
       "redact": "redact sensitive PDF content",
       "flatten": "flatten a PDF and remove editable layers",
       "repair": "repair a corrupted or malformed PDF",
+      "pdfA": "convert a PDF to archival PDF/A format",
+      "pdfLinearize": "linearize a PDF for Fast Web View",
       "removeMetadata": "remove hidden PDF metadata before sharing",
+      "metadataEditor": "edit PDF metadata fields",
       "sign": "sign a PDF with your signature",
       "jpgToPdf": "turn images into a PDF",
       "pngToPdf": "convert PNG images into a PDF",
@@ -2998,6 +3084,16 @@
         "pdfRepair": {
           "p1": "Repair PDF online to recover unreadable documents—restore damaged PDF files, fix rendering errors, and recover content from unreadable PDFs with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
         },
+        "pdfAConverter": {
+          "p1": "Convert PDF to PDF/A online for archival compliance—prepare court filings, government records, and university deposit packages with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How to use: (1) Drop your source PDF or click to browse. (2) Choose PDF/A-1b for most courts and national archives, or PDF/A-2b when your receiving authority explicitly allows it. (3) Enter a password only if the file is protected. (4) Click Convert to PDF/A and download the archival-oriented output.",
+          "p3": "PDF/A matters because standard PDFs can depend on fonts, links, and interactive layers that disappear when software changes. Archival PDF/A embeds preservation metadata and restricts fragile features so law firms, public agencies, and academic libraries can trust that a document opened today will still open in twenty years."
+        },
+        "pdfLinearization": {
+          "p1": "Linearize PDF online for Fast Web View—create web-optimized PDFs that load progressively in browsers and embedded viewers with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How it works: (1) Upload your PDF or drag it into the workspace. (2) Enter a password only if the file is protected. (3) Click Convert & Download. JoinMyPDF rebuilds the document with pages in order, disables object streams for compatibility, and sets the Linearized catalog flag so viewers can render early pages while the file streams.",
+          "p3": "Fast Web View improves web accessibility and perceived performance: users on mobile networks and large manuals benefit when the first screen appears in seconds. Because processing is 100% client-side, confidential reports and customer-facing documentation never leave your machine."
+        },
         "pdfProtect": {
           "p1": "Protect PDF with password online to secure sensitive documents—use military-grade AES-256 encryption, secure your sensitive documents, and password-protect PDFs instantly with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
         },
@@ -3012,6 +3108,11 @@
         },
         "pdfRemoveMetadata": {
           "p1": "Remove PDF metadata online to permanently wipe metadata—ensure document anonymity, remove hidden file information, and clean PDF metadata with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "pdfMetadataEditor": {
+          "p1": "Edit PDF metadata online to organize documents and improve search—update title, author, subject, keywords, creator, and producer with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How to use: (1) Upload your PDF. (2) Review the current Title, Author, Subject, Keywords, Creator, and Producer fields—edit any value. (3) Click Save to download an updated copy with your new document properties.",
+          "p3": "Clean metadata helps search engines index public PDFs more accurately and helps teams sort internal libraries by author, topic, and keyword tags—without changing a single visible word on the page."
         },
         "pdfSign": {
           "p1": "Sign PDF online with a secure electronic signature—draw or upload your signature, add date and name fields, and e-sign contracts and forms with no server uploads and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
@@ -3841,6 +3942,18 @@
         "title": "Flatten forms and comments",
         "body": "Remove editable layers after metadata is stripped for a fully locked-down file."
       },
+      "archivalPdfA": {
+        "title": "Need archival PDF/A?",
+        "body": "Convert the repaired file to PDF/A-1b or PDF/A-2b before depositing with courts or records offices."
+      },
+      "webLinearize": {
+        "title": "Publishing on the web?",
+        "body": "Linearize the PDF for Fast Web View so browsers show the first pages while the rest downloads."
+      },
+      "protectArchival": {
+        "title": "Password-protect the archive",
+        "body": "Add encryption after PDF/A conversion when your policy requires controlled access."
+      },
       "repairCorrupt": {
         "title": "PDF won't open?",
         "body": "Try Repair PDF to rebuild damaged structure before flattening or merging."
@@ -3864,6 +3977,14 @@
       "removeMetadata": {
         "title": "Remove hidden metadata",
         "body": "Strip author, software, and XMP fields after sensitive content is gone."
+      },
+      "editMetadata": {
+        "title": "Edit document properties",
+        "body": "Set title, author, and keywords so this PDF is easy to find in your library."
+      },
+      "auditBeforeShare": {
+        "title": "Audit before sharing",
+        "body": "Run the Safe-to-Share Auditor to catch hidden comments and metadata you may have missed."
       },
       "flattenFinal": {
         "title": "Flatten the final PDF",
@@ -4524,6 +4645,18 @@
       "repair-pdf": {
         "title": "Drop a damaged PDF here or click to browse",
         "description": "Scan structure and rebuild corrupted PDFs locally—your file never leaves the browser."
+      },
+      "pdf-a-converter": {
+        "title": "Drop your PDF here or click to browse",
+        "description": "Convert to PDF/A-1b or PDF/A-2b for archival compliance—processing stays 100% local."
+      },
+      "pdf-linearization": {
+        "title": "Drop your PDF here or click to browse",
+        "description": "Linearize for Fast Web View—progressive loading in browsers, processed entirely on your device."
+      },
+      "pdf-metadata-editor": {
+        "title": "Drop your PDF here or click to browse",
+        "description": "Edit title, author, subject, keywords, creator, and producer—saved locally in your browser."
       }
     },
     "buttons": {
@@ -4541,7 +4674,10 @@
       "reorder-pdf-pages": "Download reordered PDF",
       "extract-pdf-pages": "Download extracted PDF",
       "flatten-pdf": "Download flattened PDF",
-      "repair-pdf": "Download repaired PDF"
+      "repair-pdf": "Download repaired PDF",
+      "pdf-a-converter": "Download PDF/A file",
+      "pdf-linearization": "Convert & download linearized PDF",
+      "pdf-metadata-editor": "Save PDF with metadata"
     },
     "status": {
       "common": {
@@ -4936,6 +5072,57 @@
         "passwordHint": "(only if the file is protected)",
         "passwordPlaceholder": "Optional",
         "unknownPageCount": "Page count unknown"
+      }
+    },
+    "pdf-a-converter": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — choose a PDF/A profile and convert.",
+        "starting": "Starting PDF/A conversion…",
+        "downloaded": "PDF/A file downloaded as {name}."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "normalizing": "Normalizing pages for archival output…",
+        "metadata": "Embedding PDF/A preservation metadata…",
+        "finalizing": "Finalizing archival PDF…"
+      },
+      "privacyNote": "PDF/A conversion runs entirely in your browser. Privileged filings and institutional records never leave your device.",
+      "convertLabel": "Convert to PDF/A",
+      "convertAgainLabel": "Convert again",
+      "adjustPassword": "Adjust your file, profile, or password and try again.",
+      "ui": {
+        "profileLegend": "Archival profile",
+        "profile1b": "PDF/A-1b (most archives)",
+        "profile2b": "PDF/A-2b (modern features)",
+        "profileHint": "Use PDF/A-1b for courts and government records unless your authority specifies PDF/A-2.",
+        "passwordLabel": "PDF password",
+        "passwordHint": "(only if the file is protected)",
+        "passwordPlaceholder": "Optional"
+      }
+    },
+    "pdf-linearization": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — convert when you are.",
+        "starting": "Starting linearization…",
+        "downloaded": "Linearized PDF downloaded as {name}."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "optimizing": "Optimizing page order for web delivery…",
+        "finalizing": "Finalizing linearized PDF…"
+      },
+      "privacyNote": "PDF linearization runs entirely in your browser. Your file never leaves your device.",
+      "convertLabel": "Convert & Download",
+      "convertAgainLabel": "Convert again",
+      "adjustPassword": "Adjust your file or password and try again.",
+      "ui": {
+        "passwordLabel": "PDF password",
+        "passwordHint": "(only if the file is protected)",
+        "passwordPlaceholder": "Optional"
       }
     },
     "sign": {
@@ -5586,6 +5773,37 @@
         "metadataHeading": "Metadata found in this file",
         "scanningInline": "Scanning...",
         "noInfoFields": "No standard Info fields were detected. Embedded metadata may still exist."
+      }
+    },
+    "pdf-metadata-editor": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "loading": "Reading document properties…",
+        "loaded": "{name} loaded — edit fields and save.",
+        "saving": "Saving metadata…",
+        "downloaded": "Updated PDF downloaded as {name}."
+      },
+      "privacyNote": "Metadata is read and written locally in your browser. Your PDF never leaves your device.",
+      "saveLabel": "Save metadata",
+      "saveAgainLabel": "Save again",
+      "adjustTryAgain": "Adjust your file, fields, or password and try again.",
+      "ui": {
+        "passwordLabel": "PDF password",
+        "passwordHint": "(only if the file is protected)",
+        "passwordPlaceholder": "Optional",
+        "reload": "Reload fields with this password",
+        "formHeading": "Document properties",
+        "formHint": "Update any field below. Keywords accept comma- or semicolon-separated values.",
+        "keywordsPlaceholder": "e.g. contract, finance, Q4",
+        "fields": {
+          "title": "Title",
+          "author": "Author",
+          "subject": "Subject",
+          "keywords": "Keywords",
+          "creator": "Creator",
+          "producer": "Producer"
+        }
       }
     },
     "pdf-password-recovery": {

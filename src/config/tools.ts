@@ -69,6 +69,11 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "custom-paper-margin", labelKey: "customPaperMargin", categories: [c.pdfEdit] },
   { slug: "flatten-pdf", labelKey: "flattenPdf", categories: [c.pdfEdit] },
   { slug: "repair-pdf", labelKey: "repairPdf", categories: [c.pdfEdit] },
+  { slug: "pdf-metadata-editor", labelKey: "pdfMetadataEditor", categories: [c.pdfEdit] },
+  /** Convert standard PDFs to archival PDF/A for records compliance. */
+  { slug: "pdf-a-converter", labelKey: "pdfAConverter", categories: [c.pdfExport] },
+  /** Linearize PDFs for Fast Web View and progressive browser loading. */
+  { slug: "pdf-linearization", labelKey: "pdfLinearization", categories: [c.pdfExport] },
 
   // PDF — Security
   { slug: "protect-pdf", labelKey: "protectPdf", categories: [c.pdfSecurity] },
@@ -277,6 +282,8 @@ export const TOOL_REGISTRY = {
     "pdf-to-word",
     "pdf-to-excel",
     "pdf-to-powerpoint",
+    "pdf-a-converter",
+    "pdf-linearization",
     // Image & video formats
     "heic-to-jpg",
     "convert-to-png",
@@ -376,6 +383,8 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
             "pdf-to-word",
             "pdf-to-excel",
             "pdf-to-powerpoint",
+            "pdf-a-converter",
+            "pdf-linearization",
           ],
           CONVERT_SLUGS,
         ),
@@ -516,6 +525,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
           "pdf-text-editor",
           "flatten-pdf",
           "repair-pdf",
+          "pdf-metadata-editor",
         ],
       },
       {

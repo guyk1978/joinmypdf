@@ -40,8 +40,11 @@ import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { RedactPdfWorkspace } from "@/components/RedactPdfWorkspace";
 import { FlattenPdfWorkspace } from "@/components/FlattenPdfWorkspace";
+import { PdfAConverterWorkspace } from "@/components/PdfAConverterWorkspace";
 import { RepairPdfWorkspace } from "@/components/RepairPdfWorkspace";
 import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
+import { PdfMetadataEditorWorkspace } from "@/components/PdfMetadataEditorWorkspace";
+import { PdfLinearizationWorkspace } from "@/components/PdfLinearizationWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
 import { AnnotatePdfWorkspace } from "@/components/AnnotatePdfWorkspace";
 import { ReorderPdfPagesWorkspace } from "@/components/ReorderPdfPagesWorkspace";
@@ -279,8 +282,14 @@ export default async function ToolPage({
           <FlattenPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "repair-pdf" ? (
           <RepairPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-a-converter" ? (
+          <PdfAConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "remove-hidden-metadata" ? (
           <RemoveHiddenMetadataWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-metadata-editor" ? (
+          <PdfMetadataEditorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-linearization" ? (
+          <PdfLinearizationWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "delete-pages" ? (
           <DeletePdfPagesWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "merge" ? (
