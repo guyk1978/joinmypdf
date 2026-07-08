@@ -1,7 +1,8 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Upload } from "lucide-react";
+import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+
 import {
   useCallback,
   useEffect,
@@ -74,7 +75,7 @@ export function CompressImage({ labels, className, onDownload }: CompressImagePr
   const [quality, setQuality] = useState(DEFAULT_COMPRESS_QUALITY);
   const [compressedSize, setCompressedSize] = useState<number | null>(null);
   const [estimating, setEstimating] = useState(false);
-  const [dragActive, setDragActive] = useState(false);
+
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [showFeedback, setShowFeedback] = useState(false);
@@ -133,18 +134,6 @@ export function CompressImage({ labels, className, onDownload }: CompressImagePr
     },
     [labels.invalidFile, revokeObjectUrl],
   );
-
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) void loadFile(file);
-  };
-
-  const onDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setDragActive(false);
-    const file = event.dataTransfer.files?.[0];
-    if (file) void loadFile(file);
-  };
 
   const onImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     const img = event.currentTarget;
@@ -217,48 +206,18 @@ export function CompressImage({ labels, className, onDownload }: CompressImagePr
   return (
     <div className={clsx("crop-image-tool", className)}>
       {!imageSrc ? (
-        <div
-          className={clsx(
-            "crop-image-tool__dropzone",
-            dragActive && "crop-image-tool__dropzone--active",
-          )}
-          onDragEnter={(event) => {
-            event.preventDefault();
-            setDragActive(true);
+        <ImageToolDropzone
+          dropTitle={labels.dropTitle}
+          selectLabel={labels.selectFile}
+          selectAria={labels.selectFileAria}
+          dropHint={labels.dropHint}
+          supportedFormats={["JPG", "PNG", "WEBP", "GIF", "HEIC"]}
+          accept={ACCEPT}
+          onFiles={(files) => {
+            const file = Array.from(files)[0];
+            if (file) void loadFile(file);
           }}
-          onDragOver={(event) => {
-            event.preventDefault();
-            setDragActive(true);
-          }}
-          onDragLeave={(event) => {
-            event.preventDefault();
-            if (event.currentTarget.contains(event.relatedTarget as Node)) return;
-            setDragActive(false);
-          }}
-          onDrop={onDrop}
-        >
-          <input
-            ref={inputRef}
-            type="file"
-            accept={ACCEPT}
-            className="sr-only"
-            aria-label={labels.selectFileAria}
-            onChange={onInputChange}
-          />
-
-          <Upload className="crop-image-tool__dropzone-icon" strokeWidth={1.75} aria-hidden />
-
-          <p className="crop-image-tool__dropzone-title">{labels.dropTitle}</p>
-          <p className="crop-image-tool__dropzone-hint">{labels.dropHint}</p>
-
-          <button
-            type="button"
-            className={clsx(imBtnCta, "crop-image-tool__select-btn")}
-            onClick={() => inputRef.current?.click()}
-          >
-            {labels.selectFile}
-          </button>
-        </div>
+        />
       ) : (
         <div className="crop-image-tool__workspace">
           <p className="crop-image-tool__instructions">{labels.compressInstructions}</p>

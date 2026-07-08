@@ -3,6 +3,10 @@
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { FileUploadZone } from "@/components/FileUploadZone";
+import {
+  formatSupportsLabel,
+  IndustrialMatteDropzone,
+} from "@/components/IndustrialMatteDropzone";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
@@ -130,7 +134,9 @@ function FileSlot({
   file,
   onFile,
   onClear,
-  dropHint,
+  dropTitle,
+  selectLabel,
+  privacyLabel,
   removeLabel,
   mbUnit,
   inputRef: externalInputRef,
@@ -140,7 +146,9 @@ function FileSlot({
   file: File | null;
   onFile: (f: File) => void;
   onClear: () => void;
-  dropHint: string;
+  dropTitle: string;
+  selectLabel: string;
+  privacyLabel: string;
   removeLabel: string;
   mbUnit: string;
   inputRef?: RefObject<HTMLInputElement | null>;
@@ -159,9 +167,15 @@ function FileSlot({
       <label htmlFor={id} className="text-sm font-semibold text-ink">
         {label}
       </label>
-      <div
+      <IndustrialMatteDropzone
         role="button"
         tabIndex={0}
+        active={drag}
+        dropTitle={dropTitle}
+        selectLabel={selectLabel}
+        supportsLabel={formatSupportsLabel(["PDF"])}
+        privacyLabel={privacyLabel}
+        showPrivacy={!file}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
         }}
@@ -176,30 +190,30 @@ function FileSlot({
           pick(e.dataTransfer.files);
         }}
         onClick={() => inputRef.current?.click()}
-        className={`cursor-pointer rounded-lg border border-dashed px-4 py-5 text-center transition ${drag ? "border-blue-400 bg-blue-50/80 dark:border-blue-500 dark:bg-blue-950/30" : "border-neutral-300 bg-neutral-50 hover:border-neutral-400 dark:border-neutral-600 dark:bg-neutral-900/50 dark:hover:border-neutral-500"}`}
-      >
-        <input
-          id={id}
-          ref={inputRef}
-          type="file"
-          className="sr-only"
-          accept="application/pdf,.pdf"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            pick(e.target.files);
-            e.target.value = "";
-          }}
-        />
-        {file ? (
-          <p className="text-sm text-ink">
-            <span className="font-medium">{file.name}</span>
-            <span className="mt-1 block text-xs text-ink-muted">
-              {(file.size / 1024 / 1024).toFixed(2)} {mbUnit}
-            </span>
-          </p>
-        ) : (
-          <p className="text-sm text-ink-muted">{dropHint}</p>
-        )}
-      </div>
+        input={
+          <input
+            id={id}
+            ref={inputRef}
+            type="file"
+            className="sr-only"
+            accept="application/pdf,.pdf"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              pick(e.target.files);
+              e.target.value = "";
+            }}
+          />
+        }
+        footer={
+          file ? (
+            <p className="m-0 text-sm text-neutral-300">
+              <span className="font-medium">{file.name}</span>
+              <span className="mt-1 block text-xs text-neutral-500">
+                {(file.size / 1024 / 1024).toFixed(2)} {mbUnit}
+              </span>
+            </p>
+          ) : null
+        }
+      />
       {file ? (
         <button type="button" className={`${toolSecondaryBtn} self-start text-xs`} onClick={onClear}>
           {removeLabel}
@@ -304,7 +318,9 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 label={ws.wsUi("labelOriginalBaseline")}
                 file={leftFile}
                 onFile={setLeftFile}
-                dropHint={ws.wsCommon("dropPdfHint")}
+                dropTitle={ws.wsCommon("dropYourPdfHere")}
+                selectLabel={ws.wsCommon("selectPdfFromDevice")}
+                privacyLabel={ws.wsCommon("localProcessingNothingUploaded")}
                 removeLabel={ws.wsCommon("remove")}
                 mbUnit={ws.wsCommon("mbUnit")}
                 inputRef={leftInputRef}
@@ -318,7 +334,9 @@ export function ComparePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
                 label={ws.wsUi("labelRevised")}
                 file={rightFile}
                 onFile={setRightFile}
-                dropHint={ws.wsCommon("dropPdfHint")}
+                dropTitle={ws.wsCommon("dropYourPdfHere")}
+                selectLabel={ws.wsCommon("selectPdfFromDevice")}
+                privacyLabel={ws.wsCommon("localProcessingNothingUploaded")}
                 removeLabel={ws.wsCommon("remove")}
                 mbUnit={ws.wsCommon("mbUnit")}
                 onClear={() => {

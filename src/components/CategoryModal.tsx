@@ -1,7 +1,6 @@
 "use client";
 
 import { clsx } from "clsx";
-import { ChevronDown, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Fragment, useEffect, useId, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
@@ -68,8 +67,9 @@ function ToolBlock({
     <Link
       href={item.href}
       className={clsx(
-        "category-modal__link group flex items-center gap-2",
-        isNavItemActive(pathname, item.href) && "is-active",
+        "category-modal__link group flex items-center gap-2 rounded-none",
+        "text-lg font-mono text-neutral-400 transition-colors hover:text-white",
+        isNavItemActive(pathname, item.href) && "is-active text-white",
       )}
       prefetch={false}
       onClick={() => {
@@ -83,8 +83,10 @@ function ToolBlock({
   );
 
   return (
-    <section className="category-modal__block" ref={sectionRef}>
-      <h4 className="category-modal__block-title">{column.label}</h4>
+    <section className="category-modal__block rounded-none bg-black" ref={sectionRef}>
+      <h4 className="category-modal__block-title mb-6 text-base font-mono uppercase tracking-wider text-neutral-600">
+        {column.label}
+      </h4>
       <ul className="category-modal__list">
         {coreItems.map((item) => (
           <li key={item.slug}>{renderLink(item)}</li>
@@ -109,20 +111,14 @@ function ToolBlock({
       {hasOverflow ? (
         <button
           type="button"
-          className="category-modal__toggle"
+          className={clsx(
+            "category-modal__toggle mt-4 rounded-none border-0 bg-transparent p-0",
+            "text-sm font-mono text-blue-500 transition-colors hover:text-blue-300",
+          )}
           aria-expanded={expanded}
           onClick={() => setExpanded((value) => !value)}
         >
-          <span>
-            {expanded ? `${collapseLabel} (${totalCount})` : `${showAllLabel} (${totalCount})`}
-          </span>
-          <ChevronDown
-            className={clsx(
-              "category-modal__toggle-icon",
-              expanded && "category-modal__toggle-icon--open",
-            )}
-            aria-hidden
-          />
+          {expanded ? `${collapseLabel} (${totalCount})` : `${showAllLabel} (${totalCount})`}
         </button>
       ) : null}
     </section>
@@ -184,7 +180,7 @@ export function CategoryModal({ open, activeCategory, onClose, onNavigate }: Cat
             onClick={onClose}
           />
           <motion.div
-            className="category-modal__panel"
+            className="category-modal__panel rounded-none border-none bg-black"
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
@@ -193,27 +189,32 @@ export function CategoryModal({ open, activeCategory, onClose, onNavigate }: Cat
             exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98, y: 8 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="category-modal__panel-header">
-              <h2 id={titleId} className="category-modal__title">
+            <div className="category-modal__panel-header border-b-2 border-neutral-800">
+              <h2
+                id={titleId}
+                className="category-modal__title text-4xl font-black uppercase tracking-tighter text-white"
+              >
                 {title}
               </h2>
               <button
                 type="button"
-                className="category-modal__close"
+                className="category-modal__close rounded-none border-0 bg-transparent text-white hover:text-neutral-400"
                 aria-label={t("allTools.close")}
                 onClick={onClose}
               >
-                <X className="category-modal__close-icon" aria-hidden />
+                <span className="category-modal__close-glyph" aria-hidden>
+                  ×
+                </span>
               </button>
             </div>
-            <div className="category-modal__body">
-              <div className="category-modal__grid">
+            <div className="category-modal__body bg-black">
+              <div className="category-modal__grid bg-black">
                 {groups.map((group) => (
                   <Fragment key={group.id}>
                     {isAllView ? (
                       <h3
                         id={`${titleId}-${group.id}`}
-                        className="category-modal__group-band"
+                        className="category-modal__group-band font-mono uppercase tracking-wider text-neutral-600"
                       >
                         {group.label}
                       </h3>

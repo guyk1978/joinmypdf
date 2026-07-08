@@ -1,9 +1,12 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Shield } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback, useId, useRef, useState, type KeyboardEvent } from "react";
+import {
+  formatSupportsLabel,
+  IndustrialMatteDropzone,
+} from "@/components/IndustrialMatteDropzone";
 
 export type MediaDropzoneLabels = {
   ariaLabel?: string;
@@ -33,6 +36,18 @@ function defaultAcceptForKind(kind: MediaDropzoneProps["mediaKind"]): string {
   return "audio/*,video/*";
 }
 
+function defaultDropTitle(kind: MediaDropzoneProps["mediaKind"]): string {
+  if (kind === "audio") return "Drop your audio here";
+  if (kind === "video") return "Drop your video here";
+  return "Drop your media file here";
+}
+
+function defaultSelectLabel(kind: MediaDropzoneProps["mediaKind"]): string {
+  if (kind === "audio") return "Select audio from device";
+  if (kind === "video") return "Select video from device";
+  return "Select file from device";
+}
+
 export function MediaDropzone({
   accept,
   mediaKind = "any",
@@ -55,12 +70,15 @@ export function MediaDropzone({
 
   const copy = {
     ariaLabel: labels?.ariaLabel ?? t("dropzoneAria"),
-    title: busy ? labels?.titleBusy ?? t("dropTitleBusy") : labels?.title ?? t("dropTitle"),
-    description: labels?.description ?? t("dropDescription"),
+    title: busy
+      ? labels?.titleBusy ?? t("dropTitleBusy")
+      : labels?.title ?? t("dropTitle") ?? defaultDropTitle(mediaKind),
     privacyBadge: labels?.privacyBadge ?? t("privacyBadge"),
     formatsHint: labels?.formatsHint ?? t("formatsHint"),
-    selectLabel: labels?.selectLabel ?? t("selectLabel"),
+    selectLabel: labels?.selectLabel ?? t("selectLabel") ?? defaultSelectLabel(mediaKind),
   };
+
+  const supportsLine = formatSupportsLabel(supportedFormats, copy.formatsHint);
 
   const handleFile = useCallback(
     (file: File | undefined) => {
@@ -94,33 +112,33 @@ export function MediaDropzone({
   };
 
   return (
-    <div className={clsx("tool-upload-zone tool-upload-zone--tool-page media-dropzone-shell", className)}>
-      <div
-        role="button"
-        tabIndex={isDisabled ? -1 : 0}
-        aria-label={copy.ariaLabel}
-        aria-disabled={isDisabled}
-        aria-controls={inputId}
-        className={clsx(
-          "tool-drop-zone",
-          active && "tool-drop-zone--active",
-          isDisabled && "media-dropzone--disabled",
-        )}
-        onKeyDown={onKeyDown}
-        onDragOver={(event) => {
-          event.preventDefault();
-          if (!isDisabled) setDrag(true);
-        }}
-        onDragLeave={() => setDrag(false)}
-        onDrop={(event) => {
-          event.preventDefault();
-          setDrag(false);
-          handleFile(event.dataTransfer.files?.[0]);
-        }}
-        onClick={() => {
-          if (!isDisabled) inputRef.current?.click();
-        }}
-      >
+    <IndustrialMatteDropzone
+      role="button"
+      tabIndex={isDisabled ? -1 : 0}
+      aria-label={copy.ariaLabel}
+      aria-controls={inputId}
+      className={clsx(className)}
+      dropTitle={copy.title}
+      selectLabel={copy.selectLabel}
+      supportsLabel={supportsLine}
+      privacyLabel={copy.privacyBadge}
+      active={active}
+      disabled={isDisabled}
+      onKeyDown={onKeyDown}
+      onDragOver={(event) => {
+        event.preventDefault();
+        if (!isDisabled) setDrag(true);
+      }}
+      onDragLeave={() => setDrag(false)}
+      onDrop={(event) => {
+        event.preventDefault();
+        setDrag(false);
+        handleFile(event.dataTransfer.files?.[0]);
+      }}
+      onClick={() => {
+        if (!isDisabled) inputRef.current?.click();
+      }}
+      input={
         <input
           id={inputId}
           ref={inputRef}
@@ -133,30 +151,7 @@ export function MediaDropzone({
             event.target.value = "";
           }}
         />
-
-        <p className="tool-drop-zone__heading">{copy.title}</p>
-
-        <span className="tool-drop-zone__button">{copy.selectLabel}</span>
-
-        <p className="tool-drop-zone__cloud">{copy.description}</p>
-
-        {supportedFormats.length ? (
-          <div className="tool-drop-zone__formats" aria-hidden>
-            {supportedFormats.map((format) => (
-              <span key={format} className="tool-drop-zone__format">
-                {format}
-              </span>
-            ))}
-          </div>
-        ) : (
-          <p className="tool-drop-zone__cloud">{copy.formatsHint}</p>
-        )}
-      </div>
-
-      <p className="tool-privacy-badge media-dropzone__privacy" role="note">
-        <Shield className="media-dropzone__privacy-icon" aria-hidden />
-        <span>{copy.privacyBadge}</span>
-      </p>
-    </div>
+      }
+    />
   );
 }

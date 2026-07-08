@@ -7,6 +7,10 @@ import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { localizeHebrewPdfInText } from "@/lib/hebrew-pdf-term";
 import { ToolFavoriteButton } from "@/components/ToolFavoriteButton";
+import {
+  formatSupportsLabel,
+  IndustrialMatteDropzone,
+} from "@/components/IndustrialMatteDropzone";
 
 export type FileUploadZoneProps = HTMLAttributes<HTMLDivElement> & {
   operation?: string;
@@ -21,6 +25,9 @@ export type FileUploadZoneProps = HTMLAttributes<HTMLDivElement> & {
   footer?: ReactNode;
   iconActive?: boolean;
   supportedFormats?: string[];
+  dropTitle?: string;
+  selectLabel?: string;
+  privacyLabel?: string;
   variant?: "default" | "hero";
 };
 
@@ -31,12 +38,15 @@ export function FileUploadZone({
   title: titleProp,
   description: descriptionProp,
   showDescription = false,
-  showFormatBadges = false,
-  showCloudLinks = true,
+  showFormatBadges = true,
+  showCloudLinks = false,
   input,
   footer,
   iconActive,
   supportedFormats = ["PDF"],
+  dropTitle: dropTitleProp,
+  selectLabel: selectLabelProp,
+  privacyLabel: privacyLabelProp,
   variant = "default",
   className,
   children,
@@ -65,45 +75,45 @@ export function FileUploadZone({
 
   const pdfOnly =
     supportedFormats.length === 1 && supportedFormats[0]?.toUpperCase() === "PDF";
-  const selectLabel = pdfOnly ? common("selectPdfFile") : common("selectFile");
-  const selectAria = pdfOnly ? common("selectPdfFileAria") : common("selectFileAria");
-
-  const dropZone = (
-    <div
-      className={clsx(
-        "tool-drop-zone",
-        active && "tool-drop-zone--active",
-        isHero && "tool-drop-zone--hero",
-        className,
-      )}
-      {...rest}
-    >
-      {input}
-
-      <p className="tool-drop-zone__heading">{common("dropYourFileHere")}</p>
-
-      <span className="tool-drop-zone__button" aria-hidden>
-        {selectLabel}
-      </span>
-
-      {showCloudLinks && isToolPage ? (
-        <p className="tool-drop-zone__cloud">{common("uploadFromCloudServices")}</p>
-      ) : null}
-
-      {showFormatBadges && supportedFormats.length ? (
-        <div className="tool-drop-zone__formats">
-          {supportedFormats.map((format) => (
-            <span key={format} className="tool-drop-zone__format">
-              {formatLabel(format)}
-            </span>
-          ))}
-        </div>
-      ) : null}
-
-      {footer ? <div className="tool-drop-zone__footer">{footer}</div> : null}
-      {children}
-    </div>
+  const imageOnly = supportedFormats.every((format) =>
+    /jpg|jpeg|png|webp|gif|heic|svg|ico|bmp/i.test(format),
   );
+
+  const dropTitle =
+    dropTitleProp ||
+    (pdfOnly
+      ? common.has("dropYourPdfHere")
+        ? common("dropYourPdfHere")
+        : "Drop your PDF here"
+      : imageOnly
+        ? common.has("dropYourImageHere")
+          ? common("dropYourImageHere")
+          : "Drop your image here"
+        : common("dropYourFileHere"));
+
+  const selectLabel =
+    selectLabelProp ||
+    (pdfOnly
+      ? common.has("selectPdfFromDevice")
+        ? common("selectPdfFromDevice")
+        : "Select PDF from device"
+      : imageOnly
+        ? common.has("selectImageFromDevice")
+          ? common("selectImageFromDevice")
+          : "Select image from device"
+        : common.has("selectFileFromDevice")
+          ? common("selectFileFromDevice")
+          : common("selectFile"));
+
+  const privacyLabel =
+    privacyLabelProp ||
+    (common.has("localProcessingNothingUploaded")
+      ? common("localProcessingNothingUploaded")
+      : "Local Processing. Nothing is uploaded.");
+
+  const supportsLabel = showFormatBadges
+    ? formatSupportsLabel(supportedFormats.map(formatLabel))
+    : "";
 
   return (
     <div
@@ -126,7 +136,19 @@ export function FileUploadZone({
         </header>
       ) : null}
 
-      {dropZone}
+      <IndustrialMatteDropzone
+        {...rest}
+        className={className}
+        dropTitle={dropTitle}
+        selectLabel={selectLabel}
+        supportsLabel={supportsLabel}
+        privacyLabel={privacyLabel}
+        active={active}
+        input={input}
+        footer={footer}
+      >
+        {children}
+      </IndustrialMatteDropzone>
     </div>
   );
 }

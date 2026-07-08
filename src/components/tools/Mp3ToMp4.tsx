@@ -1,9 +1,12 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { clsx } from "clsx";
-import { Download, ImageIcon, Loader2, Music } from "lucide-react";
+import { Download, Loader2 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
+import {
+  formatSupportsLabel,
+  IndustrialMatteDropzone,
+} from "@/components/IndustrialMatteDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { FfmpegEnvironmentNotice } from "@/components/tools/FfmpegEnvironmentNotice";
@@ -35,23 +38,21 @@ function downloadBlob(blob: Blob, fileName: string): void {
 }
 
 type UploadSlotProps = {
-  label: string;
-  hint: string;
+  dropTitle: string;
+  selectLabel: string;
+  supportedFormats: string[];
   accept: string;
-  icon: ReactNode;
   file: File | null;
-  busy: boolean;
   disabled: boolean;
   onFile: (file: File) => void;
 };
 
 function UploadSlot({
-  label,
-  hint,
+  dropTitle,
+  selectLabel,
+  supportedFormats,
   accept,
-  icon,
   file,
-  busy,
   disabled,
   onFile,
 }: UploadSlotProps) {
@@ -59,10 +60,16 @@ function UploadSlot({
   const [dragActive, setDragActive] = useState(false);
 
   return (
-    <div
+    <IndustrialMatteDropzone
       role="button"
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
+      active={dragActive}
+      disabled={disabled}
+      dropTitle={dropTitle}
+      selectLabel={selectLabel}
+      supportsLabel={formatSupportsLabel(supportedFormats)}
+      showPrivacy={!file}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
@@ -91,36 +98,28 @@ function UploadSlot({
       onClick={() => {
         if (!disabled) inputRef.current?.click();
       }}
-      className={clsx(
-        "cursor-pointer rounded-none border border-dashed p-5 text-center transition-colors",
-        dragActive
-          ? "border-neutral-500 bg-neutral-900"
-          : "border-neutral-800 bg-neutral-950 hover:border-neutral-700",
-        disabled && "cursor-not-allowed opacity-60",
-      )}
-    >
-      <input
-        ref={inputRef}
-        type="file"
-        accept={accept}
-        disabled={disabled}
-        className="sr-only"
-        onChange={(event) => {
-          const picked = event.target.files?.[0];
-          if (picked) onFile(picked);
-          event.target.value = "";
-        }}
-      />
-      <div className="mx-auto mb-2 text-neutral-500">{icon}</div>
-      <p className="text-sm font-medium text-neutral-200">{label}</p>
-      {file ? (
-        <p className="mt-1 truncate text-xs text-neutral-400">
-          {file.name} · {formatBytes(file.size)}
-        </p>
-      ) : (
-        <p className="mt-1 text-xs text-neutral-500">{hint}</p>
-      )}
-    </div>
+      input={
+        <input
+          ref={inputRef}
+          type="file"
+          accept={accept}
+          disabled={disabled}
+          className="sr-only"
+          onChange={(event) => {
+            const picked = event.target.files?.[0];
+            if (picked) onFile(picked);
+            event.target.value = "";
+          }}
+        />
+      }
+      footer={
+        file ? (
+          <p className="m-0 truncate text-xs text-neutral-400">
+            {file.name} · {formatBytes(file.size)}
+          </p>
+        ) : null
+      }
+    />
   );
 }
 
@@ -203,22 +202,20 @@ export function Mp3ToMp4({ title, onComplete }: Mp3ToMp4Props) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <UploadSlot
-          label="Cover image"
-          hint="JPG, PNG, or WebP"
+          dropTitle="Drop your cover image here"
+          selectLabel="Select image from device"
+          supportedFormats={["JPG", "PNG", "WebP"]}
           accept={IMAGE_ACCEPT}
-          icon={<ImageIcon className="mx-auto h-7 w-7" aria-hidden />}
           file={imageFile}
-          busy={busy}
           disabled={isDisabled}
           onFile={pickImage}
         />
         <UploadSlot
-          label="MP3 audio"
-          hint="Drag and drop or browse"
+          dropTitle="Drop your MP3 here"
+          selectLabel="Select MP3 from device"
+          supportedFormats={["MP3"]}
           accept={MP3_ACCEPT}
-          icon={<Music className="mx-auto h-7 w-7" aria-hidden />}
           file={mp3File}
-          busy={busy}
           disabled={isDisabled}
           onFile={pickMp3}
         />

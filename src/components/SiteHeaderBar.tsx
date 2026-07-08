@@ -42,23 +42,27 @@ export function SiteHeaderBar() {
       onCategoryChange={setActiveCategory}
     >
       <nav className="site-header__bar" aria-label={t("siteLabel")}>
-        <Link href="/" className="site-header__brand brand flex shrink-0 items-center" aria-label={getBrandName(locale)}>
+        <Link
+          href="/"
+          className="site-header__brand brand flex shrink-0 items-center"
+          aria-label={getBrandName(locale)}
+        >
           <JoinMyPdfLogo />
         </Link>
 
-        {isWide ? <HeaderCategoryButtons /> : null}
-
         {isWide ? (
-          <div className="site-header__search">
-            <HeaderSearch variant="inline" />
+          <div className="site-header__utility-center">
+            <HeaderCategoryButtons />
+            <div className="site-header__search">
+              <HeaderSearch variant="inline" />
+            </div>
           </div>
-        ) : null}
-
-        <div className="site-header__spacer" aria-hidden />
-
-        {isWide ? <HeaderAllToolsButton /> : null}
+        ) : (
+          <div className="site-header__spacer" aria-hidden />
+        )}
 
         <div className="site-header__end">
+          {isWide ? <HeaderAllToolsButton /> : null}
           {!isWide ? <HeaderSearch variant="toggle" /> : null}
           <HeaderOverflowMenu showNavLinks={!isWide} onOpenCategory={openCategory} />
         </div>

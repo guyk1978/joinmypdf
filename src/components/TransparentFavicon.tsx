@@ -1,7 +1,8 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Lock, Shield, Upload } from "lucide-react";
+import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Download, Lock, Shield } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -80,7 +81,7 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
   const [naturalSize, setNaturalSize] = useState<{ width: number; height: number } | null>(null);
   const [pickedColors, setPickedColors] = useState<RgbColor[]>([]);
   const [lastPickedColor, setLastPickedColor] = useState<RgbColor | null>(null);
-  const [dragActive, setDragActive] = useState(false);
+
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [checkerboardPreview, setCheckerboardPreview] = useState(false);
@@ -199,18 +200,6 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
     [labels.invalidFile, revokeObjectUrl],
   );
 
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) void loadFile(file);
-  };
-
-  const onDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setDragActive(false);
-    const file = event.dataTransfer.files?.[0];
-    if (file) void loadFile(file);
-  };
-
   const onCanvasClick = (event: MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     const original = originalImageDataRef.current;
@@ -319,50 +308,18 @@ export function TransparentFavicon({ labels, className, onDownload }: Transparen
   return (
     <div className={clsx("crop-image-tool transparent-favicon-tool", className)}>
       {!imageSrc ? (
-        <div
-          className={clsx(
-            "crop-image-tool__dropzone",
-            dragActive && "crop-image-tool__dropzone--active",
-          )}
-          onDragEnter={(event) => {
-            event.preventDefault();
-            setDragActive(true);
+        <ImageToolDropzone
+          dropTitle={labels.dropTitle}
+          selectLabel={labels.selectFile}
+          selectAria={labels.selectFileAria}
+          dropHint={labels.dropHint}
+          supportedFormats={["PNG", "JPG"]}
+          accept={ACCEPT}
+          onFiles={(files) => {
+            const file = Array.from(files)[0];
+            if (file) void loadFile(file);
           }}
-          onDragOver={(event) => {
-            event.preventDefault();
-            setDragActive(true);
-          }}
-          onDragLeave={(event) => {
-            event.preventDefault();
-            if (event.currentTarget.contains(event.relatedTarget as Node)) return;
-            setDragActive(false);
-          }}
-          onDrop={onDrop}
-        >
-          <input
-            ref={inputRef}
-            type="file"
-            accept={ACCEPT}
-            className="sr-only"
-            aria-label={labels.selectFileAria}
-            onChange={onInputChange}
-          />
-
-          <Upload className="crop-image-tool__dropzone-icon" strokeWidth={1.75} aria-hidden />
-
-          <p className="crop-image-tool__dropzone-title">{labels.dropTitle}</p>
-          <p className="crop-image-tool__dropzone-hint">{labels.dropHint}</p>
-
-          {securityStatus}
-
-          <button
-            type="button"
-            className={clsx(imBtnCta, "crop-image-tool__select-btn")}
-            onClick={() => inputRef.current?.click()}
-          >
-            {labels.selectFile}
-          </button>
-        </div>
+        />
       ) : (
         <div className="crop-image-tool__workspace">
           {securityStatus}

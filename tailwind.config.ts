@@ -80,6 +80,16 @@ const config: Config = {
         sans: ["Arial", "Helvetica Neue", "Helvetica", "Segoe UI", "sans-serif"],
         mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
       },
+      keyframes: {
+        trace: {
+          "0%": { borderColor: "transparent" },
+          "50%": { borderColor: "#60a5fa" },
+          "100%": { borderColor: "transparent" },
+        },
+      },
+      animation: {
+        "trace-border": "trace 2s linear infinite",
+      },
     },
   },
   plugins: [],

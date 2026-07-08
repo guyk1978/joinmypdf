@@ -1,7 +1,8 @@
 "use client";
 
 import { clsx } from "clsx";
-import { AlertCircle, CheckCircle2, Loader2, Upload } from "lucide-react";
+import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -112,7 +113,7 @@ export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
   const [batchItems, setBatchItems] = useState<BatchItem[]>([]);
   const [batchBusy, setBatchBusy] = useState(false);
   const [batchProgress, setBatchProgress] = useState({ current: 0, total: 0 });
-  const [dragActive, setDragActive] = useState(false);
+
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
@@ -303,17 +304,6 @@ export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
     [labels.invalidBatchFiles, labels.invalidFile, loadFile, runBatchConversion],
   );
 
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.length) loadFiles(event.target.files);
-    event.target.value = "";
-  };
-
-  const onDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setDragActive(false);
-    if (event.dataTransfer.files?.length) loadFiles(event.dataTransfer.files);
-  };
-
   const onImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     const img = event.currentTarget;
     setNaturalSize({ width: img.naturalWidth, height: img.naturalHeight });
@@ -420,49 +410,18 @@ export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
   return (
     <div className={clsx("crop-image-tool png-to-ico-tool", className)}>
       {!showWorkspace ? (
-        <div
-          className={clsx(
-            "crop-image-tool__dropzone",
-            dragActive && "crop-image-tool__dropzone--active",
-          )}
-          onDragEnter={(event) => {
-            event.preventDefault();
-            setDragActive(true);
+        <ImageToolDropzone
+          dropTitle={labels.dropTitle}
+          selectLabel={labels.selectFile}
+          selectAria={labels.selectFileAria}
+          dropHint={labels.dropHint}
+          supportedFormats={["PNG"]}
+          accept={ACCEPT}
+          multiple
+          onFiles={(files) => {
+            loadFiles(files);
           }}
-          onDragOver={(event) => {
-            event.preventDefault();
-            setDragActive(true);
-          }}
-          onDragLeave={(event) => {
-            event.preventDefault();
-            if (event.currentTarget.contains(event.relatedTarget as Node)) return;
-            setDragActive(false);
-          }}
-          onDrop={onDrop}
-        >
-          <input
-            ref={inputRef}
-            type="file"
-            accept={ACCEPT}
-            multiple
-            className="sr-only"
-            aria-label={labels.selectFileAria}
-            onChange={onInputChange}
-          />
-
-          <Upload className="crop-image-tool__dropzone-icon" strokeWidth={1.75} aria-hidden />
-
-          <p className="crop-image-tool__dropzone-title">{labels.dropTitle}</p>
-          <p className="crop-image-tool__dropzone-hint">{labels.dropHint}</p>
-
-          <button
-            type="button"
-            className={clsx(imBtnCta, "crop-image-tool__select-btn")}
-            onClick={() => inputRef.current?.click()}
-          >
-            {labels.selectFile}
-          </button>
-        </div>
+        />
       ) : batchItems.length > 0 ? (
         <div className="crop-image-tool__workspace png-to-ico-tool__batch-workspace">
           <p className="crop-image-tool__instructions">{labels.batchInstructions}</p>

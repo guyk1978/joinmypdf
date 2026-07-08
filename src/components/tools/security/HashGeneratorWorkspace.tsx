@@ -25,7 +25,6 @@ export function HashGeneratorWorkspace({ tool, slug }: HashGeneratorWorkspacePro
       textInputLabel: t("textInputLabel"),
       textInputPlaceholder: t("textInputPlaceholder"),
       fileDropTitle: t("fileDropTitle"),
-      fileDropHint: t("fileDropHint"),
       selectFileButton: t("selectFileButton"),
       clearFileButton: t("clearFileButton"),
       hashingFile: t("hashingFile"),
@@ -35,6 +34,9 @@ export function HashGeneratorWorkspace({ tool, slug }: HashGeneratorWorkspacePro
       copied: t("copied"),
       copyFailed: t("copyFailed"),
       hashError: t("hashError"),
+      privacyLabel: t.has("privacyLabel")
+        ? t("privacyLabel")
+        : "Local Processing. Nothing is uploaded.",
     }),
     [t],
   );

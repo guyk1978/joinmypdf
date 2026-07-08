@@ -3,6 +3,10 @@
 import { useEffect, useId, useRef, useState, type DragEvent } from "react";
 import { clsx } from "clsx";
 import {
+  formatSupportsLabel,
+  IndustrialMatteDropzone,
+} from "@/components/IndustrialMatteDropzone";
+import {
   copyTextToClipboard,
   HASH_ALGORITHMS,
   hashFile,
@@ -15,7 +19,6 @@ export type HashGeneratorLabels = {
   textInputLabel: string;
   textInputPlaceholder: string;
   fileDropTitle: string;
-  fileDropHint: string;
   selectFileButton: string;
   clearFileButton: string;
   hashingFile: string;
@@ -25,6 +28,7 @@ export type HashGeneratorLabels = {
   copied: string;
   copyFailed: string;
   hashError: string;
+  privacyLabel?: string;
 };
 
 type HashGeneratorProps = {
@@ -160,12 +164,12 @@ export function HashGenerator({ labels, className }: HashGeneratorProps) {
           disabled={Boolean(file)}
         />
 
-        <div
-          className={clsx(
-            "hash-generator-tool__dropzone",
-            dragActive && "hash-generator-tool__dropzone--active",
-            file && "hash-generator-tool__dropzone--has-file",
-          )}
+        <IndustrialMatteDropzone
+          active={dragActive}
+          dropTitle={labels.fileDropTitle}
+          selectLabel={labels.selectFileButton}
+          supportsLabel={formatSupportsLabel(["Any file"])}
+          privacyLabel={labels.privacyLabel}
           onDragEnter={(event) => {
             event.preventDefault();
             setDragActive(true);
@@ -180,32 +184,35 @@ export function HashGenerator({ labels, className }: HashGeneratorProps) {
             setDragActive(false);
           }}
           onDrop={onDrop}
-        >
-          <input
-            ref={fileInputRef}
-            type="file"
-            className="sr-only"
-            onChange={(event) => applyFile(event.target.files?.[0] ?? null)}
-          />
-          <p className="hash-generator-tool__dropzone-title">{labels.fileDropTitle}</p>
-          <p className="hash-generator-tool__dropzone-hint">{labels.fileDropHint}</p>
-          {file ? (
-            <div className="hash-generator-tool__file-meta">
-              <span className="hash-generator-tool__file-name">{file.name}</span>
-              <button type="button" className="security-tool__action-btn" onClick={() => applyFile(null)}>
-                {labels.clearFileButton}
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              className="security-tool__action-btn"
-              onClick={() => fileInputRef.current?.click()}
-            >
-              {labels.selectFileButton}
-            </button>
-          )}
-        </div>
+          onClick={() => {
+            if (!file) fileInputRef.current?.click();
+          }}
+          input={
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="sr-only"
+              onChange={(event) => applyFile(event.target.files?.[0] ?? null)}
+            />
+          }
+          footer={
+            file ? (
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                <span className="text-sm text-neutral-300">{file.name}</span>
+                <button
+                  type="button"
+                  className="security-tool__action-btn"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    applyFile(null);
+                  }}
+                >
+                  {labels.clearFileButton}
+                </button>
+              </div>
+            ) : null
+          }
+        />
       </section>
 
       <section className="security-tool__pane tool-workspace-panel">

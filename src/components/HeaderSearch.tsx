@@ -32,7 +32,15 @@ function SearchResults({
   if (!flat.length) {
     return (
       <div id={id} className="site-search__dropdown site-search__dropdown--open" role="listbox">
-        <p className="site-search__empty">{t("empty")}</p>
+        <p className="site-search__empty">{t("emptyWithQuery", { query })}</p>
+        <div className="site-search__empty-actions">
+          <Link href="/tools/" className="site-search__empty-link" prefetch={false}>
+            {t("suggestAllTools")}
+          </Link>
+          <Link href="/audio-tools/" className="site-search__empty-link" prefetch={false}>
+            {t("suggestAudioTools")}
+          </Link>
+        </div>
       </div>
     );
   }

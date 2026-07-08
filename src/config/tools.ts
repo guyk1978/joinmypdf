@@ -605,4 +605,6 @@ export type SearchIndexEntry = {
   category: string;
   keywords: string;
   description?: string;
+  tags?: string[];
+  priorityHints?: string[];
 };

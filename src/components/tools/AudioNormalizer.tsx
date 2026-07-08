@@ -7,10 +7,13 @@ import {
   Download,
   Loader2,
   Trash2,
-  Upload,
   Volume2,
 } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
+import {
+  formatSupportsLabel,
+  IndustrialMatteDropzone,
+} from "@/components/IndustrialMatteDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { FfmpegEnvironmentNotice } from "@/components/tools/FfmpegEnvironmentNotice";
@@ -172,10 +175,15 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
         <FfmpegEnvironmentNotice environment={environment} />
       ) : null}
 
-      <div
+      <IndustrialMatteDropzone
         role="button"
         tabIndex={isDisabled ? -1 : 0}
         aria-disabled={isDisabled}
+        active={dragActive}
+        disabled={isDisabled}
+        dropTitle={busy ? "Normalizing in worker…" : "Drop your MP3 files here"}
+        selectLabel="Select MP3 from device"
+        supportsLabel={formatSupportsLabel(["MP3"])}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
@@ -203,35 +211,21 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
         onClick={() => {
           if (!isDisabled) inputRef.current?.click();
         }}
-        className={clsx(
-          "cursor-pointer rounded-none border border-dashed p-6 text-center transition-colors",
-          dragActive
-            ? "border-neutral-500 bg-neutral-900"
-            : "border-neutral-800 bg-[#1a1a1a] hover:border-neutral-700",
-          isDisabled && "cursor-not-allowed opacity-60",
-        )}
-      >
-        <input
-          ref={inputRef}
-          type="file"
-          accept={MP3_ACCEPT}
-          multiple
-          disabled={isDisabled}
-          className="sr-only"
-          onChange={(event) => {
-            addFiles(Array.from(event.target.files ?? []));
-            event.target.value = "";
-          }}
-        />
-        <Upload className="mx-auto h-8 w-8 text-neutral-500" aria-hidden />
-        <p className="mt-3 text-sm font-medium text-neutral-200">
-          {busy ? "Normalizing in worker…" : "Upload MP3 files"}
-        </p>
-        <p className="mt-1 text-xs text-neutral-500">
-          Drag and drop multiple MP3s or browse from your device. Batch normalization runs
-          one-by-one with per-file status.
-        </p>
-      </div>
+        input={
+          <input
+            ref={inputRef}
+            type="file"
+            accept={MP3_ACCEPT}
+            multiple
+            disabled={isDisabled}
+            className="sr-only"
+            onChange={(event) => {
+              addFiles(Array.from(event.target.files ?? []));
+              event.target.value = "";
+            }}
+          />
+        }
+      />
 
       {items.length > 0 ? (
         <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">

@@ -1,7 +1,6 @@
 "use client";
 
 import { clsx } from "clsx";
-import { LayoutGrid } from "lucide-react";
 import dynamic from "next/dynamic";
 import {
   createContext,
@@ -113,7 +112,12 @@ export function HeaderCategoryButtons({ className }: { className?: string }) {
         <button
           key={entry.id}
           type="button"
-          className="header-category-nav__btn"
+          className={clsx(
+            "header-category-nav__btn",
+            "rounded-none bg-transparent text-lg font-bold uppercase tracking-wide text-neutral-400 transition-all",
+            "hover:text-white",
+            open && activeCategory === entry.id && "text-white",
+          )}
           aria-haspopup="dialog"
           aria-expanded={open && activeCategory === entry.id}
           onClick={() => openCategory(entry.id)}
@@ -134,12 +138,17 @@ export function HeaderAllToolsButton({ className }: { className?: string }) {
   return (
     <button
       type="button"
-      className={clsx("header-category-nav__all-tools", className)}
+      className={clsx(
+        "header-category-nav__all-tools",
+        "rounded-none border-0 bg-transparent p-0 text-neutral-400 font-bold uppercase transition-all",
+        "hover:text-white hover:underline hover:underline-offset-8 hover:decoration-2",
+        open && activeCategory === "all" && "text-white underline underline-offset-8 decoration-2",
+        className,
+      )}
       aria-haspopup="dialog"
       aria-expanded={open && activeCategory === "all"}
       onClick={() => openCategory("all")}
     >
-      <LayoutGrid className="header-category-nav__all-tools-icon" aria-hidden />
       <span>{t(allToolsButton.labelKey as "nav.image")}</span>
     </button>
   );

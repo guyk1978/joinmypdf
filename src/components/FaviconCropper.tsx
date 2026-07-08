@@ -1,7 +1,8 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Lock, RotateCcw, Shield, Upload } from "lucide-react";
+import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Download, Lock, RotateCcw, Shield } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -180,7 +181,7 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
   const [layout, setLayout] = useState<ImageDisplayLayout | null>(null);
   const [crop, setCrop] = useState<NormalizedCropRect>({ nx: 0.1, ny: 0.1, nw: 0.8, nh: 0.8 });
   const [outputSize, setOutputSize] = useState<FaviconCropOutputSize>("native");
-  const [dragActive, setDragActive] = useState(false);
+
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [focalPointMode, setFocalPointMode] = useState(false);
@@ -252,18 +253,6 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
     },
     [labels.invalidFile, revokeObjectUrl],
   );
-
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) void loadFile(file);
-  };
-
-  const onDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setDragActive(false);
-    const file = event.dataTransfer.files?.[0];
-    if (file) void loadFile(file);
-  };
 
   const pointerPos = (event: ReactPointerEvent) => {
     const overlay = overlayRef.current;
@@ -391,50 +380,18 @@ export function FaviconCropper({ labels, className, onDownload }: FaviconCropper
   return (
     <div className={clsx("crop-image-tool favicon-cropper-tool", className)}>
       {!imageSrc ? (
-        <div
-          className={clsx(
-            "crop-image-tool__dropzone",
-            dragActive && "crop-image-tool__dropzone--active",
-          )}
-          onDragEnter={(event) => {
-            event.preventDefault();
-            setDragActive(true);
+        <ImageToolDropzone
+          dropTitle={labels.dropTitle}
+          selectLabel={labels.selectFile}
+          selectAria={labels.selectFileAria}
+          dropHint={labels.dropHint}
+          supportedFormats={["PNG", "JPG", "SVG"]}
+          accept={ACCEPT}
+          onFiles={(files) => {
+            const file = Array.from(files)[0];
+            if (file) void loadFile(file);
           }}
-          onDragOver={(event) => {
-            event.preventDefault();
-            setDragActive(true);
-          }}
-          onDragLeave={(event) => {
-            event.preventDefault();
-            if (event.currentTarget.contains(event.relatedTarget as Node)) return;
-            setDragActive(false);
-          }}
-          onDrop={onDrop}
-        >
-          <input
-            ref={inputRef}
-            type="file"
-            accept={ACCEPT}
-            className="sr-only"
-            aria-label={labels.selectFileAria}
-            onChange={onInputChange}
-          />
-
-          <Upload className="crop-image-tool__dropzone-icon" strokeWidth={1.75} aria-hidden />
-
-          <p className="crop-image-tool__dropzone-title">{labels.dropTitle}</p>
-          <p className="crop-image-tool__dropzone-hint">{labels.dropHint}</p>
-
-          {privacyBadge}
-
-          <button
-            type="button"
-            className={clsx(imBtnCta, "crop-image-tool__select-btn")}
-            onClick={() => inputRef.current?.click()}
-          >
-            {labels.selectFile}
-          </button>
-        </div>
+        />
       ) : (
         <div className="crop-image-tool__workspace">
           {privacyBadge}
