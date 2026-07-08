@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { FaqAccordion } from "@/components/FaqAccordion";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import type { ToolFaq } from "@/lib/types";
 
@@ -18,18 +19,11 @@ export function FaqSection({ faqs, heading }: FaqSectionProps) {
     <ToolPageDashboardSection aria-labelledby="tool-faq-heading">
       <h2
         id="tool-faq-heading"
-        className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
+        className="mb-6 text-2xl font-bold tracking-tight text-white"
       >
         {heading ?? t("questions")}
       </h2>
-      <div className="tool-page-faq-list">
-        {faqs.map((item) => (
-          <details key={item.q} className="tool-page-faq-item">
-            <summary className="cursor-pointer text-ink dark:text-white">{item.q}</summary>
-            <p>{item.a}</p>
-          </details>
-        ))}
-      </div>
+      <FaqAccordion items={faqs} />
     </ToolPageDashboardSection>
   );
 }

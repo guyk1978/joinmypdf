@@ -7,11 +7,11 @@
   --im-accent: #a1a1aa;
   --im-accent-strong: #d4d4d8;
   --im-accent-surface: #252525;
-  --im-marketing-bg: #050608;
-  --im-marketing-border: #262626;
+  --im-marketing-bg: #050508;
+  --im-marketing-border: #14141a;
 
-  --im-bg-page: #050608;
-  --im-bg-shell: #050608;
+  --im-bg-page: #050508; /* near-black cold blue undertone — page canvas only */
+  --im-bg-shell: #050508;
   --im-surface-card: transparent;
   --im-surface-card-hover: rgba(255, 255, 255, 0.03);
   --im-surface-panel: #171717;
@@ -21,7 +21,7 @@
   --im-border-muted: #525252;
   --im-border-subtle: rgba(255, 255, 255, 0.12);
   --im-text: #fafafa;
-  --im-text-inverse: #050608;
+  --im-text-inverse: #050508;
   --im-text-muted: #a1a1aa;
   --im-text-subtle: #71717a;
   --im-text-on-accent: #fafafa;

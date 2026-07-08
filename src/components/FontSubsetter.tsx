@@ -2,6 +2,7 @@
 
 import { useCallback, useState, type ChangeEvent } from "react";
 import { formatFontSubsetError, subsetFontFile } from "@/lib/font-subset";
+import { FaqAccordion } from "@/components/FaqAccordion";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { Link } from "@/i18n/navigation";
 
@@ -275,15 +276,8 @@ export function FontSubsetter() {
       </section>
 
       <section className="rounded-none border border-neutral-800 bg-[#0a0a0a] p-6">
-        <h2 className="mb-4 text-lg font-semibold text-neutral-100">Frequently Asked Questions</h2>
-        <div className="space-y-3">
-          {faqItems.map((item) => (
-            <details key={item.q} className="rounded-none border border-neutral-800 bg-neutral-950 p-4 text-neutral-300">
-              <summary className="cursor-pointer font-medium text-neutral-100">{item.q}</summary>
-              <p className="mt-3 text-sm leading-relaxed text-neutral-400">{item.a}</p>
-            </details>
-          ))}
-        </div>
+        <h2 className="mb-6 text-2xl font-bold tracking-tight text-white">Frequently Asked Questions</h2>
+        <FaqAccordion items={faqItems} />
       </section>
 
       <section className="rounded-none border border-neutral-800 bg-[#0a0a0a] p-6">

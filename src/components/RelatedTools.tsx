@@ -22,7 +22,7 @@ export async function RelatedTools({ tool }: { tool: ToolDefinition }) {
         {tPage("relatedTools")}
       </h2>
       <CompactToolCardGrid
-        variant="glass"
+        variant="flat"
         items={others.map((item) => ({
           href: `/tools/${item.slug}/`,
           label: translateToolItem(tTools, item.slug, item.title),

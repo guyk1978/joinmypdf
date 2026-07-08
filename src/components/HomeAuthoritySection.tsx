@@ -2,12 +2,11 @@ import { ArrowRight, BadgeCheck, ServerOff, Zap, type LucideIcon } from "lucide-
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { BlogThumbnailGenerator } from "@/components/BlogThumbnailGenerator";
+import { HomeAuthorityFaq } from "@/components/HomeAuthorityFaq";
 import { getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
 import { resolveBlogCardCoverImage } from "@/lib/blog-cover-image";
 import type { BlogPost } from "@/lib/types";
-
-const FAQ_KEYS = ["upload", "free", "professional"] as const;
 
 const PILLARS: { key: "local" | "fast" | "free"; Icon: LucideIcon }[] = [
   { key: "local", Icon: ServerOff },
@@ -62,22 +61,7 @@ export async function HomeAuthoritySection({ latestPosts, locale }: HomeAuthorit
 
         <p className="home-whyus__overview">{tHome("seoOverview")}</p>
 
-        <div className="home-whyus__faq">
-          <p className="home-section-head__eyebrow">{tHome("landing.faqEyebrow")}</p>
-          <h3 className="home-whyus__faq-title">{tHome("faqTitle")}</h3>
-          <div className="home-authority-faq-list">
-            {FAQ_KEYS.map((key) => (
-              <details key={key} className="home-authority-faq-item">
-                <summary className="home-authority-faq-item__summary">
-                  {tHome(`faq.${key}.q`)}
-                </summary>
-                <div className="home-authority-faq-item__answer">
-                  <p className="home-authority-faq-item__body">{tHome(`faq.${key}.a`)}</p>
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
+        <HomeAuthorityFaq />
       </section>
 
       {latestPosts.length > 0 ? (

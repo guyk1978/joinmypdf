@@ -24,7 +24,7 @@ export async function RelatedAudioTools({ toolId }: RelatedAudioToolsProps) {
         {tPage("relatedTools")}
       </h2>
       <CompactToolCardGrid
-        variant="glass"
+        variant="flat"
         items={related.map((item) => ({
           href: `/tools/${item.id}/`,
           label: item.name,
