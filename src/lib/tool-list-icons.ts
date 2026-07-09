@@ -104,6 +104,8 @@ const LUCIDE_BY_KEY = {
   "volume-2": Volume2,
   tags: Tags,
   "panel-top": PanelTop,
+  "eye-off": EyeOff,
+  "pen-line": PenLine,
 } satisfies Record<string, LucideIcon>;
 
 const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
@@ -113,6 +115,13 @@ const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
   "rotate-image": "rotate-cw",
   "compress-image": "minimize-2",
   "heic-to-jpg": "image-down",
+  "webp-to-jpg": "image-down",
+  "svg-to-png": "file-image",
+  "image-grayscale": "eye-off",
+  "flip-image": "arrow-left-right",
+  "image-metadata-editor": "tags",
+  "image-optimizer": "minimize-2",
+  "paint-on-image": "pen-line",
   "generate-favicon": "sparkles",
   "png-to-ico": "file-image",
   "ico-to-png": "image-down",

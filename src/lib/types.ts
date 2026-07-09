@@ -8,9 +8,12 @@ export type ToolVariant = {
   source?: string;
 };
 
+export type ImageToolSubCategory = "transform" | "convert" | "optimize";
+
 export type ToolDefinition = {
   slug: string;
   category: string;
+  subCategory?: ImageToolSubCategory;
   operation: string;
   title: string;
   primaryKeyword: string;

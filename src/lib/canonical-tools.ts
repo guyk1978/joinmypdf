@@ -3,7 +3,7 @@ import { AUDIO_TOOLS_META } from "@/data/audio-tools-meta";
 import { HOME_DATA_CONVERSION_TOOL_IDS } from "@/lib/data-conversion-tools";
 import { HOME_DEVELOPER_TOOL_IDS } from "@/lib/developer-tools";
 import { HOME_FAVICON_TOOL_IDS } from "@/lib/favicon-tools";
-import { HOME_IMAGE_TOOL_IDS } from "@/lib/image-tools";
+import { getImageToolSlugs } from "@/lib/image-tools";
 import { HOME_PRODUCTIVITY_TOOL_IDS } from "@/lib/productivity-tools";
 import { HOME_SECURITY_TOOL_IDS } from "@/lib/security-tools";
 import { HOME_TEXT_JSON_TOOL_IDS } from "@/lib/text-json-tools";
@@ -46,7 +46,7 @@ function registerCategorySlugs(ids: readonly string[], category: CanonicalToolCa
   }
 }
 
-registerCategorySlugs(HOME_IMAGE_TOOL_IDS, "image");
+registerCategorySlugs(getImageToolSlugs(), "image");
 registerCategorySlugs(HOME_DEVELOPER_TOOL_IDS, "developer");
 registerCategorySlugs(HOME_DATA_CONVERSION_TOOL_IDS, "data");
 registerCategorySlugs(HOME_SECURITY_TOOL_IDS, "security");

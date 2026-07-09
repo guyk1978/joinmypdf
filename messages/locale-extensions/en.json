@@ -2288,6 +2288,225 @@
           }
         }
       },
+      "webpToJpg": {
+        "h1": "WebP to JPG Converter Online",
+        "heroTagline": "Convert WebP images to JPG without losing quality. Perfect for compatibility with Windows, Photoshop, and mobile.",
+        "introSectionTitle": "How to Convert WebP to JPG in Your Browser",
+        "whySectionTitle": "Why Use Our WebP to JPG Converter?",
+        "whySectionSubheadline": "High-quality WebP to JPG conversion, batch export for multiple images, and secure local-only processing—your files never leave your browser.",
+        "schemaDescription": "WebP to JPG converter online for free—convert WebP to JPG, WebP to JPEG, and batch WebP image converter in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "best-image-format-guide",
+          "label": "Check out our guide on understanding image formats: when to use WebP vs JPG"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "compressImageLabel": "Compress Image",
+          "resizeImageLabel": "Resize Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "High-quality JPEG export",
+            "body": "Convert WebP images to JPG without losing quality—export at high JPEG quality so photos stay sharp for Windows, Photoshop, and mobile apps."
+          },
+          "quality": {
+            "title": "Batch convert multiple WebP files",
+            "body": "Add several WebP images at once, convert in one run, and download a ZIP when you need more than one JPG output."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—your WebP files never upload to JoinMyPDF servers, unlike cloud converters that store your images."
+          }
+        }
+      },
+      "svgToPng": {
+        "h1": "SVG to PNG Converter Online",
+        "heroTagline": "Convert SVG vector graphics to high-quality PNG images without losing clarity. Perfect for PowerPoint, social media, and apps that need raster images.",
+        "introSectionTitle": "How to Convert SVG to PNG in Your Browser",
+        "whySectionTitle": "Why Use Our SVG to PNG Converter?",
+        "whySectionSubheadline": "High-quality vector-to-raster conversion, batch export for multiple SVG files, and secure local-only processing—your files never leave your browser.",
+        "schemaDescription": "SVG to PNG converter online for free—convert SVG to PNG, vector to PNG converter, and batch SVG rasterizer in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "best-image-format-guide",
+          "label": "Check out our guide on understanding image formats: when to use SVG vs PNG"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "compressImageLabel": "Compress Image",
+          "resizeImageLabel": "Resize Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Lossless PNG export",
+            "body": "Convert SVG vector graphics to PNG without losing clarity—crisp edges, solid fills, and transparency preserved in a universal raster format."
+          },
+          "quality": {
+            "title": "Batch convert multiple SVG files",
+            "body": "Add several SVG files at once, rasterize in one run, and download a ZIP when you need more than one PNG output."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—your SVG files never upload to JoinMyPDF servers, unlike cloud converters that store your artwork."
+          }
+        }
+      },
+      "imageGrayscale": {
+        "h1": "Image Grayscale / Black & White Converter Online",
+        "heroTagline": "Convert color photos to grayscale or black and white without losing detail. Perfect for portraits, vintage effects, and print-ready monochrome images.",
+        "introSectionTitle": "How to Convert Photos to Grayscale in Your Browser",
+        "whySectionTitle": "Why Use Our Grayscale Image Converter?",
+        "whySectionSubheadline": "High-quality black-and-white conversion, batch export for multiple photos, and secure local-only processing—your images never leave your browser.",
+        "schemaDescription": "Convert image to grayscale online for free—black and white photo converter, grayscale image tool, and batch monochrome export in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "best-image-format-guide",
+          "label": "Check out our guide on image formats and when monochrome output makes sense"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "compressImageLabel": "Compress Image",
+          "resizeImageLabel": "Resize Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Preserve detail in monochrome",
+            "body": "Convert color photos to grayscale without losing detail—luminance-based conversion keeps textures, shadows, and portrait depth sharp."
+          },
+          "quality": {
+            "title": "Batch convert multiple photos",
+            "body": "Add several images at once, apply black-and-white conversion in one run, and download a ZIP when you need more than one output."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—your photos never upload to JoinMyPDF servers, unlike cloud filters that store your images."
+          }
+        }
+      },
+      "flipImage": {
+        "h1": "Flip Image (Horizontal/Vertical) Online",
+        "heroTagline": "Flip images horizontally or vertically without losing quality. Perfect for mirroring selfies, fixing scanned pages, and correcting upside-down photos.",
+        "introSectionTitle": "How to Flip Images in Your Browser",
+        "whySectionTitle": "Why Use Our Flip Image Tool?",
+        "whySectionSubheadline": "High-quality mirroring, batch export for multiple photos, and secure local-only processing—your images never leave your browser.",
+        "schemaDescription": "Flip image online for free—mirror photos horizontally or vertically, flip image tool, and batch export in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "best-image-format-guide",
+          "label": "Check out our guide on image formats and when flipping makes sense"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "compressImageLabel": "Compress Image",
+          "resizeImageLabel": "Resize Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Preserve resolution and quality",
+            "body": "Flip images without losing quality—PNG exports stay lossless; JPG and WebP exports use high quality so edges stay sharp."
+          },
+          "quality": {
+            "title": "Batch flip multiple photos",
+            "body": "Add several images at once, choose horizontal or vertical flip, and download a ZIP when you need more than one output."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—your photos never upload to JoinMyPDF servers, unlike cloud editors that store your images."
+          }
+        }
+      },
+      "imageMetadataEditor": {
+        "h1": "Image Metadata Editor (EXIF Data) Online",
+        "heroTagline": "View and edit EXIF metadata on photos without uploading them. Perfect for privacy, copyright fields, and cleaning location data before sharing.",
+        "introSectionTitle": "How to Edit Image EXIF Metadata in Your Browser",
+        "whySectionTitle": "Why Use Our Image Metadata Editor?",
+        "whySectionSubheadline": "Read and update EXIF fields locally, strip hidden GPS and camera data, and download a privacy-ready image—your photos never leave your browser.",
+        "schemaDescription": "Edit image EXIF metadata online for free—view photo metadata, update copyright and title fields, and remove EXIF data in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "pdf-metadata-privacy-risks",
+          "label": "Check out our guide on metadata privacy and protecting your digital footprint"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "compressImageLabel": "Compress Image",
+          "resizeImageLabel": "Resize Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Edit metadata without changing pixels",
+            "body": "Update title, artist, copyright, and comments in EXIF without recompressing image quality—JPEG metadata is updated in place when possible."
+          },
+          "quality": {
+            "title": "Strip GPS and hidden EXIF",
+            "body": "Remove location, camera, and software tags before sharing photos online—one click to download a clean copy with metadata removed."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—your photos never upload to JoinMyPDF servers, unlike cloud metadata tools that store your images."
+          }
+        }
+      },
+      "imageOptimizer": {
+        "h1": "Universal Image Optimizer & Converter Online",
+        "heroTagline": "Batch-convert and optimize images for web performance, SEO, and social media—WebP, JPG, or PNG with quality control, all in your browser.",
+        "introSectionTitle": "How to Batch-Optimize Images in Your Browser",
+        "whySectionTitle": "Why Use Our Image Optimizer?",
+        "whySectionSubheadline": "Faster pages, smaller social uploads, and private local processing—convert formats, tune quality, and strip EXIF metadata without uploading files.",
+        "schemaDescription": "Image optimizer and converter online for free—batch convert to WebP, JPG, or PNG, compress with a quality slider, and strip EXIF in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "website-load-speed-compression",
+          "label": "Check out our guide on image compression for faster website load times"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "compressImageLabel": "Compress Image",
+          "resizeImageLabel": "Resize Image",
+          "rotateImageLabel": "Rotate Image"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "WebP for modern web performance",
+            "body": "At the same perceived quality, WebP is often dramatically smaller than JPG or PNG—typical comparison: JPG ~500 KB, PNG ~1.2 MB, WebP ~80 KB—helping Core Web Vitals and SEO."
+          },
+          "quality": {
+            "title": "Batch table with per-image progress",
+            "body": "Upload multiple photos, set global format and quality, and optimize each file with real-time progress bars and savings metrics like Saved 80%."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "browser-image-compression runs entirely in your browser—your images never upload to JoinMyPDF servers, unlike cloud converters that store your assets."
+          }
+        }
+      },
+      "paintOnImage": {
+        "h1": "Draw on Image Online — Paint & Annotate Photos",
+        "heroTagline": "Draw on images and annotate photos in your browser—add doodles, highlights, and markup with a brush, then download locally.",
+        "introSectionTitle": "How to Draw on an Image in Your Browser",
+        "whySectionTitle": "Why Use Our Paint on Image Tool?",
+        "whySectionSubheadline": "Fast photo markup for tutorials, social posts, and client feedback—brush, eraser, undo, and download without uploading your files.",
+        "schemaDescription": "Draw on image online for free—annotate photos, add doodles to images, and paint on pictures in your browser. Secure local-only processing with no uploads.",
+        "featuredGuide": {
+          "slug": "best-image-format-guide",
+          "label": "Check out our guide on image formats after exporting your annotated photo"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Related image workflows:",
+          "resizeImageLabel": "Resize Image",
+          "cropImageLabel": "Crop Image",
+          "imageOptimizerLabel": "Image Optimizer"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Draw directly on your photo",
+            "body": "Upload any JPG, PNG, or WebP image and paint on a full-resolution HTML5 canvas—coordinates stay accurate even when the image is scaled to fit your screen."
+          },
+          "quality": {
+            "title": "Sleek matte toolbar",
+            "body": "Floating brush controls with color picker, 1–50px brush size, eraser, undo stack, clear all, and one-click PNG download—styled to match JoinMyPDF's Black-Matte tools."
+          },
+          "local": {
+            "title": "100% Privacy (no file uploads)",
+            "body": "Secure local-only processing—your photos never upload to JoinMyPDF servers, unlike cloud editors that store your images."
+          }
+        }
+      },
       "jpgToPdf": {
         "h1": "Convert JPG to PDF Online",
         "heroTagline": "Drag JPG and PNG photos, sort page order, and generate a polished PDF—instantly in your browser.",
@@ -3832,6 +4051,27 @@
         "heicToJpg": {
           "p1": "Convert HEIC to JPG without quality loss—batch HEIC conversion, secure local-only processing, and fast HEIC to JPEG conversion in your browser. No uploads, no account, and no desktop software required."
         },
+        "webpToJpg": {
+          "p1": "Convert WebP images to JPG without losing quality—perfect for compatibility with Windows, Photoshop, and mobile. Secure local-only processing with batch export in your browser. No uploads, no account, and no desktop software required."
+        },
+        "svgToPng": {
+          "p1": "Convert SVG vector graphics to high-quality PNG images without losing clarity—perfect for PowerPoint, social media, and apps that need raster images. Secure local-only processing with batch export in your browser. No uploads, no account, and no desktop software required."
+        },
+        "imageGrayscale": {
+          "p1": "Convert color photos to grayscale or black and white without losing detail—perfect for portraits, vintage effects, and print-ready monochrome images. Secure local-only processing with batch export in your browser. No uploads, no account, and no desktop software required."
+        },
+        "flipImage": {
+          "p1": "Flip images horizontally or vertically without losing quality—perfect for mirroring selfies, fixing scanned pages, and correcting upside-down photos. Secure local-only processing with batch export in your browser. No uploads, no account, and no desktop software required."
+        },
+        "imageMetadataEditor": {
+          "p1": "View and edit EXIF metadata on photos without uploading them—perfect for privacy, copyright fields, and cleaning location data before sharing. Secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "imageOptimizer": {
+          "p1": "Batch-convert and optimize images for web performance, SEO, and social media—WebP, JPG, or PNG with quality control and optional EXIF stripping. Secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "paintOnImage": {
+          "p1": "Draw on images and annotate photos in your browser—add doodles, highlights, and markup with a brush, then download locally. Secure local-only HTML5 canvas processing. No uploads, no account, and no desktop software required."
+        },
         "jpgToPdf": {
           "p1": "High-quality image to PDF conversion with customizable page margins and sizes—secure local-only processing and instant PDF generation in your browser. No uploads, no account, and no desktop software required."
         },
@@ -5250,6 +5490,34 @@
         "title": "Drop HEIC photos here or click to browse",
         "description": "Add one or more .heic / .heif files and download JPG images locally."
       },
+      "webp-to-jpg": {
+        "title": "Drop WebP images here or click to browse",
+        "description": "Add one or more .webp files and download JPG images locally."
+      },
+      "svg-to-png": {
+        "title": "Drop SVG files here or click to browse",
+        "description": "Add one or more .svg files and download PNG images locally."
+      },
+      "image-grayscale": {
+        "title": "Drop images here or click to browse",
+        "description": "Add one or more photos and download grayscale or black-and-white images locally."
+      },
+      "flip-image": {
+        "title": "Drop images here or click to browse",
+        "description": "Add one or more photos and flip them horizontally or vertically locally."
+      },
+      "image-metadata-editor": {
+        "title": "Drop an image here or click to browse",
+        "description": "View and edit EXIF metadata or strip hidden photo data locally."
+      },
+      "image-optimizer": {
+        "title": "Drop images here or click to browse",
+        "description": "Batch-convert and optimize images to WebP, JPG, or PNG locally."
+      },
+      "paint-on-image": {
+        "title": "Drop an image here or click to browse",
+        "description": "Upload a photo and draw or annotate on the canvas locally."
+      },
       "word-to-pdf": {
         "title": "Drop a Word document here or click to browse",
         "description": "Select a .docx file to convert to PDF locally."
@@ -6210,6 +6478,194 @@
         "totalHint": "{size} total",
         "outputHint": "Each HEIC exports as a high-quality JPG. Multiple outputs download as a ZIP."
       }
+    },
+    "webp-to-jpg": {
+      "status": {
+        "noWebp": "No WebP files detected. Choose .webp images.",
+        "filesAddedSkipped": "{count} WebP file(s) added. Skipped {skipped} unsupported file(s).",
+        "filesAdded": "{count} WebP file(s) added. Convert when ready.",
+        "starting": "Starting conversion…",
+        "complete": "Conversion complete. Download your JPG file(s) below.",
+        "packaging": "Packaging JPG files into a ZIP…",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "preparing": "Preparing WebP images…",
+        "decoding": "Converting {name} ({current} of {total})…"
+      },
+      "privacyNote": "WebP to JPG conversion runs entirely in your browser. Your images never leave your device.",
+      "convertLabel": "Convert to JPG",
+      "downloadLabel": "Download JPG",
+      "downloadZipLabel": "Download ZIP",
+      "stickyConvertLabel": "Convert to JPG",
+      "stickyDownloadLabel": "Download JPG",
+      "ui": {
+        "filesSelected": "{count} WebP file(s) selected",
+        "totalHint": "{size} total",
+        "outputHint": "Each WebP exports as a high-quality JPG. Multiple outputs download as a ZIP."
+      }
+    },
+    "svg-to-png": {
+      "status": {
+        "noSvg": "No SVG files detected. Choose .svg files.",
+        "filesAddedSkipped": "{count} SVG file(s) added. Skipped {skipped} unsupported file(s).",
+        "filesAdded": "{count} SVG file(s) added. Convert when ready.",
+        "starting": "Starting conversion…",
+        "complete": "Conversion complete. Download your PNG file(s) below.",
+        "packaging": "Packaging PNG files into a ZIP…",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "preparing": "Preparing SVG files…",
+        "decoding": "Rasterizing {name} ({current} of {total})…"
+      },
+      "privacyNote": "SVG to PNG conversion runs entirely in your browser. Your files never leave your device.",
+      "convertLabel": "Convert to PNG",
+      "downloadLabel": "Download PNG",
+      "downloadZipLabel": "Download ZIP",
+      "stickyConvertLabel": "Convert to PNG",
+      "stickyDownloadLabel": "Download PNG",
+      "ui": {
+        "filesSelected": "{count} SVG file(s) selected",
+        "totalHint": "{size} total",
+        "outputHint": "Each SVG exports as a high-quality PNG. Multiple outputs download as a ZIP."
+      }
+    },
+    "image-grayscale": {
+      "status": {
+        "noImages": "No supported images detected. Choose JPG, PNG, WebP, HEIC, or GIF files.",
+        "filesAddedSkipped": "{count} image(s) added. Skipped {skipped} unsupported file(s).",
+        "filesAdded": "{count} image(s) added. Convert when ready.",
+        "starting": "Starting conversion…",
+        "complete": "Conversion complete. Download your grayscale file(s) below.",
+        "packaging": "Packaging grayscale images into a ZIP…",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "preparing": "Preparing images…",
+        "decoding": "Converting {name} ({current} of {total})…"
+      },
+      "privacyNote": "Grayscale conversion runs entirely in your browser. Your images never leave your device.",
+      "convertLabel": "Convert to Grayscale",
+      "downloadLabel": "Download Image",
+      "downloadZipLabel": "Download ZIP",
+      "stickyConvertLabel": "Convert to Grayscale",
+      "stickyDownloadLabel": "Download Image",
+      "ui": {
+        "filesSelected": "{count} image(s) selected",
+        "totalHint": "{size} total",
+        "outputHint": "Each photo exports as a grayscale or black-and-white image. Multiple outputs download as a ZIP."
+      }
+    },
+    "flip-image": {
+      "status": {
+        "noImages": "No supported images detected. Choose JPG, PNG, WebP, HEIC, or GIF files.",
+        "filesAddedSkipped": "{count} image(s) added. Skipped {skipped} unsupported file(s).",
+        "filesAdded": "{count} image(s) added. Flip when ready.",
+        "starting": "Starting flip…",
+        "complete": "Flip complete. Download your image(s) below.",
+        "packaging": "Packaging flipped images into a ZIP…",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "preparing": "Preparing images…",
+        "decoding": "Flipping {name} ({current} of {total})…"
+      },
+      "privacyNote": "Image flipping runs entirely in your browser. Your images never leave your device.",
+      "convertLabel": "Flip Image",
+      "downloadLabel": "Download Image",
+      "downloadZipLabel": "Download ZIP",
+      "stickyConvertLabel": "Flip Image",
+      "stickyDownloadLabel": "Download Image",
+      "ui": {
+        "filesSelected": "{count} image(s) selected",
+        "totalHint": "{size} total",
+        "outputHint": "Each photo exports flipped horizontally or vertically. Multiple outputs download as a ZIP."
+      }
+    },
+    "image-metadata-editor": {
+      "status": {
+        "noImages": "No supported images detected. Choose JPG, PNG, WebP, HEIC, or GIF files.",
+        "emptyFile": "That file is empty. Choose another image.",
+        "loading": "Reading EXIF metadata…",
+        "loaded": "{name} loaded — edit fields and save.",
+        "saving": "Saving metadata…",
+        "stripping": "Removing metadata…",
+        "downloaded": "Updated image downloaded as {name}.",
+        "stripped": "Clean image downloaded as {name}."
+      },
+      "privacyNote": "EXIF metadata is read and written locally in your browser. Your image never leaves your device.",
+      "saveLabel": "Save metadata",
+      "saveAgainLabel": "Save again",
+      "stripLabel": "Strip metadata",
+      "adjustTryAgain": "Adjust your file or fields and try again.",
+      "ui": {
+        "reload": "Reload EXIF fields",
+        "formHeading": "EXIF metadata",
+        "formHint": "Update common EXIF fields below. Non-JPEG files download as JPEG when you save new metadata.",
+        "commentPlaceholder": "Optional description or notes",
+        "placeholders": {
+          "title": "Image title or description",
+          "artist": "Photographer or creator",
+          "copyright": "Copyright notice",
+          "software": "Editing software",
+          "dateTime": "YYYY:MM:DD HH:MM:SS",
+          "dateTimeOriginal": "YYYY:MM:DD HH:MM:SS"
+        },
+        "fields": {
+          "title": "Title / Description",
+          "artist": "Artist",
+          "copyright": "Copyright",
+          "software": "Software",
+          "comment": "Comment",
+          "dateTime": "Date modified",
+          "dateTimeOriginal": "Date taken"
+        }
+      }
+    },
+    "image-optimizer": {
+      "status": {
+        "noImages": "No supported images detected. Choose JPG, PNG, WebP, HEIC, or GIF files.",
+        "filesAdded": "{count} image(s) added. Optimize when ready.",
+        "starting": "Starting batch optimization…",
+        "processingOne": "Optimizing {name}…",
+        "processingBatch": "Optimizing {name}…",
+        "oneComplete": "Image optimized. Download below or optimize more.",
+        "batchComplete": "{count} image(s) optimized. Download below.",
+        "packaging": "Packaging optimized images into a ZIP…",
+        "tryAgain": "Try again or choose different settings."
+      },
+      "progress": {
+        "preparing": "Preparing images…",
+        "decoding": "Optimizing {name} ({current} of {total})…"
+      },
+      "privacyNote": "Optimization runs entirely in your browser. Your images never leave your device.",
+      "convertLabel": "Optimize all",
+      "downloadLabel": "Download image",
+      "downloadZipLabel": "Download ZIP",
+      "stickyConvertLabel": "Optimize all",
+      "stickyDownloadLabel": "Download",
+      "ui": {
+        "filesSelected": "{count} image(s) selected",
+        "totalHint": "{size} total"
+      }
+    },
+    "paint-on-image": {
+      "status": {
+        "noImages": "No supported images detected. Choose JPG, PNG, WebP, HEIC, or GIF files.",
+        "loading": "Loading image…",
+        "loaded": "{name} loaded — start drawing on the canvas.",
+        "ready": "Canvas ready. Draw with the brush toolbar below.",
+        "cleared": "Canvas cleared. Original image restored.",
+        "undone": "Last stroke undone.",
+        "exporting": "Exporting painted image…",
+        "downloaded": "Painted image downloaded as {name}.",
+        "tryAgain": "Try again or upload another image."
+      },
+      "privacyNote": "Painting runs entirely in your browser on an HTML5 canvas. Your image never leaves your device.",
+      "downloadLabel": "Download PNG",
+      "stickyDownloadLabel": "Download",
+      "ui": {}
     },
     "compress-image": {
       "privacyNote": "Compression runs entirely in your browser. Your image never leaves your device."

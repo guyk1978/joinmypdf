@@ -153,6 +153,34 @@ const uploadEn = {
     title: "Drop an image here or click to browse",
     description: "Convert JPG, WebP, HEIC, or GIF to a high-quality PNG locally.",
   },
+  "webp-to-jpg": {
+    title: "Drop WebP images here or click to browse",
+    description: "Add one or more .webp files and download JPG images locally.",
+  },
+  "svg-to-png": {
+    title: "Drop SVG files here or click to browse",
+    description: "Add one or more .svg files and download PNG images locally.",
+  },
+  "image-grayscale": {
+    title: "Drop images here or click to browse",
+    description: "Add one or more photos and download grayscale or black-and-white images locally.",
+  },
+  "flip-image": {
+    title: "Drop images here or click to browse",
+    description: "Add one or more photos and flip them horizontally or vertically locally.",
+  },
+  "image-metadata-editor": {
+    title: "Drop an image here or click to browse",
+    description: "View and edit EXIF metadata or strip hidden photo data locally.",
+  },
+  "image-optimizer": {
+    title: "Drop images here or click to browse",
+    description: "Batch-convert and optimize images to WebP, JPG, or PNG locally.",
+  },
+  "paint-on-image": {
+    title: "Drop an image here or click to browse",
+    description: "Upload a photo and draw or annotate on the canvas locally.",
+  },
   "rotate-image": {
     title: "Drop an image here or click to browse",
     description: "Rotate your image 90° left or right, then download locally.",
@@ -343,6 +371,34 @@ const uploadHe = {
   "convert-to-png": {
     title: "גרור תמונה לכאן או לחץ לעיון",
     description: "המר JPG, WebP, HEIC או GIF ל-PNG באיכות גבוהה מקומית.",
+  },
+  "webp-to-jpg": {
+    title: "גרור תמונות WebP לכאן או לחץ לעיון",
+    description: "הוסף קבצי .webp והורד תמונות JPG מקומית.",
+  },
+  "svg-to-png": {
+    title: "גרור קבצי SVG לכאן או לחץ לעיון",
+    description: "הוסף קבצי .svg והורד תמונות PNG מקומית.",
+  },
+  "image-grayscale": {
+    title: "גרור תמונות לכאן או לחץ לעיון",
+    description: "הוסף תמונות והורד גרסאות בגווני אפור או שחור-לבן מקומית.",
+  },
+  "flip-image": {
+    title: "גרור תמונות לכאן או לחץ לעיון",
+    description: "הוסף תמונות והפוך אותן אופקית או אנכית מקומית.",
+  },
+  "image-metadata-editor": {
+    title: "גרור תמונה לכאן או לחץ לעיון",
+    description: "צפה וערוך מטא-דאטה EXIF או הסר נתונים נסתרים מקומית.",
+  },
+  "image-optimizer": {
+    title: "גרור תמונות לכאן או לחץ לעיון",
+    description: "המר ומטב תמונות בקבוצה ל-WebP, JPG או PNG מקומית.",
+  },
+  "paint-on-image": {
+    title: "גרור תמונה לכאן או לחץ לעיון",
+    description: "העלה תמונה וצייר או הוסף הערות על ה-canvas מקומית.",
   },
   "rotate-image": {
     title: "גרור תמונה לכאן או לחץ לעיון",

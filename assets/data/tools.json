@@ -37,6 +37,11 @@
       "description": "Merge and split document flows for team-ready output."
     },
     {
+      "slug": "image-tools",
+      "label": "Image tools",
+      "description": "Resize, convert, transform, and optimize images in your browser."
+    },
+    {
       "slug": "security",
       "label": "Security",
       "description": "Password protection and privacy controls processed locally in your browser."
@@ -2030,7 +2035,8 @@
     },
     {
       "slug": "resize-image",
-      "category": "edit",
+      "category": "image-tools",
+      "subCategory": "transform",
       "operation": "resize-image",
       "title": "Resize Image",
       "primaryKeyword": "resize image online free",
@@ -2075,7 +2081,8 @@
     },
     {
       "slug": "convert-to-png",
-      "category": "convert",
+      "category": "image-tools",
+      "subCategory": "convert",
       "operation": "convert-to-png",
       "title": "Convert to PNG",
       "primaryKeyword": "convert image to png online free",
@@ -2120,7 +2127,8 @@
     },
     {
       "slug": "rotate-image",
-      "category": "edit",
+      "category": "image-tools",
+      "subCategory": "transform",
       "operation": "rotate-image",
       "title": "Rotate Image",
       "primaryKeyword": "rotate image online free",
@@ -2165,7 +2173,8 @@
     },
     {
       "slug": "heic-to-jpg",
-      "category": "convert",
+      "category": "image-tools",
+      "subCategory": "convert",
       "operation": "heic-to-jpg",
       "title": "HEIC to JPG Converter",
       "primaryKeyword": "heic to jpg converter online",
@@ -2208,8 +2217,326 @@
       "updatedAt": "2026-07-02"
     },
     {
+      "slug": "webp-to-jpg",
+      "category": "image-tools",
+      "subCategory": "convert",
+      "operation": "webp-to-jpg",
+      "title": "WebP to JPG Converter",
+      "primaryKeyword": "webp to jpg converter online",
+      "intent": "Convert WebP images to JPG without losing quality. Perfect for compatibility with Windows, Photoshop, and mobile.",
+      "description": "Upload WebP images and download high-quality JPG files locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert webp to jpg",
+        "webp to jpeg free",
+        "webp image converter"
+      ],
+      "useCases": [
+        "Open WebP downloads in Windows Photo Viewer or legacy apps",
+        "Import WebP assets into Photoshop or design tools that prefer JPG",
+        "Share WebP screenshots as JPG for mobile messaging apps"
+      ],
+      "relatedTools": [
+        "compress-image",
+        "resize-image"
+      ],
+      "faq": [
+        {
+          "q": "What is WebP?",
+          "a": "WebP is a modern image format from Google that often produces smaller files than JPG or PNG. Many browsers and websites use it, but some desktop apps and older phones still expect JPG."
+        },
+        {
+          "q": "Does converting to JPG affect quality?",
+          "a": "JPG uses lossy compression, so a small quality change is possible. This tool exports at high JPEG quality in your browser so photos stay sharp for everyday use."
+        },
+        {
+          "q": "Can I convert multiple images at once?",
+          "a": "Yes. Add several WebP files, convert them in one batch, and download a ZIP when you have more than one JPG output."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "slug": "svg-to-png",
+      "category": "image-tools",
+      "subCategory": "convert",
+      "operation": "svg-to-png",
+      "title": "SVG to PNG Converter",
+      "primaryKeyword": "svg to png converter online",
+      "intent": "Convert SVG vector graphics to high-quality PNG images without losing clarity. Perfect for PowerPoint, social media, and apps that need raster images.",
+      "description": "Upload SVG files and download crisp PNG images locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "convert svg to png",
+        "svg to png free",
+        "vector to png converter"
+      ],
+      "useCases": [
+        "Insert SVG logos into PowerPoint or Google Slides as PNG",
+        "Export vector icons for social media posts and thumbnails",
+        "Rasterize SVG artwork for apps that do not support vector files"
+      ],
+      "relatedTools": [
+        "compress-image",
+        "resize-image"
+      ],
+      "faq": [
+        {
+          "q": "What is SVG?",
+          "a": "SVG (Scalable Vector Graphics) is a vector image format based on XML. It stays sharp at any size, but many apps only accept raster formats like PNG."
+        },
+        {
+          "q": "Does converting to PNG affect quality?",
+          "a": "PNG is lossless, so your export keeps crisp edges and transparency. The output is rasterized at the SVG's native dimensions for a sharp result."
+        },
+        {
+          "q": "Can I convert multiple images at once?",
+          "a": "Yes. Add several SVG files, convert them in one batch, and download a ZIP when you have more than one PNG output."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "slug": "image-grayscale",
+      "category": "image-tools",
+      "subCategory": "convert",
+      "operation": "image-grayscale",
+      "title": "Image Grayscale / Black & White",
+      "primaryKeyword": "convert image to grayscale online",
+      "intent": "Convert color photos to grayscale or black and white without losing detail. Perfect for portraits, vintage effects, and print-ready monochrome images.",
+      "description": "Upload color images and download grayscale or black-and-white versions locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "black and white photo converter",
+        "grayscale image online",
+        "make photo black and white"
+      ],
+      "useCases": [
+        "Create classic black-and-white portraits from color photos",
+        "Prepare monochrome images for print or editorial layouts",
+        "Batch-convert product shots for vintage-style marketing"
+      ],
+      "relatedTools": [
+        "compress-image",
+        "resize-image"
+      ],
+      "faq": [
+        {
+          "q": "What is grayscale conversion?",
+          "a": "Grayscale conversion removes color information and maps each pixel to a shade of gray. Black-and-white is the same idea—your photo keeps luminance detail without hue."
+        },
+        {
+          "q": "Does converting to black and white affect quality?",
+          "a": "The conversion preserves your image resolution. PNG exports stay lossless; JPG exports use high quality so fine detail in portraits and textures remains sharp."
+        },
+        {
+          "q": "Can I convert multiple images at once?",
+          "a": "Yes. Add several photos, convert them in one batch, and download a ZIP when you have more than one grayscale output."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "slug": "flip-image",
+      "category": "image-tools",
+      "subCategory": "transform",
+      "operation": "flip-image",
+      "title": "Flip Image (Horizontal/Vertical)",
+      "primaryKeyword": "flip image online free",
+      "intent": "Flip images horizontally or vertically without losing quality. Perfect for mirroring selfies, fixing scanned pages, and correcting upside-down photos.",
+      "description": "Upload images and flip them horizontally or vertically locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "mirror image online",
+        "flip photo horizontally",
+        "flip image vertically browser"
+      ],
+      "useCases": [
+        "Mirror selfies or product photos for social layouts",
+        "Flip scanned documents that were captured upside down",
+        "Batch-flip images before resizing or compressing"
+      ],
+      "relatedTools": [
+        "compress-image",
+        "resize-image"
+      ],
+      "faq": [
+        {
+          "q": "What is image flipping?",
+          "a": "Flipping mirrors your photo along a horizontal or vertical axis. Horizontal flip creates a left-right mirror; vertical flip turns the image upside down along the top-bottom axis."
+        },
+        {
+          "q": "Does flipping an image affect quality?",
+          "a": "Flipping preserves your original resolution. PNG exports stay lossless; JPG and WebP exports use high quality so edges and fine detail remain sharp."
+        },
+        {
+          "q": "Can I flip multiple images at once?",
+          "a": "Yes. Add several photos, choose horizontal or vertical flip, convert them in one batch, and download a ZIP when you have more than one output."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "slug": "image-metadata-editor",
+      "category": "image-tools",
+      "subCategory": "convert",
+      "operation": "image-metadata-editor",
+      "title": "Image Metadata Editor (Exif Data)",
+      "primaryKeyword": "edit image exif metadata online",
+      "intent": "View and edit EXIF metadata on photos without uploading them. Perfect for privacy, copyright fields, and cleaning location data before sharing.",
+      "description": "Upload an image, edit EXIF fields like title, artist, and copyright, or strip metadata locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "exif editor online",
+        "remove photo metadata",
+        "edit image copyright browser"
+      ],
+      "useCases": [
+        "Add copyright and artist fields before publishing photos",
+        "Remove GPS and camera metadata before sharing online",
+        "Update title and description tags for stock or portfolio images"
+      ],
+      "relatedTools": [
+        "compress-image",
+        "resize-image"
+      ],
+      "faq": [
+        {
+          "q": "What is EXIF data?",
+          "a": "EXIF (Exchangeable Image File Format) is hidden metadata embedded in photos—camera model, capture date, GPS location, copyright, and software used. Many images carry EXIF even when you only see the picture."
+        },
+        {
+          "q": "Does editing metadata affect image quality?",
+          "a": "Editing EXIF tags does not change pixels. JoinMyPDF updates metadata in place for JPEG files. Non-JPEG uploads are saved as high-quality JPEG when you apply new EXIF fields."
+        },
+        {
+          "q": "Can I edit multiple images at once?",
+          "a": "This editor works on one image at a time so you can review and change each field carefully. Use Strip Metadata on each file, or pair with Compress Image or Resize Image for batch workflows."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "slug": "image-optimizer",
+      "category": "image-tools",
+      "subCategory": "optimize",
+      "operation": "image-optimizer",
+      "title": "Universal Image Optimizer & Converter",
+      "primaryKeyword": "image optimizer converter online free",
+      "intent": "Batch-convert and optimize images for web performance, SEO, and social media—WebP, JPG, or PNG with quality control, all in your browser.",
+      "description": "Upload multiple images, convert formats, compress with a quality slider, and strip EXIF metadata locally—no upload to our servers.",
+      "secondaryKeywords": [
+        "batch image converter webp",
+        "optimize images for website",
+        "convert png to webp online"
+      ],
+      "useCases": [
+        "Convert product photos to WebP for faster ecommerce pages",
+        "Batch-optimize blog images before WordPress upload",
+        "Strip GPS metadata before posting photos on social media"
+      ],
+      "relatedTools": [
+        "compress-image",
+        "resize-image",
+        "rotate-image"
+      ],
+      "faq": [
+        {
+          "q": "Why use WebP?",
+          "a": "WebP delivers much smaller files than JPG or PNG at similar visual quality—ideal for Core Web Vitals, SEO, and social media. Typical comparison at the same perceived quality: JPG ~500 KB, PNG ~1.2 MB, WebP ~80 KB."
+        },
+        {
+          "q": "Does optimization hurt quality?",
+          "a": "Lossy formats (WebP and JPG) use your quality slider—higher values preserve detail, lower values shrink files more. PNG stays lossless. Start around 80–90% for photos and adjust per image in the batch table."
+        },
+        {
+          "q": "Is my data safe?",
+          "a": "Yes. All conversion and compression runs locally in your browser with browser-image-compression. Your images are never uploaded to JoinMyPDF servers—ideal for client assets and private photos."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.84,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "slug": "paint-on-image",
+      "category": "image-tools",
+      "subCategory": "transform",
+      "operation": "paint-on-image",
+      "title": "Paint on Image",
+      "primaryKeyword": "draw on image online free",
+      "intent": "Draw on images and annotate photos in your browser—add doodles, highlights, and markup with a brush, then download locally.",
+      "description": "Upload a photo, paint directly on the canvas with brush and eraser tools, undo strokes, and download your annotated image—no upload to our servers.",
+      "secondaryKeywords": [
+        "annotate photo online",
+        "add doodles to image",
+        "draw on picture browser"
+      ],
+      "useCases": [
+        "Highlight areas on screenshots for bug reports or tutorials",
+        "Add quick doodles or arrows to social media photos",
+        "Mark up product photos before sharing with clients"
+      ],
+      "relatedTools": [
+        "resize-image",
+        "crop-image",
+        "image-optimizer"
+      ],
+      "faq": [
+        {
+          "q": "How to draw on an image?",
+          "a": "Upload your photo, choose a brush color and size, then draw directly on the canvas. Use the eraser to fix strokes, Undo to step back, and Download when you are finished—all in your browser."
+        },
+        {
+          "q": "Can I save the changes?",
+          "a": "Yes. Click Download to export your painted image as a PNG file. Your original upload stays on your device; only the edited version is saved to your downloads folder."
+        },
+        {
+          "q": "Is it free to use?",
+          "a": "Yes. Paint on Image is free with no account required. Drawing runs locally in your browser, so your photos are not uploaded to JoinMyPDF servers."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.83,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-09"
+    },
+    {
       "slug": "compress-image",
-      "category": "optimize",
+      "category": "image-tools",
+      "subCategory": "optimize",
       "operation": "compress-image",
       "title": "Compress Image",
       "primaryKeyword": "compress image online free",
@@ -2528,7 +2855,8 @@
     },
     {
       "slug": "crop-image",
-      "category": "edit",
+      "category": "image-tools",
+      "subCategory": "transform",
       "operation": "crop-image",
       "title": "Crop Image",
       "primaryKeyword": "crop image online free",

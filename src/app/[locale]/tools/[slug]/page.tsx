@@ -21,6 +21,13 @@ import { PdfToPowerpointWorkspace } from "@/components/PdfToPowerpointWorkspace"
 import { PdfToExcelWorkspace } from "@/components/PdfToExcelWorkspace";
 import { HeicToPdfWorkspace } from "@/components/HeicToPdfWorkspace";
 import { HeicToJpgWorkspace } from "@/components/HeicToJpgWorkspace";
+import { WebpToJpgWorkspace } from "@/components/WebpToJpgWorkspace";
+import { SvgToPngWorkspace } from "@/components/SvgToPngWorkspace";
+import { ImageGrayscaleWorkspace } from "@/components/ImageGrayscaleWorkspace";
+import { FlipImageWorkspace } from "@/components/FlipImageWorkspace";
+import { ImageMetadataEditorWorkspace } from "@/components/ImageMetadataEditorWorkspace";
+import { ImageOptimizerWorkspace } from "@/components/ImageOptimizerWorkspace";
+import { PaintOnImageWorkspace } from "@/components/PaintOnImageWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
 import { VideoToMp4Workspace } from "@/components/VideoToMp4Workspace";
 import { VideoCompressorWorkspace } from "@/components/VideoCompressorWorkspace";
@@ -367,6 +374,20 @@ export default async function ToolPage({
           <HeicToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "heic-to-jpg" ? (
           <HeicToJpgWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "webp-to-jpg" ? (
+          <WebpToJpgWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "svg-to-png" ? (
+          <SvgToPngWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-grayscale" ? (
+          <ImageGrayscaleWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "flip-image" ? (
+          <FlipImageWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-metadata-editor" ? (
+          <ImageMetadataEditorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-optimizer" ? (
+          <ImageOptimizerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "paint-on-image" ? (
+          <PaintOnImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-pdf" ? (
           <CropPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-image" ? (

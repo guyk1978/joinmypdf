@@ -126,6 +126,13 @@
       "videoSpeedController": "מהירות וידאו",
       "videoToGif": "וידאו ל-GIF",
       "heicToJpg": "HEIC ל-JPG",
+      "webpToJpg": "WebP ל-JPG",
+      "svgToPng": "SVG ל-PNG",
+      "imageGrayscale": "גווני אפור לתמונה",
+      "flipImage": "היפוך תמונה",
+      "imageMetadataEditor": "עורך מטא-דאטה לתמונה",
+      "imageOptimizer": "ממיר וממטב תמונות",
+      "paintOnImage": "ציור על תמונה",
       "imageToPdf": "תמונה ל-PDF",
       "pngToPdf": "PNG ל-PDF",
       "heicToPdf": "HEIC ל-PDF",
@@ -411,6 +418,34 @@
         "heicToJpg": {
           "label": "HEIC ל-JPG",
           "description": "המר תמונות HEIC מאייפון ל-JPG תואם לכל מכשיר."
+        },
+        "webpToJpg": {
+          "label": "WebP ל-JPG",
+          "description": "המר תמונות WebP ל-JPG לתאימות עם Windows, Photoshop ומובייל."
+        },
+        "svgToPng": {
+          "label": "SVG ל-PNG",
+          "description": "המר גרפיקה וקטורית SVG ל-PNG עבור PowerPoint, רשתות חברתיות ואפליקציות."
+        },
+        "imageGrayscale": {
+          "label": "גווני אפור לתמונה",
+          "description": "המר תמונות צבעוניות לשחור-לבן או גווני אפור בדפדפן."
+        },
+        "flipImage": {
+          "label": "היפוך תמונה",
+          "description": "השתקפות תמונות אופקית או אנכית בדפדפן."
+        },
+        "imageMetadataEditor": {
+          "label": "עורך מטא-דאטה לתמונה",
+          "description": "צפייה ועריכת מטא-דאטה EXIF או הסרת נתונים נסתרים מקומית."
+        },
+        "imageOptimizer": {
+          "label": "ממיר וממטב תמונות",
+          "description": "המרה ואופטימיזציה קבוצתית ל-WebP, JPG או PNG בדפדפן."
+        },
+        "paintOnImage": {
+          "label": "ציור על תמונה",
+          "description": "ציור והערות על תמונות עם מברשת ומחק בדפדפן."
         }
       }
     },
@@ -689,6 +724,13 @@
       "png-to-pdf": "המרת PNG ל-PDF אונליין",
       "heic-to-pdf": "המרת HEIC ל-PDF אונליין",
       "heic-to-jpg": "המרת HEIC ל-JPG אונליין",
+      "webp-to-jpg": "המרת WebP ל-JPG אונליין",
+      "svg-to-png": "המרת SVG ל-PNG אונליין",
+      "image-grayscale": "המרת תמונה לגווני אפור אונליין",
+      "flip-image": "היפוך תמונה אונליין (אופקי/אנכי)",
+      "image-metadata-editor": "עריכת מטא-דאטה EXIF לתמונה אונליין",
+      "image-optimizer": "ממיר וממטב תמונות אוניברסלי אונליין",
+      "paint-on-image": "ציור על תמונה אונליין — צביעה והערות על תמונות",
       "pdf-to-word": "המרת PDF ל-Word אונליין",
       "pdf-to-text": "המרת PDF לטקסט אונליין",
       "pdf-to-html": "ממיר PDF ל-HTML אונליין",
@@ -1219,6 +1261,84 @@
     "convertingProgress": "ממיר ל-PNG…",
     "invalidFile": "בחר קובץ תמונה נתמך.",
     "replaceImage": "החלף תמונה"
+  },
+  "WebpToJpg": {
+    "dropTitle": "גרור תמונות WebP לכאן או לחץ לעיון",
+    "dropHint": "WEBP — מומר מקומית ל-JPG בדפדפן. הוסף מספר קבצים לייצוא אצווה.",
+    "selectFile": "בחר קבצי WebP מהמכשיר",
+    "selectFileAria": "בחר קבצי WebP להמרה ל-JPG"
+  },
+  "SvgToPng": {
+    "dropTitle": "גרור קבצי SVG לכאן או לחץ לעיון",
+    "dropHint": "SVG — מומר מקומית ל-PNG בדפדפן. הוסף מספר קבצים לייצוא אצווה.",
+    "selectFile": "בחר קבצי SVG מהמכשיר",
+    "selectFileAria": "בחר קבצי SVG להמרה ל-PNG"
+  },
+  "ImageGrayscale": {
+    "dropTitle": "גרור תמונות לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — מומר לגווני אפור מקומית בדפדפן. הוסף מספר קבצים לייצוא אצווה.",
+    "selectFile": "בחר תמונות מהמכשיר",
+    "selectFileAria": "בחר תמונות להמרה לגווני אפור"
+  },
+  "FlipImage": {
+    "dropTitle": "גרור תמונות לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — מופך מקומית בדפדפן. הוסף מספר קבצים לייצוא אצווה.",
+    "selectFile": "בחר תמונות מהמכשיר",
+    "selectFileAria": "בחר תמונות להיפוך",
+    "directionLabel": "כיוון היפוך",
+    "flipHorizontal": "היפוך אופקי",
+    "flipVertical": "היפוך אנכי"
+  },
+  "ImageMetadataEditor": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — צפייה ועריכת מטא-דאטה EXIF מקומית בדפדפן.",
+    "selectFile": "בחר תמונה מהמכשיר",
+    "selectFileAria": "בחר תמונה לעריכת מטא-דאטה EXIF"
+  },
+  "ImageOptimizer": {
+    "dropTitle": "גרור תמונות לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — המרה ואופטימיזציה קבוצתית מקומית בדפדפן.",
+    "selectFile": "בחר תמונות מהמכשיר",
+    "selectFileAria": "בחר תמונות להמרה ואופטימיזציה",
+    "convertAllLabel": "המר הכל ל",
+    "qualityLabel": "איכות ({percent}%)",
+    "pngQualityHint": "ייצוא PNG הוא ללא אובדן — סליידר האיכות חל על WebP ו-JPG בלבד.",
+    "stripMetadataLabel": "הסר מטא-דאטה (EXIF)",
+    "optimizeAll": "מטב הכל",
+    "optimizeAllAgain": "מטב הכל שוב",
+    "optimize": "מטב",
+    "optimizeAgain": "מטב שוב",
+    "download": "הורד",
+    "pending": "מוכן",
+    "processingPercent": "{percent}%",
+    "savedPercent": "נחסך {percent}%",
+    "noSavings": "מותאם",
+    "formats": {
+      "webp": "WebP",
+      "jpg": "JPG",
+      "png": "PNG"
+    },
+    "table": {
+      "thumbnail": "תמונה ממוזערת",
+      "originalSize": "גודל מקורי",
+      "format": "פורמט",
+      "progress": "התקדמות / חיסכון",
+      "action": "פעולה"
+    }
+  },
+  "PaintOnImage": {
+    "dropTitle": "גרור תמונה לכאן או לחץ לעיון",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — העלה ואז צייר ישירות על התמונה בדפדפן.",
+    "selectFile": "בחר תמונה מהמכשיר",
+    "selectFileAria": "בחר תמונה לציור",
+    "canvasHint": "צייר על התמונה למטה. גלילה מושבתת בזמן ציור במובייל.",
+    "brushTool": "מברשת",
+    "eraserTool": "מחק",
+    "colorLabel": "צבע מברשת",
+    "brushSizeLabel": "מברשת {size}px",
+    "undo": "בטל",
+    "clearAll": "נקה הכל",
+    "download": "הורד"
   },
   "RotateImage": {
     "dropTitle": "גרור תמונה לכאן או לחץ לעיון",

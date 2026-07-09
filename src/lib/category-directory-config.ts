@@ -3,7 +3,10 @@ import { buildHomeAudioToolItems } from "@/lib/audio-tools";
 import { buildHomeDataConversionToolItems } from "@/lib/data-conversion-tools";
 import { buildHomeDeveloperToolItems } from "@/lib/developer-tools";
 import { buildHomeFaviconToolItems } from "@/lib/favicon-tools";
-import { buildHomeImageToolItems } from "@/lib/image-tools";
+import {
+  buildHomeImageToolItems,
+  buildImageCategoryDirectoryColumns,
+} from "@/lib/image-tools";
 import { buildHomeProductivityToolItems } from "@/lib/productivity-tools";
 import { buildHomeSecurityToolItems } from "@/lib/security-tools";
 import { buildHomeTextJsonToolItems } from "@/lib/text-json-tools";
@@ -32,7 +35,7 @@ type CategoryDirectoryTranslator = {
 
 type WorkflowSpec = {
   id: string;
-  toolIds: readonly string[];
+  toolIds?: readonly string[];
   categoryTitleKey?: string;
 };
 
@@ -58,20 +61,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
     id: "image",
     featuredIds: ["crop-image", "resize-image", "compress-image"],
     buildItems: buildHomeImageToolItems,
-    workflows: [
-      {
-        id: "transform",
-        toolIds: ["resize-image", "crop-image", "rotate-image"],
-      },
-      {
-        id: "convert",
-        toolIds: ["convert-to-png", "heic-to-jpg"],
-      },
-      {
-        id: "optimize",
-        toolIds: ["compress-image"],
-      },
-    ],
+    workflows: [{ id: "transform" }, { id: "convert" }, { id: "optimize" }],
   },
   audio: {
     id: "audio",
@@ -258,12 +248,16 @@ export function buildCategoryDirectoryColumns(
   tHome: HomeTranslator,
   tCategory: CategoryDirectoryTranslator,
 ): DirectoryWorkflowColumn[] {
+  if (categoryId === "image") {
+    return buildImageCategoryDirectoryColumns(tHome, tCategory);
+  }
+
   const spec = CATEGORY_SPECS[categoryId];
   const items = spec.buildItems(tHome);
   const itemsById = new Map(items.map((item) => [item.id, item]));
 
   return spec.workflows.map((workflow) => {
-    const workflowItems = workflow.toolIds
+    const workflowItems = (workflow.toolIds ?? [])
       .map((id) => itemsById.get(id))
       .filter((item): item is (typeof items)[number] => Boolean(item))
       .map(toGridItem);

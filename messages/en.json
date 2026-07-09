@@ -122,6 +122,13 @@
       "videoSpeedController": "Video Speed",
       "videoToGif": "Video to GIF",
       "heicToJpg": "HEIC to JPG",
+      "webpToJpg": "WebP to JPG",
+      "svgToPng": "SVG to PNG",
+      "imageGrayscale": "Image Grayscale",
+      "flipImage": "Flip Image",
+      "imageMetadataEditor": "Image Metadata Editor",
+      "imageOptimizer": "Image Optimizer",
+      "paintOnImage": "Paint on Image",
       "imageToPdf": "Image to PDF",
       "pngToPdf": "PNG to PDF",
       "heicToPdf": "HEIC to PDF",
@@ -407,6 +414,34 @@
         "heicToJpg": {
           "label": "HEIC to JPG",
           "description": "Convert iPhone HEIC photos to widely compatible JPG images."
+        },
+        "webpToJpg": {
+          "label": "WebP to JPG",
+          "description": "Convert WebP images to JPG for Windows, Photoshop, and mobile compatibility."
+        },
+        "svgToPng": {
+          "label": "SVG to PNG",
+          "description": "Rasterize SVG vector graphics to PNG for PowerPoint, social media, and apps."
+        },
+        "imageGrayscale": {
+          "label": "Image Grayscale",
+          "description": "Convert color photos to black and white or grayscale in your browser."
+        },
+        "flipImage": {
+          "label": "Flip Image",
+          "description": "Mirror photos horizontally or vertically in your browser."
+        },
+        "imageMetadataEditor": {
+          "label": "Image Metadata Editor",
+          "description": "View and edit EXIF metadata or strip hidden photo data locally."
+        },
+        "imageOptimizer": {
+          "label": "Image Optimizer",
+          "description": "Batch-convert and optimize images to WebP, JPG, or PNG in your browser."
+        },
+        "paintOnImage": {
+          "label": "Paint on Image",
+          "description": "Draw and annotate photos with brush and eraser tools in your browser."
         }
       }
     },
@@ -689,6 +724,13 @@
       "png-to-pdf": "Convert PNG to PDF Online",
       "heic-to-pdf": "Convert HEIC to PDF Online",
       "heic-to-jpg": "Convert HEIC to JPG Online",
+      "webp-to-jpg": "Convert WebP to JPG Online",
+      "svg-to-png": "Convert SVG to PNG Online",
+      "image-grayscale": "Convert Image to Grayscale Online",
+      "flip-image": "Flip Image Online (Horizontal/Vertical)",
+      "image-metadata-editor": "Edit Image EXIF Metadata Online",
+      "image-optimizer": "Universal Image Optimizer & Converter Online",
+      "paint-on-image": "Draw on Image Online — Paint & Annotate Photos",
       "pdf-to-word": "Convert PDF to Word Online",
       "pdf-to-text": "Convert PDF to Text Online",
       "pdf-to-html": "PDF to HTML Converter Online",
@@ -1300,6 +1342,84 @@
     "convertingProgress": "Converting to PNG…",
     "invalidFile": "Please choose a supported image file.",
     "replaceImage": "Replace image"
+  },
+  "WebpToJpg": {
+    "dropTitle": "Drop WebP images here or click to browse",
+    "dropHint": "WEBP — converted locally to JPG in your browser. Add multiple files for batch export.",
+    "selectFile": "Select WebP files from device",
+    "selectFileAria": "Select WebP image files to convert to JPG"
+  },
+  "SvgToPng": {
+    "dropTitle": "Drop SVG files here or click to browse",
+    "dropHint": "SVG — converted locally to PNG in your browser. Add multiple files for batch export.",
+    "selectFile": "Select SVG files from device",
+    "selectFileAria": "Select SVG files to convert to PNG"
+  },
+  "ImageGrayscale": {
+    "dropTitle": "Drop images here or click to browse",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — converted to grayscale locally in your browser. Add multiple files for batch export.",
+    "selectFile": "Select images from device",
+    "selectFileAria": "Select image files to convert to grayscale"
+  },
+  "FlipImage": {
+    "dropTitle": "Drop images here or click to browse",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — flipped locally in your browser. Add multiple files for batch export.",
+    "selectFile": "Select images from device",
+    "selectFileAria": "Select image files to flip",
+    "directionLabel": "Flip direction",
+    "flipHorizontal": "Flip horizontally",
+    "flipVertical": "Flip vertically"
+  },
+  "ImageMetadataEditor": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — view and edit EXIF metadata locally in your browser.",
+    "selectFile": "Select image from device",
+    "selectFileAria": "Select an image to edit EXIF metadata"
+  },
+  "ImageOptimizer": {
+    "dropTitle": "Drop images here or click to browse",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — batch-convert and optimize locally in your browser.",
+    "selectFile": "Select images from device",
+    "selectFileAria": "Select images to optimize and convert",
+    "convertAllLabel": "Convert all to",
+    "qualityLabel": "Quality ({percent}%)",
+    "pngQualityHint": "PNG export is lossless — quality slider applies to WebP and JPG only.",
+    "stripMetadataLabel": "Strip metadata (EXIF)",
+    "optimizeAll": "Optimize all",
+    "optimizeAllAgain": "Optimize all again",
+    "optimize": "Optimize",
+    "optimizeAgain": "Optimize again",
+    "download": "Download",
+    "pending": "Ready",
+    "processingPercent": "{percent}%",
+    "savedPercent": "Saved {percent}%",
+    "noSavings": "Optimized",
+    "formats": {
+      "webp": "WebP",
+      "jpg": "JPG",
+      "png": "PNG"
+    },
+    "table": {
+      "thumbnail": "Thumbnail",
+      "originalSize": "Original size",
+      "format": "Format",
+      "progress": "Progress / savings",
+      "action": "Action"
+    }
+  },
+  "PaintOnImage": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "JPG, PNG, WebP, HEIC, GIF — upload then draw directly on your photo in the browser.",
+    "selectFile": "Select image from device",
+    "selectFileAria": "Select an image to paint on",
+    "canvasHint": "Draw on your image below. Pinch or scroll on mobile is disabled while painting.",
+    "brushTool": "Brush",
+    "eraserTool": "Eraser",
+    "colorLabel": "Brush color",
+    "brushSizeLabel": "Brush {size}px",
+    "undo": "Undo",
+    "clearAll": "Clear all",
+    "download": "Download"
   },
   "RotateImage": {
     "dropTitle": "Drop an image here or click to browse",

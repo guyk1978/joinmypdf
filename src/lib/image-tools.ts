@@ -1,77 +1,212 @@
-export type HomeImageToolId =
-  | "resize-image"
-  | "convert-to-png"
-  | "crop-image"
-  | "rotate-image"
-  | "compress-image"
-  | "heic-to-jpg";
+import type { DirectoryWorkflowColumn } from "@/components/ToolsDirectoryDashboard";
+import { TOOL_DEFINITIONS } from "@/config/tools";
+import { registry } from "@/lib/registry";
+import type { ToolDefinition } from "@/lib/types";
+import type { ToolGridItem } from "@/lib/tool-grid";
 
-export type HomeImageToolIconKey =
+export const IMAGE_TOOL_CATEGORY = "image-tools" as const;
+export const IMAGE_SUB_CATEGORIES = ["transform", "convert", "optimize"] as const;
+export type ImageSubCategory = (typeof IMAGE_SUB_CATEGORIES)[number];
+
+export type ImageToolIconKey =
   | "expand"
   | "file-image"
   | "crop"
   | "rotate-cw"
   | "minimize-2"
-  | "image-down";
+  | "image-down"
+  | "eye-off"
+  | "arrow-left-right"
+  | "tags"
+  | "pen-line";
 
 export type HomeImageToolItem = {
-  id: HomeImageToolId;
+  id: string;
   href: string;
   label: string;
   description: string;
-  iconKey: HomeImageToolIconKey;
+  iconKey: ImageToolIconKey;
+  subCategory: ImageSubCategory;
 };
-
-const IMAGE_TOOL_META: Record<
-  HomeImageToolId,
-  { iconKey: HomeImageToolIconKey; messageKey: string }
-> = {
-  "resize-image": { iconKey: "expand", messageKey: "resizeImage" },
-  "convert-to-png": { iconKey: "file-image", messageKey: "convertToPng" },
-  "crop-image": { iconKey: "crop", messageKey: "cropImage" },
-  "rotate-image": { iconKey: "rotate-cw", messageKey: "rotateImage" },
-  "compress-image": { iconKey: "minimize-2", messageKey: "compressImage" },
-  "heic-to-jpg": { iconKey: "image-down", messageKey: "heicToJpg" },
-};
-
-export const HOME_IMAGE_TOOL_IDS = Object.keys(IMAGE_TOOL_META) as HomeImageToolId[];
-
-/** Homepage — 3 most popular image tools */
-export const HOMEPAGE_FEATURED_IMAGE_IDS = ["crop-image", "resize-image", "compress-image"] as const;
 
 export type HomeFeaturedImageItem = {
-  id: HomeImageToolId;
+  id: string;
   href: string;
   label: string;
-  iconKey: HomeImageToolIconKey;
+  iconKey: ImageToolIconKey;
 };
+
+/** Homepage — curated featured image tools */
+export const HOMEPAGE_FEATURED_IMAGE_IDS = ["crop-image", "resize-image", "compress-image"] as const;
+
+const SLUG_ICON_KEYS: Record<string, ImageToolIconKey> = {
+  "resize-image": "expand",
+  "convert-to-png": "file-image",
+  "crop-image": "crop",
+  "rotate-image": "rotate-cw",
+  "compress-image": "minimize-2",
+  "heic-to-jpg": "image-down",
+  "webp-to-jpg": "image-down",
+  "svg-to-png": "file-image",
+  "image-grayscale": "eye-off",
+  "flip-image": "arrow-left-right",
+  "image-metadata-editor": "tags",
+  "image-optimizer": "minimize-2",
+  "paint-on-image": "pen-line",
+};
+
+const DIRECTORY_ORDER: Record<ImageSubCategory, readonly string[]> = {
+  transform: ["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image"],
+  convert: [
+    "convert-to-png",
+    "heic-to-jpg",
+    "webp-to-jpg",
+    "svg-to-png",
+    "image-grayscale",
+    "image-metadata-editor",
+  ],
+  optimize: ["compress-image", "image-optimizer"],
+};
+
+const LABEL_KEY_BY_SLUG = new Map(TOOL_DEFINITIONS.map((tool) => [tool.slug, tool.labelKey]));
 
 type HomeTranslator = {
   (key: string): string;
   has: (key: string) => boolean;
 };
 
-export function buildHomepageFeaturedImageItems(tHome: HomeTranslator): HomeFeaturedImageItem[] {
-  return HOMEPAGE_FEATURED_IMAGE_IDS.map((id) => {
-    const meta = IMAGE_TOOL_META[id];
-    return {
-      id,
-      href: `/tools/${id}/`,
-      label: tHome(`imageTools.items.${meta.messageKey}.label`),
-      iconKey: meta.iconKey,
-    };
+type CategoryDirectoryTranslator = {
+  (key: string): string;
+  has: (key: string) => boolean;
+};
+
+function isImageSubCategory(value: string): value is ImageSubCategory {
+  return (IMAGE_SUB_CATEGORIES as readonly string[]).includes(value);
+}
+
+function getImageToolLabelKey(slug: string): string {
+  return LABEL_KEY_BY_SLUG.get(slug) ?? slug.replace(/-([a-z])/g, (_, char: string) => char.toUpperCase());
+}
+
+function resolveImageToolLabel(slug: string, title: string, tHome: HomeTranslator): string {
+  const messageKey = `imageTools.items.${getImageToolLabelKey(slug)}.label`;
+  return tHome.has(messageKey) ? tHome(messageKey) : title;
+}
+
+function resolveImageToolDescription(slug: string, description: string, tHome: HomeTranslator): string {
+  const messageKey = `imageTools.items.${getImageToolLabelKey(slug)}.description`;
+  return tHome.has(messageKey) ? tHome(messageKey) : description;
+}
+
+function resolveImageToolIconKey(slug: string): ImageToolIconKey {
+  return SLUG_ICON_KEYS[slug] ?? "file-image";
+}
+
+function compareImageTools(a: ToolDefinition, b: ToolDefinition, subCategory: ImageSubCategory): number {
+  const order = DIRECTORY_ORDER[subCategory];
+  const aIndex = order.indexOf(a.slug);
+  const bIndex = order.indexOf(b.slug);
+  const aRank = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex;
+  const bRank = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex;
+  if (aRank !== bRank) return aRank - bRank;
+
+  const aPriority = a.priority ?? 0;
+  const bPriority = b.priority ?? 0;
+  if (aPriority !== bPriority) return bPriority - aPriority;
+
+  return a.slug.localeCompare(b.slug);
+}
+
+type RegistryImageTool = ToolDefinition & { subCategory: ImageSubCategory };
+
+export function getRegistryImageTools(): RegistryImageTool[] {
+  return registry.tools.filter((tool): tool is RegistryImageTool => {
+    if (tool.category !== IMAGE_TOOL_CATEGORY) return false;
+    return typeof tool.subCategory === "string" && isImageSubCategory(tool.subCategory);
   });
 }
 
-export function buildHomeImageToolItems(tHome: HomeTranslator): HomeImageToolItem[] {
-  return HOME_IMAGE_TOOL_IDS.map((id) => {
-    const meta = IMAGE_TOOL_META[id];
-    return {
-      id,
-      href: `/tools/${id}/`,
-      label: tHome(`imageTools.items.${meta.messageKey}.label`),
-      description: tHome(`imageTools.items.${meta.messageKey}.description`),
-      iconKey: meta.iconKey,
-    };
-  });
+export function getImageToolSlugs(): string[] {
+  return getRegistryImageTools().map((tool) => tool.slug);
 }
+
+export function buildHomeImageToolItems(tHome: HomeTranslator): HomeImageToolItem[] {
+  return getRegistryImageTools()
+    .slice()
+    .sort((a, b) => {
+      const subOrder =
+        IMAGE_SUB_CATEGORIES.indexOf(a.subCategory) - IMAGE_SUB_CATEGORIES.indexOf(b.subCategory);
+      if (subOrder !== 0) return subOrder;
+      return compareImageTools(a, b, a.subCategory);
+    })
+    .map((tool) => ({
+      id: tool.slug,
+      href: `/tools/${tool.slug}/`,
+      label: resolveImageToolLabel(tool.slug, tool.title, tHome),
+      description: resolveImageToolDescription(tool.slug, tool.description, tHome),
+      iconKey: resolveImageToolIconKey(tool.slug),
+      subCategory: tool.subCategory,
+    }));
+}
+
+export function buildHomepageFeaturedImageItems(tHome: HomeTranslator): HomeFeaturedImageItem[] {
+  const itemsById = new Map(buildHomeImageToolItems(tHome).map((item) => [item.id, item]));
+
+  return HOMEPAGE_FEATURED_IMAGE_IDS.map((id) => itemsById.get(id))
+    .filter((item): item is HomeImageToolItem => Boolean(item))
+    .map((item) => ({
+      id: item.id,
+      href: item.href,
+      label: item.label,
+      iconKey: item.iconKey,
+    }));
+}
+
+function toGridItem(item: HomeImageToolItem): ToolGridItem {
+  return {
+    href: item.href,
+    label: item.label,
+    slugHint: item.id,
+  };
+}
+
+function workflowTitle(t: CategoryDirectoryTranslator, workflowId: ImageSubCategory): string {
+  return t(`workflows.image.${workflowId}.title`);
+}
+
+function workflowDescription(t: CategoryDirectoryTranslator, workflowId: ImageSubCategory): string | undefined {
+  const key = `workflows.image.${workflowId}.description`;
+  return t.has(key) ? t(key) : undefined;
+}
+
+export function buildImageCategoryDirectoryColumns(
+  tHome: HomeTranslator,
+  tCategory: CategoryDirectoryTranslator,
+): DirectoryWorkflowColumn[] {
+  const items = buildHomeImageToolItems(tHome);
+  const itemsBySubCategory = new Map<ImageSubCategory, HomeImageToolItem[]>();
+
+  for (const subCategory of IMAGE_SUB_CATEGORIES) {
+    itemsBySubCategory.set(subCategory, []);
+  }
+
+  for (const item of items) {
+    itemsBySubCategory.get(item.subCategory)?.push(item);
+  }
+
+  return IMAGE_SUB_CATEGORIES.map((workflowId) => ({
+    id: workflowId,
+    title: workflowTitle(tCategory, workflowId),
+    description: workflowDescription(tCategory, workflowId),
+    categories: [
+      {
+        id: `image-${workflowId}`,
+        title: "",
+        items: (itemsBySubCategory.get(workflowId) ?? []).map(toGridItem),
+      },
+    ],
+  }));
+}
+
+/** @deprecated Use getImageToolSlugs() — kept for transitional imports. */
+export const HOME_IMAGE_TOOL_IDS = getImageToolSlugs();
