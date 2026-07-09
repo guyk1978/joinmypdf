@@ -9,6 +9,9 @@ import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
 import { PdfToWordWorkspace } from "@/components/PdfToWordWorkspace";
 import { PdfToTextWorkspace } from "@/components/PdfToTextWorkspace";
 import { PdfToHtmlWorkspace } from "@/components/PdfToHtmlWorkspace";
+import { PdfToEpubWorkspace } from "@/components/PdfToEpubWorkspace";
+import { PdfToXpsWorkspace } from "@/components/PdfToXpsWorkspace";
+import { ExtractTablesPdfWorkspace } from "@/components/ExtractTablesPdfWorkspace";
 import { ExtractImagesWorkspace } from "@/components/ExtractImagesWorkspace";
 import { WordToPdfWorkspace } from "@/components/WordToPdfWorkspace";
 import { ExcelToPdfWorkspace } from "@/components/ExcelToPdfWorkspace";
@@ -57,6 +60,7 @@ import { PdfTextEditorWorkspace } from "@/components/PdfTextEditorWorkspace";
 import { ComparePdfWorkspace } from "@/components/ComparePdfWorkspace";
 import { BookletPdfWorkspace } from "@/components/BookletPdfWorkspace";
 import { SafeShareAuditorWorkspace } from "@/components/SafeShareAuditorWorkspace";
+import { PdfSignatureValidatorWorkspace } from "@/components/PdfSignatureValidatorWorkspace";
 import { CustomPaperMarginWorkspace } from "@/components/CustomPaperMarginWorkspace";
 import { UnlockPdfWorkspace } from "@/components/UnlockPdfWorkspace";
 import { AppleTouchIconWorkspace } from "@/components/AppleTouchIconWorkspace";
@@ -281,6 +285,8 @@ export default async function ToolPage({
           <RedactPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "safe-to-share-auditor" ? (
           <SafeShareAuditorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-signature-validator" ? (
+          <PdfSignatureValidatorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "flatten-pdf" ? (
           <FlattenPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "repair-pdf" ? (
@@ -325,6 +331,10 @@ export default async function ToolPage({
           <PdfToTextWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-html" ? (
           <PdfToHtmlWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-epub" ? (
+          <PdfToEpubWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-xps" ? (
+          <PdfToXpsWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "extract-images" ? (
           <ExtractImagesWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "word-to-pdf" ? (
@@ -337,6 +347,8 @@ export default async function ToolPage({
           <PdfToPowerpointWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-excel" ? (
           <PdfToExcelWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "extract-tables-pdf" ? (
+          <ExtractTablesPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "heic-to-pdf" ? (
           <HeicToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "heic-to-jpg" ? (

@@ -245,6 +245,28 @@ ${pageSections.join("\n")}
 `;
 }
 
+export type PdfHtmlBlock = HtmlBlock;
+
+export async function extractPdfStructuredPages(
+  file: File,
+  onProgress?: (progress: PdfToHtmlProgress) => void,
+): Promise<{ title: string; pages: Array<{ pageNumber: number; blocks: HtmlBlock[] }> }> {
+  onProgress?.({ phase: "loading", currentPage: 0, totalPages: 0 });
+  const doc = await loadPdfDocument(file);
+  const totalPages = doc.numPages;
+  const pages: Array<{ pageNumber: number; blocks: HtmlBlock[] }> = [];
+
+  for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) {
+    onProgress?.({ phase: "extracting", currentPage: pageNumber, totalPages });
+    const page = await doc.getPage(pageNumber);
+    const fragments = await extractRichFragments(page);
+    pages.push({ pageNumber, blocks: linesToBlocks(fragmentsToLines(fragments)) });
+  }
+
+  const baseName = file.name.replace(/\.pdf$/i, "") || "document";
+  return { title: baseName, pages };
+}
+
 export async function convertPdfToHtml(
   file: File,
   onProgress?: (progress: PdfToHtmlProgress) => void,

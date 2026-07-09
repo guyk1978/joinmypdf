@@ -80,6 +80,11 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/protect-pdf/", card: "protectSigned" },
     { href: "/tools/pdf-compress/", card: "compressSending" },
   ],
+  "pdf-signature-validator": [
+    { href: "/tools/sign-pdf/", card: "signAfterFlatten" },
+    { href: "/tools/protect-pdf/", card: "protectSigned" },
+    { href: "/tools/safe-to-share-auditor/", card: "auditBeforeShare" },
+  ],
   redact: [
     { href: "/tools/protect-pdf/", card: "protectBeforeSend" },
     { href: "/tools/pdf-compress/", card: "compressRedacted" },
@@ -183,10 +188,25 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/pdf-to-text/", card: "needTextToo" },
     { href: "/tools/html-markdown-converter/", card: "convertingMarkdown" },
   ],
+  "pdf-to-epub": [
+    { href: "/tools/ebook-to-pdf/", card: "compressLongExports" },
+    { href: "/tools/pdf-to-text/", card: "needTextToo" },
+    { href: "/tools/pdf-to-html/", card: "semanticHtml" },
+  ],
+  "pdf-to-xps": [
+    { href: "/tools/word-to-pdf/", card: "convertingWord" },
+    { href: "/tools/pdf-a-converter/", card: "archivalPdfA" },
+    { href: "/tools/protect-pdf/", card: "passwordProtect" },
+  ],
   "extract-images": [
     { href: "/tools/pdf-to-jpg/", card: "fullPageExports" },
     { href: "/tools/pdf-to-text/", card: "needTextToo" },
     { href: "/tools/pdf-merge/", card: "combineDocumentsFirst" },
+  ],
+  "extract-tables-pdf": [
+    { href: "/tools/pdf-to-excel/", card: "editableDocument" },
+    { href: "/tools/pdf-to-text/", card: "needTextToo" },
+    { href: "/tools/pdf-compress/", card: "optimizeSharing" },
   ],
   "jpg-to-pdf": [{ href: "/tools/pdf-compress/", card: "optimizeSharing" }],
   "pdf-to-jpg": [{ href: "/tools/pdf-compress/", card: "optimizeSharing" }],

@@ -87,6 +87,8 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "safe-to-share-auditor", labelKey: "safeToShareAuditor", categories: [c.pdfSecurity] },
   { slug: "remove-hidden-metadata", labelKey: "removeHiddenMetadata", categories: [c.pdfSecurity] },
   { slug: "sign-pdf", labelKey: "signPdf", categories: [c.pdfSecurity] },
+  /** Verify PKCS#7 digital signatures and document integrity locally. */
+  { slug: "pdf-signature-validator", labelKey: "pdfSignatureValidator", categories: [c.pdfSecurity] },
 
   // PDF — Convert to PDF
   { slug: "word-to-pdf", labelKey: "wordToPdf", categories: [c.pdfConvertIn] },
@@ -102,9 +104,14 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "pdf-to-png", labelKey: "pdfToPng", categories: [c.pdfExport] },
   { slug: "pdf-to-text", labelKey: "pdfToText", categories: [c.pdfExport] },
   { slug: "pdf-to-html", labelKey: "pdfToHtml", categories: [c.pdfExport] },
+  { slug: "pdf-to-epub", labelKey: "pdfToEpub", categories: [c.pdfExport] },
+  /** Convert PDFs to XPS for Windows-centric document archiving and sharing. */
+  { slug: "pdf-to-xps", labelKey: "pdfToXps", categories: [c.pdfExport] },
   { slug: "extract-images", labelKey: "extractImages", categories: [c.pdfExport] },
   { slug: "pdf-to-word", labelKey: "pdfToWord", categories: [c.pdfExport] },
   { slug: "pdf-to-excel", labelKey: "pdfToExcel", categories: [c.pdfExport] },
+  /** Extract aligned tabular regions from PDFs into CSV or Excel. */
+  { slug: "extract-tables-pdf", labelKey: "extractTablesPdf", categories: [c.pdfExport] },
   { slug: "pdf-to-powerpoint", labelKey: "pdfToPowerpoint", categories: [c.pdfExport] },
 
   // Image
@@ -284,9 +291,12 @@ export const TOOL_REGISTRY = {
     "pdf-to-png",
     "pdf-to-text",
     "pdf-to-html",
+    "pdf-to-epub",
+    "pdf-to-xps",
     "extract-images",
     "pdf-to-word",
     "pdf-to-excel",
+    "extract-tables-pdf",
     "pdf-to-powerpoint",
     "pdf-a-converter",
     "pdf-linearization",
@@ -388,9 +398,12 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
             "pdf-to-png",
             "pdf-to-text",
             "pdf-to-html",
+            "pdf-to-epub",
+            "pdf-to-xps",
             "extract-images",
             "pdf-to-word",
             "pdf-to-excel",
+            "extract-tables-pdf",
             "pdf-to-powerpoint",
             "pdf-a-converter",
             "pdf-linearization",
@@ -499,6 +512,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
           "safe-to-share-auditor",
           "remove-hidden-metadata",
           "sign-pdf",
+          "pdf-signature-validator",
         ],
       },
       {

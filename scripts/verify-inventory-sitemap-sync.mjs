@@ -57,6 +57,10 @@ async function main() {
     "n-up-pdf",
     "grayscale-pdf",
     "pdf-to-html",
+    "pdf-signature-validator",
+    "pdf-to-epub",
+    "pdf-to-xps",
+    "extract-tables-pdf",
   ];
   const missingRequired = requiredExtras.filter((slug) => !bySlug.has(slug));
 

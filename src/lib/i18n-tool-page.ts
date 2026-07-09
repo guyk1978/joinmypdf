@@ -18,6 +18,7 @@ const ACTION_KEYS: Record<string, string> = {
   "compare-pdf": "compare",
   "pdf-to-booklet": "booklet",
   "safe-to-share-auditor": "safeShare",
+  "pdf-signature-validator": "pdfSignatureValidator",
   "custom-paper-margin": "paperMargin",
   "delete-pages": "deletePages",
   "add-page-numbers": "pageNumbers",
@@ -91,12 +92,15 @@ const ACTION_KEYS: Record<string, string> = {
   "pdf-to-png": "pdfToPng",
   "pdf-to-text": "pdfToText",
   "pdf-to-html": "pdfToHtml",
+  "pdf-to-epub": "pdfToEpub",
+  "pdf-to-xps": "pdfToXps",
   "extract-images": "extractImages",
   "word-to-pdf": "wordToPdf",
   "excel-to-pdf": "excelToPdf",
   "powerpoint-to-pdf": "powerpointToPdf",
   "pdf-to-powerpoint": "pdfToPowerpoint",
   "pdf-to-excel": "pdfToExcel",
+  "extract-tables-pdf": "extractTablesPdf",
 };
 
 function toolActionPhrase(t: ToolPageTranslator, operation: string): string {
@@ -193,6 +197,8 @@ export function buildLocalizedGuideParagraphs(
                                                     ? "pdfMetadataEditor"
                                                     : !variant && tool.slug === "sign-pdf"
                                                     ? "pdfSign"
+                                                    : !variant && tool.slug === "pdf-signature-validator"
+                                                      ? "pdfSignatureValidator"
                                                     : !variant && tool.slug === "word-to-pdf"
                                                       ? "wordToPdf"
                                                       : !variant && tool.slug === "excel-to-pdf"
@@ -215,12 +221,18 @@ export function buildLocalizedGuideParagraphs(
                                                                         ? "pdfToText"
                                                                         : !variant && tool.slug === "pdf-to-html"
                                                                           ? "pdfToHtml"
+                                                                          : !variant && tool.slug === "pdf-to-epub"
+                                                                            ? "pdfToEpub"
+                                                                            : !variant && tool.slug === "pdf-to-xps"
+                                                                              ? "pdfToXps"
                                                                           : !variant && tool.slug === "extract-images"
                                                                           ? "extractImages"
                                                                           : !variant && tool.slug === "pdf-to-word"
                                                                             ? "pdfToWord"
                                                                             : !variant && tool.slug === "pdf-to-excel"
                                                                               ? "pdfToExcel"
+                                                                              : !variant && tool.slug === "extract-tables-pdf"
+                                                                                ? "extractTablesPdf"
                                                                               : !variant && tool.slug === "pdf-to-powerpoint"
                                                                                 ? "pdfToPowerpoint"
                                                                                 : !variant && tool.slug === "resize-image"

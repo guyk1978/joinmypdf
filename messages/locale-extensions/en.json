@@ -846,6 +846,34 @@
           }
         }
       },
+      "pdfSignatureValidator": {
+        "h1": "PDF Signature Validator",
+        "heroTagline": "Verify PKCS#7 digital signatures, detect tampering, and review signer metadata—without modifying your document.",
+        "introSectionTitle": "How to Verify a PDF Digital Signature",
+        "whySectionTitle": "Why Validate PDF Signatures Before You Trust a Document?",
+        "whySectionSubheadline": "Verify PDF digital signatures online—confirm document integrity, support legal and compliance reviews, and build trust with local-first cryptographic checks in your browser.",
+        "schemaDescription": "Validate PDF digital signatures online for free—verify PKCS#7 signatures, detect document tampering, and review signer name and signing date with secure local-only processing. No uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related security workflows:",
+          "signLabel": "Sign PDF",
+          "protectLabel": "Protect PDF",
+          "auditorLabel": "Safe-to-Share Auditor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Integrity verification",
+            "body": "Recomputes hashes over signed byte ranges to detect whether content changed after the signature was applied."
+          },
+          "quality": {
+            "title": "Signer metadata at a glance",
+            "body": "Surfaces signer name, signing date, reason, and location from the signature dictionary and embedded certificate."
+          },
+          "local": {
+            "title": "Read-only and private",
+            "body": "Your PDF is analyzed entirely in the browser—the validator never uploads files and never edits the document."
+          }
+        }
+      },
       "wordToPdf": {
         "h1": "Convert Word to PDF Online",
         "heroTagline": "Turn .docx files into print-ready PDFs—retain formatting with drag-and-drop conversion in your browser.",
@@ -1184,6 +1212,62 @@
           }
         }
       },
+      "pdfToEpub": {
+        "h1": "PDF to EPUB/MOBI Converter",
+        "heroTagline": "Turn PDFs into reflowable ebooks for Kindle, Kobo, and tablets—readable text, embedded page images, all in your browser.",
+        "introSectionTitle": "How to Convert a PDF for Kindle and E-Readers",
+        "whySectionTitle": "Why Reflowable EPUB and MOBI Beat Fixed PDF Layouts",
+        "whySectionSubheadline": "E-readers shine when text reflows to your screen and font size. Convert academic papers, manuals, and bibliophile collections into EPUB or MOBI without uploading sensitive documents to the cloud.",
+        "schemaDescription": "Convert PDF to EPUB or MOBI online for free—Kindle-friendly ebook conversion with reflowable text, embedded images for scanned pages, and secure local-only processing. No uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related reading workflows:",
+          "ebookLabel": "eBook to PDF",
+          "textLabel": "PDF to Text",
+          "htmlLabel": "PDF to HTML"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Reflowable reading",
+            "body": "EPUB and MOBI let you enlarge fonts and reflow paragraphs on phones, tablets, and Kindles—unlike fixed-layout PDF pages."
+          },
+          "quality": {
+            "title": "Images preserved",
+            "body": "Selectable text becomes chapters; scanned or image-only pages export as embedded JPEG figures so diagrams stay visible."
+          },
+          "local": {
+            "title": "Local-first privacy",
+            "body": "Extraction, rendering, and ebook packaging run on your device—research PDFs and unpublished manuscripts never upload to JoinMyPDF."
+          }
+        }
+      },
+      "pdfToXps": {
+        "h1": "PDF to XPS Converter",
+        "heroTagline": "Package PDF pages as Windows-native XPS documents—ideal for enterprise archives, print workflows, and Microsoft-centric sharing, all in your browser.",
+        "introSectionTitle": "How to Convert PDF to XPS for Windows Workflows",
+        "whySectionTitle": "Why Enterprise Teams Export PDF to XPS",
+        "whySectionSubheadline": "XPS is the fixed-layout format built for Windows document viewers and many corporate print pipelines. Convert contracts, statements, and compliance packets to .xps without uploading confidential files to a cloud converter.",
+        "schemaDescription": "Convert PDF to XPS online for free—create Windows-native .xps packages for XPS Viewer, enterprise print servers, and Microsoft document libraries with secure local-only processing. No uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related office workflows:",
+          "wordToPdfLabel": "Word to PDF",
+          "pdfAConverterLabel": "PDF/A Converter",
+          "protectLabel": "Protect PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Windows-native deliverable",
+            "body": "XPS integrates with XPS Viewer and many Microsoft-centric document and print workflows—use it when your IT policy or recipient expects .xps instead of .pdf."
+          },
+          "quality": {
+            "title": "Visual page fidelity",
+            "body": "Each PDF page renders at high resolution inside the XPS package so charts, stamps, and signatures appear exactly as they do in your source document."
+          },
+          "local": {
+            "title": "Local-first privacy",
+            "body": "Rendering and OPC packaging run on your device—financial reports, HR packets, and client contracts never upload to JoinMyPDF."
+          }
+        }
+      },
       "extractImages": {
         "h1": "Extract Images from PDF Online",
         "heroTagline": "Pull embedded images at original quality—grid preview, single downloads, or ZIP export in your browser.",
@@ -1282,6 +1366,34 @@
           "local": {
             "title": "100% Privacy (no file uploads)",
             "body": "Secure local-only processing—financial PDFs and proprietary reports are parsed in your browser tab, never uploaded to JoinMyPDF servers."
+          }
+        }
+      },
+      "extractTablesPdf": {
+        "h1": "Extract Tables from PDF",
+        "heroTagline": "Detect aligned table regions in PDF reports and export clean CSV or Excel files—row and column structure preserved, all in your browser.",
+        "introSectionTitle": "How to Extract Tables from a PDF Report",
+        "whySectionTitle": "Why Analysts Choose Dedicated Table Extraction",
+        "whySectionSubheadline": "Finance teams, researchers, and operations analysts need structured cells—not whole-page dumps. JoinMyPDF identifies table boundaries by column alignment and exports editable spreadsheets without uploading confidential PDFs.",
+        "schemaDescription": "Extract tables from PDF to CSV or Excel for free—PDF table extractor with boundary detection, multi-table support, and secure local-only processing in your browser. No uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related data workflows:",
+          "pdfToExcelLabel": "PDF to Excel",
+          "pdfToTextLabel": "PDF to Text",
+          "jsonToCsvLabel": "JSON to CSV"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Precise boundary detection",
+            "body": "Rows and columns are inferred from text positions and horizontal gaps—so statement grids, pricing tables, and appendix data land in the right cells."
+          },
+          "quality": {
+            "title": "Multiple tables per document",
+            "body": "Each aligned block becomes its own sheet or CSV file. Multi-page tables with matching columns merge automatically when headers repeat."
+          },
+          "local": {
+            "title": "Local-first privacy",
+            "body": "Parsing runs on your device—earnings reports, survey PDFs, and vendor price lists never upload to JoinMyPDF."
           }
         }
       },
@@ -3096,6 +3208,7 @@
       "removeMetadata": "remove hidden PDF metadata before sharing",
       "metadataEditor": "edit PDF metadata fields",
       "sign": "sign a PDF with your signature",
+      "pdfSignatureValidator": "verify PKCS#7 digital signatures in a PDF",
       "jpgToPdf": "turn images into a PDF",
       "pngToPdf": "convert PNG images into a PDF",
       "heicToPdf": "convert HEIC photos into a PDF",
@@ -3104,12 +3217,15 @@
       "pdfToPng": "export PDF pages as PNG images",
       "pdfToText": "extract text from a PDF",
       "pdfToHtml": "convert a PDF to semantic HTML",
+      "pdfToEpub": "convert a PDF to EPUB or MOBI for Kindle",
+      "pdfToXps": "convert a PDF to XPS for Windows",
       "extractImages": "extract embedded images from a PDF",
       "wordToPdf": "convert Word documents to PDF",
       "excelToPdf": "convert Excel spreadsheets to PDF",
       "powerpointToPdf": "convert PowerPoint slides to PDF",
       "pdfToPowerpoint": "convert PDF to PowerPoint",
       "pdfToExcel": "convert PDF to Excel",
+      "extractTablesPdf": "extract tables from a PDF to CSV or Excel",
       "default": "work with your PDF"
     },
     "guide": {
@@ -3214,6 +3330,11 @@
         "pdfSign": {
           "p1": "Sign PDF online with a secure electronic signature—draw or upload your signature, add date and name fields, and e-sign contracts and forms with no server uploads and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
         },
+        "pdfSignatureValidator": {
+          "p1": "Validate PDF digital signatures online—verify PKCS#7 integrity, detect tampering, and review signer metadata with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How to verify: (1) Upload the signed PDF. (2) Click Validate Signature. (3) Review the result—Signature Valid, Signature Invalid, or No Signature Found—along with signer name and signing date when available.",
+          "p3": "Digital signature validation helps legal, finance, and procurement teams trust inbound contracts and compliance packets. Because analysis is read-only and local-first, confidential agreements never leave your device."
+        },
         "wordToPdf": {
           "p1": "Convert Word to PDF online with fast Word to PDF conversion—retain original formatting, export professional documents, and transform .docx files with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
         },
@@ -3249,6 +3370,16 @@
           "p2": "How to convert (developer workflow): (1) Upload your PDF. (2) Click Convert and wait for page-by-page parsing. (3) Download the .html file and open it in your editor, CMS, or static site pipeline. (4) Replace the included minimal CSS with your design tokens or framework styles.",
           "p3": "Semantic HTML helps content managers republish legacy PDFs on the web and gives developers markup they can hydrate in React, Vue, or documentation frameworks—without sending confidential documents to a server-side converter."
         },
+        "pdfToEpub": {
+          "p1": "Convert PDF to EPUB or MOBI online for Kindle and e-readers—reflowable text, embedded page images, and secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How to convert for Kindle: (1) Upload your PDF. (2) Choose EPUB (most e-readers and modern Kindle) or MOBI (legacy Kindle). (3) Click Convert and download. (4) Sideload via USB, Apple Books, Kobo, or Amazon Send to Kindle.",
+          "p3": "Students and bibliophiles gain adjustable font sizes and comfortable night reading—without pinching and zooming a fixed PDF layout on a six-inch screen."
+        },
+        "pdfToXps": {
+          "p1": "Convert PDF to XPS online for Windows offices and enterprise teams—fixed-layout .xps packages for XPS Viewer, print servers, and Microsoft document libraries with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How to convert: (1) Upload your PDF. (2) Enter a password only if the file is protected. (3) Click Convert and watch the progress bar as each page renders. (4) Download the .xps file and open it in XPS Viewer or your enterprise document system.",
+          "p3": "Use XPS when your workflow, records office, or print vendor standardizes on Microsoft's format—contracts, invoices, and compliance packets stay on-device during conversion, which matters for regulated industries and internal archives."
+        },
         "extractImages": {
           "p1": "Extract images from PDF online with extract original image files—lossless image retrieval, fast PDF asset extraction, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
         },
@@ -3257,6 +3388,11 @@
         },
         "pdfToExcel": {
           "p1": "Convert PDF to Excel online with precise data extraction—maintain table formatting, professional spreadsheet export, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "extractTablesPdf": {
+          "p1": "Extract tables from PDF to CSV or Excel online for analysts and finance teams—boundary-aware column detection, multi-table exports, and secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
+          "p2": "How to extract: (1) Upload your PDF report. (2) Choose CSV for lightweight data pipelines or Excel (XLSX) for one workbook with multiple sheets. (3) Click Extract and follow the progress bar as each page is parsed. (4) Download editable cells ready for formulas, pivot tables, or import into R and Python.",
+          "p3": "Unlike full-page PDF to Excel conversion, this tool targets real tables—regions where rows share consistent column alignment—so prose paragraphs and footnotes stay out of your spreadsheet."
         },
         "pdfToPowerpoint": {
           "p1": "Convert PDF to PowerPoint online with retain slide layouts—high-fidelity conversion, professional presentation export, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
@@ -4620,6 +4756,18 @@
         "title": "Drop a PDF here or click to browse",
         "description": "Convert to clean, semantic HTML—headings, paragraphs, and lists, 100% local."
       },
+      "pdf-to-epub": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Convert to reflowable EPUB or Kindle MOBI—optimized for e-readers, 100% local."
+      },
+      "pdf-to-xps": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Convert to Windows-native XPS (.xps)—enterprise-ready, 100% local."
+      },
+      "extract-tables-pdf": {
+        "title": "Drop a PDF report here or click to browse",
+        "description": "Extract aligned tables to CSV or Excel—boundary-aware parsing, 100% local."
+      },
       "heic-to-pdf": {
         "title": "Drop HEIC photos here or click to browse",
         "description": "Add one or more .heic / .heif files. Reorder before converting to a multi-page PDF."
@@ -4695,6 +4843,10 @@
       "safe-to-share-auditor": {
         "title": "Drop a PDF to audit before sharing",
         "description": "Scan for sensitive patterns before you send the file."
+      },
+      "pdf-signature-validator": {
+        "title": "Drop a signed PDF here or click to browse",
+        "description": "Detect PKCS#7 digital signatures and verify document integrity—100% local, read-only."
       },
       "custom-paper-margin": {
         "title": "Drop a PDF to resize to custom paper with margins",
@@ -4805,6 +4957,7 @@
       "pdf-linearization": "Convert & download linearized PDF",
       "n-up-pdf": "Convert & download N-Up PDF",
       "grayscale-pdf": "Convert to grayscale & download",
+      "pdf-signature-validator": "Validate signature",
       "pdf-metadata-editor": "Save PDF with metadata"
     },
     "status": {
@@ -5115,6 +5268,31 @@
       "stickyDownloadLabel": "Download .xlsx",
       "stickyConvertLabel": "Convert to Excel"
     },
+    "extract-tables-pdf": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — extract tables when you are.",
+        "starting": "Starting table extraction…",
+        "downloaded": "Exported {count} table(s) as {name}."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "parsing": "Detecting tables — page {current} of {total}…",
+        "parsingWithTables": "Page {current} of {total} — {count} table(s) found so far…",
+        "building": "Building spreadsheet export…"
+      },
+      "privacyNote": "Table detection and export run entirely in your browser. Your PDF never leaves your device.",
+      "extractLabel": "Extract",
+      "extractingLabel": "Extracting…",
+      "extractAgainLabel": "Extract again",
+      "ui": {
+        "formatLegend": "Output format",
+        "format_csv": "CSV (one file, or ZIP if multiple tables)",
+        "format_xlsx": "Excel (.xlsx, one sheet per table)",
+        "formatHint": "Choose Excel when you want every detected table in one workbook. Choose CSV for data pipelines—multiple tables download as a ZIP of CSV files."
+      }
+    },
     "pdf-to-powerpoint": {
       "status": {
         "invalidType": "Please choose a PDF file.",
@@ -5167,6 +5345,54 @@
       "outputHint": "Best for text-based PDFs. Complex tables and scanned pages may need manual cleanup in your editor.",
       "stickyDownloadLabel": "Download .html",
       "stickyConvertLabel": "Convert to HTML"
+    },
+    "pdf-to-epub": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — convert to an ebook when you are.",
+        "starting": "Starting ebook conversion…",
+        "downloaded": "Ebook downloaded as {name}."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "extracting": "Extracting text from page {current} of {total}…",
+        "rendering": "Rendering page {current} of {total}…",
+        "packaging": "Packaging EPUB/MOBI file…"
+      },
+      "privacyNote": "Text extraction, page rendering, and ebook packaging run entirely in your browser. Your PDF never leaves your device.",
+      "convertLabel": "Convert",
+      "convertingLabel": "Converting…",
+      "convertAgainLabel": "Convert again",
+      "ui": {
+        "formatLegend": "Output format",
+        "format_epub": "EPUB (Apple Books, Kobo, modern Kindle)",
+        "format_mobi": "MOBI (legacy Kindle)",
+        "formatHint": "EPUB is recommended for most e-readers. Choose MOBI for older Kindle devices or sideloading workflows that expect .mobi files."
+      }
+    },
+    "pdf-to-xps": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — convert to XPS when you are.",
+        "starting": "Starting XPS conversion…",
+        "downloaded": "XPS file downloaded as {name}."
+      },
+      "progress": {
+        "loading": "Loading PDF…",
+        "rendering": "Rendering page {current} of {total}…",
+        "packaging": "Packaging XPS document…"
+      },
+      "privacyNote": "Page rendering and XPS packaging run entirely in your browser. Your PDF never leaves your device.",
+      "convertLabel": "Convert",
+      "convertingLabel": "Converting…",
+      "convertAgainLabel": "Convert again",
+      "ui": {
+        "passwordLabel": "PDF password",
+        "passwordHint": "(only if the file is protected)",
+        "passwordPlaceholder": "Optional"
+      }
     },
     "flatten-pdf": {
       "status": {
@@ -6282,6 +6508,38 @@
         "scanningPage": "Scanning page {current} of {total}…",
         "pageFlagged": " · flagged"
       }
+    },
+    "pdf-signature-validator": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — validate the digital signature when you are.",
+        "starting": "Scanning for digital signatures…",
+        "none": "No cryptographic digital signature found in this PDF.",
+        "valid": "Signature valid — {count} digital signature(s) verified.",
+        "invalid": "Signature invalid — {count} signature field(s) failed verification."
+      },
+      "progress": {
+        "reading": "Reading PDF…",
+        "scanning": "Scanning for signature fields…",
+        "validating": "Validating signature {current} of {total}…"
+      },
+      "privacyNote": "Signature validation runs entirely in your browser. Your PDF is never uploaded and is not modified.",
+      "validateLabel": "Validate Signature",
+      "validatingLabel": "Validating…",
+      "validateAgainLabel": "Validate again",
+      "resultValid": "Signature Valid",
+      "resultInvalid": "Signature Invalid",
+      "resultNone": "No Signature Found",
+      "signatureValid": "Valid",
+      "signatureInvalid": "Invalid",
+      "signatureHeading": "Signature {index}",
+      "signerLabel": "Signer",
+      "signedOnLabel": "Signed on",
+      "reasonLabel": "Reason",
+      "locationLabel": "Location",
+      "noDigitalSignatureHint": "This PDF does not contain a PKCS#7 digital signature. Visual ink signatures from drawing tools are not cryptographic signatures.",
+      "trustDisclaimer": "Integrity checks verify the signed byte ranges. Full certificate authority trust and revocation status may require Adobe Acrobat or your organization's PKI policy."
     },
     "heic-to-pdf": {
       "status": {

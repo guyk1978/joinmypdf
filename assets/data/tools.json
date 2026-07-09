@@ -1031,6 +1031,171 @@
       "updatedAt": "2026-07-08"
     },
     {
+      "slug": "pdf-to-epub",
+      "category": "convert",
+      "operation": "pdf-to-epub",
+      "title": "PDF to EPUB/MOBI Converter",
+      "primaryKeyword": "convert pdf to epub for kindle online",
+      "intent": "Convert PDF documents into reflowable EPUB or Kindle-friendly MOBI ebooks—optimized for e-readers, tablets, and phones—processed entirely in your browser.",
+      "description": "Convert PDF to EPUB or MOBI online for Kindle and e-readers. Turn academic papers, books, and reports into reflowable ebooks with adjustable font sizes—100% local-first with no uploads.",
+      "secondaryKeywords": [
+        "pdf to mobi converter",
+        "kindle pdf converter",
+        "pdf ebook converter online",
+        "reflowable pdf for ereader"
+      ],
+      "useCases": [
+        "Read research papers and lecture notes on a Kindle with resizable text",
+        "Turn long PDF manuals into EPUB chapters for comfortable tablet reading",
+        "Package bibliophile collections for Kobo, Apple Books, or Kindle sideloading"
+      ],
+      "relatedTools": [
+        "ebook-to-pdf",
+        "pdf-to-text",
+        "pdf-to-html",
+        "pdf-to-word"
+      ],
+      "faq": [
+        {
+          "q": "What is the difference between EPUB and MOBI?",
+          "a": "EPUB is the open standard used by Apple Books, Kobo, Google Play Books, and modern Kindle apps. MOBI is Amazon's legacy Kindle format—choose MOBI for older Kindle devices; choose EPUB for most other e-readers and newer Kindle Send-to-Kindle workflows."
+        },
+        {
+          "q": "Will my images be preserved?",
+          "a": "Yes. Pages with selectable text become reflowable chapters. Image-only or scanned pages are rendered as JPEG figures embedded in the ebook so charts, diagrams, and scans remain visible on your device."
+        },
+        {
+          "q": "Can I adjust the font size on my device after conversion?",
+          "a": "Yes—that is the main benefit of EPUB and MOBI over PDF. Text reflows to your screen and font settings. Fixed-layout PDF pages do not reflow; this tool rebuilds content as an ebook so you can read comfortably on phones, tablets, and Kindles."
+        },
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Text extraction, page rendering, and ebook packaging run entirely in your browser. Your document never leaves your device."
+        },
+        {
+          "q": "Will complex magazine layouts convert perfectly?",
+          "a": "Multi-column brochures and design-heavy PDFs are rebuilt from text position heuristics—headings, paragraphs, and lists per page. You may want to tidy chapter titles in Calibre or your e-reader library after download."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.89,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "slug": "pdf-to-xps",
+      "category": "convert",
+      "operation": "pdf-to-xps",
+      "title": "PDF to XPS Converter",
+      "primaryKeyword": "convert pdf to xps online free",
+      "intent": "Convert PDF documents into XPS (XML Paper Specification) packages for Windows document viewers, enterprise print workflows, and Microsoft-centric archiving—processed entirely in your browser.",
+      "description": "Convert PDF to XPS online for Windows offices and enterprise teams. Package reports, contracts, and invoices as .xps files for XPS Viewer, print servers, and SharePoint-style document sharing—100% local-first with no uploads.",
+      "secondaryKeywords": [
+        "pdf to xps converter",
+        "xps document converter",
+        "windows xps export",
+        "pdf xps for enterprise"
+      ],
+      "useCases": [
+        "Archive finalized PDF reports as XPS for long-term Windows document libraries",
+        "Deliver invoices and statements in a format native to Microsoft print and viewer stacks",
+        "Share read-only document packages inside enterprise workflows that standardize on XPS"
+      ],
+      "relatedTools": [
+        "word-to-pdf",
+        "pdf-a-converter",
+        "protect-pdf",
+        "pdf-to-word"
+      ],
+      "faq": [
+        {
+          "q": "What is an XPS file?",
+          "a": "XPS (XML Paper Specification) is Microsoft's fixed-layout document format—similar to PDF but native to Windows. An .xps file is an OPC package (ZIP) containing page markup and embedded images, opened by XPS Viewer and supported in many enterprise print workflows."
+        },
+        {
+          "q": "Why would I convert PDF to XPS?",
+          "a": "Teams on Windows often need XPS for internal archives, print servers, or legacy document systems that expect .xps deliverables. Converting a PDF to XPS lets you participate in those Microsoft-centric workflows without re-authoring the document in Word."
+        },
+        {
+          "q": "Is this conversion secure?",
+          "a": "Yes. Rendering and XPS packaging run entirely in your browser. Your PDF never uploads to JoinMyPDF—ideal for contracts, financial statements, and HR documents that must stay on-device."
+        },
+        {
+          "q": "Will text remain selectable in the XPS output?",
+          "a": "This tool rasterizes each PDF page to a high-quality PNG inside the XPS package—visual fidelity matches your source, but text is not re-extracted as selectable XPS glyphs. For editable text, use PDF to Word; for reflowable reading, try PDF to EPUB."
+        },
+        {
+          "q": "Can I open the XPS file on Mac or Linux?",
+          "a": "XPS is primarily a Windows format. macOS and Linux users may need third-party viewers or conversion tools. For cross-platform sharing, PDF is usually the better choice—use XPS when your recipient or workflow explicitly requires it."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-09"
+    },
+    {
+      "slug": "extract-tables-pdf",
+      "category": "convert",
+      "operation": "extract-tables-pdf",
+      "title": "Extract Tables from PDF",
+      "primaryKeyword": "extract tables from pdf to csv excel online",
+      "intent": "Detect tabular regions in PDF reports and export clean CSV or Excel (XLSX) files—row and column structure preserved—processed entirely in your browser.",
+      "description": "Extract tables from PDF to CSV or Excel online for analysts, finance teams, and researchers. Identify aligned columns, split multiple tables per page, and download editable spreadsheets—100% local-first with no uploads.",
+      "secondaryKeywords": [
+        "pdf table extractor",
+        "pdf to csv table",
+        "pdf table to excel",
+        "extract data from pdf tables"
+      ],
+      "useCases": [
+        "Pull quarterly financial tables from investor PDFs into Excel for modeling",
+        "Export research survey results and appendix tables to CSV for R or Python",
+        "Recover structured pricing grids from vendor PDF catalogs without manual copy-paste"
+      ],
+      "relatedTools": [
+        "pdf-to-excel",
+        "pdf-to-text",
+        "json-to-csv",
+        "csv-to-json"
+      ],
+      "faq": [
+        {
+          "q": "How does this handle multi-page tables?",
+          "a": "When consecutive pages share the same column structure, JoinMyPDF merges rows into one table and skips duplicate header rows. Tables that restart with different column counts stay as separate exports (separate sheets in Excel, separate CSV files in a ZIP)."
+        },
+        {
+          "q": "Is the exported data editable?",
+          "a": "Yes. CSV opens in Excel, Google Sheets, and Numbers; XLSX downloads as a native workbook with one sheet per detected table. Cells are plain text and numbers you can sort, filter, and formula-map like any spreadsheet."
+        },
+        {
+          "q": "Can it extract multiple tables at once?",
+          "a": "Yes. Each aligned table block on every page is detected independently. Excel output uses one worksheet per table; CSV output bundles multiple tables into a ZIP when more than one table is found."
+        },
+        {
+          "q": "How does table detection work?",
+          "a": "The parser groups text by vertical position into rows, clusters horizontal gaps into columns, and keeps regions where at least two rows share consistent column alignment. This targets real tables—not entire pages of prose."
+        },
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Parsing and export run entirely in your browser. Sensitive financial statements and research data never leave your device."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.9,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-09"
+    },
+    {
       "slug": "extract-images",
       "category": "convert",
       "operation": "extract-images",
@@ -3224,6 +3389,61 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
       "updatedAt": "2026-06-02"
+    },
+    {
+      "slug": "pdf-signature-validator",
+      "category": "security",
+      "operation": "pdf-signature-validator",
+      "title": "PDF Signature Validator",
+      "primaryKeyword": "verify pdf digital signature online",
+      "intent": "Analyze a PDF for PKCS#7 digital signatures, verify document integrity after signing, and review signer metadata—without modifying the file.",
+      "description": "Validate PDF digital signatures online. Detect cryptographic signatures, check whether the document was altered after signing, and view signer name and signing date—100% local-first with no uploads.",
+      "secondaryKeywords": [
+        "pdf signature verification tool",
+        "check pdf e-signature validity",
+        "pdf digital signature checker",
+        "validate signed contract pdf"
+      ],
+      "useCases": [
+        "Confirm a vendor contract was not tampered with before approval",
+        "Audit compliance packets for valid PKCS#7 signatures before archival",
+        "Verify government or banking PDFs received by email before processing"
+      ],
+      "relatedTools": [
+        "sign-pdf",
+        "protect-pdf",
+        "safe-to-share-auditor",
+        "flatten-pdf"
+      ],
+      "faq": [
+        {
+          "q": "What does signature validation mean?",
+          "a": "Validation checks whether a PDF contains a PKCS#7 digital signature and whether the signed byte ranges still match the cryptographic hash. If content was changed after signing, validation fails—indicating the document may have been altered."
+        },
+        {
+          "q": "Is my document data secure?",
+          "a": "Yes. The validator reads your PDF entirely in your browser. Files are never uploaded to JoinMyPDF servers, and the tool does not modify your document."
+        },
+        {
+          "q": "Can it detect if the document was altered?",
+          "a": "Yes. For standard Adobe PKCS#7 detached signatures, JoinMyPDF recomputes the hash over the signed byte ranges and verifies it against the embedded signature. A mismatch means the file changed after signing."
+        },
+        {
+          "q": "Does this validate certificate authority trust?",
+          "a": "This tool verifies cryptographic integrity and parses signer certificate metadata. Full chain-of-trust validation (revocation, CA trust stores) may require enterprise PDF viewers such as Adobe Acrobat."
+        },
+        {
+          "q": "Will visual signatures from Sign PDF be detected?",
+          "a": "No. Drawn or typed visual signatures are not PKCS#7 digital signatures. Use this tool for cryptographically signed PDFs from Adobe Sign, DocuSign exports, or certificate-based signing workflows."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.9,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-09"
     },
     {
       "slug": "generate-favicon",
