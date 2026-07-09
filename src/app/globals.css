@@ -9244,6 +9244,55 @@ body.site-tools-grid-open {
   padding: 0 1rem clamp(2rem, 4vw, 2.5rem);
 }
 
+.tool-page-layout__breadcrumbs {
+  width: 100%;
+  margin: 0 auto 1rem;
+}
+
+.tool-breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tool-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.tool-breadcrumbs__link {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgb(163 163 163);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.tool-breadcrumbs__link:hover,
+.tool-breadcrumbs__link:focus-visible {
+  color: rgb(229 229 229);
+}
+
+.tool-breadcrumbs__sep {
+  font-size: 0.6875rem;
+  color: rgb(82 82 82);
+  user-select: none;
+}
+
+.tool-breadcrumbs__current {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgb(115 115 115);
+}
+
 .tool-page-layout__header {
   width: 100%;
   margin: 0 auto 1.75rem;

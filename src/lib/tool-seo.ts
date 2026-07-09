@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ToolDefinition, ToolVariant } from "./types";
+import { routing } from "@/i18n/routing";
 import { getBrandName } from "./brand";
 import { translateToolItem } from "./i18n-tool-labels";
 import type { ToolsTranslator } from "./i18n-tool-page";
@@ -65,6 +66,12 @@ export function buildToolSeoCopy(params: {
   return { title: titleTemplate, description, ogTitle };
 }
 
+export function buildToolAlternateLanguages(slug: string): Record<string, string> {
+  return Object.fromEntries(
+    routing.locales.map((locale) => [locale, `/${locale}/tools/${slug}/`]),
+  );
+}
+
 export function buildToolMetadata(params: {
   tool: ToolDefinition;
   variant: ToolVariant | null;
@@ -90,7 +97,10 @@ export function buildLocalizedToolMetadata(params: {
     title,
     description,
     metadataBase: new URL(siteUrl),
-    alternates: { canonical: canonicalPath },
+    alternates: {
+      canonical: canonicalPath,
+      languages: buildToolAlternateLanguages(slug),
+    },
     openGraph: {
       title: ogTitle,
       description,

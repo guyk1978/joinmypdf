@@ -2,6 +2,18 @@
   "ToolPage": {
     "breadcrumbHome": "דף הבית",
     "breadcrumbAllTools": "כל הכלים",
+    "breadcrumbHubPdf": "כלי PDF",
+    "breadcrumbHubConvert": "המרה",
+    "breadcrumbHubEdit": "עריכה וארגון",
+    "breadcrumbHubOptimize": "אופטימיזציה",
+    "breadcrumbHubSecurity": "כלי אבטחה",
+    "breadcrumbHubImage": "כלי תמונה",
+    "breadcrumbHubFavicon": "כלי Favicon",
+    "breadcrumbHubDeveloper": "כלי מפתחים",
+    "breadcrumbHubTextJson": "טקסט ו-JSON",
+    "breadcrumbHubUtilities": "כלי עזר",
+    "breadcrumbHubDataConversion": "המרת נתונים",
+    "breadcrumbHubProductivity": "פרודוקטיביות",
     "beforeYouStart": "לפני שמתחילים",
     "relatedGuides": "מדריכים שמשתמשים בכלי הזה",
     "relatedGuideLink": "קרא את המדריך שלנו על {topic}",
@@ -2939,6 +2951,411 @@
             "body": "ממשק מקצועי ונקי לאנליסטים — החלפה בין פלט CSV, JSON או XML והורדה מיידית ללא חשבון."
           }
         }
+      },
+      "pdfPasswordRecovery": {
+        "h1": "PDF Password Recovery חינם אונליין",
+        "heroTagline": "Try short forgotten PDF passwords locally in your browser with a Web Worker.",
+        "introSectionTitle": "איך להשתמש ב-PDF Password Recovery",
+        "whySectionTitle": "למה להשתמש ב-PDF Password Recovery שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, recover pdf password online brute force ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "recover pdf password online brute force אונליין בחינם — pdf password recovery בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — try short forgotten pdf passwords locally in your browser with a web worker בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור recover pdf password online brute force עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "base64EncoderDecoder": {
+        "h1": "Base64 Encoder/Decoder חינם אונליין",
+        "heroTagline": "Encode text or files to Base64 and decode Base64 strings — entirely in your browser.",
+        "introSectionTitle": "איך להשתמש ב-Base64 Encoder/Decoder",
+        "whySectionTitle": "למה להשתמש ב-Base64 Encoder/Decoder שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, base64 encoder decoder online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "base64 encoder decoder online אונליין בחינם — base64 encoder/decoder בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — encode text or files to base64 and decode base64 strings — entirely in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור base64 encoder decoder online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "urlEncoderDecoder": {
+        "h1": "URL Encoder/Decoder חינם אונליין",
+        "heroTagline": "Encode and decode URL strings with encodeURIComponent — entirely in your browser.",
+        "introSectionTitle": "איך להשתמש ב-URL Encoder/Decoder",
+        "whySectionTitle": "למה להשתמש ב-URL Encoder/Decoder שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, url encoder decoder online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "url encoder decoder online אונליין בחינם — url encoder/decoder בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — encode and decode url strings with encodeuricomponent — entirely in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור url encoder decoder online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "textDiffChecker": {
+        "h1": "Text Diff Checker חינם אונליין",
+        "heroTagline": "Compare two text versions side by side with highlighted additions and deletions — in your browser.",
+        "introSectionTitle": "איך להשתמש ב-Text Diff Checker",
+        "whySectionTitle": "למה להשתמש ב-Text Diff Checker שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, text diff checker online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "text diff checker online אונליין בחינם — text diff checker בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — compare two text versions side by side with highlighted additions and deletions — in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור text diff checker online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "stringGenerator": {
+        "h1": "String Generator (UUID/Random) חינם אונליין",
+        "heroTagline": "Generate secure random strings or UUID v4 values in batches — entirely in your browser.",
+        "introSectionTitle": "איך להשתמש ב-String Generator (UUID/Random)",
+        "whySectionTitle": "למה להשתמש ב-String Generator (UUID/Random) שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, random string generator online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "random string generator online אונליין בחינם — string generator (uuid/random) בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — generate secure random strings or uuid v4 values in batches — entirely in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור random string generator online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "wordCharacterCounter": {
+        "h1": "Word & Character Counter חינם אונליין",
+        "heroTagline": "Count characters, words, paragraphs, and reading time in real time — entirely in your browser.",
+        "introSectionTitle": "איך להשתמש ב-Word & Character Counter",
+        "whySectionTitle": "למה להשתמש ב-Word & Character Counter שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, word and character counter online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "word and character counter online אונליין בחינם — word & character counter בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — count characters, words, paragraphs, and reading time in real time — entirely in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור word and character counter online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "yamlJsonConverter": {
+        "h1": "YAML ↔ JSON Converter חינם אונליין",
+        "heroTagline": "Convert YAML to JSON and JSON to YAML in your browser with a split editor and instant output.",
+        "introSectionTitle": "איך להשתמש ב-YAML ↔ JSON Converter",
+        "whySectionTitle": "למה להשתמש ב-YAML ↔ JSON Converter שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, yaml to json converter online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "yaml to json converter online אונליין בחינם — yaml ↔ json converter בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — convert yaml to json and json to yaml in your browser with a split editor and instant output בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור yaml to json converter online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "csvToMarkdownTable": {
+        "h1": "CSV to Markdown Table חינם אונליין",
+        "heroTagline": "Turn CSV spreadsheets into clean Markdown table syntax — instantly in your browser.",
+        "introSectionTitle": "איך להשתמש ב-CSV to Markdown Table",
+        "whySectionTitle": "למה להשתמש ב-CSV to Markdown Table שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, csv to markdown table converter ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "csv to markdown table converter אונליין בחינם — csv to markdown table בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — turn csv spreadsheets into clean markdown table syntax — instantly in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור csv to markdown table converter עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "sqlQueryFormatter": {
+        "h1": "SQL Query Formatter חינם אונליין",
+        "heroTagline": "Beautify messy SQL with indentation controls and uppercase or lowercase keywords — entirely in your browser.",
+        "introSectionTitle": "איך להשתמש ב-SQL Query Formatter",
+        "whySectionTitle": "למה להשתמש ב-SQL Query Formatter שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, sql formatter online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "sql formatter online אונליין בחינם — sql query formatter בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — beautify messy sql with indentation controls and uppercase or lowercase keywords — entirely in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור sql formatter online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "passwordGenerator": {
+        "h1": "Password Generator חינם אונליין",
+        "heroTagline": "Generate strong random passwords with configurable length and character sets — entirely in your browser.",
+        "introSectionTitle": "איך להשתמש ב-Password Generator",
+        "whySectionTitle": "למה להשתמש ב-Password Generator שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, password generator online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "password generator online אונליין בחינם — password generator בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — generate strong random passwords with configurable length and character sets — entirely in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור password generator online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "hashGenerator": {
+        "h1": "Hash Generator חינם אונליין",
+        "heroTagline": "Compute MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files — locally in your browser.",
+        "introSectionTitle": "איך להשתמש ב-Hash Generator",
+        "whySectionTitle": "למה להשתמש ב-Hash Generator שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, hash generator online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "hash generator online אונליין בחינם — hash generator בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — compute md5, sha-1, sha-256, and sha-512 hashes from text or files — locally in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור hash generator online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "uuidGenerator": {
+        "h1": "UUID Generator חינם אונליין",
+        "heroTagline": "Generate UUID v1, v4, and v7 values in your browser with optional bulk output.",
+        "introSectionTitle": "איך להשתמש ב-UUID Generator",
+        "whySectionTitle": "למה להשתמש ב-UUID Generator שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, uuid generator online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "uuid generator online אונליין בחינם — uuid generator בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — generate uuid v1, v4, and v7 values in your browser with optional bulk output בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור uuid generator online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "unitConverter": {
+        "h1": "Unit Converter חינם אונליין",
+        "heroTagline": "Convert weight, length, and area units instantly in your browser.",
+        "introSectionTitle": "איך להשתמש ב-Unit Converter",
+        "whySectionTitle": "למה להשתמש ב-Unit Converter שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, unit converter online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "unit converter online אונליין בחינם — unit converter בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — convert weight, length, and area units instantly in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור unit converter online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "timezoneConverter": {
+        "h1": "Timezone Converter חינם אונליין",
+        "heroTagline": "Compare your local time with clocks for cities around the world — live in your browser.",
+        "introSectionTitle": "איך להשתמש ב-Timezone Converter",
+        "whySectionTitle": "למה להשתמש ב-Timezone Converter שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, timezone converter online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "timezone converter online אונליין בחינם — timezone converter בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — compare your local time with clocks for cities around the world — live in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור timezone converter online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "readingTimeCalculator": {
+        "h1": "Reading Time Calculator חינם אונליין",
+        "heroTagline": "Estimate how long text takes to read at about 200 words per minute — instantly in your browser.",
+        "introSectionTitle": "איך להשתמש ב-Reading Time Calculator",
+        "whySectionTitle": "למה להשתמש ב-Reading Time Calculator שלנו?",
+        "whySectionSubheadline": "עיבוד מקומי מאובטח בלבד, reading time calculator online ממוקד פרטיות ותוצאות מיידיות בדפדפן — ללא העלאות או חשבון.",
+        "schemaDescription": "reading time calculator online אונליין בחינם — reading time calculator בדפדפן. 100% בצד הלקוח ללא לוגים.",
+        "relatedWorkflowLinks": {
+          "prompt": "כלים קשורים:",
+          "jsonFormatterLabel": "מעצב JSON",
+          "passwordGeneratorLabel": "מחולל סיסמאות"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% בצד הלקוח (הנתונים לא עוזבים את הדפדפן)",
+            "body": "עיבוד מקומי מאובטח בלבד — estimate how long text takes to read at about 200 words per minute — instantly in your browser בלי שירותי ענן ששומרים את הקלט שלך."
+          },
+          "quality": {
+            "title": "תוצאות מהירות ומדויקות",
+            "body": "בנוי במיוחד עבור reading time calculator online עם פלט ברור להעתקה או הורדה מיידית."
+          },
+          "local": {
+            "title": "כלי ממוקד פרטיות",
+            "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
       }
     },
     "schema": {
@@ -3466,6 +3883,51 @@
         },
         "audioGeneric": {
           "p1": "{toolName} רץ מקומית בדפדפן עם ffmpeg.wasm — {toolTitle}. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "pdfPasswordRecovery": {
+          "p1": "Try short forgotten PDF passwords locally in your browser with a Web Worker — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "base64EncoderDecoder": {
+          "p1": "Encode text or files to Base64 and decode Base64 strings — entirely in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "urlEncoderDecoder": {
+          "p1": "Encode and decode URL strings with encodeURIComponent — entirely in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "textDiffChecker": {
+          "p1": "Compare two text versions side by side with highlighted additions and deletions — in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "stringGenerator": {
+          "p1": "Generate secure random strings or UUID v4 values in batches — entirely in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "wordCharacterCounter": {
+          "p1": "Count characters, words, paragraphs, and reading time in real time — entirely in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "yamlJsonConverter": {
+          "p1": "Convert YAML to JSON and JSON to YAML in your browser with a split editor and instant output — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "csvToMarkdownTable": {
+          "p1": "Turn CSV spreadsheets into clean Markdown table syntax — instantly in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "sqlQueryFormatter": {
+          "p1": "Beautify messy SQL with indentation controls and uppercase or lowercase keywords — entirely in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "passwordGenerator": {
+          "p1": "Generate strong random passwords with configurable length and character sets — entirely in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "hashGenerator": {
+          "p1": "Compute MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files — locally in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "uuidGenerator": {
+          "p1": "Generate UUID v1, v4, and v7 values in your browser with optional bulk output — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "unitConverter": {
+          "p1": "Convert weight, length, and area units instantly in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "timezoneConverter": {
+          "p1": "Compare your local time with clocks for cities around the world — live in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
+        },
+        "readingTimeCalculator": {
+          "p1": "Estimate how long text takes to read at about 200 words per minute — instantly in your browser — עיבוד מקומי מאובטח בלבד בדפדפן. ללא העלאות, ללא חשבון וללא תוכנת שולחן עבודה."
         }
       },
       "audio": {
@@ -3872,6 +4334,18 @@
       "variantBackendA": "לא. עדיין אותו תהליך בדפדפן. ההקשר בדף מותאם לכוונה שלך.",
       "variantMainPageQ": "איפה דף {toolTitle} הכללי?",
       "variantMainPageA": "השתמש בקישור הניווט ל-/tools/{slug}/ כנקודת כניסה כללית."
+    },
+    "toolFaqs": {
+      "fallback": {
+        "whatIsQ": "מה זה {toolTitle}?",
+        "whatIsA": "{intent}",
+        "privacyQ": "האם {toolTitle} מעלה נתונים לשרת?",
+        "privacyA": "לא. {toolTitle} פועל לחלוטין בדפדפן. הקלט שלך לא נשלח לשרתי JoinMyPDF.",
+        "howItWorksQ": "איך משתמשים ב-{toolTitle}?",
+        "howItWorksA": "פתח את הכלי, הזן או הדבק קלט, התאם הגדרות במידת הצורך והעתק או הורד את התוצאה מיידית.",
+        "whoForQ": "למי מתאים {toolTitle}?",
+        "whoForA": "{toolTitle} מתאים לכל מי שצריך {primaryKeyword} מהיר ופרטי בלי להתקין תוכנה."
+      }
     }
   },
   "PostSuccessUpsell": {
@@ -5572,7 +6046,30 @@
       "privacyNote": "הסיבוב רץ לחלוטין בדפדפן. התמונה לא עוזבת את המכשיר."
     },
     "heic-to-jpg": {
-      "privacyNote": "פענוח HEIC וייצוא JPG רצים בדפדפן. התמונות לא עוזבות את המכשיר."
+      "status": {
+        "noHeic": "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif.",
+        "filesAddedSkipped": "נוספו {count} קובצ/י HEIC. דולגו {skipped} קובץ/ים לא נתמכים.",
+        "filesAdded": "נוספו {count} קובצ/י HEIC. המר כשאתה מוכן.",
+        "starting": "מתחיל המרה…",
+        "complete": "ההמרה הושלמה. הורד את קובצי ה-JPG למטה.",
+        "packaging": "אורז קבצי JPG ל-ZIP…",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
+      },
+      "progress": {
+        "preparing": "מכין תמונות HEIC…",
+        "decoding": "מפענח {name} ({current} מתוך {total})…"
+      },
+      "privacyNote": "פענוח HEIC וייצוא JPG רצים בדפדפן. התמונות לא עוזבות את המכשיר.",
+      "convertLabel": "המרה ל-JPG",
+      "downloadLabel": "הורד JPG",
+      "downloadZipLabel": "הורד ZIP",
+      "stickyConvertLabel": "המרה ל-JPG",
+      "stickyDownloadLabel": "הורד JPG",
+      "ui": {
+        "filesSelected": "נבחרו {count} קובצ/י HEIC",
+        "totalHint": "{size} סה״כ",
+        "outputHint": "כל HEIC מיוצא כ-JPG באיכות גבוהה. מספר קבצים יורדו כ-ZIP."
+      }
     },
     "compress-image": {
       "privacyNote": "הדחיסה רצה לחלוטין בדפדפן. התמונה לא עוזבת את המכשיר."
@@ -6394,32 +6891,6 @@
         "filesSelected": "נבחרו {count} קובצ/י HEIC",
         "totalReorderHint": "{size} סה״כ · גרור שורות לסדר עמודים",
         "outputHint": "כל HEIC הופך לעמוד PDF ברזולוציה מלאה. Live Photo עלול להוסיף מספר עמודים מקובץ אחד."
-      }
-    },
-    "heic-to-jpg": {
-      "status": {
-        "noHeic": "לא זוהו קבצי HEIC/HEIF. בחר תמונות .heic או .heif.",
-        "filesAddedSkipped": "נוספו {count} קובצ/י HEIC. דולגו {skipped} קובץ/ים לא נתמכים.",
-        "filesAdded": "נוספו {count} קובצ/י HEIC. המר כשאתה מוכן.",
-        "starting": "מתחיל המרה…",
-        "complete": "ההמרה הושלמה. הורד את קובצי ה-JPG למטה.",
-        "packaging": "אורז קבצי JPG ל-ZIP…",
-        "tryAgain": "נסה שוב או בחר קובץ אחר."
-      },
-      "progress": {
-        "preparing": "מכין תמונות HEIC…",
-        "decoding": "מפענח {name} ({current} מתוך {total})…"
-      },
-      "privacyNote": "פענוח HEIC וייצוא JPG רצים בדפדפן. התמונות לא עוזבות את המכשיר.",
-      "convertLabel": "המרה ל-JPG",
-      "downloadLabel": "הורד JPG",
-      "downloadZipLabel": "הורד ZIP",
-      "stickyConvertLabel": "המרה ל-JPG",
-      "stickyDownloadLabel": "הורד JPG",
-      "ui": {
-        "filesSelected": "נבחרו {count} קובצ/י HEIC",
-        "totalHint": "{size} סה״כ",
-        "outputHint": "כל HEIC מיוצא כ-JPG באיכות גבוהה. מספר קבצים יורדו כ-ZIP."
       }
     }
   },

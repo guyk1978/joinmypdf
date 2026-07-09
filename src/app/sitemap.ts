@@ -121,6 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // SEO cluster variants for registry tools (active only)
   for (const tool of registry.tools) {
     if (!canonicalSlugSet.has(tool.slug)) continue;
+    if (tool.skipClusterVariants) continue;
     const lastModified = tool.updatedAt ? new Date(tool.updatedAt) : now;
     const longTailPriority =
       tool.longTailPriority != null && Number.isFinite(Number(tool.longTailPriority))

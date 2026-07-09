@@ -10,6 +10,7 @@ import {
   resolveAudioToolSeoOverride,
 } from "@/lib/audio-tool-page";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
+import { buildToolAlternateLanguages } from "@/lib/tool-seo";
 import type { ToolListEntry } from "@/lib/tool-module";
 import type { ToolDefinition } from "@/lib/types";
 import { productPageMainClassName, toolPageDashboardStack } from "@/lib/tool-ui";
@@ -112,6 +113,9 @@ export function buildAudioToolMetadata(
   return {
     title,
     description,
-    alternates: { canonical: `/${locale}/tools/${tool.id}` },
+    alternates: {
+      canonical: `/${locale}/tools/${tool.id}/`,
+      languages: buildToolAlternateLanguages(tool.id),
+    },
   };
 }

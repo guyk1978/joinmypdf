@@ -1,6 +1,7 @@
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
 import { AppPageShell } from "@/components/AppPageShell";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
@@ -111,6 +112,7 @@ import { getBlogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
+import { buildToolBreadcrumbTrail } from "@/lib/tool-breadcrumb-hub";
 import { resolveToolRoute } from "@/lib/variants";
 import { STUDIO_TOOL_SLUGS } from "@/lib/studio-tools";
 import { toolPageDashboardStack, toolPageDashboardWidth, productPageMainClassName } from "@/lib/tool-ui";
@@ -173,7 +175,7 @@ export async function generateMetadata({
   if (!resolved) return {};
   const tTools = await getTranslations({ locale, namespace: "Tools" });
   const tPage = await getTranslations({ locale, namespace: "ToolPage" });
-  return buildLocalizedToolMetadata({
+  const metadata = buildLocalizedToolMetadata({
     tool: resolved.tool,
     variant: resolved.variant,
     slug,
@@ -181,6 +183,13 @@ export async function generateMetadata({
     tTools,
     tPage,
   });
+  if (resolved.variant) {
+    return {
+      ...metadata,
+      robots: { index: false, follow: true },
+    };
+  }
+  return metadata;
 }
 
 function relatedArticlesForTool(toolSlug: string, locale: string) {
@@ -229,12 +238,14 @@ export default async function ToolPage({
   const schemaName = seoOverride?.h1 ?? displayTitle;
   const useEnhancedSchema = Boolean(seoOverride);
 
-  const crumbs = [
-    { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: localizedToolTitle(tTools, tool, null), path: `/tools/${tool.slug}/` },
-  ];
-  if (variant) crumbs.push({ name: variant.keyword, path: pathname });
+  const crumbs = buildToolBreadcrumbTrail({
+    tool,
+    variant,
+    pathname,
+    tPage,
+    tTools,
+  });
+  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
   return (
     <>
@@ -258,6 +269,9 @@ export default async function ToolPage({
         <ToolPageShellProvider headline={pageHeadline} subline={subtitle} tagline={seoOverride?.heroTagline} slug={slug} stacked>
         <ToolLayout
           faqs={faqs}
+          breadcrumbs={
+            <ToolBreadcrumbs tool={tool} category={tool.category} items={breadcrumbItems} />
+          }
           marketing={
             <ToolMarketingSections
               tool={tool}

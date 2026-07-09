@@ -53,6 +53,49 @@ function buildVariantFaqs(
   ];
 }
 
+const FALLBACK_TOOL_FAQ_IDS = ["whatIs", "privacy", "howItWorks", "whoFor"] as const;
+
+function buildTranslatedToolFaqsFallback(
+  t: ToolPageTranslator,
+  toolTitle: string,
+  intent: string,
+  primaryKeyword: string,
+): ToolFaq[] {
+  return FALLBACK_TOOL_FAQ_IDS.map((id) => ({
+    q: t(`toolFaqs.fallback.${id}Q`, { toolTitle }),
+    a: t(`toolFaqs.fallback.${id}A`, { toolTitle, intent, primaryKeyword }),
+  }));
+}
+
+/** Tool-specific FAQs from tools.json with per-locale strings or a translated fallback set. */
+export function getFaqsForTool(
+  tool: ToolDefinition,
+  locale: string,
+  t?: ToolPageTranslator,
+  toolTitle?: string,
+): ToolFaq[] {
+  const english = tool.faq ?? [];
+  if (!english.length) return [];
+  if (locale === "en" || !t) return english;
+
+  const title = toolTitle ?? tool.title;
+  let localizedCount = 0;
+  const localized = english.map((item, index) => {
+    const qKey = `toolFaqs.${tool.slug}.${index}.q`;
+    const aKey = `toolFaqs.${tool.slug}.${index}.a`;
+    if (t.has(qKey) && t.has(aKey)) {
+      localizedCount += 1;
+      return { q: t(qKey), a: t(aKey) };
+    }
+    return item;
+  });
+
+  if (localizedCount === english.length) return localized;
+  if (localizedCount > 0) return localized;
+
+  return buildTranslatedToolFaqsFallback(t, title, tool.intent, tool.primaryKeyword);
+}
+
 export function buildLocalizedToolFaqs(
   t: ToolPageTranslator,
   tool: ToolDefinition,
@@ -69,7 +112,7 @@ export function buildLocalizedToolFaqs(
     );
   }
 
-  const specific = locale === "en" && tool.faq?.length ? tool.faq : [];
+  const specific = getFaqsForTool(tool, locale, t, toolTitle);
   const merged = dedupeFaqs([...specific, ...universal]);
   return merged;
 }

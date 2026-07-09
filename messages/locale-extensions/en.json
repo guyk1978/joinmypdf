@@ -2,6 +2,18 @@
   "ToolPage": {
     "breadcrumbHome": "Home",
     "breadcrumbAllTools": "All tools",
+    "breadcrumbHubPdf": "PDF tools",
+    "breadcrumbHubConvert": "Convert",
+    "breadcrumbHubEdit": "Edit & organize",
+    "breadcrumbHubOptimize": "Optimize",
+    "breadcrumbHubSecurity": "Security tools",
+    "breadcrumbHubImage": "Image tools",
+    "breadcrumbHubFavicon": "Favicon tools",
+    "breadcrumbHubDeveloper": "Developer tools",
+    "breadcrumbHubTextJson": "Text & JSON tools",
+    "breadcrumbHubUtilities": "Utilities",
+    "breadcrumbHubDataConversion": "Data conversion",
+    "breadcrumbHubProductivity": "Productivity tools",
     "beforeYouStart": "Before you start",
     "relatedGuides": "Guides that use this tool",
     "relatedGuideLink": "Read our guide on {topic}",
@@ -3082,6 +3094,411 @@
             "body": "Clean, professional UI for data analysts—toggle CSV, JSON, or XML output and download instantly with no account required."
           }
         }
+      },
+      "pdfPasswordRecovery": {
+        "h1": "Free PDF Password Recovery Online",
+        "heroTagline": "Try short forgotten PDF passwords locally in your browser with a Web Worker.",
+        "introSectionTitle": "How to Use PDF Password Recovery",
+        "whySectionTitle": "Why Use Our PDF Password Recovery?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first recover pdf password online brute force, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "recover pdf password online brute force for free—pdf password recovery in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—try short forgotten pdf passwords locally in your browser with a web worker without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for recover pdf password online brute force with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "base64EncoderDecoder": {
+        "h1": "Free Base64 Encoder/Decoder Online",
+        "heroTagline": "Encode text or files to Base64 and decode Base64 strings — entirely in your browser.",
+        "introSectionTitle": "How to Use Base64 Encoder/Decoder",
+        "whySectionTitle": "Why Use Our Base64 Encoder/Decoder?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first base64 encoder decoder online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "base64 encoder decoder online for free—base64 encoder/decoder in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—encode text or files to base64 and decode base64 strings — entirely in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for base64 encoder decoder online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "urlEncoderDecoder": {
+        "h1": "Free URL Encoder/Decoder Online",
+        "heroTagline": "Encode and decode URL strings with encodeURIComponent — entirely in your browser.",
+        "introSectionTitle": "How to Use URL Encoder/Decoder",
+        "whySectionTitle": "Why Use Our URL Encoder/Decoder?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first url encoder decoder online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "url encoder decoder online for free—url encoder/decoder in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—encode and decode url strings with encodeuricomponent — entirely in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for url encoder decoder online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "textDiffChecker": {
+        "h1": "Free Text Diff Checker Online",
+        "heroTagline": "Compare two text versions side by side with highlighted additions and deletions — in your browser.",
+        "introSectionTitle": "How to Use Text Diff Checker",
+        "whySectionTitle": "Why Use Our Text Diff Checker?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first text diff checker online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "text diff checker online for free—text diff checker in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—compare two text versions side by side with highlighted additions and deletions — in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for text diff checker online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "stringGenerator": {
+        "h1": "Free String Generator (UUID/Random) Online",
+        "heroTagline": "Generate secure random strings or UUID v4 values in batches — entirely in your browser.",
+        "introSectionTitle": "How to Use String Generator (UUID/Random)",
+        "whySectionTitle": "Why Use Our String Generator (UUID/Random)?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first random string generator online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "random string generator online for free—string generator (uuid/random) in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—generate secure random strings or uuid v4 values in batches — entirely in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for random string generator online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "wordCharacterCounter": {
+        "h1": "Free Word & Character Counter Online",
+        "heroTagline": "Count characters, words, paragraphs, and reading time in real time — entirely in your browser.",
+        "introSectionTitle": "How to Use Word & Character Counter",
+        "whySectionTitle": "Why Use Our Word & Character Counter?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first word and character counter online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "word and character counter online for free—word & character counter in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—count characters, words, paragraphs, and reading time in real time — entirely in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for word and character counter online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "yamlJsonConverter": {
+        "h1": "Free YAML ↔ JSON Converter Online",
+        "heroTagline": "Convert YAML to JSON and JSON to YAML in your browser with a split editor and instant output.",
+        "introSectionTitle": "How to Use YAML ↔ JSON Converter",
+        "whySectionTitle": "Why Use Our YAML ↔ JSON Converter?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first yaml to json converter online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "yaml to json converter online for free—yaml ↔ json converter in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—convert yaml to json and json to yaml in your browser with a split editor and instant output without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for yaml to json converter online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "csvToMarkdownTable": {
+        "h1": "Free CSV to Markdown Table Online",
+        "heroTagline": "Turn CSV spreadsheets into clean Markdown table syntax — instantly in your browser.",
+        "introSectionTitle": "How to Use CSV to Markdown Table",
+        "whySectionTitle": "Why Use Our CSV to Markdown Table?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first csv to markdown table converter, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "csv to markdown table converter online for free—csv to markdown table in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—turn csv spreadsheets into clean markdown table syntax — instantly in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for csv to markdown table converter with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "sqlQueryFormatter": {
+        "h1": "Free SQL Query Formatter Online",
+        "heroTagline": "Beautify messy SQL with indentation controls and uppercase or lowercase keywords — entirely in your browser.",
+        "introSectionTitle": "How to Use SQL Query Formatter",
+        "whySectionTitle": "Why Use Our SQL Query Formatter?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first sql formatter online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "sql formatter online for free—sql query formatter in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—beautify messy sql with indentation controls and uppercase or lowercase keywords — entirely in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for sql formatter online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "passwordGenerator": {
+        "h1": "Free Password Generator Online",
+        "heroTagline": "Generate strong random passwords with configurable length and character sets — entirely in your browser.",
+        "introSectionTitle": "How to Use Password Generator",
+        "whySectionTitle": "Why Use Our Password Generator?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first password generator online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "password generator online for free—password generator in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—generate strong random passwords with configurable length and character sets — entirely in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for password generator online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "hashGenerator": {
+        "h1": "Free Hash Generator Online",
+        "heroTagline": "Compute MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files — locally in your browser.",
+        "introSectionTitle": "How to Use Hash Generator",
+        "whySectionTitle": "Why Use Our Hash Generator?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first hash generator online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "hash generator online for free—hash generator in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—compute md5, sha-1, sha-256, and sha-512 hashes from text or files — locally in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for hash generator online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "uuidGenerator": {
+        "h1": "Free UUID Generator Online",
+        "heroTagline": "Generate UUID v1, v4, and v7 values in your browser with optional bulk output.",
+        "introSectionTitle": "How to Use UUID Generator",
+        "whySectionTitle": "Why Use Our UUID Generator?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first uuid generator online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "uuid generator online for free—uuid generator in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—generate uuid v1, v4, and v7 values in your browser with optional bulk output without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for uuid generator online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "unitConverter": {
+        "h1": "Free Unit Converter Online",
+        "heroTagline": "Convert weight, length, and area units instantly in your browser.",
+        "introSectionTitle": "How to Use Unit Converter",
+        "whySectionTitle": "Why Use Our Unit Converter?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first unit converter online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "unit converter online for free—unit converter in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—convert weight, length, and area units instantly in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for unit converter online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "timezoneConverter": {
+        "h1": "Free Timezone Converter Online",
+        "heroTagline": "Compare your local time with clocks for cities around the world — live in your browser.",
+        "introSectionTitle": "How to Use Timezone Converter",
+        "whySectionTitle": "Why Use Our Timezone Converter?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first timezone converter online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "timezone converter online for free—timezone converter in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—compare your local time with clocks for cities around the world — live in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for timezone converter online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "readingTimeCalculator": {
+        "h1": "Free Reading Time Calculator Online",
+        "heroTagline": "Estimate how long text takes to read at about 200 words per minute — instantly in your browser.",
+        "introSectionTitle": "How to Use Reading Time Calculator",
+        "whySectionTitle": "Why Use Our Reading Time Calculator?",
+        "whySectionSubheadline": "Secure local-only processing, privacy-first reading time calculator online, and instant results in your browser—no uploads or account required.",
+        "schemaDescription": "reading time calculator online for free—reading time calculator in your browser. 100% client-side with no data logging.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related utilities:",
+          "jsonFormatterLabel": "JSON Formatter",
+          "passwordGeneratorLabel": "Password Generator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% Client-side (no data leaves your browser)",
+            "body": "Secure local-only processing—estimate how long text takes to read at about 200 words per minute — instantly in your browser without cloud services that store your inputs."
+          },
+          "quality": {
+            "title": "Fast, precise results",
+            "body": "Purpose-built for reading time calculator online with clear output you can copy or download instantly."
+          },
+          "local": {
+            "title": "Privacy-first tool",
+            "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
       }
     },
     "schema": {
@@ -3621,6 +4038,51 @@
         },
         "audioGeneric": {
           "p1": "{toolName} runs locally in your browser with ffmpeg.wasm—{toolTitle}. No uploads, no account, and no desktop software required."
+        },
+        "pdfPasswordRecovery": {
+          "p1": "Try short forgotten PDF passwords locally in your browser with a Web Worker—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "base64EncoderDecoder": {
+          "p1": "Encode text or files to Base64 and decode Base64 strings — entirely in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "urlEncoderDecoder": {
+          "p1": "Encode and decode URL strings with encodeURIComponent — entirely in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "textDiffChecker": {
+          "p1": "Compare two text versions side by side with highlighted additions and deletions — in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "stringGenerator": {
+          "p1": "Generate secure random strings or UUID v4 values in batches — entirely in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "wordCharacterCounter": {
+          "p1": "Count characters, words, paragraphs, and reading time in real time — entirely in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "yamlJsonConverter": {
+          "p1": "Convert YAML to JSON and JSON to YAML in your browser with a split editor and instant output—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "csvToMarkdownTable": {
+          "p1": "Turn CSV spreadsheets into clean Markdown table syntax — instantly in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "sqlQueryFormatter": {
+          "p1": "Beautify messy SQL with indentation controls and uppercase or lowercase keywords — entirely in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "passwordGenerator": {
+          "p1": "Generate strong random passwords with configurable length and character sets — entirely in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "hashGenerator": {
+          "p1": "Compute MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files — locally in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "uuidGenerator": {
+          "p1": "Generate UUID v1, v4, and v7 values in your browser with optional bulk output—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "unitConverter": {
+          "p1": "Convert weight, length, and area units instantly in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "timezoneConverter": {
+          "p1": "Compare your local time with clocks for cities around the world — live in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "readingTimeCalculator": {
+          "p1": "Estimate how long text takes to read at about 200 words per minute — instantly in your browser—secure local-only processing in your browser. No uploads, no account, and no desktop software required."
         }
       },
       "audio": {
@@ -4027,6 +4489,18 @@
       "variantBackendA": "No. You are still running the same in-browser workflow. Guidance and on-page context are tuned to your intent.",
       "variantMainPageQ": "Where is the general {toolTitle} page?",
       "variantMainPageA": "Use the navigation link to /tools/{slug}/ for the all-purpose entry point."
+    },
+    "toolFaqs": {
+      "fallback": {
+        "whatIsQ": "What is {toolTitle}?",
+        "whatIsA": "{intent}",
+        "privacyQ": "Does {toolTitle} upload my data to a server?",
+        "privacyA": "No. {toolTitle} runs entirely in your browser. Your inputs are not sent to JoinMyPDF servers.",
+        "howItWorksQ": "How do I use {toolTitle}?",
+        "howItWorksA": "Open the tool, enter or paste your input, adjust settings if needed, and copy or download the result instantly.",
+        "whoForQ": "Who is {toolTitle} for?",
+        "whoForA": "{toolTitle} is ideal for anyone who needs fast, private {primaryKeyword} without installing software."
+      }
     }
   },
   "PostSuccessUpsell": {
@@ -5712,7 +6186,30 @@
       "privacyNote": "Rotation runs entirely in your browser. Your image never leaves your device."
     },
     "heic-to-jpg": {
-      "privacyNote": "HEIC decoding and JPG export run entirely in your browser. Your photos never leave your device."
+      "status": {
+        "noHeic": "No HEIC/HEIF files detected. Choose .heic or .heif images.",
+        "filesAddedSkipped": "{count} HEIC file(s) added. Skipped {skipped} unsupported file(s).",
+        "filesAdded": "{count} HEIC file(s) added. Convert when ready.",
+        "starting": "Starting conversion…",
+        "complete": "Conversion complete. Download your JPG file(s) below.",
+        "packaging": "Packaging JPG files into a ZIP…",
+        "tryAgain": "Try again or choose another file."
+      },
+      "progress": {
+        "preparing": "Preparing HEIC images…",
+        "decoding": "Decoding {name} ({current} of {total})…"
+      },
+      "privacyNote": "HEIC decoding and JPG export run entirely in your browser. Your photos never leave your device.",
+      "convertLabel": "Convert to JPG",
+      "downloadLabel": "Download JPG",
+      "downloadZipLabel": "Download ZIP",
+      "stickyConvertLabel": "Convert to JPG",
+      "stickyDownloadLabel": "Download JPG",
+      "ui": {
+        "filesSelected": "{count} HEIC file(s) selected",
+        "totalHint": "{size} total",
+        "outputHint": "Each HEIC exports as a high-quality JPG. Multiple outputs download as a ZIP."
+      }
     },
     "compress-image": {
       "privacyNote": "Compression runs entirely in your browser. Your image never leaves your device."
@@ -6565,32 +7062,6 @@
         "filesSelected": "{count} HEIC file(s) selected",
         "totalReorderHint": "{size} total · drag rows to reorder pages",
         "outputHint": "Each HEIC becomes one PDF page at full image resolution. Live Photo bursts may add multiple pages from a single file."
-      }
-    },
-    "heic-to-jpg": {
-      "status": {
-        "noHeic": "No HEIC/HEIF files detected. Choose .heic or .heif images.",
-        "filesAddedSkipped": "{count} HEIC file(s) added. Skipped {skipped} unsupported file(s).",
-        "filesAdded": "{count} HEIC file(s) added. Convert when ready.",
-        "starting": "Starting conversion…",
-        "complete": "Conversion complete. Download your JPG file(s) below.",
-        "packaging": "Packaging JPG files into a ZIP…",
-        "tryAgain": "Try again or choose another file."
-      },
-      "progress": {
-        "preparing": "Preparing HEIC images…",
-        "decoding": "Decoding {name} ({current} of {total})…"
-      },
-      "privacyNote": "HEIC decoding and JPG export run entirely in your browser. Your photos never leave your device.",
-      "convertLabel": "Convert to JPG",
-      "downloadLabel": "Download JPG",
-      "downloadZipLabel": "Download ZIP",
-      "stickyConvertLabel": "Convert to JPG",
-      "stickyDownloadLabel": "Download JPG",
-      "ui": {
-        "filesSelected": "{count} HEIC file(s) selected",
-        "totalHint": "{size} total",
-        "outputHint": "Each HEIC exports as a high-quality JPG. Multiple outputs download as a ZIP."
       }
     }
   }

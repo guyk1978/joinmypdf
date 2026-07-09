@@ -1,7 +1,81 @@
 import type { ToolPageTranslator } from "./i18n-tool-page";
 import type { ToolDefinition, ToolVariant } from "./types";
 
-const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "pdf-a-converter", "pdf-linearization", "n-up-pdf", "grayscale-pdf", "pdf-metadata-editor", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "pdf-signature-validator", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "pdf-to-html", "pdf-to-epub", "pdf-to-xps", "extract-images", "pdf-to-word", "pdf-to-excel", "extract-tables-pdf", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "video-to-mp4", "video-compressor", "video-resizer", "video-rotator", "video-speed-controller", "video-to-gif", "heic-to-jpg", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "markdown-to-pdf", "html-to-pdf", "invoice-generator", "data-converter-visualizer", "generate-favicon", "png-to-ico", "ico-to-png", "svg-to-favicon", "favicon-pack", "apple-touch-icon", "favicon-compressor", "favicon-cropper", "transparent-favicon", "favicon-code-generator", "favicon-previewer", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter", "json-to-csv", "json-minifier", "csv-to-json", "html-markdown-converter"] as const;
+/** Fifteen tools identified in the SEO audit as missing rich page overrides. */
+export const MISSING_SEO_OVERRIDE_CANDIDATES = [
+  { slug: "pdf-password-recovery", overrideKey: "pdfPasswordRecovery" },
+  { slug: "base64-encoder-decoder", overrideKey: "base64EncoderDecoder" },
+  { slug: "url-encoder-decoder", overrideKey: "urlEncoderDecoder" },
+  { slug: "text-diff-checker", overrideKey: "textDiffChecker" },
+  { slug: "string-generator", overrideKey: "stringGenerator" },
+  { slug: "word-character-counter", overrideKey: "wordCharacterCounter" },
+  { slug: "yaml-json-converter", overrideKey: "yamlJsonConverter" },
+  { slug: "csv-to-markdown-table", overrideKey: "csvToMarkdownTable" },
+  { slug: "sql-query-formatter", overrideKey: "sqlQueryFormatter" },
+  { slug: "password-generator", overrideKey: "passwordGenerator" },
+  { slug: "hash-generator", overrideKey: "hashGenerator" },
+  { slug: "uuid-generator", overrideKey: "uuidGenerator" },
+  { slug: "unit-converter", overrideKey: "unitConverter" },
+  { slug: "timezone-converter", overrideKey: "timezoneConverter" },
+  { slug: "reading-time-calculator", overrideKey: "readingTimeCalculator" },
+] as const;
+
+export type MissingSeoOverrideCandidate = (typeof MISSING_SEO_OVERRIDE_CANDIDATES)[number];
+
+export type ToolSeoBoilerplateTemplate = {
+  h1: string;
+  heroTagline: string;
+  introSectionTitle: string;
+  whySectionTitle: string;
+  whySectionSubheadline: string;
+  schemaDescription: string;
+  whyBenefits: Record<
+    "lossless" | "quality" | "local",
+    {
+      title: string;
+      body: string;
+    }
+  >;
+};
+
+/** Generates default SEO copy fields for locale-extension `toolSeo.{overrideKey}` blocks. */
+export function buildBoilerplateToolSeoStructure(input: {
+  title: string;
+  primaryKeyword: string;
+  intent: string;
+}): ToolSeoBoilerplateTemplate {
+  const { title, primaryKeyword, intent } = input;
+  const intentSentence = intent.replace(/\.$/, "");
+
+  const schemaLead = primaryKeyword.toLowerCase().includes("online")
+    ? `${primaryKeyword} for free`
+    : `${primaryKeyword} online for free`;
+
+  return {
+    h1: `Free ${title} Online`,
+    heroTagline: `${intentSentence}.`,
+    introSectionTitle: `How to Use ${title}`,
+    whySectionTitle: `Why Use Our ${title}?`,
+    whySectionSubheadline: `Secure local-only processing, privacy-first ${primaryKeyword}, and instant results in your browser—no uploads or account required.`,
+    schemaDescription: `${schemaLead}—${title.toLowerCase()} in your browser. 100% client-side with no data logging.`,
+    whyBenefits: {
+      lossless: {
+        title: "100% Client-side (no data leaves your browser)",
+        body: `Secure local-only processing—${intentSentence.toLowerCase()} without cloud services that store your inputs.`,
+      },
+      quality: {
+        title: "Fast, precise results",
+        body: `Purpose-built for ${primaryKeyword} with clear output you can copy or download instantly.`,
+      },
+      local: {
+        title: "Privacy-first tool",
+        body: "No server uploads, no tracking on your content, and no account required for everyday use.",
+      },
+    },
+  };
+}
+
+const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "pdf-a-converter", "pdf-linearization", "n-up-pdf", "grayscale-pdf", "pdf-metadata-editor", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "pdf-signature-validator", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "pdf-to-html", "pdf-to-epub", "pdf-to-xps", "extract-images", "pdf-to-word", "pdf-to-excel", "extract-tables-pdf", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "video-to-mp4", "video-compressor", "video-resizer", "video-rotator", "video-speed-controller", "video-to-gif", "heic-to-jpg", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "markdown-to-pdf", "html-to-pdf", "invoice-generator", "data-converter-visualizer", "generate-favicon", "png-to-ico", "ico-to-png", "svg-to-favicon", "favicon-pack", "apple-touch-icon", "favicon-compressor", "favicon-cropper", "transparent-favicon", "favicon-code-generator", "favicon-previewer", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter", "json-to-csv", "json-minifier", "csv-to-json", "html-markdown-converter", "pdf-password-recovery", "base64-encoder-decoder", "url-encoder-decoder", "text-diff-checker", "string-generator", "word-character-counter", "yaml-json-converter", "csv-to-markdown-table", "sql-query-formatter", "password-generator", "hash-generator", "uuid-generator", "unit-converter", "timezone-converter", "reading-time-calculator"] as const;
 
 export type SeoToolSlug = (typeof SEO_TOOL_SLUGS)[number];
 
@@ -92,7 +166,27 @@ const SLUG_TO_OVERRIDE_KEY: Record<SeoToolSlug, string> = {
   "json-minifier": "jsonMinifier",
   "csv-to-json": "csvToJson",
   "html-markdown-converter": "htmlMarkdownConverter",
+  "pdf-password-recovery": "pdfPasswordRecovery",
+  "base64-encoder-decoder": "base64EncoderDecoder",
+  "url-encoder-decoder": "urlEncoderDecoder",
+  "text-diff-checker": "textDiffChecker",
+  "string-generator": "stringGenerator",
+  "word-character-counter": "wordCharacterCounter",
+  "yaml-json-converter": "yamlJsonConverter",
+  "csv-to-markdown-table": "csvToMarkdownTable",
+  "sql-query-formatter": "sqlQueryFormatter",
+  "password-generator": "passwordGenerator",
+  "hash-generator": "hashGenerator",
+  "uuid-generator": "uuidGenerator",
+  "unit-converter": "unitConverter",
+  "timezone-converter": "timezoneConverter",
+  "reading-time-calculator": "readingTimeCalculator",
 };
+
+export function getToolSeoOverrideKey(slug: string): string | null {
+  if (!SEO_TOOL_SLUGS.includes(slug as SeoToolSlug)) return null;
+  return SLUG_TO_OVERRIDE_KEY[slug as SeoToolSlug];
+}
 
 const COMPLEMENTARY_TOOL_HREF: Partial<Record<SeoToolSlug, string>> = {
   "pdf-merge": "/tools/pdf-split/",

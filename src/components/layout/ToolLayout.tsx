@@ -15,6 +15,8 @@ import { WORKSPACE_UPLOAD_ID } from "@/lib/workspace-flow";
 
 export type ToolLayoutProps = {
   children: ReactNode;
+  /** Visible breadcrumb trail rendered above the page title. */
+  breadcrumbs?: ReactNode;
   /** Page H1 — falls back to ToolPageShellProvider headline when omitted. */
   title?: string;
   /** One-line description under the title. */
@@ -41,6 +43,7 @@ export type ToolLayoutProps = {
  */
 export function ToolLayout({
   children,
+  breadcrumbs,
   title,
   description,
   tagline,
@@ -73,6 +76,8 @@ export function ToolLayout({
           className,
         )}
       >
+        {breadcrumbs ? <div className="tool-page-layout__breadcrumbs">{breadcrumbs}</div> : null}
+
         {showHeader && resolvedTitle ? (
           <ToolPageHeader
             title={resolvedTitle}
