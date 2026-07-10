@@ -14,8 +14,8 @@ export function ToolListIcon({ slug, label, size = "sm", className }: ToolListIc
   return (
     <Icon
       className={clsx(
-        "tool-list-icon shrink-0 text-neutral-400 transition-colors group-hover:text-white",
-        size === "sm" ? "size-5" : "size-6",
+        "tool-list-icon shrink-0 text-current transition-colors duration-150",
+        size === "sm" ? "size-[1.125rem]" : "size-6",
         className,
       )}
       strokeWidth={1.5}

@@ -10,7 +10,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 
 import { HomeAuthoritySection } from "@/components/HomeAuthoritySection";
-import { HomeHero } from "@/components/HomeHero";
+import { Hero } from "@/components/Hero";
+import "@/styles/home-landing.css";
 import { HomeWorkflows } from "@/components/HomeWorkflows";
 import { HomeStructuredData } from "@/components/HomeStructuredData";
 import { getBlogRegistry } from "@/lib/blog-registry";
@@ -94,7 +95,7 @@ export default async function HomePage({ params }: Props) {
       <HomeStructuredData locale={locale} />
       <AppPageShell>
         <div className="home-minimal-layout home-minimal-layout--dashboard home-landing">
-          <HomeHero />
+          <Hero />
           <HomeWorkflows />
           <HomeToolGrid
             pdfPowerhouseItems={pdfPowerhouseItems}

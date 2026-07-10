@@ -2,13 +2,13 @@ import { ArrowRight, Code2, FileText, ImagePlay, ShieldCheck, type LucideIcon } 
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
-type WorkflowCard = {
+type WorkflowItem = {
   key: "documents" | "media" | "developer" | "privacy";
   href: string;
   Icon: LucideIcon;
 };
 
-const WORKFLOWS: WorkflowCard[] = [
+const WORKFLOWS: WorkflowItem[] = [
   { key: "documents", href: "/tools/", Icon: FileText },
   { key: "media", href: "/image-tools/", Icon: ImagePlay },
   { key: "developer", href: "/developer-tools/", Icon: Code2 },
@@ -28,27 +28,17 @@ export async function HomeWorkflows() {
         <p className="home-section-head__subtitle">{t("landing.workflowsSubtitle")}</p>
       </div>
 
-      <div className="home-workflows__grid">
+      <nav className="home-workflows__strip" aria-label={t("landing.workflowsTitle")}>
         {WORKFLOWS.map(({ key, href, Icon }) => (
-          <Link key={key} href={href} className="home-workflow-card" prefetch={false}>
-            <span className="home-workflow-card__icon" aria-hidden>
-              <Icon strokeWidth={1.5} />
+          <Link key={key} href={href} className="home-workflow-strip-item" prefetch={false}>
+            <Icon className="home-workflow-strip-item__icon" strokeWidth={1.5} aria-hidden />
+            <span className="home-workflow-strip-item__label">
+              {t(`landing.workflows.${key}.title`)}
             </span>
-            <span className="home-workflow-card__body">
-              <span className="home-workflow-card__title">
-                {t(`landing.workflows.${key}.title`)}
-              </span>
-              <span className="home-workflow-card__desc">
-                {t(`landing.workflows.${key}.description`)}
-              </span>
-            </span>
-            <span className="home-workflow-card__cta">
-              {t(`landing.workflows.${key}.cta`)}
-              <ArrowRight className="home-workflow-card__cta-icon" aria-hidden />
-            </span>
+            <ArrowRight className="home-workflow-strip-item__arrow" aria-hidden />
           </Link>
         ))}
-      </div>
+      </nav>
     </section>
   );
 }

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { clsx } from "clsx";
 import { Link } from "@/i18n/navigation";
-import { HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
+import "@/styles/tools-grid.css";
+import { HomeFlatToolLink } from "@/components/HomeFlatToolLink";
 import type { HomeFeaturedToolItem } from "@/lib/featured-tools";
 import type { HomeFeaturedImageItem } from "@/lib/image-tools";
 import type { HomeFeaturedUtilityItem } from "@/lib/utilities-tools";
@@ -18,15 +18,10 @@ import type { HomeFeaturedAudioItem } from "@/lib/audio-tools";
 
 const CATEGORY_PREVIEW = 3;
 
-type HomeToolGridProps = {
-  pdfPowerhouseItems: HomeFeaturedToolItem[];
-  imageItems: HomeFeaturedImageItem[];
-  developerItems: HomeFeaturedDeveloperItem[];
-  dataConversionItems: HomeFeaturedDataConversionItem[];
-  securityItems: HomeFeaturedSecurityItem[];
-  productivityItems: HomeFeaturedProductivityItem[];
-  utilityItems: HomeFeaturedUtilityItem[];
-  audioItems: HomeFeaturedAudioItem[];
+type FlatToolItem = {
+  id: string;
+  href: string;
+  label: string;
 };
 
 type CategoryBlockProps = {
@@ -34,14 +29,14 @@ type CategoryBlockProps = {
   title: string;
   viewAllHref: string;
   viewAllLabel: string;
-  cards: ReactNode[];
+  items: FlatToolItem[];
 };
 
-function CategoryBlock({ id, title, viewAllHref, viewAllLabel, cards }: CategoryBlockProps) {
+function CategoryBlock({ id, title, viewAllHref, viewAllLabel, items }: CategoryBlockProps) {
   const t = useTranslations("Home");
   const [expanded, setExpanded] = useState(false);
-  const hasMore = cards.length > CATEGORY_PREVIEW;
-  const visible = expanded ? cards : cards.slice(0, CATEGORY_PREVIEW);
+  const hasMore = items.length > CATEGORY_PREVIEW;
+  const visible = expanded ? items : items.slice(0, CATEGORY_PREVIEW);
 
   return (
     <section className="home-category-block" aria-labelledby={id}>
@@ -54,7 +49,13 @@ function CategoryBlock({ id, title, viewAllHref, viewAllLabel, cards }: Category
           <ArrowRight className="home-category-block__all-icon" aria-hidden />
         </Link>
       </div>
-      <div className="home-category-block__list">{visible}</div>
+      <ul className="tools-grid">
+        {visible.map((item) => (
+          <li key={item.id}>
+            <HomeFlatToolLink href={item.href} label={item.label} slugHint={item.id} />
+          </li>
+        ))}
+      </ul>
       {hasMore ? (
         <button
           type="button"
@@ -72,6 +73,25 @@ function CategoryBlock({ id, title, viewAllHref, viewAllLabel, cards }: Category
       ) : null}
     </section>
   );
+}
+
+type HomeToolGridProps = {
+  pdfPowerhouseItems: HomeFeaturedToolItem[];
+  imageItems: HomeFeaturedImageItem[];
+  developerItems: HomeFeaturedDeveloperItem[];
+  dataConversionItems: HomeFeaturedDataConversionItem[];
+  securityItems: HomeFeaturedSecurityItem[];
+  productivityItems: HomeFeaturedProductivityItem[];
+  utilityItems: HomeFeaturedUtilityItem[];
+  audioItems: HomeFeaturedAudioItem[];
+};
+
+function toFlatItems<T extends { id: string; href: string; label: string }>(items: T[]): FlatToolItem[] {
+  return items.map((item) => ({
+    id: item.id,
+    href: item.href,
+    label: item.label,
+  }));
 }
 
 export function HomeToolGrid({
@@ -92,98 +112,49 @@ export function HomeToolGrid({
       title: t("imageSectionTitle"),
       viewAllHref: "/image-tools/",
       viewAllLabel: t("viewAllImageTools"),
-      cards: imageItems.map((item) => (
-        <HomeFeaturedToolCard
-          key={item.id}
-          href={item.href}
-          label={item.label}
-          slugHint={item.id}
-        />
-      )),
+      items: toFlatItems(imageItems),
     },
     {
       id: "home-cat-audio",
       title: t("audioSectionTitle"),
       viewAllHref: "/audio-tools/",
       viewAllLabel: t("viewAllAudioTools"),
-      cards: audioItems.map((item) => (
-        <HomeFeaturedToolCard
-          key={item.id}
-          href={item.href}
-          label={item.label}
-          slugHint={item.id}
-        />
-      )),
+      items: toFlatItems(audioItems),
     },
     {
       id: "home-cat-developer",
       title: t("developerSectionTitle"),
       viewAllHref: "/developer-tools/",
       viewAllLabel: t("viewAllDeveloperTools"),
-      cards: developerItems.map((item) => (
-        <HomeFeaturedToolCard
-          key={item.id}
-          href={item.href}
-          label={item.label}
-          slugHint={item.id}
-        />
-      )),
+      items: toFlatItems(developerItems),
     },
     {
       id: "home-cat-data-conversion",
       title: t("dataConversionSectionTitle"),
       viewAllHref: "/data-conversion-tools/",
       viewAllLabel: t("viewAllDataConversionTools"),
-      cards: dataConversionItems.map((item) => (
-        <HomeFeaturedToolCard
-          key={item.id}
-          href={item.href}
-          label={item.label}
-          slugHint={item.id}
-        />
-      )),
+      items: toFlatItems(dataConversionItems),
     },
     {
       id: "home-cat-security",
       title: t("securitySectionTitle"),
       viewAllHref: "/security-tools/",
       viewAllLabel: t("viewAllSecurityTools"),
-      cards: securityItems.map((item) => (
-        <HomeFeaturedToolCard
-          key={item.id}
-          href={item.href}
-          label={item.label}
-          slugHint={item.id}
-        />
-      )),
+      items: toFlatItems(securityItems),
     },
     {
       id: "home-cat-productivity",
       title: t("productivitySectionTitle"),
       viewAllHref: "/productivity-tools/",
       viewAllLabel: t("viewAllProductivityTools"),
-      cards: productivityItems.map((item) => (
-        <HomeFeaturedToolCard
-          key={item.id}
-          href={item.href}
-          label={item.label}
-          slugHint={item.id}
-        />
-      )),
+      items: toFlatItems(productivityItems),
     },
     {
       id: "home-cat-utilities",
       title: t("utilitiesSectionTitle"),
       viewAllHref: "/utilities/",
       viewAllLabel: t("viewAllUtilities"),
-      cards: utilityItems.map((item) => (
-        <HomeFeaturedToolCard
-          key={item.id}
-          href={item.href}
-          label={item.label}
-          slugHint={item.id}
-        />
-      )),
+      items: toFlatItems(utilityItems),
     },
   ];
 
@@ -198,16 +169,17 @@ export function HomeToolGrid({
           <p className="home-section-head__subtitle">{t("landing.pdfSubtitle")}</p>
         </div>
 
-        <div className="home-pdf-powerhouse__grid">
+        <ul className="home-pdf-powerhouse__links">
           {pdfPowerhouseItems.map((item) => (
-            <HomeFeaturedToolCard
-              key={item.slugHint}
-              href={item.href}
-              label={item.label}
-              slugHint={item.slugHint}
-            />
+            <li key={item.slugHint}>
+              <HomeFlatToolLink
+                href={item.href}
+                label={item.label}
+                slugHint={item.slugHint}
+              />
+            </li>
           ))}
-        </div>
+        </ul>
 
         <div className="home-pdf-powerhouse__footer">
           <Link href="/tools/" className="home-pdf-powerhouse__all" prefetch={false}>
@@ -226,7 +198,7 @@ export function HomeToolGrid({
           <p className="home-section-head__subtitle">{t("landing.moreSubtitle")}</p>
         </div>
 
-        <div className="home-more-tools__grid">
+        <div className="home-more-tools__categories">
           {categories.map((category) => (
             <CategoryBlock key={category.id} {...category} />
           ))}

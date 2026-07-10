@@ -1,11 +1,8 @@
 import { ArrowRight, BadgeCheck, ServerOff, Zap, type LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { BlogThumbnailGenerator } from "@/components/BlogThumbnailGenerator";
 import { HomeAuthorityFaq } from "@/components/HomeAuthorityFaq";
 import { getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
-import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
-import { resolveBlogCardCoverImage } from "@/lib/blog-cover-image";
 import type { BlogPost } from "@/lib/types";
 
 const PILLARS: { key: "local" | "fast" | "free"; Icon: LucideIcon }[] = [
@@ -82,8 +79,6 @@ export async function HomeAuthoritySection({ latestPosts, locale }: HomeAuthorit
           <div className="home-resources__grid">
             {latestPosts.map((post) => {
               const excerpt = getGuideExcerpt(post);
-              const category = resolveBlogDisplayCategory(post);
-              const coverImage = resolveBlogCardCoverImage(post);
               return (
                 <Link
                   key={post.slug}
@@ -91,18 +86,6 @@ export async function HomeAuthoritySection({ latestPosts, locale }: HomeAuthorit
                   className="home-resource-card group"
                   prefetch={false}
                 >
-                  <span className="home-resource-card__thumb">
-                    {coverImage ? (
-                      /* eslint-disable-next-line @next/next/no-img-element */
-                      <img
-                        src={coverImage}
-                        alt={tHome("landing.resourceThumbAlt")}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <BlogThumbnailGenerator slug={post.slug} category={category} />
-                    )}
-                  </span>
                   <span className="home-resource-card__body">
                     <span className="home-resource-card__title">{post.title}</span>
                     {excerpt ? (

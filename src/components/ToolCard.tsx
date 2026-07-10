@@ -18,7 +18,7 @@ export type ToolCardProps = {
 };
 
 /**
- * Canonical tool list card — bg-gray-950 surface, border, hover, and label typography.
+ * Canonical tool list card — Minimalist Industrial (borderless, type-led hover).
  * Used on the homepage, category directories, and favorites.
  */
 export function ToolCard({

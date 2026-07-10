@@ -64,6 +64,30 @@
   --home-card-border-hover: var(--im-border-strong);
   --home-card-text: var(--im-text);
   --home-page-bg: var(--im-bg-page);
+
+  /* Shared tool list cards — Minimalist Industrial (borderless, type-led) */
+  --im-tool-card-bg: transparent;
+  --im-tool-card-text: #737373;
+  --im-tool-card-text-hover: #ffffff;
+  --im-tool-card-icon: #737373;
+  --im-tool-card-icon-hover: #ffffff;
+  --im-tool-card-padding: 14px 18px;
+  --im-tool-card-min-height: auto;
+  --im-tool-card-gap: 0.625rem;
+  --im-tool-card-grid-gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  --im-tool-card-label-size: 0.8125rem;
+  --im-tool-card-label-tracking: 0.05em;
+  --im-tool-card-divider: rgba(255, 255, 255, 0.06);
+
+  /* Homepage — premium SaaS minimal canvas */
+  --im-home-bg: #0a0a0a;
+  --im-home-divider: #1a1a1a;
+  --im-home-divider-faint: #111111;
+  --im-home-section-rule: #333333;
+  --im-home-section-gap: clamp(5rem, 8vw, 6.25rem);
+  --im-home-text: #ffffff;
+  --im-home-text-muted: #a3a3a3;
+  --im-home-text-hover: #ffffff;
 }
 
 /* Shared expanded accordion panel */
