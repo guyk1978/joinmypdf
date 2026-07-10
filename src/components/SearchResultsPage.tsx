@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
@@ -12,6 +13,12 @@ export function SearchResultsPage() {
 
   const trimmedQuery = query.trim();
   const title = trimmedQuery ? t("titleWithQuery", { query: trimmedQuery }) : t("titleDefault");
+
+  useEffect(() => {
+    document.title = trimmedQuery
+      ? `${t("metaTitleWithQuery", { query: trimmedQuery })} | JoinMyPDF`
+      : `${t("metaTitle")} | JoinMyPDF`;
+  }, [t, trimmedQuery]);
 
   return (
     <ProductPageLayout title={title}>

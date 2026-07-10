@@ -5,20 +5,17 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { SearchResultsPage } from "@/components/SearchResultsPage";
 import { productPageMainClassName } from "@/lib/tool-ui";
 
-type Props = {
+type PageProps = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ q?: string }>;
 };
 
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const { q } = await searchParams;
   const t = await getTranslations({ locale, namespace: "SearchPage" });
-  const query = q?.trim();
 
   return {
-    title: query ? t("metaTitleWithQuery", { query }) : t("metaTitle"),
-    description: query ? t("metaDescriptionWithQuery", { query }) : t("metaDescription"),
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     alternates: { canonical: `/${locale}/search` },
     robots: { index: false, follow: true },
   };
@@ -34,7 +31,7 @@ function SearchResultsFallback() {
   );
 }
 
-export default async function SearchPage({ params }: Props) {
+export default async function SearchPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
