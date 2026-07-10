@@ -655,9 +655,10 @@ export type SearchIndexEntry = {
   type: SearchAssetType;
   title: string;
   path: string;
+  /** Display label only — not included in search scoring. */
   category: string;
-  keywords: string;
+  /** Meta description / summary (weight ×1 in search). */
   description?: string;
-  tags?: string[];
-  priorityHints?: string[];
+  /** Primary SEO keywords and slug hints (weight ×1 in search). */
+  metaKeywords?: string;
 };
