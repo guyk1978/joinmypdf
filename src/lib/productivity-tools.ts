@@ -3,9 +3,16 @@ import { resolveHomeToolCopy } from "@/lib/home-tool-copy";
 export type HomeProductivityToolId =
   | "unit-converter"
   | "timezone-converter"
-  | "word-character-counter";
+  | "word-character-counter"
+  | "reading-time-calculator"
+  | "case-converter";
 
-export type HomeProductivityToolIconKey = "scale" | "clock" | "letter-text";
+export type HomeProductivityToolIconKey =
+  | "scale"
+  | "clock"
+  | "letter-text"
+  | "book-open"
+  | "file-type-2";
 
 export type HomeProductivityToolItem = {
   id: HomeProductivityToolId;
@@ -22,6 +29,8 @@ const PRODUCTIVITY_TOOL_META: Record<
   "unit-converter": { iconKey: "scale", messageKey: "unitConverter" },
   "timezone-converter": { iconKey: "clock", messageKey: "timezoneConverter" },
   "word-character-counter": { iconKey: "letter-text", messageKey: "wordCharacterCounter" },
+  "reading-time-calculator": { iconKey: "book-open", messageKey: "readingTimeCalculator" },
+  "case-converter": { iconKey: "file-type-2", messageKey: "caseConverter" },
 };
 
 const PRODUCTIVITY_ITEMS_NS = "productivityTools";

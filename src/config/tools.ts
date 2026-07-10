@@ -186,6 +186,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "timezone-converter", labelKey: "timezoneConverter", categories: [c.productivity] },
   { slug: "word-character-counter", labelKey: "wordCharacterCounter", categories: [c.productivity] },
   { slug: "reading-time-calculator", labelKey: "readingTimeCalculator", categories: [c.productivity] },
+  { slug: "case-converter", labelKey: "caseConverter", categories: [c.productivity] },
 ];
 
 export type HeaderNavTreeSection = {
@@ -606,6 +607,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
           "timezone-converter",
           "word-character-counter",
           "reading-time-calculator",
+          "case-converter",
         ],
       },
     ],

@@ -50,10 +50,7 @@ registerCategorySlugs(getImageToolSlugs(), "image");
 registerCategorySlugs(HOME_DEVELOPER_TOOL_IDS, "developer");
 registerCategorySlugs(HOME_DATA_CONVERSION_TOOL_IDS, "data");
 registerCategorySlugs(HOME_SECURITY_TOOL_IDS, "security");
-registerCategorySlugs(
-  [...HOME_PRODUCTIVITY_TOOL_IDS, "reading-time-calculator"],
-  "productivity",
-);
+registerCategorySlugs(HOME_PRODUCTIVITY_TOOL_IDS, "productivity");
 registerCategorySlugs(HOME_FAVICON_TOOL_IDS, "utilities");
 registerCategorySlugs(HOME_TEXT_JSON_TOOL_IDS, "utilities");
 registerCategorySlugs(

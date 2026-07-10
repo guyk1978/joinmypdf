@@ -1,3 +1,4 @@
+import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategoryDirectoryFooter } from "@/components/CategoryDirectoryFooter";
 import {
   ToolsDirectoryDashboard,
@@ -13,6 +14,7 @@ type CategoryDirectoryShellProps = {
   featuredTitle?: string;
   featuredDescription?: string;
   workflowColumns: DirectoryWorkflowColumn[];
+  flatGridItems?: ToolGridItem[];
   backToHomeLabel: string;
   browseAllToolsLabel: string;
   footerNavLabel: string;
@@ -27,6 +29,7 @@ export function CategoryDirectoryShell({
   featuredTitle,
   featuredDescription,
   workflowColumns,
+  flatGridItems,
   backToHomeLabel,
   browseAllToolsLabel,
   footerNavLabel,
@@ -40,12 +43,16 @@ export function CategoryDirectoryShell({
         <p className="tools-directory-page__desc">{description}</p>
       </header>
 
-      <ToolsDirectoryDashboard
-        featuredItems={featuredItems}
-        featuredTitle={featuredTitle}
-        featuredDescription={featuredDescription}
-        workflowColumns={workflowColumns}
-      />
+      {flatGridItems?.length ? (
+        <CategoryDirectoryFlatGrid items={flatGridItems} />
+      ) : (
+        <ToolsDirectoryDashboard
+          featuredItems={featuredItems}
+          featuredTitle={featuredTitle}
+          featuredDescription={featuredDescription}
+          workflowColumns={workflowColumns}
+        />
+      )}
 
       {showFooter ? (
         <CategoryDirectoryFooter

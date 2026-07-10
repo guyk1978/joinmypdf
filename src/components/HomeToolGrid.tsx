@@ -15,6 +15,7 @@ import type { HomeFeaturedDataConversionItem } from "@/lib/data-conversion-tools
 import type { HomeFeaturedSecurityItem } from "@/lib/security-tools";
 import type { HomeFeaturedProductivityItem } from "@/lib/productivity-tools";
 import type { HomeFeaturedAudioItem } from "@/lib/audio-tools";
+import type { HomeFeaturedVideoItem } from "@/lib/video-tools";
 
 const CATEGORY_PREVIEW = 3;
 
@@ -56,21 +57,28 @@ function CategoryBlock({ id, title, viewAllHref, viewAllLabel, items }: Category
           </li>
         ))}
       </ul>
-      {hasMore ? (
-        <button
-          type="button"
-          className="home-category-block__toggle"
-          onClick={() => setExpanded((value) => !value)}
-          aria-expanded={expanded}
-          aria-controls={id}
-        >
-          {expanded ? t("landing.showLess") : t("landing.viewCategory")}
-          <ChevronDown
-            className={clsx("home-category-block__toggle-icon", expanded && "is-open")}
-            aria-hidden
-          />
-        </button>
-      ) : null}
+      <div className="home-category-block__footer">
+        {hasMore ? (
+          <button
+            type="button"
+            className="home-category-block__view-action"
+            onClick={() => setExpanded((value) => !value)}
+            aria-expanded={expanded}
+            aria-controls={id}
+          >
+            {expanded ? t("landing.showLess") : t("landing.viewCategory")}
+            <ChevronDown
+              className={clsx("home-category-block__view-icon", expanded && "is-open")}
+              aria-hidden
+            />
+          </button>
+        ) : (
+          <Link href={viewAllHref} className="home-category-block__view-action" prefetch={false}>
+            {t("landing.viewCategory")}
+            <ArrowRight className="home-category-block__view-icon home-category-block__view-icon--arrow" aria-hidden />
+          </Link>
+        )}
+      </div>
     </section>
   );
 }
@@ -84,6 +92,7 @@ type HomeToolGridProps = {
   productivityItems: HomeFeaturedProductivityItem[];
   utilityItems: HomeFeaturedUtilityItem[];
   audioItems: HomeFeaturedAudioItem[];
+  videoItems: HomeFeaturedVideoItem[];
 };
 
 function toFlatItems<T extends { id: string; href: string; label: string }>(items: T[]): FlatToolItem[] {
@@ -103,6 +112,7 @@ export function HomeToolGrid({
   productivityItems,
   utilityItems,
   audioItems,
+  videoItems,
 }: HomeToolGridProps) {
   const t = useTranslations("Home");
 
@@ -120,6 +130,13 @@ export function HomeToolGrid({
       viewAllHref: "/audio-tools/",
       viewAllLabel: t("viewAllAudioTools"),
       items: toFlatItems(audioItems),
+    },
+    {
+      id: "home-cat-video",
+      title: t("videoSectionTitle"),
+      viewAllHref: "/tools/mp4-tools/",
+      viewAllLabel: t("viewAllVideoTools"),
+      items: toFlatItems(videoItems),
     },
     {
       id: "home-cat-developer",
@@ -190,7 +207,7 @@ export function HomeToolGrid({
       </section>
 
       <section className="home-more-tools" aria-labelledby="home-more-tools-title">
-        <div className="home-section-head">
+        <div className="home-section-head home-section-head--more-tools">
           <p className="home-section-head__eyebrow">{t("landing.moreEyebrow")}</p>
           <h2 id="home-more-tools-title" className="home-section-head__title">
             {t("landing.moreTitle")}

@@ -66,7 +66,8 @@
       "toolTag": "Tool",
       "articleTag": "Article",
       "open": "Open search",
-      "close": "Close search"
+      "close": "Close search",
+      "pressEnterHint": "Press Enter to see all results"
     },
     "megaMenu": {
       "convert": "Convert",
@@ -165,6 +166,7 @@
       "unitConverter": "Unit Converter",
       "timezoneConverter": "Timezone Converter",
       "readingTimeCalculator": "Reading Time Calculator",
+      "caseConverter": "Case Converter",
       "mergePdf": "Merge PDF",
       "splitPdf": "Split PDF",
       "compressPdf": "Compress PDF",
@@ -365,6 +367,10 @@
     "viewAllProductivityTools": "View all Productivity tools",
     "viewAllAudioTools": "View all Audio tools",
     "audioSectionTitle": "Audio Tools",
+    "mp3ToolsHubLabel": "MP3 Tools Hub",
+    "videoSectionTitle": "Video Tools",
+    "mp4ToolsHubLabel": "MP4 Tools Hub",
+    "viewAllVideoTools": "View all video tools",
     "audioToolsDirectoryTitle": "Audio tools",
     "audioToolsDirectoryDescription": "Convert, trim, and boost MP3 files in your browser with ffmpeg.wasm — no uploads.",
     "showMoreTools": "Show more ({count})",
@@ -602,6 +608,14 @@
         "wordCharacterCounter": {
           "label": "Word & Character Counter",
           "description": "Count characters, words, sentences, and paragraphs in real time — supports English and Hebrew."
+        },
+        "readingTimeCalculator": {
+          "label": "Reading Time Calculator",
+          "description": "Estimate reading time for articles and scripts."
+        },
+        "caseConverter": {
+          "label": "Case Converter",
+          "description": "Convert text case: camelCase, snake_case, UPPERCASE, etc."
         }
       }
     },
@@ -612,7 +626,7 @@
     "securityToolsDirectoryTitle": "Security tools",
     "securityToolsDirectoryDescription": "Generate passwords, hashes, and UUIDs locally — nothing leaves your device.",
     "productivityToolsDirectoryTitle": "Productivity tools",
-    "productivityToolsDirectoryDescription": "Convert units, compare timezones, and count words — lightweight helpers in your browser.",
+    "productivityToolsDirectoryDescription": "Convert units, timezones, and text case, count words, and estimate reading time — lightweight helpers in your browser.",
     "utilitiesDirectoryTitle": "Utilities",
     "utilitiesDirectoryDescription": "Favicon generators and text utilities — all processed locally in your browser.",
     "textJsonToolsDirectoryTitle": "Text & JSON tools",
@@ -784,6 +798,18 @@
       "csv-to-json": "Convert CSV to JSON Online",
       "html-markdown-converter": "HTML/Markdown Converter Online"
     }
+  },
+  "SearchPage": {
+    "titleDefault": "Search",
+    "titleWithQuery": "Search results for: {query}",
+    "metaTitle": "Search",
+    "metaTitleWithQuery": "Search: {query}",
+    "metaDescription": "Search JoinMyPDF tools and guides. All processing runs locally in your browser.",
+    "metaDescriptionWithQuery": "Search results for \"{query}\" across JoinMyPDF tools and guides.",
+    "noQuery": "Enter at least two characters in the search box to find tools and articles.",
+    "noResults": "No tools found",
+    "browseAllTools": "Browse all tools",
+    "resultCount": "{count, plural, one {# result} other {# results}}"
   },
   "ToolsDirectory": {
     "badge": "Tool directory",
@@ -1080,6 +1106,7 @@
     "workflowBridgeTitle": "Put this guide into action with {tool}",
     "workflowBridgeCta": "Open {tool}",
     "readTimeMinutes": "{mins} min read",
+    "mp3ToolsHubCta": "Ready to process your audio? Visit our <link>MP3 Tools Hub</link> for free, local conversion and compression.",
     "categories": {
       "conversion": "Conversion",
       "editing": "Editing",
@@ -1126,6 +1153,10 @@
     "featuredGuides": "Featured guides",
     "moreInTopic": "More in this topic",
     "relatedTools": "Related tools"
+  },
+  "RelatedAudioTools": {
+    "hubPrompt": "Looking for more? Explore our full suite of audio tools.",
+    "viewAllMp3Tools": "View All MP3 Tools"
   },
   "DataTool": {
     "dropzoneAria": "Upload CSV or JSON",
@@ -1993,6 +2024,56 @@
     "wordsLabel": "Words",
     "sentencesLabel": "Sentences",
     "paragraphsLabel": "Paragraphs"
+  },
+  "CaseConverterPage": {
+    "metaTitle": "Case Converter | Professional Case Transform Tool | JoinMyPDF",
+    "metaDescription": "Convert text to UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case in your browser. Private, instant, and free — no uploads.",
+    "title": "Case Converter",
+    "placeholder": "Type or paste text here…",
+    "infoTitle": "About case styles and privacy",
+    "infoCamelSnake": "camelCase joins words without spaces, capitalizing each word after the first (for example, userProfileId). snake_case uses lowercase words separated by underscores (for example, user_profile_id). Both are common in programming—JavaScript APIs often prefer camelCase, while Python and databases frequently use snake_case.",
+    "infoPrivacy": "This tool runs entirely in your browser. Your text is never uploaded, logged, or sent to any server. That local-only processing keeps drafts, API keys, and internal naming conventions private.",
+    "schemaName": "Case Converter",
+    "schemaDescription": "Convert text to UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case. Runs entirely in your browser — no upload, no tracking.",
+    "schemaFeatureUppercase": "UPPERCASE",
+    "schemaFeatureLowercase": "lowercase",
+    "schemaFeatureTitleCase": "Title Case",
+    "schemaFeatureCamelCase": "camelCase",
+    "schemaFeatureSnakeCase": "snake_case",
+    "schemaFeatureKebabCase": "kebab-case",
+    "schemaFeatureCopy": "Copy to clipboard"
+  },
+  "Mp3ToolsPage": {
+    "metaTitle": "MP3 Tools | Convert, Compress & Optimize Audio",
+    "metaDescription": "Free browser-based MP3 tools for audio conversion and compression. 100% local processing with ffmpeg.wasm — no uploads.",
+    "title": "Use MP3 Tools Free Online",
+    "description": "Convert and compress MP3 files entirely in your browser. These tools run locally with ffmpeg.wasm — your audio never leaves your device.",
+    "backToAllTools": "Back to all tools",
+    "backToHome": "Back to home",
+    "relatedGuidesTitle": "Related Guides",
+    "schemaName": "MP3 Tools",
+    "schemaDescription": "Free online MP3 tools for conversion and compression. 100% browser-based processing with no server uploads.",
+    "tools": {
+      "mp3Converter": "MP3 Converter",
+      "audioCompressor": "Audio Compressor",
+      "mp3Compressor": "MP3 Compressor"
+    }
+  },
+  "Mp4ToolsPage": {
+    "metaTitle": "MP4 Tools | Video Optimizer, Converter & Editor",
+    "metaDescription": "Free browser-based MP4 tools for video conversion, compression, and resizing. 100% local processing with ffmpeg.wasm — no slow cloud uploads.",
+    "title": "Use MP4 Tools Free Online",
+    "description": "Optimize, convert, and edit MP4 video entirely in your browser with ffmpeg.wasm. Process your high-quality MP4 files locally without the need for slow cloud uploads — your footage never leaves your device.",
+    "backToAllTools": "Back to all tools",
+    "backToHome": "Back to home",
+    "relatedGuidesTitle": "Related Guides",
+    "schemaName": "MP4 Tools",
+    "schemaDescription": "Free online MP4 tools for video optimization, conversion, and editing. 100% browser-based processing with no server uploads.",
+    "tools": {
+      "videoToMp4": "Video to MP4",
+      "videoCompressor": "Video Compressor",
+      "videoResizer": "Video Resizer"
+    }
   },
   "UserAgentParser": {
     "liveTitle": "Your browser",

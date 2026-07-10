@@ -41,6 +41,7 @@ function SearchResults({
             {t("suggestAudioTools")}
           </Link>
         </div>
+        <p className="site-search__hint">{t("pressEnterHint")}</p>
       </div>
     );
   }
@@ -101,6 +102,7 @@ function SearchResults({
           <ul className="site-search__list">{articles.map(renderResult)}</ul>
         </div>
       ) : null}
+      <p className="site-search__hint">{t("pressEnterHint")}</p>
     </div>
   );
 }
@@ -140,6 +142,17 @@ function SearchField({
     },
     [onClose, onQueryChange, router],
   );
+
+  const navigateToSearchPage = useCallback(() => {
+    const trimmed = query.trim();
+    if (trimmed.length < 2) return;
+
+    onQueryChange("");
+    setActiveIndex(-1);
+    setExpanded(false);
+    onClose();
+    router.push(`/search?q=${encodeURIComponent(trimmed)}`);
+  }, [onClose, onQueryChange, query, router]);
 
   useEffect(() => {
     if (autoFocus) inputRef.current?.focus();
@@ -188,8 +201,17 @@ function SearchField({
       return;
     }
 
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (activeIndex >= 0 && flat[activeIndex]) {
+        navigateTo(flat[activeIndex]);
+        return;
+      }
+      navigateToSearchPage();
+      return;
+    }
+
     if (!hasQuery || !flat.length) {
-      if (event.key === "Enter") event.preventDefault();
       return;
     }
 
@@ -202,13 +224,6 @@ function SearchField({
     if (event.key === "ArrowUp") {
       event.preventDefault();
       setActiveIndex((prev) => (prev <= 0 ? flat.length - 1 : prev - 1));
-      return;
-    }
-
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const target = activeIndex >= 0 ? flat[activeIndex] : flat[0];
-      if (target) navigateTo(target);
     }
   };
 

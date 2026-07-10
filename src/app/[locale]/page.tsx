@@ -28,6 +28,7 @@ import { buildHomepageFeaturedSecurityItems } from "@/lib/security-tools";
 import { buildHomepageFeaturedProductivityItems } from "@/lib/productivity-tools";
 import { buildHomepageFeaturedUtilityItems } from "@/lib/utilities-tools";
 import { buildHomepageFeaturedAudioItems } from "@/lib/audio-tools";
+import { buildHomepageFeaturedVideoItems } from "@/lib/video-tools";
 import { HomeToolGrid } from "@/components/HomeToolGrid";
 
 import { routing } from "@/i18n/routing";
@@ -87,7 +88,8 @@ export default async function HomePage({ params }: Props) {
   const securityItems = buildHomepageFeaturedSecurityItems(tHome);
   const productivityItems = buildHomepageFeaturedProductivityItems(tHome);
   const utilityItems = buildHomepageFeaturedUtilityItems(tHome);
-  const audioItems = buildHomepageFeaturedAudioItems();
+  const audioItems = buildHomepageFeaturedAudioItems(tHome);
+  const videoItems = buildHomepageFeaturedVideoItems(tHome);
   const latestPosts = getRecentBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   return (
@@ -106,6 +108,7 @@ export default async function HomePage({ params }: Props) {
             productivityItems={productivityItems}
             utilityItems={utilityItems}
             audioItems={audioItems}
+            videoItems={videoItems}
           />
           <HomeAuthoritySection latestPosts={latestPosts} locale={locale} />
         </div>

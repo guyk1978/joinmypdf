@@ -93,6 +93,8 @@ const LUCIDE_BY_KEY = {
   fingerprint: Fingerprint,
   scale: Scale,
   clock: Clock,
+  "book-open": BookOpen,
+  "file-type-2": FileType2,
   "arrow-left-right": ArrowLeftRight,
   database: Database,
   music: Music,
@@ -106,6 +108,7 @@ const LUCIDE_BY_KEY = {
   "panel-top": PanelTop,
   "eye-off": EyeOff,
   "pen-line": PenLine,
+  video: Video,
 } satisfies Record<string, LucideIcon>;
 
 const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
@@ -154,6 +157,10 @@ const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
   "uuid-generator": "fingerprint",
   "unit-converter": "scale",
   "timezone-converter": "clock",
+  "reading-time-calculator": "book-open",
+  "mp3-tools-hub": "file-audio",
+  "mp4-tools-hub": "video",
+  "case-converter": "file-type-2",
 };
 
 for (const tool of toolsList) {

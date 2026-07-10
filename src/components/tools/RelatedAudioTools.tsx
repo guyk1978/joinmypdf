@@ -4,6 +4,8 @@ import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection"
 import { toolsList } from "@/data/tools";
 import { getRelatedAudioToolIds } from "@/lib/audio-tool-page";
 
+export { RelatedAudioToolsHub } from "@/components/tools/RelatedAudioToolsHub";
+
 type RelatedAudioToolsProps = {
   toolId: string;
 };

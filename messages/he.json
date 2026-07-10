@@ -66,7 +66,8 @@
       "toolTag": "כלי",
       "articleTag": "מאמר",
       "open": "פתח חיפוש",
-      "close": "סגור חיפוש"
+      "close": "סגור חיפוש",
+      "pressEnterHint": "לחצו Enter לכל התוצאות"
     },
     "megaMenu": {
       "convert": "המרה",
@@ -169,6 +170,7 @@
       "unitConverter": "ממיר יחידות",
       "timezoneConverter": "ממיר אזורי זמן",
       "readingTimeCalculator": "מחשבון זמן קריאה",
+      "caseConverter": "ממיר רישיות",
       "mergePdf": "מיזוג PDF",
       "splitPdf": "פיצול PDF",
       "compressPdf": "דחיסת PDF",
@@ -369,6 +371,10 @@
     "viewAllProductivityTools": "צפה בכל כלי הפרודוקטיביות",
     "viewAllAudioTools": "צפה בכל כלי האודיו",
     "audioSectionTitle": "כלי אודיו",
+    "mp3ToolsHubLabel": "מרכז כלי MP3",
+    "videoSectionTitle": "כלי וידאו",
+    "mp4ToolsHubLabel": "מרכז כלי MP4",
+    "viewAllVideoTools": "צפה בכל כלי הוידאו",
     "audioToolsDirectoryTitle": "כלי אודיו",
     "audioToolsDirectoryDescription": "המרה, חיתוך והגברת MP3 בדפדפן עם ffmpeg.wasm — ללא העלאה לשרת.",
     "showMoreTools": "הצג עוד ({count})",
@@ -606,6 +612,14 @@
         "wordCharacterCounter": {
           "label": "מונה מילים ותווים",
           "description": "ספור תווים, מילים, משפטים ופסקאות בזמן אמת — תומך בעברית ובאנגלית."
+        },
+        "readingTimeCalculator": {
+          "label": "מחשבון זמן קריאה",
+          "description": "הערך זמן קריאה למאמרים ותסריטים."
+        },
+        "caseConverter": {
+          "label": "ממיר רישיות",
+          "description": "המר רישיות טקסט: camelCase, snake_case, UPPERCASE ועוד."
         }
       }
     },
@@ -616,7 +630,7 @@
     "securityToolsDirectoryTitle": "כלי אבטחה",
     "securityToolsDirectoryDescription": "צור סיסמאות, Hash ו-UUID מקומית — שום דבר לא עוזב את המכשיר.",
     "productivityToolsDirectoryTitle": "כלי פרודוקטיביות",
-    "productivityToolsDirectoryDescription": "המר יחידות, השווה אזורי זמן וספור מילים — עוזרים קלים בדפדפן.",
+    "productivityToolsDirectoryDescription": "המר יחידות, אזורי זמן ורישיות, ספור מילים והערך זמן קריאה — עוזרים קלים בדפדפן.",
     "utilitiesDirectoryTitle": "כלי עזר",
     "utilitiesDirectoryDescription": "מחוללי favicon וכלי טקסט — הכל מעובד מקומית בדפדפן.",
     "textJsonToolsDirectoryTitle": "כלי טקסט ו-JSON",
@@ -784,6 +798,18 @@
       "csv-to-json": "המרת CSV ל-JSON אונליין",
       "html-markdown-converter": "ממיר HTML/Markdown אונליין"
     }
+  },
+  "SearchPage": {
+    "titleDefault": "חיפוש",
+    "titleWithQuery": "תוצאות חיפוש עבור: {query}",
+    "metaTitle": "חיפוש",
+    "metaTitleWithQuery": "חיפוש: {query}",
+    "metaDescription": "חפשו כלים ומדריכים ב-JoinMyPDF. כל העיבוד מתבצע מקומית בדפדפן.",
+    "metaDescriptionWithQuery": "תוצאות חיפוש עבור \"{query}\" בכלים ובמדריכים של JoinMyPDF.",
+    "noQuery": "הקלידו לפחות שני תווים בתיבת החיפוש כדי למצוא כלים ומאמרים.",
+    "noResults": "לא נמצאו כלים",
+    "browseAllTools": "עיון בכל הכלים",
+    "resultCount": "{count, plural, one {תוצאה אחת} other {# תוצאות}}"
   },
   "ToolsDirectory": {
     "badge": "מדריך כלים",
@@ -999,6 +1025,7 @@
     "workflowBridgeTitle": "יישם את המדריך עם {tool}",
     "workflowBridgeCta": "פתח את {tool}",
     "readTimeMinutes": "{mins} דק' קריאה",
+    "mp3ToolsHubCta": "מוכן לעבד את האודיו שלך? בקר ב<link>מרכז כלי ה-MP3</link> שלנו להמרה ודחיסה מקומית וחינמית.",
     "categories": {
       "conversion": "המרה",
       "editing": "עריכה",
@@ -1045,6 +1072,10 @@
     "featuredGuides": "מדריכים מומלצים",
     "moreInTopic": "עוד בנושא זה",
     "relatedTools": "כלים קשורים"
+  },
+  "RelatedAudioTools": {
+    "hubPrompt": "רוצה עוד? גלה את מערך כלי האודיו המלא שלנו.",
+    "viewAllMp3Tools": "צפה בכל כלי ה-MP3"
   },
   "DataTool": {
     "dropzoneAria": "העלאת CSV או JSON",
@@ -1912,6 +1943,56 @@
     "wordsLabel": "מילים",
     "sentencesLabel": "משפטים",
     "paragraphsLabel": "פסקאות"
+  },
+  "CaseConverterPage": {
+    "metaTitle": "ממיר רישיות | כלי המרת רישיות מקצועי | JoinMyPDF",
+    "metaDescription": "המר טקסט ל-UPPERCASE, lowercase, Title Case, camelCase, snake_case ו-kebab-case בדפדפן. פרטי, מיידי וחינם — ללא העלאות.",
+    "title": "ממיר רישיות",
+    "placeholder": "הקלד או הדבק טקסט כאן…",
+    "infoTitle": "על סגנונות רישיות ופרטיות",
+    "infoCamelSnake": "camelCase מחבר מילים ללא רווחים ומגדיל את האות הראשונה בכל מילה מהשנייה ואילך (לדוגמה userProfileId). snake_case משתמש במילים באותיות קטנות המופרדות בקו תחתון (לדוגמה user_profile_id). שני הסגנונות נפוצים בתכנות — ב-JavaScript לרוב משתמשים ב-camelCase, בעוד Python ומסדי נתונים נוטים ל-snake_case.",
+    "infoPrivacy": "הכלי פועל לחלוטין בדפדפן שלך. הטקסט שלך לא מועלה, לא נרשם ולא נשלח לשום שרת. עיבוד מקומי בלבד שומר על טיוטות, מפתחות API ושמות פנימיים פרטיים.",
+    "schemaName": "ממיר רישיות",
+    "schemaDescription": "המר טקסט ל-UPPERCASE, lowercase, Title Case, camelCase, snake_case ו-kebab-case. פועל לחלוטין בדפדפן — ללא העלאה וללא מעקב.",
+    "schemaFeatureUppercase": "UPPERCASE",
+    "schemaFeatureLowercase": "lowercase",
+    "schemaFeatureTitleCase": "Title Case",
+    "schemaFeatureCamelCase": "camelCase",
+    "schemaFeatureSnakeCase": "snake_case",
+    "schemaFeatureKebabCase": "kebab-case",
+    "schemaFeatureCopy": "העתקה ללוח"
+  },
+  "Mp3ToolsPage": {
+    "metaTitle": "כלי MP3 | המרה, דחיסה ואופטימיזציה של אודיו",
+    "metaDescription": "כלי MP3 חינמיים בדפדפן להמרה ודחיסת אודיו. עיבוד מקומי ב-100% עם ffmpeg.wasm — ללא העלאות.",
+    "title": "השתמש בכלי MP3 בחינם אונליין",
+    "description": "המר ודחוס קבצי MP3 לחלוטין בדפדפן שלך. הכלים פועלים מקומית עם ffmpeg.wasm — האודיו שלך לא עוזב את המכשיר.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "backToHome": "חזרה לדף הבית",
+    "relatedGuidesTitle": "מדריכים קשורים",
+    "schemaName": "כלי MP3",
+    "schemaDescription": "כלי MP3 חינמיים אונליין להמרה ודחיסה. עיבוד מבוסס דפדפן בלבד ללא העלאות לשרת.",
+    "tools": {
+      "mp3Converter": "ממיר MP3",
+      "audioCompressor": "דחיסת אודיו",
+      "mp3Compressor": "דחיסת MP3"
+    }
+  },
+  "Mp4ToolsPage": {
+    "metaTitle": "כלי MP4 | אופטימיזציה, המרה ועריכת וידאו",
+    "metaDescription": "כלי MP4 חינמיים בדפדפן להמרה, דחיסה ושינוי גודל וידאו. עיבוד מקומי ב-100% עם ffmpeg.wasm — ללא העלאות ענן איטיות.",
+    "title": "השתמש בכלי MP4 בחינם אונליין",
+    "description": "בצע אופטימיזציה, המרה ועריכה של וידאו MP4 לחלוטין בדפדפן עם ffmpeg.wasm. עבד על קבצי MP4 באיכות גבוהה מקומית ללא צורך בהעלאות ענן איטיות — הצילומים שלך לא עוזבים את המכשיר.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "backToHome": "חזרה לדף הבית",
+    "relatedGuidesTitle": "מדריכים קשורים",
+    "schemaName": "כלי MP4",
+    "schemaDescription": "כלי MP4 חינמיים אונליין לאופטימיזציה, המרה ועריכת וידאו. עיבוד מבוסס דפדפן בלבד ללא העלאות לשרת.",
+    "tools": {
+      "videoToMp4": "המרת וידאו ל-MP4",
+      "videoCompressor": "דחיסת וידאו",
+      "videoResizer": "שינוי גודל וידאו"
+    }
   },
   "UserAgentParser": {
     "liveTitle": "הדפדפן שלך",

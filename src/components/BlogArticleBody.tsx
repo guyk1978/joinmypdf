@@ -2,7 +2,9 @@ import { Fragment } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { AdContainer } from "@/components/AdContainer";
+import { BlogArticleMp3ToolsCta } from "@/components/BlogArticleMp3ToolsCta";
 import type { BlogPost, BlogSection } from "@/lib/types";
+import { getMp3ToolsCtaInsertAfterParagraph } from "@/lib/blog-audio-category";
 import { homePrimaryPillBtn } from "@/lib/tool-ui";
 import { registry } from "@/lib/registry";
 
@@ -52,18 +54,25 @@ export function BlogArticleBody({ post }: { post: BlogPost }) {
   const primaryTool = primarySlug ? registry.tools.find((t) => t.slug === primarySlug) : null;
   const primaryToolCtaLabel = blocks?.primaryToolCtaLabel?.trim();
 
+  const mp3CtaInsertAfter = getMp3ToolsCtaInsertAfterParagraph(post);
   let paragraphCount = 0;
   let midAdInserted = false;
+  let mp3CtaInserted = false;
 
   const renderParagraph = (p: string, key: string) => {
     paragraphCount += 1;
     const insertAdAfter = paragraphCount === 2 && !midAdInserted;
     if (insertAdAfter) midAdInserted = true;
 
+    const insertMp3Cta =
+      mp3CtaInsertAfter !== null && paragraphCount === mp3CtaInsertAfter && !mp3CtaInserted;
+    if (insertMp3Cta) mp3CtaInserted = true;
+
     return (
       <Fragment key={key}>
         <p className="article-prose">{p}</p>
         {insertAdAfter ? <AdContainer variant="article" /> : null}
+        {insertMp3Cta ? <BlogArticleMp3ToolsCta /> : null}
       </Fragment>
     );
   };

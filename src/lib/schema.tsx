@@ -75,6 +75,37 @@ export function homeSoftwareApplicationLd(args: {
   };
 }
 
+export function webApplicationLd(args: {
+  name: string;
+  description: string;
+  pathname: string;
+  locale?: string;
+  featureList: string[];
+  applicationCategory?: string;
+}) {
+  const { name, description, pathname, locale, featureList, applicationCategory } = args;
+  const priceCurrency = locale === "he" ? "ILS" : "USD";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name,
+    description,
+    applicationCategory: applicationCategory ?? "UtilityApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency,
+    },
+    featureList,
+    isAccessibleForFree: true,
+    inLanguage: ["en", "he"],
+    url: absoluteUrl(pathname),
+  };
+}
+
 export function softwareApplicationLd(args: {
   tool: ToolDefinition;
   variant: ToolVariant | null;

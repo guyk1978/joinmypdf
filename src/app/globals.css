@@ -5957,6 +5957,16 @@ html:has(.home-page-shell--minimal) body {
   color: #737373;
 }
 
+.site-search__hint {
+  margin: 0.5rem 0.75rem 0.35rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #262626;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: #737373;
+  text-align: center;
+}
+
 
 
 .site-search__list {

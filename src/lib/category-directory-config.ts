@@ -44,6 +44,7 @@ type CategorySpec = {
   workflows: WorkflowSpec[];
   buildItems: (tHome: HomeTranslator) => { id: string; href: string; label: string }[];
   featuredIds?: readonly string[];
+  layout?: "default" | "flat-grid";
 };
 
 const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
@@ -121,13 +122,9 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
   productivity: {
     id: "productivity",
-    featuredIds: ["unit-converter", "timezone-converter", "word-character-counter"],
+    layout: "flat-grid",
     buildItems: buildHomeProductivityToolItems,
-    workflows: [
-      { id: "measure", toolIds: ["unit-converter"] },
-      { id: "time", toolIds: ["timezone-converter"] },
-      { id: "text", toolIds: ["word-character-counter"] },
-    ],
+    workflows: [],
   },
   favicon: {
     id: "favicon",
@@ -345,8 +342,13 @@ export function getCategoryDirectoryPageProps(
   tCategory: CategoryDirectoryTranslator,
 ) {
   const meta = DIRECTORY_META[categoryId];
-  const featuredItems = buildCategoryDirectoryFeaturedItems(categoryId, tHome);
+  const spec = CATEGORY_SPECS[categoryId];
+  const usesFlatGrid = spec.layout === "flat-grid";
+  const featuredItems = usesFlatGrid ? [] : buildCategoryDirectoryFeaturedItems(categoryId, tHome);
   const startHereKey = `startHereDescription.${categoryId}`;
+  const flatGridItems = usesFlatGrid
+    ? spec.buildItems(tHome).map((item) => toGridItem(item))
+    : undefined;
 
   return {
     title: tHome(meta.titleKey),
@@ -356,7 +358,8 @@ export function getCategoryDirectoryPageProps(
     featuredTitle: featuredItems.length > 0 ? tCategory("startHere") : undefined,
     featuredDescription:
       featuredItems.length > 0 && tCategory.has(startHereKey) ? tCategory(startHereKey) : undefined,
-    workflowColumns: buildCategoryDirectoryColumns(categoryId, tHome, tCategory),
+    workflowColumns: usesFlatGrid ? [] : buildCategoryDirectoryColumns(categoryId, tHome, tCategory),
+    flatGridItems,
     backToHomeLabel: tCategory("backToHome"),
     browseAllToolsLabel: tCategory("browseAllTools"),
     footerNavLabel: tCategory("footerNavLabel"),
