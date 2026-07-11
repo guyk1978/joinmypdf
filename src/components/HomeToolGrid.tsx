@@ -16,6 +16,7 @@ import type { HomeFeaturedSecurityItem } from "@/lib/security-tools";
 import type { HomeFeaturedProductivityItem } from "@/lib/productivity-tools";
 import type { HomeFeaturedAudioItem } from "@/lib/audio-tools";
 import type { HomeFeaturedVideoItem } from "@/lib/video-tools";
+import type { HomeFeaturedFaviconItem } from "@/lib/favicon-tools";
 
 const CATEGORY_PREVIEW = 3;
 
@@ -91,6 +92,7 @@ type HomeToolGridProps = {
   securityItems: HomeFeaturedSecurityItem[];
   productivityItems: HomeFeaturedProductivityItem[];
   utilityItems: HomeFeaturedUtilityItem[];
+  faviconItems: HomeFeaturedFaviconItem[];
   audioItems: HomeFeaturedAudioItem[];
   videoItems: HomeFeaturedVideoItem[];
 };
@@ -111,6 +113,7 @@ export function HomeToolGrid({
   securityItems,
   productivityItems,
   utilityItems,
+  faviconItems,
   audioItems,
   videoItems,
 }: HomeToolGridProps) {
@@ -120,9 +123,16 @@ export function HomeToolGrid({
     {
       id: "home-cat-image",
       title: t("imageSectionTitle"),
-      viewAllHref: "/image-tools/",
-      viewAllLabel: t("viewAllImageTools"),
+      viewAllHref: "/tools/png-tools/",
+      viewAllLabel: t("viewAllPngTools"),
       items: toFlatItems(imageItems),
+    },
+    {
+      id: "home-cat-favicon",
+      title: t("faviconSectionTitle"),
+      viewAllHref: "/tools/favicon-tools/",
+      viewAllLabel: t("viewAllFaviconTools"),
+      items: toFlatItems(faviconItems),
     },
     {
       id: "home-cat-audio",
@@ -169,8 +179,8 @@ export function HomeToolGrid({
     {
       id: "home-cat-utilities",
       title: t("utilitiesSectionTitle"),
-      viewAllHref: "/utilities/",
-      viewAllLabel: t("viewAllUtilities"),
+      viewAllHref: "/text-json-tools/",
+      viewAllLabel: t("viewAllTextJsonTools"),
       items: toFlatItems(utilityItems),
     },
   ];

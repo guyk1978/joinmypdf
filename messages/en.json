@@ -359,8 +359,13 @@
     "viewAllPdfTools": "View all PDF tools",
     "viewAllImageTools": "View all Image tools",
     "viewAllFaviconTools": "View all Favicon tools",
+    "faviconToolsHubLabel": "Favicon Tools Hub",
     "viewAllUtilities": "View all Utilities",
     "viewAllTextJsonTools": "View all Text & JSON tools",
+    "jsonToolsHubLabel": "JSON Tools",
+    "yamlToolsHubLabel": "YAML Tools",
+    "xmlToolsHubLabel": "XML Tools",
+    "viewAllJsonTools": "View all JSON tools",
     "viewAllDeveloperTools": "View all Developer tools",
     "viewAllDataConversionTools": "View all Data & Conversion tools",
     "viewAllSecurityTools": "View all Security tools",
@@ -371,6 +376,8 @@
     "videoSectionTitle": "Video Tools",
     "mp4ToolsHubLabel": "MP4 Tools Hub",
     "viewAllVideoTools": "View all video tools",
+    "pngToolsHubLabel": "PNG Tools Hub",
+    "viewAllPngTools": "View all PNG tools",
     "audioToolsDirectoryTitle": "Audio tools",
     "audioToolsDirectoryDescription": "Convert, trim, and boost MP3 files in your browser with ffmpeg.wasm — no uploads.",
     "showMoreTools": "Show more ({count})",
@@ -620,7 +627,7 @@
       }
     },
     "developerToolsDirectoryTitle": "Developer tools",
-    "developerToolsDirectoryDescription": "Parse user agents, debug JWTs, and generate QR codes — all processed locally in your browser.",
+    "developerToolsDirectoryDescription": "JSON, YAML, and XML utilities plus user-agent parsing, JWT debugging, and QR generation — all processed locally in your browser.",
     "dataConversionToolsDirectoryTitle": "Data & Conversion tools",
     "dataConversionToolsDirectoryDescription": "Convert YAML, CSV, and SQL formats in your browser — private, fast, and server-free.",
     "securityToolsDirectoryTitle": "Security tools",
@@ -2074,6 +2081,99 @@
       "videoCompressor": "Video Compressor",
       "videoResizer": "Video Resizer"
     }
+  },
+  "PngToolsPage": {
+    "metaTitle": "PNG Tools | Image Optimizer, Converter & Compressor",
+    "metaDescription": "Free browser-based PNG tools for image conversion, compression, and optimization. 100% local processing — your images never leave your device.",
+    "title": "Use PNG Tools Free Online",
+    "description": "Convert, compress, and optimize PNG images entirely in your browser. These 100% local tools handle conversion, compression, and resizing without uploads — your files never leave your device.",
+    "backToAllTools": "Back to all tools",
+    "backToHome": "Back to home",
+    "relatedGuidesTitle": "Related Guides",
+    "schemaName": "PNG Tools",
+    "schemaDescription": "Free online PNG tools for image conversion, compression, and optimization. 100% browser-based processing with no server uploads.",
+    "tools": {
+      "convertToPng": "Convert to PNG",
+      "compressImage": "PNG Compressor",
+      "resizeImage": "Image Resizer",
+      "svgToPng": "SVG to PNG",
+      "imageOptimizer": "Image Optimizer"
+    }
+  },
+  "FaviconToolsPage": {
+    "metaTitle": "Favicon Tools | Generate, Convert & Optimize",
+    "metaDescription": "Free browser-based favicon tools for generation, conversion, and optimization. 100% local processing — your icons never leave your device.",
+    "title": "Use Favicon Tools Free Online",
+    "description": "Generate, convert, and optimize favicons entirely in your browser. These local tools create ICO/PNG packs, crop icons, and compress assets without uploads — your files never leave your device.",
+    "backToAllTools": "Back to all tools",
+    "backToHome": "Back to home",
+    "relatedGuidesTitle": "Related Guides",
+    "schemaName": "Favicon Tools",
+    "schemaDescription": "Free online favicon tools for generation, conversion, and optimization. 100% browser-based processing with no server uploads.",
+    "tools": {
+      "generateFavicon": "Generate Favicon",
+      "pngToIco": "PNG to ICO",
+      "icoToPng": "ICO to PNG",
+      "svgToFavicon": "SVG to Favicon",
+      "faviconCompressor": "Favicon Compressor",
+      "faviconPack": "Favicon Pack",
+      "appleTouchIcon": "Apple Touch Icon",
+      "faviconCropper": "Favicon Cropper",
+      "transparentFavicon": "Transparent Favicon"
+    }
+  },
+  "JsonToolsPage": {
+    "metaTitle": "JSON Tools | Format, Validate & Convert JSON | JoinMyPDF",
+    "metaDescription": "Free browser-based JSON tools for formatting, validation, and conversion. 100% local processing — your data never leaves your device.",
+    "title": "Use JSON Tools Free Online",
+    "description": "Professional-grade JSON utilities, optimized for local browser execution. Format, validate, minify, and convert JSON to CSV or YAML without uploads — your data never leaves your device.",
+    "backToAllTools": "Back to all tools",
+    "backToDeveloperTools": "Back to Developer tools",
+    "backToHome": "Back to home",
+    "relatedGuidesTitle": "Related Guides",
+    "relatedFormatsTitle": "Related Formats",
+    "exploreYamlTools": "Explore YAML Tools",
+    "exploreXmlTools": "Explore XML Tools",
+    "relatedFormatsBlurb": "Working with data? Easily convert your JSON structures to YAML or XML for seamless integration with your development workflow.",
+    "schemaName": "JSON Tools",
+    "schemaDescription": "Free online JSON tools for formatting, validation, and conversion. 100% browser-based processing with no server uploads.",
+    "tools": {
+      "jsonFormatter": "JSON Formatter",
+      "jsonMinifier": "JSON Minifier",
+      "jsonToCsv": "JSON to CSV",
+      "csvToJson": "CSV to JSON",
+      "yamlJsonConverter": "YAML ↔ JSON"
+    }
+  },
+  "YamlToolsPage": {
+    "metaTitle": "YAML Tools | Convert & Format YAML | JoinMyPDF",
+    "metaDescription": "Free browser-based YAML tools for conversion and formatting. 100% local processing — your data never leaves your device.",
+    "title": "Use YAML Tools Free Online",
+    "description": "Convert and work with YAML entirely in your browser. These 100% local tools handle YAML ↔ JSON conversion without uploads — your data never leaves your device.",
+    "backToAllTools": "Back to all tools",
+    "backToDeveloperTools": "Back to Developer tools",
+    "relatedFormatsTitle": "Related Formats",
+    "exploreJsonTools": "Explore JSON Tools",
+    "exploreXmlTools": "Explore XML Tools",
+    "schemaName": "YAML Tools",
+    "schemaDescription": "Free online YAML tools for conversion and formatting. 100% browser-based processing with no server uploads.",
+    "tools": {
+      "yamlJsonConverter": "YAML ↔ JSON"
+    }
+  },
+  "XmlToolsPage": {
+    "metaTitle": "XML Tools | Convert & Work with XML | JoinMyPDF",
+    "metaDescription": "Free browser-based XML tools for data conversion workflows. 100% local processing — your data never leaves your device.",
+    "title": "Use XML Tools Free Online",
+    "description": "Work with XML data entirely in your browser. Convert related formats like JSON and YAML locally — your data never leaves your device.",
+    "backToAllTools": "Back to all tools",
+    "backToDeveloperTools": "Back to Developer tools",
+    "relatedFormatsTitle": "Related Formats",
+    "exploreJsonTools": "Explore JSON Tools",
+    "exploreYamlTools": "Explore YAML Tools",
+    "relatedFormatsBlurb": "Working with data? Easily convert between JSON, YAML, and XML for seamless integration with your development workflow.",
+    "schemaName": "XML Tools",
+    "schemaDescription": "Free online XML tools for data conversion workflows. 100% browser-based processing with no server uploads."
   },
   "UserAgentParser": {
     "liveTitle": "Your browser",

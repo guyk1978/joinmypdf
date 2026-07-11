@@ -1,10 +1,21 @@
 import { resolveHomeToolCopy } from "@/lib/home-tool-copy";
+import { JSON_TOOLS_HUB_PATH } from "@/lib/json-tools";
+import { YAML_TOOLS_HUB_PATH } from "@/lib/yaml-tools";
+import { XML_TOOLS_HUB_PATH } from "@/lib/xml-tools";
 
 const DEVELOPER_ITEMS_NS = "developerTools";
 
 export type HomeDeveloperToolId = "user-agent-parser" | "qr-code-generator" | "jwt-debugger";
 
-export type HomeDeveloperToolIconKey = "globe" | "qr-code" | "key-round";
+export type HomeDeveloperHubId = "json-tools-hub" | "yaml-tools-hub" | "xml-tools-hub";
+
+export type HomeDeveloperToolIconKey =
+  | "globe"
+  | "qr-code"
+  | "key-round"
+  | "braces"
+  | "file-code"
+  | "code-xml";
 
 export type HomeDeveloperToolItem = {
   id: HomeDeveloperToolId;
@@ -23,9 +34,39 @@ const DEVELOPER_TOOL_META: Record<
   "jwt-debugger": { iconKey: "key-round", messageKey: "jwtDebugger" },
 };
 
+const DEVELOPER_HUB_META: Record<
+  HomeDeveloperHubId,
+  { href: string; iconKey: HomeDeveloperToolIconKey; labelKey: string; fallbackLabel: string }
+> = {
+  "json-tools-hub": {
+    href: JSON_TOOLS_HUB_PATH,
+    iconKey: "braces",
+    labelKey: "jsonToolsHubLabel",
+    fallbackLabel: "JSON Tools",
+  },
+  "yaml-tools-hub": {
+    href: YAML_TOOLS_HUB_PATH,
+    iconKey: "file-code",
+    labelKey: "yamlToolsHubLabel",
+    fallbackLabel: "YAML Tools",
+  },
+  "xml-tools-hub": {
+    href: XML_TOOLS_HUB_PATH,
+    iconKey: "code-xml",
+    labelKey: "xmlToolsHubLabel",
+    fallbackLabel: "XML Tools",
+  },
+};
+
 export const HOME_DEVELOPER_TOOL_IDS = Object.keys(DEVELOPER_TOOL_META) as HomeDeveloperToolId[];
 
-/** Homepage — 3 flagship developer tools */
+/** Homepage — format hubs first, then flagship developer tools */
+export const HOMEPAGE_FEATURED_DEVELOPER_HUB_IDS = [
+  "json-tools-hub",
+  "yaml-tools-hub",
+  "xml-tools-hub",
+] as const satisfies readonly HomeDeveloperHubId[];
+
 export const HOMEPAGE_FEATURED_DEVELOPER_IDS = [
   "user-agent-parser",
   "jwt-debugger",
@@ -33,7 +74,7 @@ export const HOMEPAGE_FEATURED_DEVELOPER_IDS = [
 ] as const;
 
 export type HomeFeaturedDeveloperItem = {
-  id: HomeDeveloperToolId;
+  id: HomeDeveloperToolId | HomeDeveloperHubId;
   href: string;
   label: string;
   iconKey: HomeDeveloperToolIconKey;
@@ -54,7 +95,17 @@ function resolveDeveloperToolCopy(
 }
 
 export function buildHomepageFeaturedDeveloperItems(tHome: HomeTranslator): HomeFeaturedDeveloperItem[] {
-  return HOMEPAGE_FEATURED_DEVELOPER_IDS.map((id) => {
+  const hubItems = HOMEPAGE_FEATURED_DEVELOPER_HUB_IDS.map((id) => {
+    const meta = DEVELOPER_HUB_META[id];
+    return {
+      id,
+      href: meta.href,
+      label: tHome.has(meta.labelKey) ? tHome(meta.labelKey) : meta.fallbackLabel,
+      iconKey: meta.iconKey,
+    };
+  });
+
+  const toolItems = HOMEPAGE_FEATURED_DEVELOPER_IDS.map((id) => {
     const { iconKey, messageKey } = DEVELOPER_TOOL_META[id];
     return {
       id,
@@ -63,6 +114,8 @@ export function buildHomepageFeaturedDeveloperItems(tHome: HomeTranslator): Home
       iconKey,
     };
   });
+
+  return [...hubItems, ...toolItems];
 }
 
 export function buildHomeDeveloperToolItems(tHome: HomeTranslator): HomeDeveloperToolItem[] {

@@ -27,6 +27,7 @@ import { buildHomepageFeaturedDataConversionItems } from "@/lib/data-conversion-
 import { buildHomepageFeaturedSecurityItems } from "@/lib/security-tools";
 import { buildHomepageFeaturedProductivityItems } from "@/lib/productivity-tools";
 import { buildHomepageFeaturedUtilityItems } from "@/lib/utilities-tools";
+import { buildHomepageFeaturedFaviconItems } from "@/lib/favicon-tools";
 import { buildHomepageFeaturedAudioItems } from "@/lib/audio-tools";
 import { buildHomepageFeaturedVideoItems } from "@/lib/video-tools";
 import { HomeToolGrid } from "@/components/HomeToolGrid";
@@ -88,6 +89,7 @@ export default async function HomePage({ params }: Props) {
   const securityItems = buildHomepageFeaturedSecurityItems(tHome);
   const productivityItems = buildHomepageFeaturedProductivityItems(tHome);
   const utilityItems = buildHomepageFeaturedUtilityItems(tHome);
+  const faviconItems = buildHomepageFeaturedFaviconItems(tHome);
   const audioItems = buildHomepageFeaturedAudioItems(tHome);
   const videoItems = buildHomepageFeaturedVideoItems(tHome);
   const latestPosts = getRecentBlogPosts(getBlogRegistry(locale).blog || [], 3);
@@ -107,6 +109,7 @@ export default async function HomePage({ params }: Props) {
             securityItems={securityItems}
             productivityItems={productivityItems}
             utilityItems={utilityItems}
+            faviconItems={faviconItems}
             audioItems={audioItems}
             videoItems={videoItems}
           />

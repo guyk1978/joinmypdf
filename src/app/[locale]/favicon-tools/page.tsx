@@ -1,49 +1,19 @@
-import type { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { AppPageShell } from "@/components/AppPageShell";
-import { CategoryDirectoryShell } from "@/components/CategoryDirectoryShell";
-import { getCategoryDirectoryItemCount, getCategoryDirectoryPageProps } from "@/lib/category-directory-config";
-import { JsonLd } from "@/lib/schema";
-import { absoluteUrl } from "@/lib/site";
+"use client";
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
+import { useEffect } from "react";
+import { useRouter } from "@/i18n/navigation";
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Home" });
+/** Legacy `/favicon-tools` → hub at `/tools/favicon-tools/`. */
+export default function FaviconToolsRedirectPage() {
+  const router = useRouter();
 
-  return {
-    title: t("faviconToolsDirectoryTitle"),
-    description: t("faviconToolsDirectoryDescription"),
-    alternates: { canonical: `/${locale}/favicon-tools` },
-  };
-}
-
-export default async function FaviconToolsPage({ params }: Props) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-  const tHome = await getTranslations("Home");
-  const tCategory = await getTranslations("CategoryDirectory");
-  const page = getCategoryDirectoryPageProps("favicon", tHome, tCategory);
-  const itemCount = getCategoryDirectoryItemCount("favicon", tHome);
+  useEffect(() => {
+    router.replace("/tools/favicon-tools/");
+  }, [router]);
 
   return (
-    <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          name: page.title,
-          description: page.description,
-          url: absoluteUrl(`/${locale}/favicon-tools`),
-          numberOfItems: itemCount,
-        }}
-      />
-      <AppPageShell>
-        <CategoryDirectoryShell {...page} />
-      </AppPageShell>
-    </>
+    <p className="px-4 py-10 text-center text-sm text-[#a3a3a3]">
+      Redirecting to Favicon Tools…
+    </p>
   );
 }

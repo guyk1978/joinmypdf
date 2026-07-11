@@ -1,3 +1,5 @@
+import type { ToolGridItem } from "@/lib/tool-grid";
+
 export type HomeFaviconToolId =
   | "generate-favicon"
   | "png-to-ico"
@@ -51,7 +53,24 @@ const FAVICON_TOOL_META: Record<
 
 export const HOME_FAVICON_TOOL_IDS = Object.keys(FAVICON_TOOL_META) as HomeFaviconToolId[];
 
-/** Homepage — 3 most popular favicon tools */
+export const FAVICON_TOOLS_HUB_PATH = "/tools/favicon-tools/";
+
+/** Curated hub grid — generation, conversion, and optimization. */
+export const FAVICON_HUB_TOOL_IDS = [
+  "generate-favicon",
+  "png-to-ico",
+  "ico-to-png",
+  "svg-to-favicon",
+  "favicon-compressor",
+  "favicon-pack",
+  "apple-touch-icon",
+  "favicon-cropper",
+  "transparent-favicon",
+] as const;
+
+export type FaviconHubToolId = (typeof FAVICON_HUB_TOOL_IDS)[number];
+
+/** Homepage — hub + 3 most popular favicon tools */
 export const HOMEPAGE_FEATURED_FAVICON_IDS = [
   "generate-favicon",
   "png-to-ico",
@@ -59,7 +78,7 @@ export const HOMEPAGE_FEATURED_FAVICON_IDS = [
 ] as const;
 
 export type HomeFeaturedFaviconItem = {
-  id: HomeFaviconToolId;
+  id: HomeFaviconToolId | "favicon-tools-hub";
   href: string;
   label: string;
   iconKey: HomeFaviconToolIconKey;
@@ -70,8 +89,48 @@ type HomeTranslator = {
   has: (key: string) => boolean;
 };
 
+type FaviconToolsTranslator = {
+  (key: string): string;
+  has: (key: string) => boolean;
+};
+
+export function buildFaviconToolGridItems(t?: FaviconToolsTranslator): ToolGridItem[] {
+  return FAVICON_HUB_TOOL_IDS.map((id) => {
+    const meta = FAVICON_TOOL_META[id];
+    const labelKey = `tools.${meta.messageKey}`;
+    const homeLabelKey = `faviconTools.items.${meta.messageKey}.label`;
+    const fallback = meta.messageKey;
+    const label = t?.has(labelKey)
+      ? t(labelKey)
+      : t?.has(homeLabelKey)
+        ? t(homeLabelKey)
+        : fallback;
+
+    return {
+      href: `/tools/${id}/`,
+      label,
+      slugHint: id,
+    };
+  });
+}
+
+export function getFaviconToolFeatureLabels(t?: FaviconToolsTranslator): string[] {
+  return buildFaviconToolGridItems(t).map((item) => item.label);
+}
+
 export function buildHomepageFeaturedFaviconItems(tHome: HomeTranslator): HomeFeaturedFaviconItem[] {
-  return HOMEPAGE_FEATURED_FAVICON_IDS.map((id) => {
+  const hubLabel = tHome.has("faviconToolsHubLabel")
+    ? tHome("faviconToolsHubLabel")
+    : "Favicon Tools Hub";
+
+  const hubItem: HomeFeaturedFaviconItem = {
+    id: "favicon-tools-hub",
+    href: FAVICON_TOOLS_HUB_PATH,
+    label: hubLabel,
+    iconKey: "sparkles",
+  };
+
+  const toolItems = HOMEPAGE_FEATURED_FAVICON_IDS.map((id) => {
     const meta = FAVICON_TOOL_META[id];
     return {
       id,
@@ -80,6 +139,8 @@ export function buildHomepageFeaturedFaviconItems(tHome: HomeTranslator): HomeFe
       iconKey: meta.iconKey,
     };
   });
+
+  return [hubItem, ...toolItems];
 }
 
 export function buildHomeFaviconToolItems(tHome: HomeTranslator): HomeFaviconToolItem[] {

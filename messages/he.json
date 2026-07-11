@@ -363,8 +363,13 @@
     "viewAllPdfTools": "צפה בכל כלי ה-PDF",
     "viewAllImageTools": "צפה בכל כלי התמונה",
     "viewAllFaviconTools": "צפה בכל כלי ה-Favicon",
+    "faviconToolsHubLabel": "מרכז כלי Favicon",
     "viewAllUtilities": "צפה בכל כלי העזר",
     "viewAllTextJsonTools": "צפה בכל כלי הטקסט ו-JSON",
+    "jsonToolsHubLabel": "כלי JSON",
+    "yamlToolsHubLabel": "כלי YAML",
+    "xmlToolsHubLabel": "כלי XML",
+    "viewAllJsonTools": "צפה בכל כלי ה-JSON",
     "viewAllDeveloperTools": "צפה בכל כלי המפתחים",
     "viewAllDataConversionTools": "צפה בכל כלי הנתונים וההמרה",
     "viewAllSecurityTools": "צפה בכל כלי האבטחה",
@@ -375,6 +380,8 @@
     "videoSectionTitle": "כלי וידאו",
     "mp4ToolsHubLabel": "מרכז כלי MP4",
     "viewAllVideoTools": "צפה בכל כלי הוידאו",
+    "pngToolsHubLabel": "מרכז כלי PNG",
+    "viewAllPngTools": "צפה בכל כלי ה-PNG",
     "audioToolsDirectoryTitle": "כלי אודיו",
     "audioToolsDirectoryDescription": "המרה, חיתוך והגברת MP3 בדפדפן עם ffmpeg.wasm — ללא העלאה לשרת.",
     "showMoreTools": "הצג עוד ({count})",
@@ -624,7 +631,7 @@
       }
     },
     "developerToolsDirectoryTitle": "כלי מפתחים",
-    "developerToolsDirectoryDescription": "נתח User-Agent, פענח JWT וצור קודי QR — הכל מעובד מקומית בדפדפן.",
+    "developerToolsDirectoryDescription": "כלי JSON, YAML ו-XML לצד ניתוח User-Agent, פענוח JWT ויצירת קודי QR — הכל מעובד מקומית בדפדפן.",
     "dataConversionToolsDirectoryTitle": "כלי נתונים והמרה",
     "dataConversionToolsDirectoryDescription": "המר פורמטי YAML, CSV ו-SQL בדפדפן — פרטי, מהיר וללא שרת.",
     "securityToolsDirectoryTitle": "כלי אבטחה",
@@ -1993,6 +2000,99 @@
       "videoCompressor": "דחיסת וידאו",
       "videoResizer": "שינוי גודל וידאו"
     }
+  },
+  "PngToolsPage": {
+    "metaTitle": "כלי PNG | אופטימיזציה, המרה ודחיסת תמונות",
+    "metaDescription": "כלי PNG חינמיים בדפדפן להמרה, דחיסה ואופטימיזציה של תמונות. עיבוד מקומי ב-100% — התמונות שלך לא עוזבות את המכשיר.",
+    "title": "השתמש בכלי PNG בחינם אונליין",
+    "description": "המר, דחוס ובצע אופטימיזציה לתמונות PNG לחלוטין בדפדפן. כלים מקומיים ב-100% להמרה, דחיסה ושינוי גודל ללא העלאות — הקבצים שלך לא עוזבים את המכשיר.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "backToHome": "חזרה לדף הבית",
+    "relatedGuidesTitle": "מדריכים קשורים",
+    "schemaName": "כלי PNG",
+    "schemaDescription": "כלי PNG חינמיים אונליין להמרה, דחיסה ואופטימיזציה של תמונות. עיבוד מבוסס דפדפן בלבד ללא העלאות לשרת.",
+    "tools": {
+      "convertToPng": "המרה ל-PNG",
+      "compressImage": "דחיסת PNG",
+      "resizeImage": "שינוי גודל תמונה",
+      "svgToPng": "SVG ל-PNG",
+      "imageOptimizer": "אופטימיזציית תמונה"
+    }
+  },
+  "FaviconToolsPage": {
+    "metaTitle": "כלי Favicon | יצירה, המרה ואופטימיזציה",
+    "metaDescription": "כלי Favicon חינמיים בדפדפן ליצירה, המרה ואופטימיזציה. עיבוד מקומי ב-100% — האייקונים שלך לא עוזבים את המכשיר.",
+    "title": "השתמש בכלי Favicon בחינם אונליין",
+    "description": "צור, המר ובצע אופטימיזציה ל-favicon לחלוטין בדפדפן. כלים מקומיים ליצירת חבילות ICO/PNG, חיתוך ודחיסה ללא העלאות — הקבצים שלך לא עוזבים את המכשיר.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "backToHome": "חזרה לדף הבית",
+    "relatedGuidesTitle": "מדריכים קשורים",
+    "schemaName": "כלי Favicon",
+    "schemaDescription": "כלי Favicon חינמיים אונליין ליצירה, המרה ואופטימיזציה. עיבוד מבוסס דפדפן בלבד ללא העלאות לשרת.",
+    "tools": {
+      "generateFavicon": "יצירת Favicon",
+      "pngToIco": "PNG ל-ICO",
+      "icoToPng": "ICO ל-PNG",
+      "svgToFavicon": "SVG ל-Favicon",
+      "faviconCompressor": "דחיסת Favicon",
+      "faviconPack": "חבילת Favicon",
+      "appleTouchIcon": "Apple Touch Icon",
+      "faviconCropper": "חיתוך Favicon",
+      "transparentFavicon": "Favicon שקוף"
+    }
+  },
+  "JsonToolsPage": {
+    "metaTitle": "כלי JSON | עיצוב, אימות והמרת JSON | JoinMyPDF",
+    "metaDescription": "כלי JSON חינמיים בדפדפן לעיצוב, אימות והמרה. עיבוד מקומי ב-100% — הנתונים שלך לא עוזבים את המכשיר.",
+    "title": "השתמש בכלי JSON בחינם אונליין",
+    "description": "כלי JSON ברמה מקצועית, מותאמים לביצוע מקומי בדפדפן. עצבו, אמתו, מזערו והמירו JSON ל-CSV או YAML ללא העלאות — הנתונים שלכם לא עוזבים את המכשיר.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "backToDeveloperTools": "חזרה לכלי מפתחים",
+    "backToHome": "חזרה לדף הבית",
+    "relatedGuidesTitle": "מדריכים קשורים",
+    "relatedFormatsTitle": "פורמטים קשורים",
+    "exploreYamlTools": "גלה כלי YAML",
+    "exploreXmlTools": "גלה כלי XML",
+    "relatedFormatsBlurb": "עובדים עם נתונים? המירו בקלות מבני JSON ל-YAML או XML לשילוב חלק בתהליך הפיתוח שלכם.",
+    "schemaName": "כלי JSON",
+    "schemaDescription": "כלי JSON חינמיים אונליין לעיצוב, אימות והמרה. עיבוד מבוסס דפדפן בלבד ללא העלאות לשרת.",
+    "tools": {
+      "jsonFormatter": "מעצב JSON",
+      "jsonMinifier": "מזער JSON",
+      "jsonToCsv": "JSON ל-CSV",
+      "csvToJson": "CSV ל-JSON",
+      "yamlJsonConverter": "YAML ↔ JSON"
+    }
+  },
+  "YamlToolsPage": {
+    "metaTitle": "כלי YAML | המרה ועיצוב YAML | JoinMyPDF",
+    "metaDescription": "כלי YAML חינמיים בדפדפן להמרה ועיצוב. עיבוד מקומי ב-100% — הנתונים שלך לא עוזבים את המכשיר.",
+    "title": "השתמש בכלי YAML בחינם אונליין",
+    "description": "המר ועבוד עם YAML לחלוטין בדפדפן. כלים מקומיים ב-100% להמרת YAML ↔ JSON ללא העלאות — הנתונים שלך לא עוזבים את המכשיר.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "backToDeveloperTools": "חזרה לכלי מפתחים",
+    "relatedFormatsTitle": "פורמטים קשורים",
+    "exploreJsonTools": "גלה כלי JSON",
+    "exploreXmlTools": "גלה כלי XML",
+    "schemaName": "כלי YAML",
+    "schemaDescription": "כלי YAML חינמיים אונליין להמרה ועיצוב. עיבוד מבוסס דפדפן בלבד ללא העלאות לשרת.",
+    "tools": {
+      "yamlJsonConverter": "YAML ↔ JSON"
+    }
+  },
+  "XmlToolsPage": {
+    "metaTitle": "כלי XML | המרה ועבודה עם XML | JoinMyPDF",
+    "metaDescription": "כלי XML חינמיים בדפדפן לזרימות המרת נתונים. עיבוד מקומי ב-100% — הנתונים שלך לא עוזבים את המכשיר.",
+    "title": "השתמש בכלי XML בחינם אונליין",
+    "description": "עבוד עם נתוני XML לחלוטין בדפדפן. המר פורמטים קשורים כמו JSON ו-YAML באופן מקומי — הנתונים שלך לא עוזבים את המכשיר.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "backToDeveloperTools": "חזרה לכלי מפתחים",
+    "relatedFormatsTitle": "פורמטים קשורים",
+    "exploreJsonTools": "גלה כלי JSON",
+    "exploreYamlTools": "גלה כלי YAML",
+    "relatedFormatsBlurb": "עובדים עם נתונים? המירו בקלות בין JSON, YAML ו-XML לשילוב חלק בתהליך הפיתוח שלכם.",
+    "schemaName": "כלי XML",
+    "schemaDescription": "כלי XML חינמיים אונליין לזרימות המרת נתונים. עיבוד מבוסס דפדפן בלבד ללא העלאות לשרת."
   },
   "UserAgentParser": {
     "liveTitle": "הדפדפן שלך",

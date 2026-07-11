@@ -20,13 +20,13 @@ export type ToolCategoryHub = {
 
 /** Nav category → category hub URL (aligned with `tools.ts` + directory pages). */
 const NAV_CATEGORY_HUBS: Partial<Record<ToolCategory, ToolCategoryHub>> = {
-  [c.favicon]: { path: "/favicon-tools/", labelKey: "breadcrumbHubFavicon" },
+  [c.favicon]: { path: "/tools/favicon-tools/", labelKey: "breadcrumbHubFavicon" },
   [c.image]: { path: "/image-tools/", labelKey: "breadcrumbHubImage" },
   [c.video]: { path: "/image-tools/", labelKey: "breadcrumbHubImage" },
   [c.developerBrowser]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.developerTokens]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.developerGenerators]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
-  [c.developerJson]: { path: "/text-json-tools/", labelKey: "breadcrumbHubTextJson" },
+  [c.developerJson]: { path: "/tools/json-tools/", labelKey: "breadcrumbHubJson" },
   [c.developerPublish]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.developerWorkflows]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.utilitiesEncoders]: { path: "/utilities/", labelKey: "breadcrumbHubUtilities" },

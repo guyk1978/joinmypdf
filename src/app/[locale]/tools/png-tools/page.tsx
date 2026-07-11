@@ -5,9 +5,9 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getRecentVideoMp4BlogPosts } from "@/lib/blog-video-category";
+import { getRecentImagePngBlogPosts } from "@/lib/blog-image-category";
 import { getBlogRegistry } from "@/lib/blog-registry";
-import { buildMp4ToolGridItems, getMp4ToolFeatureLabels, MP4_TOOLS_HUB_PATH } from "@/lib/mp4-tools";
+import { buildPngToolGridItems, getPngToolFeatureLabels, PNG_TOOLS_HUB_PATH } from "@/lib/png-tools";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 
@@ -15,32 +15,32 @@ type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Mp4ToolsPage" });
+  const t = await getTranslations({ locale, namespace: "PngToolsPage" });
 
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: {
-      canonical: `/${locale}${MP4_TOOLS_HUB_PATH}`,
-      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}${MP4_TOOLS_HUB_PATH}`])),
+      canonical: `/${locale}${PNG_TOOLS_HUB_PATH}`,
+      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}${PNG_TOOLS_HUB_PATH}`])),
     },
   };
 }
 
-export default async function Mp4ToolsPage({ params }: PageProps) {
+export default async function PngToolsPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("Mp4ToolsPage");
+  const t = await getTranslations("PngToolsPage");
   const tPage = await getTranslations("ToolPage");
-  const pathname = `/${locale}${MP4_TOOLS_HUB_PATH}`;
-  const gridItems = buildMp4ToolGridItems(t);
-  const featureList = getMp4ToolFeatureLabels(t);
-  const relatedGuides = getRecentVideoMp4BlogPosts(getBlogRegistry(locale).blog || [], 3);
+  const pathname = `/${locale}${PNG_TOOLS_HUB_PATH}`;
+  const gridItems = buildPngToolGridItems(t);
+  const featureList = getPngToolFeatureLabels(t);
+  const relatedGuides = getRecentImagePngBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: t("title"), path: MP4_TOOLS_HUB_PATH },
+    { name: t("title"), path: PNG_TOOLS_HUB_PATH },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
           <ToolsHubRelatedGuides
             posts={relatedGuides}
             title={t("relatedGuidesTitle")}
-            sectionId="mp4-tools-related-guides"
+            sectionId="png-tools-related-guides"
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

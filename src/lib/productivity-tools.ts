@@ -26,18 +26,23 @@ const PRODUCTIVITY_TOOL_META: Record<
   HomeProductivityToolId,
   { iconKey: HomeProductivityToolIconKey; messageKey: string }
 > = {
+  "case-converter": { iconKey: "file-type-2", messageKey: "caseConverter" },
+  "reading-time-calculator": { iconKey: "book-open", messageKey: "readingTimeCalculator" },
+  "word-character-counter": { iconKey: "letter-text", messageKey: "wordCharacterCounter" },
   "unit-converter": { iconKey: "scale", messageKey: "unitConverter" },
   "timezone-converter": { iconKey: "clock", messageKey: "timezoneConverter" },
-  "word-character-counter": { iconKey: "letter-text", messageKey: "wordCharacterCounter" },
-  "reading-time-calculator": { iconKey: "book-open", messageKey: "readingTimeCalculator" },
-  "case-converter": { iconKey: "file-type-2", messageKey: "caseConverter" },
 };
 
 const PRODUCTIVITY_ITEMS_NS = "productivityTools";
 
-export const HOME_PRODUCTIVITY_TOOL_IDS = Object.keys(
-  PRODUCTIVITY_TOOL_META,
-) as HomeProductivityToolId[];
+/** Homepage preview order — newest tools first so they appear without expanding. */
+export const HOME_PRODUCTIVITY_TOOL_IDS: HomeProductivityToolId[] = [
+  "case-converter",
+  "reading-time-calculator",
+  "word-character-counter",
+  "unit-converter",
+  "timezone-converter",
+];
 
 export const HOMEPAGE_FEATURED_PRODUCTIVITY_IDS = HOME_PRODUCTIVITY_TOOL_IDS;
 

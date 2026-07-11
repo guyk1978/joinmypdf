@@ -160,6 +160,11 @@ const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
   "reading-time-calculator": "book-open",
   "mp3-tools-hub": "file-audio",
   "mp4-tools-hub": "video",
+  "png-tools-hub": "file-image",
+  "favicon-tools-hub": "sparkles",
+  "json-tools-hub": "braces",
+  "yaml-tools-hub": "file-code",
+  "xml-tools-hub": "code-xml",
   "case-converter": "file-type-2",
 };
 

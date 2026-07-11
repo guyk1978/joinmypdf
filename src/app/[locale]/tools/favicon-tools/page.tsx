@@ -5,9 +5,13 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getRecentVideoMp4BlogPosts } from "@/lib/blog-video-category";
+import { getRecentDesignFaviconBlogPosts } from "@/lib/blog-favicon-category";
 import { getBlogRegistry } from "@/lib/blog-registry";
-import { buildMp4ToolGridItems, getMp4ToolFeatureLabels, MP4_TOOLS_HUB_PATH } from "@/lib/mp4-tools";
+import {
+  buildFaviconToolGridItems,
+  FAVICON_TOOLS_HUB_PATH,
+  getFaviconToolFeatureLabels,
+} from "@/lib/favicon-tools";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 
@@ -15,32 +19,34 @@ type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Mp4ToolsPage" });
+  const t = await getTranslations({ locale, namespace: "FaviconToolsPage" });
 
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: {
-      canonical: `/${locale}${MP4_TOOLS_HUB_PATH}`,
-      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}${MP4_TOOLS_HUB_PATH}`])),
+      canonical: `/${locale}${FAVICON_TOOLS_HUB_PATH}`,
+      languages: Object.fromEntries(
+        routing.locales.map((item) => [item, `/${item}${FAVICON_TOOLS_HUB_PATH}`]),
+      ),
     },
   };
 }
 
-export default async function Mp4ToolsPage({ params }: PageProps) {
+export default async function FaviconToolsHubPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("Mp4ToolsPage");
+  const t = await getTranslations("FaviconToolsPage");
   const tPage = await getTranslations("ToolPage");
-  const pathname = `/${locale}${MP4_TOOLS_HUB_PATH}`;
-  const gridItems = buildMp4ToolGridItems(t);
-  const featureList = getMp4ToolFeatureLabels(t);
-  const relatedGuides = getRecentVideoMp4BlogPosts(getBlogRegistry(locale).blog || [], 3);
+  const pathname = `/${locale}${FAVICON_TOOLS_HUB_PATH}`;
+  const gridItems = buildFaviconToolGridItems(t);
+  const featureList = getFaviconToolFeatureLabels(t);
+  const relatedGuides = getRecentDesignFaviconBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: t("title"), path: MP4_TOOLS_HUB_PATH },
+    { name: t("title"), path: FAVICON_TOOLS_HUB_PATH },
   ];
 
   return (
@@ -52,28 +58,25 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
           pathname,
           locale,
           featureList,
-          applicationCategory: "MultimediaApplication",
+          applicationCategory: "UtilitiesApplication",
         })}
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
-          <header className="tools-directory-page__head">
-            <h1 className="tools-directory-page__title">{t("title")}</h1>
-            <p className="tools-directory-page__desc">{t("description")}</p>
+          <header className="mb-6 border-b border-[#262626] pb-6">
+            <h1 className="mb-6 text-4xl font-bold text-white">{t("title")}</h1>
+            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
           </header>
 
-          <section
-            className="tools-hub-panel border border-[#262626] bg-[#0a0a0a] p-6"
-            aria-label={t("schemaName")}
-          >
+          <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
             <CategoryDirectoryFlatGrid items={gridItems} />
           </section>
 
           <ToolsHubRelatedGuides
             posts={relatedGuides}
             title={t("relatedGuidesTitle")}
-            sectionId="mp4-tools-related-guides"
+            sectionId="favicon-tools-related-guides"
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

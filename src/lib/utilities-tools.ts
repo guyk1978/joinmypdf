@@ -1,36 +1,16 @@
 import {
-  buildHomeFaviconToolItems,
-  buildHomepageFeaturedFaviconItems,
-  type HomeFaviconToolItem,
-  type HomeFeaturedFaviconItem,
-} from "@/lib/favicon-tools";
-import {
-  buildHomeTextJsonToolItems,
   buildHomepageFeaturedTextJsonItems,
   type HomeFeaturedTextJsonItem,
-  type HomeTextJsonToolItem,
 } from "@/lib/text-json-tools";
 
-export type HomeFeaturedUtilityItem = HomeFeaturedFaviconItem | HomeFeaturedTextJsonItem;
+export type HomeFeaturedUtilityItem = HomeFeaturedTextJsonItem;
 
 type HomeTranslator = {
   (key: string): string;
   has: (key: string) => boolean;
 };
 
+/** Homepage utilities strip — text/JSON only (favicon has its own section). */
 export function buildHomepageFeaturedUtilityItems(tHome: HomeTranslator): HomeFeaturedUtilityItem[] {
-  return [
-    ...buildHomepageFeaturedFaviconItems(tHome),
-    ...buildHomepageFeaturedTextJsonItems(tHome),
-  ];
-}
-
-export function buildHomeUtilityToolSections(tHome: HomeTranslator): {
-  faviconItems: HomeFaviconToolItem[];
-  textJsonItems: HomeTextJsonToolItem[];
-} {
-  return {
-    faviconItems: buildHomeFaviconToolItems(tHome),
-    textJsonItems: buildHomeTextJsonToolItems(tHome),
-  };
+  return buildHomepageFeaturedTextJsonItems(tHome);
 }

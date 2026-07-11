@@ -63,7 +63,10 @@ export default async function Mp3ToolsPage({ params }: PageProps) {
             <p className="tools-directory-page__desc">{t("description")}</p>
           </header>
 
-          <section className="border border-[#262626] bg-[#0a0a0a] p-6" aria-label={t("schemaName")}>
+          <section
+            className="tools-hub-panel border border-[#262626] bg-[#0a0a0a] p-6"
+            aria-label={t("schemaName")}
+          >
             <CategoryDirectoryFlatGrid items={gridItems} />
           </section>
 

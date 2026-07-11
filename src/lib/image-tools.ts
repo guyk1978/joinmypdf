@@ -1,5 +1,6 @@
 import type { DirectoryWorkflowColumn } from "@/components/ToolsDirectoryDashboard";
 import { TOOL_DEFINITIONS } from "@/config/tools";
+import { PNG_TOOLS_HUB_PATH } from "@/lib/png-tools";
 import { registry } from "@/lib/registry";
 import type { ToolDefinition } from "@/lib/types";
 import type { ToolGridItem } from "@/lib/tool-grid";
@@ -150,9 +151,17 @@ export function buildHomeImageToolItems(tHome: HomeTranslator): HomeImageToolIte
 }
 
 export function buildHomepageFeaturedImageItems(tHome: HomeTranslator): HomeFeaturedImageItem[] {
+  const hubLabel = tHome.has("pngToolsHubLabel") ? tHome("pngToolsHubLabel") : "PNG Tools Hub";
+  const hubItem: HomeFeaturedImageItem = {
+    id: "png-tools-hub",
+    href: PNG_TOOLS_HUB_PATH,
+    label: hubLabel,
+    iconKey: "file-image",
+  };
+
   const itemsById = new Map(buildHomeImageToolItems(tHome).map((item) => [item.id, item]));
 
-  return HOMEPAGE_FEATURED_IMAGE_IDS.map((id) => itemsById.get(id))
+  const toolItems = HOMEPAGE_FEATURED_IMAGE_IDS.map((id) => itemsById.get(id))
     .filter((item): item is HomeImageToolItem => Boolean(item))
     .map((item) => ({
       id: item.id,
@@ -160,6 +169,8 @@ export function buildHomepageFeaturedImageItems(tHome: HomeTranslator): HomeFeat
       label: item.label,
       iconKey: item.iconKey,
     }));
+
+  return [hubItem, ...toolItems];
 }
 
 function toGridItem(item: HomeImageToolItem): ToolGridItem {

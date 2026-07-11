@@ -258,3 +258,17 @@
   border: none;
   box-sizing: border-box;
 }
+
+/* Tool hub panels (MP3 / MP4 / PNG) — bordered shell, borderless text links */
+.tools-hub-panel .tools-grid {
+  margin: 0;
+  padding: 0;
+  border: none;
+  column-gap: 1.5rem;
+  row-gap: 0.75rem;
+}
+
+.tools-hub-panel .tools-grid > li {
+  padding: 0;
+  border: none;
+}
