@@ -122,10 +122,6 @@
       "videoRotator": "סיבוב וידאו",
       "videoSpeedController": "מהירות וידאו",
       "videoToGif": "וידאו ל-GIF",
-      "videoResizer": "שינוי רזולוציית וידאו",
-      "videoRotator": "סיבוב וידאו",
-      "videoSpeedController": "מהירות וידאו",
-      "videoToGif": "וידאו ל-GIF",
       "heicToJpg": "HEIC ל-JPG",
       "webpToJpg": "WebP ל-JPG",
       "svgToPng": "SVG ל-PNG",
@@ -893,49 +889,130 @@
     },
     "workflows": {
       "security": {
-        "passwords": { "title": "סיסמאות", "description": "יצירת סיסמאות חזקות מקומית." },
-        "hashing": { "title": "האש", "description": "יצירת האש מאובטח בדפדפן." },
-        "identifiers": { "title": "מזהים", "description": "יצירת UUID ומזהים ייחודיים." }
+        "passwords": {
+          "title": "סיסמאות",
+          "description": "יצירת סיסמאות חזקות מקומית."
+        },
+        "hashing": {
+          "title": "האש",
+          "description": "יצירת האש מאובטח בדפדפן."
+        },
+        "identifiers": {
+          "title": "מזהים",
+          "description": "יצירת UUID ומזהים ייחודיים."
+        }
       },
       "image": {
-        "transform": { "title": "שינוי צורה", "description": "שינוי גודל, חיתוך וסיבוב." },
-        "convert": { "title": "המרה", "description": "החלפת פורמטים וייצוא." },
-        "optimize": { "title": "אופטימיזציה", "description": "דחיסה לאינטרנט ואימייל." }
+        "transform": {
+          "title": "שינוי צורה",
+          "description": "שינוי גודל, חיתוך וסיבוב."
+        },
+        "convert": {
+          "title": "המרה",
+          "description": "החלפת פורמטים וייצוא."
+        },
+        "optimize": {
+          "title": "אופטימיזציה",
+          "description": "דחיסה לאינטרנט ואימייל."
+        }
       },
       "audio": {
-        "convert": { "title": "המרה", "description": "המרה בין MP3, WAV, FLAC ועוד." },
-        "edit": { "title": "עריכה ושיפור", "description": "חיתוך, הגברת עוצמה ונרמול." },
-        "mix-metadata": { "title": "מיקס ומטא-דאטה", "description": "מיזוג, תגיות ויצירת MP4." }
+        "convert": {
+          "title": "המרה",
+          "description": "המרה בין MP3, WAV, FLAC ועוד."
+        },
+        "edit": {
+          "title": "עריכה ושיפור",
+          "description": "חיתוך, הגברת עוצמה ונרמול."
+        },
+        "mix-metadata": {
+          "title": "מיקס ומטא-דאטה",
+          "description": "מיזוג, תגיות ויצירת MP4."
+        }
       },
       "developer": {
-        "parse": { "title": "ניתוח", "description": "בדיקת User Agent וכותרות." },
-        "generate": { "title": "יצירה", "description": "יצירת קודי QR מיידית." },
-        "debug": { "title": "דיבוג", "description": "פענוח ובדיקת JWT." }
+        "parse": {
+          "title": "ניתוח",
+          "description": "בדיקת User Agent וכותרות."
+        },
+        "generate": {
+          "title": "יצירה",
+          "description": "יצירת קודי QR מיידית."
+        },
+        "debug": {
+          "title": "דיבוג",
+          "description": "פענוח ובדיקת JWT."
+        }
       },
       "data-conversion": {
-        "interchange": { "title": "המרה", "description": "המרה בין YAML ל-JSON." },
-        "tables": { "title": "טבלאות", "description": "המרת CSV לטבלאות Markdown." },
-        "sql": { "title": "SQL", "description": "עיצוב שאילתות SQL." }
+        "interchange": {
+          "title": "המרה",
+          "description": "המרה בין YAML ל-JSON."
+        },
+        "tables": {
+          "title": "טבלאות",
+          "description": "המרת CSV לטבלאות Markdown."
+        },
+        "sql": {
+          "title": "SQL",
+          "description": "עיצוב שאילתות SQL."
+        }
       },
       "productivity": {
-        "measure": { "title": "מדידה", "description": "המרת יחידות." },
-        "time": { "title": "זמן", "description": "השוואת אזורי זמן." },
-        "text": { "title": "טקסט", "description": "ספירת מילים ותווים." }
+        "measure": {
+          "title": "מדידה",
+          "description": "המרת יחידות."
+        },
+        "time": {
+          "title": "זמן",
+          "description": "השוואת אזורי זמן."
+        },
+        "text": {
+          "title": "טקסט",
+          "description": "ספירת מילים ותווים."
+        }
       },
       "favicon": {
-        "create": { "title": "יצירה והמרה", "description": "יצירת favicon והמרת ICO, PNG, SVG." },
-        "edit": { "title": "עריכה", "description": "חיתוך, דחיסה ושקיפות." },
-        "publish": { "title": "פרסום", "description": "חבילות, קוד ותצוגה מקדימה." }
+        "create": {
+          "title": "יצירה והמרה",
+          "description": "יצירת favicon והמרת ICO, PNG, SVG."
+        },
+        "edit": {
+          "title": "עריכה",
+          "description": "חיתוך, דחיסה ושקיפות."
+        },
+        "publish": {
+          "title": "פרסום",
+          "description": "חבילות, קוד ותצוגה מקדימה."
+        }
       },
       "text-json": {
-        "json": { "title": "JSON", "description": "עיצוב, מיזעור והמרת JSON." },
-        "encode": { "title": "קידוד", "description": "Base64 ו-URL." },
-        "text": { "title": "טקסט", "description": "השוואה, יצירה והמרת סימון." }
+        "json": {
+          "title": "JSON",
+          "description": "עיצוב, מיזעור והמרת JSON."
+        },
+        "encode": {
+          "title": "קידוד",
+          "description": "Base64 ו-URL."
+        },
+        "text": {
+          "title": "טקסט",
+          "description": "השוואה, יצירה והמרת סימון."
+        }
       },
       "utilities": {
-        "favicon-create": { "title": "Favicon", "description": "יצירה והמרת נכסי favicon." },
-        "favicon-edit": { "title": "כלי Favicon", "description": "עריכה, דחיסה ופרסום." },
-        "text-json": { "title": "טקסט ו-JSON", "description": "עיצוב, קידוד והשוואת נתונים." }
+        "favicon-create": {
+          "title": "Favicon",
+          "description": "יצירה והמרת נכסי favicon."
+        },
+        "favicon-edit": {
+          "title": "כלי Favicon",
+          "description": "עריכה, דחיסה ופרסום."
+        },
+        "text-json": {
+          "title": "טקסט ו-JSON",
+          "description": "עיצוב, קידוד והשוואת נתונים."
+        }
       }
     }
   },
@@ -2210,6 +2287,186 @@
       "pdfRotator": "סיבוב PDF"
     }
   },
+  "SignPdfLargeFilesPage": {
+    "metaTitle": "חתימה על PDF גדולים אונליין | חתימה מקומית בדפדפן | JoinMyPDF",
+    "metaDescription": "חתמו בצורה מאובטחת על מסמכי PDF גדולים מיידית בדפדפן. אפס העלאה, אפס שרת, 100% פרטיות.",
+    "title": "חתימה על PDF גדולים",
+    "description": "חתמו בצורה מאובטחת על מסמכי PDF גדולים מיידית בדפדפן. אפס העלאה, אפס שרת, 100% פרטיות.",
+    "relatedToolsTitle": "עוד כלי PDF",
+    "relatedMergePdf": "מיזוג PDF",
+    "relatedSplitPdf": "פיצול PDF",
+    "relatedPdfCompressor": "דחיסת PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "הקבצים שלכם מעובדים מקומית. שום נתון לא עוזב את המכשיר.",
+    "schemaName": "חתימה על PDF גדולים",
+    "schemaDescription": "חתמו בצורה מאובטחת על מסמכי PDF גדולים מיידית בדפדפן. אפס העלאה, אפס שרת, 100% פרטיות.",
+    "schemaFeatureLargeFiles": "חתימה על קבצי PDF גדולים",
+    "schemaFeatureLocalSign": "חתימות מקומיות בדפדפן",
+    "schemaFeatureZeroUpload": "עיבוד ללא העלאה",
+    "schemaFeaturePrivacy": "חתימה פרטית ב-100% על המכשיר"
+  },
+  "PdfToPngNoUploadPage": {
+    "metaTitle": "המרת PDF ל-PNG — ללא העלאות | JoinMyPDF",
+    "metaDescription": "המירו עמודי PDF לתמונות PNG באיכות גבוהה מיידית. המרה מקומית ב-100% בדפדפן — הקבצים לא מועלים לשום שרת.",
+    "title": "המרת PDF ל-PNG — ללא העלאות",
+    "description": "המירו עמודי PDF לתמונות PNG באיכות גבוהה מיידית. תהליך ההמרה רץ ב-100% מקומית בדפדפן. שום קובץ לא מועלה לשרת, כך שהנתונים שלכם נשארים פרטיים.",
+    "relatedToolsTitle": "עוד כלי PDF",
+    "relatedPdfToJpg": "PDF ל-JPG",
+    "relatedMergePdf": "מיזוג PDF",
+    "relatedPdfCompressor": "דחיסת PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "המרה 100% בצד הלקוח. הקבצים שלכם נשארים במכשיר.",
+    "schemaName": "המרת PDF ל-PNG — ללא העלאות",
+    "schemaDescription": "המירו עמודי PDF לתמונות PNG באיכות גבוהה מיידית. תהליך ההמרה רץ ב-100% מקומית בדפדפן. שום קובץ לא מועלה לשרת, כך שהנתונים שלכם נשארים פרטיים.",
+    "schemaFeatureHighQuality": "ייצוא PNG באיכות גבוהה",
+    "schemaFeatureLocalConvert": "המרה מקומית ב-100% בדפדפן",
+    "schemaFeatureZeroUpload": "ללא העלאות",
+    "schemaFeaturePrivacy": "עיבוד פרטי על המכשיר"
+  },
+  "PngToPdfInstantPage": {
+    "metaTitle": "המרת PNG ל-PDF מיידית | ללא העלאה | JoinMyPDF",
+    "metaDescription": "הפכו תמונות PNG למסמך PDF מקצועי תוך שניות. המרה מיידית בדפדפן — ללא העלאות.",
+    "title": "המרת PNG ל-PDF מיידית",
+    "description": "הפכו תמונות PNG למסמך PDF מקצועי תוך שניות. כלי ההמרה המיידי מעבד את הקבצים ישירות בדפדפן, שומר על אבטחת התמונות בלי צורך להעלות אותן.",
+    "relatedToolsTitle": "עוד כלי המרה",
+    "relatedJpgToPdf": "JPG ל-PDF",
+    "relatedPdfToPng": "PDF ל-PNG",
+    "relatedMergePdf": "מיזוג PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "עיבוד מיידי, פרטיות ללא העלאה.",
+    "schemaName": "המרת PNG ל-PDF מיידית",
+    "schemaDescription": "הפכו תמונות PNG למסמך PDF מקצועי תוך שניות. כלי ההמרה המיידי מעבד את הקבצים ישירות בדפדפן, שומר על אבטחת התמונות בלי צורך להעלות אותן.",
+    "schemaFeatureInstant": "המרת PNG ל-PDF מיידית",
+    "schemaFeatureLocalConvert": "עיבוד מקומי ב-100% בדפדפן",
+    "schemaFeatureZeroUpload": "פרטיות ללא העלאה",
+    "schemaFeaturePrivacy": "התמונות לא עוזבות את המכשיר"
+  },
+  "PdfToPngInstantPage": {
+    "metaTitle": "המרת PDF ל-PNG מיידית | ללא העלאה | JoinMyPDF",
+    "metaDescription": "חלצו תמונות מקבצי PDF והמירו אותן ל-PNG מיידית. המרה מאובטחת בדפדפן — ללא העלאות.",
+    "title": "המרת PDF ל-PNG מיידית",
+    "description": "חלצו תמונות מקבצי PDF והמירו אותן לפורמט PNG מיידית. הכלי המאובטח מבוסס-הדפדפן מעבד את עמודי ה-PDF מקומית, ומבטיח פרטיות מלאה ללא העלאת קבצים.",
+    "relatedToolsTitle": "עוד כלי PDF",
+    "relatedPdfToJpg": "PDF ל-JPG",
+    "relatedPngToPdf": "PNG ל-PDF",
+    "relatedPdfCompressor": "דחיסת PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "המרה מיידית ומקומית. אפס העלאות.",
+    "schemaName": "המרת PDF ל-PNG מיידית",
+    "schemaDescription": "חלצו תמונות מקבצי PDF והמירו אותן לפורמט PNG מיידית. הכלי המאובטח מבוסס-הדפדפן מעבד את עמודי ה-PDF מקומית, ומבטיח פרטיות מלאה ללא העלאת קבצים.",
+    "schemaFeatureInstant": "המרת PDF ל-PNG מיידית",
+    "schemaFeatureLocalConvert": "עיבוד מקומי ב-100% בדפדפן",
+    "schemaFeatureZeroUpload": "אפס העלאות",
+    "schemaFeaturePrivacy": "פרטיות מלאה על המכשיר"
+  },
+  "PngToPdfFastPage": {
+    "metaTitle": "המרת PNG ל-PDF מהירה | ללא העלאה | JoinMyPDF",
+    "metaDescription": "שלבו מספר תמונות PNG לקובץ PDF אחד במהירות. המרה מהירה בדפדפן — מאובטחת, פרטית ומהירה ללא העלאה לשרת.",
+    "title": "המרת PNG ל-PDF מהירה",
+    "description": "צריכים לשלב מספר תמונות PNG לקובץ PDF אחד במהירות? הממיר המהיר מבוסס-הדפדפן יוצר קבצי PDF באיכות גבוהה ללא העלאה לשרת. מאובטח, פרטי ומהיר כברק.",
+    "relatedToolsTitle": "עוד כלי המרה",
+    "relatedJpgToPdf": "JPG ל-PDF",
+    "relatedPdfToPng": "PDF ל-PNG",
+    "relatedMergePdf": "מיזוג PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "המרה מהירה, מאובטחת ומקומית-תחילה.",
+    "schemaName": "המרת PNG ל-PDF מהירה",
+    "schemaDescription": "צריכים לשלב מספר תמונות PNG לקובץ PDF אחד במהירות? הממיר המהיר מבוסס-הדפדפן יוצר קבצי PDF באיכות גבוהה ללא העלאה לשרת. מאובטח, פרטי ומהיר כברק.",
+    "schemaFeatureFast": "המרה מהירה של מספר PNG ל-PDF",
+    "schemaFeatureLocalConvert": "עיבוד מקומי ב-100% בדפדפן",
+    "schemaFeatureZeroUpload": "ללא העלאה לשרת",
+    "schemaFeaturePrivacy": "המרה מאובטחת ופרטית על המכשיר"
+  },
+  "AddPageNumbersOnlinePage": {
+    "metaTitle": "הוספת מספרי עמודים ל-PDF אונליין | ללא העלאה | JoinMyPDF",
+    "metaDescription": "הוסיפו בקלות מספרי עמודים לכל מסמך PDF. התאימו מיקום ועיצוב מקומית בדפדפן — ללא העלאות, פרטיות מלאה.",
+    "title": "הוספת מספרי עמודים ל-PDF אונליין",
+    "description": "הוסיפו בקלות מספרי עמודים לכל מסמך PDF. הכלי מאפשר להתאים מיקום ועיצוב מיידית. הכל מעובד מקומית בדפדפן — הקבצים לא מועלים, והמסמכים שלכם נשארים פרטיים לחלוטין.",
+    "relatedToolsTitle": "עוד כלי PDF",
+    "relatedMergePdf": "מיזוג PDF",
+    "relatedSplitPdf": "פיצול PDF",
+    "relatedPdfCompressor": "דחיסת PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "מספור PDF מאובטח ומקומי. ללא העלאות.",
+    "schemaName": "הוספת מספרי עמודים ל-PDF אונליין",
+    "schemaDescription": "הוסיפו בקלות מספרי עמודים לכל מסמך PDF. הכלי מאפשר להתאים מיקום ועיצוב מיידית. הכל מעובד מקומית בדפדפן — הקבצים לא מועלים, והמסמכים שלכם נשארים פרטיים לחלוטין.",
+    "schemaFeatureNumbering": "הוספת מספרי עמודים ל-PDF",
+    "schemaFeatureCustomize": "מיקום ועיצוב מותאמים",
+    "schemaFeatureLocalProcess": "עיבוד מקומי ב-100% בדפדפן",
+    "schemaFeatureZeroUpload": "ללא העלאות"
+  },
+  "AddPageNumbersFreePage": {
+    "metaTitle": "הוספת מספרי עמודים ל-PDF בחינם | ללא הרשמה | JoinMyPDF",
+    "metaDescription": "הוסיפו מספרי עמודים למסמכי PDF בחינם. מהיר, קל ומבוסס דפדפן — ללא הרשמה, ללא העלאות, פרטיות מלאה.",
+    "title": "הוספת מספרי עמודים ל-PDF בחינם",
+    "description": "קבלו מסמכי PDF מקצועיים עם מספרי עמודים בחינם. הכלי מהיר, קל לשימוש ורץ לחלוטין בדפדפן. ללא הרשמה, ללא העלאות, ופרטיות מלאה.",
+    "relatedToolsTitle": "עוד כלי PDF",
+    "relatedAddPageNumbers": "הוספת מספרי עמודים",
+    "relatedMergePdf": "מיזוג PDF",
+    "relatedSplitPdf": "פיצול PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "חינם, מאובטח ומקומי לחלוטין.",
+    "schemaName": "הוספת מספרי עמודים ל-PDF בחינם",
+    "schemaDescription": "קבלו מסמכי PDF מקצועיים עם מספרי עמודים בחינם. הכלי מהיר, קל לשימוש ורץ לחלוטין בדפדפן. ללא הרשמה, ללא העלאות, ופרטיות מלאה.",
+    "schemaFeatureFree": "מספור עמודי PDF בחינם",
+    "schemaFeatureNumbering": "מספרי עמודים מקצועיים",
+    "schemaFeatureLocalProcess": "עיבוד מקומי ב-100% בדפדפן",
+    "schemaFeatureZeroUpload": "ללא הרשמה וללא העלאות"
+  },
+  "PdfToPngFastPage": {
+    "metaTitle": "המרת PDF ל-PNG מהירה | ללא העלאה | JoinMyPDF",
+    "metaDescription": "המירו עמודי PDF לתמונות PNG במהירות. המרה מקומית בעלת ביצועים גבוהים בדפדפן — תוצאות מהירות ללא העלאות.",
+    "title": "המרת PDF ל-PNG מהירה",
+    "description": "המירו עמודי PDF לתמונות PNG במהירות הבזק. הכלי מבוסס-הדפדפן בעל הביצועים הגבוהים מעבד את הקבצים מקומית ומספק תוצאות מהירות בלי להעלות נתונים רגישים.",
+    "relatedToolsTitle": "עוד כלי PDF",
+    "relatedPdfToJpg": "PDF ל-JPG",
+    "relatedPngToPdf": "PNG ל-PDF",
+    "relatedPdfCompressor": "דחיסת PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "מהיר, מקומי ופרטי.",
+    "schemaName": "המרת PDF ל-PNG מהירה",
+    "schemaDescription": "המירו עמודי PDF לתמונות PNG במהירות הבזק. הכלי מבוסס-הדפדפן בעל הביצועים הגבוהים מעבד את הקבצים מקומית ומספק תוצאות מהירות בלי להעלות נתונים רגישים.",
+    "schemaFeatureFast": "המרת PDF ל-PNG מהירה",
+    "schemaFeatureLocalConvert": "עיבוד מקומי בעל ביצועים גבוהים",
+    "schemaFeatureZeroUpload": "ללא העלאת נתונים רגישים",
+    "schemaFeaturePrivacy": "המרה פרטית על המכשיר"
+  },
+  "AddPageNumbersLargeFilesPage": {
+    "metaTitle": "הוספת מספרי עמודים לקבצי PDF גדולים | ללא העלאה | JoinMyPDF",
+    "metaDescription": "הוסיפו מספרי עמודים למסמכי PDF גדולים בצורה חלקה ומאובטחת. ללא מגבלות העלאה, ללא המתנה לשרת — עיבוד מקומי ב-100%.",
+    "title": "הוספת מספרי עמודים לקבצי PDF גדולים",
+    "description": "צריכים להוסיף מספרי עמודים למסמך PDF ענק? הכלי המיוחד בדפדפן מטפל בקבצים גדולים בצורה חלקה ומאובטחת. ללא מגבלות העלאה, ללא זמני המתנה לשרת, ופרטיות ב-100% באמצעות עיבוד מקומי.",
+    "relatedToolsTitle": "עוד כלי PDF",
+    "relatedAddPageNumbers": "הוספת מספרי עמודים",
+    "relatedMergePdf": "מיזוג PDF",
+    "relatedPdfCompressor": "דחיסת PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "טפלו בקבצים גדולים מקומית ובאופן מאובטח.",
+    "schemaName": "הוספת מספרי עמודים לקבצי PDF גדולים",
+    "schemaDescription": "צריכים להוסיף מספרי עמודים למסמך PDF ענק? הכלי המיוחד בדפדפן מטפל בקבצים גדולים בצורה חלקה ומאובטחת. ללא מגבלות העלאה, ללא זמני המתנה לשרת, ופרטיות ב-100% באמצעות עיבוד מקומי.",
+    "schemaFeatureLargeFiles": "מספור עמודים ל-PDF גדולים",
+    "schemaFeatureNumbering": "מספור חלק ומאובטח",
+    "schemaFeatureLocalProcess": "עיבוד מקומי ב-100% בדפדפן",
+    "schemaFeatureZeroUpload": "ללא מגבלות העלאה"
+  },
+  "PngToPdfNoSignupPage": {
+    "metaTitle": "המרת PNG ל-PDF — ללא הרשמה | JoinMyPDF",
+    "metaDescription": "המירו תמונות PNG ל-PDF מיידית ללא הרשמה. עיבוד מקומי מאובטח בדפדפן — פרטיות מלאה, אפס דליפת נתונים.",
+    "title": "המרת PNG ל-PDF — ללא הרשמה",
+    "description": "המירו תמונות PNG לקבצי PDF מיידית ללא הרשמה או יצירת חשבון. הכלי המאובטח מבוסס-הדפדפן מעבד את התמונות מקומית במכשיר, ומבטיח פרטיות מלאה ואפס דליפת נתונים.",
+    "relatedToolsTitle": "עוד כלי המרה",
+    "relatedJpgToPdf": "JPG ל-PDF",
+    "relatedPdfToPng": "PDF ל-PNG",
+    "relatedMergePdf": "מיזוג PDF",
+    "backToPdfTools": "חזרה לכלי PDF",
+    "privacyNote": "ללא הרשמה, ללא העלאות. פרטי ב-100%.",
+    "schemaName": "המרת PNG ל-PDF — ללא הרשמה",
+    "schemaDescription": "המירו תמונות PNG לקבצי PDF מיידית ללא הרשמה או יצירת חשבון. הכלי המאובטח מבוסס-הדפדפן מעבד את התמונות מקומית במכשיר, ומבטיח פרטיות מלאה ואפס דליפת נתונים.",
+    "schemaFeatureNoSignup": "ללא הרשמה או יצירת חשבון",
+    "schemaFeatureLocalConvert": "המרה מקומית על המכשיר",
+    "schemaFeatureZeroUpload": "אפס דליפת נתונים",
+    "schemaFeaturePrivacy": "עיבוד פרטי ב-100% בדפדפן"
+  },
   "VideoToolsPage": {
     "metaTitle": "כלי וידאו מתקדמים | חיתוך, דחיסה, המרה ל-GIF | JoinMyPDF",
     "metaDescription": "כלי וידאו מאובטחים לשינוי גודל, סיבוב, דחיסה והמרה — 100% מקומי בדפדפן. עיבוד ללא העלאה שומר על פרטיות הסרטונים שלכם.",
@@ -2626,6 +2883,290 @@
     "errors": {
       "notConfigured": "דירוגים אינם זמינים כרגע. נסה שוב מאוחר יותר.",
       "sendFailed": "לא ניתן לשלוח דירוג. נסה שוב."
+    }
+  },
+  "SeoToolLandings": {
+    "shared": {
+      "relatedToolsTitle": "עוד כלי PDF",
+      "backToPdfTools": "חזרה לכלי PDF",
+      "privacyNote": "עיבוד מקומי. אפס העלאות. הקבצים שלכם לא עוזבים את המכשיר.",
+      "schemaFeatureLocal": "עיבוד מקומי ב-100% בדפדפן",
+      "schemaFeatureZeroUpload": "פרטיות ללא העלאה",
+      "schemaFeaturePrivacy": "תהליך פרטי על המכשיר",
+      "related": {
+        "jpgToPdf": "JPG ל-PDF",
+        "pdfToPng": "PDF ל-PNG",
+        "pngToPdf": "PNG ל-PDF",
+        "pdfToJpg": "PDF ל-JPG",
+        "mergePdf": "מיזוג PDF",
+        "splitPdf": "פיצול PDF",
+        "pdfCompressor": "דחיסת PDF",
+        "addPageNumbers": "הוספת מספרי עמודים",
+        "signPdf": "חתימה על PDF",
+        "protectPdf": "הגנה על PDF",
+        "deletePdfPages": "מחיקת עמודי PDF"
+      }
+    },
+    "png-to-pdf-online": {
+      "metaTitle": "המרת PNG ל-PDF אונליין | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו תמונות PNG ל-PDF מקצועי אונליין עם עיבוד מקומי-תחילה. ללא העלאות וללא המתנה לשרת — התמונות נשארות פרטיות בדפדפן.",
+      "title": "המרת PNG ל-PDF אונליין",
+      "description": "המירו תמונות PNG ל-PDF מקצועי אונליין עם עיבוד מקומי-תחילה. ללא העלאות וללא המתנה לשרת — התמונות נשארות פרטיות בדפדפן.",
+      "schemaName": "המרת PNG ל-PDF אונליין",
+      "schemaDescription": "המירו תמונות PNG ל-PDF מקצועי אונליין עם עיבוד מקומי-תחילה. ללא העלאות וללא המתנה לשרת — התמונות נשארות פרטיות בדפדפן.",
+      "schemaFeaturePrimary": "המרת PNG ל-PDF אונליין"
+    },
+    "png-to-pdf-high-quality": {
+      "metaTitle": "המרת PNG ל-PDF באיכות גבוהה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הפכו תמונות PNG למסמכי PDF חדים באיכות גבוהה ללא העלאות. המרה מקומית בדפדפן שומרת על הפרטיות ומספקת תוצאות מוכנות להדפסה.",
+      "title": "המרת PNG ל-PDF באיכות גבוהה",
+      "description": "הפכו תמונות PNG למסמכי PDF חדים באיכות גבוהה ללא העלאות. המרה מקומית בדפדפן שומרת על הפרטיות ומספקת תוצאות מוכנות להדפסה.",
+      "schemaName": "המרת PNG ל-PDF באיכות גבוהה",
+      "schemaDescription": "הפכו תמונות PNG למסמכי PDF חדים באיכות גבוהה ללא העלאות. המרה מקומית בדפדפן שומרת על הפרטיות ומספקת תוצאות מוכנות להדפסה.",
+      "schemaFeaturePrimary": "פלט PNG ל-PDF באיכות גבוהה"
+    },
+    "add-page-numbers-instant": {
+      "metaTitle": "הוספת מספרי עמודים מיידית | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הוסיפו מספרי עמודים לכל PDF מיידית בדפדפן. התאימו מיקום ועיצוב מקומית — אפס העלאות, אפס עיכוב שרת, ופרטיות מלאה.",
+      "title": "הוספת מספרי עמודים מיידית",
+      "description": "הוסיפו מספרי עמודים לכל PDF מיידית בדפדפן. התאימו מיקום ועיצוב מקומית — אפס העלאות, אפס עיכוב שרת, ופרטיות מלאה.",
+      "schemaName": "הוספת מספרי עמודים מיידית",
+      "schemaDescription": "הוסיפו מספרי עמודים לכל PDF מיידית בדפדפן. התאימו מיקום ועיצוב מקומית — אפס העלאות, אפס עיכוב שרת, ופרטיות מלאה.",
+      "schemaFeaturePrimary": "מספור עמודי PDF מיידי"
+    },
+    "png-to-pdf-large-files": {
+      "metaTitle": "המרת קבצי PNG גדולים ל-PDF | ללא העלאה | JoinMyPDF",
+      "metaDescription": "שלבו תמונות PNG גדולות לקובץ PDF אחד ללא מגבלות העלאה. הממיר המקומי בדפדפן מטפל בקבצים גדולים בצורה חלקה ופרטית.",
+      "title": "המרת קבצי PNG גדולים ל-PDF",
+      "description": "שלבו תמונות PNG גדולות לקובץ PDF אחד ללא מגבלות העלאה. הממיר המקומי בדפדפן מטפל בקבצים גדולים בצורה חלקה ופרטית.",
+      "schemaName": "המרת קבצי PNG גדולים ל-PDF",
+      "schemaDescription": "שלבו תמונות PNG גדולות לקובץ PDF אחד ללא מגבלות העלאה. הממיר המקומי בדפדפן מטפל בקבצים גדולים בצורה חלקה ופרטית.",
+      "schemaFeaturePrimary": "המרת PNG גדולים ל-PDF"
+    },
+    "pdf-to-png-large-files": {
+      "metaTitle": "המרת קבצי PDF גדולים ל-PNG | ללא העלאה | JoinMyPDF",
+      "metaDescription": "ייצאו עמודים מקבצי PDF גדולים לתמונות PNG באיכות גבוהה מקומית. ללא מגבלות העלאה וללא המתנה לשרת — מסמכים רגישים לא עוזבים את המכשיר.",
+      "title": "המרת קבצי PDF גדולים ל-PNG",
+      "description": "ייצאו עמודים מקבצי PDF גדולים לתמונות PNG באיכות גבוהה מקומית. ללא מגבלות העלאה וללא המתנה לשרת — מסמכים רגישים לא עוזבים את המכשיר.",
+      "schemaName": "המרת קבצי PDF גדולים ל-PNG",
+      "schemaDescription": "ייצאו עמודים מקבצי PDF גדולים לתמונות PNG באיכות גבוהה מקומית. ללא מגבלות העלאה וללא המתנה לשרת — מסמכים רגישים לא עוזבים את המכשיר.",
+      "schemaFeaturePrimary": "המרת PDF גדולים ל-PNG"
+    },
+    "sign-pdf-no-signup": {
+      "metaTitle": "חתימה על PDF — ללא הרשמה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "חתמו על מסמכי PDF אונליין בלי ליצור חשבון. ציירו או הקלידו חתימה מקומית בדפדפן — ללא הרשמה, ללא העלאות, פרטיות מלאה.",
+      "title": "חתימה על PDF — ללא הרשמה",
+      "description": "חתמו על מסמכי PDF אונליין בלי ליצור חשבון. ציירו או הקלידו חתימה מקומית בדפדפן — ללא הרשמה, ללא העלאות, פרטיות מלאה.",
+      "schemaName": "חתימה על PDF — ללא הרשמה",
+      "schemaDescription": "חתמו על מסמכי PDF אונליין בלי ליצור חשבון. ציירו או הקלידו חתימה מקומית בדפדפן — ללא הרשמה, ללא העלאות, פרטיות מלאה.",
+      "schemaFeaturePrimary": "חתימה על PDF ללא הרשמה"
+    },
+    "add-page-numbers-mobile": {
+      "metaTitle": "הוספת מספרי עמודים במובייל | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הוסיפו מספרי עמודים ל-PDF מהטלפון או הטאבלט. הכלי המותאם למובייל מעבד קבצים מקומית בדפדפן כך שהמסמכים לא עוזבים את המכשיר.",
+      "title": "הוספת מספרי עמודים במובייל",
+      "description": "הוסיפו מספרי עמודים ל-PDF מהטלפון או הטאבלט. הכלי המותאם למובייל מעבד קבצים מקומית בדפדפן כך שהמסמכים לא עוזבים את המכשיר.",
+      "schemaName": "הוספת מספרי עמודים במובייל",
+      "schemaDescription": "הוסיפו מספרי עמודים ל-PDF מהטלפון או הטאבלט. הכלי המותאם למובייל מעבד קבצים מקומית בדפדפן כך שהמסמכים לא עוזבים את המכשיר.",
+      "schemaFeaturePrimary": "מספור PDF במובייל"
+    },
+    "add-page-numbers-fast": {
+      "metaTitle": "הוספת מספרי עמודים מהירה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "מספרו עמודי PDF במהירות עם כלי מקומי בדפדפן. התאימו עיצוב מיידית — ללא העלאות, ללא הרשמה, ופרטיות מלאה לכל מסמך.",
+      "title": "הוספת מספרי עמודים מהירה",
+      "description": "מספרו עמודי PDF במהירות עם כלי מקומי בדפדפן. התאימו עיצוב מיידית — ללא העלאות, ללא הרשמה, ופרטיות מלאה לכל מסמך.",
+      "schemaName": "הוספת מספרי עמודים מהירה",
+      "schemaDescription": "מספרו עמודי PDF במהירות עם כלי מקומי בדפדפן. התאימו עיצוב מיידית — ללא העלאות, ללא הרשמה, ופרטיות מלאה לכל מסמך.",
+      "schemaFeaturePrimary": "מספור PDF מהיר"
+    },
+    "pdf-to-png-high-quality": {
+      "metaTitle": "המרת PDF ל-PNG באיכות גבוהה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו עמודי PDF לתמונות PNG חדות באיכות גבוהה מקומית. ייצוא מבוסס דפדפן שומר על פרטיות הקבצים ומספק גרפיקה נקייה לשיתוף ועיצוב.",
+      "title": "המרת PDF ל-PNG באיכות גבוהה",
+      "description": "המירו עמודי PDF לתמונות PNG חדות באיכות גבוהה מקומית. ייצוא מבוסס דפדפן שומר על פרטיות הקבצים ומספק גרפיקה נקייה לשיתוף ועיצוב.",
+      "schemaName": "המרת PDF ל-PNG באיכות גבוהה",
+      "schemaDescription": "המירו עמודי PDF לתמונות PNG חדות באיכות גבוהה מקומית. ייצוא מבוסס דפדפן שומר על פרטיות הקבצים ומספק גרפיקה נקייה לשיתוף ועיצוב.",
+      "schemaFeaturePrimary": "ייצוא PDF ל-PNG באיכות גבוהה"
+    },
+    "png-to-pdf-mobile": {
+      "metaTitle": "המרת PNG ל-PDF במובייל | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו תמונות PNG ל-PDF במובייל ללא העלאות. עיבוד מקומי בדפדפן להמרה מהירה, פרטית וללא הרשמה.",
+      "title": "המרת PNG ל-PDF במובייל",
+      "description": "המירו תמונות PNG ל-PDF במובייל ללא העלאות. עיבוד מקומי בדפדפן להמרה מהירה, פרטית וללא הרשמה.",
+      "schemaName": "המרת PNG ל-PDF במובייל",
+      "schemaDescription": "המירו תמונות PNG ל-PDF במובייל ללא העלאות. עיבוד מקומי בדפדפן להמרה מהירה, פרטית וללא הרשמה.",
+      "schemaFeaturePrimary": "המרת PNG ל-PDF במובייל"
+    },
+    "pdf-to-png-free": {
+      "metaTitle": "המרת PDF ל-PNG בחינם | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו עמודי PDF לתמונות PNG בחינם. ללא הרשמה וללא העלאות — עיבוד מקומי בדפדפן שומר על כל עמוד פרטי במכשיר.",
+      "title": "המרת PDF ל-PNG בחינם",
+      "description": "המירו עמודי PDF לתמונות PNG בחינם. ללא הרשמה וללא העלאות — עיבוד מקומי בדפדפן שומר על כל עמוד פרטי במכשיר.",
+      "schemaName": "המרת PDF ל-PNG בחינם",
+      "schemaDescription": "המירו עמודי PDF לתמונות PNG בחינם. ללא הרשמה וללא העלאות — עיבוד מקומי בדפדפן שומר על כל עמוד פרטי במכשיר.",
+      "schemaFeaturePrimary": "המרת PDF ל-PNG בחינם"
+    },
+    "pdf-to-png-secure": {
+      "metaTitle": "המרת PDF ל-PNG מאובטחת | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו עמודי PDF ל-PNG בצורה מאובטחת עם עיבוד מקומי-תחילה. מסמכים רגישים לא עוזבים את המכשיר — הפרטיות מובנית בכל המרה.",
+      "title": "המרת PDF ל-PNG מאובטחת",
+      "description": "המירו עמודי PDF ל-PNG בצורה מאובטחת עם עיבוד מקומי-תחילה. מסמכים רגישים לא עוזבים את המכשיר — הפרטיות מובנית בכל המרה.",
+      "schemaName": "המרת PDF ל-PNG מאובטחת",
+      "schemaDescription": "המירו עמודי PDF ל-PNG בצורה מאובטחת עם עיבוד מקומי-תחילה. מסמכים רגישים לא עוזבים את המכשיר — הפרטיות מובנית בכל המרה.",
+      "schemaFeaturePrimary": "המרת PDF ל-PNG מאובטחת"
+    },
+    "add-page-numbers-high-quality": {
+      "metaTitle": "הוספת מספרי עמודים באיכות גבוהה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הוסיפו מספרי עמודים נקיים ומקצועיים למסמכי PDF עם עיבוד מקומי בדפדפן. פלט באיכות גבוהה, אפס העלאות, ופרטיות מלאה.",
+      "title": "הוספת מספרי עמודים באיכות גבוהה",
+      "description": "הוסיפו מספרי עמודים נקיים ומקצועיים למסמכי PDF עם עיבוד מקומי בדפדפן. פלט באיכות גבוהה, אפס העלאות, ופרטיות מלאה.",
+      "schemaName": "הוספת מספרי עמודים באיכות גבוהה",
+      "schemaDescription": "הוסיפו מספרי עמודים נקיים ומקצועיים למסמכי PDF עם עיבוד מקומי בדפדפן. פלט באיכות גבוהה, אפס העלאות, ופרטיות מלאה.",
+      "schemaFeaturePrimary": "מספור PDF באיכות גבוהה"
+    },
+    "add-page-numbers-secure": {
+      "metaTitle": "הוספת מספרי עמודים מאובטחת | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הוסיפו מספרי עמודים למסמכי PDF סודיים בצורה מאובטחת. הכל רץ מקומית בדפדפן — ללא העלאות, ללא חשבונות, וללא סיכון לדליפת נתונים.",
+      "title": "הוספת מספרי עמודים מאובטחת",
+      "description": "הוסיפו מספרי עמודים למסמכי PDF סודיים בצורה מאובטחת. הכל רץ מקומית בדפדפן — ללא העלאות, ללא חשבונות, וללא סיכון לדליפת נתונים.",
+      "schemaName": "הוספת מספרי עמודים מאובטחת",
+      "schemaDescription": "הוסיפו מספרי עמודים למסמכי PDF סודיים בצורה מאובטחת. הכל רץ מקומית בדפדפן — ללא העלאות, ללא חשבונות, וללא סיכון לדליפת נתונים.",
+      "schemaFeaturePrimary": "מספור PDF מאובטח"
+    },
+    "png-to-pdf-no-upload": {
+      "metaTitle": "המרת PNG ל-PDF — ללא העלאות | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו תמונות PNG ל-PDF בלי להעלות דבר. עיבוד מקומי בדפדפן אומר שהתמונות נשארות במכשיר עם פרטיות אפס-שרת.",
+      "title": "המרת PNG ל-PDF — ללא העלאות",
+      "description": "המירו תמונות PNG ל-PDF בלי להעלות דבר. עיבוד מקומי בדפדפן אומר שהתמונות נשארות במכשיר עם פרטיות אפס-שרת.",
+      "schemaName": "המרת PNG ל-PDF — ללא העלאות",
+      "schemaDescription": "המירו תמונות PNG ל-PDF בלי להעלות דבר. עיבוד מקומי בדפדפן אומר שהתמונות נשארות במכשיר עם פרטיות אפס-שרת.",
+      "schemaFeaturePrimary": "המרת PNG ל-PDF ללא העלאה"
+    },
+    "sign-pdf-fast": {
+      "metaTitle": "חתימה על PDF מהירה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "חתמו על מסמכי PDF במהירות עם כלי מקומי בדפדפן. מקמו חתימות תוך שניות — ללא העלאות, ללא המתנה, ופרטיות מלאה לחוזים וטפסים.",
+      "title": "חתימה על PDF מהירה",
+      "description": "חתמו על מסמכי PDF במהירות עם כלי מקומי בדפדפן. מקמו חתימות תוך שניות — ללא העלאות, ללא המתנה, ופרטיות מלאה לחוזים וטפסים.",
+      "schemaName": "חתימה על PDF מהירה",
+      "schemaDescription": "חתמו על מסמכי PDF במהירות עם כלי מקומי בדפדפן. מקמו חתימות תוך שניות — ללא העלאות, ללא המתנה, ופרטיות מלאה לחוזים וטפסים.",
+      "schemaFeaturePrimary": "חתימת PDF מהירה"
+    },
+    "add-page-numbers-no-signup": {
+      "metaTitle": "הוספת מספרי עמודים — ללא הרשמה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הוסיפו מספרי עמודים ל-PDF ללא הרשמה או יצירת חשבון. עיבוד מקומי מהיר שומר על פרטיות המסמכים — ללא חשבונות, ללא העלאות, ללא מעקב.",
+      "title": "הוספת מספרי עמודים — ללא הרשמה",
+      "description": "הוסיפו מספרי עמודים ל-PDF ללא הרשמה או יצירת חשבון. עיבוד מקומי מהיר שומר על פרטיות המסמכים — ללא חשבונות, ללא העלאות, ללא מעקב.",
+      "schemaName": "הוספת מספרי עמודים — ללא הרשמה",
+      "schemaDescription": "הוסיפו מספרי עמודים ל-PDF ללא הרשמה או יצירת חשבון. עיבוד מקומי מהיר שומר על פרטיות המסמכים — ללא חשבונות, ללא העלאות, ללא מעקב.",
+      "schemaFeaturePrimary": "מספור ללא הרשמה"
+    },
+    "sign-pdf-mobile": {
+      "metaTitle": "חתימה על PDF במובייל | ללא העלאה | JoinMyPDF",
+      "metaDescription": "חתמו על PDF במובייל ישירות בדפדפן. ציירו או הקלידו חתימות מקומית כך שהחוזים נשארים פרטיים — ללא התקנת אפליקציה וללא העלאת קבצים.",
+      "title": "חתימה על PDF במובייל",
+      "description": "חתמו על PDF במובייל ישירות בדפדפן. ציירו או הקלידו חתימות מקומית כך שהחוזים נשארים פרטיים — ללא התקנת אפליקציה וללא העלאת קבצים.",
+      "schemaName": "חתימה על PDF במובייל",
+      "schemaDescription": "חתמו על PDF במובייל ישירות בדפדפן. ציירו או הקלידו חתימות מקומית כך שהחוזים נשארים פרטיים — ללא התקנת אפליקציה וללא העלאת קבצים.",
+      "schemaFeaturePrimary": "חתימת PDF במובייל"
+    },
+    "protect-pdf-fast": {
+      "metaTitle": "הגנה על PDF מהירה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הגנו על קבצי PDF בסיסמה במהירות עם הצפנה מקומית בדפדפן. ללא העלאות וללא המתנה — מסמכים מאובטחים נשארים במכשיר בכל שלב.",
+      "title": "הגנה על PDF מהירה",
+      "description": "הגנו על קבצי PDF בסיסמה במהירות עם הצפנה מקומית בדפדפן. ללא העלאות וללא המתנה — מסמכים מאובטחים נשארים במכשיר בכל שלב.",
+      "schemaName": "הגנה על PDF מהירה",
+      "schemaDescription": "הגנו על קבצי PDF בסיסמה במהירות עם הצפנה מקומית בדפדפן. ללא העלאות וללא המתנה — מסמכים מאובטחים נשארים במכשיר בכל שלב.",
+      "schemaFeaturePrimary": "הגנת סיסמה מהירה ל-PDF"
+    },
+    "sign-pdf-high-quality": {
+      "metaTitle": "חתימה על PDF באיכות גבוהה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הוסיפו חתימות באיכות גבוהה למסמכי PDF מקומית. תוצאות מקצועיות וברורות ללא העלאות — הקבצים החתומים לא עוזבים את הדפדפן.",
+      "title": "חתימה על PDF באיכות גבוהה",
+      "description": "הוסיפו חתימות באיכות גבוהה למסמכי PDF מקומית. תוצאות מקצועיות וברורות ללא העלאות — הקבצים החתומים לא עוזבים את הדפדפן.",
+      "schemaName": "חתימה על PDF באיכות גבוהה",
+      "schemaDescription": "הוסיפו חתימות באיכות גבוהה למסמכי PDF מקומית. תוצאות מקצועיות וברורות ללא העלאות — הקבצים החתומים לא עוזבים את הדפדפן.",
+      "schemaFeaturePrimary": "חתימות PDF באיכות גבוהה"
+    },
+    "sign-pdf-instant": {
+      "metaTitle": "חתימה על PDF מיידית | ללא העלאה | JoinMyPDF",
+      "metaDescription": "חתמו על קבצי PDF מיידית בדפדפן. מקמו חתימות מיד עם עיבוד מקומי — אפס העלאות, אפס הרשמה, פרטיות מלאה למסמך.",
+      "title": "חתימה על PDF מיידית",
+      "description": "חתמו על קבצי PDF מיידית בדפדפן. מקמו חתימות מיד עם עיבוד מקומי — אפס העלאות, אפס הרשמה, פרטיות מלאה למסמך.",
+      "schemaName": "חתימה על PDF מיידית",
+      "schemaDescription": "חתמו על קבצי PDF מיידית בדפדפן. מקמו חתימות מיד עם עיבוד מקומי — אפס העלאות, אפס הרשמה, פרטיות מלאה למסמך.",
+      "schemaFeaturePrimary": "חתימת PDF מיידית"
+    },
+    "pdf-to-png-mobile": {
+      "metaTitle": "המרת PDF ל-PNG במובייל | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו עמודי PDF ל-PNG במובייל ללא העלאה. המרה מקומית בדפדפן מספקת ייצוא תמונות מהיר ופרטי מכל טלפון או טאבלט.",
+      "title": "המרת PDF ל-PNG במובייל",
+      "description": "המירו עמודי PDF ל-PNG במובייל ללא העלאה. המרה מקומית בדפדפן מספקת ייצוא תמונות מהיר ופרטי מכל טלפון או טאבלט.",
+      "schemaName": "המרת PDF ל-PNG במובייל",
+      "schemaDescription": "המירו עמודי PDF ל-PNG במובייל ללא העלאה. המרה מקומית בדפדפן מספקת ייצוא תמונות מהיר ופרטי מכל טלפון או טאבלט.",
+      "schemaFeaturePrimary": "המרת PDF ל-PNG במובייל"
+    },
+    "pdf-to-png-online": {
+      "metaTitle": "המרת PDF ל-PNG אונליין | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו עמודי PDF ל-PNG אונליין עם פרטיות מקומית-תחילה. ייצאו תמונות באיכות גבוהה בדפדפן בלי לשלוח קבצים לשום שרת.",
+      "title": "המרת PDF ל-PNG אונליין",
+      "description": "המירו עמודי PDF ל-PNG אונליין עם פרטיות מקומית-תחילה. ייצאו תמונות באיכות גבוהה בדפדפן בלי לשלוח קבצים לשום שרת.",
+      "schemaName": "המרת PDF ל-PNG אונליין",
+      "schemaDescription": "המירו עמודי PDF ל-PNG אונליין עם פרטיות מקומית-תחילה. ייצאו תמונות באיכות גבוהה בדפדפן בלי לשלוח קבצים לשום שרת.",
+      "schemaFeaturePrimary": "המרת PDF ל-PNG אונליין"
+    },
+    "sign-pdf-online": {
+      "metaTitle": "חתימה על PDF אונליין | ללא העלאה | JoinMyPDF",
+      "metaDescription": "חתמו על מסמכי PDF אונליין בלי להעלות אותם. חתימה מקומית בדפדפן שומרת על חוזים וטפסים פרטיים עם תוצאות מיידיות להורדה.",
+      "title": "חתימה על PDF אונליין",
+      "description": "חתמו על מסמכי PDF אונליין בלי להעלות אותם. חתימה מקומית בדפדפן שומרת על חוזים וטפסים פרטיים עם תוצאות מיידיות להורדה.",
+      "schemaName": "חתימה על PDF אונליין",
+      "schemaDescription": "חתמו על מסמכי PDF אונליין בלי להעלות אותם. חתימה מקומית בדפדפן שומרת על חוזים וטפסים פרטיים עם תוצאות מיידיות להורדה.",
+      "schemaFeaturePrimary": "חתימת PDF אונליין"
+    },
+    "sign-pdf-secure": {
+      "metaTitle": "חתימה על PDF מאובטחת | ללא העלאה | JoinMyPDF",
+      "metaDescription": "חתמו על PDF בצורה מאובטחת עם עיבוד מקומי-תחילה בדפדפן. המסמך והחתימה נשארים במכשיר — ללא העלאות וללא חשיפה לצד שלישי.",
+      "title": "חתימה על PDF מאובטחת",
+      "description": "חתמו על PDF בצורה מאובטחת עם עיבוד מקומי-תחילה בדפדפן. המסמך והחתימה נשארים במכשיר — ללא העלאות וללא חשיפה לצד שלישי.",
+      "schemaName": "חתימה על PDF מאובטחת",
+      "schemaDescription": "חתמו על PDF בצורה מאובטחת עם עיבוד מקומי-תחילה בדפדפן. המסמך והחתימה נשארים במכשיר — ללא העלאות וללא חשיפה לצד שלישי.",
+      "schemaFeaturePrimary": "חתימת PDF מאובטחת"
+    },
+    "add-page-numbers-no-upload": {
+      "metaTitle": "הוספת מספרי עמודים — ללא העלאות | ללא העלאה | JoinMyPDF",
+      "metaDescription": "הוסיפו מספרי עמודים ל-PDF בלי להעלות קבצים. מספור מקומי בדפדפן שומר על פרטיות המסמכים עם תהליך אפס-העלאה ואפס-שרת.",
+      "title": "הוספת מספרי עמודים — ללא העלאות",
+      "description": "הוסיפו מספרי עמודים ל-PDF בלי להעלות קבצים. מספור מקומי בדפדפן שומר על פרטיות המסמכים עם תהליך אפס-העלאה ואפס-שרת.",
+      "schemaName": "הוספת מספרי עמודים — ללא העלאות",
+      "schemaDescription": "הוסיפו מספרי עמודים ל-PDF בלי להעלות קבצים. מספור מקומי בדפדפן שומר על פרטיות המסמכים עם תהליך אפס-העלאה ואפס-שרת.",
+      "schemaFeaturePrimary": "מספור PDF ללא העלאה"
+    },
+    "sign-pdf-free": {
+      "metaTitle": "חתימה על PDF בחינם | ללא העלאה | JoinMyPDF",
+      "metaDescription": "חתמו על מסמכי PDF בחינם בדפדפן. ללא הרשמה וללא העלאות — עיבוד מקומי שומר על כל חתימה וקובץ פרטיים לחלוטין.",
+      "title": "חתימה על PDF בחינם",
+      "description": "חתמו על מסמכי PDF בחינם בדפדפן. ללא הרשמה וללא העלאות — עיבוד מקומי שומר על כל חתימה וקובץ פרטיים לחלוטין.",
+      "schemaName": "חתימה על PDF בחינם",
+      "schemaDescription": "חתמו על מסמכי PDF בחינם בדפדפן. ללא הרשמה וללא העלאות — עיבוד מקומי שומר על כל חתימה וקובץ פרטיים לחלוטין.",
+      "schemaFeaturePrimary": "חתימת PDF בחינם"
+    },
+    "pdf-to-png-no-signup": {
+      "metaTitle": "המרת PDF ל-PNG — ללא הרשמה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "המירו עמודי PDF ל-PNG ללא הרשמה או יצירת חשבון. המרה מקומית בדפדפן היא חינמית, פרטית וללא העלאות מההתחלה ועד הסוף.",
+      "title": "המרת PDF ל-PNG — ללא הרשמה",
+      "description": "המירו עמודי PDF ל-PNG ללא הרשמה או יצירת חשבון. המרה מקומית בדפדפן היא חינמית, פרטית וללא העלאות מההתחלה ועד הסוף.",
+      "schemaName": "המרת PDF ל-PNG — ללא הרשמה",
+      "schemaDescription": "המירו עמודי PDF ל-PNG ללא הרשמה או יצירת חשבון. המרה מקומית בדפדפן היא חינמית, פרטית וללא העלאות מההתחלה ועד הסוף.",
+      "schemaFeaturePrimary": "PDF ל-PNG ללא הרשמה"
+    },
+    "delete-pdf-pages-no-signup": {
+      "metaTitle": "מחיקת עמודי PDF — ללא הרשמה | ללא העלאה | JoinMyPDF",
+      "metaDescription": "מחקו עמודי PDF מיותרים בלי ליצור חשבון. עריכה מקומית בדפדפן מסירה עמודים באופן פרטי — ללא העלאות וללא הרשמה.",
+      "title": "מחיקת עמודי PDF — ללא הרשמה",
+      "description": "מחקו עמודי PDF מיותרים בלי ליצור חשבון. עריכה מקומית בדפדפן מסירה עמודים באופן פרטי — ללא העלאות וללא הרשמה.",
+      "schemaName": "מחיקת עמודי PDF — ללא הרשמה",
+      "schemaDescription": "מחקו עמודי PDF מיותרים בלי ליצור חשבון. עריכה מקומית בדפדפן מסירה עמודים באופן פרטי — ללא העלאות וללא הרשמה.",
+      "schemaFeaturePrimary": "מחיקת עמודי PDF ללא הרשמה"
     }
   }
 }
