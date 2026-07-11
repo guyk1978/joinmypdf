@@ -3167,6 +3167,96 @@
       "schemaName": "Delete PDF Pages - No Signup",
       "schemaDescription": "Delete unwanted PDF pages without creating an account. Local browser editing means pages are removed privately — no uploads and no signup required.",
       "schemaFeaturePrimary": "Delete PDF pages without signup"
+    },
+    "sign-pdf-large-files": {
+      "metaTitle": "Sign PDF Large Files Online | Local Browser Signing | JoinMyPDF",
+      "metaDescription": "Securely sign large PDF documents instantly in your browser. Zero-upload, zero-server, 100% privacy.",
+      "title": "Sign PDF Large Files",
+      "description": "Securely sign large PDF documents instantly in your browser. Zero-upload, zero-server, 100% privacy.",
+      "schemaName": "Sign PDF Large Files",
+      "schemaDescription": "Securely sign large PDF documents instantly in your browser. Zero-upload, zero-server, 100% privacy.",
+      "schemaFeaturePrimary": "Large PDF signing"
+    },
+    "pdf-to-png-no-upload": {
+      "metaTitle": "Convert PDF to PNG - No Uploads Required | JoinMyPDF",
+      "metaDescription": "Convert your PDF pages into high-quality PNG images instantly. 100% local browser conversion — no files uploaded to any server.",
+      "title": "Convert PDF to PNG - No Uploads Required",
+      "description": "Convert your PDF pages into high-quality PNG images instantly. Our conversion process runs 100% locally in your browser. No files are uploaded to any server, ensuring your data remains private.",
+      "schemaName": "Convert PDF to PNG - No Uploads Required",
+      "schemaDescription": "Convert your PDF pages into high-quality PNG images instantly. Our conversion process runs 100% locally in your browser. No files are uploaded to any server, ensuring your data remains private.",
+      "schemaFeaturePrimary": "No-upload PDF to PNG conversion"
+    },
+    "png-to-pdf-instant": {
+      "metaTitle": "Convert PNG to PDF Instantly | Zero-Upload | JoinMyPDF",
+      "metaDescription": "Turn your PNG images into a professional PDF document in seconds. Instant browser-based conversion — no uploads required.",
+      "title": "Convert PNG to PDF Instantly",
+      "description": "Turn your PNG images into a professional PDF document in seconds. Our instant conversion tool processes your files directly in your browser, keeping your images secure without ever needing to upload them.",
+      "schemaName": "Convert PNG to PDF Instantly",
+      "schemaDescription": "Turn your PNG images into a professional PDF document in seconds. Our instant conversion tool processes your files directly in your browser, keeping your images secure without ever needing to upload them.",
+      "schemaFeaturePrimary": "Instant PNG to PDF conversion"
+    },
+    "pdf-to-png-instant": {
+      "metaTitle": "Convert PDF to PNG Instantly | Zero-Upload | JoinMyPDF",
+      "metaDescription": "Extract images from your PDF files and convert them to PNG format instantly. Secure browser-based conversion — no uploads.",
+      "title": "Convert PDF to PNG Instantly",
+      "description": "Extract images from your PDF files and convert them to PNG format instantly. Our secure, browser-based tool processes your PDF pages locally, guaranteeing total privacy without file uploads.",
+      "schemaName": "Convert PDF to PNG Instantly",
+      "schemaDescription": "Extract images from your PDF files and convert them to PNG format instantly. Our secure, browser-based tool processes your PDF pages locally, guaranteeing total privacy without file uploads.",
+      "schemaFeaturePrimary": "Instant PDF to PNG conversion"
+    },
+    "png-to-pdf-fast": {
+      "metaTitle": "Convert PNG to PDF Fast | Zero-Upload | JoinMyPDF",
+      "metaDescription": "Combine multiple PNG images into one PDF quickly. Fast browser-based conversion — secure, private, and lightning-fast with no server uploads.",
+      "title": "Convert PNG to PDF Fast",
+      "description": "Need to combine multiple PNG images into one PDF quickly? Our fast, browser-based converter creates high-quality PDFs without any server uploads. Secure, private, and lightning-fast.",
+      "schemaName": "Convert PNG to PDF Fast",
+      "schemaDescription": "Need to combine multiple PNG images into one PDF quickly? Our fast, browser-based converter creates high-quality PDFs without any server uploads. Secure, private, and lightning-fast.",
+      "schemaFeaturePrimary": "Fast PNG to PDF conversion"
+    },
+    "add-page-numbers-online": {
+      "metaTitle": "Add Page Numbers to PDF Online | Zero-Upload | JoinMyPDF",
+      "metaDescription": "Easily add page numbers to any PDF document. Customize position and formatting locally in your browser — no uploads, complete privacy.",
+      "title": "Add Page Numbers to PDF Online",
+      "description": "Easily add page numbers to any PDF document. Our tool allows you to customize position and formatting instantly. Everything is processed locally in your browser—no files are uploaded, keeping your documents completely private.",
+      "schemaName": "Add Page Numbers to PDF Online",
+      "schemaDescription": "Easily add page numbers to any PDF document. Our tool allows you to customize position and formatting instantly. Everything is processed locally in your browser—no files are uploaded, keeping your documents completely private.",
+      "schemaFeaturePrimary": "Online PDF page numbering"
+    },
+    "add-page-numbers-free": {
+      "metaTitle": "Add Page Numbers to PDF Free | No Registration | JoinMyPDF",
+      "metaDescription": "Add page numbers to PDF documents for free. Fast, easy, browser-based — no registration, no uploads, complete privacy.",
+      "title": "Add Page Numbers to PDF Free",
+      "description": "Get professional-looking PDF documents by adding page numbers for free. Our tool is fast, easy to use, and runs entirely in your browser. No registration, no uploads, and complete privacy.",
+      "schemaName": "Add Page Numbers to PDF Free",
+      "schemaDescription": "Get professional-looking PDF documents by adding page numbers for free. Our tool is fast, easy to use, and runs entirely in your browser. No registration, no uploads, and complete privacy.",
+      "schemaFeaturePrimary": "Free PDF page numbering"
+    },
+    "pdf-to-png-fast": {
+      "metaTitle": "Convert PDF to PNG Fast | Zero-Upload | JoinMyPDF",
+      "metaDescription": "Convert PDF pages to PNG images in a flash. High-performance local browser conversion — fast results with no uploads.",
+      "title": "Convert PDF to PNG Fast",
+      "description": "Get your PDF pages converted to PNG images in a flash. Our high-performance, browser-based tool processes your files locally, delivering fast results without ever uploading your sensitive data.",
+      "schemaName": "Convert PDF to PNG Fast",
+      "schemaDescription": "Get your PDF pages converted to PNG images in a flash. Our high-performance, browser-based tool processes your files locally, delivering fast results without ever uploading your sensitive data.",
+      "schemaFeaturePrimary": "Fast PDF to PNG conversion"
+    },
+    "add-page-numbers-large-files": {
+      "metaTitle": "Add Page Numbers to Large PDF Files | Zero-Upload | JoinMyPDF",
+      "metaDescription": "Add page numbers to massive PDF documents smoothly and securely. No upload limits, no server waits — 100% local browser processing.",
+      "title": "Add Page Numbers to Large PDF Files",
+      "description": "Need to add page numbers to a massive PDF document? Our specialized browser tool handles large files smoothly and securely. No upload limits, no server waiting times, and 100% privacy through local processing.",
+      "schemaName": "Add Page Numbers to Large PDF Files",
+      "schemaDescription": "Need to add page numbers to a massive PDF document? Our specialized browser tool handles large files smoothly and securely. No upload limits, no server waiting times, and 100% privacy through local processing.",
+      "schemaFeaturePrimary": "Large PDF page numbering"
+    },
+    "png-to-pdf-no-signup": {
+      "metaTitle": "Convert PNG to PDF - No Signup Required | JoinMyPDF",
+      "metaDescription": "Convert PNG images to PDF instantly without signup or registration. Secure local browser processing — complete privacy, zero data leakage.",
+      "title": "Convert PNG to PDF - No Signup Required",
+      "description": "Convert your PNG images to PDF files instantly without any signup or registration. Our secure, browser-based tool processes your images locally on your device, ensuring complete privacy and zero data leakage.",
+      "schemaName": "Convert PNG to PDF - No Signup Required",
+      "schemaDescription": "Convert your PNG images to PDF files instantly without any signup or registration. Our secure, browser-based tool processes your images locally on your device, ensuring complete privacy and zero data leakage.",
+      "schemaFeaturePrimary": "PNG to PDF without signup"
     }
   }
 }

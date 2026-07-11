@@ -67,6 +67,18 @@ const DELETE_PAGES_RELATED = [
 
 /** Batch SEO landing pages for privacy-first PDF tool variants. */
 export const SEO_TOOL_LANDINGS = [
+  // Earlier dedicated landings (must also be reachable via tools/[slug] static params)
+  { slug: "sign-pdf-large-files", workspaceSlug: "sign-pdf", related: SIGN_PDF_RELATED },
+  { slug: "pdf-to-png-no-upload", workspaceSlug: "pdf-to-png", related: PDF_TO_PNG_RELATED },
+  { slug: "png-to-pdf-instant", workspaceSlug: "png-to-pdf", related: PNG_TO_PDF_RELATED },
+  { slug: "pdf-to-png-instant", workspaceSlug: "pdf-to-png", related: PDF_TO_PNG_RELATED },
+  { slug: "png-to-pdf-fast", workspaceSlug: "png-to-pdf", related: PNG_TO_PDF_RELATED },
+  { slug: "add-page-numbers-online", workspaceSlug: "add-page-numbers", related: ADD_PAGE_NUMBERS_RELATED },
+  { slug: "add-page-numbers-free", workspaceSlug: "add-page-numbers", related: ADD_PAGE_NUMBERS_RELATED },
+  { slug: "pdf-to-png-fast", workspaceSlug: "pdf-to-png", related: PDF_TO_PNG_RELATED },
+  { slug: "add-page-numbers-large-files", workspaceSlug: "add-page-numbers", related: ADD_PAGE_NUMBERS_RELATED },
+  { slug: "png-to-pdf-no-signup", workspaceSlug: "png-to-pdf", related: PNG_TO_PDF_RELATED },
+  // Batch landings
   { slug: "png-to-pdf-online", workspaceSlug: "png-to-pdf", related: PNG_TO_PDF_RELATED },
   { slug: "png-to-pdf-high-quality", workspaceSlug: "png-to-pdf", related: PNG_TO_PDF_RELATED },
   { slug: "add-page-numbers-instant", workspaceSlug: "add-page-numbers", related: ADD_PAGE_NUMBERS_RELATED },
@@ -99,6 +111,12 @@ export const SEO_TOOL_LANDINGS = [
 ] as const satisfies readonly SeoToolLandingDef[];
 
 export type SeoToolLandingSlug = (typeof SEO_TOOL_LANDINGS)[number]["slug"];
+
+export const SEO_TOOL_LANDING_SLUGS: readonly string[] = SEO_TOOL_LANDINGS.map((entry) => entry.slug);
+
+export function isSeoToolLandingSlug(slug: string): slug is SeoToolLandingSlug {
+  return SEO_TOOL_LANDING_SLUGS.includes(slug);
+}
 
 export function getSeoToolLanding(slug: string): SeoToolLandingDef | undefined {
   return SEO_TOOL_LANDINGS.find((entry) => entry.slug === slug);

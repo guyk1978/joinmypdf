@@ -117,7 +117,14 @@ import {
 } from "@/lib/i18n-tool-page";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
+import { SeoToolLandingPage } from "@/components/SeoToolLandingPage";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
+import {
+  generateSeoToolLandingMetadata,
+  isSeoToolLandingSlug,
+  SEO_TOOL_LANDING_SLUGS,
+  type SeoToolLandingSlug,
+} from "@/lib/seo-tool-landings";
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
 import { buildToolBreadcrumbTrail } from "@/lib/tool-breadcrumb-hub";
 import { resolveToolRoute } from "@/lib/variants";
@@ -163,6 +170,13 @@ export async function generateStaticParams() {
     slugs.add(audioId);
   }
 
+  // Privacy-first SEO landings live as App Router pages, but Cloudflare/next-on-pages
+  // resolves /[locale]/tools/:slug through this dynamic segment. With dynamicParams=false
+  // they 404 unless included here — and rendered via SeoToolLandingPage below.
+  for (const landingSlug of SEO_TOOL_LANDING_SLUGS) {
+    slugs.add(landingSlug);
+  }
+
   return Array.from(slugs).map((slug) => ({ slug }));
 }
 
@@ -173,6 +187,9 @@ export async function generateMetadata({
 }) {
   const { locale, slug } = await params;
   if (!slug) return {};
+  if (isSeoToolLandingSlug(slug)) {
+    return generateSeoToolLandingMetadata(slug, locale);
+  }
   const audioTool = getAudioToolById(slug);
   if (audioTool) {
     const tPage = await getTranslations({ locale, namespace: "ToolPage" });
@@ -213,6 +230,15 @@ export default async function ToolPage({
   const { locale, slug } = await params;
   if (!slug) notFound();
   setRequestLocale(locale);
+
+  if (isSeoToolLandingSlug(slug)) {
+    return (
+      <SeoToolLandingPage
+        slug={slug as SeoToolLandingSlug}
+        params={Promise.resolve({ locale })}
+      />
+    );
+  }
 
   const tPage = await getTranslations("ToolPage");
   const tTools = await getTranslations("Tools");
