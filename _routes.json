@@ -1,4 +1,4 @@
 {
   "version": 1,
-  "exclude": ["/tools", "/tools/", "/tools/*"]
+  "exclude": ["/tools", "/tools/*"]
 }

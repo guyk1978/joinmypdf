@@ -12,7 +12,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const redirectsSrc = path.join(root, "_redirects");
 
-const TOOL_ROUTE_EXCLUDES = ["/tools", "/tools/", "/tools/*"];
+// Cloudflare rejects overlapping excludes (e.g. "/tools/" vs "/tools/*").
+const TOOL_ROUTE_EXCLUDES = ["/tools", "/tools/*"];
 
 const redirectTargets = [
   path.join(root, "public", "_redirects"),
