@@ -5,9 +5,13 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getRecentImagePngBlogPosts } from "@/lib/blog-image-category";
+import { getRecentExtractionBlogPosts } from "@/lib/blog-extract-category";
 import { getBlogRegistry } from "@/lib/blog-registry";
-import { buildPngToolGridItems, getPngToolFeatureLabels, PNG_TOOLS_HUB_PATH } from "@/lib/png-tools";
+import {
+  buildExtractToolGridItems,
+  EXTRACT_TOOLS_HUB_PATH,
+  getExtractToolFeatureLabels,
+} from "@/lib/extract-tools";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 
@@ -15,32 +19,35 @@ type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "PngToolsPage" });
+  const t = await getTranslations({ locale, namespace: "ExtractToolsPage" });
 
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: {
-      canonical: `/${locale}${PNG_TOOLS_HUB_PATH}`,
-      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}${PNG_TOOLS_HUB_PATH}`])),
+      canonical: `/${locale}${EXTRACT_TOOLS_HUB_PATH}`,
+      languages: Object.fromEntries(
+        routing.locales.map((item) => [item, `/${item}${EXTRACT_TOOLS_HUB_PATH}`]),
+      ),
     },
   };
 }
 
-export default async function PngToolsPage({ params }: PageProps) {
+export default async function ExtractToolsHubPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("PngToolsPage");
+  const t = await getTranslations("ExtractToolsPage");
   const tPage = await getTranslations("ToolPage");
-  const pathname = `/${locale}${PNG_TOOLS_HUB_PATH}`;
-  const gridItems = buildPngToolGridItems(t);
-  const featureList = getPngToolFeatureLabels(t);
-  const relatedGuides = getRecentImagePngBlogPosts(getBlogRegistry(locale).blog || [], 3);
+  const pathname = `/${locale}${EXTRACT_TOOLS_HUB_PATH}`;
+  const gridItems = buildExtractToolGridItems(t);
+  const featureList = getExtractToolFeatureLabels(t);
+  const relatedGuides = getRecentExtractionBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: t("title"), path: PNG_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbHubPdf"), path: "/privacy-first-pdf-tools/" },
+    { name: t("title"), path: EXTRACT_TOOLS_HUB_PATH },
   ];
 
   return (
@@ -52,42 +59,48 @@ export default async function PngToolsPage({ params }: PageProps) {
           pathname,
           locale,
           featureList,
-          applicationCategory: "MultimediaApplication",
+          applicationCategory: "UtilitiesApplication",
         })}
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
-          <header className="tools-directory-page__head">
-            <h1 className="tools-directory-page__title">{t("title")}</h1>
-            <p className="tools-directory-page__desc">{t("description")}</p>
+          <header className="mb-6 border-b border-[#262626] pb-6">
+            <h1 className="mb-6 text-4xl font-bold text-white">{t("title")}</h1>
+            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
           </header>
 
-          <section
-            className="tools-hub-panel border border-[#262626] bg-[#0a0a0a] p-6"
-            aria-label={t("schemaName")}
-          >
+          <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
             <CategoryDirectoryFlatGrid items={gridItems} />
           </section>
 
           <section
             className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="png-tools-related-formats"
+            aria-labelledby="extract-tools-related-categories"
           >
             <h2
-              id="png-tools-related-formats"
+              id="extract-tools-related-categories"
               className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
             >
-              {t("relatedFormatsTitle")}
+              {t("relatedCategoriesTitle")}
             </h2>
             <ul className="mt-4 flex flex-col gap-3">
               <li className="border-b border-[#1a1a1a] pb-3">
                 <Link
-                  href="/tools/jpg-tools/"
+                  href="/privacy-first-pdf-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >
-                  {t("exploreJpgTools")}
+                  {t("explorePdfTools")}
+                </Link>
+              </li>
+              <li className="border-b border-[#1a1a1a] pb-3">
+                <Link
+                  href="/developer-tools/"
+                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                  prefetch={false}
+                >
+                  {t("exploreDeveloperTools")}
                 </Link>
               </li>
               <li className="pb-0">
@@ -96,26 +109,20 @@ export default async function PngToolsPage({ params }: PageProps) {
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >
-                  {t("exploreImageTools")}
+                  {t("exploreMediaTools")}
                 </Link>
               </li>
             </ul>
+            <p className="mt-4 mb-0 text-sm leading-relaxed text-[#a3a3a3]">{t("relatedCategoriesBlurb")}</p>
           </section>
 
           <ToolsHubRelatedGuides
             posts={relatedGuides}
             title={t("relatedGuidesTitle")}
-            sectionId="png-tools-related-guides"
+            sectionId="extract-tools-related-guides"
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
-            <Link
-              href="/"
-              className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
-              prefetch={false}
-            >
-              {t("backToHome")}
-            </Link>
             <Link
               href="/tools/"
               className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"

@@ -123,8 +123,8 @@ export function HomeToolGrid({
     {
       id: "home-cat-image",
       title: t("imageSectionTitle"),
-      viewAllHref: "/tools/png-tools/",
-      viewAllLabel: t("viewAllPngTools"),
+      viewAllHref: "/tools/jpg-tools/",
+      viewAllLabel: t("viewAllJpgTools"),
       items: toFlatItems(imageItems),
     },
     {
@@ -179,8 +179,8 @@ export function HomeToolGrid({
     {
       id: "home-cat-utilities",
       title: t("utilitiesSectionTitle"),
-      viewAllHref: "/text-json-tools/",
-      viewAllLabel: t("viewAllTextJsonTools"),
+      viewAllHref: "/tools/text-tools/",
+      viewAllLabel: t("viewAllTextTools"),
       items: toFlatItems(utilityItems),
     },
   ];
