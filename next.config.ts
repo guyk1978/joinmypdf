@@ -32,6 +32,26 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   images: { unoptimized: true },
   reactStrictMode: true,
+  // Redirects apply for `next start` / non-export hosts. Static Cloudflare builds
+  // ignore next.config redirects — see `public/_redirects` for Pages 301s.
+  ...(!shouldExportStatic
+    ? {
+        async redirects() {
+          return [
+            {
+              source: "/tools",
+              destination: "/en/tools",
+              permanent: true,
+            },
+            {
+              source: "/tools/:path*",
+              destination: "/en/tools/:path*",
+              permanent: true,
+            },
+          ];
+        },
+      }
+    : {}),
   async headers() {
     return [
       {

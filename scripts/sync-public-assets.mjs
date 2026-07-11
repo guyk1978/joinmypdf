@@ -66,6 +66,7 @@ await cp(path.join(root, "assets"), path.join(publicDir, "assets"), {
 });
 await cp(path.join(root, "manifest.webmanifest"), path.join(publicDir, "manifest.webmanifest"));
 await copyFile(path.join(root, "ads.txt"), path.join(publicDir, "ads.txt"));
+await copyFile(path.join(root, "_redirects"), path.join(publicDir, "_redirects"));
 
 const publicRootAssets = [
   "heder-dark-EN-2.png",
