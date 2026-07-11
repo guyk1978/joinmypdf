@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   reactStrictMode: true,
   // Redirects apply for `next start` / non-export hosts. Static Cloudflare builds
-  // ignore next.config redirects — see `public/_redirects` for Pages 301s.
+  // ignore next.config redirects — see root `_redirects` (copied into public/out/.vercel via scripts/copy-redirects.mjs).
   ...(!shouldExportStatic
     ? {
         async redirects() {

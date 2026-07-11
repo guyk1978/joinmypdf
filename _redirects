@@ -1,6 +1,5 @@
 # Legacy unlocalized tool URLs → English locale (permanent 301).
-# Trailing `!` forces the redirect even when a static /tools/* asset exists
-# (Cloudflare Pages would otherwise prefer the static file over the redirect).
-/tools /en/tools 301!
-/tools/ /en/tools 301!
-/tools/* /en/tools/:splat 301!
+# Cloudflare Pages reads this file from the publish directory root.
+/tools /en/tools 301
+/tools/ /en/tools 301
+/tools/* /en/tools/:splat 301
