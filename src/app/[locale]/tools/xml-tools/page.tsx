@@ -36,7 +36,7 @@ export default async function XmlToolsHubPage({ params }: PageProps) {
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbHubDeveloper"), path: "/developer-tools/" },
+    { name: tPage("breadcrumbHubDeveloper"), path: "/tools/developer-tools/" },
     { name: t("title"), path: XML_TOOLS_HUB_PATH },
   ];
 
@@ -95,7 +95,7 @@ export default async function XmlToolsHubPage({ params }: PageProps) {
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
             <Link
-              href="/developer-tools/"
+              href="/tools/developer-tools/"
               className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
               prefetch={false}
             >

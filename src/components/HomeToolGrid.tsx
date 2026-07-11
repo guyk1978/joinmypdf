@@ -1,189 +1,58 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { clsx } from "clsx";
+import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import "@/styles/tools-grid.css";
 import { HomeFlatToolLink } from "@/components/HomeFlatToolLink";
 import type { HomeFeaturedToolItem } from "@/lib/featured-tools";
-import type { HomeFeaturedImageItem } from "@/lib/image-tools";
-import type { HomeFeaturedUtilityItem } from "@/lib/utilities-tools";
-import type { HomeFeaturedDeveloperItem } from "@/lib/developer-tools";
-import type { HomeFeaturedDataConversionItem } from "@/lib/data-conversion-tools";
-import type { HomeFeaturedSecurityItem } from "@/lib/security-tools";
-import type { HomeFeaturedProductivityItem } from "@/lib/productivity-tools";
-import type { HomeFeaturedAudioItem } from "@/lib/audio-tools";
-import type { HomeFeaturedVideoItem } from "@/lib/video-tools";
-import type { HomeFeaturedFaviconItem } from "@/lib/favicon-tools";
-
-const CATEGORY_PREVIEW = 3;
-
-type FlatToolItem = {
-  id: string;
-  href: string;
-  label: string;
-};
+import {
+  buildHomeMoreToolsCategories,
+  type HomeMoreToolsCategory,
+} from "@/lib/home-more-tools";
 
 type CategoryBlockProps = {
-  id: string;
+  category: HomeMoreToolsCategory;
   title: string;
-  viewAllHref: string;
   viewAllLabel: string;
-  items: FlatToolItem[];
 };
 
-function CategoryBlock({ id, title, viewAllHref, viewAllLabel, items }: CategoryBlockProps) {
-  const t = useTranslations("Home");
-  const [expanded, setExpanded] = useState(false);
-  const hasMore = items.length > CATEGORY_PREVIEW;
-  const visible = expanded ? items : items.slice(0, CATEGORY_PREVIEW);
-
+function CategoryBlock({ category, title, viewAllLabel }: CategoryBlockProps) {
   return (
-    <section className="home-category-block" aria-labelledby={id}>
+    <section className="home-category-block" aria-labelledby={`home-cat-${category.id}`}>
       <div className="home-category-block__head">
-        <h3 id={id} className="home-category-block__title">
-          {title}
+        <h3 id={`home-cat-${category.id}`} className="home-category-block__title">
+          <Link
+            href={category.hubHref}
+            className="home-category-block__title-link"
+            prefetch={false}
+          >
+            {title}
+          </Link>
         </h3>
-        <Link href={viewAllHref} className="home-category-block__all" prefetch={false}>
+        <Link href={category.hubHref} className="home-category-block__all" prefetch={false}>
           {viewAllLabel}
           <ArrowRight className="home-category-block__all-icon" aria-hidden />
         </Link>
       </div>
       <ul className="tools-grid">
-        {visible.map((item) => (
+        {category.items.map((item) => (
           <li key={item.id}>
             <HomeFlatToolLink href={item.href} label={item.label} slugHint={item.id} />
           </li>
         ))}
       </ul>
-      <div className="home-category-block__footer">
-        {hasMore ? (
-          <button
-            type="button"
-            className="home-category-block__view-action"
-            onClick={() => setExpanded((value) => !value)}
-            aria-expanded={expanded}
-            aria-controls={id}
-          >
-            {expanded ? t("landing.showLess") : t("landing.viewCategory")}
-            <ChevronDown
-              className={clsx("home-category-block__view-icon", expanded && "is-open")}
-              aria-hidden
-            />
-          </button>
-        ) : (
-          <Link href={viewAllHref} className="home-category-block__view-action" prefetch={false}>
-            {t("landing.viewCategory")}
-            <ArrowRight className="home-category-block__view-icon home-category-block__view-icon--arrow" aria-hidden />
-          </Link>
-        )}
-      </div>
     </section>
   );
 }
 
 type HomeToolGridProps = {
   pdfPowerhouseItems: HomeFeaturedToolItem[];
-  imageItems: HomeFeaturedImageItem[];
-  developerItems: HomeFeaturedDeveloperItem[];
-  dataConversionItems: HomeFeaturedDataConversionItem[];
-  securityItems: HomeFeaturedSecurityItem[];
-  productivityItems: HomeFeaturedProductivityItem[];
-  utilityItems: HomeFeaturedUtilityItem[];
-  faviconItems: HomeFeaturedFaviconItem[];
-  audioItems: HomeFeaturedAudioItem[];
-  videoItems: HomeFeaturedVideoItem[];
 };
 
-function toFlatItems<T extends { id: string; href: string; label: string }>(items: T[]): FlatToolItem[] {
-  return items.map((item) => ({
-    id: item.id,
-    href: item.href,
-    label: item.label,
-  }));
-}
-
-export function HomeToolGrid({
-  pdfPowerhouseItems,
-  imageItems,
-  developerItems,
-  dataConversionItems,
-  securityItems,
-  productivityItems,
-  utilityItems,
-  faviconItems,
-  audioItems,
-  videoItems,
-}: HomeToolGridProps) {
+export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
   const t = useTranslations("Home");
-
-  const categories: CategoryBlockProps[] = [
-    {
-      id: "home-cat-image",
-      title: t("imageSectionTitle"),
-      viewAllHref: "/tools/jpg-tools/",
-      viewAllLabel: t("viewAllJpgTools"),
-      items: toFlatItems(imageItems),
-    },
-    {
-      id: "home-cat-favicon",
-      title: t("faviconSectionTitle"),
-      viewAllHref: "/tools/favicon-tools/",
-      viewAllLabel: t("viewAllFaviconTools"),
-      items: toFlatItems(faviconItems),
-    },
-    {
-      id: "home-cat-audio",
-      title: t("audioSectionTitle"),
-      viewAllHref: "/audio-tools/",
-      viewAllLabel: t("viewAllAudioTools"),
-      items: toFlatItems(audioItems),
-    },
-    {
-      id: "home-cat-video",
-      title: t("videoSectionTitle"),
-      viewAllHref: "/tools/mp4-tools/",
-      viewAllLabel: t("viewAllVideoTools"),
-      items: toFlatItems(videoItems),
-    },
-    {
-      id: "home-cat-developer",
-      title: t("developerSectionTitle"),
-      viewAllHref: "/developer-tools/",
-      viewAllLabel: t("viewAllDeveloperTools"),
-      items: toFlatItems(developerItems),
-    },
-    {
-      id: "home-cat-data-conversion",
-      title: t("dataConversionSectionTitle"),
-      viewAllHref: "/data-conversion-tools/",
-      viewAllLabel: t("viewAllDataConversionTools"),
-      items: toFlatItems(dataConversionItems),
-    },
-    {
-      id: "home-cat-security",
-      title: t("securitySectionTitle"),
-      viewAllHref: "/security-tools/",
-      viewAllLabel: t("viewAllSecurityTools"),
-      items: toFlatItems(securityItems),
-    },
-    {
-      id: "home-cat-productivity",
-      title: t("productivitySectionTitle"),
-      viewAllHref: "/productivity-tools/",
-      viewAllLabel: t("viewAllProductivityTools"),
-      items: toFlatItems(productivityItems),
-    },
-    {
-      id: "home-cat-utilities",
-      title: t("utilitiesSectionTitle"),
-      viewAllHref: "/tools/text-tools/",
-      viewAllLabel: t("viewAllTextTools"),
-      items: toFlatItems(utilityItems),
-    },
-  ];
+  const categories = buildHomeMoreToolsCategories(t);
 
   return (
     <>
@@ -209,7 +78,7 @@ export function HomeToolGrid({
         </ul>
 
         <div className="home-pdf-powerhouse__footer">
-          <Link href="/tools/" className="home-pdf-powerhouse__all" prefetch={false}>
+          <Link href="/tools/pdf-tools/" className="home-pdf-powerhouse__all" prefetch={false}>
             {t("viewAllPdfTools")}
             <ArrowRight className="home-pdf-powerhouse__all-icon" aria-hidden />
           </Link>
@@ -227,7 +96,12 @@ export function HomeToolGrid({
 
         <div className="home-more-tools__categories">
           {categories.map((category) => (
-            <CategoryBlock key={category.id} {...category} />
+            <CategoryBlock
+              key={category.id}
+              category={category}
+              title={t(category.titleKey)}
+              viewAllLabel={t(category.viewAllLabelKey)}
+            />
           ))}
         </div>
       </section>

@@ -5,49 +5,58 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getRecentDeveloperJsonBlogPosts } from "@/lib/blog-json-category";
+import { getRecentConversionBlogPosts } from "@/lib/blog-convert-category";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import {
-  buildJsonToolGridItems,
-  getJsonToolFeatureLabels,
-  JSON_TOOLS_HUB_PATH,
-} from "@/lib/json-tools";
+  buildConvertPopularItems,
+  buildConvertToolGroupItems,
+  CONVERT_TOOL_GROUPS,
+  CONVERT_TOOLS_HUB_PATH,
+  getConvertToolFeatureLabels,
+  type ConvertToolGroupId,
+} from "@/lib/convert-tools";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
+const GROUP_TITLE_KEYS: Record<ConvertToolGroupId, string> = {
+  document: "groupDocument",
+  image: "groupImage",
+  media: "groupMedia",
+};
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "JsonToolsPage" });
+  const t = await getTranslations({ locale, namespace: "ConvertToolsPage" });
 
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: {
-      canonical: `/${locale}${JSON_TOOLS_HUB_PATH}`,
+      canonical: `/${locale}${CONVERT_TOOLS_HUB_PATH}`,
       languages: Object.fromEntries(
-        routing.locales.map((item) => [item, `/${item}${JSON_TOOLS_HUB_PATH}`]),
+        routing.locales.map((item) => [item, `/${item}${CONVERT_TOOLS_HUB_PATH}`]),
       ),
     },
   };
 }
 
-export default async function JsonToolsHubPage({ params }: PageProps) {
+export default async function ConvertToolsHubPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations("JsonToolsPage");
+  const t = await getTranslations("ConvertToolsPage");
   const tPage = await getTranslations("ToolPage");
-  const pathname = `/${locale}${JSON_TOOLS_HUB_PATH}`;
-  const gridItems = buildJsonToolGridItems(t);
-  const featureList = getJsonToolFeatureLabels(t);
-  const relatedGuides = getRecentDeveloperJsonBlogPosts(getBlogRegistry(locale).blog || [], 3);
+  const pathname = `/${locale}${CONVERT_TOOLS_HUB_PATH}`;
+  const featureList = getConvertToolFeatureLabels(t);
+  const relatedGuides = getRecentConversionBlogPosts(getBlogRegistry(locale).blog || [], 3);
+  const popularItems = buildConvertPopularItems(t);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbHubDeveloper"), path: "/tools/developer-tools/" },
-    { name: t("title"), path: JSON_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: t("title"), path: CONVERT_TOOLS_HUB_PATH },
   ];
 
   return (
@@ -59,7 +68,7 @@ export default async function JsonToolsHubPage({ params }: PageProps) {
           pathname,
           locale,
           featureList,
-          applicationCategory: "DeveloperApplication",
+          applicationCategory: "UtilitiesApplication",
         })}
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
@@ -70,57 +79,83 @@ export default async function JsonToolsHubPage({ params }: PageProps) {
             <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
           </header>
 
-          <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} />
+          <section
+            className="tools-hub-panel border-b border-[#262626] pb-8"
+            aria-labelledby="convert-popular-heading"
+          >
+            <h2
+              id="convert-popular-heading"
+              className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+            >
+              {t("popularTitle")}
+            </h2>
+            <CategoryDirectoryFlatGrid items={popularItems} />
           </section>
+
+          {CONVERT_TOOL_GROUPS.map((group) => (
+            <section
+              key={group.id}
+              className="tools-hub-panel border-b border-[#262626] py-8"
+              aria-labelledby={`convert-group-${group.id}`}
+            >
+              <h2
+                id={`convert-group-${group.id}`}
+                className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+              >
+                {t(GROUP_TITLE_KEYS[group.id])}
+              </h2>
+              <CategoryDirectoryFlatGrid items={buildConvertToolGroupItems(group.id, t)} />
+            </section>
+          ))}
 
           <section
             className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="json-tools-related-formats"
+            aria-labelledby="convert-tools-related-categories"
           >
             <h2
-              id="json-tools-related-formats"
+              id="convert-tools-related-categories"
               className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
             >
-              {t("relatedFormatsTitle")}
+              {t("relatedCategoriesTitle")}
             </h2>
             <ul className="mt-4 flex flex-col gap-3">
               <li className="border-b border-[#1a1a1a] pb-3">
                 <Link
-                  href="/tools/yaml-tools/"
+                  href="/tools/compress-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >
-                  {t("exploreYamlTools")}
+                  {t("exploreCompressTools")}
+                </Link>
+              </li>
+              <li className="border-b border-[#1a1a1a] pb-3">
+                <Link
+                  href="/tools/extract-tools/"
+                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                  prefetch={false}
+                >
+                  {t("exploreExtractTools")}
                 </Link>
               </li>
               <li className="pb-0">
                 <Link
-                  href="/tools/xml-tools/"
+                  href="/tools/pdf-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >
-                  {t("exploreXmlTools")}
+                  {t("explorePdfTools")}
                 </Link>
               </li>
             </ul>
-            <p className="mt-4 mb-0 text-sm leading-relaxed text-[#a3a3a3]">{t("relatedFormatsBlurb")}</p>
           </section>
 
           <ToolsHubRelatedGuides
             posts={relatedGuides}
             title={t("relatedGuidesTitle")}
-            sectionId="json-tools-related-guides"
+            sectionId="convert-tools-related-guides"
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
-            <Link
-              href="/tools/developer-tools/"
-              className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
-              prefetch={false}
-            >
-              {t("backToDeveloperTools")}
-            </Link>
             <Link
               href="/tools/"
               className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"

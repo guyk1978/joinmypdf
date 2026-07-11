@@ -46,7 +46,7 @@ export default async function ExtractToolsHubPage({ params }: PageProps) {
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbHubPdf"), path: "/privacy-first-pdf-tools/" },
+    { name: tPage("breadcrumbHubPdf"), path: "/tools/pdf-tools/" },
     { name: t("title"), path: EXTRACT_TOOLS_HUB_PATH },
   ];
 
@@ -87,7 +87,7 @@ export default async function ExtractToolsHubPage({ params }: PageProps) {
             <ul className="mt-4 flex flex-col gap-3">
               <li className="border-b border-[#1a1a1a] pb-3">
                 <Link
-                  href="/privacy-first-pdf-tools/"
+                  href="/tools/pdf-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >
@@ -96,7 +96,7 @@ export default async function ExtractToolsHubPage({ params }: PageProps) {
               </li>
               <li className="border-b border-[#1a1a1a] pb-3">
                 <Link
-                  href="/developer-tools/"
+                  href="/tools/developer-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >

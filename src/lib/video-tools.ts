@@ -1,4 +1,5 @@
 import { MP4_TOOLS_HUB_PATH } from "@/lib/mp4-tools";
+import { VIDEO_TOOLS_HUB_PATH } from "@/lib/video-tools-hub";
 import { registry } from "@/lib/registry";
 
 export type HomeFeaturedVideoItem = {
@@ -22,14 +23,25 @@ const VIDEO_ICON_KEYS: Record<(typeof FEATURED_VIDEO_SLUGS)[number], HomeFeature
 };
 
 export function buildHomepageFeaturedVideoItems(tHome?: HomeTranslator): HomeFeaturedVideoItem[] {
-  const hubLabel = tHome?.has("mp4ToolsHubLabel") ? tHome("mp4ToolsHubLabel") : "MP4 Tools Hub";
+  const videoHubLabel = tHome?.has("videoToolsHubLabel")
+    ? tHome("videoToolsHubLabel")
+    : "Video Tools";
+  const mp4HubLabel = tHome?.has("mp4ToolsHubLabel") ? tHome("mp4ToolsHubLabel") : "MP4 Tools Hub";
 
-  const hubItem: HomeFeaturedVideoItem = {
-    id: "mp4-tools-hub",
-    href: MP4_TOOLS_HUB_PATH,
-    label: hubLabel,
-    iconKey: "video",
-  };
+  const hubItems: HomeFeaturedVideoItem[] = [
+    {
+      id: "video-tools-hub",
+      href: VIDEO_TOOLS_HUB_PATH,
+      label: videoHubLabel,
+      iconKey: "video",
+    },
+    {
+      id: "mp4-tools-hub",
+      href: MP4_TOOLS_HUB_PATH,
+      label: mp4HubLabel,
+      iconKey: "video",
+    },
+  ];
 
   const toolItems = FEATURED_VIDEO_SLUGS.map((slug) => {
     const tool = registry.tools.find((entry) => entry.slug === slug);
@@ -41,5 +53,5 @@ export function buildHomepageFeaturedVideoItems(tHome?: HomeTranslator): HomeFea
     };
   });
 
-  return [hubItem, ...toolItems];
+  return [...hubItems, ...toolItems];
 }

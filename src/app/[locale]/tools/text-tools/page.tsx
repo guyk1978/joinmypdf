@@ -87,7 +87,7 @@ export default async function TextToolsHubPage({ params }: PageProps) {
             <ul className="mt-4 flex flex-col gap-3">
               <li className="border-b border-[#1a1a1a] pb-3">
                 <Link
-                  href="/developer-tools/"
+                  href="/tools/developer-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >
@@ -115,7 +115,7 @@ export default async function TextToolsHubPage({ params }: PageProps) {
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
             <Link
-              href="/developer-tools/"
+              href="/tools/developer-tools/"
               className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
               prefetch={false}
             >

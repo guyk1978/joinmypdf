@@ -12,7 +12,15 @@ function postHint(post: BlogPost): string {
 /** True when editorial category targets video / MP4 guides. */
 export function isVideoOrMp4BlogPost(post: BlogPost): boolean {
   const category = normalizeCategory(post);
-  if (category === "video" || category === "mp4" || category.includes("video") || category.includes("mp4")) {
+  if (
+    category === "video" ||
+    category === "mp4" ||
+    category === "video editing" ||
+    category === "media optimization" ||
+    category.includes("video") ||
+    category.includes("mp4") ||
+    category.includes("media")
+  ) {
     return true;
   }
 
@@ -26,7 +34,11 @@ export function isVideoOrMp4BlogPost(post: BlogPost): boolean {
   }
 
   const hint = postHint(post);
-  return /\bmp4\b/.test(hint) || /\bvideo\b/.test(hint);
+  return (
+    /\bmp4\b/.test(hint) ||
+    /\bvideo\b/.test(hint) ||
+    /\b(video.?edit|media.?optim|compress.?video|video.?to.?gif)\b/.test(hint)
+  );
 }
 
 export function getRecentVideoMp4BlogPosts(posts: BlogPost[], limit = 3): BlogPost[] {

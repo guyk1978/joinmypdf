@@ -22,30 +22,30 @@ export type ToolCategoryHub = {
 const NAV_CATEGORY_HUBS: Partial<Record<ToolCategory, ToolCategoryHub>> = {
   [c.favicon]: { path: "/tools/favicon-tools/", labelKey: "breadcrumbHubFavicon" },
   [c.image]: { path: "/image-tools/", labelKey: "breadcrumbHubImage" },
-  [c.video]: { path: "/image-tools/", labelKey: "breadcrumbHubImage" },
-  [c.developerBrowser]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
-  [c.developerTokens]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
-  [c.developerGenerators]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
+  [c.video]: { path: "/tools/video-tools/", labelKey: "breadcrumbHubVideo" },
+  [c.developerBrowser]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
+  [c.developerTokens]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
+  [c.developerGenerators]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.developerJson]: { path: "/tools/json-tools/", labelKey: "breadcrumbHubJson" },
-  [c.developerPublish]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
-  [c.developerWorkflows]: { path: "/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
+  [c.developerPublish]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
+  [c.developerWorkflows]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.utilitiesText]: { path: "/tools/text-tools/", labelKey: "breadcrumbHubText" },
   [c.utilitiesEncoders]: { path: "/tools/text-tools/", labelKey: "breadcrumbHubText" },
   [c.dataConversion]: { path: "/data-conversion-tools/", labelKey: "breadcrumbHubDataConversion" },
-  [c.security]: { path: "/security-tools/", labelKey: "breadcrumbHubSecurity" },
+  [c.security]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.productivity]: { path: "/productivity-tools/", labelKey: "breadcrumbHubProductivity" },
-  [c.pdfSecurity]: { path: "/privacy-first-pdf-tools/", labelKey: "breadcrumbHubPdf" },
-  [c.pdfEdit]: { path: "/privacy-first-pdf-tools/", labelKey: "breadcrumbHubPdf" },
-  [c.pdfConvertIn]: { path: "/privacy-first-pdf-tools/", labelKey: "breadcrumbHubPdf" },
-  [c.pdfExport]: { path: "/privacy-first-pdf-tools/", labelKey: "breadcrumbHubPdf" },
-  [c.compress]: { path: "/tools/", labelKey: "breadcrumbHubOptimize" },
+  [c.pdfSecurity]: { path: "/tools/pdf-tools/", labelKey: "breadcrumbHubPdf" },
+  [c.pdfEdit]: { path: "/tools/pdf-tools/", labelKey: "breadcrumbHubPdf" },
+  [c.pdfConvertIn]: { path: "/tools/pdf-tools/", labelKey: "breadcrumbHubPdf" },
+  [c.pdfExport]: { path: "/tools/pdf-tools/", labelKey: "breadcrumbHubPdf" },
+  [c.compress]: { path: "/tools/compress-tools/", labelKey: "breadcrumbHubCompress" },
 };
 
 /** When a tool has multiple nav categories, pick the most specific hub first. */
 const NAV_CATEGORY_PRIORITY: ToolCategory[] = [
   c.favicon,
-  c.image,
   c.video,
+  c.image,
   c.dataConversion,
   c.developerJson,
   c.developerBrowser,
@@ -66,10 +66,10 @@ const NAV_CATEGORY_PRIORITY: ToolCategory[] = [
 
 /** Fallback hubs from `tools.json` SEO categories. */
 const SEO_CATEGORY_HUBS: Record<string, ToolCategoryHub> = {
-  convert: { path: "/tools/", labelKey: "breadcrumbHubConvert" },
+  convert: { path: "/tools/convert-tools/", labelKey: "breadcrumbHubConvert" },
   edit: { path: "/tools/", labelKey: "breadcrumbHubEdit" },
-  optimize: { path: "/tools/", labelKey: "breadcrumbHubOptimize" },
-  security: { path: "/security-tools/", labelKey: "breadcrumbHubSecurity" },
+  optimize: { path: "/tools/compress-tools/", labelKey: "breadcrumbHubCompress" },
+  security: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
 };
 
 function pickNavCategoryHub(categories: ToolCategory[]): ToolCategoryHub | null {

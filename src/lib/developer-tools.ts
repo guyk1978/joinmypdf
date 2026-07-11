@@ -1,4 +1,5 @@
 import { resolveHomeToolCopy } from "@/lib/home-tool-copy";
+import { DEVELOPER_TOOLS_HUB_PATH } from "@/lib/developer-tools-hub";
 import { JSON_TOOLS_HUB_PATH } from "@/lib/json-tools";
 import { YAML_TOOLS_HUB_PATH } from "@/lib/yaml-tools";
 import { XML_TOOLS_HUB_PATH } from "@/lib/xml-tools";
@@ -7,7 +8,11 @@ const DEVELOPER_ITEMS_NS = "developerTools";
 
 export type HomeDeveloperToolId = "user-agent-parser" | "qr-code-generator" | "jwt-debugger";
 
-export type HomeDeveloperHubId = "json-tools-hub" | "yaml-tools-hub" | "xml-tools-hub";
+export type HomeDeveloperHubId =
+  | "developer-tools-hub"
+  | "json-tools-hub"
+  | "yaml-tools-hub"
+  | "xml-tools-hub";
 
 export type HomeDeveloperToolIconKey =
   | "globe"
@@ -38,6 +43,12 @@ const DEVELOPER_HUB_META: Record<
   HomeDeveloperHubId,
   { href: string; iconKey: HomeDeveloperToolIconKey; labelKey: string; fallbackLabel: string }
 > = {
+  "developer-tools-hub": {
+    href: DEVELOPER_TOOLS_HUB_PATH,
+    iconKey: "key-round",
+    labelKey: "developerToolsHubLabel",
+    fallbackLabel: "Developer Tools",
+  },
   "json-tools-hub": {
     href: JSON_TOOLS_HUB_PATH,
     iconKey: "braces",
@@ -60,8 +71,9 @@ const DEVELOPER_HUB_META: Record<
 
 export const HOME_DEVELOPER_TOOL_IDS = Object.keys(DEVELOPER_TOOL_META) as HomeDeveloperToolId[];
 
-/** Homepage — format hubs first, then flagship developer tools */
+/** Homepage — developer hub first, then format hubs, then flagship tools */
 export const HOMEPAGE_FEATURED_DEVELOPER_HUB_IDS = [
+  "developer-tools-hub",
   "json-tools-hub",
   "yaml-tools-hub",
   "xml-tools-hub",
