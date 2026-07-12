@@ -1,3 +1,9 @@
+import {
+  buildInventoryGridItems,
+  getInventoryIdsByCategory,
+  getInventoryFeatureLabels,
+  type InventoryTranslator,
+} from "@/lib/tools-inventory-query";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 export type HomeFaviconToolId =
@@ -55,20 +61,10 @@ export const HOME_FAVICON_TOOL_IDS = Object.keys(FAVICON_TOOL_META) as HomeFavic
 
 export const FAVICON_TOOLS_HUB_PATH = "/tools/favicon-tools/";
 
-/** Curated hub grid — generation, conversion, and optimization. */
-export const FAVICON_HUB_TOOL_IDS = [
-  "generate-favicon",
-  "png-to-ico",
-  "ico-to-png",
-  "svg-to-favicon",
-  "favicon-compressor",
-  "favicon-pack",
-  "apple-touch-icon",
-  "favicon-cropper",
-  "transparent-favicon",
-] as const;
+/** Dynamic hub grid from inventory `favicon` category. */
+export const FAVICON_HUB_TOOL_IDS = getInventoryIdsByCategory("favicon");
 
-export type FaviconHubToolId = (typeof FAVICON_HUB_TOOL_IDS)[number];
+export type FaviconHubToolId = string;
 
 /** Homepage — hub + 3 most popular favicon tools */
 export const HOMEPAGE_FEATURED_FAVICON_IDS = [
@@ -89,33 +85,14 @@ type HomeTranslator = {
   has: (key: string) => boolean;
 };
 
-type FaviconToolsTranslator = {
-  (key: string): string;
-  has: (key: string) => boolean;
-};
+type FaviconToolsTranslator = InventoryTranslator;
 
 export function buildFaviconToolGridItems(t?: FaviconToolsTranslator): ToolGridItem[] {
-  return FAVICON_HUB_TOOL_IDS.map((id) => {
-    const meta = FAVICON_TOOL_META[id];
-    const labelKey = `tools.${meta.messageKey}`;
-    const homeLabelKey = `faviconTools.items.${meta.messageKey}.label`;
-    const fallback = meta.messageKey;
-    const label = t?.has(labelKey)
-      ? t(labelKey)
-      : t?.has(homeLabelKey)
-        ? t(homeLabelKey)
-        : fallback;
-
-    return {
-      href: `/tools/${id}/`,
-      label,
-      slugHint: id,
-    };
-  });
+  return buildInventoryGridItems("favicon", t);
 }
 
 export function getFaviconToolFeatureLabels(t?: FaviconToolsTranslator): string[] {
-  return buildFaviconToolGridItems(t).map((item) => item.label);
+  return getInventoryFeatureLabels("favicon", t);
 }
 
 export function buildHomepageFeaturedFaviconItems(tHome: HomeTranslator): HomeFeaturedFaviconItem[] {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
+import { RelatedTools } from "@/components/RelatedTools";
 import { VideoConverterWorkspace } from "@/components/tools/VideoConverterWorkspace";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { Link } from "@/i18n/navigation";
@@ -142,6 +143,8 @@ export default async function VideoConverterPage({ params }: PageProps) {
               );
             })}
           </article>
+
+          <RelatedTools tool={tool} slug={SLUG} />
 
           <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">
             <p className="m-0 text-xs uppercase tracking-widest text-[#737373]">{t("privacyBadge")}</p>

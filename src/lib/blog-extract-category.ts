@@ -1,5 +1,5 @@
 import type { BlogPost } from "@/lib/types";
-import { EXTRACT_TOOL_IDS, type ExtractToolId } from "@/lib/extract-tools";
+import { EXTRACT_TOOL_IDS } from "@/lib/extract-tools";
 
 function normalizeCategory(post: BlogPost): string {
   return (post.category || "").trim().toLowerCase();
@@ -22,7 +22,7 @@ export function isExtractionOrOcrBlogPost(post: BlogPost): boolean {
   }
 
   const relatedTools = post.relatedTools || [];
-  if (relatedTools.some((slug) => EXTRACT_TOOL_IDS.includes(slug as ExtractToolId))) {
+  if (relatedTools.some((slug) => EXTRACT_TOOL_IDS.includes(slug))) {
     return true;
   }
 

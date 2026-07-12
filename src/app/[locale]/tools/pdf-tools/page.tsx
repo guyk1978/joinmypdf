@@ -8,7 +8,6 @@ import { routing } from "@/i18n/routing";
 import { getRecentPdfBlogPosts } from "@/lib/blog-pdf-category";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import {
-  buildPdfPopularItems,
   buildPdfToolGroupItems,
   getPdfToolFeatureLabels,
   PDF_TOOL_GROUPS,
@@ -21,9 +20,10 @@ import { productPageMainClassName } from "@/lib/tool-ui";
 type PageProps = { params: Promise<{ locale: string }> };
 
 const GROUP_TITLE_KEYS: Record<PdfToolGroupId, string> = {
-  core: "groupCore",
+  mergeSplit: "groupMergeSplit",
   conversion: "groupConversion",
-  utilities: "groupUtilities",
+  compression: "groupCompression",
+  securityUtilities: "groupSecurityUtilities",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -51,12 +51,11 @@ export default async function PdfToolsHubPage({ params }: PageProps) {
   const pathname = `/${locale}${PDF_TOOLS_HUB_PATH}`;
   const featureList = getPdfToolFeatureLabels(t);
   const relatedGuides = getRecentPdfBlogPosts(getBlogRegistry(locale).blog || [], 3);
-  const popularItems = buildPdfPopularItems(t);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: PDF_TOOLS_HUB_PATH },
+    { name: t("schemaName"), path: PDF_TOOLS_HUB_PATH },
   ];
 
   return (
@@ -75,27 +74,17 @@ export default async function PdfToolsHubPage({ params }: PageProps) {
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
           <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-6 text-4xl font-bold text-white">{t("title")}</h1>
+            <h1 className="mb-4 text-4xl font-bold text-white">{t("title")}</h1>
             <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
+            <p className="mt-4 m-0 text-xs uppercase tracking-widest text-[#737373]">
+              {t("privacyBadge")}
+            </p>
           </header>
-
-          <section
-            className="tools-hub-panel border-b border-[#262626] pb-8"
-            aria-labelledby="pdf-popular-heading"
-          >
-            <h2
-              id="pdf-popular-heading"
-              className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("popularTitle")}
-            </h2>
-            <CategoryDirectoryFlatGrid items={popularItems} />
-          </section>
 
           {PDF_TOOL_GROUPS.map((group) => (
             <section
               key={group.id}
-              className="tools-hub-panel border-b border-[#262626] py-8"
+              className="tools-hub-panel border-b border-[#262626] py-8 first:pt-0"
               aria-labelledby={`pdf-group-${group.id}`}
             >
               <h2

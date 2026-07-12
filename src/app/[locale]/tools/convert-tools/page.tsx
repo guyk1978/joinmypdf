@@ -8,7 +8,6 @@ import { routing } from "@/i18n/routing";
 import { getRecentConversionBlogPosts } from "@/lib/blog-convert-category";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import {
-  buildConvertPopularItems,
   buildConvertToolGroupItems,
   CONVERT_TOOL_GROUPS,
   CONVERT_TOOLS_HUB_PATH,
@@ -24,6 +23,7 @@ const GROUP_TITLE_KEYS: Record<ConvertToolGroupId, string> = {
   document: "groupDocument",
   image: "groupImage",
   media: "groupMedia",
+  data: "groupData",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -51,7 +51,6 @@ export default async function ConvertToolsHubPage({ params }: PageProps) {
   const pathname = `/${locale}${CONVERT_TOOLS_HUB_PATH}`;
   const featureList = getConvertToolFeatureLabels(t);
   const relatedGuides = getRecentConversionBlogPosts(getBlogRegistry(locale).blog || [], 3);
-  const popularItems = buildConvertPopularItems(t);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
@@ -78,19 +77,6 @@ export default async function ConvertToolsHubPage({ params }: PageProps) {
             <h1 className="mb-6 text-4xl font-bold text-white">{t("title")}</h1>
             <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
           </header>
-
-          <section
-            className="tools-hub-panel border-b border-[#262626] pb-8"
-            aria-labelledby="convert-popular-heading"
-          >
-            <h2
-              id="convert-popular-heading"
-              className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("popularTitle")}
-            </h2>
-            <CategoryDirectoryFlatGrid items={popularItems} />
-          </section>
 
           {CONVERT_TOOL_GROUPS.map((group) => (
             <section

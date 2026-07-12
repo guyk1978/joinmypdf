@@ -23,6 +23,7 @@ const GROUP_TITLE_KEYS: Record<DeveloperHubGroupId, string> = {
   security: "groupSecurity",
   generation: "groupGeneration",
   utilities: "groupUtilities",
+  more: "groupMore",
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

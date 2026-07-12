@@ -7519,16 +7519,17 @@ body.site-search-open {
   display: none;
 }
 
-/* Category Modal ג€” Black-Matte Utility command window */
+/* Category Modal — Black-Matte Utility command window (full-screen, top-anchored) */
 .category-modal {
   position: fixed;
   inset: 0;
   z-index: 200;
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: center;
-  padding: clamp(0.75rem, 2vw, 1.5rem);
-  padding-top: max(clamp(0.75rem, 2vw, 1.5rem), calc(var(--site-header-height, 6rem) + 0.5rem));
+  padding: 0;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   box-sizing: border-box;
 }
 
@@ -7548,9 +7549,12 @@ body.site-search-open {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  width: min(96rem, 100%);
-  max-height: min(94vh, calc(100dvh - var(--site-header-height, 6rem) - 1rem));
-  min-height: min(78vh, calc(100dvh - var(--site-header-height, 6rem) - 1rem));
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: 100dvh;
+  min-height: 0;
   border: none;
   border-radius: 0;
   background: #000000;
@@ -7563,7 +7567,7 @@ body.site-search-open {
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 4rem 4rem 1.75rem;
+  padding: 1.25rem clamp(1.25rem, 3vw, 2.5rem) 1rem;
   border-bottom: 2px solid #262626;
   flex-shrink: 0;
   background: #000000;
@@ -7571,7 +7575,7 @@ body.site-search-open {
 
 @media (min-width: 1024px) {
   .category-modal__panel-header {
-    padding: 4rem 4rem 2rem;
+    padding: 1.5rem clamp(1.5rem, 3vw, 3rem) 1.125rem;
   }
 }
 
@@ -7655,32 +7659,36 @@ body.site-search-open {
 .category-modal__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
-  padding: 2.5rem;
+  align-content: start;
+  gap: 2rem;
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding: 1.5rem clamp(1.25rem, 3vw, 2.5rem) 2rem;
   background: #000000;
 }
 
 @media (min-width: 640px) {
   .category-modal__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 3rem;
-    padding: 3rem;
+    gap: 2.25rem 2.5rem;
+    padding: 1.75rem clamp(1.5rem, 3vw, 3rem) 2.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .category-modal__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 4rem;
-    padding: 4rem;
+    gap: 2.5rem 3rem;
+    padding: 1.75rem clamp(1.5rem, 3vw, 3rem) 2.5rem;
   }
 }
 
 @media (min-width: 1280px) {
   .category-modal__grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 4rem;
-    padding: 4rem;
+    gap: 2.5rem 3.5rem;
+    padding: 1.75rem clamp(1.5rem, 3vw, 3rem) 2.5rem;
   }
 }
 
@@ -7718,7 +7726,7 @@ body.site-search-open {
 }
 
 .category-modal__block-title {
-  margin: 0 0 1.5rem;
+  margin: 0 0 0.75rem;
   font-size: 1rem;
   font-weight: 400;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;

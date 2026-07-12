@@ -1,5 +1,5 @@
 import type { BlogPost } from "@/lib/types";
-import { CONVERT_TOOL_IDS, type ConvertToolId } from "@/lib/convert-tools";
+import { CONVERT_TOOL_IDS } from "@/lib/convert-tools";
 
 function normalizeCategory(post: BlogPost): string {
   return (post.category || "").trim().toLowerCase();
@@ -24,7 +24,7 @@ export function isConversionOrHowToBlogPost(post: BlogPost): boolean {
   }
 
   const relatedTools = post.relatedTools || [];
-  if (relatedTools.some((slug) => CONVERT_TOOL_IDS.includes(slug as ConvertToolId))) {
+  if (relatedTools.some((slug) => CONVERT_TOOL_IDS.includes(slug))) {
     return true;
   }
 

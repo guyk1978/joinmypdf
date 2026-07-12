@@ -84,7 +84,7 @@ function ToolBlock({
 
   return (
     <section className="category-modal__block rounded-none bg-black" ref={sectionRef}>
-      <h4 className="category-modal__block-title mb-6 text-base font-mono uppercase tracking-wider text-neutral-600">
+      <h4 className="category-modal__block-title mb-3 text-base font-mono uppercase tracking-wider text-neutral-600">
         {column.label}
       </h4>
       <ul className="category-modal__list">
@@ -184,10 +184,10 @@ export function CategoryModal({ open, activeCategory, onClose, onNavigate }: Cat
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            initial={reduceMotion ? false : { opacity: 0, scale: 0.96, y: 12 }}
-            animate={reduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, scale: 0.98, y: 8 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: 4 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="category-modal__panel-header border-b-2 border-neutral-800">
               <h2

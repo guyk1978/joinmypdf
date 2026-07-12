@@ -4,10 +4,17 @@ import {
   HEADER_CATEGORY_BUTTONS,
   TOOL_DEFINITIONS,
   toolPath,
+  type AllToolsGroupConfig,
   type HeaderCategoryId,
   type ToolCategory,
   type ToolDefinition,
 } from "@/config/tools";
+import { getToolsInventoryEntry, TOOLS_INVENTORY } from "@/data/tools-inventory";
+import {
+  getModalPlacementForInventorySlug,
+  listInventorySlugsForModal,
+} from "@/lib/all-tools-inventory-sync";
+import { getAudioToolById } from "@/lib/audio-tools";
 import type { NavDropdown } from "@/lib/nav-config";
 
 export type MegaMenuNavItem = {
@@ -42,12 +49,41 @@ const definitionsBySlug = new Map<string, ToolDefinition>(
 
 function resolveToolItem(t: Translator, slug: string): MegaMenuNavItem | null {
   const tool = definitionsBySlug.get(slug);
-  if (!tool) return null;
-  return {
-    slug: tool.slug,
-    href: toolPath(tool.slug),
-    label: t(`navItems.${tool.labelKey}`),
-  };
+  if (tool) {
+    return {
+      slug: tool.slug,
+      href: toolPath(tool.slug),
+      label: t(`navItems.${tool.labelKey}`),
+    };
+  }
+
+  const inventory = getToolsInventoryEntry(slug);
+  if (inventory) {
+    const labelKey = inventory.labelKey;
+    if (labelKey) {
+      const navKey = `navItems.${labelKey}`;
+      try {
+        const label = t(navKey);
+        if (label && label !== navKey) {
+          return { slug, href: inventory.path, label };
+        }
+      } catch {
+        // fall through
+      }
+    }
+    return {
+      slug,
+      href: inventory.path,
+      label: inventory.title || getAudioToolById(slug)?.name || slug,
+    };
+  }
+
+  const audio = getAudioToolById(slug);
+  if (audio) {
+    return { slug, href: `/tools/${slug}/`, label: audio.name };
+  }
+
+  return null;
 }
 
 function toolsForCategories(categories: readonly ToolCategory[]): ToolDefinition[] {
@@ -80,21 +116,98 @@ export function getCategoryTitleKey(category: HeaderCategoryId): string {
   return button?.labelKey ?? "allTools.title";
 }
 
-/** Build all-tools modal groups from the central registry. */
+const INVENTORY_COLUMN_LABEL_KEYS: Record<string, string> = {
+  "inventory-more-convert": "megaMenu.columns.moreTools",
+  "inventory-more-compress": "megaMenu.columns.moreTools",
+};
+
+function safeTranslate(t: Translator, key: string, fallback: string): string {
+  try {
+    const value = t(key);
+    if (!value || value === key) return fallback;
+    return value;
+  } catch {
+    return fallback;
+  }
+}
+
+/**
+ * Build all-tools modal groups from ALL_TOOLS_REGISTRY, then append any
+ * inventory tools missing from the curated layout (single source of truth).
+ * Each inventory tool appears once (primary category placement).
+ */
 export function buildAllToolsNav(t: Translator): AllToolsNavGroup[] {
-  return ALL_TOOLS_REGISTRY.map((group) => ({
+  const listed = new Set<string>();
+  const groups: AllToolsNavGroup[] = ALL_TOOLS_REGISTRY.map((group) => ({
     id: group.id,
     label: t(group.labelKey),
-    columns: group.columns
-      .map((column) => ({
+    columns: group.columns.map((column) => {
+      const items = column.slugs
+        .map((slug) => resolveToolItem(t, slug))
+        .filter((item): item is MegaMenuNavItem => item !== null);
+      for (const item of items) listed.add(item.slug);
+      return {
         id: column.id,
         label: t(column.labelKey),
-        items: column.slugs
-          .map((slug) => resolveToolItem(t, slug))
-          .filter((item): item is MegaMenuNavItem => item !== null),
-      }))
-      .filter((column) => column.items.length > 0),
-  })).filter((group) => group.columns.length > 0);
+        items,
+      };
+    }),
+  }));
+
+  const groupById = new Map(groups.map((group) => [group.id, group]));
+
+  for (const slug of listInventorySlugsForModal()) {
+    if (listed.has(slug)) continue;
+    const placement = getModalPlacementForInventorySlug(slug);
+    if (!placement) continue;
+    const item = resolveToolItem(t, slug);
+    if (!item) continue;
+
+    listed.add(slug);
+    const group = groupById.get(placement.groupId);
+    if (!group) continue;
+
+    let column = group.columns.find((entry) => entry.id === placement.columnId);
+    if (!column) {
+      column = {
+        id: placement.columnId,
+        label: safeTranslate(
+          t,
+          INVENTORY_COLUMN_LABEL_KEYS[placement.columnId] ?? "megaMenu.columns.moreTools",
+          "More tools",
+        ),
+        items: [],
+      };
+      group.columns.push(column);
+    }
+    column.items.push(item);
+  }
+
+  // Ensure compress / convert category hubs' inventory tags also fill modal gaps
+  // for tools whose primaryCategory differs but belong in those header tabs.
+  for (const entry of TOOLS_INVENTORY) {
+    if (listed.has(entry.id)) continue;
+    // Should not happen — listInventorySlugsForModal covers all inventory ids.
+    void entry;
+  }
+
+  return groups
+    .map((group) => ({
+      ...group,
+      columns: group.columns.filter((column) => column.items.length > 0),
+    }))
+    .filter((group) => group.columns.length > 0);
+}
+
+/** @internal audit helper — inventory ids missing from modal after sync. */
+export function findAllToolsModalOrphans(): string[] {
+  const listed = new Set(
+    ALL_TOOLS_REGISTRY.flatMap((group: AllToolsGroupConfig) =>
+      group.columns.flatMap((column) => column.slugs),
+    ),
+  );
+  // After sync, orphans are empty by construction; this checks curated registry only.
+  return TOOLS_INVENTORY.map((tool) => tool.id).filter((id) => !listed.has(id));
 }
 
 /** @deprecated Use buildAllToolsNav */

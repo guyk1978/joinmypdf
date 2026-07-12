@@ -1,5 +1,5 @@
 import type { BlogPost } from "@/lib/types";
-import { COMPRESS_TOOL_IDS, type CompressToolId } from "@/lib/compress-tools";
+import { COMPRESS_TOOL_IDS } from "@/lib/compress-tools";
 
 function normalizeCategory(post: BlogPost): string {
   return (post.category || "").trim().toLowerCase();
@@ -22,7 +22,7 @@ export function isCompressionOrOptimizationBlogPost(post: BlogPost): boolean {
   }
 
   const relatedTools = post.relatedTools || [];
-  if (relatedTools.some((slug) => COMPRESS_TOOL_IDS.includes(slug as CompressToolId))) {
+  if (relatedTools.some((slug) => COMPRESS_TOOL_IDS.includes(slug))) {
     return true;
   }
 

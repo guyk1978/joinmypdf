@@ -1,5 +1,5 @@
 import type { BlogPost } from "@/lib/types";
-import { PDF_TOOL_IDS, type PdfToolId } from "@/lib/pdf-tools-hub";
+import { PDF_TOOL_IDS } from "@/lib/pdf-tools-hub";
 
 function normalizeCategory(post: BlogPost): string {
   return (post.category || "").trim().toLowerCase();
@@ -17,7 +17,7 @@ export function isPdfBlogPost(post: BlogPost): boolean {
   }
 
   const relatedTools = post.relatedTools || [];
-  if (relatedTools.some((slug) => PDF_TOOL_IDS.includes(slug as PdfToolId))) {
+  if (relatedTools.some((slug) => (PDF_TOOL_IDS as string[]).includes(slug))) {
     return true;
   }
 

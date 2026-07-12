@@ -1,5 +1,5 @@
 import type { BlogPost } from "@/lib/types";
-import { FAVICON_HUB_TOOL_IDS, type FaviconHubToolId } from "@/lib/favicon-tools";
+import { FAVICON_HUB_TOOL_IDS } from "@/lib/favicon-tools";
 
 function normalizeCategory(post: BlogPost): string {
   return (post.category || "").trim().toLowerCase();
@@ -22,7 +22,8 @@ export function isDesignOrFaviconBlogPost(post: BlogPost): boolean {
   }
 
   const relatedTools = post.relatedTools || [];
-  if (relatedTools.some((slug) => FAVICON_HUB_TOOL_IDS.includes(slug as FaviconHubToolId))) {
+  const faviconIds = new Set(FAVICON_HUB_TOOL_IDS);
+  if (relatedTools.some((slug) => faviconIds.has(slug))) {
     return true;
   }
 

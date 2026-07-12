@@ -1,20 +1,20 @@
+import {
+  buildInventoryGridItems,
+  getInventoryFeatureLabels,
+  getInventoryIdsByCategory,
+  type InventoryTranslator,
+} from "@/lib/tools-inventory-query";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
-/** XML utility tools — expand as dedicated XML converters ship. */
-export const XML_TOOL_IDS = [] as const;
-
 export const XML_TOOLS_HUB_PATH = "/tools/xml-tools/";
+export const XML_TOOL_IDS = getInventoryIdsByCategory("xml") as readonly string[];
+export type XmlToolId = string;
 
-type XmlToolsTranslator = {
-  (key: string): string;
-  has: (key: string) => boolean;
-};
-
-export function buildXmlToolGridItems(_t?: XmlToolsTranslator): ToolGridItem[] {
-  return [];
+export function buildXmlToolGridItems(t?: InventoryTranslator): ToolGridItem[] {
+  return buildInventoryGridItems("xml", t);
 }
 
-export function getXmlToolFeatureLabels(t?: XmlToolsTranslator): string[] {
-  if (t?.has("schemaName")) return [t("schemaName")];
-  return ["XML Tools"];
+export function getXmlToolFeatureLabels(t?: InventoryTranslator): string[] {
+  const labels = getInventoryFeatureLabels("xml", t);
+  return labels.length ? labels : t?.has("schemaName") ? [t("schemaName")] : ["XML Tools"];
 }
