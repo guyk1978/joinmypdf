@@ -14911,7 +14911,7 @@ body.site-tools-grid-open {
 
 .text-diff-tool__textarea {
   width: 100%;
-  min-height: 14rem;
+  min-height: 18rem;
   resize: vertical;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.875rem;
@@ -14919,6 +14919,12 @@ body.site-tools-grid-open {
 }
 
 .text-diff-tool__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.text-diff-tool__action-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -14931,11 +14937,45 @@ body.site-tools-grid-open {
   font-size: 0.875rem;
 }
 
+.text-diff-tool__secondary-btn {
+  min-height: 2.25rem;
+  padding-inline: 0.875rem;
+  font-size: 0.875rem;
+  color: #e5e5e5;
+  background: transparent;
+  border: 1px solid #262626;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.text-diff-tool__secondary-btn:hover:not(:disabled) {
+  border-color: #404040;
+  color: #fff;
+}
+
+.text-diff-tool__secondary-btn:disabled,
+.text-diff-tool__compare-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .text-diff-tool__stats {
   margin: 0;
   font-size: 0.8125rem;
   line-height: 1.5;
   color: var(--im-text-muted);
+}
+
+.text-diff-tool__stats--hint {
+  color: #737373;
+}
+
+.text-diff-tool__privacy {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #737373;
 }
 
 .text-diff-tool__result-pane {
@@ -14964,13 +15004,15 @@ body.site-tools-grid-open {
 }
 
 .text-diff-tool__line--added {
-  background: rgba(34, 197, 94, 0.16);
+  background: rgba(34, 197, 94, 0.22);
   color: #bbf7d0;
+  border-inline-start: 3px solid #22c55e;
 }
 
 .text-diff-tool__line--removed {
-  background: rgba(239, 68, 68, 0.16);
+  background: rgba(239, 68, 68, 0.22);
   color: #fecaca;
+  border-inline-start: 3px solid #ef4444;
 }
 
 .text-diff-tool__empty {
@@ -16484,8 +16526,22 @@ body.site-tools-grid-open {
 /* Security & Privacy tools ג€” shared Industrial Matte panels */
 .password-generator-tool-page,
 .hash-generator-tool-page,
-.uuid-generator-tool-page {
+.uuid-generator-tool-page,
+.ssl-decoder-tool-page {
   max-width: 72rem;
+}
+
+.ssl-decoder-tool {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ssl-decoder-tool__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
 }
 
 .security-tool__pane {

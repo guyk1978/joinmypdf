@@ -1,8 +1,12 @@
 import { resolveHomeToolCopy } from "@/lib/home-tool-copy";
 
-export type HomeSecurityToolId = "password-generator" | "hash-generator" | "uuid-generator";
+export type HomeSecurityToolId =
+  | "password-generator"
+  | "hash-generator"
+  | "uuid-generator"
+  | "ssl-decoder";
 
-export type HomeSecurityToolIconKey = "key-round" | "hash" | "fingerprint";
+export type HomeSecurityToolIconKey = "key-round" | "hash" | "fingerprint" | "shield-check";
 
 export type HomeSecurityToolItem = {
   id: HomeSecurityToolId;
@@ -19,6 +23,7 @@ const SECURITY_TOOL_META: Record<
   "password-generator": { iconKey: "key-round", messageKey: "passwordGenerator" },
   "hash-generator": { iconKey: "hash", messageKey: "hashGenerator" },
   "uuid-generator": { iconKey: "fingerprint", messageKey: "uuidGenerator" },
+  "ssl-decoder": { iconKey: "shield-check", messageKey: "sslDecoder" },
 };
 
 const SECURITY_ITEMS_NS = "securityTools";

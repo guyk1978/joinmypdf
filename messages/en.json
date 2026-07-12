@@ -151,6 +151,7 @@
       "base64EncoderDecoder": "Base64 Encoder/Decoder",
       "urlEncoderDecoder": "URL Encoder/Decoder",
       "textDiffChecker": "Text Diff Checker",
+      "textDiff": "Text Diff",
       "stringGenerator": "String Generator",
       "htmlMarkdownConverter": "HTML/Markdown Converter",
       "wordCharacterCounter": "Word & Character Counter",
@@ -163,6 +164,7 @@
       "passwordGenerator": "Password Generator",
       "hashGenerator": "Hash Generator",
       "uuidGenerator": "UUID Generator",
+      "sslDecoder": "SSL Certificate Decoder",
       "unitConverter": "Unit Converter",
       "timezoneConverter": "Timezone Converter",
       "readingTimeCalculator": "Reading Time Calculator",
@@ -559,6 +561,10 @@
           "label": "Text Diff Checker",
           "description": "Compare two text versions side by side with clear additions and deletions."
         },
+        "textDiff": {
+          "label": "Text Diff",
+          "description": "Real-time side-by-side text comparison with green additions and red deletions."
+        },
         "stringGenerator": {
           "label": "String Generator",
           "description": "Generate secure random strings or UUID v4 values in batches — locally in your browser."
@@ -618,6 +624,10 @@
         "uuidGenerator": {
           "label": "UUID Generator",
           "description": "Generate UUID v1, v4, or v7 identifiers in bulk — cryptographically random, no upload."
+        },
+        "sslDecoder": {
+          "label": "SSL Certificate Decoder",
+          "description": "Decode PEM/CRT certificates locally — inspect issuer, subject, expiry, and public key details."
         }
       }
     },
@@ -871,7 +881,7 @@
     "footerNavLabel": "Category navigation",
     "startHere": "Start here",
     "startHereDescription": {
-      "security": "Password, hash, and UUID generators for secure local workflows.",
+      "security": "Password, hash, UUID, and SSL certificate tools for secure local workflows.",
       "image": "Popular resize, crop, and compress workflows.",
       "audio": "Convert, trim, and compress audio locally with ffmpeg.wasm.",
       "developer": "Parse agents, debug JWTs, and generate QR codes.",
@@ -900,6 +910,10 @@
         "identifiers": {
           "title": "Identifiers",
           "description": "Generate UUIDs and unique IDs."
+        },
+        "certificates": {
+          "title": "Certificates",
+          "description": "Decode SSL/TLS certificates locally."
         }
       },
       "image": {
@@ -1961,15 +1975,72 @@
     "copyFailed": "Could not copy to the clipboard. Select the output and copy manually."
   },
   "TextDiffChecker": {
-    "originalLabel": "Original Text",
+    "originalLabel": "Original",
     "originalPlaceholder": "Paste the original text here…",
-    "changedLabel": "Changed Text",
-    "changedPlaceholder": "Paste the revised text here…",
+    "changedLabel": "Modified",
+    "changedPlaceholder": "Paste the modified text here…",
     "compareButton": "Compare",
+    "swapButton": "Swap",
+    "clearButton": "Clear",
     "resultOriginalLabel": "Original",
-    "resultChangedLabel": "Changed",
+    "resultChangedLabel": "Modified",
     "emptyDiff": "No differences to display.",
-    "statsLabel": "+{added} added · −{removed} removed · {unchanged} unchanged"
+    "emptyHint": "Paste text in both panes — the diff updates in real time.",
+    "statsLabel": "+{added} added · −{removed} removed · {unchanged} unchanged",
+    "privacyLabel": "Local Processing. Nothing is uploaded."
+  },
+  "TextDiffPage": {
+    "metaTitle": "Text Diff Online | Compare Code & Config Files | JoinMyPDF",
+    "metaDescription": "Free online text diff tool. Compare original and modified text in real time with green additions and red deletions — 100% local, zero uploads.",
+    "title": "Text Diff",
+    "description": "Compare original and modified text side by side. Additions highlight in green and deletions in red as you type. Swap panes, clear inputs, and keep every character on your device.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first text comparison.",
+    "schemaName": "Text Diff",
+    "schemaDescription": "Compare original and modified text side by side with real-time green additions and red deletions. Local browser processing with zero uploads.",
+    "schemaFeatureRealtime": "Real-time line-by-line diff",
+    "schemaFeatureHighlight": "Green additions and red deletions",
+    "schemaFeatureLocal": "100% local browser processing",
+    "schemaFeatureSwap": "Swap and clear controls",
+    "article": {
+      "title": "Comparing code, configs, and drafts with a local text diff tool",
+      "intro": "Whether you are reviewing a pull request snippet, checking an infrastructure config change, or debugging why a production file no longer matches staging, a clear text diff is one of the fastest ways to regain confidence. Version control systems already compute diffs, but you often need a lightweight browser tool for pasted fragments, exported configs, customer-provided text, or emergency troubleshooting when Git is not the right surface. This guide covers comparing code and configuration files, version control best practices that make diffs useful, and how to use a diff tool for debugging—while keeping sensitive material on your device.",
+      "comparing": {
+        "heading": "Comparing code and configuration files",
+        "p1": "Code and configuration files look similar on disk but fail differently in production. A missing indentation in Python or YAML can change behavior more than a large comment block. A side-by-side text diff makes those differences visible immediately: green lines show what appeared in the modified version, and red lines show what disappeared from the original. When you paste two revisions of an Nginx config, Kubernetes manifest, .env sample, or TypeScript module, you can scan for accidental deletions, duplicated keys, and subtle renames without opening a full IDE.",
+        "p2": "Treat configuration diffs with extra care. Infrastructure-as-code and application settings often contain hostnames, feature flags, and secrets placeholders. Even when values are not secret, the structure of a change can reveal how a system is wired. Local diffing lets you inspect those files without uploading them to a third-party comparison service. Paste the known-good version on the left and the candidate version on the right, then walk the highlighted lines before you apply the change.",
+        "p3": "For source code, diffs help you answer a practical question: what actually changed relative to the last working copy? Large refactors can hide a one-line logic bug among formatting noise. Narrow the pasted range to the function or block under suspicion so the visual signal stays strong. If formatting churn overwhelms the view, normalize whitespace in your editor first, then compare again. The goal is not to replace Git—it is to make small, high-stakes comparisons readable in seconds.",
+        "p4": "Configuration comparisons also catch drift between environments. When staging works and production fails, export both configs and diff them. Look for mismatched ports, feature toggles, resource limits, and dependency versions. A browser-based diff is especially helpful when the files come from different hosts, tickets, or chat threads and were never committed to the same repository. Keep Original and Modified labels honest so reviewers share the same mental model of direction."
+      },
+      "versionControl": {
+        "heading": "Version control best practices",
+        "p1": "Diff tools work best when your version control habits produce clean history. Prefer small commits with focused messages so each change set tells a story. If a commit mixes formatting, dependency bumps, and business logic, reviewers will miss the important line. Before you open a pull request, skim the diff yourself—either in Git or by pasting critical sections into a local text diff—to remove accidental debug logs and leftover experiments.",
+        "p2": "Use branches as safety rails, not as dumping grounds. Keep long-lived branches rebased or merged regularly so diffs stay understandable. When conflicts appear, resolve them with the same discipline you use for reviews: understand both sides, do not blindly accept either version, and re-test after resolving. A standalone diff viewer helps when conflict markers have already been cleaned up and you need to re-check two candidate resolutions side by side.",
+        "p3": "Document why a change exists. A perfect visual diff still needs context: ticket links, rollout notes, and rollback plans. Pair that documentation with reproducible artifacts—exported configs, migration scripts, and sample inputs—so future you can regenerate the same comparison. Local-first tools fit this workflow because they never require uploading proprietary code to inspect a change.",
+        "p4": "Finally, protect secrets in version control and in ad-hoc comparisons. Never paste private keys, production credentials, or customer data into any online tool you do not trust. Prefer redacted samples when collaborating publicly. JoinMyPDF’s Text Diff runs in your browser so comparison artifacts stay on your machine, which reduces the chance that a rushed paste becomes an unintended disclosure in someone else’s logs."
+      },
+      "debugging": {
+        "heading": "How to use a Diff tool for debugging",
+        "p1": "Start with a hypothesis. If an API started returning errors after a deploy, gather the previous response schema and the current one, or the previous middleware config and the new one. Paste them into Original and Modified. Confirm whether the failure correlates with a deleted field, a renamed key, or an added validation rule. Diffs do not prove causality, but they quickly eliminate “nothing changed” as a theory.",
+        "p2": "Use Swap when you realize you pasted the versions in the wrong order. Direction matters for reading additions and deletions. Use Clear between investigations so leftover text from an earlier incident does not contaminate the next comparison. Real-time highlighting means you can iteratively edit one pane—removing noisy comments or aligning sections—while watching the result update, which is useful when cleaning OCR’d exports or messy email forwards.",
+        "p3": "For multi-file issues, diff one concern at a time. First compare the application config, then the dependency lockfile excerpt, then the feature flag payload. Mixing everything into one pane creates a wall of color that hides the signal. When the diff shows only whitespace or line-ending changes, convert both sides to the same newline style and compare again before escalating to a deeper root-cause analysis.",
+        "p4": "Close the loop by writing down what the diff taught you. Add a regression test, a config assertion, or a checklist item so the same class of bug is caught earlier next time. Diff-driven debugging is most powerful when it feeds back into process: better reviews, better commits, and better environment parity checks."
+      },
+      "howToUse": {
+        "heading": "How to use this Text Diff tool",
+        "p1": "Paste the baseline text into Original and the candidate text into Modified. The side-by-side result updates automatically. Green highlights mark additions in the modified version; red highlights mark deletions from the original. Stats under the controls summarize how many lines were added, removed, and left unchanged.",
+        "p2": "Click Swap to exchange the two panes if you need to reverse the comparison direction. Click Clear to reset both inputs and hide the result. Synchronized scrolling helps you keep corresponding regions aligned while reviewing long files.",
+        "p3": "Any plain text works: source code, JSON, YAML, Markdown, policies, and prose. For very large documents, compare focused sections first to keep the browser responsive. Because processing is local, you can use the tool on sensitive drafts after the page has loaded—even on restricted networks.",
+        "p4": "When you finish, clear the panes on shared workstations. Bookmark this page next to your formatter and encoder utilities so quick comparisons stay part of your everyday developer workflow."
+      },
+      "privacy": {
+        "heading": "Why local-first diffing matters",
+        "p1": "Text comparisons often include proprietary algorithms, unpublished product copy, incident notes, or partial secrets. Uploading that material to a remote diff service creates retention and logging risk you do not need for a line-by-line comparison. A local engine keeps the bytes in your browser process.",
+        "p2": "Local-first also means fewer blockers: no account wall, no file-size upload policy, and no waiting on a server queue. The trade-off is that extremely huge files depend on your device memory—so compare the smallest useful excerpt when possible.",
+        "p3": "Combine this tool with disciplined redaction. If you must share a screenshot of a diff, remove tokens and personal data first. Prefer sharing the conclusion of a comparison rather than the raw content whenever confidentiality matters.",
+        "p4": "Used well, a private text diff becomes a daily instrument for safer releases, cleaner reviews, and faster debugging—without surrendering your drafts to the cloud."
+      }
+    }
   },
   "StringGenerator": {
     "settingsTitle": "Generator settings",
@@ -2142,6 +2213,64 @@
       "imageOptimizer": "Image Optimizer",
       "cropImage": "Crop Image",
       "jpgToPdf": "JPG to PDF"
+    }
+  },
+  "CropToolsPage": {
+    "metaTitle": "Free Online Crop Tools | Crop & Resize Images | JoinMyPDF",
+    "metaDescription": "Free online crop tools to crop, resize, and edit images in your browser. 100% local processing — your files never leave your device.",
+    "title": "Use Crop Tools Free Online",
+    "description": "Easily crop, resize, and edit your images online for free. Our professional-grade cropping tools run entirely in your browser, ensuring your files never leave your device. Fast, secure, and private.",
+    "backToPdfTools": "Back to PDF Tools",
+    "privacyBadge": "Free, local-first image editing.",
+    "schemaName": "Free Online Crop Tools",
+    "schemaDescription": "Easily crop, resize, and edit your images online for free. Our professional-grade cropping tools run entirely in your browser, ensuring your files never leave your device. Fast, secure, and private.",
+    "tools": {
+      "cropImage": "Crop Image",
+      "aspectRatioCrop": "Aspect Ratio Crop",
+      "circleCrop": "Circle Crop"
+    }
+  },
+  "WordToolsPage": {
+    "metaTitle": "Free Online Word Tools | Convert & Edit Documents | JoinMyPDF",
+    "metaDescription": "Free online Word tools to convert, edit, and process Word documents in your browser. 100% local processing — your files never leave your device.",
+    "title": "Use Word Tools Free Online",
+    "description": "Access a suite of professional Word document tools online. From converting to editing, our browser-based tools run locally on your machine, ensuring your documents remain private and secure without any file uploads.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Free, secure, and local-first Word document processing.",
+    "schemaName": "Free Online Word Tools",
+    "schemaDescription": "Access a suite of professional Word document tools online. From converting to editing, our browser-based tools run locally on your machine, ensuring your documents remain private and secure without any file uploads.",
+    "tools": {
+      "wordToPdf": "Word to PDF",
+      "pdfToWord": "PDF to Word",
+      "wordCharacterCounter": "Word & Character Counter"
+    }
+  },
+  "ExcelToolsPage": {
+    "metaTitle": "Free Online Excel Tools | Convert Spreadsheets | JoinMyPDF",
+    "metaDescription": "Free online Excel tools to convert and manage spreadsheets in your browser. 100% local processing — your files never leave your device.",
+    "title": "Use Excel Tools Free Online",
+    "description": "Manage and convert your Excel spreadsheets with ease. Our secure, browser-based Excel tools process your data locally, ensuring your sensitive business or personal files remain private. No uploads, no waiting—just fast, free results.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first Excel processing.",
+    "schemaName": "Free Online Excel Tools",
+    "schemaDescription": "Manage and convert your Excel spreadsheets with ease. Our secure, browser-based Excel tools process your data locally, ensuring your sensitive business or personal files remain private. No uploads, no waiting—just fast, free results.",
+    "tools": {
+      "excelToPdf": "Excel to PDF",
+      "pdfToExcel": "PDF to Excel"
+    }
+  },
+  "RotateToolsPage": {
+    "metaTitle": "Free Online Rotate Tools | Rotate PDF & Images | JoinMyPDF",
+    "metaDescription": "Free online rotate tools to rotate PDF pages and images in your browser. 100% local processing — your files never leave your device.",
+    "title": "Use Rotate Tools Free Online",
+    "description": "Rotate your PDF pages and images quickly and easily. Our secure, browser-based rotate tools process your files locally on your device, guaranteeing privacy with zero uploads. Fast, reliable, and 100% free.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first rotation processing.",
+    "schemaName": "Free Online Rotate Tools",
+    "schemaDescription": "Rotate your PDF pages and images quickly and easily. Our secure, browser-based rotate tools process your files locally on your device, guaranteeing privacy with zero uploads. Fast, reliable, and 100% free.",
+    "tools": {
+      "rotatePdf": "Rotate PDF",
+      "rotateImage": "Rotate Image"
     }
   },
   "ExtractToolsPage": {
@@ -2547,6 +2676,7 @@
       "caseConverter": "Case Converter",
       "wordCharacterCounter": "Word & Character Counter",
       "textDiffChecker": "Text Diff Checker",
+      "textDiff": "Text Diff",
       "stringGenerator": "String Generator",
       "readingTimeCalculator": "Reading Time Calculator",
       "htmlMarkdownConverter": "HTML / Markdown Converter",
@@ -2787,6 +2917,84 @@
     "outputLabel": "Generated UUIDs",
     "outputEmpty": "Choose options and click Generate.",
     "unsupportedError": "UUID generation is not supported in this browser."
+  },
+  "SslDecoder": {
+    "inputLabel": "Certificate (PEM / CRT)",
+    "inputPlaceholder": "-----BEGIN CERTIFICATE-----\nPaste your certificate here…\n-----END CERTIFICATE-----",
+    "decodeButton": "Decode certificate",
+    "clearButton": "Clear",
+    "resultsTitle": "Decoded certificate",
+    "emptyHint": "Paste a PEM or CRT certificate above, then decode to view issuer, subject, expiry, and public key details.",
+    "errorEmpty": "Paste a certificate before decoding.",
+    "errorInvalid": "Could not read this certificate. Check that it is valid PEM/CRT text.",
+    "errorParse": "Failed to parse the certificate. Confirm the Base64 body is complete and not corrupted.",
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "colField": "Field",
+    "colValue": "Value",
+    "fields": {
+      "issuer": "Issuer",
+      "subject": "Subject",
+      "validFrom": "Valid from",
+      "validTo": "Expiration date",
+      "serialNumber": "Serial number",
+      "signatureAlgorithm": "Signature algorithm",
+      "publicKeyAlgorithm": "Public key algorithm",
+      "publicKeySize": "Public key size (bits)",
+      "version": "X.509 version"
+    }
+  },
+  "SslDecoderPage": {
+    "metaTitle": "SSL Certificate Decoder Online | Free Local PEM/CRT Parser | JoinMyPDF",
+    "metaDescription": "Decode SSL/TLS certificates online for free. Inspect issuer, subject, expiration, and public key info locally in your browser — zero uploads.",
+    "title": "SSL Certificate Decoder",
+    "description": "Paste a PEM or CRT certificate to extract issuer, subject, validity dates, and public key details. Decoding runs entirely in your browser so certificate material never leaves your device.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first SSL certificate decoding.",
+    "schemaName": "SSL Certificate Decoder",
+    "schemaDescription": "Decode SSL/TLS PEM and CRT certificates locally in your browser. Extract issuer, subject, expiration, and public key information with zero uploads.",
+    "schemaFeatureDecode": "PEM and CRT certificate decoding",
+    "schemaFeatureLocal": "100% local browser parsing",
+    "schemaFeatureZeroUpload": "Zero-upload privacy",
+    "schemaFeatureFields": "Issuer, subject, expiry, and public key details",
+    "article": {
+      "title": "How to verify SSL certificates and why local decoding matters",
+      "intro": "SSL/TLS certificates are the trust fabric of the modern web. Every secure connection you open—whether you are shipping a customer portal, wiring an API gateway, or troubleshooting a browser warning—depends on an X.509 certificate that binds a public key to an identity. Understanding what that file contains is no longer optional for operators, developers, and security reviewers. This guide explains how to verify SSL certificates, how SSL/TLS security actually works, and why decoding certificates locally in your browser is safer than uploading them to an unknown server.",
+      "verify": {
+        "heading": "How to verify SSL certificates",
+        "p1": "Verification starts with reading the certificate itself. A PEM or CRT file is usually Base64-encoded DER wrapped in BEGIN CERTIFICATE markers. When you paste that block into a decoder, you should immediately confirm four things: who the certificate claims to represent (the subject), who signed it (the issuer), when it is valid, and which public key algorithm and size it uses. Those fields are the foundation of every later trust decision.",
+        "p2": "Next, compare the subject against the hostname or service identity you expect. For websites, that typically means checking that the common name or subject alternative names cover your domain. For internal services, compare organizational unit and organization fields against your inventory. Mismatched subject data is one of the most common reasons browsers and API clients reject a connection even when the private key is correct.",
+        "p3": "Expiration is equally important. Certificates that are already expired, or that expire within days, should be treated as operational incidents. Local decoding makes it easy to read the not-before and not-after timestamps without installing OpenSSL or waiting for a cloud scanner. Pair that check with serial number tracking so you can revoke or replace the right certificate when rotation is required.",
+        "p4": "Finally, verify the cryptographic profile. Modern public sites should prefer strong algorithms such as RSA-2048+ or elliptic-curve keys with SHA-256 signatures or better. Legacy SHA-1 signatures and very short RSA moduli are red flags. A decoder that surfaces algorithm OIDs and key size helps you reject weak material before it reaches production. Remember that decoding is inspection—not chain validation against a trusted root store—so treat it as the first step in a broader verification workflow that may also include OCSP, CRL, and full chain checks in your deployment pipeline."
+      },
+      "understanding": {
+        "heading": "Understanding SSL/TLS security",
+        "p1": "SSL originally stood for Secure Sockets Layer; TLS (Transport Layer Security) is its modern successor. In practice, people still say “SSL certificate” when they mean an X.509 certificate used to authenticate TLS handshakes. During a handshake, the server presents its certificate so the client can confirm it is talking to the expected identity and can derive shared session keys for encryption. The certificate does not encrypt your traffic by itself—the negotiated session keys do—but without a trustworthy certificate, encrypted traffic can still be pointed at the wrong endpoint.",
+        "p2": "An X.509 certificate binds together identity attributes, a public key, validity windows, and a signature from an issuer. Public certificate authorities (CAs) sign certificates after validating domain or organization control. Internal CAs do the same for private networks. Intermediate certificates often sit between a root CA and the leaf certificate that serves your site. When troubleshooting trust errors, leaf decoding tells you what the endpoint claims; chain inspection tells you whether a browser or OS will accept that claim.",
+        "p3": "Common operational failures include serving the wrong leaf, omitting intermediates, using a certificate issued for a different hostname, or continuing to serve after expiry. Decoding the leaf quickly answers whether the file you installed is the file you intended. It also clarifies whether the public key matches the private key you hold—an essential check when certificates are generated on one machine and installed on another.",
+        "p4": "TLS versions and cipher suites matter too, but they are separate from certificate field inspection. A modern certificate on an outdated TLS stack is still vulnerable; a strong stack with an expired certificate still fails. Treat certificate hygiene and protocol hygiene as complementary controls. Regularly decoding certificates from staging and production exports keeps your documentation accurate and reduces surprise outages when renewals slip."
+      },
+      "localParsing": {
+        "heading": "Why local parsing is safer",
+        "p1": "Certificates are not usually secret in the same way private keys are—public certificates are designed to be shared. Even so, uploading certificate material to a random online decoder creates unnecessary risk. Bundle files sometimes accidentally include private keys, intermediate chains with internal naming, or staging certificates that reveal infrastructure details you never meant to publish. Once that payload leaves your device, you lose control over retention, logging, and secondary use.",
+        "p2": "Local-first decoding keeps the Base64 body inside your browser process. JoinMyPDF’s SSL Certificate Decoder parses X.509 structures with client-side libraries; nothing is posted to our servers for analysis. That model matches zero-trust instincts: sensitive operational artifacts should not become someone else’s telemetry. It also works offline after the page loads, which is useful on locked-down networks where outbound uploads are blocked.",
+        "p3": "Privacy is not the only benefit. Local tools avoid copy-paste delays into remote dashboards, remove account walls, and prevent certificate contents from appearing in third-party access logs. For regulated environments—finance, healthcare, government, and enterprise SaaS—keeping certificate inspection on-device simplifies compliance conversations. You can still paste a public leaf when collaboration requires it, but you should never be forced to upload a file just to read its subject line.",
+        "p4": "Use local decoding as a habit before deployments, after renewals, and whenever a browser shows a certificate warning. Combine it with private-key storage discipline: never paste a private key into a web tool, and never store PEM bundles that mix keys and certificates in shared chat. Inspection should be easy; key custody should remain strict."
+      },
+      "howToUse": {
+        "heading": "How to use this SSL certificate decoder",
+        "p1": "Export or open your certificate as PEM or CRT text. You can usually obtain this from your hosting panel, load balancer, ACME client, or with a command such as openssl that prints the leaf in PEM form. Copy the full block including the BEGIN and END lines.",
+        "p2": "Paste the text into the decoder input, then choose Decode certificate. The results table lists subject, issuer, validity window, serial number, signature algorithm, public key algorithm, key size when available, and X.509 version. Use Clear when you are finished so the text area does not linger on a shared workstation.",
+        "p3": "If parsing fails, confirm you did not paste a private key, CSR-only file, or truncated Base64 body. Multi-certificate bundles may contain several PEM blocks; decode the leaf first, then intermediates separately if needed. For chain trust decisions, follow up with your platform’s full validation tools after you confirm the leaf fields look correct.",
+        "p4": "Because decoding is local, you can safely inspect internal hostnames and lab certificates without creating an external paper trail. Bookmark this page for routine renewals and incident response checklists alongside hash generators and password tools in your security workflow."
+      },
+      "fields": {
+        "heading": "Certificate fields explained",
+        "p1": "Subject identifies the entity the certificate represents. Issuer identifies the CA or intermediate that signed it. Valid-from and expiration dates define the accepted lifetime. Serial number uniquely identifies the certificate under that issuer and is critical for revocation.",
+        "p2": "Signature algorithm describes how the issuer signed the certificate. Public key algorithm and size describe the leaf key that will participate in TLS handshakes. Version indicates the X.509 profile in use. Together these fields let you validate identity claims, schedule renewals, and reject weak cryptography before users ever see a browser warning.",
+        "p3": "Keep a short runbook: decode the leaf, confirm subject and dates, confirm algorithm strength, then validate the chain in your deployment environment. Local decoding accelerates the first half of that runbook without sacrificing privacy.",
+        "p4": "When you need complementary utilities, pair this decoder with JoinMyPDF’s hash generator for integrity checks and JWT debugger for token inspection—always preferring tools that keep sensitive material on your device."
+      }
+    }
   },
   "UnitConverter": {
     "categoryLabel": "Category",

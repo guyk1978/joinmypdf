@@ -94,6 +94,7 @@ import { SqlQueryFormatterWorkspace } from "@/components/tools/data-conversion/S
 import { PasswordGeneratorWorkspace } from "@/components/tools/security/PasswordGeneratorWorkspace";
 import { HashGeneratorWorkspace } from "@/components/tools/security/HashGeneratorWorkspace";
 import { UuidGeneratorWorkspace } from "@/components/tools/security/UuidGeneratorWorkspace";
+import { SslDecoderWorkspace } from "@/components/tools/security/SslDecoderWorkspace";
 import { UnitConverterWorkspace } from "@/components/tools/productivity/UnitConverterWorkspace";
 import { TimezoneConverterWorkspace } from "@/components/tools/productivity/TimezoneConverterWorkspace";
 import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/ReadingTimeCalculatorWorkspace";
@@ -472,7 +473,7 @@ export default async function ToolPage({
           <Base64EncoderDecoderWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "url-encoder-decoder" ? (
           <UrlEncoderDecoderWorkspace tool={tool} slug={slug} />
-        ) : tool.operation === "text-diff-checker" ? (
+        ) : tool.operation === "text-diff-checker" || tool.operation === "text-diff" ? (
           <TextDiffCheckerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "string-generator" ? (
           <StringGeneratorWorkspace tool={tool} slug={slug} />
@@ -498,6 +499,8 @@ export default async function ToolPage({
           <HashGeneratorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "uuid-generator" ? (
           <UuidGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "ssl-decoder" ? (
+          <SslDecoderWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "unit-converter" ? (
           <UnitConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "timezone-converter" ? (

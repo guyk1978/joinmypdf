@@ -8,6 +8,7 @@ export type HomeTextJsonToolId =
   | "base64-encoder-decoder"
   | "url-encoder-decoder"
   | "text-diff-checker"
+  | "text-diff"
   | "string-generator"
   | "html-markdown-converter"
   | "word-character-counter";
@@ -43,6 +44,7 @@ const TEXT_JSON_TOOL_META: Record<
   "base64-encoder-decoder": { iconKey: "binary", messageKey: "base64EncoderDecoder" },
   "url-encoder-decoder": { iconKey: "link", messageKey: "urlEncoderDecoder" },
   "text-diff-checker": { iconKey: "git-compare", messageKey: "textDiffChecker" },
+  "text-diff": { iconKey: "git-compare", messageKey: "textDiff" },
   "string-generator": { iconKey: "dices", messageKey: "stringGenerator" },
   "html-markdown-converter": { iconKey: "code-xml", messageKey: "htmlMarkdownConverter" },
   "word-character-counter": { iconKey: "letter-text", messageKey: "wordCharacterCounter" },

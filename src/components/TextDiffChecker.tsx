@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { compareTextDiff, type SideBySideDiffRow } from "@/lib/text-diff";
 
@@ -10,10 +10,14 @@ export type TextDiffCheckerLabels = {
   changedLabel: string;
   changedPlaceholder: string;
   compareButton: string;
+  swapButton: string;
+  clearButton: string;
   resultOriginalLabel: string;
   resultChangedLabel: string;
   emptyDiff: string;
+  emptyHint: string;
   statsLabel: string;
+  privacyLabel: string;
 };
 
 type TextDiffCheckerProps = {
@@ -64,19 +68,40 @@ export function TextDiffChecker({ labels, className }: TextDiffCheckerProps) {
 
   const [original, setOriginal] = useState("");
   const [changed, setChanged] = useState("");
-  const [rows, setRows] = useState<SideBySideDiffRow[] | null>(null);
+  const [rows, setRows] = useState<SideBySideDiffRow[]>([]);
   const [stats, setStats] = useState<{ additions: number; deletions: number; unchanged: number } | null>(
     null,
   );
 
-  const onCompare = () => {
-    const result = compareTextDiff(original, changed);
-    setRows(result.rows);
-    setStats({
-      additions: result.additions,
-      deletions: result.deletions,
-      unchanged: result.unchanged,
-    });
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      if (!original && !changed) {
+        setRows([]);
+        setStats(null);
+        return;
+      }
+      const result = compareTextDiff(original, changed);
+      setRows(result.rows);
+      setStats({
+        additions: result.additions,
+        deletions: result.deletions,
+        unchanged: result.unchanged,
+      });
+    }, 120);
+
+    return () => window.clearTimeout(timer);
+  }, [original, changed]);
+
+  const onSwap = () => {
+    setOriginal(changed);
+    setChanged(original);
+  };
+
+  const onClear = () => {
+    setOriginal("");
+    setChanged("");
+    setRows([]);
+    setStats(null);
   };
 
   const onOriginalScroll = () => {
@@ -103,7 +128,7 @@ export function TextDiffChecker({ labels, className }: TextDiffCheckerProps) {
     if (source && target) syncScroll(source, target);
   };
 
-  const hasDiff = rows !== null;
+  const hasContent = Boolean(original || changed);
 
   return (
     <div className={clsx("text-diff-tool", className)}>
@@ -121,7 +146,7 @@ export function TextDiffChecker({ labels, className }: TextDiffCheckerProps) {
             onScroll={onOriginalScroll}
             placeholder={labels.originalPlaceholder}
             spellCheck={false}
-            rows={12}
+            rows={16}
           />
         </div>
 
@@ -138,20 +163,20 @@ export function TextDiffChecker({ labels, className }: TextDiffCheckerProps) {
             onScroll={onChangedScroll}
             placeholder={labels.changedPlaceholder}
             spellCheck={false}
-            rows={12}
+            rows={16}
           />
         </div>
       </div>
 
       <div className="text-diff-tool__actions tool-workspace-panel">
-        <button
-          type="button"
-          className="text-diff-tool__compare-btn"
-          onClick={onCompare}
-          disabled={!original && !changed}
-        >
-          {labels.compareButton}
-        </button>
+        <div className="text-diff-tool__action-row">
+          <button type="button" className="text-diff-tool__compare-btn" onClick={onSwap} disabled={!hasContent}>
+            {labels.swapButton}
+          </button>
+          <button type="button" className="text-diff-tool__secondary-btn" onClick={onClear} disabled={!hasContent}>
+            {labels.clearButton}
+          </button>
+        </div>
         {stats ? (
           <p className="text-diff-tool__stats">
             {labels.statsLabel
@@ -159,10 +184,13 @@ export function TextDiffChecker({ labels, className }: TextDiffCheckerProps) {
               .replace("{removed}", String(stats.deletions))
               .replace("{unchanged}", String(stats.unchanged))}
           </p>
-        ) : null}
+        ) : (
+          <p className="text-diff-tool__stats text-diff-tool__stats--hint">{labels.emptyHint}</p>
+        )}
+        <p className="text-diff-tool__privacy">{labels.privacyLabel}</p>
       </div>
 
-      {hasDiff ? (
+      {hasContent ? (
         <div className="text-diff-tool__result">
           <div className="text-diff-tool__result-column tool-workspace-panel">
             <span className="text-diff-tool__label">{labels.resultOriginalLabel}</span>

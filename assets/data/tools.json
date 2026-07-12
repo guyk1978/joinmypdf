@@ -4766,6 +4766,55 @@
       "updatedAt": "2026-06-30"
     },
     {
+      "slug": "text-diff",
+      "category": "convert",
+      "operation": "text-diff",
+      "title": "Text Diff",
+      "primaryKeyword": "text diff online",
+      "intent": "Compare original and modified text in real time with highlighted additions and deletions — entirely in your browser.",
+      "description": "Paste two text versions side by side, swap or clear instantly, and review green additions and red deletions with a local line-by-line diff engine.",
+      "secondaryKeywords": [
+        "online diff tool",
+        "compare code online",
+        "text difference checker"
+      ],
+      "useCases": [
+        "Compare code or configuration file drafts",
+        "Debug unexpected changes before commit",
+        "Review copy edits and policy text updates"
+      ],
+      "relatedTools": [
+        "text-diff-checker",
+        "json-formatter",
+        "url-encoder-decoder"
+      ],
+      "faq": [
+        {
+          "q": "Is my text uploaded to a server?",
+          "a": "No. Diffing runs entirely in your browser."
+        },
+        {
+          "q": "Does the diff update in real time?",
+          "a": "Yes. Additions and deletions highlight as you type."
+        },
+        {
+          "q": "What do Swap and Clear do?",
+          "a": "Swap exchanges the Original and Modified panes. Clear resets both inputs and the result."
+        },
+        {
+          "q": "Is the Text Diff tool free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.65,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-12"
+    },
+    {
       "slug": "string-generator",
       "category": "convert",
       "operation": "string-generator",
@@ -5356,6 +5405,55 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "ssl-decoder",
+      "category": "convert",
+      "operation": "ssl-decoder",
+      "title": "SSL Certificate Decoder",
+      "primaryKeyword": "ssl certificate decoder online",
+      "intent": "Decode PEM or CRT SSL/TLS certificates locally in your browser — inspect issuer, subject, expiry, and public key details without uploading.",
+      "description": "Paste a PEM or CRT certificate to extract issuer, subject, validity dates, serial number, and public key information. Parsing runs entirely on your device.",
+      "secondaryKeywords": [
+        "x509 certificate decoder",
+        "pem certificate parser",
+        "ssl cert viewer"
+      ],
+      "useCases": [
+        "Inspect a server certificate before deployment",
+        "Verify expiry dates without uploading private material",
+        "Read issuer and subject fields from a PEM export"
+      ],
+      "relatedTools": [
+        "hash-generator",
+        "password-generator",
+        "jwt-debugger"
+      ],
+      "faq": [
+        {
+          "q": "Is my certificate uploaded to a server?",
+          "a": "No. Decoding runs entirely in your browser with local X.509 parsing. Nothing is sent to JoinMyPDF servers."
+        },
+        {
+          "q": "Which formats are supported?",
+          "a": "PEM and CRT certificate text with BEGIN CERTIFICATE / END CERTIFICATE markers (DER encoded as Base64)."
+        },
+        {
+          "q": "What fields can I see?",
+          "a": "Issuer, subject, validity dates, serial number, signature algorithm, public key algorithm, and key size when available."
+        },
+        {
+          "q": "Is the SSL Certificate Decoder free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.56,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-12"
     },
     {
       "slug": "uuid-generator",

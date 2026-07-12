@@ -50,12 +50,13 @@ type CategorySpec = {
 const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   security: {
     id: "security",
-    featuredIds: ["password-generator", "hash-generator", "uuid-generator"],
+    featuredIds: ["password-generator", "hash-generator", "uuid-generator", "ssl-decoder"],
     buildItems: buildHomeSecurityToolItems,
     workflows: [
       { id: "passwords", toolIds: ["password-generator"] },
       { id: "hashing", toolIds: ["hash-generator"] },
       { id: "identifiers", toolIds: ["uuid-generator"] },
+      { id: "certificates", toolIds: ["ssl-decoder"] },
     ],
   },
   image: {
@@ -167,6 +168,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
         id: "text",
         toolIds: [
           "text-diff-checker",
+          "text-diff",
           "string-generator",
           "html-markdown-converter",
           "word-character-counter",
@@ -210,6 +212,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
           "base64-encoder-decoder",
           "url-encoder-decoder",
           "text-diff-checker",
+          "text-diff",
           "string-generator",
           "html-markdown-converter",
           "word-character-counter",

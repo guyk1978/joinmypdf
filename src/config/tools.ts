@@ -170,6 +170,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "url-encoder-decoder", labelKey: "urlEncoderDecoder", categories: [c.utilitiesEncoders] },
   { slug: "string-generator", labelKey: "stringGenerator", categories: [c.utilitiesEncoders] },
   { slug: "text-diff-checker", labelKey: "textDiffChecker", categories: [c.utilitiesText] },
+  { slug: "text-diff", labelKey: "textDiff", categories: [c.utilitiesText] },
 
   // Data & conversion
   { slug: "yaml-json-converter", labelKey: "yamlJsonConverter", categories: [c.dataConversion] },
@@ -180,6 +181,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "password-generator", labelKey: "passwordGenerator", categories: [c.security] },
   { slug: "hash-generator", labelKey: "hashGenerator", categories: [c.security] },
   { slug: "uuid-generator", labelKey: "uuidGenerator", categories: [c.security] },
+  { slug: "ssl-decoder", labelKey: "sslDecoder", categories: [c.security] },
 
   // Productivity
   { slug: "unit-converter", labelKey: "unitConverter", categories: [c.productivity] },
@@ -535,7 +537,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "security-generators",
         labelKey: "megaMenu.columns.securityGenerators",
-        slugs: ["password-generator", "hash-generator", "uuid-generator"],
+        slugs: ["password-generator", "hash-generator", "uuid-generator", "ssl-decoder"],
       },
     ],
   },
@@ -602,6 +604,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
         slugs: [
           "string-generator",
           "text-diff-checker",
+          "text-diff",
           "sql-query-formatter",
           "unit-converter",
           "timezone-converter",
