@@ -137,7 +137,7 @@ import {
   type SeoToolLandingSlug,
 } from "@/lib/seo-tool-landings";
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
-import { buildToolBreadcrumbTrail } from "@/lib/tool-breadcrumb-hub";
+import { buildToolBreadcrumbTrail, resolveToolPageDescription } from "@/lib/tool-breadcrumb-hub";
 import { resolveToolRoute } from "@/lib/variants";
 import { STUDIO_TOOL_SLUGS } from "@/lib/studio-tools";
 import { toolPageDashboardStack, toolPageDashboardWidth, productPageMainClassName } from "@/lib/tool-ui";
@@ -267,6 +267,11 @@ export default async function ToolPage({
   const subtitle = translateToolIntent(tTools, tool.slug, tool.intent);
   const seoOverride = resolveToolSeoPageOverride(tool, variant, tPage);
   const pageHeadline = seoOverride?.h1 ?? displayTitle;
+  const pageDescription = resolveToolPageDescription({
+    title: pageHeadline,
+    intent: subtitle,
+    heroTagline: seoOverride?.heroTagline,
+  });
   const faqs = getLocalizedToolFaqs(tPage, tool, variant, pageHeadline, locale);
   const { description } = buildToolSeoCopy({
     tool,
@@ -310,7 +315,7 @@ export default async function ToolPage({
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
-        <ToolPageShellProvider headline={pageHeadline} subline={subtitle} tagline={seoOverride?.heroTagline} slug={slug} stacked>
+        <ToolPageShellProvider headline={pageHeadline} subline={pageDescription ?? ""} slug={slug} stacked>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={

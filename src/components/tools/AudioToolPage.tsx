@@ -1,6 +1,7 @@
 import { AppPageShell } from "@/components/AppPageShell";
 import { AudioToolMarketingSections } from "@/components/tools/AudioToolMarketingSections";
 import { AudioToolWorkspace } from "@/components/tools/AudioToolWorkspace";
+import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
@@ -9,6 +10,10 @@ import {
   buildLocalizedAudioToolFaqs,
   resolveAudioToolSeoOverride,
 } from "@/lib/audio-tool-page";
+import {
+  buildToolPageBreadcrumbs,
+  resolveToolPageDescription,
+} from "@/lib/tool-breadcrumb-hub";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildToolAlternateLanguages } from "@/lib/tool-seo";
 import type { ToolListEntry } from "@/lib/tool-module";
@@ -38,17 +43,24 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
   const tPage = await getTranslations("ToolPage");
   const seoOverride = resolveAudioToolSeoOverride(tool, tPage);
   const pageHeadline = seoOverride?.h1 ?? tool.name;
-  const pageTagline = seoOverride?.heroTagline ?? tool.title;
+  const pageDescription = resolveToolPageDescription({
+    title: pageHeadline,
+    intent: tool.title,
+    heroTagline: seoOverride?.heroTagline,
+  });
   const schemaDescription = seoOverride?.schemaDescription ?? tool.title;
   const faqs = buildLocalizedAudioToolFaqs(tPage, tool, pageHeadline);
   const paragraphs = buildLocalizedAudioGuideParagraphs(tPage, tool);
   const pathname = `/tools/${slug}/`;
 
-  const crumbs = [
-    { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: pageHeadline, path: pathname },
-  ];
+  const crumbs = buildToolPageBreadcrumbs({
+    slug,
+    toolTitle: pageHeadline,
+    toolPath: pathname,
+    seoCategory: "optimize",
+    tPage,
+  });
+  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
   return (
     <>
@@ -71,14 +83,20 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
           <ToolGlassProvider category="optimize">
             <ToolPageShellProvider
               headline={pageHeadline}
-              subline={pageTagline}
-              tagline={seoOverride?.heroTagline}
+              subline={pageDescription ?? ""}
               slug={slug}
               stacked
             >
               <ToolLayout
                 faqs={faqs}
                 feedbackTitle={pageHeadline}
+                breadcrumbs={
+                  <ToolBreadcrumbs
+                    tool={{ slug, title: pageHeadline, category: "optimize" }}
+                    category="optimize"
+                    items={breadcrumbItems}
+                  />
+                }
                 marketing={
                   <AudioToolMarketingSections
                     tool={tool}

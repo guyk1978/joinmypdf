@@ -22,7 +22,9 @@ export function getMp4ToolFeatureLabels(t?: InventoryTranslator): string[] {
   return getInventoryFeatureLabels("mp4", t);
 }
 
-/** Breadcrumb trail: Home / All tools / MP4 Tools / [Tool Name] */
+/**
+ * @deprecated Prefer `buildToolPageBreadcrumbs` from `@/lib/tool-breadcrumb-hub`.
+ */
 export function buildMp4ToolPageCrumbs(params: {
   toolTitle: string;
   toolPath: string;

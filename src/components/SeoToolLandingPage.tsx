@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { AppPageShell } from "@/components/AppPageShell";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
+import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
@@ -14,6 +15,7 @@ import {
   type SeoLandingWorkspaceSlug,
   type SeoToolLandingSlug,
 } from "@/lib/seo-tool-landings";
+import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { PDF_TOOLS_HUB_PATH } from "@/lib/pdf-tools-hub";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
@@ -58,12 +60,19 @@ export async function SeoToolLandingPage({ slug, params }: SeoToolLandingPagePro
   const pagePath = seoToolLandingPath(slug);
   const pathname = `/${locale}${pagePath}`;
 
-  const crumbs = [
-    { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: tPage("breadcrumbHubPdf"), path: PDF_TOOLS_HUB_PATH },
-    { name: t(`${slug}.title`), path: pagePath },
-  ];
+  const crumbs = buildToolPageBreadcrumbs({
+    slug: landing.workspaceSlug,
+    toolTitle: t(`${slug}.title`),
+    toolPath: pagePath,
+    seoCategory: tool.category,
+    tPage,
+  });
+  // Keep landing URL as the current crumb path (not the canonical tool path).
+  crumbs[crumbs.length - 1] = { name: t(`${slug}.title`), path: pagePath };
+  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
+
+  const pageTitle = t(`${slug}.title`);
+  const pageDescription = t(`${slug}.description`);
 
   return (
     <>
@@ -85,9 +94,19 @@ export async function SeoToolLandingPage({ slug, params }: SeoToolLandingPagePro
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
+          <div className="tool-page-layout__breadcrumbs">
+            <ToolBreadcrumbs
+              tool={{ slug: landing.workspaceSlug, title: pageTitle, category: tool.category }}
+              category={tool.category}
+              items={breadcrumbItems}
+            />
+          </div>
+
           <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-4 text-3xl font-bold text-white">{t(`${slug}.title`)}</h1>
-            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t(`${slug}.description`)}</p>
+            <h1 className="mb-4 text-3xl font-bold text-white">{pageTitle}</h1>
+            {pageDescription !== pageTitle ? (
+              <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{pageDescription}</p>
+            ) : null}
           </header>
 
           <section className="border-b border-[#262626] pb-8" aria-label={t(`${slug}.title`)}>

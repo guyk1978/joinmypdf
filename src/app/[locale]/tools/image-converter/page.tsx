@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
+import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { ImageConverterWorkspace } from "@/components/ImageConverterWorkspace";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -44,11 +45,12 @@ export default async function ImageConverterPage({ params }: PageProps) {
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${PAGE_PATH}`;
 
-  const crumbs = [
-    { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: PAGE_PATH },
-  ];
+  const crumbs = buildToolPageBreadcrumbs({
+    slug: SLUG,
+    toolTitle: t("title"),
+    toolPath: PAGE_PATH,
+    tPage,
+  });
 
   const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
@@ -82,7 +84,9 @@ export default async function ImageConverterPage({ params }: PageProps) {
 
           <header className="mb-6 border-b border-[#262626] pb-6">
             <h1 className="mb-4 text-3xl font-bold text-white">{t("title")}</h1>
-            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
+            {t("description") !== t("title") ? (
+              <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
+            ) : null}
           </header>
 
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>

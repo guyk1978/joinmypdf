@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
+import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { CaseConverter } from "@/components/tools/CaseConverter";
 import { routing } from "@/i18n/routing";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
@@ -35,11 +36,12 @@ export default async function CaseConverterPage({ params }: PageProps) {
   const pathname = `/${locale}/tools/${SLUG}/`;
   const pageTitle = t("title");
 
-  const crumbs = [
-    { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: pageTitle, path: `/tools/${SLUG}/` },
-  ];
+  const crumbs = buildToolPageBreadcrumbs({
+    slug: SLUG,
+    toolTitle: pageTitle,
+    toolPath: `/tools/${SLUG}/`,
+    tPage,
+  });
 
   const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 

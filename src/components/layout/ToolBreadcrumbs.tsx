@@ -11,9 +11,14 @@ export type ToolBreadcrumbItem = {
 export type ToolBreadcrumbsProps = {
   tool: Pick<ToolDefinition, "slug" | "title" | "category">;
   category: string;
+  /** Pre-built trail from `buildToolPageBreadcrumbs` / `buildToolBreadcrumbTrail`. */
   items: ToolBreadcrumbItem[];
 };
 
+/**
+ * Shared tool-page breadcrumb chrome.
+ * Always pass inventory-driven items: Home / All tools / [Category hub] / [Tool].
+ */
 export function ToolBreadcrumbs({ tool, category, items }: ToolBreadcrumbsProps) {
   if (items.length === 0) return null;
 

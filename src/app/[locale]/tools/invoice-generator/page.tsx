@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
+import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
@@ -14,6 +15,10 @@ import {
   localizedToolTitle,
   translateToolIntent,
 } from "@/lib/i18n-tool-page";
+import {
+  buildToolPageBreadcrumbs,
+  resolveToolPageDescription,
+} from "@/lib/tool-breadcrumb-hub";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
@@ -59,6 +64,11 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
   const subtitle = translateToolIntent(tTools, tool.slug, tool.intent);
   const seoOverride = resolveToolSeoPageOverride(tool, null, tPage);
   const pageHeadline = seoOverride?.h1 ?? displayTitle;
+  const pageDescription = resolveToolPageDescription({
+    title: pageHeadline,
+    intent: subtitle,
+    heroTagline: seoOverride?.heroTagline,
+  });
   const faqs = getLocalizedToolFaqs(tPage, tool, null, pageHeadline, locale);
   const { description } = buildToolSeoCopy({
     tool,
@@ -72,11 +82,14 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
   const schemaDescription = seoOverride?.schemaDescription ?? description;
   const schemaName = seoOverride?.h1 ?? displayTitle;
 
-  const crumbs = [
-    { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: displayTitle, path: pathname },
-  ];
+  const crumbs = buildToolPageBreadcrumbs({
+    slug: SLUG,
+    toolTitle: pageHeadline,
+    toolPath: pathname,
+    seoCategory: tool.category,
+    tPage,
+  });
+  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
   return (
     <>
@@ -99,13 +112,15 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
           <ToolGlassProvider category={tool.category}>
             <ToolPageShellProvider
               headline={pageHeadline}
-              subline={subtitle}
-              tagline={seoOverride?.heroTagline}
+              subline={pageDescription ?? ""}
               slug={SLUG}
               stacked
             >
               <ToolLayout
                 faqs={faqs}
+                breadcrumbs={
+                  <ToolBreadcrumbs tool={tool} category={tool.category} items={breadcrumbItems} />
+                }
                 belowTool={
                   <ToolPageDashboardSection className="mt-8">
                     <h2 className="text-lg font-semibold tracking-wide text-ink dark:text-white">
