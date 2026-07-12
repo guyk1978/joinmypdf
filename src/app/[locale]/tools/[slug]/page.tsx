@@ -37,6 +37,8 @@ import { VideoSpeedControllerWorkspace } from "@/components/tools/VideoSpeedCont
 import { VideoToGifWorkspace } from "@/components/tools/VideoToGifWorkspace";
 import { CropImageWorkspace } from "@/components/CropImageWorkspace";
 import { ConvertToPngWorkspace } from "@/components/ConvertToPngWorkspace";
+import { ImageConverterWorkspace } from "@/components/ImageConverterWorkspace";
+import { SvgOptimizerWorkspace } from "@/components/SvgOptimizerWorkspace";
 import { RotateImageWorkspace } from "@/components/RotateImageWorkspace";
 import { CompressImageWorkspace } from "@/components/CompressImageWorkspace";
 import { ResizeImageWorkspace } from "@/components/ResizeImageWorkspace";
@@ -83,6 +85,7 @@ import { Base64EncoderDecoderWorkspace } from "@/components/Base64EncoderDecoder
 import { UrlEncoderDecoderWorkspace } from "@/components/UrlEncoderDecoderWorkspace";
 import { TextDiffCheckerWorkspace } from "@/components/TextDiffCheckerWorkspace";
 import { StringGeneratorWorkspace } from "@/components/StringGeneratorWorkspace";
+import { LoremIpsumGeneratorWorkspace } from "@/components/LoremIpsumGeneratorWorkspace";
 import { HtmlMarkdownConverterWorkspace } from "@/components/HtmlMarkdownConverterWorkspace";
 import { WordCharacterCounterWorkspace } from "@/components/WordCharacterCounterWorkspace";
 import { UserAgentParserWorkspace } from "@/components/tools/developer/UserAgentParserWorkspace";
@@ -95,6 +98,7 @@ import { PasswordGeneratorWorkspace } from "@/components/tools/security/Password
 import { HashGeneratorWorkspace } from "@/components/tools/security/HashGeneratorWorkspace";
 import { UuidGeneratorWorkspace } from "@/components/tools/security/UuidGeneratorWorkspace";
 import { SslDecoderWorkspace } from "@/components/tools/security/SslDecoderWorkspace";
+import { ColorConverterWorkspace } from "@/components/tools/design/ColorConverterWorkspace";
 import { UnitConverterWorkspace } from "@/components/tools/productivity/UnitConverterWorkspace";
 import { TimezoneConverterWorkspace } from "@/components/tools/productivity/TimezoneConverterWorkspace";
 import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/ReadingTimeCalculatorWorkspace";
@@ -435,6 +439,10 @@ export default async function ToolPage({
           <ResizeImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "convert-to-png" ? (
           <ConvertToPngWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-converter" ? (
+          <ImageConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "svg-optimizer" ? (
+          <SvgOptimizerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "rotate-image" ? (
           <RotateImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "compress-image" ? (
@@ -477,6 +485,8 @@ export default async function ToolPage({
           <TextDiffCheckerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "string-generator" ? (
           <StringGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "lorem-ipsum-generator" ? (
+          <LoremIpsumGeneratorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "html-markdown-converter" ? (
           <HtmlMarkdownConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "word-character-counter" ? (
@@ -501,6 +511,8 @@ export default async function ToolPage({
           <UuidGeneratorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "ssl-decoder" ? (
           <SslDecoderWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "color-converter" ? (
+          <ColorConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "unit-converter" ? (
           <UnitConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "timezone-converter" ? (

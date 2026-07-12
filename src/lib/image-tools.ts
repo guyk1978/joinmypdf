@@ -44,6 +44,7 @@ export const HOMEPAGE_FEATURED_IMAGE_IDS = ["crop-image", "resize-image", "compr
 const SLUG_ICON_KEYS: Record<string, ImageToolIconKey> = {
   "resize-image": "expand",
   "convert-to-png": "file-image",
+  "image-converter": "file-image",
   "crop-image": "crop",
   "rotate-image": "rotate-cw",
   "compress-image": "minimize-2",
@@ -54,12 +55,14 @@ const SLUG_ICON_KEYS: Record<string, ImageToolIconKey> = {
   "flip-image": "arrow-left-right",
   "image-metadata-editor": "tags",
   "image-optimizer": "minimize-2",
+  "svg-optimizer": "minimize-2",
   "paint-on-image": "pen-line",
 };
 
 const DIRECTORY_ORDER: Record<ImageSubCategory, readonly string[]> = {
   transform: ["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image"],
   convert: [
+    "image-converter",
     "convert-to-png",
     "heic-to-jpg",
     "webp-to-jpg",
@@ -67,7 +70,7 @@ const DIRECTORY_ORDER: Record<ImageSubCategory, readonly string[]> = {
     "image-grayscale",
     "image-metadata-editor",
   ],
-  optimize: ["compress-image", "image-optimizer"],
+  optimize: ["compress-image", "image-optimizer", "svg-optimizer"],
 };
 
 const LABEL_KEY_BY_SLUG = new Map(TOOL_DEFINITIONS.map((tool) => [tool.slug, tool.labelKey]));

@@ -57,6 +57,7 @@ const ACTION_KEYS: Record<string, string> = {
   "url-encoder-decoder": "default",
   "text-diff-checker": "default",
   "string-generator": "default",
+  "lorem-ipsum-generator": "default",
   "html-markdown-converter": "default",
   "word-character-counter": "default",
   "user-agent-parser": "default",

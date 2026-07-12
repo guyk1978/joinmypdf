@@ -45,7 +45,8 @@
       "utilities": "Utilities",
       "dataConversion": "Data & Conversion",
       "security": "Security",
-      "productivity": "Productivity"
+      "productivity": "Productivity",
+      "design": "Design"
     },
     "registry": {
       "compress": "Compress",
@@ -90,7 +91,8 @@
         "favicon": "Favicon",
         "faviconTools": "Favicon tools",
         "developer": "Developer",
-        "utilities": "Utilities & productivity"
+        "utilities": "Utilities & productivity",
+        "designTools": "Design tools"
       }
     },
     "navSections": {
@@ -113,6 +115,7 @@
     "navItems": {
       "resizeImage": "Resize Image",
       "convertToPng": "Convert to PNG",
+      "imageConverter": "Image Converter",
       "cropImage": "Crop Image",
       "rotateImage": "Rotate Image",
       "compressImage": "Compress Image",
@@ -125,6 +128,7 @@
       "heicToJpg": "HEIC to JPG",
       "webpToJpg": "WebP to JPG",
       "svgToPng": "SVG to PNG",
+      "svgOptimizer": "SVG Optimizer",
       "imageGrayscale": "Image Grayscale",
       "flipImage": "Flip Image",
       "imageMetadataEditor": "Image Metadata Editor",
@@ -169,6 +173,8 @@
       "timezoneConverter": "Timezone Converter",
       "readingTimeCalculator": "Reading Time Calculator",
       "caseConverter": "Case Converter",
+      "loremIpsumGenerator": "Lorem Ipsum Generator",
+      "colorConverter": "Color Converter",
       "mergePdf": "Merge PDF",
       "splitPdf": "Split PDF",
       "compressPdf": "Compress PDF",
@@ -476,6 +482,14 @@
         "paintOnImage": {
           "label": "Paint on Image",
           "description": "Draw and annotate photos with brush and eraser tools in your browser."
+        },
+        "imageConverter": {
+          "label": "Image Converter",
+          "description": "Convert images to WebP, PNG, or JPG in your browser — HEIC from iPhone supported."
+        },
+        "svgOptimizer": {
+          "label": "SVG Optimizer",
+          "description": "Minify SVG with SVGO in your browser — compare sizes and preview before download."
         }
       }
     },
@@ -652,6 +666,18 @@
         "caseConverter": {
           "label": "Case Converter",
           "description": "Convert text case: camelCase, snake_case, UPPERCASE, etc."
+        },
+        "loremIpsumGenerator": {
+          "label": "Lorem Ipsum Generator",
+          "description": "Generate realistic placeholder paragraphs, sentences, or words — plain text or Markdown."
+        }
+      }
+    },
+    "designTools": {
+      "items": {
+        "colorConverter": {
+          "label": "Color Converter",
+          "description": "Convert HEX, RGB, and HSL in real time with a live picker and copy buttons."
         }
       }
     },
@@ -2918,6 +2944,74 @@
     "outputEmpty": "Choose options and click Generate.",
     "unsupportedError": "UUID generation is not supported in this browser."
   },
+  "ColorConverter": {
+    "previewLabel": "Preview",
+    "pickerLabel": "Color picker",
+    "hexLabel": "HEX",
+    "rgbLabel": "RGB",
+    "hslLabel": "HSL",
+    "hexPlaceholder": "#2563EB",
+    "rgbPlaceholder": "rgb(37, 99, 235)",
+    "hslPlaceholder": "hsl(217, 91%, 53%)",
+    "copyButton": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard.",
+    "invalidValue": "Enter a valid color value for this format.",
+    "privacyLabel": "Instant, local-first color conversion."
+  },
+  "ColorConverterPage": {
+    "metaTitle": "Online Color Converter | HEX RGB HSL | JoinMyPDF",
+    "metaDescription": "Free online color converter for HEX, RGB, and HSL. Pick a color or paste any format and sync the others instantly — 100% local in your browser.",
+    "title": "Online Color Converter",
+    "description": "Convert colors between HEX, RGB, and HSL in real time. Use the picker or paste a value in any format — the others update automatically, with one-click copy for CSS-ready strings.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Instant, local-first color conversion.",
+    "schemaName": "Online Color Converter",
+    "schemaDescription": "Online color converter for HEX, RGB, and HSL with a live picker, synchronized inputs, and copy buttons. Runs entirely in your browser.",
+    "schemaFeaturePicker": "Interactive color picker",
+    "schemaFeatureFormats": "HEX, RGB, and HSL conversion",
+    "schemaFeatureCopy": "One-click copy for each format",
+    "schemaFeatureLocal": "Instant local-first conversion",
+    "article": {
+      "title": "HEX vs RGB vs HSL: choosing color spaces for web development",
+      "intro": "Color is one of the most reused tokens in modern product design. A single brand blue might appear as a hex code in a style guide, an rgb() value in a CSS custom property, and an hsl() triplet in a theme engine that generates lighter and darker variants. Understanding how HEX, RGB, and HSL differ—and when each format shines—helps designers and developers keep systems consistent, accessible, and easy to maintain. Teams that treat color as a shared contract between design and engineering ship fewer “almost right” buttons and fewer dark-mode surprises. This guide explains the three color spaces, their web-development use cases, how rounding and conversion can introduce tiny drifts, and how a local online color converter fits into everyday UI work without uploading confidential brand palettes to a third-party server.",
+      "hex": {
+        "heading": "What HEX is and when to use it",
+        "p1": "HEX (hexadecimal) colors encode red, green, and blue channels as base-16 values, usually written as #RRGGBB. #2563EB means red 37, green 99, and blue 235. Design tools, marketing decks, and brand books still lean on HEX because it is compact, easy to copy, and widely recognized by non-engineers. Many component libraries also accept HEX in theme configuration files, which makes it a natural handoff format from Figma, Illustrator, or a PDF style guide into engineering tickets.",
+        "p2": "HEX is excellent for static tokens: brand primary, border default, surface background. It is less convenient when you need relative adjustments. Darkening a HEX value by hand requires converting to another space or guessing channel math. That is why pipelines often store a canonical value in HEX for documentation, then derive runtime variants through RGB or HSL math in code. Keeping the documented HEX and the derived scales in sync is where converters earn their keep.",
+        "p3": "Short HEX forms like #FFF expand to #FFFFFF. Always normalize to six digits in shared design systems to avoid ambiguity between tools that auto-expand and tools that do not. Alpha channels (#RRGGGBaa) exist in modern CSS, but many older email clients and export tools still expect opaque six-digit HEX—confirm support before shipping translucent brand tokens as HEX strings in marketing templates.",
+        "p4": "In collaboration, HEX remains the lingua franca. When a designer pastes #0F172A into Slack, engineers know exactly which slate to use. Keep a converter handy so you can verify that the HEX from Figma matches the RGB used in a canvas drawing API or the HSL used in a token generator. If they diverge by a unit or two after round-trips, decide which representation is source of truth and regenerate the others from it."
+      },
+      "rgb": {
+        "heading": "What RGB is and when to use it",
+        "p1": "RGB expresses color as three decimal channels from 0–255: rgb(37, 99, 235). Screens are additive light systems, so RGB maps naturally to how pixels are illuminated. Canvas APIs, WebGL shaders, image processing, PDF stamp overlays, and many animation libraries prefer RGB or normalized 0–1 floats derived from it. If your pipeline ever touches pixel buffers, you will almost certainly speak RGB at some layer.",
+        "p2": "CSS also supports modern space-separated syntax such as rgb(37 99 235 / 0.9) with alpha. Relative color syntax in newer CSS builds on RGB-like channels and can compute hover states without leaving the stylesheet. If you interpolate colors for charts or heatmaps, RGB linear blends are common—though perceptually uniform spaces can look better for scientific visualization where equal numeric steps should look equally different.",
+        "p3": "RGB is less intuitive for designers adjusting “make it a bit lighter.” Increasing all channels toward 255 lightens a color, but saturation behavior is harder to predict than in HSL. Mixing toward white or black in RGB can muddy hues. Still, RGB remains essential whenever you integrate with graphics code, email clients with limited CSS, native mobile bridges, or export pipelines that speak only channel triples.",
+        "p4": "Use RGB when bridging design tokens into programmatic graphics, screenshot tooling, or PDF/canvas overlays. Convert from HEX for human-readable docs, then keep RGB for runtime drawing. A bidirectional converter prevents off-by-one mistakes when rounding between formats, especially after multiple edits in a design review cycle."
+      },
+      "hsl": {
+        "heading": "What HSL is and when to use it",
+        "p1": "HSL stands for hue, saturation, and lightness. Hue is the angle on the color wheel (0–360), saturation is color intensity (0–100%), and lightness moves from black to white (0–100%). hsl(217, 91%, 53%) describes a vivid blue in language that matches how people talk about color: “shift the hue,” “desaturate,” “lighten for a hover state.” That vocabulary is why HSL shows up so often in theme engines and design-system documentation.",
+        "p2": "Design systems love HSL for generating ramps. Fix a hue and saturation, then step lightness to create 50–900 scales. Theme engines can flip lightness for dark mode while preserving hue relationships. Accessibility workflows often tweak lightness to meet contrast ratios without abandoning the brand hue—an operation that is awkward in HEX and noisy in RGB.",
+        "p3": "HSL is not perceptually perfect—equal lightness steps do not always look equally bright across hues—but it is far more practical for UI theming than raw RGB. CSS color-mix() and relative color functions increasingly reduce the need for hand-written ramps, yet HSL remains a clear mental model for product teams explaining why a button got lighter on hover. When teaching juniors, HSL is usually the fastest way to build intuition.",
+        "p4": "Choose HSL when building interactive themes, hover/focus variants, or documentation that teaches non-developers how tokens relate. Convert to HEX for handoff snapshots and to RGB for canvas work. Keeping all three in sync avoids drift between the style guide and the shipped CSS, especially when multiple people edit tokens across PRs."
+      },
+      "useCases": {
+        "heading": "Practical web-development use cases",
+        "p1": "Design-token pipelines: store a primary HEX for brand documentation, derive HSL for scale generation, and emit RGB for charting libraries. A converter validates that each representation still refers to the same color after rounding. Run that check before merging token PRs so production never inherits a silent one-digit drift.",
+        "p2": "Accessibility audits: start from a brand HEX, move into HSL, raise lightness until text contrast passes, then copy the resulting HEX back into your theme file. Doing this locally keeps unpublished brand palettes off third-party servers and makes it easy to try several candidates quickly during a review meeting.",
+        "p3": "Cross-tool handoffs: Figma may show HEX, a Lottie file expects RGB, and a Tailwind config uses HSL-like scales. Paste whichever value you have, sync the others, and copy the format the destination needs. The same workflow helps when migrating from a legacy Sass map of HEX values into a modern CSS variable system.",
+        "p4": "Debugging visual bugs: when a button looks “almost right,” compare the intended token with the computed style. Converting both to HSL quickly reveals whether hue drifted, saturation collapsed, or lightness mismatched the design. Pair that with screenshot diffs so you can explain the fix in a PR with both numbers and pixels."
+      },
+      "howToUse": {
+        "heading": "How to use this Online Color Converter",
+        "p1": "Use the color picker for exploratory selection, or paste a HEX, RGB, or HSL string into its field. Valid input immediately updates the preview and the other formats. Invalid input shows an error on that field without wiping your previous good color until you correct it, so experimental typing stays safe.",
+        "p2": "Click Copy beside any format to place a CSS-ready string on your clipboard. HEX is normalized to six-digit uppercase with a leading #. RGB and HSL use compact functional notation suitable for stylesheets, design tokens, and quick Slack replies.",
+        "p3": "Because conversion is local-first, you can work with confidential brand decks offline after the page loads. No color values are uploaded to JoinMyPDF servers. That matters for agencies handling unreleased product themes or enterprise rebrands under NDA.",
+        "p4": "Bookmark the converter next to your favicon and image tools so palette decisions stay inside the same privacy-first toolkit you already use for assets and PDFs. Treat it as a daily utility: convert, copy, paste, ship—without leaving the browser or opening a heavyweight design suite."
+      }
+    }
+  },
   "SslDecoder": {
     "inputLabel": "Certificate (PEM / CRT)",
     "inputPlaceholder": "-----BEGIN CERTIFICATE-----\nPaste your certificate here…\n-----END CERTIFICATE-----",
@@ -3465,6 +3559,234 @@
       "schemaName": "Convert PNG to PDF - No Signup Required",
       "schemaDescription": "Convert your PNG images to PDF files instantly without any signup or registration. Our secure, browser-based tool processes your images locally on your device, ensuring complete privacy and zero data leakage.",
       "schemaFeaturePrimary": "PNG to PDF without signup"
+    }
+  },
+  "ImageConverter": {
+    "dropTitle": "Drop an image here or click to browse",
+    "dropHint": "Supports JPG, PNG, WebP, HEIC, GIF, BMP",
+    "selectFile": "Select image from device",
+    "selectFileAria": "Select an image to convert",
+    "privacyBadge": "100% Client-side conversion. Your images are never uploaded to any server.",
+    "settingsTitle": "Conversion settings",
+    "outputFormat": "Output format",
+    "qualityLabel": "Quality ({percent}%)",
+    "pngQualityHint": "PNG export is lossless — the quality slider applies to WebP and JPG only.",
+    "heicOutputNote": "Browsers cannot encode HEIC. Choosing HEIC exports a high-quality JPEG instead. HEIC from iPhone is fully supported as input via heic2any.",
+    "heicFallbackNotice": "Exported as high-quality JPEG because HEIC encoding is not available in web browsers.",
+    "convert": "Convert",
+    "convertAgain": "Convert again",
+    "converting": "Converting…",
+    "convertingProgress": "Converting… {percent}%",
+    "download": "Download",
+    "replaceImage": "Replace image",
+    "invalidFile": "Please choose a supported image file (JPG, PNG, WebP, HEIC, GIF, or BMP).",
+    "convertFailed": "Conversion failed. Try another image or format.",
+    "previewTitle": "Image preview",
+    "originalPreview": "Original",
+    "convertedPreview": "Converted",
+    "originalAlt": "Original image preview",
+    "convertedAlt": "Converted image preview",
+    "convertedPlaceholder": "Convert to see preview",
+    "formats": {
+      "webp": "WebP",
+      "png": "PNG",
+      "jpg": "JPG",
+      "heic": "HEIC"
+    }
+  },
+  "ImageConverterPage": {
+    "metaTitle": "Free Online Image Converter | WebP PNG JPG HEIC | JoinMyPDF",
+    "metaDescription": "Convert images to WebP, PNG, or JPG in your browser. HEIC from iPhone supported. 100% client-side — your images are never uploaded.",
+    "title": "Free Online Image Converter",
+    "description": "Convert images between WebP, PNG, and JPG entirely in your browser. Upload HEIC from iPhone, preview original vs converted, and download — nothing is uploaded to a server.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "100% Client-side conversion. Your images are never uploaded to any server.",
+    "schemaName": "Free Online Image Converter",
+    "schemaDescription": "Free online image converter for WebP, PNG, JPG, and HEIC inputs. Convert formats locally in your browser with previews and download — zero uploads.",
+    "schemaFeatureFormats": "Convert between WebP, PNG, and JPG",
+    "schemaFeatureHeic": "HEIC/HEIF input via local heic2any decode",
+    "schemaFeaturePreview": "Side-by-side original and converted preview",
+    "schemaFeatureLocal": "100% client-side conversion with no uploads",
+    "article": {
+      "title": "WebP, format compatibility, and local-first image processing",
+      "intro": "Every modern product ships images: product photos, hero banners, avatars, Open Graph cards, documentation screenshots, and email headers. The format you choose quietly decides how fast a page feels, how large a CDN bill grows, and whether a teammate on Windows can open the file at all. This guide explains why WebP often wins for web performance, how JPG, PNG, WebP, and HEIC fit different compatibility needs, and why converting images locally in the browser—never uploading them—matters for privacy and trust. Use it as a practical companion to the Free Online Image Converter above: convert on your device, then ship the right bytes for the job.",
+      "webp": {
+        "heading": "Why WebP is better for web performance",
+        "p1": "WebP was designed for the web. It supports both lossy and lossless compression and can keep an alpha channel when you need transparency. In typical photographic content, a well-tuned WebP file is often 25–35% smaller than a visually similar JPEG at the same perceptual quality. For UI assets with flat colors and sharp edges, lossless WebP frequently beats PNG on size while remaining crisp. Smaller files mean fewer bytes on the wire, faster Largest Contentful Paint, and less contention on mobile networks where every kilobyte still counts.",
+        "p2": "Performance is not only about raw size. Image weight dominates many Lighthouse and Core Web Vitals reports because browsers must download, decode, and paint pixels before the hero feels ready. Serving WebP (or AVIF where you control the pipeline) reduces decode time pressure and bandwidth. Pair format choice with responsive srcset, modern lazy-loading, and sensible dimensions: converting a 4000px camera JPEG to WebP helps, but resizing to the display width helps even more. The converter on this page focuses on format; combine it with a resize or optimizer tool when you need both.",
+        "p3": "Browser support for WebP is effectively universal among current evergreen browsers. That removes the old dual-format tax for most consumer sites. You may still keep JPEG fallbacks for very old enterprise environments or email clients with limited CSS and image support. For public marketing sites, documentation portals, and SaaS dashboards, defaulting new deliveries to WebP is a low-risk win. When transparency is required and you previously reached for PNG, try lossless WebP first and compare side by side—the Free Online Image Converter makes that A/B check local and immediate.",
+        "p4": "WebP is not magic for every asset. Heavily compressed camera JPEGs that are already tiny may not shrink much further. Screenshots with dense UI chrome can look softer if quality is set too aggressively. Animated content belongs in dedicated formats (or video), not a single-frame converter. Treat WebP as the default candidate for still web imagery, then verify quality at the quality slider you intend to ship. A short preview loop—convert, glance at edges and gradients, download—beats guessing from filenames alone.",
+        "p5": "Operationally, standardize on a quality band (for example 80–90 for photos, higher for UI) and document it in your design system. Convert masters stored as PNG or high-quality JPEG into WebP deliverables during release, not by re-saving in chat apps that silently re-encode. Local conversion keeps unpublished creatives off third-party servers while you iterate. Once the preview looks right, download and commit the optimized asset to your CDN or static folder knowing the format decision was intentional."
+      },
+      "compatibility": {
+        "heading": "Understanding image format compatibility",
+        "p1": "Compatibility is the other half of the format decision. JPG (JPEG) remains the lingua franca for photos: cameras, email, CMS uploads, and almost every desktop app open it. PNG remains the safe choice when you need lossless pixels or alpha and the destination does not reliably accept WebP. WebP is ideal for modern browsers and many native apps, but some older design tools, printers, and locked-down corporate viewers still prefer JPEG or PNG. Choosing a format is choosing an audience.",
+        "p2": "HEIC (and HEIF) complicates everyday sharing. iPhones often save photos as HEIC to save storage while keeping strong quality. Windows, many web CMSs, and older Android galleries may refuse to display them. That is why HEIC-to-JPG or HEIC-to-PNG pipelines are so common. This converter accepts HEIC input and decodes it locally with heic2any so iPhone photos become WebP, PNG, or JPG without leaving your device. True HEIC encoding is not available in browsers; when HEIC is selected as an output target, the tool exports high-quality JPEG—the practical, widely compatible stand-in.",
+        "p3": "Think in workflows, not slogans. Photographers emailing clients: JPEG. Transparent logos for PowerPoint: PNG. Marketing site heroes: WebP (with optional JPEG fallback). App store screenshots that must survive Slack and Notion: PNG or JPEG depending on whether you need alpha. Batch pipelines that strip EXIF for privacy: convert and optimize in a local tool before publishing. When someone sends you a HEIC from Messages, convert once to the format your stack already trusts instead of asking them to change camera settings.",
+        "p4": "Color and transparency matter. JPEG does not support alpha; transparent edges become a solid background (this tool fills white when encoding JPEG). PNG and WebP can preserve transparency from sources that have it. If you convert a transparent PNG to JPG for email, preview carefully so you are not surprised by a white box. If you convert JPG to PNG, you gain lossless storage of those pixels but usually a larger file—useful for editing, less ideal for production delivery.",
+        "p5": "Finally, name files clearly after conversion. A download named photo.webp is easier to place in a Next.js public folder than a generic blob. Keep original masters when you may need to re-export at a different quality later. Compatibility problems are often solved by one intentional conversion step; the Free Online Image Converter exists to make that step fast, private, and visual with original-versus-converted previews."
+      },
+      "localFirst": {
+        "heading": "The importance of local-first image processing",
+        "p1": "Images frequently contain more than pretty pixels. Camera photos embed GPS coordinates, device models, timestamps, and sometimes faces of people who never consented to a cloud upload. Product screenshots can reveal customer names, internal URLs, or unreleased UI. Uploading those files to a random “free converter” site is a privacy and compliance risk—even if the marketing page promises deletion. Local-first tools invert the model: the browser does the work; the network does not receive your file.",
+        "p2": "JoinMyPDF’s image converter runs entirely client-side. HEIC decoding uses heic2any in the browser. Encoding to WebP, PNG, or JPG uses canvas—and for large images, a Web Worker with OffscreenCanvas so the UI stays responsive. Nothing is posted to JoinMyPDF servers for conversion. That architecture matches how privacy-conscious teams already handle PDFs and media: process on-device, download the result, close the tab.",
+        "p3": "Local-first also improves reliability. You can convert offline after the page loads, avoid upload timeouts on flaky hotel Wi-Fi, and skip account walls that exist only to harvest files. Performance scales with your machine rather than a shared queue. Heavy conversions use a worker thread so clicking around the page does not freeze while a multi-megapixel photo encodes. That is the same philosophy behind browser-image-compression and other client libraries: keep CPU work off the main thread when it would stutter the interface.",
+        "p4": "For agencies and enterprises, local processing is a contract-friendly story. Brand assets under NDA, patient education materials, legal evidence photos, and unreleased packaging shots should not transit unknown converters. Document in your security review that conversion is client-side, cite the privacy badge on the tool, and keep masters in your own drive. When a client asks “where did the file go?”, the honest answer is “nowhere—it stayed in the browser until you downloaded the result.”",
+        "p5": "Adopt a simple habit: convert formats locally, optimize dimensions next, then publish. Use WebP when the web is the destination, JPEG when maximum compatibility is required, PNG when lossless or transparency is non-negotiable, and treat HEIC as an iPhone input to normalize—not as a delivery format for the open web. The Free Online Image Converter is built for that habit: drag in a file, pick an output, preview, download, and move on—without feeding a server your images."
+      }
+    }
+  },
+  "SvgOptimizer": {
+    "dropTitle": "Drop an SVG here or click to browse",
+    "dropHint": "Supports .svg files only",
+    "selectFile": "Select SVG from device",
+    "selectFileAria": "Select an SVG file to optimize",
+    "privacyBadge": "100% Client-side optimization. Your files never leave your browser.",
+    "settingsTitle": "Optimization settings",
+    "multipassLabel": "Multipass",
+    "multipassHint": "Run SVGO multiple times for stronger minification.",
+    "safeModeLabel": "Safe mode",
+    "safeModeHint": "Keep viewBox, title, and desc for scalability and accessibility.",
+    "optimize": "Optimize SVG",
+    "optimizeAgain": "Optimize again",
+    "optimizing": "Optimizing with SVGO…",
+    "download": "Download",
+    "copyCode": "Copy to Clipboard",
+    "copied": "Copied",
+    "replaceFile": "Replace file",
+    "invalidFile": "Please choose a valid .svg file.",
+    "readFailed": "Could not read this SVG file.",
+    "optimizeFailed": "Optimization failed. The SVG may be invalid or unsupported.",
+    "copyFailed": "Could not copy to the clipboard.",
+    "savingsTitle": "Size comparison",
+    "originalSize": "Original size",
+    "optimizedSize": "Optimized size",
+    "savingsLabel": "Savings",
+    "savingsValue": "{percent}% smaller",
+    "noSavings": "No size reduction",
+    "previewTitle": "Visual preview",
+    "originalPreview": "Before",
+    "optimizedPreview": "After",
+    "originalAlt": "Original SVG preview",
+    "optimizedAlt": "Optimized SVG preview",
+    "optimizedPlaceholder": "Optimize to preview result",
+    "previewUnavailable": "Preview unavailable",
+    "codeTitle": "Optimized SVG code"
+  },
+  "SvgOptimizerPage": {
+    "metaTitle": "Free Online SVG Optimizer | SVGO in Browser | JoinMyPDF",
+    "metaDescription": "Optimize and minify SVG files online with SVGO in your browser. Compare sizes, preview before/after, download or copy — files never leave your device.",
+    "title": "Free Online SVG Optimizer",
+    "description": "Minify SVG markup with the official SVGO browser build. Compare original vs optimized size, preview the result, then download or copy the code — 100% client-side.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "100% Client-side optimization. Your files never leave your browser.",
+    "schemaName": "Free Online SVG Optimizer",
+    "schemaDescription": "Free online SVG optimizer powered by SVGO in the browser. Minify SVG files, compare sizes, preview before and after, and download or copy optimized code with zero uploads.",
+    "schemaFeatureOptimize": "SVGO-powered SVG minification",
+    "schemaFeatureCompare": "Original vs optimized file size comparison",
+    "schemaFeaturePreview": "Before and after visual SVG preview",
+    "schemaFeatureLocal": "100% client-side optimization with no uploads",
+    "article": {
+      "title": "How to optimize SVG for the web with SVGO",
+      "intro": "SVG is the default format for icons, logos, and illustrative UI on the modern web. Unlike raster images, vectors scale cleanly at any resolution—but exported SVG files are often bloated with editor metadata, redundant groups, unused IDs, and verbose path data. That extra markup still travels over the network, still parses on the main thread, and still costs users on slow connections. This guide covers how to optimize SVG for web performance, why removing unnecessary metadata matters, and why SVGO became the industry standard. Use it alongside the Free Online SVG Optimizer above: minify locally, preview before and after, then ship leaner assets with confidence.",
+      "performance": {
+        "heading": "How to optimize SVG for web performance",
+        "p1": "Web performance for SVG starts with bytes and complexity. Every path, transform, and nested group increases download size and the work the browser does to build a render tree. A 40 KB icon set that could be 12 KB after optimization is not a theoretical problem—it is slower first paint for navigation chrome, delayed LCP when a logo sits in the header, and more memory on low-end phones. Treat SVG like any other production asset: export cleanly, optimize deliberately, and measure the savings.",
+        "p2": "A practical workflow is simple. Design in Figma, Illustrator, or Inkscape. Export SVG. Run an optimizer before commit. Prefer currentColor for monochrome icons so themes work without duplicate files. Inline critical icons when CSS hover states matter; otherwise serve optimized external SVGs with caching headers. For icon systems, consider sprites or a build step that runs SVGO on every export so humans never ship the raw editor dump.",
+        "p3": "Optimization is not only minification. Simplify shapes when precision is unnecessary, merge paths where fills match, and avoid embedding raster images inside SVG unless you truly need hybrid artwork. Remove unused defs and clip paths. Keep a viewBox so the graphic scales in responsive layouts. Pair SVG optimization with responsive sizing in CSS (width/height or max-width) so you are not shipping detail the display never shows.",
+        "p4": "Preview matters. Aggressive plugins can collapse transforms or round numbers in ways that shift hairline strokes by a fraction of a pixel. Always compare before and after visually—especially for logos with tight kerning, brand geometry, or thin strokes at small sizes. The optimizer on this page shows both previews and a size delta so you can reject a bad pass without guessing from code alone.",
+        "p5": "Finally, integrate optimization into CI or a local pre-commit hook for design-system packages. Manual one-off uploads are fine for occasional assets; automated SVGO in the pipeline keeps every PR honest. Whether you optimize in Node during build or in the browser with this tool, the goal is the same: fewer bytes, fewer nodes, same visual intent.",
+        "p6": "Measure success with real metrics: transfer size in the Network panel, Lighthouse opportunities for unused image weight, and subjective checks at 16px and 24px icon sizes. An optimization that looks perfect at 256px may crush hairlines when the same SVG becomes a favicon or toolbar glyph. Keep a short checklist in your design system docs so every contributor knows when an asset is done: optimized, previewed, named consistently, and committed next to its source."
+      },
+      "metadata": {
+        "heading": "Removing unnecessary metadata from SVG",
+        "p1": "Exported SVGs frequently contain more than drawing instructions. Illustrator and other editors inject namespaces, generator comments, layer names, guide data, and proprietary attributes. Some files include full XML declarations, DOCTYPE leftovers, or <metadata> blocks with RDF and creator fields. None of that helps a browser paint your icon, and some of it can leak internal project names or tool versions you never meant to publish.",
+        "p2": "Metadata removal is a privacy and cleanliness win. Stripping editor namespaces and comments reduces file size immediately and removes fingerprints of your toolchain. SVGO plugins such as removeMetadata, removeComments, and removeEditorsNSData exist specifically for this. Safe defaults still keep title and desc when accessibility depends on them—logos used as meaningful images may need an accessible name, while decorative icons often rely on aria-hidden instead.",
+        "p3": "Not every attribute is junk. viewBox is essential for scaling. id attributes may be referenced by CSS or <use>. Gradients, masks, and filters live in <defs> and must stay if referenced. Blindly deleting everything that looks verbose can break sprites and animated SVGs. That is why optimizers expose presets and overrides, and why visual preview before download is non-negotiable for brand assets.",
+        "p4": "A good mental model: keep what the renderer and your product need; discard what the editor needed yesterday. Layer names like “Rectangle 42 copy” are noise. Hidden objects left in the export are worse—they inflate the DOM. Clean exports from the design tool plus SVGO is faster than hand-editing XML every time a designer re-exports a logo.",
+        "p5": "When compliance matters—customer portals, healthcare, finance—treat SVG like any document that might contain embedded text or metadata. Optimize locally so the file never crosses a third-party converter. JoinMyPDF’s SVG optimizer runs SVGO in the browser for exactly that reason: shrink and sanitize without uploading.",
+        "p6": "Also watch for embedded fonts, base64 raster blobs, and foreignObject HTML that inflate SVG far beyond a simple icon. Optimizers can flag or strip some of these, but complex documents may need a human decision—replace an embedded PNG with a true vector path, or split a hybrid illustration into SVG plus a compressed WebP. Metadata cleanup is the easy first pass; structural simplification is the deeper performance win when files stay large after minification."
+      },
+      "svgo": {
+        "heading": "Why SVGO is the industry standard for optimization",
+        "p1": "SVGO (SVG Optimizer) is the de facto toolchain for vector minification. It parses SVG into an AST, runs a plugin pipeline, and serializes leaner markup. The ecosystem around it—webpack loaders, SVGR, PostCSS plugins, CLI scripts, and frontends like SVGOMG—standardized on SVGO because the plugin model is predictable, testable, and battle-hardened across millions of icons.",
+        "p2": "Industry adoption followed necessity. Design tools optimize for editing, not delivery. Build systems needed a deterministic way to crush path data, collapse groups, and convert colors without reinventing SVG semantics. SVGO filled that gap with preset-default configurations teams can share in repos. When someone says “run SVGO,” engineers know what that means across frameworks and languages.",
+        "p3": "Modern SVGO ships a dedicated browser entry (`svgo/browser`) so the same algorithms can run client-side without pulling Node.js filesystem APIs into the bundle. That enables private, local tools like this one: no upload, same optimization philosophy as your CI. Multipass mode repeats plugins until savings stabilize, which often squeezes a few more percent from chatty exports.",
+        "p4": "Standards status does not mean “never look.” Plugins evolve; defaults change between major versions. Safe mode on this page keeps viewBox and titles intact because removing them historically broke responsive logos and accessibility. Review changelogs when you pin SVGO in a monorepo, and keep golden fixtures for critical brand marks so upgrades cannot silently reshape a lockup.",
+        "p5": "If you need one habit: export SVG, optimize with SVGO, preview, then commit. Use this Free Online SVG Optimizer for quick local passes and design reviews; use the SVGO CLI or loaders in production pipelines for volume. Either way you are participating in the same industry practice that keeps icon sets small, metadata-free, and ready for the web.",
+        "p6": "Teams standardize on SVGO because it is boring in the best way: same plugins, same configs, same outcomes on CI agents and laptops. Browser-side SVGO extends that boring reliability to privacy-first workflows where uploading a logo to a random website is unacceptable. Combined with visual preview and size comparison, it turns optimization from a leap of faith into a reviewable step anyone on the team can run before merge."
+      }
+    }
+  },
+  "LoremIpsumGenerator": {
+    "privacyBadge": "Fast, local-first text generation.",
+    "settingsTitle": "Generator settings",
+    "unitLabel": "Generate",
+    "countLabel": "Count",
+    "countHint": "Between {min} and {max}",
+    "formatLabel": "Output format",
+    "classicOpenerLabel": "Start with classic Lorem ipsum",
+    "classicOpenerHint": "Begin with “Lorem ipsum dolor sit amet…” when possible.",
+    "generate": "Generate",
+    "reset": "Reset",
+    "copy": "Copy to Clipboard",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard.",
+    "outputTitle": "Generated text",
+    "outputPlaceholder": "Click Generate to create placeholder text…",
+    "units": {
+      "paragraphs": "Paragraphs",
+      "sentences": "Sentences",
+      "words": "Words"
+    },
+    "formats": {
+      "plain": "Plain",
+      "markdown": "Markdown"
+    }
+  },
+  "LoremIpsumGeneratorPage": {
+    "metaTitle": "Free Online Lorem Ipsum Generator | JoinMyPDF",
+    "metaDescription": "Generate Lorem Ipsum paragraphs, sentences, or words online. Plain text or Markdown, copy instantly — fast, local-first placeholder text for design and development.",
+    "title": "Free Online Lorem Ipsum Generator",
+    "description": "Create realistic placeholder copy for mockups and prototypes. Choose paragraphs, sentences, or words, export plain text or Markdown, then copy — all locally in your browser.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Fast, local-first text generation.",
+    "schemaName": "Free Online Lorem Ipsum Generator",
+    "schemaDescription": "Free online Lorem Ipsum generator for paragraphs, sentences, and words. Export plain text or Markdown and copy instantly. Runs locally in your browser.",
+    "schemaFeatureUnits": "Generate paragraphs, sentences, or words",
+    "schemaFeatureFormats": "Plain text and Markdown output",
+    "schemaFeatureCopy": "One-click copy to clipboard",
+    "schemaFeatureLocal": "Fast, local-first text generation",
+    "article": {
+      "title": "Lorem Ipsum, placeholder text, and responsive typography testing",
+      "intro": "Placeholder text is one of the oldest tricks in visual communication—and still one of the most useful. Designers need mass without meaning so layouts can be judged on hierarchy, spacing, and rhythm. Developers need content that stretches components the way real copy will. Writers need to see how a column behaves before the final article lands. Lorem Ipsum became the default filler because it looks like Latin prose without distracting readers with readable English. This guide covers the history of Lorem Ipsum, how to use placeholder text well in design and development, and practical tips for testing responsive typography. Pair it with the Free Online Lorem Ipsum Generator above when you need quick, local, realistically structured dummy copy. Whether you are polishing a marketing landing page or filling Storybook controls before a sprint demo, structured placeholder text keeps reviews focused on craft instead of unfinished sentences.",
+      "history": {
+        "heading": "The history of Lorem Ipsum",
+        "p1": "The roots of Lorem Ipsum reach classical Rome. The standard passage is adapted from sections of Cicero’s “De Finibus Bonorum et Malorum” (On the Extremes of Good and Evil), written in 45 BCE. Early printers and typesetters scrambled fragments of that text so specimen books could show typefaces without inviting people to actually read the philosophy. Over centuries, the scrambled Latin mutated into the familiar “Lorem ipsum dolor sit amet…” opener that still greets anyone who opens a wireframe template.",
+        "p2": "By the twentieth century, Lorem Ipsum was entrenched in graphic design education and advertising layout. Paste-up artists used it on boards; QuarkXPress and PageMaker users pasted it into text boxes; desktop publishing made the phrase a meme of unfinished work. The point was never authenticity—it was visual density. Real English headlines compete for attention; nonsense Latin lets the eye evaluate color, leading, and column width first.",
+        "p3": "The web era amplified the habit. CSS frameworks, CMS themes, and component libraries shipped with Lorem Ipsum so demos looked populated. “Ipsum generators” proliferated, from one-click lipsum.com clones to hipster and cupcake variants that traded classical tone for jokes. Serious product teams still prefer classic Lorem because stakeholders recognize it as temporary—nobody mistakes it for approved marketing copy in a client review.",
+        "p4": "There is a mild controversy: some argue that using real draft content earlier produces better UX decisions. That critique is fair for content-heavy products. Yet early visual exploration often happens before research interviews finish. Lorem Ipsum remains a responsible stand-in when the alternative is awkward “asdf” spam or privacy-sensitive real user text pasted into a shared Figma file.",
+        "p5": "Today’s generators improve on naive randomizers. Simply concatenating dictionary words creates unnatural clumps—too many short tokens or unnatural punctuation. Better tools approximate sentence length distributions, capitalize openings, and sprinkle commas so the gray blocks in a mockup resemble the cadence of prose. That is the approach behind this local generator: structure first, vocabulary second.",
+        "p6": "Knowing the history helps teams explain the choice to non-designers. When a founder asks why the landing page is in Latin, you can say it is a centuries-old typesetting convention that protects focus during layout—and that it will be replaced before launch. Placeholder text is a process tool, not a content strategy."
+      },
+      "designDev": {
+        "heading": "How to use placeholder text in design and development",
+        "p1": "In design, use Lorem Ipsum to stress layout, not to postpone writing forever. Set realistic paragraph counts for the modules you are building: a hero may need one short sentence; an article card may need two lines; a long-form column may need three to five paragraphs. Generate only what the component needs so stakeholders do not assume the final article will be a wall of text.",
+        "p2": "Match the output format to the destination. Plain text is perfect for Figma text layers, email HTML prototypes, and quick Slack pastes. Markdown helps when the prototype lives in a docs site, Notion, or a README that will later become real content. Sentence lists in Markdown are useful for feature bullets you have not written yet. Prefer generating paragraphs when testing reading flow; prefer words when testing character limits or truncation ellipses.",
+        "p3": "In development, placeholder copy reveals bugs that empty states hide. Overflow, line clamping, RTL/LTR mixing, and skeleton loaders all behave differently with multi-line content. Paste generated paragraphs into Storybook controls. Pair the generator with a word counter or reading-time tool when you need to validate “this card stays under 80 words” product rules without inventing marketing claims.",
+        "p4": "Avoid shipping Lorem Ipsum to production. It sounds obvious, yet unfinished CMS entries and forgotten staging banners still leak dummy Latin onto live sites. Add checklist items: replace placeholders before QA sign-off; grep builds for “lorem ipsum”; keep design tokens separate from content strings. Treat generator output as disposable scaffolding.",
+        "p5": "Local-first generation matters for privacy and speed. Agency decks sometimes include confidential product names nearby in the same file. Generating filler in the browser means you never upload adjacent screenshots to a random third-party ipsum site. Fast iteration also matters in workshops: regenerate three paragraphs, copy, paste, move on.",
+        "p6": "Coordinate with writers early. Placeholder text should not become an excuse to skip information architecture. Use Lorem to explore visual options in parallel with an outline of real headings. When the outline lands, swap section by section. The best teams timebox dummy copy: useful for a sprint, gone by the next."
+      },
+      "typography": {
+        "heading": "Tips for testing responsive typography",
+        "p1": "Responsive typography fails in subtle ways. A headline that looks balanced on desktop may wrap awkwardly on a 320px screen. Body text that feels airy at 18px/1.6 may turn into a dense brick when fluid type scales down. Placeholder paragraphs with varied sentence lengths expose these issues better than a single repeated sentence.",
+        "p2": "Test with multiple densities. Generate one short paragraph for sparse marketing pages and a denser block for documentation. Check line length (measure): aim for roughly 45–75 characters per line on reading views. If your Lorem block creates 100-character lines on tablet, tighten max-width or adjust font-size tokens before real copy arrives.",
+        "p3": "Watch hyphenation, widows, and orphans in languages you ship. Even though Lorem is Latin-like, the gray rectangles still show where a single word sits alone on the last line of a card. Adjust padding, line-clamp, or min-heights accordingly. For bilingual products, also test Hebrew or other RTL strings—Lorem alone is not enough for directionality, but it still validates vertical rhythm.",
+        "p4": "Animate and load states with text present. Skeleton screens sized for empty boxes often collapse when real paragraphs appear. Generate three paragraphs, toggle your loading component, and confirm reserved space. Likewise, test truncation: mid-sentence cuts feel harsher when sentences vary in length the way this generator produces them.",
+        "p5": "Document type scales with screenshots that include Lorem blocks at each breakpoint. Reviewers understand “this is placeholder” and can still judge leading, tracking, and contrast. Combine with accessibility checks: contrast ratios do not care that the words are nonsense; focus rings and zoom behavior still apply.",
+        "p6": "Finally, regenerate often. Fixed canned paragraphs train your eye to ignore problems unique to that string. Fresh runs with natural comma placement and mixed sentence lengths keep reviews honest. Use the Free Online Lorem Ipsum Generator, copy the result, and stress your layout until the typography holds—then replace the Latin with the real story. Keep iterating until the layout feels inevitable."
+      }
     }
   }
 }

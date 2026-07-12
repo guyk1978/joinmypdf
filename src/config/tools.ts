@@ -26,6 +26,7 @@ export const TOOL_CATEGORIES = {
   dataConversion: "dataConversion",
   security: "security",
   productivity: "productivity",
+  design: "design",
 } as const;
 
 export type ToolCategory = (typeof TOOL_CATEGORIES)[keyof typeof TOOL_CATEGORIES];
@@ -117,6 +118,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   // Image
   { slug: "resize-image", labelKey: "resizeImage", categories: [c.image] },
   { slug: "convert-to-png", labelKey: "convertToPng", categories: [c.image] },
+  { slug: "image-converter", labelKey: "imageConverter", categories: [c.image] },
   { slug: "crop-image", labelKey: "cropImage", categories: [c.image] },
   { slug: "rotate-image", labelKey: "rotateImage", categories: [c.image] },
   { slug: "heic-to-jpg", labelKey: "heicToJpg", categories: [c.image] },
@@ -126,6 +128,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "flip-image", labelKey: "flipImage", categories: [c.image] },
   { slug: "image-metadata-editor", labelKey: "imageMetadataEditor", categories: [c.image] },
   { slug: "image-optimizer", labelKey: "imageOptimizer", categories: [c.image] },
+  { slug: "svg-optimizer", labelKey: "svgOptimizer", categories: [c.image] },
   { slug: "paint-on-image", labelKey: "paintOnImage", categories: [c.image] },
   { slug: "jpg-to-pdf", labelKey: "imageToPdf", categories: [c.image] },
   { slug: "png-to-pdf", labelKey: "pngToPdf", categories: [c.image] },
@@ -189,6 +192,10 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "word-character-counter", labelKey: "wordCharacterCounter", categories: [c.productivity] },
   { slug: "reading-time-calculator", labelKey: "readingTimeCalculator", categories: [c.productivity] },
   { slug: "case-converter", labelKey: "caseConverter", categories: [c.productivity] },
+  { slug: "lorem-ipsum-generator", labelKey: "loremIpsumGenerator", categories: [c.productivity] },
+
+  // Design tools
+  { slug: "color-converter", labelKey: "colorConverter", categories: [c.design] },
 ];
 
 export type HeaderNavTreeSection = {
@@ -247,6 +254,7 @@ export const HEADER_NAV_TREE: HeaderNavTreeGroup[] = [
   { id: "dataConversion", labelKey: "nav.dataConversion", categories: [c.dataConversion] },
   { id: "security", labelKey: "nav.security", categories: [c.security] },
   { id: "productivity", labelKey: "nav.productivity", categories: [c.productivity] },
+  { id: "design", labelKey: "nav.design", categories: [c.design] },
 ];
 
 export type AllToolsColumnConfig = {
@@ -320,8 +328,10 @@ export const TOOL_REGISTRY = {
     "flip-image",
     "image-metadata-editor",
     "image-optimizer",
+    "svg-optimizer",
     "paint-on-image",
     "convert-to-png",
+    "image-converter",
     "video-to-mp4",
     "video-to-gif",
     "png-to-ico",
@@ -444,7 +454,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
         id: "image-formats",
         labelKey: "megaMenu.columns.imageFormats",
         slugs: columnSlugs(
-          ["heic-to-jpg", "webp-to-jpg", "svg-to-png", "image-grayscale", "flip-image", "image-metadata-editor", "image-optimizer", "paint-on-image", "convert-to-png", "png-to-ico", "ico-to-png", "svg-to-favicon"],
+          ["heic-to-jpg", "webp-to-jpg", "svg-to-png", "image-grayscale", "flip-image", "image-metadata-editor", "image-optimizer", "svg-optimizer", "paint-on-image", "convert-to-png", "image-converter", "png-to-ico", "ico-to-png", "svg-to-favicon"],
           CONVERT_SLUGS,
         ),
       },
@@ -545,6 +555,11 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
     id: "design",
     labelKey: "megaMenu.design",
     columns: [
+      {
+        id: "design-tools",
+        labelKey: "megaMenu.columns.designTools",
+        slugs: ["color-converter"],
+      },
       {
         id: "pdf-organize",
         labelKey: "megaMenu.columns.pdfOrganize",
@@ -649,6 +664,7 @@ export const FOOTER_PANEL_GROUPS: FooterPanelGroup[] = [
   { id: "utilities", labelKey: "nav.utilities", categories: [c.utilitiesEncoders, c.utilitiesText] },
   { id: "dataConversion", labelKey: "nav.dataConversion", categories: [c.dataConversion] },
   { id: "productivity", labelKey: "nav.productivity", categories: [c.productivity] },
+  { id: "design", labelKey: "nav.design", categories: [c.design] },
 ];
 
 /** Search index entry — built at runtime via `buildSearchIndex` in `@/lib/search-index`. */

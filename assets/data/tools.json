@@ -2080,6 +2080,100 @@
       "updatedAt": "2026-06-30"
     },
     {
+      "slug": "svg-optimizer",
+      "category": "image-tools",
+      "subCategory": "optimize",
+      "operation": "svg-optimizer",
+      "title": "SVG Optimizer",
+      "primaryKeyword": "free online svg optimizer",
+      "intent": "Minify and optimize SVG files in the browser with SVGO—compare sizes, preview before/after, download or copy code.",
+      "description": "Free online SVG optimizer powered by SVGO in your browser. Shrink SVG markup, compare original vs optimized size, preview safely, and download—files never leave your device.",
+      "secondaryKeywords": [
+        "svgo online",
+        "minify svg browser",
+        "remove svg metadata"
+      ],
+      "useCases": [
+        "Minify icons before shipping to production",
+        "Strip editor metadata from Illustrator/Figma exports",
+        "Compare file-size savings before downloading optimized SVG"
+      ],
+      "relatedTools": [
+        "svg-to-png",
+        "svg-to-favicon",
+        "image-optimizer",
+        "image-converter"
+      ],
+      "faq": [
+        {
+          "q": "Is my SVG uploaded to JoinMyPDF?",
+          "a": "No. Optimization runs entirely in your browser with the official SVGO browser build."
+        },
+        {
+          "q": "Will optimization change how my SVG looks?",
+          "a": "Safe mode preserves viewBox and titles. Always check the before/after preview before downloading—aggressive settings can alter edge cases."
+        },
+        {
+          "q": "Can I copy the optimized code?",
+          "a": "Yes. Use Copy to Clipboard to paste the minified SVG into your editor or design system."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
+    },
+    {
+      "slug": "image-converter",
+      "category": "image-tools",
+      "subCategory": "convert",
+      "operation": "image-converter",
+      "title": "Image Converter",
+      "primaryKeyword": "free online image converter",
+      "intent": "Convert images between WebP, PNG, JPG, and HEIC-compatible workflows entirely in the browser—no uploads.",
+      "description": "Free online image converter for WebP, PNG, JPG, and HEIC inputs. Convert formats locally with previews and download—your images never leave your device.",
+      "secondaryKeywords": [
+        "webp converter online",
+        "heic to png browser",
+        "jpg to webp local"
+      ],
+      "useCases": [
+        "Convert JPG photos to WebP for faster websites",
+        "Turn iPhone HEIC shots into PNG or JPG",
+        "Export PNG assets as JPG for email attachments"
+      ],
+      "relatedTools": [
+        "convert-to-png",
+        "heic-to-jpg",
+        "image-optimizer",
+        "compress-image"
+      ],
+      "faq": [
+        {
+          "q": "Is my image uploaded to JoinMyPDF?",
+          "a": "No. Conversion runs entirely in your browser on your device."
+        },
+        {
+          "q": "Which formats can I convert?",
+          "a": "Upload JPG, PNG, WebP, GIF, BMP, or HEIC/HEIF. Export to WebP, PNG, or JPG. HEIC inputs from iPhone are decoded locally with heic2any."
+        },
+        {
+          "q": "Can I export true HEIC files?",
+          "a": "Browsers cannot encode HEIC. Choosing HEIC exports a high-quality JPEG instead. HEIC is fully supported as an input format."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.88,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
+    },
+    {
       "slug": "convert-to-png",
       "category": "image-tools",
       "subCategory": "convert",
@@ -4815,6 +4909,55 @@
       "updatedAt": "2026-07-12"
     },
     {
+      "slug": "color-converter",
+      "category": "convert",
+      "operation": "color-converter",
+      "title": "Color Converter",
+      "primaryKeyword": "online color converter",
+      "intent": "Convert colors between HEX, RGB, and HSL instantly in your browser with a live picker and copy buttons.",
+      "description": "Pick or paste a color in HEX, RGB, or HSL and sync the other formats in real time. Local-first conversion with one-click copy for each format.",
+      "secondaryKeywords": [
+        "hex to rgb converter",
+        "rgb to hsl converter",
+        "color picker hex rgb hsl"
+      ],
+      "useCases": [
+        "Translate design tokens between HEX and RGB",
+        "Tune HSL values for accessible UI themes",
+        "Copy CSS-ready color strings while prototyping"
+      ],
+      "relatedTools": [
+        "favicon-pack",
+        "generate-favicon",
+        "image-optimizer"
+      ],
+      "faq": [
+        {
+          "q": "Is my color data uploaded?",
+          "a": "No. Conversion runs entirely in your browser."
+        },
+        {
+          "q": "Which formats are supported?",
+          "a": "HEX, RGB, and HSL, plus a native color picker."
+        },
+        {
+          "q": "Can I paste values into any field?",
+          "a": "Yes. Update HEX, RGB, or HSL and the other formats refresh automatically."
+        },
+        {
+          "q": "Is the Color Converter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.58,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-12"
+    },
+    {
       "slug": "string-generator",
       "category": "convert",
       "operation": "string-generator",
@@ -5634,6 +5777,52 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "lorem-ipsum-generator",
+      "category": "convert",
+      "operation": "lorem-ipsum-generator",
+      "title": "Lorem Ipsum Generator",
+      "primaryKeyword": "free online lorem ipsum generator",
+      "intent": "Generate realistic placeholder paragraphs, sentences, or words locally for design and development mockups.",
+      "description": "Free online Lorem Ipsum generator with paragraphs, sentences, or words. Export plain text or Markdown, copy instantly — fast, local-first text generation.",
+      "secondaryKeywords": [
+        "placeholder text generator",
+        "dummy text markdown",
+        "lorem ipsum paragraphs"
+      ],
+      "useCases": [
+        "Fill wireframes with realistic paragraph rhythm",
+        "Generate Markdown placeholder copy for docs prototypes",
+        "Stress-test responsive typography with variable sentence lengths"
+      ],
+      "relatedTools": [
+        "word-character-counter",
+        "reading-time-calculator",
+        "case-converter",
+        "text-diff"
+      ],
+      "faq": [
+        {
+          "q": "Is my generated text uploaded?",
+          "a": "No. Generation runs entirely in your browser on your device."
+        },
+        {
+          "q": "Can I generate Markdown?",
+          "a": "Yes. Choose Markdown output for paragraph breaks or sentence lists ready to paste into docs."
+        },
+        {
+          "q": "Does the text look like real sentences?",
+          "a": "Yes. The generator varies word counts, inserts commas, and capitalizes sentence starts so mockups feel more natural than random word soup."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.78,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
     }
   ]
 }

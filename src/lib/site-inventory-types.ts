@@ -9,6 +9,7 @@ export type InventoryCategoryId =
   | "data"
   | "security"
   | "productivity"
+  | "design"
   | "utilities"
   | "articles";
 
@@ -38,6 +39,7 @@ export const INVENTORY_CATEGORY_META: ReadonlyArray<{ id: InventoryCategoryId; l
   { id: "data", label: "Data & Conversion" },
   { id: "security", label: "Security" },
   { id: "productivity", label: "Productivity" },
+  { id: "design", label: "Design Tools" },
   { id: "utilities", label: "Utilities" },
   { id: "articles", label: "Articles" },
 ];

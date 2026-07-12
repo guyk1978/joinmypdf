@@ -4,6 +4,7 @@ import { HOME_DATA_CONVERSION_TOOL_IDS } from "@/lib/data-conversion-tools";
 import { HOME_DEVELOPER_TOOL_IDS } from "@/lib/developer-tools";
 import { HOME_FAVICON_TOOL_IDS } from "@/lib/favicon-tools";
 import { getImageToolSlugs } from "@/lib/image-tools";
+import { HOME_DESIGN_TOOL_IDS } from "@/lib/design-tools";
 import { HOME_PRODUCTIVITY_TOOL_IDS } from "@/lib/productivity-tools";
 import { HOME_SECURITY_TOOL_IDS } from "@/lib/security-tools";
 import { HOME_TEXT_JSON_TOOL_IDS } from "@/lib/text-json-tools";
@@ -19,6 +20,7 @@ export type CanonicalToolCategory =
   | "data"
   | "security"
   | "productivity"
+  | "design"
   | "utilities";
 
 export type CanonicalToolSource =
@@ -51,6 +53,7 @@ registerCategorySlugs(HOME_DEVELOPER_TOOL_IDS, "developer");
 registerCategorySlugs(HOME_DATA_CONVERSION_TOOL_IDS, "data");
 registerCategorySlugs(HOME_SECURITY_TOOL_IDS, "security");
 registerCategorySlugs(HOME_PRODUCTIVITY_TOOL_IDS, "productivity");
+registerCategorySlugs(HOME_DESIGN_TOOL_IDS, "design");
 registerCategorySlugs(HOME_FAVICON_TOOL_IDS, "utilities");
 registerCategorySlugs(HOME_TEXT_JSON_TOOL_IDS, "utilities");
 registerCategorySlugs(
@@ -76,6 +79,7 @@ function categoryFromNav(categories: readonly ToolCategory[]): CanonicalToolCate
   if (categories.includes(TOOL_CATEGORIES.dataConversion)) return "data";
   if (categories.includes(TOOL_CATEGORIES.security)) return "security";
   if (categories.includes(TOOL_CATEGORIES.productivity)) return "productivity";
+  if (categories.includes(TOOL_CATEGORIES.design)) return "design";
   if (
     categories.includes(TOOL_CATEGORIES.utilitiesEncoders) ||
     categories.includes(TOOL_CATEGORIES.utilitiesText)
