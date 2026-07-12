@@ -33,17 +33,19 @@ export function validateSpeedFactor(speed: number): number {
 
 /**
  * Build an atempo filter chain. Each atempo instance accepts 0.5–2.0;
- * values outside that range are split into chained filters.
+ * values outside that range are split into chained filters (e.g. 4× → atempo=2,atempo=2).
  */
 export function buildAtempoFilterChain(speed: number): string {
-  const target = validateSpeedFactor(speed);
+  if (!Number.isFinite(speed) || speed <= 0) {
+    throw new Error("Invalid speed value for atempo.");
+  }
 
-  if (Math.abs(target - 1) < 0.001) {
+  if (Math.abs(speed - 1) < 0.001) {
     return "atempo=1.0";
   }
 
   const parts: string[] = [];
-  let remaining = target;
+  let remaining = speed;
 
   while (remaining < ATEMPO_MIN - 1e-9) {
     parts.push(`atempo=${ATEMPO_MIN}`);

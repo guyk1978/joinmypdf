@@ -10,6 +10,7 @@
     "breadcrumbHubSecurity": "כלי אבטחה",
     "breadcrumbHubImage": "כלי תמונה",
     "breadcrumbHubVideo": "כלי וידאו",
+    "breadcrumbHubMp4": "כלי MP4",
     "breadcrumbHubFavicon": "כלי Favicon",
     "breadcrumbHubDeveloper": "כלי מפתחים",
     "breadcrumbHubTextJson": "כלי JSON",
@@ -1479,24 +1480,112 @@
         }
       },
       "videoCompressor": {
-        "h1": "דחיסת וידאו אונליין",
-        "heroTagline": "TODO: תגית SEO — למלא מאוחר יותר.",
-        "introSectionTitle": "איך לדחוס וידאו בדפדפן",
-        "whySectionTitle": "למה JoinMyPDF Video Compressor?",
-        "whySectionSubheadline": "TODO: כותרת משנה SEO — למלא מאוחר יותר.",
-        "schemaDescription": "TODO: תיאור schema SEO — למלא מאוחר יותר.",
+        "h1": "דוחס וידאו MP4 אונליין בחינם",
+        "heroTagline": "דחסו MP4 עם libx264 CRF 18–28 — השוו גודל וביטרייט מקומית, בלי העלאה.",
+        "introSectionTitle": "איך לדחוס MP4 בדפדפן",
+        "whySectionTitle": "למה להשתמש בדוחס הווידאו של JoinMyPDF?",
+        "whySectionSubheadline": "כווננו CRF לאיכות מול גודל, ראו חיסכון משוער, והורידו בלי לשלוח צילומים לענן.",
+        "schemaDescription": "דוחס וידאו MP4 אונליין בחינם. שליטת CRF של libx264 (18–28), השוואת גודל וביטרייט, קידוד עם preset medium — 100% בצד הלקוח.",
         "whyBenefits": {
           "lossless": {
-            "title": "רמות דחיסה מתכווננות",
-            "body": "דחיסה נמוכה, מאוזנת וגבוהה ממופות ל-libx264 CRF 23–28."
+            "title": "שליטת CRF 18–28",
+            "body": "כווננו Constant Rate Factor לאיזון האידיאלי בין משקל לאיכות בווידאו סטנדרטי לאינטרנט."
           },
           "quality": {
-            "title": "השוואת גודל לפני/אחרי",
-            "body": "ראו גודל מקורי מול דחוס וכמה בתים נחסכו לפני השיתוף."
+            "title": "השוואת גודל וביטרייט",
+            "body": "ראו גודל קובץ וביטרייט ממוצע מקוריים מול משוערים/דחוסים לפני השיתוף."
           },
           "local": {
             "title": "Local-Only: 100% Private",
-            "body": "ffmpeg.wasm רץ ב-Web Worker — הווידאו לא מועלה."
+            "body": "דחיסה בצד הלקוח. הווידאו שלכם אף פעם לא עוזב את הדפדפן, ומבטיח פרטיות מלאה."
+          }
+        }
+      },
+      "videoToGif": {
+        "h1": "ממיר וידאו ל-GIF אונליין בחינם",
+        "heroTagline": "הפכו קליפים קצרים ל-GIF לשיתוף — ffmpeg.wasm מקומי עם palettegen/paletteuse ובקרת FPS וסקאלה.",
+        "introSectionTitle": "איך להמיר וידאו ל-GIF מקומית",
+        "whySectionTitle": "למה להשתמש בממיר הווידאו ל-GIF של JoinMyPDF?",
+        "whySectionSubheadline": "הגדירו התחלה, משך, FPS וסקאלה — תצוגה מקדימה לפני הורדה, בלי העלאה לענן.",
+        "schemaDescription": "ממיר וידאו ל-GIF אונליין בחינם. ייצאו GIF מונפש מ-MP4 עם ffmpeg.wasm מקומי, סקאלת Lanczos ופלטת צבעים בשני מעברים.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Palettegen + paletteuse",
+            "body": "קוונטיזציית צבע בשני מעברים שומרת על GIF חד יותר בתוך מגבלת 256 הצבעים."
+          },
+          "quality": {
+            "title": "בקרת FPS וסקאלה",
+            "body": "כווננו קצב פריימים ורוחב, בנוסף לזמן התחלה ומשך, לפני הקידוד."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "המרה בצד הלקוח ב־100%. נתוני הווידאו מעובדים מקומית, אף פעם לא נשלחים לענן."
+          }
+        }
+      },
+      "videoToMp3": {
+        "h1": "ממיר וידאו ל-MP3 אונליין בחינם",
+        "heroTagline": "חלצו שמע מ-MP4 ועוד — ffmpeg.wasm עם -vn ו-libmp3lame איכותי, בלי העלאה.",
+        "introSectionTitle": "איך לחלץ שמע מווידאו מקומית",
+        "whySectionTitle": "למה להשתמש בממיר הווידאו ל-MP3 של JoinMyPDF?",
+        "whySectionSubheadline": "בחרו VBR (-q:a 2) או ביטרייטים קבועים, הורידו MP3 מיד, שמרו קבצים במכשיר.",
+        "schemaDescription": "ממיר וידאו ל-MP3 אונליין בחינם. חילוץ שמע מ-MP4 ופורמטים נפוצים עם ffmpeg.wasm מקומי, איכות VBR או CBR, ואפס העלאות.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "ברירת מחדל VBR איכותית",
+            "body": "libmp3lame -q:a 2 מייצר MP3 בביטרייט משתנה מעולה לדיבור ולמוזיקה."
+          },
+          "quality": {
+            "title": "שליטת ביטרייט",
+            "body": "עברו ל-128, 192 או 320 kbps CBR כששותפים דורשים ביטרייט קבוע."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "המרה בצד הלקוח ב־100%. השמע מחולץ מקומית במכשיר שלכם."
+          }
+        }
+      },
+      "videoResizer": {
+        "h1": "משנה גודל וחותך וידאו אונליין בחינם",
+        "heroTagline": "חתכו ושנו גודל לטיקטוק 9:16, אינסטגרם 1:1 ויוטיוב 16:9 — ffmpeg.wasm מקומי עם סקאלת Lanczos.",
+        "introSectionTitle": "איך לשנות גודל ולחתוך וידאו מקומית",
+        "whySectionTitle": "למה להשתמש במשנה הגודל של JoinMyPDF?",
+        "whySectionSubheadline": "צפו בתיבת החיתוך הממורכזת, הגדירו מידות מותאמות, והורידו בלי להעלות צילומים.",
+        "schemaDescription": "משנה גודל וחותך וידאו אונליין בחינם. פריסטי יחס, רוחב × גובה מותאם, תצוגת חיתוך וסקאלת Lanczos עם ffmpeg.wasm מקומי — אפס העלאות.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "פריסטים חברתיים",
+            "body": "לחיצה אחת ל-9:16, 1:1 או 16:9 — וגם רוחב × גובה מותאם כשערכת מותג דורשת."
+          },
+          "quality": {
+            "title": "תצוגת חיתוך + Lanczos",
+            "body": "ראו את אזור השמירה לפני העיבוד; סקאלה עם flags=lanczos והעתקת שמע כשאפשר."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "שינוי גודל וידאו מקומי-תחילה. הצילומים נשארים פרטיים במכשיר שלכם."
+          }
+        }
+      },
+      "videoTrimmer": {
+        "h1": "חותך וידאו אונליין בחינם",
+        "heroTagline": "חתכו קטעי MP4 עם מחווני התחלה וסיום — העתקת זרם של ffmpeg.wasm, 100% מקומי, בלי העלאה.",
+        "introSectionTitle": "איך לחתוך וידאו בצורה מאובטחת בדפדפן",
+        "whySectionTitle": "למה להשתמש בחותך הווידאו של JoinMyPDF?",
+        "whySectionSubheadline": "צפו בתצוגה מקדימה, סמנו נקודות כניסה/יציאה, והורידו MP4 חתוך בלי לשלוח צילומים לשרת.",
+        "schemaDescription": "חותך וידאו אונליין בחינם ל-MP4. הגדירו זמני התחלה וסיום, צפו בתצוגה מקדימה בדפדפן, וחתכו מקומית עם העתקת זרם של ffmpeg.wasm — אפס העלאות.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "חיתוך בהעתקת זרם",
+            "body": "משתמש ב--c copy לחיתוכים מהירים ששומרים על איכות הווידאו והשמע המקורית."
+          },
+          "quality": {
+            "title": "תצוגת HTML5 חיה",
+            "body": "סרקו זמני התחלה וסיום מול נגן מובנה לפני העיבוד."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "עיבוד וידאו בצד הלקוח ב־100%. אף קובץ וידאו לא מועלה לשרתים שלנו."
           }
         }
       },
@@ -3578,6 +3667,116 @@
           "local": {
             "title": "כלי ממוקד פרטיות",
             "body": "ללא העלאות לשרת, ללא מעקב אחר התוכן שלך וללא חשבון לשימוש יומיומי."
+          }
+        }
+      },
+      "videoMuter": {
+        "h1": "משתיק וידאו אונליין בחינם",
+        "heroTagline": "הסירו שמע מ-MP4 עם העתקת זרם של ffmpeg.wasm (-an -c:v copy)—כמעט מיידי, איכות זהה, בלי העלאה.",
+        "introSectionTitle": "איך להשתיק וידאו בצורה מאובטחת בדפדפן",
+        "whySectionTitle": "למה להשתמש במשתיק הווידאו של JoinMyPDF?",
+        "whySectionSubheadline": "לחיצה אחת מסירה צליל תוך העתקת בתים של הווידאו ללא שינוי—מהיר גם בקובצים גדולים, 100% מקומי.",
+        "schemaDescription": "משתיק וידאו אונליין בחינם ל-MP4. הסרת שמע מקומית עם ffmpeg.wasm (-an -c:v copy), שמירת איכות תמונה מקורית, והורדת קליפ שקט ללא העלאות.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "השתקה בהעתקת זרם",
+            "body": "משתמש ב--an -c:v copy כך שאיכות הווידאו נשארת זהה—בלי קידוד מחדש, תוצאות כמעט מיידיות."
+          },
+          "quality": {
+            "title": "שקט בלחיצה אחת",
+            "body": "גררו MP4, השתיקו, הורידו. ממשק מינימלי למשימה אחת: הסרת שמע ושמירת התמונה."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "עיבוד בצד הלקוח. הווידאו מושתק מקומית בלי שנשלח לשום שרת."
+          }
+        }
+      },
+      "videoSpeed": {
+        "h1": "בקרת מהירות וידאו אונליין בחינם",
+        "heroTagline": "האיצו או האטו MP4 עם פריסטים 0.5×–4×—setpts + atempo, התקדמות Processing ברורה, בלי העלאה.",
+        "introSectionTitle": "איך לשנות מהירות וידאו בצורה מאובטחת בדפדפן",
+        "whySectionTitle": "למה להשתמש בבקרת המהירות של JoinMyPDF?",
+        "whySectionSubheadline": "קידוד מחדש מציג פס התקדמות חי כדי שתדעו שהכלי עובד—לא קפא—והקבצים נשארים במכשיר.",
+        "schemaDescription": "בקרת מהירות וידאו אונליין בחינם ל-MP4. שינוי נגינה מ-0.5× עד 4× מקומית עם setpts ו-atempo, התקדמות Processing חיה ואפס העלאות.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "סנכרון setpts + atempo",
+            "body": "חותמות וידאו וקצב שמע נשארים מיושרים; 4× משרשר שלבי atempo בבטחה."
+          },
+          "quality": {
+            "title": "ממשק Processing ברור",
+            "body": "משימות מהירות מקודדות מחדש—התקדמות ומצבי Processing… מראים שהכלי עובד בפועל."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "עיבוד וידאו בצד הלקוח ב־100%. הווידאו שלכם אף פעם לא מועלה."
+          }
+        }
+      },
+      "videoRotator": {
+        "h1": "מסובב וידאו אונליין בחינם",
+        "heroTagline": "סובבו MP4 ב-90° עם השעון, 180° או 90° נגד השעון—מטא-דאטה מהיר או אפיית transpose, עם תצוגה חיה.",
+        "introSectionTitle": "איך לסובב וידאו בצורה מאובטחת בדפדפן",
+        "whySectionTitle": "למה להשתמש במסובב הווידאו של JoinMyPDF?",
+        "whySectionSubheadline": "נסו תיקוני מטא-דאטה כמעט מיידיים, או אפו פיקסלים עם transpose כשכל נגן חייב להסכים.",
+        "schemaDescription": "מסובב וידאו אונליין בחינם ל-MP4. סיבוב מקומי עם ffmpeg.wasm—העתקת מטא-דאטה או קידוד transpose—תצוגה והורדה ללא העלאות.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "אופציית מטא-דאטה מהירה",
+            "body": "סיבוב בהעתקת זרם עם -c copy + rotate כשהבילד תומך—כמעט מיידי."
+          },
+          "quality": {
+            "title": "אפייה עם transpose",
+            "body": "transpose=1 / 2 לסיבוב פיקסלים קבוע כשנגנים מתעלמים ממטא-דאטה."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "סיבוב בצד הלקוח. הקבצים מעובדים באופן מאובטח במכשיר המקומי שלכם."
+          }
+        }
+      },
+      "videoMetadataCleaner": {
+        "h1": "מנקה מטא-דאטה מווידאו אונליין בחינם",
+        "heroTagline": "צפו ב-GPS, מכשיר וזמן צילום—ואז הסירו מטא-דאטה עם -map_metadata -1 -c copy, 100% מקומי.",
+        "introSectionTitle": "איך להסיר מטא-דאטה מווידאו בצורה מאובטחת בדפדפן",
+        "whySectionTitle": "למה להשתמש במנקה המטא-דאטה של JoinMyPDF?",
+        "whySectionSubheadline": "ראו מה יוסר, ואז נקו כמעט מיידית עם העתקת זרם—בלי קידוד מחדש, בלי העלאה.",
+        "schemaDescription": "מנקה מטא-דאטה מווידאו אונליין בחינם ל-MP4 ו-MOV. תצוגה מקדימה של תגים רגישים, הסרת EXIF/XMP/GPS מקומית עם העתקת זרם, אפס העלאות.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "ניקוי בהעתקת זרם",
+            "body": "משתמש ב--map_metadata -1 -c copy כך שהאיכות זהה והניקוי כמעט מיידי."
+          },
+          "quality": {
+            "title": "תצוגת מטא-דאטה",
+            "body": "ראו זמן צילום, יצרן/דגם ו-GPS לפני ההסרה—לבניית אמון בפרטיות."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "עיבוד מקומי ב־100%. המטא-דאטה מוסר במכשיר; הקובץ לא נוגע בשרתים."
+          }
+        }
+      },
+      "videoConverter": {
+        "h1": "ממיר פורמטי וידאו אונליין בחינם",
+        "heroTagline": "המירו MOV, MKV, AVI, WMV ועוד ל-MP4, WebM או MOV — ffmpeg.wasm מקומי, בלי העלאה.",
+        "introSectionTitle": "איך להמיר פורמטי וידאו בבטחה בדפדפן",
+        "whySectionTitle": "למה להשתמש בממיר פורמטי הווידאו של JoinMyPDF?",
+        "whySectionSubheadline": "בחרו MP4, WebM או MOV, קודדו על המכשיר והורידו — libx264/AAC לתאימות מרבית ב-MP4/MOV.",
+        "schemaDescription": "ממיר פורמטי וידאו אונליין בחינם. המרה מקומית של MOV, MKV, AVI, WMV ועוד ל-MP4, WebM או MOV עם ffmpeg.wasm — אפס העלאות.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "MP4 ו-MOV תואמים",
+            "body": "וידאו libx264 ואודיו AAC לניגון הרחב ביותר בווב, ברשתות חברתיות ובמכשירים."
+          },
+          "quality": {
+            "title": "WebM כשצריך",
+            "body": "יעד WebM עם VP9 ו-Opus לנגני HTML5 מודרניים שאתם שולטים בהם."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "המרה מקומית ב-100%. הסרטונים מעובדים בדפדפן שלכם ושומרים על פרטיות הנתונים."
           }
         }
       }

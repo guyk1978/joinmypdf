@@ -34,7 +34,13 @@ import { VideoCompressorWorkspace } from "@/components/VideoCompressorWorkspace"
 import { VideoResizerWorkspace } from "@/components/tools/VideoResizerWorkspace";
 import { VideoRotatorWorkspace } from "@/components/tools/VideoRotatorWorkspace";
 import { VideoSpeedControllerWorkspace } from "@/components/tools/VideoSpeedControllerWorkspace";
+import { VideoSpeedWorkspace } from "@/components/tools/VideoSpeedWorkspace";
 import { VideoToGifWorkspace } from "@/components/tools/VideoToGifWorkspace";
+import { VideoToMp3Workspace } from "@/components/tools/VideoToMp3Workspace";
+import { VideoMuterWorkspace } from "@/components/tools/VideoMuterWorkspace";
+import { VideoMetadataCleanerWorkspace } from "@/components/tools/VideoMetadataCleanerWorkspace";
+import { VideoConverterWorkspace } from "@/components/tools/VideoConverterWorkspace";
+import { VideoTrimmerWorkspace } from "@/components/tools/VideoTrimmerWorkspace";
 import { CropImageWorkspace } from "@/components/CropImageWorkspace";
 import { ConvertToPngWorkspace } from "@/components/ConvertToPngWorkspace";
 import { ImageConverterWorkspace } from "@/components/ImageConverterWorkspace";
@@ -433,8 +439,20 @@ export default async function ToolPage({
           <VideoRotatorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "video-speed-controller" ? (
           <VideoSpeedControllerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-speed" ? (
+          <VideoSpeedWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "video-to-gif" ? (
           <VideoToGifWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-trimmer" ? (
+          <VideoTrimmerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-to-mp3" ? (
+          <VideoToMp3Workspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-muter" ? (
+          <VideoMuterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-metadata-cleaner" ? (
+          <VideoMetadataCleanerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "video-converter" ? (
+          <VideoConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "resize-image" ? (
           <ResizeImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "convert-to-png" ? (

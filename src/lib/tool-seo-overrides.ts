@@ -75,7 +75,7 @@ export function buildBoilerplateToolSeoStructure(input: {
   };
 }
 
-const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "pdf-a-converter", "pdf-linearization", "n-up-pdf", "grayscale-pdf", "pdf-metadata-editor", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "pdf-signature-validator", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "pdf-to-html", "pdf-to-epub", "pdf-to-xps", "extract-images", "pdf-to-word", "pdf-to-excel", "extract-tables-pdf", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "video-to-mp4", "video-compressor", "video-resizer", "video-rotator", "video-speed-controller", "video-to-gif", "heic-to-jpg", "webp-to-jpg", "svg-to-png", "image-grayscale", "flip-image", "image-metadata-editor", "image-optimizer", "paint-on-image", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "markdown-to-pdf", "html-to-pdf", "invoice-generator", "data-converter-visualizer", "generate-favicon", "png-to-ico", "ico-to-png", "svg-to-favicon", "favicon-pack", "apple-touch-icon", "favicon-compressor", "favicon-cropper", "transparent-favicon", "favicon-code-generator", "favicon-previewer", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter", "json-to-csv", "json-minifier", "csv-to-json", "html-markdown-converter", "pdf-password-recovery", "base64-encoder-decoder", "url-encoder-decoder", "text-diff-checker", "string-generator", "word-character-counter", "yaml-json-converter", "csv-to-markdown-table", "sql-query-formatter", "password-generator", "hash-generator", "uuid-generator", "unit-converter", "timezone-converter", "reading-time-calculator"] as const;
+const SEO_TOOL_SLUGS = ["pdf-merge", "pdf-split", "pdf-compress", "rotate-pdf", "crop-pdf", "delete-pdf-pages", "reorder-pdf-pages", "extract-pdf-pages", "add-page-numbers", "add-watermark", "annotate-pdf", "compare-pdf", "pdf-to-booklet", "batch-rename-pdf", "pdf-text-editor", "custom-paper-margin", "flatten-pdf", "repair-pdf", "pdf-a-converter", "pdf-linearization", "n-up-pdf", "grayscale-pdf", "pdf-metadata-editor", "protect-pdf", "unlock-pdf", "redact-pdf", "safe-to-share-auditor", "remove-hidden-metadata", "sign-pdf", "pdf-signature-validator", "word-to-pdf", "excel-to-pdf", "powerpoint-to-pdf", "openoffice-to-pdf", "ebook-to-pdf", "iwork-to-pdf", "autocad-to-pdf", "pdf-to-jpg", "pdf-to-png", "pdf-to-text", "pdf-to-html", "pdf-to-epub", "pdf-to-xps", "extract-images", "pdf-to-word", "pdf-to-excel", "extract-tables-pdf", "pdf-to-powerpoint", "resize-image", "convert-to-png", "crop-image", "rotate-image", "compress-image", "video-to-mp4", "video-converter", "video-compressor", "video-resizer", "video-rotator", "video-speed-controller", "video-speed", "video-to-gif", "video-trimmer", "video-to-mp3", "video-muter", "video-metadata-cleaner", "heic-to-jpg", "webp-to-jpg", "svg-to-png", "image-grayscale", "flip-image", "image-metadata-editor", "image-optimizer", "paint-on-image", "jpg-to-pdf", "png-to-pdf", "heic-to-pdf", "markdown-to-pdf", "html-to-pdf", "invoice-generator", "data-converter-visualizer", "generate-favicon", "png-to-ico", "ico-to-png", "svg-to-favicon", "favicon-pack", "apple-touch-icon", "favicon-compressor", "favicon-cropper", "transparent-favicon", "favicon-code-generator", "favicon-previewer", "user-agent-parser", "jwt-debugger", "qr-code-generator", "json-formatter", "json-to-csv", "json-minifier", "csv-to-json", "html-markdown-converter", "pdf-password-recovery", "base64-encoder-decoder", "url-encoder-decoder", "text-diff-checker", "string-generator", "word-character-counter", "yaml-json-converter", "csv-to-markdown-table", "sql-query-formatter", "password-generator", "hash-generator", "uuid-generator", "unit-converter", "timezone-converter", "reading-time-calculator"] as const;
 
 export type SeoToolSlug = (typeof SEO_TOOL_SLUGS)[number];
 
@@ -134,11 +134,17 @@ const SLUG_TO_OVERRIDE_KEY: Record<SeoToolSlug, string> = {
   "rotate-image": "rotateImage",
   "compress-image": "compressImage",
   "video-to-mp4": "videoToMp4",
+  "video-converter": "videoConverter",
   "video-compressor": "videoCompressor",
   "video-resizer": "videoResizer",
   "video-rotator": "videoRotator",
   "video-speed-controller": "videoSpeedController",
+  "video-speed": "videoSpeed",
   "video-to-gif": "videoToGif",
+  "video-trimmer": "videoTrimmer",
+  "video-to-mp3": "videoToMp3",
+  "video-muter": "videoMuter",
+  "video-metadata-cleaner": "videoMetadataCleaner",
   "heic-to-jpg": "heicToJpg",
   "webp-to-jpg": "webpToJpg",
   "svg-to-png": "svgToPng",

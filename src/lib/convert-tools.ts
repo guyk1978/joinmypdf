@@ -22,6 +22,7 @@ export type ConvertToolId =
   | "pdf-to-jpg"
   | "mp4-to-mp3"
   | "video-to-mp4"
+  | "video-converter"
   | "video-to-gif"
   | "wav-to-mp3";
 
@@ -62,7 +63,7 @@ export const CONVERT_TOOL_GROUPS: {
   },
   {
     id: "media",
-    toolIds: ["mp4-to-mp3", "video-to-mp4", "video-to-gif", "wav-to-mp3"],
+    toolIds: ["mp4-to-mp3", "video-to-mp4", "video-converter", "video-to-gif", "wav-to-mp3"],
   },
 ];
 
@@ -89,6 +90,7 @@ const CONVERT_TOOL_MESSAGE_KEYS: Record<ConvertToolId, string> = {
   "pdf-to-jpg": "pdfToJpg",
   "mp4-to-mp3": "mp4ToMp3",
   "video-to-mp4": "videoToMp4",
+  "video-converter": "videoConverter",
   "video-to-gif": "videoToGif",
   "wav-to-mp3": "wavToMp3",
 };

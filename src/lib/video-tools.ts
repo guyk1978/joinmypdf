@@ -1,5 +1,6 @@
 import { MP4_TOOLS_HUB_PATH } from "@/lib/mp4-tools";
 import { VIDEO_TOOLS_HUB_PATH } from "@/lib/video-tools-hub";
+import { VIDEO_TOOLS_INVENTORY_IDS } from "@/data/tools-inventory";
 import { registry } from "@/lib/registry";
 
 export type HomeFeaturedVideoItem = {
@@ -14,10 +15,10 @@ type HomeTranslator = {
   has: (key: string) => boolean;
 };
 
-const FEATURED_VIDEO_SLUGS = ["video-to-mp4", "video-compressor", "video-resizer"] as const;
+const FEATURED_VIDEO_SLUGS = ["video-converter", "video-compressor", "video-resizer"] as const;
 
 const VIDEO_ICON_KEYS: Record<(typeof FEATURED_VIDEO_SLUGS)[number], HomeFeaturedVideoItem["iconKey"]> = {
-  "video-to-mp4": "video",
+  "video-converter": "video",
   "video-compressor": "minimize-2",
   "video-resizer": "expand",
 };
@@ -55,3 +56,6 @@ export function buildHomepageFeaturedVideoItems(tHome?: HomeTranslator): HomeFea
 
   return [...hubItems, ...toolItems];
 }
+
+/** Slugs for the canonical Video Tools set (same 10 as MP4 hub). */
+export const CORE_VIDEO_TOOL_IDS = VIDEO_TOOLS_INVENTORY_IDS;

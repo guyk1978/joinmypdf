@@ -22,7 +22,7 @@ export type ToolCategoryHub = {
 const NAV_CATEGORY_HUBS: Partial<Record<ToolCategory, ToolCategoryHub>> = {
   [c.favicon]: { path: "/tools/favicon-tools/", labelKey: "breadcrumbHubFavicon" },
   [c.image]: { path: "/image-tools/", labelKey: "breadcrumbHubImage" },
-  [c.video]: { path: "/tools/video-tools/", labelKey: "breadcrumbHubVideo" },
+  [c.video]: { path: "/tools/mp4-tools/", labelKey: "breadcrumbHubMp4" },
   [c.developerBrowser]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.developerTokens]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.developerGenerators]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },

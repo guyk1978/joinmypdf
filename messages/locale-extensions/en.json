@@ -10,6 +10,7 @@
     "breadcrumbHubSecurity": "Security tools",
     "breadcrumbHubImage": "Image tools",
     "breadcrumbHubVideo": "Video tools",
+    "breadcrumbHubMp4": "MP4 Tools",
     "breadcrumbHubFavicon": "Favicon tools",
     "breadcrumbHubDeveloper": "Developer tools",
     "breadcrumbHubTextJson": "JSON tools",
@@ -1534,68 +1535,68 @@
         }
       },
       "videoCompressor": {
-        "h1": "Video Compressor Online",
-        "heroTagline": "TODO: SEO hero tagline — fill in later.",
-        "introSectionTitle": "How to Compress Video in Your Browser",
+        "h1": "Free Online MP4 Video Compressor",
+        "heroTagline": "Compress MP4 with libx264 CRF 18–28—compare size and bitrate locally, no upload.",
+        "introSectionTitle": "How to Compress MP4 in Your Browser",
         "whySectionTitle": "Why Use JoinMyPDF Video Compressor?",
-        "whySectionSubheadline": "TODO: SEO why subheadline — fill in later.",
-        "schemaDescription": "TODO: SEO schema description — fill in later.",
+        "whySectionSubheadline": "Dial CRF for quality vs size, see estimated savings, and download without sending footage to the cloud.",
+        "schemaDescription": "Free online MP4 video compressor. Control libx264 CRF (18–28), compare original vs compressed size and bitrate, encode with preset medium—100% client-side.",
         "whyBenefits": {
           "lossless": {
-            "title": "Adjustable compression levels",
-            "body": "Low, balanced, and high compression map to libx264 CRF 23–28."
+            "title": "CRF 18–28 control",
+            "body": "Tune Constant Rate Factor for the ideal balance between weight and quality on standard web video."
           },
           "quality": {
-            "title": "Before/after size comparison",
-            "body": "See original vs. compressed file size and bytes saved before you share."
+            "title": "Size and bitrate comparison",
+            "body": "See original vs estimated/compressed file size and average bitrate before you share."
           },
           "local": {
             "title": "Local-Only: 100% Private",
-            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+            "body": "Client-side compression. Your videos never leave your browser, ensuring total privacy."
           }
         }
       },
       "videoResizer": {
-        "h1": "Video Resizer Online — Change Resolution",
-        "heroTagline": "Scale videos to 480p, 720p, or 1080p in your browser with ffmpeg.wasm—no upload.",
-        "introSectionTitle": "How to Change Video Resolution Locally",
+        "h1": "Free Online Video Resizer and Cropper",
+        "heroTagline": "Crop and resize for TikTok 9:16, Instagram 1:1, and YouTube 16:9—local ffmpeg.wasm with Lanczos scale.",
+        "introSectionTitle": "How to Resize and Crop Video Locally",
         "whySectionTitle": "Why Use JoinMyPDF Video Resizer?",
-        "whySectionSubheadline": "Downscale 4K to 1080p or 720p without sending files to a server.",
-        "schemaDescription": "Free browser video resizer. Change resolution to 480p, 720p, or 1080p with local ffmpeg.wasm processing.",
+        "whySectionSubheadline": "Preview the centered crop box, set custom dimensions, and download without uploading footage.",
+        "schemaDescription": "Free online video resizer and cropper. Aspect-ratio presets, custom width × height, crop preview, and Lanczos scaling with local ffmpeg.wasm—zero uploads.",
         "whyBenefits": {
           "lossless": {
-            "title": "Preset resolutions",
-            "body": "Pick 480p, 720p, or 1080p height—width scales automatically."
+            "title": "Social aspect presets",
+            "body": "One click for 9:16, 1:1, or 16:9—plus custom width × height when brand kits demand it."
           },
           "quality": {
-            "title": "Audio stream copy",
-            "body": "Original audio is copied when possible for faster processing."
+            "title": "Crop preview + Lanczos",
+            "body": "See the keep-region before processing; scale with flags=lanczos and copy audio when possible."
           },
           "local": {
             "title": "Local-Only: 100% Private",
-            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+            "body": "Local-first video resizing. Your footage stays private on your device."
           }
         }
       },
       "videoRotator": {
-        "h1": "Rotate Video Online Free",
-        "heroTagline": "Fix sideways footage with 90°, 180°, or 270° rotation—100% local in your browser.",
-        "introSectionTitle": "How to Rotate Video in Your Browser",
+        "h1": "Free Online Video Rotator",
+        "heroTagline": "Rotate MP4 90° CW, 180°, or 90° CCW—fast metadata stream-copy or transpose bake, with live preview.",
+        "introSectionTitle": "How to Rotate Video Securely in Your Browser",
         "whySectionTitle": "Why Use JoinMyPDF Video Rotator?",
-        "whySectionSubheadline": "Correct phone orientation and upside-down clips without cloud upload.",
-        "schemaDescription": "Free browser video rotator. Rotate MP4, MOV, and WebM locally with ffmpeg.wasm transpose filters.",
+        "whySectionSubheadline": "Try near-instant metadata fixes, or bake pixels with transpose when every player must agree.",
+        "schemaDescription": "Free online video rotator for MP4. Rotate locally with ffmpeg.wasm—metadata stream-copy or transpose re-encode—preview and download with zero uploads.",
         "whyBenefits": {
           "lossless": {
-            "title": "One-click angles",
-            "body": "Toggle 90°, 180°, or 270° clockwise rotation before download."
+            "title": "Fast metadata option",
+            "body": "Stream-copy rotation via -c copy + rotate metadata when the WASM build supports it—near-instant."
           },
           "quality": {
-            "title": "Universal MP4 output",
-            "body": "Rotated videos download as MP4 for easy sharing."
+            "title": "Bake with transpose",
+            "body": "transpose=1 / 2 for permanent pixel rotation when players ignore metadata flags."
           },
           "local": {
             "title": "Local-Only: 100% Private",
-            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+            "body": "Client-side rotation. Your files are processed securely on your local device."
           }
         }
       },
@@ -1622,24 +1623,68 @@
         }
       },
       "videoToGif": {
-        "h1": "Video to GIF Converter Online",
-        "heroTagline": "Turn short clips into shareable GIFs—local ffmpeg.wasm at 10 fps with Lanczos scaling.",
+        "h1": "Free Online Video to GIF Converter",
+        "heroTagline": "Turn short clips into shareable GIFs—local ffmpeg.wasm with palettegen/paletteuse, FPS and scale controls.",
         "introSectionTitle": "How to Convert Video to GIF Locally",
         "whySectionTitle": "Why Use JoinMyPDF Video to GIF?",
-        "whySectionSubheadline": "Create reaction GIFs and UI demos without uploading to a server.",
-        "schemaDescription": "Free browser video to GIF converter. Export animated GIFs from MP4 and MOV with local processing.",
+        "whySectionSubheadline": "Set start time, duration, FPS, and scale—preview before download, no cloud upload.",
+        "schemaDescription": "Free online video to GIF converter. Export animated GIFs from MP4 with local ffmpeg.wasm, Lanczos scaling, and two-pass palettization.",
         "whyBenefits": {
           "lossless": {
-            "title": "Built-in preview",
-            "body": "Watch your clip before creating the GIF."
+            "title": "Palettegen + paletteuse",
+            "body": "Two-pass color quantization keeps GIFs sharper within the 256-color limit."
           },
           "quality": {
-            "title": "Optimized output",
-            "body": "10 fps and 480px width balance quality and file size."
+            "title": "FPS and scale controls",
+            "body": "Tune frame rate and width, plus start time and duration, before you encode."
           },
           "local": {
             "title": "Local-Only: 100% Private",
-            "body": "ffmpeg.wasm runs in a Web Worker—your video never uploads."
+            "body": "100% client-side conversion. Your video data is processed locally, never sent to the cloud."
+          }
+        }
+      },
+      "videoToMp3": {
+        "h1": "Free Online Video to MP3 Converter",
+        "heroTagline": "Extract audio from MP4 and more—ffmpeg.wasm with -vn and high-quality libmp3lame, no upload.",
+        "introSectionTitle": "How to Extract Audio from Video Locally",
+        "whySectionTitle": "Why Use JoinMyPDF Video to MP3?",
+        "whySectionSubheadline": "Choose VBR (-q:a 2) or fixed bitrates, download MP3 instantly, keep files on your device.",
+        "schemaDescription": "Free online video to MP3 converter. Extract audio from MP4 and common formats with local ffmpeg.wasm, VBR or CBR quality, and zero uploads.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "High-quality VBR default",
+            "body": "libmp3lame -q:a 2 delivers excellent variable-bitrate MP3 for speech and music."
+          },
+          "quality": {
+            "title": "Bitrate control",
+            "body": "Switch to 128, 192, or 320 kbps CBR when partners require a fixed bitrate."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "100% client-side conversion. Your audio is extracted locally on your device."
+          }
+        }
+      },
+      "videoTrimmer": {
+        "h1": "Free Online Video Trimmer",
+        "heroTagline": "Cut MP4 clips with start and end sliders—ffmpeg.wasm stream copy, 100% local, no upload.",
+        "introSectionTitle": "How to Trim Video Securely in Your Browser",
+        "whySectionTitle": "Why Use JoinMyPDF Video Trimmer?",
+        "whySectionSubheadline": "Preview, set in/out points, and download a trimmed MP4 without sending footage to a server.",
+        "schemaDescription": "Free online video trimmer for MP4. Set start and end times, preview in the browser, and cut locally with ffmpeg.wasm stream copy—zero uploads.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Stream-copy cuts",
+            "body": "Uses -c copy for fast trims that keep original video and audio quality."
+          },
+          "quality": {
+            "title": "Live HTML5 preview",
+            "body": "Scrub start and end times against a built-in video player before you process."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "100% client-side video processing. No video files are uploaded to our servers."
           }
         }
       },
@@ -3721,6 +3766,94 @@
           "local": {
             "title": "Privacy-first tool",
             "body": "No server uploads, no tracking on your content, and no account required for everyday use."
+          }
+        }
+      },
+      "videoMuter": {
+        "h1": "Free Online Video Muter",
+        "heroTagline": "Remove audio from MP4 with ffmpeg.wasm stream copy (-an -c:v copy)—near-instant, quality-identical, no upload.",
+        "introSectionTitle": "How to Mute Video Securely in Your Browser",
+        "whySectionTitle": "Why Use JoinMyPDF Video Muter?",
+        "whySectionSubheadline": "One click strips sound while copying video bits unchanged—fast even on large files, 100% local.",
+        "schemaDescription": "Free online video muter for MP4. Remove audio locally with ffmpeg.wasm (-an -c:v copy), keep original picture quality, and download a silent clip with zero uploads.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Stream-copy mute",
+            "body": "Uses -an -c:v copy so video quality stays identical—no re-encode, near-instant results."
+          },
+          "quality": {
+            "title": "One-click silence",
+            "body": "Drop an MP4, mute, download. Minimal UI for a single job: strip audio and keep the picture."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "Client-side processing. Your video is muted locally without being sent to any server."
+          }
+        }
+      },
+      "videoSpeed": {
+        "h1": "Free Online Video Speed Controller",
+        "heroTagline": "Speed up or slow down MP4 with presets 0.5×–4×—setpts + atempo, clear Processing progress, no upload.",
+        "introSectionTitle": "How to Change Video Speed Securely in Your Browser",
+        "whySectionTitle": "Why Use JoinMyPDF Video Speed?",
+        "whySectionSubheadline": "Re-encoding shows a live progress bar so you know the tool is working—not frozen—while files stay on-device.",
+        "schemaDescription": "Free online video speed controller for MP4. Change playback from 0.5× to 4× locally with ffmpeg.wasm setpts and atempo, live Processing progress, and zero uploads.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Synced setpts + atempo",
+            "body": "Video timestamps and audio tempo stay aligned; 4× chains atempo stages safely."
+          },
+          "quality": {
+            "title": "Clear Processing UI",
+            "body": "Speed jobs re-encode—progress and Processing… states show the tool is actively working."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "100% Client-side video processing. Your video is never uploaded."
+          }
+        }
+      },
+      "videoMetadataCleaner": {
+        "h1": "Free Online Video Metadata Cleaner",
+        "heroTagline": "Preview GPS, device, and capture time—then strip metadata with -map_metadata -1 -c copy, 100% local.",
+        "introSectionTitle": "How to Remove Video Metadata Securely in Your Browser",
+        "whySectionTitle": "Why Use JoinMyPDF Video Metadata Cleaner?",
+        "whySectionSubheadline": "See what will be removed, then clean near-instantly with stream copy—no re-encode, no upload.",
+        "schemaDescription": "Free online video metadata cleaner for MP4 and MOV. Preview sensitive tags, strip EXIF/XMP/GPS locally with ffmpeg.wasm stream copy, zero uploads.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Stream-copy clean",
+            "body": "Uses -map_metadata -1 -c copy so quality stays identical and cleaning stays near-instant."
+          },
+          "quality": {
+            "title": "Metadata preview",
+            "body": "See capture time, device make/model, and GPS before you strip—built for privacy confidence."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "100% Local Processing. Your metadata is stripped on your device; the file never touches our servers."
+          }
+        }
+      },
+      "videoConverter": {
+        "h1": "Free Online Video Format Converter",
+        "heroTagline": "Convert MOV, MKV, AVI, WMV and more to MP4, WebM, or MOV—ffmpeg.wasm locally, no upload.",
+        "introSectionTitle": "How to Convert Video Formats Securely in Your Browser",
+        "whySectionTitle": "Why Use JoinMyPDF Video Format Converter?",
+        "whySectionSubheadline": "Pick MP4, WebM, or MOV, encode on-device, and download—libx264/AAC for maximum MP4/MOV compatibility.",
+        "schemaDescription": "Free online video format converter. Convert MOV, MKV, AVI, WMV and more to MP4, WebM, or MOV locally with ffmpeg.wasm—zero uploads.",
+        "whyBenefits": {
+          "lossless": {
+            "title": "Compatible MP4 & MOV",
+            "body": "libx264 video and AAC audio for the widest playback on web, social, and devices."
+          },
+          "quality": {
+            "title": "WebM when you need it",
+            "body": "Target WebM with VP9 and Opus for modern HTML5 players you control."
+          },
+          "local": {
+            "title": "Local-Only: 100% Private",
+            "body": "100% Local conversion. Your videos are processed in your browser, keeping your data private."
           }
         }
       }

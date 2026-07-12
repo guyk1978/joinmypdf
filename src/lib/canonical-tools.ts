@@ -59,11 +59,17 @@ registerCategorySlugs(HOME_TEXT_JSON_TOOL_IDS, "utilities");
 registerCategorySlugs(
   [
     "video-to-mp4",
+    "video-converter",
     "video-compressor",
     "video-resizer",
     "video-rotator",
     "video-speed-controller",
+    "video-speed",
     "video-to-gif",
+    "video-trimmer",
+    "video-to-mp3",
+    "video-muter",
+    "video-metadata-cleaner",
   ],
   "video",
 );

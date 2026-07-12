@@ -55,15 +55,24 @@ export type VideoCompressOptions = {
 
 export const VIDEO_TO_MP4_DEFAULT_CRF = 23;
 
+/** Ideal interactive CRF range for standard web video (lower = higher quality / larger file). */
+export const VIDEO_COMPRESS_CRF_MIN = 18;
+export const VIDEO_COMPRESS_CRF_MAX = 28;
+export const VIDEO_COMPRESS_CRF_DEFAULT = 23;
+
 export const VIDEO_COMPRESS_CRF_BY_LEVEL: Record<VideoCompressionLevel, number> = {
-  0: 23,
-  1: 25,
+  0: 20,
+  1: 23,
   2: 28,
 };
 
+export function clampVideoCompressCrf(crf: number): number {
+  return Math.min(VIDEO_COMPRESS_CRF_MAX, Math.max(VIDEO_COMPRESS_CRF_MIN, Math.round(crf)));
+}
+
 export function resolveVideoCompressCrf(options: VideoCompressOptions): number {
   if (typeof options.crf === "number" && Number.isFinite(options.crf)) {
-    return Math.min(28, Math.max(23, Math.round(options.crf)));
+    return clampVideoCompressCrf(options.crf);
   }
   const level = options.compressionLevel ?? 1;
   return VIDEO_COMPRESS_CRF_BY_LEVEL[level];

@@ -1,6 +1,11 @@
+/**
+ * Align Video Tools hub groups with the canonical 10-tool inventory,
+ * plus a few related conversion aliases still useful on the hub.
+ */
 import { getAudioToolById } from "@/lib/audio-tools";
 import { registry } from "@/lib/registry";
 import type { ToolGridItem } from "@/lib/tool-grid";
+import { VIDEO_TOOLS_INVENTORY_IDS } from "@/data/tools-inventory";
 
 export const VIDEO_TOOLS_HUB_PATH = "/tools/video-tools/";
 
@@ -9,11 +14,17 @@ export type VideoToolGroupId = "editing" | "conversion" | "optimization";
 export type VideoHubToolId =
   | "video-resizer"
   | "video-rotator"
-  | "video-speed-controller"
+  | "video-speed"
+  | "video-trimmer"
   | "video-to-gif"
-  | "mp4-to-mp3"
+  | "video-to-mp3"
+  | "video-muter"
+  | "video-metadata-cleaner"
+  | "video-converter"
+  | "video-compressor"
   | "video-to-mp4"
-  | "video-compressor";
+  | "video-speed-controller"
+  | "mp4-to-mp3";
 
 export const VIDEO_TOOL_GROUPS: {
   id: VideoToolGroupId;
@@ -21,11 +32,18 @@ export const VIDEO_TOOL_GROUPS: {
 }[] = [
   {
     id: "editing",
-    toolIds: ["video-resizer", "video-rotator", "video-speed-controller"],
+    toolIds: [
+      "video-trimmer",
+      "video-muter",
+      "video-metadata-cleaner",
+      "video-speed",
+      "video-resizer",
+      "video-rotator",
+    ],
   },
   {
     id: "conversion",
-    toolIds: ["video-to-gif", "mp4-to-mp3", "video-to-mp4"],
+    toolIds: ["video-converter", "video-to-gif", "video-to-mp3", "video-to-mp4", "mp4-to-mp3"],
   },
   {
     id: "optimization",
@@ -35,20 +53,29 @@ export const VIDEO_TOOL_GROUPS: {
 
 export const VIDEO_HUB_TOOL_IDS = VIDEO_TOOL_GROUPS.flatMap((group) => [...group.toolIds]);
 
+/** Canonical 10 from tools-inventory (used for sync checks / MP4 hub parity). */
+export const CORE_VIDEO_HUB_IDS = VIDEO_TOOLS_INVENTORY_IDS;
+
 const VIDEO_TOOL_MESSAGE_KEYS: Record<VideoHubToolId, string> = {
   "video-resizer": "videoResizer",
   "video-rotator": "videoRotator",
-  "video-speed-controller": "videoSpeedController",
+  "video-speed": "videoSpeed",
+  "video-trimmer": "videoTrimmer",
   "video-to-gif": "videoToGif",
-  "mp4-to-mp3": "mp4ToMp3",
-  "video-to-mp4": "videoToMp4",
+  "video-to-mp3": "videoToMp3",
+  "video-muter": "videoMuter",
+  "video-metadata-cleaner": "videoMetadataCleaner",
+  "video-converter": "videoConverter",
   "video-compressor": "videoCompressor",
+  "video-to-mp4": "videoToMp4",
+  "video-speed-controller": "videoSpeedController",
+  "mp4-to-mp3": "mp4ToMp3",
 };
 
-/** Hub-facing labels for clearer conversion intents. */
 const VIDEO_HUB_LABEL_OVERRIDES: Partial<Record<VideoHubToolId, string>> = {
   "mp4-to-mp3": "videoToMp3",
   "video-to-mp4": "mp4Converter",
+  "video-compressor": "videoCompressor",
 };
 
 type VideoToolsTranslator = {

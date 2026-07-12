@@ -1,9 +1,4 @@
-import {
-  buildAtempoFilterChain,
-  MAX_SPEED,
-  MIN_SPEED,
-  validateSpeedFactor,
-} from "@/components/tools/ffmpeg/change-mp3-speed";
+import { buildAtempoFilterChain } from "@/components/tools/ffmpeg/change-mp3-speed";
 import {
   formatVideoFfmpegError,
   inputNameForVideo,
@@ -13,20 +8,48 @@ import {
 import { fetchFile } from "@ffmpeg/util";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
 
-export { MIN_SPEED, MAX_SPEED };
+/** Presets for the dedicated Video Speed tool (includes 4× via chained atempo). */
+export const VIDEO_SPEED_PRESETS = [0.5, 0.75, 1.5, 2, 4] as const;
+export type VideoSpeedPreset = (typeof VIDEO_SPEED_PRESETS)[number];
 
-function toUint8Array(data: Uint8Array | ArrayBuffer): Uint8Array {
-  if (data instanceof Uint8Array) return data;
-  return new Uint8Array(data);
+export const VIDEO_SPEED_MIN = 0.5;
+export const VIDEO_SPEED_MAX = 4;
+
+/** Legacy slider bounds used by VideoSpeedController (0.5×–2.0×). */
+export const MIN_SPEED = 0.5;
+export const MAX_SPEED = 2;
+
+export function isMp4File(file: File): boolean {
+  if (file.type === "video/mp4" || file.type === "video/x-m4v") return true;
+  return /\.(mp4|m4v)$/i.test(file.name);
 }
 
+export function validateVideoSpeedFactor(speed: number): number {
+  if (!Number.isFinite(speed)) {
+    throw new Error("Invalid speed value. Choose a factor between 0.5× and 4×.");
+  }
+  if (speed < VIDEO_SPEED_MIN || speed > VIDEO_SPEED_MAX) {
+    throw new Error(
+      `Speed must stay between ${VIDEO_SPEED_MIN}× and ${VIDEO_SPEED_MAX}×. Values above 2× chain atempo filters.`,
+    );
+  }
+  return speed;
+}
+
+/**
+ * Matches:
+ * `ffmpeg -i input.mp4 -filter_complex "[0:v]setpts=1/N*PTS[v];[0:a]atempo=N[a]" -map "[v]" -map "[a]" output.mp4`
+ *
+ * Requires re-encoding (not stream copy)—expect longer processing than mute/trim.
+ */
 export function buildChangeVideoSpeedArgs(
   inputName: string,
   outputName: string,
   speed: number,
 ): string[] {
-  const ptsFactor = (1 / speed).toFixed(4);
-  const atempo = buildAtempoFilterChain(speed);
+  const factor = validateVideoSpeedFactor(speed);
+  const ptsFactor = (1 / factor).toFixed(4);
+  const atempo = buildAtempoFilterChain(factor);
   return [
     "-i",
     inputName,
@@ -36,6 +59,8 @@ export function buildChangeVideoSpeedArgs(
     "[v]",
     "-map",
     "[a]",
+    "-movflags",
+    "+faststart",
     outputName,
   ];
 }
@@ -45,8 +70,18 @@ export function buildChangeVideoSpeedVideoOnlyArgs(
   outputName: string,
   speed: number,
 ): string[] {
-  const ptsFactor = (1 / speed).toFixed(4);
-  return ["-i", inputName, "-filter:v", `setpts=${ptsFactor}*PTS`, "-an", outputName];
+  const factor = validateVideoSpeedFactor(speed);
+  const ptsFactor = (1 / factor).toFixed(4);
+  return [
+    "-i",
+    inputName,
+    "-filter:v",
+    `setpts=${ptsFactor}*PTS`,
+    "-an",
+    "-movflags",
+    "+faststart",
+    outputName,
+  ];
 }
 
 async function execVideoSpeed(
@@ -54,7 +89,7 @@ async function execVideoSpeed(
   speed: number,
   options: VideoFfmpegOptions,
 ): Promise<Blob> {
-  validateSpeedFactor(speed);
+  validateVideoSpeedFactor(speed);
   const ffmpeg = FfmpegWorkerClient.getInstance();
   const progressUnsub = options.onProgress ? ffmpeg.onProgress(options.onProgress) : undefined;
   const inputName = inputNameForVideo(file);
@@ -89,6 +124,11 @@ async function execVideoSpeed(
   }
 }
 
+function toUint8Array(data: Uint8Array | ArrayBuffer): Uint8Array {
+  if (data instanceof Uint8Array) return data;
+  return new Uint8Array(data);
+}
+
 export async function changeVideoSpeed(
   file: File,
   speed: number,
@@ -98,10 +138,15 @@ export async function changeVideoSpeed(
 }
 
 export function changeVideoSpeedOutputName(fileName: string, speed: number): string {
-  const label = Number.isInteger(speed) ? `${speed}` : speed.toFixed(1);
+  const label = Number.isInteger(speed) ? `${speed}` : String(speed).replace(".", "_");
   return `${videoOutputBaseName(fileName)}-${label}x.mp4`;
 }
 
 export function formatChangeVideoSpeedError(error: unknown): string {
   return formatVideoFfmpegError(error);
+}
+
+export function formatSpeedLabel(speed: number): string {
+  if (Number.isInteger(speed)) return `${speed}×`;
+  return `${speed}×`;
 }

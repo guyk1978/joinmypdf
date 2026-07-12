@@ -6,6 +6,10 @@ export {
   secondsToFfmpegTimestamp,
   VIDEO_TO_MP4_DEFAULT_CRF,
   VIDEO_COMPRESS_CRF_BY_LEVEL,
+  VIDEO_COMPRESS_CRF_MIN,
+  VIDEO_COMPRESS_CRF_MAX,
+  VIDEO_COMPRESS_CRF_DEFAULT,
+  clampVideoCompressCrf,
   resolveVideoCompressCrf,
 } from "./media.types";
 export type {

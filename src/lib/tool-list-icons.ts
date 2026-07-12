@@ -28,6 +28,7 @@ import {
   FileText,
   FileType2,
   Fingerprint,
+  Gauge,
   GitCompare,
   Globe,
   Hash,
@@ -62,6 +63,7 @@ import {
   Unlock,
   Video,
   Volume2,
+  VolumeX,
   Wrench,
   type LucideIcon,
 } from "lucide-react";
@@ -240,7 +242,14 @@ const PDF_TOOL_LUCIDE: Record<string, LucideIcon> = {
   "video-resizer": Expand,
   "video-rotator": RotateCw,
   "video-to-mp4": Video,
+  "video-converter": ArrowLeftRight,
   "video-to-gif": Video,
+  "video-trimmer": Scissors,
+  "video-speed-controller": Gauge,
+  "video-speed": Gauge,
+  "video-to-mp3": Music,
+  "video-muter": VolumeX,
+  "video-metadata-cleaner": ShieldCheck,
   default: FileText,
 };
 
@@ -296,7 +305,14 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("video-resizer"), key: "video-resizer" },
   { test: (s) => s.includes("video-rotator"), key: "video-rotator" },
   { test: (s) => s.includes("video-to-mp4"), key: "video-to-mp4" },
+  { test: (s) => s.includes("video-converter"), key: "video-converter" },
   { test: (s) => s.includes("video-to-gif"), key: "video-to-gif" },
+  { test: (s) => s.includes("video-trimmer"), key: "video-trimmer" },
+  { test: (s) => s.includes("video-speed-controller"), key: "video-speed-controller" },
+  { test: (s) => s.includes("video-speed"), key: "video-speed" },
+  { test: (s) => s.includes("video-to-mp3"), key: "video-to-mp3" },
+  { test: (s) => s.includes("video-muter"), key: "video-muter" },
+  { test: (s) => s.includes("video-metadata-cleaner"), key: "video-metadata-cleaner" },
 ];
 
 function resolveToolKey(slug?: string, label?: string): string {

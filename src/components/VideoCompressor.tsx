@@ -1,29 +1,37 @@
 "use client";
 
 import { clsx } from "clsx";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { Download, Loader2, Minimize2 } from "lucide-react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { MediaDropzone } from "@/components/media/MediaDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
+import { VideoSizeCompare, type VideoSizeCompareLabels } from "@/components/media/VideoSizeCompare";
+import { FfmpegEnvironmentNotice } from "@/components/tools/FfmpegEnvironmentNotice";
+import { getFfmpegEnvironmentStatus } from "@/components/tools/ffmpeg/ffmpeg-environment";
 import { useToolFeedback } from "@/context/ToolFeedbackContext";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
-import { VideoSizeCompare, type VideoSizeCompareLabels } from "@/components/media/VideoSizeCompare";
+import { formatBytes } from "@/lib/pdf-engine";
+import {
+  averageBitrateKbps,
+  clampVideoCompressCrf,
+  DEFAULT_VIDEO_COMPRESS_CRF,
+  downloadVideoBlob,
+  estimateCompressedBytes,
+  formatBitrateKbps,
+  isAcceptedVideoFile,
+  videoCompressorOutputName,
+  VIDEO_COMPRESS_CRF_MAX,
+  VIDEO_COMPRESS_CRF_MIN,
+  VIDEO_TO_MP4_ACCEPT,
+} from "@/lib/video-compressor";
+import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
 import {
   bootstrapMediaTools,
   getVideoManager,
   type MediaProcessingPhase,
   type MediaProgress,
-  type VideoCompressionLevel,
 } from "@/services/media";
-import {
-  clampVideoCompressionLevel,
-  DEFAULT_VIDEO_COMPRESSION_LEVEL,
-  downloadVideoBlob,
-  isAcceptedVideoFile,
-  videoCompressorOutputName,
-  VIDEO_TO_MP4_ACCEPT,
-} from "@/lib/video-compressor";
-import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 
 export type VideoCompressorLabels = {
   dropTitle: string;
@@ -34,10 +42,16 @@ export type VideoCompressorLabels = {
   selectLabel: string;
   invalidFile: string;
   compressInstructions: string;
-  qualityLabel: string;
+  crfLabel: string;
+  crfHint: string;
+  crfValue: string;
   compressionLow: string;
   compressionMedium: string;
   compressionHigh: string;
+  estimatedSize: string;
+  originalBitrate: string;
+  estimatedBitrate: string;
+  resultBitrate: string;
   compressAndDownload: string;
   compressing: string;
   statusLoading: string;
@@ -46,6 +60,7 @@ export type VideoCompressorLabels = {
   statusError: string;
   compressAnother: string;
   tryAgain: string;
+  downloadAgain: string;
   sizeCompare: VideoSizeCompareLabels;
 };
 
@@ -56,10 +71,10 @@ export type VideoCompressorProps = {
   onComplete?: (blob: Blob, filename: string, originalBytes: number, compressedBytes: number) => void;
 };
 
-function compressionLevelLabel(level: VideoCompressionLevel, labels: VideoCompressorLabels): string {
-  if (level === 0) return labels.compressionLow;
-  if (level === 2) return labels.compressionHigh;
-  return labels.compressionMedium;
+function presetNearestCrf(crf: number): "low" | "medium" | "high" {
+  if (crf <= 20) return "low";
+  if (crf >= 26) return "high";
+  return "medium";
 }
 
 export function VideoCompressor({ labels, className, onStart, onComplete }: VideoCompressorProps) {
@@ -67,16 +82,18 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
   const { headline, slug } = useToolPageShell();
   const { registerFile } = useToolFeedback();
   const [file, setFile] = useState<File | null>(null);
-  const [compressionLevel, setCompressionLevel] = useState<VideoCompressionLevel>(
-    DEFAULT_VIDEO_COMPRESSION_LEVEL,
-  );
+  const [crf, setCrf] = useState(DEFAULT_VIDEO_COMPRESS_CRF);
+  const [durationSeconds, setDurationSeconds] = useState(0);
   const [phase, setPhase] = useState<MediaProcessingPhase>("idle");
   const [ratio, setRatio] = useState(0);
   const [statusMessage, setStatusMessage] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [compressedBytes, setCompressedBytes] = useState<number | null>(null);
+  const [result, setResult] = useState<{ blob: Blob; fileName: string } | null>(null);
   const unsubRef = useRef<(() => void) | null>(null);
+
+  const environment = useMemo(() => getFfmpegEnvironmentStatus(), []);
+  const blockingError = environment && !environment.canRun ? environment.blockingMessage : undefined;
 
   useEffect(() => {
     bootstrapMediaTools();
@@ -85,24 +102,54 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
     };
   }, []);
 
+  const estimatedBytes = useMemo(
+    () => (file ? estimateCompressedBytes(file.size, crf) : 0),
+    [crf, file],
+  );
+
+  const originalBitrate = useMemo(
+    () => (file ? averageBitrateKbps(file.size, durationSeconds) : null),
+    [durationSeconds, file],
+  );
+
+  const estimatedBitrate = useMemo(
+    () => averageBitrateKbps(estimatedBytes, durationSeconds),
+    [durationSeconds, estimatedBytes],
+  );
+
+  const resultBitrate = useMemo(
+    () => (result ? averageBitrateKbps(result.blob.size, durationSeconds) : null),
+    [durationSeconds, result],
+  );
+
   const reset = useCallback(() => {
     unsubRef.current?.();
     unsubRef.current = null;
     registerFile(null);
     setFile(null);
-    setCompressionLevel(DEFAULT_VIDEO_COMPRESSION_LEVEL);
+    setCrf(DEFAULT_VIDEO_COMPRESS_CRF);
+    setDurationSeconds(0);
     setPhase("idle");
     setRatio(0);
     setStatusMessage("");
     setError("");
     setBusy(false);
-    setCompressedBytes(null);
+    setResult(null);
   }, [registerFile]);
 
   const onProgress = useCallback((progress: MediaProgress) => {
     setPhase(progress.phase);
     setRatio(progress.ratio);
     if (progress.message) setStatusMessage(progress.message);
+  }, []);
+
+  const loadDuration = useCallback(async (next: File) => {
+    try {
+      const meta = await getVideoManager().getMetadata(next);
+      setDurationSeconds(meta.durationSeconds > 0 ? meta.durationSeconds : 0);
+    } catch {
+      setDurationSeconds(0);
+    }
   }, []);
 
   const pickFile = useCallback(
@@ -113,24 +160,31 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
       }
       setFile(next);
       setError("");
-      setCompressionLevel(DEFAULT_VIDEO_COMPRESSION_LEVEL);
+      setCrf(DEFAULT_VIDEO_COMPRESS_CRF);
       setPhase("idle");
       setRatio(0);
       setStatusMessage("");
-      setCompressedBytes(null);
+      setResult(null);
+      void loadDuration(next);
     },
-    [labels.invalidFile],
+    [labels.invalidFile, loadDuration],
   );
 
   const compressFile = useCallback(async () => {
     if (!file || busy) return;
+    if (blockingError) {
+      setError(blockingError);
+      setPhase("error");
+      return;
+    }
 
+    const nextCrf = clampVideoCompressCrf(crf);
     setError("");
     setBusy(true);
     setPhase("loading");
     setRatio(0);
     setStatusMessage(labels.statusLoading);
-    setCompressedBytes(null);
+    setResult(null);
 
     onStart?.();
     const video = getVideoManager();
@@ -138,15 +192,15 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
     unsubRef.current = video.onProgress(onProgress);
 
     try {
-      const blob = await video.compress(file, { compressionLevel });
-      const filename = videoCompressorOutputName(file);
-      setCompressedBytes(blob.size);
+      const blob = await video.compress(file, { crf: nextCrf });
+      const fileName = videoCompressorOutputName(file);
+      setResult({ blob, fileName });
       setPhase("success");
       setRatio(1);
       setStatusMessage(labels.statusSuccess);
       registerFile(file, slug);
-      downloadVideoBlob(blob, filename);
-      onComplete?.(blob, filename, file.size, blob.size);
+      downloadVideoBlob(blob, fileName);
+      onComplete?.(blob, fileName, file.size, blob.size);
     } catch (cause) {
       const message = cause instanceof Error ? cause.message : labels.statusError;
       setPhase("error");
@@ -158,20 +212,34 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
       unsubRef.current = null;
       setBusy(false);
     }
-  }, [busy, compressionLevel, file, labels, onComplete, onProgress, onStart, registerFile, slug]);
+  }, [
+    blockingError,
+    busy,
+    crf,
+    file,
+    labels.statusError,
+    labels.statusLoading,
+    labels.statusSuccess,
+    onComplete,
+    onProgress,
+    onStart,
+    registerFile,
+    slug,
+  ]);
 
-  const showDropzone = !file;
-  const showWorkspace = Boolean(file);
-  const showStatus = phase !== "idle";
+  const preset = presetNearestCrf(crf);
+  const displayError = error || blockingError;
 
   return (
     <div className={clsx("video-compressor-tool space-y-4", className)}>
-      {showDropzone ? (
+      <FfmpegEnvironmentNotice environment={environment} error={displayError} />
+
+      {!file ? (
         <MediaDropzone
           mediaKind="video"
           accept={VIDEO_TO_MP4_ACCEPT}
           busy={busy}
-          disabled={busy}
+          disabled={busy || Boolean(blockingError)}
           supportedFormats={["MP4", "MOV", "WEBM", "MKV", "AVI"]}
           onFile={pickFile}
           onError={(message) => setError(message)}
@@ -184,85 +252,162 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
             selectLabel: labels.selectLabel,
           }}
         />
-      ) : null}
+      ) : (
+        <div className="tool-workspace-panel space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
+            <p className="text-neutral-200">
+              <strong className="text-white">{file.name}</strong>
+              {" · "}
+              {formatBytes(file.size)}
+            </p>
+            <button type="button" className={toolOutlineBtn} disabled={busy} onClick={reset}>
+              {labels.compressAnother}
+            </button>
+          </div>
 
-      {showWorkspace && file ? (
-        <div className="tool-workspace-panel video-compressor-tool__workspace space-y-4">
-          <p className="text-sm text-neutral-300">
-            <strong className="text-white">{file.name}</strong>
-          </p>
+          <p className="text-sm text-neutral-400">{labels.compressInstructions}</p>
 
-          <p className="video-compressor-tool__instructions">{labels.compressInstructions}</p>
+          <fieldset className="space-y-4 rounded-none border border-neutral-800 bg-neutral-950 p-4">
+            <legend className="px-1 text-xs font-semibold uppercase tracking-widest text-neutral-500">
+              {labels.crfLabel}
+            </legend>
 
-          <div className="video-compressor-tool__controls">
-            <div className="video-compressor-tool__slider-row">
-              <label htmlFor={sliderId} className="video-compressor-tool__slider-label">
-                {labels.qualityLabel}
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <label htmlFor={sliderId} className="text-sm font-medium text-neutral-200">
+                {labels.crfLabel}
               </label>
-              <span className="video-compressor-tool__slider-value">
-                {compressionLevelLabel(compressionLevel, labels)}
+              <span className="text-sm font-semibold tabular-nums text-amber-200">
+                {labels.crfValue.replace("{crf}", String(crf))}
               </span>
             </div>
 
             <input
               id={sliderId}
               type="range"
-              min={0}
-              max={2}
+              min={VIDEO_COMPRESS_CRF_MIN}
+              max={VIDEO_COMPRESS_CRF_MAX}
               step={1}
-              value={compressionLevel}
-              onChange={(event) =>
-                setCompressionLevel(clampVideoCompressionLevel(Number(event.target.value)))
-              }
-              className="video-compressor-tool__range crop-image-tool__range"
+              value={crf}
+              onChange={(event) => setCrf(clampVideoCompressCrf(Number(event.target.value)))}
+              className="crop-image-tool__range w-full"
               disabled={busy}
-              aria-valuemin={0}
-              aria-valuemax={2}
-              aria-valuenow={compressionLevel}
-              aria-valuetext={compressionLevelLabel(compressionLevel, labels)}
+              aria-valuemin={VIDEO_COMPRESS_CRF_MIN}
+              aria-valuemax={VIDEO_COMPRESS_CRF_MAX}
+              aria-valuenow={crf}
+              aria-valuetext={`CRF ${crf}`}
             />
 
-            <div className="video-compressor-tool__slider-hints" aria-hidden>
-              <span>{labels.compressionLow}</span>
-              <span>{labels.compressionMedium}</span>
-              <span>{labels.compressionHigh}</span>
+            <div className="flex justify-between gap-2 text-xs text-neutral-500" aria-hidden>
+              <span className={clsx(preset === "low" && "text-white")}>{labels.compressionLow}</span>
+              <span className={clsx(preset === "medium" && "text-white")}>
+                {labels.compressionMedium}
+              </span>
+              <span className={clsx(preset === "high" && "text-white")}>
+                {labels.compressionHigh}
+              </span>
             </div>
-          </div>
+
+            <div className="flex flex-wrap gap-2">
+              {[
+                { label: labels.compressionLow, value: 20 },
+                { label: labels.compressionMedium, value: 23 },
+                { label: labels.compressionHigh, value: 28 },
+              ].map((entry) => (
+                <button
+                  key={entry.value}
+                  type="button"
+                  disabled={busy}
+                  onClick={() => setCrf(entry.value)}
+                  className={clsx(
+                    "rounded-none border px-3 py-1.5 text-xs uppercase tracking-widest transition-colors",
+                    crf === entry.value
+                      ? "border-white bg-[#111] text-white"
+                      : "border-neutral-700 text-neutral-400 hover:border-neutral-500 hover:text-white",
+                  )}
+                >
+                  {entry.label} · CRF {entry.value}
+                </button>
+              ))}
+            </div>
+
+            <p className="text-xs leading-relaxed text-neutral-500">{labels.crfHint}</p>
+          </fieldset>
 
           <VideoSizeCompare
             originalBytes={file.size}
-            compressedBytes={compressedBytes}
+            compressedBytes={result?.blob.size ?? null}
             labels={labels.sizeCompare}
           />
 
-          {showStatus ? (
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="rounded-none border border-neutral-800 bg-neutral-950 p-3">
+              <p className="text-xs uppercase tracking-widest text-neutral-500">
+                {labels.estimatedSize}
+              </p>
+              <p className="mt-1 text-sm font-semibold text-white">
+                {result ? formatBytes(result.blob.size) : `~${formatBytes(estimatedBytes)}`}
+              </p>
+            </div>
+            <div className="rounded-none border border-neutral-800 bg-neutral-950 p-3">
+              <p className="text-xs uppercase tracking-widest text-neutral-500">
+                {labels.originalBitrate}
+              </p>
+              <p className="mt-1 text-sm font-semibold text-white">
+                {formatBitrateKbps(originalBitrate)}
+              </p>
+            </div>
+            <div className="rounded-none border border-neutral-800 bg-neutral-950 p-3">
+              <p className="text-xs uppercase tracking-widest text-neutral-500">
+                {result ? labels.resultBitrate : labels.estimatedBitrate}
+              </p>
+              <p className="mt-1 text-sm font-semibold text-amber-200">
+                {formatBitrateKbps(result ? resultBitrate : estimatedBitrate)}
+              </p>
+            </div>
+          </div>
+
+          {phase !== "idle" ? (
             <MediaProcessingStatus
               phase={phase}
               ratio={ratio}
               message={
-                phase === "processing"
-                  ? labels.compressing
-                  : statusMessage || undefined
+                phase === "processing" ? labels.statusProcessing : statusMessage || undefined
               }
             />
           ) : null}
 
-          <div className="video-compressor-tool__actions flex flex-wrap gap-3">
-            {!busy && phase !== "success" ? (
-              <button
-                type="button"
-                className={toolPrimaryBtn}
-                onClick={() => void compressFile()}
-                disabled={phase === "loading" || phase === "processing"}
-              >
-                {phase === "processing" || phase === "loading" ? labels.compressing : labels.compressAndDownload}
+          <div className="flex flex-wrap gap-3">
+            {busy || phase === "loading" || phase === "processing" ? (
+              <button type="button" className={clsx(toolPrimaryBtn, "w-full sm:w-auto")} disabled>
+                <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden />
+                {labels.compressing}
               </button>
             ) : null}
 
-            {!busy && phase === "success" ? (
+            {!busy && phase !== "success" && phase !== "error" ? (
+              <button
+                type="button"
+                className={clsx(toolPrimaryBtn, "w-full sm:w-auto")}
+                onClick={() => void compressFile()}
+                disabled={Boolean(blockingError)}
+              >
+                <Minimize2 className="mr-2 inline h-4 w-4" aria-hidden />
+                {labels.compressAndDownload}
+              </button>
+            ) : null}
+
+            {!busy && phase === "success" && result ? (
               <>
+                <button
+                  type="button"
+                  className={toolPrimaryBtn}
+                  onClick={() => downloadVideoBlob(result.blob, result.fileName)}
+                >
+                  <Download className="mr-2 inline h-4 w-4" aria-hidden />
+                  {labels.downloadAgain}
+                </button>
                 <ToolSuccessEngagement pageTitle={headline} className="!mt-0" />
-                <button type="button" className={toolPrimaryBtn} onClick={reset}>
+                <button type="button" className={toolOutlineBtn} onClick={reset}>
                   {labels.compressAnother}
                 </button>
               </>
@@ -273,26 +418,14 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
                 <button type="button" className={toolPrimaryBtn} onClick={() => void compressFile()}>
                   {labels.tryAgain}
                 </button>
-                <button type="button" className={toolSecondaryBtn} onClick={reset}>
+                <button type="button" className={toolOutlineBtn} onClick={reset}>
                   {labels.compressAnother}
                 </button>
               </>
             ) : null}
-
-            {!busy && phase === "idle" ? (
-              <button type="button" className={toolSecondaryBtn} onClick={reset}>
-                {labels.compressAnother}
-              </button>
-            ) : null}
           </div>
         </div>
-      ) : null}
-
-      {error && showDropzone ? (
-        <p className="text-sm text-red-400" role="alert">
-          {error}
-        </p>
-      ) : null}
+      )}
     </div>
   );
 }

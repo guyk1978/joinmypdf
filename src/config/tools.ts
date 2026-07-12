@@ -136,10 +136,16 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
 
   // Video
   { slug: "video-to-mp4", labelKey: "videoToMp4", categories: [c.video] },
+  { slug: "video-converter", labelKey: "videoConverter", categories: [c.video] },
   { slug: "video-resizer", labelKey: "videoResizer", categories: [c.video, c.image] },
   { slug: "video-rotator", labelKey: "videoRotator", categories: [c.video, c.image] },
   { slug: "video-speed-controller", labelKey: "videoSpeedController", categories: [c.video] },
+  { slug: "video-speed", labelKey: "videoSpeed", categories: [c.video] },
   { slug: "video-to-gif", labelKey: "videoToGif", categories: [c.video] },
+  { slug: "video-trimmer", labelKey: "videoTrimmer", categories: [c.video] },
+  { slug: "video-to-mp3", labelKey: "videoToMp3", categories: [c.video] },
+  { slug: "video-muter", labelKey: "videoMuter", categories: [c.video] },
+  { slug: "video-metadata-cleaner", labelKey: "videoMetadataCleaner", categories: [c.video, c.security] },
 
   // Favicon
   { slug: "generate-favicon", labelKey: "generateFavicon", categories: [c.favicon] },
@@ -333,6 +339,7 @@ export const TOOL_REGISTRY = {
     "convert-to-png",
     "image-converter",
     "video-to-mp4",
+    "video-converter",
     "video-to-gif",
     "png-to-ico",
     "ico-to-png",
@@ -445,10 +452,19 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "video",
         labelKey: "megaMenu.columns.video",
-        slugs: columnSlugs(
-          ["video-to-mp4", "video-to-gif", "video-speed-controller"],
-          CONVERT_SLUGS,
-        ),
+        // Full Video Tools set (not limited to TOOL_REGISTRY.Convert filter).
+        slugs: [
+          "video-trimmer",
+          "video-to-gif",
+          "video-resizer",
+          "video-compressor",
+          "video-to-mp3",
+          "video-muter",
+          "video-speed",
+          "video-rotator",
+          "video-metadata-cleaner",
+          "video-converter",
+        ],
       },
       {
         id: "image-formats",
@@ -496,7 +512,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "video",
         labelKey: "megaMenu.columns.video",
-        slugs: ["video-compressor", "video-resizer", "video-rotator"],
+        slugs: ["video-compressor"],
       },
       {
         id: "favicon",

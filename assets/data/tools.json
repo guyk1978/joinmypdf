@@ -2673,6 +2673,52 @@
       "updatedAt": "2026-06-30"
     },
     {
+      "slug": "video-to-mp3",
+      "category": "convert",
+      "operation": "video-to-mp3",
+      "title": "Video to MP3",
+      "primaryKeyword": "video to mp3 converter online",
+      "intent": "Extract audio from video to high-quality MP3 in your browser—ffmpeg.wasm, no upload.",
+      "description": "Convert MP4 and other videos to MP3 locally. Strip the video track with -vn and encode with libmp3lame (VBR q:a 2 or CBR bitrates)—all in a Web Worker on your device.",
+      "secondaryKeywords": [
+        "extract audio from video online",
+        "mp4 to mp3 free browser",
+        "video to mp3 no upload"
+      ],
+      "useCases": [
+        "Save podcast or lecture audio from recorded video",
+        "Pull music beds from MP4 exports for editing",
+        "Create lightweight MP3 shares without re-uploading video"
+      ],
+      "relatedTools": [
+        "video-to-mp4",
+        "video-trimmer",
+        "video-compressor",
+        "video-to-gif"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Audio extraction runs entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "What quality settings are available?",
+          "a": "Default is high-quality VBR (-q:a 2). You can also choose CBR 128, 192, or 320 kbps."
+        },
+        {
+          "q": "Which video formats work?",
+          "a": "MP4, MOV, WEBM, MKV, AVI, and similar common containers with an audio track."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.85,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
+    },
+    {
       "slug": "video-to-mp4",
       "category": "convert",
       "operation": "video-to-mp4",
@@ -2719,13 +2765,59 @@
       "updatedAt": "2026-07-06"
     },
     {
+      "slug": "video-converter",
+      "category": "convert",
+      "operation": "video-converter",
+      "title": "Video Format Converter",
+      "primaryKeyword": "free online video format converter",
+      "intent": "Convert MOV, MKV, AVI, WMV and more to MP4, WebM, or MOV in your browser—ffmpeg.wasm, no upload.",
+      "description": "Upload common video containers and convert to MP4, WebM, or MOV locally. MP4/MOV use libx264 + AAC for maximum compatibility; WebM uses VP9 + Opus—all in a Web Worker on your device.",
+      "secondaryKeywords": [
+        "convert video format online",
+        "mov to mp4 browser",
+        "mkv to mp4 free no upload"
+      ],
+      "useCases": [
+        "Convert phone MOV or camera MKV for web and social uploads",
+        "Produce WebM for modern HTML5 players with smaller open codecs",
+        "Standardize client deliverables to MP4 without installing desktop software"
+      ],
+      "relatedTools": [
+        "video-to-mp4",
+        "video-compressor",
+        "video-to-mp3",
+        "video-trimmer"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Conversion runs entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "Which output formats are available?",
+          "a": "MP4 and MOV encode with libx264 video and AAC audio. WebM encodes with VP9 and Opus for browser-native WebM playback."
+        },
+        {
+          "q": "Which input formats work?",
+          "a": "Common containers including MOV, MKV, AVI, WMV, MP4, WEBM, and similar files your browser FFmpeg build can decode."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
+    },
+    {
       "slug": "video-compressor",
       "category": "optimize",
       "operation": "video-compressor",
       "title": "Video Compressor",
-      "primaryKeyword": "compress video online free",
-      "intent": "Compress videos in your browser with libx264—adjust quality vs. size, no upload.",
-      "description": "Reduce video file size locally with ffmpeg.wasm. Pick compression strength, compare before/after sizes, and download MP4—all in a Web Worker on your device.",
+      "primaryKeyword": "compress mp4 online free",
+      "intent": "Compress MP4 videos in your browser with libx264 CRF control—compare size and bitrate, no upload.",
+      "description": "Reduce MP4 file size locally with ffmpeg.wasm. Tune CRF (18–28), see original vs estimated size and bitrate, then download—100% in a Web Worker on your device.",
       "secondaryKeywords": [
         "video compressor browser",
         "reduce video file size online",
@@ -2738,7 +2830,8 @@
       ],
       "relatedTools": [
         "video-to-mp4",
-        "compress-image",
+        "video-trimmer",
+        "video-resizer",
         "pdf-compress"
       ],
       "faq": [
@@ -2747,12 +2840,58 @@
           "a": "No. Compression runs entirely in your browser inside a Web Worker. Your file never leaves your device."
         },
         {
-          "q": "How does the quality slider work?",
-          "a": "Low compression keeps higher quality (CRF 23). Balanced uses CRF 25. High compression prioritizes smaller files (CRF 28)."
+          "q": "What is CRF?",
+          "a": "Constant Rate Factor controls quality vs size for libx264. Lower CRF (around 18–20) keeps more detail; higher CRF (around 26–28) makes smaller files. Values between 18 and 28 are ideal for standard web video."
         },
         {
           "q": "What format is the output?",
-          "a": "Compressed videos download as MP4 with H.264 video and AAC audio for broad compatibility."
+          "a": "Compressed videos download as MP4 using libx264 with preset medium—compatible with common players and platforms."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
+    },
+    {
+      "slug": "video-resizer",
+      "category": "edit",
+      "operation": "video-resizer",
+      "title": "Video Resizer",
+      "primaryKeyword": "resize video online free",
+      "intent": "Crop and resize videos to TikTok 9:16, Instagram 1:1, or YouTube 16:9 in your browser—local ffmpeg.wasm, no upload.",
+      "description": "Resize and crop MP4 locally with aspect-ratio presets and custom dimensions. Center-crop preview, Lanczos scale, audio stream copy—all in a Web Worker on your device.",
+      "secondaryKeywords": [
+        "video crop aspect ratio",
+        "tiktok video resizer",
+        "youtube 16:9 crop online"
+      ],
+      "useCases": [
+        "Reframe landscape footage for TikTok and Reels (9:16)",
+        "Create Instagram square clips (1:1) from camera video",
+        "Standardize deliverables to YouTube 16:9 with custom width × height"
+      ],
+      "relatedTools": [
+        "video-trimmer",
+        "video-compressor",
+        "video-to-mp4",
+        "video-rotator"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Resizing and cropping run entirely in your browser inside a Web Worker. Your file never leaves your device."
+        },
+        {
+          "q": "Which aspect ratios are supported?",
+          "a": "Presets include 9:16 (TikTok/Reels), 1:1 (Instagram square), and 16:9 (YouTube), plus custom width × height."
+        },
+        {
+          "q": "How does the crop preview work?",
+          "a": "The tool shows a centered crop box on your video so you can see what will be kept before processing. FFmpeg then crops and scales with Lanczos, copying audio when possible."
         }
       ],
       "longTailPages": [],
@@ -2761,53 +2900,7 @@
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
-      "updatedAt": "2026-07-06"
-    },
-    {
-      "slug": "video-resizer",
-      "category": "edit",
-      "operation": "video-resizer",
-      "title": "Video Resizer",
-      "primaryKeyword": "change video resolution online",
-      "intent": "Resize videos to 480p, 720p, or 1080p in your browser—no upload, 100% local ffmpeg.wasm.",
-      "description": "Change video resolution locally with ffmpeg.wasm. Scale 4K to 1080p, 1080p to 720p, and more—all processed in a Web Worker on your device.",
-      "secondaryKeywords": [
-        "video resolution changer",
-        "resize video to 720p",
-        "scale video online free"
-      ],
-      "useCases": [
-        "Downscale 4K screen recordings for faster sharing",
-        "Standardize client deliverables to 1080p or 720p",
-        "Reduce file size by lowering resolution before upload"
-      ],
-      "relatedTools": [
-        "video-compressor",
-        "video-to-mp4",
-        "compress-image",
-        "resize-image"
-      ],
-      "faq": [
-        {
-          "q": "Is my video uploaded to JoinMyPDF?",
-          "a": "No. Resolution changes run entirely in your browser inside a Web Worker. Your file never leaves your device."
-        },
-        {
-          "q": "Which resolutions are supported?",
-          "a": "Choose 480p, 720p, or 1080p height. Width scales automatically to preserve aspect ratio."
-        },
-        {
-          "q": "Does audio stay intact?",
-          "a": "Yes. The tool uses -c:a copy to keep the original audio stream when possible."
-        }
-      ],
-      "longTailPages": [],
-      "skipClusterVariants": true,
-      "priority": 0.84,
-      "longTailPriority": null,
-      "internalLinkWeight": null,
-      "homepageFeatureEligible": true,
-      "updatedAt": "2026-07-07"
+      "updatedAt": "2026-07-12"
     },
     {
       "slug": "video-rotator",
@@ -2816,11 +2909,12 @@
       "title": "Video Rotator",
       "primaryKeyword": "rotate video online free",
       "intent": "Rotate videos 90°, 180°, or 270° in your browser with ffmpeg.wasm—no upload.",
-      "description": "Fix sideways phone footage or flip orientation locally. Rotate MP4, MOV, WebM, and more with transpose filters—all in a Web Worker.",
+      "description": "Fix sideways phone footage locally. Rotate MP4 with 90° CW, 180°, or 90° CCW—fast metadata stream-copy when possible, or bake pixels with transpose. Preview in-browser; your file never leaves your device.",
       "secondaryKeywords": [
         "rotate mp4 90 degrees",
         "flip video orientation",
-        "video rotator browser"
+        "video rotator browser",
+        "rotate video metadata ffmpeg"
       ],
       "useCases": [
         "Fix vertical phone videos recorded sideways",
@@ -2829,9 +2923,9 @@
       ],
       "relatedTools": [
         "video-resizer",
+        "video-trimmer",
         "rotate-image",
-        "video-to-mp4",
-        "video-compressor"
+        "video-to-mp4"
       ],
       "faq": [
         {
@@ -2840,20 +2934,20 @@
         },
         {
           "q": "Which rotation angles are supported?",
-          "a": "90° clockwise, 180°, and 270° clockwise (90° counter-clockwise)."
+          "a": "90° clockwise, 180°, and 90° counter-clockwise (transpose=1 / double transpose / transpose=2)."
         },
         {
-          "q": "What format is the output?",
-          "a": "Rotated videos download as MP4 for broad compatibility."
+          "q": "What is Fast metadata vs Bake pixels?",
+          "a": "Fast metadata uses stream copy (-c copy) and sets rotate metadata—near-instant, but some players ignore the flag. Bake pixels re-encodes with transpose so orientation is permanent in the frames."
         }
       ],
       "longTailPages": [],
       "skipClusterVariants": true,
-      "priority": 0.84,
+      "priority": 0.85,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
-      "updatedAt": "2026-07-07"
+      "updatedAt": "2026-07-12"
     },
     {
       "slug": "video-speed-controller",
@@ -2902,13 +2996,59 @@
       "updatedAt": "2026-07-07"
     },
     {
+      "slug": "video-speed",
+      "category": "edit",
+      "operation": "video-speed",
+      "title": "Video Speed Controller",
+      "primaryKeyword": "change video speed online free",
+      "intent": "Speed up or slow down MP4 in your browser with presets (0.5×–4×)—setpts + atempo, clear progress, no upload.",
+      "description": "Change MP4 playback speed locally with ffmpeg.wasm. Pick 0.5×, 0.75×, 1.5×, 2×, or 4×; video uses setpts and audio uses atempo (chained for 4×). Re-encoding shows a live Processing progress bar—your file never leaves your device.",
+      "secondaryKeywords": [
+        "speed up video online",
+        "slow down video browser",
+        "video speed controller no upload"
+      ],
+      "useCases": [
+        "Create 2× or 4× timelapse from screen recordings",
+        "Slow tutorials to 0.5× or 0.75× for clarity",
+        "Match social pacing without a desktop NLE"
+      ],
+      "relatedTools": [
+        "video-speed-controller",
+        "video-trimmer",
+        "video-to-gif",
+        "video-compressor"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Speed changes run entirely in your browser with ffmpeg.wasm. Your file never leaves your device."
+        },
+        {
+          "q": "Which speeds are available?",
+          "a": "Presets: 0.5×, 0.75×, 1.5×, 2×, and 4×. Speeds above 2× chain atempo filters (e.g. 4× → atempo=2,atempo=2)."
+        },
+        {
+          "q": "Why does processing take longer than mute or trim?",
+          "a": "Speed changes require re-encoding (setpts + atempo), not stream copy. Watch the Processing progress bar—the tool is working, not frozen."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
+    },
+    {
       "slug": "video-to-gif",
       "category": "convert",
       "operation": "video-to-gif",
       "title": "Video to GIF",
       "primaryKeyword": "convert video to gif online",
       "intent": "Convert short video clips to high-quality GIFs in your browser—local ffmpeg.wasm, no upload.",
-      "description": "Turn MP4, MOV, or WebM clips into animated GIFs locally. Lanczos scaling at 10 fps for crisp results—all in a Web Worker on your device.",
+      "description": "Turn MP4, MOV, or WebM clips into animated GIFs locally. Choose start time, duration, FPS, and scale—palettegen/paletteuse for crisp 256-color output in a Web Worker.",
       "secondaryKeywords": [
         "mp4 to gif free",
         "video to gif converter browser",
@@ -2922,7 +3062,7 @@
       "relatedTools": [
         "video-compressor",
         "video-speed-controller",
-        "convert-to-png",
+        "video-trimmer",
         "video-to-mp4"
       ],
       "faq": [
@@ -2932,20 +3072,158 @@
         },
         {
           "q": "How long can the video be?",
-          "a": "Short clips (under ~30 seconds) work best in the browser. Longer videos may run out of memory."
+          "a": "Short clips (under ~30 seconds) work best in the browser. Use start time and duration to export only the moment you need."
         },
         {
           "q": "What GIF settings are used?",
-          "a": "Output uses 10 fps with Lanczos scaling to 480px width—balanced quality and file size for web sharing."
+          "a": "You choose FPS and scale width. Conversion uses Lanczos scaling plus a two-pass palettegen/paletteuse pipeline so colors stay sharp within GIF’s 256-color limit."
         }
       ],
       "longTailPages": [],
       "skipClusterVariants": true,
-      "priority": 0.83,
+      "priority": 0.84,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
-      "updatedAt": "2026-07-07"
+      "updatedAt": "2026-07-12"
+    },
+    {
+      "slug": "video-trimmer",
+      "category": "edit",
+      "operation": "video-trimmer",
+      "title": "Video Trimmer",
+      "primaryKeyword": "trim video online free",
+      "intent": "Trim MP4 videos in your browser with ffmpeg.wasm—set start and end times, stream-copy cut, no upload.",
+      "description": "Cut MP4 clips locally with a start/end range slider and ffmpeg.wasm stream copy. Preview in the browser, process on-device, download instantly—your video never leaves your device.",
+      "secondaryKeywords": [
+        "cut mp4 online",
+        "video cutter browser",
+        "trim mp4 without upload"
+      ],
+      "useCases": [
+        "Remove intros and outros from screen recordings",
+        "Cut highlight clips from longer MP4 footage",
+        "Prepare short clips for social posts without re-encoding"
+      ],
+      "relatedTools": [
+        "video-compressor",
+        "video-to-mp4",
+        "video-resizer",
+        "video-to-gif"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Trimming runs entirely in your browser with ffmpeg.wasm. Your file never leaves your device."
+        },
+        {
+          "q": "Which formats are supported?",
+          "a": "MP4 (and M4V) input. Output is MP4 using stream copy (-c copy) for fast cuts without re-encoding."
+        },
+        {
+          "q": "Will quality drop when I trim?",
+          "a": "Stream copy keeps the original video and audio bitstreams. Cuts snap to keyframes, so ends may be a fraction of a second off from the exact slider values."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.85,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
+    },
+    {
+      "slug": "video-muter",
+      "category": "edit",
+      "operation": "video-muter",
+      "title": "Video Muter",
+      "primaryKeyword": "remove audio from video online",
+      "intent": "Mute MP4 videos in your browser with ffmpeg.wasm stream copy—strip audio with -an, keep video quality with -c:v copy, no upload.",
+      "description": "Remove the audio track from MP4 locally with ffmpeg.wasm. Uses -an -c:v copy for near-instant muting without re-encoding—your video never leaves your device.",
+      "secondaryKeywords": [
+        "mute video online free",
+        "strip audio from mp4 browser",
+        "remove sound from video no upload"
+      ],
+      "useCases": [
+        "Mute B-roll before adding a new voiceover",
+        "Upload silent social clips without copyrighted audio",
+        "Strip ambient noise from screen recordings for captions-only posts"
+      ],
+      "relatedTools": [
+        "video-trimmer",
+        "video-to-mp3",
+        "video-compressor",
+        "video-to-mp4"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Muting runs entirely in your browser with ffmpeg.wasm. Your file never leaves your device."
+        },
+        {
+          "q": "Will video quality change?",
+          "a": "No. Stream copy (-c:v copy) remuxes the video bitstream without re-encoding, so picture quality stays identical."
+        },
+        {
+          "q": "Why is muting so fast?",
+          "a": "Because -c:v copy does not re-encode frames—FFmpeg only drops the audio stream and writes a new container. Large files often finish in seconds."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.85,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
+    },
+    {
+      "slug": "video-metadata-cleaner",
+      "category": "edit",
+      "operation": "video-metadata-cleaner",
+      "title": "Video Metadata Cleaner",
+      "primaryKeyword": "remove metadata from video online",
+      "intent": "Strip EXIF/XMP/GPS metadata from MP4 or MOV in your browser with ffmpeg.wasm stream copy—preview tags first, no upload.",
+      "description": "Clean video metadata locally with -map_metadata -1 -c copy. Preview capture time, device model, and GPS before stripping—near-instant, no re-encode, file never leaves your device.",
+      "secondaryKeywords": [
+        "strip gps from video",
+        "remove exif from mp4",
+        "video metadata cleaner browser"
+      ],
+      "useCases": [
+        "Remove GPS from phone videos before posting",
+        "Strip device make/model before client handoff",
+        "Sanitize screen recordings before public sharing"
+      ],
+      "relatedTools": [
+        "remove-hidden-metadata",
+        "video-muter",
+        "video-trimmer",
+        "safe-to-share-auditor"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to JoinMyPDF?",
+          "a": "No. Metadata cleaning runs entirely in your browser with ffmpeg.wasm. Your file never leaves your device."
+        },
+        {
+          "q": "Will quality change?",
+          "a": "No. Stream copy (-c copy) remuxes without re-encoding, so video and audio quality stay identical."
+        },
+        {
+          "q": "What does the preview show?",
+          "a": "Before cleaning, the tool scans the container for tags such as creation time, device make/model, and GPS so you can see what will be removed."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-12"
     },
     {
       "slug": "crop-image",
