@@ -1,4 +1,4 @@
-const CACHE_NAME = "joinmypdf-shell-v9";
+const CACHE_NAME = "joinmypdf-shell-v10";
 
 const CORE_ASSETS = [
   "/manifest.webmanifest",
@@ -23,6 +23,20 @@ function isDocumentRequest(request) {
   return accept.includes("text/html");
 }
 
+/** Large OCR/WASM assets must hit the network — SW caching can break Workers under COEP. */
+function isTesseractOrWasmRequest(url) {
+  const path = url.pathname;
+  return (
+    path.startsWith("/tesseract/") ||
+    path.startsWith("/assets/tesseract/") ||
+    path.startsWith("/assets/tessdata/") ||
+    path.endsWith(".wasm") ||
+    path.endsWith(".wasm.js") ||
+    path.endsWith(".traineddata") ||
+    path.endsWith(".traineddata.gz")
+  );
+}
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS)),
@@ -42,11 +56,37 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
+  let url;
+  try {
+    url = new URL(event.request.url);
+  } catch {
+    return;
+  }
+
+  if (isTesseractOrWasmRequest(url)) {
+    event.respondWith(
+      fetch(event.request).catch(
+        () =>
+          new Response("OCR asset unavailable offline", {
+            status: 503,
+            statusText: "Service Unavailable",
+            headers: { "Content-Type": "text/plain; charset=utf-8" },
+          }),
+      ),
+    );
+    return;
+  }
+
   if (isDocumentRequest(event.request)) {
     event.respondWith(
       fetch(event.request).catch(async () => {
         const cached = await caches.match(event.request);
-        return cached ?? Response.error();
+        if (cached) return cached;
+        return new Response("Offline", {
+          status: 503,
+          statusText: "Service Unavailable",
+          headers: { "Content-Type": "text/plain; charset=utf-8" },
+        });
       }),
     );
     return;

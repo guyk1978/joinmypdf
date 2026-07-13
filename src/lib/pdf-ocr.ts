@@ -102,22 +102,35 @@ export async function renderPdfPageForOcr(
 }
 
 export function getOcrLangPath(): string {
-  if (typeof window === "undefined") return "/tesseract/lang-data";
-  return `${window.location.origin}/tesseract/lang-data`;
+  const paths = getTesseractAssetPaths();
+  return paths.langPath;
 }
 
-/** Same-origin Tesseract assets under /public/tesseract (synced from node_modules). */
+/**
+ * Same-origin Tesseract assets under /assets/tesseract (and /tesseract mirror).
+ * Always build absolute URLs from window.location.origin so nested Workers
+ * resolve correctly on any deployment host (not relative to a blob: worker URL).
+ */
 export function getTesseractAssetPaths(): {
   workerPath: string;
   corePath: string;
   langPath: string;
 } {
-  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  const origin =
+    typeof window !== "undefined" && window.location?.origin
+      ? window.location.origin
+      : "";
+
+  // Prefer /assets/tesseract (same tree as fonts/tessdata). /tesseract is a deploy mirror.
+  const base = origin
+    ? new URL("/assets/tesseract/", origin).href.replace(/\/$/, "")
+    : "/assets/tesseract";
+
   return {
-    workerPath: `${origin}/tesseract/worker.min.js`,
-    // Directory with all tesseract-core*.wasm.js builds (not a single file).
-    corePath: `${origin}/tesseract`,
-    langPath: `${origin}/tesseract/lang-data`,
+    workerPath: `${base}/worker.min.js`,
+    // Directory of core builds (SIMD/LSTM). Also deploy tesseract-core.wasm.js here.
+    corePath: base,
+    langPath: `${base}/lang-data`,
   };
 }
 
@@ -140,11 +153,23 @@ export function runSinglePageOcrInWorker(
     onError: (pageIndex: number, message: string) => void;
   },
 ): { cancel: () => void } {
-  const worker = new Worker(new URL("../workers/pdf-ocr.worker.ts", import.meta.url), {
-    type: "module",
-  });
-
   const paths = getTesseractAssetPaths();
+  console.log("[PDF-OCR] starting page worker with paths", paths);
+
+  let worker: Worker;
+  try {
+    worker = new Worker(new URL("../workers/pdf-ocr.worker.ts", import.meta.url), {
+      type: "module",
+    });
+  } catch (error) {
+    console.error("[PDF-OCR] Failed to construct OCR Worker (full error):", error);
+    handlers.onError(
+      pageIndex,
+      error instanceof Error ? error.message : "Failed to construct OCR Worker.",
+    );
+    return { cancel: () => undefined };
+  }
+
   const payload: PdfOcrWorkerRequest = {
     type: "ocr-page",
     pageIndex,
@@ -172,19 +197,33 @@ export function runSinglePageOcrInWorker(
       return;
     }
     if (data.type === "error") {
+      console.error("[PDF-OCR] worker reported error:", data);
       worker.terminate();
       handlers.onError(data.pageIndex, data.message);
     }
   };
 
   worker.onerror = (error) => {
+    console.error("[PDF-OCR] worker.onerror (full error):", error);
+    console.error("[PDF-OCR] worker.onerror detail:", {
+      message: error.message,
+      filename: error.filename,
+      lineno: error.lineno,
+      colno: error.colno,
+      error: error.error,
+    });
     worker.terminate();
     handlers.onError(pageIndex, error.message || "OCR worker failed.");
+  };
+
+  worker.onmessageerror = (error) => {
+    console.error("[PDF-OCR] worker.onmessageerror (full error):", error);
   };
 
   try {
     worker.postMessage(payload);
   } catch (error) {
+    console.error("[PDF-OCR] postMessage failed (full error):", error);
     worker.terminate();
     handlers.onError(
       pageIndex,

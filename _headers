@@ -1,0 +1,23 @@
+# Cloudflare Pages / static host headers.
+# Required for SharedArrayBuffer (ffmpeg) and for Workers/WASM under COEP.
+
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Resource-Policy: same-origin
+
+/tesseract/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/tesseract/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/tessdata/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/fonts/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable

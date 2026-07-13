@@ -115,33 +115,46 @@ await copyFile(path.join(root, "sw.js"), path.join(publicDir, "sw.js"));
 
 // Tesseract.js worker + WASM core (same-origin; avoids CDN CORS on nested Workers)
 async function syncTesseractAssets() {
-  const dest = path.join(publicDir, "tesseract");
-  const langDest = path.join(dest, "lang-data");
-  await mkdir(dest, { recursive: true });
-  await mkdir(langDest, { recursive: true });
-
-  await copyFile(
-    path.join(root, "node_modules", "tesseract.js", "dist", "worker.min.js"),
-    path.join(dest, "worker.min.js"),
-  );
+  const destinations = [
+    path.join(publicDir, "tesseract"),
+    path.join(publicDir, "assets", "tesseract"),
+  ];
 
   const coreDir = path.join(root, "node_modules", "tesseract.js-core");
   const coreEntries = await readdir(coreDir);
-  for (const name of coreEntries) {
-    if (!name.startsWith("tesseract-core")) continue;
-    if (!name.endsWith(".js") && !name.endsWith(".wasm")) continue;
-    await copyFile(path.join(coreDir, name), path.join(dest, name));
-  }
+  const workerSrc = path.join(root, "node_modules", "tesseract.js", "dist", "worker.min.js");
 
-  for (const name of ["eng.traineddata.gz", "heb.traineddata.gz"]) {
-    await copyFile(path.join(root, "assets", "tessdata", name), path.join(langDest, name));
+  for (const dest of destinations) {
+    const langDest = path.join(dest, "lang-data");
+    await mkdir(dest, { recursive: true });
+    await mkdir(langDest, { recursive: true });
+
+    await copyFile(workerSrc, path.join(dest, "worker.min.js"));
+
+    for (const name of coreEntries) {
+      if (!name.startsWith("tesseract-core")) continue;
+      if (!name.endsWith(".js") && !name.endsWith(".wasm")) continue;
+      await copyFile(path.join(coreDir, name), path.join(dest, name));
+    }
+
+    for (const name of ["eng.traineddata.gz", "heb.traineddata.gz"]) {
+      await copyFile(path.join(root, "assets", "tessdata", name), path.join(langDest, name));
+    }
   }
 }
 
 await syncTesseractAssets();
 
+// Cloudflare Pages static headers (COOP/COEP/CORP) — next.config headers are ignored on export.
+const headersSrc = path.join(root, "_headers");
+try {
+  await copyFile(headersSrc, path.join(publicDir, "_headers"));
+} catch {
+  // optional until _headers exists
+}
+
 await mkdir(path.join(publicDir, "tools"), { recursive: true });
 await copyFile(toolsHubSrc, toolsHubPublic);
 
 console.log("Synced assets → public/ after purging generated route artifacts.");
-console.log("Synced tesseract.js worker/core/lang-data → public/tesseract/");
+console.log("Synced tesseract.js worker/core/lang-data → public/tesseract/ and public/assets/tesseract/");

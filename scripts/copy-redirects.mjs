@@ -33,6 +33,25 @@ for (const dest of redirectTargets) {
   }
 }
 
+const headersSrc = path.join(root, "_headers");
+const headerTargets = [
+  path.join(root, "public", "_headers"),
+  path.join(root, "out", "_headers"),
+  path.join(root, ".vercel", "output", "static", "_headers"),
+];
+
+for (const dest of headerTargets) {
+  try {
+    await mkdir(path.dirname(dest), { recursive: true });
+    await copyFile(headersSrc, dest);
+    console.log(`copy-redirects: ${path.relative(root, dest)}`);
+  } catch (error) {
+    console.warn(
+      `copy-redirects: skipped headers ${path.relative(root, dest)} (${error.code || error.message})`
+    );
+  }
+}
+
 async function ensureToolRouteExcludes(routesPath) {
   let routes = { version: 1, include: ["/*"], exclude: [] };
 
