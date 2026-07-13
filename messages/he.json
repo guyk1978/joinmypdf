@@ -286,6 +286,10 @@
       "heroTitle": "כלי אינטרנט מקצועיים, בעיבוד מקומי",
       "heroSubtitle": "מזגו, המירו, דחסו ואבטחו מסמכים, תמונות, אודיו וקוד — הכול ישירות בדפדפן. ללא העלאות, ללא חשבון, והקבצים שלכם לעולם לא עוזבים את המכשיר.",
       "heroPrimaryCta": "עיינו בכל הכלים",
+      "heroCategoriesLabel": "קטגוריות כלים",
+      "categoriesEyebrow": "קטגוריות",
+      "categoriesTitle": "עיון לפי קטגוריה",
+      "categoriesSubtitle": "עברו למרכז — כל אחד פותח את כל הכלים בתחום.",
       "workflowsEyebrow": "תהליכי עבודה",
       "workflowsTitle": "בנוי סביב מה שאתם צריכים להשלים",
       "workflowsSubtitle": "היכנסו ישר לתהליך העבודה — כל אחד מרכז את הכלים שאנשי מקצוע משתמשים בהם הכי הרבה.",
@@ -915,6 +919,7 @@
     "backToHome": "חזרה לדף הבית",
     "browseAllTools": "עיין בכל הכלים",
     "footerNavLabel": "ניווט בקטגוריה",
+    "categoriesNavLabel": "כל קטגוריות הכלים",
     "startHere": "התחל כאן",
     "startHereDescription": {
       "security": "מחוללי סיסמאות, האש, UUID ומפענח תעודות SSL — מקומי ובטוח.",
@@ -1146,7 +1151,8 @@
     "toolsPanel": {
       "label": "מדריך כל הכלים",
       "toggle": "עיון בכל הכלים",
-      "toggleClose": "הסתר את כל הכלים"
+      "toggleClose": "הסתר את כל הכלים",
+      "categoriesLabel": "קטגוריות כלים"
     }
   },
   "Blog": {

@@ -286,6 +286,10 @@
       "heroTitle": "Professional Web Utilities, Processed Locally",
       "heroSubtitle": "Merge, convert, compress, and secure your documents, images, audio, and code — right inside your browser. No uploads, no accounts, and your files never leave your device.",
       "heroPrimaryCta": "Browse all tools",
+      "heroCategoriesLabel": "Tool categories",
+      "categoriesEyebrow": "Categories",
+      "categoriesTitle": "Browse by category",
+      "categoriesSubtitle": "Jump into a hub — each one opens the full set of tools for that domain.",
       "workflowsEyebrow": "Workflows",
       "workflowsTitle": "Built around what you need to get done",
       "workflowsSubtitle": "Jump straight into a workflow — each one bundles the tools professionals reach for most.",
@@ -915,6 +919,7 @@
     "backToHome": "Back to home",
     "browseAllTools": "Browse all tools",
     "footerNavLabel": "Category navigation",
+    "categoriesNavLabel": "All tool categories",
     "startHere": "Start here",
     "startHereDescription": {
       "security": "Password, hash, UUID, and SSL certificate tools for secure local workflows.",
@@ -1146,7 +1151,8 @@
     "toolsPanel": {
       "label": "All tools directory",
       "toggle": "Browse all tools",
-      "toggleClose": "Hide all tools"
+      "toggleClose": "Hide all tools",
+      "categoriesLabel": "Tool categories"
     }
   },
   "Blog": {

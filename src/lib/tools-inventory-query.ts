@@ -128,6 +128,49 @@ export function getInventoryHubPath(category: InventoryCategoryId): string {
   return INVENTORY_HUB_META[category].path;
 }
 
+export type InventoryHubLink = {
+  id: InventoryCategoryId;
+  href: string;
+  title: string;
+};
+
+function normalizeHubPath(path: string): string {
+  if (!path || path === "/") return path;
+  return path.endsWith("/") ? path : `${path}/`;
+}
+
+/**
+ * Dedicated category hub links from inventory SSOT.
+ * Skips catch-all `/tools/` placeholders and dedupes shared hub paths
+ * (e.g. audio + mp3 → one link). New hubs in INVENTORY_HUB_META appear automatically.
+ */
+export function listDedicatedInventoryHubLinks(): InventoryHubLink[] {
+  const primaryUsed = new Set(
+    TOOLS_INVENTORY.map((tool) => tool.primaryCategory as InventoryCategoryId),
+  );
+  const seenPaths = new Set<string>();
+  const links: InventoryHubLink[] = [];
+
+  for (const [rawId, meta] of Object.entries(INVENTORY_HUB_META) as Array<
+    [InventoryCategoryId, (typeof INVENTORY_HUB_META)[InventoryCategoryId]]
+  >) {
+    const href = normalizeHubPath(meta.path);
+    if (!href || href === "/tools/" || href === "/tools") continue;
+
+    const pathKey = href.replace(/\/$/, "") || href;
+    if (seenPaths.has(pathKey)) continue;
+
+    const hasTools =
+      primaryUsed.has(rawId) || getInventoryToolsByCategory(rawId).length > 0;
+    if (!hasTools) continue;
+
+    seenPaths.add(pathKey);
+    links.push({ id: rawId, href, title: meta.title });
+  }
+
+  return links;
+}
+
 /** Every inventory id that is missing from a slug list (orphan detection). */
 export function findInventoryOrphans(listedSlugs: Iterable<string>): ToolsInventoryId[] {
   const listed = new Set(listedSlugs);

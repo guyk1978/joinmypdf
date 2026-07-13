@@ -363,8 +363,5 @@ export function getCategoryDirectoryPageProps(
       featuredItems.length > 0 && tCategory.has(startHereKey) ? tCategory(startHereKey) : undefined,
     workflowColumns: usesFlatGrid ? [] : buildCategoryDirectoryColumns(categoryId, tHome, tCategory),
     flatGridItems,
-    backToHomeLabel: tCategory("backToHome"),
-    browseAllToolsLabel: tCategory("browseAllTools"),
-    footerNavLabel: tCategory("footerNavLabel"),
   };
 }

@@ -9,7 +9,7 @@ type WorkflowItem = {
 };
 
 const WORKFLOWS: WorkflowItem[] = [
-  { key: "documents", href: "/tools/", Icon: FileText },
+  { key: "documents", href: "/tools/pdf-tools/", Icon: FileText },
   { key: "media", href: "/tools/mp4-tools/", Icon: ImagePlay },
   { key: "developer", href: "/developer-tools/", Icon: Code2 },
   { key: "privacy", href: "/security-tools/", Icon: ShieldCheck },

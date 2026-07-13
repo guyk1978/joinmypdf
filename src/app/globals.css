@@ -2324,12 +2324,18 @@ html:has(.home-page-shell--minimal) body {
 
 .tools-directory-footer {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
   margin-top: clamp(2rem, 4vw, 2.75rem);
   padding-top: clamp(1.5rem, 3vw, 2rem);
   border-top: 1px solid #262626;
+}
+
+.tools-directory-footer__primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
 }
 
 .tools-directory-footer__link {
@@ -2345,6 +2351,44 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .tools-directory-footer__link:focus-visible {
+  outline: 2px solid rgba(161, 161, 170, 0.45);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.tools-directory-footer__categories {
+  width: 100%;
+}
+
+.tools-directory-footer__category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.tools-directory-footer__category-link {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #a3a3a3;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.tools-directory-footer__category-link:hover {
+  color: #fafafa;
+  border-bottom-color: #525252;
+}
+
+.tools-directory-footer__category-link:focus-visible {
   outline: 2px solid rgba(161, 161, 170, 0.45);
   outline-offset: 2px;
   border-radius: 0.25rem;
@@ -17864,9 +17908,9 @@ body.site-tools-grid-open {
   color: #f87171;
 }
 
-/* ג€”ג€” Footer tools panel (Industrial Matte) ג€”ג€” */
+/* —— Footer tools panel (Industrial Matte) —— */
 .footer-tools-panel {
-  border-top: none;
+  border-top: 1px solid #262626;
   background: transparent;
 }
 
@@ -17875,32 +17919,117 @@ body.site-tools-grid-open {
   width: 100%;
   max-width: 80rem;
   margin-inline: auto;
-  padding: 0 clamp(1rem, 4vw, 2rem);
+  padding: 1.5rem clamp(1rem, 4vw, 2rem) 0.75rem;
 }
 
-/* Compact, centered glass pill ג€” no full-width band */
-.footer-tools-panel__toggle {
+/* —— Shared inventory category hubs (sitewide) —— */
+.category-hubs {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.category-hubs__head {
+  max-width: none;
+  margin: 0 0 1.25rem;
+}
+
+.category-hubs__eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #a3a3a3;
+}
+
+.category-hubs__title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+
+.category-hubs__grid {
   display: flex;
-  width: fit-content;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin: 1.25rem auto;
-  padding: 0.5rem 1.5rem; /* px-6 py-2 */
-  border: 1px solid #262626; /* border-neutral-800 */
-  border-radius: 9999px; /* rounded-full */
-  background: rgba(23, 23, 23, 0.5); /* bg-neutral-900/50 */
-  backdrop-filter: blur(4px); /* subtle glass-morphism */
-  -webkit-backdrop-filter: blur(4px);
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.category-hubs__link {
+  display: inline-block;
   color: #d4d4d4;
   font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
   transition:
     color 0.2s ease,
-    border-color 0.2s ease,
-    background-color 0.2s ease;
+    border-color 0.2s ease;
+}
+
+.category-hubs__link:hover {
+  color: #fafafa;
+  border-bottom-color: #525252;
+}
+
+.category-hubs__link:focus-visible {
+  outline: 2px solid #52525b;
+  outline-offset: 3px;
+}
+
+.footer-tools-panel__categories {
+  margin: 1.25rem auto 0.75rem;
+}
+
+.footer-tools-panel__category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.footer-tools-panel__category-link {
+  display: inline-block;
+  color: #d4d4d4;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.footer-tools-panel__category-link:hover {
+  color: #fafafa;
+  border-bottom-color: #525252;
+}
+
+.footer-tools-panel__category-link:focus-visible {
+  outline: 2px solid #52525b;
+  outline-offset: 2px;
+}
+
+/* Compact, centered glass pill — removed; kept for leftover class refs */
+.footer-tools-panel__toggle {
+  display: none;
 }
 
 .footer-tools-panel__toggle:hover {
@@ -17926,6 +18055,11 @@ body.site-tools-grid-open {
 
 .footer-tools-panel__content {
   overflow: hidden;
+}
+
+.footer-tools-panel__content--open {
+  overflow: visible;
+  margin-top: 0.75rem;
 }
 
 .footer-tools-panel__grid {

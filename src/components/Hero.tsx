@@ -1,6 +1,5 @@
-import { ArrowRight, Lock, ServerOff, Zap } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { Lock, ServerOff, Zap } from "lucide-react";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { HeroAnimation } from "@/components/HeroAnimation";
 import "./hero.css";
@@ -33,13 +32,6 @@ export async function Hero() {
 
             <div className="hero__search">
               <HeaderSearch variant="inline" />
-            </div>
-
-            <div className="hero__actions">
-              <Link href="/tools/" className="hero__cta" prefetch={false}>
-                {t("landing.heroPrimaryCta")}
-                <ArrowRight className="hero__cta-icon" aria-hidden />
-              </Link>
             </div>
 
             <ul className="hero__chips" aria-label={t("trustSignalsLabel")}>
