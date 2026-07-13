@@ -5187,6 +5187,57 @@
       "updatedAt": "2026-07-12"
     },
     {
+      "slug": "text-workspace",
+      "category": "convert",
+      "operation": "text-workspace",
+      "title": "Text Workspace",
+      "primaryKeyword": "free online private text editor",
+      "intent": "Draft, edit, find-and-replace, and export sensitive text privately in a browser workspace that never uploads your content.",
+      "description": "A local-first text workspace with find and replace, live word and character counts, IndexedDB project saves, lock mode, and TXT/Markdown export—100% offline-capable in your browser.",
+      "secondaryKeywords": [
+        "private text editor online",
+        "browser text workspace",
+        "offline text editor",
+        "local first writing tool"
+      ],
+      "useCases": [
+        "Draft confidential notes without cloud sync",
+        "Edit Markdown docs and export locally",
+        "Find and replace across long drafts in-browser"
+      ],
+      "relatedTools": [
+        "text-diff",
+        "word-character-counter",
+        "case-converter",
+        "lorem-ipsum-generator"
+      ],
+      "faq": [
+        {
+          "q": "Does Text Workspace upload my writing?",
+          "a": "No. Editing, find/replace, project saves, and exports all run locally in your browser."
+        },
+        {
+          "q": "Can I save a draft and reopen it later?",
+          "a": "Yes. Save Project stores your text in IndexedDB on this device so you can resume from the Projects list."
+        },
+        {
+          "q": "What formats can I export?",
+          "a": "Download your draft as plain TXT or Markdown (.md) with one click."
+        },
+        {
+          "q": "How do I prevent accidental edits?",
+          "a": "Use Lock to make the editor read-only until you unlock it."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.7,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-13"
+    },
+    {
       "slug": "color-converter",
       "category": "convert",
       "operation": "color-converter",

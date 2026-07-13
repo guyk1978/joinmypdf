@@ -407,7 +407,7 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     title: "HTML/Markdown Converter",
     path: "/tools/html-markdown-converter/",
     description: "Split-screen editor with live conversion, reverse mode, rich HTML preview, and one-click copy.",
-    categories: ["developer", "json", "convert"] as const,
+    categories: ["developer", "json", "convert", "text"] as const,
     primaryCategory: "json",
     labelKey: "htmlMarkdownConverter",
   },
@@ -1084,6 +1084,15 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "textDiffChecker",
   },
   {
+    id: "text-workspace",
+    title: "Text Workspace",
+    path: "/tools/text-workspace/",
+    description: "A local-first text workspace with find and replace, live word and character counts, IndexedDB project saves, lock mode, and TXT/Markdown export—100% offline-capable in your browser.",
+    categories: ["text"] as const,
+    primaryCategory: "text",
+    labelKey: "textWorkspace",
+  },
+  {
     id: "timeline-gantt-generator",
     title: "timeline-gantt-generator",
     path: "/tools/timeline-gantt-generator/",
@@ -1317,16 +1326,13 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     primaryCategory: "json",
     labelKey: "yamlJsonConverter",
   },
-] ;
+];
 
-export type ToolsInventoryId = (typeof TOOLS_INVENTORY)[number]["id"];
+export type ToolsInventoryId = string;
 
 export const TOOLS_INVENTORY_IDS = TOOLS_INVENTORY.map((tool) => tool.id);
 
-function entryHasCategory(
-  tool: ToolsInventoryEntry,
-  category: InventoryCategoryId,
-): boolean {
+function entryHasCategory(tool: ToolsInventoryEntry, category: InventoryCategoryId): boolean {
   return tool.categories.includes(category);
 }
 
@@ -1344,8 +1350,8 @@ export const PDF_TOOLS_INVENTORY = TOOLS_INVENTORY.filter((tool) =>
 
 export const PDF_TOOLS_INVENTORY_IDS = PDF_TOOLS_INVENTORY.map((tool) => tool.id);
 
-export type VideoToolsInventoryId = (typeof VIDEO_TOOLS_INVENTORY)[number]["id"];
-export type PdfToolsInventoryId = (typeof PDF_TOOLS_INVENTORY)[number]["id"];
+export type VideoToolsInventoryId = string;
+export type PdfToolsInventoryId = string;
 
 export const PDF_INVENTORY_SECTIONS: {
   id: PdfInventorySectionId;
@@ -1354,9 +1360,7 @@ export const PDF_INVENTORY_SECTIONS: {
   ["mergeSplit", "conversion", "compression", "securityUtilities"] as const
 ).map((sectionId) => ({
   id: sectionId,
-  toolIds: PDF_TOOLS_INVENTORY.filter((tool) => tool.pdfSection === sectionId).map(
-    (tool) => tool.id,
-  ),
+  toolIds: PDF_TOOLS_INVENTORY.filter((tool) => tool.pdfSection === sectionId).map((tool) => tool.id),
 }));
 
 export const TOOLS_INVENTORY_BY_CATEGORY = {

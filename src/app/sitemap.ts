@@ -74,6 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/image-converter/",
     "/tools/svg-optimizer/",
     "/tools/lorem-ipsum-generator/",
+    "/tools/text-workspace/",
     "/tools/sign-pdf-large-files/",
     "/tools/pdf-to-png-no-upload/",
     "/tools/png-to-pdf-instant/",

@@ -206,6 +206,7 @@ function addHubRules(slug, hubs) {
       "word-character-counter",
       "text-diff-checker",
       "text-diff",
+      "text-workspace",
       "string-generator",
       "reading-time-calculator",
       "html-markdown-converter",
@@ -343,30 +344,34 @@ export type {
 
 export { INVENTORY_HUB_META } from "@/data/inventory-hubs";
 
-export const TOOLS_INVENTORY = [
+export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
 ${entries.map(emitEntry).join(",\n")},
-] as const satisfies readonly ToolsInventoryEntry[];
+];
 
-export type ToolsInventoryId = (typeof TOOLS_INVENTORY)[number]["id"];
+export type ToolsInventoryId = string;
 
 export const TOOLS_INVENTORY_IDS = TOOLS_INVENTORY.map((tool) => tool.id);
 
+function entryHasCategory(tool: ToolsInventoryEntry, category: InventoryCategoryId): boolean {
+  return tool.categories.includes(category);
+}
+
 /** @deprecated Prefer TOOLS_INVENTORY + getInventoryToolsByCategory("video") */
 export const VIDEO_TOOLS_INVENTORY = TOOLS_INVENTORY.filter((tool) =>
-  tool.categories.includes("video"),
+  entryHasCategory(tool, "video"),
 );
 
 export const VIDEO_TOOLS_INVENTORY_IDS = VIDEO_TOOLS_INVENTORY.map((tool) => tool.id);
 
 /** @deprecated Prefer TOOLS_INVENTORY + getInventoryToolsByCategory("pdf") */
 export const PDF_TOOLS_INVENTORY = TOOLS_INVENTORY.filter((tool) =>
-  tool.categories.includes("pdf"),
+  entryHasCategory(tool, "pdf"),
 );
 
 export const PDF_TOOLS_INVENTORY_IDS = PDF_TOOLS_INVENTORY.map((tool) => tool.id);
 
-export type VideoToolsInventoryId = (typeof VIDEO_TOOLS_INVENTORY)[number]["id"];
-export type PdfToolsInventoryId = (typeof PDF_TOOLS_INVENTORY)[number]["id"];
+export type VideoToolsInventoryId = string;
+export type PdfToolsInventoryId = string;
 
 export const PDF_INVENTORY_SECTIONS: {
   id: PdfInventorySectionId;
@@ -395,7 +400,7 @@ export function getPdfToolsInventoryEntry(id: string) {
   return PDF_TOOLS_INVENTORY.find((tool) => tool.id === id);
 }
 
-export function getToolsInventoryEntry(id: string) {
+export function getToolsInventoryEntry(id: string): ToolsInventoryEntry | undefined {
   return TOOLS_INVENTORY.find((tool) => tool.id === id);
 }
 `;

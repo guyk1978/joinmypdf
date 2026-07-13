@@ -180,6 +180,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "string-generator", labelKey: "stringGenerator", categories: [c.utilitiesEncoders] },
   { slug: "text-diff-checker", labelKey: "textDiffChecker", categories: [c.utilitiesText] },
   { slug: "text-diff", labelKey: "textDiff", categories: [c.utilitiesText] },
+  { slug: "text-workspace", labelKey: "textWorkspace", categories: [c.utilitiesText] },
 
   // Data & conversion
   { slug: "yaml-json-converter", labelKey: "yamlJsonConverter", categories: [c.dataConversion] },
@@ -636,6 +637,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
           "string-generator",
           "text-diff-checker",
           "text-diff",
+          "text-workspace",
           "sql-query-formatter",
           "unit-converter",
           "timezone-converter",

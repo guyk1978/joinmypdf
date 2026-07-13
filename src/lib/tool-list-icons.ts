@@ -150,6 +150,7 @@ const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
   "url-encoder-decoder": "link",
   "text-diff-checker": "git-compare",
   "text-diff": "git-compare",
+  "text-workspace": "file-text",
   "string-generator": "dices",
   "html-markdown-converter": "code-xml",
   "word-character-counter": "letter-text",

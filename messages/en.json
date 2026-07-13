@@ -163,6 +163,7 @@
       "urlEncoderDecoder": "URL Encoder/Decoder",
       "textDiffChecker": "Text Diff Checker",
       "textDiff": "Text Diff",
+      "textWorkspace": "Text Workspace",
       "stringGenerator": "String Generator",
       "htmlMarkdownConverter": "HTML/Markdown Converter",
       "wordCharacterCounter": "Word & Character Counter",
@@ -4473,6 +4474,101 @@
         "p4": "Performance expectations should stay honest. Re-encoding is heavier than stream-copy mute or trim. Longer 4K clips take more time and memory. Close other tabs if the browser warns about memory. If a codec cannot be decoded in the wasm build, re-export a common intermediate from your editor, then convert again. Failures that stay local are easier to debug than opaque cloud 500s.",
         "p5": "Compose a local media kit around conversion: convert to MP4 for publish, compress if the CMS size cap bites, trim if only a segment matters, extract MP3 when sound is the deliverable. Keep the camera master offline. Name outputs clearly (`demo-web.mp4`, `hero-vp9.webm`) so teams do not overwrite archives. Teach interns that “free online converter” should mean local-first—not “upload to whoever ranks first.”",
         "p6": "The Free Online Video Format Converter is built for that discipline: Industrial Matte UI, a clear Target Format dropdown, progress while FFmpeg works, and a download when you are done. Convert formats locally without software installs, keep data private, and ship the container your audience can actually play. That is how modern web video should leave your machine—intentionally, on-device, and ready for the open web."
+      }
+    }
+  },
+  "TextWorkspace": {
+    "privacyBanner": "100% Offline-capable. Your text never leaves your browser.",
+    "toolbarLabel": "Text workspace actions",
+    "find": "Find",
+    "replace": "Replace",
+    "lock": "Lock",
+    "unlock": "Unlock",
+    "exportTxt": "Export TXT",
+    "exportMd": "Export Markdown",
+    "loadedProject": "Loaded project: {name}",
+    "findLabel": "Find",
+    "replaceLabel": "Replace with",
+    "matchCount": "{current} / {total}",
+    "matchHint": "Enter text to search",
+    "prev": "Previous",
+    "next": "Next",
+    "replaceOne": "Replace",
+    "replaceAll": "Replace all",
+    "closeFind": "Close",
+    "formatToolbar": "Format selection",
+    "bold": "Bold",
+    "italic": "Italic",
+    "code": "Code",
+    "placeholder": "Start writing… Your draft stays on this device.",
+    "editorLabel": "Text workspace editor",
+    "words": "{count} words",
+    "chars": "{count} characters",
+    "charsNoSpaces": "{count} without spaces",
+    "lockedHint": "Editor locked"
+  },
+  "TextWorkspacePage": {
+    "metaTitle": "Free Online Private Text Editor & Workspace | JoinMyPDF",
+    "metaDescription": "Draft and edit sensitive text in a free online private text editor. Find and replace, word counts, IndexedDB projects, and TXT/Markdown export — 100% local, zero uploads.",
+    "title": "Text Workspace",
+    "description": "A local-first text editor for private drafts: find and replace, live counts, lock mode, project saves, and TXT/Markdown export—without sending a character to a server.",
+    "backToAllTools": "Back to all tools",
+    "backToTextTools": "Back to Text Tools",
+    "privacyBadge": "100% Offline-capable. Your text never leaves your browser.",
+    "schemaName": "Free Online Private Text Editor and Workspace",
+    "schemaDescription": "Free online private text editor and workspace for drafting, find-and-replace, project saves, and TXT/Markdown export. Local browser processing with zero uploads.",
+    "schemaFeatureEditor": "Private browser text workspace",
+    "schemaFeatureFindReplace": "Find and replace with keyboard shortcuts",
+    "schemaFeatureProjects": "Save and resume drafts in IndexedDB",
+    "schemaFeatureExport": "Export as TXT or Markdown",
+    "schemaFeatureOffline": "100% offline-capable local processing",
+    "article": {
+      "title": "Why a local-first text editor is the most secure way to draft sensitive documents",
+      "intro": "Cloud writing suites are convenient, but convenience often means your draft travels through accounts, sync pipes, and vendor storage before you decide whether it is finished. For NDAs, personnel notes, incident write-ups, product strategy, legal outlines, and anything that should stay confidential until publication, that path is a risk. A local-first text workspace flips the default: the document lives in your browser tab and on your device until you deliberately export or copy it. This article explains why that model is safer for sensitive drafting, how browser projects help you manage unfinished work, and which text manipulation habits keep speed without sacrificing privacy.",
+      "localFirstSecurity": {
+        "heading": "Why local-first drafting is safer for sensitive documents",
+        "p1": "Sensitive writing fails quietly. A misplaced paste into a SaaS editor, an auto-save to a shared drive, or a browser extension that indexes every keystroke can expose information long before you click Share. Local-first tools reduce that surface area because there is no upload step in the happy path. Your words stay in memory and, if you choose, in IndexedDB on the same machine. Nothing is mirrored to a remote document store as a side effect of typing.",
+        "p2": "Threat models for drafts are different from threat models for published pages. Before a document is released, it may contain names, internal URLs, unreleased metrics, or customer identifiers that should never appear in vendor logs. Even encrypted cloud docs still create metadata: who edited what, when, and from where. A private browser workspace avoids creating that trail for casual drafting sessions.",
+        "p3": "Security is also about operational simplicity. Teams under pressure reach for whatever editor is open. If the default private option is already in the browser—with find and replace, counts, and export—people are less likely to paste secrets into chatbots or public pads. JoinMyPDF’s Text Workspace is built for that moment: open the page, write, lock if needed, export when ready.",
+        "p4": "Local-first does not mean anti-collaboration forever. It means you choose the moment of exposure. Draft privately, then move a finished artifact into the system of record your organization already trusts. That sequencing is the opposite of sync-everything-first suites that treat every keystroke as cloud state.",
+        "p5": "Finally, offline capability matters during travel, network outages, and air-gapped review sessions. Because the editor does not depend on an API round trip to function, you can keep writing when connectivity is unreliable. That resilience is a security feature as much as a convenience feature: stalled writers take shortcuts.",
+        "p6": "Use lock mode when you step away or when you are reviewing a finished draft. Preventing accidental deletions sounds mundane until a long confidential memo disappears behind an unintended select-all. Small guardrails compound into safer habits."
+      },
+      "browserProjects": {
+        "heading": "Managing projects in your browser with IndexedDB",
+        "p1": "Browser storage has matured beyond throwaway localStorage strings. IndexedDB can hold structured project records and file blobs on the device, which is exactly how JoinMyPDF persists Save Project data for many tools. Text Workspace uses the same pattern: your draft becomes a local project you can reopen later from this browser profile.",
+        "p2": "Treat browser projects as working copies, not archival vaults. They are ideal for multi-session drafting on a trusted machine—incident notes you will finish tomorrow, a Markdown outline you refine over a week, or a replace pass you need to resume after a meeting. For long-term retention, export TXT or Markdown to your encrypted disk or company DMS.",
+        "p3": "Device trust still matters. Anyone with access to your OS user account may access IndexedDB for the same origin. Lock your workstation, use separate browser profiles for personal and work contexts, and clear site data when a shared computer is involved. Local-first privacy assumes a reasonably controlled endpoint.",
+        "p4": "Project resumes should be deliberate. When you reopen a saved draft, verify the project name and skim the beginning of the text before continuing. That habit prevents mixing two confidential threads in the same buffer—an easy mistake when several investigations run in parallel.",
+        "p5": "Because projects never leave the browser to be saved, you also avoid creating silent cloud versions of incomplete thoughts. Incomplete thoughts are often the most sensitive: they include speculation, blame hypotheses, and unfinished remediation plans. Keeping those local until they are reviewed is good security hygiene.",
+        "p6": "If you sync browsers via vendor account features, understand whether site storage syncs with them. Prefer a dedicated profile for confidential drafting when policy requires strict isolation."
+      },
+      "textManipulation": {
+        "heading": "Browser-based text manipulation that stays private",
+        "p1": "Professional drafting needs more than a blank box. Find and replace (Ctrl+F / Ctrl+H) lets you rename a product, scrub a placeholder, or normalize terminology across a long memo without exporting to a desktop suite. Live word and character counts help you hit length targets for filings, abstracts, and social captions without a second tool.",
+        "p2": "Selection-aware formatting actions—wrapping Markdown bold, italic, or code—keep structure lightweight. You are not building a full rich-text bureaucracy; you are marking intent for later rendering or for humans who read Markdown natively. Export to Markdown when the draft should enter a docs repo; export TXT when the consumer expects plain text.",
+        "p3": "Manipulation features should never justify a network call. Every replace pass, count update, and export download can happen with Web APIs already in the browser. That is the difference between a private workspace and a “free editor” that quietly phones home for spellcheck or AI suggestions.",
+        "p4": "Combine Text Workspace with other local JoinMyPDF utilities when the job expands: Text Diff to compare two revisions, Case Converter to normalize headings, Word & Character Counter for a second opinion on length, and Lorem Ipsum when you need layout filler that is obviously fake. Keeping the whole chain local preserves the privacy guarantee end to end.",
+        "p5": "Keyboard-first flows matter for speed. Learn the find/replace shortcuts, lock before reviews, and export with an explicit filename. Rituals reduce accidents more effectively than warnings alone.",
+        "p6": "When you must collaborate, export a clean artifact and share through approved channels. Do not screenshot half-finished panes into chat. The workspace is for composition; your secure messenger or DMS is for distribution."
+      },
+      "whenToUse": {
+        "heading": "When to choose a private text workspace",
+        "p1": "Choose Text Workspace when the draft is confidential, unfinished, or both. Examples include HR notes, security incident narratives, customer escalation summaries, merger talking points, and unreleased product copy. If a leak would cause harm before publication, draft locally first.",
+        "p2": "It is also a strong fit for developers and technical writers who paste logs, configs, or Markdown that should not touch third-party editors. Find and replace across a pasted blob is faster than opening a full IDE when you are already in the browser researching a fix.",
+        "p3": "Skip cloud suites for throwaway secrets: temporary tokens in a troubleshooting note, one-time recovery codes you are reformatting, or customer IDs you are redacting. The fewer systems that ever see the string, the better.",
+        "p4": "When a document must become collaborative, promote it consciously. Export, move into the official template, and apply access controls there. The private workspace is the vestibule, not the permanent home for every file.",
+        "p5": "Mobile and tablet browsers can still benefit from a large editor surface for quick capture. Lock the editor if you hand the device to someone else momentarily. Export when you return to a desktop for heavier revision.",
+        "p6": "If organizational policy forbids storing work data in browsers, follow policy—export immediately to the approved repository and clear site data. Tools should support compliance, not fight it."
+      },
+      "privacyWorkflow": {
+        "heading": "A practical privacy workflow for everyday writing",
+        "p1": "Start with a blank workspace and a clear purpose. Title the eventual export in your head before you type so the draft does not sprawl into multiple topics. Use find and replace to enforce naming consistency early rather than cleaning chaos at the end.",
+        "p2": "Save a project when you pause for more than a few minutes. Resume later, finish the thought, then export. Delete local projects you no longer need so old confidential drafts do not linger indefinitely on shared machines.",
+        "p3": "Before any external share, re-read with lock enabled so you do not edit while skimming. Search for emails, phone numbers, and internal hostnames you intended to redact. Replace them deliberately, then export the clean version.",
+        "p4": "Pair this workspace with JoinMyPDF’s broader local-first stance: process files in the browser, keep uploads off the critical path, and prefer tools that state their privacy boundary in plain language. Trust grows when the product architecture matches the marketing claim.",
+        "p5": "Teach teammates the same sequence—draft local, review locked, export conscious—so private writing becomes culture rather than an individual preference. Culture beats one-off warnings.",
+        "p6": "Sensitive documents deserve a boring, reliable editor more than a flashy cloud canvas. Text Workspace aims for that boring reliability: private by default, capable enough for real drafts, and honest about where your words live."
       }
     }
   }
