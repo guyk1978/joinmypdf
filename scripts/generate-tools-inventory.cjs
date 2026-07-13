@@ -71,6 +71,7 @@ const PDF_SECTIONS = {
     "add-page-numbers",
     "add-watermark",
     "annotate-pdf",
+    "pdf-editor",
     "compare-pdf",
     "pdf-metadata-editor",
     "pdf-text-editor",

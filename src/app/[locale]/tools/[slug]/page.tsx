@@ -73,6 +73,7 @@ import { ReorderPdfPagesWorkspace } from "@/components/ReorderPdfPagesWorkspace"
 import { ExtractPdfPagesWorkspace } from "@/components/ExtractPdfPagesWorkspace";
 import { BatchRenamePdfWorkspace } from "@/components/BatchRenamePdfWorkspace";
 import { PdfTextEditorWorkspace } from "@/components/PdfTextEditorWorkspace";
+import { PdfEditorWorkspace } from "@/components/tools/PdfEditorWorkspace";
 import { ComparePdfWorkspace } from "@/components/ComparePdfWorkspace";
 import { BookletPdfWorkspace } from "@/components/BookletPdfWorkspace";
 import { SafeShareAuditorWorkspace } from "@/components/SafeShareAuditorWorkspace";
@@ -374,6 +375,8 @@ export default async function ToolPage({
           <BatchRenamePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-text-editor" ? (
           <PdfTextEditorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-editor" ? (
+          <PdfEditorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "annotate-pdf" ? (
           <AnnotatePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "reorder-pdf-pages" ? (

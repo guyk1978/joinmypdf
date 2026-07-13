@@ -697,6 +697,16 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "compressPdf",
   },
   {
+    id: "pdf-editor",
+    title: "Free Online PDF Editor - Edit, Annotate, and Sign PDFs Locally",
+    path: "/tools/pdf-editor/",
+    description: "Edit PDF content, perform OCR, and modify documents directly in your browser.",
+    categories: ["pdf"] as const,
+    primaryCategory: "pdf",
+    pdfSection: "securityUtilities",
+    labelKey: "pdfEditor",
+  },
+  {
     id: "pdf-linearization",
     title: "PDF Linearization (Fast Web View)",
     path: "/tools/pdf-linearization/",

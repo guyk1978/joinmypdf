@@ -3940,6 +3940,56 @@
       "updatedAt": "2026-06-02"
     },
     {
+      "slug": "pdf-editor",
+      "category": "edit",
+      "operation": "pdf-editor",
+      "title": "Free Online PDF Editor - Edit, Annotate, and Sign PDFs Locally",
+      "primaryKeyword": "free online pdf editor ocr edit annotate locally",
+      "intent": "Open a PDF in the browser, run OCR, edit extracted text in a rich editor, and download a new PDF locally.",
+      "description": "Edit PDF content, perform OCR, and modify documents directly in your browser.",
+      "secondaryKeywords": [
+        "browser pdf ocr editor privacy",
+        "edit scanned pdf online local",
+        "tiptap pdf editor no upload"
+      ],
+      "useCases": [
+        "OCR a scanned contract and fix typos before sharing",
+        "Edit extracted text styling, then download a clean PDF",
+        "Review the original page beside an editable text view"
+      ],
+      "relatedTools": [
+        "annotate-pdf",
+        "pdf-to-text",
+        "pdf-text-editor",
+        "sign-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. OCR and PDF generation run in Web Workers inside your browser. Your file never leaves your device."
+        },
+        {
+          "q": "How does the advanced editor work?",
+          "a": "Upload a PDF, run OCR with tesseract.js, edit the extracted text in the rich editor, then Save & Download a new PDF built with pdf-lib."
+        },
+        {
+          "q": "Can I see the original PDF while editing?",
+          "a": "Yes. Reference View shows the original page on the left while Edit View keeps the editable text on the right."
+        },
+        {
+          "q": "Will the UI freeze during OCR?",
+          "a": "Heavy OCR and PDF export run in Web Workers with a Processing progress bar so the main UI stays responsive."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.91,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-13"
+    },
+    {
       "slug": "reorder-pdf-pages",
       "category": "edit",
       "operation": "reorder-pdf-pages",

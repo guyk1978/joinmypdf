@@ -196,6 +196,7 @@
       "signPdf": "Sign PDF",
       "pdfSignatureValidator": "PDF Signature Validator",
       "annotatePdf": "Annotate PDF",
+      "pdfEditor": "PDF Editor",
       "comparePdf": "Compare PDF",
       "pdfToBooklet": "PDF to Booklet",
       "batchRenamePdf": "Batch Rename PDF",
@@ -862,7 +863,8 @@
       "json-to-csv": "Convert JSON to CSV Online",
       "json-minifier": "Free JSON Minifier Online",
       "csv-to-json": "Convert CSV to JSON Online",
-      "html-markdown-converter": "HTML/Markdown Converter Online"
+      "html-markdown-converter": "HTML/Markdown Converter Online",
+      "pdf-editor": "PDF Editor Online"
     }
   },
   "SearchPage": {
@@ -4571,5 +4573,115 @@
         "p6": "Sensitive documents deserve a boring, reliable editor more than a flashy cloud canvas. Text Workspace aims for that boring reliability: private by default, capable enough for real drafts, and honest about where your words live."
       }
     }
+  },
+  "PdfEditor": {
+    "privacyBanner": "All processing happens 100% locally on your device.",
+    "passwordLabel": "PDF password",
+    "rerunOcr": "Re-run OCR",
+    "saveDownload": "Save & Download",
+    "saving": "Saving…",
+    "statusProcessing": "Processing…",
+    "statusPreparing": "Preparing pages for OCR…",
+    "statusRenderingPage": "Rendering page {current} of {total}…",
+    "statusOcrStarting": "Starting OCR worker…",
+    "statusOcrPage": "OCR page {current} of {total}…",
+    "statusOcrDone": "OCR complete for this page. Edit the text or move to another page.",
+    "statusEnterPassword": "Enter the PDF password to run OCR.",
+    "statusExporting": "Building PDF in a worker…",
+    "statusSaving": "Finalizing PDF…",
+    "statusDownloaded": "Edited PDF downloaded as {name}.",
+    "referenceViewLabel": "Reference view",
+    "referenceViewTitle": "Reference View",
+    "editViewLabel": "Edit view",
+    "editViewTitle": "Edit View",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "pageOf": "Page {current} of {total}",
+    "loadingPreview": "Loading preview…",
+    "editorPlaceholder": "OCR text appears here for editing",
+    "initializingEditor": "Initializing Editor...",
+    "formatToolbar": "Text formatting",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "heading": "Heading",
+    "bulletList": "Bullet list",
+    "orderedList": "Numbered list",
+    "clearFile": "Clear file",
+    "hardReset": "Hard Reset",
+    "stateStatus": "Status: {state}",
+    "statusPageProgress": "Page {current} of {total}...",
+    "statusOcrFailed": "OCR failed on page {page}.",
+    "statusParseFailed": "Failed to parse PDF.",
+    "retryPage": "Retry Page {page}",
+    "statusRetryingPage": "Retrying processing for page {page}...",
+    "statusLoadingLanguages": "Loading language packs (Hebrew + English)…",
+    "privacyBadge": "All processing happens 100% locally on your device.",
+    "generatingPdf": "Generating PDF...",
+    "statusGenerating": "Generating PDF..."
+  },
+  "PdfEditorPage": {
+    "metaTitle": "Free Online PDF Editor - Edit, Annotate, and Sign PDFs Locally",
+    "metaDescription": "Edit PDF content with browser OCR, a rich text editor, and local pdf-lib export. Reference View + Edit View — 100% local, never uploaded.",
+    "title": "PDF Editor",
+    "description": "Upload a PDF, run OCR, edit and style the extracted text beside the original page, then Save & Download a new PDF—entirely in your browser.",
+    "backToPdfTools": "Back to PDF Tools",
+    "privacyBadge": "100% Local PDF Editor. Your documents are processed securely in your browser and never uploaded.",
+    "schemaName": "Free Online PDF Editor",
+    "schemaDescription": "Advanced OCR-based PDF editor: extract text with tesseract.js, edit in a rich text editor, and generate a new PDF with pdf-lib — 100% local.",
+    "schemaFeatureEdit": "Open PDF and review pages in Reference View",
+    "schemaFeatureLocal": "100% local processing with no uploads",
+    "schemaFeatureDownload": "Save and download a new PDF from edited content",
+    "article": {
+      "title": "Why OCR-based browser PDF editing is essential for sensitive document security",
+      "intro": "Scanned contracts, faxed forms, and image-only PDFs still dominate sensitive workflows—and they usually have no selectable text layer. The old shortcut was to upload them to a cloud OCR suite. That expands custody risk. JoinMyPDF’s Advanced OCR-based Editor keeps the entire path local: render pages in the browser, run tesseract.js OCR inside a Web Worker, edit the result in a rich text view beside the original Reference View, and rebuild a downloadable PDF with pdf-lib—without uploading a byte.",
+      "browserSecurity": {
+        "heading": "The security case for editing PDFs in the browser",
+        "p1": "Sensitive PDFs fail at the boundary between convenience and custody. A scanned passport page, a board resolution, or a customer contract with pricing tables should not become someone else's temporary object storage just because you needed a five-word annotation. Upload-based editors create a second copy outside your device. Even when vendors promise deletion, you still accepted transit, decryption at their edge, and whatever retention window their infrastructure uses. Local browser editing removes that second copy from the happy path.",
+        "p2": "Threat models for document editing are broader than malware. Insider risk, misconfigured buckets, support tooling that can open customer uploads, and legal discovery of vendor logs all become relevant once a file leaves your laptop. Client-side processing with libraries such as pdf-lib and PDF.js keeps bytes in memory and in a download you initiate. There is no mandatory server round trip to apply text or a PNG signature.",
+        "p3": "Browser sandboxes are not perfect, but they are familiar and auditable for many teams. Enterprise browsers already enforce extension policy, memory isolation, and disk encryption on managed endpoints. Pairing those controls with a no-upload PDF editor means your existing device posture covers the edit step instead of inventing a new cloud trust relationship for every stamp.",
+        "p4": "Compliance language often focuses on storage and transfer. If your policy says customer PDFs must not leave the corporate boundary without DLP review, an upload editor is a policy incident waiting to happen. A local editor lets staff complete low-risk overlays—name, date, initials image—without opening a ticket or violating the letter of the rule.",
+        "p5": "Security is also about reducing accidental exposure. People under deadline paste files into whichever site ranks first. Clear privacy banners and Industrial Matte UI that state processed in your browser set expectations before the first click. Honest architecture plus honest copy beats marketing that claims privacy while shipping multipart form uploads.",
+        "p6": "Finally, local editing survives offline and poor networks. Air-gapped review rooms, travel Wi-Fi, and locked-down VPNs still need to annotate a PDF. When the tool does not depend on an API key or upload queue, the security workflow remains available when connectivity is intentionally limited."
+      },
+      "localEditing": {
+        "heading": "How local OCR editing works without uploading",
+        "p1": "The advanced editor loads the PDF as binary data, renders pages for Reference View, and sends page images to an OCR worker. Extracted text populates Edit View. When you Save & Download, an export worker builds a new PDF from your edited blocks.",
+        "p2": "Normalized coordinates matter because preview pixels and PDF page points are different spaces. Mapping click position to fractions of page width and height keeps placement stable when the canvas scales. The same math lets you preview overlays on top of the rendered page before committing them into the file.",
+        "p3": "Password-protected PDFs remain a special case. If a document is encrypted, the editor may ask for the password locally to decrypt in memory, apply overlays, and write an output. The password never needs to leave the device for a routine overlay job. That is a different posture from cloud editors that must receive both the file and the secret.",
+        "p4": "Undo and page navigation keep the workflow practical. Real documents are multi-page; signatures live on page seven, captions on page two. Editing one page at a time with a clear overlay count reduces mistakes without requiring a heavyweight desktop suite.",
+        "p5": "Local editing is intentionally scoped. It is not a full desktop publishing rewrite of every glyph. It shines at additive tasks: stamps, short notes, and signature images. For deep redaction, comparison, or structural reorganization, pair it with other local JoinMyPDF tools rather than forcing one surface to do everything.",
+        "p6": "Because the download is a normal PDF, recipients do not need a special viewer. Embedded text and images appear wherever Acrobat, Preview, or mobile PDF apps open the file. That interoperability is the point of baking overlays into page content instead of relying on proprietary annotation servers."
+      },
+      "whenToUse": {
+        "heading": "When a local PDF editor is the right tool",
+        "p1": "Use a browser-local PDF editor when the document is sensitive and the edit is additive: place text, place an image, download. Contracts awaiting a wet-look signature image, internal forms needing a date stamp, and scanned packets needing a short clarifying caption are ideal.",
+        "p2": "It is also appropriate when policy forbids uploading customer data to consumer SaaS. Legal, finance, healthcare-adjacent, and government-adjacent teams often need a compliant path for adding a name on page three without a cloud hop.",
+        "p3": "Choose specialized local tools when the job is different. Redact for irreversible blackout, compare for visual diffs, reorder for page sequence, and protect or unlock for encryption. The editor sits in the annotate-and-sign lane.",
+        "p4": "Avoid local overlay editing when you need collaborative simultaneous markup with identity-backed audit trails. Those workflows belong in controlled enterprise systems—after you have finished private prep locally if required.",
+        "p5": "Mobile browsers can handle light placements, but complex multi-overlay jobs are easier on a desktop with a large preview. Export once you are satisfied; do not leave confidential drafts in random Downloads folders unnamed.",
+        "p6": "If a vendor contract requires their hosted e-sign platform, follow the contract. Use the local editor for drafts and internal copies, then complete official execution in the mandated system."
+      },
+      "privacyWorkflow": {
+        "heading": "A practical privacy workflow for everyday PDF edits",
+        "p1": "Start by confirming the file is the correct revision. Open it locally, skim page count, and navigate to the target page before choosing Add Text or Add Image. Rushing placement on the wrong PDF wastes time and risks sending the wrong artifact.",
+        "p2": "Keep the privacy banner visible as a habit cue: if a site cannot explain local processing in one sentence, do not upload sensitive PDFs there. Prefer tools that state the boundary in the UI next to the upload zone.",
+        "p3": "Place overlays deliberately. Enter text, set size and color, click once. For images, choose the file, confirm the preview cursor mode, click once, then undo if alignment is off. Save and Download only after the overlay count matches your intent.",
+        "p4": "Name the output with a clear suffix such as edited and store it in the approved records location. Delete temporary signature copies from Downloads if policy requires. Clear the workspace when finished on a shared machine.",
+        "p5": "Teach teammates the sequence—local open, place, save, store—so privacy becomes culture. Pair the editor with other JoinMyPDF PDF tools so people do not fall back to random upload sites for adjacent tasks.",
+        "p6": "Sensitive document security is mostly about defaults. When the default editor never uploads, most ordinary annotate-and-sign jobs stop creating unnecessary copies. That is the quiet win of browser-based PDF editing done honestly."
+      },
+      "ocrEditing": {
+        "heading": "OCR, rich text, and local PDF rebuild",
+        "p1": "Optical character recognition turns page images into editable prose. Running tesseract.js in a Web Worker keeps the main UI responsive while a Processing progress bar shows page-by-page status. You are never left guessing whether the tab froze.",
+        "p2": "After OCR, Edit View loads a TipTap rich text editor so you can fix misreads, apply bold or italics, and restructure headings before export. Reference View keeps the original page visible so you can verify against the source layout.",
+        "p3": "Export is also worker-backed. pdf-lib lays out your edited blocks into a fresh PDF on a background thread, then triggers a normal browser download. Interactive controls stay disabled only while a task is active.",
+        "p4": "This model is ideal for scanned packets that need light correction—not for redesigning every graphic on a marketing brochure. Pair it with Annotate PDF or Sign PDF when you need marks on the original page image.",
+        "p5": "Language packs for English and Hebrew ship from the same origin as the app so Cross-Origin Embedder Policy does not block OCR data fetches.",
+        "p6": "Cap OCR to a practical page budget on very long files so memory stays predictable. Re-run OCR after entering a password if the first pass could not decrypt protected pages."
+      }
+    },
+    "schemaFeatureOcr": "Browser OCR with tesseract.js in a Web Worker",
+    "schemaFeatureRichText": "Edit and style extracted text in Edit View"
   }
 }

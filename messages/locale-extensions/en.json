@@ -5826,6 +5826,10 @@
       "pdf-metadata-editor": {
         "title": "Drop your PDF here or click to browse",
         "description": "Edit title, author, subject, keywords, creator, and producer—saved locally in your browser."
+      },
+      "pdf-editor": {
+        "title": "Drop a PDF here or click to browse",
+        "description": "Run OCR, edit extracted text in the rich editor, and download a new PDF—processed locally in your browser."
       }
     },
     "buttons": {

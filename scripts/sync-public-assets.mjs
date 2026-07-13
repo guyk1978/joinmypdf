@@ -113,7 +113,35 @@ for (const filename of pwaIconFiles) {
 
 await copyFile(path.join(root, "sw.js"), path.join(publicDir, "sw.js"));
 
+// Tesseract.js worker + WASM core (same-origin; avoids CDN CORS on nested Workers)
+async function syncTesseractAssets() {
+  const dest = path.join(publicDir, "tesseract");
+  const langDest = path.join(dest, "lang-data");
+  await mkdir(dest, { recursive: true });
+  await mkdir(langDest, { recursive: true });
+
+  await copyFile(
+    path.join(root, "node_modules", "tesseract.js", "dist", "worker.min.js"),
+    path.join(dest, "worker.min.js"),
+  );
+
+  const coreDir = path.join(root, "node_modules", "tesseract.js-core");
+  const coreEntries = await readdir(coreDir);
+  for (const name of coreEntries) {
+    if (!name.startsWith("tesseract-core")) continue;
+    if (!name.endsWith(".js") && !name.endsWith(".wasm")) continue;
+    await copyFile(path.join(coreDir, name), path.join(dest, name));
+  }
+
+  for (const name of ["eng.traineddata.gz", "heb.traineddata.gz"]) {
+    await copyFile(path.join(root, "assets", "tessdata", name), path.join(langDest, name));
+  }
+}
+
+await syncTesseractAssets();
+
 await mkdir(path.join(publicDir, "tools"), { recursive: true });
 await copyFile(toolsHubSrc, toolsHubPublic);
 
 console.log("Synced assets → public/ after purging generated route artifacts.");
+console.log("Synced tesseract.js worker/core/lang-data → public/tesseract/");
