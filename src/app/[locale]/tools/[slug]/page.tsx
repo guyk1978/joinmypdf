@@ -26,6 +26,7 @@ import { SvgToPngWorkspace } from "@/components/SvgToPngWorkspace";
 import { ImageGrayscaleWorkspace } from "@/components/ImageGrayscaleWorkspace";
 import { FlipImageWorkspace } from "@/components/FlipImageWorkspace";
 import { ImageMetadataEditorWorkspace } from "@/components/ImageMetadataEditorWorkspace";
+import { ImageMetadataWiperWorkspace } from "@/components/ImageMetadataWiperWorkspace";
 import { ImageOptimizerWorkspace } from "@/components/ImageOptimizerWorkspace";
 import { PaintOnImageWorkspace } from "@/components/PaintOnImageWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
@@ -85,12 +86,16 @@ import { FaviconCompressorWorkspace } from "@/components/FaviconCompressorWorksp
 import { FaviconCodeGeneratorWorkspace } from "@/components/FaviconCodeGeneratorWorkspace";
 import { FaviconPreviewerWorkspace } from "@/components/FaviconPreviewerWorkspace";
 import { JsonFormatterWorkspace } from "@/components/JsonFormatterWorkspace";
+import { JsonCsvExplorerWorkspace } from "@/components/JsonCsvExplorerWorkspace";
 import { JsonToCsvWorkspace } from "@/components/JsonToCsvWorkspace";
 import { JsonMinifierWorkspace } from "@/components/JsonMinifierWorkspace";
 import { CsvToJsonWorkspace } from "@/components/CsvToJsonWorkspace";
 import { Base64EncoderDecoderWorkspace } from "@/components/Base64EncoderDecoderWorkspace";
 import { UrlEncoderDecoderWorkspace } from "@/components/UrlEncoderDecoderWorkspace";
+import { UrlParameterStripperWorkspace } from "@/components/UrlParameterStripperWorkspace";
 import { TextDiffCheckerWorkspace } from "@/components/TextDiffCheckerWorkspace";
+import { TextSanitizerWorkspace } from "@/components/TextSanitizerWorkspace";
+import { ReadabilityAnalyzerWorkspace } from "@/components/ReadabilityAnalyzerWorkspace";
 import { StringGeneratorWorkspace } from "@/components/StringGeneratorWorkspace";
 import { LoremIpsumGeneratorWorkspace } from "@/components/LoremIpsumGeneratorWorkspace";
 import { HtmlMarkdownConverterWorkspace } from "@/components/HtmlMarkdownConverterWorkspace";
@@ -429,6 +434,8 @@ export default async function ToolPage({
           <FlipImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "image-metadata-editor" ? (
           <ImageMetadataEditorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-metadata-wiper" ? (
+          <ImageMetadataWiperWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "image-optimizer" ? (
           <ImageOptimizerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "paint-on-image" ? (
@@ -497,6 +504,8 @@ export default async function ToolPage({
           <FaviconPreviewerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "json-formatter" ? (
           <JsonFormatterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "json-csv-explorer" ? (
+          <JsonCsvExplorerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "json-to-csv" ? (
           <JsonToCsvWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "json-minifier" ? (
@@ -507,8 +516,12 @@ export default async function ToolPage({
           <Base64EncoderDecoderWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "url-encoder-decoder" ? (
           <UrlEncoderDecoderWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "url-parameter-stripper" ? (
+          <UrlParameterStripperWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "text-diff-checker" || tool.operation === "text-diff" ? (
           <TextDiffCheckerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "text-sanitizer" ? (
+          <TextSanitizerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "string-generator" ? (
           <StringGeneratorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "lorem-ipsum-generator" ? (
@@ -545,6 +558,8 @@ export default async function ToolPage({
           <TimezoneConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "reading-time-calculator" ? (
           <ReadingTimeCalculatorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "readability-analyzer" ? (
+          <ReadabilityAnalyzerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "custom-paper-margin" ? (
           <CustomPaperMarginWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-watermark" ? (

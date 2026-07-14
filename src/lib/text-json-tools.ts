@@ -2,16 +2,20 @@ import { registry } from "@/lib/registry";
 
 export type HomeTextJsonToolId =
   | "json-formatter"
+  | "json-csv-explorer"
   | "json-to-csv"
   | "json-minifier"
   | "csv-to-json"
   | "base64-encoder-decoder"
   | "url-encoder-decoder"
+  | "url-parameter-stripper"
   | "text-diff-checker"
   | "text-diff"
+  | "text-sanitizer"
   | "string-generator"
   | "html-markdown-converter"
-  | "word-character-counter";
+  | "word-character-counter"
+  | "readability-analyzer";
 
 export type HomeTextJsonToolIconKey =
   | "braces"
@@ -21,9 +25,11 @@ export type HomeTextJsonToolIconKey =
   | "binary"
   | "link"
   | "git-compare"
+  | "eraser"
   | "dices"
   | "code-xml"
-  | "letter-text";
+  | "letter-text"
+  | "gauge";
 
 export type HomeTextJsonToolItem = {
   id: HomeTextJsonToolId;
@@ -38,16 +44,20 @@ const TEXT_JSON_TOOL_META: Record<
   { iconKey: HomeTextJsonToolIconKey; messageKey: string }
 > = {
   "json-formatter": { iconKey: "braces", messageKey: "jsonFormatter" },
+  "json-csv-explorer": { iconKey: "table", messageKey: "jsonCsvExplorer" },
   "json-to-csv": { iconKey: "table", messageKey: "jsonToCsv" },
   "json-minifier": { iconKey: "minimize-2", messageKey: "jsonMinifier" },
   "csv-to-json": { iconKey: "file-json", messageKey: "csvToJson" },
   "base64-encoder-decoder": { iconKey: "binary", messageKey: "base64EncoderDecoder" },
   "url-encoder-decoder": { iconKey: "link", messageKey: "urlEncoderDecoder" },
+  "url-parameter-stripper": { iconKey: "link", messageKey: "urlParameterStripper" },
   "text-diff-checker": { iconKey: "git-compare", messageKey: "textDiffChecker" },
   "text-diff": { iconKey: "git-compare", messageKey: "textDiff" },
+  "text-sanitizer": { iconKey: "eraser", messageKey: "textSanitizer" },
   "string-generator": { iconKey: "dices", messageKey: "stringGenerator" },
   "html-markdown-converter": { iconKey: "code-xml", messageKey: "htmlMarkdownConverter" },
   "word-character-counter": { iconKey: "letter-text", messageKey: "wordCharacterCounter" },
+  "readability-analyzer": { iconKey: "gauge", messageKey: "readabilityAnalyzer" },
 };
 
 export const HOME_TEXT_JSON_TOOL_IDS = Object.keys(TEXT_JSON_TOOL_META) as HomeTextJsonToolId[];

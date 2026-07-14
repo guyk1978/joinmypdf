@@ -54,6 +54,7 @@ const SLUG_ICON_KEYS: Record<string, ImageToolIconKey> = {
   "image-grayscale": "eye-off",
   "flip-image": "arrow-left-right",
   "image-metadata-editor": "tags",
+  "image-metadata-wiper": "eye-off",
   "image-optimizer": "minimize-2",
   "svg-optimizer": "minimize-2",
   "paint-on-image": "pen-line",
@@ -69,6 +70,7 @@ const DIRECTORY_ORDER: Record<ImageSubCategory, readonly string[]> = {
     "svg-to-png",
     "image-grayscale",
     "image-metadata-editor",
+    "image-metadata-wiper",
   ],
   optimize: ["compress-image", "image-optimizer", "svg-optimizer"],
 };

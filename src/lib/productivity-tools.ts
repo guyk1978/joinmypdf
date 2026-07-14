@@ -5,6 +5,7 @@ export type HomeProductivityToolId =
   | "timezone-converter"
   | "word-character-counter"
   | "reading-time-calculator"
+  | "readability-analyzer"
   | "case-converter"
   | "lorem-ipsum-generator";
 
@@ -13,6 +14,7 @@ export type HomeProductivityToolIconKey =
   | "clock"
   | "letter-text"
   | "book-open"
+  | "gauge"
   | "file-type-2";
 
 export type HomeProductivityToolItem = {
@@ -29,6 +31,7 @@ const PRODUCTIVITY_TOOL_META: Record<
 > = {
   "lorem-ipsum-generator": { iconKey: "letter-text", messageKey: "loremIpsumGenerator" },
   "case-converter": { iconKey: "file-type-2", messageKey: "caseConverter" },
+  "readability-analyzer": { iconKey: "gauge", messageKey: "readabilityAnalyzer" },
   "reading-time-calculator": { iconKey: "book-open", messageKey: "readingTimeCalculator" },
   "word-character-counter": { iconKey: "letter-text", messageKey: "wordCharacterCounter" },
   "unit-converter": { iconKey: "scale", messageKey: "unitConverter" },
@@ -39,6 +42,7 @@ const PRODUCTIVITY_ITEMS_NS = "productivityTools";
 
 /** Homepage preview order — newest tools first so they appear without expanding. */
 export const HOME_PRODUCTIVITY_TOOL_IDS: HomeProductivityToolId[] = [
+  "readability-analyzer",
   "lorem-ipsum-generator",
   "case-converter",
   "reading-time-calculator",

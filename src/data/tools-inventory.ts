@@ -458,6 +458,15 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "imageMetadataEditor",
   },
   {
+    id: "image-metadata-wiper",
+    title: "Image Metadata & Privacy Wiper",
+    path: "/tools/image-metadata-wiper/",
+    description: "Drop a JPG or PNG, review detected metadata like GPS and camera model, then wipe EXIF/IPTC/XMP and download a clean image without resizing — 100% local.",
+    categories: ["image", "security"] as const,
+    primaryCategory: "image",
+    labelKey: "imageMetadataWiper",
+  },
+  {
     id: "image-optimizer",
     title: "Universal Image Optimizer & Converter",
     path: "/tools/image-optimizer/",
@@ -503,6 +512,15 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     categories: ["developer", "json"] as const,
     primaryCategory: "json",
     labelKey: "jsonFormatter",
+  },
+  {
+    id: "json-csv-explorer",
+    title: "JSON/CSV Data Beautifier & Explorer",
+    path: "/tools/json-csv-explorer/",
+    description: "Paste raw JSON or CSV, search a tree/table explorer, pick columns, copy paths, and download a filtered result — 100% local.",
+    categories: ["developer", "json", "text"] as const,
+    primaryCategory: "json",
+    labelKey: "jsonCsvExplorer",
   },
   {
     id: "json-minifier",
@@ -934,6 +952,16 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "readingTimeCalculator",
   },
   {
+    id: "readability-analyzer",
+    title: "Smart Readability & Complexity Analyzer",
+    path: "/tools/readability-analyzer/",
+    description:
+      "Check readability score, reading time, long sentences, complex words, simpler synonyms, and draft tone — 100% local in your browser.",
+    categories: ["productivity", "text"] as const,
+    primaryCategory: "text",
+    labelKey: "readabilityAnalyzer",
+  },
+  {
     id: "redact-pdf",
     title: "Redact PDF",
     path: "/tools/redact-pdf/",
@@ -1085,6 +1113,15 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "textDiff",
   },
   {
+    id: "text-sanitizer",
+    title: "Text Sanitizer",
+    path: "/tools/text-sanitizer/",
+    description: "Paste messy text from PDFs, OCR, or clipboard paste. Join soft-wrapped lines, normalize whitespace, remove invisible Unicode, fix Hebrew punctuation drift, and copy a clean result — 100% in your browser.",
+    categories: ["text"] as const,
+    primaryCategory: "text",
+    labelKey: "textSanitizer",
+  },
+  {
     id: "text-diff-checker",
     title: "Text Diff Checker",
     path: "/tools/text-diff-checker/",
@@ -1156,6 +1193,15 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     categories: ["text", "developer"] as const,
     primaryCategory: "developer",
     labelKey: "urlEncoderDecoder",
+  },
+  {
+    id: "url-parameter-stripper",
+    title: "URL Parameter Stripper",
+    path: "/tools/url-parameter-stripper/",
+    description: "Privacy-friendly link stripper: paste a long URL, strip utm_*, fbclid, gclid, ref, and similar trackers, decode percent-encoding, and copy a clean URL — 100% local.",
+    categories: ["text", "developer"] as const,
+    primaryCategory: "developer",
+    labelKey: "urlParameterStripper",
   },
   {
     id: "user-agent-parser",

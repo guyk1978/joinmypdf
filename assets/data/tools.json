@@ -2536,6 +2536,61 @@
       "updatedAt": "2026-07-09"
     },
     {
+      "slug": "image-metadata-wiper",
+      "category": "image-tools",
+      "subCategory": "convert",
+      "operation": "image-metadata-wiper",
+      "title": "Image Metadata & Privacy Wiper",
+      "primaryKeyword": "remove EXIF data online",
+      "intent": "Strip GPS, device, and other EXIF metadata from photos locally — a privacy-friendly image sanitizer that never uploads your files.",
+      "description": "Drop a JPG or PNG, review detected metadata like GPS and camera model, then wipe EXIF/IPTC/XMP and download a clean image without resizing or quality loss.",
+      "secondaryKeywords": [
+        "strip image metadata",
+        "privacy-friendly image sanitizer",
+        "remove photo GPS location",
+        "clean image exif"
+      ],
+      "useCases": [
+        "Remove GPS location before posting photos publicly",
+        "Strip camera and software tags from portfolio exports",
+        "Sanitize client images before sharing in tickets or email"
+      ],
+      "relatedTools": [
+        "image-metadata-editor",
+        "compress-image",
+        "remove-hidden-metadata"
+      ],
+      "faq": [
+        {
+          "q": "What is EXIF data?",
+          "a": "EXIF is hidden metadata embedded in photos — camera model, capture time, GPS coordinates, software used, and more. It travels with the image even when you only see the picture."
+        },
+        {
+          "q": "Are my photos uploaded to a server?",
+          "a": "No. Inspection and wiping run entirely in your browser. Images never leave your device."
+        },
+        {
+          "q": "Does this tool resize my image?",
+          "a": "No. JPEG metadata is removed without re-encoding pixels. PNG metadata chunks are stripped while pixel data stays intact — dimensions and quality remain unchanged."
+        },
+        {
+          "q": "Which formats are supported?",
+          "a": "JPG/JPEG and PNG. Use those formats for the most private, quality-preserving wipe."
+        },
+        {
+          "q": "Is the Image Metadata Wiper free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.81,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-14"
+    },
+    {
       "slug": "image-optimizer",
       "category": "image-tools",
       "subCategory": "optimize",
@@ -4756,6 +4811,65 @@
       "updatedAt": "2026-06-30"
     },
     {
+      "slug": "json-csv-explorer",
+      "category": "convert",
+      "operation": "json-csv-explorer",
+      "title": "JSON/CSV Data Beautifier & Explorer",
+      "primaryKeyword": "online JSON viewer",
+      "intent": "Beautify JSON, explore CSV in a searchable tree/table, filter columns, and export cleaned data — all locally in your browser.",
+      "description": "Paste raw JSON or CSV into an online JSON viewer and CSV data explorer. Search keys and values, collapse branches, pick columns, copy JSON paths, and download a filtered result with zero uploads.",
+      "secondaryKeywords": [
+        "beautify JSON",
+        "CSV data explorer",
+        "filter CSV online",
+        "JSON tree viewer"
+      ],
+      "useCases": [
+        "Audit API payloads before documenting endpoints",
+        "Filter CSV columns for a quick analyst export",
+        "Copy nested JSON paths while debugging app code"
+      ],
+      "relatedTools": [
+        "json-formatter",
+        "json-to-csv",
+        "csv-to-json",
+        "json-minifier"
+      ],
+      "faq": [
+        {
+          "q": "Is the data processed locally?",
+          "a": "Yes. Parsing, search, filtering, and export run entirely in your browser. Nothing is uploaded."
+        },
+        {
+          "q": "Does this support large files?",
+          "a": "Yes, within your device memory. The explorer uses virtualized lists so the UI stays responsive while scanning large trees and tables."
+        },
+        {
+          "q": "How do I filter nested data?",
+          "a": "Use live search to highlight matching keys/values (nested branches expand automatically). Use the column picker to keep only selected object keys or CSV columns before Extract & Download."
+        },
+        {
+          "q": "What does Copy Path do?",
+          "a": "Click a JSON key to copy its full path (for example user.profile.settings.theme) to your clipboard for use in code."
+        },
+        {
+          "q": "Can I sort CSV columns?",
+          "a": "Yes. Click a column header in the table view to sort ascending or descending, optionally after filtering with search."
+        },
+        {
+          "q": "Is the JSON/CSV Explorer free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.72,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-14"
+    },
+    {
       "slug": "json-to-csv",
       "category": "convert",
       "operation": "json-to-csv",
@@ -5235,6 +5349,119 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-07-12"
+    },
+    {
+      "slug": "text-sanitizer",
+      "category": "convert",
+      "operation": "text-sanitizer",
+      "title": "Text Sanitizer",
+      "primaryKeyword": "text sanitizer online",
+      "intent": "Clean PDF-extracted and OCR text locally — fix line breaks, trim spaces, strip invisible characters, and repair Hebrew punctuation.",
+      "description": "Paste messy text from PDFs, OCR, or clipboard paste. Join soft-wrapped lines, normalize whitespace, remove invisible Unicode, fix Hebrew punctuation drift, and copy a clean result — 100% in your browser.",
+      "secondaryKeywords": [
+        "clean pdf text",
+        "remove invisible characters",
+        "fix hebrew punctuation",
+        "ocr text cleanup"
+      ],
+      "useCases": [
+        "Clean copy-pasted PDF and Word export text",
+        "Repair OCR line-break and spacing noise",
+        "Fix Hebrew RTL punctuation after extraction"
+      ],
+      "relatedTools": [
+        "text-diff",
+        "text-workspace",
+        "word-character-counter",
+        "case-converter"
+      ],
+      "faq": [
+        {
+          "q": "Is my text uploaded to a server?",
+          "a": "No. Cleanup runs entirely in your browser. Nothing is uploaded."
+        },
+        {
+          "q": "What does Fix line breaks do?",
+          "a": "It joins soft-wrapped lines that do not end with sentence punctuation (., !, ?) so paragraphs read as continuous prose again."
+        },
+        {
+          "q": "What are invisible characters?",
+          "a": "Zero-width spaces, BOM markers, soft hyphens, and other non-printable Unicode that often hitch a ride from PDFs and office apps and break rendering or search."
+        },
+        {
+          "q": "How does Hebrew punctuation fixing work?",
+          "a": "It moves sentence-ending marks that landed at the start of a Hebrew line back to the logical end — a common LTR/RTL drift after copy-paste."
+        },
+        {
+          "q": "Is the Text Sanitizer free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.64,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-14"
+    },
+    {
+      "slug": "url-parameter-stripper",
+      "category": "convert",
+      "operation": "url-parameter-stripper",
+      "title": "URL Parameter Stripper",
+      "primaryKeyword": "clean URL generator",
+      "intent": "Remove UTM tracking and other query clutter from links, then optionally decode percent-encoded characters — entirely in your browser.",
+      "description": "Privacy-friendly link stripper: paste a long URL, strip utm_*, fbclid, gclid, ref, and similar trackers, decode %20-style encoding into readable text, and copy a clean URL with zero uploads.",
+      "secondaryKeywords": [
+        "privacy-friendly link stripper",
+        "remove UTM tracking",
+        "strip url parameters",
+        "clean tracking links"
+      ],
+      "useCases": [
+        "Clean marketing links before sharing publicly",
+        "Remove Facebook and Google click IDs from bookmarks",
+        "Decode percent-encoded URLs for readable presentation"
+      ],
+      "relatedTools": [
+        "url-encoder-decoder",
+        "base64-encoder-decoder",
+        "text-sanitizer"
+      ],
+      "faq": [
+        {
+          "q": "Is my URL sent to a server?",
+          "a": "No. Stripping and decoding run entirely in your browser. Nothing is uploaded."
+        },
+        {
+          "q": "What is a UTM parameter?",
+          "a": "UTM parameters (utm_source, utm_medium, utm_campaign, and related keys) are marketing tags appended to links so analytics tools can attribute clicks. They do not change the destination page, but they reveal campaign context and bloat shared URLs."
+        },
+        {
+          "q": "Which tracking parameters are removed?",
+          "a": "All utm_* keys, plus common markers such as fbclid, gclid, gbraid, wbraid, msclkid, ref, and similar referral or ad click IDs. Useful non-tracking query values are kept."
+        },
+        {
+          "q": "What does Decode URL do?",
+          "a": "It runs decodeURIComponent on path and remaining query parts so sequences like %20 become readable spaces — useful for presentation without changing stripped tracking removal."
+        },
+        {
+          "q": "What is Auto-Strip on paste?",
+          "a": "When enabled, pasting a URL into the input immediately runs Strip & Clean so long tracked links are cleaned in one gesture."
+        },
+        {
+          "q": "Is the URL Parameter Stripper free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.63,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-14"
     },
     {
       "slug": "text-workspace",
@@ -6133,6 +6360,7 @@
       ],
       "relatedTools": [
         "word-character-counter",
+        "readability-analyzer",
         "unit-converter"
       ],
       "faq": [
@@ -6156,6 +6384,65 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "readability-analyzer",
+      "category": "convert",
+      "operation": "readability-analyzer",
+      "title": "Smart Readability & Complexity Analyzer",
+      "primaryKeyword": "readability score checker",
+      "intent": "Score reading ease, flag long sentences and complex words, suggest simpler synonyms, and estimate tone — entirely in your browser.",
+      "description": "Free readability score checker and content clarity tool. Paste drafting copy to get a Flesch Reading Ease score, reading time, complexity highlights, simplification suggestions, and a basic tone gauge — with zero uploads.",
+      "secondaryKeywords": [
+        "content clarity tool",
+        "text difficulty analyzer",
+        "simplify my writing",
+        "Flesch reading ease online"
+      ],
+      "useCases": [
+        "Audit blog posts for accessible reading levels before publish",
+        "Simplify dense product copy with synonym suggestions",
+        "Check whether draft tone reads professional, casual, or academic"
+      ],
+      "relatedTools": [
+        "reading-time-calculator",
+        "word-character-counter",
+        "text-sanitizer",
+        "case-converter"
+      ],
+      "faq": [
+        {
+          "q": "What does the readability score mean?",
+          "a": "The score uses the Flesch Reading Ease formula on a 0–100 scale. Higher scores are easier to read. Rough guide: 90+ very easy, 60–70 plain English, below 50 denser or more specialized writing."
+        },
+        {
+          "q": "Can this help my SEO?",
+          "a": "Clearer pages tend to keep readers engaged longer. The analyzer helps you shorten long sentences and swap difficult words so content is easier to scan — a practical step for content clarity and on-page SEO workflows."
+        },
+        {
+          "q": "Does it work in languages other than English/Hebrew?",
+          "a": "Reading time and long-sentence checks work on word counts for any language. Syllable complexity, Flesch Scoring, synonym suggestions, and tone markers are tuned for English. Hebrew and other scripts still get reading-time and sentence-length feedback."
+        },
+        {
+          "q": "Is the data processed locally?",
+          "a": "Yes. Analysis runs entirely in your browser. Your draft is never uploaded."
+        },
+        {
+          "q": "What is Tone Analysis?",
+          "a": "A lightweight vocabulary gauge that leans Professional, Casual, Academic, or Neutral based on marker words in the text. It is a drafting signal, not a formal linguistics classifier."
+        },
+        {
+          "q": "Is the Readability Analyzer free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.74,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-14"
     },
     {
       "slug": "lorem-ipsum-generator",

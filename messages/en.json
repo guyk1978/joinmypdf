@@ -139,6 +139,7 @@
       "imageGrayscale": "Image Grayscale",
       "flipImage": "Flip Image",
       "imageMetadataEditor": "Image Metadata Editor",
+      "imageMetadataWiper": "Image Metadata Wiper",
       "imageOptimizer": "Image Optimizer",
       "paintOnImage": "Paint on Image",
       "imageToPdf": "Image to PDF",
@@ -156,13 +157,16 @@
       "faviconCodeGenerator": "Favicon Code Generator",
       "faviconPreviewer": "Favicon Previewer",
       "jsonFormatter": "JSON Formatter",
+      "jsonCsvExplorer": "JSON/CSV Explorer",
       "jsonToCsv": "JSON to CSV",
       "jsonMinifier": "JSON Minifier",
       "csvToJson": "CSV to JSON",
       "base64EncoderDecoder": "Base64 Encoder/Decoder",
       "urlEncoderDecoder": "URL Encoder/Decoder",
+      "urlParameterStripper": "URL Parameter Stripper",
       "textDiffChecker": "Text Diff Checker",
       "textDiff": "Text Diff",
+      "textSanitizer": "Text Sanitizer",
       "textWorkspace": "Text Workspace",
       "stringGenerator": "String Generator",
       "htmlMarkdownConverter": "HTML/Markdown Converter",
@@ -180,6 +184,7 @@
       "unitConverter": "Unit Converter",
       "timezoneConverter": "Timezone Converter",
       "readingTimeCalculator": "Reading Time Calculator",
+      "readabilityAnalyzer": "Readability Analyzer",
       "caseConverter": "Case Converter",
       "loremIpsumGenerator": "Lorem Ipsum Generator",
       "colorConverter": "Color Converter",
@@ -488,6 +493,10 @@
           "label": "Image Metadata Editor",
           "description": "View and edit EXIF metadata or strip hidden photo data locally."
         },
+        "imageMetadataWiper": {
+          "label": "Image Metadata Wiper",
+          "description": "Inspect GPS and camera tags, then wipe EXIF for a privacy-clean JPG or PNG."
+        },
         "imageOptimizer": {
           "label": "Image Optimizer",
           "description": "Batch-convert and optimize images to WebP, JPG, or PNG in your browser."
@@ -564,6 +573,10 @@
           "label": "JSON Formatter",
           "description": "Paste raw JSON, validate syntax, and copy a clean indented result."
         },
+        "jsonCsvExplorer": {
+          "label": "JSON/CSV Explorer",
+          "description": "Beautify JSON, explore CSV tables, filter columns, and export cleaned data locally."
+        },
         "jsonToCsv": {
           "label": "JSON to CSV",
           "description": "Flatten nested JSON and export a standard CSV file with automatic headers."
@@ -584,6 +597,10 @@
           "label": "URL Encoder/Decoder",
           "description": "Encode and decode URL strings for query parameters, SEO, and safe data transfer."
         },
+        "urlParameterStripper": {
+          "label": "URL Parameter Stripper",
+          "description": "Remove UTM tracking and click IDs, decode percent-encoding, and copy a clean privacy-friendly URL."
+        },
         "textDiffChecker": {
           "label": "Text Diff Checker",
           "description": "Compare two text versions side by side with clear additions and deletions."
@@ -591,6 +608,10 @@
         "textDiff": {
           "label": "Text Diff",
           "description": "Real-time side-by-side text comparison with green additions and red deletions."
+        },
+        "textSanitizer": {
+          "label": "Text Sanitizer",
+          "description": "Clean PDF-extracted and OCR text — fix line breaks, spaces, invisible chars, and Hebrew punctuation."
         },
         "stringGenerator": {
           "label": "String Generator",
@@ -603,6 +624,10 @@
         "wordCharacterCounter": {
           "label": "Word & Character Counter",
           "description": "Count characters, words, paragraphs, and reading time in real time — supports English and Hebrew."
+        },
+        "readabilityAnalyzer": {
+          "label": "Readability Analyzer",
+          "description": "Score reading ease, highlight complex wording, suggest simpler alternatives, and check draft tone."
         }
       }
     },
@@ -675,6 +700,10 @@
         "readingTimeCalculator": {
           "label": "Reading Time Calculator",
           "description": "Estimate reading time for articles and scripts."
+        },
+        "readabilityAnalyzer": {
+          "label": "Readability Analyzer",
+          "description": "Score reading ease, flag complex wording, suggest simpler alternatives, and check draft tone."
         },
         "caseConverter": {
           "label": "Case Converter",
@@ -1516,6 +1545,79 @@
     "selectFile": "Select image from device",
     "selectFileAria": "Select an image to edit EXIF metadata"
   },
+  "ImageMetadataWiper": {
+    "dropTitle": "Drop a photo to inspect privacy metadata",
+    "selectLabel": "Select JPG or PNG from device",
+    "dropHint": "JPG, PNG",
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "findingsTitle": "Detected metadata",
+    "noMetadata": "No sensitive metadata was found in this image.",
+    "inspecting": "Scanning metadata…",
+    "wiping": "Wiping metadata and preparing download…",
+    "wipeButton": "Wipe & Download Clean Image",
+    "clearButton": "Clear",
+    "errorUnsupported": "Please choose a JPG or PNG image.",
+    "errorEmpty": "That file is empty. Choose another image.",
+    "errorGeneric": "Could not process this image. Try another JPG or PNG.",
+    "successHint": "Clean image downloaded as {name}.",
+    "findings": {
+      "gps": "GPS location found",
+      "device": "Device model found",
+      "datetime": "Capture date/time found",
+      "software": "Editing software found",
+      "author": "Author / artist found",
+      "copyright": "Copyright tag found",
+      "orientation": "Orientation tag found",
+      "generic": "Additional metadata tags found"
+    }
+  },
+  "ImageMetadataWiperPage": {
+    "metaTitle": "Remove EXIF Data Online | Image Metadata Privacy Wiper | JoinMyPDF",
+    "metaDescription": "Privacy-friendly image sanitizer. Strip GPS, camera, and EXIF metadata from JPG/PNG locally — remove EXIF data online without uploads or quality loss.",
+    "title": "Image Metadata & Privacy Wiper",
+    "description": "Inspect photos for GPS, device, and other hidden tags, then wipe EXIF/IPTC/XMP and download a clean image — entirely in your browser, without resizing.",
+    "faqHeading": "Image Metadata Wiper FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first photo privacy cleanup.",
+    "schemaName": "Image Metadata & Privacy Wiper",
+    "schemaDescription": "Strip image metadata and remove EXIF data online with a privacy-friendly local sanitizer for JPG and PNG.",
+    "schemaFeatureInspect": "Detect GPS, camera, and related EXIF findings",
+    "schemaFeatureWipe": "Strip EXIF, IPTC, and XMP-style metadata",
+    "schemaFeatureQuality": "Preserve dimensions and pixel quality",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Why stripping image metadata protects your privacy",
+      "intro": "Modern cameras and phones embed far more than pixels. EXIF and related metadata can reveal where a photo was taken, which device captured it, when it was shot, and which software touched it. A privacy-friendly image sanitizer lets you strip that trail before you publish, send, or archive photos — without uploading files to a remote cleaner.",
+      "exifRisks": {
+        "heading": "EXIF risks: location tracking and digital fingerprints",
+        "p1": "GPS coordinates in photo EXIF can expose home addresses, travel patterns, or client sites. Even without maps open, many social platforms and messaging apps retain original files long enough for someone with export access to recover coordinates.",
+        "p2": "Device model, serial-adjacent lens data, and software tags create a fingerprint that can link photos across posts. Stripping metadata does not anonymize faces, but it removes easy machine-readable identifiers that travel with the file.",
+        "p3": "Capture timestamps can also leak schedules. If you share screenshots or product shots captured on-site, wiping date and GPS together is a practical digital-safety habit.",
+        "p4": "Removing EXIF is essential whenever an image leaves a trusted device — portfolio sites, marketplaces, tickets, email, and public CDNs."
+      },
+      "howItWorks": {
+        "heading": "How this privacy wiper works",
+        "p1": "After you drop a JPG or PNG, JoinMyPDF reads metadata locally with an EXIF parser and lists findings such as GPS location or device model.",
+        "p2": "Wipe & Download Clean Image removes EXIF for JPEG without re-encoding pixels, and strips PNG text/time/EXIF chunks while keeping image data intact — so dimensions and visual quality stay the same.",
+        "p3": "Nothing is uploaded. Large photos are processed in your browser; keep one file at a time for the smoothest experience on constrained devices.",
+        "p4": "Need to edit copyright fields instead of wiping everything? Use the Image Metadata Editor tool for surgical EXIF changes."
+      },
+      "howToUse": {
+        "heading": "How to use the Image Metadata Wiper",
+        "p1": "Drop a JPG or PNG into the zone, or select a file from your device.",
+        "p2": "Review the detected metadata list. If GPS or device tags appear, treat the file as sensitive until wiped.",
+        "p3": "Click Wipe & Download Clean Image. Your browser downloads a cleaned copy; the rating panel unlocks after a successful wipe and download.",
+        "p4": "Clear resets the session on shared computers. Prefer clean downloads over re-sharing the original attachment."
+      },
+      "privacy": {
+        "heading": "Why local-first metadata wiping matters",
+        "p1": "Photos often contain personal or client context that should never sit in a third-party upload log. A local stripper keeps bytes in the page process.",
+        "p2": "Local-first also means no account wall and no per-file upload quotas for everyday sanitizing.",
+        "p3": "Combine wiping with compress or resize only after privacy cleanup if you need both smaller files and clean metadata.",
+        "p4": "Used regularly, a private image sanitizer becomes part of a safer publish-and-share workflow alongside JoinMyPDF’s other local tools."
+      }
+    }
+  },
   "ImageOptimizer": {
     "dropTitle": "Drop images here or click to browse",
     "dropHint": "JPG, PNG, WebP, HEIC, GIF — batch-convert and optimize locally in your browser.",
@@ -1994,6 +2096,76 @@
     "copyFailed": "Could not copy to the clipboard. Select the output and copy manually.",
     "emptyInput": "JSON input is empty."
   },
+  "JsonCsvExplorer": {
+    "inputLabel": "Raw JSON or CSV",
+    "inputPlaceholder": "Paste JSON or CSV here…",
+    "formatAuto": "Auto-detect",
+    "formatJson": "JSON",
+    "formatCsv": "CSV",
+    "parseButton": "Beautify & Explore",
+    "clearButton": "Clear",
+    "searchLabel": "Live search",
+    "searchPlaceholder": "Search keys and values…",
+    "columnPickerTitle": "Column / key picker",
+    "selectAll": "Select all",
+    "selectNone": "Select none",
+    "explorerTitle": "Interactive explorer",
+    "emptyHint": "Parse data on the left to open the searchable tree or CSV table.",
+    "errorEmpty": "Paste JSON or CSV to explore.",
+    "errorInvalid": "Could not parse that input as JSON or CSV.",
+    "exportButton": "Extract & Download",
+    "copyPathHint": "Click a JSON key to copy its full path.",
+    "pathCopied": "Path copied to clipboard.",
+    "rowsLabel": "{count} rows visible",
+    "privacyLabel": "Local Processing. Nothing is uploaded."
+  },
+  "JsonCsvExplorerPage": {
+    "metaTitle": "Online JSON Viewer & CSV Explorer | Beautify & Filter | JoinMyPDF",
+    "metaDescription": "Online JSON viewer and CSV data explorer. Beautify JSON, search nested data, filter CSV online, pick columns, copy key paths, and download cleaned results — 100% local.",
+    "title": "JSON/CSV Data Beautifier & Explorer",
+    "description": "Paste raw JSON or CSV, explore a searchable tree or sortable table, pick the columns you need, and download a cleaned export — entirely in your browser.",
+    "faqHeading": "JSON/CSV Explorer FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first data exploration.",
+    "schemaName": "JSON/CSV Data Beautifier & Explorer",
+    "schemaDescription": "Beautify JSON and explore CSV with search, column filtering, path copy, and local export.",
+    "schemaFeatureViewer": "Online JSON viewer with collapsible tree",
+    "schemaFeatureSearch": "Live search across keys and values",
+    "schemaFeatureFilter": "Column picker and CSV sort/filter export",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Quick data audits for analysts and developers",
+      "intro": "Raw API dumps and exported spreadsheets are hard to scan in a text editor. An online JSON viewer and CSV data explorer let you beautify structure, search nested fields, and export only the columns you need — without uploading sensitive datasets to a remote workspace.",
+      "audits": {
+        "heading": "Using this explorer for quick audits",
+        "p1": "Paste a payload, parse it, and scan the tree for unexpected nulls, oversized arrays, or misnamed keys before you write parsing code.",
+        "p2": "For CSV extracts from BI tools, sort a column and filter with live search to verify a slice of rows before sharing a cleaned file.",
+        "p3": "Copy Path to Key speeds up coding: click user.profile.settings.theme-style paths and paste them into your app or tests.",
+        "p4": "Keep exports lean with the column picker so stakeholders receive only relevant fields."
+      },
+      "nestedData": {
+        "heading": "Filtering nested JSON and CSV columns",
+        "p1": "Live search expands matching JSON branches so you can jump to nested hits without manually opening every object.",
+        "p2": "The column picker gathers object keys across the payload (and CSV headers) so you can keep only the fields you want in Extract & Download.",
+        "p3": "CSV mode offers sortable headers plus search filtering over cell values for an analyst-friendly table view.",
+        "p4": "Virtualized rendering keeps the UI responsive while you explore larger trees and tables on-device."
+      },
+      "howToUse": {
+        "heading": "How to use this JSON/CSV explorer",
+        "p1": "Paste JSON or CSV on the left. Choose Auto-detect or force a format, then click Beautify & Explore.",
+        "p2": "Search keys/values, collapse branches, sort CSV headers, and toggle columns in the picker.",
+        "p3": "Click a JSON key to copy its full path. When ready, click Extract & Download for a filtered file.",
+        "p4": "After you search or filter and export, the rating panel unlocks for optional feedback."
+      },
+      "privacy": {
+        "heading": "Why local-first exploration matters",
+        "p1": "Customer exports and internal configs should not sit in someone else’s upload logs. Local parsing keeps bytes in the page process.",
+        "p2": "There is no account wall or server size quota — limits are your device memory.",
+        "p3": "Pair with JSON Formatter or JSON to CSV when you need a simpler one-purpose conversion after exploration.",
+        "p4": "Used regularly, a private explorer becomes part of a safer QA and analytics workflow on JoinMyPDF."
+      }
+    }
+  },
   "JsonToCsv": {
     "inputLabel": "JSON input",
     "inputPlaceholder": "Paste a JSON array or object here…",
@@ -2061,6 +2233,232 @@
     "emptyHint": "Paste text in both panes — the diff updates in real time.",
     "statsLabel": "+{added} added · −{removed} removed · {unchanged} unchanged",
     "privacyLabel": "Local Processing. Nothing is uploaded."
+  },
+  "UrlParameterStripper": {
+    "inputLabel": "URL to clean",
+    "inputPlaceholder": "Paste a long tracked URL here…",
+    "decodeLabel": "Decode URL (make %20 and other encodings readable)",
+    "autoStripLabel": "Auto-Strip on paste",
+    "stripButton": "Strip & Clean",
+    "clearButton": "Clear",
+    "outputLabel": "Clean URL",
+    "copyButton": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Could not copy. Select the output and copy manually.",
+    "removedLabel": "Removed parameters",
+    "emptyHint": "Paste a URL, optionally enable Decode URL, then click Strip & Clean.",
+    "errorEmpty": "Enter a URL to strip.",
+    "errorInvalid": "That does not look like a valid URL.",
+    "unchangedHint": "No tracking parameters were found (decode may still have changed the text).",
+    "privacyLabel": "Local Processing. Nothing is uploaded."
+  },
+  "UrlParameterStripperPage": {
+    "metaTitle": "Clean URL Generator | Remove UTM Tracking | JoinMyPDF",
+    "metaDescription": "Privacy-friendly link stripper. Remove UTM tracking, fbclid, gclid, and other query clutter, decode percent-encoded URLs, and copy a clean link — 100% local, zero uploads.",
+    "title": "URL Parameter Stripper & Decoder",
+    "description": "Strip tracking parameters from long marketing links, optionally decode percent-encoded characters into readable text, and copy a clean URL — entirely in your browser.",
+    "faqHeading": "URL Parameter Stripper FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first URL cleanup.",
+    "schemaName": "URL Parameter Stripper & Decoder",
+    "schemaDescription": "Clean URL generator and privacy-friendly link stripper that removes UTM tracking and click IDs locally in your browser.",
+    "schemaFeatureStrip": "Remove utm_*, fbclid, gclid, ref, and related trackers",
+    "schemaFeatureDecode": "Decode percent-encoded URL characters",
+    "schemaFeatureAuto": "Optional auto-strip on paste",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Clean URLs for privacy and presentation",
+      "intro": "Shared links often carry campaign tags and click identifiers that survive far beyond the original ad or email. A privacy-friendly link stripper removes that query-string bloat so the destinations you publish look professional, reveal less about how you found the page, and paste cleanly into slides, docs, and messages. This clean URL generator also offers optional decoding so percent-encoded paths become readable without leaving your device.",
+      "privacyLinks": {
+        "heading": "Why clean URLs improve privacy and presentation",
+        "p1": "UTM tags and click IDs are useful for marketers measuring campaigns, but they are rarely useful when you bookmark a page or send a colleague a reference. Forwarding a link with utm_campaign and fbclid attached can leak referral context and make the URL look spammy in chat previews.",
+        "p2": "Stripping trackers keeps the protocol, host, and path intact while deleting the analytics baggage. Readers still land on the same article or product page without inheriting your campaign fingerprint.",
+        "p3": "Cleaner links also look better in presentations and printed materials. Short, intentional query strings (like id= or page=) stay when they are not known trackers, so functional deep links remain usable.",
+        "p4": "Because stripping runs locally, confidential internal URLs never leave the browser during cleanup."
+      },
+      "utmTracking": {
+        "heading": "What UTM and click IDs actually do",
+        "p1": "UTM parameters tell analytics platforms which source, medium, and campaign drove a visit. They do not change page content. Other platforms append their own tokens—Facebook’s fbclid, Google’s gclid, Microsoft’s msclkid, and many more.",
+        "p2": "Removing those keys is safe whenever you care about the destination rather than attributed acquisition. If you still need attribution for your own campaigns, keep a tracked copy privately and share the stripped version externally.",
+        "p3": "Decode URL turns %20 and similar encodings into readable characters for inspection. Re-sharing after decode is fine for human readability; some systems still prefer encoded spaces when the URL must be machine-parsed strictly.",
+        "p4": "Auto-Strip on paste accelerates repetitive cleanup: enable it, paste a tracked link, and the clean URL appears immediately."
+      },
+      "howToUse": {
+        "heading": "How to use this URL Parameter Stripper",
+        "p1": "Paste the full URL into the input field. Enable Decode URL if you want percent-encoding expanded into readable text.",
+        "p2": "Click Strip & Clean. Review the clean URL, note which parameters were removed, and copy the result.",
+        "p3": "Optionally enable Auto-Strip on paste for rapid cleanup of multiple links. Clear resets the session on shared machines.",
+        "p4": "After a successful strip, the rating and review block unlocks so you can leave quick product feedback."
+      },
+      "privacy": {
+        "heading": "Why local-first link stripping matters",
+        "p1": "URLs can contain account IDs, document tokens, or private hostnames. Sending them to a remote cleaner creates unnecessary retention risk. A local stripper keeps every character in the page process.",
+        "p2": "No account wall or upload policy applies—paste, strip, and copy. Extremely exotic URI schemes still depend on what the browser’s URL parser accepts.",
+        "p3": "Pair this tool with URL Encoder/Decoder when you need to rebuild query values deliberately after inspection.",
+        "p4": "Used regularly, a private link stripper becomes part of a safer sharing workflow alongside JoinMyPDF’s other local utilities."
+      }
+    }
+  },
+  "TextSanitizer": {
+    "inputLabel": "Input text",
+    "inputPlaceholder": "Paste PDF-extracted, OCR, or clipboard text here…",
+    "optionsTitle": "Cleanup options",
+    "optionFixLineBreaks": "Fix line breaks (join soft wraps)",
+    "optionRemoveExtraSpaces": "Remove extra spaces and tabs",
+    "optionCleanInvisible": "Clean invisible characters",
+    "optionFixHebrew": "Fix Hebrew punctuation (RTL)",
+    "cleanButton": "Clean & Fix",
+    "clearButton": "Clear",
+    "outputLabel": "Cleaned output",
+    "copyButton": "Copy to clipboard",
+    "copied": "Copied",
+    "copyFailed": "Could not copy. Select the output and copy manually.",
+    "diffLabel": "Changes preview",
+    "emptyHint": "Paste text, choose cleanup options, then click Clean & Fix.",
+    "errorEmpty": "Enter some text to sanitize.",
+    "unchangedHint": "No line-level differences after cleanup (invisible changes may still apply).",
+    "privacyLabel": "Local Processing. Nothing is uploaded."
+  },
+  "TextSanitizerPage": {
+    "metaTitle": "Text Sanitizer Online | Clean PDF & OCR Text | JoinMyPDF",
+    "metaDescription": "Free local text sanitizer. Fix line breaks, remove extra spaces, strip invisible Unicode, and repair Hebrew punctuation from PDF extraction — zero uploads.",
+    "title": "Text Sanitizer",
+    "description": "Clean messy text from PDFs, OCR, and clipboard pastes. Join soft-wrapped lines, normalize whitespace, remove invisible characters, and fix Hebrew punctuation — entirely in your browser.",
+    "faqHeading": "Text Sanitizer FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first text cleanup.",
+    "schemaName": "Text Sanitizer",
+    "schemaDescription": "Clean PDF-extracted and OCR text locally: fix line breaks, normalize spaces, strip invisible characters, and repair Hebrew punctuation drift.",
+    "schemaFeatureLineBreaks": "Join soft-wrapped lines without sentence punctuation",
+    "schemaFeatureSpaces": "Normalize double spaces, tabs, and trailing whitespace",
+    "schemaFeatureInvisible": "Strip invisible and non-printable Unicode",
+    "schemaFeatureHebrew": "Fix Hebrew sentence punctuation LTR/RTL drift",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Cleaning PDF-extracted and OCR text without uploads",
+      "intro": "Copied PDF paragraphs and OCR exports rarely look like the original document. Soft line wraps break mid-sentence, tabs and double spaces scatter alignment, zero-width characters wreck search and paste targets, and Hebrew punctuation often drifts to the wrong side after an LTR clipboard hop. A local Text Sanitizer repairs those artifacts on your device so you can move clean prose into Word, Markdown, CMS fields, or translation workflows without sending confidential drafts to a remote cleanup API.",
+      "pdfExtraction": {
+        "heading": "Why PDF text extraction breaks paragraphs",
+        "p1": "Most PDF viewers copy text as visual lines, not logical paragraphs. That means every hard wrap in the page layout becomes a newline in your clipboard—even when the sentence is unfinished. Rejoining those soft wraps restores readability and improves spell-check and search. Sentence-ending punctuation (periods, question marks, exclamation points, and Hebrew sofim marks) is the reliable signal for where a real break should stay.",
+        "p2": "Tables, captions, and multi-column layouts complicate extraction further. Prefer cleaning one paragraph region at a time when the export mixes body copy with headers and footers. After sanitation, skim the diff preview to catch joins that should have stayed separate—like address lines or code samples.",
+        "p3": "Office exports and email forwards produce related noise: trailing spaces, tab-indented lines, and blank-line storms. Normalizing whitespace keeps semantics while making the paste look intentional in any editor.",
+        "p4": "Because JoinMyPDF runs the sanitizer locally, you can clean contracts, medical notes, and internal policies without creating a third-party retention trail."
+      },
+      "invisibleChars": {
+        "heading": "Invisible characters and rendering bugs",
+        "p1": "Zero-width spaces, byte-order marks, soft hyphens, and other non-printable Unicode often sneak in from PDFs, Word, and web rich-text. They are easy to miss visually but break CSS wrapping, equality checks, string search, and regex validation. Stripping them early saves hours of “why doesn’t this match?” debugging.",
+        "p2": "Non-breaking spaces from justified layouts can also look like ordinary spaces while refusing to wrap. Converting them to regular spaces during cleanup keeps layout tools predictable.",
+        "p3": "Control characters outside tabs and newlines rarely belong in prose. Removing them is safe for drafting and CMS paste; keep a raw backup if you are inspecting binary-adjacent data.",
+        "p4": "Use the changes preview after Clean & Fix to confirm only invisible or wrapping artifacts moved—not substance you intended to keep."
+      },
+      "hebrewRtl": {
+        "heading": "Hebrew punctuation and RTL/LTR drift",
+        "p1": "When Hebrew text passes through LTR editors or PDF extractors, sentence punctuation often lands at the start of the line instead of the logical end. Readers then see “.זה משפט” instead of “זה משפט.”. The Hebrew cleanup option relocates those markers for Hebrew-bearing lines while leaving Latin-only lines alone.",
+        "p2": "Spaces before terminal punctuation are another common extraction artifact. Collapsing “מילה .” to “מילה.” restores expected orthography for publishing and TTS.",
+        "p3": "Always review edge cases in poetry, Bible references, or mixed Hebrew/English sentences. Toggle the Hebrew option off when a document intentionally places punctuation for stylistic bidirectional effects.",
+        "p4": "Pair this tool with Text Diff when you need a side-by-side audit of a larger rewrite after sanitation."
+      },
+      "howToUse": {
+        "heading": "How to use this Text Sanitizer",
+        "p1": "Paste your text into the large input area. In Cleanup Options, enable the repairs you need—most PDF and OCR pastes benefit from all four defaults.",
+        "p2": "Click Clean & Fix. Review the cleaned output, copy it to your clipboard, and optionally scan the changes preview for joined lines and removed noise.",
+        "p3": "Clear resets the session on shared machines. No files leave your browser at any step.",
+        "p4": "After a successful clean, the rating and review block unlocks so you can leave quick product feedback without interrupting the cleanup flow."
+      },
+      "privacy": {
+        "heading": "Why local-first text cleanup matters",
+        "p1": "Paste cleanup often includes proprietary copy, customer data, and unfinished legal language. Remote “text cleaner” services create avoidable retention risk. A local engine keeps bytes in the page process.",
+        "p2": "Local-first also means no account wall and no upload size policy for everyday drafts. Extremely large documents still depend on device memory—sanitize the excerpt you need when possible.",
+        "p3": "Combine sanitation with redaction before sharing screenshots of cleaned output. Prefer sharing conclusions over raw confidential text.",
+        "p4": "Used regularly, a private sanitizer becomes part of a safer PDF-to-editor pipeline alongside merge, OCR, and diff tools on JoinMyPDF."
+      }
+    }
+  },
+  "ReadabilityAnalyzer": {
+    "inputLabel": "Draft text",
+    "inputPlaceholder": "Paste an article, landing page, email, or product copy to analyze…",
+    "analyzeButton": "Analyze readability",
+    "clearButton": "Clear",
+    "emptyHint": "Paste text on the left, then click Analyze readability to open the score dashboard.",
+    "errorEmpty": "Enter some text to analyze.",
+    "scoreTitle": "Readability score",
+    "scoreOf": "of 100",
+    "readingTimeTitle": "Estimated reading time",
+    "readingTimeValue": "{minutes} min",
+    "complexityTitle": "Complexity analysis",
+    "longSentencesLabel": "Long sentences (over 20 words): {count}",
+    "complexWordsLabel": "Complex words (3+ syllables or dictionary hits): {count}",
+    "noIssues": "No long sentences or complex words flagged.",
+    "suggestionsTitle": "Simplicity suggestions",
+    "suggestionArrow": "→",
+    "suggestionCount": "×{count}",
+    "noSuggestions": "No dictionary swaps found — try editing long sentences first.",
+    "toneTitle": "Tone analysis",
+    "toneProfessional": "Professional",
+    "toneCasual": "Casual",
+    "toneAcademic": "Academic",
+    "toneNeutral": "Neutral",
+    "levelVeryEasy": "Very easy",
+    "levelEasy": "Easy",
+    "levelFairlyEasy": "Fairly easy",
+    "levelStandard": "Standard",
+    "levelFairlyDifficult": "Fairly difficult",
+    "levelDifficult": "Difficult",
+    "levelVeryDifficult": "Very difficult",
+    "statsWords": "{count} words",
+    "statsSentences": "{count} sentences",
+    "statsSyllables": "{count} syllables",
+    "legendLong": "Long sentence",
+    "legendComplex": "Complex word",
+    "privacyLabel": "Local Processing. Nothing is uploaded."
+  },
+  "ReadabilityAnalyzerPage": {
+    "metaTitle": "Readability Score Checker Online | Content Clarity Tool | JoinMyPDF",
+    "metaDescription": "Free readability score checker and text difficulty analyzer. Get Flesch Reading Ease, reading time, long-sentence highlights, simpler word suggestions, and tone — 100% local.",
+    "title": "Smart Readability & Complexity Analyzer",
+    "description": "Paste drafting copy into this content clarity tool to score reading ease, estimate reading time, highlight difficult wording, suggest simpler alternatives, and gauge whether the tone leans professional, casual, or academic — entirely in your browser.",
+    "faqHeading": "Readability Analyzer FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first readability analysis.",
+    "schemaName": "Smart Readability & Complexity Analyzer",
+    "schemaDescription": "Online readability score checker with complexity highlights, simplification suggestions, reading time, and tone analysis — processed locally.",
+    "schemaFeatureScore": "Flesch Reading Ease score (0–100)",
+    "schemaFeatureComplexity": "Highlight long sentences and complex words",
+    "schemaFeatureSimplify": "Suggest simpler synonym alternatives",
+    "schemaFeatureTone": "Tone gauge: professional, casual, or academic",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Why clear writing boosts engagement and SEO",
+      "intro": "Readers bounce when sentences wander past twenty words and when jargon stacks up without payoff. A readability score checker gives you a fast second pass before you hit publish: measure difficulty, surface the worst sentences, and simplify vocabulary while the draft still lives on your machine.",
+      "whyClarity": {
+        "heading": "Clarity as an engagement signal",
+        "p1": "Accessible prose does not mean dumbing content down. It means matching sentence length and word choice to the audience so skimming scanners and careful readers both finish the page. When average words-per-sentence drifts high, comprehension and dwell time usually droop together.",
+        "p2": "Complex words with many syllables slow scanning, especially on mobile. Flagging them visually helps writers decide which terms must stay (brand or legal language) and which can become everyday vocabulary.",
+        "p3": "Use the score as a trend line across drafts, not an absolute grade. A technical white paper that lands near 45 can still be right for experts while a homepage hero at 45 is likely too dense.",
+        "p4": "Pair this analyzer with word count and reading-time tools when you are shaping newsletter length or onboarding copy."
+      },
+      "howToUse": {
+        "heading": "How to use this readability analyzer",
+        "p1": "Paste your draft into the large input. Click Analyze readability. The dashboard shows the Flesch Reading Ease score, estimated reading time at about 200 WPM, complexity counts, synonym suggestions, and a tone gauge.",
+        "p2": "Yellow highlights mark sentences over 20 words. Red highlights mark complex words (more than three syllables) or dictionary-matched hard vocabulary. Edit in place and re-analyze until the flags shrink.",
+        "p3": "Apply simplicity suggestions where the easier synonym still fits your voice. Keep specialized terms when accuracy matters more than grade level.",
+        "p4": "The rating and review block stays hidden until you generate your first analysis report, so feedback never interrupts an unfinished audit."
+      },
+      "seoAccess": {
+        "heading": "Content clarity and SEO workflows",
+        "p1": "Search engines reward pages people actually read. A text difficulty analyzer will not replace keyword research, but it catches copy that is needlessly hard for the searcher who just typed a question.",
+        "p2": "Landing pages, help docs, and product descriptions benefit most: short sentences, concrete verbs, and fewer nominalizations. Aim for a standard or fairly-easy band unless the audience is specialized.",
+        "p3": "Tone analysis is a drafting signal. If marketing copy spikes Academic markers, rewrite toward Professional or Casual before design reviews.",
+        "p4": "Re-run the analyzer after major edits. Scores drift when you merge paragraphs or restore jargon under a deadline."
+      },
+      "privacy": {
+        "heading": "Why analyze drafts locally",
+        "p1": "Pre-publish drafts often include unreleased product details, pricing experiments, and customer language. Uploading them to a remote checker creates retention risk you do not need.",
+        "p2": "JoinMyPDF runs syllable estimates, Flesch scoring, and synonym lookup in the browser. Nothing is sent to a server for scoring.",
+        "p3": "Large pastes still depend on device memory. Analyze the section you are polishing when files are huge.",
+        "p4": "Combine local readability checks with Text Sanitizer when pasted PDF or OCR text is still full of soft wraps and invisible characters."
+      }
+    }
   },
   "TextDiffPage": {
     "metaTitle": "Text Diff Online | Compare Code & Config Files | JoinMyPDF",
@@ -2816,11 +3214,14 @@
       "wordCharacterCounter": "Word & Character Counter",
       "textDiffChecker": "Text Diff Checker",
       "textDiff": "Text Diff",
+      "textSanitizer": "Text Sanitizer",
       "stringGenerator": "String Generator",
       "readingTimeCalculator": "Reading Time Calculator",
+      "readabilityAnalyzer": "Readability Analyzer",
       "htmlMarkdownConverter": "HTML / Markdown Converter",
       "base64EncoderDecoder": "Base64 Encoder / Decoder",
-      "urlEncoderDecoder": "URL Encoder / Decoder"
+      "urlEncoderDecoder": "URL Encoder / Decoder",
+      "urlParameterStripper": "URL Parameter Stripper"
     }
   },
   "FaviconToolsPage": {
