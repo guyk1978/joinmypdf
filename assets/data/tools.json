@@ -6649,8 +6649,9 @@
         "Estimate land area across unit systems"
       ],
       "relatedTools": [
-        "reading-time-calculator",
-        "word-character-counter"
+        "global-timezone-converter",
+        "timezone-converter",
+        "reading-time-calculator"
       ],
       "faq": [
         {
@@ -6693,7 +6694,7 @@
         "Track family or partner time zones"
       ],
       "relatedTools": [
-        "reading-time-calculator",
+        "global-timezone-converter",
         "unit-converter"
       ],
       "faq": [
@@ -6717,6 +6718,186 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "storage-data-converter",
+      "category": "convert",
+      "operation": "storage-data-converter",
+      "title": "Storage & Data Unit Converter",
+      "primaryKeyword": "storage unit converter",
+      "intent": "Convert Bytes, KB, MB, GB, TB, and PB with SI (1000) and IEC (1024) units — entirely in your browser.",
+      "description": "Online storage calculator and data size converter. Convert GB to MB, terabyte to gigabyte, and Bytes↔KiB/MiB/GiB instantly with a From/To swap. 100% local.",
+      "secondaryKeywords": [
+        "convert GB to MB",
+        "data size calculator",
+        "terabyte to gigabyte converter",
+        "online storage calculator",
+        "KB vs KiB converter"
+      ],
+      "useCases": [
+        "Convert cloud disk quotes between GB (SI) and GiB (IEC)",
+        "Estimate media library sizes from MB to TB",
+        "Translate API payload limits from bytes to megabytes",
+        "Compare drive marketing sizes (decimal) with OS reported sizes (binary)"
+      ],
+      "relatedTools": [
+        "base-converter",
+        "unit-converter",
+        "global-timezone-converter"
+      ],
+      "faq": [
+        {
+          "q": "Why are there different storage sizes for the same file?",
+          "a": "Vendors often advertise capacities using decimal (SI) units where 1 GB = 1,000³ bytes, while many operating systems report binary (IEC) units where 1 GiB = 1,024³ bytes. The same byte count therefore looks smaller when shown as GiB than as GB."
+        },
+        {
+          "q": "What is the maximum supported unit?",
+          "a": "Petabyte (PB, decimal) and pebibyte (PiB, binary). You can also convert from or into Bytes, KB/KiB, MB/MiB, GB/GiB, and TB/TiB."
+        },
+        {
+          "q": "Is this tool free?",
+          "a": "Yes. The Storage & Data Unit Converter is free to use with no account required."
+        },
+        {
+          "q": "What is the difference between KB and KiB?",
+          "a": "KB uses a base of 1,000 (1 KB = 1,000 bytes). KiB uses a base of 1,024 (1 KiB = 1,024 bytes). Choose SI labels for decimal marketing sizes and IEC labels for binary OS/developer sizes."
+        },
+        {
+          "q": "Is my data uploaded?",
+          "a": "No. Conversion runs entirely in your browser. Only the numbers you type are processed locally."
+        },
+        {
+          "q": "Can I convert GB to MB?",
+          "a": "Yes. Set From to GB and To to MB (or swap), then type any value — the live result updates instantly."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.73,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-15"
+    },
+    {
+      "slug": "base-converter",
+      "category": "convert",
+      "operation": "base-converter",
+      "title": "Base Converter",
+      "primaryKeyword": "base converter",
+      "intent": "Convert binary, decimal, octal, and hexadecimal numbers instantly — entirely in your browser.",
+      "description": "Online base number converter with live binary to decimal, hex to decimal calculator results, optional AND/OR/XOR for binary, and one-click copy. 100% local.",
+      "secondaryKeywords": [
+        "binary to decimal converter",
+        "hex to decimal calculator",
+        "online base number converter",
+        "octal to decimal",
+        "bitwise AND OR XOR"
+      ],
+      "useCases": [
+        "Convert machine code and bitmasks between bases",
+        "Translate memory addresses and hex dumps to decimal",
+        "Check CSS color hex components as decimal values",
+        "Run quick AND / OR / XOR on binary operands"
+      ],
+      "relatedTools": [
+        "storage-data-converter",
+        "global-timezone-converter",
+        "unit-converter",
+        "base64-encoder-decoder"
+      ],
+      "faq": [
+        {
+          "q": "What are the supported bases?",
+          "a": "Binary (2), octal (8), decimal (10), and hexadecimal (16). Optional 0b, 0o, and 0x prefixes are accepted when they match the selected From base."
+        },
+        {
+          "q": "How large of a number can I convert?",
+          "a": "Conversions use JavaScript BigInt, so you can handle integers far beyond Number.MAX_SAFE_INTEGER as long as your device can store them in memory."
+        },
+        {
+          "q": "Is this safe for sensitive data?",
+          "a": "Yes. All conversion and clipboard work runs locally in your browser. Nothing is uploaded to a server."
+        },
+        {
+          "q": "When can I use bitwise operations?",
+          "a": "When From Base is Binary, enable Bitwise Operations to AND, OR, or XOR your source with a second binary operand. The live result still formats in your To Base."
+        },
+        {
+          "q": "Why do I see an error for digit 9?",
+          "a": "Digits must be valid for the selected From base. Binary only allows 0 and 1; octal allows 0–7; hex allows 0–9 and A–F."
+        },
+        {
+          "q": "Is the Base Converter free?",
+          "a": "Yes. Free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.74,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-15"
+    },
+    {
+      "slug": "global-timezone-converter",
+      "category": "convert",
+      "operation": "global-timezone-converter",
+      "title": "Global Time Zone Converter",
+      "primaryKeyword": "online time zone converter",
+      "intent": "Compare time zones, convert UTC to local time, and copy meeting schedules for global teams — entirely in your browser.",
+      "description": "World clock converter for developers: pick a source time and timezone, sync target cities in real time, and copy a ready-to-paste meeting link. Local-first — no uploads.",
+      "secondaryKeywords": [
+        "world clock converter for developers",
+        "compare time zones",
+        "convert UTC to local time",
+        "online time zone converter",
+        "meeting time zone converter"
+      ],
+      "useCases": [
+        "Schedule standups across US, EU, and APAC teams",
+        "Convert UTC deploy windows to local engineer time",
+        "Copy a multi-city meeting blurb for Slack or email"
+      ],
+      "relatedTools": [
+        "base-converter",
+        "timezone-converter",
+        "unit-converter"
+      ],
+      "faq": [
+        {
+          "q": "Does it account for Daylight Saving Time?",
+          "a": "Yes. Conversions use the browser Intl API with IANA time zones, so DST rules for each region are applied automatically for the selected date."
+        },
+        {
+          "q": "Can I save my favorite timezones?",
+          "a": "Yes. Use Save favorites to store your source and target zones in localStorage on this device. Load favorites restores them anytime."
+        },
+        {
+          "q": "Is the conversion accurate?",
+          "a": "Yes for supported IANA zones. Accuracy depends on your browser’s timezone database, which follows worldwide DST and offset updates."
+        },
+        {
+          "q": "What does Copy Meeting Link do?",
+          "a": "It copies a ready message such as “Meeting scheduled for 10:00 AM (Tel Aviv) / 3:00 AM (New York)” for the current source time across your selected cities."
+        },
+        {
+          "q": "Is my schedule uploaded to a server?",
+          "a": "No. All conversion and clipboard work runs locally in your browser."
+        },
+        {
+          "q": "Is the Global Time Zone Converter free?",
+          "a": "Yes. Free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.72,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-15"
     },
     {
       "slug": "reading-time-calculator",

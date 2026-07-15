@@ -118,6 +118,9 @@ import { ColorPaletteExtractorWorkspace } from "@/components/tools/design/ColorP
 import { ImageDpiConverterWorkspace } from "@/components/ImageDpiConverterWorkspace";
 import { UnitConverterWorkspace } from "@/components/tools/productivity/UnitConverterWorkspace";
 import { TimezoneConverterWorkspace } from "@/components/tools/productivity/TimezoneConverterWorkspace";
+import { GlobalTimezoneConverterWorkspace } from "@/components/tools/unit-math/GlobalTimezoneConverterWorkspace";
+import { BaseConverterWorkspace } from "@/components/tools/unit-math/BaseConverterWorkspace";
+import { StorageDataConverterWorkspace } from "@/components/tools/unit-math/StorageDataConverterWorkspace";
 import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/ReadingTimeCalculatorWorkspace";
 import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
 import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
@@ -574,6 +577,12 @@ export default async function ToolPage({
           <UnitConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "timezone-converter" ? (
           <TimezoneConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "global-timezone-converter" ? (
+          <GlobalTimezoneConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "base-converter" ? (
+          <BaseConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "storage-data-converter" ? (
+          <StorageDataConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "reading-time-calculator" ? (
           <ReadingTimeCalculatorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "readability-analyzer" ? (

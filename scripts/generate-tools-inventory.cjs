@@ -117,7 +117,7 @@ const NAV_TO_HUBS = {
   utilitiesText: ["text"],
   dataConversion: ["data", "convert"],
   security: ["security"],
-  productivity: ["productivity", "text"],
+  productivity: ["productivity", "text", "unit-math"],
   design: ["design"],
 };
 
@@ -237,6 +237,7 @@ function pickPrimary(slug, hubs, navCategories) {
   if (hubs.includes("compress")) return "compress";
   if (hubs.includes("convert")) return "convert";
   if (hubs.includes("text")) return "text";
+  if (hubs.includes("unit-math")) return "unit-math";
   if (hubs.includes("productivity")) return "productivity";
   if (hubs.includes("design")) return "design";
   return hubs[0] || "convert";

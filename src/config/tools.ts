@@ -203,9 +203,20 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "uuid-generator", labelKey: "uuidGenerator", categories: [c.security] },
   { slug: "ssl-decoder", labelKey: "sslDecoder", categories: [c.security] },
 
-  // Productivity
+  // Productivity / Unit & Math
   { slug: "unit-converter", labelKey: "unitConverter", categories: [c.productivity] },
   { slug: "timezone-converter", labelKey: "timezoneConverter", categories: [c.productivity] },
+  {
+    slug: "global-timezone-converter",
+    labelKey: "globalTimezoneConverter",
+    categories: [c.productivity],
+  },
+  { slug: "base-converter", labelKey: "baseConverter", categories: [c.productivity] },
+  {
+    slug: "storage-data-converter",
+    labelKey: "storageDataConverter",
+    categories: [c.productivity],
+  },
   { slug: "word-character-counter", labelKey: "wordCharacterCounter", categories: [c.productivity] },
   { slug: "reading-time-calculator", labelKey: "readingTimeCalculator", categories: [c.productivity] },
   { slug: "readability-analyzer", labelKey: "readabilityAnalyzer", categories: [c.productivity] },
@@ -666,6 +677,9 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
           "sql-query-formatter",
           "unit-converter",
           "timezone-converter",
+          "global-timezone-converter",
+          "base-converter",
+          "storage-data-converter",
           "word-character-counter",
           "reading-time-calculator",
           "readability-analyzer",

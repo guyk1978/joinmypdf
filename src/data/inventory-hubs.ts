@@ -27,7 +27,8 @@ export type InventoryCategoryId =
   | "security"
   | "design"
   | "data"
-  | "productivity";
+  | "productivity"
+  | "unit-math";
 
 export type PdfInventorySectionId =
   | "mergeSplit"
@@ -79,4 +80,5 @@ export const INVENTORY_HUB_META: Record<
   design: { path: "/tools/", title: "Design Tools" },
   data: { path: "/data-conversion-tools/", title: "Data Conversion" },
   productivity: { path: "/productivity-tools/", title: "Productivity Tools" },
+  "unit-math": { path: "/tools/unit-converters/", title: "Unit Converters" },
 };

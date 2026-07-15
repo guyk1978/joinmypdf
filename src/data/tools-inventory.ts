@@ -1215,9 +1215,39 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     title: "Timezone Converter",
     path: "/tools/timezone-converter/",
     description: "See your timezone alongside world city clocks. Add or remove cities and reset the dashboard anytime.",
-    categories: ["productivity", "text"] as const,
-    primaryCategory: "text",
+    categories: ["unit-math", "productivity", "text"] as const,
+    primaryCategory: "unit-math",
     labelKey: "timezoneConverter",
+  },
+  {
+    id: "storage-data-converter",
+    title: "Storage & Data Unit Converter",
+    path: "/tools/storage-data-converter/",
+    description:
+      "Convert Bytes, KB/KiB, MB/MiB, GB/GiB, TB/TiB, and PB/PiB instantly. Decimal (1000) and binary (1024) — 100% local.",
+    categories: ["unit-math", "productivity", "developer"] as const,
+    primaryCategory: "unit-math",
+    labelKey: "storageDataConverter",
+  },
+  {
+    id: "base-converter",
+    title: "Base Converter",
+    path: "/tools/base-converter/",
+    description:
+      "Convert binary, octal, decimal, and hexadecimal instantly. Optional AND / OR / XOR when working in binary — 100% local.",
+    categories: ["unit-math", "productivity", "developer"] as const,
+    primaryCategory: "unit-math",
+    labelKey: "baseConverter",
+  },
+  {
+    id: "global-timezone-converter",
+    title: "Global Time Zone Converter",
+    path: "/tools/global-timezone-converter/",
+    description:
+      "Compare source and target time zones in real time, copy meeting schedules, and convert UTC to local — 100% in your browser.",
+    categories: ["unit-math", "productivity"] as const,
+    primaryCategory: "unit-math",
+    labelKey: "globalTimezoneConverter",
   },
   {
     id: "transparent-favicon",
@@ -1233,8 +1263,8 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     title: "Unit Converter",
     path: "/tools/unit-converter/",
     description: "Convert kg to lb, meters to feet, square meters to acres, and more with a clean from/to interface.",
-    categories: ["productivity", "text"] as const,
-    primaryCategory: "text",
+    categories: ["unit-math", "productivity", "text"] as const,
+    primaryCategory: "unit-math",
     labelKey: "unitConverter",
   },
   {
