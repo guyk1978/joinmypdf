@@ -3,6 +3,7 @@
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
+import { Magnifier } from "@/components/Magnifier";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -162,6 +163,7 @@ function SignPageStage({
     <div className="sign-page">
       <p className="sign-page__label">{pageLabel}</p>
       <div className="sign-page__studio">
+      <Magnifier zoom={2.25} size={180} shape="circle">
       <div
         ref={stageRef}
         className="sign-page__stage"
@@ -266,6 +268,7 @@ function SignPageStage({
           );
         })}
       </div>
+      </Magnifier>
       </div>
       {pageInstances.length > 0 ? (
         <p className="sign-page__hint">{signaturesOnPageHint}</p>

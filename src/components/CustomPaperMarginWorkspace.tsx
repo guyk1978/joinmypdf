@@ -239,7 +239,7 @@ function MarginDragStudio({
 
   return (
     <PdfEditStudio>
-      <PdfStudioPage className="mx-auto max-w-md">
+      <PdfStudioPage className="mx-auto max-w-md" magnifier={false}>
         <p className="mb-2 text-xs text-ink-muted">{dragHint}</p>
         <div
           ref={wrapRef}

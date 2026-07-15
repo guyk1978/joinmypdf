@@ -19,6 +19,7 @@ import {
   type SyntheticEvent,
 } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { useToolFeedback } from "@/context/ToolFeedbackContext";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
@@ -427,6 +428,7 @@ export function RotateImage({
           </aside>
 
           <div className="rotate-align-suite__main tool-workspace-panel security-tool__pane">
+            <Magnifier zoom={2} size={160} shape="rounded">
             <div className="rotate-align-suite__stage">
               <img
                 src={imageSrc}
@@ -443,6 +445,7 @@ export function RotateImage({
                 </div>
               ) : null}
             </div>
+            </Magnifier>
 
             {naturalSize ? (
               <p className="rotate-align-suite__meta">

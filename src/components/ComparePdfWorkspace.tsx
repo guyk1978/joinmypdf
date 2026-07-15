@@ -7,6 +7,7 @@ import {
   formatSupportsLabel,
   IndustrialMatteDropzone,
 } from "@/components/IndustrialMatteDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
@@ -90,6 +91,7 @@ function ComparePagePanel({
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-2">
       <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted">{label}</p>
+      <Magnifier zoom={2.25} size={180} shape="circle">
       <div
         ref={wrapRef}
         className="relative overflow-hidden rounded-none border border-white/10 bg-neutral-200 dark:bg-neutral-900"
@@ -124,6 +126,7 @@ function ComparePagePanel({
           </div>
         ) : null}
       </div>
+      </Magnifier>
     </div>
   );
 }

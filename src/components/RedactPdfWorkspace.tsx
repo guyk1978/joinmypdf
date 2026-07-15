@@ -3,6 +3,7 @@
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
+import { Magnifier } from "@/components/Magnifier";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -138,6 +139,7 @@ function PageCanvas({
     <div className="redact-page">
       <p className="redact-page__label">{pageLabel}</p>
       <div className="redact-page__studio">
+      <Magnifier zoom={2.25} size={180} shape="circle">
       <div
         ref={wrapRef}
         className="redact-page__stage"
@@ -197,6 +199,7 @@ function PageCanvas({
           ) : null}
         </div>
       </div>
+      </Magnifier>
       </div>
       <p className="redact-page__hint">{markHint}</p>
     </div>

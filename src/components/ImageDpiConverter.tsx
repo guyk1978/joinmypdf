@@ -3,6 +3,7 @@
 import { clsx } from "clsx";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { imBtnCta } from "@/lib/design-system";
 import {
@@ -196,13 +197,15 @@ export function ImageDpiConverter({ labels, className }: ImageDpiConverterProps)
         <div className="image-dpi-converter__layout">
           <aside className="image-dpi-converter__preview">
             {previewUrl ? (
-              // Blob preview — next/image is not suitable for object URLs
-              // eslint-disable-next-line @next/next/no-img-element
+              <Magnifier zoom={2} size={160} shape="rounded">
+              {/* Blob preview — next/image is not suitable for object URLs */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={previewUrl}
                 alt={file.name}
                 className="image-dpi-converter__img"
               />
+              </Magnifier>
             ) : null}
             <p className="image-dpi-converter__filename">{file.name}</p>
             <button type="button" className="image-dpi-converter__link-btn" onClick={reset}>

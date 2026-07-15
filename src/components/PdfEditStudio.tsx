@@ -1,3 +1,6 @@
+"use client";
+
+import { Magnifier, type MagnifierProps } from "@/components/Magnifier";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 
@@ -25,9 +28,19 @@ export function PdfEditStudio({
   );
 }
 
-/** PDF page sheet above the studio surface. */
-export function PdfStudioPage({ children, className }: { children: ReactNode; className?: string }) {
-  return (
+export type PdfStudioPageProps = {
+  children: ReactNode;
+  className?: string;
+  /**
+   * Hover/tap magnifier over the page sheet (default on).
+   * Pass `false` for non-bitmap chrome (e.g. margin guides only).
+   */
+  magnifier?: boolean | Omit<MagnifierProps, "children">;
+};
+
+/** PDF page sheet above the studio surface — Magnifier enabled by default. */
+export function PdfStudioPage({ children, className, magnifier = true }: PdfStudioPageProps) {
+  const sheet = (
     <div
       className={clsx(
         "overflow-hidden rounded-none border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-950",
@@ -36,5 +49,15 @@ export function PdfStudioPage({ children, className }: { children: ReactNode; cl
     >
       {children}
     </div>
+  );
+
+  if (magnifier === false) return sheet;
+
+  const magnifierProps = magnifier === true ? {} : magnifier;
+
+  return (
+    <Magnifier zoom={2.25} size={180} shape="circle" {...magnifierProps}>
+      {sheet}
+    </Magnifier>
   );
 }

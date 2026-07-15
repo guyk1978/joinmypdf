@@ -3,6 +3,7 @@
 import { clsx } from "clsx";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { imBtnCta } from "@/lib/design-system";
 import {
@@ -565,9 +566,11 @@ export function ImageWatermark({ labels, className }: ImageWatermarkProps) {
               </div>
             ) : null}
 
+            <Magnifier zoom={2} size={160} shape="rounded">
             <div className="image-watermark__stage">
               <canvas ref={canvasRef} className="image-watermark__canvas" />
             </div>
+            </Magnifier>
 
             <div className="image-watermark__actions">
               <button

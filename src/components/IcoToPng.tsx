@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 
 import {
   useCallback,
@@ -221,6 +222,7 @@ export function IcoToPng({ labels, className, onDownload }: IcoToPngProps) {
 
             <div className="ico-to-png-tool__preview tool-workspace-panel">
               <p className="ico-to-png-tool__section-label">{labels.previewLabel}</p>
+              <Magnifier zoom={2} size={160} shape="rounded">
               <div className="ico-to-png-tool__preview-stage">
                 {selectedFrame ? (
                   <img
@@ -231,6 +233,7 @@ export function IcoToPng({ labels, className, onDownload }: IcoToPngProps) {
                   />
                 ) : null}
               </div>
+              </Magnifier>
             </div>
           </div>
 

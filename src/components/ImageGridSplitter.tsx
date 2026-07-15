@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 import { Loader2 } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { downloadBlob, isAcceptedImageFile } from "@/lib/crop-image";
 import { imBtnCta } from "@/lib/design-system";
@@ -249,9 +250,11 @@ export function ImageGridSplitter({ labels, className }: ImageGridSplitterProps)
         <div className="image-grid-splitter__layout">
           <section className="image-grid-splitter__preview">
             <h2 className="image-grid-splitter__section-title">{labels.previewTitle}</h2>
+            <Magnifier zoom={2} size={160} shape="rounded">
             <div className="image-grid-splitter__canvas-wrap">
               <canvas ref={previewRef} className="image-grid-splitter__canvas" />
             </div>
+            </Magnifier>
             {dimensions ? (
               <p className="image-grid-splitter__meta">
                 {labels.dimensionsLabel

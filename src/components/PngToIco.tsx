@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import {
   useCallback,
@@ -545,6 +546,7 @@ export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
         <div className="crop-image-tool__workspace">
           <p className="crop-image-tool__instructions">{labels.convertInstructions}</p>
 
+          <Magnifier zoom={2} size={160} shape="rounded">
           <div className="crop-image-tool__stage crop-image-tool__stage--preview">
             <img
               src={imageSrc!}
@@ -554,6 +556,7 @@ export function PngToIco({ labels, className, onDownload }: PngToIcoProps) {
               onLoad={onImageLoad}
             />
           </div>
+          </Magnifier>
 
           {naturalSize && imageSrc ? (
             <PngToIcoSizePreview

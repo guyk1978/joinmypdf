@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 
 import {
   useCallback,
@@ -367,6 +368,7 @@ export function CropImage({ labels, className, onDownload }: CropImageProps) {
         <div className="crop-image-tool__workspace">
           <p className="crop-image-tool__instructions">{labels.cropInstructions}</p>
 
+          <Magnifier zoom={2} size={160} shape="rounded">
           <div ref={stageRef} className="crop-image-tool__stage">
             <img
               src={imageSrc}
@@ -409,6 +411,7 @@ export function CropImage({ labels, className, onDownload }: CropImageProps) {
               </div>
             ) : null}
           </div>
+          </Magnifier>
 
           {showFeedback ? <ToolSuccessEngagement pageTitle={headline} /> : null}
 

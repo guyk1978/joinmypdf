@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 
 import {
   useCallback,
@@ -173,6 +174,7 @@ export function ConvertToPNG({ labels, className, onDownload }: ConvertToPngProp
         <div className="crop-image-tool__workspace">
           <p className="crop-image-tool__instructions">{labels.convertInstructions}</p>
 
+          <Magnifier zoom={2} size={160} shape="rounded">
           <div className="crop-image-tool__stage crop-image-tool__stage--preview">
             <img
               src={imageSrc}
@@ -182,6 +184,7 @@ export function ConvertToPNG({ labels, className, onDownload }: ConvertToPngProp
               onLoad={onImageLoad}
             />
           </div>
+          </Magnifier>
 
           {sourceFile && naturalSize ? (
             <p className="crop-image-tool__meta">

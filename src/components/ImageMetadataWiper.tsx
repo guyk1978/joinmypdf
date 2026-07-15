@@ -3,6 +3,7 @@
 import { useCallback, useId, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import {
   imageMetadataWiperOutputName,
@@ -162,11 +163,13 @@ export function ImageMetadataWiper({ labels, className }: ImageMetadataWiperProp
         <div className="image-wiper-tool__workspace tool-workspace-panel security-tool__pane">
           <div className="image-wiper-tool__preview-row">
             {previewUrl ? (
+              <Magnifier zoom={2} size={160} shape="rounded">
               <img
                 src={previewUrl}
                 alt=""
                 className="image-wiper-tool__preview"
               />
+              </Magnifier>
             ) : null}
             <div className="image-wiper-tool__file-meta">
               <p className="image-wiper-tool__file-name">{file.name}</p>
