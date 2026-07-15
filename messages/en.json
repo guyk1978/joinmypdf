@@ -118,7 +118,7 @@
       "convertToPng": "Convert to PNG",
       "imageConverter": "Image Converter",
       "cropImage": "Crop Image",
-      "rotateImage": "Rotate Image",
+      "rotateImage": "Rotate & Align Suite",
       "compressImage": "Compress Image",
       "videoToMp4": "Video to MP4",
       "videoConverter": "Video Converter",
@@ -140,11 +140,16 @@
       "flipImage": "Flip Image",
       "imageMetadataEditor": "Image Metadata Editor",
       "imageMetadataWiper": "Image Metadata Wiper",
+      "imageDpiConverter": "Image DPI Converter",
+      "imageBlurRedact": "Image Blur & Redact",
+      "imageWatermark": "Image Watermark",
+      "imageGridSplitter": "Image Grid Splitter",
       "imageOptimizer": "Image Optimizer",
       "paintOnImage": "Paint on Image",
       "imageToPdf": "Image to PDF",
       "pngToPdf": "PNG to PDF",
       "heicToPdf": "HEIC to PDF",
+      "faviconGenerator": "Favicon Generator",
       "generateFavicon": "Generate Favicon",
       "pngToIco": "PNG to ICO",
       "icoToPng": "ICO to PNG",
@@ -188,6 +193,7 @@
       "caseConverter": "Case Converter",
       "loremIpsumGenerator": "Lorem Ipsum Generator",
       "colorConverter": "Color Converter",
+      "colorPaletteExtractor": "Color Palette Extractor",
       "mergePdf": "Merge PDF",
       "splitPdf": "Split PDF",
       "compressPdf": "Compress PDF",
@@ -462,8 +468,8 @@
           "description": "Trim borders and focus on the area you need with precise crop controls."
         },
         "rotateImage": {
-          "label": "Rotate Image",
-          "description": "Rotate photos 90°, 180°, or any angle and download the corrected file."
+          "label": "Rotate & Align Suite",
+          "description": "Rotate, flip, and auto-deskew images — custom degrees, quick snaps, local processing."
         },
         "compressImage": {
           "label": "Compress Image",
@@ -497,6 +503,22 @@
           "label": "Image Metadata Wiper",
           "description": "Inspect GPS and camera tags, then wipe EXIF for a privacy-clean JPG or PNG."
         },
+        "imageDpiConverter": {
+          "label": "Image DPI Converter",
+          "description": "Change JPG/PNG DPI for print without resizing pixels — Print Ready 300 DPI preset."
+        },
+        "imageBlurRedact": {
+          "label": "Image Blur & Redact",
+          "description": "Blur, pixelate, or black-box sensitive regions in screenshots — 100% local."
+        },
+        "imageWatermark": {
+          "label": "Image Watermark",
+          "description": "Add text or logo watermarks with opacity, position, and batch export — local-first."
+        },
+        "imageGridSplitter": {
+          "label": "Image Grid Splitter",
+          "description": "Split photos into 2×2, 3×3, or custom grids and download a ZIP — Instagram grid maker."
+        },
         "imageOptimizer": {
           "label": "Image Optimizer",
           "description": "Batch-convert and optimize images to WebP, JPG, or PNG in your browser."
@@ -519,9 +541,13 @@
       "title": "FAVICON TOOLS",
       "description": "Generate favicons and convert icon formats — all in your browser.",
       "items": {
+        "faviconGenerator": {
+          "label": "Favicon Generator",
+          "description": "Convert PNG, JPG, or SVG to favicon.ico (16/32/48) or PNG pack — live tab preview."
+        },
         "generateFavicon": {
           "label": "Generate Favicon",
-          "description": "Create favicon.ico and PNG sizes from any image — ready for your website."
+          "description": "Create a monogram favicon from 1–2 characters with brand colors — local ICO/PNG export."
         },
         "pngToIco": {
           "label": "PNG to ICO",
@@ -717,6 +743,10 @@
     },
     "designTools": {
       "items": {
+        "colorPaletteExtractor": {
+          "label": "Color Palette Extractor",
+          "description": "Extract dominant colors from any photo — HEX/RGB swatches, one-click copy, local ColorThief."
+        },
         "colorConverter": {
           "label": "Color Converter",
           "description": "Convert HEX, RGB, and HSL in real time with a live picker and copy buttons."
@@ -862,7 +892,7 @@
       "crop-image": "Crop Image Online (Free & Fast)",
       "resize-image": "Resize Image Online (Pixel & Percentage)",
       "convert-to-png": "Convert Image to PNG Online",
-      "rotate-image": "Rotate Image Online",
+      "rotate-image": "Rotate & Align Suite Online",
       "compress-image": "Compress Images Online (Reduce File Size)",
       "video-to-mp4": "Video to MP4 Converter Online",
       "video-compressor": "Video Compressor Online (Reduce File Size)",
@@ -1618,6 +1648,326 @@
       }
     }
   },
+  "ImageDpiConverter": {
+    "dropTitle": "Drop an image to change DPI",
+    "dropHint": "JPG or PNG — density metadata only, pixels stay unchanged.",
+    "selectFile": "Select image from device",
+    "selectFileAria": "Select a JPG or PNG to convert DPI",
+    "settingsTitle": "DPI settings",
+    "currentDpiLabel": "Current DPI",
+    "currentDpiUnknown": "Not tagged",
+    "dimensionsLabel": "Pixels",
+    "formatLabel": "Format",
+    "formatJpeg": "JPEG",
+    "formatPng": "PNG",
+    "targetDpiLabel": "Target DPI",
+    "customDpiLabel": "Custom DPI",
+    "presetAria": "DPI presets",
+    "printReady": "Print Ready",
+    "printReadyHint": "Sets 300 DPI — the common commercial print standard.",
+    "convertDownload": "Convert & Download",
+    "converting": "Updating DPI…",
+    "replaceImage": "Replace image",
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "invalidFile": "Please choose a JPG or PNG image.",
+    "invalidDpi": "Enter a valid DPI value (1–9600).",
+    "errorGeneric": "Could not update DPI for this image. Try another JPG or PNG.",
+    "successHint": "Download started. Pixel dimensions were preserved — only density metadata changed."
+  },
+  "ImageDpiConverterPage": {
+    "metaTitle": "Change Image DPI Online | Convert to 300 DPI for Print | JoinMyPDF",
+    "metaDescription": "Free online DPI changer. Convert image to 300 DPI for print, keep pixels intact, update JPG EXIF/JFIF or PNG pHYs — DPI converter for print, 100% local.",
+    "title": "Image DPI Converter",
+    "description": "Change image DPI online without resizing. Use Print Ready for 300 DPI, or pick 72/150/600 and custom values. Pixel dimensions and visual quality stay the same.",
+    "faqHeading": "Image DPI Converter FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first DPI conversion for print.",
+    "schemaName": "Image DPI Converter",
+    "schemaDescription": "Change image DPI online and convert image to 300 DPI for print without re-compressing pixels — local browser DPI converter.",
+    "schemaFeaturePresets": "72, 150, 300, 600 DPI presets plus custom values",
+    "schemaFeaturePrintReady": "Print Ready one-click 300 DPI for commercial print",
+    "schemaFeaturePreserve": "Pixel dimensions and quality preserved — metadata only",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Screen DPI vs print DPI — and why print shops care",
+      "intro": "DPI (dots per inch) tells layout and print software how to map pixels onto physical paper. Updating density metadata is not the same as resizing an image. This online DPI changer writes the tag print workflows expect — especially 300 DPI — while leaving the photo’s pixel grid untouched.",
+      "howToUse": {
+        "heading": "How to use this DPI converter for print",
+        "p1": "Drop a JPG or PNG. The tool reads any existing density tag and shows current DPI alongside pixel dimensions.",
+        "p2": "Choose a preset (72, 150, 300, 600), enter a custom DPI, or click Print Ready to lock in the 300 DPI print standard.",
+        "p3": "Click Convert & Download. Your browser saves a copy with updated EXIF/JFIF (JPEG) or pHYs (PNG) — no upload, no re-encode of pixels.",
+        "p4": "Rating and review stay hidden until a successful Convert & Download."
+      },
+      "screenVsPrint": {
+        "heading": "72 DPI screens vs 300 DPI print",
+        "p1": "Many web exports default near 72 or 96 DPI because screens are addressed in pixels, not ink dots. That tag is fine for on-screen work.",
+        "p2": "Commercial print pipelines usually expect ~300 DPI metadata so InDesign, RIP software, and prepress can estimate physical size correctly.",
+        "p3": "If a photo looks soft when printed large, you may need more pixels (use Resize Image) — changing DPI alone does not invent detail.",
+        "p4": "Use Print Ready when a vendor asks for “300 DPI files” and your artwork already has enough resolution for the intended print size."
+      },
+      "metadata": {
+        "heading": "What this tool changes (and what it does not)",
+        "p1": "JPEG: density is written into EXIF resolution tags and JFIF APP0 when present.",
+        "p2": "PNG: density is stored in the pHYs chunk as pixels-per-meter (converted from DPI).",
+        "p3": "Pixel width, height, and compressed image data stay the same — you will not get a pixelated-looking file from this step alone.",
+        "p4": "For privacy stripping or copyright EXIF fields, use the Metadata Wiper or Metadata Editor instead."
+      },
+      "privacy": {
+        "heading": "Why local-first DPI conversion matters",
+        "p1": "Print proofs and client photos should not hop through a remote “DPI fixer” API just to change a header tag.",
+        "p2": "Processing stays in your browser with piexif-style EXIF updates and direct PNG chunk rewriting.",
+        "p3": "No account wall for standard conversions.",
+        "p4": "Pair with Resize Image only when the print size demands more or fewer pixels — then re-tag DPI if needed."
+      }
+    }
+  },
+  "ImageGridSplitter": {
+    "dropTitle": "Drop a photo to split into a grid",
+    "dropHint": "JPG, PNG, WebP, GIF, or HEIC — sliced and zipped locally in your browser.",
+    "selectFile": "Select image from device",
+    "selectFileAria": "Select an image to split into a grid",
+    "settingsTitle": "Grid settings",
+    "presetsTitle": "Presets",
+    "customTitle": "Custom rows × columns",
+    "rowsLabel": "Rows",
+    "colsLabel": "Columns",
+    "previewTitle": "Live cut preview",
+    "dimensionsLabel": "{width} × {height} px",
+    "gridSummary": "{rows}×{cols} grid · {count} tiles",
+    "sliceDownload": "Slice & Download ZIP",
+    "slicing": "Slicing…",
+    "replaceImage": "Replace image",
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "invalidFile": "Please choose a supported image file.",
+    "errorGeneric": "Could not split this image. Try another file or a simpler grid.",
+    "errorTooSmall": "This image is too small for the selected grid. Use fewer rows or columns.",
+    "successHint": "ZIP download started. Tiles are numbered left-to-right, top-to-bottom for Instagram-style posting.",
+    "presets": {
+      "2x2": "2×2",
+      "3x3": "3×3",
+      "1x3": "1×3",
+      "3x1": "3×1",
+      "custom": "Custom"
+    }
+  },
+  "ImageGridSplitterPage": {
+    "metaTitle": "Online Image Splitter | Split Image into Grid | Instagram Grid Maker | JoinMyPDF",
+    "metaDescription": "Free online image splitter and Instagram grid maker. Split image into grid tiles, crop image into pieces with live preview, download a ZIP — 100% local.",
+    "title": "Image Grid Splitter",
+    "description": "Split any photo into a 2×2, 3×3, 1×3, 3×1, or custom grid. Preview cut lines live, then Slice & Download a ZIP of tiles — perfect for Instagram grids and collage layouts.",
+    "faqHeading": "Image Grid Splitter FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first image splitting.",
+    "schemaName": "Image Grid Splitter",
+    "schemaDescription": "Online image splitter — split image into grid, Instagram grid maker, crop image into pieces with ZIP download in your browser.",
+    "schemaFeaturePresets": "2×2, 3×3, 1×3, 3×1 and custom row/column grids",
+    "schemaFeaturePreview": "Live grid overlay so you see every cut before slicing",
+    "schemaFeatureZip": "Download all tiles as a single ZIP via JSZip",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Split images for Instagram grids and aesthetic collages",
+      "intro": "An online image splitter turns one strong photo into a set of matching tiles. Creators use this for Instagram grid drops, carousel storytelling, and mood-board collages — without installing desktop editors.",
+      "howToUse": {
+        "heading": "How to use this Instagram grid maker",
+        "p1": "Drop a JPG, PNG, WebP, GIF, or HEIC. Prefer a high-resolution source if tiles will be viewed large.",
+        "p2": "Pick a preset (2×2, 3×3, 1×3, 3×1) or enter custom rows and columns (1–10).",
+        "p3": "Check the live cut preview — dashed lines and tile numbers show posting order (left to right, top to bottom).",
+        "p4": "Click Slice & Download ZIP. Rating unlocks after a successful export."
+      },
+      "instagram": {
+        "heading": "Instagram grid layouts and collages",
+        "p1": "A classic profile aesthetic uses 3×3 so nine posts reconstruct one hero image on the profile grid.",
+        "p2": "1×3 strips work for panoramic carousels; 3×1 stacks work for tall stories or vertical narrative.",
+        "p3": "Upload tiles in numbered order so the full composition reads correctly on the profile.",
+        "p4": "For precise single crops instead of a full grid, use Crop Image."
+      },
+      "quality": {
+        "heading": "Quality when you crop image into pieces",
+        "p1": "Tiles are drawn from the original bitmap with Canvas — no downscale unless you choose a denser grid on a tiny file.",
+        "p2": "PNG sources export lossless PNG tiles. JPEG sources export high-quality JPEG tiles to keep file sizes reasonable.",
+        "p3": "Remainder pixels land in the last row and column so nothing is discarded from the edges.",
+        "p4": "Very large grids on huge photos may take a moment; progress updates while tiles package into the ZIP."
+      },
+      "privacy": {
+        "heading": "Why local-first splitting matters",
+        "p1": "Campaign artwork and unreleased shoots should not upload to a remote “splitter” just to tile a canvas.",
+        "p2": "Slicing and JSZip packaging stay on-device.",
+        "p3": "No account wall for standard exports.",
+        "p4": "Pair with Compress Image if the ZIP of tiles needs lighter uploads to social platforms."
+      }
+    }
+  },
+  "ImageBlurRedact": {
+    "dropTitle": "Drop a screenshot or photo to redact",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — blurred and redacted locally in your browser.",
+    "selectFile": "Select image from device",
+    "selectFileAria": "Select an image to blur or redact",
+    "instructions": "Draw a rectangle over sensitive areas. Choose Blur, Pixelate, or Solid Black from the floating toolbar, then Process & Download.",
+    "modeBlur": "Blur",
+    "modePixelate": "Pixelate",
+    "modeSolid": "Solid black",
+    "intensityLabel": "Intensity",
+    "applyRegion": "Apply region",
+    "cancelSelection": "Cancel",
+    "undo": "Undo",
+    "clearAll": "Clear all",
+    "replaceImage": "Replace image",
+    "processDownload": "Process & Download Redacted Image",
+    "processing": "Exporting…",
+    "autoDetectFaces": "Auto-Detect Faces (Experimental)",
+    "autoDetectBusy": "Detecting faces…",
+    "autoDetectUnsupported": "Face detection is unavailable in this browser. Draw redact boxes manually.",
+    "autoDetectNone": "No faces detected. Try a clearer photo or redact manually.",
+    "autoDetectDone": "Added {count} face region(s) with blur.",
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "regionsCount": "{count} region(s) applied",
+    "invalidFile": "Please choose a supported image file.",
+    "errorEmptySelection": "Draw and apply at least one redact region before downloading.",
+    "errorGeneric": "Could not export the redacted image. Try again."
+  },
+  "ImageBlurRedactPage": {
+    "metaTitle": "Image Redactor Online | Blur Screenshot & Censor Image Free | JoinMyPDF",
+    "metaDescription": "Free image redactor to blur screenshots online, pixelate faces, and censor images. Protect private data in photos — 100% local, zero uploads.",
+    "title": "Image Blur & Redact",
+    "description": "Blur, pixelate, or black-box sensitive regions in screenshots and photos. Draw a marquee, preview live on canvas, and download a redacted JPG/PNG — entirely in your browser.",
+    "faqHeading": "Image Blur & Redact FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first image redaction.",
+    "schemaName": "Image Blur & Redact",
+    "schemaDescription": "Blur screenshots online, pixelate regions, and censor images locally to protect private data in photos.",
+    "schemaFeatureBlur": "Gaussian-style box blur on selected regions",
+    "schemaFeaturePixelate": "Mosaic pixelate redaction",
+    "schemaFeatureSolid": "Solid black censor boxes",
+    "schemaFeatureFaces": "Experimental auto face detection (when supported)",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Protect private data in screenshots before you share",
+      "intro": "Support tickets, dashboards, and phone photos often include names, addresses, account numbers, and faces you never meant to publish. An image redactor that runs locally lets you blur screenshots online and censor images free — without uploading confidential pixels to a remote service.",
+      "howToUse": {
+        "heading": "How to use Image Blur & Redact",
+        "p1": "Drop a JPG, PNG, WebP, GIF, or HEIC file into the upload zone. The canvas shows your image with a crosshair cursor.",
+        "p2": "Drag a rectangle over the area to hide. The floating toolbar offers Blur (with intensity), Pixelate, or Solid Black, with a live canvas preview.",
+        "p3": "Click Apply region for each marquee, then Process & Download Redacted Image. Rating and review unlock only after a successful download.",
+        "p4": "Use Undo / Clear all if you need another pass. Optional Auto-Detect Faces (Experimental) suggests blur regions in supported browsers."
+      },
+      "protectScreenshots": {
+        "heading": "Common screenshot privacy hazards",
+        "p1": "Customer names in CRM screenshots, email addresses in admin panels, and shipping addresses in order UIs are the usual leaks. Redact before pasting into chat or public docs.",
+        "p2": "Faces in team photos and ID selfies deserve extra care. Prefer pixelate or strong blur when you must show context but hide identity.",
+        "p3": "Account numbers and QR payment codes should usually get Solid Black — blur alone can sometimes leave recoverable shapes.",
+        "p4": "After redacting visuals, consider wiping EXIF with the Metadata Wiper so location tags do not travel with the file."
+      },
+      "modes": {
+        "heading": "Blur, pixelate, or solid black?",
+        "p1": "Blur softens detail while keeping layout context — good for UI demos where you still need to show structure.",
+        "p2": "Pixelate is the classic mosaic look for faces and logos when you want an obvious censor mark.",
+        "p3": "Solid Black is the strongest visual redaction for irreversible-looking boxes over text and numbers.",
+        "p4": "All modes rewrite pixels on a canvas locally. Downloads preserve JPEG/WebP quality when the source format allows."
+      },
+      "privacy": {
+        "heading": "Why local-first redaction matters",
+        "p1": "Cloud “blur my screenshot” tools create retention risk for the very secrets you are trying to hide. Keeping processing in the browser removes that upload step.",
+        "p2": "JoinMyPDF never needs an account for this tool. Large images still depend on device memory — redact the crop you need when files are huge.",
+        "p3": "Experimental face detection uses the browser Face Detector API when present; otherwise redact manually. Detection still happens on-device.",
+        "p4": "Pair this tool with Redact PDF when the sensitive content lives in a document instead of a bitmap."
+      }
+    }
+  },
+  "ImageWatermark": {
+    "dropTitle": "Drop photos to watermark",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — add one or many for batch watermarking. Processed locally.",
+    "selectFile": "Select images from device",
+    "selectFileAria": "Select images to watermark",
+    "sidebarTitle": "Watermark controls",
+    "typeTitle": "Watermark type",
+    "typeText": "Text",
+    "typeLogo": "Logo / Image",
+    "textLabel": "Watermark text",
+    "textPlaceholder": "© Your Name",
+    "fontLabel": "Font",
+    "colorLabel": "Color",
+    "opacityLabel": "Opacity",
+    "sizeLabel": "Size",
+    "logoLabel": "Logo",
+    "logoHint": "PNG with transparency works best.",
+    "logoSelect": "Upload logo",
+    "autoScaleLogo": "Auto-Scale Logo",
+    "logoScaleLabel": "Logo width",
+    "positionTitle": "Position",
+    "offsetXLabel": "Offset X",
+    "offsetYLabel": "Offset Y",
+    "previewTitle": "Live preview",
+    "batchHint": "{count} images selected — same watermark applies to all",
+    "activeImageLabel": "Preview image",
+    "applyDownload": "Apply & Download",
+    "applying": "Applying watermark…",
+    "replaceImages": "Replace images",
+    "removeLogo": "Remove logo",
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "invalidFile": "Please choose supported image files.",
+    "invalidLogo": "Please choose a supported logo image (PNG recommended).",
+    "errorEmptyText": "Enter watermark text or switch to Logo mode.",
+    "errorNoLogo": "Upload a logo before applying.",
+    "errorGeneric": "Could not export watermarked images. Try again.",
+    "positions": {
+      "top-left": "Top left",
+      "top-center": "Top center",
+      "top-right": "Top right",
+      "middle-left": "Middle left",
+      "center": "Center",
+      "middle-right": "Middle right",
+      "bottom-left": "Bottom left",
+      "bottom-center": "Bottom center",
+      "bottom-right": "Bottom right"
+    }
+  },
+  "ImageWatermarkPage": {
+    "metaTitle": "Add Watermark to Image Online | Free Image Watermarker | JoinMyPDF",
+    "metaDescription": "Free online image watermarker. Protect photos with logo or text, tune opacity and position, Auto-Scale Logo, batch export — 100% local.",
+    "title": "Professional Image Watermark Tool",
+    "description": "Add a text or logo watermark to one photo or a whole batch. Live canvas preview, opacity control, 9-point positioning, and Auto-Scale Logo — entirely in your browser.",
+    "faqHeading": "Image Watermark FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first image watermarking.",
+    "schemaName": "Professional Image Watermark Tool",
+    "schemaDescription": "Add watermark to image online with text or logo, opacity, position, and batch export — local browser processing.",
+    "schemaFeatureText": "Custom text watermarks with font, color, and size",
+    "schemaFeatureLogo": "Logo overlay with transparency and Auto-Scale",
+    "schemaFeatureBatch": "Batch watermark multiple photos to ZIP",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Why watermarking protects your copyright online",
+      "intro": "Once a photo leaves your drive, it can be screenshotted, reuploaded, and sold without credit. A free image watermark tool will not replace a legal strategy, but it makes ownership visible and discourages casual reuse — especially when the mark is baked into pixels before delivery.",
+      "howToUse": {
+        "heading": "How to use this online image watermarker",
+        "p1": "Drop one or more JPG/PNG/WebP/HEIC files. Pick Text or Logo/Image in the sidebar.",
+        "p2": "For text, set message, font, color, size, and opacity. For logos, upload a transparent PNG and optionally click Auto-Scale Logo (about 10% of photo width).",
+        "p3": "Choose a grid position and fine-tune X/Y offsets. Watch the live preview, then Apply & Download.",
+        "p4": "Rating and review stay hidden until a successful export. Multiple files download as a ZIP with the same watermark settings."
+      },
+      "copyright": {
+        "heading": "Copyright basics for photographers and brands",
+        "p1": "Visible watermarks signal ownership on portfolio sites, social previews, and client proofs. Subtle opacity keeps the photo readable while still asserting credit.",
+        "p2": "Logo marks work well for studios; text marks work for © Name Year stamps. Keep the mark consistent across a batch so published sets look intentional.",
+        "p3": "Watermarking does not stop determined theft, but it raises the effort to remove branding and helps DMCA/context matching later.",
+        "p4": "For PDF proofs, use the separate PDF watermark tool; keep this suite for photographic bitmaps."
+      },
+      "logoText": {
+        "heading": "Text vs logo watermarks",
+        "p1": "Text is fastest for copyright lines and Proofs — no extra asset required.",
+        "p2": "Logos preserve brand color and shape. PNGs with alpha stay transparent on the canvas export.",
+        "p3": "Auto-Scale Logo sizes the mark relative to each photo so a tall portrait and a wide landscape stay proportionally branded without hand-tweaking every file.",
+        "p4": "Offsets let you nudge marks away from faces or product focal points after the grid position is set."
+      },
+      "privacy": {
+        "heading": "Why local-first watermarking matters",
+        "p1": "Client galleries and unpublished shoots should not hitchhike through a third-party watermark API. Canvas processing keeps files on-device.",
+        "p2": "No account wall for standard exports. Very large batches still depend on browser memory — process in groups if needed.",
+        "p3": "Originals on disk are untouched; downloads are new baked files.",
+        "p4": "Pair with Image Metadata Wiper if you also need GPS/EXIF cleaned before publish."
+      }
+    }
+  },
   "ImageOptimizer": {
     "dropTitle": "Drop images here or click to browse",
     "dropHint": "JPG, PNG, WebP, HEIC, GIF — batch-convert and optimize locally in your browser.",
@@ -1665,17 +2015,88 @@
   },
   "RotateImage": {
     "dropTitle": "Drop an image here or click to browse",
-    "dropHint": "JPG, PNG, WebP, GIF, HEIC — rotated locally in your browser.",
+    "dropHint": "JPG, PNG, WebP, GIF, HEIC — rotate, flip, and auto-deskew locally in your browser.",
     "selectFile": "Select image from device",
-    "selectFileAria": "Select an image file to rotate",
-    "rotateInstructions": "Use the rotate buttons to adjust orientation, then download.",
-    "rotateLeft": "Rotate left",
-    "rotateRight": "Rotate right",
-    "rotation": "Current rotation: {degrees}°",
+    "selectFileAria": "Select an image file to rotate and align",
+    "rotateInstructions": "Use the sidebar for quick rotate, precision degrees, flips, and Auto-Align, then download.",
+    "toolbarTitle": "Rotate & Align",
+    "quickRotateTitle": "Quick rotate",
+    "rotateLeft": "90° left",
+    "rotateRight": "90° right",
+    "rotate180": "180°",
+    "precisionTitle": "Precision rotation",
+    "precisionLabel": "Degrees",
+    "applyPrecision": "Apply angle",
+    "flipTitle": "Flip options",
+    "flipHorizontal": "Flip horizontal",
+    "flipVertical": "Flip vertical",
+    "autoAlignTitle": "Auto-deskew",
+    "autoAlignButton": "Auto-Align",
+    "autoAlignBusy": "Detecting alignment…",
+    "autoAlignDone": "Applied deskew correction: {degrees}°",
+    "autoAlignHint": "Estimates a small straighten angle for scanned pages using local edge/line analysis.",
+    "rotation": "Rotation: {degrees}°",
+    "flipNone": "No flip",
+    "flipHorizontalOn": "Flipped horizontal",
+    "flipVerticalOn": "Flipped vertical",
+    "flipBoth": "Flipped H + V",
     "download": "Download",
     "downloading": "Preparing…",
     "invalidFile": "Please choose a supported image file.",
-    "replaceImage": "Replace image"
+    "replaceImage": "Replace image",
+    "suiteLinksTitle": "Other media",
+    "linkRotatePdf": "Rotate PDF pages",
+    "linkVideoRotator": "Video Rotator",
+    "deskewFailed": "Auto-Align could not estimate a correction. Try a clearer scan or adjust degrees manually."
+  },
+  "RotateAlignSuitePage": {
+    "metaTitle": "Rotate & Align Suite | Straighten Scans, Flip Images | JoinMyPDF",
+    "metaDescription": "Straighten scanned documents, rotate PDF accurately via linked tools, flip images online, and use auto-deskew — all local in your browser.",
+    "title": "Rotate & Align Suite",
+    "description": "Rotate images by 90°/180° or custom degrees, flip horizontal or vertical, and Auto-Align crooked scans. PDF and video rotators stay one click away in the sidebar.",
+    "faqHeading": "Rotate & Align FAQ",
+    "backToAllTools": "Back to all tools",
+    "backToRotateTools": "Back to Rotate tools hub",
+    "privacyBadge": "Secure, local-first rotate & align processing.",
+    "schemaName": "Rotate & Align Suite",
+    "schemaDescription": "Rotate, flip, and auto-deskew images locally with precision degrees and linked PDF/video rotators.",
+    "schemaFeatureQuick": "Quick 90° and 180° rotation",
+    "schemaFeaturePrecision": "Precision custom-degree rotation",
+    "schemaFeatureFlip": "Horizontal and vertical flip",
+    "schemaFeatureDeskew": "Auto-Align deskew for scanned documents",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "One suite for rotation, flips, and scan alignment",
+      "intro": "Crooked scans and sideways phone photos rarely need three different apps. The Rotate & Align Suite keeps orthogonal snaps, precision degrees, mirrors, and Auto-Align deskew in one Industrial Matte workspace — processed entirely on your device.",
+      "howToUse": {
+        "heading": "How to use Rotate & Align",
+        "p1": "Drop a JPG, PNG, WebP, GIF, or HEIC file into the workspace. The preview stage shows live transforms while you edit.",
+        "p2": "Use Quick Rotate for 90° left/right or 180°, or type an exact angle under Precision Rotation (for example 45°).",
+        "p3": "Toggle Flip Horizontal / Flip Vertical as needed. Download once — rating and review unlock after a successful export.",
+        "p4": "Need PDF page rotation or MP4 orientation? Open the linked Rotate PDF and Video Rotator tools from the sidebar or the Rotate tools hub."
+      },
+      "deskewScans": {
+        "heading": "Straighten scanned documents with Auto-Align",
+        "p1": "Phone photos of paper often sit a few degrees off. Auto-Align scores candidate angles with a lightweight projection-profile pass — no upload and no heavy OCR dependency for the default path.",
+        "p2": "A spinner and progress bar show while the browser estimates alignment. The detected micro-angle is applied on top of your current 90° orientation.",
+        "p3": "Fine-tune with the degrees field if the automatic guess is close but not perfect. Re-run Auto-Align after replacing the source scan.",
+        "p4": "For multi-page PDF orientation metadata, use Rotate PDF; use this suite when the scan is an image file."
+      },
+      "precisionFlip": {
+        "heading": "Precision rotation and flip image online",
+        "p1": "Custom degrees matter for design layouts, mockups, and print bleeds that are not orthogonal. Preview updates as you apply the angle.",
+        "p2": "Flip controls mirror the canvas horizontally or vertically so you can correct selfie mirrors or upside captures without a separate tool.",
+        "p3": "Export preserves JPEG/WebP quality settings and uses PNG when needed. Extreme angles resample; keep 90° snaps when you only need orientation.",
+        "p4": "The Flip Image URL opens this same suite so SEO entry points stay distinct while the product experience stays unified."
+      },
+      "privacy": {
+        "heading": "Why local-first rotation matters",
+        "p1": "Orientation fixes often involve IDs, contracts, and personal photos. Keeping pixels in the page process avoids upload retention.",
+        "p2": "No account wall and no server queue — progress depends on your device for deskew scoring and export.",
+        "p3": "Combine with crop and compress after alignment when preparing web-ready assets.",
+        "p4": "Used regularly, Rotate & Align becomes the default first step before OCR, sharing, or PDF assembly."
+      }
+    }
   },
   "CompressImage": {
     "dropTitle": "Drop an image here or click to browse",
@@ -1733,6 +2154,86 @@
     "copyHeaderCode": "Copy to clipboard",
     "copiedHeaderCode": "Copied!",
     "copyHeaderCodeFailed": "Could not copy — select the snippet and copy manually."
+  },
+  "FaviconGenerator": {
+    "dropTitle": "Drop a logo to create a favicon",
+    "dropHint": "PNG, JPG, or SVG — resized and packed locally in your browser.",
+    "selectFile": "Select image from device",
+    "selectFileAria": "Select a PNG, JPG, or SVG to generate a favicon",
+    "settingsTitle": "Favicon settings",
+    "previewTitle": "Live preview",
+    "tabPreviewLabel": "How it looks in a browser tab",
+    "sizesTitle": "Standard sizes",
+    "sizeHint": "16×16, 32×32, and 48×48 frames are included in the ICO or PNG pack.",
+    "outputTitle": "Output",
+    "outputIco": "Multi-size .ico",
+    "outputIcoHint": "Single favicon.ico with 16, 32, and 48 px frames",
+    "outputPng": "PNG pack (.zip)",
+    "outputPngHint": "Separate PNGs for modern <link rel=\"icon\"> tags",
+    "letterboxLabel": "Keep aspect ratio (letterbox)",
+    "letterboxHint": "Fit the logo inside the square with transparent padding instead of cropping.",
+    "generateDownload": "Generate & Download Favicon",
+    "generating": "Generating favicon…",
+    "replaceImage": "Replace image",
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "invalidFile": "Please choose a PNG, JPG, or SVG image.",
+    "errorGeneric": "Could not generate a favicon from this file. Try another image.",
+    "successHint": "Download started. Paste the HTML snippet into your site <head> after uploading the file(s).",
+    "siteTitleLabel": "Preview site title",
+    "siteTitlePlaceholder": "Your Site",
+    "defaultSiteTitle": "Your Site",
+    "headerCodeTitle": "HTML <head> snippet",
+    "headerCodeHint": "Copy this after placing the downloaded file(s) in your project root or /public folder.",
+    "copyHeaderCode": "Copy snippet",
+    "copiedHeaderCode": "Copied!",
+    "copyFailed": "Could not copy to the clipboard."
+  },
+  "FaviconGeneratorPage": {
+    "metaTitle": "Favicon Generator Online | Convert Image to ICO | Free Favicon Creator | JoinMyPDF",
+    "metaDescription": "Free favicon generator online. Convert image to ICO, create favicon for website with 16/32/48 sizes, live tab preview — free favicon creator, 100% local.",
+    "title": "Favicon Generator",
+    "description": "Create a favicon for your website from PNG, JPG, or SVG. Preview the browser tab, generate a multi-size .ico or PNG pack, and copy the HTML head snippet — entirely in your browser.",
+    "faqHeading": "Favicon Generator FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first favicon creation.",
+    "schemaName": "Favicon Generator",
+    "schemaDescription": "Favicon generator online — convert image to ICO, create favicon for website with multi-size frames and live tab preview.",
+    "schemaFeatureUpload": "Upload PNG, JPG, or SVG logos",
+    "schemaFeatureIco": "Multi-size favicon.ico (16×16, 32×32, 48×48) or PNG ZIP",
+    "schemaFeaturePreview": "Live browser-tab favicon preview",
+    "schemaFeatureLocal": "100% local browser processing",
+    "article": {
+      "title": "Create a favicon that strengthens brand identity",
+      "intro": "A favicon is the tiny mark in browser tabs, bookmarks, and history lists. It is often the first brand cue users see after the page title — which is why a free favicon creator that starts from your real logo beats a generic letter glyph for production sites.",
+      "howToUse": {
+        "heading": "How to use this favicon generator online",
+        "p1": "Drop a PNG, JPG, or SVG logo. Prefer a square or near-square source with clear contrast at small sizes.",
+        "p2": "Review the live browser-tab preview and the 16×16 / 32×32 / 48×48 size grid. Toggle letterboxing if you need transparent padding instead of a center crop.",
+        "p3": "Choose multi-size .ico (legacy + broad support) or a PNG pack ZIP for modern link tags, then click Generate & Download Favicon.",
+        "p4": "Rating and review stay hidden until a successful download. Copy the HTML head snippet and place the file(s) on your server."
+      },
+      "brand": {
+        "heading": "Why favicons matter for brand identity",
+        "p1": "Tabs fill with similar page titles; a distinct icon helps users find your site instantly among dozens of open tabs.",
+        "p2": "Bookmark bars and mobile home-screen shortcuts amplify brand recognition far beyond the homepage hero.",
+        "p3": "Keep the mark simple: complex photoreal logos blur at 16×16 — silhouette and contrast win.",
+        "p4": "Need a quick monogram without a logo file? Use Generate Favicon for letter-based icons, then return here when you have artwork."
+      },
+      "htmlHead": {
+        "heading": "How to include the favicon in HTML <head>",
+        "p1": "Place favicon.ico at the site root (or /public in many frameworks) so /favicon.ico resolves by convention.",
+        "p2": "Add <link rel=\"icon\" href=\"/favicon.ico\" sizes=\"any\"> for broad compatibility.",
+        "p3": "For PNG packs, add sized link tags such as sizes=\"32x32\" pointing at favicon-32x32.png.",
+        "p4": "Deploy, hard-refresh, and confirm the tab icon updates — CDNs may cache the previous icon briefly."
+      },
+      "privacy": {
+        "heading": "Why local-first favicon creation matters",
+        "p1": "Unreleased brand marks should not travel through a third-party icon API just to resize a square.",
+        "p2": "Canvas resizing and ICO packing run in your browser memory — nothing is uploaded.",
+        "p3": "No account wall for standard exports.",
+        "p4": "Pair with Favicon Pack if you also need PWA / touch sizes up to 512×512."
+      }
+    }
   },
   "PngToIco": {
     "dropTitle": "Drop PNG files here or click to browse",
@@ -2738,17 +3239,19 @@
     }
   },
   "RotateToolsPage": {
-    "metaTitle": "Free Online Rotate Tools | Rotate PDF & Images | JoinMyPDF",
-    "metaDescription": "Free online rotate tools to rotate PDF pages and images in your browser. 100% local processing — your files never leave your device.",
-    "title": "Use Rotate Tools Free Online",
-    "description": "Rotate your PDF pages and images quickly and easily. Our secure, browser-based rotate tools process your files locally on your device, guaranteeing privacy with zero uploads. Fast, reliable, and 100% free.",
+    "metaTitle": "Rotate & Align Suite | PDF, Image & Video | JoinMyPDF",
+    "metaDescription": "Rotate & Align tools to straighten scanned documents, rotate PDF pages, flip images, and rotate video — 100% local in your browser.",
+    "title": "Rotate & Align Suite",
+    "description": "Rotate PDF pages, straighten and flip images with Auto-Align deskew, or fix sideways video. Every tool runs locally on your device with zero uploads.",
     "backToAllTools": "Back to all tools",
-    "privacyBadge": "Secure, local-first rotation processing.",
-    "schemaName": "Free Online Rotate Tools",
-    "schemaDescription": "Rotate your PDF pages and images quickly and easily. Our secure, browser-based rotate tools process your files locally on your device, guaranteeing privacy with zero uploads. Fast, reliable, and 100% free.",
+    "privacyBadge": "Secure, local-first rotate & align processing.",
+    "schemaName": "Rotate & Align Suite",
+    "schemaDescription": "Rotate PDFs, images, and video plus auto-deskew scanned photos — browser-local tools with zero uploads.",
     "tools": {
       "rotatePdf": "Rotate PDF",
-      "rotateImage": "Rotate Image"
+      "rotateImage": "Rotate & Align Suite",
+      "flipImage": "Flip Image",
+      "videoRotator": "Video Rotator"
     }
   },
   "ExtractToolsPage": {
@@ -3457,6 +3960,74 @@
     "outputLabel": "Generated UUIDs",
     "outputEmpty": "Choose options and click Generate.",
     "unsupportedError": "UUID generation is not supported in this browser."
+  },
+  "ColorPaletteExtractor": {
+    "dropTitle": "Drop a photo to extract colors",
+    "dropHint": "JPG, PNG, WebP, or GIF — analyzed locally with ColorThief.",
+    "selectFile": "Select image from device",
+    "selectFileAria": "Select an image to extract a color palette",
+    "dashboardTitle": "Palette dashboard",
+    "emptyDashboard": "Upload an image to reveal dominant HEX and RGB swatches.",
+    "analyzing": "Extracting palette…",
+    "colorCountLabel": "Colors ({count})",
+    "referenceLabel": "Source image",
+    "swatchHex": "HEX",
+    "swatchRgb": "RGB",
+    "copyHex": "Copy",
+    "copied": "Copied!",
+    "copyFailed": "Could not copy to the clipboard.",
+    "replaceImage": "Replace image",
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "invalidFile": "Please choose a JPG, PNG, WebP, or GIF image.",
+    "errorGeneric": "Could not extract colors from this image. Try another file.",
+    "dimensionsLabel": "{width} × {height} px"
+  },
+  "ColorPaletteExtractorPage": {
+    "metaTitle": "Extract Color Palette from Image | Online Image Color Picker | JoinMyPDF",
+    "metaDescription": "Free palette generator from photo. Get image dominant colors, copy HEX codes, and build UI themes — extract color palette from image 100% locally.",
+    "title": "Color Palette Extractor",
+    "description": "Extract a color palette from any photo with an online image color picker. See dominant HEX and RGB swatches, copy in one click, and keep analysis entirely in your browser.",
+    "faqHeading": "Color Palette Extractor FAQ",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Secure, local-first palette extraction.",
+    "schemaName": "Color Palette Extractor",
+    "schemaDescription": "Extract color palette from image online — get image dominant colors with HEX/RGB copy, local ColorThief analysis.",
+    "schemaFeaturePalette": "Dominant color palette from any JPG, PNG, or WebP",
+    "schemaFeatureCopy": "One-click HEX copy with Copied confirmation",
+    "schemaFeatureLocal": "100% local browser processing with ColorThief",
+    "schemaFeatureHiRes": "Downscaled analysis canvas for fast high-res photos",
+    "article": {
+      "title": "How designers use a palette generator from photo",
+      "intro": "A consistent color system is the difference between a scattered UI and a brand that feels intentional. Extracting dominant colors from a photo — mood boards, packaging shots, or product heroes — gives you grounded HEX tokens instead of guessing from memory.",
+      "howToUse": {
+        "heading": "How to use this online image color picker",
+        "p1": "Drop a JPG, PNG, WebP, or GIF. Analysis runs on a downscaled canvas so large photos stay responsive.",
+        "p2": "Review the palette dashboard: each swatch shows the color chip, HEX, and RGB. Adjust the color count between 3 and 12 if you need fewer accents or more nuance.",
+        "p3": "Click Copy (or the HEX code) to put that value on your clipboard — a brief Copied! notice confirms success.",
+        "p4": "Rating and review stay hidden until a palette is successfully extracted and shown."
+      },
+      "designers": {
+        "heading": "UI consistency, mood boards, and brand identity",
+        "p1": "Pull accents from photography when designing landing pages so CTAs and surfaces echo the imagery.",
+        "p2": "Mood boards become actionable tokens: drop a collage and export HEX values into Figma or CSS variables.",
+        "p3": "Brand identity work benefits from grounded dominant colors rather than arbitrary pastel picks.",
+        "p4": "Pair with the Color Converter when you need HSL or alternate syntax from a copied HEX."
+      },
+      "accuracy": {
+        "heading": "Getting accurate dominant colors",
+        "p1": "Quantization favors large recurring regions. Tiny logo accents may not surface unless you raise the color count.",
+        "p2": "Gradients become averaged samples; try cropping the region of interest and re-running if you need a specific band.",
+        "p3": "Near-duplicate swatches are filtered so the dashboard stays usable for design systems.",
+        "p4": "You do not need a small upload — high-resolution files are analyzed from a lean canvas copy."
+      },
+      "privacy": {
+        "heading": "Why local-first palette extraction matters",
+        "p1": "Unreleased product photography and client mood boards should not travel through a third-party color API.",
+        "p2": "ColorThief and the HTML5 Canvas API run entirely on-device. Originals stay on disk; only derived HEX values leave when you copy them.",
+        "p3": "No account wall for standard palette extraction.",
+        "p4": "Combine with Image Metadata Wiper if you also need EXIF cleaned before sharing source files."
+      }
+    }
   },
   "ColorConverter": {
     "previewLabel": "Preview",

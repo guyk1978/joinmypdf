@@ -33,6 +33,7 @@
     "bidi-js": "^1.0.3",
     "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.1",
+    "colorthief": "^3.4.0",
     "crypto-js": "^4.2.0",
     "docx": "^9.7.1",
     "dxf-parser": "^1.1.2",

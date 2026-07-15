@@ -129,6 +129,10 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "flip-image", labelKey: "flipImage", categories: [c.image] },
   { slug: "image-metadata-editor", labelKey: "imageMetadataEditor", categories: [c.image] },
   { slug: "image-metadata-wiper", labelKey: "imageMetadataWiper", categories: [c.image, c.security] },
+  { slug: "image-dpi-converter", labelKey: "imageDpiConverter", categories: [c.image] },
+  { slug: "image-blur-redact", labelKey: "imageBlurRedact", categories: [c.image, c.security] },
+  { slug: "image-watermark", labelKey: "imageWatermark", categories: [c.image] },
+  { slug: "image-grid-splitter", labelKey: "imageGridSplitter", categories: [c.image] },
   { slug: "image-optimizer", labelKey: "imageOptimizer", categories: [c.image] },
   { slug: "svg-optimizer", labelKey: "svgOptimizer", categories: [c.image] },
   { slug: "paint-on-image", labelKey: "paintOnImage", categories: [c.image] },
@@ -150,6 +154,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "video-metadata-cleaner", labelKey: "videoMetadataCleaner", categories: [c.video, c.security] },
 
   // Favicon
+  { slug: "favicon-generator", labelKey: "faviconGenerator", categories: [c.favicon] },
   { slug: "generate-favicon", labelKey: "generateFavicon", categories: [c.favicon] },
   { slug: "png-to-ico", labelKey: "pngToIco", categories: [c.favicon] },
   { slug: "ico-to-png", labelKey: "icoToPng", categories: [c.favicon] },
@@ -208,6 +213,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "lorem-ipsum-generator", labelKey: "loremIpsumGenerator", categories: [c.productivity] },
 
   // Design tools
+  { slug: "color-palette-extractor", labelKey: "colorPaletteExtractor", categories: [c.design] },
   { slug: "color-converter", labelKey: "colorConverter", categories: [c.design] },
 ];
 
@@ -341,6 +347,7 @@ export const TOOL_REGISTRY = {
     "flip-image",
     "image-metadata-editor",
     "image-metadata-wiper",
+    "image-dpi-converter",
     "image-optimizer",
     "svg-optimizer",
     "paint-on-image",
@@ -369,6 +376,9 @@ export const TOOL_REGISTRY = {
     "rotate-image",
     "flip-image",
     "paint-on-image",
+    "image-blur-redact",
+    "image-watermark",
+    "image-grid-splitter",
     "video-resizer",
     "video-rotator",
     "crop-pdf",
@@ -479,7 +489,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
         id: "image-formats",
         labelKey: "megaMenu.columns.imageFormats",
         slugs: columnSlugs(
-          ["heic-to-jpg", "webp-to-jpg", "svg-to-png", "image-grayscale", "flip-image", "image-metadata-editor", "image-metadata-wiper", "image-optimizer", "svg-optimizer", "paint-on-image", "convert-to-png", "image-converter", "png-to-ico", "ico-to-png", "svg-to-favicon"],
+          ["heic-to-jpg", "webp-to-jpg", "svg-to-png", "image-grayscale", "flip-image", "image-metadata-editor", "image-metadata-wiper", "image-dpi-converter", "image-optimizer", "svg-optimizer", "paint-on-image", "convert-to-png", "image-converter", "png-to-ico", "ico-to-png", "svg-to-favicon"],
           CONVERT_SLUGS,
         ),
       },
@@ -537,7 +547,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "image",
         labelKey: "megaMenu.columns.image",
-        slugs: columnSlugs(["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image"], TOOL_REGISTRY.Resize),
+        slugs: columnSlugs(["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image", "image-blur-redact", "image-watermark", "image-grid-splitter"], TOOL_REGISTRY.Resize),
       },
       {
         id: "pdf",
@@ -566,6 +576,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
           "safe-to-share-auditor",
           "remove-hidden-metadata",
           "image-metadata-wiper",
+          "image-blur-redact",
           "sign-pdf",
           "pdf-signature-validator",
         ],
@@ -584,7 +595,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "design-tools",
         labelKey: "megaMenu.columns.designTools",
-        slugs: ["color-converter"],
+        slugs: ["color-palette-extractor", "color-converter"],
       },
       {
         id: "pdf-organize",
@@ -618,6 +629,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
         id: "favicon",
         labelKey: "megaMenu.columns.faviconTools",
         slugs: [
+          "favicon-generator",
           "generate-favicon",
           "favicon-pack",
           "apple-touch-icon",

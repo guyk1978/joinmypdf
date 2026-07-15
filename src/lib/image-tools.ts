@@ -20,7 +20,9 @@ export type ImageToolIconKey =
   | "eye-off"
   | "arrow-left-right"
   | "tags"
-  | "pen-line";
+  | "pen-line"
+  | "stamp"
+  | "gauge";
 
 export type HomeImageToolItem = {
   id: string;
@@ -55,13 +57,17 @@ const SLUG_ICON_KEYS: Record<string, ImageToolIconKey> = {
   "flip-image": "arrow-left-right",
   "image-metadata-editor": "tags",
   "image-metadata-wiper": "eye-off",
+  "image-dpi-converter": "gauge",
   "image-optimizer": "minimize-2",
   "svg-optimizer": "minimize-2",
   "paint-on-image": "pen-line",
+  "image-blur-redact": "eye-off",
+  "image-watermark": "stamp",
+  "image-grid-splitter": "crop",
 };
 
 const DIRECTORY_ORDER: Record<ImageSubCategory, readonly string[]> = {
-  transform: ["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image"],
+  transform: ["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image", "image-blur-redact", "image-watermark", "image-grid-splitter"],
   convert: [
     "image-converter",
     "convert-to-png",
@@ -71,6 +77,7 @@ const DIRECTORY_ORDER: Record<ImageSubCategory, readonly string[]> = {
     "image-grayscale",
     "image-metadata-editor",
     "image-metadata-wiper",
+    "image-dpi-converter",
   ],
   optimize: ["compress-image", "image-optimizer", "svg-optimizer"],
 };

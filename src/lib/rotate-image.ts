@@ -2,7 +2,15 @@ import { createImage, downloadBlob, isAcceptedImageFile, loadImageFileForCrop } 
 
 export { downloadBlob, isAcceptedImageFile, loadImageFileForCrop };
 
+/** Legacy orthogonal snaps still used by quick-rotate helpers. */
 export type RotationDegrees = 0 | 90 | 180 | 270;
+
+export type ImageTransform = {
+  /** Clockwise degrees — any finite number. */
+  degrees: number;
+  flipX: boolean;
+  flipY: boolean;
+};
 
 const JPEG_QUALITY = 0.92;
 
@@ -12,6 +20,15 @@ export function normalizeRotation(degrees: number): RotationDegrees {
     return normalized;
   }
   return 0;
+}
+
+/** Normalize to (-180, 180] for display/deskew merging. */
+export function normalizeDegrees(degrees: number): number {
+  if (!Number.isFinite(degrees)) return 0;
+  let value = degrees % 360;
+  if (value > 180) value -= 360;
+  if (value <= -180) value += 360;
+  return Math.round(value * 100) / 100;
 }
 
 function outputMimeForFile(file: File): { mime: string; quality?: number } {
@@ -42,9 +59,36 @@ export function rotateImageOutputName(sourceName: string, mime: string): string 
   return `${base}-rotated.png`;
 }
 
-export async function getRotatedImageBlob(
+function canvasToBlob(canvas: HTMLCanvasElement, file: File): Promise<Blob> {
+  const { mime, quality } = outputMimeForFile(file);
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) {
+          reject(new Error("Failed to export transformed image."));
+          return;
+        }
+        resolve(blob);
+      },
+      mime,
+      quality,
+    );
+  });
+}
+
+function rotatedBounds(width: number, height: number, radians: number): { width: number; height: number } {
+  const cos = Math.abs(Math.cos(radians));
+  const sin = Math.abs(Math.sin(radians));
+  return {
+    width: Math.max(1, Math.ceil(width * cos + height * sin)),
+    height: Math.max(1, Math.ceil(width * sin + height * cos)),
+  };
+}
+
+/** Apply rotation + flips on a canvas and export a blob (local-first). */
+export async function getTransformedImageBlob(
   imageSrc: string,
-  rotation: RotationDegrees,
+  transform: ImageTransform,
   file: File,
 ): Promise<Blob> {
   const image = await createImage(imageSrc);
@@ -55,31 +99,29 @@ export async function getRotatedImageBlob(
     throw new Error("Canvas rendering is not supported in this browser.");
   }
 
-  const radians = (rotation * Math.PI) / 180;
-  const swap = rotation === 90 || rotation === 270;
+  const srcW = Math.max(1, image.naturalWidth || image.width);
+  const srcH = Math.max(1, image.naturalHeight || image.height);
+  const degrees = normalizeDegrees(transform.degrees);
+  const radians = (degrees * Math.PI) / 180;
+  const bounds = rotatedBounds(srcW, srcH, radians);
 
-  canvas.width = swap ? image.naturalWidth > 0 ? image.naturalHeight : 1 : image.naturalWidth;
-  canvas.height = swap ? image.naturalHeight > 0 ? image.naturalWidth : 1 : image.naturalHeight;
+  canvas.width = bounds.width;
+  canvas.height = bounds.height;
 
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = "high";
-  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.translate(bounds.width / 2, bounds.height / 2);
   ctx.rotate(radians);
-  ctx.drawImage(image, -image.naturalWidth / 2, -image.naturalHeight / 2);
+  ctx.scale(transform.flipX ? -1 : 1, transform.flipY ? -1 : 1);
+  ctx.drawImage(image, -srcW / 2, -srcH / 2, srcW, srcH);
 
-  const { mime, quality } = outputMimeForFile(file);
+  return canvasToBlob(canvas, file);
+}
 
-  return new Promise((resolve, reject) => {
-    canvas.toBlob(
-      (blob) => {
-        if (!blob) {
-          reject(new Error("Failed to export rotated image."));
-          return;
-        }
-        resolve(blob);
-      },
-      mime,
-      quality,
-    );
-  });
+export async function getRotatedImageBlob(
+  imageSrc: string,
+  rotation: RotationDegrees,
+  file: File,
+): Promise<Blob> {
+  return getTransformedImageBlob(imageSrc, { degrees: rotation, flipX: false, flipY: false }, file);
 }

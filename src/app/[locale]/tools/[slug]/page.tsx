@@ -27,6 +27,9 @@ import { ImageGrayscaleWorkspace } from "@/components/ImageGrayscaleWorkspace";
 import { FlipImageWorkspace } from "@/components/FlipImageWorkspace";
 import { ImageMetadataEditorWorkspace } from "@/components/ImageMetadataEditorWorkspace";
 import { ImageMetadataWiperWorkspace } from "@/components/ImageMetadataWiperWorkspace";
+import { ImageBlurRedactWorkspace } from "@/components/ImageBlurRedactWorkspace";
+import { ImageGridSplitterWorkspace } from "@/components/ImageGridSplitterWorkspace";
+import { ImageWatermarkWorkspace } from "@/components/ImageWatermarkWorkspace";
 import { ImageOptimizerWorkspace } from "@/components/ImageOptimizerWorkspace";
 import { PaintOnImageWorkspace } from "@/components/PaintOnImageWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
@@ -111,6 +114,8 @@ import { HashGeneratorWorkspace } from "@/components/tools/security/HashGenerato
 import { UuidGeneratorWorkspace } from "@/components/tools/security/UuidGeneratorWorkspace";
 import { SslDecoderWorkspace } from "@/components/tools/security/SslDecoderWorkspace";
 import { ColorConverterWorkspace } from "@/components/tools/design/ColorConverterWorkspace";
+import { ColorPaletteExtractorWorkspace } from "@/components/tools/design/ColorPaletteExtractorWorkspace";
+import { ImageDpiConverterWorkspace } from "@/components/ImageDpiConverterWorkspace";
 import { UnitConverterWorkspace } from "@/components/tools/productivity/UnitConverterWorkspace";
 import { TimezoneConverterWorkspace } from "@/components/tools/productivity/TimezoneConverterWorkspace";
 import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/ReadingTimeCalculatorWorkspace";
@@ -119,6 +124,7 @@ import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWork
 import { FaviconPackWorkspace } from "@/components/FaviconPackWorkspace";
 import { SvgToFaviconWorkspace } from "@/components/SvgToFaviconWorkspace";
 import { IcoToPngWorkspace } from "@/components/IcoToPngWorkspace";
+import { FaviconGeneratorWorkspace } from "@/components/FaviconGeneratorWorkspace";
 import { PngToIcoWorkspace } from "@/components/PngToIcoWorkspace";
 import { GenerateFaviconWorkspace } from "@/components/GenerateFaviconWorkspace";
 import { MergePdfWorkspace } from "@/components/MergePdfWorkspace";
@@ -436,6 +442,14 @@ export default async function ToolPage({
           <ImageMetadataEditorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "image-metadata-wiper" ? (
           <ImageMetadataWiperWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-dpi-converter" ? (
+          <ImageDpiConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-blur-redact" ? (
+          <ImageBlurRedactWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-watermark" ? (
+          <ImageWatermarkWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-grid-splitter" ? (
+          <ImageGridSplitterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "image-optimizer" ? (
           <ImageOptimizerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "paint-on-image" ? (
@@ -480,6 +494,8 @@ export default async function ToolPage({
           <RotateImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "compress-image" ? (
           <CompressImageWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "favicon-generator" ? (
+          <FaviconGeneratorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "generate-favicon" ? (
           <GenerateFaviconWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "png-to-ico" ? (
@@ -550,6 +566,8 @@ export default async function ToolPage({
           <UuidGeneratorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "ssl-decoder" ? (
           <SslDecoderWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "color-palette-extractor" ? (
+          <ColorPaletteExtractorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "color-converter" ? (
           <ColorConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "unit-converter" ? (

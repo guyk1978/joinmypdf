@@ -1562,6 +1562,8 @@
         "Align mixed portrait and landscape page batches"
       ],
       "relatedTools": [
+        "rotate-image",
+        "video-rotator",
         "pdf-merge",
         "pdf-split",
         "crop-pdf"
@@ -1578,6 +1580,10 @@
         {
           "q": "Can I rotate the whole document at once?",
           "a": "Yes. Global controls apply clockwise or counter-clockwise rotation to all pages."
+        },
+        {
+          "q": "Need to straighten a scanned photo instead of a PDF?",
+          "a": "Open the Rotate & Align Suite (Rotate Image) for precision degrees, flips, and Auto-Align deskew on images."
         },
         {
           "q": "Does rotating reduce quality?",
@@ -2224,46 +2230,62 @@
       "category": "image-tools",
       "subCategory": "transform",
       "operation": "rotate-image",
-      "title": "Rotate Image",
-      "primaryKeyword": "rotate image online free",
-      "intent": "Rotate photos 90° left or right in your browser—live preview, instant download, no upload.",
-      "description": "Upload an image, rotate in 90-degree steps, and download the corrected file—all processed locally on your device.",
+      "title": "Rotate & Align Suite",
+      "primaryKeyword": "rotate PDF accurately",
+      "intent": "Rotate, flip, and auto-deskew images locally — then jump to PDF or video rotation when you need another medium.",
+      "description": "Free Rotate & Align Suite: straighten scanned documents, rotate images accurately with custom degrees, flip horizontal/vertical, and run browser auto-deskew — all local-first.",
       "secondaryKeywords": [
-        "rotate photo online",
-        "turn image 90 degrees",
-        "fix image orientation browser"
+        "straighten scanned documents",
+        "flip image online",
+        "auto-deskew tool",
+        "rotate image online free",
+        "rotate photo custom angle"
       ],
       "useCases": [
-        "Fix sideways phone photos before sharing",
-        "Rotate scanned documents to the correct orientation",
-        "Prepare images for slides or print layouts"
+        "Straighten skewed phone scans before OCR or sharing",
+        "Rotate photos by exact degrees for print layouts",
+        "Flip and mirror product shots without uploads"
       ],
       "relatedTools": [
+        "rotate-pdf",
+        "video-rotator",
+        "flip-image",
         "crop-image",
-        "resize-image",
         "compress-image"
       ],
       "faq": [
         {
           "q": "Is my image uploaded to JoinMyPDF?",
-          "a": "No. Rotation runs entirely in your browser on your device."
+          "a": "No. Rotation, flips, and auto-deskew run entirely in your browser on your device."
         },
         {
           "q": "Can I rotate by angles other than 90°?",
-          "a": "This tool rotates in 90-degree steps for precise, lossless orientation fixes."
+          "a": "Yes. Use Precision Rotation to enter custom degrees (for example 45°), or keep Quick Rotate for 90°/180° snaps."
+        },
+        {
+          "q": "What does Auto-Align do?",
+          "a": "Auto-Align estimates a small deskew angle with a local projection-profile scan (edge/line alignment), then applies that correction. It is designed for slightly crooked scanned documents — not as a full OCR pipeline."
+        },
+        {
+          "q": "Can I flip and rotate together?",
+          "a": "Yes. Toggle Flip Horizontal / Flip Vertical alongside your rotation angle, preview the result, then download once."
+        },
+        {
+          "q": "Where do I rotate PDFs or videos?",
+          "a": "Use Rotate PDF for page orientation of PDF documents and Video Rotator for MP4 clips. Both are linked from the suite sidebar and the Rotate Tools hub."
         },
         {
           "q": "Will image quality be preserved?",
-          "a": "Yes. Export uses high-quality canvas rendering with smoothing enabled."
+          "a": "Export uses high-quality canvas rendering with smoothing enabled. Extreme arbitrary angles resample pixels; 90° snaps stay sharply orthogonal."
         }
       ],
       "longTailPages": [],
       "skipClusterVariants": true,
-      "priority": 0.81,
+      "priority": 0.86,
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-07-15"
     },
     {
       "slug": "heic-to-jpg",
@@ -2453,7 +2475,7 @@
       "title": "Flip Image (Horizontal/Vertical)",
       "primaryKeyword": "flip image online free",
       "intent": "Flip images horizontally or vertically without losing quality. Perfect for mirroring selfies, fixing scanned pages, and correcting upside-down photos.",
-      "description": "Upload images and flip them horizontally or vertically locally—no upload to our servers.",
+      "description": "Opens the Rotate & Align Suite so you can flip horizontally or vertically, rotate precisely, and auto-deskew — all locally with no uploads.",
       "secondaryKeywords": [
         "mirror image online",
         "flip photo horizontally",
@@ -2462,9 +2484,11 @@
       "useCases": [
         "Mirror selfies or product photos for social layouts",
         "Flip scanned documents that were captured upside down",
-        "Batch-flip images before resizing or compressing"
+        "Combine flips with precision rotation in one download"
       ],
       "relatedTools": [
+        "rotate-image",
+        "rotate-pdf",
         "compress-image",
         "resize-image"
       ],
@@ -2510,8 +2534,10 @@
         "Update title and description tags for stock or portfolio images"
       ],
       "relatedTools": [
+        "image-dpi-converter",
         "compress-image",
-        "resize-image"
+        "resize-image",
+        "image-metadata-wiper"
       ],
       "faq": [
         {
@@ -2556,6 +2582,7 @@
         "Sanitize client images before sharing in tickets or email"
       ],
       "relatedTools": [
+        "image-dpi-converter",
         "image-metadata-editor",
         "compress-image",
         "remove-hidden-metadata"
@@ -2589,6 +2616,238 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-07-14"
+    },
+    {
+      "slug": "image-dpi-converter",
+      "category": "image-tools",
+      "subCategory": "convert",
+      "operation": "image-dpi-converter",
+      "title": "Image DPI Converter",
+      "primaryKeyword": "change image DPI online",
+      "intent": "Change JPG/PNG print density metadata locally without resizing pixels or re-compressing the photo.",
+      "description": "Free online DPI changer for print. Convert image to 300 DPI for print-ready delivery, keep pixel dimensions intact, and update EXIF/JFIF or PNG pHYs — 100% local.",
+      "secondaryKeywords": [
+        "convert image to 300 DPI",
+        "DPI converter for print",
+        "online DPI changer",
+        "change JPEG DPI without resize"
+      ],
+      "useCases": [
+        "Mark exports as 300 DPI before sending to a print shop",
+        "Normalize web screenshots tagged at 72 DPI for print layouts",
+        "Set custom DPI on PNGs via pHYs without re-encoding"
+      ],
+      "relatedTools": [
+        "image-metadata-editor",
+        "image-metadata-wiper",
+        "resize-image",
+        "compress-image"
+      ],
+      "faq": [
+        {
+          "q": "Does this change the image size?",
+          "a": "No. Pixel width and height stay the same. Only density metadata (DPI) in the file header is updated — use Resize Image if you need different pixel dimensions."
+        },
+        {
+          "q": "Will my image look pixelated?",
+          "a": "Changing DPI does not resample pixels, so on-screen appearance stays the same. Softness in print comes from too few pixels for the physical print size, not from this metadata tag alone."
+        },
+        {
+          "q": "Is the original quality preserved?",
+          "a": "Yes. JPG and PNG payloads are not re-compressed. JPEG updates EXIF/JFIF density; PNG updates the pHYs chunk."
+        },
+        {
+          "q": "What does Print Ready do?",
+          "a": "It sets the target to 300 DPI — the common commercial print standard — so you do not have to pick a preset manually."
+        },
+        {
+          "q": "Does this tool work locally?",
+          "a": "Yes. All metadata changes run in your browser. Nothing is uploaded."
+        },
+        {
+          "q": "Is the Image DPI Converter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.84,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-15"
+    },
+    {
+      "slug": "image-grid-splitter",
+      "category": "image-tools",
+      "subCategory": "transform",
+      "operation": "image-grid-splitter",
+      "title": "Image Grid Splitter",
+      "primaryKeyword": "online image splitter",
+      "intent": "Split a photo into a grid of tiles (2×2, 3×3, custom) and download a ZIP of slices — perfect for Instagram grids.",
+      "description": "Free online image splitter and Instagram grid maker. Split image into grid tiles, crop image into pieces with live cut preview, and download a ZIP — 100% local.",
+      "secondaryKeywords": [
+        "split image into grid",
+        "instagram grid maker",
+        "crop image into pieces",
+        "photo grid slicer"
+      ],
+      "useCases": [
+        "Carve a portrait into a 3×3 Instagram feed collage",
+        "Slice a panorama into 1×3 strips for carousels",
+        "Cut product shots into custom row/column tiles for mood boards"
+      ],
+      "relatedTools": [
+        "crop-image",
+        "resize-image",
+        "image-watermark",
+        "compress-image"
+      ],
+      "faq": [
+        {
+          "q": "Does it maintain image quality?",
+          "a": "Yes. Tiles are cropped from the original pixels with the Canvas API. PNG exports stay lossless; JPEG sources export high-quality JPEG tiles (quality ~95)."
+        },
+        {
+          "q": "Can I split into non-square grids?",
+          "a": "Yes. Use presets like 1×3 or 3×1, or enter any custom rows and columns from 1 to 10 (for example 2×5)."
+        },
+        {
+          "q": "Is the processing done on my device?",
+          "a": "Yes. Slicing and ZIP packaging run entirely in your browser. Nothing is uploaded."
+        },
+        {
+          "q": "How should I post an Instagram grid?",
+          "a": "Use the 3×3 preset, download the ZIP, then upload tiles in numbered order (left to right, top to bottom) so the feed reconstructs the full image."
+        },
+        {
+          "q": "Is the Image Grid Splitter free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-15"
+    },
+    {
+      "slug": "image-blur-redact",
+      "category": "image-tools",
+      "subCategory": "transform",
+      "operation": "image-blur-redact",
+      "title": "Image Blur & Redact",
+      "primaryKeyword": "image redactor",
+      "intent": "Blur, pixelate, or black-box sensitive regions in screenshots and photos — entirely in your browser.",
+      "description": "Free image redactor to blur screenshots online, pixelate faces, and censor images. Draw marquees, preview live, and download a redacted JPG/PNG with zero uploads — protect private data in photos.",
+      "secondaryKeywords": [
+        "blur screenshot online",
+        "censor image free",
+        "protect private data in photos",
+        "pixelate image online"
+      ],
+      "useCases": [
+        "Blur names and addresses in support screenshots",
+        "Pixelate faces before sharing photos publicly",
+        "Black-box account numbers in financial screenshots"
+      ],
+      "relatedTools": [
+        "paint-on-image",
+        "image-metadata-wiper",
+        "redact-pdf",
+        "crop-image"
+      ],
+      "faq": [
+        {
+          "q": "Is my image sent to a server?",
+          "a": "No. Drawing, blur, pixelate, and solid redaction run entirely in your browser. The image never leaves your device."
+        },
+        {
+          "q": "Can I undo the blur?",
+          "a": "Yes. Use Undo to remove the last region, Clear all to reset effects, or Replace image to start over from the original file."
+        },
+        {
+          "q": "What formats are supported?",
+          "a": "JPG, PNG, WebP, GIF, and HEIC. Downloads keep JPEG/WebP quality when possible and use PNG for GIF/other cases."
+        },
+        {
+          "q": "What does Auto-Detect Faces do?",
+          "a": "It is experimental. On supported Chromium browsers it uses the built-in Face Detector API to suggest blur regions. If the API is unavailable, the button explains that and you can still redact manually."
+        },
+        {
+          "q": "Is the Image Blur & Redact tool free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.84,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-15"
+    },
+    {
+      "slug": "image-watermark",
+      "category": "image-tools",
+      "subCategory": "transform",
+      "operation": "image-watermark",
+      "title": "Professional Image Watermark Tool",
+      "primaryKeyword": "add watermark to image",
+      "intent": "Stamp text or logo watermarks on photos locally with live preview, opacity control, and batch export.",
+      "description": "Free online image watermarker to protect photos with logo or text. Position, opacity, font, Auto-Scale Logo, and batch apply — 100% local-first.",
+      "secondaryKeywords": [
+        "online image watermarker",
+        "protect photos with logo",
+        "free image watermark tool",
+        "batch watermark images"
+      ],
+      "useCases": [
+        "Brand portfolio photos with a translucent logo",
+        "Stamp copyright text on client previews",
+        "Batch-watermark a set of event photos before delivery"
+      ],
+      "relatedTools": [
+        "paint-on-image",
+        "image-blur-redact",
+        "add-watermark",
+        "compress-image"
+      ],
+      "faq": [
+        {
+          "q": "Can I change the transparency?",
+          "a": "Yes. Use the opacity slider for both text and logo watermarks. Lower values make the mark subtler; 100% is fully opaque."
+        },
+        {
+          "q": "Is the logo preserved?",
+          "a": "PNG logos with transparency keep their alpha channel when drawn on the canvas. The watermark is baked into the exported pixels — the original logo file itself is not modified."
+        },
+        {
+          "q": "Does this tool work locally?",
+          "a": "Yes. Images and logos are processed entirely in your browser with the HTML5 Canvas API. Nothing is uploaded."
+        },
+        {
+          "q": "What does Auto-Scale Logo do?",
+          "a": "It sets the logo width to about 10% of the current photo width so the mark looks proportional without manual dragging."
+        },
+        {
+          "q": "Can I watermark multiple images?",
+          "a": "Yes. Select several photos, tune the watermark once, then Apply & Download. Multiple outputs download as a ZIP."
+        },
+        {
+          "q": "Is the Image Watermark tool free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.85,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-15"
     },
     {
       "slug": "image-optimizer",
@@ -4269,25 +4528,27 @@
         "Export ICO or PNG without design software"
       ],
       "relatedTools": [
-        "qr-code-generator",
-        "compress-image"
+        "favicon-generator",
+        "png-to-ico",
+        "favicon-pack",
+        "qr-code-generator"
       ],
       "faq": [
         {
-          "q": "What sizes does the favicon generator create?",
-          "a": "ICO downloads include 16×16, 32×32, and 48×48 frames. PNG downloads export a crisp 32×32 file."
+          "q": "What sizes does the text favicon generator create?",
+          "a": "ICO downloads include 16×16, 32×32, and 64×64 frames. PNG downloads export a crisp 32×32 file."
         },
         {
           "q": "Can I use letters instead of uploading an image?",
-          "a": "Yes. Enter one or two characters, choose background and text colors, and preview the result instantly."
+          "a": "Yes. This tool is for monogram-style icons. Enter one or two characters, choose background and text colors, and preview instantly."
         },
         {
-          "q": "Is my logo uploaded to JoinMyPDF?",
+          "q": "Can I upload a PNG or JPG logo instead?",
+          "a": "Use the Favicon Generator tool to convert PNG, JPG, or SVG artwork into a multi-size ICO or PNG pack — also 100% local."
+        },
+        {
+          "q": "Is my design uploaded to JoinMyPDF?",
           "a": "No. Favicon generation runs entirely in your browser on your device."
-        },
-        {
-          "q": "Can I use a PNG or JPG as the source?",
-          "a": "Yes. Upload common image formats and download ICO plus PNG outputs."
         }
       ],
       "longTailPages": [],
@@ -4297,6 +4558,61 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
       "updatedAt": "2026-06-30"
+    },
+    {
+      "slug": "favicon-generator",
+      "category": "convert",
+      "operation": "favicon-generator",
+      "title": "Favicon Generator",
+      "primaryKeyword": "favicon generator online",
+      "intent": "Convert PNG, JPG, or SVG logos into favicon.ico (16/32/48) or PNG packs locally with a live browser-tab preview.",
+      "description": "Free favicon creator — convert image to ICO, preview the tab icon, and download multi-size favicons for your website. 100% local browser processing.",
+      "secondaryKeywords": [
+        "convert image to ico",
+        "create favicon for website",
+        "free favicon creator",
+        "online favicon from image"
+      ],
+      "useCases": [
+        "Turn a square logo into favicon.ico for production",
+        "Export 16×16, 32×32, and 48×48 PNG icons for modern browsers",
+        "Preview how the icon looks in a desktop browser tab before shipping"
+      ],
+      "relatedTools": [
+        "generate-favicon",
+        "png-to-ico",
+        "favicon-pack",
+        "svg-to-favicon"
+      ],
+      "faq": [
+        {
+          "q": "What is an ICO file?",
+          "a": "An ICO is a Windows icon container that can store multiple PNG frames (for example 16×16, 32×32, and 48×48) in one favicon.ico file. Browsers pick an appropriate size for tabs and bookmarks."
+        },
+        {
+          "q": "Do I need different sizes?",
+          "a": "Yes for crisp results. Small tabs use 16×16; many UIs use 32×32; shortcuts often prefer 48×48. Our multi-size ICO packs all three. Modern sites can also use separate PNG links."
+        },
+        {
+          "q": "How do I add this to my website?",
+          "a": "Place favicon.ico (or the PNG files) in your site root or /public folder, then paste the generated <link rel=\"icon\"> snippet into your HTML <head>."
+        },
+        {
+          "q": "Which formats can I upload?",
+          "a": "PNG, JPG/JPEG, and SVG. Everything is resized and packed in your browser — nothing is uploaded."
+        },
+        {
+          "q": "Is the Favicon Generator free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.9,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-15"
     },
     {
       "slug": "png-to-ico",
@@ -4317,6 +4633,7 @@
         "Bundle PNG artwork into a single ICO"
       ],
       "relatedTools": [
+        "favicon-generator",
         "generate-favicon",
         "compress-image"
       ],
@@ -4449,6 +4766,7 @@
         "Hand off favicon assets to developers in one file"
       ],
       "relatedTools": [
+        "favicon-generator",
         "generate-favicon",
         "compress-image"
       ],
@@ -5515,6 +5833,65 @@
       "updatedAt": "2026-07-13"
     },
     {
+      "slug": "color-palette-extractor",
+      "category": "convert",
+      "operation": "color-palette-extractor",
+      "title": "Color Palette Extractor",
+      "primaryKeyword": "extract color palette from image",
+      "intent": "Pull dominant colors from any photo locally with HEX/RGB swatches and one-click copy.",
+      "description": "Free online image color picker and palette generator from photo. Extract dominant colors with ColorThief, copy HEX codes, and keep analysis 100% in your browser.",
+      "secondaryKeywords": [
+        "online image color picker",
+        "get image dominant colors",
+        "palette generator from photo",
+        "free color palette extractor"
+      ],
+      "useCases": [
+        "Build UI themes from product photography",
+        "Pull brand accents from a mood-board screenshot",
+        "Generate CSS palette tokens from a hero image"
+      ],
+      "relatedTools": [
+        "color-converter",
+        "image-optimizer",
+        "paint-on-image",
+        "favicon-pack"
+      ],
+      "faq": [
+        {
+          "q": "How many colors are extracted?",
+          "a": "By default we extract 8 dominant colors. Use the palette size slider to choose between 3 and 12 swatches."
+        },
+        {
+          "q": "Is this accurate for all images?",
+          "a": "Quantization finds prominent, recurring colors well. Busy photos, heavy gradients, or rare accent colors may produce approximate results — tune the color count if needed."
+        },
+        {
+          "q": "Do I need to upload a small file?",
+          "a": "No. High-resolution photos are downscaled on a hidden canvas before analysis so extraction stays fast without hanging the UI."
+        },
+        {
+          "q": "Does this tool work locally?",
+          "a": "Yes. Images never leave your device. ColorThief runs entirely in your browser on a canvas copy of your upload."
+        },
+        {
+          "q": "Can I copy HEX and RGB?",
+          "a": "Each swatch shows HEX and RGB. Click Copy (or the HEX code) to place the HEX value on your clipboard with a brief Copied confirmation."
+        },
+        {
+          "q": "Is the Color Palette Extractor free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.85,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-15"
+    },
+    {
       "slug": "color-converter",
       "category": "convert",
       "operation": "color-converter",
@@ -5533,6 +5910,7 @@
         "Copy CSS-ready color strings while prototyping"
       ],
       "relatedTools": [
+        "color-palette-extractor",
         "favicon-pack",
         "generate-favicon",
         "image-optimizer"

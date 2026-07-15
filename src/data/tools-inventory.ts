@@ -123,6 +123,16 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "caseConverter",
   },
   {
+    id: "color-palette-extractor",
+    title: "Color Palette Extractor",
+    path: "/tools/color-palette-extractor/",
+    description:
+      "Extract dominant colors from any photo — HEX and RGB swatches with one-click copy, 100% local ColorThief analysis.",
+    categories: ["design"] as const,
+    primaryCategory: "design",
+    labelKey: "colorPaletteExtractor",
+  },
+  {
     id: "color-converter",
     title: "Color Converter",
     path: "/tools/color-converter/",
@@ -350,10 +360,21 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     id: "flip-image",
     title: "Flip Image (Horizontal/Vertical)",
     path: "/tools/flip-image/",
-    description: "Upload images and flip them horizontally or vertically locally—no upload to our servers.",
-    categories: ["image"] as const,
+    description:
+      "Opens the Rotate & Align Suite — flip horizontal/vertical, rotate precisely, and auto-deskew locally.",
+    categories: ["image", "rotate"] as const,
     primaryCategory: "image",
     labelKey: "flipImage",
+  },
+  {
+    id: "favicon-generator",
+    title: "Favicon Generator",
+    path: "/tools/favicon-generator/",
+    description:
+      "Convert PNG, JPG, or SVG to favicon.ico (16×16, 32×32, 48×48) or a PNG pack — live tab preview, 100% local.",
+    categories: ["favicon"] as const,
+    primaryCategory: "favicon",
+    labelKey: "faviconGenerator",
   },
   {
     id: "generate-favicon",
@@ -465,6 +486,46 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     categories: ["image", "security"] as const,
     primaryCategory: "image",
     labelKey: "imageMetadataWiper",
+  },
+  {
+    id: "image-dpi-converter",
+    title: "Image DPI Converter",
+    path: "/tools/image-dpi-converter/",
+    description:
+      "Change JPG/PNG DPI metadata for print (including Print Ready 300 DPI) without resizing pixels — 100% local.",
+    categories: ["image"] as const,
+    primaryCategory: "image",
+    labelKey: "imageDpiConverter",
+  },
+  {
+    id: "image-blur-redact",
+    title: "Image Blur & Redact",
+    path: "/tools/image-blur-redact/",
+    description:
+      "Blur, pixelate, or black-box sensitive regions in screenshots and photos — draw marquees, preview live, download locally.",
+    categories: ["image", "security"] as const,
+    primaryCategory: "image",
+    labelKey: "imageBlurRedact",
+  },
+  {
+    id: "image-watermark",
+    title: "Professional Image Watermark Tool",
+    path: "/tools/image-watermark/",
+    description:
+      "Add text or logo watermarks with opacity, position, Auto-Scale Logo, and batch export — 100% local in your browser.",
+    categories: ["image"] as const,
+    primaryCategory: "image",
+    labelKey: "imageWatermark",
+  },
+  {
+    id: "image-grid-splitter",
+    title: "Image Grid Splitter",
+    path: "/tools/image-grid-splitter/",
+    description:
+      "Split photos into 2×2, 3×3, or custom grids and download a ZIP of tiles — Instagram grid maker, 100% local.",
+    categories: ["image"] as const,
+    primaryCategory: "image",
+    labelKey: "imageGridSplitter",
   },
   {
     id: "image-optimizer",
@@ -1012,9 +1073,10 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
   },
   {
     id: "rotate-image",
-    title: "Rotate Image",
+    title: "Rotate & Align Suite",
     path: "/tools/rotate-image/",
-    description: "Upload an image, rotate in 90-degree steps, and download the corrected file—all processed locally on your device.",
+    description:
+      "Rotate, flip, and auto-deskew images locally — precision degrees, quick 90°/180° snaps, and links to PDF/video rotators.",
     categories: ["image", "rotate"] as const,
     primaryCategory: "image",
     labelKey: "rotateImage",

@@ -7,6 +7,7 @@ import {
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 export type HomeFaviconToolId =
+  | "favicon-generator"
   | "generate-favicon"
   | "png-to-ico"
   | "ico-to-png"
@@ -44,6 +45,7 @@ const FAVICON_TOOL_META: Record<
   HomeFaviconToolId,
   { iconKey: HomeFaviconToolIconKey; messageKey: string }
 > = {
+  "favicon-generator": { iconKey: "sparkles", messageKey: "faviconGenerator" },
   "generate-favicon": { iconKey: "sparkles", messageKey: "generateFavicon" },
   "png-to-ico": { iconKey: "file-image", messageKey: "pngToIco" },
   "ico-to-png": { iconKey: "image-down", messageKey: "icoToPng" },
@@ -68,9 +70,9 @@ export type FaviconHubToolId = string;
 
 /** Homepage — hub + 3 most popular favicon tools */
 export const HOMEPAGE_FEATURED_FAVICON_IDS = [
+  "favicon-generator",
   "generate-favicon",
   "png-to-ico",
-  "ico-to-png",
 ] as const;
 
 export type HomeFeaturedFaviconItem = {
