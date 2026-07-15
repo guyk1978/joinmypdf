@@ -1,4 +1,5 @@
 import { isCrossOriginIsolated, wasmSimdSupported } from "@/services/media/workers/ffmpeg-core-config";
+import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
 
 export type FfmpegEnvironmentStatus = {
   /** FFmpeg can run (WebAssembly available). */
@@ -44,13 +45,36 @@ export function formatFfmpegLoadError(error: unknown): string {
   const raw = error instanceof Error ? error.message : String(error);
   const lower = raw.toLowerCase();
 
-  if (lower.includes("sharedarraybuffer") || lower.includes("cross-origin")) {
-    return "FFmpeg could not start because this page is not cross-origin isolated. Ensure Cross-Origin-Opener-Policy and Cross-Origin-Embedder-Policy headers are set, then reload. Single-thread mode should still work after a refresh once headers are active.";
+  // Preserve detailed multi-attempt diagnostics when present.
+  if (raw.startsWith("FFmpeg engine failed to load (")) {
+    return `${raw} Use “Reload FFmpeg engine”, then try again.`;
+  }
+
+  if (lower.includes("cannot be accessed from origin") || lower.includes("failed to construct 'worker'")) {
+    return "FFmpeg worker script was blocked (cross-origin Worker). Hard-refresh the page so the same-origin worker bundle loads, then try again.";
+  }
+
+  if (lower.includes("sharedarraybuffer") || lower.includes("cross-origin isolation")) {
+    return "FFmpeg could not start because this page is not cross-origin isolated. Ensure COOP/COEP headers are set, then reload.";
   }
 
   if (lower.includes("out of memory") || lower.includes("oom")) {
     return "The browser ran out of memory while loading FFmpeg. Close other tabs and try a smaller audio file.";
   }
 
+  if (lower.includes("network") || lower.includes("failed to fetch") || lower.includes("load failed")) {
+    return "Could not download the FFmpeg engine files. Check your connection, then use “Reload FFmpeg engine”.";
+  }
+
+  if (lower.includes("failed to import ffmpeg-core") || lower.includes("worker failed")) {
+    return `${raw} Use “Reload FFmpeg engine”, then try again.`;
+  }
+
   return raw || "Audio conversion failed.";
+}
+
+/** Hard-reset the singleton worker so the next job can recover from a bad load. */
+export function resetFfmpegEngine(): void {
+  if (typeof window === "undefined") return;
+  FfmpegWorkerClient.getInstance().reset();
 }

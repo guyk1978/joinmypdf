@@ -3,10 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { MediaProcessingPhase } from "@/services/media";
 import {
-  normalizeMp3File,
+  analyzeAmplitude,
+  normalizeAudioFile,
   normalizedBatchDownloadName,
   normalizedBatchZip,
   normalizedOutputFileName,
+  peakGainToTarget,
+  type NormalizeAudioOptions,
   type NormalizedBatchOutput,
 } from "@/components/tools/ffmpeg/normalize-audio";
 import {
@@ -67,127 +70,143 @@ export function useFfmpegAudioNormalize(options: UseFfmpegAudioNormalizeOptions 
     setCurrentFileName(null);
   }, []);
 
-  const normalizeBatch = useCallback(async (files: File[]) => {
-    const env = getFfmpegEnvironmentStatus();
-    setEnvironment(env);
+  const normalizeBatch = useCallback(
+    async (files: File[], processOptions: NormalizeAudioOptions = {}) => {
+      const env = getFfmpegEnvironmentStatus();
+      setEnvironment(env);
 
-    if (!env.canRun) {
-      const message = env.blockingMessage ?? "This browser cannot run local audio normalization.";
-      setPhase("error");
-      setError(message);
-      setStatusMessage(message);
-      return null;
-    }
+      if (!env.canRun) {
+        const message = env.blockingMessage ?? "This browser cannot run local audio normalization.";
+        setPhase("error");
+        setError(message);
+        setStatusMessage(message);
+        return null;
+      }
 
-    if (files.length === 0) {
-      const message = "Add at least one MP3 file to normalize.";
-      setPhase("error");
-      setError(message);
-      setStatusMessage(message);
-      return null;
-    }
+      if (files.length === 0) {
+        const message = "Add at least one MP3 or WAV file to normalize.";
+        setPhase("error");
+        setError(message);
+        setStatusMessage(message);
+        return null;
+      }
 
-    setBusy(true);
-    setError("");
-    setResult(null);
-    setPhase("loading");
-    setRatio(0);
-    setTotalCount(files.length);
-    setCurrentIndex(0);
-    setStatusMessage("Loading FFmpeg engine…");
+      setBusy(true);
+      setError("");
+      setResult(null);
+      setPhase("loading");
+      setRatio(0);
+      setTotalCount(files.length);
+      setCurrentIndex(0);
+      setStatusMessage("Loading FFmpeg engine…");
 
-    const successes: NormalizedFileResult[] = [];
-    const failures: BatchNormalizeFailure[] = [];
-    let ffmpegLoaded = false;
+      const successes: NormalizedFileResult[] = [];
+      const failures: BatchNormalizeFailure[] = [];
+      let ffmpegLoaded = false;
+      const mode = processOptions.mode ?? "loudnorm";
 
-    try {
-      for (let index = 0; index < files.length; index += 1) {
-        const file = files[index];
-        setCurrentIndex(index + 1);
-        setCurrentFileName(file.name);
-        setPhase(ffmpegLoaded ? "processing" : "loading");
-        setStatusMessage(
-          `Normalizing ${index + 1} of ${files.length}: ${file.name}`,
-        );
+      try {
+        for (let index = 0; index < files.length; index += 1) {
+          const file = files[index];
+          setCurrentIndex(index + 1);
+          setCurrentFileName(file.name);
+          setPhase(ffmpegLoaded ? "processing" : "loading");
+          setStatusMessage(`Normalizing ${index + 1} of ${files.length}: ${file.name}`);
 
-        try {
-          const blob = await normalizeMp3File(file, {
-            onPhase: (nextPhase) => {
-              if (nextPhase === "loading") {
-                setPhase("loading");
-              } else {
-                ffmpegLoaded = true;
-                setPhase("processing");
-              }
-            },
-            onProgress: (progress) => {
-              const batchRatio = (index + progress) / files.length;
-              setRatio(batchRatio);
-            },
-          });
+          try {
+            let peakGainDb = processOptions.peakGainDb;
+            if (mode === "peak" && peakGainDb === undefined) {
+              const analysis = await analyzeAmplitude(file);
+              peakGainDb = peakGainToTarget(analysis.peakDb);
+            }
 
-          ffmpegLoaded = true;
-          const fileName = normalizedOutputFileName(file.name);
-          successes.push({ fileName, blob, sourceName: file.name });
-        } catch (cause) {
-          ffmpegLoaded = true;
-          failures.push({
-            sourceName: file.name,
-            message: formatFfmpegLoadError(cause),
-          });
+            const blob = await normalizeAudioFile(file, {
+              ...processOptions,
+              mode,
+              peakGainDb,
+              onPhase: (nextPhase) => {
+                if (nextPhase === "loading") {
+                  setPhase("loading");
+                } else {
+                  ffmpegLoaded = true;
+                  setPhase("processing");
+                }
+              },
+              onProgress: (progress) => {
+                const batchRatio = (index + progress) / files.length;
+                setRatio(batchRatio);
+              },
+            });
+
+            ffmpegLoaded = true;
+            const fileName = normalizedOutputFileName(file.name);
+            successes.push({ fileName, blob, sourceName: file.name });
+          } catch (cause) {
+            ffmpegLoaded = true;
+            failures.push({
+              sourceName: file.name,
+              message: formatFfmpegLoadError(cause),
+            });
+          }
+
+          setRatio((index + 1) / files.length);
         }
 
-        setRatio((index + 1) / files.length);
-      }
+        let zipBlob: Blob | null = null;
+        if (successes.length > 0) {
+          const outputs: NormalizedBatchOutput[] = successes.map((item) => ({
+            fileName: item.fileName,
+            blob: item.blob,
+          }));
+          if (outputs.length === 1) {
+            const single = outputs[0]!;
+            zipBlob = single.blob;
+          } else {
+            zipBlob = await normalizedBatchZip(outputs);
+          }
+        }
 
-      let zipBlob: Blob | null = null;
-      if (successes.length > 0) {
-        const outputs: NormalizedBatchOutput[] = successes.map((item) => ({
-          fileName: item.fileName,
-          blob: item.blob,
-        }));
-        zipBlob =
-          outputs.length === 1
-            ? outputs[0].blob
-            : await normalizedBatchZip(outputs);
-      }
+        const zipFileName =
+          successes.length === 1
+            ? successes[0]!.fileName
+            : normalizedBatchDownloadName(successes.length);
+        const payload: FfmpegAudioNormalizeBatchResult = {
+          successes,
+          failures,
+          zipBlob,
+          zipFileName,
+        };
 
-      const zipFileName = normalizedBatchDownloadName(successes.length);
-      const payload: FfmpegAudioNormalizeBatchResult = {
-        successes,
-        failures,
-        zipBlob,
-        zipFileName,
-      };
+        setResult(payload);
+        if (successes.length === 0) {
+          setPhase("error");
+          setError("No files were normalized. Check the errors below and try again.");
+          setStatusMessage("Batch normalization failed.");
+        } else {
+          setPhase("success");
+          setRatio(1);
+          setStatusMessage(
+            failures.length
+              ? `Normalized ${successes.length} of ${files.length} files.`
+              : `Normalized ${successes.length} file${successes.length === 1 ? "" : "s"}.`,
+          );
+          onCompleteRef.current?.(payload);
+        }
 
-      setResult(payload);
-      if (successes.length === 0) {
+        return payload;
+      } catch (cause) {
+        const message = formatFfmpegLoadError(cause);
         setPhase("error");
-        setError("No files were normalized. Check the errors below and try again.");
-        setStatusMessage("Batch normalization failed.");
-      } else {
-        setPhase("success");
-        setRatio(1);
-        setStatusMessage(
-          failures.length
-            ? `Normalized ${successes.length} of ${files.length} files.`
-            : `Normalized ${successes.length} file${successes.length === 1 ? "" : "s"}.`,
-        );
-        onCompleteRef.current?.(payload);
+        setRatio(0);
+        setStatusMessage(message);
+        setError(message);
+        return null;
+      } finally {
+        setBusy(false);
       }
-
-      return payload;
-    } catch (cause) {
-      const message = formatFfmpegLoadError(cause);
-      setPhase("error");
-      setRatio(0);
-      setStatusMessage(message);
-      setError(message);
-      return null;
-    } finally {
-      setBusy(false);
-    }
-  }, []);
+    },
+    [],
+  );
 
   return {
     environment,

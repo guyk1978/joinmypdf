@@ -33,6 +33,7 @@ export const INVENTORY_PRIMARY_TO_MODAL_GROUP: Record<
   design: "design",
   productivity: "design",
   "unit-math": "design",
+  network: "design",
   mp3: "design",
   audio: "design",
 };
@@ -63,6 +64,7 @@ export const INVENTORY_PRIMARY_TO_MODAL_COLUMN: Record<InventoryCategoryId, stri
   design: "design-tools",
   productivity: "utilities",
   "unit-math": "utilities",
+  network: "developer",
   mp3: "utilities",
   audio: "utilities",
 };

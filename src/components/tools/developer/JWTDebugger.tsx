@@ -1,30 +1,44 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useCallback, useId, useState, type ReactNode } from "react";
 import { useLocale } from "next-intl";
 import { clsx } from "clsx";
+import { Braces, Check, Copy, Eraser, ScanSearch } from "lucide-react";
+import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import {
   copyTextToClipboard,
   formatExpirationRelative,
   getExpirationInfo,
-  hasSignatureIssue,
   isTokenExpired,
   parseJwtToken,
-  type JwtParseResult,
+  type JwtParseSuccess,
   type JwtWarningType,
+  type SignatureStatus,
 } from "@/lib/jwt-debugger";
+import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
 
 export type JWTDebuggerLabels = {
+  privacyNotice: string;
   inputLabel: string;
+  inputHint: string;
   inputPlaceholder: string;
+  decodeButton: string;
   clearButton: string;
+  resultsTitle: string;
   headerTitle: string;
   payloadTitle: string;
   signatureTitle: string;
-  copyButton: string;
+  algorithmLabel: string;
+  typeLabel: string;
+  statusLabel: string;
+  signaturePresent: string;
+  signatureMissing: string;
+  signatureMalformed: string;
+  signatureAlgNone: string;
+  signatureNote: string;
+  copyJsonButton: string;
   copied: string;
   copyFailed: string;
-  outputEmpty: string;
   expirationTitle: string;
   expirationNone: string;
   expirationAbsolute: string;
@@ -44,70 +58,38 @@ type JWTDebuggerProps = {
   className?: string;
 };
 
-type SectionCardProps = {
-  title: string;
-  tone: "header" | "payload" | "signature";
-  value: string;
-  formatted?: string;
-  copyLabel: string;
-  copiedLabel: string;
-  copyFailedLabel: string;
-  highlighted?: boolean;
-};
+function ResultField({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="space-y-1">
+      <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{label}</p>
+      <p className="break-words font-mono text-sm text-neutral-100">{value}</p>
+    </div>
+  );
+}
 
-function SectionCard({
+function ResultCard({
   title,
-  tone,
-  value,
-  formatted,
-  copyLabel,
-  copiedLabel,
-  copyFailedLabel,
-  highlighted,
-}: SectionCardProps) {
-  const [copied, setCopied] = useState(false);
-  const [copyError, setCopyError] = useState<string | null>(null);
-
-  const onCopy = async (text: string) => {
-    const success = await copyTextToClipboard(text);
-    if (!success) {
-      setCopyError(copyFailedLabel);
-      return;
-    }
-
-    setCopyError(null);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
-  };
-
+  actions,
+  children,
+  alert,
+}: {
+  title: string;
+  actions?: ReactNode;
+  children: ReactNode;
+  alert?: boolean;
+}) {
   return (
     <article
       className={clsx(
-        "jwt-debugger-tool__card",
-        `jwt-debugger-tool__card--${tone}`,
-        highlighted && "jwt-debugger-tool__card--alert",
+        "space-y-3 border border-neutral-800 bg-neutral-950/80 p-3",
+        alert && "border-amber-800/70",
       )}
     >
-      <div className="jwt-debugger-tool__card-header">
-        <h3 className="jwt-debugger-tool__card-title">{title}</h3>
-        <button
-          type="button"
-          className={clsx("jwt-debugger-tool__copy-btn", copied && "jwt-debugger-tool__copy-btn--copied")}
-          onClick={() => void onCopy(formatted ?? value)}
-        >
-          {copied ? copiedLabel : copyLabel}
-        </button>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">{title}</h3>
+        {actions}
       </div>
-      {copyError ? (
-        <p className="jwt-debugger-tool__error" role="status">
-          {copyError}
-        </p>
-      ) : null}
-      {formatted ? (
-        <pre className="jwt-debugger-tool__json">{formatted}</pre>
-      ) : (
-        <pre className="jwt-debugger-tool__raw">{value}</pre>
-      )}
+      <div className="space-y-3">{children}</div>
     </article>
   );
 }
@@ -144,33 +126,61 @@ function parseErrorMessage(error: string, labels: JWTDebuggerLabels): string {
   }
 }
 
-type ParsedViewProps = {
-  labels: JWTDebuggerLabels;
-  parsed: Extract<JwtParseResult, { ok: true }>;
-  locale: string;
-};
+function signatureStatusLabel(status: SignatureStatus, labels: JWTDebuggerLabels): string {
+  switch (status) {
+    case "present":
+      return labels.signaturePresent;
+    case "missing":
+      return labels.signatureMissing;
+    case "malformed":
+      return labels.signatureMalformed;
+    case "alg_none":
+      return labels.signatureAlgNone;
+    default:
+      return labels.signatureMissing;
+  }
+}
 
-function ParsedView({ labels, parsed, locale }: ParsedViewProps) {
+function ParsedDashboard({
+  labels,
+  parsed,
+  locale,
+  copied,
+  copyError,
+  onCopyPayload,
+}: {
+  labels: JWTDebuggerLabels;
+  parsed: JwtParseSuccess;
+  locale: string;
+  copied: boolean;
+  copyError: string;
+  onCopyPayload: () => void;
+}) {
   const expiration = getExpirationInfo(parsed.exp);
   const relativeExpiration =
     expiration.hasExp && expiration.expMs
       ? formatExpirationRelative(expiration.expMs, Date.now(), locale, expiration.isExpired)
       : null;
-
-  const signatureAlert = hasSignatureIssue(parsed.warnings);
   const expired = isTokenExpired(parsed.warnings);
+  const signatureAlert =
+    parsed.signatureStatus === "missing" ||
+    parsed.signatureStatus === "malformed" ||
+    parsed.signatureStatus === "alg_none";
 
   return (
-    <div className="jwt-debugger-tool__parsed">
+    <div className="space-y-4">
       {parsed.warnings.length > 0 ? (
-        <ul className="jwt-debugger-tool__warnings" aria-live="polite">
+        <ul className="space-y-2" aria-live="polite">
           {parsed.warnings.map((warning) => (
             <li
               key={warning.type}
               className={clsx(
-                "jwt-debugger-tool__warning",
-                (warning.type === "expired" || warning.type === "signature_malformed" || warning.type === "alg_none") &&
-                  "jwt-debugger-tool__warning--critical",
+                "border px-3 py-2 text-sm",
+                warning.type === "expired" ||
+                  warning.type === "signature_malformed" ||
+                  warning.type === "alg_none"
+                  ? "border-amber-800/70 bg-amber-950/40 text-amber-200"
+                  : "border-neutral-800 bg-neutral-950/60 text-neutral-300",
               )}
             >
               {warningMessage(warning.type, labels)}
@@ -182,51 +192,78 @@ function ParsedView({ labels, parsed, locale }: ParsedViewProps) {
       {expiration.hasExp ? (
         <div
           className={clsx(
-            "jwt-debugger-tool__expiration",
-            expired && "jwt-debugger-tool__expiration--expired",
+            "border px-3 py-2 text-sm",
+            expired
+              ? "border-amber-800/70 bg-amber-950/40 text-amber-200"
+              : "border-neutral-800 bg-neutral-950/60 text-neutral-300",
           )}
         >
-          <span className="jwt-debugger-tool__expiration-label">{labels.expirationTitle}</span>
-          <span className="jwt-debugger-tool__expiration-relative">{relativeExpiration}</span>
+          <span className="font-semibold text-neutral-200">{labels.expirationTitle}: </span>
+          <span>{relativeExpiration}</span>
           {expiration.absolute ? (
-            <span className="jwt-debugger-tool__expiration-absolute">
+            <span className="mt-1 block text-xs text-neutral-500">
               {labels.expirationAbsolute.replace("{date}", expiration.absolute)}
             </span>
           ) : null}
         </div>
       ) : (
-        <p className="jwt-debugger-tool__expiration-none">{labels.expirationNone}</p>
+        <p className="text-sm text-neutral-500">{labels.expirationNone}</p>
       )}
 
-      <div className="jwt-debugger-tool__sections">
-        <SectionCard
-          title={labels.headerTitle}
-          tone="header"
-          value={parsed.header.raw}
-          formatted={parsed.header.formatted}
-          copyLabel={labels.copyButton}
-          copiedLabel={labels.copied}
-          copyFailedLabel={labels.copyFailed}
-        />
-        <SectionCard
+      <div className="grid gap-3 lg:grid-cols-2">
+        <ResultCard title={labels.headerTitle}>
+          <ResultField label={labels.algorithmLabel} value={parsed.algorithm} />
+          <ResultField label={labels.typeLabel} value={parsed.tokenType} />
+          <pre className="overflow-x-auto whitespace-pre-wrap break-words border border-neutral-800 bg-neutral-950 p-3 font-mono text-xs text-neutral-200">
+            {parsed.header.formatted}
+          </pre>
+        </ResultCard>
+
+        <ResultCard
           title={labels.payloadTitle}
-          tone="payload"
-          value={parsed.payload.raw}
-          formatted={parsed.payload.formatted}
-          copyLabel={labels.copyButton}
-          copiedLabel={labels.copied}
-          copyFailedLabel={labels.copyFailed}
-          highlighted={expired}
-        />
-        <SectionCard
-          title={labels.signatureTitle}
-          tone="signature"
-          value={parsed.signature.raw}
-          copyLabel={labels.copyButton}
-          copiedLabel={labels.copied}
-          copyFailedLabel={labels.copyFailed}
-          highlighted={signatureAlert}
-        />
+          alert={expired}
+          actions={
+            <button
+              type="button"
+              className={clsx(toolOutlineBtn, copied && "border-emerald-700 text-emerald-300")}
+              onClick={onCopyPayload}
+            >
+              {copied ? (
+                <>
+                  <Check className="mr-1.5 inline h-4 w-4" aria-hidden />
+                  {labels.copied}
+                </>
+              ) : (
+                <>
+                  <Copy className="mr-1.5 inline h-4 w-4" aria-hidden />
+                  {labels.copyJsonButton}
+                </>
+              )}
+            </button>
+          }
+        >
+          {copyError ? (
+            <p className="text-sm text-amber-400" role="status">
+              {copyError}
+            </p>
+          ) : null}
+          <pre className="max-h-80 overflow-auto whitespace-pre-wrap break-words border border-neutral-800 bg-neutral-950 p-3 font-mono text-xs text-neutral-200">
+            {parsed.payload.formatted}
+          </pre>
+        </ResultCard>
+
+        <ResultCard title={labels.signatureTitle} alert={signatureAlert}>
+          <ResultField
+            label={labels.statusLabel}
+            value={signatureStatusLabel(parsed.signatureStatus, labels)}
+          />
+          <p className="text-xs leading-relaxed text-neutral-500">{labels.signatureNote}</p>
+          {parsed.signature.raw ? (
+            <pre className="overflow-x-auto whitespace-pre-wrap break-all border border-neutral-800 bg-neutral-950 p-3 font-mono text-xs text-neutral-400">
+              {parsed.signature.raw}
+            </pre>
+          ) : null}
+        </ResultCard>
       </div>
     </div>
   );
@@ -236,61 +273,111 @@ export function JWTDebugger({ labels, className }: JWTDebuggerProps) {
   const locale = useLocale();
   const inputId = useId();
   const [token, setToken] = useState("");
-  const [parsed, setParsed] = useState<JwtParseResult | null>(null);
+  const [parsed, setParsed] = useState<JwtParseSuccess | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState("");
 
-  useEffect(() => {
-    if (!token.trim()) {
+  const onDecode = useCallback(() => {
+    const result = parseJwtToken(token);
+    if (!result.ok) {
       setParsed(null);
+      setError(parseErrorMessage(result.error, labels));
       return;
     }
+    setError("");
+    setCopyError("");
+    setParsed(result);
+  }, [labels, token]);
 
-    const timer = window.setTimeout(() => {
-      setParsed(parseJwtToken(token));
-    }, 200);
+  const onClear = useCallback(() => {
+    setToken("");
+    setParsed(null);
+    setError("");
+    setCopyError("");
+    setCopied(false);
+  }, []);
 
-    return () => window.clearTimeout(timer);
-  }, [token]);
-
-  const parseError = parsed && !parsed.ok ? parseErrorMessage(parsed.error, labels) : null;
+  const onCopyPayload = useCallback(async () => {
+    if (!parsed) return;
+    const success = await copyTextToClipboard(parsed.payload.formatted);
+    if (!success) {
+      setCopyError(labels.copyFailed);
+      return;
+    }
+    setCopyError("");
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  }, [labels.copyFailed, parsed]);
 
   return (
-    <div className={clsx("jwt-debugger-tool", className)}>
-      <section className="jwt-debugger-tool__input tool-workspace-panel" aria-labelledby="jwt-debugger-input">
-        <div className="jwt-debugger-tool__input-header">
-          <h2 id="jwt-debugger-input" className="jwt-debugger-tool__section-title">
+    <div className={clsx("jwt-debugger-tool space-y-4", className)}>
+      <div
+        className="rounded-none border border-emerald-900/50 bg-emerald-950/30 px-3 py-2 text-sm text-emerald-200/90"
+        role="note"
+      >
+        {labels.privacyNotice}
+      </div>
+
+      <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm">
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-neutral-300" htmlFor={inputId}>
             {labels.inputLabel}
-          </h2>
-          <button
-            type="button"
-            className="jwt-debugger-tool__clear-btn"
-            onClick={() => setToken("")}
-            disabled={!token}
-          >
+          </label>
+          <p className="text-xs text-neutral-500">{labels.inputHint}</p>
+          <textarea
+            id={inputId}
+            className="min-h-36 w-full resize-y border border-neutral-800 bg-neutral-950 px-3 py-2 font-mono text-sm text-neutral-100 outline-none focus-visible:border-neutral-500"
+            value={token}
+            onChange={(event) => {
+              setToken(event.target.value);
+              setError("");
+            }}
+            placeholder={labels.inputPlaceholder}
+            spellCheck={false}
+            rows={7}
+          />
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <button type="button" className={toolPrimaryBtn} onClick={onDecode}>
+            <ScanSearch className="mr-2 inline h-4 w-4" aria-hidden />
+            {labels.decodeButton}
+          </button>
+          <button type="button" className={toolOutlineBtn} onClick={onClear} disabled={!token && !parsed}>
+            <Eraser className="mr-2 inline h-4 w-4" aria-hidden />
             {labels.clearButton}
           </button>
         </div>
-        <textarea
-          id={inputId}
-          className="jwt-debugger-tool__textarea"
-          value={token}
-          onChange={(event) => setToken(event.target.value)}
-          placeholder={labels.inputPlaceholder}
-          spellCheck={false}
-          rows={6}
-        />
-      </section>
 
-      <section className="jwt-debugger-tool__output tool-workspace-panel" aria-live="polite">
-        {!token.trim() ? (
-          <p className="jwt-debugger-tool__empty">{labels.outputEmpty}</p>
-        ) : null}
-        {parseError ? (
-          <p className="jwt-debugger-tool__parse-error" role="alert">
-            {parseError}
+        {error ? (
+          <p className="text-sm text-amber-400" role="alert">
+            {error}
           </p>
         ) : null}
-        {parsed?.ok ? <ParsedView labels={labels} parsed={parsed} locale={locale} /> : null}
-      </section>
+      </div>
+
+      {parsed ? (
+        <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm">
+          <div className="flex flex-wrap items-center gap-2">
+            <Braces className="h-4 w-4 text-neutral-500" aria-hidden />
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-400">
+              {labels.resultsTitle}
+            </h2>
+          </div>
+
+          <ParsedDashboard
+            labels={labels}
+            parsed={parsed}
+            locale={locale}
+            copied={copied}
+            copyError={copyError}
+            onCopyPayload={() => void onCopyPayload()}
+          />
+
+          <PostSuccessUpsell operation="jwt-debugger" fileContext={parsed.algorithm} />
+        </div>
+      ) : null}
     </div>
   );
 }

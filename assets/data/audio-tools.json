@@ -30,6 +30,11 @@
     "description": "Cut and trim MP3 files by start and end time. Preview, set mm:ss points, and download locally with ffmpeg.wasm — 100% private."
   },
   {
+    "slug": "audio-trimmer",
+    "title": "Audio Trimmer",
+    "description": "Online audio trimmer with waveform — cut MP3, WAV, AAC, or OGG free in your browser. Drag start/end handles, optional fade in/out, local ffmpeg.wasm."
+  },
+  {
     "slug": "mp4-to-mp3",
     "title": "MP4 to MP3",
     "description": "Extract audio from MP4 videos as high-quality MP3 locally. Strip the video track and download audio — 100% private browser processing."
@@ -76,8 +81,8 @@
   },
   {
     "slug": "mp3-speed-changer",
-    "title": "MP3 Speed Changer",
-    "description": "Change the playback speed of your MP3 files without altering the pitch. Perfect for podcasts and audiobooks. 100% private and local."
+    "title": "Audio Speed Changer",
+    "description": "Change audio speed online — audio time stretcher to speed up podcasts without pitch change. Live preview, presets, 100% private."
   },
   {
     "slug": "fade-in-out-creator",
@@ -87,6 +92,11 @@
   {
     "slug": "audio-normalizer",
     "title": "Audio Normalizer",
-    "description": "Unify the volume levels of your MP3 files effortlessly. Perfect for creating consistent-sounding playlists. 100% private and local processing."
+    "description": "Online audio normalizer — normalize MP3 volume, make audio louder consistently with LUFS or −1 dB peak, and batch-normalize podcasts locally. 100% private."
+  },
+  {
+    "slug": "silence-remover",
+    "title": "Silent Remover",
+    "description": "Remove silence from audio online — auto-trim dead air in podcasts with local Web Audio RMS detection. Clean up recordings automatically, 100% private."
   }
 ]

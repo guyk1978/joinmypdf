@@ -145,6 +145,49 @@ async function syncTesseractAssets() {
 
 await syncTesseractAssets();
 
+// @ffmpeg/core (+ core-mt) same-origin assets — required under COEP require-corp
+async function syncFfmpegAssets() {
+  const packages = [
+    { name: "core", src: path.join(root, "node_modules", "@ffmpeg", "core", "dist", "esm") },
+    { name: "core-mt", src: path.join(root, "node_modules", "@ffmpeg", "core-mt", "dist", "esm") },
+  ];
+
+  for (const pkg of packages) {
+    const dest = path.join(publicDir, "static", "ffmpeg", pkg.name);
+    await mkdir(dest, { recursive: true });
+    const entries = await readdir(pkg.src);
+    for (const name of entries) {
+      if (
+        name === "ffmpeg-core.js" ||
+        name === "ffmpeg-core.wasm" ||
+        name === "ffmpeg-core.worker.js"
+      ) {
+        await copyFile(path.join(pkg.src, name), path.join(dest, name));
+      }
+    }
+  }
+}
+
+await syncFfmpegAssets();
+
+// Bundle @ffmpeg/ffmpeg's class Worker to same-origin so `new Worker(url)` never hits unpkg/node_modules.
+async function bundleFfmpegClassWorker() {
+  const esbuild = await import("esbuild");
+  const outfile = path.join(publicDir, "static", "ffmpeg", "ffmpeg-class-worker.js");
+  await mkdir(path.dirname(outfile), { recursive: true });
+  await esbuild.build({
+    entryPoints: [path.join(root, "node_modules", "@ffmpeg", "ffmpeg", "dist", "esm", "worker.js")],
+    bundle: true,
+    format: "esm",
+    platform: "browser",
+    target: ["es2020"],
+    outfile,
+    logLevel: "silent",
+  });
+}
+
+await bundleFfmpegClassWorker();
+
 // Cloudflare Pages static headers (COOP/COEP/CORP) — next.config headers are ignored on export.
 const headersSrc = path.join(root, "_headers");
 try {
@@ -158,3 +201,5 @@ await copyFile(toolsHubSrc, toolsHubPublic);
 
 console.log("Synced assets → public/ after purging generated route artifacts.");
 console.log("Synced tesseract.js worker/core/lang-data → public/tesseract/ and public/assets/tesseract/");
+console.log("Synced @ffmpeg/core assets → public/static/ffmpeg/");
+console.log("Bundled FFmpeg class worker → public/static/ffmpeg/ffmpeg-class-worker.js");

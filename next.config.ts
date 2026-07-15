@@ -32,6 +32,7 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   images: { unoptimized: true },
   reactStrictMode: true,
+  transpilePackages: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
   // Redirects apply for `next start` / non-export hosts. Static Cloudflare builds
   // ignore next.config redirects — see root `_redirects` (copied into public/out/.vercel via scripts/copy-redirects.mjs).
   ...(!shouldExportStatic
@@ -59,6 +60,14 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+          { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+        ],
+      },
+      {
+        source: "/static/ffmpeg/:path*",
+        headers: [
+          { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
     ];

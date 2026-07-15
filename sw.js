@@ -1,4 +1,4 @@
-const CACHE_NAME = "joinmypdf-shell-v10";
+const CACHE_NAME = "joinmypdf-shell-v11";
 
 const CORE_ASSETS = [
   "/manifest.webmanifest",
@@ -23,17 +23,30 @@ function isDocumentRequest(request) {
   return accept.includes("text/html");
 }
 
-/** Large OCR/WASM assets must hit the network — SW caching can break Workers under COEP. */
-function isTesseractOrWasmRequest(url) {
+/**
+ * Large OCR/WASM/FFmpeg assets and app Workers must hit the network.
+ * SW caching (or opaque intercept) breaks Workers under COEP.
+ */
+function shouldBypassServiceWorkerCache(url) {
   const path = url.pathname;
+  const host = url.hostname;
+
   return (
+    path.startsWith("/static/ffmpeg/") ||
     path.startsWith("/tesseract/") ||
     path.startsWith("/assets/tesseract/") ||
     path.startsWith("/assets/tessdata/") ||
+    path.includes("ffmpeg") ||
+    path.includes("814.ffmpeg") ||
+    // Next.js hashed worker / wasm chunks
+    (path.startsWith("/_next/static/") &&
+      (path.includes("ffmpeg") || path.endsWith(".wasm") || path.includes("worker"))) ||
     path.endsWith(".wasm") ||
     path.endsWith(".wasm.js") ||
     path.endsWith(".traineddata") ||
-    path.endsWith(".traineddata.gz")
+    path.endsWith(".traineddata.gz") ||
+    host === "unpkg.com" ||
+    host === "cdn.jsdelivr.net"
   );
 }
 
@@ -63,11 +76,11 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (isTesseractOrWasmRequest(url)) {
+  if (shouldBypassServiceWorkerCache(url)) {
     event.respondWith(
       fetch(event.request).catch(
         () =>
-          new Response("OCR asset unavailable offline", {
+          new Response("Media engine asset unavailable", {
             status: 503,
             statusText: "Service Unavailable",
             headers: { "Content-Type": "text/plain; charset=utf-8" },

@@ -215,8 +215,12 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
   ],
   "mp3-trimmer": [
+    { href: "/tools/audio-trimmer/", card: "trimMp3" },
     { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
-    { href: "/tools/mp3-converter/", card: "convertAudio" },
+  ],
+  "audio-trimmer": [
+    { href: "/tools/mp3-trimmer/", card: "trimMp3" },
+    { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
   ],
   "mp3-volume-booster": [
     { href: "/tools/mp3-trimmer/", card: "trimMp3" },
@@ -258,6 +262,10 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/mp3-volume-booster/", card: "boostMp3" },
     { href: "/tools/mp3-compressor/", card: "compressMp3" },
   ],
+  "silence-remover": [
+    { href: "/tools/audio-trimmer/", card: "trimMp3" },
+    { href: "/tools/audio-normalizer/", card: "boostMp3" },
+  ],
   "flac-converter": [
     { href: "/tools/wav-to-mp3/", card: "wavToMp3" },
     { href: "/tools/mp3-compressor/", card: "compressMp3" },
@@ -281,5 +289,17 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
   "ogg-converter": [
     { href: "/tools/mp3-compressor/", card: "compressMp3" },
     { href: "/tools/mp3-converter/", card: "convertAudio" },
+  ],
+  "my-ip": [
+    { href: "/tools/user-agent-parser/", card: "trimMp3" },
+    { href: "/tools/jwt-debugger/", card: "boostMp3" },
+  ],
+  "user-agent-parser": [
+    { href: "/tools/network-tools/my-ip/", card: "trimMp3" },
+    { href: "/tools/jwt-debugger/", card: "boostMp3" },
+  ],
+  "jwt-debugger": [
+    { href: "/tools/user-agent-parser/", card: "trimMp3" },
+    { href: "/tools/network-tools/my-ip/", card: "boostMp3" },
   ],
 };

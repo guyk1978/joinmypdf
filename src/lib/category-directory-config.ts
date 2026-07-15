@@ -67,7 +67,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
   audio: {
     id: "audio",
-    featuredIds: ["mp3-converter", "mp3-trimmer", "audio-compressor"],
+    featuredIds: ["mp3-converter", "audio-trimmer", "mp3-trimmer", "audio-compressor"],
     buildItems: () => buildHomeAudioToolItems(),
     workflows: [
       {
@@ -87,11 +87,13 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
         toolIds: [
           "audio-compressor",
           "mp3-compressor",
+          "audio-trimmer",
           "mp3-trimmer",
           "mp3-volume-booster",
           "mp3-speed-changer",
           "fade-in-out-creator",
           "audio-normalizer",
+          "silence-remover",
           "voice-remover",
         ],
       },

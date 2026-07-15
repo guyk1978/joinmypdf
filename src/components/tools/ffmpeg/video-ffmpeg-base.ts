@@ -61,12 +61,29 @@ export function formatVideoFfmpegError(error: unknown): string {
   const raw = error instanceof Error ? error.message : String(error);
   const lower = raw.toLowerCase();
 
+  if (
+    lower.includes("worker failed") ||
+    lower.includes("worker crashed") ||
+    lower.includes("failed to load core") ||
+    lower.includes("failed to start")
+  ) {
+    return "FFmpeg engine failed to load. Use “Reload FFmpeg engine”, then try processing again.";
+  }
+
+  if (lower.includes("sharedarraybuffer") || lower.includes("cross-origin")) {
+    return "Video processing needs cross-origin isolation (COOP/COEP). Reload after headers are active, or continue in slower single-thread mode.";
+  }
+
   if (lower.includes("out of memory") || lower.includes("oom")) {
     return "The browser ran out of memory while processing video. Close other tabs or try a shorter clip.";
   }
 
   if (lower.includes("invalid data") || lower.includes("error while decoding")) {
     return "Could not decode this video. The file may be corrupted or use an unsupported codec—re-export and try again.";
+  }
+
+  if (lower.includes("network") || lower.includes("failed to fetch") || lower.includes("load failed")) {
+    return "Could not download FFmpeg engine files. Check your connection, then use “Reload FFmpeg engine”.";
   }
 
   return raw || "Video processing failed.";

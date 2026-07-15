@@ -15,7 +15,8 @@ export type HomeAudioToolIconKey =
   | "disc"
   | "file-music"
   | "volume-2"
-  | "tags";
+  | "tags"
+  | "eraser";
 
 export type ToolListEntry = {
   id: string;

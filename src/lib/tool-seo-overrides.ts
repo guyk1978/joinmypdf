@@ -336,6 +336,8 @@ export function resolveToolSeoPageOverride(
     { href: "/tools/json-to-csv/", labelKey: "jsonToCsvLabel" },
     { href: "/tools/jwt-debugger/", labelKey: "jwtDebuggerLabel" },
     { href: "/tools/base64-encoder-decoder/", labelKey: "base64EncoderDecoderLabel" },
+    { href: "/tools/url-encoder-decoder/", labelKey: "urlEncoderDecoderLabel" },
+    { href: "/tools/network-tools/my-ip/", labelKey: "myIpLabel" },
     { href: "/tools/user-agent-parser/", labelKey: "userAgentParserLabel" },
     { href: "/tools/pdf-to-excel/", labelKey: "pdfToExcelLabel" },
     { href: "/tools/extract-tables-pdf/", labelKey: "extractTablesPdfLabel" },

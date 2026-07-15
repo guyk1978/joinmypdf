@@ -6,10 +6,10 @@ import { VideoManager } from "./processors/VideoManager";
  * Local-first media processing layer.
  *
  * Architecture:
- * - Main thread: UI + FfmpegWorkerClient (postMessage only).
- * - Dedicated worker (`workers/ffmpeg.worker.ts`): sole owner of @ffmpeg/ffmpeg + MEMFS.
+ * - Main thread: UI + FfmpegWorkerClient (wraps `@ffmpeg/ffmpeg`).
+ * - `@ffmpeg/ffmpeg` owns a single Web Worker for core/WASM — do not nest another Dedicated Worker.
  * - Cleanup: `cleanupWorkspace()` purges virtual FS after every job.
- * - Performance: WASM SIMD when supported; `@ffmpeg/core-mt` when cross-origin isolated.
+ * - Performance: local `/static/ffmpeg` cores; `@ffmpeg/core-mt` when cross-origin isolated.
  */
 export { BaseMediaProcessor } from "./core/BaseMediaProcessor";
 export { MediaToolRegistry, mediaToolRegistry } from "./core/MediaToolRegistry";

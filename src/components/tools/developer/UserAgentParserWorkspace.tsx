@@ -24,14 +24,13 @@ export function UserAgentParserWorkspace({ tool, slug }: UserAgentParserWorkspac
 
   const labels = useMemo<UserAgentParserLabels>(
     () => ({
-      liveTitle: t("liveTitle"),
-      liveHint: t("liveHint"),
-      rawUaLabel: t("rawUaLabel"),
-      manualTitle: t("manualTitle"),
-      manualHint: t("manualHint"),
+      privacyNotice: t("privacyNotice"),
       inputLabel: t("inputLabel"),
+      inputHint: t("inputHint"),
       inputPlaceholder: t("inputPlaceholder"),
       parseButton: t("parseButton"),
+      useCurrentButton: t("useCurrentButton"),
+      clearButton: t("clearButton"),
       resultsTitle: t("resultsTitle"),
       browserSection: t("browserSection"),
       osSection: t("osSection"),
@@ -39,11 +38,11 @@ export function UserAgentParserWorkspace({ tool, slug }: UserAgentParserWorkspac
       engineSection: t("engineSection"),
       nameLabel: t("nameLabel"),
       versionLabel: t("versionLabel"),
-      modelLabel: t("modelLabel"),
       typeLabel: t("typeLabel"),
       copyJsonButton: t("copyJsonButton"),
       copied: t("copied"),
       copyFailed: t("copyFailed"),
+      emptyError: t("emptyError"),
     }),
     [t],
   );

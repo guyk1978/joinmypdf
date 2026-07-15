@@ -169,6 +169,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   // Developer
   { slug: "user-agent-parser", labelKey: "userAgentParser", categories: [c.developerBrowser] },
   { slug: "jwt-debugger", labelKey: "jwtDebugger", categories: [c.developerTokens] },
+  { slug: "my-ip", labelKey: "myIp", categories: [c.developerBrowser] },
   { slug: "qr-code-generator", labelKey: "qrCodeGenerator", categories: [c.developerGenerators] },
   { slug: "json-formatter", labelKey: "jsonFormatter", categories: [c.developerJson] },
   { slug: "json-csv-explorer", labelKey: "jsonCsvExplorer", categories: [c.developerJson] },
@@ -653,6 +654,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
         id: "developer",
         labelKey: "megaMenu.columns.developer",
         slugs: [
+          "my-ip",
           "user-agent-parser",
           "jwt-debugger",
           "qr-code-generator",

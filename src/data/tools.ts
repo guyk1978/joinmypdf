@@ -1,6 +1,7 @@
 import { AudioNormalizer } from "@/components/tools/AudioNormalizer";
 import { FadeInOutCreator } from "@/components/tools/FadeInOutCreator";
 import { Mp3SpeedChanger } from "@/components/tools/Mp3SpeedChanger";
+import { SilenceRemover } from "@/components/tools/SilenceRemover";
 import { VoiceRemover } from "@/components/tools/VoiceRemover";
 import { AudioMerger } from "@/components/tools/AudioMerger";
 import { AudioCompressor } from "@/components/tools/AudioCompressor";
@@ -9,6 +10,7 @@ import { Mp3Compressor } from "@/components/tools/Mp3Compressor";
 import { Mp3Converter } from "@/components/tools/Mp3Converter";
 import { Mp3ToWav } from "@/components/tools/Mp3ToWav";
 import { Mp3Trimmer } from "@/components/tools/Mp3Trimmer";
+import { AudioTrimmer } from "@/components/tools/AudioTrimmer";
 import { Mp3VolumeBooster } from "@/components/tools/Mp3VolumeBooster";
 import { WavToMp3 } from "@/components/tools/WavToMp3";
 import { FlacConverter } from "@/components/tools/FlacConverter";
@@ -64,6 +66,14 @@ export const toolsList: ToolListEntry[] = [
     title: "Cut and trim MP3 files by start and end time. Preview, set mm:ss points, and download locally with ffmpeg.wasm — 100% private.",
     iconKey: "scissors",
     component: Mp3Trimmer,
+  },
+  {
+    id: "audio-trimmer",
+    name: "Audio Trimmer",
+    title:
+      "Online audio trimmer with waveform — cut MP3, WAV, AAC, or OGG free in your browser. Drag start/end handles, optional fade in/out, local ffmpeg.wasm.",
+    iconKey: "scissors",
+    component: AudioTrimmer,
   },
   {
     id: "mp4-to-mp3",
@@ -134,8 +144,9 @@ export const toolsList: ToolListEntry[] = [
   },
   {
     id: "mp3-speed-changer",
-    name: "MP3 Speed Changer",
-    title: "Change the playback speed of your MP3 files without altering the pitch. Perfect for podcasts and audiobooks. 100% private and local.",
+    name: "Audio Speed Changer",
+    title:
+      "Change audio speed online — time-stretch podcasts without pitch change. Live preview, 0.5×–2.5×, 100% private.",
     iconKey: "file-music",
     component: Mp3SpeedChanger,
   },
@@ -150,8 +161,16 @@ export const toolsList: ToolListEntry[] = [
     id: "audio-normalizer",
     name: "Audio Normalizer",
     title:
-      "Unify the volume levels of your MP3 files effortlessly. Perfect for creating consistent-sounding playlists. 100% private and local processing.",
+      "Online audio normalizer — normalize MP3 volume, level podcasts with LUFS or −1 dB peak, and batch-normalize locally. 100% private.",
     iconKey: "volume-2",
     component: AudioNormalizer,
+  },
+  {
+    id: "silence-remover",
+    name: "Silent Remover",
+    title:
+      "Remove silence from audio online — auto-trim dead air in podcasts with Web Audio RMS detection. 100% private, no uploads.",
+    iconKey: "eraser",
+    component: SilenceRemover,
   },
 ];

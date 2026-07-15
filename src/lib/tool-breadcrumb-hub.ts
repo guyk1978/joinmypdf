@@ -51,6 +51,7 @@ export const INVENTORY_BREADCRUMB_LABEL_KEYS: Record<InventoryCategoryId, string
   data: "breadcrumbHubDataConversion",
   productivity: "breadcrumbHubProductivity",
   "unit-math": "breadcrumbHubUnitMath",
+  network: "breadcrumbHubNetwork",
 };
 
 /** Nav category → category hub URL (legacy fallback when inventory miss). */

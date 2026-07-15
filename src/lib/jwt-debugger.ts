@@ -17,11 +17,17 @@ export type JwtSection = {
   json?: Record<string, unknown>;
 };
 
+/** Basic client-side signature segment checks — not cryptographic verification. */
+export type SignatureStatus = "present" | "missing" | "malformed" | "alg_none";
+
 export type JwtParseSuccess = {
   ok: true;
   header: JwtSection;
   payload: JwtSection;
   signature: { raw: string };
+  algorithm: string;
+  tokenType: string;
+  signatureStatus: SignatureStatus;
   warnings: JwtWarning[];
   exp?: number;
 };
@@ -34,6 +40,7 @@ export type JwtParseFailure = {
 export type JwtParseResult = JwtParseSuccess | JwtParseFailure;
 
 const BASE64URL_PATTERN = /^[A-Za-z0-9_-]*$/;
+const UNKNOWN = "—";
 
 function base64UrlDecode(segment: string): string {
   const normalized = segment.replace(/-/g, "+").replace(/_/g, "/");
@@ -56,25 +63,39 @@ function splitJwt(token: string): [string, string, string] | null {
   const parts = token.trim().split(".");
   if (parts.length !== 3) return null;
   const [header, payload, signature] = parts;
-  if (!header || !payload || !signature) return null;
-  return [header, payload, signature];
+  if (!header || !payload) return null;
+  return [header, payload, signature ?? ""];
+}
+
+function displayClaim(value: unknown): string {
+  if (typeof value === "string" && value.trim()) return value.trim();
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  return UNKNOWN;
+}
+
+export function resolveSignatureStatus(
+  headerJson: Record<string, unknown>,
+  signaturePart: string,
+): SignatureStatus {
+  const alg = typeof headerJson.alg === "string" ? headerJson.alg : "";
+  if (alg.toLowerCase() === "none") return "alg_none";
+  if (!signaturePart.trim()) return "missing";
+  if (!isValidBase64Url(signaturePart)) return "malformed";
+  return "present";
 }
 
 function collectWarnings(
   headerJson: Record<string, unknown>,
   payloadJson: Record<string, unknown>,
-  signaturePart: string,
+  signatureStatus: SignatureStatus,
 ): JwtWarning[] {
   const warnings: JwtWarning[] = [];
-  const alg = typeof headerJson.alg === "string" ? headerJson.alg : "";
 
-  if (alg.toLowerCase() === "none") {
+  if (signatureStatus === "alg_none") {
     warnings.push({ type: "alg_none" });
-  }
-
-  if (!isValidBase64Url(signaturePart)) {
+  } else if (signatureStatus === "malformed") {
     warnings.push({ type: "signature_malformed" });
-  } else if (alg && alg.toLowerCase() !== "none") {
+  } else if (signatureStatus === "present" || signatureStatus === "missing") {
     warnings.push({ type: "signature_unverified" });
   }
 
@@ -89,6 +110,10 @@ function collectWarnings(
   return warnings;
 }
 
+/**
+ * Decode a JWT header + payload locally via Base64Url (and jwt-decode for structure checks).
+ * Does not verify the cryptographic signature — no secret/public key is used.
+ */
 export function parseJwtToken(token: string): JwtParseResult {
   const trimmed = token.trim();
   if (!trimmed) {
@@ -102,18 +127,21 @@ export function parseJwtToken(token: string): JwtParseResult {
 
   const [headerPart, payloadPart, signaturePart] = parts;
 
-  let headerJson: Record<string, unknown>;
-  let payloadJson: Record<string, unknown>;
-  let header: JwtSection;
-  let payload: JwtSection;
-
   try {
     jwtDecode(trimmed);
   } catch (error) {
     if (error instanceof InvalidTokenError) {
-      return { ok: false, error: "invalid" };
+      // Allow tokens with an empty third segment (unsigned / truncated) to continue decoding.
+      if (signaturePart.trim()) {
+        return { ok: false, error: "invalid" };
+      }
     }
   }
+
+  let headerJson: Record<string, unknown>;
+  let payloadJson: Record<string, unknown>;
+  let header: JwtSection;
+  let payload: JwtSection;
 
   try {
     const headerDecoded = decodeJsonSegment(headerPart);
@@ -139,7 +167,8 @@ export function parseJwtToken(token: string): JwtParseResult {
     return { ok: false, error: "payload" };
   }
 
-  const warnings = collectWarnings(headerJson, payloadJson, signaturePart);
+  const signatureStatus = resolveSignatureStatus(headerJson, signaturePart);
+  const warnings = collectWarnings(headerJson, payloadJson, signatureStatus);
   const exp = typeof payloadJson.exp === "number" ? payloadJson.exp : undefined;
 
   return {
@@ -147,6 +176,9 @@ export function parseJwtToken(token: string): JwtParseResult {
     header,
     payload,
     signature: { raw: signaturePart },
+    algorithm: displayClaim(headerJson.alg),
+    tokenType: displayClaim(headerJson.typ),
+    signatureStatus,
     warnings,
     exp,
   };
@@ -202,7 +234,9 @@ export function formatExpirationRelative(
 }
 
 export function hasSignatureIssue(warnings: JwtWarning[]): boolean {
-  return warnings.some((warning) => warning.type === "signature_malformed" || warning.type === "alg_none");
+  return warnings.some(
+    (warning) => warning.type === "signature_malformed" || warning.type === "alg_none",
+  );
 }
 
 export function isTokenExpired(warnings: JwtWarning[]): boolean {

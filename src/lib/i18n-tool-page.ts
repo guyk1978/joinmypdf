@@ -72,6 +72,7 @@ const ACTION_KEYS: Record<string, string> = {
   "unit-converter": "default",
   "timezone-converter": "default",
   "global-timezone-converter": "default",
+  "my-ip": "default",
   "base-converter": "default",
   "storage-data-converter": "default",
   "reading-time-calculator": "default",

@@ -17,6 +17,7 @@
     "breadcrumbHubMp4": "MP4 Tools",
     "breadcrumbHubFavicon": "Favicon tools",
     "breadcrumbHubDeveloper": "Developer tools",
+    "breadcrumbHubNetwork": "Network & API tools",
     "breadcrumbHubTextJson": "JSON tools",
     "breadcrumbHubJson": "JSON tools",
     "breadcrumbHubYaml": "YAML tools",
@@ -1869,30 +1870,31 @@
         }
       },
       "mp3SpeedChanger": {
-        "h1": "MP3 Speed Changer Online",
-        "heroTagline": "Change the playback speed of your MP3 files without altering the pitch. Perfect for podcasts and audiobooks. 100% private and local.",
-        "introSectionTitle": "How to Change MP3 Speed Locally",
-        "whySectionTitle": "Why Use Our MP3 Speed Changer?",
-        "whySectionSubheadline": "Adjust playback from 0.5× to 2.0× with ffmpeg atempo—pitch stays the same, processing stays in your browser.",
-        "schemaDescription": "Change MP3 playback speed without altering pitch. Local ffmpeg.wasm atempo processing for podcasts and audiobooks—100% private.",
+        "h1": "Audio Speed Changer Online",
+        "heroTagline": "Change audio speed online — audio time stretcher for podcasts and lectures. Speed up without pitch change, free and 100% local.",
+        "introSectionTitle": "How Time-Stretching Speeds Up Meetings & Lectures",
+        "whySectionTitle": "Why Use This Audio Time Stretcher?",
+        "whySectionSubheadline": "Precision 0.5×–2.5× slider, Maintain Pitch on by default, industry presets (1.25× / 1.5× / 2.0×), and live preview — then Apply & Download locally.",
+        "schemaDescription": "Change audio speed online and increase audio speed online without chipmunk pitch. Audio time stretcher — speed up podcast without pitch change. Local ffmpeg.wasm, no uploads.",
         "relatedWorkflowLinks": {
           "prompt": "Related audio workflows:",
           "mp3TrimmerLabel": "MP3 Trimmer",
+          "audioTrimmerLabel": "Audio Trimmer",
           "mp3VolumeBoosterLabel": "MP3 Volume Booster",
-          "mp3CompressorLabel": "MP3 Compressor"
+          "audioNormalizerLabel": "Audio Normalizer"
         },
         "whyBenefits": {
           "lossless": {
-            "title": "Pitch-preserving atempo",
-            "body": "ffmpeg atempo changes tempo without the chipmunk effect of simple resampling—ideal for faster podcasts or slower study playback."
+            "title": "Maintain Pitch (time-stretch)",
+            "body": "Default ON — WSOLA-style atempo keeps voices natural at 1.25×–2.0×. Toggle off for classic tape-style pitch shift."
           },
           "quality": {
-            "title": "0.5× to 2.0× slider",
-            "body": "Pick any speed in the supported atempo range with live labels before you process and download."
+            "title": "Live preview + presets",
+            "body": "Hear the rate instantly in the browser, then save. One-tap 1.25×, 1.5×, and 2.0× matching YouTube/podcast norms."
           },
           "local": {
             "title": "100% private (no uploads)",
-            "body": "Speed changes run in a Web Worker on your device. Your MP3 never leaves the browser tab."
+            "body": "Preview uses Web Audio; export runs in a Web Worker via ffmpeg.wasm. Your file never leaves the tab."
           }
         }
       },
@@ -1925,30 +1927,60 @@
         }
       },
       "audioNormalizer": {
-        "h1": "Audio Normalizer Online",
-        "heroTagline": "Unify the volume levels of your MP3 files effortlessly. Perfect for creating consistent-sounding playlists. 100% private and local processing.",
-        "introSectionTitle": "How to Normalize MP3 Volume Locally",
-        "whySectionTitle": "Why Use Our Audio Normalizer?",
-        "whySectionSubheadline": "Batch-normalize MP3 tracks with ffmpeg loudnorm so every song plays at a similar perceived loudness—ideal for playlists and podcast archives.",
-        "schemaDescription": "Normalize MP3 volume levels locally with ffmpeg.wasm loudnorm—batch processing, ZIP download, 100% private, no server uploads.",
+        "h1": "Online Audio Normalizer",
+        "heroTagline": "Normalize MP3 volume and level WAV podcasts — make audio louder consistently with LUFS targets or −1.0 dB peak. Batch-normalize free, 100% local.",
+        "introSectionTitle": "How to Level Volume Consistently Without Uploads",
+        "whySectionTitle": "Why Use This Podcast Volume Leveler?",
+        "whySectionSubheadline": "An online audio normalizer with ffmpeg loudnorm, peak-to-−1 dB mode, before/after amplitude preview, and batch normalize for whole episode packs.",
+        "schemaDescription": "Online audio normalizer — normalize MP3 volume, make audio louder consistently, podcast volume leveler with LUFS slider, batch ZIP download, zero uploads.",
         "relatedWorkflowLinks": {
           "prompt": "Related audio workflows:",
           "mp3VolumeBoosterLabel": "MP3 Volume Booster",
           "audioMergerLabel": "Audio Merger",
+          "audioTrimmerLabel": "Audio Trimmer",
           "mp3CompressorLabel": "MP3 Compressor"
         },
         "whyBenefits": {
           "lossless": {
-            "title": "EBU R128 loudnorm targets",
-            "body": "Each track is processed with loudnorm=I=-16:TP=-1.5:LRA=11—the same professional loudness profile used across streaming platforms."
+            "title": "EBU R128 loudnorm or −1 dB peak",
+            "body": "Dial target loudness in LUFS for playlist/podcast leveling, or peak-normalize to −1.0 dBFS when you need a simple ceiling."
           },
           "quality": {
-            "title": "Batch with per-file status",
-            "body": "Upload multiple MP3s, normalize one-by-one with clear progress, and download everything as a ZIP when finished."
+            "title": "Batch Normalize + wave preview",
+            "body": "Drop multiple episodes, preview before/after amplitude, normalize one-by-one, and download a ZIP of balanced tracks."
           },
           "local": {
             "title": "100% private (no uploads)",
-            "body": "Normalization runs in a Web Worker on your device. Your music never leaves the browser tab."
+            "body": "Web Audio peak analysis and ffmpeg.wasm loudnorm stay in your browser. JoinMyPDF never receives your files."
+          }
+        }
+      },
+      "silentRemover": {
+        "h1": "Audio Silence Remover Online",
+        "heroTagline": "Remove silence from audio — auto-trim dead air in podcasts and meetings. Clean up recordings automatically, free and 100% local.",
+        "introSectionTitle": "How Auto-Trim Silence Saves Hours of Editing",
+        "whySectionTitle": "Why Use This Audio Silence Remover?",
+        "whySectionSubheadline": "Web Audio RMS detection, dB threshold + minimum gap controls, red silence map preview, then Remove Silence & Download — no uploads.",
+        "schemaDescription": "Remove silence from audio online — auto-trim silence in podcast, audio silence remover online, clean up recordings automatically. Local Web Audio RMS, zero uploads.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "audioTrimmerLabel": "Audio Trimmer",
+          "audioNormalizerLabel": "Audio Normalizer",
+          "mp3SpeedChangerLabel": "Audio Speed Changer",
+          "mp3CompressorLabel": "MP3 Compressor"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "RMS silence detection",
+            "body": "Scans amplitude in short hops; only gaps quieter than your dB threshold and longer than the minimum duration are cut."
+          },
+          "quality": {
+            "title": "Preview before you cut",
+            "body": "Red/grey silence map shows removable regions so you can tune threshold and duration before stitching active speech."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Decode, analyze, stitch, and export WAV entirely in your browser via the Web Audio API. JoinMyPDF never receives your file."
           }
         }
       },
@@ -2145,6 +2177,35 @@
           "local": {
             "title": "100% private (no uploads)",
             "body": "Trimming runs entirely in your browser session. Sensitive recordings and voice notes stay on your device."
+          }
+        }
+      },
+      "audioTrimmer": {
+        "h1": "Online Audio Trimmer",
+        "heroTagline": "Cut MP3 online free with a visual waveform — trim WAV, AAC, and OGG too. Drag start/end handles, add fade in/out, download locally.",
+        "introSectionTitle": "How to Trim an Audio File Without Losing Quality",
+        "whySectionTitle": "Why Use This Simple Audio Cutter?",
+        "whySectionSubheadline": "A free online audio trimmer with WaveSurfer handles and ffmpeg.wasm — stream-copy when possible, soft fades when you need them, zero uploads.",
+        "schemaDescription": "Online audio trimmer and simple audio cutter — cut MP3 online, trim audio file free, waveform start/end handles, optional fade in/out, 100% local ffmpeg.wasm.",
+        "relatedWorkflowLinks": {
+          "prompt": "Related audio workflows:",
+          "mp3TrimmerLabel": "MP3 Trimmer",
+          "audioTrimmerLabel": "Audio Trimmer",
+          "mp3VolumeBoosterLabel": "MP3 Volume Booster",
+          "fadeInOutCreatorLabel": "Fade In/Out Creator"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "Lossless cuts when fades are off",
+            "body": "Without Fade In/Out, ffmpeg uses stream copy (-c copy) so you keep the original codec quality for clean range cuts."
+          },
+          "quality": {
+            "title": "Waveform handles + soft fades",
+            "body": "Drag Start and End on the waveform for precise ranges. Optional fade in/out creates professional soft edges on the exported clip."
+          },
+          "local": {
+            "title": "100% private (no uploads)",
+            "body": "Your MP3, WAV, AAC, or OGG never leaves the browser. Trimming runs in a Web Worker on your device."
           }
         }
       },
@@ -2663,64 +2724,59 @@
         }
       },
       "userAgentParser": {
-        "h1": "Free User Agent Parser Online",
-        "heroTagline": "Paste any UA string or auto-detect your browser—see browser, OS, device, and engine in a clean structured table instantly.",
-        "introSectionTitle": "Analyze User Agent Strings Instantly",
-        "whySectionTitle": "How Our User Agent Parser Works",
-        "whySectionSubheadline": "Precise browser detection, identify rendering engine and OS, instant parsing in the browser, and a developer-friendly debugging tool—no server round trips.",
-        "schemaDescription": "User agent parser online for free—parse user agent string, browser detector, OS and device detector, and developer tools in your browser. Privacy-first client-side parsing with no uploads.",
-        "featuredGuide": {
-          "slug": "hidden-risks-of-free-online-pdf-editors",
-          "label": "Check out our guide on understanding user agent strings for web debugging"
-        },
+        "h1": "User Agent Parser Online",
+        "heroTagline": "Analyze user agent string instantly — browser detector tool for name, OS, device type, and rendering engine. Debug user agent locally with zero uploads.",
+        "introSectionTitle": "What a User-Agent Tells a Website",
+        "whySectionTitle": "Why Use This Browser Detector Tool?",
+        "whySectionSubheadline": "User agent parser online with ua-parser-js: auto-fill your current UA, edit to test other clients, parse to a clean dashboard, and copy structured JSON.",
+        "schemaDescription": "User agent parser online — analyze user agent string, browser detector tool, and debug user agent in your browser. Local ua-parser-js parsing, no uploads.",
         "relatedWorkflowLinks": {
-          "prompt": "Related developer utilities:",
-          "jsonFormatterLabel": "JSON Formatter",
-          "jwtDebuggerLabel": "JWT Debugger"
+          "prompt": "Related network & API tools:",
+          "myIpLabel": "IP Lookup & My IP",
+          "jwtDebuggerLabel": "JWT Decoder",
+          "urlEncoderDecoderLabel": "URL Encoder/Decoder"
         },
         "whyBenefits": {
           "lossless": {
-            "title": "Instant client-side parsing",
-            "body": "Parse user agent strings in real time with ua-parser-js—auto-detect navigator.userAgent on load or paste custom crawler, bot, and mobile UA samples."
+            "title": "Auto-fill + editable testing",
+            "body": "Starts with navigator.userAgent, then lets you paste crawler, bot, or mobile samples to compare how servers classify clients."
           },
           "quality": {
-            "title": "Supports all modern UA string formats",
-            "body": "Identify rendering engine and OS with structured output for browser, version, device type, and engine—copy JSON for tickets, tests, and analytics pipelines."
+            "title": "Structured dashboard + JSON copy",
+            "body": "See browser, OS, device type (Desktop / Mobile / Tablet / Bot·Crawler), and rendering engine—then copy JSON for tickets and tests."
           },
           "local": {
-            "title": "Privacy-first (data never leaves your browser)",
-            "body": "Your UA strings stay in your browser tab—no logging, no cloud APIs, and no account required for precise browser detection workflows."
+            "title": "100% private (no uploads)",
+            "body": "ua-parser-js runs entirely in your tab. JoinMyPDF never receives the strings you analyze."
           }
         }
       },
       "jwtDebugger": {
-        "h1": "Free JWT Debugger Online",
-        "heroTagline": "Paste an encoded JWT—inspect Header, Payload, and Signature panels with human-readable JSON and expiration insights in your browser.",
-        "introSectionTitle": "Decode and Verify JWT Tokens Instantly",
-        "whySectionTitle": "Why Use Our Secure JWT Debugger?",
-        "whySectionSubheadline": "Secure local-only decoding, real-time token analysis, parse Header, Payload, and Signature, and a privacy-first developer tool—tokens never leave your machine.",
-        "schemaDescription": "JWT debugger online for free—decode JWT token, JSON Web Token decoder, verify JWT signature context, and secure JWT tool in your browser. 100% client-side with no uploads or logging.",
-        "featuredGuide": {
-          "slug": "how-to-password-protect-pdf-in-browser",
-          "label": "Check out our guide on understanding JSON Web Tokens: a quick guide for developers"
-        },
+        "h1": "JWT Decoder Online",
+        "heroTagline": "Decode JWT token instantly — view JWT payload as pretty JSON, inspect algorithm and type, and check whether a signature segment exists. JWT tool for developers, 100% local.",
+        "introSectionTitle": "What Is Inside a JWT?",
+        "whySectionTitle": "Why Use This JWT Tool for Developers?",
+        "whySectionSubheadline": "JWT decoder online: paste an encoded token, Base64Url-decode header and payload in your browser, copy JSON, and never upload secrets to a server.",
+        "schemaDescription": "JWT decoder online — decode JWT token, view JWT payload, and use a JWT tool for developers in your browser. Local Base64Url decode only; no server-side signature verification.",
         "relatedWorkflowLinks": {
-          "prompt": "Related developer utilities:",
+          "prompt": "Related network & API tools:",
           "userAgentParserLabel": "User Agent Parser",
+          "myIpLabel": "IP Lookup & My IP",
+          "urlEncoderDecoderLabel": "URL Encoder/Decoder",
           "base64EncoderDecoderLabel": "Base64 Encoder/Decoder"
         },
         "whyBenefits": {
           "lossless": {
-            "title": "100% Client-side (no data leaves your machine)",
-            "body": "Secure local-only decoding with jwt-decode—paste API access tokens, session JWTs, and OIDC id_tokens without sending secrets to third-party debugger sites."
+            "title": "Decode header + payload locally",
+            "body": "Base64Url-decode compact JWTs in your tab—inspect alg/typ, pretty-print claims, and copy payload JSON for tickets and tests."
           },
           "quality": {
-            "title": "Human-readable JSON output",
-            "body": "Real-time token analysis splits Header, Payload, and Signature into clear panels—copy formatted JSON, spot exp/iss/aud claims, and flag alg=none or malformed signatures."
+            "title": "Clear signature presence status",
+            "body": "See whether the signature segment exists, is missing, malformed, or alg=none—without false claims of cryptographic verification."
           },
           "local": {
-            "title": "Instant debugging with no tracking/logging",
-            "body": "Privacy-first developer tool for auth workflows—no server upload, no analytics on your token content, and no account required for daily JWT inspection."
+            "title": "Tokens never leave your browser",
+            "body": "No uploads, no logging of token content, and no secret key required. Decode-only visualization for private debugging."
           }
         }
       },
@@ -2768,7 +2824,7 @@
         },
         "relatedWorkflowLinks": {
           "prompt": "Related developer utilities:",
-          "jwtDebuggerLabel": "JWT Debugger",
+          "jwtDebuggerLabel": "JWT Decoder",
           "userAgentParserLabel": "User Agent Parser"
         },
         "whyBenefits": {
@@ -4232,10 +4288,18 @@
           "p1": "Convert HEIC to professional PDF with high-speed local conversion—secure local-only processing and easy iPhone document creation in your browser. No uploads, no account, and no desktop software required."
         },
         "userAgentParser": {
-          "p1": "Precise browser detection with instant parsing in the browser—identify rendering engine and OS using a developer-friendly debugging tool. No uploads, no account, and no desktop software required."
+          "p1": "A User-Agent string is a short HTTP header your browser sends with every request. It helps websites adapt layouts, choose compatible formats, and spot bots—without needing an account or app install.",
+          "p3": "Open the tool: your current navigator.userAgent is auto-filled. Edit it to test crawlers, mobile clients, or legacy browsers, then click Parse for a dashboard of browser, OS, device type, and rendering engine.",
+          "p4": "People search for user agent parser online, analyze user agent string, browser detector tool, and debug user agent when validating CDN rules, support tickets, or analytics classifiers.",
+          "p5": "Common workflows include documenting client environments for bug reports, comparing bot vs browser UAs, and checking how your own browser is classified before shipping responsive changes.",
+          "p6": "Parsing is 100% local with ua-parser-js. Nothing is uploaded. Spoofed or incomplete UAs may still parse—treat results as hints for debugging, not absolute identity."
         },
         "jwtDebugger": {
-          "p1": "Secure local-only decoding with real-time token analysis—parse Header, Payload, and Signature using a privacy-first developer tool in your browser. No uploads, no account, and no desktop software required."
+          "p1": "A JWT (JSON Web Token) has three Base64Url segments: Header (algorithm and type), Payload (claims like sub, exp, roles), and Signature. Developers decode tokens to debug auth flows and inspect claims without calling an API.",
+          "p3": "Paste an encoded JWT into the textarea and click Decode. The dashboard shows algorithm and type from the header, pretty-printed payload JSON with Copy JSON, and a basic check that the signature segment exists — not cryptographic verification.",
+          "p4": "People search for jwt decoder online, decode jwt token, view jwt payload, and jwt tool for developers when debugging APIs, OIDC sessions, or support tickets offline.",
+          "p5": "Use it to inspect access tokens, spot expired exp claims, compare alg=none vs signed tokens, and share decoded JSON without pasting secrets into third-party debugger sites.",
+          "p6": "Tokens stay in your browser. This tool never uploads JWTs and never verifies HMAC/RSA signatures because your secret or public key is not provided — treat decode-only output as visualization, not authorization."
         },
         "qrCodeGenerator": {
           "p1": "Generate high-quality QR codes supporting URLs, text, and email—secure local-only processing and instant download without tracking in your browser. No uploads, no account, and no desktop software required."
@@ -4343,11 +4407,11 @@
           "p6": "If processing fails, try a shorter stereo clip with center-panned vocals, close other browser tabs, or use a different export from your source. This tool estimates instrumentals—it is not AI stem separation."
         },
         "mp3SpeedChanger": {
-          "p1": "Change MP3 speed online—upload an MP3, pick a playback factor from 0.5× to 2.0×, and download a pitch-preserving version processed locally with ffmpeg.wasm atempo. No uploads, no account, and no desktop software required.",
-          "p3": "Upload your MP3, move the speed slider to your target rate, then click Change Speed & Download. Compare original vs adjusted previews—1.0× is normal speed.",
-          "p4": "Common searches include speed up MP3, slow down podcast MP3, change audiobook playback speed, and atempo MP3 online.",
-          "p5": "Typical situations include speeding through podcast intros, slowing dense lectures for study, and fitting long voice memos into tighter deadlines.",
-          "p6": "If processing fails, confirm the speed is between 0.5× and 2.0×, try a shorter clip, or close other browser tabs if memory is low."
+          "p1": "Change audio speed online—time-stretching shortens meetings and lectures while voices stay natural. Speed up a podcast without pitch change, preview live, then download. No uploads, no account, and no desktop software required.",
+          "p3": "Drop MP3/WAV/AAC, use presets (1.25×, 1.5×, 2.0×) or the 0.5×–2.5× slider, keep Maintain Pitch on for time-stretching, preview in the player, then click Apply & Download.",
+          "p4": "Common searches include change audio speed online, audio time stretcher, speed up podcast without pitch change, and increase audio speed online.",
+          "p5": "Typical situations include reviewing long meeting recordings at 1.5×, catching up on lecture captures, and exporting a faster MP3 for any player that lacks a speed dial.",
+          "p6": "If processing fails, stay between 0.5× and 2.5×, try a shorter clip, or close other browser tabs if memory is low."
         },
         "fadeInOutCreator": {
           "p1": "Add audio fades online—upload an MP3, set fade-in and fade-out durations in seconds, and download a polished track processed locally with ffmpeg.wasm afade. No uploads, no account, and no desktop software required.",
@@ -4357,11 +4421,18 @@
           "p6": "If fades fail validation, shorten fade durations so they fit inside the track length, or trim the file first with the MP3 Trimmer."
         },
         "audioNormalizer": {
-          "p1": "Normalize MP3 volume online—upload one or many MP3 files and download tracks balanced to a consistent perceived loudness with ffmpeg.wasm loudnorm. No uploads, no account, and no desktop software required.",
-          "p3": "Upload your MP3s, review the batch list, then click Normalize & Download All. Each file is processed sequentially with per-file status; successful outputs download as a single MP3 or ZIP.",
-          "p4": "Common searches include normalize MP3 volume, balance playlist loudness, even out song volume, and batch audio normalization online.",
+          "p1": "Online audio normalizer—normalize MP3 volume and level WAV podcasts so playback stays consistent. Make audio louder consistently with a LUFS target or −1.0 dB peak; batch-normalize locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
+          "p3": "Drop MP3/WAV files, preview the before/after amplitude wave, choose Target Loudness (LUFS) or Peak (−1.0 dB), then click Normalize & Download. For several episodes, use Batch Normalize to get a ZIP of leveled tracks.",
+          "p4": "Common searches include online audio normalizer, normalize MP3 volume, make audio louder consistently, and podcast volume leveler.",
           "p5": "Typical situations include fixing volume jumps in playlists, preparing podcast episode archives, and matching levels across tracks from different recording sessions.",
           "p6": "If one file fails, others still process. Re-export corrupted sources, try shorter clips, or close other browser tabs if memory is low on very large batches."
+        },
+        "silentRemover": {
+          "p1": "Remove silence from audio online—auto-trim dead air so podcasts and meetings play tighter without manual scrubbing. Clean up recordings automatically with local Web Audio RMS detection. No uploads, no account, and no desktop software required.",
+          "p3": "Drop an MP3 or WAV, set Silence Threshold (dB) and Minimum Duration, preview red silence regions on the map, then click Remove Silence & Download to stitch only the active parts.",
+          "p4": "Common searches include remove silence from audio, auto-trim silence in podcast, audio silence remover online, and clean up recordings automatically.",
+          "p5": "Typical situations include cutting long pauses from interviews, tightening lecture captures, and shortening meeting recordings before sharing.",
+          "p6": "If speech gets clipped, lower the threshold (more negative) or raise minimum duration. If nothing is cut, move the threshold toward −30 dB or shorten the gap requirement."
         },
         "wavToMp3": {
           "p1": "Convert WAV to MP3 online—upload a lossless WAV and download a compact MP3 encoded locally with ffmpeg.wasm at highest VBR quality (-q:a 0). No uploads, no account, and no desktop software required.",
@@ -4411,6 +4482,13 @@
           "p4": "People often search for cut MP3, trim audio clip, remove intro from MP3, or shorten podcast episode. The mm:ss fields accept minutes and seconds separated by a colon.",
           "p5": "Typical situations include removing silence at the start of a recording, extracting a quote from an interview, and shortening ringtones or notification sounds.",
           "p6": "If trimming fails, confirm the end time is after the start time and both fall within the track duration. Very long files may need more memory—try closing other tabs or trimming a smaller section first."
+        },
+        "audioTrimmer": {
+          "p1": "Trim audio file free online—drop MP3, WAV, AAC, or OGG, drag Start and End handles on the waveform, optionally enable Fade In/Out, then Trim & Download. ffmpeg.wasm processes everything locally.",
+          "p3": "Upload a track, wait for the waveform to render, then drag the selection region to keep only the part you need. Use Play/Pause and Play selection to audition. Toggle Fade In/Out for soft edges, then click Trim & Download.",
+          "p4": "People search for online audio trimmer, cut mp3 online, trim audio file free, and simple audio cutter. This tool covers those intents with a visual cutter instead of blind mm:ss fields alone.",
+          "p5": "Use it for podcast intros, ringtone clips, sample packs, and removing dead air from voice notes without desktop DAW software.",
+          "p6": "If quality matters most, leave fades off for stream-copy mode. If a cut fails, confirm the selection range is valid and try a shorter file if memory is low."
         },
         "mp3ToWav": {
           "p1": "Convert MP3 to WAV online—upload an MP3 and download an uncompressed WAV file decoded locally with ffmpeg.wasm. No uploads, no account, and no desktop software required.",
@@ -4555,6 +4633,24 @@
         "limitsQ": "Can I trim very long podcasts?",
         "limitsA": "Long files work when your device has enough memory. If trimming fails, try a shorter segment or close other tabs."
       },
+      "audioTrimmer": {
+        "qualityQ": "Does quality degrade after trimming?",
+        "qualityA": "With fades off, ffmpeg stream-copies when possible so you keep the original codec bitstream for a simple cut. Enabling Fade In/Out re-encodes that segment so soft edges can be applied.",
+        "formatsQ": "What formats are supported?",
+        "formatsA": "MP3, WAV, AAC/M4A, and OGG. The download stays in the same format family as your upload.",
+        "privacyQ": "Is my file saved on your servers?",
+        "privacyA": "No. Nothing is uploaded. Waveform decoding and ffmpeg trimming stay in your browser session.",
+        "waveformQ": "How does the waveform trimming work?",
+        "waveformA": "WaveSurfer draws the waveform. Drag and resize the highlighted region to set Start and End. Play selection auditions only that range.",
+        "fadeQ": "What does Fade In / Fade Out do?",
+        "fadeA": "It applies soft volume ramps at the beginning and end of the trimmed clip so cuts feel less abrupt—ideal for music beds and podcasts.",
+        "copyModeQ": "When is stream copy used?",
+        "copyModeA": "When Fade In/Out is disabled, cuts use -c copy for speed and quality. Fades require a short re-encode.",
+        "firstLoadQ": "Why is the first trim slower?",
+        "firstLoadA": "ffmpeg.wasm initializes once per session. Later trims skip that download cost.",
+        "limitsQ": "Can I trim long files?",
+        "limitsA": "Yes within browser memory limits. Very large masters may need more RAM—try closing other tabs if a job fails."
+      },
       "mp3ToWav": {
         "localConversionQ": "Is this conversion local?",
         "localConversionA": "Yes. ffmpeg.wasm decodes your MP3 entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your file.",
@@ -4664,22 +4760,28 @@
         "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster."
       },
       "mp3SpeedChanger": {
-        "pitchQ": "Does this change the pitch?",
-        "pitchA": "No. ffmpeg atempo changes playback speed while preserving pitch—unlike simple resampling that makes audio sound higher or lower.",
+        "roboticQ": "Will the audio sound robotic?",
+        "roboticA": "Moderate rates (≈1.25×–1.5×) usually sound natural with Maintain Pitch on. Extreme stretches (near 0.5× or 2.5×) can add artifacts on music or dense speech—preview first and nudge the slider.",
+        "musicQ": "Does it work for music?",
+        "musicA": "Yes. Time-stretching preserves key/pitch for practice or preview. Complex polyphonic music may show more artifacts than spoken word at aggressive speeds.",
+        "maxSpeedQ": "What is the maximum speed increase?",
+        "maxSpeedA": "Up to 2.5× (and down to 0.5×). Presets include 1.25×, 1.5×, and 2.0×—the rates most podcast and video players use.",
+        "pitchQ": "Does Maintain Pitch keep my voice natural?",
+        "pitchA": "Yes when the toggle is on (default). Export uses ffmpeg atempo time-stretching so tempo changes without the chipmunk effect. Turn it off for tape-style pitch that rises with speed.",
         "speedRangeQ": "How much can I speed it up?",
-        "speedRangeA": "The slider runs from 0.5× (half speed) to 2.0× (double speed). Each atempo filter supports 0.5–2.0; values outside that range are chained automatically if extended in the future.",
+        "speedRangeA": "The precision slider runs from 0.5× to 2.5×. Values above 2.0× chain atempo filters automatically for quality.",
         "privacyQ": "Is my file kept private?",
-        "privacyA": "Yes. ffmpeg.wasm processes your MP3 entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your audio.",
-        "atempoQ": "What is the atempo filter?",
-        "atempoA": "atempo is ffmpeg's tempo scaler. It stretches or compresses audio in time without shifting frequency content—the standard approach for podcast/audiobook speed controls.",
-        "podcastsQ": "Is this good for podcasts and audiobooks?",
-        "podcastsA": "Yes. Many listeners use 1.25×–1.5× for podcasts or 0.75× for dense material. Export a new MP3 and use it in any player.",
+        "privacyA": "Yes. Live preview uses Web Audio in your tab; export runs via ffmpeg.wasm in a Web Worker. JoinMyPDF never receives your audio.",
+        "atempoQ": "What is time-stretching / atempo?",
+        "atempoA": "Time-stretching changes duration without shifting pitch (unlike simple resampling). ffmpeg atempo is a WSOLA-style tempo scaler—the same idea as podcast “1.5×” controls.",
+        "podcastsQ": "Is this good for podcasts and meetings?",
+        "podcastsA": "Yes. Many people review lectures and meetings at 1.25×–1.5×. Export a new file and play it anywhere—even players without a speed dial.",
         "formatsQ": "What files are supported?",
-        "formatsA": "MP3 input and MP3 output. Convert other formats with the MP3 Converter first if needed.",
-        "firstLoadQ": "Why does the first speed change take longer?",
-        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster.",
-        "workerQ": "Does speed processing block the page?",
-        "workerA": "No. ffmpeg runs in a Web Worker so the slider and upload UI stay responsive during encoding."
+        "formatsA": "MP3, WAV, AAC/M4A, and OGG. Output keeps the same container family when possible.",
+        "firstLoadQ": "Why does the first Apply take longer?",
+        "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later runs on the same page are faster. Live preview works immediately.",
+        "workerQ": "Does processing block the page?",
+        "workerA": "No. ffmpeg runs in a Web Worker so the slider and preview stay responsive during encoding."
       },
       "fadeInOutCreator": {
         "durationQ": "Can I choose the duration?",
@@ -4700,24 +4802,48 @@
         "workerA": "No. ffmpeg runs in a Web Worker so inputs and progress stay responsive during encoding."
       },
       "audioNormalizer": {
+        "removeNoiseQ": "Does this remove background noise?",
+        "removeNoiseA": "No. Normalization levels overall loudness or peak gain—it does not denoise, hum-filter, or remove hiss. Use a dedicated noise-reduction workflow if you need that.",
+        "distortQ": "Will it distort my audio?",
+        "distortA": "Peak mode targets −1.0 dBFS so the loudest sample sits just under the ceiling. Loudness mode uses ffmpeg loudnorm with a true-peak limit. Extreme gain on already-hot files can still introduce artifacts—preview the before/after wave first.",
+        "qualityQ": "Is the original quality preserved?",
+        "qualityA": "As much as re-encoding allows: MP3 outputs use high-bitrate LAME; WAV can stay WAV (PCM). Normalization is not a lossless round-trip for lossy sources, but bitrates stay high enough for podcasts and music edits.",
         "whyNormalizeQ": "Why normalize audio?",
-        "whyNormalizeA": "Tracks from different albums, podcasts, or recording sessions often play at very different volumes. Loudness normalization evens perceived level so listeners do not reach for the volume knob between songs.",
+        "whyNormalizeA": "Normalization ensures consistent volume levels throughout a file and across a batch, preventing “too quiet” or “too loud” segments when you play episodes or playlist tracks back-to-back.",
         "structureQ": "Does it change the song structure?",
         "structureA": "No. Normalization adjusts overall loudness and limits peaks—it does not cut, rearrange, or speed up your audio. Song length and musical structure stay the same.",
         "privacyQ": "Is it 100% private?",
-        "privacyA": "Yes. ffmpeg.wasm processes your MP3s entirely in your browser inside a Web Worker. JoinMyPDF servers never receive your files.",
-        "loudnormQ": "What does loudnorm do?",
-        "loudnormA": "ffmpeg loudnorm applies EBU R128 loudness normalization with integrated loudness I=-16 LUFS, true peak TP=-1.5 dB, and loudness range LRA=11—targets similar to many streaming platforms.",
-        "playlistQ": "Can I normalize a whole playlist?",
-        "playlistA": "Yes. Upload multiple MP3s, click Normalize & Download All, and get a ZIP of balanced tracks—handy before importing into DJ software or a phone music library.",
+        "privacyA": "Yes. Web Audio peak analysis and ffmpeg.wasm loudnorm run entirely in your browser. JoinMyPDF servers never receive your files.",
+        "loudnormQ": "What does loudnorm / LUFS mode do?",
+        "loudnormA": "ffmpeg loudnorm applies EBU R128 loudness normalization. Use the Target Loudness slider (default −16 LUFS) with true peak and LRA controls—similar to many podcast and streaming targets.",
+        "playlistQ": "Can I Batch Normalize podcast episodes?",
+        "playlistA": "Yes. Upload multiple MP3 or WAV files, pick one LUFS or −1 dB peak target, and download a ZIP of leveled tracks—a podcast volume leveler for whole season packs.",
         "batchErrorsQ": "What if one file in the batch fails?",
         "batchErrorsA": "Failed files show an error in the list while successful tracks still normalize and download. Fix or remove bad files and run again without re-processing successes.",
         "formatsQ": "What files are supported?",
-        "formatsA": "Standard MP3 input and MP3 output. Convert other formats with the MP3 Converter first if needed.",
+        "formatsA": "MP3 and WAV input. MP3 stays MP3 (high bitrate); WAV can export as WAV. Convert other formats with the MP3 Converter first if needed.",
         "firstLoadQ": "Why does the first normalization take longer?",
         "firstLoadA": "ffmpeg.wasm downloads and initializes on first use. Later files in the same batch and future runs on the page are faster.",
         "workerQ": "Does batch normalization block the page?",
         "workerA": "No. ffmpeg runs in a Web Worker so the file list and progress bar stay responsive while each track encodes."
+      },
+      "silentRemover": {
+        "thresholdQ": "How do I set the threshold?",
+        "thresholdA": "Silence Threshold is in dBFS. Start near −40 dB for podcasts. Move toward −30 if quiet breathing is not cut; toward −50/−55 if soft speech is being removed.",
+        "cutWordsQ": "Will it cut parts of words?",
+        "cutWordsA": "Minimum Duration protects short gaps inside speech. Raise it (e.g. 0.8–1.5 s) if consonants get clipped; lower it to remove shorter pauses. Always check the red silence map before downloading.",
+        "privacyQ": "Is the processing private?",
+        "privacyA": "Yes. Web Audio decode, RMS analysis, stitching, and WAV export all run in your browser. JoinMyPDF never receives your recording.",
+        "howItWorksQ": "How does detection work?",
+        "howItWorksA": "The tool measures RMS amplitude in short hops. If level stays below your threshold longer than Minimum Duration, that span is marked as silence and removed when you stitch.",
+        "formatsQ": "What files are supported?",
+        "formatsA": "MP3, WAV, AAC/M4A, and OGG that the browser can decode. Output is a cleaned WAV you can convert with the MP3 Converter if needed.",
+        "longFilesQ": "Can it handle a 1-hour podcast?",
+        "longFilesA": "Yes. Analysis walks the buffer in batches and yields to the UI so long files stay responsive. Very large files still need enough browser memory to decode.",
+        "outputQ": "What format do I download?",
+        "outputA": "A 16-bit PCM WAV of the stitched active segments. Use WAV to MP3 afterward for a smaller shareable file.",
+        "firstLoadQ": "Why does analysis take a moment?",
+        "firstLoadA": "Decoding and RMS scanning are CPU-bound for long files. Progress shows while hops are measured; reruns after slider tweaks reuse the same decode when possible."
       },
       "wavToMp3": {
         "whyConvertQ": "Why convert WAV to MP3?",
@@ -6894,13 +7020,13 @@
       "privacyNote": "Text analysis runs entirely in your browser. Your content never leaves your device."
     },
     "user-agent-parser": {
-      "privacyNote": "User-Agent parsing runs entirely in your browser. No data is sent to a server."
+      "privacyNote": "User-Agent parsing runs entirely in your browser with ua-parser-js. Your strings are never uploaded to JoinMyPDF."
     },
     "qr-code-generator": {
       "privacyNote": "QR codes are generated entirely in your browser. Your content never leaves your device."
     },
     "jwt-debugger": {
-      "privacyNote": "JWT decoding runs entirely in your browser. Tokens are never sent to a server."
+      "privacyNote": "JWT decoding runs entirely in your browser. Tokens are never uploaded. Signatures are not cryptographically verified."
     },
     "yaml-json-converter": {
       "privacyNote": "YAML and JSON conversion runs entirely in your browser. Your data never leaves your device."

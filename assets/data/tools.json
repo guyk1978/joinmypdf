@@ -6123,38 +6123,46 @@
       "operation": "user-agent-parser",
       "title": "User Agent Parser",
       "primaryKeyword": "user agent parser online",
-      "intent": "Detect browser, OS, device type, and rendering engine from any User-Agent string — instantly in your browser.",
-      "description": "Auto-detect your current browser or paste any User-Agent string for a clean breakdown of browser, version, OS, device, and engine.",
+      "intent": "Analyze any User-Agent string to detect browser, OS, device type, and rendering engine — entirely in your browser.",
+      "description": "Browser detector tool: auto-fill your current UA, edit to test other clients, parse to a clean dashboard, and copy structured JSON. Debug user agent strings locally with zero uploads.",
       "secondaryKeywords": [
+        "analyze user agent string",
+        "browser detector tool",
+        "debug user agent",
         "user agent analyzer",
-        "browser detection tool",
         "ua string parser"
       ],
       "useCases": [
         "Debug responsive layouts by simulating different browsers",
         "Inspect crawler or bot User-Agent strings",
-        "Document client environments for support tickets"
+        "Document client environments for support tickets",
+        "Validate CDN or bot rules against sample UA strings"
       ],
       "relatedTools": [
-        "json-formatter",
-        "jwt-debugger"
+        "my-ip",
+        "jwt-debugger",
+        "url-encoder-decoder"
       ],
       "faq": [
         {
-          "q": "Is my User-Agent sent to a server?",
-          "a": "No. Parsing runs entirely in your browser using ua-parser-js."
+          "q": "Why do websites need User-Agent information?",
+          "a": "Sites use the User-Agent header to adapt layouts for mobile vs desktop, select compatible formats, and distinguish browsers from bots or crawlers—without requiring you to install an app."
+        },
+        {
+          "q": "Is this information private?",
+          "a": "On JoinMyPDF, yes: parsing runs entirely in your browser with ua-parser-js. Your UA string is never uploaded. Note that websites you visit still receive your UA over HTTP as a normal browser header."
+        },
+        {
+          "q": "Can I spoof my User-Agent?",
+          "a": "Yes. DevTools, extensions, and some browsers let you override the UA string. This tool accepts any pasted string so you can see how a spoofed or custom UA would be classified—spoofing does not hide other signals like IP or TLS fingerprinting."
         },
         {
           "q": "Does it detect my current browser automatically?",
-          "a": "Yes. On load, the tool reads navigator.userAgent and displays parsed results immediately."
-        },
-        {
-          "q": "Can I parse a custom User-Agent string?",
-          "a": "Yes. Paste any UA string into the input field and the table updates in real time."
+          "a": "Yes. On load, the input is auto-filled from navigator.userAgent. Click Parse to analyze it, or edit the field first to test other strings."
         },
         {
           "q": "What fields are shown?",
-          "a": "Browser name, version, operating system, device type, and rendering engine."
+          "a": "Browser name and version, operating system name and version, device type (Desktop, Mobile, Tablet, or Bot/Crawler), and rendering engine (for example Blink, WebKit, or Gecko)."
         },
         {
           "q": "Can I copy the parsed report?",
@@ -6171,7 +6179,7 @@
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-07-15"
     },
     {
       "slug": "qr-code-generator",
@@ -6237,47 +6245,52 @@
       "slug": "jwt-debugger",
       "category": "convert",
       "operation": "jwt-debugger",
-      "title": "JWT Debugger",
-      "primaryKeyword": "jwt debugger online",
-      "intent": "Decode JWT header, payload, and signature in your browser with human-readable expiration and copy-friendly JSON.",
-      "description": "Paste a JSON Web Token to inspect its claims, spot expiration issues, and copy each section — entirely local, no server upload.",
+      "title": "JWT Decoder",
+      "primaryKeyword": "jwt decoder online",
+      "intent": "Decode JWT tokens locally to view header algorithm/type, pretty-print the payload, and check that a signature segment exists — no server uploads.",
+      "description": "JWT tool for developers: paste an encoded token, decode JWT token header and payload in your browser, view JWT payload as JSON, and copy claims instantly.",
       "secondaryKeywords": [
-        "jwt decoder",
-        "jwt parser",
-        "json web token debugger"
+        "decode jwt token",
+        "view jwt payload",
+        "jwt tool for developers",
+        "jwt debugger",
+        "json web token decoder"
       ],
       "useCases": [
         "Inspect API access tokens during development",
-        "Verify exp, iss, and aud claims before debugging auth flows",
-        "Share decoded JWT sections without sending tokens to third-party sites"
+        "View JWT payload claims for support tickets",
+        "Confirm a signature segment exists without verifying cryptography",
+        "Spot expired exp claims before debugging auth flows"
       ],
       "relatedTools": [
         "user-agent-parser",
+        "my-ip",
+        "url-encoder-decoder",
         "base64-encoder-decoder"
       ],
       "faq": [
         {
-          "q": "Is my JWT sent to a server?",
-          "a": "No. Decoding runs entirely in your browser using jwt-decode and Base64Url parsing."
+          "q": "What is a JWT?",
+          "a": "A JSON Web Token is a compact, URL-safe string with three Base64Url parts — Header, Payload, and Signature — commonly used for API auth and session claims."
         },
         {
-          "q": "Does this verify the signature?",
-          "a": "No. Without your secret or public key, signature verification is not possible. Malformed signatures and insecure alg=none tokens are flagged."
+          "q": "Is my token secure on JoinMyPDF?",
+          "a": "Decoding runs entirely in your browser. Your JWT is never uploaded to JoinMyPDF. Still treat live production tokens carefully: anyone with the string can read its payload claims."
+        },
+        {
+          "q": "Why doesn't this verify the signature?",
+          "a": "Cryptographic verification needs your HMAC secret or public key. This tool deliberately omits that so tokens stay private and decode-only. It only reports whether the signature segment is present, missing, malformed, or alg=none."
+        },
+        {
+          "q": "Can I copy the payload JSON?",
+          "a": "Yes. Use Copy JSON on the payload panel to copy pretty-printed claims to your clipboard."
         },
         {
           "q": "How is expiration shown?",
-          "a": "If the payload includes exp, the tool shows a human-readable relative time (for example, \"in 2 hours\") plus the absolute local date."
+          "a": "If the payload includes exp, the tool shows a human-readable relative time plus the absolute local date, and flags expired tokens."
         },
         {
-          "q": "What if my token is expired?",
-          "a": "Expired tokens are highlighted with a warning and the payload card is marked accordingly."
-        },
-        {
-          "q": "Can I copy each section?",
-          "a": "Yes. Header and Payload copy as formatted JSON. Signature copies the raw Base64Url segment."
-        },
-        {
-          "q": "Is the JWT Debugger free?",
+          "q": "Is the JWT Decoder free?",
           "a": "Yes. It is free to use with no account required."
         }
       ],
@@ -6287,7 +6300,7 @@
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": false,
-      "updatedAt": "2026-06-30"
+      "updatedAt": "2026-07-15"
     },
     {
       "slug": "yaml-json-converter",
@@ -7048,6 +7061,67 @@
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
       "updatedAt": "2026-07-12"
+    },
+    {
+      "slug": "my-ip",
+      "category": "convert",
+      "operation": "my-ip",
+      "title": "IP Lookup & My IP",
+      "primaryKeyword": "what is my ip address",
+      "intent": "Show your public IP address instantly, plus ISP, location, connection type, and VPN/proxy hints — with interactive lookup for any IP.",
+      "description": "Public IP address tool: check my IP location, ISP, and connection details on load, then look up another IP online. Data is fetched in your browser; JoinMyPDF does not store or log your IP.",
+      "secondaryKeywords": [
+        "online ip lookup",
+        "check my ip location",
+        "public ip address tool",
+        "ip address lookup",
+        "what is my ipv6"
+      ],
+      "useCases": [
+        "Confirm the public IP a remote API sees from your network",
+        "Verify VPN connectivity by comparing expected vs observed location",
+        "Look up another IP for ISP and geo hints",
+        "Copy User-Agent and OS details while testing device-specific bugs"
+      ],
+      "relatedTools": [
+        "user-agent-parser",
+        "jwt-debugger",
+        "url-encoder-decoder",
+        "ssl-decoder"
+      ],
+      "faq": [
+        {
+          "q": "How is my location determined?",
+          "a": "Approximate city, region, and country come from an IP geolocation database maintained by the lookup provider your browser contacts (such as ipapi.co). It is not GPS and can be wrong for VPNs, CGNAT, or mobile networks."
+        },
+        {
+          "q": "Is my IP being tracked?",
+          "a": "JoinMyPDF does not store or log your IP for this tool. The request goes from your browser to a public IP API. We do not receive or keep the result on our servers."
+        },
+        {
+          "q": "What is the difference between IPv4 and IPv6?",
+          "a": "IPv4 uses 32-bit dotted addresses (like 203.0.113.10). IPv6 uses 128-bit addresses written with colons. When dual-stack is detectable, this tool may show a companion address alongside your primary public IP."
+        },
+        {
+          "q": "Can I look up someone else's IP?",
+          "a": "Yes. Use Look up another IP with a public IPv4 or IPv6 address to fetch ISP, location, and connection hints. Only public metadata is shown."
+        },
+        {
+          "q": "Does this detect VPN or proxy?",
+          "a": "When the provider reports security flags (VPN, proxy, Tor, or hosting), they appear under VPN / Proxy and in the connection type summary. Flags are informational and not guaranteed to be complete."
+        },
+        {
+          "q": "Is the IP lookup free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.82,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-15"
     }
   ]
 }

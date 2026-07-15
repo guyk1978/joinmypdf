@@ -1,14 +1,21 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Download, Gauge, Loader2 } from "lucide-react";
-import { useCallback, useEffect, useId, useState } from "react";
-import { MediaDropzone } from "@/components/media/MediaDropzone";
+import { Download, Gauge, Loader2, Pause, Play } from "lucide-react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
+import {
+  formatSupportsLabel,
+  IndustrialMatteDropzone,
+} from "@/components/IndustrialMatteDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { FfmpegEnvironmentNotice } from "@/components/tools/FfmpegEnvironmentNotice";
-import { MAX_SPEED, MIN_SPEED } from "@/components/tools/ffmpeg/change-mp3-speed";
-import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
+import {
+  MAX_SPEED,
+  MIN_SPEED,
+  PRESET_SPEEDS,
+  isSupportedSpeedFile,
+} from "@/components/tools/ffmpeg/change-mp3-speed";
 import {
   useFfmpegMp3Speed,
   type FfmpegMp3SpeedResult,
@@ -16,7 +23,8 @@ import {
 import type { ToolModuleProps } from "@/lib/tool-module";
 import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
 
-const MP3_ACCEPT = "audio/mpeg,audio/mp3,.mp3";
+const AUDIO_ACCEPT =
+  "audio/mpeg,audio/mp3,audio/wav,audio/wave,audio/x-wav,audio/ogg,audio/aac,audio/mp4,audio/x-m4a,.mp3,.wav,.ogg,.oga,.aac,.m4a";
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -34,7 +42,30 @@ function downloadBlob(blob: Blob, fileName: string): void {
 }
 
 function formatSpeedLabel(speed: number): string {
-  return `${speed.toFixed(1)}×`;
+  if (Number.isInteger(speed)) return `${speed}.0×`;
+  return `${speed.toFixed(2).replace(/0+$/, "").replace(/\.$/, "")}×`;
+}
+
+function applyPreviewTransport(
+  audio: HTMLAudioElement | null,
+  speed: number,
+  maintainPitch: boolean,
+): void {
+  if (!audio) return;
+  audio.playbackRate = speed;
+  // Chromium / Safari / Firefox expose preservesPitch for WSOLA-like live time-stretch.
+  try {
+    audio.preservesPitch = maintainPitch;
+  } catch {
+    /* older engines */
+  }
+  try {
+    // Legacy WebKit prefix
+    (audio as HTMLAudioElement & { mozPreservesPitch?: boolean }).mozPreservesPitch =
+      maintainPitch;
+  } catch {
+    /* ignore */
+  }
 }
 
 export type Mp3SpeedChangerProps = ToolModuleProps & {
@@ -43,12 +74,17 @@ export type Mp3SpeedChangerProps = ToolModuleProps & {
 
 export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
   const sliderId = useId();
+  const pitchId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const previewRef = useRef<HTMLAudioElement>(null);
+
   const [file, setFile] = useState<File | null>(null);
-  const [originalUrl, setOriginalUrl] = useState<string | null>(null);
-  const [changedUrl, setChangedUrl] = useState<string | null>(null);
-  const [speed, setSpeed] = useState(1.5);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [speed, setSpeed] = useState(1.25);
+  const [maintainPitch, setMaintainPitch] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const [pickError, setPickError] = useState("");
-  const [rangeError, setRangeError] = useState("");
+  const [dragActive, setDragActive] = useState(false);
 
   const {
     environment,
@@ -64,79 +100,94 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
 
   const blockingError =
     environment && !environment.canRun ? environment.blockingMessage : undefined;
-  const displayError =
-    pickError || rangeError || blockingError || (phase === "error" ? error : undefined);
+  const displayError = pickError || blockingError || (phase === "error" ? error : undefined);
 
   const speedOutOfRange = speed < MIN_SPEED || speed > MAX_SPEED;
-  const speedUnchanged = Math.abs(speed - 1) < 0.05;
+  const speedUnchanged = Math.abs(speed - 1) < 0.01;
 
   useEffect(() => {
     if (!file) {
-      setOriginalUrl(null);
+      setPreviewUrl(null);
       return;
     }
     const url = URL.createObjectURL(file);
-    setOriginalUrl(url);
+    setPreviewUrl(url);
     return () => URL.revokeObjectURL(url);
   }, [file]);
 
   useEffect(() => {
-    if (!result?.blob) {
-      setChangedUrl(null);
-      return;
-    }
-    const url = URL.createObjectURL(result.blob);
-    setChangedUrl(url);
-    return () => URL.revokeObjectURL(url);
-  }, [result]);
+    applyPreviewTransport(previewRef.current, speed, maintainPitch);
+  }, [speed, maintainPitch, previewUrl]);
 
   const pickFile = useCallback(
     (next: File) => {
-      if (!isMp3File(next)) {
+      if (!isSupportedSpeedFile(next)) {
         setPickError(
-          "Invalid or unsupported file. Please upload a valid MP3 audio file for speed adjustment.",
+          `Invalid file "${next.name}". Please upload MP3, WAV, AAC/M4A, or OGG.`,
         );
         return;
       }
       setFile(next);
       setPickError("");
+      setPlaying(false);
       reset();
     },
     [reset],
   );
 
-  const handleSpeedChange = useCallback((value: number) => {
-    setSpeed(value);
-    if (value < MIN_SPEED || value > MAX_SPEED) {
-      setRangeError(`Speed must stay between ${MIN_SPEED}x and ${MAX_SPEED}x for atempo quality.`);
-    } else {
-      setRangeError("");
-    }
-  }, []);
+  const addFiles = useCallback(
+    (incoming: File[]) => {
+      const next = incoming[0];
+      if (!next) return;
+      pickFile(next);
+    },
+    [pickFile],
+  );
 
-  const changeSpeedAndDownload = useCallback(async () => {
+  const togglePreview = useCallback(async () => {
+    const audio = previewRef.current;
+    if (!audio || !previewUrl) return;
+
+    applyPreviewTransport(audio, speed, maintainPitch);
+
+    if (audio.paused) {
+      try {
+        await audio.play();
+        setPlaying(true);
+      } catch {
+        setPlaying(false);
+      }
+    } else {
+      audio.pause();
+      setPlaying(false);
+    }
+  }, [maintainPitch, previewUrl, speed]);
+
+  const applyAndDownload = useCallback(async () => {
     if (!file || busy || speedOutOfRange || speedUnchanged) return;
 
-    const payload = await changeSpeed({ file, speed });
+    const payload = await changeSpeed({ file, speed, maintainPitch });
     if (payload) {
       downloadBlob(payload.blob, payload.fileName);
     }
-  }, [busy, changeSpeed, file, speed, speedOutOfRange, speedUnchanged]);
+  }, [busy, changeSpeed, file, maintainPitch, speed, speedOutOfRange, speedUnchanged]);
 
-  const canChange =
+  const canApply =
     Boolean(file) &&
     !busy &&
     !speedOutOfRange &&
     !speedUnchanged &&
     environment?.canRun !== false;
 
+  const isDisabled = busy || Boolean(blockingError);
+
   return (
-    <div className="mp3-speed-changer-tool space-y-4">
+    <div className="audio-speed-changer-tool space-y-4">
       <p className="text-sm leading-relaxed text-neutral-400">
         {title ??
-          "Change the playback speed of your MP3 files without altering the pitch. Perfect for podcasts and audiobooks. 100% private and local."}{" "}
-        ffmpeg.wasm uses the <code className="text-neutral-500">atempo</code> filter in a Web Worker
-        so tempo changes do not shift pitch.
+          "Change audio speed online — time-stretch podcasts and lectures without pitch shift. 100% private and local."}{" "}
+        Live-preview any rate from {MIN_SPEED}×–{MAX_SPEED}×, then Apply &amp; Download. Nothing is
+        uploaded.
       </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
@@ -146,24 +197,58 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
       ) : null}
 
       {!file ? (
-        <MediaDropzone
-          mediaKind="audio"
-          accept={MP3_ACCEPT}
-          busy={busy}
-          disabled={busy || Boolean(blockingError)}
-          supportedFormats={["MP3"]}
-          onFile={pickFile}
-          onError={(message) => setPickError(message)}
-          labels={{
-            title: "Upload MP3",
-            titleBusy: "Changing speed in worker…",
-            description: "Drag and drop an MP3 or browse from your device.",
-            privacyBadge: "100% Private — processed locally with ffmpeg.wasm.",
+        <IndustrialMatteDropzone
+          role="button"
+          tabIndex={isDisabled ? -1 : 0}
+          aria-disabled={isDisabled}
+          active={dragActive}
+          disabled={isDisabled}
+          dropTitle={busy ? "Changing speed in worker…" : "Drop an audio file"}
+          selectLabel="Select audio from device"
+          supportsLabel={formatSupportsLabel(["MP3", "WAV", "AAC", "M4A", "OGG"])}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              inputRef.current?.click();
+            }
           }}
-          className="rounded-none border-neutral-800 bg-[#1a1a1a]"
+          onDragEnter={(event) => {
+            event.preventDefault();
+            if (!isDisabled) setDragActive(true);
+          }}
+          onDragOver={(event) => {
+            event.preventDefault();
+            if (!isDisabled) setDragActive(true);
+          }}
+          onDragLeave={(event) => {
+            event.preventDefault();
+            if (event.currentTarget === event.target) setDragActive(false);
+          }}
+          onDrop={(event) => {
+            event.preventDefault();
+            setDragActive(false);
+            if (isDisabled) return;
+            addFiles(Array.from(event.dataTransfer.files));
+          }}
+          onClick={() => {
+            if (!isDisabled) inputRef.current?.click();
+          }}
+          input={
+            <input
+              ref={inputRef}
+              type="file"
+              accept={AUDIO_ACCEPT}
+              disabled={isDisabled}
+              className="sr-only"
+              onChange={(event) => {
+                addFiles(Array.from(event.target.files ?? []));
+                event.target.value = "";
+              }}
+            />
+          }
         />
       ) : (
-        <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               {file.name} · {formatBytes(file.size)}
@@ -175,7 +260,7 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
               onClick={() => {
                 setFile(null);
                 setPickError("");
-                setRangeError("");
+                setPlaying(false);
                 reset();
               }}
             >
@@ -183,24 +268,29 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
             </button>
           </div>
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-3">
+          <fieldset className="space-y-3 border border-neutral-800 bg-neutral-950 p-3">
+            <legend className="px-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+              Speed control
+            </legend>
+
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <label className="text-sm font-medium text-neutral-300" htmlFor={sliderId}>
                 Playback speed
               </label>
-              <span className="text-sm font-semibold tabular-nums text-neutral-100">
+              <span className="font-mono text-lg font-semibold tabular-nums text-neutral-100">
                 {formatSpeedLabel(speed)}
               </span>
             </div>
+
             <input
               id={sliderId}
               type="range"
               min={MIN_SPEED}
               max={MAX_SPEED}
-              step={0.1}
+              step={0.05}
               value={speed}
               disabled={busy}
-              onChange={(event) => handleSpeedChange(Number(event.target.value))}
+              onChange={(event) => setSpeed(Number(event.target.value))}
               className="h-2 w-full cursor-pointer appearance-none rounded-none bg-neutral-800 accent-neutral-100"
             />
             <div className="flex justify-between text-xs text-neutral-500">
@@ -208,45 +298,116 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
               <span>1.0× normal</span>
               <span>{MAX_SPEED}× faster</span>
             </div>
-            {speedOutOfRange ? (
-              <p className="text-xs text-amber-500">
-                Speed must stay between {MIN_SPEED}x and {MAX_SPEED}x.
+
+            <div className="space-y-2">
+              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+                Preset speeds
               </p>
-            ) : speedUnchanged ? (
-              <p className="text-xs text-neutral-500">
-                Move the slider away from 1.0× to change playback speed.
+              <div className="flex flex-wrap gap-2">
+                {PRESET_SPEEDS.map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    className={clsx(
+                      toolOutlineBtn,
+                      Math.abs(speed - preset) < 0.001 &&
+                        "border-neutral-400 text-neutral-100",
+                    )}
+                    disabled={busy}
+                    onClick={() => setSpeed(preset)}
+                  >
+                    {formatSpeedLabel(preset)}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  className={toolOutlineBtn}
+                  disabled={busy}
+                  onClick={() => setSpeed(1)}
+                >
+                  1.0×
+                </button>
+              </div>
+            </div>
+
+            <label
+              className="flex cursor-pointer items-center gap-2 text-sm text-neutral-300"
+              htmlFor={pitchId}
+            >
+              <input
+                id={pitchId}
+                type="checkbox"
+                className="accent-neutral-200"
+                checked={maintainPitch}
+                disabled={busy}
+                onChange={(event) => setMaintainPitch(event.target.checked)}
+              />
+              Maintain pitch (time-stretching)
+              <span className="text-xs text-neutral-500">— on by default</span>
+            </label>
+          </fieldset>
+
+          <div className="space-y-3 rounded-none border border-neutral-800 bg-neutral-950 p-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+                Live preview
               </p>
+              <button
+                type="button"
+                className={toolOutlineBtn}
+                disabled={!previewUrl || busy}
+                onClick={() => void togglePreview()}
+              >
+                {playing ? (
+                  <>
+                    <Pause className="mr-1.5 inline h-4 w-4" aria-hidden />
+                    Pause
+                  </>
+                ) : (
+                  <>
+                    <Play className="mr-1.5 inline h-4 w-4" aria-hidden />
+                    Play at {formatSpeedLabel(speed)}
+                  </>
+                )}
+              </button>
+            </div>
+            {previewUrl ? (
+              <audio
+                ref={previewRef}
+                src={previewUrl}
+                controls
+                preload="metadata"
+                className="w-full"
+                onPlay={() => {
+                  applyPreviewTransport(previewRef.current, speed, maintainPitch);
+                  setPlaying(true);
+                }}
+                onPause={() => setPlaying(false)}
+                onEnded={() => setPlaying(false)}
+              />
             ) : null}
+            <p className="text-xs text-neutral-500">
+              Preview uses the browser time-stretch engine (
+              {maintainPitch ? "pitch locked" : "pitch follows speed"}). Export applies the same
+              mode via ffmpeg.wasm — still 100% local.
+            </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2 rounded-none border border-neutral-800 bg-neutral-950 p-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                Original
-              </p>
-              {originalUrl ? (
-                <audio src={originalUrl} controls preload="metadata" className="w-full" />
-              ) : null}
-            </div>
-            <div className="space-y-2 rounded-none border border-neutral-800 bg-neutral-950 p-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                Speed adjusted
-              </p>
-              {changedUrl ? (
-                <audio src={changedUrl} controls preload="metadata" className="w-full" />
-              ) : (
-                <p className="py-4 text-center text-xs text-neutral-500">
-                  Process the file to preview the new speed here.
-                </p>
-              )}
-            </div>
-          </div>
+          {speedOutOfRange ? (
+            <p className="text-xs text-amber-500">
+              Speed must stay between {MIN_SPEED}× and {MAX_SPEED}×.
+            </p>
+          ) : speedUnchanged ? (
+            <p className="text-xs text-neutral-500">
+              Move the slider or pick a preset away from 1.0× to change speed.
+            </p>
+          ) : null}
 
           <button
             type="button"
             className={clsx(toolPrimaryBtn, "w-full sm:w-auto")}
-            disabled={!canChange}
-            onClick={() => void changeSpeedAndDownload()}
+            disabled={!canApply}
+            onClick={() => void applyAndDownload()}
           >
             {busy ? (
               <>
@@ -256,7 +417,7 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
             ) : (
               <>
                 <Gauge className="mr-2 inline h-4 w-4" aria-hidden />
-                Change Speed &amp; Download
+                Apply &amp; Download
               </>
             )}
           </button>
@@ -274,8 +435,9 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
       {result && phase === "success" ? (
         <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
           <p className="text-sm text-emerald-400">
-            Speed set to {formatSpeedLabel(result.speed)} — {formatBytes(result.blob.size)} MP3
-            ready to download.
+            Speed set to {formatSpeedLabel(result.speed)}
+            {result.maintainPitch ? " (pitch maintained)" : " (pitch linked)"} —{" "}
+            {formatBytes(result.blob.size)} ready.
           </p>
           <button
             type="button"

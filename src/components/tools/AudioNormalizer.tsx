@@ -9,7 +9,7 @@ import {
   Trash2,
   Volume2,
 } from "lucide-react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   formatSupportsLabel,
   IndustrialMatteDropzone,
@@ -17,8 +17,20 @@ import {
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { FfmpegEnvironmentNotice } from "@/components/tools/FfmpegEnvironmentNotice";
-import { LOUDNORM_FILTER } from "@/components/tools/ffmpeg/normalize-audio";
-import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
+import {
+  analyzeAmplitude,
+  buildLoudnormFilter,
+  DEFAULT_PEAK_TARGET_DB,
+  DEFAULT_TARGET_LUFS,
+  DEFAULT_TRUE_PEAK_DB,
+  isSupportedNormalizeFile,
+  MAX_TARGET_LUFS,
+  MIN_TARGET_LUFS,
+  peakGainToTarget,
+  scalePeaks,
+  type AmplitudeAnalysis,
+  type NormalizeMode,
+} from "@/components/tools/ffmpeg/normalize-audio";
 import {
   useFfmpegAudioNormalize,
   type FfmpegAudioNormalizeBatchResult,
@@ -26,7 +38,7 @@ import {
 import type { ToolModuleProps } from "@/lib/tool-module";
 import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
 
-const MP3_ACCEPT = "audio/mpeg,audio/mp3,.mp3";
+const AUDIO_ACCEPT = "audio/mpeg,audio/mp3,audio/wav,audio/wave,audio/x-wav,.mp3,.wav";
 
 type BatchItem = {
   id: string;
@@ -58,10 +70,10 @@ function downloadBlob(blob: Blob, fileName: string): void {
   URL.revokeObjectURL(url);
 }
 
-function validateMp3Batch(files: File[]): string | null {
-  const invalid = files.find((file) => !isMp3File(file));
+function validateBatch(files: File[]): string | null {
+  const invalid = files.find((file) => !isSupportedNormalizeFile(file));
   if (invalid) {
-    return `Invalid file "${invalid.name}". Please upload valid MP3 files only.`;
+    return `Invalid file "${invalid.name}". Please upload MP3 or WAV files only.`;
   }
   return null;
 }
@@ -86,15 +98,94 @@ function itemStatus(
   return "pending";
 }
 
+type WaveOverlayProps = {
+  beforePeaks: number[];
+  afterPeaks: number[];
+  analyzing: boolean;
+  peakDb: number | null;
+  previewGainDb: number;
+};
+
+function WaveOverlay({
+  beforePeaks,
+  afterPeaks,
+  analyzing,
+  peakDb,
+  previewGainDb,
+}: WaveOverlayProps) {
+  return (
+    <div className="space-y-2 rounded-none border border-neutral-800 bg-neutral-950 p-3">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+          Before / after amplitude
+        </p>
+        {peakDb !== null ? (
+          <p className="font-mono text-xs text-neutral-500">
+            Peak {peakDb.toFixed(1)} dBFS · preview gain {previewGainDb >= 0 ? "+" : ""}
+            {previewGainDb.toFixed(1)} dB
+          </p>
+        ) : null}
+      </div>
+      {analyzing ? (
+        <p className="text-xs text-neutral-500">Analyzing amplitude locally…</p>
+      ) : beforePeaks.length === 0 ? (
+        <p className="text-xs text-neutral-500">Upload audio to preview levels.</p>
+      ) : (
+        <div
+          className="audio-normalizer-tool__wave relative h-20 w-full overflow-hidden"
+          aria-hidden
+        >
+          <div className="absolute inset-0 flex items-end gap-px">
+            {beforePeaks.map((value, index) => (
+              <span
+                key={`b-${index}`}
+                className="min-w-0 flex-1 bg-neutral-600/70"
+                style={{ height: `${Math.max(4, value * 100)}%` }}
+              />
+            ))}
+          </div>
+          <div className="absolute inset-0 flex items-end gap-px opacity-80">
+            {afterPeaks.map((value, index) => (
+              <span
+                key={`a-${index}`}
+                className="min-w-0 flex-1 bg-emerald-400/35"
+                style={{ height: `${Math.max(4, value * 100)}%` }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="flex flex-wrap gap-3 text-[0.6875rem] uppercase tracking-wide text-neutral-500">
+        <span className="inline-flex items-center gap-1.5">
+          <span className="inline-block h-2 w-2 bg-neutral-600" /> Before
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="inline-block h-2 w-2 bg-emerald-400/60" /> After preview
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export type AudioNormalizerProps = ToolModuleProps & {
   onComplete?: (result: FfmpegAudioNormalizeBatchResult) => void;
 };
 
 export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const lufsId = useId();
+  const modePeakId = useId();
+  const modeLoudId = useId();
+
   const [items, setItems] = useState<BatchItem[]>([]);
   const [pickError, setPickError] = useState("");
   const [dragActive, setDragActive] = useState(false);
+  const [mode, setMode] = useState<NormalizeMode>("loudnorm");
+  const [targetLufs, setTargetLufs] = useState(DEFAULT_TARGET_LUFS);
+  const [peakToMinusOne, setPeakToMinusOne] = useState(true);
+  const [analysis, setAnalysis] = useState<AmplitudeAnalysis | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+
   const {
     environment,
     phase,
@@ -114,11 +205,55 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
     environment && !environment.canRun ? environment.blockingMessage : undefined;
   const displayError = pickError || blockingError || (phase === "error" ? error : undefined);
 
+  const previewFile = items[0]?.file ?? null;
+
+  useEffect(() => {
+    if (!previewFile) {
+      setAnalysis(null);
+      setAnalyzing(false);
+      return;
+    }
+
+    let cancelled = false;
+    setAnalyzing(true);
+    void analyzeAmplitude(previewFile)
+      .then((next) => {
+        if (!cancelled) setAnalysis(next);
+      })
+      .catch(() => {
+        if (!cancelled) setAnalysis(null);
+      })
+      .finally(() => {
+        if (!cancelled) setAnalyzing(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [previewFile]);
+
+  const previewGainDb = useMemo(() => {
+    if (!analysis) return 0;
+    if (mode === "peak") {
+      return peakToMinusOne ? peakGainToTarget(analysis.peakDb, DEFAULT_PEAK_TARGET_DB) : 0;
+    }
+    // Rough envelope preview for loudnorm: nudge toward target vs RMS stand-in.
+    const approx = targetLufs - analysis.rmsDb;
+    return Math.max(-12, Math.min(12, approx * 0.35));
+  }, [analysis, mode, peakToMinusOne, targetLufs]);
+
+  const afterPeaks = useMemo(() => {
+    if (!analysis) return [];
+    return scalePeaks(analysis.peaks, previewGainDb);
+  }, [analysis, previewGainDb]);
+
+  const loudnormPreview = buildLoudnormFilter(targetLufs, DEFAULT_TRUE_PEAK_DB);
+
   const addFiles = useCallback(
     (incoming: File[]) => {
       if (incoming.length === 0) return;
 
-      const batchError = validateMp3Batch(incoming);
+      const batchError = validateBatch(incoming);
       if (batchError) {
         setPickError(batchError);
         return;
@@ -143,20 +278,33 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
     if (items.length === 0 || busy) return;
 
     const files = items.map((item) => item.file);
-    const batchError = validateMp3Batch(files);
+    const batchError = validateBatch(files);
     if (batchError) {
       setPickError(batchError);
       return;
     }
 
-    const payload = await normalizeBatch(files);
+    if (mode === "peak" && !peakToMinusOne) {
+      setPickError("Enable “Normalize peak to −1.0 dBFS” or switch to LUFS mode.");
+      return;
+    }
+
+    const payload = await normalizeBatch(files, {
+      mode,
+      targetLufs,
+      truePeakDb: mode === "peak" ? DEFAULT_PEAK_TARGET_DB : DEFAULT_TRUE_PEAK_DB,
+    });
+
     if (payload?.zipBlob && payload.successes.length > 0) {
       downloadBlob(payload.zipBlob, payload.zipFileName);
     }
-  }, [busy, items, normalizeBatch]);
+  }, [busy, items, mode, normalizeBatch, peakToMinusOne, targetLufs]);
 
   const canNormalize =
-    items.length > 0 && !busy && environment?.canRun !== false;
+    items.length > 0 &&
+    !busy &&
+    environment?.canRun !== false &&
+    (mode === "loudnorm" || peakToMinusOne);
   const totalBytes = items.reduce((sum, item) => sum + item.file.size, 0);
   const isDisabled = busy || Boolean(blockingError);
 
@@ -164,9 +312,9 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
     <div className="audio-normalizer-tool space-y-4">
       <p className="text-sm leading-relaxed text-neutral-400">
         {title ??
-          "Unify the volume levels of your MP3 files effortlessly. Perfect for creating consistent-sounding playlists. 100% private and local processing."}{" "}
-        ffmpeg.wasm applies <code className="text-neutral-500">{LOUDNORM_FILTER}</code> so tracks
-        play at a similar perceived loudness—like turning on normalization for a whole playlist.
+          "Online audio normalizer — unify MP3/WAV volume for podcasts and playlists. Batch-normalize locally with ffmpeg.wasm."}{" "}
+        Choose target loudness (LUFS) or peak-normalize to −1.0 dB. 100% private — nothing is
+        uploaded.
       </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
@@ -181,9 +329,9 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
         aria-disabled={isDisabled}
         active={dragActive}
         disabled={isDisabled}
-        dropTitle={busy ? "Normalizing in worker…" : "Drop your MP3 files here"}
-        selectLabel="Select MP3 from device"
-        supportsLabel={formatSupportsLabel(["MP3"])}
+        dropTitle={busy ? "Normalizing in worker…" : "Drop MP3 or WAV files (batch OK)"}
+        selectLabel="Select audio from device"
+        supportsLabel={formatSupportsLabel(["MP3", "WAV"])}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
@@ -215,7 +363,7 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
           <input
             ref={inputRef}
             type="file"
-            accept={MP3_ACCEPT}
+            accept={AUDIO_ACCEPT}
             multiple
             disabled={isDisabled}
             className="sr-only"
@@ -232,6 +380,7 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               {items.length} file{items.length === 1 ? "" : "s"} · {formatBytes(totalBytes)} total
+              {items.length > 1 ? " · Batch Normalize" : null}
             </p>
             <button
               type="button"
@@ -246,6 +395,85 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
               Clear all
             </button>
           </div>
+
+          <WaveOverlay
+            beforePeaks={analysis?.peaks ?? []}
+            afterPeaks={afterPeaks}
+            analyzing={analyzing}
+            peakDb={analysis?.peakDb ?? null}
+            previewGainDb={previewGainDb}
+          />
+
+          <fieldset className="space-y-3 border border-neutral-800 bg-neutral-950 p-3">
+            <legend className="px-1 text-xs font-semibold uppercase tracking-wide text-neutral-500">
+              Normalization settings
+            </legend>
+
+            <div className="flex flex-col gap-2 text-sm text-neutral-300">
+              <label className="inline-flex cursor-pointer items-center gap-2">
+                <input
+                  id={modeLoudId}
+                  type="radio"
+                  name="normalize-mode"
+                  checked={mode === "loudnorm"}
+                  disabled={busy}
+                  onChange={() => setMode("loudnorm")}
+                  className="accent-neutral-200"
+                />
+                Target loudness (LUFS) — podcast / playlist leveling
+              </label>
+              <label className="inline-flex cursor-pointer items-center gap-2">
+                <input
+                  id={modePeakId}
+                  type="radio"
+                  name="normalize-mode"
+                  checked={mode === "peak"}
+                  disabled={busy}
+                  onChange={() => setMode("peak")}
+                  className="accent-neutral-200"
+                />
+                Peak normalize
+              </label>
+            </div>
+
+            {mode === "loudnorm" ? (
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <label className="text-sm text-neutral-300" htmlFor={lufsId}>
+                    Target loudness
+                  </label>
+                  <span className="font-mono text-sm text-neutral-100">{targetLufs} LUFS</span>
+                </div>
+                <input
+                  id={lufsId}
+                  type="range"
+                  min={MIN_TARGET_LUFS}
+                  max={MAX_TARGET_LUFS}
+                  step={1}
+                  value={targetLufs}
+                  disabled={busy}
+                  onChange={(event) => setTargetLufs(Number(event.target.value))}
+                  className="w-full accent-neutral-200"
+                />
+                <p className="text-xs text-neutral-500">
+                  ffmpeg filter:{" "}
+                  <code className="text-neutral-400">{loudnormPreview}</code>. −16 LUFS suits
+                  podcasts; −14 is hotter for music beds.
+                </p>
+              </div>
+            ) : (
+              <label className="flex cursor-pointer items-center gap-2 text-sm text-neutral-300">
+                <input
+                  type="checkbox"
+                  className="accent-neutral-200"
+                  checked={peakToMinusOne}
+                  disabled={busy}
+                  onChange={(event) => setPeakToMinusOne(event.target.checked)}
+                />
+                Normalize peak to −1.0 dBFS (make audio louder consistently without clipping)
+              </label>
+            )}
+          </fieldset>
 
           <ul className="space-y-2">
             {items.map((item) => {
@@ -308,8 +536,10 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
                 <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden />
                 Normalizing…
               </>
+            ) : items.length > 1 ? (
+              "Batch Normalize & Download"
             ) : (
-              "Normalize & Download All"
+              "Normalize & Download"
             )}
           </button>
         </div>
