@@ -6,7 +6,7 @@
     "dev": "node scripts/sync-public-assets.mjs && next dev",
     "build": "node scripts/sync-public-assets.mjs && next build && node scripts/copy-redirects.mjs",
     "icons:generate": "node scripts/generate-pwa-icons.mjs",
-    "build:cloudflare": "node scripts/sync-public-assets.mjs && cross-env NEXT_FORCE_STATIC_EXPORT=1 next build && cross-env NEXT_FORCE_STATIC_EXPORT=1 npx @cloudflare/next-on-pages --outdir .vercel/output/static && node scripts/copy-redirects.mjs",
+    "build:cloudflare": "cross-env SKIP_LARGE_FFMPEG_WASM=1 node scripts/sync-public-assets.mjs && cross-env NEXT_FORCE_STATIC_EXPORT=1 next build && cross-env NEXT_FORCE_STATIC_EXPORT=1 npx @cloudflare/next-on-pages --outdir .vercel/output/static && node scripts/copy-redirects.mjs",
     "build:static": "node scripts/sync-public-assets.mjs && node scripts/generate-blog-pages.mjs && node scripts/generate-blog-og-images.mjs && next build && node scripts/patch-unified-theme.mjs && node scripts/copy-redirects.mjs",
     "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat",
     "start": "next start",

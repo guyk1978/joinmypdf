@@ -145,7 +145,12 @@ async function syncTesseractAssets() {
 
 await syncTesseractAssets();
 
-// @ffmpeg/core (+ core-mt) same-origin assets — required under COEP require-corp
+// @ffmpeg/core (+ core-mt) same-origin assets — preferred under COEP require-corp.
+// Cloudflare Pages rejects assets >25 MiB; ffmpeg-core.wasm is ~31 MiB, so skip WASM
+// there and let FfmpegWorkerClient fall back to unpkg (already CORP: cross-origin).
+const skipLargeFfmpegWasm =
+  process.env.SKIP_LARGE_FFMPEG_WASM === "1" || process.env.CF_PAGES === "1";
+
 async function syncFfmpegAssets() {
   const packages = [
     { name: "core", src: path.join(root, "node_modules", "@ffmpeg", "core", "dist", "esm") },
@@ -159,11 +164,14 @@ async function syncFfmpegAssets() {
     for (const name of entries) {
       if (
         name === "ffmpeg-core.js" ||
-        name === "ffmpeg-core.wasm" ||
-        name === "ffmpeg-core.worker.js"
+        name === "ffmpeg-core.worker.js" ||
+        (name === "ffmpeg-core.wasm" && !skipLargeFfmpegWasm)
       ) {
         await copyFile(path.join(pkg.src, name), path.join(dest, name));
       }
+    }
+    if (skipLargeFfmpegWasm) {
+      await rm(path.join(dest, "ffmpeg-core.wasm"), { force: true });
     }
   }
 }
@@ -201,5 +209,9 @@ await copyFile(toolsHubSrc, toolsHubPublic);
 
 console.log("Synced assets → public/ after purging generated route artifacts.");
 console.log("Synced tesseract.js worker/core/lang-data → public/tesseract/ and public/assets/tesseract/");
-console.log("Synced @ffmpeg/core assets → public/static/ffmpeg/");
+console.log(
+  skipLargeFfmpegWasm
+    ? "Synced @ffmpeg/core JS/worker (skipped .wasm for Cloudflare Pages 25 MiB limit; CDN fallback)"
+    : "Synced @ffmpeg/core assets → public/static/ffmpeg/",
+);
 console.log("Bundled FFmpeg class worker → public/static/ffmpeg/ffmpeg-class-worker.js");
