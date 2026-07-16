@@ -76,6 +76,7 @@ const ACTION_KEYS: Record<string, string> = {
   "base-converter": "default",
   "storage-data-converter": "default",
   "reading-time-calculator": "default",
+  "quick-note": "default",
   "add-watermark": "watermark",
   "rotate-pdf": "rotate",
   "autocad-to-pdf": "autocad",

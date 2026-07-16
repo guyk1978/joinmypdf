@@ -252,7 +252,8 @@
       "autocadToPdf": "AutoCAD to PDF",
       "invoiceGenerator": "Invoice Generator",
       "timelineGanttGenerator": "Timeline & Gantt",
-      "dataConverter": "Data Converter"
+      "dataConverter": "Data Converter",
+      "quickNote": "Multi-Note Manager"
     }
   },
   "Search": {
@@ -742,6 +743,10 @@
         "loremIpsumGenerator": {
           "label": "Lorem Ipsum Generator",
           "description": "Generate realistic placeholder paragraphs, sentences, or words — plain text or Markdown."
+        },
+        "quickNote": {
+          "label": "Multi-Note Manager",
+          "description": "Save multiple private notes locally (up to 3,000 characters each) — edit and delete anytime, nothing is uploaded."
         }
       }
     },
@@ -3728,7 +3733,8 @@
       "htmlMarkdownConverter": "HTML / Markdown Converter",
       "base64EncoderDecoder": "Base64 Encoder / Decoder",
       "urlEncoderDecoder": "URL Encoder / Decoder",
-      "urlParameterStripper": "URL Parameter Stripper"
+      "urlParameterStripper": "URL Parameter Stripper",
+      "quickNote": "Multi-Note Manager"
     }
   },
   "FaviconToolsPage": {
@@ -6042,5 +6048,27 @@
     },
     "schemaFeatureOcr": "Browser OCR with tesseract.js in a Web Worker",
     "schemaFeatureRichText": "Edit and style extracted text in Edit View"
+  },
+  "QuickNote": {
+    "titleLabel": "Title",
+    "titlePlaceholder": "Note title…",
+    "contentLabel": "Note",
+    "contentPlaceholder": "Write your note…",
+    "saveButton": "Save New Note",
+    "updateButton": "Update Note",
+    "clearButton": "Clear",
+    "createNewButton": "Create New Note",
+    "editButton": "Edit",
+    "viewButton": "View",
+    "deleteButton": "Delete",
+    "closeViewerButton": "Back to editor",
+    "listTitle": "Saved notes",
+    "emptyList": "No notes yet. Save one to see it here.",
+    "savedAtLabel": "Saved: {datetime}",
+    "untitled": "Untitled note",
+    "editorTitle": "New note",
+    "editorEditTitle": "Edit note",
+    "viewerTitle": "Note Viewer",
+    "discardConfirm": "You have unsaved changes. Discard them and continue?"
   }
 }

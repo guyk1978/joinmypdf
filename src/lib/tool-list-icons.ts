@@ -185,6 +185,7 @@ const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
   "base-converter": "binary",
   "storage-data-converter": "database",
   "reading-time-calculator": "book-open",
+  "quick-note": "pen-line",
   "readability-analyzer": "gauge",
   "lorem-ipsum-generator": "letter-text",
   "mp3-tools-hub": "file-audio",

@@ -6958,6 +6958,59 @@
       "updatedAt": "2026-06-30"
     },
     {
+      "slug": "quick-note",
+      "category": "convert",
+      "operation": "quick-note",
+      "title": "Multi-Note Manager",
+      "primaryKeyword": "multi note manager online local",
+      "intent": "Create, edit, and delete multiple private notes in your browser — stored locally with timestamps, no account, no upload.",
+      "description": "Manage multiple notes on this device. Each note supports a title and up to 3,000 characters, with edit/delete controls and localStorage persistence.",
+      "secondaryKeywords": [
+        "browser sticky notes",
+        "local notepad manager",
+        "private multi note tool"
+      ],
+      "useCases": [
+        "Keep several short drafts while switching between tools",
+        "Store titled reminders that persist across sessions",
+        "Edit or delete private scratch notes without cloud sync"
+      ],
+      "relatedTools": [
+        "word-character-counter",
+        "text-workspace",
+        "reading-time-calculator"
+      ],
+      "faq": [
+        {
+          "q": "Where are my notes stored?",
+          "a": "In this browser’s localStorage on your device. Nothing is uploaded to our servers."
+        },
+        {
+          "q": "What is the character limit?",
+          "a": "Each note accepts up to 3,000 characters. A live counter shows how many you have used."
+        },
+        {
+          "q": "Can I edit or delete a saved note?",
+          "a": "Yes. Use Edit to load a note back into the form, or Delete to remove it from the list and localStorage."
+        },
+        {
+          "q": "Will my notes sync across devices?",
+          "a": "No. They stay on this browser and device only. Clearing site data removes saved notes."
+        },
+        {
+          "q": "Is Multi-Note Manager free?",
+          "a": "Yes. Free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.51,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-16"
+    },
+    {
       "slug": "readability-analyzer",
       "category": "convert",
       "operation": "readability-analyzer",

@@ -175,6 +175,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
           "string-generator",
           "html-markdown-converter",
           "word-character-counter",
+          "quick-note",
           "readability-analyzer",
         ],
       },

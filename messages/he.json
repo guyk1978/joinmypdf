@@ -252,7 +252,8 @@
       "autocadToPdf": "AutoCAD ל-PDF",
       "invoiceGenerator": "מחולל חשבוניות",
       "timelineGanttGenerator": "ציר זמן וגאנט",
-      "dataConverter": "ממיר נתונים"
+      "dataConverter": "ממיר נתונים",
+      "quickNote": "מנהל הערות"
     }
   },
   "Search": {
@@ -742,6 +743,10 @@
         "loremIpsumGenerator": {
           "label": "מחולל Lorem Ipsum",
           "description": "צרו פסקאות, משפטים או מילות ממלא מקום ריאליסטיות — טקסט רגיל או Markdown."
+        },
+        "quickNote": {
+          "label": "מנהל הערות",
+          "description": "שמרו מספר הערות פרטיות מקומית (עד 3,000 תווים לכל אחת) — עריכה ומחיקה בכל עת, בלי העלאה."
         }
       }
     },
@@ -3728,7 +3733,8 @@
       "htmlMarkdownConverter": "ממיר HTML / Markdown",
       "base64EncoderDecoder": "מקודד / מפענח Base64",
       "urlEncoderDecoder": "מקודד / מפענח URL",
-      "urlParameterStripper": "מסיר פרמטרים מ-URL"
+      "urlParameterStripper": "מסיר פרמטרים מ-URL",
+      "quickNote": "מנהל הערות"
     }
   },
   "FaviconToolsPage": {
@@ -6042,5 +6048,27 @@
     },
     "schemaFeatureOcr": "OCR בדפדפן עם tesseract.js ב-Web Worker",
     "schemaFeatureRichText": "עריכה ועיצוב של הטקסט שחולץ בתצוגת עריכה"
+  },
+  "QuickNote": {
+    "titleLabel": "כותרת",
+    "titlePlaceholder": "כותרת ההערה…",
+    "contentLabel": "הערה",
+    "contentPlaceholder": "כתבו את ההערה…",
+    "saveButton": "שמירת הערה חדשה",
+    "updateButton": "עדכון הערה",
+    "clearButton": "ניקוי",
+    "createNewButton": "יצירת הערה חדשה",
+    "editButton": "עריכה",
+    "viewButton": "צפייה",
+    "deleteButton": "מחיקה",
+    "closeViewerButton": "חזרה לעריכה",
+    "listTitle": "הערות שמורות",
+    "emptyList": "אין עדיין הערות. שמרו אחת כדי לראות אותה כאן.",
+    "savedAtLabel": "נשמר: {datetime}",
+    "untitled": "הערה ללא כותרת",
+    "editorTitle": "הערה חדשה",
+    "editorEditTitle": "עריכת הערה",
+    "viewerTitle": "צפייה בהערה",
+    "discardConfirm": "יש שינויים שלא נשמרו. לבטל אותם ולהמשיך?"
   }
 }

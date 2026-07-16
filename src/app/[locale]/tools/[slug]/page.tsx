@@ -122,6 +122,7 @@ import { GlobalTimezoneConverterWorkspace } from "@/components/tools/unit-math/G
 import { BaseConverterWorkspace } from "@/components/tools/unit-math/BaseConverterWorkspace";
 import { StorageDataConverterWorkspace } from "@/components/tools/unit-math/StorageDataConverterWorkspace";
 import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/ReadingTimeCalculatorWorkspace";
+import { QuickNoteWorkspace } from "@/components/tools/productivity/QuickNoteWorkspace";
 import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
 import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
 import { FaviconPackWorkspace } from "@/components/FaviconPackWorkspace";
@@ -585,6 +586,8 @@ export default async function ToolPage({
           <StorageDataConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "reading-time-calculator" ? (
           <ReadingTimeCalculatorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "quick-note" ? (
+          <QuickNoteWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "readability-analyzer" ? (
           <ReadabilityAnalyzerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "custom-paper-margin" ? (

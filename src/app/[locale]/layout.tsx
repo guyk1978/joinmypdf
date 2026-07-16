@@ -10,7 +10,6 @@ import { PwaServiceWorkerRegister } from "@/components/PwaServiceWorkerRegister"
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { routing } from "@/i18n/routing";
 import { getBrandName } from "@/lib/brand";
-import { localizeHebrewCopyInText } from "@/lib/hebrew-pdf-term";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import {
   PWA_BACKGROUND_COLOR,
@@ -42,21 +41,15 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Pick<Props, "params">): Promise<Metadata> {
   const { locale } = await params;
-  const messages = (await import(`../../../messages/${locale}.json`)).default as {
-    Metadata: { siteTitle: string; siteDescription: string };
-  };
-
-  const siteTitle =
-    locale === "he"
-      ? localizeHebrewCopyInText(messages.Metadata.siteTitle)
-      : messages.Metadata.siteTitle;
-  const siteDescription =
-    locale === "he"
-      ? localizeHebrewCopyInText(messages.Metadata.siteDescription)
-      : messages.Metadata.siteDescription;
   const brandName = getBrandName(locale);
 
-  const social = buildDefaultSocialImages(locale, { alt: siteTitle });
+  const siteTitle = "JoinMyPDF | Professional PDF Workspace";
+  const siteDescription =
+    "The ultimate workspace for managing your PDF files. Merge, split, organize, and annotate seamlessly.";
+
+  const social = buildDefaultSocialImages(locale, {
+    alt: "JoinMyPDF Multi-Note Manager preview",
+  });
 
   return {
     metadataBase: new URL(siteUrl),
@@ -70,7 +63,7 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
       siteName: brandName,
       title: siteTitle,
       description: siteDescription,
-      url: `/${locale}`,
+      url: `${siteUrl}/`,
       locale: locale === "he" ? "he_IL" : "en_US",
       ...social.openGraph,
     },

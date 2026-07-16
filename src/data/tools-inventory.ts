@@ -1034,6 +1034,16 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "readingTimeCalculator",
   },
   {
+    id: "quick-note",
+    title: "Multi-Note Manager",
+    path: "/tools/quick-note/",
+    description:
+      "Manage multiple notes on this device. Each note supports a title and up to 3,000 characters, with edit/delete controls and localStorage persistence.",
+    categories: ["productivity", "text"] as const,
+    primaryCategory: "text",
+    labelKey: "quickNote",
+  },
+  {
     id: "readability-analyzer",
     title: "Smart Readability & Complexity Analyzer",
     path: "/tools/readability-analyzer/",

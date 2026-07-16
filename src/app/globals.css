@@ -19093,7 +19093,8 @@ body.site-tools-grid-open {
 .base-converter-tool-page,
 .storage-data-tool-page,
 .productivity-counter-tool-page,
-.reading-time-tool-page {
+.reading-time-tool-page,
+.quick-note-tool-page {
   max-width: 72rem;
 }
 
@@ -19638,6 +19639,378 @@ body.site-tools-grid-open {
 
 .storage-data-tool__engagement {
   margin-top: 0.5rem;
+}
+
+/* —— QuickNote / Multi-Note Manager (Industrial Matte) —— */
+.input-dark {
+  background-color: #0a0a0a !important;
+  border: 1px solid #333 !important;
+  color: #ededed !important;
+}
+
+.quick-note-tool {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 960px) {
+  .quick-note-tool {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: stretch;
+  }
+}
+
+.quick-note-tool__primary-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.quick-note-tool__create-btn {
+  width: 100%;
+  min-height: 2.75rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+}
+
+.quick-note-tool__workspace,
+.quick-note-tool__viewer,
+.quick-note-tool__list-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  min-height: 22rem;
+  background: #0a0a0a;
+  border-color: #333;
+}
+
+.quick-note-tool__viewer {
+  border-color: #3f3f46;
+  box-shadow: inset 0 0 0 1px rgba(74, 222, 128, 0.12);
+}
+
+.quick-note-tool__viewer-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.625rem;
+  min-height: 16rem;
+  padding: 1rem;
+  background: #0a0a0a;
+  border: 1px solid #333;
+}
+
+.quick-note-tool__viewer-note-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ededed;
+  line-height: 1.35;
+}
+
+.quick-note-tool__viewer-time {
+  font-size: 0.75rem;
+  color: #737373;
+}
+
+.quick-note-tool__viewer-content {
+  flex: 1;
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid #333;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #d4d4d8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 22rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #52525b transparent;
+}
+
+.quick-note-tool__viewer-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.quick-note-tool__viewer-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.quick-note-tool__viewer-content::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: #52525b;
+}
+
+.quick-note-tool__header,
+.quick-note-tool__list-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.quick-note-tool__section-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: var(--im-weight-semibold);
+  color: #ededed;
+}
+
+.quick-note-tool__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: var(--im-font-body-sm);
+  font-weight: var(--im-weight-semibold);
+  color: #a3a3a3;
+}
+
+.quick-note-tool__actions,
+.quick-note-tool__item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.quick-note-tool__btn {
+  min-height: 2.25rem;
+  padding-inline: 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.quick-note-tool__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.quick-note-tool__btn--ghost {
+  color: #d4d4d8;
+  background: transparent;
+  border: 1px solid #333;
+}
+
+.quick-note-tool__btn--ghost:hover:not(:disabled) {
+  border-color: #52525b;
+  color: #ededed;
+}
+
+.quick-note-tool__btn--primary {
+  color: #0a0a0a;
+  background: #4ade80;
+  border: 1px solid #4ade80;
+}
+
+.quick-note-tool__btn--primary:hover:not(:disabled) {
+  background: #86efac;
+  border-color: #86efac;
+}
+
+.quick-note-tool__btn--danger {
+  color: #fecaca;
+  background: transparent;
+  border: 1px solid #7f1d1d;
+}
+
+.quick-note-tool__btn--danger:hover {
+  color: #fee2e2;
+  border-color: #b91c1c;
+  background: rgba(127, 29, 29, 0.25);
+}
+
+.quick-note-tool__btn--icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.quick-note-tool__btn-label {
+  font-size: 0.8125rem;
+}
+
+.quick-note-tool__title-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.quick-note-tool__title-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.75rem;
+  border-radius: 0 !important;
+  font-size: 0.875rem;
+  box-shadow: none !important;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.quick-note-tool__title-input:focus,
+.quick-note-tool__title-input:focus-visible,
+.quick-note-tool__textarea:focus,
+.quick-note-tool__textarea:focus-visible {
+  outline: none;
+  border-color: #4ade80 !important;
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.35) !important;
+}
+
+.quick-note-tool__field {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 14rem;
+}
+
+.quick-note-tool__textarea {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 1;
+  min-height: 14rem;
+  resize: vertical;
+  padding: 1rem 1rem 2.25rem;
+  border-radius: 0 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  box-shadow: none !important;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.quick-note-tool__counter {
+  position: absolute;
+  inset-inline-end: 0.75rem;
+  bottom: 0.625rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: #737373;
+  pointer-events: none;
+}
+
+.quick-note-tool__list-count {
+  min-width: 1.75rem;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: #0a0a0a;
+  background: #4ade80;
+  border: 1px solid #4ade80;
+  text-align: center;
+}
+
+.quick-note-tool__empty {
+  margin: 0;
+  padding: 1rem 0;
+  font-size: 0.875rem;
+  color: #737373;
+}
+
+.quick-note-tool__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  max-height: 28rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #52525b transparent;
+}
+
+.quick-note-tool__list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.quick-note-tool__list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.quick-note-tool__list::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: #52525b;
+}
+
+.quick-note-tool__list::-webkit-scrollbar-thumb:hover {
+  background: #737373;
+}
+
+.quick-note-tool__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background: #0a0a0a;
+  border: 1px solid #333;
+}
+
+.quick-note-tool__item--viewing {
+  border-color: #4ade80;
+  box-shadow: inset 0 0 0 1px rgba(74, 222, 128, 0.2);
+}
+
+.quick-note-tool__item--editing {
+  border-color: #52525b;
+}
+
+.quick-note-tool__item-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  text-align: start;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.quick-note-tool__item-main:hover .quick-note-tool__item-title {
+  color: #4ade80;
+}
+
+.quick-note-tool__item-main:focus-visible {
+  outline: 2px solid rgba(74, 222, 128, 0.45);
+  outline-offset: 2px;
+}
+
+.quick-note-tool__item-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ededed;
+  transition: color 0.15s ease;
+}
+
+.quick-note-tool__item-preview {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: #a3a3a3;
+}
+
+.quick-note-tool__item-time {
+  font-size: 0.75rem;
+  color: #737373;
 }
 
 .productivity-counter-tool {
