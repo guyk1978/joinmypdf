@@ -1,4 +1,5 @@
 import type { DirectoryWorkflowColumn } from "@/components/ToolsDirectoryDashboard";
+import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { buildHomeAudioToolItems } from "@/lib/audio-tools";
 import { buildHomeDataConversionToolItems } from "@/lib/data-conversion-tools";
 import { buildHomeDeveloperToolItems } from "@/lib/developer-tools";
@@ -231,11 +232,17 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
 };
 
-function toGridItem(item: { id: string; href: string; label: string }): ToolGridItem {
+function toGridItem(item: {
+  id: string;
+  href: string;
+  label: string;
+  description?: string;
+}): ToolGridItem {
   return {
     href: item.href,
     label: item.label,
     slugHint: item.id,
+    description: item.description ?? getToolsInventoryEntry(item.id)?.description,
   };
 }
 

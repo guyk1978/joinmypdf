@@ -1,5 +1,6 @@
 /**
- * All Tools modal — CategoryModal is the implementation.
- * Kept as a stable import path for the inventory sync workstream.
+ * All Tools modal — NavigationDrawer (All Tools tab) is the implementation.
+ * CategorySeoNav remains crawlable inventory markup.
  */
-export { CategoryModal as AllToolsModal, CategorySeoNav } from "@/components/CategoryModal";
+export { CategorySeoNav } from "@/components/CategoryModal";
+export { NavigationDrawer as AllToolsModal } from "@/components/NavigationDrawer";

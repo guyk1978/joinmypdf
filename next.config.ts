@@ -61,6 +61,15 @@ const nextConfig: NextConfig = {
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
           { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+          // Allow same-origin + blob Workers (FFmpeg classWorkerURL + toBlobURL cores).
+          { key: "Content-Security-Policy", value: "worker-src 'self' blob:;" },
+        ],
+      },
+      {
+        source: "/workers/:path*",
+        headers: [
+          { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
       {

@@ -67,14 +67,12 @@ async function SpotlightCard({ post, t, featured = false }: SpotlightCardProps) 
         "blog-magazine-spotlight-card group",
         featured && "blog-magazine-spotlight-card--lead",
         generated && "blog-magazine-spotlight-card--generated",
-        generated && `blog-magazine-spotlight-card--${category}`,
       )}
       prefetch={false}
     >
       <BlogCardVisual
         slug={post.slug}
         category={category}
-        categoryLabel={categoryLabel}
         coverImage={coverImage}
         variant="spotlight"
         featured={featured}
@@ -82,6 +80,9 @@ async function SpotlightCard({ post, t, featured = false }: SpotlightCardProps) 
       />
 
       <div className="blog-magazine-spotlight-card__body">
+        {categoryLabel ? (
+          <p className="blog-magazine-spotlight-card__label">{categoryLabel}</p>
+        ) : null}
         <h3 className="blog-magazine-spotlight-card__title">{post.title}</h3>
         {excerpt ? <p className="blog-magazine-spotlight-card__excerpt">{excerpt}</p> : null}
         {readTime ? (

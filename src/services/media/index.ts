@@ -14,7 +14,10 @@ import { VideoManager } from "./processors/VideoManager";
 export { BaseMediaProcessor } from "./core/BaseMediaProcessor";
 export { MediaToolRegistry, mediaToolRegistry } from "./core/MediaToolRegistry";
 export * from "./types";
-export { FfmpegWorkerClient } from "./workers/FfmpegWorkerClient";
+export {
+  FfmpegWorkerClient,
+  FFMPEG_WORKER_SCRIPT_PATH,
+} from "./workers/FfmpegWorkerClient";
 export type { WorkerReadyMessage } from "./workers/FfmpegWorkerClient";
 export {
   FFMPEG_CORE_VERSION,

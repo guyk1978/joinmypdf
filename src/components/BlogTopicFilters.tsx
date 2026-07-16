@@ -39,7 +39,6 @@ export function BlogTopicFilters({ categories, activeCategory, onChange }: BlogT
             type="button"
             className={clsx(
               "blog-topic-filters__pill",
-              `blog-topic-filters__pill--${category}`,
               activeCategory === category && "blog-topic-filters__pill--active",
             )}
             onClick={() => onChange(category)}

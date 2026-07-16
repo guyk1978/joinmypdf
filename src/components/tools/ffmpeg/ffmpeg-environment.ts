@@ -1,5 +1,8 @@
 import { isCrossOriginIsolated, wasmSimdSupported } from "@/services/media/workers/ffmpeg-core-config";
-import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import {
+  FfmpegWorkerClient,
+  FFMPEG_WORKER_SCRIPT_PATH,
+} from "@/services/media/workers/FfmpegWorkerClient";
 
 export type FfmpegEnvironmentStatus = {
   /** FFmpeg can run (WebAssembly available). */
@@ -48,6 +51,10 @@ export function formatFfmpegLoadError(error: unknown): string {
   // Preserve detailed multi-attempt diagnostics when present.
   if (raw.startsWith("FFmpeg engine failed to load (")) {
     return `${raw} Use “Reload FFmpeg engine”, then try again.`;
+  }
+
+  if (lower.includes("content security policy") || lower.includes("csp") || lower.includes("violates the following content security policy")) {
+    return `FFmpeg worker was blocked by Content Security Policy. worker-src must allow 'self' and blob: (script path ${FFMPEG_WORKER_SCRIPT_PATH}).`;
   }
 
   if (lower.includes("cannot be accessed from origin") || lower.includes("failed to construct 'worker'")) {

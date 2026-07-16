@@ -19,10 +19,10 @@ const CATEGORY_ICONS: Record<BlogDisplayCategory, LucideIcon> = {
 };
 
 const CATEGORY_GLOW: Record<BlogDisplayCategory, string> = {
-  conversion: "59, 130, 246",
-  editing: "249, 115, 22",
-  security: "16, 185, 129",
-  advanced: "139, 92, 246",
+  conversion: "115, 115, 115",
+  editing: "115, 115, 115",
+  security: "115, 115, 115",
+  advanced: "115, 115, 115",
 };
 
 function hashSlug(slug: string): number {

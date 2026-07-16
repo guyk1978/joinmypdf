@@ -33,18 +33,17 @@ export async function BlogArticleCard({ post, compact = false }: BlogArticleCard
         "blog-magazine-card group",
         compact && "blog-magazine-card--compact",
         generated && "blog-magazine-card--generated",
-        generated && `blog-magazine-card--${category}`,
       )}
       prefetch={false}
     >
       <BlogCardVisual
         slug={post.slug}
         category={category}
-        categoryLabel={categoryLabel}
         coverImage={coverImage}
       />
 
       <div className="blog-magazine-card__body">
+        {categoryLabel ? <p className="blog-magazine-card__label">{categoryLabel}</p> : null}
         <h3 className="blog-magazine-card__title">{post.title}</h3>
         {excerpt ? <p className="blog-magazine-card__excerpt">{excerpt}</p> : null}
         {readTime ? (

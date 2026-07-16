@@ -1,12 +1,8 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Clock } from "lucide-react";
 import { clsx } from "clsx";
-import {
-  getLocalizedBlogCategoryLabel,
-  getLocalizedBlogReadTime,
-} from "@/lib/blog-card-i18n";
-import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
+import { getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import type { BlogPost } from "@/lib/types";
 
 type BlogTrendingSidebarProps = {
@@ -44,8 +40,6 @@ export async function BlogTrendingSidebar({ posts, className }: BlogTrendingSide
 
 async function TrendingItem({ post, rank }: { post: BlogPost; rank: number }) {
   const t = await getTranslations("Blog");
-  const category = resolveBlogDisplayCategory(post);
-  const categoryLabel = getLocalizedBlogCategoryLabel(post, t);
   const readTime = getLocalizedBlogReadTime(post, t);
 
   return (
@@ -54,9 +48,6 @@ async function TrendingItem({ post, rank }: { post: BlogPost; rank: number }) {
         {String(rank).padStart(2, "0")}
       </span>
       <span className="blog-magazine-sidebar-item__content">
-        <span className={clsx("blog-category-badge", `blog-category-badge--${category}`)}>
-          {categoryLabel}
-        </span>
         <span className="blog-magazine-sidebar-item__title">{post.title}</span>
         {readTime ? (
           <span className="blog-magazine-sidebar-item__meta">

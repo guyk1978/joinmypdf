@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import { Lock, ServerOff, Zap } from "lucide-react";
-import { HeaderSearch } from "@/components/HeaderSearch";
 import { HeroAnimation } from "@/components/HeroAnimation";
 import "./hero.css";
 
@@ -29,10 +28,6 @@ export async function Hero() {
             </h1>
 
             <p className="hero__subtitle">{t("landing.heroSubtitle")}</p>
-
-            <div className="hero__search">
-              <HeaderSearch variant="inline" />
-            </div>
 
             <ul className="hero__chips" aria-label={t("trustSignalsLabel")}>
               {TRUST_CHIPS.map(({ key, Icon }) => (

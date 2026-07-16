@@ -5,7 +5,6 @@ import type { BlogDisplayCategory } from "@/lib/blog-categories";
 type BlogCardVisualProps = {
   slug: string;
   category: BlogDisplayCategory;
-  categoryLabel: string;
   coverImage: string | null;
   variant?: "card" | "spotlight";
   featured?: boolean;
@@ -15,7 +14,6 @@ type BlogCardVisualProps = {
 export function BlogCardVisual({
   slug,
   category,
-  categoryLabel,
   coverImage,
   variant = "card",
   featured = false,
@@ -45,9 +43,6 @@ export function BlogCardVisual({
           size={isSpotlight && featured ? "large" : "default"}
         />
       )}
-      <span className={clsx("blog-category-badge", `blog-category-badge--${category}`)}>
-        {categoryLabel}
-      </span>
     </div>
   );
 }

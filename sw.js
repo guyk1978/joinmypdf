@@ -32,6 +32,7 @@ function shouldBypassServiceWorkerCache(url) {
   const host = url.hostname;
 
   return (
+    path.startsWith("/workers/") ||
     path.startsWith("/static/ffmpeg/") ||
     path.startsWith("/tesseract/") ||
     path.startsWith("/assets/tesseract/") ||

@@ -254,6 +254,14 @@
       "timelineGanttGenerator": "Timeline & Gantt",
       "dataConverter": "Data Converter",
       "quickNote": "Multi-Note Manager"
+    },
+    "library": "Library",
+    "drawer": {
+      "title": "Library",
+      "tabsLabel": "Library sections",
+      "allTools": "All Tools",
+      "favorites": "Favorites",
+      "projects": "Projects"
     }
   },
   "Search": {
@@ -304,7 +312,7 @@
       "heroPrimaryCta": "Browse all tools",
       "heroCategoriesLabel": "Tool categories",
       "categoriesEyebrow": "Categories",
-      "categoriesTitle": "Browse by category",
+      "categoriesTitle": "Explore by Category",
       "categoriesSubtitle": "Jump into a hub — each one opens the full set of tools for that domain.",
       "workflowsEyebrow": "Workflows",
       "workflowsTitle": "Built around what you need to get done",
@@ -6070,5 +6078,22 @@
     "editorEditTitle": "Edit note",
     "viewerTitle": "Note Viewer",
     "discardConfirm": "You have unsaved changes. Discard them and continue?"
+  },
+  "ToolModal": {
+    "calc": "CALC",
+    "doc": "DOC",
+    "related": "RELATED",
+    "close": "Close",
+    "overview": "Overview",
+    "howItWorks": "How it works",
+    "useCases": "Use cases",
+    "faq": "FAQ",
+    "keyword": "Focus",
+    "alsoCheckOut": "Also check out",
+    "guidesArticles": "Guides & articles",
+    "relatedEmpty": "No related tools or articles yet.",
+    "loading": "Loading tool…",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all"
   }
 }

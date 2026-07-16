@@ -3,22 +3,47 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
+import { Library } from "lucide-react";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { HeaderOverflowMenu } from "@/components/HeaderOverflowMenu";
 import {
-  HeaderAllToolsButton,
-  HeaderCategoryButtons,
   HeaderCategoryNavProvider,
+  useHeaderCategoryNavOptional,
+  type NavigationDrawerTab,
 } from "@/components/HeaderCategoryNav";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { getBrandName } from "@/lib/brand";
 import type { HeaderCategoryId } from "@/lib/tool-registry";
 
+function HeaderLibraryButton() {
+  const t = useTranslations("Header");
+  const nav = useHeaderCategoryNavOptional();
+  const isOpen = Boolean(nav?.open);
+
+  return (
+    <button
+      type="button"
+      className="site-header__nav-link"
+      aria-haspopup="dialog"
+      aria-expanded={isOpen}
+      onClick={() => {
+        if (!nav) return;
+        if (nav.open) nav.close();
+        else nav.openDrawer("favorites");
+      }}
+    >
+      <Library className="site-header__nav-icon" aria-hidden size={16} strokeWidth={1.75} />
+      <span>{t("library")}</span>
+    </button>
+  );
+}
+
 export function SiteHeaderBar() {
   const locale = useLocale();
   const t = useTranslations("Header");
   const [isWide, setIsWide] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<NavigationDrawerTab>("favorites");
   const [activeCategory, setActiveCategory] = useState<HeaderCategoryId>("all");
 
   useEffect(() => {
@@ -29,19 +54,16 @@ export function SiteHeaderBar() {
     return () => media.removeEventListener("change", update);
   }, []);
 
-  const openCategory = (category: HeaderCategoryId) => {
-    setActiveCategory(category);
-    setModalOpen(true);
-  };
-
   return (
     <HeaderCategoryNavProvider
-      open={modalOpen}
+      open={drawerOpen}
+      activeTab={activeTab}
       activeCategory={activeCategory}
-      onOpenChange={setModalOpen}
+      onOpenChange={setDrawerOpen}
+      onTabChange={setActiveTab}
       onCategoryChange={setActiveCategory}
     >
-      <nav className="site-header__bar" aria-label={t("siteLabel")}>
+      <nav className="site-header__bar site-header__bar--clean" aria-label={t("siteLabel")}>
         <Link
           href="/"
           className="site-header__brand brand flex shrink-0 items-center"
@@ -50,21 +72,20 @@ export function SiteHeaderBar() {
           <JoinMyPdfLogo />
         </Link>
 
-        {isWide ? (
-          <div className="site-header__utility-center">
-            <HeaderCategoryButtons />
-            <div className="site-header__search">
+        <div className="site-header__search-center">
+          {isWide ? (
+            <div className="site-header__search site-header__search--focus">
               <HeaderSearch variant="inline" />
             </div>
-          </div>
-        ) : (
-          <div className="site-header__spacer" aria-hidden />
-        )}
+          ) : (
+            <div className="site-header__spacer" aria-hidden />
+          )}
+        </div>
 
         <div className="site-header__end">
-          {isWide ? <HeaderAllToolsButton /> : null}
+          <HeaderLibraryButton />
           {!isWide ? <HeaderSearch variant="toggle" /> : null}
-          <HeaderOverflowMenu showNavLinks={!isWide} onOpenCategory={openCategory} />
+          <HeaderOverflowMenu />
         </div>
       </nav>
     </HeaderCategoryNavProvider>

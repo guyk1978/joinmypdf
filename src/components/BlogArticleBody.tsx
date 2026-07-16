@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { AdContainer } from "@/components/AdContainer";
 import { BlogArticleMp3ToolsCta } from "@/components/BlogArticleMp3ToolsCta";
 import type { BlogPost, BlogSection } from "@/lib/types";
 import { getMp3ToolsCtaInsertAfterParagraph } from "@/lib/blog-audio-category";
@@ -10,22 +9,20 @@ import { registry } from "@/lib/registry";
 
 function ArticleTable({ table }: { table: NonNullable<BlogSection["table"]> }) {
   return (
-    <div className="article-table overflow-x-auto border border-neutral-800 bg-black dark:border-neutral-800 dark:bg-black">
-      <table className="w-full min-w-[520px] text-left text-sm">
-        <thead className="border-b border-neutral-800 text-xs uppercase tracking-wide text-neutral-500">
+    <div className="article-table">
+      <table>
+        <thead>
           <tr>
             {table.headers.map((h, i) => (
-              <th key={i} className="px-4 py-3 font-semibold text-white dark:text-white">
-                {h}
-              </th>
+              <th key={i}>{h}</th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-800 text-neutral-400">
+        <tbody>
           {table.rows.map((row, ri) => (
             <tr key={ri}>
               {row.map((cell, ci) => (
-                <td key={ci} className={`px-4 py-3 ${ci === 0 ? "font-medium text-neutral-200" : ""}`}>
+                <td key={ci} className={ci === 0 ? "article-table__primary" : undefined}>
                   {cell}
                 </td>
               ))}
@@ -56,13 +53,10 @@ export function BlogArticleBody({ post }: { post: BlogPost }) {
 
   const mp3CtaInsertAfter = getMp3ToolsCtaInsertAfterParagraph(post);
   let paragraphCount = 0;
-  let midAdInserted = false;
   let mp3CtaInserted = false;
 
   const renderParagraph = (p: string, key: string) => {
     paragraphCount += 1;
-    const insertAdAfter = paragraphCount === 2 && !midAdInserted;
-    if (insertAdAfter) midAdInserted = true;
 
     const insertMp3Cta =
       mp3CtaInsertAfter !== null && paragraphCount === mp3CtaInsertAfter && !mp3CtaInserted;
@@ -71,7 +65,6 @@ export function BlogArticleBody({ post }: { post: BlogPost }) {
     return (
       <Fragment key={key}>
         <p className="article-prose">{p}</p>
-        {insertAdAfter ? <AdContainer variant="article" /> : null}
         {insertMp3Cta ? <BlogArticleMp3ToolsCta /> : null}
       </Fragment>
     );

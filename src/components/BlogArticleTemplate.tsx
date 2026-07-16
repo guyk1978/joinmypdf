@@ -5,7 +5,7 @@ type BlogArticleTemplateProps = {
   children: ReactNode;
 };
 
-/** Blog article shell — same width and spacing as tool / product pages. */
+/** Blog article shell — Industrial Matte documentation column (~800px). */
 export function BlogArticleTemplate({ children }: BlogArticleTemplateProps) {
   return (
     <div className={toolPageDashboardStack}>

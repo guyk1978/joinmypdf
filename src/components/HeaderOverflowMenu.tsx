@@ -3,10 +3,8 @@
 import {
   Check,
   Download,
-  FolderKanban,
   MoreHorizontal,
   Share2,
-  Bookmark,
   BookOpen,
 } from "lucide-react";
 import { clsx } from "clsx";
@@ -15,7 +13,6 @@ import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePageShare } from "@/hooks/usePageShare";
-import { HEADER_CATEGORY_BUTTONS, type HeaderCategoryId } from "@/lib/tool-registry";
 import { routing, type AppLocale } from "@/i18n/routing";
 
 type PanelPosition = {
@@ -59,12 +56,10 @@ function isStandaloneDisplay(): boolean {
 }
 
 type HeaderOverflowMenuProps = {
-  showNavLinks?: boolean;
   onNavigate?: () => void;
-  onOpenCategory?: (category: HeaderCategoryId) => void;
 };
 
-export function HeaderOverflowMenu({ showNavLinks = false, onNavigate, onOpenCategory }: HeaderOverflowMenuProps) {
+export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
   const t = useTranslations("Header");
   const tLang = useTranslations("LanguageSwitcher");
   const tShare = useTranslations("Share");
@@ -84,8 +79,6 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate, onOpenCat
   const [installVisible, setInstallVisible] = useState(false);
 
   const close = useCallback(() => setOpen(false), []);
-  const favoritesActive = pathname.includes("/favorites");
-  const projectsActive = pathname.includes("/projects");
   const blogActive = pathname.includes("/blog");
   const aboutActive = pathname.includes("/about");
   const termsActive = pathname.includes("/terms");
@@ -204,26 +197,6 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate, onOpenCat
           width: panelPosition.width,
         }}
       >
-          {showNavLinks ? (
-            <>
-              {HEADER_CATEGORY_BUTTONS.map((entry) => (
-                <button
-                  key={entry.id}
-                  type="button"
-                  role="menuitem"
-                  className={itemClass}
-                  onClick={() => {
-                    onOpenCategory?.(entry.id);
-                    close();
-                  }}
-                >
-                  {t(entry.labelKey as "nav.image")}
-                </button>
-              ))}
-              <div className="site-header__overflow-divider" role="separator" />
-            </>
-          ) : null}
-
           {routing.locales.map((item) => (
             <button
               key={item}
@@ -256,34 +229,6 @@ export function HeaderOverflowMenu({ showNavLinks = false, onNavigate, onOpenCat
             )}
             {copied ? tShare("linkCopied") : tShare("share")}
           </button>
-
-          <Link
-            href="/favorites/"
-            role="menuitem"
-            className={clsx(itemClass, favoritesActive && "is-active")}
-            prefetch={false}
-            onClick={() => {
-              onNavigate?.();
-              close();
-            }}
-          >
-            <Bookmark className="site-header__overflow-icon" strokeWidth={2} aria-hidden />
-            {t("favorites")}
-          </Link>
-
-          <Link
-            href="/projects/"
-            role="menuitem"
-            className={clsx(itemClass, projectsActive && "is-active")}
-            prefetch={false}
-            onClick={() => {
-              onNavigate?.();
-              close();
-            }}
-          >
-            <FolderKanban className="site-header__overflow-icon" aria-hidden />
-            {t("projects")}
-          </Link>
 
           <Link
             href="/blog/"

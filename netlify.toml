@@ -1,10 +1,18 @@
 # Netlify headers — SharedArrayBuffer / FFmpeg.wasm require COOP + COEP.
+# worker-src allows the absolute /workers/ffmpeg-worker.js script and blob: cores.
 [[headers]]
   for = "/*"
   [headers.values]
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Embedder-Policy = "require-corp"
     Cross-Origin-Resource-Policy = "same-origin"
+    Content-Security-Policy = "worker-src 'self' blob:;"
+
+[[headers]]
+  for = "/workers/*"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "same-origin"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/static/ffmpeg/*"

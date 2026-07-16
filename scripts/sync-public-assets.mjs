@@ -178,10 +178,11 @@ async function syncFfmpegAssets() {
 
 await syncFfmpegAssets();
 
-// Bundle @ffmpeg/ffmpeg's class Worker to same-origin so `new Worker(url)` never hits unpkg/node_modules.
+// Bundle @ffmpeg/ffmpeg's class Worker to an absolute same-origin path.
+// Consumed as `/workers/ffmpeg-worker.js` (never a relative/locale-dependent URL).
 async function bundleFfmpegClassWorker() {
   const esbuild = await import("esbuild");
-  const outfile = path.join(publicDir, "static", "ffmpeg", "ffmpeg-class-worker.js");
+  const outfile = path.join(publicDir, "workers", "ffmpeg-worker.js");
   await mkdir(path.dirname(outfile), { recursive: true });
   await esbuild.build({
     entryPoints: [path.join(root, "node_modules", "@ffmpeg", "ffmpeg", "dist", "esm", "worker.js")],
@@ -192,6 +193,10 @@ async function bundleFfmpegClassWorker() {
     outfile,
     logLevel: "silent",
   });
+  // Legacy path kept as a copy for any cached clients still pointing at the old URL.
+  const legacyOut = path.join(publicDir, "static", "ffmpeg", "ffmpeg-class-worker.js");
+  await mkdir(path.dirname(legacyOut), { recursive: true });
+  await copyFile(outfile, legacyOut);
 }
 
 await bundleFfmpegClassWorker();
@@ -214,4 +219,4 @@ console.log(
     ? "Synced @ffmpeg/core JS/worker (skipped .wasm for Cloudflare Pages 25 MiB limit; CDN fallback)"
     : "Synced @ffmpeg/core assets → public/static/ffmpeg/",
 );
-console.log("Bundled FFmpeg class worker → public/static/ffmpeg/ffmpeg-class-worker.js");
+console.log("Bundled FFmpeg class worker → public/workers/ffmpeg-worker.js");

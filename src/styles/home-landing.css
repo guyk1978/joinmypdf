@@ -20,8 +20,6 @@
   a.tool-card,
   button.tool-card,
   .home-feature-card,
-  .home-tool-flat-link,
-  .home-pdf-powerhouse__links > li,
   .home-workflow-strip-item,
   .home-resource-card,
   .home-whyus-pillar
@@ -133,69 +131,6 @@
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
-}
-
-/* PDF powerhouse tool list */
-.home-pdf-powerhouse__links {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 48px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-align: left;
-}
-
-@media (max-width: 959px) {
-  .home-pdf-powerhouse__links {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
-  }
-}
-
-.home-pdf-powerhouse__links > li {
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-}
-
-.home-landing .home-pdf-powerhouse__links .home-tool-flat-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: #a3a3a3;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.home-landing .home-pdf-powerhouse__links .home-tool-flat-link:hover,
-.home-landing .home-pdf-powerhouse__links .home-tool-flat-link:focus-visible {
-  color: #ffffff;
-  background: transparent;
-}
-
-.home-landing .home-pdf-powerhouse__links .home-tool-flat-link__label {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.35;
-}
-
-.home-landing .home-pdf-powerhouse__links .home-tool-flat-link__icon,
-.home-landing .home-pdf-powerhouse__links .tool-list-icon {
-  width: 1rem;
-  height: 1rem;
-  flex-shrink: 0;
-  color: currentColor;
 }
 
 .home-workflows {

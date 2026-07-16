@@ -36,7 +36,6 @@ export function BlogThumbnailGenerator({
       aria-hidden
     >
       <div className="blog-thumbnail-generator__base" />
-      <div className="blog-thumbnail-generator__glow" />
       <svg
         className="blog-thumbnail-generator__pattern"
         viewBox="0 0 320 180"

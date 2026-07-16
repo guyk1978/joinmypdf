@@ -129,6 +129,8 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       const anchor = (event.target as Element | null)?.closest("a");
       if (!anchor) return;
       if (anchor.target === "_blank" || anchor.hasAttribute("download")) return;
+      // Industrial tool cards open ToolModal — skip page transition navigation.
+      if (anchor.hasAttribute("data-tool-modal-open")) return;
 
       const href = anchor.getAttribute("href");
       if (!href) return;

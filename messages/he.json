@@ -254,6 +254,14 @@
       "timelineGanttGenerator": "ציר זמן וגאנט",
       "dataConverter": "ממיר נתונים",
       "quickNote": "מנהל הערות"
+    },
+    "library": "ספרייה",
+    "drawer": {
+      "title": "ספרייה",
+      "tabsLabel": "מדורי ספרייה",
+      "allTools": "כל הכלים",
+      "favorites": "מועדפים",
+      "projects": "פרויקטים"
     }
   },
   "Search": {
@@ -304,8 +312,8 @@
       "heroPrimaryCta": "עיינו בכל הכלים",
       "heroCategoriesLabel": "קטגוריות כלים",
       "categoriesEyebrow": "קטגוריות",
-      "categoriesTitle": "עיון לפי קטגוריה",
-      "categoriesSubtitle": "עברו למרכז — כל אחד פותח את כל הכלים בתחום.",
+      "categoriesTitle": "גלה לפי קטגוריה",
+      "categoriesSubtitle": "עברו למרכז הכלים — כל קטגוריה פותחת את כל הכלים בתחום.",
       "workflowsEyebrow": "תהליכי עבודה",
       "workflowsTitle": "בנוי סביב מה שאתם צריכים להשלים",
       "workflowsSubtitle": "היכנסו ישר לתהליך העבודה — כל אחד מרכז את הכלים שאנשי מקצוע משתמשים בהם הכי הרבה.",
@@ -6070,5 +6078,22 @@
     "editorEditTitle": "עריכת הערה",
     "viewerTitle": "צפייה בהערה",
     "discardConfirm": "יש שינויים שלא נשמרו. לבטל אותם ולהמשיך?"
+  },
+  "ToolModal": {
+    "calc": "מחשבון",
+    "doc": "מדריך",
+    "related": "קשורים",
+    "close": "סגור",
+    "overview": "סקירה",
+    "howItWorks": "איך זה עובד",
+    "useCases": "שימושים",
+    "faq": "שאלות נפוצות",
+    "keyword": "מיקוד",
+    "alsoCheckOut": "כדאי גם לבדוק",
+    "guidesArticles": "מדריכים ומאמרים",
+    "relatedEmpty": "אין עדיין כלים או מאמרים קשורים.",
+    "loading": "טוען כלי…",
+    "expandAll": "הרחב הכל",
+    "collapseAll": "כווץ הכל"
   }
 }

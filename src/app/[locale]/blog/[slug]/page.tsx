@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
 import { ArrowUpRight, Clock } from "lucide-react";
 import { ArticleAuthorBadge } from "@/components/ArticleAuthorBadge";
-import { AdContainer } from "@/components/AdContainer";
 import { BlogArticleBody } from "@/components/BlogArticleBody";
 import { BlogArticleTemplate } from "@/components/BlogArticleTemplate";
 import { BlogKeepReading, BlogYouMightLike } from "@/components/BlogArticleRelated";
@@ -13,7 +12,6 @@ import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { AppPageShell } from "@/components/AppPageShell";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
-import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
 import { getRelatedBlogPosts, getYouMightAlsoLikePosts } from "@/lib/blog-related";
 import { blogPostingLd, breadcrumbLd, comparisonArticleLd, developerUtilityAppLd, faqLd, howToLd, JsonLd, localPerformanceAppLd, losslessQualityAppLd, privacySecurityAppLd, technicalFormatAppLd, techArticleLd } from "@/lib/schema";
 import { resolveArticleAuthor } from "@/lib/article-author";
@@ -135,7 +133,6 @@ export default async function BlogPostPage({
 
   const categoryLabel = getLocalizedBlogCategoryLabel(post, t);
   const readTime = getLocalizedBlogReadTime(post, t);
-  const category = resolveBlogDisplayCategory(post);
   const bottomCtaLabel = post.contentBlocks?.bottomCtaLabel?.trim();
   const primarySlug = post.contentBlocks?.primaryTool;
   const primaryToolDef = primarySlug ? registry.tools.find((t) => t.slug === primarySlug) : null;
@@ -254,9 +251,7 @@ export default async function BlogPostPage({
           <article className="blog-article">
             <header className="blog-article-header">
               <div className="blog-article-header__meta">
-                <span className={clsx("blog-category-badge", `blog-category-badge--${category}`)}>
-                  {categoryLabel}
-                </span>
+                <span className="blog-category-badge">{categoryLabel}</span>
                 {post.publishDate ? (
                   <time className="blog-article-header__meta-item" dateTime={post.publishDate}>
                     {t("article.updated", { date: post.publishDate })}
@@ -310,20 +305,17 @@ export default async function BlogPostPage({
               ) : null}
 
               {faqs.length ? (
-                <>
-                  <AdContainer variant="article" />
-                  <section className="article-panel" id="faq">
-                    <h2 className="article-panel__title">{t("article.faqTitle")}</h2>
-                    <div className="article-panel__body flex flex-col">
-                      {faqs.map((f) => (
-                        <details key={f.q} className="article-faq-item group">
-                          <summary className="article-faq-item__summary">{f.q}</summary>
-                          <p className="article-faq-item__body">{f.a}</p>
-                        </details>
-                      ))}
-                    </div>
-                  </section>
-                </>
+                <section className="article-panel" id="faq">
+                  <h2 className="article-panel__title">{t("article.faqTitle")}</h2>
+                  <div className="article-panel__body flex flex-col">
+                    {faqs.map((f) => (
+                      <details key={f.q} className="article-faq-item group">
+                        <summary className="article-faq-item__summary">{f.q}</summary>
+                        <p className="article-faq-item__body">{f.a}</p>
+                      </details>
+                    ))}
+                  </div>
+                </section>
               ) : null}
 
               {keepReading.length ? (

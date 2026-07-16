@@ -13,16 +13,20 @@ import {
 } from "react";
 import { useTranslations } from "next-intl";
 import { CategorySeoNav } from "@/components/CategoryModal";
+import type { NavigationDrawerTab } from "@/components/NavigationDrawer";
 import { HEADER_CATEGORY_BUTTONS, type HeaderCategoryId } from "@/lib/tool-registry";
 
-const CategoryModal = dynamic(
-  () => import("@/components/CategoryModal").then((mod) => mod.CategoryModal),
+const NavigationDrawer = dynamic(
+  () => import("@/components/NavigationDrawer").then((mod) => mod.NavigationDrawer),
   { ssr: false },
 );
 
 type HeaderCategoryNavContextValue = {
   open: boolean;
+  activeTab: NavigationDrawerTab;
   activeCategory: HeaderCategoryId;
+  openDrawer: (tab?: NavigationDrawerTab, category?: HeaderCategoryId) => void;
+  /** @deprecated Prefer openDrawer — opens All Tools tab (optionally filtered). */
   openCategory: (category: HeaderCategoryId) => void;
   close: () => void;
 };
@@ -37,12 +41,19 @@ function useHeaderCategoryNav() {
   return context;
 }
 
+/** Soft hook for Library / All Tools header buttons. */
+export function useHeaderCategoryNavOptional(): HeaderCategoryNavContextValue | null {
+  return useContext(HeaderCategoryNavContext);
+}
+
 type HeaderCategoryNavProviderProps = {
   children: ReactNode;
   onNavigate?: () => void;
   open?: boolean;
+  activeTab?: NavigationDrawerTab;
   activeCategory?: HeaderCategoryId;
   onOpenChange?: (open: boolean) => void;
+  onTabChange?: (tab: NavigationDrawerTab) => void;
   onCategoryChange?: (category: HeaderCategoryId) => void;
 };
 
@@ -50,26 +61,53 @@ export function HeaderCategoryNavProvider({
   children,
   onNavigate,
   open: controlledOpen,
+  activeTab: controlledTab,
   activeCategory: controlledCategory,
   onOpenChange,
+  onTabChange,
   onCategoryChange,
 }: HeaderCategoryNavProviderProps) {
   const [internalOpen, setInternalOpen] = useState(false);
+  const [internalTab, setInternalTab] = useState<NavigationDrawerTab>("all-tools");
   const [internalCategory, setInternalCategory] = useState<HeaderCategoryId>("all");
   const [hasLoaded, setHasLoaded] = useState(false);
 
   const open = controlledOpen ?? internalOpen;
+  const activeTab = controlledTab ?? internalTab;
   const activeCategory = controlledCategory ?? internalCategory;
+
+  const setTab = useCallback(
+    (tab: NavigationDrawerTab) => {
+      onTabChange?.(tab);
+      if (controlledTab === undefined) setInternalTab(tab);
+    },
+    [controlledTab, onTabChange],
+  );
+
+  const setCategory = useCallback(
+    (category: HeaderCategoryId) => {
+      onCategoryChange?.(category);
+      if (controlledCategory === undefined) setInternalCategory(category);
+    },
+    [controlledCategory, onCategoryChange],
+  );
+
+  const openDrawer = useCallback(
+    (tab: NavigationDrawerTab = "all-tools", category: HeaderCategoryId = "all") => {
+      setHasLoaded(true);
+      setTab(tab);
+      setCategory(category);
+      onOpenChange?.(true);
+      if (controlledOpen === undefined) setInternalOpen(true);
+    },
+    [controlledOpen, onOpenChange, setCategory, setTab],
+  );
 
   const openCategory = useCallback(
     (category: HeaderCategoryId) => {
-      setHasLoaded(true);
-      onCategoryChange?.(category);
-      onOpenChange?.(true);
-      if (controlledCategory === undefined) setInternalCategory(category);
-      if (controlledOpen === undefined) setInternalOpen(true);
+      openDrawer("all-tools", category);
     },
-    [controlledCategory, controlledOpen, onCategoryChange, onOpenChange],
+    [openDrawer],
   );
 
   const close = useCallback(() => {
@@ -82,8 +120,8 @@ export function HeaderCategoryNavProvider({
   }, [open]);
 
   const value = useMemo(
-    () => ({ open, activeCategory, openCategory, close }),
-    [open, activeCategory, openCategory, close],
+    () => ({ open, activeTab, activeCategory, openDrawer, openCategory, close }),
+    [open, activeTab, activeCategory, openDrawer, openCategory, close],
   );
 
   return (
@@ -91,9 +129,11 @@ export function HeaderCategoryNavProvider({
       <CategorySeoNav />
       {children}
       {hasLoaded ? (
-        <CategoryModal
+        <NavigationDrawer
           open={open}
+          activeTab={activeTab}
           activeCategory={activeCategory}
+          onTabChange={setTab}
           onClose={close}
           onNavigate={onNavigate}
         />
@@ -104,7 +144,7 @@ export function HeaderCategoryNavProvider({
 
 export function HeaderCategoryButtons({ className }: { className?: string }) {
   const t = useTranslations("Header");
-  const { open, activeCategory, openCategory } = useHeaderCategoryNav();
+  const { open, activeTab, activeCategory, openCategory } = useHeaderCategoryNav();
 
   return (
     <div className={clsx("header-category-nav", className)} role="navigation" aria-label={t("primaryNav")}>
@@ -116,10 +156,10 @@ export function HeaderCategoryButtons({ className }: { className?: string }) {
             "header-category-nav__btn",
             "rounded-none bg-transparent text-lg font-bold uppercase tracking-wide text-neutral-400 transition-all",
             "hover:text-white",
-            open && activeCategory === entry.id && "text-white",
+            open && activeTab === "all-tools" && activeCategory === entry.id && "text-white",
           )}
           aria-haspopup="dialog"
-          aria-expanded={open && activeCategory === entry.id}
+          aria-expanded={open && activeTab === "all-tools" && activeCategory === entry.id}
           onClick={() => openCategory(entry.id)}
         >
           {t(entry.labelKey as "nav.image")}
@@ -131,9 +171,7 @@ export function HeaderCategoryButtons({ className }: { className?: string }) {
 
 export function HeaderAllToolsButton({ className }: { className?: string }) {
   const t = useTranslations("Header");
-  const { open, activeCategory, openCategory } = useHeaderCategoryNav();
-  const allToolsButton = HEADER_CATEGORY_BUTTONS.find((entry) => entry.id === "all");
-  if (!allToolsButton) return null;
+  const { open, activeTab, openDrawer } = useHeaderCategoryNav();
 
   return (
     <button
@@ -142,16 +180,16 @@ export function HeaderAllToolsButton({ className }: { className?: string }) {
         "header-category-nav__all-tools",
         "rounded-none border-0 bg-transparent p-0 text-neutral-400 font-bold uppercase transition-all",
         "hover:text-white hover:underline hover:underline-offset-8 hover:decoration-2",
-        open && activeCategory === "all" && "text-white underline underline-offset-8 decoration-2",
+        open && activeTab === "all-tools" && "text-white underline underline-offset-8 decoration-2",
         className,
       )}
       aria-haspopup="dialog"
-      aria-expanded={open && activeCategory === "all"}
-      onClick={() => openCategory("all")}
+      aria-expanded={open && activeTab === "all-tools"}
+      onClick={() => openDrawer("all-tools", "all")}
     >
-      <span>{t(allToolsButton.labelKey as "nav.image")}</span>
+      <span>{t("allTools.button")}</span>
     </button>
   );
 }
 
-export type { HeaderCategoryId };
+export type { HeaderCategoryId, NavigationDrawerTab };

@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { HomeAuthoritySection } from "@/components/HomeAuthoritySection";
 import { Hero } from "@/components/Hero";
 import "@/styles/home-landing.css";
-import { HomeWorkflows } from "@/components/HomeWorkflows";
+import { CategoryHubsSection } from "@/components/CategoryHubsSection";
 import { HomeStructuredData } from "@/components/HomeStructuredData";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { getRecentBlogPosts } from "@/lib/blog-index";
@@ -44,7 +44,7 @@ export default async function HomePage({ params }: Props) {
       <AppPageShell>
         <div className="home-minimal-layout home-minimal-layout--dashboard home-landing">
           <Hero />
-          <HomeWorkflows />
+          <CategoryHubsSection className="home-category-dashboard" />
           <HomeToolGrid pdfPowerhouseItems={pdfPowerhouseItems} />
           <HomeAuthoritySection latestPosts={latestPosts} locale={locale} />
         </div>

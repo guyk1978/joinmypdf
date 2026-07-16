@@ -5,6 +5,8 @@ import { Search } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
+import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
+import { findToolsDataByPathname } from "@/data/tools-data";
 import { useSearch, type ScoredSearchResult } from "@/hooks/useSearch";
 
 type HeaderSearchProps = {
@@ -126,6 +128,7 @@ function SearchField({
 }) {
   const t = useTranslations("Header.search");
   const router = useRouter();
+  const toolModal = useOptionalToolModal();
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -138,9 +141,23 @@ function SearchField({
       setActiveIndex(-1);
       setExpanded(false);
       onClose();
+
+      if (result.type === "Tool" && toolModal) {
+        const matched = findToolsDataByPathname(result.path);
+        if (matched) {
+          toolModal.openToolModal({
+            slug: matched.id,
+            href: matched.href,
+            title: matched.title || result.title,
+            description: matched.description || result.description,
+          });
+          return;
+        }
+      }
+
       router.push(result.path);
     },
-    [onClose, onQueryChange, router],
+    [onClose, onQueryChange, router, toolModal],
   );
 
   const navigateToSearchPage = useCallback(() => {
@@ -172,20 +189,27 @@ function SearchField({
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "/" || event.ctrlKey || event.metaKey || event.altKey) return;
       const target = event.target as HTMLElement | null;
-      if (
+      const inField =
         target &&
         (target.tagName === "INPUT" ||
           target.tagName === "TEXTAREA" ||
           target.tagName === "SELECT" ||
-          target.isContentEditable)
-      ) {
+          target.isContentEditable);
+
+      if ((event.key === "k" || event.key === "K") && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        inputRef.current?.focus();
+        setExpanded(true);
         return;
       }
-      event.preventDefault();
-      inputRef.current?.focus();
-      setExpanded(true);
+
+      if (event.key === "/" && !event.ctrlKey && !event.metaKey && !event.altKey) {
+        if (inField) return;
+        event.preventDefault();
+        inputRef.current?.focus();
+        setExpanded(true);
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
@@ -258,7 +282,7 @@ function SearchField({
           onKeyDown={onInputKeyDown}
         />
         <kbd className="site-search__kbd" aria-hidden>
-          /
+          Ctrl+K
         </kbd>
       </div>
       {expanded ? (

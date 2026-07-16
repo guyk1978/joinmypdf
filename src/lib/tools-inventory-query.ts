@@ -69,6 +69,7 @@ export function buildInventoryGridItems(
     href: entry.path,
     label: resolveInventoryLabel(entry, t),
     slugHint: entry.id,
+    description: entry.description || undefined,
   }));
 }
 
@@ -89,6 +90,7 @@ export function buildInventoryGridItemsForIds(
       href: entry.path,
       label: resolveInventoryLabel(entry as ToolsInventoryEntry, t),
       slugHint: entry.id,
+      description: entry.description || undefined,
     }));
 }
 

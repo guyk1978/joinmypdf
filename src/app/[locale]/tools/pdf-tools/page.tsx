@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import { PdfToolsCardGrid } from "@/components/PdfToolsCardGrid";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -93,7 +93,7 @@ export default async function PdfToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildPdfToolGroupItems(group.id, t)} />
+              <PdfToolsCardGrid items={buildPdfToolGroupItems(group.id, t)} />
             </section>
           ))}
 

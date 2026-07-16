@@ -52,7 +52,6 @@ function ToolBlock({
   const extraItems = hasOverflow ? column.items.slice(DEFAULT_VISIBLE_TOOLS) : [];
   const totalCount = column.items.length;
 
-  // Keep the just-collapsed block anchored in view so the list does not jump.
   useEffect(() => {
     if (wasExpanded.current && !expanded) {
       sectionRef.current?.scrollIntoView({
@@ -83,7 +82,7 @@ function ToolBlock({
   );
 
   return (
-    <section className="category-modal__block rounded-none bg-black" ref={sectionRef}>
+    <section className="category-modal__block rounded-none" ref={sectionRef}>
       <h4 className="category-modal__block-title mb-3 text-base font-mono uppercase tracking-wider text-neutral-600">
         {column.label}
       </h4>
@@ -125,11 +124,18 @@ function ToolBlock({
   );
 }
 
+/**
+ * Library side-drawer — slides in from the inline-end edge.
+ * Content is the same category tool inventory previously shown as a centered modal.
+ */
 export function CategoryModal({ open, activeCategory, onClose, onNavigate }: CategoryModalProps) {
   const t = useTranslations("Header");
   const titleId = useId();
   const reduceMotion = useReducedMotion();
   const pathname = usePathname() || "/";
+  const panelRef = useRef<HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [entered, setEntered] = useState(false);
 
   const groups = useMemo(
     () => buildCategoryNav((key) => t(key as "nav.image"), activeCategory),
@@ -140,6 +146,21 @@ export function CategoryModal({ open, activeCategory, onClose, onNavigate }: Cat
   const isAllView = activeCategory === "all";
   const showAllLabel = t("allTools.showAll");
   const collapseLabel = t("allTools.collapse");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!open) {
+      setEntered(false);
+      return;
+    }
+    const id = window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => setEntered(true));
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -159,88 +180,91 @@ export function CategoryModal({ open, activeCategory, onClose, onNavigate }: Cat
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open, onClose]);
 
-  if (typeof document === "undefined") return null;
+  useEffect(() => {
+    if (!open || !entered) return;
+    const frame = window.requestAnimationFrame(() => {
+      panelRef.current
+        ?.querySelector<HTMLElement>("button.category-modal__close, button, a")
+        ?.focus();
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [open, entered, activeCategory]);
 
-  const modal = (
-    <AnimatePresence>
-      {open ? (
-        <motion.div
-          key={`category-modal-${activeCategory}`}
-          className="category-modal"
-          role="presentation"
-          initial={reduceMotion ? false : { opacity: 0 }}
-          animate={reduceMotion ? undefined : { opacity: 1 }}
-          exit={reduceMotion ? undefined : { opacity: 0 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-        >
+  if (!mounted) return null;
+
+  const drawer = (
+    <div
+      className={clsx(
+        "category-modal category-modal--drawer",
+        open && entered && "is-open",
+        reduceMotion && "category-modal--reduce-motion",
+      )}
+      role="presentation"
+      aria-hidden={!open}
+    >
+      <button
+        type="button"
+        className="category-modal__backdrop"
+        aria-label={t("allTools.close")}
+        tabIndex={open ? 0 : -1}
+        onClick={onClose}
+      />
+      <aside
+        ref={panelRef}
+        className="category-modal__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        {...(!open ? { inert: true } : {})}
+      >
+        <div className="category-modal__panel-header">
+          <h2 id={titleId} className="category-modal__title">
+            {title}
+          </h2>
           <button
             type="button"
-            className="category-modal__backdrop"
+            className="category-modal__close"
             aria-label={t("allTools.close")}
+            tabIndex={open ? 0 : -1}
             onClick={onClose}
-          />
-          <motion.div
-            className="category-modal__panel rounded-none border-none bg-black"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={titleId}
-            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
-            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: 4 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="category-modal__panel-header border-b-2 border-neutral-800">
-              <h2
-                id={titleId}
-                className="category-modal__title text-4xl font-black uppercase tracking-tighter text-white"
-              >
-                {title}
-              </h2>
-              <button
-                type="button"
-                className="category-modal__close rounded-none border-0 bg-transparent text-white hover:text-neutral-400"
-                aria-label={t("allTools.close")}
-                onClick={onClose}
-              >
-                <span className="category-modal__close-glyph" aria-hidden>
-                  ×
-                </span>
-              </button>
-            </div>
-            <div className="category-modal__body bg-black">
-              <div className="category-modal__grid bg-black">
-                {groups.map((group) => (
-                  <Fragment key={group.id}>
-                    {isAllView ? (
-                      <h3
-                        id={`${titleId}-${group.id}`}
-                        className="category-modal__group-band font-mono uppercase tracking-wider text-neutral-600"
-                      >
-                        {group.label}
-                      </h3>
-                    ) : null}
-                    {group.columns.map((column) => (
-                      <ToolBlock
-                        key={`${group.id}-${column.id}`}
-                        column={column}
-                        pathname={pathname}
-                        showAllLabel={showAllLabel}
-                        collapseLabel={collapseLabel}
-                        onNavigate={onNavigate}
-                        onClose={onClose}
-                      />
-                    ))}
-                  </Fragment>
+            <span className="category-modal__close-glyph" aria-hidden>
+              ×
+            </span>
+          </button>
+        </div>
+        <div className="category-modal__body">
+          <div className="category-modal__grid">
+            {groups.map((group) => (
+              <Fragment key={group.id}>
+                {isAllView ? (
+                  <h3
+                    id={`${titleId}-${group.id}`}
+                    className="category-modal__group-band font-mono uppercase tracking-wider text-neutral-600"
+                  >
+                    {group.label}
+                  </h3>
+                ) : null}
+                {group.columns.map((column) => (
+                  <ToolBlock
+                    key={`${group.id}-${column.id}`}
+                    column={column}
+                    pathname={pathname}
+                    showAllLabel={showAllLabel}
+                    collapseLabel={collapseLabel}
+                    onNavigate={onNavigate}
+                    onClose={onClose}
+                  />
                 ))}
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      ) : null}
-    </AnimatePresence>
+              </Fragment>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </div>
   );
 
-  return createPortal(modal, document.body);
+  return createPortal(drawer, document.body);
 }
 
 /** Crawlable tool links — always in DOM for SEO. */

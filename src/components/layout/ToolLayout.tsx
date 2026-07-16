@@ -5,9 +5,11 @@ import { clsx } from "clsx";
 import { AdContainer } from "@/components/AdContainer";
 import { FaqSection } from "@/components/layout/FaqSection";
 import { FeedbackSection } from "@/components/layout/FeedbackSection";
+import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { ToolLocalProcessingBar } from "@/components/ToolLocalProcessingBar";
 import { ToolPageHeader } from "@/components/ToolPageHeader";
 import { ToolPageInfoBlock } from "@/components/ToolPageInfoBlock";
+import { WorkerErrorBoundary } from "@/components/workers/WorkerErrorBoundary";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import type { ToolFaq } from "@/lib/types";
 import { toolPageInfoWidth } from "@/lib/tool-ui";
@@ -59,6 +61,7 @@ export function ToolLayout({
   showHeader = true,
 }: ToolLayoutProps) {
   const shell = useToolPageShell();
+  const embed = useToolEmbedMode();
 
   const resolvedTitle = title ?? shell.headline;
   const resolvedDescription = description ?? shell.subline;
@@ -73,12 +76,15 @@ export function ToolLayout({
         className={clsx(
           "tool-page-layout tool-upload-stack flex w-full flex-col",
           shell.stacked && "tool-page-layout--stacked",
+          embed && "tool-page-layout--embed",
           className,
         )}
       >
-        {breadcrumbs ? <div className="tool-page-layout__breadcrumbs">{breadcrumbs}</div> : null}
+        {!embed && breadcrumbs ? (
+          <div className="tool-page-layout__breadcrumbs">{breadcrumbs}</div>
+        ) : null}
 
-        {showHeader && resolvedTitle ? (
+        {!embed && showHeader && resolvedTitle ? (
           <ToolPageHeader
             title={resolvedTitle}
             description={resolvedDescription}
@@ -87,24 +93,29 @@ export function ToolLayout({
           />
         ) : null}
 
-        <div className={clsx("tool-page-layout__content", contentClassName)}>{children}</div>
+        <div className={clsx("tool-page-layout__content", contentClassName)}>
+          <WorkerErrorBoundary>{children}</WorkerErrorBoundary>
+        </div>
 
-        {showPrivacyBadge ? (
+        {!embed && showPrivacyBadge ? (
           <footer className="tool-page-layout__footer">
             <ToolLocalProcessingBar />
           </footer>
         ) : null}
 
-        {resolvedSlug ? <AdContainer /> : null}
+        {!embed && resolvedSlug ? <AdContainer /> : null}
       </div>
 
-      {belowTool}
-
-      <ToolPageInfoBlock className={toolPageInfoWidth}>
-        {marketing}
-        <FaqSection faqs={faqs} heading={faqHeading} />
-        <FeedbackSection pageTitle={feedbackPageTitle} />
-      </ToolPageInfoBlock>
+      {!embed ? (
+        <>
+          {belowTool}
+          <ToolPageInfoBlock className={toolPageInfoWidth}>
+            {marketing}
+            <FaqSection faqs={faqs} heading={faqHeading} />
+            <FeedbackSection pageTitle={feedbackPageTitle} />
+          </ToolPageInfoBlock>
+        </>
+      ) : null}
     </>
   );
 }

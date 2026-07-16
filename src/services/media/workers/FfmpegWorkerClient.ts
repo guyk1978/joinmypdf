@@ -28,12 +28,18 @@ function toError(error: unknown): Error {
   return new Error(String(error || "FFmpeg worker failed."));
 }
 
-/** Same-origin Worker script for `@ffmpeg/ffmpeg` (synced by scripts/sync-public-assets.mjs). */
+/**
+ * Absolute same-origin path for `@ffmpeg/ffmpeg`'s class Worker.
+ * Synced to `public/workers/ffmpeg-worker.js` by scripts/sync-public-assets.mjs.
+ * Always absolute (leading `/`) so locale / nested tool routes cannot resolve a relative worker URL.
+ */
+export const FFMPEG_WORKER_SCRIPT_PATH = "/workers/ffmpeg-worker.js";
+
 function resolveClassWorkerUrl(): string {
   if (typeof window === "undefined") {
-    return "/static/ffmpeg/ffmpeg-class-worker.js";
+    return FFMPEG_WORKER_SCRIPT_PATH;
   }
-  return new URL("/static/ffmpeg/ffmpeg-class-worker.js", window.location.origin).href;
+  return new URL(FFMPEG_WORKER_SCRIPT_PATH, window.location.origin).href;
 }
 
 /**

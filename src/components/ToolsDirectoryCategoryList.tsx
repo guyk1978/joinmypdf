@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ToolsDirectoryToolLink } from "@/components/ToolsDirectoryToolLink";
+import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import type { ToolGridItem } from "@/lib/tool-grid";
 import {
   TOOLS_DIRECTORY_BATCH_SIZE,
@@ -28,13 +28,7 @@ export function ToolsDirectoryCategoryList({ id, title, items }: ToolsDirectoryC
           {title}
         </h3>
       ) : null}
-      <ul className="tools-directory-category__list">
-        {visibleItems.map((item) => (
-          <li key={item.slugHint}>
-            <ToolsDirectoryToolLink href={item.href} label={item.label} slugHint={item.slugHint} />
-          </li>
-        ))}
-      </ul>
+      <CategoryDirectoryFlatGrid items={visibleItems} />
       {remainingCount > 0 ? (
         <button
           type="button"

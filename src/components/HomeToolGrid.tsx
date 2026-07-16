@@ -4,18 +4,31 @@ import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import "@/styles/tools-grid.css";
-import { HomeFlatToolLink } from "@/components/HomeFlatToolLink";
+import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import type { HomeFeaturedToolItem } from "@/lib/featured-tools";
 import {
   buildHomeMoreToolsCategories,
   type HomeMoreToolsCategory,
 } from "@/lib/home-more-tools";
+import type { ToolGridItem } from "@/lib/tool-grid";
 
 type CategoryBlockProps = {
   category: HomeMoreToolsCategory;
   title: string;
   viewAllLabel: string;
 };
+
+function toCardItems(
+  items: { id: string; href: string; label: string }[],
+): ToolGridItem[] {
+  return items.map((item) => ({
+    href: item.href,
+    label: item.label,
+    slugHint: item.id,
+    description: getToolsInventoryEntry(item.id)?.description,
+  }));
+}
 
 function CategoryBlock({ category, title, viewAllLabel }: CategoryBlockProps) {
   return (
@@ -35,13 +48,7 @@ function CategoryBlock({ category, title, viewAllLabel }: CategoryBlockProps) {
           <ArrowRight className="home-category-block__all-icon" aria-hidden />
         </Link>
       </div>
-      <ul className="tools-grid">
-        {category.items.map((item) => (
-          <li key={item.id}>
-            <HomeFlatToolLink href={item.href} label={item.label} slugHint={item.id} />
-          </li>
-        ))}
-      </ul>
+      <CategoryDirectoryFlatGrid items={toCardItems(category.items)} />
     </section>
   );
 }
@@ -54,6 +61,13 @@ export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
   const t = useTranslations("Home");
   const categories = buildHomeMoreToolsCategories(t);
 
+  const pdfItems: ToolGridItem[] = pdfPowerhouseItems.map((item) => ({
+    href: item.href,
+    label: item.label,
+    slugHint: item.slugHint,
+    description: getToolsInventoryEntry(item.slugHint)?.description,
+  }));
+
   return (
     <>
       <section className="home-pdf-powerhouse" aria-labelledby="home-pdf-powerhouse-title">
@@ -65,17 +79,7 @@ export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
           <p className="home-section-head__subtitle">{t("landing.pdfSubtitle")}</p>
         </div>
 
-        <ul className="home-pdf-powerhouse__links">
-          {pdfPowerhouseItems.map((item) => (
-            <li key={item.slugHint}>
-              <HomeFlatToolLink
-                href={item.href}
-                label={item.label}
-                slugHint={item.slugHint}
-              />
-            </li>
-          ))}
-        </ul>
+        <CategoryDirectoryFlatGrid items={pdfItems} />
 
         <div className="home-pdf-powerhouse__footer">
           <Link href="/tools/pdf-tools/" className="home-pdf-powerhouse__all" prefetch={false}>
