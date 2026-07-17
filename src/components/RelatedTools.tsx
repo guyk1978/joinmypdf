@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import { getAudioToolById } from "@/lib/audio-tools";
@@ -18,6 +18,7 @@ type RelatedToolsProps = {
 export async function RelatedTools({ tool, slug }: RelatedToolsProps) {
   const toolSlug = tool?.slug ?? slug;
   if (!toolSlug) return null;
+  const locale = await getLocale();
 
   const fromJson = tool?.relatedTools || [];
   const fromInventory = getRelatedInventoryToolIds(toolSlug, { limit: 10 });
@@ -59,6 +60,7 @@ export async function RelatedTools({ tool, slug }: RelatedToolsProps) {
           href: resolveToolHref(
             item.slug,
             getToolsInventoryEntry(item.slug)?.primaryCategory,
+            locale,
           ),
           label: translateToolItem(tTools, item.slug, item.title),
           slugHint: item.slug,

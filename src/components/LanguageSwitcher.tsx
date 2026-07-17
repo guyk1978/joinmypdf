@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { routing, type AppLocale } from "@/i18n/routing";
+import { remapLocalizedToolPathname } from "@/lib/locale-tool-slugs";
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -43,7 +44,8 @@ export function LanguageSwitcher() {
         close();
         return;
       }
-      router.replace(pathname, { locale: nextLocale });
+      const nextPath = remapLocalizedToolPathname(pathname, nextLocale);
+      router.replace(nextPath, { locale: nextLocale });
       close();
     },
     [close, locale, pathname, router],
@@ -88,7 +90,7 @@ export function LanguageSwitcher() {
           id={listId}
           role="listbox"
           aria-label={tHeader("language")}
-          className="absolute end-0 top-full z-[60] min-w-[9rem] border border-neutral-300 bg-white py-1 shadow-none dark:border-neutral-700 dark:bg-neutral-900"
+          className="absolute end-0 top-full z-[60] min-w-[9rem] border border-neutral-300 bg-white py-1 shadow-none dark:border-neutral-700 dark:bg-neutral-950"
         >
           {routing.locales.map((item) => {
             const selected = item === locale;
@@ -101,8 +103,8 @@ export function LanguageSwitcher() {
                   className={clsx(
                     "flex w-full items-center px-3 py-2 text-start text-xs transition-colors",
                     selected
-                      ? "bg-neutral-100 text-black dark:bg-neutral-800 dark:text-neutral-200"
-                      : "text-black hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800",
+                      ? "font-semibold text-black dark:text-white"
+                      : "text-black hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-900",
                   )}
                   onClick={() => selectLocale(item)}
                 >

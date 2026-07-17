@@ -39,15 +39,16 @@ export default async function JsonToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("JsonToolsPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${JSON_TOOLS_HUB_PATH}`;
-  const gridItems = buildJsonToolGridItems(t);
-  const featureList = getJsonToolFeatureLabels(t);
+  const gridItems = buildJsonToolGridItems(tTools, locale);
+  const featureList = getJsonToolFeatureLabels(tTools);
   const relatedGuides = getRecentDeveloperJsonBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbHubDeveloper"), path: "/tools/developer-tools/" },
-    { name: t("title"), path: JSON_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubJson"), path: JSON_TOOLS_HUB_PATH },
   ];
 
   return (

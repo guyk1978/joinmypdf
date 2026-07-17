@@ -3,11 +3,12 @@ import {
   type InventoryCategoryId,
 } from "@/data/inventory-hubs";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
+import { getLocalizedToolSlug, resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 
 function normalizePath(path: string): string {
   const bare = path.split("?")[0]?.split("#")[0] ?? path;
   let pathname = bare.startsWith("/") ? bare : `/${bare}`;
-  pathname = pathname.replace(/^\/(en|he)(?=\/)/, "");
+  pathname = pathname.replace(/^\/(en|he|ru)(?=\/)/, "");
   if (!pathname.startsWith("/")) pathname = `/${pathname}`;
   if (pathname.length > 1 && !pathname.endsWith("/")) pathname = `${pathname}/`;
   return pathname;
@@ -60,15 +61,20 @@ export function buildNestedToolPath(
 /**
  * Resolve the public tool href from inventory + optional parent category context.
  * Parent category wins so Video hub links use the Video nest even for multi-tagged tools.
+ * Pass `locale` (e.g. `ru`) to emit SEO-localized tool slugs
+ * (PDF, video, convert, compress, mp4, extract, image, jpg, png, mp3, favicon, text, json, developer, word, excel, crop, rotate, security, data, productivity, unit-math, network).
  */
 export function resolveToolHref(
   slug: string,
   parentCategoryId?: InventoryCategoryId,
+  locale?: string,
 ): string {
-  const entry = getToolsInventoryEntry(slug);
+  const canonical = resolveCanonicalToolSlug(slug);
+  const entry = getToolsInventoryEntry(canonical);
   const category =
     parentCategoryId ?? entry?.primaryCategory ?? ("pdf" as InventoryCategoryId);
-  return buildNestedToolPath(slug, category);
+  const publicSlug = getLocalizedToolSlug(canonical, locale ?? "en");
+  return buildNestedToolPath(publicSlug, category);
 }
 
 /**
@@ -82,17 +88,22 @@ export const SITEMAP_CATEGORY_NEST_OVERRIDES: Partial<
 };
 
 /** All nested sitemap paths for one inventory entry (every category membership). */
-export function listNestedSitemapPathsForTool(entry: {
-  id: string;
-  primaryCategory: InventoryCategoryId;
-  categories: readonly InventoryCategoryId[];
-}): string[] {
+export function listNestedSitemapPathsForTool(
+  entry: {
+    id: string;
+    primaryCategory: InventoryCategoryId;
+    categories: readonly InventoryCategoryId[];
+  },
+  locale?: string,
+): string[] {
   const categories = new Set<InventoryCategoryId>([
     ...entry.categories,
     entry.primaryCategory,
     ...(SITEMAP_CATEGORY_NEST_OVERRIDES[entry.id] ?? []),
   ]);
-  return [...categories].map((categoryId) => buildNestedToolPath(entry.id, categoryId));
+  return [...categories].map((categoryId) =>
+    resolveToolHref(entry.id, categoryId, locale),
+  );
 }
 
 /** Parse `/tools/{hub}/{slug}/` (locale-stripped) into hierarchy parts. */

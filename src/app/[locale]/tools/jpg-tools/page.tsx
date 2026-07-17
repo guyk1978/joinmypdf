@@ -39,15 +39,16 @@ export default async function JpgToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("JpgToolsPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${JPG_TOOLS_HUB_PATH}`;
-  const gridItems = buildJpgToolGridItems(t);
-  const featureList = getJpgToolFeatureLabels(t);
+  const gridItems = buildJpgToolGridItems(tTools, locale);
+  const featureList = getJpgToolFeatureLabels(tTools);
   const relatedGuides = getRecentImageJpgBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbHubImage"), path: "/tools/image-tools/" },
-    { name: t("title"), path: JPG_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubJpg"), path: JPG_TOOLS_HUB_PATH },
   ];
 
   return (

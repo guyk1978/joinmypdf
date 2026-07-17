@@ -39,15 +39,16 @@ export default async function TextToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("TextToolsPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${TEXT_TOOLS_HUB_PATH}`;
-  const gridItems = buildTextToolGridItems(t);
-  const featureList = getTextToolFeatureLabels(t);
+  const gridItems = buildTextToolGridItems(tTools, locale);
+  const featureList = getTextToolFeatureLabels(tTools);
   const relatedGuides = getRecentTextProductivityBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbHubUtilities"), path: "/utilities/" },
-    { name: t("title"), path: TEXT_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubText"), path: TEXT_TOOLS_HUB_PATH },
   ];
 
   return (

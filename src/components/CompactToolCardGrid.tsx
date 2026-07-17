@@ -1,6 +1,10 @@
+"use client";
+
+import { useLocale } from "next-intl";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
+import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
@@ -18,11 +22,12 @@ type CompactToolCardGridProps = {
 };
 
 export function CompactToolCardGrid({ items, className }: CompactToolCardGridProps) {
+  const locale = useLocale();
   const gridItems: ToolGridItem[] = items.map((item) => {
-    const slug = item.slugHint ?? item.href;
+    const slug = resolveCanonicalToolSlug(item.slugHint ?? item.href);
     const entry = getToolsInventoryEntry(slug);
     return {
-      href: entry ? resolveToolHref(slug, entry.primaryCategory) : item.href,
+      href: entry ? resolveToolHref(slug, entry.primaryCategory, locale) : item.href,
       label: item.label,
       slugHint: slug,
       description: getToolCardDescription(slug, entry?.description),

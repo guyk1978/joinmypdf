@@ -37,13 +37,14 @@ export default async function ExcelToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("ExcelToolsPage");
   const tPage = await getTranslations("ToolPage");
-  const gridItems = buildExcelToolGridItems(t);
-  const featureList = getExcelToolFeatureLabels(t);
+  const tTools = await getTranslations("Tools");
+  const gridItems = buildExcelToolGridItems(tTools, locale);
+  const featureList = getExcelToolFeatureLabels(tTools);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: EXCEL_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbHubExcel"), path: EXCEL_TOOLS_HUB_PATH },
   ];
 
   return (

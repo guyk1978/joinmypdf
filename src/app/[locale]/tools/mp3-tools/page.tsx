@@ -33,14 +33,16 @@ export default async function Mp3ToolsPage({ params }: PageProps) {
 
   const t = await getTranslations("Mp3ToolsPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${MP3_TOOLS_HUB_PATH}`;
-  const gridItems = buildMp3ToolGridItems(t);
-  const featureList = getMp3ToolFeatureLabels(t);
+  const gridItems = buildMp3ToolGridItems(tTools, locale);
+  const featureList = getMp3ToolFeatureLabels(tTools);
   const relatedGuides = getRecentAudioMp3BlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: t("title"), path: MP3_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubMp3"), path: MP3_TOOLS_HUB_PATH },
   ];
 
   return (

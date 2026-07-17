@@ -1,7 +1,34 @@
-/**
+﻿/**
  * Shared category → hub segment map for Node sitemap scripts.
  * Mirrors src/lib/tool-hierarchy.ts + INVENTORY_HUB_META (/tools/ nests).
  */
+import {
+  localizeToolSlugForLocale,
+  PDF_TOOL_SLUGS_RU,
+  VIDEO_TOOL_SLUGS_RU,
+  CONVERT_TOOL_SLUGS_RU,
+  COMPRESS_TOOL_SLUGS_RU,
+  MP4_TOOL_SLUGS_RU,
+  EXTRACT_TOOL_SLUGS_RU,
+  IMAGE_TOOL_SLUGS_RU,
+  JPG_TOOL_SLUGS_RU,
+  PNG_TOOL_SLUGS_RU,
+  MP3_TOOL_SLUGS_RU,
+  FAVICON_TOOL_SLUGS_RU,
+  TEXT_TOOL_SLUGS_RU,
+  JSON_TOOL_SLUGS_RU,
+  DEVELOPER_TOOL_SLUGS_RU,
+  WORD_TOOL_SLUGS_RU,
+  EXCEL_TOOL_SLUGS_RU,
+  CROP_TOOL_SLUGS_RU,
+  ROTATE_TOOL_SLUGS_RU,
+  SECURITY_TOOL_SLUGS_RU,
+  DATA_CONVERSION_TOOL_SLUGS_RU,
+  PRODUCTIVITY_TOOL_SLUGS_RU,
+  UNIT_MATH_TOOL_SLUGS_RU,
+  NETWORK_TOOL_SLUGS_RU,
+} from "./pdf-tool-slugs-ru.mjs";
+
 export const CATEGORY_HUB_SEGMENT = {
   pdf: "pdf-tools",
   video: "video-tools",
@@ -32,10 +59,6 @@ export const CATEGORY_HUB_SEGMENT = {
   network: "network-tools",
 };
 
-/**
- * Extra category nests forced into the sitemap (beyond inventory tags).
- * Ensures multi-hub tools like compress-image appear under jpg-tools.
- */
 export const SITEMAP_CATEGORY_NEST_OVERRIDES = {
   "compress-image": ["jpg"],
 };
@@ -46,14 +69,6 @@ export function buildNestedToolPath(slug, categoryId) {
   return `/tools/${segment}/${slug}/`;
 }
 
-/**
- * Parse TOOLS_INVENTORY membership from tools-inventory.ts source.
- * @returns {{
- *   primaryBySlug: Map<string, string>,
- *   categoriesBySlug: Map<string, string[]>,
- *   slugsByCategory: Map<string, string[]>,
- * }}
- */
 export function parseInventoryHierarchy(inventorySource) {
   const primaryBySlug = new Map();
   const categoriesBySlug = new Map();
@@ -85,7 +100,6 @@ export function parseInventoryHierarchy(inventorySource) {
   return { primaryBySlug, categoriesBySlug, slugsByCategory };
 }
 
-/** @deprecated Prefer parseInventoryHierarchy().primaryBySlug */
 export function parseInventoryPrimaryCategories(inventorySource) {
   return parseInventoryHierarchy(inventorySource).primaryBySlug;
 }
@@ -95,16 +109,14 @@ export function resolveNestedToolPath(slug, primaryBySlug) {
   return category ? buildNestedToolPath(slug, category) : `/tools/${slug}/`;
 }
 
-/**
- * Category-first nested paths for every hub membership (not just primary).
- * @returns {string[]} locale-free paths like `/tools/jpg-tools/compress-image/`
- */
-export function listAllNestedToolPaths(hierarchy) {
+export function listAllNestedToolPaths(hierarchy, options = {}) {
+  const locale = options.locale || "en";
   const paths = new Set();
   for (const [categoryId, slugs] of hierarchy.slugsByCategory.entries()) {
     if (!CATEGORY_HUB_SEGMENT[categoryId]) continue;
     for (const slug of slugs) {
-      paths.add(buildNestedToolPath(slug, categoryId));
+      const publicSlug = localizeToolSlugForLocale(slug, locale);
+      paths.add(buildNestedToolPath(publicSlug, categoryId));
     }
   }
   return [...paths].sort();
@@ -117,3 +129,29 @@ export function listCategoryHubPaths() {
   }
   return [...paths].sort();
 }
+
+export {
+  PDF_TOOL_SLUGS_RU,
+  VIDEO_TOOL_SLUGS_RU,
+  CONVERT_TOOL_SLUGS_RU,
+  COMPRESS_TOOL_SLUGS_RU,
+  MP4_TOOL_SLUGS_RU,
+  EXTRACT_TOOL_SLUGS_RU,
+  IMAGE_TOOL_SLUGS_RU,
+  JPG_TOOL_SLUGS_RU,
+  PNG_TOOL_SLUGS_RU,
+  MP3_TOOL_SLUGS_RU,
+  FAVICON_TOOL_SLUGS_RU,
+  TEXT_TOOL_SLUGS_RU,
+  JSON_TOOL_SLUGS_RU,
+  DEVELOPER_TOOL_SLUGS_RU,
+  WORD_TOOL_SLUGS_RU,
+  EXCEL_TOOL_SLUGS_RU,
+  CROP_TOOL_SLUGS_RU,
+  ROTATE_TOOL_SLUGS_RU,
+  SECURITY_TOOL_SLUGS_RU,
+  DATA_CONVERSION_TOOL_SLUGS_RU,
+  PRODUCTIVITY_TOOL_SLUGS_RU,
+  UNIT_MATH_TOOL_SLUGS_RU,
+  NETWORK_TOOL_SLUGS_RU,
+};

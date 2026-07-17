@@ -22,6 +22,8 @@ export type UnitConverterLabels = {
   resultLabel: string;
   resetButton: string;
   invalidInput: string;
+  /** Optional localized unit names keyed by unit id (e.g. kg → "кг"). Falls back to symbol. */
+  unitLabels?: Record<string, string>;
 };
 
 type UnitConverterProps = {
@@ -66,6 +68,8 @@ export function UnitConverter({ labels, className }: UnitConverterProps) {
   };
 
   const unitLabel = (unitId: string) => {
+    const localized = labels.unitLabels?.[unitId];
+    if (localized) return localized;
     const unit = units.find((item) => item.id === unitId);
     return unit?.labelKey ?? unitId;
   };
@@ -117,7 +121,7 @@ export function UnitConverter({ labels, className }: UnitConverterProps) {
             >
               {units.map((unit) => (
                 <option key={unit.id} value={unit.id}>
-                  {unit.labelKey}
+                  {unitLabel(unit.id)}
                 </option>
               ))}
             </select>
@@ -135,7 +139,7 @@ export function UnitConverter({ labels, className }: UnitConverterProps) {
             >
               {units.map((unit) => (
                 <option key={unit.id} value={unit.id}>
-                  {unit.labelKey}
+                  {unitLabel(unit.id)}
                 </option>
               ))}
             </select>

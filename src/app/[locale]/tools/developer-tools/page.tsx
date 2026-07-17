@@ -48,14 +48,20 @@ export default async function DeveloperToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("DeveloperToolsHubPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${DEVELOPER_TOOLS_HUB_PATH}`;
-  const featureList = getDeveloperHubFeatureLabels(t);
+  const featureList = [
+    t("groupSecurity"),
+    t("groupGeneration"),
+    t("groupUtilities"),
+    ...getDeveloperHubFeatureLabels(tTools),
+  ];
   const relatedGuides = getRecentDeveloperSecurityBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: DEVELOPER_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbHubDeveloper"), path: DEVELOPER_TOOLS_HUB_PATH },
   ];
 
   return (
@@ -91,7 +97,10 @@ export default async function DeveloperToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildDeveloperHubGroupItems(group.id, t)} categoryId="developer" />
+              <CategoryDirectoryFlatGrid
+                items={buildDeveloperHubGroupItems(group.id, tTools, locale)}
+                categoryId="developer"
+              />
             </section>
           ))}
 

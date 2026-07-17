@@ -38,13 +38,14 @@ export default async function CropToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("CropToolsPage");
   const tPage = await getTranslations("ToolPage");
-  const gridItems = buildCropToolGridItems(t);
-  const featureList = getCropToolFeatureLabels(t);
+  const tTools = await getTranslations("Tools");
+  const gridItems = buildCropToolGridItems(tTools, locale);
+  const featureList = getCropToolFeatureLabels(tTools);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: CROP_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbHubCrop"), path: CROP_TOOLS_HUB_PATH },
   ];
 
   return (

@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { Download, Loader2, Volume2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useState } from "react";
 import { MediaDropzone } from "@/components/media/MediaDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
@@ -37,7 +38,8 @@ export type Mp3VolumeBoosterProps = ToolModuleProps & {
   onComplete?: (result: FfmpegAudioBoostResult) => void;
 };
 
-export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterProps) {
+export function Mp3VolumeBooster({ name: _name, title, onComplete }: Mp3VolumeBoosterProps) {
+  const t = useTranslations("Mp3VolumeBooster");
   const sliderId = useId();
   const [file, setFile] = useState<File | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string | null>(null);
@@ -84,9 +86,7 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
   const pickFile = useCallback(
     (next: File) => {
       if (!isMp3File(next)) {
-        setPickError(
-          "Invalid or unsupported file. Please upload a valid MP3 audio file for volume boosting.",
-        );
+        setPickError(t("invalidFile"));
         return;
       }
       setFile(next);
@@ -94,7 +94,7 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
       setBoostLevel(1.5);
       reset();
     },
-    [reset],
+    [reset, t],
   );
 
   const boostAndDownload = useCallback(async () => {
@@ -110,12 +110,7 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
 
   return (
     <div className="mp3-volume-booster-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Boost your MP3 volume to professional levels without quality loss. All processing is 100% local and private."}{" "}
-        ffmpeg.wasm applies the <code className="text-neutral-500">loudnorm</code> filter to maximize
-        volume while limiting true peak and preventing digital clipping.
-      </p>
+      <p className="text-sm leading-relaxed text-neutral-400">{title ?? t("intro")}</p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
@@ -133,10 +128,10 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
           onFile={pickFile}
           onError={(message) => setPickError(message)}
           labels={{
-            title: "Upload MP3",
-            titleBusy: "Normalizing in worker…",
-            description: "Drag and drop an MP3 or browse from your device.",
-            privacyBadge: "100% Private — boosted locally with ffmpeg.wasm.",
+            title: t("uploadTitle"),
+            titleBusy: t("uploadTitleBusy"),
+            description: t("uploadDescription"),
+            privacyBadge: t("privacyBadge"),
           }}
           className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
@@ -156,14 +151,14 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
                 reset();
               }}
             >
-              Choose another file
+              {t("chooseAnother")}
             </button>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2 rounded-none border border-neutral-800 bg-neutral-950 p-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                Original
+                {t("originalLabel")}
               </p>
               {originalUrl ? (
                 <audio src={originalUrl} controls preload="metadata" className="w-full" />
@@ -172,14 +167,12 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
 
             <div className="space-y-2 rounded-none border border-neutral-800 bg-neutral-950 p-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                Boosted
+                {t("boostedLabel")}
               </p>
               {boostedUrl ? (
                 <audio src={boostedUrl} controls preload="metadata" className="w-full" />
               ) : (
-                <p className="py-4 text-center text-xs text-neutral-500">
-                  Run boost to preview the louder version here.
-                </p>
+                <p className="py-4 text-center text-xs text-neutral-500">{t("previewHint")}</p>
               )}
             </div>
           </div>
@@ -187,7 +180,7 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-3">
               <label className="text-sm font-medium text-neutral-300" htmlFor={sliderId}>
-                Boost level
+                {t("boostLevel")}
               </label>
               <span className="text-sm font-semibold tabular-nums text-neutral-100">
                 {boostLevel.toFixed(1)}×
@@ -205,8 +198,8 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
               className="h-2 w-full cursor-pointer appearance-none rounded-none bg-neutral-800 accent-neutral-100"
             />
             <div className="flex justify-between text-xs text-neutral-500">
-              <span>{MIN_BOOST}× normalize</span>
-              <span>{MAX_BOOST}× max boost</span>
+              <span>{t("normalizeHint", { min: MIN_BOOST })}</span>
+              <span>{t("maxBoostHint", { max: MAX_BOOST })}</span>
             </div>
           </div>
 
@@ -219,12 +212,12 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
             {busy ? (
               <>
                 <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden />
-                Normalizing…
+                {t("normalizing")}
               </>
             ) : (
               <>
                 <Volume2 className="mr-2 inline h-4 w-4" aria-hidden />
-                Boost &amp; Download
+                {t("boostAndDownload")}
               </>
             )}
           </button>
@@ -233,7 +226,7 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
 
       {phase === "loading" || phase === "processing" ? (
         <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
-          Normalization progress
+          {t("progressLabel")}
         </p>
       ) : null}
 
@@ -242,7 +235,10 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
       {result && phase === "success" ? (
         <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
           <p className="text-sm text-emerald-400">
-            Boosted — {formatBytes(result.blob.size)} MP3 at {boostLevel.toFixed(1)}× saved locally.
+            {t("success", {
+              size: formatBytes(result.blob.size),
+              level: boostLevel.toFixed(1),
+            })}
           </p>
           <button
             type="button"
@@ -250,7 +246,7 @@ export function Mp3VolumeBooster({ name, title, onComplete }: Mp3VolumeBoosterPr
             onClick={() => downloadBlob(result.blob, result.fileName)}
           >
             <Download className="mr-2 inline h-4 w-4" aria-hidden />
-            Download again
+            {t("downloadAgain")}
           </button>
           <PostSuccessUpsell operation="mp3-volume-booster" fileContext={file?.name} sourceFile={file} />
         </div>

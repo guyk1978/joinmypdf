@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { Download, Loader2, Pause, Play, Scissors } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.esm.js";
@@ -46,6 +47,7 @@ export type AudioTrimmerProps = ToolModuleProps & {
 };
 
 export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
+  const t = useTranslations("AudioTrimmer");
   const fadeInId = useId();
   const fadeOutId = useId();
   const waveformRef = useRef<HTMLDivElement>(null);
@@ -186,7 +188,7 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
   const pickFile = useCallback(
     (next: File) => {
       if (!isSupportedAudioTrimFile(next)) {
-        setPickError("Please upload MP3, WAV, AAC/M4A, or OGG audio.");
+        setPickError(t("invalidFile"));
         return;
       }
       setFile(next);
@@ -197,7 +199,7 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
       setFadeOutSeconds(DEFAULT_FADE_SECONDS);
       reset();
     },
-    [reset],
+    [reset, t],
   );
 
   const togglePlay = useCallback(() => {
@@ -216,13 +218,13 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
     if (!file || busy) return;
 
     if (endSeconds <= startSeconds) {
-      setValidationError("End must be after start. Drag the waveform handles to set a range.");
+      setValidationError(t("rangeError"));
       return;
     }
 
     const segment = endSeconds - startSeconds;
     if (fadeEnabled && fadeInSeconds + fadeOutSeconds > segment) {
-      setValidationError("Fade in + fade out exceed the selected range. Shorten the fades.");
+      setValidationError(t("fadeError"));
       return;
     }
 
@@ -246,6 +248,7 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
     fadeOutSeconds,
     file,
     startSeconds,
+    t,
     trim,
   ]);
 
@@ -253,10 +256,7 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
 
   return (
     <div className="audio-trimmer-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        Online audio trimmer with a visual waveform — cut MP3, WAV, AAC, or OGG locally with ffmpeg.wasm.
-        Drag Start/End handles, optionally add Fade In/Out, then Trim &amp; Download. 100% private.
-      </p>
+      <p className="text-sm leading-relaxed text-neutral-400">{t("intro")}</p>
 
       <FfmpegEnvironmentNotice
         environment={environment}
@@ -282,10 +282,10 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
           onFile={pickFile}
           onError={(message) => setPickError(message)}
           labels={{
-            title: `Upload audio for ${name}`,
-            titleBusy: "Trimming in worker…",
-            description: "Drag and drop MP3, WAV, AAC/M4A, or OGG — or browse from your device.",
-            privacyBadge: "100% Private — trimmed locally with ffmpeg.wasm.",
+            title: t("uploadTitle", { name }),
+            titleBusy: t("uploadTitleBusy"),
+            description: t("uploadDescription"),
+            privacyBadge: t("privacyBadge"),
           }}
           className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
@@ -307,21 +307,21 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
                 reset();
               }}
             >
-              Choose another file
+              {t("chooseAnother")}
             </button>
           </div>
 
           <div className="space-y-3 rounded-none border border-neutral-800 bg-neutral-950 p-3">
             <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
-              Waveform · drag handles to keep a range
+              {t("waveformLabel")}
             </p>
             <div
               ref={waveformRef}
               className="audio-trimmer-tool__waveform w-full overflow-hidden"
-              aria-label="Audio waveform trimmer"
+              aria-label={t("waveformAria")}
             />
             {!waveReady ? (
-              <p className="text-xs text-neutral-500">Loading waveform…</p>
+              <p className="text-xs text-neutral-500">{t("loadingWaveform")}</p>
             ) : null}
 
             <div className="flex flex-wrap items-center gap-3">
@@ -334,12 +334,12 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
                 {playing ? (
                   <>
                     <Pause className="mr-2 inline h-4 w-4" aria-hidden />
-                    Pause
+                    {t("pause")}
                   </>
                 ) : (
                   <>
                     <Play className="mr-2 inline h-4 w-4" aria-hidden />
-                    Play
+                    {t("play")}
                   </>
                 )}
               </button>
@@ -349,14 +349,17 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
                 disabled={!waveReady || busy}
                 onClick={playSelection}
               >
-                Play selection
+                {t("playSelection")}
               </button>
               <p className="font-mono text-sm text-neutral-300">
                 {formatMmSs(currentTime)} / {formatMmSs(duration)}
               </p>
               <p className="font-mono text-xs text-neutral-500">
-                Keep {formatMmSs(startSeconds)} → {formatMmSs(endSeconds)} (
-                {Math.max(0, endSeconds - startSeconds).toFixed(2)}s)
+                {t("keepRange", {
+                  start: formatMmSs(startSeconds),
+                  end: formatMmSs(endSeconds),
+                  seconds: Math.max(0, endSeconds - startSeconds).toFixed(2),
+                })}
               </p>
             </div>
           </div>
@@ -370,17 +373,14 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
                 disabled={busy}
                 onChange={(event) => setFadeEnabled(event.target.checked)}
               />
-              <span>Fade In / Fade Out (soft edges)</span>
+              <span>{t("fadeLabel")}</span>
             </label>
-            <p className="text-xs text-neutral-500">
-              Adds a professional soft start/end on the trimmed clip. Requires a short re-encode
-              (stream-copy stays on when fades are off).
-            </p>
+            <p className="text-xs text-neutral-500">{t("fadeHint")}</p>
             {fadeEnabled ? (
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-1">
                   <label className="block text-xs font-medium text-neutral-400" htmlFor={fadeInId}>
-                    Fade in (seconds)
+                    {t("fadeInLabel")}
                   </label>
                   <input
                     id={fadeInId}
@@ -395,7 +395,7 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
                 </div>
                 <div className="space-y-1">
                   <label className="block text-xs font-medium text-neutral-400" htmlFor={fadeOutId}>
-                    Fade out (seconds)
+                    {t("fadeOutLabel")}
                   </label>
                   <input
                     id={fadeOutId}
@@ -421,12 +421,12 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
             {busy ? (
               <>
                 <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden />
-                Trimming…
+                {t("trimming")}
               </>
             ) : (
               <>
                 <Scissors className="mr-2 inline h-4 w-4" aria-hidden />
-                Trim &amp; Download
+                {t("trimAndDownload")}
               </>
             )}
           </button>
@@ -438,8 +438,7 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
       {result && phase === "success" ? (
         <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
           <p className="text-sm text-emerald-400">
-            Trimmed — {formatBytes(result.blob.size)} saved locally
-            {fadeEnabled ? " with soft fades" : ""}.
+            {t("success", { size: formatBytes(result.blob.size) })}
           </p>
           <button
             type="button"
@@ -447,7 +446,7 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
             onClick={() => downloadBlob(result.blob, result.fileName)}
           >
             <Download className="mr-2 inline h-4 w-4" aria-hidden />
-            Download again
+            {t("downloadAgain")}
           </button>
           <PostSuccessUpsell operation="audio-trimmer" fileContext={file?.name} sourceFile={file} />
         </div>

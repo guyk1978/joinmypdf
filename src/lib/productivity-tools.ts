@@ -1,4 +1,28 @@
 import { resolveHomeToolCopy } from "@/lib/home-tool-copy";
+import {
+  buildInventoryGridItems,
+  getInventoryFeatureLabels,
+  getInventoryIdsByCategory,
+  type InventoryTranslator,
+} from "@/lib/tools-inventory-query";
+import type { ToolGridItem } from "@/lib/tool-grid";
+
+export const PRODUCTIVITY_TOOLS_HUB_PATH = "/tools/productivity-tools/";
+export const PRODUCTIVITY_TOOL_IDS = getInventoryIdsByCategory(
+  "productivity",
+) as readonly string[];
+export type ProductivityToolId = string;
+
+export function buildProductivityToolGridItems(
+  t?: InventoryTranslator,
+  locale?: string,
+): ToolGridItem[] {
+  return buildInventoryGridItems("productivity", t, locale);
+}
+
+export function getProductivityToolFeatureLabels(t?: InventoryTranslator): string[] {
+  return getInventoryFeatureLabels("productivity", t);
+}
 
 export type HomeProductivityToolId =
   | "unit-converter"

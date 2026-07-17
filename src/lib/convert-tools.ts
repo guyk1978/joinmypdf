@@ -80,13 +80,14 @@ export function buildConvertPopularItems(_t?: InventoryTranslator): ToolGridItem
 export function buildConvertToolGroupItems(
   groupId: ConvertToolGroupId,
   t?: InventoryTranslator,
+  locale?: string,
 ): ToolGridItem[] {
   const ids = partitionConvertIds()[groupId];
-  return buildInventoryGridItemsForIds(ids, t);
+  return buildInventoryGridItemsForIds(ids, t, "convert", locale);
 }
 
-export function buildConvertToolGridItems(t?: InventoryTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("convert", t);
+export function buildConvertToolGridItems(t?: InventoryTranslator, locale?: string): ToolGridItem[] {
+  return buildInventoryGridItems("convert", t, locale);
 }
 
 export function getConvertToolFeatureLabels(t?: InventoryTranslator): string[] {

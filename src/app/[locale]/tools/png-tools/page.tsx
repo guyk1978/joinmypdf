@@ -33,14 +33,16 @@ export default async function PngToolsPage({ params }: PageProps) {
 
   const t = await getTranslations("PngToolsPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${PNG_TOOLS_HUB_PATH}`;
-  const gridItems = buildPngToolGridItems(t);
-  const featureList = getPngToolFeatureLabels(t);
+  const gridItems = buildPngToolGridItems(tTools, locale);
+  const featureList = getPngToolFeatureLabels(tTools);
   const relatedGuides = getRecentImagePngBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: t("title"), path: PNG_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubPng"), path: PNG_TOOLS_HUB_PATH },
   ];
 
   return (

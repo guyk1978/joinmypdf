@@ -1,36 +1,36 @@
 {
   "ToolPage": {
-    "breadcrumbHome": "Home",
-    "breadcrumbAllTools": "All tools",
-    "breadcrumbHubPdf": "PDF tools",
-    "breadcrumbHubConvert": "Convert",
+    "breadcrumbHome": "Главная",
+    "breadcrumbAllTools": "Все инструменты",
+    "breadcrumbHubPdf": "PDF инструменты",
+    "breadcrumbHubConvert": "Инструменты конвертации",
     "breadcrumbHubEdit": "Edit & organize",
     "breadcrumbHubOptimize": "Optimize",
-    "breadcrumbHubCompress": "Compress tools",
-    "breadcrumbHubExtract": "Extract tools",
-    "breadcrumbHubSecurity": "Security tools",
-    "breadcrumbHubImage": "Image tools",
-    "breadcrumbHubJpg": "JPG tools",
-    "breadcrumbHubPng": "PNG tools",
-    "breadcrumbHubMp3": "MP3 tools",
-    "breadcrumbHubVideo": "Video tools",
-    "breadcrumbHubMp4": "MP4 Tools",
-    "breadcrumbHubFavicon": "Favicon tools",
-    "breadcrumbHubDeveloper": "Developer tools",
-    "breadcrumbHubNetwork": "Network & API tools",
-    "breadcrumbHubTextJson": "JSON tools",
-    "breadcrumbHubJson": "JSON tools",
+    "breadcrumbHubCompress": "Инструменты сжатия",
+    "breadcrumbHubExtract": "Инструменты извлечения",
+    "breadcrumbHubSecurity": "Инструменты безопасности",
+    "breadcrumbHubImage": "Инструменты для изображений",
+    "breadcrumbHubJpg": "JPG инструменты",
+    "breadcrumbHubPng": "PNG инструменты",
+    "breadcrumbHubMp3": "MP3 инструменты",
+    "breadcrumbHubVideo": "Видео инструменты",
+    "breadcrumbHubMp4": "MP4 инструменты",
+    "breadcrumbHubFavicon": "Инструменты Favicon",
+    "breadcrumbHubDeveloper": "Инструменты разработчика",
+    "breadcrumbHubNetwork": "Сетевые инструменты",
+    "breadcrumbHubTextJson": "JSON инструменты",
+    "breadcrumbHubJson": "JSON инструменты",
     "breadcrumbHubYaml": "YAML tools",
     "breadcrumbHubXml": "XML tools",
     "breadcrumbHubUtilities": "Utilities",
-    "breadcrumbHubText": "Text tools",
-    "breadcrumbHubWord": "Word tools",
-    "breadcrumbHubExcel": "Excel tools",
-    "breadcrumbHubCrop": "Crop tools",
-    "breadcrumbHubRotate": "Rotate tools",
-    "breadcrumbHubDataConversion": "Data conversion",
-    "breadcrumbHubProductivity": "Productivity tools",
-    "breadcrumbHubUnitMath": "Unit & Math Converters",
+    "breadcrumbHubText": "Текстовые инструменты",
+    "breadcrumbHubWord": "Инструменты Word",
+    "breadcrumbHubExcel": "Инструменты Excel",
+    "breadcrumbHubCrop": "Инструменты обрезки",
+    "breadcrumbHubRotate": "Инструменты поворота",
+    "breadcrumbHubDataConversion": "Инструменты преобразования данных",
+    "breadcrumbHubProductivity": "Инструменты продуктивности",
+    "breadcrumbHubUnitMath": "Конвертеры единиц",
     "breadcrumbHubDesign": "Design tools",
     "beforeYouStart": "Before you start",
     "relatedGuides": "Guides that use this tool",
@@ -563,7 +563,7 @@
           "prompt": "Related archival workflows:",
           "flattenLabel": "Flatten PDF",
           "compressLabel": "Compress PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -593,7 +593,7 @@
         },
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
-          "unlockLabel": "Unlock PDF",
+          "unlockLabel": "Разблокировать PDF",
           "flattenLabel": "Flatten PDF"
         },
         "whyBenefits": {
@@ -624,7 +624,7 @@
         },
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
-          "protectLabel": "Protect PDF",
+          "protectLabel": "Защитить PDF",
           "flattenLabel": "Flatten PDF"
         },
         "whyBenefits": {
@@ -656,7 +656,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
           "flattenLabel": "Flatten PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -860,7 +860,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
           "flattenLabel": "Flatten PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -887,7 +887,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related security workflows:",
           "signLabel": "Sign PDF",
-          "protectLabel": "Protect PDF",
+          "protectLabel": "Защитить PDF",
           "auditorLabel": "Safe-to-Share Auditor"
         },
         "whyBenefits": {
@@ -919,7 +919,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
           "mergeLabel": "Merge PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -950,7 +950,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
           "mergeLabel": "Merge PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -1012,7 +1012,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
           "mergeLabel": "Merge PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -1074,7 +1074,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
           "mergeLabel": "Merge PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -1105,7 +1105,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related PDF workflows:",
           "flattenLabel": "Flatten PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -1282,7 +1282,7 @@
           "prompt": "Related office workflows:",
           "wordToPdfLabel": "Word to PDF",
           "pdfAConverterLabel": "PDF/A Converter",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -1348,7 +1348,7 @@
         "relatedWorkflowLinks": {
           "prompt": "Related document workflows:",
           "wordToPdfLabel": "Word to PDF",
-          "protectLabel": "Protect PDF"
+          "protectLabel": "Защитить PDF"
         },
         "whyBenefits": {
           "lossless": {
@@ -4037,20 +4037,20 @@
       "html": "convert HTML to PDF",
       "ebook": "convert EPUB eBooks to PDF",
       "iwork": "convert Apple iWork files to PDF",
-      "protect": "password-protect a PDF",
-      "unlock": "remove a PDF password",
-      "passwordRecovery": "recover a short forgotten PDF password",
-      "redact": "redact sensitive PDF content",
+      "protect": "защитить PDF паролем",
+      "unlock": "снять пароль с PDF",
+      "passwordRecovery": "восстановить короткий забытый пароль PDF",
+      "redact": "замазать конфиденциальное содержимое PDF",
       "flatten": "flatten a PDF and remove editable layers",
       "repair": "repair a corrupted or malformed PDF",
       "pdfA": "convert a PDF to archival PDF/A format",
       "pdfLinearize": "linearize a PDF for Fast Web View",
       "nUpPdf": "arrange multiple PDF pages per sheet (N-Up)",
       "grayscalePdf": "convert a PDF to grayscale (black and white)",
-      "removeMetadata": "remove hidden PDF metadata before sharing",
+      "removeMetadata": "удалить скрытые метаданные PDF перед отправкой",
       "metadataEditor": "edit PDF metadata fields",
-      "sign": "sign a PDF with your signature",
-      "pdfSignatureValidator": "verify PKCS#7 digital signatures in a PDF",
+      "sign": "подписать PDF",
+      "pdfSignatureValidator": "проверить цифровые подписи PKCS#7 в PDF",
       "jpgToPdf": "turn images into a PDF",
       "pngToPdf": "convert PNG images into a PDF",
       "heicToPdf": "convert HEIC photos into a PDF",
@@ -5617,38 +5617,38 @@
   },
   "Workspace": {
     "common": {
-      "selectFiles": "Select Files",
-      "selectFilesAria": "Select files",
-      "selectFile": "Select File",
-      "selectFileAria": "Select file",
-      "selectPdfFiles": "Select PDF files",
-      "selectPdfFilesAria": "Select PDF files",
-      "selectPdfFile": "Select PDF",
-      "selectPdfFileAria": "Select PDF file",
-      "selectPdfFromDevice": "Select PDF from device",
-      "selectImageFromDevice": "Select image from device",
-      "selectVideoFromDevice": "Select video from device",
-      "selectFileFromDevice": "Select file from device",
-      "dropYourFileHere": "Drop your file here",
-      "dropYourPdfHere": "Drop your PDF here",
-      "dropYourImageHere": "Drop your image here",
-      "dropYourVideoHere": "Drop your video here",
-      "localProcessingNothingUploaded": "Local Processing. Nothing is uploaded.",
-      "uploadFromGoogleDrive": "Upload from Google Drive",
-      "uploadFromDropbox": "Upload from Dropbox",
-      "uploadFromCloudServices": "Upload from Google Drive / Dropbox",
-      "privacyTitle": "100% Private & Fast:",
-      "privacyBody": "Files are processed locally in your browser and never leave your device.",
-      "privacyStatement": "100% Private: All processing happens locally in your browser. Your files never leave your device.",
-      "privacyGuaranteeTitle": "Privacy guarantee",
-      "privacyGuaranteeBody": "This tool runs locally in your browser. No files are uploaded to any server. Your data stays on your device.",
+      "selectFiles": "Выбрать файлы",
+      "selectFilesAria": "Выбрать файлы",
+      "selectFile": "Выбрать файл",
+      "selectFileAria": "Выбрать файл",
+      "selectPdfFiles": "Выбрать PDF-файлы",
+      "selectPdfFilesAria": "Выбрать PDF-файлы",
+      "selectPdfFile": "Выбрать PDF",
+      "selectPdfFileAria": "Выбрать PDF-файл",
+      "selectPdfFromDevice": "Выбрать PDF с устройства",
+      "selectImageFromDevice": "Выбрать изображение с устройства",
+      "selectVideoFromDevice": "Выбрать видео с устройства",
+      "selectFileFromDevice": "Выбрать файл с устройства",
+      "dropYourFileHere": "Перетащите файл сюда",
+      "dropYourPdfHere": "Перетащите PDF сюда",
+      "dropYourImageHere": "Перетащите изображение сюда",
+      "dropYourVideoHere": "Перетащите видео сюда",
+      "localProcessingNothingUploaded": "Локальная обработка. Ничего не загружается.",
+      "uploadFromGoogleDrive": "Загрузить из Google Drive",
+      "uploadFromDropbox": "Загрузить из Dropbox",
+      "uploadFromCloudServices": "Загрузить из Google Drive / Dropbox",
+      "privacyTitle": "100% приватно и быстро:",
+      "privacyBody": "Файлы обрабатываются локально в браузере и никогда не покидают ваше устройство.",
+      "privacyStatement": "100% приватно: вся обработка происходит локально в браузере. Файлы не покидают устройство.",
+      "privacyGuaranteeTitle": "Гарантия конфиденциальности",
+      "privacyGuaranteeBody": "Этот инструмент работает локально в браузере. Файлы не загружаются на сервер.",
       "pageManageNotice": "Process happens locally—your files stay on your device.",
       "optimizationRepairNotice": "Even for advanced repairs, your file never leaves your browser.",
-      "privacyBadge": "100% Private: Local processing. Files stay on your device.",
+      "privacyBadge": "100% приватно: локальная обработка. Файлы остаются на устройстве.",
       "securePrefix": "100% Secure:",
       "pngPrivacy": "Image conversion runs entirely inside your browser. Your private images are never uploaded to any server.",
-      "loading": "Loading…",
-      "page": "Page",
+      "loading": "Загрузка…",
+      "page": "Страница",
       "previewOf": "Preview of",
       "files": "Files",
       "home": "Home",
@@ -5656,7 +5656,7 @@
       "up": "Up",
       "down": "Down",
       "remove": "Remove",
-      "run": "Run",
+      "run": "Запустить",
       "processing": "Processing…",
       "merging": "Merging…",
       "chooseAnotherFile": "Choose another file",
@@ -5664,22 +5664,22 @@
       "convertAgain": "Convert again",
       "clientSideOnly": "Client-side only",
       "ready": "Ready:",
-      "compressionLevel": "Compression level",
-      "compressionHint": "Choose how aggressively to shrink the file. All processing stays in your browser.",
-      "compressionPresetHigh": "High Quality (Low Compression)",
-      "compressionPresetMedium": "Medium",
-      "compressionPresetMax": "Max Compression (Smallest File)",
-      "compressionPresetHighDesc": "Typically ~65–85% of original size. Best for print, presentations, and sharp text.",
-      "compressionPresetMediumDesc": "Typically ~40–65% of original size. A balanced choice for email and everyday sharing.",
-      "compressionPresetMaxDesc": "Typically ~20–45% of original size. Smallest file when upload limits are tight.",
-      "reduceSize": "Reduce size",
-      "originalVsOptimized": "Original vs Optimized",
-      "originalSize": "Original size",
-      "optimizedSize": "Optimized size",
-      "compressedSize": "Compressed size",
+      "compressionLevel": "Уровень сжатия",
+      "compressionHint": "Выберите, насколько сильно уменьшить файл. Вся обработка остаётся в браузере.",
+      "compressionPresetHigh": "Высокое качество (слабое сжатие)",
+      "compressionPresetMedium": "Среднее",
+      "compressionPresetMax": "Максимальное сжатие (минимальный размер)",
+      "compressionPresetHighDesc": "Обычно ~65–85% от исходного размера. Лучше для печати, презентаций и чёткого текста.",
+      "compressionPresetMediumDesc": "Обычно ~40–65% от исходного размера. Универсальный вариант для почты и повседневной отправки.",
+      "compressionPresetMaxDesc": "Обычно ~20–45% от исходного размера. Минимальный файл, когда лимиты загрузки жёсткие.",
+      "reduceSize": "Уменьшить размер",
+      "originalVsOptimized": "Исходный и оптимизированный",
+      "originalSize": "Исходный размер",
+      "optimizedSize": "Оптимизированный размер",
+      "compressedSize": "Сжатый размер",
       "reorderHint": "Drag cards to reorder. Files merge left-to-right, top-to-bottom.",
       "removeFile": "Remove {name}",
-      "notAvailable": "This tool is not available yet.",
+      "notAvailable": "Этот инструмент пока недоступен.",
       "details": "Details:",
       "dismissTryAnother": "Dismiss and try another file",
       "readingFile": "Reading file…",
@@ -5691,13 +5691,13 @@
       "formatJpg": "JPG",
       "imagePreviews": "Image previews",
       "mbUnit": "MB",
-      "extract": "Extract",
-      "extractLabel": "Extract",
-      "extracting": "Extracting…",
-      "extractingLabel": "Extracting…",
-      "extractAgain": "Extract again",
-      "downloadExtractedFiles": "Download extracted files",
-      "choosePageRanges": "Choose page ranges"
+      "extract": "Извлечь",
+      "extractLabel": "Извлечь",
+      "extracting": "Извлечение…",
+      "extractingLabel": "Извлечение…",
+      "extractAgain": "Извлечь снова",
+      "downloadExtractedFiles": "Скачать извлечённые файлы",
+      "choosePageRanges": "Выберите диапазоны страниц"
     },
     "upload": {
       "defaultPdf": {
@@ -5721,40 +5721,40 @@
         "description": "Select one PDF. Each page exports as its own file."
       },
       "jpg-to-pdf": {
-        "title": "Drop files here or click to browse",
-        "description": "Select JPG/PNG images. Reorder before creating the PDF."
+        "title": "Перетащите файлы сюда или нажмите, чтобы выбрать",
+        "description": "Выберите JPG/PNG. При необходимости измените порядок, затем создайте PDF."
       },
       "png-to-pdf": {
-        "title": "Drop files here or click to browse",
-        "description": "Select PNG images. Reorder before converting to PDF."
+        "title": "Перетащите файлы сюда или нажмите, чтобы выбрать",
+        "description": "Выберите PNG. При необходимости измените порядок, затем создайте PDF."
       },
       "pdf-to-jpg": {
-        "title": "Drop files here or click to browse",
-        "description": "Select one PDF. Each page becomes a JPG."
+        "title": "Перетащите файлы сюда или нажмите, чтобы выбрать",
+        "description": "Выберите один PDF. Каждая страница станет JPG."
       },
       "protect": {
-        "title": "Drop a PDF here or click to browse",
-        "description": "Select one PDF to password-protect. Processing stays on your device."
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Выберите один PDF для защиты паролем. Обработка остаётся на вашем устройстве."
       },
       "unlock": {
-        "title": "Drop a password-protected PDF here or click to browse",
-        "description": "Select one PDF to unlock. Processing stays on your device."
+        "title": "Перетащите защищённый паролем PDF сюда или нажмите, чтобы выбрать",
+        "description": "Выберите один PDF для разблокировки. Обработка остаётся на вашем устройстве."
       },
       "sign": {
-        "title": "Drop a PDF here or click to browse",
-        "description": "Select one PDF to sign. Processing stays on your device."
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Выберите один PDF для подписи. Обработка остаётся на вашем устройстве."
       },
       "redact": {
-        "title": "Drop a PDF here or click to browse",
-        "description": "Select one PDF to mark and redact sensitive areas."
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Выберите один PDF, отметьте и замажьте конфиденциальные области."
       },
       "delete-pages": {
         "title": "Drop a PDF here or click to browse",
         "description": "Select one PDF, then drag pages to reorder and mark pages to remove."
       },
       "pdf-to-text": {
-        "title": "Drop a PDF here or click to browse",
-        "description": "Extract text and download a .txt file—processed locally."
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Извлеките текст и скачайте .txt — обработка локально."
       },
       "pdf-to-html": {
         "title": "Drop a PDF here or click to browse",
@@ -5769,24 +5769,24 @@
         "description": "Convert to Windows-native XPS (.xps)—enterprise-ready, 100% local."
       },
       "extract-tables-pdf": {
-        "title": "Drop a PDF report here or click to browse",
-        "description": "Extract aligned tables to CSV or Excel—boundary-aware parsing, 100% local."
+        "title": "Перетащите PDF-отчёт сюда или нажмите, чтобы выбрать",
+        "description": "Извлеките выровненные таблицы в CSV или Excel — разбор с учётом границ, 100% локально."
       },
       "heic-to-pdf": {
         "title": "Drop HEIC photos here or click to browse",
         "description": "Add one or more .heic / .heif files. Reorder before converting to a multi-page PDF."
       },
       "heic-to-jpg": {
-        "title": "Drop HEIC photos here or click to browse",
-        "description": "Add one or more .heic / .heif files and download JPG images locally."
+        "title": "Перетащите HEIC-фото сюда или нажмите, чтобы выбрать",
+        "description": "Добавьте один или несколько .heic / .heif и скачайте JPG локально."
       },
       "webp-to-jpg": {
-        "title": "Drop WebP images here or click to browse",
-        "description": "Add one or more .webp files and download JPG images locally."
+        "title": "Перетащите WebP сюда или нажмите, чтобы выбрать",
+        "description": "Добавьте один или несколько .webp и скачайте JPG локально."
       },
       "svg-to-png": {
-        "title": "Drop SVG files here or click to browse",
-        "description": "Add one or more .svg files and download PNG images locally."
+        "title": "Перетащите SVG сюда или нажмите, чтобы выбрать",
+        "description": "Добавьте один или несколько .svg и скачайте PNG локально."
       },
       "image-grayscale": {
         "title": "Drop images here or click to browse",
@@ -5801,20 +5801,20 @@
         "description": "View and edit EXIF metadata or strip hidden photo data locally."
       },
       "image-optimizer": {
-        "title": "Drop images here or click to browse",
-        "description": "Batch-convert and optimize images to WebP, JPG, or PNG locally."
+        "title": "Перетащите изображения сюда или нажмите, чтобы выбрать",
+        "description": "Пакетная конвертация и оптимизация в WebP, JPG или PNG локально."
       },
       "paint-on-image": {
         "title": "Drop an image here or click to browse",
         "description": "Upload a photo and draw or annotate on the canvas locally."
       },
       "word-to-pdf": {
-        "title": "Drop a Word document here or click to browse",
-        "description": "Select a .docx file to convert to PDF locally."
+        "title": "Перетащите документ Word сюда или нажмите, чтобы выбрать",
+        "description": "Выберите файл .docx для локальной конвертации в PDF."
       },
       "excel-to-pdf": {
-        "title": "Drop an Excel workbook here or click to browse",
-        "description": "Select a spreadsheet to convert to PDF locally."
+        "title": "Перетащите книгу Excel сюда или нажмите, чтобы выбрать",
+        "description": "Выберите таблицу для локальной конвертации в PDF."
       },
       "powerpoint-to-pdf": {
         "title": "Drop a PowerPoint file here or click to browse",
@@ -5845,8 +5845,8 @@
         "description": "Convert CAD drawings to PDF locally."
       },
       "pdf-password-recovery": {
-        "title": "Drop a protected PDF here or click to browse",
-        "description": "Try short passwords locally—nothing is sent to our servers."
+        "title": "Перетащите защищённый PDF сюда или нажмите, чтобы выбрать",
+        "description": "Подбор короткого пароля выполняется локально — ничего не отправляется на сервер."
       },
       "batch-rename-pdf": {
         "title": "Drop PDF files or a folder here",
@@ -5885,48 +5885,48 @@
         "description": "Set paper size and margins, then apply to all pages."
       },
       "rotate-pdf": {
-        "title": "Drop a PDF here or click to browse",
-        "description": "Rotate specific pages or the whole PDF locally with visual thumbnails."
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Поворачивайте отдельные страницы или весь PDF локально с визуальными миниатюрами."
       },
       "crop-pdf": {
-        "title": "Drop a PDF here or click to browse",
-        "description": "Crop margins on every page using a visual frame on page 1."
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Обрежьте поля на каждой странице с визуальной рамкой на первой странице."
       },
       "crop-image": {
-        "title": "Drop an image here or click to browse",
-        "description": "Drag the crop frame, then export a high-quality PNG locally."
+        "title": "Перетащите изображение сюда или нажмите, чтобы выбрать",
+        "description": "Перетащите рамку обрезки, затем экспортируйте PNG высокого качества локально."
       },
       "resize-image": {
         "title": "Drop an image here or click to browse",
         "description": "Set width and height in pixels, then download a resized image locally."
       },
       "convert-to-png": {
-        "title": "Drop an image here or click to browse",
-        "description": "Convert JPG, WebP, HEIC, or GIF to a high-quality PNG locally."
+        "title": "Перетащите изображение сюда или нажмите, чтобы выбрать",
+        "description": "Преобразуйте JPG, WebP, HEIC или GIF в PNG высокого качества локально."
       },
       "rotate-image": {
-        "title": "Drop an image here or click to browse",
-        "description": "Rotate your image 90° left or right, then download locally."
+        "title": "Перетащите изображение сюда или нажмите, чтобы выбрать",
+        "description": "Поверните изображение на 90° влево или вправо, затем скачайте локально."
       },
       "compress-image": {
-        "title": "Drop an image here or click to browse",
-        "description": "Adjust compression quality and download a smaller image locally."
+        "title": "Перетащите изображение сюда или нажмите, чтобы выбрать",
+        "description": "Настройте качество сжатия и скачайте уменьшенный файл локально."
       },
       "video-to-mp4": {
-        "title": "Drop a video here or click to browse",
-        "description": "Convert MOV, WebM, MKV, or other videos to MP4 locally in your browser."
+        "title": "Перетащите видео сюда или нажмите, чтобы выбрать",
+        "description": "Конвертируйте MOV, WebM, MKV и другие форматы в MP4 локально в браузере."
       },
       "video-compressor": {
-        "title": "Drop a video here or click to browse",
-        "description": "Compress video file size locally—adjust quality vs. size, no upload."
+        "title": "Перетащите видео сюда или нажмите, чтобы выбрать",
+        "description": "Сжмите видео локально — настройте качество и размер без загрузки на сервер."
       },
       "pdf-to-png": {
-        "title": "Drop a PDF here or click to browse",
-        "description": "Each page exports as a PNG image. Processing stays on your device."
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Каждая страница экспортируется в PNG. Обработка на вашем устройстве."
       },
       "extract-images": {
-        "title": "Drop a PDF here or click to browse",
-        "description": "Detect and extract embedded images from your PDF locally."
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Обнаружьте и извлеките встроенные изображения из PDF локально."
       },
       "add-watermark": {
         "title": "Drop a PDF here or click to browse",
@@ -5971,18 +5971,26 @@
       "pdf-editor": {
         "title": "Drop a PDF here or click to browse",
         "description": "Run OCR, edit extracted text in the rich editor, and download a new PDF—processed locally in your browser."
+      },
+      "pdf-to-word": {
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Выберите PDF для локальной конвертации в Word (.docx)."
+      },
+      "pdf-to-excel": {
+        "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
+        "description": "Выберите PDF для локальной конвертации в Excel (.xlsx)."
       }
     },
     "buttons": {
       "merge": "Merge PDFs",
       "compress": "Compress PDF",
       "split": "Split PDF",
-      "jpg-to-pdf": "Create PDF",
-      "png-to-pdf": "Convert to PDF",
-      "pdf-to-jpg": "Export JPG pages",
-      "protect": "Protect PDF",
-      "unlock": "Unlock PDF",
-      "sign": "Sign PDF",
+      "jpg-to-pdf": "Создать PDF",
+      "png-to-pdf": "Преобразовать в PDF",
+      "pdf-to-jpg": "Экспортировать страницы в JPG",
+      "protect": "Защитить PDF",
+      "unlock": "Разблокировать PDF",
+      "sign": "Подписать PDF",
       "pdf-text-editor": "Apply & download PDF",
       "annotate-pdf": "Download annotated PDF",
       "reorder-pdf-pages": "Download reordered PDF",
@@ -5993,7 +6001,7 @@
       "pdf-linearization": "Convert & download linearized PDF",
       "n-up-pdf": "Convert & download N-Up PDF",
       "grayscale-pdf": "Convert to grayscale & download",
-      "pdf-signature-validator": "Validate signature",
+      "pdf-signature-validator": "Проверить подпись",
       "pdf-metadata-editor": "Save PDF with metadata"
     },
     "status": {
@@ -6020,32 +6028,32 @@
         "complete": "Split complete: {count} file(s)."
       },
       "jpg-to-pdf": {
-        "complete": "Created PDF from {count} image(s)."
+        "complete": "PDF создан из изображений: {count}."
       },
       "png-to-pdf": {
-        "complete": "Created PDF from {count} PNG image(s)."
+        "complete": "PDF создан из PNG: {count}."
       },
       "pdf-to-jpg": {
-        "complete": "Exported {count} JPG file(s)."
+        "complete": "Экспортировано JPG-файлов: {count}."
       },
       "protect": {
-        "pdfReady": "PDF ready — set a password below.",
-        "protecting": "Protecting PDF…",
-        "encrypting": "Encrypting your PDF…",
-        "complete": "Protected PDF downloaded as {name}.",
-        "passwordRequired": "Enter a password.",
-        "passwordTooShort": "Use a password with at least 4 characters.",
-        "passwordMismatch": "Passwords do not match.",
-        "adjustTryAgain": "Adjust your file or password and try again."
+        "pdfReady": "PDF готов — задайте пароль ниже.",
+        "protecting": "Защита PDF…",
+        "encrypting": "Шифрование PDF…",
+        "complete": "Защищённый PDF скачан как {name}.",
+        "passwordRequired": "Введите пароль.",
+        "passwordTooShort": "Используйте пароль не короче 4 символов.",
+        "passwordMismatch": "Пароли не совпадают.",
+        "adjustTryAgain": "Скорректируйте файл или пароль и попробуйте снова."
       },
       "unlock": {
-        "lockedReady": "This PDF is password-protected — enter the current password below.",
-        "unlockedReady": "PDF ready. Enter a password only if the file prompts for one when opened.",
-        "fallbackReady": "PDF ready — enter the password if needed, then unlock.",
-        "passwordRequired": "Enter the current PDF password.",
-        "unlocking": "Removing password protection…",
-        "complete": "Unlocked PDF downloaded as {name}.",
-        "adjustTryAgain": "Adjust your file or password and try again."
+        "lockedReady": "Этот PDF защищён паролем — введите текущий пароль ниже.",
+        "unlockedReady": "PDF готов. Введите пароль только если файл запрашивает его при открытии.",
+        "fallbackReady": "PDF готов — при необходимости введите пароль, затем разблокируйте.",
+        "passwordRequired": "Введите текущий пароль PDF.",
+        "unlocking": "Снятие защиты паролем…",
+        "complete": "Разблокированный PDF скачан как {name}.",
+        "adjustTryAgain": "Скорректируйте файл или пароль и попробуйте снова."
       }
     },
     "errors": {
@@ -6060,6 +6068,93 @@
       "exportJpgHint": "Extract visible pages as images",
       "splitReadableHint": "Pull out readable pages only",
       "bypassDamagedHint": "Bypass damaged PDF structure"
+    },
+    "extract-tables-pdf": {
+      "status": {
+        "invalidType": "Выберите PDF-файл.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "starting": "Начало извлечения таблиц…",
+        "downloaded": "Экспортировано таблиц: {count} как {name}."
+      },
+      "progress": {
+        "loading": "Загрузка PDF…",
+        "parsing": "Поиск таблиц — страница {current} из {total}…",
+        "parsingWithTables": "Страница {current} из {total} — найдено таблиц: {count}…",
+        "building": "Сборка таблицы…"
+      },
+      "privacyNote": "Поиск и экспорт таблиц выполняются только в браузере. PDF не покидает устройство.",
+      "extractLabel": "Извлечь",
+      "extractingLabel": "Извлечение…",
+      "extractAgainLabel": "Извлечь снова",
+      "ui": {
+        "formatLegend": "Формат вывода",
+        "format_csv": "CSV (один файл или ZIP при нескольких таблицах)",
+        "format_xlsx": "Excel (.xlsx, один лист на таблицу)",
+        "formatHint": "Выберите Excel, если нужны все таблицы в одной книге. CSV удобен для пайплайнов — несколько таблиц скачиваются ZIP-архивом."
+      }
+    },
+    "pdf-to-text": {
+      "status": {
+        "invalidType": "Выберите PDF-файл.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "fileReady": "{name} готов — можно извлечь текст."
+      },
+      "progress": {
+        "loading": "Загрузка PDF…",
+        "building": "Создание текстового файла…",
+        "extractingPage": "Извлечение текста — страница {current} из {total}…"
+      },
+      "privacyNote": "Извлечение текста из PDF выполняется только в браузере. Документ не покидает устройство.",
+      "convertLabel": "Извлечь текст",
+      "downloadLabel": "Скачать текстовый файл (.txt)",
+      "outputHint": "Лучше всего для PDF с выделяемым текстом. Сканы без текста могут потребовать OCR в другом приложении.",
+      "stickyDownloadLabel": "Скачать .txt",
+      "stickyConvertLabel": "Извлечь текст"
+    },
+    "extract-pdf-pages": {
+      "status": {
+        "loaded": "Загружено страниц: {count}. Укажите диапазон для извлечения.",
+        "couldNotOpen": "Не удалось открыть PDF. Если файл защищён, введите пароль ниже.",
+        "enterRange": "Укажите хотя бы одну страницу или диапазон (например 1, 3-5).",
+        "invalidRange": "Некорректный диапазон страниц.",
+        "applying": "Извлечение страниц…",
+        "downloaded": "Извлечённый PDF ({count} стр.) скачан как {name}.",
+        "adjustFile": "Измените диапазон и попробуйте снова."
+      },
+      "applyingLabel": "Извлечение…",
+      "ui": {
+        "pageCountLabel": "· {count} стр.",
+        "rangeLabel": "Страницы для извлечения",
+        "rangePlaceholder": "например 1, 3-5, 8",
+        "rangeHint": "Страницы через запятую. Диапазон через дефис (3-5 = страницы 3–5).",
+        "selectionSummary": "Выбрано страниц для извлечения: {count}.",
+        "previewHint": "Превью первых выбранных страниц:",
+        "previewMore": "+ ещё {more} стр. в загрузке",
+        "loadingThumb": "Загрузка…"
+      }
+    },
+    "extract-images": {
+      "status": {
+        "scanning": "Поиск изображений в PDF…",
+        "scanningPage": "Сканирование страницы {page} из {total}…",
+        "found": "Найдено изображений: {count}. Можно извлечь.",
+        "none": "Встроенные изображения не найдены.",
+        "buildingZip": "Сборка ZIP…",
+        "zipDownloaded": "Скачан ZIP с {count} изображением(ями).",
+        "tryAgain": "Попробуйте снова или выберите другой файл."
+      },
+      "privacyNote": "Извлечение изображений выполняется только в браузере. PDF не покидает устройство.",
+      "extractLabel": "Извлечь изображения",
+      "extractAgainLabel": "Извлечь снова",
+      "downloadZipLabel": "Скачать всё как ZIP",
+      "stickyExtractLabel": "Извлечь изображения",
+      "stickyDownloadLabel": "Скачать ZIP",
+      "ui": {
+        "imageAlt": "Извлечённое изображение {index} на странице {page}",
+        "thumbLabel": "Страница {page} · Изображение {index}",
+        "downloadImage": "Скачать изображение",
+        "gridLabel": "Извлечённые изображения"
+      }
     }
   },
   "Workspaces": {
@@ -6213,41 +6308,41 @@
     },
     "word-to-pdf": {
       "status": {
-        "invalidType": "Please choose a .docx Word file.",
-        "emptyFile": "That file is empty. Choose another document.",
-        "fileReady": "{name} ready — convert to PDF when you are."
+        "invalidType": "Выберите файл Word в формате .docx.",
+        "emptyFile": "Файл пуст. Выберите другой документ.",
+        "fileReady": "{name} готов — конвертируйте в PDF, когда будете готовы."
       },
       "progress": {
-        "parsing": "Parsing Word document…",
-        "rendering": "Rendering document layout…",
-        "building": "Building PDF…"
+        "parsing": "Разбор документа Word…",
+        "rendering": "Рендеринг макета документа…",
+        "building": "Сборка PDF…"
       },
-      "privacyNote": "Word parsing and PDF generation run entirely in your browser. Your document never leaves your device.",
-      "convertLabel": "Convert to PDF",
-      "downloadLabel": "Download PDF",
-      "stickyDownloadLabel": "Download PDF",
-      "stickyConvertLabel": "Convert to PDF"
+      "privacyNote": "Разбор Word и создание PDF выполняются полностью в браузере. Документ не покидает устройство.",
+      "convertLabel": "Конвертировать в PDF",
+      "downloadLabel": "Скачать PDF",
+      "stickyDownloadLabel": "Скачать PDF",
+      "stickyConvertLabel": "Конвертировать в PDF"
     },
     "excel-to-pdf": {
       "status": {
-        "invalidType": "Please choose a .xlsx Excel file.",
-        "emptyFile": "That file is empty. Choose another workbook.",
-        "sheetsReady": "{name} ready — {count} sheet(s) detected."
+        "invalidType": "Выберите файл Excel в формате .xlsx.",
+        "emptyFile": "Файл пуст. Выберите другую книгу.",
+        "sheetsReady": "{name} готов — обнаружено листов: {count}."
       },
       "progress": {
-        "parsing": "Reading Excel workbook…",
-        "rendering": "Rendering spreadsheet tables…",
-        "renderingSheets": "Rendering {count} sheet(s)…",
-        "building": "Building landscape PDF…"
+        "parsing": "Чтение книги Excel…",
+        "rendering": "Рендеринг таблиц…",
+        "renderingSheets": "Рендеринг {count} лист(ов)…",
+        "building": "Сборка альбомного PDF…"
       },
-      "privacyNote": "Excel parsing and PDF generation run entirely in your browser. Your spreadsheet never leaves your device.",
+      "privacyNote": "Разбор Excel и создание PDF выполняются полностью в браузере. Таблица не покидает устройство.",
       "fileTypeLabel": "Excel (.xlsx)",
-      "convertLabel": "Convert to PDF",
-      "downloadLabel": "Download PDF",
-      "outputHint": "All non-empty sheets export into one landscape PDF. Wide tables may shrink to fit page width.",
-      "readySuffix": " · landscape A4",
-      "stickyDownloadLabel": "Download PDF",
-      "stickyConvertLabel": "Convert to PDF"
+      "convertLabel": "Конвертировать в PDF",
+      "downloadLabel": "Скачать PDF",
+      "outputHint": "Все непустые листы экспортируются в один альбомный PDF. Широкие таблицы могут уменьшиться по ширине страницы.",
+      "readySuffix": " · альбомный A4",
+      "stickyDownloadLabel": "Скачать PDF",
+      "stickyConvertLabel": "Конвертировать в PDF"
     },
     "powerpoint-to-pdf": {
       "status": {
@@ -6270,63 +6365,63 @@
     },
     "pdf-to-word": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — convert to Word when you are."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "fileReady": "{name} готов — конвертируйте в Word, когда будете готовы."
       },
       "progress": {
-        "loading": "Loading PDF…",
-        "building": "Building Word document…",
-        "extractingPage": "Extracting text — page {current} of {total}…"
+        "loading": "Загрузка PDF…",
+        "building": "Сборка документа Word…",
+        "extractingPage": "Извлечение текста — страница {current} из {total}…"
       },
-      "privacyNote": "PDF parsing and Word export run entirely in your browser. Your document never leaves your device.",
-      "convertLabel": "Convert to Word",
-      "downloadLabel": "Download Word document (.docx)",
-      "outputHint": "Best for PDFs with selectable text. Scanned image-only pages may need OCR in another app.",
-      "stickyDownloadLabel": "Download .docx",
-      "stickyConvertLabel": "Convert to Word"
+      "privacyNote": "Разбор PDF и экспорт Word выполняются полностью в браузере. Документ не покидает устройство.",
+      "convertLabel": "Конвертировать в Word",
+      "downloadLabel": "Скачать документ Word (.docx)",
+      "outputHint": "Лучше всего подходит для PDF с выделяемым текстом. Отсканированные страницы без текста могут потребовать OCR в другом приложении.",
+      "stickyDownloadLabel": "Скачать .docx",
+      "stickyConvertLabel": "Конвертировать в Word"
     },
     "pdf-to-excel": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF."
       },
       "progress": {
-        "loading": "Loading PDF…",
-        "building": "Building Excel workbook…",
-        "extractingPage": "Extracting rows — page {current} of {total}…"
+        "loading": "Загрузка PDF…",
+        "building": "Сборка книги Excel…",
+        "extractingPage": "Извлечение строк — страница {current} из {total}…"
       },
-      "privacyNote": "PDF parsing and Excel generation run entirely in your browser. Your document never leaves your device.",
+      "privacyNote": "Разбор PDF и создание Excel выполняются полностью в браузере. Документ не покидает устройство.",
       "fileTypeLabel": "PDF",
-      "convertLabel": "Convert to Excel",
-      "downloadLabel": "Download Excel (.xlsx)",
-      "outputHint": "Each PDF page becomes a worksheet with text grouped into rows and columns by position. Tables may need cleanup.",
-      "stickyDownloadLabel": "Download .xlsx",
-      "stickyConvertLabel": "Convert to Excel"
+      "convertLabel": "Конвертировать в Excel",
+      "downloadLabel": "Скачать Excel (.xlsx)",
+      "outputHint": "Каждая страница PDF становится листом с текстом, сгруппированным в строки и столбцы по позиции. Таблицы могут потребовать очистки.",
+      "stickyDownloadLabel": "Скачать .xlsx",
+      "stickyConvertLabel": "Конвертировать в Excel"
     },
     "extract-tables-pdf": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — extract tables when you are.",
-        "starting": "Starting table extraction…",
-        "downloaded": "Exported {count} table(s) as {name}."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "fileReady": "{name} готов — извлеките таблицы, когда будете готовы.",
+        "starting": "Начинаем извлечение таблиц…",
+        "downloaded": "Экспортировано таблиц: {count} как {name}."
       },
       "progress": {
-        "loading": "Loading PDF…",
-        "parsing": "Detecting tables — page {current} of {total}…",
-        "parsingWithTables": "Page {current} of {total} — {count} table(s) found so far…",
-        "building": "Building spreadsheet export…"
+        "loading": "Загрузка PDF…",
+        "parsing": "Поиск таблиц — страница {current} из {total}…",
+        "parsingWithTables": "Страница {current} из {total} — найдено таблиц: {count}…",
+        "building": "Сборка экспорта таблицы…"
       },
-      "privacyNote": "Table detection and export run entirely in your browser. Your PDF never leaves your device.",
-      "extractLabel": "Extract",
-      "extractingLabel": "Extracting…",
-      "extractAgainLabel": "Extract again",
+      "privacyNote": "Обнаружение таблиц и экспорт выполняются полностью в браузере. PDF не покидает устройство.",
+      "extractLabel": "Извлечь",
+      "extractingLabel": "Извлечение…",
+      "extractAgainLabel": "Извлечь снова",
       "ui": {
-        "formatLegend": "Output format",
-        "format_csv": "CSV (one file, or ZIP if multiple tables)",
-        "format_xlsx": "Excel (.xlsx, one sheet per table)",
-        "formatHint": "Choose Excel when you want every detected table in one workbook. Choose CSV for data pipelines—multiple tables download as a ZIP of CSV files."
+        "formatLegend": "Формат вывода",
+        "format_csv": "CSV (один файл или ZIP при нескольких таблицах)",
+        "format_xlsx": "Excel (.xlsx, один лист на таблицу)",
+        "formatHint": "Выберите Excel, если нужны все таблицы в одной книге. Выберите CSV для пайплайнов — несколько таблиц скачиваются как ZIP с CSV."
       }
     },
     "pdf-to-powerpoint": {
@@ -6592,94 +6687,94 @@
     },
     "sign": {
       "status": {
-        "loadedSign": "Loaded {count} page(s). Create a signature, then click it to place on the document.",
-        "loaded": "Loaded {count} page(s).",
-        "couldNotOpen": "Could not open this PDF. If it is protected, enter the password below.",
-        "wrongPassword": "Could not open with that password. Check and try again.",
-        "signatureSaved": "Signature saved. Click it again to add more copies, or drag to position.",
-        "addedOnPage": "Added signature on page {page}. Drag to position.",
-        "placeSignature": "Place at least one signature on the document.",
-        "enterPassword": "Enter the PDF password to open this file.",
-        "applying": "Applying signatures…",
-        "downloaded": "Signed PDF downloaded as {name}.",
-        "adjustPlacement": "Adjust placement and try again."
+        "loadedSign": "Загружено страниц: {count}. Создайте подпись, затем нажмите на неё, чтобы разместить в документе.",
+        "loaded": "Загружено страниц: {count}.",
+        "couldNotOpen": "Не удалось открыть этот PDF. Если файл защищён, введите пароль ниже.",
+        "wrongPassword": "Не удалось открыть с этим паролем. Проверьте и попробуйте снова.",
+        "signatureSaved": "Подпись сохранена. Нажмите снова, чтобы добавить копии, или перетащите для позиционирования.",
+        "addedOnPage": "Подпись добавлена на страницу {page}. Перетащите для позиционирования.",
+        "placeSignature": "Разместите хотя бы одну подпись в документе.",
+        "enterPassword": "Введите пароль PDF, чтобы открыть этот файл.",
+        "applying": "Применение подписей…",
+        "downloaded": "Подписанный PDF скачан как {name}.",
+        "adjustPlacement": "Скорректируйте размещение и попробуйте снова."
       },
-      "privacyNote": "Signatures are processed locally in your browser. Your document never leaves your device.",
-      "signDownloadLabel": "Sign & Download PDF",
-      "stickyLabel": "Sign & Download",
+      "privacyNote": "Подписи обрабатываются локально в браузере. Документ не покидает устройство.",
+      "signDownloadLabel": "Подписать и скачать PDF",
+      "stickyLabel": "Подписать и скачать",
       "ui": {
-        "signatureAlt": "Signature",
-        "removeSignature": "Remove this signature",
-        "resizeSignature": "Resize signature",
-        "signaturesOnPage": "{count} signature(s) on this page — drag to move, corner to resize.",
-        "placeHint": "Click a saved signature below to place it on this page.",
-        "passwordLabel": "PDF password (protected files)",
-        "passwordPlaceholder": "Enter password to preview pages",
-        "loadPages": "Load pages",
-        "libraryTitle": "Your Signatures",
-        "newSignature": "+ New",
-        "libraryHint": "Click a signature to place another copy on the active page. Reuse the same signature across pages.",
-        "libraryEmpty": "No signatures yet. Create one to get started.",
-        "placeOnPage": "Place on page {page}",
-        "defaultSignatureLabel": "Signature {n}",
-        "removeNamed": "Remove {label}",
-        "modalTitle": "Create your signature",
-        "modalClose": "Close",
-        "tabDraw": "Draw",
-        "tabType": "Type",
-        "drawHint": "Use your mouse or finger to draw your signature.",
-        "clearPad": "Clear pad",
-        "typeLabel": "Type your name",
-        "typePlaceholder": "Your full name",
-        "typePreview": "Preview",
-        "cancel": "Cancel",
-        "useSignature": "Use signature",
-        "drawFirst": "Draw your signature on the pad first.",
-        "saveFailed": "Could not save signature.",
-        "createFailed": "Could not create signature.",
-        "drawnSignatureLabel": "Drawn signature",
-        "activePage": "Active page",
-        "extrasHeading": "Details beside signature",
-        "includeDateLabel": "Add automatic date beside each signature",
-        "signerNameLabel": "Name (free text)",
-        "signerNamePlaceholder": "e.g. Jane Smith",
-        "signerTitleLabel": "Job title",
-        "signerTitlePlaceholder": "e.g. Project Manager",
-        "extrasHint": "Date, name, and title print beside each signature you place—they move when you drag the signature."
+        "signatureAlt": "Подпись",
+        "removeSignature": "Удалить эту подпись",
+        "resizeSignature": "Изменить размер подписи",
+        "signaturesOnPage": "Подписей на этой странице: {count} — перетащите для перемещения, угол для изменения размера.",
+        "placeHint": "Нажмите сохранённую подпись ниже, чтобы разместить её на этой странице.",
+        "passwordLabel": "Пароль PDF (для защищённых файлов)",
+        "passwordPlaceholder": "Введите пароль для просмотра страниц",
+        "loadPages": "Загрузить страницы",
+        "libraryTitle": "Ваши подписи",
+        "newSignature": "+ Новая",
+        "libraryHint": "Нажмите подпись, чтобы добавить ещё одну копию на активную страницу. Можно использовать одну подпись на разных страницах.",
+        "libraryEmpty": "Подписей пока нет. Создайте первую, чтобы начать.",
+        "placeOnPage": "Разместить на странице {page}",
+        "defaultSignatureLabel": "Подпись {n}",
+        "removeNamed": "Удалить {label}",
+        "modalTitle": "Создайте подпись",
+        "modalClose": "Закрыть",
+        "tabDraw": "Рисование",
+        "tabType": "Текст",
+        "drawHint": "Нарисуйте подпись мышью или пальцем.",
+        "clearPad": "Очистить",
+        "typeLabel": "Введите имя",
+        "typePlaceholder": "Полное имя",
+        "typePreview": "Предпросмотр",
+        "cancel": "Отмена",
+        "useSignature": "Использовать подпись",
+        "drawFirst": "Сначала нарисуйте подпись на панели.",
+        "saveFailed": "Не удалось сохранить подпись.",
+        "createFailed": "Не удалось создать подпись.",
+        "drawnSignatureLabel": "Нарисованная подпись",
+        "activePage": "Активная страница",
+        "extrasHeading": "Детали рядом с подписью",
+        "includeDateLabel": "Добавлять автоматическую дату рядом с каждой подписью",
+        "signerNameLabel": "Имя (свободный текст)",
+        "signerNamePlaceholder": "например, Иван Иванов",
+        "signerTitleLabel": "Должность",
+        "signerTitlePlaceholder": "например, Менеджер проекта",
+        "extrasHint": "Дата, имя и должность печатаются рядом с каждой размещённой подписью — они перемещаются вместе с ней."
       }
     },
     "redact": {
       "status": {
-        "loadedMarkDrag": "Loaded {count} page(s). Drag rectangles over sensitive content, then click Redact PDF.",
-        "loadedMark": "Loaded {count} page(s). Mark areas to redact.",
-        "couldNotOpen": "Could not open this PDF. If it is protected, enter the password below.",
-        "wrongPassword": "Could not open with that password. Check and try again.",
-        "drawBox": "Draw at least one redaction box before saving.",
-        "enterPassword": "Enter the PDF password to open this file.",
-        "applying": "Applying redactions…",
-        "downloaded": "Redacted PDF downloaded as {name}.",
-        "adjustFile": "Adjust your file and try again.",
-        "enterKeyword": "Enter a word or phrase to search.",
-        "searchingKeyword": "Searching for text matches…",
-        "noKeywordMatches": "No matches found for that phrase.",
-        "keywordMatchesAdded": "Added {count} redaction box(es) from search. Fine-tune manually before export."
+        "loadedMarkDrag": "Загружено страниц: {count}. Выделите прямоугольники поверх конфиденциального содержимого, затем нажмите «Замазать PDF».",
+        "loadedMark": "Загружено страниц: {count}. Отметьте области для замазки.",
+        "couldNotOpen": "Не удалось открыть этот PDF. Если файл защищён, введите пароль ниже.",
+        "wrongPassword": "Не удалось открыть с этим паролем. Проверьте и попробуйте снова.",
+        "drawBox": "Нарисуйте хотя бы одну область замазки перед сохранением.",
+        "enterPassword": "Введите пароль PDF, чтобы открыть этот файл.",
+        "applying": "Применение замазки…",
+        "downloaded": "Замазанный PDF скачан как {name}.",
+        "adjustFile": "Скорректируйте файл и попробуйте снова.",
+        "enterKeyword": "Введите слово или фразу для поиска.",
+        "searchingKeyword": "Поиск совпадений в тексте…",
+        "noKeywordMatches": "Совпадений по этой фразе не найдено.",
+        "keywordMatchesAdded": "Добавлено областей замазки из поиска: {count}. При необходимости уточните вручную перед экспортом."
       },
-      "privacyNote": "All redaction processes are executed locally in your browser.",
-      "redactLabel": "Redact PDF",
-      "redactingLabel": "Redacting…",
+      "privacyNote": "Вся замазка выполняется локально в браузере.",
+      "redactLabel": "Замазать PDF",
+      "redactingLabel": "Замазка…",
       "ui": {
-        "markHint": "Click and drag to mark areas to black out.",
-        "passwordLabel": "PDF password (required for protected files)",
-        "passwordPlaceholder": "Enter password to preview pages",
-        "loadPages": "Load pages",
-        "clearAll": "Clear all",
-        "keywordHeading": "Search by keyword",
-        "keywordHint": "Find extractable text and add redaction boxes automatically. Marked pages are burned to images—not just covered.",
-        "keywordLabel": "Word or phrase",
-        "keywordPlaceholder": "e.g. customer name or account number",
-        "keywordCaseSensitive": "Case sensitive",
-        "keywordFind": "Find & add boxes",
-        "keywordSearching": "Searching…"
+        "markHint": "Нажмите и перетащите, чтобы отметить области для закрашивания.",
+        "passwordLabel": "Пароль PDF (обязателен для защищённых файлов)",
+        "passwordPlaceholder": "Введите пароль для просмотра страниц",
+        "loadPages": "Загрузить страницы",
+        "clearAll": "Очистить всё",
+        "keywordHeading": "Поиск по ключевому слову",
+        "keywordHint": "Найдите извлекаемый текст и автоматически добавьте области замазки. Отмеченные страницы «выжигаются» в изображения — не просто перекрываются.",
+        "keywordLabel": "Слово или фраза",
+        "keywordPlaceholder": "например, имя клиента или номер счёта",
+        "keywordCaseSensitive": "Учитывать регистр",
+        "keywordFind": "Найти и добавить области",
+        "keywordSearching": "Поиск…"
       }
     },
     "compare-pdf": {
@@ -6717,112 +6812,112 @@
     },
     "crop-pdf": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF.",
-        "reading": "Reading PDF…",
-        "fileReady": "{name} ready — adjust the crop frame, then apply.",
-        "cropping": "Cropping pages…",
-        "complete": "Crop complete. Your download should start automatically.",
-        "tryAgain": "Try again or choose another file."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "reading": "Чтение PDF…",
+        "fileReady": "{name} готов — настройте рамку обрезки и примените.",
+        "cropping": "Обрезка страниц…",
+        "complete": "Обрезка завершена. Скачивание должно начаться автоматически.",
+        "tryAgain": "Попробуйте снова или выберите другой файл."
       },
-      "privacyNote": "Cropping runs entirely in your browser. Your PDF never leaves your device.",
-      "applyLabel": "Apply crop & download",
-      "stickyApplyLabel": "Apply crop",
-      "stickyDefaultLabel": "Crop PDF",
+      "privacyNote": "Обрезка выполняется полностью в браузере. PDF не покидает устройство.",
+      "applyLabel": "Применить обрезку и скачать",
+      "stickyApplyLabel": "Применить обрезку",
+      "stickyDefaultLabel": "Обрезать PDF",
       "ui": {
-        "pageSummary": "{count} page(s) · same crop on all pages",
-        "cropInstructions": "Drag the frame to move it. Pull corners or edges to resize. The same crop applies to every page.",
-        "resetFrame": "Reset frame"
+        "pageSummary": "{count} стр. · одна обрезка на все страницы",
+        "cropInstructions": "Перетащите рамку, чтобы переместить. Тяните углы или края, чтобы изменить размер. Одна и та же обрезка применяется ко всем страницам.",
+        "resetFrame": "Сбросить рамку"
       }
     },
     "crop-image": {
-      "privacyNote": "Cropping runs entirely in your browser. Your image never leaves your device."
+      "privacyNote": "Обрезка выполняется полностью в браузере. Изображение не покидает устройство."
     },
     "resize-image": {
       "privacyNote": "Resizing runs entirely in your browser. Your image never leaves your device."
     },
     "convert-to-png": {
-      "privacyNote": "Conversion runs entirely in your browser. Your image never leaves your device."
+      "privacyNote": "Преобразование выполняется в браузере. Изображение не покидает устройство."
     },
     "rotate-image": {
-      "privacyNote": "Rotation runs entirely in your browser. Your image never leaves your device."
+      "privacyNote": "Поворот выполняется полностью в браузере. Изображение не покидает устройство."
     },
     "heic-to-jpg": {
       "status": {
-        "noHeic": "No HEIC/HEIF files detected. Choose .heic or .heif images.",
-        "filesAddedSkipped": "{count} HEIC file(s) added. Skipped {skipped} unsupported file(s).",
-        "filesAdded": "{count} HEIC file(s) added. Convert when ready.",
-        "starting": "Starting conversion…",
-        "complete": "Conversion complete. Download your JPG file(s) below.",
-        "packaging": "Packaging JPG files into a ZIP…",
-        "tryAgain": "Try again or choose another file."
+        "noHeic": "Файлы HEIC/HEIF не найдены. Выберите изображения .heic или .heif.",
+        "filesAddedSkipped": "Добавлено HEIC: {count}. Пропущено неподдерживаемых: {skipped}.",
+        "filesAdded": "Добавлено HEIC: {count}. Можно преобразовать.",
+        "starting": "Запуск преобразования…",
+        "complete": "Готово. Скачайте JPG ниже.",
+        "packaging": "Упаковка JPG в ZIP…",
+        "tryAgain": "Попробуйте ещё раз или выберите другой файл."
       },
       "progress": {
-        "preparing": "Preparing HEIC images…",
-        "decoding": "Decoding {name} ({current} of {total})…"
+        "preparing": "Подготовка HEIC…",
+        "decoding": "Декодирование {name} ({current} из {total})…"
       },
-      "privacyNote": "HEIC decoding and JPG export run entirely in your browser. Your photos never leave your device.",
-      "convertLabel": "Convert to JPG",
-      "downloadLabel": "Download JPG",
-      "downloadZipLabel": "Download ZIP",
-      "stickyConvertLabel": "Convert to JPG",
-      "stickyDownloadLabel": "Download JPG",
+      "privacyNote": "Декодирование HEIC и экспорт JPG выполняются в браузере. Фото не покидают устройство.",
+      "convertLabel": "Преобразовать в JPG",
+      "downloadLabel": "Скачать JPG",
+      "downloadZipLabel": "Скачать ZIP",
+      "stickyConvertLabel": "Преобразовать в JPG",
+      "stickyDownloadLabel": "Скачать JPG",
       "ui": {
-        "filesSelected": "{count} HEIC file(s) selected",
-        "totalHint": "{size} total",
-        "outputHint": "Each HEIC exports as a high-quality JPG. Multiple outputs download as a ZIP."
+        "filesSelected": "Выбрано HEIC: {count}",
+        "totalHint": "Всего {size}",
+        "outputHint": "Каждый HEIC экспортируется в JPG высокого качества. Несколько файлов скачиваются ZIP-архивом."
       }
     },
     "webp-to-jpg": {
       "status": {
-        "noWebp": "No WebP files detected. Choose .webp images.",
-        "filesAddedSkipped": "{count} WebP file(s) added. Skipped {skipped} unsupported file(s).",
-        "filesAdded": "{count} WebP file(s) added. Convert when ready.",
-        "starting": "Starting conversion…",
-        "complete": "Conversion complete. Download your JPG file(s) below.",
-        "packaging": "Packaging JPG files into a ZIP…",
-        "tryAgain": "Try again or choose another file."
+        "noWebp": "Файлы WebP не найдены. Выберите изображения .webp.",
+        "filesAddedSkipped": "Добавлено WebP: {count}. Пропущено неподдерживаемых: {skipped}.",
+        "filesAdded": "Добавлено WebP: {count}. Можно преобразовать.",
+        "starting": "Запуск преобразования…",
+        "complete": "Готово. Скачайте JPG ниже.",
+        "packaging": "Упаковка JPG в ZIP…",
+        "tryAgain": "Попробуйте ещё раз или выберите другой файл."
       },
       "progress": {
-        "preparing": "Preparing WebP images…",
-        "decoding": "Converting {name} ({current} of {total})…"
+        "preparing": "Подготовка WebP…",
+        "decoding": "Преобразование {name} ({current} из {total})…"
       },
-      "privacyNote": "WebP to JPG conversion runs entirely in your browser. Your images never leave your device.",
-      "convertLabel": "Convert to JPG",
-      "downloadLabel": "Download JPG",
-      "downloadZipLabel": "Download ZIP",
-      "stickyConvertLabel": "Convert to JPG",
-      "stickyDownloadLabel": "Download JPG",
+      "privacyNote": "Преобразование WebP в JPG выполняется в браузере. Изображения не покидают устройство.",
+      "convertLabel": "Преобразовать в JPG",
+      "downloadLabel": "Скачать JPG",
+      "downloadZipLabel": "Скачать ZIP",
+      "stickyConvertLabel": "Преобразовать в JPG",
+      "stickyDownloadLabel": "Скачать JPG",
       "ui": {
-        "filesSelected": "{count} WebP file(s) selected",
-        "totalHint": "{size} total",
-        "outputHint": "Each WebP exports as a high-quality JPG. Multiple outputs download as a ZIP."
+        "filesSelected": "Выбрано WebP: {count}",
+        "totalHint": "Всего {size}",
+        "outputHint": "Каждый WebP экспортируется в JPG высокого качества. Несколько файлов скачиваются ZIP-архивом."
       }
     },
     "svg-to-png": {
       "status": {
-        "noSvg": "No SVG files detected. Choose .svg files.",
-        "filesAddedSkipped": "{count} SVG file(s) added. Skipped {skipped} unsupported file(s).",
-        "filesAdded": "{count} SVG file(s) added. Convert when ready.",
-        "starting": "Starting conversion…",
-        "complete": "Conversion complete. Download your PNG file(s) below.",
-        "packaging": "Packaging PNG files into a ZIP…",
-        "tryAgain": "Try again or choose another file."
+        "noSvg": "Файлы SVG не найдены. Выберите файлы .svg.",
+        "filesAddedSkipped": "Добавлено SVG: {count}. Пропущено неподдерживаемых: {skipped}.",
+        "filesAdded": "Добавлено SVG: {count}. Можно преобразовать.",
+        "starting": "Запуск преобразования…",
+        "complete": "Готово. Скачайте PNG ниже.",
+        "packaging": "Упаковка PNG в ZIP…",
+        "tryAgain": "Попробуйте ещё раз или выберите другой файл."
       },
       "progress": {
-        "preparing": "Preparing SVG files…",
-        "decoding": "Rasterizing {name} ({current} of {total})…"
+        "preparing": "Подготовка SVG…",
+        "decoding": "Растеризация {name} ({current} из {total})…"
       },
-      "privacyNote": "SVG to PNG conversion runs entirely in your browser. Your files never leave your device.",
-      "convertLabel": "Convert to PNG",
-      "downloadLabel": "Download PNG",
-      "downloadZipLabel": "Download ZIP",
-      "stickyConvertLabel": "Convert to PNG",
-      "stickyDownloadLabel": "Download PNG",
+      "privacyNote": "Преобразование SVG в PNG выполняется в браузере. Файлы не покидают устройство.",
+      "convertLabel": "Преобразовать в PNG",
+      "downloadLabel": "Скачать PNG",
+      "downloadZipLabel": "Скачать ZIP",
+      "stickyConvertLabel": "Преобразовать в PNG",
+      "stickyDownloadLabel": "Скачать PNG",
       "ui": {
-        "filesSelected": "{count} SVG file(s) selected",
-        "totalHint": "{size} total",
-        "outputHint": "Each SVG exports as a high-quality PNG. Multiple outputs download as a ZIP."
+        "filesSelected": "Выбрано SVG: {count}",
+        "totalHint": "Всего {size}",
+        "outputHint": "Каждый SVG экспортируется в PNG высокого качества. Несколько файлов скачиваются ZIP-архивом."
       }
     },
     "image-grayscale": {
@@ -6919,29 +7014,29 @@
     },
     "image-optimizer": {
       "status": {
-        "noImages": "No supported images detected. Choose JPG, PNG, WebP, HEIC, or GIF files.",
-        "filesAdded": "{count} image(s) added. Optimize when ready.",
-        "starting": "Starting batch optimization…",
-        "processingOne": "Optimizing {name}…",
-        "processingBatch": "Optimizing {name}…",
-        "oneComplete": "Image optimized. Download below or optimize more.",
-        "batchComplete": "{count} image(s) optimized. Download below.",
-        "packaging": "Packaging optimized images into a ZIP…",
-        "tryAgain": "Try again or choose different settings."
+        "noImages": "Поддерживаемые изображения не найдены. Выберите JPG, PNG, WebP, HEIC или GIF.",
+        "filesAdded": "Добавлено изображений: {count}. Можно оптимизировать.",
+        "starting": "Запуск пакетной оптимизации…",
+        "processingOne": "Оптимизация {name}…",
+        "processingBatch": "Оптимизация {name}…",
+        "oneComplete": "Изображение оптимизировано. Скачайте ниже или продолжите.",
+        "batchComplete": "Оптимизировано изображений: {count}. Скачайте ниже.",
+        "packaging": "Упаковка оптимизированных изображений в ZIP…",
+        "tryAgain": "Попробуйте ещё раз или измените параметры."
       },
       "progress": {
-        "preparing": "Preparing images…",
-        "decoding": "Optimizing {name} ({current} of {total})…"
+        "preparing": "Подготовка изображений…",
+        "decoding": "Оптимизация {name} ({current} из {total})…"
       },
-      "privacyNote": "Optimization runs entirely in your browser. Your images never leave your device.",
-      "convertLabel": "Optimize all",
-      "downloadLabel": "Download image",
-      "downloadZipLabel": "Download ZIP",
-      "stickyConvertLabel": "Optimize all",
-      "stickyDownloadLabel": "Download",
+      "privacyNote": "Оптимизация выполняется в браузере. Изображения не покидают устройство.",
+      "convertLabel": "Оптимизировать все",
+      "downloadLabel": "Скачать изображение",
+      "downloadZipLabel": "Скачать ZIP",
+      "stickyConvertLabel": "Оптимизировать все",
+      "stickyDownloadLabel": "Скачать",
       "ui": {
-        "filesSelected": "{count} image(s) selected",
-        "totalHint": "{size} total"
+        "filesSelected": "Выбрано изображений: {count}",
+        "totalHint": "Всего {size}"
       }
     },
     "paint-on-image": {
@@ -6962,7 +7057,7 @@
       "ui": {}
     },
     "compress-image": {
-      "privacyNote": "Compression runs entirely in your browser. Your image never leaves your device."
+      "privacyNote": "Сжатие выполняется в браузере. Изображение не покидает устройство."
     },
     "video-to-mp4": {
       "privacyNote": "Video conversion runs entirely in your browser inside a Web Worker. Your file never leaves your device."
@@ -6971,37 +7066,37 @@
       "privacyNote": "Video compression runs entirely in your browser inside a Web Worker. Your file never leaves your device."
     },
     "generate-favicon": {
-      "privacyNote": "Favicon generation runs entirely in your browser. Nothing is uploaded to our servers."
+      "privacyNote": "Создание favicon выполняется в браузере. Ничего не загружается на сервер."
     },
     "png-to-ico": {
-      "privacyNote": "PNG to ICO conversion runs entirely in your browser. Your file never leaves your device."
+      "privacyNote": "Преобразование PNG в ICO выполняется в браузере. Файл не покидает устройство."
     },
     "ico-to-png": {
-      "privacyNote": "ICO to PNG conversion runs entirely in your browser. Your file never leaves your device."
+      "privacyNote": "Преобразование ICO в PNG выполняется в браузере. Файл не покидает устройство."
     },
     "svg-to-favicon": {
-      "privacyNote": "SVG to favicon rendering runs entirely in your browser. Your file never leaves your device."
+      "privacyNote": "Рендеринг SVG в favicon выполняется в браузере. Файл не покидает устройство."
     },
     "favicon-pack": {
-      "privacyNote": "Favicon pack generation and ZIP export run entirely in your browser. Your image never leaves your device."
+      "privacyNote": "Сборка набора favicon и ZIP выполняются в браузере. Изображение не покидает устройство."
     },
     "apple-touch-icon": {
-      "privacyNote": "Apple touch icon rendering runs entirely in your browser. Your image never leaves your device."
+      "privacyNote": "Рендеринг Apple touch icon выполняется в браузере. Изображение не покидает устройство."
     },
     "favicon-compressor": {
-      "privacyNote": "Favicon compression runs entirely in your browser. Your file never leaves your device."
+      "privacyNote": "Сжатие favicon выполняется в браузере. Файл не покидает устройство."
     },
     "favicon-cropper": {
-      "privacyNote": "Favicon cropping runs entirely in your browser. Your image never leaves your device."
+      "privacyNote": "Обрезка favicon выполняется в браузере. Изображение не покидает устройство."
     },
     "transparent-favicon": {
-      "privacyNote": "Transparent favicon processing runs entirely in your browser. Your image never leaves your device."
+      "privacyNote": "Создание прозрачного favicon выполняется в браузере. Изображение не покидает устройство."
     },
     "favicon-code-generator": {
-      "privacyNote": "Favicon HTML code generation runs entirely in your browser. Nothing is sent to a server."
+      "privacyNote": "Генерация HTML-кода favicon выполняется в браузере. Ничего не отправляется на сервер."
     },
     "favicon-previewer": {
-      "privacyNote": "Favicon preview rendering runs entirely in your browser. Your file or URL is never uploaded to our servers."
+      "privacyNote": "Предпросмотр favicon выполняется в браузере. Файл или URL не загружаются на наши серверы."
     },
     "json-formatter": {
       "privacyNote": "JSON formatting and validation run entirely in your browser. Your text never leaves your device."
@@ -7019,7 +7114,7 @@
       "privacyNote": "Base64 encoding and decoding run entirely in your browser. Your text and files never leave your device."
     },
     "url-encoder-decoder": {
-      "privacyNote": "URL encoding and decoding run entirely in your browser. Your strings never leave your device."
+      "privacyNote": "Кодирование и декодирование URL выполняется полностью в браузере."
     },
     "text-diff-checker": {
       "privacyNote": "Text comparison runs entirely in your browser. Your content never leaves your device."
@@ -7034,25 +7129,25 @@
       "privacyNote": "Text analysis runs entirely in your browser. Your content never leaves your device."
     },
     "user-agent-parser": {
-      "privacyNote": "User-Agent parsing runs entirely in your browser with ua-parser-js. Your strings are never uploaded to JoinMyPDF."
+      "privacyNote": "Разбор User-Agent выполняется полностью в браузере."
     },
     "qr-code-generator": {
       "privacyNote": "QR codes are generated entirely in your browser. Your content never leaves your device."
     },
     "jwt-debugger": {
-      "privacyNote": "JWT decoding runs entirely in your browser. Tokens are never uploaded. Signatures are not cryptographically verified."
+      "privacyNote": "Декодирование JWT выполняется локально в браузере. Токены не отправляются на сервер."
     },
     "yaml-json-converter": {
-      "privacyNote": "YAML and JSON conversion runs entirely in your browser. Your data never leaves your device."
+      "privacyNote": "Конвертация YAML и JSON выполняется полностью в браузере. Данные не покидают устройство."
     },
     "csv-to-markdown-table": {
-      "privacyNote": "CSV parsing and Markdown generation run entirely in your browser."
+      "privacyNote": "Разбор CSV и генерация Markdown выполняются полностью в браузере."
     },
     "sql-query-formatter": {
-      "privacyNote": "SQL formatting runs entirely in your browser. Queries are never sent to a server."
+      "privacyNote": "Форматирование SQL выполняется полностью в браузере. Запросы не отправляются на сервер."
     },
     "password-generator": {
-      "privacyNote": "Passwords are generated locally in your browser using crypto.getRandomValues."
+      "privacyNote": "Пароли генерируются локально в браузере с помощью crypto.getRandomValues."
     },
     "hash-generator": {
       "privacyNote": "Hashing runs entirely in your browser. Text and files never leave your device."
@@ -7061,58 +7156,58 @@
       "privacyNote": "UUIDs are generated locally in your browser. No data is sent to a server."
     },
     "unit-converter": {
-      "privacyNote": "Unit conversion runs entirely in your browser. No data is sent to a server."
+      "privacyNote": "Конвертация единиц выполняется полностью в браузере. Данные не отправляются на сервер."
     },
     "timezone-converter": {
-      "privacyNote": "Time calculations run locally in your browser using your device clock and timezone data."
+      "privacyNote": "Расчёт времени выполняется локально в браузере по часам устройства и данным часовых поясов."
     },
     "reading-time-calculator": {
-      "privacyNote": "Reading time estimation runs entirely in your browser. Your text never leaves your device."
+      "privacyNote": "Оценка времени чтения выполняется полностью в браузере. Текст не покидает устройство."
     },
     "protect": {
-      "privacyNote": "Your file is encrypted locally in your browser and never touches our servers.",
-      "protectLabel": "Protect PDF",
-      "protectingLabel": "Protecting…",
+      "privacyNote": "Файл шифруется локально в браузере и никогда не попадает на наши серверы.",
+      "protectLabel": "Защитить PDF",
+      "protectingLabel": "Защита…",
       "ui": {
-        "selectedFile": "Selected file",
-        "passwordLabel": "Password",
-        "confirmPasswordLabel": "Confirm password",
-        "passwordPlaceholder": "Enter password",
-        "confirmPlaceholder": "Re-enter password"
+        "selectedFile": "Выбранный файл",
+        "passwordLabel": "Пароль",
+        "confirmPasswordLabel": "Подтвердите пароль",
+        "passwordPlaceholder": "Введите пароль",
+        "confirmPlaceholder": "Введите пароль ещё раз"
       }
     },
     "unlock": {
-      "privacyNote": "Password decryption happens locally in your browser. We never store or see your passwords or files.",
-      "unlockLabel": "Unlock PDF",
-      "unlockingLabel": "Unlocking…",
+      "privacyNote": "Расшифровка пароля выполняется локально в браузере. Мы никогда не храним и не видим ваши пароли или файлы.",
+      "unlockLabel": "Разблокировать PDF",
+      "unlockingLabel": "Разблокировка…",
       "ui": {
-        "selectedFile": "Selected file",
-        "passwordProtectedBadge": "Password protected",
-        "passwordLabel": "Current PDF password",
-        "passwordPlaceholderLocked": "Enter password to open this PDF",
-        "passwordPlaceholderUnlocked": "Leave blank if not required"
+        "selectedFile": "Выбранный файл",
+        "passwordProtectedBadge": "Защищён паролем",
+        "passwordLabel": "Текущий пароль PDF",
+        "passwordPlaceholderLocked": "Введите пароль, чтобы открыть этот PDF",
+        "passwordPlaceholderUnlocked": "Оставьте пустым, если не требуется"
       }
     },
     "rotate-pdf": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF.",
-        "reading": "Reading PDF pages…",
-        "fileReady": "{name} ready — rotate pages, then download.",
-        "applying": "Applying rotations…",
-        "complete": "Rotation complete. Your download should start automatically.",
-        "tryAgain": "Try again or choose another file."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "reading": "Чтение страниц PDF…",
+        "fileReady": "{name} готов — поверните страницы и скачайте.",
+        "applying": "Применение поворотов…",
+        "complete": "Поворот завершён. Скачивание должно начаться автоматически.",
+        "tryAgain": "Попробуйте снова или выберите другой файл."
       },
-      "privacyNote": "Rotation runs entirely in your browser. Your PDF never leaves your device.",
-      "saveLabel": "Save rotated PDF",
-      "rotateLabel": "Rotate PDF",
+      "privacyNote": "Поворот выполняется полностью в браузере. PDF не покидает устройство.",
+      "saveLabel": "Скачать повёрнутый PDF",
+      "rotateLabel": "Повернуть PDF",
       "ui": {
-        "pageSummary": "{count} page(s) · use per-page or global rotate controls",
-        "rotateAllCw": "Rotate all clockwise",
-        "rotateAllCcw": "Rotate all counter-clockwise",
-        "clockwise": "↺ Clockwise",
-        "counterClockwise": "↻ Counter",
-        "resetRotations": "Reset rotations"
+        "pageSummary": "{count} стр. · поворот по страницам или для всех сразу",
+        "rotateAllCw": "Повернуть все по часовой",
+        "rotateAllCcw": "Повернуть все против часовой",
+        "clockwise": "↺ По часовой",
+        "counterClockwise": "↻ Против часовой",
+        "resetRotations": "Сбросить повороты"
       }
     },
     "delete-pages": {
@@ -7412,43 +7507,43 @@
     },
     "pdf-to-png": {
       "status": {
-        "fileReady": "{name} ready — export pages as PNG.",
-        "rendering": "Rendering {count} page(s) at {scale}×…",
-        "exported": "Exported {count} PNG page(s).",
-        "zipDownloaded": "Downloaded ZIP with {count} PNG file(s).",
-        "tryAgain": "Try exporting again or choose another file."
+        "fileReady": "{name} готов — экспортируйте страницы в PNG.",
+        "rendering": "Рендеринг страниц: {count} при масштабе {scale}×…",
+        "exported": "Экспортировано PNG-страниц: {count}.",
+        "zipDownloaded": "Скачан ZIP с PNG-файлами: {count}.",
+        "tryAgain": "Попробуйте экспортировать снова или выберите другой файл."
       },
-      "privacyNote": "PDF rendering runs entirely in your browser. Your document never leaves your device.",
-      "exportLabel": "Export PNG pages",
-      "reexportLabel": "Re-export PNG pages",
-      "downloadZipLabel": "Download all as ZIP",
-      "stickyExportLabel": "Export PNG",
-      "stickyDownloadLabel": "Download ZIP",
+      "privacyNote": "Рендеринг PDF выполняется в браузере. Документ не покидает устройство.",
+      "exportLabel": "Экспортировать страницы в PNG",
+      "reexportLabel": "Экспортировать PNG снова",
+      "downloadZipLabel": "Скачать все ZIP",
+      "stickyExportLabel": "Экспорт PNG",
+      "stickyDownloadLabel": "Скачать ZIP",
       "ui": {
-        "downloadPng": "Download PNG",
-        "gridLabel": "Exported PNG pages"
+        "downloadPng": "Скачать PNG",
+        "gridLabel": "Экспортированные PNG-страницы"
       }
     },
     "remove-hidden-metadata": {
       "status": {
-        "scanning": "Scanning metadata...",
-        "found": "Found {count} metadata field(s).",
-        "noneDetected": "No document metadata detected.",
-        "removing": "Removing metadata...",
-        "downloaded": "Clean PDF downloaded as {name}.",
-        "adjustTryAgain": "Adjust your file or password and try again."
+        "scanning": "Сканирование метаданных…",
+        "found": "Найдено полей метаданных: {count}.",
+        "noneDetected": "Метаданные документа не обнаружены.",
+        "removing": "Удаление метаданных…",
+        "downloaded": "Очищенный PDF скачан как {name}.",
+        "adjustTryAgain": "Скорректируйте файл или пароль и попробуйте снова."
       },
-      "privacyNote": "Metadata scanning and removal happen locally in your browser.",
-      "cleanLabel": "Clean & download",
-      "cleanAgainLabel": "Clean & download again",
-      "stickyLabel": "Clean & download",
+      "privacyNote": "Сканирование и удаление метаданных выполняются локально в браузере.",
+      "cleanLabel": "Очистить и скачать",
+      "cleanAgainLabel": "Очистить и скачать снова",
+      "stickyLabel": "Очистить и скачать",
       "ui": {
-        "passwordLabel": "PDF password (only if the file is protected)",
-        "passwordPlaceholder": "Optional",
-        "rescan": "Rescan with this password",
-        "metadataHeading": "Metadata found in this file",
-        "scanningInline": "Scanning...",
-        "noInfoFields": "No standard Info fields were detected. Embedded metadata may still exist."
+        "passwordLabel": "Пароль PDF (только если файл защищён)",
+        "passwordPlaceholder": "Необязательно",
+        "rescan": "Пересканировать с этим паролем",
+        "metadataHeading": "Метаданные в этом файле",
+        "scanningInline": "Сканирование…",
+        "noInfoFields": "Стандартные поля Info не обнаружены. Встроенные метаданные всё ещё могут присутствовать."
       }
     },
     "pdf-metadata-editor": {
@@ -7484,43 +7579,43 @@
     },
     "pdf-password-recovery": {
       "status": {
-        "checking": "Checking encryption...",
-        "fileReady": "{name} ready — configure options and try recovery.",
-        "notEncrypted": "This PDF does not appear to be password-protected.",
-        "notEncryptedForm": "This PDF does not look encrypted. Use Unlock PDF if you already know the password.",
-        "charsetRequired": "Select at least one character set to try.",
-        "lengthOrder": "Minimum length cannot exceed maximum length.",
-        "maxLength": "Maximum length is {max} for browser recovery.",
-        "starting": "Recovering password in a background worker — your file never leaves this browser.",
-        "progress": "Trying passwords… {tried} of ~{total} attempts",
-        "found": "Password found. You can reveal it and download an unlocked PDF.",
-        "foundEmpty": "Password found (empty password). You can download an unlocked PDF.",
-        "notFound": "No match in ~{tried} attempts.",
-        "limit": "Attempt limit reached. Narrow the search or use Unlock PDF if you remember the password.",
-        "stopped": "Recovery stopped.",
-        "adjustOptions": "Adjust options and try again."
+        "checking": "Проверка шифрования…",
+        "fileReady": "{name} готов — настройте параметры и запустите восстановление.",
+        "notEncrypted": "Этот PDF, похоже, не защищён паролем.",
+        "notEncryptedForm": "Этот PDF не выглядит зашифрованным. Используйте «Разблокировать PDF», если вы уже знаете пароль.",
+        "charsetRequired": "Выберите хотя бы один набор символов.",
+        "lengthOrder": "Минимальная длина не может превышать максимальную.",
+        "maxLength": "Максимальная длина для восстановления в браузере — {max}.",
+        "starting": "Восстановление пароля в фоновом worker — файл не покидает этот браузер.",
+        "progress": "Подбор паролей… {tried} из ~{total} попыток",
+        "found": "Пароль найден. Можно показать его и скачать разблокированный PDF.",
+        "foundEmpty": "Пароль найден (пустой). Можно скачать разблокированный PDF.",
+        "notFound": "Совпадений нет за ~{tried} попыток.",
+        "limit": "Достигнут лимит попыток. Сузьте поиск или используйте «Разблокировать PDF», если помните пароль.",
+        "stopped": "Восстановление остановлено.",
+        "adjustOptions": "Скорректируйте параметры и попробуйте снова."
       },
-      "privacyNote": "Your file never leaves your browser. Brute-force runs locally.",
-      "startLabel": "Start recovery",
-      "stopLabel": "Stop",
-      "stickyLabel": "Start recovery",
-      "downloadUnlockedLabel": "Download unlocked PDF",
+      "privacyNote": "Файл не покидает браузер. Подбор выполняется локально.",
+      "startLabel": "Начать восстановление",
+      "stopLabel": "Стоп",
+      "stickyLabel": "Начать восстановление",
+      "downloadUnlockedLabel": "Скачать разблокированный PDF",
       "ui": {
-        "encryptedBadge": "· Password-protected",
-        "notEncryptedBadge": "· Not encrypted",
-        "charsetHeading": "Character sets to try",
-        "special": "Special",
-        "tryCommon": "Common passwords first",
-        "customChars": "Extra characters (optional)",
-        "customPlaceholder": "e.g. #@",
-        "minLength": "Minimum length",
-        "maxLength": "Maximum length",
-        "estimatedAttempts": "Estimated search space: ~{count} attempts",
-        "workerProgress": "Recovery in progress (Web Worker)",
-        "recoveredPassword": "Recovered password",
-        "emptyPassword": "(empty)",
-        "hide": "Hide",
-        "reveal": "Reveal"
+        "encryptedBadge": "· Защищён паролем",
+        "notEncryptedBadge": "· Не зашифрован",
+        "charsetHeading": "Наборы символов для перебора",
+        "special": "Спецсимволы",
+        "tryCommon": "Сначала распространённые пароли",
+        "customChars": "Дополнительные символы (необязательно)",
+        "customPlaceholder": "например #@",
+        "minLength": "Минимальная длина",
+        "maxLength": "Максимальная длина",
+        "estimatedAttempts": "Ориентировочное пространство поиска: ~{count} попыток",
+        "workerProgress": "Восстановление выполняется (Web Worker)",
+        "recoveredPassword": "Восстановленный пароль",
+        "emptyPassword": "(пусто)",
+        "hide": "Скрыть",
+        "reveal": "Показать"
       }
     },
     "batch-rename-pdf": {
@@ -7723,70 +7818,70 @@
     },
     "safe-to-share-auditor": {
       "status": {
-        "fileLoaded": "PDF loaded. Click \"Run audit\" to scan.",
-        "scanning": "Scanning text layers, annotations, and signatures…",
-        "found": "Found {count} sensitive item(s).",
-        "none": "No obvious sensitive patterns detected.",
-        "redacting": "Redacting all flagged areas locally…",
-        "redacted": "Downloaded redacted PDF with {count} area(s) removed."
+        "fileLoaded": "PDF загружен. Нажмите «Запустить проверку» для сканирования.",
+        "scanning": "Сканирование текстовых слоёв, аннотаций и подписей…",
+        "found": "Найдено чувствительных элементов: {count}.",
+        "none": "Очевидных чувствительных шаблонов не обнаружено.",
+        "redacting": "Локальная замазка всех отмеченных областей…",
+        "redacted": "Скачан замазанный PDF с удалёнными областями: {count}."
       },
-      "privacyNote": "Your PDF never leaves your browser. The audit runs locally.",
-      "auditLabel": "Run audit",
-      "auditingLabel": "Scanning…",
-      "redactAllLabel": "Redact / remove all flagged",
-      "redactingLabel": "Redacting…",
-      "stickyAuditLabel": "Run audit",
-      "stickyRedactLabel": "Redact PDF",
+      "privacyNote": "PDF не покидает браузер. Проверка выполняется локально.",
+      "auditLabel": "Запустить проверку",
+      "auditingLabel": "Сканирование…",
+      "redactAllLabel": "Замазать / удалить все отмеченные",
+      "redactingLabel": "Замазка…",
+      "stickyAuditLabel": "Запустить проверку",
+      "stickyRedactLabel": "Замазать PDF",
       "ui": {
-        "noFindingsOnPage": "No flagged items on this page.",
-        "disclaimer": "Automated scans can miss content. Use Redact PDF, Remove Metadata, and Flatten PDF before sharing.",
-        "totalFindings": "Total findings",
-        "highRisk": "High risk",
-        "annotations": "Annotations",
-        "signaturesInk": "Signatures / ink",
-        "previousPage": "Previous page",
-        "nextPage": "Next page",
-        "jumpToPage": "Jump to page",
-        "visualMapHeading": "Visual sensitivity map",
-        "loadingMap": "Loading map…",
-        "mapAlt": "Document map page {page}",
-        "mapLegend": "{count} finding(s) on this page — red = high, amber = medium, blue = low risk",
-        "findingsHeading": "Findings on page {page}",
-        "scanningPage": "Scanning page {current} of {total}…",
-        "pageFlagged": " · flagged"
+        "noFindingsOnPage": "На этой странице нет отмеченных элементов.",
+        "disclaimer": "Автоматические проверки могут что-то пропустить. Перед отправкой используйте «Замазать PDF», «Удалить метаданные» и «Свести PDF».",
+        "totalFindings": "Всего находок",
+        "highRisk": "Высокий риск",
+        "annotations": "Аннотации",
+        "signaturesInk": "Подписи / чернила",
+        "previousPage": "Предыдущая страница",
+        "nextPage": "Следующая страница",
+        "jumpToPage": "Перейти к странице",
+        "visualMapHeading": "Визуальная карта чувствительности",
+        "loadingMap": "Загрузка карты…",
+        "mapAlt": "Карта документа, страница {page}",
+        "mapLegend": "Находок на этой странице: {count} — красный = высокий, янтарный = средний, синий = низкий риск",
+        "findingsHeading": "Находки на странице {page}",
+        "scanningPage": "Сканирование страницы {current} из {total}…",
+        "pageFlagged": " · отмечено"
       }
     },
     "pdf-signature-validator": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — validate the digital signature when you are.",
-        "starting": "Scanning for digital signatures…",
-        "none": "No cryptographic digital signature found in this PDF.",
-        "valid": "Signature valid — {count} digital signature(s) verified.",
-        "invalid": "Signature invalid — {count} signature field(s) failed verification."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "fileReady": "{name} готов — проверьте цифровую подпись, когда будете готовы.",
+        "starting": "Поиск цифровых подписей…",
+        "none": "В этом PDF не найдена криптографическая цифровая подпись.",
+        "valid": "Подпись действительна — проверено цифровых подписей: {count}.",
+        "invalid": "Подпись недействительна — не прошли проверку поля: {count}."
       },
       "progress": {
-        "reading": "Reading PDF…",
-        "scanning": "Scanning for signature fields…",
-        "validating": "Validating signature {current} of {total}…"
+        "reading": "Чтение PDF…",
+        "scanning": "Поиск полей подписи…",
+        "validating": "Проверка подписи {current} из {total}…"
       },
-      "privacyNote": "Signature validation runs entirely in your browser. Your PDF is never uploaded and is not modified.",
-      "validateLabel": "Validate Signature",
-      "validatingLabel": "Validating…",
-      "validateAgainLabel": "Validate again",
-      "resultValid": "Signature Valid",
-      "resultInvalid": "Signature Invalid",
-      "resultNone": "No Signature Found",
-      "signatureValid": "Valid",
-      "signatureInvalid": "Invalid",
-      "signatureHeading": "Signature {index}",
-      "signerLabel": "Signer",
-      "signedOnLabel": "Signed on",
-      "reasonLabel": "Reason",
-      "locationLabel": "Location",
-      "noDigitalSignatureHint": "This PDF does not contain a PKCS#7 digital signature. Visual ink signatures from drawing tools are not cryptographic signatures.",
-      "trustDisclaimer": "Integrity checks verify the signed byte ranges. Full certificate authority trust and revocation status may require Adobe Acrobat or your organization's PKI policy."
+      "privacyNote": "Проверка подписи выполняется полностью в браузере. PDF не загружается на сервер и не изменяется.",
+      "validateLabel": "Проверить подпись",
+      "validatingLabel": "Проверка…",
+      "validateAgainLabel": "Проверить снова",
+      "resultValid": "Подпись действительна",
+      "resultInvalid": "Подпись недействительна",
+      "resultNone": "Подпись не найдена",
+      "signatureValid": "Действительна",
+      "signatureInvalid": "Недействительна",
+      "signatureHeading": "Подпись {index}",
+      "signerLabel": "Подписант",
+      "signedOnLabel": "Дата подписи",
+      "reasonLabel": "Причина",
+      "locationLabel": "Местоположение",
+      "noDigitalSignatureHint": "В этом PDF нет цифровой подписи PKCS#7. Визуальные рукописные подписи из инструментов рисования не являются криптографическими.",
+      "trustDisclaimer": "Проверка целостности подтверждает подписанные диапазоны байтов. Полное доверие к центру сертификации и статус отзыва могут потребовать Adobe Acrobat или политику PKI вашей организации."
     },
     "heic-to-pdf": {
       "status": {
@@ -7813,6 +7908,24 @@
         "totalReorderHint": "{size} total · drag rows to reorder pages",
         "outputHint": "Each HEIC becomes one PDF page at full image resolution. Live Photo bursts may add multiple pages from a single file."
       }
+    },
+    "base-converter": {
+      "privacyNote": "Конвертация систем счисления выполняется полностью в браузере."
+    },
+    "storage-data-converter": {
+      "privacyNote": "Конвертация единиц хранения выполняется полностью в браузере."
+    },
+    "global-timezone-converter": {
+      "privacyNote": "Конвертация часовых поясов выполняется локально в браузере."
+    },
+    "my-ip": {
+      "privacyNote": "Данные IP запрашиваются в браузере. JoinMyPDF не хранит и не логирует ваш IP."
+    },
+    "ssl-decoder": {
+      "privacyNote": "Декодирование SSL-сертификата выполняется полностью в браузере. Материал не загружается на сервер."
+    },
+    "url-parameter-stripper": {
+      "privacyNote": "Удаление параметров URL выполняется полностью в браузере."
     }
   }
 }

@@ -101,7 +101,7 @@ export function webApplicationLd(args: {
     },
     featureList,
     isAccessibleForFree: true,
-    inLanguage: ["en", "he"],
+    inLanguage: ["en", "he", "ru"],
     url: absoluteUrl(pathname),
   };
 }

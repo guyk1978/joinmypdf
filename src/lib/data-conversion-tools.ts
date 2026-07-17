@@ -1,4 +1,28 @@
 import { resolveHomeToolCopy } from "@/lib/home-tool-copy";
+import {
+  buildInventoryGridItems,
+  getInventoryFeatureLabels,
+  getInventoryIdsByCategory,
+  type InventoryTranslator,
+} from "@/lib/tools-inventory-query";
+import type { ToolGridItem } from "@/lib/tool-grid";
+
+export const DATA_CONVERSION_TOOLS_HUB_PATH = "/tools/data-conversion-tools/";
+export const DATA_CONVERSION_TOOL_IDS = getInventoryIdsByCategory(
+  "data",
+) as readonly string[];
+export type DataConversionToolId = string;
+
+export function buildDataConversionToolGridItems(
+  t?: InventoryTranslator,
+  locale?: string,
+): ToolGridItem[] {
+  return buildInventoryGridItems("data", t, locale);
+}
+
+export function getDataConversionToolFeatureLabels(t?: InventoryTranslator): string[] {
+  return getInventoryFeatureLabels("data", t);
+}
 
 export type HomeDataConversionToolId =
   | "yaml-json-converter"

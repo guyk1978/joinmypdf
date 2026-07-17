@@ -48,11 +48,15 @@ function resolveInventoryLabel(
   hubNamespaceTools = true,
 ): string {
   const labelKey = entry.labelKey ?? LABEL_KEY_BY_SLUG[entry.id];
-  if (labelKey && t) {
-    const hubKey = hubNamespaceTools ? `tools.${labelKey}` : labelKey;
-    if (t.has(hubKey)) return t(hubKey);
-    // Header.navItems style keys when translator is Header-scoped
-    if (t.has(`navItems.${labelKey}`)) return t(`navItems.${labelKey}`);
+  if (t) {
+    if (labelKey) {
+      const hubKey = hubNamespaceTools ? `tools.${labelKey}` : labelKey;
+      if (t.has(hubKey)) return t(hubKey);
+      if (t.has(`navItems.${labelKey}`)) return t(`navItems.${labelKey}`);
+      if (t.has(labelKey)) return t(labelKey);
+    }
+    // Tools.items.<slug> (preferred for locale-specific tool titles)
+    if (t.has(`items.${entry.id}`)) return t(`items.${entry.id}`);
   }
 
   return (
@@ -66,12 +70,13 @@ function resolveInventoryLabel(
 export function buildInventoryGridItems(
   category: InventoryCategoryId,
   t?: InventoryTranslator,
+  locale?: string,
 ): ToolGridItem[] {
   return getInventoryToolsByCategory(category).map((entry) => ({
-    href: resolveToolHref(entry.id, category),
+    href: resolveToolHref(entry.id, category, locale),
     label: resolveInventoryLabel(entry, t),
     slugHint: entry.id,
-    description: getToolCardDescription(entry.id, entry.description),
+    description: getToolCardDescription(entry.id, entry.description, t),
   }));
 }
 
@@ -79,6 +84,7 @@ export function buildInventoryGridItemsForIds(
   ids: readonly string[],
   t?: InventoryTranslator,
   parentCategoryId?: InventoryCategoryId,
+  locale?: string,
 ): ToolGridItem[] {
   return ids
     .map((id) => getToolsInventoryEntry(id) ?? {
@@ -93,10 +99,11 @@ export function buildInventoryGridItemsForIds(
       href: resolveToolHref(
         entry.id,
         parentCategoryId ?? (entry as ToolsInventoryEntry).primaryCategory,
+        locale,
       ),
       label: resolveInventoryLabel(entry as ToolsInventoryEntry, t),
       slugHint: entry.id,
-      description: getToolCardDescription(entry.id, entry.description),
+      description: getToolCardDescription(entry.id, entry.description, t),
     }));
 }
 

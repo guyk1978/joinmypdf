@@ -8,6 +8,7 @@ import {
   listCategoryHubPaths,
   parseInventoryHierarchy,
 } from "./lib/sitemap-hierarchy.mjs";
+import { resolveCanonicalToolSlugFromRu } from "./lib/pdf-tool-slugs-ru.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,7 +21,7 @@ const inventoryTsPath = path.join(root, "src", "data", "tools-inventory.ts");
 const inventoryStatusPath = path.join(root, "logs", "inventory-tool-status.json");
 const outputPath = path.join(root, "sitemap.xml");
 
-const LOCALES = ["en", "he"];
+const LOCALES = ["en", "he", "ru"];
 
 const MODIFIER_LIBRARY = [
   "fast",
@@ -183,16 +184,21 @@ for (const tool of studioTools) {
   }
 }
 
-// Category-first nested URLs: every hub membership (en + he), not only primary.
+// Category-first nested URLs: every hub membership, locale-aware SEO slugs for ru.
 const nestedPriorityByPath = new Map();
 for (const tool of canonicalSlugs.values()) {
   nestedPriorityByPath.set(tool.slug, tool);
 }
-for (const nestedPath of listAllNestedToolPaths(hierarchy)) {
-  const slug = nestedPath.split("/").filter(Boolean).pop();
-  if (!slug || !isActiveSlug(slug)) continue;
-  const meta = nestedPriorityByPath.get(slug);
-  for (const urlPath of localizedPaths(nestedPath)) {
+for (const locale of LOCALES) {
+  for (const nestedPath of listAllNestedToolPaths(hierarchy, { locale })) {
+    const slug = nestedPath.split("/").filter(Boolean).pop();
+    let canonicalSlug = slug;
+    if (locale === "ru" && slug) {
+      canonicalSlug = resolveCanonicalToolSlugFromRu(slug);
+    }
+    if (!canonicalSlug || !isActiveSlug(canonicalSlug)) continue;
+    const meta = nestedPriorityByPath.get(canonicalSlug);
+    const urlPath = `/${locale}${nestedPath}`;
     pushEntry(urls, seen, {
       loc: baseUrl + urlPath,
       priority: meta?.priority || "0.90",

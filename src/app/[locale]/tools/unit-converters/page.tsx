@@ -36,13 +36,15 @@ export default async function UnitConvertersHubPage({ params }: PageProps) {
 
   const t = await getTranslations("UnitConvertersPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${UNIT_CONVERTERS_HUB_PATH}`;
-  const gridItems = buildUnitMathToolGridItems(t);
-  const featureList = getUnitMathToolFeatureLabels(t);
+  const gridItems = buildUnitMathToolGridItems(tTools, locale);
+  const featureList = getUnitMathToolFeatureLabels(tTools);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: t("title"), path: UNIT_CONVERTERS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubUnitMath"), path: UNIT_CONVERTERS_HUB_PATH },
   ];
 
   return (

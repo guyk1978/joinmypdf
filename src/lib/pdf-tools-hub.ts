@@ -26,10 +26,12 @@ export type PdfToolId = string;
 export function buildPdfToolGroupItems(
   groupId: PdfToolGroupId,
   t?: InventoryTranslator,
+  locale?: string,
 ): ToolGridItem[] {
   const group = PDF_TOOL_GROUPS.find((entry) => entry.id === groupId);
   if (!group) return [];
-  return buildInventoryGridItemsForIds(group.toolIds, t);
+  // Prefer Tools.* translator so items.<slug> / cardDescriptions localize correctly.
+  return buildInventoryGridItemsForIds(group.toolIds, t, "pdf", locale);
 }
 
 export function getPdfToolFeatureLabels(t?: InventoryTranslator): string[] {

@@ -46,6 +46,7 @@ export default async function CompressToolsHubPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations("CompressToolsPage");
+  const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${COMPRESS_TOOLS_HUB_PATH}`;
   const featureList = getCompressToolFeatureLabels(t);
@@ -54,7 +55,7 @@ export default async function CompressToolsHubPage({ params }: PageProps) {
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: COMPRESS_TOOLS_HUB_PATH },
+    { name: t("schemaName"), path: COMPRESS_TOOLS_HUB_PATH },
   ];
 
   const whyCompressRows = [
@@ -96,7 +97,10 @@ export default async function CompressToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildCompressToolGroupItems(group.id, t)} categoryId="compress" />
+              <CategoryDirectoryFlatGrid
+                items={buildCompressToolGroupItems(group.id, tTools, locale)}
+                categoryId="compress"
+              />
             </section>
           ))}
 

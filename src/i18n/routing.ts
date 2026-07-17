@@ -1,7 +1,7 @@
 import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
-  locales: ["en", "he"],
+  locales: ["en", "he", "ru"],
   defaultLocale: "en",
   localePrefix: "always",
   // Static export builds cannot negotiate locale on the server (no middleware).

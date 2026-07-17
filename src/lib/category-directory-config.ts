@@ -45,7 +45,7 @@ type WorkflowSpec = {
 type CategorySpec = {
   id: CategoryDirectoryId;
   workflows: WorkflowSpec[];
-  buildItems: (tHome: HomeTranslator) => { id: string; href: string; label: string }[];
+  buildItems: (tHome: HomeTranslator, _locale?: string) => { id: string; href: string; label: string }[];
   featuredIds?: readonly string[];
   layout?: "default" | "flat-grid";
 };
@@ -276,13 +276,14 @@ export function buildCategoryDirectoryColumns(
   categoryId: CategoryDirectoryId,
   tHome: HomeTranslator,
   tCategory: CategoryDirectoryTranslator,
+  locale?: string,
 ): DirectoryWorkflowColumn[] {
   if (categoryId === "image") {
-    return buildImageCategoryDirectoryColumns(tHome, tCategory);
+    return buildImageCategoryDirectoryColumns(tHome, tCategory, locale);
   }
 
   const spec = CATEGORY_SPECS[categoryId];
-  const items = spec.buildItems(tHome);
+  const items = spec.buildItems(tHome, locale);
   const itemsById = new Map(items.map((item) => [item.id, item]));
 
   return spec.workflows.map((workflow) => {
@@ -309,11 +310,12 @@ export function buildCategoryDirectoryColumns(
 export function buildCategoryDirectoryFeaturedItems(
   categoryId: CategoryDirectoryId,
   tHome: HomeTranslator,
+  locale?: string,
 ): ToolGridItem[] {
   const spec = CATEGORY_SPECS[categoryId];
   if (!spec.featuredIds?.length) return [];
 
-  const items = spec.buildItems(tHome);
+  const items = spec.buildItems(tHome, locale);
   const itemsById = new Map(items.map((item) => [item.id, item]));
 
   return spec.featuredIds
@@ -372,14 +374,15 @@ export function getCategoryDirectoryPageProps(
   categoryId: CategoryDirectoryId,
   tHome: HomeTranslator,
   tCategory: CategoryDirectoryTranslator,
+  locale?: string,
 ) {
   const meta = DIRECTORY_META[categoryId];
   const spec = CATEGORY_SPECS[categoryId];
   const usesFlatGrid = spec.layout === "flat-grid";
-  const featuredItems = usesFlatGrid ? [] : buildCategoryDirectoryFeaturedItems(categoryId, tHome);
+  const featuredItems = usesFlatGrid ? [] : buildCategoryDirectoryFeaturedItems(categoryId, tHome, locale);
   const startHereKey = `startHereDescription.${categoryId}`;
   const flatGridItems = usesFlatGrid
-    ? spec.buildItems(tHome).map((item) => toGridItem(item))
+    ? spec.buildItems(tHome, locale).map((item) => toGridItem(item))
     : undefined;
 
   return {
@@ -391,7 +394,9 @@ export function getCategoryDirectoryPageProps(
     featuredTitle: featuredItems.length > 0 ? tCategory("startHere") : undefined,
     featuredDescription:
       featuredItems.length > 0 && tCategory.has(startHereKey) ? tCategory(startHereKey) : undefined,
-    workflowColumns: usesFlatGrid ? [] : buildCategoryDirectoryColumns(categoryId, tHome, tCategory),
+    workflowColumns: usesFlatGrid
+      ? []
+      : buildCategoryDirectoryColumns(categoryId, tHome, tCategory, locale),
     flatGridItems,
   };
 }

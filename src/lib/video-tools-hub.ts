@@ -57,6 +57,7 @@ export const CORE_VIDEO_HUB_IDS = VIDEO_TOOLS_INVENTORY_IDS;
 export function buildVideoToolGroupItems(
   groupId: VideoToolGroupId,
   t?: InventoryTranslator,
+  locale?: string,
 ): ToolGridItem[] {
   const group = VIDEO_TOOL_GROUPS.find((entry) => entry.id === groupId);
   if (!group) return [];
@@ -68,11 +69,11 @@ export function buildVideoToolGroupItems(
     ids = [...ids, ...orphans];
   }
 
-  return buildInventoryGridItemsForIds(ids, t);
+  return buildInventoryGridItemsForIds(ids, t, "video", locale);
 }
 
-export function buildVideoToolGridItems(t?: InventoryTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("video", t);
+export function buildVideoToolGridItems(t?: InventoryTranslator, locale?: string): ToolGridItem[] {
+  return buildInventoryGridItems("video", t, locale);
 }
 
 export function getVideoToolFeatureLabels(t?: InventoryTranslator): string[] {

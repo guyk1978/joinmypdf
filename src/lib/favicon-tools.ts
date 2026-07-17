@@ -89,8 +89,11 @@ type HomeTranslator = {
 
 type FaviconToolsTranslator = InventoryTranslator;
 
-export function buildFaviconToolGridItems(t?: FaviconToolsTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("favicon", t);
+export function buildFaviconToolGridItems(
+  t?: FaviconToolsTranslator,
+  locale?: string,
+): ToolGridItem[] {
+  return buildInventoryGridItems("favicon", t, locale);
 }
 
 export function getFaviconToolFeatureLabels(t?: FaviconToolsTranslator): string[] {

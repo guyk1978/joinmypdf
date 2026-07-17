@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
       title: siteTitle,
       description: siteDescription,
       url: `${siteUrl}/`,
-      locale: locale === "he" ? "he_IL" : "en_US",
+      locale: locale === "he" ? "he_IL" : locale === "ru" ? "ru_RU" : "en_US",
       ...social.openGraph,
     },
     twitter: {

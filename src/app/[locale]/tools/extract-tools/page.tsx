@@ -38,16 +38,17 @@ export default async function ExtractToolsHubPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations("ExtractToolsPage");
+  const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${EXTRACT_TOOLS_HUB_PATH}`;
-  const gridItems = buildExtractToolGridItems(t);
+  const gridItems = buildExtractToolGridItems(tTools, locale);
   const featureList = getExtractToolFeatureLabels(t);
   const relatedGuides = getRecentExtractionBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbHubPdf"), path: "/tools/pdf-tools/" },
-    { name: t("title"), path: EXTRACT_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: t("schemaName"), path: EXTRACT_TOOLS_HUB_PATH },
   ];
 
   return (

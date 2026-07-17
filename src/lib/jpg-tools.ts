@@ -10,8 +10,11 @@ export const JPG_TOOLS_HUB_PATH = "/tools/jpg-tools/";
 export const JPG_TOOL_IDS = getInventoryIdsByCategory("jpg") as readonly string[];
 export type JpgToolId = string;
 
-export function buildJpgToolGridItems(t?: InventoryTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("jpg", t);
+export function buildJpgToolGridItems(
+  t?: InventoryTranslator,
+  locale?: string,
+): ToolGridItem[] {
+  return buildInventoryGridItems("jpg", t, locale);
 }
 
 export function getJpgToolFeatureLabels(t?: InventoryTranslator): string[] {

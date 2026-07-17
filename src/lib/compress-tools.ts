@@ -1,5 +1,6 @@
 import {
   buildInventoryGridItems,
+  buildInventoryGridItemsForIds,
   getInventoryFeatureLabels,
   getInventoryIdsByCategory,
   type InventoryTranslator,
@@ -62,15 +63,14 @@ export type CompressToolId = string;
 export function buildCompressToolGroupItems(
   groupId: CompressToolGroupId,
   t?: InventoryTranslator,
+  locale?: string,
 ): ToolGridItem[] {
   const ids = partitionCompressIds()[groupId];
-  return buildInventoryGridItems("compress", t).filter((item) =>
-    ids.includes(item.slugHint),
-  );
+  return buildInventoryGridItemsForIds(ids, t, "compress", locale);
 }
 
-export function buildCompressToolGridItems(t?: InventoryTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("compress", t);
+export function buildCompressToolGridItems(t?: InventoryTranslator, locale?: string): ToolGridItem[] {
+  return buildInventoryGridItems("compress", t, locale);
 }
 
 export function getCompressToolFeatureLabels(t?: InventoryTranslator): string[] {

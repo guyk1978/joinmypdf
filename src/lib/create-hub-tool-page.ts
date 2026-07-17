@@ -16,6 +16,11 @@ import path from "path";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getInventoryToolsByCategory } from "@/lib/tools-inventory-query";
 import { getCategoryHubSegment } from "@/lib/tool-hierarchy";
+import {
+  getLocalizedToolSlug,
+  listPdfToolPublicSlugs,
+  listVideoToolPublicSlugs,
+} from "@/lib/locale-tool-slugs";
 import { registry } from "@/lib/registry";
 
 function hasDedicatedToolPage(slug: string): boolean {
@@ -29,15 +34,33 @@ function isRegistryTool(slug: string): boolean {
 }
 
 export function listHubToolStaticParams(categoryId: InventoryCategoryId): { slug: string }[] {
-  return getInventoryToolsByCategory(categoryId)
+  const base = getInventoryToolsByCategory(categoryId)
     .filter((tool) => {
       if (!hasDedicatedToolPage(tool.id)) return true;
       // Dedicated + registered → catch-all can render the workspace.
       return isRegistryTool(tool.id);
     })
-    .map((tool) => ({
-      slug: tool.id,
-    }));
+    .map((tool) => tool.id);
+
+  const slugs = new Set(base);
+  // PDF / video hubs also emit full Russian SEO slug unions for static export.
+  if (categoryId === "pdf") {
+    for (const slug of listPdfToolPublicSlugs()) {
+      slugs.add(slug);
+    }
+  }
+  if (categoryId === "video" || categoryId === "mp4") {
+    for (const slug of listVideoToolPublicSlugs()) {
+      slugs.add(slug);
+    }
+  }
+  // Convert (and every hub): add RU aliases for tools already in this hub's param set.
+  for (const id of base) {
+    const localized = getLocalizedToolSlug(id, "ru");
+    if (localized !== id) slugs.add(localized);
+  }
+
+  return [...slugs].map((slug) => ({ slug }));
 }
 
 /** @deprecated Prefer listHubToolStaticParams inside an explicit generateStaticParams. */

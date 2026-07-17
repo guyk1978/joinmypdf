@@ -9428,6 +9428,28 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   color: #ffffff;
 }
 
+/* Language options: text-first, no boxed card chrome */
+.site-header__overflow-item--lang {
+  gap: 0;
+  padding-block: 0.5rem;
+  border-color: transparent;
+  background: transparent;
+}
+
+.site-header__overflow-item--lang:hover,
+.site-header__overflow-item--lang:focus-visible {
+  background: rgb(38 38 38);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.site-header__overflow-item--lang.is-active {
+  background: transparent;
+  border-color: transparent;
+  color: #ffffff;
+  font-weight: 700;
+}
+
 .site-header__overflow-item--privacy {
   color: #d4d4d4;
 }

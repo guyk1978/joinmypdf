@@ -36,13 +36,15 @@ export default async function NetworkToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("NetworkToolsPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${NETWORK_TOOLS_HUB_PATH}`;
-  const gridItems = buildNetworkToolGridItems(t);
-  const featureList = getNetworkToolFeatureLabels(t);
+  const gridItems = buildNetworkToolGridItems(tTools, locale);
+  const featureList = getNetworkToolFeatureLabels(tTools);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: t("title"), path: NETWORK_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubNetwork"), path: NETWORK_TOOLS_HUB_PATH },
   ];
 
   return (

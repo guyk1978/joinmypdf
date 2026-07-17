@@ -37,13 +37,14 @@ export default async function WordToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("WordToolsPage");
   const tPage = await getTranslations("ToolPage");
-  const gridItems = buildWordToolGridItems(t);
-  const featureList = getWordToolFeatureLabels(t);
+  const tTools = await getTranslations("Tools");
+  const gridItems = buildWordToolGridItems(tTools, locale);
+  const featureList = getWordToolFeatureLabels(tTools);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: WORD_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbHubWord"), path: WORD_TOOLS_HUB_PATH },
   ];
 
   return (

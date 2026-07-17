@@ -21,6 +21,7 @@ type DocsLabels = {
   loading?: string;
   expandAll?: string;
   collapseAll?: string;
+  comingSoon?: string;
 };
 
 type RelatedLabels = {
@@ -91,7 +92,7 @@ export function ToolModalDocsPanel({
           <p className="tool-modal-docs__text">{model.description}</p>
         ) : (
           <p className="tool-modal-docs__text tool-modal-docs__text--muted">
-            Documentation for this tool is coming soon.
+            {labels?.comingSoon ?? "Documentation for this tool is coming soon."}
           </p>
         )}
       </section>

@@ -47,6 +47,7 @@ export default async function ConvertToolsHubPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations("ConvertToolsPage");
+  const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${CONVERT_TOOLS_HUB_PATH}`;
   const featureList = getConvertToolFeatureLabels(t);
@@ -55,7 +56,7 @@ export default async function ConvertToolsHubPage({ params }: PageProps) {
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: CONVERT_TOOLS_HUB_PATH },
+    { name: t("schemaName"), path: CONVERT_TOOLS_HUB_PATH },
   ];
 
   return (
@@ -90,7 +91,10 @@ export default async function ConvertToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildConvertToolGroupItems(group.id, t)} categoryId="convert" />
+              <CategoryDirectoryFlatGrid
+                items={buildConvertToolGroupItems(group.id, tTools, locale)}
+                categoryId="convert"
+              />
             </section>
           ))}
 

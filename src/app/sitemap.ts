@@ -16,6 +16,7 @@ import { INVENTORY_HUB_META, type InventoryCategoryId } from "@/data/inventory-h
 import {
   listNestedSitemapPathsForTool,
   normalizeHubPath,
+  resolveToolHref,
 } from "@/lib/tool-hierarchy";
 import { TOOLS_INVENTORY } from "@/data/tools-inventory";
 
@@ -116,41 +117,58 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Hierarchy registry → nested tool URLs for EVERY category membership (en + he).
-  // Category-first: jpg-tools includes all tools tagged jpg (plus nest overrides).
-  const nestedToolPaths = new Map<string, { lastModified: Date; priority: number }>();
+  // Hierarchy registry → nested tool URLs for EVERY category membership.
+  // Locale-aware: Russian PDF tools use SEO transliterated slugs under /ru/.
+  const nestedToolEntries: {
+    locale: string;
+    path: string;
+    lastModified: Date;
+    priority: number;
+  }[] = [];
 
-  for (const tool of canonicalTools) {
-    const lastModified = tool.updatedAt ? new Date(tool.updatedAt) : now;
-    const entry = TOOLS_INVENTORY.find((item) => item.id === tool.slug);
-    const paths = entry
-      ? listNestedSitemapPathsForTool(entry)
-      : [tool.path.startsWith("/tools/") ? tool.path : `/tools/${tool.slug}/`];
-    for (const nestedPath of paths) {
-      const existing = nestedToolPaths.get(nestedPath);
-      if (!existing || tool.priority > existing.priority) {
-        nestedToolPaths.set(nestedPath, { lastModified, priority: tool.priority });
+  for (const locale of routing.locales) {
+    for (const tool of canonicalTools) {
+      const lastModified = tool.updatedAt ? new Date(tool.updatedAt) : now;
+      const entry = TOOLS_INVENTORY.find((item) => item.id === tool.slug);
+      const paths = entry
+        ? listNestedSitemapPathsForTool(entry, locale)
+        : [
+            resolveToolHref(
+              tool.slug,
+              undefined,
+              locale,
+            ),
+          ];
+      for (const nestedPath of paths) {
+        nestedToolEntries.push({
+          locale,
+          path: nestedPath,
+          lastModified,
+          priority: tool.priority,
+        });
+      }
+    }
+
+    for (const entry of TOOLS_INVENTORY) {
+      if (!isSitemapIndexableStatus(statusMap[entry.id])) continue;
+      for (const nestedPath of listNestedSitemapPathsForTool(entry, locale)) {
+        nestedToolEntries.push({
+          locale,
+          path: nestedPath,
+          lastModified: now,
+          priority: 0.9,
+        });
       }
     }
   }
 
-  for (const entry of TOOLS_INVENTORY) {
-    if (!isSitemapIndexableStatus(statusMap[entry.id])) continue;
-    for (const nestedPath of listNestedSitemapPathsForTool(entry)) {
-      if (nestedToolPaths.has(nestedPath)) continue;
-      nestedToolPaths.set(nestedPath, { lastModified: now, priority: 0.9 });
-    }
-  }
-
-  for (const [nestedPath, meta] of nestedToolPaths) {
-    for (const urlPath of localizedPaths(nestedPath)) {
-      push({
-        url: `${siteUrl}${urlPath}`,
-        lastModified: meta.lastModified,
-        changeFrequency: "weekly",
-        priority: meta.priority,
-      });
-    }
+  for (const item of nestedToolEntries) {
+    push({
+      url: `${siteUrl}/${item.locale}${item.path}`,
+      lastModified: item.lastModified,
+      changeFrequency: "weekly",
+      priority: item.priority,
+    });
   }
 
   // SEO cluster variants stay on flat long-tail landings under /tools/{variant}/

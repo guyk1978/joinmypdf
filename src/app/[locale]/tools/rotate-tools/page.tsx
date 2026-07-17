@@ -37,13 +37,14 @@ export default async function RotateToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("RotateToolsPage");
   const tPage = await getTranslations("ToolPage");
-  const gridItems = buildRotateToolGridItems(t);
-  const featureList = getRotateToolFeatureLabels(t);
+  const tTools = await getTranslations("Tools");
+  const gridItems = buildRotateToolGridItems(tTools, locale);
+  const featureList = getRotateToolFeatureLabels(tTools);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: ROTATE_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbHubRotate"), path: ROTATE_TOOLS_HUB_PATH },
   ];
 
   return (

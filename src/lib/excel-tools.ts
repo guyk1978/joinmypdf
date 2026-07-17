@@ -10,8 +10,11 @@ export const EXCEL_TOOLS_HUB_PATH = "/tools/excel-tools/";
 export const EXCEL_TOOL_IDS = getInventoryIdsByCategory("excel") as readonly string[];
 export type ExcelToolId = string;
 
-export function buildExcelToolGridItems(t?: InventoryTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("excel", t);
+export function buildExcelToolGridItems(
+  t?: InventoryTranslator,
+  locale?: string,
+): ToolGridItem[] {
+  return buildInventoryGridItems("excel", t, locale);
 }
 
 export function getExcelToolFeatureLabels(t?: InventoryTranslator): string[] {

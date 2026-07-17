@@ -84,29 +84,30 @@ type DeveloperToolsTranslator = InventoryTranslator;
 export function buildDeveloperHubToolGridItem(
   id: string,
   t?: DeveloperToolsTranslator,
+  locale?: string,
 ): ToolGridItem {
-  return buildInventoryGridItemsForIds([id], t)[0]!;
+  return buildInventoryGridItemsForIds([id], t, "developer", locale)[0]!;
 }
 
 export function buildDeveloperHubGroupItems(
   groupId: DeveloperHubGroupId,
   t?: DeveloperToolsTranslator,
+  locale?: string,
 ): ToolGridItem[] {
   const group = DEVELOPER_HUB_TOOL_GROUPS.find((entry) => entry.id === groupId);
   if (!group) return [];
-  return buildInventoryGridItemsForIds(group.toolIds, t);
+  return buildInventoryGridItemsForIds(group.toolIds, t, "developer", locale);
 }
 
-export function buildDeveloperHubAllItems(t?: DeveloperToolsTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("developer", t);
+export function buildDeveloperHubAllItems(
+  t?: DeveloperToolsTranslator,
+  locale?: string,
+): ToolGridItem[] {
+  return buildInventoryGridItems("developer", t, locale);
 }
 
 export function getDeveloperHubFeatureLabels(t?: DeveloperToolsTranslator): string[] {
-  return [
-    "Security Utilities",
-    "Developer Tools",
-    ...getInventoryFeatureLabels("developer", t),
-  ];
+  return getInventoryFeatureLabels("developer", t);
 }
 
 /** Inventory count helper for schema / audits. */

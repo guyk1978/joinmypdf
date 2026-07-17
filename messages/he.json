@@ -855,8 +855,9 @@
     "restoredStatus": "הפרויקט \"{name}\" שוחזר"
   },
   "LanguageSwitcher": {
-    "en": "English",
-    "he": "עברית"
+    "en": "אנגלית",
+    "he": "עברית",
+    "ru": "רוסית"
   },
   "CookieConsent": {
     "title": "העדפות עוגיות",
@@ -967,13 +968,49 @@
       "user-agent-parser": "מנתח User-Agent חינם אונליין",
       "json-formatter": "מפרמט ומאמת JSON חינם אונליין",
       "jwt-debugger": "מפענח JWT אונליין",
-      "base64-encoder-decoder": "מקודד/מפענח Base64",
+      "base64-encoder-decoder": "Base64 Encoder / Decoder",
       "qr-code-generator": "יצירת קודי QR אונליין",
       "json-to-csv": "המרת JSON ל-CSV אונליין",
       "json-minifier": "מכווץ JSON חינם אונליין",
       "csv-to-json": "המרת CSV ל-JSON אונליין",
-      "html-markdown-converter": "ממיר HTML/Markdown אונליין",
-      "pdf-editor": "עורך PDF אונליין"
+      "html-markdown-converter": "HTML / Markdown Converter",
+      "pdf-editor": "עורך PDF אונליין",
+      "case-converter": "Case Converter",
+      "json-csv-explorer": "JSON ↔ CSV Explorer",
+      "lorem-ipsum-generator": "Lorem Ipsum Generator",
+      "quick-note": "Multi-Note Manager",
+      "readability-analyzer": "Readability Analyzer",
+      "reading-time-calculator": "Reading Time Calculator",
+      "string-generator": "String Generator",
+      "text-diff": "Text Diff",
+      "text-diff-checker": "Text Diff Checker",
+      "text-sanitizer": "Text Sanitizer",
+      "text-workspace": "Text Workspace",
+      "timezone-converter": "Timezone Converter",
+      "unit-converter": "Unit Converter",
+      "url-encoder-decoder": "URL Encoder / Decoder",
+      "url-parameter-stripper": "URL Parameter Stripper",
+      "word-character-counter": "Word & Character Counter"
+    },
+    "cardDescriptions": {
+      "base64-encoder-decoder": "Encode or decode Base64 text and data instantly.",
+      "case-converter": "Convert text between upper, lower, title, and other cases.",
+      "html-markdown-converter": "Convert Markdown to HTML and HTML to Markdown locally.",
+      "json-csv-explorer": "Explore and convert between JSON and CSV in your browser.",
+      "lorem-ipsum-generator": "Generate placeholder Lorem Ipsum text for layouts and drafts.",
+      "quick-note": "Save and manage short notes privately on this device.",
+      "readability-analyzer": "Check text readability and get clearer writing tips.",
+      "reading-time-calculator": "Estimate how long it takes to read a piece of text.",
+      "string-generator": "Generate random strings and UUIDs for testing and IDs.",
+      "text-diff": "Compare two texts and highlight every change.",
+      "text-diff-checker": "Compare original and modified text side by side.",
+      "text-sanitizer": "Clean OCR and PDF text — fix spaces, breaks, and invisible chars.",
+      "text-workspace": "Write, find, replace, and export text in a private workspace.",
+      "timezone-converter": "Convert times across world time zones instantly.",
+      "unit-converter": "Convert length, weight, temperature, and more.",
+      "url-encoder-decoder": "Encode or decode URL strings safely in your browser.",
+      "url-parameter-stripper": "Remove tracking parameters from URLs locally.",
+      "word-character-counter": "Count words, characters, sentences, and paragraphs."
     }
   },
   "SearchPage": {
@@ -3154,7 +3191,11 @@
     "schemaFeatureCamelCase": "camelCase",
     "schemaFeatureSnakeCase": "snake_case",
     "schemaFeatureKebabCase": "kebab-case",
-    "schemaFeatureCopy": "העתקה ללוח"
+    "schemaFeatureCopy": "העתקה ללוח",
+    "inputLabel": "טקסט להמרה",
+    "copyButton": "העתק ללוח",
+    "copied": "הועתק!",
+    "clearButton": "נקה"
   },
   "Mp3ToolsPage": {
     "metaTitle": "כלי MP3 | המרה, דחיסה ואופטימיזציה של אודיו",
@@ -3300,6 +3341,57 @@
       "rotateImage": "ערכת סיבוב ויישור",
       "flipImage": "היפוך תמונה",
       "videoRotator": "סיבוב וידאו"
+    }
+  },
+  "SecurityToolsPage": {
+    "metaTitle": "כלי אבטחה | הגנה, פתיחה ופרטיות | JoinMyPDF",
+    "metaDescription": "כלי אבטחה חינמיים להגנת PDF בסיסמה, פתיחת קבצים, מחיקת תוכן רגיש ויצירת סיסמאות — מקומי ב-100% בדפדפן.",
+    "title": "כלי אבטחה",
+    "description": "הגנו על PDF בסיסמה, פתחו קבצים מוצפנים, מחקו תוכן רגיש, הסירו מטא-דאטה וצרו סיסמאות חזקות. כל הכלים רצים מקומית במכשיר ללא העלאות.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "privacyBadge": "כלי הצפנה ופרטיות מאובטחים ומקומיים.",
+    "schemaName": "כלי אבטחה",
+    "schemaDescription": "הגנה בסיסמה, פתיחה, מחיקה, ניקוי מטא-דאטה ומחוללי סיסמאות — כלי אבטחה מקומיים בדפדפן ללא העלאות.",
+    "tools": {
+      "protectPdf": "הגנת PDF",
+      "unlockPdf": "פתיחת PDF",
+      "redactPdf": "מחיקת תוכן ב-PDF",
+      "signPdf": "חתימה על PDF",
+      "passwordGenerator": "מחולל סיסמאות",
+      "hashGenerator": "מחולל Hash"
+    }
+  },
+  "DataConversionToolsPage": {
+    "metaTitle": "כלי המרת נתונים | YAML, CSV, SQL | JoinMyPDF",
+    "metaDescription": "כלי המרת נתונים חינמיים ל-YAML ↔ JSON, CSV ל-Markdown ועיצוב SQL — מקומי ב-100% בדפדפן.",
+    "title": "כלי המרת נתונים",
+    "description": "המירו YAML ו-JSON, הפכו CSV לטבלאות Markdown ועצבו שאילתות SQL. כל הכלים רצים מקומית במכשיר ללא העלאות.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "privacyBadge": "המרת נתונים מאובטחת ומקומית.",
+    "schemaName": "כלי המרת נתונים",
+    "schemaDescription": "YAML ↔ JSON, CSV ל-Markdown ועיצוב SQL — כלי המרת נתונים מקומיים בדפדפן ללא העלאות.",
+    "tools": {
+      "yamlJsonConverter": "YAML ↔ JSON",
+      "csvToMarkdownTable": "CSV לטבלת Markdown",
+      "sqlQueryFormatter": "מעצב שאילתות SQL"
+    }
+  },
+  "ProductivityToolsPage": {
+    "metaTitle": "כלי פרודוקטיביות | יחידות, אזורי זמן וטקסט | JoinMyPDF",
+    "metaDescription": "כלי פרודוקטיביות חינמיים להמרת יחידות, השוואת אזורי זמן, ספירת מילים ויצירת טקסט מילוי — מקומי ב-100% בדפדפן.",
+    "title": "כלי פרודוקטיביות",
+    "description": "המירו יחידות ואזורי זמן, ספרו מילים, בדקו קריאות, צרו Lorem Ipsum ושמרו הערות קצרות. כל העזרים רצים מקומית במכשיר ללא העלאות.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "privacyBadge": "כלי פרודוקטיביות מאובטחים ומקומיים.",
+    "schemaName": "כלי פרודוקטיביות",
+    "schemaDescription": "ממירי יחידות ואזורי זמן, מוני מילים, קריאות ועזרי טקסט — כלי פרודוקטיביות מקומיים בדפדפן ללא העלאות.",
+    "tools": {
+      "unitConverter": "ממיר יחידות",
+      "timezoneConverter": "ממיר אזורי זמן",
+      "wordCharacterCounter": "מונה מילים ותווים",
+      "readingTimeCalculator": "מחשבון זמן קריאה",
+      "caseConverter": "ממיר רישיות",
+      "quickNote": "הערה מהירה"
     }
   },
   "ExtractToolsPage": {
@@ -4244,7 +4336,26 @@
     "toLabel": "אל",
     "resultLabel": "תוצאה",
     "resetButton": "איפוס",
-    "invalidInput": "הזן מספר תקין"
+    "invalidInput": "הזן מספר תקין",
+    "convertButton": "המר",
+    "units": {
+      "kg": "ק\"ג (kg)",
+      "g": "גרם (g)",
+      "lb": "ליברה (lb)",
+      "oz": "אונקיה (oz)",
+      "m": "מטר (m)",
+      "km": "ק\"מ (km)",
+      "cm": "ס\"מ (cm)",
+      "mm": "מ\"מ (mm)",
+      "ft": "רגל (ft)",
+      "in": "אינץ' (in)",
+      "mi": "מייל (mi)",
+      "m2": "מ\"ר (m²)",
+      "km2": "קמ\"ר (km²)",
+      "ft2": "רגל² (ft²)",
+      "acre": "אקר (acre)",
+      "hectare": "הקטר (ha)"
+    }
   },
   "TimezoneConverter": {
     "localTitle": "אזור הזמן שלך",
@@ -6127,6 +6238,84 @@
     "relatedEmpty": "אין עדיין כלים או מאמרים קשורים.",
     "loading": "טוען כלי…",
     "expandAll": "הרחב הכל",
-    "collapseAll": "כווץ הכל"
+    "collapseAll": "כווץ הכל",
+    "comingSoon": "התיעוד לכלי זה יגיע בקרוב."
+  },
+  "Mp3Trimmer": {
+    "intro": "Trim MP3 segments with ffmpeg.wasm stream copy (-c copy) — fast, lossless, and 100% local. Preview your file before choosing start and end times.",
+    "uploadTitle": "Upload MP3 for {name}",
+    "uploadTitleBusy": "Trimming in worker…",
+    "uploadDescription": "Drag and drop an MP3 or browse from your device.",
+    "privacyBadge": "100% Private — trimmed locally with ffmpeg.wasm.",
+    "chooseAnother": "Choose another file",
+    "previewLabel": "Preview",
+    "previewHint": "Scrub the timeline to find your trim points, then enter start and end below.",
+    "startLabel": "Start time (mm:ss)",
+    "endLabel": "End time (mm:ss)",
+    "trimming": "Trimming…",
+    "trimAndDownload": "Trim & Download",
+    "success": "Trimmed — {size} MP3 saved locally.",
+    "downloadAgain": "Download again",
+    "invalidFile": "Please choose an MP3 file."
+  },
+  "AudioTrimmer": {
+    "intro": "Online audio trimmer with a visual waveform — cut MP3, WAV, AAC, or OGG locally with ffmpeg.wasm. Drag Start/End handles, optionally add Fade In/Out, then Trim & Download. 100% private.",
+    "uploadTitle": "Upload audio for {name}",
+    "uploadTitleBusy": "Trimming in worker…",
+    "uploadDescription": "Drag and drop MP3, WAV, AAC/M4A, or OGG — or browse from your device.",
+    "privacyBadge": "100% Private — trimmed locally with ffmpeg.wasm.",
+    "chooseAnother": "Choose another file",
+    "waveformLabel": "Waveform · drag handles to keep a range",
+    "waveformAria": "Audio waveform trimmer",
+    "loadingWaveform": "Loading waveform…",
+    "play": "Play",
+    "pause": "Pause",
+    "playSelection": "Play selection",
+    "keepRange": "Keep {start} → {end} ({seconds}s)",
+    "fadeLabel": "Fade In / Fade Out (soft edges)",
+    "fadeHint": "Adds a professional soft start/end on the trimmed clip. Requires a short re-encode (stream-copy stays on when fades are off).",
+    "fadeInLabel": "Fade in (seconds)",
+    "fadeOutLabel": "Fade out (seconds)",
+    "trimming": "Trimming…",
+    "trimAndDownload": "Trim & Download",
+    "success": "Trimmed — {size} saved locally.",
+    "downloadAgain": "Download again",
+    "invalidFile": "Please upload MP3, WAV, AAC/M4A, or OGG audio.",
+    "rangeError": "End must be after start. Drag the waveform handles to set a range.",
+    "fadeError": "Fade in + fade out exceed the selected range. Shorten the fades."
+  },
+  "Mp3VolumeBooster": {
+    "intro": "Boost your MP3 volume to professional levels without quality loss. All processing is 100% local and private. ffmpeg.wasm applies the loudnorm filter.",
+    "uploadTitle": "Upload MP3",
+    "uploadTitleBusy": "Normalizing in worker…",
+    "uploadDescription": "Drag and drop an MP3 or browse from your device.",
+    "privacyBadge": "100% Private — boosted locally with ffmpeg.wasm.",
+    "chooseAnother": "Choose another file",
+    "originalLabel": "Original",
+    "boostedLabel": "Boosted",
+    "previewHint": "Run boost to preview the louder version here.",
+    "boostLevel": "Boost level",
+    "normalizeHint": "{min}× normalize",
+    "maxBoostHint": "{max}× max boost",
+    "normalizing": "Normalizing…",
+    "boostAndDownload": "Boost & Download",
+    "progressLabel": "Normalization progress",
+    "success": "Boosted — {size} MP3 at {level}× saved locally.",
+    "downloadAgain": "Download again",
+    "invalidFile": "Please choose an MP3 file."
+  },
+  "Mp3Converter": {
+    "intro": "Convert WAV, OGG, or AAC to MP3 with ffmpeg.wasm — entirely in your browser. No uploads, no server processing.",
+    "uploadTitle": "Upload audio for {name}",
+    "uploadTitleBusy": "Processing in worker…",
+    "uploadDescription": "Drag and drop a file or browse from your device.",
+    "privacyBadge": "100% Private — processed locally with ffmpeg.wasm.",
+    "chooseAnother": "Choose another file",
+    "bitrateLabel": "MP3 bitrate",
+    "converting": "Converting…",
+    "convertToMp3": "Convert to MP3",
+    "success": "Ready — {size} MP3 generated on your device.",
+    "download": "Download {fileName}",
+    "invalidFile": "Please choose WAV, OGG, AAC, or M4A — conversion outputs MP3 locally."
   }
 }

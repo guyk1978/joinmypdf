@@ -1,4 +1,26 @@
 import { resolveHomeToolCopy } from "@/lib/home-tool-copy";
+import {
+  buildInventoryGridItems,
+  getInventoryFeatureLabels,
+  getInventoryIdsByCategory,
+  type InventoryTranslator,
+} from "@/lib/tools-inventory-query";
+import type { ToolGridItem } from "@/lib/tool-grid";
+
+export const SECURITY_TOOLS_HUB_PATH = "/tools/security-tools/";
+export const SECURITY_TOOL_IDS = getInventoryIdsByCategory("security") as readonly string[];
+export type SecurityToolId = string;
+
+export function buildSecurityToolGridItems(
+  t?: InventoryTranslator,
+  locale?: string,
+): ToolGridItem[] {
+  return buildInventoryGridItems("security", t, locale);
+}
+
+export function getSecurityToolFeatureLabels(t?: InventoryTranslator): string[] {
+  return getInventoryFeatureLabels("security", t);
+}
 
 export type HomeSecurityToolId =
   | "password-generator"

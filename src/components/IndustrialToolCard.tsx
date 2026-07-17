@@ -1,8 +1,9 @@
 "use client";
 
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
-import { Link } from "@/i18n/navigation";
 import { clsx } from "clsx";
+import { useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
@@ -10,6 +11,7 @@ import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
+import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
 
 export type IndustrialToolCardProps = {
@@ -51,10 +53,11 @@ export function IndustrialToolCard({
 }: IndustrialToolCardProps) {
   const modal = useOptionalToolModal();
   const embed = useToolEmbedMode();
-  const toolSlug = slug ?? slugFromHref(href);
+  const locale = useLocale();
+  const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
   /** Page-level category wins so hub pages share one accent (e.g. Image Tools). */
   const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
-  const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId) : href;
+  const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId, locale) : href;
   const returnHref =
     returnHrefProp ?? (categoryId ? normalizeHubPath(categoryId) : undefined);
 

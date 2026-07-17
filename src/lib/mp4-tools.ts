@@ -1,4 +1,3 @@
-import { VIDEO_TOOLS_INVENTORY_IDS } from "@/data/tools-inventory";
 import {
   buildInventoryGridItems,
   buildInventoryGridItemsForIds,
@@ -6,6 +5,7 @@ import {
   type InventoryTranslator,
 } from "@/lib/tools-inventory-query";
 import type { ToolGridItem } from "@/lib/tool-grid";
+import { VIDEO_TOOLS_INVENTORY_IDS } from "@/data/tools-inventory";
 
 /** All video-tagged tools on the MP4 Tools hub (same inventory membership). */
 export const MP4_TOOL_IDS = VIDEO_TOOLS_INVENTORY_IDS;
@@ -14,8 +14,8 @@ export const MP4_TOOLS_HUB_PATH = "/tools/mp4-tools/";
 
 export type Mp4ToolId = (typeof MP4_TOOL_IDS)[number];
 
-export function buildMp4ToolGridItems(t?: InventoryTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("mp4", t);
+export function buildMp4ToolGridItems(t?: InventoryTranslator, locale?: string): ToolGridItem[] {
+  return buildInventoryGridItems("mp4", t, locale);
 }
 
 export function getMp4ToolFeatureLabels(t?: InventoryTranslator): string[] {
@@ -45,6 +45,7 @@ export function buildMp4ToolPageCrumbs(params: {
 export function buildMp4ToolGridItemsForIds(
   ids: readonly string[],
   t?: InventoryTranslator,
+  locale?: string,
 ): ToolGridItem[] {
-  return buildInventoryGridItemsForIds(ids, t);
+  return buildInventoryGridItemsForIds(ids, t, "mp4", locale);
 }

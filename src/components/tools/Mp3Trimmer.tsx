@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { Download, Loader2, Scissors } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { MediaDropzone } from "@/components/media/MediaDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
@@ -37,7 +38,8 @@ export type Mp3TrimmerProps = ToolModuleProps & {
   onComplete?: (result: FfmpegAudioTrimResult) => void;
 };
 
-export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
+export function Mp3Trimmer({ name, title: _title, onComplete }: Mp3TrimmerProps) {
+  const t = useTranslations("Mp3Trimmer");
   const startId = useId();
   const endId = useId();
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -90,7 +92,7 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
   const pickFile = useCallback(
     (next: File) => {
       if (!isMp3File(next)) {
-        setPickError("Please upload an MP3 file for stream-copy trimming.");
+        setPickError(t("invalidFile"));
         return;
       }
       setFile(next);
@@ -100,7 +102,7 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
       setEndTime("01:00");
       reset();
     },
-    [reset],
+    [reset, t],
   );
 
   const trimAndDownload = useCallback(async () => {
@@ -133,8 +135,7 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
   return (
     <div className="mp3-trimmer-tool space-y-4">
       <p className="text-sm leading-relaxed text-neutral-400">
-        Trim MP3 segments with ffmpeg.wasm stream copy (<code className="text-neutral-500">-c copy</code>
-        ) — fast, lossless, and 100% local. Preview your file before choosing start and end times.
+        {t("intro")}
       </p>
 
       <FfmpegEnvironmentNotice
@@ -161,10 +162,10 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
           onFile={pickFile}
           onError={(message) => setPickError(message)}
           labels={{
-            title: `Upload MP3 for ${name}`,
-            titleBusy: "Trimming in worker…",
-            description: "Drag and drop an MP3 or browse from your device.",
-            privacyBadge: "100% Private — trimmed locally with ffmpeg.wasm.",
+            title: t("uploadTitle", { name }),
+            titleBusy: t("uploadTitleBusy"),
+            description: t("uploadDescription"),
+            privacyBadge: t("privacyBadge"),
           }}
           className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
@@ -186,14 +187,14 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
                 reset();
               }}
             >
-              Choose another file
+              {t("chooseAnother")}
             </button>
           </div>
 
           {previewUrl ? (
             <div className="space-y-2 rounded-none border border-neutral-800 bg-neutral-950 p-3">
               <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
-                Preview
+                {t("previewLabel")}
               </p>
               <audio
                 ref={audioRef}
@@ -204,7 +205,7 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
                 onLoadedMetadata={onAudioMetadata}
               />
               <p className="text-xs text-neutral-500">
-                Scrub the timeline to find your trim points, then enter start and end below.
+                {t("previewHint")}
               </p>
             </div>
           ) : null}
@@ -212,7 +213,7 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-neutral-300" htmlFor={startId}>
-                Start time (mm:ss)
+                {t("startLabel")}
               </label>
               <input
                 id={startId}
@@ -230,7 +231,7 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
             </div>
             <div className="space-y-2">
               <label className="block text-sm font-medium text-neutral-300" htmlFor={endId}>
-                End time (mm:ss)
+                {t("endLabel")}
               </label>
               <input
                 id={endId}
@@ -257,12 +258,12 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
             {busy ? (
               <>
                 <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden />
-                Trimming…
+                {t("trimming")}
               </>
             ) : (
               <>
                 <Scissors className="mr-2 inline h-4 w-4" aria-hidden />
-                Trim &amp; Download
+                {t("trimAndDownload")}
               </>
             )}
           </button>
@@ -274,7 +275,7 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
       {result && phase === "success" ? (
         <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
           <p className="text-sm text-emerald-400">
-            Trimmed — {formatBytes(result.blob.size)} MP3 saved locally.
+            {t("success", { size: formatBytes(result.blob.size) })}
           </p>
           <button
             type="button"
@@ -282,7 +283,7 @@ export function Mp3Trimmer({ name, title, onComplete }: Mp3TrimmerProps) {
             onClick={() => downloadBlob(result.blob, result.fileName)}
           >
             <Download className="mr-2 inline h-4 w-4" aria-hidden />
-            Download again
+            {t("downloadAgain")}
           </button>
           <PostSuccessUpsell operation="mp3-trimmer" fileContext={file?.name} sourceFile={file} />
         </div>

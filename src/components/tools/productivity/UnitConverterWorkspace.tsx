@@ -19,8 +19,31 @@ export function UnitConverterWorkspace({ tool, slug }: UnitConverterWorkspacePro
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
 
-  const labels = useMemo<UnitConverterLabels>(
-    () => ({
+  const labels = useMemo<UnitConverterLabels>(() => {
+    const unitIds = [
+      "kg",
+      "g",
+      "lb",
+      "oz",
+      "m",
+      "km",
+      "cm",
+      "mm",
+      "ft",
+      "in",
+      "mi",
+      "m2",
+      "km2",
+      "ft2",
+      "acre",
+      "hectare",
+    ] as const;
+    const unitLabels: Record<string, string> = {};
+    for (const id of unitIds) {
+      const key = `units.${id}`;
+      if (t.has(key)) unitLabels[id] = t(key);
+    }
+    return {
       categoryLabel: t("categoryLabel"),
       categoryWeight: t("categoryWeight"),
       categoryLength: t("categoryLength"),
@@ -31,9 +54,9 @@ export function UnitConverterWorkspace({ tool, slug }: UnitConverterWorkspacePro
       resultLabel: t("resultLabel"),
       resetButton: t("resetButton"),
       invalidInput: t("invalidInput"),
-    }),
-    [t],
-  );
+      unitLabels: Object.keys(unitLabels).length ? unitLabels : undefined,
+    };
+  }, [t]);
 
   return (
     <UtilityWorkspaceShell pageClassName="unit-converter-tool-page">

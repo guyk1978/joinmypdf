@@ -125,6 +125,7 @@ import { StorageDataConverterWorkspace } from "@/components/tools/unit-math/Stor
 import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/ReadingTimeCalculatorWorkspace";
 import { QuickNoteWorkspace } from "@/components/tools/productivity/QuickNoteWorkspace";
 import { CaseConverterWorkspace } from "@/components/tools/productivity/CaseConverterWorkspace";
+import { TextWorkspaceShell } from "@/components/tools/TextWorkspaceShell";
 import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
 import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
 import { FaviconPackWorkspace } from "@/components/FaviconPackWorkspace";
@@ -157,6 +158,13 @@ import {
 import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
 import { buildToolBreadcrumbTrail, resolveToolPageDescription } from "@/lib/tool-breadcrumb-hub";
 import { resolveToolRoute } from "@/lib/variants";
+import {
+  listAllRussianSeoToolSlugs,
+  listPdfToolPublicSlugs,
+  listVideoToolPublicSlugs,
+  resolveCanonicalToolSlug,
+} from "@/lib/locale-tool-slugs";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { STUDIO_TOOL_SLUGS } from "@/lib/studio-tools";
 import { toolPageDashboardStack, toolPageDashboardWidth, productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -206,6 +214,17 @@ export async function generateStaticParams() {
     slugs.add(landingSlug);
   }
 
+  // Russian SEO aliases (PDF / video / convert) for flat + nested catch-alls.
+  for (const ruSlug of listPdfToolPublicSlugs()) {
+    slugs.add(ruSlug);
+  }
+  for (const ruSlug of listVideoToolPublicSlugs()) {
+    slugs.add(ruSlug);
+  }
+  for (const ruSlug of listAllRussianSeoToolSlugs()) {
+    slugs.add(ruSlug);
+  }
+
   return Array.from(slugs).map((slug) => ({ slug }));
 }
 
@@ -224,14 +243,15 @@ export async function generateMetadata({
     const tPage = await getTranslations({ locale, namespace: "ToolPage" });
     return buildAudioToolMetadata(audioTool, locale, tPage);
   }
-  const resolved = resolveToolRoute(slug, registry);
+  const canonicalSlug = resolveCanonicalToolSlug(slug);
+  const resolved = resolveToolRoute(canonicalSlug, registry);
   if (!resolved) return {};
   const tTools = await getTranslations({ locale, namespace: "Tools" });
   const tPage = await getTranslations({ locale, namespace: "ToolPage" });
   const metadata = buildLocalizedToolMetadata({
     tool: resolved.tool,
     variant: resolved.variant,
-    slug,
+    slug: canonicalSlug,
     locale,
     tTools,
     tPage,
@@ -277,7 +297,8 @@ export default async function ToolPage({
     return <AudioToolPage tool={audioTool} slug={slug} locale={locale} />;
   }
 
-  const resolved = resolveToolRoute(slug, registry);
+  const canonicalSlug = resolveCanonicalToolSlug(slug);
+  const resolved = resolveToolRoute(canonicalSlug, registry);
   if (!resolved) notFound();
   const { tool, variant } = resolved;
 
@@ -298,7 +319,7 @@ export default async function ToolPage({
     tTools,
     tPage,
   });
-  const pathname = `/tools/${slug}/`;
+  const pathname = resolveToolHref(tool.slug, undefined, locale);
   const paragraphs = buildLocalizedGuideParagraphs(tPage, tool, variant);
   const articles = relatedArticlesForTool(tool.slug, locale);
   const schemaDescription = seoOverride?.schemaDescription ?? description;
@@ -311,6 +332,7 @@ export default async function ToolPage({
     pathname,
     tPage,
     tTools,
+    locale,
   });
   const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
@@ -593,6 +615,8 @@ export default async function ToolPage({
           <QuickNoteWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "readability-analyzer" ? (
           <ReadabilityAnalyzerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "text-workspace" ? (
+          <TextWorkspaceShell tool={tool} slug={slug} />
         ) : tool.operation === "case-converter" ? (
           <CaseConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "custom-paper-margin" ? (

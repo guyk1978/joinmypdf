@@ -4,8 +4,10 @@ import { routing } from "@/i18n/routing";
 import { getBrandName } from "./brand";
 import { translateToolItem } from "./i18n-tool-labels";
 import type { ToolsTranslator } from "./i18n-tool-page";
+import { resolveCanonicalToolSlug } from "./locale-tool-slugs";
 import { buildDefaultSocialImages, localeOgImageUrl } from "./og-images";
 import { siteUrl } from "./site";
+import { resolveToolHref } from "./tool-hierarchy";
 
 const META_DESCRIPTION_MAX = 155;
 
@@ -67,8 +69,12 @@ export function buildToolSeoCopy(params: {
 }
 
 export function buildToolAlternateLanguages(slug: string): Record<string, string> {
+  const canonical = resolveCanonicalToolSlug(slug);
   return Object.fromEntries(
-    routing.locales.map((locale) => [locale, `/${locale}/tools/${slug}/`]),
+    routing.locales.map((locale) => {
+      const path = resolveToolHref(canonical, undefined, locale);
+      return [locale, `/${locale}${path}`];
+    }),
   );
 }
 
@@ -90,8 +96,12 @@ export function buildLocalizedToolMetadata(params: {
 }): Metadata {
   const { slug, locale } = params;
   const { title, description, ogTitle } = buildToolSeoCopy(params);
-  const canonicalPath = `/${locale}/tools/${slug}/`;
+  const canonicalId = resolveCanonicalToolSlug(slug);
+  const toolPath = resolveToolHref(canonicalId, undefined, locale);
+  const canonicalPath = `/${locale}${toolPath}`;
   const social = buildDefaultSocialImages(locale, { alt: ogTitle });
+  const ogLocale =
+    locale === "he" ? "he_IL" : locale === "ru" ? "ru_RU" : "en_US";
 
   return {
     title,
@@ -99,7 +109,7 @@ export function buildLocalizedToolMetadata(params: {
     metadataBase: new URL(siteUrl),
     alternates: {
       canonical: canonicalPath,
-      languages: buildToolAlternateLanguages(slug),
+      languages: buildToolAlternateLanguages(canonicalId),
     },
     openGraph: {
       title: ogTitle,
@@ -107,7 +117,7 @@ export function buildLocalizedToolMetadata(params: {
       url: canonicalPath,
       siteName: getBrandName(locale),
       type: "website",
-      locale: locale === "he" ? "he_IL" : "en_US",
+      locale: ogLocale,
       ...social.openGraph,
     },
     twitter: {

@@ -169,6 +169,7 @@ export function buildToolPageBreadcrumbs(params: {
   toolPath?: string;
   seoCategory?: string;
   categoryId?: InventoryCategoryId;
+  locale?: string;
   tPage: ToolPageTranslator;
 }): ToolBreadcrumbCrumb[] {
   const { slug, toolTitle, tPage } = params;
@@ -182,7 +183,7 @@ export function buildToolPageBreadcrumbs(params: {
   const toolPath =
     params.toolPath ??
     (categoryForPath
-      ? resolveToolHref(slug, categoryForPath)
+      ? resolveToolHref(slug, categoryForPath, params.locale)
       : `/tools/${slug}/`);
 
   return [
@@ -200,6 +201,7 @@ export function buildToolBreadcrumbTrail(params: {
   tPage: ToolPageTranslator;
   tTools: ToolsTranslator;
   categoryId?: InventoryCategoryId;
+  locale?: string;
 }): ToolBreadcrumbCrumb[] {
   const { tool, variant, pathname, tPage, tTools } = params;
   const crumbs = buildToolPageBreadcrumbs({
@@ -207,6 +209,8 @@ export function buildToolBreadcrumbTrail(params: {
     toolTitle: localizedToolTitle(tTools, tool, null),
     categoryId: params.categoryId,
     seoCategory: tool.category,
+    locale: params.locale,
+    toolPath: pathname,
     tPage,
   });
 

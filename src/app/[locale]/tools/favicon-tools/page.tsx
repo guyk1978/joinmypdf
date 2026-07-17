@@ -39,14 +39,16 @@ export default async function FaviconToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("FaviconToolsPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${FAVICON_TOOLS_HUB_PATH}`;
-  const gridItems = buildFaviconToolGridItems(t);
-  const featureList = getFaviconToolFeatureLabels(t);
+  const gridItems = buildFaviconToolGridItems(tTools, locale);
+  const featureList = getFaviconToolFeatureLabels(tTools);
   const relatedGuides = getRecentDesignFaviconBlogPosts(getBlogRegistry(locale).blog || [], 3);
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: t("title"), path: FAVICON_TOOLS_HUB_PATH },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubFavicon"), path: FAVICON_TOOLS_HUB_PATH },
   ];
 
   return (

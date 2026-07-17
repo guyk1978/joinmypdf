@@ -33,6 +33,8 @@ import {
   getToolModalRelatedTools,
   type ToolModalRelatedTool,
 } from "@/lib/tool-modal-catalog";
+import { localizeToolPresentation } from "@/lib/localize-tool-presentation";
+import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import {
   normalizeHubPath,
   parseToolHierarchyPath,
@@ -96,13 +98,18 @@ function resolveReturnAppPath(options: OpenToolModalOptions | null): string {
   return "/";
 }
 
-function toOpenOptionsFromSlug(slug: string): OpenToolModalOptions | null {
+function toOpenOptionsFromSlug(
+  slug: string,
+  locale?: string,
+): OpenToolModalOptions | null {
   const entry = getToolsDataEntry(slug);
   if (!entry) return null;
   const categoryId = resolveToolCategoryId(slug);
   return {
     slug: entry.id,
-    href: categoryId ? resolveToolHref(entry.id, categoryId) : getToolModalPath(entry),
+    href: categoryId
+      ? resolveToolHref(entry.id, categoryId, locale)
+      : getToolModalPath(entry),
     title: entry.title,
     description: entry.description || undefined,
     categoryId,
@@ -119,6 +126,8 @@ function maskBackground(on: boolean) {
 export function ToolModalProvider({ children }: { children: ReactNode }) {
   const locale = useLocale();
   const t = useTranslations("ToolModal");
+  const tTools = useTranslations("Tools");
+  const tPage = useTranslations("ToolPage");
   const router = useRouter();
   const pathname = usePathname();
   const [active, setActive] = useState<OpenToolModalOptions | null>(null);
@@ -129,25 +138,50 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   const softUrlRef = useRef(false);
   const returnHrefRef = useRef<string>("/");
 
-  const applyActiveTool = useCallback((options: OpenToolModalOptions) => {
-    const categoryId =
-      options.categoryId ??
-      parseToolHierarchyPath(options.href)?.categoryId ??
-      resolveToolCategoryId(options.slug);
-    const href = normalizeToolPath(
-      options.href ||
-        (categoryId ? resolveToolHref(options.slug, categoryId) : `/tools/${options.slug}/`),
-    );
-    const returnHref = resolveReturnAppPath({ ...options, categoryId, href });
-    returnHrefRef.current = returnHref;
-    setActive({ ...options, href, categoryId, returnHref });
-    setContentReady(Boolean(options.calc));
-    setVisible(true);
-    maskBackground(true);
-    if (typeof document !== "undefined" && options.title) {
-      document.title = `${options.title} | JoinMyPDF`;
-    }
-  }, []);
+  const localizeOptions = useCallback(
+    (options: OpenToolModalOptions): OpenToolModalOptions => {
+      const canonicalSlug = resolveCanonicalToolSlug(options.slug);
+      const localized = localizeToolPresentation(canonicalSlug, tTools, {
+        title: options.title,
+        description: options.description,
+      });
+      const categoryId =
+        options.categoryId ??
+        parseToolHierarchyPath(options.href)?.categoryId ??
+        resolveToolCategoryId(canonicalSlug);
+      const href = normalizeToolPath(
+        options.href ||
+          (categoryId
+            ? resolveToolHref(canonicalSlug, categoryId, locale)
+            : `/tools/${canonicalSlug}/`),
+      );
+      return {
+        ...options,
+        slug: canonicalSlug,
+        title: localized.title,
+        description: localized.description || options.description,
+        categoryId,
+        href,
+      };
+    },
+    [locale, tTools],
+  );
+
+  const applyActiveTool = useCallback(
+    (options: OpenToolModalOptions) => {
+      const localized = localizeOptions(options);
+      const returnHref = resolveReturnAppPath(localized);
+      returnHrefRef.current = returnHref;
+      setActive({ ...localized, returnHref });
+      setContentReady(Boolean(localized.calc));
+      setVisible(true);
+      maskBackground(true);
+      if (typeof document !== "undefined" && localized.title) {
+        document.title = `${localized.title} | JoinMyPDF`;
+      }
+    },
+    [localizeOptions],
+  );
 
   const softPushToolUrl = useCallback(
     (href: string, slug: string, returnHref: string) => {
@@ -196,21 +230,13 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
     (options: OpenToolModalOptions) => {
       if (isEmbedRequest()) return;
       closingRef.current = false;
-      applyActiveTool(options);
-      if (!options.skipUrlSync) {
-        const categoryId =
-          options.categoryId ?? resolveToolCategoryId(options.slug);
-        const href = normalizeToolPath(
-          options.href ||
-            (categoryId
-              ? resolveToolHref(options.slug, categoryId)
-              : `/tools/${options.slug}/`),
-        );
-        const returnHref = resolveReturnAppPath({ ...options, categoryId, href });
-        softPushToolUrl(href, options.slug, returnHref);
+      const localized = localizeOptions(options);
+      applyActiveTool(localized);
+      if (!localized.skipUrlSync) {
+        softPushToolUrl(localized.href, localized.slug, resolveReturnAppPath(localized));
       }
     },
-    [applyActiveTool, softPushToolUrl],
+    [applyActiveTool, localizeOptions, softPushToolUrl],
   );
 
   const handleExitComplete = useCallback(() => {
@@ -234,7 +260,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
     applyActiveTool({
       slug: matched.id,
       href: categoryId
-        ? resolveToolHref(matched.id, categoryId)
+        ? resolveToolHref(matched.id, categoryId, locale)
         : getToolModalPath(matched),
       title: matched.title,
       description: matched.description || undefined,
@@ -260,7 +286,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
         applyActiveTool({
           slug: matched.id,
           href: categoryId
-            ? resolveToolHref(matched.id, categoryId)
+            ? resolveToolHref(matched.id, categoryId, locale)
             : getToolModalPath(matched),
           title: matched.title,
           description: matched.description || undefined,
@@ -310,8 +336,36 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
     [openToolModal, closeToolModal, visible],
   );
 
-  const docModel = active ? getToolModalDocModel(active.slug, active.title) : null;
-  const relatedTools = active ? getToolModalRelatedTools(active.slug) : [];
+  const docModel = active
+    ? getToolModalDocModel(active.slug, active.title, {
+        locale,
+        t: tPage,
+        title: active.title,
+        description: active.description,
+      })
+    : null;
+  const relatedTools = active
+    ? getToolModalRelatedTools(active.slug, 8, {
+        locale,
+        localize: (peerSlug, title, description) => {
+          const localized = localizeToolPresentation(peerSlug, tTools, {
+            title,
+            description,
+          });
+          return {
+            title: localized.title,
+            description: localized.description || description,
+          };
+        },
+      }).map((tool) => ({
+        ...tool,
+        href: resolveToolHref(
+          tool.slug,
+          active.categoryId ?? resolveToolCategoryId(tool.slug),
+          locale,
+        ),
+      }))
+    : [];
   const relatedArticles = active ? getToolModalRelatedArticles(active.slug) : [];
   const embedSrc = active ? buildToolEmbedHref(active.href, locale) : "";
 
@@ -329,7 +383,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
     [openToolModal, active?.categoryId, active?.returnHref],
   );
 
-  const loadingLabel = t.has("loading") ? t("loading") : "Loading tool…";
+  const loadingLabel = t("loading");
 
   return (
     <ToolModalContext.Provider value={value}>
@@ -376,6 +430,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
                   loading: loadingLabel,
                   expandAll: t("expandAll"),
                   collapseAll: t("collapseAll"),
+                  comingSoon: t("comingSoon"),
                 }}
               />
             )

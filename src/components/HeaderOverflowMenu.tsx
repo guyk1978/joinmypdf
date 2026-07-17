@@ -14,6 +14,7 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from
 import { createPortal } from "react-dom";
 import { usePageShare } from "@/hooks/usePageShare";
 import { routing, type AppLocale } from "@/i18n/routing";
+import { remapLocalizedToolPathname } from "@/lib/locale-tool-slugs";
 
 type PanelPosition = {
   top: number;
@@ -156,7 +157,8 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
       close();
       return;
     }
-    router.replace(pathname, { locale: nextLocale });
+    const nextPath = remapLocalizedToolPathname(pathname, nextLocale);
+    router.replace(nextPath, { locale: nextLocale });
     onNavigate?.();
     close();
   };
@@ -197,16 +199,22 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
           width: panelPosition.width,
         }}
       >
+          <p className="site-header__overflow-heading">{t("language")}</p>
+
           {routing.locales.map((item) => (
             <button
               key={item}
               type="button"
               role="menuitemradio"
               aria-checked={item === locale}
-              className={clsx(itemClass, item === locale && "is-active")}
+              className={clsx(
+                itemClass,
+                "site-header__overflow-item--lang",
+                item === locale && "is-active",
+              )}
               onClick={() => selectLocale(item)}
             >
-              {t("language")}: {tLang(item)}
+              {tLang(item)}
             </button>
           ))}
 

@@ -61,18 +61,35 @@ export function getToolModalFaqs(
 export function getToolModalDocModel(
   slug: string,
   fallbackTitle?: string,
-  options?: { locale?: string; t?: ToolPageTranslator },
+  options?: {
+    locale?: string;
+    t?: ToolPageTranslator;
+    title?: string;
+    description?: string;
+  },
 ): ToolModalDocModel {
   const tool = findRegistryTool(slug);
   const data = getToolsDataEntry(slug);
   const inventory = getToolsInventoryEntry(slug);
-  const title = tool?.title ?? data?.title ?? inventory?.title ?? fallbackTitle ?? slug;
+  const title =
+    options?.title ||
+    tool?.title ||
+    data?.title ||
+    inventory?.title ||
+    fallbackTitle ||
+    slug;
   const locale = options?.locale ?? "en";
+  const description =
+    options?.description ||
+    tool?.description ||
+    data?.description ||
+    inventory?.description ||
+    "";
 
   return {
     slug,
     title,
-    description: tool?.description ?? data?.description ?? inventory?.description ?? "",
+    description,
     intent: tool?.intent,
     primaryKeyword: tool?.primaryKeyword,
     useCases: tool?.useCases ?? [],
@@ -81,13 +98,30 @@ export function getToolModalDocModel(
 }
 
 /** Similar tools for the RELATED tab — driven by `TOOLS_DATA[slug].related`. */
-export function getToolModalRelatedTools(slug: string, limit = 8): ToolModalRelatedTool[] {
-  return getRelatedToolsFromData(slug, limit).map((peer) => ({
-    slug: peer.id,
-    href: peer.href,
-    title: peer.title,
-    description: peer.description || undefined,
-  }));
+export function getToolModalRelatedTools(
+  slug: string,
+  limit = 8,
+  options?: {
+    locale?: string;
+    localize?: (peerSlug: string, title: string, description?: string) => {
+      title: string;
+      description?: string;
+    };
+  },
+): ToolModalRelatedTool[] {
+  const locale = options?.locale;
+  return getRelatedToolsFromData(slug, limit).map((peer) => {
+    const localized = options?.localize?.(peer.id, peer.title, peer.description || undefined);
+    return {
+      slug: peer.id,
+      href: locale
+        ? // Keep nested path; getRelatedToolsFromData href may be EN — rebuild if needed by caller
+          peer.href
+        : peer.href,
+      title: localized?.title ?? peer.title,
+      description: localized?.description ?? (peer.description || undefined),
+    };
+  });
 }
 
 /** Blog posts that reference this tool. */

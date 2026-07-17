@@ -3,6 +3,7 @@ import { TOOL_DEFINITIONS } from "@/config/tools";
 import { JPG_TOOLS_HUB_PATH } from "@/lib/jpg-tools";
 import { PNG_TOOLS_HUB_PATH } from "@/lib/png-tools";
 import { registry } from "@/lib/registry";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 import type { ToolDefinition } from "@/lib/types";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
@@ -144,7 +145,10 @@ export function getImageToolSlugs(): string[] {
   return getRegistryImageTools().map((tool) => tool.slug);
 }
 
-export function buildHomeImageToolItems(tHome: HomeTranslator): HomeImageToolItem[] {
+export function buildHomeImageToolItems(
+  tHome: HomeTranslator,
+  locale?: string,
+): HomeImageToolItem[] {
   return getRegistryImageTools()
     .slice()
     .sort((a, b) => {
@@ -155,7 +159,7 @@ export function buildHomeImageToolItems(tHome: HomeTranslator): HomeImageToolIte
     })
     .map((tool) => ({
       id: tool.slug,
-      href: `/tools/${tool.slug}/`,
+      href: resolveToolHref(tool.slug, "image", locale),
       label: resolveImageToolLabel(tool.slug, tool.title, tHome),
       description: resolveImageToolDescription(tool.slug, tool.description, tHome),
       iconKey: resolveImageToolIconKey(tool.slug),
@@ -163,7 +167,10 @@ export function buildHomeImageToolItems(tHome: HomeTranslator): HomeImageToolIte
     }));
 }
 
-export function buildHomepageFeaturedImageItems(tHome: HomeTranslator): HomeFeaturedImageItem[] {
+export function buildHomepageFeaturedImageItems(
+  tHome: HomeTranslator,
+  locale?: string,
+): HomeFeaturedImageItem[] {
   const jpgHubLabel = tHome.has("jpgToolsHubLabel") ? tHome("jpgToolsHubLabel") : "JPG Tools";
   const pngHubLabel = tHome.has("pngToolsHubLabel") ? tHome("pngToolsHubLabel") : "PNG Tools";
 
@@ -182,7 +189,7 @@ export function buildHomepageFeaturedImageItems(tHome: HomeTranslator): HomeFeat
     },
   ];
 
-  const itemsById = new Map(buildHomeImageToolItems(tHome).map((item) => [item.id, item]));
+  const itemsById = new Map(buildHomeImageToolItems(tHome, locale).map((item) => [item.id, item]));
 
   const toolItems = HOMEPAGE_FEATURED_IMAGE_IDS.map((id) => itemsById.get(id))
     .filter((item): item is HomeImageToolItem => Boolean(item))
@@ -216,8 +223,9 @@ function workflowDescription(t: CategoryDirectoryTranslator, workflowId: ImageSu
 export function buildImageCategoryDirectoryColumns(
   tHome: HomeTranslator,
   tCategory: CategoryDirectoryTranslator,
+  locale?: string,
 ): DirectoryWorkflowColumn[] {
-  const items = buildHomeImageToolItems(tHome);
+  const items = buildHomeImageToolItems(tHome, locale);
   const itemsBySubCategory = new Map<ImageSubCategory, HomeImageToolItem[]>();
 
   for (const subCategory of IMAGE_SUB_CATEGORIES) {

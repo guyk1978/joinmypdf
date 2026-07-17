@@ -8,8 +8,11 @@ import type { ToolGridItem } from "@/lib/tool-grid";
 
 export const EXTRACT_TOOLS_HUB_PATH = "/tools/extract-tools/";
 
-export function buildExtractToolGridItems(t?: InventoryTranslator): ToolGridItem[] {
-  return buildInventoryGridItems("extract", t);
+export function buildExtractToolGridItems(
+  t?: InventoryTranslator,
+  locale?: string,
+): ToolGridItem[] {
+  return buildInventoryGridItems("extract", t, locale);
 }
 
 export function getExtractToolFeatureLabels(t?: InventoryTranslator): string[] {

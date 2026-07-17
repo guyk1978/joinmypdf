@@ -46,6 +46,7 @@ export default async function VideoToolsHubPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations("VideoToolsPage");
+  const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${VIDEO_TOOLS_HUB_PATH}`;
   const featureList = getVideoToolFeatureLabels(t);
@@ -54,7 +55,7 @@ export default async function VideoToolsHubPage({ params }: PageProps) {
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
     { name: tPage("breadcrumbAllTools"), path: "/tools/" },
-    { name: t("title"), path: VIDEO_TOOLS_HUB_PATH },
+    { name: t("schemaName"), path: VIDEO_TOOLS_HUB_PATH },
   ];
 
   return (
@@ -89,7 +90,10 @@ export default async function VideoToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildVideoToolGroupItems(group.id, t)} categoryId="video" />
+              <CategoryDirectoryFlatGrid
+                items={buildVideoToolGroupItems(group.id, tTools, locale)}
+                categoryId="video"
+              />
             </section>
           ))}
 

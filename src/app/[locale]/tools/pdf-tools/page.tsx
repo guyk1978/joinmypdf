@@ -47,6 +47,7 @@ export default async function PdfToolsHubPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations("PdfToolsPage");
+  const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${PDF_TOOLS_HUB_PATH}`;
   const featureList = getPdfToolFeatureLabels(t);
@@ -93,7 +94,7 @@ export default async function PdfToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <PdfToolsCardGrid items={buildPdfToolGroupItems(group.id, t)} />
+              <PdfToolsCardGrid items={buildPdfToolGroupItems(group.id, tTools, locale)} />
             </section>
           ))}
 

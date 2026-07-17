@@ -13,7 +13,7 @@ import {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
-const LOCALES = ["en", "he"];
+const LOCALES = ["en", "he", "ru"];
 
 async function readJson(rel) {
   return JSON.parse(await readFile(path.join(root, rel), "utf8"));
@@ -59,8 +59,17 @@ async function main() {
     return slug && (statusMap[slug] || "active") === "active";
   });
 
-  const sitemapPaths = nestedPaths.flatMap((nested) =>
-    LOCALES.map((locale) => `/${locale}${nested}`),
+  const ruNestedPaths = listAllNestedToolPaths(hierarchy, { locale: "ru" });
+  const ruMerge = "/tools/pdf-tools/obiedinenie-pdf/";
+
+  const sitemapPaths = LOCALES.flatMap((locale) =>
+    listAllNestedToolPaths(hierarchy, { locale })
+      .filter((nestedPath) => {
+        const slug = nestedPath.split("/").filter(Boolean).pop();
+        // Reverse RU slug for status when needed is skipped for count; paths are emitted.
+        return Boolean(slug);
+      })
+      .map((nested) => `/${locale}${nested}`),
   );
 
   const compressJpg = "/tools/jpg-tools/compress-image/";
@@ -74,6 +83,7 @@ async function main() {
   console.log(`jpg-tools/compress-image:     ${nestedPaths.includes(compressJpg) ? "OK" : "MISSING"}`);
   console.log(`image-tools/compress-image:   ${nestedPaths.includes(compressImage) ? "OK" : "MISSING"}`);
   console.log(`image-tools/heic-to-jpg:      ${nestedPaths.includes(heic) ? "OK" : "MISSING"}`);
+  console.log(`ru pdf-tools/obiedinenie-pdf: ${ruNestedPaths.includes(ruMerge) ? "OK" : "MISSING"}`);
 
   const jpgChildren = hierarchy.slugsByCategory.get("jpg") || [];
   console.log(`jpg-tools children:           ${jpgChildren.length} (${jpgChildren.slice(0, 8).join(", ")}${jpgChildren.length > 8 ? ",…" : ""})`);
@@ -93,8 +103,13 @@ async function main() {
     process.exitCode = 1;
     return;
   }
+  if (!ruNestedPaths.includes(ruMerge)) {
+    console.error("\nFAIL: Russian SEO slug missing for pdf-merge under /tools/pdf-tools/");
+    process.exitCode = 1;
+    return;
+  }
 
-  console.log("\nOK: category-first nested paths include jpg-tools children.");
+  console.log("\nOK: category-first nested paths include jpg-tools children and ru PDF SEO slugs.");
 }
 
 main().catch((error) => {

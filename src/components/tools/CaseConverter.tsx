@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { clsx } from "clsx";
+import { useTranslations } from "next-intl";
 import { copyTextToClipboard } from "@/lib/favicon-code-generator";
 
 type CaseTransform = "uppercase" | "lowercase" | "title" | "camel" | "snake" | "kebab";
@@ -94,11 +95,13 @@ type CaseConverterProps = {
 
 export function CaseConverter({
   className,
-  placeholder = "Type or paste text here…",
+  placeholder,
 }: CaseConverterProps) {
+  const t = useTranslations("CaseConverterPage");
   const inputId = useId();
   const [text, setText] = useState("");
   const [copied, setCopied] = useState(false);
+  const resolvedPlaceholder = placeholder ?? t("placeholder");
 
   const onTransform = (transform: CaseTransform) => {
     setText((current) => applyCaseTransform(current, transform));
@@ -123,14 +126,14 @@ export function CaseConverter({
     <div className={clsx("mx-auto w-full max-w-7xl", className)}>
       <div className="border border-[#262626] bg-[#0a0a0a] p-6">
         <label className="sr-only" htmlFor={inputId}>
-          Text to convert
+          {t("inputLabel")}
         </label>
         <textarea
           id={inputId}
           className="min-h-[280px] w-full resize-y bg-transparent text-base leading-relaxed text-white placeholder:text-[#525252] focus:outline-none focus:ring-0"
           value={text}
           onChange={(event) => setText(event.target.value)}
-          placeholder={placeholder}
+          placeholder={resolvedPlaceholder}
           dir="auto"
           spellCheck={false}
           rows={14}
@@ -152,11 +155,11 @@ export function CaseConverter({
             <span className="hidden h-4 w-px bg-[#262626] sm:inline-block" aria-hidden />
 
             <button type="button" className={BUTTON_CLASS} onClick={() => void onCopy()} disabled={!text}>
-              <span aria-live="polite">{copied ? "Copied!" : "Copy to Clipboard"}</span>
+              <span aria-live="polite">{copied ? t("copied") : t("copyButton")}</span>
             </button>
 
             <button type="button" className={BUTTON_CLASS} onClick={onClear} disabled={!text}>
-              Clear
+              {t("clearButton")}
             </button>
           </div>
         </div>

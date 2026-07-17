@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { Download, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useCallback, useId, useState } from "react";
 import { MediaDropzone } from "@/components/media/MediaDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
@@ -25,7 +26,8 @@ export type Mp3ConverterProps = ToolModuleProps & {
   onComplete?: (result: FfmpegAudioConvertResult) => void;
 };
 
-export function Mp3Converter({ name, title, onComplete }: Mp3ConverterProps) {
+export function Mp3Converter({ name, title: _title, onComplete }: Mp3ConverterProps) {
+  const t = useTranslations("Mp3Converter");
   const bitrateId = useId();
   const [file, setFile] = useState<File | null>(null);
   const [bitrateKbps, setBitrateKbps] = useState<(typeof BITRATE_OPTIONS)[number]>(192);
@@ -50,14 +52,14 @@ export function Mp3Converter({ name, title, onComplete }: Mp3ConverterProps) {
   const pickFile = useCallback(
     (next: File) => {
       if (!isSupportedMp3Source(next)) {
-        setPickError("Please choose WAV, OGG, AAC, or M4A — conversion outputs MP3 locally.");
+        setPickError(t("invalidFile"));
         return;
       }
       setFile(next);
       setPickError("");
       reset();
     },
-    [reset],
+    [reset, t],
   );
 
   const download = useCallback(() => {
@@ -74,10 +76,7 @@ export function Mp3Converter({ name, title, onComplete }: Mp3ConverterProps) {
 
   return (
     <div className="mp3-converter-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        Convert WAV, OGG, or AAC to MP3 with ffmpeg.wasm — entirely in your browser. No uploads, no
-        server processing.
-      </p>
+      <p className="text-sm leading-relaxed text-neutral-400">{t("intro")}</p>
 
       <FfmpegEnvironmentNotice
         environment={environment}
@@ -98,10 +97,10 @@ export function Mp3Converter({ name, title, onComplete }: Mp3ConverterProps) {
           onFile={pickFile}
           onError={(message) => setPickError(message)}
           labels={{
-            title: `Upload audio for ${name}`,
-            titleBusy: "Processing in worker…",
-            description: "Drag and drop a file or browse from your device.",
-            privacyBadge: "100% Private — processed locally with ffmpeg.wasm.",
+            title: t("uploadTitle", { name }),
+            titleBusy: t("uploadTitleBusy"),
+            description: t("uploadDescription"),
+            privacyBadge: t("privacyBadge"),
           }}
           className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
@@ -121,13 +120,13 @@ export function Mp3Converter({ name, title, onComplete }: Mp3ConverterProps) {
                 reset();
               }}
             >
-              Choose another file
+              {t("chooseAnother")}
             </button>
           </div>
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-neutral-300" htmlFor={bitrateId}>
-              MP3 bitrate
+              {t("bitrateLabel")}
             </label>
             <select
               id={bitrateId}
@@ -155,10 +154,10 @@ export function Mp3Converter({ name, title, onComplete }: Mp3ConverterProps) {
             {busy ? (
               <>
                 <Loader2 className="mr-2 inline h-4 w-4 animate-spin" aria-hidden />
-                Converting…
+                {t("converting")}
               </>
             ) : (
-              "Convert to MP3"
+              t("convertToMp3")
             )}
           </button>
         </div>
@@ -169,11 +168,11 @@ export function Mp3Converter({ name, title, onComplete }: Mp3ConverterProps) {
       {result && phase === "success" ? (
         <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
           <p className="text-sm text-emerald-400">
-            Ready — {formatBytes(result.blob.size)} MP3 generated on your device.
+            {t("success", { size: formatBytes(result.blob.size) })}
           </p>
           <button type="button" className={toolPrimaryBtn} onClick={download}>
             <Download className="mr-2 inline h-4 w-4" aria-hidden />
-            Download {result.fileName}
+            {t("download", { fileName: result.fileName })}
           </button>
           <PostSuccessUpsell operation="mp3-converter" fileContext={file?.name} sourceFile={file} />
         </div>

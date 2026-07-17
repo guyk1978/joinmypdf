@@ -1,35 +1,51 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { CategoryDirectoryShell } from "@/components/CategoryDirectoryShell";
-import { getCategoryDirectoryItemCount, getCategoryDirectoryPageProps } from "@/lib/category-directory-config";
-import { JsonLd } from "@/lib/schema";
+import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
+import {
+  buildSecurityToolGridItems,
+  getSecurityToolFeatureLabels,
+  SECURITY_TOOLS_HUB_PATH,
+} from "@/lib/security-tools";
+import { breadcrumbLd, JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
+import { productPageMainClassName } from "@/lib/tool-ui";
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
+type PageProps = { params: Promise<{ locale: string }> };
 
-const HUB_PATH = "/tools/security-tools";
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Home" });
+  const t = await getTranslations({ locale, namespace: "SecurityToolsPage" });
 
   return {
-    title: t("securityToolsDirectoryTitle"),
-    description: t("securityToolsDirectoryDescription"),
-    alternates: { canonical: `/${locale}${HUB_PATH}` },
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: {
+      canonical: `/${locale}${SECURITY_TOOLS_HUB_PATH}`,
+      languages: Object.fromEntries(
+        routing.locales.map((item) => [item, `/${item}${SECURITY_TOOLS_HUB_PATH}`]),
+      ),
+    },
   };
 }
 
-export default async function SecurityToolsPage({ params }: Props) {
+export default async function SecurityToolsHubPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const tHome = await getTranslations("Home");
-  const tCategory = await getTranslations("CategoryDirectory");
-  const page = getCategoryDirectoryPageProps("security", tHome, tCategory);
-  const itemCount = getCategoryDirectoryItemCount("security", tHome);
+
+  const t = await getTranslations("SecurityToolsPage");
+  const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
+  const gridItems = buildSecurityToolGridItems(tTools, locale);
+  const featureList = getSecurityToolFeatureLabels(tTools);
+
+  const crumbs = [
+    { name: tPage("breadcrumbHome"), path: "/" },
+    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: tPage("breadcrumbHubSecurity"), path: SECURITY_TOOLS_HUB_PATH },
+  ];
 
   return (
     <>
@@ -37,14 +53,36 @@ export default async function SecurityToolsPage({ params }: Props) {
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: page.title,
-          description: page.description,
-          url: absoluteUrl(`/${locale}${HUB_PATH}`),
-          numberOfItems: itemCount,
+          name: t("schemaName"),
+          description: t("schemaDescription"),
+          url: absoluteUrl(`/${locale}${SECURITY_TOOLS_HUB_PATH}`),
+          numberOfItems: gridItems.length,
+          about: featureList,
         }}
       />
-      <AppPageShell>
-        <CategoryDirectoryShell {...page} />
+      <JsonLd data={breadcrumbLd(crumbs)} />
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
+          <header className="mb-6 border-b border-[#262626] pb-6">
+            <h1 className="mb-4 text-3xl font-bold text-white">{t("title")}</h1>
+            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
+          </header>
+
+          <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
+            <CategoryDirectoryFlatGrid items={gridItems} categoryId="security" />
+          </section>
+
+          <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">
+            <p className="m-0 text-xs uppercase tracking-widest text-[#737373]">{t("privacyBadge")}</p>
+            <Link
+              href="/tools/"
+              className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
+              prefetch={false}
+            >
+              {t("backToAllTools")}
+            </Link>
+          </footer>
+        </div>
       </AppPageShell>
     </>
   );

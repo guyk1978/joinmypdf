@@ -32,9 +32,10 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations("Mp4ToolsPage");
+  const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${MP4_TOOLS_HUB_PATH}`;
-  const gridItems = buildMp4ToolGridItems(t);
+  const gridItems = buildMp4ToolGridItems(tTools, locale);
   const featureList = getMp4ToolFeatureLabels(t);
   const relatedGuides = getRecentVideoMp4BlogPosts(getBlogRegistry(locale).blog || [], 3);
 

@@ -167,6 +167,11 @@ export const TOOL_CARD_DESCRIPTIONS: Record<string, string> = {
   "yaml-json-converter": "Convert between YAML and JSON with clean formatting.",
 };
 
-export function getToolCardDescription(slug: string, fallback?: string): string | undefined {
+export function getToolCardDescription(
+  slug: string,
+  fallback?: string,
+  t?: { (key: string): string; has: (key: string) => boolean },
+): string | undefined {
+  if (t?.has(`cardDescriptions.${slug}`)) return t(`cardDescriptions.${slug}`);
   return TOOL_CARD_DESCRIPTIONS[slug] || fallback || undefined;
 }
