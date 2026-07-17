@@ -124,6 +124,7 @@ import { BaseConverterWorkspace } from "@/components/tools/unit-math/BaseConvert
 import { StorageDataConverterWorkspace } from "@/components/tools/unit-math/StorageDataConverterWorkspace";
 import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/ReadingTimeCalculatorWorkspace";
 import { QuickNoteWorkspace } from "@/components/tools/productivity/QuickNoteWorkspace";
+import { CaseConverterWorkspace } from "@/components/tools/productivity/CaseConverterWorkspace";
 import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
 import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
 import { FaviconPackWorkspace } from "@/components/FaviconPackWorkspace";
@@ -592,6 +593,8 @@ export default async function ToolPage({
           <QuickNoteWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "readability-analyzer" ? (
           <ReadabilityAnalyzerWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "case-converter" ? (
+          <CaseConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "custom-paper-margin" ? (
           <CustomPaperMarginWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-watermark" ? (

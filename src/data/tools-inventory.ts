@@ -117,7 +117,7 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
   {
     id: "case-converter",
     title: "case-converter",
-    path: "/tools/case-converter/",
+    path: "/tools/text-tools/case-converter/",
     description: "case-converter — local browser processing, zero upload.",
     categories: ["productivity", "text"] as const,
     primaryCategory: "text",

@@ -14,7 +14,8 @@
     "generate:blog-pages": "node scripts/generate-blog-pages.mjs",
     "build:blog": "node scripts/generate-blog-og-images.mjs && node scripts/generate-blog-pages.mjs",
     "upgrade:blog": "node scripts/upgrade-blog-content.mjs",
-    "verify:inventory-sitemap": "node scripts/verify-inventory-sitemap-sync.mjs"
+    "verify:inventory-sitemap": "node scripts/verify-inventory-sitemap-sync.mjs",
+    "generate:hub-nested": "node scripts/generate-hub-nested-tool-pages.cjs && node scripts/generate-hub-dedicated-tool-pages.cjs"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",

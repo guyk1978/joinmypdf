@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
+import { CaseConverterWorkspace } from "@/components/tools/productivity/CaseConverterWorkspace";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
-import { CaseConverter } from "@/components/tools/CaseConverter";
 import { routing } from "@/i18n/routing";
+import { registry } from "@/lib/registry";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
+import { notFound } from "next/navigation";
 
 const SLUG = "case-converter";
 
@@ -15,13 +18,16 @@ type PageProps = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "CaseConverterPage" });
+  const toolPath = resolveToolHref(SLUG);
 
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: {
-      canonical: `/${locale}/tools/${SLUG}/`,
-      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}/tools/${SLUG}/`])),
+      canonical: `/${locale}${toolPath}`,
+      languages: Object.fromEntries(
+        routing.locales.map((item) => [item, `/${item}${toolPath}`]),
+      ),
     },
   };
 }
@@ -30,16 +36,20 @@ export default async function CaseConverterPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const tool = registry.tools.find((entry) => entry.slug === SLUG);
+  if (!tool) notFound();
+
   const t = await getTranslations("CaseConverterPage");
   const tPage = await getTranslations("ToolPage");
 
-  const pathname = `/${locale}/tools/${SLUG}/`;
+  const toolPath = resolveToolHref(SLUG);
+  const pathname = `/${locale}${toolPath}`;
   const pageTitle = t("title");
 
   const crumbs = buildToolPageBreadcrumbs({
     slug: SLUG,
     toolTitle: pageTitle,
-    toolPath: `/tools/${SLUG}/`,
+    toolPath,
     tPage,
   });
 
@@ -82,7 +92,7 @@ export default async function CaseConverterPage({ params }: PageProps) {
           </header>
 
           <div className="mt-6">
-            <CaseConverter className="max-w-none" placeholder={t("placeholder")} />
+            <CaseConverterWorkspace tool={tool} slug={SLUG} />
           </div>
 
           <section className="mt-10 border-t border-[#262626] pt-8" aria-labelledby="case-converter-info">

@@ -7070,6 +7070,53 @@
       "updatedAt": "2026-07-14"
     },
     {
+      "slug": "case-converter",
+      "category": "convert",
+      "operation": "case-converter",
+      "title": "Case Converter",
+      "primaryKeyword": "online case converter",
+      "intent": "Convert text between UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case entirely in your browser.",
+      "description": "Free online case converter for UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case. Instant local transforms — no uploads.",
+      "secondaryKeywords": [
+        "text case converter",
+        "camelCase converter",
+        "snake_case converter",
+        "kebab-case converter"
+      ],
+      "useCases": [
+        "Normalize API field names between camelCase and snake_case",
+        "Prepare CSS class names in kebab-case from draft labels",
+        "Quickly uppercase or title-case headings for documents"
+      ],
+      "relatedTools": [
+        "lorem-ipsum-generator",
+        "text-sanitizer",
+        "word-character-counter",
+        "readability-analyzer"
+      ],
+      "faq": [
+        {
+          "q": "Is my text uploaded?",
+          "a": "No. Case conversion runs entirely in your browser on your device."
+        },
+        {
+          "q": "Which case styles are supported?",
+          "a": "UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case."
+        },
+        {
+          "q": "Can I copy the result?",
+          "a": "Yes. Use Copy to Clipboard after transforming your text."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.76,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-17"
+    },
+    {
       "slug": "lorem-ipsum-generator",
       "category": "convert",
       "operation": "lorem-ipsum-generator",
