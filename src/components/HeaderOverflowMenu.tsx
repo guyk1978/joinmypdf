@@ -21,7 +21,7 @@ type PanelPosition = {
   width: number;
 };
 
-const PANEL_WIDTH = 240;
+const PANEL_WIDTH = 292;
 const VIEWPORT_MARGIN = 12;
 
 function getPanelPosition(trigger: HTMLElement): PanelPosition {

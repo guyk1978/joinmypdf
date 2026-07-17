@@ -1,7 +1,7 @@
-import { ArrowRight, BadgeCheck, ServerOff, Zap, type LucideIcon } from "lucide-react";
+import { BadgeCheck, ServerOff, Zap, type LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { HomeAuthorityFaq } from "@/components/HomeAuthorityFaq";
+import { HomeSectionBar } from "@/components/HomeSectionBar";
 import { getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import type { BlogPost } from "@/lib/types";
 
@@ -11,94 +11,84 @@ const PILLARS: { key: "local" | "fast" | "free"; Icon: LucideIcon }[] = [
   { key: "free", Icon: BadgeCheck },
 ];
 
+const FAQ_KEYS = ["upload", "free", "professional"] as const;
+
 type HomeAuthoritySectionProps = {
   latestPosts: BlogPost[];
   locale: string;
 };
 
-function getGuideExcerpt(post: BlogPost): string {
-  return (
-    post.description?.trim() ||
-    post.contentBlocks?.intro?.trim() ||
-    post.seo?.metaDescription?.trim() ||
-    ""
-  );
-}
-
-export async function HomeAuthoritySection({ latestPosts, locale }: HomeAuthoritySectionProps) {
+export async function HomeAuthoritySection({ latestPosts }: HomeAuthoritySectionProps) {
   const tHome = await getTranslations("Home");
   const tBlog = await getTranslations("Blog");
 
   return (
     <>
-      <section className="home-whyus" aria-labelledby="home-whyus-title">
-        <div className="home-section-head">
-          <p className="home-section-head__eyebrow">{tHome("landing.whyUsEyebrow")}</p>
-          <h2 id="home-whyus-title" className="home-section-head__title">
-            {tHome("landing.whyUsTitle")}
-          </h2>
-          <p className="home-section-head__subtitle">{tHome("landing.whyUsSubtitle")}</p>
-        </div>
-
-        <div className="home-whyus__pillars">
+      <section className="home-im-section home-whyus" aria-labelledby="home-whyus-title">
+        <HomeSectionBar
+          id="home-whyus-title"
+          title={tHome("landing.whyUsTitle")}
+        />
+        <ul className="home-im-grid">
           {PILLARS.map(({ key, Icon }) => (
-            <div key={key} className="home-whyus-pillar">
-              <span className="home-whyus-pillar__icon" aria-hidden>
-                <Icon strokeWidth={1.5} />
-              </span>
-              <h3 className="home-whyus-pillar__title">
-                {tHome(`landing.pillars.${key}.title`)}
-              </h3>
-              <p className="home-whyus-pillar__desc">
-                {tHome(`landing.pillars.${key}.description`)}
-              </p>
-            </div>
+            <li key={key} className="home-im-grid__item">
+              <article className="home-im-value-card">
+                <span className="home-im-value-card__icon" aria-hidden>
+                  <Icon strokeWidth={1.5} />
+                </span>
+                <h3 className="home-im-value-card__title">
+                  {tHome(`landing.pillars.${key}.title`)}
+                </h3>
+                <p className="home-im-value-card__desc">
+                  {tHome(`landing.pillars.${key}.description`)}
+                </p>
+              </article>
+            </li>
           ))}
-        </div>
+        </ul>
+      </section>
 
-        <p className="home-whyus__overview">{tHome("seoOverview")}</p>
-
-        <HomeAuthorityFaq />
+      <section className="home-im-section home-whyus-faq" aria-labelledby="home-faq-title">
+        <HomeSectionBar id="home-faq-title" title={tHome("faqTitle")} />
+        <ul className="home-im-grid">
+          {FAQ_KEYS.map((key) => (
+            <li key={key} className="home-im-grid__item">
+              <article className="home-im-value-card">
+                <h3 className="home-im-value-card__title">{tHome(`faq.${key}.q`)}</h3>
+                <p className="home-im-value-card__desc">{tHome(`faq.${key}.a`)}</p>
+              </article>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {latestPosts.length > 0 ? (
-        <section className="home-resources" aria-labelledby="home-resources-title">
-          <div className="home-section-head home-section-head--inline">
-            <div>
-              <p className="home-section-head__eyebrow">{tHome("landing.resourcesEyebrow")}</p>
-              <h2 id="home-resources-title" className="home-section-head__title">
-                {tHome("landing.resourcesTitle")}
-              </h2>
-            </div>
-            <Link href="/blog/" className="home-section-head__link" prefetch={false}>
-              {tHome("viewAllGuides")}
-              <ArrowRight className="home-section-head__link-icon" aria-hidden />
-            </Link>
-          </div>
-
-          <div className="home-resources__grid">
-            {latestPosts.map((post) => {
-              const excerpt = getGuideExcerpt(post);
-              return (
+        <section
+          className="home-im-section home-resources"
+          aria-labelledby="home-resources-title"
+        >
+          <HomeSectionBar
+            id="home-resources-title"
+            title={tHome("landing.resourcesTitle")}
+            href="/blog/"
+            ctaLabel={tHome("viewAllGuides")}
+          />
+          <ul className="home-im-grid">
+            {latestPosts.map((post) => (
+              <li key={post.slug} className="home-im-grid__item">
                 <Link
-                  key={post.slug}
                   href={`/blog/${post.slug}/`}
-                  className="home-resource-card group"
+                  className="home-im-value-card home-im-value-card--link"
                   prefetch={false}
                 >
-                  <span className="home-resource-card__body">
-                    <span className="home-resource-card__title">{post.title}</span>
-                    {excerpt ? (
-                      <span className="home-resource-card__excerpt">{excerpt}</span>
-                    ) : null}
-                    <span className="home-resource-card__meta">
-                      {getLocalizedBlogReadTime(post, tBlog)}
-                    </span>
+                  <span className="home-im-value-card__title">{post.title}</span>
+                  <span className="home-im-value-card__meta">
+                    {getLocalizedBlogReadTime(post, tBlog)}
                   </span>
                 </Link>
-              );
-            })}
-          </div>
+              </li>
+            ))}
+          </ul>
         </section>
       ) : null}
     </>

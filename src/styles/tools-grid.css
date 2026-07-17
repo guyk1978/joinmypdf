@@ -1,107 +1,18 @@
 /**
- * Homepage category directory chrome — Industrial Matte card grids live in globals.css
- * (`.im-tool-card-grid` / `.im-tool-card`).
+ * Homepage category directory chrome — Industrial Matte card grids live in
+ * home-landing.css (`.home-im-grid`) and globals.css (`.im-tool-card`).
  */
 
 :root {
-  --tools-grid-line: #262626;
-  --tools-section-line: #262626;
+  --tools-grid-line: #333;
+  --tools-section-line: #333;
 }
 
 .home-more-tools {
-  margin: 96px 0;
+  margin: 0;
   padding: 0;
   border: none;
   background: transparent;
-}
-
-.home-more-tools__categories {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: 100%;
-}
-
-.home-more-tools .home-category-block {
-  margin: 0;
-  padding: 0 0 2.5rem;
-  border: none;
-  border-bottom: 1px solid #262626;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  width: 100%;
-}
-
-.home-more-tools .home-category-block:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.home-more-tools .home-category-block + .home-category-block {
-  padding-top: 2.5rem;
-}
-
-.home-more-tools .home-category-block__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  width: 100%;
-  margin: 0 0 1rem;
-  padding: 0;
-  border: none;
-  background: transparent;
-}
-
-.home-more-tools .home-category-block__title {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #ffffff;
-  line-height: 1.2;
-}
-
-.home-more-tools .home-category-block__title-link {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.home-more-tools .home-category-block__title-link:hover,
-.home-more-tools .home-category-block__title-link:focus-visible {
-  color: #d4d4d4;
-}
-
-.home-more-tools .home-category-block__all {
-  display: inline-flex;
-  align-items: baseline;
-  justify-content: flex-end;
-  gap: 0.35rem;
-  flex-shrink: 0;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #a3a3a3;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.home-more-tools .home-category-block__all:hover,
-.home-more-tools .home-category-block__all:focus-visible {
-  color: #ffffff;
-}
-
-.home-more-tools .home-category-block__all-icon {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
-.home-more-tools .home-category-block__all:dir(rtl) .home-category-block__all-icon {
-  transform: scaleX(-1);
 }
 
 .home-pdf-powerhouse .im-tool-card-grid,
@@ -109,5 +20,5 @@
 .tools-hub-panel .im-tool-card-grid,
 .tools-directory-featured .im-tool-card-grid,
 .tools-directory-category .im-tool-card-grid {
-  margin-top: 0.25rem;
+  margin-top: 0;
 }

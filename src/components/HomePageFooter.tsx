@@ -1,60 +1,33 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
-import { routing, type AppLocale } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
+/**
+ * Minimal WattQuick-style footer — copyright left, text links right.
+ */
 export function HomePageFooter() {
   const tFooter = useTranslations("Footer");
-  const locale = useLocale() as AppLocale;
-  const pathname = usePathname() || "/";
-  const router = useRouter();
-  const nextLocale = routing.locales.find((item) => item !== locale) ?? routing.defaultLocale;
-
-  const switchLocale = () => {
-    router.replace(pathname, { locale: nextLocale });
-  };
+  const year = new Date().getFullYear();
 
   return (
     <footer className="home-page-footer">
       <div className="home-page-footer__inner">
-        <button
-          type="button"
-          className="home-locale-orb"
-          onClick={switchLocale}
-          aria-label={nextLocale === "he" ? "עברית" : "English"}
-        >
-          {locale === "he" ? "א" : "En"}
-        </button>
+        <p className="home-page-footer__copy">
+          {tFooter("copyrightLine", { year })}
+        </p>
 
         <nav className="home-page-footer__end" aria-label={tFooter("expandFooter")}>
-          <Link href="/" className="home-page-footer__link" prefetch={false}>
-            {tFooter("links.home")}
-          </Link>
-          <Link href="/tools/" className="home-page-footer__link" prefetch={false}>
-            {tFooter("links.allTools")}
-          </Link>
-          <Link href="/about/" className="home-page-footer__link" prefetch={false}>
-            {tFooter("links.about")}
+          <Link href="/privacy-policy/" className="home-page-footer__link" prefetch={false}>
+            {tFooter("links.privacyPolicy")}
           </Link>
           <Link href="/terms/" className="home-page-footer__link" prefetch={false}>
             {tFooter("links.terms")}
           </Link>
-          <Link href="/privacy-policy/" className="home-page-footer__link" prefetch={false}>
-            {tFooter("links.privacyPolicy")}
-          </Link>
           <Link href="/contact/" className="home-page-footer__link" prefetch={false}>
-            {tFooter("links.contact")}
-          </Link>
-          <Link href="/blog/" className="home-page-footer__link" prefetch={false}>
-            {tFooter("links.blog")}
+            {tFooter("links.feedback")}
           </Link>
         </nav>
-
-        <Link href="/" className="home-page-footer__logo-link" aria-label="JoinMyPDF">
-          <JoinMyPdfLogo className="home-page-footer__logo" />
-        </Link>
       </div>
     </footer>
   );

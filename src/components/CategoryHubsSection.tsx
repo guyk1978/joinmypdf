@@ -39,6 +39,12 @@ import {
 type CategoryHubsSectionProps = {
   /** Extra classes on the outer section (e.g. shell padding). */
   className?: string;
+  /** Hide eyebrow/title/subtitle — used on the homepage dashboard. */
+  hideHead?: boolean;
+  /** Tighter equal-cell action-dashboard grid. */
+  dense?: boolean;
+  /** Override nav aria-label when head is hidden. */
+  navLabel?: string;
 };
 
 const CATEGORY_ICONS: Partial<Record<InventoryCategoryId, LucideIcon>> = {
@@ -89,12 +95,14 @@ function CategoryHubCard({
   return (
     <Link href={href} className="category-hub-card" prefetch={false}>
       <span className="category-hub-card__icon" aria-hidden>
-        <Icon size={22} strokeWidth={1.75} />
+        <Icon size={28} strokeWidth={1.75} />
       </span>
-      <span className="category-hub-card__title">{title}</span>
-      {toolCount > 0 ? (
-        <span className="category-hub-card__count">{toolCountLabel}</span>
-      ) : null}
+      <span className="category-hub-card__text">
+        <span className="category-hub-card__title">{title}</span>
+        {toolCount > 0 ? (
+          <span className="category-hub-card__count">{toolCountLabel}</span>
+        ) : null}
+      </span>
     </Link>
   );
 }
@@ -103,7 +111,12 @@ function CategoryHubCard({
  * Category dashboard grid — Industrial Matte hub cards with icon + tool count.
  * Homepage primary dashboard; also used sitewide via FooterToolsPanel.
  */
-export function CategoryHubsSection({ className }: CategoryHubsSectionProps) {
+export function CategoryHubsSection({
+  className,
+  hideHead = false,
+  dense = false,
+  navLabel,
+}: CategoryHubsSectionProps) {
   const t = useTranslations("Home");
   const tDir = useTranslations("ToolsDirectory");
   const categories = useMemo(() => {
@@ -115,22 +128,33 @@ export function CategoryHubsSection({ className }: CategoryHubsSectionProps) {
 
   if (!categories.length) return null;
 
-  return (
-    <section
-      className={clsx("category-hubs", className)}
-      aria-labelledby="category-hubs-title"
-    >
-      <div className="category-hubs__head">
-        <p className="category-hubs__eyebrow">{t("landing.categoriesEyebrow")}</p>
-        <h2 id="category-hubs-title" className="category-hubs__title">
-          {t("landing.categoriesTitle")}
-        </h2>
-        {t.has("landing.categoriesSubtitle") ? (
-          <p className="category-hubs__subtitle">{t("landing.categoriesSubtitle")}</p>
-        ) : null}
-      </div>
+  const resolvedNavLabel = navLabel ?? t("landing.heroCategoriesLabel");
+  const Root = hideHead ? "div" : "section";
 
-      <nav aria-label={t("landing.heroCategoriesLabel")}>
+  return (
+    <Root
+      className={clsx(
+        "category-hubs",
+        dense && "category-hubs--dense",
+        className,
+      )}
+      {...(hideHead
+        ? {}
+        : { "aria-labelledby": "category-hubs-title" })}
+    >
+      {hideHead ? null : (
+        <div className="category-hubs__head">
+          <p className="category-hubs__eyebrow">{t("landing.categoriesEyebrow")}</p>
+          <h2 id="category-hubs-title" className="category-hubs__title">
+            {t("landing.categoriesTitle")}
+          </h2>
+          {t.has("landing.categoriesSubtitle") ? (
+            <p className="category-hubs__subtitle">{t("landing.categoriesSubtitle")}</p>
+          ) : null}
+        </div>
+      )}
+
+      <nav aria-label={resolvedNavLabel}>
         <ul className="category-hubs__grid">
           {categories.map((category) => (
             <li key={category.id} className="category-hubs__item">
@@ -149,6 +173,6 @@ export function CategoryHubsSection({ className }: CategoryHubsSectionProps) {
           ))}
         </ul>
       </nav>
-    </section>
+    </Root>
   );
 }

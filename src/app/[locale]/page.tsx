@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { HomeAuthoritySection } from "@/components/HomeAuthoritySection";
-import { Hero } from "@/components/Hero";
-import "@/styles/home-landing.css";
 import { CategoryHubsSection } from "@/components/CategoryHubsSection";
 import { HomeStructuredData } from "@/components/HomeStructuredData";
-import { getBlogRegistry } from "@/lib/blog-registry";
-import { getRecentBlogPosts } from "@/lib/blog-index";
 import { AppPageShell } from "@/components/AppPageShell";
-import { buildHomepagePdfPowerhouseItems } from "@/lib/featured-tools";
-import { HomeToolGrid } from "@/components/HomeToolGrid";
 import { routing } from "@/i18n/routing";
+import "@/styles/home-landing.css";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -34,19 +28,24 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const tTools = await getTranslations("Tools");
-  const pdfPowerhouseItems = buildHomepagePdfPowerhouseItems(tTools);
-  const latestPosts = getRecentBlogPosts(getBlogRegistry(locale).blog || [], 3);
+  const t = await getTranslations("Home");
 
   return (
     <>
       <HomeStructuredData locale={locale} />
       <AppPageShell>
         <div className="home-minimal-layout home-minimal-layout--dashboard home-landing">
-          <Hero />
-          <CategoryHubsSection className="home-category-dashboard" />
-          <HomeToolGrid pdfPowerhouseItems={pdfPowerhouseItems} />
-          <HomeAuthoritySection latestPosts={latestPosts} locale={locale} />
+          <header className="home-landing__intro">
+            <h1 className="home-landing__title">{t("landing.heroTitle")}</h1>
+            <p className="home-landing__tagline">{t("landing.heroSubtitle")}</p>
+          </header>
+
+          <CategoryHubsSection
+            className="home-category-launcher"
+            hideHead
+            dense
+            navLabel={t("landing.heroCategoriesLabel")}
+          />
         </div>
       </AppPageShell>
     </>

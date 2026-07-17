@@ -1,10 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ArrowRight } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 import "@/styles/tools-grid.css";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import { HomeSectionBar } from "@/components/HomeSectionBar";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import type { HomeFeaturedToolItem } from "@/lib/featured-tools";
 import {
@@ -32,23 +31,21 @@ function toCardItems(
 
 function CategoryBlock({ category, title, viewAllLabel }: CategoryBlockProps) {
   return (
-    <section className="home-category-block" aria-labelledby={`home-cat-${category.id}`}>
-      <div className="home-category-block__head">
-        <h3 id={`home-cat-${category.id}`} className="home-category-block__title">
-          <Link
-            href={category.hubHref}
-            className="home-category-block__title-link"
-            prefetch={false}
-          >
-            {title}
-          </Link>
-        </h3>
-        <Link href={category.hubHref} className="home-category-block__all" prefetch={false}>
-          {viewAllLabel}
-          <ArrowRight className="home-category-block__all-icon" aria-hidden />
-        </Link>
-      </div>
-      <CategoryDirectoryFlatGrid items={toCardItems(category.items)} />
+    <section
+      className="home-im-section home-category-block"
+      aria-labelledby={`home-cat-${category.id}`}
+    >
+      <HomeSectionBar
+        id={`home-cat-${category.id}`}
+        as="h3"
+        title={title}
+        href={category.hubHref}
+        ctaLabel={viewAllLabel}
+      />
+      <CategoryDirectoryFlatGrid
+        className="home-im-grid"
+        items={toCardItems(category.items)}
+      />
     </section>
   );
 }
@@ -70,34 +67,27 @@ export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
 
   return (
     <>
-      <section className="home-pdf-powerhouse" aria-labelledby="home-pdf-powerhouse-title">
-        <div className="home-section-head home-section-head--pdf">
-          <p className="home-section-head__eyebrow">{t("landing.pdfEyebrow")}</p>
-          <h2 id="home-pdf-powerhouse-title" className="home-section-head__title">
-            {t("landing.pdfTitle")}
-          </h2>
-          <p className="home-section-head__subtitle">{t("landing.pdfSubtitle")}</p>
-        </div>
-
-        <CategoryDirectoryFlatGrid items={pdfItems} />
-
-        <div className="home-pdf-powerhouse__footer">
-          <Link href="/tools/pdf-tools/" className="home-pdf-powerhouse__all" prefetch={false}>
-            {t("viewAllPdfTools")}
-            <ArrowRight className="home-pdf-powerhouse__all-icon" aria-hidden />
-          </Link>
-        </div>
+      <section
+        className="home-im-section home-pdf-powerhouse"
+        aria-labelledby="home-pdf-powerhouse-title"
+      >
+        <HomeSectionBar
+          id="home-pdf-powerhouse-title"
+          title={t("landing.pdfTitle")}
+          href="/tools/pdf-tools/"
+          ctaLabel={t("viewAllPdfTools")}
+        />
+        <CategoryDirectoryFlatGrid className="home-im-grid" items={pdfItems} />
       </section>
 
-      <section className="home-more-tools" aria-labelledby="home-more-tools-title">
-        <div className="home-section-head home-section-head--more-tools">
-          <p className="home-section-head__eyebrow">{t("landing.moreEyebrow")}</p>
-          <h2 id="home-more-tools-title" className="home-section-head__title">
-            {t("landing.moreTitle")}
-          </h2>
-          <p className="home-section-head__subtitle">{t("landing.moreSubtitle")}</p>
-        </div>
-
+      <section
+        className="home-im-section home-more-tools"
+        aria-labelledby="home-more-tools-title"
+      >
+        <HomeSectionBar
+          id="home-more-tools-title"
+          title={t("landing.moreTitle")}
+        />
         <div className="home-more-tools__categories">
           {categories.map((category) => (
             <CategoryBlock

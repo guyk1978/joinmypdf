@@ -308,7 +308,7 @@
     "landing": {
       "heroBadge": "100% Local · Zero Uploads",
       "heroTitle": "Professional Web Utilities, Processed Locally",
-      "heroSubtitle": "Merge, convert, compress, and secure your documents, images, audio, and code — right inside your browser. No uploads, no accounts, and your files never leave your device.",
+      "heroSubtitle": "Merge, convert, edit, and secure your documents, images, and code — right inside your browser. No uploads, no accounts, and your files never leave your device.",
       "heroPrimaryCta": "Browse all tools",
       "heroCategoriesLabel": "Tool categories",
       "categoriesEyebrow": "Categories",
@@ -1218,9 +1218,11 @@
       "compare": "Compare tools",
       "privacyFirst": "Privacy First",
       "privacyPolicy": "Privacy Policy",
-      "privacyHub": "Privacy-first PDF hub"
+      "privacyHub": "Privacy-first PDF hub",
+      "feedback": "Feedback"
     },
     "copyright": "All rights reserved.",
+    "copyrightLine": "© {year} JoinMyPDF",
     "expandFooter": "Site links",
     "collapseFooter": "Hide site links",
     "partnerNavLabel": "Partner tools",
