@@ -3,6 +3,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { pingSearchEngines } from "./ping-search-engines.mjs";
 import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
+import {
+  listCategoryHubPaths,
+  parseInventoryPrimaryCategories,
+  resolveNestedToolPath,
+} from "./lib/sitemap-hierarchy.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +16,7 @@ const root = path.resolve(__dirname, "..");
 const toolsJsonPath = path.join(root, "assets", "data", "tools.json");
 const audioToolsJsonPath = path.join(root, "assets", "data", "audio-tools.json");
 const studioToolsJsonPath = path.join(root, "assets", "data", "studio-tools.json");
+const inventoryTsPath = path.join(root, "src", "data", "tools-inventory.ts");
 const inventoryStatusPath = path.join(root, "logs", "inventory-tool-status.json");
 const outputPath = path.join(root, "sitemap.xml");
 
@@ -39,18 +45,14 @@ const BASE_PATHS = [
   "/compare/",
   "/contact/",
   "/privacy-first-pdf-tools/",
-  "/favicon-tools/",
   "/utilities/",
   "/text-json-tools/",
   "/developer-tools/",
-  "/image-tools/",
-  "/data-conversion-tools/",
-  "/security-tools/",
-  "/productivity-tools/",
   "/pdf-guides/",
   "/pdf-comparison/",
   "/pdf-privacy/",
   "/pdf-workflows/",
+  ...listCategoryHubPaths(),
 ];
 
 function localizedPaths(routePath) {
@@ -96,6 +98,8 @@ const registry = JSON.parse(await readFile(toolsJsonPath, "utf8"));
 const audioTools = JSON.parse(await readFile(audioToolsJsonPath, "utf8"));
 const studioToolsFile = JSON.parse(await readFile(studioToolsJsonPath, "utf8"));
 const studioTools = studioToolsFile.tools || [];
+const inventorySource = await readFile(inventoryTsPath, "utf8");
+const primaryBySlug = parseInventoryPrimaryCategories(inventorySource);
 
 let inventoryStatus = {};
 try {
@@ -179,8 +183,10 @@ for (const tool of studioTools) {
   }
 }
 
+// Nested hierarchy URLs from inventory primaryCategory (en + he)
 for (const tool of canonicalSlugs.values()) {
-  for (const urlPath of localizedPaths(`/tools/${tool.slug}/`)) {
+  const nestedPath = resolveNestedToolPath(tool.slug, primaryBySlug);
+  for (const urlPath of localizedPaths(nestedPath)) {
     pushEntry(urls, seen, {
       loc: baseUrl + urlPath,
       priority: tool.priority,
@@ -190,6 +196,22 @@ for (const tool of canonicalSlugs.values()) {
   }
 }
 
+// Inventory-only tools not present in JSON merge
+for (const slug of primaryBySlug.keys()) {
+  if (!isActiveSlug(slug)) continue;
+  if (canonicalSlugs.has(slug)) continue;
+  const nestedPath = resolveNestedToolPath(slug, primaryBySlug);
+  for (const urlPath of localizedPaths(nestedPath)) {
+    pushEntry(urls, seen, {
+      loc: baseUrl + urlPath,
+      priority: "0.90",
+      changefreq: "weekly",
+      lastmod: today,
+    });
+  }
+}
+
+// SEO cluster variants remain flat long-tail landings
 for (const tool of registry.tools || []) {
   if (!isActiveSlug(tool.slug)) continue;
   const toolLastmod = tool.updatedAt || today;
@@ -254,6 +276,10 @@ const xml =
 
 await writeFile(outputPath, xml, "utf8");
 console.log("Sitemap generated:", outputPath, `(${urls.length} URLs)`);
+console.log(
+  "Sample nested path heic-to-jpg:",
+  resolveNestedToolPath("heic-to-jpg", primaryBySlug),
+);
 
 const sitemapUrl = baseUrl + "/sitemap.xml";
 try {

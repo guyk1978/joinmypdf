@@ -1,5 +1,6 @@
 import { TOOL_CATEGORIES, TOOL_DEFINITIONS, type ToolCategory } from "@/config/tools";
 import { AUDIO_TOOLS_META } from "@/data/audio-tools-meta";
+import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { HOME_DATA_CONVERSION_TOOL_IDS } from "@/lib/data-conversion-tools";
 import { HOME_DEVELOPER_TOOL_IDS } from "@/lib/developer-tools";
 import { HOME_FAVICON_TOOL_IDS } from "@/lib/favicon-tools";
@@ -10,6 +11,8 @@ import { HOME_SECURITY_TOOL_IDS } from "@/lib/security-tools";
 import { HOME_TEXT_JSON_TOOL_IDS } from "@/lib/text-json-tools";
 import { registry } from "@/lib/registry";
 import { STUDIO_TOOLS } from "@/lib/studio-tools";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
 export type CanonicalToolCategory =
   | "pdf"
@@ -119,10 +122,38 @@ function titleFromSlug(slug: string): string {
     .join(" ");
 }
 
+function resolveCanonicalPath(slug: string): string {
+  const entry = getToolsInventoryEntry(slug);
+  if (entry?.primaryCategory) {
+    return resolveToolHref(slug, entry.primaryCategory);
+  }
+  // Fall back to coarse canonical category → inventory hub when possible.
+  const coarse = resolveCategory(slug);
+  const coarseToInventory: Partial<Record<CanonicalToolCategory, InventoryCategoryId>> = {
+    pdf: "pdf",
+    image: "image",
+    video: "video",
+    audio: "mp3",
+    developer: "developer",
+    data: "data",
+    security: "security",
+    productivity: "productivity",
+    design: "design",
+    utilities: "productivity",
+  };
+  const inventoryCategory = coarseToInventory[coarse];
+  return inventoryCategory
+    ? resolveToolHref(slug, inventoryCategory)
+    : `/tools/${slug}/`;
+}
+
 /**
  * Unified product tool catalog — merges SEO registry, nav definitions,
  * audio module registry, and studio apps. Missing entries are appended
  * with inferred metadata so inventory/sitemap stay complete.
+ *
+ * `path` is always the nested hierarchy URL from tool-hierarchy
+ * (e.g. `/tools/image-tools/heic-to-jpg/`).
  */
 export function getCanonicalTools(): CanonicalTool[] {
   const bySlug = new Map<string, CanonicalTool>();
@@ -143,7 +174,7 @@ export function getCanonicalTools(): CanonicalTool[] {
         title: partial.title?.trim() || titleFromSlug(partial.slug),
         description: partial.description?.trim() || "",
         category: partial.category ?? resolveCategory(partial.slug),
-        path: `/tools/${partial.slug}/`,
+        path: resolveCanonicalPath(partial.slug),
         sources: [partial.source],
         updatedAt: partial.updatedAt ?? null,
         priority:
@@ -172,6 +203,8 @@ export function getCanonicalTools(): CanonicalTool[] {
     if (partial.category) {
       existing.category = partial.category;
     }
+    // Keep path aligned with hierarchy even if category metadata updates later.
+    existing.path = resolveCanonicalPath(partial.slug);
   };
 
   for (const tool of registry.tools) {

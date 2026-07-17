@@ -12,12 +12,44 @@ import { TIMELINE_TEMPLATE_PROFILES } from "@/lib/timeline/templates";
 import { generateClusterVariants } from "@/lib/variants";
 import { siteUrl } from "@/lib/site";
 import { routing } from "@/i18n/routing";
+import { INVENTORY_HUB_META, type InventoryCategoryId } from "@/data/inventory-hubs";
+import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
+import { TOOLS_INVENTORY } from "@/data/tools-inventory";
 
 export const dynamic = "force-static";
 
 function localizedPaths(path: string): string[] {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return routing.locales.map((locale) => `/${locale}${normalized === "/" ? "" : normalized}`);
+}
+
+/** Marketing / legal / directory shells — hubs only (tools come from hierarchy). */
+const BASE_PATHS = [
+  "/",
+  "/tools/",
+  "/premium-tools/",
+  "/blog/",
+  "/privacy-first/",
+  "/privacy/",
+  "/compare/",
+  "/contact/",
+  "/privacy-first-pdf-tools/",
+  "/utilities/",
+  "/text-json-tools/",
+  "/developer-tools/",
+  "/pdf-guides/",
+  "/pdf-comparison/",
+  "/pdf-privacy/",
+  "/pdf-workflows/",
+];
+
+function listCategoryHubPaths(): string[] {
+  const paths = new Set<string>();
+  for (const id of Object.keys(INVENTORY_HUB_META) as InventoryCategoryId[]) {
+    const hub = normalizeHubPath(id);
+    if (hub && hub !== "/tools/") paths.add(hub);
+  }
+  return [...paths].sort();
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -28,117 +60,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   const canonicalSlugSet = new Set(canonicalTools.map((tool) => tool.slug));
 
-  const basePaths = [
-    "/",
-    "/tools/",
-    "/premium-tools/",
-    "/blog/",
-    "/privacy-first/",
-    "/privacy/",
-    "/compare/",
-    "/contact/",
-    "/privacy-first-pdf-tools/",
-    "/tools/pdf-tools/",
-    "/favicon-tools/",
-    "/tools/favicon-tools/",
-    "/tools/png-tools/",
-    "/tools/jpg-tools/",
-    "/tools/crop-tools/",
-    "/tools/word-tools/",
-    "/tools/excel-tools/",
-    "/tools/rotate-tools/",
-    "/tools/extract-tools/",
-    "/tools/text-tools/",
-    "/tools/compress-tools/",
-    "/tools/convert-tools/",
-    "/tools/json-tools/",
-    "/tools/yaml-tools/",
-    "/tools/xml-tools/",
-    "/tools/mp3-tools/",
-    "/tools/mp4-tools/",
-    "/tools/video-tools/",
-    "/tools/audio-trimmer/",
-    "/tools/video-trimmer/",
-    "/tools/video-to-gif/",
-    "/tools/video-resizer/",
-    "/tools/video-compressor/",
-    "/tools/video-to-mp3/",
-    "/tools/video-muter/",
-    "/tools/video-speed/",
-    "/tools/video-speed-controller/",
-    "/tools/video-rotator/",
-    "/tools/video-metadata-cleaner/",
-    "/tools/video-converter/",
-    "/tools/video-to-mp4/",
-    "/tools/developer-tools/",
-    "/tools/network-tools/",
-    "/tools/network-tools/my-ip/",
-    "/tools/unit-converters/",
-    "/tools/global-timezone-converter/",
-    "/tools/base-converter/",
-    "/tools/storage-data-converter/",
-    "/tools/image-grid-splitter/",
-    "/tools/favicon-generator/",
-    "/tools/color-palette-extractor/",
-    "/tools/color-converter/",
-    "/tools/image-dpi-converter/",
-    "/tools/image-converter/",
-    "/tools/svg-optimizer/",
-    "/tools/lorem-ipsum-generator/",
-    "/tools/text-workspace/",
-    "/tools/pdf-editor/",
-    "/tools/sign-pdf-large-files/",
-    "/tools/pdf-to-png-no-upload/",
-    "/tools/png-to-pdf-instant/",
-    "/tools/pdf-to-png-instant/",
-    "/tools/png-to-pdf-fast/",
-    "/tools/add-page-numbers-online/",
-    "/tools/add-page-numbers-free/",
-    "/tools/pdf-to-png-fast/",
-    "/tools/add-page-numbers-large-files/",
-    "/tools/png-to-pdf-no-signup/",
-    "/tools/png-to-pdf-online/",
-    "/tools/png-to-pdf-high-quality/",
-    "/tools/add-page-numbers-instant/",
-    "/tools/png-to-pdf-large-files/",
-    "/tools/pdf-to-png-large-files/",
-    "/tools/sign-pdf-no-signup/",
-    "/tools/add-page-numbers-mobile/",
-    "/tools/add-page-numbers-fast/",
-    "/tools/pdf-to-png-high-quality/",
-    "/tools/png-to-pdf-mobile/",
-    "/tools/pdf-to-png-free/",
-    "/tools/pdf-to-png-secure/",
-    "/tools/add-page-numbers-high-quality/",
-    "/tools/add-page-numbers-secure/",
-    "/tools/png-to-pdf-no-upload/",
-    "/tools/sign-pdf-fast/",
-    "/tools/add-page-numbers-no-signup/",
-    "/tools/sign-pdf-mobile/",
-    "/tools/protect-pdf-fast/",
-    "/tools/sign-pdf-high-quality/",
-    "/tools/sign-pdf-instant/",
-    "/tools/pdf-to-png-mobile/",
-    "/tools/pdf-to-png-online/",
-    "/tools/sign-pdf-online/",
-    "/tools/sign-pdf-secure/",
-    "/tools/add-page-numbers-no-upload/",
-    "/tools/sign-pdf-free/",
-    "/tools/pdf-to-png-no-signup/",
-    "/tools/delete-pdf-pages-no-signup/",
-    "/utilities/",
-    "/text-json-tools/",
-    "/developer-tools/",
-    "/tools/image-tools/",
-    "/tools/data-conversion-tools/",
-    "/tools/security-tools/",
-    "/tools/productivity-tools/",
-    "/pdf-guides/",
-    "/pdf-comparison/",
-    "/pdf-privacy/",
-    "/pdf-workflows/",
-  ];
-
   const entries: MetadataRoute.Sitemap = [];
   const seen = new Set<string>();
 
@@ -148,13 +69,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push(entry);
   };
 
-  for (const path of basePaths) {
+  for (const path of [...BASE_PATHS, ...listCategoryHubPaths()]) {
     for (const urlPath of localizedPaths(path)) {
       push({
         url: `${siteUrl}${urlPath}`,
         lastModified: now,
         changeFrequency: path === "/" ? "daily" : "weekly",
-        priority: path === "/" ? 1 : 0.85,
+        priority: path === "/" ? 1 : path.startsWith("/tools/") ? 0.88 : 0.85,
       });
     }
   }
@@ -192,10 +113,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Inventory → sitemap: every active canonical tool (incl. audio + studio)
+  // Hierarchy registry → nested tool URLs (en + he)
+  // Prefer inventory primaryCategory via resolveToolHref / canonical path.
   for (const tool of canonicalTools) {
     const lastModified = tool.updatedAt ? new Date(tool.updatedAt) : now;
-    for (const urlPath of localizedPaths(tool.path)) {
+    const nestedPath = tool.path.startsWith("/tools/")
+      ? tool.path
+      : resolveToolHref(tool.slug);
+    for (const urlPath of localizedPaths(nestedPath)) {
       push({
         url: `${siteUrl}${urlPath}`,
         lastModified,
@@ -205,7 +130,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // SEO cluster variants for registry tools (active only)
+  // Also emit inventory tools not yet in the canonical merge (safety net).
+  for (const entry of TOOLS_INVENTORY) {
+    if (!isSitemapIndexableStatus(statusMap[entry.id])) continue;
+    if (canonicalSlugSet.has(entry.id)) continue;
+    const nestedPath = resolveToolHref(entry.id, entry.primaryCategory);
+    for (const urlPath of localizedPaths(nestedPath)) {
+      push({
+        url: `${siteUrl}${urlPath}`,
+        lastModified: now,
+        changeFrequency: "weekly",
+        priority: 0.9,
+      });
+    }
+  }
+
+  // SEO cluster variants stay on flat long-tail landings under /tools/{variant}/
   for (const tool of registry.tools) {
     if (!canonicalSlugSet.has(tool.slug)) continue;
     if (tool.skipClusterVariants) continue;
