@@ -2,15 +2,18 @@
 
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { Star, X } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
+import { useFavorites } from "@/hooks/useFavorites";
 
 export type ToolModalTab = "calc" | "doc" | "related";
 
 export type ToolModalWrapperProps = {
   open: boolean;
   title: string;
+  /** Tool id used for favorites toggle. */
+  slug?: string;
   onClose: () => void;
   onExitComplete?: () => void;
   /** CALC tab — tool UI (iframe, calculator, workspace). */
@@ -28,6 +31,8 @@ export type ToolModalWrapperProps = {
     related?: string;
     close?: string;
     loading?: string;
+    addFavorite?: string;
+    removeFavorite?: string;
   };
   className?: string;
 };
@@ -39,6 +44,7 @@ export type ToolModalWrapperProps = {
 export function ToolModalWrapper({
   open,
   title,
+  slug,
   onClose,
   onExitComplete,
   calc,
@@ -52,6 +58,8 @@ export function ToolModalWrapper({
   const titleId = useId();
   const [tab, setTab] = useState<ToolModalTab>(defaultTab);
   const [mounted, setMounted] = useState(false);
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorited = slug ? isFavorite(slug) : false;
 
   useEffect(() => {
     setMounted(true);
@@ -96,6 +104,9 @@ export function ToolModalWrapper({
   const relatedLabel = labels?.related ?? "RELATED";
   const closeLabel = labels?.close ?? "Close";
   const loadingLabel = labels?.loading ?? "Loading tool…";
+  const favoriteLabel = favorited
+    ? (labels?.removeFavorite ?? "Remove from favorites")
+    : (labels?.addFavorite ?? "Add to favorites");
 
   const panes: { id: ToolModalTab; content: ReactNode; scroll?: boolean }[] = [
     { id: "calc", content: calc },
@@ -165,13 +176,33 @@ export function ToolModalWrapper({
                   })}
                 </nav>
 
+                {slug ? (
+                  <button
+                    type="button"
+                    className={clsx(
+                      "tool-modal__action",
+                      favorited && "tool-modal__action--favorite",
+                    )}
+                    onClick={() => toggleFavorite(slug)}
+                    aria-label={favoriteLabel}
+                    aria-pressed={favorited}
+                  >
+                    <Star
+                      size={18}
+                      strokeWidth={2}
+                      className={clsx(favorited && "fill-current")}
+                      aria-hidden
+                    />
+                  </button>
+                ) : null}
+
                 <button
                   type="button"
-                  className="tool-modal__close"
+                  className="tool-modal__action tool-modal__close"
                   onClick={onClose}
                   aria-label={closeLabel}
                 >
-                  <X size={20} strokeWidth={2.25} aria-hidden />
+                  <X size={18} strokeWidth={2.25} aria-hidden />
                 </button>
               </div>
             </header>

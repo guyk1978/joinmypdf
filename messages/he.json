@@ -6084,6 +6084,8 @@
     "doc": "מדריך",
     "related": "קשורים",
     "close": "סגור",
+    "addFavorite": "הוסף למועדפים",
+    "removeFavorite": "הסר מהמועדפים",
     "overview": "סקירה",
     "howItWorks": "איך זה עובד",
     "useCases": "שימושים",

@@ -277,6 +277,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
         <ToolModalWrapper
           open={visible}
           title={active.title}
+          slug={active.slug}
           onClose={closeToolModal}
           onExitComplete={handleExitComplete}
           contentReady={contentReady || Boolean(active.calc)}
@@ -286,6 +287,8 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             related: t("related"),
             close: t("close"),
             loading: loadingLabel,
+            addFavorite: t("addFavorite"),
+            removeFavorite: t("removeFavorite"),
           }}
           calc={
             active.calc ?? (

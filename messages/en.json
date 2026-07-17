@@ -6084,6 +6084,8 @@
     "doc": "DOC",
     "related": "RELATED",
     "close": "Close",
+    "addFavorite": "Add to favorites",
+    "removeFavorite": "Remove from favorites",
     "overview": "Overview",
     "howItWorks": "How it works",
     "useCases": "Use cases",

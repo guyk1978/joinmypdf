@@ -2349,7 +2349,7 @@ html:has(.home-page-shell--minimal) body {
   background: rgba(74, 222, 128, 0.08);
 }
 
-.tool-modal__close {
+.tool-modal__action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2360,7 +2360,7 @@ html:has(.home-page-shell--minimal) body {
   border: 1px solid #333;
   border-radius: 6px;
   background: #121212;
-  color: #ededed;
+  color: #a3a3a3;
   cursor: pointer;
   transition:
     color 0.15s ease,
@@ -2369,13 +2369,30 @@ html:has(.home-page-shell--minimal) body {
     box-shadow 0.15s ease;
 }
 
-.tool-modal__close:hover,
-.tool-modal__close:focus-visible {
-  color: #4ade80;
+.tool-modal__action:hover,
+.tool-modal__action:focus-visible {
+  color: #ededed;
   border-color: #4ade80;
   background: rgba(74, 222, 128, 0.08);
   box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.12);
   outline: none;
+}
+
+.tool-modal__action--favorite {
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.45);
+  background: rgba(74, 222, 128, 0.1);
+}
+
+.tool-modal__action--favorite:hover,
+.tool-modal__action--favorite:focus-visible {
+  color: #4ade80;
+  border-color: #4ade80;
+  background: rgba(74, 222, 128, 0.16);
+}
+
+.tool-modal__close {
+  color: #ededed;
 }
 
 .tool-modal__body {
