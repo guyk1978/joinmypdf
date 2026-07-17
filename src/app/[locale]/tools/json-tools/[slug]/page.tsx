@@ -1,4 +1,7 @@
-import { createHubToolStaticParams } from "@/lib/create-hub-tool-page";
+import { listHubToolStaticParams } from "@/lib/create-hub-tool-page";
 
 export { default, generateMetadata } from "../../[slug]/page";
-export const generateStaticParams = createHubToolStaticParams("json");
+
+export function generateStaticParams() {
+  return listHubToolStaticParams("json");
+}
