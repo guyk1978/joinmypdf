@@ -66,7 +66,7 @@ export default async function NetworkToolsHubPage({ params }: PageProps) {
           </header>
 
           <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} />
+            <CategoryDirectoryFlatGrid items={gridItems} categoryId="network" />
           </section>
 
           <article className="border-b border-[#262626] py-10" aria-labelledby="network-tools-intro">

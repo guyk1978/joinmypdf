@@ -3,12 +3,14 @@ import {
   ToolsDirectoryDashboard,
   type DirectoryWorkflowColumn,
 } from "@/components/ToolsDirectoryDashboard";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 type CategoryDirectoryShellProps = {
   title: string;
   description: string;
   eyebrow?: string;
+  categoryId?: InventoryCategoryId;
   featuredItems?: ToolGridItem[];
   featuredTitle?: string;
   featuredDescription?: string;
@@ -20,6 +22,7 @@ export function CategoryDirectoryShell({
   title,
   description,
   eyebrow,
+  categoryId,
   featuredItems,
   featuredTitle,
   featuredDescription,
@@ -35,9 +38,10 @@ export function CategoryDirectoryShell({
       </header>
 
       {flatGridItems?.length ? (
-        <CategoryDirectoryFlatGrid items={flatGridItems} />
+        <CategoryDirectoryFlatGrid items={flatGridItems} categoryId={categoryId} />
       ) : (
         <ToolsDirectoryDashboard
+          categoryId={categoryId}
           featuredItems={featuredItems}
           featuredTitle={featuredTitle}
           featuredDescription={featuredDescription}

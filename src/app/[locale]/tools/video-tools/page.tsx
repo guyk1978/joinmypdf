@@ -89,7 +89,7 @@ export default async function VideoToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildVideoToolGroupItems(group.id, t)} />
+              <CategoryDirectoryFlatGrid items={buildVideoToolGroupItems(group.id, t)} categoryId="video" />
             </section>
           ))}
 

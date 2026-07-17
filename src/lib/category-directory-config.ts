@@ -1,5 +1,7 @@
 import type { DirectoryWorkflowColumn } from "@/components/ToolsDirectoryDashboard";
+import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
+import { directoryIdToInventoryCategory } from "@/lib/category-accent-colors";
 import { buildHomeAudioToolItems } from "@/lib/audio-tools";
 import { buildHomeDataConversionToolItems } from "@/lib/data-conversion-tools";
 import { buildHomeDeveloperToolItems } from "@/lib/developer-tools";
@@ -51,6 +53,7 @@ type CategorySpec = {
 const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   security: {
     id: "security",
+    layout: "flat-grid",
     featuredIds: ["password-generator", "hash-generator", "uuid-generator", "ssl-decoder"],
     buildItems: buildHomeSecurityToolItems,
     workflows: [
@@ -62,12 +65,14 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
   image: {
     id: "image",
+    layout: "flat-grid",
     featuredIds: ["crop-image", "resize-image", "compress-image"],
     buildItems: buildHomeImageToolItems,
     workflows: [{ id: "transform" }, { id: "convert" }, { id: "optimize" }],
   },
   audio: {
     id: "audio",
+    layout: "flat-grid",
     featuredIds: ["mp3-converter", "audio-trimmer", "mp3-trimmer", "audio-compressor"],
     buildItems: () => buildHomeAudioToolItems(),
     workflows: [
@@ -106,6 +111,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
   developer: {
     id: "developer",
+    layout: "flat-grid",
     featuredIds: ["user-agent-parser", "jwt-debugger", "qr-code-generator"],
     buildItems: buildHomeDeveloperToolItems,
     workflows: [
@@ -116,6 +122,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
   "data-conversion": {
     id: "data-conversion",
+    layout: "flat-grid",
     featuredIds: ["yaml-json-converter", "csv-to-markdown-table", "sql-query-formatter"],
     buildItems: buildHomeDataConversionToolItems,
     workflows: [
@@ -132,6 +139,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
   favicon: {
     id: "favicon",
+    layout: "flat-grid",
     featuredIds: ["generate-favicon", "png-to-ico", "ico-to-png"],
     buildItems: buildHomeFaviconToolItems,
     workflows: [
@@ -156,6 +164,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
   "text-json": {
     id: "text-json",
+    layout: "flat-grid",
     featuredIds: ["json-formatter", "json-to-csv", "base64-encoder-decoder"],
     buildItems: buildHomeTextJsonToolItems,
     workflows: [
@@ -184,6 +193,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
   utilities: {
     id: "utilities",
+    layout: "flat-grid",
     buildItems: (tHome) => [
       ...buildHomeFaviconToolItems(tHome),
       ...buildHomeTextJsonToolItems(tHome),
@@ -242,7 +252,10 @@ function toGridItem(item: {
     href: item.href,
     label: item.label,
     slugHint: item.id,
-    description: item.description ?? getToolsInventoryEntry(item.id)?.description,
+    description:
+      getToolCardDescription(item.id) ??
+      item.description ??
+      getToolsInventoryEntry(item.id)?.description,
   };
 }
 
@@ -373,6 +386,7 @@ export function getCategoryDirectoryPageProps(
     title: tHome(meta.titleKey),
     description: tHome(meta.descriptionKey),
     eyebrow: tCategory("badge"),
+    categoryId: directoryIdToInventoryCategory(categoryId),
     featuredItems,
     featuredTitle: featuredItems.length > 0 ? tCategory("startHere") : undefined,
     featuredDescription:

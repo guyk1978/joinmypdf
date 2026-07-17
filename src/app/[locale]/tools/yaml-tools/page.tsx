@@ -67,7 +67,7 @@ export default async function YamlToolsHubPage({ params }: PageProps) {
           </header>
 
           <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} />
+            <CategoryDirectoryFlatGrid items={gridItems} categoryId="yaml" />
           </section>
 
           <section

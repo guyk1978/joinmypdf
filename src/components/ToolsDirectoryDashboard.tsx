@@ -2,6 +2,7 @@
 
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { ToolsDirectoryCategoryList } from "@/components/ToolsDirectoryCategoryList";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 export type DirectoryWorkflowColumn = {
@@ -16,6 +17,7 @@ export type DirectoryWorkflowColumn = {
 };
 
 type ToolsDirectoryDashboardProps = {
+  categoryId?: InventoryCategoryId;
   featuredItems?: ToolGridItem[];
   featuredTitle?: string;
   featuredDescription?: string;
@@ -23,6 +25,7 @@ type ToolsDirectoryDashboardProps = {
 };
 
 export function ToolsDirectoryDashboard({
+  categoryId,
   featuredItems = [],
   featuredTitle,
   featuredDescription,
@@ -38,7 +41,7 @@ export function ToolsDirectoryDashboard({
           {featuredDescription ? (
             <p className="tools-directory-featured__desc">{featuredDescription}</p>
           ) : null}
-          <CategoryDirectoryFlatGrid items={featuredItems} />
+          <CategoryDirectoryFlatGrid items={featuredItems} categoryId={categoryId} />
         </section>
       ) : null}
 
@@ -58,6 +61,7 @@ export function ToolsDirectoryDashboard({
                   id={`tools-directory-${category.id}`}
                   title={category.title}
                   items={category.items}
+                  categoryId={categoryId}
                 />
               ))}
             </div>

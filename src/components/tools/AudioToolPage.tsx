@@ -1,4 +1,5 @@
 import { AppPageShell } from "@/components/AppPageShell";
+import { RelatedAudioTools } from "@/components/tools/RelatedAudioTools";
 import { AudioToolMarketingSections } from "@/components/tools/AudioToolMarketingSections";
 import { AudioToolWorkspace } from "@/components/tools/AudioToolWorkspace";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
@@ -108,6 +109,7 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
                     whyBenefits={seoOverride?.whyBenefits}
                   />
                 }
+                related={<RelatedAudioTools toolId={tool.id} />}
               >
                 <AudioToolWorkspace toolId={tool.id} />
               </ToolLayout>

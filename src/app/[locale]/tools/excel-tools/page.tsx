@@ -68,7 +68,7 @@ export default async function ExcelToolsHubPage({ params }: PageProps) {
           </header>
 
           <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} />
+            <CategoryDirectoryFlatGrid items={gridItems} categoryId="excel" />
           </section>
 
           <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">

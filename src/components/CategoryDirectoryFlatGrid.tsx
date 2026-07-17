@@ -2,11 +2,14 @@ import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import { IndustrialToolCard } from "@/components/IndustrialToolCard";
 import { ToolListIcon } from "@/components/ToolListIcon";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 type CategoryDirectoryFlatGridProps = {
   items: ToolGridItem[];
   className?: string;
+  /** Page-level accent — wins over per-tool inventory so hub pages share one glow. */
+  categoryId?: InventoryCategoryId;
   /** Optional lead cell (section header card) rendered first in the grid. */
   lead?: ReactNode;
   /** Extra class on the lead `<li>` (e.g. home-im-grid__lead--2x2). */
@@ -14,11 +17,12 @@ type CategoryDirectoryFlatGridProps = {
 };
 
 /**
- * Global Industrial Matte tool card grid — used by every tools hub / category directory.
+ * Global Industrial Matte tool card grid — 5-column dashboard used by every hub.
  */
 export function CategoryDirectoryFlatGrid({
   items,
   className,
+  categoryId,
   lead,
   leadClassName,
 }: CategoryDirectoryFlatGridProps) {
@@ -34,6 +38,7 @@ export function CategoryDirectoryFlatGrid({
             label={item.label}
             description={item.description}
             slug={item.slugHint}
+            categoryId={categoryId}
             icon={<ToolListIcon slug={item.slugHint} label={item.label} />}
           />
         </li>

@@ -45,9 +45,8 @@ export function IndustrialMatteDropzone({
           "flex w-full flex-col items-center justify-center gap-3",
           "bg-neutral-950 px-6 py-12 text-center",
           "border border-transparent border-b-2 border-b-neutral-700",
-          "transition-[border-color,background-color] duration-200",
-          "hover:border-blue-500 hover:animate-trace-border",
-          active && "animate-trace-border border-blue-400",
+          "transition-[border-color,background-color,color] duration-200",
+          active && "im-dropzone--active",
           disabled && "pointer-events-none opacity-55",
         )}
         onClick={disabled ? undefined : onClick}
@@ -56,7 +55,7 @@ export function IndustrialMatteDropzone({
 
         <p className="im-dropzone__title m-0 text-lg text-neutral-500">{dropTitle}</p>
 
-        <span className="im-dropzone__select m-0 text-base font-medium text-blue-400 group-hover:text-blue-300">
+        <span className="im-dropzone__select m-0 text-base font-medium">
           {selectLabel}
         </span>
 

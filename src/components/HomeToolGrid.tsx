@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import "@/styles/tools-grid.css";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { HomeSectionBar } from "@/components/HomeSectionBar";
+import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import type { HomeFeaturedToolItem } from "@/lib/featured-tools";
 import {
@@ -25,7 +26,10 @@ function toCardItems(
     href: item.href,
     label: item.label,
     slugHint: item.id,
-    description: getToolsInventoryEntry(item.id)?.description,
+    description: getToolCardDescription(
+      item.id,
+      getToolsInventoryEntry(item.id)?.description,
+    ),
   }));
 }
 
@@ -62,7 +66,10 @@ export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
     href: item.href,
     label: item.label,
     slugHint: item.slugHint,
-    description: getToolsInventoryEntry(item.slugHint)?.description,
+    description: getToolCardDescription(
+      item.slugHint,
+      getToolsInventoryEntry(item.slugHint)?.description,
+    ),
   }));
 
   return (
@@ -77,7 +84,7 @@ export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
           href="/tools/pdf-tools/"
           ctaLabel={t("viewAllPdfTools")}
         />
-        <CategoryDirectoryFlatGrid className="home-im-grid" items={pdfItems} />
+        <CategoryDirectoryFlatGrid className="home-im-grid" items={pdfItems} categoryId="pdf" />
       </section>
 
       <section

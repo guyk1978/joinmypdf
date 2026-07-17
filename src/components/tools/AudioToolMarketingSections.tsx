@@ -1,9 +1,7 @@
 import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
-import { RelatedAudioTools } from "@/components/tools/RelatedAudioTools";
 import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import { Link } from "@/i18n/navigation";
-import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
 import type { ToolListEntry } from "@/lib/tool-module";
 import type { ToolSeoBenefitCard, ToolSeoPageOverride } from "@/lib/tool-seo-overrides";
 
@@ -18,7 +16,6 @@ type AudioToolMarketingSectionsProps = {
 };
 
 export function AudioToolMarketingSections({
-  tool,
   paragraphs,
   seoOverride,
   beforeYouStartTitle,
@@ -42,8 +39,6 @@ export function AudioToolMarketingSections({
         subheadline={whySectionSubheadline}
         benefits={whyBenefits}
       />
-
-      <RelatedAudioTools toolId={tool.id} />
 
       {seoOverride?.relatedWorkflowLinks ? (
         <ToolPageDashboardSection>

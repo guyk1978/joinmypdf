@@ -1,6 +1,4 @@
-import type { ReactNode } from "react";
 import { LocalProcessingInfographic } from "@/components/LocalProcessingInfographic";
-import { RelatedTools } from "@/components/RelatedTools";
 import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import { Link } from "@/i18n/navigation";
@@ -51,8 +49,6 @@ export function ToolMarketingSections({
         subheadline={whySectionSubheadline}
         benefits={whyBenefits}
       />
-
-      <RelatedTools tool={tool} />
 
       {articles.length ? (
         <ToolPageDashboardSection aria-labelledby="related-guides-heading">

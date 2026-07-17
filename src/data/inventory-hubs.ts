@@ -54,33 +54,141 @@ export type ToolsInventoryEntry = {
 
 export const INVENTORY_HUB_META: Record<
   InventoryCategoryId,
-  { path: string; title: string }
+  { path: string; title: string; blurb: string }
 > = {
-  pdf: { path: "/tools/pdf-tools/", title: "PDF Tools" },
-  video: { path: "/tools/video-tools/", title: "Video Tools" },
-  mp4: { path: "/tools/mp4-tools/", title: "MP4 Tools" },
-  convert: { path: "/tools/convert-tools/", title: "Convert Tools" },
-  compress: { path: "/tools/compress-tools/", title: "Compress Tools" },
-  extract: { path: "/tools/extract-tools/", title: "Extract Tools" },
-  image: { path: "/image-tools/", title: "Image Tools" },
-  jpg: { path: "/tools/jpg-tools/", title: "JPG Tools" },
-  png: { path: "/tools/png-tools/", title: "PNG Tools" },
-  mp3: { path: "/tools/mp3-tools/", title: "MP3 Tools" },
-  audio: { path: "/tools/mp3-tools/", title: "Audio Tools" },
-  favicon: { path: "/tools/favicon-tools/", title: "Favicon Tools" },
-  text: { path: "/tools/text-tools/", title: "Text Tools" },
-  json: { path: "/tools/json-tools/", title: "JSON Tools" },
-  yaml: { path: "/tools/yaml-tools/", title: "YAML Tools" },
-  xml: { path: "/tools/xml-tools/", title: "XML Tools" },
-  developer: { path: "/tools/developer-tools/", title: "Developer Tools" },
-  word: { path: "/tools/word-tools/", title: "Word Tools" },
-  excel: { path: "/tools/excel-tools/", title: "Excel Tools" },
-  crop: { path: "/tools/crop-tools/", title: "Crop Tools" },
-  rotate: { path: "/tools/rotate-tools/", title: "Rotate Tools" },
-  security: { path: "/security-tools/", title: "Security Tools" },
-  design: { path: "/tools/", title: "Design Tools" },
-  data: { path: "/data-conversion-tools/", title: "Data Conversion" },
-  productivity: { path: "/productivity-tools/", title: "Productivity Tools" },
-  "unit-math": { path: "/tools/unit-converters/", title: "Unit Converters" },
-  network: { path: "/tools/network-tools/", title: "Network & API Tools" },
+  pdf: {
+    path: "/tools/pdf-tools/",
+    title: "PDF Tools",
+    blurb: "Merge, split, and organize pages",
+  },
+  video: {
+    path: "/tools/video-tools/",
+    title: "Video Tools",
+    blurb: "Trim, convert, and compress video",
+  },
+  mp4: {
+    path: "/tools/mp4-tools/",
+    title: "MP4 Tools",
+    blurb: "Edit and convert MP4 files",
+  },
+  convert: {
+    path: "/tools/convert-tools/",
+    title: "Convert Tools",
+    blurb: "Switch formats without uploads",
+  },
+  compress: {
+    path: "/tools/compress-tools/",
+    title: "Compress Tools",
+    blurb: "Shrink files while keeping quality",
+  },
+  extract: {
+    path: "/tools/extract-tools/",
+    title: "Extract Tools",
+    blurb: "Pull pages, text, and assets",
+  },
+  image: {
+    path: "/image-tools/",
+    title: "Image Tools",
+    blurb: "Resize, crop, and convert images",
+  },
+  jpg: {
+    path: "/tools/jpg-tools/",
+    title: "JPG Tools",
+    blurb: "Optimize and convert JPG images",
+  },
+  png: {
+    path: "/tools/png-tools/",
+    title: "PNG Tools",
+    blurb: "Edit and convert PNG images",
+  },
+  mp3: {
+    path: "/tools/mp3-tools/",
+    title: "MP3 Tools",
+    blurb: "Trim, merge, and convert audio",
+  },
+  audio: {
+    path: "/tools/mp3-tools/",
+    title: "Audio Tools",
+    blurb: "Process audio locally in-browser",
+  },
+  favicon: {
+    path: "/tools/favicon-tools/",
+    title: "Favicon Tools",
+    blurb: "Generate icons for any site",
+  },
+  text: {
+    path: "/tools/text-tools/",
+    title: "Text Tools",
+    blurb: "Clean, format, and transform text",
+  },
+  json: {
+    path: "/tools/json-tools/",
+    title: "JSON Tools",
+    blurb: "Format, validate, and convert JSON",
+  },
+  yaml: {
+    path: "/tools/yaml-tools/",
+    title: "YAML Tools",
+    blurb: "Edit and convert YAML configs",
+  },
+  xml: {
+    path: "/tools/xml-tools/",
+    title: "XML Tools",
+    blurb: "Format and convert XML data",
+  },
+  developer: {
+    path: "/tools/developer-tools/",
+    title: "Developer Tools",
+    blurb: "Hashes, tokens, and encoding tools",
+  },
+  word: {
+    path: "/tools/word-tools/",
+    title: "Word Tools",
+    blurb: "Convert and work with Word docs",
+  },
+  excel: {
+    path: "/tools/excel-tools/",
+    title: "Excel Tools",
+    blurb: "Convert and explore spreadsheets",
+  },
+  crop: {
+    path: "/tools/crop-tools/",
+    title: "Crop Tools",
+    blurb: "Crop PDFs and images precisely",
+  },
+  rotate: {
+    path: "/tools/rotate-tools/",
+    title: "Rotate Tools",
+    blurb: "Rotate pages and images",
+  },
+  security: {
+    path: "/security-tools/",
+    title: "Security Tools",
+    blurb: "Protect, unlock, and redact files",
+  },
+  design: {
+    path: "/tools/",
+    title: "Design Tools",
+    blurb: "Color, SVG, and design utilities",
+  },
+  data: {
+    path: "/data-conversion-tools/",
+    title: "Data Conversion",
+    blurb: "Convert and explore structured data",
+  },
+  productivity: {
+    path: "/productivity-tools/",
+    title: "Productivity Tools",
+    blurb: "Everyday workflow utilities",
+  },
+  "unit-math": {
+    path: "/tools/unit-converters/",
+    title: "Unit Converters",
+    blurb: "Convert units and run calculations",
+  },
+  network: {
+    path: "/tools/network-tools/",
+    title: "Network & API Tools",
+    blurb: "Inspect IP, SSL, and API details",
+  },
 };

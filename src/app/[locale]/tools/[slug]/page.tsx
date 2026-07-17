@@ -3,6 +3,7 @@ import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
+import { RelatedTools } from "@/components/RelatedTools";
 import { AppPageShell } from "@/components/AppPageShell";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
@@ -351,6 +352,7 @@ export default async function ToolPage({
               tPage={tPage}
             />
           }
+          related={<RelatedTools tool={tool} />}
         >
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />

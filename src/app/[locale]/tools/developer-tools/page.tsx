@@ -91,7 +91,7 @@ export default async function DeveloperToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildDeveloperHubGroupItems(group.id, t)} />
+              <CategoryDirectoryFlatGrid items={buildDeveloperHubGroupItems(group.id, t)} categoryId="developer" />
             </section>
           ))}
 

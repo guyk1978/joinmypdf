@@ -1,10 +1,15 @@
 "use client";
 
-import type { MouseEvent, ReactNode } from "react";
+import type { CSSProperties, MouseEvent, ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { clsx } from "clsx";
 import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import {
+  getCategoryAccentCssVar,
+  resolveToolCategoryId,
+} from "@/lib/category-accent-colors";
 
 export type IndustrialToolCardProps = {
   href: string;
@@ -14,6 +19,8 @@ export type IndustrialToolCardProps = {
   className?: string;
   /** Tool slug for modal catalog (defaults to last path segment of href). */
   slug?: string;
+  /** Accent category — defaults to inventory primaryCategory for slug. */
+  categoryId?: InventoryCategoryId;
   /** When false, always navigate (skip modal). Default true. */
   openInModal?: boolean;
 };
@@ -25,8 +32,8 @@ function slugFromHref(href: string): string {
 }
 
 /**
- * Industrial Matte tool card — bordered dark tile with green hover accent.
- * Click opens ToolModalWrapper when a ToolModalProvider is present.
+ * Industrial Matte tool card — matches homepage hub card chrome.
+ * Hover accent follows the tool's category color map.
  */
 export function IndustrialToolCard({
   href,
@@ -35,11 +42,14 @@ export function IndustrialToolCard({
   icon,
   className,
   slug,
+  categoryId: categoryIdProp,
   openInModal = true,
 }: IndustrialToolCardProps) {
   const modal = useOptionalToolModal();
   const embed = useToolEmbedMode();
   const toolSlug = slug ?? slugFromHref(href);
+  /** Page-level category wins so hub pages share one accent (e.g. Image Tools). */
+  const categoryId = categoryIdProp ?? resolveToolCategoryId(toolSlug);
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!openInModal || !modal || embed) return;
@@ -60,7 +70,13 @@ export function IndustrialToolCard({
       href={href}
       className={clsx("im-tool-card", className)}
       prefetch={false}
+      data-category={categoryId || undefined}
       data-tool-modal-open={openInModal && modal && !embed ? "" : undefined}
+      style={
+        categoryId
+          ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
+          : undefined
+      }
       onClick={handleClick}
     >
       <span className="im-tool-card__icon" aria-hidden>

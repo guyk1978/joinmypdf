@@ -4,6 +4,7 @@ import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
+import { RelatedTools } from "@/components/RelatedTools";
 import { AppPageShell } from "@/components/AppPageShell";
 import { DataToolDashboard } from "@/components/data-tool/DataToolDashboard";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
@@ -132,6 +133,7 @@ export default async function DataConverterVisualizerPage({ params }: PageProps)
                     tPage={tPage}
                   />
                 }
+                related={<RelatedTools tool={tool} />}
               >
                 <WorkspaceUploadShell>
                   <DataToolDashboard />

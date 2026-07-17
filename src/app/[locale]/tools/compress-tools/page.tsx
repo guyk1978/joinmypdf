@@ -96,7 +96,7 @@ export default async function CompressToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildCompressToolGroupItems(group.id, t)} />
+              <CategoryDirectoryFlatGrid items={buildCompressToolGroupItems(group.id, t)} categoryId="compress" />
             </section>
           ))}
 

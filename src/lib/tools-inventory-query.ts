@@ -3,6 +3,7 @@ import {
   type InventoryCategoryId,
   type ToolsInventoryEntry,
 } from "@/data/inventory-hubs";
+import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import {
   TOOLS_INVENTORY,
   getToolsInventoryEntry,
@@ -69,7 +70,7 @@ export function buildInventoryGridItems(
     href: entry.path,
     label: resolveInventoryLabel(entry, t),
     slugHint: entry.id,
-    description: entry.description || undefined,
+    description: getToolCardDescription(entry.id, entry.description),
   }));
 }
 
@@ -90,7 +91,7 @@ export function buildInventoryGridItemsForIds(
       href: entry.path,
       label: resolveInventoryLabel(entry as ToolsInventoryEntry, t),
       slugHint: entry.id,
-      description: entry.description || undefined,
+      description: getToolCardDescription(entry.id, entry.description),
     }));
 }
 
@@ -134,6 +135,7 @@ export type InventoryHubLink = {
   id: InventoryCategoryId;
   href: string;
   title: string;
+  blurb: string;
 };
 
 function normalizeHubPath(path: string): string {
@@ -167,7 +169,7 @@ export function listDedicatedInventoryHubLinks(): InventoryHubLink[] {
     if (!hasTools) continue;
 
     seenPaths.add(pathKey);
-    links.push({ id: rawId, href, title: meta.title });
+    links.push({ id: rawId, href, title: meta.title, blurb: meta.blurb });
   }
 
   return links;

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { ToolGridItem } from "@/lib/tool-grid";
 import {
   TOOLS_DIRECTORY_BATCH_SIZE,
@@ -13,9 +14,15 @@ type ToolsDirectoryCategoryListProps = {
   id: string;
   title: string;
   items: ToolGridItem[];
+  categoryId?: InventoryCategoryId;
 };
 
-export function ToolsDirectoryCategoryList({ id, title, items }: ToolsDirectoryCategoryListProps) {
+export function ToolsDirectoryCategoryList({
+  id,
+  title,
+  items,
+  categoryId,
+}: ToolsDirectoryCategoryListProps) {
   const t = useTranslations("Home");
   const [visibleCount, setVisibleCount] = useState(TOOLS_DIRECTORY_INITIAL_VISIBLE);
   const visibleItems = items.slice(0, visibleCount);
@@ -28,7 +35,7 @@ export function ToolsDirectoryCategoryList({ id, title, items }: ToolsDirectoryC
           {title}
         </h3>
       ) : null}
-      <CategoryDirectoryFlatGrid items={visibleItems} />
+      <CategoryDirectoryFlatGrid items={visibleItems} categoryId={categoryId} />
       {remainingCount > 0 ? (
         <button
           type="button"

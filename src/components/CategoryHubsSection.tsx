@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { clsx } from "clsx";
@@ -31,6 +31,7 @@ import {
   Wrench,
 } from "lucide-react";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import { getCategoryAccentCssVar } from "@/lib/category-accent-colors";
 import {
   getInventoryToolsByCategory,
   listDedicatedInventoryHubLinks,
@@ -83,24 +84,43 @@ function CategoryHubCard({
   categoryId,
   toolCount,
   toolCountLabel,
+  blurb,
 }: {
   href: string;
   title: string;
   categoryId: InventoryCategoryId;
   toolCount: number;
   toolCountLabel: string;
+  blurb?: string;
 }) {
   const Icon = CATEGORY_ICONS[categoryId] ?? FileText;
+  const showMeta = toolCount > 0 || Boolean(blurb);
 
   return (
-    <Link href={href} className="category-hub-card" prefetch={false}>
+    <Link
+      href={href}
+      className="category-hub-card"
+      prefetch={false}
+      data-category={categoryId}
+      style={{ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties}
+    >
       <span className="category-hub-card__icon" aria-hidden>
         <Icon size={28} strokeWidth={1.75} />
       </span>
       <span className="category-hub-card__text">
         <span className="category-hub-card__title">{title}</span>
-        {toolCount > 0 ? (
-          <span className="category-hub-card__count">{toolCountLabel}</span>
+        {showMeta ? (
+          <span className="category-hub-card__meta">
+            {toolCount > 0 ? (
+              <span className="category-hub-card__count">{toolCountLabel}</span>
+            ) : null}
+            {toolCount > 0 && blurb ? (
+              <span className="category-hub-card__sep" aria-hidden>
+                ·
+              </span>
+            ) : null}
+            {blurb ? <span className="category-hub-card__blurb">{blurb}</span> : null}
+          </span>
         ) : null}
       </span>
     </Link>
@@ -130,6 +150,11 @@ export function CategoryHubsSection({
 
   const resolvedNavLabel = navLabel ?? t("landing.heroCategoriesLabel");
   const Root = hideHead ? "div" : "section";
+
+  const resolveBlurb = (id: InventoryCategoryId, fallback: string) => {
+    const key = `landing.categoryBlurbs.${id}`;
+    return t.has(key) ? t(key) : fallback;
+  };
 
   return (
     <Root
@@ -168,6 +193,10 @@ export function CategoryHubsSection({
                     ? tDir("toolCount", { count: category.toolCount })
                     : tDir("toolCountPlural", { count: category.toolCount })
                 }
+                blurb={resolveBlurb(
+                  category.id as InventoryCategoryId,
+                  category.blurb,
+                )}
               />
             </li>
           ))}

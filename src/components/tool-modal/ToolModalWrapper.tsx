@@ -1,11 +1,16 @@
 "use client";
 
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Star, X } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
+import {
+  getCategoryAccentCssVar,
+  resolveToolCategoryId,
+} from "@/lib/category-accent-colors";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
 export type ToolModalTab = "calc" | "doc" | "related";
 
@@ -14,6 +19,8 @@ export type ToolModalWrapperProps = {
   title: string;
   /** Tool id used for favorites toggle. */
   slug?: string;
+  /** Inventory category for accent theming — resolved from slug when omitted. */
+  categoryId?: InventoryCategoryId;
   onClose: () => void;
   onExitComplete?: () => void;
   /** CALC tab — tool UI (iframe, calculator, workspace). */
@@ -45,6 +52,7 @@ export function ToolModalWrapper({
   open,
   title,
   slug,
+  categoryId: categoryIdProp,
   onClose,
   onExitComplete,
   calc,
@@ -60,6 +68,10 @@ export function ToolModalWrapper({
   const [mounted, setMounted] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorited = slug ? isFavorite(slug) : false;
+  const categoryId = categoryIdProp ?? resolveToolCategoryId(slug);
+  const accentStyle = categoryId
+    ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
+    : undefined;
 
   useEffect(() => {
     setMounted(true);
@@ -144,6 +156,8 @@ export function ToolModalWrapper({
 
           <motion.div
             className="tool-modal__panel"
+            data-category={categoryId || undefined}
+            style={accentStyle}
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}

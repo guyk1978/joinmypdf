@@ -71,7 +71,7 @@ export default async function JsonToolsHubPage({ params }: PageProps) {
           </header>
 
           <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} />
+            <CategoryDirectoryFlatGrid items={gridItems} categoryId="json" />
           </section>
 
           <section

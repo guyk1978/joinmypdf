@@ -66,7 +66,7 @@ export default async function UnitConvertersHubPage({ params }: PageProps) {
           </header>
 
           <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} />
+            <CategoryDirectoryFlatGrid items={gridItems} categoryId="unit-math" />
           </section>
 
           <article className="border-b border-[#262626] py-10" aria-labelledby="unit-converters-intro">

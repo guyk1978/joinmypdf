@@ -1,4 +1,5 @@
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
@@ -22,7 +23,10 @@ export function CompactToolCardGrid({ items, className }: CompactToolCardGridPro
       href: item.href,
       label: item.label,
       slugHint: slug,
-      description: getToolsInventoryEntry(slug)?.description,
+      description: getToolCardDescription(
+        slug,
+        getToolsInventoryEntry(slug)?.description,
+      ),
     };
   });
 

@@ -90,7 +90,7 @@ export default async function ConvertToolsHubPage({ params }: PageProps) {
               >
                 {t(GROUP_TITLE_KEYS[group.id])}
               </h2>
-              <CategoryDirectoryFlatGrid items={buildConvertToolGroupItems(group.id, t)} />
+              <CategoryDirectoryFlatGrid items={buildConvertToolGroupItems(group.id, t)} categoryId="convert" />
             </section>
           ))}
 
