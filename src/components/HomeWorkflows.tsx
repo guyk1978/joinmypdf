@@ -12,7 +12,7 @@ const WORKFLOWS: WorkflowItem[] = [
   { key: "documents", href: "/tools/pdf-tools/", Icon: FileText },
   { key: "media", href: "/tools/mp4-tools/", Icon: ImagePlay },
   { key: "developer", href: "/developer-tools/", Icon: Code2 },
-  { key: "privacy", href: "/security-tools/", Icon: ShieldCheck },
+  { key: "privacy", href: "/tools/security-tools/", Icon: ShieldCheck },
 ];
 
 export async function HomeWorkflows() {

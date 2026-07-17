@@ -144,7 +144,7 @@ export default async function CompressToolsHubPage({ params }: PageProps) {
             <ul className="mt-4 flex flex-col gap-3">
               <li className="border-b border-[#1a1a1a] pb-3">
                 <Link
-                  href="/image-tools/"
+                  href="/tools/image-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >

@@ -6,7 +6,9 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { findToolsDataByPathname } from "@/data/tools-data";
+import { normalizeHubPath } from "@/lib/tool-hierarchy";
 import { useSearch, type ScoredSearchResult } from "@/hooks/useSearch";
 
 type HeaderSearchProps = {
@@ -150,6 +152,10 @@ function SearchField({
             href: matched.href,
             title: matched.title || result.title,
             description: matched.description || result.description,
+            categoryId: matched.category as InventoryCategoryId | undefined,
+            returnHref: matched.category
+              ? normalizeHubPath(matched.category as InventoryCategoryId)
+              : "/",
           });
           return;
         }

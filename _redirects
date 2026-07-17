@@ -3,3 +3,21 @@
 /tools /en/tools 301
 /tools/ /en/tools 301
 /tools/* /en/tools/:splat 301
+
+# Legacy top-level category hubs → /tools/{hub}/
+/en/image-tools /en/tools/image-tools 301
+/en/image-tools/ /en/tools/image-tools/ 301
+/he/image-tools /he/tools/image-tools 301
+/he/image-tools/ /he/tools/image-tools/ 301
+/en/security-tools /en/tools/security-tools 301
+/en/security-tools/ /en/tools/security-tools/ 301
+/he/security-tools /he/tools/security-tools 301
+/he/security-tools/ /he/tools/security-tools/ 301
+/en/productivity-tools /en/tools/productivity-tools 301
+/en/productivity-tools/ /en/tools/productivity-tools/ 301
+/he/productivity-tools /he/tools/productivity-tools 301
+/he/productivity-tools/ /he/tools/productivity-tools/ 301
+/en/data-conversion-tools /en/tools/data-conversion-tools 301
+/en/data-conversion-tools/ /en/tools/data-conversion-tools/ 301
+/he/data-conversion-tools /he/tools/data-conversion-tools 301
+/he/data-conversion-tools/ /he/tools/data-conversion-tools/ 301

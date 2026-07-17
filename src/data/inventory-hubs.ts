@@ -87,7 +87,7 @@ export const INVENTORY_HUB_META: Record<
     blurb: "Pull pages, text, and assets",
   },
   image: {
-    path: "/image-tools/",
+    path: "/tools/image-tools/",
     title: "Image Tools",
     blurb: "Resize, crop, and convert images",
   },
@@ -162,22 +162,22 @@ export const INVENTORY_HUB_META: Record<
     blurb: "Rotate pages and images",
   },
   security: {
-    path: "/security-tools/",
+    path: "/tools/security-tools/",
     title: "Security Tools",
     blurb: "Protect, unlock, and redact files",
   },
   design: {
-    path: "/tools/",
+    path: "/tools/developer-tools/",
     title: "Design Tools",
     blurb: "Color, SVG, and design utilities",
   },
   data: {
-    path: "/data-conversion-tools/",
+    path: "/tools/data-conversion-tools/",
     title: "Data Conversion",
     blurb: "Convert and explore structured data",
   },
   productivity: {
-    path: "/productivity-tools/",
+    path: "/tools/productivity-tools/",
     title: "Productivity Tools",
     blurb: "Everyday workflow utilities",
   },

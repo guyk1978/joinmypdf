@@ -16,9 +16,12 @@ import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
+import { parseToolHierarchyPath } from "@/lib/tool-hierarchy";
 import type { ToolFaq } from "@/lib/types";
 import { toolPageInfoWidth } from "@/lib/tool-ui";
 import { WORKSPACE_UPLOAD_ID } from "@/lib/workspace-flow";
+import { usePathname } from "@/i18n/navigation";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
 export type ToolLayoutProps = {
   children: ReactNode;
@@ -40,6 +43,8 @@ export type ToolLayoutProps = {
   related?: ReactNode;
   /** Optional block between the tool workspace and marketing (e.g. invoice templates). */
   belowTool?: ReactNode;
+  /** Optional parent category override (from hub context / nested URL). */
+  categoryId?: InventoryCategoryId;
   className?: string;
   contentClassName?: string;
   showPrivacyBadge?: boolean;
@@ -63,6 +68,7 @@ export function ToolLayout({
   marketing,
   related,
   belowTool,
+  categoryId: categoryIdProp,
   className,
   contentClassName,
   showPrivacyBadge = true,
@@ -70,13 +76,18 @@ export function ToolLayout({
 }: ToolLayoutProps) {
   const shell = useToolPageShell();
   const embed = useToolEmbedMode();
+  const pathname = usePathname();
 
   const resolvedTitle = title ?? shell.headline;
   const resolvedDescription = description ?? shell.subline;
   const resolvedTagline = tagline ?? shell.tagline;
   const resolvedSlug = slug ?? shell.slug;
   const feedbackPageTitle = feedbackTitle ?? resolvedTitle;
-  const categoryId = resolveToolCategoryId(resolvedSlug);
+  const hierarchy = parseToolHierarchyPath(pathname);
+  const categoryId =
+    categoryIdProp ??
+    hierarchy?.categoryId ??
+    resolveToolCategoryId(resolvedSlug);
   const accentStyle = categoryId
     ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
     : undefined;

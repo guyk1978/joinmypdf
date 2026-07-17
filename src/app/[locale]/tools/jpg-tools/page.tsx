@@ -46,7 +46,7 @@ export default async function JpgToolsHubPage({ params }: PageProps) {
 
   const crumbs = [
     { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbHubImage"), path: "/image-tools/" },
+    { name: tPage("breadcrumbHubImage"), path: "/tools/image-tools/" },
     { name: t("title"), path: JPG_TOOLS_HUB_PATH },
   ];
 
@@ -96,7 +96,7 @@ export default async function JpgToolsHubPage({ params }: PageProps) {
               </li>
               <li className="pb-0">
                 <Link
-                  href="/image-tools/"
+                  href="/tools/image-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >
@@ -115,7 +115,7 @@ export default async function JpgToolsHubPage({ params }: PageProps) {
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
             <Link
-              href="/image-tools/"
+              href="/tools/image-tools/"
               className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
               prefetch={false}
             >

@@ -12,6 +12,7 @@ import {
 import { TOOL_DEFINITIONS } from "@/config/tools";
 import { getAudioToolById } from "@/lib/audio-tools";
 import { registry } from "@/lib/registry";
+import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 export type InventoryTranslator = {
@@ -67,7 +68,7 @@ export function buildInventoryGridItems(
   t?: InventoryTranslator,
 ): ToolGridItem[] {
   return getInventoryToolsByCategory(category).map((entry) => ({
-    href: entry.path,
+    href: resolveToolHref(entry.id, category),
     label: resolveInventoryLabel(entry, t),
     slugHint: entry.id,
     description: getToolCardDescription(entry.id, entry.description),
@@ -77,6 +78,7 @@ export function buildInventoryGridItems(
 export function buildInventoryGridItemsForIds(
   ids: readonly string[],
   t?: InventoryTranslator,
+  parentCategoryId?: InventoryCategoryId,
 ): ToolGridItem[] {
   return ids
     .map((id) => getToolsInventoryEntry(id) ?? {
@@ -88,7 +90,10 @@ export function buildInventoryGridItemsForIds(
       primaryCategory: "convert" as const,
     })
     .map((entry) => ({
-      href: entry.path,
+      href: resolveToolHref(
+        entry.id,
+        parentCategoryId ?? (entry as ToolsInventoryEntry).primaryCategory,
+      ),
       label: resolveInventoryLabel(entry as ToolsInventoryEntry, t),
       slugHint: entry.id,
       description: getToolCardDescription(entry.id, entry.description),
@@ -128,7 +133,7 @@ export function getRelatedInventoryToolIds(
 }
 
 export function getInventoryHubPath(category: InventoryCategoryId): string {
-  return INVENTORY_HUB_META[category].path;
+  return normalizeHubPath(category);
 }
 
 export type InventoryHubLink = {
@@ -138,7 +143,7 @@ export type InventoryHubLink = {
   blurb: string;
 };
 
-function normalizeHubPath(path: string): string {
+function withTrailingSlash(path: string): string {
   if (!path || path === "/") return path;
   return path.endsWith("/") ? path : `${path}/`;
 }
@@ -155,10 +160,10 @@ export function listDedicatedInventoryHubLinks(): InventoryHubLink[] {
   const seenPaths = new Set<string>();
   const links: InventoryHubLink[] = [];
 
-  for (const [rawId, meta] of Object.entries(INVENTORY_HUB_META) as Array<
+  for (const [rawId] of Object.entries(INVENTORY_HUB_META) as Array<
     [InventoryCategoryId, (typeof INVENTORY_HUB_META)[InventoryCategoryId]]
   >) {
-    const href = normalizeHubPath(meta.path);
+    const href = normalizeHubPath(rawId);
     if (!href || href === "/tools/" || href === "/tools") continue;
 
     const pathKey = href.replace(/\/$/, "") || href;
@@ -168,8 +173,14 @@ export function listDedicatedInventoryHubLinks(): InventoryHubLink[] {
       primaryUsed.has(rawId) || getInventoryToolsByCategory(rawId).length > 0;
     if (!hasTools) continue;
 
+    const meta = INVENTORY_HUB_META[rawId];
     seenPaths.add(pathKey);
-    links.push({ id: rawId, href, title: meta.title, blurb: meta.blurb });
+    links.push({
+      id: rawId,
+      href: withTrailingSlash(href),
+      title: meta.title,
+      blurb: meta.blurb,
+    });
   }
 
   return links;

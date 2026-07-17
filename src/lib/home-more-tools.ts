@@ -70,7 +70,7 @@ export function buildHomeMoreToolsCategories(tHome: HomeTranslator): HomeMoreToo
       items: [
         {
           id: "audio-merger",
-          href: "/tools/audio-merger/",
+          href: "/tools/mp3-tools/audio-merger/",
           label: hubLabel(tHome, "mergeMp3Label", "Merge MP3"),
         },
         {
@@ -94,7 +94,7 @@ export function buildHomeMoreToolsCategories(tHome: HomeTranslator): HomeMoreToo
       id: "image-design",
       titleKey: "imageDesignSectionTitle",
       viewAllLabelKey: "viewAllImageDesignTools",
-      hubHref: "/image-tools/",
+      hubHref: "/tools/image-tools/",
       items: [
         {
           id: "jpg-tools-hub",
@@ -113,7 +113,7 @@ export function buildHomeMoreToolsCategories(tHome: HomeTranslator): HomeMoreToo
         },
         {
           id: "crop-image",
-          href: "/tools/crop-image/",
+          href: "/tools/image-tools/crop-image/",
           label: imageToolLabel(tHome, "cropImage", "Crop Image"),
         },
       ],

@@ -2,7 +2,14 @@ import { translateToolIntent, translateToolItem } from "@/lib/i18n-tool-labels";
 import { buildMegaMenuSections, flattenMegaMenuSections } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
+import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import type { ToolGridItem } from "@/lib/tool-grid";
+
+function featuredToolHref(slug: string): string {
+  const category = getToolsInventoryEntry(slug)?.primaryCategory ?? "pdf";
+  return resolveToolHref(slug, category);
+}
 
 type ToolsTranslator = {
   (key: string): string;
@@ -67,7 +74,7 @@ export function buildFeaturedHomeToolItems(tTools: ToolsTranslator) {
     if (!tool) return null;
 
     return {
-      href: `/tools/${tool.slug}/`,
+      href: featuredToolHref(tool.slug),
       label: translateToolItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title)),
       slugHint: tool.slug,
     };
@@ -86,7 +93,7 @@ export function buildHomepageFeaturedPdfItems(tTools: ToolsTranslator): HomeFeat
     if (!tool) return null;
 
     return {
-      href: `/tools/${tool.slug}/`,
+      href: featuredToolHref(tool.slug),
       label: translateToolItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title)),
       slugHint: tool.slug,
     };
@@ -99,7 +106,7 @@ export function buildHomepagePdfPowerhouseItems(tTools: ToolsTranslator): HomeFe
     if (!tool) return null;
 
     return {
-      href: `/tools/${tool.slug}/`,
+      href: featuredToolHref(tool.slug),
       label: translateToolItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title)),
       slugHint: tool.slug,
     };
@@ -112,7 +119,7 @@ export function buildHomepageGridToolItems(tTools: ToolsTranslator): HomeGridToo
     if (!tool) return null;
 
     return {
-      href: `/tools/${tool.slug}/`,
+      href: featuredToolHref(tool.slug),
       label: translateToolItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title)),
       slugHint: tool.slug,
       description: translateToolIntent(tTools, tool.slug, tool.intent || tool.description),

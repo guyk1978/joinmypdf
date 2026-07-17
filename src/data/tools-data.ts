@@ -12,6 +12,7 @@ import { TOOLS_INVENTORY, getToolsInventoryEntry } from "@/data/tools-inventory"
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { registry } from "@/lib/registry";
 import { getRelatedInventoryToolIds } from "@/lib/tools-inventory-query";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 
 export type ToolsDataEntry = {
   id: string;
@@ -38,7 +39,7 @@ function buildToolsData(): Record<string, ToolsDataEntry> {
     map[entry.id] = {
       id: entry.id,
       title: registryTool?.title ?? entry.title,
-      href: entry.path,
+      href: resolveToolHref(entry.id, entry.primaryCategory),
       description: registryTool?.description ?? entry.description ?? "",
       category: entry.primaryCategory,
       related: resolveRelatedIds(entry.id, registryTool?.relatedTools),
@@ -49,10 +50,11 @@ function buildToolsData(): Record<string, ToolsDataEntry> {
   for (const tool of registry.tools) {
     if (map[tool.slug]) continue;
     const inventory = getToolsInventoryEntry(tool.slug);
+    const category = inventory?.primaryCategory ?? ("convert" as InventoryCategoryId);
     map[tool.slug] = {
       id: tool.slug,
       title: tool.title,
-      href: inventory?.path ?? `/tools/${tool.slug}/`,
+      href: resolveToolHref(tool.slug, category),
       description: tool.description ?? inventory?.description ?? "",
       category: inventory?.primaryCategory ?? tool.category,
       related: resolveRelatedIds(tool.slug, tool.relatedTools),
@@ -125,6 +127,13 @@ const TOOLS_DATA_BY_PATH: Map<string, ToolsDataEntry> = (() => {
   for (const entry of listToolsData()) {
     map.set(normalizeToolPath(entry.href), entry);
     map.set(normalizeToolPath(`/tools/${entry.id}/`), entry);
+    // Index every category tag so secondary-hub nests still resolve.
+    const inventory = getToolsInventoryEntry(entry.id);
+    if (inventory) {
+      for (const category of inventory.categories) {
+        map.set(normalizeToolPath(resolveToolHref(entry.id, category)), entry);
+      }
+    }
   }
   return map;
 })();

@@ -19,6 +19,7 @@ import {
   ToolModalDocsPanel,
   ToolModalRelatedPanel,
 } from "@/components/tool-modal/ToolModalPanels";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
   findToolsDataByPathname,
   getToolModalPath,
@@ -32,12 +33,22 @@ import {
   getToolModalRelatedTools,
   type ToolModalRelatedTool,
 } from "@/lib/tool-modal-catalog";
+import {
+  normalizeHubPath,
+  parseToolHierarchyPath,
+  resolveToolHref,
+} from "@/lib/tool-hierarchy";
+import { resolveToolCategoryId } from "@/lib/category-accent-colors";
 
 export type OpenToolModalOptions = {
   slug: string;
   href: string;
   title: string;
   description?: string;
+  /** Parent category that opened this tool — drives accent theming. */
+  categoryId?: InventoryCategoryId;
+  /** Category hub (or other) URL to restore when closing. */
+  returnHref?: string;
   calc?: ReactNode;
   docs?: ReactNode;
   related?: ReactNode;
@@ -79,14 +90,23 @@ function homeWindowPath(locale: string): string {
   return `/${locale}`;
 }
 
+function resolveReturnAppPath(options: OpenToolModalOptions | null): string {
+  if (options?.returnHref) return normalizeToolPath(options.returnHref);
+  if (options?.categoryId) return normalizeHubPath(options.categoryId);
+  return "/";
+}
+
 function toOpenOptionsFromSlug(slug: string): OpenToolModalOptions | null {
   const entry = getToolsDataEntry(slug);
   if (!entry) return null;
+  const categoryId = resolveToolCategoryId(slug);
   return {
     slug: entry.id,
-    href: getToolModalPath(entry),
+    href: categoryId ? resolveToolHref(entry.id, categoryId) : getToolModalPath(entry),
     title: entry.title,
     description: entry.description || undefined,
+    categoryId,
+    returnHref: categoryId ? normalizeHubPath(categoryId) : undefined,
   };
 }
 
@@ -107,11 +127,21 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   const closingRef = useRef(false);
   /** Soft History URL ownership — true when we pushed tool URL without Next navigation. */
   const softUrlRef = useRef(false);
+  const returnHrefRef = useRef<string>("/");
 
   const applyActiveTool = useCallback((options: OpenToolModalOptions) => {
-    const href = normalizeToolPath(options.href || `/tools/${options.slug}/`);
-    setActive({ ...options, href });
-    setContentReady(Boolean(options.calc)); // custom calc is ready immediately
+    const categoryId =
+      options.categoryId ??
+      parseToolHierarchyPath(options.href)?.categoryId ??
+      resolveToolCategoryId(options.slug);
+    const href = normalizeToolPath(
+      options.href ||
+        (categoryId ? resolveToolHref(options.slug, categoryId) : `/tools/${options.slug}/`),
+    );
+    const returnHref = resolveReturnAppPath({ ...options, categoryId, href });
+    returnHrefRef.current = returnHref;
+    setActive({ ...options, href, categoryId, returnHref });
+    setContentReady(Boolean(options.calc));
     setVisible(true);
     maskBackground(true);
     if (typeof document !== "undefined" && options.title) {
@@ -120,12 +150,16 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const softPushToolUrl = useCallback(
-    (href: string, slug: string) => {
+    (href: string, slug: string, returnHref: string) => {
       if (typeof window === "undefined") return;
       const nextUrl = toWindowPath(locale, href);
       const current = window.location.pathname.replace(/\/$/, "");
       if (current === nextUrl.replace(/\/$/, "")) return;
-      window.history.pushState({ toolModal: slug }, "", nextUrl);
+      window.history.pushState(
+        { toolModal: slug, returnHref },
+        "",
+        nextUrl,
+      );
       softUrlRef.current = true;
     },
     [locale],
@@ -137,20 +171,22 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
     setContentReady(false);
     maskBackground(false);
 
+    const returnHref = returnHrefRef.current || "/";
     const onHardToolRoute = findToolsDataByPathname(pathname) != null;
 
     if (onHardToolRoute) {
-      // Deep-linked / hard-navigated tool page → return home via Next router.
       softUrlRef.current = false;
-      router.replace("/", { scroll: false });
+      router.replace(returnHref === "/" ? "/" : returnHref, { scroll: false });
       return;
     }
 
-    // Soft-opened from dashboard — restore home URL without remounting the page tree.
     if (typeof window !== "undefined") {
-      const home = homeWindowPath(locale);
-      if (window.location.pathname.replace(/\/$/, "") !== home.replace(/\/$/, "")) {
-        window.history.replaceState({ toolModal: null }, "", home);
+      const target =
+        returnHref === "/"
+          ? homeWindowPath(locale)
+          : toWindowPath(locale, returnHref);
+      if (window.location.pathname.replace(/\/$/, "") !== target.replace(/\/$/, "")) {
+        window.history.replaceState({ toolModal: null }, "", target);
       }
     }
     softUrlRef.current = false;
@@ -162,10 +198,16 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
       closingRef.current = false;
       applyActiveTool(options);
       if (!options.skipUrlSync) {
-        softPushToolUrl(
-          normalizeToolPath(options.href || `/tools/${options.slug}/`),
-          options.slug,
+        const categoryId =
+          options.categoryId ?? resolveToolCategoryId(options.slug);
+        const href = normalizeToolPath(
+          options.href ||
+            (categoryId
+              ? resolveToolHref(options.slug, categoryId)
+              : `/tools/${options.slug}/`),
         );
+        const returnHref = resolveReturnAppPath({ ...options, categoryId, href });
+        softPushToolUrl(href, options.slug, returnHref);
       }
     },
     [applyActiveTool, softPushToolUrl],
@@ -183,36 +225,53 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
     if (isEmbedRequest()) return;
     const matched = findToolsDataByPathname(pathname);
     if (!matched) return;
+    const hierarchy = parseToolHierarchyPath(pathname);
+    const categoryId =
+      hierarchy?.categoryId ?? resolveToolCategoryId(matched.id);
     maskBackground(true);
     closingRef.current = false;
     softUrlRef.current = false;
-    setActive({
+    applyActiveTool({
       slug: matched.id,
-      href: getToolModalPath(matched),
+      href: categoryId
+        ? resolveToolHref(matched.id, categoryId)
+        : getToolModalPath(matched),
       title: matched.title,
       description: matched.description || undefined,
+      categoryId,
+      returnHref: categoryId ? normalizeHubPath(categoryId) : "/",
     });
-    setContentReady(false);
-    setVisible(true);
-  }, [pathname]);
+  }, [pathname, applyActiveTool]);
 
   // Browser back/forward while soft URL is in history.
   useEffect(() => {
-    const onPopState = () => {
+    const onPopState = (event: PopStateEvent) => {
       if (isEmbedRequest()) return;
       const matched = findToolsDataByPathname(window.location.pathname);
       if (matched) {
         closingRef.current = false;
+        const hierarchy = parseToolHierarchyPath(window.location.pathname);
+        const categoryId =
+          hierarchy?.categoryId ?? resolveToolCategoryId(matched.id);
+        const stateReturn =
+          event.state && typeof event.state === "object" && "returnHref" in event.state
+            ? String((event.state as { returnHref?: string }).returnHref || "")
+            : "";
         applyActiveTool({
           slug: matched.id,
-          href: getToolModalPath(matched),
+          href: categoryId
+            ? resolveToolHref(matched.id, categoryId)
+            : getToolModalPath(matched),
           title: matched.title,
           description: matched.description || undefined,
+          categoryId,
+          returnHref:
+            stateReturn ||
+            (categoryId ? normalizeHubPath(categoryId) : "/"),
         });
         softUrlRef.current = true;
         return;
       }
-      // Left tool URL via back → close overlay, keep current Next page.
       closingRef.current = true;
       softUrlRef.current = false;
       setVisible(false);
@@ -263,9 +322,11 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
         href: tool.href,
         title: tool.title,
         description: tool.description,
+        categoryId: active?.categoryId,
+        returnHref: active?.returnHref,
       });
     },
-    [openToolModal],
+    [openToolModal, active?.categoryId, active?.returnHref],
   );
 
   const loadingLabel = t.has("loading") ? t("loading") : "Loading tool…";
@@ -278,6 +339,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
           open={visible}
           title={active.title}
           slug={active.slug}
+          categoryId={active.categoryId}
           onClose={closeToolModal}
           onExitComplete={handleExitComplete}
           contentReady={contentReady || Boolean(active.calc)}

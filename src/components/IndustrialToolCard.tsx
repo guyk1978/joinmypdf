@@ -10,6 +10,7 @@ import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
+import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
 
 export type IndustrialToolCardProps = {
   href: string;
@@ -19,8 +20,10 @@ export type IndustrialToolCardProps = {
   className?: string;
   /** Tool slug for modal catalog (defaults to last path segment of href). */
   slug?: string;
-  /** Accent category — defaults to inventory primaryCategory for slug. */
+  /** Parent category context — drives accent + close-navigation target. */
   categoryId?: InventoryCategoryId;
+  /** Category hub to restore when the tool modal closes. */
+  returnHref?: string;
   /** When false, always navigate (skip modal). Default true. */
   openInModal?: boolean;
 };
@@ -33,7 +36,7 @@ function slugFromHref(href: string): string {
 
 /**
  * Industrial Matte tool card — matches homepage hub card chrome.
- * Hover accent follows the tool's category color map.
+ * Accent and return path follow the parent category context.
  */
 export function IndustrialToolCard({
   href,
@@ -43,13 +46,17 @@ export function IndustrialToolCard({
   className,
   slug,
   categoryId: categoryIdProp,
+  returnHref: returnHrefProp,
   openInModal = true,
 }: IndustrialToolCardProps) {
   const modal = useOptionalToolModal();
   const embed = useToolEmbedMode();
   const toolSlug = slug ?? slugFromHref(href);
   /** Page-level category wins so hub pages share one accent (e.g. Image Tools). */
-  const categoryId = categoryIdProp ?? resolveToolCategoryId(toolSlug);
+  const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
+  const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId) : href;
+  const returnHref =
+    returnHrefProp ?? (categoryId ? normalizeHubPath(categoryId) : undefined);
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!openInModal || !modal || embed) return;
@@ -59,15 +66,17 @@ export function IndustrialToolCard({
     event.preventDefault();
     modal.openToolModal({
       slug: toolSlug,
-      href,
+      href: nestedHref,
       title: label,
       description,
+      categoryId,
+      returnHref,
     });
   };
 
   return (
     <Link
-      href={href}
+      href={nestedHref}
       className={clsx("im-tool-card", className)}
       prefetch={false}
       data-category={categoryId || undefined}

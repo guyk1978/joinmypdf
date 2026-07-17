@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { IndustrialToolCard } from "@/components/IndustrialToolCard";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import { normalizeHubPath } from "@/lib/tool-hierarchy";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 type CategoryDirectoryFlatGridProps = {
@@ -26,6 +27,8 @@ export function CategoryDirectoryFlatGrid({
   lead,
   leadClassName,
 }: CategoryDirectoryFlatGridProps) {
+  const returnHref = categoryId ? normalizeHubPath(categoryId) : undefined;
+
   return (
     <ul className={clsx("im-tool-card-grid", className)}>
       {lead ? (
@@ -39,6 +42,7 @@ export function CategoryDirectoryFlatGrid({
             description={item.description}
             slug={item.slugHint}
             categoryId={categoryId}
+            returnHref={returnHref}
             icon={<ToolListIcon slug={item.slugHint} label={item.label} />}
           />
         </li>

@@ -58,11 +58,13 @@ export function resolveToolCategoryId(
   slug?: string,
   fallback?: InventoryCategoryId,
 ): InventoryCategoryId | undefined {
+  // Prefer explicit parent/fallback (hub context) over the tool's own primary.
+  if (fallback) return fallback;
   if (slug) {
     const entry = getToolsInventoryEntry(slug);
     if (entry?.primaryCategory) return entry.primaryCategory;
   }
-  return fallback;
+  return undefined;
 }
 
 /** Map CategoryDirectory page ids onto inventory accent categories. */

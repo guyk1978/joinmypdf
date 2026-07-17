@@ -92,7 +92,7 @@ export default async function PngToolsPage({ params }: PageProps) {
               </li>
               <li className="pb-0">
                 <Link
-                  href="/image-tools/"
+                  href="/tools/image-tools/"
                   className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
                   prefetch={false}
                 >

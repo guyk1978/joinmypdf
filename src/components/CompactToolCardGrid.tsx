@@ -1,6 +1,7 @@
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 export type CompactToolCardItem = {
@@ -19,14 +20,12 @@ type CompactToolCardGridProps = {
 export function CompactToolCardGrid({ items, className }: CompactToolCardGridProps) {
   const gridItems: ToolGridItem[] = items.map((item) => {
     const slug = item.slugHint ?? item.href;
+    const entry = getToolsInventoryEntry(slug);
     return {
-      href: item.href,
+      href: entry ? resolveToolHref(slug, entry.primaryCategory) : item.href,
       label: item.label,
       slugHint: slug,
-      description: getToolCardDescription(
-        slug,
-        getToolsInventoryEntry(slug)?.description,
-      ),
+      description: getToolCardDescription(slug, entry?.description),
     };
   });
 

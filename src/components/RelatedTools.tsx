@@ -6,6 +6,7 @@ import { getRelatedInventoryToolIds } from "@/lib/tools-inventory-query";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { registry } from "@/lib/registry";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 import type { ToolDefinition } from "@/lib/types";
 
 type RelatedToolsProps = {
@@ -55,7 +56,10 @@ export async function RelatedTools({ tool, slug }: RelatedToolsProps) {
       <CompactToolCardGrid
         variant="flat"
         items={items.map((item) => ({
-          href: `/tools/${item.slug}/`,
+          href: resolveToolHref(
+            item.slug,
+            getToolsInventoryEntry(item.slug)?.primaryCategory,
+          ),
           label: translateToolItem(tTools, item.slug, item.title),
           slugHint: item.slug,
         }))}

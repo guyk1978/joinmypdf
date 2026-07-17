@@ -12,6 +12,7 @@ import type { ToolDefinition, ToolVariant } from "@/lib/types";
 import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
 import type { ToolsTranslator } from "@/lib/i18n-tool-page";
 import { localizedToolTitle } from "@/lib/i18n-tool-page";
+import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
 
 export type ToolBreadcrumbCrumb = {
   name: string;
@@ -57,7 +58,7 @@ export const INVENTORY_BREADCRUMB_LABEL_KEYS: Record<InventoryCategoryId, string
 /** Nav category → category hub URL (legacy fallback when inventory miss). */
 const NAV_CATEGORY_HUBS: Partial<Record<ToolCategory, ToolCategoryHub>> = {
   [c.favicon]: { path: "/tools/favicon-tools/", labelKey: "breadcrumbHubFavicon" },
-  [c.image]: { path: "/image-tools/", labelKey: "breadcrumbHubImage" },
+  [c.image]: { path: "/tools/image-tools/", labelKey: "breadcrumbHubImage" },
   [c.video]: { path: "/tools/video-tools/", labelKey: "breadcrumbHubVideo" },
   [c.developerBrowser]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.developerTokens]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
@@ -67,10 +68,10 @@ const NAV_CATEGORY_HUBS: Partial<Record<ToolCategory, ToolCategoryHub>> = {
   [c.developerWorkflows]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
   [c.utilitiesText]: { path: "/tools/text-tools/", labelKey: "breadcrumbHubText" },
   [c.utilitiesEncoders]: { path: "/tools/text-tools/", labelKey: "breadcrumbHubText" },
-  [c.dataConversion]: { path: "/data-conversion-tools/", labelKey: "breadcrumbHubDataConversion" },
-  [c.security]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDeveloper" },
-  [c.productivity]: { path: "/productivity-tools/", labelKey: "breadcrumbHubProductivity" },
-  [c.design]: { path: "/tools/", labelKey: "breadcrumbHubDesign" },
+  [c.dataConversion]: { path: "/tools/data-conversion-tools/", labelKey: "breadcrumbHubDataConversion" },
+  [c.security]: { path: "/tools/security-tools/", labelKey: "breadcrumbHubSecurity" },
+  [c.productivity]: { path: "/tools/productivity-tools/", labelKey: "breadcrumbHubProductivity" },
+  [c.design]: { path: "/tools/developer-tools/", labelKey: "breadcrumbHubDesign" },
   [c.pdfSecurity]: { path: "/tools/pdf-tools/", labelKey: "breadcrumbHubPdf" },
   [c.pdfEdit]: { path: "/tools/pdf-tools/", labelKey: "breadcrumbHubPdf" },
   [c.pdfConvertIn]: { path: "/tools/pdf-tools/", labelKey: "breadcrumbHubPdf" },
@@ -117,19 +118,26 @@ function pickNavCategoryHub(categories: ToolCategory[]): ToolCategoryHub | null 
   return null;
 }
 
-function resolveInventoryHub(slug: string): ToolCategoryHub | null {
-  const entry = getToolsInventoryEntry(slug);
-  if (!entry) return null;
-  const meta = INVENTORY_HUB_META[entry.primaryCategory];
+function resolveInventoryHub(
+  slug: string,
+  categoryOverride?: InventoryCategoryId,
+): ToolCategoryHub | null {
+  const category =
+    categoryOverride ?? getToolsInventoryEntry(slug)?.primaryCategory;
+  if (!category) return null;
   return {
-    path: meta.path,
-    labelKey: INVENTORY_BREADCRUMB_LABEL_KEYS[entry.primaryCategory],
+    path: normalizeHubPath(category),
+    labelKey: INVENTORY_BREADCRUMB_LABEL_KEYS[category],
   };
 }
 
 /** Resolve the category hub — inventory primaryCategory first, then nav/SEO fallbacks. */
-export function resolveToolCategoryHub(slug: string, seoCategory = "convert"): ToolCategoryHub {
-  const inventoryHub = resolveInventoryHub(slug);
+export function resolveToolCategoryHub(
+  slug: string,
+  seoCategory = "convert",
+  categoryOverride?: InventoryCategoryId,
+): ToolCategoryHub {
+  const inventoryHub = resolveInventoryHub(slug, categoryOverride);
   if (inventoryHub) return inventoryHub;
 
   const definition = TOOL_DEFINITIONS.find((entry) => entry.slug === slug);
@@ -153,18 +161,29 @@ function resolveHubLabel(tPage: ToolPageTranslator, hub: ToolCategoryHub): strin
 
 /**
  * Canonical trail: Home / All tools / [Category hub] / [Tool].
- * Prefer tools-inventory primaryCategory for the hub link.
+ * Prefer parent category context when provided, else inventory primaryCategory.
  */
 export function buildToolPageBreadcrumbs(params: {
   slug: string;
   toolTitle: string;
   toolPath?: string;
   seoCategory?: string;
+  categoryId?: InventoryCategoryId;
   tPage: ToolPageTranslator;
 }): ToolBreadcrumbCrumb[] {
   const { slug, toolTitle, tPage } = params;
-  const toolPath = params.toolPath ?? `/tools/${slug}/`;
-  const hub = resolveToolCategoryHub(slug, params.seoCategory ?? "convert");
+  const hub = resolveToolCategoryHub(
+    slug,
+    params.seoCategory ?? "convert",
+    params.categoryId,
+  );
+  const categoryForPath =
+    params.categoryId ?? getToolsInventoryEntry(slug)?.primaryCategory;
+  const toolPath =
+    params.toolPath ??
+    (categoryForPath
+      ? resolveToolHref(slug, categoryForPath)
+      : `/tools/${slug}/`);
 
   return [
     { name: tPage("breadcrumbHome"), path: "/" },
@@ -180,12 +199,13 @@ export function buildToolBreadcrumbTrail(params: {
   pathname: string;
   tPage: ToolPageTranslator;
   tTools: ToolsTranslator;
+  categoryId?: InventoryCategoryId;
 }): ToolBreadcrumbCrumb[] {
   const { tool, variant, pathname, tPage, tTools } = params;
   const crumbs = buildToolPageBreadcrumbs({
     slug: tool.slug,
     toolTitle: localizedToolTitle(tTools, tool, null),
-    toolPath: `/tools/${tool.slug}/`,
+    categoryId: params.categoryId,
     seoCategory: tool.category,
     tPage,
   });
