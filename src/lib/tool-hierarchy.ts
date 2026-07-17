@@ -71,6 +71,30 @@ export function resolveToolHref(
   return buildNestedToolPath(slug, category);
 }
 
+/**
+ * Extra category nests forced into the sitemap beyond inventory tags.
+ * Keeps multi-hub tools discoverable under secondary hubs (e.g. JPG Tools).
+ */
+export const SITEMAP_CATEGORY_NEST_OVERRIDES: Partial<
+  Record<string, readonly InventoryCategoryId[]>
+> = {
+  "compress-image": ["jpg"],
+};
+
+/** All nested sitemap paths for one inventory entry (every category membership). */
+export function listNestedSitemapPathsForTool(entry: {
+  id: string;
+  primaryCategory: InventoryCategoryId;
+  categories: readonly InventoryCategoryId[];
+}): string[] {
+  const categories = new Set<InventoryCategoryId>([
+    ...entry.categories,
+    entry.primaryCategory,
+    ...(SITEMAP_CATEGORY_NEST_OVERRIDES[entry.id] ?? []),
+  ]);
+  return [...categories].map((categoryId) => buildNestedToolPath(entry.id, categoryId));
+}
+
 /** Parse `/tools/{hub}/{slug}/` (locale-stripped) into hierarchy parts. */
 export function parseToolHierarchyPath(pathname: string): {
   hubSegment?: string;

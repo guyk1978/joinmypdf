@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 import { pingSearchEngines } from "./ping-search-engines.mjs";
 import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
 import {
+  listAllNestedToolPaths,
   listCategoryHubPaths,
-  parseInventoryPrimaryCategories,
-  resolveNestedToolPath,
+  parseInventoryHierarchy,
 } from "./lib/sitemap-hierarchy.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -99,7 +99,7 @@ const audioTools = JSON.parse(await readFile(audioToolsJsonPath, "utf8"));
 const studioToolsFile = JSON.parse(await readFile(studioToolsJsonPath, "utf8"));
 const studioTools = studioToolsFile.tools || [];
 const inventorySource = await readFile(inventoryTsPath, "utf8");
-const primaryBySlug = parseInventoryPrimaryCategories(inventorySource);
+const hierarchy = parseInventoryHierarchy(inventorySource);
 
 let inventoryStatus = {};
 try {
@@ -183,30 +183,21 @@ for (const tool of studioTools) {
   }
 }
 
-// Nested hierarchy URLs from inventory primaryCategory (en + he)
+// Category-first nested URLs: every hub membership (en + he), not only primary.
+const nestedPriorityByPath = new Map();
 for (const tool of canonicalSlugs.values()) {
-  const nestedPath = resolveNestedToolPath(tool.slug, primaryBySlug);
-  for (const urlPath of localizedPaths(nestedPath)) {
-    pushEntry(urls, seen, {
-      loc: baseUrl + urlPath,
-      priority: tool.priority,
-      changefreq: "weekly",
-      lastmod: tool.lastmod,
-    });
-  }
+  nestedPriorityByPath.set(tool.slug, tool);
 }
-
-// Inventory-only tools not present in JSON merge
-for (const slug of primaryBySlug.keys()) {
-  if (!isActiveSlug(slug)) continue;
-  if (canonicalSlugs.has(slug)) continue;
-  const nestedPath = resolveNestedToolPath(slug, primaryBySlug);
+for (const nestedPath of listAllNestedToolPaths(hierarchy)) {
+  const slug = nestedPath.split("/").filter(Boolean).pop();
+  if (!slug || !isActiveSlug(slug)) continue;
+  const meta = nestedPriorityByPath.get(slug);
   for (const urlPath of localizedPaths(nestedPath)) {
     pushEntry(urls, seen, {
       loc: baseUrl + urlPath,
-      priority: "0.90",
+      priority: meta?.priority || "0.90",
       changefreq: "weekly",
-      lastmod: today,
+      lastmod: meta?.lastmod || today,
     });
   }
 }
@@ -276,9 +267,11 @@ const xml =
 
 await writeFile(outputPath, xml, "utf8");
 console.log("Sitemap generated:", outputPath, `(${urls.length} URLs)`);
+const jpgCompress = [...seen].find((loc) => loc.includes("/tools/jpg-tools/compress-image/"));
+console.log("Sample compress-image under jpg-tools:", jpgCompress || "MISSING");
 console.log(
-  "Sample nested path heic-to-jpg:",
-  resolveNestedToolPath("heic-to-jpg", primaryBySlug),
+  "Sample heic-to-jpg primary nest:",
+  [...seen].find((loc) => loc.includes("/tools/image-tools/heic-to-jpg/")) || "MISSING",
 );
 
 const sitemapUrl = baseUrl + "/sitemap.xml";

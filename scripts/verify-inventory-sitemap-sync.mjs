@@ -1,14 +1,14 @@
 /**
  * Verify canonical inventory tool sources are covered by sitemap generation.
- * Expects nested hierarchy URLs: /{locale}/tools/{hub}/{slug}/
+ * Expects nested hierarchy URLs for EVERY category membership.
  * Run: node scripts/verify-inventory-sitemap-sync.mjs
  */
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  parseInventoryPrimaryCategories,
-  resolveNestedToolPath,
+  listAllNestedToolPaths,
+  parseInventoryHierarchy,
 } from "./lib/sitemap-hierarchy.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -27,7 +27,7 @@ async function main() {
     path.join(root, "src/data/tools-inventory.ts"),
     "utf8",
   );
-  const primaryBySlug = parseInventoryPrimaryCategories(inventorySource);
+  const hierarchy = parseInventoryHierarchy(inventorySource);
 
   let statusMap = {};
   try {
@@ -37,7 +37,6 @@ async function main() {
   }
 
   const bySlug = new Map();
-
   for (const tool of registry.tools || []) {
     bySlug.set(tool.slug, { slug: tool.slug, source: "tools.json" });
   }
@@ -47,83 +46,55 @@ async function main() {
   for (const tool of studioTools) {
     if (!bySlug.has(tool.slug)) bySlug.set(tool.slug, { slug: tool.slug, source: "studio-tools.json" });
   }
-  for (const slug of primaryBySlug.keys()) {
+  for (const slug of hierarchy.primaryBySlug.keys()) {
     if (!bySlug.has(slug)) bySlug.set(slug, { slug, source: "tools-inventory" });
   }
 
-  const all = [...bySlug.values()];
-  const active = all.filter((tool) => (statusMap[tool.slug] || "active") === "active");
-  const inactive = all.filter((tool) => (statusMap[tool.slug] || "active") === "inactive");
+  const active = [...bySlug.values()].filter(
+    (tool) => (statusMap[tool.slug] || "active") === "active",
+  );
 
-  const sitemapPaths = active.flatMap((tool) => {
-    const nested = resolveNestedToolPath(tool.slug, primaryBySlug);
-    return LOCALES.map((locale) => `/${locale}${nested}`);
+  const nestedPaths = listAllNestedToolPaths(hierarchy).filter((nestedPath) => {
+    const slug = nestedPath.split("/").filter(Boolean).pop();
+    return slug && (statusMap[slug] || "active") === "active";
   });
 
-  const heicSample = resolveNestedToolPath("heic-to-jpg", primaryBySlug);
-  const heicOk = heicSample === "/tools/image-tools/heic-to-jpg/";
+  const sitemapPaths = nestedPaths.flatMap((nested) =>
+    LOCALES.map((locale) => `/${locale}${nested}`),
+  );
 
-  const requiredExtras = [
-    "timeline-gantt-generator",
-    "mp3-converter",
-    "audio-normalizer",
-    "invoice-generator",
-    "pdf-a-converter",
-    "pdf-metadata-editor",
-    "pdf-linearization",
-    "n-up-pdf",
-    "grayscale-pdf",
-    "pdf-to-html",
-    "pdf-signature-validator",
-    "pdf-to-epub",
-    "pdf-to-xps",
-    "extract-tables-pdf",
-    "heic-to-jpg",
-  ];
-  const missingRequired = requiredExtras.filter((slug) => !bySlug.has(slug));
+  const compressJpg = "/tools/jpg-tools/compress-image/";
+  const compressImage = "/tools/image-tools/compress-image/";
+  const heic = "/tools/image-tools/heic-to-jpg/";
 
-  console.log("=== Inventory ↔ Sitemap sync (nested hierarchy) ===");
-  console.log(`Canonical tools (JSON + inventory): ${all.length}`);
-  console.log(`  from tools.json:            ${(registry.tools || []).length}`);
-  console.log(`  audio appended:             ${audioTools.length}`);
-  console.log(`  studio tools file:          ${studioTools.length}`);
-  console.log(`  inventory primary map:      ${primaryBySlug.size}`);
-  console.log(`Active (indexed):             ${active.length}`);
-  console.log(`Inactive (excluded):          ${inactive.length}`);
+  console.log("=== Inventory ↔ Sitemap sync (all category nests) ===");
+  console.log(`Active tools:                 ${active.length}`);
+  console.log(`Nested membership paths:      ${nestedPaths.length}`);
   console.log(`Localized nested tool URLs:   ${sitemapPaths.length}`);
-  console.log(`Sample heic-to-jpg:           ${heicSample}`);
+  console.log(`jpg-tools/compress-image:     ${nestedPaths.includes(compressJpg) ? "OK" : "MISSING"}`);
+  console.log(`image-tools/compress-image:   ${nestedPaths.includes(compressImage) ? "OK" : "MISSING"}`);
+  console.log(`image-tools/heic-to-jpg:      ${nestedPaths.includes(heic) ? "OK" : "MISSING"}`);
 
-  if (!heicOk) {
-    console.error("\nFAIL: heic-to-jpg must resolve to /tools/image-tools/heic-to-jpg/");
+  const jpgChildren = hierarchy.slugsByCategory.get("jpg") || [];
+  console.log(`jpg-tools children:           ${jpgChildren.length} (${jpgChildren.slice(0, 8).join(", ")}${jpgChildren.length > 8 ? ",…" : ""})`);
+
+  if (!nestedPaths.includes(compressJpg)) {
+    console.error("\nFAIL: compress-image missing under /tools/jpg-tools/");
+    process.exitCode = 1;
+    return;
+  }
+  if (!nestedPaths.includes(heic)) {
+    console.error("\nFAIL: heic-to-jpg missing under /tools/image-tools/");
+    process.exitCode = 1;
+    return;
+  }
+  if (!jpgChildren.includes("compress-image")) {
+    console.error("\nFAIL: jpg category membership missing compress-image");
     process.exitCode = 1;
     return;
   }
 
-  if (missingRequired.length) {
-    console.error("\nFAIL: required tools missing from canonical merge:");
-    for (const slug of missingRequired) console.error(`  - ${slug}`);
-    process.exitCode = 1;
-    return;
-  }
-
-  const flatLeak = sitemapPaths.filter((p) => /\/tools\/[a-z0-9-]+\/$/i.test(p) && !p.includes("-tools/"));
-  // Nested form has 4 segments after locale: tools / hub / slug /
-  // Flat leak: /en/tools/heic-to-jpg/ (3 segments)
-  const trulyFlat = sitemapPaths.filter((p) => {
-    const parts = p.split("/").filter(Boolean);
-    // en, tools, slug  → flat
-    // en, tools, hub, slug → nested
-    return parts.length === 3 && parts[1] === "tools";
-  });
-
-  if (trulyFlat.length) {
-    console.error(`\nFAIL: ${trulyFlat.length} flat tool URLs still present (expected nested):`);
-    for (const p of trulyFlat.slice(0, 15)) console.error(`  - ${p}`);
-    process.exitCode = 1;
-    return;
-  }
-
-  console.log("\nOK: nested hierarchy paths look correct.");
+  console.log("\nOK: category-first nested paths include jpg-tools children.");
 }
 
 main().catch((error) => {

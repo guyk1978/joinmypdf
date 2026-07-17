@@ -13,7 +13,10 @@ import { generateClusterVariants } from "@/lib/variants";
 import { siteUrl } from "@/lib/site";
 import { routing } from "@/i18n/routing";
 import { INVENTORY_HUB_META, type InventoryCategoryId } from "@/data/inventory-hubs";
-import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
+import {
+  listNestedSitemapPathsForTool,
+  normalizeHubPath,
+} from "@/lib/tool-hierarchy";
 import { TOOLS_INVENTORY } from "@/data/tools-inventory";
 
 export const dynamic = "force-static";
@@ -113,34 +116,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Hierarchy registry → nested tool URLs (en + he)
-  // Prefer inventory primaryCategory via resolveToolHref / canonical path.
+  // Hierarchy registry → nested tool URLs for EVERY category membership (en + he).
+  // Category-first: jpg-tools includes all tools tagged jpg (plus nest overrides).
+  const nestedToolPaths = new Map<string, { lastModified: Date; priority: number }>();
+
   for (const tool of canonicalTools) {
     const lastModified = tool.updatedAt ? new Date(tool.updatedAt) : now;
-    const nestedPath = tool.path.startsWith("/tools/")
-      ? tool.path
-      : resolveToolHref(tool.slug);
-    for (const urlPath of localizedPaths(nestedPath)) {
-      push({
-        url: `${siteUrl}${urlPath}`,
-        lastModified,
-        changeFrequency: "weekly",
-        priority: tool.priority,
-      });
+    const entry = TOOLS_INVENTORY.find((item) => item.id === tool.slug);
+    const paths = entry
+      ? listNestedSitemapPathsForTool(entry)
+      : [tool.path.startsWith("/tools/") ? tool.path : `/tools/${tool.slug}/`];
+    for (const nestedPath of paths) {
+      const existing = nestedToolPaths.get(nestedPath);
+      if (!existing || tool.priority > existing.priority) {
+        nestedToolPaths.set(nestedPath, { lastModified, priority: tool.priority });
+      }
     }
   }
 
-  // Also emit inventory tools not yet in the canonical merge (safety net).
   for (const entry of TOOLS_INVENTORY) {
     if (!isSitemapIndexableStatus(statusMap[entry.id])) continue;
-    if (canonicalSlugSet.has(entry.id)) continue;
-    const nestedPath = resolveToolHref(entry.id, entry.primaryCategory);
+    for (const nestedPath of listNestedSitemapPathsForTool(entry)) {
+      if (nestedToolPaths.has(nestedPath)) continue;
+      nestedToolPaths.set(nestedPath, { lastModified: now, priority: 0.9 });
+    }
+  }
+
+  for (const [nestedPath, meta] of nestedToolPaths) {
     for (const urlPath of localizedPaths(nestedPath)) {
       push({
         url: `${siteUrl}${urlPath}`,
-        lastModified: now,
+        lastModified: meta.lastModified,
         changeFrequency: "weekly",
-        priority: 0.9,
+        priority: meta.priority,
       });
     }
   }
