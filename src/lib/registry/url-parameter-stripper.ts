@@ -1,0 +1,9 @@
+import type { ToolDocumentation } from "@/lib/types";
+
+/** Documentation overlay for `url-parameter-stripper` — owned by the registry, not the tool UI. */
+export const documentation: ToolDocumentation = {
+  whyItMatters: "Shared links often carry campaign tags and click identifiers that survive far beyond the original ad or email. A privacy-friendly link stripper removes that query-string bloat so the destinations you publish look professional, reveal less about how you found the page, and paste cleanly into slides, docs, and messages. This clean URL generator also offers optional decoding so percent-encoded paths become readable without leaving your device.",
+  faq: [{"question":"Is my URL sent to a server?","answer":"No. Stripping and decoding run entirely in your browser. Nothing is uploaded."},{"question":"What is a UTM parameter?","answer":"UTM parameters (utm_source, utm_medium, utm_campaign, and related keys) are marketing tags appended to links so analytics tools can attribute clicks. They do not change the destination page, but they reveal campaign context and bloat shared URLs."},{"question":"Which tracking parameters are removed?","answer":"All utm_* keys, plus common markers such as fbclid, gclid, gbraid, wbraid, msclkid, ref, and similar referral or ad click IDs. Useful non-tracking query values are kept."},{"question":"What does Decode URL do?","answer":"It runs decodeURIComponent on path and remaining query parts so sequences like %20 become readable spaces — useful for presentation without changing stripped tracking removal."},{"question":"What is Auto-Strip on paste?","answer":"When enabled, pasting a URL into the input immediately runs Strip & Clean so long tracked links are cleaned in one gesture."},{"question":"Is the URL Parameter Stripper free?","answer":"Yes. It is free to use with no account required."}],
+};
+
+export default documentation;

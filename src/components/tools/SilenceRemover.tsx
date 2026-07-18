@@ -258,12 +258,6 @@ export function SilenceRemover({ title, onComplete }: SilenceRemoverProps) {
 
   return (
     <div className="silence-remover-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Remove silence from audio online — auto-trim dead air from podcasts and meetings. 100% private Web Audio processing."}{" "}
-        Set a dB threshold and minimum gap, preview cuts in red, then Remove Silence &amp; Download.
-        Nothing is uploaded.
-      </p>
 
       {error ? (
         <div

@@ -1,5 +1,17 @@
 export type ToolFaq = { q: string; a: string };
 
+export type ToolDocumentationFaq = {
+  question: string;
+  answer: string;
+};
+
+/** Long-form educational copy owned by the tool definition, not the interaction UI. */
+export type ToolDocumentation = {
+  /** Why this tool matters — editorial / SEO prose. */
+  whyItMatters: string;
+  faq: ToolDocumentationFaq[];
+};
+
 export type ToolVariant = {
   slug: string;
   keyword: string;
@@ -22,7 +34,13 @@ export type ToolDefinition = {
   secondaryKeywords?: string[];
   useCases?: string[];
   relatedTools?: string[];
+  /**
+   * @deprecated Prefer `documentation.faq`. Kept in sync for older consumers
+   * that still read `q` / `a` pairs.
+   */
   faq?: ToolFaq[];
+  /** Educational copy + FAQ — single source of truth for tool docs. */
+  documentation?: ToolDocumentation;
   longTailPages?: { slug: string; keyword: string; angle?: string; modifier?: string }[];
   skipClusterVariants?: boolean;
   priority?: number | null;
@@ -82,6 +100,8 @@ export type BlogPost = {
   intent?: string;
   intentType?: string;
   publishDate?: string;
+  /** ISO date shown as Last Updated / dateModified when content is refreshed */
+  updatedDate?: string;
   readTime?: string;
   coverImage?: string;
   author?: BlogAuthorMeta;

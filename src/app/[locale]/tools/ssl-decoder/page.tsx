@@ -7,22 +7,15 @@ import { SslDecoderWorkspace } from "@/components/tools/security/SslDecoderWorks
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
-import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
+import { breadcrumbLd, JsonLd, webApplicationLd, faqLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 import { notFound } from "next/navigation";
+import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 
 const SLUG = "ssl-decoder";
 const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
-
-const ARTICLE_SECTIONS = [
-  "verify",
-  "understanding",
-  "localParsing",
-  "howToUse",
-  "fields",
-] as const;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -50,6 +43,7 @@ export default async function SslDecoderPage({ params }: PageProps) {
   const t = await getTranslations("SslDecoderPage");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${PAGE_PATH}`;
+  const faqs = getLocalizedToolFaqs(tPage, tool, null, t("title"), locale);
 
   const crumbs = buildToolPageBreadcrumbs({
     slug: SLUG,
@@ -78,6 +72,7 @@ export default async function SslDecoderPage({ params }: PageProps) {
         })}
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
+      {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
           <div className="tool-page-layout__breadcrumbs">
@@ -98,42 +93,6 @@ export default async function SslDecoderPage({ params }: PageProps) {
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <SslDecoderWorkspace tool={tool} slug={SLUG} />
           </section>
-
-          <article className="border-b border-[#262626] py-10" aria-labelledby="ssl-decoder-article">
-            <h2
-              id="ssl-decoder-article"
-              className="mb-6 text-xl font-semibold tracking-tight text-white md:text-2xl"
-            >
-              {t("article.title")}
-            </h2>
-            <p className="mb-8 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">{t("article.intro")}</p>
-
-            {ARTICLE_SECTIONS.map((section) => {
-              const paragraphs = [1, 2, 3, 4]
-                .map((n) => `article.${section}.p${n}` as const)
-                .filter((key) => t.has(key))
-                .map((key) => t(key));
-
-              return (
-                <section key={section} className="mb-10 last:mb-0" aria-labelledby={`ssl-article-${section}`}>
-                  <h3
-                    id={`ssl-article-${section}`}
-                    className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-                  >
-                    {t(`article.${section}.heading`)}
-                  </h3>
-                  {paragraphs.map((paragraph, index) => (
-                    <p
-                      key={`${section}-${index}`}
-                      className="mb-4 max-w-3xl text-sm leading-relaxed text-[#a3a3a3] last:mb-0 md:text-base"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </section>
-              );
-            })}
-          </article>
 
           <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">
             <p className="m-0 text-xs uppercase tracking-widest text-[#737373]">{t("privacyBadge")}</p>

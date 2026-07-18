@@ -7,6 +7,7 @@ import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
 import { usePageShare } from "@/hooks/usePageShare";
+import { ToolModalRating } from "@/components/tool-modal/ToolModalRating";
 import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
@@ -43,6 +44,9 @@ export type ToolModalWrapperProps = {
     loading?: string;
     addFavorite?: string;
     removeFavorite?: string;
+    ratings?: string;
+    thankYou?: string;
+    rateAria?: string;
   };
   className?: string;
 };
@@ -182,6 +186,15 @@ export function ToolModalWrapper({
               </h2>
 
               <div className="tool-modal__header-end">
+                <ToolModalRating
+                  slug={slug}
+                  labels={{
+                    ratings: labels?.ratings,
+                    thankYou: labels?.thankYou,
+                    rateAria: labels?.rateAria,
+                  }}
+                />
+
                 <nav className="tool-modal__tabs" aria-label="Tool views">
                   {panes.map(({ id }) => {
                     const label =

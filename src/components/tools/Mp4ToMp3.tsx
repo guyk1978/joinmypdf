@@ -82,10 +82,6 @@ export function Mp4ToMp3({ title, onComplete }: Mp4ToMp3Props) {
 
   return (
     <div className="mp4-to-mp3-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Extract audio from MP4 videos as high-quality MP3 locally. ffmpeg.wasm strips the video track with -vn and encodes audio with libmp3lame — 100% private, no uploads."}
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

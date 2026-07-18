@@ -159,12 +159,6 @@ export function FadeInOutCreator({ title, onComplete }: FadeInOutCreatorProps) {
 
   return (
     <div className="fade-in-out-creator-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Add professional fade-in and fade-out effects to your audio files locally. Fast, secure, and 100% private."}{" "}
-        ffmpeg.wasm applies <code className="text-neutral-500">afade</code> filters in a Web Worker
-        so fades are rendered without uploading your track.
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

@@ -1,14 +1,18 @@
-import { BlogMagazineFeed, type BlogMagazineFeedItem } from "@/components/BlogMagazineFeed";
+import { BlogArticleCard } from "@/components/BlogArticleCard";
+import { BlogTrendingSidebar } from "@/components/BlogTrendingSidebar";
 import {
   getLocalizedBlogCategoryLabel,
   getLocalizedBlogReadTime,
 } from "@/lib/blog-card-i18n";
 import {
-  resolveBlogDisplayCategory,
+  type BlogDisplayCategory,
   resolveBlogSubcategory,
 } from "@/lib/blog-categories";
 import { getGuideExcerpt } from "@/lib/blog-excerpt";
-import { groupBlogPostsByCategory } from "@/lib/blog-index";
+import {
+  blogCategorySectionId,
+  groupBlogPostsByCategory,
+} from "@/lib/blog-index";
 import { getMustReadBlogPosts } from "@/lib/blog-related";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 import type { BlogPost } from "@/lib/types";
@@ -21,8 +25,9 @@ type BlogMagazineIndexProps = {
 const SIDEBAR_GUIDES_COUNT = 15;
 
 /**
- * Blog index — documentation-style two-column layout:
- * dense article list (main) + sticky Top Guides rail (aside).
+ * Blog index — authority intro lives in ProductPageLayout H1.
+ * Body renders crawlable category clusters with every article link in the HTML
+ * (no load-more truncation that hides URLs from crawlers).
  */
 export async function BlogMagazineIndex({ posts }: BlogMagazineIndexProps) {
   if (!posts.length) return null;
@@ -33,24 +38,6 @@ export async function BlogMagazineIndex({ posts }: BlogMagazineIndexProps) {
   ]);
   const topGuides = getMustReadBlogPosts(posts, new Set(), SIDEBAR_GUIDES_COUNT);
   const sections = groupBlogPostsByCategory(posts);
-  const categories = sections.map((section) => section.category);
-
-  const feedItems: BlogMagazineFeedItem[] = [...posts]
-    .sort((a, b) => Date.parse(b.publishDate || "") - Date.parse(a.publishDate || ""))
-    .map((post) => {
-      const subCategory = resolveBlogSubcategory(post);
-      return {
-        slug: post.slug,
-        title: post.title,
-        excerpt: getGuideExcerpt(post),
-        category: resolveBlogDisplayCategory(post),
-        categoryLabel: getLocalizedBlogCategoryLabel(post, t),
-        subCategory,
-        subCategoryLabel: resolveInventoryToolLabel(subCategory, tTools),
-        readTime: getLocalizedBlogReadTime(post, t),
-        coverImage: null,
-      };
-    });
 
   const topGuideItems = topGuides.map((post) => ({
     slug: post.slug,
@@ -60,11 +47,101 @@ export async function BlogMagazineIndex({ posts }: BlogMagazineIndexProps) {
 
   return (
     <div className="blog-magazine-index">
-      <BlogMagazineFeed
-        items={feedItems}
-        categories={categories}
-        topGuides={topGuideItems}
-      />
+      <div className="blog-magazine-index__layout">
+        <div className="blog-magazine-index__main blog-magazine-feed">
+          <header className="blog-magazine-feed__head">
+            <div>
+              <p className="blog-magazine-feed__eyebrow">{t("curatedTopicsEyebrow")}</p>
+              <p className="blog-magazine-feed__title">{t("clustersHeading")}</p>
+            </div>
+            <nav className="blog-cluster-nav" aria-label={t("categoryNavLabel")}>
+              <ul className="blog-cluster-nav__list">
+                {sections.map((section) => (
+                  <li key={section.category}>
+                    <a
+                      className="blog-cluster-nav__link"
+                      href={`#${blogCategorySectionId(section.category)}`}
+                    >
+                      {t(`categories.${section.category}`)}
+                      <span className="blog-cluster-nav__count">
+                        {section.posts.length}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </header>
+
+          {sections.map((section) => (
+            <BlogCategoryCluster
+              key={section.category}
+              category={section.category}
+              posts={section.posts}
+              heading={t(`categories.${section.category}`)}
+              countLabel={t("categoryArticleCount", { count: section.posts.length })}
+              t={t}
+              tTools={tTools}
+            />
+          ))}
+        </div>
+
+        <BlogTrendingSidebar posts={topGuideItems} className="blog-magazine-index__aside" />
+      </div>
     </div>
+  );
+}
+
+function BlogCategoryCluster({
+  category,
+  posts,
+  heading,
+  countLabel,
+  t,
+  tTools,
+}: {
+  category: BlogDisplayCategory;
+  posts: BlogPost[];
+  heading: string;
+  countLabel: string;
+  t: Awaited<ReturnType<typeof getTranslations<"Blog">>>;
+  tTools: Awaited<ReturnType<typeof getTranslations<"Tools">>>;
+}) {
+  return (
+    <section
+      id={blogCategorySectionId(category)}
+      className="blog-category-cluster"
+      aria-labelledby={`${blogCategorySectionId(category)}-title`}
+    >
+      <header className="blog-category-cluster__head">
+        <h2
+          id={`${blogCategorySectionId(category)}-title`}
+          className="blog-category-cluster__title"
+        >
+          {heading}
+        </h2>
+        <p className="blog-category-cluster__count">{countLabel}</p>
+      </header>
+
+      <ul className="blog-magazine-feed__list blog-category-cluster__list">
+        {posts.map((post) => {
+          const subCategory = resolveBlogSubcategory(post);
+          return (
+            <li key={post.slug}>
+              <BlogArticleCard
+                slug={post.slug}
+                title={post.title}
+                excerpt={getGuideExcerpt(post)}
+                category={category}
+                categoryLabel={getLocalizedBlogCategoryLabel(post, t)}
+                subCategoryLabel={resolveInventoryToolLabel(subCategory, tTools)}
+                readTime={getLocalizedBlogReadTime(post, t)}
+                publishDate={post.publishDate}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }

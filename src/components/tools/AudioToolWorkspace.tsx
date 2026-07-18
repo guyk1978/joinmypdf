@@ -1,7 +1,6 @@
 "use client";
 
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
-import { RelatedAudioToolsHub } from "@/components/tools/RelatedAudioToolsHub";
 import { getAudioToolById } from "@/lib/audio-tools";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 
@@ -19,7 +18,6 @@ export function AudioToolWorkspace({ toolId }: AudioToolWorkspaceProps) {
     <WorkspaceUploadShell showPrivacyBadge={false}>
       <div id={WORKSPACE_OPERATIONS_ID} className="audio-tool-workspace">
         <ToolComponent name={tool.name} title={tool.title} />
-        <RelatedAudioToolsHub />
       </div>
     </WorkspaceUploadShell>
   );

@@ -67,7 +67,14 @@ function buildTranslatedToolFaqsFallback(
   }));
 }
 
-/** Tool-specific FAQs from tools.json with per-locale strings or a translated fallback set. */
+function englishFaqsForTool(tool: ToolDefinition): ToolFaq[] {
+  if (tool.documentation?.faq?.length) {
+    return tool.documentation.faq.map((item) => ({ q: item.question, a: item.answer }));
+  }
+  return tool.faq ?? [];
+}
+
+/** Tool-specific FAQs from registry documentation (fallback: legacy faq) with locale overlays. */
 export function getFaqsForTool(
   tool: ToolDefinition,
   locale: string,
@@ -75,7 +82,7 @@ export function getFaqsForTool(
   toolTitle?: string,
   overrides?: { intent?: string; primaryKeyword?: string },
 ): ToolFaq[] {
-  const english = tool.faq ?? [];
+  const english = englishFaqsForTool(tool);
   if (!english.length) return [];
   if (locale === "en" || !t) return english;
 

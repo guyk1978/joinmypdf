@@ -9,16 +9,15 @@ import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
-import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
+import { breadcrumbLd, JsonLd, webApplicationLd, faqLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 import { notFound } from "next/navigation";
+import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 
 const SLUG = "video-resizer";
 const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
-
-const ARTICLE_SECTIONS = ["socialResize", "aspectRatios", "browserEditing"] as const;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -46,6 +45,7 @@ export default async function VideoResizerPage({ params }: PageProps) {
   const t = await getTranslations("VideoResizerPage");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${PAGE_PATH}`;
+  const faqs = getLocalizedToolFaqs(tPage, tool, null, t("title"), locale);
   const crumbs = buildToolPageBreadcrumbs({
     slug: SLUG,
     toolTitle: t("title"),
@@ -73,6 +73,7 @@ export default async function VideoResizerPage({ params }: PageProps) {
         })}
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
+      {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
           <div className="tool-page-layout__breadcrumbs">
@@ -95,51 +96,6 @@ export default async function VideoResizerPage({ params }: PageProps) {
               <VideoResizerWorkspace tool={tool} slug={SLUG} />
             </ToolPageShellProvider>
           </section>
-
-          <article
-            className="border-b border-[#262626] py-10"
-            aria-labelledby="video-resizer-article"
-          >
-            <h2
-              id="video-resizer-article"
-              className="mb-6 text-xl font-semibold tracking-tight text-white md:text-2xl"
-            >
-              {t("article.title")}
-            </h2>
-            <p className="mb-8 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">
-              {t("article.intro")}
-            </p>
-
-            {ARTICLE_SECTIONS.map((section) => {
-              const paragraphs = [1, 2, 3, 4, 5, 6]
-                .map((n) => `article.${section}.p${n}` as const)
-                .filter((key) => t.has(key))
-                .map((key) => t(key));
-
-              return (
-                <section
-                  key={section}
-                  className="mb-10 last:mb-0"
-                  aria-labelledby={`video-resizer-article-${section}`}
-                >
-                  <h3
-                    id={`video-resizer-article-${section}`}
-                    className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-                  >
-                    {t(`article.${section}.heading`)}
-                  </h3>
-                  {paragraphs.map((paragraph, index) => (
-                    <p
-                      key={`${section}-${index}`}
-                      className="mb-4 max-w-3xl text-sm leading-relaxed text-[#a3a3a3] last:mb-0 md:text-base"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </section>
-              );
-            })}
-          </article>
 
           <RelatedTools tool={tool} slug={SLUG} />
 

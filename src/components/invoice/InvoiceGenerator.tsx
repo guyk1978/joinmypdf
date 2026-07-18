@@ -13,6 +13,7 @@ import { matteWorkspaceBanner, matteWorkspaceSection } from "@/lib/tool-ui";
 type InvoiceGeneratorProps = {
   initialDocument?: InvoiceDocument;
   templateSlug?: string;
+  previewAlt?: string;
 };
 
 export async function handleInvoiceDownload(document: InvoiceDocument): Promise<void> {
@@ -23,7 +24,11 @@ export async function handleInvoiceDownload(document: InvoiceDocument): Promise<
   await exportInvoiceElementToPdf(root, document);
 }
 
-export function InvoiceGenerator({ initialDocument, templateSlug }: InvoiceGeneratorProps) {
+export function InvoiceGenerator({
+  initialDocument,
+  templateSlug,
+  previewAlt,
+}: InvoiceGeneratorProps) {
   const t = useTranslations("StudioTools");
   const [document, setDocument] = useState<InvoiceDocument>(
     () => initialDocument ?? createDefaultInvoiceDocument(),
@@ -45,7 +50,7 @@ export function InvoiceGenerator({ initialDocument, templateSlug }: InvoiceGener
     } finally {
       setBusy(false);
     }
-  }, [busy, document]);
+  }, [busy, document, t]);
 
   return (
     <div className="invoice-generator-workspace space-y-2">
@@ -69,7 +74,7 @@ export function InvoiceGenerator({ initialDocument, templateSlug }: InvoiceGener
           />
         </section>
         <section className={`min-h-[420px] ${matteWorkspaceSection} lg:col-span-8 lg:min-h-[calc(100vh-6rem)]`}>
-          <InvoicePreviewPanel document={document} />
+          <InvoicePreviewPanel document={document} previewAlt={previewAlt} />
         </section>
       </div>
     </div>

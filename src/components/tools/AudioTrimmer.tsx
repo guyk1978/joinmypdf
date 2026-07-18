@@ -256,7 +256,6 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
 
   return (
     <div className="audio-trimmer-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">{t("intro")}</p>
 
       <FfmpegEnvironmentNotice
         environment={environment}

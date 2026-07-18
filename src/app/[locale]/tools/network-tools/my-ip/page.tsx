@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { FaqSection } from "@/components/layout/FaqSection";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { RelatedTools } from "@/components/RelatedTools";
 import { MyIpNetworkInfoWorkspace } from "@/components/tools/network/MyIpNetworkInfoWorkspace";
@@ -19,8 +18,6 @@ const SLUG = MY_IP_TOOL_SLUG;
 const PAGE_PATH = MY_IP_TOOL_PATH;
 
 type PageProps = { params: Promise<{ locale: string }> };
-
-const ARTICLE_SECTIONS = ["howToUse", "privacy", "ipv4v6", "developers"] as const;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -99,48 +96,6 @@ export default async function MyIpNetworkInfoPage({ params }: PageProps) {
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <MyIpNetworkInfoWorkspace tool={tool} slug={SLUG} />
           </section>
-
-          <article className="border-b border-[#262626] py-10" aria-labelledby="my-ip-article">
-            <h2
-              id="my-ip-article"
-              className="mb-6 text-xl font-semibold tracking-tight text-white md:text-2xl"
-            >
-              {t("article.title")}
-            </h2>
-            <p className="mb-8 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">{t("article.intro")}</p>
-
-            {ARTICLE_SECTIONS.map((section) => {
-              const paragraphs = [1, 2, 3]
-                .map((n) => `article.${section}.p${n}` as const)
-                .filter((key) => t.has(key))
-                .map((key) => t(key));
-
-              return (
-                <section key={section} className="mb-10 last:mb-0" aria-labelledby={`my-ip-article-${section}`}>
-                  <h3
-                    id={`my-ip-article-${section}`}
-                    className="mb-3 text-lg font-semibold text-white"
-                  >
-                    {t(`article.${section}.heading`)}
-                  </h3>
-                  {paragraphs.map((paragraph) => (
-                    <p
-                      key={paragraph.slice(0, 24)}
-                      className="mb-3 max-w-3xl text-base leading-relaxed text-[#a3a3a3] last:mb-0"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </section>
-              );
-            })}
-          </article>
-
-          {faqs.length ? (
-            <div className="border-b border-[#262626] py-10">
-              <FaqSection faqs={faqs} heading={tPage("questions")} />
-            </div>
-          ) : null}
 
           <div className="border-b border-[#262626] py-10">
             <RelatedTools tool={tool} slug={SLUG} />

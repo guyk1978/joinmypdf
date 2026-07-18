@@ -106,12 +106,6 @@ export function VoiceRemover({ title, onComplete }: VoiceRemoverProps) {
 
   return (
     <div className="voice-remover-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Isolate instrumentals by removing vocals from your audio tracks locally. 100% private, no server processing."}{" "}
-        This tool uses ffmpeg center-channel phase cancellation—not AI stem separation—so results are
-        estimates that work best on stereo mixes with center-panned vocals.
-      </p>
 
       <div className="rounded-none border border-amber-900/50 bg-amber-950/20 p-4">
         <div className="flex gap-3">

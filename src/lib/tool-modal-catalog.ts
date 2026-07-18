@@ -19,6 +19,8 @@ export type ToolModalDocModel = {
   title: string;
   description: string;
   intent?: string;
+  /** Registry `documentation.whyItMatters` — used when distinct from description/intent. */
+  whyItMatters?: string;
   primaryKeyword?: string;
   useCases: string[];
   faqs: ToolFaq[];
@@ -107,12 +109,15 @@ export function getToolModalDocModel(
 
   const useCases = locale === "en" ? (tool?.useCases ?? []) : [];
   const primaryKeyword = locale === "en" ? tool?.primaryKeyword : undefined;
+  const whyItMatters =
+    locale === "en" ? tool?.documentation?.whyItMatters || undefined : undefined;
 
   return {
     slug,
     title,
     description,
     intent,
+    whyItMatters,
     primaryKeyword,
     useCases,
     faqs: getToolModalFaqs(slug, locale, title, options?.t, {

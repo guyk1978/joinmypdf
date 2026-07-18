@@ -225,12 +225,6 @@ export function AudioMerger({ title, onComplete }: AudioMergerProps) {
 
   return (
     <div className="audio-merger-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Combine multiple MP3 files into one seamless audio track locally. Fast, secure, and 100% private."}{" "}
-        ffmpeg.wasm uses the concat demuxer with <code className="text-neutral-500">-c copy</code>{" "}
-        for lossless joining in a Web Worker.
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

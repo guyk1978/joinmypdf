@@ -1,6 +1,11 @@
 import type { InvoiceDocument, InvoiceLineItem } from "./types";
 import { createDefaultInvoiceDocument, createLineItemId } from "./defaults";
 
+export type InvoiceTemplateFaq = {
+  q: string;
+  a: string;
+};
+
 export type InvoiceTemplateProfile = {
   slug: string;
   profession: string;
@@ -11,6 +16,12 @@ export type InvoiceTemplateProfile = {
   h1: string;
   lede: string;
   keywords: string[];
+  /** Optional SEO authority block shown below the editor */
+  detailTitle?: string;
+  detailParagraphs?: string[];
+  faq?: InvoiceTemplateFaq[];
+  /** Accessible description for the live invoice preview */
+  previewAlt?: string;
   seed: {
     invoiceNumber?: string;
     from?: Partial<InvoiceDocument["from"]>;
@@ -141,13 +152,41 @@ export const INVOICE_TEMPLATE_PROFILES: InvoiceTemplateProfile[] = [
     profession: "plumber",
     professionLabel: "Plumber",
     locale: "en-US",
-    metaTitle: "Free Invoice Template for Plumbers",
+    metaTitle: "Free Professional Plumber Invoice Template | Customizable PDF",
     metaDescription:
-      "Simple plumbing invoice template for service calls, parts, and labor. Fill out in the browser and download a PDF invoice—no cloud upload.",
-    h1: "Free invoice template for plumbers",
+      "Download a professional plumber invoice and quote template. Fully customizable, secure, and ready for your business. Manage your plumbing jobs easily with JoinMyPDF.",
+    h1: "Free Plumber Invoice & Quote Template | Download & Edit",
     lede:
-      "Built for trades: service call fees, labor hours, and parts lines are pre-filled so you can invoice jobs from your phone or laptop on site.",
-    keywords: ["plumber invoice template", "trades invoice", "home services billing"],
+      "A plumber invoice template and plumbing quote template in one: pre-filled service call, labor, and parts lines so you can create professional plumbing documents on site—then export PDF locally.",
+    keywords: [
+      "Plumber invoice template",
+      "plumbing quote template",
+      "professional plumbing documents",
+      "business invoice maker",
+    ],
+    detailTitle: "Professional Plumber Invoice/Quote Template",
+    detailParagraphs: [
+      "A polished Plumber invoice template helps plumbing businesses look established from the first service call. Clear branding, consistent layout, and itemized labor and parts build trust with homeowners and commercial clients—and signal professionalism before you even start the job.",
+      "Use the same layout as a plumbing quote template: edit company details, swap sample line items for diagnostics, emergency call-outs, or install work, adjust tax, and turn an estimate into an invoice when the job is approved. This business invoice maker keeps quotes and invoices aligned so customers always see professional plumbing documents.",
+      "Unlike cloud editors that upload job details to a remote server, JoinMyPDF runs local-first in your browser. Customer names, addresses, and pricing stay on your device while you edit—ideal when privacy matters for residential and commercial plumbing work.",
+      "Download your finished PDF when you are ready, print it on site, or email it from your own inbox. No account is required, and you can reuse the template for every job without rebuilding professional plumbing documents from scratch.",
+    ],
+    previewAlt:
+      "Live preview of a free professional plumber invoice and quote template showing service call, labor, and parts line items ready to customize and download as PDF",
+    faq: [
+      {
+        q: "How can I customize this template?",
+        a: "Edit any field in the form—business name, customer details, tax rate, and line items for service calls, labor hours, and parts. The live preview updates instantly so you can tailor this Plumber invoice template or plumbing quote template before you export.",
+      },
+      {
+        q: "Is this template free to use?",
+        a: "Yes. The plumber invoice and quote template is free to use with no account, no watermark, and no subscription. Create as many professional plumbing documents as you need with this business invoice maker.",
+      },
+      {
+        q: "Can I export as PDF?",
+        a: "Yes. When your invoice or quote looks right, export a print-ready PDF directly from your browser. Processing is local-first, so job details are not uploaded to JoinMyPDF servers.",
+      },
+    ],
     seed: {
       invoiceNumber: "JOB-2026-3317",
       from: {

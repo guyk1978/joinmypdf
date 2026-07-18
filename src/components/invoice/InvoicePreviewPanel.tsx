@@ -15,6 +15,7 @@ import {
 
 type InvoicePreviewPanelProps = {
   document: InvoiceDocument;
+  previewAlt?: string;
 };
 
 function AddressBlock({ lines }: { lines: string }) {
@@ -31,13 +32,16 @@ function AddressBlock({ lines }: { lines: string }) {
   );
 }
 
-export function InvoicePreviewPanel({ document }: InvoicePreviewPanelProps) {
+export function InvoicePreviewPanel({ document, previewAlt }: InvoicePreviewPanelProps) {
   const locale = useLocale();
   const brand = getBrandName(locale);
   const totals = computeTotals(document);
   const hasItems = document.lineItems.some(
     (item) => item.description.trim() || item.quantity > 0 || item.price > 0,
   );
+  const previewLabel =
+    previewAlt ||
+    `Live A4 invoice preview for ${document.from.companyName.trim() || "your business"}`;
 
   return (
     <div className="flex h-full flex-col">
@@ -59,6 +63,7 @@ export function InvoicePreviewPanel({ document }: InvoicePreviewPanelProps) {
       >
         <article
           id={INVOICE_PRINT_ROOT_ID}
+          aria-label={previewLabel}
           className={clsx(
             "w-full max-w-[210mm] text-black dark:text-neutral-200 transition-[box-shadow] duration-300 print:max-w-none print:shadow-none print:ring-0",
             toolCanvasPage,
@@ -69,9 +74,9 @@ export function InvoicePreviewPanel({ document }: InvoicePreviewPanelProps) {
             <header className="flex flex-wrap items-start justify-between gap-3 border-b border-neutral-300 dark:border-neutral-800 pb-6">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black dark:text-neutral-200">Invoice</p>
-                <h1 className="mt-1 text-2xl font-bold tracking-tight text-black dark:text-neutral-200">
+                <p className="mt-1 text-2xl font-bold tracking-tight text-black dark:text-neutral-200">
                   {document.from.companyName.trim() || "Your company"}
-                </h1>
+                </p>
                 {document.from.email ? (
                   <p className="mt-1 text-sm text-black dark:text-neutral-200">{document.from.email}</p>
                 ) : null}

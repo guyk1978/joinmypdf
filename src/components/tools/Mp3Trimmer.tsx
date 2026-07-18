@@ -134,9 +134,6 @@ export function Mp3Trimmer({ name, title: _title, onComplete }: Mp3TrimmerProps)
 
   return (
     <div className="mp3-trimmer-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {t("intro")}
-      </p>
 
       <FfmpegEnvironmentNotice
         environment={environment}

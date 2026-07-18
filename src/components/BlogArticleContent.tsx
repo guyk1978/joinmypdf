@@ -66,7 +66,8 @@ export async function BlogArticleContent({
     keepReadingSlugs,
     4,
   );
-  const displayTitle = post.seo?.metaTitle || post.title;
+  /** Visible H1 / schema headline — keep distinct from SEO meta title when both exist. */
+  const displayTitle = post.title;
   const author = resolveArticleAuthor(post);
   const tools = (post.relatedTools || [])
     .map((s) => registry.tools.find((tool) => tool.slug === s))
@@ -74,6 +75,7 @@ export async function BlogArticleContent({
 
   const categoryLabel = getLocalizedBlogCategoryLabel(post, t);
   const readTime = getLocalizedBlogReadTime(post, t);
+  const freshnessDate = post.updatedDate || post.publishDate;
   const bottomCtaLabel = post.contentBlocks?.bottomCtaLabel?.trim();
   const primarySlug = post.contentBlocks?.primaryTool;
   const primaryToolDef = primarySlug
@@ -95,8 +97,10 @@ export async function BlogArticleContent({
           description,
           pathname,
           datePublished: post.publishDate,
+          dateModified: freshnessDate,
           authorName: author.name,
           authorRole: author.role,
+          locale,
         })}
       />
       {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
@@ -195,26 +199,51 @@ export async function BlogArticleContent({
       />
 
       <BlogArticleTemplate>
-        <article className="blog-article">
+        <article
+          className="blog-article"
+          itemScope
+          itemType="https://schema.org/BlogPosting"
+        >
+          <meta itemProp="headline" content={displayTitle} />
+          {description ? <meta itemProp="description" content={description} /> : null}
+          {post.publishDate ? (
+            <meta itemProp="datePublished" content={post.publishDate} />
+          ) : null}
+          {freshnessDate ? (
+            <meta itemProp="dateModified" content={freshnessDate} />
+          ) : null}
+          <meta itemProp="author" content={author.name} />
+          {readTime ? <meta itemProp="timeRequired" content={readTime} /> : null}
+
           <header className="blog-article-header">
             <div className="blog-article-header__meta">
               <span className="blog-category-badge">{categoryLabel}</span>
-              {post.publishDate ? (
-                <time className="blog-article-header__meta-item" dateTime={post.publishDate}>
-                  {t("article.updated", { date: post.publishDate })}
+              {freshnessDate ? (
+                <time
+                  className="blog-article-header__meta-item"
+                  dateTime={freshnessDate}
+                  itemProp="dateModified"
+                >
+                  {t("article.updated", { date: freshnessDate })}
                 </time>
               ) : null}
               {readTime ? (
                 <span className="blog-article-header__meta-item blog-article-header__read-time">
                   <Clock className="blog-article-header__meta-icon" aria-hidden />
-                  {readTime}
+                  <span itemProp="timeRequired">{readTime}</span>
                 </span>
               ) : null}
             </div>
 
-            <h1 className="tool-page-layout__title blog-article-header__title">{displayTitle}</h1>
+            <h1
+              className="tool-page-layout__title blog-article-header__title"
+              itemProp="headline"
+            >
+              {displayTitle}
+            </h1>
 
-            <div className="blog-article-header__author">
+            <div className="blog-article-header__author" itemProp="author" itemScope itemType="https://schema.org/Organization">
+              <meta itemProp="name" content={author.name} />
               <ArticleAuthorBadge post={post} />
             </div>
 

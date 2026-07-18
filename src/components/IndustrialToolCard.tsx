@@ -13,6 +13,7 @@ import {
 } from "@/lib/category-accent-colors";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
+import { getToolRating } from "@/lib/tool-rating";
 
 export type IndustrialToolCardProps = {
   href: string;
@@ -95,8 +96,16 @@ export function IndustrialToolCard({
         {icon}
       </span>
       <span className="im-tool-card__body">
-        <span className="im-tool-card__title">{label}</span>
-        {description ? <span className="im-tool-card__description">{description}</span> : null}
+        <span className="im-tool-card__content">
+          <span className="im-tool-card__title">{label}</span>
+          {description ? <span className="im-tool-card__description">{description}</span> : null}
+        </span>
+        <span className="im-tool-card__rating">
+          <svg viewBox="0 0 20 20" className="im-tool-card__rating-star" aria-hidden>
+            <path d="M10 1.6l2.47 5.26 5.53.7-4.06 4-1.06 5.74L10 14.5l-4.88 2.8-1.06-5.74-4.06-4 5.53-.7z" />
+          </svg>
+          {getToolRating(toolSlug).score.toFixed(1)}
+        </span>
       </span>
     </Link>
   );

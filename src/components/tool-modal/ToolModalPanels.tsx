@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ToolModalFaqAccordion } from "@/components/tool-modal/ToolModalFaqAccordion";
 import { registry } from "@/lib/registry";
+import { faqLd, serializeJsonLd } from "@/lib/schema";
 import { buildLocalizedToolFaqs } from "@/lib/tool-faqs";
 import type {
   ToolModalDocModel,
@@ -22,6 +23,7 @@ type DocsLabels = {
   expandAll?: string;
   collapseAll?: string;
   comingSoon?: string;
+  localProcessing?: string;
 };
 
 type RelatedLabels = {
@@ -30,6 +32,26 @@ type RelatedLabels = {
   empty?: string;
 };
 
+const MIN_PROSE_CHARS = 120;
+const DEFAULT_OPEN_FAQ_COUNT = 4;
+
+function normalizeProse(value?: string | null): string {
+  return (value ?? "").replace(/\s+/g, " ").trim();
+}
+
+function proseKey(value: string): string {
+  return value.toLowerCase();
+}
+
+function buildLocalProcessingFallback(toolTitle: string, custom?: string): string {
+  if (custom?.trim()) return custom.trim();
+  return `${toolTitle} runs entirely in your browser with 100% local processing — your files never leave your device, so privacy and speed stay under your control.`;
+}
+
+/**
+ * DOC-tab documentation for a tool — SEO-oriented prose, use cases, and FAQs.
+ * Prefer this over duplicating overview/how-it-works when registry copy overlaps.
+ */
 export function ToolModalDocsPanel({
   model,
   labels,
@@ -66,9 +88,93 @@ export function ToolModalDocsPanel({
     });
 
     return () => cancelAnimationFrame(frame);
-  }, [model.slug, model.title, model.faqs, locale, tPage]);
+  }, [model.slug, model.title, model.faqs, model.intent, model.primaryKeyword, locale, tPage]);
+
+  const prose = useMemo(() => {
+    const overview = normalizeProse(model.description);
+    const howItWorks = normalizeProse(model.intent);
+    const whyItMatters = normalizeProse(model.whyItMatters);
+
+    const overviewKey = overview ? proseKey(overview) : "";
+    const howKey = howItWorks ? proseKey(howItWorks) : "";
+    const whyKey = whyItMatters ? proseKey(whyItMatters) : "";
+
+    const howMatchesOverview = Boolean(overviewKey && howKey && overviewKey === howKey);
+    const whyMatchesOverview = Boolean(whyKey && overviewKey && whyKey === overviewKey);
+    const whyMatchesHow = Boolean(whyKey && howKey && whyKey === howKey);
+
+    // Only split How it Works when Overview already has distinct prose.
+    const hasSeparateHowItWorks =
+      Boolean(overview) && Boolean(howItWorks) && !howMatchesOverview;
+    const hasSeparateWhy =
+      Boolean(whyItMatters) && !whyMatchesOverview && !whyMatchesHow;
+
+    const primaryParagraphs: string[] = [];
+    if (overview) primaryParagraphs.push(overview);
+    else if (howItWorks) primaryParagraphs.push(howItWorks);
+    else if (whyItMatters) primaryParagraphs.push(whyItMatters);
+
+    // If why was used as the only primary paragraph, don't repeat it below.
+    const whyUsedAsPrimary =
+      !overview && !howItWorks && Boolean(whyItMatters);
+    const showWhySection = hasSeparateWhy && !whyUsedAsPrimary;
+
+    const uniqueBody = [
+      overview,
+      hasSeparateHowItWorks ? howItWorks : "",
+      showWhySection ? whyItMatters : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const needsLocalFallback = uniqueBody.length < MIN_PROSE_CHARS;
+    const localFallback = needsLocalFallback
+      ? buildLocalProcessingFallback(model.title, labels?.localProcessing)
+      : null;
+
+    return {
+      overview,
+      howItWorks,
+      whyItMatters,
+      howMatchesOverview,
+      hasSeparateHowItWorks,
+      hasSeparateWhy: showWhySection,
+      primaryParagraphs,
+      localFallback,
+      combineOverviewAndHow: !hasSeparateHowItWorks,
+    };
+  }, [
+    model.description,
+    model.intent,
+    model.whyItMatters,
+    model.title,
+    labels?.localProcessing,
+  ]);
 
   const loadingLabel = labels?.loading ?? "Loading…";
+  const faqSchemaItems = useMemo(
+    () => faqItems.map((item) => ({ q: item.question, a: item.answer })),
+    [faqItems],
+  );
+
+  // Inject FAQPage JSON-LD into <head> so crawlers can parse the full FAQ set.
+  useEffect(() => {
+    if (!faqSchemaItems.length) return;
+
+    const scriptId = `tool-faq-ld-${model.slug}`;
+    const existing = document.getElementById(scriptId);
+    if (existing) existing.remove();
+
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.type = "application/ld+json";
+    script.text = serializeJsonLd(faqLd(faqSchemaItems));
+    document.head.appendChild(script);
+
+    return () => {
+      document.getElementById(scriptId)?.remove();
+    };
+  }, [faqSchemaItems, model.slug]);
 
   if (isLoading) {
     return (
@@ -87,25 +193,48 @@ export function ToolModalDocsPanel({
     );
   }
 
+  const overviewHeading = prose.combineOverviewAndHow
+    ? (labels?.overview ?? "Overview")
+    : (labels?.overview ?? "Overview");
+
   return (
     <article className="tool-modal-docs">
-      <section className="tool-modal-docs__section">
-        <h3 className="tool-modal-docs__heading">{labels?.overview ?? "Overview"}</h3>
-        {model.description ? (
-          <p className="tool-modal-docs__text">{model.description}</p>
+      <section className="tool-modal-docs__section" aria-labelledby="tool-docs-overview">
+        <h3 id="tool-docs-overview" className="tool-modal-docs__heading">
+          {overviewHeading}
+        </h3>
+        {prose.primaryParagraphs.length > 0 ? (
+          prose.primaryParagraphs.map((paragraph) => (
+            <p key={paragraph.slice(0, 48)} className="tool-modal-docs__text">
+              {paragraph}
+            </p>
+          ))
         ) : (
           <p className="tool-modal-docs__text tool-modal-docs__text--muted">
             {labels?.comingSoon ?? "Documentation for this tool is coming soon."}
           </p>
         )}
+        {prose.localFallback ? (
+          <p className="tool-modal-docs__text tool-modal-docs__text--fallback">
+            {prose.localFallback}
+          </p>
+        ) : null}
+        {model.primaryKeyword && prose.combineOverviewAndHow ? (
+          <p className="tool-modal-docs__meta">
+            <span className="tool-modal-docs__meta-label">
+              {labels?.keyword ?? "Focus"}
+            </span>
+            <span className="tool-modal-docs__meta-value">{model.primaryKeyword}</span>
+          </p>
+        ) : null}
       </section>
 
-      {model.intent || model.primaryKeyword ? (
-        <section className="tool-modal-docs__section">
-          <h3 className="tool-modal-docs__heading">
+      {prose.hasSeparateHowItWorks ? (
+        <section className="tool-modal-docs__section" aria-labelledby="tool-docs-how">
+          <h3 id="tool-docs-how" className="tool-modal-docs__heading">
             {labels?.howItWorks ?? "How it works"}
           </h3>
-          {model.intent ? <p className="tool-modal-docs__text">{model.intent}</p> : null}
+          <p className="tool-modal-docs__text">{prose.howItWorks}</p>
           {model.primaryKeyword ? (
             <p className="tool-modal-docs__meta">
               <span className="tool-modal-docs__meta-label">
@@ -117,9 +246,20 @@ export function ToolModalDocsPanel({
         </section>
       ) : null}
 
+      {prose.hasSeparateWhy ? (
+        <section className="tool-modal-docs__section" aria-labelledby="tool-docs-why">
+          <h3 id="tool-docs-why" className="tool-modal-docs__heading">
+            Why it matters
+          </h3>
+          <p className="tool-modal-docs__text">{prose.whyItMatters}</p>
+        </section>
+      ) : null}
+
       {model.useCases.length > 0 ? (
-        <section className="tool-modal-docs__section">
-          <h3 className="tool-modal-docs__heading">{labels?.useCases ?? "Use cases"}</h3>
+        <section className="tool-modal-docs__section" aria-labelledby="tool-docs-use-cases">
+          <h3 id="tool-docs-use-cases" className="tool-modal-docs__heading">
+            {labels?.useCases ?? "Use cases"}
+          </h3>
           <ul className="tool-modal-docs__list">
             {model.useCases.map((item) => (
               <li key={item}>{item}</li>
@@ -129,14 +269,18 @@ export function ToolModalDocsPanel({
       ) : null}
 
       {faqItems.length > 0 ? (
-        <section className="tool-modal-docs__section tool-modal-docs__section--faq">
-          <h3 className="tool-modal-docs__heading">
+        <section
+          className="tool-modal-docs__section tool-modal-docs__section--faq"
+          aria-labelledby="tool-docs-faq"
+        >
+          <h3 id="tool-docs-faq" className="tool-modal-docs__heading">
             {labels?.faq ?? "FAQ"}
             <span className="tool-modal-docs__faq-count">{faqItems.length}</span>
           </h3>
           <ToolModalFaqAccordion
             key={model.slug}
             items={faqItems}
+            defaultOpenCount={DEFAULT_OPEN_FAQ_COUNT}
             expandAllLabel={labels?.expandAll ?? "Expand all"}
             collapseAllLabel={labels?.collapseAll ?? "Collapse all"}
           />
@@ -145,6 +289,9 @@ export function ToolModalDocsPanel({
     </article>
   );
 }
+
+/** @deprecated Prefer `ToolModalDocsPanel` — kept as an explicit SEO-facing alias. */
+export const ToolDocumentation = ToolModalDocsPanel;
 
 export function ToolModalRelatedPanel({
   tools,

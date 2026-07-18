@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import { clsx } from "clsx";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { ComparisonTable } from "@/components/ComparisonTable";
@@ -10,9 +9,8 @@ import { getBrandName } from "@/lib/brand";
 import { JsonLd, faqLd } from "@/lib/schema";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { absoluteUrl } from "@/lib/site";
-import { contentDashboardPanel, homePrimaryPillBtn, homeSecondaryPillBtn } from "@/lib/tool-ui";
+import { contentDashboardPanel, homePrimaryPillBtn } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Globe, Lock, Shield } from "lucide-react";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -29,6 +27,7 @@ const PRIVACY_TOOL_SLUGS = [
   "compare-pdf",
 ] as const;
 const FAQ_KEYS = ["upload", "verify", "policy"] as const;
+const MANIFESTO_SECTIONS = ["device", "zeroUploads", "future"] as const;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -52,31 +51,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function TrustCard({
-  icon,
-  title,
-  children,
-}: {
-  icon: ReactNode;
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <article className={clsx(contentDashboardPanel, "flex h-full flex-col !p-6 md:!p-8")}>
-      <div className="mb-4" aria-hidden>
-        {icon}
-      </div>
-      <h3 className="privacy-section__title text-lg">{title}</h3>
-      <p className="privacy-section__prose mt-3">{children}</p>
-    </article>
-  );
-}
-
 export default async function PrivacyFirstPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("PrivacyFirst");
   const tTools = await getTranslations("Tools");
+  const brand = getBrandName(locale);
+  const pageUrl = absoluteUrl(`/${locale}/privacy-first`);
 
   const faqs = FAQ_KEYS.map((key) => ({
     q: t(`faqs.${key}.q`),
@@ -88,56 +69,97 @@ export default async function PrivacyFirstPage({ params }: Props) {
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@type": "WebPage",
-          name: `${t("title")} — ${getBrandName(locale)}`,
+          "@type": "AboutPage",
+          name: t("title"),
           description: t("metaDescription"),
-          url: absoluteUrl(`/${locale}/privacy-first`),
+          url: pageUrl,
+          inLanguage: locale,
+          about: {
+            "@type": "Thing",
+            name: "Local-First software architecture",
+            description: t("schemaAbout"),
+          },
+          mainEntity: {
+            "@type": "Organization",
+            name: brand,
+            url: absoluteUrl(`/${locale}`),
+            description: t("schemaOrgDescription"),
+            knowsAbout: [
+              "Local-first software",
+              "Browser-side document processing",
+              "Privacy-focused web utilities",
+              "Zero-upload PDF tools",
+            ],
+            brand: {
+              "@type": "Brand",
+              name: brand,
+            },
+          },
+          publisher: {
+            "@type": "Organization",
+            name: brand,
+            url: absoluteUrl(`/${locale}`),
+          },
         }}
       />
       <JsonLd data={faqLd(faqs)} />
+
       <AppPageShell>
         <div className="home-minimal-layout home-minimal-layout--directory">
           <h1 className="home-minimal-tagline">{t("title")}</h1>
-          <div className="flex flex-col gap-10 md:gap-12">
-            <section className="privacy-section privacy-section--center" aria-label={t("browseTools")}>
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <Link href="/tools/" className={homePrimaryPillBtn} prefetch={false}>
-                  {t("browseTools")}
-                </Link>
-                <Link href="/privacy/" className={homeSecondaryPillBtn} prefetch={false}>
-                  {t("privacyPolicy")}
-                </Link>
-              </div>
-            </section>
+          <p className="privacy-section__prose mx-auto mt-4 max-w-3xl text-center text-base leading-relaxed md:text-lg">
+            {t("missionSummary")}
+          </p>
 
-            <section className="privacy-section" aria-labelledby="privacy-trust-pillars">
-              <div className="grid gap-6 md:grid-cols-3">
-                <TrustCard icon={<Lock className="h-6 w-6 text-neutral-400" />} title={t("trustLocalTitle")}>
-                  {t("trustLocalBody")}
-                </TrustCard>
-                <TrustCard icon={<Shield className="h-6 w-6 text-neutral-400" />} title={t("trustMarketingTitle")}>
-                  {t("trustMarketingBody")}
-                </TrustCard>
-                <TrustCard icon={<Globe className="h-6 w-6 text-neutral-400" />} title={t("trustVerifyTitle")}>
-                  {t("trustVerifyBody")}
-                </TrustCard>
-              </div>
-            </section>
-
-            <section className={clsx(contentDashboardPanel, "privacy-section")} aria-labelledby="how-it-works">
-              <h2 id="how-it-works" className="privacy-section__title">
-                {t("howTitle")}
-              </h2>
-              <div className="privacy-section__prose mt-6 space-y-4">
-                <p>{t("howP1")}</p>
-                <p>{t("howP2")}</p>
-                <ol className="list-decimal space-y-3 ps-5">
-                  <li>{t("howStep1")}</li>
-                  <li>{t("howStep2")}</li>
-                  <li>{t("howStep3")}</li>
-                </ol>
-              </div>
-            </section>
+          <div className="mt-10 flex flex-col gap-10 md:gap-12">
+            {MANIFESTO_SECTIONS.map((section) => {
+              const benefitKeys = ["b1", "b2", "b3", "b4"] as const;
+              return (
+                <section
+                  key={section}
+                  className={clsx(contentDashboardPanel, "privacy-section")}
+                  aria-labelledby={`manifesto-${section}`}
+                >
+                  <h2 id={`manifesto-${section}`} className="privacy-section__title">
+                    {t(`manifesto.${section}.title`)}
+                  </h2>
+                  <p className="privacy-section__prose mt-4">{t(`manifesto.${section}.body`)}</p>
+                  <ul className="privacy-policy-summary mt-6">
+                    {benefitKeys.map((key) => (
+                      <li key={key}>
+                        <strong>{t(`manifesto.${section}.benefits.${key}`)}</strong>
+                      </li>
+                    ))}
+                  </ul>
+                  {section === "device" ? (
+                    <p className="privacy-section__prose mt-6 mb-0">
+                      {t("manifesto.device.comparePrefix")}{" "}
+                      <Link
+                        href="/compare/"
+                        className="font-semibold text-neutral-600 hover:underline dark:text-neutral-400"
+                        prefetch={false}
+                      >
+                        {t("manifesto.device.compareLink")}
+                      </Link>{" "}
+                      {t("manifesto.device.compareSuffix")}
+                    </p>
+                  ) : null}
+                  {section === "zeroUploads" ? (
+                    <p className="privacy-section__prose mt-6 mb-0">
+                      {t("manifesto.zeroUploads.policyPrefix")}{" "}
+                      <Link
+                        href="/privacy/"
+                        className="font-semibold text-neutral-600 hover:underline dark:text-neutral-400"
+                        prefetch={false}
+                      >
+                        {t("manifesto.zeroUploads.policyLink")}
+                      </Link>{" "}
+                      {t("manifesto.zeroUploads.policySuffix")}
+                    </p>
+                  ) : null}
+                </section>
+              );
+            })}
 
             <section className={clsx(contentDashboardPanel, "privacy-section !pb-0")} aria-labelledby="comparison">
               <h2 id="comparison" className="privacy-section__title">
@@ -190,20 +212,6 @@ export default async function PrivacyFirstPage({ params }: Props) {
                   }))}
                 />
               </div>
-              <p className="privacy-section__prose mt-8">
-                {t("toolsDirectoryPrefix")}{" "}
-                <Link href="/tools/" className="font-semibold text-neutral-600 hover:underline dark:text-neutral-400">
-                  {t("toolsDirectoryLink")}
-                </Link>{" "}
-                {t("toolsHubMiddle")}{" "}
-                <Link
-                  href="/privacy-first-pdf-tools/"
-                  className="font-semibold text-neutral-600 hover:underline dark:text-neutral-400"
-                >
-                  {t("toolsHubLink")}
-                </Link>
-                .
-              </p>
             </section>
 
             <section className={clsx(contentDashboardPanel, "privacy-section")} aria-labelledby="privacy-faq">
@@ -219,6 +227,26 @@ export default async function PrivacyFirstPage({ params }: Props) {
                 ))}
               </div>
             </section>
+
+            <nav
+              className={clsx(contentDashboardPanel, "privacy-section text-center")}
+              aria-label={t("ctaNavLabel")}
+            >
+              <p className="privacy-section__title text-xl md:text-2xl">{t("ctaReady")}</p>
+              <p className="privacy-section__prose mt-3">{t("ctaBody")}</p>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+                <Link href="/tools/" className={homePrimaryPillBtn} prefetch={false}>
+                  {t("ctaTools")}
+                </Link>
+                <Link
+                  href="/privacy/"
+                  className="font-semibold text-neutral-600 hover:underline dark:text-neutral-400"
+                  prefetch={false}
+                >
+                  {t("privacyPolicy")}
+                </Link>
+              </div>
+            </nav>
           </div>
         </div>
       </AppPageShell>

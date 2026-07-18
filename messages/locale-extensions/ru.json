@@ -5363,16 +5363,17 @@
     }
   },
   "Compare": {
-    "metaTitle": "How JoinMyPDF compares",
-    "metaDescription": "A candid comparison: where JoinMyPDF wins on privacy and speed, and where larger suites still make sense.",
-    "title": "How we compare",
-    "intro": "JoinMyPDF is not trying to clone every feature of giant PDF suites. We optimize for privacy, predictable UX, and fast everyday jobs.",
+    "metaTitle": "PDF Tool Comparison: Why Local Processing Beats Cloud Uploads | JoinMyPDF",
+    "metaDescription": "Before you upload sensitive documents to the cloud, see why JoinMyPDF offers stronger privacy with fast, secure local processing. Compare now.",
+    "title": "PDF Tool Comparison: Why Local Processing Is Safer Than Cloud Uploads",
+    "intro": "JoinMyPDF is not trying to clone every feature of giant PDF suites. We optimize for document privacy, local file processing, and browser-based tools that protect information security before you trust a cloud vendor.",
     "introPrivacy": "privacy",
     "introUx": "predictable UX",
     "introSpeed": "fast everyday jobs",
     "colTopic": "Topic",
     "colTypical": "Typical upload-based tools",
     "colJoin": "JoinMyPDF",
+    "tableHeading": "Comparison table: local processing vs cloud-based tools",
     "rows": {
       "processing": {
         "topic": "Processing location",
@@ -5395,6 +5396,39 @@
         "join": "Teams with strict data handling and one-off power users."
       }
     },
+    "authority": {
+      "title": "Why local processing is the new standard for document security",
+      "p1": "Uploading contracts, financial reports, or medical files to cloud PDF tools creates a remote copy you do not control. Even with short retention promises, document privacy is weakened the moment the file crosses the network — and gaps in policy, information security, or temporary storage can turn into real leak or data-harvesting risk.",
+      "p2": "Local file processing in browser-based tools flips the model: the document stays in your session memory, without upload/download bandwidth costs or waiting on a server queue. You get stronger information security, predictable performance, and a workflow where document privacy is a technical default — not a marketing claim.",
+      "p3": "Before trusting a vendor with sensitive workflows, compare PDF tools by processing location, retention policy, technical transparency, and how much control you keep over the data. That comparison quickly shows who offers true local processing and who requires a cloud upload to work.",
+      "p4": "JoinMyPDF is built around browser-based tools for merge, split, compress, and convert — so you can inspect, process, and download documents without sending content to a server. When document privacy and information security matter, local file processing is the standard to demand."
+    },
+    "faqs": {
+      "localAdvantages": {
+        "q": "What are the advantages of local processing?",
+        "a": "Local file processing protects document privacy because files are not uploaded to a server, reduces information-security risk, saves bandwidth, and improves speed — work runs in browser-based tools inside your session."
+      },
+      "uploaded": {
+        "q": "Are files uploaded to a server?",
+        "a": "In JoinMyPDF’s core workflows, files are not uploaded to JoinMyPDF servers to run the operation. Processing happens locally in the browser so document privacy stays on your device."
+      },
+      "whyCompare": {
+        "q": "Why compare PDF tools before using them with sensitive documents?",
+        "a": "Comparing PDF tools reveals whether a vendor requires cloud uploads, how it handles information security, and whether local file processing is real. That check matters before trusting a tool with contracts, financial data, or personal documents."
+      },
+      "browserTools": {
+        "q": "What are browser-based tools and how do they improve information security?",
+        "a": "Browser-based tools run the job in your tab with JavaScript and local libraries. Information security improves because there is no server-side processing copy, and the file stays under your control throughout."
+      },
+      "watermarks": {
+        "q": "Does JoinMyPDF add a watermark to the output?",
+        "a": "On standard outputs for supported flows, JoinMyPDF does not add a watermark. The goal is clean local processing without forced branding on sensitive documents."
+      }
+    },
+    "schemaName": "JoinMyPDF — local-processing PDF tools",
+    "schemaDescription": "A browser-based toolkit for merging, splitting, compressing, and converting PDFs with a focus on document privacy, local file processing, and information security — without server uploads in core workflows.",
+    "ctaAuthority": "Start processing documents securely — back to tools",
+    "faqHeading": "Frequently asked questions about local processing and document privacy",
     "ctaPrefix": "Ready to try it?",
     "ctaMerge": "Open merge",
     "ctaMiddle": "or read",
@@ -5421,35 +5455,79 @@
     "messageRequired": "Пожалуйста, введите сообщение."
   },
   "Privacy": {
-    "metaTitle": "Конфиденциальность и безопасность",
-    "metaDescription": "Как JoinMyPDF обрабатывает файлы: локальная обработка в браузере, без водяного знака на стандартном результате и прозрачные ожидания для чувствительных документов.",
-    "title": "Конфиденциальность и безопасность",
-    "p1": "JoinMyPDF построен вокруг локальной обработки: объединение, разделение, сжатие и распространённые преобразования выполняются в сессии браузера. Ваши файлы не отправляются на серверы JoinMyPDF для выполнения этих операций.",
-    "p1Strong": "локальная обработка",
-    "p2": "Загрузки создаются на устройстве. Стандартные результаты этих инструментов JoinMyPDF не помечает водяным знаком.",
-    "p2Strong": "Загрузки",
-    "p3": "Ограничения всё равно есть: память браузера, производительность устройства и защита PDF (пароли, ограничения) могут блокировать некоторые задачи. Очень большие файлы могут не обработаться на устройствах с малой памятью — сначала разделите файл, затем обрабатывайте партиями.",
-    "p3Strong": "Ограничения",
-    "p4": "Аналитика может собирать сигналы об использовании (например Google Analytics), чтобы понять, какие инструменты помогают пользователям. Настройте блокировщик рекламы/аналитики, если этого требует ваша политика.",
-    "p4Strong": "Аналитика",
-    "heroBadge": "Конфиденциальность и безопасность",
-    "intro": "Как JoinMyPDF обрабатывает ваши файлы — прозрачно, понятно и на основе локальной обработки в браузере.",
-    "localProcessingBadge": "Локальная обработка",
-    "localProcessingHighlight": "Объединяйте, разделяйте, сжимайте и конвертируйте в браузере. Ваши файлы не отправляются на серверы JoinMyPDF для выполнения этих операций.",
-    "privacyFirstLink": "Узнать о Privacy First",
-    "relatedLabel": "Связанные материалы о конфиденциальности",
+    "metaTitle": "Privacy Policy: Secure Local PDF Processing & Data Protection | JoinMyPDF",
+    "metaDescription": "At JoinMyPDF, your privacy is our priority. Discover how our 100% local, browser-based PDF tools ensure your sensitive documents are never uploaded or stored.",
+    "title": "Privacy Policy: Secure Local PDF Processing & Data Protection",
+    "intro": "JoinMyPDF is built on Local-First processing — clear expectations for how we handle documents, cookies, and limited analytics.",
+    "whyTitle": "Why privacy matters",
+    "whyLead": "JoinMyPDF was designed around a simple principle: Local-First processing. Sensitive PDFs should stay under your control, not travel through someone else’s cloud for a quick conversion.",
+    "whyP1": "Your files never leave your browser for supported core workflows. Merge, split, compress, convert, and related tools run in your tab so the document bytes stay on your device.",
+    "whyP2": "No server-side uploads are required to execute those operations. That means fewer network hops, less retention risk, and complete data sovereignty for everyday document work.",
+    "whyHighlights": {
+      "browser": "Your files never leave your browser",
+      "noUpload": "No server-side uploads for core tools",
+      "sovereignty": "Complete data sovereignty on your device"
+    },
+    "p1": "JoinMyPDF is designed around local processing: merge, split, compress, and common conversions run in your browser session. Your files are not sent to JoinMyPDF servers to execute those operations.",
+    "p1Strong": "local processing",
+    "p2": "Downloads are generated on-device. Standard outputs from these tools are not watermarked by JoinMyPDF. Favorites and projects stay in your browser’s local storage — not in a JoinMyPDF account.",
+    "p2Strong": "Downloads",
+    "p3": "Limits still apply: browser memory, device performance, and PDF protections (passwords, restrictions) can block some tasks. Very large files may fail on low-memory devices—split first, then process in batches.",
+    "p3Strong": "Limits",
+    "p4": "We may use limited third-party analytics (for example Google Analytics) to understand which tools help users succeed. Analytics is about product usage signals — not your document contents.",
+    "p4Strong": "Analytics",
+    "p5": "Cookies and similar technologies may support consent choices, basic site preferences, and analytics where enabled. You can block analytics cookies in your browser or through our cookie controls where shown.",
+    "p5Strong": "Cookies",
+    "heroBadge": "Privacy Policy",
+    "localProcessingBadge": "Local-First processing",
+    "localProcessingHighlight": "Your files never leave your browser for supported tools. No server-side uploads. Complete data sovereignty on your device.",
+    "privacyFirstLink": "Learn how it works",
+    "relatedLabel": "Related privacy resources",
+    "backToTools": "Back to Tools",
+    "learnHowItWorks": "Learn how it works",
+    "faqHeading": "Frequently Asked Questions",
     "sections": {
-      "philosophy": {
-        "title": "Основной принцип"
+      "dataProcessing": {
+        "title": "Data Processing",
+        "summary1": "Core PDF tools process files locally in your browser session.",
+        "summary2": "Document contents are not uploaded to JoinMyPDF servers for those operations.",
+        "summary3": "Downloads are created on-device from your session result.",
+        "h3Local": "Local browser processing",
+        "h3Limits": "Practical limits"
       },
-      "onDevice": {
-        "title": "Обработка на устройстве"
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "summary1": "We do not send your PDF contents to third parties to run core conversions.",
+        "summary2": "Optional analytics providers may receive aggregated usage signals.",
+        "summary3": "You can block analytics with browser settings or cookie controls."
       },
-      "performance": {
-        "title": "Ограничения производительности"
+      "cookies": {
+        "title": "Cookies",
+        "summary1": "Cookies may store consent and basic preferences.",
+        "summary2": "Analytics cookies are used only where enabled / allowed.",
+        "summary3": "Clearing site data removes local favorites, projects, and cookie state."
+      }
+    },
+    "faqs": {
+      "uploaded": {
+        "q": "Are my files uploaded to the cloud?",
+        "a": "For supported core workflows, no. JoinMyPDF processes PDFs locally in your browser, so your files are not uploaded to our cloud to run the operation."
+      },
+      "stored": {
+        "q": "Does JoinMyPDF store my documents?",
+        "a": "We do not store your document contents on JoinMyPDF servers for those local tools. Any favorites or projects you save stay in your browser’s local storage on your device."
+      },
+      "secure": {
+        "q": "Is the conversion process secure?",
+        "a": "Yes for Local-First workflows: conversion runs in your browser session, which reduces exposure from server-side uploads and temporary remote storage. Security still depends on your device, browser, and how you share the finished file."
       },
       "analytics": {
-        "title": "Аналитика"
+        "q": "What about analytics and cookies?",
+        "a": "We may collect limited usage analytics to improve the product. Analytics is not used to read your document contents. You can block analytics cookies in your browser or through our cookie consent controls where shown."
+      },
+      "verify": {
+        "q": "How can I verify local processing?",
+        "a": "Open your browser DevTools Network panel, run a tool, and confirm your PDF is not uploaded to JoinMyPDF domains. Processing should stay in the page session."
       }
     }
   },
@@ -5532,26 +5610,57 @@
     }
   },
   "PrivacyFirst": {
-    "metaTitle": "Privacy First — Private PDF Tools & Secure Processing",
-    "metaDescription": "JoinMyPDF runs private PDF tools in your browser. No-upload PDF editing: merge, redact, flatten, and more—files never leave your device.",
+    "metaTitle": "Privacy First: Local & Secure File Processing with JoinMyPDF",
+    "metaDescription": "At JoinMyPDF, we believe in your privacy. Every tool processes files locally on your device—no cloud upload required. Discover our Local-First philosophy.",
     "badge": "Our privacy promise",
-    "title": "Privacy First",
-    "heroStrong": "No files are ever uploaded to our servers—everything stays on your device.",
-    "heroBody": "JoinMyPDF is built for private PDF tools and secure processing without the upload step every other “online PDF” site requires.",
-    "browseTools": "Browse private PDF tools",
+    "title": "Document Processing with Full Privacy: The Philosophy of JoinMyPDF",
+    "missionSummary": "JoinMyPDF leads Local-First software architecture for browser-based document tools: processing runs on your device, not our cloud. We build privacy-focused web utilities where files never need to leave the tab—technical transparency, speed, and trust you can verify.",
+    "schemaAbout": "Local-First software architecture for browser-side document processing with zero server uploads",
+    "schemaOrgDescription": "JoinMyPDF provides privacy-focused web utilities for local, in-browser file processing—without cloud uploads.",
+    "browseTools": "Browse all tools",
     "privacyPolicy": "Политика конфиденциальности",
-    "trustLocalTitle": "Local by design",
-    "trustLocalBody": "Core tools use client-side processing: pdf.js reads your file in the tab, and pdf-lib writes the output locally. We do not need your document on a server to merge, redact, or resize it.",
-    "trustMarketingTitle": "Not just marketing",
-    "trustMarketingBody": "Privacy here is a technical fact, not a slogan. When processing runs in the browser, there is no server-side file path to breach for that job.",
-    "trustVerifyTitle": "You can verify",
-    "trustVerifyBody": "Open DevTools → Network, run any tool, and watch for yourself: your PDF should not upload to JoinMyPDF. That is the same check security reviewers use for local-first apps.",
-    "howTitle": "How client-side PDF processing works",
-    "howP1": "Traditional “PDF online tools” ask you to upload a file. Their servers convert it, store it temporarily, and send back a download link. Your data crosses the internet twice and sits on hardware you do not control.",
-    "howP2": "JoinMyPDF flips the model: the website delivers JavaScript; your browser does the work. You pick a file from disk, the tab processes it, and you save the result—like desktop software, without an install.",
-    "howStep1": "You select a PDF (it stays in browser memory on your device).",
-    "howStep2": "Tools load pdf.js / pdf-lib and run the operation locally.",
-    "howStep3": "You download the new PDF from a blob URL—no server copy of your document.",
+    "ctaNavLabel": "Get started with tools",
+    "ctaReady": "Ready to start? View all our tools",
+    "ctaBody": "Pick a tool and keep processing documents locally—no account and no server upload.",
+    "ctaTools": "View all tools",
+    "manifesto": {
+      "device": {
+        "title": "Why your device should do the work",
+        "body": "In a Local-First model, the browser is the processing engine. We ship code—we don’t ask for your file. You get full data control, less network dependence, and desktop-like responsiveness without an install.",
+        "benefits": {
+          "b1": "Files stay in device memory—no third-party cloud queue",
+          "b2": "Works on weak networks: after the tool loads, processing is local",
+          "b3": "No window where a sensitive document sits on someone else’s server",
+          "b4": "The same model across tools—PDF, image, audio, and more"
+        },
+        "comparePrefix": "Want to see how this stacks up against cloud tools? Read our",
+        "compareLink": "JoinMyPDF comparison",
+        "compareSuffix": "for a point-by-point breakdown."
+      },
+      "zeroUploads": {
+        "title": "Zero Uploads: Security from the root",
+        "body": "Real security starts by removing attack surface. With no upload, there is no server-side file path to breach, no temporary storage to leak, and no need to “trust a policy” instead of verifying the architecture.",
+        "benefits": {
+          "b1": "Zero uploads by default for standard tools",
+          "b2": "No PDF storage on JoinMyPDF servers for local operations",
+          "b3": "Verifiable live in DevTools → Network",
+          "b4": "Built for financial, medical, legal, and personal documents"
+        },
+        "policyPrefix": "For legal details on analytics, cookies, and terms, read our",
+        "policyLink": "Privacy Policy",
+        "policySuffix": "."
+      },
+      "future": {
+        "title": "The Future of Online Tools: Transparency and Speed",
+        "body": "The next generation of online utilities shouldn’t be “upload, then wait.” It should be transparent, fast, and privacy-biased—an architecture you can inspect, not a marketing slogan.",
+        "benefits": {
+          "b1": "Transparency: you can see processing run in the tab",
+          "b2": "Speed: no double upload/download of the same file",
+          "b3": "Technology-backed trust—not promises alone",
+          "b4": "App-in-the-browser experience with no install and no account"
+        }
+      }
+    },
     "comparisonTitle": "JoinMyPDF vs typical online PDF tools",
     "colTopic": "Topic",
     "colTypical": "Typical PDF online tools",

@@ -213,11 +213,6 @@ export function Mp3MetadataEditor({ title, onComplete }: Mp3MetadataEditorProps)
 
   return (
     <div className="mp3-metadata-editor-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Edit your MP3 tags, including title, artist, album, and album art directly in your browser. Fast, secure, and 100% private."}{" "}
-        ffmpeg.wasm writes ID3 metadata locally with stream copy so audio quality is preserved.
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

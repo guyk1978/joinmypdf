@@ -175,6 +175,7 @@ export function blogPostingLd(post: {
   description: string;
   pathname: string;
   datePublished?: string;
+  dateModified?: string;
   authorName?: string;
   authorRole?: string;
   locale?: string;
@@ -187,6 +188,7 @@ export function blogPostingLd(post: {
     description: post.description,
     url: absoluteUrl(post.pathname),
     datePublished: post.datePublished,
+    dateModified: post.dateModified || post.datePublished,
     author: {
       "@type": "Person",
       name: authorName,

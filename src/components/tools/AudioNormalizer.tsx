@@ -310,12 +310,6 @@ export function AudioNormalizer({ title, onComplete }: AudioNormalizerProps) {
 
   return (
     <div className="audio-normalizer-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Online audio normalizer — unify MP3/WAV volume for podcasts and playlists. Batch-normalize locally with ffmpeg.wasm."}{" "}
-        Choose target loudness (LUFS) or peak-normalize to −1.0 dB. 100% private — nothing is
-        uploaded.
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

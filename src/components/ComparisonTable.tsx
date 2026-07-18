@@ -82,12 +82,15 @@ export function ComparisonTable({ locale, headers, rows, flush = false }: Compar
             </th>
           </tr>
         </thead>
-        <tbody className="[&_tr:last-child_td]:border-b-0">
+        <tbody className="[&_tr:last-child_td]:border-b-0 [&_tr:last-child_th]:border-b-0">
           {rows.map((row) => (
             <tr key={row.topic}>
-              <td className="border-b border-neutral-300 px-4 py-3 align-top text-start font-semibold text-black dark:border-neutral-800 dark:text-neutral-200">
+              <th
+                scope="row"
+                className="border-b border-neutral-300 px-4 py-3 align-top text-start font-semibold text-black dark:border-neutral-800 dark:text-neutral-200"
+              >
                 {row.topic}
-              </td>
+              </th>
               <TypicalCell>{row.typical}</TypicalCell>
               <JoinCell>{row.join}</JoinCell>
             </tr>

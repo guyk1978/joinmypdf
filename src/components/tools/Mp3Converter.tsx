@@ -76,7 +76,6 @@ export function Mp3Converter({ name, title: _title, onComplete }: Mp3ConverterPr
 
   return (
     <div className="mp3-converter-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">{t("intro")}</p>
 
       <FfmpegEnvironmentNotice
         environment={environment}

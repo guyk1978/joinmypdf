@@ -14,16 +14,16 @@ type BlogSubCategoryItem = {
 
 type BlogTrendingSidebarProps = {
   posts: BlogTopGuideItem[];
-  subCategories: BlogSubCategoryItem[];
-  activeSubCategory: string | "all";
-  onSubCategoryChange: (subCategory: string | "all") => void;
+  subCategories?: BlogSubCategoryItem[];
+  activeSubCategory?: string | "all";
+  onSubCategoryChange?: (subCategory: string | "all") => void;
   className?: string;
 };
 
 export function BlogTrendingSidebar({
   posts,
-  subCategories,
-  activeSubCategory,
+  subCategories = [],
+  activeSubCategory = "all",
   onSubCategoryChange,
   className,
 }: BlogTrendingSidebarProps) {
@@ -35,7 +35,7 @@ export function BlogTrendingSidebar({
       className={clsx("blog-magazine-sidebar", className)}
       aria-labelledby="blog-magazine-sidebar-title"
     >
-      {subCategories.length > 0 ? (
+      {subCategories.length > 0 && onSubCategoryChange ? (
         <section className="blog-magazine-sidebar__subtopics">
           <h2 className="blog-magazine-sidebar__subtopics-title">
             {t("browseBySubtopic")}

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { FaqSection } from "@/components/layout/FaqSection";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { UrlParameterStripperWorkspace } from "@/components/UrlParameterStripperWorkspace";
 import { Link } from "@/i18n/navigation";
@@ -17,8 +16,6 @@ const SLUG = "url-parameter-stripper";
 const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
-
-const ARTICLE_SECTIONS = ["privacyLinks", "utmTracking", "howToUse", "privacy"] as const;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -97,52 +94,6 @@ export default async function UrlParameterStripperPage({ params }: PageProps) {
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <UrlParameterStripperWorkspace tool={tool} slug={SLUG} />
           </section>
-
-          <article className="border-b border-[#262626] py-10" aria-labelledby="url-stripper-article">
-            <h2
-              id="url-stripper-article"
-              className="mb-6 text-xl font-semibold tracking-tight text-white md:text-2xl"
-            >
-              {t("article.title")}
-            </h2>
-            <p className="mb-8 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">{t("article.intro")}</p>
-
-            {ARTICLE_SECTIONS.map((section) => {
-              const paragraphs = [1, 2, 3, 4]
-                .map((n) => `article.${section}.p${n}` as const)
-                .filter((key) => t.has(key))
-                .map((key) => t(key));
-
-              return (
-                <section
-                  key={section}
-                  className="mb-10 last:mb-0"
-                  aria-labelledby={`url-stripper-article-${section}`}
-                >
-                  <h3
-                    id={`url-stripper-article-${section}`}
-                    className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-                  >
-                    {t(`article.${section}.heading`)}
-                  </h3>
-                  {paragraphs.map((paragraph, index) => (
-                    <p
-                      key={`${section}-${index}`}
-                      className="mb-4 max-w-3xl text-sm leading-relaxed text-[#a3a3a3] last:mb-0 md:text-base"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </section>
-              );
-            })}
-          </article>
-
-          {faqs.length ? (
-            <div className="border-b border-[#262626] py-10">
-              <FaqSection faqs={faqs} heading={t("faqHeading")} />
-            </div>
-          ) : null}
 
           <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">
             <p className="m-0 text-xs uppercase tracking-widest text-[#737373]">{t("privacyBadge")}</p>

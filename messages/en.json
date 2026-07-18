@@ -1308,11 +1308,12 @@
     }
   },
   "Blog": {
-    "metaTitle": "Guides & tutorials",
-    "metaDescription": "Practical JoinMyPDF guides for merge, compress, split, and privacy-first PDF workflows—written for humans.",
+    "metaTitle": "JoinMyPDF Blog — Expert Guides for File Processing & Online Privacy",
+    "metaDescription": "Discover tips, guides, and tools for 100% local secure document management. The official JoinMyPDF blog for smart, private file processing.",
     "badge": "Guides & tutorials",
-    "title": "Latest Guides & Articles",
-    "description": "Walkthroughs that link straight into the tools—built for real tasks like email limits, mobile workflows, and sensitive documents.",
+    "title": "Guides and Tips for Document Processing: Tools, Privacy, and Technology",
+    "description": "The official JoinMyPDF blog shares expert tips on secure browser-based document management, privacy best practices, and workflow optimization with local-processing tools — without uploading files to a server.",
+    "clustersHeading": "Topic clusters",
     "readArticle": "Read article",
     "featuredGuide": "Featured guide",
     "allGuides": "All guides",
@@ -1344,10 +1345,10 @@
     "readTimeMinutes": "{mins} min read",
     "mp3ToolsHubCta": "Ready to process your audio? Visit our <link>MP3 Tools Hub</link> for free, local conversion and compression.",
     "categories": {
-      "conversion": "Conversion",
-      "editing": "Editing",
-      "security": "Security",
-      "advanced": "Advanced"
+      "conversion": "Conversion guides",
+      "editing": "Tool how-to guides",
+      "security": "Information security & privacy",
+      "advanced": "Tips for designers"
     },
     "badges": {
       "howTo": "How-To",
@@ -1360,7 +1361,7 @@
     "article": {
       "categoryEditorial": "Editorial guide",
       "categoryGuide": "Guide",
-      "updated": "Updated {date}",
+      "updated": "Last Updated {date}",
       "toolsInWorkflow": "Tools in this workflow",
       "faqTitle": "Frequently asked questions",
       "relatedArticles": "Related articles",
@@ -6255,6 +6256,9 @@
     "close": "Close",
     "addFavorite": "Add to favorites",
     "removeFavorite": "Remove from favorites",
+    "ratings": "{count} ratings",
+    "thankYou": "Thank you!",
+    "rateAria": "Rate this tool",
     "overview": "Overview",
     "howItWorks": "How it works",
     "useCases": "Use cases",

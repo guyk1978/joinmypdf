@@ -1,0 +1,9 @@
+import type { ToolDocumentation } from "@/lib/types";
+
+/** Documentation overlay for `video-speed` — owned by the registry, not the tool UI. */
+export const documentation: ToolDocumentation = {
+  whyItMatters: "A free online video speed controller that runs in the browser lets you stretch time without installing an NLE. Creators turn long demos into 2× or 4× timelapses. Teachers slow tutorials to 0.5× or 0.75× so viewers can follow every click. Editors match social pacing before captions go on. Under the hood, FFmpeg uses `setpts=1/N*PTS` on video and `atempo=N` on audio—where N is your multiplier—so picture and sound stay aligned. Unlike mute or trim stream-copy jobs, speed changes require re-encoding; expect a visible Processing progress bar while frames are rewritten. This guide covers how to speed up or slow down videos online, creative storytelling with tempo, and the technical side of frame rates and processing—while keeping every byte on your device. Treat speed changes as a deliberate publish step: keep the 1× master for archives, ship the tempo derivative when the story needs compression or stretch, and always watch the Processing bar during re-encode so you know work is in progress—not stalled. The presets below the drop zone exist so you can decide tempo in one tap, then let re-encoding finish under an honest progress UI.",
+  faq: [{"question":"Is my video uploaded to JoinMyPDF?","answer":"No. Speed changes run entirely in your browser with ffmpeg.wasm. Your file never leaves your device."},{"question":"Which speeds are available?","answer":"Presets: 0.5×, 0.75×, 1.5×, 2×, and 4×. Speeds above 2× chain atempo filters (e.g. 4× → atempo=2,atempo=2)."},{"question":"Why does processing take longer than mute or trim?","answer":"Speed changes require re-encoding (setpts + atempo), not stream copy. Watch the Processing progress bar—the tool is working, not frozen."}],
+};
+
+export default documentation;

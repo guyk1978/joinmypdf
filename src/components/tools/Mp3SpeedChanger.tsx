@@ -183,12 +183,6 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
 
   return (
     <div className="audio-speed-changer-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Change audio speed online — time-stretch podcasts and lectures without pitch shift. 100% private and local."}{" "}
-        Live-preview any rate from {MIN_SPEED}×–{MAX_SPEED}×, then Apply &amp; Download. Nothing is
-        uploaded.
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

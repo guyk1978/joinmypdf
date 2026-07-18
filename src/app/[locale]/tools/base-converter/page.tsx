@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { FaqSection } from "@/components/layout/FaqSection";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { RelatedTools } from "@/components/RelatedTools";
 import { BaseConverterWorkspace } from "@/components/tools/unit-math/BaseConverterWorkspace";
@@ -18,8 +17,6 @@ const SLUG = "base-converter";
 const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
-
-const ARTICLE_SECTIONS = ["howToUse", "computing", "bitwise", "privacy"] as const;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -98,52 +95,6 @@ export default async function BaseConverterPage({ params }: PageProps) {
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <BaseConverterWorkspace tool={tool} slug={SLUG} />
           </section>
-
-          <article className="border-b border-[#262626] py-10" aria-labelledby="base-converter-article">
-            <h2
-              id="base-converter-article"
-              className="mb-6 text-xl font-semibold tracking-tight text-white md:text-2xl"
-            >
-              {t("article.title")}
-            </h2>
-            <p className="mb-8 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">{t("article.intro")}</p>
-
-            {ARTICLE_SECTIONS.map((section) => {
-              const paragraphs = [1, 2, 3, 4]
-                .map((n) => `article.${section}.p${n}` as const)
-                .filter((key) => t.has(key))
-                .map((key) => t(key));
-
-              return (
-                <section
-                  key={section}
-                  className="mb-10 last:mb-0"
-                  aria-labelledby={`base-converter-article-${section}`}
-                >
-                  <h3
-                    id={`base-converter-article-${section}`}
-                    className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-                  >
-                    {t(`article.${section}.heading`)}
-                  </h3>
-                  {paragraphs.map((paragraph, index) => (
-                    <p
-                      key={`${section}-${index}`}
-                      className="mb-4 max-w-3xl text-sm leading-relaxed text-[#a3a3a3] last:mb-0 md:text-base"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </section>
-              );
-            })}
-          </article>
-
-          {faqs.length ? (
-            <div className="border-b border-[#262626] py-10">
-              <FaqSection faqs={faqs} heading={t("faqHeading")} />
-            </div>
-          ) : null}
 
           <div className="border-b border-[#262626] py-10">
             <RelatedTools tool={tool} slug={SLUG} />

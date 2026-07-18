@@ -92,12 +92,6 @@ export function FlacConverter({ title, onComplete }: FlacConverterProps) {
 
   return (
     <div className="flac-converter-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Transcode your lossless FLAC files to MP3, WAV, or other formats locally. High-quality output, 100% private and secure."}{" "}
-        ffmpeg.wasm validates the FLAC header, then transcodes in a Web Worker so the page stays
-        responsive during heavy encoding.
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

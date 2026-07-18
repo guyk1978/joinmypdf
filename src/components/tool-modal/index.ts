@@ -8,6 +8,7 @@ export {
 } from "@/components/tool-modal/ToolModalProvider";
 export {
   ToolModalDocsPanel,
+  ToolDocumentation,
   ToolModalRelatedPanel,
   ToolModalCalcFrame,
 } from "@/components/tool-modal/ToolModalPanels";

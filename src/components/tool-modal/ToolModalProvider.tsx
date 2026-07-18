@@ -407,6 +407,9 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             loading: loadingLabel,
             addFavorite: t("addFavorite"),
             removeFavorite: t("removeFavorite"),
+            ratings: t("ratings", { count: "{count}" }),
+            thankYou: t("thankYou"),
+            rateAria: t("rateAria"),
           }}
           calc={
             active.calc ?? (

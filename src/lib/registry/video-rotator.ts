@@ -1,0 +1,9 @@
+import type { ToolDocumentation } from "@/lib/types";
+
+/** Documentation overlay for `video-rotator` — owned by the registry, not the tool UI. */
+export const documentation: ToolDocumentation = {
+  whyItMatters: "A free online video rotator that runs in the browser is the fastest way to fix a sideways phone clip without uploading footage. Phones often write orientation into metadata while pixels stay landscape; players disagree on whether to honor that flag. FFmpeg can either rewrite rotate metadata with stream copy—nearly instant—or bake rotation with `transpose` so every player sees upright frames. Remember the advanced path: when the goal is only to fix an upside-down recording, rewriting rotation metadata with stream copy can be nearly instant—and when ffmpeg.wasm supports it, that saves substantial CPU versus a full re-encode. This Free Online Video Rotator offers both paths, a live preview, and Industrial Matte privacy: processing stays on your device. This guide covers how to rotate videos online, correcting mobile orientation errors, and why local browser processing wins for privacy. Whether you are fixing a single selfie or batching client phone dumps, start with Fast metadata, verify the destination player, and only bake when compatibility requires it—that workflow respects both time and privacy.",
+  faq: [{"question":"Is my video uploaded to JoinMyPDF?","answer":"No. Rotation runs entirely in your browser inside a Web Worker. Your file never leaves your device."},{"question":"Which rotation angles are supported?","answer":"90° clockwise, 180°, and 90° counter-clockwise (transpose=1 / double transpose / transpose=2)."},{"question":"What is Fast metadata vs Bake pixels?","answer":"Fast metadata uses stream copy (-c copy) and sets rotate metadata—near-instant, but some players ignore the flag. Bake pixels re-encodes with transpose so orientation is permanent in the frames."}],
+};
+
+export default documentation;

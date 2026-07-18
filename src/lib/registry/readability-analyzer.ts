@@ -1,0 +1,9 @@
+import type { ToolDocumentation } from "@/lib/types";
+
+/** Documentation overlay for `readability-analyzer` — owned by the registry, not the tool UI. */
+export const documentation: ToolDocumentation = {
+  whyItMatters: "Readers bounce when sentences wander past twenty words and when jargon stacks up without payoff. A readability score checker gives you a fast second pass before you hit publish: measure difficulty, surface the worst sentences, and simplify vocabulary while the draft still lives on your machine.",
+  faq: [{"question":"What does the readability score mean?","answer":"The score uses the Flesch Reading Ease formula on a 0–100 scale. Higher scores are easier to read. Rough guide: 90+ very easy, 60–70 plain English, below 50 denser or more specialized writing."},{"question":"Can this help my SEO?","answer":"Clearer pages tend to keep readers engaged longer. The analyzer helps you shorten long sentences and swap difficult words so content is easier to scan — a practical step for content clarity and on-page SEO workflows."},{"question":"Does it work in languages other than English/Hebrew?","answer":"Reading time and long-sentence checks work on word counts for any language. Syllable complexity, Flesch Scoring, synonym suggestions, and tone markers are tuned for English. Hebrew and other scripts still get reading-time and sentence-length feedback."},{"question":"Is the data processed locally?","answer":"Yes. Analysis runs entirely in your browser. Your draft is never uploaded."},{"question":"What is Tone Analysis?","answer":"A lightweight vocabulary gauge that leans Professional, Casual, Academic, or Neutral based on marker words in the text. It is a drafting signal, not a formal linguistics classifier."},{"question":"Is the Readability Analyzer free?","answer":"Yes. It is free to use with no account required."}],
+};
+
+export default documentation;

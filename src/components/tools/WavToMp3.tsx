@@ -73,9 +73,6 @@ export function WavToMp3({ name, onComplete }: WavToMp3Props) {
 
   return (
     <div className="wav-to-mp3-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        Turn lossless WAV into compact MP3 instantly. No server uploads, 100% private and local.
-      </p>
 
       <FfmpegEnvironmentNotice
         environment={environment}

@@ -73,10 +73,6 @@ export function Mp3ToWav({ name, onComplete }: Mp3ToWavProps) {
 
   return (
     <div className="mp3-to-wav-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        Decode MP3 to uncompressed WAV with ffmpeg.wasm — entirely in your browser. No uploads, no
-        server processing.
-      </p>
 
       <FfmpegEnvironmentNotice
         environment={environment}

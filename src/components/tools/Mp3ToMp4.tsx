@@ -189,10 +189,6 @@ export function Mp3ToMp4({ title, onComplete }: Mp3ToMp4Props) {
 
   return (
     <div className="mp3-to-mp4-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Turn an MP3 and a static cover image into an MP4 video for YouTube, Instagram, and other platforms. ffmpeg.wasm loops the image over your audio track — 100% local and private."}
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

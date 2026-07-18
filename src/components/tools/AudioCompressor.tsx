@@ -119,10 +119,6 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
 
   return (
     <div className="audio-compressor-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        Reduce your audio file size significantly without leaving your browser. Fast, secure, and
-        private — powered by ffmpeg.wasm in a Web Worker.
-      </p>
 
       <FfmpegEnvironmentNotice
         environment={environment}

@@ -75,10 +75,6 @@ export function OggConverter({ onComplete }: OggConverterProps) {
 
   return (
     <div className="ogg-converter-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        Convert OGG Vorbis and Opus files to MP3 locally in your browser. No uploads, no server
-        processing, 100% private.
-      </p>
 
       <FfmpegEnvironmentNotice
         environment={environment}

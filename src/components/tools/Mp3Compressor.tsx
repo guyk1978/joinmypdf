@@ -128,12 +128,6 @@ export function Mp3Compressor({ title, onComplete }: Mp3CompressorProps) {
 
   return (
     <div className="mp3-compressor-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Reduce your MP3 file size by adjusting the bitrate. Maintain control over quality and file size locally in your browser."}{" "}
-        ffmpeg.wasm re-encodes with <code className="text-neutral-500">-b:a</code> in a Web Worker so
-        the page stays responsive.
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

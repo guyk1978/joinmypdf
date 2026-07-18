@@ -110,7 +110,6 @@ export function Mp3VolumeBooster({ name: _name, title, onComplete }: Mp3VolumeBo
 
   return (
     <div className="mp3-volume-booster-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">{title ?? t("intro")}</p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 

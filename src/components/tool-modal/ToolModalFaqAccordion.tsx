@@ -14,17 +14,23 @@ type ToolModalFaqAccordionProps = {
   className?: string;
   expandAllLabel?: string;
   collapseAllLabel?: string;
+  /** High-value FAQs left open for crawlers + first paint (default 4). */
+  defaultOpenCount?: number;
 };
 
+const DEFAULT_OPEN_COUNT = 4;
+
 /**
- * Industrial Matte FAQ accordion for the tool modal DOC tab.
- * Answers are removed from the DOM when closed (no leftover visible text).
+ * FAQ list for the tool modal DOC tab.
+ * Uses semantic `<details>` / `<summary>` so answers stay in the DOM for crawlers,
+ * with the first few items expanded by default.
  */
 export function ToolModalFaqAccordion({
   items,
   className,
   expandAllLabel = "Expand all",
   collapseAllLabel = "Collapse all",
+  defaultOpenCount = DEFAULT_OPEN_COUNT,
 }: ToolModalFaqAccordionProps) {
   const baseId = useId();
 
@@ -33,25 +39,21 @@ export function ToolModalFaqAccordion({
     [items],
   );
 
-  // One boolean per FAQ — all start closed.
-  const [openFlags, setOpenFlags] = useState<boolean[]>(() =>
-    items.map(() => false),
+  const initialOpen = useMemo(
+    () => items.map((_, index) => index < Math.max(0, defaultOpenCount)),
+    [items, defaultOpenCount],
   );
 
+  const [openFlags, setOpenFlags] = useState<boolean[]>(initialOpen);
+
   useEffect(() => {
-    setOpenFlags(items.map(() => false));
-  }, [itemsKey, items]);
+    setOpenFlags(items.map((_, index) => index < Math.max(0, defaultOpenCount)));
+  }, [itemsKey, items, defaultOpenCount]);
 
   if (!items.length) return null;
 
   const allOpen = openFlags.length > 0 && openFlags.every(Boolean);
   const noneOpen = openFlags.every((flag) => !flag);
-
-  const toggle = (index: number) => {
-    setOpenFlags((current) =>
-      current.map((isOpen, i) => (i === index ? !isOpen : isOpen)),
-    );
-  };
 
   const expandAll = () => {
     setOpenFlags(items.map(() => true));
@@ -85,28 +87,33 @@ export function ToolModalFaqAccordion({
         </button>
       </div>
 
-      <div className="tool-modal-faq__scroll" role="list">
+      <div className="tool-modal-faq__scroll">
         {items.map((item, index) => {
           const isOpen = openFlags[index] === true;
           const panelId = `${baseId}-panel-${index}`;
-          const buttonId = `${baseId}-btn-${index}`;
+          const summaryId = `${baseId}-summary-${index}`;
 
           return (
-            <div
+            <details
               key={`${item.question}-${index}`}
-              className="tool-modal-faq__item"
-              role="listitem"
+              className={clsx(
+                "tool-modal-faq__item",
+                isOpen && "tool-modal-faq__item--open",
+              )}
+              open={isOpen}
+              onToggle={(event) => {
+                const nextOpen = event.currentTarget.open;
+                setOpenFlags((current) =>
+                  current.map((flag, i) => (i === index ? nextOpen : flag)),
+                );
+              }}
             >
-              <button
-                id={buttonId}
-                type="button"
+              <summary
+                id={summaryId}
                 className={clsx(
                   "tool-modal-faq__trigger",
                   isOpen && "tool-modal-faq__trigger--open",
                 )}
-                aria-expanded={isOpen}
-                aria-controls={isOpen ? panelId : undefined}
-                onClick={() => toggle(index)}
               >
                 <span className="tool-modal-faq__question">{item.question}</span>
                 <span className="tool-modal-faq__icon" aria-hidden>
@@ -119,19 +126,17 @@ export function ToolModalFaqAccordion({
                     )}
                   />
                 </span>
-              </button>
+              </summary>
 
-              {isOpen ? (
-                <div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  className="tool-modal-faq__panel tool-modal-faq__panel--open"
-                >
-                  <p className="tool-modal-faq__answer">{item.answer}</p>
-                </div>
-              ) : null}
-            </div>
+              <div
+                id={panelId}
+                className="tool-modal-faq__panel tool-modal-faq__panel--open"
+                role="region"
+                aria-labelledby={summaryId}
+              >
+                <p className="tool-modal-faq__answer">{item.answer}</p>
+              </div>
+            </details>
           );
         })}
       </div>

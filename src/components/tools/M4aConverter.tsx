@@ -92,12 +92,6 @@ export function M4aConverter({ title, onComplete }: M4aConverterProps) {
 
   return (
     <div className="m4a-converter-tool space-y-4">
-      <p className="text-sm leading-relaxed text-neutral-400">
-        {title ??
-          "Convert your M4A and AAC audio tracks to MP3 or WAV quickly and securely. 100% local browser-based processing."}{" "}
-        ffmpeg.wasm validates the container header, then converts in a Web Worker so the page stays
-        responsive during encoding.
-      </p>
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
