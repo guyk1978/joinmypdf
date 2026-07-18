@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
+import { blogArticlePath } from "@/lib/blog-article-path";
 import type { BlogPost } from "@/lib/types";
 import { getTranslations } from "next-intl/server";
 
@@ -25,7 +26,7 @@ export async function ToolsHubRelatedGuides({ posts, title, sectionId }: ToolsHu
 
           return (
             <li key={post.slug} className="border-b border-[#1a1a1a] pb-3 last:border-b-0 last:pb-0">
-              <Link href={`/blog/${post.slug}/`} className="group block" prefetch={false}>
+              <Link href={blogArticlePath(post.slug)} className="group block" prefetch={false}>
                 <span className="text-base font-medium text-white transition-colors group-hover:text-[#d4d4d4]">
                   {post.title}
                 </span>

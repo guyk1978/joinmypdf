@@ -1,41 +1,31 @@
 import { Clock } from "lucide-react";
-import { Link } from "@/i18n/navigation";
-import { clsx } from "clsx";
-import { BlogCardVisual } from "@/components/BlogCardVisual";
+import { BlogArticleLink } from "@/components/BlogArticleLink";
 import type { BlogMagazineFeedItem } from "@/components/BlogMagazineFeed";
 
 type BlogMagazineCardClientProps = {
   item: BlogMagazineFeedItem;
 };
 
+/** Documentation-style list row: title, snippet, and read time — no cover image. */
 export function BlogMagazineCardClient({ item }: BlogMagazineCardClientProps) {
-  const generated = !item.coverImage;
-
   return (
-    <Link
-      href={`/blog/${item.slug}/`}
-      className={clsx("blog-magazine-card group", generated && "blog-magazine-card--generated")}
-      prefetch={false}
-    >
-      <BlogCardVisual
-        slug={item.slug}
-        category={item.category}
-        coverImage={item.coverImage}
-      />
-
-      <div className="blog-magazine-card__body">
+    <BlogArticleLink slug={item.slug} title={item.title} className="blog-doc-item group">
+      <h3 className="blog-doc-item__title">{item.title}</h3>
+      {item.excerpt ? <p className="blog-doc-item__excerpt">{item.excerpt}</p> : null}
+      <p className="blog-doc-item__meta">
         {item.categoryLabel ? (
-          <p className="blog-magazine-card__label">{item.categoryLabel}</p>
+          <span className="blog-doc-item__category">{item.categoryLabel}</span>
         ) : null}
-        <h3 className="blog-magazine-card__title">{item.title}</h3>
-        {item.excerpt ? <p className="blog-magazine-card__excerpt">{item.excerpt}</p> : null}
+        {item.subCategoryLabel ? (
+          <span className="blog-doc-item__subtopic">{item.subCategoryLabel}</span>
+        ) : null}
         {item.readTime ? (
-          <p className="blog-magazine-card__meta">
-            <Clock className="blog-magazine-card__meta-icon" aria-hidden />
+          <span className="blog-doc-item__read-time">
+            <Clock className="blog-doc-item__meta-icon" aria-hidden />
             {item.readTime}
-          </p>
+          </span>
         ) : null}
-      </div>
-    </Link>
+      </p>
+    </BlogArticleLink>
   );
 }

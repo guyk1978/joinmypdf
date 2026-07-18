@@ -76,6 +76,8 @@ export type BlogPost = {
   title: string;
   keyword?: string;
   category?: string;
+  /** Canonical sub-topic id, normally the primary related tool slug. */
+  subCategory?: string;
   cluster?: string;
   intent?: string;
   intentType?: string;

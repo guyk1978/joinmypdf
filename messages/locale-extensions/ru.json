@@ -5401,133 +5401,133 @@
     "ctaPrivacy": "why local processing matters"
   },
   "Contact": {
-    "metaTitle": "Contact — JoinMyPDF",
-    "metaDescription": "Get in touch with the JoinMyPDF team — questions, feedback, and partnership inquiries.",
-    "title": "Contact",
-    "intro": "Questions, feedback, or partnership ideas? Send us a message.",
-    "nameLabel": "Name",
-    "emailLabel": "Email",
-    "subjectLabel": "Subject",
-    "messageLabel": "Message",
-    "submit": "Send message",
-    "sending": "Sending…",
-    "success": "Thanks — we received your message and will get back to you soon.",
-    "error": "Something went wrong. Please try again.",
-    "errorActivation": "Check dgartists@gmail.com and click the FormSubmit activation link, then try again.",
-    "errorConfig": "The contact form is not configured yet. Please email dgartists@gmail.com directly.",
-    "nameRequired": "Please enter your name.",
-    "emailRequired": "Please enter a valid email address.",
-    "subjectRequired": "Please enter a subject.",
-    "messageRequired": "Please enter a message."
+    "metaTitle": "Обратная связь — JoinMyPDF",
+    "metaDescription": "Свяжитесь с командой JoinMyPDF — вопросы, отзывы и предложения о сотрудничестве.",
+    "title": "Обратная связь",
+    "intro": "Вопросы, отзывы или идеи о партнёрстве? Напишите нам.",
+    "nameLabel": "Имя",
+    "emailLabel": "Электронная почта",
+    "subjectLabel": "Тема",
+    "messageLabel": "Сообщение",
+    "submit": "Отправить сообщение",
+    "sending": "Отправка…",
+    "success": "Спасибо — мы получили ваше сообщение и скоро ответим.",
+    "error": "Что-то пошло не так. Попробуйте ещё раз.",
+    "errorActivation": "Проверьте dgartists@gmail.com и перейдите по ссылке активации FormSubmit, затем попробуйте снова.",
+    "errorConfig": "Форма обратной связи ещё не настроена. Напишите напрямую на dgartists@gmail.com.",
+    "nameRequired": "Пожалуйста, укажите имя.",
+    "emailRequired": "Пожалуйста, укажите корректный адрес электронной почты.",
+    "subjectRequired": "Пожалуйста, укажите тему.",
+    "messageRequired": "Пожалуйста, введите сообщение."
   },
   "Privacy": {
-    "metaTitle": "Privacy & security",
-    "metaDescription": "How JoinMyPDF handles files: local browser processing, no watermark on standard output, and clear expectations for sensitive documents.",
-    "title": "Privacy & security",
-    "p1": "JoinMyPDF is designed around local processing: merge, split, compress, and common conversions run in your browser session. Your files are not sent to JoinMyPDF servers to execute those operations.",
-    "p1Strong": "local processing",
-    "p2": "Downloads are generated on-device. Standard outputs from these tools are not watermarked by JoinMyPDF.",
-    "p2Strong": "Downloads",
-    "p3": "Limits still apply: browser memory, device performance, and PDF protections (passwords, restrictions) can block some tasks. Very large files may fail on low-memory devices—split first, then process in batches.",
-    "p3Strong": "Limits",
-    "p4": "Analytics may collect usage signals (for example Google Analytics) to understand which tools help users succeed. Configure an ad/analytics blocker if your policy requires it.",
-    "p4Strong": "Analytics",
-    "heroBadge": "Privacy & security",
-    "intro": "How JoinMyPDF handles your files — transparent, readable, and built on local browser processing.",
-    "localProcessingBadge": "Local processing",
-    "localProcessingHighlight": "Merge, split, compress, and convert in your browser. Your files are not sent to JoinMyPDF servers to execute those operations.",
-    "privacyFirstLink": "Learn about Privacy First",
-    "relatedLabel": "Related privacy resources",
+    "metaTitle": "Конфиденциальность и безопасность",
+    "metaDescription": "Как JoinMyPDF обрабатывает файлы: локальная обработка в браузере, без водяного знака на стандартном результате и прозрачные ожидания для чувствительных документов.",
+    "title": "Конфиденциальность и безопасность",
+    "p1": "JoinMyPDF построен вокруг локальной обработки: объединение, разделение, сжатие и распространённые преобразования выполняются в сессии браузера. Ваши файлы не отправляются на серверы JoinMyPDF для выполнения этих операций.",
+    "p1Strong": "локальная обработка",
+    "p2": "Загрузки создаются на устройстве. Стандартные результаты этих инструментов JoinMyPDF не помечает водяным знаком.",
+    "p2Strong": "Загрузки",
+    "p3": "Ограничения всё равно есть: память браузера, производительность устройства и защита PDF (пароли, ограничения) могут блокировать некоторые задачи. Очень большие файлы могут не обработаться на устройствах с малой памятью — сначала разделите файл, затем обрабатывайте партиями.",
+    "p3Strong": "Ограничения",
+    "p4": "Аналитика может собирать сигналы об использовании (например Google Analytics), чтобы понять, какие инструменты помогают пользователям. Настройте блокировщик рекламы/аналитики, если этого требует ваша политика.",
+    "p4Strong": "Аналитика",
+    "heroBadge": "Конфиденциальность и безопасность",
+    "intro": "Как JoinMyPDF обрабатывает ваши файлы — прозрачно, понятно и на основе локальной обработки в браузере.",
+    "localProcessingBadge": "Локальная обработка",
+    "localProcessingHighlight": "Объединяйте, разделяйте, сжимайте и конвертируйте в браузере. Ваши файлы не отправляются на серверы JoinMyPDF для выполнения этих операций.",
+    "privacyFirstLink": "Узнать о Privacy First",
+    "relatedLabel": "Связанные материалы о конфиденциальности",
     "sections": {
       "philosophy": {
-        "title": "Core philosophy"
+        "title": "Основной принцип"
       },
       "onDevice": {
-        "title": "On-device processing"
+        "title": "Обработка на устройстве"
       },
       "performance": {
-        "title": "Performance constraints"
+        "title": "Ограничения производительности"
       },
       "analytics": {
-        "title": "Analytics"
+        "title": "Аналитика"
       }
     }
   },
   "About": {
-    "metaTitle": "About JoinMyPDF",
-    "metaDescription": "JoinMyPDF is a privacy-first browser toolkit for PDF, image, and utility workflows — fast, local, and free to use.",
-    "title": "About JoinMyPDF",
-    "description": "A focused toolkit for everyday document work — built for speed, clarity, and on-device privacy.",
+    "metaTitle": "О нас — JoinMyPDF",
+    "metaDescription": "JoinMyPDF — браузерный набор инструментов с приоритетом конфиденциальности для PDF, изображений и утилит: быстро, локально и бесплатно.",
+    "title": "О нас",
+    "description": "Сфокусированный набор инструментов для ежедневной работы с документами — скорость, ясность и конфиденциальность на устройстве.",
     "sections": {
       "mission": {
-        "title": "Our mission",
-        "p1": "JoinMyPDF helps people merge, compress, convert, and secure documents without sending files to a remote server for core workflows.",
-        "p2": "We optimize for predictable UX, fast results, and transparency — so teams with strict data handling can trust what happens in the browser tab."
+        "title": "Наша миссия",
+        "p1": "JoinMyPDF помогает объединять, сжимать, конвертировать и защищать документы без отправки файлов на удалённый сервер для основных сценариев.",
+        "p2": "Мы делаем упор на предсказуемый UX, быстрый результат и прозрачность — чтобы команды со строгими правилами обработки данных могли доверять тому, что происходит во вкладке браузера."
       },
       "approach": {
-        "title": "How we build",
-        "p1": "Most tools run client-side using modern web APIs. You open a page, process locally, and download the result.",
-        "p2": "We ship focused utilities instead of bloated suites — the workflows people repeat every week, not checkbox feature matrices."
+        "title": "Как мы создаём продукт",
+        "p1": "Большинство инструментов работают на стороне клиента с помощью современных веб-API. Вы открываете страницу, обрабатываете файл локально и скачиваете результат.",
+        "p2": "Мы выпускаем точечные утилиты вместо раздутых пакетов — сценарии, которые люди повторяют каждую неделю, а не матрицы лишних функций."
       },
       "contact": {
-        "title": "Get in touch",
-        "p1": "Questions, feedback, or partnership ideas? Visit our contact page — we read every message.",
-        "p2": "For product comparisons and privacy details, see How we compare and Privacy & security."
+        "title": "Связаться с нами",
+        "p1": "Вопросы, отзывы или идеи о партнёрстве? Загляните на страницу обратной связи — мы читаем каждое сообщение.",
+        "p2": "Сравнение продукта и детали о конфиденциальности смотрите в разделах «Как мы сравниваемся» и «Конфиденциальность и безопасность»."
       }
     }
   },
   "Terms": {
-    "metaTitle": "Terms of Service — JoinMyPDF",
-    "metaDescription": "Terms of Service for using JoinMyPDF — acceptable use, disclaimers, and limitations.",
-    "title": "Terms of Service",
-    "description": "Please read these terms before using JoinMyPDF.",
+    "metaTitle": "Условия использования — JoinMyPDF",
+    "metaDescription": "Условия использования JoinMyPDF — допустимое использование, отказ от гарантий и ограничения ответственности.",
+    "title": "Условия использования",
+    "description": "Пожалуйста, ознакомьтесь с этими условиями перед использованием JoinMyPDF.",
     "sections": {
       "acceptance": {
-        "title": "Acceptance",
-        "p1": "By accessing or using JoinMyPDF you agree to these Terms of Service. If you do not agree, do not use the site.",
-        "p2": "We may update these terms from time to time. Continued use after changes are posted constitutes acceptance."
+        "title": "Принятие условий",
+        "p1": "Получая доступ к JoinMyPDF или используя сервис, вы соглашаетесь с этими Условиями использования. Если вы не согласны — не пользуйтесь сайтом.",
+        "p2": "Мы можем время от времени обновлять эти условия. Продолжение использования после публикации изменений означает согласие с ними."
       },
       "use": {
-        "title": "Acceptable use",
-        "p1": "Use JoinMyPDF only for lawful purposes. Do not attempt to disrupt the service, probe systems without permission, or upload malware.",
-        "p2": "You are responsible for the content you process and for complying with laws that apply to your documents and jurisdiction."
+        "title": "Допустимое использование",
+        "p1": "Используйте JoinMyPDF только в законных целях. Не пытайтесь нарушать работу сервиса, сканировать системы без разрешения или загружать вредоносное ПО.",
+        "p2": "Вы несёте ответственность за контент, который обрабатываете, и за соблюдение законов, применимых к вашим документам и юрисдикции."
       },
       "disclaimer": {
-        "title": "Disclaimer",
-        "p1": "JoinMyPDF is provided “as is” without warranties of any kind. Results depend on your browser, device, and file characteristics.",
-        "p2": "We are not liable for indirect, incidental, or consequential damages arising from use of the service to the fullest extent permitted by law."
+        "title": "Отказ от ответственности",
+        "p1": "JoinMyPDF предоставляется «как есть» без каких-либо гарантий. Результат зависит от браузера, устройства и характеристик файла.",
+        "p2": "Мы не несём ответственности за косвенные, случайные или последующие убытки, возникающие из использования сервиса, в максимальной степени, допускаемой законом."
       },
       "contact": {
-        "title": "Contact",
-        "p1": "For questions about these terms, contact us through the Contact page on this site."
+        "title": "Контакты",
+        "p1": "По вопросам об этих условиях свяжитесь с нами через страницу обратной связи на сайте."
       }
     }
   },
   "PrivacyPolicy": {
-    "metaTitle": "Privacy Policy — JoinMyPDF",
-    "metaDescription": "Privacy Policy for JoinMyPDF — what we collect, how analytics works, and how local processing protects your files.",
-    "title": "Privacy Policy",
-    "description": "How we handle information when you use JoinMyPDF.",
+    "metaTitle": "Политика конфиденциальности — JoinMyPDF",
+    "metaDescription": "Политика конфиденциальности JoinMyPDF — какие данные мы собираем, как работает аналитика и как локальная обработка защищает ваши файлы.",
+    "title": "Политика конфиденциальности",
+    "description": "Как мы обрабатываем информацию, когда вы пользуетесь JoinMyPDF.",
     "sections": {
       "overview": {
-        "title": "Overview",
-        "p1": "JoinMyPDF is designed so core document tools run in your browser. For supported workflows, your files are not sent to our servers to perform the operation.",
-        "p2": "This policy explains what limited data we may collect, how cookies and analytics work, and your choices."
+        "title": "Обзор",
+        "p1": "JoinMyPDF устроен так, что основные инструменты для документов работают в вашем браузере. В поддерживаемых сценариях файлы не отправляются на наши серверы для выполнения операции.",
+        "p2": "Эта политика объясняет, какие ограниченные данные мы можем собирать, как работают файлы cookie и аналитика, а также какие у вас есть варианты."
       },
       "files": {
-        "title": "Files you process",
-        "p1": "Processing happens locally in your browser session for supported tools. We do not receive your document contents for those operations.",
-        "p2": "Saved favorites and projects are stored in your browser’s local storage on your device — not in a JoinMyPDF account."
+        "title": "Файлы, которые вы обрабатываете",
+        "p1": "Обработка выполняется локально в сессии браузера для поддерживаемых инструментов. Мы не получаем содержимое ваших документов для этих операций.",
+        "p2": "Сохранённые избранные и проекты хранятся в local storage браузера на вашем устройстве — не в аккаунте JoinMyPDF."
       },
       "analytics": {
-        "title": "Analytics & cookies",
-        "p1": "We may use analytics (for example Google Analytics) to understand which tools are useful and to improve the product.",
-        "p2": "You can block analytics cookies through your browser or our cookie consent controls where shown."
+        "title": "Аналитика и файлы cookie",
+        "p1": "Мы можем использовать аналитику (например Google Analytics), чтобы понимать, какие инструменты полезны, и улучшать продукт.",
+        "p2": "Вы можете блокировать cookie аналитики в браузере или через элементы управления согласием на cookie, где они показаны."
       },
       "rights": {
-        "title": "Your choices",
-        "p1": "You may stop using the site at any time. Clear site data in your browser to remove locally stored favorites or projects.",
-        "p2": "For privacy questions, contact us via the Contact page."
+        "title": "Ваш выбор",
+        "p1": "Вы можете прекратить пользоваться сайтом в любой момент. Очистите данные сайта в браузере, чтобы удалить локально сохранённые избранные или проекты.",
+        "p2": "По вопросам конфиденциальности свяжитесь с нами через страницу обратной связи."
       }
     }
   },
@@ -5539,7 +5539,7 @@
     "heroStrong": "No files are ever uploaded to our servers—everything stays on your device.",
     "heroBody": "JoinMyPDF is built for private PDF tools and secure processing without the upload step every other “online PDF” site requires.",
     "browseTools": "Browse private PDF tools",
-    "privacyPolicy": "Privacy Policy",
+    "privacyPolicy": "Политика конфиденциальности",
     "trustLocalTitle": "Local by design",
     "trustLocalBody": "Core tools use client-side processing: pdf.js reads your file in the tab, and pdf-lib writes the output locally. We do not need your document on a server to merge, redact, or resize it.",
     "trustMarketingTitle": "Not just marketing",

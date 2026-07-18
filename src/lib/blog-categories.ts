@@ -95,6 +95,14 @@ export function resolveBlogDisplayCategory(post: BlogPost): BlogDisplayCategory 
   return "advanced";
 }
 
+/**
+ * Resolve the canonical sub-topic for filtering.
+ * Registry entries explicitly persist this value; relatedTools keeps older data compatible.
+ */
+export function resolveBlogSubcategory(post: BlogPost): string {
+  return post.subCategory || post.relatedTools?.[0] || post.cluster || "other";
+}
+
 export function getBlogCategoryAccent(category: BlogDisplayCategory): string {
   return BLOG_CATEGORY_ACCENT[category];
 }

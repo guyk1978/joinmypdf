@@ -1,13 +1,11 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { AppPageShell } from "@/components/AppPageShell";
 import { BlogArticleContent } from "@/components/BlogArticleContent";
 import {
   generateBlogArticleMetadata,
   generateBlogArticleStaticParams,
   resolveBlogArticlePost,
 } from "@/lib/blog-article";
-import { productPageMainClassName } from "@/lib/tool-ui";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
@@ -22,12 +20,16 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
-  // Canonical lives on /article/[slug]; this route remains for legacy deep links.
-  return generateBlogArticleMetadata({ locale, slug });
+  // Embed surfaces are not indexed — canonical stays on the full article URL.
+  const meta = await generateBlogArticleMetadata({ locale, slug });
+  return {
+    ...meta,
+    robots: { index: false, follow: true },
+  };
 }
 
-/** Legacy `/blog/[slug]` full page — same content as `/article/[slug]`. */
-export default async function BlogPostPage({ params }: Props) {
+/** Chrome-free article body for the ArticleModal iframe (static-export safe). */
+export default async function ArticleEmbedPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
@@ -35,8 +37,8 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <AppPageShell mainClassName={productPageMainClassName}>
+    <div className="article-embed">
       <BlogArticleContent post={post} locale={locale} />
-    </AppPageShell>
+    </div>
   );
 }

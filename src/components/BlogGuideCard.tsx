@@ -11,6 +11,7 @@ import {
   getLocalizedBlogReadTime,
 } from "@/lib/blog-card-i18n";
 import { resolveBlogOgImagePath } from "@/lib/og-images-blog";
+import { blogArticlePath } from "@/lib/blog-article-path";
 import type { BlogPost } from "@/lib/types";
 
 type BlogGuideCardProps = {
@@ -41,7 +42,7 @@ export async function BlogGuideCard({ post, locale, variant = "default" }: BlogG
 
   return (
     <Link
-      href={`/blog/${post.slug}/`}
+      href={blogArticlePath(post.slug)}
       className={clsx(
         "guide-card group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:border-neutral-600 hover:bg-white/[0.06] hover:shadow-[0_20px_56px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)] dark:border-neutral-800 dark:bg-neutral-900/50",
         isFeatured && "guide-card--featured md:flex-row md:items-stretch",

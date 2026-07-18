@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HomeSectionBar } from "@/components/HomeSectionBar";
 import { getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
+import { blogArticlePath } from "@/lib/blog-article-path";
 import type { BlogPost } from "@/lib/types";
 
 const PILLARS: { key: "local" | "fast" | "free"; Icon: LucideIcon }[] = [
@@ -77,7 +78,7 @@ export async function HomeAuthoritySection({ latestPosts }: HomeAuthoritySection
             {latestPosts.map((post) => (
               <li key={post.slug} className="home-im-grid__item">
                 <Link
-                  href={`/blog/${post.slug}/`}
+                  href={blogArticlePath(post.slug)}
                   className="home-im-value-card home-im-value-card--link"
                   prefetch={false}
                 >

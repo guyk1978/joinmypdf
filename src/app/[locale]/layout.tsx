@@ -20,6 +20,7 @@ import { siteUrl } from "@/lib/site";
 
 type Props = {
   children: React.ReactNode;
+  modal: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
 
@@ -39,7 +40,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: Pick<Props, "params">): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const brandName = getBrandName(locale);
 
@@ -90,7 +91,7 @@ export async function generateMetadata({ params }: Pick<Props, "params">): Promi
   };
 }
 
-export default async function LocaleLayout({ children, params }: Props) {
+export default async function LocaleLayout({ children, modal, params }: Props) {
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
@@ -109,6 +110,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <Providers>
         <ScrollDepthTracker />
         {children}
+        {modal}
         <CookieConsent />
       </Providers>
     </NextIntlClientProvider>

@@ -2,6 +2,7 @@ import { LocalProcessingInfographic } from "@/components/LocalProcessingInfograp
 import { ToolBeforeYouStart } from "@/components/ToolBeforeYouStart";
 import { ToolPageDashboardSection } from "@/components/ToolPageDashboardSection";
 import { Link } from "@/i18n/navigation";
+import { blogArticlePath } from "@/lib/blog-article-path";
 import type { BlogPost } from "@/lib/types";
 import { getRelatedGuideLinkLabel } from "@/lib/tool-related-guides";
 import type { ToolSeoBenefitCard, ToolSeoPageOverride } from "@/lib/tool-seo-overrides";
@@ -63,7 +64,7 @@ export function ToolMarketingSections({
               <li key={article.slug}>
                 <Link
                   className="text-base leading-relaxed text-neutral-400 hover:underline"
-                  href={`/blog/${article.slug}/`}
+                  href={blogArticlePath(article.slug)}
                 >
                   {getRelatedGuideLinkLabel(article, tPage)}
                 </Link>
@@ -76,7 +77,7 @@ export function ToolMarketingSections({
       {seoOverride?.featuredGuide ? (
         <ToolPageDashboardSection>
           <Link
-            href={`/blog/${seoOverride.featuredGuide.slug}/`}
+            href={blogArticlePath(seoOverride.featuredGuide.slug)}
             className="text-base leading-relaxed text-neutral-300 hover:underline"
             prefetch={false}
           >

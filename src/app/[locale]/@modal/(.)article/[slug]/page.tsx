@@ -1,13 +1,12 @@
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
-import { AppPageShell } from "@/components/AppPageShell";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { InterceptedArticleModalClient } from "@/components/InterceptedArticleModalClient";
 import { BlogArticleContent } from "@/components/BlogArticleContent";
 import {
   generateBlogArticleMetadata,
   generateBlogArticleStaticParams,
   resolveBlogArticlePost,
 } from "@/lib/blog-article";
-import { productPageMainClassName } from "@/lib/tool-ui";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
@@ -22,21 +21,26 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
-  // Canonical lives on /article/[slug]; this route remains for legacy deep links.
   return generateBlogArticleMetadata({ locale, slug });
 }
 
-/** Legacy `/blog/[slug]` full page — same content as `/article/[slug]`. */
-export default async function BlogPostPage({ params }: Props) {
+/**
+ * App Router intercepting route for soft navigations to `/article/[slug]`.
+ * Folder: `@modal/(.)article/[slug]` under `[locale]` (sibling of `/article`).
+ */
+export default async function InterceptedArticleModalPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
   const post = resolveBlogArticlePost(locale, slug);
   if (!post) notFound();
 
+  const t = await getTranslations("Blog");
+  const title = post.seo?.metaTitle || post.title;
+
   return (
-    <AppPageShell mainClassName={productPageMainClassName}>
+    <InterceptedArticleModalClient title={title} closeLabel={t("articleModalClose")}>
       <BlogArticleContent post={post} locale={locale} />
-    </AppPageShell>
+    </InterceptedArticleModalClient>
   );
 }

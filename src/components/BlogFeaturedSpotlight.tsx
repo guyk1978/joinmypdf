@@ -10,6 +10,7 @@ import {
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
 import { resolveBlogCardCoverImage } from "@/lib/blog-cover-image";
 import { getGuideExcerpt } from "@/lib/blog-excerpt";
+import { blogArticlePath } from "@/lib/blog-article-path";
 import type { BlogPost } from "@/lib/types";
 
 type BlogFeaturedSpotlightProps = {
@@ -62,7 +63,7 @@ async function SpotlightCard({ post, t, featured = false }: SpotlightCardProps) 
 
   return (
     <Link
-      href={`/blog/${post.slug}/`}
+      href={blogArticlePath(post.slug)}
       className={clsx(
         "blog-magazine-spotlight-card group",
         featured && "blog-magazine-spotlight-card--lead",

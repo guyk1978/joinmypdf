@@ -8,6 +8,7 @@ import {
 } from "@/lib/blog-card-i18n";
 import { resolveBlogDisplayCategory } from "@/lib/blog-categories";
 import { getGuideExcerpt } from "@/lib/blog-excerpt";
+import { blogArticlePath } from "@/lib/blog-article-path";
 import type { BlogPost } from "@/lib/types";
 
 type BlogGuideListItemProps = {
@@ -23,7 +24,7 @@ export async function BlogGuideListItem({ post, showCategoryBadge = true }: Blog
   const excerpt = getGuideExcerpt(post);
 
   return (
-    <Link href={`/blog/${post.slug}/`} className="blog-article-card group" prefetch={false}>
+    <Link href={blogArticlePath(post.slug)} className="blog-article-card group" prefetch={false}>
       {showCategoryBadge ? (
         <span className={clsx("blog-category-badge", `blog-category-badge--${category}`)}>
           {categoryLabel}

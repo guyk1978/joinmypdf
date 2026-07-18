@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { CategoryHubsSection } from "@/components/CategoryHubsSection";
+import { PopularTools } from "@/components/homepage/PopularTools";
 import { HomeStructuredData } from "@/components/HomeStructuredData";
 import { AppPageShell } from "@/components/AppPageShell";
 import { routing } from "@/i18n/routing";
@@ -39,6 +40,8 @@ export default async function HomePage({ params }: Props) {
             <h1 className="home-landing__title">{t("landing.heroTitle")}</h1>
             <p className="home-landing__tagline">{t("landing.heroSubtitle")}</p>
           </header>
+
+          <PopularTools locale={locale} />
 
           <CategoryHubsSection
             className="home-category-launcher"
