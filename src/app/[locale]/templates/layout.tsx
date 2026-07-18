@@ -1,9 +1,15 @@
 import { RouteIntlProvider } from "@/components/RouteIntlProvider";
 import type { ReactNode } from "react";
 
-export default function TemplatesLayout({ children }: { children: ReactNode }) {
+type Props = {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+};
+
+export default async function TemplatesLayout({ children, params }: Props) {
+  const { locale } = await params;
   return (
-    <RouteIntlProvider namespaces={["StudioTools"]}>
+    <RouteIntlProvider locale={locale} namespaces={["StudioTools"]}>
       {children}
     </RouteIntlProvider>
   );

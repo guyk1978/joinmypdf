@@ -1,8 +1,16 @@
 import { RouteIntlProvider } from "@/components/RouteIntlProvider";
 import type { ReactNode } from "react";
 
-export default function ContactLayout({ children }: { children: ReactNode }) {
+type Props = {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+};
+
+export default async function ContactLayout({ children, params }: Props) {
+  const { locale } = await params;
   return (
-    <RouteIntlProvider namespaces={["Contact"]}>{children}</RouteIntlProvider>
+    <RouteIntlProvider locale={locale} namespaces={["Contact"]}>
+      {children}
+    </RouteIntlProvider>
   );
 }
