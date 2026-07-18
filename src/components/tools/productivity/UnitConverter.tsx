@@ -31,7 +31,9 @@ type UnitConverterProps = {
   className?: string;
 };
 
-const CATEGORY_LABEL_KEYS: Record<UnitCategory, keyof UnitConverterLabels> = {
+type CategoryLabelKey = "categoryWeight" | "categoryLength" | "categoryArea";
+
+const CATEGORY_LABEL_KEYS: Record<UnitCategory, CategoryLabelKey> = {
   weight: "categoryWeight",
   length: "categoryLength",
   area: "categoryArea",
