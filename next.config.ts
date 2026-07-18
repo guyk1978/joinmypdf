@@ -14,8 +14,8 @@ const nodeStub = path.join(process.cwd(), "src/lib/node-stub.ts");
  *
  * Enable static export for:
  * - explicit local static builds (`build:static`)
- * - Cloudflare build script (`build:cloudflare`)
- * - CI-forced static export (`NEXT_FORCE_STATIC_EXPORT=1`) used by next-on-pages
+ * - Cloudflare build script (`build:cloudflare`) — publishes `out/` (no next-on-pages)
+ * - CI-forced static export (`NEXT_FORCE_STATIC_EXPORT=1`)
  * - Cloudflare Pages builds (`CF_PAGES=1`) when present
  */
 const isCloudflarePages = process.env.CF_PAGES === "1";

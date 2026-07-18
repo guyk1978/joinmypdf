@@ -1,10 +1,12 @@
 /**
- * After Cloudflare/Next build:
- * 1. Copy root `_redirects` into publish roots (next.config redirects are ignored with `output: "export"`).
- * 2. Ensure `_routes.json` excludes unlocalized `/tools` paths so the Pages Worker
- *    does not swallow those requests before `_redirects` can 301 to `/en/tools/...`.
- * 3. Strip any publish asset larger than Cloudflare Pages' 25 MiB limit
- *    (e.g. ffmpeg-core.wasm reintroduced by a nested vercel/next-on-pages sync).
+ * After Cloudflare/Next static export:
+ * 1. Copy root `_redirects` / `_headers` into publish roots (`out/` primary;
+ *    `.vercel/output/static` kept for local legacy paths).
+ *    next.config redirects are ignored with `output: "export"`.
+ * 2. Ensure `_routes.json` excludes unlocalized `/tools` paths so a Pages Worker
+ *    (if present) does not swallow those requests before `_redirects` can 301.
+ * 3. Strip source maps and any publish asset larger than Cloudflare Pages' 25 MiB limit.
+ * 4. Log file count / size so deploy timeouts from oversized trees are easier to spot.
  */
 import { copyFile, mkdir, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -149,15 +151,54 @@ async function removeOversizedPublishAssets(dir) {
   }
 }
 
+/** Drop source maps — they bloat file count/upload time and aren't needed in production. */
+async function removeSourceMaps(dir) {
+  const files = await collectFiles(dir);
+  let removed = 0;
+  for (const file of files) {
+    if (!file.endsWith(".map")) continue;
+    await rm(file, { force: true });
+    removed += 1;
+  }
+  if (removed > 0) {
+    console.log(
+      `copy-redirects: removed ${removed} source map(s) under ${path.relative(root, dir) || "."}`
+    );
+  }
+}
+
+async function logPublishStats(dir) {
+  const files = await collectFiles(dir);
+  if (files.length === 0) {
+    console.log(`copy-redirects: ${path.relative(root, dir) || "."} is empty or missing`);
+    return;
+  }
+  let totalBytes = 0;
+  for (const file of files) {
+    totalBytes += (await stat(file)).size;
+  }
+  const mb = (totalBytes / (1024 * 1024)).toFixed(1);
+  console.log(
+    `copy-redirects: ${path.relative(root, dir) || "."} → ${files.length.toLocaleString()} files, ${mb} MiB`
+  );
+  if (files.length > 18000) {
+    console.warn(
+      `copy-redirects: WARNING — approaching Cloudflare Pages Free file limit (20,000). Count=${files.length}`
+    );
+  }
+}
+
 for (const publishDir of [
   path.join(root, "out"),
   path.join(root, ".vercel", "output", "static"),
 ]) {
   try {
+    await removeSourceMaps(publishDir);
     await removeOversizedPublishAssets(publishDir);
+    await logPublishStats(publishDir);
   } catch (error) {
     console.warn(
-      `copy-redirects: oversized-asset scan failed for ${path.relative(root, publishDir)} (${error.message})`
+      `copy-redirects: publish cleanup failed for ${path.relative(root, publishDir)} (${error.message})`
     );
   }
 }
