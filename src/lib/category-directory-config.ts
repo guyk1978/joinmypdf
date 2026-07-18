@@ -242,20 +242,25 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
   },
 };
 
-function toGridItem(item: {
-  id: string;
-  href: string;
-  label: string;
-  description?: string;
-}): ToolGridItem {
+function toGridItem(
+  item: {
+    id: string;
+    href: string;
+    label: string;
+    description?: string;
+  },
+  tTools?: { (key: string): string; has: (key: string) => boolean },
+): ToolGridItem {
   return {
     href: item.href,
     label: item.label,
     slugHint: item.id,
     description:
-      getToolCardDescription(item.id) ??
-      item.description ??
-      getToolsInventoryEntry(item.id)?.description,
+      getToolCardDescription(
+        item.id,
+        item.description ?? getToolsInventoryEntry(item.id)?.description,
+        tTools,
+      ) ?? item.description,
   };
 }
 
@@ -277,9 +282,10 @@ export function buildCategoryDirectoryColumns(
   tHome: HomeTranslator,
   tCategory: CategoryDirectoryTranslator,
   locale?: string,
+  tTools?: { (key: string): string; has: (key: string) => boolean },
 ): DirectoryWorkflowColumn[] {
   if (categoryId === "image") {
-    return buildImageCategoryDirectoryColumns(tHome, tCategory, locale);
+    return buildImageCategoryDirectoryColumns(tHome, tCategory, locale, tTools);
   }
 
   const spec = CATEGORY_SPECS[categoryId];
@@ -290,7 +296,7 @@ export function buildCategoryDirectoryColumns(
     const workflowItems = (workflow.toolIds ?? [])
       .map((id) => itemsById.get(id))
       .filter((item): item is (typeof items)[number] => Boolean(item))
-      .map(toGridItem);
+      .map((item) => toGridItem(item, tTools));
 
     return {
       id: workflow.id,
@@ -311,6 +317,7 @@ export function buildCategoryDirectoryFeaturedItems(
   categoryId: CategoryDirectoryId,
   tHome: HomeTranslator,
   locale?: string,
+  tTools?: { (key: string): string; has: (key: string) => boolean },
 ): ToolGridItem[] {
   const spec = CATEGORY_SPECS[categoryId];
   if (!spec.featuredIds?.length) return [];
@@ -321,7 +328,7 @@ export function buildCategoryDirectoryFeaturedItems(
   return spec.featuredIds
     .map((id) => itemsById.get(id))
     .filter((item): item is (typeof items)[number] => Boolean(item))
-    .map(toGridItem);
+    .map((item) => toGridItem(item, tTools));
 }
 
 export function getCategoryDirectoryItemCount(categoryId: CategoryDirectoryId, tHome: HomeTranslator): number {
@@ -375,14 +382,17 @@ export function getCategoryDirectoryPageProps(
   tHome: HomeTranslator,
   tCategory: CategoryDirectoryTranslator,
   locale?: string,
+  tTools?: { (key: string): string; has: (key: string) => boolean },
 ) {
   const meta = DIRECTORY_META[categoryId];
   const spec = CATEGORY_SPECS[categoryId];
   const usesFlatGrid = spec.layout === "flat-grid";
-  const featuredItems = usesFlatGrid ? [] : buildCategoryDirectoryFeaturedItems(categoryId, tHome, locale);
+  const featuredItems = usesFlatGrid
+    ? []
+    : buildCategoryDirectoryFeaturedItems(categoryId, tHome, locale, tTools);
   const startHereKey = `startHereDescription.${categoryId}`;
   const flatGridItems = usesFlatGrid
-    ? spec.buildItems(tHome, locale).map((item) => toGridItem(item))
+    ? spec.buildItems(tHome, locale).map((item) => toGridItem(item, tTools))
     : undefined;
 
   return {
@@ -396,7 +406,7 @@ export function getCategoryDirectoryPageProps(
       featuredItems.length > 0 && tCategory.has(startHereKey) ? tCategory(startHereKey) : undefined,
     workflowColumns: usesFlatGrid
       ? []
-      : buildCategoryDirectoryColumns(categoryId, tHome, tCategory, locale),
+      : buildCategoryDirectoryColumns(categoryId, tHome, tCategory, locale, tTools),
     flatGridItems,
   };
 }

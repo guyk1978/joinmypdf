@@ -50,7 +50,10 @@ export function ToolModalDocsPanel({
     const frame = requestAnimationFrame(() => {
       const tool = registry.tools.find((entry) => entry.slug === model.slug);
       const faqs = tool
-        ? buildLocalizedToolFaqs(tPage, tool, null, model.title, locale)
+        ? buildLocalizedToolFaqs(tPage, tool, null, model.title, locale, {
+            intent: model.intent,
+            primaryKeyword: model.primaryKeyword ?? model.title,
+          })
         : model.faqs;
 
       setFaqItems(

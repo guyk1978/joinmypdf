@@ -26,7 +26,8 @@ export default async function UtilitiesPage({ params }: Props) {
   setRequestLocale(locale);
   const tHome = await getTranslations("Home");
   const tCategory = await getTranslations("CategoryDirectory");
-  const page = getCategoryDirectoryPageProps("utilities", tHome, tCategory);
+  const tTools = await getTranslations("Tools");
+  const page = getCategoryDirectoryPageProps("utilities", tHome, tCategory, locale, tTools);
   const itemCount = getCategoryDirectoryItemCount("utilities", tHome);
 
   return (

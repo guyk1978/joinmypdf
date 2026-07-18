@@ -58,6 +58,7 @@ export const TOOL_CARD_DESCRIPTIONS: Record<string, string> = {
   "image-converter": "Convert images between popular formats quickly.",
   "image-dpi-converter": "Change image DPI for print or screen use.",
   "image-grayscale": "Convert images to clean black-and-white.",
+  "image-combiner": "Combine 2–4 images side by side or vertically and download one PNG.",
   "image-grid-splitter": "Split images into grid tiles ready for social posts.",
   "image-metadata-editor": "Edit image metadata fields before you share.",
   "image-metadata-wiper": "Remove EXIF and hidden metadata from images.",

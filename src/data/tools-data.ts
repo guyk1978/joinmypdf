@@ -12,7 +12,7 @@ import { TOOLS_INVENTORY, getToolsInventoryEntry } from "@/data/tools-inventory"
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { registry } from "@/lib/registry";
 import { getRelatedInventoryToolIds } from "@/lib/tools-inventory-query";
-import { PDF_TOOL_SLUGS_RU } from "@/lib/locale-tool-slugs";
+import { getLocalizedToolSlug } from "@/lib/locale-tool-slugs";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 
 export type ToolsDataEntry = {
@@ -133,8 +133,8 @@ const TOOLS_DATA_BY_PATH: Map<string, ToolsDataEntry> = (() => {
     if (inventory) {
       for (const category of inventory.categories) {
         map.set(normalizeToolPath(resolveToolHref(entry.id, category)), entry);
-        // Russian SEO slug nests (PDF tools) for modal deep-links.
-        if (PDF_TOOL_SLUGS_RU[entry.id]) {
+        // Index every Russian SEO alias, not only PDF aliases, for modal deep-links.
+        if (getLocalizedToolSlug(entry.id, "ru") !== entry.id) {
           map.set(normalizeToolPath(resolveToolHref(entry.id, category, "ru")), entry);
         }
       }

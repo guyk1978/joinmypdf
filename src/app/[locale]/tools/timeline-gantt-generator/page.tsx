@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { BrandEyebrow } from "@/components/BrandEyebrow";
 import { AppPageShell } from "@/components/AppPageShell";
 import { TimelineGenerator } from "@/components/timeline/TimelineGenerator";
@@ -18,6 +19,14 @@ type PageProps = { params: Promise<{ locale: string }> };
 export default async function TimelineGanttGeneratorPage({ params }: PageProps) {
   const { locale } = await params;
   const brand = getBrandName(locale);
+  const tModal = await getTranslations("ToolModal");
+  const howItWorks = tModal("howItWorks");
+  const privacyTitle =
+    locale === "he"
+      ? "פרטיות קודמת — עיצוב מכוון"
+      : locale === "ru"
+        ? "Конфиденциальность по умолчанию"
+        : "Privacy-first by design";
 
   return (
     <>
@@ -49,7 +58,7 @@ export default async function TimelineGanttGeneratorPage({ params }: PageProps) 
         <TimelineGenerator />
 
         <section className="mt-12 rounded-none border border-white/10 bg-white/[0.02] p-4 md:p-4">
-          <h2 className="text-xl font-semibold text-ink">How it works</h2>
+          <h2 className="text-xl font-semibold text-ink">{howItWorks}</h2>
           <ul className="mt-4 max-w-3xl list-inside list-disc space-y-2 text-sm leading-relaxed text-ink-muted md:text-base">
             <li>Add tasks with start and end dates; bars scale automatically on the time grid.</li>
             <li>Place milestones as diamond markers on a dedicated row above the schedule.</li>
@@ -59,7 +68,7 @@ export default async function TimelineGanttGeneratorPage({ params }: PageProps) 
         </section>
 
         <section className="mt-4 rounded-none border border-white/10 bg-white/[0.02] p-4 md:p-4">
-          <h2 className="text-xl font-semibold text-ink">Privacy-first by design</h2>
+          <h2 className="text-xl font-semibold text-ink">{privacyTitle}</h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted md:text-base">
             Your project data never leaves your device during editing. PDF export runs entirely in the
             browser: the live chart is rasterized and saved locally—no server processing.

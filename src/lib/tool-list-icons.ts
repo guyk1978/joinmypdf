@@ -139,6 +139,7 @@ const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
   "image-blur-redact": "eye-off",
   "image-watermark": "stamp",
   "image-grid-splitter": "crop",
+  "image-combiner": "layers",
   "favicon-generator": "sparkles",
   "generate-favicon": "sparkles",
   "png-to-ico": "file-image",

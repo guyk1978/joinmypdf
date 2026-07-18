@@ -30,6 +30,7 @@ import { ImageMetadataEditorWorkspace } from "@/components/ImageMetadataEditorWo
 import { ImageMetadataWiperWorkspace } from "@/components/ImageMetadataWiperWorkspace";
 import { ImageBlurRedactWorkspace } from "@/components/ImageBlurRedactWorkspace";
 import { ImageGridSplitterWorkspace } from "@/components/ImageGridSplitterWorkspace";
+import { ImageCombinerWorkspace } from "@/components/ImageCombinerWorkspace";
 import { ImageWatermarkWorkspace } from "@/components/ImageWatermarkWorkspace";
 import { ImageOptimizerWorkspace } from "@/components/ImageOptimizerWorkspace";
 import { PaintOnImageWorkspace } from "@/components/PaintOnImageWorkspace";
@@ -479,6 +480,8 @@ export default async function ToolPage({
           <ImageWatermarkWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "image-grid-splitter" ? (
           <ImageGridSplitterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "image-combiner" ? (
+          <ImageCombinerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "image-optimizer" ? (
           <ImageOptimizerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "paint-on-image" ? (

@@ -133,6 +133,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "image-blur-redact", labelKey: "imageBlurRedact", categories: [c.image, c.security] },
   { slug: "image-watermark", labelKey: "imageWatermark", categories: [c.image] },
   { slug: "image-grid-splitter", labelKey: "imageGridSplitter", categories: [c.image] },
+  { slug: "image-combiner", labelKey: "imageCombiner", categories: [c.image] },
   { slug: "image-optimizer", labelKey: "imageOptimizer", categories: [c.image] },
   { slug: "svg-optimizer", labelKey: "svgOptimizer", categories: [c.image] },
   { slug: "paint-on-image", labelKey: "paintOnImage", categories: [c.image] },
@@ -392,6 +393,7 @@ export const TOOL_REGISTRY = {
     "image-blur-redact",
     "image-watermark",
     "image-grid-splitter",
+    "image-combiner",
     "video-resizer",
     "video-rotator",
     "crop-pdf",
@@ -560,7 +562,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "image",
         labelKey: "megaMenu.columns.image",
-        slugs: columnSlugs(["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image", "image-blur-redact", "image-watermark", "image-grid-splitter"], TOOL_REGISTRY.Resize),
+        slugs: columnSlugs(["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image", "image-blur-redact", "image-watermark", "image-grid-splitter", "image-combiner"], TOOL_REGISTRY.Resize),
       },
       {
         id: "pdf",

@@ -26,7 +26,8 @@ export default async function TextJsonToolsPage({ params }: Props) {
   setRequestLocale(locale);
   const tHome = await getTranslations("Home");
   const tCategory = await getTranslations("CategoryDirectory");
-  const page = getCategoryDirectoryPageProps("text-json", tHome, tCategory);
+  const tTools = await getTranslations("Tools");
+  const page = getCategoryDirectoryPageProps("text-json", tHome, tCategory, locale, tTools);
   const itemCount = getCategoryDirectoryItemCount("text-json", tHome);
 
   return (

@@ -2734,6 +2734,62 @@
       "updatedAt": "2026-07-15"
     },
     {
+      "slug": "image-combiner",
+      "category": "image-tools",
+      "subCategory": "transform",
+      "operation": "image-combiner",
+      "title": "Image Combiner",
+      "primaryKeyword": "combine images online",
+      "intent": "Combine 2 to 4 images horizontally or vertically, reorder them, preview the result, and download one PNG entirely in your browser.",
+      "description": "Free online image combiner and photo joiner. Merge JPG, PNG, or WebP images side by side or vertically, reorder photos, preview the output, and download one PNG — 100% local.",
+      "secondaryKeywords": [
+        "merge images",
+        "combine photos",
+        "photo joiner",
+        "join images side by side"
+      ],
+      "useCases": [
+        "Join before-and-after photos side by side",
+        "Stack screenshots vertically into one long image",
+        "Combine product images into a simple comparison strip"
+      ],
+      "relatedTools": [
+        "image-grid-splitter",
+        "resize-image",
+        "crop-image",
+        "image-watermark"
+      ],
+      "faq": [
+        {
+          "q": "How many images can I combine?",
+          "a": "You can combine between 2 and 4 JPG, PNG, or WebP images in one result."
+        },
+        {
+          "q": "Can I change the image order?",
+          "a": "Yes. Drag the thumbnails or use the move buttons to arrange them before combining."
+        },
+        {
+          "q": "Does Image Combiner preserve aspect ratios?",
+          "a": "Yes. Horizontal layouts normalize images to a shared height, while vertical layouts normalize them to a shared width. Each image keeps its original aspect ratio."
+        },
+        {
+          "q": "Are my photos uploaded?",
+          "a": "No. Image decoding, Canvas rendering, preview, and export all happen locally in your browser."
+        },
+        {
+          "q": "What format is the result?",
+          "a": "The combined image downloads as a lossless PNG file."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-07-18"
+    },
+    {
       "slug": "image-blur-redact",
       "category": "image-tools",
       "subCategory": "transform",

@@ -8,7 +8,24 @@ function mergeTools(
   extra: Record<string, unknown> | undefined,
 ) {
   if (!extra) return base;
-  return { ...base, ...extra };
+  if (!base) return extra;
+  const merged: Record<string, unknown> = { ...base };
+  for (const [key, value] of Object.entries(extra)) {
+    const existing = merged[key];
+    if (
+      value &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      existing &&
+      typeof existing === "object" &&
+      !Array.isArray(existing)
+    ) {
+      merged[key] = { ...(existing as Record<string, unknown>), ...(value as Record<string, unknown>) };
+    } else {
+      merged[key] = value;
+    }
+  }
+  return merged;
 }
 
 export default getRequestConfig(async ({ requestLocale }) => {

@@ -13,14 +13,21 @@ import {
 } from "@/lib/home-more-tools";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
+type ToolsTranslator = {
+  (key: string): string;
+  has: (key: string) => boolean;
+};
+
 type CategoryBlockProps = {
   category: HomeMoreToolsCategory;
   title: string;
   viewAllLabel: string;
+  tTools: ToolsTranslator;
 };
 
 function toCardItems(
   items: { id: string; href: string; label: string }[],
+  tTools: ToolsTranslator,
 ): ToolGridItem[] {
   return items.map((item) => ({
     href: item.href,
@@ -29,11 +36,12 @@ function toCardItems(
     description: getToolCardDescription(
       item.id,
       getToolsInventoryEntry(item.id)?.description,
+      tTools,
     ),
   }));
 }
 
-function CategoryBlock({ category, title, viewAllLabel }: CategoryBlockProps) {
+function CategoryBlock({ category, title, viewAllLabel, tTools }: CategoryBlockProps) {
   return (
     <section
       className="home-im-section home-category-block"
@@ -48,7 +56,7 @@ function CategoryBlock({ category, title, viewAllLabel }: CategoryBlockProps) {
       />
       <CategoryDirectoryFlatGrid
         className="home-im-grid"
-        items={toCardItems(category.items)}
+        items={toCardItems(category.items, tTools)}
       />
     </section>
   );
@@ -60,6 +68,7 @@ type HomeToolGridProps = {
 
 export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
   const t = useTranslations("Home");
+  const tTools = useTranslations("Tools");
   const categories = buildHomeMoreToolsCategories(t);
 
   const pdfItems: ToolGridItem[] = pdfPowerhouseItems.map((item) => ({
@@ -69,6 +78,7 @@ export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
     description: getToolCardDescription(
       item.slugHint,
       getToolsInventoryEntry(item.slugHint)?.description,
+      tTools,
     ),
   }));
 
@@ -102,6 +112,7 @@ export function HomeToolGrid({ pdfPowerhouseItems }: HomeToolGridProps) {
               category={category}
               title={t(category.titleKey)}
               viewAllLabel={t(category.viewAllLabelKey)}
+              tTools={tTools}
             />
           ))}
         </div>

@@ -1,4 +1,5 @@
 import type { DirectoryWorkflowColumn } from "@/components/ToolsDirectoryDashboard";
+import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { TOOL_DEFINITIONS } from "@/config/tools";
 import { JPG_TOOLS_HUB_PATH } from "@/lib/jpg-tools";
 import { PNG_TOOLS_HUB_PATH } from "@/lib/png-tools";
@@ -23,7 +24,8 @@ export type ImageToolIconKey =
   | "tags"
   | "pen-line"
   | "stamp"
-  | "gauge";
+  | "gauge"
+  | "layers";
 
 export type HomeImageToolItem = {
   id: string;
@@ -65,10 +67,11 @@ const SLUG_ICON_KEYS: Record<string, ImageToolIconKey> = {
   "image-blur-redact": "eye-off",
   "image-watermark": "stamp",
   "image-grid-splitter": "crop",
+  "image-combiner": "layers",
 };
 
 const DIRECTORY_ORDER: Record<ImageSubCategory, readonly string[]> = {
-  transform: ["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image", "image-blur-redact", "image-watermark", "image-grid-splitter"],
+  transform: ["resize-image", "crop-image", "rotate-image", "flip-image", "paint-on-image", "image-blur-redact", "image-watermark", "image-grid-splitter", "image-combiner"],
   convert: [
     "image-converter",
     "convert-to-png",
@@ -203,11 +206,15 @@ export function buildHomepageFeaturedImageItems(
   return [...hubItems, ...toolItems];
 }
 
-function toGridItem(item: HomeImageToolItem): ToolGridItem {
+function toGridItem(
+  item: HomeImageToolItem,
+  tTools?: { (key: string): string; has: (key: string) => boolean },
+): ToolGridItem {
   return {
     href: item.href,
     label: item.label,
     slugHint: item.id,
+    description: getToolCardDescription(item.id, undefined, tTools),
   };
 }
 
@@ -224,6 +231,7 @@ export function buildImageCategoryDirectoryColumns(
   tHome: HomeTranslator,
   tCategory: CategoryDirectoryTranslator,
   locale?: string,
+  tTools?: { (key: string): string; has: (key: string) => boolean },
 ): DirectoryWorkflowColumn[] {
   const items = buildHomeImageToolItems(tHome, locale);
   const itemsBySubCategory = new Map<ImageSubCategory, HomeImageToolItem[]>();
@@ -244,7 +252,7 @@ export function buildImageCategoryDirectoryColumns(
       {
         id: `image-${workflowId}`,
         title: "",
-        items: (itemsBySubCategory.get(workflowId) ?? []).map(toGridItem),
+        items: (itemsBySubCategory.get(workflowId) ?? []).map((item) => toGridItem(item, tTools)),
       },
     ],
   }));

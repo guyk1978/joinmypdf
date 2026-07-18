@@ -340,6 +340,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
     ? getToolModalDocModel(active.slug, active.title, {
         locale,
         t: tPage,
+        tTools,
         title: active.title,
         description: active.description,
       })

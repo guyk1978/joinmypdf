@@ -77,5 +77,7 @@ export function buildVideoToolGridItems(t?: InventoryTranslator, locale?: string
 }
 
 export function getVideoToolFeatureLabels(t?: InventoryTranslator): string[] {
-  return ["Video Processing", ...getInventoryFeatureLabels("video", t)];
+  const processing =
+    t?.has("featureVideoProcessing") ? t("featureVideoProcessing") : "Video Processing";
+  return [processing, ...getInventoryFeatureLabels("video", t)];
 }

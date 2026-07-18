@@ -26,7 +26,8 @@ export default async function AudioToolsPage({ params }: Props) {
   setRequestLocale(locale);
   const tHome = await getTranslations("Home");
   const tCategory = await getTranslations("CategoryDirectory");
-  const page = getCategoryDirectoryPageProps("audio", tHome, tCategory);
+  const tTools = await getTranslations("Tools");
+  const page = getCategoryDirectoryPageProps("audio", tHome, tCategory, locale, tTools);
   const itemCount = getCategoryDirectoryItemCount("audio", tHome);
 
   return (

@@ -529,6 +529,16 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "imageGridSplitter",
   },
   {
+    id: "image-combiner",
+    title: "Image Combiner",
+    path: "/tools/image-combiner/",
+    description:
+      "Combine 2 to 4 JPG, PNG, or WebP images horizontally or vertically, reorder them, preview the result, and download one PNG — 100% local.",
+    categories: ["image"] as const,
+    primaryCategory: "image",
+    labelKey: "imageCombiner",
+  },
+  {
     id: "image-optimizer",
     title: "Universal Image Optimizer & Converter",
     path: "/tools/image-optimizer/",

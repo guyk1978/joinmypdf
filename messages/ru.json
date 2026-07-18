@@ -255,7 +255,8 @@
       "dataConverter": "Data Converter",
       "quickNote": "Менеджер заметок",
       "wavToMp3": "WAV в MP3",
-      "audioCompressor": "Сжатие аудио"
+      "audioCompressor": "Сжатие аудио",
+      "imageCombiner": "Объединить изображения"
     },
     "library": "Library",
     "drawer": {
@@ -578,6 +579,10 @@
         "svgOptimizer": {
           "label": "Оптимизация SVG",
           "description": "Минифицируйте SVG через SVGO в браузере — сравните размер и превью."
+        },
+        "imageCombiner": {
+          "label": "Объединить изображения",
+          "description": "Соедините 2–4 изображения JPG, PNG или WebP горизонтально или вертикально — измените порядок, просмотрите и экспортируйте локально."
         }
       }
     },
@@ -1043,7 +1048,8 @@
       "ssl-decoder": "Декодер SSL",
       "storage-data-converter": "Конвертер единиц хранения",
       "uuid-generator": "Генератор UUID",
-      "global-timezone-converter": "Глобальный конвертер часовых поясов"
+      "global-timezone-converter": "Глобальный конвертер часовых поясов",
+      "image-combiner": "Объединить изображения"
     },
     "cardDescriptions": {
       "add-page-numbers": "Добавьте номера страниц в PDF с выбором расположения и формата.",
@@ -1205,7 +1211,8 @@
       "timeline-gantt-generator": "Стройте временные шкалы и диаграммы Ганта локально.",
       "user-agent-parser": "Разберите User-Agent строку локально в браузере.",
       "uuid-generator": "Генерируйте UUID/GUID локально в браузере.",
-      "global-timezone-converter": "Сравнивайте часовые пояса и копируйте расписание встреч локально."
+      "global-timezone-converter": "Сравнивайте часовые пояса и копируйте расписание встреч локально.",
+      "image-combiner": "Объедините 2–4 изображения рядом или вертикально и скачайте один PNG."
     },
     "navItems": {
       "pdfToWord": "PDF в Word",
@@ -4122,7 +4129,8 @@
       "videoSpeed": "Скорость видео",
       "videoMetadataCleaner": "Очистка метаданных видео",
       "videoConverter": "Конвертер видео"
-    }
+    },
+    "featureVideoProcessing": "Обработка видео"
   },
   "DeveloperToolsHubPage": {
     "metaTitle": "Инструменты разработчика | Безопасность, хеш, UUID и кодирование | JoinMyPDF",
@@ -6207,7 +6215,19 @@
     "summaryFieldsRemoved": "{count} previewed field(s) targeted for removal",
     "downloadCleaned": "Download cleaned video",
     "processAnother": "Clean another video",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "fieldModificationTime": "Время изменения",
+    "fieldDeviceMake": "Производитель устройства",
+    "fieldDeviceModel": "Модель устройства",
+    "fieldDate": "Дата",
+    "fieldEncoder": "Кодировщик / ПО",
+    "fieldComment": "Комментарий",
+    "fieldTitle": "Название",
+    "fieldArtist": "Исполнитель",
+    "fieldAlbum": "Альбом",
+    "fieldSoftware": "ПО",
+    "fieldFormat": "Формат",
+    "fieldCopyright": "Авторские права"
   },
   "VideoMetadataCleanerPage": {
     "metaTitle": "Free Online Video Metadata Cleaner | Strip GPS & EXIF | JoinMyPDF",
@@ -6649,5 +6669,34 @@
     "success": "Готово — {size} MP3 создан на устройстве.",
     "download": "Скачать {fileName}",
     "invalidFile": "Выберите WAV, OGG, AAC или M4A — на выходе будет MP3."
+  },
+  "ImageCombiner": {
+    "dropTitle": "Перетащите 2–4 изображения",
+    "addMoreTitle": "Добавить изображения",
+    "dropHint": "Выберите JPG, PNG или WebP. Не более 4 файлов.",
+    "selectFiles": "Выбрать изображения с устройства",
+    "selectFilesAria": "Выбрать от 2 до 4 изображений для объединения",
+    "selectedTitle": "Выбранные изображения",
+    "selectedCount": "{count} из {max} изображений",
+    "reorderHint": "Перетаскивайте изображения или используйте стрелки, чтобы изменить порядок.",
+    "remove": "Удалить изображение",
+    "moveEarlier": "Переместить изображение раньше",
+    "moveLater": "Переместить изображение позже",
+    "settingsTitle": "Настройки объединения",
+    "layoutLabel": "Направление",
+    "horizontal": "Горизонтально",
+    "vertical": "Вертикально",
+    "combine": "Объединить изображения",
+    "combining": "Объединение…",
+    "resultTitle": "Объединённое изображение готово",
+    "resultDimensions": "{width} × {height} пикс.",
+    "downloadResult": "Скачать результат",
+    "startOver": "Начать заново",
+    "privacyLabel": "100% локальная обработка. Изображения не покидают устройство.",
+    "invalidFile": "Выберите изображения JPG, PNG или WebP.",
+    "tooManyFiles": "За один раз можно объединить не более 4 изображений.",
+    "needMoreFiles": "Добавьте как минимум 2 изображения.",
+    "errorGeneric": "Не удалось объединить изображения. Попробуйте файлы меньшего размера.",
+    "successHint": "Объединённый PNG создан локально и готов к скачиванию."
   }
 }

@@ -18,6 +18,8 @@ export type ImageToolDropzoneProps = {
   selectLabel: string;
   selectAria?: string;
   dropHint?: string;
+  /** Fully localized formats/help label; bypasses the legacy English "Supports:" prefix. */
+  supportsLabel?: string;
   supportedFormats?: string[];
   privacyLabel?: string;
   accept: string;
@@ -37,6 +39,7 @@ export function ImageToolDropzone({
   selectLabel,
   selectAria,
   dropHint,
+  supportsLabel: localizedSupportsLabel,
   supportedFormats = [],
   privacyLabel = "Local Processing. Nothing is uploaded.",
   accept,
@@ -49,10 +52,12 @@ export function ImageToolDropzone({
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
 
-  const supportsLabel = formatSupportsLabel(
-    supportedFormats,
-    dropHint ? (/^supports:/i.test(dropHint) ? dropHint : `Supports: ${dropHint}`) : "",
-  );
+  const supportsLabel =
+    localizedSupportsLabel ??
+    formatSupportsLabel(
+      supportedFormats,
+      dropHint ? (/^supports:/i.test(dropHint) ? dropHint : `Supports: ${dropHint}`) : "",
+    );
 
   const handleFiles = (files: FileList | null) => {
     if (!files?.length || disabled) return;

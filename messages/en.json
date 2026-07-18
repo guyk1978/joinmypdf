@@ -253,7 +253,8 @@
       "invoiceGenerator": "Invoice Generator",
       "timelineGanttGenerator": "Timeline & Gantt",
       "dataConverter": "Data Converter",
-      "quickNote": "Multi-Note Manager"
+      "quickNote": "Multi-Note Manager",
+      "imageCombiner": "Image Combiner"
     },
     "library": "Library",
     "drawer": {
@@ -576,6 +577,10 @@
         "svgOptimizer": {
           "label": "SVG Optimizer",
           "description": "Minify SVG with SVGO in your browser — compare sizes and preview before download."
+        },
+        "imageCombiner": {
+          "label": "Image Combiner",
+          "description": "Join 2–4 JPG, PNG, or WebP images horizontally or vertically — reorder, preview, and export locally."
         }
       }
     },
@@ -990,7 +995,8 @@
       "unit-converter": "Unit Converter",
       "url-encoder-decoder": "URL Encoder / Decoder",
       "url-parameter-stripper": "URL Parameter Stripper",
-      "word-character-counter": "Word & Character Counter"
+      "word-character-counter": "Word & Character Counter",
+      "image-combiner": "Image Combiner"
     },
     "cardDescriptions": {
       "base64-encoder-decoder": "Encode or decode Base64 text and data instantly.",
@@ -1010,7 +1016,8 @@
       "unit-converter": "Convert length, weight, temperature, and more.",
       "url-encoder-decoder": "Encode or decode URL strings safely in your browser.",
       "url-parameter-stripper": "Remove tracking parameters from URLs locally.",
-      "word-character-counter": "Count words, characters, sentences, and paragraphs."
+      "word-character-counter": "Count words, characters, sentences, and paragraphs.",
+      "image-combiner": "Combine 2–4 images side by side or vertically and download one PNG."
     }
   },
   "SearchPage": {
@@ -3803,7 +3810,8 @@
       "videoSpeed": "Video Speed Controller",
       "videoMetadataCleaner": "Video Metadata Cleaner",
       "videoConverter": "Video Converter"
-    }
+    },
+    "featureVideoProcessing": "Video Processing"
   },
   "DeveloperToolsHubPage": {
     "metaTitle": "Developer Tools | Security, Hash, UUID & Encryption | JoinMyPDF",
@@ -5880,7 +5888,19 @@
     "summaryFieldsRemoved": "{count} previewed field(s) targeted for removal",
     "downloadCleaned": "Download cleaned video",
     "processAnother": "Clean another video",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "fieldModificationTime": "Modification time",
+    "fieldDeviceMake": "Device make",
+    "fieldDeviceModel": "Device model",
+    "fieldDate": "Date",
+    "fieldEncoder": "Encoder / software",
+    "fieldComment": "Comment",
+    "fieldTitle": "Title",
+    "fieldArtist": "Artist",
+    "fieldAlbum": "Album",
+    "fieldSoftware": "Software",
+    "fieldFormat": "Format",
+    "fieldCopyright": "Copyright"
   },
   "VideoMetadataCleanerPage": {
     "metaTitle": "Free Online Video Metadata Cleaner | Strip GPS & EXIF | JoinMyPDF",
@@ -6317,5 +6337,34 @@
     "success": "Ready — {size} MP3 generated on your device.",
     "download": "Download {fileName}",
     "invalidFile": "Please choose WAV, OGG, AAC, or M4A — conversion outputs MP3 locally."
+  },
+  "ImageCombiner": {
+    "dropTitle": "Drop 2–4 images to combine",
+    "addMoreTitle": "Add more images",
+    "dropHint": "Choose JPG, PNG, or WebP images. Up to 4 files.",
+    "selectFiles": "Select images from device",
+    "selectFilesAria": "Select 2 to 4 images to combine",
+    "selectedTitle": "Selected images",
+    "selectedCount": "{count} of {max} images",
+    "reorderHint": "Drag images or use the arrow buttons to change their order.",
+    "remove": "Remove image",
+    "moveEarlier": "Move image earlier",
+    "moveLater": "Move image later",
+    "settingsTitle": "Combine settings",
+    "layoutLabel": "Layout direction",
+    "horizontal": "Horizontal",
+    "vertical": "Vertical",
+    "combine": "Combine Images",
+    "combining": "Combining…",
+    "resultTitle": "Combined image ready",
+    "resultDimensions": "{width} × {height} px",
+    "downloadResult": "Download Result",
+    "startOver": "Start over",
+    "privacyLabel": "100% local processing. Your images never leave this device.",
+    "invalidFile": "Choose JPG, PNG, or WebP image files.",
+    "tooManyFiles": "You can combine up to 4 images at a time.",
+    "needMoreFiles": "Add at least 2 images before combining.",
+    "errorGeneric": "Could not combine these images. Try smaller files or different images.",
+    "successHint": "Your combined PNG was created locally and is ready to download."
   }
 }

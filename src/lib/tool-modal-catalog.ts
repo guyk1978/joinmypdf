@@ -9,6 +9,11 @@ import { buildLocalizedToolFaqs } from "@/lib/tool-faqs";
 import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
 import type { ToolDefinition, ToolFaq } from "@/lib/types";
 
+type ToolsTranslator = {
+  (key: string, values?: Record<string, string | number>): string;
+  has: (key: string) => boolean;
+};
+
 export type ToolModalDocModel = {
   slug: string;
   title: string;
@@ -46,12 +51,13 @@ export function getToolModalFaqs(
   locale: string,
   toolTitle: string,
   t?: ToolPageTranslator,
+  overrides?: { intent?: string; primaryKeyword?: string },
 ): ToolFaq[] {
   const tool = findRegistryTool(slug);
   if (!tool) return [];
 
   if (t) {
-    return buildLocalizedToolFaqs(t, tool, null, toolTitle, locale);
+    return buildLocalizedToolFaqs(t, tool, null, toolTitle, locale, overrides);
   }
 
   return tool.faq ?? [];
@@ -64,6 +70,7 @@ export function getToolModalDocModel(
   options?: {
     locale?: string;
     t?: ToolPageTranslator;
+    tTools?: ToolsTranslator;
     title?: string;
     description?: string;
   },
@@ -86,14 +93,32 @@ export function getToolModalDocModel(
     inventory?.description ||
     "";
 
+  const englishIntent = tool?.intent ?? "";
+  let intent: string | undefined;
+  if (options?.tTools?.has(`intents.${slug}`)) {
+    intent = options.tTools(`intents.${slug}`);
+  } else if (locale !== "en" && options?.tTools?.has(`cardDescriptions.${slug}`)) {
+    intent = options.tTools(`cardDescriptions.${slug}`);
+  } else if (locale === "en") {
+    intent = englishIntent || undefined;
+  } else {
+    intent = description || undefined;
+  }
+
+  const useCases = locale === "en" ? (tool?.useCases ?? []) : [];
+  const primaryKeyword = locale === "en" ? tool?.primaryKeyword : undefined;
+
   return {
     slug,
     title,
     description,
-    intent: tool?.intent,
-    primaryKeyword: tool?.primaryKeyword,
-    useCases: tool?.useCases ?? [],
-    faqs: getToolModalFaqs(slug, locale, title, options?.t),
+    intent,
+    primaryKeyword,
+    useCases,
+    faqs: getToolModalFaqs(slug, locale, title, options?.t, {
+      intent,
+      primaryKeyword: primaryKeyword ?? tool?.primaryKeyword ?? title,
+    }),
   };
 }
 

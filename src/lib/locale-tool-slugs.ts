@@ -159,6 +159,7 @@ export const IMAGE_TOOL_SLUGS_RU: Record<string, string> = {
   "image-blur-redact": "razmytie-izobrazheniya",
   "image-dpi-converter": "izmenenie-dpi",
   "image-grayscale": "chernobeloe-izobrazhenie",
+  "image-combiner": "obedinenie-izobrazheniy",
   "image-grid-splitter": "razbit-na-setku",
   "image-metadata-editor": "redaktor-metadannykh-izobrazheniya",
   "image-metadata-wiper": "udalit-metadannye-izobrazheniya",

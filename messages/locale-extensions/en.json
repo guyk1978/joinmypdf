@@ -7814,5 +7814,10 @@
         "outputHint": "Each HEIC becomes one PDF page at full image resolution. Live Photo bursts may add multiple pages from a single file."
       }
     }
+  },
+  "Tools": {
+    "intents": {
+      "image-combiner": "Combine 2 to 4 images horizontally or vertically, reorder them, preview the result, and download one PNG entirely in your browser."
+    }
   }
 }

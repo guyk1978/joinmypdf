@@ -37,6 +37,22 @@ export type VideoMetadataCleanerLabels = {
   previewTitle: string;
   previewEmpty: string;
   previewScanning: string;
+  fieldCaptureTime: string;
+  fieldModificationTime: string;
+  fieldDevice: string;
+  fieldDeviceMake: string;
+  fieldDeviceModel: string;
+  fieldGps: string;
+  fieldDate: string;
+  fieldEncoder: string;
+  fieldComment: string;
+  fieldTitle: string;
+  fieldArtist: string;
+  fieldAlbum: string;
+  fieldSoftware: string;
+  fieldFormat: string;
+  fieldCopyright: string;
+  fieldOther: string;
   sensitiveBadge: string;
   cleanAndDownload: string;
   cleaning: string;
@@ -49,6 +65,35 @@ export type VideoMetadataCleanerLabels = {
   processAnother: string;
   tryAgain: string;
 };
+
+const ENGLISH_FIELD_LABEL_KEYS: Record<string, keyof VideoMetadataCleanerLabels> = {
+  "Capture / creation time": "fieldCaptureTime",
+  "Modification time": "fieldModificationTime",
+  "Device make": "fieldDeviceMake",
+  "Device model": "fieldDeviceModel",
+  "GPS location": "fieldGps",
+  Date: "fieldDate",
+  "Encoder / software": "fieldEncoder",
+  Comment: "fieldComment",
+  Title: "fieldTitle",
+  Artist: "fieldArtist",
+  Album: "fieldAlbum",
+  Software: "fieldSoftware",
+  Format: "fieldFormat",
+  Copyright: "fieldCopyright",
+};
+
+function localizeMetadataFieldLabel(
+  englishLabel: string,
+  labels: VideoMetadataCleanerLabels,
+): string {
+  const direct = ENGLISH_FIELD_LABEL_KEYS[englishLabel];
+  if (direct) return labels[direct];
+  if (/gps|location/i.test(englishLabel)) return labels.fieldGps;
+  if (/make|model|device/i.test(englishLabel)) return labels.fieldDevice;
+  if (/date|time|creation|modification/i.test(englishLabel)) return labels.fieldCaptureTime;
+  return labels.fieldOther;
+}
 
 export type VideoMetadataCleanerProps = {
   labels: VideoMetadataCleanerLabels;
@@ -233,7 +278,7 @@ export function VideoMetadataCleaner({
                     className="flex flex-wrap items-baseline justify-between gap-2 border-b border-neutral-800 pb-2 text-sm last:border-0 last:pb-0"
                   >
                     <span className="text-neutral-400">
-                      {field.label}
+                      {localizeMetadataFieldLabel(field.label, labels)}
                       {field.sensitive ? (
                         <span className="ml-2 text-[10px] uppercase tracking-wider text-amber-400">
                           {labels.sensitiveBadge}

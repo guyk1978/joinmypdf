@@ -73,6 +73,7 @@ export function getFaqsForTool(
   locale: string,
   t?: ToolPageTranslator,
   toolTitle?: string,
+  overrides?: { intent?: string; primaryKeyword?: string },
 ): ToolFaq[] {
   const english = tool.faq ?? [];
   if (!english.length) return [];
@@ -93,7 +94,12 @@ export function getFaqsForTool(
   if (localizedCount === english.length) return localized;
   if (localizedCount > 0) return localized;
 
-  return buildTranslatedToolFaqsFallback(t, title, tool.intent, tool.primaryKeyword);
+  return buildTranslatedToolFaqsFallback(
+    t,
+    title,
+    overrides?.intent ?? tool.intent,
+    overrides?.primaryKeyword ?? tool.primaryKeyword,
+  );
 }
 
 export function buildLocalizedToolFaqs(
@@ -102,6 +108,7 @@ export function buildLocalizedToolFaqs(
   variant: ToolVariant | null,
   toolTitle: string,
   locale: string,
+  overrides?: { intent?: string; primaryKeyword?: string },
 ): ToolFaq[] {
   const universal = buildUniversalFaqs(t, toolTitle);
 
@@ -112,7 +119,7 @@ export function buildLocalizedToolFaqs(
     );
   }
 
-  const specific = getFaqsForTool(tool, locale, t, toolTitle);
+  const specific = getFaqsForTool(tool, locale, t, toolTitle, overrides);
   const merged = dedupeFaqs([...specific, ...universal]);
   return merged;
 }

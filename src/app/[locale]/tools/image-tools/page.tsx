@@ -30,7 +30,8 @@ export default async function ImageToolsPage({ params }: Props) {
   const tHome = await getTranslations("Home");
   const tCategory = await getTranslations("CategoryDirectory");
   const tPage = await getTranslations("ToolPage");
-  const page = getCategoryDirectoryPageProps("image", tHome, tCategory, locale);
+  const tTools = await getTranslations("Tools");
+  const page = getCategoryDirectoryPageProps("image", tHome, tCategory, locale, tTools);
   const itemCount = getCategoryDirectoryItemCount("image", tHome);
 
   const crumbs = [
