@@ -22,11 +22,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
-  // Canonical lives on /article/[slug]; this route remains for legacy deep links.
   return generateBlogArticleMetadata({ locale, slug });
 }
 
-/** Legacy `/blog/[slug]` full page — same content as `/article/[slug]`. */
+/** Canonical article page. Legacy `/article/[slug]` URLs redirect here at the edge. */
 export default async function BlogPostPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);

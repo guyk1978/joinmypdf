@@ -1,4 +1,4 @@
-/** Canonical article path used by deep links + intercepting modal soft navigation. */
+/** Canonical article path used by SEO, deep links, and modal soft navigation. */
 export function blogArticlePath(slug: string): string {
-  return `/article/${slug}`;
+  return `/blog/${slug}`;
 }

@@ -4,6 +4,14 @@
 /tools/ /en/tools 301
 /tools/* /en/tools/:splat 301
 
+# Retired duplicate article routes → one canonical static `/blog/:slug` page.
+/en/article/:slug/embed /en/blog/:slug 301
+/he/article/:slug/embed /he/blog/:slug 301
+/ru/article/:slug/embed /ru/blog/:slug 301
+/en/article/* /en/blog/:splat 301
+/he/article/* /he/blog/:splat 301
+/ru/article/* /ru/blog/:splat 301
+
 # Legacy top-level category hubs → /tools/{hub}/
 /en/image-tools /en/tools/image-tools 301
 /en/image-tools/ /en/tools/image-tools/ 301

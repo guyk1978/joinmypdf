@@ -15,7 +15,7 @@ type BlogArticleLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"
 
 /**
  * Soft-opens articles in ArticleModal when the provider is mounted (blog index).
- * Falls back to a normal `/article/[slug]` navigation elsewhere.
+ * Falls back to a normal canonical `/blog/[slug]` navigation elsewhere.
  */
 export function BlogArticleLink({
   slug,

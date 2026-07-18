@@ -11,7 +11,7 @@ export type FaqSectionProps = {
 };
 
 export function FaqSection({ faqs, heading }: FaqSectionProps) {
-  const t = useTranslations("ToolPage");
+  const t = useTranslations("ToolModal");
 
   if (!faqs.length) return null;
 
@@ -21,7 +21,7 @@ export function FaqSection({ faqs, heading }: FaqSectionProps) {
         id="tool-faq-heading"
         className="mb-6 text-2xl font-bold tracking-tight text-white"
       >
-        {heading ?? t("questions")}
+        {heading ?? t("faq")}
       </h2>
       <FaqAccordion items={faqs} />
     </ToolPageDashboardSection>

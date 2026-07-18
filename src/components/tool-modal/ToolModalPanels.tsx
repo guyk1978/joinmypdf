@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ToolModalFaqAccordion } from "@/components/tool-modal/ToolModalFaqAccordion";
 import { registry } from "@/lib/registry";
 import { faqLd, serializeJsonLd } from "@/lib/schema";
 import { buildLocalizedToolFaqs } from "@/lib/tool-faqs";
+import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
 import type {
   ToolModalDocModel,
   ToolModalRelatedArticle,
@@ -55,12 +56,13 @@ function buildLocalProcessingFallback(toolTitle: string, custom?: string): strin
 export function ToolModalDocsPanel({
   model,
   labels,
+  tPage,
 }: {
   model: ToolModalDocModel;
   labels?: DocsLabels;
+  tPage?: ToolPageTranslator;
 }) {
   const locale = useLocale();
-  const tPage = useTranslations("ToolPage");
   const [isLoading, setIsLoading] = useState(true);
   const [faqItems, setFaqItems] = useState<{ question: string; answer: string }[]>([]);
 
@@ -71,7 +73,7 @@ export function ToolModalDocsPanel({
 
     const frame = requestAnimationFrame(() => {
       const tool = registry.tools.find((entry) => entry.slug === model.slug);
-      const faqs = tool
+      const faqs = tool && tPage
         ? buildLocalizedToolFaqs(tPage, tool, null, model.title, locale, {
             intent: model.intent,
             primaryKeyword: model.primaryKeyword ?? model.title,

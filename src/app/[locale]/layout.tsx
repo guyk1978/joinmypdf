@@ -10,6 +10,10 @@ import { PwaServiceWorkerRegister } from "@/components/PwaServiceWorkerRegister"
 import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { routing } from "@/i18n/routing";
 import { getBrandName } from "@/lib/brand";
+import {
+  pickMessageNamespaces,
+  SHARED_CLIENT_MESSAGE_NAMESPACES,
+} from "@/lib/client-messages";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import {
   PWA_BACKGROUND_COLOR,
@@ -99,9 +103,13 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const clientMessages = pickMessageNamespaces(
+    messages,
+    SHARED_CLIENT_MESSAGE_NAMESPACES,
+  );
 
   return (
-    <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider messages={clientMessages}>
       <LocaleHtmlBootstrap locale={locale} />
       <DocumentLocaleAttributes />
       <GoogleAnalytics />

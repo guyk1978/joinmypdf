@@ -110,7 +110,7 @@ export function ArticleModalProvider({ children }: { children: ReactNode }) {
         >
           <iframe
             title={active.title}
-            src={`${active.href.replace(/\/?$/, "")}/embed`}
+            src={`${active.href}${active.href.includes("?") ? "&" : "?"}embed=1`}
             className="article-modal__frame"
           />
         </ArticleModal>

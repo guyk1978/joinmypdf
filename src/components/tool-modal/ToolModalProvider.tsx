@@ -11,7 +11,12 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import {
+  createTranslator,
+  useLocale,
+  useTranslations,
+  type AbstractIntlMessages,
+} from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { ToolModalWrapper } from "@/components/tool-modal/ToolModalWrapper";
 import {
@@ -41,6 +46,7 @@ import {
   resolveToolHref,
 } from "@/lib/tool-hierarchy";
 import { resolveToolCategoryId } from "@/lib/category-accent-colors";
+import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
 
 export type OpenToolModalOptions = {
   slug: string;
@@ -127,16 +133,48 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   const locale = useLocale();
   const t = useTranslations("ToolModal");
   const tTools = useTranslations("Tools");
-  const tPage = useTranslations("ToolPage");
   const router = useRouter();
   const pathname = usePathname();
   const [active, setActive] = useState<OpenToolModalOptions | null>(null);
   const [visible, setVisible] = useState(false);
   const [contentReady, setContentReady] = useState(false);
+  const [toolPageBundle, setToolPageBundle] = useState<{
+    locale: string;
+    messages: AbstractIntlMessages;
+  } | null>(null);
   const closingRef = useRef(false);
   /** Soft History URL ownership — true when we pushed tool URL without Next navigation. */
   const softUrlRef = useRef(false);
   const returnHrefRef = useRef<string>("/");
+
+  useEffect(() => {
+    if (!active || toolPageBundle?.locale === locale) return;
+    const controller = new AbortController();
+
+    fetch(`/i18n/${locale}/tool-page.json`, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`ToolPage locale asset returned ${response.status}`);
+        }
+        return response.json() as Promise<AbstractIntlMessages>;
+      })
+      .then((messages) => setToolPageBundle({ locale, messages }))
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        console.error("Unable to load ToolPage locale asset", error);
+      });
+
+    return () => controller.abort();
+  }, [active, locale, toolPageBundle?.locale]);
+
+  const tPage = useMemo<ToolPageTranslator | undefined>(() => {
+    if (!toolPageBundle || toolPageBundle.locale !== locale) return undefined;
+    return createTranslator({
+      locale,
+      messages: { ToolPage: toolPageBundle.messages },
+      namespace: "ToolPage",
+    }) as ToolPageTranslator;
+  }, [locale, toolPageBundle]);
 
   const localizeOptions = useCallback(
     (options: OpenToolModalOptions): OpenToolModalOptions => {
@@ -428,6 +466,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             active.docs ?? (
               <ToolModalDocsPanel
                 model={docModel}
+                tPage={tPage}
                 labels={{
                   overview: t("overview"),
                   howItWorks: t("howItWorks"),

@@ -31,3 +31,7 @@
 /assets/fonts/*
   Cross-Origin-Resource-Policy: same-origin
   Cache-Control: public, max-age=31536000, immutable
+
+/i18n/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=3600, must-revalidate

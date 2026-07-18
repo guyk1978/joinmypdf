@@ -49,6 +49,16 @@ const nextConfig: NextConfig = {
               destination: "/en/tools/:path*",
               permanent: true,
             },
+            {
+              source: "/:locale(en|he|ru)/article/:slug/embed",
+              destination: "/:locale/blog/:slug",
+              permanent: true,
+            },
+            {
+              source: "/:locale(en|he|ru)/article/:slug",
+              destination: "/:locale/blog/:slug",
+              permanent: true,
+            },
           ];
         },
       }

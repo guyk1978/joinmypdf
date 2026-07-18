@@ -42,8 +42,8 @@ type BlogArticleContentProps = {
 };
 
 /**
- * Shared article reading view — used by the full `/article/[slug]` page
- * and the intercepting blog modal so content parity stays exact.
+ * Shared article reading view — used by the canonical `/blog/[slug]` page
+ * and its query-string embed mode so content parity stays exact.
  */
 export async function BlogArticleContent({
   post,
