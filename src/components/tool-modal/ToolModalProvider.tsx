@@ -410,6 +410,8 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             ratings: t("ratings", { count: "{count}" }),
             thankYou: t("thankYou"),
             rateAria: t("rateAria"),
+            enterFullScreen: t("enterFullScreen"),
+            exitFullScreen: t("exitFullScreen"),
           }}
           calc={
             active.calc ?? (

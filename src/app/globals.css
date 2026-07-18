@@ -2593,6 +2593,25 @@ html:has(.home-page-shell--minimal) body {
   color: #ededed;
 }
 
+.tool-modal__panel--fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+}
+
+@media (max-width: 640px) {
+  /* Mobile modal is already near full-screen — hide the toggle to save header space */
+  .tool-modal__fullscreen {
+    display: none;
+  }
+}
+
 .tool-modal__toast {
   position: absolute;
   bottom: 1.25rem;

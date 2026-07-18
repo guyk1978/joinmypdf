@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Share2, Star, X } from "lucide-react";
+import { Maximize2, Minimize2, Share2, Star, X } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -47,6 +47,8 @@ export type ToolModalWrapperProps = {
     ratings?: string;
     thankYou?: string;
     rateAria?: string;
+    enterFullScreen?: string;
+    exitFullScreen?: string;
   };
   className?: string;
 };
@@ -73,6 +75,7 @@ export function ToolModalWrapper({
 }: ToolModalWrapperProps) {
   const titleId = useId();
   const [tab, setTab] = useState<ToolModalTab>(defaultTab);
+  const [fullscreen, setFullscreen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorited = slug ? isFavorite(slug) : false;
@@ -97,6 +100,7 @@ export function ToolModalWrapper({
   useEffect(() => {
     if (!open) return;
     setTab(defaultTab);
+    setFullscreen(false);
   }, [open, defaultTab, title]);
 
   useEffect(() => {
@@ -120,11 +124,17 @@ export function ToolModalWrapper({
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key !== "Escape") return;
+      // Esc steps out of full screen first; a second press closes the modal.
+      if (fullscreen) {
+        setFullscreen(false);
+        return;
+      }
+      onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open, onClose, fullscreen]);
 
   if (!mounted) return null;
 
@@ -136,6 +146,9 @@ export function ToolModalWrapper({
   const favoriteLabel = favorited
     ? (labels?.removeFavorite ?? "Remove from favorites")
     : (labels?.addFavorite ?? "Add to favorites");
+  const fullscreenLabel = fullscreen
+    ? (labels?.exitFullScreen ?? "Exit Full Screen")
+    : (labels?.enterFullScreen ?? "Enter Full Screen");
 
   const panes: { id: ToolModalTab; content: ReactNode; scroll?: boolean }[] = [
     { id: "calc", content: calc },
@@ -172,7 +185,10 @@ export function ToolModalWrapper({
           />
 
           <motion.div
-            className="tool-modal__panel"
+            className={clsx(
+              "tool-modal__panel",
+              fullscreen && "tool-modal__panel--fullscreen",
+            )}
             data-category={categoryId || undefined}
             style={accentStyle}
             initial={{ opacity: 0, y: 36 }}
@@ -247,6 +263,21 @@ export function ToolModalWrapper({
                     />
                   </button>
                 ) : null}
+
+                <button
+                  type="button"
+                  className="tool-modal__action tool-modal__fullscreen"
+                  onClick={() => setFullscreen((prev) => !prev)}
+                  aria-label={fullscreenLabel}
+                  aria-pressed={fullscreen}
+                  title={fullscreenLabel}
+                >
+                  {fullscreen ? (
+                    <Minimize2 size={18} strokeWidth={2} aria-hidden />
+                  ) : (
+                    <Maximize2 size={18} strokeWidth={2} aria-hidden />
+                  )}
+                </button>
 
                 <button
                   type="button"
