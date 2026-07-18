@@ -16,7 +16,7 @@ export function JoinMyPdfLogo({ className }: JoinMyPdfLogoProps) {
   return (
     <span className={clsx("joinmypdf-logo-text", className)}>
       <HeaderPdfMini className="header-pdf-mini--tight joinmypdf-logo-text__icon text-neutral-50" />
-      <span className="joinmypdf-logo-text__word font-black tracking-tighter text-neutral-50">
+      <span className="joinmypdf-logo-text__word font-black tracking-tighter">
         {locale === "he" ? brandName : "joinmypdf"}
       </span>
     </span>
