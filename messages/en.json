@@ -1064,6 +1064,337 @@
     "learnPrivacy": "Learn about Privacy First",
     "viewGuides": "View guides"
   },
+  "CategorySeo": {
+    "faqTitle": "Frequently asked questions",
+    "image": {
+      "title": "About Our Image Tools",
+      "p1": "Every image tool on this page runs entirely in your browser. When you resize, crop, compress, or convert a photo, the file is processed locally on your device using WebAssembly and the Canvas API — nothing is uploaded to a server. That means your screenshots, ID scans, and personal photos never leave your computer, and there is no upload queue to wait for.",
+      "p2": "Because processing happens on your own hardware, results are instant even for large images, the tools work offline once the page has loaded, and there are no file-size limits imposed by server plans. Use them for quick one-off edits or batch-prepare images for the web, social posts, or print without installing any software.",
+      "faq": {
+        "q1": "Are my images uploaded to a server?",
+        "a1": "No. All image processing happens locally in your browser. You can verify this in your browser's DevTools network tab — no image data is transmitted while a tool runs.",
+        "q2": "Is there a file-size or usage limit?",
+        "a2": "There are no artificial limits. The only constraint is your device's memory, so even very large photos and batches process fine on a typical laptop or phone.",
+        "q3": "Do the image tools reduce quality?",
+        "a3": "Only when you ask them to. Compression tools let you control the quality level, while converters and crop or resize tools preserve as much quality as the target format allows.",
+        "q4": "Do these tools work offline?",
+        "a4": "Yes. Once a tool page has loaded, processing runs on your device, so an interrupted connection won't stop an edit that is already in progress."
+      }
+    },
+    "security": {
+      "title": "About Our Security Tools",
+      "p1": "Protect your information with our dedicated security suite. Whether you are adding passwords to PDFs, redacting sensitive content, or removing metadata, our tools provide essential privacy features directly in your browser. Since we process everything locally, your secure files never leave your possession.",
+      "faq": {
+        "q1": "Is redaction truly permanent?",
+        "a1": "Yes, our redaction tools permanently mask the selected areas to ensure sensitive content cannot be recovered.",
+        "q2": "How do I know my passwords are safe?",
+        "a2": "Passwords used for encryption are processed locally and are never stored or transmitted by our tools.",
+        "q3": "Can I remove hidden metadata from my files?",
+        "a3": "Yes, our metadata wiper tool is designed to strip EXIF and other hidden data from your files before you share them."
+      }
+    },
+    "audio": {
+      "title": "About Our Audio Tools",
+      "p1": "Convert, trim, compress, and edit audio directly in your browser. These tools use ffmpeg compiled to WebAssembly, so the same engine trusted by professional media pipelines runs locally on your device — your recordings, voice notes, and music files are never uploaded.",
+      "p2": "Local processing means no upload wait for large files, no privacy trade-off for sensitive recordings, and no subscription. Trimming and format conversion use stream copy where possible, which is both instant and lossless.",
+      "faq": {
+        "q1": "Are my audio files uploaded anywhere?",
+        "a1": "No. The ffmpeg engine runs inside your browser via WebAssembly, so files are read and written entirely on your device.",
+        "q2": "Will trimming or converting reduce audio quality?",
+        "a2": "Trimming uses stream copy whenever possible, which is lossless. Format conversions let you choose the bitrate so you control the quality/size trade-off.",
+        "q3": "How large a file can I process?",
+        "a3": "There is no fixed limit — capacity depends on your device's memory. Typical podcasts, songs, and voice memos process without issues."
+      }
+    },
+    "developer": {
+      "title": "About Our Developer Tools",
+      "p1": "Streamline your development workflow with our suite of professional developer tools. From encoding and hashing to system utility tasks, all operations are performed directly in your browser. By utilizing local processing, we ensure your source code, configuration files, and sensitive credentials never leave your secure development environment.",
+      "faq": {
+        "q1": "Are these tools suitable for production-level tasks?",
+        "a1": "Yes, our tools are built for precision and reliability, making them ideal for both rapid prototyping and production debugging.",
+        "q2": "Do you store any of my input data?",
+        "a2": "No, because we use a zero-upload architecture, your code and data remain strictly local to your browser.",
+        "q3": "Can I use these tools in an offline development environment?",
+        "a3": "Once the page is loaded, the tools operate entirely without external dependencies."
+      }
+    },
+    "data-conversion": {
+      "title": "About Our Data Conversion Tools",
+      "p1": "Transform your data formats with confidence. Our specialized conversion tools handle structured data types, ensuring accurate mapping and fast execution. By keeping all conversion tasks within your browser, we guarantee that your proprietary data and structured schemas remain private and secure throughout the entire process.",
+      "faq": {
+        "q1": "What types of structured data are supported?",
+        "a1": "We support common data formats used for programmatic and analytical workflows.",
+        "q2": "Is the data conversion accurate?",
+        "a2": "Yes, we utilize robust parsing logic to ensure that your data structure remains valid during and after conversion.",
+        "q3": "Do I need to be a developer to use these?",
+        "a3": "No, our tools feature intuitive interfaces designed for users of all technical levels."
+      }
+    },
+    "productivity": {
+      "title": "About Our Productivity Tools",
+      "p1": "Boost your daily efficiency with our collection of essential productivity utilities. From text formatting and data sorting to quick calculations, our tools help you save time on repetitive tasks. Everything runs directly on your machine, ensuring your workflow data remains private and your focus stays entirely on your projects.",
+      "faq": {
+        "q1": "Are these tools suitable for business use?",
+        "a1": "Yes, our tools are designed to be fast, reliable, and privacy-focused, making them great for professional environments.",
+        "q2": "Can I use these on any device?",
+        "a2": "Our tools are web-based and responsive, working seamlessly on any device with a modern browser.",
+        "q3": "Is there a limit to how many tasks I can perform?",
+        "a3": "There are no artificial limits; you can use our productivity tools as often as your workflow requires."
+      }
+    },
+    "network": {
+      "title": "About Our Network & API Tools",
+      "p1": "Analyze, test, and debug your network and API endpoints with our browser-based suite. Whether you are inspecting HTTP requests, validating API payloads, or encoding network data, all tools execute locally on your device. Keep your sensitive API keys and internal network configurations secure by avoiding external server uploads.",
+      "faq": {
+        "q1": "Do these tools support secure HTTPS endpoints?",
+        "a1": "Yes, our tools are compatible with standard network protocols used in modern web development.",
+        "q2": "Is my API data stored by the tool?",
+        "a2": "No, we strictly follow a zero-upload policy; your data is processed only within your browser memory.",
+        "q3": "Can I use this for testing local network services?",
+        "a3": "Yes, our tools can interact with any endpoint accessible from your browser, including local development servers."
+      }
+    },
+    "unit-converters": {
+      "title": "About Our Unit Converters Tools",
+      "p1": "Need fast and accurate unit conversions? Our converter suite covers everything from weight and length to digital storage and data transfer speeds. By running locally in your browser, these tools provide instant results without requiring an internet connection after the initial load, making them a reliable utility for any workflow.",
+      "faq": {
+        "q1": "How accurate are the conversions?",
+        "a1": "We use standard scientific conversion factors to ensure high precision in every calculation.",
+        "q2": "Can I convert custom or obscure units?",
+        "a2": "Our suite focuses on the most commonly used global standards for maximum utility.",
+        "q3": "Do these converters work offline?",
+        "a3": "Yes, once the tool is loaded, you can perform conversions completely offline."
+      }
+    },
+    "favicon": {
+      "title": "About Our Favicon Tools",
+      "p1": "Generate the perfect favicon for your website in seconds. Our tools automatically create all necessary sizes and formats for desktop and mobile browsers from your source images. Process your branding assets locally and securely, ensuring your identity designs remain private until you're ready to publish them.",
+      "faq": {
+        "q1": "Which formats do you generate?",
+        "a1": "We generate all industry-standard favicon formats for compatibility across all devices.",
+        "q2": "Can I use any image type as a source?",
+        "a2": "Yes, you can upload common formats like PNG, JPG, or SVG to create your favicon.",
+        "q3": "Is the process automated?",
+        "a3": "Yes, simply upload your source image, and we handle the resizing and formatting automatically."
+      }
+    },
+    "text-json": {
+      "title": "About Our Text & JSON Tools",
+      "p1": "Format, minify, diff, encode, and convert text and JSON without your data ever leaving the browser. API responses and config payloads often contain identifiers and secrets, so these tools process everything locally on your device.",
+      "p2": "The editors handle large documents responsively, update results live as you type, and work offline once the page is loaded. No signup, no server, no limits.",
+      "faq": {
+        "q1": "Is it safe to paste API responses with real data?",
+        "a1": "Yes. Formatting, conversion, and diffing run locally in your browser — nothing is transmitted or logged.",
+        "q2": "How large a JSON document can I format?",
+        "a2": "Documents of several megabytes format quickly since there is no upload. The practical limit is your browser's memory.",
+        "q3": "What's the difference between encoding and encrypting?",
+        "a3": "Base64 and URL encoding are reversible representations, not security measures. Anyone can decode them — use proper encryption for anything confidential."
+      }
+    },
+    "utilities": {
+      "title": "About Our Utilities",
+      "p1": "This hub collects browser-based utilities — favicon generators, JSON and text processors, encoders, and more — that all share one principle: your files and text are processed locally on your device, never uploaded.",
+      "p2": "That local-first design makes the tools fast, private, and dependable: no upload queues, no account walls, and full functionality even on a flaky connection once the page has loaded.",
+      "faq": {
+        "q1": "Why are browser-based tools more private?",
+        "a1": "Because processing happens on your device, there is no server that could store, scan, or leak your data. You can confirm this with your browser's network inspector.",
+        "q2": "Are these tools really free?",
+        "a2": "Yes. Since there are no server processing costs, the tools are free without file limits, watermarks, or trial periods."
+      }
+    },
+    "pdf": {
+      "title": "About Our PDF Tools",
+      "p1": "Our browser-based PDF tools offer a privacy-first way to manage your documents. From merging and splitting to optimizing and editing, all tasks are performed locally on your device. Since no files are uploaded to a server, your sensitive documents—like contracts, receipts, and personal forms—remain completely secure and under your control at all times.",
+      "faq": {
+        "q1": "Is it safe to edit PDF documents online?",
+        "a1": "Yes, with JoinMyPDF, your files never leave your device, ensuring total privacy.",
+        "q2": "Are there limits on the number of pages I can process?",
+        "a2": "No, because processing happens on your local hardware, there are no server-side limits.",
+        "q3": "Do these tools work with scanned PDFs?",
+        "a3": "Yes, our tools can handle both text-based and scanned PDF documents seamlessly."
+      }
+    },
+    "video": {
+      "title": "About Our Video Tools",
+      "p1": "Manage your video files instantly with our comprehensive suite of video editing tools. Whether you need to trim, convert, or compress, everything happens in your browser using the power of your own hardware. Forget about long upload queues and privacy concerns; your raw video footage stays strictly on your computer throughout the entire editing process.",
+      "faq": {
+        "q1": "Will editing videos consume a lot of data?",
+        "a1": "No, since all processing is local, you don't need to upload or download large video files.",
+        "q2": "Does this tool support high-resolution video?",
+        "a2": "Yes, our browser-based engine is optimized to handle large, high-definition video files efficiently.",
+        "q3": "Is the video editing process fast?",
+        "a3": "Since there is no server-side bottleneck, you get immediate results as soon as the tool loads."
+      }
+    },
+    "mp4": {
+      "title": "About Our MP4 Tools",
+      "p1": "Specialized tools for all your MP4 needs. JoinMyPDF provides dedicated utilities to edit, convert, and manage your MP4 files directly in your browser. By utilizing your device's local processing power, we ensure that your media files remain private and that you don't waste time uploading massive files to a cloud server.",
+      "faq": {
+        "q1": "Can I convert MP4 to other formats?",
+        "a1": "Yes, our dedicated MP4 suite includes various conversion options to meet your needs.",
+        "q2": "Does this tool require high-end hardware?",
+        "a2": "No, the tools are optimized to run smoothly on standard laptops and desktops.",
+        "q3": "Are there file-size limitations for MP4 files?",
+        "a3": "Unlike server-based tools, we do not impose file-size limits on your local hardware."
+      }
+    },
+    "convert": {
+      "title": "About Our Convert Tools",
+      "p1": "Experience the fastest way to convert files between formats with our Zero-Upload conversion suite. From documents to media, all conversions are executed locally in your browser. This approach guarantees maximum security for your personal data and eliminates the waiting time typically associated with cloud-based file conversion services.",
+      "faq": {
+        "q1": "What file formats are supported?",
+        "a1": "We support a wide range of common formats for documents, images, and media.",
+        "q2": "Is my data kept private during conversion?",
+        "a2": "Absolutely; since no files are uploaded, your data is never accessible to anyone else.",
+        "q3": "Is this conversion service truly free?",
+        "a3": "Yes, all our browser-based conversion tools are free to use without server plans."
+      }
+    },
+    "compress": {
+      "title": "About Our Compress Tools",
+      "p1": "Shrink your files without sacrificing quality using our specialized local compression utilities. Our tools leverage WebAssembly to compress documents and media right inside your browser. By avoiding server uploads, you not only keep your data private but also avoid the bandwidth restrictions and file-size caps common in traditional online compression tools.",
+      "faq": {
+        "q1": "Does compression reduce the visual quality of images?",
+        "a1": "We use advanced algorithms to maximize compression while maintaining high visual fidelity.",
+        "q2": "Can I compress multiple files at once?",
+        "a2": "Yes, our tools support batch-processing to save you time on multiple files.",
+        "q3": "Do I need an internet connection to compress files?",
+        "a3": "Once the page is loaded, the tools work entirely offline, providing maximum flexibility."
+      }
+    },
+    "extract": {
+      "title": "About Our Extract Tools",
+      "p1": "Need to pull specific elements from your files? Our extraction suite is designed to help you quickly pull pages, images, or data from documents and media. Everything is processed locally in your browser, ensuring that even when you are extracting sensitive information, your files never leave your device.",
+      "faq": {
+        "q1": "Can I extract specific pages from a PDF?",
+        "a1": "Yes, our tool allows you to select and extract any page range you need.",
+        "q2": "Is the extraction process lossless?",
+        "a2": "Yes, we ensure that extracted images and data retain their original quality.",
+        "q3": "Does this work on password-protected files?",
+        "a3": "You can process protected files as long as you have the necessary permissions to open them."
+      }
+    },
+    "jpg": {
+      "title": "About Our JPG Tools",
+      "p1": "Optimize and transform your JPG files effortlessly with our specialized browser-based tools. From compression and format conversion to metadata cleaning, all operations run on your own hardware. Keep your photo collection private and enjoy instant results without any server upload overhead.",
+      "faq": {
+        "q1": "Can I convert other image formats to JPG?",
+        "a1": "Yes, our suite includes comprehensive conversion options for various image types.",
+        "q2": "Will the quality decrease when I save the JPG?",
+        "a2": "You maintain full control over the quality settings to ensure the best balance for your needs.",
+        "q3": "Are these tools suitable for batch processing?",
+        "a3": "Absolutely, our JPG suite is optimized for handling multiple images simultaneously."
+      }
+    },
+    "png": {
+      "title": "About Our PNG Tools",
+      "p1": "Create, edit, and optimize high-quality PNGs with our dedicated toolset. Whether you need transparent backgrounds, file compression, or format conversion, our browser-based approach provides speed and privacy. Since all tasks are handled locally, your graphics and design assets stay secure on your machine.",
+      "faq": {
+        "q1": "Can I compress PNG files without losing transparency?",
+        "a1": "Yes, our compression algorithms are designed to keep transparency intact.",
+        "q2": "Are these tools compatible with all browsers?",
+        "a2": "Yes, our tools are built with web-standard technologies that work on all modern browsers.",
+        "q3": "Is there a limit to how many PNGs I can edit?",
+        "a3": "No, you are only limited by your device's memory."
+      }
+    },
+    "mp3": {
+      "title": "About Our MP3 Tools",
+      "p1": "Manage your audio files directly in the browser with our efficient MP3 toolset. Trim tracks, change formats, and merge audio clips without ever uploading a file to a server. Enjoy the peace of mind that comes with knowing your personal music and recordings stay entirely on your local machine.",
+      "faq": {
+        "q1": "Can I trim an MP3 file without re-encoding?",
+        "a1": "Yes, our tool supports fast, quality-preserving cuts for audio tracks.",
+        "q2": "Can I merge different audio formats into an MP3?",
+        "a2": "Yes, our conversion and merging features handle various audio inputs seamlessly.",
+        "q3": "Does it work offline?",
+        "a3": "Yes, after the initial page load, all audio processing works fully offline."
+      }
+    },
+    "yaml": {
+      "title": "About Our YAML Tools",
+      "p1": "Master your YAML configurations with our dedicated editing and validation tools. Whether you are structuring complex config files for cloud infrastructure or managing local application settings, our browser-based tools offer instant syntax checking and formatting. Experience secure, private editing without the risk of exposing your configurations to external servers.",
+      "faq": {
+        "q1": "Does the tool support multi-document YAML files?",
+        "a1": "Yes, our parser is designed to handle standard YAML structures efficiently.",
+        "q2": "Is my YAML data safe?",
+        "a2": "Your YAML data is processed locally in your browser memory and never transmitted to our servers.",
+        "q3": "Can I format minified YAML?",
+        "a3": "Yes, our formatter is capable of transforming minified or poorly structured YAML into clean, readable code."
+      }
+    },
+    "json": {
+      "title": "About Our JSON Tools",
+      "p1": "JSON management made simple and secure. Our suite includes powerful tools for formatting, minifying, and validating JSON structures. By processing your data locally, we provide a safe environment for handling API responses, configuration data, and large datasets without ever needing to upload them to the cloud.",
+      "faq": {
+        "q1": "Can I validate large JSON files?",
+        "a1": "Yes, our client-side engine is optimized to handle large JSON payloads quickly and accurately.",
+        "q2": "Is there a limit on the number of JSON keys I can process?",
+        "a2": "No, the tool handles complex and deeply nested JSON structures without arbitrary limits.",
+        "q3": "Can I convert JSON to other formats?",
+        "a3": "Our JSON suite includes conversion options to common formats for improved interoperability."
+      }
+    },
+    "text": {
+      "title": "About Our Text Tools",
+      "p1": "Enhance your text editing and manipulation tasks with our versatile collection of text utilities. From character counts and case conversion to advanced cleaning and formatting, all tasks run locally on your device. Keep your drafts, notes, and sensitive text content completely private with our zero-upload promise.",
+      "faq": {
+        "q1": "Can I process very long documents?",
+        "a1": "Yes, our text tools are optimized for both short snippets and large text documents.",
+        "q2": "Do you support different text encodings?",
+        "a2": "Yes, we prioritize standard UTF-8 encoding for maximum compatibility.",
+        "q3": "Is this tool suitable for sensitive writing projects?",
+        "a3": "Absolutely; since no data is transmitted, your content remains on your computer at all times."
+      }
+    },
+    "word": {
+      "title": "About Our Word Tools",
+      "p1": "Manage your Microsoft Word documents effectively with our specialized browser-based utilities. Whether you need to convert files, extract text, or perform quick edits, our tools process your documents directly on your machine. This guarantees your document privacy while delivering the fast, reliable results you expect from professional-grade software.",
+      "faq": {
+        "q1": "Does the tool support all .docx features?",
+        "a1": "Our tools focus on core document management and conversion tasks for high compatibility.",
+        "q2": "Will my document formatting be preserved?",
+        "a2": "We strive to maintain original document structure during processing to ensure your files look exactly as intended.",
+        "q3": "Can I use this for confidential business documents?",
+        "a3": "Yes, the zero-upload nature of our tools ensures your confidential documents never leave your local device."
+      }
+    },
+    "rotate": {
+      "title": "About Our Rotate Tools",
+      "p1": "Need to fix the orientation of your documents or images? Our rotation suite provides precise, instant tools to flip and rotate files exactly as you need them. Because all processing occurs locally within your browser, your sensitive files remain private, and you benefit from high-speed results without any upload delays.",
+      "faq": {
+        "q1": "Can I rotate multiple images at once?",
+        "a1": "Yes, our batch rotation features allow you to adjust multiple files simultaneously.",
+        "q2": "Is the rotation permanent?",
+        "a2": "Yes, once you apply the rotation and download the file, the orientation is saved permanently.",
+        "q3": "Will the file quality be affected?",
+        "a3": "No, our tools perform lossless rotations to ensure your file clarity is perfectly preserved."
+      }
+    },
+    "crop": {
+      "title": "About Our Crop Tools",
+      "p1": "Focus on what matters by cropping your files with ease. Whether it’s trimming margins from a document or selecting a specific region of an image, our browser-based tools give you full control. Processing happens locally on your own hardware, so your personal files are never uploaded or stored anywhere else.",
+      "faq": {
+        "q1": "Can I crop images to custom dimensions?",
+        "a1": "Yes, you can freely adjust the crop area or specify exact pixel dimensions.",
+        "q2": "Do these tools support PDF cropping?",
+        "a2": "Absolutely; you can easily trim white margins or unwanted areas from your PDF pages.",
+        "q3": "Is the cropping process reversible?",
+        "a3": "You can adjust your crop selection as many times as you like before confirming the final download."
+      }
+    },
+    "excel": {
+      "title": "About Our Excel Tools",
+      "p1": "Manage your spreadsheet data securely with our browser-based Excel utilities. From conversion to data extraction, all tasks are handled on your local device. This architecture ensures that your private business data, financial records, and structured lists stay entirely under your control, free from the risks of cloud-based processing.",
+      "faq": {
+        "q1": "Are formulas preserved during conversion?",
+        "a1": "Our tools focus on structured data management; conversion outputs are optimized for data integrity.",
+        "q2": "Can I process large Excel files?",
+        "a2": "Yes, our local processing engine is designed to handle large datasets efficiently within your browser's memory.",
+        "q3": "Is my data ever uploaded to a server?",
+        "a3": "No, we maintain a strict zero-upload policy for all spreadsheet operations."
+      }
+    }
+  },
   "CategoryDirectory": {
     "badge": "Tool category",
     "backToHome": "Back to home",
@@ -6261,6 +6592,8 @@
     "rateAria": "Rate this tool",
     "enterFullScreen": "Enter Full Screen",
     "exitFullScreen": "Exit Full Screen",
+    "showMagnifier": "Show Magnifier",
+    "hideMagnifier": "Hide Magnifier",
     "overview": "Overview",
     "howItWorks": "How it works",
     "useCases": "Use cases",

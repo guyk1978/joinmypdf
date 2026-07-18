@@ -27,7 +27,7 @@ export async function PdfHubPage({ hub, locale }: { hub: PdfHub; locale: string 
 
   return (
     <AppPageShell mainClassName="guides-learning-page">
-      <div className="home-minimal-layout home-minimal-layout--directory">
+      <div className="home-minimal-layout home-minimal-layout--directory page-container">
         <h1 className="home-minimal-tagline">{hub.title}</h1>
         <p className="home-minimal-section__title !mb-6 !text-center !normal-case !tracking-normal">
           {hub.description}

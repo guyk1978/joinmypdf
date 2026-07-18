@@ -15,6 +15,10 @@ import {
   type ReactNode,
   type TouchEvent as ReactTouchEvent,
 } from "react";
+import {
+  getMagnifierPreference,
+  subscribeMagnifierPreference,
+} from "@/lib/magnifier-preference";
 
 export type MagnifierTouchBehavior = "hide" | "toggle";
 
@@ -82,6 +86,18 @@ export function useMagnifier(): MagnifierContextValue {
 
 function useOptionalMagnifier(): MagnifierContextValue | null {
   return useContext(MagnifierContext);
+}
+
+/** Sitewide loupe visibility toggled from the tool-modal header. */
+function useMagnifierPreference(): boolean {
+  const [enabled, setEnabled] = useState(true);
+
+  useEffect(() => {
+    setEnabled(getMagnifierPreference());
+    return subscribeMagnifierPreference(setEnabled);
+  }, []);
+
+  return enabled;
 }
 
 function useFinePointerHover(): boolean {
@@ -153,12 +169,15 @@ export function Magnifier({
 }: MagnifierProps) {
   const ctx = useOptionalMagnifier();
   const zoom = zoomProp ?? ctx?.zoom ?? 2;
-  const contextEnabled = ctx?.enabled ?? true;
+  const preferenceEnabled = useMagnifierPreference();
+  const contextEnabled = (ctx?.enabled ?? true) && preferenceEnabled;
 
   const fineHover = useFinePointerHover();
   const rootRef = useRef<HTMLDivElement>(null);
   const sourceRef = useRef<HTMLDivElement>(null);
   const zoomInnerRef = useRef<HTMLDivElement>(null);
+  /** Last pointer position over the preview — lets a header toggle re-show the lens in place. */
+  const lastPointRef = useRef<{ x: number; y: number } | null>(null);
   const [lens, setLens] = useState<LensState>(HIDDEN_LENS);
   const [touchArmed, setTouchArmed] = useState(false);
 
@@ -190,6 +209,7 @@ export function Magnifier({
 
   const onMouseEnter = useCallback(
     (event: ReactMouseEvent<HTMLDivElement>) => {
+      lastPointRef.current = { x: event.clientX, y: event.clientY };
       if (!canUseHover) return;
       updateFromPoint(event.clientX, event.clientY, true);
     },
@@ -198,6 +218,7 @@ export function Magnifier({
 
   const onMouseMove = useCallback(
     (event: ReactMouseEvent<HTMLDivElement>) => {
+      lastPointRef.current = { x: event.clientX, y: event.clientY };
       if (!canUseHover) return;
       updateFromPoint(event.clientX, event.clientY, true);
     },
@@ -205,6 +226,7 @@ export function Magnifier({
   );
 
   const onMouseLeave = useCallback(() => {
+    lastPointRef.current = null;
     if (!canUseHover) return;
     hideLens();
   }, [canUseHover, hideLens]);
@@ -240,8 +262,14 @@ export function Magnifier({
   );
 
   useEffect(() => {
-    if (!magnifierActive) hideLens();
-  }, [hideLens, magnifierActive]);
+    if (!magnifierActive) {
+      hideLens();
+      return;
+    }
+    // Re-enabled while the pointer is already over the preview — show in place.
+    const point = lastPointRef.current;
+    if (canUseHover && point) updateFromPoint(point.x, point.y, true);
+  }, [canUseHover, hideLens, magnifierActive, updateFromPoint]);
 
   const showLens = magnifierActive && lens.visible && lens.width > 0 && lens.height > 0;
 

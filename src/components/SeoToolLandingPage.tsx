@@ -93,7 +93,7 @@ export async function SeoToolLandingPage({ slug, params }: SeoToolLandingPagePro
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <div className="tool-page-layout__breadcrumbs">
             <ToolBreadcrumbs
               tool={{ slug: landing.workspaceSlug, title: pageTitle, category: tool.category }}

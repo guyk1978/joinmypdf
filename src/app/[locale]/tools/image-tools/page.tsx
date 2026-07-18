@@ -54,7 +54,7 @@ export default async function ImageToolsPage({ params }: Props) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell>
-        <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
+        <div className="page-container">
           <nav aria-label="Breadcrumb" className="tool-breadcrumbs mb-6">
             <ol className="tool-breadcrumbs__list">
               {crumbs.map((crumb, index) => {

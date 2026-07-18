@@ -56,7 +56,7 @@ export default async function PremiumToolsPage({ params }: Props) {
         }}
       />
       <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
+        <div className="home-minimal-layout home-minimal-layout--directory page-container">
           <h1 className="home-minimal-tagline">{tPage("title")}</h1>
           <HomeFeaturedSection
             id="premium-tools"

@@ -400,6 +400,7 @@ export function getCategoryDirectoryPageProps(
     description: tHome(meta.descriptionKey),
     eyebrow: tCategory("badge"),
     categoryId: directoryIdToInventoryCategory(categoryId),
+    seoId: categoryId,
     featuredItems,
     featuredTitle: featuredItems.length > 0 ? tCategory("startHere") : undefined,
     featuredDescription:

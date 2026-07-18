@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -59,7 +60,7 @@ export default async function PngToolsPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <header className="tools-directory-page__head">
             <h1 className="tools-directory-page__title">{t("title")}</h1>
             <p className="tools-directory-page__desc">{t("description")}</p>
@@ -71,6 +72,8 @@ export default async function PngToolsPage({ params }: PageProps) {
           >
             <CategoryDirectoryFlatGrid items={gridItems} categoryId="png" />
           </section>
+
+          <CategorySeoSection categoryId="png" />
 
           <section
             className="mt-10 border-t border-[#262626] pt-8"

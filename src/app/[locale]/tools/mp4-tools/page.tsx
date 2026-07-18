@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -61,7 +62,7 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page mx-auto w-full max-w-7xl px-4 md:px-6">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <nav aria-label="Breadcrumb" className="tool-breadcrumbs mb-6">
             <ol className="tool-breadcrumbs__list">
               {breadcrumbItems.map((item, index) => {
@@ -99,6 +100,8 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
           >
             <CategoryDirectoryFlatGrid items={gridItems} categoryId="mp4" />
           </section>
+
+          <CategorySeoSection categoryId="mp4" />
 
           <ToolsHubRelatedGuides
             posts={relatedGuides}

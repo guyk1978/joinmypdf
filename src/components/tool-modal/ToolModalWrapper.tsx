@@ -2,11 +2,16 @@
 
 import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Maximize2, Minimize2, Share2, Star, X } from "lucide-react";
+import { Maximize2, Minimize2, Search, Share2, Star, X } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
 import { usePageShare } from "@/hooks/usePageShare";
+import {
+  getMagnifierPreference,
+  setMagnifierPreference,
+  subscribeMagnifierPreference,
+} from "@/lib/magnifier-preference";
 import { ToolModalRating } from "@/components/tool-modal/ToolModalRating";
 import {
   getCategoryAccentCssVar,
@@ -49,6 +54,8 @@ export type ToolModalWrapperProps = {
     rateAria?: string;
     enterFullScreen?: string;
     exitFullScreen?: string;
+    showMagnifier?: string;
+    hideMagnifier?: string;
   };
   className?: string;
 };
@@ -76,6 +83,7 @@ export function ToolModalWrapper({
   const titleId = useId();
   const [tab, setTab] = useState<ToolModalTab>(defaultTab);
   const [fullscreen, setFullscreen] = useState(false);
+  const [loupeEnabled, setLoupeEnabled] = useState(true);
   const [mounted, setMounted] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorited = slug ? isFavorite(slug) : false;
@@ -95,6 +103,11 @@ export function ToolModalWrapper({
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    setLoupeEnabled(getMagnifierPreference());
+    return subscribeMagnifierPreference(setLoupeEnabled);
   }, []);
 
   useEffect(() => {
@@ -149,6 +162,9 @@ export function ToolModalWrapper({
   const fullscreenLabel = fullscreen
     ? (labels?.exitFullScreen ?? "Exit Full Screen")
     : (labels?.enterFullScreen ?? "Enter Full Screen");
+  const loupeLabel = loupeEnabled
+    ? (labels?.hideMagnifier ?? "Hide Magnifier")
+    : (labels?.showMagnifier ?? "Show Magnifier");
 
   const panes: { id: ToolModalTab; content: ReactNode; scroll?: boolean }[] = [
     { id: "calc", content: calc },
@@ -263,6 +279,20 @@ export function ToolModalWrapper({
                     />
                   </button>
                 ) : null}
+
+                <button
+                  type="button"
+                  className={clsx(
+                    "tool-modal__action tool-modal__loupe",
+                    !loupeEnabled && "tool-modal__loupe--off",
+                  )}
+                  onClick={() => setMagnifierPreference(!loupeEnabled)}
+                  aria-label={loupeLabel}
+                  aria-pressed={loupeEnabled}
+                  title={loupeLabel}
+                >
+                  <Search size={18} strokeWidth={2} aria-hidden />
+                </button>
 
                 <button
                   type="button"

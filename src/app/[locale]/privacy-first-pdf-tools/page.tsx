@@ -52,7 +52,7 @@ export default async function PillarPage({ params }: Props) {
         }}
       />
       <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
+        <div className="home-minimal-layout home-minimal-layout--directory page-container">
           <h1 className="home-minimal-tagline">Privacy-first PDF tools</h1>
           <p className="home-minimal-section__title !mb-6 !text-center !normal-case !tracking-normal">
             Merge, compress, and split PDFs on your device — without routing files through unknown servers.{" "}

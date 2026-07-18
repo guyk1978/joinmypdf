@@ -450,6 +450,8 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             rateAria: t("rateAria"),
             enterFullScreen: t("enterFullScreen"),
             exitFullScreen: t("exitFullScreen"),
+            showMagnifier: t("showMagnifier"),
+            hideMagnifier: t("hideMagnifier"),
           }}
           calc={
             active.calc ?? (

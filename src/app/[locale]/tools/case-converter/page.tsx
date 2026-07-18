@@ -78,7 +78,7 @@ export default async function CaseConverterPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="mx-auto w-full max-w-7xl px-4 md:px-6">
+        <div className="page-container">
           <div className="tool-page-layout__breadcrumbs">
             <ToolBreadcrumbs
               tool={{ slug: SLUG, title: pageTitle, category: "convert" }}

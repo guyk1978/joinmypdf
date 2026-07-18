@@ -95,7 +95,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
         }}
       />
       <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <header className="tools-directory-page__head">
             <p className="tools-directory-page__eyebrow">{tPage("badge")}</p>
             <h1 className="tools-directory-page__title">{tPage("title")}</h1>

@@ -257,10 +257,39 @@ html:has(.home-page-shell--minimal) body {
 
 .home-minimal-layout--directory {
   padding-top: clamp(2.5rem, 5vw, 3.75rem);
+  /* Horizontal gutters come from the shared .page-container wrapper. */
+  padding-inline: 0;
 }
 
 .home-minimal-layout--secondary {
   padding-top: clamp(2rem, 4vw, 3rem);
+}
+
+/*
+ * Centralized page container — single source of truth for content max-width
+ * and horizontal gutters. Used by page headers, tool grids, SEO/FAQ blocks,
+ * and the sitewide category hubs so every section shares the same edges.
+ * Declared after .home-minimal-layout so it wins same-element conflicts.
+ */
+:root {
+  /* Mirror the site header bar (--app-canvas-max-width / --app-content-pad-x)
+     so page content and header content share the exact same edges. */
+  --page-max-width: var(--app-canvas-max-width, 1400px);
+  --page-gutter: var(--app-content-pad-x, 1rem);
+}
+
+.page-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+/* Nested containers must not stack gutters — the outermost one wins. */
+.page-container .page-container {
+  max-width: none;
+  padding-inline: 0;
 }
 
 .secondary-page-header {
@@ -2144,29 +2173,29 @@ html:has(.home-page-shell--minimal) body {
 /* ?? Industrial Matte tool card grid (global hubs / directories / home) ?? */
 .im-tool-card-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: 1fr;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
   align-items: stretch;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 520px) {
+  .im-tool-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 820px) {
   .im-tool-card-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 900px) {
-  .im-tool-card-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
 @media (min-width: 1100px) {
   .im-tool-card-grid {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -2190,9 +2219,9 @@ html:has(.home-page-shell--minimal) body {
   align-items: center;
   justify-content: flex-start;
   gap: 0.75rem;
-  min-height: 5.5rem;
+  min-height: 6rem;
   height: 100%;
-  padding: 0.875rem 1rem;
+  padding: 1.125rem 1rem;
   background: #121212;
   border: 1px solid #333;
   border-radius: 0;
@@ -2256,7 +2285,7 @@ html:has(.home-page-shell--minimal) body {
   min-width: 0;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.3rem;
+  gap: 0.375rem;
   margin-top: auto;
 }
 
@@ -2283,9 +2312,9 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .im-tool-card__title {
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.3;
   letter-spacing: -0.01em;
   color: #ffffff;
 }
@@ -2605,9 +2634,34 @@ html:has(.home-page-shell--minimal) body {
   border-radius: 0;
 }
 
+/* Loupe toggle — dimmed with a diagonal strike when the magnifier is hidden. */
+.tool-modal__loupe {
+  position: relative;
+}
+
+.tool-modal__loupe--off {
+  color: #555;
+  opacity: 0.7;
+}
+
+.tool-modal__loupe--off::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 1.375rem;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  transform: rotate(-45deg);
+  pointer-events: none;
+}
+
 @media (max-width: 640px) {
-  /* Mobile modal is already near full-screen — hide the toggle to save header space */
-  .tool-modal__fullscreen {
+  /* Mobile modal is already near full-screen — hide the toggle to save header space.
+     The loupe is hover-driven, so its toggle is also desktop-only. */
+  .tool-modal__fullscreen,
+  .tool-modal__loupe {
     display: none;
   }
 }
@@ -3222,6 +3276,99 @@ html[data-tool-modal-open="1"] .tool-modal {
   line-height: 1.6;
   color: #a3a3a3;
   text-wrap: pretty;
+}
+
+/* Category hub SEO prose + FAQ — separated from the tools grid by a thin rule.
+   Full container width so it lines up exactly with the tools grid above. */
+.category-seo {
+  width: 100%;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-top: 1px solid #232323;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.category-seo__title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ededed;
+}
+
+.category-seo__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #a3a3a3;
+  text-wrap: pretty;
+}
+
+.category-seo__faq {
+  margin-top: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-seo__faq-title {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d4d4d4;
+}
+
+.category-seo__faq-item {
+  border: 1px solid #232323;
+  background: #101010;
+  transition: border-color 0.15s ease;
+}
+
+.category-seo__faq-item[open],
+.category-seo__faq-item:hover {
+  border-color: #333;
+}
+
+.category-seo__faq-question {
+  position: relative;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #d4d4d4;
+}
+
+[dir="rtl"] .category-seo__faq-question {
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+}
+
+.category-seo__faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.category-seo__faq-question::after {
+  content: "+";
+  position: absolute;
+  inset-inline-end: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 400;
+  color: #737373;
+}
+
+.category-seo__faq-item[open] .category-seo__faq-question::after {
+  content: "−";
+}
+
+.category-seo__faq-answer {
+  margin: 0;
+  padding: 0 1rem 0.875rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: #a3a3a3;
 }
 
 .tools-directory-dashboard {
@@ -22932,9 +23079,9 @@ body.site-tools-grid-open {
 .footer-tools-panel__shell {
   box-sizing: border-box;
   width: 100%;
-  max-width: 80rem;
+  max-width: var(--page-max-width);
   margin-inline: auto;
-  padding: 1.5rem clamp(1rem, 4vw, 2rem) 0.75rem;
+  padding: 1.5rem var(--page-gutter) 0.75rem;
 }
 
 /* ?? Shared inventory category hubs (sitewide) ?? */

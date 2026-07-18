@@ -105,7 +105,7 @@ export default async function PrivacyFirstPage({ params }: Props) {
       <JsonLd data={faqLd(faqs)} />
 
       <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory">
+        <div className="home-minimal-layout home-minimal-layout--directory page-container">
           <h1 className="home-minimal-tagline">{t("title")}</h1>
           <p className="privacy-section__prose mx-auto mt-4 max-w-3xl text-center text-base leading-relaxed md:text-lg">
             {t("missionSummary")}
