@@ -11,6 +11,18 @@ import { resolveToolHref } from "./tool-hierarchy";
 
 const META_DESCRIPTION_MAX = 155;
 
+/** Per-tool Open Graph overrides (paths under public/). */
+const TOOL_OG_OVERRIDES: Record<
+  string,
+  { title?: string; description?: string; imagePath?: string }
+> = {
+  "image-combiner": {
+    title: "Image Combiner - Combine Photos Online",
+    description: "Easily combine up to 4 images side-by-side or vertically.",
+    imagePath: "/images/image-combiner-og.png",
+  },
+};
+
 function sentenceCase(s: string) {
   if (!s) return s;
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -99,9 +111,15 @@ export function buildLocalizedToolMetadata(params: {
   const canonicalId = resolveCanonicalToolSlug(slug);
   const toolPath = resolveToolHref(canonicalId, undefined, locale);
   const canonicalPath = `/${locale}${toolPath}`;
-  const social = buildDefaultSocialImages(locale, { alt: ogTitle });
+  const ogOverride = TOOL_OG_OVERRIDES[canonicalId];
+  const social = buildDefaultSocialImages(locale, {
+    alt: ogOverride?.title ?? ogTitle,
+    imagePath: ogOverride?.imagePath,
+  });
   const ogLocale =
     locale === "he" ? "he_IL" : locale === "ru" ? "ru_RU" : "en_US";
+  const openGraphTitle = ogOverride?.title ?? ogTitle;
+  const openGraphDescription = ogOverride?.description ?? description;
 
   return {
     title,
@@ -112,8 +130,8 @@ export function buildLocalizedToolMetadata(params: {
       languages: buildToolAlternateLanguages(canonicalId),
     },
     openGraph: {
-      title: ogTitle,
-      description,
+      title: openGraphTitle,
+      description: openGraphDescription,
       url: canonicalPath,
       siteName: getBrandName(locale),
       type: "website",
@@ -121,8 +139,8 @@ export function buildLocalizedToolMetadata(params: {
       ...social.openGraph,
     },
     twitter: {
-      title: ogTitle,
-      description,
+      title: openGraphTitle,
+      description: openGraphDescription,
       ...social.twitter,
     },
     robots: { index: true, follow: true },

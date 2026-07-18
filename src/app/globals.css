@@ -2451,6 +2451,12 @@ html:has(.home-page-shell--minimal) body {
   outline: none;
 }
 
+.tool-modal__action:disabled {
+  opacity: 0.55;
+  cursor: wait;
+  pointer-events: none;
+}
+
 .tool-modal__action--favorite {
   color: var(--category-accent, #3b82f6);
   border-color: color-mix(in srgb, var(--category-accent, #3b82f6) 45%, transparent);
@@ -2466,6 +2472,37 @@ html:has(.home-page-shell--minimal) body {
 
 .tool-modal__close {
   color: #ededed;
+}
+
+.tool-modal__toast {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  z-index: 6;
+  transform: translateX(-50%);
+  padding: 0.625rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid #404040;
+  background: rgba(18, 18, 18, 0.94);
+  color: #fafafa;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  animation: tool-modal-toast-in 0.2s ease-out;
+}
+
+@keyframes tool-modal-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0.4rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .tool-modal__body {

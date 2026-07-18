@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useId, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Star, X } from "lucide-react";
+import { Share2, Star, X } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
+import { usePageShare } from "@/hooks/usePageShare";
 import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
@@ -17,6 +18,8 @@ export type ToolModalTab = "calc" | "doc" | "related";
 export type ToolModalWrapperProps = {
   open: boolean;
   title: string;
+  /** Short description included in Web Share payload. */
+  description?: string;
   /** Tool id used for favorites toggle. */
   slug?: string;
   /** Inventory category for accent theming — resolved from slug when omitted. */
@@ -51,6 +54,7 @@ export type ToolModalWrapperProps = {
 export function ToolModalWrapper({
   open,
   title,
+  description,
   slug,
   categoryId: categoryIdProp,
   onClose,
@@ -68,6 +72,15 @@ export function ToolModalWrapper({
   const [mounted, setMounted] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
   const favorited = slug ? isFavorite(slug) : false;
+  const sharePayload = useMemo(
+    () => ({
+      title,
+      text: description?.trim() || undefined,
+    }),
+    [description, title],
+  );
+  const { handleShare, copied, busy: shareBusy, ariaLabel: shareAriaLabel, linkCopiedLabel } =
+    usePageShare(sharePayload);
   const categoryId = categoryIdProp ?? resolveToolCategoryId(slug);
   const accentStyle = categoryId
     ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
@@ -190,6 +203,18 @@ export function ToolModalWrapper({
                   })}
                 </nav>
 
+                <button
+                  type="button"
+                  className="tool-modal__action"
+                  onClick={() => {
+                    void handleShare();
+                  }}
+                  disabled={shareBusy}
+                  aria-label={shareAriaLabel}
+                >
+                  <Share2 size={18} strokeWidth={2} aria-hidden />
+                </button>
+
                 {slug ? (
                   <button
                     type="button"
@@ -244,6 +269,12 @@ export function ToolModalWrapper({
                 </div>
               ))}
             </div>
+
+            {copied ? (
+              <div className="tool-modal__toast" role="status" aria-live="polite">
+                {linkCopiedLabel}
+              </div>
+            ) : null}
           </motion.div>
         </div>
       ) : null}

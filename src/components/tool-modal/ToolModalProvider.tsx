@@ -393,6 +393,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
         <ToolModalWrapper
           open={visible}
           title={active.title}
+          description={active.description}
           slug={active.slug}
           categoryId={active.categoryId}
           onClose={closeToolModal}

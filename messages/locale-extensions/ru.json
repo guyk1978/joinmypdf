@@ -5626,12 +5626,12 @@
   },
   "Share": {
     "brandFallback": "JoinMyPDF",
-    "shareText": "Private PDF tools & invoice templates — processed in your browser.",
-    "copied": "Copied!",
-    "sharing": "Sharing…",
-    "share": "Share",
-    "linkCopied": "Link copied to clipboard",
-    "shareThisPage": "Share this page"
+    "shareText": "Приватные PDF-инструменты и шаблоны счетов — обработка в браузере.",
+    "copied": "Скопировано!",
+    "sharing": "Отправка…",
+    "share": "Поделиться",
+    "linkCopied": "Ссылка скопирована",
+    "shareThisPage": "Поделиться этой страницей"
   },
   "Theme": {
     "switchToLight": "Switch to light mode",

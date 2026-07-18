@@ -33,7 +33,13 @@ async function copyToClipboard(text: string): Promise<boolean> {
   }
 }
 
-export function usePageShare() {
+export type PageSharePayload = {
+  title?: string;
+  text?: string;
+  url?: string;
+};
+
+export function usePageShare(payload?: PageSharePayload) {
   const t = useTranslations("Share");
   const [copied, setCopied] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -45,9 +51,9 @@ export function usePageShare() {
 
   const handleShare = useCallback(async () => {
     if (busy) return;
-    const url = window.location.href;
-    const title = document.title || t("brandFallback");
-    const text = t("shareText");
+    const url = payload?.url ?? window.location.href;
+    const title = payload?.title || document.title || t("brandFallback");
+    const text = payload?.text || t("shareText");
 
     setBusy(true);
     try {
@@ -65,10 +71,11 @@ export function usePageShare() {
     } finally {
       setBusy(false);
     }
-  }, [busy, flashCopied, t]);
+  }, [busy, flashCopied, payload?.text, payload?.title, payload?.url, t]);
 
   const ariaLabel = copied ? t("linkCopied") : busy ? t("sharing") : t("shareThisPage");
   const title = copied ? t("linkCopied") : busy ? t("sharing") : t("share");
+  const linkCopiedLabel = t("linkCopied");
 
-  return { handleShare, copied, busy, ariaLabel, title };
+  return { handleShare, copied, busy, ariaLabel, title, linkCopiedLabel };
 }
