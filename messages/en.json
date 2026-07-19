@@ -257,6 +257,7 @@
       "imageCombiner": "Image Combiner"
     },
     "library": "Library",
+    "toolsHub": "Tools",
     "drawer": {
       "title": "Library",
       "tabsLabel": "Library sections",
@@ -313,6 +314,13 @@
       "heroPrimaryCta": "Browse all tools",
       "heroCategoriesLabel": "Tool categories",
       "popularToolsTitle": "3 Popular Tools of the Week",
+      "quickActionsLabel": "Quick actions",
+      "recentToolsTitle": "Your Recent Tools",
+      "recentTitle": "Recent Workspaces",
+      "recentResume": "Resume",
+      "guidesTitle": "Workflow Guides",
+      "guidesReadTime": "1 min read",
+      "guidesCta": "Read guide",
       "categoryBlurbs": {
         "pdf": "Merge, split, and organize pages",
         "video": "Trim, convert, and compress video",

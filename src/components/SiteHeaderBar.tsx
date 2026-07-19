@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { Library } from "lucide-react";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
+import { HeaderCategoryHub } from "@/components/HeaderCategoryHub";
 import { HeaderOverflowMenu } from "@/components/HeaderOverflowMenu";
 import {
   HeaderCategoryNavProvider,
@@ -83,6 +84,7 @@ export function SiteHeaderBar() {
         </div>
 
         <div className="site-header__end">
+          <HeaderCategoryHub />
           <HeaderLibraryButton />
           {!isWide ? <HeaderSearch variant="toggle" /> : null}
           <HeaderOverflowMenu />

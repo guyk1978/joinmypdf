@@ -93,7 +93,8 @@ body {
   padding-top: 0;
   background-color: var(--site-canvas-bg);
   background-image: none;
-  overflow-x: hidden;
+  /* No overflow-x here: it would make <body> a scroll container and break
+     the sticky header. Horizontal clipping is handled by the html rule. */
   max-width: 100%;
 }
 
@@ -9543,6 +9544,16 @@ body.site-search-open {
   -webkit-backdrop-filter: none !important;
 }
 
+/* Scrolled state: slightly darker + translucent so the sticky bar reads as
+   a distinct layer above content sliding underneath it. */
+.site-header--clean.site-header--scrolled {
+  background: rgb(10 10 10 / 0.94) !important;
+  backdrop-filter: blur(14px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+  border-bottom-color: #3d3d3d;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.45);
+}
+
 .site-header--matte .site-header__bar {
   display: flex;
   align-items: center;
@@ -10065,6 +10076,35 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   width: 15px;
   height: 15px;
   opacity: 0.85;
+}
+
+/* Header "Tools" hub trigger — squared control that opens the Category Hub. */
+.site-header__tools-hub {
+  border-color: #333;
+}
+
+.site-header__tools-hub:hover,
+.site-header__tools-hub:focus-visible,
+.site-header__tools-hub[aria-expanded="true"] {
+  color: #ededed;
+  border-color: #525252;
+  background: #0a0a0a;
+}
+
+@media (max-width: 639px) {
+  .site-header__tools-hub {
+    width: var(--site-header-control-height);
+    padding-inline: 0;
+  }
+
+  .site-header__tools-hub-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 }
 
 .site-header__utility-center {
@@ -23783,8 +23823,174 @@ body.site-tools-grid-open {
   }
 }
 
-.footer-tools-panel__categories {
-  margin: 1.25rem auto 0.75rem;
+/* Category Hub overlay — full-screen centered grid opened from the header
+   "Tools" button. Above the sticky header (z-120) and drawers (z-200). */
+.category-hub-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 230;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5rem 1.25rem 2rem;
+  background: rgb(8 8 8 / 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: tool-card-focus-fade-in 0.25s ease;
+}
+
+.category-hub-overlay__close {
+  position: absolute;
+  top: 1.1rem;
+  inset-inline-end: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid #333333;
+  background: #121212;
+  color: #a3a3a3;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.category-hub-overlay__close:hover {
+  color: #ededed;
+  border-color: #737373;
+}
+
+.category-hub-overlay__close:focus-visible {
+  outline: 1px solid #737373;
+  outline-offset: 2px;
+  color: #ededed;
+}
+
+.category-hub-overlay__close-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.category-hub-overlay__panel {
+  width: min(1400px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.25rem;
+}
+
+.category-hub-overlay__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #737373;
+  text-align: center;
+}
+
+.category-hub-overlay__title {
+  margin: 0 0 1.4rem;
+  font-size: clamp(1.25rem, 3vw, 1.65rem);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: #fafafa;
+  text-align: center;
+}
+
+/* Dashboard grid: 6 columns on wide screens with a minmax floor so cards
+   never collapse below 150px on ultra-wide monitors; 4-column fallback
+   under 1440px; base 1–3 column stacking is inherited on small screens. */
+.category-hub-overlay__grid .category-hubs__grid {
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .category-hub-overlay__grid .category-hubs__grid {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .category-hub-overlay__grid .category-hubs__grid {
+    grid-template-columns: repeat(6, minmax(150px, 1fr));
+  }
+}
+
+/* Compact cards so the full dashboard fits one viewport without scrolling:
+   icon + title + tool count only (blurbs would wrap in 6-up cells). */
+.category-hub-overlay__grid .category-hub-card {
+  min-height: 4.5rem;
+  gap: 0.6rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.category-hub-overlay__grid .category-hub-card__icon,
+.category-hub-overlay__grid .category-hub-card__icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.category-hub-overlay__grid .category-hub-card__text {
+  gap: 0.2rem;
+}
+
+.category-hub-overlay__grid .category-hub-card__title {
+  font-size: 0.85rem;
+}
+
+.category-hub-overlay__grid .category-hub-card__count {
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.category-hub-overlay__grid .category-hub-card__blurb,
+.category-hub-overlay__grid .category-hub-card__sep {
+  display: none;
+}
+
+/* Hover-lay: dim sibling cards slightly while one is hovered so the active
+   card pops without changing the card's own accent treatment. */
+.category-hub-overlay__grid .category-hubs__grid:hover .category-hub-card:not(:hover) {
+  opacity: 0.62;
+}
+
+.category-hub-overlay__grid .category-hub-card {
+  transition:
+    opacity 0.25s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s ease;
+}
+
+.category-hub-overlay__grid .category-hub-card:hover,
+.category-hub-overlay__grid .category-hub-card:focus-visible {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 639px) {
+  .category-hub-overlay {
+    padding: 4rem 0.85rem 1.25rem;
+  }
+
+  .category-hub-overlay__panel {
+    align-self: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-hub-overlay {
+    animation: none;
+  }
+
+  .category-hub-overlay__grid .category-hub-card:hover,
+  .category-hub-overlay__grid .category-hub-card:focus-visible {
+    transform: none;
+  }
 }
 
 .home-category-dashboard {

@@ -7,6 +7,7 @@ import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
 import { usePageShare } from "@/hooks/usePageShare";
+import { recordRecentTool } from "@/lib/recent-activity";
 import {
   getMagnifierPreference,
   setMagnifierPreference,
@@ -109,6 +110,13 @@ export function ToolModalWrapper({
     setLoupeEnabled(getMagnifierPreference());
     return subscribeMagnifierPreference(setLoupeEnabled);
   }, []);
+
+  useEffect(() => {
+    if (!open || !slug) return;
+    // Chronological recent list only — full page shells already bump usage
+    // counts via recordToolUsage, so we avoid double-counting here.
+    recordRecentTool(slug);
+  }, [open, slug]);
 
   useEffect(() => {
     if (!open) return;

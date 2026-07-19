@@ -3,7 +3,6 @@
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import { HomePageFooter } from "@/components/HomePageFooter";
-import { FooterToolsPanel } from "@/components/FooterToolsPanel";
 import { PageContentTransition } from "@/components/PageContentTransition";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToolEmbedModeMarker } from "@/components/tool-modal/ToolEmbedModeMarker";
@@ -29,12 +28,7 @@ function PageTransitionCanvas({ children, mainClassName }: PageTransitionShellPr
       <main className={clsx("home-tool-grid-page flex-1", mainClassName)}>
         <PageContentTransition className="page-content-transition--main">{children}</PageContentTransition>
       </main>
-      {embed ? null : (
-        <>
-          <FooterToolsPanel />
-          <HomePageFooter />
-        </>
-      )}
+      {embed ? null : <HomePageFooter />}
     </div>
   );
 }

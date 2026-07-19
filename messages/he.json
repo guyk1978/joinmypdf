@@ -257,6 +257,7 @@
       "imageCombiner": "שילוב תמונות"
     },
     "library": "ספרייה",
+    "toolsHub": "כלים",
     "drawer": {
       "title": "ספרייה",
       "tabsLabel": "מדורי ספרייה",
@@ -313,6 +314,13 @@
       "heroPrimaryCta": "עיינו בכל הכלים",
       "heroCategoriesLabel": "קטגוריות כלים",
       "popularToolsTitle": "3 הכלים הפופולרים של השבוע",
+      "quickActionsLabel": "פעולות מהירות",
+      "recentToolsTitle": "הכלים האחרונים שלך",
+      "recentTitle": "סביבות עבודה אחרונות",
+      "recentResume": "המשך",
+      "guidesTitle": "מדריכי עבודה",
+      "guidesReadTime": "קריאה של דקה",
+      "guidesCta": "לקריאת המדריך",
       "categoryBlurbs": {
         "pdf": "מיזוג, פיצול וסידור עמודים",
         "video": "חיתוך, המרה ודחיסת וידאו",
