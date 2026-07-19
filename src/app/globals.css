@@ -2213,6 +2213,7 @@ html:has(.home-page-shell--minimal) body {
 
 .im-tool-card {
   --category-accent: var(--color-pdf, #3b82f6);
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -2232,7 +2233,7 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .im-tool-card:hover,
-.im-tool-card:focus-visible {
+.im-tool-card:has(.im-tool-card__overlay:focus-visible) {
   border: 1px solid var(--category-accent);
   background: color-mix(in srgb, var(--category-accent) 10%, #121212);
   box-shadow:
@@ -2256,7 +2257,7 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .im-tool-card:hover .im-tool-card__icon,
-.im-tool-card:focus-visible .im-tool-card__icon {
+.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__icon {
   opacity: 1;
   filter: drop-shadow(0 0 6px color-mix(in srgb, var(--category-accent) 55%, transparent));
 }
@@ -2290,25 +2291,23 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .im-tool-card__rating {
+  position: relative;
+  z-index: 5;
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.375rem;
   margin-top: auto;
-  padding-top: 0.375rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid color-mix(in srgb, var(--category-accent, #3b82f6) 18%, transparent);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #8a8a8a;
+  pointer-events: auto;
 }
 
-.im-tool-card__rating-star {
-  width: 0.6875rem;
-  height: 0.6875rem;
-  fill: rgba(245, 181, 10, 0.55);
-}
-
-.im-tool-card:hover .im-tool-card__rating-star {
-  fill: rgba(245, 181, 10, 0.75);
+.im-tool-card__rating.tool-rating-summary {
+  width: 100%;
 }
 
 .im-tool-card__title {
@@ -2325,6 +2324,385 @@ html:has(.home-page-shell--minimal) body {
   letter-spacing: 0.04em;
   line-height: 1.35;
   color: #a0a0a0;
+}
+
+/* Overlay link — keeps the whole card clickable while the Example toggle
+   (z-index 5) and Focus expand button (z-index 6) sit above it, so those
+   controls are real sibling buttons instead of buttons nested in an anchor. */
+.im-tool-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.im-tool-card__overlay:focus-visible {
+  outline: none;
+}
+
+/*
+ * Tool card "Usage Hint" (ported from WattQuick) — a subtle Example
+ * disclosure that expands a small box inside the card. No hover tooltip:
+ * same tap/click behavior on mobile and desktop. Sits above the card's
+ * absolute overlay link (z-index) so the toggle never triggers navigation.
+ */
+.tool-card-example {
+  position: relative;
+  z-index: 5;
+  display: block;
+  pointer-events: auto;
+}
+
+.tool-card-example__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 0.6563rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #737373;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.tool-card-example__toggle:hover,
+.tool-card-example--open .tool-card-example__toggle {
+  color: var(--category-accent, #3b82f6);
+}
+
+.tool-card-example__toggle:focus-visible {
+  outline: 1px solid var(--category-accent, #3b82f6);
+  outline-offset: 2px;
+}
+
+.tool-card-example__icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.tool-card-example__chevron {
+  width: 0.7rem;
+  height: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+.tool-card-example--open .tool-card-example__chevron {
+  transform: rotate(180deg);
+}
+
+/* 0fr → 1fr grid row is the smoothest height-auto transition available. */
+.tool-card-example__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.tool-card-example--open .tool-card-example__panel {
+  grid-template-rows: 1fr;
+}
+
+.tool-card-example__panel-inner {
+  display: block;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Smaller than the card description to keep hierarchy on the dark matte card. */
+.tool-card-example__text {
+  display: block;
+  margin-top: 0.45rem;
+  border: 1px solid #2e2e2e;
+  border-inline-start: 2px solid var(--category-accent, #3b82f6);
+  background: rgb(255 255 255 / 0.05);
+  padding: 0.5rem 0.6rem;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+  color: #b5b5b5;
+}
+
+.tool-card-example__label {
+  font-weight: 650;
+  color: #e5e5e5;
+}
+
+/*
+ * Tool card Focus mode (ported from WattQuick) — Maximize2 button in the
+ * card's top-right corner opens a centered overlay with a 2x re-render of
+ * the card. Doubled rem sizes instead of transform: scale(2) keep text
+ * crisp; opacity + transform keyframes give the "zoom into center" feel.
+ */
+.tool-card-focus__expand {
+  position: absolute;
+  top: 0.4rem;
+  inset-inline-end: 0.4rem;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #6f6f6f;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.tool-card-focus__expand:hover {
+  color: var(--category-accent, #3b82f6);
+  border-color: color-mix(in srgb, var(--category-accent, #3b82f6) 40%, transparent);
+  background: color-mix(in srgb, var(--category-accent, #3b82f6) 8%, transparent);
+}
+
+.tool-card-focus__expand:focus-visible {
+  outline: 1px solid var(--category-accent, #3b82f6);
+  outline-offset: 2px;
+}
+
+.tool-card-focus__expand-icon {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+@keyframes tool-card-focus-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tool-card-focus-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Above the tool modal (z-200) so RELATED-tab cards can still focus. */
+.tool-card-focus {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgb(0 0 0 / 0.72);
+  backdrop-filter: blur(3px);
+  animation: tool-card-focus-fade-in 0.2s ease;
+}
+
+/* 2x card: sizes are doubled from the grid card (title 1.0625rem → 2.125rem,
+   description 0.85rem → 1.5rem) on the industrial-matte surface. */
+.tool-card-focus__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: min(36rem, 100%);
+  max-height: calc(100vh - 2.5rem);
+  overflow-y: auto;
+  padding: 2.1rem 2.2rem;
+  border: 1px solid color-mix(in srgb, var(--category-accent, #3b82f6) 40%, #262626);
+  border-radius: 0;
+  background: #121212;
+  color: #ededed;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 0.55);
+  animation: tool-card-focus-zoom-in 0.28s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.tool-card-focus__close {
+  position: absolute;
+  top: 0.85rem;
+  inset-inline-end: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid #333333;
+  background: transparent;
+  color: #a3a3a3;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.tool-card-focus__close:hover {
+  color: #ededed;
+  border-color: var(--category-accent, #3b82f6);
+}
+
+.tool-card-focus__close:focus-visible {
+  outline: 1px solid var(--category-accent, #3b82f6);
+  outline-offset: 2px;
+}
+
+.tool-card-focus__close-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.tool-card-focus__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border: 1px solid color-mix(in srgb, var(--category-accent, #3b82f6) 35%, #262626);
+  background: color-mix(in srgb, var(--category-accent, #3b82f6) 7%, #0a0a0a);
+  color: var(--category-accent, #3b82f6);
+}
+
+.tool-card-focus__icon svg {
+  width: 2.25rem;
+  height: 2.25rem;
+  color: inherit;
+  stroke: currentColor;
+  fill: none;
+}
+
+.tool-card-focus__title {
+  margin: 0;
+  font-size: 2.125rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.tool-card-focus__meta {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: #a0a0a0;
+}
+
+/* Scale the shared Example disclosure up to match the 2x card. */
+.tool-card-focus__card .tool-card-example__toggle {
+  font-size: 1.15rem;
+  gap: 0.5rem;
+}
+
+.tool-card-focus__card .tool-card-example__icon {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.tool-card-focus__card .tool-card-example__chevron {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.tool-card-focus__card .tool-card-example__text {
+  margin-top: 0.8rem;
+  padding: 0.9rem 1.1rem;
+  font-size: 1.35rem;
+  border-inline-start-width: 3px;
+}
+
+.tool-card-focus__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin-top: 0.4rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid #262626;
+}
+
+/* Explicit size overrides (not zoom/transform) keep the interactive radio
+   stars' hit targets aligned with what the user sees. */
+.tool-card-focus__rating.tool-rating-summary {
+  display: inline-flex;
+  gap: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.tool-card-focus__rating .star-rating {
+  gap: 0.3rem;
+}
+
+.tool-card-focus__rating .star-rating__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.tool-card-focus__rating .tool-rating-summary__average,
+.tool-card-focus__rating .tool-rating-summary__thanks,
+.tool-card-focus__rating .tool-rating-summary__count {
+  font-size: 1.05rem;
+}
+
+.tool-card-focus__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--category-accent, #3b82f6);
+  background: color-mix(in srgb, var(--category-accent, #3b82f6) 10%, transparent);
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: var(--category-accent, #3b82f6);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.tool-card-focus__open:hover {
+  background: color-mix(in srgb, var(--category-accent, #3b82f6) 18%, transparent);
+}
+
+.tool-card-focus__open-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (max-width: 480px) {
+  .tool-card-focus__card {
+    padding: 1.6rem 1.4rem;
+  }
+
+  .tool-card-focus__title {
+    font-size: 1.6rem;
+  }
+
+  .tool-card-focus__meta {
+    font-size: 1.15rem;
+  }
+
+  .tool-card-focus__card .tool-card-example__text {
+    font-size: 1.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-card-focus,
+  .tool-card-focus__card {
+    animation: none;
+  }
+
+  .tool-card-example__panel,
+  .tool-card-example__chevron {
+    transition: none;
+  }
 }
 
 /* ?? Tool modal (CALC / DOC / RELATED) ?? */
@@ -2453,7 +2831,122 @@ html:has(.home-page-shell--minimal) body {
   border-radius: 6px;
 }
 
-/* Star rating — sits in the header row, vertically aligned with the tabs */
+/*
+ * Shared StarRating (ported from WattQuick) — filled / outline / hover
+ * stars inherit `--star-rating-color` (category accent).
+ */
+.star-rating {
+  --star-rating-accent: var(
+    --star-rating-color,
+    var(--category-accent, #3b82f6)
+  );
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1875rem;
+}
+
+.star-rating__star {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--star-rating-accent) 58%, #737373);
+  transition:
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.star-rating__star--button {
+  cursor: pointer;
+}
+
+.star-rating__star--button:hover,
+.star-rating__star--button:focus-visible {
+  color: var(--star-rating-accent);
+  outline: none;
+}
+
+.star-rating__star--filled,
+.star-rating__star--partial {
+  color: var(--star-rating-accent);
+}
+
+.star-rating__icon {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.star-rating__icon--sm {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.star-rating__icon--lg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.star-rating__icon--partial-fill {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.star-rating__star--filled .star-rating__icon {
+  fill: currentColor;
+}
+
+.star-rating--interactive .star-rating__star--button:active {
+  transform: scale(1.08);
+}
+
+/* Compact card / Focus Mode rating summary */
+.tool-rating-summary {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  min-height: 1rem;
+  font-size: 0.75rem;
+  color: #8a8a8a;
+}
+
+.tool-rating-summary--loading {
+  width: 5.5rem;
+  min-height: 1rem;
+  background: rgb(148 163 184 / 0.12);
+}
+
+.tool-rating-summary__average {
+  font-weight: 650;
+  color: var(--star-rating-color, var(--category-accent, #3b82f6));
+}
+
+.tool-rating-summary__count {
+  font-variant-numeric: tabular-nums;
+  color: #737373;
+}
+
+.tool-rating-summary__thanks {
+  font-weight: 650;
+  color: var(--star-rating-color, var(--category-accent, #3b82f6));
+}
+
+.tool-rating-summary .star-rating__star--button:hover,
+.tool-rating-summary .star-rating__star--button:focus-visible {
+  color: var(--star-rating-color, var(--category-accent, #3b82f6));
+}
+
+/* Tool modal header rating — shares StarRating + category accent */
 .tool-modal-rating {
   display: inline-flex;
   align-items: center;
@@ -2461,58 +2954,9 @@ html:has(.home-page-shell--minimal) body {
   min-height: 2.25rem;
 }
 
-.tool-modal-rating__stars {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.125rem;
-}
-
-.tool-modal-rating__star-btn {
-  display: inline-flex;
-  margin: 0;
-  padding: 0.125rem;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-.tool-modal-rating__star-btn:focus-visible {
-  outline: 2px solid var(--category-accent, #3b82f6);
-  outline-offset: 1px;
-}
-
-.tool-modal-rating__star {
-  position: relative;
-  display: block;
-  width: 0.9375rem;
-  height: 0.9375rem;
-}
-
-.tool-modal-rating__star svg {
-  display: block;
-  width: 0.9375rem;
-  height: 0.9375rem;
-}
-
-.tool-modal-rating__star-base {
-  fill: #333;
-  transition: fill 0.15s ease;
-}
-
-.tool-modal-rating__star-fill {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.tool-modal-rating__star-fill svg {
-  fill: #f5b50a;
-}
-
-.tool-modal-rating__star-btn:hover .tool-modal-rating__star-base {
-  fill: #524410;
+.tool-modal-rating--loading {
+  width: 7rem;
+  background: rgb(148 163 184 / 0.12);
 }
 
 .tool-modal-rating__label {
@@ -2528,7 +2972,7 @@ html:has(.home-page-shell--minimal) body {
 
 .tool-modal-rating__score {
   font-weight: 700;
-  color: #ededed;
+  color: var(--star-rating-color, var(--category-accent, #ededed));
 }
 
 .tool-modal-rating__count {
@@ -2537,7 +2981,7 @@ html:has(.home-page-shell--minimal) body {
 
 .tool-modal-rating__thanks {
   font-weight: 700;
-  color: #f5b50a;
+  color: var(--star-rating-color, var(--category-accent, #3b82f6));
 }
 
 .tool-modal__tab {

@@ -220,6 +220,7 @@ export function ToolModalWrapper({
               <div className="tool-modal__header-end">
                 <ToolModalRating
                   slug={slug}
+                  categoryId={categoryId}
                   labels={{
                     ratings: labels?.ratings,
                     thankYou: labels?.thankYou,

@@ -6,6 +6,9 @@ import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { ToolCardExample } from "@/components/ToolCardExample";
+import { ToolCardFocus } from "@/components/ToolCardFocus";
+import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
   getCategoryAccentCssVar,
@@ -13,7 +16,7 @@ import {
 } from "@/lib/category-accent-colors";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
-import { getToolRating } from "@/lib/tool-rating";
+import { getToolRealWorldExample } from "@/data/tool-real-world-examples";
 
 export type IndustrialToolCardProps = {
   href: string;
@@ -78,20 +81,38 @@ export function IndustrialToolCard({
     });
   };
 
+  const example = getToolRealWorldExample(toolSlug);
+
   return (
-    <Link
-      href={nestedHref}
+    <div
       className={clsx("im-tool-card", className)}
-      prefetch={false}
       data-category={categoryId || undefined}
-      data-tool-modal-open={openInModal && modal && !embed ? "" : undefined}
       style={
         categoryId
           ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
           : undefined
       }
-      onClick={handleClick}
     >
+      {/* Overlay link keeps the whole card clickable while the example toggle
+          and Focus expand button stay valid interactive siblings (never
+          buttons nested inside an anchor). */}
+      <Link
+        href={nestedHref}
+        className="im-tool-card__overlay"
+        prefetch={false}
+        aria-label={label}
+        data-tool-modal-open={openInModal && modal && !embed ? "" : undefined}
+        onClick={handleClick}
+      />
+      <ToolCardFocus
+        slug={toolSlug}
+        href={nestedHref}
+        label={label}
+        description={description}
+        example={example}
+        icon={icon}
+        categoryId={categoryId}
+      />
       <span className="im-tool-card__icon" aria-hidden>
         {icon}
       </span>
@@ -99,14 +120,14 @@ export function IndustrialToolCard({
         <span className="im-tool-card__content">
           <span className="im-tool-card__title">{label}</span>
           {description ? <span className="im-tool-card__description">{description}</span> : null}
+          {example ? <ToolCardExample example={example} /> : null}
         </span>
-        <span className="im-tool-card__rating">
-          <svg viewBox="0 0 20 20" className="im-tool-card__rating-star" aria-hidden>
-            <path d="M10 1.6l2.47 5.26 5.53.7-4.06 4-1.06 5.74L10 14.5l-4.88 2.8-1.06-5.74-4.06-4 5.53-.7z" />
-          </svg>
-          {getToolRating(toolSlug).score.toFixed(1)}
-        </span>
+        <ToolRatingSummary
+          toolId={toolSlug}
+          categoryId={categoryId}
+          className="im-tool-card__rating"
+        />
       </span>
-    </Link>
+    </div>
   );
 }
