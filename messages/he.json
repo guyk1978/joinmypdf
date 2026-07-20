@@ -1842,7 +1842,8 @@
       "privacyFirst": "פרטיות קודמת",
       "privacyPolicy": "מדיניות פרטיות",
       "privacyHub": "מרכז PDF ממוקד פרטיות",
-      "feedback": "משוב"
+      "feedback": "משוב",
+      "guide": "מדריך למשתמש"
     },
     "copyright": "כל הזכויות שמורות.",
     "copyrightLine": "© {year} JoinMyPDF",

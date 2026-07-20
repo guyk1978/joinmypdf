@@ -5587,6 +5587,73 @@
       }
     }
   },
+  "Guide": {
+    "metaTitle": "User Guide — JoinMyPDF",
+    "metaDescription": "Learn how to get the most out of JoinMyPDF — local browser processing, tools hub, focus mode, favorites, recent tools, and community ratings.",
+    "title": "Getting the Most Out of JoinMyPDF",
+    "description": "Welcome to JoinMyPDF — a suite of professional-grade web utilities designed to process your documents, images, video, and code directly inside your browser.",
+    "backToTools": "Browse all tools",
+    "learnPrivacy": "Privacy & local processing",
+    "relatedLabel": "Quick navigation",
+    "sections": {
+      "privacy": {
+        "title": "100% Privacy & Local Processing",
+        "bullets": {
+          "b1": {
+            "label": "No Server Uploads",
+            "text": "Unlike traditional online tools, your files never leave your device. All processing happens locally in your browser using modern web technologies."
+          },
+          "b2": {
+            "label": "Complete Security",
+            "text": "Because files aren't uploaded anywhere, your sensitive documents, personal receipts, and private code remain entirely secure under your control at all times."
+          }
+        }
+      },
+      "tools": {
+        "title": "Exploring Tools & Categories",
+        "bullets": {
+          "b1": {
+            "label": "The Tools Hub",
+            "text": "Click the Tools button in the sticky header to open a clean, 6-column dashboard containing every category available on the platform (PDF, Video, Compression, Developer tools, and more)."
+          },
+          "b2": {
+            "label": "Real-World Examples",
+            "text": "Every tool card includes an \"Example\" dropdown. Tap it to see a practical, real-world use case so you always know exactly what the tool can achieve before diving in."
+          },
+          "b3": {
+            "label": "Focus Mode (Expand)",
+            "text": "Click the expand icon on any tool card to instantly zoom it into a clean, centered overlay, making it easier to read and interact with without distractions."
+          }
+        }
+      },
+      "library": {
+        "title": "Managing Your Library (Favorites & Recent Tools)",
+        "bullets": {
+          "b1": {
+            "label": "Favorites",
+            "text": "Bookmark any tool by adding it to your favorites. Access your saved tools instantly by opening the Library panel from the header."
+          },
+          "b2": {
+            "label": "Quick Deletion",
+            "text": "Easily manage your favorite items directly inside the Library drawer using the built-in delete option."
+          },
+          "b3": {
+            "label": "Recent Tools",
+            "text": "The homepage automatically tracks your last visited tools, placing them in a quick-access strip right below the search bar so you can resume your workflow instantly."
+          }
+        }
+      },
+      "ratings": {
+        "title": "Community Ratings",
+        "bullets": {
+          "b1": {
+            "label": "Interactive Reviews",
+            "text": "Rate any tool from 1 to 5 stars directly on its card. Ratings dynamically match the color theme of the tool's category, helping build a trusted community score for each utility."
+          }
+        }
+      }
+    }
+  },
   "PrivacyFirst": {
     "metaTitle": "Privacy First: Local & Secure File Processing with JoinMyPDF",
     "metaDescription": "At JoinMyPDF, we believe in your privacy. Every tool processes files locally on your device—no cloud upload required. Discover our Local-First philosophy.",

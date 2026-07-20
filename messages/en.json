@@ -1632,7 +1632,8 @@
       "privacyFirst": "Privacy First",
       "privacyPolicy": "Privacy Policy",
       "privacyHub": "Privacy-first PDF hub",
-      "feedback": "Feedback"
+      "feedback": "Feedback",
+      "guide": "User Guide"
     },
     "copyright": "All rights reserved.",
     "copyrightLine": "© {year} JoinMyPDF",
