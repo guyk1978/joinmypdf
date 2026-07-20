@@ -48,7 +48,7 @@ export function UserAgentParserWorkspace({ tool, slug }: UserAgentParserWorkspac
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="ua-parser-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="ua-parser-tool-page">
       <UserAgentParser labels={labels} />
     </UtilityWorkspaceShell>
   );

@@ -150,7 +150,7 @@ export function MyIpNetworkInfoWorkspace({ tool, slug }: MyIpNetworkInfoWorkspac
 
   return (
 
-    <UtilityWorkspaceShell pageClassName="my-ip-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="my-ip-tool-page">
 
       <MyIpNetworkInfo labels={labels} />
 

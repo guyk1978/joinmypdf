@@ -45,7 +45,7 @@ export function SqlQueryFormatterWorkspace({ tool, slug }: SqlQueryFormatterWork
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="sql-query-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="sql-query-tool-page">
       <SqlQueryFormatter labels={labels} />
     </UtilityWorkspaceShell>
   );

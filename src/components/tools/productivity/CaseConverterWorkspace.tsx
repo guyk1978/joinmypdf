@@ -20,7 +20,7 @@ export function CaseConverterWorkspace({ tool, slug }: CaseConverterWorkspacePro
   }, [slug, tool.operation]);
 
   return (
-    <UtilityWorkspaceShell pageClassName="case-converter-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="case-converter-tool-page">
       <CaseConverter className="max-w-none" placeholder={t("placeholder")} />
     </UtilityWorkspaceShell>
   );

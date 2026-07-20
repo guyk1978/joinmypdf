@@ -45,7 +45,7 @@ export function PasswordGeneratorWorkspace({ tool, slug }: PasswordGeneratorWork
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="password-generator-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="password-generator-tool-page">
       <PasswordGenerator labels={labels} />
     </UtilityWorkspaceShell>
   );

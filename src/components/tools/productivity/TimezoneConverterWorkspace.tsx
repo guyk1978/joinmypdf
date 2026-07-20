@@ -46,7 +46,7 @@ export function TimezoneConverterWorkspace({ tool, slug }: TimezoneConverterWork
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="timezone-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="timezone-tool-page">
       <TimezoneConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

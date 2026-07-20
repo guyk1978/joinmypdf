@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { CaseConverterWorkspace } from "@/components/tools/productivity/CaseConverterWorkspace";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { routing } from "@/i18n/routing";
@@ -53,8 +52,6 @@ export default async function CaseConverterPage({ params }: PageProps) {
     tPage,
   });
 
-  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
-
   const featureList = [
     t("schemaFeatureUppercase"),
     t("schemaFeatureLowercase"),
@@ -78,22 +75,11 @@ export default async function CaseConverterPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="page-container">
-          <div className="tool-page-layout__breadcrumbs">
-            <ToolBreadcrumbs
-              tool={{ slug: SLUG, title: pageTitle, category: "convert" }}
-              category="convert"
-              items={breadcrumbItems}
-            />
-          </div>
-
-          <header className="mt-6">
-            <h1 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">{pageTitle}</h1>
-          </header>
-
-          <div className="mt-6">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+          <section className="border-b border-[#262626] pb-8" aria-label={pageTitle}>
+            <h1 className="sr-only">{pageTitle}</h1>
             <CaseConverterWorkspace tool={tool} slug={SLUG} />
-          </div>
+          </section>
 
           <section className="mt-10 border-t border-[#262626] pt-8" aria-labelledby="case-converter-info">
             <h2 id="case-converter-info" className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]">

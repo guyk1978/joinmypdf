@@ -36,7 +36,7 @@ export function ReadingTimeCalculatorWorkspace({ tool, slug }: ReadingTimeCalcul
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="reading-time-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="reading-time-tool-page">
       <ReadingTimeCalculator labels={labels} />
     </UtilityWorkspaceShell>
   );

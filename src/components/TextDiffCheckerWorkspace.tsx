@@ -39,7 +39,7 @@ export function TextDiffCheckerWorkspace({ tool, slug }: TextDiffCheckerWorkspac
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="text-diff-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="text-diff-tool-page">
       <TextDiffChecker labels={labels} />
     </UtilityWorkspaceShell>
   );

@@ -49,7 +49,7 @@ export function SslDecoderWorkspace({ tool, slug }: SslDecoderWorkspaceProps) {
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="ssl-decoder-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="ssl-decoder-tool-page">
       <SslDecoder labels={labels} />
     </UtilityWorkspaceShell>
   );

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { TextSanitizerWorkspace } from "@/components/TextSanitizerWorkspace";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -52,8 +51,6 @@ export default async function TextSanitizerPage({ params }: PageProps) {
     tPage,
   });
 
-  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
-
   return (
     <>
       <JsonLd
@@ -77,22 +74,8 @@ export default async function TextSanitizerPage({ params }: PageProps) {
 
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <div className="tool-page-layout__breadcrumbs">
-            <ToolBreadcrumbs
-              tool={{ slug: SLUG, title: t("title"), category: "convert" }}
-              category="convert"
-              items={breadcrumbItems}
-            />
-          </div>
-
-          <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-4 text-3xl font-bold text-white">{t("title")}</h1>
-            {t("description") !== t("title") ? (
-              <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
-            ) : null}
-          </header>
-
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
+            <h1 className="sr-only">{t("title")}</h1>
             <TextSanitizerWorkspace tool={tool} slug={SLUG} />
           </section>
 

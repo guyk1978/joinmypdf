@@ -56,8 +56,8 @@ export function SslDecoder({ labels, className }: SslDecoderProps) {
   };
 
   return (
-    <div className={clsx("ssl-decoder-tool", className)}>
-      <div className="security-tool__pane tool-workspace-panel">
+    <div className={clsx("ssl-decoder-tool im-dev-tool", className)}>
+      <div className="security-tool__pane tool-workspace-panel im-dev-tool__panel">
         <label htmlFor={inputId} className="security-tool__label">
           {labels.inputLabel}
         </label>
@@ -78,7 +78,9 @@ export function SslDecoder({ labels, className }: SslDecoderProps) {
             {labels.clearButton}
           </button>
         </div>
-        <p className="security-tool__hint">{labels.privacyLabel}</p>
+        <p className="im-dev-tool__privacy security-tool__hint" role="note">
+          {labels.privacyLabel}
+        </p>
       </div>
 
       {errorMessage ? (

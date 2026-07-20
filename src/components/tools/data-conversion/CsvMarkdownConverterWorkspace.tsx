@@ -38,7 +38,7 @@ export function CsvMarkdownConverterWorkspace({ tool, slug }: CsvMarkdownConvert
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="csv-markdown-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="csv-markdown-tool-page">
       <CsvMarkdownConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

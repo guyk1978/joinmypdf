@@ -46,7 +46,7 @@ export function TextSanitizerWorkspace({ tool, slug }: TextSanitizerWorkspacePro
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="text-sanitizer-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="text-sanitizer-tool-page">
       <TextSanitizer labels={labels} />
     </UtilityWorkspaceShell>
   );

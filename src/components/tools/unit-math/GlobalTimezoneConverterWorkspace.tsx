@@ -68,7 +68,7 @@ export function GlobalTimezoneConverterWorkspace({
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="global-tz-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="global-tz-tool-page">
       <GlobalTimezoneConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

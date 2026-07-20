@@ -59,7 +59,7 @@ export function JWTDebuggerWorkspace({ tool, slug }: JWTDebuggerWorkspaceProps) 
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="jwt-debugger-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="jwt-debugger-tool-page">
       <JWTDebugger labels={labels} />
     </UtilityWorkspaceShell>
   );

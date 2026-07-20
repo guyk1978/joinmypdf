@@ -13348,7 +13348,8 @@ html.tool-has-upload-shell #workspace-upload > .tool-page-layout__header {
 }
 
 html.workspace-phase-clean .tools-directory-page > footer,
-html.workspace-phase-clean .tools-directory-page > section + section {
+html.workspace-phase-clean .tools-directory-page > section + section,
+html.workspace-phase-clean .tools-directory-page > section ~ * {
   display: none !important;
 }
 
@@ -21121,6 +21122,176 @@ html.workspace-phase-clean .html-md-converter-tool__preview,
   outline-offset: 1px;
 }
 
+/*
+ * Shared immersive developer / decoder / validator interface.
+ * Replaces emerald alert banners + small nested cards with a full-stage layout.
+ */
+.im-dev-tool {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  min-height: 0;
+}
+
+.im-dev-tool__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid #262626;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.im-dev-tool__panel--results {
+  flex: 1 1 auto;
+}
+
+.im-dev-tool__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.im-dev-tool__field-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.im-dev-tool__label {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #d4d4d4;
+}
+
+.im-dev-tool__privacy {
+  margin: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #737373;
+  text-align: end;
+}
+
+.im-dev-tool__textarea {
+  display: block;
+  width: 100%;
+  min-height: 12rem;
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid #262626;
+  resize: vertical;
+  background: rgba(0, 0, 0, 0.35);
+  color: #f5f5f5;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  outline: none;
+}
+
+.im-dev-tool__textarea:focus-visible {
+  border-color: #737373;
+}
+
+.im-dev-tool__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.im-dev-tool__error {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #fbbf24;
+}
+
+.im-dev-tool__results-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.im-dev-tool__results-head--split {
+  justify-content: space-between;
+}
+
+.im-dev-tool__section-title {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a3a3a3;
+}
+
+.im-dev-tool__cards {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .im-dev-tool__cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+html.workspace-phase-clean .im-utility-stage > .im-dev-tool,
+html.workspace-phase-clean .im-utility-stage > .jwt-debugger-tool,
+html.workspace-phase-clean .im-utility-stage > .ua-parser-tool,
+html.workspace-phase-clean .im-utility-stage > .ssl-decoder-tool,
+html.workspace-phase-clean .im-utility-stage > .my-ip-tool,
+html.workspace-phase-clean .im-utility-stage > .base64-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .im-dev-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .jwt-debugger-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .ua-parser-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .ssl-decoder-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .my-ip-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .base64-tool {
+  width: min(100%, 72rem);
+  height: 100%;
+  max-height: 100%;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+html.workspace-phase-clean .im-dev-tool__textarea,
+.tool-upload-float[data-workspace-phase="clean"] .im-dev-tool__textarea,
+html.workspace-phase-clean .ssl-decoder-tool .security-tool__textarea,
+.tool-upload-float[data-workspace-phase="clean"] .ssl-decoder-tool .security-tool__textarea,
+html.workspace-phase-clean .base64-tool__textarea,
+.tool-upload-float[data-workspace-phase="clean"] .base64-tool__textarea {
+  min-height: 16rem;
+  resize: none;
+  flex: 1 1 auto;
+}
+
+html.workspace-phase-clean .jwt-debugger-tool-page,
+html.workspace-phase-clean .ua-parser-tool-page,
+html.workspace-phase-clean .ssl-decoder-tool-page,
+html.workspace-phase-clean .my-ip-tool-page,
+html.workspace-phase-clean .base64-tool-page,
+html.workspace-phase-clean .qr-generator-tool-page {
+  max-width: none;
+}
+
+/* Hide ToolLayout privacy seal while immersive (redundant with inline privacy). */
+html.workspace-phase-clean .tool-page-layout__footer,
+html.workspace-phase-clean .tool-privacy-seal {
+  display: none !important;
+}
+
 /* Data & Conversion tools ? shared Industrial Matte panels */
 .yaml-json-tool-page,
 .csv-markdown-tool-page,
@@ -25678,45 +25849,93 @@ html.workspace-phase-clean .html-md-converter-tool__preview,
 }
 
 /*
- * Immersive editor stage — same 30px margin frame as upload dropzones.
- * Used by Text Workspace + HTML/Markdown converter in clean phase.
+ * Immersive utility / editor stage — same 30px margin frame as upload dropzones.
+ * Centers input-based tools; stretch-fills full-height editors (text / HTML↔MD).
  */
-html.workspace-phase-clean .text-workspace,
-.tool-upload-float[data-workspace-phase="clean"] .text-workspace,
-html.workspace-phase-clean .html-md-converter-tool,
-.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool {
+html.workspace-phase-clean .im-utility-stage,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage {
   position: fixed !important;
   top: calc(var(--site-header-height, 60px) + 30px) !important;
   left: 30px !important;
   right: 30px !important;
   bottom: 30px !important;
   z-index: 40 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: safe center !important;
+  justify-content: safe center !important;
   width: auto !important;
   max-width: none !important;
   height: auto !important;
   max-height: none !important;
   min-height: 0 !important;
   margin: 0 !important;
+  padding: 1rem !important;
+  overflow: auto !important;
   box-sizing: border-box !important;
 }
 
-html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .text-workspace,
-html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool,
-body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .text-workspace,
-body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool {
+html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-utility-stage {
   top: 30px !important;
 }
 
-html.workspace-phase-clean .text-workspace-tool-page,
-html.workspace-phase-clean .html-md-converter-tool-page,
-html.workspace-phase-clean .text-workspace-tool-page .utility-tool-layout,
-html.workspace-phase-clean .html-md-converter-tool-page .utility-tool-layout {
+/* Centered readable column for input / developer / utility panels */
+html.workspace-phase-clean .im-utility-stage > *,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > * {
+  width: min(100%, 52rem);
+  max-width: 100%;
+  max-height: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+/* Wide dual-pane / formatter tools */
+html.workspace-phase-clean .im-utility-stage > .text-diff-tool,
+html.workspace-phase-clean .im-utility-stage > .json-formatter-tool,
+html.workspace-phase-clean .im-utility-stage > .json-minifier-tool,
+html.workspace-phase-clean .im-utility-stage > .json-csv-explorer,
+html.workspace-phase-clean .im-utility-stage > .yaml-json-tool,
+html.workspace-phase-clean .im-utility-stage > .sql-query-tool,
+html.workspace-phase-clean .im-utility-stage > .csv-markdown-tool,
+html.workspace-phase-clean .im-utility-stage > .jwt-debugger-tool,
+html.workspace-phase-clean .im-utility-stage > .base64-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .text-diff-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .json-formatter-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .json-minifier-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .json-csv-explorer,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .yaml-json-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .sql-query-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .csv-markdown-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .jwt-debugger-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .base64-tool {
+  width: min(100%, 72rem);
+}
+
+/* Full-bleed editors fill the stage edge-to-edge */
+html.workspace-phase-clean .im-utility-stage > .text-workspace,
+html.workspace-phase-clean .im-utility-stage > .html-md-converter-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .text-workspace,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .html-md-converter-tool {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+html.workspace-phase-clean .tool-upload-float--immersive,
+html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   min-height: 0;
   height: 100%;
   width: 100%;
+  max-width: none;
 }
 
 @media (max-width: 720px) {

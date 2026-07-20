@@ -57,7 +57,7 @@ export function StorageDataConverterWorkspace({ tool, slug }: StorageDataConvert
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="storage-data-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="storage-data-tool-page">
       <StorageDataConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

@@ -99,7 +99,7 @@ export function Base64EncoderDecoder({ labels, className }: Base64EncoderDecoder
   };
 
   return (
-    <div className={clsx("base64-tool", className)}>
+    <div className={clsx("base64-tool im-dev-tool", className)}>
       <div className="base64-tool__workspace">
         <div className="base64-tool__input tool-workspace-panel">
           <label htmlFor={inputId} className="base64-tool__label">

@@ -112,23 +112,20 @@ export function UserAgentParser({ labels, className }: UserAgentParserProps) {
   }, [labels.copyFailed, parsed]);
 
   return (
-    <div className={clsx("ua-parser-tool space-y-4", className)}>
-      <div
-        className="rounded-none border border-emerald-900/50 bg-emerald-950/30 px-3 py-2 text-sm text-emerald-200/90"
-        role="note"
-      >
-        {labels.privacyNotice}
-      </div>
-
-      <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-300" htmlFor={inputId}>
-            {labels.inputLabel}
-          </label>
-          <p className="text-xs text-neutral-500">{labels.inputHint}</p>
+    <div className={clsx("ua-parser-tool im-dev-tool", className)}>
+      <div className="im-dev-tool__panel">
+        <div className="im-dev-tool__field">
+          <div className="im-dev-tool__field-head">
+            <label className="im-dev-tool__label" htmlFor={inputId}>
+              {labels.inputLabel}
+            </label>
+            <p className="im-dev-tool__privacy" role="note">
+              {labels.privacyNotice}
+            </p>
+          </div>
           <textarea
             id={inputId}
-            className="min-h-28 w-full resize-y border border-neutral-800 bg-neutral-950 px-3 py-2 font-mono text-sm text-neutral-100 outline-none focus-visible:border-neutral-500"
+            className="im-dev-tool__textarea"
             value={input}
             onChange={(event) => {
               setInput(event.target.value);
@@ -140,7 +137,7 @@ export function UserAgentParser({ labels, className }: UserAgentParserProps) {
           />
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="im-dev-tool__actions">
           <button type="button" className={toolPrimaryBtn} onClick={onParse}>
             <ScanSearch className="mr-2 inline h-4 w-4" aria-hidden />
             {labels.parseButton}
@@ -163,21 +160,19 @@ export function UserAgentParser({ labels, className }: UserAgentParserProps) {
         </div>
 
         {error ? (
-          <p className="text-sm text-amber-400" role="alert">
+          <p className="im-dev-tool__error" role="alert">
             {error}
           </p>
         ) : null}
       </div>
 
       {parsed ? (
-        <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-400">
-              {labels.resultsTitle}
-            </h2>
+        <div className="im-dev-tool__panel im-dev-tool__panel--results">
+          <div className="im-dev-tool__results-head im-dev-tool__results-head--split">
+            <h2 className="im-dev-tool__section-title">{labels.resultsTitle}</h2>
             <button
               type="button"
-              className={clsx(toolOutlineBtn, copied && "border-emerald-700 text-emerald-300")}
+              className={clsx(toolOutlineBtn, copied && "border-neutral-500 text-neutral-200")}
               onClick={() => void onCopyJson()}
             >
               {copied ? (
@@ -195,12 +190,12 @@ export function UserAgentParser({ labels, className }: UserAgentParserProps) {
           </div>
 
           {copyError ? (
-            <p className="text-sm text-amber-400" role="status">
+            <p className="im-dev-tool__error" role="status">
               {copyError}
             </p>
           ) : null}
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="im-dev-tool__cards">
             <ResultCard title={labels.browserSection}>
               <ResultField label={labels.nameLabel} value={parsed.browser.name} />
               <ResultField label={labels.versionLabel} value={parsed.browser.version} />
@@ -219,12 +214,10 @@ export function UserAgentParser({ labels, className }: UserAgentParserProps) {
             </ResultCard>
           </div>
 
-          {parsed ? (
-            <PostSuccessUpsell
-              operation="user-agent-parser"
-              fileContext={parsed.browser.name}
-            />
-          ) : null}
+          <PostSuccessUpsell
+            operation="user-agent-parser"
+            fileContext={parsed.browser.name}
+          />
         </div>
       ) : null}
     </div>

@@ -40,7 +40,7 @@ export function Base64EncoderDecoderWorkspace({ tool, slug }: Base64EncoderDecod
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="base64-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="base64-tool-page">
       <Base64EncoderDecoder labels={labels} />
     </UtilityWorkspaceShell>
   );

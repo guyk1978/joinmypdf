@@ -49,7 +49,7 @@ export function JsonCsvExplorerWorkspace({ tool, slug }: JsonCsvExplorerWorkspac
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="json-csv-explorer-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="json-csv-explorer-tool-page">
       <JsonCsvExplorer labels={labels} />
     </UtilityWorkspaceShell>
   );

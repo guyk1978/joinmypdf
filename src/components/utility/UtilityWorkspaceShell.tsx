@@ -10,22 +10,36 @@ type UtilityWorkspaceShellProps = {
   className?: string;
   pageClassName?: string;
   /**
-   * Drives immersive clean/active layout.
-   * When omitted, phase is inferred from a primary (non-compact) dropzone.
+   * Drives clean/active layout explicitly.
+   * When omitted (and immersive is false), phase is inferred from a primary dropzone.
    */
   active?: boolean;
+  /**
+   * Full-viewport utility/editor shell (30px margins, centered workspace).
+   * Forces clean phase and hides redundant page body headers.
+   */
+  immersive?: boolean;
 };
 
-/** Utility tool body — immersive upload shell + operations anchor. */
+/** Utility tool body — optional immersive shell + operations anchor. */
 export function UtilityWorkspaceShell({
   children,
   className,
   pageClassName,
   active,
+  immersive = false,
 }: UtilityWorkspaceShellProps) {
+  const resolvedActive = immersive ? false : active;
+
   return (
-    <WorkspaceUploadShell active={active} className={clsx(className, pageClassName)}>
-      <div className="utility-tool-layout" id={WORKSPACE_OPERATIONS_ID}>
+    <WorkspaceUploadShell
+      active={resolvedActive}
+      className={clsx(className, pageClassName, immersive && "tool-upload-float--immersive")}
+    >
+      <div
+        className={clsx("utility-tool-layout", immersive && "im-utility-stage")}
+        id={WORKSPACE_OPERATIONS_ID}
+      >
         {children}
       </div>
     </WorkspaceUploadShell>

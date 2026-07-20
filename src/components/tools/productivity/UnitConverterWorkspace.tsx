@@ -59,7 +59,7 @@ export function UnitConverterWorkspace({ tool, slug }: UnitConverterWorkspacePro
   }, [t]);
 
   return (
-    <UtilityWorkspaceShell pageClassName="unit-converter-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="unit-converter-tool-page">
       <UnitConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

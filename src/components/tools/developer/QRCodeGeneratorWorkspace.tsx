@@ -50,7 +50,7 @@ export function QRCodeGeneratorWorkspace({ tool, slug }: QRCodeGeneratorWorkspac
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="qr-generator-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="qr-generator-tool-page">
       <QRCodeGenerator labels={labels} />
     </UtilityWorkspaceShell>
   );

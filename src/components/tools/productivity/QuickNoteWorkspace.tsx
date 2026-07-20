@@ -46,7 +46,7 @@ export function QuickNoteWorkspace({ tool, slug }: QuickNoteWorkspaceProps) {
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="quick-note-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="quick-note-tool-page">
       <QuickNote labels={labels} />
     </UtilityWorkspaceShell>
   );

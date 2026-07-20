@@ -33,7 +33,7 @@ export function JsonToCsvWorkspace({ tool, slug }: JsonToCsvWorkspaceProps) {
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="json-to-csv-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="json-to-csv-tool-page">
       <JsonToCsv labels={labels} />
     </UtilityWorkspaceShell>
   );

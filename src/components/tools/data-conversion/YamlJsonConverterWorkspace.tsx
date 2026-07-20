@@ -41,7 +41,7 @@ export function YamlJsonConverterWorkspace({ tool, slug }: YamlJsonConverterWork
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="yaml-json-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="yaml-json-tool-page">
       <YamlJsonConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

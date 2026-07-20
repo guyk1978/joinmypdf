@@ -54,7 +54,7 @@ export function BaseConverterWorkspace({ tool, slug }: BaseConverterWorkspacePro
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="base-converter-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="base-converter-tool-page">
       <BaseConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

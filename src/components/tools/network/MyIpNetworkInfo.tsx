@@ -406,23 +406,9 @@ export function MyIpNetworkInfo({ labels }: MyIpNetworkInfoProps) {
 
   return (
 
-    <div className="my-ip-tool space-y-4">
-
-      <div
-
-        className="rounded-none border border-emerald-900/50 bg-emerald-950/30 px-3 py-2 text-sm text-emerald-200/90"
-
-        role="note"
-
-      >
-
-        {labels.privacyNotice}
-
-      </div>
-
-
-
-      <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm">
+    <div className="my-ip-tool im-dev-tool space-y-4">
+      <p className="im-dev-tool__privacy" role="note">{labels.privacyNotice}</p>
+      <div className="im-dev-tool__panel space-y-4">
 
         <div className="flex flex-wrap items-center justify-between gap-2">
 

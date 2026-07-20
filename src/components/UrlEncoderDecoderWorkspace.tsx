@@ -35,7 +35,7 @@ export function UrlEncoderDecoderWorkspace({ tool, slug }: UrlEncoderDecoderWork
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="url-codec-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="url-codec-tool-page">
       <UrlEncoderDecoder labels={labels} />
     </UtilityWorkspaceShell>
   );

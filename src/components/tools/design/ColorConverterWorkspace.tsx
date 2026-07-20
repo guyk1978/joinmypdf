@@ -39,7 +39,7 @@ export function ColorConverterWorkspace({ tool, slug }: ColorConverterWorkspaceP
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="color-converter-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="color-converter-tool-page">
       <ColorConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

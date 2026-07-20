@@ -37,7 +37,7 @@ export function WordCharacterCounterWorkspace({ tool, slug }: WordCharacterCount
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="productivity-counter-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="productivity-counter-tool-page">
       <WordCharacterCounter labels={labels} />
     </UtilityWorkspaceShell>
   );

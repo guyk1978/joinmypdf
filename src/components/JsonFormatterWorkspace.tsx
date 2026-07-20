@@ -34,7 +34,7 @@ export function JsonFormatterWorkspace({ tool, slug }: JsonFormatterWorkspacePro
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="json-formatter-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="json-formatter-tool-page">
       <JsonFormatter labels={labels} />
     </UtilityWorkspaceShell>
   );

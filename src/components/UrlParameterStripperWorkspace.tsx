@@ -47,7 +47,7 @@ export function UrlParameterStripperWorkspace({ tool, slug }: UrlParameterStripp
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="url-stripper-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="url-stripper-tool-page">
       <UrlParameterStripper labels={labels} />
     </UtilityWorkspaceShell>
   );

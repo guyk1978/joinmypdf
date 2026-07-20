@@ -36,7 +36,7 @@ export function UuidGeneratorWorkspace({ tool, slug }: UuidGeneratorWorkspacePro
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="uuid-generator-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="uuid-generator-tool-page">
       <UuidGenerator labels={labels} />
     </UtilityWorkspaceShell>
   );

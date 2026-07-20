@@ -33,7 +33,7 @@ export function JsonMinifierWorkspace({ tool, slug }: JsonMinifierWorkspaceProps
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="json-minifier-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="json-minifier-tool-page">
       <JsonMinifier labels={labels} />
     </UtilityWorkspaceShell>
   );

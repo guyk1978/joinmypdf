@@ -39,7 +39,7 @@ export function StringGeneratorWorkspace({ tool, slug }: StringGeneratorWorkspac
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="string-generator-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="string-generator-tool-page">
       <StringGenerator labels={labels} />
     </UtilityWorkspaceShell>
   );

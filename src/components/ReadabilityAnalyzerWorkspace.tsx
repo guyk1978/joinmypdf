@@ -67,7 +67,7 @@ export function ReadabilityAnalyzerWorkspace({ tool, slug }: ReadabilityAnalyzer
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="readability-analyzer-tool-page">
+    <UtilityWorkspaceShell immersive pageClassName="readability-analyzer-tool-page">
       <ReadabilityAnalyzer labels={labels} />
     </UtilityWorkspaceShell>
   );
