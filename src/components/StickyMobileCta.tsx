@@ -15,7 +15,7 @@ export function StickyMobileCta({ href, label, secondaryHref, secondaryLabel }: 
   return (
     <div
       className={clsx(
-        "fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-surface/95 p-3 backdrop-blur md:hidden",
+        "sticky-mobile-cta fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-surface/95 p-3 backdrop-blur md:hidden",
       )}
     >
       <div className="mx-auto flex max-w-lg gap-2">

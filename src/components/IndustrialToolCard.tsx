@@ -11,7 +11,10 @@ import { ToolCardFocus } from "@/components/ToolCardFocus";
 import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
+  getCategoryAccentColor,
   getCategoryAccentCssVar,
+  getContrastingInk,
+  resolveToolAccentCategoryId,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
@@ -26,7 +29,7 @@ export type IndustrialToolCardProps = {
   className?: string;
   /** Tool slug for modal catalog (defaults to last path segment of href). */
   slug?: string;
-  /** Parent category context — drives accent + close-navigation target. */
+  /** Parent category context — drives close-navigation target. */
   categoryId?: InventoryCategoryId;
   /** Category hub to restore when the tool modal closes. */
   returnHref?: string;
@@ -41,8 +44,8 @@ function slugFromHref(href: string): string {
 }
 
 /**
- * Industrial Matte tool card — matches homepage hub card chrome.
- * Accent and return path follow the parent category context.
+ * Industrial Matte tool card — two-state overlay:
+ * default = solid category fill + centered title; hover = full detail chrome.
  */
 export function IndustrialToolCard({
   href,
@@ -59,11 +62,16 @@ export function IndustrialToolCard({
   const embed = useToolEmbedMode();
   const locale = useLocale();
   const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
-  /** Page-level category wins so hub pages share one accent (e.g. Image Tools). */
+  /** Hub context for modal close / return navigation. */
   const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
+  /** Per-tool accent so cover fills stay distinct across a shared hub grid. */
+  const accentCategoryId = resolveToolAccentCategoryId(toolSlug, categoryId);
   const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId, locale) : href;
   const returnHref =
     returnHrefProp ?? (categoryId ? normalizeHubPath(categoryId) : undefined);
+  const coverInk = getContrastingInk(
+    getCategoryAccentColor(accentCategoryId ?? "pdf"),
+  );
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!openInModal || !modal || embed) return;
@@ -86,10 +94,13 @@ export function IndustrialToolCard({
   return (
     <div
       className={clsx("im-tool-card", className)}
-      data-category={categoryId || undefined}
+      data-category={accentCategoryId || categoryId || undefined}
       style={
-        categoryId
-          ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
+        accentCategoryId
+          ? ({
+              "--category-accent": getCategoryAccentCssVar(accentCategoryId),
+              "--im-tool-card-cover-ink": coverInk,
+            } as CSSProperties)
           : undefined
       }
     >
@@ -104,6 +115,11 @@ export function IndustrialToolCard({
         data-tool-modal-open={openInModal && modal && !embed ? "" : undefined}
         onClick={handleClick}
       />
+
+      <span className="im-tool-card__cover" aria-hidden>
+        <span className="im-tool-card__cover-title">{label}</span>
+      </span>
+
       <ToolCardFocus
         slug={toolSlug}
         href={nestedHref}
@@ -111,7 +127,7 @@ export function IndustrialToolCard({
         description={description}
         example={example}
         icon={icon}
-        categoryId={categoryId}
+        categoryId={accentCategoryId ?? categoryId}
       />
       <span className="im-tool-card__icon" aria-hidden>
         {icon}
@@ -124,7 +140,7 @@ export function IndustrialToolCard({
         </span>
         <ToolRatingSummary
           toolId={toolSlug}
-          categoryId={categoryId}
+          categoryId={accentCategoryId ?? categoryId}
           className="im-tool-card__rating"
         />
       </span>

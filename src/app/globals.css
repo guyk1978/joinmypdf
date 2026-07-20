@@ -2214,6 +2214,7 @@ html:has(.home-page-shell--minimal) body {
 
 .im-tool-card {
   --category-accent: var(--color-pdf, #3b82f6);
+  --im-tool-card-cover-ink: #000000;
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -2221,7 +2222,7 @@ html:has(.home-page-shell--minimal) body {
   align-items: center;
   justify-content: flex-start;
   gap: 0.75rem;
-  min-height: 6rem;
+  min-height: 7.5rem;
   height: 100%;
   padding: 1.125rem 1rem;
   background: #121212;
@@ -2230,17 +2231,95 @@ html:has(.home-page-shell--minimal) body {
   color: inherit;
   text-align: start;
   text-decoration: none;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  transition:
+    border-color 0.1s ease,
+    background-color 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+/* Default cover — solid category fill + large centered title only */
+.im-tool-card__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  background: var(--category-accent);
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+}
+
+.im-tool-card__cover-title {
+  max-width: 100%;
+  margin: 0;
+  font-size: clamp(1.125rem, 2.4vw, 1.625rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--im-tool-card-cover-ink, #000000);
+}
+
+/* Detail chrome is present but hidden until hover / keyboard focus */
+.im-tool-card__icon,
+.im-tool-card__body,
+.im-tool-card .tool-card-focus__expand {
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.im-tool-card .tool-card-focus__expand {
+  pointer-events: none;
 }
 
 .im-tool-card:hover,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible) {
+.im-tool-card:has(.im-tool-card__overlay:focus-visible),
+.im-tool-card:focus-within {
   border: 1px solid var(--category-accent);
   background: color-mix(in srgb, var(--category-accent) 10%, #121212);
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--category-accent) 22%, transparent),
     0 0 18px color-mix(in srgb, var(--category-accent) 22%, transparent);
   outline: none;
+}
+
+.im-tool-card:hover .im-tool-card__cover,
+.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__cover,
+.im-tool-card:focus-within .im-tool-card__cover {
+  opacity: 0;
+}
+
+.im-tool-card:hover .im-tool-card__icon,
+.im-tool-card:hover .im-tool-card__body,
+.im-tool-card:hover .tool-card-focus__expand,
+.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__icon,
+.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__body,
+.im-tool-card:has(.im-tool-card__overlay:focus-visible) .tool-card-focus__expand,
+.im-tool-card:focus-within .im-tool-card__icon,
+.im-tool-card:focus-within .im-tool-card__body,
+.im-tool-card:focus-within .tool-card-focus__expand {
+  opacity: 1;
+}
+
+.im-tool-card:hover .tool-card-focus__expand,
+.im-tool-card:has(.im-tool-card__overlay:focus-visible) .tool-card-focus__expand,
+.im-tool-card:focus-within .tool-card-focus__expand {
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .im-tool-card,
+  .im-tool-card__cover,
+  .im-tool-card__icon,
+  .im-tool-card__body,
+  .im-tool-card .tool-card-focus__expand {
+    transition: none;
+  }
 }
 
 .im-tool-card__icon {
@@ -2252,14 +2331,13 @@ html:has(.home-page-shell--minimal) body {
   height: 1.75rem;
   margin-top: 0;
   color: var(--category-accent);
-  opacity: 0.8;
   filter: none;
-  transition: opacity 0.3s ease, filter 0.3s ease;
+  transition: opacity 0.1s ease, filter 0.1s ease;
 }
 
 .im-tool-card:hover .im-tool-card__icon,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__icon {
-  opacity: 1;
+.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__icon,
+.im-tool-card:focus-within .im-tool-card__icon {
   filter: drop-shadow(0 0 6px color-mix(in srgb, var(--category-accent) 55%, transparent));
 }
 
@@ -6421,6 +6499,174 @@ a.blog-article-card:hover .blog-article-card__title,
   margin-top: 2rem;
   padding-top: 0.5rem;
   text-align: center;
+}
+
+/* --- All Tools Directory (minimal 2-column grid) --- */
+.all-tools-directory-page {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.25rem, 4vw, 2.5rem) clamp(3rem, 5vw, 4rem);
+}
+
+.all-tools-directory-page__head {
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.all-tools-directory-page__title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+.all-tools-directory-page__desc {
+  margin: 0.75rem 0 0;
+  max-width: 40rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #a1a1aa;
+}
+
+.all-tools-directory-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Mobile: flatten columns so cards follow source order (0, 1, 2, …) via `order`. */
+.all-tools-directory-column {
+  display: contents;
+}
+
+.all-tools-directory-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  padding: clamp(1.25rem, 2.5vw, 1.5rem);
+  border: 1px solid var(--im-border-strong);
+  border-radius: 0.5rem;
+  background-color: var(--im-surface-panel);
+}
+
+@media (min-width: 768px) {
+  .all-tools-directory-grid {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .all-tools-directory-column {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0;
+  }
+}
+
+.all-tools-directory-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: start;
+  color: inherit;
+}
+
+.all-tools-directory-card__header:focus-visible {
+  outline: 2px solid #525252;
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.all-tools-directory-card__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.all-tools-directory-card__toggle {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: #71717a;
+}
+
+.all-tools-directory-card__chevron {
+  width: 1.125rem;
+  height: 1.125rem;
+  transition: transform 0.25s ease;
+}
+
+.all-tools-directory-card__chevron--open {
+  transform: rotate(180deg);
+}
+
+.all-tools-directory-card__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+
+.all-tools-directory-card__panel--open {
+  grid-template-rows: 1fr;
+}
+
+.all-tools-directory-card__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.all-tools-directory-card__tools {
+  margin: 0;
+  padding: 0.875rem 0 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.all-tools-directory-card__tool-link {
+  display: inline-block;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+  text-decoration: none;
+}
+
+.all-tools-directory-card__tool-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.all-tools-directory-card__tool-link:focus-visible {
+  outline: 2px solid #525252;
+  outline-offset: 2px;
+  border-radius: 0.125rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .all-tools-directory-card__panel,
+  .all-tools-directory-card__chevron {
+    transition: none;
+  }
 }
 
 .privacy-policy-subheading {
@@ -13022,6 +13268,67 @@ body.site-tools-grid-open {
 
 .tool-upload-float {
   width: 100%;
+}
+
+/* --- Workspace phase: clean (immersive dropzone) vs active (controls revealed) --- */
+@keyframes workspace-controls-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#tool-workspace[data-workspace-phase="clean"] {
+  width: 100%;
+  max-width: none;
+  padding-bottom: 0;
+  gap: 0;
+}
+
+/* Hide all controls / panels / action bars until a file is present */
+#tool-workspace[data-workspace-phase="clean"] > :not(.tool-upload-float) {
+  display: none !important;
+}
+
+.tool-page-dashboard #tool-workspace[data-workspace-phase="clean"] {
+  max-width: none;
+}
+
+/* Immersive dropzone: fill available stage with a consistent 30px margin */
+#tool-workspace[data-workspace-phase="clean"] .im-dropzone,
+.tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
+#workspace-upload[data-workspace-phase="clean"] .im-dropzone {
+  margin: 30px;
+  width: calc(100% - 60px);
+  max-width: none;
+  min-height: calc(100dvh - var(--site-header-height, 60px) - 60px - var(--tool-page-header-offset, 7.5rem));
+  box-sizing: border-box;
+}
+
+#tool-workspace[data-workspace-phase="active"] > :not(.tool-upload-float),
+.tool-upload-float[data-workspace-phase="active"] .tool-workspace-panel,
+#workspace-upload[data-workspace-phase="active"] .tool-workspace-panel {
+  animation: workspace-controls-pop-in 0.32s ease-out;
+}
+
+#tool-workspace[data-workspace-phase="active"] .im-dropzone,
+.tool-upload-float[data-workspace-phase="active"] .im-dropzone,
+#workspace-upload[data-workspace-phase="active"] .im-dropzone {
+  margin: 0;
+  width: 100%;
+  min-height: 280px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #tool-workspace[data-workspace-phase="active"] > :not(.tool-upload-float),
+  .tool-upload-float[data-workspace-phase="active"] .tool-workspace-panel,
+  #workspace-upload[data-workspace-phase="active"] .tool-workspace-panel {
+    animation: none;
+  }
 }
 
 /* Tool page ? AdSense slot below upload area */
@@ -23541,7 +23848,7 @@ body.site-tools-grid-open {
 .im-dropzone-shell {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 0.75rem;
   width: 100%;
 }
@@ -23549,6 +23856,11 @@ body.site-tools-grid-open {
 .im-dropzone {
   width: 100%;
   cursor: pointer;
+}
+
+/* Default tool-page dropzone height (overridden by phase=clean immersive rules) */
+.tool-upload-stack .im-dropzone {
+  min-height: 280px;
 }
 
 .im-dropzone__select {

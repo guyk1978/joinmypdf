@@ -1,13 +1,22 @@
 "use client";
 
-import { useCallback, useEffect, useRef, type RefObject } from "react";
-import { scrollToWorkspaceOperations, scrollToWorkspaceUpload } from "@/lib/workspace-flow";
+import { useCallback, useEffect, useLayoutEffect, useRef, type RefObject } from "react";
+import {
+  getWorkspacePhaseFromSignal,
+  scrollToWorkspaceOperations,
+  scrollToWorkspaceUpload,
+  setWorkspacePhase,
+} from "@/lib/workspace-flow";
 
 export function useWorkspaceFileFlow(
   inputRef: RefObject<HTMLInputElement | null>,
   fileSignal: boolean | number,
 ) {
   const previousSignal = useRef(fileSignal);
+
+  useLayoutEffect(() => {
+    setWorkspacePhase(getWorkspacePhaseFromSignal(fileSignal));
+  }, [fileSignal]);
 
   useEffect(() => {
     const hadFiles =
@@ -23,6 +32,12 @@ export function useWorkspaceFileFlow(
 
     previousSignal.current = fileSignal;
   }, [fileSignal]);
+
+  useEffect(() => {
+    return () => {
+      setWorkspacePhase("clean");
+    };
+  }, []);
 
   const startNewUpload = useCallback(
     (reset: () => void) => {

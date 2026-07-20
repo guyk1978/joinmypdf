@@ -53,6 +53,46 @@ export function getCategoryAccentColor(id: InventoryCategoryId | string): string
   );
 }
 
+/** Black or white ink that contrasts with a solid category fill. */
+export function getContrastingInk(hex: string): "#000000" | "#ffffff" {
+  const raw = hex.replace("#", "").trim();
+  const full =
+    raw.length === 3
+      ? raw
+          .split("")
+          .map((c) => `${c}${c}`)
+          .join("")
+      : raw;
+  if (full.length !== 6) return "#000000";
+
+  const r = Number.parseInt(full.slice(0, 2), 16);
+  const g = Number.parseInt(full.slice(2, 4), 16);
+  const b = Number.parseInt(full.slice(4, 6), 16);
+  if ([r, g, b].some((n) => Number.isNaN(n))) return "#000000";
+
+  const toLin = (channel: number) => {
+    const s = channel / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  };
+  const luminance = 0.2126 * toLin(r) + 0.7152 * toLin(g) + 0.0722 * toLin(b);
+  return luminance > 0.42 ? "#000000" : "#ffffff";
+}
+
+/**
+ * Visual accent for cards: prefer the tool's own primary category so cover
+ * fills stay distinct (extract pink, security red, …) even on a PDF hub page.
+ */
+export function resolveToolAccentCategoryId(
+  slug?: string,
+  fallback?: InventoryCategoryId,
+): InventoryCategoryId | undefined {
+  if (slug) {
+    const entry = getToolsInventoryEntry(slug);
+    if (entry?.primaryCategory) return entry.primaryCategory;
+  }
+  return fallback ?? resolveToolCategoryId(slug);
+}
+
 /** Resolve accent category for a tool slug, with optional page-level fallback. */
 export function resolveToolCategoryId(
   slug?: string,

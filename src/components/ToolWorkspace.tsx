@@ -313,7 +313,7 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={files.length > 0}>
             <FileUploadZone
         operation={tool.operation}
         drag={drag}
@@ -361,136 +361,138 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
       />
       </WorkspaceUploadShell>
 
-      <MapDiagramCrossLink className="mx-auto mt-6 max-w-2xl" />
-
-      {tool.operation === "compress" ? (
-        <CompressionLevelPicker
-          className="tool-workspace-panel"
-          name={`${baseId}-compression`}
-          value={compressionPreset}
-          onChange={setCompressionPreset}
-          label={ws.common("compressionLevel")}
-          hint={ws.common("compressionHint")}
-          optionLabels={{
-            high: ws.common("compressionPresetHigh"),
-            medium: ws.common("compressionPresetMedium"),
-            max: ws.common("compressionPresetMax"),
-          }}
-          optionDescriptions={{
-            high: ws.common("compressionPresetHighDesc"),
-            medium: ws.common("compressionPresetMediumDesc"),
-            max: ws.common("compressionPresetMaxDesc"),
-          }}
-        />
-      ) : null}
-
       {files.length > 0 ? (
-        <div
-          id={WORKSPACE_OPERATIONS_ID}
-          className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
-        >
-          <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-ink">{ws.common("files")}</p>
-          <ul className="mt-3 space-y-2">
-            {files.map((f, idx) => (
-              <li
-                key={`${f.name}-${idx}`}
-                className="flex flex-wrap items-center gap-2 rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-3 py-2 text-sm dark:border-neutral-300 dark:border-neutral-800 dark:bg-surface/40"
-                draggable
-                onDragStart={(e) => e.dataTransfer.setData("text/plain", String(idx))}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  const from = Number(e.dataTransfer.getData("text/plain"));
-                  move(from, idx);
-                }}
-              >
-                <span className="cursor-grab text-black dark:text-neutral-200 dark:text-ink-muted" aria-hidden>
-                  ::
-                </span>
-                <span className="min-w-0 flex-1 truncate font-medium text-black dark:text-neutral-200 dark:text-ink">{f.name}</span>
-                <span className="text-black dark:text-neutral-200 dark:text-ink-muted">{pdf.formatBytes(f.size)}</span>
-                <span className="text-black dark:text-neutral-200 dark:text-ink-muted">#{idx + 1}</span>
-                <button
-                  type="button"
-                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-2 py-1 text-xs text-black dark:text-neutral-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
-                  onClick={() => move(idx, idx - 1)}
-                >
-                  {ws.common("up")}
-                </button>
-                <button
-                  type="button"
-                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-2 py-1 text-xs text-black dark:text-neutral-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
-                  onClick={() => move(idx, idx + 1)}
-                >
-                  {ws.common("down")}
-                </button>
-                <button
-                  type="button"
-                  className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-2 py-1 text-xs text-black dark:text-neutral-200 hover:bg-neutral-200 dark:bg-neutral-800 dark:border-neutral-300 dark:border-neutral-800 dark:bg-transparent dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-800"
-                  onClick={() => removeAt(idx)}
-                >
-                  {ws.common("remove")}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+        <>
+          <MapDiagramCrossLink className="mx-auto mt-6 max-w-2xl" />
 
-      {showImagePreview ? (
-        <div className="image-preview-grid" aria-label={ws.common("imagePreviews")}>
-          {files.map((f, idx) => (
-            <ImageFilePreview
-              key={`${f.name}-${f.size}-${idx}`}
-              file={f}
-              pageNumber={idx + 1}
-              pageLabel={ws.common("page")}
-              previewLabel={ws.common("previewOf")}
-              loadingLabel={ws.common("loading")}
+          {tool.operation === "compress" ? (
+            <CompressionLevelPicker
+              className="tool-workspace-panel"
+              name={`${baseId}-compression`}
+              value={compressionPreset}
+              onChange={setCompressionPreset}
+              label={ws.common("compressionLevel")}
+              hint={ws.common("compressionHint")}
+              optionLabels={{
+                high: ws.common("compressionPresetHigh"),
+                medium: ws.common("compressionPresetMedium"),
+                max: ws.common("compressionPresetMax"),
+              }}
+              optionDescriptions={{
+                high: ws.common("compressionPresetHighDesc"),
+                medium: ws.common("compressionPresetMediumDesc"),
+                max: ws.common("compressionPresetMaxDesc"),
+              }}
             />
-          ))}
-        </div>
+          ) : null}
+
+          <div
+            id={WORKSPACE_OPERATIONS_ID}
+            className="rounded-none border border-neutral-300 dark:border-neutral-800/60 bg-white p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
+          >
+            <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-ink">{ws.common("files")}</p>
+            <ul className="mt-3 space-y-2">
+              {files.map((f, idx) => (
+                <li
+                  key={`${f.name}-${idx}`}
+                  className="flex flex-wrap items-center gap-2 rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 px-3 py-2 text-sm dark:border-neutral-300 dark:border-neutral-800 dark:bg-surface/40"
+                  draggable
+                  onDragStart={(e) => e.dataTransfer.setData("text/plain", String(idx))}
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    const from = Number(e.dataTransfer.getData("text/plain"));
+                    move(from, idx);
+                  }}
+                >
+                  <span className="cursor-grab text-black dark:text-neutral-200 dark:text-ink-muted" aria-hidden>
+                    ::
+                  </span>
+                  <span className="min-w-0 flex-1 truncate font-medium text-black dark:text-neutral-200 dark:text-ink">{f.name}</span>
+                  <span className="text-black dark:text-neutral-200 dark:text-ink-muted">{pdf.formatBytes(f.size)}</span>
+                  <span className="text-black dark:text-neutral-200 dark:text-ink-muted">#{idx + 1}</span>
+                  <button
+                    type="button"
+                    className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-2 py-1 text-xs text-black dark:text-neutral-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
+                    onClick={() => move(idx, idx - 1)}
+                  >
+                    {ws.common("up")}
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-white px-2 py-1 text-xs text-black dark:text-neutral-200 hover:bg-neutral-100 dark:bg-neutral-900 dark:border-white/15 dark:bg-transparent dark:text-ink dark:hover:bg-white/5"
+                    onClick={() => move(idx, idx + 1)}
+                  >
+                    {ws.common("down")}
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-2 py-1 text-xs text-black dark:text-neutral-200 hover:bg-neutral-200 dark:bg-neutral-800 dark:border-neutral-300 dark:border-neutral-800 dark:bg-transparent dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-800"
+                    onClick={() => removeAt(idx)}
+                  >
+                    {ws.common("remove")}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {showImagePreview ? (
+            <div className="image-preview-grid" aria-label={ws.common("imagePreviews")}>
+              {files.map((f, idx) => (
+                <ImageFilePreview
+                  key={`${f.name}-${f.size}-${idx}`}
+                  file={f}
+                  pageNumber={idx + 1}
+                  pageLabel={ws.common("page")}
+                  previewLabel={ws.common("previewOf")}
+                  loadingLabel={ws.common("loading")}
+                />
+              ))}
+            </div>
+          ) : null}
+
+          <WorkspaceActionRow
+            primaryLabel={config.buttonLabel}
+            primaryBusyLabel={ws.processing}
+            busy={busy}
+            disabled={disabled}
+            onPrimary={() => void onRun()}
+            onClear={reset}
+            clearLabel={ws.clear}
+            onNewUpload={() => startNewUpload(reset)}
+            newUploadLabel={ws.uploadNewFile}
+            save={{
+              toolSlug: slug,
+              operation: tool.operation,
+              files,
+              settings: tool.operation === "compress" ? { compressionPreset } : {},
+              disabled: files.length === 0,
+            }}
+          />
+
+          {runError ? (
+            <ToolErrorRecovery
+              operation={tool.operation}
+              slug={slug}
+              kind={runError.kind}
+              technicalMessage={runError.message}
+              onDismiss={() => {
+                setRunError(null);
+                setStatus(ws.status("chooseAnotherOrClear"));
+              }}
+            />
+          ) : (
+            <p className="text-sm text-black dark:text-neutral-200 dark:text-ink-muted" role="status" aria-live="polite">
+              {status}
+            </p>
+          )}
+
+          {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={files[0]} /> : null}
+
+          <StickyMobileCta href="#tool-workspace" label={stickyLabel} secondaryHref="/" secondaryLabel={ws.home} />
+        </>
       ) : null}
-
-      <WorkspaceActionRow
-        primaryLabel={config.buttonLabel}
-        primaryBusyLabel={ws.processing}
-        busy={busy}
-        disabled={disabled}
-        onPrimary={() => void onRun()}
-        onClear={reset}
-        clearLabel={ws.clear}
-        onNewUpload={() => startNewUpload(reset)}
-        newUploadLabel={ws.uploadNewFile}
-        save={{
-          toolSlug: slug,
-          operation: tool.operation,
-          files,
-          settings: tool.operation === "compress" ? { compressionPreset } : {},
-          disabled: files.length === 0,
-        }}
-      />
-
-      {runError ? (
-        <ToolErrorRecovery
-          operation={tool.operation}
-          slug={slug}
-          kind={runError.kind}
-          technicalMessage={runError.message}
-          onDismiss={() => {
-            setRunError(null);
-            setStatus(ws.status("chooseAnotherOrClear"));
-          }}
-        />
-      ) : (
-        <p className="text-sm text-black dark:text-neutral-200 dark:text-ink-muted" role="status" aria-live="polite">
-          {status}
-        </p>
-      )}
-
-      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={files[0]} /> : null}
-
-      <StickyMobileCta href="#tool-workspace" label={stickyLabel} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

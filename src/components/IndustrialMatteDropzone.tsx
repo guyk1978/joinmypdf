@@ -44,7 +44,7 @@ export function IndustrialMatteDropzone({
           "im-dropzone group",
           "flex w-full flex-col items-center justify-center gap-3",
           "bg-neutral-950 px-6 py-12 text-center",
-          "border border-transparent border-b-2 border-b-neutral-700",
+          "rounded-lg border border-dashed border-neutral-700/60",
           "transition-[border-color,background-color,color] duration-200",
           active && "im-dropzone--active",
           disabled && "pointer-events-none opacity-55",
@@ -53,7 +53,7 @@ export function IndustrialMatteDropzone({
       >
         {input}
 
-        <p className="im-dropzone__title m-0 text-lg text-neutral-500">{dropTitle}</p>
+        <p className="im-dropzone__title m-0 text-lg text-neutral-300">{dropTitle}</p>
 
         <span className="im-dropzone__select m-0 text-base font-medium">
           {selectLabel}

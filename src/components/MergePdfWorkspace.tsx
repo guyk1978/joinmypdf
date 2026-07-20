@@ -205,7 +205,7 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={files.length > 0}>
       <FileUploadZone
         operation={tool.operation}
         drag={drag}
@@ -245,75 +245,77 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
       </WorkspaceUploadShell>
 
       {files.length > 0 ? (
-        <div id={WORKSPACE_OPERATIONS_ID} className="visual-reorder-panel">
-          <p className="visual-reorder-panel__hint">{ws.common("reorderHint")}</p>
-          <div className="visual-reorder-grid" role="list">
-            {files.map((file, idx) => (
-              <article
-                key={`${file.name}-${file.size}-${idx}`}
-                role="listitem"
-                className={cardClassName(idx, "visual-reorder-card")}
-                {...getCardProps(idx, reorder)}
-              >
-                <button
-                  type="button"
-                  className="visual-reorder-card__remove"
-                  aria-label={ws.common("removeFile", { name: file.name })}
-                  onClick={() => removeAt(idx)}
+        <>
+          <div id={WORKSPACE_OPERATIONS_ID} className="visual-reorder-panel">
+            <p className="visual-reorder-panel__hint">{ws.common("reorderHint")}</p>
+            <div className="visual-reorder-grid" role="list">
+              {files.map((file, idx) => (
+                <article
+                  key={`${file.name}-${file.size}-${idx}`}
+                  role="listitem"
+                  className={cardClassName(idx, "visual-reorder-card")}
+                  {...getCardProps(idx, reorder)}
                 >
-                  ×
-                </button>
-                <span className="visual-reorder-card__index">#{idx + 1}</span>
-                <PdfFileThumbnail file={file} loadingLabel={ws.common("loading")} />
-                <p className="visual-reorder-card__name" title={file.name}>
-                  {file.name}
-                </p>
-                <p className="visual-reorder-card__meta">{pdf.formatBytes(file.size)}</p>
-              </article>
-            ))}
+                  <button
+                    type="button"
+                    className="visual-reorder-card__remove"
+                    aria-label={ws.common("removeFile", { name: file.name })}
+                    onClick={() => removeAt(idx)}
+                  >
+                    ×
+                  </button>
+                  <span className="visual-reorder-card__index">#{idx + 1}</span>
+                  <PdfFileThumbnail file={file} loadingLabel={ws.common("loading")} />
+                  <p className="visual-reorder-card__name" title={file.name}>
+                    {file.name}
+                  </p>
+                  <p className="visual-reorder-card__meta">{pdf.formatBytes(file.size)}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
+
+          <WorkspaceActionRow
+            primaryLabel={mergeLabel}
+            primaryBusyLabel={ws.common("merging")}
+            busy={busy}
+            disabled={disabled}
+            onPrimary={() => void onMerge()}
+            onClear={reset}
+            clearLabel={ws.clear}
+            onNewUpload={() => startNewUpload(reset)}
+            newUploadLabel={ws.uploadNewFile}
+            save={{
+              toolSlug: slug,
+              operation: tool.operation,
+              files,
+              settings: {},
+              disabled: files.length === 0,
+            }}
+          />
+
+          {runError ? (
+            <ToolErrorRecovery
+              operation={tool.operation}
+              slug={slug}
+              kind={runError.kind}
+              technicalMessage={runError.message}
+              onDismiss={() => {
+                setRunError(null);
+                setStatus(ws.status("adjustTryAgain"));
+              }}
+            />
+          ) : (
+            <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" role="status" aria-live="polite">
+              {status}
+            </p>
+          )}
+
+          {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={files[0]} /> : null}
+
+          <StickyMobileCta href="#tool-workspace" label={mergeLabel} secondaryHref="/" secondaryLabel={ws.home} />
+        </>
       ) : null}
-
-      <WorkspaceActionRow
-        primaryLabel={mergeLabel}
-        primaryBusyLabel={ws.common("merging")}
-        busy={busy}
-        disabled={disabled}
-        onPrimary={() => void onMerge()}
-        onClear={reset}
-        clearLabel={ws.clear}
-        onNewUpload={() => startNewUpload(reset)}
-        newUploadLabel={ws.uploadNewFile}
-        save={{
-          toolSlug: slug,
-          operation: tool.operation,
-          files,
-          settings: {},
-          disabled: files.length === 0,
-        }}
-      />
-
-      {runError ? (
-        <ToolErrorRecovery
-          operation={tool.operation}
-          slug={slug}
-          kind={runError.kind}
-          technicalMessage={runError.message}
-          onDismiss={() => {
-            setRunError(null);
-            setStatus(ws.status("adjustTryAgain"));
-          }}
-        />
-      ) : (
-        <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" role="status" aria-live="polite">
-          {status}
-        </p>
-      )}
-
-      {done ? <PostSuccessUpsell operation={tool.operation} sourceFile={files[0]} /> : null}
-
-      <StickyMobileCta href="#tool-workspace" label={mergeLabel} secondaryHref="/" secondaryLabel={ws.home} />
     </div>
   );
 }

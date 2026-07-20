@@ -1072,6 +1072,43 @@
     "learnPrivacy": "Learn about Privacy First",
     "viewGuides": "View guides"
   },
+  "AllToolsPage": {
+    "metaTitle": "All Tools Directory — JoinMyPDF",
+    "metaDescription": "Browse every JoinMyPDF tool by category — a clean, text-only directory of local browser utilities. No uploads, no clutter.",
+    "title": "All Tools Directory",
+    "description": "{count} tools across {categories} categories. Expand any section to browse names and jump straight in.",
+    "expandCategory": "Expand category",
+    "collapseCategory": "Collapse category",
+    "categories": {
+      "pdf": "PDF Tools",
+      "video": "Video Tools",
+      "mp4": "MP4 Tools",
+      "convert": "Convert Tools",
+      "compress": "Compress Tools",
+      "extract": "Extract Tools",
+      "image": "Image Tools",
+      "jpg": "JPG Tools",
+      "png": "PNG Tools",
+      "mp3": "MP3 Tools",
+      "audio": "Audio Tools",
+      "favicon": "Favicon Tools",
+      "text": "Text Tools",
+      "json": "JSON Tools",
+      "yaml": "YAML Tools",
+      "xml": "XML Tools",
+      "developer": "Developer Tools",
+      "word": "Word Tools",
+      "excel": "Excel Tools",
+      "crop": "Crop Tools",
+      "rotate": "Rotate Tools",
+      "security": "Security Tools",
+      "design": "Design Tools",
+      "data": "Data Conversion",
+      "productivity": "Productivity Tools",
+      "unit-math": "Unit Converters",
+      "network": "Network & API Tools"
+    }
+  },
   "CategorySeo": {
     "faqTitle": "Frequently asked questions",
     "image": {
@@ -1633,7 +1670,8 @@
       "privacyPolicy": "Privacy Policy",
       "privacyHub": "Privacy-first PDF hub",
       "feedback": "Feedback",
-      "guide": "User Guide"
+      "guide": "User Guide",
+      "toolsDirectory": "All Tools"
     },
     "copyright": "All rights reserved.",
     "copyrightLine": "© {year} JoinMyPDF",
