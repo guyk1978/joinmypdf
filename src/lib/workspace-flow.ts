@@ -1,12 +1,19 @@
 export const WORKSPACE_UPLOAD_ID = "workspace-upload";
 export const WORKSPACE_OPERATIONS_ID = "workspace-operations";
 export const WORKSPACE_PHASE_CLEAN_CLASS = "workspace-phase-clean";
+/** Marks dedicated tool pages that use an immersive upload shell (hide body H1). */
+export const TOOL_HAS_UPLOAD_SHELL_CLASS = "tool-has-upload-shell";
 
 export type WorkspacePhase = "clean" | "active";
 
 function applyDocumentPhaseClass(phase: WorkspacePhase) {
   if (typeof document === "undefined") return;
   document.documentElement.classList.toggle(WORKSPACE_PHASE_CLEAN_CLASS, phase === "clean");
+}
+
+export function setToolHasUploadShell(enabled: boolean) {
+  if (typeof document === "undefined") return;
+  document.documentElement.classList.toggle(TOOL_HAS_UPLOAD_SHELL_CLASS, enabled);
 }
 
 /**

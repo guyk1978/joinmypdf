@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { FileClock, Play } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
+import { homeToolAccentStyle } from "@/components/homepage/home-accent";
 import {
   RECENT_ACTIVITY_CHANGED_EVENT,
   readRecentWorkspaces,
@@ -59,6 +60,7 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
       if (!inventory) continue;
       resolved.push({
         key: `${entry.toolId}:${entry.fileName}`,
+        toolId: entry.toolId,
         fileName: entry.fileName,
         toolTitle: resolveInventoryToolLabel(entry.toolId, tTools),
         href: resolveToolHref(entry.toolId, inventory.primaryCategory, locale),
@@ -76,46 +78,49 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
     <HomeReveal className="w-full">
       <section aria-labelledby="recent-workspaces-title" className="w-full mb-10">
         <h2
-        id="recent-workspaces-title"
-        className="mb-5 flex items-center gap-2 text-lg font-semibold tracking-tight text-white"
-      >
-        <FileClock size={18} strokeWidth={1.75} aria-hidden className="text-neutral-400" />
-        {t("landing.recentTitle")}
-      </h2>
+          id="recent-workspaces-title"
+          className="mb-5 flex items-center gap-2 text-lg font-semibold tracking-tight text-white"
+        >
+          <FileClock size={18} strokeWidth={1.75} aria-hidden className="text-neutral-400" />
+          {t("landing.recentTitle")}
+        </h2>
 
-      <ul className="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-3">
-        {items.map(({ key, fileName, toolTitle, href, when, Icon }) => (
-          <li key={key} className="m-0 min-w-0">
-            <div className="flex h-full items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-              <span
-                aria-hidden
-                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-white/80"
+        <ul className="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-3">
+          {items.map(({ key, toolId, fileName, toolTitle, href, when, Icon }) => (
+            <li key={key} className="m-0 min-w-0">
+              <div
+                style={homeToolAccentStyle(toolId)}
+                className="home-accent-card flex h-full items-center gap-4 rounded-2xl p-4"
               >
-                <Icon size={20} strokeWidth={1.75} />
-              </span>
-              <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span
-                  className="truncate text-sm font-semibold text-white"
-                  title={fileName}
+                  aria-hidden
+                  className="home-accent-card__icon inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
                 >
-                  {fileName}
+                  <Icon size={20} strokeWidth={1.75} />
                 </span>
-                <span className="truncate text-xs text-neutral-400">
-                  {toolTitle} · {when}
+                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span
+                    className="home-accent-card__title truncate text-sm font-semibold"
+                    title={fileName}
+                  >
+                    {fileName}
+                  </span>
+                  <span className="home-accent-card__desc truncate text-xs">
+                    {toolTitle} · {when}
+                  </span>
                 </span>
-              </span>
-              <Link
-                href={href}
-                prefetch={false}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-xs font-semibold text-neutral-200 transition-colors duration-200 hover:border-white/25 hover:bg-white/[0.1] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
-                aria-label={`${t("landing.recentResume")} — ${toolTitle}`}
-              >
-                <Play size={12} strokeWidth={2} aria-hidden />
-                {t("landing.recentResume")}
-              </Link>
-            </div>
-          </li>
-        ))}
+                <Link
+                  href={href}
+                  prefetch={false}
+                  className="home-accent-pill inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold"
+                  aria-label={`${t("landing.recentResume")} — ${toolTitle}`}
+                >
+                  <Play size={12} strokeWidth={2} aria-hidden />
+                  {t("landing.recentResume")}
+                </Link>
+              </div>
+            </li>
+          ))}
         </ul>
       </section>
     </HomeReveal>

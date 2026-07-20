@@ -15,6 +15,8 @@ export type IndustrialMatteDropzoneProps = HTMLAttributes<HTMLDivElement> & {
   footer?: ReactNode;
   showPrivacy?: boolean;
   className?: string;
+  /** Secondary “add more” zone — excluded from immersive clean-phase detection. */
+  compact?: boolean;
 };
 
 /** Strip redundant “processed/compressed locally…” clauses from Supports lines. */
@@ -43,6 +45,7 @@ export function IndustrialMatteDropzone({
   className,
   children,
   onClick,
+  compact = false,
   ...rest
 }: IndustrialMatteDropzoneProps) {
   const resolvedSupports = cleanSupportsLabel(supportsLabel);
@@ -54,8 +57,9 @@ export function IndustrialMatteDropzone({
         aria-disabled={disabled || undefined}
         className={clsx(
           "im-dropzone group",
+          compact && "im-dropzone--compact",
           "flex w-full flex-col items-center justify-center gap-4",
-          "px-6 py-12 text-center",
+          "px-6 py-10 text-center",
           active && "im-dropzone--active",
           disabled && "pointer-events-none opacity-55",
         )}
@@ -63,7 +67,7 @@ export function IndustrialMatteDropzone({
       >
         {input}
 
-        <div className="im-dropzone__stage flex max-w-xl flex-col items-center gap-4">
+        <div className="im-dropzone__stage flex max-w-xl flex-col items-center justify-center gap-4">
           <span className="im-dropzone__icon" aria-hidden>
             <Upload className="im-dropzone__icon-svg" strokeWidth={1.35} />
           </span>

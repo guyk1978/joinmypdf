@@ -66,13 +66,16 @@ export function IndustrialToolCard({
   /** Hub context for modal close / return navigation. */
   const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
   /** Per-tool accent so cover fills stay distinct across a shared hub grid. */
-  const accentCategoryId = resolveToolAccentCategoryId(toolSlug, categoryId);
+  const accentCategoryId =
+    resolveToolAccentCategoryId(toolSlug, categoryId) ?? categoryId ?? "pdf";
   const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId, locale) : href;
   const returnHref =
     returnHrefProp ?? (categoryId ? normalizeHubPath(categoryId) : undefined);
-  const coverInk = getContrastingInk(
-    getCategoryAccentColor(accentCategoryId ?? "pdf"),
-  );
+  const coverInk = getContrastingInk(getCategoryAccentColor(accentCategoryId));
+  const accentStyle = {
+    "--category-accent": getCategoryAccentCssVar(accentCategoryId),
+    "--im-tool-card-cover-ink": coverInk,
+  } as CSSProperties;
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (!openInModal || !modal || embed) return;
@@ -98,15 +101,8 @@ export function IndustrialToolCard({
   return (
     <div
       className={clsx("im-tool-card", className)}
-      data-category={accentCategoryId || categoryId || undefined}
-      style={
-        accentCategoryId
-          ? ({
-              "--category-accent": getCategoryAccentCssVar(accentCategoryId),
-              "--im-tool-card-cover-ink": coverInk,
-            } as CSSProperties)
-          : undefined
-      }
+      data-category={accentCategoryId}
+      style={accentStyle}
     >
       {/* Overlay link keeps the whole card clickable while the example toggle
           and Focus expand button stay valid interactive siblings (never
@@ -131,7 +127,7 @@ export function IndustrialToolCard({
         description={description}
         example={example}
         icon={icon}
-        categoryId={accentCategoryId ?? categoryId}
+        categoryId={accentCategoryId}
       />
       <span className="im-tool-card__icon" aria-hidden>
         {icon}
@@ -144,7 +140,7 @@ export function IndustrialToolCard({
         </span>
         <ToolRatingSummary
           toolId={toolSlug}
-          categoryId={accentCategoryId ?? categoryId}
+          categoryId={accentCategoryId}
           className="im-tool-card__rating"
         />
       </span>

@@ -203,7 +203,7 @@ export function ImageMetadataEditorWorkspace({ tool, slug }: { tool: ToolDefinit
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={showWorkspace}>
         {!showWorkspace ? (
           <>
             <ImageToolDropzone

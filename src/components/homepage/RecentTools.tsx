@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { History } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
+import { homeToolAccentStyle } from "@/components/homepage/home-accent";
 import { useRecentTools } from "@/hooks/useRecentTools";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolListLucideIcon } from "@/lib/tool-list-icons";
@@ -60,11 +61,12 @@ export function RecentTools({ locale }: RecentToolsProps) {
               <Link
                 href={href}
                 prefetch={false}
-                className="group inline-flex items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm font-medium text-neutral-200 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+                style={homeToolAccentStyle(id)}
+                className="home-accent-pill group inline-flex items-center gap-2.5 rounded-2xl px-3.5 py-2.5 text-sm font-medium hover:-translate-y-0.5"
               >
                 <span
                   aria-hidden
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-white/75 transition-colors duration-200 group-hover:border-white/20 group-hover:text-white"
+                  className="home-accent-pill__icon inline-flex h-8 w-8 items-center justify-center rounded-xl"
                 >
                   <Icon size={16} strokeWidth={1.75} />
                 </span>

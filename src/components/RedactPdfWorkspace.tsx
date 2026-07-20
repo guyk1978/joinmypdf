@@ -382,7 +382,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   return (
     <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={Boolean(file)}>
             {!file ? (
         <FileUploadZone
           operation={tool.operation}

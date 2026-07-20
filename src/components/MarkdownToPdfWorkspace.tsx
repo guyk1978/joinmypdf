@@ -175,7 +175,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={Boolean(file)}>
             <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex rounded-none border border-white/10 p-1">
           <button

@@ -159,7 +159,7 @@ export function PdfMetadataEditorWorkspace({ tool, slug }: { tool: ToolDefinitio
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={showWorkspace}>
         {!showWorkspace ? (
           <FileUploadZone
             operation={tool.operation}

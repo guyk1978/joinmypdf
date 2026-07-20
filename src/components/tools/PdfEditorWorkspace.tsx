@@ -658,7 +658,7 @@ export function PdfEditorWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         {t("privacyBadge")}
       </p>
 
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={Boolean(file)}>
         {!file ? (
           <FileUploadZone
             operation={tool.operation}

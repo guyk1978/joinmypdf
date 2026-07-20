@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { homeToolAccentStyle } from "@/components/homepage/home-accent";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolListLucideIcon } from "@/lib/tool-list-icons";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
@@ -56,20 +57,21 @@ export function PopularTools({ locale }: PopularToolsProps) {
             key={id}
             href={href}
             prefetch={false}
-            className="group flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] hover:shadow-lg hover:shadow-black/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+            style={homeToolAccentStyle(id)}
+            className="home-accent-card group flex flex-col gap-4 rounded-2xl p-6 hover:-translate-y-0.5"
           >
             <span
               aria-hidden
-              className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-white/80 transition-colors duration-200 group-hover:border-white/20 group-hover:text-white"
+              className="home-accent-card__icon inline-flex h-12 w-12 items-center justify-center rounded-xl"
             >
               <Icon size={24} strokeWidth={1.75} />
             </span>
             <span className="flex flex-col gap-1.5">
-              <span className="text-base font-semibold leading-snug text-white">
+              <span className="home-accent-card__title text-base font-semibold leading-snug">
                 {title}
               </span>
               {description ? (
-                <span className="text-sm leading-relaxed text-neutral-400">
+                <span className="home-accent-card__desc text-sm leading-relaxed">
                   {description}
                 </span>
               ) : null}

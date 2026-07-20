@@ -79,8 +79,43 @@ export function getContrastingInk(hex: string): "#000000" | "#ffffff" {
 }
 
 /**
- * Visual accent for cards: prefer the tool's own primary category so cover
- * fills stay distinct (extract pink, security red, …) even on a PDF hub page.
+ * Prefer distinctive category tags for card cover colors so convert/excel/word
+ * tools are not all forced to the generic PDF blue via primaryCategory.
+ * First match in this list that appears on the tool wins.
+ */
+const TOOL_ACCENT_CATEGORY_PRIORITY: readonly InventoryCategoryId[] = [
+  "excel",
+  "word",
+  "jpg",
+  "png",
+  "mp3",
+  "mp4",
+  "favicon",
+  "crop",
+  "rotate",
+  "extract",
+  "compress",
+  "security",
+  "design",
+  "data",
+  "developer",
+  "unit-math",
+  "network",
+  "yaml",
+  "xml",
+  "json",
+  "image",
+  "audio",
+  "video",
+  "text",
+  "productivity",
+  "convert",
+  "pdf",
+] as const;
+
+/**
+ * Visual accent for cards: prefer the most distinctive category tag on the tool
+ * (excel green, image amber, …) so cover fills stay distinct across hubs.
  */
 export function resolveToolAccentCategoryId(
   slug?: string,
@@ -88,7 +123,16 @@ export function resolveToolAccentCategoryId(
 ): InventoryCategoryId | undefined {
   if (slug) {
     const entry = getToolsInventoryEntry(slug);
-    if (entry?.primaryCategory) return entry.primaryCategory;
+    if (entry) {
+      const tags = new Set<InventoryCategoryId>([
+        ...entry.categories,
+        entry.primaryCategory,
+      ]);
+      for (const id of TOOL_ACCENT_CATEGORY_PRIORITY) {
+        if (tags.has(id)) return id;
+      }
+      return entry.primaryCategory;
+    }
   }
   return fallback ?? resolveToolCategoryId(slug);
 }

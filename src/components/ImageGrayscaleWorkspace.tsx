@@ -166,7 +166,7 @@ export function ImageGrayscaleWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={files.length > 0}>
         <ImageToolDropzone
           dropTitle={t("dropTitle")}
           selectLabel={t("selectFile")}

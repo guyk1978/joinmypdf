@@ -202,7 +202,7 @@ export function AddPageNumbersWorkspace({ tool, slug }: { tool: ToolDefinition; 
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={Boolean(file)}>
             {!showOptions ? (
         <FileUploadZone
           operation={tool.operation}

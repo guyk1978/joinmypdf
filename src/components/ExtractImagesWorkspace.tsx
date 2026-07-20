@@ -222,7 +222,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
   return (
     <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={showWorkspace}>
             {!showWorkspace ? (
         <FileUploadZone
           operation={tool.operation}

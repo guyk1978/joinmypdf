@@ -165,7 +165,7 @@ export function ExtractTablesPdfWorkspace({ tool, slug }: { tool: ToolDefinition
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={Boolean(file)}>
         <FileUploadZone
           operation={tool.operation}
           drag={drag}

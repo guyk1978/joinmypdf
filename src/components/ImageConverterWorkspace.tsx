@@ -177,7 +177,7 @@ export function ImageConverterWorkspace({ tool, slug }: ImageConverterWorkspaceP
   const showQuality = outputFormat === "webp" || outputFormat === "jpg" || outputFormat === "heic";
 
   return (
-    <WorkspaceUploadShell showPrivacyBadge={false}>
+    <WorkspaceUploadShell showPrivacyBadge={false} active={Boolean(file)}>
       <div id={WORKSPACE_OPERATIONS_ID} className="space-y-6">
         <p className="m-0 rounded-sm border border-[#262626] bg-[#0a0a0a] px-4 py-3 text-xs uppercase tracking-widest text-[#a3a3a3]">
           {t("privacyBadge")}

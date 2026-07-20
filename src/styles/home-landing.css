@@ -23,27 +23,57 @@
 }
 
 .home-landing__intro {
+  position: relative;
+  isolation: isolate;
   margin: 0;
-  padding: 0;
-  max-width: 42rem;
+  padding: 0.5rem 0 0.25rem;
+  max-width: 44rem;
   text-align: start;
+}
+
+/* Soft ambient glow behind the hero title (blue / purple / green) */
+.home-landing__intro::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -70% -35% -40% -45%;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 55% 65% at 12% 45%,
+      color-mix(in srgb, #3b82f6 42%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 50% 60% at 52% 15%,
+      color-mix(in srgb, #a855f7 34%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 45% 55% at 88% 55%,
+      color-mix(in srgb, #22c55e 28%, transparent),
+      transparent 68%
+    );
+  filter: blur(48px);
+  opacity: 0.9;
 }
 
 .home-landing__title {
   margin: 0;
-  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
   color: #ffffff;
   text-wrap: balance;
+  text-shadow: 0 0 40px color-mix(in srgb, #60a5fa 25%, transparent);
 }
 
 .home-landing__tagline {
-  margin: 0.625rem 0 0;
-  font-size: 0.9375rem;
+  margin: 0.75rem 0 0;
+  font-size: 0.975rem;
   line-height: 1.55;
-  color: #a3a3a3;
+  color: #d4d4d4;
   text-wrap: pretty;
 }
 
@@ -55,4 +85,130 @@
 
 .home-landing .category-hubs--dense .category-hubs__grid {
   gap: 8px;
+}
+
+/* —— Category-accented utility cards —— */
+.home-accent-card {
+  --category-accent: var(--color-pdf, #3b82f6);
+  border: 1px solid color-mix(in srgb, var(--category-accent) 42%, #333);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--category-accent) 22%, transparent),
+      color-mix(in srgb, var(--category-accent) 6%, #121212) 55%,
+      #121212
+    );
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--category-accent) 12%, transparent),
+    0 10px 28px color-mix(in srgb, var(--category-accent) 14%, transparent);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.home-accent-card:hover,
+.home-accent-card:focus-visible {
+  border-color: color-mix(in srgb, var(--category-accent) 78%, #fff);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--category-accent) 32%, transparent),
+      color-mix(in srgb, var(--category-accent) 10%, #121212) 55%,
+      #161616
+    );
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--category-accent) 28%, transparent),
+    0 14px 36px color-mix(in srgb, var(--category-accent) 26%, transparent);
+}
+
+.home-accent-card:hover {
+  outline: none;
+}
+
+.home-accent-card:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--category-accent) 65%, #fff);
+  outline-offset: 2px;
+}
+
+.home-accent-card__icon {
+  border: 1px solid color-mix(in srgb, var(--category-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--category-accent) 18%, #0a0a0a);
+  color: var(--category-accent);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.home-accent-card:hover .home-accent-card__icon,
+.home-accent-card:focus-visible .home-accent-card__icon {
+  border-color: color-mix(in srgb, var(--category-accent) 70%, transparent);
+  background: color-mix(in srgb, var(--category-accent) 28%, #0a0a0a);
+  color: #fff;
+}
+
+.home-accent-card__title {
+  color: #ffffff;
+}
+
+.home-accent-card__desc {
+  color: #c4c4c4;
+}
+
+/* —— Quick access / recent pills —— */
+.home-accent-pill {
+  --category-accent: var(--color-pdf, #3b82f6);
+  border: 1px solid color-mix(in srgb, var(--category-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--category-accent) 14%, #0a0a0a);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--category-accent) 22%, transparent);
+  color: #f5f5f5;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.home-accent-pill:hover,
+.home-accent-pill:focus-visible {
+  border-color: var(--category-accent);
+  background: color-mix(in srgb, var(--category-accent) 24%, #0a0a0a);
+  box-shadow: 0 0 26px color-mix(in srgb, var(--category-accent) 36%, transparent);
+  color: #ffffff;
+}
+
+.home-accent-pill:hover {
+  outline: none;
+}
+
+.home-accent-pill:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--category-accent) 65%, #fff);
+  outline-offset: 2px;
+}
+
+.home-accent-pill__icon {
+  border: 1px solid color-mix(in srgb, var(--category-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--category-accent) 20%, transparent);
+  color: var(--category-accent);
+}
+
+.home-accent-pill:hover .home-accent-pill__icon,
+.home-accent-pill:focus-visible .home-accent-pill__icon {
+  border-color: color-mix(in srgb, var(--category-accent) 65%, transparent);
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-landing__intro::before {
+    filter: blur(28px);
+    opacity: 0.55;
+  }
+
+  .home-accent-card,
+  .home-accent-pill {
+    transition: none;
+  }
 }

@@ -29,6 +29,8 @@ export type ImageToolDropzoneProps = {
   onFiles: (files: FileList | File[]) => void;
   className?: string;
   children?: ReactNode;
+  /** Secondary “add more” zone — does not trigger immersive clean phase. */
+  compact?: boolean;
 };
 
 /**
@@ -49,6 +51,7 @@ export function ImageToolDropzone({
   onFiles,
   className,
   children,
+  compact = false,
 }: ImageToolDropzoneProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
@@ -82,6 +85,7 @@ export function ImageToolDropzone({
   return (
     <IndustrialMatteDropzone
       className={clsx(className)}
+      compact={compact}
       dropTitle={dropTitle}
       selectLabel={selectLabel}
       supportsLabel={supportsLabel}

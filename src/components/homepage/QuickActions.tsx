@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { homeToolAccentStyle } from "@/components/homepage/home-accent";
 import { readTopUsedToolIds } from "@/lib/recent-activity";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolListLucideIcon } from "@/lib/tool-list-icons";
@@ -68,9 +69,10 @@ export function QuickActions({ locale }: QuickActionsProps) {
             <Link
               href={href}
               prefetch={false}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-neutral-300 backdrop-blur-sm transition-colors duration-200 hover:border-white/25 hover:bg-white/[0.08] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+              style={homeToolAccentStyle(id)}
+              className="home-accent-pill inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium backdrop-blur-sm"
             >
-              <Icon size={14} strokeWidth={1.75} aria-hidden />
+              <Icon size={14} strokeWidth={1.75} aria-hidden className="text-[var(--category-accent)]" />
               <span>{title}</span>
             </Link>
           </li>

@@ -216,135 +216,137 @@ export function TextWorkspace() {
 
   return (
     <div className="text-workspace">
-      <p className="text-workspace__privacy" role="status">
-        {t("privacyBanner")}
-      </p>
-
-      <div className="text-workspace__toolbar" role="toolbar" aria-label={t("toolbarLabel")}>
-        <div className="text-workspace__toolbar-group">
-          <button
-            type="button"
-            className={toolOutlineBtn}
-            onClick={() => {
-              setFindOpen(true);
-              setReplaceMode(false);
-            }}
-          >
-            <Search className="h-4 w-4" aria-hidden />
-            {t("find")}
-          </button>
-          <button
-            type="button"
-            className={toolOutlineBtn}
-            onClick={() => {
-              setFindOpen(true);
-              setReplaceMode(true);
-            }}
-          >
-            <Replace className="h-4 w-4" aria-hidden />
-            {t("replace")}
-          </button>
-          <button
-            type="button"
-            className={toolOutlineBtn}
-            aria-pressed={locked}
-            onClick={() => setLocked((value) => !value)}
-          >
-            {locked ? <Lock className="h-4 w-4" aria-hidden /> : <LockOpen className="h-4 w-4" aria-hidden />}
-            {locked ? t("unlock") : t("lock")}
-          </button>
-        </div>
-
-        <div className="text-workspace__toolbar-group">
-          <SaveProjectButton
-            toolSlug={SLUG}
-            operation={SLUG}
-            files={projectFile}
-            settings={{ content, format: "txt" }}
-            disabled={!content}
-          />
-          <button type="button" className={toolOutlineBtn} onClick={() => exportFile("txt")} disabled={!content}>
-            <Download className="h-4 w-4" aria-hidden />
-            {t("exportTxt")}
-          </button>
-          <button type="button" className={toolPrimaryBtn} onClick={() => exportFile("md")} disabled={!content}>
-            <Type className="h-4 w-4" aria-hidden />
-            {t("exportMd")}
-          </button>
-        </div>
-      </div>
-
-      {projectLabel ? (
-        <p className="text-workspace__project-label">
-          {t("loadedProject", { name: projectLabel })}
-        </p>
-      ) : null}
-
-      {findOpen ? (
-        <div className="text-workspace__find" role="search">
-          <label className="text-workspace__find-field">
-            <span>{t("findLabel")}</span>
-            <input
-              type="text"
-              value={findQuery}
-              onChange={(event) => {
-                setFindQuery(event.target.value);
-                setMatchIndex(0);
+      <div className="text-workspace__top">
+        <div className="text-workspace__toolbar" role="toolbar" aria-label={t("toolbarLabel")}>
+          <div className="text-workspace__toolbar-group">
+            <button
+              type="button"
+              className={toolOutlineBtn}
+              onClick={() => {
+                setFindOpen(true);
+                setReplaceMode(false);
               }}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  jumpToMatch(matchIndex + (event.shiftKey ? -1 : 1));
-                }
-                if (event.key === "Escape") setFindOpen(false);
+            >
+              <Search className="h-4 w-4" aria-hidden />
+              {t("find")}
+            </button>
+            <button
+              type="button"
+              className={toolOutlineBtn}
+              onClick={() => {
+                setFindOpen(true);
+                setReplaceMode(true);
               }}
-              autoFocus
+            >
+              <Replace className="h-4 w-4" aria-hidden />
+              {t("replace")}
+            </button>
+            <button
+              type="button"
+              className={toolOutlineBtn}
+              aria-pressed={locked}
+              onClick={() => setLocked((value) => !value)}
+            >
+              {locked ? <Lock className="h-4 w-4" aria-hidden /> : <LockOpen className="h-4 w-4" aria-hidden />}
+              {locked ? t("unlock") : t("lock")}
+            </button>
+          </div>
+
+          <p className="text-workspace__privacy" role="status">
+            {t("privacyBanner")}
+          </p>
+
+          <div className="text-workspace__toolbar-group">
+            <SaveProjectButton
+              toolSlug={SLUG}
+              operation={SLUG}
+              files={projectFile}
+              settings={{ content, format: "txt" }}
+              disabled={!content}
             />
-          </label>
-          {replaceMode ? (
-            <label className="text-workspace__find-field">
-              <span>{t("replaceLabel")}</span>
-              <input
-                type="text"
-                value={replaceQuery}
-                onChange={(event) => setReplaceQuery(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    event.preventDefault();
-                    replaceCurrent();
-                  }
-                }}
-              />
-            </label>
-          ) : null}
-          <div className="text-workspace__find-actions">
-            <span className="text-workspace__find-count">
-              {findQuery
-                ? t("matchCount", { current: matchOffsets.length ? matchIndex + 1 : 0, total: matchOffsets.length })
-                : t("matchHint")}
-            </span>
-            <button type="button" className={toolOutlineBtn} onClick={() => jumpToMatch(matchIndex - 1)} disabled={!matchOffsets.length}>
-              {t("prev")}
+            <button type="button" className={toolOutlineBtn} onClick={() => exportFile("txt")} disabled={!content}>
+              <Download className="h-4 w-4" aria-hidden />
+              {t("exportTxt")}
             </button>
-            <button type="button" className={toolOutlineBtn} onClick={() => jumpToMatch(matchIndex + 1)} disabled={!matchOffsets.length}>
-              {t("next")}
-            </button>
-            {replaceMode ? (
-              <>
-                <button type="button" className={toolOutlineBtn} onClick={replaceCurrent} disabled={locked || !matchOffsets.length}>
-                  {t("replaceOne")}
-                </button>
-                <button type="button" className={toolOutlineBtn} onClick={replaceAll} disabled={locked || !findQuery}>
-                  {t("replaceAll")}
-                </button>
-              </>
-            ) : null}
-            <button type="button" className={toolOutlineBtn} onClick={() => setFindOpen(false)}>
-              {t("closeFind")}
+            <button type="button" className={toolPrimaryBtn} onClick={() => exportFile("md")} disabled={!content}>
+              <Type className="h-4 w-4" aria-hidden />
+              {t("exportMd")}
             </button>
           </div>
         </div>
-      ) : null}
+
+        {projectLabel ? (
+          <p className="text-workspace__project-label">
+            {t("loadedProject", { name: projectLabel })}
+          </p>
+        ) : null}
+
+        {findOpen ? (
+          <div className="text-workspace__find" role="search">
+            <label className="text-workspace__find-field">
+              <span>{t("findLabel")}</span>
+              <input
+                type="text"
+                value={findQuery}
+                onChange={(event) => {
+                  setFindQuery(event.target.value);
+                  setMatchIndex(0);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    jumpToMatch(matchIndex + (event.shiftKey ? -1 : 1));
+                  }
+                  if (event.key === "Escape") setFindOpen(false);
+                }}
+                autoFocus
+              />
+            </label>
+            {replaceMode ? (
+              <label className="text-workspace__find-field">
+                <span>{t("replaceLabel")}</span>
+                <input
+                  type="text"
+                  value={replaceQuery}
+                  onChange={(event) => setReplaceQuery(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      event.preventDefault();
+                      replaceCurrent();
+                    }
+                  }}
+                />
+              </label>
+            ) : null}
+            <div className="text-workspace__find-actions">
+              <span className="text-workspace__find-count">
+                {findQuery
+                  ? t("matchCount", { current: matchOffsets.length ? matchIndex + 1 : 0, total: matchOffsets.length })
+                  : t("matchHint")}
+              </span>
+              <button type="button" className={toolOutlineBtn} onClick={() => jumpToMatch(matchIndex - 1)} disabled={!matchOffsets.length}>
+                {t("prev")}
+              </button>
+              <button type="button" className={toolOutlineBtn} onClick={() => jumpToMatch(matchIndex + 1)} disabled={!matchOffsets.length}>
+                {t("next")}
+              </button>
+              {replaceMode ? (
+                <>
+                  <button type="button" className={toolOutlineBtn} onClick={replaceCurrent} disabled={locked || !matchOffsets.length}>
+                    {t("replaceOne")}
+                  </button>
+                  <button type="button" className={toolOutlineBtn} onClick={replaceAll} disabled={locked || !findQuery}>
+                    {t("replaceAll")}
+                  </button>
+                </>
+              ) : null}
+              <button type="button" className={toolOutlineBtn} onClick={() => setFindOpen(false)}>
+                {t("closeFind")}
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </div>
 
       <div className="text-workspace__editor-shell">
         {selection && toolbarPos && !locked ? (

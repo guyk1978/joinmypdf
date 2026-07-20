@@ -2254,10 +2254,10 @@ html:has(.home-page-shell--minimal) body {
   align-items: center;
   justify-content: center;
   padding: 1.25rem 1rem;
-  background: var(--category-accent);
+  background-color: var(--category-accent, var(--color-pdf, #3b82f6));
   opacity: 1;
   pointer-events: none;
-  transition: opacity 0.1s ease;
+  transition: opacity 0.22s ease;
 }
 
 .im-tool-card__cover-title {
@@ -2277,7 +2277,7 @@ html:has(.home-page-shell--minimal) body {
 .im-tool-card__body,
 .im-tool-card .tool-card-focus__expand {
   opacity: 0;
-  transition: opacity 0.1s ease;
+  transition: opacity 0.22s ease;
 }
 
 .im-tool-card .tool-card-focus__expand {
@@ -3723,7 +3723,19 @@ html:has(.home-page-shell--minimal) body {
 .tool-page-layout--embed {
   max-width: none;
   margin: 0;
-  padding: 0.5rem 0.75rem 1rem;
+  padding: 0;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-page-layout--embed .tool-page-layout__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
 }
 
 html[data-tool-embed="1"] .email-popup,
@@ -13323,15 +13335,79 @@ html.workspace-phase-clean .home-page-footer {
   display: none;
 }
 
+/*
+ * Dedicated tool pages (tools-directory-page) render an inline H1 + description
+ * above the workspace. Hide that chrome on upload tools — the site header
+ * already shows the tool name.
+ */
+html.tool-has-upload-shell .tools-directory-page > .tool-page-layout__breadcrumbs,
+html.tool-has-upload-shell .tools-directory-page > header,
+html.tool-has-upload-shell #workspace-upload > .tool-page-layout__breadcrumbs,
+html.tool-has-upload-shell #workspace-upload > .tool-page-layout__header {
+  display: none !important;
+}
+
+html.workspace-phase-clean .tools-directory-page > footer,
+html.workspace-phase-clean .tools-directory-page > section + section {
+  display: none !important;
+}
+
+html.workspace-phase-clean .tools-directory-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: none;
+  height: calc(100dvh - var(--site-header-height, 60px));
+  min-height: 0;
+  margin: 0;
+  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-inline: 0 !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+html.workspace-phase-clean .tools-directory-page > section {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  overflow: hidden;
+}
+
+html.workspace-phase-clean .tools-directory-page .utility-tool-layout,
+html.workspace-phase-clean .tools-directory-page .tool-upload-float,
+html.workspace-phase-clean .tools-directory-page .im-dropzone-shell {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+}
+
 #tool-workspace[data-workspace-phase="clean"] {
   width: 100%;
   max-width: none;
-  padding-bottom: 0;
-  gap: 0;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+  row-gap: 0 !important;
   flex: 1 1 auto;
-  min-height: 0;
+  min-height: calc(100dvh - var(--site-header-height, 60px));
+  height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"],
+body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] {
+  min-height: 100dvh;
 }
 
 /* Hide all controls / panels / action bars until a file is present */
@@ -13405,42 +13481,113 @@ html.workspace-phase-clean .home-page-footer {
 #tool-workspace[data-workspace-phase="clean"] .im-dropzone-shell,
 .tool-upload-float[data-workspace-phase="clean"],
 .tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell {
+  position: relative;
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   align-items: stretch;
-  min-height: 0;
   width: 100%;
+  min-height: calc(100dvh - var(--site-header-height, 60px));
+  height: 100%;
 }
 
-/* Immersive dropzone: true full-viewport stage with exact 30px margins (Adobe-style).
- * Fixed positioning bypasses broken flex chains so the box is never a small widget. */
-html.workspace-phase-clean #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
-html.workspace-phase-clean .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
-html.workspace-phase-clean #workspace-upload[data-workspace-phase="clean"] .im-dropzone {
-  position: fixed;
-  top: calc(var(--site-header-height, 60px) + 30px);
-  right: 30px;
-  bottom: 30px;
-  left: 30px;
-  z-index: 30;
-  flex: none;
-  margin: 0;
-  width: auto;
-  height: auto;
+/* Embed / modal iframe: fill the iframe viewport completely */
+html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .tool-upload-float,
+html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .im-dropzone-shell,
+html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .tool-upload-float,
+html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone-shell,
+html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"],
+html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell,
+body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .tool-upload-float,
+body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone-shell,
+body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .tool-upload-float,
+body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone-shell,
+body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"],
+body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell {
+  min-height: 100dvh;
+}
+
+/* Kill legacy padding that shrinks the stage (space-y / pb-12 on #tool-workspace, embed pad) */
+#tool-workspace[data-workspace-phase="clean"],
+#workspace-upload[data-workspace-phase="clean"].tool-page-layout--embed,
+#workspace-upload.tool-page-layout--embed[data-workspace-phase="clean"] {
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+  row-gap: 0 !important;
   max-width: none;
-  min-height: 0;
-  box-sizing: border-box;
+  height: 100%;
+  min-height: 100%;
 }
 
-/* Embed / modal iframe: no site header — 30px from all viewport edges */
-html.workspace-phase-clean[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
-html.workspace-phase-clean[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
-html.workspace-phase-clean[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .im-dropzone,
-html.workspace-phase-clean body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
-html.workspace-phase-clean body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
-html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone {
-  top: 30px;
+html[data-tool-embed="1"],
+html[data-tool-embed="1"] body,
+html[data-tool-embed="1"] .app-page-canvas,
+html[data-tool-embed="1"] .app-page-canvas--tool-embed,
+html[data-tool-embed="1"] .home-tool-grid-page,
+html[data-tool-embed="1"] .page-content-transition--main,
+html[data-tool-embed="1"] #workspace-upload,
+html[data-tool-embed="1"] #workspace-upload .tool-page-layout__content,
+html[data-tool-embed="1"] #tool-workspace {
+  height: 100%;
+  min-height: 100%;
+}
+
+html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
+  padding-block: 0;
+}
+
+/*
+ * Immersive dropzone — exact full-viewport frame with uniform 30px margins.
+ * Fixed sizing bypasses every nested layout so no tool can shrink to a widget.
+ * Full page:  height = 100vh − header(60) − margins(60) = 100vh − 120px
+ * Embed/modal: height = 100vh − margins(60)
+ */
+#tool-workspace[data-workspace-phase="clean"] .im-dropzone,
+.tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
+#workspace-upload[data-workspace-phase="clean"] .im-dropzone,
+.tool-upload-stack [data-workspace-phase="clean"] .im-dropzone {
+  position: fixed !important;
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  left: 30px !important;
+  right: 30px !important;
+  bottom: auto !important;
+  z-index: 40 !important;
+  box-sizing: border-box !important;
+  width: auto !important;
+  max-width: none !important;
+  height: calc(100vh - 120px) !important;
+  height: calc(100dvh - var(--site-header-height, 60px) - 60px) !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 1.5rem !important;
+  transform: none !important;
+  flex: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Embed / tool-modal iframe: no site header — 30px from every edge */
+html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
+html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
+html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .im-dropzone,
+html[data-tool-embed="1"] .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone,
+body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
+body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
+body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone,
+body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone {
+  top: 30px !important;
+  left: 30px !important;
+  right: 30px !important;
+  width: auto !important;
+  max-width: none !important;
+  height: calc(100vh - 60px) !important;
+  height: calc(100dvh - 60px) !important;
+  max-height: none !important;
 }
 
 #tool-workspace[data-workspace-phase="active"] > :not(.tool-upload-float),
@@ -13451,12 +13598,21 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
 
 #tool-workspace[data-workspace-phase="active"] .im-dropzone,
 .tool-upload-float[data-workspace-phase="active"] .im-dropzone,
-#workspace-upload[data-workspace-phase="active"] .im-dropzone {
-  position: relative;
-  inset: auto;
-  z-index: auto;
+#workspace-upload[data-workspace-phase="active"] .im-dropzone,
+.tool-upload-stack [data-workspace-phase="active"] .im-dropzone {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: auto !important;
+  transform: none !important;
   margin: 0;
-  width: 100%;
+  padding: 2.5rem 1.5rem;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
   min-height: 280px;
   flex: 0 0 auto;
 }
@@ -20093,10 +20249,16 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
   max-width: 72rem;
 }
 
+html.workspace-phase-clean .html-md-converter-tool-page,
+.tool-upload-float[data-workspace-phase="clean"].html-md-converter-tool-page {
+  max-width: none;
+}
+
 .html-md-converter-tool {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  min-height: 0;
 }
 
 .html-md-converter-tool__local-first {
@@ -20219,13 +20381,60 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
-  align-items: start;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 @media (min-width: 1100px) {
   .html-md-converter-tool__workspace {
     grid-template-columns: 1fr min(18rem, 28%);
   }
+}
+
+html.workspace-phase-clean .html-md-converter-tool__local-first,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__local-first,
+html.workspace-phase-clean .html-md-converter-tool__mode,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__mode {
+  flex: 0 0 auto;
+  justify-content: center;
+}
+
+html.workspace-phase-clean .html-md-converter-tool__project,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__project {
+  flex: 0 0 auto;
+  max-height: 9rem;
+  overflow: auto;
+}
+
+html.workspace-phase-clean .html-md-converter-tool__columns,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__columns {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  align-items: stretch;
+}
+
+html.workspace-phase-clean .html-md-converter-tool__column,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__column,
+html.workspace-phase-clean .html-md-converter-tool__pane,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+html.workspace-phase-clean .html-md-converter-tool__textarea,
+html.workspace-phase-clean .html-md-converter-tool__code,
+html.workspace-phase-clean .html-md-converter-tool__preview,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__textarea,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__code,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool__preview {
+  flex: 1 1 auto;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: none !important;
 }
 
 .html-md-converter-tool__seo-audit {
@@ -24005,8 +24214,8 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
 
 /*
  * Adobe-style immersive dropzone:
- * default = matte page + subtle accent outline;
- * hover & drag = full category-accent border.
+ * default = matte page (no fill / no visible border);
+ * hover & drag = solid category-accent border around the full stage.
  */
 .im-dropzone {
   --im-dropzone-border: 2px;
@@ -24014,19 +24223,40 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
   cursor: pointer;
   box-sizing: border-box;
   border-radius: 0;
-  border: var(--im-dropzone-border) solid
-    color-mix(in srgb, var(--category-accent, #3b82f6) 28%, transparent);
+  border: var(--im-dropzone-border) solid transparent;
   background-color: transparent;
   background-image: none;
   box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   transition:
     border-color 0.28s ease,
     color 0.2s ease;
 }
 
-/* Default tool-page dropzone height (overridden by phase=clean immersive rules) */
+/* Default tool-page dropzone height — immersive clean phase overrides with fixed viewport fill */
 .tool-upload-stack .im-dropzone {
   min-height: 280px;
+}
+
+.im-dropzone__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.im-dropzone__stage .im-dropzone__select,
+.im-dropzone__footer {
+  pointer-events: auto;
 }
 
 .im-dropzone__icon {
@@ -25249,12 +25479,14 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
   margin-top: 0;
 }
 
-/* Text Workspace ? Industrial Matte local editor */
+/* Text Workspace — Industrial Matte local editor (immersive full-viewport) */
 .text-workspace {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
   width: 100%;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .text-workspace--loading {
@@ -25262,35 +25494,50 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
   background: rgba(255, 255, 255, 0.02);
 }
 
-.text-workspace__privacy {
-  margin: 0;
-  padding: 0.75rem 1rem;
-  border: none;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
-  color: #a3a3a3;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.text-workspace__top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 0 0 auto;
 }
 
 .text-workspace__toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.75rem 1.25rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #262626;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .text-workspace__toolbar-group {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+}
+
+.text-workspace__privacy {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #a3a3a3;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .text-workspace__project-label {
   margin: 0;
   font-size: 0.8125rem;
   color: #737373;
+  text-align: center;
 }
 
 .text-workspace__find {
@@ -25298,7 +25545,9 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   align-items: end;
+  justify-content: center;
   padding: 0.875rem 1rem;
+  border: 1px solid #262626;
   background: rgba(255, 255, 255, 0.03);
 }
 
@@ -25345,10 +25594,15 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
 
 .text-workspace__editor-shell {
   position: relative;
-  min-height: 28rem;
+  flex: 1 1 auto;
+  min-height: 16rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #262626;
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+  overflow: hidden;
 }
 
 .text-workspace__float-toolbar {
@@ -25380,12 +25634,14 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
 
 .text-workspace__editor {
   display: block;
+  flex: 1 1 auto;
   width: 100%;
-  min-height: 28rem;
+  height: 100%;
+  min-height: 0;
   margin: 0;
   padding: 1.25rem 1.25rem 1.5rem;
   border: none;
-  resize: vertical;
+  resize: none;
   background: transparent;
   color: #f5f5f5;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -25393,6 +25649,7 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
   line-height: 1.65;
   outline: none;
   caret-color: #fafafa;
+  overflow: auto;
 }
 
 .text-workspace__editor::placeholder {
@@ -25407,7 +25664,9 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
 .text-workspace__stats {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem 1.5rem;
+  flex: 0 0 auto;
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -25416,6 +25675,60 @@ html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace
 
 .text-workspace__locked-pill {
   color: #a3a3a3;
+}
+
+/*
+ * Immersive editor stage — same 30px margin frame as upload dropzones.
+ * Used by Text Workspace + HTML/Markdown converter in clean phase.
+ */
+html.workspace-phase-clean .text-workspace,
+.tool-upload-float[data-workspace-phase="clean"] .text-workspace,
+html.workspace-phase-clean .html-md-converter-tool,
+.tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool {
+  position: fixed !important;
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  left: 30px !important;
+  right: 30px !important;
+  bottom: 30px !important;
+  z-index: 40 !important;
+  width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .text-workspace,
+html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool,
+body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .text-workspace,
+body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .html-md-converter-tool {
+  top: 30px !important;
+}
+
+html.workspace-phase-clean .text-workspace-tool-page,
+html.workspace-phase-clean .html-md-converter-tool-page,
+html.workspace-phase-clean .text-workspace-tool-page .utility-tool-layout,
+html.workspace-phase-clean .html-md-converter-tool-page .utility-tool-layout {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .text-workspace__privacy {
+    white-space: normal;
+    width: 100%;
+    order: -1;
+  }
+
+  .text-workspace__toolbar {
+    flex-direction: column;
+  }
 }
 
 /* PDF Editor ? Advanced OCR split view (Industrial Matte) */

@@ -78,7 +78,7 @@ export function HtmlMarkdownConverterWorkspace({ tool, slug }: HtmlMarkdownConve
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="html-md-converter-tool-page">
+    <UtilityWorkspaceShell active={false} pageClassName="html-md-converter-tool-page">
       <HtmlMarkdownConverter labels={labels} />
     </UtilityWorkspaceShell>
   );

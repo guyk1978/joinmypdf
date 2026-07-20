@@ -72,7 +72,8 @@ export function ToolLayout({
   className,
   contentClassName,
   showPrivacyBadge = true,
-  showHeader = true,
+  /** Body H1/description — off by default; tool name lives in the site header. */
+  showHeader = false,
 }: ToolLayoutProps) {
   const shell = useToolPageShell();
   const embed = useToolEmbedMode();

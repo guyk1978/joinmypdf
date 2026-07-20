@@ -490,7 +490,7 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
   return (
     <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell>
+      <WorkspaceUploadShell active={Boolean(file)}>
         {!file ? (
         <FileUploadZone
           operation={tool.operation}

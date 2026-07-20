@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react";
 import { getTranslations } from "next-intl/server";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
+import { homeCategoryAccentStyle } from "@/components/homepage/home-accent";
 import { blogArticlePath } from "@/lib/blog-article-path";
 import { getBlogRegistry } from "@/lib/blog-registry";
 
@@ -10,6 +12,8 @@ const FEATURED_GUIDE_SLUGS = [
   "how-to-safely-sign-contracts-online",
   "hidden-risks-of-free-online-pdf-editors",
 ];
+
+const GUIDE_ACCENTS = ["security", "pdf"] as const;
 
 const SNIPPET_MAX_LENGTH = 120;
 
@@ -50,39 +54,46 @@ export async function WorkflowGuides({ locale }: WorkflowGuidesProps) {
         </h2>
 
         <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
-          {guides.map((post) => (
-            <Link
-              key={post.slug}
-              href={blogArticlePath(post.slug)}
-              prefetch={false}
-              className="group flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] hover:shadow-lg hover:shadow-black/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
-            >
-              <span
-                aria-hidden
-                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-white/80 transition-colors duration-200 group-hover:border-white/20 group-hover:text-white"
+          {guides.map((post, index) => {
+            const accentStyle = homeCategoryAccentStyle(
+              GUIDE_ACCENTS[index % GUIDE_ACCENTS.length]!,
+            ) as CSSProperties;
+
+            return (
+              <Link
+                key={post.slug}
+                href={blogArticlePath(post.slug)}
+                prefetch={false}
+                style={accentStyle}
+                className="home-accent-card group flex items-start gap-4 rounded-2xl p-5 hover:-translate-y-0.5"
               >
-                <BookOpen size={20} strokeWidth={1.75} />
-              </span>
-              <span className="flex min-w-0 flex-1 flex-col gap-1.5">
-                <span className="text-sm font-semibold leading-snug text-white">
-                  {post.title}
+                <span
+                  aria-hidden
+                  className="home-accent-card__icon inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                >
+                  <BookOpen size={20} strokeWidth={1.75} />
                 </span>
-                {post.description ? (
-                  <span className="text-xs leading-relaxed text-neutral-400">
-                    {truncateSnippet(post.description)}
+                <span className="flex min-w-0 flex-1 flex-col gap-1.5">
+                  <span className="home-accent-card__title text-sm font-semibold leading-snug">
+                    {post.title}
                   </span>
-                ) : null}
-                <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-neutral-500">
-                  {post.readTime ?? t("landing.guidesReadTime")}
-                  <span aria-hidden>·</span>
-                  <span className="inline-flex items-center gap-1 text-neutral-400 transition-colors duration-200 group-hover:text-white">
-                    {t("landing.guidesCta")}
-                    <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
+                  {post.description ? (
+                    <span className="home-accent-card__desc text-xs leading-relaxed">
+                      {truncateSnippet(post.description)}
+                    </span>
+                  ) : null}
+                  <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-neutral-400">
+                    {post.readTime ?? t("landing.guidesReadTime")}
+                    <span aria-hidden>·</span>
+                    <span className="inline-flex items-center gap-1 text-[color:var(--category-accent)] transition-colors duration-200 group-hover:brightness-125">
+                      {t("landing.guidesCta")}
+                      <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
+                    </span>
                   </span>
                 </span>
-              </span>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </section>
     </HomeReveal>

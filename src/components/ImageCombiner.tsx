@@ -217,6 +217,7 @@ export function ImageCombiner({
           privacyLabel={labels.privacyLabel}
           accept={ACCEPT}
           multiple
+          compact={images.length > 0}
           disabled={busy}
           onFiles={addFiles}
         />
