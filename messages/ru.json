@@ -6965,6 +6965,8 @@
     "ratings": "{count} оценок",
     "thankYou": "Спасибо!",
     "rateAria": "Оценить инструмент",
+    "yourRatingAria": "Ваша оценка: {rating} из 5",
+    "viewsNav": "Виды инструмента",
     "enterFullScreen": "Во весь экран",
     "exitFullScreen": "Выйти из полноэкранного режима",
     "showMagnifier": "Показать лупу",
@@ -6981,6 +6983,26 @@
     "expandAll": "Развернуть всё",
     "collapseAll": "Свернуть всё",
     "comingSoon": "Документация для этого инструмента скоро появится."
+  },
+  "ToolCard": {
+    "example": "Пример",
+    "realWorldExample": "Пример из жизни:",
+    "openTool": "Открыть инструмент",
+    "focusMode": "Режим фокуса",
+    "expandAria": "Развернуть {label}",
+    "focusDialogAria": "{label} — режим фокуса",
+    "closeFocus": "Закрыть режим фокуса",
+    "rateThisTool": "Оценить инструмент",
+    "yourRatingAria": "Ваша оценка: {rating} из 5",
+    "thanks": "Спасибо!",
+    "noRatingsYet": "Пока нет оценок",
+    "ratingOne": "1 оценка",
+    "ratingsCount": "{count} оценок",
+    "ratingsCompact": "{count}k оценок",
+    "summaryAria": "{average} из 5, {countLabel}",
+    "examples": {
+      "storage-data-converter": "Посчитайте, сколько видео по 4 GB поместится на карту памяти 256 GB."
+    }
   },
   "HeicToJpg": {
     "dropTitle": "Перетащите изображение сюда или нажмите, чтобы выбрать",

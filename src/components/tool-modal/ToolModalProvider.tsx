@@ -448,6 +448,8 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             ratings: t("ratings", { count: "{count}" }),
             thankYou: t("thankYou"),
             rateAria: t("rateAria"),
+            yourRatingAria: t("yourRatingAria", { rating: "{rating}" }),
+            viewsNav: t("viewsNav"),
             enterFullScreen: t("enterFullScreen"),
             exitFullScreen: t("exitFullScreen"),
             showMagnifier: t("showMagnifier"),

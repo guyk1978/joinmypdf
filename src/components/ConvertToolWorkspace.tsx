@@ -10,6 +10,7 @@ import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { formatsFromAcceptAttr } from "@/lib/upload-accept";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import type { ToolDefinition } from "@/lib/types";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
@@ -206,6 +207,8 @@ export function ConvertToolWorkspace<TProgress>({
           className="cursor-pointer"
           title={ws.uploadTitle(config.dropTitle)}
           description={ws.uploadDescription(config.dropDescription)}
+          supportedFormats={formatsFromAcceptAttr(config.acceptAttr)}
+          accept={config.acceptAttr}
           onKeyDown={(e: ReactKeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
           }}

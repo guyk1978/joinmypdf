@@ -7,6 +7,7 @@ import {
   formatSupportsLabel,
   IndustrialMatteDropzone,
 } from "@/components/IndustrialMatteDropzone";
+import { resolveUploadFormats } from "@/lib/upload-accept";
 
 export type MediaDropzoneLabels = {
   ariaLabel?: string;
@@ -60,6 +61,7 @@ export function MediaDropzone({
   className,
 }: MediaDropzoneProps) {
   const t = useTranslations("MediaTool");
+  const common = useTranslations("Workspace.common");
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
@@ -72,13 +74,38 @@ export function MediaDropzone({
     ariaLabel: labels?.ariaLabel ?? t("dropzoneAria"),
     title: busy
       ? labels?.titleBusy ?? t("dropTitleBusy")
-      : labels?.title ?? t("dropTitle") ?? defaultDropTitle(mediaKind),
-    privacyBadge: labels?.privacyBadge ?? t("privacyBadge"),
+      : labels?.title ??
+        (mediaKind === "audio" && common.has("dropYourAudioHere")
+          ? common("dropYourAudioHere")
+          : mediaKind === "video" && common.has("dropYourVideoHere")
+            ? common("dropYourVideoHere")
+            : t.has("dropTitle")
+              ? t("dropTitle")
+              : defaultDropTitle(mediaKind)),
+    privacyBadge:
+      labels?.privacyBadge ??
+      (common.has("localProcessingNothingUploaded")
+        ? common("localProcessingNothingUploaded")
+        : t("privacyBadge")),
     formatsHint: labels?.formatsHint ?? t("formatsHint"),
-    selectLabel: labels?.selectLabel ?? t("selectLabel") ?? defaultSelectLabel(mediaKind),
+    selectLabel:
+      labels?.selectLabel ??
+      (mediaKind === "audio" && common.has("selectAudioFromDevice")
+        ? common("selectAudioFromDevice")
+        : mediaKind === "video" && common.has("selectVideoFromDevice")
+          ? common("selectVideoFromDevice")
+          : t.has("selectLabel")
+            ? t("selectLabel")
+            : defaultSelectLabel(mediaKind)),
   };
 
-  const supportsLine = formatSupportsLabel(supportedFormats, copy.formatsHint);
+  const supportsLine = formatSupportsLabel(
+    resolveUploadFormats({
+      supportedFormats,
+      accept: resolvedAccept,
+    }),
+    copy.formatsHint,
+  );
 
   const handleFile = useCallback(
     (file: File | undefined) => {

@@ -27,6 +27,7 @@ function detectFormat(file: File): "csv" | "json" | null {
 
 export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
   const t = useTranslations("DataTool");
+  const common = useTranslations("Workspace.common");
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -77,16 +78,16 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
         dropTitle={busy ? t("dropTitleBusy") : t("dropTitle")}
         selectLabel={t.has("selectLabel") ? t("selectLabel") : "Select file from device"}
         supportsLabel={
-          t.has("formatsHint")
-            ? /^supports:/i.test(t("formatsHint"))
-              ? t("formatsHint")
-              : formatSupportsLabel(["CSV", "JSON"])
+          t.has("formatsHint") && /^supports:/i.test(t("formatsHint"))
+            ? t("formatsHint")
             : formatSupportsLabel(["CSV", "JSON"])
         }
         privacyLabel={
-          t.has("privacyBadge")
-            ? t("privacyBadge")
-            : "Local Processing. Nothing is uploaded."
+          common.has("localProcessingNothingUploaded")
+            ? common("localProcessingNothingUploaded")
+            : t.has("privacyBadge")
+              ? t("privacyBadge")
+              : "Local Processing. Nothing is uploaded."
         }
         tabIndex={0}
         onDragOver={(e) => {

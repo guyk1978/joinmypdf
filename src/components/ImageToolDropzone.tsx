@@ -12,6 +12,7 @@ import {
   formatSupportsLabel,
   IndustrialMatteDropzone,
 } from "@/components/IndustrialMatteDropzone";
+import { resolveUploadFormats } from "@/lib/upload-accept";
 
 export type ImageToolDropzoneProps = {
   dropTitle: string;
@@ -55,7 +56,10 @@ export function ImageToolDropzone({
   const supportsLabel =
     localizedSupportsLabel ??
     formatSupportsLabel(
-      supportedFormats,
+      resolveUploadFormats({
+        supportedFormats,
+        accept,
+      }),
       dropHint ? (/^supports:/i.test(dropHint) ? dropHint : `Supports: ${dropHint}`) : "",
     );
 

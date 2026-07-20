@@ -1,7 +1,13 @@
 export const WORKSPACE_UPLOAD_ID = "workspace-upload";
 export const WORKSPACE_OPERATIONS_ID = "workspace-operations";
+export const WORKSPACE_PHASE_CLEAN_CLASS = "workspace-phase-clean";
 
 export type WorkspacePhase = "clean" | "active";
+
+function applyDocumentPhaseClass(phase: WorkspacePhase) {
+  if (typeof document === "undefined") return;
+  document.documentElement.classList.toggle(WORKSPACE_PHASE_CLEAN_CLASS, phase === "clean");
+}
 
 /**
  * Sync clean vs active upload UI across tool shells.
@@ -21,8 +27,12 @@ export function setWorkspacePhase(phase: WorkspacePhase, root?: HTMLElement | nu
   if (uploadRoot) targets.add(uploadRoot);
 
   for (const el of targets) {
-    el.dataset.workspacePhase = phase;
+    if (el.dataset.workspacePhase !== phase) {
+      el.dataset.workspacePhase = phase;
+    }
   }
+
+  applyDocumentPhaseClass(phase);
 }
 
 export function getWorkspacePhaseFromSignal(fileSignal: boolean | number): WorkspacePhase {

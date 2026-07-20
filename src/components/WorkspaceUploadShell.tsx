@@ -36,27 +36,33 @@ export function WorkspaceUploadShell({
     const root = rootRef.current;
     if (!root) return;
 
+    let frame = 0;
+
     const sync = () => {
       const hasDropzone = Boolean(root.querySelector(".im-dropzone"));
       const phase = resolvePhase(active, hasDropzone);
-      root.dataset.workspacePhase = phase;
-
-      // Propagate to layout roots when phase is explicit, or when there is no
-      // #tool-workspace (media/image shells that swap dropzone ↔ panel).
-      const hasToolWorkspace = Boolean(document.getElementById("tool-workspace"));
-      if (typeof active === "boolean" || !hasToolWorkspace) {
-        setWorkspacePhase(phase, root);
+      if (root.dataset.workspacePhase !== phase) {
+        root.dataset.workspacePhase = phase;
       }
+      // Always sync document class + layout roots so immersive CSS can apply.
+      setWorkspacePhase(phase, root);
     };
 
     sync();
 
     if (typeof active === "boolean") return;
 
-    const observer = new MutationObserver(sync);
+    const observer = new MutationObserver(() => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        sync();
+      });
+    });
     observer.observe(root, { childList: true, subtree: true });
     return () => {
       observer.disconnect();
+      if (frame) window.cancelAnimationFrame(frame);
     };
   }, [active]);
 

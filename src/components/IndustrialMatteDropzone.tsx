@@ -1,6 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
+import { Upload } from "lucide-react";
 import type { HTMLAttributes, ReactNode } from "react";
 
 export type IndustrialMatteDropzoneProps = HTMLAttributes<HTMLDivElement> & {
@@ -16,9 +17,18 @@ export type IndustrialMatteDropzoneProps = HTMLAttributes<HTMLDivElement> & {
   className?: string;
 };
 
+/** Strip redundant “processed/compressed locally…” clauses from Supports lines. */
+function cleanSupportsLabel(label: string): string {
+  return label
+    .replace(/\s*[—–-]\s*(processed|compressed)\s+locally[^]*$/i, "")
+    .replace(/\s*\((processed|compressed)\s+locally[^)]*\)\s*$/i, "")
+    .replace(/\s+(processed|compressed)\s+locally[^]*$/i, "")
+    .trim();
+}
+
 /**
  * Shared Industrial Matte upload surface — used by PDF, image, audio, and video tools.
- * Labels are always passed in so each tool can show purpose-specific copy.
+ * Adobe-style immersive stage: matte default, accent border only on hover/drag.
  */
 export function IndustrialMatteDropzone({
   dropTitle,
@@ -35,6 +45,8 @@ export function IndustrialMatteDropzone({
   onClick,
   ...rest
 }: IndustrialMatteDropzoneProps) {
+  const resolvedSupports = cleanSupportsLabel(supportsLabel);
+
   return (
     <div className={clsx("im-dropzone-shell w-full", className)}>
       <div
@@ -42,10 +54,8 @@ export function IndustrialMatteDropzone({
         aria-disabled={disabled || undefined}
         className={clsx(
           "im-dropzone group",
-          "flex w-full flex-col items-center justify-center gap-3",
-          "bg-neutral-950 px-6 py-12 text-center",
-          "rounded-lg border border-dashed border-neutral-700/60",
-          "transition-[border-color,background-color,color] duration-200",
+          "flex w-full flex-col items-center justify-center gap-4",
+          "px-6 py-12 text-center",
           active && "im-dropzone--active",
           disabled && "pointer-events-none opacity-55",
         )}
@@ -53,38 +63,58 @@ export function IndustrialMatteDropzone({
       >
         {input}
 
-        <p className="im-dropzone__title m-0 text-lg text-neutral-300">{dropTitle}</p>
+        <div className="im-dropzone__stage flex max-w-xl flex-col items-center gap-4">
+          <span className="im-dropzone__icon" aria-hidden>
+            <Upload className="im-dropzone__icon-svg" strokeWidth={1.35} />
+          </span>
 
-        <span className="im-dropzone__select m-0 text-base font-medium">
-          {selectLabel}
-        </span>
+          <div className="im-dropzone__copy flex flex-col items-center gap-2">
+            <p className="im-dropzone__title m-0">{dropTitle}</p>
+            <span className="im-dropzone__select m-0">{selectLabel}</span>
+          </div>
+
+          {showPrivacy || resolvedSupports ? (
+            <div className="im-dropzone__meta flex flex-col items-center gap-2">
+              {showPrivacy ? (
+                <p
+                  className="im-dropzone__privacy m-0 inline-flex items-center justify-center"
+                  role="note"
+                >
+                  <span className="im-dropzone__pulse" aria-hidden />
+                  <span>{privacyLabel}</span>
+                </p>
+              ) : null}
+              {resolvedSupports ? (
+                <p className="im-dropzone__formats m-0 text-center">{resolvedSupports}</p>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
 
         {footer ? <div className="im-dropzone__footer w-full">{footer}</div> : null}
         {children}
       </div>
-
-      {showPrivacy ? (
-        <p
-          className="im-dropzone__privacy m-0 inline-flex items-center justify-center text-sm text-neutral-500"
-          role="note"
-        >
-          <span
-            className="mr-2 inline-block h-2 w-2 animate-pulse rounded-[9999px] bg-green-500"
-            aria-hidden
-          />
-          <span>{privacyLabel}</span>
-        </p>
-      ) : null}
-
-      {supportsLabel ? (
-        <p className="im-dropzone__formats m-0 text-center text-xs text-neutral-600">{supportsLabel}</p>
-      ) : null}
     </div>
   );
 }
 
-export function formatSupportsLabel(formats: string[], fallback = ""): string {
-  if (!formats.length) return fallback;
-  if (/^supports:/i.test(fallback.trim())) return fallback;
-  return `Supports: ${formats.join(", ")}`;
+export type FormatSupportsOptions = {
+  /** @deprecated Local-processing copy lives on the privacy line; not appended. */
+  processedLocallySuffix?: string;
+};
+
+export function formatSupportsLabel(
+  formats: string[],
+  fallback = "",
+  _options?: FormatSupportsOptions,
+): string {
+  let base = "";
+  if (formats.length) {
+    base = /^supports:/i.test(fallback.trim())
+      ? fallback
+      : `Supports: ${formats.join(", ")}`;
+  } else {
+    base = fallback;
+  }
+  return cleanSupportsLabel(base);
 }

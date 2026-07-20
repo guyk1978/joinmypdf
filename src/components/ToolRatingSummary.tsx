@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import { clsx } from "clsx";
+import { useTranslations } from "next-intl";
 import { StarRating } from "@/components/StarRating";
 import { useToolRating } from "@/hooks/useToolRating";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
@@ -9,10 +10,8 @@ import {
   getCategoryAccentColor,
   getCategoryAccentCssVar,
 } from "@/lib/category-accent-colors";
-import {
-  formatRatingAverage,
-  formatRatingCount,
-} from "@/lib/tool-rating";
+import { formatRatingAverage } from "@/lib/tool-rating";
+import { formatCompactRatingCount } from "@/lib/text-direction";
 
 type ToolRatingSummaryProps = {
   /** Canonical tool slug — unique Tool ID for localStorage. */
@@ -36,12 +35,22 @@ export function ToolRatingSummary({
   showCount = true,
   color,
 }: ToolRatingSummaryProps) {
+  const t = useTranslations("ToolCard");
   const { userRating, stats, hydrated, rate } = useToolRating(toolId);
   const accent =
     color ??
     (categoryId ? getCategoryAccentCssVar(categoryId) : undefined) ??
     getCategoryAccentColor("pdf");
   const style = { "--star-rating-color": accent } as CSSProperties;
+
+  const countLabel =
+    stats.count === 0
+      ? t("noRatingsYet")
+      : stats.count === 1
+        ? t("ratingOne")
+        : stats.count >= 1000
+          ? t("ratingsCompact", { count: formatCompactRatingCount(stats.count) })
+          : t("ratingsCount", { count: stats.count });
 
   if (!hydrated) {
     return (
@@ -68,8 +77,11 @@ export function ToolRatingSummary({
       }}
       aria-label={
         stats.average != null
-          ? `${formatRatingAverage(stats.average)} out of 5, ${formatRatingCount(stats.count)}`
-          : formatRatingCount(stats.count)
+          ? t("summaryAria", {
+              average: formatRatingAverage(stats.average),
+              countLabel,
+            })
+          : countLabel
       }
     >
       <StarRating
@@ -80,24 +92,22 @@ export function ToolRatingSummary({
         color={accent}
         label={
           userRating == null
-            ? "Rate this tool"
-            : `Your rating: ${userRating} out of 5`
+            ? t("rateThisTool")
+            : t("yourRatingAria", { rating: userRating })
         }
       />
       {stats.average != null ? (
-        <span className="tool-rating-summary__average">
+        <span className="tool-rating-summary__average" dir="ltr">
           {formatRatingAverage(stats.average)}
         </span>
       ) : null}
       {userRating != null ? (
         <span className="tool-rating-summary__thanks" aria-live="polite">
-          Thanks!
+          {t("thanks")}
         </span>
       ) : null}
       {showCount ? (
-        <span className="tool-rating-summary__count">
-          {formatRatingCount(stats.count)}
-        </span>
+        <span className="tool-rating-summary__count">{countLabel}</span>
       ) : null}
     </span>
   );

@@ -6637,6 +6637,8 @@
     "ratings": "{count} ratings",
     "thankYou": "Thank you!",
     "rateAria": "Rate this tool",
+    "yourRatingAria": "Your rating: {rating} out of 5",
+    "viewsNav": "Tool views",
     "enterFullScreen": "Enter Full Screen",
     "exitFullScreen": "Exit Full Screen",
     "showMagnifier": "Show Magnifier",
@@ -6653,6 +6655,26 @@
     "expandAll": "Expand all",
     "collapseAll": "Collapse all",
     "comingSoon": "Documentation for this tool is coming soon."
+  },
+  "ToolCard": {
+    "example": "Example",
+    "realWorldExample": "Real-world example:",
+    "openTool": "Open tool",
+    "focusMode": "Focus mode",
+    "expandAria": "Expand {label}",
+    "focusDialogAria": "{label} — focus mode",
+    "closeFocus": "Close focus mode",
+    "rateThisTool": "Rate this tool",
+    "yourRatingAria": "Your rating: {rating} out of 5",
+    "thanks": "Thanks!",
+    "noRatingsYet": "No ratings yet",
+    "ratingOne": "1 rating",
+    "ratingsCount": "{count} ratings",
+    "ratingsCompact": "{count}k ratings",
+    "summaryAria": "{average} out of 5, {countLabel}",
+    "examples": {
+      "storage-data-converter": "Work out how many 4 GB videos fit on a 256 GB memory card."
+    }
   },
   "Mp3Trimmer": {
     "intro": "Trim MP3 segments with ffmpeg.wasm stream copy (-c copy) — fast, lossless, and 100% local. Preview your file before choosing start and end times.",

@@ -12,6 +12,13 @@
   .theme-transition-delayed {
     @apply transition-colors duration-500 ease-in-out delay-75;
   }
+
+  /* Keep number+unit runs (e.g. 4 GB) LTR inside RTL copy */
+  .u-ltr-isolate {
+    unicode-bidi: isolate;
+    direction: ltr;
+    white-space: nowrap;
+  }
 }
 
 :root {
@@ -12588,6 +12595,10 @@ body.site-tools-grid-open {
   padding: 0 1rem clamp(2rem, 4vw, 2.5rem);
 }
 
+#workspace-upload.tool-page-layout--stacked[data-workspace-phase="clean"] {
+  padding: 0;
+}
+
 .tool-page-layout__breadcrumbs {
   width: 100%;
   margin: 0 auto 1rem;
@@ -13282,11 +13293,45 @@ body.site-tools-grid-open {
   }
 }
 
+/*
+ * Scroll lock + stage fill use a class on <html> (set by setWorkspacePhase).
+ * Avoid html:has(...) / body:has(...) — those selectors freeze Chromium on tool pages.
+ */
+html.workspace-phase-clean,
+html.workspace-phase-clean body {
+  overflow: hidden;
+  height: 100%;
+}
+
+html.workspace-phase-clean .app-page-canvas {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+html.workspace-phase-clean .app-page-canvas > .home-tool-grid-page,
+html.workspace-phase-clean .page-content-transition--main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Site footer stays out of the clean-stage viewport so the dropzone can fill it */
+html.workspace-phase-clean .home-page-footer {
+  display: none;
+}
+
 #tool-workspace[data-workspace-phase="clean"] {
   width: 100%;
   max-width: none;
   padding-bottom: 0;
   gap: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Hide all controls / panels / action bars until a file is present */
@@ -13298,15 +13343,104 @@ body.site-tools-grid-open {
   max-width: none;
 }
 
-/* Immersive dropzone: fill available stage with a consistent 30px margin */
-#tool-workspace[data-workspace-phase="clean"] .im-dropzone,
-.tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
-#workspace-upload[data-workspace-phase="clean"] .im-dropzone {
-  margin: 30px;
-  width: calc(100% - 60px);
+/* Tool layout fills the main content viewport in clean phase */
+#workspace-upload[data-workspace-phase="clean"] {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   max-width: none;
-  min-height: calc(100dvh - var(--site-header-height, 60px) - 60px - var(--tool-page-header-offset, 7.5rem));
+  height: 100%;
+  padding: 0;
+  padding-bottom: 0;
+  padding-inline: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+#workspace-upload[data-workspace-phase="clean"] .tool-page-layout__breadcrumbs {
+  display: none;
+}
+
+#workspace-upload[data-workspace-phase="clean"] .tool-page-layout__header {
+  display: none;
+}
+
+#workspace-upload[data-workspace-phase="clean"] .tool-page-view__tabs {
+  display: none;
+}
+
+#workspace-upload[data-workspace-phase="clean"] .tool-page-layout__footer,
+#workspace-upload[data-workspace-phase="clean"] .ad-container {
+  display: none !important;
+}
+
+#workspace-upload[data-workspace-phase="clean"] .tool-page-view {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#workspace-upload[data-workspace-phase="clean"] .tool-page-view__body,
+#workspace-upload[data-workspace-phase="clean"] .tool-page-view__pane--calc.tool-page-view__pane--active,
+#workspace-upload[data-workspace-phase="clean"] .tool-page-layout__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#workspace-upload[data-workspace-phase="clean"] .tool-upload-float,
+#workspace-upload[data-workspace-phase="clean"] .tool-upload-zone,
+#workspace-upload[data-workspace-phase="clean"] .im-dropzone-shell,
+#tool-workspace[data-workspace-phase="clean"] .tool-upload-float,
+#tool-workspace[data-workspace-phase="clean"] .im-dropzone-shell,
+.tool-upload-float[data-workspace-phase="clean"],
+.tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 0;
+  width: 100%;
+}
+
+/* Immersive dropzone: true full-viewport stage with exact 30px margins (Adobe-style).
+ * Fixed positioning bypasses broken flex chains so the box is never a small widget. */
+html.workspace-phase-clean #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
+html.workspace-phase-clean .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
+html.workspace-phase-clean #workspace-upload[data-workspace-phase="clean"] .im-dropzone {
+  position: fixed;
+  top: calc(var(--site-header-height, 60px) + 30px);
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
+  z-index: 30;
+  flex: none;
+  margin: 0;
+  width: auto;
+  height: auto;
+  max-width: none;
+  min-height: 0;
   box-sizing: border-box;
+}
+
+/* Embed / modal iframe: no site header — 30px from all viewport edges */
+html.workspace-phase-clean[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
+html.workspace-phase-clean[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
+html.workspace-phase-clean[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .im-dropzone,
+html.workspace-phase-clean body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
+html.workspace-phase-clean body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
+html.workspace-phase-clean body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone {
+  top: 30px;
 }
 
 #tool-workspace[data-workspace-phase="active"] > :not(.tool-upload-float),
@@ -13318,9 +13452,13 @@ body.site-tools-grid-open {
 #tool-workspace[data-workspace-phase="active"] .im-dropzone,
 .tool-upload-float[data-workspace-phase="active"] .im-dropzone,
 #workspace-upload[data-workspace-phase="active"] .im-dropzone {
+  position: relative;
+  inset: auto;
+  z-index: auto;
   margin: 0;
   width: 100%;
   min-height: 280px;
+  flex: 0 0 auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -23849,13 +23987,41 @@ body.site-tools-grid-open {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 0.75rem;
+  gap: 0;
   width: 100%;
 }
 
+@keyframes im-dropzone-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--category-accent, #3b82f6) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--category-accent, #3b82f6) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--category-accent, #3b82f6) 0%, transparent);
+  }
+}
+
+/*
+ * Adobe-style immersive dropzone:
+ * default = matte page + subtle accent outline;
+ * hover & drag = full category-accent border.
+ */
 .im-dropzone {
+  --im-dropzone-border: 2px;
   width: 100%;
   cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 0;
+  border: var(--im-dropzone-border) solid
+    color-mix(in srgb, var(--category-accent, #3b82f6) 28%, transparent);
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  transition:
+    border-color 0.28s ease,
+    color 0.2s ease;
 }
 
 /* Default tool-page dropzone height (overridden by phase=clean immersive rules) */
@@ -23863,30 +24029,104 @@ body.site-tools-grid-open {
   min-height: 280px;
 }
 
+.im-dropzone__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #737373;
+  transition: color 0.28s ease;
+}
+
+.im-dropzone__icon-svg {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.im-dropzone__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #d4d4d4;
+  transition: color 0.28s ease;
+}
+
 .im-dropzone__select {
-  color: var(--category-accent, #3b82f6);
-  transition: color 0.2s ease, filter 0.2s ease;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #a3a3a3;
+  transition: color 0.28s ease, filter 0.2s ease;
 }
 
 .im-dropzone:hover,
-.im-dropzone--active {
-  border-color: var(--category-accent, #3b82f6) !important;
+.im-dropzone--active,
+.im-dropzone:focus-visible {
+  border-color: var(--category-accent, #3b82f6);
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.im-dropzone:hover .im-dropzone__icon,
+.im-dropzone--active .im-dropzone__icon,
+.im-dropzone:focus-visible .im-dropzone__icon {
+  color: var(--category-accent, #3b82f6);
+}
+
+.im-dropzone:hover .im-dropzone__title,
+.im-dropzone--active .im-dropzone__title,
+.im-dropzone:focus-visible .im-dropzone__title {
+  color: #ededed;
 }
 
 .im-dropzone:hover .im-dropzone__select,
-.im-dropzone--active .im-dropzone__select {
+.im-dropzone--active .im-dropzone__select,
+.im-dropzone:focus-visible .im-dropzone__select {
   color: var(--category-accent, #3b82f6);
-  filter: brightness(1.12);
+  filter: brightness(1.08);
 }
 
-.im-dropzone:focus-visible {
-  outline: 2px solid var(--category-accent, #60a5fa);
-  outline-offset: 2px;
-}
-
-.im-dropzone__privacy,
-.im-dropzone__formats {
+/* Privacy + formats sit inside the centered drop-zone composition */
+.im-dropzone__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.15rem;
   max-width: 36rem;
+}
+
+.im-dropzone__privacy {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #737373;
+}
+
+.im-dropzone__formats {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #525252;
+}
+
+.im-dropzone__pulse {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  margin-inline-end: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--category-accent, #3b82f6);
+  animation: im-dropzone-pulse 1.6s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .im-dropzone {
+    transition: none;
+  }
+
+  .im-dropzone__pulse {
+    animation: none;
+  }
 }
 
 /* ?? Media tools (Industrial Matte upload zone) ?? */

@@ -53,6 +53,8 @@ export type ToolModalWrapperProps = {
     ratings?: string;
     thankYou?: string;
     rateAria?: string;
+    yourRatingAria?: string;
+    viewsNav?: string;
     enterFullScreen?: string;
     exitFullScreen?: string;
     showMagnifier?: string;
@@ -233,10 +235,11 @@ export function ToolModalWrapper({
                     ratings: labels?.ratings,
                     thankYou: labels?.thankYou,
                     rateAria: labels?.rateAria,
+                    yourRatingAria: labels?.yourRatingAria,
                   }}
                 />
 
-                <nav className="tool-modal__tabs" aria-label="Tool views">
+                <nav className="tool-modal__tabs" aria-label={labels?.viewsNav ?? "Tool views"}>
                   {panes.map(({ id }) => {
                     const label =
                       id === "calc" ? calcLabel : id === "doc" ? docLabel : relatedLabel;

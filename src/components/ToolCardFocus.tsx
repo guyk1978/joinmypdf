@@ -5,11 +5,13 @@ import { createPortal } from "react-dom";
 import type { CSSProperties, ReactNode } from "react";
 import { ArrowUpRight, Maximize2, X } from "lucide-react";
 import { clsx } from "clsx";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ToolCardExample } from "@/components/ToolCardExample";
 import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getCategoryAccentCssVar } from "@/lib/category-accent-colors";
+import { renderTextWithLtrUnits } from "@/lib/text-direction";
 
 type ToolCardFocusProps = {
   slug: string;
@@ -39,6 +41,7 @@ export function ToolCardFocus({
   categoryId,
   className,
 }: ToolCardFocusProps) {
+  const t = useTranslations("ToolCard");
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
 
@@ -61,9 +64,9 @@ export function ToolCardFocus({
       <button
         type="button"
         className={clsx("tool-card-focus__expand", className)}
-        aria-label={`Expand ${label}`}
+        aria-label={t("expandAria", { label })}
         aria-haspopup="dialog"
-        title="Focus mode"
+        title={t("focusMode")}
         onClick={(event) => {
           // Cards are links (or hold an overlay link); never let expand navigate.
           event.preventDefault();
@@ -80,7 +83,7 @@ export function ToolCardFocus({
               className="tool-card-focus"
               role="dialog"
               aria-modal="true"
-              aria-label={`${label} — focus mode`}
+              aria-label={t("focusDialogAria", { label })}
               style={
                 categoryId
                   ? ({
@@ -99,7 +102,7 @@ export function ToolCardFocus({
                 <button
                   type="button"
                   className="tool-card-focus__close"
-                  aria-label="Close focus mode"
+                  aria-label={t("closeFocus")}
                   onClick={close}
                   autoFocus
                 >
@@ -112,7 +115,7 @@ export function ToolCardFocus({
 
                 <h2 className="tool-card-focus__title">{label}</h2>
                 {description ? (
-                  <p className="tool-card-focus__meta">{description}</p>
+                  <p className="tool-card-focus__meta">{renderTextWithLtrUnits(description)}</p>
                 ) : null}
 
                 {example ? <ToolCardExample example={example} defaultOpen /> : null}
@@ -124,7 +127,7 @@ export function ToolCardFocus({
                     className="tool-card-focus__rating"
                   />
                   <Link href={href} className="tool-card-focus__open" prefetch={false}>
-                    Open tool
+                    {t("openTool")}
                     <ArrowUpRight
                       className="tool-card-focus__open-icon"
                       strokeWidth={2.25}

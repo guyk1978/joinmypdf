@@ -2,7 +2,7 @@
 
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
 import { clsx } from "clsx";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
@@ -61,6 +61,7 @@ export function IndustrialToolCard({
   const modal = useOptionalToolModal();
   const embed = useToolEmbedMode();
   const locale = useLocale();
+  const tCard = useTranslations("ToolCard");
   const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
   /** Hub context for modal close / return navigation. */
   const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
@@ -89,7 +90,10 @@ export function IndustrialToolCard({
     });
   };
 
-  const example = getToolRealWorldExample(toolSlug);
+  const exampleKey = `examples.${toolSlug}`;
+  const example = tCard.has(exampleKey)
+    ? tCard(exampleKey)
+    : getToolRealWorldExample(toolSlug);
 
   return (
     <div

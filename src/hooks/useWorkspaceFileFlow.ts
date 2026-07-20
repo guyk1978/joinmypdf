@@ -35,7 +35,8 @@ export function useWorkspaceFileFlow(
 
   useEffect(() => {
     return () => {
-      setWorkspacePhase("clean");
+      // Leave pages unlocked; "clean" would keep html.workspace-phase-clean around.
+      setWorkspacePhase("active");
     };
   }, []);
 

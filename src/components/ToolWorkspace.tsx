@@ -306,10 +306,16 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
     (tool.operation === "png-to-pdf" || tool.operation === "jpg-to-pdf") && files.length > 0;
   const supportedFormats =
     tool.operation === "png-to-pdf"
-      ? [ws.common("formatPng")]
+      ? ["PNG"]
       : tool.operation === "jpg-to-pdf"
-        ? [ws.common("formatJpg"), ws.common("formatPng")]
-        : [ws.common("formatPdf")];
+        ? ["JPG", "PNG"]
+        : ["PDF"];
+  const acceptAttr =
+    tool.operation === "png-to-pdf"
+      ? "image/png,.png"
+      : tool.operation === "jpg-to-pdf"
+        ? "image/jpeg,image/jpg,image/png,.jpg,.jpeg,.png"
+        : "application/pdf,.pdf";
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
@@ -342,15 +348,7 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
             ref={inputRef}
             type="file"
             className="sr-only"
-            accept={
-              tool.operation === "png-to-pdf"
-                ? "image/png,.png"
-                : tool.operation === "jpg-to-pdf"
-                  ? "image/jpeg,image/jpg,image/png,.jpg,.jpeg,.png"
-                  : tool.operation === "compress" || tool.operation === "split"
-                    ? "application/pdf,.pdf"
-                    : undefined
-            }
+            accept={acceptAttr}
             multiple={config.multiple}
             onChange={(e) => {
               if (e.target.files?.length) addRaw(e.target.files);

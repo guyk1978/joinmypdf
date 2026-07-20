@@ -6847,6 +6847,8 @@
     "ratings": "{count} דירוגים",
     "thankYou": "תודה!",
     "rateAria": "דרגו את הכלי",
+    "yourRatingAria": "הדירוג שלך: {rating} מתוך 5",
+    "viewsNav": "תצוגות הכלי",
     "enterFullScreen": "מסך מלא",
     "exitFullScreen": "יציאה ממסך מלא",
     "showMagnifier": "הצגת זכוכית מגדלת",
@@ -6863,6 +6865,26 @@
     "expandAll": "הרחב הכל",
     "collapseAll": "כווץ הכל",
     "comingSoon": "התיעוד לכלי זה יגיע בקרוב."
+  },
+  "ToolCard": {
+    "example": "דוגמה",
+    "realWorldExample": "דוגמה מהחיים:",
+    "openTool": "פתח כלי",
+    "focusMode": "מצב פוקוס",
+    "expandAria": "הרחב את {label}",
+    "focusDialogAria": "{label} — מצב פוקוס",
+    "closeFocus": "סגור מצב פוקוס",
+    "rateThisTool": "דרגו את הכלי",
+    "yourRatingAria": "הדירוג שלך: {rating} מתוך 5",
+    "thanks": "תודה!",
+    "noRatingsYet": "עדיין אין דירוגים",
+    "ratingOne": "דירוג אחד",
+    "ratingsCount": "{count} דירוגים",
+    "ratingsCompact": "{count}k דירוגים",
+    "summaryAria": "{average} מתוך 5, {countLabel}",
+    "examples": {
+      "storage-data-converter": "חשבו כמה סרטונים של 4 GB נכנסים לכרטיס זיכרון של 256 GB."
+    }
   },
   "Mp3Trimmer": {
     "intro": "Trim MP3 segments with ffmpeg.wasm stream copy (-c copy) — fast, lossless, and 100% local. Preview your file before choosing start and end times.",

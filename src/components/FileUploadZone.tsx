@@ -6,6 +6,14 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { localizeHebrewPdfInText } from "@/lib/hebrew-pdf-term";
+import {
+  acceptAttrFromFormats,
+  ensureInputAccept,
+  extractAcceptFromInput,
+  resolveUploadFormats,
+  resolveUploadMediaKind,
+  type UploadMediaKind,
+} from "@/lib/upload-accept";
 import { ToolFavoriteButton } from "@/components/ToolFavoriteButton";
 import {
   formatSupportsLabel,
@@ -24,12 +32,85 @@ export type FileUploadZoneProps = HTMLAttributes<HTMLDivElement> & {
   input?: ReactNode;
   footer?: ReactNode;
   iconActive?: boolean;
+  /** Preferred source of truth for Supports: + labels. Falls back to input accept. */
   supportedFormats?: string[];
+  /** Optional accept override when the hidden input does not declare one. */
+  accept?: string;
   dropTitle?: string;
   selectLabel?: string;
   privacyLabel?: string;
   variant?: "default" | "hero";
 };
+
+function dropTitleForKind(
+  kind: UploadMediaKind,
+  formats: string[],
+  common: ReturnType<typeof useTranslations>,
+): string {
+  if (kind === "pdf") {
+    return common.has("dropYourPdfHere") ? common("dropYourPdfHere") : "Drop a PDF here or click to browse";
+  }
+  if (kind === "image") {
+    return common.has("dropYourImageHere")
+      ? common("dropYourImageHere")
+      : "Drop an image here or click to browse";
+  }
+  if (kind === "video") {
+    return common.has("dropYourVideoHere")
+      ? common("dropYourVideoHere")
+      : "Drop a video here or click to browse";
+  }
+  if (kind === "audio") {
+    return common.has("dropYourAudioHere")
+      ? common("dropYourAudioHere")
+      : "Drop an audio file here or click to browse";
+  }
+  if (formats.length === 1) {
+    const format = formats[0]!;
+    return common.has("dropYourFormatHere")
+      ? common("dropYourFormatHere", { format })
+      : `Drop a ${format} here or click to browse`;
+  }
+  return common.has("dropYourFileHere")
+    ? common("dropYourFileHere")
+    : "Drop a file here or click to browse";
+}
+
+function selectLabelForKind(
+  kind: UploadMediaKind,
+  formats: string[],
+  common: ReturnType<typeof useTranslations>,
+): string {
+  if (kind === "pdf") {
+    return common.has("selectPdfFromDevice")
+      ? common("selectPdfFromDevice")
+      : "Select PDF from device";
+  }
+  if (kind === "image") {
+    return common.has("selectImageFromDevice")
+      ? common("selectImageFromDevice")
+      : "Select image from device";
+  }
+  if (kind === "video") {
+    return common.has("selectVideoFromDevice")
+      ? common("selectVideoFromDevice")
+      : "Select video from device";
+  }
+  if (kind === "audio") {
+    return common.has("selectAudioFromDevice")
+      ? common("selectAudioFromDevice")
+      : "Select audio from device";
+  }
+  if (formats.length === 1) {
+    const format = formats[0]!;
+    return common.has("selectFormatFromDevice")
+      ? common("selectFormatFromDevice", { format })
+      : `Select ${format} from device`;
+  }
+  return common.has("selectFileFromDevice")
+    ? common("selectFileFromDevice")
+    : "Select file from device";
+}
 
 export function FileUploadZone({
   operation,
@@ -43,7 +124,8 @@ export function FileUploadZone({
   input,
   footer,
   iconActive,
-  supportedFormats = ["PDF"],
+  supportedFormats: supportedFormatsProp,
+  accept: acceptProp,
   dropTitle: dropTitleProp,
   selectLabel: selectLabelProp,
   privacyLabel: privacyLabelProp,
@@ -70,40 +152,26 @@ export function FileUploadZone({
     descriptionProp ||
     (operation && showDescription ? ws.uploadDescription() : undefined);
 
+  const acceptFromInput = extractAcceptFromInput(input);
+  const acceptSource = acceptProp || acceptFromInput;
+  const supportedFormats = resolveUploadFormats({
+    supportedFormats: supportedFormatsProp,
+    accept: acceptSource,
+  });
+  const kind = resolveUploadMediaKind(supportedFormats, acceptSource);
+  const resolvedAccept =
+    acceptSource ||
+    (supportedFormats.length ? acceptAttrFromFormats(supportedFormats) : undefined);
+  const resolvedInput = ensureInputAccept(input, resolvedAccept);
+
   const formatLabel = (format: string) =>
     locale === "he" ? localizeHebrewPdfInText(format) : format;
 
-  const pdfOnly =
-    supportedFormats.length === 1 && supportedFormats[0]?.toUpperCase() === "PDF";
-  const imageOnly = supportedFormats.every((format) =>
-    /jpg|jpeg|png|webp|gif|heic|svg|ico|bmp/i.test(format),
-  );
-
   const dropTitle =
-    dropTitleProp ||
-    (pdfOnly
-      ? common.has("dropYourPdfHere")
-        ? common("dropYourPdfHere")
-        : "Drop your PDF here"
-      : imageOnly
-        ? common.has("dropYourImageHere")
-          ? common("dropYourImageHere")
-          : "Drop your image here"
-        : common("dropYourFileHere"));
+    dropTitleProp || dropTitleForKind(kind, supportedFormats, common);
 
   const selectLabel =
-    selectLabelProp ||
-    (pdfOnly
-      ? common.has("selectPdfFromDevice")
-        ? common("selectPdfFromDevice")
-        : "Select PDF from device"
-      : imageOnly
-        ? common.has("selectImageFromDevice")
-          ? common("selectImageFromDevice")
-          : "Select image from device"
-        : common.has("selectFileFromDevice")
-          ? common("selectFileFromDevice")
-          : common("selectFile"));
+    selectLabelProp || selectLabelForKind(kind, supportedFormats, common);
 
   const privacyLabel =
     privacyLabelProp ||
@@ -144,7 +212,7 @@ export function FileUploadZone({
         supportsLabel={supportsLabel}
         privacyLabel={privacyLabel}
         active={active}
-        input={input}
+        input={resolvedInput}
         footer={footer}
       >
         {children}
