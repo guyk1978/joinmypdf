@@ -88,19 +88,29 @@ export function getToolModalDocModel(
     fallbackTitle ||
     slug;
   const locale = options?.locale ?? "en";
+  const localizedTitle =
+    options?.tTools?.has(`items.${slug}`)
+      ? options.tTools(`items.${slug}`)
+      : title;
+  const localizedCardDescription =
+    options?.tTools?.has(`cardDescriptions.${slug}`)
+      ? options.tTools(`cardDescriptions.${slug}`)
+      : "";
   const description =
+    (locale !== "en" ? localizedCardDescription : "") ||
     options?.description ||
-    tool?.description ||
-    data?.description ||
-    inventory?.description ||
+    localizedCardDescription ||
+    (locale === "en"
+      ? tool?.description || data?.description || inventory?.description || ""
+      : "") ||
     "";
 
   const englishIntent = tool?.intent ?? "";
   let intent: string | undefined;
   if (options?.tTools?.has(`intents.${slug}`)) {
     intent = options.tTools(`intents.${slug}`);
-  } else if (locale !== "en" && options?.tTools?.has(`cardDescriptions.${slug}`)) {
-    intent = options.tTools(`cardDescriptions.${slug}`);
+  } else if (locale !== "en" && localizedCardDescription) {
+    intent = localizedCardDescription;
   } else if (locale === "en") {
     intent = englishIntent || undefined;
   } else {
@@ -114,7 +124,7 @@ export function getToolModalDocModel(
 
   return {
     slug,
-    title,
+    title: localizedTitle,
     description,
     intent,
     whyItMatters,

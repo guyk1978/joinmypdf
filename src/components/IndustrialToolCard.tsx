@@ -96,7 +96,9 @@ export function IndustrialToolCard({
   const exampleKey = `examples.${toolSlug}`;
   const example = tCard.has(exampleKey)
     ? tCard(exampleKey)
-    : getToolRealWorldExample(toolSlug);
+    : locale === "en"
+      ? getToolRealWorldExample(toolSlug)
+      : undefined;
 
   return (
     <div

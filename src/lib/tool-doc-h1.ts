@@ -9,16 +9,32 @@ const PREFIX_PATTERNS = [
   /^fast\s*&\s*easy\s+/i,
   /^online\s+/i,
   /^free\s+/i,
+  /^бесплатн\w*\s+онлайн\s+/i,
+  /^онлайн\s+/i,
+  /^бесплатн\w*\s+/i,
+  /^חינמי\s+אונליין\s+/,
+  /^אונליין\s+/,
+  /^חינמי\s+/,
 ];
 
 const SUFFIX_PATTERNS = [
   /\s*\(\s*fast\s*&\s*easy\s*\)\s*$/i,
+  /\s*\(\s*быстро\s+и\s+просто\s*\)\s*$/i,
+  /\s*\(\s*מהיר\s+וקל\s*\)\s*$/,
   /\s*[—–-]\s*free[,.\s].*$/i,
   /\s*\|\s*free[,.\s].*$/i,
   /\s+free\s+online\s*$/i,
   /\s+online\s+free\s*$/i,
   /\s+online\s*$/i,
   /\s+free\s*$/i,
+  /\s+онлайн\s+бесплатн\w*\s*$/i,
+  /\s+бесплатн\w*\s+онлайн\s*$/i,
+  /\s+онлайн\s*$/i,
+  /\s+бесплатн\w*\s*$/i,
+  /\s+חינמי\s+אונליין\s*$/,
+  /\s+אונליין\s+חינמי\s*$/,
+  /\s+אונליין\s*$/,
+  /\s+חינמי\s*$/,
 ];
 
 /** Remove standalone SEO filler words that would duplicate the H1 wrapper. */
@@ -26,6 +42,10 @@ function stripSeoNoiseWords(value: string): string {
   return value
     .replace(/\bonline\b/gi, " ")
     .replace(/\bfree\b/gi, " ")
+    .replace(/\bонлайн\b/gi, " ")
+    .replace(/\bбесплатн\w*\b/gi, " ")
+    .replace(/אונליין/g, " ")
+    .replace(/חינמי/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }

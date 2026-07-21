@@ -63,8 +63,13 @@ export function ToolDocHeader({
   const locale = useLocale();
   const tPage = useTranslations("ToolPage");
   const tModal = useTranslations("ToolModal");
+  const tTools = useTranslations("Tools");
 
-  const plainTitle = normalizeToolNameForDocH1(title) || title.trim();
+  const plainTitle = useMemo(() => {
+    const localized = tTools.has(`items.${slug}`) ? tTools(`items.${slug}`) : title;
+    return normalizeToolNameForDocH1(localized) || localized.trim();
+  }, [slug, title, tTools]);
+
   const categoryId =
     categoryIdProp ??
     resolveToolCategoryId(slug) ??
@@ -85,7 +90,11 @@ export function ToolDocHeader({
         ...item,
         label:
           item.label.startsWith("breadcrumb") || item.label.includes(".")
-            ? localizeCrumbLabel(tPage, item.label, item.label.replace(/^breadcrumb(Hub)?/i, "") || item.label)
+            ? localizeCrumbLabel(
+                tPage,
+                item.label,
+                item.label.replace(/^breadcrumb(Hub)?/i, "") || item.label,
+              )
             : item.label,
       }));
     }
@@ -115,8 +124,11 @@ export function ToolDocHeader({
         if (categoryId && INVENTORY_BREADCRUMB_LABEL_KEYS[categoryId as InventoryCategoryId]) {
           const hubKey = INVENTORY_BREADCRUMB_LABEL_KEYS[categoryId as InventoryCategoryId];
           if (label === hubKey || label.startsWith("breadcrumbHub")) {
-            label =
-              localizeCrumbLabel(tPage, hubKey, INVENTORY_HUB_META[categoryId as InventoryCategoryId]?.title ?? "Tools");
+            label = localizeCrumbLabel(
+              tPage,
+              hubKey,
+              INVENTORY_HUB_META[categoryId as InventoryCategoryId]?.title ?? "Tools",
+            );
           }
         }
         if (label.startsWith("breadcrumb") || !label) {
@@ -131,7 +143,17 @@ export function ToolDocHeader({
     ? tModal("docH1Template", { toolName: plainTitle })
     : buildDocH1Title(plainTitle);
 
-  const lead = (description ?? "").replace(/\s+/g, " ").trim();
+  const lead = useMemo(() => {
+    const fromProp = (description ?? "").replace(/\s+/g, " ").trim();
+    if (fromProp) return fromProp;
+    if (tTools.has(`cardDescriptions.${slug}`)) {
+      return tTools(`cardDescriptions.${slug}`).replace(/\s+/g, " ").trim();
+    }
+    if (tTools.has(`intents.${slug}`)) {
+      return tTools(`intents.${slug}`).replace(/\s+/g, " ").trim();
+    }
+    return "";
+  }, [description, slug, tTools]);
 
   return (
     <header className={clsx("tool-modal-docs__header", className)}>

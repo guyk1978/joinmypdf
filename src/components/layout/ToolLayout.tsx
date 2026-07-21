@@ -2,6 +2,7 @@
 
 import type { CSSProperties, ReactNode } from "react";
 import { clsx } from "clsx";
+import { useLocale, useTranslations } from "next-intl";
 import { AdContainer } from "@/components/AdContainer";
 import { FaqSection } from "@/components/layout/FaqSection";
 import { FeedbackSection } from "@/components/layout/FeedbackSection";
@@ -19,6 +20,7 @@ import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
+import { resolveLocalizedToolDocFields } from "@/lib/tool-doc-content";
 import { parseToolHierarchyPath } from "@/lib/tool-hierarchy";
 import type { ToolFaq } from "@/lib/types";
 import { toolPageInfoWidth } from "@/lib/tool-ui";
@@ -91,6 +93,8 @@ export function ToolLayout({
   const shell = useToolPageShell();
   const embed = useToolEmbedMode();
   const pathname = usePathname();
+  const locale = useLocale();
+  const tTools = useTranslations("Tools");
 
   const resolvedTitle = title ?? shell.headline;
   const resolvedDescription = description ?? shell.subline;
@@ -100,9 +104,19 @@ export function ToolLayout({
   const registryTool = resolvedSlug
     ? registry.tools.find((entry) => entry.slug === resolvedSlug)
     : undefined;
-  const docIntent = registryTool?.intent ?? resolvedTagline ?? resolvedDescription;
-  const docWhy = registryTool?.documentation?.whyItMatters ?? null;
-  const docUseCases = registryTool?.useCases ?? null;
+  const docFields = resolvedSlug
+    ? resolveLocalizedToolDocFields({
+        slug: resolvedSlug,
+        locale,
+        tTools,
+        title: resolvedTitle,
+        description: resolvedDescription || resolvedTagline,
+        intent: resolvedTagline,
+        whyItMatters:
+          locale === "en" ? registryTool?.documentation?.whyItMatters ?? null : null,
+        useCases: locale === "en" ? registryTool?.useCases ?? null : null,
+      })
+    : null;
 
   const hierarchy = parseToolHierarchyPath(pathname);
   const categoryId =
@@ -124,28 +138,28 @@ export function ToolLayout({
   );
 
   const hasDoc =
-    Boolean(marketing) || Boolean(belowTool) || faqs.length > 0 || Boolean(resolvedTitle);
+    Boolean(marketing) || Boolean(belowTool) || faqs.length > 0 || Boolean(docFields?.title || resolvedTitle);
 
   const docPane = hasDoc ? (
     <ToolPageInfoBlock className={clsx(toolPageInfoWidth, "tool-modal-docs")}>
-      {resolvedSlug && resolvedTitle ? (
+      {resolvedSlug && docFields ? (
         <ToolDocHeader
           slug={resolvedSlug}
-          title={resolvedTitle}
-          description={resolvedDescription}
+          title={docFields.title}
+          description={docFields.description || docFields.intent}
           categoryId={categoryId}
           breadcrumbItems={docBreadcrumbs}
         />
       ) : null}
-      {resolvedSlug && resolvedTitle ? (
+      {resolvedSlug && docFields ? (
         <ToolDocBodySections
           slug={resolvedSlug}
-          title={resolvedTitle}
-          description={resolvedDescription || registryTool?.description}
-          intent={docIntent}
-          whyItMatters={docWhy}
-          useCases={docUseCases}
-          primaryKeyword={registryTool?.primaryKeyword}
+          title={docFields.title}
+          description={docFields.description}
+          intent={docFields.intent}
+          whyItMatters={docFields.whyItMatters}
+          useCases={docFields.useCases}
+          primaryKeyword={docFields.primaryKeyword}
         />
       ) : null}
       {marketing}

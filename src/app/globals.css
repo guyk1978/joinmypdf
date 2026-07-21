@@ -3526,6 +3526,14 @@ html:has(.home-page-shell--minimal) body {
   text-wrap: balance;
 }
 
+.tool-modal-docs__lead {
+  margin: 0.85rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--im-text, #fafafa) 78%, transparent);
+  text-wrap: pretty;
+}
+
 .tool-modal-docs__text--example {
   padding: 0.95rem 1.05rem;
   border: 1px solid var(--im-tool-panel-border, rgba(255, 255, 255, 0.08));
@@ -3703,6 +3711,31 @@ html:has(.home-page-shell--minimal) body {
 
 .tool-modal-docs__list li::marker {
   color: #737373;
+}
+
+html[dir="rtl"] .tool-modal-docs,
+html[dir="rtl"] .tool-modal-docs__header,
+html[dir="rtl"] .tool-modal-docs__section {
+  text-align: right;
+}
+
+html[dir="rtl"] .tool-modal-docs__title,
+html[dir="rtl"] .tool-modal-docs__lead,
+html[dir="rtl"] .tool-modal-docs__heading,
+html[dir="rtl"] .tool-modal-docs__text,
+html[dir="rtl"] .tool-modal-docs__meta,
+html[dir="rtl"] .tool-modal-docs__list {
+  text-align: right;
+}
+
+html[dir="rtl"] .tool-modal-docs__list {
+  padding-inline-start: 0;
+  padding-inline-end: 1.2rem;
+}
+
+html[dir="rtl"] .tool-modal-docs__crumbs .tool-breadcrumbs__list {
+  justify-content: flex-start;
+  flex-direction: row;
 }
 
 .tool-modal-docs__faq {
