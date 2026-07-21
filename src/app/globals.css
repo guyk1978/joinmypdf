@@ -12956,6 +12956,8 @@ body.site-tools-grid-open {
 .tool-upload-zone {
   max-width: none;
   width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   margin-inline: auto;
   cursor: pointer;
   border: none;
@@ -12966,7 +12968,8 @@ body.site-tools-grid-open {
 }
 
 .tool-upload-zone--tool-page {
-  min-height: auto;
+  min-height: 0;
+  height: 100%;
   padding: 0;
 }
 
@@ -13715,6 +13718,47 @@ html.workspace-phase-clean .page-content-transition--main {
   overflow: hidden;
 }
 
+/* Drop stage padding/margins so the clean dropzone can fill the main canvas */
+html.workspace-phase-clean:not([data-tool-embed="1"]) .home-tool-grid-page.tool-page-main,
+html.workspace-phase-clean:not([data-tool-embed="1"]) .tool-page-main,
+html.workspace-phase-clean body:not(.tool-embed-mode) .home-tool-grid-page.tool-page-main,
+html.workspace-phase-clean body:not(.tool-embed-mode) .tool-page-main {
+  padding: 0 !important;
+  margin: 0 !important;
+  height: calc(100dvh - var(--site-header-height, 60px));
+  max-height: calc(100dvh - var(--site-header-height, 60px));
+}
+
+/* Embed / tool-modal iframe: no site header — fill the full iframe viewport */
+html[data-tool-embed="1"].workspace-phase-clean .home-tool-grid-page.tool-page-main,
+html[data-tool-embed="1"].workspace-phase-clean .tool-page-main,
+html.workspace-phase-clean body.tool-embed-mode .home-tool-grid-page.tool-page-main,
+html.workspace-phase-clean body.tool-embed-mode .tool-page-main {
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 100dvh;
+}
+
+html[data-tool-embed="1"].workspace-phase-clean .app-page-canvas,
+html[data-tool-embed="1"].workspace-phase-clean .app-page-canvas--tool-embed,
+html.workspace-phase-clean body.tool-embed-mode .app-page-canvas,
+html.workspace-phase-clean body.tool-embed-mode .app-page-canvas--tool-embed {
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 100dvh;
+}
+
+html.workspace-phase-clean .tool-page-dashboard {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 /* Site footer stays out of the clean-stage viewport so the dropzone can fill it */
 html.workspace-phase-clean .home-page-footer {
   display: none;
@@ -13782,6 +13826,7 @@ html.workspace-phase-clean .tools-directory-page > section {
 
 html.workspace-phase-clean .tools-directory-page .utility-tool-layout,
 html.workspace-phase-clean .tools-directory-page .tool-upload-float,
+html.workspace-phase-clean .tools-directory-page .tool-upload-zone,
 html.workspace-phase-clean .tools-directory-page .im-dropzone-shell {
   display: flex;
   flex: 1 1 auto;
@@ -13799,7 +13844,7 @@ html.workspace-phase-clean .tools-directory-page .im-dropzone-shell {
   gap: 0 !important;
   row-gap: 0 !important;
   flex: 1 1 auto;
-  min-height: calc(100dvh - var(--site-header-height, 60px));
+  min-height: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -13807,7 +13852,8 @@ html.workspace-phase-clean .tools-directory-page .im-dropzone-shell {
 
 html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"],
 body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] {
-  min-height: 100dvh;
+  min-height: 0;
+  height: 100%;
 }
 
 /* Hide all controls / panels / action bars until a file is present */
@@ -13878,8 +13924,10 @@ body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] {
 #workspace-upload[data-workspace-phase="clean"] .tool-upload-zone,
 #workspace-upload[data-workspace-phase="clean"] .im-dropzone-shell,
 #tool-workspace[data-workspace-phase="clean"] .tool-upload-float,
+#tool-workspace[data-workspace-phase="clean"] .tool-upload-zone,
 #tool-workspace[data-workspace-phase="clean"] .im-dropzone-shell,
 .tool-upload-float[data-workspace-phase="clean"],
+.tool-upload-float[data-workspace-phase="clean"] .tool-upload-zone,
 .tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell {
   position: relative;
   display: flex;
@@ -13887,24 +13935,33 @@ body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] {
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  min-height: calc(100dvh - var(--site-header-height, 60px));
+  /* Fill the flex parent — do not force a viewport min-height here (that overflows
+   * when main/page chrome already offsets the stage below the site header). */
+  min-height: 0;
   height: 100%;
 }
 
 /* Embed / modal iframe: fill the iframe viewport completely */
 html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .tool-upload-float,
+html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .tool-upload-zone,
 html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .im-dropzone-shell,
 html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .tool-upload-float,
+html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .tool-upload-zone,
 html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone-shell,
 html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"],
+html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .tool-upload-zone,
 html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell,
 body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .tool-upload-float,
+body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .tool-upload-zone,
 body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone-shell,
 body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .tool-upload-float,
+body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .tool-upload-zone,
 body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone-shell,
 body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"],
+body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .tool-upload-zone,
 body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell {
-  min-height: 100dvh;
+  min-height: 0;
+  height: 100%;
 }
 
 /* Kill legacy padding that shrinks the stage (space-y / pb-12 on #tool-workspace, embed pad) */
@@ -13933,31 +13990,46 @@ html[data-tool-embed="1"] #tool-workspace {
   min-height: 100%;
 }
 
+/* Clean-phase embed: percentage heights collapse when the flex parent is auto-sized —
+ * pin the canvas to the iframe viewport instead. */
+html[data-tool-embed="1"].workspace-phase-clean,
+html[data-tool-embed="1"].workspace-phase-clean body,
+html[data-tool-embed="1"].workspace-phase-clean .app-page-canvas,
+html[data-tool-embed="1"].workspace-phase-clean .app-page-canvas--tool-embed,
+html[data-tool-embed="1"].workspace-phase-clean .home-tool-grid-page,
+html[data-tool-embed="1"].workspace-phase-clean .tool-page-main,
+html[data-tool-embed="1"].workspace-phase-clean .page-content-transition--main,
+html[data-tool-embed="1"].workspace-phase-clean .tool-page-dashboard,
+html[data-tool-embed="1"].workspace-phase-clean #workspace-upload,
+html[data-tool-embed="1"].workspace-phase-clean #workspace-upload .tool-page-layout__content,
+html[data-tool-embed="1"].workspace-phase-clean #tool-workspace {
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  min-height: 100dvh !important;
+}
+
 html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   padding-block: 0;
 }
 
 /*
- * Immersive dropzone — exact full-viewport frame with uniform 30px margins.
- * Fixed sizing bypasses every nested layout so no tool can shrink to a widget.
- * Full page:  height = 100vh − header(60) − margins(60) = 100vh − 120px
- * Embed/modal: height = 100vh − margins(60)
+ * Immersive dropzone — fill the available workspace with uniform inset margins.
+ * Absolute positioning inside the flex-filled shell (not viewport-fixed) so
+ * tool pages, embeds, and modals all expand edge-to-edge without dead space.
+ * The shell itself already sizes to the remaining viewport below the header
+ * (or 100dvh in embeds), so a uniform 30px inset is enough on every side.
  */
-#tool-workspace[data-workspace-phase="clean"] .im-dropzone,
-.tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
-#workspace-upload[data-workspace-phase="clean"] .im-dropzone,
-.tool-upload-stack [data-workspace-phase="clean"] .im-dropzone {
-  position: fixed !important;
-  top: calc(var(--site-header-height, 60px) + 30px) !important;
-  left: 30px !important;
-  right: 30px !important;
-  bottom: auto !important;
+#tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+.tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+#workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+.tool-upload-stack [data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact) {
+  position: absolute !important;
+  inset: 30px !important;
   z-index: 40 !important;
   box-sizing: border-box !important;
   width: auto !important;
   max-width: none !important;
-  height: calc(100vh - 120px) !important;
-  height: calc(100dvh - var(--site-header-height, 60px) - 60px) !important;
+  height: auto !important;
   max-height: none !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -13969,25 +14041,6 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-}
-
-/* Embed / tool-modal iframe: no site header — 30px from every edge */
-html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
-html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
-html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .im-dropzone,
-html[data-tool-embed="1"] .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone,
-body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone,
-body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone,
-body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone,
-body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone {
-  top: 30px !important;
-  left: 30px !important;
-  right: 30px !important;
-  width: auto !important;
-  max-width: none !important;
-  height: calc(100vh - 60px) !important;
-  height: calc(100dvh - 60px) !important;
-  max-height: none !important;
 }
 
 #tool-workspace[data-workspace-phase="active"] > :not(.tool-upload-float),
@@ -24952,10 +25005,12 @@ html.workspace-phase-clean .tool-privacy-seal {
 
 .im-dropzone-shell {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   align-items: stretch;
   gap: 0;
   width: 100%;
+  min-height: 0;
 }
 
 @keyframes im-dropzone-pulse {
@@ -24978,6 +25033,8 @@ html.workspace-phase-clean .tool-privacy-seal {
 .im-dropzone {
   --im-dropzone-border: 2px;
   width: 100%;
+  flex: 1 1 auto;
+  min-height: min(32rem, calc(100dvh - var(--site-header-height, 60px) - 4rem));
   cursor: pointer;
   box-sizing: border-box;
   border-radius: 0;
@@ -24995,9 +25052,14 @@ html.workspace-phase-clean .tool-privacy-seal {
     color 0.2s ease;
 }
 
-/* Default tool-page dropzone height — immersive clean phase overrides with fixed viewport fill */
+/* Default tool-page dropzone height — immersive clean phase overrides with workspace fill */
 .tool-upload-stack .im-dropzone {
-  min-height: 280px;
+  min-height: min(32rem, calc(100dvh - var(--site-header-height, 60px) - 4rem));
+}
+
+.im-dropzone--compact {
+  flex: 0 0 auto;
+  min-height: 0;
 }
 
 .im-dropzone__stage {

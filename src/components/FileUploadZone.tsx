@@ -186,7 +186,7 @@ export function FileUploadZone({
   return (
     <div
       className={clsx(
-        "tool-upload-zone",
+        "tool-upload-zone flex w-full flex-1 flex-col",
         isToolPage ? "tool-upload-zone--tool-page" : isHero ? "tool-upload-zone--hero" : "",
       )}
     >
