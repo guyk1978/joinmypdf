@@ -21,7 +21,7 @@ import {
 } from "@/lib/category-accent-colors";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
-import { getToolRealWorldExample } from "@/data/tool-real-world-examples";
+import { getToolRealWorldExampleByLocale } from "@/data/tool-real-world-examples-localized";
 
 export type IndustrialToolCardProps = {
   href: string;
@@ -119,9 +119,7 @@ export function IndustrialToolCard({
   const exampleKey = `examples.${toolSlug}`;
   const example = tCard.has(exampleKey)
     ? tCard(exampleKey)
-    : locale === "en"
-      ? getToolRealWorldExample(toolSlug)
-      : undefined;
+    : getToolRealWorldExampleByLocale(toolSlug, locale);
 
   return (
     <div

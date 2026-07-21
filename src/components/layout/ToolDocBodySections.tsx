@@ -7,6 +7,7 @@ import {
   resolveLocalizedToolDocFields,
   type ToolDocSynthesisTemplates,
 } from "@/lib/tool-doc-content";
+import { getToolRealWorldExampleByLocale } from "@/data/tool-real-world-examples-localized";
 
 type ToolDocBodySectionsProps = {
   slug: string;
@@ -108,7 +109,9 @@ export function ToolDocBodySections({
     });
 
     const exampleKey = `examples.${slug}`;
-    const realWorldExampleBody = tCard.has(exampleKey) ? tCard(exampleKey) : null;
+    const realWorldExampleBody = tCard.has(exampleKey)
+      ? tCard(exampleKey)
+      : getToolRealWorldExampleByLocale(slug, locale) ?? null;
 
     return buildEnrichedToolDocContent({
       slug,
