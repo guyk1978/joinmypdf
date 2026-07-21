@@ -409,16 +409,21 @@ export function QuickNote({ labels, className }: QuickNoteProps) {
                     isActiveEdit && "quick-note-tool__item--editing",
                   )}
                 >
+                  <div className="quick-note-tool__item-card">
                   <button
                     type="button"
                     className="quick-note-tool__item-main"
                     onClick={() => handleView(note)}
                     aria-label={`${labels.viewButton}: ${note.title.trim() || labels.untitled}`}
                   >
-                    <h3 className="quick-note-tool__item-title">
+                    <h3 className="quick-note-tool__item-title" dir="auto">
                       {note.title.trim() || labels.untitled}
                     </h3>
-                    {preview ? <p className="quick-note-tool__item-preview">{preview}</p> : null}
+                    {preview ? (
+                      <p className="quick-note-tool__item-preview" dir="auto" title={preview}>
+                        {preview}
+                      </p>
+                    ) : null}
                     <time className="quick-note-tool__item-time" dateTime={note.timestamp}>
                       {labels.formatSavedAt(formatTimestamp(note.timestamp))}
                     </time>
@@ -448,6 +453,7 @@ export function QuickNote({ labels, className }: QuickNoteProps) {
                     >
                       {labels.deleteButton}
                     </button>
+                  </div>
                   </div>
                 </li>
               );
