@@ -454,6 +454,15 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             exitFullScreen: t("exitFullScreen"),
             showMagnifier: t("showMagnifier"),
             hideMagnifier: t("hideMagnifier"),
+            inspectPreview: t.has("inspectPreview") ? t("inspectPreview") : "Inspect preview",
+            magnifierSizeGroup: t.has("magnifierSizeGroup")
+              ? t("magnifierSizeGroup")
+              : "Magnifier size",
+            magnifierSizeSmall: t.has("magnifierSizeSmall") ? t("magnifierSizeSmall") : "Small",
+            magnifierSizeMedium: t.has("magnifierSizeMedium")
+              ? t("magnifierSizeMedium")
+              : "Medium",
+            magnifierSizeHuge: t.has("magnifierSizeHuge") ? t("magnifierSizeHuge") : "Huge",
             pin: t("pin"),
             unpin: t("unpin"),
           }}

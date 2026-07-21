@@ -46,6 +46,7 @@ export function PdfStudioPage({ children, className, magnifier = true }: PdfStud
         "overflow-hidden rounded-none border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-950",
         className,
       )}
+      data-preview-inspect=""
     >
       {children}
     </div>
@@ -56,7 +57,7 @@ export function PdfStudioPage({ children, className, magnifier = true }: PdfStud
   const magnifierProps = magnifier === true ? {} : magnifier;
 
   return (
-    <Magnifier zoom={2.25} size={180} shape="circle" {...magnifierProps}>
+    <Magnifier zoom={2.75} size={200} shape="circle" {...magnifierProps}>
       {sheet}
     </Magnifier>
   );

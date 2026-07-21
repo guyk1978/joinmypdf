@@ -17,8 +17,17 @@ import {
 } from "react";
 import {
   getMagnifierPreference,
+  getMagnifierSizeTier,
+  MAGNIFIER_LOUPE_SCALE,
+  resolveMagnifierLensSizePx,
   subscribeMagnifierPreference,
+  subscribeMagnifierSizeTier,
+  type MagnifierSizeTier,
 } from "@/lib/magnifier-preference";
+import {
+  captureElementAsDataUrl,
+  registerPreviewInspectSource,
+} from "@/lib/preview-inspect";
 
 export type MagnifierTouchBehavior = "hide" | "toggle";
 
@@ -100,6 +109,18 @@ function useMagnifierPreference(): boolean {
   return enabled;
 }
 
+/** Sitewide loupe diameter tier (Small / Medium / Huge). */
+function useMagnifierSizeTier(): MagnifierSizeTier {
+  const [tier, setTier] = useState<MagnifierSizeTier>("medium");
+
+  useEffect(() => {
+    setTier(getMagnifierSizeTier());
+    return subscribeMagnifierSizeTier(setTier);
+  }, []);
+
+  return tier;
+}
+
 function useFinePointerHover(): boolean {
   const [fineHover, setFineHover] = useState(true);
 
@@ -160,7 +181,7 @@ function syncCanvasBitmaps(sourceRoot: HTMLElement, cloneRoot: HTMLElement) {
 export function Magnifier({
   children,
   zoom: zoomProp,
-  size = 168,
+  size: sizeProp,
   shape = "circle",
   touchBehavior = "hide",
   disabled = false,
@@ -170,7 +191,26 @@ export function Magnifier({
   const ctx = useOptionalMagnifier();
   const zoom = zoomProp ?? ctx?.zoom ?? 2;
   const preferenceEnabled = useMagnifierPreference();
+  const sizeTier = useMagnifierSizeTier();
   const contextEnabled = (ctx?.enabled ?? true) && preferenceEnabled;
+  const [viewportMin, setViewportMin] = useState(800);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const update = () => setViewportMin(Math.min(window.innerWidth, window.innerHeight));
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Global toolbar size tiers win; the `size` prop is a medium-tier hint,
+  // always scaled by MAGNIFIER_LOUPE_SCALE so every tool stays uniform.
+  const size = useMemo(() => {
+    if (sizeTier === "medium" && typeof sizeProp === "number" && sizeProp > 0) {
+      return Math.round(sizeProp * MAGNIFIER_LOUPE_SCALE);
+    }
+    return resolveMagnifierLensSizePx(sizeTier, viewportMin);
+  }, [sizeProp, sizeTier, viewportMin]);
 
   const fineHover = useFinePointerHover();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -184,6 +224,43 @@ export function Magnifier({
   const canUseHover = fineHover && !disabled && contextEnabled;
   const canUseTouchToggle = !fineHover && touchBehavior === "toggle" && !disabled && contextEnabled;
   const magnifierActive = canUseHover || (canUseTouchToggle && touchArmed);
+
+  // Register this preview so the modal header magnifying-glass can open a
+  // zoom lightbox for the currently active image / document surface.
+  useEffect(() => {
+    if (disabled) return;
+    return registerPreviewInspectSource({
+      getPriority: () => {
+        const root = rootRef.current;
+        if (!root || !root.isConnected) return -1;
+        const rect = root.getBoundingClientRect();
+        if (rect.width < 8 || rect.height < 8) return -1;
+        const inView =
+          rect.bottom > 0 &&
+          rect.top < window.innerHeight &&
+          rect.right > 0 &&
+          rect.left < window.innerWidth;
+        if (!inView) return rect.width * rect.height * 0.1;
+        // Prefer the preview the pointer last interacted with.
+        const boost = lastPointRef.current ? 1_000_000 : 0;
+        return boost + rect.width * rect.height;
+      },
+      isAvailable: () => {
+        const source = sourceRef.current;
+        if (!source) return false;
+        const hasMedia =
+          Boolean(source.querySelector("img[src], canvas, svg, video")) ||
+          source.getBoundingClientRect().width > 24;
+        return hasMedia;
+      },
+      capture: () => {
+        const source = sourceRef.current;
+        if (!source) return null;
+        return captureElementAsDataUrl(source);
+      },
+      label: ariaLabel,
+    });
+  }, [ariaLabel, disabled]);
 
   const updateFromPoint = useCallback((clientX: number, clientY: number, show: boolean) => {
     const root = rootRef.current;

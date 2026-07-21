@@ -11,9 +11,15 @@ import { usePageShare } from "@/hooks/usePageShare";
 import { recordRecentTool } from "@/lib/recent-activity";
 import {
   getMagnifierPreference,
+  getMagnifierSizeTier,
+  MAGNIFIER_SIZE_TIERS,
   setMagnifierPreference,
+  setMagnifierSizeTier,
   subscribeMagnifierPreference,
+  subscribeMagnifierSizeTier,
+  type MagnifierSizeTier,
 } from "@/lib/magnifier-preference";
+import { requestPreviewInspect } from "@/lib/preview-inspect";
 import { ToolModalRating } from "@/components/tool-modal/ToolModalRating";
 import {
   getCategoryAccentCssVar,
@@ -60,6 +66,11 @@ export type ToolModalWrapperProps = {
     exitFullScreen?: string;
     showMagnifier?: string;
     hideMagnifier?: string;
+    inspectPreview?: string;
+    magnifierSizeGroup?: string;
+    magnifierSizeSmall?: string;
+    magnifierSizeMedium?: string;
+    magnifierSizeHuge?: string;
     pin?: string;
     unpin?: string;
   };
@@ -90,6 +101,7 @@ export function ToolModalWrapper({
   const [tab, setTab] = useState<ToolModalTab>(defaultTab);
   const [fullscreen, setFullscreen] = useState(false);
   const [loupeEnabled, setLoupeEnabled] = useState(true);
+  const [loupeSize, setLoupeSize] = useState<MagnifierSizeTier>("medium");
   const [mounted, setMounted] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isPinned, pinTool } = usePinnedTools();
@@ -115,7 +127,13 @@ export function ToolModalWrapper({
 
   useEffect(() => {
     setLoupeEnabled(getMagnifierPreference());
-    return subscribeMagnifierPreference(setLoupeEnabled);
+    setLoupeSize(getMagnifierSizeTier());
+    const unsubEnabled = subscribeMagnifierPreference(setLoupeEnabled);
+    const unsubSize = subscribeMagnifierSizeTier(setLoupeSize);
+    return () => {
+      unsubEnabled();
+      unsubSize();
+    };
   }, []);
 
   useEffect(() => {
@@ -177,9 +195,17 @@ export function ToolModalWrapper({
   const fullscreenLabel = fullscreen
     ? (labels?.exitFullScreen ?? "Exit Full Screen")
     : (labels?.enterFullScreen ?? "Enter Full Screen");
-  const loupeLabel = loupeEnabled
-    ? (labels?.hideMagnifier ?? "Hide Magnifier")
-    : (labels?.showMagnifier ?? "Show Magnifier");
+  const loupeLabel =
+    labels?.inspectPreview ??
+    (loupeEnabled
+      ? (labels?.hideMagnifier ?? "Inspect preview")
+      : (labels?.showMagnifier ?? "Inspect preview"));
+  const loupeSizeGroupLabel = labels?.magnifierSizeGroup ?? "Magnifier size";
+  const loupeSizeLabels: Record<MagnifierSizeTier, string> = {
+    small: labels?.magnifierSizeSmall ?? "Small",
+    medium: labels?.magnifierSizeMedium ?? "Medium",
+    huge: labels?.magnifierSizeHuge ?? "Huge",
+  };
   const pinLabel = pinned
     ? (labels?.unpin ?? "Unpin from dock")
     : (labels?.pin ?? "Pin to dock");
@@ -324,19 +350,63 @@ export function ToolModalWrapper({
                   </button>
                 ) : null}
 
-                <button
-                  type="button"
-                  className={clsx(
-                    "tool-modal__action tool-modal__loupe",
-                    !loupeEnabled && "tool-modal__loupe--off",
-                  )}
-                  onClick={() => setMagnifierPreference(!loupeEnabled)}
-                  aria-label={loupeLabel}
-                  aria-pressed={loupeEnabled}
-                  title={loupeLabel}
-                >
-                  <Search size={18} strokeWidth={2} aria-hidden />
-                </button>
+                <div className="tool-modal__loupe-cluster">
+                  <button
+                    type="button"
+                    className={clsx(
+                      "tool-modal__action tool-modal__loupe",
+                      !loupeEnabled && "tool-modal__loupe--off",
+                    )}
+                    onClick={() => {
+                      // Primary action: open the interactive zoom lightbox for
+                      // the active preview (parent or embed iframe). Also turn
+                      // the hover loupe back on so desktop inspection stays armed.
+                      setMagnifierPreference(true);
+                      requestPreviewInspect();
+                    }}
+                    onContextMenu={(event) => {
+                      // Secondary: right-click toggles the hover-loupe preference.
+                      event.preventDefault();
+                      setMagnifierPreference(!loupeEnabled);
+                    }}
+                    aria-label={loupeLabel}
+                    aria-pressed={loupeEnabled}
+                    title={loupeLabel}
+                  >
+                    <Search size={18} strokeWidth={2} aria-hidden />
+                  </button>
+
+                  <div
+                    className="tool-modal__loupe-sizes"
+                    role="group"
+                    aria-label={loupeSizeGroupLabel}
+                  >
+                    {MAGNIFIER_SIZE_TIERS.map((tier) => (
+                      <button
+                        key={tier}
+                        type="button"
+                        className={clsx(
+                          "tool-modal__loupe-size",
+                          `tool-modal__loupe-size--${tier}`,
+                          loupeSize === tier && "tool-modal__loupe-size--active",
+                        )}
+                        aria-label={loupeSizeLabels[tier]}
+                        aria-pressed={loupeSize === tier}
+                        title={loupeSizeLabels[tier]}
+                        onClick={() => {
+                          setMagnifierPreference(true);
+                          setMagnifierSizeTier(tier);
+                          setLoupeSize(tier);
+                        }}
+                      >
+                        <span className="tool-modal__loupe-size-dot" aria-hidden />
+                        <span className="tool-modal__loupe-size-label">
+                          {loupeSizeLabels[tier]}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
                 <button
                   type="button"

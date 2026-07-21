@@ -1,6 +1,7 @@
 "use client";
 
 import { EmailPopupScript } from "@/components/EmailPopupScript";
+import { PreviewInspectHost } from "@/components/PreviewInspectHost";
 import { ToolModalProvider } from "@/components/tool-modal/ToolModalProvider";
 import { PendingFilesProvider } from "@/context/PendingFilesContext";
 import { ProjectToastProvider } from "@/context/ProjectToastContext";
@@ -15,6 +16,7 @@ export function Providers({ children }: { children: ReactNode }) {
           <ToolModalProvider>
             <div className="min-h-screen">
               <EmailPopupScript />
+              <PreviewInspectHost />
               {children}
             </div>
           </ToolModalProvider>

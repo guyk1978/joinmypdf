@@ -3357,11 +3357,96 @@ html:has(.home-page-shell--minimal) body {
   pointer-events: none;
 }
 
+.tool-modal__loupe-cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tool-modal__loupe-sizes {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.15rem;
+  border: 1px solid #2e2e2e;
+  background: #0f0f0f;
+}
+
+.tool-modal__loupe-size {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 2.15rem;
+  height: 2.15rem;
+  padding: 0.15rem 0.35rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #8a8a8a;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.tool-modal__loupe-size:hover {
+  color: #e5e5e5;
+  border-color: #333;
+  background: #1a1a1a;
+}
+
+.tool-modal__loupe-size--active {
+  color: var(--category-accent, #3b82f6);
+  border-color: color-mix(in srgb, var(--category-accent, #3b82f6) 45%, #333);
+  background: color-mix(in srgb, var(--category-accent, #3b82f6) 12%, #1a1a1a);
+}
+
+.tool-modal__loupe-size-dot {
+  display: block;
+  border-radius: 9999px;
+  border: 1.5px solid currentColor;
+  background: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.tool-modal__loupe-size--small .tool-modal__loupe-size-dot {
+  width: 0.35rem;
+  height: 0.35rem;
+}
+
+.tool-modal__loupe-size--medium .tool-modal__loupe-size-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+}
+
+.tool-modal__loupe-size--huge .tool-modal__loupe-size-dot {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.tool-modal__loupe-size-label {
+  font-size: 0.5625rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .tool-modal__loupe-size-label {
+    display: none;
+  }
+
+  .tool-modal__loupe-size {
+    min-width: 1.85rem;
+    height: 1.85rem;
+    padding: 0;
+  }
+}
+
 @media (max-width: 640px) {
-  /* Mobile modal is already near full-screen — hide the toggle to save header space.
-     The loupe is hover-driven, so its toggle is also desktop-only. */
-  .tool-modal__fullscreen,
-  .tool-modal__loupe {
+  /* Mobile modal is already near full-screen — hide the desktop-only
+     fullscreen toggle to save header space. The magnifying-glass opens a
+     touch-friendly zoom lightbox, so it stays available on small screens. */
+  .tool-modal__fullscreen {
     display: none;
   }
 }
@@ -26769,6 +26854,214 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout {
   .magnifier__lens,
   .magnifier__zoom {
     transition: none;
+  }
+}
+
+/* ===== Preview inspect lightbox (header magnifying glass) ===== */
+.preview-inspect {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: flex;
+  flex-direction: column;
+  background: rgba(6, 6, 6, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+.preview-inspect__chrome {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #2a2a2a;
+  background: #121212;
+}
+
+.preview-inspect__title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: #f5f5f5;
+}
+
+.preview-inspect__toolbar {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.preview-inspect__zoom-group,
+.preview-inspect__presets {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem;
+  border: 1px solid #2e2e2e;
+  background: #0d0d0d;
+}
+
+.preview-inspect__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.55rem;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #e5e5e5;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.preview-inspect__btn--labeled {
+  min-width: auto;
+}
+
+.preview-inspect__btn-text {
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.preview-inspect__btn:hover:not(:disabled) {
+  border-color: var(--category-accent, #3b82f6);
+  background: color-mix(in srgb, var(--category-accent, #3b82f6) 14%, #1a1a1a);
+}
+
+.preview-inspect__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.preview-inspect__btn--close {
+  margin-inline-start: 0.15rem;
+}
+
+.preview-inspect__zoom-label {
+  min-width: 3.5rem;
+  padding: 0 0.25rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  color: #e5e5e5;
+  font-variant-numeric: tabular-nums;
+}
+
+.preview-inspect__preset {
+  min-width: 2.35rem;
+  height: 1.95rem;
+  padding: 0 0.4rem;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: #a3a3a3;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.preview-inspect__preset:hover:not(:disabled) {
+  color: #f5f5f5;
+  border-color: #333;
+  background: #1a1a1a;
+}
+
+.preview-inspect__preset--active {
+  color: var(--category-accent, #3b82f6);
+  border-color: color-mix(in srgb, var(--category-accent, #3b82f6) 45%, #333);
+  background: color-mix(in srgb, var(--category-accent, #3b82f6) 12%, #1a1a1a);
+}
+
+.preview-inspect__preset:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.preview-inspect__stage {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: none;
+  cursor: default;
+  user-select: none;
+}
+
+.preview-inspect__stage--active {
+  cursor: zoom-in;
+}
+
+.preview-inspect__stage--pannable {
+  cursor: grab;
+}
+
+.preview-inspect__stage--pannable:active {
+  cursor: grabbing;
+}
+
+.preview-inspect__image {
+  max-width: min(96vw, 100%);
+  max-height: min(78vh, 100%);
+  object-fit: contain;
+  image-rendering: auto;
+  transform-origin: center center;
+  will-change: transform;
+  pointer-events: none;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+}
+
+.preview-inspect__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 22rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: #a3a3a3;
+}
+
+.preview-inspect__empty p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.preview-inspect__hint {
+  margin: 0;
+  padding: 0.45rem 1rem 0.65rem;
+  border-top: 1px solid #222;
+  background: #101010;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #737373;
+}
+
+@media (max-width: 640px) {
+  .preview-inspect__btn-text {
+    display: none;
+  }
+
+  .preview-inspect__presets {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .preview-inspect__hint {
+    display: none;
   }
 }
 
