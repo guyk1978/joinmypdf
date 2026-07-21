@@ -13716,6 +13716,12 @@ html.workspace-phase-clean .page-content-transition--main {
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+  /* Break out of the centered 1400px content column so the dropzone is edge-to-edge */
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-inline: 0 !important;
 }
 
 /* Drop stage padding/margins so the clean dropzone can fill the main canvas */
@@ -13725,6 +13731,9 @@ html.workspace-phase-clean body:not(.tool-embed-mode) .home-tool-grid-page.tool-
 html.workspace-phase-clean body:not(.tool-embed-mode) .tool-page-main {
   padding: 0 !important;
   margin: 0 !important;
+  margin-inline: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
   height: calc(100dvh - var(--site-header-height, 60px));
   max-height: calc(100dvh - var(--site-header-height, 60px));
 }
@@ -13756,7 +13765,32 @@ html.workspace-phase-clean .tool-page-dashboard {
   flex-direction: column;
   min-height: 0;
   height: 100%;
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
   overflow: hidden;
+}
+
+/*
+ * Clean-phase stage: force every ancestor of the dropzone to span the full
+ * available workspace (kill content-column max-widths / auto side margins).
+ */
+html.workspace-phase-clean #workspace-upload,
+html.workspace-phase-clean #workspace-upload .tool-page-view,
+html.workspace-phase-clean #workspace-upload .tool-page-view__body,
+html.workspace-phase-clean #workspace-upload .tool-page-view__pane--calc,
+html.workspace-phase-clean #workspace-upload .tool-page-layout__content,
+html.workspace-phase-clean #tool-workspace,
+html.workspace-phase-clean .tool-upload-float,
+html.workspace-phase-clean .tool-upload-zone,
+html.workspace-phase-clean .im-dropzone-shell,
+.tool-page-dashboard #tool-workspace[data-workspace-phase="clean"],
+.tool-page-dashboard #tool-workspace[data-workspace-phase="clean"].tool-workspace--wide {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-inline: 0 !important;
 }
 
 /* Site footer stays out of the clean-stage viewport so the dropzone can fill it */
