@@ -2,10 +2,11 @@
 
 import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Maximize2, Minimize2, Search, Share2, Star, X } from "lucide-react";
+import { Maximize2, Minimize2, Pin, Search, Share2, Star, X } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
+import { usePinnedTools } from "@/hooks/usePinnedTools";
 import { usePageShare } from "@/hooks/usePageShare";
 import { recordRecentTool } from "@/lib/recent-activity";
 import {
@@ -59,6 +60,8 @@ export type ToolModalWrapperProps = {
     exitFullScreen?: string;
     showMagnifier?: string;
     hideMagnifier?: string;
+    pin?: string;
+    unpin?: string;
   };
   className?: string;
 };
@@ -89,7 +92,9 @@ export function ToolModalWrapper({
   const [loupeEnabled, setLoupeEnabled] = useState(true);
   const [mounted, setMounted] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { isPinned, pinTool } = usePinnedTools();
   const favorited = slug ? isFavorite(slug) : false;
+  const pinned = slug ? isPinned(slug) : false;
   const sharePayload = useMemo(
     () => ({
       title,
@@ -175,6 +180,9 @@ export function ToolModalWrapper({
   const loupeLabel = loupeEnabled
     ? (labels?.hideMagnifier ?? "Hide Magnifier")
     : (labels?.showMagnifier ?? "Show Magnifier");
+  const pinLabel = pinned
+    ? (labels?.unpin ?? "Unpin from dock")
+    : (labels?.pin ?? "Pin to dock");
 
   const panes: { id: ToolModalTab; content: ReactNode; scroll?: boolean }[] = [
     { id: "calc", content: calc },
@@ -271,6 +279,30 @@ export function ToolModalWrapper({
                 >
                   <Share2 size={18} strokeWidth={2} aria-hidden />
                 </button>
+
+                {slug ? (
+                  <button
+                    type="button"
+                    className={clsx(
+                      "tool-modal__action",
+                      pinned && "tool-modal__action--pinned",
+                    )}
+                    onClick={() => {
+                      if (!pinned) pinTool(slug);
+                      onClose();
+                    }}
+                    aria-label={pinLabel}
+                    aria-pressed={pinned}
+                    title={pinLabel}
+                  >
+                    <Pin
+                      size={18}
+                      strokeWidth={2}
+                      className={clsx(pinned && "fill-current")}
+                      aria-hidden
+                    />
+                  </button>
+                ) : null}
 
                 {slug ? (
                   <button

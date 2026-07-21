@@ -9,6 +9,7 @@ import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider"
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { ToolCardExample } from "@/components/ToolCardExample";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
+import { ToolPinButton } from "@/components/ToolPinButton";
 import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
@@ -151,33 +152,50 @@ export function IndustrialToolCard({
         <span className="im-tool-card__cover-title">{label}</span>
       </span>
 
-      <ToolCardFocus
-        slug={toolSlug}
-        href={nestedHref}
-        label={label}
-        description={description}
-        example={example}
-        icon={icon}
-        categoryId={accentCategoryId}
-        open={focusInteraction ? focusOpen : undefined}
-        onOpenChange={focusInteraction ? setFocusOpen : undefined}
-        showExpandButton={!coverOnly}
-      />
-      <span className="im-tool-card__icon" aria-hidden>
-        {icon}
-      </span>
-      <span className="im-tool-card__body">
-        <span className="im-tool-card__content">
-          <span className="im-tool-card__title">{label}</span>
-          {description ? <span className="im-tool-card__description">{description}</span> : null}
+      <div className="im-tool-card__detail" aria-hidden={coverOnly ? true : undefined}>
+        {/* Two-column structure:
+            - left column: title + description (full-height)
+            - right column: pin + expand controls, then centered logo
+            - footer: example + rating centered across both columns */}
+        <div className="im-tool-card__left">
+          <div className="im-tool-card__content">
+            <span className="im-tool-card__title">{label}</span>
+            {description ? <span className="im-tool-card__description">{description}</span> : null}
+          </div>
+        </div>
+
+        <div className="im-tool-card__right">
+          <div className="im-tool-card__controls">
+            <ToolPinButton toolId={toolSlug} variant="card" className="im-tool-card__pin" />
+            <ToolCardFocus
+              slug={toolSlug}
+              href={nestedHref}
+              label={label}
+              description={description}
+              example={example}
+              icon={icon}
+              categoryId={accentCategoryId}
+              open={focusInteraction ? focusOpen : undefined}
+              onOpenChange={focusInteraction ? setFocusOpen : undefined}
+              showExpandButton={!coverOnly}
+              className="im-tool-card__expand"
+            />
+          </div>
+
+          <div className="im-tool-card__icon-box" aria-hidden>
+            <span className="im-tool-card__icon">{icon}</span>
+          </div>
+        </div>
+
+        <div className="im-tool-card__footer">
           {example ? <ToolCardExample example={example} /> : null}
-        </span>
-        <ToolRatingSummary
-          toolId={toolSlug}
-          categoryId={accentCategoryId}
-          className="im-tool-card__rating"
-        />
-      </span>
+          <ToolRatingSummary
+            toolId={toolSlug}
+            categoryId={accentCategoryId}
+            className="im-tool-card__rating"
+          />
+        </div>
+      </div>
     </div>
   );
 }

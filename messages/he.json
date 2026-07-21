@@ -6862,6 +6862,8 @@
     "exitFullScreen": "יציאה ממסך מלא",
     "showMagnifier": "הצגת זכוכית מגדלת",
     "hideMagnifier": "הסתרת זכוכית מגדלת",
+    "pin": "נעיצה בסרגל",
+    "unpin": "ביטול נעיצה",
     "overview": "סקירה",
     "howItWorks": "איך זה עובד",
     "useCases": "שימושים",
@@ -6885,6 +6887,13 @@
     "expandAll": "הרחב הכל",
     "collapseAll": "כווץ הכל",
     "comingSoon": "התיעוד לכלי זה יגיע בקרוב."
+  },
+  "PinnedDock": {
+    "dockLabel": "כלים מוצמדים",
+    "pin": "נעיצה בסרגל",
+    "unpin": "ביטול נעיצה",
+    "openTool": "פתיחת {label}",
+    "removeFromDock": "הסרה מהסרגל"
   },
   "ToolCard": {
     "example": "דוגמה",

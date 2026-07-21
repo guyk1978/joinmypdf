@@ -6652,6 +6652,8 @@
     "exitFullScreen": "Exit Full Screen",
     "showMagnifier": "Show Magnifier",
     "hideMagnifier": "Hide Magnifier",
+    "pin": "Pin to dock",
+    "unpin": "Unpin from dock",
     "overview": "Overview",
     "howItWorks": "How it works",
     "useCases": "Use cases",
@@ -6675,6 +6677,13 @@
     "expandAll": "Expand all",
     "collapseAll": "Collapse all",
     "comingSoon": "Documentation for this tool is coming soon."
+  },
+  "PinnedDock": {
+    "dockLabel": "Pinned tools",
+    "pin": "Pin to dock",
+    "unpin": "Unpin from dock",
+    "openTool": "Open {label}",
+    "removeFromDock": "Remove from dock"
   },
   "ToolCard": {
     "example": "Example",

@@ -454,6 +454,8 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             exitFullScreen: t("exitFullScreen"),
             showMagnifier: t("showMagnifier"),
             hideMagnifier: t("hideMagnifier"),
+            pin: t("pin"),
+            unpin: t("unpin"),
           }}
           calc={
             active.calc ?? (

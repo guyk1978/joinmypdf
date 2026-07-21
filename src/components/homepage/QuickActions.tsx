@@ -12,6 +12,7 @@ import { readTopUsedToolIds } from "@/lib/recent-activity";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
+import { useUnpinnedIds } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
 /** Shown until the visitor has personal usage history (up to 20). */
@@ -64,9 +65,11 @@ export function QuickActions({ locale }: QuickActionsProps) {
     setToolIds(merged.slice(0, HOME_SECTION_MAX_ITEMS));
   }, []);
 
+  const visibleToolIds = useUnpinnedIds(toolIds);
+
   const cards = useMemo(() => {
     const resolved = [];
-    for (const id of toolIds) {
+    for (const id of visibleToolIds) {
       const entry = getToolsInventoryEntry(id);
       if (!entry) continue;
       resolved.push({
@@ -79,7 +82,7 @@ export function QuickActions({ locale }: QuickActionsProps) {
       if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
     }
     return resolved;
-  }, [toolIds, locale, tTools]);
+  }, [visibleToolIds, locale, tTools]);
 
   if (!cards.length) return null;
 

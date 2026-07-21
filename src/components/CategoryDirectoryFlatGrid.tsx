@@ -1,6 +1,10 @@
+"use client";
+
+import { useMemo } from "react";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import { IndustrialToolCard } from "@/components/IndustrialToolCard";
+import { filterUnpinnedGridItems, usePinnedTools } from "@/hooks/usePinnedTools";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { normalizeHubPath } from "@/lib/tool-hierarchy";
@@ -29,13 +33,18 @@ export function CategoryDirectoryFlatGrid({
   leadClassName,
 }: CategoryDirectoryFlatGridProps) {
   const returnHref = categoryId ? normalizeHubPath(categoryId) : undefined;
+  const { pinnedIds, hydrated } = usePinnedTools();
+  const visibleItems = useMemo(() => {
+    if (!hydrated) return items;
+    return filterUnpinnedGridItems(items, pinnedIds);
+  }, [items, pinnedIds, hydrated]);
 
   return (
     <ul className={clsx("im-tool-card-grid", className)}>
       {lead ? (
         <li className={clsx("im-tool-card-grid__lead", leadClassName)}>{lead}</li>
       ) : null}
-      {items.map((item) => (
+      {visibleItems.map((item) => (
         <li key={item.slugHint} className="im-tool-card-grid__item">
           <IndustrialToolCard
             href={item.href}

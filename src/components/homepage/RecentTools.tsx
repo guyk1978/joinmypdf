@@ -12,6 +12,7 @@ import { useRecentTools } from "@/hooks/useRecentTools";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
+import { useUnpinnedIds } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
 type RecentToolsProps = {
@@ -25,10 +26,11 @@ export function RecentTools({ locale }: RecentToolsProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
   const { recentToolIds, hydrated } = useRecentTools(HOME_SECTION_MAX_ITEMS);
+  const visibleToolIds = useUnpinnedIds(recentToolIds);
 
   const cards = useMemo(() => {
     const resolved = [];
-    for (const id of recentToolIds) {
+    for (const id of visibleToolIds) {
       const entry = getToolsInventoryEntry(id);
       if (!entry) continue;
       resolved.push({
@@ -41,7 +43,7 @@ export function RecentTools({ locale }: RecentToolsProps) {
       if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
     }
     return resolved;
-  }, [recentToolIds, locale, tTools]);
+  }, [visibleToolIds, locale, tTools]);
 
   if (!hydrated || !cards.length) return null;
 

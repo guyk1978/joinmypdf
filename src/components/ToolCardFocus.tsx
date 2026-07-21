@@ -8,6 +8,7 @@ import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ToolCardExample } from "@/components/ToolCardExample";
+import { ToolPinButton } from "@/components/ToolPinButton";
 import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getCategoryAccentCssVar } from "@/lib/category-accent-colors";
@@ -121,15 +122,23 @@ export function ToolCardFocus({
               }}
             >
               <div className="tool-card-focus__card">
-                <button
-                  type="button"
-                  className="tool-card-focus__close"
-                  aria-label={t("closeFocus")}
-                  onClick={close}
-                  autoFocus
-                >
-                  <X className="tool-card-focus__close-icon" strokeWidth={2} aria-hidden />
-                </button>
+                <div className="tool-card-focus__toolbar">
+                  <ToolPinButton
+                    toolId={slug}
+                    variant="focus"
+                    className="tool-card-focus__pin"
+                    onPin={close}
+                  />
+                  <button
+                    type="button"
+                    className="tool-card-focus__close"
+                    aria-label={t("closeFocus")}
+                    onClick={close}
+                    autoFocus
+                  >
+                    <X className="tool-card-focus__close-icon" strokeWidth={2} aria-hidden />
+                  </button>
+                </div>
 
                 <span className="tool-card-focus__icon" aria-hidden>
                   {icon}

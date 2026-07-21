@@ -6,7 +6,9 @@ import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
 import { ToolCard } from "@/components/ToolCard";
 import { ToolFavoriteBookmarkIcon } from "@/components/ToolFavoriteBookmarkIcon";
+import { ToolPinButton } from "@/components/ToolPinButton";
 import { useFavorites } from "@/hooks/useFavorites";
+import { usePinnedTools } from "@/hooks/usePinnedTools";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
@@ -28,8 +30,10 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
   const tFav = useTranslations("Favorites");
   const pathname = usePathname() || "/";
   const { isFavorite, toggleFavorite, removeFavorite } = useFavorites();
+  const { isPinned, hydrated } = usePinnedTools();
   const slug = item.slugHint;
   const favorited = isFavorite(slug);
+  const pinned = hydrated && isPinned(slug);
   const showRemove = favoritesView ?? pathname.includes("/favorites");
   const showBookmarkAlways = !showRemove && favorited;
   const isAccordion = Boolean(accordion);
@@ -66,13 +70,22 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
     </button>
   );
 
+  const actionSlot = (
+    <div className="tool-card__actions">
+      <ToolPinButton toolId={slug} variant="card" />
+      {bookmarkButton}
+    </div>
+  );
+
+  if (pinned) return null;
+
   if (isAccordion && accordion) {
     return (
       <ToolCard
         label={item.label}
         icon={icon}
         onClick={accordion.onToggle}
-        actionSlot={bookmarkButton}
+        actionSlot={actionSlot}
         selected={accordion.isSelected}
         accordionAria={{
           expanded: accordion.isSelected,
@@ -87,7 +100,7 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
       href={item.href}
       label={item.label}
       icon={icon}
-      actionSlot={bookmarkButton}
+      actionSlot={actionSlot}
     />
   );
 }

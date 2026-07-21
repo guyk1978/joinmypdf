@@ -16,6 +16,7 @@ import {
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
+import { usePinnedTools } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
 type RecentWorkspacesProps = {
@@ -39,6 +40,7 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
   const [entries, setEntries] = useState<RecentWorkspaceEntry[]>([]);
+  const { pinnedIds, hydrated } = usePinnedTools();
 
   useEffect(() => {
     const sync = () => setEntries(readRecentWorkspaces());
@@ -53,7 +55,9 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
 
   const items = useMemo(() => {
     const resolved = [];
+    const pinnedSet = hydrated ? new Set(pinnedIds) : null;
     for (const entry of entries) {
+      if (pinnedSet?.has(entry.toolId)) continue;
       const inventory = getToolsInventoryEntry(entry.toolId);
       if (!inventory) continue;
       const toolTitle = resolveInventoryToolLabel(entry.toolId, tTools);
@@ -71,7 +75,7 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
       if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
     }
     return resolved;
-  }, [entries, locale, tTools]);
+  }, [entries, locale, tTools, pinnedIds, hydrated]);
 
   if (!items.length) return null;
 

@@ -11,6 +11,7 @@ import { HOME_SECTION_MAX_ITEMS } from "@/components/homepage/home-section";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
+import { useUnpinnedIds } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
 /** Featured tools this week — resolved from the inventory registry. */
@@ -47,10 +48,11 @@ type PopularToolsProps = {
 export function PopularTools({ locale }: PopularToolsProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
+  const visibleToolIds = useUnpinnedIds([...POPULAR_TOOL_IDS]);
 
   const cards = useMemo(() => {
     const resolved = [];
-    for (const id of POPULAR_TOOL_IDS) {
+    for (const id of visibleToolIds) {
       const entry = getToolsInventoryEntry(id);
       if (!entry) continue;
       resolved.push({
@@ -63,7 +65,7 @@ export function PopularTools({ locale }: PopularToolsProps) {
       if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
     }
     return resolved;
-  }, [locale, tTools]);
+  }, [visibleToolIds, locale, tTools]);
 
   if (!cards.length) return null;
 

@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import { HomePageFooter } from "@/components/HomePageFooter";
 import { PageContentTransition } from "@/components/PageContentTransition";
+import { PinnedCardsDock } from "@/components/PinnedCardsDock";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToolEmbedModeMarker } from "@/components/tool-modal/ToolEmbedModeMarker";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
@@ -25,6 +26,7 @@ function PageTransitionCanvas({ children, mainClassName }: PageTransitionShellPr
     >
       <ToolEmbedModeMarker />
       {embed ? null : <SiteHeader />}
+      {embed ? null : <PinnedCardsDock />}
       <main className={clsx("home-tool-grid-page flex-1", mainClassName)}>
         <PageContentTransition className="page-content-transition--main">{children}</PageContentTransition>
       </main>
