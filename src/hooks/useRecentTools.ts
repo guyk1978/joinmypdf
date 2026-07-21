@@ -9,7 +9,7 @@ import {
 } from "@/lib/recent-activity";
 
 /**
- * Tracks the last 3 tools the visitor opened (chronological, newest first).
+ * Tracks the last tools the visitor opened (chronological, newest first).
  * Backed by localStorage; syncs across tabs via the storage event and
  * within the same tab via RECENT_ACTIVITY_CHANGED_EVENT.
  */

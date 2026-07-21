@@ -22,14 +22,21 @@ type ToolCardFocusProps = {
   icon: ReactNode;
   categoryId?: InventoryCategoryId;
   className?: string;
+  /** Controlled open state — when set, parent owns the dialog. */
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  /** Hide the Maximize2 control (e.g. cover-only homepage cards). Default true. */
+  showExpandButton?: boolean;
+  /** Primary CTA label override (defaults to ToolCard.openTool). */
+  openLabel?: string;
+  /** When false, hide star ratings (guides / non-tool cards). Default true. */
+  showRating?: boolean;
 };
 
 /**
  * Card Focus mode (ported from WattQuick): a Maximize2 button in the tool
  * card's top-right corner that zooms a 2x-scaled version of the card into a
- * centered overlay. The scaled copy is re-rendered with doubled rem sizes —
- * not `transform: scale(2)` — so text stays crisp. The Example box opens
- * automatically in focus mode, and the star rating is fully interactive.
+ * centered overlay. Can also be opened programmatically via `open`/`onOpenChange`.
  */
 export function ToolCardFocus({
   slug,
@@ -40,10 +47,26 @@ export function ToolCardFocus({
   icon,
   categoryId,
   className,
+  open: openProp,
+  onOpenChange,
+  showExpandButton = true,
+  openLabel,
+  showRating = true,
 }: ToolCardFocusProps) {
   const t = useTranslations("ToolCard");
-  const [open, setOpen] = useState(false);
-  const close = useCallback(() => setOpen(false), []);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+  const controlled = openProp !== undefined;
+  const open = controlled ? openProp : uncontrolledOpen;
+
+  const setOpen = useCallback(
+    (next: boolean) => {
+      if (!controlled) setUncontrolledOpen(next);
+      onOpenChange?.(next);
+    },
+    [controlled, onOpenChange],
+  );
+
+  const close = useCallback(() => setOpen(false), [setOpen]);
 
   useEffect(() => {
     if (!open) return;
@@ -61,21 +84,22 @@ export function ToolCardFocus({
 
   return (
     <>
-      <button
-        type="button"
-        className={clsx("tool-card-focus__expand", className)}
-        aria-label={t("expandAria", { label })}
-        aria-haspopup="dialog"
-        title={t("focusMode")}
-        onClick={(event) => {
-          // Cards are links (or hold an overlay link); never let expand navigate.
-          event.preventDefault();
-          event.stopPropagation();
-          setOpen(true);
-        }}
-      >
-        <Maximize2 className="tool-card-focus__expand-icon" strokeWidth={2} aria-hidden />
-      </button>
+      {showExpandButton ? (
+        <button
+          type="button"
+          className={clsx("tool-card-focus__expand", className)}
+          aria-label={t("expandAria", { label })}
+          aria-haspopup="dialog"
+          title={t("focusMode")}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setOpen(true);
+          }}
+        >
+          <Maximize2 className="tool-card-focus__expand-icon" strokeWidth={2} aria-hidden />
+        </button>
+      ) : null}
 
       {open
         ? createPortal(
@@ -92,8 +116,6 @@ export function ToolCardFocus({
                   : undefined
               }
               onClick={(event) => {
-                // Portal events bubble through the React tree into the card
-                // link — contain them here, then treat backdrop clicks as close.
                 event.stopPropagation();
                 if (event.target === event.currentTarget) close();
               }}
@@ -121,13 +143,17 @@ export function ToolCardFocus({
                 {example ? <ToolCardExample example={example} defaultOpen /> : null}
 
                 <div className="tool-card-focus__footer">
-                  <ToolRatingSummary
-                    toolId={slug}
-                    categoryId={categoryId}
-                    className="tool-card-focus__rating"
-                  />
+                  {showRating ? (
+                    <ToolRatingSummary
+                      toolId={slug}
+                      categoryId={categoryId}
+                      className="tool-card-focus__rating"
+                    />
+                  ) : (
+                    <span />
+                  )}
                   <Link href={href} className="tool-card-focus__open" prefetch={false}>
-                    {t("openTool")}
+                    {openLabel ?? t("openTool")}
                     <ArrowUpRight
                       className="tool-card-focus__open-icon"
                       strokeWidth={2.25}

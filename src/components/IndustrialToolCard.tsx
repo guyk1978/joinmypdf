@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import { useState } from "react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -35,6 +36,16 @@ export type IndustrialToolCardProps = {
   returnHref?: string;
   /** When false, always navigate (skip modal). Default true. */
   openInModal?: boolean;
+  /**
+   * `tool-modal` — card click opens the workspace modal (hub default).
+   * `focus` — card click opens the expanded focus popup (homepage sections).
+   */
+  interactionMode?: "tool-modal" | "focus";
+  /**
+   * Keep the solid cover (name only) at all times — no hover detail chrome.
+   * Used with `interactionMode="focus"` on the homepage.
+   */
+  coverOnly?: boolean;
 };
 
 function slugFromHref(href: string): string {
@@ -46,6 +57,7 @@ function slugFromHref(href: string): string {
 /**
  * Industrial Matte tool card — two-state overlay:
  * default = solid category fill + centered title; hover = full detail chrome.
+ * Homepage can lock cover-only + open the focus popup on click.
  */
 export function IndustrialToolCard({
   href,
@@ -57,11 +69,14 @@ export function IndustrialToolCard({
   categoryId: categoryIdProp,
   returnHref: returnHrefProp,
   openInModal = true,
+  interactionMode = "tool-modal",
+  coverOnly = false,
 }: IndustrialToolCardProps) {
   const modal = useOptionalToolModal();
   const embed = useToolEmbedMode();
   const locale = useLocale();
   const tCard = useTranslations("ToolCard");
+  const [focusOpen, setFocusOpen] = useState(false);
   const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
   /** Hub context for modal close / return navigation. */
   const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
@@ -76,12 +91,19 @@ export function IndustrialToolCard({
     "--category-accent": getCategoryAccentCssVar(accentCategoryId),
     "--im-tool-card-cover-ink": coverInk,
   } as CSSProperties;
+  const focusInteraction = interactionMode === "focus";
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (!openInModal || !modal || embed) return;
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     if (event.button !== 0) return;
 
+    if (focusInteraction) {
+      event.preventDefault();
+      setFocusOpen(true);
+      return;
+    }
+
+    if (!openInModal || !modal || embed) return;
     event.preventDefault();
     modal.openToolModal({
       slug: toolSlug,
@@ -102,7 +124,11 @@ export function IndustrialToolCard({
 
   return (
     <div
-      className={clsx("im-tool-card", className)}
+      className={clsx(
+        "im-tool-card",
+        coverOnly && "im-tool-card--cover-only",
+        className,
+      )}
       data-category={accentCategoryId}
       style={accentStyle}
     >
@@ -114,7 +140,10 @@ export function IndustrialToolCard({
         className="im-tool-card__overlay"
         prefetch={false}
         aria-label={label}
-        data-tool-modal-open={openInModal && modal && !embed ? "" : undefined}
+        aria-haspopup={focusInteraction ? "dialog" : undefined}
+        data-tool-modal-open={
+          !focusInteraction && openInModal && modal && !embed ? "" : undefined
+        }
         onClick={handleClick}
       />
 
@@ -130,6 +159,9 @@ export function IndustrialToolCard({
         example={example}
         icon={icon}
         categoryId={accentCategoryId}
+        open={focusInteraction ? focusOpen : undefined}
+        onOpenChange={focusInteraction ? setFocusOpen : undefined}
+        showExpandButton={!coverOnly}
       />
       <span className="im-tool-card__icon" aria-hidden>
         {icon}

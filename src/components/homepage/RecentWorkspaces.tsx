@@ -2,21 +2,21 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { FileClock, Play } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { FileClock } from "lucide-react";
+import { IndustrialToolCard } from "@/components/IndustrialToolCard";
+import { ToolListIcon } from "@/components/ToolListIcon";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
-import { homeToolAccentStyle } from "@/components/homepage/home-accent";
+import { HomeSection } from "@/components/homepage/HomeSection";
+import { HOME_SECTION_MAX_ITEMS } from "@/components/homepage/home-section";
 import {
   RECENT_ACTIVITY_CHANGED_EVENT,
   readRecentWorkspaces,
   type RecentWorkspaceEntry,
 } from "@/lib/recent-activity";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
-import { getToolListLucideIcon } from "@/lib/tool-list-icons";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
+import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
-
-const MAX_ITEMS = 3;
 
 type RecentWorkspacesProps = {
   locale: string;
@@ -33,9 +33,7 @@ function formatRelativeTime(at: number, locale: string): string {
 }
 
 /**
- * "Recent Workspaces" — the last files the visitor loaded into a tool
- * (tracked locally by ToolPageShellProvider). Hidden entirely until there
- * is history. Aligns to the Popular Tools 3-card grid.
+ * "Recent Workspaces" — up to 20 recent files as category-style cards.
  */
 export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
   const t = useTranslations("Home");
@@ -58,16 +56,19 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
     for (const entry of entries) {
       const inventory = getToolsInventoryEntry(entry.toolId);
       if (!inventory) continue;
+      const toolTitle = resolveInventoryToolLabel(entry.toolId, tTools);
+      const toolDescription =
+        getToolCardDescription(entry.toolId, inventory.description, tTools) ?? "";
+      const when = formatRelativeTime(entry.at, locale);
       resolved.push({
         key: `${entry.toolId}:${entry.fileName}`,
         toolId: entry.toolId,
-        fileName: entry.fileName,
-        toolTitle: resolveInventoryToolLabel(entry.toolId, tTools),
         href: resolveToolHref(entry.toolId, inventory.primaryCategory, locale),
-        when: formatRelativeTime(entry.at, locale),
-        Icon: getToolListLucideIcon(entry.toolId),
+        label: toolTitle,
+        description: [entry.fileName, when, toolDescription].filter(Boolean).join(" · "),
+        categoryId: inventory.primaryCategory,
       });
-      if (resolved.length >= MAX_ITEMS) break;
+      if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
     }
     return resolved;
   }, [entries, locale, tTools]);
@@ -76,53 +77,23 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
 
   return (
     <HomeReveal className="w-full">
-      <section aria-labelledby="recent-workspaces-title" className="w-full mb-10">
-        <h2
-          id="recent-workspaces-title"
-          className="mb-5 flex items-center gap-2 text-lg font-semibold tracking-tight text-white"
-        >
-          <FileClock size={18} strokeWidth={1.75} aria-hidden className="text-neutral-400" />
-          {t("landing.recentTitle")}
-        </h2>
-
-        <ul className="m-0 grid w-full list-none grid-cols-1 gap-6 p-0 md:grid-cols-3">
-          {items.map(({ key, toolId, fileName, toolTitle, href, when, Icon }) => (
-            <li key={key} className="m-0 min-w-0">
-              <div
-                style={homeToolAccentStyle(toolId)}
-                className="home-accent-card flex h-full items-center gap-4 rounded-2xl p-4"
-              >
-                <span
-                  aria-hidden
-                  className="home-accent-card__icon inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
-                >
-                  <Icon size={20} strokeWidth={1.75} />
-                </span>
-                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span
-                    className="home-accent-card__title truncate text-sm font-semibold"
-                    title={fileName}
-                  >
-                    {fileName}
-                  </span>
-                  <span className="home-accent-card__desc truncate text-xs">
-                    {toolTitle} · {when}
-                  </span>
-                </span>
-                <Link
-                  href={href}
-                  prefetch={false}
-                  className="home-accent-pill inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold"
-                  aria-label={`${t("landing.recentResume")} — ${toolTitle}`}
-                >
-                  <Play size={12} strokeWidth={2} aria-hidden />
-                  {t("landing.recentResume")}
-                </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <HomeSection
+        id="recent-workspaces-title"
+        title={t("landing.recentTitle")}
+        icon={<FileClock size={22} strokeWidth={1.75} />}
+      >
+        {items.map(({ key, toolId, href, label, description, categoryId }) => (
+          <IndustrialToolCard
+            key={key}
+            href={href}
+            label={label}
+            description={description}
+            slug={toolId}
+            categoryId={categoryId}
+            icon={<ToolListIcon slug={toolId} label={label} size="md" />}
+          />
+        ))}
+      </HomeSection>
     </HomeReveal>
   );
 }

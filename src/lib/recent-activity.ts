@@ -18,8 +18,8 @@ export type RecentWorkspaceEntry = {
   at: number;
 };
 
-export const MAX_RECENT_TOOLS = 3;
-const MAX_RECENT_WORKSPACES = 6;
+export const MAX_RECENT_TOOLS = 20;
+export const MAX_RECENT_WORKSPACES = 20;
 
 function emitChange(): void {
   window.dispatchEvent(new Event(RECENT_ACTIVITY_CHANGED_EVENT));
@@ -82,7 +82,7 @@ function sanitizeRecentToolIds(value: unknown): string[] {
   return value.filter((id): id is string => typeof id === "string" && id.length > 0);
 }
 
-/** Most recently visited tool ids, newest first (max 3). */
+/** Most recently visited tool ids, newest first (max HOME / recent cap). */
 export function readRecentToolIds(): string[] {
   return sanitizeRecentToolIds(readJson(RECENT_TOOLS_STORAGE_KEY)).slice(
     0,
@@ -91,7 +91,7 @@ export function readRecentToolIds(): string[] {
 }
 
 /**
- * Pushes a tool to the front of the recent list (deduped, capped at 3).
+ * Pushes a tool to the front of the recent list (deduped, capped).
  * Safe to call from tool pages and the tool modal.
  */
 export function recordRecentTool(toolId: string): void {

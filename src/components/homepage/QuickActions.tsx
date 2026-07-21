@@ -2,82 +2,106 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { homeToolAccentStyle } from "@/components/homepage/home-accent";
+import { Zap } from "lucide-react";
+import { IndustrialToolCard } from "@/components/IndustrialToolCard";
+import { ToolListIcon } from "@/components/ToolListIcon";
+import { HomeReveal } from "@/components/homepage/HomeReveal";
+import { HomeSection } from "@/components/homepage/HomeSection";
+import { HOME_SECTION_MAX_ITEMS } from "@/components/homepage/home-section";
 import { readTopUsedToolIds } from "@/lib/recent-activity";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
-import { getToolListLucideIcon } from "@/lib/tool-list-icons";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
+import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
-/** Shown until the visitor has personal usage history. */
+/** Shown until the visitor has personal usage history (up to 20). */
 const FALLBACK_QUICK_ACTION_IDS = [
   "pdf-merge",
   "pdf-compress",
   "image-combiner",
   "video-trimmer",
-];
-
-const QUICK_ACTION_COUNT = 4;
+  "jpg-to-pdf",
+  "word-to-pdf",
+  "unit-converter",
+  "compress-image",
+  "qr-code-generator",
+  "case-converter",
+  "pdf-split",
+  "pdf-to-jpg",
+  "video-to-mp3",
+  "text-workspace",
+  "excel-to-pdf",
+  "rotate-pdf",
+  "unlock-pdf",
+  "protect-pdf",
+  "hash-generator",
+  "password-generator",
+] as const;
 
 type QuickActionsProps = {
   locale: string;
 };
 
 /**
- * Horizontal strip of matte-glass pill shortcuts under the hero text.
- * Ranks the visitor's 4 most-used tools from localStorage usage counts
- * (recorded by ToolPageShellProvider) and falls back to sitewide staples.
+ * Top homepage utility section — category-style tool cards in a carousel
+ * (personal top tools when available, otherwise curated fallbacks).
  */
 export function QuickActions({ locale }: QuickActionsProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
-  // Fallbacks render on the server and first client paint (hydration-safe);
-  // the personalized ranking swaps in after mount.
-  const [toolIds, setToolIds] = useState<string[]>(FALLBACK_QUICK_ACTION_IDS);
+  const [toolIds, setToolIds] = useState<string[]>([...FALLBACK_QUICK_ACTION_IDS]);
 
   useEffect(() => {
-    const personal = readTopUsedToolIds(QUICK_ACTION_COUNT * 2).filter((id) =>
+    const personal = readTopUsedToolIds(HOME_SECTION_MAX_ITEMS * 2).filter((id) =>
       getToolsInventoryEntry(id),
     );
     if (!personal.length) return;
     const merged = [...personal];
     for (const id of FALLBACK_QUICK_ACTION_IDS) {
-      if (merged.length >= QUICK_ACTION_COUNT) break;
+      if (merged.length >= HOME_SECTION_MAX_ITEMS) break;
       if (!merged.includes(id)) merged.push(id);
     }
-    setToolIds(merged.slice(0, QUICK_ACTION_COUNT));
+    setToolIds(merged.slice(0, HOME_SECTION_MAX_ITEMS));
   }, []);
 
-  const actions = useMemo(() => {
-    return toolIds.map((id) => {
+  const cards = useMemo(() => {
+    const resolved = [];
+    for (const id of toolIds) {
       const entry = getToolsInventoryEntry(id);
-      return {
+      if (!entry) continue;
+      resolved.push({
         id,
-        href: resolveToolHref(id, entry?.primaryCategory, locale),
+        href: resolveToolHref(id, entry.primaryCategory, locale),
         title: resolveInventoryToolLabel(id, tTools),
-        Icon: getToolListLucideIcon(id),
-      };
-    });
+        description: getToolCardDescription(id, entry.description, tTools) ?? "",
+        categoryId: entry.primaryCategory,
+      });
+      if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
+    }
+    return resolved;
   }, [toolIds, locale, tTools]);
 
+  if (!cards.length) return null;
+
   return (
-    <nav aria-label={t("landing.quickActionsLabel")} className="w-full">
-      <ul className="m-0 flex list-none flex-wrap items-center gap-2 p-0">
-        {actions.map(({ id, href, title, Icon }) => (
-          <li key={id} className="m-0">
-            <Link
-              href={href}
-              prefetch={false}
-              style={homeToolAccentStyle(id)}
-              className="home-accent-pill inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium backdrop-blur-sm"
-            >
-              <Icon size={14} strokeWidth={1.75} aria-hidden className="text-[var(--category-accent)]" />
-              <span>{title}</span>
-            </Link>
-          </li>
+    <HomeReveal className="w-full">
+      <HomeSection
+        id="quick-actions-title"
+        title={t("landing.quickActionsTitle")}
+        icon={<Zap size={22} strokeWidth={1.75} />}
+      >
+        {cards.map(({ id, href, title, description, categoryId }) => (
+          <IndustrialToolCard
+            key={id}
+            href={href}
+            label={title}
+            description={description}
+            slug={id}
+            categoryId={categoryId}
+            icon={<ToolListIcon slug={id} label={title} size="md" />}
+          />
         ))}
-      </ul>
-    </nav>
+      </HomeSection>
+    </HomeReveal>
   );
 }

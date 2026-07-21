@@ -1,21 +1,28 @@
-import type { CSSProperties } from "react";
 import { getTranslations } from "next-intl/server";
-import { ArrowUpRight, BookOpen } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { BookOpen } from "lucide-react";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
-import { homeCategoryAccentStyle } from "@/components/homepage/home-accent";
+import { HomeGuideCard } from "@/components/homepage/HomeGuideCard";
+import { HomeSection } from "@/components/homepage/HomeSection";
+import { HOME_SECTION_MAX_ITEMS } from "@/components/homepage/home-section";
 import { blogArticlePath } from "@/lib/blog-article-path";
 import { getBlogRegistry } from "@/lib/blog-registry";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
-/** Curated evergreen guides; falls back to the first registry posts. */
+/** Curated evergreen guides; remaining slots fill from the blog registry. */
 const FEATURED_GUIDE_SLUGS = [
   "how-to-safely-sign-contracts-online",
   "hidden-risks-of-free-online-pdf-editors",
 ];
 
-const GUIDE_ACCENTS = ["security", "pdf"] as const;
+const GUIDE_ACCENTS = [
+  "security",
+  "pdf",
+  "convert",
+  "image",
+  "text",
+] as const satisfies readonly InventoryCategoryId[];
 
-const SNIPPET_MAX_LENGTH = 120;
+const SNIPPET_MAX_LENGTH = 160;
 
 type WorkflowGuidesProps = {
   locale: string;
@@ -28,8 +35,7 @@ function truncateSnippet(text: string): string {
 }
 
 /**
- * "Workflow Guides" — two horizontal cards linking into the existing blog
- * articles, matching the Popular Tools section width.
+ * "Workflow Guides" — up to 20 guide cards matching category card chrome.
  */
 export async function WorkflowGuides({ locale }: WorkflowGuidesProps) {
   const t = await getTranslations("Home");
@@ -38,64 +44,33 @@ export async function WorkflowGuides({ locale }: WorkflowGuidesProps) {
   const featured = FEATURED_GUIDE_SLUGS.map((slug) =>
     posts.find((post) => post.slug === slug),
   ).filter((post) => post != null);
-  const guides = (featured.length >= 2 ? featured : posts).slice(0, 2);
+
+  const featuredSlugs = new Set(featured.map((post) => post.slug));
+  const rest = posts.filter((post) => !featuredSlugs.has(post.slug));
+  const guides = [...featured, ...rest].slice(0, HOME_SECTION_MAX_ITEMS);
 
   if (!guides.length) return null;
 
   return (
     <HomeReveal className="w-full">
-      <section aria-labelledby="workflow-guides-title" className="w-full mb-10">
-        <h2
-          id="workflow-guides-title"
-          className="mb-5 flex items-center gap-2 text-lg font-semibold tracking-tight text-white"
-        >
-          <BookOpen size={18} strokeWidth={1.75} aria-hidden className="text-neutral-400" />
-          {t("landing.guidesTitle")}
-        </h2>
-
-        <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
-          {guides.map((post, index) => {
-            const accentStyle = homeCategoryAccentStyle(
-              GUIDE_ACCENTS[index % GUIDE_ACCENTS.length]!,
-            ) as CSSProperties;
-
-            return (
-              <Link
-                key={post.slug}
-                href={blogArticlePath(post.slug)}
-                prefetch={false}
-                style={accentStyle}
-                className="home-accent-card group flex items-start gap-4 rounded-2xl p-5 hover:-translate-y-0.5"
-              >
-                <span
-                  aria-hidden
-                  className="home-accent-card__icon inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
-                >
-                  <BookOpen size={20} strokeWidth={1.75} />
-                </span>
-                <span className="flex min-w-0 flex-1 flex-col gap-1.5">
-                  <span className="home-accent-card__title text-sm font-semibold leading-snug">
-                    {post.title}
-                  </span>
-                  {post.description ? (
-                    <span className="home-accent-card__desc text-xs leading-relaxed">
-                      {truncateSnippet(post.description)}
-                    </span>
-                  ) : null}
-                  <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-neutral-400">
-                    {post.readTime ?? t("landing.guidesReadTime")}
-                    <span aria-hidden>·</span>
-                    <span className="inline-flex items-center gap-1 text-[color:var(--category-accent)] transition-colors duration-200 group-hover:brightness-125">
-                      {t("landing.guidesCta")}
-                      <ArrowUpRight size={12} strokeWidth={2} aria-hidden />
-                    </span>
-                  </span>
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+      <HomeSection
+        id="workflow-guides-title"
+        title={t("landing.guidesTitle")}
+        icon={<BookOpen size={22} strokeWidth={1.75} />}
+      >
+        {guides.map((post, index) => (
+          <HomeGuideCard
+            key={post.slug}
+            href={blogArticlePath(post.slug)}
+            label={post.title}
+            description={post.description ? truncateSnippet(post.description) : undefined}
+            readTime={post.readTime ?? t("landing.guidesReadTime")}
+            openLabel={t("landing.guidesCta")}
+            categoryId={GUIDE_ACCENTS[index % GUIDE_ACCENTS.length]}
+            icon={<BookOpen size={20} strokeWidth={1.75} aria-hidden />}
+          />
+        ))}
+      </HomeSection>
     </HomeReveal>
   );
 }

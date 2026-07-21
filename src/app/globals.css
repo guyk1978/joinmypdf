@@ -2319,6 +2319,34 @@ html:has(.home-page-shell--minimal) body {
   pointer-events: auto;
 }
 
+/* Homepage cover-only — solid name face stays put; click opens focus popup */
+.im-tool-card--cover-only:hover,
+.im-tool-card--cover-only:has(.im-tool-card__overlay:focus-visible),
+.im-tool-card--cover-only:focus-within {
+  border-color: color-mix(in srgb, var(--category-accent) 55%, #fff);
+  background: #121212;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--category-accent) 28%, transparent),
+    0 12px 28px color-mix(in srgb, var(--category-accent) 28%, transparent);
+}
+
+.im-tool-card--cover-only:hover .im-tool-card__cover,
+.im-tool-card--cover-only:has(.im-tool-card__overlay:focus-visible) .im-tool-card__cover,
+.im-tool-card--cover-only:focus-within .im-tool-card__cover {
+  opacity: 1;
+}
+
+.im-tool-card--cover-only .im-tool-card__icon,
+.im-tool-card--cover-only .im-tool-card__body,
+.im-tool-card--cover-only .tool-card-focus__expand {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.im-tool-card--cover-only .im-tool-card__cover-title {
+  font-size: clamp(1.2rem, 2.6vw, 1.75rem);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .im-tool-card,
   .im-tool-card__cover,
