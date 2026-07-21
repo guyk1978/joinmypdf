@@ -204,7 +204,7 @@ function CompactCopyField({
 
   return (
 
-    <div className="space-y-1.5 border border-neutral-800 bg-neutral-950/80 p-3">
+    <div className="tool-workspace-panel space-y-1.5">
 
       <div className="flex items-center justify-between gap-2">
 
@@ -530,7 +530,7 @@ export function MyIpNetworkInfo({ labels }: MyIpNetworkInfoProps) {
 
         {loading && !info ? (
 
-          <div className="flex items-center gap-2 border border-neutral-800 bg-neutral-950/60 p-8 text-sm text-neutral-400">
+          <div className="tool-workspace-panel flex items-center gap-2 p-8 text-sm text-neutral-400">
 
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
 
@@ -546,7 +546,7 @@ export function MyIpNetworkInfo({ labels }: MyIpNetworkInfoProps) {
 
           <div className="space-y-6">
 
-            <div className="border border-neutral-800 bg-neutral-950/70 px-4 py-6 text-center sm:px-6">
+            <div className="tool-workspace-panel px-4 py-6 text-center sm:px-6">
 
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-neutral-500">
 
@@ -600,7 +600,7 @@ export function MyIpNetworkInfo({ labels }: MyIpNetworkInfoProps) {
 
             <section
 
-              className="border border-neutral-800 bg-neutral-950/70 p-4"
+              className="tool-workspace-panel p-4"
 
               aria-labelledby="my-ip-connection-details"
 
@@ -686,7 +686,7 @@ export function MyIpNetworkInfo({ labels }: MyIpNetworkInfoProps) {
 
 
 
-      <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm">
+      <div className="tool-workspace-panel space-y-3">
 
         <div className="space-y-1">
 
@@ -706,7 +706,7 @@ export function MyIpNetworkInfo({ labels }: MyIpNetworkInfoProps) {
 
             id={lookupId}
 
-            className="min-h-10 w-full border border-neutral-800 bg-neutral-950 px-3 py-2 font-mono text-sm text-neutral-100 outline-none focus-visible:border-neutral-500"
+            className="min-h-10 w-full px-3 py-2 font-mono text-sm text-neutral-100 outline-none"
 
             value={lookupQuery}
 
@@ -776,7 +776,7 @@ export function MyIpNetworkInfo({ labels }: MyIpNetworkInfoProps) {
 
         <section
 
-          className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm"
+          className="tool-workspace-panel space-y-3"
 
           aria-labelledby="my-ip-system-status"
 

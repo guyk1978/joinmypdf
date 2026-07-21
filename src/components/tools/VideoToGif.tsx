@@ -282,7 +282,7 @@ export function VideoToGif({ labels, className, onStart, onComplete }: VideoToGi
           }}
         />
       ) : (
-        <div className="tool-workspace-panel space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               <strong className="text-white">{file.name}</strong>
@@ -399,7 +399,7 @@ export function VideoToGif({ labels, className, onStart, onComplete }: VideoToGi
                   value={fps}
                   disabled={busy}
                   onChange={(event) => setFps(Number(event.target.value) as VideoToGifFps)}
-                  className="w-full rounded-none border border-neutral-700 bg-[#0a0a0a] px-3 py-2 text-sm text-white"
+                  className="w-full px-3 py-2 text-sm text-white"
                 >
                   {VIDEO_TO_GIF_FPS_OPTIONS.map((value) => (
                     <option key={value} value={value}>
@@ -420,7 +420,7 @@ export function VideoToGif({ labels, className, onStart, onComplete }: VideoToGi
                   onChange={(event) =>
                     setScaleWidth(Number(event.target.value) as VideoToGifScale)
                   }
-                  className="w-full rounded-none border border-neutral-700 bg-[#0a0a0a] px-3 py-2 text-sm text-white"
+                  className="w-full px-3 py-2 text-sm text-white"
                 >
                   {VIDEO_TO_GIF_SCALE_OPTIONS.map((value) => (
                     <option key={value} value={value}>

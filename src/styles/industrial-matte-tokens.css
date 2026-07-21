@@ -14,12 +14,12 @@
   --im-bg-shell: #050508;
   --im-surface-card: transparent;
   --im-surface-card-hover: rgba(255, 255, 255, 0.03);
-  --im-surface-panel: #171717;
-  --im-surface-elevated: #262626;
-  --im-border: rgba(255, 255, 255, 0.12);
-  --im-border-strong: rgba(255, 255, 255, 0.22);
+  --im-surface-panel: #141414;
+  --im-surface-elevated: #1a1a1a;
+  --im-border: rgba(255, 255, 255, 0.1);
+  --im-border-strong: rgba(255, 255, 255, 0.14);
   --im-border-muted: #525252;
-  --im-border-subtle: rgba(255, 255, 255, 0.12);
+  --im-border-subtle: rgba(255, 255, 255, 0.08);
   --im-text: #fafafa;
   --im-text-inverse: #050508;
   --im-text-muted: #a1a1aa;
@@ -29,7 +29,20 @@
   /* Shared width for the standard upload-tool column (dropzone + panels + action bar). */
   --tool-content-width: 64rem;
 
-  --im-radius: 0.125rem;
+  /* Unified tool interior surfaces + form controls */
+  --im-tool-panel-bg: #141414;
+  --im-tool-panel-border: rgba(255, 255, 255, 0.08);
+  --im-tool-control-bg: #0c0c0c;
+  --im-tool-control-bg-hover: #121212;
+  --im-tool-control-border: rgba(255, 255, 255, 0.1);
+  --im-tool-control-border-focus: rgba(255, 255, 255, 0.28);
+  --im-tool-control-option-bg: #141414;
+  --im-tool-control-option-hover: #1f1f1f;
+  --im-tool-radius: 0.5rem;
+  --im-tool-radius-control: 0.5rem;
+
+  --im-radius: 0.5rem;
+  --im-radius-sm: 0.375rem;
   --im-border-width: 1px;
   --im-border-width-accent: 1px;
   --im-border-width-cta: 1px;

@@ -140,7 +140,7 @@ export function VideoSpeedController({
       ) : null}
 
       {showWorkspace && file ? (
-        <div className="tool-workspace-panel space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-4">
           <p className="text-sm text-neutral-300">
             <strong className="text-white">{file.name}</strong>
           </p>

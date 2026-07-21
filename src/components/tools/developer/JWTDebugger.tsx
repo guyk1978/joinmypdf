@@ -81,9 +81,13 @@ function ResultCard({
   return (
     <article
       className={clsx(
-        "space-y-3 border border-neutral-800 bg-neutral-950/80 p-3",
-        alert && "border-amber-800/70",
+        "im-dev-tool__card space-y-3 border p-3",
+        alert ? "border-amber-800/50" : "border-[color:var(--im-tool-panel-border)]",
       )}
+      style={{
+        background: "var(--im-tool-control-bg)",
+        borderRadius: "var(--im-tool-radius)",
+      }}
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">{title}</h3>

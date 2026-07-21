@@ -228,7 +228,7 @@ export function VideoTrimmer({ labels, className, onStart, onComplete }: VideoTr
           }}
         />
       ) : (
-        <div className="tool-workspace-panel space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               <strong className="text-white">{file.name}</strong>

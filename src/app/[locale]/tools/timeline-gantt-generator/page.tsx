@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { BrandEyebrow } from "@/components/BrandEyebrow";
 import { AppPageShell } from "@/components/AppPageShell";
 import { TimelineGenerator } from "@/components/timeline/TimelineGenerator";
 import { getBrandName } from "@/lib/brand";
@@ -19,14 +18,6 @@ type PageProps = { params: Promise<{ locale: string }> };
 export default async function TimelineGanttGeneratorPage({ params }: PageProps) {
   const { locale } = await params;
   const brand = getBrandName(locale);
-  const tModal = await getTranslations("ToolModal");
-  const howItWorks = tModal("howItWorks");
-  const privacyTitle =
-    locale === "he"
-      ? "פרטיות קודמת — עיצוב מכוון"
-      : locale === "ru"
-        ? "Конфиденциальность по умолчанию"
-        : "Privacy-first by design";
 
   return (
     <>
@@ -44,37 +35,10 @@ export default async function TimelineGanttGeneratorPage({ params }: PageProps) 
         }}
       />
       <AppPageShell mainClassName="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
-        <header className="mb-4 max-w-3xl space-y-3">
-          <BrandEyebrow />
-          <h1 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            Timeline &amp; Gantt Chart Generator
-          </h1>
-          <p className="text-lg leading-relaxed text-ink-muted">
-            Plan deployments, releases, or any multi-phase project with a sleek dark Gantt preview. Edit
-            tasks and milestones locally, then export a landscape PDF—no account and no uploads.
-          </p>
-        </header>
-
-        <TimelineGenerator />
-
-        <section className="mt-12 rounded-none border border-white/10 bg-white/[0.02] p-4 md:p-4">
-          <h2 className="text-xl font-semibold text-ink">{howItWorks}</h2>
-          <ul className="mt-4 max-w-3xl list-inside list-disc space-y-2 text-sm leading-relaxed text-ink-muted md:text-base">
-            <li>Add tasks with start and end dates; bars scale automatically on the time grid.</li>
-            <li>Place milestones as diamond markers on a dedicated row above the schedule.</li>
-            <li>Reorder rows with the row index field to control vertical stacking.</li>
-            <li>Download captures the chart area via html2canvas and pdf-lib—same stack as our invoice tool.</li>
-          </ul>
-        </section>
-
-        <section className="mt-4 rounded-none border border-white/10 bg-white/[0.02] p-4 md:p-4">
-          <h2 className="text-xl font-semibold text-ink">{privacyTitle}</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-ink-muted md:text-base">
-            Your project data never leaves your device during editing. PDF export runs entirely in the
-            browser: the live chart is rasterized and saved locally—no server processing.
-          </p>
-        </section>
-
+        <div className="tools-directory-page">
+          <h1 className="sr-only">Timeline &amp; Gantt Chart Generator</h1>
+          <TimelineGenerator />
+        </div>
       </AppPageShell>
     </>
   );

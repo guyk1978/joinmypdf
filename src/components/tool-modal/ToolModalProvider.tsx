@@ -471,6 +471,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
               <ToolModalDocsPanel
                 model={docModel}
                 tPage={tPage}
+                categoryId={active.categoryId}
                 labels={{
                   overview: t("overview"),
                   howItWorks: t("howItWorks"),

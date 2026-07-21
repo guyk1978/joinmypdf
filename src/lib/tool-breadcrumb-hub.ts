@@ -150,14 +150,62 @@ export function resolveToolCategoryHub(
 }
 
 function resolveHubLabel(tPage: ToolPageTranslator, hub: ToolCategoryHub): string {
-  if (tPage.has(hub.labelKey)) return tPage(hub.labelKey);
-  const entry = Object.entries(INVENTORY_BREADCRUMB_LABEL_KEYS).find(([, key]) => key === hub.labelKey);
+  try {
+    if (typeof tPage.has === "function" && tPage.has(hub.labelKey)) {
+      const localized = tPage(hub.labelKey);
+      if (localized && localized !== hub.labelKey && !localized.startsWith("breadcrumb")) {
+        return localized;
+      }
+    } else {
+      const localized = tPage(hub.labelKey);
+      if (localized && localized !== hub.labelKey && !localized.startsWith("breadcrumb")) {
+        return localized;
+      }
+    }
+  } catch {
+    // Fall through to inventory / humanized labels.
+  }
+
+  const entry = Object.entries(INVENTORY_BREADCRUMB_LABEL_KEYS).find(
+    ([, key]) => key === hub.labelKey,
+  );
   if (entry) {
     const category = entry[0] as InventoryCategoryId;
-    return INVENTORY_HUB_META[category].title;
+    return INVENTORY_HUB_META[category]?.title ?? humanizeBreadcrumbKey(hub.labelKey);
   }
-  return hub.labelKey;
+
+  return humanizeBreadcrumbKey(hub.labelKey);
 }
+
+function humanizeBreadcrumbKey(key: string): string {
+  return key
+    .replace(/^breadcrumbHub/i, "")
+    .replace(/^breadcrumb/i, "")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[-_]/g, " ")
+    .trim()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function resolveStaticBreadcrumbLabel(
+  tPage: ToolPageTranslator,
+  key: string,
+  fallback: string,
+): string {
+  try {
+    if (typeof tPage.has === "function" && tPage.has(key)) {
+      const value = tPage(key);
+      if (value && value !== key && !value.startsWith("breadcrumb")) return value;
+    } else {
+      const value = tPage(key);
+      if (value && value !== key && !value.startsWith("breadcrumb")) return value;
+    }
+  } catch {
+    // ignore
+  }
+  return fallback;
+}
+
 
 /**
  * Canonical trail: Home / All tools / [Category hub] / [Tool].
@@ -187,8 +235,11 @@ export function buildToolPageBreadcrumbs(params: {
       : `/tools/${slug}/`);
 
   return [
-    { name: tPage("breadcrumbHome"), path: "/" },
-    { name: tPage("breadcrumbAllTools"), path: "/tools/" },
+    { name: resolveStaticBreadcrumbLabel(tPage, "breadcrumbHome", "Home"), path: "/" },
+    {
+      name: resolveStaticBreadcrumbLabel(tPage, "breadcrumbAllTools", "All tools"),
+      path: "/tools/",
+    },
     { name: resolveHubLabel(tPage, hub), path: hub.path },
     { name: toolTitle, path: toolPath },
   ];

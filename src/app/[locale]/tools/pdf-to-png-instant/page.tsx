@@ -76,12 +76,8 @@ export default async function PdfToPngInstantPage({ params }: PageProps) {
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-4 text-3xl font-bold text-white">{t("title")}</h1>
-            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
-          </header>
-
-          <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
+            <h1 className="sr-only">{t("title")}</h1>
+<section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <PdfToPngWorkspace tool={tool} slug={WORKSPACE_SLUG} />
           </section>
 
@@ -109,18 +105,7 @@ export default async function PdfToPngInstantPage({ params }: PageProps) {
               ))}
             </ul>
           </section>
-
-          <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">
-            <p className="m-0 text-xs uppercase tracking-widest text-[#737373]">{t("privacyNote")}</p>
-            <Link
-              href={PDF_TOOLS_HUB_PATH}
-              className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
-              prefetch={false}
-            >
-              {t("backToPdfTools")}
-            </Link>
-          </footer>
-        </div>
+</div>
       </AppPageShell>
     </>
   );

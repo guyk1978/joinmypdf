@@ -4,7 +4,6 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { LoremIpsumGeneratorWorkspace } from "@/components/LoremIpsumGeneratorWorkspace";
-import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, JsonLd, webApplicationLd, faqLd } from "@/lib/schema";
@@ -75,36 +74,11 @@ export default async function LoremIpsumGeneratorPage({ params }: PageProps) {
       {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <div className="tool-page-layout__breadcrumbs">
-            <ToolBreadcrumbs
-              tool={{ slug: SLUG, title: t("title"), category: "productivity" }}
-              category="productivity"
-              items={breadcrumbItems}
-            />
-          </div>
-
-          <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-4 text-3xl font-bold text-white">{t("title")}</h1>
-            {t("description") !== t("title") ? (
-              <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
-            ) : null}
-          </header>
-
-          <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
+            <h1 className="sr-only">{t("title")}</h1>
+<section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <LoremIpsumGeneratorWorkspace tool={tool} slug={SLUG} />
           </section>
-
-          <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">
-            <p className="m-0 text-xs uppercase tracking-widest text-[#737373]">{t("privacyBadge")}</p>
-            <Link
-              href="/tools/"
-              className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
-              prefetch={false}
-            >
-              {t("backToAllTools")}
-            </Link>
-          </footer>
-        </div>
+</div>
       </AppPageShell>
     </>
   );

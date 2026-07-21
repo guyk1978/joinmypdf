@@ -61,7 +61,7 @@ export default async function XmlToolsHubPage({ params }: PageProps) {
           </header>
 
           <section
-            className="mt-10 border-t border-[#262626] pt-8"
+            className="tools-hub-panel mt-10 border-t border-[#262626] pt-8"
             aria-labelledby="xml-tools-related-formats"
           >
             <h2

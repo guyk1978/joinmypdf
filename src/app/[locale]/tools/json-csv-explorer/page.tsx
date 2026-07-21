@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { JsonCsvExplorerWorkspace } from "@/components/JsonCsvExplorerWorkspace";
-import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 import { registry } from "@/lib/registry";
@@ -77,18 +76,7 @@ export default async function JsonCsvExplorerPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
             <JsonCsvExplorerWorkspace tool={tool} slug={SLUG} />
           </section>
-
-          <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">
-            <p className="m-0 text-xs uppercase tracking-widest text-[#737373]">{t("privacyBadge")}</p>
-            <Link
-              href="/tools/"
-              className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
-              prefetch={false}
-            >
-              {t("backToAllTools")}
-            </Link>
-          </footer>
-        </div>
+</div>
       </AppPageShell>
     </>
   );

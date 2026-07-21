@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { RelatedTools } from "@/components/RelatedTools";
 import { MyIpNetworkInfoWorkspace } from "@/components/tools/network/MyIpNetworkInfoWorkspace";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -79,10 +78,6 @@ export default async function MyIpNetworkInfoPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
             <MyIpNetworkInfoWorkspace tool={tool} slug={SLUG} />
           </section>
-
-          <div className="border-b border-[#262626] py-10">
-            <RelatedTools tool={tool} slug={SLUG} />
-          </div>
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
             <Link

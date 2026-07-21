@@ -76,7 +76,7 @@ export function ColorConverter({ labels, className }: ColorConverterProps) {
   };
 
   const fieldClass =
-    "w-full rounded-md bg-[#1a1a1a] border border-[#262626] px-3 py-2.5 font-mono text-sm text-white outline-none focus-visible:border-[#525252]";
+    "w-full px-3 py-2.5 font-mono text-sm text-white outline-none productivity-tool__input";
 
   const rows: Array<{
     format: Exclude<ColorInputFormat, "picker">;
@@ -92,13 +92,17 @@ export function ColorConverter({ labels, className }: ColorConverterProps) {
   return (
     <div className={clsx("color-converter-tool", className)}>
       <div className="grid gap-4 lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)]">
-        <section className="rounded-xl border border-[#262626] bg-[#111111] p-4">
+        <section className="tool-workspace-panel">
           <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#a3a3a3]">
             {labels.previewLabel}
           </p>
           <div
-            className="mb-4 h-40 w-full rounded-lg border border-[#262626] shadow-inner"
-            style={{ backgroundColor: values.picker }}
+            className="mb-4 h-40 w-full"
+            style={{
+              backgroundColor: values.picker,
+              border: "1px solid var(--im-tool-panel-border)",
+              borderRadius: "var(--im-tool-radius)",
+            }}
             aria-label={labels.previewLabel}
           />
           <label htmlFor={pickerId} className="mb-2 block text-sm font-medium text-[#d4d4d4]">
@@ -109,11 +113,16 @@ export function ColorConverter({ labels, className }: ColorConverterProps) {
             type="color"
             value={values.picker}
             onChange={(event) => updateFrom("picker", event.target.value)}
-            className="h-12 w-full cursor-pointer rounded-md border border-[#262626] bg-[#1a1a1a] p-1"
+            className="h-12 w-full cursor-pointer p-1"
+            style={{
+              background: "var(--im-tool-control-bg)",
+              border: "1px solid var(--im-tool-control-border)",
+              borderRadius: "var(--im-tool-radius-control)",
+            }}
           />
         </section>
 
-        <section className="rounded-xl border border-[#262626] bg-[#111111] p-4 md:p-5">
+        <section className="tool-workspace-panel">
           <div className="flex flex-col gap-4">
             {rows.map((row) => (
               <div key={row.format}>
@@ -132,7 +141,12 @@ export function ColorConverter({ labels, className }: ColorConverterProps) {
                   />
                   <button
                     type="button"
-                    className="shrink-0 rounded-md border border-[#262626] bg-[#1a1a1a] px-4 py-2.5 text-sm text-white transition-colors hover:border-[#404040]"
+                    className="shrink-0 px-4 py-2.5 text-sm text-white transition-colors"
+                    style={{
+                      background: "var(--im-tool-control-bg)",
+                      border: "1px solid var(--im-tool-control-border)",
+                      borderRadius: "var(--im-tool-radius-control)",
+                    }}
                     onClick={() => void onCopy(row.format)}
                   >
                     {copied === row.format ? labels.copied : labels.copyButton}

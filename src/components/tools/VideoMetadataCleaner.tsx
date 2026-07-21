@@ -215,7 +215,7 @@ export function VideoMetadataCleaner({
           }}
         />
       ) : (
-        <div className="tool-workspace-panel space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-4">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="flex items-start gap-3">
               <div

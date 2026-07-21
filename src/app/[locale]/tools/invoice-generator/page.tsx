@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
-import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
 import { RelatedTools } from "@/components/RelatedTools";
@@ -90,7 +89,6 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
     seoCategory: tool.category,
     tPage,
   });
-  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
   return (
     <>
@@ -119,15 +117,12 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
             >
               <ToolLayout
                 faqs={faqs}
-                breadcrumbs={
-                  <ToolBreadcrumbs tool={tool} category={tool.category} items={breadcrumbItems} />
-                }
                 belowTool={
                   <ToolPageDashboardSection className="mt-8">
-                    <h2 className="text-lg font-semibold tracking-wide text-ink dark:text-white">
+                    <h2 className="tool-modal-docs__heading">
                       {tPage("invoiceTemplatesByProfession")}
                     </h2>
-                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-400 md:text-base">
+                    <p className="tool-modal-docs__text">
                       {tPage("invoiceTemplatesByProfessionHint")}
                     </p>
                     <ul className="mt-4 flex flex-wrap gap-2 text-sm">

@@ -242,7 +242,7 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
           }
         />
       ) : (
-        <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a]/90 p-4 backdrop-blur-sm">
+        <div className="tool-workspace-panel space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               {file.name} · {formatBytes(file.size)}
@@ -427,7 +427,7 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
       <MediaProcessingStatus phase={phase} ratio={ratio} message={statusMessage} />
 
       {result && phase === "success" ? (
-        <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-3">
           <p className="text-sm text-emerald-400">
             Speed set to {formatSpeedLabel(result.speed)}
             {result.maintainPitch ? " (pitch maintained)" : " (pitch linked)"} —{" "}

@@ -298,7 +298,7 @@ export function VideoResizer({ labels, className, onStart, onComplete }: VideoRe
           }}
         />
       ) : (
-        <div className="tool-workspace-panel space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               <strong className="text-white">{file.name}</strong>
@@ -378,7 +378,7 @@ export function VideoResizer({ labels, className, onStart, onComplete }: VideoRe
                       "flex flex-col items-start gap-2 rounded-none border p-3 text-left transition-colors",
                       selected
                         ? "border-white bg-[#111] text-white"
-                        : "border-neutral-800 bg-[#0a0a0a] text-neutral-300 hover:border-neutral-600 hover:text-white",
+                        : "border-[color:var(--im-tool-control-border)] bg-[color:var(--im-tool-control-bg)] text-neutral-300 hover:border-neutral-600 hover:text-white",
                     )}
                     aria-pressed={selected}
                   >
@@ -400,7 +400,7 @@ export function VideoResizer({ labels, className, onStart, onComplete }: VideoRe
                   "flex flex-col items-start gap-2 rounded-none border p-3 text-left transition-colors",
                   presetId === "custom"
                     ? "border-white bg-[#111] text-white"
-                    : "border-neutral-800 bg-[#0a0a0a] text-neutral-300 hover:border-neutral-600 hover:text-white",
+                    : "border-[color:var(--im-tool-control-border)] bg-[color:var(--im-tool-control-bg)] text-neutral-300 hover:border-neutral-600 hover:text-white",
                 )}
                 aria-pressed={presetId === "custom"}
               >
@@ -430,7 +430,7 @@ export function VideoResizer({ labels, className, onStart, onComplete }: VideoRe
                     setOutputWidth(Number(event.target.value) || 0);
                     setDimensionsError("");
                   }}
-                  className="w-full rounded-none border border-neutral-700 bg-[#0a0a0a] px-3 py-2 text-sm text-white tabular-nums"
+                  className="w-full px-3 py-2 text-sm text-white tabular-nums"
                 />
               </div>
               <div className="space-y-2">
@@ -450,7 +450,7 @@ export function VideoResizer({ labels, className, onStart, onComplete }: VideoRe
                     setOutputHeight(Number(event.target.value) || 0);
                     setDimensionsError("");
                   }}
-                  className="w-full rounded-none border border-neutral-700 bg-[#0a0a0a] px-3 py-2 text-sm text-white tabular-nums"
+                  className="w-full px-3 py-2 text-sm text-white tabular-nums"
                 />
               </div>
             </div>

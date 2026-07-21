@@ -124,7 +124,7 @@ export function CaseConverter({
 
   return (
     <div className={clsx("mx-auto w-full max-w-7xl", className)}>
-      <div className="border border-[#262626] bg-[#0a0a0a] p-6">
+      <div className="tool-workspace-panel">
         <label className="sr-only" htmlFor={inputId}>
           {t("inputLabel")}
         </label>
@@ -139,7 +139,10 @@ export function CaseConverter({
           rows={14}
         />
 
-        <div className="mt-4 border-t border-[#262626] pt-4">
+        <div
+          className="mt-4 border-t pt-4"
+          style={{ borderColor: "var(--im-tool-panel-border)" }}
+        >
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             {TRANSFORM_ACTIONS.map((action) => (
               <button
@@ -152,7 +155,11 @@ export function CaseConverter({
               </button>
             ))}
 
-            <span className="hidden h-4 w-px bg-[#262626] sm:inline-block" aria-hidden />
+            <span
+              className="hidden h-4 w-px sm:inline-block"
+              style={{ background: "var(--im-tool-panel-border)" }}
+              aria-hidden
+            />
 
             <button type="button" className={BUTTON_CLASS} onClick={() => void onCopy()} disabled={!text}>
               <span aria-live="polite">{copied ? t("copied") : t("copyButton")}</span>

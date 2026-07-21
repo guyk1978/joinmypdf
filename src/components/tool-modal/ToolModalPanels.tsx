@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { ToolDocBodySections } from "@/components/layout/ToolDocBodySections";
+import { ToolDocHeader } from "@/components/layout/ToolDocHeader";
 import { ToolModalFaqAccordion } from "@/components/tool-modal/ToolModalFaqAccordion";
 import { registry } from "@/lib/registry";
 import { faqLd, serializeJsonLd } from "@/lib/schema";
@@ -13,6 +15,7 @@ import type {
   ToolModalRelatedArticle,
   ToolModalRelatedTool,
 } from "@/lib/tool-modal-catalog";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
 type DocsLabels = {
   overview?: string;
@@ -25,6 +28,7 @@ type DocsLabels = {
   collapseAll?: string;
   comingSoon?: string;
   localProcessing?: string;
+  realWorldExample?: string;
 };
 
 type RelatedLabels = {
@@ -33,52 +37,44 @@ type RelatedLabels = {
   empty?: string;
 };
 
-const MIN_PROSE_CHARS = 120;
 const DEFAULT_OPEN_FAQ_COUNT = 4;
 
 function normalizeProse(value?: string | null): string {
   return (value ?? "").replace(/\s+/g, " ").trim();
 }
 
-function proseKey(value: string): string {
-  return value.toLowerCase();
-}
-
-function buildLocalProcessingFallback(toolTitle: string, custom?: string): string {
-  if (custom?.trim()) return custom.trim();
-  return `${toolTitle} runs entirely in your browser with 100% local processing — your files never leave your device, so privacy and speed stay under your control.`;
-}
-
 /**
- * DOC-tab documentation for a tool — SEO-oriented prose, use cases, and FAQs.
- * Prefer this over duplicating overview/how-it-works when registry copy overlaps.
+ * DOC-tab documentation for a tool — enriched overview, how-it-works,
+ * real-world examples, use cases, and FAQs.
  */
 export function ToolModalDocsPanel({
   model,
   labels,
   tPage,
+  categoryId,
 }: {
   model: ToolModalDocModel;
   labels?: DocsLabels;
   tPage?: ToolPageTranslator;
+  categoryId?: InventoryCategoryId;
 }) {
   const locale = useLocale();
   const [isLoading, setIsLoading] = useState(true);
   const [faqItems, setFaqItems] = useState<{ question: string; answer: string }[]>([]);
 
-  // Build the full FAQ list (tool-specific + universal) after mount — avoids truncated DOC jump.
   useEffect(() => {
     setIsLoading(true);
     setFaqItems([]);
 
     const frame = requestAnimationFrame(() => {
       const tool = registry.tools.find((entry) => entry.slug === model.slug);
-      const faqs = tool && tPage
-        ? buildLocalizedToolFaqs(tPage, tool, null, model.title, locale, {
-            intent: model.intent,
-            primaryKeyword: model.primaryKeyword ?? model.title,
-          })
-        : model.faqs;
+      const faqs =
+        tool && tPage
+          ? buildLocalizedToolFaqs(tPage, tool, null, model.title, locale, {
+              intent: model.intent,
+              primaryKeyword: model.primaryKeyword ?? model.title,
+            })
+          : model.faqs;
 
       setFaqItems(
         faqs.map((item) => ({
@@ -92,74 +88,12 @@ export function ToolModalDocsPanel({
     return () => cancelAnimationFrame(frame);
   }, [model.slug, model.title, model.faqs, model.intent, model.primaryKeyword, locale, tPage]);
 
-  const prose = useMemo(() => {
-    const overview = normalizeProse(model.description);
-    const howItWorks = normalizeProse(model.intent);
-    const whyItMatters = normalizeProse(model.whyItMatters);
-
-    const overviewKey = overview ? proseKey(overview) : "";
-    const howKey = howItWorks ? proseKey(howItWorks) : "";
-    const whyKey = whyItMatters ? proseKey(whyItMatters) : "";
-
-    const howMatchesOverview = Boolean(overviewKey && howKey && overviewKey === howKey);
-    const whyMatchesOverview = Boolean(whyKey && overviewKey && whyKey === overviewKey);
-    const whyMatchesHow = Boolean(whyKey && howKey && whyKey === howKey);
-
-    // Only split How it Works when Overview already has distinct prose.
-    const hasSeparateHowItWorks =
-      Boolean(overview) && Boolean(howItWorks) && !howMatchesOverview;
-    const hasSeparateWhy =
-      Boolean(whyItMatters) && !whyMatchesOverview && !whyMatchesHow;
-
-    const primaryParagraphs: string[] = [];
-    if (overview) primaryParagraphs.push(overview);
-    else if (howItWorks) primaryParagraphs.push(howItWorks);
-    else if (whyItMatters) primaryParagraphs.push(whyItMatters);
-
-    // If why was used as the only primary paragraph, don't repeat it below.
-    const whyUsedAsPrimary =
-      !overview && !howItWorks && Boolean(whyItMatters);
-    const showWhySection = hasSeparateWhy && !whyUsedAsPrimary;
-
-    const uniqueBody = [
-      overview,
-      hasSeparateHowItWorks ? howItWorks : "",
-      showWhySection ? whyItMatters : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    const needsLocalFallback = uniqueBody.length < MIN_PROSE_CHARS;
-    const localFallback = needsLocalFallback
-      ? buildLocalProcessingFallback(model.title, labels?.localProcessing)
-      : null;
-
-    return {
-      overview,
-      howItWorks,
-      whyItMatters,
-      howMatchesOverview,
-      hasSeparateHowItWorks,
-      hasSeparateWhy: showWhySection,
-      primaryParagraphs,
-      localFallback,
-      combineOverviewAndHow: !hasSeparateHowItWorks,
-    };
-  }, [
-    model.description,
-    model.intent,
-    model.whyItMatters,
-    model.title,
-    labels?.localProcessing,
-  ]);
-
   const loadingLabel = labels?.loading ?? "Loading…";
   const faqSchemaItems = useMemo(
     () => faqItems.map((item) => ({ q: item.question, a: item.answer })),
     [faqItems],
   );
 
-  // Inject FAQPage JSON-LD into <head> so crawlers can parse the full FAQ set.
   useEffect(() => {
     if (!faqSchemaItems.length) return;
 
@@ -178,9 +112,24 @@ export function ToolModalDocsPanel({
     };
   }, [faqSchemaItems, model.slug]);
 
+  const introDescription =
+    normalizeProse(model.description) ||
+    normalizeProse(model.intent) ||
+    normalizeProse(model.whyItMatters);
+
+  const docsTitle = (
+    <ToolDocHeader
+      slug={model.slug}
+      title={model.title}
+      description={introDescription}
+      categoryId={categoryId}
+    />
+  );
+
   if (isLoading) {
     return (
       <div className="tool-modal-docs tool-modal-docs--loading" aria-busy="true" aria-live="polite">
+        {docsTitle}
         <div className="tool-modal-docs__skeleton">
           <span className="tool-modal__calc-spinner" aria-hidden />
           <span className="tool-modal-docs__loading-text">{loadingLabel}</span>
@@ -195,90 +144,37 @@ export function ToolModalDocsPanel({
     );
   }
 
-  const overviewHeading = prose.combineOverviewAndHow
-    ? (labels?.overview ?? "Overview")
-    : (labels?.overview ?? "Overview");
-
   return (
-    <article className="tool-modal-docs">
-      <section className="tool-modal-docs__section" aria-labelledby="tool-docs-overview">
-        <h3 id="tool-docs-overview" className="tool-modal-docs__heading">
-          {overviewHeading}
-        </h3>
-        {prose.primaryParagraphs.length > 0 ? (
-          prose.primaryParagraphs.map((paragraph) => (
-            <p key={paragraph.slice(0, 48)} className="tool-modal-docs__text">
-              {paragraph}
-            </p>
-          ))
-        ) : (
-          <p className="tool-modal-docs__text tool-modal-docs__text--muted">
-            {labels?.comingSoon ?? "Documentation for this tool is coming soon."}
-          </p>
-        )}
-        {prose.localFallback ? (
-          <p className="tool-modal-docs__text tool-modal-docs__text--fallback">
-            {prose.localFallback}
-          </p>
-        ) : null}
-        {model.primaryKeyword && prose.combineOverviewAndHow ? (
-          <p className="tool-modal-docs__meta">
-            <span className="tool-modal-docs__meta-label">
-              {labels?.keyword ?? "Focus"}
-            </span>
-            <span className="tool-modal-docs__meta-value">{model.primaryKeyword}</span>
-          </p>
-        ) : null}
-      </section>
+    <article className="tool-modal-docs" aria-labelledby="tool-docs-title">
+      {docsTitle}
 
-      {prose.hasSeparateHowItWorks ? (
-        <section className="tool-modal-docs__section" aria-labelledby="tool-docs-how">
-          <h3 id="tool-docs-how" className="tool-modal-docs__heading">
-            {labels?.howItWorks ?? "How it works"}
-          </h3>
-          <p className="tool-modal-docs__text">{prose.howItWorks}</p>
-          {model.primaryKeyword ? (
-            <p className="tool-modal-docs__meta">
-              <span className="tool-modal-docs__meta-label">
-                {labels?.keyword ?? "Focus"}
-              </span>
-              <span className="tool-modal-docs__meta-value">{model.primaryKeyword}</span>
-            </p>
-          ) : null}
-        </section>
-      ) : null}
-
-      {prose.hasSeparateWhy ? (
-        <section className="tool-modal-docs__section" aria-labelledby="tool-docs-why">
-          <h3 id="tool-docs-why" className="tool-modal-docs__heading">
-            Why it matters
-          </h3>
-          <p className="tool-modal-docs__text">{prose.whyItMatters}</p>
-        </section>
-      ) : null}
-
-      {model.useCases.length > 0 ? (
-        <section className="tool-modal-docs__section" aria-labelledby="tool-docs-use-cases">
-          <h3 id="tool-docs-use-cases" className="tool-modal-docs__heading">
-            {labels?.useCases ?? "Use cases"}
-          </h3>
-          <ul className="tool-modal-docs__list">
-            {model.useCases.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
+      <ToolDocBodySections
+        slug={model.slug}
+        title={model.title}
+        description={model.description}
+        intent={model.intent}
+        whyItMatters={model.whyItMatters}
+        useCases={model.useCases}
+        primaryKeyword={model.primaryKeyword}
+        labels={{
+          overview: labels?.overview,
+          howItWorks: labels?.howItWorks,
+          useCases: labels?.useCases,
+          realWorldExample: labels?.realWorldExample,
+          keyword: labels?.keyword,
+          comingSoon: labels?.comingSoon,
+        }}
+      />
 
       {faqItems.length > 0 ? (
         <section
           className="tool-modal-docs__section tool-modal-docs__section--faq"
           aria-labelledby="tool-docs-faq"
         >
-          <h3 id="tool-docs-faq" className="tool-modal-docs__heading">
+          <h2 id="tool-docs-faq" className="tool-modal-docs__heading">
             {labels?.faq ?? "FAQ"}
             <span className="tool-modal-docs__faq-count">{faqItems.length}</span>
-          </h3>
+          </h2>
           <ToolModalFaqAccordion
             key={model.slug}
             items={faqItems}

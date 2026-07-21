@@ -153,7 +153,7 @@ export function VideoToMp3({ labels, className, onStart, onComplete }: VideoToMp
           }}
         />
       ) : (
-        <div className="tool-workspace-panel space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               <strong className="text-white">{file.name}</strong>
@@ -179,7 +179,7 @@ export function VideoToMp3({ labels, className, onStart, onComplete }: VideoToMp
                 const value = event.target.value;
                 setQuality(value === "vbr2" ? "vbr2" : (Number(value) as 128 | 192 | 320));
               }}
-              className="w-full rounded-none border border-neutral-700 bg-[#0a0a0a] px-3 py-2 text-sm text-white"
+              className="w-full px-3 py-2 text-sm text-white"
             >
               {VIDEO_TO_MP3_QUALITY_OPTIONS.map((option) => (
                 <option key={String(option)} value={String(option)}>

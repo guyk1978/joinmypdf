@@ -57,7 +57,14 @@ function ResultCard({
   children: ReactNode;
 }) {
   return (
-    <article className="space-y-3 border border-neutral-800 bg-neutral-950/80 p-3">
+    <article
+      className="im-dev-tool__card space-y-3 border p-3"
+      style={{
+        background: "var(--im-tool-control-bg)",
+        borderColor: "var(--im-tool-panel-border)",
+        borderRadius: "var(--im-tool-radius)",
+      }}
+    >
       <h3 className="text-xs font-semibold uppercase tracking-wide text-neutral-400">{title}</h3>
       <div className="space-y-3">{children}</div>
     </article>

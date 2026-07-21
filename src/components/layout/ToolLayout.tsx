@@ -5,6 +5,8 @@ import { clsx } from "clsx";
 import { AdContainer } from "@/components/AdContainer";
 import { FaqSection } from "@/components/layout/FaqSection";
 import { FeedbackSection } from "@/components/layout/FeedbackSection";
+import { ToolDocBodySections } from "@/components/layout/ToolDocBodySections";
+import { ToolDocHeader } from "@/components/layout/ToolDocHeader";
 import { ToolPageViewShell } from "@/components/layout/ToolPageViewShell";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { ToolLocalProcessingBar } from "@/components/ToolLocalProcessingBar";
@@ -12,6 +14,7 @@ import { ToolPageHeader } from "@/components/ToolPageHeader";
 import { ToolPageInfoBlock } from "@/components/ToolPageInfoBlock";
 import { WorkerErrorBoundary } from "@/components/workers/WorkerErrorBoundary";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
+import { registry } from "@/lib/registry";
 import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
@@ -22,11 +25,17 @@ import { toolPageInfoWidth } from "@/lib/tool-ui";
 import { WORKSPACE_UPLOAD_ID } from "@/lib/workspace-flow";
 import { usePathname } from "@/i18n/navigation";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import type { ToolBreadcrumbItem } from "@/components/layout/ToolBreadcrumbs";
 
 export type ToolLayoutProps = {
   children: ReactNode;
-  /** Visible breadcrumb trail rendered above the page title. */
+  /**
+   * @deprecated Visible CALC breadcrumbs are disabled. Pass `docBreadcrumbs` for DOC,
+   * or omit and let ToolDocHeader build the trail from slug.
+   */
   breadcrumbs?: ReactNode;
+  /** Optional crumb trail for the DOC masthead. */
+  docBreadcrumbs?: ToolBreadcrumbItem[];
   /** Page H1 — falls back to ToolPageShellProvider headline when omitted. */
   title?: string;
   /** One-line description under the title. */
@@ -41,7 +50,10 @@ export type ToolLayoutProps = {
   marketing?: ReactNode;
   /** RELATED tab — related tools grid. */
   related?: ReactNode;
-  /** Optional block between the tool workspace and marketing (e.g. invoice templates). */
+  /**
+   * Extra DOC content (e.g. invoice templates). Formerly rendered under CALC;
+   * always consolidated into the DOC pane.
+   */
   belowTool?: ReactNode;
   /** Optional parent category override (from hub context / nested URL). */
   categoryId?: InventoryCategoryId;
@@ -57,7 +69,8 @@ export type ToolLayoutProps = {
  */
 export function ToolLayout({
   children,
-  breadcrumbs,
+  breadcrumbs: _breadcrumbs,
+  docBreadcrumbs,
   title,
   description,
   tagline,
@@ -72,7 +85,7 @@ export function ToolLayout({
   className,
   contentClassName,
   showPrivacyBadge = true,
-  /** Body H1/description — off by default; tool name lives in the site header. */
+  /** Body H1/description — off by default; tool name lives in DOC. */
   showHeader = false,
 }: ToolLayoutProps) {
   const shell = useToolPageShell();
@@ -84,6 +97,13 @@ export function ToolLayout({
   const resolvedTagline = tagline ?? shell.tagline;
   const resolvedSlug = slug ?? shell.slug;
   const feedbackPageTitle = feedbackTitle ?? resolvedTitle;
+  const registryTool = resolvedSlug
+    ? registry.tools.find((entry) => entry.slug === resolvedSlug)
+    : undefined;
+  const docIntent = registryTool?.intent ?? resolvedTagline ?? resolvedDescription;
+  const docWhy = registryTool?.documentation?.whyItMatters ?? null;
+  const docUseCases = registryTool?.useCases ?? null;
+
   const hierarchy = parseToolHierarchyPath(pathname);
   const categoryId =
     categoryIdProp ??
@@ -93,29 +113,50 @@ export function ToolLayout({
     ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
     : undefined;
 
+  // CALC = interactive workspace only (no titles, crumbs, docs, or privacy chrome).
   const calcPane = (
     <>
       <div className={clsx("tool-page-layout__content", contentClassName)}>
         <WorkerErrorBoundary>{children}</WorkerErrorBoundary>
       </div>
-
-      {showPrivacyBadge ? (
-        <footer className="tool-page-layout__footer">
-          <ToolLocalProcessingBar />
-        </footer>
-      ) : null}
-
       {resolvedSlug ? <AdContainer /> : null}
-      {belowTool}
     </>
   );
 
-  const hasDoc = Boolean(marketing) || faqs.length > 0;
+  const hasDoc =
+    Boolean(marketing) || Boolean(belowTool) || faqs.length > 0 || Boolean(resolvedTitle);
+
   const docPane = hasDoc ? (
-    <ToolPageInfoBlock className={toolPageInfoWidth}>
+    <ToolPageInfoBlock className={clsx(toolPageInfoWidth, "tool-modal-docs")}>
+      {resolvedSlug && resolvedTitle ? (
+        <ToolDocHeader
+          slug={resolvedSlug}
+          title={resolvedTitle}
+          description={resolvedDescription}
+          categoryId={categoryId}
+          breadcrumbItems={docBreadcrumbs}
+        />
+      ) : null}
+      {resolvedSlug && resolvedTitle ? (
+        <ToolDocBodySections
+          slug={resolvedSlug}
+          title={resolvedTitle}
+          description={resolvedDescription || registryTool?.description}
+          intent={docIntent}
+          whyItMatters={docWhy}
+          useCases={docUseCases}
+          primaryKeyword={registryTool?.primaryKeyword}
+        />
+      ) : null}
       {marketing}
+      {belowTool}
       <FaqSection faqs={faqs} heading={faqHeading} />
       <FeedbackSection pageTitle={feedbackPageTitle} />
+      {showPrivacyBadge ? (
+        <div className="tool-page-layout__doc-privacy">
+          <ToolLocalProcessingBar />
+        </div>
+      ) : null}
     </ToolPageInfoBlock>
   ) : null;
 
@@ -149,10 +190,6 @@ export function ToolLayout({
       data-category={categoryId || undefined}
       style={accentStyle}
     >
-      {breadcrumbs ? (
-        <div className="tool-page-layout__breadcrumbs">{breadcrumbs}</div>
-      ) : null}
-
       {showHeader && resolvedTitle ? (
         <ToolPageHeader
           title={resolvedTitle}

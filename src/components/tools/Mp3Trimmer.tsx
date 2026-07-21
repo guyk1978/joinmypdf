@@ -167,7 +167,7 @@ export function Mp3Trimmer({ name, title: _title, onComplete }: Mp3TrimmerProps)
           className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
       ) : (
-        <div className="space-y-4 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               {file.name} · {formatBytes(file.size)}
@@ -270,7 +270,7 @@ export function Mp3Trimmer({ name, title: _title, onComplete }: Mp3TrimmerProps)
       <MediaProcessingStatus phase={phase} ratio={ratio} message={statusMessage} />
 
       {result && phase === "success" ? (
-        <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-3">
           <p className="text-sm text-emerald-400">
             {t("success", { size: formatBytes(result.blob.size) })}
           </p>

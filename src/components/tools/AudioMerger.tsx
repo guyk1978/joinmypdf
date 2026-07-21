@@ -281,7 +281,7 @@ export function AudioMerger({ title, onComplete }: AudioMergerProps) {
       />
 
       {items.length > 0 ? (
-        <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               {items.length} file{items.length === 1 ? "" : "s"} · {formatBytes(totalBytes)} total
@@ -354,7 +354,7 @@ export function AudioMerger({ title, onComplete }: AudioMergerProps) {
       <MediaProcessingStatus phase={phase} ratio={ratio} message={statusMessage} />
 
       {result && phase === "success" ? (
-        <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-3">
           <p className="text-sm text-emerald-400">
             Merged {result.fileCount} tracks — {formatBytes(result.blob.size)} MP3 ready to download.
           </p>

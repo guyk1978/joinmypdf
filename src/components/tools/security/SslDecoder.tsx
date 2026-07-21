@@ -90,17 +90,26 @@ export function SslDecoder({ labels, className }: SslDecoderProps) {
       ) : null}
 
       {decoded?.ok ? (
-        <section className="mt-6 border border-[#1f2937] bg-[#030712]" aria-labelledby="ssl-decoder-results">
+        <section
+          className="mt-6 overflow-hidden border"
+          style={{
+            background: "var(--im-tool-control-bg)",
+            borderColor: "var(--im-tool-panel-border)",
+            borderRadius: "var(--im-tool-radius)",
+          }}
+          aria-labelledby="ssl-decoder-results"
+        >
           <h2
             id="ssl-decoder-results"
-            className="border-b border-[#1f2937] px-4 py-3 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+            className="border-b px-4 py-3 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+            style={{ borderColor: "var(--im-tool-panel-border)" }}
           >
             {labels.resultsTitle}
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[20rem] border-collapse text-left text-sm">
               <thead>
-                <tr className="border-b border-[#262626]">
+                <tr style={{ borderBottom: "1px solid var(--im-tool-panel-border)" }}>
                   <th className="px-4 py-3 font-medium text-white">{labels.colField}</th>
                   <th className="px-4 py-3 font-medium text-white">{labels.colValue}</th>
                 </tr>

@@ -265,7 +265,7 @@ export function Mp3ToMp4({ title, onComplete }: Mp3ToMp4Props) {
       <MediaProcessingStatus phase={phase} ratio={ratio} message={statusMessage} />
 
       {result && phase === "success" ? (
-        <div className="space-y-3 rounded-none border border-neutral-800 bg-[#1a1a1a] p-4">
+        <div className="tool-workspace-panel space-y-3">
           <p className="text-sm text-emerald-400">
             Ready — {formatBytes(result.blob.size)} MP4 created on your device.
           </p>
