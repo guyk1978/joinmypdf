@@ -14122,7 +14122,13 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
  * shrink it back into a small card (the regression users saw).
  * Full page:  top below site header; height = 100dvh − header − 60px margins
  * Embed/modal: 30px from every edge of the iframe viewport
+ *
+ * Specificity includes #tool-workspace / #workspace-upload ancestors so these
+ * rules beat stale `#tool-workspace[data-workspace-phase=active] .im-dropzone`
+ * when the upload float is still clean (phase sync race).
  */
+#tool-workspace .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+#workspace-upload .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 #tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
@@ -14151,10 +14157,14 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
 }
 
 /* Embed / tool-modal iframe: no site header — 30px from every edge */
+html[data-tool-embed="1"] #tool-workspace .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+html[data-tool-embed="1"] #workspace-upload .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 html[data-tool-embed="1"] .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+body.tool-embed-mode #tool-workspace .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+body.tool-embed-mode #workspace-upload .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
@@ -14175,9 +14185,13 @@ body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropz
   animation: workspace-controls-pop-in 0.32s ease-out;
 }
 
-#tool-workspace[data-workspace-phase="active"] .im-dropzone,
+/*
+ * Active-phase compact dropzone — only when the upload float is not still clean.
+ * Prevents #tool-workspace[active] from collapsing an immersive clean shell.
+ */
+#tool-workspace[data-workspace-phase="active"]:not(:has(.tool-upload-float[data-workspace-phase="clean"])) .im-dropzone,
 .tool-upload-float[data-workspace-phase="active"] .im-dropzone,
-#workspace-upload[data-workspace-phase="active"] .im-dropzone,
+#workspace-upload[data-workspace-phase="active"]:not(:has(.tool-upload-float[data-workspace-phase="clean"])) .im-dropzone,
 .tool-upload-stack [data-workspace-phase="active"] .im-dropzone {
   position: relative !important;
   top: auto !important;

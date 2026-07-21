@@ -35,8 +35,14 @@ export function useWorkspaceFileFlow(
 
   useEffect(() => {
     return () => {
-      // Leave pages unlocked; "clean" would keep html.workspace-phase-clean around.
-      setWorkspacePhase("active");
+      // Only unlock if no clean upload shell is still mounted (avoids racing
+      // WorkspaceUploadShell and collapsing the immersive dropzone).
+      const cleanFloat = document.querySelector(
+        '.tool-upload-float[data-workspace-phase="clean"]',
+      );
+      if (!cleanFloat) {
+        setWorkspacePhase("active");
+      }
     };
   }, []);
 

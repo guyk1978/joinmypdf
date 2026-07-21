@@ -24,6 +24,24 @@ export function setToolHasUploadShell(enabled: boolean) {
 export function setWorkspacePhase(phase: WorkspacePhase, root?: HTMLElement | null) {
   if (typeof document === "undefined") return;
 
+  /**
+   * Guard against cleanup races (useWorkspaceFileFlow / Strict Mode): a mounted
+   * clean upload float must win so #tool-workspace cannot stay "active" and
+   * override immersive dropzone CSS via higher-specificity #id selectors.
+   */
+  if (phase === "active") {
+    const cleanFloat = document.querySelector<HTMLElement>(
+      '.tool-upload-float[data-workspace-phase="clean"]',
+    );
+    if (cleanFloat) {
+      phase = "clean";
+      if (root && !cleanFloat.contains(root) && root !== cleanFloat) {
+        // Prefer the live clean shell as the sync root.
+        root = cleanFloat;
+      }
+    }
+  }
+
   const targets = new Set<HTMLElement>();
   if (root) targets.add(root);
 
