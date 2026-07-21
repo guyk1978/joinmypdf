@@ -21,6 +21,27 @@ const TOOL_OG_OVERRIDES: Record<
     description: "Easily combine up to 4 images side-by-side or vertically.",
     imagePath: "/images/image-combiner-og.png",
   },
+  "delete-pdf-pages": {
+    title: "Delete PDF Pages Online - Fast & Secure",
+    description: "Easily remove unwanted pages from your PDF documents online for free.",
+    imagePath: "/images/og-image-delete-pdf-pages.jpg",
+  },
+  "extract-pdf-pages": {
+    title: "Extract PDF Pages Online - Fast & Secure",
+    description: "Select and extract specific pages from your PDF documents online for free.",
+    imagePath: "/images/og-image-extract-pdf-pages.jpg",
+  },
+  "n-up-pdf": {
+    title: "N-Up PDF - Multiple Pages per Sheet Online",
+    description: "Combine and layout multiple PDF pages onto a single sheet quickly and securely.",
+    imagePath: "/images/og-image-n-up-pdf.jpg",
+  },
+  "pdf-merge": {
+    title: "Merge PDF Online - Combine PDF Files Free",
+    description:
+      "Combine multiple PDF documents into a single file quickly, securely, and directly in your browser.",
+    imagePath: "/images/og-image-merge-pdf.jpg",
+  },
 };
 
 function sentenceCase(s: string) {
