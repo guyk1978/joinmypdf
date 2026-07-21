@@ -27,8 +27,16 @@ function PageTransitionCanvas({ children, mainClassName }: PageTransitionShellPr
       <ToolEmbedModeMarker />
       {embed ? null : <SiteHeader />}
       {embed ? null : <PinnedCardsDock />}
-      <main className={clsx("home-tool-grid-page flex-1", mainClassName)}>
-        <PageContentTransition className="page-content-transition--main">{children}</PageContentTransition>
+      <main
+        className={clsx(
+          "home-tool-grid-page flex min-h-0 w-full flex-1 flex-col",
+          embed && "h-full max-w-none",
+          mainClassName,
+        )}
+      >
+        <PageContentTransition className="page-content-transition--main flex min-h-0 w-full flex-1 flex-col">
+          {children}
+        </PageContentTransition>
       </main>
       {embed ? null : <HomePageFooter />}
     </div>

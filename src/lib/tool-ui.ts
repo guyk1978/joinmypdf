@@ -63,18 +63,24 @@ export const homePrimaryPillBtn =
 export const homeGlassPanel =
   "rounded-[20px] border border-neutral-200 bg-white p-8 text-center shadow-none dark:border-neutral-800 dark:bg-neutral-950";
 
-/** Shared max width for tool upload stack — full width within column, capped for readability */
-export const toolUploadStack = "mx-auto w-full max-w-2xl";
+/** Shared max width for tool upload stack — full width within column */
+export const toolUploadStack = "w-full max-w-none";
 
-/** Tool page — full-width shell; solid tool surface is centered in the app canvas */
-export const toolPageDashboardWidth = "tool-page-main mx-auto w-full max-w-none";
+/** Tool page — full-bleed shell (no centered max-width column) */
+export const toolPageDashboardWidth = "tool-page-main flex w-full min-h-0 max-w-none flex-1 flex-col";
 
-/** Shared main padding for tool pages and product dashboard pages */
-export const productPageMainClassName = "tool-page-main mx-auto w-full max-w-none pb-8 pt-6 md:pb-10 md:pt-10";
+/**
+ * Shared main for tool / product pages.
+ * Full width + height-ready flex column — no mx-auto / max-w-* so immersive
+ * dropzones can span the entire workspace; vertical padding is cleared in
+ * clean-phase CSS when an upload shell is active.
+ */
+export const productPageMainClassName =
+  "tool-page-main flex w-full min-h-0 max-w-none flex-1 flex-col pb-8 pt-6 md:pb-10 md:pt-10";
 
 export const toolPageInfoWidth = "mx-auto w-full max-w-2xl px-4";
 
-export const toolPageDashboardStack = "tool-page-dashboard flex w-full flex-col gap-0";
+export const toolPageDashboardStack = "tool-page-dashboard flex w-full min-h-0 flex-1 flex-col gap-0";
 
 /** Marketing / info pages — flush vertical stack with hairline gaps */
 export const contentDashboardStack = "flex w-full flex-col gap-[3px]";

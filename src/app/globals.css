@@ -178,11 +178,18 @@ html:has(.home-page-shell--minimal) body {
   box-shadow: none;
 }
 
-/* Centered inner content column ? limits content width, not the page chrome */
+/* Centered inner content column — limits marketing hubs, not tool workspaces */
 .app-page-canvas > .home-tool-grid-page {
   width: 100%;
   max-width: var(--app-canvas-max-width);
   margin-inline: auto;
+}
+
+/* Tool workspaces break out of the 1400px column for full-bleed dropzones */
+.app-page-canvas > .home-tool-grid-page.tool-page-main {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
 }
 
 /* Client-side page transitions ? main content only (header/footer stay static) */
@@ -2967,9 +2974,9 @@ html:has(.home-page-shell--minimal) body {
   inset: 0;
   z-index: 200;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0.75rem;
   isolation: isolate;
 }
 
@@ -3033,9 +3040,11 @@ html:has(.home-page-shell--minimal) body {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  width: min(100%, 1120px);
-  max-width: 1120px;
-  height: min(88vh, 820px);
+  /* Default: fill the available viewport so the dropzone is edge-to-edge */
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
   overflow: hidden;
   background: #0a0a0a;
   border: 1px solid #333;
@@ -12973,7 +12982,7 @@ body.site-tools-grid-open {
   padding: 0;
 }
 
-/* Standard tool page shell ? title, body, privacy badge */
+/* Standard tool page shell — title, body, privacy badge */
 .tool-page-layout {
   width: 100%;
   max-width: 64rem;
@@ -12987,12 +12996,22 @@ body.site-tools-grid-open {
 
 @media (min-width: 768px) {
   .tool-page-layout.tool-page-layout--magazine.tool-page-layout--stacked {
-    padding-inline: 2rem;
+    padding-inline: 0;
   }
 }
 
+/* Stacked / embed upload tools: edge-to-edge workspace (no side gutters) */
+.tool-page-layout--stacked,
+.tool-page-layout--embed,
+#workspace-upload.tool-page-layout {
+  max-width: none;
+  width: 100%;
+  margin-inline: 0;
+  padding-inline: 0;
+}
+
 .tool-page-layout--stacked {
-  padding: 0 1rem clamp(2rem, 4vw, 2.5rem);
+  padding: 0;
 }
 
 #workspace-upload.tool-page-layout--stacked[data-workspace-phase="clean"] {

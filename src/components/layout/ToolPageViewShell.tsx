@@ -42,7 +42,10 @@ export function ToolPageViewShell({
   ];
 
   return (
-    <div className={clsx("tool-page-view", className)} data-active-tab={tab}>
+    <div
+      className={clsx("tool-page-view flex min-h-0 w-full flex-1 flex-col", className)}
+      data-active-tab={tab}
+    >
       <nav className="tool-page-view__tabs" aria-label={tabsLabel ?? "Tool views"}>
         {panes.map(({ id }) => {
           const label =
@@ -64,13 +67,13 @@ export function ToolPageViewShell({
         })}
       </nav>
 
-      <div className="tool-page-view__body">
+      <div className="tool-page-view__body flex min-h-0 w-full flex-1 flex-col">
         {panes.map(({ id, content }) => (
           <div
             key={id}
             className={clsx(
-              "tool-page-view__pane",
-              id === "calc" && "tool-page-view__pane--calc",
+              "tool-page-view__pane min-h-0 w-full",
+              id === "calc" && "tool-page-view__pane--calc flex flex-1 flex-col",
               id !== "calc" && "tool-page-view__pane--scroll",
               tab === id && "tool-page-view__pane--active",
             )}

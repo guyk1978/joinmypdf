@@ -130,7 +130,7 @@ export function ToolLayout({
   // CALC = interactive workspace only (no titles, crumbs, docs, or privacy chrome).
   const calcPane = (
     <>
-      <div className={clsx("tool-page-layout__content", contentClassName)}>
+      <div className={clsx("tool-page-layout__content flex min-h-0 w-full flex-1 flex-col", contentClassName)}>
         <WorkerErrorBoundary>{children}</WorkerErrorBoundary>
       </div>
       {resolvedSlug ? <AdContainer /> : null}
@@ -179,14 +179,14 @@ export function ToolLayout({
       <div
         id={WORKSPACE_UPLOAD_ID}
         className={clsx(
-          "tool-page-layout tool-upload-stack flex w-full flex-col",
+          "tool-page-layout tool-upload-stack flex h-full min-h-0 w-full max-w-none flex-col",
           "tool-page-layout--embed",
           className,
         )}
         data-category={categoryId || undefined}
         style={accentStyle}
       >
-        <div className={clsx("tool-page-layout__content", contentClassName)}>
+        <div className={clsx("tool-page-layout__content flex min-h-0 w-full flex-1 flex-col", contentClassName)}>
           <WorkerErrorBoundary>{children}</WorkerErrorBoundary>
         </div>
       </div>
@@ -197,7 +197,7 @@ export function ToolLayout({
     <div
       id={WORKSPACE_UPLOAD_ID}
       className={clsx(
-        "tool-page-layout tool-upload-stack flex w-full flex-col",
+        "tool-page-layout tool-upload-stack flex min-h-0 w-full max-w-none flex-col",
         shell.stacked && "tool-page-layout--stacked",
         className,
       )}
