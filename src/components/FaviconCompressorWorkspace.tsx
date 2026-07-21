@@ -99,8 +99,11 @@ export function FaviconCompressorWorkspace({ tool, slug }: FaviconCompressorWork
   );
 
   return (
-    <WorkspaceUploadShell showPrivacyBadge>
-      <div id={WORKSPACE_OPERATIONS_ID} className="crop-image-tool-page favicon-compressor-tool-page">
+    <WorkspaceUploadShell>
+      <div
+        id={WORKSPACE_OPERATIONS_ID}
+        className="crop-image-tool-page favicon-compressor-tool-page w-full min-h-0 flex-1"
+      >
         <FaviconCompressor labels={labels} />
       </div>
     </WorkspaceUploadShell>

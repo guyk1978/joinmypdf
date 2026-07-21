@@ -14066,23 +14066,26 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
 }
 
 /*
- * Immersive dropzone — fill the available workspace with uniform inset margins.
- * Absolute positioning inside the flex-filled shell (not viewport-fixed) so
- * tool pages, embeds, and modals all expand edge-to-edge without dead space.
- * The shell itself already sizes to the remaining viewport below the header
- * (or 100dvh in embeds), so a uniform 30px inset is enough on every side.
+ * Immersive dropzone — exact full-viewport stage with uniform 30px margins.
+ * Fixed to the viewport so no nested max-width / collapsed flex parent can
+ * shrink it back into a small card (the regression users saw).
+ * Full page:  top below site header; height = 100dvh − header − 60px margins
+ * Embed/modal: 30px from every edge of the iframe viewport
  */
 #tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact) {
-  position: absolute !important;
-  inset: 30px !important;
+  position: fixed !important;
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  left: 30px !important;
+  right: 30px !important;
+  bottom: auto !important;
   z-index: 40 !important;
   box-sizing: border-box !important;
   width: auto !important;
   max-width: none !important;
-  height: auto !important;
+  height: calc(100dvh - var(--site-header-height, 60px) - 60px) !important;
   max-height: none !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -14094,6 +14097,25 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
+}
+
+/* Embed / tool-modal iframe: no site header — 30px from every edge */
+html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+html[data-tool-embed="1"] .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+html[data-tool-embed="1"] #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+html[data-tool-embed="1"] .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
+body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact) {
+  top: 30px !important;
+  left: 30px !important;
+  right: 30px !important;
+  bottom: 30px !important;
+  width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 #tool-workspace[data-workspace-phase="active"] > :not(.tool-upload-float),
@@ -16400,6 +16422,24 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   width: 100%;
   max-width: 42rem;
   margin-inline: auto;
+}
+
+/* Clean-phase: never cage the immersive dropzone in a 42rem column */
+html.workspace-phase-clean .crop-image-tool-page,
+.tool-upload-float[data-workspace-phase="clean"] .crop-image-tool-page,
+#workspace-upload[data-workspace-phase="clean"] .crop-image-tool-page {
+  max-width: none !important;
+  width: 100% !important;
+  margin-inline: 0 !important;
+  height: 100%;
+  min-height: 0;
+}
+
+html.workspace-phase-clean .crop-image-tool,
+.tool-upload-float[data-workspace-phase="clean"] .crop-image-tool,
+#workspace-upload[data-workspace-phase="clean"] .crop-image-tool {
+  height: 100%;
+  min-height: 0;
 }
 
 .crop-image-tool {
