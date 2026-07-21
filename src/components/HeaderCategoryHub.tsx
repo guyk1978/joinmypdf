@@ -67,7 +67,7 @@ export function HeaderCategoryHub() {
               </button>
 
               <div
-                className="category-hub-overlay__panel"
+                className="category-hub-overlay__panel w-full h-full"
                 onClick={(event) => {
                   // Close as soon as a category link is activated so the
                   // overlay doesn't linger over the page transition.
@@ -75,16 +75,14 @@ export function HeaderCategoryHub() {
                   if (target.closest("a")) close();
                 }}
               >
-                <p className="category-hub-overlay__eyebrow">
-                  {tHome("landing.categoriesEyebrow")}
-                </p>
-                <h2 className="category-hub-overlay__title">
-                  {tHome("landing.categoriesTitle")}
-                </h2>
                 <CategoryHubsSection
                   className="category-hub-overlay__grid"
                   hideHead
                   dense
+                  centerHead={{
+                    eyebrow: tHome("landing.categoriesEyebrow"),
+                    title: tHome("landing.categoriesTitle"),
+                  }}
                   navLabel={tHome("landing.heroCategoriesLabel")}
                 />
               </div>

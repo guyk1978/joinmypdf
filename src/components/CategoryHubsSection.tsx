@@ -42,6 +42,14 @@ type CategoryHubsSectionProps = {
   className?: string;
   /** Hide eyebrow/title/subtitle — used on the homepage dashboard. */
   hideHead?: boolean;
+  /**
+   * When set with hideHead, renders the heading inside the grid so CSS can
+   * place it across the first two left columns (Category Hub overlay).
+   */
+  centerHead?: {
+    eyebrow?: string;
+    title: string;
+  };
   /** Tighter equal-cell action-dashboard grid. */
   dense?: boolean;
   /** Override nav aria-label when head is hidden. */
@@ -134,6 +142,7 @@ function CategoryHubCard({
 export function CategoryHubsSection({
   className,
   hideHead = false,
+  centerHead,
   dense = false,
   navLabel,
 }: CategoryHubsSectionProps) {
@@ -149,7 +158,8 @@ export function CategoryHubsSection({
   if (!categories.length) return null;
 
   const resolvedNavLabel = navLabel ?? t("landing.heroCategoriesLabel");
-  const Root = hideHead ? "div" : "section";
+  const Root = hideHead && !centerHead ? "div" : "section";
+  const titleId = "category-hubs-title";
 
   const resolveBlurb = (id: InventoryCategoryId, fallback: string) => {
     const key = `landing.categoryBlurbs.${id}`;
@@ -161,16 +171,17 @@ export function CategoryHubsSection({
       className={clsx(
         "category-hubs",
         dense && "category-hubs--dense",
+        centerHead && "category-hubs--center-head",
         className,
       )}
-      {...(hideHead
+      {...(hideHead && !centerHead
         ? {}
-        : { "aria-labelledby": "category-hubs-title" })}
+        : { "aria-labelledby": titleId })}
     >
-      {hideHead ? null : (
+      {hideHead || centerHead ? null : (
         <div className="category-hubs__head">
           <p className="category-hubs__eyebrow">{t("landing.categoriesEyebrow")}</p>
-          <h2 id="category-hubs-title" className="category-hubs__title">
+          <h2 id={titleId} className="category-hubs__title">
             {t("landing.categoriesTitle")}
           </h2>
           {t.has("landing.categoriesSubtitle") ? (
@@ -181,6 +192,16 @@ export function CategoryHubsSection({
 
       <nav aria-label={resolvedNavLabel}>
         <ul className="category-hubs__grid">
+          {centerHead ? (
+            <li className="category-hubs__item category-hubs__center-head">
+              {centerHead.eyebrow ? (
+                <p className="category-hubs__eyebrow">{centerHead.eyebrow}</p>
+              ) : null}
+              <h2 id={titleId} className="category-hubs__title">
+                {centerHead.title}
+              </h2>
+            </li>
+          ) : null}
           {categories.map((category) => (
             <li key={category.id} className="category-hubs__item">
               <CategoryHubCard
