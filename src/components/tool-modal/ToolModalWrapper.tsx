@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Maximize2, Minimize2, Pin, Search, Share2, Star, X } from "lucide-react";
+import { Maximize2, Minimize2, Pin, Search, Share2, Star, X, ZoomIn } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -68,6 +68,7 @@ export type ToolModalWrapperProps = {
     hideMagnifier?: string;
     inspectPreview?: string;
     magnifierSizeGroup?: string;
+    magnifierSizeOff?: string;
     magnifierSizeSmall?: string;
     magnifierSizeMedium?: string;
     magnifierSizeHuge?: string;
@@ -210,12 +211,12 @@ export function ToolModalWrapper({
   const fullscreenLabel = fullscreen
     ? (labels?.exitFullScreen ?? "Exit Full Screen")
     : (labels?.enterFullScreen ?? "Enter Full Screen");
-  const loupeLabel =
-    labels?.inspectPreview ??
-    (loupeEnabled
-      ? (labels?.hideMagnifier ?? "Inspect preview")
-      : (labels?.showMagnifier ?? "Inspect preview"));
+  const loupeLabel = loupeEnabled
+    ? (labels?.hideMagnifier ?? "Hide Magnifier")
+    : (labels?.showMagnifier ?? "Show Magnifier");
+  const inspectLabel = labels?.inspectPreview ?? "Inspect preview";
   const loupeSizeGroupLabel = labels?.magnifierSizeGroup ?? "Magnifier size";
+  const loupeOffLabel = labels?.magnifierSizeOff ?? "Off";
   const loupeSizeLabels: Record<MagnifierSizeTier, string> = {
     small: labels?.magnifierSizeSmall ?? "Small",
     medium: labels?.magnifierSizeMedium ?? "Medium",
@@ -372,25 +373,19 @@ export function ToolModalWrapper({
                   </button>
                 ) : null}
 
-                <div className="tool-modal__loupe-cluster">
+                <div
+                  className={clsx(
+                    "tool-modal__loupe-cluster",
+                    !loupeEnabled && "tool-modal__loupe-cluster--off",
+                  )}
+                >
                   <button
                     type="button"
                     className={clsx(
                       "tool-modal__action tool-modal__loupe",
                       !loupeEnabled && "tool-modal__loupe--off",
                     )}
-                    onClick={() => {
-                      // Primary action: open the interactive zoom lightbox for
-                      // the active preview (parent or embed iframe). Also turn
-                      // the hover loupe back on so desktop inspection stays armed.
-                      setMagnifierPreference(true);
-                      requestPreviewInspect();
-                    }}
-                    onContextMenu={(event) => {
-                      // Secondary: right-click toggles the hover-loupe preference.
-                      event.preventDefault();
-                      setMagnifierPreference(!loupeEnabled);
-                    }}
+                    onClick={() => setMagnifierPreference(!loupeEnabled)}
                     aria-label={loupeLabel}
                     aria-pressed={loupeEnabled}
                     title={loupeLabel}
@@ -403,6 +398,20 @@ export function ToolModalWrapper({
                     role="group"
                     aria-label={loupeSizeGroupLabel}
                   >
+                    <button
+                      type="button"
+                      className={clsx(
+                        "tool-modal__loupe-size tool-modal__loupe-size--off",
+                        !loupeEnabled && "tool-modal__loupe-size--active",
+                      )}
+                      aria-label={loupeOffLabel}
+                      aria-pressed={!loupeEnabled}
+                      title={loupeOffLabel}
+                      onClick={() => setMagnifierPreference(false)}
+                    >
+                      <span className="tool-modal__loupe-size-dot" aria-hidden />
+                      <span className="tool-modal__loupe-size-label">{loupeOffLabel}</span>
+                    </button>
                     {MAGNIFIER_SIZE_TIERS.map((tier) => (
                       <button
                         key={tier}
@@ -410,10 +419,10 @@ export function ToolModalWrapper({
                         className={clsx(
                           "tool-modal__loupe-size",
                           `tool-modal__loupe-size--${tier}`,
-                          loupeSize === tier && "tool-modal__loupe-size--active",
+                          loupeEnabled && loupeSize === tier && "tool-modal__loupe-size--active",
                         )}
                         aria-label={loupeSizeLabels[tier]}
-                        aria-pressed={loupeSize === tier}
+                        aria-pressed={loupeEnabled && loupeSize === tier}
                         title={loupeSizeLabels[tier]}
                         onClick={() => {
                           setMagnifierPreference(true);
@@ -428,6 +437,16 @@ export function ToolModalWrapper({
                       </button>
                     ))}
                   </div>
+
+                  <button
+                    type="button"
+                    className="tool-modal__action tool-modal__inspect"
+                    onClick={() => requestPreviewInspect()}
+                    aria-label={inspectLabel}
+                    title={inspectLabel}
+                  >
+                    <ZoomIn size={18} strokeWidth={2} aria-hidden />
+                  </button>
                 </div>
 
                 <button

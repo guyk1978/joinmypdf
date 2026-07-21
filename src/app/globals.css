@@ -3416,6 +3416,10 @@ html:has(.home-page-shell--minimal) body {
   gap: 0.3rem;
 }
 
+.tool-modal__loupe-cluster--off .tool-modal__loupe-sizes {
+  opacity: 0.85;
+}
+
 .tool-modal__loupe-sizes {
   display: inline-flex;
   align-items: center;
@@ -3453,11 +3457,36 @@ html:has(.home-page-shell--minimal) body {
   background: color-mix(in srgb, var(--category-accent, #3b82f6) 12%, #1a1a1a);
 }
 
+.tool-modal__loupe-size--off.tool-modal__loupe-size--active {
+  color: #f87171;
+  border-color: color-mix(in srgb, #f87171 45%, #333);
+  background: color-mix(in srgb, #f87171 12%, #1a1a1a);
+}
+
 .tool-modal__loupe-size-dot {
   display: block;
   border-radius: 9999px;
   border: 1.5px solid currentColor;
   background: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.tool-modal__loupe-size--off .tool-modal__loupe-size-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 0;
+  background: transparent;
+  position: relative;
+}
+
+.tool-modal__loupe-size--off .tool-modal__loupe-size-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(-45deg);
 }
 
 .tool-modal__loupe-size--small .tool-modal__loupe-size-dot {
@@ -27133,12 +27162,41 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout {
   max-width: 100%;
   vertical-align: top;
   isolation: isolate;
+  box-sizing: border-box;
+  /* Clip the loupe so it never spills onto neighboring controls. */
+  overflow: hidden;
+}
+
+/* Full-width preview stages — stretch when wrapping a fixed preview surface. */
+.magnifier:has(.crop-image-tool__stage),
+.magnifier:has(.image-watermark__stage),
+.magnifier:has(.rotate-align-suite__stage),
+.magnifier:has(.image-grid-splitter__canvas-wrap),
+.magnifier:has(.ico-to-png-tool__preview-stage),
+.magnifier:has(.redact-page__stage),
+.magnifier:has(.sign-page__stage),
+.magnifier:has(> .magnifier__source > img) {
+  display: block;
+  width: 100%;
 }
 
 .magnifier__source {
   position: relative;
   z-index: 0;
+  display: block;
   max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Keep presentational media inside the source box. */
+.magnifier__source > img,
+.magnifier__source > canvas,
+.magnifier__source > video,
+.magnifier__source > svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .magnifier__lens {
@@ -27170,6 +27228,7 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout {
   position: absolute;
   top: 0;
   left: 0;
+  overflow: hidden;
   transform-origin: 0 0;
   pointer-events: none;
   will-change: transform;
@@ -27177,18 +27236,21 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout {
 }
 
 .magnifier__zoom-inner {
+  position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   pointer-events: none;
 }
 
+/*
+ * Do not force max-width/height on the zoom clone — it must mirror the source
+ * layout (including object-fit stages) for the loupe to align correctly.
+ */
 .magnifier__zoom-inner img,
 .magnifier__zoom-inner canvas,
 .magnifier__zoom-inner video,
 .magnifier__zoom-inner svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
   pointer-events: none;
   user-select: none;
 }
@@ -27348,7 +27410,8 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout {
 
 .preview-inspect__stage {
   position: relative;
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27371,8 +27434,12 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout {
 }
 
 .preview-inspect__image {
-  max-width: min(96vw, 100%);
-  max-height: min(78vh, 100%);
+  display: block;
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
   image-rendering: auto;
   transform-origin: center center;

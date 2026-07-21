@@ -458,6 +458,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             magnifierSizeGroup: t.has("magnifierSizeGroup")
               ? t("magnifierSizeGroup")
               : "Magnifier size",
+            magnifierSizeOff: t.has("magnifierSizeOff") ? t("magnifierSizeOff") : "Off",
             magnifierSizeSmall: t.has("magnifierSizeSmall") ? t("magnifierSizeSmall") : "Small",
             magnifierSizeMedium: t.has("magnifierSizeMedium")
               ? t("magnifierSizeMedium")
