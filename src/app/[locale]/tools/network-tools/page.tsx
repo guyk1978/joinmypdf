@@ -87,7 +87,7 @@ export default async function NetworkToolsHubPage({ params }: PageProps) {
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
             <Link
-              href="/"
+              href="/home"
               className="text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white"
               prefetch={false}
             >

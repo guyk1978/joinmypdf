@@ -307,6 +307,16 @@
     "minimalTagline": "Fast, private, enterprise-grade processing in your browser. Compliance-focused.",
     "seoHeadline": "Privacy-First Web Tools: Local Processing for PDF, Image, and Developer Tasks.",
     "localProcessingBadge": "⚡ Local-Only: 100% Private",
+    "splash": {
+      "metaTitle": "Welcome to JoinMyPDF",
+      "metaDescription": "Private browser utilities for PDF, image, video, and developer workflows. Enter to explore the full toolkit — files never leave your device.",
+      "eyebrow": "Local-first utility platform",
+      "title": "Your private toolkit starts here",
+      "tagline": "Merge, convert, edit, and secure files entirely in your browser. No uploads. No accounts. Just tools.",
+      "enter": "Enter Website",
+      "hint": "Returning visitors skip this screen automatically.",
+      "redirecting": "Opening your workspace…"
+    },
     "landing": {
       "heroBadge": "100% Local · Zero Uploads",
       "heroTitle": "Professional Web Utilities, Processed Locally",

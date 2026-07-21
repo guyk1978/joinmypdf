@@ -26,7 +26,7 @@ export async function HomeStructuredData({ locale }: HomeStructuredDataProps) {
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: getBrandName(locale),
-          url: absoluteUrl(`/${locale}`),
+          url: absoluteUrl(`/${locale}/home`),
           description: tMeta("homeDescription"),
         }}
       />
@@ -35,7 +35,7 @@ export async function HomeStructuredData({ locale }: HomeStructuredDataProps) {
           locale,
           name: getBrandName(locale),
           description: tMeta("homeDescription"),
-          pathname: `/${locale}`,
+          pathname: `/${locale}/home`,
         })}
       />
       <JsonLd data={faqLd(homeFaqs)} />

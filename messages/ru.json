@@ -309,6 +309,16 @@
     "minimalTagline": "Fast, private, enterprise-grade processing in your browser. Compliance-focused.",
     "seoHeadline": "Privacy-First Web Tools: Local Processing for PDF, Image, and Developer Tasks.",
     "localProcessingBadge": "⚡ Local-Only: 100% Private",
+    "splash": {
+      "metaTitle": "Добро пожаловать в JoinMyPDF",
+      "metaDescription": "Приватные браузерные утилиты для PDF, изображений, видео и разработчиков. Войдите, чтобы открыть весь набор инструментов — файлы не покидают ваше устройство.",
+      "eyebrow": "Локальная платформа утилит",
+      "title": "Ваш приватный набор инструментов начинается здесь",
+      "tagline": "Объединяйте, конвертируйте, редактируйте и защищайте файлы прямо в браузере. Без загрузок. Без аккаунтов. Только инструменты.",
+      "enter": "Войти на сайт",
+      "hint": "Постоянные посетители пропускают этот экран автоматически.",
+      "redirecting": "Открываем рабочее пространство…"
+    },
     "landing": {
       "heroBadge": "100% Local · Zero Uploads",
       "heroTitle": "Professional Web Utilities, Processed Locally",

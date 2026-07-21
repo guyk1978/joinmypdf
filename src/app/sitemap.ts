@@ -30,6 +30,7 @@ function localizedPaths(path: string): string[] {
 /** Marketing / legal / directory shells — hubs only (tools come from hierarchy). */
 const BASE_PATHS = [
   "/",
+  "/home/",
   "/tools/",
   "/premium-tools/",
   "/blog/",

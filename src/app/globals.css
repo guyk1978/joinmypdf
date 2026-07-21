@@ -27626,3 +27626,239 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout {
   border-color: var(--category-accent, #3b82f6);
   background: color-mix(in srgb, var(--category-accent, #3b82f6) 16%, transparent);
 }
+
+/* ── Welcome splash (locale root) ───────────────────────────────────────── */
+.welcome-splash {
+  --welcome-blue: #3b82f6;
+  --welcome-green: #22c55e;
+  --welcome-ink: #fafafa;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 100dvh;
+  width: 100%;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  overflow: hidden;
+  background: #050505;
+  color: var(--welcome-ink);
+}
+
+.welcome-splash--boot {
+  background: #050505;
+}
+
+.welcome-splash__atmosphere {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 50% 45% at 18% 30%, color-mix(in srgb, var(--welcome-blue) 38%, transparent), transparent 70%),
+    radial-gradient(ellipse 45% 50% at 82% 65%, color-mix(in srgb, var(--welcome-green) 28%, transparent), transparent 72%),
+    radial-gradient(ellipse 60% 40% at 50% 110%, color-mix(in srgb, #ef4444 12%, transparent), transparent 70%);
+  filter: blur(40px);
+  animation: welcome-splash-drift 18s ease-in-out infinite alternate;
+}
+
+.welcome-splash__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 75%);
+}
+
+.welcome-splash__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: min(40rem, 100%);
+  animation: welcome-splash-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.welcome-splash__eyebrow {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #a3a3a3;
+}
+
+.welcome-splash__brand {
+  margin: 0.35rem 0 0.15rem;
+}
+
+.welcome-splash__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1;
+}
+
+.welcome-splash__logo .joinmypdf-logo-text__icon,
+.welcome-splash__logo .header-pdf-mini,
+.welcome-splash__logo .header-pdf-mini svg {
+  width: clamp(2.4rem, 6vw, 3.5rem);
+  height: clamp(2.4rem, 6vw, 3.5rem);
+}
+
+.welcome-splash__logo .joinmypdf-logo-text__word {
+  font-size: inherit;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.welcome-splash__title {
+  margin: 0;
+  max-width: 18ch;
+  font-size: clamp(1.85rem, 4.8vw, 3.15rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+
+.welcome-splash__tagline {
+  margin: 0;
+  max-width: 34rem;
+  font-size: clamp(1rem, 2.1vw, 1.2rem);
+  line-height: 1.55;
+  color: #d4d4d4;
+  text-wrap: pretty;
+}
+
+.welcome-splash__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.welcome-splash__enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.95rem 1.45rem;
+  border: 1px solid color-mix(in srgb, var(--welcome-blue) 55%, #fff);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--welcome-blue) 88%, #fff),
+      color-mix(in srgb, var(--welcome-green) 70%, var(--welcome-blue))
+    );
+  color: #041018;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    filter 0.2s ease;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--welcome-blue) 30%, transparent),
+    0 12px 36px color-mix(in srgb, var(--welcome-blue) 35%, transparent);
+  animation: welcome-splash-cta 2.8s ease-in-out infinite;
+}
+
+.welcome-splash__enter:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--welcome-green) 40%, transparent),
+    0 16px 40px color-mix(in srgb, var(--welcome-blue) 45%, transparent);
+  animation: none;
+}
+
+.welcome-splash__enter:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.welcome-splash__enter-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  transition: transform 0.2s ease;
+}
+
+.welcome-splash__enter:hover .welcome-splash__enter-icon {
+  transform: translateX(3px);
+}
+
+html[dir="rtl"] .welcome-splash__enter:hover .welcome-splash__enter-icon {
+  transform: translateX(-3px);
+}
+
+html[dir="rtl"] .welcome-splash__enter-icon {
+  transform: scaleX(-1);
+}
+
+.welcome-splash__hint {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #737373;
+}
+
+@keyframes welcome-splash-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes welcome-splash-drift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, 2%, 0) scale(1.05);
+  }
+}
+
+@keyframes welcome-splash-cta {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--welcome-blue) 30%, transparent),
+      0 12px 36px color-mix(in srgb, var(--welcome-blue) 30%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--welcome-green) 35%, transparent),
+      0 14px 42px color-mix(in srgb, var(--welcome-blue) 48%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-splash__atmosphere,
+  .welcome-splash__content,
+  .welcome-splash__enter {
+    animation: none;
+  }
+
+  .welcome-splash__enter:hover,
+  .welcome-splash__enter:hover .welcome-splash__enter-icon {
+    transform: none;
+  }
+}

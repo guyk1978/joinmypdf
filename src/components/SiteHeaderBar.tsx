@@ -66,7 +66,7 @@ export function SiteHeaderBar() {
     >
       <nav className="site-header__bar site-header__bar--clean" aria-label={t("siteLabel")}>
         <Link
-          href="/"
+          href="/home"
           className="site-header__brand brand flex shrink-0 items-center"
           aria-label={getBrandName(locale)}
         >
