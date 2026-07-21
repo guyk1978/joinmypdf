@@ -328,6 +328,8 @@
       "carouselPause": "השהה גלילה אוטומטית",
       "carouselSizeExpand": "הגדל כרטיסים פי 2",
       "carouselSizeShrink": "החזר גודל כרטיסים רגיל",
+      "carouselStickyOn": "הצמד את הקטע בזמן גלילה",
+      "carouselStickyOff": "בטל הצמדה",
       "categoryBlurbs": {
         "pdf": "מיזוג, פיצול וסידור עמודים",
         "video": "חיתוך, המרה ודחיסת וידאו",

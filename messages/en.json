@@ -328,6 +328,8 @@
       "carouselPause": "Pause carousel autoplay",
       "carouselSizeExpand": "Double card size",
       "carouselSizeShrink": "Reset card size",
+      "carouselStickyOn": "Pin section while scrolling",
+      "carouselStickyOff": "Unpin section",
       "categoryBlurbs": {
         "pdf": "Merge, split, and organize pages",
         "video": "Trim, convert, and compress video",

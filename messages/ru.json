@@ -330,6 +330,8 @@
       "carouselPause": "Пауза автопрокрутки",
       "carouselSizeExpand": "Увеличить карточки в 2 раза",
       "carouselSizeShrink": "Вернуть обычный размер карточек",
+      "carouselStickyOn": "Закрепить секцию при прокрутке",
+      "carouselStickyOff": "Открепить секцию",
       "categoryBlurbs": {
         "pdf": "Merge, split, and organize pages",
         "video": "Trim, convert, and compress video",

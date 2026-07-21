@@ -7,9 +7,8 @@ const REVEAL_MARGIN_PX = 40;
 
 /**
  * Fades a homepage section in the first time it enters the viewport.
- * Uses an IntersectionObserver plus a bounding-rect check on mount/scroll
- * so content never stays hidden in environments where the observer is
- * throttled or unavailable.
+ * Clears residual transforms after settle so sticky/fixed children can pin
+ * to the viewport (transforms on ancestors create a containing block).
  */
 export function HomeReveal({
   children,
@@ -21,11 +20,20 @@ export function HomeReveal({
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [settled, setSettled] = useState(Boolean(reduceMotion));
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setVisible(true);
+      setSettled(true);
+    }
+  }, [reduceMotion]);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) {
       setVisible(true);
+      setSettled(true);
       return;
     }
 
@@ -73,6 +81,8 @@ export function HomeReveal({
       initial={reduceMotion ? false : { opacity: 0, y: 18 }}
       animate={visible ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.5, ease: "easeOut" }}
+      onAnimationComplete={() => setSettled(true)}
+      style={settled ? { transform: "none" } : undefined}
     >
       {children}
     </motion.div>

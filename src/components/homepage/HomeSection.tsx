@@ -5,11 +5,13 @@ import {
   isValidElement,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type ReactNode,
 } from "react";
-import { ChevronLeft, ChevronRight, Pause, Play, Scaling } from "lucide-react";
+import { createPortal } from "react-dom";
+import { ChevronLeft, ChevronRight, Pause, Pin, Play, Scaling } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { clsx } from "clsx";
 import { HomeSectionHeading } from "@/components/homepage/HomeSectionHeading";
@@ -24,22 +26,32 @@ type HomeSectionProps = {
 };
 
 /**
- * Homepage content section: H2 + inline play/pause & 2× size toggles + snap carousel.
+ * Homepage content section: H2 + inline play/pause, 2×, and pin controls + snap carousel.
+ * Pin uses position:fixed + a layout spacer so pinning works even if ancestors
+ * had transforms/overflow that break position:sticky.
  */
 export function HomeSection({ id, title, icon, children, className }: HomeSectionProps) {
   const locale = useLocale();
   const t = useTranslations("Home");
   const isRtl = locale === "he";
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
   const [largeCards, setLargeCards] = useState(false);
+  const [sticky, setSticky] = useState(false);
+  const [spacerHeight, setSpacerHeight] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [portalReady, setPortalReady] = useState(false);
 
   const slides = Children.toArray(children).filter(Boolean);
   const showArrowControls = slides.length > 1;
   const showHeaderControls = slides.length > 0;
+
+  useEffect(() => {
+    setPortalReady(true);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
@@ -49,6 +61,40 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
     mq.addEventListener?.("change", sync);
     return () => mq.removeEventListener?.("change", sync);
   }, []);
+
+  const measurePinnedHeight = useCallback(() => {
+    const el = sectionRef.current;
+    if (!el) return 0;
+    return Math.ceil(el.getBoundingClientRect().height);
+  }, []);
+
+  const toggleSticky = useCallback(() => {
+    setSticky((wasSticky) => {
+      if (wasSticky) {
+        setSpacerHeight(0);
+        return false;
+      }
+      const height = measurePinnedHeight();
+      setSpacerHeight(height || sectionRef.current?.offsetHeight || 0);
+      return true;
+    });
+  }, [measurePinnedHeight]);
+
+  useLayoutEffect(() => {
+    if (!sticky) return;
+    const height = measurePinnedHeight();
+    if (height > 0) setSpacerHeight(height);
+  }, [sticky, largeCards, slides.length, measurePinnedHeight]);
+
+  useEffect(() => {
+    if (!sticky) return;
+    const onResize = () => {
+      const height = measurePinnedHeight();
+      if (height > 0) setSpacerHeight(height);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [sticky, measurePinnedHeight]);
 
   const updateScrollState = useCallback(() => {
     const track = trackRef.current;
@@ -100,7 +146,7 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
       window.removeEventListener("resize", updateScrollState);
       ro?.disconnect();
     };
-  }, [updateScrollState, slides.length, largeCards]);
+  }, [updateScrollState, slides.length, largeCards, sticky]);
 
   const getStepAmount = useCallback(() => {
     const track = trackRef.current;
@@ -175,8 +221,17 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
 
   if (!slides.length) return null;
 
-  return (
-    <section aria-labelledby={id} className={clsx("home-section", className)}>
+  const sectionNode = (
+    <section
+      ref={sectionRef}
+      aria-labelledby={id}
+      data-pinned={sticky ? "true" : undefined}
+      className={clsx(
+        "home-section",
+        sticky && "home-section--pinned",
+        className,
+      )}
+    >
       <div className="home-section__header-row">
         <HomeSectionHeading id={id} icon={icon} className="home-section__heading--inline">
           {title}
@@ -229,6 +284,24 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
               <span className="home-section__control-label" aria-hidden>
                 2×
               </span>
+            </button>
+
+            <button
+              type="button"
+              className={clsx(
+                "home-section__control",
+                sticky && "home-section__control--active",
+              )}
+              aria-pressed={sticky}
+              aria-label={
+                sticky ? t("landing.carouselStickyOff") : t("landing.carouselStickyOn")
+              }
+              title={
+                sticky ? t("landing.carouselStickyOff") : t("landing.carouselStickyOn")
+              }
+              onClick={toggleSticky}
+            >
+              <Pin size={16} strokeWidth={2.25} aria-hidden />
             </button>
           </div>
         ) : null}
@@ -305,5 +378,21 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
         </div>
       </div>
     </section>
+  );
+
+  return (
+    <>
+      {sticky && spacerHeight > 0 ? (
+        <div
+          className="home-section__pin-spacer"
+          style={{ height: spacerHeight }}
+          aria-hidden
+        />
+      ) : null}
+
+      {sticky && portalReady
+        ? createPortal(sectionNode, document.body)
+        : sectionNode}
+    </>
   );
 }
