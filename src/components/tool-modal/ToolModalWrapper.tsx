@@ -182,6 +182,21 @@ export function ToolModalWrapper({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose, fullscreen]);
 
+  useEffect(() => {
+    if (!open) {
+      document.documentElement.removeAttribute("data-tool-modal-fullscreen");
+      return;
+    }
+    if (fullscreen) {
+      document.documentElement.setAttribute("data-tool-modal-fullscreen", "1");
+    } else {
+      document.documentElement.removeAttribute("data-tool-modal-fullscreen");
+    }
+    return () => {
+      document.documentElement.removeAttribute("data-tool-modal-fullscreen");
+    };
+  }, [open, fullscreen]);
+
   if (!mounted) return null;
 
   const calcLabel = labels?.calc ?? "CALC";
@@ -224,6 +239,7 @@ export function ToolModalWrapper({
         <div
           className={clsx(
             "tool-modal",
+            fullscreen && "tool-modal--fullscreen",
             !contentReady && "tool-modal--loading",
             className,
           )}
@@ -231,6 +247,7 @@ export function ToolModalWrapper({
           aria-modal="true"
           aria-labelledby={titleId}
           aria-busy={!contentReady}
+          data-fullscreen={fullscreen ? "1" : undefined}
         >
           {/* Opaque veil first — masks any background page paint / flicker */}
           <motion.button
@@ -241,7 +258,8 @@ export function ToolModalWrapper({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            onClick={onClose}
+            onClick={fullscreen ? undefined : onClose}
+            tabIndex={fullscreen ? -1 : undefined}
           />
 
           <motion.div
@@ -251,10 +269,14 @@ export function ToolModalWrapper({
             )}
             data-category={categoryId || undefined}
             style={accentStyle}
-            initial={{ opacity: 0, y: 36 }}
+            initial={fullscreen ? false : { opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ type: "spring", stiffness: 420, damping: 34, mass: 0.8 }}
+            exit={{ opacity: 0, y: fullscreen ? 0 : 20 }}
+            transition={
+              fullscreen
+                ? { duration: 0.18, ease: "easeOut" }
+                : { type: "spring", stiffness: 420, damping: 34, mass: 0.8 }
+            }
           >
             <header className="tool-modal__header">
               <h2 id={titleId} className="tool-modal__title">

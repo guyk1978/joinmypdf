@@ -2974,9 +2974,9 @@ html:has(.home-page-shell--minimal) body {
   inset: 0;
   z-index: 200;
   display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-  padding: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
   isolation: isolate;
 }
 
@@ -3040,11 +3040,10 @@ html:has(.home-page-shell--minimal) body {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  /* Default: fill the available viewport so the dropzone is edge-to-edge */
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  max-height: none;
+  /* Default: comfortably contained workspace (not edge-to-edge) */
+  width: min(100%, 1120px);
+  max-width: 1120px;
+  height: min(88vh, 820px);
   overflow: hidden;
   background: #0a0a0a;
   border: 1px solid #333;
@@ -3331,16 +3330,61 @@ html:has(.home-page-shell--minimal) body {
   color: #ededed;
 }
 
-.tool-modal__panel--fullscreen {
-  position: fixed;
-  inset: 0;
+/*
+ * True immersive fullscreen — expand the whole modal shell to the viewport
+ * (covers site header / nav). Panel fills the shell with relative sizing so
+ * Framer Motion transforms cannot create a nested fixed containing block.
+ */
+.tool-modal--fullscreen {
+  padding: 0 !important;
+  align-items: stretch;
+  justify-content: stretch;
   z-index: 9999;
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  max-height: none;
-  border: 0;
-  border-radius: 0;
+}
+
+.tool-modal--fullscreen .tool-modal__backdrop {
+  background: #0a0a0a;
+  cursor: default;
+  pointer-events: none;
+}
+
+.tool-modal__panel--fullscreen,
+.tool-modal--fullscreen .tool-modal__panel {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 1;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  max-height: none !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.tool-modal--fullscreen .tool-modal__header {
+  padding-inline: 1rem 0.75rem;
+  background: #0a0a0a;
+  border-bottom-color: #2a2a2a;
+}
+
+.tool-modal--fullscreen .tool-modal__fullscreen,
+.tool-modal--fullscreen .tool-modal__close {
+  color: #f5f5f5;
+  border-color: #404040;
+  background: #161616;
+}
+
+.tool-modal--fullscreen .tool-modal__fullscreen:hover,
+.tool-modal--fullscreen .tool-modal__close:hover {
+  border-color: #737373;
+  background: #1f1f1f;
 }
 
 /* Loupe toggle — dimmed with a diagonal strike when the magnifier is hidden. */
@@ -4148,6 +4192,13 @@ html[data-tool-modal-open="1"] .app-page-canvas {
 html[data-tool-modal-open="1"] .tool-modal {
   visibility: visible;
   pointer-events: auto;
+}
+
+/* Immersive expand covers the sticky site chrome completely */
+html[data-tool-modal-fullscreen="1"] .site-header,
+html[data-tool-modal-fullscreen="1"] .pinned-dock {
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 @media (max-width: 640px) {
