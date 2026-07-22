@@ -2,6 +2,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { RelatedAudioTools } from "@/components/tools/RelatedAudioTools";
 import { AudioToolMarketingSections } from "@/components/tools/AudioToolMarketingSections";
 import { AudioToolWorkspace } from "@/components/tools/AudioToolWorkspace";
+import { Mp4ToMp3IntroGate } from "@/components/Mp4ToMp3IntroGate";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
@@ -88,6 +89,7 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               slug={slug}
               stacked
             >
+              <Mp4ToMp3IntroGate active={tool.id === "mp4-to-mp3"}>
               <ToolLayout
                 faqs={faqs}
                 feedbackTitle={pageHeadline}
@@ -113,6 +115,7 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               >
                 <AudioToolWorkspace toolId={tool.id} />
               </ToolLayout>
+              </Mp4ToMp3IntroGate>
             </ToolPageShellProvider>
           </ToolGlassProvider>
         </div>

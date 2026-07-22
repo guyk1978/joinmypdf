@@ -493,6 +493,41 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את אזור ההעלאה כדי לשנות את מהירות הווידאו."
   },
+  "Mp4ToMp3Landing": {
+    "brand": "MP4 ל-MP3",
+    "titleRest": "- חלצו רצועות שמע מקבצי MP4 מיידית ובאופן מאובטח",
+    "subtitle": "הוציאו אודיו באיכות גבוהה מהווידאו — באופן פרטי בדפדפן שלכם.",
+    "mp4Name": "webinar-recording.mp4",
+    "mp3Name": "webinar-recording.mp3",
+    "bitrate": "320kbps",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לחלץ MP3 מתוך ה-MP4."
+  },
+  "VideoCompressorLanding": {
+    "brand": "דחיסת וידאו אונליין",
+    "titleRest": "- הקטינו גודל קובץ לשיתוף ואחסון קלים יותר",
+    "subtitle": "צמצמו MP4 עם בקרת CRF — באופן פרטי בדפדפן שלכם.",
+    "fileName": "screen-recording.mp4",
+    "sizeFrom": "450 MB",
+    "sizeMid": "180 MB",
+    "sizeTo": "45 MB",
+    "savings": "−90% קטן יותר",
+    "storage": "אחסון",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לדחוס את הווידאו."
+  },
+  "VideoConverterLanding": {
+    "brand": "ממיר וידאו",
+    "titleRest": "- המירו וידאו ל-MP4, WebM או MOV בדפדפן",
+    "subtitle": "המירו או קודדו מחדש פורמטים נפוצים — באופן פרטי במכשיר שלכם.",
+    "fileName": "camera-clip.avi",
+    "fmtSrc": ".AVI",
+    "fmtMp4": ".MP4",
+    "fmtWebm": ".WebM",
+    "fmtMov": ".MOV",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי להמיר את הווידאו."
+  },
   "Home": {
     "pickTool": "בחר כלי",
     "pickToolDescription": "כל תהליך נפתח בלחיצה אחת — אותו ממשק, אותו מודל פרטיות.",

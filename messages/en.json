@@ -493,6 +493,41 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the upload workspace to change video speed."
   },
+  "Mp4ToMp3Landing": {
+    "brand": "MP4 to MP3",
+    "titleRest": "- Extract Audio Tracks from MP4 Files Instantly and Securely",
+    "subtitle": "Pull high-quality audio from video — privately in your browser.",
+    "mp4Name": "webinar-recording.mp4",
+    "mp3Name": "webinar-recording.mp3",
+    "bitrate": "320kbps",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to extract MP3 from your MP4."
+  },
+  "VideoCompressorLanding": {
+    "brand": "Video Compressor Online",
+    "titleRest": "- Reduce Video File Size for Easier Sharing and Storage",
+    "subtitle": "Shrink MP4s with CRF control — privately in your browser.",
+    "fileName": "screen-recording.mp4",
+    "sizeFrom": "450 MB",
+    "sizeMid": "180 MB",
+    "sizeTo": "45 MB",
+    "savings": "−90% Smaller",
+    "storage": "Storage",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to compress your video."
+  },
+  "VideoConverterLanding": {
+    "brand": "Video Converter",
+    "titleRest": "- Convert Videos to MP4, WebM, or MOV in Your Browser",
+    "subtitle": "Remux or re-encode common formats — privately on your device.",
+    "fileName": "camera-clip.avi",
+    "fmtSrc": ".AVI",
+    "fmtMp4": ".MP4",
+    "fmtWebm": ".WebM",
+    "fmtMov": ".MOV",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to convert your video."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

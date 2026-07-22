@@ -89,6 +89,8 @@ import { VideoTrimmerIntroGate } from "@/components/VideoTrimmerIntroGate";
 import { VideoMuterIntroGate } from "@/components/VideoMuterIntroGate";
 import { VideoMetadataCleanerIntroGate } from "@/components/VideoMetadataCleanerIntroGate";
 import { VideoSpeedIntroGate } from "@/components/VideoSpeedIntroGate";
+import { VideoCompressorIntroGate } from "@/components/VideoCompressorIntroGate";
+import { VideoConverterIntroGate } from "@/components/VideoConverterIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -398,6 +400,8 @@ export default async function ToolPage({
             tool.operation === "video-speed-controller"
           }
         >
+        <VideoCompressorIntroGate active={tool.operation === "video-compressor"}>
+        <VideoConverterIntroGate active={tool.operation === "video-converter"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -685,6 +689,8 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </VideoConverterIntroGate>
+        </VideoCompressorIntroGate>
         </VideoSpeedIntroGate>
         </VideoMetadataCleanerIntroGate>
         </VideoMuterIntroGate>

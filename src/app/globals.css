@@ -85,14 +85,25 @@
 }
 
 html {
-  overflow-x: hidden;
-  max-width: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
   background-color: var(--site-canvas-bg);
   background-image: none;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   @apply min-h-screen text-white antialiased;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
   font-family: var(--site-font-family);
   font-size: var(--site-font-size-base);
   line-height: var(--site-line-height);
@@ -102,10 +113,14 @@ body {
   background-image: none;
   /* No overflow-x here: it would make <body> a scroll container and break
      the sticky header. Horizontal clipping is handled by the html rule. */
-  max-width: 100%;
 }
 
-/* Industrial Matte ? global scrollbars (main window, panels, drawers, modals) */
+/* Transient class during BFCache / popstate layout recovery */
+html.viewport-recovering {
+  scroll-behavior: auto;
+}
+
+/* Industrial Matte — global scrollbars (main window, panels, drawers, modals) */
 * {
   scrollbar-width: thin;
   scrollbar-color: #262626 #0a0a0a;
@@ -156,6 +171,8 @@ html:has(.home-page-shell--minimal) body {
 /* Full edge-to-edge application shell */
 .app-page-shell {
   box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
   min-height: 100vh;
   padding: 0;
   background-color: var(--app-canvas-bg);
@@ -168,7 +185,7 @@ html:has(.home-page-shell--minimal) body {
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  max-width: none;
+  max-width: 100vw;
   min-height: 100vh;
   flex-direction: column;
   margin-inline: auto;

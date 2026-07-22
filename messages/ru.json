@@ -495,6 +495,41 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте область загрузки, чтобы изменить скорость видео."
   },
+  "Mp4ToMp3Landing": {
+    "brand": "MP4 в MP3",
+    "titleRest": "- Извлеките аудио из MP4 мгновенно и безопасно",
+    "subtitle": "Выделите качественный звук из видео — конфиденциально в браузере.",
+    "mp4Name": "webinar-recording.mp4",
+    "mp3Name": "webinar-recording.mp3",
+    "bitrate": "320kbps",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы извлечь MP3 из MP4."
+  },
+  "VideoCompressorLanding": {
+    "brand": "Сжатие видео онлайн",
+    "titleRest": "- Уменьшите размер файла для удобной отправки и хранения",
+    "subtitle": "Сожмите MP4 с контролем CRF — конфиденциально в браузере.",
+    "fileName": "screen-recording.mp4",
+    "sizeFrom": "450 MB",
+    "sizeMid": "180 MB",
+    "sizeTo": "45 MB",
+    "savings": "−90% меньше",
+    "storage": "Хранилище",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы сжать видео."
+  },
+  "VideoConverterLanding": {
+    "brand": "Конвертер видео",
+    "titleRest": "- Конвертируйте видео в MP4, WebM или MOV в браузере",
+    "subtitle": "Перепакуйте или перекодируйте популярные форматы — конфиденциально на устройстве.",
+    "fileName": "camera-clip.avi",
+    "fmtSrc": ".AVI",
+    "fmtMp4": ".MP4",
+    "fmtWebm": ".WebM",
+    "fmtMov": ".MOV",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы конвертировать видео."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",
