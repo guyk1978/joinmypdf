@@ -8,8 +8,7 @@ import { CategoryHubsSection } from "@/components/CategoryHubsSection";
 
 /**
  * Header "Tools" button + full-screen Category Hub overlay.
- * Opens a centered, fade-in grid of all category hubs (the same
- * CategoryHubsSection used on the homepage). Closes on Escape, backdrop
+ * Opens a fade-in grid of all category hubs. Closes on Escape, backdrop
  * click, the X button, or when a category link is clicked.
  */
 export function HeaderCategoryHub() {
@@ -17,6 +16,7 @@ export function HeaderCategoryHub() {
   const tHome = useTranslations("Home");
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
+  const title = tHome("landing.categoriesTitle");
 
   useEffect(() => {
     if (!open) return;
@@ -51,20 +51,25 @@ export function HeaderCategoryHub() {
               className="category-hub-overlay"
               role="dialog"
               aria-modal="true"
-              aria-label={tHome("landing.categoriesTitle")}
+              aria-labelledby="category-hub-overlay-title"
               onClick={(event) => {
                 if (event.target === event.currentTarget) close();
               }}
             >
-              <button
-                type="button"
-                className="category-hub-overlay__close"
-                aria-label={tHeader("allTools.close")}
-                onClick={close}
-                autoFocus
-              >
-                <X className="category-hub-overlay__close-icon" strokeWidth={2} aria-hidden />
-              </button>
+              <header className="category-hub-overlay__header">
+                <h2 id="category-hub-overlay-title" className="category-hub-overlay__title">
+                  {title}
+                </h2>
+                <button
+                  type="button"
+                  className="category-hub-overlay__close"
+                  aria-label={tHeader("allTools.close")}
+                  onClick={close}
+                  autoFocus
+                >
+                  <X className="category-hub-overlay__close-icon" strokeWidth={2} aria-hidden />
+                </button>
+              </header>
 
               <div
                 className="category-hub-overlay__panel w-full h-full"
@@ -79,10 +84,6 @@ export function HeaderCategoryHub() {
                   className="category-hub-overlay__grid"
                   hideHead
                   dense
-                  centerHead={{
-                    eyebrow: tHome("landing.categoriesEyebrow"),
-                    title: tHome("landing.categoriesTitle"),
-                  }}
                   navLabel={tHome("landing.heroCategoriesLabel")}
                 />
               </div>

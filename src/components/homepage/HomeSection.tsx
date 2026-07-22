@@ -2,6 +2,7 @@
 
 import {
   Children,
+  cloneElement,
   isValidElement,
   useCallback,
   useEffect,
@@ -15,7 +16,10 @@ import { ChevronLeft, ChevronRight, Pause, Pin, Play, Scaling } from "lucide-rea
 import { useLocale, useTranslations } from "next-intl";
 import { clsx } from "clsx";
 import { HomeSectionHeading } from "@/components/homepage/HomeSectionHeading";
-import { HOME_SECTION_AUTOPLAY_MS } from "@/components/homepage/home-section";
+import {
+  HOME_SECTION_ARROW_STEP_CARDS,
+  HOME_SECTION_MARQUEE_PX_PER_SEC,
+} from "@/components/homepage/home-section";
 
 type HomeSectionProps = {
   id: string;
@@ -39,6 +43,7 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
   const [autoplay, setAutoplay] = useState(false);
+  const autoplayRef = useRef(false);
   const [largeCards, setLargeCards] = useState(false);
   const [sticky, setSticky] = useState(false);
   const [spacerHeight, setSpacerHeight] = useState(0);
@@ -48,6 +53,8 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
   const slides = Children.toArray(children).filter(Boolean);
   const showArrowControls = slides.length > 1;
   const showHeaderControls = slides.length > 0;
+  /** Second copy enables a seamless marquee loop while play mode is active. */
+  const marqueeActive = autoplay && !reduceMotion && showArrowControls;
 
   useEffect(() => {
     setPortalReady(true);
@@ -146,23 +153,52 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
       window.removeEventListener("resize", updateScrollState);
       ro?.disconnect();
     };
-  }, [updateScrollState, slides.length, largeCards, sticky]);
+  }, [updateScrollState, slides.length, largeCards, sticky, marqueeActive]);
 
-  const getStepAmount = useCallback(() => {
+  const getCardStride = useCallback(() => {
     const track = trackRef.current;
     if (!track) return 0;
     const slide = track.querySelector<HTMLElement>(".home-section-carousel__slide");
     const styles = track.ownerDocument.defaultView?.getComputedStyle(track);
     const gap = Number.parseFloat(styles?.columnGap || styles?.gap || "12") || 12;
-    return (slide?.offsetWidth ?? Math.min(264, track.clientWidth * 0.8)) + gap;
+    return (slide?.offsetWidth ?? Math.min(272, track.clientWidth * 0.8)) + gap;
+  }, []);
+
+  const getStepAmount = useCallback(
+    (cardCount = 1) => getCardStride() * Math.max(1, cardCount),
+    [getCardStride],
+  );
+
+  /** Width of one logical slide set — used to wrap the duplicated marquee seamlessly. */
+  const getMarqueeLoopDistance = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return 0;
+    const items = track.querySelectorAll<HTMLElement>(".home-section-carousel__slide");
+    const half = Math.floor(items.length / 2);
+    if (half < 1) return 0;
+
+    const styles = track.ownerDocument.defaultView?.getComputedStyle(track);
+    const gap = Number.parseFloat(styles?.columnGap || styles?.gap || "12") || 12;
+
+    let width = 0;
+    for (let i = 0; i < half; i += 1) {
+      width += items[i]?.offsetWidth ?? 0;
+    }
+    // Include the gap after each card in the first set (including the seam gap).
+    width += gap * half;
+    return width;
   }, []);
 
   const scrollByDir = useCallback(
-    (direction: "prev" | "next", behavior: ScrollBehavior = "smooth") => {
+    (
+      direction: "prev" | "next",
+      behavior: ScrollBehavior = "smooth",
+      cardCount = HOME_SECTION_ARROW_STEP_CARDS,
+    ) => {
       const track = trackRef.current;
       if (!track) return;
 
-      const amount = getStepAmount();
+      const amount = getStepAmount(cardCount);
       if (!amount) return;
       const sign = direction === "next" ? 1 : -1;
       const delta = sign * amount * (isRtl ? -1 : 1);
@@ -171,53 +207,93 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
     [getStepAmount, isRtl],
   );
 
-  const scrollToStart = useCallback((behavior: ScrollBehavior = "smooth") => {
-    const track = trackRef.current;
-    if (!track) return;
-    track.scrollTo({ left: 0, behavior });
+  const pauseAutoplay = useCallback(() => {
+    autoplayRef.current = false;
+    setAutoplay(false);
   }, []);
 
-  const pauseAutoplay = useCallback(() => setAutoplay(false), []);
+  const toggleAutoplay = useCallback(() => {
+    setAutoplay((value) => {
+      const next = !value;
+      autoplayRef.current = next;
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
-    if (!autoplay || reduceMotion || !showArrowControls) return;
+    autoplayRef.current = autoplay;
+  }, [autoplay]);
 
-    const tick = () => {
-      const track = trackRef.current;
-      if (!track) return;
+  useEffect(() => {
+    if (!marqueeActive) return;
+    const track = trackRef.current;
+    if (!track) return;
 
-      const { scrollLeft, scrollWidth, clientWidth } = track;
-      const maxScroll = Math.max(0, scrollWidth - clientWidth);
-      const epsilon = 4;
-      if (maxScroll <= epsilon) return;
+    let frameId = 0;
+    let lastTs = performance.now();
 
-      const left = Math.abs(scrollLeft);
-      const atStart = left <= epsilon;
-      const atEnd = left >= maxScroll - epsilon;
-      const canAdvance = isRtl ? !atStart : !atEnd;
+    const tick = (now: number) => {
+      if (!autoplayRef.current) return;
 
-      if (!canAdvance) {
-        scrollToStart("smooth");
+      const rawDt = (now - lastTs) / 1000;
+      lastTs = now;
+      // Clamp so a backgrounded tab doesn't jump a huge distance on resume.
+      const dt = Math.min(0.048, Math.max(0, rawDt));
+      const delta = HOME_SECTION_MARQUEE_PX_PER_SEC * dt;
+      if (delta <= 0) {
+        frameId = window.requestAnimationFrame(tick);
         return;
       }
 
-      scrollByDir("next", "smooth");
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      if (maxScroll <= 4) {
+        frameId = window.requestAnimationFrame(tick);
+        return;
+      }
+
+      const signedDelta = delta * (isRtl ? -1 : 1);
+      track.scrollLeft += signedDelta;
+
+      const loopDistance = getMarqueeLoopDistance();
+      if (loopDistance > 0) {
+        if (!isRtl) {
+          while (track.scrollLeft >= loopDistance) {
+            track.scrollLeft -= loopDistance;
+          }
+        } else {
+          // RTL engines may use negative scrollLeft; normalize via abs distance.
+          while (Math.abs(track.scrollLeft) >= loopDistance) {
+            track.scrollLeft += loopDistance * (track.scrollLeft <= 0 ? 1 : -1);
+          }
+        }
+      } else if (Math.abs(track.scrollLeft) >= maxScroll - 1) {
+        track.scrollLeft = 0;
+      }
+
+      frameId = window.requestAnimationFrame(tick);
     };
 
-    const timerId = window.setInterval(tick, HOME_SECTION_AUTOPLAY_MS);
-    return () => window.clearInterval(timerId);
-  }, [
-    autoplay,
-    reduceMotion,
-    showArrowControls,
-    isRtl,
-    scrollByDir,
-    scrollToStart,
-  ]);
+    frameId = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frameId);
+  }, [marqueeActive, isRtl, getMarqueeLoopDistance, largeCards, slides.length]);
 
   useEffect(() => {
-    if (reduceMotion && autoplay) setAutoplay(false);
+    if (reduceMotion && autoplay) {
+      autoplayRef.current = false;
+      setAutoplay(false);
+    }
   }, [reduceMotion, autoplay]);
+
+  // Drop the duplicated marquee copy without leaving scroll mid-clone.
+  useLayoutEffect(() => {
+    if (marqueeActive) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+    if (Math.abs(track.scrollLeft) > maxScroll) {
+      track.scrollLeft = isRtl ? -maxScroll : maxScroll;
+    }
+  }, [marqueeActive, isRtl, slides.length, largeCards]);
 
   if (!slides.length) return null;
 
@@ -251,7 +327,7 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
                   autoplay ? t("landing.carouselPause") : t("landing.carouselPlay")
                 }
                 title={autoplay ? t("landing.carouselPause") : t("landing.carouselPlay")}
-                onClick={() => setAutoplay((value) => !value)}
+                onClick={toggleAutoplay}
               >
                 {autoplay ? (
                   <Pause size={16} strokeWidth={2.25} aria-hidden />
@@ -311,6 +387,7 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
         className={clsx(
           "home-section-carousel",
           largeCards && "home-section-carousel--large",
+          marqueeActive && "home-section-carousel--marquee",
         )}
       >
         {showArrowControls ? (
@@ -352,7 +429,10 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
 
         <div
           ref={trackRef}
-          className="home-section-carousel__track"
+          className={clsx(
+            "home-section-carousel__track",
+            marqueeActive && "home-section-carousel__track--marquee",
+          )}
           role="region"
           aria-label={title}
           aria-roledescription="carousel"
@@ -365,16 +445,32 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
             }
           }}
         >
-          {slides.map((child, index) => (
-            <div
-              key={
-                isValidElement(child) && child.key != null ? String(child.key) : index
-              }
-              className="home-section-carousel__slide"
-            >
-              {child}
-            </div>
-          ))}
+          {slides.map((child, index) => {
+            const baseKey =
+              isValidElement(child) && child.key != null ? String(child.key) : String(index);
+            return (
+              <div key={baseKey} className="home-section-carousel__slide">
+                {child}
+              </div>
+            );
+          })}
+          {marqueeActive
+            ? slides.map((child, index) => {
+                const baseKey =
+                  isValidElement(child) && child.key != null
+                    ? String(child.key)
+                    : String(index);
+                return (
+                  <div
+                    key={`${baseKey}__marquee`}
+                    className="home-section-carousel__slide"
+                    aria-hidden
+                  >
+                    {isValidElement(child) ? cloneElement(child) : child}
+                  </div>
+                );
+              })
+            : null}
         </div>
       </div>
     </section>

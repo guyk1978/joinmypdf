@@ -161,6 +161,11 @@ export function CategoryHubsSection({
   const Root = hideHead && !centerHead ? "div" : "section";
   const titleId = "category-hubs-title";
 
+  const resolveTitle = (id: InventoryCategoryId, fallback: string) => {
+    const key = `landing.categoryTitles.${id}`;
+    return t.has(key) ? t(key) : fallback;
+  };
+
   const resolveBlurb = (id: InventoryCategoryId, fallback: string) => {
     const key = `landing.categoryBlurbs.${id}`;
     return t.has(key) ? t(key) : fallback;
@@ -206,7 +211,10 @@ export function CategoryHubsSection({
             <li key={category.id} className="category-hubs__item">
               <CategoryHubCard
                 href={category.href}
-                title={category.title}
+                title={resolveTitle(
+                  category.id as InventoryCategoryId,
+                  category.title,
+                )}
                 categoryId={category.id as InventoryCategoryId}
                 toolCount={category.toolCount}
                 toolCountLabel={
