@@ -443,6 +443,56 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the upload workspace to watermark your photos."
   },
+  "VideoTrimmerLanding": {
+    "brand": "Video Trimmer",
+    "titleRest": "- Quickly Cut Clips from Your Videos Directly in Your Browser",
+    "subtitle": "Set in and out points on a live timeline — privately on your device.",
+    "start": "Start",
+    "end": "End",
+    "keep": "Keep",
+    "timeRange": "0:12 – 0:48",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to trim your video."
+  },
+  "VideoMuterLanding": {
+    "brand": "Video Muter",
+    "titleRest": "- Mute Videos by Removing the Audio Track Instantly",
+    "subtitle": "Strip sound with stream copy — picture quality stays identical, privately in your browser.",
+    "audioOn": "Audio on",
+    "audioOff": "Silent",
+    "audioRemoved": "Audio Removed",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to mute your video."
+  },
+  "VideoMetadataCleanerLanding": {
+    "brand": "Video Metadata Cleaner",
+    "titleRest": "- Strip Video Metadata Like Location and Device Details",
+    "subtitle": "Preview GPS, device, and timestamps — then scrub them locally before you share.",
+    "fileName": "vacation-clip.mp4",
+    "fileSize": "MP4 · 48.2 MB",
+    "panelTitle": "Metadata inspection",
+    "gpsKey": "GPS Location",
+    "gpsVal": "32.0853° N, 34.7818° E",
+    "deviceKey": "Device",
+    "deviceVal": "ProCamera X",
+    "timeKey": "Timestamp",
+    "timeVal": "2026-07-12 18:42:09",
+    "status": "Metadata Scrubbed · 100% Secure",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to clean video metadata."
+  },
+  "VideoSpeedLanding": {
+    "brand": "Video Speed Controller",
+    "titleRest": "- Change Video Playback Speed to Slow-Motion or Timelapse Instantly",
+    "subtitle": "Dial 0.5× to 2× — slow-mo or timelapse, privately in your browser.",
+    "rate05": "0.5x",
+    "rate1": "1x",
+    "rate2": "2x",
+    "slowMo": "Slow-motion",
+    "timelapse": "Timelapse",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to change video speed."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

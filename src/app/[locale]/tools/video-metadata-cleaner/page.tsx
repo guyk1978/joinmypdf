@@ -5,6 +5,7 @@ import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { RelatedTools } from "@/components/RelatedTools";
 import { VideoMetadataCleanerWorkspace } from "@/components/tools/VideoMetadataCleanerWorkspace";
+import { VideoMetadataCleanerIntroGate } from "@/components/VideoMetadataCleanerIntroGate";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -78,7 +79,9 @@ export default async function VideoMetadataCleanerPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <VideoMetadataCleanerWorkspace tool={tool} slug={SLUG} />
+              <VideoMetadataCleanerIntroGate active={tool.operation === "video-metadata-cleaner"}>
+                <VideoMetadataCleanerWorkspace tool={tool} slug={SLUG} />
+              </VideoMetadataCleanerIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

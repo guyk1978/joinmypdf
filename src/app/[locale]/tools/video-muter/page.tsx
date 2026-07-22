@@ -5,6 +5,7 @@ import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { RelatedTools } from "@/components/RelatedTools";
 import { VideoMuterWorkspace } from "@/components/tools/VideoMuterWorkspace";
+import { VideoMuterIntroGate } from "@/components/VideoMuterIntroGate";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -78,7 +79,9 @@ export default async function VideoMuterPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <VideoMuterWorkspace tool={tool} slug={SLUG} />
+              <VideoMuterIntroGate active={tool.operation === "video-muter"}>
+                <VideoMuterWorkspace tool={tool} slug={SLUG} />
+              </VideoMuterIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

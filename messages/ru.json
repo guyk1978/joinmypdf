@@ -445,6 +445,56 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте область загрузки, чтобы добавить водяной знак."
   },
+  "VideoTrimmerLanding": {
+    "brand": "Обрезка видео",
+    "titleRest": "- Быстро вырезайте клипы прямо в браузере",
+    "subtitle": "Задайте точки входа и выхода на живой шкале — конфиденциально на устройстве.",
+    "start": "Старт",
+    "end": "Конец",
+    "keep": "Сохранить",
+    "timeRange": "0:12 – 0:48",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы обрезать видео."
+  },
+  "VideoMuterLanding": {
+    "brand": "Отключение звука в видео",
+    "titleRest": "- Мгновенно удалите аудиодорожку",
+    "subtitle": "Уберите звук копированием потока — качество картинки то же, конфиденциально в браузере.",
+    "audioOn": "Звук вкл.",
+    "audioOff": "Тишина",
+    "audioRemoved": "Аудио удалено",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы отключить звук видео."
+  },
+  "VideoMetadataCleanerLanding": {
+    "brand": "Очистка метаданных видео",
+    "titleRest": "- Удалите геолокацию и данные устройства",
+    "subtitle": "Просмотрите GPS, устройство и метки времени — затем очистите локально перед отправкой.",
+    "fileName": "vacation-clip.mp4",
+    "fileSize": "MP4 · 48.2 MB",
+    "panelTitle": "Проверка метаданных",
+    "gpsKey": "GPS-локация",
+    "gpsVal": "32.0853° N, 34.7818° E",
+    "deviceKey": "Устройство",
+    "deviceVal": "ProCamera X",
+    "timeKey": "Метка времени",
+    "timeVal": "2026-07-12 18:42:09",
+    "status": "Метаданные очищены · 100% безопасно",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы очистить метаданные видео."
+  },
+  "VideoSpeedLanding": {
+    "brand": "Контроллер скорости видео",
+    "titleRest": "- Замедление или таймлапс мгновенно",
+    "subtitle": "От 0.5× до 2× — слоу-мо или таймлапс, конфиденциально в браузере.",
+    "rate05": "0.5x",
+    "rate1": "1x",
+    "rate2": "2x",
+    "slowMo": "Замедление",
+    "timelapse": "Таймлапс",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы изменить скорость видео."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

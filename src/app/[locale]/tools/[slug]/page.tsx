@@ -85,6 +85,10 @@ import { FlipImageIntroGate } from "@/components/FlipImageIntroGate";
 import { DrawOnImageIntroGate } from "@/components/DrawOnImageIntroGate";
 import { ImageBlurRedactIntroGate } from "@/components/ImageBlurRedactIntroGate";
 import { ImageWatermarkIntroGate } from "@/components/ImageWatermarkIntroGate";
+import { VideoTrimmerIntroGate } from "@/components/VideoTrimmerIntroGate";
+import { VideoMuterIntroGate } from "@/components/VideoMuterIntroGate";
+import { VideoMetadataCleanerIntroGate } from "@/components/VideoMetadataCleanerIntroGate";
+import { VideoSpeedIntroGate } from "@/components/VideoSpeedIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -385,6 +389,15 @@ export default async function ToolPage({
         <DrawOnImageIntroGate active={tool.operation === "paint-on-image"}>
         <ImageBlurRedactIntroGate active={tool.operation === "image-blur-redact"}>
         <ImageWatermarkIntroGate active={tool.operation === "image-watermark"}>
+        <VideoTrimmerIntroGate active={tool.operation === "video-trimmer"}>
+        <VideoMuterIntroGate active={tool.operation === "video-muter"}>
+        <VideoMetadataCleanerIntroGate active={tool.operation === "video-metadata-cleaner"}>
+        <VideoSpeedIntroGate
+          active={
+            tool.operation === "video-speed" ||
+            tool.operation === "video-speed-controller"
+          }
+        >
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -672,6 +685,10 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </VideoSpeedIntroGate>
+        </VideoMetadataCleanerIntroGate>
+        </VideoMuterIntroGate>
+        </VideoTrimmerIntroGate>
         </ImageWatermarkIntroGate>
         </ImageBlurRedactIntroGate>
         </DrawOnImageIntroGate>
