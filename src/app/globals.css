@@ -10340,10 +10340,7 @@ body.site-search-open {
     background-color 0.3s ease-in-out,
     border-color 0.3s ease-in-out,
     color 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out,
-    height 0.3s ease-in-out,
-    min-height 0.3s ease-in-out,
-    padding 0.3s ease-in-out;
+    box-shadow 0.3s ease-in-out;
 }
 
 .site-header--glass {
@@ -10361,13 +10358,38 @@ body.site-search-open {
     0 8px 32px rgba(0, 0, 0, 0.24);
 }
 
+/* Animatable scale factor — width is compensated so the bar stays full-bleed. */
+@property --site-header-scale {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
 
+:root {
+  --site-header-expanded-height: 120px;
+  --site-header-compact-height: 60px;
+  --site-header-height: var(--site-header-expanded-height);
+}
+
+html.site-header-is-compact {
+  /* Sticky offsets track the scaled visual, not the fixed layout shell. */
+  --site-header-height: var(--site-header-compact-height);
+}
+
+@media (max-width: 639px) {
+  :root {
+    --site-header-expanded-height: 96px;
+  }
+}
 
 /* Header — Black-Matte Utility dashboard
-   Default = expanded (2×) at page top; .site-header--scrolled = compact. */
+   Layout height stays fixed (expanded). Visual layer shrinks via GPU scale —
+   no height/padding reflow mid-scroll. */
 .site-header--matte {
   --site-header-logo-bg: #121212;
-  --site-header-height: 120px;
+  --site-header-scale: 1;
+  /* Layout occupancy stays expanded forever — no height reflow / jitter. */
+  --site-header-height: var(--site-header-expanded-height);
   --site-header-control-height: 72px;
   --site-header-control-pad-y: 1rem;
   --site-header-control-pad-x: 1.5rem;
@@ -10380,54 +10402,65 @@ body.site-search-open {
   --site-header-search-pad-y: 0.85rem;
   --site-header-search-pad-x: 1.25rem;
   --site-header-bar-gap: 1.5rem;
-  display: flex;
-  align-items: center;
-  height: var(--site-header-height);
-  min-height: var(--site-header-height);
-  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  display: block;
+  height: var(--site-header-expanded-height);
+  min-height: var(--site-header-expanded-height);
+  border-bottom: none;
   border-radius: 0;
-  background: #121212;
+  background: transparent;
   color: rgb(250 250 250);
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  transition:
-    background-color 0.3s ease-in-out,
-    border-color 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out,
-    height 0.3s ease-in-out,
-    min-height 0.3s ease-in-out;
+  pointer-events: none;
+  transition: none;
 }
 
 .site-header--clean {
-  background: #121212 !important;
+  background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
-/* Scrolled compact state: half the expanded scale (original layout). */
+.site-header__visual {
+  pointer-events: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: var(--site-header-expanded-height);
+  width: calc(100% / var(--site-header-scale));
+  margin-inline-start: calc(50% * (1 - (1 / var(--site-header-scale))));
+  border-bottom: 1px solid #333;
+  background: #121212;
+  color: inherit;
+  transform: translateZ(0) scale(var(--site-header-scale));
+  transform-origin: top center;
+  transition:
+    --site-header-scale 0.3s ease-in-out,
+    background-color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Scrolled: GPU scale to compact; layout shell height unchanged. */
 .site-header--matte.site-header--scrolled {
-  --site-header-height: 60px;
-  --site-header-control-height: 36px;
-  --site-header-control-pad-y: 0.5rem;
-  --site-header-control-pad-x: 0.75rem;
-  --site-header-control-font: 0.75rem;
-  --site-header-logo-font: 1.125rem;
-  --site-header-logo-icon: 22px;
-  --site-header-nav-icon-size: 15px;
-  --site-header-search-font: 0.9375rem;
-  --site-header-search-icon: 1.125rem;
-  --site-header-search-pad-y: 0.4rem;
-  --site-header-search-pad-x: 0.75rem;
-  --site-header-bar-gap: 1rem;
+  --site-header-scale: 0.5;
 }
 
 /* Scrolled surface: slightly darker + translucent so the sticky bar reads as
    a distinct layer above content sliding underneath it. */
-.site-header--clean.site-header--scrolled {
-  background: rgb(10 10 10 / 0.94) !important;
-  backdrop-filter: blur(14px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+.site-header--clean.site-header--scrolled .site-header__visual {
+  background: rgb(10 10 10 / 0.94);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
   border-bottom-color: #3d3d3d;
   box-shadow: 0 8px 24px rgb(0 0 0 / 0.45);
 }
@@ -10442,10 +10475,7 @@ body.site-search-open {
   margin-inline: auto;
   padding-inline: var(--app-content-pad-x);
   height: 100%;
-  min-height: var(--site-header-height);
-  transition:
-    gap 0.3s ease-in-out,
-    min-height 0.3s ease-in-out;
+  min-height: var(--site-header-expanded-height);
 }
 
 .site-header__bar--clean {
@@ -10461,7 +10491,6 @@ body.site-search-open {
   flex-shrink: 0;
   height: var(--site-header-control-height);
   line-height: 1;
-  transition: height 0.3s ease-in-out;
 }
 
 /* Unified NavigationDrawer (Industrial Matte) */
@@ -10891,16 +10920,12 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
-  transition: font-size 0.3s ease-in-out;
 }
 
 .site-header--matte .header-pdf-mini,
 .site-header--matte .header-pdf-mini--tight {
   width: var(--site-header-logo-icon, 22px);
   height: var(--site-header-logo-icon, 22px);
-  transition:
-    width 0.3s ease-in-out,
-    height 0.3s ease-in-out;
 }
 
 .site-header--matte .header-pdf-mini svg,
@@ -10951,12 +10976,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   transition:
     color 0.15s ease,
     border-color 0.15s ease,
-    background-color 0.15s ease,
-    height 0.3s ease-in-out,
-    min-height 0.3s ease-in-out,
-    padding 0.3s ease-in-out,
-    font-size 0.3s ease-in-out,
-    gap 0.3s ease-in-out;
+    background-color 0.15s ease;
 }
 
 .site-header__nav-link:hover,
@@ -10972,9 +10992,6 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   width: var(--site-header-nav-icon-size, 15px);
   height: var(--site-header-nav-icon-size, 15px);
   opacity: 0.85;
-  transition:
-    width 0.3s ease-in-out,
-    height 0.3s ease-in-out;
 }
 
 .site-header--matte .site-search--header-bar .site-search__field,
@@ -10987,9 +11004,6 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   background: #2a2a2a;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
   transition:
-    height 0.3s ease-in-out,
-    min-height 0.3s ease-in-out,
-    padding 0.3s ease-in-out,
     border-color 0.2s ease,
     background-color 0.2s ease,
     box-shadow 0.2s ease;
@@ -11005,7 +11019,6 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 .site-header--matte .site-search--header .site-search__input {
   font-size: var(--site-header-search-font);
   color: #f5f5f5;
-  transition: font-size 0.3s ease-in-out;
 }
 
 .site-header--matte .site-search--header-bar .site-search__input::placeholder,
@@ -11023,23 +11036,16 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 .site-header--matte .site-search--header .site-search__toggle-icon {
   width: var(--site-header-search-icon);
   height: var(--site-header-search-icon);
-  transition:
-    width 0.3s ease-in-out,
-    height 0.3s ease-in-out;
 }
 
 .site-header--matte .site-header__overflow-trigger {
   min-height: var(--site-header-control-height);
   height: var(--site-header-control-height);
-  transition:
-    height 0.3s ease-in-out,
-    min-height 0.3s ease-in-out,
-    padding 0.3s ease-in-out;
 }
 
 @media (max-width: 639px) {
-  .site-header--matte:not(.site-header--scrolled) {
-    --site-header-height: 96px;
+  .site-header--matte {
+    --site-header-expanded-height: 96px;
     --site-header-control-height: 56px;
     --site-header-control-font: 1rem;
     --site-header-logo-font: 1.5rem;
@@ -11047,27 +11053,29 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
     --site-header-nav-icon-size: 22px;
     --site-header-control-pad-x: 0.85rem;
   }
+
+  /* 60/96 — keep compact visual height at 60px on small screens. */
+  .site-header--matte.site-header--scrolled {
+    --site-header-scale: 0.625;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-header,
-  .site-header--matte,
-  .site-header--matte .site-header__bar,
-  .site-header--matte .site-header__brand,
-  .site-header--matte .joinmypdf-logo-text__word,
-  .site-header--matte .header-pdf-mini,
-  .site-header--matte .header-pdf-mini--tight,
-  .site-header__nav-link,
-  .site-header__nav-icon,
-  .site-header--matte .site-search--header-bar .site-search__field,
-  .site-header--matte .site-search--header .site-search__field,
-  .site-header--matte .site-search--header-bar .site-search__input,
-  .site-header--matte .site-search--header .site-search__input,
-  .site-header--matte .site-search--header-bar .site-search__icon-svg,
-  .site-header--matte .site-search--header .site-search__icon-svg,
-  .site-header--matte .site-search--header .site-search__toggle-icon,
-  .site-header--matte .site-header__overflow-trigger {
-    transition: none;
+  .site-header__visual {
+    transition:
+      background-color 0.3s ease-in-out,
+      border-color 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out;
+  }
+
+  .site-header--matte.site-header--scrolled {
+    --site-header-scale: 0.5;
+  }
+
+  @media (max-width: 639px) {
+    .site-header--matte.site-header--scrolled {
+      --site-header-scale: 0.625;
+    }
   }
 }
 
