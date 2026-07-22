@@ -79,6 +79,12 @@ import { SplitPdfIntroGate } from "@/components/SplitPdfIntroGate";
 import { BookletPdfIntroGate } from "@/components/BookletPdfIntroGate";
 import { ReorderPdfPagesIntroGate } from "@/components/ReorderPdfPagesIntroGate";
 import { ResizeImageIntroGate } from "@/components/ResizeImageIntroGate";
+import { CropImageIntroGate } from "@/components/CropImageIntroGate";
+import { RotateAlignIntroGate } from "@/components/RotateAlignIntroGate";
+import { FlipImageIntroGate } from "@/components/FlipImageIntroGate";
+import { DrawOnImageIntroGate } from "@/components/DrawOnImageIntroGate";
+import { ImageBlurRedactIntroGate } from "@/components/ImageBlurRedactIntroGate";
+import { ImageWatermarkIntroGate } from "@/components/ImageWatermarkIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -373,6 +379,12 @@ export default async function ToolPage({
         <BookletPdfIntroGate active={tool.operation === "pdf-to-booklet"}>
         <ReorderPdfPagesIntroGate active={tool.operation === "reorder-pdf-pages"}>
         <ResizeImageIntroGate active={tool.operation === "resize-image"}>
+        <CropImageIntroGate active={tool.operation === "crop-image"}>
+        <RotateAlignIntroGate active={tool.operation === "rotate-image"}>
+        <FlipImageIntroGate active={tool.operation === "flip-image"}>
+        <DrawOnImageIntroGate active={tool.operation === "paint-on-image"}>
+        <ImageBlurRedactIntroGate active={tool.operation === "image-blur-redact"}>
+        <ImageWatermarkIntroGate active={tool.operation === "image-watermark"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -660,6 +672,12 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </ImageWatermarkIntroGate>
+        </ImageBlurRedactIntroGate>
+        </DrawOnImageIntroGate>
+        </FlipImageIntroGate>
+        </RotateAlignIntroGate>
+        </CropImageIntroGate>
         </ResizeImageIntroGate>
         </ReorderPdfPagesIntroGate>
         </BookletPdfIntroGate>

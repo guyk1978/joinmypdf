@@ -378,6 +378,71 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the upload workspace to resize your image."
   },
+  "CropImageLanding": {
+    "brand": "Crop Image Online",
+    "titleRest": "- Easily Trim or Remove Unwanted Areas",
+    "subtitle": "Frame the area you want and cut the rest — privately in your browser.",
+    "croppedLabel": "Cropped",
+    "progressLabel": "Free & Fast",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to crop your image."
+  },
+  "RotateAlignLanding": {
+    "brand": "Rotate & Align Suite Online",
+    "titleRest": "- Straighten and Orient Files Perfectly",
+    "subtitle": "Level crooked scans and photos — privately in your browser.",
+    "docLabel": "Scan",
+    "docBadge": "1",
+    "horizon": "Level",
+    "degTilt": "15°",
+    "degLevel": "0°",
+    "aligned": "Aligned",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to rotate and align your file."
+  },
+  "FlipImageLanding": {
+    "brand": "Flip Image Online",
+    "titleRest": "- Mirror Images Horizontally or Vertically",
+    "subtitle": "Reverse left/right or top/bottom — privately in your browser.",
+    "axisH": "H",
+    "axisV": "V",
+    "captionH": "Horizontal flip — left ↔ right",
+    "captionV": "Vertical flip — top ↔ bottom",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to flip your image."
+  },
+  "DrawOnImageLanding": {
+    "brand": "Draw on Image Online",
+    "titleRest": "- Paint, Highlight & Annotate Photos",
+    "subtitle": "Brush, mark, and label photos — privately in your browser.",
+    "palette": "Color palette",
+    "brush": "Brush size",
+    "done": "Done!",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to draw on your image."
+  },
+  "ImageBlurRedactLanding": {
+    "brand": "Image Blur & Redact",
+    "titleRest": "- Instantly Obscure Sensitive Information",
+    "subtitle": "Pixelate faces and black out private details — privately in your browser.",
+    "blur": "Blur",
+    "redact": "Redact",
+    "cardNum": "4532  ••••  ••••  8910",
+    "signature": "J. Rivera",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to blur and redact your image."
+  },
+  "ImageWatermarkLanding": {
+    "brand": "Professional Image Watermark Tool",
+    "titleRest": "- Protect Photos with Text or Logo Watermarks",
+    "subtitle": "Stamp text or logos with live opacity control — privately in your browser.",
+    "watermark": "© Copyright",
+    "shield": "Protection",
+    "protected": "Protected",
+    "opacity": "Opacity",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to watermark your photos."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

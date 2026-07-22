@@ -4,6 +4,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { RelatedTools } from "@/components/RelatedTools";
 import { RotateImageWorkspace } from "@/components/RotateImageWorkspace";
+import { RotateAlignIntroGate } from "@/components/RotateAlignIntroGate";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
@@ -81,7 +82,9 @@ export default async function RotateAlignSuitePage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <RotateImageWorkspace tool={tool} slug={SLUG} />
+              <RotateAlignIntroGate active={tool.operation === "rotate-image"}>
+                <RotateImageWorkspace tool={tool} slug={SLUG} />
+              </RotateAlignIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

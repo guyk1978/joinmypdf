@@ -4,6 +4,8 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { RelatedTools } from "@/components/RelatedTools";
 import { ImageWatermarkWorkspace } from "@/components/ImageWatermarkWorkspace";
+import { ImageWatermarkIntroGate } from "@/components/ImageWatermarkIntroGate";
+import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 import { registry } from "@/lib/registry";
@@ -78,7 +80,11 @@ export default async function ImageWatermarkPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
-            <ImageWatermarkWorkspace tool={tool} slug={SLUG} />
+            <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
+              <ImageWatermarkIntroGate active={tool.operation === "image-watermark"}>
+                <ImageWatermarkWorkspace tool={tool} slug={SLUG} />
+              </ImageWatermarkIntroGate>
+            </ToolPageShellProvider>
           </section>
 </div>
       </AppPageShell>
