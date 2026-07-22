@@ -288,6 +288,98 @@
     "limitsTitle": "No Limits",
     "limitsBody": "Enjoy standard downloads without watermarks or forced signups."
   },
+  "NUpPdfLanding": {
+    "brand": "N-Up PDF",
+    "titleRest": "- Несколько страниц на листе",
+    "subtitle": "Объединяйте несколько страниц PDF на одном листе без усилий.",
+    "docAnnualReport": "Годовой отчёт",
+    "docMarketAnalysis": "Анализ рынка",
+    "docFinancialOverview": "Финансовый обзор",
+    "docKeyHighlights": "Ключевые моменты",
+    "printReady": "Готово к печати",
+    "featureLayouts": "Несколько макетов",
+    "featureScaling": "Гибкое масштабирование",
+    "featureOrganized": "Аккуратно и упорядоченно",
+    "featurePrint": "Готово к печати",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы разложить страницы на листе."
+  },
+  "DeletePdfPagesLanding": {
+    "brand": "Удаление страниц PDF онлайн",
+    "titleRest": "- Легко убирайте ненужные страницы",
+    "subtitle": "Выделите, удалите и скачайте чистый PDF — конфиденциально в браузере.",
+    "pageLabel": "Стр. {n}",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы удалить страницы из PDF."
+  },
+  "ExtractPdfPagesLanding": {
+    "brand": "Извлечение страниц PDF онлайн",
+    "titleRest": "- Мгновенно выберите нужные страницы",
+    "subtitle": "Выберите нужные страницы и скачайте новый PDF — конфиденциально в браузере.",
+    "pageLabel": "Стр. {n}",
+    "sourceLabel": "Исходный PDF",
+    "resultLabel": "Извлечённый PDF",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы извлечь страницы из PDF."
+  },
+  "MergePdfLanding": {
+    "brand": "Объединение PDF онлайн",
+    "titleRest": "- Соедините несколько PDF в один файл",
+    "subtitle": "Соберите отдельные документы в один мастер-PDF — конфиденциально в браузере.",
+    "docContract": "Договор",
+    "docInvoice": "Счёт",
+    "docReport": "Отчёт",
+    "docSlides": "Презентация",
+    "mergedLabel": "Объединённый PDF",
+    "combinedLabel": "Единый файл",
+    "mergedBadge": "1",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы объединить PDF."
+  },
+  "SplitPdfLanding": {
+    "brand": "Разделение PDF онлайн",
+    "titleRest": "- Разделите большие PDF на отдельные файлы",
+    "subtitle": "Разрежьте большой PDF на меньшие файлы — конфиденциально в браузере.",
+    "sourceLabel": "Исходный PDF",
+    "sourceBadge": "1",
+    "partA": "Файл A",
+    "partB": "Файл B",
+    "pagesA": "Стр. 1–3",
+    "pagesB": "Стр. 4–6",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы разделить PDF."
+  },
+  "BookletPdfLanding": {
+    "brand": "PDF в буклет онлайн",
+    "titleRest": "- Превратите документы в готовые к печати буклеты",
+    "subtitle": "Скомпонуйте страницы в складываемый буклет — конфиденциально в браузере.",
+    "leftPage": "Стр. 1",
+    "rightPage": "Стр. 2",
+    "caption": "Сложенная вёрстка буклета",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы создать буклет."
+  },
+  "ReorderPdfPagesLanding": {
+    "brand": "Изменение порядка страниц PDF онлайн",
+    "titleRest": "- Перетащите страницы, чтобы изменить структуру файла",
+    "subtitle": "Переставьте страницы простым перетаскиванием — конфиденциально в браузере.",
+    "pageLabel": "Стр. {n}",
+    "caption": "Перетащите для смены порядка",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы изменить порядок страниц PDF."
+  },
+  "ResizeImageLanding": {
+    "brand": "Изменение размера изображения онлайн",
+    "titleRest": "- Масштабируйте в пикселях или процентах мгновенно",
+    "subtitle": "Меняйте ширину и высоту в пикселях или процентах — конфиденциально в браузере.",
+    "sizeLarge": "1920 × 1080 px",
+    "sizeSmall": "1280 × 720 px",
+    "pctFull": "100%",
+    "pctHalf": "67%",
+    "caption": "Масштаб в пикселях или %",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы изменить размер изображения."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

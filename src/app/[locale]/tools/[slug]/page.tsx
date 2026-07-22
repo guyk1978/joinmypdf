@@ -71,6 +71,14 @@ import { RepairPdfWorkspace } from "@/components/RepairPdfWorkspace";
 import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
 import { PdfMetadataEditorWorkspace } from "@/components/PdfMetadataEditorWorkspace";
 import { PdfLinearizationWorkspace } from "@/components/PdfLinearizationWorkspace";
+import { NUpPdfIntroGate } from "@/components/NUpPdfIntroGate";
+import { DeletePdfPagesIntroGate } from "@/components/DeletePdfPagesIntroGate";
+import { ExtractPdfPagesIntroGate } from "@/components/ExtractPdfPagesIntroGate";
+import { MergePdfIntroGate } from "@/components/MergePdfIntroGate";
+import { SplitPdfIntroGate } from "@/components/SplitPdfIntroGate";
+import { BookletPdfIntroGate } from "@/components/BookletPdfIntroGate";
+import { ReorderPdfPagesIntroGate } from "@/components/ReorderPdfPagesIntroGate";
+import { ResizeImageIntroGate } from "@/components/ResizeImageIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -357,6 +365,14 @@ export default async function ToolPage({
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
         <ToolPageShellProvider headline={pageHeadline} subline={pageDescription ?? ""} slug={slug} stacked>
+        <NUpPdfIntroGate active={tool.operation === "n-up-pdf"}>
+        <DeletePdfPagesIntroGate active={tool.operation === "delete-pages"}>
+        <ExtractPdfPagesIntroGate active={tool.operation === "extract-pdf-pages"}>
+        <MergePdfIntroGate active={tool.operation === "merge"}>
+        <SplitPdfIntroGate active={tool.operation === "split"}>
+        <BookletPdfIntroGate active={tool.operation === "pdf-to-booklet"}>
+        <ReorderPdfPagesIntroGate active={tool.operation === "reorder-pdf-pages"}>
+        <ResizeImageIntroGate active={tool.operation === "resize-image"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -644,6 +660,14 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </ResizeImageIntroGate>
+        </ReorderPdfPagesIntroGate>
+        </BookletPdfIntroGate>
+        </SplitPdfIntroGate>
+        </MergePdfIntroGate>
+        </ExtractPdfPagesIntroGate>
+        </DeletePdfPagesIntroGate>
+        </NUpPdfIntroGate>
         </ToolPageShellProvider>
         </ToolGlassProvider>
         </div>

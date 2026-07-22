@@ -3,12 +3,30 @@ export const WORKSPACE_OPERATIONS_ID = "workspace-operations";
 export const WORKSPACE_PHASE_CLEAN_CLASS = "workspace-phase-clean";
 /** Marks dedicated tool pages that use an immersive upload shell (hide body H1). */
 export const TOOL_HAS_UPLOAD_SHELL_CLASS = "tool-has-upload-shell";
+/** Cross-frame + same-window bridge for tool-modal header chrome. */
+export const WORKSPACE_PHASE_MESSAGE = "joinmypdf:workspace-phase";
 
 export type WorkspacePhase = "clean" | "active";
 
 function applyDocumentPhaseClass(phase: WorkspacePhase) {
   if (typeof document === "undefined") return;
   document.documentElement.classList.toggle(WORKSPACE_PHASE_CLEAN_CLASS, phase === "clean");
+}
+
+function broadcastWorkspacePhase(phase: WorkspacePhase) {
+  if (typeof window === "undefined") return;
+
+  window.dispatchEvent(
+    new CustomEvent(WORKSPACE_PHASE_MESSAGE, { detail: { phase } }),
+  );
+
+  if (window.parent !== window) {
+    try {
+      window.parent.postMessage({ type: WORKSPACE_PHASE_MESSAGE, phase }, "*");
+    } catch {
+      // Cross-origin parent — ignore.
+    }
+  }
 }
 
 export function setToolHasUploadShell(enabled: boolean) {
@@ -58,6 +76,7 @@ export function setWorkspacePhase(phase: WorkspacePhase, root?: HTMLElement | nu
   }
 
   applyDocumentPhaseClass(phase);
+  broadcastWorkspacePhase(phase);
 }
 
 export function getWorkspacePhaseFromSignal(fileSignal: boolean | number): WorkspacePhase {

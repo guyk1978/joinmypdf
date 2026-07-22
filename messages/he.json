@@ -286,6 +286,98 @@
     "limitsTitle": "בלי הגבלות",
     "limitsBody": "הורדות רגילות בלי סימן מים ובלי הרשמה כפויה."
   },
+  "NUpPdfLanding": {
+    "brand": "N-Up PDF",
+    "titleRest": "- מספר עמודים בדף אחד",
+    "subtitle": "שלבו מספר עמודי PDF לדף מודפס אחד בקלות.",
+    "docAnnualReport": "דוח שנתי",
+    "docMarketAnalysis": "ניתוח שוק",
+    "docFinancialOverview": "סקירה פיננסית",
+    "docKeyHighlights": "נקודות מפתח",
+    "printReady": "מוכן להדפסה",
+    "featureLayouts": "פריסות מרובות",
+    "featureScaling": "שינוי גודל גמיש",
+    "featureOrganized": "מסודר ונקי",
+    "featurePrint": "מוכן להדפסה",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לסדר עמודים בדף."
+  },
+  "DeletePdfPagesLanding": {
+    "brand": "מחיקת עמודי PDF אונליין",
+    "titleRest": "- הסירו עמודים לא רצויים בקלות",
+    "subtitle": "סמנו, מחקו והורידו PDF נקי — באופן פרטי בדפדפן שלכם.",
+    "pageLabel": "עמוד {n}",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי למחוק עמודים מה-PDF."
+  },
+  "ExtractPdfPagesLanding": {
+    "brand": "חילוץ עמודי PDF אונליין",
+    "titleRest": "- שלפו עמודים ספציפיים מיד",
+    "subtitle": "בחרו את העמודים שאתם צריכים והורידו PDF חדש — באופן פרטי בדפדפן שלכם.",
+    "pageLabel": "עמוד {n}",
+    "sourceLabel": "PDF מקור",
+    "resultLabel": "PDF מחולץ",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לחלץ עמודים מה-PDF."
+  },
+  "MergePdfLanding": {
+    "brand": "מיזוג PDF אונליין",
+    "titleRest": "- שלבו מספר קבצי PDF לקובץ אחד",
+    "subtitle": "חברו מסמכים נפרדים לקובץ PDF אחוד — באופן פרטי בדפדפן שלכם.",
+    "docContract": "חוזה",
+    "docInvoice": "חשבונית",
+    "docReport": "דוח",
+    "docSlides": "מצגת",
+    "mergedLabel": "PDF ממוזג",
+    "combinedLabel": "קובץ מאוחד",
+    "mergedBadge": "1",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי למזג את קבצי ה-PDF."
+  },
+  "SplitPdfLanding": {
+    "brand": "פיצול PDF אונליין",
+    "titleRest": "- פצלו קבצי PDF גדולים לקבצים נפרדים",
+    "subtitle": "חתכו PDF גדול לקבצים קטנים יותר — באופן פרטי בדפדפן שלכם.",
+    "sourceLabel": "PDF מקורי",
+    "sourceBadge": "1",
+    "partA": "קובץ א",
+    "partB": "קובץ ב",
+    "pagesA": "עמודים 1–3",
+    "pagesB": "עמודים 4–6",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לפצל את ה-PDF."
+  },
+  "BookletPdfLanding": {
+    "brand": "המרת PDF לחוברת אונליין",
+    "titleRest": "- הפכו מסמכים לחוברות מוכנות להדפסה",
+    "subtitle": "סדרו עמודים לפריסת חוברת מתקפלת — באופן פרטי בדפדפן שלכם.",
+    "leftPage": "עמוד 1",
+    "rightPage": "עמוד 2",
+    "caption": "פריסת חוברת מקופלת",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי ליצור חוברת."
+  },
+  "ReorderPdfPagesLanding": {
+    "brand": "סידור עמודי PDF אונליין",
+    "titleRest": "- גררו ושחררו עמודים לשינוי מבנה הקובץ",
+    "subtitle": "סדרו מחדש עמודים בגרירה פשוטה — באופן פרטי בדפדפן שלכם.",
+    "pageLabel": "עמוד {n}",
+    "caption": "גרירה לשינוי סדר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לסדר מחדש את עמודי ה-PDF."
+  },
+  "ResizeImageLanding": {
+    "brand": "שינוי גודל תמונה אונליין",
+    "titleRest": "- שנו גודל בפיקסלים או באחוזים מיד",
+    "subtitle": "שנו רוחב וגובה בפיקסלים או באחוזים — באופן פרטי בדפדפן שלכם.",
+    "sizeLarge": "1920 × 1080 פיקסלים",
+    "sizeSmall": "1280 × 720 פיקסלים",
+    "pctFull": "100%",
+    "pctHalf": "67%",
+    "caption": "שינוי גודל בפיקסלים או ב־%",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לשנות את גודל התמונה."
+  },
   "Home": {
     "pickTool": "בחר כלי",
     "pickToolDescription": "כל תהליך נפתח בלחיצה אחת — אותו ממשק, אותו מודל פרטיות.",

@@ -286,6 +286,98 @@
     "limitsTitle": "No Limits",
     "limitsBody": "Enjoy standard downloads without watermarks or forced signups."
   },
+  "NUpPdfLanding": {
+    "brand": "N-Up PDF",
+    "titleRest": "- Multiple Pages per Sheet",
+    "subtitle": "Combine multiple PDF pages onto a single sheet effortlessly.",
+    "docAnnualReport": "Annual Report",
+    "docMarketAnalysis": "Market Analysis",
+    "docFinancialOverview": "Financial Overview",
+    "docKeyHighlights": "Key Highlights",
+    "printReady": "Print Ready",
+    "featureLayouts": "Multiple Layouts",
+    "featureScaling": "Flexible Scaling",
+    "featureOrganized": "Neat & Organized",
+    "featurePrint": "Print Ready",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to arrange pages per sheet."
+  },
+  "DeletePdfPagesLanding": {
+    "brand": "Delete PDF Pages Online",
+    "titleRest": "- Remove Unwanted Pages Effortlessly",
+    "subtitle": "Highlight, remove, and download a clean PDF — privately in your browser.",
+    "pageLabel": "Page {n}",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to delete pages from your PDF."
+  },
+  "ExtractPdfPagesLanding": {
+    "brand": "Extract PDF Pages Online",
+    "titleRest": "- Pull Out Specific Pages Instantly",
+    "subtitle": "Select the pages you need and download a new PDF — privately in your browser.",
+    "pageLabel": "Page {n}",
+    "sourceLabel": "Source PDF",
+    "resultLabel": "Extracted PDF",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to extract pages from your PDF."
+  },
+  "MergePdfLanding": {
+    "brand": "Merge PDF Online",
+    "titleRest": "- Combine Multiple PDFs into One File",
+    "subtitle": "Bring separate documents together into a single master PDF — privately in your browser.",
+    "docContract": "Contract",
+    "docInvoice": "Invoice",
+    "docReport": "Report",
+    "docSlides": "Slides",
+    "mergedLabel": "Merged PDF",
+    "combinedLabel": "Combined File",
+    "mergedBadge": "1",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to merge your PDFs."
+  },
+  "SplitPdfLanding": {
+    "brand": "Split PDF Online",
+    "titleRest": "- Divide Large PDFs into Separate Files",
+    "subtitle": "Cut a large PDF into smaller files — privately in your browser.",
+    "sourceLabel": "Original PDF",
+    "sourceBadge": "1",
+    "partA": "File A",
+    "partB": "File B",
+    "pagesA": "Pages 1–3",
+    "pagesB": "Pages 4–6",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to split your PDF."
+  },
+  "BookletPdfLanding": {
+    "brand": "Convert PDF to Booklet Online",
+    "titleRest": "- Transform Documents into Printable Booklets",
+    "subtitle": "Impose pages into a fold-ready booklet — privately in your browser.",
+    "leftPage": "Page 1",
+    "rightPage": "Page 2",
+    "caption": "Folded booklet layout",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to create your booklet."
+  },
+  "ReorderPdfPagesLanding": {
+    "brand": "Reorder PDF Pages Online",
+    "titleRest": "- Drag & Drop Pages to Change File Structure",
+    "subtitle": "Rearrange pages with a simple drag — privately in your browser.",
+    "pageLabel": "Page {n}",
+    "caption": "Drag to reorder",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to reorder your PDF pages."
+  },
+  "ResizeImageLanding": {
+    "brand": "Resize Image Online",
+    "titleRest": "- Scale by Pixels or Percentage Instantly",
+    "subtitle": "Change width and height in pixels or percent — privately in your browser.",
+    "sizeLarge": "1920 × 1080 px",
+    "sizeSmall": "1280 × 720 px",
+    "pctFull": "100%",
+    "pctHalf": "67%",
+    "caption": "Scale by pixels or %",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to resize your image."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

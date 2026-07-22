@@ -3078,6 +3078,19 @@ html:has(.home-page-shell--minimal) body {
   text-overflow: ellipsis;
 }
 
+/* Dialog label when the tool action bar is unmounted (clean / pre-upload). */
+.tool-modal__title-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .tool-modal__header-end {
   display: flex;
   align-items: center;
@@ -3331,15 +3344,24 @@ html:has(.home-page-shell--minimal) body {
 }
 
 /*
- * True immersive fullscreen — expand the whole modal shell to the viewport
- * (covers site header / nav). Panel fills the shell with relative sizing so
- * Framer Motion transforms cannot create a nested fixed containing block.
+ * True immersive fullsize — expand the whole modal shell to the viewport.
+ * Always on by default (no expand toggle). Clean phase leaves room for the
+ * sticky site header; active (uploaded) phase covers it so the tool toolbar
+ * becomes the top chrome.
  */
 .tool-modal--fullscreen {
   padding: 0 !important;
   align-items: stretch;
   justify-content: stretch;
   z-index: 9999;
+}
+
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .tool-modal.tool-modal--fullscreen {
+  top: var(--site-header-height, 120px);
+}
+
+html[data-tool-modal-workspace="active"] .tool-modal.tool-modal--fullscreen {
+  top: 0;
 }
 
 .tool-modal--fullscreen .tool-modal__backdrop {
@@ -3374,14 +3396,12 @@ html:has(.home-page-shell--minimal) body {
   border-bottom-color: #2a2a2a;
 }
 
-.tool-modal--fullscreen .tool-modal__fullscreen,
 .tool-modal--fullscreen .tool-modal__close {
   color: #f5f5f5;
   border-color: #404040;
   background: #161616;
 }
 
-.tool-modal--fullscreen .tool-modal__fullscreen:hover,
 .tool-modal--fullscreen .tool-modal__close:hover {
   border-color: #737373;
   background: #1f1f1f;
@@ -3521,15 +3541,6 @@ html:has(.home-page-shell--minimal) body {
     min-width: 1.85rem;
     height: 1.85rem;
     padding: 0;
-  }
-}
-
-@media (max-width: 640px) {
-  /* Mobile modal is already near full-screen — hide the desktop-only
-     fullscreen toggle to save header space. The magnifying-glass opens a
-     touch-friendly zoom lightbox, so it stays available on small screens. */
-  .tool-modal__fullscreen {
-    display: none;
   }
 }
 
@@ -4223,11 +4234,54 @@ html[data-tool-modal-open="1"] .tool-modal {
   pointer-events: auto;
 }
 
-/* Immersive expand covers the sticky site chrome completely */
+/* Active workspace: tool toolbar replaces sticky site chrome */
 html[data-tool-modal-fullscreen="1"] .site-header,
-html[data-tool-modal-fullscreen="1"] .pinned-dock {
+html[data-tool-modal-fullscreen="1"] .pinned-dock,
+html[data-tool-modal-workspace="active"] .site-header,
+html[data-tool-modal-workspace="active"] .pinned-dock {
   visibility: hidden !important;
   pointer-events: none !important;
+}
+
+/*
+ * Clean / intro (pre-upload): site header owns the top chrome.
+ * Tool modal is fullsize below the header (z-index 9999). Header controls and
+ * their portaled overlays must sit above that shell or clicks appear "blocked".
+ */
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header {
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 10050 !important;
+}
+
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header__visual,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header__bar,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header a,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header button,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header input,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-search,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-search__field {
+  pointer-events: auto !important;
+}
+
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-search__dropdown,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header__overflow-panel,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header__overflow-panel--floating,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .category-hub-overlay,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .nav-drawer,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .category-modal {
+  z-index: 10060 !important;
+  pointer-events: auto !important;
+}
+
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .nav-drawer:not(.is-open),
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .category-modal:not(.is-open) {
+  pointer-events: none !important;
+}
+
+.tool-modal[data-has-file="0"] .tool-modal__header,
+.tool-modal[data-workspace-phase="clean"] .tool-modal__header {
+  display: none !important;
 }
 
 @media (max-width: 640px) {

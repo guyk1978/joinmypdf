@@ -450,8 +450,6 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             rateAria: t("rateAria"),
             yourRatingAria: t("yourRatingAria", { rating: "{rating}" }),
             viewsNav: t("viewsNav"),
-            enterFullScreen: t("enterFullScreen"),
-            exitFullScreen: t("exitFullScreen"),
             showMagnifier: t("showMagnifier"),
             hideMagnifier: t("hideMagnifier"),
             inspectPreview: t.has("inspectPreview") ? t("inspectPreview") : "Inspect preview",

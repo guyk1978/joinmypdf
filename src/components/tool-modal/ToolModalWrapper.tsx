@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Maximize2, Minimize2, Pin, Search, Share2, Star, X, ZoomIn } from "lucide-react";
+import { Pin, Search, Share2, Star, X, ZoomIn } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -25,6 +25,10 @@ import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
+import {
+  WORKSPACE_PHASE_MESSAGE,
+  type WorkspacePhase,
+} from "@/lib/workspace-flow";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
 export type ToolModalTab = "calc" | "doc" | "related";
@@ -62,8 +66,6 @@ export type ToolModalWrapperProps = {
     rateAria?: string;
     yourRatingAria?: string;
     viewsNav?: string;
-    enterFullScreen?: string;
-    exitFullScreen?: string;
     showMagnifier?: string;
     hideMagnifier?: string;
     inspectPreview?: string;
@@ -80,7 +82,9 @@ export type ToolModalWrapperProps = {
 
 /**
  * Global JoinMyPDF tool modal shell (Industrial Matte).
- * Isolated portal overlay — does not render site header/footer inside itself.
+ * Always opens at maximum width. Site header stays visible until the
+ * embedded workspace reports an active (file-uploaded) phase, then the
+ * tool action bar replaces the site chrome.
  */
 export function ToolModalWrapper({
   open,
@@ -100,7 +104,9 @@ export function ToolModalWrapper({
 }: ToolModalWrapperProps) {
   const titleId = useId();
   const [tab, setTab] = useState<ToolModalTab>(defaultTab);
-  const [fullscreen, setFullscreen] = useState(false);
+  const [workspacePhase, setWorkspacePhase] = useState<WorkspacePhase>("clean");
+  /** True once a PDF (or other upload) has entered the active workspace. */
+  const hasFileUploaded = workspacePhase === "active";
   const [loupeEnabled, setLoupeEnabled] = useState(true);
   const [loupeSize, setLoupeSize] = useState<MagnifierSizeTier>("medium");
   const [mounted, setMounted] = useState(false);
@@ -147,8 +153,8 @@ export function ToolModalWrapper({
   useEffect(() => {
     if (!open) return;
     setTab(defaultTab);
-    setFullscreen(false);
-  }, [open, defaultTab, title]);
+    setWorkspacePhase("clean");
+  }, [open, defaultTab, title, slug]);
 
   useEffect(() => {
     if (!open) return;
@@ -171,32 +177,61 @@ export function ToolModalWrapper({
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      // Esc steps out of full screen first; a second press closes the modal.
-      if (fullscreen) {
-        setFullscreen(false);
-        return;
-      }
-      onClose();
+      if (event.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose, fullscreen]);
+  }, [open, onClose]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const applyPhase = (phase: WorkspacePhase) => {
+      setWorkspacePhase(phase);
+    };
+
+    const onMessage = (event: MessageEvent) => {
+      const data = event.data;
+      if (!data || typeof data !== "object") return;
+      if ((data as { type?: string }).type !== WORKSPACE_PHASE_MESSAGE) return;
+      const phase = (data as { phase?: string }).phase;
+      if (phase === "clean" || phase === "active") applyPhase(phase);
+    };
+
+    const onCustom = (event: Event) => {
+      const phase = (event as CustomEvent<{ phase?: WorkspacePhase }>).detail?.phase;
+      if (phase === "clean" || phase === "active") applyPhase(phase);
+    };
+
+    window.addEventListener("message", onMessage);
+    window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustom);
+    return () => {
+      window.removeEventListener("message", onMessage);
+      window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustom);
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) {
+      document.documentElement.removeAttribute("data-tool-modal-workspace");
       document.documentElement.removeAttribute("data-tool-modal-fullscreen");
       return;
     }
-    if (fullscreen) {
+
+    document.documentElement.setAttribute("data-tool-modal-open", "1");
+    document.documentElement.setAttribute("data-tool-modal-workspace", workspacePhase);
+    // Mutual exclusion: active = tool toolbar only; clean = site header only.
+    if (hasFileUploaded) {
       document.documentElement.setAttribute("data-tool-modal-fullscreen", "1");
     } else {
       document.documentElement.removeAttribute("data-tool-modal-fullscreen");
     }
+
     return () => {
+      document.documentElement.removeAttribute("data-tool-modal-workspace");
       document.documentElement.removeAttribute("data-tool-modal-fullscreen");
     };
-  }, [open, fullscreen]);
+  }, [open, workspacePhase, hasFileUploaded]);
 
   if (!mounted) return null;
 
@@ -208,9 +243,6 @@ export function ToolModalWrapper({
   const favoriteLabel = favorited
     ? (labels?.removeFavorite ?? "Remove from favorites")
     : (labels?.addFavorite ?? "Add to favorites");
-  const fullscreenLabel = fullscreen
-    ? (labels?.exitFullScreen ?? "Exit Full Screen")
-    : (labels?.enterFullScreen ?? "Enter Full Screen");
   const loupeLabel = loupeEnabled
     ? (labels?.hideMagnifier ?? "Hide Magnifier")
     : (labels?.showMagnifier ?? "Show Magnifier");
@@ -240,7 +272,7 @@ export function ToolModalWrapper({
         <div
           className={clsx(
             "tool-modal",
-            fullscreen && "tool-modal--fullscreen",
+            "tool-modal--fullscreen",
             !contentReady && "tool-modal--loading",
             className,
           )}
@@ -248,7 +280,9 @@ export function ToolModalWrapper({
           aria-modal="true"
           aria-labelledby={titleId}
           aria-busy={!contentReady}
-          data-fullscreen={fullscreen ? "1" : undefined}
+          data-fullscreen="1"
+          data-workspace-phase={workspacePhase}
+          data-has-file={hasFileUploaded ? "1" : "0"}
         >
           {/* Opaque veil first — masks any background page paint / flicker */}
           <motion.button
@@ -259,26 +293,20 @@ export function ToolModalWrapper({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            onClick={fullscreen ? undefined : onClose}
-            tabIndex={fullscreen ? -1 : undefined}
+            onClick={undefined}
+            tabIndex={-1}
           />
 
           <motion.div
-            className={clsx(
-              "tool-modal__panel",
-              fullscreen && "tool-modal__panel--fullscreen",
-            )}
+            className="tool-modal__panel tool-modal__panel--fullscreen"
             data-category={categoryId || undefined}
             style={accentStyle}
-            initial={fullscreen ? false : { opacity: 0, y: 36 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: fullscreen ? 0 : 20 }}
-            transition={
-              fullscreen
-                ? { duration: 0.18, ease: "easeOut" }
-                : { type: "spring", stiffness: 420, damping: 34, mass: 0.8 }
-            }
+            exit={{ opacity: 0, y: 0 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
           >
+            {hasFileUploaded ? (
             <header className="tool-modal__header">
               <h2 id={titleId} className="tool-modal__title">
                 {title}
@@ -451,21 +479,6 @@ export function ToolModalWrapper({
 
                 <button
                   type="button"
-                  className="tool-modal__action tool-modal__fullscreen"
-                  onClick={() => setFullscreen((prev) => !prev)}
-                  aria-label={fullscreenLabel}
-                  aria-pressed={fullscreen}
-                  title={fullscreenLabel}
-                >
-                  {fullscreen ? (
-                    <Minimize2 size={18} strokeWidth={2} aria-hidden />
-                  ) : (
-                    <Maximize2 size={18} strokeWidth={2} aria-hidden />
-                  )}
-                </button>
-
-                <button
-                  type="button"
                   className="tool-modal__action tool-modal__close"
                   onClick={onClose}
                   aria-label={closeLabel}
@@ -474,6 +487,11 @@ export function ToolModalWrapper({
                 </button>
               </div>
             </header>
+            ) : (
+              <h2 id={titleId} className="tool-modal__title-sr">
+                {title}
+              </h2>
+            )}
 
             <div className="tool-modal__body">
               {tab === "calc" && !contentReady ? (
