@@ -91,6 +91,10 @@ import { VideoMetadataCleanerIntroGate } from "@/components/VideoMetadataCleaner
 import { VideoSpeedIntroGate } from "@/components/VideoSpeedIntroGate";
 import { VideoCompressorIntroGate } from "@/components/VideoCompressorIntroGate";
 import { VideoConverterIntroGate } from "@/components/VideoConverterIntroGate";
+import { AutocadToPdfIntroGate } from "@/components/AutocadToPdfIntroGate";
+import { EbookToPdfIntroGate } from "@/components/EbookToPdfIntroGate";
+import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
+import { ExtractTablesPdfIntroGate } from "@/components/ExtractTablesPdfIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -402,6 +406,10 @@ export default async function ToolPage({
         >
         <VideoCompressorIntroGate active={tool.operation === "video-compressor"}>
         <VideoConverterIntroGate active={tool.operation === "video-converter"}>
+        <AutocadToPdfIntroGate active={tool.operation === "autocad-to-pdf"}>
+        <EbookToPdfIntroGate active={tool.operation === "ebook-to-pdf"}>
+        <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
+        <ExtractTablesPdfIntroGate active={tool.operation === "extract-tables-pdf"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -689,6 +697,10 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </ExtractTablesPdfIntroGate>
+        </ExcelToPdfIntroGate>
+        </EbookToPdfIntroGate>
+        </AutocadToPdfIntroGate>
         </VideoConverterIntroGate>
         </VideoCompressorIntroGate>
         </VideoSpeedIntroGate>
