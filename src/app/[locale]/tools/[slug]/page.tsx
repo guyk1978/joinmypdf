@@ -101,6 +101,10 @@ import { PdfToEpubIntroGate } from "@/components/PdfToEpubIntroGate";
 import { PdfToHtmlIntroGate } from "@/components/PdfToHtmlIntroGate";
 import { PdfToPowerpointIntroGate } from "@/components/PdfToPowerpointIntroGate";
 import { PowerpointToPdfIntroGate } from "@/components/PowerpointToPdfIntroGate";
+import { FlattenPdfIntroGate } from "@/components/FlattenPdfIntroGate";
+import { CompressPdfIntroGate } from "@/components/CompressPdfIntroGate";
+import { PdfLinearizationIntroGate } from "@/components/PdfLinearizationIntroGate";
+import { RepairPdfIntroGate } from "@/components/RepairPdfIntroGate";
 import { PdfToXpsIntroGate } from "@/components/PdfToXpsIntroGate";
 import { MarkdownToPdfIntroGate } from "@/components/MarkdownToPdfIntroGate";
 import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
@@ -484,6 +488,10 @@ export default async function ToolPage({
         <PdfToHtmlIntroGate active={tool.operation === "pdf-to-html"}>
         <PdfToPowerpointIntroGate active={tool.operation === "pdf-to-powerpoint"}>
         <PowerpointToPdfIntroGate active={tool.operation === "powerpoint-to-pdf"}>
+        <FlattenPdfIntroGate active={tool.operation === "flatten-pdf"}>
+        <CompressPdfIntroGate active={tool.operation === "compress"}>
+        <PdfLinearizationIntroGate active={tool.operation === "pdf-linearization"}>
+        <RepairPdfIntroGate active={tool.operation === "repair-pdf"}>
         <PdfToXpsIntroGate active={tool.operation === "pdf-to-xps"}>
         <MarkdownToPdfIntroGate active={tool.operation === "markdown-to-pdf"}>
         <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
@@ -895,6 +903,10 @@ export default async function ToolPage({
         </ExcelToPdfIntroGate>
         </MarkdownToPdfIntroGate>
         </PdfToXpsIntroGate>
+        </RepairPdfIntroGate>
+        </PdfLinearizationIntroGate>
+        </CompressPdfIntroGate>
+        </FlattenPdfIntroGate>
         </PowerpointToPdfIntroGate>
         </PdfToPowerpointIntroGate>
         </PdfToHtmlIntroGate>

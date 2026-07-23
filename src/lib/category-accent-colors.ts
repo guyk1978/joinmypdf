@@ -6,36 +6,36 @@ import { getToolsInventoryEntry } from "@/data/tools-inventory";
  * Mirrored as `--color-*` CSS variables in globals.css.
  */
 export const CATEGORY_ACCENT_COLORS: Record<InventoryCategoryId, string> = {
-  pdf: "#3b82f6",
-  video: "#8b5cf6",
-  mp4: "#a78bfa",
-  convert: "#06b6d4",
-  compress: "#14b8a6",
-  extract: "#ec4899",
-  image: "#f59e0b",
-  jpg: "#f97316",
-  png: "#eab308",
-  mp3: "#f43f5e",
-  audio: "#fb7185",
-  favicon: "#e879f9",
-  text: "#94a3b8",
-  json: "#fbbf24",
-  yaml: "#84cc16",
-  xml: "#22d3ee",
-  developer: "#10b981",
-  word: "#60a5fa",
-  excel: "#22c55e",
-  crop: "#fb923c",
-  rotate: "#818cf8",
-  security: "#ef4444",
-  design: "#d946ef",
-  data: "#0ea5e9",
-  productivity: "#94a3b8",
-  "unit-math": "#a855f7",
-  network: "#38bdf8",
+  pdf: "#2563EB",
+  video: "#7C3AED",
+  mp4: "#6D28D9",
+  convert: "#059669",
+  compress: "#D97706",
+  extract: "#DB2777",
+  image: "#B45309",
+  jpg: "#EA580C",
+  png: "#A16207",
+  mp3: "#E11D48",
+  audio: "#BE123C",
+  favicon: "#C026D3",
+  text: "#475569",
+  json: "#B45309",
+  yaml: "#4D7C0F",
+  xml: "#0E7490",
+  developer: "#16A34A",
+  word: "#1D4ED8",
+  excel: "#15803D",
+  crop: "#EA580C",
+  rotate: "#4338CA",
+  security: "#DC2626",
+  design: "#A21CAF",
+  data: "#0369A1",
+  productivity: "#334155",
+  "unit-math": "#6D28D9",
+  network: "#1E40AF",
 };
 
-export const CATEGORY_ACCENT_FALLBACK = "#3b82f6";
+export const CATEGORY_ACCENT_FALLBACK = "#2563EB";
 
 /** CSS custom property name for a category, e.g. `--color-pdf`. */
 export function getCategoryAccentCssVarName(id: InventoryCategoryId | string): string {
@@ -75,7 +75,8 @@ export function getContrastingInk(hex: string): "#000000" | "#ffffff" {
     return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
   };
   const luminance = 0.2126 * toLin(r) + 0.7152 * toLin(g) + 0.0722 * toLin(b);
-  return luminance > 0.42 ? "#000000" : "#ffffff";
+  /* Prefer crisp white on solid category fills; black only on very light swatches. */
+  return luminance > 0.55 ? "#000000" : "#ffffff";
 }
 
 /**

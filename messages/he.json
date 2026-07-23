@@ -816,6 +816,56 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את סביבת העבודה כדי להמיר PowerPoint ל-PDF."
   },
+  "FlattenPdfLanding": {
+    "brand": "השטחת PDF אונליין",
+    "titleRest": "- השטיחו שכבות והערות ב-PDF לקובץ אחד מוכן להדפסה",
+    "subtitle": "מיזוג שכבות אינטראקטיביות, שדות טופס והערות לקובץ PDF נעול ומוכן להדפסה — באופן פרטי בדפדפן.",
+    "layersBadge": "שכבות",
+    "flatBadge": "הושטח",
+    "pdfBadge": "PDF",
+    "docTitle": "מוכן",
+    "success": "הושטח",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להשטיח PDF."
+  },
+  "CompressPdfLanding": {
+    "brand": "דחיסת PDF אונליין",
+    "titleRest": "- הקטינו את גודל קובץ ה-PDF לשיתוף ולהעלאות מהירים יותר",
+    "subtitle": "כווצו קובצי PDF כבדים לקבצים רזים ונוחים לשיתוף — באופן פרטי בדפדפן.",
+    "heavyBadge": "כבד",
+    "optBadge": "מאופטם",
+    "pdfBadge": "PDF",
+    "docTitle": "דוח",
+    "sizeHeavy": "24 MB",
+    "sizeLean": "3.2 MB",
+    "success": "מאופטם",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לדחוס PDF."
+  },
+  "PdfLinearizationLanding": {
+    "brand": "ליניאריזציית PDF (Fast Web View) אונליין",
+    "titleRest": "- אופטימיזציה של PDF לצפייה מהירה באינטרנט ולטעינה הדרגתית",
+    "subtitle": "ארגנו מחדש את מבנה ה-PDF כדי שעמוד ראשון ייטען מיד בדפדפן — באופן פרטי במכשיר שלכם.",
+    "stdBadge": "רגיל",
+    "fastBadge": "Fast Web View",
+    "pdfBadge": "PDF",
+    "urlLabel": "document.pdf",
+    "success": "מאופטם",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לבצע ליניאריזציה ל-PDF."
+  },
+  "RepairPdfLanding": {
+    "brand": "תיקון PDF אונליין",
+    "titleRest": "- תיקון קובצי PDF פגומים כדי שייפתחו וירדו בצורה תקינה",
+    "subtitle": "סריקת טבלאות xref שבורות, תיקון שגיאות מבנה ושחזור PDF בריא שניתן לפתוח — באופן פרטי בדפדפן.",
+    "brokenBadge": "פגום",
+    "okBadge": "תוקן",
+    "pdfBadge": "PDF",
+    "errorCode": "שגיאת xref",
+    "success": "תוקן",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לתקן PDF."
+  },
   "PdfToXpsLanding": {
     "brand": "ממיר PDF ל-XPS אונליין",
     "titleRest": "- המירו PDF ל-XPS לתהליכי עבודה ב-Windows",

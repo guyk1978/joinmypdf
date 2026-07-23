@@ -43,7 +43,7 @@
   background:
     radial-gradient(
       ellipse 55% 65% at 12% 45%,
-      color-mix(in srgb, #3b82f6 42%, transparent),
+      color-mix(in srgb, #2563EB 42%, transparent),
       transparent 72%
     ),
     radial-gradient(
@@ -214,15 +214,15 @@
 }
 
 .home-section__control--active {
-  border-color: color-mix(in srgb, var(--category-accent, #3b82f6) 55%, #fff);
-  background: color-mix(in srgb, var(--category-accent, #3b82f6) 18%, #0c0c0c);
+  border-color: color-mix(in srgb, var(--category-accent, #2563EB) 55%, #fff);
+  background: color-mix(in srgb, var(--category-accent, #2563EB) 18%, #0c0c0c);
   color: #fff;
-  box-shadow: 0 0 18px color-mix(in srgb, var(--category-accent, #3b82f6) 28%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--category-accent, #2563EB) 28%, transparent);
 }
 
 .home-section__control--active:hover {
-  border-color: color-mix(in srgb, var(--category-accent, #3b82f6) 75%, #fff);
-  background: color-mix(in srgb, var(--category-accent, #3b82f6) 26%, #0c0c0c);
+  border-color: color-mix(in srgb, var(--category-accent, #2563EB) 75%, #fff);
+  background: color-mix(in srgb, var(--category-accent, #2563EB) 26%, #0c0c0c);
 }
 
 /* —— Horizontal section carousel (strict square cards) —— */
@@ -429,7 +429,7 @@
 
 /* —— Quick access / recent pills (Quick Actions) —— */
 .home-accent-pill {
-  --category-accent: var(--color-pdf, #3b82f6);
+  --category-accent: var(--color-pdf, #2563EB);
   border: 1px solid color-mix(in srgb, var(--category-accent) 55%, transparent);
   background: color-mix(in srgb, var(--category-accent) 14%, #0a0a0a);
   box-shadow: 0 0 18px color-mix(in srgb, var(--category-accent) 22%, transparent);

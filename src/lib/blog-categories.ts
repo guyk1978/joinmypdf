@@ -19,10 +19,10 @@ const TOOL_CATEGORY_TO_BLOG: Record<string, BlogDisplayCategory> = {
 };
 
 export const BLOG_CATEGORY_ACCENT: Record<BlogDisplayCategory, string> = {
-  conversion: "#3B82F6",
-  editing: "#F97316",
-  security: "#10B981",
-  advanced: "#8B5CF6",
+  conversion: "#059669",
+  editing: "#EA580C",
+  security: "#DC2626",
+  advanced: "#7C3AED",
 };
 
 export const BLOG_CATEGORY_BADGE_CLASS: Record<BlogDisplayCategory, string> = {

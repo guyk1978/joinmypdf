@@ -816,6 +816,56 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the workspace to convert PowerPoint to PDF."
   },
+  "FlattenPdfLanding": {
+    "brand": "Flatten PDF Online",
+    "titleRest": "- Flatten PDF Layers and Annotations into a Single Print-Ready File",
+    "subtitle": "Merge interactive layers, form fields, and annotations into one locked, print-ready PDF — privately in your browser.",
+    "layersBadge": "Layers",
+    "flatBadge": "Flattened",
+    "pdfBadge": "PDF",
+    "docTitle": "Ready",
+    "success": "Flattened",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to flatten a PDF."
+  },
+  "CompressPdfLanding": {
+    "brand": "Compress PDF Online",
+    "titleRest": "- Reduce PDF File Size for Faster Sharing and Uploads",
+    "subtitle": "Shrink bulky PDFs into lean, shareable files without leaving your browser.",
+    "heavyBadge": "Heavy",
+    "optBadge": "Optimized",
+    "pdfBadge": "PDF",
+    "docTitle": "Report",
+    "sizeHeavy": "24 MB",
+    "sizeLean": "3.2 MB",
+    "success": "Optimized",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to compress a PDF."
+  },
+  "PdfLinearizationLanding": {
+    "brand": "PDF Linearization (Fast Web View) Online",
+    "titleRest": "- Optimize PDFs for Faster Web Viewing and Progressive Loading",
+    "subtitle": "Restructure PDFs so page one streams instantly in the browser — privately on your device.",
+    "stdBadge": "Standard",
+    "fastBadge": "Fast Web View",
+    "pdfBadge": "PDF",
+    "urlLabel": "document.pdf",
+    "success": "Optimized",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to linearize a PDF."
+  },
+  "RepairPdfLanding": {
+    "brand": "Repair PDF Online",
+    "titleRest": "- Repair Damaged PDFs So They Open and Download Cleanly",
+    "subtitle": "Scan broken cross-reference tables, fix structure errors, and restore a healthy openable PDF — privately in your browser.",
+    "brokenBadge": "Damaged",
+    "okBadge": "Repaired",
+    "pdfBadge": "PDF",
+    "errorCode": "xref error",
+    "success": "Repaired",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to repair a PDF."
+  },
   "PdfToXpsLanding": {
     "brand": "PDF to XPS Converter Online",
     "titleRest": "- Convert PDFs to XPS for Windows Document Workflows",

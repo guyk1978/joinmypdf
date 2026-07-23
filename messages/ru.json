@@ -818,6 +818,56 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте рабочую область, чтобы конвертировать PowerPoint в PDF."
   },
+  "FlattenPdfLanding": {
+    "brand": "Выравнивание PDF онлайн",
+    "titleRest": "- Сведите слои и аннотации PDF в один файл, готовый к печати",
+    "subtitle": "Объединяйте интерактивные слои, поля форм и аннотации в один зафиксированный PDF, готовый к печати — конфиденциально в браузере.",
+    "layersBadge": "Слои",
+    "flatBadge": "Сведено",
+    "pdfBadge": "PDF",
+    "docTitle": "Готово",
+    "success": "Сведено",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы свести PDF."
+  },
+  "CompressPdfLanding": {
+    "brand": "Сжатие PDF онлайн",
+    "titleRest": "- Уменьшите размер PDF для быстрой отправки и загрузки",
+    "subtitle": "Сжимайте тяжёлые PDF в лёгкие файлы для обмена — конфиденциально в браузере.",
+    "heavyBadge": "Тяжёлый",
+    "optBadge": "Оптимизирован",
+    "pdfBadge": "PDF",
+    "docTitle": "Отчёт",
+    "sizeHeavy": "24 MB",
+    "sizeLean": "3.2 MB",
+    "success": "Оптимизирован",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы сжать PDF."
+  },
+  "PdfLinearizationLanding": {
+    "brand": "Линеаризация PDF (Fast Web View) онлайн",
+    "titleRest": "- Оптимизируйте PDF для быстрого просмотра в сети и прогрессивной загрузки",
+    "subtitle": "Перестройте PDF так, чтобы первая страница мгновенно загружалась в браузере — конфиденциально на вашем устройстве.",
+    "stdBadge": "Обычный",
+    "fastBadge": "Fast Web View",
+    "pdfBadge": "PDF",
+    "urlLabel": "document.pdf",
+    "success": "Оптимизировано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы линеаризовать PDF."
+  },
+  "RepairPdfLanding": {
+    "brand": "Восстановление PDF онлайн",
+    "titleRest": "- Почините повреждённые PDF, чтобы они открывались и скачивались корректно",
+    "subtitle": "Сканируйте сломанные таблицы xref, исправляйте ошибки структуры и восстанавливайте рабочий PDF — конфиденциально в браузере.",
+    "brokenBadge": "Повреждён",
+    "okBadge": "Исправлен",
+    "pdfBadge": "PDF",
+    "errorCode": "ошибка xref",
+    "success": "Исправлен",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы восстановить PDF."
+  },
   "PdfToXpsLanding": {
     "brand": "Конвертер PDF в XPS онлайн",
     "titleRest": "- Преобразуйте PDF в XPS для рабочих процессов Windows",

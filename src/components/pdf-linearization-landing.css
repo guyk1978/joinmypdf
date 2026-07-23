@@ -1,0 +1,835 @@
+/* —— Pitch-black fullscreen intro: PDF Linearization (Fast Web View) —— */
+html[data-pdf-linearization-intro="1"],
+html[data-pdf-linearization-intro="1"] body {
+  overflow: hidden !important;
+  background-color: #000000 !important;
+}
+
+html[data-pdf-linearization-intro="1"] .site-header,
+html[data-pdf-linearization-intro="1"] .home-page-footer,
+html[data-pdf-linearization-intro="1"] .pinned-cards-dock,
+html[data-pdf-linearization-intro="1"] .app-page-canvas,
+html[data-pdf-linearization-intro="1"] .cookie-consent,
+html[data-pdf-linearization-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.lin-fs {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --splash-zoom: 1;
+  --splash-max-width: 540px;
+  --splash-wide-min-height: 220px;
+  --splash-wide-max-height: 300px;
+  --lin-blue: #2563eb;
+  --lin-blue-deep: #1d4ed8;
+  --lin-blue-soft: #93c5fd;
+  --lin-green: #16a34a;
+  --lin-green-deep: #15803d;
+  --lin-green-soft: #86efac;
+}
+
+.lin-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.45rem;
+  width: 100%;
+  max-width: min(64rem, calc(100vw - 2rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  padding-bottom: 0.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.lin-fs__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.5vw, 2.65rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.lin-fs__title-brand {
+  color: var(--lin-blue-soft);
+}
+
+.lin-fs__title-rest {
+  color: #ffffff;
+}
+
+.lin-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  line-height: 1.4;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.lin-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
+  margin-top: 32px;
+  padding-top: 8px;
+  padding-bottom: 12px;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
+  overflow: visible;
+}
+
+.lin-fs__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: visible;
+}
+
+.lin-fs__workspace {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 540px;
+  min-height: 220px;
+  height: auto;
+  max-height: 300px;
+  margin: 0 auto;
+  overflow: visible;
+  object-fit: contain;
+}
+
+.lin-fs__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  min-width: 0;
+  padding: 0.75rem 0.85rem 0.8rem;
+  overflow: hidden;
+  object-fit: contain;
+  border: 1px solid rgba(37, 99, 235, 0.42);
+  border-radius: 1rem;
+  background: #070c18;
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(37, 99, 235, 0.1);
+}
+
+.lin-fs__badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+
+.lin-fs__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.4rem;
+  padding: 0.28rem 0.55rem;
+  border-radius: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  font-family: "Cascadia Mono", "Consolas", "SF Mono", ui-monospace, monospace;
+}
+
+.lin-fs__badge--std {
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: #1e293b;
+  color: #e2e8f0;
+  animation: lin-fs-std-badge 10s ease-in-out infinite;
+}
+
+.lin-fs__badge--fast {
+  border: 1px solid rgba(22, 163, 74, 0.55);
+  background: #14532d;
+  color: var(--lin-green-soft);
+  opacity: 0.35;
+  animation: lin-fs-fast-badge 10s ease-in-out infinite;
+}
+
+.lin-fs__arrow {
+  width: 1.4rem;
+  height: 2px;
+  position: relative;
+  background: linear-gradient(90deg, #94a3b8, var(--lin-green));
+  box-shadow: 0 0 8px rgba(22, 163, 74, 0.35);
+  animation: lin-fs-arrow 10s ease-in-out infinite;
+}
+
+.lin-fs__arrow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid var(--lin-green);
+  border-right: 2px solid var(--lin-green);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.lin-fs__stage-art {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.55rem, 3vw, 1rem);
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: min(170px, 100%);
+  overflow: visible;
+}
+
+.lin-fs__pdf {
+  position: relative;
+  flex: 0 1 auto;
+  width: min(30%, 6.75rem);
+  aspect-ratio: 3 / 4;
+  max-height: 100%;
+  box-sizing: border-box;
+  padding: 10% 10% 12%;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: 0.4rem;
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+  animation: lin-fs-pdf 10s ease-in-out infinite;
+}
+
+.lin-fs__pdf-fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22%;
+  aspect-ratio: 1;
+  background: linear-gradient(225deg, #bfdbfe 0%, #93c5fd 48%, #2563eb 50%, #dbeafe 51%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.lin-fs__pdf-mark {
+  display: block;
+  width: fit-content;
+  margin-bottom: 10%;
+  padding: 0.12rem 0.35rem;
+  border-radius: 0.2rem;
+  background: #dc2626;
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.lin-fs__index {
+  display: flex;
+  flex-direction: column;
+  gap: 9%;
+  margin-top: 4%;
+}
+
+.lin-fs__index-row {
+  display: block;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: #94a3b8;
+  transform-origin: left center;
+}
+
+.lin-fs__index-row--1 {
+  width: 78%;
+  background: #2563eb;
+  animation: lin-fs-index-1 10s ease-in-out infinite;
+}
+
+.lin-fs__index-row--2 {
+  width: 62%;
+  animation: lin-fs-index-2 10s ease-in-out infinite;
+}
+
+.lin-fs__index-row--3 {
+  width: 70%;
+  animation: lin-fs-index-3 10s ease-in-out infinite;
+}
+
+.lin-fs__index-row--4 {
+  width: 48%;
+  animation: lin-fs-index-4 10s ease-in-out infinite;
+}
+
+.lin-fs__stream {
+  position: absolute;
+  top: 28%;
+  right: -18%;
+  width: 28%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--lin-blue), var(--lin-green));
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.55);
+  opacity: 0;
+  transform-origin: left center;
+  animation: lin-fs-stream 10s ease-in-out infinite;
+}
+
+.lin-fs__browser {
+  position: relative;
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: min(48%, 11rem);
+  aspect-ratio: 16 / 11;
+  max-height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(37, 99, 235, 0.45);
+  border-radius: 0.55rem;
+  background: #0b1220;
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(37, 99, 235, 0.12);
+  animation: lin-fs-browser 10s ease-in-out infinite;
+}
+
+.lin-fs__chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  flex: 0 0 auto;
+  padding: 0.35rem 0.45rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  background: #111827;
+}
+
+.lin-fs__dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: #64748b;
+}
+
+.lin-fs__dot:nth-child(1) {
+  background: #ef4444;
+}
+
+.lin-fs__dot:nth-child(2) {
+  background: #f59e0b;
+}
+
+.lin-fs__dot:nth-child(3) {
+  background: #22c55e;
+}
+
+.lin-fs__url {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-inline-start: 0.2rem;
+  padding: 0.12rem 0.35rem;
+  overflow: hidden;
+  border-radius: 0.25rem;
+  background: #1f2937;
+  color: #94a3b8;
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lin-fs__viewport {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0.45rem;
+  background:
+    linear-gradient(180deg, rgba(37, 99, 235, 0.08), transparent 40%),
+    #0a0f1a;
+}
+
+.lin-fs__page {
+  position: relative;
+  width: 58%;
+  aspect-ratio: 3 / 4;
+  max-height: 100%;
+  box-sizing: border-box;
+  padding: 12% 12% 14%;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 0.25rem;
+  background: #f8fafc;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: scale(0.82);
+  transform-origin: center center;
+  animation: lin-fs-page 10s ease-in-out infinite;
+}
+
+.lin-fs__page-num {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  color: #2563eb;
+  font-size: 0.55rem;
+  font-weight: 900;
+}
+
+.lin-fs__page-bar {
+  display: block;
+  width: 52%;
+  height: 0.28rem;
+  margin-bottom: 12%;
+  border-radius: 999px;
+  background: #334155;
+}
+
+.lin-fs__page-line {
+  display: block;
+  width: 78%;
+  height: 0.16rem;
+  margin-bottom: 10%;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+
+.lin-fs__page-line--short {
+  width: 48%;
+}
+
+.lin-fs__loader {
+  position: absolute;
+  inset: 28% 22%;
+  border-radius: 0.3rem;
+  background: linear-gradient(
+    90deg,
+    rgba(37, 99, 235, 0.08),
+    rgba(37, 99, 235, 0.28),
+    rgba(37, 99, 235, 0.08)
+  );
+  background-size: 200% 100%;
+  opacity: 1;
+  animation: lin-fs-loader 10s ease-in-out infinite;
+}
+
+.lin-fs__ok {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex: 0 0 auto;
+  gap: 0.35rem;
+  padding: 0.32rem 0.7rem;
+  border: 1px solid rgba(22, 163, 74, 0.5);
+  border-radius: 999px;
+  background: #14532d;
+  color: var(--lin-green-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: lin-fs-ok 10s ease-in-out infinite;
+}
+
+.lin-fs__check {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--lin-green);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.lin-fs__check::after {
+  content: "";
+  position: absolute;
+  left: 28%;
+  top: 18%;
+  width: 28%;
+  height: 48%;
+  border-right: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(40deg);
+}
+
+.lin-fs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.lin-fs__cta {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 16rem);
+  min-height: 3.15rem;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid var(--lin-blue-deep);
+  border-radius: 0.65rem;
+  background: linear-gradient(180deg, #3b82f6 0%, var(--lin-blue) 100%);
+  color: #eff6ff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 12px 28px rgba(37, 99, 235, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition:
+    filter 0.15s ease,
+    transform 0.12s ease,
+    box-shadow 0.15s ease;
+}
+
+.lin-fs__cta:hover {
+  filter: brightness(1.06);
+  box-shadow:
+    0 14px 32px rgba(37, 99, 235, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.lin-fs__cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.lin-fs__cta:focus-visible {
+  outline: 2px solid var(--lin-blue-soft);
+  outline-offset: 3px;
+}
+
+/* —— Timeline (10s): reindex PDF → stream → page 1 pops in browser —— */
+
+@keyframes lin-fs-std-badge {
+  0%,
+  28% {
+    opacity: 1;
+  }
+  45%,
+  78% {
+    opacity: 0.4;
+  }
+  90%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes lin-fs-fast-badge {
+  0%,
+  32% {
+    opacity: 0.35;
+  }
+  48%,
+  78% {
+    opacity: 1;
+  }
+  90%,
+  100% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes lin-fs-arrow {
+  0%,
+  28% {
+    opacity: 0.45;
+    transform: scaleX(0.85);
+  }
+  40%,
+  72% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  88%,
+  100% {
+    opacity: 0.45;
+    transform: scaleX(0.85);
+  }
+}
+
+@keyframes lin-fs-pdf {
+  0%,
+  18% {
+    transform: scale(1);
+  }
+  28%,
+  40% {
+    transform: scale(0.96);
+  }
+  52%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lin-fs-index-1 {
+  0%,
+  16% {
+    transform: translateX(0) scaleX(1);
+    background: #64748b;
+  }
+  28%,
+  72% {
+    transform: translateX(0) scaleX(1);
+    background: #16a34a;
+  }
+  88%,
+  100% {
+    transform: translateX(0) scaleX(1);
+    background: #64748b;
+  }
+}
+
+@keyframes lin-fs-index-2 {
+  0%,
+  14% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  26% {
+    transform: translateY(-120%);
+    opacity: 0.4;
+  }
+  38%,
+  72% {
+    transform: translateY(0);
+    opacity: 1;
+    background: #94a3b8;
+  }
+  88%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes lin-fs-index-3 {
+  0%,
+  16% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(90%);
+  }
+  42%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes lin-fs-index-4 {
+  0%,
+  18% {
+    width: 48%;
+  }
+  34%,
+  72% {
+    width: 72%;
+  }
+  88%,
+  100% {
+    width: 48%;
+  }
+}
+
+@keyframes lin-fs-stream {
+  0%,
+  30% {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  38%,
+  52% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  62%,
+  100% {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+}
+
+@keyframes lin-fs-browser {
+  0%,
+  24% {
+    border-color: rgba(37, 99, 235, 0.35);
+  }
+  42%,
+  74% {
+    border-color: rgba(22, 163, 74, 0.55);
+  }
+  88%,
+  100% {
+    border-color: rgba(37, 99, 235, 0.35);
+  }
+}
+
+@keyframes lin-fs-loader {
+  0%,
+  28% {
+    opacity: 1;
+    background-position: 0% 0;
+  }
+  36% {
+    opacity: 0.85;
+    background-position: 100% 0;
+  }
+  44%,
+  100% {
+    opacity: 0;
+    background-position: 100% 0;
+  }
+}
+
+@keyframes lin-fs-page {
+  0%,
+  36% {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  46%,
+  74% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  88%,
+  100% {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes lin-fs-ok {
+  0%,
+  42% {
+    opacity: 0.25;
+    transform: scale(0.94);
+  }
+  52%,
+  74% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  88%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.94);
+  }
+}
+
+@media (max-width: 640px) {
+  .lin-fs {
+    padding: 16px 0;
+    --splash-wide-max-height: 260px;
+  }
+
+  .lin-fs__stage {
+    margin-top: 24px;
+  }
+
+  .lin-fs__card {
+    gap: 0.45rem;
+    padding: 0.65rem 0.7rem 0.7rem;
+    max-height: 260px;
+  }
+
+  .lin-fs__workspace {
+    max-height: 260px;
+  }
+
+  .lin-fs__stage-art {
+    max-height: min(150px, 100%);
+  }
+
+  .lin-fs__cta {
+    min-width: min(100%, 14rem);
+    min-height: 2.9rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .lin-fs__workspace,
+  .lin-fs__card {
+    max-height: 260px;
+  }
+
+  .lin-fs__stage-art {
+    max-height: min(140px, 100%);
+  }
+
+  .lin-fs__title {
+    font-size: clamp(1.15rem, 3vw, 1.85rem);
+  }
+}
+
+@media (max-height: 560px) {
+  .lin-fs {
+    padding: 12px 0;
+  }
+
+  .lin-fs__stage {
+    margin-top: 16px;
+  }
+
+  .lin-fs__workspace,
+  .lin-fs__card {
+    max-height: 220px;
+  }
+
+  .lin-fs__ok {
+    display: none;
+  }
+}
