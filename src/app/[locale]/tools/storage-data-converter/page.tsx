@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
+import { StorageDataConverterIntroGate } from "@/components/StorageDataConverterIntroGate";
 import { StorageDataConverterWorkspace } from "@/components/tools/unit-math/StorageDataConverterWorkspace";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
@@ -74,7 +75,9 @@ export default async function StorageDataConverterPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <StorageDataConverterWorkspace tool={tool} slug={SLUG} />
+            <StorageDataConverterIntroGate>
+              <StorageDataConverterWorkspace tool={tool} slug={SLUG} />
+            </StorageDataConverterIntroGate>
           </section>
 </div>
       </AppPageShell>

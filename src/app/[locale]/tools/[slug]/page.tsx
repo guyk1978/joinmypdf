@@ -139,6 +139,11 @@ import { RedactPdfIntroGate } from "@/components/RedactPdfIntroGate";
 import { RemoveHiddenMetadataIntroGate } from "@/components/RemoveHiddenMetadataIntroGate";
 import { SafeShareAuditorIntroGate } from "@/components/SafeShareAuditorIntroGate";
 import { SignPdfIntroGate } from "@/components/SignPdfIntroGate";
+import { TimezoneConverterIntroGate } from "@/components/TimezoneConverterIntroGate";
+import { StorageDataConverterIntroGate } from "@/components/StorageDataConverterIntroGate";
+import { BaseConverterIntroGate } from "@/components/BaseConverterIntroGate";
+import { GlobalTimezoneConverterIntroGate } from "@/components/GlobalTimezoneConverterIntroGate";
+import { UnitConverterIntroGate } from "@/components/UnitConverterIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -498,6 +503,11 @@ export default async function ToolPage({
         <RemoveHiddenMetadataIntroGate active={tool.operation === "remove-hidden-metadata"}>
         <SafeShareAuditorIntroGate active={tool.operation === "safe-to-share-auditor"}>
         <SignPdfIntroGate active={tool.operation === "sign-pdf"}>
+        <TimezoneConverterIntroGate active={tool.operation === "timezone-converter"}>
+        <StorageDataConverterIntroGate active={tool.operation === "storage-data-converter"}>
+        <BaseConverterIntroGate active={tool.operation === "base-converter"}>
+        <GlobalTimezoneConverterIntroGate active={tool.operation === "global-timezone-converter"}>
+        <UnitConverterIntroGate active={tool.operation === "unit-converter"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -785,6 +795,11 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </UnitConverterIntroGate>
+        </GlobalTimezoneConverterIntroGate>
+        </BaseConverterIntroGate>
+        </StorageDataConverterIntroGate>
+        </TimezoneConverterIntroGate>
         </SignPdfIntroGate>
         </SafeShareAuditorIntroGate>
         </RemoveHiddenMetadataIntroGate>

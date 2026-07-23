@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
+import { BaseConverterIntroGate } from "@/components/BaseConverterIntroGate";
 import { BaseConverterWorkspace } from "@/components/tools/unit-math/BaseConverterWorkspace";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
@@ -74,7 +75,9 @@ export default async function BaseConverterPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <BaseConverterWorkspace tool={tool} slug={SLUG} />
+            <BaseConverterIntroGate>
+              <BaseConverterWorkspace tool={tool} slug={SLUG} />
+            </BaseConverterIntroGate>
           </section>
 </div>
       </AppPageShell>
