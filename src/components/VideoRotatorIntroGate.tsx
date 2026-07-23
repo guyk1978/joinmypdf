@@ -80,7 +80,7 @@ export function VideoRotatorIntroGate({
 
         <div className="vro-fs__stage" aria-hidden>
           <div className="vro-fs__scene">
-            <div className="vro-fs__workspace animation-workspace">
+            <div className="vro-fs__workspace animation-workspace" data-splash-wide>
               <div className="vro-fs__card">
                 <div className="vro-fs__badges">
                   <span className="vro-fs__badge vro-fs__badge--from">{t("angleFrom")}</span>

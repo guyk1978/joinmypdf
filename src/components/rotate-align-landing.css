@@ -28,6 +28,8 @@ html[data-rotate-intro="1"] [class*="cookie"] {
   height: 100dvh;
   max-width: 100vw;
   max-height: 100dvh;
+  /* Bound the align workspace — never stretch to full stage width */
+  --splash-max-width: 544px;
   margin: 0;
   padding:
     clamp(1rem, 2.5vh, 2rem)
@@ -101,8 +103,10 @@ html[data-rotate-intro="1"] [class*="cookie"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: min(100%, 34rem);
+  width: 90%;
+  max-width: 34rem;
   height: clamp(16rem, 44vh, 24rem);
+  margin-inline: auto;
   overflow: hidden;
 }
 

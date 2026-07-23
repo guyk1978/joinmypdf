@@ -80,7 +80,7 @@ export function RotatePdfIntroGate({
 
         <div className="rtp-fs__stage" aria-hidden>
           <div className="rtp-fs__scene">
-            <div className="rtp-fs__workspace animation-workspace">
+            <div className="rtp-fs__workspace animation-workspace" data-splash-wide>
               <div className="rtp-fs__card">
                 <div className="rtp-fs__badges">
                   <span className="rtp-fs__badge rtp-fs__badge--dir">{t("direction")}</span>

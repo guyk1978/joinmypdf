@@ -1,0 +1,819 @@
+/* —— Pitch-black fullscreen intro: Convert OpenOffice to PDF Online —— */
+html[data-openoffice-to-pdf-intro="1"],
+html[data-openoffice-to-pdf-intro="1"] body {
+  overflow: hidden !important;
+  background-color: #000000 !important;
+}
+
+html[data-openoffice-to-pdf-intro="1"] .site-header,
+html[data-openoffice-to-pdf-intro="1"] .home-page-footer,
+html[data-openoffice-to-pdf-intro="1"] .pinned-cards-dock,
+html[data-openoffice-to-pdf-intro="1"] .app-page-canvas,
+html[data-openoffice-to-pdf-intro="1"] .cookie-consent,
+html[data-openoffice-to-pdf-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.oop-fs {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --splash-zoom: 1.08;
+  --splash-max-width: 540px;
+}
+
+.oop-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.45rem;
+  width: 100%;
+  max-width: min(64rem, calc(100vw - 2rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.oop-fs__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.5vw, 2.65rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.oop-fs__title-brand {
+  color: #38bdf8;
+}
+
+.oop-fs__title-rest {
+  color: #ffffff;
+}
+
+.oop-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  line-height: 1.4;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.oop-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(100vh - 200px);
+  max-height: calc(100dvh - 200px);
+  padding-block: 8px;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
+  overflow: hidden;
+}
+
+.oop-fs__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.oop-fs__workspace {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 540px;
+  height: auto;
+  max-height: 55vh;
+  margin-inline: auto;
+  overflow: visible;
+  object-fit: contain;
+}
+
+.oop-fs__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 55vh;
+  min-width: 0;
+  padding: 0.9rem 1rem 0.95rem;
+  overflow: hidden;
+  object-fit: contain;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 1rem;
+  background: #061018;
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(56, 189, 248, 0.08);
+}
+
+.oop-fs__badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+
+.oop-fs__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.2rem;
+  padding: 0.3rem 0.55rem;
+  border-radius: 0.35rem;
+  font-family: "Cascadia Mono", "Consolas", "SF Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.oop-fs__badge--odt {
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  background: rgba(8, 47, 73, 0.9);
+  color: #7dd3fc;
+  animation: oop-fs-odt-badge 10s ease-in-out infinite;
+}
+
+.oop-fs__badge--ods {
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  background: rgba(5, 46, 22, 0.9);
+  color: #86efac;
+  opacity: 0.35;
+  animation: oop-fs-ods-badge 10s ease-in-out infinite;
+}
+
+.oop-fs__badge--pdf {
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  background: rgba(69, 10, 10, 0.85);
+  color: #fca5a5;
+  opacity: 0.3;
+  animation: oop-fs-pdf-badge 10s ease-in-out infinite;
+}
+
+.oop-fs__arrow {
+  width: 1.35rem;
+  height: 2px;
+  position: relative;
+  background: linear-gradient(90deg, #38bdf8, #f87171);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+  animation: oop-fs-arrow 10s ease-in-out infinite;
+}
+
+.oop-fs__arrow::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-top: 2px solid #f87171;
+  border-right: 2px solid #f87171;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.oop-fs__stage-art {
+  position: relative;
+  flex: 1 1 auto;
+  flex-shrink: 1;
+  min-height: 0;
+  min-width: 0;
+  width: min(100%, clamp(14rem, 42vw, 22rem));
+  aspect-ratio: 5 / 4;
+  max-height: min(40vh, 100%);
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  background:
+    radial-gradient(ellipse at 28% 32%, rgba(56, 189, 248, 0.12), transparent 55%),
+    radial-gradient(ellipse at 72% 70%, rgba(74, 222, 128, 0.08), transparent 50%),
+    rgba(255, 255, 255, 0.03);
+  object-fit: contain;
+}
+
+.oop-fs__oo,
+.oop-fs__pdf {
+  position: absolute;
+  inset: 12%;
+  box-sizing: border-box;
+  border-radius: 0.45rem;
+  overflow: hidden;
+}
+
+.oop-fs__oo {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+  padding: 14% 11% 20%;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  background: linear-gradient(180deg, #0c1a24 0%, #082f49 100%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  transform-origin: center center;
+  animation: oop-fs-oo 10s ease-in-out infinite;
+}
+
+.oop-fs__oo-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18%;
+  background: linear-gradient(90deg, #0ea5e9 0%, #0284c7 55%, #16a34a 100%);
+  opacity: 0.95;
+}
+
+.oop-fs__oo-mark {
+  position: absolute;
+  top: 3.5%;
+  left: 8%;
+  z-index: 2;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50% 50% 45% 55%;
+  background:
+    radial-gradient(circle at 35% 35%, #e0f2fe 0%, #38bdf8 45%, #0284c7 100%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.45);
+  animation: oop-fs-mark 10s ease-in-out infinite;
+}
+
+.oop-fs__oo-title {
+  position: relative;
+  z-index: 1;
+  display: block;
+  max-width: 90%;
+  margin-top: 0.15rem;
+  font-size: clamp(0.7rem, 1.7vw, 0.88rem);
+  font-weight: 800;
+  color: #e0f2fe;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.oop-fs__oo-line {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 88%;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: rgba(125, 211, 252, 0.4);
+  flex-shrink: 0;
+  animation: oop-fs-lines 10s ease-in-out infinite;
+}
+
+.oop-fs__oo-line--short {
+  width: 58%;
+}
+
+.oop-fs__oo-grid {
+  position: absolute;
+  z-index: 1;
+  left: 11%;
+  right: 11%;
+  top: 42%;
+  bottom: 22%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.22rem;
+  opacity: 0;
+  pointer-events: none;
+  animation: oop-fs-grid 10s ease-in-out infinite;
+}
+
+.oop-fs__oo-grid > span {
+  border-radius: 0.18rem;
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  background: rgba(22, 163, 74, 0.22);
+}
+
+.oop-fs__pdf {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 12% 11% 20%;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  background: linear-gradient(180deg, #1c0a0a 0%, #450a0a 100%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform-origin: center center;
+  animation: oop-fs-pdf 10s ease-in-out infinite;
+}
+
+.oop-fs__pdf-fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18%;
+  aspect-ratio: 1;
+  background: linear-gradient(225deg, #7f1d1d 0%, #f87171 55%, transparent 56%);
+  opacity: 0.9;
+}
+
+.oop-fs__pdf-title {
+  display: block;
+  max-width: 85%;
+  font-size: clamp(0.7rem, 1.7vw, 0.88rem);
+  font-weight: 800;
+  color: #fecaca;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.oop-fs__pdf-line {
+  display: block;
+  width: 88%;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: rgba(252, 165, 165, 0.4);
+  flex-shrink: 0;
+}
+
+.oop-fs__pdf-line--short {
+  width: 58%;
+}
+
+.oop-fs__pdf-block {
+  display: block;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 1.8rem;
+  margin-top: 0.2rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background:
+    linear-gradient(180deg, rgba(56, 189, 248, 0.16), transparent 60%),
+    rgba(0, 0, 0, 0.25);
+}
+
+.oop-fs__fname {
+  position: absolute;
+  left: 50%;
+  bottom: 0.45rem;
+  z-index: 3;
+  transform: translateX(-50%);
+  padding: 0.18rem 0.45rem;
+  border-radius: 999px;
+  font-family: "Cascadia Mono", "Consolas", "SF Mono", ui-monospace, monospace;
+  font-size: clamp(0.58rem, 1.5vw, 0.7rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.oop-fs__fname--odt {
+  background: rgba(8, 47, 73, 0.95);
+  color: #7dd3fc;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  animation: oop-fs-name-odt 10s ease-in-out infinite;
+}
+
+.oop-fs__fname--ods {
+  background: rgba(5, 46, 22, 0.95);
+  color: #86efac;
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  opacity: 0;
+  animation: oop-fs-name-ods 10s ease-in-out infinite;
+}
+
+.oop-fs__fname--pdf {
+  background: rgba(69, 10, 10, 0.95);
+  color: #fecaca;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  opacity: 0;
+  animation: oop-fs-name-pdf 10s ease-in-out infinite;
+}
+
+.oop-fs__beam {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  z-index: 4;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #38bdf8, #4ade80, #f87171, transparent);
+  opacity: 0;
+  pointer-events: none;
+  animation: oop-fs-beam 10s ease-in-out infinite;
+}
+
+.oop-fs__ok {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex: 0 0 auto;
+  gap: 0.4rem;
+  padding: 0.38rem 0.8rem;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 999px;
+  background: rgba(8, 47, 73, 0.9);
+  color: #7dd3fc;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: oop-fs-ok 10s ease-in-out infinite;
+}
+
+.oop-fs__check {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, transparent 46%, #38bdf8 46% 54%, transparent 54%),
+    linear-gradient(45deg, transparent 58%, #38bdf8 58% 72%, transparent 72%),
+    #082f49;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55);
+}
+
+.oop-fs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.oop-fs__cta {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 16rem);
+  min-height: 3.15rem;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid #0284c7;
+  border-radius: 0.65rem;
+  background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 100%);
+  color: #082f49;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 10px 28px rgba(14, 165, 233, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.oop-fs__cta:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    0 14px 32px rgba(14, 165, 233, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.oop-fs__cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.oop-fs__cta:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 3px;
+}
+
+/* —— Timeline (10s): ODT → ODS flash → PDF → reset —— */
+
+@keyframes oop-fs-odt-badge {
+  0%,
+  18% {
+    opacity: 1;
+  }
+  28%,
+  42% {
+    opacity: 0.35;
+  }
+  52%,
+  78% {
+    opacity: 0.3;
+  }
+  90%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes oop-fs-ods-badge {
+  0%,
+  18% {
+    opacity: 0.3;
+  }
+  28%,
+  42% {
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+  }
+  52%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes oop-fs-pdf-badge {
+  0%,
+  44% {
+    opacity: 0.3;
+  }
+  56%,
+  78% {
+    opacity: 1;
+    box-shadow: 0 0 14px rgba(248, 113, 113, 0.3);
+  }
+  90%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes oop-fs-arrow {
+  0%,
+  22% {
+    opacity: 0.45;
+    transform: scaleX(0.85);
+  }
+  50%,
+  72% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  88%,
+  100% {
+    opacity: 0.45;
+    transform: scaleX(0.85);
+  }
+}
+
+@keyframes oop-fs-oo {
+  0%,
+  20% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    border-color: rgba(56, 189, 248, 0.4);
+  }
+  28%,
+  40% {
+    opacity: 1;
+    transform: scale(1.02) rotate(0deg);
+    border-color: rgba(74, 222, 128, 0.45);
+  }
+  52%,
+  76% {
+    opacity: 0;
+    transform: scale(0.78) rotate(-5deg);
+  }
+  90%,
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    border-color: rgba(56, 189, 248, 0.4);
+  }
+}
+
+@keyframes oop-fs-mark {
+  0%,
+  22% {
+    background:
+      radial-gradient(circle at 35% 35%, #e0f2fe 0%, #38bdf8 45%, #0284c7 100%);
+  }
+  28%,
+  42% {
+    background:
+      radial-gradient(circle at 35% 35%, #dcfce7 0%, #4ade80 45%, #16a34a 100%);
+  }
+  52%,
+  100% {
+    background:
+      radial-gradient(circle at 35% 35%, #e0f2fe 0%, #38bdf8 45%, #0284c7 100%);
+  }
+}
+
+@keyframes oop-fs-lines {
+  0%,
+  22% {
+    opacity: 1;
+  }
+  28%,
+  42% {
+    opacity: 0;
+  }
+  90%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes oop-fs-grid {
+  0%,
+  22% {
+    opacity: 0;
+  }
+  28%,
+  42% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes oop-fs-pdf {
+  0%,
+  46% {
+    opacity: 0;
+    transform: scale(0.78) rotate(6deg);
+  }
+  56%,
+  76% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: scale(0.78) rotate(6deg);
+  }
+}
+
+@keyframes oop-fs-name-odt {
+  0%,
+  20% {
+    opacity: 1;
+  }
+  28%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes oop-fs-name-ods {
+  0%,
+  24% {
+    opacity: 0;
+  }
+  28%,
+  42% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes oop-fs-name-pdf {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  56%,
+  76% {
+    opacity: 1;
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes oop-fs-beam {
+  0%,
+  44% {
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+  52%,
+  60% {
+    opacity: 0.95;
+    transform: scaleX(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+}
+
+@keyframes oop-fs-ok {
+  0%,
+  52% {
+    opacity: 0.25;
+    transform: scale(0.94);
+  }
+  58%,
+  78% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.94);
+  }
+}
+
+@media (max-width: 640px) {
+  .oop-fs {
+    padding: 16px 0;
+    --splash-zoom: 1.05;
+  }
+
+  .oop-fs__card {
+    gap: 0.55rem;
+    padding: 0.7rem 0.8rem 0.75rem;
+  }
+
+  .oop-fs__stage-art {
+    max-height: min(34vh, 100%);
+  }
+
+  .oop-fs__cta {
+    min-width: min(100%, 14rem);
+    min-height: 2.9rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .oop-fs__workspace,
+  .oop-fs__card {
+    max-height: 50vh;
+  }
+
+  .oop-fs__stage-art {
+    max-height: min(32vh, 100%);
+  }
+
+  .oop-fs__title {
+    font-size: clamp(1.15rem, 3vw, 1.85rem);
+  }
+}
+
+@media (max-height: 560px) {
+  .oop-fs {
+    padding: 12px 0;
+    --splash-zoom: 1;
+  }
+
+  .oop-fs__workspace,
+  .oop-fs__card {
+    max-height: 46vh;
+  }
+
+  .oop-fs__ok {
+    display: none;
+  }
+}

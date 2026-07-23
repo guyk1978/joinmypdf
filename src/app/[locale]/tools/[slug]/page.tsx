@@ -95,6 +95,10 @@ import { AutocadToPdfIntroGate } from "@/components/AutocadToPdfIntroGate";
 import { EbookToPdfIntroGate } from "@/components/EbookToPdfIntroGate";
 import { HtmlToPdfIntroGate } from "@/components/HtmlToPdfIntroGate";
 import { IworkToPdfIntroGate } from "@/components/IworkToPdfIntroGate";
+import { OpenofficeToPdfIntroGate } from "@/components/OpenofficeToPdfIntroGate";
+import { PdfAConverterIntroGate } from "@/components/PdfAConverterIntroGate";
+import { PdfToEpubIntroGate } from "@/components/PdfToEpubIntroGate";
+import { PdfToHtmlIntroGate } from "@/components/PdfToHtmlIntroGate";
 import { MarkdownToPdfIntroGate } from "@/components/MarkdownToPdfIntroGate";
 import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
 import { ExtractTablesPdfIntroGate } from "@/components/ExtractTablesPdfIntroGate";
@@ -470,6 +474,10 @@ export default async function ToolPage({
         <EbookToPdfIntroGate active={tool.operation === "ebook-to-pdf"}>
         <HtmlToPdfIntroGate active={tool.operation === "html-to-pdf"}>
         <IworkToPdfIntroGate active={tool.operation === "iwork-to-pdf"}>
+        <OpenofficeToPdfIntroGate active={tool.operation === "openoffice-to-pdf"}>
+        <PdfAConverterIntroGate active={tool.operation === "pdf-a-converter"}>
+        <PdfToEpubIntroGate active={tool.operation === "pdf-to-epub"}>
+        <PdfToHtmlIntroGate active={tool.operation === "pdf-to-html"}>
         <MarkdownToPdfIntroGate active={tool.operation === "markdown-to-pdf"}>
         <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
         <ExtractTablesPdfIntroGate active={tool.operation === "extract-tables-pdf"}>
@@ -877,6 +885,10 @@ export default async function ToolPage({
         </ExtractTablesPdfIntroGate>
         </ExcelToPdfIntroGate>
         </MarkdownToPdfIntroGate>
+        </PdfToHtmlIntroGate>
+        </PdfToEpubIntroGate>
+        </PdfAConverterIntroGate>
+        </OpenofficeToPdfIntroGate>
         </IworkToPdfIntroGate>
         </HtmlToPdfIntroGate>
         </EbookToPdfIntroGate>

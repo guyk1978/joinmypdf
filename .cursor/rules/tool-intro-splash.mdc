@@ -30,16 +30,27 @@ All cinematic fullscreen tool intros (`*IntroGate.tsx` + `*-landing.css`) inheri
 - Optional aliases: `global-splash-workspace`, `global-splash-card`.
 - Keep success badges **inside** `__card` so they are not clipped.
 
-## Global footprint (caps only — no forced width)
+## Global footprint (caps + center — never full-stage stretch)
 
 | Zone | Standard |
 |------|----------|
-| Stage / workspace | Flex-centered, `max-height: calc(100vh - 180px)`, `max-width: 100%` |
-| Inner `__card` / cardless visual | Tool-owned size, capped with `max-width: 100%`, `max-height: 60vh`, `object-fit: contain`, `margin: 0 auto` |
+| Stage | Flex-centered, `max-height: calc(100vh - 180px)` |
+| Workspace | `flex: 0 1 auto` (must not grow across the scene), `max-width: min(var(--splash-max-width, 560px), 90%)`, `margin: 0 auto` |
+| Inner `__card` / cardless visual | Same width ceiling, `max-height: min(60vh, 28rem)`, `object-fit: contain`, `margin: 0 auto` |
 
-**Do not** force cards to a fixed width (e.g. `780px` / `width: 95%`). That stretches square/portrait/landscape art.
+**Do not** force cards to a fixed wide banner (e.g. `width: 100%` of the stage, `780px`, or `max-width: 100%` alone). Horizontal designs stretch that way.
 
 Tool CSS owns native proportions (`clamp()`, aspect-ratio, fixed preview sizes). Shared CSS only centers, caps, and uniformly zooms.
+
+### Horizontal / wide cards
+
+For landscape shells (Rotate PDF, Video Rotator, conversion stage-art, etc.):
+
+- Prefer `width: 90%`, `max-width: 420px–560px`, `margin-inline: auto`
+- Use `aspect-ratio` (e.g. `5 / 4` or `16 / 10`) + `max-height` so icons/badges stay clustered
+- Opt-in markers: `data-splash-wide`, `.splash-wide`, `.animation-workspace--wide`, `.global-splash-card--wide`
+- Tune ceiling: `.{prefix}-fs.tool-intro-fs { --splash-max-width: 420px; }`
+- Multi-card rows use `--splash-row-max` (default `720px`)
 
 ## Uniform scale-up (no axis distortion)
 
@@ -57,13 +68,14 @@ Root `--splash-zoom` (default `1.1`) enlarges the whole workspace uniformly via 
 
 ## Multi-card / N-up exceptions
 
-- Side-by-side cards: workspace capped as one unit; each card keeps native size.
+- Side-by-side cards: workspace capped as one unit (`--splash-row-max`); each card keeps native size.
 - `.nup-fs` keeps multi-column stage rules (`zoom: 1`).
 
 ## Checklist for a new tool splash
 
 1. Gate uses `tool-intro-fs` + `animation-workspace`.
-2. Card uses natural aspect (tool CSS); no global fixed width.
-3. Tune `--splash-zoom` only if the default enlarge is too much/little.
-4. Badge inside card; internals don’t spill.
-5. i18n CTA keys for en / he / ru.
+2. Card uses natural aspect (tool CSS); no full-stage `width: 100%` without a max-width ≤ 560px.
+3. Wide/horizontal designs: `data-splash-wide` (or `width: 90%` + aspect-ratio) and optional `--splash-max-width`.
+4. Tune `--splash-zoom` only if the default enlarge is too much/little.
+5. Badge inside card; internals don’t spill.
+6. i18n CTA keys for en / he / ru.
