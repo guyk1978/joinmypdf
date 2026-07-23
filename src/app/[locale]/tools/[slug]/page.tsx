@@ -124,6 +124,13 @@ import { JsonToCsvIntroGate } from "@/components/JsonToCsvIntroGate";
 import { YamlJsonConverterIntroGate } from "@/components/YamlJsonConverterIntroGate";
 import { JwtDebuggerIntroGate } from "@/components/JwtDebuggerIntroGate";
 import { QrCodeGeneratorIntroGate } from "@/components/QrCodeGeneratorIntroGate";
+import { PasswordGeneratorIntroGate } from "@/components/PasswordGeneratorIntroGate";
+import { PasswordRecoveryIntroGate } from "@/components/PasswordRecoveryIntroGate";
+import { WordCharacterCounterIntroGate } from "@/components/WordCharacterCounterIntroGate";
+import { WordToPdfIntroGate } from "@/components/WordToPdfIntroGate";
+import { CropPdfIntroGate } from "@/components/CropPdfIntroGate";
+import { RotatePdfIntroGate } from "@/components/RotatePdfIntroGate";
+import { VideoRotatorIntroGate } from "@/components/VideoRotatorIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -468,6 +475,13 @@ export default async function ToolPage({
         <YamlJsonConverterIntroGate active={tool.operation === "yaml-json-converter"}>
         <JwtDebuggerIntroGate active={tool.operation === "jwt-debugger"}>
         <QrCodeGeneratorIntroGate active={tool.operation === "qr-code-generator"}>
+        <PasswordGeneratorIntroGate active={tool.operation === "password-generator"}>
+        <PasswordRecoveryIntroGate active={tool.operation === "pdf-password-recovery"}>
+        <WordCharacterCounterIntroGate active={tool.operation === "word-character-counter"}>
+        <WordToPdfIntroGate active={tool.operation === "word-to-pdf"}>
+        <CropPdfIntroGate active={tool.operation === "crop-pdf"}>
+        <RotatePdfIntroGate active={tool.operation === "rotate-pdf"}>
+        <VideoRotatorIntroGate active={tool.operation === "video-rotator"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -755,6 +769,13 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </VideoRotatorIntroGate>
+        </RotatePdfIntroGate>
+        </CropPdfIntroGate>
+        </WordToPdfIntroGate>
+        </WordCharacterCounterIntroGate>
+        </PasswordRecoveryIntroGate>
+        </PasswordGeneratorIntroGate>
         </QrCodeGeneratorIntroGate>
         </JwtDebuggerIntroGate>
         </YamlJsonConverterIntroGate>

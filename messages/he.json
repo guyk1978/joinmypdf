@@ -1012,6 +1012,87 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את סביבת העבודה כדי ליצור קוד QR."
   },
+  "PasswordGeneratorLanding": {
+    "brand": "מחולל סיסמאות",
+    "titleRest": "- צרו סיסמאות חזקות וייחודיות תוך שניות",
+    "subtitle": "הפיקו סיסמאות חזקות קריפטוגרפית עם אותיות, מספרים וסימנים — באופן פרטי בדפדפן.",
+    "lengthBadge": "16 תווים",
+    "secureBadge": "100% מאובטח",
+    "scrambleSample": "xK#9mQ!2pL$7vN@4",
+    "passwordSample": "P@ssw0rd!#982",
+    "strengthLabel": "100% מאובטח",
+    "success": "נוצרה",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי ליצור סיסמה חזקה."
+  },
+  "PasswordRecoveryLanding": {
+    "brand": "שחזור סיסמה",
+    "titleRest": "- שחזרו סיסמאות PDF פשוטות בחיפוש מקומי במכשיר",
+    "subtitle": "נסו סיסמאות קצרות שנשכחו מקומית עם רשימות מילים ודפוסים — ה-PDF לא עוזב את הדפדפן.",
+    "localBadge": "במכשיר",
+    "triesBadge": "{count} ניסיונות",
+    "tryingLabel": "מנסה",
+    "matchedKey": "pdf2020",
+    "success": "נפתח",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לשחזר סיסמת PDF."
+  },
+  "WordCharacterCounterLanding": {
+    "brand": "מונה מילים ותווים",
+    "titleRest": "- ספרו מילים, תווים, משפטים ופסקאות",
+    "subtitle": "הדביקו כל טיוטה וצפו בספירה חיה של מילים, תווים, משפטים וזמן קריאה — באופן פרטי בדפדפן.",
+    "editorLabel": "עורך",
+    "words": "מילים",
+    "characters": "תווים",
+    "sentences": "משפטים",
+    "readingTime": "קריאה",
+    "success": "נספר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לספור מילים ותווים."
+  },
+  "WordToPdfLanding": {
+    "brand": "המרת Word ל-PDF אונליין",
+    "titleRest": "- המירו מסמכי Word לקבצי PDF לשיתוף",
+    "subtitle": "הפכו טיוטות DOCX ל-PDF קבוע לשיתוף עם גופנים ופריסה נעולים — באופן פרטי בדפדפן.",
+    "docxBadge": "DOCX",
+    "pdfBadge": "PDF",
+    "converting": "מרנדר פריסה…",
+    "rendered": "גופנים ננעלו",
+    "locked": "עמוד קבוע",
+    "success": "הומר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר Word ל-PDF."
+  },
+  "CropPdfLanding": {
+    "brand": "חיתוך PDF אונליין",
+    "titleRest": "- חתכו עמודי PDF להסרת שוליים וקצוות מיותרים",
+    "subtitle": "קצצו רווח סורק ושוליים עודפים כדי שכל עמוד ימסגר את התוכן החשוב — באופן פרטי בדפדפן.",
+    "dimBefore": "Letter · מלא",
+    "dimAfter": "חתוך · הדוק",
+    "success": "נחתך",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לחתוך עמודי PDF."
+  },
+  "RotatePdfLanding": {
+    "brand": "סיבוב PDF אונליין",
+    "titleRest": "- סובבו עמודי PDF עם כיוון השעון או נגדו",
+    "subtitle": "תקנו סריקות לצד ועמודים הפוכים עם סיבובים מדויקים של 90° — באופן פרטי בדפדפן.",
+    "direction": "עם השעון",
+    "angleBadge": "90° CW",
+    "success": "נסובב",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לסובב עמודי PDF."
+  },
+  "VideoRotatorLanding": {
+    "brand": "סיבוב וידאו",
+    "titleRest": "- סובבו סרטונים מצדדים לכיוון הנכון",
+    "subtitle": "תקנו קליפים מהטלפון שצולמו לצד והעמידו אותם בנוף או דיוקן הנכון — באופן פרטי בדפדפן.",
+    "angleFrom": "0°",
+    "angleTo": "90°",
+    "success": "מכוון",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לסובב וידאו."
+  },
   "Home": {
     "pickTool": "בחר כלי",
     "pickToolDescription": "כל תהליך נפתח בלחיצה אחת — אותו ממשק, אותו מודל פרטיות.",

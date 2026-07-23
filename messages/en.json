@@ -1012,6 +1012,87 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the workspace to create your QR code."
   },
+  "PasswordGeneratorLanding": {
+    "brand": "Password Generator",
+    "titleRest": "- Generate Strong, Unique Passwords in Seconds",
+    "subtitle": "Spin up cryptographically strong passwords with letters, numbers, and symbols — privately in your browser.",
+    "lengthBadge": "16 chars",
+    "secureBadge": "100% Secure",
+    "scrambleSample": "xK#9mQ!2pL$7vN@4",
+    "passwordSample": "P@ssw0rd!#982",
+    "strengthLabel": "100% Secure",
+    "success": "Generated",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to generate a strong password."
+  },
+  "PasswordRecoveryLanding": {
+    "brand": "Password Recovery",
+    "titleRest": "- Recover Simple PDF Passwords with an On-Device Search",
+    "subtitle": "Try short forgotten passwords locally with wordlists and patterns — your PDF never leaves the browser.",
+    "localBadge": "On-device",
+    "triesBadge": "{count} tried",
+    "tryingLabel": "Trying",
+    "matchedKey": "pdf2020",
+    "success": "Unlocked",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to recover a PDF password."
+  },
+  "WordCharacterCounterLanding": {
+    "brand": "Word & Character Counter",
+    "titleRest": "- Count Words, Characters, Sentences, and Paragraphs",
+    "subtitle": "Paste any draft and watch live counts for words, characters, sentences, and reading time — privately in your browser.",
+    "editorLabel": "Editor",
+    "words": "Words",
+    "characters": "Chars",
+    "sentences": "Sentences",
+    "readingTime": "Read",
+    "success": "Counted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to count words and characters."
+  },
+  "WordToPdfLanding": {
+    "brand": "Convert Word to PDF Online",
+    "titleRest": "- Convert Word Documents into Shareable PDF Files",
+    "subtitle": "Turn DOCX drafts into fixed, shareable PDFs with fonts and layout locked — privately in your browser.",
+    "docxBadge": "DOCX",
+    "pdfBadge": "PDF",
+    "converting": "Rendering layout…",
+    "rendered": "Fonts locked",
+    "locked": "Fixed page",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert Word to PDF."
+  },
+  "CropPdfLanding": {
+    "brand": "Crop PDF Online",
+    "titleRest": "- Crop PDF Pages to Remove Margins and Unwanted Edges",
+    "subtitle": "Trim scanner whitespace and excess borders so every page frames the content that matters — privately in your browser.",
+    "dimBefore": "Letter · full",
+    "dimAfter": "Trimmed · tight",
+    "success": "Cropped",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to crop PDF pages."
+  },
+  "RotatePdfLanding": {
+    "brand": "Rotate PDF Online",
+    "titleRest": "- Rotate PDF Pages Clockwise or Counterclockwise",
+    "subtitle": "Fix sideways scans and upside-down pages with precise 90° turns — privately in your browser.",
+    "direction": "Clockwise",
+    "angleBadge": "90° CW",
+    "success": "Rotated",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to rotate PDF pages."
+  },
+  "VideoRotatorLanding": {
+    "brand": "Video Rotator",
+    "titleRest": "- Rotate Sideways Videos to the Correct Orientation",
+    "subtitle": "Fix phone clips shot sideways and snap them into the right landscape or portrait view — privately in your browser.",
+    "angleFrom": "0°",
+    "angleTo": "90°",
+    "success": "Oriented",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to rotate a video."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

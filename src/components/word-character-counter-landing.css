@@ -1,0 +1,393 @@
+/* —— Pitch-black fullscreen intro: Word & Character Counter —— */
+html[data-word-character-counter-intro="1"],
+html[data-word-character-counter-intro="1"] body {
+  overflow: hidden !important;
+}
+
+html[data-word-character-counter-intro="1"] .site-header,
+html[data-word-character-counter-intro="1"] .home-page-footer,
+html[data-word-character-counter-intro="1"] .pinned-cards-dock,
+html[data-word-character-counter-intro="1"] .app-page-canvas,
+html[data-word-character-counter-intro="1"] .cookie-consent,
+html[data-word-character-counter-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.wcc-fs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  background: #000000;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+}
+
+.wcc-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: min(64rem, calc(100vw - 2rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.wcc-fs__title {
+  margin: 0;
+  font-size: clamp(1.45rem, 3.8vw, 2.85rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.wcc-fs__title-brand {
+  color: #38bdf8;
+}
+
+.wcc-fs__title-rest {
+  color: #ffffff;
+}
+
+.wcc-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+  line-height: 1.45;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.wcc-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
+  padding-block: 12px;
+  padding-inline: clamp(0.75rem, 3vw, 2rem);
+  overflow: hidden;
+}
+
+.wcc-fs__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.wcc-fs__workspace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 420px;
+  height: 45vh;
+  max-height: 45vh;
+  overflow: hidden;
+}
+
+.wcc-fs__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-height: calc(100% - 2.4rem);
+  min-height: 0;
+  padding: 0.6rem 0.65rem 0.7rem;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 0.85rem;
+  background: #071018;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(56, 189, 248, 0.08);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wcc-fs__card--done {
+  border-color: rgba(52, 211, 153, 0.45);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.55),
+    0 0 18px rgba(52, 211, 153, 0.18);
+}
+
+.wcc-fs__editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+  min-height: 4.5rem;
+  padding: 0.45rem 0.5rem 0.55rem;
+  overflow: hidden;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.wcc-fs__editor-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+}
+
+.wcc-fs__typed {
+  margin: 0;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  font-size: clamp(0.78rem, 2.4vw, 0.95rem);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: #e2e8f0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.wcc-fs__caret {
+  display: inline-block;
+  width: 0.12rem;
+  height: 0.95em;
+  margin-inline-start: 1px;
+  vertical-align: text-bottom;
+  background: #38bdf8;
+  animation: wcc-fs-caret 0.9s steps(1, end) infinite;
+}
+
+.wcc-fs__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.wcc-fs__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+  min-width: 0;
+  padding: 0.4rem 0.2rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.85);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.wcc-fs__card--done .wcc-fs__metric {
+  transform: translateY(-1px);
+}
+
+.wcc-fs__metric--words {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.12);
+}
+
+.wcc-fs__metric--chars {
+  border-color: rgba(125, 211, 252, 0.4);
+  box-shadow: 0 0 12px rgba(125, 211, 252, 0.1);
+}
+
+.wcc-fs__metric--sent {
+  border-color: rgba(45, 212, 191, 0.4);
+  box-shadow: 0 0 12px rgba(45, 212, 191, 0.1);
+}
+
+.wcc-fs__metric--time {
+  border-color: rgba(52, 211, 153, 0.4);
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.12);
+}
+
+.wcc-fs__metric-val {
+  font-size: clamp(0.95rem, 3vw, 1.25rem);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: #f8fafc;
+  line-height: 1;
+}
+
+.wcc-fs__metric-unit {
+  margin-inline-start: 0.05em;
+  font-size: 0.65em;
+  font-weight: 800;
+  color: #86efac;
+}
+
+.wcc-fs__metric-label {
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.wcc-fs__ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 999px;
+  background: rgba(8, 47, 73, 0.9);
+  color: #bae6fd;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.wcc-fs__ok--show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wcc-fs__check {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, transparent 46%, #38bdf8 46% 54%, transparent 54%),
+    linear-gradient(45deg, transparent 58%, #38bdf8 58% 72%, transparent 72%),
+    #0c4a6e;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55);
+}
+
+.wcc-fs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-bottom: 8px;
+}
+
+.wcc-fs__cta {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 16rem);
+  min-height: 3.15rem;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid #0284c7;
+  border-radius: 0.65rem;
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #082f49;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 10px 28px rgba(14, 165, 233, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wcc-fs__cta:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    0 14px 32px rgba(14, 165, 233, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.wcc-fs__cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.wcc-fs__cta:focus-visible {
+  outline: 2px solid #bae6fd;
+  outline-offset: 3px;
+}
+
+@keyframes wcc-fs-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .wcc-fs__title {
+    font-size: clamp(1.25rem, 5.4vw, 1.8rem);
+  }
+
+  .wcc-fs__cta {
+    width: 100%;
+    max-width: 20rem;
+  }
+
+  .wcc-fs__metric-label {
+    font-size: 0.5rem;
+  }
+
+  .wcc-fs__metric-val {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .wcc-fs__title {
+    font-size: clamp(1.2rem, 3vw, 1.85rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wcc-fs__caret {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  .wcc-fs__ok {
+    opacity: 1;
+    transform: none;
+  }
+
+  .wcc-fs__card {
+    border-color: rgba(52, 211, 153, 0.45);
+  }
+}
