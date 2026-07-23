@@ -933,6 +933,85 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את סביבת העבודה כדי לחקור ולהמיר JSON ו-CSV."
   },
+  "CsvToJsonLanding": {
+    "brand": "המרת CSV ל-JSON אונליין",
+    "titleRest": "- המירו גיליונות CSV לנתוני JSON נקיים",
+    "subtitle": "פרסו שורות גיליון לאובייקטים ומערכים מובנים של JSON — באופן פרטי בדפדפן.",
+    "csvBadge": "CSV",
+    "jsonBadge": "JSON",
+    "arrowLabel": "→",
+    "success": "פורס",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר CSV ל-JSON."
+  },
+  "JsonFormatterLanding": {
+    "brand": "מעצב ומאמת JSON בחינם אונליין",
+    "titleRest": "- עצבו וייפו JSON לקריאה נוחה יותר",
+    "subtitle": "הרחיבו מטענים ממוזערים ל-JSON קריא ומאומת עם הזחה נקייה — באופן פרטי בדפדפן.",
+    "minified": "ממוזער",
+    "pretty": "מעוצב",
+    "valid": "תקין ✓",
+    "success": "עוצב",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לעצב ולאמת JSON."
+  },
+  "JsonMinifierLanding": {
+    "brand": "ממזער JSON בחינם אונליין",
+    "titleRest": "- מזערו JSON כדי להקטין את גודל המטען",
+    "subtitle": "כווצו JSON מוזח למטען קומפקטי בשורה אחת וחסכו בגודל ההעברה — באופן פרטי בדפדפן.",
+    "pretty": "מעוצב",
+    "minified": "ממוזער",
+    "sizeBadge": "−65%",
+    "success": "מוזער",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי למזער JSON."
+  },
+  "JsonToCsvLanding": {
+    "brand": "המרת JSON ל-CSV אונליין",
+    "titleRest": "- המירו נתוני JSON ל-CSV מוכן לגיליון אלקטרוני",
+    "subtitle": "שטחו אובייקטי JSON לכותרות עמודות ושורות מוכנות לאקסל — באופן פרטי בדפדפן.",
+    "jsonBadge": "JSON",
+    "csvBadge": "CSV",
+    "arrowLabel": "→",
+    "success": "טבלה",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר JSON ל-CSV."
+  },
+  "YamlJsonConverterLanding": {
+    "brand": "ממיר YAML ↔ JSON",
+    "titleRest": "- המירו בין YAML ל-JSON עם עיצוב נקי",
+    "subtitle": "תרגמו YAML מוזח ל-JSON עם סוגריים — או הפוך — באופן פרטי בדפדפן.",
+    "yamlBadge": "YAML",
+    "jsonBadge": "JSON",
+    "swapLabel": "↔",
+    "success": "הומר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר בין YAML ל-JSON."
+  },
+  "JwtDebuggerLanding": {
+    "brand": "מפענח JWT אונליין",
+    "titleRest": "- פענוח ובדיקת טוקני JWT בבטחה בדפדפן",
+    "subtitle": "פצלו טוקנים מקודדים ל-Header, Payload ו-Signature — בדיקה מקומית, בלי העלאה.",
+    "algBadge": "HS256",
+    "safeBadge": "מקומי בלבד",
+    "header": "Header",
+    "payload": "Payload",
+    "signature": "Signature",
+    "success": "פוענח",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לפענח ולבדוק טוקני JWT."
+  },
+  "QrCodeGeneratorLanding": {
+    "brand": "יצירת קודי QR אונליין",
+    "titleRest": "- צרו קודי QR לקישורים, טקסט ופרטי קשר",
+    "subtitle": "הפכו כל URL, הערה או מחרוזת קשר למטריצת QR לסריקה — באופן פרטי בדפדפן.",
+    "urlBadge": "URL",
+    "qrBadge": "QR",
+    "sampleUrl": "https://joinmypdf.com/menu",
+    "success": "ה-QR מוכן",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי ליצור קוד QR."
+  },
   "Home": {
     "pickTool": "בחר כלי",
     "pickToolDescription": "כל תהליך נפתח בלחיצה אחת — אותו ממשק, אותו מודל פרטיות.",

@@ -933,6 +933,85 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the workspace to explore and convert JSON and CSV."
   },
+  "CsvToJsonLanding": {
+    "brand": "Convert CSV to JSON Online",
+    "titleRest": "- Convert CSV Spreadsheets into Clean JSON Data",
+    "subtitle": "Parse spreadsheet rows into structured JSON objects and arrays — privately in your browser.",
+    "csvBadge": "CSV",
+    "jsonBadge": "JSON",
+    "arrowLabel": "→",
+    "success": "Parsed",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert CSV into JSON."
+  },
+  "JsonFormatterLanding": {
+    "brand": "Free JSON Formatter & Validator Online",
+    "titleRest": "- Format and Beautify JSON for Easier Reading",
+    "subtitle": "Expand minified payloads into readable, validated JSON with clean indentation — privately in your browser.",
+    "minified": "Minified",
+    "pretty": "Pretty",
+    "valid": "Valid ✓",
+    "success": "Formatted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to format and validate JSON."
+  },
+  "JsonMinifierLanding": {
+    "brand": "Free JSON Minifier Online",
+    "titleRest": "- Minify JSON to Shrink Payload Size",
+    "subtitle": "Collapse indented JSON into a compact single-line payload and cut transfer size — privately in your browser.",
+    "pretty": "Pretty",
+    "minified": "Minified",
+    "sizeBadge": "−65%",
+    "success": "Minified",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to minify JSON."
+  },
+  "JsonToCsvLanding": {
+    "brand": "Convert JSON to CSV Online",
+    "titleRest": "- Convert JSON Data into Spreadsheet-Ready CSV",
+    "subtitle": "Flatten JSON objects into clean column headers and rows ready for Excel — privately in your browser.",
+    "jsonBadge": "JSON",
+    "csvBadge": "CSV",
+    "arrowLabel": "→",
+    "success": "Tabulated",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert JSON into CSV."
+  },
+  "YamlJsonConverterLanding": {
+    "brand": "YAML ↔ JSON Converter",
+    "titleRest": "- Convert Between YAML and JSON with Clean Formatting",
+    "subtitle": "Translate indented YAML into braced JSON — or reverse the structure — privately in your browser.",
+    "yamlBadge": "YAML",
+    "jsonBadge": "JSON",
+    "swapLabel": "↔",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert between YAML and JSON."
+  },
+  "JwtDebuggerLanding": {
+    "brand": "JWT Decoder Online",
+    "titleRest": "- Decode and Inspect JWT Tokens Safely in Your Browser",
+    "subtitle": "Split encoded tokens into Header, Payload, and Signature — inspected locally, never uploaded.",
+    "algBadge": "HS256",
+    "safeBadge": "Local only",
+    "header": "Header",
+    "payload": "Payload",
+    "signature": "Signature",
+    "success": "Decoded",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to decode and inspect JWT tokens."
+  },
+  "QrCodeGeneratorLanding": {
+    "brand": "Create QR Codes Online",
+    "titleRest": "- Create QR Codes for Links, Text, and Contact Info",
+    "subtitle": "Turn any URL, note, or contact string into a scannable QR matrix — privately in your browser.",
+    "urlBadge": "URL",
+    "qrBadge": "QR",
+    "sampleUrl": "https://joinmypdf.com/menu",
+    "success": "QR ready",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to create your QR code."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

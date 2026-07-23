@@ -117,6 +117,13 @@ import { Base64EncoderDecoderIntroGate } from "@/components/Base64EncoderDecoder
 import { CaseConverterIntroGate } from "@/components/CaseConverterIntroGate";
 import { HtmlMarkdownConverterIntroGate } from "@/components/HtmlMarkdownConverterIntroGate";
 import { JsonCsvExplorerIntroGate } from "@/components/JsonCsvExplorerIntroGate";
+import { CsvToJsonIntroGate } from "@/components/CsvToJsonIntroGate";
+import { JsonFormatterIntroGate } from "@/components/JsonFormatterIntroGate";
+import { JsonMinifierIntroGate } from "@/components/JsonMinifierIntroGate";
+import { JsonToCsvIntroGate } from "@/components/JsonToCsvIntroGate";
+import { YamlJsonConverterIntroGate } from "@/components/YamlJsonConverterIntroGate";
+import { JwtDebuggerIntroGate } from "@/components/JwtDebuggerIntroGate";
+import { QrCodeGeneratorIntroGate } from "@/components/QrCodeGeneratorIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -454,6 +461,13 @@ export default async function ToolPage({
         <CaseConverterIntroGate active={tool.operation === "case-converter"}>
         <HtmlMarkdownConverterIntroGate active={tool.operation === "html-markdown-converter"}>
         <JsonCsvExplorerIntroGate active={tool.operation === "json-csv-explorer"}>
+        <CsvToJsonIntroGate active={tool.operation === "csv-to-json"}>
+        <JsonFormatterIntroGate active={tool.operation === "json-formatter"}>
+        <JsonMinifierIntroGate active={tool.operation === "json-minifier"}>
+        <JsonToCsvIntroGate active={tool.operation === "json-to-csv"}>
+        <YamlJsonConverterIntroGate active={tool.operation === "yaml-json-converter"}>
+        <JwtDebuggerIntroGate active={tool.operation === "jwt-debugger"}>
+        <QrCodeGeneratorIntroGate active={tool.operation === "qr-code-generator"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -741,6 +755,13 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </QrCodeGeneratorIntroGate>
+        </JwtDebuggerIntroGate>
+        </YamlJsonConverterIntroGate>
+        </JsonToCsvIntroGate>
+        </JsonMinifierIntroGate>
+        </JsonFormatterIntroGate>
+        </CsvToJsonIntroGate>
         </JsonCsvExplorerIntroGate>
         </HtmlMarkdownConverterIntroGate>
         </CaseConverterIntroGate>

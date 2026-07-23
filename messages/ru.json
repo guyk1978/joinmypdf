@@ -935,6 +935,85 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте рабочую область, чтобы исследовать и конвертировать JSON и CSV."
   },
+  "CsvToJsonLanding": {
+    "brand": "Конвертация CSV в JSON онлайн",
+    "titleRest": "- Преобразуйте таблицы CSV в чистые данные JSON",
+    "subtitle": "Разберите строки таблицы в структурированные JSON-объекты и массивы — конфиденциально в браузере.",
+    "csvBadge": "CSV",
+    "jsonBadge": "JSON",
+    "arrowLabel": "→",
+    "success": "Разобрано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы конвертировать CSV в JSON."
+  },
+  "JsonFormatterLanding": {
+    "brand": "Бесплатный форматтер и валидатор JSON онлайн",
+    "titleRest": "- Форматируйте и украшайте JSON для удобного чтения",
+    "subtitle": "Разворачивайте минифицированные данные в читаемый, проверенный JSON с чистыми отступами — конфиденциально в браузере.",
+    "minified": "Минифицирован",
+    "pretty": "Красивый",
+    "valid": "Valid ✓",
+    "success": "Отформатировано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы форматировать и проверять JSON."
+  },
+  "JsonMinifierLanding": {
+    "brand": "Бесплатный минификатор JSON онлайн",
+    "titleRest": "- Минифицируйте JSON, чтобы уменьшить размер payload",
+    "subtitle": "Сжимайте JSON с отступами в компактную однострочную строку и сокращайте объём передачи — конфиденциально в браузере.",
+    "pretty": "Красивый",
+    "minified": "Минифицирован",
+    "sizeBadge": "−65%",
+    "success": "Минифицировано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы минифицировать JSON."
+  },
+  "JsonToCsvLanding": {
+    "brand": "Конвертация JSON в CSV онлайн",
+    "titleRest": "- Преобразуйте данные JSON в CSV для таблиц",
+    "subtitle": "Сглаживайте JSON-объекты в чистые заголовки колонок и строки для Excel — конфиденциально в браузере.",
+    "jsonBadge": "JSON",
+    "csvBadge": "CSV",
+    "arrowLabel": "→",
+    "success": "Таблица готова",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы конвертировать JSON в CSV."
+  },
+  "YamlJsonConverterLanding": {
+    "brand": "Конвертер YAML ↔ JSON",
+    "titleRest": "- Конвертируйте между YAML и JSON с чистым форматированием",
+    "subtitle": "Переводите YAML с отступами в JSON со скобками — или обратно — конфиденциально в браузере.",
+    "yamlBadge": "YAML",
+    "jsonBadge": "JSON",
+    "swapLabel": "↔",
+    "success": "Сконвертировано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы конвертировать между YAML и JSON."
+  },
+  "JwtDebuggerLanding": {
+    "brand": "JWT Decoder онлайн",
+    "titleRest": "- Декодируйте и проверяйте JWT-токены безопасно в браузере",
+    "subtitle": "Разделяйте закодированные токены на Header, Payload и Signature — локально, без загрузки.",
+    "algBadge": "HS256",
+    "safeBadge": "Только локально",
+    "header": "Header",
+    "payload": "Payload",
+    "signature": "Signature",
+    "success": "Декодировано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы декодировать и проверить JWT."
+  },
+  "QrCodeGeneratorLanding": {
+    "brand": "Создание QR-кодов онлайн",
+    "titleRest": "- Создавайте QR-коды для ссылок, текста и контактов",
+    "subtitle": "Превращайте любой URL, заметку или контакт в сканируемую QR-матрицу — конфиденциально в браузере.",
+    "urlBadge": "URL",
+    "qrBadge": "QR",
+    "sampleUrl": "https://joinmypdf.com/menu",
+    "success": "QR готов",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы создать QR-код."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

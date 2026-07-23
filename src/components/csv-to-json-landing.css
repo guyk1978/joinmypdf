@@ -1,0 +1,529 @@
+/* —— Pitch-black fullscreen intro: Convert CSV to JSON Online —— */
+html[data-csv-to-json-intro="1"],
+html[data-csv-to-json-intro="1"] body {
+  overflow: hidden !important;
+}
+
+html[data-csv-to-json-intro="1"] .site-header,
+html[data-csv-to-json-intro="1"] .home-page-footer,
+html[data-csv-to-json-intro="1"] .pinned-cards-dock,
+html[data-csv-to-json-intro="1"] .app-page-canvas,
+html[data-csv-to-json-intro="1"] .cookie-consent,
+html[data-csv-to-json-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.c2j-fs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  background: #000000;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+}
+
+.c2j-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: min(64rem, calc(100vw - 2rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.c2j-fs__title {
+  margin: 0;
+  font-size: clamp(1.45rem, 3.8vw, 2.85rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.c2j-fs__title-brand {
+  color: #38bdf8;
+}
+
+.c2j-fs__title-rest {
+  color: #ffffff;
+}
+
+.c2j-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+  line-height: 1.45;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.c2j-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
+  padding-block: 12px;
+  padding-inline: clamp(0.75rem, 3vw, 2rem);
+  overflow: hidden;
+}
+
+.c2j-fs__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.c2j-fs__workspace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 420px;
+  height: 45vh;
+  max-height: 45vh;
+  overflow: hidden;
+}
+
+.c2j-fs__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  max-height: calc(100% - 2.4rem);
+  min-height: 0;
+  padding: 0.55rem 0.6rem 0.65rem;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 0.85rem;
+  background: #061018;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(56, 189, 248, 0.08);
+}
+
+.c2j-fs__badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.c2j-fs__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.6rem;
+  padding: 0.2rem 0.42rem;
+  border-radius: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.c2j-fs__badge--csv {
+  border: 1px solid rgba(250, 204, 21, 0.5);
+  background: linear-gradient(180deg, #facc15 0%, #ca8a04 100%);
+  color: #422006;
+  animation: c2j-fs-badge-csv 8.5s ease-in-out infinite;
+}
+
+.c2j-fs__badge--json {
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #082f49;
+  animation: c2j-fs-badge-json 8.5s ease-in-out infinite;
+}
+
+.c2j-fs__arrow {
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: #7dd3fc;
+  opacity: 0.35;
+  animation: c2j-fs-arrow 8.5s ease-in-out infinite;
+}
+
+.c2j-fs__viewer {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(56, 189, 248, 0.16);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.c2j-fs__csv,
+.c2j-fs__json {
+  position: absolute;
+  inset: 0;
+  padding: 0.5rem 0.55rem;
+}
+
+.c2j-fs__csv {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  justify-content: center;
+  animation: c2j-fs-csv 8.5s ease-in-out infinite;
+}
+
+.c2j-fs__row {
+  display: grid;
+  grid-template-columns: 0.7fr 1.1fr 0.9fr;
+  gap: 0.28rem;
+}
+
+.c2j-fs__row span {
+  display: flex;
+  align-items: center;
+  min-height: 1.3rem;
+  padding: 0.12rem 0.35rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  background: rgba(8, 47, 73, 0.55);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #e0f2fe;
+}
+
+.c2j-fs__row--head span {
+  border-color: rgba(250, 204, 21, 0.4);
+  background: rgba(66, 32, 6, 0.75);
+  color: #fef08a;
+}
+
+.c2j-fs__json {
+  font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+  font-size: 0.56rem;
+  line-height: 1.45;
+  color: #e2e8f0;
+  opacity: 0;
+  transform: scale(0.94);
+  animation: c2j-fs-json 8.5s ease-in-out infinite;
+}
+
+.c2j-fs__json p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.c2j-fs__brace {
+  color: #7dd3fc;
+}
+
+.c2j-fs__key {
+  color: #38bdf8;
+}
+
+.c2j-fs__num {
+  color: #fde047;
+}
+
+.c2j-fs__str {
+  color: #fdba74;
+}
+
+.c2j-fs__beam {
+  position: absolute;
+  top: -8%;
+  bottom: -8%;
+  left: -18%;
+  z-index: 3;
+  width: 24%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(250, 204, 21, 0.2) 22%,
+    rgba(186, 230, 253, 0.75) 50%,
+    rgba(56, 189, 248, 0.35) 72%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  opacity: 0;
+  animation: c2j-fs-beam 8.5s ease-in-out infinite;
+}
+
+.c2j-fs__ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 999px;
+  background: rgba(8, 47, 73, 0.9);
+  color: #bae6fd;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: c2j-fs-ok 8.5s ease-in-out infinite;
+}
+
+.c2j-fs__check {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, transparent 46%, #38bdf8 46% 54%, transparent 54%),
+    linear-gradient(45deg, transparent 58%, #38bdf8 58% 72%, transparent 72%),
+    #082f49;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55);
+}
+
+.c2j-fs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-bottom: 8px;
+}
+
+.c2j-fs__cta {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 16rem);
+  min-height: 3.15rem;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid #0369a1;
+  border-radius: 0.65rem;
+  background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 100%);
+  color: #082f49;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 10px 28px rgba(14, 165, 233, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.c2j-fs__cta:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    0 14px 32px rgba(14, 165, 233, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.c2j-fs__cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.c2j-fs__cta:focus-visible {
+  outline: 2px solid #bae6fd;
+  outline-offset: 3px;
+}
+
+@keyframes c2j-fs-badge-csv {
+  0%,
+  18% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  32%,
+  78% {
+    opacity: 0.65;
+    transform: scale(0.96);
+  }
+  90%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes c2j-fs-badge-json {
+  0%,
+  24% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  36%,
+  78% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  90%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+}
+
+@keyframes c2j-fs-arrow {
+  0%,
+  18% {
+    opacity: 0.25;
+  }
+  28%,
+  78% {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(125, 211, 252, 0.55);
+  }
+  90%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes c2j-fs-csv {
+  0%,
+  20% {
+    opacity: 1;
+    transform: scale(1);
+    filter: none;
+  }
+  30%,
+  42% {
+    opacity: 0.35;
+    transform: scale(0.97);
+    filter: blur(0.4px);
+  }
+  50%,
+  100% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+@keyframes c2j-fs-json {
+  0%,
+  28% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  40%,
+  78% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes c2j-fs-beam {
+  0%,
+  14% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  18% {
+    opacity: 1;
+  }
+  42% {
+    opacity: 1;
+    transform: translateX(380%);
+  }
+  52%,
+  100% {
+    opacity: 0;
+    transform: translateX(420%);
+  }
+}
+
+@keyframes c2j-fs-ok {
+  0%,
+  48% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  58%,
+  78% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .c2j-fs__title {
+    font-size: clamp(1.25rem, 5.4vw, 1.8rem);
+  }
+
+  .c2j-fs__cta {
+    width: 100%;
+    max-width: 20rem;
+  }
+
+  .c2j-fs__json {
+    font-size: 0.5rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .c2j-fs__title {
+    font-size: clamp(1.2rem, 3vw, 1.85rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c2j-fs__badge--csv,
+  .c2j-fs__badge--json,
+  .c2j-fs__arrow,
+  .c2j-fs__csv,
+  .c2j-fs__json,
+  .c2j-fs__beam,
+  .c2j-fs__ok {
+    animation: none !important;
+  }
+
+  .c2j-fs__csv {
+    opacity: 0;
+  }
+
+  .c2j-fs__json,
+  .c2j-fs__badge--json,
+  .c2j-fs__arrow,
+  .c2j-fs__ok {
+    opacity: 1;
+    transform: none;
+  }
+
+  .c2j-fs__beam {
+    opacity: 0.4;
+    transform: translateX(180%);
+  }
+}
