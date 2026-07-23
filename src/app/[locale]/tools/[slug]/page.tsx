@@ -131,6 +131,14 @@ import { WordToPdfIntroGate } from "@/components/WordToPdfIntroGate";
 import { CropPdfIntroGate } from "@/components/CropPdfIntroGate";
 import { RotatePdfIntroGate } from "@/components/RotatePdfIntroGate";
 import { VideoRotatorIntroGate } from "@/components/VideoRotatorIntroGate";
+import { HashGeneratorIntroGate } from "@/components/HashGeneratorIntroGate";
+import { ImageMetadataWiperIntroGate } from "@/components/ImageMetadataWiperIntroGate";
+import { PdfSignatureValidatorIntroGate } from "@/components/PdfSignatureValidatorIntroGate";
+import { ProtectPdfIntroGate } from "@/components/ProtectPdfIntroGate";
+import { RedactPdfIntroGate } from "@/components/RedactPdfIntroGate";
+import { RemoveHiddenMetadataIntroGate } from "@/components/RemoveHiddenMetadataIntroGate";
+import { SafeShareAuditorIntroGate } from "@/components/SafeShareAuditorIntroGate";
+import { SignPdfIntroGate } from "@/components/SignPdfIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -482,6 +490,14 @@ export default async function ToolPage({
         <CropPdfIntroGate active={tool.operation === "crop-pdf"}>
         <RotatePdfIntroGate active={tool.operation === "rotate-pdf"}>
         <VideoRotatorIntroGate active={tool.operation === "video-rotator"}>
+        <HashGeneratorIntroGate active={tool.operation === "hash-generator"}>
+        <ImageMetadataWiperIntroGate active={tool.operation === "image-metadata-wiper"}>
+        <PdfSignatureValidatorIntroGate active={tool.operation === "pdf-signature-validator"}>
+        <ProtectPdfIntroGate active={tool.operation === "protect-pdf"}>
+        <RedactPdfIntroGate active={tool.operation === "redact"}>
+        <RemoveHiddenMetadataIntroGate active={tool.operation === "remove-hidden-metadata"}>
+        <SafeShareAuditorIntroGate active={tool.operation === "safe-to-share-auditor"}>
+        <SignPdfIntroGate active={tool.operation === "sign-pdf"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -769,6 +785,14 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </SignPdfIntroGate>
+        </SafeShareAuditorIntroGate>
+        </RemoveHiddenMetadataIntroGate>
+        </RedactPdfIntroGate>
+        </ProtectPdfIntroGate>
+        </PdfSignatureValidatorIntroGate>
+        </ImageMetadataWiperIntroGate>
+        </HashGeneratorIntroGate>
         </VideoRotatorIntroGate>
         </RotatePdfIntroGate>
         </CropPdfIntroGate>

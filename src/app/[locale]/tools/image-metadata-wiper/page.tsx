@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ImageMetadataWiperWorkspace } from "@/components/ImageMetadataWiperWorkspace";
+import { ImageMetadataWiperIntroGate } from "@/components/ImageMetadataWiperIntroGate";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 import { registry } from "@/lib/registry";
@@ -77,7 +78,9 @@ export default async function ImageMetadataWiperPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
-            <ImageMetadataWiperWorkspace tool={tool} slug={SLUG} />
+            <ImageMetadataWiperIntroGate active={tool.operation === "image-metadata-wiper"}>
+              <ImageMetadataWiperWorkspace tool={tool} slug={SLUG} />
+            </ImageMetadataWiperIntroGate>
           </section>
 </div>
       </AppPageShell>

@@ -34,9 +34,11 @@ export type HashGeneratorLabels = {
 type HashGeneratorProps = {
   labels: HashGeneratorLabels;
   className?: string;
+  /** Fires whenever text/file input presence changes (drives clean → active workspace phase). */
+  onHasInputChange?: (hasInput: boolean) => void;
 };
 
-export function HashGenerator({ labels, className }: HashGeneratorProps) {
+export function HashGenerator({ labels, className, onHasInputChange }: HashGeneratorProps) {
   const inputId = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -48,6 +50,12 @@ export function HashGenerator({ labels, className }: HashGeneratorProps) {
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+
+  const hasInput = Boolean(file) || text.trim().length > 0;
+
+  useEffect(() => {
+    onHasInputChange?.(hasInput);
+  }, [hasInput, onHasInputChange]);
 
   useEffect(() => {
     let cancelled = false;
@@ -104,6 +112,7 @@ export function HashGenerator({ labels, className }: HashGeneratorProps) {
 
   const applyFile = (nextFile: File | null) => {
     setFile(nextFile);
+    if (nextFile) setText("");
     setError(null);
   };
 
@@ -126,46 +135,54 @@ export function HashGenerator({ labels, className }: HashGeneratorProps) {
     window.setTimeout(() => setCopied(false), 1600);
   };
 
+  const clearAll = () => {
+    setFile(null);
+    setText("");
+    setHash("");
+    setError(null);
+  };
+
+  const textPrompt = !file ? (
+    <div
+      className={clsx(
+        "hash-generator-tool__text-prompt",
+        hasInput && "hash-generator-tool__text-prompt--active",
+      )}
+      onClick={(event) => event.stopPropagation()}
+      onKeyDown={(event) => event.stopPropagation()}
+    >
+      <label className="security-tool__label" htmlFor={inputId}>
+        {labels.textInputLabel}
+      </label>
+      <textarea
+        id={inputId}
+        className={clsx(
+          "security-tool__textarea",
+          "hash-generator-tool__textarea",
+          !hasInput && "hash-generator-tool__textarea--clean",
+        )}
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+        placeholder={labels.textInputPlaceholder}
+        spellCheck={false}
+        rows={hasInput ? 5 : 3}
+      />
+    </div>
+  ) : null;
+
   return (
-    <div className={clsx("hash-generator-tool", className)}>
-      <section className="security-tool__pane tool-workspace-panel">
-        <div className="hash-generator-tool__field">
-          <label className="security-tool__label" htmlFor="hash-algorithm">
-            {labels.algorithmLabel}
-          </label>
-          <select
-            id="hash-algorithm"
-            className="security-tool__select"
-            value={algorithm}
-            onChange={(event) => setAlgorithm(event.target.value as HashAlgorithm)}
-          >
-            {HASH_ALGORITHMS.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <label className="security-tool__label" htmlFor={inputId}>
-          {labels.textInputLabel}
-        </label>
-        <textarea
-          id={inputId}
-          className="security-tool__textarea"
-          value={text}
-          onChange={(event) => {
-            setText(event.target.value);
-            if (file) setFile(null);
-          }}
-          placeholder={labels.textInputPlaceholder}
-          spellCheck={false}
-          rows={6}
-          disabled={Boolean(file)}
-        />
-
+    <div
+      className={clsx(
+        "hash-generator-tool",
+        hasInput ? "hash-generator-tool--active" : "hash-generator-tool--clean",
+        className,
+      )}
+      data-has-input={hasInput ? "1" : "0"}
+    >
+      <section className="hash-generator-tool__primary">
         <IndustrialMatteDropzone
           active={dragActive}
+          compact={hasInput}
           dropTitle={labels.fileDropTitle}
           selectLabel={labels.selectFileButton}
           supportsLabel={formatSupportsLabel(["Any file"])}
@@ -197,14 +214,14 @@ export function HashGenerator({ labels, className }: HashGeneratorProps) {
           }
           footer={
             file ? (
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <span className="text-sm text-neutral-300">{file.name}</span>
+              <div className="hash-generator-tool__file-meta">
+                <span className="hash-generator-tool__file-name">{file.name}</span>
                 <button
                   type="button"
                   className="security-tool__action-btn"
                   onClick={(event) => {
                     event.stopPropagation();
-                    applyFile(null);
+                    clearAll();
                   }}
                 >
                   {labels.clearFileButton}
@@ -212,33 +229,60 @@ export function HashGenerator({ labels, className }: HashGeneratorProps) {
               </div>
             ) : null
           }
-        />
+        >
+          {/* Clean: prompt inside immersive dropzone. Active+text: prompt below compact dropzone. */}
+          {!hasInput ? textPrompt : null}
+        </IndustrialMatteDropzone>
+
+        {hasInput ? textPrompt : null}
       </section>
 
-      <section className="security-tool__pane tool-workspace-panel">
-        <div className="security-tool__pane-header">
-          <span className="security-tool__label">{labels.outputLabel}</span>
-          <button
-            type="button"
-            className={clsx("security-tool__copy-btn", copied && "security-tool__copy-btn--copied")}
-            onClick={() => void onCopy()}
-            disabled={!hash}
-          >
-            {copied ? labels.copied : labels.copyButton}
-          </button>
+      {hasInput ? (
+        <div className="hash-generator-tool__dashboard tool-workspace-panel">
+          <div className="hash-generator-tool__field">
+            <label className="security-tool__label" htmlFor="hash-algorithm">
+              {labels.algorithmLabel}
+            </label>
+            <select
+              id="hash-algorithm"
+              className="security-tool__select"
+              value={algorithm}
+              onChange={(event) => setAlgorithm(event.target.value as HashAlgorithm)}
+            >
+              {HASH_ALGORITHMS.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <section className="hash-generator-tool__output-pane">
+            <div className="security-tool__pane-header">
+              <span className="security-tool__label">{labels.outputLabel}</span>
+              <button
+                type="button"
+                className={clsx("security-tool__copy-btn", copied && "security-tool__copy-btn--copied")}
+                onClick={() => void onCopy()}
+                disabled={!hash}
+              >
+                {copied ? labels.copied : labels.copyButton}
+              </button>
+            </div>
+
+            {busy ? <p className="security-tool__hint">{labels.hashingFile}</p> : null}
+            {error ? (
+              <p className="security-tool__error" role="status">
+                {error}
+              </p>
+            ) : null}
+
+            <pre className="security-tool__output" aria-live="polite">
+              {hash || labels.outputEmpty}
+            </pre>
+          </section>
         </div>
-
-        {busy ? <p className="security-tool__hint">{labels.hashingFile}</p> : null}
-        {error ? (
-          <p className="security-tool__error" role="status">
-            {error}
-          </p>
-        ) : null}
-
-        <pre className="security-tool__output" aria-live="polite">
-          {hash || labels.outputEmpty}
-        </pre>
-      </section>
+      ) : null}
     </div>
   );
 }

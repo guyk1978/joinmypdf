@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
@@ -14,10 +14,15 @@ type HashGeneratorWorkspaceProps = {
 
 export function HashGeneratorWorkspace({ tool, slug }: HashGeneratorWorkspaceProps) {
   const t = useTranslations("HashGenerator");
+  const [hasInput, setHasInput] = useState(false);
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
+
+  const onHasInputChange = useCallback((next: boolean) => {
+    setHasInput(next);
+  }, []);
 
   const labels = useMemo<HashGeneratorLabels>(
     () => ({
@@ -42,8 +47,8 @@ export function HashGeneratorWorkspace({ tool, slug }: HashGeneratorWorkspacePro
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="hash-generator-tool-page">
-      <HashGenerator labels={labels} />
+    <UtilityWorkspaceShell pageClassName="hash-generator-tool-page" active={hasInput}>
+      <HashGenerator labels={labels} onHasInputChange={onHasInputChange} />
     </UtilityWorkspaceShell>
   );
 }
