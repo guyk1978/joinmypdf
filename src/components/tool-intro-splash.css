@@ -40,11 +40,12 @@
   /* Mild uniform scale-up into dead space; tools may set --splash-zoom: 1 to opt out */
   --splash-zoom: 1.1;
   /* Hard ceiling for single-card / cardless / horizontal shells */
-  --splash-max-width: 560px;
+  --splash-max-width: 620px;
   /* Multi-card rows may be slightly wider */
   --splash-row-max: 720px;
-  /* Optional landscape box for wide opt-in shells */
-  --splash-wide-aspect: 16 / 10;
+  /* Wide shells: balanced footprint (not a flat banner) */
+  --splash-wide-min-height: 300px;
+  --splash-wide-aspect: 4 / 3;
 }
 
 /* —— Top zone: headline + subtitle (natural height, never compressed) —— */
@@ -153,7 +154,7 @@
   align-self: center !important;
   align-items: center !important;
   justify-content: center !important;
-  max-width: min(var(--splash-max-width, 560px), 90%) !important;
+  max-width: min(var(--splash-max-width, 620px), 90%) !important;
   max-height: calc(100vh - 180px) !important;
   max-height: calc(100dvh - 180px) !important;
   min-width: 0 !important;
@@ -183,7 +184,7 @@
 .tool-intro-fs .animation-workspace:not(:has(> [class*="__card"])),
 .tool-intro-fs .global-splash-workspace:not(:has(> [class*="__card"])),
 .tool-intro-fs [class*="__stage"] > [class*="__doc"]:not(:has(> [class*="__card"])) {
-  max-width: min(var(--splash-max-width, 560px), 90%) !important;
+  max-width: min(var(--splash-max-width, 620px), 90%) !important;
   max-height: 60vh !important;
   object-fit: contain !important;
 }
@@ -199,7 +200,7 @@
 .tool-intro-fs .global-splash-workspace:not(:has(> [class*="__card"] ~ [class*="__card"])) > [class*="__card"] {
   box-sizing: border-box !important;
   align-self: center !important;
-  max-width: min(var(--splash-max-width, 560px), 90%) !important;
+  max-width: min(var(--splash-max-width, 620px), 90%) !important;
   max-height: min(60vh, 28rem) !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -213,7 +214,7 @@
  * Horizontal / wide layout safeguard
  * Opt-in: data-splash-wide | .splash-wide | .animation-workspace--wide | .global-splash-card--wide
  * Auto: single cards that host a direct landscape __stage-art child.
- * Forces a compact centered box with side margins — never a full-bleed banner.
+ * Centered box with substantial vertical footprint — never a flat full-bleed banner.
  * (Do NOT key off __preview/__canvas — those appear in portrait cards too.)
  */
 .tool-intro-fs [data-splash-wide],
@@ -226,18 +227,24 @@
   .global-splash-card--wide
 ),
 .tool-intro-fs [class*="__workspace"]:not(:has(> [class*="__card"] ~ [class*="__card"])) > [class*="__card"]:has(> [class*="__stage-art"]) {
+  box-sizing: border-box !important;
   width: 90% !important;
-  max-width: min(var(--splash-max-width, 560px), 90%) !important;
+  max-width: min(var(--splash-max-width, 620px), 90%) !important;
+  min-height: clamp(280px, 36vh, var(--splash-wide-min-height, 300px)) !important;
+  height: auto !important;
+  max-height: min(55vh, 28rem) !important;
   margin-inline: auto !important;
-  max-height: min(50vh, 22rem) !important;
+  padding: clamp(1rem, 2.2vh, 1.5rem) !important;
+  object-fit: contain !important;
 }
 
 /* Explicit landscape box — only when opting into --wide classes (not bare data-splash-wide) */
 .tool-intro-fs .animation-workspace--wide,
 .tool-intro-fs .global-splash-card--wide {
-  aspect-ratio: var(--splash-wide-aspect, 16 / 10);
+  aspect-ratio: var(--splash-wide-aspect, 4 / 3);
+  min-height: clamp(280px, 36vh, var(--splash-wide-min-height, 300px)) !important;
   height: auto !important;
-  max-height: min(50vh, 22rem) !important;
+  max-height: min(55vh, 28rem) !important;
 }
 
 /*
@@ -308,7 +315,8 @@
   .tool-intro-fs {
     padding: 16px 0 !important;
     --splash-zoom: 1.05;
-    --splash-max-width: 520px;
+    --splash-max-width: 560px;
+    --splash-wide-min-height: 260px;
   }
 
   .tool-intro-fs [class*="__stage"] {
@@ -325,7 +333,7 @@
   .tool-intro-fs [class*="__stage"] > [class*="__doc"] {
     max-height: calc(100dvh - 200px) !important;
     height: auto !important;
-    max-width: min(var(--splash-max-width, 520px), 90%) !important;
+    max-width: min(var(--splash-max-width, 560px), 90%) !important;
   }
 
   .tool-intro-fs [class*="__workspace"]:not(:has(> [class*="__card"])),
@@ -336,7 +344,7 @@
   .tool-intro-fs .animation-workspace:not(:has(> [class*="__card"] ~ [class*="__card"])) > [class*="__card"],
   .tool-intro-fs .global-splash-workspace:not(:has(> [class*="__card"] ~ [class*="__card"])) > [class*="__card"],
   .tool-intro-fs [class*="__workspace"]:has(> [class*="__card"] ~ [class*="__card"]) {
-    max-width: min(var(--splash-max-width, 520px), 90%) !important;
+    max-width: min(var(--splash-max-width, 560px), 90%) !important;
     max-height: 55vh !important;
   }
 
