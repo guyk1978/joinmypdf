@@ -5,6 +5,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
 import { RelatedTools } from "@/components/RelatedTools";
 import { CaseConverterWorkspace } from "@/components/tools/productivity/CaseConverterWorkspace";
+import { CaseConverterIntroGate } from "@/components/CaseConverterIntroGate";
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import {
@@ -100,6 +101,7 @@ export default async function CaseConverterPage({ params }: PageProps) {
               slug={SLUG}
               stacked
             >
+              <CaseConverterIntroGate>
               <ToolLayout
                 faqs={faqs}
                 feedbackTitle={pageTitle}
@@ -119,6 +121,7 @@ export default async function CaseConverterPage({ params }: PageProps) {
               >
                 <CaseConverterWorkspace tool={tool} slug={SLUG} />
               </ToolLayout>
+              </CaseConverterIntroGate>
             </ToolPageShellProvider>
           </ToolGlassProvider>
         </div>

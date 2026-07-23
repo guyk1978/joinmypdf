@@ -109,6 +109,14 @@ import { ConvertToPngIntroGate } from "@/components/ConvertToPngIntroGate";
 import { IcoToPngIntroGate } from "@/components/IcoToPngIntroGate";
 import { ImageOptimizerIntroGate } from "@/components/ImageOptimizerIntroGate";
 import { PdfToPngIntroGate } from "@/components/PdfToPngIntroGate";
+import { AppleTouchIconIntroGate } from "@/components/AppleTouchIconIntroGate";
+import { FaviconCodeGeneratorIntroGate } from "@/components/FaviconCodeGeneratorIntroGate";
+import { FaviconCropperIntroGate } from "@/components/FaviconCropperIntroGate";
+import { FaviconPackIntroGate } from "@/components/FaviconPackIntroGate";
+import { Base64EncoderDecoderIntroGate } from "@/components/Base64EncoderDecoderIntroGate";
+import { CaseConverterIntroGate } from "@/components/CaseConverterIntroGate";
+import { HtmlMarkdownConverterIntroGate } from "@/components/HtmlMarkdownConverterIntroGate";
+import { JsonCsvExplorerIntroGate } from "@/components/JsonCsvExplorerIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -438,6 +446,14 @@ export default async function ToolPage({
         <IcoToPngIntroGate active={tool.operation === "ico-to-png"}>
         <ImageOptimizerIntroGate active={tool.operation === "image-optimizer"}>
         <PdfToPngIntroGate active={tool.operation === "pdf-to-png"}>
+        <AppleTouchIconIntroGate active={tool.operation === "apple-touch-icon"}>
+        <FaviconCodeGeneratorIntroGate active={tool.operation === "favicon-code-generator"}>
+        <FaviconCropperIntroGate active={tool.operation === "favicon-cropper"}>
+        <FaviconPackIntroGate active={tool.operation === "favicon-pack"}>
+        <Base64EncoderDecoderIntroGate active={tool.operation === "base64-encoder-decoder"}>
+        <CaseConverterIntroGate active={tool.operation === "case-converter"}>
+        <HtmlMarkdownConverterIntroGate active={tool.operation === "html-markdown-converter"}>
+        <JsonCsvExplorerIntroGate active={tool.operation === "json-csv-explorer"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -725,6 +741,14 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </JsonCsvExplorerIntroGate>
+        </HtmlMarkdownConverterIntroGate>
+        </CaseConverterIntroGate>
+        </Base64EncoderDecoderIntroGate>
+        </FaviconPackIntroGate>
+        </FaviconCropperIntroGate>
+        </FaviconCodeGeneratorIntroGate>
+        </AppleTouchIconIntroGate>
         </PdfToPngIntroGate>
         </ImageOptimizerIntroGate>
         </IcoToPngIntroGate>
