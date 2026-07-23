@@ -581,6 +581,57 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את אזור ההעלאה כדי לחלץ טבלאות מה-PDF."
   },
+  "CompressImageLanding": {
+    "brand": "דחיסת תמונות אונליין",
+    "titleRest": "- הקטינו את גודל קובץ התמונה בלי ירידת איכות ניכרת",
+    "subtitle": "הפחיתו משקל קבצים תוך שמירה על מראה חד — באופן פרטי בדפדפן.",
+    "sizeFrom": "12 MB",
+    "sizeMid": "4.2 MB",
+    "sizeTo": "1.5 MB",
+    "savings": "−87%",
+    "quality": "איכות נשמרה",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לדחוס את התמונות."
+  },
+  "FaviconCompressorLanding": {
+    "brand": "דוחס Favicon חינמי אונליין",
+    "titleRest": "- הקטינו את גודל ה-Favicon לטעינת אתר מהירה יותר",
+    "subtitle": "כווצו favicon לכמה KB כדי שכרטיסיות וסימניות ייטענו מיד — באופן פרטי בדפדפן.",
+    "tabLabel": "mysite.com",
+    "sizeFrom": "48 KB",
+    "sizeMid": "8 KB",
+    "sizeTo": "1.8 KB",
+    "speed": "⚡ טעינה מיידית",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לדחוס את ה-favicon."
+  },
+  "AudioCompressorLanding": {
+    "brand": "דוחס אודיו",
+    "titleRest": "- הקטינו את גודל קובץ האודיו תוך שמירה על איכות נקייה",
+    "subtitle": "כווצו הקלטות גדולות לקבצים קלים בלי צליל מעומעם — באופן פרטי בדפדפן.",
+    "fmtBadge": "WAV / MP3",
+    "fileName": "podcast-take.wav",
+    "sizeFrom": "85 MB",
+    "sizeMid": "24 MB",
+    "sizeTo": "8.5 MB",
+    "fidelity": "נאמנות גבוהה",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לדחוס את האודיו."
+  },
+  "Mp3CompressorLanding": {
+    "brand": "דוחס MP3",
+    "titleRest": "- הקטינו את גודל קובץ ה-MP3 תוך שמירה על צליל נקי",
+    "subtitle": "אופטימיזציה לביטרייט של MP3 לקבצים קטנים שעדיין נשמעים נקי — באופן פרטי בדפדפן.",
+    "mp3Badge": ".MP3",
+    "fileName": "track-master.mp3",
+    "bitrate": "320 → 128 kbps",
+    "sizeFrom": "12.4 MB",
+    "sizeMid": "4.8 MB",
+    "sizeTo": "1.6 MB",
+    "clarity": "בהירות ללא אובדן",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לדחוס את ה-MP3."
+  },
   "Home": {
     "pickTool": "בחר כלי",
     "pickToolDescription": "כל תהליך נפתח בלחיצה אחת — אותו ממשק, אותו מודל פרטיות.",

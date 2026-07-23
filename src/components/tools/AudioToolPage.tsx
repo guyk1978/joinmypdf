@@ -3,6 +3,8 @@ import { RelatedAudioTools } from "@/components/tools/RelatedAudioTools";
 import { AudioToolMarketingSections } from "@/components/tools/AudioToolMarketingSections";
 import { AudioToolWorkspace } from "@/components/tools/AudioToolWorkspace";
 import { Mp4ToMp3IntroGate } from "@/components/Mp4ToMp3IntroGate";
+import { AudioCompressorIntroGate } from "@/components/AudioCompressorIntroGate";
+import { Mp3CompressorIntroGate } from "@/components/Mp3CompressorIntroGate";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
@@ -90,6 +92,8 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               stacked
             >
               <Mp4ToMp3IntroGate active={tool.id === "mp4-to-mp3"}>
+              <AudioCompressorIntroGate active={tool.id === "audio-compressor"}>
+              <Mp3CompressorIntroGate active={tool.id === "mp3-compressor"}>
               <ToolLayout
                 faqs={faqs}
                 feedbackTitle={pageHeadline}
@@ -115,6 +119,8 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               >
                 <AudioToolWorkspace toolId={tool.id} />
               </ToolLayout>
+              </Mp3CompressorIntroGate>
+              </AudioCompressorIntroGate>
               </Mp4ToMp3IntroGate>
             </ToolPageShellProvider>
           </ToolGlassProvider>

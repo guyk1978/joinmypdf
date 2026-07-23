@@ -581,6 +581,57 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the upload workspace to extract tables from your PDF."
   },
+  "CompressImageLanding": {
+    "brand": "Compress Images Online",
+    "titleRest": "- Shrink Image File Size Without a Noticeable Quality Drop",
+    "subtitle": "Cut file weight while keeping photos looking sharp — privately in your browser.",
+    "sizeFrom": "12 MB",
+    "sizeMid": "4.2 MB",
+    "sizeTo": "1.5 MB",
+    "savings": "−87%",
+    "quality": "Quality preserved",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to compress your images."
+  },
+  "FaviconCompressorLanding": {
+    "brand": "Free Favicon Compressor Online",
+    "titleRest": "- Reduce Favicon File Size for Faster Site Loading",
+    "subtitle": "Shrink favicons to a few KB so tabs and bookmarks load instantly — privately in your browser.",
+    "tabLabel": "mysite.com",
+    "sizeFrom": "48 KB",
+    "sizeMid": "8 KB",
+    "sizeTo": "1.8 KB",
+    "speed": "⚡ Instant Load",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to compress your favicon."
+  },
+  "AudioCompressorLanding": {
+    "brand": "Audio Compressor",
+    "titleRest": "- Reduce Audio File Size While Keeping Clear Playback Quality",
+    "subtitle": "Tighten large recordings into lighter files without muddy playback — privately in your browser.",
+    "fmtBadge": "WAV / MP3",
+    "fileName": "podcast-take.wav",
+    "sizeFrom": "85 MB",
+    "sizeMid": "24 MB",
+    "sizeTo": "8.5 MB",
+    "fidelity": "High Fidelity",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to compress your audio."
+  },
+  "Mp3CompressorLanding": {
+    "brand": "MP3 Compressor",
+    "titleRest": "- Reduce MP3 File Size While Keeping Audio Clear",
+    "subtitle": "Optimize MP3 bitrate for smaller files that still sound clean — privately in your browser.",
+    "mp3Badge": ".MP3",
+    "fileName": "track-master.mp3",
+    "bitrate": "320 → 128 kbps",
+    "sizeFrom": "12.4 MB",
+    "sizeMid": "4.8 MB",
+    "sizeTo": "1.6 MB",
+    "clarity": "Lossless Clarity",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to compress your MP3."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

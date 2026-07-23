@@ -583,6 +583,57 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте область загрузки, чтобы извлечь таблицы из PDF."
   },
+  "CompressImageLanding": {
+    "brand": "Сжатие изображений онлайн",
+    "titleRest": "- Уменьшите размер файла без заметной потери качества",
+    "subtitle": "Срезайте вес файлов, сохраняя резкость фото — конфиденциально в браузере.",
+    "sizeFrom": "12 MB",
+    "sizeMid": "4.2 MB",
+    "sizeTo": "1.5 MB",
+    "savings": "−87%",
+    "quality": "Качество сохранено",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы сжать изображения."
+  },
+  "FaviconCompressorLanding": {
+    "brand": "Бесплатный компрессор favicon онлайн",
+    "titleRest": "- Уменьшите размер favicon для быстрой загрузки сайта",
+    "subtitle": "Сжимайте favicon до нескольких КБ — вкладки и закладки грузятся мгновенно, конфиденциально в браузере.",
+    "tabLabel": "mysite.com",
+    "sizeFrom": "48 KB",
+    "sizeMid": "8 KB",
+    "sizeTo": "1.8 KB",
+    "speed": "⚡ Мгновенная загрузка",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы сжать favicon."
+  },
+  "AudioCompressorLanding": {
+    "brand": "Аудиокомпрессор",
+    "titleRest": "- Уменьшите размер аудио, сохраняя чистое качество",
+    "subtitle": "Сжимайте большие записи в лёгкие файлы без мутного звука — конфиденциально в браузере.",
+    "fmtBadge": "WAV / MP3",
+    "fileName": "podcast-take.wav",
+    "sizeFrom": "85 MB",
+    "sizeMid": "24 MB",
+    "sizeTo": "8.5 MB",
+    "fidelity": "Высокая точность",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы сжать аудио."
+  },
+  "Mp3CompressorLanding": {
+    "brand": "Компрессор MP3",
+    "titleRest": "- Уменьшите размер MP3, сохраняя чистый звук",
+    "subtitle": "Оптимизируйте битрейт MP3 для меньших файлов с чистым звучанием — конфиденциально в браузере.",
+    "mp3Badge": ".MP3",
+    "fileName": "track-master.mp3",
+    "bitrate": "320 → 128 kbps",
+    "sizeFrom": "12.4 MB",
+    "sizeMid": "4.8 MB",
+    "sizeTo": "1.6 MB",
+    "clarity": "Чистая ясность",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы сжать MP3."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

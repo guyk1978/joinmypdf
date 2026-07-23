@@ -95,6 +95,8 @@ import { AutocadToPdfIntroGate } from "@/components/AutocadToPdfIntroGate";
 import { EbookToPdfIntroGate } from "@/components/EbookToPdfIntroGate";
 import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
 import { ExtractTablesPdfIntroGate } from "@/components/ExtractTablesPdfIntroGate";
+import { CompressImageIntroGate } from "@/components/CompressImageIntroGate";
+import { FaviconCompressorIntroGate } from "@/components/FaviconCompressorIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -410,6 +412,8 @@ export default async function ToolPage({
         <EbookToPdfIntroGate active={tool.operation === "ebook-to-pdf"}>
         <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
         <ExtractTablesPdfIntroGate active={tool.operation === "extract-tables-pdf"}>
+        <CompressImageIntroGate active={tool.operation === "compress-image"}>
+        <FaviconCompressorIntroGate active={tool.operation === "favicon-compressor"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -697,6 +701,8 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </FaviconCompressorIntroGate>
+        </CompressImageIntroGate>
         </ExtractTablesPdfIntroGate>
         </ExcelToPdfIntroGate>
         </EbookToPdfIntroGate>
