@@ -99,6 +99,9 @@ import { OpenofficeToPdfIntroGate } from "@/components/OpenofficeToPdfIntroGate"
 import { PdfAConverterIntroGate } from "@/components/PdfAConverterIntroGate";
 import { PdfToEpubIntroGate } from "@/components/PdfToEpubIntroGate";
 import { PdfToHtmlIntroGate } from "@/components/PdfToHtmlIntroGate";
+import { PdfToPowerpointIntroGate } from "@/components/PdfToPowerpointIntroGate";
+import { PowerpointToPdfIntroGate } from "@/components/PowerpointToPdfIntroGate";
+import { PdfToXpsIntroGate } from "@/components/PdfToXpsIntroGate";
 import { MarkdownToPdfIntroGate } from "@/components/MarkdownToPdfIntroGate";
 import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
 import { ExtractTablesPdfIntroGate } from "@/components/ExtractTablesPdfIntroGate";
@@ -111,6 +114,7 @@ import { PdfToWordIntroGate } from "@/components/PdfToWordIntroGate";
 import { HeicToJpgIntroGate } from "@/components/HeicToJpgIntroGate";
 import { HeicToPdfIntroGate } from "@/components/HeicToPdfIntroGate";
 import { JpgToPdfIntroGate } from "@/components/JpgToPdfIntroGate";
+import { PngToPdfIntroGate } from "@/components/PngToPdfIntroGate";
 import { PdfToJpgIntroGate } from "@/components/PdfToJpgIntroGate";
 import { WebpToJpgIntroGate } from "@/components/WebpToJpgIntroGate";
 import { ConvertToPngIntroGate } from "@/components/ConvertToPngIntroGate";
@@ -478,6 +482,9 @@ export default async function ToolPage({
         <PdfAConverterIntroGate active={tool.operation === "pdf-a-converter"}>
         <PdfToEpubIntroGate active={tool.operation === "pdf-to-epub"}>
         <PdfToHtmlIntroGate active={tool.operation === "pdf-to-html"}>
+        <PdfToPowerpointIntroGate active={tool.operation === "pdf-to-powerpoint"}>
+        <PowerpointToPdfIntroGate active={tool.operation === "powerpoint-to-pdf"}>
+        <PdfToXpsIntroGate active={tool.operation === "pdf-to-xps"}>
         <MarkdownToPdfIntroGate active={tool.operation === "markdown-to-pdf"}>
         <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
         <ExtractTablesPdfIntroGate active={tool.operation === "extract-tables-pdf"}>
@@ -490,6 +497,7 @@ export default async function ToolPage({
         <HeicToJpgIntroGate active={tool.operation === "heic-to-jpg"}>
         <HeicToPdfIntroGate active={tool.operation === "heic-to-pdf"}>
         <JpgToPdfIntroGate active={tool.operation === "jpg-to-pdf"}>
+        <PngToPdfIntroGate active={tool.operation === "png-to-pdf"}>
         <PdfToJpgIntroGate active={tool.operation === "pdf-to-jpg"}>
         <WebpToJpgIntroGate active={tool.operation === "webp-to-jpg"}>
         <ConvertToPngIntroGate active={tool.operation === "convert-to-png"}>
@@ -873,6 +881,7 @@ export default async function ToolPage({
         </ConvertToPngIntroGate>
         </WebpToJpgIntroGate>
         </PdfToJpgIntroGate>
+        </PngToPdfIntroGate>
         </JpgToPdfIntroGate>
         </HeicToPdfIntroGate>
         </HeicToJpgIntroGate>
@@ -885,6 +894,9 @@ export default async function ToolPage({
         </ExtractTablesPdfIntroGate>
         </ExcelToPdfIntroGate>
         </MarkdownToPdfIntroGate>
+        </PdfToXpsIntroGate>
+        </PowerpointToPdfIntroGate>
+        </PdfToPowerpointIntroGate>
         </PdfToHtmlIntroGate>
         </PdfToEpubIntroGate>
         </PdfAConverterIntroGate>

@@ -796,6 +796,52 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте рабочую область, чтобы конвертировать PDF в HTML."
   },
+  "PdfToPowerpointLanding": {
+    "brand": "Конвертация PDF в PowerPoint онлайн",
+    "titleRest": "- Преобразуйте PDF в редактируемые слайды PowerPoint",
+    "subtitle": "Превращайте фиксированные страницы PDF в редактируемые презентации PPTX — конфиденциально в браузере.",
+    "pdfBadge": "PDF",
+    "pptxBadge": "PPTX",
+    "docTitle": "Презентация",
+    "success": "Конвертировано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы конвертировать PDF в PowerPoint."
+  },
+  "PowerpointToPdfLanding": {
+    "brand": "Конвертация PowerPoint в PDF онлайн",
+    "titleRest": "- Преобразуйте презентации PowerPoint в PDF",
+    "subtitle": "Фиксируйте широкоформатные PPTX-презентации в аккуратные PDF для обмена — конфиденциально в браузере.",
+    "pptxBadge": "PPTX",
+    "pdfBadge": "PDF",
+    "docTitle": "Презентация",
+    "success": "Конвертировано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы конвертировать PowerPoint в PDF."
+  },
+  "PdfToXpsLanding": {
+    "brand": "Конвертер PDF в XPS онлайн",
+    "titleRest": "- Преобразуйте PDF в XPS для рабочих процессов Windows",
+    "subtitle": "Создавайте XPS-документы, совместимые с Windows, из страниц PDF — конфиденциально в браузере.",
+    "pdfBadge": "PDF",
+    "xpsBadge": "XPS",
+    "docTitle": "Отчёт",
+    "xpsTitle": "Document.xps",
+    "xpsSeal": "XPS",
+    "success": "Конвертировано",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы конвертировать PDF в XPS."
+  },
+  "PngToPdfLanding": {
+    "brand": "Конвертация PNG в PDF онлайн",
+    "titleRest": "- Объедините PNG-изображения в один PDF",
+    "subtitle": "Объединяйте прозрачные PNG-графики в аккуратный многостраничный PDF — конфиденциально в браузере.",
+    "pngBadge": "PNG",
+    "pdfBadge": "PDF",
+    "pageCount": "3 стр.",
+    "success": "Объединено",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы объединить PNG в PDF."
+  },
   "MarkdownToPdfLanding": {
     "brand": "Бесплатный конвертер Markdown в PDF онлайн",
     "titleRest": "- Преобразуйте Markdown-документы в аккуратные PDF",

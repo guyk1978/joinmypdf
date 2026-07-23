@@ -794,6 +794,52 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the workspace to convert a PDF to HTML."
   },
+  "PdfToPowerpointLanding": {
+    "brand": "Convert PDF to PowerPoint Online",
+    "titleRest": "- Convert PDFs into Editable PowerPoint Slides",
+    "subtitle": "Turn fixed PDF pages into editable PPTX slide decks — privately in your browser.",
+    "pdfBadge": "PDF",
+    "pptxBadge": "PPTX",
+    "docTitle": "Deck",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert a PDF to PowerPoint."
+  },
+  "PowerpointToPdfLanding": {
+    "brand": "Convert PowerPoint to PDF Online",
+    "titleRest": "- Convert PowerPoint Presentations to PDF",
+    "subtitle": "Lock widescreen PPTX decks into polished, shareable PDFs — privately in your browser.",
+    "pptxBadge": "PPTX",
+    "pdfBadge": "PDF",
+    "docTitle": "Deck",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert PowerPoint to PDF."
+  },
+  "PdfToXpsLanding": {
+    "brand": "PDF to XPS Converter Online",
+    "titleRest": "- Convert PDFs to XPS for Windows Document Workflows",
+    "subtitle": "Produce Windows-compatible XPS documents from PDF pages — privately in your browser.",
+    "pdfBadge": "PDF",
+    "xpsBadge": "XPS",
+    "docTitle": "Report",
+    "xpsTitle": "Document.xps",
+    "xpsSeal": "XPS",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert a PDF to XPS."
+  },
+  "PngToPdfLanding": {
+    "brand": "Convert PNG to PDF Online",
+    "titleRest": "- Combine PNG Images into a Single PDF",
+    "subtitle": "Merge transparent PNG graphics into one polished multi-page PDF — privately in your browser.",
+    "pngBadge": "PNG",
+    "pdfBadge": "PDF",
+    "pageCount": "3 pages",
+    "success": "Merged",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to combine PNG images into a PDF."
+  },
   "MarkdownToPdfLanding": {
     "brand": "Free Markdown to PDF Converter Online",
     "titleRest": "- Convert Markdown Documents into Polished PDFs",

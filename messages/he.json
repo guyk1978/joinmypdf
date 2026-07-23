@@ -794,6 +794,52 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את סביבת העבודה כדי להמיר PDF ל-HTML."
   },
+  "PdfToPowerpointLanding": {
+    "brand": "המרת PDF ל-PowerPoint אונליין",
+    "titleRest": "- המירו PDF לשקופיות PowerPoint הניתנות לעריכה",
+    "subtitle": "הפכו עמודי PDF קבועים למצגות PPTX הניתנות לעריכה — באופן פרטי בדפדפן.",
+    "pdfBadge": "PDF",
+    "pptxBadge": "PPTX",
+    "docTitle": "מצגת",
+    "success": "הומר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר PDF ל-PowerPoint."
+  },
+  "PowerpointToPdfLanding": {
+    "brand": "המרת PowerPoint ל-PDF אונליין",
+    "titleRest": "- המירו מצגות PowerPoint ל-PDF",
+    "subtitle": "נעילת מצגות PPTX רחבות ל-PDF מלוטש לשיתוף — באופן פרטי בדפדפן.",
+    "pptxBadge": "PPTX",
+    "pdfBadge": "PDF",
+    "docTitle": "מצגת",
+    "success": "הומר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר PowerPoint ל-PDF."
+  },
+  "PdfToXpsLanding": {
+    "brand": "ממיר PDF ל-XPS אונליין",
+    "titleRest": "- המירו PDF ל-XPS לתהליכי עבודה ב-Windows",
+    "subtitle": "צרו מסמכי XPS תואמי Windows מעמודי PDF — באופן פרטי בדפדפן.",
+    "pdfBadge": "PDF",
+    "xpsBadge": "XPS",
+    "docTitle": "דוח",
+    "xpsTitle": "Document.xps",
+    "xpsSeal": "XPS",
+    "success": "הומר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר PDF ל-XPS."
+  },
+  "PngToPdfLanding": {
+    "brand": "המרת PNG ל-PDF אונליין",
+    "titleRest": "- שלבו תמונות PNG לקובץ PDF אחד",
+    "subtitle": "מיזוג גרפיקות PNG שקופות ל-PDF מלוטש רב-עמודים — באופן פרטי בדפדפן.",
+    "pngBadge": "PNG",
+    "pdfBadge": "PDF",
+    "pageCount": "3 עמודים",
+    "success": "מוזג",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לשלב תמונות PNG ל-PDF."
+  },
   "MarkdownToPdfLanding": {
     "brand": "ממיר Markdown ל-PDF חינמי אונליין",
     "titleRest": "- המירו מסמכי Markdown ל-PDF מלוטשים",
