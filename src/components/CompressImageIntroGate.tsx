@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./compress-image-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function CompressImageIntroGate({
   const t = useTranslations("CompressImageLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function CompressImageIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="cimg-fs"
+        className="cimg-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="cimg-fs-title"
@@ -77,7 +80,7 @@ export function CompressImageIntroGate({
 
         <div className="cimg-fs__stage" aria-hidden>
           <div className="cimg-fs__scene">
-            <div className="cimg-fs__workspace">
+            <div className="cimg-fs__workspace animation-workspace">
               <div className="cimg-fs__particles">
                 <span /><span /><span /><span /><span /><span /><span /><span />
               </div>
@@ -118,7 +121,7 @@ export function CompressImageIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="cimg-fs" aria-hidden />;
+      return <div className="cimg-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

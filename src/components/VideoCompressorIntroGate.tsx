@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./video-compressor-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function VideoCompressorIntroGate({
   const t = useTranslations("VideoCompressorLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function VideoCompressorIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="vcp-fs"
+        className="vcp-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="vcp-fs-title"
@@ -83,7 +86,7 @@ export function VideoCompressorIntroGate({
               <span className="vcp-fs__size vcp-fs__size--to">{t("sizeTo")}</span>
             </div>
 
-            <div className="vcp-fs__workspace">
+            <div className="vcp-fs__workspace animation-workspace">
               <div className="vcp-fs__ring-wrap">
                 <svg className="vcp-fs__ring" viewBox="0 0 120 120" aria-hidden>
                   <circle className="vcp-fs__ring-track" cx="60" cy="60" r="52" />
@@ -120,7 +123,7 @@ export function VideoCompressorIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="vcp-fs" aria-hidden />;
+      return <div className="vcp-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

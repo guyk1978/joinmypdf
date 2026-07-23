@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./favicon-compressor-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function FaviconCompressorIntroGate({
   const t = useTranslations("FaviconCompressorLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function FaviconCompressorIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="favc-fs"
+        className="favc-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="favc-fs-title"
@@ -77,7 +80,7 @@ export function FaviconCompressorIntroGate({
 
         <div className="favc-fs__stage" aria-hidden>
           <div className="favc-fs__scene">
-            <div className="favc-fs__workspace">
+            <div className="favc-fs__workspace animation-workspace">
               <div className="favc-fs__browser">
                 <div className="favc-fs__chrome">
                   <div className="favc-fs__dots">
@@ -125,7 +128,7 @@ export function FaviconCompressorIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="favc-fs" aria-hidden />;
+      return <div className="favc-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

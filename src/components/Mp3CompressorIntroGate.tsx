@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./mp3-compressor-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function Mp3CompressorIntroGate({
   const t = useTranslations("Mp3CompressorLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function Mp3CompressorIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="mp3c-fs"
+        className="mp3c-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="mp3c-fs-title"
@@ -77,7 +80,7 @@ export function Mp3CompressorIntroGate({
 
         <div className="mp3c-fs__stage" aria-hidden>
           <div className="mp3c-fs__scene">
-            <div className="mp3c-fs__workspace">
+            <div className="mp3c-fs__workspace animation-workspace">
               <div className="mp3c-fs__card">
                 <div className="mp3c-fs__card-top">
                   <span className="mp3c-fs__mp3">{t("mp3Badge")}</span>
@@ -124,7 +127,7 @@ export function Mp3CompressorIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="mp3c-fs" aria-hidden />;
+      return <div className="mp3c-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

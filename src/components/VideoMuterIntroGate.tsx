@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./video-muter-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function VideoMuterIntroGate({
   const t = useTranslations("VideoMuterLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function VideoMuterIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="vmu-fs"
+        className="vmu-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="vmu-fs-title"
@@ -119,7 +122,7 @@ export function VideoMuterIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="vmu-fs" aria-hidden />;
+      return <div className="vmu-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

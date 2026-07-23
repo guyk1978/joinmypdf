@@ -101,6 +101,10 @@ import { ExtractImagesIntroGate } from "@/components/ExtractImagesIntroGate";
 import { PdfToExcelIntroGate } from "@/components/PdfToExcelIntroGate";
 import { PdfToTextIntroGate } from "@/components/PdfToTextIntroGate";
 import { PdfToWordIntroGate } from "@/components/PdfToWordIntroGate";
+import { HeicToJpgIntroGate } from "@/components/HeicToJpgIntroGate";
+import { JpgToPdfIntroGate } from "@/components/JpgToPdfIntroGate";
+import { PdfToJpgIntroGate } from "@/components/PdfToJpgIntroGate";
+import { WebpToJpgIntroGate } from "@/components/WebpToJpgIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -422,6 +426,10 @@ export default async function ToolPage({
         <PdfToExcelIntroGate active={tool.operation === "pdf-to-excel"}>
         <PdfToTextIntroGate active={tool.operation === "pdf-to-text"}>
         <PdfToWordIntroGate active={tool.operation === "pdf-to-word"}>
+        <HeicToJpgIntroGate active={tool.operation === "heic-to-jpg"}>
+        <JpgToPdfIntroGate active={tool.operation === "jpg-to-pdf"}>
+        <PdfToJpgIntroGate active={tool.operation === "pdf-to-jpg"}>
+        <WebpToJpgIntroGate active={tool.operation === "webp-to-jpg"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -709,6 +717,10 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </WebpToJpgIntroGate>
+        </PdfToJpgIntroGate>
+        </JpgToPdfIntroGate>
+        </HeicToJpgIntroGate>
         </PdfToWordIntroGate>
         </PdfToTextIntroGate>
         </PdfToExcelIntroGate>

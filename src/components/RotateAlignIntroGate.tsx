@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { IntroPdfMockup } from "@/components/IntroPdfMockup";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./intro-pdf-mockup.css";
 import "./rotate-align-landing.css";
 
@@ -30,6 +31,8 @@ export function RotateAlignIntroGate({
   const t = useTranslations("RotateAlignLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -64,7 +67,7 @@ export function RotateAlignIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="rot-fs"
+        className="rot-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="rot-fs-title"
@@ -79,7 +82,7 @@ export function RotateAlignIntroGate({
 
         <div className="rot-fs__stage" aria-hidden>
           <div className="rot-fs__scene">
-            <div className="rot-fs__workspace">
+            <div className="rot-fs__workspace animation-workspace">
               <div className="rot-fs__grid" />
               <div className="rot-fs__horizon">
                 <span className="rot-fs__horizon-line" />
@@ -108,7 +111,7 @@ export function RotateAlignIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="rot-fs" aria-hidden />;
+      return <div className="rot-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./draw-on-image-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function DrawOnImageIntroGate({
   const t = useTranslations("DrawOnImageLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function DrawOnImageIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="drw-fs"
+        className="drw-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="drw-fs-title"
@@ -89,7 +92,7 @@ export function DrawOnImageIntroGate({
               </div>
             </div>
 
-            <div className="drw-fs__workspace">
+            <div className="drw-fs__workspace animation-workspace">
               <div className="drw-fs__card">
                 <div className="drw-fs__photo">
                   <span className="drw-fs__photo-sky" />
@@ -168,7 +171,7 @@ export function DrawOnImageIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="drw-fs" aria-hidden />;
+      return <div className="drw-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

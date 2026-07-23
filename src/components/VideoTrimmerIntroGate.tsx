@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./video-trimmer-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function VideoTrimmerIntroGate({
   const t = useTranslations("VideoTrimmerLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function VideoTrimmerIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="vtr-fs"
+        className="vtr-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="vtr-fs-title"
@@ -132,7 +135,7 @@ export function VideoTrimmerIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="vtr-fs" aria-hidden />;
+      return <div className="vtr-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

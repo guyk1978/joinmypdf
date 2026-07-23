@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./mp4-to-mp3-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function Mp4ToMp3IntroGate({
   const t = useTranslations("Mp4ToMp3Landing");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function Mp4ToMp3IntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="m43-fs"
+        className="m43-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="m43-fs-title"
@@ -77,7 +80,7 @@ export function Mp4ToMp3IntroGate({
 
         <div className="m43-fs__stage" aria-hidden>
           <div className="m43-fs__scene">
-            <div className="m43-fs__workspace">
+            <div className="m43-fs__workspace animation-workspace">
               <div className="m43-fs__card m43-fs__card--mp4">
                 <div className="m43-fs__preview">
                   <span className="m43-fs__preview-sky" />
@@ -127,7 +130,7 @@ export function Mp4ToMp3IntroGate({
     );
 
     if (!portalReady) {
-      return <div className="m43-fs" aria-hidden />;
+      return <div className="m43-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

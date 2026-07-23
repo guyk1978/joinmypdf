@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { IntroPdfMockup } from "@/components/IntroPdfMockup";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./intro-pdf-mockup.css";
 import "./n-up-pdf-landing.css";
 
@@ -35,6 +36,8 @@ export function NUpPdfIntroGate({ active = true, children }: NUpPdfIntroGateProp
   const t = useTranslations("NUpPdfLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -69,7 +72,7 @@ export function NUpPdfIntroGate({ active = true, children }: NUpPdfIntroGateProp
   if (phase === "intro") {
     const splash = (
       <div
-        className="nup-fs"
+        className="nup-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="nup-fs-title"
@@ -144,7 +147,7 @@ export function NUpPdfIntroGate({ active = true, children }: NUpPdfIntroGateProp
     );
 
     if (!portalReady) {
-      return <div className="nup-fs" aria-hidden />;
+      return <div className="nup-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

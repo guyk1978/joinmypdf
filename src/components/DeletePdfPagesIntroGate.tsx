@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { IntroPdfMockup } from "@/components/IntroPdfMockup";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./intro-pdf-mockup.css";
 import "./delete-pdf-pages-landing.css";
 
@@ -30,6 +31,8 @@ export function DeletePdfPagesIntroGate({
   const t = useTranslations("DeletePdfPagesLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -64,7 +67,7 @@ export function DeletePdfPagesIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="del-fs"
+        className="del-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="del-fs-title"
@@ -120,7 +123,7 @@ export function DeletePdfPagesIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="del-fs" aria-hidden />;
+      return <div className="del-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

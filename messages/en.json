@@ -685,6 +685,56 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the upload workspace to convert your PDF to Word."
   },
+  "HeicToJpgLanding": {
+    "brand": "Convert HEIC to JPG Online",
+    "titleRest": "- Convert HEIC Photos to JPG for Universal Sharing",
+    "subtitle": "Turn iPhone HEIC photos into universal JPG files — privately in your browser.",
+    "heicBadge": ".HEIC",
+    "jpgBadge": ".JPG",
+    "heicName": "IMG_2841.heic",
+    "jpgName": "IMG_2841.jpg",
+    "compatWindows": "Windows ✓",
+    "compatAndroid": "Android ✓",
+    "compatWeb": "Web ✓",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to convert HEIC photos to JPG."
+  },
+  "JpgToPdfLanding": {
+    "brand": "Convert JPG to PDF Online",
+    "titleRest": "- Combine JPG Images into a Single PDF",
+    "subtitle": "Stack photos into one polished multi-page PDF — privately in your browser.",
+    "jpgBadge": ".JPG",
+    "pdfBadge": "PDF",
+    "pdfName": "photos.pdf",
+    "pageCount": "3 pages",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to combine JPG images into a PDF."
+  },
+  "PdfToJpgLanding": {
+    "brand": "Convert PDF to JPG Online",
+    "titleRest": "- Export PDF Pages as High-Quality JPG Images",
+    "subtitle": "Render every page into crisp JPG files — privately in your browser.",
+    "pdfBadge": "PDF",
+    "pdfName": "poster.pdf",
+    "jpgBadge": ".JPG",
+    "success": "Pages exported",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to export PDF pages as JPG."
+  },
+  "WebpToJpgLanding": {
+    "brand": "Convert WebP to JPG Online",
+    "titleRest": "- Convert WebP Images to JPG for Broader Compatibility",
+    "subtitle": "Turn modern WebP images into universal JPG files — privately in your browser.",
+    "webpBadge": ".WEBP",
+    "jpgBadge": ".JPG",
+    "webpName": "hero.webp",
+    "jpgName": "hero.jpg",
+    "compatSafari": "Safari ✓",
+    "compatEmail": "Email ✓",
+    "compatApps": "Legacy apps ✓",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to convert WebP images to JPG."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

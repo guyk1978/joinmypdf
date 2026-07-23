@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./autocad-to-pdf-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function AutocadToPdfIntroGate({
   const t = useTranslations("AutocadToPdfLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function AutocadToPdfIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="cad-fs"
+        className="cad-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="cad-fs-title"
@@ -77,7 +80,7 @@ export function AutocadToPdfIntroGate({
 
         <div className="cad-fs__stage" aria-hidden>
           <div className="cad-fs__scene">
-            <div className="cad-fs__workspace">
+            <div className="cad-fs__workspace animation-workspace">
               <div className="cad-fs__blueprint">
                 <div className="cad-fs__grid" />
                 <div className="cad-fs__crosshair cad-fs__crosshair--h" />
@@ -129,7 +132,7 @@ export function AutocadToPdfIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="cad-fs" aria-hidden />;
+      return <div className="cad-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

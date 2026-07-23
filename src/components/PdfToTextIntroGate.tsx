@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./pdf-to-text-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function PdfToTextIntroGate({
   const t = useTranslations("PdfToTextLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function PdfToTextIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="p2t-fs"
+        className="p2t-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="p2t-fs-title"
@@ -77,7 +80,7 @@ export function PdfToTextIntroGate({
 
         <div className="p2t-fs__stage" aria-hidden>
           <div className="p2t-fs__scene">
-            <div className="p2t-fs__workspace">
+            <div className="p2t-fs__workspace animation-workspace">
               <div className="p2t-fs__chars">
                 <span>A</span>
                 <span>b</span>
@@ -131,7 +134,7 @@ export function PdfToTextIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="p2t-fs" aria-hidden />;
+      return <div className="p2t-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

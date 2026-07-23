@@ -29,6 +29,7 @@ import {
   WORKSPACE_PHASE_MESSAGE,
   type WorkspacePhase,
 } from "@/lib/workspace-flow";
+import { TOOL_INTRO_MESSAGE } from "@/lib/tool-intro-chrome";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
 export type ToolModalTab = "calc" | "doc" | "related";
@@ -82,9 +83,10 @@ export type ToolModalWrapperProps = {
 
 /**
  * Global JoinMyPDF tool modal shell (Industrial Matte).
- * Always opens at maximum width. Site header stays visible until the
- * embedded workspace reports an active (file-uploaded) phase, then the
- * tool action bar replaces the site chrome.
+ * Always opens at maximum width. Site header stays visible during the clean
+ * upload phase, but cinematic intro splashes hide it for true fullscreen
+ * isolation until Get Started. After file upload the tool action bar
+ * replaces the site chrome.
  */
 export function ToolModalWrapper({
   open,
@@ -107,6 +109,8 @@ export function ToolModalWrapper({
   const [workspacePhase, setWorkspacePhase] = useState<WorkspacePhase>("clean");
   /** True once a PDF (or other upload) has entered the active workspace. */
   const hasFileUploaded = workspacePhase === "active";
+  /** Cinematic intro splash active inside the CALC iframe. */
+  const [introActive, setIntroActive] = useState(false);
   const [loupeEnabled, setLoupeEnabled] = useState(true);
   const [loupeSize, setLoupeSize] = useState<MagnifierSizeTier>("medium");
   const [mounted, setMounted] = useState(false);
@@ -154,6 +158,7 @@ export function ToolModalWrapper({
     if (!open) return;
     setTab(defaultTab);
     setWorkspacePhase("clean");
+    setIntroActive(false);
   }, [open, defaultTab, title, slug]);
 
   useEffect(() => {
@@ -193,21 +198,33 @@ export function ToolModalWrapper({
     const onMessage = (event: MessageEvent) => {
       const data = event.data;
       if (!data || typeof data !== "object") return;
-      if ((data as { type?: string }).type !== WORKSPACE_PHASE_MESSAGE) return;
-      const phase = (data as { phase?: string }).phase;
-      if (phase === "clean" || phase === "active") applyPhase(phase);
+      const type = (data as { type?: string }).type;
+      if (type === WORKSPACE_PHASE_MESSAGE) {
+        const phase = (data as { phase?: string }).phase;
+        if (phase === "clean" || phase === "active") applyPhase(phase);
+        return;
+      }
+      if (type === TOOL_INTRO_MESSAGE) {
+        setIntroActive(Boolean((data as { active?: boolean }).active));
+      }
     };
 
-    const onCustom = (event: Event) => {
+    const onCustomPhase = (event: Event) => {
       const phase = (event as CustomEvent<{ phase?: WorkspacePhase }>).detail?.phase;
       if (phase === "clean" || phase === "active") applyPhase(phase);
     };
 
+    const onCustomIntro = (event: Event) => {
+      setIntroActive(Boolean((event as CustomEvent<{ active?: boolean }>).detail?.active));
+    };
+
     window.addEventListener("message", onMessage);
-    window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustom);
+    window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
+    window.addEventListener(TOOL_INTRO_MESSAGE, onCustomIntro);
     return () => {
       window.removeEventListener("message", onMessage);
-      window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustom);
+      window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
+      window.removeEventListener(TOOL_INTRO_MESSAGE, onCustomIntro);
     };
   }, [open]);
 
@@ -215,12 +232,19 @@ export function ToolModalWrapper({
     if (!open) {
       document.documentElement.removeAttribute("data-tool-modal-workspace");
       document.documentElement.removeAttribute("data-tool-modal-fullscreen");
+      document.documentElement.removeAttribute("data-tool-intro");
       return;
     }
 
     document.documentElement.setAttribute("data-tool-modal-open", "1");
     document.documentElement.setAttribute("data-tool-modal-workspace", workspacePhase);
-    // Mutual exclusion: active = tool toolbar only; clean = site header only.
+    if (introActive) {
+      document.documentElement.setAttribute("data-tool-intro", "1");
+    } else {
+      document.documentElement.removeAttribute("data-tool-intro");
+    }
+    // Mutual exclusion: active = tool toolbar only; clean = site header only
+    // (unless cinematic intro owns the full viewport).
     if (hasFileUploaded) {
       document.documentElement.setAttribute("data-tool-modal-fullscreen", "1");
     } else {
@@ -230,8 +254,9 @@ export function ToolModalWrapper({
     return () => {
       document.documentElement.removeAttribute("data-tool-modal-workspace");
       document.documentElement.removeAttribute("data-tool-modal-fullscreen");
+      document.documentElement.removeAttribute("data-tool-intro");
     };
-  }, [open, workspacePhase, hasFileUploaded]);
+  }, [open, workspacePhase, hasFileUploaded, introActive]);
 
   if (!mounted) return null;
 

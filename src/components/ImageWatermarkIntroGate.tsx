@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./image-watermark-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function ImageWatermarkIntroGate({
   const t = useTranslations("ImageWatermarkLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function ImageWatermarkIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="wmk-fs"
+        className="wmk-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="wmk-fs-title"
@@ -91,7 +94,7 @@ export function ImageWatermarkIntroGate({
               </div>
             </div>
 
-            <div className="wmk-fs__workspace">
+            <div className="wmk-fs__workspace animation-workspace">
               <div className="wmk-fs__card">
                 <div className="wmk-fs__photo">
                   <span className="wmk-fs__photo-sky" />
@@ -124,7 +127,7 @@ export function ImageWatermarkIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="wmk-fs" aria-hidden />;
+      return <div className="wmk-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

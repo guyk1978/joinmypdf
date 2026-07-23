@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { IntroPdfMockup } from "@/components/IntroPdfMockup";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./intro-pdf-mockup.css";
 import "./extract-pdf-pages-landing.css";
 
@@ -30,6 +31,8 @@ export function ExtractPdfPagesIntroGate({
   const t = useTranslations("ExtractPdfPagesLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -64,7 +67,7 @@ export function ExtractPdfPagesIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="ext-fs"
+        className="ext-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ext-fs-title"
@@ -134,7 +137,7 @@ export function ExtractPdfPagesIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="ext-fs" aria-hidden />;
+      return <div className="ext-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

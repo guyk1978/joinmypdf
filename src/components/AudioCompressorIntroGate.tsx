@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./audio-compressor-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function AudioCompressorIntroGate({
   const t = useTranslations("AudioCompressorLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function AudioCompressorIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="audc-fs"
+        className="audc-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="audc-fs-title"
@@ -77,7 +80,7 @@ export function AudioCompressorIntroGate({
 
         <div className="audc-fs__stage" aria-hidden>
           <div className="audc-fs__scene">
-            <div className="audc-fs__workspace">
+            <div className="audc-fs__workspace animation-workspace">
               <div className="audc-fs__pulses">
                 <span /><span /><span />
               </div>
@@ -125,7 +128,7 @@ export function AudioCompressorIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="audc-fs" aria-hidden />;
+      return <div className="audc-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

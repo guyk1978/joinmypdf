@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./pdf-to-word-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function PdfToWordIntroGate({
   const t = useTranslations("PdfToWordLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function PdfToWordIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="p2w-fs"
+        className="p2w-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="p2w-fs-title"
@@ -77,7 +80,7 @@ export function PdfToWordIntroGate({
 
         <div className="p2w-fs__stage" aria-hidden>
           <div className="p2w-fs__scene">
-            <div className="p2w-fs__workspace">
+            <div className="p2w-fs__workspace animation-workspace">
               <div className="p2w-fs__pdf">
                 <div className="p2w-fs__pdf-sheet">
                   <span className="p2w-fs__pdf-badge">{t("pdfBadge")}</span>
@@ -123,7 +126,7 @@ export function PdfToWordIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="p2w-fs" aria-hidden />;
+      return <div className="p2w-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

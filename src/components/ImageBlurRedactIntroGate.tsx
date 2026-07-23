@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./image-blur-redact-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function ImageBlurRedactIntroGate({
   const t = useTranslations("ImageBlurRedactLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function ImageBlurRedactIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="blr-fs"
+        className="blr-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="blr-fs-title"
@@ -77,7 +80,7 @@ export function ImageBlurRedactIntroGate({
 
         <div className="blr-fs__stage" aria-hidden>
           <div className="blr-fs__scene">
-            <div className="blr-fs__workspace">
+            <div className="blr-fs__workspace animation-workspace">
               <div className="blr-fs__card">
                 <div className="blr-fs__doc">
                   <div className="blr-fs__doc-head">
@@ -130,7 +133,7 @@ export function ImageBlurRedactIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="blr-fs" aria-hidden />;
+      return <div className="blr-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

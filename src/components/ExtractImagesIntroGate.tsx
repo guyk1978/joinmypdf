@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./extract-images-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function ExtractImagesIntroGate({
   const t = useTranslations("ExtractImagesLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function ExtractImagesIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="ximg-fs"
+        className="ximg-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ximg-fs-title"
@@ -77,7 +80,7 @@ export function ExtractImagesIntroGate({
 
         <div className="ximg-fs__stage" aria-hidden>
           <div className="ximg-fs__scene">
-            <div className="ximg-fs__workspace">
+            <div className="ximg-fs__workspace animation-workspace">
               <div className="ximg-fs__particles">
                 <span /><span /><span /><span /><span /><span />
               </div>
@@ -127,7 +130,7 @@ export function ExtractImagesIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="ximg-fs" aria-hidden />;
+      return <div className="ximg-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

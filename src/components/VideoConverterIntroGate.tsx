@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./video-converter-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function VideoConverterIntroGate({
   const t = useTranslations("VideoConverterLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function VideoConverterIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="vcv-fs"
+        className="vcv-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="vcv-fs-title"
@@ -83,7 +86,7 @@ export function VideoConverterIntroGate({
               <span className="vcv-fs__chip vcv-fs__chip--mov">{t("fmtMov")}</span>
             </div>
 
-            <div className="vcv-fs__workspace">
+            <div className="vcv-fs__workspace animation-workspace">
               <div className="vcv-fs__ring-wrap">
                 <span className="vcv-fs__particles">
                   <i /><i /><i /><i /><i /><i />
@@ -123,7 +126,7 @@ export function VideoConverterIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="vcv-fs" aria-hidden />;
+      return <div className="vcv-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

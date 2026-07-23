@@ -1,4 +1,5 @@
 @import "../styles/industrial-matte-tokens.css";
+@import "../components/tool-intro-splash.css";
 
 @tailwind base;
 @tailwind components;
@@ -3363,8 +3364,7 @@ html:has(.home-page-shell--minimal) body {
 /*
  * True immersive fullsize — expand the whole modal shell to the viewport.
  * Always on by default (no expand toggle). Clean phase leaves room for the
- * sticky site header; active (uploaded) phase covers it so the tool toolbar
- * becomes the top chrome.
+ * sticky site header; cinematic intro + active (uploaded) phases cover it.
  */
 .tool-modal--fullscreen {
   padding: 0 !important;
@@ -3373,11 +3373,12 @@ html:has(.home-page-shell--minimal) body {
   z-index: 9999;
 }
 
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .tool-modal.tool-modal--fullscreen {
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .tool-modal.tool-modal--fullscreen {
   top: var(--site-header-height, 120px);
 }
 
-html[data-tool-modal-workspace="active"] .tool-modal.tool-modal--fullscreen {
+html[data-tool-modal-workspace="active"] .tool-modal.tool-modal--fullscreen,
+html[data-tool-intro="1"] .tool-modal.tool-modal--fullscreen {
   top: 0;
 }
 
@@ -4261,38 +4262,49 @@ html[data-tool-modal-workspace="active"] .pinned-dock {
 }
 
 /*
- * Clean / intro (pre-upload): site header owns the top chrome.
- * Tool modal is fullsize below the header (z-index 9999). Header controls and
+ * Cinematic intro splash: true fullscreen isolation — hide site header,
+ * dock, and footer while the iframe splash owns 100vh.
+ */
+html[data-tool-intro="1"] .site-header,
+html[data-tool-intro="1"] .pinned-dock,
+html[data-tool-intro="1"] .home-page-footer {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/*
+ * Clean / upload (pre-file, post-intro): site header owns the top chrome.
+ * Tool modal sits fullsize below the header (z-index 9999). Header controls and
  * their portaled overlays must sit above that shell or clicks appear "blocked".
  */
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header {
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header {
   visibility: visible !important;
   pointer-events: auto !important;
   z-index: 10050 !important;
 }
 
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header__visual,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header__bar,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header a,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header button,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header input,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-search,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-search__field {
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header__visual,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header__bar,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header a,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header button,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header input,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-search,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-search__field {
   pointer-events: auto !important;
 }
 
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-search__dropdown,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header__overflow-panel,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .site-header__overflow-panel--floating,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .category-hub-overlay,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .nav-drawer,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .category-modal {
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-search__dropdown,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header__overflow-panel,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header__overflow-panel--floating,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .category-hub-overlay,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .nav-drawer,
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .category-modal {
   z-index: 10060 !important;
   pointer-events: auto !important;
 }
 
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .nav-drawer:not(.is-open),
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]) .category-modal:not(.is-open) {
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .nav-drawer:not(.is-open),
+html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .category-modal:not(.is-open) {
   pointer-events: none !important;
 }
 

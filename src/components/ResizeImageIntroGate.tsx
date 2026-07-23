@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./resize-image-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function ResizeImageIntroGate({
   const t = useTranslations("ResizeImageLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function ResizeImageIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="riz-fs"
+        className="riz-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="riz-fs-title"
@@ -77,7 +80,7 @@ export function ResizeImageIntroGate({
 
         <div className="riz-fs__stage" aria-hidden>
           <div className="riz-fs__scene">
-            <div className="riz-fs__workspace">
+            <div className="riz-fs__workspace animation-workspace">
               <div className="riz-fs__guides" />
 
               <div className="riz-fs__preview">
@@ -122,7 +125,7 @@ export function ResizeImageIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="riz-fs" aria-hidden />;
+      return <div className="riz-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

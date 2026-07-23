@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./video-metadata-cleaner-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function VideoMetadataCleanerIntroGate({
   const t = useTranslations("VideoMetadataCleanerLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function VideoMetadataCleanerIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="vmc-fs"
+        className="vmc-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="vmc-fs-title"
@@ -77,7 +80,7 @@ export function VideoMetadataCleanerIntroGate({
 
         <div className="vmc-fs__stage" aria-hidden>
           <div className="vmc-fs__scene">
-            <div className="vmc-fs__workspace">
+            <div className="vmc-fs__workspace animation-workspace">
               <div className="vmc-fs__file">
                 <div className="vmc-fs__file-preview">
                   <span className="vmc-fs__file-sky" />
@@ -134,7 +137,7 @@ export function VideoMetadataCleanerIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="vmc-fs" aria-hidden />;
+      return <div className="vmc-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

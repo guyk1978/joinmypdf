@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./video-speed-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function VideoSpeedIntroGate({
   const t = useTranslations("VideoSpeedLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function VideoSpeedIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="vsp-fs"
+        className="vsp-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="vsp-fs-title"
@@ -126,7 +129,7 @@ export function VideoSpeedIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="vsp-fs" aria-hidden />;
+      return <div className="vsp-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./pdf-to-excel-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function PdfToExcelIntroGate({
   const t = useTranslations("PdfToExcelLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function PdfToExcelIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="p2x-fs"
+        className="p2x-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="p2x-fs-title"
@@ -77,7 +80,7 @@ export function PdfToExcelIntroGate({
 
         <div className="p2x-fs__stage" aria-hidden>
           <div className="p2x-fs__scene">
-            <div className="p2x-fs__workspace">
+            <div className="p2x-fs__workspace animation-workspace">
               <div className="p2x-fs__pdf">
                 <div className="p2x-fs__pdf-sheet">
                   <span className="p2x-fs__pdf-badge">{t("pdfBadge")}</span>
@@ -136,7 +139,7 @@ export function PdfToExcelIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="p2x-fs" aria-hidden />;
+      return <div className="p2x-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

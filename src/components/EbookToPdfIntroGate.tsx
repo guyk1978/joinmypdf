@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./ebook-to-pdf-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function EbookToPdfIntroGate({
   const t = useTranslations("EbookToPdfLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function EbookToPdfIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="ebk-fs"
+        className="ebk-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="ebk-fs-title"
@@ -77,7 +80,7 @@ export function EbookToPdfIntroGate({
 
         <div className="ebk-fs__stage" aria-hidden>
           <div className="ebk-fs__scene">
-            <div className="ebk-fs__workspace">
+            <div className="ebk-fs__workspace animation-workspace">
               <div className="ebk-fs__particles">
                 <span /><span /><span /><span /><span /><span />
               </div>
@@ -134,7 +137,7 @@ export function EbookToPdfIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="ebk-fs" aria-hidden />;
+      return <div className="ebk-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

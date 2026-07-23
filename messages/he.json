@@ -685,6 +685,56 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את אזור ההעלאה כדי להמיר את ה-PDF ל-Word."
   },
+  "HeicToJpgLanding": {
+    "brand": "המרת HEIC ל-JPG אונליין",
+    "titleRest": "- המירו תמונות HEIC ל-JPG לשיתוף אוניברסלי",
+    "subtitle": "הפכו תמונות HEIC מאייפון לקבצי JPG אוניברסליים — באופן פרטי בדפדפן.",
+    "heicBadge": ".HEIC",
+    "jpgBadge": ".JPG",
+    "heicName": "IMG_2841.heic",
+    "jpgName": "IMG_2841.jpg",
+    "compatWindows": "Windows ✓",
+    "compatAndroid": "Android ✓",
+    "compatWeb": "Web ✓",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי להמיר תמונות HEIC ל-JPG."
+  },
+  "JpgToPdfLanding": {
+    "brand": "המרת JPG ל-PDF אונליין",
+    "titleRest": "- שלבו תמונות JPG לקובץ PDF אחד",
+    "subtitle": "ערמו תמונות ל-PDF מקצועי מרובה עמודים — באופן פרטי בדפדפן.",
+    "jpgBadge": ".JPG",
+    "pdfBadge": "PDF",
+    "pdfName": "photos.pdf",
+    "pageCount": "3 עמודים",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לשלב תמונות JPG ל-PDF."
+  },
+  "PdfToJpgLanding": {
+    "brand": "המרת PDF ל-JPG אונליין",
+    "titleRest": "- ייצאו עמודי PDF כתמונות JPG באיכות גבוהה",
+    "subtitle": "המרו כל עמוד לקבצי JPG חדים — באופן פרטי בדפדפן.",
+    "pdfBadge": "PDF",
+    "pdfName": "poster.pdf",
+    "jpgBadge": ".JPG",
+    "success": "העמודים יוצאו",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לייצא עמודי PDF כ-JPG."
+  },
+  "WebpToJpgLanding": {
+    "brand": "המרת WebP ל-JPG אונליין",
+    "titleRest": "- המירו תמונות WebP ל-JPG לתאימות רחבה יותר",
+    "subtitle": "הפכו תמונות WebP מודרניות לקבצי JPG אוניברסליים — באופן פרטי בדפדפן.",
+    "webpBadge": ".WEBP",
+    "jpgBadge": ".JPG",
+    "webpName": "hero.webp",
+    "jpgName": "hero.jpg",
+    "compatSafari": "Safari ✓",
+    "compatEmail": "אימייל ✓",
+    "compatApps": "אפליקציות ישנות ✓",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי להמיר תמונות WebP ל-JPG."
+  },
   "Home": {
     "pickTool": "בחר כלי",
     "pickToolDescription": "כל תהליך נפתח בלחיצה אחת — אותו ממשק, אותו מודל פרטיות.",

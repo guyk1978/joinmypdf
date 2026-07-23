@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./extract-tables-pdf-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function ExtractTablesPdfIntroGate({
   const t = useTranslations("ExtractTablesPdfLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function ExtractTablesPdfIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="xtbl-fs"
+        className="xtbl-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="xtbl-fs-title"
@@ -77,7 +80,7 @@ export function ExtractTablesPdfIntroGate({
 
         <div className="xtbl-fs__stage" aria-hidden>
           <div className="xtbl-fs__scene">
-            <div className="xtbl-fs__workspace">
+            <div className="xtbl-fs__workspace animation-workspace">
               <div className="xtbl-fs__particles">
                 <span /><span /><span /><span /><span /><span />
               </div>
@@ -141,7 +144,7 @@ export function ExtractTablesPdfIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="xtbl-fs" aria-hidden />;
+      return <div className="xtbl-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

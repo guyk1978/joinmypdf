@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { IntroPdfMockup } from "@/components/IntroPdfMockup";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./intro-pdf-mockup.css";
 import "./merge-pdf-landing.css";
 
@@ -75,6 +76,8 @@ export function MergePdfIntroGate({
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
 
+  useToolIntroChrome(introActive && phase === "intro");
+
   useEffect(() => {
     setPortalReady(true);
   }, []);
@@ -108,7 +111,7 @@ export function MergePdfIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="mrg-fs"
+        className="mrg-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="mrg-fs-title"
@@ -156,7 +159,7 @@ export function MergePdfIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="mrg-fs" aria-hidden />;
+      return <div className="mrg-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

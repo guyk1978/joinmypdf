@@ -687,6 +687,56 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте область загрузки, чтобы конвертировать PDF в Word."
   },
+  "HeicToJpgLanding": {
+    "brand": "Конвертация HEIC в JPG онлайн",
+    "titleRest": "- Преобразуйте фото HEIC в JPG для универсального обмена",
+    "subtitle": "Превращайте HEIC с iPhone в универсальные JPG — конфиденциально в браузере.",
+    "heicBadge": ".HEIC",
+    "jpgBadge": ".JPG",
+    "heicName": "IMG_2841.heic",
+    "jpgName": "IMG_2841.jpg",
+    "compatWindows": "Windows ✓",
+    "compatAndroid": "Android ✓",
+    "compatWeb": "Web ✓",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы конвертировать HEIC в JPG."
+  },
+  "JpgToPdfLanding": {
+    "brand": "Конвертация JPG в PDF онлайн",
+    "titleRest": "- Объедините изображения JPG в один PDF",
+    "subtitle": "Соберите фото в один аккуратный многостраничный PDF — конфиденциально в браузере.",
+    "jpgBadge": ".JPG",
+    "pdfBadge": "PDF",
+    "pdfName": "photos.pdf",
+    "pageCount": "3 стр.",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы объединить JPG в PDF."
+  },
+  "PdfToJpgLanding": {
+    "brand": "Конвертация PDF в JPG онлайн",
+    "titleRest": "- Экспортируйте страницы PDF в JPG высокого качества",
+    "subtitle": "Рендерите каждую страницу в чёткие JPG — конфиденциально в браузере.",
+    "pdfBadge": "PDF",
+    "pdfName": "poster.pdf",
+    "jpgBadge": ".JPG",
+    "success": "Страницы экспортированы",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы экспортировать страницы PDF в JPG."
+  },
+  "WebpToJpgLanding": {
+    "brand": "Конвертация WebP в JPG онлайн",
+    "titleRest": "- Преобразуйте изображения WebP в JPG для широкой совместимости",
+    "subtitle": "Превращайте современные WebP в универсальные JPG — конфиденциально в браузере.",
+    "webpBadge": ".WEBP",
+    "jpgBadge": ".JPG",
+    "webpName": "hero.webp",
+    "jpgName": "hero.jpg",
+    "compatSafari": "Safari ✓",
+    "compatEmail": "Email ✓",
+    "compatApps": "Старые приложения ✓",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы конвертировать WebP в JPG."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",

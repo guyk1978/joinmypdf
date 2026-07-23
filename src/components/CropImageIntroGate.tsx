@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./crop-image-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function CropImageIntroGate({
   const t = useTranslations("CropImageLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function CropImageIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="crp-fs"
+        className="crp-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="crp-fs-title"
@@ -77,7 +80,7 @@ export function CropImageIntroGate({
 
         <div className="crp-fs__stage" aria-hidden>
           <div className="crp-fs__scene">
-            <div className="crp-fs__workspace">
+            <div className="crp-fs__workspace animation-workspace">
               <div className="crp-fs__photo">
                 <span className="crp-fs__photo-sky" />
                 <span className="crp-fs__photo-hill" />
@@ -121,7 +124,7 @@ export function CropImageIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="crp-fs" aria-hidden />;
+      return <div className="crp-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./flip-image-landing.css";
 
 type IntroPhase = "intro" | "workspace";
@@ -28,6 +29,8 @@ export function FlipImageIntroGate({
   const t = useTranslations("FlipImageLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
+
+  useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
     setPortalReady(true);
@@ -62,7 +65,7 @@ export function FlipImageIntroGate({
   if (phase === "intro") {
     const splash = (
       <div
-        className="flp-fs"
+        className="flp-fs tool-intro-fs"
         role="dialog"
         aria-modal="true"
         aria-labelledby="flp-fs-title"
@@ -82,7 +85,7 @@ export function FlipImageIntroGate({
               <span className="flp-fs__axis flp-fs__axis--v">{t("axisV")}</span>
             </div>
 
-            <div className="flp-fs__workspace">
+            <div className="flp-fs__workspace animation-workspace">
               <div className="flp-fs__arrow flp-fs__arrow--h" />
               <div className="flp-fs__arrow flp-fs__arrow--v" />
 
@@ -118,7 +121,7 @@ export function FlipImageIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="flp-fs" aria-hidden />;
+      return <div className="flp-fs tool-intro-fs" aria-hidden />;
     }
     return createPortal(splash, document.body);
   }
