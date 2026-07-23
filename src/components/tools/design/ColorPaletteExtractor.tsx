@@ -1,7 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Check, Copy, Loader2 } from "lucide-react";
+import { Check, Copy, Loader2, Shield } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
@@ -41,12 +41,19 @@ export type ColorPaletteExtractorLabels = {
 type ColorPaletteExtractorProps = {
   labels: ColorPaletteExtractorLabels;
   className?: string;
+  /** Notifies parent when upload → workspace phase changes. */
+  onActiveChange?: (active: boolean) => void;
 };
 
 const ACCEPT = "image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif";
 
-export function ColorPaletteExtractor({ labels, className }: ColorPaletteExtractorProps) {
+export function ColorPaletteExtractor({
+  labels,
+  className,
+  onActiveChange,
+}: ColorPaletteExtractorProps) {
   const countId = useId();
+  const [hasFile, setHasFile] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [dimensions, setDimensions] = useState<{ w: number; h: number } | null>(null);
@@ -66,6 +73,10 @@ export function ColorPaletteExtractor({ labels, className }: ColorPaletteExtract
       if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    onActiveChange?.(hasFile);
+  }, [hasFile, onActiveChange]);
 
   const revokePreview = () => {
     if (previewUrlRef.current) {
@@ -112,6 +123,18 @@ export function ColorPaletteExtractor({ labels, className }: ColorPaletteExtract
       return;
     }
     fileRef.current = file;
+    setHasFile(true);
+    setFileName(file.name);
+    setError(null);
+    setColors([]);
+    setPaletteReady(false);
+
+    // Immediate local preview while ColorThief runs
+    revokePreview();
+    const eagerUrl = URL.createObjectURL(file);
+    previewUrlRef.current = eagerUrl;
+    setPreviewUrl(eagerUrl);
+
     void runExtraction(file, colorCount);
   };
 
@@ -136,6 +159,7 @@ export function ColorPaletteExtractor({ labels, className }: ColorPaletteExtract
     analysisSeq.current += 1;
     fileRef.current = null;
     revokePreview();
+    setHasFile(false);
     setPreviewUrl(null);
     setFileName(null);
     setDimensions(null);
@@ -148,51 +172,64 @@ export function ColorPaletteExtractor({ labels, className }: ColorPaletteExtract
 
   const hasPalette = colors.length > 0 && !analyzing;
 
+  if (!hasFile) {
+    return (
+      <div className={clsx("color-palette-extractor", className)}>
+        {error ? <p className="color-palette-extractor__error">{error}</p> : null}
+        <ImageToolDropzone
+          dropTitle={labels.dropTitle}
+          selectLabel={labels.selectFile}
+          selectAria={labels.selectFileAria}
+          dropHint={labels.dropHint}
+          supportedFormats={["JPG", "PNG", "WebP", "GIF"]}
+          privacyLabel={labels.privacyLabel}
+          accept={ACCEPT}
+          disabled={analyzing}
+          onFiles={onFiles}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className={clsx("color-palette-extractor", className)}>
+    <div className={clsx("color-palette-extractor color-palette-extractor--active", className)}>
       <div className="color-palette-extractor__layout">
         <aside className="color-palette-extractor__upload">
-          {!previewUrl ? (
-            <ImageToolDropzone
-              dropTitle={labels.dropTitle}
-              selectLabel={labels.selectFile}
-              selectAria={labels.selectFileAria}
-              dropHint={labels.dropHint}
-              supportedFormats={["JPG", "PNG", "WebP", "GIF"]}
-              privacyLabel={labels.privacyLabel}
-              accept={ACCEPT}
-              disabled={analyzing}
-              onFiles={onFiles}
-            />
-          ) : (
-            <div className="color-palette-extractor__ref-panel">
-              <p className="color-palette-extractor__section-title">{labels.referenceLabel}</p>
-              {/* Reference thumbnail — blob URL, not suitable for next/image */}
+          <div className="color-palette-extractor__ref-panel">
+            <p className="color-palette-extractor__section-title">{labels.referenceLabel}</p>
+            {previewUrl ? (
+              // Reference thumbnail — blob URL, not suitable for next/image
               <img
                 src={previewUrl}
                 alt={fileName ?? labels.referenceLabel}
                 className="color-palette-extractor__ref-img"
               />
-              {dimensions ? (
-                <p className="color-palette-extractor__meta">
-                  {labels.dimensionsLabel
-                    .replace("{width}", String(dimensions.w))
-                    .replace("{height}", String(dimensions.h))}
-                </p>
-              ) : null}
-              {fileName ? <p className="color-palette-extractor__filename">{fileName}</p> : null}
-              <button type="button" className="color-palette-extractor__link-btn" onClick={reset}>
-                {labels.replaceImage}
-              </button>
-            </div>
-          )}
+            ) : null}
+            {dimensions ? (
+              <p className="color-palette-extractor__meta">
+                {labels.dimensionsLabel
+                  .replace("{width}", String(dimensions.w))
+                  .replace("{height}", String(dimensions.h))}
+              </p>
+            ) : null}
+            {fileName ? <p className="color-palette-extractor__filename">{fileName}</p> : null}
+            <p className="color-palette-extractor__privacy-badge" role="status">
+              <Shield className="color-palette-extractor__privacy-icon" strokeWidth={2} aria-hidden />
+              <span>{labels.privacyLabel}</span>
+            </p>
+            <button type="button" className="color-palette-extractor__link-btn" onClick={reset}>
+              {labels.replaceImage}
+            </button>
+          </div>
         </aside>
 
         <section className="color-palette-extractor__dashboard" aria-live="polite">
           <div className="color-palette-extractor__dashboard-head">
             <h2 className="color-palette-extractor__section-title">{labels.dashboardTitle}</h2>
             <div className="color-palette-extractor__field">
-              <label htmlFor={countId}>{labels.colorCountLabel.replace("{count}", String(colorCount))}</label>
+              <label htmlFor={countId}>
+                {labels.colorCountLabel.replace("{count}", String(colorCount))}
+              </label>
               <input
                 id={countId}
                 type="range"
@@ -277,8 +314,6 @@ export function ColorPaletteExtractor({ labels, className }: ColorPaletteExtract
               className="color-palette-extractor__engagement"
             />
           ) : null}
-
-          <p className="color-palette-extractor__privacy">{labels.privacyLabel}</p>
         </section>
       </div>
     </div>

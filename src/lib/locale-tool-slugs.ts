@@ -142,12 +142,10 @@ export const MP4_TOOL_SLUGS_RU: Record<string, string> = {
  * Action verb stays «извлечь» / «izvlech-» for consistency across the site.
  */
 export const EXTRACT_TOOL_SLUGS_RU: Record<string, string> = {
-  "extract-images": "izvlech-izobrazheniya-iz-pdf",
   "extract-pdf-pages": "izvlech-stranitsy-pdf",
   "extract-tables-pdf": "izvlech-tablitsy-iz-pdf",
-  "pdf-to-excel": "pdf-v-excel",
-  "pdf-to-text": "pdf-v-tekst",
-  "pdf-to-word": "pdf-v-word",
+  "extract-images": "izvlech-izobrazheniya-iz-pdf",
+  "color-palette-extractor": "extractor-palitry",
 };
 
 /**

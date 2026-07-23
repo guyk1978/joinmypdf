@@ -15852,7 +15852,7 @@ body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropz
   margin-top: 0.75rem;
 }
 
-/* ?? Color Palette Extractor (Industrial Matte) ?? */
+/* —— Color Palette Extractor (Industrial Matte) —— */
 .color-palette-extractor-tool-page {
   width: 100%;
   max-width: 72rem;
@@ -15863,6 +15863,7 @@ body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropz
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 }
 
 .color-palette-extractor__layout {
@@ -15871,7 +15872,7 @@ body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropz
 }
 
 @media (min-width: 960px) {
-  .color-palette-extractor__layout {
+  .color-palette-extractor--active .color-palette-extractor__layout {
     grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
     align-items: start;
   }
@@ -15928,6 +15929,27 @@ body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropz
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.color-palette-extractor__privacy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--im-tool-panel-border);
+  border-radius: 0.45rem;
+  background: rgba(10, 14, 22, 0.65);
+  color: #a3a3a3;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.color-palette-extractor__privacy-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: 0 0 auto;
+  color: #86efac;
 }
 
 .color-palette-extractor__link-btn {

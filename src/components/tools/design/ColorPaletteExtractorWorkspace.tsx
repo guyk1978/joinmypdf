@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import {
@@ -18,10 +18,15 @@ type ColorPaletteExtractorWorkspaceProps = {
 export function ColorPaletteExtractorWorkspace({ tool, slug }: ColorPaletteExtractorWorkspaceProps) {
   const t = useTranslations("ColorPaletteExtractor");
   const tPage = useTranslations("ColorPaletteExtractorPage");
+  const [workspaceActive, setWorkspaceActive] = useState(false);
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
+
+  const onActiveChange = useCallback((active: boolean) => {
+    setWorkspaceActive(active);
+  }, []);
 
   const labels = useMemo<ColorPaletteExtractorLabels>(
     () => ({
@@ -50,8 +55,11 @@ export function ColorPaletteExtractorWorkspace({ tool, slug }: ColorPaletteExtra
   );
 
   return (
-    <UtilityWorkspaceShell pageClassName="color-palette-extractor-tool-page">
-      <ColorPaletteExtractor labels={labels} />
+    <UtilityWorkspaceShell
+      pageClassName="color-palette-extractor-tool-page"
+      active={workspaceActive}
+    >
+      <ColorPaletteExtractor labels={labels} onActiveChange={onActiveChange} />
     </UtilityWorkspaceShell>
   );
 }

@@ -1,0 +1,567 @@
+/* —— Pitch-black fullscreen intro: PDF → Excel —— */
+html[data-pdf-excel-intro="1"],
+html[data-pdf-excel-intro="1"] body {
+  overflow: hidden !important;
+}
+
+html[data-pdf-excel-intro="1"] .site-header,
+html[data-pdf-excel-intro="1"] .home-page-footer,
+html[data-pdf-excel-intro="1"] .pinned-cards-dock,
+html[data-pdf-excel-intro="1"] .app-page-canvas,
+html[data-pdf-excel-intro="1"] .cookie-consent,
+html[data-pdf-excel-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.p2x-fs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-items: stretch;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding:
+    clamp(1rem, 2.5vh, 2rem)
+    clamp(1.25rem, 4vw, 3rem)
+    clamp(1rem, 2.5vh, 1.75rem);
+  overflow: hidden;
+  background: #000000;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+}
+
+.p2x-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.7rem;
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-bottom: clamp(0.65rem, 1.8vh, 1.25rem);
+  text-align: center;
+}
+
+.p2x-fs__title {
+  margin: 0;
+  font-size: clamp(1.45rem, 3.8vw, 2.85rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.p2x-fs__title-brand {
+  color: #4ade80;
+}
+
+.p2x-fs__title-rest {
+  color: #ffffff;
+}
+
+.p2x-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+  line-height: 1.45;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.p2x-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  width: 100%;
+  padding-block: clamp(0.5rem, 1.5vh, 1.25rem);
+  overflow: hidden;
+}
+
+.p2x-fs__scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 44rem);
+  max-height: 100%;
+}
+
+.p2x-fs__workspace {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 36rem);
+  height: clamp(14rem, 42vh, 22rem);
+}
+
+.p2x-fs__pdf {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  animation: p2x-fs-pdf 8.5s ease-in-out infinite;
+}
+
+.p2x-fs__pdf-sheet {
+  position: relative;
+  width: min(70%, 13rem);
+  aspect-ratio: 3 / 4;
+  padding: 0.85rem 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(248, 250, 252, 0.3);
+  border-radius: 0.35rem;
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(239, 68, 68, 0.12);
+  color: #0f172a;
+}
+
+.p2x-fs__pdf-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  padding: 0.24rem 0.4rem;
+  border-radius: 0.2rem;
+  background: linear-gradient(180deg, #f87171 0%, #dc2626 100%);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+}
+
+.p2x-fs__static {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  margin-top: 0.75rem;
+  height: calc(100% - 2.2rem);
+}
+
+.p2x-fs__srow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.22rem;
+  flex: 1;
+  min-height: 0;
+}
+
+.p2x-fs__srow span {
+  display: block;
+  border-radius: 0.12rem;
+  background: rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.p2x-fs__srow--head span {
+  background: rgba(15, 23, 42, 0.22);
+}
+
+.p2x-fs__align {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 22%;
+  bottom: 14%;
+  z-index: 2;
+  border: 1px dashed rgba(74, 222, 128, 0.55);
+  border-radius: 0.2rem;
+  pointer-events: none;
+  opacity: 0;
+  animation: p2x-fs-align 8.5s ease-in-out infinite;
+}
+
+.p2x-fs__scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20%;
+  z-index: 3;
+  height: 22%;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(74, 222, 128, 0.08) 35%,
+    rgba(187, 247, 208, 0.7) 50%,
+    rgba(74, 222, 128, 0.08) 65%,
+    transparent 100%
+  );
+  box-shadow: 0 0 22px rgba(74, 222, 128, 0.4);
+  opacity: 0;
+  animation: p2x-fs-scan 8.5s ease-in-out infinite;
+}
+
+.p2x-fs__pdf-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #e5e5e5;
+  animation: p2x-fs-pdf-name 8.5s ease-in-out infinite;
+}
+
+.p2x-fs__excel {
+  position: absolute;
+  inset: 6% 6%;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  opacity: 0;
+  transform: scale(0.88) translateX(10%);
+  animation: p2x-fs-excel 8.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.p2x-fs__excel-card {
+  position: relative;
+  width: min(100%, 16.5rem);
+  aspect-ratio: 4 / 3;
+  padding: 0.7rem;
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  border-radius: 0.55rem;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(22, 163, 74, 0.22) 0%, transparent 45%),
+    #07140f;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.5),
+    0 0 28px rgba(74, 222, 128, 0.22);
+  animation: p2x-fs-pulse 8.5s ease-in-out infinite;
+}
+
+.p2x-fs__excel-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  margin-bottom: 0.5rem;
+}
+
+.p2x-fs__xls {
+  padding: 0.22rem 0.45rem;
+  border: 1px solid rgba(74, 222, 128, 0.55);
+  border-radius: 0.25rem;
+  background: rgba(22, 163, 74, 0.25);
+  color: #4ade80;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 14px rgba(74, 222, 128, 0.35);
+}
+
+.p2x-fs__fx {
+  padding: 0.18rem 0.4rem;
+  border-radius: 0.2rem;
+  background: rgba(6, 18, 12, 0.9);
+  border: 1px solid rgba(134, 239, 172, 0.35);
+  color: #86efac;
+  font-family: "Consolas", "SF Mono", "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.p2x-fs__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  height: calc(100% - 2.8rem);
+}
+
+.p2x-fs__grow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.22rem;
+  flex: 1;
+}
+
+.p2x-fs__grow span {
+  display: block;
+  border-radius: 0.12rem;
+  background: rgba(167, 243, 208, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.18);
+  animation: p2x-fs-cell 8.5s ease-in-out infinite;
+}
+
+.p2x-fs__grow--head span {
+  background: rgba(52, 211, 153, 0.28);
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+.p2x-fs__grow--1 span { animation-delay: 0.04s; }
+.p2x-fs__grow--2 span { animation-delay: 0.08s; }
+.p2x-fs__grow--3 span { animation-delay: 0.12s; }
+.p2x-fs__grow--4 span { animation-delay: 0.16s; }
+
+.p2x-fs__locked {
+  display: inline-block;
+  margin-top: 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #86efac;
+}
+
+.p2x-fs__excel-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #e5e5e5;
+}
+
+.p2x-fs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  gap: 0.55rem;
+  width: 100%;
+  padding-top: clamp(0.65rem, 1.8vh, 1.25rem);
+}
+
+.p2x-fs__cta {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 16rem);
+  min-height: 3.15rem;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid #15803d;
+  border-radius: 0.65rem;
+  background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+  color: #052e16;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 10px 28px rgba(34, 197, 94, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.p2x-fs__cta:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    0 14px 32px rgba(34, 197, 94, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.p2x-fs__cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.p2x-fs__cta:focus-visible {
+  outline: 2px solid #86efac;
+  outline-offset: 3px;
+}
+
+/* —— 8.5s: scan → snap cells → Excel —— */
+@keyframes p2x-fs-scan {
+  0%,
+  10% {
+    opacity: 0;
+    top: -20%;
+  }
+  16% {
+    opacity: 1;
+    top: -6%;
+  }
+  40% {
+    opacity: 1;
+    top: 78%;
+  }
+  48%,
+  100% {
+    opacity: 0;
+    top: 95%;
+  }
+}
+
+@keyframes p2x-fs-align {
+  0%,
+  12% {
+    opacity: 0;
+  }
+  18%,
+  40% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes p2x-fs-pdf {
+  0%,
+  36% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  48%,
+  78% {
+    opacity: 0.2;
+    transform: translateX(-12%) scale(0.9);
+  }
+  90%,
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes p2x-fs-pdf-name {
+  0%,
+  36% {
+    opacity: 1;
+  }
+  46%,
+  78% {
+    opacity: 0;
+  }
+  90%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes p2x-fs-excel {
+  0%,
+  38% {
+    opacity: 0;
+    transform: scale(0.88) translateX(10%);
+  }
+  48%,
+  78% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: scale(0.94) translateX(6%);
+  }
+}
+
+@keyframes p2x-fs-cell {
+  0%,
+  44% {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+  52% {
+    transform: scale(1.04);
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.45);
+  }
+  60%,
+  78% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: none;
+  }
+  90%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.7;
+  }
+}
+
+@keyframes p2x-fs-pulse {
+  0%,
+  48% {
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.5),
+      0 0 28px rgba(74, 222, 128, 0.22);
+  }
+  56% {
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.5),
+      0 0 40px rgba(74, 222, 128, 0.5);
+  }
+  68%,
+  78% {
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.5),
+      0 0 28px rgba(74, 222, 128, 0.28);
+  }
+  90%,
+  100% {
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.5),
+      0 0 28px rgba(74, 222, 128, 0.22);
+  }
+}
+
+@media (max-width: 640px) {
+  .p2x-fs__title {
+    font-size: clamp(1.25rem, 5.4vw, 1.8rem);
+  }
+
+  .p2x-fs__workspace {
+    width: min(100%, 22rem);
+    height: clamp(12rem, 36vh, 17rem);
+  }
+
+  .p2x-fs__cta {
+    width: 100%;
+    max-width: 20rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .p2x-fs__title {
+    font-size: clamp(1.25rem, 3.2vw, 2.1rem);
+  }
+
+  .p2x-fs__workspace {
+    height: clamp(11rem, 34vh, 16rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p2x-fs__scan,
+  .p2x-fs__align,
+  .p2x-fs__pdf,
+  .p2x-fs__pdf-name,
+  .p2x-fs__excel,
+  .p2x-fs__grow span,
+  .p2x-fs__excel-card {
+    animation: none !important;
+  }
+
+  .p2x-fs__pdf {
+    opacity: 0.2;
+  }
+
+  .p2x-fs__excel {
+    opacity: 1;
+    transform: none;
+  }
+
+  .p2x-fs__scan,
+  .p2x-fs__align {
+    opacity: 0;
+  }
+}

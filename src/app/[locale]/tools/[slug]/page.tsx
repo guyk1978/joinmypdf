@@ -97,6 +97,10 @@ import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
 import { ExtractTablesPdfIntroGate } from "@/components/ExtractTablesPdfIntroGate";
 import { CompressImageIntroGate } from "@/components/CompressImageIntroGate";
 import { FaviconCompressorIntroGate } from "@/components/FaviconCompressorIntroGate";
+import { ExtractImagesIntroGate } from "@/components/ExtractImagesIntroGate";
+import { PdfToExcelIntroGate } from "@/components/PdfToExcelIntroGate";
+import { PdfToTextIntroGate } from "@/components/PdfToTextIntroGate";
+import { PdfToWordIntroGate } from "@/components/PdfToWordIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -414,6 +418,10 @@ export default async function ToolPage({
         <ExtractTablesPdfIntroGate active={tool.operation === "extract-tables-pdf"}>
         <CompressImageIntroGate active={tool.operation === "compress-image"}>
         <FaviconCompressorIntroGate active={tool.operation === "favicon-compressor"}>
+        <ExtractImagesIntroGate active={tool.operation === "extract-images"}>
+        <PdfToExcelIntroGate active={tool.operation === "pdf-to-excel"}>
+        <PdfToTextIntroGate active={tool.operation === "pdf-to-text"}>
+        <PdfToWordIntroGate active={tool.operation === "pdf-to-word"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -701,6 +709,10 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </PdfToWordIntroGate>
+        </PdfToTextIntroGate>
+        </PdfToExcelIntroGate>
+        </ExtractImagesIntroGate>
         </FaviconCompressorIntroGate>
         </CompressImageIntroGate>
         </ExtractTablesPdfIntroGate>

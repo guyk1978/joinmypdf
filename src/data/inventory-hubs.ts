@@ -84,7 +84,7 @@ export const INVENTORY_HUB_META: Record<
   extract: {
     path: "/tools/extract-tools/",
     title: "Extract Tools",
-    blurb: "Pull pages, text, and assets",
+    blurb: "Pull pages, tables, images, and colors",
   },
   image: {
     path: "/tools/image-tools/",

@@ -632,6 +632,59 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the upload workspace to compress your MP3."
   },
+  "ExtractImagesLanding": {
+    "brand": "Extract Images from PDF Online",
+    "titleRest": "- Extract Embedded Images from PDF Files",
+    "subtitle": "Pull JPG and PNG assets out of PDFs — privately in your browser.",
+    "pdfBadge": "PDF",
+    "pdfName": "brochure.pdf",
+    "jpgBadge": "JPG",
+    "pngBadge": "PNG",
+    "success": "Images extracted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to extract images from your PDF."
+  },
+  "PdfToExcelLanding": {
+    "brand": "Convert PDF to Excel Online",
+    "titleRest": "- Convert PDF Tables and Content into Excel Spreadsheets",
+    "subtitle": "Snap PDF tables into editable Excel grids — privately in your browser.",
+    "pdfBadge": "PDF",
+    "pdfName": "statement.pdf",
+    "xlsBadge": "XLSX",
+    "fx": "ƒx =SUM",
+    "locked": "Cells locked",
+    "excelName": "statement.xlsx",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to convert your PDF to Excel."
+  },
+  "PdfToTextLanding": {
+    "brand": "Convert PDF to Text Online",
+    "titleRest": "- Extract Plain Text from PDF Documents",
+    "subtitle": "Lift clean plain text out of PDFs into editable .txt — privately in your browser.",
+    "pdfBadge": "PDF",
+    "pdfName": "notes.pdf",
+    "txtBadge": ".TXT",
+    "txtName": "notes.txt",
+    "line1": "Extracted plain text appears here…",
+    "line2": "OCR lifts words from every page",
+    "line3": "Ready to copy or save",
+    "success": "Text ready",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to extract text from your PDF."
+  },
+  "PdfToWordLanding": {
+    "brand": "Convert PDF to Word Online",
+    "titleRest": "- Convert PDFs into Editable Word Documents",
+    "subtitle": "Rebuild PDF layouts as editable .docx files — privately in your browser.",
+    "pdfBadge": "PDF",
+    "pdfName": "report.pdf",
+    "docxBadge": "DOCX",
+    "heading": "Document Title",
+    "editable": "Editable",
+    "wordName": "report.docx",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to convert your PDF to Word."
+  },
   "Home": {
     "pickTool": "Pick a tool",
     "pickToolDescription": "Every workflow opens in one click—same layout, same privacy model.",
@@ -721,7 +774,7 @@
         "mp4": "Edit and convert MP4 files",
         "convert": "Switch formats without uploads",
         "compress": "Shrink files while keeping quality",
-        "extract": "Pull pages, text, and assets",
+        "extract": "Pull pages, tables, images, and colors",
         "image": "Resize, crop, and convert images",
         "jpg": "Optimize and convert JPG images",
         "png": "Edit and convert PNG images",
@@ -1703,12 +1756,12 @@
     },
     "extract": {
       "title": "About Our Extract Tools",
-      "p1": "Need to pull specific elements from your files? Our extraction suite is designed to help you quickly pull pages, images, or data from documents and media. Everything is processed locally in your browser, ensuring that even when you are extracting sensitive information, your files never leave your device.",
+      "p1": "Need to pull specific elements from your files? Our extraction suite helps you take PDF pages, tables, and embedded images — plus color palettes from photos — without uploading anything. Everything runs locally in your browser so sensitive files never leave your device.",
       "faq": {
         "q1": "Can I extract specific pages from a PDF?",
-        "a1": "Yes, our tool allows you to select and extract any page range you need.",
+        "a1": "Yes, Extract PDF Pages lets you select and download any page range you need.",
         "q2": "Is the extraction process lossless?",
-        "a2": "Yes, we ensure that extracted images and data retain their original quality.",
+        "a2": "Yes, extracted images and table data keep their original quality wherever the source allows.",
         "q3": "Does this work on password-protected files?",
         "a3": "You can process protected files as long as you have the necessary permissions to open them."
       }
@@ -4182,10 +4235,10 @@
     }
   },
   "ExtractToolsPage": {
-    "metaTitle": "Extract Tools | Text, Image & Data Extraction | JoinMyPDF",
-    "metaDescription": "Free browser-based extraction tools for text, images, and tables. 100% local, zero-upload processing — your files never leave your device.",
+    "metaTitle": "Extract Tools | Pages, Tables, Images & Colors | JoinMyPDF",
+    "metaDescription": "Free browser-based extraction tools for PDF pages, tables, images, and color palettes. 100% local, zero-upload processing — your files never leave your device.",
     "title": "Use Extract Tools Free Online",
-    "description": "Professional-grade extraction utilities for pulling text, images, tables, and pages from PDFs — all running locally in your browser. Our extraction tools process your files directly on your device, ensuring your sensitive data never leaves your computer. Zero uploads. Maximum privacy.",
+    "description": "Professional-grade extraction utilities for pulling pages, tables, and images from PDFs — plus color palettes from photos — all running locally in your browser. Zero uploads. Maximum privacy.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
     "relatedGuidesTitle": "Related Guides",
@@ -4195,12 +4248,12 @@
     "exploreMediaTools": "Explore Media Tools",
     "relatedCategoriesBlurb": "Need more than extraction? Browse PDF editing, developer utilities, and media tools — all privacy-first and client-side.",
     "schemaName": "Extract Tools",
-    "schemaDescription": "Free online extraction tools for text, images, tables, and PDF pages. 100% browser-based processing with a zero-upload privacy guarantee.",
+    "schemaDescription": "Free online extraction tools for PDF pages, tables, images, and color palettes. 100% browser-based processing with a zero-upload privacy guarantee.",
     "tools": {
-      "pdfToText": "PDF Text Extractor",
-      "extractImages": "Image Extractor",
-      "extractTablesPdf": "Table / Data Extractor",
-      "extractPdfPages": "Extract PDF Pages"
+      "extractPdfPages": "Extract PDF Pages",
+      "extractTablesPdf": "Extract Tables from PDF",
+      "extractImages": "Extract Images from PDF",
+      "colorPaletteExtractor": "Color Palette Extractor"
     }
   },
   "CompressToolsPage": {
