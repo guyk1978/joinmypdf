@@ -1,0 +1,548 @@
+/* —— Pitch-black fullscreen intro: FLAC Converter —— */
+html[data-flac-converter-intro="1"],
+html[data-flac-converter-intro="1"] body {
+  overflow: hidden !important;
+}
+
+html[data-flac-converter-intro="1"] .site-header,
+html[data-flac-converter-intro="1"] .home-page-footer,
+html[data-flac-converter-intro="1"] .pinned-cards-dock,
+html[data-flac-converter-intro="1"] .app-page-canvas,
+html[data-flac-converter-intro="1"] .cookie-consent,
+html[data-flac-converter-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.flac-fs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  background: #000000;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+}
+
+.flac-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: min(64rem, calc(100vw - 2rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.flac-fs__title {
+  margin: 0;
+  font-size: clamp(1.45rem, 3.8vw, 2.85rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.flac-fs__title-brand {
+  color: #38bdf8;
+}
+
+.flac-fs__title-rest {
+  color: #ffffff;
+}
+
+.flac-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(1.05rem, 2.1vw, 1.35rem);
+  line-height: 1.45;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.flac-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
+  padding-block: 12px;
+  padding-inline: clamp(0.75rem, 3vw, 2rem);
+  overflow: hidden;
+}
+
+.flac-fs__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.flac-fs__workspace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  width: 100%;
+  max-width: 420px;
+  height: 45vh;
+  max-height: 45vh;
+  overflow: hidden;
+}
+
+.flac-fs__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: min(100%, 22rem);
+  height: min(100%, 15.5rem);
+  max-height: calc(100% - 2.4rem);
+  padding: 0.7rem 0.75rem 0.75rem;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 0.85rem;
+  background: #061018;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(56, 189, 248, 0.08);
+}
+
+.flac-fs__formats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.flac-fs__dests {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.flac-fs__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.1rem;
+  padding: 0.22rem 0.45rem;
+  border-radius: 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+}
+
+.flac-fs__tag--src {
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #082f49;
+  animation: flac-fs-src 8.5s ease-in-out infinite;
+}
+
+.flac-fs__tag--mp3 {
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+  color: #451a03;
+  opacity: 0;
+  animation: flac-fs-dest-mp3 8.5s ease-in-out infinite;
+}
+
+.flac-fs__tag--wav {
+  border: 1px solid rgba(52, 211, 153, 0.5);
+  background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+  color: #022c22;
+  opacity: 0;
+  animation: flac-fs-dest-wav 8.5s ease-in-out infinite;
+}
+
+.flac-fs__arrow {
+  flex: 1;
+  height: 2px;
+  max-width: 3.5rem;
+  margin-inline: 0.15rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.15), rgba(251, 191, 36, 0.55), rgba(52, 211, 153, 0.55));
+  opacity: 0.35;
+  animation: flac-fs-arrow 8.5s ease-in-out infinite;
+}
+
+.flac-fs__wave-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 0.4rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.flac-fs__wave {
+  position: absolute;
+  inset: 16% 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 2px,
+    #7dd3fc 2px 3px,
+    transparent 3px 5px,
+    #38bdf8 5px 6px,
+    transparent 6px 8px,
+    #bae6fd 8px 9px,
+    transparent 9px 11px,
+    #0ea5e9 11px 12px,
+    transparent 12px 14px
+  );
+  background-size: 14px 100%;
+  opacity: 0.95;
+  animation: flac-fs-wave 8.5s linear infinite;
+}
+
+.flac-fs__beam {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: -20%;
+  z-index: 3;
+  width: 28%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(56, 189, 248, 0.08) 22%,
+    rgba(186, 230, 253, 0.55) 50%,
+    rgba(251, 191, 36, 0.35) 72%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  opacity: 0;
+  animation: flac-fs-beam 8.5s ease-in-out infinite;
+}
+
+.flac-fs__fidelity {
+  position: absolute;
+  right: 0.45rem;
+  bottom: 0.4rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.18rem 0.4rem;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 999px;
+  background: rgba(8, 47, 73, 0.85);
+  color: #bae6fd;
+  font-size: 0.65rem;
+  font-weight: 700;
+  opacity: 0;
+  animation: flac-fs-fidelity 8.5s ease-in-out infinite;
+}
+
+.flac-fs__fid-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+}
+
+.flac-fs__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #7dd3fc;
+  opacity: 0;
+  animation: flac-fs-meta 8.5s ease-in-out infinite;
+}
+
+.flac-fs__ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 999px;
+  background: rgba(8, 47, 73, 0.85);
+  color: #bae6fd;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: flac-fs-ok 8.5s ease-in-out infinite;
+}
+
+.flac-fs__check {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, transparent 46%, #38bdf8 46% 54%, transparent 54%),
+    linear-gradient(45deg, transparent 58%, #38bdf8 58% 72%, transparent 72%),
+    #082f49;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.55);
+}
+
+.flac-fs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-bottom: 8px;
+}
+
+.flac-fs__cta {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 16rem);
+  min-height: 3.15rem;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid #0369a1;
+  border-radius: 0.65rem;
+  background: linear-gradient(180deg, #38bdf8 0%, #0ea5e9 100%);
+  color: #082f49;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 10px 28px rgba(14, 165, 233, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.flac-fs__cta:hover {
+  filter: brightness(1.05);
+  box-shadow:
+    0 14px 32px rgba(14, 165, 233, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.flac-fs__cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.flac-fs__cta:focus-visible {
+  outline: 2px solid #bae6fd;
+  outline-offset: 3px;
+}
+
+@keyframes flac-fs-wave {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 42px 0;
+  }
+}
+
+@keyframes flac-fs-beam {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  18% {
+    opacity: 1;
+  }
+  42% {
+    opacity: 1;
+    transform: translateX(320%);
+  }
+  52%,
+  100% {
+    opacity: 0;
+    transform: translateX(360%);
+  }
+}
+
+@keyframes flac-fs-src {
+  0%,
+  18% {
+    opacity: 1;
+    filter: none;
+  }
+  32%,
+  78% {
+    opacity: 0.55;
+    filter: grayscale(0.35);
+  }
+  90%,
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@keyframes flac-fs-dest-mp3 {
+  0%,
+  22% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.92);
+  }
+  32%,
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes flac-fs-dest-wav {
+  0%,
+  28% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.92);
+  }
+  38%,
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes flac-fs-arrow {
+  0%,
+  18% {
+    opacity: 0.2;
+  }
+  30%,
+  78% {
+    opacity: 1;
+  }
+  90%,
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes flac-fs-fidelity {
+  0%,
+  34% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  44%,
+  78% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes flac-fs-meta {
+  0%,
+  30% {
+    opacity: 0;
+  }
+  40%,
+  78% {
+    opacity: 1;
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes flac-fs-ok {
+  0%,
+  48% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  58%,
+  78% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .flac-fs__title {
+    font-size: clamp(1.25rem, 5.4vw, 1.8rem);
+  }
+
+  .flac-fs__cta {
+    width: 100%;
+    max-width: 20rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .flac-fs__title {
+    font-size: clamp(1.2rem, 3vw, 1.85rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flac-fs__wave,
+  .flac-fs__beam,
+  .flac-fs__tag--src,
+  .flac-fs__tag--mp3,
+  .flac-fs__tag--wav,
+  .flac-fs__arrow,
+  .flac-fs__fidelity,
+  .flac-fs__meta,
+  .flac-fs__ok {
+    animation: none !important;
+  }
+
+  .flac-fs__tag--mp3,
+  .flac-fs__tag--wav,
+  .flac-fs__arrow,
+  .flac-fs__fidelity,
+  .flac-fs__meta,
+  .flac-fs__ok {
+    opacity: 1;
+    transform: none;
+  }
+
+  .flac-fs__beam {
+    opacity: 0.45;
+    transform: translateX(160%);
+  }
+}

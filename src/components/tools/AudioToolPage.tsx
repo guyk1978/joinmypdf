@@ -5,6 +5,10 @@ import { AudioToolWorkspace } from "@/components/tools/AudioToolWorkspace";
 import { Mp4ToMp3IntroGate } from "@/components/Mp4ToMp3IntroGate";
 import { AudioCompressorIntroGate } from "@/components/AudioCompressorIntroGate";
 import { Mp3CompressorIntroGate } from "@/components/Mp3CompressorIntroGate";
+import { AudioMergerIntroGate } from "@/components/AudioMergerIntroGate";
+import { AudioNormalizerIntroGate } from "@/components/AudioNormalizerIntroGate";
+import { FadeInOutCreatorIntroGate } from "@/components/FadeInOutCreatorIntroGate";
+import { FlacConverterIntroGate } from "@/components/FlacConverterIntroGate";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
@@ -94,6 +98,10 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               <Mp4ToMp3IntroGate active={tool.id === "mp4-to-mp3"}>
               <AudioCompressorIntroGate active={tool.id === "audio-compressor"}>
               <Mp3CompressorIntroGate active={tool.id === "mp3-compressor"}>
+              <AudioMergerIntroGate active={tool.id === "audio-merger"}>
+              <AudioNormalizerIntroGate active={tool.id === "audio-normalizer"}>
+              <FadeInOutCreatorIntroGate active={tool.id === "fade-in-out-creator"}>
+              <FlacConverterIntroGate active={tool.id === "flac-converter"}>
               <ToolLayout
                 faqs={faqs}
                 feedbackTitle={pageHeadline}
@@ -119,6 +127,10 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               >
                 <AudioToolWorkspace toolId={tool.id} />
               </ToolLayout>
+              </FlacConverterIntroGate>
+              </FadeInOutCreatorIntroGate>
+              </AudioNormalizerIntroGate>
+              </AudioMergerIntroGate>
               </Mp3CompressorIntroGate>
               </AudioCompressorIntroGate>
               </Mp4ToMp3IntroGate>

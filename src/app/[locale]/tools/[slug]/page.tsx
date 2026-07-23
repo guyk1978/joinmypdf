@@ -105,6 +105,10 @@ import { HeicToJpgIntroGate } from "@/components/HeicToJpgIntroGate";
 import { JpgToPdfIntroGate } from "@/components/JpgToPdfIntroGate";
 import { PdfToJpgIntroGate } from "@/components/PdfToJpgIntroGate";
 import { WebpToJpgIntroGate } from "@/components/WebpToJpgIntroGate";
+import { ConvertToPngIntroGate } from "@/components/ConvertToPngIntroGate";
+import { IcoToPngIntroGate } from "@/components/IcoToPngIntroGate";
+import { ImageOptimizerIntroGate } from "@/components/ImageOptimizerIntroGate";
+import { PdfToPngIntroGate } from "@/components/PdfToPngIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -430,6 +434,10 @@ export default async function ToolPage({
         <JpgToPdfIntroGate active={tool.operation === "jpg-to-pdf"}>
         <PdfToJpgIntroGate active={tool.operation === "pdf-to-jpg"}>
         <WebpToJpgIntroGate active={tool.operation === "webp-to-jpg"}>
+        <ConvertToPngIntroGate active={tool.operation === "convert-to-png"}>
+        <IcoToPngIntroGate active={tool.operation === "ico-to-png"}>
+        <ImageOptimizerIntroGate active={tool.operation === "image-optimizer"}>
+        <PdfToPngIntroGate active={tool.operation === "pdf-to-png"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -717,6 +725,10 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </PdfToPngIntroGate>
+        </ImageOptimizerIntroGate>
+        </IcoToPngIntroGate>
+        </ConvertToPngIntroGate>
         </WebpToJpgIntroGate>
         </PdfToJpgIntroGate>
         </JpgToPdfIntroGate>
