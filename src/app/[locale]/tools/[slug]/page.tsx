@@ -93,6 +93,9 @@ import { VideoCompressorIntroGate } from "@/components/VideoCompressorIntroGate"
 import { VideoConverterIntroGate } from "@/components/VideoConverterIntroGate";
 import { AutocadToPdfIntroGate } from "@/components/AutocadToPdfIntroGate";
 import { EbookToPdfIntroGate } from "@/components/EbookToPdfIntroGate";
+import { HtmlToPdfIntroGate } from "@/components/HtmlToPdfIntroGate";
+import { IworkToPdfIntroGate } from "@/components/IworkToPdfIntroGate";
+import { MarkdownToPdfIntroGate } from "@/components/MarkdownToPdfIntroGate";
 import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
 import { ExtractTablesPdfIntroGate } from "@/components/ExtractTablesPdfIntroGate";
 import { CompressImageIntroGate } from "@/components/CompressImageIntroGate";
@@ -102,6 +105,7 @@ import { PdfToExcelIntroGate } from "@/components/PdfToExcelIntroGate";
 import { PdfToTextIntroGate } from "@/components/PdfToTextIntroGate";
 import { PdfToWordIntroGate } from "@/components/PdfToWordIntroGate";
 import { HeicToJpgIntroGate } from "@/components/HeicToJpgIntroGate";
+import { HeicToPdfIntroGate } from "@/components/HeicToPdfIntroGate";
 import { JpgToPdfIntroGate } from "@/components/JpgToPdfIntroGate";
 import { PdfToJpgIntroGate } from "@/components/PdfToJpgIntroGate";
 import { WebpToJpgIntroGate } from "@/components/WebpToJpgIntroGate";
@@ -137,6 +141,7 @@ import { PdfSignatureValidatorIntroGate } from "@/components/PdfSignatureValidat
 import { ProtectPdfIntroGate } from "@/components/ProtectPdfIntroGate";
 import { RedactPdfIntroGate } from "@/components/RedactPdfIntroGate";
 import { RemoveHiddenMetadataIntroGate } from "@/components/RemoveHiddenMetadataIntroGate";
+import { GrayscalePdfIntroGate } from "@/components/GrayscalePdfIntroGate";
 import { SafeShareAuditorIntroGate } from "@/components/SafeShareAuditorIntroGate";
 import { SignPdfIntroGate } from "@/components/SignPdfIntroGate";
 import { TimezoneConverterIntroGate } from "@/components/TimezoneConverterIntroGate";
@@ -144,6 +149,11 @@ import { StorageDataConverterIntroGate } from "@/components/StorageDataConverter
 import { BaseConverterIntroGate } from "@/components/BaseConverterIntroGate";
 import { GlobalTimezoneConverterIntroGate } from "@/components/GlobalTimezoneConverterIntroGate";
 import { UnitConverterIntroGate } from "@/components/UnitConverterIntroGate";
+import { MyIpIntroGate } from "@/components/MyIpIntroGate";
+import { UserAgentParserIntroGate } from "@/components/UserAgentParserIntroGate";
+import { UrlEncoderDecoderIntroGate } from "@/components/UrlEncoderDecoderIntroGate";
+import { UrlParameterStripperIntroGate } from "@/components/UrlParameterStripperIntroGate";
+import { SslDecoderIntroGate } from "@/components/SslDecoderIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -188,6 +198,7 @@ import { PasswordGeneratorWorkspace } from "@/components/tools/security/Password
 import { HashGeneratorWorkspace } from "@/components/tools/security/HashGeneratorWorkspace";
 import { UuidGeneratorWorkspace } from "@/components/tools/security/UuidGeneratorWorkspace";
 import { SslDecoderWorkspace } from "@/components/tools/security/SslDecoderWorkspace";
+import { MyIpNetworkInfoWorkspace } from "@/components/tools/network/MyIpNetworkInfoWorkspace";
 import { ColorConverterWorkspace } from "@/components/tools/design/ColorConverterWorkspace";
 import { ColorPaletteExtractorWorkspace } from "@/components/tools/design/ColorPaletteExtractorWorkspace";
 import { ImageDpiConverterWorkspace } from "@/components/ImageDpiConverterWorkspace";
@@ -457,6 +468,9 @@ export default async function ToolPage({
         <VideoConverterIntroGate active={tool.operation === "video-converter"}>
         <AutocadToPdfIntroGate active={tool.operation === "autocad-to-pdf"}>
         <EbookToPdfIntroGate active={tool.operation === "ebook-to-pdf"}>
+        <HtmlToPdfIntroGate active={tool.operation === "html-to-pdf"}>
+        <IworkToPdfIntroGate active={tool.operation === "iwork-to-pdf"}>
+        <MarkdownToPdfIntroGate active={tool.operation === "markdown-to-pdf"}>
         <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
         <ExtractTablesPdfIntroGate active={tool.operation === "extract-tables-pdf"}>
         <CompressImageIntroGate active={tool.operation === "compress-image"}>
@@ -466,6 +480,7 @@ export default async function ToolPage({
         <PdfToTextIntroGate active={tool.operation === "pdf-to-text"}>
         <PdfToWordIntroGate active={tool.operation === "pdf-to-word"}>
         <HeicToJpgIntroGate active={tool.operation === "heic-to-jpg"}>
+        <HeicToPdfIntroGate active={tool.operation === "heic-to-pdf"}>
         <JpgToPdfIntroGate active={tool.operation === "jpg-to-pdf"}>
         <PdfToJpgIntroGate active={tool.operation === "pdf-to-jpg"}>
         <WebpToJpgIntroGate active={tool.operation === "webp-to-jpg"}>
@@ -501,6 +516,7 @@ export default async function ToolPage({
         <ProtectPdfIntroGate active={tool.operation === "protect-pdf"}>
         <RedactPdfIntroGate active={tool.operation === "redact"}>
         <RemoveHiddenMetadataIntroGate active={tool.operation === "remove-hidden-metadata"}>
+        <GrayscalePdfIntroGate active={tool.operation === "grayscale-pdf"}>
         <SafeShareAuditorIntroGate active={tool.operation === "safe-to-share-auditor"}>
         <SignPdfIntroGate active={tool.operation === "sign-pdf"}>
         <TimezoneConverterIntroGate active={tool.operation === "timezone-converter"}>
@@ -508,6 +524,11 @@ export default async function ToolPage({
         <BaseConverterIntroGate active={tool.operation === "base-converter"}>
         <GlobalTimezoneConverterIntroGate active={tool.operation === "global-timezone-converter"}>
         <UnitConverterIntroGate active={tool.operation === "unit-converter"}>
+        <MyIpIntroGate active={tool.operation === "my-ip"}>
+        <UserAgentParserIntroGate active={tool.operation === "user-agent-parser"}>
+        <UrlEncoderDecoderIntroGate active={tool.operation === "url-encoder-decoder"}>
+        <UrlParameterStripperIntroGate active={tool.operation === "url-parameter-stripper"}>
+        <SslDecoderIntroGate active={tool.operation === "ssl-decoder"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -749,6 +770,8 @@ export default async function ToolPage({
           <UuidGeneratorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "ssl-decoder" ? (
           <SslDecoderWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "my-ip" ? (
+          <MyIpNetworkInfoWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "color-palette-extractor" ? (
           <ColorPaletteExtractorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "color-converter" ? (
@@ -795,6 +818,11 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </SslDecoderIntroGate>
+        </UrlParameterStripperIntroGate>
+        </UrlEncoderDecoderIntroGate>
+        </UserAgentParserIntroGate>
+        </MyIpIntroGate>
         </UnitConverterIntroGate>
         </GlobalTimezoneConverterIntroGate>
         </BaseConverterIntroGate>
@@ -802,6 +830,7 @@ export default async function ToolPage({
         </TimezoneConverterIntroGate>
         </SignPdfIntroGate>
         </SafeShareAuditorIntroGate>
+        </GrayscalePdfIntroGate>
         </RemoveHiddenMetadataIntroGate>
         </RedactPdfIntroGate>
         </ProtectPdfIntroGate>
@@ -837,6 +866,7 @@ export default async function ToolPage({
         </WebpToJpgIntroGate>
         </PdfToJpgIntroGate>
         </JpgToPdfIntroGate>
+        </HeicToPdfIntroGate>
         </HeicToJpgIntroGate>
         </PdfToWordIntroGate>
         </PdfToTextIntroGate>
@@ -846,6 +876,9 @@ export default async function ToolPage({
         </CompressImageIntroGate>
         </ExtractTablesPdfIntroGate>
         </ExcelToPdfIntroGate>
+        </MarkdownToPdfIntroGate>
+        </IworkToPdfIntroGate>
+        </HtmlToPdfIntroGate>
         </EbookToPdfIntroGate>
         </AutocadToPdfIntroGate>
         </VideoConverterIntroGate>

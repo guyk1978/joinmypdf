@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
+import { MyIpIntroGate } from "@/components/MyIpIntroGate";
 import { MyIpNetworkInfoWorkspace } from "@/components/tools/network/MyIpNetworkInfoWorkspace";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -76,7 +77,9 @@ export default async function MyIpNetworkInfoPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <MyIpNetworkInfoWorkspace tool={tool} slug={SLUG} />
+            <MyIpIntroGate>
+              <MyIpNetworkInfoWorkspace tool={tool} slug={SLUG} />
+            </MyIpIntroGate>
           </section>
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

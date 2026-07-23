@@ -1,0 +1,69 @@
+---
+description: Maximized cinematic tool intro splash layout standards
+globs: "**/*IntroGate.tsx,**/*-landing.css,**/tool-intro-splash.css"
+alwaysApply: false
+---
+
+# Tool Intro Splash — Non-Distort Maximized Layout
+
+All cinematic fullscreen tool intros (`*IntroGate.tsx` + `*-landing.css`) inherit layout from `src/components/tool-intro-splash.css` (via `globals.css`).
+
+## Required shell
+
+```tsx
+<div className="{prefix}-fs tool-intro-fs">
+  <header className="{prefix}-fs__header">…</header>
+  <div className="{prefix}-fs__stage">
+    <div className="{prefix}-fs__scene">
+      <div className="{prefix}-fs__workspace animation-workspace">
+        <div className="{prefix}-fs__card">{/* animation */}</div>
+      </div>
+    </div>
+  </div>
+  <div className="{prefix}-fs__footer">
+    <button className="{prefix}-fs__cta">Get Started</button>
+  </div>
+</div>
+```
+
+- Always include `tool-intro-fs` on the root and `animation-workspace` on the workspace.
+- Optional aliases: `global-splash-workspace`, `global-splash-card`.
+- Keep success badges **inside** `__card` so they are not clipped.
+
+## Global footprint (caps only — no forced width)
+
+| Zone | Standard |
+|------|----------|
+| Stage / workspace | Flex-centered, `max-height: calc(100vh - 180px)`, `max-width: 100%` |
+| Inner `__card` / cardless visual | Tool-owned size, capped with `max-width: 100%`, `max-height: 60vh`, `object-fit: contain`, `margin: 0 auto` |
+
+**Do not** force cards to a fixed width (e.g. `780px` / `width: 95%`). That stretches square/portrait/landscape art.
+
+Tool CSS owns native proportions (`clamp()`, aspect-ratio, fixed preview sizes). Shared CSS only centers, caps, and uniformly zooms.
+
+## Uniform scale-up (no axis distortion)
+
+Root `--splash-zoom` (default `1.1`) enlarges the whole workspace uniformly via `zoom` (transform fallback where needed).
+
+- Opt out or tune per tool: `.xyz-fs.tool-intro-fs { --splash-zoom: 1; }` or `1.2`
+- Never use non-uniform `scaleX` / stretched widths to “fill” dead space
+
+## Internal content rules
+
+- Prefer responsive `clamp()` and fluid graphic sizes in tool CSS.
+- Use `flex-shrink: 1`, `min-height: 0`, `min-width: 0` on growing regions when needed.
+- Avoid entrance animations with large `translateY` past card edges; prefer opacity/scale.
+- Never overlap the headline or Get Started / התחל / Начать CTA.
+
+## Multi-card / N-up exceptions
+
+- Side-by-side cards: workspace capped as one unit; each card keeps native size.
+- `.nup-fs` keeps multi-column stage rules (`zoom: 1`).
+
+## Checklist for a new tool splash
+
+1. Gate uses `tool-intro-fs` + `animation-workspace`.
+2. Card uses natural aspect (tool CSS); no global fixed width.
+3. Tune `--splash-zoom` only if the default enlarge is too much/little.
+4. Badge inside card; internals don’t spill.
+5. i18n CTA keys for en / he / ru.

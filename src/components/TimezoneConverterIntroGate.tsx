@@ -145,12 +145,12 @@ export function TimezoneConverterIntroGate({
                 </div>
 
                 <div className="tzc-fs__pulse" />
-              </div>
 
-              <span className="tzc-fs__ok">
-                <span className="tzc-fs__check" />
-                {t("success")}
-              </span>
+                <span className="tzc-fs__ok">
+                  <span className="tzc-fs__check" />
+                  {t("success")}
+                </span>
+              </div>
             </div>
           </div>
         </div>

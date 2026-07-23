@@ -8,7 +8,8 @@ import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import {
-  getCategoryAccentCssVar,
+  getCategoryAccentColor,
+  getContrastingInk,
   resolveToolAccentCategoryId,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
@@ -32,12 +33,15 @@ export function PinnedCardsDock() {
       if (!entry) continue;
       const categoryId = resolveToolCategoryId(id, entry.primaryCategory);
       const accentCategoryId = resolveToolAccentCategoryId(id, categoryId) ?? categoryId ?? "pdf";
+      const accent = getCategoryAccentColor(accentCategoryId);
       resolved.push({
         id,
         label: resolveInventoryToolLabel(id, tTools),
         href: resolveToolHref(id, entry.primaryCategory, locale),
         categoryId,
         accentCategoryId,
+        accent,
+        ink: getContrastingInk(accent),
       });
     }
     return resolved;
@@ -68,7 +72,8 @@ export function PinnedCardsDock() {
             data-category={chip.accentCategoryId}
             style={
               {
-                "--category-accent": getCategoryAccentCssVar(chip.accentCategoryId),
+                "--category-accent": chip.accent,
+                "--pinned-chip-ink": chip.ink,
               } as CSSProperties
             }
           >

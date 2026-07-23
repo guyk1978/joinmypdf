@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
+import { UrlParameterStripperIntroGate } from "@/components/UrlParameterStripperIntroGate";
 import { UrlParameterStripperWorkspace } from "@/components/UrlParameterStripperWorkspace";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
@@ -74,7 +75,9 @@ export default async function UrlParameterStripperPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <UrlParameterStripperWorkspace tool={tool} slug={SLUG} />
+            <UrlParameterStripperIntroGate>
+              <UrlParameterStripperWorkspace tool={tool} slug={SLUG} />
+            </UrlParameterStripperIntroGate>
           </section>
 </div>
       </AppPageShell>
