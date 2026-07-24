@@ -1,0 +1,605 @@
+/* —— Pitch-black fullscreen intro: Add Watermark —— */
+html[data-add-watermark-intro="1"],
+html[data-add-watermark-intro="1"] body {
+  overflow: hidden !important;
+  background-color: #000000 !important;
+}
+
+html[data-add-watermark-intro="1"] .site-header,
+html[data-add-watermark-intro="1"] .home-page-footer,
+html[data-add-watermark-intro="1"] .pinned-cards-dock,
+html[data-add-watermark-intro="1"] .app-page-canvas,
+html[data-add-watermark-intro="1"] .cookie-consent,
+html[data-add-watermark-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.awm-fs {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --splash-zoom: 1;
+  --splash-max-width: 540px;
+  --splash-wide-min-height: 220px;
+  --splash-wide-max-height: 300px;
+  --awm-blue: #2563eb;
+  --awm-blue-deep: #1d4ed8;
+  --awm-blue-soft: #93c5fd;
+}
+
+.awm-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.45rem;
+  width: 100%;
+  max-width: min(64rem, calc(100vw - 2rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  padding-bottom: 0.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.awm-fs__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.5vw, 2.65rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.awm-fs__title-brand {
+  color: var(--awm-blue-soft);
+}
+
+.awm-fs__title-rest {
+  color: #ffffff;
+}
+
+.awm-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  line-height: 1.4;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.awm-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
+  margin-top: 32px;
+  padding-top: 8px;
+  padding-bottom: 12px;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
+  overflow: visible;
+}
+
+.awm-fs__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: visible;
+}
+
+.awm-fs__workspace {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 540px;
+  min-height: 220px;
+  height: auto;
+  max-height: 300px;
+  margin: 0 auto;
+  overflow: visible;
+  object-fit: contain;
+}
+
+.awm-fs__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  min-width: 0;
+  padding: 0.75rem 0.85rem 0.8rem;
+  overflow: hidden;
+  object-fit: contain;
+  border: 1px solid rgba(37, 99, 235, 0.42);
+  border-radius: 1rem;
+  background: #070c18;
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(37, 99, 235, 0.1);
+}
+
+.awm-fs__badges {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+
+.awm-fs__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.4rem;
+  padding: 0.28rem 0.55rem;
+  border-radius: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  font-family: "Cascadia Mono", "Consolas", "SF Mono", ui-monospace, monospace;
+}
+
+.awm-fs__badge--clean {
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: #1e293b;
+  color: #e2e8f0;
+  animation: awm-fs-clean-badge 10s ease-in-out infinite;
+}
+
+.awm-fs__badge--marked {
+  border: 1px solid rgba(37, 99, 235, 0.55);
+  background: #1e3a8a;
+  color: var(--awm-blue-soft);
+  opacity: 0.35;
+  animation: awm-fs-marked-badge 10s ease-in-out infinite;
+}
+
+.awm-fs__arrow {
+  width: 1.4rem;
+  height: 2px;
+  position: relative;
+  background: linear-gradient(90deg, #94a3b8, var(--awm-blue));
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
+  animation: awm-fs-arrow 10s ease-in-out infinite;
+}
+
+.awm-fs__arrow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid var(--awm-blue);
+  border-right: 2px solid var(--awm-blue);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.awm-fs__stage-art {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: min(170px, 100%);
+  overflow: visible;
+}
+
+.awm-fs__doc {
+  position: relative;
+  width: min(38%, 8.25rem);
+  aspect-ratio: 3 / 4;
+  max-height: 100%;
+  box-sizing: border-box;
+  padding: 12% 12% 14%;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: 0.4rem;
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+  animation: awm-fs-doc 10s ease-in-out infinite;
+}
+
+.awm-fs__fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22%;
+  aspect-ratio: 1;
+  background: linear-gradient(225deg, #bfdbfe 0%, #93c5fd 48%, #2563eb 50%, #dbeafe 51%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.awm-fs__mark {
+  display: block;
+  width: fit-content;
+  margin-bottom: 10%;
+  padding: 0.12rem 0.35rem;
+  border-radius: 0.2rem;
+  background: #dc2626;
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.awm-fs__bar {
+  display: block;
+  width: 48%;
+  height: 0.28rem;
+  margin-bottom: 10%;
+  border-radius: 999px;
+  background: #334155;
+}
+
+.awm-fs__line {
+  display: block;
+  width: 78%;
+  height: 0.16rem;
+  margin-bottom: 9%;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+
+.awm-fs__line--short {
+  width: 52%;
+}
+
+.awm-fs__stamp {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  max-width: 92%;
+  padding: 0.2rem 0.45rem;
+  border: 2px solid rgba(37, 99, 235, 0.55);
+  border-radius: 0.25rem;
+  color: rgba(37, 99, 235, 0.55);
+  font-size: clamp(0.55rem, 1.8vw, 0.72rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-28deg) scale(0.85);
+  animation: awm-fs-stamp-imprint 10s ease-in-out infinite;
+}
+
+.awm-fs__stamp-float {
+  position: absolute;
+  left: 58%;
+  top: 28%;
+  z-index: 4;
+  max-width: 46%;
+  padding: 0.28rem 0.55rem;
+  border: 2px solid rgba(147, 197, 253, 0.75);
+  border-radius: 0.3rem;
+  background: rgba(30, 58, 138, 0.35);
+  color: rgba(191, 219, 254, 0.95);
+  font-size: clamp(0.58rem, 1.9vw, 0.78rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(-12deg) scale(0.9);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+  animation: awm-fs-stamp-float 10s ease-in-out infinite;
+}
+
+.awm-fs__ok {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex: 0 0 auto;
+  gap: 0.35rem;
+  padding: 0.32rem 0.7rem;
+  border: 1px solid rgba(37, 99, 235, 0.5);
+  border-radius: 999px;
+  background: #1e3a8a;
+  color: var(--awm-blue-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: awm-fs-ok 10s ease-in-out infinite;
+}
+
+.awm-fs__check {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--awm-blue);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.awm-fs__check::after {
+  content: "";
+  position: absolute;
+  left: 28%;
+  top: 18%;
+  width: 28%;
+  height: 48%;
+  border-right: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(40deg);
+}
+
+.awm-fs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.awm-fs__cta {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 16rem);
+  min-height: 3.15rem;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid var(--awm-blue-deep);
+  border-radius: 0.65rem;
+  background: linear-gradient(180deg, #3b82f6 0%, var(--awm-blue) 100%);
+  color: #eff6ff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 12px 28px rgba(37, 99, 235, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition:
+    filter 0.15s ease,
+    transform 0.12s ease,
+    box-shadow 0.15s ease;
+}
+
+.awm-fs__cta:hover {
+  filter: brightness(1.06);
+  box-shadow:
+    0 14px 32px rgba(37, 99, 235, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.awm-fs__cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.awm-fs__cta:focus-visible {
+  outline: 2px solid var(--awm-blue-soft);
+  outline-offset: 3px;
+}
+
+/* —— Timeline (10s): floating stamp rotates → imprints on PDF —— */
+
+@keyframes awm-fs-clean-badge {
+  0%,
+  28% {
+    opacity: 1;
+  }
+  45%,
+  78% {
+    opacity: 0.4;
+  }
+  90%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes awm-fs-marked-badge {
+  0%,
+  32% {
+    opacity: 0.35;
+  }
+  48%,
+  78% {
+    opacity: 1;
+  }
+  90%,
+  100% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes awm-fs-arrow {
+  0%,
+  28% {
+    opacity: 0.45;
+    transform: scaleX(0.85);
+  }
+  40%,
+  72% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  88%,
+  100% {
+    opacity: 0.45;
+    transform: scaleX(0.85);
+  }
+}
+
+@keyframes awm-fs-doc {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40%,
+  58% {
+    transform: scale(0.98);
+  }
+}
+
+@keyframes awm-fs-stamp-float {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translate(18%, -12%) rotate(8deg) scale(0.85);
+  }
+  22%,
+  34% {
+    opacity: 1;
+    transform: translate(8%, 0) rotate(-18deg) scale(1);
+  }
+  44%,
+  50% {
+    opacity: 0.35;
+    transform: translate(-6%, 18%) rotate(-28deg) scale(0.92);
+  }
+  58%,
+  100% {
+    opacity: 0;
+    transform: translate(-10%, 22%) rotate(-28deg) scale(0.88);
+  }
+}
+
+@keyframes awm-fs-stamp-imprint {
+  0%,
+  42% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-28deg) scale(0.85);
+  }
+  52%,
+  78% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-28deg) scale(1);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-28deg) scale(0.85);
+  }
+}
+
+@keyframes awm-fs-ok {
+  0%,
+  48% {
+    opacity: 0.25;
+    transform: scale(0.94);
+  }
+  58%,
+  78% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.94);
+  }
+}
+
+@media (max-width: 640px) {
+  .awm-fs {
+    padding: 16px 0;
+    --splash-wide-max-height: 260px;
+  }
+
+  .awm-fs__stage {
+    margin-top: 24px;
+  }
+
+  .awm-fs__card {
+    gap: 0.45rem;
+    padding: 0.65rem 0.7rem 0.7rem;
+    max-height: 260px;
+  }
+
+  .awm-fs__workspace {
+    max-height: 260px;
+  }
+
+  .awm-fs__stage-art {
+    max-height: min(150px, 100%);
+  }
+
+  .awm-fs__cta {
+    min-width: min(100%, 14rem);
+    min-height: 2.9rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .awm-fs__workspace,
+  .awm-fs__card {
+    max-height: 260px;
+  }
+
+  .awm-fs__stage-art {
+    max-height: min(140px, 100%);
+  }
+
+  .awm-fs__title {
+    font-size: clamp(1.15rem, 3vw, 1.85rem);
+  }
+}
+
+@media (max-height: 560px) {
+  .awm-fs {
+    padding: 12px 0;
+  }
+
+  .awm-fs__stage {
+    margin-top: 16px;
+  }
+
+  .awm-fs__workspace,
+  .awm-fs__card {
+    max-height: 220px;
+  }
+
+  .awm-fs__ok {
+    display: none;
+  }
+}

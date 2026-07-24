@@ -105,6 +105,12 @@ import { FlattenPdfIntroGate } from "@/components/FlattenPdfIntroGate";
 import { CompressPdfIntroGate } from "@/components/CompressPdfIntroGate";
 import { PdfLinearizationIntroGate } from "@/components/PdfLinearizationIntroGate";
 import { RepairPdfIntroGate } from "@/components/RepairPdfIntroGate";
+import { AddPageNumbersIntroGate } from "@/components/AddPageNumbersIntroGate";
+import { AddWatermarkIntroGate } from "@/components/AddWatermarkIntroGate";
+import { AnnotatePdfIntroGate } from "@/components/AnnotatePdfIntroGate";
+import { BatchRenamePdfIntroGate } from "@/components/BatchRenamePdfIntroGate";
+import { ComparePdfIntroGate } from "@/components/ComparePdfIntroGate";
+import { CustomPaperMarginIntroGate } from "@/components/CustomPaperMarginIntroGate";
 import { PdfToXpsIntroGate } from "@/components/PdfToXpsIntroGate";
 import { MarkdownToPdfIntroGate } from "@/components/MarkdownToPdfIntroGate";
 import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
@@ -492,6 +498,12 @@ export default async function ToolPage({
         <CompressPdfIntroGate active={tool.operation === "compress"}>
         <PdfLinearizationIntroGate active={tool.operation === "pdf-linearization"}>
         <RepairPdfIntroGate active={tool.operation === "repair-pdf"}>
+        <AddPageNumbersIntroGate active={tool.operation === "add-page-numbers"}>
+        <AddWatermarkIntroGate active={tool.operation === "add-watermark"}>
+        <AnnotatePdfIntroGate active={tool.operation === "annotate-pdf"}>
+        <BatchRenamePdfIntroGate active={tool.operation === "batch-rename-pdf"}>
+        <ComparePdfIntroGate active={tool.operation === "compare-pdf"}>
+        <CustomPaperMarginIntroGate active={tool.operation === "custom-paper-margin"}>
         <PdfToXpsIntroGate active={tool.operation === "pdf-to-xps"}>
         <MarkdownToPdfIntroGate active={tool.operation === "markdown-to-pdf"}>
         <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
@@ -903,6 +915,12 @@ export default async function ToolPage({
         </ExcelToPdfIntroGate>
         </MarkdownToPdfIntroGate>
         </PdfToXpsIntroGate>
+        </CustomPaperMarginIntroGate>
+        </ComparePdfIntroGate>
+        </BatchRenamePdfIntroGate>
+        </AnnotatePdfIntroGate>
+        </AddWatermarkIntroGate>
+        </AddPageNumbersIntroGate>
         </RepairPdfIntroGate>
         </PdfLinearizationIntroGate>
         </CompressPdfIntroGate>

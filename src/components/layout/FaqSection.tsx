@@ -19,7 +19,7 @@ export function FaqSection({ faqs, heading }: FaqSectionProps) {
     <ToolPageDashboardSection aria-labelledby="tool-faq-heading">
       <h2
         id="tool-faq-heading"
-        className="mb-6 text-2xl font-bold tracking-tight text-white"
+        className="mb-6 text-[1.25rem] font-bold tracking-tight text-white sm:text-2xl"
       >
         {heading ?? t("faq")}
       </h2>

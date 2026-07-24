@@ -866,6 +866,77 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the workspace to repair a PDF."
   },
+  "AddPageNumbersLanding": {
+    "brand": "Add Page Numbers",
+    "titleRest": "- Add Page Numbers to Your PDF with Custom Placement and Formats",
+    "subtitle": "Stamp sequential folios onto every page with precise placement — privately in your browser.",
+    "plainBadge": "Blank",
+    "numBadge": "Numbered",
+    "pdfBadge": "PDF",
+    "success": "Numbered",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to add page numbers."
+  },
+  "AddWatermarkLanding": {
+    "brand": "Add Watermark",
+    "titleRest": "- Stamp Text Watermarks on PDFs with Opacity, Color, and Rotation",
+    "subtitle": "Imprint semi-transparent text across every page with full control over style — privately in your browser.",
+    "cleanBadge": "Clean",
+    "markedBadge": "Watermarked",
+    "pdfBadge": "PDF",
+    "stampText": "CONFIDENTIAL",
+    "success": "Watermarked",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to add a watermark."
+  },
+  "AnnotatePdfLanding": {
+    "brand": "Annotate PDF",
+    "titleRest": "- Highlight, Draw, and Add Sticky Notes to PDFs in Your Browser",
+    "subtitle": "Mark up documents with highlighter strokes, freehand ink, and sticky notes — privately on your device.",
+    "plainBadge": "Clean",
+    "doneBadge": "Annotated",
+    "pdfBadge": "PDF",
+    "success": "Annotated",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to annotate a PDF."
+  },
+  "BatchRenamePdfLanding": {
+    "brand": "Batch Rename PDF Files Online",
+    "titleRest": "- Rename Multiple PDF Files with Clear, Consistent Patterns",
+    "subtitle": "Turn cluttered filenames into clean, numbered patterns — privately in your browser.",
+    "plainBadge": "Messy",
+    "doneBadge": "Renamed",
+    "success": "Renamed",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to batch rename PDFs."
+  },
+  "ComparePdfLanding": {
+    "brand": "Compare PDF",
+    "titleRest": "- Compare Two PDFs Side by Side and Spot Text Changes Fast",
+    "subtitle": "Scan two versions side by side and catch removals and additions instantly — privately in your browser.",
+    "plainBadge": "Identical?",
+    "doneBadge": "Diff Found",
+    "leftLabel": "A",
+    "rightLabel": "B",
+    "removed": "Removed",
+    "added": "Added",
+    "scanning": "Scanning",
+    "success": "Differences Found",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to compare two PDFs."
+  },
+  "CustomPaperMarginLanding": {
+    "brand": "Adjust PDF Paper Size & Margins Online",
+    "titleRest": "- Resize PDF Pages and Set Precise Print Margins",
+    "subtitle": "Morph pages between formats and dial in exact margins — privately in your browser.",
+    "plainBadge": "A4",
+    "doneBadge": "Resized",
+    "formatA4": "A4",
+    "formatLetter": "US Letter",
+    "success": "Resized",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to adjust paper size and margins."
+  },
   "PdfToXpsLanding": {
     "brand": "PDF to XPS Converter Online",
     "titleRest": "- Convert PDFs to XPS for Windows Document Workflows",

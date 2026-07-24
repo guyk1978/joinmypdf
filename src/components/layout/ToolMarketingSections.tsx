@@ -55,15 +55,15 @@ export function ToolMarketingSections({
         <ToolPageDashboardSection aria-labelledby="related-guides-heading">
           <h2
             id="related-guides-heading"
-            className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"
+            className="tools-hub-link-list__title mb-4"
           >
             {relatedGuidesTitle}
           </h2>
-          <ul className="space-y-3">
+          <ul className="tools-hub-link-list">
             {articles.map((article) => (
-              <li key={article.slug}>
+              <li key={article.slug} className="tools-hub-link-list__item">
                 <Link
-                  className="text-base leading-relaxed text-neutral-400 hover:underline"
+                  className="tools-hub-link-list__link"
                   href={blogArticlePath(article.slug)}
                 >
                   {getRelatedGuideLinkLabel(article, tPage)}

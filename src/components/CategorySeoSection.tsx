@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { FaqAccordion } from "@/components/FaqAccordion";
 import { faqLd, JsonLd } from "@/lib/schema";
 
 const MAX_FAQ_ITEMS = 6;
@@ -50,12 +51,7 @@ export async function CategorySeoSection({
       {faqs.length > 0 ? (
         <div className="category-seo__faq">
           <h3 className="category-seo__faq-title">{t("faqTitle")}</h3>
-          {faqs.map((faq) => (
-            <details key={faq.q} className="category-seo__faq-item">
-              <summary className="category-seo__faq-question">{faq.q}</summary>
-              <p className="category-seo__faq-answer">{faq.a}</p>
-            </details>
-          ))}
+          <FaqAccordion items={faqs} />
         </div>
       ) : null}
     </section>

@@ -27,22 +27,23 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
         const buttonId = `${baseId}-button-${index}`;
 
         return (
-          <div key={`${item.q}-${index}`} className="faq-accordion__item border-b border-neutral-800 rounded-none">
+          <div key={`${item.q}-${index}`} className="faq-accordion__item">
             <button
               id={buttonId}
               type="button"
-              className="faq-accordion__trigger flex w-full items-center justify-between gap-4 py-6 text-left rounded-none"
+              className="faq-accordion__trigger"
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => setOpenIndex(isOpen ? null : index)}
             >
-              <span className="text-xl font-bold tracking-tight text-white">{item.q}</span>
+              <span className="faq-accordion__question">{item.q}</span>
               <ChevronDown
                 className={[
-                  "faq-accordion__chevron h-5 w-5 shrink-0 text-neutral-400",
-                  "transform transition-transform duration-500 ease-in-out",
-                  isOpen ? "rotate-180" : "rotate-0",
-                ].join(" ")}
+                  "faq-accordion__chevron",
+                  isOpen ? "faq-accordion__chevron--open" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
                 aria-hidden
                 strokeWidth={2}
               />
@@ -53,20 +54,15 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
               role="region"
               aria-labelledby={buttonId}
               className={[
-                "faq-accordion__panel overflow-hidden",
-                "transition-all duration-500 ease-in-out",
-                isOpen ? "max-h-[48rem]" : "max-h-0",
-              ].join(" ")}
+                "faq-accordion__panel",
+                isOpen ? "faq-accordion__panel--open" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
-              <p
-                className={[
-                  "faq-accordion__answer pb-6 pr-10 text-lg leading-relaxed text-slate-300",
-                  "transition-opacity duration-500 ease-in-out",
-                  isOpen ? "opacity-100 delay-75" : "opacity-0 delay-0",
-                ].join(" ")}
-              >
-                {item.a}
-              </p>
+              <div className="faq-accordion__panel-inner">
+                <p className="faq-accordion__answer">{item.a}</p>
+              </div>
             </div>
           </div>
         );

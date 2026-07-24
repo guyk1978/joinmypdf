@@ -16,22 +16,20 @@ export async function ToolsHubRelatedGuides({ posts, title, sectionId }: ToolsHu
   const tBlog = await getTranslations("Blog");
 
   return (
-    <section className="mt-10 border-t border-[#262626] pt-8" aria-labelledby={sectionId}>
-      <h2 id={sectionId} className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]">
+    <section className="tools-hub-related-guides" aria-labelledby={sectionId}>
+      <h2 id={sectionId} className="tools-hub-link-list__title">
         {title}
       </h2>
-      <ul className="mt-4 flex flex-col gap-3">
+      <ul className="tools-hub-link-list">
         {posts.map((post) => {
           const readTime = getLocalizedBlogReadTime(post, tBlog);
 
           return (
-            <li key={post.slug} className="border-b border-[#1a1a1a] pb-3 last:border-b-0 last:pb-0">
-              <Link href={blogArticlePath(post.slug)} className="group block" prefetch={false}>
-                <span className="text-base font-medium text-white transition-colors group-hover:text-[#d4d4d4]">
-                  {post.title}
-                </span>
+            <li key={post.slug} className="tools-hub-link-list__item">
+              <Link href={blogArticlePath(post.slug)} className="tools-hub-link-list__link" prefetch={false}>
+                <span className="tools-hub-link-list__label">{post.title}</span>
                 {readTime ? (
-                  <span className="mt-1 block text-xs uppercase tracking-widest text-[#737373]">{readTime}</span>
+                  <span className="tools-hub-link-list__meta">{readTime}</span>
                 ) : null}
               </Link>
             </li>

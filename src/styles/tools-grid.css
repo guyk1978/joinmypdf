@@ -1,11 +1,11 @@
 /**
- * Homepage category directory chrome — Industrial Matte card grids live in
- * home-landing.css (`.home-im-grid`) and globals.css (`.im-tool-card`).
+ * Homepage + directory tool-grid chrome.
+ * Industrial Matte cards live in globals.css (`.im-tool-card`).
  */
 
 :root {
-  --tools-grid-line: #333;
-  --tools-section-line: #333;
+  --tools-grid-line: transparent;
+  --tools-section-line: rgba(255, 255, 255, 0.1);
 }
 
 .home-more-tools {
@@ -21,4 +21,166 @@
 .tools-directory-featured .im-tool-card-grid,
 .tools-directory-category .im-tool-card-grid {
   margin-top: 0;
+}
+
+/* —— Open grids: no outer box around card collections —— */
+.tools-hub-panel,
+.tools-directory-featured,
+.tools-directory-category,
+.home-im-section,
+.home-im-grid,
+.im-tool-card-grid {
+  border: 0 !important;
+  border-width: 0 !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.tools-hub-panel {
+  background: transparent !important;
+  /* Keep vertical rhythm without a hard rule under every hub panel */
+  margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+  padding-block: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.tools-hub-panel + .tools-hub-panel {
+  margin-top: 0;
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* Strip full-box wrappers (Tailwind border + fill) around hub grids */
+.tools-directory-page .tools-hub-panel.border,
+.tools-directory-page .tools-hub-panel[class*="border-"] {
+  border: 0 !important;
+  border-width: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Featured block: spacing only — no mid-page rule inside the grid zone */
+.tools-directory-featured {
+  padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  border-bottom: 0 !important;
+}
+
+.tools-directory-workflow__head {
+  border-bottom: 0 !important;
+  padding-bottom: 0.5rem;
+}
+
+/* —— Major section dividers only (grid → About/FAQ / related / footer) —— */
+.tools-directory-page > header.border-b,
+.tools-directory-page > header[class*="border-b"] {
+  border-bottom: 0 !important;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  padding-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.category-seo,
+.tools-hub-related-guides,
+.tools-directory-page > footer,
+.related-audio-tools-hub {
+  border-top: 1px solid var(--tools-section-line) !important;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  box-shadow: none;
+}
+
+/* One clean rule into the prose/FAQ zone — avoid stacked separators below */
+.category-seo + .tools-hub-related-guides,
+.category-seo + footer,
+.tools-hub-related-guides + footer,
+.related-audio-tools-hub + footer {
+  border-top: 0 !important;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* Soften remaining hub footers that still use Tailwind border-t utilities */
+.tools-directory-page > footer[class*="border-t"],
+.tools-directory-page section[class*="border-t"]:not(.category-seo):not(.tools-hub-related-guides):not(.tools-hub-panel) {
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.tools-directory-page > header[class*="border-b"],
+.tools-directory-page section[class*="border-b"]:not(.tools-hub-panel) {
+  border-bottom-color: transparent !important;
+  border-bottom-width: 0 !important;
+}
+
+/* —— Related Hubs / Related Guides: larger type, no inter-link rules —— */
+.tools-hub-link-list__title,
+.tools-hub-related-guides .tools-hub-link-list__title,
+.tools-directory-page section[aria-labelledby*="related"] > h2,
+.tools-directory-page section[aria-labelledby*="formats"] > h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  text-transform: none;
+  color: #ededed;
+}
+
+.tools-hub-link-list,
+.tools-hub-related-guides ul,
+.tools-directory-page section[aria-labelledby*="related"] > ul,
+.tools-directory-page section[aria-labelledby*="formats"] > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tools-hub-link-list__item,
+.tools-hub-related-guides li,
+.tools-directory-page section[aria-labelledby*="related"] > ul > li,
+.tools-directory-page section[aria-labelledby*="formats"] > ul > li {
+  margin: 0;
+  padding: 0 !important;
+  border: 0 !important;
+  border-bottom: none !important;
+  background: transparent;
+  box-shadow: none;
+}
+
+.tools-hub-link-list__link,
+.tools-hub-related-guides a,
+.tools-directory-page section[aria-labelledby*="related"] > ul a,
+.tools-directory-page section[aria-labelledby*="formats"] > ul a {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.4;
+  color: #f5f5f5;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.tools-hub-link-list__link:hover,
+.tools-hub-related-guides a:hover,
+.tools-directory-page section[aria-labelledby*="related"] > ul a:hover,
+.tools-directory-page section[aria-labelledby*="formats"] > ul a:hover {
+  color: #d4d4d4;
+}
+
+.tools-hub-link-list__label {
+  display: block;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.tools-hub-link-list__meta,
+.tools-hub-related-guides .tools-hub-link-list__meta {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #737373;
 }

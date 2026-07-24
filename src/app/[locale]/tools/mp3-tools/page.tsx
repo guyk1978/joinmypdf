@@ -67,7 +67,7 @@ export default async function Mp3ToolsPage({ params }: PageProps) {
           </header>
 
           <section
-            className="tools-hub-panel border border-[#262626] bg-[#0a0a0a] p-6"
+            className="tools-hub-panel p-0"
             aria-label={t("schemaName")}
           >
             <CategoryDirectoryFlatGrid items={gridItems} categoryId="mp3" />

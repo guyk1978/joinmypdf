@@ -866,6 +866,77 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את סביבת העבודה כדי לתקן PDF."
   },
+  "AddPageNumbersLanding": {
+    "brand": "הוספת מספרי עמודים",
+    "titleRest": "- הוסיפו מספרי עמודים ל-PDF עם מיקום ופורמט בהתאמה אישית",
+    "subtitle": "חותמת מספרי עמודים עוקבים בכל עמוד עם מיקום מדויק — באופן פרטי בדפדפן.",
+    "plainBadge": "ריק",
+    "numBadge": "ממוספר",
+    "pdfBadge": "PDF",
+    "success": "ממוספר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להוסיף מספרי עמודים."
+  },
+  "AddWatermarkLanding": {
+    "brand": "הוספת סימן מים",
+    "titleRest": "- הטביעו סימן מים טקסטואלי ב-PDF עם שקיפות, צבע וסיבוב",
+    "subtitle": "הטבעת טקסט שקוף למחצה על כל עמוד עם שליטה מלאה בסגנון — באופן פרטי בדפדפן.",
+    "cleanBadge": "נקי",
+    "markedBadge": "עם סימן מים",
+    "pdfBadge": "PDF",
+    "stampText": "סודי",
+    "success": "עם סימן מים",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להוסיף סימן מים."
+  },
+  "AnnotatePdfLanding": {
+    "brand": "סימון PDF",
+    "titleRest": "- הדגשה, ציור והערות דביקות על קבצי PDF בדפדפן",
+    "subtitle": "סמנו מסמכים עם הדגשות, דיו חופשי והערות דביקות — באופן פרטי במכשיר שלכם.",
+    "plainBadge": "נקי",
+    "doneBadge": "מסומן",
+    "pdfBadge": "PDF",
+    "success": "מסומן",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לסמן PDF."
+  },
+  "BatchRenamePdfLanding": {
+    "brand": "שינוי שם קבצי PDF בקבוצה אונליין",
+    "titleRest": "- שנו שם למספר קבצי PDF בתבניות ברורות ועקביות",
+    "subtitle": "הפכו שמות מבולגנים לתבניות נקיות וממוספרות — באופן פרטי בדפדפן.",
+    "plainBadge": "מבולגן",
+    "doneBadge": "שונה שם",
+    "success": "שונה שם",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לשנות שמות לקבצי PDF."
+  },
+  "ComparePdfLanding": {
+    "brand": "השוואת PDF",
+    "titleRest": "- השוו שני קבצי PDF זה לצד זה ואתרו שינויי טקסט במהירות",
+    "subtitle": "סרקו שתי גרסאות זו לצד זו ותפסו מחיקות והוספות מיד — באופן פרטי בדפדפן.",
+    "plainBadge": "זהים?",
+    "doneBadge": "נמצא הבדל",
+    "leftLabel": "א",
+    "rightLabel": "ב",
+    "removed": "הוסר",
+    "added": "נוסף",
+    "scanning": "סורק",
+    "success": "נמצאו הבדלים",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להשוות שני קבצי PDF."
+  },
+  "CustomPaperMarginLanding": {
+    "brand": "התאמת גודל נייר ושוליים ב-PDF אונליין",
+    "titleRest": "- שנו גודל עמודי PDF והגדירו שולי הדפסה מדויקים",
+    "subtitle": "התאימו פורמטים והגדירו שוליים מדויקים — באופן פרטי בדפדפן.",
+    "plainBadge": "A4",
+    "doneBadge": "הותאם",
+    "formatA4": "A4",
+    "formatLetter": "US Letter",
+    "success": "הותאם",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להתאים גודל נייר ושוליים."
+  },
   "PdfToXpsLanding": {
     "brand": "ממיר PDF ל-XPS אונליין",
     "titleRest": "- המירו PDF ל-XPS לתהליכי עבודה ב-Windows",
