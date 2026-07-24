@@ -1410,6 +1410,55 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the workspace to rotate a video."
   },
+  "VideoResizerLanding": {
+    "brand": "Video Resizer",
+    "titleRest": "- Resize and Crop Videos to Custom Dimensions or Standard Aspect Ratios",
+    "subtitle": "Morph frames between landscape, square, and vertical ratios with precise crop handles — privately in your browser.",
+    "plainBadge": "16:9",
+    "doneBadge": "Resized",
+    "ratio169": "16:9",
+    "ratio11": "1:1",
+    "ratio916": "9:16",
+    "success": "Resized",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to resize a video."
+  },
+  "VideoToGifLanding": {
+    "brand": "Video to GIF",
+    "titleRest": "- Turn Video Clips into Animated GIFs with Clear Quality",
+    "subtitle": "Convert short clips into looping GIFs with crisp frames — privately in your browser, nothing uploaded.",
+    "plainBadge": "Video",
+    "doneBadge": "Converted",
+    "videoFmt": "MP4",
+    "gifFmt": ".GIF",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to turn a video into a GIF."
+  },
+  "VideoToMp3Landing": {
+    "brand": "Video to MP3",
+    "titleRest": "- Convert Video to High-Quality Audio in a Few Clicks",
+    "subtitle": "Extract clean MP3 audio from any video clip — privately in your browser, nothing uploaded.",
+    "plainBadge": "Video",
+    "doneBadge": "Converted",
+    "videoFmt": "MP4",
+    "audioFmt": ".MP3",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert a video to MP3."
+  },
+  "VideoToMp4Landing": {
+    "brand": "Video to MP4 Converter Online",
+    "titleRest": "- Convert Videos to Widely Compatible MP4 Files",
+    "subtitle": "Turn AVI, MOV, and other formats into polished, widely compatible MP4 — privately in your browser.",
+    "plainBadge": "Raw",
+    "doneBadge": "Converted",
+    "rawFmt": "AVI",
+    "mp4Fmt": ".MP4",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert a video to MP4."
+  },
   "HashGeneratorLanding": {
     "brand": "Hash Generator",
     "titleRest": "- Generate Secure Hashes for Text or Files",

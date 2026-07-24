@@ -81,15 +81,20 @@ export function SafeShareAuditorIntroGate({
 
         <div className="ssa-fs__stage" aria-hidden>
           <div className="ssa-fs__scene">
-            <div className="ssa-fs__workspace animation-workspace">
+            <div
+              className="ssa-fs__workspace animation-workspace"
+              data-splash-wide
+            >
               <div className="ssa-fs__card">
                 <div className="ssa-fs__badges">
                   <span className="ssa-fs__badge ssa-fs__badge--scan">{t("scanBadge")}</span>
+                  <span className="ssa-fs__arrow" />
                   <span className="ssa-fs__badge ssa-fs__badge--safe">{t("safeBadge")}</span>
                 </div>
 
-                <div className="ssa-fs__preview">
+                <div className="ssa-fs__stage-art">
                   <div className="ssa-fs__doc">
+                    <span className="ssa-fs__fold" />
                     <span className="ssa-fs__line ssa-fs__line--title" />
                     <span className="ssa-fs__line" />
                     <span className="ssa-fs__hit ssa-fs__hit--1" />
@@ -107,12 +112,12 @@ export function SafeShareAuditorIntroGate({
                     {t("complianceBadge")}
                   </span>
                 </div>
-              </div>
 
-              <span className="ssa-fs__ok">
-                <span className="ssa-fs__check" />
-                {t("success")}
-              </span>
+                <span className="ssa-fs__ok">
+                  <span className="ssa-fs__check" />
+                  {t("success")}
+                </span>
+              </div>
             </div>
           </div>
         </div>

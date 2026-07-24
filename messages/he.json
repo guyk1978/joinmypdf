@@ -1410,6 +1410,55 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את סביבת העבודה כדי לסובב וידאו."
   },
+  "VideoResizerLanding": {
+    "brand": "שינוי גודל וידאו",
+    "titleRest": "- שנו גודל וחתכו סרטונים למידות מותאמות או יחסי גובה־רוחב סטנדרטיים",
+    "subtitle": "התאימו פריימים בין נוף, ריבוע ואנכי עם ידיות חיתוך מדויקות — באופן פרטי בדפדפן.",
+    "plainBadge": "16:9",
+    "doneBadge": "הותאם",
+    "ratio169": "16:9",
+    "ratio11": "1:1",
+    "ratio916": "9:16",
+    "success": "הותאם",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לשנות גודל לווידאו."
+  },
+  "VideoToGifLanding": {
+    "brand": "וידאו ל־GIF",
+    "titleRest": "- הפכו קטעי וידאו ל־GIF מונפש באיכות ברורה",
+    "subtitle": "המירו קליפים קצרים ל־GIF חוזר עם פריימים חדים — באופן פרטי בדפדפן, בלי העלאות.",
+    "plainBadge": "וידאו",
+    "doneBadge": "הומר",
+    "videoFmt": "MP4",
+    "gifFmt": ".GIF",
+    "success": "הומר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר וידאו ל־GIF."
+  },
+  "VideoToMp3Landing": {
+    "brand": "וידאו ל־MP3",
+    "titleRest": "- המירו וידאו לאודיו באיכות גבוהה בכמה קליקים",
+    "subtitle": "חלצו אודיו MP3 נקי מכל קליפ וידאו — באופן פרטי בדפדפן, בלי העלאות.",
+    "plainBadge": "וידאו",
+    "doneBadge": "הומר",
+    "videoFmt": "MP4",
+    "audioFmt": ".MP3",
+    "success": "הומר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר וידאו ל־MP3."
+  },
+  "VideoToMp4Landing": {
+    "brand": "ממיר וידאו ל־MP4 אונליין",
+    "titleRest": "- המירו סרטונים לקבצי MP4 תואמים לכולם",
+    "subtitle": "הפכו AVI, MOV ופורמטים אחרים ל־MP4 מלוטש ותואם — באופן פרטי בדפדפן.",
+    "plainBadge": "גולמי",
+    "doneBadge": "הומר",
+    "rawFmt": "AVI",
+    "mp4Fmt": ".MP4",
+    "success": "הומר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי להמיר וידאו ל־MP4."
+  },
   "HashGeneratorLanding": {
     "brand": "מחולל Hash",
     "titleRest": "- צרו Hash מאובטח לטקסט או לקבצים",

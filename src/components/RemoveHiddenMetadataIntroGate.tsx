@@ -81,15 +81,20 @@ export function RemoveHiddenMetadataIntroGate({
 
         <div className="rhm-fs__stage" aria-hidden>
           <div className="rhm-fs__scene">
-            <div className="rhm-fs__workspace animation-workspace">
+            <div
+              className="rhm-fs__workspace animation-workspace"
+              data-splash-wide
+            >
               <div className="rhm-fs__card">
                 <div className="rhm-fs__badges">
                   <span className="rhm-fs__badge rhm-fs__badge--risk">{t("riskBadge")}</span>
+                  <span className="rhm-fs__arrow" />
                   <span className="rhm-fs__badge rhm-fs__badge--clean">{t("cleanBadge")}</span>
                 </div>
 
-                <div className="rhm-fs__preview">
+                <div className="rhm-fs__stage-art">
                   <div className="rhm-fs__doc">
+                    <span className="rhm-fs__fold" />
                     <span className="rhm-fs__line rhm-fs__line--title" />
                     <span className="rhm-fs__line" />
                     <span className="rhm-fs__line rhm-fs__line--short" />
@@ -110,12 +115,12 @@ export function RemoveHiddenMetadataIntroGate({
                     {t("strippedBadge")}
                   </span>
                 </div>
-              </div>
 
-              <span className="rhm-fs__ok">
-                <span className="rhm-fs__check" />
-                {t("success")}
-              </span>
+                <span className="rhm-fs__ok">
+                  <span className="rhm-fs__check" />
+                  {t("success")}
+                </span>
+              </div>
             </div>
           </div>
         </div>

@@ -156,6 +156,10 @@ import { WordToPdfIntroGate } from "@/components/WordToPdfIntroGate";
 import { CropPdfIntroGate } from "@/components/CropPdfIntroGate";
 import { RotatePdfIntroGate } from "@/components/RotatePdfIntroGate";
 import { VideoRotatorIntroGate } from "@/components/VideoRotatorIntroGate";
+import { VideoResizerIntroGate } from "@/components/VideoResizerIntroGate";
+import { VideoToGifIntroGate } from "@/components/VideoToGifIntroGate";
+import { VideoToMp3IntroGate } from "@/components/VideoToMp3IntroGate";
+import { VideoToMp4IntroGate } from "@/components/VideoToMp4IntroGate";
 import { HashGeneratorIntroGate } from "@/components/HashGeneratorIntroGate";
 import { ImageMetadataWiperIntroGate } from "@/components/ImageMetadataWiperIntroGate";
 import { PdfSignatureValidatorIntroGate } from "@/components/PdfSignatureValidatorIntroGate";
@@ -553,6 +557,10 @@ export default async function ToolPage({
         <CropPdfIntroGate active={tool.operation === "crop-pdf"}>
         <RotatePdfIntroGate active={tool.operation === "rotate-pdf"}>
         <VideoRotatorIntroGate active={tool.operation === "video-rotator"}>
+        <VideoResizerIntroGate active={tool.operation === "video-resizer"}>
+        <VideoToGifIntroGate active={tool.operation === "video-to-gif"}>
+        <VideoToMp3IntroGate active={tool.operation === "video-to-mp3"}>
+        <VideoToMp4IntroGate active={tool.operation === "video-to-mp4"}>
         <HashGeneratorIntroGate active={tool.operation === "hash-generator"}>
         <ImageMetadataWiperIntroGate active={tool.operation === "image-metadata-wiper"}>
         <PdfSignatureValidatorIntroGate active={tool.operation === "pdf-signature-validator"}>
@@ -882,6 +890,10 @@ export default async function ToolPage({
         </PdfSignatureValidatorIntroGate>
         </ImageMetadataWiperIntroGate>
         </HashGeneratorIntroGate>
+        </VideoToMp4IntroGate>
+        </VideoToMp3IntroGate>
+        </VideoToGifIntroGate>
+        </VideoResizerIntroGate>
         </VideoRotatorIntroGate>
         </RotatePdfIntroGate>
         </CropPdfIntroGate>
