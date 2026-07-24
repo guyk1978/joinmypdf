@@ -4,6 +4,8 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { SvgOptimizerWorkspace } from "@/components/SvgOptimizerWorkspace";
+import { SvgOptimizerIntroGate } from "@/components/SvgOptimizerIntroGate";
+import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, JsonLd, webApplicationLd, faqLd } from "@/lib/schema";
@@ -75,10 +77,14 @@ export default async function SvgOptimizerPage({ params }: PageProps) {
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
             <h1 className="sr-only">{t("title")}</h1>
-<section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
-            <SvgOptimizerWorkspace tool={tool} slug={SLUG} />
-          </section>
-</div>
+            <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
+              <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
+                <SvgOptimizerIntroGate active={tool.operation === "svg-optimizer"}>
+                  <SvgOptimizerWorkspace tool={tool} slug={SLUG} />
+                </SvgOptimizerIntroGate>
+              </ToolPageShellProvider>
+            </section>
+          </div>
       </AppPageShell>
     </>
   );

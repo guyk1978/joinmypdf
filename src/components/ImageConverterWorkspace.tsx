@@ -1,6 +1,7 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { loadImageFileForCrop } from "@/lib/crop-image";
 import {
@@ -16,14 +17,7 @@ import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import type { ToolDefinition } from "@/lib/types";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type DragEvent,
-} from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 const ACCEPT =
   "image/jpeg,image/png,image/webp,image/gif,image/bmp,image/heic,image/heif,.heic,.heif";
@@ -36,8 +30,6 @@ type ImageConverterWorkspaceProps = {
 export function ImageConverterWorkspace({ tool, slug }: ImageConverterWorkspaceProps) {
   const t = useTranslations("ImageConverter");
   const baseId = useId();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [dragActive, setDragActive] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [formatLabel, setFormatLabel] = useState("");
   const [originalUrl, setOriginalUrl] = useState<string | null>(null);
@@ -90,7 +82,6 @@ export function ImageConverterWorkspace({ tool, slug }: ImageConverterWorkspaceP
     resetResult();
     setFile(null);
     setFormatLabel("");
-    if (inputRef.current) inputRef.current.value = "";
   };
 
   const onFiles = async (incoming: FileList | File[]) => {
@@ -115,17 +106,6 @@ export function ImageConverterWorkspace({ tool, slug }: ImageConverterWorkspaceP
       originalUrlRef.current = url;
       setOriginalUrl(url);
     }
-  };
-
-  const onDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setDragActive(false);
-    if (!busy) void onFiles(event.dataTransfer.files);
-  };
-
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.length) void onFiles(event.target.files);
-    event.target.value = "";
   };
 
   const onConvert = async () => {
@@ -178,66 +158,20 @@ export function ImageConverterWorkspace({ tool, slug }: ImageConverterWorkspaceP
 
   return (
     <WorkspaceUploadShell showPrivacyBadge={false} active={Boolean(file)}>
-      <div id={WORKSPACE_OPERATIONS_ID} className="space-y-6">
-        <p className="m-0 rounded-sm border border-[#262626] bg-[#0a0a0a] px-4 py-3 text-xs uppercase tracking-widest text-[#a3a3a3]">
-          {t("privacyBadge")}
-        </p>
-
+      <div id={WORKSPACE_OPERATIONS_ID} className="image-converter-tool-page">
         {!file ? (
-          <div className="space-y-3">
-            <div
-              role="button"
-              tabIndex={busy ? -1 : 0}
-              aria-label={t("selectFileAria")}
-              aria-disabled={busy || undefined}
-              className={clsx(
-                "flex w-full cursor-pointer flex-col items-center justify-center gap-3 bg-[#0a0a0a] px-6 py-14 text-center",
-                "border-2 border-dashed border-[#262626] transition-colors",
-                dragActive && "border-[#525252] bg-[#111111]",
-                busy && "pointer-events-none opacity-55",
-              )}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  inputRef.current?.click();
-                }
-              }}
-              onClick={() => inputRef.current?.click()}
-              onDragEnter={(event) => {
-                event.preventDefault();
-                setDragActive(true);
-              }}
-              onDragOver={(event) => {
-                event.preventDefault();
-                setDragActive(true);
-              }}
-              onDragLeave={(event) => {
-                event.preventDefault();
-                setDragActive(false);
-              }}
-              onDrop={onDrop}
-            >
-              <input
-                ref={inputRef}
-                id={`${baseId}-input`}
-                type="file"
-                className="sr-only"
-                accept={ACCEPT}
-                disabled={busy}
-                onChange={onInputChange}
-              />
-              <p className="m-0 text-lg text-[#737373]">{t("dropTitle")}</p>
-              <span className="text-base font-medium text-white">{t("selectFile")}</span>
-              <p className="m-0 text-xs uppercase tracking-widest text-[#525252]">{t("dropHint")}</p>
-            </div>
-            <p className="m-0 text-center text-sm text-[#737373]" role="note">
-              <span
-                className="mr-2 inline-block h-2 w-2 animate-pulse rounded-full bg-green-500"
-                aria-hidden
-              />
-              {t("privacyBadge")}
-            </p>
-          </div>
+          <ImageToolDropzone
+            dropTitle={t("dropTitle")}
+            selectLabel={t("selectFile")}
+            selectAria={t("selectFileAria")}
+            dropHint={t("dropHint")}
+            privacyLabel={t("privacyBadge")}
+            accept={ACCEPT}
+            disabled={busy}
+            onFiles={(files) => {
+              void onFiles(files);
+            }}
+          />
         ) : (
           <div className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3 border border-[#262626] bg-[#0a0a0a] px-4 py-3">

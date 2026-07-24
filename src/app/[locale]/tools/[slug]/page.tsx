@@ -132,6 +132,11 @@ import { PdfToJpgIntroGate } from "@/components/PdfToJpgIntroGate";
 import { WebpToJpgIntroGate } from "@/components/WebpToJpgIntroGate";
 import { ConvertToPngIntroGate } from "@/components/ConvertToPngIntroGate";
 import { IcoToPngIntroGate } from "@/components/IcoToPngIntroGate";
+import { SvgToPngIntroGate } from "@/components/SvgToPngIntroGate";
+import { ImageGrayscaleIntroGate } from "@/components/ImageGrayscaleIntroGate";
+import { ImageMetadataEditorIntroGate } from "@/components/ImageMetadataEditorIntroGate";
+import { ImageDpiConverterIntroGate } from "@/components/ImageDpiConverterIntroGate";
+import { SvgOptimizerIntroGate } from "@/components/SvgOptimizerIntroGate";
 import { ImageOptimizerIntroGate } from "@/components/ImageOptimizerIntroGate";
 import { PdfToPngIntroGate } from "@/components/PdfToPngIntroGate";
 import { AppleTouchIconIntroGate } from "@/components/AppleTouchIconIntroGate";
@@ -160,6 +165,11 @@ import { VideoResizerIntroGate } from "@/components/VideoResizerIntroGate";
 import { VideoToGifIntroGate } from "@/components/VideoToGifIntroGate";
 import { VideoToMp3IntroGate } from "@/components/VideoToMp3IntroGate";
 import { VideoToMp4IntroGate } from "@/components/VideoToMp4IntroGate";
+import { SqlQueryFormatterIntroGate } from "@/components/SqlQueryFormatterIntroGate";
+import { ColorPaletteExtractorIntroGate } from "@/components/ColorPaletteExtractorIntroGate";
+import { ImageGridSplitterIntroGate } from "@/components/ImageGridSplitterIntroGate";
+import { ImageCombinerIntroGate } from "@/components/ImageCombinerIntroGate";
+import { ImageConverterIntroGate } from "@/components/ImageConverterIntroGate";
 import { HashGeneratorIntroGate } from "@/components/HashGeneratorIntroGate";
 import { ImageMetadataWiperIntroGate } from "@/components/ImageMetadataWiperIntroGate";
 import { PdfSignatureValidatorIntroGate } from "@/components/PdfSignatureValidatorIntroGate";
@@ -533,6 +543,11 @@ export default async function ToolPage({
         <WebpToJpgIntroGate active={tool.operation === "webp-to-jpg"}>
         <ConvertToPngIntroGate active={tool.operation === "convert-to-png"}>
         <IcoToPngIntroGate active={tool.operation === "ico-to-png"}>
+        <SvgToPngIntroGate active={tool.operation === "svg-to-png"}>
+        <ImageGrayscaleIntroGate active={tool.operation === "image-grayscale"}>
+        <ImageMetadataEditorIntroGate active={tool.operation === "image-metadata-editor"}>
+        <ImageDpiConverterIntroGate active={tool.operation === "image-dpi-converter"}>
+        <SvgOptimizerIntroGate active={tool.operation === "svg-optimizer"}>
         <ImageOptimizerIntroGate active={tool.operation === "image-optimizer"}>
         <PdfToPngIntroGate active={tool.operation === "pdf-to-png"}>
         <AppleTouchIconIntroGate active={tool.operation === "apple-touch-icon"}>
@@ -561,6 +576,11 @@ export default async function ToolPage({
         <VideoToGifIntroGate active={tool.operation === "video-to-gif"}>
         <VideoToMp3IntroGate active={tool.operation === "video-to-mp3"}>
         <VideoToMp4IntroGate active={tool.operation === "video-to-mp4"}>
+        <SqlQueryFormatterIntroGate active={tool.operation === "sql-query-formatter"}>
+        <ColorPaletteExtractorIntroGate active={tool.operation === "color-palette-extractor"}>
+        <ImageGridSplitterIntroGate active={tool.operation === "image-grid-splitter"}>
+        <ImageCombinerIntroGate active={tool.operation === "image-combiner"}>
+        <ImageConverterIntroGate active={tool.operation === "image-converter"}>
         <HashGeneratorIntroGate active={tool.operation === "hash-generator"}>
         <ImageMetadataWiperIntroGate active={tool.operation === "image-metadata-wiper"}>
         <PdfSignatureValidatorIntroGate active={tool.operation === "pdf-signature-validator"}>
@@ -890,6 +910,11 @@ export default async function ToolPage({
         </PdfSignatureValidatorIntroGate>
         </ImageMetadataWiperIntroGate>
         </HashGeneratorIntroGate>
+        </ImageConverterIntroGate>
+        </ImageCombinerIntroGate>
+        </ImageGridSplitterIntroGate>
+        </ColorPaletteExtractorIntroGate>
+        </SqlQueryFormatterIntroGate>
         </VideoToMp4IntroGate>
         </VideoToMp3IntroGate>
         </VideoToGifIntroGate>
@@ -918,6 +943,11 @@ export default async function ToolPage({
         </AppleTouchIconIntroGate>
         </PdfToPngIntroGate>
         </ImageOptimizerIntroGate>
+        </SvgOptimizerIntroGate>
+        </ImageDpiConverterIntroGate>
+        </ImageMetadataEditorIntroGate>
+        </ImageGrayscaleIntroGate>
+        </SvgToPngIntroGate>
         </IcoToPngIntroGate>
         </ConvertToPngIntroGate>
         </WebpToJpgIntroGate>
