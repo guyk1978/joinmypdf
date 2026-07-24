@@ -35,6 +35,12 @@ export type ToolDefinition = {
   useCases?: string[];
   relatedTools?: string[];
   /**
+   * When false, the tool is an interactive generator (text/color/canvas) and
+   * must open with the tool-specific active header — no upload gate.
+   * When true/omitted, standard upload tools stay in clean phase until a file is present.
+   */
+  requiresUpload?: boolean;
+  /**
    * @deprecated Prefer `documentation.faq`. Kept in sync for older consumers
    * that still read `q` / `a` pairs.
    */

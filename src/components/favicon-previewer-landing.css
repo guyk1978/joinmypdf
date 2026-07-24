@@ -1,0 +1,877 @@
+/* —— Pitch-black fullscreen intro: Free Favicon Previewer Online —— */
+html[data-favicon-previewer-intro="1"],
+html[data-favicon-previewer-intro="1"] body {
+  overflow: hidden !important;
+  background-color: #000000 !important;
+}
+
+html[data-favicon-previewer-intro="1"] .site-header,
+html[data-favicon-previewer-intro="1"] .home-page-footer,
+html[data-favicon-previewer-intro="1"] .pinned-cards-dock,
+html[data-favicon-previewer-intro="1"] .app-page-canvas,
+html[data-favicon-previewer-intro="1"] .cookie-consent,
+html[data-favicon-previewer-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.fpv-fs {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --fpv-sky: #38bdf8;
+  --fpv-sky-soft: #bae6fd;
+  --fpv-deep: #0284c7;
+  --fpv-violet: #a78bfa;
+}
+
+.fpv-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.45rem;
+  width: 100%;
+  max-width: min(64rem, calc(100vw - 2rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  padding-bottom: 0.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.fpv-fs__title {
+  margin: 0;
+  font-size: clamp(1.25rem, 3.2vw, 2.45rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.fpv-fs__title-brand {
+  color: var(--fpv-sky);
+}
+
+.fpv-fs__title-rest {
+  color: #ffffff;
+}
+
+.fpv-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  line-height: 1.4;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.fpv-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
+  margin-top: 32px;
+  padding-top: 8px;
+  padding-bottom: 12px;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
+  overflow: visible;
+}
+
+.fpv-fs__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: visible;
+}
+
+.fpv-fs__workspace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 0.75rem;
+  width: 90%;
+  max-width: 680px;
+  height: 340px;
+  min-height: 300px !important;
+  max-height: 360px !important;
+  margin: auto;
+  overflow: visible;
+  object-fit: contain;
+}
+
+.fpv-fs__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  padding: 0.75rem 0.85rem 0.85rem;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 1rem;
+  background: #060b12;
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(56, 189, 248, 0.08);
+}
+
+.fpv-fs__panels {
+  display: flex;
+  align-items: stretch;
+  gap: 0.4rem;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.fpv-fs__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 0;
+  padding: 0.45rem 0.4rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(8, 12, 18, 0.92);
+}
+
+.fpv-fs__panel--source {
+  flex: 1.05 1 0;
+  animation: fpv-fs-panel-source 11s ease-in-out infinite;
+}
+
+.fpv-fs__devices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1.15 1 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+.fpv-fs__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.28rem;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+  white-space: nowrap;
+}
+
+.fpv-fs__tag--source {
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #082f49;
+  animation: fpv-fs-source-tag 11s ease-in-out infinite;
+}
+
+.fpv-fs__browser {
+  display: flex;
+  flex-direction: column;
+  width: 92%;
+  aspect-ratio: 16 / 11;
+  max-height: 58%;
+  border-radius: 0.45rem;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: #0a1220;
+}
+
+.fpv-fs__chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.25rem 0.35rem;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.fpv-fs__dot {
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.55);
+}
+
+.fpv-fs__tab {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.35rem 0.4rem 0.45rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 0.35rem 0.35rem 0 0;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-bottom: none;
+}
+
+.fpv-fs__tab-title {
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: rgba(226, 232, 240, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fpv-fs__icon {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 0.2rem;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.35) 0%, transparent 40%),
+    linear-gradient(160deg, #38bdf8 0%, #6366f1 55%, #7c3aed 100%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.45);
+}
+
+.fpv-fs__icon--glow {
+  width: 1.05rem;
+  height: 1.05rem;
+  animation: fpv-fs-icon-glow 11s ease-in-out infinite;
+}
+
+.fpv-fs__icon--sm {
+  width: 0.7rem;
+  height: 0.7rem;
+  animation: fpv-fs-icon-sync 11s ease-in-out infinite;
+}
+
+.fpv-fs__icon--md {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 0.28rem;
+  animation: fpv-fs-icon-sync 11s ease-in-out 0.12s infinite;
+}
+
+.fpv-fs__icon--xs {
+  width: 0.55rem;
+  height: 0.55rem;
+  animation: fpv-fs-icon-sync 11s ease-in-out 0.22s infinite;
+}
+
+.fpv-fs__panel-hint {
+  font-size: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(163, 163, 163, 0.85);
+}
+
+.fpv-fs__pipe {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  align-self: center;
+}
+
+.fpv-fs__pipe-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.5), rgba(167, 139, 250, 0.55));
+  opacity: 0.45;
+  animation: fpv-fs-pipe-line 11s ease-in-out infinite;
+}
+
+.fpv-fs__pipe-core {
+  position: relative;
+  z-index: 2;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #e0f2fe 0%, var(--fpv-sky) 45%, var(--fpv-deep) 100%);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.65);
+  animation: fpv-fs-pipe-core 11s ease-in-out infinite;
+}
+
+.fpv-fs__laser {
+  position: absolute;
+  left: -40%;
+  top: -130%;
+  bottom: -130%;
+  width: 55%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(56, 189, 248, 0.15) 25%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(167, 139, 250, 0.4) 72%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+  opacity: 0;
+  animation: fpv-fs-laser 11s ease-in-out infinite;
+}
+
+.fpv-fs__device {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1 1 0;
+  min-height: 0;
+  padding: 0.28rem 0.4rem;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(10, 14, 22, 0.95);
+}
+
+.fpv-fs__device--desktop {
+  animation: fpv-fs-device 11s ease-in-out infinite;
+}
+
+.fpv-fs__device--mobile {
+  animation: fpv-fs-device 11s ease-in-out 0.15s infinite;
+}
+
+.fpv-fs__device--taskbar {
+  animation: fpv-fs-device 11s ease-in-out 0.3s infinite;
+}
+
+.fpv-fs__device-label {
+  flex: 0 0 auto;
+  width: 3.6rem;
+  font-size: 0.48rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(163, 163, 163, 0.9);
+}
+
+.fpv-fs__mini-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.22rem 0.35rem;
+  border-radius: 0.28rem;
+  background: #111827;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+.fpv-fs__mini-title {
+  flex: 1 1 auto;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.35);
+}
+
+.fpv-fs__phone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 1.55rem;
+  border-radius: 0.35rem;
+  border: 1.5px solid rgba(148, 163, 184, 0.4);
+  background: #0f172a;
+}
+
+.fpv-fs__dock {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  flex: 1 1 auto;
+  padding: 0.22rem 0.35rem;
+  border-radius: 0.35rem;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.fpv-fs__dock-slot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 0.15rem;
+  background: rgba(100, 116, 139, 0.45);
+}
+
+.fpv-fs__pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+}
+
+.fpv-fs__pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: transparent;
+  color: rgba(226, 232, 240, 0.55);
+}
+
+.fpv-fs__pill--desktop {
+  animation: fpv-fs-pill 11s ease-in-out infinite;
+}
+
+.fpv-fs__pill--mobile {
+  animation: fpv-fs-pill 11s ease-in-out 0.2s infinite;
+}
+
+.fpv-fs__pill--taskbar {
+  animation: fpv-fs-pill 11s ease-in-out 0.4s infinite;
+}
+
+.fpv-fs__particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--fpv-sky);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 4;
+}
+
+.fpv-fs__particle--1 {
+  left: 20%;
+  top: 28%;
+  animation: fpv-fs-particle 11s ease-in-out infinite;
+}
+
+.fpv-fs__particle--2 {
+  left: 46%;
+  top: 20%;
+  width: 4px;
+  height: 4px;
+  background: var(--fpv-violet);
+  animation: fpv-fs-particle 11s ease-in-out 0.3s infinite;
+}
+
+.fpv-fs__particle--3 {
+  right: 22%;
+  top: 32%;
+  animation: fpv-fs-particle 11s ease-in-out 0.55s infinite;
+}
+
+.fpv-fs__particle--4 {
+  right: 34%;
+  bottom: 26%;
+  width: 3px;
+  height: 3px;
+  background: var(--fpv-violet);
+  animation: fpv-fs-particle 11s ease-in-out 0.85s infinite;
+}
+
+.fpv-fs__ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--fpv-sky-soft);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  animation: fpv-fs-ok 11s ease-in-out infinite;
+}
+
+.fpv-fs__check {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 999px;
+  background: var(--fpv-sky);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fpv-fs__check::after {
+  content: "";
+  position: absolute;
+  left: 28%;
+  top: 18%;
+  width: 28%;
+  height: 48%;
+  border-right: 1.5px solid #082f49;
+  border-bottom: 1.5px solid #082f49;
+  transform: rotate(40deg);
+}
+
+.fpv-fs__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.fpv-fs__cta {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 16rem);
+  min-height: 3.15rem;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid var(--fpv-deep);
+  border-radius: 0.65rem;
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  color: #082f49;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow:
+    0 12px 28px rgba(14, 165, 233, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition:
+    filter 0.15s ease,
+    transform 0.12s ease,
+    box-shadow 0.15s ease;
+}
+
+.fpv-fs__cta:hover {
+  filter: brightness(1.06);
+  box-shadow:
+    0 14px 32px rgba(14, 165, 233, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.fpv-fs__cta:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.fpv-fs__cta:focus-visible {
+  outline: 2px solid var(--fpv-sky-soft);
+  outline-offset: 3px;
+}
+
+/* —— Timeline (11s): tab icon → laser map → multi-device sync —— */
+
+@keyframes fpv-fs-icon-glow {
+  0%,
+  28% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.45);
+  }
+  42%,
+  68% {
+    transform: scale(1.18);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.85);
+  }
+  86%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.45);
+  }
+}
+
+@keyframes fpv-fs-icon-sync {
+  0%,
+  34% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  48%,
+  78% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.55);
+  }
+  90%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+    box-shadow: none;
+  }
+}
+
+@keyframes fpv-fs-source-tag {
+  0%,
+  28% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  }
+  42%,
+  72% {
+    transform: scale(0.96);
+    opacity: 0.8;
+    box-shadow: none;
+  }
+  88%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  }
+}
+
+@keyframes fpv-fs-panel-source {
+  0%,
+  30% {
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.12);
+  }
+  44%,
+  72% {
+    border-color: rgba(148, 163, 184, 0.2);
+    opacity: 0.88;
+    box-shadow: none;
+  }
+  88%,
+  100% {
+    border-color: rgba(56, 189, 248, 0.4);
+    opacity: 1;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.12);
+  }
+}
+
+@keyframes fpv-fs-device {
+  0%,
+  34% {
+    border-color: rgba(148, 163, 184, 0.22);
+    box-shadow: none;
+  }
+  48%,
+  78% {
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.18);
+  }
+  90%,
+  100% {
+    border-color: rgba(148, 163, 184, 0.22);
+    box-shadow: none;
+  }
+}
+
+@keyframes fpv-fs-pipe-line {
+  0%,
+  24% {
+    opacity: 0.35;
+  }
+  40%,
+  68% {
+    opacity: 1;
+  }
+  86%,
+  100% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes fpv-fs-pipe-core {
+  0%,
+  26% {
+    transform: scale(0.85);
+  }
+  42%,
+  68% {
+    transform: scale(1.2);
+    box-shadow: 0 0 18px rgba(167, 139, 250, 0.75);
+    background: radial-gradient(circle at 35% 30%, #f5f3ff 0%, var(--fpv-violet) 45%, #6d28d9 100%);
+  }
+  86%,
+  100% {
+    transform: scale(0.85);
+  }
+}
+
+@keyframes fpv-fs-laser {
+  0%,
+  22% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  38%,
+  62% {
+    opacity: 0.95;
+    transform: translateX(165%);
+  }
+  72%,
+  100% {
+    opacity: 0;
+    transform: translateX(230%);
+  }
+}
+
+@keyframes fpv-fs-pill {
+  0%,
+  36% {
+    opacity: 0.4;
+    background: transparent;
+    color: rgba(226, 232, 240, 0.45);
+  }
+  50%,
+  78% {
+    opacity: 1;
+    border-color: rgba(56, 189, 248, 0.85);
+    background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+    color: #082f49;
+    box-shadow: 0 0 14px rgba(14, 165, 233, 0.4);
+  }
+  90%,
+  100% {
+    opacity: 0.45;
+    background: transparent;
+    color: rgba(226, 232, 240, 0.45);
+    box-shadow: none;
+  }
+}
+
+@keyframes fpv-fs-particle {
+  0%,
+  28% {
+    opacity: 0;
+    transform: translateY(0) scale(0.6);
+  }
+  38%,
+  52% {
+    opacity: 0.9;
+    transform: translateY(-18px) scale(1);
+  }
+  68%,
+  100% {
+    opacity: 0;
+    transform: translateY(-36px) scale(0.4);
+  }
+}
+
+@keyframes fpv-fs-ok {
+  0%,
+  48% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+  58%,
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  90%,
+  100% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+}
+
+@media (max-width: 640px) {
+  .fpv-fs {
+    padding: 16px 0;
+  }
+
+  .fpv-fs__stage {
+    margin-top: 24px;
+  }
+
+  .fpv-fs__workspace {
+    height: 300px;
+    min-height: 260px !important;
+    max-height: 320px !important;
+  }
+
+  .fpv-fs__card {
+    min-height: 240px;
+    padding: 0.65rem 0.7rem 0.7rem;
+  }
+
+  .fpv-fs__pipe {
+    width: 1.75rem;
+  }
+
+  .fpv-fs__device-label {
+    width: 2.8rem;
+    font-size: 0.42rem;
+  }
+
+  .fpv-fs__cta {
+    min-width: min(100%, 14rem);
+    min-height: 2.9rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .fpv-fs__workspace {
+    height: 280px;
+    min-height: 240px !important;
+    max-height: 300px !important;
+  }
+
+  .fpv-fs__title {
+    font-size: clamp(1.1rem, 2.8vw, 1.75rem);
+  }
+}
+
+@media (max-height: 560px) {
+  .fpv-fs {
+    padding: 12px 0;
+  }
+
+  .fpv-fs__stage {
+    margin-top: 16px;
+  }
+
+  .fpv-fs__workspace {
+    height: 220px;
+    min-height: 200px !important;
+    max-height: 240px !important;
+  }
+
+  .fpv-fs__ok {
+    display: none;
+  }
+}

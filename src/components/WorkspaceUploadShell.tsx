@@ -13,15 +13,26 @@ type WorkspaceUploadShellProps = {
   className?: string;
   /**
    * When provided, drives clean/active layout explicitly.
-   * When omitted, phase is inferred: primary dropzone present → clean, otherwise active.
+   * When omitted, phase is inferred from `requiresUpload` and/or a primary dropzone.
    */
   active?: boolean;
+  /**
+   * When false, this tool is an interactive generator — start in active tool chrome
+   * (no upload gate). Prefer setting `requiresUpload: false` on the tool definition.
+   */
+  requiresUpload?: boolean;
   /** @deprecated Privacy badge is rendered by layout/ToolLayout on tool routes. */
   showPrivacyBadge?: boolean;
 };
 
-function resolvePhase(active: boolean | undefined, hasDropzone: boolean): WorkspacePhase {
+function resolvePhase(
+  active: boolean | undefined,
+  requiresUpload: boolean | undefined,
+  hasDropzone: boolean,
+): WorkspacePhase {
   if (typeof active === "boolean") return active ? "active" : "clean";
+  if (requiresUpload === false) return "active";
+  if (requiresUpload === true) return hasDropzone ? "clean" : "active";
   return hasDropzone ? "clean" : "active";
 }
 
@@ -37,9 +48,14 @@ export function WorkspaceUploadShell({
   children,
   className,
   active,
+  requiresUpload,
 }: WorkspaceUploadShellProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const isUploadToolRef = useRef(typeof active === "boolean");
+  const isUploadToolRef = useRef(
+    typeof active === "boolean" || requiresUpload !== false,
+  );
+
+  const initialPhase = resolvePhase(active, requiresUpload, false);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -49,9 +65,13 @@ export function WorkspaceUploadShell({
 
     const sync = () => {
       const dropzone = hasPrimaryDropzone(root);
-      const phase = resolvePhase(active, dropzone);
+      const phase = resolvePhase(active, requiresUpload, dropzone);
 
-      if (typeof active === "boolean" || dropzone) {
+      if (typeof active === "boolean" || requiresUpload === false || dropzone) {
+        isUploadToolRef.current = requiresUpload !== false || dropzone;
+      }
+      // Interactive generators still use the upload shell chrome bridge.
+      if (requiresUpload === false) {
         isUploadToolRef.current = true;
       }
 
@@ -70,7 +90,8 @@ export function WorkspaceUploadShell({
       setToolHasUploadShell(false);
     };
 
-    if (typeof active === "boolean") {
+    // Explicit phase drivers — no MutationObserver needed.
+    if (typeof active === "boolean" || requiresUpload === false) {
       return cleanup;
     }
 
@@ -86,7 +107,7 @@ export function WorkspaceUploadShell({
       observer.disconnect();
       cleanup();
     };
-  }, [active]);
+  }, [active, requiresUpload]);
 
   return (
     <div
@@ -95,10 +116,10 @@ export function WorkspaceUploadShell({
         "tool-upload-float relative flex w-full min-h-0 flex-1 flex-col items-stretch",
         className,
       )}
-      data-workspace-phase={typeof active === "boolean" ? (active ? "active" : "clean") : "clean"}
+      data-workspace-phase={initialPhase}
+      data-requires-upload={requiresUpload === false ? "0" : "1"}
     >
       {children}
     </div>
   );
 }
-

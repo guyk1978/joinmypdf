@@ -144,6 +144,11 @@ import { AppleTouchIconIntroGate } from "@/components/AppleTouchIconIntroGate";
 import { FaviconCodeGeneratorIntroGate } from "@/components/FaviconCodeGeneratorIntroGate";
 import { FaviconCropperIntroGate } from "@/components/FaviconCropperIntroGate";
 import { FaviconPackIntroGate } from "@/components/FaviconPackIntroGate";
+import { FaviconGeneratorIntroGate } from "@/components/FaviconGeneratorIntroGate";
+import { GenerateFaviconIntroGate } from "@/components/GenerateFaviconIntroGate";
+import { SvgToFaviconIntroGate } from "@/components/SvgToFaviconIntroGate";
+import { TransparentFaviconIntroGate } from "@/components/TransparentFaviconIntroGate";
+import { FaviconPreviewerIntroGate } from "@/components/FaviconPreviewerIntroGate";
 import { Base64EncoderDecoderIntroGate } from "@/components/Base64EncoderDecoderIntroGate";
 import { CaseConverterIntroGate } from "@/components/CaseConverterIntroGate";
 import { HtmlMarkdownConverterIntroGate } from "@/components/HtmlMarkdownConverterIntroGate";
@@ -556,6 +561,11 @@ export default async function ToolPage({
         <FaviconCodeGeneratorIntroGate active={tool.operation === "favicon-code-generator"}>
         <FaviconCropperIntroGate active={tool.operation === "favicon-cropper"}>
         <FaviconPackIntroGate active={tool.operation === "favicon-pack"}>
+        <FaviconGeneratorIntroGate active={tool.operation === "favicon-generator"}>
+        <GenerateFaviconIntroGate active={tool.operation === "generate-favicon"}>
+        <SvgToFaviconIntroGate active={tool.operation === "svg-to-favicon"}>
+        <TransparentFaviconIntroGate active={tool.operation === "transparent-favicon"}>
+        <FaviconPreviewerIntroGate active={tool.operation === "favicon-previewer"}>
         <Base64EncoderDecoderIntroGate active={tool.operation === "base64-encoder-decoder"}>
         <CaseConverterIntroGate active={tool.operation === "case-converter"}>
         <HtmlMarkdownConverterIntroGate active={tool.operation === "html-markdown-converter"}>
@@ -939,6 +949,11 @@ export default async function ToolPage({
         </HtmlMarkdownConverterIntroGate>
         </CaseConverterIntroGate>
         </Base64EncoderDecoderIntroGate>
+        </FaviconPreviewerIntroGate>
+        </TransparentFaviconIntroGate>
+        </SvgToFaviconIntroGate>
+        </GenerateFaviconIntroGate>
+        </FaviconGeneratorIntroGate>
         </FaviconPackIntroGate>
         </FaviconCropperIntroGate>
         </FaviconCodeGeneratorIntroGate>

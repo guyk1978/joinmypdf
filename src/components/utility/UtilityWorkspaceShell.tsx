@@ -11,12 +11,17 @@ type UtilityWorkspaceShellProps = {
   pageClassName?: string;
   /**
    * Drives clean/active layout explicitly.
-   * When omitted (and immersive is false), phase is inferred from a primary dropzone.
+   * When omitted, phase follows `requiresUpload` (immersive utilities default to interactive/active).
    */
   active?: boolean;
   /**
+   * When false, interactive generator — active tool header from mount.
+   * Immersive shells default to `false` (no upload gate).
+   */
+  requiresUpload?: boolean;
+  /**
    * Full-viewport utility/editor shell (30px margins, centered workspace).
-   * Forces clean phase and hides redundant page body headers.
+   * Implies an interactive generator unless `requiresUpload` is set explicitly.
    */
   immersive?: boolean;
 };
@@ -27,13 +32,22 @@ export function UtilityWorkspaceShell({
   className,
   pageClassName,
   active,
+  requiresUpload,
   immersive = false,
 }: UtilityWorkspaceShellProps) {
-  const resolvedActive = immersive ? false : active;
+  // Immersive utilities have no primary dropzone — treat as interactive generators.
+  const resolvedRequiresUpload = requiresUpload ?? (immersive ? false : undefined);
+  const resolvedActive =
+    typeof active === "boolean"
+      ? active
+      : resolvedRequiresUpload === false
+        ? true
+        : undefined;
 
   return (
     <WorkspaceUploadShell
       active={resolvedActive}
+      requiresUpload={resolvedRequiresUpload}
       className={clsx(className, pageClassName, immersive && "tool-upload-float--immersive")}
     >
       <div

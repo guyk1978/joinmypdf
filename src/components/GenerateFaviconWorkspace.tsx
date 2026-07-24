@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { GenerateFavicon, type GenerateFaviconLabels } from "@/components/GenerateFavicon";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { toolRequiresUpload } from "@/lib/tool-interaction-mode";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import type { ToolDefinition } from "@/lib/types";
 
@@ -65,7 +66,10 @@ export function GenerateFaviconWorkspace({ tool, slug }: GenerateFaviconWorkspac
   );
 
   return (
-    <WorkspaceUploadShell showPrivacyBadge>
+    <WorkspaceUploadShell
+      requiresUpload={toolRequiresUpload(tool)}
+      showPrivacyBadge
+    >
       <div id={WORKSPACE_OPERATIONS_ID} className="generate-favicon-tool-page">
         <GenerateFavicon labels={labels} />
       </div>

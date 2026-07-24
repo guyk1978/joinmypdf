@@ -23,6 +23,8 @@ export type ImageToolDropzoneProps = {
   supportsLabel?: string;
   supportedFormats?: string[];
   privacyLabel?: string;
+  /** When false, hides the privacy badge on the Industrial Matte surface. */
+  showPrivacy?: boolean;
   accept: string;
   multiple?: boolean;
   disabled?: boolean;
@@ -45,6 +47,7 @@ export function ImageToolDropzone({
   supportsLabel: localizedSupportsLabel,
   supportedFormats = [],
   privacyLabel = "Local Processing. Nothing is uploaded.",
+  showPrivacy = true,
   accept,
   multiple = false,
   disabled = false,
@@ -90,6 +93,7 @@ export function ImageToolDropzone({
       selectLabel={selectLabel}
       supportsLabel={supportsLabel}
       privacyLabel={privacyLabel}
+      showPrivacy={showPrivacy}
       active={dragActive}
       disabled={disabled}
       role="button"

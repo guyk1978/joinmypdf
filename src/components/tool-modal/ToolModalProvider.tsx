@@ -46,7 +46,9 @@ import {
   resolveToolHref,
 } from "@/lib/tool-hierarchy";
 import { resolveToolCategoryId } from "@/lib/category-accent-colors";
+import { toolRequiresUpload } from "@/lib/tool-interaction-mode";
 import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
+import { registry } from "@/lib/registry";
 
 export type OpenToolModalOptions = {
   slug: string;
@@ -423,6 +425,14 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   );
 
   const loadingLabel = t("loading");
+  const activeRequiresUpload = active
+    ? toolRequiresUpload(
+        registry.tools.find((entry) => entry.slug === active.slug) ?? {
+          slug: active.slug,
+          operation: active.slug,
+        },
+      )
+    : true;
 
   return (
     <ToolModalContext.Provider value={value}>
@@ -433,6 +443,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
           title={active.title}
           description={active.description}
           slug={active.slug}
+          requiresUpload={activeRequiresUpload}
           categoryId={active.categoryId}
           onClose={closeToolModal}
           onExitComplete={handleExitComplete}

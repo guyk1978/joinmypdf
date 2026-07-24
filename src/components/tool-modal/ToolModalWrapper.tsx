@@ -30,6 +30,7 @@ import {
   type WorkspacePhase,
 } from "@/lib/workspace-flow";
 import { TOOL_INTRO_MESSAGE } from "@/lib/tool-intro-chrome";
+import { getInitialWorkspacePhase } from "@/lib/tool-interaction-mode";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
 export type ToolModalTab = "calc" | "doc" | "related";
@@ -41,6 +42,11 @@ export type ToolModalWrapperProps = {
   description?: string;
   /** Tool id used for favorites toggle. */
   slug?: string;
+  /**
+   * When false, interactive generator — open with tool-specific active header.
+   * Resolved from the tool definition / interaction-mode catalog when omitted.
+   */
+  requiresUpload?: boolean;
   /** Inventory category for accent theming — resolved from slug when omitted. */
   categoryId?: InventoryCategoryId;
   onClose: () => void;
@@ -83,16 +89,16 @@ export type ToolModalWrapperProps = {
 
 /**
  * Global JoinMyPDF tool modal shell (Industrial Matte).
- * Always opens at maximum width. Site header stays visible during the clean
- * upload phase, but cinematic intro splashes hide it for true fullscreen
- * isolation until Get Started. After file upload the tool action bar
- * replaces the site chrome.
+ * Upload tools stay on the site header until a file is present; interactive
+ * generators (`requiresUpload: false`) open directly with the tool action bar.
+ * Cinematic intro splashes hide both headers for fullscreen isolation.
  */
 export function ToolModalWrapper({
   open,
   title,
   description,
   slug,
+  requiresUpload,
   categoryId: categoryIdProp,
   onClose,
   onExitComplete,
@@ -105,9 +111,16 @@ export function ToolModalWrapper({
   className,
 }: ToolModalWrapperProps) {
   const titleId = useId();
+  const initialPhase = getInitialWorkspacePhase(
+    slug
+      ? { slug, operation: slug, requiresUpload }
+      : requiresUpload === false
+        ? { slug: "", operation: "", requiresUpload: false }
+        : null,
+  );
   const [tab, setTab] = useState<ToolModalTab>(defaultTab);
-  const [workspacePhase, setWorkspacePhase] = useState<WorkspacePhase>("clean");
-  /** True once a PDF (or other upload) has entered the active workspace. */
+  const [workspacePhase, setWorkspacePhase] = useState<WorkspacePhase>(initialPhase);
+  /** True once the workspace is in active tool chrome (file uploaded or interactive generator). */
   const hasFileUploaded = workspacePhase === "active";
   /** Cinematic intro splash active inside the CALC iframe. */
   const [introActive, setIntroActive] = useState(false);
@@ -157,9 +170,17 @@ export function ToolModalWrapper({
   useEffect(() => {
     if (!open) return;
     setTab(defaultTab);
-    setWorkspacePhase("clean");
+    setWorkspacePhase(
+      getInitialWorkspacePhase(
+        slug
+          ? { slug, operation: slug, requiresUpload }
+          : requiresUpload === false
+            ? { slug: "", operation: "", requiresUpload: false }
+            : null,
+      ),
+    );
     setIntroActive(false);
-  }, [open, defaultTab, title, slug]);
+  }, [open, defaultTab, title, slug, requiresUpload]);
 
   useEffect(() => {
     if (!open) return;
@@ -331,7 +352,7 @@ export function ToolModalWrapper({
             exit={{ opacity: 0, y: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
           >
-            {hasFileUploaded ? (
+            {hasFileUploaded && !introActive ? (
             <header className="tool-modal__header">
               <h2 id={titleId} className="tool-modal__title">
                 {title}

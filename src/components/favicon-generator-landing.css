@@ -1,0 +1,924 @@
+/* —— Pitch-black fullscreen intro: Favicon Generator —— */
+html[data-favicon-generator-intro="1"],
+html[data-favicon-generator-intro="1"] body {
+  overflow: hidden !important;
+  background-color: #000000 !important;
+}
+
+html[data-favicon-generator-intro="1"] .site-header,
+html[data-favicon-generator-intro="1"] .home-page-footer,
+html[data-favicon-generator-intro="1"] .pinned-cards-dock,
+html[data-favicon-generator-intro="1"] .app-page-canvas,
+html[data-favicon-generator-intro="1"] .cookie-consent,
+html[data-favicon-generator-intro="1"] [class*="cookie"] {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.fgen-fs {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 24px 0;
+  overflow: hidden;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #f8fafc;
+  font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --fgen-violet: #a78bfa;
+  --fgen-violet-deep: #7c3aed;
+  --fgen-cyan: #22d3ee;
+  --fgen-pink: #f472b6;
+  --fgen-amber: #fbbf24;
+  --fgen-emerald: #34d399;
+}
+
+.fgen-fs__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.45rem;
+  width: 100%;
+  max-width: min(64rem, calc(100vw - 2rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  padding-bottom: 0.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.fgen-fs__title {
+  margin: 0;
+  font-size: clamp(1.25rem, 3.2vw, 2.45rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.fgen-fs__title-brand {
+  color: var(--fgen-violet);
+}
+
+.fgen-fs__title-rest {
+  color: #ffffff;
+}
+
+.fgen-fs__subtitle {
+  margin: 0;
+  max-width: 52rem;
+  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  line-height: 1.4;
+  color: #a3a3a3;
+  text-wrap: balance;
+}
+
+.fgen-fs__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
+  margin-top: 32px;
+  padding-top: 8px;
+  padding-bottom: 12px;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
+  overflow: visible;
+}
+
+.fgen-fs__scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  overflow: visible;
+}
+
+.fgen-fs__workspace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 0.75rem;
+  width: 90%;
+  max-width: 680px;
+  height: 340px;
+  min-height: 300px !important;
+  max-height: 360px !important;
+  margin: auto;
+  overflow: visible;
+  object-fit: contain;
+}
+
+.fgen-fs__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  padding: 0.85rem 0.9rem 0.95rem;
+  overflow: hidden;
+  border: 1px solid rgba(167, 139, 250, 0.42);
+  border-radius: 1rem;
+  background: #06060c;
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(167, 139, 250, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.fgen-fs__pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0.45rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fgen-fs__source,
+.fgen-fs__processor,
+.fgen-fs__outputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.5rem 0.4rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(8, 8, 14, 0.95);
+}
+
+.fgen-fs__source {
+  flex: 0.95 1 0;
+  animation: fgen-fs-source-pulse 10s ease-in-out infinite;
+}
+
+.fgen-fs__processor {
+  position: relative;
+  flex: 1.15 1 0;
+}
+
+.fgen-fs__outputs {
+  flex: 1.15 1 0;
+}
+
+.fgen-fs__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.18rem 0.45rem;
+  border-radius: 0.28rem;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  background: rgba(124, 58, 237, 0.18);
+  color: #ddd6fe;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fgen-fs__tag--out {
+  border-color: rgba(52, 211, 153, 0.4);
+  background: rgba(16, 185, 129, 0.16);
+  color: #a7f3d0;
+}
+
+.fgen-fs__svg-mark {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(4.5rem, 14vw, 5.75rem);
+  height: clamp(4.5rem, 14vw, 5.75rem);
+  border-radius: 1rem;
+  background: linear-gradient(145deg, #1e1b4b 0%, #0f172a 100%);
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.35),
+    0 12px 28px rgba(124, 58, 237, 0.28);
+  overflow: hidden;
+  animation: fgen-fs-ingest 10s ease-in-out infinite;
+}
+
+.fgen-fs__svg-shape {
+  position: absolute;
+  border-radius: 0.35rem;
+}
+
+.fgen-fs__svg-shape--a {
+  width: 42%;
+  height: 42%;
+  top: 18%;
+  left: 16%;
+  background: linear-gradient(135deg, var(--fgen-cyan), #0284c7);
+  transform: rotate(-12deg);
+  animation: fgen-fs-shape-a 10s ease-in-out infinite;
+}
+
+.fgen-fs__svg-shape--b {
+  width: 38%;
+  height: 38%;
+  top: 28%;
+  right: 14%;
+  background: linear-gradient(135deg, var(--fgen-pink), #db2777);
+  border-radius: 999px;
+  animation: fgen-fs-shape-b 10s ease-in-out infinite;
+}
+
+.fgen-fs__svg-shape--c {
+  width: 28%;
+  height: 28%;
+  bottom: 16%;
+  left: 34%;
+  background: linear-gradient(135deg, var(--fgen-amber), #f59e0b);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  border-radius: 0;
+  animation: fgen-fs-shape-c 10s ease-in-out infinite;
+}
+
+.fgen-fs__svg-label {
+  position: absolute;
+  bottom: 0.35rem;
+  right: 0.4rem;
+  z-index: 2;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #f5f3ff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
+}
+
+.fgen-fs__source-hint {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.fgen-fs__fractal {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  place-items: center;
+  width: clamp(5.5rem, 18vw, 7.25rem);
+  height: clamp(5.5rem, 18vw, 7.25rem);
+  margin-inline: auto;
+}
+
+.fgen-fs__node {
+  width: 28%;
+  height: 28%;
+  max-width: 0.95rem;
+  max-height: 0.95rem;
+  border-radius: 999px;
+  background: rgba(167, 139, 250, 0.35);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.25);
+  animation: fgen-fs-node 10s ease-in-out infinite;
+}
+
+.fgen-fs__node--1 { animation-delay: 0s; }
+.fgen-fs__node--2 { animation-delay: 0.08s; }
+.fgen-fs__node--3 { animation-delay: 0.16s; }
+.fgen-fs__node--4 { animation-delay: 0.12s; }
+.fgen-fs__node--5 { animation-delay: 0.2s; }
+.fgen-fs__node--6 { animation-delay: 0.28s; }
+.fgen-fs__node--7 { animation-delay: 0.24s; }
+.fgen-fs__node--8 { animation-delay: 0.32s; }
+.fgen-fs__node--9 { animation-delay: 0.4s; }
+
+.fgen-fs__beam {
+  position: absolute;
+  inset: 18%;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fgen-fs__beam--h {
+  top: 48%;
+  bottom: 48%;
+  left: 12%;
+  right: 12%;
+  background: linear-gradient(90deg, transparent, var(--fgen-cyan), transparent);
+  animation: fgen-fs-beam 10s ease-in-out infinite;
+}
+
+.fgen-fs__beam--v {
+  left: 48%;
+  right: 48%;
+  top: 12%;
+  bottom: 12%;
+  background: linear-gradient(180deg, transparent, var(--fgen-violet), transparent);
+  animation: fgen-fs-beam 10s ease-in-out infinite 0.15s;
+}
+
+.fgen-fs__beam--d1,
+.fgen-fs__beam--d2 {
+  inset: 22%;
+  background: linear-gradient(135deg, transparent 30%, rgba(244, 114, 182, 0.85), transparent 70%);
+  animation: fgen-fs-beam-diag 10s ease-in-out infinite;
+}
+
+.fgen-fs__beam--d2 {
+  background: linear-gradient(225deg, transparent 30%, rgba(52, 211, 153, 0.8), transparent 70%);
+  animation-delay: 0.2s;
+}
+
+.fgen-fs__core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22%;
+  height: 22%;
+  max-width: 1.15rem;
+  max-height: 1.15rem;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 35% 30%, #f5f3ff 0%, var(--fgen-violet) 45%, var(--fgen-violet-deep) 100%);
+  box-shadow: 0 0 16px rgba(167, 139, 250, 0.65);
+  animation: fgen-fs-core 10s ease-in-out infinite;
+}
+
+.fgen-fs__float-badge {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  z-index: 2;
+  padding: 0.22rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  background: rgba(8, 47, 73, 0.85);
+  color: #a5f3fc;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.25);
+  animation: fgen-fs-float-badge 10s ease-in-out infinite;
+}
+
+.fgen-fs__cascade {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem 0.4rem;
+  width: 100%;
+  max-width: 11rem;
+}
+
+.fgen-fs__out {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  opacity: 0;
+  transform: translateY(10px) scale(0.72);
+  animation: fgen-fs-out 10s ease-in-out infinite;
+}
+
+.fgen-fs__out--32 { animation-delay: 0s; }
+.fgen-fs__out--48 { animation-delay: 0.12s; }
+.fgen-fs__out--64 { animation-delay: 0.24s; }
+.fgen-fs__out--180 { animation-delay: 0.36s; }
+
+.fgen-fs__out-icon {
+  display: block;
+  border-radius: 0.35rem;
+  background:
+    linear-gradient(135deg, var(--fgen-cyan), transparent 55%),
+    linear-gradient(225deg, var(--fgen-pink), transparent 55%),
+    linear-gradient(45deg, var(--fgen-amber), #1e1b4b);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 6px 14px rgba(124, 58, 237, 0.3);
+  object-fit: contain;
+}
+
+.fgen-fs__out--32 .fgen-fs__out-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.fgen-fs__out--48 .fgen-fs__out-icon {
+  width: 1.45rem;
+  height: 1.45rem;
+}
+
+.fgen-fs__out--64 .fgen-fs__out-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.fgen-fs__out--180 .fgen-fs__out-icon {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 0.45rem;
+}
+
+.fgen-fs__out-size {
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.fgen-fs__formats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.28rem;
+  margin-top: 0.15rem;
+}
+
+.fgen-fs__format {
+  padding: 0.16rem 0.4rem;
+  border-radius: 0.28rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #e2e8f0;
+  opacity: 0.45;
+  animation: fgen-fs-format 10s ease-in-out infinite;
+}
+
+.fgen-fs__format--ico {
+  animation-delay: 0.1s;
+}
+
+.fgen-fs__format--png {
+  animation-delay: 0.22s;
+}
+
+.fgen-fs__format--svg {
+  animation-delay: 0.34s;
+}
+
+.fgen-fs__particle {
+  position: absolute;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: var(--fgen-violet);
+  opacity: 0;
+  pointer-events: none;
+  animation: fgen-fs-particle 10s ease-in-out infinite;
+}
+
+.fgen-fs__particle--1 {
+  top: 18%;
+  left: 28%;
+  background: var(--fgen-cyan);
+}
+
+.fgen-fs__particle--2 {
+  top: 32%;
+  left: 48%;
+  animation-delay: 0.35s;
+}
+
+.fgen-fs__particle--3 {
+  top: 48%;
+  left: 62%;
+  background: var(--fgen-pink);
+  animation-delay: 0.55s;
+}
+
+.fgen-fs__particle--4 {
+  top: 62%;
+  left: 72%;
+  background: var(--fgen-emerald);
+  animation-delay: 0.75s;
+}
+
+.fgen-fs__ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 0 0 auto;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(52, 211, 153, 0.55);
+  background: linear-gradient(180deg, #064e3b 0%, #022c22 100%);
+  color: #ecfdf5;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.28);
+  opacity: 0;
+  transform: translateY(8px) scale(0.94);
+  animation: fgen-fs-ok 10s ease-in-out infinite;
+}
+
+.fgen-fs__check {
+  position: relative;
+  width: 0.95rem;
+  height: 0.95rem;
+  border-radius: 999px;
+  background: #34d399;
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.25);
+  flex: 0 0 auto;
+}
+
+.fgen-fs__check::after {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 0.28rem;
+  height: 0.48rem;
+  border-right: 2px solid #022c22;
+  border-bottom: 2px solid #022c22;
+  transform: translate(-55%, -62%) rotate(45deg);
+}
+
+.fgen-fs__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-top: 0.35rem;
+  padding-bottom: 0.25rem;
+  position: relative;
+  z-index: 3;
+}
+
+.fgen-fs__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.15rem;
+  min-width: min(16rem, calc(100vw - 3rem));
+  padding: 0.85rem 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.75rem;
+  background: linear-gradient(180deg, #fafafa 0%, #e4e4e7 100%);
+  color: #09090b;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(167, 139, 250, 0.25);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.fgen-fs__cta:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, #ffffff 0%, #f4f4f5 100%);
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(167, 139, 250, 0.4);
+}
+
+.fgen-fs__cta:active {
+  transform: translateY(0);
+}
+
+.fgen-fs__cta:focus-visible {
+  outline: 2px solid var(--fgen-violet);
+  outline-offset: 3px;
+}
+
+/* —— Keyframes —— */
+@keyframes fgen-fs-source-pulse {
+  0%,
+  18% {
+    border-color: rgba(148, 163, 184, 0.2);
+    box-shadow: none;
+  }
+  28%,
+  48% {
+    border-color: rgba(167, 139, 250, 0.65);
+    box-shadow: 0 0 22px rgba(124, 58, 237, 0.22);
+  }
+  62%,
+  100% {
+    border-color: rgba(148, 163, 184, 0.2);
+    box-shadow: none;
+  }
+}
+
+@keyframes fgen-fs-ingest {
+  0%,
+  12% {
+    transform: scale(1);
+  }
+  22%,
+  36% {
+    transform: scale(0.92) rotate(-4deg);
+    filter: brightness(1.15);
+  }
+  48% {
+    transform: scale(0.78) translateX(12%);
+    opacity: 0.85;
+  }
+  62%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fgen-fs-shape-a {
+  0%,
+  20% {
+    transform: rotate(-12deg) scale(1);
+  }
+  35%,
+  50% {
+    transform: rotate(8deg) scale(0.85);
+  }
+  70%,
+  100% {
+    transform: rotate(-12deg) scale(1);
+  }
+}
+
+@keyframes fgen-fs-shape-b {
+  0%,
+  20% {
+    transform: scale(1);
+  }
+  35%,
+  50% {
+    transform: scale(1.2) translate(-8%, 6%);
+  }
+  70%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fgen-fs-shape-c {
+  0%,
+  20% {
+    transform: scale(1);
+  }
+  35%,
+  50% {
+    transform: scale(0.7) translateY(-10%);
+  }
+  70%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fgen-fs-node {
+  0%,
+  20% {
+    background: rgba(167, 139, 250, 0.3);
+    transform: scale(0.85);
+  }
+  32%,
+  55% {
+    background: var(--fgen-violet);
+    transform: scale(1.25);
+    box-shadow: 0 0 14px rgba(167, 139, 250, 0.7);
+  }
+  72%,
+  100% {
+    background: rgba(167, 139, 250, 0.3);
+    transform: scale(0.85);
+  }
+}
+
+@keyframes fgen-fs-beam {
+  0%,
+  22% {
+    opacity: 0;
+  }
+  30%,
+  52% {
+    opacity: 1;
+  }
+  68%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fgen-fs-beam-diag {
+  0%,
+  24% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  34%,
+  54% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes fgen-fs-core {
+  0%,
+  20% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  32%,
+  55% {
+    transform: translate(-50%, -50%) scale(1.35);
+    box-shadow: 0 0 28px rgba(34, 211, 238, 0.65);
+  }
+  72%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+@keyframes fgen-fs-float-badge {
+  0%,
+  24% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  34%,
+  62% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  78%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fgen-fs-out {
+  0%,
+  38% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.7);
+  }
+  48%,
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  90%,
+  100% {
+    opacity: 0.55;
+    transform: translateY(0) scale(0.96);
+  }
+}
+
+@keyframes fgen-fs-format {
+  0%,
+  42% {
+    opacity: 0.35;
+    border-color: rgba(148, 163, 184, 0.28);
+    background: transparent;
+    color: #94a3b8;
+  }
+  52%,
+  78% {
+    opacity: 1;
+    border-color: rgba(52, 211, 153, 0.55);
+    background: rgba(6, 78, 59, 0.55);
+    color: #ecfdf5;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+  }
+  90%,
+  100% {
+    opacity: 0.4;
+    border-color: rgba(148, 163, 184, 0.28);
+    background: transparent;
+    color: #94a3b8;
+    box-shadow: none;
+  }
+}
+
+@keyframes fgen-fs-particle {
+  0%,
+  26% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  36%,
+  48% {
+    opacity: 1;
+    transform: translate(18px, -8px) scale(1);
+  }
+  62%,
+  100% {
+    opacity: 0;
+    transform: translate(42px, -4px) scale(0.4);
+  }
+}
+
+@keyframes fgen-fs-ok {
+  0%,
+  52% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.94);
+  }
+  62%,
+  86% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  96%,
+  100% {
+    opacity: 0.55;
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+@media (max-width: 640px) {
+  .fgen-fs__workspace {
+    width: 94%;
+    height: 300px;
+    min-height: 260px !important;
+  }
+
+  .fgen-fs__pipeline {
+    gap: 0.3rem;
+  }
+
+  .fgen-fs__source-hint,
+  .fgen-fs__out-size {
+    display: none;
+  }
+
+  .fgen-fs__float-badge {
+    font-size: 0.5rem;
+    padding: 0.16rem 0.35rem;
+  }
+
+  .fgen-fs__cta {
+    min-height: 2.85rem;
+    font-size: 0.98rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fgen-fs__source,
+  .fgen-fs__svg-mark,
+  .fgen-fs__svg-shape,
+  .fgen-fs__node,
+  .fgen-fs__beam,
+  .fgen-fs__core,
+  .fgen-fs__float-badge,
+  .fgen-fs__out,
+  .fgen-fs__format,
+  .fgen-fs__particle,
+  .fgen-fs__ok {
+    animation: none !important;
+  }
+
+  .fgen-fs__out,
+  .fgen-fs__float-badge,
+  .fgen-fs__ok,
+  .fgen-fs__format {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .fgen-fs__beam,
+  .fgen-fs__core {
+    opacity: 0.85 !important;
+  }
+}

@@ -6447,6 +6447,7 @@
       "slug": "generate-favicon",
       "category": "convert",
       "operation": "generate-favicon",
+      "requiresUpload": false,
       "title": "Generate Favicon",
       "primaryKeyword": "generate favicon online free",
       "intent": "Type 1–2 characters, pick colors, and download favicon.ico or PNG—all in your browser, no upload.",
