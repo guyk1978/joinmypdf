@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { TextSanitizerIntroGate } from "@/components/TextSanitizerIntroGate";
-import { TextSanitizerWorkspace } from "@/components/TextSanitizerWorkspace";
+import { CsvToJsonIntroGate } from "@/components/CsvToJsonIntroGate";
+import { CsvToJsonWorkspace } from "@/components/CsvToJsonWorkspace";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 import { registry } from "@/lib/registry";
@@ -11,14 +11,14 @@ import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { productPageMainClassName } from "@/lib/tool-ui";
 import { notFound } from "next/navigation";
 
-const SLUG = "text-sanitizer";
+const SLUG = "csv-to-json";
 const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "TextSanitizerPage" });
+  const t = await getTranslations({ locale, namespace: "CsvToJsonPage" });
 
   return {
     title: t("metaTitle"),
@@ -32,14 +32,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function TextSanitizerPage({ params }: PageProps) {
+export default async function CsvToJsonPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const tool = registry.tools.find((entry) => entry.slug === SLUG);
   if (!tool) notFound();
 
-  const t = await getTranslations("TextSanitizerPage");
+  const t = await getTranslations("CsvToJsonPage");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${PAGE_PATH}`;
   const faqs = getLocalizedToolFaqs(tPage, tool, null, t("title"), locale);
@@ -60,13 +60,12 @@ export default async function TextSanitizerPage({ params }: PageProps) {
           pathname,
           locale,
           featureList: [
-            t("schemaFeatureLineBreaks"),
-            t("schemaFeatureSpaces"),
-            t("schemaFeatureInvisible"),
-            t("schemaFeatureHebrew"),
+            t("schemaFeatureParse"),
+            t("schemaFeatureHeaders"),
+            t("schemaFeatureExport"),
             t("schemaFeatureLocal"),
           ],
-          applicationCategory: "UtilitiesApplication",
+          applicationCategory: "DeveloperApplication",
         })}
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
@@ -76,11 +75,11 @@ export default async function TextSanitizerPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <TextSanitizerIntroGate>
-              <TextSanitizerWorkspace tool={tool} slug={SLUG} />
-            </TextSanitizerIntroGate>
+            <CsvToJsonIntroGate>
+              <CsvToJsonWorkspace tool={tool} slug={SLUG} />
+            </CsvToJsonIntroGate>
           </section>
-</div>
+        </div>
       </AppPageShell>
     </>
   );

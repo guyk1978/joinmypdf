@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./csv-to-json-landing.css";
 
@@ -17,15 +16,14 @@ type CsvToJsonIntroGateProps = {
 
 /**
  * One-way cinematic fullscreen splash for Convert CSV to JSON Online.
- * CSV grid → structuring beam → JSON braces/objects + success.
- * Only runs inside the ToolModal CALC embed.
+ * CSV spreadsheet grid → parsing engine + laser → JSON tree → success.
+ * Shows before the converter workspace (embed modal and dynamic tool route).
  */
 export function CsvToJsonIntroGate({
   active = true,
   children,
 }: CsvToJsonIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const introActive = active;
   const t = useTranslations("CsvToJsonLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
@@ -69,6 +67,7 @@ export function CsvToJsonIntroGate({
         role="dialog"
         aria-modal="true"
         aria-labelledby="c2j-fs-title"
+        style={{ backgroundColor: "#000000", zIndex: 999999 }}
       >
         <header className="c2j-fs__header">
           <h1 id="c2j-fs-title" className="c2j-fs__title">
@@ -82,66 +81,80 @@ export function CsvToJsonIntroGate({
           <div className="c2j-fs__scene">
             <div className="c2j-fs__workspace animation-workspace">
               <div className="c2j-fs__card">
-                <div className="c2j-fs__badges">
-                  <span className="c2j-fs__badge c2j-fs__badge--csv">{t("csvBadge")}</span>
-                  <span className="c2j-fs__arrow">{t("arrowLabel")}</span>
-                  <span className="c2j-fs__badge c2j-fs__badge--json">{t("jsonBadge")}</span>
-                </div>
-
-                <div className="c2j-fs__viewer">
-                  <div className="c2j-fs__csv">
-                    <div className="c2j-fs__row c2j-fs__row--head">
-                      <span>id</span>
-                      <span>name</span>
-                      <span>role</span>
-                    </div>
-                    <div className="c2j-fs__row">
-                      <span>1</span>
-                      <span>Ada</span>
-                      <span>eng</span>
-                    </div>
-                    <div className="c2j-fs__row">
-                      <span>2</span>
-                      <span>Grace</span>
-                      <span>ops</span>
+                <div className="c2j-fs__pipeline">
+                  <div className="c2j-fs__pane c2j-fs__pane--csv">
+                    <span className="c2j-fs__tag">{t("csvTag")}</span>
+                    <div className="c2j-fs__grid">
+                      <div className="c2j-fs__row c2j-fs__row--head">
+                        <span>{t("colId")}</span>
+                        <span>{t("colName")}</span>
+                        <span>{t("colRole")}</span>
+                      </div>
+                      <div className="c2j-fs__row">
+                        <span>1</span>
+                        <span>Data</span>
+                        <span>eng</span>
+                      </div>
+                      <div className="c2j-fs__row">
+                        <span>2</span>
+                        <span>Grace</span>
+                        <span>ops</span>
+                      </div>
+                      <div className="c2j-fs__row c2j-fs__row--dim">
+                        <span>3</span>
+                        <span>Alan</span>
+                        <span>lab</span>
+                      </div>
+                      <span className="c2j-fs__laser" />
                     </div>
                   </div>
 
-                  <div className="c2j-fs__json">
-                    <p>
-                      <span className="c2j-fs__brace">[</span>
-                    </p>
-                    <p>
-                      {"  "}
-                      <span className="c2j-fs__brace">{"{"}</span>
-                      <span className="c2j-fs__key">&quot;id&quot;</span>:{" "}
-                      <span className="c2j-fs__num">1</span>,
-                      <span className="c2j-fs__key">&quot;name&quot;</span>:{" "}
-                      <span className="c2j-fs__str">&quot;Ada&quot;</span>
-                      <span className="c2j-fs__brace">{"}"}</span>,
-                    </p>
-                    <p>
-                      {"  "}
-                      <span className="c2j-fs__brace">{"{"}</span>
-                      <span className="c2j-fs__key">&quot;id&quot;</span>:{" "}
-                      <span className="c2j-fs__num">2</span>,
-                      <span className="c2j-fs__key">&quot;name&quot;</span>:{" "}
-                      <span className="c2j-fs__str">&quot;Grace&quot;</span>
-                      <span className="c2j-fs__brace">{"}"}</span>
-                    </p>
-                    <p>
-                      <span className="c2j-fs__brace">]</span>
-                    </p>
+                  <div className="c2j-fs__engine">
+                    <span className="c2j-fs__flow" />
+                    <span className="c2j-fs__core" />
+                    <span className="c2j-fs__badge">{t("delimiterBadge")}</span>
                   </div>
 
-                  <div className="c2j-fs__beam" />
+                  <div className="c2j-fs__pane c2j-fs__pane--json">
+                    <span className="c2j-fs__tag c2j-fs__tag--json">{t("jsonTag")}</span>
+                    <div className="c2j-fs__json">
+                      <p className="c2j-fs__line c2j-fs__line--1">
+                        <span className="c2j-fs__brace">[</span>
+                      </p>
+                      <p className="c2j-fs__line c2j-fs__line--2">
+                        {"  "}
+                        <span className="c2j-fs__brace">{"{"}</span>
+                        <span className="c2j-fs__key">&quot;id&quot;</span>:{" "}
+                        <span className="c2j-fs__num">1</span>,{" "}
+                        <span className="c2j-fs__key">&quot;name&quot;</span>:{" "}
+                        <span className="c2j-fs__str">&quot;Data&quot;</span>
+                        <span className="c2j-fs__brace">{"}"}</span>,
+                      </p>
+                      <p className="c2j-fs__line c2j-fs__line--3">
+                        {"  "}
+                        <span className="c2j-fs__brace">{"{"}</span>
+                        <span className="c2j-fs__key">&quot;id&quot;</span>:{" "}
+                        <span className="c2j-fs__num">2</span>,{" "}
+                        <span className="c2j-fs__key">&quot;name&quot;</span>:{" "}
+                        <span className="c2j-fs__str">&quot;Grace&quot;</span>
+                        <span className="c2j-fs__brace">{"}"}</span>
+                      </p>
+                      <p className="c2j-fs__line c2j-fs__line--4">
+                        <span className="c2j-fs__brace">]</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
+
+                <span className="c2j-fs__particle c2j-fs__particle--1" />
+                <span className="c2j-fs__particle c2j-fs__particle--2" />
+                <span className="c2j-fs__particle c2j-fs__particle--3" />
+
+                <span className="c2j-fs__ok">
+                  <span className="c2j-fs__check" />
+                  {t("success")}
+                </span>
               </div>
-
-              <span className="c2j-fs__ok">
-                <span className="c2j-fs__check" />
-                {t("success")}
-              </span>
             </div>
           </div>
         </div>
@@ -155,7 +168,13 @@ export function CsvToJsonIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="c2j-fs tool-intro-fs" aria-hidden />;
+      return (
+        <div
+          className="c2j-fs tool-intro-fs"
+          style={{ backgroundColor: "#000000", zIndex: 999999 }}
+          aria-hidden
+        />
+      );
     }
     return createPortal(splash, document.body);
   }

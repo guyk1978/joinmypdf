@@ -20835,6 +20835,21 @@ body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .transparen
   max-width: 56rem;
 }
 
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.json-formatter-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.json-formatter-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .json-formatter-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.json-formatter-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.json-formatter-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.json-formatter-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.json-formatter-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
 .json-formatter-tool {
   display: flex;
   flex-direction: column;
@@ -21018,6 +21033,40 @@ body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .transparen
 
 .base64-tool-page {
   max-width: 64rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.base64-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.base64-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .base64-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.base64-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.base64-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.base64-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.base64-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
+.lorem-ipsum-generator-tool-page {
+  max-width: 64rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.lorem-ipsum-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.lorem-ipsum-generator-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .lorem-ipsum-generator-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.lorem-ipsum-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.lorem-ipsum-generator-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.lorem-ipsum-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.lorem-ipsum-generator-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
 }
 
 .base64-tool {
@@ -21230,6 +21279,21 @@ body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .transparen
   max-width: 72rem;
 }
 
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.text-diff-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.text-diff-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .text-diff-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.text-diff-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.text-diff-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.text-diff-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.text-diff-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
 .text-diff-tool {
   display: flex;
   flex-direction: column;
@@ -21380,6 +21444,21 @@ body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .transparen
   max-width: 64rem;
 }
 
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.string-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.string-generator-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .string-generator-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.string-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.string-generator-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.string-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.string-generator-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
 .string-generator-tool {
   display: grid;
   grid-template-columns: 1fr;
@@ -21524,6 +21603,21 @@ body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .transparen
 
 .html-md-converter-tool-page {
   max-width: 72rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.html-md-converter-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.html-md-converter-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .html-md-converter-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.html-md-converter-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.html-md-converter-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.html-md-converter-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.html-md-converter-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
 }
 
 html.workspace-phase-clean .html-md-converter-tool-page,
@@ -22749,6 +22843,41 @@ html.workspace-phase-clean .tool-privacy-seal {
   max-width: 72rem;
 }
 
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.text-sanitizer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.text-sanitizer-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .text-sanitizer-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.text-sanitizer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.text-sanitizer-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.text-sanitizer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.text-sanitizer-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
+/* ?? Text Workspace (Industrial Matte) ?? */
+.text-workspace-tool-page {
+  max-width: 72rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.text-workspace-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.text-workspace-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .text-workspace-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.text-workspace-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.text-workspace-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.text-workspace-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.text-workspace-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
 /* ?? URL Parameter Stripper (Industrial Matte) ?? */
 .url-stripper-tool-page {
   max-width: 56rem;
@@ -22762,6 +22891,21 @@ html.workspace-phase-clean .tool-privacy-seal {
 /* ?? JSON/CSV Explorer (Industrial Matte) ?? */
 .json-csv-explorer-tool-page {
   max-width: 80rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.json-csv-explorer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.json-csv-explorer-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .json-csv-explorer-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.json-csv-explorer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.json-csv-explorer-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.json-csv-explorer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.json-csv-explorer-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
 }
 
 .json-csv-explorer {
@@ -23043,6 +23187,21 @@ html.workspace-phase-clean .tool-privacy-seal {
 /* ?? Readability Analyzer (Industrial Matte) ?? */
 .readability-analyzer-tool-page {
   max-width: 72rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.readability-analyzer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.readability-analyzer-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .readability-analyzer-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.readability-analyzer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.readability-analyzer-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.readability-analyzer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.readability-analyzer-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
 }
 
 .readability-analyzer {
@@ -24144,6 +24303,36 @@ html.workspace-phase-clean .tool-privacy-seal {
   max-width: 72rem;
 }
 
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.reading-time-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.reading-time-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .reading-time-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.reading-time-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.reading-time-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.reading-time-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.reading-time-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
+/* Post-splash utility stage — Multi-Note Manager */
+.tool-upload-float.quick-note-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.quick-note-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .quick-note-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.quick-note-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.quick-note-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.quick-note-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.quick-note-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
 .productivity-tool__pane {
   display: flex;
   flex-direction: column;
@@ -25176,6 +25365,21 @@ html.workspace-phase-clean .tool-privacy-seal {
 
 .csv-to-json-tool-page {
   max-width: 56rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.csv-to-json-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.csv-to-json-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .csv-to-json-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.csv-to-json-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.csv-to-json-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.csv-to-json-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.csv-to-json-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
 }
 
 .csv-to-json-tool {
@@ -27759,6 +27963,7 @@ html.workspace-phase-clean .im-utility-stage > .sql-query-tool,
 html.workspace-phase-clean .im-utility-stage > .csv-markdown-tool,
 html.workspace-phase-clean .im-utility-stage > .jwt-debugger-tool,
 html.workspace-phase-clean .im-utility-stage > .base64-tool,
+html.workspace-phase-clean .im-utility-stage > .lorem-ipsum-generator,
 .tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .text-diff-tool,
 .tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .json-formatter-tool,
 .tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .json-minifier-tool,
@@ -27767,7 +27972,8 @@ html.workspace-phase-clean .im-utility-stage > .base64-tool,
 .tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .sql-query-tool,
 .tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .csv-markdown-tool,
 .tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .jwt-debugger-tool,
-.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .base64-tool {
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .base64-tool,
+.tool-upload-float[data-workspace-phase="clean"] .im-utility-stage > .lorem-ipsum-generator {
   width: min(100%, 72rem);
 }
 

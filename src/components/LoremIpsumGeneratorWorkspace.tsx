@@ -11,6 +11,7 @@ import {
   type LoremOutputFormat,
   type LoremUnit,
 } from "@/lib/lorem-ipsum-generator";
+import { UtilityWorkspaceShell } from "@/components/utility/UtilityWorkspaceShell";
 import type { ToolDefinition } from "@/lib/types";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
@@ -83,7 +84,8 @@ export function LoremIpsumGeneratorWorkspace({
   };
 
   return (
-    <div className="space-y-6">
+    <UtilityWorkspaceShell immersive pageClassName="lorem-ipsum-generator-tool-page">
+      <div className="lorem-ipsum-generator space-y-6">
       <p className="m-0 rounded-sm border border-[#262626] bg-[#0a0a0a] px-4 py-3 text-xs uppercase tracking-widest text-[#a3a3a3]">
         {t("privacyBadge")}
       </p>
@@ -224,6 +226,7 @@ export function LoremIpsumGeneratorWorkspace({
           {error}
         </p>
       ) : null}
-    </div>
+      </div>
+    </UtilityWorkspaceShell>
   );
 }

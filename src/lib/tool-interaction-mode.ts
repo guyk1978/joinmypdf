@@ -27,6 +27,8 @@ const INTERACTIVE_GENERATOR_SLUGS = new Set<string>([
   "csv-to-markdown-table",
   "case-converter",
   "lorem-ipsum-generator",
+  "reading-time-calculator",
+  "quick-note",
   "string-generator",
   "word-character-counter",
   "text-diff",

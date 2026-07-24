@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./json-csv-explorer-landing.css";
 
@@ -17,15 +16,14 @@ type JsonCsvExplorerIntroGateProps = {
 
 /**
  * One-way cinematic fullscreen splash for JSON ↔ CSV Explorer.
- * Nested JSON braces → parsing beam → tabular CSV grid + success.
- * Only runs inside the ToolModal CALC embed.
+ * Nested JSON tree → Transformation Matrix mapping → CSV grid + success.
+ * Shows before the explorer workspace (embed modal and dedicated tool page).
  */
 export function JsonCsvExplorerIntroGate({
   active = true,
   children,
 }: JsonCsvExplorerIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const introActive = active;
   const t = useTranslations("JsonCsvExplorerLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
@@ -69,6 +67,7 @@ export function JsonCsvExplorerIntroGate({
         role="dialog"
         aria-modal="true"
         aria-labelledby="jce-fs-title"
+        style={{ backgroundColor: "#000000", zIndex: 999999 }}
       >
         <header className="jce-fs__header">
           <h1 id="jce-fs-title" className="jce-fs__title">
@@ -82,57 +81,83 @@ export function JsonCsvExplorerIntroGate({
           <div className="jce-fs__scene">
             <div className="jce-fs__workspace animation-workspace">
               <div className="jce-fs__card">
-                <div className="jce-fs__badges">
-                  <span className="jce-fs__badge jce-fs__badge--json">{t("jsonBadge")}</span>
-                  <span className="jce-fs__swap">{t("swapLabel")}</span>
-                  <span className="jce-fs__badge jce-fs__badge--csv">{t("csvBadge")}</span>
-                </div>
-
-                <div className="jce-fs__viewer">
-                  <div className="jce-fs__json">
-                    <p>
-                      <span className="jce-fs__brace">[</span>
-                    </p>
-                    <p>
-                      {"  "}
-                      <span className="jce-fs__brace">{"{"}</span>
-                      <span className="jce-fs__key">&quot;id&quot;</span>:{" "}
-                      <span className="jce-fs__num">1</span>,
-                      <span className="jce-fs__key">&quot;name&quot;</span>:{" "}
-                      <span className="jce-fs__str">&quot;Ada&quot;</span>
-                      <span className="jce-fs__brace">{"}"}</span>,
-                    </p>
-                    <p>
-                      {"  "}
-                      <span className="jce-fs__brace">{"{"}</span>
-                      <span className="jce-fs__key">&quot;id&quot;</span>:{" "}
-                      <span className="jce-fs__num">2</span>,
-                      <span className="jce-fs__key">&quot;name&quot;</span>:{" "}
-                      <span className="jce-fs__str">&quot;Grace&quot;</span>
-                      <span className="jce-fs__brace">{"}"}</span>
-                    </p>
-                    <p>
-                      <span className="jce-fs__brace">]</span>
-                    </p>
-                  </div>
-
-                  <div className="jce-fs__csv">
-                    <div className="jce-fs__row jce-fs__row--head">
-                      <span>id</span>
-                      <span>name</span>
-                    </div>
-                    <div className="jce-fs__row">
-                      <span>1</span>
-                      <span>Ada</span>
-                    </div>
-                    <div className="jce-fs__row">
-                      <span>2</span>
-                      <span>Grace</span>
+                <div className="jce-fs__pipeline">
+                  <div className="jce-fs__json-pane">
+                    <span className="jce-fs__tag">{t("jsonBadge")}</span>
+                    <div className="jce-fs__tree">
+                      <div className="jce-fs__tree-row jce-fs__tree-row--root">
+                        <span className="jce-fs__brace">{"{"}</span>
+                      </div>
+                      <div className="jce-fs__tree-row jce-fs__tree-row--d1">
+                        <span className="jce-fs__key">&quot;items&quot;</span>
+                        <span className="jce-fs__colon">: [</span>
+                      </div>
+                      <div className="jce-fs__tree-row jce-fs__tree-row--d2">
+                        <span className="jce-fs__brace">{"{"}</span>
+                      </div>
+                      <div className="jce-fs__tree-row jce-fs__tree-row--d3 jce-fs__tree-row--map">
+                        <span className="jce-fs__key">&quot;name&quot;</span>
+                        <span className="jce-fs__colon">: </span>
+                        <span className="jce-fs__str">&quot;Ada&quot;</span>
+                      </div>
+                      <div className="jce-fs__tree-row jce-fs__tree-row--d3 jce-fs__tree-row--map2">
+                        <span className="jce-fs__key">&quot;price&quot;</span>
+                        <span className="jce-fs__colon">: </span>
+                        <span className="jce-fs__num">12</span>
+                      </div>
+                      <div className="jce-fs__tree-row jce-fs__tree-row--d2">
+                        <span className="jce-fs__brace">{"}"}</span>
+                      </div>
+                      <div className="jce-fs__tree-row jce-fs__tree-row--d1">
+                        <span className="jce-fs__brace">]</span>
+                      </div>
+                      <div className="jce-fs__tree-row jce-fs__tree-row--root">
+                        <span className="jce-fs__brace">{"}"}</span>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="jce-fs__beam" />
+                  <div className="jce-fs__matrix">
+                    <span className="jce-fs__flow jce-fs__flow--1" />
+                    <span className="jce-fs__flow jce-fs__flow--2" />
+                    <span className="jce-fs__core" />
+                    <span className="jce-fs__flatten">{t("flattenBadge")}</span>
+                    <div className="jce-fs__maps">
+                      <div className="jce-fs__map jce-fs__map--1">
+                        <span className="jce-fs__path">$.items[*].name</span>
+                        <span className="jce-fs__arrow">→</span>
+                        <span className="jce-fs__col">&quot;Name&quot;</span>
+                      </div>
+                      <div className="jce-fs__map jce-fs__map--2">
+                        <span className="jce-fs__path">$.items[*].price</span>
+                        <span className="jce-fs__arrow">→</span>
+                        <span className="jce-fs__col">&quot;Price&quot;</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="jce-fs__csv-pane">
+                    <span className="jce-fs__tag jce-fs__tag--csv">{t("csvBadge")}</span>
+                    <div className="jce-fs__grid">
+                      <div className="jce-fs__row jce-fs__row--head">
+                        <span>Name</span>
+                        <span>Price</span>
+                      </div>
+                      <div className="jce-fs__row jce-fs__row--data">
+                        <span>Ada</span>
+                        <span>12</span>
+                      </div>
+                      <div className="jce-fs__row jce-fs__row--data">
+                        <span>Grace</span>
+                        <span>9</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+                <span className="jce-fs__particle jce-fs__particle--1" />
+                <span className="jce-fs__particle jce-fs__particle--2" />
+                <span className="jce-fs__particle jce-fs__particle--3" />
               </div>
 
               <span className="jce-fs__ok">
@@ -152,7 +177,13 @@ export function JsonCsvExplorerIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="jce-fs tool-intro-fs" aria-hidden />;
+      return (
+        <div
+          className="jce-fs tool-intro-fs"
+          style={{ backgroundColor: "#000000", zIndex: 999999 }}
+          aria-hidden
+        />
+      );
     }
     return createPortal(splash, document.body);
   }

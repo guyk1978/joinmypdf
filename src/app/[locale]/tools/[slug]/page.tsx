@@ -150,6 +150,15 @@ import { SvgToFaviconIntroGate } from "@/components/SvgToFaviconIntroGate";
 import { TransparentFaviconIntroGate } from "@/components/TransparentFaviconIntroGate";
 import { FaviconPreviewerIntroGate } from "@/components/FaviconPreviewerIntroGate";
 import { Base64EncoderDecoderIntroGate } from "@/components/Base64EncoderDecoderIntroGate";
+import { LoremIpsumGeneratorIntroGate } from "@/components/LoremIpsumGeneratorIntroGate";
+import { ReadingTimeCalculatorIntroGate } from "@/components/ReadingTimeCalculatorIntroGate";
+import { QuickNoteIntroGate } from "@/components/QuickNoteIntroGate";
+import { ReadabilityAnalyzerIntroGate } from "@/components/ReadabilityAnalyzerIntroGate";
+import { StringGeneratorIntroGate } from "@/components/StringGeneratorIntroGate";
+import { TextDiffIntroGate } from "@/components/TextDiffIntroGate";
+import { TextDiffCheckerIntroGate } from "@/components/TextDiffCheckerIntroGate";
+import { TextSanitizerIntroGate } from "@/components/TextSanitizerIntroGate";
+import { TextWorkspaceIntroGate } from "@/components/TextWorkspaceIntroGate";
 import { CaseConverterIntroGate } from "@/components/CaseConverterIntroGate";
 import { HtmlMarkdownConverterIntroGate } from "@/components/HtmlMarkdownConverterIntroGate";
 import { JsonCsvExplorerIntroGate } from "@/components/JsonCsvExplorerIntroGate";
@@ -567,6 +576,7 @@ export default async function ToolPage({
         <TransparentFaviconIntroGate active={tool.operation === "transparent-favicon"}>
         <FaviconPreviewerIntroGate active={tool.operation === "favicon-previewer"}>
         <Base64EncoderDecoderIntroGate active={tool.operation === "base64-encoder-decoder"}>
+        <LoremIpsumGeneratorIntroGate active={tool.operation === "lorem-ipsum-generator"}>
         <CaseConverterIntroGate active={tool.operation === "case-converter"}>
         <HtmlMarkdownConverterIntroGate active={tool.operation === "html-markdown-converter"}>
         <JsonCsvExplorerIntroGate active={tool.operation === "json-csv-explorer"}>
@@ -580,6 +590,14 @@ export default async function ToolPage({
         <PasswordGeneratorIntroGate active={tool.operation === "password-generator"}>
         <PasswordRecoveryIntroGate active={tool.operation === "pdf-password-recovery"}>
         <WordCharacterCounterIntroGate active={tool.operation === "word-character-counter"}>
+        <ReadingTimeCalculatorIntroGate active={tool.operation === "reading-time-calculator"}>
+        <QuickNoteIntroGate active={tool.operation === "quick-note"}>
+        <ReadabilityAnalyzerIntroGate active={tool.operation === "readability-analyzer"}>
+        <StringGeneratorIntroGate active={tool.operation === "string-generator"}>
+        <TextDiffIntroGate active={tool.operation === "text-diff"}>
+        <TextDiffCheckerIntroGate active={tool.operation === "text-diff-checker"}>
+        <TextSanitizerIntroGate active={tool.operation === "text-sanitizer"}>
+        <TextWorkspaceIntroGate active={tool.operation === "text-workspace"}>
         <WordToPdfIntroGate active={tool.operation === "word-to-pdf"}>
         <CropPdfIntroGate active={tool.operation === "crop-pdf"}>
         <RotatePdfIntroGate active={tool.operation === "rotate-pdf"}>
@@ -935,6 +953,14 @@ export default async function ToolPage({
         </RotatePdfIntroGate>
         </CropPdfIntroGate>
         </WordToPdfIntroGate>
+        </TextWorkspaceIntroGate>
+        </TextSanitizerIntroGate>
+        </TextDiffCheckerIntroGate>
+        </TextDiffIntroGate>
+        </StringGeneratorIntroGate>
+        </ReadabilityAnalyzerIntroGate>
+        </QuickNoteIntroGate>
+        </ReadingTimeCalculatorIntroGate>
         </WordCharacterCounterIntroGate>
         </PasswordRecoveryIntroGate>
         </PasswordGeneratorIntroGate>
@@ -948,6 +974,7 @@ export default async function ToolPage({
         </JsonCsvExplorerIntroGate>
         </HtmlMarkdownConverterIntroGate>
         </CaseConverterIntroGate>
+        </LoremIpsumGeneratorIntroGate>
         </Base64EncoderDecoderIntroGate>
         </FaviconPreviewerIntroGate>
         </TransparentFaviconIntroGate>

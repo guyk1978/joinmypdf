@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
+import { LoremIpsumGeneratorIntroGate } from "@/components/LoremIpsumGeneratorIntroGate";
 import { LoremIpsumGeneratorWorkspace } from "@/components/LoremIpsumGeneratorWorkspace";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -76,7 +77,9 @@ export default async function LoremIpsumGeneratorPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
-            <LoremIpsumGeneratorWorkspace tool={tool} slug={SLUG} />
+            <LoremIpsumGeneratorIntroGate>
+              <LoremIpsumGeneratorWorkspace tool={tool} slug={SLUG} />
+            </LoremIpsumGeneratorIntroGate>
           </section>
 </div>
       </AppPageShell>

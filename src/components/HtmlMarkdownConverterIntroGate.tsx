@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./html-markdown-converter-landing.css";
 
@@ -17,15 +16,14 @@ type HtmlMarkdownConverterIntroGateProps = {
 
 /**
  * One-way cinematic fullscreen splash for HTML / Markdown Converter.
- * Split panes → bi-directional beam → MD ↔ HTML + success.
- * Only runs inside the ToolModal CALC embed.
+ * Live MD editor → bidirectional MD ↔ HTML node + laser → compiled HTML tags.
+ * Shows before the converter workspace (embed modal and dedicated tool page).
  */
 export function HtmlMarkdownConverterIntroGate({
   active = true,
   children,
 }: HtmlMarkdownConverterIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const introActive = active;
   const t = useTranslations("HtmlMarkdownConverterLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
@@ -69,6 +67,7 @@ export function HtmlMarkdownConverterIntroGate({
         role="dialog"
         aria-modal="true"
         aria-labelledby="hmc-fs-title"
+        style={{ backgroundColor: "#000000", zIndex: 999999 }}
       >
         <header className="hmc-fs__header">
           <h1 id="hmc-fs-title" className="hmc-fs__title">
@@ -82,49 +81,71 @@ export function HtmlMarkdownConverterIntroGate({
           <div className="hmc-fs__scene">
             <div className="hmc-fs__workspace animation-workspace">
               <div className="hmc-fs__card">
-                <div className="hmc-fs__badges">
-                  <span className="hmc-fs__badge hmc-fs__badge--md">{t("mdBadge")}</span>
-                  <span className="hmc-fs__swap">{t("swapLabel")}</span>
-                  <span className="hmc-fs__badge hmc-fs__badge--html">{t("htmlBadge")}</span>
-                </div>
-
-                <div className="hmc-fs__panes">
+                <div className="hmc-fs__pipeline">
                   <div className="hmc-fs__pane hmc-fs__pane--md">
-                    <p className="hmc-fs__code">
-                      <span className="hmc-fs__tok hmc-fs__tok--md"># </span>
-                      {t("mdHeading")}
-                    </p>
-                    <p className="hmc-fs__code">
-                      <span className="hmc-fs__tok hmc-fs__tok--md">**</span>
-                      {t("mdBold")}
-                      <span className="hmc-fs__tok hmc-fs__tok--md">**</span>
-                    </p>
-                    <p className="hmc-fs__code">
-                      <span className="hmc-fs__tok hmc-fs__tok--md">- </span>
-                      {t("mdItem")}
-                    </p>
+                    <div className="hmc-fs__chrome">
+                      <span className="hmc-fs__dot" />
+                      <span className="hmc-fs__dot" />
+                      <span className="hmc-fs__dot" />
+                      <span className="hmc-fs__tag">{t("mdBadge")}</span>
+                    </div>
+                    <div className="hmc-fs__editor">
+                      <p className="hmc-fs__line hmc-fs__line--1">
+                        <span className="hmc-fs__tok hmc-fs__tok--md"># </span>
+                        <span className="hmc-fs__text">{t("mdHeading")}</span>
+                      </p>
+                      <p className="hmc-fs__line hmc-fs__line--2">
+                        <span className="hmc-fs__tok hmc-fs__tok--md">**</span>
+                        <span className="hmc-fs__text">{t("mdBold")}</span>
+                        <span className="hmc-fs__tok hmc-fs__tok--md">**</span>
+                      </p>
+                      <p className="hmc-fs__line hmc-fs__line--3">
+                        <span className="hmc-fs__tok hmc-fs__tok--md">- </span>
+                        <span className="hmc-fs__text">{t("mdItem")}</span>
+                      </p>
+                      <span className="hmc-fs__caret" />
+                    </div>
+                    <span className="hmc-fs__laser" />
                   </div>
 
-                  <div className="hmc-fs__beam" />
+                  <div className="hmc-fs__engine">
+                    <span className="hmc-fs__flow hmc-fs__flow--fwd" />
+                    <span className="hmc-fs__flow hmc-fs__flow--rev" />
+                    <span className="hmc-fs__core">{t("swapLabel")}</span>
+                    <span className="hmc-fs__engine-badge">{t("engineBadge")}</span>
+                  </div>
 
                   <div className="hmc-fs__pane hmc-fs__pane--html">
-                    <p className="hmc-fs__code">
-                      <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;h1&gt;</span>
-                      {t("htmlHeading")}
-                      <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;/h1&gt;</span>
-                    </p>
-                    <p className="hmc-fs__code">
-                      <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;strong&gt;</span>
-                      {t("htmlBold")}
-                      <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;/strong&gt;</span>
-                    </p>
-                    <p className="hmc-fs__code">
-                      <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;li&gt;</span>
-                      {t("htmlItem")}
-                      <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;/li&gt;</span>
-                    </p>
+                    <div className="hmc-fs__chrome">
+                      <span className="hmc-fs__dot" />
+                      <span className="hmc-fs__dot" />
+                      <span className="hmc-fs__dot" />
+                      <span className="hmc-fs__tag hmc-fs__tag--html">{t("htmlBadge")}</span>
+                    </div>
+                    <div className="hmc-fs__editor hmc-fs__editor--html">
+                      <p className="hmc-fs__line hmc-fs__line--1">
+                        <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;h1&gt;</span>
+                        <span className="hmc-fs__text">{t("htmlHeading")}</span>
+                        <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;/h1&gt;</span>
+                      </p>
+                      <p className="hmc-fs__line hmc-fs__line--2">
+                        <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;strong&gt;</span>
+                        <span className="hmc-fs__text">{t("htmlBold")}</span>
+                        <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;/strong&gt;</span>
+                      </p>
+                      <p className="hmc-fs__line hmc-fs__line--3">
+                        <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;li&gt;</span>
+                        <span className="hmc-fs__text">{t("htmlItem")}</span>
+                        <span className="hmc-fs__tok hmc-fs__tok--tag">&lt;/li&gt;</span>
+                      </p>
+                    </div>
+                    <span className="hmc-fs__laser hmc-fs__laser--html" />
                   </div>
                 </div>
+
+                <span className="hmc-fs__particle hmc-fs__particle--1" />
+                <span className="hmc-fs__particle hmc-fs__particle--2" />
+                <span className="hmc-fs__particle hmc-fs__particle--3" />
               </div>
 
               <span className="hmc-fs__ok">
@@ -144,7 +165,13 @@ export function HtmlMarkdownConverterIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="hmc-fs tool-intro-fs" aria-hidden />;
+      return (
+        <div
+          className="hmc-fs tool-intro-fs"
+          style={{ backgroundColor: "#000000", zIndex: 999999 }}
+          aria-hidden
+        />
+      );
     }
     return createPortal(splash, document.body);
   }

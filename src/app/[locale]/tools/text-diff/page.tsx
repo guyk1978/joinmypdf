@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
+import { TextDiffIntroGate } from "@/components/TextDiffIntroGate";
 import { TextDiffCheckerWorkspace } from "@/components/TextDiffCheckerWorkspace";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -73,7 +74,9 @@ export default async function TextDiffPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <TextDiffCheckerWorkspace tool={tool} slug={SLUG} />
+            <TextDiffIntroGate>
+              <TextDiffCheckerWorkspace tool={tool} slug={SLUG} />
+            </TextDiffIntroGate>
           </section>
 </div>
       </AppPageShell>
