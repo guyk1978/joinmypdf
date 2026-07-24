@@ -72,8 +72,7 @@ export function WavToMp3({ name, onComplete }: WavToMp3Props) {
   const canConvert = Boolean(file) && !busy && environment?.canRun !== false;
 
   return (
-    <div className="wav-to-mp3-tool space-y-4">
-
+    <div className="wav-to-mp3-tool mt-8 space-y-4">
       <FfmpegEnvironmentNotice
         environment={environment}
         error={displayError && phase === "error" ? displayError : pickError || blockingError}
@@ -90,15 +89,14 @@ export function WavToMp3({ name, onComplete }: WavToMp3Props) {
           busy={busy}
           disabled={busy || Boolean(blockingError)}
           supportedFormats={["WAV"]}
+          showPrivacy={false}
           onFile={pickFile}
           onError={(message) => setPickError(message)}
           labels={{
             title: "Upload WAV file",
             titleBusy: "Converting in worker…",
             description: "Drag and drop a WAV or browse from your device.",
-            privacyBadge: "100% Private — processed locally with ffmpeg.wasm.",
           }}
-          className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
       ) : (
         <div className="tool-workspace-panel space-y-4">

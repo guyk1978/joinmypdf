@@ -14,6 +14,7 @@ import {
 } from "@/components/tools/hooks/useFfmpegVoiceRemove";
 import type { ToolModuleProps } from "@/lib/tool-module";
 import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
+import "./voice-remover-tool.css";
 
 const AUDIO_ACCEPT = "audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/mp4,audio/x-m4a,.mp3,.wav,.m4a";
 
@@ -105,11 +106,10 @@ export function VoiceRemover({ title, onComplete }: VoiceRemoverProps) {
   const canProcess = Boolean(file) && !busy && environment?.canRun !== false;
 
   return (
-    <div className="voice-remover-tool space-y-4">
-
-      <div className="rounded-none border border-amber-900/50 bg-amber-950/20 p-4">
+    <div className="voice-remover-tool">
+      <div className="voice-remover-disclaimer" role="note">
         <div className="flex gap-3">
-          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" aria-hidden />
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" aria-hidden />
           <div className="space-y-1 text-sm text-amber-100/90">
             <p className="font-medium text-amber-200">Estimation disclaimer</p>
             <p className="leading-relaxed text-amber-100/80">
@@ -134,15 +134,15 @@ export function VoiceRemover({ title, onComplete }: VoiceRemoverProps) {
           busy={busy}
           disabled={busy || Boolean(blockingError)}
           supportedFormats={["MP3", "WAV", "M4A"]}
+          showPrivacy={false}
+          compact
           onFile={pickFile}
           onError={(message) => setPickError(message)}
           labels={{
             title: "Upload audio",
             titleBusy: "Removing vocals in worker…",
             description: "Drag and drop a stereo track or browse from your device.",
-            privacyBadge: "100% Private — processed locally with ffmpeg.wasm.",
           }}
-          className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
       ) : (
         <div className="tool-workspace-panel space-y-4">

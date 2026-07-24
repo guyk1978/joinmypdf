@@ -26,6 +26,10 @@ type MediaDropzoneProps = {
   busy?: boolean;
   labels?: MediaDropzoneLabels;
   supportedFormats?: string[];
+  /** When false, hides the privacy badge on the Industrial Matte surface. */
+  showPrivacy?: boolean;
+  /** Secondary / in-flow zone — excluded from immersive clean-phase detection. */
+  compact?: boolean;
   onFile: (file: File) => void;
   onError?: (message: string) => void;
   className?: string;
@@ -56,6 +60,8 @@ export function MediaDropzone({
   busy = false,
   labels,
   supportedFormats = [],
+  showPrivacy = true,
+  compact = false,
   onFile,
   onError,
   className,
@@ -149,6 +155,8 @@ export function MediaDropzone({
       selectLabel={copy.selectLabel}
       supportsLabel={supportsLine}
       privacyLabel={copy.privacyBadge}
+      showPrivacy={showPrivacy}
+      compact={compact}
       active={active}
       disabled={isDisabled}
       onKeyDown={onKeyDown}

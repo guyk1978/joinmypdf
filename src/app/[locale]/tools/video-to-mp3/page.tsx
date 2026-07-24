@@ -5,6 +5,7 @@ import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { RelatedTools } from "@/components/RelatedTools";
 import { VideoToMp3Workspace } from "@/components/tools/VideoToMp3Workspace";
+import { VideoToMp3IntroGate } from "@/components/VideoToMp3IntroGate";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -78,7 +79,9 @@ export default async function VideoToMp3Page({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <VideoToMp3Workspace tool={tool} slug={SLUG} />
+              <VideoToMp3IntroGate active={tool.operation === "video-to-mp3"}>
+                <VideoToMp3Workspace tool={tool} slug={SLUG} />
+              </VideoToMp3IntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

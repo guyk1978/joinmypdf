@@ -162,9 +162,7 @@ export function Mp3Trimmer({ name, title: _title, onComplete }: Mp3TrimmerProps)
             title: t("uploadTitle", { name }),
             titleBusy: t("uploadTitleBusy"),
             description: t("uploadDescription"),
-            privacyBadge: t("privacyBadge"),
           }}
-          className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
       ) : (
         <div className="tool-workspace-panel space-y-4">

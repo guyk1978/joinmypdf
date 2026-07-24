@@ -18,6 +18,7 @@ import {
 } from "@/components/tools/hooks/useFfmpegMp3ToMp4";
 import type { ToolModuleProps } from "@/lib/tool-module";
 import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
+import "./mp3-to-mp4-tool.css";
 
 const MP3_ACCEPT = "audio/mpeg,audio/mp3,.mp3";
 const IMAGE_ACCEPT = "image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp";
@@ -45,6 +46,10 @@ type UploadSlotProps = {
   file: File | null;
   disabled: boolean;
   onFile: (file: File) => void;
+  /** Show the local-processing privacy line (only one slot should). */
+  showPrivacy?: boolean;
+  /** Panel label shown above the dropzone. */
+  panelLabel: string;
 };
 
 function UploadSlot({
@@ -55,71 +60,80 @@ function UploadSlot({
   file,
   disabled,
   onFile,
+  showPrivacy = false,
+  panelLabel,
 }: UploadSlotProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
 
   return (
-    <IndustrialMatteDropzone
-      role="button"
-      tabIndex={disabled ? -1 : 0}
-      aria-disabled={disabled}
-      active={dragActive}
-      disabled={disabled}
-      dropTitle={dropTitle}
-      selectLabel={selectLabel}
-      supportsLabel={formatSupportsLabel(supportedFormats)}
-      showPrivacy={!file}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
+    <section className="mp3-to-mp4-tool__panel">
+      <h2 className="mp3-to-mp4-tool__panel-label">{panelLabel}</h2>
+      <IndustrialMatteDropzone
+        /* Dual-upload: both slots are compact so immersive clean-phase
+           does not pin two full-viewport overlays on top of each other. */
+        compact
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        aria-disabled={disabled}
+        active={dragActive}
+        disabled={disabled}
+        dropTitle={dropTitle}
+        selectLabel={selectLabel}
+        supportsLabel={formatSupportsLabel(supportedFormats)}
+        showPrivacy={showPrivacy && !file}
+        className="mp3-to-mp4-tool__slot"
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            inputRef.current?.click();
+          }
+        }}
+        onDragEnter={(event) => {
           event.preventDefault();
-          inputRef.current?.click();
+          if (!disabled) setDragActive(true);
+        }}
+        onDragOver={(event) => {
+          event.preventDefault();
+          if (!disabled) setDragActive(true);
+        }}
+        onDragLeave={(event) => {
+          event.preventDefault();
+          if (event.currentTarget === event.target) setDragActive(false);
+        }}
+        onDrop={(event) => {
+          event.preventDefault();
+          setDragActive(false);
+          if (disabled) return;
+          const dropped = event.dataTransfer.files[0];
+          if (dropped) onFile(dropped);
+        }}
+        onClick={() => {
+          if (!disabled) inputRef.current?.click();
+        }}
+        input={
+          <input
+            ref={inputRef}
+            type="file"
+            accept={accept}
+            disabled={disabled}
+            className="sr-only"
+            onChange={(event) => {
+              const picked = event.target.files?.[0];
+              if (picked) onFile(picked);
+              event.target.value = "";
+            }}
+          />
         }
-      }}
-      onDragEnter={(event) => {
-        event.preventDefault();
-        if (!disabled) setDragActive(true);
-      }}
-      onDragOver={(event) => {
-        event.preventDefault();
-        if (!disabled) setDragActive(true);
-      }}
-      onDragLeave={(event) => {
-        event.preventDefault();
-        if (event.currentTarget === event.target) setDragActive(false);
-      }}
-      onDrop={(event) => {
-        event.preventDefault();
-        setDragActive(false);
-        if (disabled) return;
-        const dropped = event.dataTransfer.files[0];
-        if (dropped) onFile(dropped);
-      }}
-      onClick={() => {
-        if (!disabled) inputRef.current?.click();
-      }}
-      input={
-        <input
-          ref={inputRef}
-          type="file"
-          accept={accept}
-          disabled={disabled}
-          className="sr-only"
-          onChange={(event) => {
-            const picked = event.target.files?.[0];
-            if (picked) onFile(picked);
-            event.target.value = "";
-          }}
-        />
-      }
-      footer={
-        file ? (
-          <p className="m-0 truncate text-xs text-neutral-400">
-            {file.name} · {formatBytes(file.size)}
-          </p>
-        ) : null
-      }
-    />
+        footer={
+          file ? (
+            <p className="m-0 truncate text-xs text-neutral-400">
+              {file.name} · {formatBytes(file.size)}
+            </p>
+          ) : null
+        }
+      />
+    </section>
   );
 }
 
@@ -188,25 +202,16 @@ export function Mp3ToMp4({ title, onComplete }: Mp3ToMp4Props) {
     Boolean(mp3File && imageFile) && !busy && environment?.canRun !== false;
 
   return (
-    <div className="mp3-to-mp4-tool space-y-4">
-
+    <div className="mp3-to-mp4-tool space-y-5">
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
       {environment && !blockingError && environment.performanceNotice ? (
         <FfmpegEnvironmentNotice environment={environment} />
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="mp3-to-mp4-tool__uploads">
         <UploadSlot
-          dropTitle="Drop your cover image here"
-          selectLabel="Select image from device"
-          supportedFormats={["JPG", "PNG", "WebP"]}
-          accept={IMAGE_ACCEPT}
-          file={imageFile}
-          disabled={isDisabled}
-          onFile={pickImage}
-        />
-        <UploadSlot
+          panelLabel="Audio"
           dropTitle="Drop your MP3 here"
           selectLabel="Select MP3 from device"
           supportedFormats={["MP3"]}
@@ -214,6 +219,17 @@ export function Mp3ToMp4({ title, onComplete }: Mp3ToMp4Props) {
           file={mp3File}
           disabled={isDisabled}
           onFile={pickMp3}
+          showPrivacy
+        />
+        <UploadSlot
+          panelLabel="Cover art"
+          dropTitle="Drop your cover image here"
+          selectLabel="Select image from device"
+          supportedFormats={["JPG", "PNG", "WebP"]}
+          accept={IMAGE_ACCEPT}
+          file={imageFile}
+          disabled={isDisabled}
+          onFile={pickImage}
         />
       </div>
 
@@ -242,7 +258,7 @@ export function Mp3ToMp4({ title, onComplete }: Mp3ToMp4Props) {
 
       <button
         type="button"
-        className={clsx(toolPrimaryBtn, "w-full sm:w-auto")}
+        className={clsx(toolPrimaryBtn, "mp3-to-mp4-tool__cta w-full sm:w-auto")}
         disabled={!canCreate}
         onClick={() => void createAndDownload()}
       >

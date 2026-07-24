@@ -98,9 +98,7 @@ export function OggConverter({ onComplete }: OggConverterProps) {
             title: "Upload OGG/Opus file",
             titleBusy: "Converting in worker…",
             description: "Drag and drop an OGG or Opus file or browse from your device.",
-            privacyBadge: "100% Private — processed locally with ffmpeg.wasm.",
           }}
-          className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
       ) : (
         <div className="tool-workspace-panel space-y-4">

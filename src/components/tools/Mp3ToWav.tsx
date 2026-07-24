@@ -96,9 +96,7 @@ export function Mp3ToWav({ name, onComplete }: Mp3ToWavProps) {
             title: `Upload MP3 for ${name}`,
             titleBusy: "Converting in worker…",
             description: "Drag and drop an MP3 or browse from your device.",
-            privacyBadge: "100% Private — processed locally with ffmpeg.wasm.",
           }}
-          className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
       ) : (
         <div className="tool-workspace-panel space-y-4">

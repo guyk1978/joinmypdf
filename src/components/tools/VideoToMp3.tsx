@@ -127,7 +127,7 @@ export function VideoToMp3({ labels, className, onStart, onComplete }: VideoToMp
   const canConvert = Boolean(file) && !busy && environment?.canRun !== false;
 
   return (
-    <div className={clsx("video-to-mp3-tool space-y-4", className)}>
+    <div className={clsx("video-to-mp3-tool mt-6 space-y-4", className)}>
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
       {environment && !blockingError && environment.performanceNotice ? (
@@ -141,13 +141,13 @@ export function VideoToMp3({ labels, className, onStart, onComplete }: VideoToMp
           busy={busy}
           disabled={busy || Boolean(blockingError)}
           supportedFormats={["MP4", "MOV", "WEBM", "MKV", "AVI"]}
+          showPrivacy={false}
           onFile={pickFile}
           onError={(message) => setPickError(message)}
           labels={{
             title: labels.dropTitle,
             titleBusy: labels.dropTitleBusy,
             description: labels.dropDescription,
-            privacyBadge: labels.privacyBadge,
             formatsHint: labels.formatsHint,
             selectLabel: labels.selectLabel,
           }}

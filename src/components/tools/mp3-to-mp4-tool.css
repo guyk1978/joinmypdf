@@ -1,0 +1,101 @@
+/* Dual-upload layout for MP3 → MP4 (non-immersive compact slots). */
+
+.mp3-to-mp4-tool {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 24px;
+  padding-top: 4px;
+}
+
+.mp3-to-mp4-tool__uploads {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 20px;
+  width: 100%;
+}
+
+.mp3-to-mp4-tool__panel {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.mp3-to-mp4-tool__panel-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(163 163 163);
+}
+
+.mp3-to-mp4-tool__slot {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Keep each dual slot as a self-contained card — never fixed fullscreen. */
+.mp3-to-mp4-tool .im-dropzone.im-dropzone--compact {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  min-height: 240px !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 1.75rem 1.25rem !important;
+  flex: 0 0 auto !important;
+  border: 1px solid rgb(64 64 64) !important;
+  border-radius: 0.75rem;
+  background-color: rgb(23 23 23);
+}
+
+.mp3-to-mp4-tool .im-dropzone.im-dropzone--compact.im-dropzone--active {
+  border-color: var(--category-accent, #f43f5e) !important;
+}
+
+.mp3-to-mp4-tool .im-dropzone__stage {
+  max-width: 100%;
+  gap: 0.85rem;
+}
+
+.mp3-to-mp4-tool .im-dropzone__title {
+  text-wrap: balance;
+}
+
+.mp3-to-mp4-tool .im-dropzone__meta {
+  gap: 0.45rem;
+}
+
+.mp3-to-mp4-tool__cta {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 640px) {
+  .mp3-to-mp4-tool {
+    margin-top: 16px;
+  }
+
+  .mp3-to-mp4-tool__uploads {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mp3-to-mp4-tool .im-dropzone.im-dropzone--compact {
+    min-height: 200px !important;
+    padding: 1.35rem 1rem !important;
+  }
+}

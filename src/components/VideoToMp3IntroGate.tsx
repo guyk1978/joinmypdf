@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./video-to-mp3-landing.css";
 
@@ -17,15 +16,14 @@ type VideoToMp3IntroGateProps = {
 
 /**
  * One-way cinematic fullscreen splash for Video to MP3.
- * Video file card → pulsing audio waveform with .MP3 badge + Converted status.
- * Only runs inside the ToolModal CALC embed.
+ * Video container → laser audio extract → MP3 EQ + Extracted to MP3.
+ * Shows before the upload workspace (embed modal and dedicated tool page).
  */
 export function VideoToMp3IntroGate({
   active = true,
   children,
 }: VideoToMp3IntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const introActive = active;
   const t = useTranslations("VideoToMp3Landing");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
@@ -81,46 +79,62 @@ export function VideoToMp3IntroGate({
 
         <div className="vtm-fs__stage" aria-hidden>
           <div className="vtm-fs__scene">
-            <div
-              className="vtm-fs__workspace animation-workspace"
-              data-splash-wide
-            >
+            <div className="vtm-fs__workspace animation-workspace">
               <div className="vtm-fs__card">
-                <div className="vtm-fs__badges">
-                  <span className="vtm-fs__badge vtm-fs__badge--plain">{t("plainBadge")}</span>
-                  <span className="vtm-fs__arrow" />
-                  <span className="vtm-fs__badge vtm-fs__badge--done">{t("doneBadge")}</span>
-                </div>
-
-                <div className="vtm-fs__stage-art">
-                  <div className="vtm-fs__media">
-                    <div className="vtm-fs__video">
-                      <span className="vtm-fs__play" />
-                      <span className="vtm-fs__scrub" />
-                      <span className="vtm-fs__fmt vtm-fs__fmt--video">{t("videoFmt")}</span>
-                    </div>
-                    <div className="vtm-fs__audio">
-                      <span className="vtm-fs__wave" aria-hidden>
-                        <span className="vtm-fs__bar vtm-fs__bar--1" />
-                        <span className="vtm-fs__bar vtm-fs__bar--2" />
-                        <span className="vtm-fs__bar vtm-fs__bar--3" />
-                        <span className="vtm-fs__bar vtm-fs__bar--4" />
-                        <span className="vtm-fs__bar vtm-fs__bar--5" />
-                        <span className="vtm-fs__bar vtm-fs__bar--6" />
-                        <span className="vtm-fs__bar vtm-fs__bar--7" />
-                        <span className="vtm-fs__bar vtm-fs__bar--8" />
-                        <span className="vtm-fs__bar vtm-fs__bar--9" />
+                <div className="vtm-fs__panels">
+                  <div className="vtm-fs__panel vtm-fs__panel--video">
+                    <span className="vtm-fs__tag vtm-fs__tag--video">{t("videoTag")}</span>
+                    <div className="vtm-fs__player">
+                      <span className="vtm-fs__chrome">
+                        <span className="vtm-fs__dot" />
+                        <span className="vtm-fs__dot" />
+                        <span className="vtm-fs__dot" />
                       </span>
-                      <span className="vtm-fs__fmt vtm-fs__fmt--mp3">{t("audioFmt")}</span>
+                      <span className="vtm-fs__frame">
+                        <span className="vtm-fs__play" />
+                        <span className="vtm-fs__scrub" />
+                      </span>
                     </div>
+                    <span className="vtm-fs__panel-hint">{t("videoHint")}</span>
+                  </div>
+
+                  <div className="vtm-fs__pipe">
+                    <span className="vtm-fs__pipe-line" />
+                    <span className="vtm-fs__pipe-core" />
+                    <span className="vtm-fs__laser" />
+                  </div>
+
+                  <div className="vtm-fs__panel vtm-fs__panel--audio">
+                    <span className="vtm-fs__tag vtm-fs__tag--mp3">{t("mp3Tag")}</span>
+                    <div className="vtm-fs__eq">
+                      {Array.from({ length: 12 }, (_, i) => (
+                        <span
+                          key={i}
+                          className="vtm-fs__bar"
+                          style={{ animationDelay: `${(i % 6) * 0.08}s` }}
+                        />
+                      ))}
+                    </div>
+                    <span className="vtm-fs__panel-hint">{t("audioHint")}</span>
                   </div>
                 </div>
 
-                <span className="vtm-fs__ok">
-                  <span className="vtm-fs__check" />
-                  {t("success")}
-                </span>
+                <div className="vtm-fs__pills">
+                  <span className="vtm-fs__pill vtm-fs__pill--video">{t("videoPill")}</span>
+                  <span className="vtm-fs__pill vtm-fs__pill--extract">{t("extractPill")}</span>
+                  <span className="vtm-fs__pill vtm-fs__pill--mp3">{t("mp3Pill")}</span>
+                </div>
+
+                <span className="vtm-fs__particle vtm-fs__particle--1" />
+                <span className="vtm-fs__particle vtm-fs__particle--2" />
+                <span className="vtm-fs__particle vtm-fs__particle--3" />
+                <span className="vtm-fs__particle vtm-fs__particle--4" />
               </div>
+
+              <span className="vtm-fs__ok">
+                <span className="vtm-fs__check" />
+                {t("success")}
+              </span>
             </div>
           </div>
         </div>
