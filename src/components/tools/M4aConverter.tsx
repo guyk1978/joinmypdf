@@ -112,9 +112,7 @@ export function M4aConverter({ title, onComplete }: M4aConverterProps) {
             title: "Upload M4A or AAC file",
             titleBusy: "Converting in worker…",
             description: "Drag and drop an M4A/AAC file or browse from your device.",
-            privacyBadge: "100% Private — processed locally with ffmpeg.wasm.",
           }}
-          className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
       ) : (
         <div className="tool-workspace-panel space-y-4">

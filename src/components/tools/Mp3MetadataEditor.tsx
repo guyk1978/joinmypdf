@@ -233,9 +233,7 @@ export function Mp3MetadataEditor({ title, onComplete }: Mp3MetadataEditorProps)
             title: "Upload MP3",
             titleBusy: "Writing metadata in worker…",
             description: "Drag and drop an MP3 or browse from your device.",
-            privacyBadge: "100% Private — metadata edited locally with ffmpeg.wasm.",
           }}
-          className="rounded-none border-neutral-800 bg-[#1a1a1a]"
         />
       ) : (
         <div className="tool-workspace-panel space-y-4">

@@ -63,7 +63,7 @@ export function PngToIcoWorkspace({ tool, slug }: PngToIcoWorkspaceProps) {
   );
 
   return (
-    <WorkspaceUploadShell showPrivacyBadge>
+    <WorkspaceUploadShell showPrivacyBadge={false}>
       <div id={WORKSPACE_OPERATIONS_ID} className="crop-image-tool-page png-to-ico-tool-page">
         <PngToIco labels={labels} />
       </div>

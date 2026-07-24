@@ -132,6 +132,7 @@ import { PdfToJpgIntroGate } from "@/components/PdfToJpgIntroGate";
 import { WebpToJpgIntroGate } from "@/components/WebpToJpgIntroGate";
 import { ConvertToPngIntroGate } from "@/components/ConvertToPngIntroGate";
 import { IcoToPngIntroGate } from "@/components/IcoToPngIntroGate";
+import { PngToIcoIntroGate } from "@/components/PngToIcoIntroGate";
 import { SvgToPngIntroGate } from "@/components/SvgToPngIntroGate";
 import { ImageGrayscaleIntroGate } from "@/components/ImageGrayscaleIntroGate";
 import { ImageMetadataEditorIntroGate } from "@/components/ImageMetadataEditorIntroGate";
@@ -543,6 +544,7 @@ export default async function ToolPage({
         <WebpToJpgIntroGate active={tool.operation === "webp-to-jpg"}>
         <ConvertToPngIntroGate active={tool.operation === "convert-to-png"}>
         <IcoToPngIntroGate active={tool.operation === "ico-to-png"}>
+        <PngToIcoIntroGate active={tool.operation === "png-to-ico"}>
         <SvgToPngIntroGate active={tool.operation === "svg-to-png"}>
         <ImageGrayscaleIntroGate active={tool.operation === "image-grayscale"}>
         <ImageMetadataEditorIntroGate active={tool.operation === "image-metadata-editor"}>
@@ -948,6 +950,7 @@ export default async function ToolPage({
         </ImageMetadataEditorIntroGate>
         </ImageGrayscaleIntroGate>
         </SvgToPngIntroGate>
+        </PngToIcoIntroGate>
         </IcoToPngIntroGate>
         </ConvertToPngIntroGate>
         </WebpToJpgIntroGate>

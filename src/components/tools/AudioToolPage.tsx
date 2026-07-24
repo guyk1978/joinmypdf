@@ -9,6 +9,10 @@ import { AudioMergerIntroGate } from "@/components/AudioMergerIntroGate";
 import { AudioNormalizerIntroGate } from "@/components/AudioNormalizerIntroGate";
 import { FadeInOutCreatorIntroGate } from "@/components/FadeInOutCreatorIntroGate";
 import { FlacConverterIntroGate } from "@/components/FlacConverterIntroGate";
+import { M4aConverterIntroGate } from "@/components/M4aConverterIntroGate";
+import { Mp3ConverterIntroGate } from "@/components/Mp3ConverterIntroGate";
+import { Mp3MetadataEditorIntroGate } from "@/components/Mp3MetadataEditorIntroGate";
+import { AudioSpeedChangerIntroGate } from "@/components/AudioSpeedChangerIntroGate";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
@@ -102,6 +106,10 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               <AudioNormalizerIntroGate active={tool.id === "audio-normalizer"}>
               <FadeInOutCreatorIntroGate active={tool.id === "fade-in-out-creator"}>
               <FlacConverterIntroGate active={tool.id === "flac-converter"}>
+              <M4aConverterIntroGate active={tool.id === "m4a-converter"}>
+              <Mp3ConverterIntroGate active={tool.id === "mp3-converter"}>
+              <Mp3MetadataEditorIntroGate active={tool.id === "mp3-metadata-editor"}>
+              <AudioSpeedChangerIntroGate active={tool.id === "mp3-speed-changer"}>
               <ToolLayout
                 faqs={faqs}
                 feedbackTitle={pageHeadline}
@@ -127,6 +135,10 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               >
                 <AudioToolWorkspace toolId={tool.id} />
               </ToolLayout>
+              </AudioSpeedChangerIntroGate>
+              </Mp3MetadataEditorIntroGate>
+              </Mp3ConverterIntroGate>
+              </M4aConverterIntroGate>
               </FlacConverterIntroGate>
               </FadeInOutCreatorIntroGate>
               </AudioNormalizerIntroGate>
