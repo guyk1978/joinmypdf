@@ -111,6 +111,9 @@ import { AnnotatePdfIntroGate } from "@/components/AnnotatePdfIntroGate";
 import { BatchRenamePdfIntroGate } from "@/components/BatchRenamePdfIntroGate";
 import { ComparePdfIntroGate } from "@/components/ComparePdfIntroGate";
 import { CustomPaperMarginIntroGate } from "@/components/CustomPaperMarginIntroGate";
+import { PdfEditorIntroGate } from "@/components/PdfEditorIntroGate";
+import { PdfMetadataEditorIntroGate } from "@/components/PdfMetadataEditorIntroGate";
+import { PdfTextEditorIntroGate } from "@/components/PdfTextEditorIntroGate";
 import { PdfToXpsIntroGate } from "@/components/PdfToXpsIntroGate";
 import { MarkdownToPdfIntroGate } from "@/components/MarkdownToPdfIntroGate";
 import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
@@ -157,6 +160,7 @@ import { HashGeneratorIntroGate } from "@/components/HashGeneratorIntroGate";
 import { ImageMetadataWiperIntroGate } from "@/components/ImageMetadataWiperIntroGate";
 import { PdfSignatureValidatorIntroGate } from "@/components/PdfSignatureValidatorIntroGate";
 import { ProtectPdfIntroGate } from "@/components/ProtectPdfIntroGate";
+import { UnlockPdfIntroGate } from "@/components/UnlockPdfIntroGate";
 import { RedactPdfIntroGate } from "@/components/RedactPdfIntroGate";
 import { RemoveHiddenMetadataIntroGate } from "@/components/RemoveHiddenMetadataIntroGate";
 import { GrayscalePdfIntroGate } from "@/components/GrayscalePdfIntroGate";
@@ -504,6 +508,9 @@ export default async function ToolPage({
         <BatchRenamePdfIntroGate active={tool.operation === "batch-rename-pdf"}>
         <ComparePdfIntroGate active={tool.operation === "compare-pdf"}>
         <CustomPaperMarginIntroGate active={tool.operation === "custom-paper-margin"}>
+        <PdfEditorIntroGate active={tool.operation === "pdf-editor"}>
+        <PdfMetadataEditorIntroGate active={tool.operation === "pdf-metadata-editor"}>
+        <PdfTextEditorIntroGate active={tool.operation === "pdf-text-editor"}>
         <PdfToXpsIntroGate active={tool.operation === "pdf-to-xps"}>
         <MarkdownToPdfIntroGate active={tool.operation === "markdown-to-pdf"}>
         <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
@@ -549,12 +556,13 @@ export default async function ToolPage({
         <HashGeneratorIntroGate active={tool.operation === "hash-generator"}>
         <ImageMetadataWiperIntroGate active={tool.operation === "image-metadata-wiper"}>
         <PdfSignatureValidatorIntroGate active={tool.operation === "pdf-signature-validator"}>
-        <ProtectPdfIntroGate active={tool.operation === "protect-pdf"}>
+        <ProtectPdfIntroGate active={tool.operation === "protect" || tool.operation === "protect-pdf"}>
+        <UnlockPdfIntroGate active={tool.operation === "unlock" || tool.operation === "unlock-pdf"}>
         <RedactPdfIntroGate active={tool.operation === "redact"}>
         <RemoveHiddenMetadataIntroGate active={tool.operation === "remove-hidden-metadata"}>
         <GrayscalePdfIntroGate active={tool.operation === "grayscale-pdf"}>
         <SafeShareAuditorIntroGate active={tool.operation === "safe-to-share-auditor"}>
-        <SignPdfIntroGate active={tool.operation === "sign-pdf"}>
+        <SignPdfIntroGate active={tool.operation === "sign" || tool.operation === "sign-pdf"}>
         <TimezoneConverterIntroGate active={tool.operation === "timezone-converter"}>
         <StorageDataConverterIntroGate active={tool.operation === "storage-data-converter"}>
         <BaseConverterIntroGate active={tool.operation === "base-converter"}>
@@ -869,6 +877,7 @@ export default async function ToolPage({
         </GrayscalePdfIntroGate>
         </RemoveHiddenMetadataIntroGate>
         </RedactPdfIntroGate>
+        </UnlockPdfIntroGate>
         </ProtectPdfIntroGate>
         </PdfSignatureValidatorIntroGate>
         </ImageMetadataWiperIntroGate>
@@ -915,6 +924,9 @@ export default async function ToolPage({
         </ExcelToPdfIntroGate>
         </MarkdownToPdfIntroGate>
         </PdfToXpsIntroGate>
+        </PdfTextEditorIntroGate>
+        </PdfMetadataEditorIntroGate>
+        </PdfEditorIntroGate>
         </CustomPaperMarginIntroGate>
         </ComparePdfIntroGate>
         </BatchRenamePdfIntroGate>

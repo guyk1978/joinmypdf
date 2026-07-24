@@ -1,21 +1,21 @@
-/* —— Pitch-black fullscreen intro: Sign PDF Online —— */
-html[data-sign-pdf-intro="1"],
-html[data-sign-pdf-intro="1"] body {
+/* —— Pitch-black fullscreen intro: Edit PDF Text Online —— */
+html[data-pdf-text-editor-intro="1"],
+html[data-pdf-text-editor-intro="1"] body {
   overflow: hidden !important;
   background-color: #000000 !important;
 }
 
-html[data-sign-pdf-intro="1"] .site-header,
-html[data-sign-pdf-intro="1"] .home-page-footer,
-html[data-sign-pdf-intro="1"] .pinned-cards-dock,
-html[data-sign-pdf-intro="1"] .app-page-canvas,
-html[data-sign-pdf-intro="1"] .cookie-consent,
-html[data-sign-pdf-intro="1"] [class*="cookie"] {
+html[data-pdf-text-editor-intro="1"] .site-header,
+html[data-pdf-text-editor-intro="1"] .home-page-footer,
+html[data-pdf-text-editor-intro="1"] .pinned-cards-dock,
+html[data-pdf-text-editor-intro="1"] .app-page-canvas,
+html[data-pdf-text-editor-intro="1"] .cookie-consent,
+html[data-pdf-text-editor-intro="1"] [class*="cookie"] {
   visibility: hidden !important;
   pointer-events: none !important;
 }
 
-.sgn-fs {
+.pte-fs {
   position: fixed;
   inset: 0;
   top: 0;
@@ -43,13 +43,12 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   --splash-max-width: 540px;
   --splash-wide-min-height: 220px;
   --splash-wide-max-height: 300px;
-  --sgn-blue: #2563eb;
-  --sgn-blue-deep: #1d4ed8;
-  --sgn-blue-soft: #93c5fd;
-  --sgn-ink: #1e3a8a;
+  --pte-blue: #2563eb;
+  --pte-blue-deep: #1d4ed8;
+  --pte-blue-soft: #93c5fd;
 }
 
-.sgn-fs__header {
+.pte-fs__header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,7 +63,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   z-index: 3;
 }
 
-.sgn-fs__title {
+.pte-fs__title {
   margin: 0;
   font-size: clamp(1.35rem, 3.5vw, 2.65rem);
   font-weight: 800;
@@ -73,15 +72,15 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   text-wrap: balance;
 }
 
-.sgn-fs__title-brand {
-  color: var(--sgn-blue-soft);
+.pte-fs__title-brand {
+  color: var(--pte-blue-soft);
 }
 
-.sgn-fs__title-rest {
+.pte-fs__title-rest {
   color: #ffffff;
 }
 
-.sgn-fs__subtitle {
+.pte-fs__subtitle {
   margin: 0;
   max-width: 52rem;
   font-size: clamp(0.98rem, 2vw, 1.25rem);
@@ -90,7 +89,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   text-wrap: balance;
 }
 
-.sgn-fs__stage {
+.pte-fs__stage {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,7 +105,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   overflow: visible;
 }
 
-.sgn-fs__scene {
+.pte-fs__scene {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,7 +117,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   overflow: visible;
 }
 
-.sgn-fs__workspace {
+.pte-fs__workspace {
   position: relative;
   display: flex;
   align-items: center;
@@ -133,7 +132,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   object-fit: contain;
 }
 
-.sgn-fs__card {
+.pte-fs__card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -156,7 +155,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
     0 0 0 1px rgba(37, 99, 235, 0.1);
 }
 
-.sgn-fs__badges {
+.pte-fs__badges {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +164,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   flex-wrap: wrap;
 }
 
-.sgn-fs__badge {
+.pte-fs__badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -179,43 +178,43 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   font-family: "Cascadia Mono", "Consolas", "SF Mono", ui-monospace, monospace;
 }
 
-.sgn-fs__badge--plain {
+.pte-fs__badge--plain {
   border: 1px solid rgba(148, 163, 184, 0.45);
   background: #1e293b;
   color: #e2e8f0;
-  animation: sgn-fs-plain-badge 10s ease-in-out infinite;
+  animation: pte-fs-plain-badge 10s ease-in-out infinite;
 }
 
-.sgn-fs__badge--done {
+.pte-fs__badge--done {
   border: 1px solid rgba(37, 99, 235, 0.55);
   background: #1e3a8a;
-  color: var(--sgn-blue-soft);
+  color: var(--pte-blue-soft);
   opacity: 0.35;
-  animation: sgn-fs-done-badge 10s ease-in-out infinite;
+  animation: pte-fs-done-badge 10s ease-in-out infinite;
 }
 
-.sgn-fs__arrow {
+.pte-fs__arrow {
   width: 1.4rem;
   height: 2px;
   position: relative;
-  background: linear-gradient(90deg, #94a3b8, var(--sgn-blue));
+  background: linear-gradient(90deg, #94a3b8, var(--pte-blue));
   box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
-  animation: sgn-fs-arrow 10s ease-in-out infinite;
+  animation: pte-fs-arrow 10s ease-in-out infinite;
 }
 
-.sgn-fs__arrow::after {
+.pte-fs__arrow::after {
   content: "";
   position: absolute;
   top: 50%;
   right: -1px;
   width: 6px;
   height: 6px;
-  border-top: 2px solid var(--sgn-blue);
-  border-right: 2px solid var(--sgn-blue);
+  border-top: 2px solid var(--pte-blue);
+  border-right: 2px solid var(--pte-blue);
   transform: translateY(-50%) rotate(45deg);
 }
 
-.sgn-fs__stage-art {
+.pte-fs__stage-art {
   position: relative;
   display: flex;
   align-items: center;
@@ -227,13 +226,13 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   overflow: visible;
 }
 
-.sgn-fs__doc {
+.pte-fs__doc {
   position: relative;
   box-sizing: border-box;
-  width: min(48%, 10rem);
+  width: min(46%, 9.5rem);
   aspect-ratio: 3 / 4;
   max-height: 100%;
-  padding: 12% 11% 12%;
+  padding: 14% 12% 14%;
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.4);
   border-radius: 0.4rem;
@@ -241,7 +240,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
 }
 
-.sgn-fs__fold {
+.pte-fs__fold {
   position: absolute;
   top: 0;
   right: 0;
@@ -251,101 +250,119 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   clip-path: polygon(0 0, 100% 0, 100% 100%);
 }
 
-.sgn-fs__heading {
+.pte-fs__heading {
   display: block;
-  width: 56%;
-  height: 0.28rem;
-  margin-bottom: 10%;
+  width: 58%;
+  height: 0.32rem;
+  margin-bottom: 12%;
   border-radius: 999px;
   background: #334155;
 }
 
-.sgn-fs__line {
+.pte-fs__line {
   display: block;
-  width: 84%;
-  height: 0.13rem;
-  margin-bottom: 8%;
+  width: 86%;
+  height: 0.15rem;
+  margin-bottom: 10%;
   border-radius: 999px;
   background: #94a3b8;
 }
 
-.sgn-fs__line--short {
-  width: 52%;
+.pte-fs__line--short {
+  width: 54%;
 }
 
-.sgn-fs__sign-area {
+.pte-fs__edit-box {
   position: relative;
-  margin-top: 6%;
-  padding-top: 0.15rem;
-  min-height: 2.4rem;
+  display: flex;
+  align-items: center;
+  min-height: 1.15rem;
+  margin-bottom: 10%;
+  padding: 0.18rem 0.28rem;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  border-radius: 0.18rem;
+  background: transparent;
+  animation: pte-fs-edit-box 10s ease-in-out infinite;
 }
 
-.sgn-fs__sign-label {
-  display: block;
-  margin-bottom: 0.2rem;
-  font-size: 0.42rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #64748b;
-  font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
-}
-
-.sgn-fs__sign-rule {
-  display: block;
-  width: 100%;
-  height: 1px;
-  background: #94a3b8;
-  margin-bottom: 0.1rem;
-}
-
-.sgn-fs__sig-svg {
+.pte-fs__handle {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.15rem;
-  width: 100%;
-  height: 1.55rem;
-  overflow: visible;
-}
-
-.sgn-fs__sig-path {
-  fill: none;
-  stroke: var(--sgn-ink);
-  stroke-width: 2.4;
-  stroke-dasharray: 220;
-  stroke-dashoffset: 220;
-  animation: sgn-fs-draw 10s ease-in-out infinite;
-}
-
-.sgn-fs__pen {
-  position: absolute;
-  left: 0;
-  bottom: 0.55rem;
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 0.08rem 0.55rem 0.08rem 0.08rem;
-  background: linear-gradient(135deg, #60a5fa 0%, var(--sgn-blue) 55%, #1e3a8a 100%);
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.45);
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 0.05rem;
+  background: var(--pte-blue);
   opacity: 0;
-  transform: translate(0, 0) rotate(-28deg);
-  animation: sgn-fs-pen 10s ease-in-out infinite;
+  animation: pte-fs-handle 10s ease-in-out infinite;
   z-index: 2;
 }
 
-.sgn-fs__pen::after {
-  content: "";
-  position: absolute;
-  right: -0.12rem;
-  top: 50%;
-  width: 0.22rem;
-  height: 0.22rem;
-  transform: translateY(-50%) rotate(45deg);
-  background: #f8fafc;
-  border: 1px solid var(--sgn-blue-deep);
+.pte-fs__handle--tl {
+  top: -0.14rem;
+  left: -0.14rem;
 }
 
-.sgn-fs__ok {
+.pte-fs__handle--tr {
+  top: -0.14rem;
+  right: -0.14rem;
+}
+
+.pte-fs__handle--bl {
+  bottom: -0.14rem;
+  left: -0.14rem;
+}
+
+.pte-fs__handle--br {
+  bottom: -0.14rem;
+  right: -0.14rem;
+}
+
+.pte-fs__old {
+  position: absolute;
+  inset-inline-start: 0.28rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #1e293b;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+  animation: pte-fs-old 10s ease-in-out infinite;
+}
+
+.pte-fs__typed {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  z-index: 1;
+}
+
+.pte-fs__typed-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #1e3a8a;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+  max-width: 0;
+  animation: pte-fs-type 10s steps(14, end) infinite;
+}
+
+.pte-fs__caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 0.7rem;
+  margin-inline-start: 1px;
+  background: var(--pte-blue);
+  opacity: 0;
+  animation: pte-fs-caret 10s ease-in-out infinite;
+}
+
+.pte-fs__ok {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -356,24 +373,24 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   border: 1px solid rgba(37, 99, 235, 0.5);
   border-radius: 999px;
   background: #1e3a8a;
-  color: var(--sgn-blue-soft);
+  color: var(--pte-blue-soft);
   font-size: 0.78rem;
   font-weight: 700;
   white-space: nowrap;
-  animation: sgn-fs-ok 10s ease-in-out infinite;
+  animation: pte-fs-ok 10s ease-in-out infinite;
 }
 
-.sgn-fs__check {
+.pte-fs__check {
   display: inline-block;
   width: 0.7rem;
   height: 0.7rem;
   border-radius: 999px;
-  background: var(--sgn-blue);
+  background: var(--pte-blue);
   position: relative;
   flex-shrink: 0;
 }
 
-.sgn-fs__check::after {
+.pte-fs__check::after {
   content: "";
   position: absolute;
   left: 28%;
@@ -385,7 +402,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   transform: rotate(40deg);
 }
 
-.sgn-fs__footer {
+.pte-fs__footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -395,7 +412,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   padding-bottom: 10px;
 }
 
-.sgn-fs__cta {
+.pte-fs__cta {
   appearance: none;
   display: inline-flex;
   align-items: center;
@@ -403,9 +420,9 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   min-width: min(100%, 16rem);
   min-height: 3.15rem;
   padding: 0.85rem 2.25rem;
-  border: 1px solid var(--sgn-blue-deep);
+  border: 1px solid var(--pte-blue-deep);
   border-radius: 0.65rem;
-  background: linear-gradient(180deg, #3b82f6 0%, var(--sgn-blue) 100%);
+  background: linear-gradient(180deg, #3b82f6 0%, var(--pte-blue) 100%);
   color: #eff6ff;
   font-size: 1.1rem;
   font-weight: 800;
@@ -420,25 +437,25 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
     box-shadow 0.15s ease;
 }
 
-.sgn-fs__cta:hover {
+.pte-fs__cta:hover {
   filter: brightness(1.06);
   box-shadow:
     0 14px 32px rgba(37, 99, 235, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-.sgn-fs__cta:active {
+.pte-fs__cta:active {
   transform: translateY(1px) scale(0.985);
 }
 
-.sgn-fs__cta:focus-visible {
-  outline: 2px solid var(--sgn-blue-soft);
+.pte-fs__cta:focus-visible {
+  outline: 2px solid var(--pte-blue-soft);
   outline-offset: 3px;
 }
 
-/* —— Timeline (10s): pen glides + stroke draws → Signed —— */
+/* —— Timeline (10s): select box → delete → retype → Text Updated —— */
 
-@keyframes sgn-fs-plain-badge {
+@keyframes pte-fs-plain-badge {
   0%,
   28% {
     opacity: 1;
@@ -453,7 +470,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes sgn-fs-done-badge {
+@keyframes pte-fs-done-badge {
   0%,
   36% {
     opacity: 0.35;
@@ -468,7 +485,7 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes sgn-fs-arrow {
+@keyframes pte-fs-arrow {
   0%,
   28% {
     opacity: 0.45;
@@ -486,69 +503,118 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes sgn-fs-draw {
+@keyframes pte-fs-edit-box {
   0%,
-  14% {
-    stroke-dashoffset: 220;
+  10% {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
   }
-  48%,
+  16%,
   78% {
-    stroke-dashoffset: 0;
+    border-color: var(--pte-blue);
+    background: rgba(37, 99, 235, 0.08);
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.18);
   }
   90%,
   100% {
-    stroke-dashoffset: 220;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
   }
 }
 
-@keyframes sgn-fs-pen {
+@keyframes pte-fs-handle {
   0%,
   12% {
     opacity: 0;
-    left: 2%;
-    bottom: 0.55rem;
-    transform: rotate(-28deg) scale(0.9);
+    transform: scale(0.6);
   }
-  16% {
-    opacity: 1;
-  }
-  22% {
-    left: 18%;
-    bottom: 1.05rem;
-    transform: rotate(-18deg) scale(1);
-  }
-  30% {
-    left: 34%;
-    bottom: 0.35rem;
-    transform: rotate(-32deg) scale(1);
-  }
-  38% {
-    left: 52%;
-    bottom: 0.95rem;
-    transform: rotate(-16deg) scale(1);
-  }
-  46% {
-    left: 72%;
-    bottom: 0.45rem;
-    transform: rotate(-26deg) scale(1);
-  }
-  52%,
+  18%,
   78% {
     opacity: 1;
-    left: 88%;
-    bottom: 0.7rem;
-    transform: rotate(-22deg) scale(1);
+    transform: scale(1);
   }
-  88%,
+  90%,
   100% {
     opacity: 0;
-    left: 2%;
-    bottom: 0.55rem;
-    transform: rotate(-28deg) scale(0.9);
+    transform: scale(0.6);
   }
 }
 
-@keyframes sgn-fs-ok {
+@keyframes pte-fs-old {
+  0%,
+  18% {
+    opacity: 1;
+    background: transparent;
+    text-decoration: none;
+  }
+  22% {
+    opacity: 1;
+    background: rgba(37, 99, 235, 0.22);
+  }
+  30% {
+    opacity: 0.55;
+    text-decoration: line-through;
+    background: rgba(220, 38, 38, 0.12);
+  }
+  38%,
+  78% {
+    opacity: 0;
+    text-decoration: line-through;
+  }
+  90%,
+  100% {
+    opacity: 1;
+    background: transparent;
+    text-decoration: none;
+  }
+}
+
+@keyframes pte-fs-type {
+  0%,
+  36% {
+    max-width: 0;
+  }
+  54%,
+  78% {
+    max-width: 7.5rem;
+  }
+  90%,
+  100% {
+    max-width: 0;
+  }
+}
+
+@keyframes pte-fs-caret {
+  0%,
+  34% {
+    opacity: 0;
+  }
+  36%,
+  72% {
+    opacity: 1;
+  }
+  40%,
+  48%,
+  56%,
+  64% {
+    opacity: 0.15;
+  }
+  38%,
+  46%,
+  54%,
+  62%,
+  70% {
+    opacity: 1;
+  }
+  82%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pte-fs-ok {
   0%,
   50% {
     opacity: 0.25;
@@ -567,30 +633,30 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
 }
 
 @media (max-width: 640px) {
-  .sgn-fs {
+  .pte-fs {
     padding: 16px 0;
     --splash-wide-max-height: 260px;
   }
 
-  .sgn-fs__stage {
+  .pte-fs__stage {
     margin-top: 24px;
   }
 
-  .sgn-fs__card {
+  .pte-fs__card {
     gap: 0.4rem;
     padding: 0.65rem 0.7rem 0.7rem;
     max-height: 260px;
   }
 
-  .sgn-fs__workspace {
+  .pte-fs__workspace {
     max-height: 260px;
   }
 
-  .sgn-fs__stage-art {
+  .pte-fs__stage-art {
     max-height: min(150px, 100%);
   }
 
-  .sgn-fs__cta {
+  .pte-fs__cta {
     min-width: min(100%, 14rem);
     min-height: 2.9rem;
     font-size: 1rem;
@@ -598,35 +664,35 @@ html[data-sign-pdf-intro="1"] [class*="cookie"] {
 }
 
 @media (max-height: 700px) {
-  .sgn-fs__workspace,
-  .sgn-fs__card {
+  .pte-fs__workspace,
+  .pte-fs__card {
     max-height: 260px;
   }
 
-  .sgn-fs__stage-art {
+  .pte-fs__stage-art {
     max-height: min(140px, 100%);
   }
 
-  .sgn-fs__title {
+  .pte-fs__title {
     font-size: clamp(1.15rem, 3vw, 1.85rem);
   }
 }
 
 @media (max-height: 560px) {
-  .sgn-fs {
+  .pte-fs {
     padding: 12px 0;
   }
 
-  .sgn-fs__stage {
+  .pte-fs__stage {
     margin-top: 16px;
   }
 
-  .sgn-fs__workspace,
-  .sgn-fs__card {
+  .pte-fs__workspace,
+  .pte-fs__card {
     max-height: 220px;
   }
 
-  .sgn-fs__ok {
+  .pte-fs__ok {
     display: none;
   }
 }

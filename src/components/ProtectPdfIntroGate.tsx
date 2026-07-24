@@ -17,7 +17,7 @@ type ProtectPdfIntroGateProps = {
 
 /**
  * One-way cinematic fullscreen splash for Protect PDF with Password Online.
- * Password field drops in → key locks → padlock snaps shut + AES-256 badge.
+ * Password dots type in while a padlock snaps shut on a secure PDF card.
  * Only runs inside the ToolModal CALC embed.
  */
 export function ProtectPdfIntroGate({
@@ -81,35 +81,45 @@ export function ProtectPdfIntroGate({
 
         <div className="prt-fs__stage" aria-hidden>
           <div className="prt-fs__scene">
-            <div className="prt-fs__workspace animation-workspace">
+            <div
+              className="prt-fs__workspace animation-workspace"
+              data-splash-wide
+            >
               <div className="prt-fs__card">
                 <div className="prt-fs__badges">
-                  <span className="prt-fs__badge prt-fs__badge--open">{t("openBadge")}</span>
-                  <span className="prt-fs__badge prt-fs__badge--aes">{t("aesBadge")}</span>
+                  <span className="prt-fs__badge prt-fs__badge--plain">{t("plainBadge")}</span>
+                  <span className="prt-fs__arrow" />
+                  <span className="prt-fs__badge prt-fs__badge--done">{t("doneBadge")}</span>
                 </div>
 
-                <div className="prt-fs__stage-docs">
+                <div className="prt-fs__stage-art">
                   <div className="prt-fs__doc">
-                    <span className="prt-fs__line prt-fs__line--title" />
+                    <span className="prt-fs__fold" />
+                    <span className="prt-fs__mark">PDF</span>
+                    <span className="prt-fs__bar" />
                     <span className="prt-fs__line" />
                     <span className="prt-fs__line prt-fs__line--short" />
                     <span className="prt-fs__line" />
-                    <span className="prt-fs__line prt-fs__line--mid" />
-                    <span className="prt-fs__lock" />
+                    <span className="prt-fs__lock">
+                      <span className="prt-fs__shackle" />
+                      <span className="prt-fs__body" />
+                    </span>
                   </div>
 
-                  <div className="prt-fs__password">
-                    <span className="prt-fs__password-dots">••••••••</span>
+                  <div className="prt-fs__field">
+                    <span className="prt-fs__field-label">{t("passwordLabel")}</span>
+                    <span className="prt-fs__input">
+                      <span className="prt-fs__dots">••••••••</span>
+                      <span className="prt-fs__caret" />
+                    </span>
                   </div>
-
-                  <span className="prt-fs__key" />
                 </div>
-              </div>
 
-              <span className="prt-fs__ok">
-                <span className="prt-fs__check" />
-                {t("success")}
-              </span>
+                <span className="prt-fs__ok">
+                  <span className="prt-fs__check" />
+                  {t("success")}
+                </span>
+              </div>
             </div>
           </div>
         </div>
