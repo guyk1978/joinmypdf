@@ -35,6 +35,7 @@ import { ImageWatermarkWorkspace } from "@/components/ImageWatermarkWorkspace";
 import { ImageOptimizerWorkspace } from "@/components/ImageOptimizerWorkspace";
 import { PaintOnImageWorkspace } from "@/components/PaintOnImageWorkspace";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
+import { PdfReaderWorkspace } from "@/components/PdfReaderWorkspace";
 import { VideoToMp4Workspace } from "@/components/VideoToMp4Workspace";
 import { VideoCompressorWorkspace } from "@/components/VideoCompressorWorkspace";
 import { VideoResizerWorkspace } from "@/components/tools/VideoResizerWorkspace";
@@ -175,6 +176,7 @@ import { PasswordRecoveryIntroGate } from "@/components/PasswordRecoveryIntroGat
 import { WordCharacterCounterIntroGate } from "@/components/WordCharacterCounterIntroGate";
 import { WordToPdfIntroGate } from "@/components/WordToPdfIntroGate";
 import { CropPdfIntroGate } from "@/components/CropPdfIntroGate";
+import { PdfReaderIntroGate } from "@/components/PdfReaderIntroGate";
 import { RotatePdfIntroGate } from "@/components/RotatePdfIntroGate";
 import { VideoRotatorIntroGate } from "@/components/VideoRotatorIntroGate";
 import { VideoResizerIntroGate } from "@/components/VideoResizerIntroGate";
@@ -603,6 +605,7 @@ export default async function ToolPage({
         <TextWorkspaceIntroGate active={tool.operation === "text-workspace"}>
         <WordToPdfIntroGate active={tool.operation === "word-to-pdf"}>
         <CropPdfIntroGate active={tool.operation === "crop-pdf"}>
+        <PdfReaderIntroGate active={tool.operation === "pdf-reader"}>
         <RotatePdfIntroGate active={tool.operation === "rotate-pdf"}>
         <VideoRotatorIntroGate active={tool.operation === "video-rotator"}>
         <VideoResizerIntroGate active={tool.operation === "video-resizer"}>
@@ -766,6 +769,8 @@ export default async function ToolPage({
           <PaintOnImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-pdf" ? (
           <CropPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-reader" ? (
+          <PdfReaderWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "crop-image" ? (
           <CropImageWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "video-to-mp4" ? (
@@ -956,6 +961,7 @@ export default async function ToolPage({
         </VideoResizerIntroGate>
         </VideoRotatorIntroGate>
         </RotatePdfIntroGate>
+        </PdfReaderIntroGate>
         </CropPdfIntroGate>
         </WordToPdfIntroGate>
         </TextWorkspaceIntroGate>

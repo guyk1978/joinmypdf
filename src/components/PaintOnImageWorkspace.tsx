@@ -404,11 +404,11 @@ export function PaintOnImageWorkspace({ tool, slug }: { tool: ToolDefinition; sl
             </span>
           </div>
 
-          <div className="relative overflow-hidden rounded-none border border-white/10 bg-black/40">
+          <div className="overflow-hidden rounded-none border border-white/10 bg-black/40 p-2 sm:p-3">
             <canvas
               ref={canvasRef}
-              className="mx-auto block max-h-[min(70vh,720px)] w-full cursor-crosshair"
-              style={{ width: "100%", height: "auto", touchAction: "none" }}
+              className="mx-auto block h-auto max-h-[min(70vh,720px)] w-auto max-w-full cursor-crosshair"
+              style={{ touchAction: "none" }}
               onMouseDown={onMouseDown}
               onMouseMove={onMouseMove}
               onMouseUp={onMouseUp}
@@ -418,92 +418,92 @@ export function PaintOnImageWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               onTouchEnd={onTouchEnd}
               onTouchCancel={onTouchEnd}
             />
+          </div>
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center px-4">
-              <div className="pointer-events-auto flex w-full max-w-3xl flex-wrap items-center gap-3 rounded-none border border-neutral-700/80 bg-neutral-900/95 px-4 py-3 shadow-2xl backdrop-blur-sm">
-                <div className="flex items-center gap-1">
-                  <button
-                    type="button"
-                    aria-pressed={drawMode === "brush"}
-                    title={t("brushTool")}
-                    onClick={() => setDrawMode("brush")}
-                    className={`rounded-none border p-2 transition ${
-                      drawMode === "brush"
-                        ? "border-neutral-500 bg-neutral-700 text-white"
-                        : "border-white/10 text-neutral-300 hover:bg-white/5"
-                    }`}
-                  >
-                    <Brush className="h-4 w-4" aria-hidden />
-                  </button>
-                  <button
-                    type="button"
-                    aria-pressed={drawMode === "eraser"}
-                    title={t("eraserTool")}
-                    onClick={() => setDrawMode("eraser")}
-                    className={`rounded-none border p-2 transition ${
-                      drawMode === "eraser"
-                        ? "border-neutral-500 bg-neutral-700 text-white"
-                        : "border-white/10 text-neutral-300 hover:bg-white/5"
-                    }`}
-                  >
-                    <Eraser className="h-4 w-4" aria-hidden />
-                  </button>
-                </div>
-
-                <label className="flex items-center gap-2 text-xs font-medium text-neutral-200">
-                  <Palette className="h-4 w-4 shrink-0 text-neutral-400" aria-hidden />
-                  <span className="sr-only">{t("colorLabel")}</span>
-                  <input
-                    type="color"
-                    value={brushColor}
-                    disabled={drawMode === "eraser"}
-                    onChange={(e) => setBrushColor(e.target.value)}
-                    className="h-8 w-10 cursor-pointer rounded-none border border-white/15 bg-neutral-800 p-0.5 disabled:opacity-40"
-                  />
-                </label>
-
-                <label className="flex min-w-[8rem] flex-1 items-center gap-2 text-xs font-medium text-neutral-200">
-                  <span>{t("brushSizeLabel", { size: brushSize })}</span>
-                  <input
-                    type="range"
-                    min={1}
-                    max={50}
-                    value={brushSize}
-                    onChange={(e) => setBrushSize(clampBrushSize(Number(e.target.value)))}
-                    className="w-full accent-neutral-400"
-                  />
-                </label>
-
+          <div className="flex justify-center">
+            <div className="flex w-full max-w-3xl flex-wrap items-center gap-3 rounded-none border border-neutral-700/80 bg-neutral-900/95 px-4 py-3">
+              <div className="flex items-center gap-1">
                 <button
                   type="button"
-                  disabled={!canUndo || busy}
-                  onClick={() => void onUndo()}
-                  className="inline-flex items-center gap-1.5 rounded-none border border-white/15 px-3 py-2 text-xs font-semibold text-neutral-200 transition hover:bg-white/5 disabled:opacity-40"
+                  aria-pressed={drawMode === "brush"}
+                  title={t("brushTool")}
+                  onClick={() => setDrawMode("brush")}
+                  className={`rounded-none border p-2 transition ${
+                    drawMode === "brush"
+                      ? "border-neutral-500 bg-neutral-700 text-white"
+                      : "border-white/10 text-neutral-300 hover:bg-white/5"
+                  }`}
                 >
-                  <RotateCcw className="h-3.5 w-3.5" aria-hidden />
-                  {t("undo")}
+                  <Brush className="h-4 w-4" aria-hidden />
                 </button>
-
                 <button
                   type="button"
-                  disabled={busy}
-                  onClick={() => void onClearAll()}
-                  className="inline-flex items-center gap-1.5 rounded-none border border-white/15 px-3 py-2 text-xs font-semibold text-neutral-200 transition hover:bg-white/5 disabled:opacity-40"
+                  aria-pressed={drawMode === "eraser"}
+                  title={t("eraserTool")}
+                  onClick={() => setDrawMode("eraser")}
+                  className={`rounded-none border p-2 transition ${
+                    drawMode === "eraser"
+                      ? "border-neutral-500 bg-neutral-700 text-white"
+                      : "border-white/10 text-neutral-300 hover:bg-white/5"
+                  }`}
                 >
-                  <Trash2 className="h-3.5 w-3.5" aria-hidden />
-                  {t("clearAll")}
-                </button>
-
-                <button
-                  type="button"
-                  disabled={busy}
-                  onClick={() => void onDownload()}
-                  className="inline-flex items-center gap-1.5 rounded-none border border-neutral-500 bg-neutral-200 px-3 py-2 text-xs font-semibold text-black transition hover:bg-white disabled:opacity-40"
-                >
-                  <Download className="h-3.5 w-3.5" aria-hidden />
-                  {t("download")}
+                  <Eraser className="h-4 w-4" aria-hidden />
                 </button>
               </div>
+
+              <label className="flex items-center gap-2 text-xs font-medium text-neutral-200">
+                <Palette className="h-4 w-4 shrink-0 text-neutral-400" aria-hidden />
+                <span className="sr-only">{t("colorLabel")}</span>
+                <input
+                  type="color"
+                  value={brushColor}
+                  disabled={drawMode === "eraser"}
+                  onChange={(e) => setBrushColor(e.target.value)}
+                  className="h-8 w-10 cursor-pointer rounded-none border border-white/15 bg-neutral-800 p-0.5 disabled:opacity-40"
+                />
+              </label>
+
+              <label className="flex min-w-[8rem] flex-1 items-center gap-2 text-xs font-medium text-neutral-200">
+                <span>{t("brushSizeLabel", { size: brushSize })}</span>
+                <input
+                  type="range"
+                  min={1}
+                  max={50}
+                  value={brushSize}
+                  onChange={(e) => setBrushSize(clampBrushSize(Number(e.target.value)))}
+                  className="w-full accent-neutral-400"
+                />
+              </label>
+
+              <button
+                type="button"
+                disabled={!canUndo || busy}
+                onClick={() => void onUndo()}
+                className="inline-flex items-center gap-1.5 rounded-none border border-white/15 px-3 py-2 text-xs font-semibold text-neutral-200 transition hover:bg-white/5 disabled:opacity-40"
+              >
+                <RotateCcw className="h-3.5 w-3.5" aria-hidden />
+                {t("undo")}
+              </button>
+
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => void onClearAll()}
+                className="inline-flex items-center gap-1.5 rounded-none border border-white/15 px-3 py-2 text-xs font-semibold text-neutral-200 transition hover:bg-white/5 disabled:opacity-40"
+              >
+                <Trash2 className="h-3.5 w-3.5" aria-hidden />
+                {t("clearAll")}
+              </button>
+
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => void onDownload()}
+                className="inline-flex items-center gap-1.5 rounded-none border border-neutral-500 bg-neutral-200 px-3 py-2 text-xs font-semibold text-black transition hover:bg-white disabled:opacity-40"
+              >
+                <Download className="h-3.5 w-3.5" aria-hidden />
+                {t("download")}
+              </button>
             </div>
           </div>
 

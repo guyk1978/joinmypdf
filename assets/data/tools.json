@@ -936,6 +936,76 @@
       }
     },
     {
+      "slug": "pdf-reader",
+      "category": "edit",
+      "operation": "pdf-reader",
+      "title": "PDF Reader Online",
+      "primaryKeyword": "pdf reader online free browser",
+      "intent": "Read and inspect PDFs privately in your browser with page navigation, zoom, and text selection—no uploads.",
+      "description": "Open any PDF locally in a clean, distraction-free browser reader. Flip pages, zoom, and select text without ads, paywalls, or sending your file to a server.",
+      "secondaryKeywords": [
+        "online pdf viewer no upload",
+        "read pdf in browser private",
+        "client side pdf reader"
+      ],
+      "useCases": [
+        "Read contracts and reports without installing desktop software",
+        "Inspect multi-page PDFs with fast page jump and zoom",
+        "Select and copy text from a PDF while keeping the file on your device"
+      ],
+      "relatedTools": [
+        "pdf-to-text",
+        "pdf-compress",
+        "rotate-pdf"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF uploaded to JoinMyPDF?",
+          "a": "No. Rendering runs entirely in your browser with PDF.js. Your file never leaves your device."
+        },
+        {
+          "q": "Can I select and copy text?",
+          "a": "Yes. Selectable text is rendered as an overlay on each page when the PDF includes a text layer."
+        },
+        {
+          "q": "Does the reader work offline after loading?",
+          "a": "Once the page and PDF.js worker are loaded, reading stays on your device. Opening a new file still uses the local file picker."
+        },
+        {
+          "q": "Are there ads or paywalls?",
+          "a": "No. The reader is a clean workspace focused on peaceful reading and inspection."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.92,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-25",
+      "documentation": {
+        "whyItMatters": "Read and inspect PDFs privately in your browser with page navigation, zoom, and text selection—no uploads.",
+        "faq": [
+          {
+            "question": "Is my PDF uploaded to JoinMyPDF?",
+            "answer": "No. Rendering runs entirely in your browser with PDF.js. Your file never leaves your device."
+          },
+          {
+            "question": "Can I select and copy text?",
+            "answer": "Yes. Selectable text is rendered as an overlay on each page when the PDF includes a text layer."
+          },
+          {
+            "question": "Does the reader work offline after loading?",
+            "answer": "Once the page and PDF.js worker are loaded, reading stays on your device. Opening a new file still uses the local file picker."
+          },
+          {
+            "question": "Are there ads or paywalls?",
+            "answer": "No. The reader is a clean workspace focused on peaceful reading and inspection."
+          }
+        ]
+      }
+    },
+    {
       "slug": "redact-pdf",
       "category": "security",
       "operation": "redact",

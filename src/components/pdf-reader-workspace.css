@@ -1,0 +1,221 @@
+.pdf-reader-upload-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto 1.35rem;
+  text-align: center;
+}
+
+.pdf-reader-upload-head__title {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.pdf-reader-upload-head__subtitle {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #a3a3a3;
+}
+
+/* Keep dropzone copy as the only in-zone text — no stacked page-header duplicate. */
+.pdf-reader-tool-page .tool-upload-zone__page-header {
+  display: none;
+}
+
+.pdf-reader-tool-page .im-dropzone__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.pdf-reader-tool-page .im-dropzone__title {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.pdf-reader-tool-page .im-dropzone__select {
+  margin: 0;
+}
+
+.pdf-reader-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #d4d4d4;
+  background: #fafafa;
+}
+
+.dark .pdf-reader-toolbar {
+  border-color: #404040;
+  background: #171717;
+}
+
+.pdf-reader-toolbar__group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pdf-reader-toolbar__btn {
+  appearance: none;
+  border: 1px solid #d4d4d4;
+  background: #ffffff;
+  color: #171717;
+  font-size: 0.8rem;
+  font-weight: 650;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.pdf-reader-toolbar__btn:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.pdf-reader-toolbar__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.dark .pdf-reader-toolbar__btn {
+  border-color: #525252;
+  background: #262626;
+  color: #f5f5f5;
+}
+
+.dark .pdf-reader-toolbar__btn:hover:not(:disabled) {
+  background: #333333;
+}
+
+.pdf-reader-toolbar__page {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: #404040;
+}
+
+.dark .pdf-reader-toolbar__page {
+  color: #d4d4d4;
+}
+
+.pdf-reader-toolbar__page input {
+  width: 3.2rem;
+  border: 1px solid #d4d4d4;
+  background: #ffffff;
+  color: #171717;
+  padding: 0.35rem 0.4rem;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.dark .pdf-reader-toolbar__page input {
+  border-color: #525252;
+  background: #0a0a0a;
+  color: #f5f5f5;
+}
+
+.pdf-reader-toolbar__zoom {
+  min-width: 3.2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #262626;
+}
+
+.dark .pdf-reader-toolbar__zoom {
+  color: #e5e5e5;
+}
+
+.pdf-reader-viewport {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-height: min(72vh, 900px);
+  overflow: auto;
+  border: 1px solid #d4d4d4;
+  background: #e5e5e5;
+  padding: 1rem;
+  text-align: center;
+}
+
+.dark .pdf-reader-viewport {
+  border-color: #404040;
+  background: #0a0a0a;
+}
+
+.pdf-reader-page {
+  position: relative;
+  display: inline-block;
+  margin-inline: auto;
+  text-align: left;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  background: #ffffff;
+}
+
+.pdf-reader-page__canvas {
+  display: block;
+  max-width: none;
+}
+
+.pdf-reader-page__text.textLayer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 1;
+  line-height: 1;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.pdf-reader-page__text.textLayer span,
+.pdf-reader-page__text.textLayer br {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.pdf-reader-page__text.textLayer ::selection {
+  background: rgba(56, 189, 248, 0.35);
+}
+
+.pdf-reader-viewport__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(250, 250, 250, 0.55);
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: #404040;
+  pointer-events: none;
+}
+
+.dark .pdf-reader-viewport__loading {
+  background: rgba(10, 10, 10, 0.55);
+  color: #d4d4d4;
+}

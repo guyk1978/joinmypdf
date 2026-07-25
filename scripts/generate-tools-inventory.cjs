@@ -21,6 +21,7 @@ const TITLE_OVERRIDES = {
 
 const PDF_SECTIONS = {
   mergeSplit: [
+    "pdf-reader",
     "pdf-merge",
     "pdf-split",
     "extract-pdf-pages",

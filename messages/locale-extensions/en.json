@@ -6073,6 +6073,10 @@
         "title": "Drop a PDF here or click to browse",
         "description": "Crop margins on every page using a visual frame on page 1."
       },
+      "pdf-reader": {
+        "title": "PDF Reader Online",
+        "description": "Open a PDF to read and inspect it locally — flip pages, zoom, and select text. Nothing is uploaded."
+      },
       "crop-image": {
         "title": "Drop an image here or click to browse",
         "description": "Drag the crop frame, then export a high-quality PNG locally."
@@ -6914,6 +6918,27 @@
         "pageSummary": "{count} page(s) · same crop on all pages",
         "cropInstructions": "Drag the frame to move it. Pull corners or edges to resize. The same crop applies to every page.",
         "resetFrame": "Reset frame"
+      }
+    },
+    "pdf-reader": {
+      "status": {
+        "invalidType": "Please choose a PDF file.",
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "reading": "Opening PDF…",
+        "fileReady": "{name} ready — navigate, zoom, and select text.",
+        "tryAgain": "Try again or choose another file."
+      },
+      "privacyNote": "Reading runs entirely in your browser. Your PDF never leaves your device.",
+      "ui": {
+        "toolbarLabel": "PDF reader controls",
+        "pageSummary": "{count} page(s) · private local viewer",
+        "prevPage": "Previous",
+        "nextPage": "Next",
+        "jumpToPage": "Go to page",
+        "zoomOut": "Zoom out",
+        "zoomIn": "Zoom in",
+        "zoomReset": "Reset zoom",
+        "selectHint": "Select text on the page to copy it. Zoom and page controls stay out of the way for peaceful reading."
       }
     },
     "crop-image": {

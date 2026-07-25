@@ -37,6 +37,7 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "pdf-to-powerpoint": "PDF to PowerPoint",
     "powerpoint-to-pdf": "PowerPoint to PDF",
     "crop-pdf": "Crop PDF",
+    "pdf-reader": "PDF Reader",
     "add-watermark": "Add Watermark",
     "rotate-pdf": "Rotate PDF",
     "autocad-to-pdf": "AutoCAD to PDF",

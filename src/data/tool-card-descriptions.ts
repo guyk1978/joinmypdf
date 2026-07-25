@@ -25,6 +25,7 @@ export const TOOL_CARD_DESCRIPTIONS: Record<string, string> = {
   "convert-to-png": "Convert images to PNG for crisp, transparent graphics.",
   "crop-image": "Crop images to custom dimensions or focused regions.",
   "crop-pdf": "Crop PDF pages to remove margins and unwanted edges.",
+  "pdf-reader": "Read and inspect PDFs privately in your browser—zoom, flip pages, select text.",
   "csv-to-json": "Convert CSV spreadsheets into clean JSON data.",
   "csv-to-markdown-table": "Turn CSV data into ready-to-paste Markdown tables.",
   "custom-paper-margin": "Resize PDF pages and set precise print margins.",

@@ -203,6 +203,7 @@
       "compressPdf": "דחיסת PDF",
       "rotatePdf": "סיבוב PDF",
       "cropPdf": "חיתוך PDF",
+      "pdfReader": "קורא PDF",
       "deletePdfPages": "מחיקת עמודי PDF",
       "reorderPdfPages": "סידור עמודי PDF",
       "extractPdfPages": "חילוץ עמודי PDF",
@@ -2096,6 +2097,34 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את סביבת העבודה כדי לחתוך עמודי PDF."
   },
+  "PdfReaderLanding": {
+    "brand": "קורא PDF אונליין",
+    "titleRest": "- קראו ובדקו קבצי PDF בשלווה בדפדפן",
+    "subtitle": "פתחו כל PDF מקומית עם ניווט עמודים נקי, זום ובחירת טקסט — בלי פרסומות, בלי העלאות ובלי חומות תשלום.",
+    "pageLabel": "עמוד 1 / 12",
+    "zoomLabel": "זום",
+    "success": "מוכן לקריאה",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את סביבת העבודה כדי לקרוא PDF."
+  },
+  "PdfReaderPage": {
+    "metaTitle": "קורא PDF אונליין | מציג PDF פרטי בדפדפן | JoinMyPDF",
+    "metaDescription": "קראו ובדקו קבצי PDF בשלווה בדפדפן. ניווט עמודים, זום ובחירת טקסט — 100% מקומי, בלי העלאות.",
+    "title": "קורא PDF אונליין",
+    "schemaName": "קורא PDF אונליין",
+    "schemaDescription": "קראו ובדקו קבצי PDF באופן פרטי בדפדפן עם ניווט עמודים, זום ובחירת טקסט.",
+    "schemaFeatureRead": "רינדור PDF בצד הלקוח עם PDF.js",
+    "schemaFeatureNav": "ניווט עמודים מהיר ומעבר לעמוד",
+    "schemaFeatureZoom": "בקרי זום לבדיקה מדויקת",
+    "schemaFeatureLocal": "עיבוד מקומי 100% בדפדפן — בלי העלאות"
+  },
+  "PdfReaderPromo": {
+    "ariaLabel": "כלי חדש: קורא PDF אונליין",
+    "eyebrow": "השקה חדשה",
+    "title": "קורא PDF אונליין",
+    "description": "קראו ובדקו קבצי PDF בשלווה בדפדפן — פרטי, בלי פרסומות ומקומי לחלוטין.",
+    "cta": "פתחו את קורא ה-PDF"
+  },
   "CropPdfPage": {
     "metaTitle": "חיתוך PDF אונליין | הסרת שוליים וקצוות | JoinMyPDF",
     "metaDescription": "קצצו רווח סורק ושוליים עודפים כדי שכל עמוד ימסגר את התוכן החשוב — 100% מקומי בדפדפן.",
@@ -3244,6 +3273,7 @@
       "pdf-to-powerpoint": "PDF ל-PowerPoint",
       "powerpoint-to-pdf": "PowerPoint ל-PDF",
       "crop-pdf": "חיתוך PDF",
+      "pdf-reader": "קורא PDF אונליין",
       "crop-image": "חיתוך תמונה",
       "resize-image": "שינוי גודל תמונה",
       "convert-to-png": "המרה ל-PNG",
@@ -3407,6 +3437,7 @@
       "convert-to-png": "המירו תמונות ל-PNG לגרפיקה חדה ושקופה.",
       "crop-image": "חתכו תמונות למידות מותאמות או לאזור ממוקד.",
       "crop-pdf": "חתכו עמודי PDF כדי להסיר שוליים וקצוות מיותרים.",
+      "pdf-reader": "קראו ובדקו קבצי PDF באופן פרטי בדפדפן — זום, דפדוף ובחירת טקסט.",
       "csv-to-json": "המירו גיליונות CSV לנתוני JSON נקיים.",
       "csv-to-markdown-table": "הפכו נתוני CSV לטבלאות Markdown מוכנות להדבקה.",
       "custom-paper-margin": "שנו גודל עמודי PDF והגדירו שולי הדפסה מדויקים.",
@@ -6516,6 +6547,7 @@
       "signPdf": "חתימה על PDF",
       "pdfSignatureValidator": "אימות חתימה דיגיטלית ב-PDF",
       "cropPdf": "חיתוך PDF",
+      "pdfReader": "קורא PDF",
       "addPageNumbers": "הוספת מספרי עמוד",
       "addWatermark": "הוספת סימן מים",
       "annotatePdf": "הערות על PDF",

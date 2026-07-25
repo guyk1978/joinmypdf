@@ -42,7 +42,21 @@ const TOOL_OG_OVERRIDES: Record<
       "Combine multiple PDF documents into a single file quickly, securely, and directly in your browser.",
     imagePath: "/images/og-image-merge-pdf.jpg",
   },
+  "pdf-reader": {
+    title: "PDF Reader Online - Read PDFs Privately in Your Browser",
+    description:
+      "Open and read PDF documents instantly in your browser. Page navigation, zoom, and text selection — fully client-side, no uploads.",
+    // Locale-specific path resolved in buildLocalizedToolMetadata via pdfReaderOgImagePath().
+    imagePath: "/images/joinmypdf/og-image-pdf-reader-en.png",
+  },
 };
+
+/** Hebrew card is the default filename; English UI uses the `-en` asset. */
+export function pdfReaderOgImagePath(locale: string): string {
+  return locale === "he"
+    ? "/images/joinmypdf/og-image-pdf-reader.png"
+    : "/images/joinmypdf/og-image-pdf-reader-en.png";
+}
 
 function sentenceCase(s: string) {
   if (!s) return s;
@@ -133,9 +147,13 @@ export function buildLocalizedToolMetadata(params: {
   const toolPath = resolveToolHref(canonicalId, undefined, locale);
   const canonicalPath = `/${locale}${toolPath}`;
   const ogOverride = TOOL_OG_OVERRIDES[canonicalId];
+  const imagePath =
+    canonicalId === "pdf-reader"
+      ? pdfReaderOgImagePath(locale)
+      : ogOverride?.imagePath;
   const social = buildDefaultSocialImages(locale, {
     alt: ogOverride?.title ?? ogTitle,
-    imagePath: ogOverride?.imagePath,
+    imagePath,
   });
   const ogLocale =
     locale === "he" ? "he_IL" : locale === "ru" ? "ru_RU" : "en_US";

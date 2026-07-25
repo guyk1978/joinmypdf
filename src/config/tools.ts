@@ -57,6 +57,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "pdf-split", labelKey: "splitPdf", categories: [c.pdfEdit] },
   { slug: "rotate-pdf", labelKey: "rotatePdf", categories: [c.pdfEdit] },
   { slug: "crop-pdf", labelKey: "cropPdf", categories: [c.pdfEdit] },
+  { slug: "pdf-reader", labelKey: "pdfReader", categories: [c.pdfEdit] },
   { slug: "delete-pdf-pages", labelKey: "deletePdfPages", categories: [c.pdfEdit] },
   { slug: "reorder-pdf-pages", labelKey: "reorderPdfPages", categories: [c.pdfEdit] },
   { slug: "extract-pdf-pages", labelKey: "extractPdfPages", categories: [c.pdfEdit] },
@@ -397,6 +398,7 @@ export const TOOL_REGISTRY = {
     "video-resizer",
     "video-rotator",
     "crop-pdf",
+    "pdf-reader",
     "rotate-pdf",
     "custom-paper-margin",
     "favicon-cropper",
@@ -567,7 +569,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "pdf",
         labelKey: "megaMenu.columns.pdf",
-        slugs: columnSlugs(["crop-pdf", "rotate-pdf", "custom-paper-margin"], TOOL_REGISTRY.Resize),
+        slugs: columnSlugs(["crop-pdf", "pdf-reader", "rotate-pdf", "custom-paper-margin"], TOOL_REGISTRY.Resize),
       },
       {
         id: "favicon",

@@ -19,6 +19,7 @@ export const SHARED_CLIENT_MESSAGE_NAMESPACES = [
   "Blog",
   "Feedback",
   "Rating",
+  "PdfReaderPromo",
 ] as const;
 
 export function pickMessageNamespaces(

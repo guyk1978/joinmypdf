@@ -203,6 +203,7 @@
       "compressPdf": "Compress PDF",
       "rotatePdf": "Rotate PDF",
       "cropPdf": "Crop PDF",
+      "pdfReader": "PDF Reader",
       "deletePdfPages": "Delete PDF Pages",
       "reorderPdfPages": "Reorder PDF Pages",
       "extractPdfPages": "Extract PDF Pages",
@@ -2096,6 +2097,34 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the workspace to crop PDF pages."
   },
+  "PdfReaderLanding": {
+    "brand": "PDF Reader Online",
+    "titleRest": "- Read and Inspect PDFs Peacefully in Your Browser",
+    "subtitle": "Open any PDF locally with clean page navigation, zoom, and text selection — no ads, no uploads, no paywalls.",
+    "pageLabel": "Page 1 / 12",
+    "zoomLabel": "Zoom",
+    "success": "Ready to Read",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to read a PDF."
+  },
+  "PdfReaderPage": {
+    "metaTitle": "PDF Reader Online | Private Browser PDF Viewer | JoinMyPDF",
+    "metaDescription": "Read and inspect PDFs peacefully in your browser. Page navigation, zoom, and text selection — 100% local, zero uploads.",
+    "title": "PDF Reader Online",
+    "schemaName": "PDF Reader Online",
+    "schemaDescription": "Read and inspect PDFs privately in your browser with page navigation, zoom, and text selection.",
+    "schemaFeatureRead": "Client-side PDF rendering with PDF.js",
+    "schemaFeatureNav": "Fast page navigation and jump-to-page",
+    "schemaFeatureZoom": "Zoom controls for close inspection",
+    "schemaFeatureLocal": "100% local browser processing — no uploads"
+  },
+  "PdfReaderPromo": {
+    "ariaLabel": "New tool: PDF Reader Online",
+    "eyebrow": "New launch",
+    "title": "PDF Reader Online",
+    "description": "Read and inspect PDFs peacefully in your browser — private, ad-free, and fully local.",
+    "cta": "Open PDF Reader"
+  },
   "CropPdfPage": {
     "metaTitle": "Crop PDF Online | Remove Margins & Edges | JoinMyPDF",
     "metaDescription": "Trim scanner whitespace and excess borders so every page frames the content that matters — 100% local in your browser.",
@@ -3245,6 +3274,7 @@
       "pdf-to-powerpoint": "Convert PDF to PowerPoint Online",
       "powerpoint-to-pdf": "Convert PowerPoint to PDF Online",
       "crop-pdf": "Crop PDF Online",
+      "pdf-reader": "PDF Reader Online",
       "crop-image": "Crop Image Online (Free & Fast)",
       "resize-image": "Resize Image Online (Pixel & Percentage)",
       "convert-to-png": "Convert Image to PNG Online",
@@ -6306,6 +6336,7 @@
       "signPdf": "Sign PDF",
       "pdfSignatureValidator": "PDF Signature Validator",
       "cropPdf": "Crop PDF",
+      "pdfReader": "PDF Reader",
       "addPageNumbers": "Add Page Numbers",
       "addWatermark": "Add Watermark",
       "annotatePdf": "Annotate PDF",

@@ -203,6 +203,7 @@
       "compressPdf": "Compress PDF",
       "rotatePdf": "Rotate PDF",
       "cropPdf": "Crop PDF",
+      "pdfReader": "PDF Reader",
       "deletePdfPages": "Delete PDF Pages",
       "reorderPdfPages": "Reorder PDF Pages",
       "extractPdfPages": "Извлечь страницы PDF",
@@ -2098,6 +2099,34 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте рабочую область, чтобы обрезать страницы PDF."
   },
+  "PdfReaderLanding": {
+    "brand": "PDF Reader Online",
+    "titleRest": "- Читайте и проверяйте PDF спокойно в браузере",
+    "subtitle": "Открывайте любой PDF локально с чистой навигацией, масштабом и выделением текста — без рекламы, загрузок и paywall.",
+    "pageLabel": "Стр. 1 / 12",
+    "zoomLabel": "Масштаб",
+    "success": "Готово к чтению",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте рабочую область, чтобы читать PDF."
+  },
+  "PdfReaderPage": {
+    "metaTitle": "PDF Reader Online | Приватный просмотр PDF в браузере | JoinMyPDF",
+    "metaDescription": "Читайте и проверяйте PDF спокойно в браузере. Навигация по страницам, масштаб и выделение текста — 100% локально, без загрузок.",
+    "title": "PDF Reader Online",
+    "schemaName": "PDF Reader Online",
+    "schemaDescription": "Читайте и проверяйте PDF конфиденциально в браузере с навигацией, масштабом и выделением текста.",
+    "schemaFeatureRead": "Клиентский рендеринг PDF через PDF.js",
+    "schemaFeatureNav": "Быстрая навигация и переход к странице",
+    "schemaFeatureZoom": "Масштаб для точной проверки",
+    "schemaFeatureLocal": "100% локальная обработка в браузере — без загрузок"
+  },
+  "PdfReaderPromo": {
+    "ariaLabel": "Новый инструмент: PDF Reader Online",
+    "eyebrow": "Новый запуск",
+    "title": "PDF Reader Online",
+    "description": "Читайте и проверяйте PDF спокойно в браузере — приватно, без рекламы и полностью локально.",
+    "cta": "Открыть PDF Reader"
+  },
   "CropPdfPage": {
     "metaTitle": "Обрезка PDF онлайн | Удаление полей и краёв | JoinMyPDF",
     "metaDescription": "Срезайте поля сканера и лишние границы, чтобы каждая страница фокусировалась на важном — 100% локально в браузере.",
@@ -3247,6 +3276,7 @@
       "pdf-to-powerpoint": "PDF в PowerPoint",
       "powerpoint-to-pdf": "PowerPoint в PDF",
       "crop-pdf": "Обрезка PDF",
+      "pdf-reader": "PDF Reader Online",
       "crop-image": "Обрезка изображения",
       "resize-image": "Изменение размера изображения",
       "convert-to-png": "Конвертер в PNG",
@@ -3363,6 +3393,7 @@
       "batch-rename-pdf": "Переименуйте сразу несколько PDF по единому шаблону.",
       "compare-pdf": "Сравните два PDF рядом и быстро найдите изменения в тексте.",
       "crop-pdf": "Обрежьте страницы PDF, убрав поля и лишние края.",
+      "pdf-reader": "Читайте и проверяйте PDF конфиденциально в браузере — масштаб, страницы, выделение текста.",
       "custom-paper-margin": "Измените размер страниц PDF и задайте точные поля.",
       "delete-pdf-pages": "Удалите ненужные страницы из PDF за несколько кликов.",
       "ebook-to-pdf": "Конвертируйте электронные книги в удобный PDF.",
@@ -6623,6 +6654,7 @@
       "signPdf": "Подписать PDF",
       "pdfSignatureValidator": "PDF Signature Validator",
       "cropPdf": "Crop PDF",
+      "pdfReader": "PDF Reader",
       "addPageNumbers": "Add Page Numbers",
       "addWatermark": "Add Watermark",
       "annotatePdf": "Annotate PDF",
