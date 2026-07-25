@@ -1,13 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./resize-image-landing.css";
 
-type IntroPhase = "intro" | "workspace";
 
 type ResizeImageIntroGateProps = {
   /** When false, children render immediately (non–resize-image tools). */
@@ -18,47 +16,17 @@ type ResizeImageIntroGateProps = {
 /**
  * One-way cinematic fullscreen splash for Resize Image.
  * Preview card with handles scales; dimension badges update with the motion.
- * Only runs inside the ToolModal CALC embed.
+ * Shows before the workspace (embed modal and dedicated tool page).
  */
 export function ResizeImageIntroGate({
   active = true,
   children,
 }: ResizeImageIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-resize-intro",
+  });
   const t = useTranslations("ResizeImageLanding");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-resize-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-resize-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

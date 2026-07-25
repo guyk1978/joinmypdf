@@ -1,11 +1,17 @@
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { AddPageNumbersIntroGate } from "@/components/AddPageNumbersIntroGate";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { AppPageShell } from "@/components/AppPageShell";
+import { DeletePdfPagesIntroGate } from "@/components/DeletePdfPagesIntroGate";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
+import { PdfToPngIntroGate } from "@/components/PdfToPngIntroGate";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
+import { PngToPdfIntroGate } from "@/components/PngToPdfIntroGate";
+import { ProtectPdfIntroGate } from "@/components/ProtectPdfIntroGate";
 import { ProtectPdfWorkspace } from "@/components/ProtectPdfWorkspace";
+import { SignPdfIntroGate } from "@/components/SignPdfIntroGate";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
 import { ToolWorkspace } from "@/components/ToolWorkspace";
 import { Link } from "@/i18n/navigation";
@@ -21,11 +27,31 @@ import { registry } from "@/lib/registry";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 import type { ToolDefinition } from "@/lib/types";
+import type { ReactNode } from "react";
 
 type SeoToolLandingPageProps = {
   slug: SeoToolLandingSlug;
   params: Promise<{ locale: string }>;
 };
+
+function wrapWithIntro(workspaceSlug: SeoLandingWorkspaceSlug, children: ReactNode) {
+  switch (workspaceSlug) {
+    case "pdf-to-png":
+      return <PdfToPngIntroGate>{children}</PdfToPngIntroGate>;
+    case "add-page-numbers":
+      return <AddPageNumbersIntroGate>{children}</AddPageNumbersIntroGate>;
+    case "sign-pdf":
+      return <SignPdfIntroGate>{children}</SignPdfIntroGate>;
+    case "protect-pdf":
+      return <ProtectPdfIntroGate>{children}</ProtectPdfIntroGate>;
+    case "delete-pdf-pages":
+      return <DeletePdfPagesIntroGate>{children}</DeletePdfPagesIntroGate>;
+    case "png-to-pdf":
+      return <PngToPdfIntroGate>{children}</PngToPdfIntroGate>;
+    default:
+      return children;
+  }
+}
 
 function renderWorkspace(workspaceSlug: SeoLandingWorkspaceSlug, tool: ToolDefinition) {
   switch (workspaceSlug) {
@@ -110,7 +136,7 @@ export async function SeoToolLandingPage({ slug, params }: SeoToolLandingPagePro
           </header>
 
           <section className="border-b border-[#262626] pb-8" aria-label={t(`${slug}.title`)}>
-            {renderWorkspace(landing.workspaceSlug, tool)}
+            {wrapWithIntro(landing.workspaceSlug, renderWorkspace(landing.workspaceSlug, tool))}
           </section>
 
           <section

@@ -1,15 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { IntroPdfMockup } from "@/components/IntroPdfMockup";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./intro-pdf-mockup.css";
 import "./n-up-pdf-landing.css";
 
-type IntroPhase = "intro" | "workspace";
 
 type NUpPdfIntroGateProps = {
   /** When false, children render immediately (non–N-Up tools). */
@@ -31,41 +29,11 @@ const SOURCE_CARDS = [
  * does not paint a second splash over the site header.
  */
 export function NUpPdfIntroGate({ active = true, children }: NUpPdfIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-nup-intro",
+  });
   const t = useTranslations("NUpPdfLanding");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-nup-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-nup-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

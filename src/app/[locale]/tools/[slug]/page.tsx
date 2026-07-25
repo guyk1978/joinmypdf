@@ -266,6 +266,12 @@ import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/
 import { QuickNoteWorkspace } from "@/components/tools/productivity/QuickNoteWorkspace";
 import { CaseConverterWorkspace } from "@/components/tools/productivity/CaseConverterWorkspace";
 import { TextWorkspaceShell } from "@/components/tools/TextWorkspaceShell";
+import { InvoiceGeneratorIntroGate } from "@/components/InvoiceGeneratorIntroGate";
+import { InvoiceGeneratorWorkspace } from "@/components/InvoiceGeneratorWorkspace";
+import { TimelineGanttIntroGate } from "@/components/TimelineGanttIntroGate";
+import { TimelineGanttWorkspace } from "@/components/TimelineGanttWorkspace";
+import { DataConverterVisualizerIntroGate } from "@/components/DataConverterVisualizerIntroGate";
+import { DataConverterVisualizerWorkspace } from "@/components/DataConverterVisualizerWorkspace";
 import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
 import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
 import { FaviconPackWorkspace } from "@/components/FaviconPackWorkspace";
@@ -638,6 +644,9 @@ export default async function ToolPage({
         <UrlParameterStripperIntroGate active={tool.operation === "url-parameter-stripper"}>
         <SslDecoderIntroGate active={tool.operation === "ssl-decoder"}>
         <UuidGeneratorIntroGate active={tool.operation === "uuid-generator"}>
+        <InvoiceGeneratorIntroGate active={tool.operation === "invoice-generator"}>
+        <TimelineGanttIntroGate active={tool.operation === "timeline-gantt-generator"}>
+        <DataConverterVisualizerIntroGate active={tool.operation === "data-converter-visualizer"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -907,6 +916,12 @@ export default async function ToolPage({
           <TextWorkspaceShell tool={tool} slug={slug} />
         ) : tool.operation === "case-converter" ? (
           <CaseConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "invoice-generator" ? (
+          <InvoiceGeneratorWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "timeline-gantt-generator" ? (
+          <TimelineGanttWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "data-converter-visualizer" ? (
+          <DataConverterVisualizerWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "custom-paper-margin" ? (
           <CustomPaperMarginWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "add-watermark" ? (
@@ -929,6 +944,9 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </DataConverterVisualizerIntroGate>
+        </TimelineGanttIntroGate>
+        </InvoiceGeneratorIntroGate>
         </UuidGeneratorIntroGate>
         </SslDecoderIntroGate>
         </UrlParameterStripperIntroGate>

@@ -3,127 +3,66 @@
 import { Check, Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
-
-type BeforeInstallPromptEvent = Event & {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-};
-
-const PWA_INSTALLED_STORAGE_KEY = "joinmypdf-pwa-installed";
-
-function isStandaloneDisplay(): boolean {
-  if (typeof window === "undefined") return false;
-  return (
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.matchMedia("(display-mode: window-controls-overlay)").matches ||
-    (window.navigator as Navigator & { standalone?: boolean }).standalone === true
-  );
-}
-
-function readInstalledFlag(): boolean {
-  try {
-    return window.localStorage.getItem(PWA_INSTALLED_STORAGE_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
-function writeInstalledFlag(installed: boolean) {
-  try {
-    if (installed) window.localStorage.setItem(PWA_INSTALLED_STORAGE_KEY, "1");
-    else window.localStorage.removeItem(PWA_INSTALLED_STORAGE_KEY);
-  } catch {
-    // Ignore storage failures (private mode, blocked storage, etc.).
-  }
-}
-
-async function hasInstalledRelatedWebApp(): Promise<boolean> {
-  const nav = window.navigator as Navigator & {
-    getInstalledRelatedApps?: () => Promise<Array<{ platform?: string; url?: string }>>;
-  };
-  if (typeof nav.getInstalledRelatedApps !== "function") return false;
-  try {
-    const apps = await nav.getInstalledRelatedApps();
-    return Array.isArray(apps) && apps.length > 0;
-  } catch {
-    return false;
-  }
-}
+import {
+  getDeferredPwaInstallPrompt,
+  isStandaloneDisplay,
+  promptPwaInstall,
+  resolvePwaInstalled,
+  subscribePwaInstallPrompt,
+  type BeforeInstallPromptEvent,
+} from "@/lib/pwa-install";
 
 export function InstallPwaButton() {
   const t = useTranslations("Header");
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(() => {
     if (typeof window === "undefined") return false;
-    return isStandaloneDisplay() || readInstalledFlag();
+    return isStandaloneDisplay();
   });
 
   useEffect(() => {
     let cancelled = false;
 
-    const markInstalled = (next: boolean) => {
+    void resolvePwaInstalled().then((next) => {
+      if (!cancelled) setInstalled(next);
+    });
+
+    const unsub = subscribePwaInstallPrompt((prompt) => {
       if (cancelled) return;
-      setInstalled(next);
-      writeInstalledFlag(next);
-      if (next) setDeferredPrompt(null);
-    };
+      setDeferredPrompt(prompt);
+      if (prompt) setInstalled(false);
+    });
 
-    const syncInstalled = async () => {
-      if (isStandaloneDisplay() || readInstalledFlag() || (await hasInstalledRelatedWebApp())) {
-        markInstalled(true);
-        return;
+    const onInstalled = () => {
+      if (!cancelled) {
+        setInstalled(true);
+        setDeferredPrompt(null);
       }
-      if (!cancelled) setInstalled(false);
     };
+    window.addEventListener("joinmypdf:pwa-installed", onInstalled);
 
-    void syncInstalled();
-
-    const onBeforeInstall = (event: Event) => {
-      event.preventDefault();
-      if (isStandaloneDisplay()) return;
-      // Prompt available again ⇒ treat as not currently installed in this browser profile.
-      writeInstalledFlag(false);
-      setInstalled(false);
-      setDeferredPrompt(event as BeforeInstallPromptEvent);
-    };
-
-    const onAppInstalled = () => {
-      markInstalled(true);
-    };
-
-    const mediaStandalone = window.matchMedia("(display-mode: standalone)");
-    const mediaOverlay = window.matchMedia("(display-mode: window-controls-overlay)");
-    const onDisplayModeChange = () => {
-      void syncInstalled();
-    };
-
-    mediaStandalone.addEventListener("change", onDisplayModeChange);
-    mediaOverlay.addEventListener("change", onDisplayModeChange);
-    window.addEventListener("beforeinstallprompt", onBeforeInstall);
-    window.addEventListener("appinstalled", onAppInstalled);
+    // Seed from any prompt already captured before mount.
+    setDeferredPrompt(getDeferredPwaInstallPrompt());
 
     return () => {
       cancelled = true;
-      mediaStandalone.removeEventListener("change", onDisplayModeChange);
-      mediaOverlay.removeEventListener("change", onDisplayModeChange);
-      window.removeEventListener("beforeinstallprompt", onBeforeInstall);
-      window.removeEventListener("appinstalled", onAppInstalled);
+      unsub();
+      window.removeEventListener("joinmypdf:pwa-installed", onInstalled);
     };
   }, []);
 
   const handleInstall = useCallback(async () => {
     if (installed) return;
-    if (!deferredPrompt) return;
-
-    await deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-
+    const outcome = await promptPwaInstall();
+    if (outcome === "accepted") setInstalled(true);
     setDeferredPrompt(null);
-    if (outcome === "accepted") {
-      setInstalled(true);
-      writeInstalledFlag(true);
-    }
-  }, [deferredPrompt, installed]);
+  }, [installed]);
+
+  // Hide the permanently-disabled Download square when the browser never
+  // exposes beforeinstallprompt (Safari, Firefox, private windows, etc.).
+  if (!installed && !deferredPrompt) {
+    return null;
+  }
 
   if (installed) {
     const label = t("appAlreadyInstalled");
@@ -140,8 +79,7 @@ export function InstallPwaButton() {
     );
   }
 
-  const canPrompt = Boolean(deferredPrompt);
-  const label = canPrompt ? t("installApp") : t("installAppUnavailable");
+  const label = t("installApp");
 
   return (
     <button
@@ -150,7 +88,6 @@ export function InstallPwaButton() {
       className="site-header__install-button"
       aria-label={label}
       title={label}
-      disabled={!canPrompt}
     >
       <Download className="site-header__install-icon" aria-hidden="true" />
     </button>

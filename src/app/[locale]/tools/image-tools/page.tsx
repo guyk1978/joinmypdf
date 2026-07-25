@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryShell } from "@/components/CategoryDirectoryShell";
@@ -17,10 +18,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Home" });
 
+  const title = t("imageToolsDirectoryTitle");
+  const description = t("imageToolsDirectoryDescription");
+  const canonicalPath = `/${locale}${HUB_PATH}`;
   return {
-    title: t("imageToolsDirectoryTitle"),
-    description: t("imageToolsDirectoryDescription"),
-    alternates: { canonical: `/${locale}${HUB_PATH}` },
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
+    alternates: { canonical: canonicalPath },
   };
 }
 

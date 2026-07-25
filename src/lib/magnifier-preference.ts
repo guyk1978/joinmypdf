@@ -12,6 +12,58 @@ const ENABLED_EVENT = "joinmypdf:magnifier-preference";
 const SIZE_KEY = "joinmypdf:magnifier-size";
 const SIZE_EVENT = "joinmypdf:magnifier-size";
 
+/** Cross-frame signal that the active workspace actually renders a Magnifier. */
+export const MAGNIFIER_CAPABILITY_MESSAGE = "joinmypdf:magnifier-capability";
+export const MAGNIFIER_CAPABILITY_QUERY = "joinmypdf:magnifier-capability-query";
+
+let mountedMagnifierCount = 0;
+let capabilityQueryListenerInstalled = false;
+
+function emitMagnifierCapability(available: boolean) {
+  if (typeof window === "undefined") return;
+
+  const detail = { available };
+  window.dispatchEvent(new CustomEvent(MAGNIFIER_CAPABILITY_MESSAGE, { detail }));
+
+  if (window.parent !== window) {
+    try {
+      window.parent.postMessage({ type: MAGNIFIER_CAPABILITY_MESSAGE, ...detail }, "*");
+    } catch {
+      // Cross-origin parent — local controls can still receive the event.
+    }
+  }
+}
+
+function ensureMagnifierCapabilityQueryListener() {
+  if (typeof window === "undefined" || capabilityQueryListenerInstalled) return;
+  capabilityQueryListenerInstalled = true;
+
+  window.addEventListener("message", (event: MessageEvent) => {
+    const data = event.data;
+    if (!data || typeof data !== "object") return;
+    if ((data as { type?: string }).type !== MAGNIFIER_CAPABILITY_QUERY) return;
+    emitMagnifierCapability(mountedMagnifierCount > 0);
+  });
+}
+
+/**
+ * Register a mounted Magnifier and notify the parent tool shell. A ref count
+ * prevents one of several previews unmounting from hiding controls for the rest.
+ */
+export function registerMagnifierCapability(): () => void {
+  ensureMagnifierCapabilityQueryListener();
+  mountedMagnifierCount += 1;
+  if (mountedMagnifierCount === 1) emitMagnifierCapability(true);
+
+  let registered = true;
+  return () => {
+    if (!registered) return;
+    registered = false;
+    mountedMagnifierCount = Math.max(0, mountedMagnifierCount - 1);
+    if (mountedMagnifierCount === 0) emitMagnifierCapability(false);
+  };
+}
+
 export type MagnifierSizeTier = "small" | "medium" | "huge";
 
 export const MAGNIFIER_SIZE_TIERS: readonly MagnifierSizeTier[] = [

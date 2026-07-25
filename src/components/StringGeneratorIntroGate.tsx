@@ -1,12 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./string-generator-landing.css";
 
-type IntroPhase = "intro" | "workspace";
 
 type StringGeneratorIntroGateProps = {
   /** When false, children render immediately (non–string-generator tools). */
@@ -23,40 +22,11 @@ export function StringGeneratorIntroGate({
   active = true,
   children,
 }: StringGeneratorIntroGateProps) {
-  const introActive = active;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-string-generator-intro",
+  });
   const t = useTranslations("StringGeneratorLanding");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-string-generator-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-string-generator-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

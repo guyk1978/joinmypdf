@@ -1,13 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import "./password-generator-landing.css";
-
-type IntroPhase = "intro" | "workspace";
 
 type PasswordGeneratorIntroGateProps = {
   /** When false, children render immediately (non–password-generator tools). */
@@ -29,45 +26,19 @@ function scrambleLike(target: string) {
 /**
  * One-way cinematic fullscreen splash for Password Generator.
  * Scrambling glyphs → slot into strong password + 100% strength meter.
- * Only runs inside the ToolModal CALC embed.
+ * Shows before the workspace (embed modal and dedicated tool page).
  */
 export function PasswordGeneratorIntroGate({
   active = true,
   children,
 }: PasswordGeneratorIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-password-generator-intro",
+  });
   const t = useTranslations("PasswordGeneratorLanding");
   const finalPassword = t("passwordSample");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
   const [scrambleText, setScrambleText] = useState(() => scrambleLike(finalPassword));
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-password-generator-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-password-generator-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
 
   useEffect(() => {
     if (!introActive || phase !== "intro") return;
@@ -105,10 +76,6 @@ export function PasswordGeneratorIntroGate({
       window.clearTimeout(timeoutId);
     };
   }, [introActive, phase, finalPassword]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

@@ -1,15 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { IntroPdfMockup } from "@/components/IntroPdfMockup";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./intro-pdf-mockup.css";
 import "./reorder-pdf-pages-landing.css";
 
-type IntroPhase = "intro" | "workspace";
 
 type ReorderPdfPagesIntroGateProps = {
   /** When false, children render immediately (non–reorder tools). */
@@ -20,47 +18,17 @@ type ReorderPdfPagesIntroGateProps = {
 /**
  * One-way cinematic fullscreen splash for Reorder PDF Pages.
  * Filmstrip of thumbnails; one page lifts and slides into a new slot.
- * Only runs inside the ToolModal CALC embed.
+ * Shows before the workspace (embed modal and dedicated tool page).
  */
 export function ReorderPdfPagesIntroGate({
   active = true,
   children,
 }: ReorderPdfPagesIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-reorder-intro",
+  });
   const t = useTranslations("ReorderPdfPagesLanding");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-reorder-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-reorder-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

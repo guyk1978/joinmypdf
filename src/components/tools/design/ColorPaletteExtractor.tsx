@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 import { Check, Copy, Loader2, Shield } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import {
   copyTextToClipboard,
@@ -199,11 +200,13 @@ export function ColorPaletteExtractor({
             <p className="color-palette-extractor__section-title">{labels.referenceLabel}</p>
             {previewUrl ? (
               // Reference thumbnail — blob URL, not suitable for next/image
-              <img
-                src={previewUrl}
-                alt={fileName ?? labels.referenceLabel}
-                className="color-palette-extractor__ref-img"
-              />
+              <Magnifier zoom={2} size={160} shape="rounded">
+                <img
+                  src={previewUrl}
+                  alt={fileName ?? labels.referenceLabel}
+                  className="color-palette-extractor__ref-img"
+                />
+              </Magnifier>
             ) : null}
             {dimensions ? (
               <p className="color-palette-extractor__meta">

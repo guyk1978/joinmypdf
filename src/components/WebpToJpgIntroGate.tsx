@@ -1,13 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./webp-to-jpg-landing.css";
 
-type IntroPhase = "intro" | "workspace";
 
 type WebpToJpgIntroGateProps = {
   /** When false, children render immediately (non–webp-to-jpg tools). */
@@ -18,47 +16,17 @@ type WebpToJpgIntroGateProps = {
 /**
  * One-way cinematic fullscreen splash for Convert WebP to JPG.
  * Image card with .webp badge → compatibility ray → .jpg swap + browser unlock.
- * Only runs inside the ToolModal CALC embed.
+ * Shows before the workspace (embed modal and dedicated tool page).
  */
 export function WebpToJpgIntroGate({
   active = true,
   children,
 }: WebpToJpgIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-webp-to-jpg-intro",
+  });
   const t = useTranslations("WebpToJpgLanding");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-webp-to-jpg-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-webp-to-jpg-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

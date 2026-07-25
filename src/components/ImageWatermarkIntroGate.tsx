@@ -1,13 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./image-watermark-landing.css";
 
-type IntroPhase = "intro" | "workspace";
 
 type ImageWatermarkIntroGateProps = {
   /** When false, children render immediately (non–image-watermark tools). */
@@ -18,47 +16,17 @@ type ImageWatermarkIntroGateProps = {
 /**
  * One-way cinematic fullscreen splash for Professional Image Watermark.
  * Semi-transparent © badge glides onto the photo and settles with glow; shield + opacity cues.
- * Only runs inside the ToolModal CALC embed.
+ * Shows before the workspace (embed modal and dedicated tool page).
  */
 export function ImageWatermarkIntroGate({
   active = true,
   children,
 }: ImageWatermarkIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-watermark-intro",
+  });
   const t = useTranslations("ImageWatermarkLanding");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-watermark-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-watermark-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

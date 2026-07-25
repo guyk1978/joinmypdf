@@ -12,6 +12,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { imBtnCta } from "@/lib/design-system";
 import {
@@ -389,6 +390,7 @@ export function ImageBlurRedact({ labels, className }: ImageBlurRedactProps) {
           </div>
 
           <div className="image-blur-redact__stage">
+            <Magnifier zoom={2} size={160} shape="rounded">
             <div className="image-blur-redact__canvas-wrap">
               <canvas
                 ref={canvasRef}
@@ -476,6 +478,7 @@ export function ImageBlurRedact({ labels, className }: ImageBlurRedactProps) {
                 </div>
               ) : null}
             </div>
+            </Magnifier>
           </div>
 
           <p className="image-blur-redact__meta">

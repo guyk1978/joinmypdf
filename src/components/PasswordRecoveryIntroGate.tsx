@@ -1,13 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import "./password-recovery-landing.css";
-
-type IntroPhase = "intro" | "workspace";
 
 type PasswordRecoveryIntroGateProps = {
   /** When false, children render immediately (non–pdf-password-recovery tools). */
@@ -29,46 +26,20 @@ const CANDIDATE_KEYS = [
 /**
  * One-way cinematic fullscreen splash for Password Recovery.
  * Locked PDF + scan beam cycles wordlist keys → padlock opens + match badge.
- * Only runs inside the ToolModal CALC embed.
+ * Shows before the workspace (embed modal and dedicated tool page).
  */
 export function PasswordRecoveryIntroGate({
   active = true,
   children,
 }: PasswordRecoveryIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-password-recovery-intro",
+  });
   const t = useTranslations("PasswordRecoveryLanding");
   const matchedKey = t("matchedKey");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
   const [candidate, setCandidate] = useState(CANDIDATE_KEYS[0]!);
   const [tries, setTries] = useState(128);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-password-recovery-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-password-recovery-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
 
   useEffect(() => {
     if (!introActive || phase !== "intro") return;
@@ -109,10 +80,6 @@ export function PasswordRecoveryIntroGate({
     tick();
     return () => window.clearTimeout(timeoutId);
   }, [introActive, phase, matchedKey]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

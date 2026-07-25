@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Pin, Search, Share2, Star, X, ZoomIn } from "lucide-react";
+import { Pin, ScanSearch, Share2, Star, X, ZoomIn } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -12,6 +12,8 @@ import { recordRecentTool } from "@/lib/recent-activity";
 import {
   getMagnifierPreference,
   getMagnifierSizeTier,
+  MAGNIFIER_CAPABILITY_MESSAGE,
+  MAGNIFIER_CAPABILITY_QUERY,
   MAGNIFIER_SIZE_TIERS,
   setMagnifierPreference,
   setMagnifierSizeTier,
@@ -30,6 +32,7 @@ import {
   type WorkspacePhase,
 } from "@/lib/workspace-flow";
 import { TOOL_INTRO_MESSAGE } from "@/lib/tool-intro-chrome";
+import { DOC_FULLSCREEN_MESSAGE } from "@/lib/doc-fullscreen";
 import { getInitialWorkspacePhase } from "@/lib/tool-interaction-mode";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
@@ -124,11 +127,17 @@ export function ToolModalWrapper({
   const hasFileUploaded = workspacePhase === "active";
   /** Cinematic intro splash active inside the CALC iframe. */
   const [introActive, setIntroActive] = useState(false);
+  /** True only while the active workspace has a mounted Magnifier preview. */
+  const [magnifierAvailable, setMagnifierAvailable] = useState(false);
+  /** Loupe follows the pointer — hide Search/size chips when hover is unavailable. */
+  const [finePointerHover, setFinePointerHover] = useState(true);
+  /** Embedded tool is in CSS/native document fullscreen — Escape must not close modal. */
+  const [docFullscreenActive, setDocFullscreenActive] = useState(false);
   const [loupeEnabled, setLoupeEnabled] = useState(true);
   const [loupeSize, setLoupeSize] = useState<MagnifierSizeTier>("medium");
   const [mounted, setMounted] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
-  const { isPinned, pinTool } = usePinnedTools();
+  const { isPinned, pinTool, unpinTool } = usePinnedTools();
   const favorited = slug ? isFavorite(slug) : false;
   const pinned = slug ? isPinned(slug) : false;
   const sharePayload = useMemo(
@@ -147,6 +156,15 @@ export function ToolModalWrapper({
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
+    const query = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setFinePointerHover(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -180,6 +198,8 @@ export function ToolModalWrapper({
       ),
     );
     setIntroActive(false);
+    setMagnifierAvailable(false);
+    setDocFullscreenActive(false);
   }, [open, defaultTab, title, slug, requiresUpload]);
 
   useEffect(() => {
@@ -203,11 +223,15 @@ export function ToolModalWrapper({
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key !== "Escape") return;
+      // Document fullscreen (esp. CSS fallback) owns Escape — closing the modal
+      // here would discard the workspace session.
+      if (docFullscreenActive || event.defaultPrevented) return;
+      onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+  }, [open, onClose, docFullscreenActive]);
 
   useEffect(() => {
     if (!open) return;
@@ -227,6 +251,14 @@ export function ToolModalWrapper({
       }
       if (type === TOOL_INTRO_MESSAGE) {
         setIntroActive(Boolean((data as { active?: boolean }).active));
+        return;
+      }
+      if (type === MAGNIFIER_CAPABILITY_MESSAGE) {
+        setMagnifierAvailable(Boolean((data as { available?: boolean }).available));
+        return;
+      }
+      if (type === DOC_FULLSCREEN_MESSAGE) {
+        setDocFullscreenActive(Boolean((data as { active?: boolean }).active));
       }
     };
 
@@ -239,13 +271,40 @@ export function ToolModalWrapper({
       setIntroActive(Boolean((event as CustomEvent<{ active?: boolean }>).detail?.active));
     };
 
+    const onCustomMagnifierCapability = (event: Event) => {
+      setMagnifierAvailable(
+        Boolean((event as CustomEvent<{ available?: boolean }>).detail?.available),
+      );
+    };
+
+    const onCustomDocFullscreen = (event: Event) => {
+      setDocFullscreenActive(
+        Boolean((event as CustomEvent<{ active?: boolean }>).detail?.active),
+      );
+    };
+
     window.addEventListener("message", onMessage);
     window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
     window.addEventListener(TOOL_INTRO_MESSAGE, onCustomIntro);
+    window.addEventListener(MAGNIFIER_CAPABILITY_MESSAGE, onCustomMagnifierCapability);
+    window.addEventListener(DOC_FULLSCREEN_MESSAGE, onCustomDocFullscreen);
+
+    // A cached iframe can mount its Magnifier before this listener. Query all
+    // tool frames once so the shared header recovers the current capability.
+    for (let index = 0; index < window.frames.length; index += 1) {
+      try {
+        window.frames[index]?.postMessage({ type: MAGNIFIER_CAPABILITY_QUERY }, "*");
+      } catch {
+        // Ignore unavailable/cross-origin frames.
+      }
+    }
+
     return () => {
       window.removeEventListener("message", onMessage);
       window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
       window.removeEventListener(TOOL_INTRO_MESSAGE, onCustomIntro);
+      window.removeEventListener(MAGNIFIER_CAPABILITY_MESSAGE, onCustomMagnifierCapability);
+      window.removeEventListener(DOC_FULLSCREEN_MESSAGE, onCustomDocFullscreen);
     };
   }, [open]);
 
@@ -411,7 +470,11 @@ export function ToolModalWrapper({
                       pinned && "tool-modal__action--pinned",
                     )}
                     onClick={() => {
-                      if (!pinned) pinTool(slug);
+                      if (pinned) {
+                        unpinTool(slug);
+                        return;
+                      }
+                      pinTool(slug);
                       onClose();
                     }}
                     aria-label={pinLabel}
@@ -447,12 +510,15 @@ export function ToolModalWrapper({
                   </button>
                 ) : null}
 
-                <div
-                  className={clsx(
-                    "tool-modal__loupe-cluster",
-                    !loupeEnabled && "tool-modal__loupe-cluster--off",
-                  )}
-                >
+                {magnifierAvailable ? (
+                  <div
+                    className={clsx(
+                      "tool-modal__loupe-cluster",
+                      !loupeEnabled && finePointerHover && "tool-modal__loupe-cluster--off",
+                    )}
+                  >
+                  {finePointerHover ? (
+                    <>
                   <button
                     type="button"
                     className={clsx(
@@ -464,7 +530,7 @@ export function ToolModalWrapper({
                     aria-pressed={loupeEnabled}
                     title={loupeLabel}
                   >
-                    <Search size={18} strokeWidth={2} aria-hidden />
+                    <ScanSearch size={18} strokeWidth={2} aria-hidden />
                   </button>
 
                   <div
@@ -511,6 +577,8 @@ export function ToolModalWrapper({
                       </button>
                     ))}
                   </div>
+                    </>
+                  ) : null}
 
                   <button
                     type="button"
@@ -521,7 +589,8 @@ export function ToolModalWrapper({
                   >
                     <ZoomIn size={18} strokeWidth={2} aria-hidden />
                   </button>
-                </div>
+                  </div>
+                ) : null}
 
                 <button
                   type="button"

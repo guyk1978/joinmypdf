@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
@@ -13,10 +14,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "SearchPage" });
 
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}/search`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: { canonical: `/${locale}/search` },
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
+    alternates: {
+      canonical: canonicalPath,
+    },
     robots: { index: false, follow: true },
   };
 }

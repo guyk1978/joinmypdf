@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { Link } from "@/i18n/navigation";
@@ -19,10 +20,16 @@ const HIGHLIGHT_KEYS = ["browser", "noUpload", "sovereignty"] as const;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Privacy" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}/privacy`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: { canonical: `/${locale}/privacy` },
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
+    alternates: {
+      canonical: canonicalPath,
+    },
   };
 }
 

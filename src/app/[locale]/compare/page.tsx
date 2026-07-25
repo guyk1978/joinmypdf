@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
@@ -23,10 +24,16 @@ const FAQ_KEYS = [
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Compare" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}/compare`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: { canonical: `/${locale}/compare` },
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
+    alternates: {
+      canonical: canonicalPath,
+    },
   };
 }
 

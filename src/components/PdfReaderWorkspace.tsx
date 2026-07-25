@@ -11,6 +11,7 @@ import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { openPdfDocument, renderPdfReaderPage, type PdfJsDocument } from "@/lib/pdf-reader";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
+import { setDocFullscreenActive } from "@/lib/doc-fullscreen";
 import type { ToolDefinition } from "@/lib/types";
 import { Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -235,15 +236,22 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   }, [fsMode]);
 
   useEffect(() => {
+    setDocFullscreenActive(docFullscreen);
+    return () => setDocFullscreenActive(false);
+  }, [docFullscreen]);
+
+  useEffect(() => {
     if (!docFullscreen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setFsMode("off");
-        if (getFullscreenElement()) void exitDocumentFullscreen().catch(() => undefined);
-      }
+      if (event.key !== "Escape") return;
+      // Own Escape in this turn so the parent ToolModal does not close the session.
+      event.preventDefault();
+      event.stopPropagation();
+      setFsMode("off");
+      if (getFullscreenElement()) void exitDocumentFullscreen().catch(() => undefined);
     };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
   }, [docFullscreen]);
 
   const toggleDocFullscreen = useCallback(async () => {

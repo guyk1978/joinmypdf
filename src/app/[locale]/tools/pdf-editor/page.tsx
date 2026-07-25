@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
-import { RelatedTools } from "@/components/RelatedTools";
+import { PdfEditorIntroGate } from "@/components/PdfEditorIntroGate";
 import { PdfEditorWorkspace } from "@/components/tools/PdfEditorWorkspace";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
@@ -22,9 +22,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "PdfEditorPage" });
 
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}${PAGE_PATH}`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
       canonical: `/${locale}${PAGE_PATH}`,
       languages: Object.fromEntries(
@@ -52,7 +56,6 @@ export default async function PdfEditorPage({ params }: PageProps) {
     toolPath: PAGE_PATH,
     tPage,
   });
-  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
   return (
     <>
@@ -79,7 +82,9 @@ export default async function PdfEditorPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG} stacked>
-              <PdfEditorWorkspace tool={tool} slug={SLUG} />
+              <PdfEditorIntroGate>
+                <PdfEditorWorkspace tool={tool} slug={SLUG} />
+              </PdfEditorIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

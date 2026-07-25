@@ -1,9 +1,9 @@
 {
   "Metadata": {
-    "homeTitle": "JoinMyPDF — Free, Secure & Fast PDF Tools in Your Browser",
-    "homeDescription": "Convert, compress, and edit PDFs free and secure in your browser. No server uploads, full privacy, fast and unlimited. JoinMyPDF.",
-    "siteTitle": "JoinMyPDF — Free, Secure PDF Tools in Your Browser",
-    "siteDescription": "Convert, compress, split, and edit PDFs locally in your browser — free, secure, and fast. No server uploads, full privacy, and no limits."
+    "homeTitle": "JoinMyPDF — бесплатные, безопасные и быстрые PDF-инструменты в браузере",
+    "homeDescription": "Конвертируйте, сжимайте и редактируйте PDF бесплатно и безопасно в браузере. Без загрузки на сервер, полная конфиденциальность, быстро и без ограничений. JoinMyPDF.",
+    "siteTitle": "JoinMyPDF — бесплатные и безопасные PDF-инструменты в браузере",
+    "siteDescription": "Конвертируйте, сжимайте, разделяйте и редактируйте PDF локально в браузере — бесплатно, безопасно и быстро. Без загрузки на сервер, полная конфиденциальность и без лимитов."
   },
   "Header": {
     "siteLabel": "Site",
@@ -17,7 +17,7 @@
       "collapse": "Show less"
     },
     "guides": "Guides",
-    "privacyFirst": "Privacy First",
+    "privacyFirst": "Конфиденциальность прежде всего",
     "viewAllTools": "View all tools",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -137,7 +137,7 @@
       "heicToJpg": "HEIC в JPG",
       "webpToJpg": "WebP в JPG",
       "svgToPng": "SVG в PNG",
-      "svgOptimizer": "SVG Optimizer",
+      "svgOptimizer": "Оптимизатор SVG",
       "imageGrayscale": "Image Grayscale",
       "flipImage": "Flip Image",
       "imageMetadataEditor": "Image Metadata Editor",
@@ -198,14 +198,14 @@
       "readabilityAnalyzer": "Анализатор читаемости",
       "caseConverter": "Преобразователь регистра",
       "loremIpsumGenerator": "Генератор Lorem Ipsum",
-      "colorConverter": "Color Converter",
-      "colorPaletteExtractor": "Color Palette Extractor",
+      "colorConverter": "Конвертер цветов",
+      "colorPaletteExtractor": "Извлечь цветовую палитру",
       "mergePdf": "Merge PDF",
       "splitPdf": "Split PDF",
       "compressPdf": "Compress PDF",
       "rotatePdf": "Rotate PDF",
       "cropPdf": "Crop PDF",
-      "pdfReader": "PDF Reader",
+      "pdfReader": "Просмотр PDF",
       "deletePdfPages": "Delete PDF Pages",
       "reorderPdfPages": "Reorder PDF Pages",
       "extractPdfPages": "Извлечь страницы PDF",
@@ -281,15 +281,15 @@
     "guidesGroup": "Guides & Articles"
   },
   "Hero": {
-    "headline": "Seamless PDF tasks, right in your browser, running fully-locally.",
-    "subheadline": "JoinMyPDF runs tools locally for maximum speed and absolute privacy.",
-    "defaultHeadline": "Merge, compress, and edit PDFs in your browser—nothing is uploaded to our servers.",
-    "privateTitle": "100% Private",
-    "privateBody": "Your documents never leave your device. Everything happens in your browser.",
-    "fastTitle": "Blazing Fast",
-    "fastBody": "No queues, no wait times. Files are handled instantly locally.",
-    "limitsTitle": "No Limits",
-    "limitsBody": "Enjoy standard downloads without watermarks or forced signups."
+    "headline": "Плавная работа с PDF прямо в браузере — полностью локально.",
+    "subheadline": "JoinMyPDF запускает инструменты локально для максимальной скорости и абсолютной конфиденциальности.",
+    "defaultHeadline": "Объединяйте, сжимайте и редактируйте PDF в браузере — ничего не загружается на наши серверы.",
+    "privateTitle": "100% конфиденциально",
+    "privateBody": "Ваши документы не покидают устройство. Всё происходит в браузере.",
+    "fastTitle": "Молниеносно",
+    "fastBody": "Без очередей и ожидания. Файлы обрабатываются мгновенно на устройстве.",
+    "limitsTitle": "Без ограничений",
+    "limitsBody": "Обычные скачивания без водяных знаков и обязательной регистрации."
   },
   "NUpPdfLanding": {
     "brand": "N-Up PDF",
@@ -2598,11 +2598,11 @@
       "redirecting": "Открываем рабочее пространство…"
     },
     "landing": {
-      "heroBadge": "100% Local · Zero Uploads",
-      "heroTitle": "Professional Web Utilities, Processed Locally",
-      "heroSubtitle": "Merge, convert, edit, and secure your documents, images, and code — right inside your browser. No uploads, no accounts, and your files never leave your device.",
-      "heroPrimaryCta": "Browse all tools",
-      "heroCategoriesLabel": "Tool categories",
+      "heroBadge": "100% локально · Без загрузок",
+      "heroTitle": "Профессиональные веб-утилиты с локальной обработкой",
+      "heroSubtitle": "Объединяйте, конвертируйте, редактируйте и защищайте документы, изображения и код — прямо в браузере. Без загрузок, без аккаунтов, файлы не покидают устройство.",
+      "heroPrimaryCta": "Смотреть все инструменты",
+      "heroCategoriesLabel": "Категории инструментов",
       "popularToolsTitle": "Популярные инструменты недели",
       "quickActionsLabel": "Быстрые действия",
       "quickActionsTitle": "Быстрые действия",
@@ -2650,29 +2650,29 @@
         "network": "Сеть и API"
       },
       "categoryBlurbs": {
-        "pdf": "Merge, split, and organize pages",
-        "video": "Trim, convert, and compress video",
-        "mp4": "Edit and convert MP4 files",
-        "convert": "Switch formats without uploads",
-        "compress": "Shrink files while keeping quality",
+        "pdf": "Объединяйте, разделяйте и упорядочивайте страницы",
+        "video": "Обрезайте, конвертируйте и сжимайте видео",
+        "mp4": "Редактируйте и конвертируйте MP4",
+        "convert": "Меняйте форматы без загрузок",
+        "compress": "Уменьшайте размер, сохраняя качество",
         "extract": "Страницы, таблицы, изображения и цвета",
-        "image": "Resize, crop, and convert images",
-        "jpg": "Optimize and convert JPG images",
-        "png": "Edit and convert PNG images",
-        "mp3": "Trim, merge, and convert audio",
-        "audio": "Process audio locally in-browser",
-        "favicon": "Generate icons for any site",
-        "text": "Clean, format, and transform text",
-        "json": "Format, validate, and convert JSON",
-        "yaml": "Edit and convert YAML configs",
-        "xml": "Format and convert XML data",
-        "developer": "Hashes, tokens, and encoding tools",
+        "image": "Изменяйте размер, обрезайте и конвертируйте",
+        "jpg": "Оптимизируйте и конвертируйте JPG",
+        "png": "Редактируйте и конвертируйте PNG",
+        "mp3": "Обрезайте, объединяйте и конвертируйте аудио",
+        "audio": "Обрабатывайте аудио локально в браузере",
+        "favicon": "Создавайте иконки для любого сайта",
+        "text": "Очищайте, форматируйте и преобразуйте текст",
+        "json": "Форматируйте, проверяйте и конвертируйте JSON",
+        "yaml": "Редактируйте и конвертируйте YAML",
+        "xml": "Форматируйте и конвертируйте XML",
+        "developer": "Хеши, токены и инструменты кодирования",
         "word": "Конвертируйте и обрабатывайте документы Word",
         "excel": "Конвертируйте и обрабатывайте таблицы Excel",
         "crop": "Точная обрезка PDF и изображений",
         "rotate": "Поворот страниц, изображений и видео",
         "security": "Защита, разблокировка и замазка файлов",
-        "design": "Color, SVG, and design utilities",
+        "design": "Цвет, SVG и дизайн-утилиты",
         "data": "Конвертируйте и исследуйте структурированные данные",
         "productivity": "Повседневные помощники для рабочих задач",
         "unit-math": "Конвертируйте единицы и выполняйте расчёты",
@@ -2681,67 +2681,67 @@
       "categoriesEyebrow": "Категории",
       "categoriesTitle": "Поиск по категориям",
       "categoriesSubtitle": "Перейдите в раздел — в каждом открывается полный набор инструментов этой области.",
-      "workflowsEyebrow": "Workflows",
-      "workflowsTitle": "Built around what you need to get done",
-      "workflowsSubtitle": "Jump straight into a workflow — each one bundles the tools professionals reach for most.",
+      "workflowsEyebrow": "Сценарии",
+      "workflowsTitle": "Собрано под ваши рабочие задачи",
+      "workflowsSubtitle": "Перейдите сразу к сценарию — каждый объединяет инструменты, которыми чаще всего пользуются профессионалы.",
       "workflows": {
         "documents": {
-          "title": "Document Editing",
-          "description": "Merge, split, sign, and convert PDFs with pixel-perfect fidelity.",
-          "cta": "Open PDF tools"
+          "title": "Редактирование документов",
+          "description": "Объединяйте, разделяйте, подписывайте и конвертируйте PDF с точной передачей макета.",
+          "cta": "Открыть PDF-инструменты"
         },
         "media": {
-          "title": "Media Optimization",
-          "description": "Compress and convert images, audio, and video without visible quality loss.",
-          "cta": "Open media tools"
+          "title": "Оптимизация медиа",
+          "description": "Сжимайте и конвертируйте изображения, аудио и видео без заметной потери качества.",
+          "cta": "Открыть медиа-инструменты"
         },
         "developer": {
-          "title": "Developer Toolkit",
-          "description": "Format JSON, decode tokens, generate hashes, QR codes, and more.",
-          "cta": "Open developer tools"
+          "title": "Набор для разработчиков",
+          "description": "Форматируйте JSON, декодируйте токены, генерируйте хеши, QR-коды и многое другое.",
+          "cta": "Открыть инструменты разработчика"
         },
         "privacy": {
-          "title": "Privacy & Security",
-          "description": "Protect, unlock, redact, and scrub metadata — all on your machine.",
-          "cta": "Open security tools"
+          "title": "Конфиденциальность и безопасность",
+          "description": "Защищайте, разблокируйте, замазывайте и очищайте метаданные — всё на вашем устройстве.",
+          "cta": "Открыть инструменты безопасности"
         }
       },
-      "topPicksEyebrow": "Top Picks",
-      "topPicksTitle": "Popular tools by category",
-      "topPicksSubtitle": "A curated shortlist from each category. Open the full library any time.",
-      "whyUsEyebrow": "Why JoinMyPDF",
-      "whyUsTitle": "Serious tools, zero compromise on privacy",
-      "whyUsSubtitle": "Everything runs client-side, so speed and confidentiality come standard.",
+      "topPicksEyebrow": "Популярное",
+      "topPicksTitle": "Популярные инструменты по категориям",
+      "topPicksSubtitle": "Подборка из каждой категории. Полную библиотеку можно открыть в любой момент.",
+      "whyUsEyebrow": "Почему JoinMyPDF",
+      "whyUsTitle": "Серьёзные инструменты без компромиссов в приватности",
+      "whyUsSubtitle": "Всё работает на стороне клиента — скорость и конфиденциальность по умолчанию.",
       "pillars": {
         "local": {
-          "title": "100% local processing",
-          "description": "Every task runs in your browser. Files never touch our servers."
+          "title": "100% локальная обработка",
+          "description": "Каждая задача выполняется в браузере. Файлы не касаются наших серверов."
         },
         "fast": {
-          "title": "Instant, no queues",
-          "description": "No uploads or round-trips means results appear the moment you click."
+          "title": "Мгновенно, без очередей",
+          "description": "Без загрузок и сетевых кругов — результат появляется сразу после нажатия."
         },
         "free": {
-          "title": "Free & no account",
-          "description": "All tools are free and ready to use — no signup and no watermarks."
+          "title": "Бесплатно и без аккаунта",
+          "description": "Все инструменты бесплатны и готовы к работе — без регистрации и водяных знаков."
         }
       },
-      "faqEyebrow": "FAQ",
-      "resourcesEyebrow": "Resource Library",
-      "resourcesTitle": "Guides & tutorials",
-      "resourceThumbAlt": "Guide illustration",
-      "pdfEyebrow": "The PDF Workstation",
-      "pdfTitle": "Everything you need for PDFs",
-      "pdfSubtitle": "Merge, convert, edit, and secure documents in seconds — processed locally, never uploaded.",
-      "moreEyebrow": "Beyond PDF",
-      "moreTitle": "More Professional Tools",
-      "moreSubtitle": "Four curated hubs for media, design, developer, and document workflows — open a hub for the full directory.",
-      "viewCategory": "View category",
-      "showLess": "Show less"
+      "faqEyebrow": "Частые вопросы",
+      "resourcesEyebrow": "Библиотека материалов",
+      "resourcesTitle": "Руководства и туториалы",
+      "resourceThumbAlt": "Иллюстрация руководства",
+      "pdfEyebrow": "PDF-рабочая станция",
+      "pdfTitle": "Всё необходимое для PDF",
+      "pdfSubtitle": "Объединяйте, конвертируйте, редактируйте и защищайте документы за секунды — локально, без загрузки.",
+      "moreEyebrow": "Не только PDF",
+      "moreTitle": "Ещё больше профессиональных инструментов",
+      "moreSubtitle": "Четыре подборки для медиа, дизайна, разработки и документов — откройте раздел, чтобы увидеть полный каталог.",
+      "viewCategory": "Смотреть категорию",
+      "showLess": "Свернуть"
     },
-    "authorityOverviewTitle": "About JoinMyPDF",
+    "authorityOverviewTitle": "О JoinMyPDF",
     "seoOverview": "JoinMyPDF is a privacy-focused suite of browser-based tools for PDF, image, and developer workflows. Every task runs through local processing in your browser—files stay on your device with no mandatory uploads to our servers. Our enterprise-grade architecture supports offline-capable workflows where supported, so you can merge, compress, convert, and secure documents with maximum control. Built for professionals who need fast results without sacrificing security or compliance.",
-    "faqTitle": "Frequently asked questions",
+    "faqTitle": "Частые вопросы",
     "faq": {
       "upload": {
         "q": "Is my data uploaded to servers?",
@@ -2756,20 +2756,20 @@
         "a": "Yes. By processing files locally and offering metadata removal workflows, we help teams handle sensitive documents with maximum security and control."
       }
     },
-    "latestGuidesTitle": "Latest Guides",
-    "viewAllGuides": "View all guides",
-    "privacyBadge": "Privacy First",
-    "heroFeaturesLabel": "Core benefits",
-    "heroFast": "Instant speed",
-    "heroLocal": "Local processing",
-    "heroPrivate": "Zero uploads",
-    "trustSignalsLabel": "Privacy and security",
-    "trustClientSide": "100% Client-Side Processing",
-    "trustNoServers": "Files Never Reach Our Servers",
-    "trustInstantDownload": "Instant Browser Download",
-    "viewFullToolsList": "View full list of {count}+ tools",
-    "viewAllPdfTools": "View all PDF tools",
-    "viewAllImageTools": "View all Image tools",
+    "latestGuidesTitle": "Свежие руководства",
+    "viewAllGuides": "Все руководства",
+    "privacyBadge": "Конфиденциальность прежде всего",
+    "heroFeaturesLabel": "Ключевые преимущества",
+    "heroFast": "Мгновенная скорость",
+    "heroLocal": "Локальная обработка",
+    "heroPrivate": "Без загрузок",
+    "trustSignalsLabel": "Конфиденциальность и безопасность",
+    "trustClientSide": "100% обработка на стороне клиента",
+    "trustNoServers": "Файлы не попадают на наши серверы",
+    "trustInstantDownload": "Мгновенное скачивание из браузера",
+    "viewFullToolsList": "Полный список из {count}+ инструментов",
+    "viewAllPdfTools": "Все PDF-инструменты",
+    "viewAllImageTools": "Все инструменты для изображений",
     "viewAllFaviconTools": "View all Favicon tools",
     "faviconToolsHubLabel": "Инструменты Favicon",
     "viewAllUtilities": "View all Utilities",
@@ -3132,12 +3132,12 @@
     "designTools": {
       "items": {
         "colorPaletteExtractor": {
-          "label": "Color Palette Extractor",
-          "description": "Extract dominant colors from any photo — HEX/RGB swatches, one-click copy, local ColorThief."
+          "label": "Извлечь цветовую палитру",
+          "description": "Извлекайте доминирующие цвета из любого фото — образцы HEX/RGB, копирование в один клик, локальный ColorThief."
         },
         "colorConverter": {
-          "label": "Color Converter",
-          "description": "Convert HEX, RGB, and HSL in real time with a live picker and copy buttons."
+          "label": "Конвертер цветов",
+          "description": "Конвертируйте HEX, RGB и HSL в реальном времени с живым пикером и кнопками копирования."
         }
       }
     },
@@ -4342,7 +4342,7 @@
     "dropTitle": "Drop your media file here",
     "dropTitleBusy": "Reading file…",
     "dropDescription": "Drag and drop, or click to browse. All conversion runs locally in your browser.",
-    "privacyBadge": "Local Processing. Nothing is uploaded.",
+    "privacyBadge": "Локальная обработка. Ничего не загружается.",
     "formatsHint": "Supports common audio and video formats",
     "selectLabel": "Select file from device",
     "errorAudioFormat": "Please upload a supported audio file.",
@@ -6656,7 +6656,7 @@
       "signPdf": "Подписать PDF",
       "pdfSignatureValidator": "PDF Signature Validator",
       "cropPdf": "Crop PDF",
-      "pdfReader": "PDF Reader",
+      "pdfReader": "Просмотр PDF",
       "addPageNumbers": "Add Page Numbers",
       "addWatermark": "Add Watermark",
       "annotatePdf": "Annotate PDF",
@@ -7222,49 +7222,49 @@
     "dimensionsLabel": "{width} × {height} px"
   },
   "ColorPaletteExtractorPage": {
-    "metaTitle": "Extract Color Palette from Image | Online Image Color Picker | JoinMyPDF",
-    "metaDescription": "Free palette generator from photo. Get image dominant colors, copy HEX codes, and build UI themes — extract color palette from image 100% locally.",
-    "title": "Color Palette Extractor",
-    "description": "Extract a color palette from any photo with an online image color picker. See dominant HEX and RGB swatches, copy in one click, and keep analysis entirely in your browser.",
-    "faqHeading": "Color Palette Extractor FAQ",
-    "backToAllTools": "Back to all tools",
-    "privacyBadge": "Secure, local-first palette extraction.",
-    "schemaName": "Color Palette Extractor",
-    "schemaDescription": "Extract color palette from image online — get image dominant colors with HEX/RGB copy, local ColorThief analysis.",
-    "schemaFeaturePalette": "Dominant color palette from any JPG, PNG, or WebP",
-    "schemaFeatureCopy": "One-click HEX copy with Copied confirmation",
-    "schemaFeatureLocal": "100% local browser processing with ColorThief",
-    "schemaFeatureHiRes": "Downscaled analysis canvas for fast high-res photos",
+    "metaTitle": "Извлечь цветовую палитру из изображения | Онлайн-пикер цветов | JoinMyPDF",
+    "metaDescription": "Бесплатный генератор палитры из фото. Получайте доминирующие цвета, копируйте HEX-коды и собирайте UI-темы — извлечение палитры на 100% локально.",
+    "title": "Извлечь цветовую палитру",
+    "description": "Извлекайте цветовую палитру из любого фото с помощью онлайн-пикера. Смотрите доминирующие образцы HEX и RGB, копируйте в один клик — анализ полностью в браузере.",
+    "faqHeading": "FAQ: извлечение цветовой палитры",
+    "backToAllTools": "Ко всем инструментам",
+    "privacyBadge": "Безопасное локальное извлечение палитры.",
+    "schemaName": "Извлечь цветовую палитру",
+    "schemaDescription": "Извлекайте цветовую палитру из изображения онлайн — доминирующие цвета с копированием HEX/RGB, локальный анализ ColorThief.",
+    "schemaFeaturePalette": "Доминирующая палитра из любого JPG, PNG или WebP",
+    "schemaFeatureCopy": "Копирование HEX в один клик с подтверждением «Скопировано»",
+    "schemaFeatureLocal": "100% локальная обработка в браузере с ColorThief",
+    "schemaFeatureHiRes": "Уменьшенный холст анализа для быстрой работы с фото высокого разрешения",
     "article": {
-      "title": "How designers use a palette generator from photo",
-      "intro": "A consistent color system is the difference between a scattered UI and a brand that feels intentional. Extracting dominant colors from a photo — mood boards, packaging shots, or product heroes — gives you grounded HEX tokens instead of guessing from memory.",
+      "title": "Как дизайнеры используют генератор палитры из фото",
+      "intro": "Согласованная цветовая система отличает разрозненный интерфейс от бренда с намеренным характером. Извлечение доминирующих цветов из фото — мудбордов, упаковки или продуктовых героев — даёт обоснованные HEX-токены вместо угадывания по памяти.",
       "howToUse": {
-        "heading": "How to use this online image color picker",
-        "p1": "Drop a JPG, PNG, WebP, or GIF. Analysis runs on a downscaled canvas so large photos stay responsive.",
-        "p2": "Review the palette dashboard: each swatch shows the color chip, HEX, and RGB. Adjust the color count between 3 and 12 if you need fewer accents or more nuance.",
-        "p3": "Click Copy (or the HEX code) to put that value on your clipboard — a brief Copied! notice confirms success.",
-        "p4": "Rating and review stay hidden until a palette is successfully extracted and shown."
+        "heading": "Как пользоваться этим онлайн-пикером цветов",
+        "p1": "Перетащите JPG, PNG, WebP или GIF. Анализ идёт на уменьшенном холсте, поэтому крупные фото остаются отзывчивыми.",
+        "p2": "Просмотрите панель палитры: у каждого образца — чип цвета, HEX и RGB. Меняйте число цветов от 3 до 12, если нужны меньше акцентов или больше нюансов.",
+        "p3": "Нажмите «Копировать» (или сам HEX), чтобы поместить значение в буфер — короткое уведомление «Скопировано!» подтвердит успех.",
+        "p4": "Оценка и отзыв скрыты, пока палитра не будет успешно извлечена и показана."
       },
       "designers": {
-        "heading": "UI consistency, mood boards, and brand identity",
-        "p1": "Pull accents from photography when designing landing pages so CTAs and surfaces echo the imagery.",
-        "p2": "Mood boards become actionable tokens: drop a collage and export HEX values into Figma or CSS variables.",
-        "p3": "Brand identity work benefits from grounded dominant colors rather than arbitrary pastel picks.",
-        "p4": "Pair with the Color Converter when you need HSL or alternate syntax from a copied HEX."
+        "heading": "Единообразие UI, мудборды и фирменный стиль",
+        "p1": "Берите акценты из фотографии при дизайне лендингов, чтобы CTA и поверхности перекликались с изображениями.",
+        "p2": "Мудборды становятся рабочими токенами: загрузите коллаж и экспортируйте HEX в Figma или CSS-переменные.",
+        "p3": "Работа над брендом выигрывает от обоснованных доминирующих цветов, а не от произвольных пастельных выборов.",
+        "p4": "Сочетайте с конвертером цветов, когда из скопированного HEX нужны HSL или другой синтаксис."
       },
       "accuracy": {
-        "heading": "Getting accurate dominant colors",
-        "p1": "Quantization favors large recurring regions. Tiny logo accents may not surface unless you raise the color count.",
-        "p2": "Gradients become averaged samples; try cropping the region of interest and re-running if you need a specific band.",
-        "p3": "Near-duplicate swatches are filtered so the dashboard stays usable for design systems.",
-        "p4": "You do not need a small upload — high-resolution files are analyzed from a lean canvas copy."
+        "heading": "Как получать точные доминирующие цвета",
+        "p1": "Квантование отдаёт приоритет крупным повторяющимся областям. Мелкие акценты логотипа могут не появиться, пока вы не увеличите число цветов.",
+        "p2": "Градиенты становятся усреднёнными образцами; обрежьте нужную область и запустите снова, если нужна конкретная полоса.",
+        "p3": "Почти одинаковые образцы отфильтровываются, чтобы панель оставалась удобной для дизайн-систем.",
+        "p4": "Не нужно уменьшать файл для загрузки — фото высокого разрешения анализируются по облегчённой копии холста."
       },
       "privacy": {
-        "heading": "Why local-first palette extraction matters",
-        "p1": "Unreleased product photography and client mood boards should not travel through a third-party color API.",
-        "p2": "ColorThief and the HTML5 Canvas API run entirely on-device. Originals stay on disk; only derived HEX values leave when you copy them.",
-        "p3": "No account wall for standard palette extraction.",
-        "p4": "Combine with Image Metadata Wiper if you also need EXIF cleaned before sharing source files."
+        "heading": "Почему важно локальное извлечение палитры",
+        "p1": "Неопубликованные продуктовые фото и клиентские мудборды не должны проходить через сторонний color API.",
+        "p2": "ColorThief и HTML5 Canvas API работают полностью на устройстве. Оригиналы остаются на диске; наружу уходят только скопированные вами HEX.",
+        "p3": "Для стандартного извлечения палитры не нужна учётная запись.",
+        "p4": "Сочетайте с очисткой метаданных изображений, если перед отправкой исходников нужно убрать EXIF."
       }
     }
   },
@@ -8312,12 +8312,12 @@
     "description": "Конвертируйте изображения между WebP, PNG и JPG прямо в браузере. Загрузите HEIC с iPhone, сравните оригинал и результат и скачайте — ничего не отправляется на сервер.",
     "backToAllTools": "Ко всем инструментам",
     "privacyBadge": "100% локальная конвертация. Изображения не загружаются на сервер.",
-    "schemaName": "Free Online Image Converter",
-    "schemaDescription": "Free online image converter for WebP, PNG, JPG, and HEIC inputs. Convert formats locally in your browser with previews and download — zero uploads.",
-    "schemaFeatureFormats": "Convert between WebP, PNG, and JPG",
-    "schemaFeatureHeic": "HEIC/HEIF input via local heic2any decode",
-    "schemaFeaturePreview": "Side-by-side original and converted preview",
-    "schemaFeatureLocal": "100% client-side conversion with no uploads",
+    "schemaName": "Бесплатный онлайн-конвертер изображений",
+    "schemaDescription": "Бесплатный онлайн-конвертер изображений для WebP, PNG, JPG и входа HEIC. Конвертируйте форматы локально в браузере с превью — без загрузок.",
+    "schemaFeatureFormats": "Конвертация между WebP, PNG и JPG",
+    "schemaFeatureHeic": "Вход HEIC/HEIF через локальное декодирование heic2any",
+    "schemaFeaturePreview": "Превью оригинала и результата рядом",
+    "schemaFeatureLocal": "100% конвертация на стороне клиента без загрузок",
     "article": {
       "title": "WebP, format compatibility, and local-first image processing",
       "intro": "Every modern product ships images: product photos, hero banners, avatars, Open Graph cards, documentation screenshots, and email headers. The format you choose quietly decides how fast a page feels, how large a CDN bill grows, and whether a teammate on Windows can open the file at all. This guide explains why WebP often wins for web performance, how JPG, PNG, WebP, and HEIC fit different compatibility needs, and why converting images locally in the browser—never uploading them—matters for privacy and trust. Use it as a practical companion to the Free Online Image Converter above: convert on your device, then ship the right bytes for the job.",
@@ -8385,18 +8385,18 @@
     "codeTitle": "Код оптимизированного SVG"
   },
   "SvgOptimizerPage": {
-    "metaTitle": "Free Online SVG Optimizer | SVGO in Browser | JoinMyPDF",
-    "metaDescription": "Optimize and minify SVG files online with SVGO in your browser. Compare sizes, preview before/after, download or copy — files never leave your device.",
-    "title": "Free Online SVG Optimizer",
-    "description": "Minify SVG markup with the official SVGO browser build. Compare original vs optimized size, preview the result, then download or copy the code — 100% client-side.",
-    "backToAllTools": "Back to all tools",
-    "privacyBadge": "100% Client-side optimization. Your files never leave your browser.",
-    "schemaName": "Free Online SVG Optimizer",
-    "schemaDescription": "Free online SVG optimizer powered by SVGO in the browser. Minify SVG files, compare sizes, preview before and after, and download or copy optimized code with zero uploads.",
-    "schemaFeatureOptimize": "SVGO-powered SVG minification",
-    "schemaFeatureCompare": "Original vs optimized file size comparison",
-    "schemaFeaturePreview": "Before and after visual SVG preview",
-    "schemaFeatureLocal": "100% client-side optimization with no uploads",
+    "metaTitle": "Бесплатный онлайн-оптимизатор SVG | SVGO в браузере | JoinMyPDF",
+    "metaDescription": "Оптимизируйте и минифицируйте SVG онлайн с SVGO в браузере. Сравнивайте размеры, смотрите до/после, скачивайте или копируйте — 100% локально.",
+    "title": "Бесплатный онлайн-оптимизатор SVG",
+    "description": "Минифицируйте SVG-разметку официальной браузерной сборкой SVGO. Сравнивайте исходный и оптимизированный размер, смотрите превью, затем скачивайте или копируйте код.",
+    "backToAllTools": "Ко всем инструментам",
+    "privacyBadge": "100% оптимизация на стороне клиента. Файлы не покидают браузер.",
+    "schemaName": "Бесплатный онлайн-оптимизатор SVG",
+    "schemaDescription": "Бесплатный онлайн-оптимизатор SVG на базе SVGO в браузере. Минифицируйте SVG, сравнивайте размеры, смотрите до и после — без загрузок.",
+    "schemaFeatureOptimize": "Минификация SVG на базе SVGO",
+    "schemaFeatureCompare": "Сравнение размера исходного и оптимизированного файла",
+    "schemaFeaturePreview": "Визуальное превью SVG до и после",
+    "schemaFeatureLocal": "100% оптимизация на стороне клиента без загрузок",
     "article": {
       "title": "How to optimize SVG for the web with SVGO",
       "intro": "SVG is the default format for icons, logos, and illustrative UI on the modern web. Unlike raster images, vectors scale cleanly at any resolution—but exported SVG files are often bloated with editor metadata, redundant groups, unused IDs, and verbose path data. That extra markup still travels over the network, still parses on the main thread, and still costs users on slow connections. This guide covers how to optimize SVG for web performance, why removing unnecessary metadata matters, and why SVGO became the industry standard. Use it alongside the Free Online SVG Optimizer above: minify locally, preview before and after, then ship leaner assets with confidence.",

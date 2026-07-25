@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     "The ultimate workspace for managing your PDF files. Merge, split, organize, and annotate seamlessly.";
 
   const social = buildDefaultSocialImages(locale, {
-    alt: "JoinMyPDF Multi-Note Manager preview",
+    alt: brandName,
   });
 
   return {
@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: brandName,
       title: siteTitle,
       description: siteDescription,
-      url: `${siteUrl}/`,
+      url: `${siteUrl}/${locale}`,
       locale: locale === "he" ? "he_IL" : locale === "ru" ? "ru_RU" : "en_US",
       ...social.openGraph,
     },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { AppPageShell } from "@/components/AppPageShell";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
@@ -24,10 +25,16 @@ const SECTIONS = [
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Guide" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}/guide`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: { canonical: `/${locale}/guide` },
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
+    alternates: {
+      canonical: canonicalPath,
+    },
   };
 }
 

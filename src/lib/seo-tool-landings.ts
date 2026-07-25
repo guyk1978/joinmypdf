@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
@@ -130,11 +131,15 @@ export async function generateSeoToolLandingMetadata(slug: string, locale: strin
   const path = seoToolLandingPath(slug);
   const t = await getTranslations({ locale, namespace: "SeoToolLandings" });
 
+  const title = t(`${slug}.metaTitle`);
+  const description = t(`${slug}.metaDescription`);
+  const canonicalPath = `/${locale}${path}`;
   return {
-    title: t(`${slug}.metaTitle`),
-    description: t(`${slug}.metaDescription`),
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
-      canonical: `/${locale}${path}`,
+      canonical: canonicalPath,
       languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}${path}`])),
     },
   };

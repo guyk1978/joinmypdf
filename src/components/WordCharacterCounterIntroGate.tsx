@@ -1,13 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import "./word-character-counter-landing.css";
-
-type IntroPhase = "intro" | "workspace";
 
 type WordCharacterCounterIntroGateProps = {
   /** When false, children render immediately (non–word-character-counter tools). */
@@ -30,46 +27,20 @@ function countStats(text: string) {
 /**
  * One-way cinematic fullscreen splash for Word & Character Counter.
  * Text types into editor while Words / Characters / Sentences / Reading Time tick up.
- * Only runs inside the ToolModal CALC embed.
+ * Shows before the workspace (embed modal and dedicated tool page).
  */
 export function WordCharacterCounterIntroGate({
   active = true,
   children,
 }: WordCharacterCounterIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-word-character-counter-intro",
+  });
   const t = useTranslations("WordCharacterCounterLanding");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
   const [typed, setTyped] = useState("");
 
   const stats = useMemo(() => countStats(typed), [typed]);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-word-character-counter-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-word-character-counter-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
 
   useEffect(() => {
     if (!introActive || phase !== "intro") return;
@@ -107,10 +78,6 @@ export function WordCharacterCounterIntroGate({
     tick();
     return () => window.clearTimeout(timeoutId);
   }, [introActive, phase]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 

@@ -2,6 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { MagnifiedBlobPreview } from "@/components/MagnifiedBlobPreview";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
@@ -266,10 +267,22 @@ export function SvgToPngWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
           </div>
 
           {hasOutput ? (
-            <p className="text-sm text-ink-muted">
-              {ws.wsCommon("readyLabel")}{" "}
-              <span className="font-medium text-ink">{svgToPngDownloadName(outputs)}</span>
-            </p>
+            <div className="space-y-2">
+              <p className="text-sm text-ink-muted">
+                {ws.wsCommon("readyLabel")}{" "}
+                <span className="font-medium text-ink">{svgToPngDownloadName(outputs)}</span>
+              </p>
+              {outputs[0] ? (
+                <MagnifiedBlobPreview
+                  blob={outputs[0].blob}
+                  alt={outputs[0].fileName}
+                  extras={outputs.slice(1, 4).map((item) => ({
+                    blob: item.blob,
+                    alt: item.fileName,
+                  }))}
+                />
+              ) : null}
+            </div>
           ) : (
             <p className="text-sm text-ink-muted">{ws.wsUi("outputHint")}</p>
           )}

@@ -19,6 +19,7 @@ import {
   getMagnifierPreference,
   getMagnifierSizeTier,
   MAGNIFIER_LOUPE_SCALE,
+  registerMagnifierCapability,
   resolveMagnifierLensSizePx,
   subscribeMagnifierPreference,
   subscribeMagnifierSizeTier,
@@ -224,6 +225,13 @@ export function Magnifier({
   const canUseHover = fineHover && !disabled && contextEnabled;
   const canUseTouchToggle = !fineHover && touchBehavior === "toggle" && !disabled && contextEnabled;
   const magnifierActive = canUseHover || (canUseTouchToggle && touchArmed);
+
+  // Tell the shared tool header whether this workspace genuinely supports
+  // loupe controls. Unsupported tools no longer display a dead search icon.
+  useEffect(() => {
+    if (disabled) return;
+    return registerMagnifierCapability();
+  }, [disabled]);
 
   // Register this preview so the modal header magnifying-glass can open a
   // zoom lightbox for the currently active image / document surface.

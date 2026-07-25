@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { ImageConverterWorkspace } from "@/components/ImageConverterWorkspace";
 import { ImageConverterIntroGate } from "@/components/ImageConverterIntroGate";
@@ -22,9 +22,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "ImageConverterPage" });
 
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}${PAGE_PATH}`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
       canonical: `/${locale}${PAGE_PATH}`,
       languages: Object.fromEntries(
@@ -52,8 +56,6 @@ export default async function ImageConverterPage({ params }: PageProps) {
     toolPath: PAGE_PATH,
     tPage,
   });
-
-  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
   return (
     <>

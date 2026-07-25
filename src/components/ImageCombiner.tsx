@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
+import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { downloadBlob } from "@/lib/crop-image";
 import {
@@ -262,7 +263,9 @@ export function ImageCombiner({
                 >
                   <div className="relative flex min-h-36 items-center justify-center overflow-hidden bg-black/40">
                     {/* Blob URLs are generated locally and cannot use Next Image optimization. */}
-                    <img src={item.url} alt={item.file.name} className="max-h-52 max-w-full object-contain" />
+                    <Magnifier zoom={2} size={140} shape="rounded">
+                      <img src={item.url} alt={item.file.name} className="max-h-52 max-w-full object-contain" />
+                    </Magnifier>
                     <span className="absolute start-2 top-2 inline-flex items-center gap-1 bg-black/75 px-2 py-1 text-xs text-white">
                       <GripVertical className="h-3.5 w-3.5" aria-hidden />
                       {index + 1}
@@ -387,7 +390,9 @@ export function ImageCombiner({
             </div>
           </div>
           <div className="mt-4 flex max-h-[36rem] items-center justify-center overflow-auto bg-black/40 p-3">
-            <img src={result.url} alt={labels.resultTitle} className="max-h-[34rem] max-w-full object-contain" />
+            <Magnifier zoom={2} size={180} shape="rounded">
+              <img src={result.url} alt={labels.resultTitle} className="max-h-[34rem] max-w-full object-contain" />
+            </Magnifier>
           </div>
           <p className="mt-3 text-sm text-emerald-300">{labels.successHint}</p>
           <ToolSuccessEngagement

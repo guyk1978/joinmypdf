@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { WelcomeSplash } from "@/components/WelcomeSplash";
 import { routing } from "@/i18n/routing";
@@ -11,11 +12,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Home" });
 
+  const title = t("splash.metaTitle");
+  const description = t("splash.metaDescription");
+  const canonicalPath = `/${locale}`;
   return {
-    title: t("splash.metaTitle"),
-    description: t("splash.metaDescription"),
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
-      canonical: `/${locale}`,
+      canonical: canonicalPath,
       languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}`])),
     },
   };

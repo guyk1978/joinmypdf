@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
@@ -19,11 +20,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "NetworkToolsPage" });
 
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}${NETWORK_TOOLS_HUB_PATH}`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
-      canonical: `/${locale}${NETWORK_TOOLS_HUB_PATH}`,
+      canonical: canonicalPath,
       languages: Object.fromEntries(
         routing.locales.map((item) => [item, `/${item}${NETWORK_TOOLS_HUB_PATH}`]),
       ),

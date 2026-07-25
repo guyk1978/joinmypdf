@@ -15,6 +15,11 @@ import { createPortal } from "react-dom";
 import { usePageShare } from "@/hooks/usePageShare";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { remapLocalizedToolPathname } from "@/lib/locale-tool-slugs";
+import {
+  promptPwaInstall,
+  subscribePwaInstallPrompt,
+  type BeforeInstallPromptEvent,
+} from "@/lib/pwa-install";
 
 type PanelPosition = {
   top: number;
@@ -41,19 +46,6 @@ function getPanelPosition(trigger: HTMLElement): PanelPosition {
     Math.min(rect.right - width, window.innerWidth - width - VIEWPORT_MARGIN),
   );
   return { top, left, width };
-}
-
-type BeforeInstallPromptEvent = Event & {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-};
-
-function isStandaloneDisplay(): boolean {
-  if (typeof window === "undefined") return false;
-  return (
-    window.matchMedia("(display-mode: standalone)").matches ||
-    (window.navigator as Navigator & { standalone?: boolean }).standalone === true
-  );
 }
 
 type HeaderOverflowMenuProps = {
@@ -110,24 +102,18 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
   }, [open]);
 
   useEffect(() => {
-    if (isStandaloneDisplay()) return;
-
-    const onBeforeInstall = (event: Event) => {
-      event.preventDefault();
-      setInstallPrompt(event as BeforeInstallPromptEvent);
-      setInstallVisible(true);
-    };
-
-    const onAppInstalled = () => {
+    const unsub = subscribePwaInstallPrompt((prompt) => {
+      setInstallPrompt(prompt);
+      setInstallVisible(Boolean(prompt));
+    });
+    const onInstalled = () => {
       setInstallPrompt(null);
       setInstallVisible(false);
     };
-
-    window.addEventListener("beforeinstallprompt", onBeforeInstall);
-    window.addEventListener("appinstalled", onAppInstalled);
+    window.addEventListener("joinmypdf:pwa-installed", onInstalled);
     return () => {
-      window.removeEventListener("beforeinstallprompt", onBeforeInstall);
-      window.removeEventListener("appinstalled", onAppInstalled);
+      unsub();
+      window.removeEventListener("joinmypdf:pwa-installed", onInstalled);
     };
   }, []);
 
@@ -165,8 +151,7 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
 
   const onInstall = async () => {
     if (!installPrompt) return;
-    await installPrompt.prompt();
-    const { outcome } = await installPrompt.userChoice;
+    const outcome = await promptPwaInstall();
     setInstallPrompt(null);
     if (outcome === "accepted") setInstallVisible(false);
     close();

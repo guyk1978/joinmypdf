@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
-import { RelatedTools } from "@/components/RelatedTools";
+import { VideoResizerIntroGate } from "@/components/VideoResizerIntroGate";
 import { VideoResizerWorkspace } from "@/components/tools/VideoResizerWorkspace";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
@@ -22,9 +22,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "VideoResizerPage" });
 
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}${PAGE_PATH}`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
       canonical: `/${locale}${PAGE_PATH}`,
       languages: Object.fromEntries(
@@ -52,8 +56,6 @@ export default async function VideoResizerPage({ params }: PageProps) {
     tPage,
   });
 
-  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
-
   return (
     <>
       <JsonLd
@@ -78,7 +80,9 @@ export default async function VideoResizerPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <VideoResizerWorkspace tool={tool} slug={SLUG} />
+              <VideoResizerIntroGate>
+                <VideoResizerWorkspace tool={tool} slug={SLUG} />
+              </VideoResizerIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

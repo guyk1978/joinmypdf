@@ -51,7 +51,7 @@ const TOOL_OG_OVERRIDES: Record<
   },
 };
 
-/** Hebrew card is the default filename; English UI uses the `-en` asset. */
+/** Hebrew card is the default filename; English/Russian UI use the `-en` asset until a dedicated RU card ships. */
 export function pdfReaderOgImagePath(locale: string): string {
   return locale === "he"
     ? "/images/joinmypdf/og-image-pdf-reader.png"

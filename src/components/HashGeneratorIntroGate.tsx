@@ -1,13 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import "./hash-generator-landing.css";
-
-type IntroPhase = "intro" | "workspace";
 
 type HashGeneratorIntroGateProps = {
   /** When false, children render immediately (non–hash-generator tools). */
@@ -22,55 +19,20 @@ const SAMPLE_HASH = "e3b0c44298fc1c149afbf4c8996fb924";
  * One-way cinematic fullscreen splash for Hash Generator.
  * Input string → security laser → SHA-256 hex digest + algorithm badge.
  * Opaque black cover from first paint prevents tool-control peek-through.
- * Only runs inside the ToolModal CALC embed.
+ * Shows before the workspace (embed modal and dedicated tool page).
  */
 export function HashGeneratorIntroGate({
   active = true,
   children,
 }: HashGeneratorIntroGateProps) {
-  const embed = useToolEmbedMode();
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-hash-generator-intro",
+  });
   const t = useTranslations("HashGeneratorLanding");
-  /** Blocks SSR/hydration flash of tool controls before embed mode is known. */
-  const [bootstrapped, setBootstrapped] = useState(false);
-  const introActive = active && embed;
-  const [phase, setPhase] = useState<IntroPhase>("intro");
-  const [portalReady, setPortalReady] = useState(false);
-
-  useLayoutEffect(() => {
-    setBootstrapped(true);
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) setPhase("workspace");
-  }, [introActive]);
-
-  const splashShowing = Boolean(active && (!bootstrapped || (introActive && phase === "intro")));
-
-  useToolIntroChrome(splashShowing);
-
-  useLayoutEffect(() => {
-    if (!splashShowing) return;
-
-    document.documentElement.setAttribute("data-hash-generator-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-hash-generator-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [splashShowing]);
-
-  const startTool = useCallback(() => {
-    setPhase("workspace");
-  }, []);
 
   /* Opaque cover during SSR + pre-bootstrap — never render tool UI underneath. */
-  if (active && !bootstrapped) {
+  if (active && !portalReady) {
     return (
       <div
         className="hsh-fs tool-intro-fs hsh-fs--blocker"

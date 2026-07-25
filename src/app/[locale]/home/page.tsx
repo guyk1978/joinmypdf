@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PopularTools } from "@/components/homepage/PopularTools";
 import { QuickActions } from "@/components/homepage/QuickActions";
@@ -18,9 +19,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
+  const title = t("homeTitle");
+  const description = t("homeDescription");
+  const canonicalPath = `/${locale}/home`;
   return {
-    title: t("homeTitle"),
-    description: t("homeDescription"),
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
       canonical: `/${locale}/home`,
       languages: Object.fromEntries(

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
-import { RelatedTools } from "@/components/RelatedTools";
+import { ColorPaletteExtractorIntroGate } from "@/components/ColorPaletteExtractorIntroGate";
 import { ColorPaletteExtractorWorkspace } from "@/components/tools/design/ColorPaletteExtractorWorkspace";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
@@ -21,9 +21,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "ColorPaletteExtractorPage" });
 
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  const canonicalPath = `/${locale}${PAGE_PATH}`;
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
       canonical: `/${locale}${PAGE_PATH}`,
       languages: Object.fromEntries(
@@ -52,8 +56,6 @@ export default async function ColorPaletteExtractorPage({ params }: PageProps) {
     tPage,
   });
 
-  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
-
   return (
     <>
       <JsonLd
@@ -78,7 +80,9 @@ export default async function ColorPaletteExtractorPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
-            <ColorPaletteExtractorWorkspace tool={tool} slug={SLUG} />
+            <ColorPaletteExtractorIntroGate>
+              <ColorPaletteExtractorWorkspace tool={tool} slug={SLUG} />
+            </ColorPaletteExtractorIntroGate>
           </section>
 </div>
       </AppPageShell>

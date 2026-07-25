@@ -1,13 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { useIntroGatePhase } from "@/hooks/useIntroGatePhase";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { setToolIntroActive } from "@/lib/tool-intro-chrome";
-import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./pdf-reader-landing.css";
 
-type IntroPhase = "intro" | "workspace";
 
 type PdfReaderIntroGateProps = {
   /** When false, children render immediately (non–pdf-reader tools). */
@@ -15,12 +13,6 @@ type PdfReaderIntroGateProps = {
   children: ReactNode;
 };
 
-function clearIntroChromeLocks() {
-  document.documentElement.removeAttribute("data-pdf-reader-intro");
-  document.documentElement.style.overflow = "";
-  document.body.style.overflow = "";
-  setToolIntroActive(false);
-}
 
 /**
  * One-way cinematic fullscreen splash for PDF Reader Online.
@@ -31,53 +23,18 @@ export function PdfReaderIntroGate({
   active = true,
   children,
 }: PdfReaderIntroGateProps) {
-  const introActive = active;
+  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+    active,
+    dataAttribute: "data-pdf-reader-intro",
+    onPortalReady: () => {
+      try {
+        window.sessionStorage.removeItem("joinmypdf:pdf-reader-intro-done");
+      } catch {
+        /* ignore */
+      }
+    },
+  });
   const t = useTranslations("PdfReaderLanding");
-  const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
-  const [portalReady, setPortalReady] = useState(false);
-
-  useToolIntroChrome(introActive && phase === "intro");
-
-  useEffect(() => {
-    // Clear the temporary skip flag from an earlier dismiss experiment so
-    // reloads always show the cinematic intro again.
-    try {
-      window.sessionStorage.removeItem("joinmypdf:pdf-reader-intro-done");
-    } catch {
-      /* ignore */
-    }
-    setPortalReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!introActive) {
-      clearIntroChromeLocks();
-      setPhase("workspace");
-    }
-  }, [introActive]);
-
-  useEffect(() => {
-    if (!introActive || phase !== "intro") return;
-
-    document.documentElement.setAttribute("data-pdf-reader-intro", "1");
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.documentElement.removeAttribute("data-pdf-reader-intro");
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-    };
-  }, [introActive, phase]);
-
-  const startTool = useCallback(() => {
-    // Dismiss immediately in the same click turn so leftover chrome locks
-    // (hidden header / dead pointer-events) cannot require a second click.
-    clearIntroChromeLocks();
-    setPhase("workspace");
-  }, []);
 
   if (!introActive) return <>{children}</>;
 
