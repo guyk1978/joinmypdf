@@ -1,43 +1,84 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { TimelineGenerator } from "@/components/timeline/TimelineGenerator";
-import { getBrandName } from "@/lib/brand";
-import { JsonLd } from "@/lib/schema";
-import { absoluteUrl } from "@/lib/site";
+import { TimelineGanttIntroGate } from "@/components/TimelineGanttIntroGate";
+import { TimelineGanttWorkspace } from "@/components/TimelineGanttWorkspace";
+import { routing } from "@/i18n/routing";
+import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
+import { registry } from "@/lib/registry";
+import { breadcrumbLd, faqLd, JsonLd, webApplicationLd } from "@/lib/schema";
+import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
+import { productPageMainClassName } from "@/lib/tool-ui";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Timeline & Gantt Chart Generator",
-  description:
-    "Build project timelines and Gantt charts in your browser. Add tasks, milestones, and dates—then download a landscape PDF. Nothing uploaded to our servers.",
-  alternates: { canonical: "/tools/timeline-gantt-generator/" },
-};
+const SLUG = "timeline-gantt-generator";
+const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "TimelineGanttPage" });
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: {
+      canonical: `/${locale}${PAGE_PATH}`,
+      languages: Object.fromEntries(
+        routing.locales.map((item) => [item, `/${item}${PAGE_PATH}`]),
+      ),
+    },
+  };
+}
+
 export default async function TimelineGanttGeneratorPage({ params }: PageProps) {
   const { locale } = await params;
-  const brand = getBrandName(locale);
+  setRequestLocale(locale);
+
+  const tool = registry.tools.find((entry) => entry.slug === SLUG);
+  if (!tool) notFound();
+
+  const t = await getTranslations("TimelineGanttPage");
+  const tPage = await getTranslations("ToolPage");
+  const pathname = `/${locale}${PAGE_PATH}`;
+  const faqs = getLocalizedToolFaqs(tPage, tool, null, t("title"), locale);
+
+  const crumbs = buildToolPageBreadcrumbs({
+    slug: SLUG,
+    toolTitle: t("title"),
+    toolPath: PAGE_PATH,
+    tPage,
+  });
 
   return (
     <>
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          name: `${brand} Timeline & Gantt Chart Generator`,
-          url: absoluteUrl("/tools/timeline-gantt-generator/"),
+        data={webApplicationLd({
+          name: t("schemaName"),
+          description: t("schemaDescription"),
+          pathname,
+          locale,
+          featureList: [
+            t("schemaFeatureTasks"),
+            t("schemaFeatureGantt"),
+            t("schemaFeatureMilestones"),
+            t("schemaFeatureLocal"),
+          ],
           applicationCategory: "BusinessApplication",
-          operatingSystem: "Web browser",
-          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-          description:
-            "Client-side timeline and Gantt chart builder with live preview and landscape PDF export.",
-        }}
+        })}
       />
-      <AppPageShell mainClassName="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
-        <div className="tools-directory-page">
-          <h1 className="sr-only">Timeline &amp; Gantt Chart Generator</h1>
-          <TimelineGenerator />
+      <JsonLd data={breadcrumbLd(crumbs)} />
+      {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
+
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+          <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
+            <h1 className="sr-only">{t("title")}</h1>
+            <TimelineGanttIntroGate>
+              <TimelineGanttWorkspace tool={tool} slug={SLUG} />
+            </TimelineGanttIntroGate>
+          </section>
         </div>
       </AppPageShell>
     </>

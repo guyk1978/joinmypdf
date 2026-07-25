@@ -1,146 +1,84 @@
 import type { Metadata } from "next";
-import { ToolGlassProvider } from "@/context/ToolGlassContext";
-import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
-import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
-import { ToolLayout } from "@/components/layout/ToolLayout";
-import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
-import { RelatedTools } from "@/components/RelatedTools";
-import { AppPageShell } from "@/components/AppPageShell";
-import { DataToolDashboard } from "@/components/data-tool/DataToolDashboard";
-import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
-import {
-  buildLocalizedGuideParagraphs,
-  getLocalizedToolFaqs,
-  localizedToolTitle,
-  translateToolIntent,
-} from "@/lib/i18n-tool-page";
-import {
-  buildToolPageBreadcrumbs,
-  resolveToolPageDescription,
-} from "@/lib/tool-breadcrumb-hub";
-import { registry } from "@/lib/registry";
-import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
-import { buildLocalizedToolMetadata, buildToolSeoCopy } from "@/lib/tool-seo";
-import { resolveToolSeoPageOverride } from "@/lib/tool-seo-overrides";
-import { productPageMainClassName, toolPageDashboardStack } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { AppPageShell } from "@/components/AppPageShell";
+import { DataConverterVisualizerIntroGate } from "@/components/DataConverterVisualizerIntroGate";
+import { DataConverterVisualizerWorkspace } from "@/components/DataConverterVisualizerWorkspace";
+import { routing } from "@/i18n/routing";
+import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
+import { registry } from "@/lib/registry";
+import { breadcrumbLd, faqLd, JsonLd, webApplicationLd } from "@/lib/schema";
+import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
+import { productPageMainClassName } from "@/lib/tool-ui";
 import { notFound } from "next/navigation";
 
 const SLUG = "data-converter-visualizer";
+const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const tool = registry.tools.find((item) => item.slug === SLUG);
-  if (!tool) return {};
+  const t = await getTranslations({ locale, namespace: "DataConverterVisualizerPage" });
 
-  const tTools = await getTranslations({ locale, namespace: "Tools" });
-  const tPage = await getTranslations({ locale, namespace: "ToolPage" });
-
-  return buildLocalizedToolMetadata({
-    tool,
-    variant: null,
-    slug: SLUG,
-    locale,
-    tTools,
-    tPage,
-  });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: {
+      canonical: `/${locale}${PAGE_PATH}`,
+      languages: Object.fromEntries(
+        routing.locales.map((item) => [item, `/${item}${PAGE_PATH}`]),
+      ),
+    },
+  };
 }
 
 export default async function DataConverterVisualizerPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const tool = registry.tools.find((item) => item.slug === SLUG);
+  const tool = registry.tools.find((entry) => entry.slug === SLUG);
   if (!tool) notFound();
 
+  const t = await getTranslations("DataConverterVisualizerPage");
   const tPage = await getTranslations("ToolPage");
-  const tTools = await getTranslations("Tools");
-
-  const displayTitle = localizedToolTitle(tTools, tool, null);
-  const subtitle = translateToolIntent(tTools, tool.slug, tool.intent);
-  const seoOverride = resolveToolSeoPageOverride(tool, null, tPage);
-  const pageHeadline = seoOverride?.h1 ?? displayTitle;
-  const pageDescription = resolveToolPageDescription({
-    title: pageHeadline,
-    intent: subtitle,
-    heroTagline: seoOverride?.heroTagline,
-  });
-  const faqs = getLocalizedToolFaqs(tPage, tool, null, pageHeadline, locale);
-  const { description } = buildToolSeoCopy({
-    tool,
-    variant: null,
-    locale,
-    tTools,
-    tPage,
-  });
-  const pathname = `/tools/${SLUG}/`;
-  const paragraphs = buildLocalizedGuideParagraphs(tPage, tool, null);
-  const schemaDescription = seoOverride?.schemaDescription ?? description;
-  const schemaName = seoOverride?.h1 ?? displayTitle;
+  const pathname = `/${locale}${PAGE_PATH}`;
+  const faqs = getLocalizedToolFaqs(tPage, tool, null, t("title"), locale);
 
   const crumbs = buildToolPageBreadcrumbs({
     slug: SLUG,
-    toolTitle: pageHeadline,
-    toolPath: pathname,
-    seoCategory: tool.category,
+    toolTitle: t("title"),
+    toolPath: PAGE_PATH,
     tPage,
   });
-  const breadcrumbItems = crumbs.map((crumb) => ({ label: crumb.name, href: crumb.path }));
 
   return (
     <>
       <JsonLd
-        data={softwareApplicationLd({
-          tool,
-          variant: null,
+        data={webApplicationLd({
+          name: t("schemaName"),
+          description: t("schemaDescription"),
           pathname,
-          description: schemaDescription,
           locale,
-          name: schemaName,
-          operatingSystem: "Web Browser",
-          applicationCategory: "UtilitiesApplication",
+          featureList: [
+            t("schemaFeatureFormats"),
+            t("schemaFeatureVisualize"),
+            t("schemaFeatureExport"),
+            t("schemaFeatureLocal"),
+          ],
+          applicationCategory: "DeveloperApplication",
         })}
       />
-      <JsonLd data={faqLd(faqs)} />
       <JsonLd data={breadcrumbLd(crumbs)} />
+      {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
+
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className={toolPageDashboardStack}>
-          <ToolGlassProvider category={tool.category}>
-            <ToolPageShellProvider
-              headline={pageHeadline}
-              subline={pageDescription ?? ""}
-              slug={SLUG}
-              stacked
-            >
-              <ToolLayout
-                faqs={faqs}
-                breadcrumbs={
-                  <ToolBreadcrumbs tool={tool} category={tool.category} items={breadcrumbItems} />
-                }
-                marketing={
-                  <ToolMarketingSections
-                    tool={tool}
-                    paragraphs={paragraphs}
-                    articles={[]}
-                    seoOverride={seoOverride}
-                    beforeYouStartTitle={seoOverride?.introSectionTitle ?? tPage("beforeYouStart")}
-                    whySectionTitle={seoOverride?.whySectionTitle ?? tPage("whyChooseLocalProcessing")}
-                    whySectionSubheadline={seoOverride?.whySectionSubheadline}
-                    whyBenefits={seoOverride?.whyBenefits}
-                    relatedGuidesTitle={tPage("relatedGuides")}
-                    tPage={tPage}
-                  />
-                }
-                related={<RelatedTools tool={tool} />}
-              >
-                <WorkspaceUploadShell>
-                  <DataToolDashboard />
-                </WorkspaceUploadShell>
-              </ToolLayout>
-            </ToolPageShellProvider>
-          </ToolGlassProvider>
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+          <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
+            <h1 className="sr-only">{t("title")}</h1>
+            <DataConverterVisualizerIntroGate>
+              <DataConverterVisualizerWorkspace tool={tool} slug={SLUG} />
+            </DataConverterVisualizerIntroGate>
+          </section>
         </div>
       </AppPageShell>
     </>

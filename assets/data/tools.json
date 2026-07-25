@@ -2601,6 +2601,76 @@
       }
     },
     {
+      "slug": "timeline-gantt-generator",
+      "category": "convert",
+      "operation": "timeline-gantt-generator",
+      "title": "Timeline & Gantt",
+      "primaryKeyword": "gantt chart generator online",
+      "intent": "Map project tasks, schedule milestones, and visualize execution phases with a simple Gantt chart—export locally with no uploads.",
+      "description": "Build project timelines and Gantt charts in your browser. Add tasks, milestones, and dates—then download a landscape PDF. Nothing uploaded to our servers.",
+      "secondaryKeywords": [
+        "online gantt chart maker",
+        "project timeline builder",
+        "simple gantt planner",
+        "milestone schedule tool"
+      ],
+      "useCases": [
+        "Sketch a renovation or delivery schedule for contractors",
+        "Plan sprint phases with milestones and durations",
+        "Export a landscape Gantt PDF without project software"
+      ],
+      "relatedTools": [
+        "invoice-generator",
+        "data-converter-visualizer"
+      ],
+      "faq": [
+        {
+          "q": "Is my project schedule uploaded to JoinMyPDF?",
+          "a": "No. Task editing, Gantt preview, and PDF export run entirely in your browser on your device."
+        },
+        {
+          "q": "Do I need an account to build a timeline?",
+          "a": "No account is required. Open the tool, add tasks, and download when ready."
+        },
+        {
+          "q": "Can I mark milestones?",
+          "a": "Yes. Add milestone markers alongside timed tasks to highlight key dates."
+        },
+        {
+          "q": "What PDF layout does export use?",
+          "a": "Timeline exports use a landscape PDF layout suited for Gantt charts."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.87,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-25",
+      "documentation": {
+        "whyItMatters": "Map project tasks, schedule milestones, and visualize execution phases with a simple Gantt chart—export locally with no uploads.",
+        "faq": [
+          {
+            "question": "Is my project schedule uploaded to JoinMyPDF?",
+            "answer": "No. Task editing, Gantt preview, and PDF export run entirely in your browser on your device."
+          },
+          {
+            "question": "Do I need an account to build a timeline?",
+            "answer": "No account is required. Open the tool, add tasks, and download when ready."
+          },
+          {
+            "question": "Can I mark milestones?",
+            "answer": "Yes. Add milestone markers alongside timed tasks to highlight key dates."
+          },
+          {
+            "question": "What PDF layout does export use?",
+            "answer": "Timeline exports use a landscape PDF layout suited for Gantt charts."
+          }
+        ]
+      }
+    },
+    {
       "slug": "data-converter-visualizer",
       "category": "convert",
       "operation": "data-converter-visualizer",

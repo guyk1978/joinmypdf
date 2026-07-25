@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./yaml-json-converter-landing.css";
 
@@ -17,15 +16,14 @@ type YamlJsonConverterIntroGateProps = {
 
 /**
  * One-way cinematic fullscreen splash for YAML ↔ JSON Converter.
- * Split panes → parsing laser → YAML indent ↔ JSON braces + success.
- * Only runs inside the ToolModal CALC embed.
+ * Indented YAML → bi-directional engine → braced JSON → success.
+ * Shows before the converter workspace (embed modal and dedicated tool page).
  */
 export function YamlJsonConverterIntroGate({
   active = true,
   children,
 }: YamlJsonConverterIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const introActive = active;
   const t = useTranslations("YamlJsonConverterLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
@@ -69,6 +67,7 @@ export function YamlJsonConverterIntroGate({
         role="dialog"
         aria-modal="true"
         aria-labelledby="yjc-fs-title"
+        style={{ backgroundColor: "#000000", zIndex: 999999 }}
       >
         <header className="yjc-fs__header">
           <h1 id="yjc-fs-title" className="yjc-fs__title">
@@ -82,65 +81,77 @@ export function YamlJsonConverterIntroGate({
           <div className="yjc-fs__scene">
             <div className="yjc-fs__workspace animation-workspace">
               <div className="yjc-fs__card">
-                <div className="yjc-fs__badges">
-                  <span className="yjc-fs__badge yjc-fs__badge--yaml">{t("yamlBadge")}</span>
-                  <span className="yjc-fs__swap">{t("swapLabel")}</span>
-                  <span className="yjc-fs__badge yjc-fs__badge--json">{t("jsonBadge")}</span>
-                </div>
-
-                <div className="yjc-fs__panes">
+                <div className="yjc-fs__pipeline">
                   <div className="yjc-fs__pane yjc-fs__pane--yaml">
-                    <p className="yjc-fs__code">
-                      <span className="yjc-fs__tok yjc-fs__tok--key">name</span>
-                      <span className="yjc-fs__tok yjc-fs__tok--colon">: </span>
-                      <span className="yjc-fs__tok yjc-fs__tok--val">Ada</span>
-                    </p>
-                    <p className="yjc-fs__code">
-                      <span className="yjc-fs__tok yjc-fs__tok--key">roles</span>
-                      <span className="yjc-fs__tok yjc-fs__tok--colon">:</span>
-                    </p>
-                    <p className="yjc-fs__code">
-                      <span className="yjc-fs__tok yjc-fs__tok--dash">- </span>
-                      <span className="yjc-fs__tok yjc-fs__tok--val">eng</span>
-                    </p>
-                    <p className="yjc-fs__code">
-                      <span className="yjc-fs__tok yjc-fs__tok--dash">- </span>
-                      <span className="yjc-fs__tok yjc-fs__tok--val">ops</span>
-                    </p>
+                    <span className="yjc-fs__tag">{t("yamlTag")}</span>
+                    <div className="yjc-fs__code">
+                      <p className="yjc-fs__line yjc-fs__line--1">
+                        <span className="yjc-fs__key">name</span>
+                        <span className="yjc-fs__colon">: </span>
+                        <span className="yjc-fs__val">Ada</span>
+                      </p>
+                      <p className="yjc-fs__line yjc-fs__line--2">
+                        <span className="yjc-fs__key">roles</span>
+                        <span className="yjc-fs__colon">:</span>
+                      </p>
+                      <p className="yjc-fs__line yjc-fs__line--3">
+                        <span className="yjc-fs__dash">- </span>
+                        <span className="yjc-fs__val">eng</span>
+                      </p>
+                      <p className="yjc-fs__line yjc-fs__line--4">
+                        <span className="yjc-fs__dash">- </span>
+                        <span className="yjc-fs__val">ops</span>
+                      </p>
+                      <span className="yjc-fs__laser" />
+                    </div>
                   </div>
 
-                  <div className="yjc-fs__beam" />
+                  <div className="yjc-fs__engine">
+                    <span className="yjc-fs__flow" />
+                    <span className="yjc-fs__core" aria-hidden>
+                      <span className="yjc-fs__core-swap">↔</span>
+                    </span>
+                    <span className="yjc-fs__badge">{t("engineBadge")}</span>
+                  </div>
 
                   <div className="yjc-fs__pane yjc-fs__pane--json">
-                    <p className="yjc-fs__code">
-                      <span className="yjc-fs__tok yjc-fs__tok--brace">{"{"}</span>
-                    </p>
-                    <p className="yjc-fs__code">
-                      {"  "}
-                      <span className="yjc-fs__tok yjc-fs__tok--str">&quot;name&quot;</span>
-                      <span className="yjc-fs__tok yjc-fs__tok--colon">: </span>
-                      <span className="yjc-fs__tok yjc-fs__tok--str">&quot;Ada&quot;</span>,
-                    </p>
-                    <p className="yjc-fs__code">
-                      {"  "}
-                      <span className="yjc-fs__tok yjc-fs__tok--str">&quot;roles&quot;</span>
-                      <span className="yjc-fs__tok yjc-fs__tok--colon">: </span>
-                      <span className="yjc-fs__tok yjc-fs__tok--brace">[</span>
-                      <span className="yjc-fs__tok yjc-fs__tok--str">&quot;eng&quot;</span>,
-                      <span className="yjc-fs__tok yjc-fs__tok--str">&quot;ops&quot;</span>
-                      <span className="yjc-fs__tok yjc-fs__tok--brace">]</span>
-                    </p>
-                    <p className="yjc-fs__code">
-                      <span className="yjc-fs__tok yjc-fs__tok--brace">{"}"}</span>
-                    </p>
+                    <span className="yjc-fs__tag yjc-fs__tag--json">{t("jsonTag")}</span>
+                    <div className="yjc-fs__json">
+                      <p className="yjc-fs__jline yjc-fs__jline--1">
+                        <span className="yjc-fs__brace">{"{"}</span>
+                      </p>
+                      <p className="yjc-fs__jline yjc-fs__jline--2">
+                        {"  "}
+                        <span className="yjc-fs__str">&quot;name&quot;</span>
+                        <span className="yjc-fs__colon">: </span>
+                        <span className="yjc-fs__str">&quot;Ada&quot;</span>,
+                      </p>
+                      <p className="yjc-fs__jline yjc-fs__jline--3">
+                        {"  "}
+                        <span className="yjc-fs__str">&quot;roles&quot;</span>
+                        <span className="yjc-fs__colon">: </span>
+                        <span className="yjc-fs__brace">[</span>
+                        <span className="yjc-fs__str">&quot;eng&quot;</span>,{" "}
+                        <span className="yjc-fs__str">&quot;ops&quot;</span>
+                        <span className="yjc-fs__brace">]</span>
+                      </p>
+                      <p className="yjc-fs__jline yjc-fs__jline--4">
+                        <span className="yjc-fs__brace">{"}"}</span>
+                      </p>
+                      <div className="yjc-fs__raw">{t("jsonSample")}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <span className="yjc-fs__ok">
-                <span className="yjc-fs__check" />
-                {t("success")}
-              </span>
+                <span className="yjc-fs__particle yjc-fs__particle--1" />
+                <span className="yjc-fs__particle yjc-fs__particle--2" />
+                <span className="yjc-fs__particle yjc-fs__particle--3" />
+
+                <span className="yjc-fs__ok">
+                  <span className="yjc-fs__check" />
+                  {t("success")}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -154,7 +165,13 @@ export function YamlJsonConverterIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="yjc-fs tool-intro-fs" aria-hidden />;
+      return (
+        <div
+          className="yjc-fs tool-intro-fs"
+          style={{ backgroundColor: "#000000", zIndex: 999999 }}
+          aria-hidden
+        />
+      );
     }
     return createPortal(splash, document.body);
   }

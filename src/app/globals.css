@@ -15181,6 +15181,63 @@ body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropz
   --matte-border: #262626;
 }
 
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.invoice-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.invoice-generator-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .invoice-generator-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.invoice-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.invoice-generator-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.invoice-generator-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.invoice-generator-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
+.invoice-generator-tool-page {
+  max-width: 80rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.timeline-gantt-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.timeline-gantt-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .timeline-gantt-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.timeline-gantt-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.timeline-gantt-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.timeline-gantt-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.timeline-gantt-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
+.timeline-gantt-tool-page {
+  max-width: 80rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.data-converter-visualizer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.data-converter-visualizer-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .data-converter-visualizer-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.data-converter-visualizer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.data-converter-visualizer-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.data-converter-visualizer-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.data-converter-visualizer-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
+.data-converter-visualizer-tool-page {
+  max-width: 80rem;
+}
+
 .invoice-generator-workspace input[type="number"],
 .invoice-generator-workspace .tabular-nums,
 .timeline-generator-workspace input[type="number"],
@@ -20955,6 +21012,21 @@ body.tool-embed-mode .tool-upload-float.json-formatter-tool-page.tool-upload-flo
   max-width: 56rem;
 }
 
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.json-minifier-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.json-minifier-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .json-minifier-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.json-minifier-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.json-minifier-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.json-minifier-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.json-minifier-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
 .json-minifier-tool {
   display: flex;
   flex-direction: column;
@@ -22441,6 +22513,21 @@ html.workspace-phase-clean .html-md-converter-tool__preview,
   max-width: 72rem;
 }
 
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.jwt-debugger-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.jwt-debugger-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .jwt-debugger-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.jwt-debugger-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.jwt-debugger-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.jwt-debugger-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.jwt-debugger-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
+}
+
 .my-ip-tool-page {
   max-width: 72rem;
 }
@@ -22654,11 +22741,19 @@ html.workspace-phase-clean .tool-privacy-seal {
   max-width: 80rem;
 }
 
-/* Data & Conversion tools ? shared Industrial Matte panels */
-.yaml-json-tool-page,
-.csv-markdown-tool-page,
-.sql-query-tool-page {
-  max-width: 80rem;
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.yaml-json-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.yaml-json-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .yaml-json-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.yaml-json-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.yaml-json-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.yaml-json-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.yaml-json-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
 }
 
 .data-conv-tool__pane {
@@ -25483,6 +25578,21 @@ body.tool-embed-mode .tool-upload-float.csv-to-json-tool-page.tool-upload-float-
 
 .json-to-csv-tool-page {
   max-width: 56rem;
+}
+
+/* Post-splash utility stage — clear site header, no colliding banners */
+.tool-upload-float.json-to-csv-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+.tool-upload-float.json-to-csv-tool-page.tool-upload-float--immersive .im-utility-stage,
+html.workspace-phase-clean .json-to-csv-tool-page .im-utility-stage {
+  top: calc(var(--site-header-height, 60px) + 30px) !important;
+  margin-top: 0 !important;
+}
+
+html[data-tool-embed="1"] .tool-upload-float.json-to-csv-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+html[data-tool-embed="1"] .tool-upload-float.json-to-csv-tool-page.tool-upload-float--immersive .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.json-to-csv-tool-page[data-workspace-phase="clean"] .im-utility-stage,
+body.tool-embed-mode .tool-upload-float.json-to-csv-tool-page.tool-upload-float--immersive .im-utility-stage {
+  top: 30px !important;
 }
 
 .json-to-csv-tool {

@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./jwt-debugger-landing.css";
 
@@ -17,15 +16,14 @@ type JwtDebuggerIntroGateProps = {
 
 /**
  * One-way cinematic fullscreen splash for JWT Decoder Online.
- * Encoded token → verification laser → Header / Payload / Signature split + success.
- * Only runs inside the ToolModal CALC embed.
+ * Encoded token → crypto split engine → Header / Payload / Signature JSON → success.
+ * Shows before the decoder workspace (embed modal and dedicated tool page).
  */
 export function JwtDebuggerIntroGate({
   active = true,
   children,
 }: JwtDebuggerIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const introActive = active;
   const t = useTranslations("JwtDebuggerLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
@@ -69,6 +67,7 @@ export function JwtDebuggerIntroGate({
         role="dialog"
         aria-modal="true"
         aria-labelledby="jwt-fs-title"
+        style={{ backgroundColor: "#000000", zIndex: 999999 }}
       >
         <header className="jwt-fs__header">
           <h1 id="jwt-fs-title" className="jwt-fs__title">
@@ -82,40 +81,66 @@ export function JwtDebuggerIntroGate({
           <div className="jwt-fs__scene">
             <div className="jwt-fs__workspace animation-workspace">
               <div className="jwt-fs__card">
-                <div className="jwt-fs__status">
-                  <span className="jwt-fs__pill jwt-fs__pill--alg">{t("algBadge")}</span>
-                  <span className="jwt-fs__pill jwt-fs__pill--safe">{t("safeBadge")}</span>
+                <div className="jwt-fs__pipeline">
+                  <div className="jwt-fs__pane jwt-fs__pane--token">
+                    <span className="jwt-fs__tag">{t("tokenTag")}</span>
+                    <div className="jwt-fs__token">
+                      <p className="jwt-fs__token-line jwt-fs__token-line--1">
+                        <span className="jwt-fs__seg jwt-fs__seg--h">eyJhbGciOiJIUzI1NiIs</span>
+                      </p>
+                      <p className="jwt-fs__token-line jwt-fs__token-line--2">
+                        <span className="jwt-fs__dot">.</span>
+                        <span className="jwt-fs__seg jwt-fs__seg--p">eyJzdWIiOiIxMjM0NTY</span>
+                      </p>
+                      <p className="jwt-fs__token-line jwt-fs__token-line--3">
+                        <span className="jwt-fs__dot">.</span>
+                        <span className="jwt-fs__seg jwt-fs__seg--s">SflKxwRJSMeKKF2QT</span>
+                      </p>
+                      <p className="jwt-fs__token-line jwt-fs__token-line--4">
+                        <span className="jwt-fs__seg jwt-fs__seg--trunc">{t("tokenSample")}</span>
+                      </p>
+                      <span className="jwt-fs__laser" />
+                    </div>
+                  </div>
+
+                  <div className="jwt-fs__engine">
+                    <span className="jwt-fs__flow" />
+                    <span className="jwt-fs__core" />
+                    <span className="jwt-fs__badge">{t("algBadge")}</span>
+                  </div>
+
+                  <div className="jwt-fs__pane jwt-fs__pane--parts">
+                    <span className="jwt-fs__tag jwt-fs__tag--parts">{t("partsTag")}</span>
+                    <div className="jwt-fs__parts">
+                      <div className="jwt-fs__part jwt-fs__part--h">
+                        <span className="jwt-fs__part-label">{t("header")}</span>
+                        <code className="jwt-fs__part-json">
+                          {"{"}&quot;alg&quot;:&quot;HS256&quot;{"}"}
+                        </code>
+                      </div>
+                      <div className="jwt-fs__part jwt-fs__part--p">
+                        <span className="jwt-fs__part-label">{t("payload")}</span>
+                        <code className="jwt-fs__part-json">
+                          {"{"}&quot;sub&quot;:&quot;123&quot;{"}"}
+                        </code>
+                      </div>
+                      <div className="jwt-fs__part jwt-fs__part--s">
+                        <span className="jwt-fs__part-label">{t("signature")}</span>
+                        <code className="jwt-fs__part-json">SflKxwRJ…</code>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="jwt-fs__token">
-                  <span className="jwt-fs__seg jwt-fs__seg--h">eyJhbGci</span>
-                  <span className="jwt-fs__dot">.</span>
-                  <span className="jwt-fs__seg jwt-fs__seg--p">eyJzdWIi</span>
-                  <span className="jwt-fs__dot">.</span>
-                  <span className="jwt-fs__seg jwt-fs__seg--s">SflKxwRJ</span>
-                  <div className="jwt-fs__laser" />
-                </div>
+                <span className="jwt-fs__particle jwt-fs__particle--1" />
+                <span className="jwt-fs__particle jwt-fs__particle--2" />
+                <span className="jwt-fs__particle jwt-fs__particle--3" />
 
-                <div className="jwt-fs__parts">
-                  <div className="jwt-fs__part jwt-fs__part--h">
-                    <span className="jwt-fs__part-label">{t("header")}</span>
-                    <span className="jwt-fs__part-val">HS256</span>
-                  </div>
-                  <div className="jwt-fs__part jwt-fs__part--p">
-                    <span className="jwt-fs__part-label">{t("payload")}</span>
-                    <span className="jwt-fs__part-val">sub · exp</span>
-                  </div>
-                  <div className="jwt-fs__part jwt-fs__part--s">
-                    <span className="jwt-fs__part-label">{t("signature")}</span>
-                    <span className="jwt-fs__part-val">••••</span>
-                  </div>
-                </div>
+                <span className="jwt-fs__ok">
+                  <span className="jwt-fs__check" />
+                  {t("success")}
+                </span>
               </div>
-
-              <span className="jwt-fs__ok">
-                <span className="jwt-fs__check" />
-                {t("success")}
-              </span>
             </div>
           </div>
         </div>
@@ -129,7 +154,13 @@ export function JwtDebuggerIntroGate({
     );
 
     if (!portalReady) {
-      return <div className="jwt-fs tool-intro-fs" aria-hidden />;
+      return (
+        <div
+          className="jwt-fs tool-intro-fs"
+          style={{ backgroundColor: "#000000", zIndex: 999999 }}
+          aria-hidden
+        />
+      );
     }
     return createPortal(splash, document.body);
   }

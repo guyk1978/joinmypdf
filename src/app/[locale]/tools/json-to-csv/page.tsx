@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { InvoiceGeneratorIntroGate } from "@/components/InvoiceGeneratorIntroGate";
-import { InvoiceGeneratorWorkspace } from "@/components/InvoiceGeneratorWorkspace";
+import { JsonToCsvIntroGate } from "@/components/JsonToCsvIntroGate";
+import { JsonToCsvWorkspace } from "@/components/JsonToCsvWorkspace";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 import { registry } from "@/lib/registry";
@@ -11,14 +11,14 @@ import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { productPageMainClassName } from "@/lib/tool-ui";
 import { notFound } from "next/navigation";
 
-const SLUG = "invoice-generator";
+const SLUG = "json-to-csv";
 const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "InvoiceGeneratorPage" });
+  const t = await getTranslations({ locale, namespace: "JsonToCsvPage" });
 
   return {
     title: t("metaTitle"),
@@ -32,14 +32,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function InvoiceGeneratorPage({ params }: PageProps) {
+export default async function JsonToCsvPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const tool = registry.tools.find((entry) => entry.slug === SLUG);
   if (!tool) notFound();
 
-  const t = await getTranslations("InvoiceGeneratorPage");
+  const t = await getTranslations("JsonToCsvPage");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${PAGE_PATH}`;
   const faqs = getLocalizedToolFaqs(tPage, tool, null, t("title"), locale);
@@ -60,12 +60,12 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
           pathname,
           locale,
           featureList: [
-            t("schemaFeatureItems"),
-            t("schemaFeatureTax"),
-            t("schemaFeaturePdf"),
+            t("schemaFeatureFlatten"),
+            t("schemaFeatureHeaders"),
+            t("schemaFeatureExport"),
             t("schemaFeatureLocal"),
           ],
-          applicationCategory: "BusinessApplication",
+          applicationCategory: "DeveloperApplication",
         })}
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
@@ -75,9 +75,9 @@ export default async function InvoiceGeneratorPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <InvoiceGeneratorIntroGate>
-              <InvoiceGeneratorWorkspace tool={tool} slug={SLUG} />
-            </InvoiceGeneratorIntroGate>
+            <JsonToCsvIntroGate>
+              <JsonToCsvWorkspace tool={tool} slug={SLUG} />
+            </JsonToCsvIntroGate>
           </section>
         </div>
       </AppPageShell>
