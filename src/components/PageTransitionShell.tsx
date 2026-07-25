@@ -7,6 +7,7 @@ import { PageContentTransition } from "@/components/PageContentTransition";
 import { PdfReaderPromoBanner } from "@/components/PdfReaderPromoBanner";
 import { PinnedCardsDock } from "@/components/PinnedCardsDock";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ToolIntroSideBanners } from "@/components/ToolIntroSideBanners";
 import { ToolEmbedModeMarker } from "@/components/tool-modal/ToolEmbedModeMarker";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { PageTransitionProvider, usePageTransition } from "@/context/PageTransitionContext";
@@ -41,6 +42,7 @@ function PageTransitionCanvas({ children, mainClassName }: PageTransitionShellPr
       onClickCapture={handleLinkClickCapture}
     >
       <ToolEmbedModeMarker />
+      <ToolIntroSideBanners />
       {embed ? null : <SiteHeader />}
       {embed ? null : <PinnedCardsDock />}
       <main

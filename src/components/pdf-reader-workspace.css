@@ -169,16 +169,22 @@
   text-align: center;
 }
 
+/*
+ * Fullscreen stage: force a column so the exit control never sits beside the
+ * page (the base .pdf-reader-viewport is flex-direction:row). The document is
+ * horizontally centered; the exit control is fixed above it, clear of the page.
+ */
 .pdf-reader-viewport--fullscreen,
 .pdf-reader-viewport:fullscreen,
 .pdf-reader-viewport:-webkit-full-screen {
   position: fixed;
   inset: 0;
   z-index: 100000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
   width: 100vw;
   width: 100dvw;
   height: 100vh;
@@ -187,8 +193,9 @@
   margin: 0;
   border: 0;
   border-radius: 0;
+  /* Top padding clears the fixed exit button + browser fullscreen chrome */
   padding:
-    max(0.75rem, env(safe-area-inset-top, 0px))
+    max(4.25rem, calc(env(safe-area-inset-top, 0px) + 3.5rem))
     max(0.75rem, env(safe-area-inset-right, 0px))
     max(0.75rem, env(safe-area-inset-bottom, 0px))
     max(0.75rem, env(safe-area-inset-left, 0px));
@@ -203,11 +210,12 @@
 .pdf-reader-viewport:fullscreen .pdf-reader-page,
 .pdf-reader-viewport:-webkit-full-screen .pdf-reader-page {
   position: relative;
-  display: inline-block;
-  margin: auto;
+  display: block;
+  margin: 0 auto;
   max-width: min(100%, calc(100vw - 1.5rem));
   max-height: none;
   flex: 0 0 auto;
+  align-self: center;
 }
 
 .pdf-reader-viewport--fullscreen .pdf-reader-page__canvas,
@@ -221,16 +229,17 @@
 }
 
 .pdf-reader-viewport__exit-fs {
-  position: sticky;
-  top: max(0.75rem, env(safe-area-inset-top, 0px));
-  z-index: 5;
+  position: fixed;
+  top: max(0.85rem, env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100001;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
   flex: 0 0 auto;
-  align-self: center;
-  margin: 0 auto 1rem;
+  margin: 0;
   border: 1px solid #737373;
   background: #171717;
   color: #f5f5f5;

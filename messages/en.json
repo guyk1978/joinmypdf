@@ -2127,6 +2127,20 @@
     "description": "Read and inspect PDFs peacefully in your browser — private, ad-free, and fully local.",
     "cta": "Open PDF Reader"
   },
+  "ToolSidebarBanners": {
+    "pdfReader": {
+      "ariaLabel": "Also try: PDF Reader Online",
+      "title": "PDF Reader Online",
+      "description": "Read and inspect any PDF with page navigation, zoom, and text selection — private, ad-free, and fully local.",
+      "cta": "Open PDF Reader"
+    },
+    "imageCombiner": {
+      "ariaLabel": "Also try: Image Combiner",
+      "title": "Image Combiner",
+      "description": "Merge 2–4 photos side by side or stacked and download one clean PNG — nothing ever leaves your browser.",
+      "cta": "Open Image Combiner"
+    }
+  },
   "CropPdfPage": {
     "metaTitle": "Crop PDF Online | Remove Margins & Edges | JoinMyPDF",
     "metaDescription": "Trim scanner whitespace and excess borders so every page frames the content that matters — 100% local in your browser.",
