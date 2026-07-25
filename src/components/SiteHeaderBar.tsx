@@ -13,6 +13,7 @@ import {
   type NavigationDrawerTab,
 } from "@/components/HeaderCategoryNav";
 import { HeaderSearch } from "@/components/HeaderSearch";
+import { InstallPwaButton } from "@/components/InstallPwaButton";
 import { getBrandName } from "@/lib/brand";
 import type { HeaderCategoryId } from "@/lib/tool-registry";
 
@@ -75,8 +76,11 @@ export function SiteHeaderBar() {
 
         <div className="site-header__search-center">
           {isWide ? (
-            <div className="site-header__search site-header__search--focus">
-              <HeaderSearch variant="inline" />
+            <div className="site-header__search-cluster">
+              <div className="site-header__search site-header__search--focus">
+                <HeaderSearch variant="inline" />
+              </div>
+              <InstallPwaButton />
             </div>
           ) : (
             <div className="site-header__spacer" aria-hidden />

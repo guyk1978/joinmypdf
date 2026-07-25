@@ -1,6 +1,6 @@
 "use client";
 
-import { Download } from "lucide-react";
+import { Check, Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 
@@ -13,6 +13,7 @@ function isStandaloneDisplay(): boolean {
   if (typeof window === "undefined") return false;
   return (
     window.matchMedia("(display-mode: standalone)").matches ||
+    window.matchMedia("(display-mode: window-controls-overlay)").matches ||
     (window.navigator as Navigator & { standalone?: boolean }).standalone === true
   );
 }
@@ -20,54 +21,83 @@ function isStandaloneDisplay(): boolean {
 export function InstallPwaButton() {
   const t = useTranslations("Header");
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [installed, setInstalled] = useState(false);
 
   useEffect(() => {
-    if (isStandaloneDisplay()) return;
+    const syncInstalled = () => {
+      const standalone = isStandaloneDisplay();
+      setInstalled(standalone);
+      if (standalone) setDeferredPrompt(null);
+    };
+
+    syncInstalled();
 
     const onBeforeInstall = (event: Event) => {
       event.preventDefault();
+      if (isStandaloneDisplay()) return;
       setDeferredPrompt(event as BeforeInstallPromptEvent);
-      setVisible(true);
+      setInstalled(false);
     };
 
     const onAppInstalled = () => {
       setDeferredPrompt(null);
-      setVisible(false);
+      setInstalled(true);
     };
 
+    const mediaStandalone = window.matchMedia("(display-mode: standalone)");
+    const mediaOverlay = window.matchMedia("(display-mode: window-controls-overlay)");
+    mediaStandalone.addEventListener("change", syncInstalled);
+    mediaOverlay.addEventListener("change", syncInstalled);
     window.addEventListener("beforeinstallprompt", onBeforeInstall);
     window.addEventListener("appinstalled", onAppInstalled);
 
     return () => {
+      mediaStandalone.removeEventListener("change", syncInstalled);
+      mediaOverlay.removeEventListener("change", syncInstalled);
       window.removeEventListener("beforeinstallprompt", onBeforeInstall);
       window.removeEventListener("appinstalled", onAppInstalled);
     };
   }, []);
 
   const handleInstall = useCallback(async () => {
-    if (!deferredPrompt) return;
+    if (!deferredPrompt || installed) return;
 
     await deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
 
     setDeferredPrompt(null);
     if (outcome === "accepted") {
-      setVisible(false);
+      setInstalled(true);
     }
-  }, [deferredPrompt]);
+  }, [deferredPrompt, installed]);
 
-  if (!visible || !deferredPrompt) return null;
+  if (installed) {
+    const label = t("appAlreadyInstalled");
+    return (
+      <button
+        type="button"
+        className="site-header__install-button site-header__install-button--installed"
+        aria-label={label}
+        title={label}
+        disabled
+      >
+        <Check className="site-header__install-icon" aria-hidden="true" strokeWidth={2.25} />
+      </button>
+    );
+  }
 
+  if (!deferredPrompt) return null;
+
+  const label = t("installApp");
   return (
     <button
       type="button"
       onClick={() => void handleInstall()}
-      className="inline-flex h-full w-12 shrink-0 items-center justify-center rounded-none border border-neutral-800 bg-white text-black transition-colors duration-500 ease-in-out hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 dark:border-neutral-500 dark:bg-neutral-900 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus-visible:ring-offset-neutral-950"
-      aria-label={t("installApp")}
-      title={t("installApp")}
+      className="site-header__install-button"
+      aria-label={label}
+      title={label}
     >
-      <Download className="h-5 w-5" aria-hidden="true" />
+      <Download className="site-header__install-icon" aria-hidden="true" />
     </button>
   );
 }

@@ -11146,13 +11146,90 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   height: 100%;
 }
 
+.site-header__search-cluster {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 36rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-inline: auto;
+}
+
 .site-header__search.site-header__search--focus {
   flex: 1 1 auto;
-  width: min(100%, 36rem);
-  max-width: 36rem;
-  margin-inline: auto;
+  width: min(100%, 28rem);
+  max-width: 28rem;
+  min-width: 0;
+  margin-inline: 0;
   display: flex;
   align-items: center;
+}
+
+.site-header__install-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: var(--site-header-control-height);
+  min-width: var(--site-header-control-height);
+  min-height: var(--site-header-control-height);
+  height: var(--site-header-control-height);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #525252;
+  border-radius: 0;
+  background: #202020;
+  color: #ededed;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.site-header__install-button:hover,
+.site-header__install-button:focus-visible {
+  border-color: #a3a3a3;
+  background: #303030;
+  color: #fff;
+  outline: none;
+}
+
+.site-header__install-button:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    0 0 0 2px #737373;
+}
+
+.site-header__install-button--installed,
+.site-header__install-button--installed:hover,
+.site-header__install-button--installed:focus-visible {
+  border-color: #4d7c0f;
+  background: #1a2e05;
+  color: #bef264;
+  cursor: default;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
+}
+
+.site-header__install-button:disabled {
+  opacity: 1;
+}
+
+.site-header__install-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
+}
+
+/* Preserve a useful search field at the narrowest desktop breakpoint. The
+   install action remains available from the overflow menu at this width. */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .site-header__install-button {
+    display: none;
+  }
 }
 
 .site-header__nav-link {
@@ -12091,9 +12168,10 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 
 .site-header__search.site-header__search--focus {
   flex: 1 1 auto;
-  width: min(100%, 36rem);
-  max-width: 36rem;
-  margin-inline: auto;
+  width: min(100%, 28rem);
+  max-width: 28rem;
+  min-width: 0;
+  margin-inline: 0;
 }
 
 @media (min-width: 1280px) {
@@ -12102,7 +12180,7 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   }
 
   .site-header__search.site-header__search--focus {
-    max-width: 36rem;
+    max-width: 28rem;
   }
 }
 
