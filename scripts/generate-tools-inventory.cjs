@@ -220,6 +220,20 @@ function addHubRules(slug, hubs) {
     h.add("text");
   }
 
+  // Network & API Tools hub — keep primary category; multi-tag for hub membership.
+  if (
+    [
+      "my-ip",
+      "user-agent-parser",
+      "jwt-debugger",
+      "url-encoder-decoder",
+      "url-parameter-stripper",
+      "ssl-decoder",
+    ].includes(slug)
+  ) {
+    h.add("network");
+  }
+
   return unique([...h]);
 }
 
