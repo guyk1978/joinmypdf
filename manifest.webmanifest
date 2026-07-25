@@ -8,6 +8,13 @@
   "orientation": "portrait-primary",
   "background_color": "#151a20",
   "theme_color": "#151a20",
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://joinmypdf.com/manifest.webmanifest"
+    }
+  ],
   "icons": [
     {
       "src": "/icons/favicon-16x16.png",

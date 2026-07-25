@@ -26,6 +26,7 @@
     "mobileNav": "Mobile primary",
     "installApp": "Установить приложение",
     "appAlreadyInstalled": "Приложение уже установлено",
+    "installAppUnavailable": "Установка приложения недоступна в этой сессии браузера",
     "favorites": "Favorites",
     "projects": "My Projects",
     "blog": "Blog",

@@ -91,6 +91,7 @@ export function SiteHeaderBar() {
           <HeaderCategoryHub />
           <HeaderLibraryButton />
           {!isWide ? <HeaderSearch variant="toggle" /> : null}
+          {!isWide ? <InstallPwaButton /> : null}
           <HeaderOverflowMenu />
         </div>
       </nav>

@@ -26,6 +26,7 @@
     "mobileNav": "Mobile primary",
     "installApp": "Install app",
     "appAlreadyInstalled": "App is already installed",
+    "installAppUnavailable": "Install app is not available in this browser session",
     "favorites": "Favorites",
     "projects": "My Projects",
     "blog": "Blog",
