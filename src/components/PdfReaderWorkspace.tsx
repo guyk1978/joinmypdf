@@ -12,6 +12,7 @@ import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { openPdfDocument, renderPdfReaderPage, type PdfJsDocument } from "@/lib/pdf-reader";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import type { ToolDefinition } from "@/lib/types";
+import { Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
   useCallback,
@@ -27,6 +28,39 @@ const ZOOM_MIN = 0.5;
 const ZOOM_MAX = 2.5;
 const ZOOM_STEP = 0.1;
 
+type FullscreenCapableElement = HTMLElement & {
+  webkitRequestFullscreen?: () => Promise<void> | void;
+};
+
+function getFullscreenElement(): Element | null {
+  const doc = document as Document & { webkitFullscreenElement?: Element | null };
+  return document.fullscreenElement ?? doc.webkitFullscreenElement ?? null;
+}
+
+async function requestElementFullscreen(el: HTMLElement) {
+  const node = el as FullscreenCapableElement;
+  if (typeof node.requestFullscreen === "function") {
+    await node.requestFullscreen();
+    return;
+  }
+  if (typeof node.webkitRequestFullscreen === "function") {
+    await node.webkitRequestFullscreen();
+  }
+}
+
+async function exitDocumentFullscreen() {
+  const doc = document as Document & {
+    webkitExitFullscreen?: () => Promise<void> | void;
+  };
+  if (typeof document.exitFullscreen === "function" && document.fullscreenElement) {
+    await document.exitFullscreen();
+    return;
+  }
+  if (typeof doc.webkitExitFullscreen === "function" && getFullscreenElement()) {
+    await doc.webkitExitFullscreen();
+  }
+}
+
 export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const pageShell = useToolPageShell();
@@ -40,13 +74,18 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const [rendering, setRendering] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const [fsMode, setFsMode] = useState<"off" | "native" | "css">("off");
   const inputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textLayerRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const docRef = useRef<PdfJsDocument | null>(null);
   const renderTokenRef = useRef(0);
+  const fsModeRef = useRef(fsMode);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
+  fsModeRef.current = fsMode;
+  const docFullscreen = fsMode !== "off";
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
@@ -75,6 +114,10 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setStatus("");
     setRunError(null);
     setRendering(false);
+    setFsMode("off");
+    if (getFullscreenElement()) {
+      void exitDocumentFullscreen().catch(() => undefined);
+    }
     if (inputRef.current) inputRef.current.value = "";
   }, [destroyDoc]);
 
@@ -160,9 +203,79 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     };
   }, [destroyDoc]);
 
+  useEffect(() => {
+    const syncFullscreen = () => {
+      const active = getFullscreenElement();
+      if (active && active === viewportRef.current) {
+        setFsMode("native");
+        return;
+      }
+      if (fsModeRef.current === "native") {
+        setFsMode("off");
+      }
+    };
+    document.addEventListener("fullscreenchange", syncFullscreen);
+    document.addEventListener("webkitfullscreenchange", syncFullscreen as EventListener);
+    return () => {
+      document.removeEventListener("fullscreenchange", syncFullscreen);
+      document.removeEventListener("webkitfullscreenchange", syncFullscreen as EventListener);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (fsMode !== "css") return;
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevBody;
+      document.documentElement.style.overflow = prevHtml;
+    };
+  }, [fsMode]);
+
+  useEffect(() => {
+    if (!docFullscreen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setFsMode("off");
+        if (getFullscreenElement()) void exitDocumentFullscreen().catch(() => undefined);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [docFullscreen]);
+
+  const toggleDocFullscreen = useCallback(async () => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    if (fsMode !== "off" || getFullscreenElement() === viewport) {
+      setFsMode("off");
+      if (getFullscreenElement()) {
+        try {
+          await exitDocumentFullscreen();
+        } catch {
+          /* ignore */
+        }
+      }
+      return;
+    }
+
+    try {
+      await requestElementFullscreen(viewport);
+      setFsMode("native");
+    } catch {
+      // Fallback for browsers without Fullscreen API (common on iOS).
+      setFsMode("css");
+    }
+  }, [fsMode]);
+
   const showWorkspace = Boolean(file && pageCount > 0);
   const zoomPct = Math.round(zoom * 100);
   const showUploadHead = !showWorkspace && !pageShell.stacked;
+  const enterFullscreenLabel = ws.wsUi("enterFullscreen");
+  const exitFullscreenLabel = ws.wsUi("exitFullscreen");
 
   return (
     <div id="tool-workspace" className="pdf-reader-tool-page tool-workspace--wide space-y-3 pb-12 md:pb-8">
@@ -280,22 +393,28 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             <div className="pdf-reader-toolbar__group">
               <button
                 type="button"
-                className="pdf-reader-toolbar__btn"
+                className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
                 disabled={busy || rendering || zoom <= ZOOM_MIN}
                 onClick={() => setZoom((z) => Math.max(ZOOM_MIN, Number((z - ZOOM_STEP).toFixed(2))))}
+                aria-label={ws.wsUi("zoomOut")}
+                title={ws.wsUi("zoomOut")}
               >
-                {ws.wsUi("zoomOut")}
+                <ZoomOut className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
+                <span className="pdf-reader-toolbar__btn-label">{ws.wsUi("zoomOut")}</span>
               </button>
               <span className="pdf-reader-toolbar__zoom" aria-live="polite">
                 {zoomPct}%
               </span>
               <button
                 type="button"
-                className="pdf-reader-toolbar__btn"
+                className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
                 disabled={busy || rendering || zoom >= ZOOM_MAX}
                 onClick={() => setZoom((z) => Math.min(ZOOM_MAX, Number((z + ZOOM_STEP).toFixed(2))))}
+                aria-label={ws.wsUi("zoomIn")}
+                title={ws.wsUi("zoomIn")}
               >
-                {ws.wsUi("zoomIn")}
+                <ZoomIn className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
+                <span className="pdf-reader-toolbar__btn-label">{ws.wsUi("zoomIn")}</span>
               </button>
               <button
                 type="button"
@@ -304,6 +423,24 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 onClick={() => setZoom(1.15)}
               >
                 {ws.wsUi("zoomReset")}
+              </button>
+              <button
+                type="button"
+                className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
+                disabled={busy || rendering}
+                aria-pressed={docFullscreen}
+                aria-label={docFullscreen ? exitFullscreenLabel : enterFullscreenLabel}
+                title={docFullscreen ? exitFullscreenLabel : enterFullscreenLabel}
+                onClick={() => void toggleDocFullscreen()}
+              >
+                {docFullscreen ? (
+                  <Minimize2 className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
+                ) : (
+                  <Maximize2 className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
+                )}
+                <span className="pdf-reader-toolbar__btn-label">
+                  {docFullscreen ? exitFullscreenLabel : enterFullscreenLabel}
+                </span>
               </button>
             </div>
 
@@ -316,7 +453,27 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
           <p className="text-xs text-neutral-600 dark:text-neutral-400">{ws.wsUi("selectHint")}</p>
 
-          <div className="pdf-reader-viewport" aria-busy={rendering || busy}>
+          <div
+            ref={viewportRef}
+            className={[
+              "pdf-reader-viewport",
+              docFullscreen ? "pdf-reader-viewport--fullscreen" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            aria-busy={rendering || busy}
+          >
+            {docFullscreen ? (
+              <button
+                type="button"
+                className="pdf-reader-viewport__exit-fs"
+                onClick={() => void toggleDocFullscreen()}
+                aria-label={exitFullscreenLabel}
+              >
+                <Minimize2 className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
+                <span>{exitFullscreenLabel}</span>
+              </button>
+            ) : null}
             <div className="pdf-reader-page">
               <canvas ref={canvasRef} className="pdf-reader-page__canvas" />
               <div ref={textLayerRef} className="textLayer pdf-reader-page__text" />

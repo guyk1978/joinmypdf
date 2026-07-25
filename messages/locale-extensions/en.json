@@ -6938,6 +6938,8 @@
         "zoomOut": "Zoom out",
         "zoomIn": "Zoom in",
         "zoomReset": "Reset zoom",
+        "enterFullscreen": "Document fullscreen",
+        "exitFullscreen": "Exit fullscreen",
         "selectHint": "Select text on the page to copy it. Zoom and page controls stay out of the way for peaceful reading."
       }
     },

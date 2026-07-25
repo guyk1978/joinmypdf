@@ -15,6 +15,19 @@ html[data-pdf-reader-intro="1"] [class*="cookie"] {
   pointer-events: none !important;
 }
 
+/* Decorative stage must not steal the first CTA click. */
+.prd-fs__stage,
+.prd-fs__stage * {
+  pointer-events: none !important;
+}
+
+.prd-fs__footer,
+.prd-fs__cta {
+  position: relative;
+  z-index: 50;
+  pointer-events: auto !important;
+}
+
 .prd-fs {
   position: fixed;
   inset: 0;
@@ -343,13 +356,17 @@ html[data-pdf-reader-intro="1"] [class*="cookie"] {
   width: 100%;
   padding: 0.5rem 1rem 0.25rem;
   position: relative;
-  z-index: 3;
+  z-index: 50;
+  pointer-events: auto;
 }
 
 .prd-fs__cta {
   appearance: none;
   border: 0;
   cursor: pointer;
+  position: relative;
+  z-index: 51;
+  pointer-events: auto;
   min-width: min(18rem, calc(100vw - 2.5rem));
   padding: 0.95rem 1.6rem;
   border-radius: 999px;

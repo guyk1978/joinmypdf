@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
+import { setToolIntroActive } from "@/lib/tool-intro-chrome";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./pdf-reader-landing.css";
 
@@ -13,6 +14,13 @@ type PdfReaderIntroGateProps = {
   active?: boolean;
   children: ReactNode;
 };
+
+function clearIntroChromeLocks() {
+  document.documentElement.removeAttribute("data-pdf-reader-intro");
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+  setToolIntroActive(false);
+}
 
 /**
  * One-way cinematic fullscreen splash for PDF Reader Online.
@@ -31,11 +39,21 @@ export function PdfReaderIntroGate({
   useToolIntroChrome(introActive && phase === "intro");
 
   useEffect(() => {
+    // Clear the temporary skip flag from an earlier dismiss experiment so
+    // reloads always show the cinematic intro again.
+    try {
+      window.sessionStorage.removeItem("joinmypdf:pdf-reader-intro-done");
+    } catch {
+      /* ignore */
+    }
     setPortalReady(true);
   }, []);
 
   useEffect(() => {
-    if (!introActive) setPhase("workspace");
+    if (!introActive) {
+      clearIntroChromeLocks();
+      setPhase("workspace");
+    }
   }, [introActive]);
 
   useEffect(() => {
@@ -55,6 +73,9 @@ export function PdfReaderIntroGate({
   }, [introActive, phase]);
 
   const startTool = useCallback(() => {
+    // Dismiss immediately in the same click turn so leftover chrome locks
+    // (hidden header / dead pointer-events) cannot require a second click.
+    clearIntroChromeLocks();
     setPhase("workspace");
   }, []);
 
@@ -117,7 +138,15 @@ export function PdfReaderIntroGate({
         </div>
 
         <div className="prd-fs__footer">
-          <button type="button" className="prd-fs__cta" onClick={startTool}>
+          <button
+            type="button"
+            className="prd-fs__cta"
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              startTool();
+            }}
+          >
             {t("getStarted")}
           </button>
         </div>
