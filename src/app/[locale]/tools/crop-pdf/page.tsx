@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
-import { VideoMetadataCleanerWorkspace } from "@/components/tools/VideoMetadataCleanerWorkspace";
-import { VideoMetadataCleanerIntroGate } from "@/components/VideoMetadataCleanerIntroGate";
+import { CropPdfIntroGate } from "@/components/CropPdfIntroGate";
+import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
 import { routing } from "@/i18n/routing";
+import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 import { registry } from "@/lib/registry";
-import { breadcrumbLd, JsonLd, webApplicationLd, faqLd } from "@/lib/schema";
+import { breadcrumbLd, faqLd, JsonLd, webApplicationLd } from "@/lib/schema";
+import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { productPageMainClassName } from "@/lib/tool-ui";
 import { notFound } from "next/navigation";
-import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 
-const SLUG = "video-metadata-cleaner";
+const SLUG = "crop-pdf";
 const PAGE_PATH = `/tools/${SLUG}/`;
 
 type PageProps = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "VideoMetadataCleanerPage" });
+  const t = await getTranslations({ locale, namespace: "CropPdfPage" });
 
   return {
     title: t("metaTitle"),
@@ -32,17 +32,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function VideoMetadataCleanerPage({ params }: PageProps) {
+export default async function CropPdfPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const tool = registry.tools.find((entry) => entry.slug === SLUG);
   if (!tool) notFound();
 
-  const t = await getTranslations("VideoMetadataCleanerPage");
+  const t = await getTranslations("CropPdfPage");
   const tPage = await getTranslations("ToolPage");
   const pathname = `/${locale}${PAGE_PATH}`;
   const faqs = getLocalizedToolFaqs(tPage, tool, null, t("title"), locale);
+
   const crumbs = buildToolPageBreadcrumbs({
     slug: SLUG,
     toolTitle: t("title"),
@@ -59,23 +60,24 @@ export default async function VideoMetadataCleanerPage({ params }: PageProps) {
           pathname,
           locale,
           featureList: [
-            t("schemaFeatureStrip"),
-            t("schemaFeaturePreview"),
-            t("schemaFeatureStreamCopy"),
+            t("schemaFeatureCrop"),
+            t("schemaFeatureMargins"),
+            t("schemaFeatureBatch"),
             t("schemaFeatureLocal"),
           ],
-          applicationCategory: "MultimediaApplication",
+          applicationCategory: "UtilitiesApplication",
         })}
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       {faqs.length ? <JsonLd data={faqLd(faqs)} /> : null}
+
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <VideoMetadataCleanerIntroGate>
-              <VideoMetadataCleanerWorkspace tool={tool} slug={SLUG} />
-            </VideoMetadataCleanerIntroGate>
+            <CropPdfIntroGate>
+              <CropPdfWorkspace tool={tool} slug={SLUG} />
+            </CropPdfIntroGate>
           </section>
         </div>
       </AppPageShell>

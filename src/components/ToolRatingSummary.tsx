@@ -10,8 +10,7 @@ import {
   getCategoryAccentColor,
   getCategoryAccentCssVar,
 } from "@/lib/category-accent-colors";
-import { formatRatingAverage } from "@/lib/tool-rating";
-import { formatCompactRatingCount } from "@/lib/text-direction";
+import { formatRatingAverage, formatExactRatingCount } from "@/lib/tool-rating";
 
 type ToolRatingSummaryProps = {
   /** Canonical tool slug — unique Tool ID for localStorage. */
@@ -48,9 +47,7 @@ export function ToolRatingSummary({
       ? t("noRatingsYet")
       : stats.count === 1
         ? t("ratingOne")
-        : stats.count >= 1000
-          ? t("ratingsCompact", { count: formatCompactRatingCount(stats.count) })
-          : t("ratingsCount", { count: stats.count });
+        : t("ratingsCount", { count: formatExactRatingCount(stats.count) });
 
   if (!hydrated) {
     return (

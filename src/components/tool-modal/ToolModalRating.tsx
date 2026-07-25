@@ -10,8 +10,7 @@ import {
   getCategoryAccentColor,
   getCategoryAccentCssVar,
 } from "@/lib/category-accent-colors";
-import { formatRatingAverage } from "@/lib/tool-rating";
-import { formatCompactRatingCount } from "@/lib/text-direction";
+import { formatRatingAverage, formatExactRatingCount } from "@/lib/tool-rating";
 
 type ToolModalRatingProps = {
   /** Canonical tool slug — unique Tool ID for localStorage. */
@@ -53,18 +52,17 @@ export function ToolModalRating({
     );
   }
 
-  const compactCount =
-    stats.count >= 1000 ? formatCompactRatingCount(stats.count) : String(stats.count);
+  // Exact, fully granular count (e.g. `40,523 ratings`) kept in lockstep with
+  // the grid/cards — no lossy `40k` truncation and zero card/header drift.
+  const exactCount = formatExactRatingCount(stats.count);
 
   const countLabel = labels?.ratings
-    ? labels.ratings.replace("{count}", compactCount)
+    ? labels.ratings.replace("{count}", exactCount)
     : stats.count === 0
       ? tCard("noRatingsYet")
       : stats.count === 1
         ? tCard("ratingOne")
-        : stats.count >= 1000
-          ? tCard("ratingsCompact", { count: compactCount })
-          : tCard("ratingsCount", { count: stats.count });
+        : tCard("ratingsCount", { count: exactCount });
 
   const rateLabel =
     userRating == null

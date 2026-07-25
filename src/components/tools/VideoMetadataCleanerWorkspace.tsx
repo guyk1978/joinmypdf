@@ -69,8 +69,8 @@ export function VideoMetadataCleanerWorkspace({ tool, slug }: VideoMetadataClean
   );
 
   return (
-    <WorkspaceUploadShell showPrivacyBadge={false}>
-      <div id={WORKSPACE_OPERATIONS_ID} className="video-metadata-cleaner-tool-page">
+    <WorkspaceUploadShell showPrivacyBadge={false} className="video-metadata-cleaner-tool-page">
+      <div id={WORKSPACE_OPERATIONS_ID}>
         <VideoMetadataCleaner
           labels={labels}
           onStart={() => {

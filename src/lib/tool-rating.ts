@@ -85,6 +85,15 @@ export function formatRatingAverage(average: number | null): string {
   return average.toFixed(1);
 }
 
+/**
+ * Exact, fully granular count with thousands separators — `40,523`.
+ * Used by both the grid/cards and the tool detail header so the displayed
+ * value never diverges (no lossy `40k` truncation).
+ */
+export function formatExactRatingCount(count: number): string {
+  return count.toLocaleString("en-US");
+}
+
 /** Compact count label — `12.4k ratings` once count ≥ 1,000. */
 export function formatRatingCount(count: number): string {
   if (count === 0) return "No ratings yet";

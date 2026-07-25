@@ -167,6 +167,7 @@ import { JsonFormatterIntroGate } from "@/components/JsonFormatterIntroGate";
 import { JsonMinifierIntroGate } from "@/components/JsonMinifierIntroGate";
 import { JsonToCsvIntroGate } from "@/components/JsonToCsvIntroGate";
 import { YamlJsonConverterIntroGate } from "@/components/YamlJsonConverterIntroGate";
+import { CsvMarkdownConverterIntroGate } from "@/components/CsvMarkdownConverterIntroGate";
 import { JwtDebuggerIntroGate } from "@/components/JwtDebuggerIntroGate";
 import { QrCodeGeneratorIntroGate } from "@/components/QrCodeGeneratorIntroGate";
 import { PasswordGeneratorIntroGate } from "@/components/PasswordGeneratorIntroGate";
@@ -205,6 +206,7 @@ import { UserAgentParserIntroGate } from "@/components/UserAgentParserIntroGate"
 import { UrlEncoderDecoderIntroGate } from "@/components/UrlEncoderDecoderIntroGate";
 import { UrlParameterStripperIntroGate } from "@/components/UrlParameterStripperIntroGate";
 import { SslDecoderIntroGate } from "@/components/SslDecoderIntroGate";
+import { UuidGeneratorIntroGate } from "@/components/UuidGeneratorIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -585,6 +587,7 @@ export default async function ToolPage({
         <JsonMinifierIntroGate active={tool.operation === "json-minifier"}>
         <JsonToCsvIntroGate active={tool.operation === "json-to-csv"}>
         <YamlJsonConverterIntroGate active={tool.operation === "yaml-json-converter"}>
+        <CsvMarkdownConverterIntroGate active={tool.operation === "csv-to-markdown-table"}>
         <JwtDebuggerIntroGate active={tool.operation === "jwt-debugger"}>
         <QrCodeGeneratorIntroGate active={tool.operation === "qr-code-generator"}>
         <PasswordGeneratorIntroGate active={tool.operation === "password-generator"}>
@@ -631,6 +634,7 @@ export default async function ToolPage({
         <UrlEncoderDecoderIntroGate active={tool.operation === "url-encoder-decoder"}>
         <UrlParameterStripperIntroGate active={tool.operation === "url-parameter-stripper"}>
         <SslDecoderIntroGate active={tool.operation === "ssl-decoder"}>
+        <UuidGeneratorIntroGate active={tool.operation === "uuid-generator"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -920,6 +924,7 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
+        </UuidGeneratorIntroGate>
         </SslDecoderIntroGate>
         </UrlParameterStripperIntroGate>
         </UrlEncoderDecoderIntroGate>
@@ -966,6 +971,7 @@ export default async function ToolPage({
         </PasswordGeneratorIntroGate>
         </QrCodeGeneratorIntroGate>
         </JwtDebuggerIntroGate>
+        </CsvMarkdownConverterIntroGate>
         </YamlJsonConverterIntroGate>
         </JsonToCsvIntroGate>
         </JsonMinifierIntroGate>

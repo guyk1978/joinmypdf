@@ -1,21 +1,21 @@
-/* —— Pitch-black fullscreen intro: SSL Certificate Decoder —— */
-html[data-ssl-decoder-intro="1"],
-html[data-ssl-decoder-intro="1"] body {
+/* —— Pitch-black fullscreen intro: CSV to Markdown Table —— */
+html[data-csv-markdown-intro="1"],
+html[data-csv-markdown-intro="1"] body {
   overflow: hidden !important;
   background-color: #000000 !important;
 }
 
-html[data-ssl-decoder-intro="1"] .site-header,
-html[data-ssl-decoder-intro="1"] .home-page-footer,
-html[data-ssl-decoder-intro="1"] .pinned-cards-dock,
-html[data-ssl-decoder-intro="1"] .app-page-canvas,
-html[data-ssl-decoder-intro="1"] .cookie-consent,
-html[data-ssl-decoder-intro="1"] [class*="cookie"] {
+html[data-csv-markdown-intro="1"] .site-header,
+html[data-csv-markdown-intro="1"] .home-page-footer,
+html[data-csv-markdown-intro="1"] .pinned-cards-dock,
+html[data-csv-markdown-intro="1"] .app-page-canvas,
+html[data-csv-markdown-intro="1"] .cookie-consent,
+html[data-csv-markdown-intro="1"] [class*="cookie"] {
   visibility: hidden !important;
   pointer-events: none !important;
 }
 
-.ssl-fs {
+.c2m-fs {
   position: fixed;
   inset: 0;
   top: 0;
@@ -39,18 +39,17 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   background-color: #000000 !important;
   color: #f8fafc;
   font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
-  --ssl-amber: #fbbf24;
-  --ssl-gold: #f59e0b;
-  --ssl-emerald: #34d399;
-  --ssl-sky: #38bdf8;
-  --ssl-teal: #2dd4bf;
+  --c2m-sky: #38bdf8;
+  --c2m-amber: #fbbf24;
+  --c2m-emerald: #34d399;
+  --c2m-coral: #fb7185;
   --splash-max-width: 680px;
   --splash-zoom: 1;
   --splash-wide-min-height: 300px;
   --splash-wide-max-height: 360px;
 }
 
-.ssl-fs.tool-intro-fs .ssl-fs__workspace.animation-workspace {
+.c2m-fs.tool-intro-fs .c2m-fs__workspace.animation-workspace {
   width: 90% !important;
   max-width: 680px !important;
   height: 340px !important;
@@ -64,7 +63,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   overflow: visible !important;
 }
 
-.ssl-fs__header {
+.c2m-fs__header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,33 +78,33 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   z-index: 3;
 }
 
-.ssl-fs__title {
+.c2m-fs__title {
   margin: 0;
-  font-size: clamp(1.15rem, 3vw, 2.25rem);
+  font-size: clamp(1.1rem, 2.9vw, 2.2rem);
   font-weight: 800;
   line-height: 1.12;
   letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
-.ssl-fs__title-brand {
-  color: var(--ssl-amber);
+.c2m-fs__title-brand {
+  color: var(--c2m-sky);
 }
 
-.ssl-fs__title-rest {
+.c2m-fs__title-rest {
   color: #ffffff;
 }
 
-.ssl-fs__subtitle {
+.c2m-fs__subtitle {
   margin: 0;
   max-width: 52rem;
-  font-size: clamp(0.98rem, 2vw, 1.25rem);
+  font-size: clamp(0.95rem, 1.9vw, 1.2rem);
   line-height: 1.4;
   color: #a3a3a3;
   text-wrap: balance;
 }
 
-.ssl-fs__stage {
+.c2m-fs__stage {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,7 +120,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   overflow: visible;
 }
 
-.ssl-fs__scene {
+.c2m-fs__scene {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,7 +132,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   overflow: visible;
 }
 
-.ssl-fs__workspace {
+.c2m-fs__workspace {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -151,7 +150,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   object-fit: contain;
 }
 
-.ssl-fs__card {
+.c2m-fs__card {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -161,16 +160,16 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   min-height: 280px;
   padding: 0.85rem 0.9rem 2.5rem;
   overflow: hidden;
-  border: 1px solid rgba(251, 191, 36, 0.42);
+  border: 1px solid rgba(56, 189, 248, 0.42);
   border-radius: 1rem;
-  background: #0c0a06;
+  background: #050d14;
   box-shadow:
     0 22px 52px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(251, 191, 36, 0.08),
+    0 0 0 1px rgba(56, 189, 248, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.ssl-fs__pipeline {
+.c2m-fs__pipeline {
   display: flex;
   align-items: stretch;
   gap: 0.4rem;
@@ -180,7 +179,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   height: 100%;
 }
 
-.ssl-fs__pane {
+.c2m-fs__pane {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -190,144 +189,86 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   padding: 0.55rem 0.5rem;
   border-radius: 0.7rem;
   border: 1px solid rgba(148, 163, 184, 0.22);
-  background: rgba(12, 10, 6, 0.95);
+  background: rgba(5, 13, 20, 0.95);
   overflow: hidden;
 }
 
-.ssl-fs__pane--pem {
-  animation: ssl-fs-pem-pulse 11s ease-in-out infinite;
+.c2m-fs__pane--csv {
+  animation: c2m-fs-csv-pulse 11s ease-in-out infinite;
 }
 
-.ssl-fs__pane--fields {
-  animation: ssl-fs-fields-reveal 11s ease-in-out infinite;
+.c2m-fs__pane--md {
+  animation: c2m-fs-md-reveal 11s ease-in-out infinite;
 }
 
-.ssl-fs__tag {
+.c2m-fs__tag {
   display: inline-flex;
   align-self: flex-start;
   align-items: center;
   justify-content: center;
   padding: 0.18rem 0.45rem;
   border-radius: 0.28rem;
-  border: 1px solid rgba(251, 191, 36, 0.5);
-  background: rgba(120, 53, 15, 0.55);
-  color: #fde68a;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  background: rgba(7, 89, 133, 0.5);
+  color: #bae6fd;
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.ssl-fs__tag--fields {
+.c2m-fs__tag--md {
   border-color: rgba(52, 211, 153, 0.5);
   background: rgba(6, 78, 59, 0.5);
   color: #a7f3d0;
 }
 
-.ssl-fs__pem-wrap {
-  display: flex;
-  align-items: stretch;
-  gap: 0.45rem;
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-.ssl-fs__emblem {
-  position: relative;
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(2.6rem, 18%, 3.6rem);
-  align-self: center;
-}
-
-.ssl-fs__glow {
-  position: absolute;
-  inset: -18%;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(251, 191, 36, 0.35) 0%, transparent 70%);
-  animation: ssl-fs-glow 11s ease-in-out infinite;
-}
-
-.ssl-fs__lock {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 1.85rem;
-  animation: ssl-fs-lock 11s ease-in-out infinite;
-}
-
-.ssl-fs__shackle {
-  width: 1rem;
-  height: 0.8rem;
-  border: 2.5px solid var(--ssl-amber);
-  border-bottom: none;
-  border-radius: 0.5rem 0.5rem 0 0;
-  box-shadow: 0 0 12px rgba(251, 191, 36, 0.55);
-}
-
-.ssl-fs__body {
-  width: 1.55rem;
-  height: 1.15rem;
-  margin-top: -1px;
-  border-radius: 0.22rem;
-  background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
-  box-shadow: 0 0 14px rgba(251, 191, 36, 0.45);
-}
-
-.ssl-fs__body::after {
-  content: "";
-  display: block;
-  width: 0.24rem;
-  height: 0.4rem;
-  margin: 0.3rem auto 0;
-  border-radius: 999px;
-  background: #451a03;
-}
-
-.ssl-fs__pem {
+.c2m-fs__code {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.22rem;
+  gap: 0.28rem;
   flex: 1 1 auto;
-  min-width: 0;
   min-height: 0;
   justify-content: center;
   font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", Menlo, Consolas, monospace;
-  font-size: clamp(0.4rem, 1.05vw, 0.56rem);
-  line-height: 1.35;
+  font-size: clamp(0.48rem, 1.2vw, 0.68rem);
+  line-height: 1.4;
   overflow: hidden;
 }
 
-.ssl-fs__pem-line {
+.c2m-fs__line {
   margin: 0;
-  padding: 0.22rem 0.3rem;
+  padding: 0.28rem 0.35rem;
   border-radius: 0.28rem;
-  border: 1px solid rgba(251, 191, 36, 0.18);
-  background: rgba(69, 26, 3, 0.35);
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  background: rgba(8, 47, 73, 0.35);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #cbd5e1;
-  animation: ssl-fs-pem-line 11s ease-in-out infinite;
+  animation: c2m-fs-csv-line 11s ease-in-out infinite;
 }
 
-.ssl-fs__pem-line--begin,
-.ssl-fs__pem-line--end {
-  color: var(--ssl-amber);
-  font-weight: 700;
+.c2m-fs__line--2 {
+  animation-delay: 0.1s;
 }
 
-.ssl-fs__pem-line--blob {
-  color: #94a3b8;
-  letter-spacing: 0.02em;
+.c2m-fs__line--3 {
+  animation-delay: 0.2s;
 }
 
-.ssl-fs__laser {
+.c2m-fs__cell {
+  color: #e0f2fe;
+  font-weight: 600;
+}
+
+.c2m-fs__comma {
+  color: var(--c2m-amber);
+  font-weight: 800;
+  margin-inline: 0.05rem;
+}
+
+.c2m-fs__laser {
   position: absolute;
   inset-inline: 0;
   top: 0;
@@ -337,102 +278,76 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(251, 191, 36, 0.08) 35%,
-    rgba(251, 191, 36, 0.75) 50%,
-    rgba(45, 212, 191, 0.35) 60%,
+    rgba(56, 189, 248, 0.08) 35%,
+    rgba(56, 189, 248, 0.75) 50%,
+    rgba(52, 211, 153, 0.35) 60%,
     transparent 100%
   );
-  box-shadow: 0 0 16px rgba(251, 191, 36, 0.5);
-  animation: ssl-fs-laser 11s ease-in-out infinite;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
+  animation: c2m-fs-laser 11s ease-in-out infinite;
 }
 
-.ssl-fs__fields {
-  position: relative;
+.c2m-fs__md {
   display: flex;
   flex-direction: column;
-  gap: 0.28rem;
+  gap: 0.22rem;
   flex: 1 1 auto;
   min-height: 0;
   justify-content: center;
+  font-family: ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: clamp(0.42rem, 1.05vw, 0.58rem);
+  line-height: 1.45;
   overflow: hidden;
+  color: #e2e8f0;
 }
 
-.ssl-fs__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  padding: 0.28rem 0.4rem;
-  border-radius: 0.35rem;
-  opacity: 0;
-  transform: translateX(10px) scale(0.96);
-  animation: ssl-fs-field 11s ease-in-out infinite;
-}
-
-.ssl-fs__field--cn {
-  border: 1px solid rgba(251, 191, 36, 0.45);
-  background: rgba(120, 53, 15, 0.35);
-  animation-delay: 0s;
-}
-
-.ssl-fs__field--exp {
-  border: 1px solid rgba(56, 189, 248, 0.45);
-  background: rgba(7, 89, 133, 0.35);
-  animation-delay: 0.12s;
-}
-
-.ssl-fs__field--iss {
-  border: 1px solid rgba(52, 211, 153, 0.45);
-  background: rgba(6, 78, 59, 0.35);
-  animation-delay: 0.24s;
-}
-
-.ssl-fs__field-label {
-  font-size: clamp(0.48rem, 1.1vw, 0.62rem);
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #a3a3a3;
-}
-
-.ssl-fs__field--cn .ssl-fs__field-label {
-  color: #fde68a;
-}
-
-.ssl-fs__field--exp .ssl-fs__field-label {
-  color: #bae6fd;
-}
-
-.ssl-fs__field--iss .ssl-fs__field-label {
-  color: #a7f3d0;
-}
-
-.ssl-fs__field-value {
-  font-size: clamp(0.62rem, 1.4vw, 0.78rem);
-  font-weight: 800;
-  color: #f8fafc;
+.c2m-fs__md-line {
+  margin: 0;
+  padding: 0.22rem 0.3rem;
+  border-radius: 0.28rem;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  background: rgba(6, 78, 59, 0.28);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.ssl-fs__handshake {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
   opacity: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(52, 211, 153, 0.08) 40%,
-    rgba(52, 211, 153, 0.55) 50%,
-    rgba(56, 189, 248, 0.25) 58%,
-    transparent 100%
-  );
-  box-shadow: 0 0 18px rgba(52, 211, 153, 0.35);
-  animation: ssl-fs-handshake 11s ease-in-out infinite;
+  transform: translateX(10px) scale(0.96);
+  animation: c2m-fs-md-line 11s ease-in-out infinite;
 }
 
-.ssl-fs__engine {
+.c2m-fs__md-line--1 {
+  animation-delay: 0s;
+  color: #a7f3d0;
+  font-weight: 700;
+}
+
+.c2m-fs__md-line--2 {
+  animation-delay: 0.12s;
+}
+
+.c2m-fs__md-line--3 {
+  animation-delay: 0.24s;
+}
+
+.c2m-fs__md-line--4 {
+  animation-delay: 0.36s;
+}
+
+.c2m-fs__pipe {
+  color: var(--c2m-sky);
+  font-weight: 800;
+  display: inline-block;
+  animation: c2m-fs-pipe-snap 11s ease-in-out infinite;
+}
+
+.c2m-fs__hyphen {
+  color: var(--c2m-amber);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  animation: c2m-fs-hyphen-snap 11s ease-in-out infinite;
+}
+
+.c2m-fs__engine {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -445,7 +360,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   overflow: visible;
 }
 
-.ssl-fs__flow {
+.c2m-fs__flow {
   position: absolute;
   left: 6%;
   right: 6%;
@@ -454,35 +369,35 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    rgba(251, 191, 36, 0.7),
-    rgba(45, 212, 191, 0.9),
+    rgba(56, 189, 248, 0.7),
+    rgba(251, 191, 36, 0.9),
     rgba(52, 211, 153, 0.75)
   );
-  box-shadow: 0 0 10px rgba(251, 191, 36, 0.55);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.55);
   transform: translateY(-50%);
   opacity: 0;
-  animation: ssl-fs-flow 11s ease-in-out infinite;
+  animation: c2m-fs-flow 11s ease-in-out infinite;
 }
 
-.ssl-fs__core {
+.c2m-fs__core {
   position: relative;
   z-index: 2;
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 0.4rem;
   background:
-    linear-gradient(135deg, rgba(251, 191, 36, 0.45) 0%, transparent 40%),
-    linear-gradient(200deg, rgba(45, 212, 191, 0.35) 0%, transparent 45%),
+    linear-gradient(135deg, rgba(56, 189, 248, 0.45) 0%, transparent 40%),
+    linear-gradient(200deg, rgba(251, 191, 36, 0.35) 0%, transparent 45%),
     linear-gradient(315deg, rgba(52, 211, 153, 0.4) 0%, transparent 50%),
-    radial-gradient(circle at 40% 35%, #fef3c7 0%, var(--ssl-amber) 45%, #b45309 100%);
+    radial-gradient(circle at 40% 35%, #e0f2fe 0%, var(--c2m-sky) 45%, #0369a1 100%);
   box-shadow:
-    0 0 18px rgba(251, 191, 36, 0.55),
+    0 0 18px rgba(56, 189, 248, 0.55),
     inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-  animation: ssl-fs-core 11s ease-in-out infinite;
+  animation: c2m-fs-core 11s ease-in-out infinite;
 }
 
-.ssl-fs__core::before,
-.ssl-fs__core::after {
+.c2m-fs__core::before,
+.c2m-fs__core::after {
   content: "";
   position: absolute;
   inset: 18%;
@@ -490,62 +405,62 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   border-radius: 0.15rem;
 }
 
-.ssl-fs__core::after {
+.c2m-fs__core::after {
   inset: 32%;
-  border-color: rgba(69, 26, 3, 0.55);
+  border-color: rgba(8, 47, 73, 0.55);
 }
 
-.ssl-fs__badge {
+.c2m-fs__badge {
   position: relative;
   z-index: 4;
   width: max-content;
   max-width: 100%;
   padding: 0.2rem 0.4rem;
   border-radius: 999px;
-  border: 1px solid rgba(52, 211, 153, 0.55);
-  background: rgba(6, 78, 59, 0.92);
-  color: #6ee7b7;
-  font-size: 0.38rem;
+  border: 1px solid rgba(56, 189, 248, 0.55);
+  background: rgba(8, 47, 73, 0.92);
+  color: #7dd3fc;
+  font-size: 0.34rem;
   font-weight: 750;
   letter-spacing: 0.01em;
   text-align: center;
   white-space: nowrap;
-  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 6px 14px rgba(14, 165, 233, 0.3);
   opacity: 0;
-  animation: ssl-fs-badge 11s ease-in-out infinite;
+  animation: c2m-fs-badge 11s ease-in-out infinite;
 }
 
-.ssl-fs__particle {
+.c2m-fs__particle {
   position: absolute;
   width: 0.35rem;
   height: 0.35rem;
   border-radius: 999px;
-  background: var(--ssl-amber);
+  background: var(--c2m-sky);
   opacity: 0;
   pointer-events: none;
-  animation: ssl-fs-particle 11s ease-in-out infinite;
+  animation: c2m-fs-particle 11s ease-in-out infinite;
 }
 
-.ssl-fs__particle--1 {
+.c2m-fs__particle--1 {
   top: 24%;
   left: 30%;
 }
 
-.ssl-fs__particle--2 {
+.c2m-fs__particle--2 {
   top: 44%;
   left: 48%;
-  background: var(--ssl-teal);
+  background: var(--c2m-amber);
   animation-delay: 0.28s;
 }
 
-.ssl-fs__particle--3 {
+.c2m-fs__particle--3 {
   top: 60%;
   left: 66%;
-  background: var(--ssl-emerald);
+  background: var(--c2m-emerald);
   animation-delay: 0.52s;
 }
 
-.ssl-fs__ok {
+.c2m-fs__ok {
   position: absolute;
   left: 50%;
   bottom: 0.55rem;
@@ -565,22 +480,22 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   box-shadow: 0 10px 24px rgba(16, 185, 129, 0.3);
   opacity: 0;
   transform: translateX(-50%) translateY(8px) scale(0.94);
-  animation: ssl-fs-ok 11s ease-in-out infinite;
+  animation: c2m-fs-ok 11s ease-in-out infinite;
   white-space: nowrap;
   pointer-events: none;
 }
 
-.ssl-fs__check {
+.c2m-fs__check {
   position: relative;
   width: 0.95rem;
   height: 0.95rem;
   border-radius: 999px;
-  background: var(--ssl-emerald);
+  background: var(--c2m-emerald);
   box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.25);
   flex: 0 0 auto;
 }
 
-.ssl-fs__check::after {
+.c2m-fs__check::after {
   content: "";
   position: absolute;
   top: 45%;
@@ -592,7 +507,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   transform: translate(-55%, -62%) rotate(45deg);
 }
 
-.ssl-fs__footer {
+.c2m-fs__footer {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -604,7 +519,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   z-index: 3;
 }
 
-.ssl-fs__cta {
+.c2m-fs__cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -621,40 +536,40 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   cursor: pointer;
   box-shadow:
     0 14px 32px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(251, 191, 36, 0.25);
+    0 0 0 1px rgba(56, 189, 248, 0.25);
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease,
     background 0.15s ease;
 }
 
-.ssl-fs__cta:hover {
+.c2m-fs__cta:hover {
   transform: translateY(-1px);
   background: linear-gradient(180deg, #ffffff 0%, #f4f4f5 100%);
   box-shadow:
     0 18px 36px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(251, 191, 36, 0.4);
+    0 0 0 1px rgba(56, 189, 248, 0.4);
 }
 
-.ssl-fs__cta:active {
+.c2m-fs__cta:active {
   transform: translateY(0);
 }
 
-.ssl-fs__cta:focus-visible {
-  outline: 2px solid var(--ssl-amber);
+.c2m-fs__cta:focus-visible {
+  outline: 2px solid var(--c2m-sky);
   outline-offset: 3px;
 }
 
 /* —— Keyframes —— */
-@keyframes ssl-fs-pem-pulse {
+@keyframes c2m-fs-csv-pulse {
   0%,
   18% {
     border-color: rgba(148, 163, 184, 0.22);
   }
   28%,
   48% {
-    border-color: rgba(251, 191, 36, 0.55);
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.16);
+    border-color: rgba(56, 189, 248, 0.55);
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.16);
   }
   62%,
   100% {
@@ -663,7 +578,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-fields-reveal {
+@keyframes c2m-fs-md-reveal {
   0%,
   28% {
     border-color: rgba(148, 163, 184, 0.22);
@@ -683,43 +598,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-glow {
-  0%,
-  22% {
-    opacity: 0.45;
-    transform: scale(0.9);
-  }
-  38%,
-  58% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-  75%,
-  100% {
-    opacity: 0.4;
-    transform: scale(0.92);
-  }
-}
-
-@keyframes ssl-fs-lock {
-  0%,
-  22% {
-    transform: scale(0.95);
-    filter: brightness(0.9);
-  }
-  38%,
-  62% {
-    transform: scale(1.08);
-    filter: brightness(1.15);
-  }
-  80%,
-  100% {
-    transform: scale(0.95);
-    filter: brightness(0.9);
-  }
-}
-
-@keyframes ssl-fs-pem-line {
+@keyframes c2m-fs-csv-line {
   0%,
   22% {
     opacity: 1;
@@ -734,7 +613,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-laser {
+@keyframes c2m-fs-laser {
   0%,
   20% {
     opacity: 0;
@@ -755,13 +634,13 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-field {
+@keyframes c2m-fs-md-line {
   0%,
-  32% {
+  30% {
     opacity: 0;
     transform: translateX(10px) scale(0.96);
   }
-  42%,
+  40%,
   78% {
     opacity: 1;
     transform: translateX(0) scale(1);
@@ -773,28 +652,43 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-handshake {
+@keyframes c2m-fs-pipe-snap {
   0%,
-  40% {
-    opacity: 0;
-    transform: translateX(-40%);
+  32% {
+    opacity: 0.25;
+    transform: scaleY(0.4);
   }
-  48% {
-    opacity: 0.9;
+  42%,
+  78% {
+    opacity: 1;
+    transform: scaleY(1);
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.55);
   }
-  58%,
-  68% {
-    opacity: 0.55;
-    transform: translateX(40%);
-  }
-  78%,
+  90%,
   100% {
-    opacity: 0;
-    transform: translateX(60%);
+    opacity: 0.35;
+    transform: scaleY(0.8);
   }
 }
 
-@keyframes ssl-fs-flow {
+@keyframes c2m-fs-hyphen-snap {
+  0%,
+  36% {
+    opacity: 0;
+    letter-spacing: 0.2em;
+  }
+  46%,
+  78% {
+    opacity: 1;
+    letter-spacing: 0.02em;
+  }
+  90%,
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes c2m-fs-flow {
   0%,
   22% {
     opacity: 0;
@@ -809,7 +703,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-core {
+@keyframes c2m-fs-core {
   0%,
   20% {
     transform: scale(0.92) rotate(0deg);
@@ -827,7 +721,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-badge {
+@keyframes c2m-fs-badge {
   0%,
   34% {
     opacity: 0;
@@ -845,7 +739,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-particle {
+@keyframes c2m-fs-particle {
   0%,
   24% {
     opacity: 0;
@@ -863,7 +757,7 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
   }
 }
 
-@keyframes ssl-fs-ok {
+@keyframes c2m-fs-ok {
   0%,
   52% {
     opacity: 0;
@@ -882,78 +776,69 @@ html[data-ssl-decoder-intro="1"] [class*="cookie"] {
 }
 
 @media (max-width: 640px) {
-  .ssl-fs__title {
-    font-size: clamp(1.2rem, 5.2vw, 1.75rem);
+  .c2m-fs__title {
+    font-size: clamp(1.15rem, 5vw, 1.7rem);
   }
 
-  .ssl-fs__cta {
+  .c2m-fs__cta {
     width: 100%;
     max-width: 20rem;
   }
 
-  .ssl-fs__badge {
-    font-size: 0.34rem;
-    padding: 0.16rem 0.3rem;
+  .c2m-fs__badge {
+    font-size: 0.28rem;
+    padding: 0.14rem 0.26rem;
   }
 
-  .ssl-fs__field-value {
-    font-size: 0.62rem;
-  }
-
-  .ssl-fs.tool-intro-fs .ssl-fs__workspace.animation-workspace {
+  .c2m-fs.tool-intro-fs .c2m-fs__workspace.animation-workspace {
     height: min(340px, 42vh) !important;
     min-height: 260px !important;
   }
 }
 
 @media (max-height: 700px) {
-  .ssl-fs__title {
-    font-size: clamp(1.1rem, 2.8vw, 1.75rem);
+  .c2m-fs__title {
+    font-size: clamp(1.05rem, 2.8vw, 1.7rem);
   }
 
-  .ssl-fs__stage {
+  .c2m-fs__stage {
     margin-top: 16px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ssl-fs__pane--pem,
-  .ssl-fs__pane--fields,
-  .ssl-fs__glow,
-  .ssl-fs__lock,
-  .ssl-fs__pem-line,
-  .ssl-fs__laser,
-  .ssl-fs__field--cn,
-  .ssl-fs__field--exp,
-  .ssl-fs__field--iss,
-  .ssl-fs__handshake,
-  .ssl-fs__flow,
-  .ssl-fs__core,
-  .ssl-fs__badge,
-  .ssl-fs__particle,
-  .ssl-fs__ok {
+  .c2m-fs__pane--csv,
+  .c2m-fs__pane--md,
+  .c2m-fs__line,
+  .c2m-fs__laser,
+  .c2m-fs__md-line,
+  .c2m-fs__pipe,
+  .c2m-fs__hyphen,
+  .c2m-fs__flow,
+  .c2m-fs__core,
+  .c2m-fs__badge,
+  .c2m-fs__particle,
+  .c2m-fs__ok {
     animation: none !important;
   }
 
-  .ssl-fs__pem-line,
-  .ssl-fs__laser,
-  .ssl-fs__handshake,
-  .ssl-fs__particle {
+  .c2m-fs__laser,
+  .c2m-fs__particle {
     opacity: 0;
   }
 
-  .ssl-fs__field--cn,
-  .ssl-fs__field--exp,
-  .ssl-fs__field--iss,
-  .ssl-fs__badge,
-  .ssl-fs__ok,
-  .ssl-fs__flow,
-  .ssl-fs__core {
+  .c2m-fs__md-line,
+  .c2m-fs__pipe,
+  .c2m-fs__hyphen,
+  .c2m-fs__badge,
+  .c2m-fs__ok,
+  .c2m-fs__flow,
+  .c2m-fs__core {
     opacity: 1;
     transform: none;
   }
 
-  .ssl-fs__ok {
+  .c2m-fs__ok {
     transform: translateX(-50%);
   }
 }

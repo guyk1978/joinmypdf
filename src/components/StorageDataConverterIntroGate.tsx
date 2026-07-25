@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
 import "./storage-data-converter-landing.css";
 
@@ -17,15 +16,14 @@ type StorageDataConverterIntroGateProps = {
 
 /**
  * One-way cinematic fullscreen splash for Storage & Data Unit Converter.
- * Drive graphic + values scale MB → GB → TB with glowing unit badges.
- * Only runs inside the ToolModal CALC embed.
+ * Drive graphic → scale engine → MB⇄GB⇄TB unit pills + byte tiers → success.
+ * Shows before the converter workspace (embed modal and dedicated tool page).
  */
 export function StorageDataConverterIntroGate({
   active = true,
   children,
 }: StorageDataConverterIntroGateProps) {
-  const embed = useToolEmbedMode();
-  const introActive = active && embed;
+  const introActive = active;
   const t = useTranslations("StorageDataConverterLanding");
   const [phase, setPhase] = useState<IntroPhase>(introActive ? "intro" : "workspace");
   const [portalReady, setPortalReady] = useState(false);
@@ -83,42 +81,67 @@ export function StorageDataConverterIntroGate({
           <div className="sdc-fs__scene">
             <div className="sdc-fs__workspace animation-workspace">
               <div className="sdc-fs__card">
-                <div className="sdc-fs__units">
-                  <span className="sdc-fs__unit sdc-fs__unit--mb">{t("unitMb")}</span>
-                  <span className="sdc-fs__pipe" />
-                  <span className="sdc-fs__unit sdc-fs__unit--gb">{t("unitGb")}</span>
-                  <span className="sdc-fs__pipe sdc-fs__pipe--late" />
-                  <span className="sdc-fs__unit sdc-fs__unit--tb">{t("unitTb")}</span>
-                </div>
-
-                <div className="sdc-fs__preview">
-                  <div className="sdc-fs__drive">
-                    <span className="sdc-fs__drive-bay" />
-                    <span className="sdc-fs__drive-bay" />
-                    <span className="sdc-fs__drive-bay" />
-                    <span className="sdc-fs__drive-led" />
-                    <span className="sdc-fs__fill" />
+                <div className="sdc-fs__pipeline">
+                  <div className="sdc-fs__pane sdc-fs__pane--drive">
+                    <span className="sdc-fs__tag">{t("driveTag")}</span>
+                    <div className="sdc-fs__drive">
+                      <span className="sdc-fs__drive-body">
+                        <span className="sdc-fs__drive-bay" />
+                        <span className="sdc-fs__drive-bay" />
+                        <span className="sdc-fs__drive-bay" />
+                        <span className="sdc-fs__drive-led" />
+                        <span className="sdc-fs__fill" />
+                      </span>
+                      <span className="sdc-fs__drive-label">{t("driveLabel")}</span>
+                      <span className="sdc-fs__laser" />
+                    </div>
                   </div>
 
-                  <div className="sdc-fs__readout">
-                    <span className="sdc-fs__value">
-                      <span className="sdc-fs__num sdc-fs__num--a">1024</span>
-                      <span className="sdc-fs__num sdc-fs__num--b">1</span>
-                      <span className="sdc-fs__num sdc-fs__num--c">0.001</span>
-                    </span>
-                    <span className="sdc-fs__label">
-                      <span className="sdc-fs__lbl sdc-fs__lbl--a">{t("unitMb")}</span>
-                      <span className="sdc-fs__lbl sdc-fs__lbl--b">{t("unitGb")}</span>
-                      <span className="sdc-fs__lbl sdc-fs__lbl--c">{t("unitTb")}</span>
-                    </span>
+                  <div className="sdc-fs__engine">
+                    <span className="sdc-fs__flow" />
+                    <span className="sdc-fs__core" />
+                    <span className="sdc-fs__badge">{t("modeBadge")}</span>
+                  </div>
+
+                  <div className="sdc-fs__pane sdc-fs__pane--scale">
+                    <span className="sdc-fs__tag sdc-fs__tag--scale">{t("scaleTag")}</span>
+                    <div className="sdc-fs__units">
+                      <span className="sdc-fs__unit sdc-fs__unit--mb">{t("unitMb")}</span>
+                      <span className="sdc-fs__swap">⇄</span>
+                      <span className="sdc-fs__unit sdc-fs__unit--gb">{t("unitGb")}</span>
+                      <span className="sdc-fs__swap sdc-fs__swap--late">⇄</span>
+                      <span className="sdc-fs__unit sdc-fs__unit--tb">{t("unitTb")}</span>
+                    </div>
+                    <div className="sdc-fs__tiers">
+                      <div className="sdc-fs__tier sdc-fs__tier--1">
+                        <span className="sdc-fs__tier-val">1,024</span>
+                        <span className="sdc-fs__tier-unit">{t("unitMb")}</span>
+                      </div>
+                      <div className="sdc-fs__tier sdc-fs__tier--2">
+                        <span className="sdc-fs__tier-val">1</span>
+                        <span className="sdc-fs__tier-unit">{t("unitGb")}</span>
+                      </div>
+                      <div className="sdc-fs__tier sdc-fs__tier--3">
+                        <span className="sdc-fs__tier-val">0.001</span>
+                        <span className="sdc-fs__tier-unit">{t("unitTb")}</span>
+                      </div>
+                      <div className="sdc-fs__tier sdc-fs__tier--4">
+                        <span className="sdc-fs__tier-val">1,073,741,824</span>
+                        <span className="sdc-fs__tier-unit">{t("unitBytes")}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                <span className="sdc-fs__particle sdc-fs__particle--1" />
+                <span className="sdc-fs__particle sdc-fs__particle--2" />
+                <span className="sdc-fs__particle sdc-fs__particle--3" />
+
+                <span className="sdc-fs__ok">
+                  <span className="sdc-fs__check" />
+                  {t("success")}
+                </span>
               </div>
-
-              <span className="sdc-fs__ok">
-                <span className="sdc-fs__check" />
-                {t("success")}
-              </span>
             </div>
           </div>
         </div>
