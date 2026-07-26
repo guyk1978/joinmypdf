@@ -698,3 +698,104 @@ html[data-mp3-volume-booster-intro="1"] [class*="cookie"] {
     min-width: min(100% - 2rem, 16rem);
   }
 }
+
+/* —— Raised + enlarged stage (scoped to this tool's intro attribute) —— */
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs {
+  padding:
+    clamp(0.55rem, 1.4vh, 1.1rem)
+    0
+    clamp(0.7rem, 1.8vh, 1.25rem) !important;
+  --splash-zoom: 1;
+  --splash-max-width: 920px;
+  --splash-wide-min-height: 360px;
+  --splash-wide-max-height: 560px;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__header {
+  gap: 0.3rem;
+  padding-bottom: 0.15rem;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__stage {
+  align-items: flex-start !important;
+  max-height: calc(100dvh - 148px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 4px !important;
+  overflow: hidden !important;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__scene {
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__scene > .mvb-fs__workspace.animation-workspace {
+  flex: 0 0 auto !important;
+  gap: 0.65rem !important;
+  width: min(100%, 48rem) !important;
+  height: clamp(22rem, 64vh, 36rem) !important;
+  max-width: min(var(--splash-max-width, 920px), 96%) !important;
+  min-height: 0 !important;
+  max-height: min(64vh, 36rem) !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
+  align-self: flex-start !important;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__workspace.animation-workspace > .mvb-fs__card {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: calc(100% - 2.5rem) !important;
+  margin: 0 !important;
+  padding: 1.1rem 1.2rem 1.1rem !important;
+  gap: 0.85rem !important;
+  aspect-ratio: auto !important;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__card > .mvb-fs__wave-wrap {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__gain-label {
+  font-size: 0.78rem;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__gain-value {
+  font-size: 1.05rem;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__pill {
+  padding: 0.34rem 0.72rem;
+  font-size: 0.82rem;
+}
+
+html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__ok {
+  padding: 0.42rem 0.95rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__stage {
+    margin: 0 !important;
+  }
+
+  html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__scene > .mvb-fs__workspace.animation-workspace {
+    width: min(100%, 42rem) !important;
+    height: clamp(20rem, 60vh, 32rem) !important;
+    max-height: min(60vh, 32rem) !important;
+  }
+}
+
+@media (max-height: 700px) {
+  html[data-mp3-volume-booster-intro="1"] .mvb-fs.tool-intro-fs .mvb-fs__scene > .mvb-fs__workspace.animation-workspace {
+    height: clamp(20rem, 62vh, 32rem) !important;
+    max-height: min(62vh, calc(100dvh - 140px), 32rem) !important;
+  }
+}
