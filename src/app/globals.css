@@ -1286,6 +1286,133 @@ html:has(.home-page-shell--minimal) body {
   color: #f87171;
 }
 
+/* —— Resting cover plate ——
+   Cards idle as a borderless dark gradient plate (absolute black at the top,
+   easing into a muted category shade at the base) with the tool name. Hover /
+   focus fades the plate out to reveal the full card interior. The plate is
+   absolutely positioned, so revealing it never reflows the grid. */
+
+:is(
+  .tool-card-grid,
+  .home-pdf-powerhouse__grid,
+  .home-feature-grid,
+  .favorites-tool-grid
+)
+  :is(a.tool-card, button.tool-card, .tool-card),
+a.tool-card,
+button.tool-card,
+.tool-card {
+  --tool-card-accent-color: var(--tool-card-accent, var(--im-tool-card-accent-fallback, #525252));
+  --tool-card-gradient: linear-gradient(
+    to bottom,
+    #000000 0%,
+    color-mix(in srgb, var(--tool-card-accent-color) 16%, #0a0a0a) 100%
+  );
+  background: var(--tool-card-gradient) !important;
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: color var(--im-transition-fast);
+}
+
+:is(
+  .tool-card-grid,
+  .home-pdf-powerhouse__grid,
+  .home-feature-grid,
+  .favorites-tool-grid
+)
+  :is(a.tool-card, button.tool-card, .tool-card):is(:hover, :focus-within, .tool-card--selected),
+a.tool-card:is(:hover, :focus-within, .tool-card--selected),
+button.tool-card:is(:hover, :focus-within, .tool-card--selected),
+.tool-card:is(:hover, :focus-within, .tool-card--selected) {
+  --tool-card-gradient: linear-gradient(
+    to bottom,
+    #000000 0%,
+    color-mix(in srgb, var(--tool-card-accent-color) 24%, #0a0a0a) 100%
+  );
+  background: var(--tool-card-gradient) !important;
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.tool-card__reveal {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--im-tool-card-gap);
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(0.25rem);
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.tool-card:hover .tool-card__reveal,
+.tool-card:focus-within .tool-card__reveal,
+.tool-card--selected .tool-card__reveal {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.tool-card__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: var(--im-tool-card-padding);
+  background: var(--tool-card-gradient, #0a0a0a);
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.tool-card:hover .tool-card__cover,
+.tool-card:focus-within .tool-card__cover,
+.tool-card--selected .tool-card__cover {
+  opacity: 0;
+  transform: translateY(-0.35rem);
+}
+
+.tool-card__cover-title {
+  display: block;
+  min-width: 0;
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  text-transform: none;
+  color: #fafafa;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-card__reveal,
+  .tool-card__cover {
+    transform: none !important;
+    transition-duration: 0.01ms;
+  }
+}
+
+/* Touch/coarse pointers get no hover — show the interior outright. */
+@media (hover: none) {
+  .tool-card__cover {
+    display: none;
+  }
+
+  .tool-card__reveal {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+}
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -2337,7 +2464,13 @@ html:has(.home-page-shell--minimal) body {
 
 .im-tool-card {
   --category-accent: var(--color-pdf, #2563EB);
-  --im-tool-card-cover-ink: #ffffff;
+  /* Borderless dark gradient: absolute black at the top eases into a muted
+     category shade at the base. Shared by the card and its resting cover. */
+  --im-tool-card-gradient: linear-gradient(
+    to bottom,
+    #000000 0%,
+    color-mix(in srgb, var(--category-accent) 15%, #0a0a0a) 100%
+  );
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -2348,20 +2481,17 @@ html:has(.home-page-shell--minimal) body {
   min-height: 7.5rem;
   height: 100%;
   padding: 1rem;
-  background: #121212;
-  border: 1px solid #333;
+  background: var(--im-tool-card-gradient);
+  border: 0;
   border-radius: 0;
   color: inherit;
   text-align: start;
   text-decoration: none;
   overflow: hidden;
-  transition:
-    border-color 0.1s ease,
-    background-color 0.1s ease,
-    box-shadow 0.1s ease;
+  transition: background 0.16s ease;
 }
 
-/* Default cover — solid opaque category fill + large centered title only */
+/* Resting cover — borderless gradient plate carrying only the tool name */
 .im-tool-card__cover {
   position: absolute;
   inset: 0;
@@ -2370,11 +2500,13 @@ html:has(.home-page-shell--minimal) body {
   align-items: center;
   justify-content: center;
   padding: 1.25rem 1rem;
-  background: none;
-  background-color: var(--category-accent, var(--color-pdf, #2563EB));
+  background: var(--im-tool-card-gradient, #0a0a0a);
   opacity: 1;
+  transform: translateY(0);
   pointer-events: none;
-  transition: opacity 0.22s ease;
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
 }
 
 .im-tool-card__cover-title {
@@ -2386,7 +2518,7 @@ html:has(.home-page-shell--minimal) body {
   letter-spacing: -0.02em;
   text-align: center;
   text-wrap: balance;
-  color: var(--im-tool-card-cover-ink, #ffffff);
+  color: #fafafa;
 }
 
 /* Detail chrome is present but hidden until hover / keyboard focus */
@@ -2394,7 +2526,7 @@ html:has(.home-page-shell--minimal) body {
 .im-tool-card__header-actions {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.22s ease;
+  transition: opacity 0.16s ease;
 }
 
 .im-tool-card__header-actions .tool-card-focus__expand,
@@ -2405,11 +2537,14 @@ html:has(.home-page-shell--minimal) body {
 .im-tool-card:hover,
 .im-tool-card:has(.im-tool-card__overlay:focus-visible),
 .im-tool-card:focus-within {
-  border: 1px solid var(--category-accent);
-  background: color-mix(in srgb, var(--category-accent) 10%, #121212);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--category-accent) 22%, transparent),
-    0 0 18px color-mix(in srgb, var(--category-accent) 22%, transparent);
+  --im-tool-card-gradient: linear-gradient(
+    to bottom,
+    #000000 0%,
+    color-mix(in srgb, var(--category-accent) 22%, #0a0a0a) 100%
+  );
+  background: var(--im-tool-card-gradient);
+  border: 0;
+  box-shadow: none;
   outline: none;
 }
 
@@ -2417,6 +2552,7 @@ html:has(.home-page-shell--minimal) body {
 .im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__cover,
 .im-tool-card:focus-within .im-tool-card__cover {
   opacity: 0;
+  transform: translateY(-0.5rem);
 }
 
 .im-tool-card:hover .im-tool-card__detail,
@@ -2443,21 +2579,25 @@ html:has(.home-page-shell--minimal) body {
   pointer-events: auto;
 }
 
-/* Homepage cover-only — solid name face stays put; click opens focus popup */
+/* Homepage cover-only — gradient name face stays put; click opens focus popup */
 .im-tool-card--cover-only:hover,
 .im-tool-card--cover-only:has(.im-tool-card__overlay:focus-visible),
 .im-tool-card--cover-only:focus-within {
-  border-color: color-mix(in srgb, var(--category-accent) 55%, #fff);
-  background: #121212;
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--category-accent) 28%, transparent),
-    0 12px 28px color-mix(in srgb, var(--category-accent) 28%, transparent);
+  --im-tool-card-gradient: linear-gradient(
+    to bottom,
+    #000000 0%,
+    color-mix(in srgb, var(--category-accent) 24%, #0a0a0a) 100%
+  );
+  background: var(--im-tool-card-gradient);
+  border: 0;
+  box-shadow: none;
 }
 
 .im-tool-card--cover-only:hover .im-tool-card__cover,
 .im-tool-card--cover-only:has(.im-tool-card__overlay:focus-visible) .im-tool-card__cover,
 .im-tool-card--cover-only:focus-within .im-tool-card__cover {
   opacity: 1;
+  transform: none;
 }
 
 .im-tool-card--cover-only .im-tool-card__detail,
@@ -2476,6 +2616,12 @@ html:has(.home-page-shell--minimal) body {
   .im-tool-card__detail,
   .im-tool-card__header-actions {
     transition: none;
+  }
+
+  .im-tool-card:hover .im-tool-card__cover,
+  .im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__cover,
+  .im-tool-card:focus-within .im-tool-card__cover {
+    transform: none;
   }
 }
 
@@ -11220,14 +11366,15 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: 1px solid #ffffff;
-  border-radius: 9999px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
   background: transparent;
   color: #ffffff;
   cursor: pointer;
   box-shadow: none;
   transition:
-    border-color 0.15s ease,
+    border-bottom-color 0.15s ease,
     background-color 0.15s ease,
     color 0.15s ease,
     opacity 0.15s ease;
@@ -11235,24 +11382,25 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 .site-header__install-button:hover,
 .site-header__install-button:focus-visible {
-  border-color: #ffffff;
-  background: rgb(255 255 255 / 0.08);
+  border-bottom-color: #ffffff;
+  background: transparent;
   color: #fff;
   outline: none;
 }
 
 .site-header__install-button:focus-visible {
-  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.35);
+  box-shadow: none;
 }
 
 .site-header__install-button--installed,
 .site-header__install-button--installed:hover,
 .site-header__install-button--installed:focus-visible {
-  border-color: #65a30d;
-  background: #1a2e05;
+  border: 0;
+  border-bottom: 1px solid #65a30d;
+  background: transparent;
   color: #bef264;
   cursor: default;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  box-shadow: none;
 }
 
 .site-header__install-button:disabled {
@@ -11261,7 +11409,8 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 }
 
 .site-header__install-button:disabled:not(.site-header__install-button--installed) {
-  border-color: rgb(255 255 255 / 0.45);
+  border: 0;
+  border-bottom: 1px solid transparent;
   background: transparent;
   color: #d4d4d4;
 }
@@ -11319,21 +11468,21 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   min-height: var(--site-header-control-height);
   height: var(--site-header-control-height);
   padding: var(--site-header-search-pad-y) var(--site-header-search-pad-x);
-  border-radius: 9999px;
-  border: 1px solid #ffffff;
+  border: 0;
+  border-bottom: 1px solid #ffffff;
+  border-radius: 0;
   background: transparent;
   box-shadow: none;
   transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-bottom-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .site-header--matte .site-search--header-bar .site-search__field:focus-within,
 .site-header--matte .site-search--header .site-search__field:focus-within {
-  border-color: #ffffff;
-  background: rgb(255 255 255 / 0.06);
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.25);
+  border-bottom-color: #ffffff;
+  background: transparent;
+  box-shadow: none;
 }
 
 .site-header--matte .site-search--header-bar .site-search__input,
@@ -11886,21 +12035,13 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   letter-spacing: -0.03em;
   text-transform: lowercase;
   line-height: 1;
-  /* Blue -> green -> red brand gradient clipped to the letters.
-     Lightened tones keep the wordmark readable on the dark header. */
-  background-image: linear-gradient(
-    90deg,
-    #60a5fa 0%,
-    #4ade80 50%,
-    #f87171 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  /* drop-shadow (not text-shadow) so the shadow doesn't bleed through
-     the transparent clipped glyphs. */
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+  /* Monochrome Industrial Matte wordmark — matches white-outline chrome. */
+  background-image: none;
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  color: #fafafa;
+  -webkit-text-fill-color: #fafafa;
+  filter: none;
 }
 
 .joinmypdf-logo-text__word:dir(rtl) {
@@ -12161,9 +12302,10 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   align-items: center;
   min-height: var(--site-header-control-height, 36px);
   height: var(--site-header-control-height, 36px);
-  padding: var(--site-header-control-pad-y, 0.5rem) 1.125rem;
-  border-radius: 9999px;
-  border: 1px solid #ffffff;
+  padding: var(--site-header-control-pad-y, 0.5rem) 0.25rem;
+  border: 0;
+  border-bottom: 1px solid #ffffff;
+  border-radius: 0;
   background: transparent;
   box-shadow: none;
   backdrop-filter: none;
@@ -12171,9 +12313,9 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 }
 
 .site-search__field--header-bar:focus-within {
-  border-color: #ffffff;
-  background: rgb(255 255 255 / 0.06);
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.25);
+  border-bottom-color: #ffffff;
+  background: transparent;
+  box-shadow: none;
 }
 
 .site-search--header-bar .site-search__input {
@@ -12191,9 +12333,10 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 
 .site-search--header-bar .site-search__kbd {
   font-size: 0.6875rem;
-  padding: 0.125rem 0.375rem;
-  border-radius: 9999px;
-  border: 1px solid rgb(255 255 255 / 0.45);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid rgb(255 255 255 / 0.45);
   background: transparent;
   color: #d4d4d4;
 }
@@ -27049,6 +27192,11 @@ html[dir="rtl"] .favicon-preset-library__panel {
 
 .category-hub-card {
   --category-accent: #2563EB;
+  --category-hub-gradient: linear-gradient(
+    to bottom,
+    #0a0a0a 0%,
+    color-mix(in srgb, var(--category-accent) 16%, #0a0a0a) 100%
+  );
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -27058,22 +27206,26 @@ html[dir="rtl"] .favicon-preset-library__panel {
   min-height: 5.5rem;
   height: 100%;
   padding: 0.875rem 1rem;
-  background: #121212;
-  border: 1px solid #333;
+  background: var(--category-hub-gradient);
+  border: 0;
   border-radius: 0;
+  box-shadow: none;
   color: inherit;
   text-align: start;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: background 0.16s ease;
 }
 
 .category-hub-card:hover,
 .category-hub-card:focus-visible {
-  border: 1px solid var(--category-accent);
-  background: color-mix(in srgb, var(--category-accent) 10%, #121212);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--category-accent) 22%, transparent),
-    0 0 18px color-mix(in srgb, var(--category-accent) 22%, transparent);
+  --category-hub-gradient: linear-gradient(
+    to bottom,
+    #0a0a0a 0%,
+    color-mix(in srgb, var(--category-accent) 24%, #0a0a0a) 100%
+  );
+  background: var(--category-hub-gradient);
+  border: 0;
+  box-shadow: none;
   outline: none;
 }
 
@@ -27084,10 +27236,10 @@ html[dir="rtl"] .favicon-preset-library__panel {
   justify-content: center;
   width: 1.75rem;
   height: 1.75rem;
-  color: var(--category-accent);
-  opacity: 0.8;
+  color: color-mix(in srgb, var(--category-accent) 70%, #fafafa);
+  opacity: 0.9;
   filter: none;
-  transition: opacity 0.3s ease, filter 0.3s ease;
+  transition: color 0.16s ease, opacity 0.16s ease;
 }
 
 .category-hub-card__icon svg {
@@ -27101,7 +27253,8 @@ html[dir="rtl"] .favicon-preset-library__panel {
 .category-hub-card:hover .category-hub-card__icon,
 .category-hub-card:focus-visible .category-hub-card__icon {
   opacity: 1;
-  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--category-accent) 55%, transparent));
+  color: color-mix(in srgb, var(--category-accent) 55%, #ffffff);
+  filter: none;
 }
 
 .category-hub-card__text {
@@ -27170,16 +27323,21 @@ html[dir="rtl"] .favicon-preset-library__panel {
   min-height: 5.5rem;
   gap: 0.75rem;
   padding: 0.875rem 1rem;
-  background: #121212;
+  background: var(--category-hub-gradient);
+  border: 0;
+  box-shadow: none;
 }
 
 .category-hubs--dense .category-hub-card:hover,
 .category-hubs--dense .category-hub-card:focus-visible {
-  border: 1px solid var(--category-accent);
-  background: color-mix(in srgb, var(--category-accent) 10%, #121212);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--category-accent) 22%, transparent),
-    0 0 18px color-mix(in srgb, var(--category-accent) 22%, transparent);
+  --category-hub-gradient: linear-gradient(
+    to bottom,
+    #0a0a0a 0%,
+    color-mix(in srgb, var(--category-accent) 24%, #0a0a0a) 100%
+  );
+  background: var(--category-hub-gradient);
+  border: 0;
+  box-shadow: none;
 }
 
 .category-hubs--dense .category-hub-card__icon {
@@ -27341,7 +27499,7 @@ html[dir="rtl"] .favicon-preset-library__panel {
   }
 }
 
-/* Solid opaque theme fills — no transparency on card surfaces. */
+/* Borderless dark category gradient — matches sitewide Industrial Matte cards. */
 .category-hub-overlay__grid .category-hub-card {
   box-sizing: border-box;
   width: 100%;
@@ -27349,27 +27507,29 @@ html[dir="rtl"] .favicon-preset-library__panel {
   min-height: 0;
   gap: 0.6rem;
   padding: 0.7rem 0.8rem;
-  border: 1.5px solid var(--category-accent);
-  background: color-mix(in srgb, var(--category-accent) 52%, #161616);
+  border: 0;
+  background: var(--category-hub-gradient);
   box-shadow: none;
   opacity: 1;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    transform 0.2s ease;
+  transition: background 0.16s ease;
 }
 
 .category-hub-overlay__grid .category-hub-card:hover,
 .category-hub-overlay__grid .category-hub-card:focus-visible {
-  border-color: color-mix(in srgb, var(--category-accent) 65%, #ffffff);
-  background: color-mix(in srgb, var(--category-accent) 68%, #1c1c1c);
+  --category-hub-gradient: linear-gradient(
+    to bottom,
+    #0a0a0a 0%,
+    color-mix(in srgb, var(--category-accent) 26%, #0a0a0a) 100%
+  );
+  border: 0;
+  background: var(--category-hub-gradient);
   box-shadow: none;
   opacity: 1;
-  transform: translateY(-1px);
+  transform: none;
 }
 
 .category-hub-overlay__grid .category-hub-card__icon {
-  color: #ffffff;
+  color: color-mix(in srgb, var(--category-accent) 55%, #ffffff);
   opacity: 1;
   filter: none;
 }
@@ -27398,13 +27558,13 @@ html[dir="rtl"] .favicon-preset-library__panel {
   letter-spacing: 0.03em;
   line-height: 1.3;
   white-space: nowrap;
-  color: #f5f5f5;
+  color: #a3a3a3;
   text-shadow: none;
 }
 
 .category-hub-overlay__grid .category-hub-card:hover .category-hub-card__count,
 .category-hub-overlay__grid .category-hub-card:focus-visible .category-hub-card__count {
-  color: #ffffff;
+  color: #d4d4d4;
 }
 
 .category-hub-overlay__grid .category-hub-card__blurb,

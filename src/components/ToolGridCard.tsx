@@ -84,6 +84,7 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
       <ToolCard
         label={item.label}
         icon={icon}
+        slug={slug}
         onClick={accordion.onToggle}
         actionSlot={actionSlot}
         selected={accordion.isSelected}
@@ -100,6 +101,7 @@ export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardPro
       href={item.href}
       label={item.label}
       icon={icon}
+      slug={slug}
       actionSlot={actionSlot}
     />
   );

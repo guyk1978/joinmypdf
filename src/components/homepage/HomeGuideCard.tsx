@@ -6,11 +6,7 @@ import { BookOpen } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
-import {
-  getCategoryAccentColor,
-  getCategoryAccentCssVar,
-  getContrastingInk,
-} from "@/lib/category-accent-colors";
+import { getCategoryAccentCssVar } from "@/lib/category-accent-colors";
 
 type HomeGuideCardProps = {
   href: string;
@@ -37,10 +33,8 @@ export function HomeGuideCard({
   className,
   icon,
 }: HomeGuideCardProps) {
-  const coverInk = getContrastingInk(getCategoryAccentColor(categoryId));
   const accentStyle = {
     "--category-accent": getCategoryAccentCssVar(categoryId),
-    "--im-tool-card-cover-ink": coverInk,
   } as CSSProperties;
   const resolvedIcon = icon ?? <BookOpen size={20} strokeWidth={1.75} aria-hidden />;
   const metaLine = [description, readTime].filter(Boolean).join(" · ");

@@ -13,9 +13,7 @@ import { ToolPinButton } from "@/components/ToolPinButton";
 import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
-  getCategoryAccentColor,
   getCategoryAccentCssVar,
-  getContrastingInk,
   resolveToolAccentCategoryId,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
@@ -57,7 +55,7 @@ function slugFromHref(href: string): string {
 
 /**
  * Industrial Matte tool card — two-state overlay:
- * default = solid category fill + centered title; hover = full detail chrome.
+ * default = matte black plate + centered title; hover = full detail chrome.
  * Homepage can lock cover-only + open the focus popup on click.
  */
 export function IndustrialToolCard({
@@ -87,10 +85,8 @@ export function IndustrialToolCard({
   const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId, locale) : href;
   const returnHref =
     returnHrefProp ?? (categoryId ? normalizeHubPath(categoryId) : undefined);
-  const coverInk = getContrastingInk(getCategoryAccentColor(accentCategoryId));
   const accentStyle = {
     "--category-accent": getCategoryAccentCssVar(accentCategoryId),
-    "--im-tool-card-cover-ink": coverInk,
   } as CSSProperties;
   const focusInteraction = interactionMode === "focus";
 

@@ -95,7 +95,10 @@
   --im-tool-card-icon: #737373;
   --im-tool-card-icon-hover: #ffffff;
   --im-tool-card-padding: 14px 18px;
-  --im-tool-card-min-height: auto;
+  /* Tall enough for the resting cover plate's large title (no hover layout jump). */
+  --im-tool-card-min-height: 4.75rem;
+  --im-tool-card-cover-bg: #0a0a0a;
+  --im-tool-card-accent-fallback: #525252;
   --im-tool-card-gap: 0.625rem;
   --im-tool-card-grid-gap: clamp(1.25rem, 2.5vw, 1.75rem);
   --im-tool-card-label-size: 0.8125rem;

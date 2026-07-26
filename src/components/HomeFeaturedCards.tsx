@@ -20,6 +20,7 @@ export function HomeFeaturedToolCard({ href, label, slugHint }: HomeFeaturedTool
     <ToolCard
       href={href}
       label={label}
+      slug={slugHint}
       icon={<ToolListIcon slug={slugHint} label={label} />}
     />
   );
