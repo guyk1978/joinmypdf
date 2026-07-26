@@ -30,13 +30,15 @@ html[data-merge-intro="1"] [class*="cookie"] {
   max-height: 100dvh;
   margin: 0;
   padding:
-    clamp(1rem, 2.5vh, 2rem)
-    clamp(1.25rem, 4vw, 3rem)
-    clamp(1rem, 2.5vh, 1.75rem);
+    clamp(0.85rem, 2vh, 1.5rem)
+    clamp(1rem, 3.5vw, 2.5rem)
+    clamp(0.85rem, 2vh, 1.5rem);
   overflow: hidden;
   background: #000000;
   color: #f8fafc;
   font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --splash-zoom: 1;
+  --splash-max-width: 880px;
 }
 
 .mrg-fs__header {
@@ -44,11 +46,11 @@ html[data-merge-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
-  gap: 0.55rem;
+  gap: 0.45rem;
   width: 100%;
   max-width: 56rem;
   margin-inline: auto;
-  padding-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  padding-bottom: 0.35rem;
   text-align: center;
 }
 
@@ -78,34 +80,51 @@ html[data-merge-intro="1"] [class*="cookie"] {
   text-wrap: balance;
 }
 
-/* Middle band: cards stay fully inside with breathing room */
+/* Middle band: large cards, raised toward the headline */
 .mrg-fs__stage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 0;
   width: 100%;
-  padding-block: clamp(0.5rem, 1.5vh, 1.25rem);
+  padding-block: 4px;
   overflow: visible;
+}
+
+.mrg-fs.tool-intro-fs .mrg-fs__stage {
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  align-items: flex-start !important;
 }
 
 .mrg-fs__row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.65rem, 2vw, 1.75rem);
-  width: min(100%, 56rem);
+  gap: clamp(0.55rem, 1.6vw, 1.35rem);
+  width: min(100%, 64rem);
   max-height: 100%;
-  padding-inline: clamp(0.25rem, 1vw, 0.75rem);
+  padding-inline: clamp(0.15rem, 0.8vw, 0.5rem);
+  margin-top: clamp(0.25rem, 1vh, 0.75rem);
 }
 
-/* Shared compact card footprint — deliberately small so nothing clips */
+/* Larger card footprint — still clear of headline + CTA */
 .mrg-fs__doc,
 .mrg-fs__master {
   flex: 0 0 auto;
-  width: clamp(6.5rem, 12.5vw, 10.25rem);
-  height: clamp(9rem, 26vh, 13.5rem);
+  width: clamp(9.5rem, 18vw, 15rem);
+  height: clamp(13.5rem, 46vh, 22rem);
   box-sizing: border-box;
+}
+
+html[data-merge-intro="1"] .mrg-fs.tool-intro-fs .mrg-fs__doc {
+  width: clamp(9.5rem, 18vw, 15rem) !important;
+  height: clamp(13.5rem, 46vh, 22rem) !important;
+  max-width: none !important;
+  max-height: none !important;
+  zoom: 1 !important;
 }
 
 .mrg-fs__doc {
@@ -141,13 +160,21 @@ html[data-merge-intro="1"] [class*="cookie"] {
   color: #000;
 }
 
-/* Center master — slightly larger, glow fully inset within stage */
+/* Center master — slightly larger than side docs */
 .mrg-fs__master {
   position: relative;
   z-index: 3;
-  width: clamp(7.25rem, 14vw, 11.25rem);
-  height: clamp(10rem, 28vh, 14.75rem);
+  width: clamp(10.75rem, 20vw, 16.5rem);
+  height: clamp(15rem, 52vh, 24rem);
   animation: mrg-fs-master-pulse 5.6s ease-in-out infinite;
+}
+
+html[data-merge-intro="1"] .mrg-fs.tool-intro-fs .mrg-fs__master {
+  width: clamp(10.75rem, 20vw, 16.5rem) !important;
+  height: clamp(15rem, 52vh, 24rem) !important;
+  max-width: none !important;
+  max-height: none !important;
+  zoom: 1 !important;
 }
 
 .mrg-fs__master-layer {
@@ -219,7 +246,7 @@ html[data-merge-intro="1"] [class*="cookie"] {
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  width: clamp(2.25rem, 5.5vw, 4.25rem);
+  width: clamp(2rem, 4.5vw, 3.5rem);
   color: #34d399;
 }
 
@@ -433,21 +460,24 @@ html[data-merge-intro="1"] [class*="cookie"] {
 
 @media (max-width: 700px) {
   .mrg-fs__row {
-    gap: 0.45rem;
+    gap: 0.35rem;
+    width: min(100%, 96vw);
   }
 
-  .mrg-fs__doc {
-    width: clamp(5.5rem, 22vw, 8rem);
-    height: clamp(8rem, 24vh, 11rem);
+  .mrg-fs__doc,
+  html[data-merge-intro="1"] .mrg-fs.tool-intro-fs .mrg-fs__doc {
+    width: clamp(7.25rem, 26vw, 11.5rem) !important;
+    height: clamp(11.5rem, 42vh, 17rem) !important;
   }
 
-  .mrg-fs__master {
-    width: clamp(6rem, 24vw, 8.75rem);
-    height: clamp(8.75rem, 26vh, 12rem);
+  .mrg-fs__master,
+  html[data-merge-intro="1"] .mrg-fs.tool-intro-fs .mrg-fs__master {
+    width: clamp(8.25rem, 28vw, 12.75rem) !important;
+    height: clamp(13rem, 48vh, 19rem) !important;
   }
 
   .mrg-fs__bridge {
-    width: 1.75rem;
+    width: 1.5rem;
   }
 
   .mrg-fs__stream {
@@ -456,12 +486,14 @@ html[data-merge-intro="1"] [class*="cookie"] {
 }
 
 @media (max-height: 700px) {
-  .mrg-fs__doc {
-    height: clamp(7.5rem, 22vh, 11rem);
+  .mrg-fs__doc,
+  html[data-merge-intro="1"] .mrg-fs.tool-intro-fs .mrg-fs__doc {
+    height: clamp(12rem, 44vh, 18rem) !important;
   }
 
-  .mrg-fs__master {
-    height: clamp(8.25rem, 24vh, 12rem);
+  .mrg-fs__master,
+  html[data-merge-intro="1"] .mrg-fs.tool-intro-fs .mrg-fs__master {
+    height: clamp(13.5rem, 50vh, 20rem) !important;
   }
 
   .mrg-fs__title {

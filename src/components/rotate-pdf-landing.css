@@ -28,14 +28,14 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
   height: 100vh;
   height: 100dvh;
   max-width: 100vw;
-  /* Balanced card: taller footprint, still clears headline + CTA */
+  /* Larger box size — keep zoom at 1 so the card cannot overlap the headline */
   --splash-zoom: 1;
-  --splash-max-width: 540px;
-  --splash-wide-min-height: 300px;
-  --splash-wide-max-height: 380px;
+  --splash-max-width: 760px;
+  --splash-wide-min-height: 480px;
+  --splash-wide-max-height: 620px;
   max-height: 100dvh;
   margin: 0;
-  padding: 24px 0;
+  padding: 20px 0;
   overflow: hidden;
   background: #000000;
   color: #f8fafc;
@@ -90,13 +90,20 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
   flex: 1 1 auto;
   min-height: 0;
   width: 100%;
-  max-height: calc(100vh - 220px);
-  max-height: calc(100dvh - 220px);
-  margin-top: 8px;
-  padding-top: 16px;
-  padding-bottom: 12px;
+  max-height: calc(100vh - 180px);
+  max-height: calc(100dvh - 180px);
+  margin-top: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
   padding-inline: clamp(0.75rem, 3vw, 2rem);
   overflow: hidden;
+}
+
+.rtp-fs.tool-intro-fs .rtp-fs__stage {
+  max-height: calc(100dvh - 170px) !important;
+  padding-top: 4px !important;
+  padding-bottom: 6px !important;
+  margin: 0 !important;
 }
 
 .rtp-fs__scene {
@@ -117,13 +124,13 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  width: 90%;
-  max-width: 540px;
-  min-height: min(300px, 42vh);
-  height: min(48vh, 380px);
-  max-height: min(48vh, 380px);
-  margin-top: 8px;
+  gap: 0.75rem;
+  width: 94%;
+  max-width: 760px;
+  min-height: min(480px, 64vh);
+  height: min(68vh, 620px);
+  max-height: min(68vh, 620px);
+  margin-top: 0;
   margin-inline: auto;
   padding: 0;
   overflow: hidden;
@@ -131,17 +138,30 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
   aspect-ratio: auto;
 }
 
+/* Beat shared splash-wide caps so Rotate PDF reads as a large center piece */
+.rtp-fs.tool-intro-fs .rtp-fs__workspace.animation-workspace[data-splash-wide],
+.rtp-fs.tool-intro-fs .rtp-fs__workspace[data-splash-wide] {
+  width: min(94%, 760px) !important;
+  max-width: min(var(--splash-max-width, 760px), 94%) !important;
+  min-height: min(var(--splash-wide-min-height, 480px), 64vh) !important;
+  height: min(68vh, var(--splash-wide-max-height, 620px)) !important;
+  max-height: min(68vh, var(--splash-wide-max-height, 620px)) !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
+  zoom: 1 !important;
+}
+
 .rtp-fs__card {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.7rem;
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
   min-height: 0;
   height: 100%;
   max-height: 100%;
-  padding: 0.9rem 1rem 0.95rem;
+  padding: 1.1rem 1.15rem 1.15rem;
   overflow: hidden;
   object-fit: contain;
   border: 1px solid rgba(34, 211, 238, 0.35);
@@ -190,7 +210,7 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
   align-items: center;
   justify-content: center;
   flex: 1 1 auto;
-  min-height: 10rem;
+  min-height: 16rem !important;
   max-height: 100%;
   overflow: hidden;
   border-radius: 0.45rem;
@@ -202,8 +222,8 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
 
 .rtp-fs__orbit {
   position: absolute;
-  width: min(72%, 12rem);
-  height: min(72%, 12rem);
+  width: min(78%, 16rem);
+  height: min(78%, 16rem);
   border-radius: 50%;
   border: 1px dashed rgba(34, 211, 238, 0.25);
   pointer-events: none;
@@ -238,10 +258,10 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.32rem;
-  width: min(34%, 6rem);
-  height: min(54%, 8rem);
-  padding: 0.55rem 0.5rem 0.6rem;
+  gap: 0.4rem;
+  width: min(40%, 8.75rem);
+  height: min(62%, 12rem);
+  padding: 0.7rem 0.65rem 0.75rem;
   border-radius: 0.3rem;
   border: 1px solid rgba(34, 211, 238, 0.4);
   background: linear-gradient(180deg, #164e63 0%, #0f172a 100%);
@@ -252,12 +272,12 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
 
 .rtp-fs__page-mark {
   align-self: flex-start;
-  margin-bottom: 0.1rem;
-  padding: 0.1rem 0.28rem;
+  margin-bottom: 0.12rem;
+  padding: 0.12rem 0.34rem;
   border-radius: 0.2rem;
   background: rgba(34, 211, 238, 0.2);
   color: #a5f3fc;
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   font-weight: 900;
   letter-spacing: 0.06em;
 }
@@ -440,11 +460,44 @@ html[data-rotate-pdf-intro="1"] [class*="cookie"] {
     width: 100%;
     max-width: 20rem;
   }
+
+  .rtp-fs.tool-intro-fs {
+    --splash-zoom: 1;
+    --splash-max-width: 96vw;
+    --splash-wide-min-height: 380px;
+    --splash-wide-max-height: 520px;
+  }
+
+  .rtp-fs.tool-intro-fs .rtp-fs__workspace.animation-workspace[data-splash-wide],
+  .rtp-fs.tool-intro-fs .rtp-fs__workspace[data-splash-wide] {
+    width: min(96%, 760px) !important;
+    max-width: min(var(--splash-max-width, 96vw), 96%) !important;
+    min-height: min(380px, 58vh) !important;
+    height: min(62vh, 520px) !important;
+    max-height: min(62vh, 520px) !important;
+  }
 }
 
 @media (max-height: 700px) {
   .rtp-fs__title {
     font-size: clamp(1.2rem, 3vw, 1.85rem);
+  }
+
+  .rtp-fs.tool-intro-fs {
+    --splash-zoom: 1;
+    --splash-wide-min-height: 360px;
+    --splash-wide-max-height: 480px;
+  }
+
+  .rtp-fs.tool-intro-fs .rtp-fs__workspace.animation-workspace[data-splash-wide],
+  .rtp-fs.tool-intro-fs .rtp-fs__workspace[data-splash-wide] {
+    min-height: min(360px, 56vh) !important;
+    height: min(60vh, 480px) !important;
+    max-height: min(60vh, 480px) !important;
+  }
+
+  .rtp-fs__canvas {
+    min-height: 14rem !important;
   }
 }
 

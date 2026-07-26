@@ -1239,11 +1239,19 @@ html[data-nup-intro="1"] .app-page-canvas {
 
 .nup-fs__stage {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(7rem, 0.55fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) clamp(3.75rem, 10vw, 7rem) minmax(0, 1fr);
   align-items: center;
-  column-gap: clamp(0.75rem, 2.5vw, 2.5rem);
+  column-gap: clamp(0.35rem, 1vw, 0.85rem);
   width: 100%;
   min-height: 0;
+  position: relative;
+  top: -16px;
+  padding-inline: 0 !important;
+}
+
+.nup-fs.tool-intro-fs .nup-fs__stage {
+  grid-template-columns: minmax(0, 1fr) clamp(3.75rem, 10vw, 7rem) minmax(0, 1fr) !important;
+  padding: 0 !important;
 }
 
 .nup-fs__sources {
@@ -1251,10 +1259,15 @@ html[data-nup-intro="1"] .app-page-canvas {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: clamp(0.65rem, 1.4vw, 1rem);
-  width: min(100%, 26rem);
+  width: min(100%, 30rem);
   aspect-ratio: 1 / 1.05;
-  max-height: min(52vh, 26rem);
+  max-height: min(62vh, 30rem);
   justify-self: start;
+}
+
+.nup-fs.tool-intro-fs .nup-fs__sources {
+  aspect-ratio: 1 / 1.05 !important;
+  max-height: min(62vh, 30rem) !important;
 }
 
 .nup-fs__source {
@@ -1316,7 +1329,7 @@ html[data-nup-intro="1"] .app-page-canvas {
   justify-content: center;
   gap: 0.85rem;
   width: 100%;
-  max-width: 18rem;
+  max-width: 10rem;
   justify-self: center;
   color: #60a5fa;
 }
@@ -1348,7 +1361,7 @@ html[data-nup-intro="1"] .app-page-canvas {
 }
 
 .nup-fs__target {
-  width: min(100%, 32rem);
+  width: min(100%, 36rem);
   justify-self: end;
 }
 
@@ -1361,7 +1374,7 @@ html[data-nup-intro="1"] .app-page-canvas {
   gap: clamp(0.55rem, 1.2vw, 0.85rem);
   width: 100%;
   aspect-ratio: 1 / 1.1;
-  max-height: min(58vh, 30rem);
+  max-height: min(66vh, 34rem);
   padding: clamp(0.85rem, 1.8vw, 1.25rem);
   padding-top: clamp(1.6rem, 3vw, 2rem);
   border: 1px solid rgba(147, 197, 253, 0.45);
@@ -1561,25 +1574,36 @@ html[data-nup-intro="1"] .app-page-canvas {
   }
 
   .nup-fs__stage {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    row-gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr) clamp(3.5rem, 10vw, 4.5rem) minmax(0, 1fr);
+    justify-items: stretch;
+    column-gap: clamp(0.3rem, 1vw, 0.6rem);
+    row-gap: 0;
+  }
+
+  .nup-fs.tool-intro-fs .nup-fs__stage {
+    grid-template-columns: minmax(0, 1fr) clamp(3.5rem, 10vw, 4.5rem) minmax(0, 1fr) !important;
   }
 
   .nup-fs__sources {
-    justify-self: center;
-    width: min(100%, 18rem);
-    max-height: 16rem;
+    justify-self: start;
+    width: min(100%, 22rem);
+    max-height: min(62vh, 22rem);
+  }
+
+  .nup-fs.tool-intro-fs .nup-fs__sources {
+    max-height: min(62vh, 22rem) !important;
   }
 
   .nup-fs__bridge {
-    transform: rotate(90deg);
-    width: 4.5rem;
+    transform: none;
+    width: 100%;
+    max-width: 6rem;
   }
 
   .nup-fs__target {
-    justify-self: center;
-    max-width: 19rem;
+    justify-self: end;
+    width: min(100%, 23rem);
+    max-width: 23rem;
   }
 }
 
