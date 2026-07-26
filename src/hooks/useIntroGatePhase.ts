@@ -1,7 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
+import { usePathname } from "@/i18n/navigation";
+import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";
+import { findToolsDataByPathname } from "@/data/tools-data";
+import {
+  getCategoryAccentCssVar,
+  resolveToolAccentCategoryId,
+} from "@/lib/category-accent-colors";
 import { clearIntroChromeLocks } from "@/lib/intro-gate-chrome";
 
 export type IntroPhase = "intro" | "workspace";
@@ -48,10 +55,31 @@ function writeSeen(persistKey?: string) {
   }
 }
 
+function readEmbedFlag(): boolean {
+  if (typeof window === "undefined") return false;
+  return new URLSearchParams(window.location.search).get("embed") === "1";
+}
+
+/**
+ * Parent hard-route shell behind ToolModal — splash must live only in the
+ * ?embed=1 iframe. Detected on the client so SSR/embed hydration still shows
+ * the cinematic intro inside the modal.
+ */
+function isModalBackgroundShell(pathname: string, embed: boolean): boolean {
+  if (embed || readEmbedFlag()) return false;
+  if (typeof window === "undefined") return false;
+  return findToolsDataByPathname(pathname) != null;
+}
+
 /**
  * Shared phase machine for cinematic tool intro gates:
  * hard routes + embeds, overflow lock while splash is up, Escape/Skip,
  * focus on CTA, and session persistence when persistKey is provided.
+ *
+ * Hard tool routes always open ToolModal with an ?embed=1 iframe that owns
+ * the splash. The parent route still mounts the same IntroGate behind the
+ * modal — that background copy is forced to workspace so Get Started cannot
+ * leave a duplicate animation over the upload zone.
  */
 export function useIntroGatePhase({
   active = true,
@@ -59,16 +87,50 @@ export function useIntroGatePhase({
   persistKey,
   onPortalReady,
 }: UseIntroGatePhaseOptions): UseIntroGatePhaseResult {
-  const introActive = active;
+  const embed = useToolEmbedMode();
+  const pathname = usePathname();
+  const backgroundShell = isModalBackgroundShell(pathname, embed);
+  const introActive = active && !backgroundShell;
   const ctaRef = useRef<HTMLButtonElement | null>(null);
   const [phase, setPhase] = useState<IntroPhase>(() => {
-    if (!introActive) return "workspace";
+    if (!active) return "workspace";
+    // Prefer live embed flag so the iframe never hydrates stuck on workspace.
+    if (readEmbedFlag()) {
+      return readSeen(persistKey) ? "workspace" : "intro";
+    }
+    if (typeof window !== "undefined" && findToolsDataByPathname(window.location.pathname)) {
+      return "workspace";
+    }
     if (typeof window !== "undefined" && readSeen(persistKey)) return "workspace";
     return "intro";
   });
   const [portalReady, setPortalReady] = useState(false);
 
-  useToolIntroChrome(introActive && phase === "intro");
+  const showingIntro = introActive && phase === "intro";
+
+  useToolIntroChrome(showingIntro);
+
+  // Drive shared CTA / shell accents from the tool's category while splash is up.
+  useLayoutEffect(() => {
+    if (!showingIntro) return;
+    const entry = findToolsDataByPathname(pathname);
+    const accentId = resolveToolAccentCategoryId(entry?.id);
+    if (!accentId) return;
+
+    const root = document.documentElement;
+    const prev = root.style.getPropertyValue("--category-accent");
+    root.style.setProperty("--category-accent", getCategoryAccentCssVar(accentId));
+    return () => {
+      if (prev) root.style.setProperty("--category-accent", prev);
+      else root.style.removeProperty("--category-accent");
+    };
+  }, [showingIntro, pathname]);
+
+  useLayoutEffect(() => {
+    if (!backgroundShell) return;
+    clearIntroChromeLocks(dataAttribute);
+    setPhase("workspace");
+  }, [backgroundShell, dataAttribute]);
 
   useEffect(() => {
     if (introActive && readSeen(persistKey)) {
@@ -129,7 +191,7 @@ export function useIntroGatePhase({
     introActive,
     phase,
     portalReady,
-    showingIntro: introActive && phase === "intro",
+    showingIntro,
     startTool,
     ctaRef,
   };

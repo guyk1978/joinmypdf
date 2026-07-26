@@ -56,13 +56,16 @@
 .tool-intro-fs > header {
   flex: 0 0 auto !important;
   flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
   width: 100% !important;
   max-width: min(64rem, calc(100vw - 2rem)) !important;
   margin-inline: auto !important;
   padding-inline: clamp(1rem, 4vw, 3rem) !important;
   padding-bottom: 0.5rem !important;
   gap: 0.35rem !important;
-  text-align: center !important;
+  text-align: start !important;
   position: relative !important;
   z-index: 3 !important;
 }
@@ -473,11 +476,14 @@
 
 /* Explicit splash primitives (prefer these over substring class hooks for new tools) */
 .tool-intro-fs .tool-intro__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   flex: 0 0 auto;
   width: 100%;
   max-width: min(64rem, calc(100vw - 2rem));
   margin-inline: auto;
-  text-align: center;
+  text-align: start;
 }
 
 .tool-intro-fs .tool-intro__stage {
@@ -522,4 +528,164 @@
 .tool-intro__skip:focus-visible {
   color: #f5f5f5;
   outline: none;
+}
+
+/*
+ * ── Industrial Matte chrome (global) ──────────────────────────────────────
+ * Shared by every cinematic intro: borderless preview shells + matte CTAs.
+ * High-specificity `.tool-intro-fs …` rules beat per-tool landing.css so new
+ * and existing gates inherit the look without editing each *-landing.css.
+ */
+
+.tool-intro-fs {
+  background: var(--im-bg-page, #0a0a0a) !important;
+  background-color: var(--im-bg-page, #0a0a0a) !important;
+}
+
+/*
+ * Header typography — left-aligned, monochrome Industrial Matte.
+ * Beats per-tool landing.css accent brand colors / centered layouts.
+ */
+.tool-intro-fs > [class*="__header"],
+.tool-intro-fs > header,
+.tool-intro-fs .tool-intro__header,
+.tool-intro-fs > [class*="__body"] > [class*="__header"] {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: start !important;
+}
+
+.tool-intro-fs [class*="__title"],
+.tool-intro-fs [class*="__title-brand"],
+.tool-intro-fs [class*="__title-rest"],
+.tool-intro-fs [class*="__headline"] {
+  color: #fafafa !important;
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: #fafafa !important;
+  text-shadow: none !important;
+  filter: none !important;
+  text-align: start !important;
+}
+
+.tool-intro-fs [class*="__title-brand"] {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+.tool-intro-fs [class*="__title-rest"] {
+  color: #e5e5e5 !important;
+  -webkit-text-fill-color: #e5e5e5 !important;
+  font-weight: 650 !important;
+}
+
+.tool-intro-fs [class*="__subtitle"],
+.tool-intro-fs [class*="__description"],
+.tool-intro-fs [class*="__lead"],
+.tool-intro-fs [class*="__meta"] {
+  color: #a3a3a3 !important;
+  text-align: start !important;
+  text-shadow: none !important;
+  background-image: none !important;
+  -webkit-text-fill-color: #a3a3a3 !important;
+}
+
+/* Outer preview shells — no boxed outline / glow against the matte canvas */
+.tool-intro-fs [class*="__player"],
+.tool-intro-fs [class*="__workspace"],
+.tool-intro-fs .animation-workspace,
+.tool-intro-fs .global-splash-workspace,
+.tool-intro-fs .global-splash-card,
+.tool-intro-fs [class*="__stage"] > [class*="__doc"],
+.tool-intro-fs [class*="__scene"] > [class*="__player"],
+.tool-intro-fs [class*="__scene"] > [class*="__card"],
+.tool-intro-fs [class*="__scene"] > [class*="__workspace"],
+.tool-intro-fs [class*="__workspace"] > [class*="__card"],
+.tool-intro-fs .animation-workspace > [class*="__card"],
+.tool-intro-fs .global-splash-workspace > [class*="__card"],
+.tool-intro-fs [class*="__workspace"]:not(:has(> [class*="__card"] ~ [class*="__card"])) > [class*="__card"],
+.tool-intro-fs [class*="__workspace"]:has(> [class*="__card"] ~ [class*="__card"]) > [class*="__card"] {
+  border: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Get Started (+ shared tool-intro__cta) — matte surface, no candy gradients */
+.tool-intro-fs [class*="__cta"],
+.tool-intro-fs .tool-intro__cta,
+.tool-intro-fs > [class*="__footer"] > button[type="button"]:not(.tool-intro__skip),
+.tool-intro-fs > [class*="__body"] > [class*="__footer"] > button[type="button"]:not(.tool-intro__skip) {
+  appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: min(100%, 16rem) !important;
+  min-height: 3rem !important;
+  padding: 0.8rem 1.75rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid color-mix(
+    in srgb,
+    var(--category-accent, #a1a1aa) 55%,
+    rgb(255 255 255 / 0.35)
+  ) !important;
+  border-radius: 0 !important;
+  background: color-mix(
+    in srgb,
+    var(--category-accent, #a1a1aa) 14%,
+    var(--im-bg-page, #0a0a0a)
+  ) !important;
+  color: #fafafa !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  cursor: pointer !important;
+  transition:
+    background-color 0.15s ease,
+    border-bottom-color 0.15s ease,
+    color 0.15s ease !important;
+}
+
+.tool-intro-fs [class*="__cta"]:hover,
+.tool-intro-fs [class*="__cta"]:focus-visible,
+.tool-intro-fs .tool-intro__cta:hover,
+.tool-intro-fs .tool-intro__cta:focus-visible,
+.tool-intro-fs > [class*="__footer"] > button[type="button"]:not(.tool-intro__skip):hover,
+.tool-intro-fs > [class*="__footer"] > button[type="button"]:not(.tool-intro__skip):focus-visible,
+.tool-intro-fs > [class*="__body"] > [class*="__footer"] > button[type="button"]:not(.tool-intro__skip):hover,
+.tool-intro-fs > [class*="__body"] > [class*="__footer"] > button[type="button"]:not(.tool-intro__skip):focus-visible {
+  background: color-mix(
+    in srgb,
+    var(--category-accent, #a1a1aa) 24%,
+    var(--im-bg-page, #0a0a0a)
+  ) !important;
+  border-bottom-color: #ffffff !important;
+  color: #ffffff !important;
+  filter: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  outline: none !important;
+}
+
+.tool-intro-fs [class*="__cta"]:focus-visible,
+.tool-intro-fs .tool-intro__cta:focus-visible,
+.tool-intro-fs > [class*="__footer"] > button[type="button"]:not(.tool-intro__skip):focus-visible,
+.tool-intro-fs > [class*="__body"] > [class*="__footer"] > button[type="button"]:not(.tool-intro__skip):focus-visible {
+  outline: 1px solid rgb(255 255 255 / 0.4) !important;
+  outline-offset: 3px !important;
+}
+
+.tool-intro-fs [class*="__cta"]:active,
+.tool-intro-fs .tool-intro__cta:active {
+  transform: none !important;
+  filter: none !important;
 }

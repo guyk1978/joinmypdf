@@ -1,6 +1,7 @@
 @import "../styles/industrial-matte-tokens.css";
 @import "../styles/tools-grid.css";
 @import "../components/tool-intro-splash.css";
+/* intro splash matte header typography */
 
 @tailwind base;
 @tailwind components;
