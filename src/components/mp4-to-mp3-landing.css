@@ -30,13 +30,15 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
   max-height: 100dvh;
   margin: 0;
   padding:
-    clamp(1rem, 2.5vh, 2rem)
-    clamp(1.25rem, 4vw, 3rem)
-    clamp(1rem, 2.5vh, 1.75rem);
+    clamp(0.85rem, 2vh, 1.5rem)
+    clamp(1rem, 3.5vw, 2.5rem)
+    clamp(0.85rem, 2vh, 1.5rem);
   overflow: hidden;
   background: #000000;
   color: #f8fafc;
   font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --splash-zoom: 1;
+  --splash-max-width: 960px;
 }
 
 .m43-fs__header {
@@ -44,11 +46,11 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
-  gap: 0.7rem;
+  gap: 0.45rem;
   width: 100%;
   max-width: 64rem;
   margin-inline: auto;
-  padding-bottom: clamp(0.65rem, 1.8vh, 1.25rem);
+  padding-bottom: 0.35rem;
   text-align: center;
 }
 
@@ -80,38 +82,63 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
 
 .m43-fs__stage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 0;
   width: 100%;
-  padding-block: clamp(0.5rem, 1.5vh, 1.25rem);
+  padding-block: 4px;
   overflow: hidden;
+}
+
+.m43-fs.tool-intro-fs .m43-fs__stage {
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  align-items: flex-start !important;
 }
 
 .m43-fs__scene {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: min(100%, 48rem);
+  justify-content: flex-start;
+  width: min(100%, 60rem);
   max-height: 100%;
+}
+
+html[data-mp4-mp3-intro="1"] .m43-fs.tool-intro-fs .m43-fs__scene {
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
 }
 
 .m43-fs__workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  gap: clamp(0.55rem, 1.8vw, 1.1rem);
+  gap: clamp(0.75rem, 2.2vw, 1.5rem);
   align-items: center;
-  width: min(100%, 40rem);
+  width: min(100%, 56rem);
   max-height: 100%;
+}
+
+/* Beat shared workspace caps so the MP4→MP3 cards fill the stage. */
+html[data-mp4-mp3-intro="1"] .m43-fs.tool-intro-fs .m43-fs__scene > .m43-fs__workspace.animation-workspace {
+  width: min(100%, 56rem) !important;
+  max-width: min(var(--splash-max-width, 960px), 96%) !important;
+  max-height: min(64vh, 36rem) !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
+  align-self: flex-start !important;
 }
 
 .m43-fs__card {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.75rem;
   min-width: 0;
-  padding: 0.75rem;
+  padding: 0.9rem;
   border-radius: 0.75rem;
   background: #0a0a0a;
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
@@ -159,8 +186,8 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   border: 2px solid rgba(248, 250, 252, 0.5);
   background: rgba(15, 15, 15, 0.5);
@@ -175,7 +202,7 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0.35rem 0 0.35rem 0.55rem;
+  border-width: 0.45rem 0 0.45rem 0.7rem;
   border-color: transparent transparent transparent #f8fafc;
   transform: translate(-50%, -50%);
 }
@@ -197,8 +224,8 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
 
 .m43-fs__note {
   position: relative;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   background: linear-gradient(145deg, #fde68a 0%, #f59e0b 100%);
   box-shadow: 0 0 22px rgba(251, 191, 36, 0.45);
@@ -211,7 +238,7 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
   top: 50%;
   left: 50%;
   color: #431407;
-  font-size: 1.35rem;
+  font-size: 1.55rem;
   font-weight: 800;
   transform: translate(-50%, -52%);
 }
@@ -261,7 +288,7 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   font-weight: 650;
   color: #e5e5e5;
 }
@@ -273,16 +300,16 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  width: clamp(3.5rem, 12vw, 5.5rem);
-  min-height: 5rem;
+  width: clamp(4rem, 12vw, 6.5rem);
+  min-height: 6rem;
 }
 
 .m43-fs__wave {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 0.18rem;
-  height: 2.6rem;
+  gap: 0.2rem;
+  height: 3.2rem;
   animation: m43-fs-wave-travel 8s ease-in-out infinite;
 }
 
@@ -543,9 +570,11 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
     font-size: clamp(1.3rem, 5.5vw, 1.85rem);
   }
 
-  .m43-fs__workspace {
+  .m43-fs__workspace,
+  html[data-mp4-mp3-intro="1"] .m43-fs.tool-intro-fs .m43-fs__scene > .m43-fs__workspace.animation-workspace {
     grid-template-columns: 1fr;
-    width: min(100%, 18rem);
+    width: min(100%, 22rem) !important;
+    max-height: none !important;
     gap: 0.65rem;
   }
 
@@ -572,6 +601,17 @@ html[data-mp4-mp3-intro="1"] [class*="cookie"] {
 @media (max-height: 700px) {
   .m43-fs__title {
     font-size: clamp(1.3rem, 3.2vw, 2.1rem);
+  }
+
+  html[data-mp4-mp3-intro="1"] .m43-fs.tool-intro-fs .m43-fs__scene > .m43-fs__workspace.animation-workspace {
+    max-height: min(62vh, calc(100dvh - 150px), 34rem) !important;
+  }
+}
+
+/* Keep side-by-side cards large on short but wide viewports */
+@media (max-height: 700px) and (min-width: 701px) {
+  html[data-mp4-mp3-intro="1"] .m43-fs.tool-intro-fs .m43-fs__scene > .m43-fs__workspace.animation-workspace {
+    width: min(100%, 50rem) !important;
   }
 }
 

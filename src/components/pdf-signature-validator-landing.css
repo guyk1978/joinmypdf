@@ -46,7 +46,7 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
-  gap: 0.55rem;
+  gap: 0.35rem;
   width: 100%;
   max-width: min(64rem, calc(100vw - 2rem));
   padding-inline: clamp(1rem, 4vw, 3rem);
@@ -81,21 +81,29 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
 
 .psv-fs__stage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex: 1 1 auto;
   min-height: 0;
   width: 100%;
-  max-height: calc(100vh - 220px);
-  max-height: calc(100dvh - 220px);
-  padding-block: 12px;
-  padding-inline: clamp(0.75rem, 3vw, 2rem);
+  max-height: calc(100vh - 156px);
+  max-height: calc(100dvh - 156px);
+  padding-block: 4px;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
   overflow: hidden;
+}
+
+.psv-fs.tool-intro-fs .psv-fs__stage {
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  align-items: flex-start !important;
 }
 
 .psv-fs__scene {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   height: 100%;
@@ -105,28 +113,45 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
   overflow: hidden;
 }
 
+html[data-pdf-signature-validator-intro="1"] .psv-fs.tool-intro-fs .psv-fs__scene {
+  align-items: flex-start !important;
+  justify-content: center !important;
+  height: auto !important;
+  max-height: 100% !important;
+}
+
 .psv-fs__workspace {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.65rem;
-  width: 100%;
-  max-width: 420px;
-  height: 45vh;
-  max-height: 45vh;
+  width: min(100%, 46rem);
+  max-width: 100%;
+  height: clamp(20rem, 58vh, 32rem);
+  max-height: 100%;
   overflow: hidden;
+}
+
+/* Beat shared workspace caps so the signed-PDF stage fills the stage. */
+html[data-pdf-signature-validator-intro="1"] .psv-fs.tool-intro-fs .psv-fs__scene > .psv-fs__workspace.animation-workspace {
+  width: min(100%, 46rem) !important;
+  height: clamp(20rem, 58vh, 32rem) !important;
+  max-width: min(var(--splash-max-width, 880px), 96%) !important;
+  max-height: min(58vh, 32rem) !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
 }
 
 .psv-fs__card {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.65rem;
   width: 100%;
-  max-height: calc(100% - 2.4rem);
+  max-height: calc(100% - 2.5rem);
   min-height: 0;
-  padding: 0.6rem 0.65rem 0.7rem;
+  padding: 0.9rem 1rem 1rem;
   overflow: hidden;
   border: 1px solid rgba(74, 222, 128, 0.35);
   border-radius: 0.85rem;
@@ -134,6 +159,18 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
   box-shadow:
     0 18px 44px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(74, 222, 128, 0.08);
+}
+
+html[data-pdf-signature-validator-intro="1"] .psv-fs.tool-intro-fs .psv-fs__workspace.animation-workspace > .psv-fs__card.psv-fs__card {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: calc(100% - 2.5rem) !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  padding: 0.9rem 1rem 1rem !important;
+  aspect-ratio: auto !important;
 }
 
 .psv-fs__badges {
@@ -175,7 +212,7 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
   align-items: center;
   justify-content: center;
   flex: 1;
-  min-height: 8rem;
+  min-height: 12rem;
   overflow: hidden;
   border-radius: 0.4rem;
   border: 1px solid rgba(74, 222, 128, 0.18);
@@ -189,10 +226,10 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.32rem;
-  width: min(48%, 7.4rem);
-  height: min(82%, 9.4rem);
-  padding: 0.55rem 0.55rem 0.7rem;
+  gap: 0.4rem;
+  width: min(42%, 11rem);
+  height: min(78%, 14rem);
+  padding: 0.75rem 0.75rem 0.9rem;
   border-radius: 0.35rem;
   border: 1px solid rgba(148, 163, 184, 0.35);
   background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
@@ -224,10 +261,10 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
 
 .psv-fs__seal {
   position: absolute;
-  right: 0.45rem;
-  bottom: 0.5rem;
-  width: 1.7rem;
-  height: 1.7rem;
+  right: 0.55rem;
+  bottom: 0.6rem;
+  width: 2.35rem;
+  height: 2.35rem;
   border-radius: 999px;
   border: 2px solid rgba(74, 222, 128, 0.55);
   background:
@@ -477,6 +514,13 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
     font-size: clamp(1.25rem, 5.4vw, 1.8rem);
   }
 
+  .psv-fs__workspace,
+  html[data-pdf-signature-validator-intro="1"] .psv-fs.tool-intro-fs .psv-fs__scene > .psv-fs__workspace.animation-workspace {
+    width: min(100%, 34rem) !important;
+    height: clamp(18rem, 52vh, 26rem) !important;
+    max-height: min(52vh, 26rem) !important;
+  }
+
   .psv-fs__cta {
     width: 100%;
     max-width: 20rem;
@@ -490,6 +534,12 @@ html[data-pdf-signature-validator-intro="1"] [class*="cookie"] {
 @media (max-height: 700px) {
   .psv-fs__title {
     font-size: clamp(1.2rem, 3vw, 1.85rem);
+  }
+
+  .psv-fs__workspace,
+  html[data-pdf-signature-validator-intro="1"] .psv-fs.tool-intro-fs .psv-fs__scene > .psv-fs__workspace.animation-workspace {
+    height: clamp(18rem, 54vh, 28rem) !important;
+    max-height: min(54vh, calc(100dvh - 160px), 28rem) !important;
   }
 }
 

@@ -30,11 +30,13 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
   max-width: 100vw;
   max-height: 100dvh;
   margin: 0;
-  padding: 24px 0;
+  padding: 16px 0 14px;
   overflow: hidden;
   background: #000000;
   color: #f8fafc;
   font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --splash-zoom: 1;
+  --splash-max-width: 880px;
 }
 
 .p2p-fs__header {
@@ -42,7 +44,7 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
-  gap: 0.55rem;
+  gap: 0.35rem;
   width: 100%;
   max-width: min(64rem, calc(100vw - 2rem));
   padding-inline: clamp(1rem, 4vw, 3rem);
@@ -77,21 +79,29 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
 
 .p2p-fs__stage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex: 1 1 auto;
   min-height: 0;
   width: 100%;
-  max-height: calc(100vh - 220px);
-  max-height: calc(100dvh - 220px);
-  padding-block: 12px;
-  padding-inline: clamp(0.75rem, 3vw, 2rem);
+  max-height: calc(100vh - 156px);
+  max-height: calc(100dvh - 156px);
+  padding-block: 4px;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
   overflow: hidden;
+}
+
+.p2p-fs.tool-intro-fs .p2p-fs__stage {
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  align-items: flex-start !important;
 }
 
 .p2p-fs__scene {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   height: 100%;
@@ -101,16 +111,33 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
   overflow: hidden;
 }
 
+html[data-pdf-to-png-intro="1"] .p2p-fs.tool-intro-fs .p2p-fs__scene {
+  align-items: flex-start !important;
+  justify-content: center !important;
+  height: auto !important;
+  max-height: 100% !important;
+}
+
 .p2p-fs__workspace {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 420px;
-  height: 45vh;
-  max-height: 45vh;
+  width: min(100%, 46rem);
+  max-width: 100%;
+  height: clamp(20rem, 58vh, 32rem);
+  max-height: 100%;
   overflow: hidden;
+}
+
+/* Beat shared workspace caps so the PDF→PNG export fills the stage. */
+html[data-pdf-to-png-intro="1"] .p2p-fs.tool-intro-fs .p2p-fs__scene > .p2p-fs__workspace.animation-workspace {
+  width: min(100%, 46rem) !important;
+  height: clamp(20rem, 58vh, 32rem) !important;
+  max-width: min(var(--splash-max-width, 880px), 96%) !important;
+  max-height: min(58vh, 32rem) !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
 }
 
 .p2p-fs__particles {
@@ -154,7 +181,7 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
 
 .p2p-fs__pdf-sheet {
   position: relative;
-  width: min(58%, 11.5rem);
+  width: min(62%, 15rem);
   aspect-ratio: 3 / 4;
   padding: 0.85rem 0.75rem;
   overflow: hidden;
@@ -253,7 +280,7 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.45rem, 1.8vw, 0.75rem);
+  gap: clamp(0.65rem, 2.4vw, 1.1rem);
   opacity: 0;
   pointer-events: none;
   animation: p2p-fs-exports 8.5s ease-in-out infinite;
@@ -262,7 +289,7 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
 .p2p-fs__card {
   display: flex;
   flex-direction: column;
-  width: clamp(4.4rem, 14vw, 5.6rem);
+  width: clamp(6.25rem, 18vw, 8.25rem);
   overflow: hidden;
   border: 1px solid rgba(16, 185, 129, 0.45);
   border-radius: 0.45rem;
@@ -567,6 +594,17 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
     font-size: clamp(1.25rem, 5.4vw, 1.8rem);
   }
 
+  .p2p-fs__workspace,
+  html[data-pdf-to-png-intro="1"] .p2p-fs.tool-intro-fs .p2p-fs__scene > .p2p-fs__workspace.animation-workspace {
+    width: min(100%, 34rem) !important;
+    height: clamp(18rem, 52vh, 26rem) !important;
+    max-height: min(52vh, 26rem) !important;
+  }
+
+  .p2p-fs__card {
+    width: clamp(5.5rem, 20vw, 7rem);
+  }
+
   .p2p-fs__cta {
     width: 100%;
     max-width: 20rem;
@@ -576,6 +614,12 @@ html[data-pdf-to-png-intro="1"] [class*="cookie"] {
 @media (max-height: 700px) {
   .p2p-fs__title {
     font-size: clamp(1.2rem, 3vw, 1.85rem);
+  }
+
+  .p2p-fs__workspace,
+  html[data-pdf-to-png-intro="1"] .p2p-fs.tool-intro-fs .p2p-fs__scene > .p2p-fs__workspace.animation-workspace {
+    height: clamp(18rem, 54vh, 28rem) !important;
+    max-height: min(54vh, calc(100dvh - 160px), 28rem) !important;
   }
 }
 
