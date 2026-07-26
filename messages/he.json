@@ -1234,6 +1234,21 @@
     "getStarted": "התחל",
     "getStartedHint": "פתחו את אזור ההעלאה כדי לנרמל את האודיו."
   },
+  "AudioTrimmerLanding": {
+    "brand": "חותך אודיו",
+    "titleRest": "- חתכו MP3, WAV, AAC או OGG לקליפ המדויק שאתם צריכים",
+    "subtitle": "סרקו את הגל, הגדירו סימני התחלה וסיום, הוסיפו Fade רך לפי הצורך, וייצאו — באופן פרטי בדפדפן.",
+    "clipLabel": "קליפ פעיל",
+    "startTime": "00:15",
+    "endTime": "01:45",
+    "pillIn": "כניסה 00:15",
+    "pillOut": "יציאה 01:45",
+    "pillFade": "Fade רך",
+    "pillDur": "קליפ 1:30",
+    "success": "האודיו נחתך ונשמר",
+    "getStarted": "התחל",
+    "getStartedHint": "פתחו את אזור ההעלאה כדי לחתוך את האודיו."
+  },
   "FadeInOutCreatorLanding": {
     "brand": "יוצר Fade In/Out",
     "titleRest": "- הוסיפו אפקטי Fade-In ו-Fade-Out חלקים לאודיו",

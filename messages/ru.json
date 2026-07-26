@@ -1236,6 +1236,21 @@
     "getStarted": "Начать",
     "getStartedHint": "Откройте область загрузки, чтобы нормализовать аудио."
   },
+  "AudioTrimmerLanding": {
+    "brand": "Обрезка аудио",
+    "titleRest": "- Вырежьте из MP3, WAV, AAC или OGG точный нужный фрагмент",
+    "subtitle": "Прокрутите волну, задайте маркеры начала и конца, при желании добавьте мягкие фейды и экспортируйте — конфиденциально в браузере.",
+    "clipLabel": "Активный клип",
+    "startTime": "00:15",
+    "endTime": "01:45",
+    "pillIn": "In 00:15",
+    "pillOut": "Out 01:45",
+    "pillFade": "Мягкий fade",
+    "pillDur": "Клип 1:30",
+    "success": "Аудио обрезано и сохранено",
+    "getStarted": "Начать",
+    "getStartedHint": "Откройте область загрузки, чтобы обрезать аудио."
+  },
   "FadeInOutCreatorLanding": {
     "brand": "Создание Fade In/Out",
     "titleRest": "- Добавьте плавные эффекты fade-in и fade-out к аудио",

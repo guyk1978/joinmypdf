@@ -7,6 +7,7 @@ import { AudioCompressorIntroGate } from "@/components/AudioCompressorIntroGate"
 import { Mp3CompressorIntroGate } from "@/components/Mp3CompressorIntroGate";
 import { AudioMergerIntroGate } from "@/components/AudioMergerIntroGate";
 import { AudioNormalizerIntroGate } from "@/components/AudioNormalizerIntroGate";
+import { AudioTrimmerIntroGate } from "@/components/AudioTrimmerIntroGate";
 import { FadeInOutCreatorIntroGate } from "@/components/FadeInOutCreatorIntroGate";
 import { FlacConverterIntroGate } from "@/components/FlacConverterIntroGate";
 import { M4aConverterIntroGate } from "@/components/M4aConverterIntroGate";
@@ -112,6 +113,7 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               <Mp3CompressorIntroGate active={tool.id === "mp3-compressor"}>
               <AudioMergerIntroGate active={tool.id === "audio-merger"}>
               <AudioNormalizerIntroGate active={tool.id === "audio-normalizer"}>
+              <AudioTrimmerIntroGate active={tool.id === "audio-trimmer"}>
               <FadeInOutCreatorIntroGate active={tool.id === "fade-in-out-creator"}>
               <FlacConverterIntroGate active={tool.id === "flac-converter"}>
               <M4aConverterIntroGate active={tool.id === "m4a-converter"}>
@@ -165,6 +167,7 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
               </M4aConverterIntroGate>
               </FlacConverterIntroGate>
               </FadeInOutCreatorIntroGate>
+              </AudioTrimmerIntroGate>
               </AudioNormalizerIntroGate>
               </AudioMergerIntroGate>
               </Mp3CompressorIntroGate>

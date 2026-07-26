@@ -1234,6 +1234,21 @@
     "getStarted": "Get Started",
     "getStartedHint": "Open the upload workspace to normalize your audio."
   },
+  "AudioTrimmerLanding": {
+    "brand": "Audio Trimmer",
+    "titleRest": "- Cut MP3, WAV, AAC, or OGG to the Exact Clip You Need",
+    "subtitle": "Scrub the waveform, set start and end markers, optionally add soft fades, and export — privately in your browser.",
+    "clipLabel": "Active clip",
+    "startTime": "00:15",
+    "endTime": "01:45",
+    "pillIn": "In 00:15",
+    "pillOut": "Out 01:45",
+    "pillFade": "Fade soft edges",
+    "pillDur": "1:30 clip",
+    "success": "Audio Trimmed & Saved",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the upload workspace to trim your audio."
+  },
   "FadeInOutCreatorLanding": {
     "brand": "Fade In/Out Creator",
     "titleRest": "- Add Smooth Fade-In and Fade-Out Effects to Audio",
