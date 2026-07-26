@@ -881,3 +881,114 @@ html[data-image-metadata-editor-intro="1"] [class*="cookie"] {
     min-width: min(100% - 2rem, 16rem);
   }
 }
+
+/* —— Raised + enlarged stage (scoped to this tool's intro attribute) —— */
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs {
+  padding:
+    clamp(0.55rem, 1.4vh, 1.1rem)
+    0
+    clamp(0.7rem, 1.8vh, 1.25rem) !important;
+  --splash-max-width: 880px;
+  --splash-wide-min-height: 320px;
+  --splash-wide-max-height: 512px;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__header {
+  gap: 0.3rem;
+  padding-bottom: 0.15rem;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__stage {
+  align-items: flex-start !important;
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  overflow: hidden !important;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__scene {
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__scene > .ime-fs__workspace.animation-workspace {
+  flex: 0 0 auto !important;
+  gap: 0.75rem !important;
+  width: min(100%, 46rem) !important;
+  height: clamp(20rem, 58vh, 32rem) !important;
+  max-width: min(var(--splash-max-width, 880px), 96%) !important;
+  min-height: 0 !important;
+  max-height: min(58vh, 32rem) !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
+  align-self: flex-start !important;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__workspace.animation-workspace > .ime-fs__engine {
+  flex: 1 1 auto !important;
+  gap: 0.45rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: calc(100% - 2.5rem) !important;
+  margin: 0 !important;
+  padding: 0.85rem !important;
+  aspect-ratio: auto !important;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__pill {
+  min-width: 4rem;
+  padding: 0.28rem 0.6rem;
+  font-size: 0.78rem;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__file {
+  padding: 0.16rem 0.45rem;
+  font-size: 0.72rem;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__key {
+  font-size: 0.72rem;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__val {
+  font-size: 0.78rem;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__row {
+  padding: 0.42rem 0.55rem;
+}
+
+html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__ok {
+  min-height: 2rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__stage {
+    margin: 0 !important;
+  }
+
+  html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__scene > .ime-fs__workspace.animation-workspace {
+    width: min(100%, 40rem) !important;
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, 30rem) !important;
+  }
+
+  html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__workspace.animation-workspace > .ime-fs__engine {
+    gap: 0.3rem !important;
+    padding: 0.6rem !important;
+  }
+}
+
+@media (max-height: 700px) {
+  html[data-image-metadata-editor-intro="1"] .ime-fs.tool-intro-fs .ime-fs__scene > .ime-fs__workspace.animation-workspace {
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, calc(100dvh - 150px), 30rem) !important;
+  }
+}

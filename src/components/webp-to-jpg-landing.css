@@ -30,13 +30,15 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   max-height: 100dvh;
   margin: 0;
   padding:
-    clamp(1rem, 2.5vh, 2rem)
-    clamp(1.25rem, 4vw, 3rem)
-    clamp(1rem, 2.5vh, 1.75rem);
+    clamp(0.55rem, 1.4vh, 1.1rem)
+    clamp(1rem, 3.5vw, 2.5rem)
+    clamp(0.7rem, 1.8vh, 1.25rem);
   overflow: hidden;
   background: #000000;
   color: #f8fafc;
   font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --splash-zoom: 1;
+  --splash-max-width: 880px;
 }
 
 .w2j-fs__header {
@@ -44,11 +46,11 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
-  gap: 0.7rem;
+  gap: 0.3rem;
   width: 100%;
   max-width: 64rem;
   margin-inline: auto;
-  padding-bottom: clamp(0.65rem, 1.8vh, 1.25rem);
+  padding-bottom: 0.15rem;
   text-align: center;
 }
 
@@ -80,21 +82,36 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
 
 .w2j-fs__stage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 0;
   width: 100%;
-  padding-block: clamp(0.5rem, 1.5vh, 1.25rem);
+  padding-block: 4px;
   overflow: hidden;
+}
+
+html[data-webp-to-jpg-intro="1"] .w2j-fs.tool-intro-fs .w2j-fs__stage {
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  align-items: flex-start !important;
 }
 
 .w2j-fs__scene {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: min(100%, 44rem);
+  justify-content: flex-start;
+  width: min(100%, 48rem);
   max-height: 100%;
+}
+
+html[data-webp-to-jpg-intro="1"] .w2j-fs.tool-intro-fs .w2j-fs__scene {
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
 }
 
 .w2j-fs__workspace {
@@ -102,11 +119,23 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(0.75rem, 2vh, 1.15rem);
-  width: min(100%, 34rem);
-  height: clamp(14rem, 42vh, 22rem);
-  max-height: 100%;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  width: min(100%, 46rem);
+  max-width: 100%;
+  height: clamp(20rem, 58vh, 32rem);
+  max-height: min(58vh, 32rem);
+}
+
+/* Beat shared workspace/card caps so the WebP→JPG stage fills the stage. */
+html[data-webp-to-jpg-intro="1"] .w2j-fs.tool-intro-fs .w2j-fs__scene > .w2j-fs__workspace.animation-workspace {
+  width: min(100%, 46rem) !important;
+  height: clamp(20rem, 58vh, 32rem) !important;
+  max-width: min(var(--splash-max-width, 880px), 96%) !important;
+  max-height: min(58vh, 32rem) !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
+  align-self: flex-start !important;
 }
 
 .w2j-fs__particles {
@@ -141,9 +170,11 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  width: min(100%, 26rem);
-  height: min(100%, 16.5rem);
+  width: 100%;
+  height: auto;
+  min-height: 0;
   max-height: calc(100% - 2.75rem);
+  flex: 1 1 auto;
   overflow: hidden;
   border: 1px solid rgba(74, 222, 128, 0.35);
   border-radius: 0.85rem;
@@ -151,6 +182,17 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   box-shadow:
     0 18px 44px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(74, 222, 128, 0.08);
+}
+
+html[data-webp-to-jpg-intro="1"] .w2j-fs.tool-intro-fs .w2j-fs__workspace.animation-workspace > .w2j-fs__card.w2j-fs__card {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: calc(100% - 2.75rem) !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  aspect-ratio: auto !important;
 }
 
 .w2j-fs__photo {
@@ -226,15 +268,15 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   justify-content: space-between;
   gap: 0.75rem;
   flex: 0 0 auto;
-  padding: 0.7rem 0.85rem;
+  padding: 0.85rem 1rem;
   border-top: 1px solid rgba(74, 222, 128, 0.2);
   background: #0a1a10;
 }
 
 .w2j-fs__badges {
   position: relative;
-  width: 4.8rem;
-  height: 1.55rem;
+  width: 5.6rem;
+  height: 1.85rem;
 }
 
 .w2j-fs__badge {
@@ -244,7 +286,7 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   align-items: center;
   justify-content: center;
   border-radius: 0.3rem;
-  font-size: 0.68rem;
+  font-size: 0.85rem;
   font-weight: 900;
   letter-spacing: 0.03em;
 }
@@ -271,7 +313,7 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   position: relative;
   flex: 1;
   min-width: 0;
-  height: 1.2rem;
+  height: 1.4rem;
   text-align: end;
 }
 
@@ -281,7 +323,7 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #e7e5e4;
 }
@@ -312,12 +354,12 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.28rem 0.55rem;
+  padding: 0.35rem 0.7rem;
   border: 1px solid rgba(74, 222, 128, 0.35);
   border-radius: 999px;
   background: rgba(5, 46, 22, 0.85);
   color: #bbf7d0;
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -530,13 +572,17 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
     font-size: clamp(1.25rem, 5.4vw, 1.8rem);
   }
 
-  .w2j-fs__workspace {
-    width: min(100%, 22rem);
-    height: clamp(12rem, 36vh, 17rem);
+  .w2j-fs__workspace,
+  html[data-webp-to-jpg-intro="1"] .w2j-fs.tool-intro-fs .w2j-fs__scene > .w2j-fs__workspace.animation-workspace {
+    width: min(100%, 40rem) !important;
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, 30rem) !important;
   }
 
-  .w2j-fs__card {
-    width: min(100%, 20rem);
+  .w2j-fs__card,
+  html[data-webp-to-jpg-intro="1"] .w2j-fs.tool-intro-fs .w2j-fs__workspace.animation-workspace > .w2j-fs__card.w2j-fs__card {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .w2j-fs__cta {
@@ -550,8 +596,10 @@ html[data-webp-to-jpg-intro="1"] [class*="cookie"] {
     font-size: clamp(1.25rem, 3.2vw, 2.1rem);
   }
 
-  .w2j-fs__workspace {
-    height: clamp(11rem, 34vh, 16rem);
+  .w2j-fs__workspace,
+  html[data-webp-to-jpg-intro="1"] .w2j-fs.tool-intro-fs .w2j-fs__scene > .w2j-fs__workspace.animation-workspace {
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, calc(100dvh - 150px), 30rem) !important;
   }
 }
 

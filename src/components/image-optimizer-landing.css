@@ -494,6 +494,120 @@ html[data-image-optimizer-intro="1"] [class*="cookie"] {
   }
 }
 
+/* —— Raised + enlarged stage (scoped to this tool's intro attribute) —— */
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs {
+  padding:
+    clamp(0.55rem, 1.4vh, 1.1rem)
+    0
+    clamp(0.7rem, 1.8vh, 1.25rem) !important;
+  --splash-zoom: 1;
+  --splash-max-width: 880px;
+  --splash-wide-min-height: 320px;
+  --splash-wide-max-height: 512px;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__header {
+  gap: 0.3rem;
+  padding-bottom: 0.15rem;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__stage {
+  align-items: flex-start !important;
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  overflow: hidden !important;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__scene {
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__scene > .iopt-fs__workspace.animation-workspace {
+  flex: 0 0 auto !important;
+  gap: 0.75rem !important;
+  width: min(100%, 46rem) !important;
+  height: clamp(20rem, 58vh, 32rem) !important;
+  max-width: min(var(--splash-max-width, 880px), 96%) !important;
+  min-height: 0 !important;
+  max-height: min(58vh, 32rem) !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
+  align-self: flex-start !important;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__workspace.animation-workspace > .iopt-fs__card.iopt-fs__card {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: calc(100% - 2.5rem) !important;
+  margin: 0 !important;
+  aspect-ratio: auto !important;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__card > .iopt-fs__photo {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__loupe {
+  width: 4.6rem;
+  height: 4.6rem;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__meta {
+  padding: 0.85rem 1rem;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__sizes {
+  width: 6.4rem;
+  height: 1.6rem;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__size {
+  font-size: 1.1rem;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__savings {
+  padding: 0.3rem 0.65rem;
+  font-size: 0.85rem;
+}
+
+html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__ok {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__stage {
+    margin: 0 !important;
+  }
+
+  html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__scene > .iopt-fs__workspace.animation-workspace {
+    width: min(100%, 40rem) !important;
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, 30rem) !important;
+  }
+
+  html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__loupe {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+}
+
+@media (max-height: 700px) {
+  html[data-image-optimizer-intro="1"] .iopt-fs.tool-intro-fs .iopt-fs__scene > .iopt-fs__workspace.animation-workspace {
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, calc(100dvh - 150px), 30rem) !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .iopt-fs__beam,
   .iopt-fs__photo,

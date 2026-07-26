@@ -33,16 +33,19 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
   max-width: 100vw;
   max-height: 100dvh;
   margin: 0;
-  padding: 24px 0;
+  padding:
+    clamp(0.55rem, 1.4vh, 1.1rem)
+    0
+    clamp(0.7rem, 1.8vh, 1.25rem);
   overflow: hidden;
   background: #000000 !important;
   background-color: #000000 !important;
   color: #f8fafc;
   font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
   --splash-zoom: 1;
-  --splash-max-width: 580px;
-  --splash-wide-min-height: 280px;
-  --splash-wide-max-height: 380px;
+  --splash-max-width: 880px;
+  --splash-wide-min-height: 320px;
+  --splash-wide-max-height: 512px;
   --s2p-cyan: #22d3ee;
   --s2p-cyan-soft: #a5f3fc;
   --s2p-blue: #3b82f6;
@@ -55,11 +58,11 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
-  gap: 0.45rem;
+  gap: 0.3rem;
   width: 100%;
   max-width: min(64rem, calc(100vw - 2rem));
   padding-inline: clamp(1rem, 4vw, 3rem);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.15rem;
   text-align: center;
   position: relative;
   z-index: 3;
@@ -93,30 +96,45 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
 
 .s2p-fs__stage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex: 1 1 auto;
   min-height: 0;
   width: 100%;
-  max-height: calc(100vh - 220px);
-  max-height: calc(100dvh - 220px);
-  margin-top: 32px;
-  padding-top: 8px;
-  padding-bottom: 12px;
+  max-height: calc(100vh - 156px);
+  max-height: calc(100dvh - 156px);
+  margin-top: 0;
+  padding-top: 2px;
+  padding-bottom: 6px;
   padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
-  overflow: visible;
+  overflow: hidden;
+}
+
+html[data-svg-to-png-intro="1"] .s2p-fs.tool-intro-fs .s2p-fs__stage {
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  align-items: flex-start !important;
 }
 
 .s2p-fs__scene {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: auto;
   max-width: 100%;
   max-height: 100%;
   min-height: 0;
   overflow: visible;
+}
+
+html[data-svg-to-png-intro="1"] .s2p-fs.tool-intro-fs .s2p-fs__scene {
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
 }
 
 .s2p-fs__workspace {
@@ -124,17 +142,29 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  flex: 1;
-  gap: 0.65rem;
-  width: 90%;
-  max-width: 580px;
-  min-height: 280px !important;
-  height: auto;
-  max-height: 380px !important;
+  justify-content: flex-start;
+  flex: 0 0 auto;
+  gap: 0.75rem;
+  width: min(100%, 46rem);
+  max-width: 100%;
+  height: clamp(20rem, 58vh, 32rem);
+  min-height: 0;
+  max-height: min(58vh, 32rem);
   margin: 0 auto;
   overflow: visible;
   object-fit: contain;
+}
+
+/* Beat shared workspace/card caps so the SVG→PNG engine fills the stage. */
+html[data-svg-to-png-intro="1"] .s2p-fs.tool-intro-fs .s2p-fs__scene > .s2p-fs__workspace.animation-workspace {
+  width: min(100%, 46rem) !important;
+  height: clamp(20rem, 58vh, 32rem) !important;
+  max-width: min(var(--splash-max-width, 880px), 96%) !important;
+  max-height: min(58vh, 32rem) !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
+  align-self: flex-start !important;
 }
 
 .s2p-fs__engine {
@@ -142,12 +172,14 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.45rem;
   box-sizing: border-box;
   width: 100%;
-  min-height: 220px !important;
-  max-height: 300px !important;
-  padding: 0.55rem;
+  height: auto;
+  min-height: 0;
+  max-height: calc(100% - 2.5rem);
+  flex: 1 1 auto;
+  padding: 0.85rem;
   overflow: hidden;
   border: 1px solid rgba(34, 211, 238, 0.35);
   border-radius: 1rem;
@@ -155,6 +187,17 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
   box-shadow:
     0 22px 52px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(59, 130, 246, 0.08);
+}
+
+html[data-svg-to-png-intro="1"] .s2p-fs.tool-intro-fs .s2p-fs__workspace.animation-workspace > .s2p-fs__engine.s2p-fs__engine {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: calc(100% - 2.5rem) !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  aspect-ratio: auto !important;
 }
 
 .s2p-fs__panel {
@@ -171,10 +214,10 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
   align-items: center;
   justify-content: center;
   align-self: flex-start;
-  min-width: 2.8rem;
-  padding: 0.2rem 0.45rem;
+  min-width: 3.4rem;
+  padding: 0.28rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.62rem;
+  font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.07em;
   font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
@@ -495,15 +538,15 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
 
 .s2p-fs__res {
   position: absolute;
-  right: 0.4rem;
-  bottom: 0.35rem;
+  right: 0.5rem;
+  bottom: 0.45rem;
   z-index: 2;
-  padding: 0.1rem 0.35rem;
+  padding: 0.16rem 0.45rem;
   border-radius: 999px;
   border: 1px solid rgba(59, 130, 246, 0.45);
   background: rgba(15, 23, 42, 0.82);
   color: #93c5fd;
-  font-size: 0.5rem;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
@@ -517,13 +560,13 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
   align-self: center;
   gap: 0.4rem;
   flex: 0 0 auto;
-  min-height: 1.75rem;
-  padding: 0.28rem 0.75rem;
+  min-height: 2rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 999px;
   border: 1px solid rgba(34, 211, 238, 0.45);
   background: rgba(8, 47, 73, 0.65);
   color: var(--s2p-cyan-soft);
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -907,15 +950,20 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
 }
 
 @media (max-width: 640px) {
-  .s2p-fs__workspace {
-    min-height: 250px !important;
-    max-height: 340px !important;
+  .s2p-fs__workspace,
+  html[data-svg-to-png-intro="1"] .s2p-fs.tool-intro-fs .s2p-fs__scene > .s2p-fs__workspace.animation-workspace {
+    width: min(100%, 40rem) !important;
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, 30rem) !important;
+    min-height: 0 !important;
   }
 
-  .s2p-fs__engine {
-    min-height: 200px !important;
-    gap: 0.2rem;
-    padding: 0.4rem;
+  .s2p-fs__engine,
+  html[data-svg-to-png-intro="1"] .s2p-fs.tool-intro-fs .s2p-fs__workspace.animation-workspace > .s2p-fs__engine.s2p-fs__engine {
+    min-height: 0 !important;
+    max-height: calc(100% - 2.5rem) !important;
+    gap: 0.3rem;
+    padding: 0.65rem;
   }
 
   .s2p-fs__bridge {
@@ -926,11 +974,21 @@ html[data-svg-to-png-intro="1"] [class*="cookie"] {
     display: none;
   }
 
-  .s2p-fs__stage {
-    margin-top: 20px;
+  .s2p-fs__stage,
+  html[data-svg-to-png-intro="1"] .s2p-fs.tool-intro-fs .s2p-fs__stage {
+    margin-top: 0 !important;
   }
 
   .s2p-fs__cta {
     min-width: min(100% - 2rem, 16rem);
+  }
+}
+
+@media (max-height: 700px) {
+  .s2p-fs__workspace,
+  html[data-svg-to-png-intro="1"] .s2p-fs.tool-intro-fs .s2p-fs__scene > .s2p-fs__workspace.animation-workspace {
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, calc(100dvh - 150px), 30rem) !important;
+    min-height: 0 !important;
   }
 }

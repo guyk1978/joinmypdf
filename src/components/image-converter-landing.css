@@ -33,16 +33,19 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
   max-width: 100vw;
   max-height: 100dvh;
   margin: 0;
-  padding: 24px 0;
+  padding:
+    clamp(0.55rem, 1.4vh, 1.1rem)
+    0
+    clamp(0.7rem, 1.8vh, 1.25rem);
   overflow: hidden;
   background: #000000 !important;
   background-color: #000000 !important;
   color: #f8fafc;
   font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
   --splash-zoom: 1;
-  --splash-max-width: 540px;
-  --splash-wide-min-height: 280px;
-  --splash-wide-max-height: 360px;
+  --splash-max-width: 880px;
+  --splash-wide-min-height: 320px;
+  --splash-wide-max-height: 512px;
   --icv-cyan: #22d3ee;
   --icv-blue: #2563eb;
   --icv-blue-deep: #1d4ed8;
@@ -54,11 +57,11 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
-  gap: 0.45rem;
+  gap: 0.3rem;
   width: 100%;
   max-width: min(64rem, calc(100vw - 2rem));
   padding-inline: clamp(1rem, 4vw, 3rem);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.15rem;
   text-align: center;
   position: relative;
   z-index: 3;
@@ -92,46 +95,73 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
 
 .icv-fs__stage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex: 1 1 auto;
   min-height: 0;
   width: 100%;
-  max-height: calc(100vh - 220px);
-  max-height: calc(100dvh - 220px);
-  margin-top: 32px;
-  padding-top: 8px;
-  padding-bottom: 12px;
+  max-height: calc(100vh - 156px);
+  max-height: calc(100dvh - 156px);
+  margin-top: 0;
+  padding-top: 2px;
+  padding-bottom: 6px;
   padding-inline: clamp(0.75rem, 2.5vw, 1.75rem);
-  overflow: visible;
+  overflow: hidden;
+}
+
+html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__stage {
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  align-items: flex-start !important;
 }
 
 .icv-fs__scene {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: auto;
   max-width: 100%;
   max-height: 100%;
   min-height: 0;
   overflow: visible;
 }
 
+html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__scene {
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
+}
+
 .icv-fs__workspace {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  flex: 1;
-  width: 90%;
-  max-width: 540px;
-  min-height: 280px !important;
-  height: auto;
-  max-height: 360px !important;
+  flex: 0 0 auto;
+  width: min(100%, 46rem);
+  max-width: 100%;
+  height: clamp(20rem, 58vh, 32rem);
+  min-height: 0;
+  max-height: min(58vh, 32rem);
   margin: 0 auto;
   overflow: visible;
   object-fit: contain;
+}
+
+/* Beat shared workspace/card caps so the converter stage fills the stage. */
+html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__scene > .icv-fs__workspace.animation-workspace {
+  width: min(100%, 46rem) !important;
+  height: clamp(20rem, 58vh, 32rem) !important;
+  max-width: min(var(--splash-max-width, 880px), 96%) !important;
+  max-height: min(58vh, 32rem) !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
+  align-self: flex-start !important;
 }
 
 .icv-fs__card {
@@ -140,14 +170,14 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  gap: 0.5rem;
+  gap: 0.7rem;
   width: 100%;
   max-width: 100%;
-  height: auto;
-  min-height: 280px !important;
-  max-height: 360px !important;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
   min-width: 0;
-  padding: 0.8rem 0.9rem 0.85rem;
+  padding: 1rem 1.1rem 1.05rem;
   overflow: hidden;
   object-fit: contain;
   border: 1px solid rgba(34, 211, 238, 0.38);
@@ -156,6 +186,17 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
   box-shadow:
     0 22px 52px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(37, 99, 235, 0.08);
+}
+
+html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__workspace.animation-workspace > .icv-fs__card.icv-fs__card {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  aspect-ratio: auto !important;
 }
 
 .icv-fs__badges {
@@ -171,10 +212,10 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 3.4rem;
-  padding: 0.28rem 0.55rem;
+  min-width: 4rem;
+  padding: 0.35rem 0.7rem;
   border-radius: 0.35rem;
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 900;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -223,11 +264,11 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
+  gap: 0.75rem;
   flex: 1 1 auto;
-  min-height: 170px !important;
+  min-height: 0;
   width: 100%;
-  max-height: min(220px, 100%);
+  max-height: none;
   overflow: visible;
 }
 
@@ -236,9 +277,9 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
+  gap: 0.4rem;
   flex: 0 0 auto;
-  padding: 0.22rem;
+  padding: 0.3rem;
   border-radius: 999px;
   border: 1px solid rgba(34, 211, 238, 0.28);
   background: rgba(15, 23, 42, 0.85);
@@ -247,9 +288,9 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
 .icv-fs__pill {
   position: relative;
   z-index: 1;
-  padding: 0.18rem 0.45rem;
+  padding: 0.28rem 0.65rem;
   border-radius: 999px;
-  font-size: 0.58rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
@@ -263,10 +304,10 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
 
 .icv-fs__selector {
   position: absolute;
-  top: 0.18rem;
-  bottom: 0.18rem;
-  left: 0.22rem;
-  width: calc(25% - 0.18rem);
+  top: 0.26rem;
+  bottom: 0.26rem;
+  left: 0.3rem;
+  width: calc(25% - 0.22rem);
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(34, 211, 238, 0.35) 0%, rgba(37, 99, 235, 0.45) 100%);
   border: 1px solid rgba(34, 211, 238, 0.55);
@@ -276,8 +317,8 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
 
 .icv-fs__media {
   position: relative;
-  width: min(78%, 260px);
-  height: min(130px, 100%);
+  width: min(88%, 28rem);
+  height: min(14rem, 100%);
   margin: 0 auto;
 }
 
@@ -324,12 +365,12 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
 
 .icv-fs__fmt {
   position: absolute;
-  top: 0.45rem;
-  right: 0.45rem;
+  top: 0.55rem;
+  right: 0.55rem;
   z-index: 2;
-  padding: 0.14rem 0.4rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 0.25rem;
-  font-size: 0.62rem;
+  font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.06em;
   font-family: "Cascadia Mono", "Consolas", ui-monospace, monospace;
@@ -381,13 +422,13 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
   justify-content: center;
   align-self: center;
   flex: 0 0 auto;
-  gap: 0.35rem;
-  padding: 0.32rem 0.75rem;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
   border: 1px solid rgba(34, 211, 238, 0.5);
   border-radius: 999px;
   background: #155e75;
   color: #a5f3fc;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 700;
   white-space: nowrap;
   animation: icv-fs-ok 10s ease-in-out infinite;
@@ -596,34 +637,38 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
 
 @media (max-width: 640px) {
   .icv-fs {
-    padding: 16px 0;
-    --splash-wide-max-height: 300px;
+    padding: 12px 0;
+    --splash-wide-max-height: 420px;
   }
 
-  .icv-fs__stage {
-    margin-top: 24px;
+  .icv-fs__stage,
+  html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__stage {
+    margin-top: 0 !important;
   }
 
-  .icv-fs__card {
-    gap: 0.4rem;
-    padding: 0.65rem 0.7rem 0.7rem;
-    min-height: 240px !important;
-    max-height: 300px !important;
+  .icv-fs__workspace,
+  html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__scene > .icv-fs__workspace.animation-workspace {
+    width: min(100%, 40rem) !important;
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, 30rem) !important;
   }
 
-  .icv-fs__workspace {
-    min-height: 240px !important;
-    max-height: 300px !important;
+  .icv-fs__card,
+  html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__workspace.animation-workspace > .icv-fs__card.icv-fs__card {
+    gap: 0.55rem;
+    padding: 0.85rem 0.9rem 0.9rem;
+    min-height: 0 !important;
+    max-height: 100% !important;
   }
 
   .icv-fs__stage-art {
-    min-height: 145px !important;
-    max-height: min(180px, 100%);
+    min-height: 0 !important;
+    max-height: none;
   }
 
   .icv-fs__media {
-    width: min(84%, 220px);
-    height: min(110px, 100%);
+    width: min(90%, 22rem);
+    height: min(11rem, 100%);
   }
 
   .icv-fs__cta {
@@ -635,9 +680,21 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
 
 @media (max-height: 700px) {
   .icv-fs__workspace,
-  .icv-fs__card {
-    min-height: 240px !important;
-    max-height: 300px !important;
+  html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__scene > .icv-fs__workspace.animation-workspace {
+    height: clamp(19rem, 56vh, 30rem) !important;
+    max-height: min(56vh, calc(100dvh - 150px), 30rem) !important;
+    min-height: 0 !important;
+  }
+
+  .icv-fs__card,
+  html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__workspace.animation-workspace > .icv-fs__card.icv-fs__card {
+    min-height: 0 !important;
+    max-height: 100% !important;
+  }
+
+  .icv-fs__media {
+    width: min(90%, 24rem);
+    height: min(12rem, 100%);
   }
 
   .icv-fs__title {
@@ -647,17 +704,21 @@ html[data-image-converter-intro="1"] [class*="cookie"] {
 
 @media (max-height: 560px) {
   .icv-fs {
-    padding: 12px 0;
+    padding: 10px 0;
   }
 
-  .icv-fs__stage {
-    margin-top: 16px;
+  .icv-fs__stage,
+  html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__stage {
+    margin-top: 0 !important;
   }
 
   .icv-fs__workspace,
-  .icv-fs__card {
-    min-height: 210px !important;
-    max-height: 240px !important;
+  .icv-fs__card,
+  html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__scene > .icv-fs__workspace.animation-workspace,
+  html[data-image-converter-intro="1"] .icv-fs.tool-intro-fs .icv-fs__workspace.animation-workspace > .icv-fs__card.icv-fs__card {
+    min-height: 0 !important;
+    max-height: min(48vh, calc(100dvh - 140px), 22rem) !important;
+    height: clamp(16rem, 48vh, 22rem) !important;
   }
 
   .icv-fs__ok {

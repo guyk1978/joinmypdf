@@ -30,13 +30,15 @@ html[data-compress-image-intro="1"] [class*="cookie"] {
   max-height: 100dvh;
   margin: 0;
   padding:
-    clamp(1rem, 2.5vh, 2rem)
-    clamp(1.25rem, 4vw, 3rem)
-    clamp(1rem, 2.5vh, 1.75rem);
+    clamp(0.85rem, 2vh, 1.5rem)
+    clamp(1rem, 3.5vw, 2.5rem)
+    clamp(0.85rem, 2vh, 1.5rem);
   overflow: hidden;
   background: #000000;
   color: #f8fafc;
   font-family: "Segoe UI", "Avenir Next", "Century Gothic", ui-sans-serif, sans-serif;
+  --splash-zoom: 1;
+  --splash-max-width: 880px;
 }
 
 .cimg-fs__header {
@@ -44,11 +46,11 @@ html[data-compress-image-intro="1"] [class*="cookie"] {
   flex-direction: column;
   align-items: center;
   flex: 0 0 auto;
-  gap: 0.7rem;
+  gap: 0.45rem;
   width: 100%;
   max-width: 64rem;
   margin-inline: auto;
-  padding-bottom: clamp(0.65rem, 1.8vh, 1.25rem);
+  padding-bottom: 0.35rem;
   text-align: center;
 }
 
@@ -80,30 +82,58 @@ html[data-compress-image-intro="1"] [class*="cookie"] {
 
 .cimg-fs__stage {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   min-height: 0;
   width: 100%;
-  padding-block: clamp(0.5rem, 1.5vh, 1.25rem);
+  padding-block: 4px;
   overflow: hidden;
+}
+
+.cimg-fs.tool-intro-fs .cimg-fs__stage {
+  max-height: calc(100dvh - 156px) !important;
+  margin: 0 !important;
+  padding-top: 2px !important;
+  padding-bottom: 6px !important;
+  align-items: flex-start !important;
 }
 
 .cimg-fs__scene {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: min(100%, 44rem);
+  justify-content: flex-start;
+  width: min(100%, 48rem);
   max-height: 100%;
+}
+
+html[data-compress-image-intro="1"] .cimg-fs.tool-intro-fs .cimg-fs__scene {
+  align-items: center !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  max-height: 100% !important;
 }
 
 .cimg-fs__workspace {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  width: min(100%, 34rem);
-  height: clamp(14rem, 42vh, 22rem);
+  width: min(100%, 50rem);
+  max-width: 100%;
+  height: clamp(22rem, 66vh, 36rem);
+  overflow: visible;
+}
+
+/* Beat shared workspace/card caps so the compress preview fills the stage. */
+html[data-compress-image-intro="1"] .cimg-fs.tool-intro-fs .cimg-fs__scene > .cimg-fs__workspace.animation-workspace {
+  width: min(100%, 50rem) !important;
+  height: clamp(22rem, 66vh, 36rem) !important;
+  max-width: min(var(--splash-max-width, 880px), 96%) !important;
+  max-height: min(66vh, 36rem) !important;
+  margin: 0 auto !important;
+  zoom: 1 !important;
+  align-self: flex-start !important;
 }
 
 .cimg-fs__particles {
@@ -115,11 +145,11 @@ html[data-compress-image-intro="1"] [class*="cookie"] {
 
 .cimg-fs__particles span {
   position: absolute;
-  width: 0.3rem;
-  height: 0.3rem;
+  width: 0.45rem;
+  height: 0.45rem;
   border-radius: 999px;
   background: #7dd3fc;
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.75);
   opacity: 0;
   animation: cimg-fs-particle 8.5s ease-in-out infinite;
 }
@@ -137,9 +167,10 @@ html[data-compress-image-intro="1"] [class*="cookie"] {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: min(100%, 28rem);
+  width: 100%;
   height: 100%;
   max-height: 100%;
+  min-height: 0;
   overflow: hidden;
   border: 1px solid rgba(56, 189, 248, 0.3);
   border-radius: 0.85rem;
@@ -147,6 +178,17 @@ html[data-compress-image-intro="1"] [class*="cookie"] {
   box-shadow:
     0 18px 44px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(56, 189, 248, 0.08);
+}
+
+html[data-compress-image-intro="1"] .cimg-fs.tool-intro-fs .cimg-fs__workspace.animation-workspace > .cimg-fs__card.cimg-fs__card {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  aspect-ratio: auto !important;
 }
 
 .cimg-fs__photo {
@@ -606,9 +648,16 @@ html[data-compress-image-intro="1"] [class*="cookie"] {
     font-size: clamp(1.25rem, 5.4vw, 1.8rem);
   }
 
-  .cimg-fs__workspace {
-    width: min(100%, 22rem);
-    height: clamp(12rem, 36vh, 17rem);
+  .cimg-fs__workspace,
+  html[data-compress-image-intro="1"] .cimg-fs.tool-intro-fs .cimg-fs__scene > .cimg-fs__workspace.animation-workspace {
+    width: min(100%, 34rem) !important;
+    height: clamp(18rem, 52vh, 26rem) !important;
+    max-height: min(52vh, 26rem) !important;
+  }
+
+  html[data-compress-image-intro="1"] .cimg-fs.tool-intro-fs .cimg-fs__workspace.animation-workspace > .cimg-fs__card.cimg-fs__card {
+    height: 100% !important;
+    max-height: 100% !important;
   }
 
   .cimg-fs__cta {
@@ -622,8 +671,15 @@ html[data-compress-image-intro="1"] [class*="cookie"] {
     font-size: clamp(1.25rem, 3.2vw, 2.1rem);
   }
 
-  .cimg-fs__workspace {
-    height: clamp(11rem, 34vh, 16rem);
+  .cimg-fs__workspace,
+  html[data-compress-image-intro="1"] .cimg-fs.tool-intro-fs .cimg-fs__scene > .cimg-fs__workspace.animation-workspace {
+    height: clamp(18rem, 54vh, 28rem) !important;
+    max-height: min(54vh, calc(100dvh - 160px), 28rem) !important;
+  }
+
+  html[data-compress-image-intro="1"] .cimg-fs.tool-intro-fs .cimg-fs__workspace.animation-workspace > .cimg-fs__card.cimg-fs__card {
+    height: 100% !important;
+    max-height: 100% !important;
   }
 }
 
