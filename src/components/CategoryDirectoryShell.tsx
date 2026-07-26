@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import {
@@ -20,6 +21,8 @@ type CategoryDirectoryShellProps = {
   featuredDescription?: string;
   workflowColumns: DirectoryWorkflowColumn[];
   flatGridItems?: ToolGridItem[];
+  /** Breadcrumb trail rendered just above the category eyebrow/title. */
+  breadcrumbs?: ReactNode;
 };
 
 export function CategoryDirectoryShell({
@@ -33,10 +36,14 @@ export function CategoryDirectoryShell({
   featuredDescription,
   workflowColumns,
   flatGridItems,
+  breadcrumbs,
 }: CategoryDirectoryShellProps) {
   return (
     <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
       <header className="tools-directory-page__head">
+        {breadcrumbs ? (
+          <div className="tools-directory-page__breadcrumbs">{breadcrumbs}</div>
+        ) : null}
         {eyebrow ? <p className="tools-directory-page__eyebrow">{eyebrow}</p> : null}
         <h1 className="tools-directory-page__title">{title}</h1>
         <p className="tools-directory-page__desc">{description}</p>

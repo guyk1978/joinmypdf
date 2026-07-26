@@ -68,33 +68,34 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <nav aria-label="Breadcrumb" className="tool-breadcrumbs mb-6">
-            <ol className="tool-breadcrumbs__list">
-              {breadcrumbItems.map((item, index) => {
-                const isLast = index === breadcrumbItems.length - 1;
-                return (
-                  <li key={`${item.href}-${index}`} className="tool-breadcrumbs__item">
-                    {isLast ? (
-                      <span className="tool-breadcrumbs__current" aria-current="page">
-                        {item.label}
-                      </span>
-                    ) : (
-                      <>
-                        <Link href={item.href} className="tool-breadcrumbs__link" prefetch={false}>
-                          {item.label}
-                        </Link>
-                        <span className="tool-breadcrumbs__sep" aria-hidden="true">
-                          /
-                        </span>
-                      </>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-          </nav>
-
           <header className="tools-directory-page__head">
+            <div className="tools-directory-page__breadcrumbs">
+              <nav aria-label="Breadcrumb" className="tool-breadcrumbs">
+                <ol className="tool-breadcrumbs__list">
+                  {breadcrumbItems.map((item, index) => {
+                    const isLast = index === breadcrumbItems.length - 1;
+                    return (
+                      <li key={`${item.href}-${index}`} className="tool-breadcrumbs__item">
+                        {isLast ? (
+                          <span className="tool-breadcrumbs__current" aria-current="page">
+                            {item.label}
+                          </span>
+                        ) : (
+                          <>
+                            <Link href={item.href} className="tool-breadcrumbs__link" prefetch={false}>
+                              {item.label}
+                            </Link>
+                            <span className="tool-breadcrumbs__sep" aria-hidden="true">
+                              /
+                            </span>
+                          </>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ol>
+              </nav>
+            </div>
             <h1 className="tools-directory-page__title">{t("title")}</h1>
             <p className="tools-directory-page__desc">{t("description")}</p>
           </header>

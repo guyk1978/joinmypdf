@@ -11,7 +11,10 @@ import { ToolCardExample } from "@/components/ToolCardExample";
 import { ToolPinButton } from "@/components/ToolPinButton";
 import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
-import { getCategoryAccentCssVar } from "@/lib/category-accent-colors";
+import {
+  getCategoryAccentCssVar,
+  resolveToolAccentCategoryId,
+} from "@/lib/category-accent-colors";
 import { renderTextWithLtrUnits } from "@/lib/text-direction";
 
 type ToolCardFocusProps = {
@@ -58,6 +61,15 @@ export function ToolCardFocus({
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
   const controlled = openProp !== undefined;
   const open = controlled ? openProp : uncontrolledOpen;
+
+  const accentCategoryId =
+    resolveToolAccentCategoryId(slug, categoryId) ?? categoryId;
+  const accentStyle = accentCategoryId
+    ? ({
+        "--category-accent": getCategoryAccentCssVar(accentCategoryId),
+        "--star-rating-color": getCategoryAccentCssVar(accentCategoryId),
+      } as CSSProperties)
+    : undefined;
 
   const setOpen = useCallback(
     (next: boolean) => {
@@ -109,19 +121,13 @@ export function ToolCardFocus({
               role="dialog"
               aria-modal="true"
               aria-label={t("focusDialogAria", { label })}
-              style={
-                categoryId
-                  ? ({
-                      "--category-accent": getCategoryAccentCssVar(categoryId),
-                    } as CSSProperties)
-                  : undefined
-              }
+              style={accentStyle}
               onClick={(event) => {
                 event.stopPropagation();
                 if (event.target === event.currentTarget) close();
               }}
             >
-              <div className="tool-card-focus__card">
+              <div className="tool-card-focus__card" style={accentStyle}>
                 <div className="tool-card-focus__toolbar">
                   <ToolPinButton
                     toolId={slug}
@@ -155,7 +161,7 @@ export function ToolCardFocus({
                   {showRating ? (
                     <ToolRatingSummary
                       toolId={slug}
-                      categoryId={categoryId}
+                      categoryId={accentCategoryId}
                       className="tool-card-focus__rating"
                     />
                   ) : (

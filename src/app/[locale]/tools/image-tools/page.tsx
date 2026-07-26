@@ -59,34 +59,36 @@ export default async function ImageToolsPage({ params }: Props) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell>
-        <div className="page-container">
-          <nav aria-label="Breadcrumb" className="tool-breadcrumbs mb-6">
-            <ol className="tool-breadcrumbs__list">
-              {crumbs.map((crumb, index) => {
-                const isLast = index === crumbs.length - 1;
-                return (
-                  <li key={`${crumb.path}-${index}`} className="tool-breadcrumbs__item">
-                    {isLast ? (
-                      <span className="tool-breadcrumbs__current" aria-current="page">
-                        {crumb.name}
-                      </span>
-                    ) : (
-                      <>
-                        <Link href={crumb.path} className="tool-breadcrumbs__link" prefetch={false}>
+        <CategoryDirectoryShell
+          {...page}
+          breadcrumbs={
+            <nav aria-label="Breadcrumb" className="tool-breadcrumbs">
+              <ol className="tool-breadcrumbs__list">
+                {crumbs.map((crumb, index) => {
+                  const isLast = index === crumbs.length - 1;
+                  return (
+                    <li key={`${crumb.path}-${index}`} className="tool-breadcrumbs__item">
+                      {isLast ? (
+                        <span className="tool-breadcrumbs__current" aria-current="page">
                           {crumb.name}
-                        </Link>
-                        <span className="tool-breadcrumbs__sep" aria-hidden="true">
-                          /
                         </span>
-                      </>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-          </nav>
-          <CategoryDirectoryShell {...page} />
-        </div>
+                      ) : (
+                        <>
+                          <Link href={crumb.path} className="tool-breadcrumbs__link" prefetch={false}>
+                            {crumb.name}
+                          </Link>
+                          <span className="tool-breadcrumbs__sep" aria-hidden="true">
+                            /
+                          </span>
+                        </>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+            </nav>
+          }
+        />
       </AppPageShell>
     </>
   );
