@@ -2,6 +2,7 @@
 
 import { BookMarked, Layers } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { ToolSidebarBanner } from "@/components/ToolSidebarBanner";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
@@ -11,6 +12,8 @@ import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 
 /** Splash overlays sit at 999999 — the rails ride just above them. */
 const RAIL_Z_INDEX = 1000000;
+const SPLASH_MIN = 480;
+const HEIGHT_HIDE = 520;
 
 const FALLBACK = {
   imageCombiner: {
@@ -30,6 +33,38 @@ const FALLBACK = {
 } as const;
 
 type PromoKey = keyof typeof FALLBACK;
+type RailMode = "both" | "one" | "none";
+
+function bannerWidthForViewport(width: number): number {
+  if (width >= 1536) return 250;
+  if (width >= 1280) return 210;
+  if (width >= 1024) return 188;
+  return 150;
+}
+
+function gapForViewport(width: number): number {
+  if (width >= 1280) return 64;
+  if (width >= 1024) return 48;
+  return 32;
+}
+
+/** Measure free CSS width and pick both / one / no rails. */
+function measureRailMode(): RailMode {
+  if (typeof window === "undefined") return "none";
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  if (h <= HEIGHT_HIDE || w < 768) return "none";
+
+  const bannerW = bannerWidthForViewport(w);
+  const gap = gapForViewport(w);
+  const pad = 32;
+  const needBoth = 2 * bannerW + SPLASH_MIN + gap * 2 + pad;
+  const needOne = bannerW + SPLASH_MIN + gap + pad;
+
+  if (w >= Math.max(1200, needBoth)) return "both";
+  if (w >= needOne) return "one";
+  return "none";
+}
 
 /** True when the landing on screen belongs to the promoted tool itself. */
 function isOwnLanding(pathname: string, slug: string): boolean {
@@ -40,18 +75,25 @@ function isOwnLanding(pathname: string, slug: string): boolean {
 }
 
 /**
- * Cross-promo rails for the empty columns flanking a tool landing's centre card.
- * Shown from the `md` breakpoint (768px+) so they still appear on laptops at
- * 125–150% browser zoom (CSS viewport shrinks under page zoom).
- * Each banner hides on its own tool's landing.
+ * Cross-promo rails flanking a tool landing splash.
+ * Progressive reveal by measured free width (not breakpoints alone):
+ * both ≥~1200 CSS px · one rail intermediate · none when center would be cramped.
  */
 export function ToolIntroSideBanners() {
   const t = useTranslations("ToolSidebarBanners");
   const introActive = useToolIntroSplashActive();
   const embed = useToolEmbedMode();
   const pathname = usePathname() || "/";
+  const [railMode, setRailMode] = useState<RailMode>("none");
 
-  if (!introActive || embed) return null;
+  useEffect(() => {
+    const sync = () => setRailMode(measureRailMode());
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, []);
+
+  if (!introActive || embed || railMode === "none") return null;
 
   const showImageCombiner = !isOwnLanding(pathname, "image-combiner");
   const showPdfReader = !isOwnLanding(pathname, "pdf-reader");
@@ -62,20 +104,33 @@ export function ToolIntroSideBanners() {
     return t.has(path) ? t(path) : FALLBACK[promo][key];
   };
 
+  // One-rail mode: prefer PDF Reader; otherwise Image Combiner.
+  let left: PromoKey | null = null;
+  let right: PromoKey | null = null;
+
+  if (railMode === "both") {
+    left = showImageCombiner ? "imageCombiner" : null;
+    right = showPdfReader ? "pdfReader" : null;
+  } else if (showPdfReader) {
+    right = "pdfReader";
+  } else if (showImageCombiner) {
+    left = "imageCombiner";
+  }
+
+  if (!left && !right) return null;
+
   return createPortal(
     <div
       className={[
-        "tool-intro-side-rails pointer-events-none fixed inset-0 hidden items-center",
-        // md (768+) covers 1080p / 1366 laptops at 125–150% zoom.
-        "md:grid md:grid-cols-[auto_minmax(0,1fr)_auto]",
+        "tool-intro-side-rails pointer-events-none fixed inset-0 grid items-center",
+        "grid-cols-[auto_minmax(0,1fr)_auto]",
         "gap-3 px-3 md:gap-4 md:px-4 lg:gap-6 lg:px-6 xl:gap-8 xl:px-8",
-        // 1080p @ 150% zoom ≈ 720px CSS height — keep rails visible there.
-        "[@media(max-height:520px)]:!hidden",
       ].join(" ")}
       style={{ zIndex: RAIL_Z_INDEX }}
+      data-rail-mode={railMode}
     >
       <div className="pointer-events-auto flex justify-self-start">
-        {showImageCombiner ? (
+        {left === "imageCombiner" ? (
           <ToolSidebarBanner
             href="/tools/image-combiner/"
             icon={<Layers className="h-5 w-5 max-lg:h-4 max-lg:w-4" strokeWidth={1.75} />}
@@ -87,11 +142,10 @@ export function ToolIntroSideBanners() {
         ) : null}
       </div>
 
-      {/* Reserves the centre splash column so banners stay clear of the animation card. */}
       <div className="min-h-0 min-w-0" aria-hidden />
 
       <div className="pointer-events-auto flex justify-self-end">
-        {showPdfReader ? (
+        {right === "pdfReader" ? (
           <ToolSidebarBanner
             href="/tools/pdf-reader/"
             icon={<BookMarked className="h-5 w-5 max-lg:h-4 max-lg:w-4" strokeWidth={1.75} />}

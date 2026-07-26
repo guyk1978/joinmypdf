@@ -33,31 +33,26 @@
   text-align: start;
 }
 
-/* Soft ambient glow behind the hero title (blue / purple / green) */
+/* Soft ambient glow behind the hero title — cool zinc only (no purple) */
 .home-landing__intro::before {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -70% -35% -40% -45%;
+  inset: -50% -25% -30% -30%;
   pointer-events: none;
   background:
     radial-gradient(
-      ellipse 55% 65% at 12% 45%,
-      color-mix(in srgb, #2563EB 42%, transparent),
+      ellipse 50% 60% at 20% 40%,
+      color-mix(in srgb, #525252 35%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      ellipse 50% 60% at 52% 15%,
-      color-mix(in srgb, #a855f7 34%, transparent),
+      ellipse 45% 55% at 80% 50%,
+      color-mix(in srgb, #3f3f46 28%, transparent),
       transparent 70%
-    ),
-    radial-gradient(
-      ellipse 45% 55% at 88% 55%,
-      color-mix(in srgb, #22c55e 28%, transparent),
-      transparent 68%
     );
-  filter: blur(48px);
-  opacity: 0.9;
+  filter: blur(40px);
+  opacity: 0.7;
 }
 
 .home-landing__title {
@@ -68,7 +63,7 @@
   letter-spacing: -0.03em;
   color: #ffffff;
   text-wrap: balance;
-  text-shadow: 0 0 40px color-mix(in srgb, #60a5fa 25%, transparent);
+  text-shadow: none;
 }
 
 .home-landing__tagline {
@@ -77,6 +72,16 @@
   line-height: 1.55;
   color: #d4d4d4;
   text-wrap: pretty;
+}
+
+/* Secondary carousels sit below the primary Quick Actions fold */
+.home-landing__secondary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--im-home-section-gap, 3rem);
+  margin-top: var(--im-home-section-gap, 3rem);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--im-home-divider, #1a1a1a);
 }
 
 .home-category-launcher {

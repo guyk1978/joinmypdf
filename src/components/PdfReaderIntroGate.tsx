@@ -23,16 +23,10 @@ export function PdfReaderIntroGate({
   active = true,
   children,
 }: PdfReaderIntroGateProps) {
-  const { introActive, phase, portalReady, startTool } = useIntroGatePhase({
+  const { introActive, phase, portalReady, startTool, ctaRef } = useIntroGatePhase({
     active,
     dataAttribute: "data-pdf-reader-intro",
-    onPortalReady: () => {
-      try {
-        window.sessionStorage.removeItem("joinmypdf:pdf-reader-intro-done");
-      } catch {
-        /* ignore */
-      }
-    },
+    persistKey: "joinmypdf:pdf-reader-intro-done",
   });
   const t = useTranslations("PdfReaderLanding");
 
@@ -47,7 +41,7 @@ export function PdfReaderIntroGate({
         aria-labelledby="prd-fs-title"
         style={{ backgroundColor: "#000000", zIndex: 999999 }}
       >
-        <header className="prd-fs__header">
+        <header className="prd-fs__header tool-intro__header">
           <h1 id="prd-fs-title" className="prd-fs__title">
             <span className="prd-fs__title-brand">{t("brand")}</span>
             <span className="prd-fs__title-rest"> {t("titleRest")}</span>
@@ -55,9 +49,9 @@ export function PdfReaderIntroGate({
           <p className="prd-fs__subtitle">{t("subtitle")}</p>
         </header>
 
-        <div className="prd-fs__stage" aria-hidden>
+        <div className="prd-fs__stage tool-intro__stage" aria-hidden>
           <div className="prd-fs__scene">
-            <div className="prd-fs__workspace animation-workspace">
+            <div className="prd-fs__workspace animation-workspace tool-intro__visual">
               <div className="prd-fs__card">
                 <div className="prd-fs__viewer">
                   <div className="prd-fs__chrome">
@@ -94,8 +88,9 @@ export function PdfReaderIntroGate({
           </div>
         </div>
 
-        <div className="prd-fs__footer">
+        <div className="prd-fs__footer tool-intro__footer">
           <button
+            ref={ctaRef}
             type="button"
             className="prd-fs__cta"
             onClick={(event) => {
@@ -105,6 +100,16 @@ export function PdfReaderIntroGate({
             }}
           >
             {t("getStarted")}
+          </button>
+          <button
+            type="button"
+            className="tool-intro__skip"
+            onClick={(event) => {
+              event.preventDefault();
+              startTool();
+            }}
+          >
+            {t.has("skip") ? t("skip") : "Skip"}
           </button>
         </div>
       </div>

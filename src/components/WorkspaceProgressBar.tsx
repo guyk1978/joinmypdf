@@ -8,7 +8,7 @@ export function WorkspaceProgressBar({ percent, label }: WorkspaceProgressBarPro
   const clamped = Math.min(100, Math.max(0, percent));
 
   return (
-    <div className="space-y-2 text-start" aria-live="polite">
+    <div className="workspace-progress-host space-y-2 text-start" aria-live="polite">
       <div className="flex items-center justify-between gap-3 text-xs text-ink-muted">
         <span className="min-w-0 flex-1">{label}</span>
         <span dir="ltr">{clamped}%</span>

@@ -79,6 +79,7 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const inputRef = useRef<HTMLInputElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textLayerRef = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const docRef = useRef<PdfJsDocument | null>(null);
   const renderTokenRef = useRef(0);
@@ -87,6 +88,7 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const baseId = useId();
   fsModeRef.current = fsMode;
   const docFullscreen = fsMode !== "off";
+  const [fitScale, setFitScale] = useState(1);
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
@@ -241,18 +243,59 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   }, [docFullscreen]);
 
   useEffect(() => {
+    if (!docFullscreen) {
+      setFitScale(1);
+      return;
+    }
+    const viewport = viewportRef.current;
+    const page = pageRef.current;
+    if (!viewport || !page) return;
+
+    const updateFit = () => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const naturalW = canvas.width || canvas.getBoundingClientRect().width;
+      const naturalH = canvas.height || canvas.getBoundingClientRect().height;
+      if (!naturalW || !naturalH) return;
+      const padX = 24;
+      const padY = 96; // room for fullscreen toolbar
+      const availW = Math.max(120, viewport.clientWidth - padX);
+      const availH = Math.max(120, viewport.clientHeight - padY);
+      const next = Math.min(1, availW / naturalW, availH / naturalH);
+      setFitScale(Number.isFinite(next) && next > 0 ? next : 1);
+    };
+
+    updateFit();
+    const ro = new ResizeObserver(updateFit);
+    ro.observe(viewport);
+    ro.observe(page);
+    return () => ro.disconnect();
+  }, [docFullscreen, pageNumber, zoom, rendering]);
+
+  useEffect(() => {
     if (!docFullscreen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      // Own Escape in this turn so the parent ToolModal does not close the session.
-      event.preventDefault();
-      event.stopPropagation();
-      setFsMode("off");
-      if (getFullscreenElement()) void exitDocumentFullscreen().catch(() => undefined);
+      if (event.key === "Escape") {
+        // Own Escape in this turn so the parent ToolModal does not close the session.
+        event.preventDefault();
+        event.stopPropagation();
+        setFsMode("off");
+        if (getFullscreenElement()) void exitDocumentFullscreen().catch(() => undefined);
+        return;
+      }
+      if (event.key === "ArrowLeft" || event.key === "PageUp") {
+        event.preventDefault();
+        setPageNumber((n) => Math.max(1, n - 1));
+        return;
+      }
+      if (event.key === "ArrowRight" || event.key === "PageDown") {
+        event.preventDefault();
+        setPageNumber((n) => Math.min(pageCount, n + 1));
+      }
     };
     window.addEventListener("keydown", onKeyDown, true);
     return () => window.removeEventListener("keydown", onKeyDown, true);
-  }, [docFullscreen]);
+  }, [docFullscreen, pageCount]);
 
   const toggleDocFullscreen = useCallback(async () => {
     const viewport = viewportRef.current;
@@ -472,17 +515,71 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             aria-busy={rendering || busy}
           >
             {docFullscreen ? (
-              <button
-                type="button"
-                className="pdf-reader-viewport__exit-fs"
-                onClick={() => void toggleDocFullscreen()}
-                aria-label={exitFullscreenLabel}
-              >
-                <Minimize2 className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
-                <span>{exitFullscreenLabel}</span>
-              </button>
+              <div className="pdf-reader-viewport__fs-toolbar" role="toolbar" aria-label={ws.wsUi("toolbarLabel")}>
+                <div className="pdf-reader-toolbar__group">
+                  <button
+                    type="button"
+                    className="pdf-reader-toolbar__btn"
+                    disabled={busy || rendering || pageNumber <= 1}
+                    onClick={() => setPageNumber((n) => Math.max(1, n - 1))}
+                  >
+                    {ws.wsUi("prevPage")}
+                  </button>
+                  <span className="pdf-reader-toolbar__page pdf-reader-toolbar__page--static" aria-live="polite">
+                    {pageNumber} / {pageCount}
+                  </span>
+                  <button
+                    type="button"
+                    className="pdf-reader-toolbar__btn"
+                    disabled={busy || rendering || pageNumber >= pageCount}
+                    onClick={() => setPageNumber((n) => Math.min(pageCount, n + 1))}
+                  >
+                    {ws.wsUi("nextPage")}
+                  </button>
+                </div>
+                <div className="pdf-reader-toolbar__group">
+                  <button
+                    type="button"
+                    className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
+                    disabled={busy || rendering || zoom <= ZOOM_MIN}
+                    onClick={() => setZoom((z) => Math.max(ZOOM_MIN, Number((z - ZOOM_STEP).toFixed(2))))}
+                    aria-label={ws.wsUi("zoomOut")}
+                  >
+                    <ZoomOut className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
+                  </button>
+                  <span className="pdf-reader-toolbar__zoom" aria-live="polite">
+                    {zoomPct}%
+                  </span>
+                  <button
+                    type="button"
+                    className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
+                    disabled={busy || rendering || zoom >= ZOOM_MAX}
+                    onClick={() => setZoom((z) => Math.min(ZOOM_MAX, Number((z + ZOOM_STEP).toFixed(2))))}
+                    aria-label={ws.wsUi("zoomIn")}
+                  >
+                    <ZoomIn className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
+                  </button>
+                  <button
+                    type="button"
+                    className="pdf-reader-viewport__exit-fs"
+                    onClick={() => void toggleDocFullscreen()}
+                    aria-label={exitFullscreenLabel}
+                  >
+                    <Minimize2 className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
+                    <span>{exitFullscreenLabel}</span>
+                  </button>
+                </div>
+              </div>
             ) : null}
-            <div className="pdf-reader-page">
+            <div
+              ref={pageRef}
+              className="pdf-reader-page"
+              style={
+                docFullscreen && fitScale < 1
+                  ? { transform: `scale(${fitScale})`, transformOrigin: "top center" }
+                  : undefined
+              }
+            >
               <canvas ref={canvasRef} className="pdf-reader-page__canvas" />
               <div ref={textLayerRef} className="textLayer pdf-reader-page__text" />
             </div>
@@ -490,6 +587,11 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               <div className="pdf-reader-viewport__loading" aria-live="polite">
                 {ws.wsCommon("loadingPreview") || ws.processing}
               </div>
+            ) : null}
+            {docFullscreen ? (
+              <p className="pdf-reader-viewport__fs-hint" aria-hidden>
+                Esc · ← →
+              </p>
             ) : null}
           </div>
 
@@ -508,33 +610,36 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         </div>
       ) : null}
 
-      {runError ? (
-        <ToolErrorRecovery
-          operation={tool.operation}
-          slug={slug}
-          kind={runError.kind}
-          technicalMessage={runError.message}
-          onDismiss={() => {
-            setRunError(null);
-            setStatus(file ? ws.wsStatus("tryAgain") : "");
-          }}
-        />
-      ) : (
-        <p className="text-sm text-neutral-700 dark:text-neutral-300" role="status" aria-live="polite">
-          {status}
-        </p>
-      )}
+      <div className="tool-workspace-feedback space-y-3">
+        {runError ? (
+          <ToolErrorRecovery
+            operation={tool.operation}
+            slug={slug}
+            kind={runError.kind}
+            technicalMessage={runError.message}
+            onDismiss={() => {
+              setRunError(null);
+              setStatus(file ? ws.wsStatus("tryAgain") : "");
+              inputRef.current?.click();
+            }}
+          />
+        ) : status ? (
+          <p className="text-sm text-neutral-700 dark:text-neutral-300" role="status" aria-live="polite">
+            {status}
+          </p>
+        ) : null}
 
-      {!showWorkspace && busy ? (
-        <div className="space-y-2" aria-live="polite">
-          <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
-            <span>{ws.processing}</span>
+        {!showWorkspace && busy ? (
+          <div className="workspace-progress-host space-y-2" aria-live="polite" role="status">
+            <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
+              <span>{ws.processing}</span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-none bg-neutral-100 dark:bg-neutral-800">
+              <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-700 dark:bg-neutral-300" />
+            </div>
           </div>
-          <div className="h-2 overflow-hidden rounded-none bg-neutral-100 dark:bg-neutral-800">
-            <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-700 dark:bg-neutral-300" />
-          </div>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </div>
   );
 }

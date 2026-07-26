@@ -3,6 +3,7 @@
 import { clsx } from "clsx";
 import { useLocale } from "next-intl";
 import type { ReactNode } from "react";
+import { PromoSurface } from "@/components/PromoSurface";
 import { Link } from "@/i18n/navigation";
 
 export type ToolSidebarBannerProps = {
@@ -24,6 +25,11 @@ export type ToolSidebarBannerProps = {
 /**
  * Cross-promo card for the empty side columns of a tool landing.
  * Full size is ~250×400; scales down on md/lg so laptop + browser zoom still fits.
+ *
+ * Rail contract (see ToolIntroSideBanners):
+ * - Visible from md (768+) when viewport height > ~520px
+ * - Progressive sizes: md 150×240 → lg 188×300 → xl 210×340 → 2xl 250×400
+ * - Height capped at min(400px, 52vh)
  */
 export function ToolSidebarBanner({
   title,
@@ -38,30 +44,21 @@ export function ToolSidebarBanner({
   const arrow = locale === "he" ? "←" : "→";
 
   return (
-    <aside
+    <PromoSurface
+      soft
+      ariaLabel={ariaLabel ?? title}
       className={clsx(
-        "tool-sidebar-banner relative flex shrink-0 flex-col overflow-hidden",
-        // Progressive scale for zoomed laptops (CSS viewport shrinks under browser zoom):
-        // md (768+ / ~1366@150%): compact · lg: mid · xl (1280 / 1080p@150%): near-full · 2xl: full
+        "tool-sidebar-banner shrink-0",
         "h-[240px] w-[150px] p-3",
         "lg:h-[300px] lg:w-[188px] lg:p-3.5",
         "xl:h-[340px] xl:w-[210px] xl:p-4",
         "2xl:h-[400px] 2xl:w-[250px] 2xl:p-5",
-        // Cap by viewport height so 1080p @ 150% zoom (~720px CSS) still clears the CTA.
         "max-h-[min(400px,52vh)]",
-        // Radius/shadow scales are zeroed in tailwind.config — arbitrary values opt back in.
-        "rounded-[1rem] border border-white/10 bg-neutral-950/95 text-start shadow-[0_18px_40px_rgba(0,0,0,0.45)] backdrop-blur-sm",
         className,
       )}
-      aria-label={ariaLabel ?? title}
     >
-      <div
-        className="pointer-events-none absolute -top-16 end-[-3rem] h-40 w-40 rounded-[999px] bg-white/[0.07] blur-3xl"
-        aria-hidden
-      />
-
       <span
-        className="relative flex h-8 w-8 items-center justify-center rounded-[0.75rem] border border-white/10 bg-white/[0.06] text-white lg:h-9 lg:w-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11"
+        className="relative flex h-8 w-8 items-center justify-center rounded-[var(--im-tool-radius-control,0.5rem)] border border-white/10 bg-white/[0.06] text-white lg:h-9 lg:w-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11"
         aria-hidden
       >
         {icon}
@@ -77,10 +74,10 @@ export function ToolSidebarBanner({
       <Link
         href={href}
         prefetch={false}
-        className="relative mt-auto inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-[0.75rem] bg-white px-2.5 text-[0.6875rem] font-bold text-black transition-colors hover:bg-neutral-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 lg:h-10 lg:px-3 lg:text-xs xl:h-10 xl:text-xs 2xl:h-11 2xl:gap-2 2xl:px-4 2xl:text-sm"
+        className="relative mt-auto inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-[var(--im-tool-radius-control,0.5rem)] border border-white/15 bg-white px-2.5 text-[0.6875rem] font-bold text-black transition-colors hover:bg-neutral-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 lg:h-10 lg:px-3 lg:text-xs xl:h-10 xl:text-xs 2xl:h-11 2xl:gap-2 2xl:px-4 2xl:text-sm"
       >
         {cta ?? title} {arrow}
       </Link>
-    </aside>
+    </PromoSurface>
   );
 }

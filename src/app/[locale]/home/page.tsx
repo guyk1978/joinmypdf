@@ -54,13 +54,12 @@ export default async function HomeDashboardPage({ params }: Props) {
 
           <QuickActions locale={locale} />
 
-          <RecentTools locale={locale} />
-
-          <PopularTools locale={locale} />
-
-          <RecentWorkspaces locale={locale} />
-
-          <WorkflowGuides locale={locale} />
+          <div className="home-landing__secondary">
+            <RecentTools locale={locale} />
+            <PopularTools locale={locale} />
+            <RecentWorkspaces locale={locale} />
+            <WorkflowGuides locale={locale} />
+          </div>
         </div>
       </AppPageShell>
     </>

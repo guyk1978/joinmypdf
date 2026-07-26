@@ -61,7 +61,7 @@ export function ToolPageViewShell({
               aria-pressed={tab === id}
               onClick={() => setTab(id)}
             >
-              [{label}]
+              {label}
             </button>
           );
         })}

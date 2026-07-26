@@ -89,7 +89,7 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
 
   return (
     <div
-      className="rounded-none border border-neutral-300 bg-neutral-100 p-3 dark:border-neutral-800 dark:bg-neutral-900 sm:p-2"
+      className="tool-error-recovery rounded-none border border-neutral-300 bg-neutral-100 p-3 dark:border-neutral-800 dark:bg-neutral-900 sm:p-2"
       role="alert"
       aria-live="assertive"
     >
@@ -110,10 +110,23 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
           </div>
 
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+            {onDismiss ? (
+              <button
+                type="button"
+                onClick={onDismiss}
+                className={`${ctaPrimary} w-full justify-center sm:w-auto`}
+              >
+                {tCommon.has("chooseAnotherFile")
+                  ? tCommon("chooseAnotherFile")
+                  : tCommon.has("dismissTryAnother")
+                    ? tCommon("dismissTryAnother")
+                    : "Choose another file"}
+              </button>
+            ) : null}
             {primary ? (
               <Link
                 href={primary.href}
-                className={`${ctaPrimary} w-full justify-center sm:w-auto`}
+                className={`${onDismiss ? ctaSecondary : ctaPrimary} w-full justify-center sm:w-auto`}
                 onClick={() =>
                   capture(EVENTS.tool_error_recovery_click, {
                     operation,
@@ -157,12 +170,6 @@ export function ToolErrorRecovery({ operation, slug, kind, technicalMessage, onD
                 ))}
             </ul>
           )}
-
-          {onDismiss ? (
-            <button type="button" onClick={onDismiss} className="text-xs font-medium text-black dark:text-neutral-200 hover:underline">
-              {tCommon("dismissTryAnother")}
-            </button>
-          ) : null}
         </div>
       </div>
     </div>

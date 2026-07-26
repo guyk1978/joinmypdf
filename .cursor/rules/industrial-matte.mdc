@@ -1,0 +1,15 @@
+---
+description: Industrial Matte design contract for JoinMyPDF UI
+globs: src/components/**/*.{tsx,css}, src/styles/**/*.css, src/lib/tool-ui.ts
+alwaysApply: false
+---
+
+# Industrial Matte design contract
+
+- Canvas black is `#0a0a0a` (`--im-bg-page`, `--site-page-bg`, `--app-canvas-bg`).
+- Chrome, nav, and marketing cards stay `rounded-none`. Soft radius only via `--im-tool-radius` on tool interiors.
+- Do not add glow, pulse, blur orbs, or `rounded-full` pills on promo/partner surfaces.
+- Promo budget: intro side rails (`ToolIntroSideBanners`) are the primary cross-promo; do not reintroduce home/hub launch strips.
+- Partner links use `PromoSurface` (matte hairline + flat CTA).
+- Prefer intentional enter/exit motion; avoid decorative `animate-pulse`.
+- Side rails: measure free CSS width — both ≥~1200px, one rail intermediate, none when center would be under ~480px or height ≤520px.
