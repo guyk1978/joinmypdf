@@ -24,54 +24,79 @@
   overflow: visible;
 }
 
+/* Full-width illuminated sign frame for the hero copy */
 .home-landing__intro {
   position: relative;
   isolation: isolate;
-  margin: 0;
-  padding: 0.5rem 0 0.25rem;
-  max-width: 44rem;
-  text-align: start;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 0.35rem 0 0.5rem;
+  padding: clamp(2rem, 4.5vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem);
+  text-align: center;
+  border: 4px solid #ffffff;
+  border-radius: 1.75rem;
+  background: transparent;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 42px rgba(255, 255, 255, 0.08),
+    inset 0 0 48px rgba(255, 255, 255, 0.03);
 }
 
-/* Soft ambient glow behind the hero title — cool zinc only (no purple) */
+/* Soft cool illumination behind the sign — zinc only */
 .home-landing__intro::before {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -50% -25% -30% -30%;
+  inset: -18% -8% -22% -8%;
   pointer-events: none;
   background:
     radial-gradient(
-      ellipse 50% 60% at 20% 40%,
-      color-mix(in srgb, #525252 35%, transparent),
+      ellipse 55% 65% at 50% 45%,
+      color-mix(in srgb, #a1a1aa 22%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      ellipse 45% 55% at 80% 50%,
-      color-mix(in srgb, #3f3f46 28%, transparent),
-      transparent 70%
+      ellipse 70% 55% at 50% 55%,
+      color-mix(in srgb, #52525b 18%, transparent),
+      transparent 78%
     );
-  filter: blur(40px);
-  opacity: 0.7;
+  filter: blur(36px);
+  opacity: 0.85;
 }
 
 .home-landing__title {
-  margin: 0;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  margin: 0 auto;
+  max-width: 22ch;
+  font-size: clamp(2.15rem, 5.2vw, 3.65rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
   color: #ffffff;
   text-wrap: balance;
-  text-shadow: none;
+  text-shadow: 0 0 28px rgba(255, 255, 255, 0.12);
 }
 
 .home-landing__tagline {
-  margin: 0.75rem 0 0;
-  font-size: 0.975rem;
-  line-height: 1.55;
-  color: #d4d4d4;
+  margin: 1.15rem auto 0;
+  max-width: 42rem;
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  line-height: 1.6;
+  font-weight: 450;
+  color: #ffffff;
   text-wrap: pretty;
+}
+
+@media (max-width: 640px) {
+  .home-landing__intro {
+    padding: 1.75rem 1.25rem;
+    border-width: 3px;
+    border-radius: 1.35rem;
+  }
+
+  .home-landing__title {
+    max-width: none;
+  }
 }
 
 /* Body below Quick Actions — balanced 50/50 rows + strip */
