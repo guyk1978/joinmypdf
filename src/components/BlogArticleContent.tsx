@@ -42,8 +42,7 @@ type BlogArticleContentProps = {
 };
 
 /**
- * Shared article reading view — used by the canonical `/blog/[slug]` page
- * and its query-string embed mode so content parity stays exact.
+ * Full-page article reading view for the canonical `/blog/[slug]` route.
  */
 export async function BlogArticleContent({
   post,
@@ -216,46 +215,53 @@ export async function BlogArticleContent({
           {readTime ? <meta itemProp="timeRequired" content={readTime} /> : null}
 
           <header className="blog-article-header">
-            <div className="blog-article-header__meta">
-              <span className="blog-category-badge">{categoryLabel}</span>
-              {freshnessDate ? (
-                <time
-                  className="blog-article-header__meta-item"
-                  dateTime={freshnessDate}
-                  itemProp="dateModified"
-                >
-                  {t("article.updated", { date: freshnessDate })}
-                </time>
+            <div className="blog-article-header__inner">
+              <h1
+                className="tool-page-layout__title blog-article-header__title"
+                itemProp="headline"
+              >
+                {displayTitle}
+              </h1>
+
+              <div className="blog-article-header__meta">
+                <span className="blog-category-badge">{categoryLabel}</span>
+                {readTime ? (
+                  <span className="blog-article-header__meta-item blog-article-header__read-time">
+                    <Clock className="blog-article-header__meta-icon" aria-hidden />
+                    <span itemProp="timeRequired">{readTime}</span>
+                  </span>
+                ) : null}
+                {freshnessDate ? (
+                  <time
+                    className="blog-article-header__meta-item"
+                    dateTime={freshnessDate}
+                    itemProp="dateModified"
+                  >
+                    {t("article.updated", { date: freshnessDate })}
+                  </time>
+                ) : null}
+              </div>
+
+              <div
+                className="blog-article-header__author"
+                itemProp="author"
+                itemScope
+                itemType="https://schema.org/Organization"
+              >
+                <meta itemProp="name" content={author.name} />
+                <ArticleAuthorBadge post={post} />
+              </div>
+
+              {post.contentBlocks?.intro ? (
+                <p className="tool-page-layout__description blog-article-header__lead">
+                  {post.contentBlocks.intro}
+                </p>
               ) : null}
-              {readTime ? (
-                <span className="blog-article-header__meta-item blog-article-header__read-time">
-                  <Clock className="blog-article-header__meta-icon" aria-hidden />
-                  <span itemProp="timeRequired">{readTime}</span>
-                </span>
+
+              {post.contentBlocks?.editorialNote ? (
+                <p className="blog-article-header__note">{post.contentBlocks.editorialNote}</p>
               ) : null}
             </div>
-
-            <h1
-              className="tool-page-layout__title blog-article-header__title"
-              itemProp="headline"
-            >
-              {displayTitle}
-            </h1>
-
-            <div className="blog-article-header__author" itemProp="author" itemScope itemType="https://schema.org/Organization">
-              <meta itemProp="name" content={author.name} />
-              <ArticleAuthorBadge post={post} />
-            </div>
-
-            {post.contentBlocks?.intro ? (
-              <p className="tool-page-layout__description blog-article-header__lead">
-                {post.contentBlocks.intro}
-              </p>
-            ) : null}
-
-            {post.contentBlocks?.editorialNote ? (
-              <p className="blog-article-header__note">{post.contentBlocks.editorialNote}</p>
-            ) : null}
           </header>
 
           <div className="blog-article-prose">

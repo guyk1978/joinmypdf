@@ -77,13 +77,13 @@ export function ContactForm() {
                 : t("error");
 
   return (
-    <section className="im-content-panel privacy-section mx-auto w-full max-w-2xl">
+    <section className="contact-page im-content-panel">
       {status === "success" ? (
-        <p className="info-prose-document__paragraph text-center" role="status">
+        <p className="info-prose-document__paragraph" role="status">
           {t("success")}
         </p>
       ) : (
-        <form className="protect-form" onSubmit={onSubmit} noValidate>
+        <form className="protect-form contact-page__form" onSubmit={onSubmit} noValidate>
           <div className="protect-form__fields">
             <label className="protect-form__label" htmlFor={`${baseId}-name`}>
               {t("nameLabel")}

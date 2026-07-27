@@ -5,11 +5,16 @@ type BlogArticleTemplateProps = {
   children: ReactNode;
 };
 
-/** Blog article shell — Industrial Matte documentation column (~800px). */
+/**
+ * Permanent full-page article shell — full-bleed hero + centered reading column.
+ * Renders inside AppPageShell (site header + footer); never a modal.
+ */
 export function BlogArticleTemplate({ children }: BlogArticleTemplateProps) {
   return (
     <div className={toolPageDashboardStack}>
-      <div className="tool-page-layout tool-page-layout--stacked blog-article-layout">{children}</div>
+      <div className="tool-page-layout tool-page-layout--stacked blog-article-layout">
+        {children}
+      </div>
     </div>
   );
 }
