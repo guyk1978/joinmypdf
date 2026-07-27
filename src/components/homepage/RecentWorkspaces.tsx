@@ -85,6 +85,7 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
         id="recent-workspaces-title"
         title={t("landing.recentTitle")}
         icon={<FileClock size={22} strokeWidth={1.75} />}
+        className="home-section--strip"
       >
         {items.map(({ key, toolId, href, label, description, categoryId }) => (
           <IndustrialToolCard

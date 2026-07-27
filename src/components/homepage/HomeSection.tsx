@@ -315,6 +315,45 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
 
         {showHeaderControls ? (
           <div className="home-section__header-controls">
+            {showArrowControls ? (
+              <div className="home-section__nav-group" role="group" aria-label={title}>
+                <button
+                  type="button"
+                  className="home-section__control home-section__control--nav"
+                  onClick={() => {
+                    pauseAutoplay();
+                    scrollByDir("prev");
+                  }}
+                  disabled={!canPrev}
+                  aria-label={t("landing.carouselPrev")}
+                  title={t("landing.carouselPrev")}
+                >
+                  {isRtl ? (
+                    <ChevronRight size={16} strokeWidth={2.25} aria-hidden />
+                  ) : (
+                    <ChevronLeft size={16} strokeWidth={2.25} aria-hidden />
+                  )}
+                </button>
+                <button
+                  type="button"
+                  className="home-section__control home-section__control--nav"
+                  onClick={() => {
+                    pauseAutoplay();
+                    scrollByDir("next");
+                  }}
+                  disabled={!canNext}
+                  aria-label={t("landing.carouselNext")}
+                  title={t("landing.carouselNext")}
+                >
+                  {isRtl ? (
+                    <ChevronLeft size={16} strokeWidth={2.25} aria-hidden />
+                  ) : (
+                    <ChevronRight size={16} strokeWidth={2.25} aria-hidden />
+                  )}
+                </button>
+              </div>
+            ) : null}
+
             {!reduceMotion && showArrowControls ? (
               <button
                 type="button"
@@ -390,43 +429,6 @@ export function HomeSection({ id, title, icon, children, className }: HomeSectio
           marqueeActive && "home-section-carousel--marquee",
         )}
       >
-        {showArrowControls ? (
-          <div className="home-section-carousel__controls">
-            <button
-              type="button"
-              className="home-section-carousel__nav home-section-carousel__nav--prev"
-              onClick={() => {
-                pauseAutoplay();
-                scrollByDir("prev");
-              }}
-              disabled={!canPrev}
-              aria-label={t("landing.carouselPrev")}
-            >
-              {isRtl ? (
-                <ChevronRight size={18} strokeWidth={2} />
-              ) : (
-                <ChevronLeft size={18} strokeWidth={2} />
-              )}
-            </button>
-            <button
-              type="button"
-              className="home-section-carousel__nav home-section-carousel__nav--next"
-              onClick={() => {
-                pauseAutoplay();
-                scrollByDir("next");
-              }}
-              disabled={!canNext}
-              aria-label={t("landing.carouselNext")}
-            >
-              {isRtl ? (
-                <ChevronLeft size={18} strokeWidth={2} />
-              ) : (
-                <ChevronRight size={18} strokeWidth={2} />
-              )}
-            </button>
-          </div>
-        ) : null}
-
         <div
           ref={trackRef}
           className={clsx(

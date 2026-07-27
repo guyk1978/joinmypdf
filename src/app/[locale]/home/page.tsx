@@ -5,7 +5,8 @@ import { PopularTools } from "@/components/homepage/PopularTools";
 import { QuickActions } from "@/components/homepage/QuickActions";
 import { RecentTools } from "@/components/homepage/RecentTools";
 import { RecentWorkspaces } from "@/components/homepage/RecentWorkspaces";
-import { WorkflowGuides } from "@/components/homepage/WorkflowGuides";
+import { LocalWorkflowPanel } from "@/components/homepage/LocalWorkflowPanel";
+import { WorkflowSpotlight } from "@/components/homepage/WorkflowSpotlight";
 import { HomeStructuredData } from "@/components/HomeStructuredData";
 import { AppPageShell } from "@/components/AppPageShell";
 import { routing } from "@/i18n/routing";
@@ -54,11 +55,18 @@ export default async function HomeDashboardPage({ params }: Props) {
 
           <QuickActions locale={locale} />
 
-          <div className="home-landing__secondary">
-            <RecentTools locale={locale} />
-            <PopularTools locale={locale} />
+          <div className="home-landing__body">
+            <div className="home-landing__split">
+              <PopularTools locale={locale} />
+              <LocalWorkflowPanel />
+            </div>
+
+            <div className="home-landing__split">
+              <RecentTools locale={locale} />
+              <WorkflowSpotlight locale={locale} />
+            </div>
+
             <RecentWorkspaces locale={locale} />
-            <WorkflowGuides locale={locale} />
           </div>
         </div>
       </AppPageShell>

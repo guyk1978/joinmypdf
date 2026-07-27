@@ -6,8 +6,7 @@ import { Flame } from "lucide-react";
 import { IndustrialToolCard } from "@/components/IndustrialToolCard";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
-import { HomeSection } from "@/components/homepage/HomeSection";
-import { HOME_SECTION_MAX_ITEMS } from "@/components/homepage/home-section";
+import { HomeStaticPanel } from "@/components/homepage/HomeStaticPanel";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
@@ -24,26 +23,16 @@ const POPULAR_TOOL_IDS = [
   "jpg-to-pdf",
   "word-to-pdf",
   "video-to-mp3",
-  "qr-code-generator",
-  "case-converter",
-  "video-trimmer",
-  "compress-image",
-  "unit-converter",
-  "pdf-to-jpg",
-  "excel-to-pdf",
-  "rotate-pdf",
-  "protect-pdf",
-  "unlock-pdf",
-  "hash-generator",
-  "password-generator",
 ] as const;
+
+const POPULAR_GRID_SIZE = 4;
 
 type PopularToolsProps = {
   locale: string;
 };
 
 /**
- * "Popular Tools of the Week" — up to 20 category-style cards.
+ * "Popular Tools of the Week" — static 2×2 Industrial Matte grid.
  */
 export function PopularTools({ locale }: PopularToolsProps) {
   const t = useTranslations("Home");
@@ -62,7 +51,7 @@ export function PopularTools({ locale }: PopularToolsProps) {
         description: getToolCardDescription(id, entry.description, tTools) ?? "",
         categoryId: entry.primaryCategory,
       });
-      if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
+      if (resolved.length >= POPULAR_GRID_SIZE) break;
     }
     return resolved;
   }, [visibleToolIds, locale, tTools]);
@@ -70,11 +59,12 @@ export function PopularTools({ locale }: PopularToolsProps) {
   if (!cards.length) return null;
 
   return (
-    <HomeReveal className="w-full">
-      <HomeSection
+    <HomeReveal className="w-full h-full">
+      <HomeStaticPanel
         id="popular-tools-title"
         title={t("landing.popularToolsTitle")}
         icon={<Flame size={22} strokeWidth={1.75} />}
+        bodyClassName="home-tool-grid home-tool-grid--2x2"
       >
         {cards.map(({ id, href, title, description, categoryId }) => (
           <IndustrialToolCard
@@ -85,9 +75,10 @@ export function PopularTools({ locale }: PopularToolsProps) {
             slug={id}
             categoryId={categoryId}
             icon={<ToolListIcon slug={id} label={title} size="md" />}
+            className="home-tool-grid__card"
           />
         ))}
-      </HomeSection>
+      </HomeStaticPanel>
     </HomeReveal>
   );
 }
