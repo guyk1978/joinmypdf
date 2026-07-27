@@ -11,9 +11,13 @@ const FEATURED_GUIDE_SLUGS = [
   "hidden-risks-of-free-online-pdf-editors",
 ];
 
-const SNIPPET_MAX_LENGTH = 360;
+const SNIPPET_MAX_LENGTH = 280;
 
-const TAKEAWAYS = ["takeaway1", "takeaway2", "takeaway3"] as const;
+const TAKEAWAY_KEYS = [
+  "landing.spotlightTakeaway1",
+  "landing.spotlightTakeaway2",
+  "landing.spotlightTakeaway3",
+] as const;
 
 type WorkflowSpotlightProps = {
   locale: string;
@@ -22,7 +26,7 @@ type WorkflowSpotlightProps = {
 function truncateSnippet(text: string): string {
   if (text.length <= SNIPPET_MAX_LENGTH) return text;
   const cut = text.slice(0, SNIPPET_MAX_LENGTH);
-  return `${cut.slice(0, Math.max(cut.lastIndexOf(" "), 120))}…`;
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(" "), 100))}…`;
 }
 
 /**
@@ -40,7 +44,7 @@ export async function WorkflowSpotlight({ locale }: WorkflowSpotlightProps) {
   if (!featured) return null;
 
   const href = blogArticlePath(featured.slug);
-  const snippet = featured.description
+  const body = featured.description
     ? truncateSnippet(featured.description)
     : t("landing.spotlightFallback");
 
@@ -49,27 +53,26 @@ export async function WorkflowSpotlight({ locale }: WorkflowSpotlightProps) {
       <HomeStaticPanel
         id="workflow-spotlight-title"
         title={t("landing.spotlightTitle")}
-        icon={<BookOpen size={22} strokeWidth={1.75} />}
+        icon={<BookOpen size={26} strokeWidth={1.75} />}
         className="home-static-panel--spotlight"
         bodyClassName="home-spotlight"
       >
         <article className="home-spotlight__card">
           <p className="home-spotlight__eyebrow">{t("landing.spotlightEyebrow")}</p>
           <h3 className="home-spotlight__title">{featured.title}</h3>
-          <p className="home-spotlight__intro">{t("landing.spotlightIntro")}</p>
-          <p className="home-spotlight__snippet">{snippet}</p>
+          <p className="home-spotlight__body">{body}</p>
 
           <div className="home-spotlight__takeaways">
             <p className="home-spotlight__takeaways-label">
               {t("landing.spotlightTakeawaysLabel")}
             </p>
             <ul className="home-spotlight__takeaways-list">
-              {TAKEAWAYS.map((key) => (
+              {TAKEAWAY_KEYS.map((key) => (
                 <li key={key} className="home-spotlight__takeaway">
                   <span className="home-spotlight__takeaway-icon" aria-hidden>
-                    <Check size={14} strokeWidth={2.25} />
+                    <Check size={15} strokeWidth={2.25} />
                   </span>
-                  <span>{t(`landing.spotlight.${key}`)}</span>
+                  <span>{t(key)}</span>
                 </li>
               ))}
             </ul>
@@ -77,10 +80,6 @@ export async function WorkflowSpotlight({ locale }: WorkflowSpotlightProps) {
 
           <div className="home-spotlight__meta">
             <span>{featured.readTime ?? t("landing.guidesReadTime")}</span>
-            <span className="home-spotlight__meta-sep" aria-hidden>
-              ·
-            </span>
-            <span>{t("landing.spotlightMetaNote")}</span>
           </div>
           <Link href={href} className="home-spotlight__cta" prefetch={false}>
             <span>{t("landing.guidesCta")}</span>

@@ -1,20 +1,26 @@
 import { getTranslations } from "next-intl/server";
-import { ShieldCheck, Cpu, HardDrive, ArrowRight, Lock, WifiOff, Trash2 } from "lucide-react";
+import { ShieldCheck, Cpu, HardDrive, ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
 import { HomeStaticPanel } from "@/components/homepage/HomeStaticPanel";
 
 const STEPS = [
-  { key: "step1" as const, icon: HardDrive },
-  { key: "step2" as const, icon: Cpu },
-  { key: "step3" as const, icon: ShieldCheck },
-];
-
-const HIGHLIGHTS = [
-  { key: "highlight1" as const, icon: Lock },
-  { key: "highlight2" as const, icon: WifiOff },
-  { key: "highlight3" as const, icon: Trash2 },
-];
+  {
+    titleKey: "landing.localWorkflowStep1Title",
+    bodyKey: "landing.localWorkflowStep1Body",
+    icon: HardDrive,
+  },
+  {
+    titleKey: "landing.localWorkflowStep2Title",
+    bodyKey: "landing.localWorkflowStep2Body",
+    icon: Cpu,
+  },
+  {
+    titleKey: "landing.localWorkflowStep3Title",
+    bodyKey: "landing.localWorkflowStep3Body",
+    icon: ShieldCheck,
+  },
+] as const;
 
 /**
  * Right-column Industrial Matte panel: local browser processing / zero-server privacy.
@@ -27,37 +33,21 @@ export async function LocalWorkflowPanel() {
       <HomeStaticPanel
         id="local-workflow-title"
         title={t("landing.localWorkflowTitle")}
-        icon={<ShieldCheck size={22} strokeWidth={1.75} />}
+        icon={<ShieldCheck size={26} strokeWidth={1.75} />}
         className="home-static-panel--workflow"
         bodyClassName="home-local-workflow"
       >
         <p className="home-local-workflow__lead">{t("landing.localWorkflowLead")}</p>
-        <p className="home-local-workflow__body">{t("landing.localWorkflowBody")}</p>
-
-        <ul className="home-local-workflow__highlights">
-          {HIGHLIGHTS.map(({ key, icon: Icon }) => (
-            <li key={key} className="home-local-workflow__highlight">
-              <span className="home-local-workflow__highlight-icon" aria-hidden>
-                <Icon size={15} strokeWidth={1.75} />
-              </span>
-              <span>{t(`landing.localWorkflow.${key}`)}</span>
-            </li>
-          ))}
-        </ul>
 
         <ol className="home-local-workflow__steps">
-          {STEPS.map(({ key, icon: Icon }) => (
-            <li key={key} className="home-local-workflow__step">
+          {STEPS.map(({ titleKey, bodyKey, icon: Icon }) => (
+            <li key={titleKey} className="home-local-workflow__step">
               <span className="home-local-workflow__step-icon" aria-hidden>
-                <Icon size={18} strokeWidth={1.75} />
+                <Icon size={20} strokeWidth={1.75} />
               </span>
               <div className="home-local-workflow__step-copy">
-                <h3 className="home-local-workflow__step-title">
-                  {t(`landing.localWorkflow.${key}Title`)}
-                </h3>
-                <p className="home-local-workflow__step-body">
-                  {t(`landing.localWorkflow.${key}Body`)}
-                </p>
+                <h3 className="home-local-workflow__step-title">{t(titleKey)}</h3>
+                <p className="home-local-workflow__step-body">{t(bodyKey)}</p>
               </div>
             </li>
           ))}
