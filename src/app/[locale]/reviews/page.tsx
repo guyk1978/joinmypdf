@@ -49,7 +49,7 @@ export default async function ReviewsPage({ params }: Props) {
       />
       <AppPageShell mainClassName={productPageMainClassName}>
         <ProductPageLayout title={t("title")} description={t("description")}>
-          <CommunityReviews />
+          <CommunityReviews mode="global" />
         </ProductPageLayout>
       </AppPageShell>
     </>

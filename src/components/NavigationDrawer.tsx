@@ -364,7 +364,7 @@ function ProjectsPanel({
 function ReviewsPanel() {
   return (
     <div className="nav-drawer__panel-section nav-drawer__panel-section--reviews">
-      <CommunityReviews compact />
+      <CommunityReviews mode="global" compact />
     </div>
   );
 }

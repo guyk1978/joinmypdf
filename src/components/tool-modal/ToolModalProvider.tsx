@@ -18,6 +18,7 @@ import {
   type AbstractIntlMessages,
 } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { CommunityReviews } from "@/components/CommunityReviews";
 import { ToolModalWrapper } from "@/components/tool-modal/ToolModalWrapper";
 import {
   ToolModalCalcFrame,
@@ -452,6 +453,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             calc: t("calc"),
             doc: t("doc"),
             related: t("related"),
+            reviews: t.has("reviews") ? t("reviews") : "REVIEWS",
             close: t("close"),
             loading: loadingLabel,
             addFavorite: t("addFavorite"),
@@ -520,6 +522,16 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
                 }}
               />
             )
+          }
+          reviews={
+            <div className="community-reviews--tool-pane px-3 py-3 sm:px-4">
+              <CommunityReviews
+                mode="tool"
+                compact
+                toolSlug={active.slug}
+                toolTitle={active.title}
+              />
+            </div>
           }
         />
       ) : null}

@@ -4,6 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { AdContainer } from "@/components/AdContainer";
+import { CommunityReviews } from "@/components/CommunityReviews";
 import { FaqSection } from "@/components/layout/FaqSection";
 import { FeedbackSection } from "@/components/layout/FeedbackSection";
 import { ToolDocBodySections } from "@/components/layout/ToolDocBodySections";
@@ -67,7 +68,7 @@ export type ToolLayoutProps = {
 
 /**
  * Canonical Industrial Matte layout for every tool page:
- * themed tabs → CALC workspace | DOC articles | RELATED tools.
+ * themed tabs → CALC workspace | DOC articles | RELATED tools | REVIEWS.
  */
 export function ToolLayout({
   children,
@@ -174,6 +175,16 @@ export function ToolLayout({
     </ToolPageInfoBlock>
   ) : null;
 
+  const reviewsPane = resolvedSlug ? (
+    <div className={clsx("community-reviews--tool-pane", "mx-auto w-full max-w-5xl px-4")}>
+      <CommunityReviews
+        mode="tool"
+        toolSlug={resolvedSlug}
+        toolTitle={resolvedTitle || undefined}
+      />
+    </div>
+  ) : null;
+
   if (embed) {
     return (
       <div
@@ -213,7 +224,12 @@ export function ToolLayout({
         />
       ) : null}
 
-      <ToolPageViewShell calc={calcPane} doc={docPane} related={related} />
+      <ToolPageViewShell
+        calc={calcPane}
+        doc={docPane}
+        related={related}
+        reviews={reviewsPane}
+      />
     </div>
   );
 }

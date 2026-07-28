@@ -4,12 +4,13 @@ import { useState, type ReactNode } from "react";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
 
-export type ToolPageViewTab = "calc" | "doc" | "related";
+export type ToolPageViewTab = "calc" | "doc" | "related" | "reviews";
 
 type ToolPageViewShellProps = {
   calc: ReactNode;
   doc?: ReactNode;
   related?: ReactNode;
+  reviews?: ReactNode;
   defaultTab?: ToolPageViewTab;
   className?: string;
   /** Accessible name for the tab list. */
@@ -17,13 +18,14 @@ type ToolPageViewShellProps = {
 };
 
 /**
- * Instant CALC / DOC / RELATED view switcher for full tool pages.
+ * Instant CALC / DOC / RELATED / REVIEWS view switcher for full tool pages.
  * Content stays mounted (SEO-friendly); inactive panes are visually hidden.
  */
 export function ToolPageViewShell({
   calc,
   doc,
   related,
+  reviews,
   defaultTab = "calc",
   className,
   tabsLabel,
@@ -31,14 +33,18 @@ export function ToolPageViewShell({
   const t = useTranslations("ToolModal");
   const [tab, setTab] = useState<ToolPageViewTab>(defaultTab);
 
-  const calcLabel = t.has("calc") ? t("calc") : "CALC";
-  const docLabel = t.has("doc") ? t("doc") : "DOC";
-  const relatedLabel = t.has("related") ? t("related") : "RELATED";
+  const labels: Record<ToolPageViewTab, string> = {
+    calc: t.has("calc") ? t("calc") : "CALC",
+    doc: t.has("doc") ? t("doc") : "DOC",
+    related: t.has("related") ? t("related") : "RELATED",
+    reviews: t.has("reviews") ? t("reviews") : "REVIEWS",
+  };
 
   const panes: { id: ToolPageViewTab; content: ReactNode }[] = [
     { id: "calc", content: calc },
     ...(doc != null ? [{ id: "doc" as const, content: doc }] : []),
     ...(related != null ? [{ id: "related" as const, content: related }] : []),
+    ...(reviews != null ? [{ id: "reviews" as const, content: reviews }] : []),
   ];
 
   return (
@@ -47,24 +53,20 @@ export function ToolPageViewShell({
       data-active-tab={tab}
     >
       <nav className="tool-page-view__tabs" aria-label={tabsLabel ?? "Tool views"}>
-        {panes.map(({ id }) => {
-          const label =
-            id === "calc" ? calcLabel : id === "doc" ? docLabel : relatedLabel;
-          return (
-            <button
-              key={id}
-              type="button"
-              className={clsx(
-                "tool-page-view__tab",
-                tab === id && "tool-page-view__tab--active",
-              )}
-              aria-pressed={tab === id}
-              onClick={() => setTab(id)}
-            >
-              {label}
-            </button>
-          );
-        })}
+        {panes.map(({ id }) => (
+          <button
+            key={id}
+            type="button"
+            className={clsx(
+              "tool-page-view__tab",
+              tab === id && "tool-page-view__tab--active",
+            )}
+            aria-pressed={tab === id}
+            onClick={() => setTab(id)}
+          >
+            {labels[id]}
+          </button>
+        ))}
       </nav>
 
       <div className="tool-page-view__body flex min-h-0 w-full flex-1 flex-col">

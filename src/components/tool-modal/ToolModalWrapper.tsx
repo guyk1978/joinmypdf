@@ -36,7 +36,7 @@ import { DOC_FULLSCREEN_MESSAGE } from "@/lib/doc-fullscreen";
 import { getInitialWorkspacePhase } from "@/lib/tool-interaction-mode";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
-export type ToolModalTab = "calc" | "doc" | "related";
+export type ToolModalTab = "calc" | "doc" | "related" | "reviews";
 
 export type ToolModalWrapperProps = {
   open: boolean;
@@ -60,6 +60,8 @@ export type ToolModalWrapperProps = {
   docs?: ReactNode;
   /** RELATED tab — similar tools + articles. */
   related?: ReactNode;
+  /** REVIEWS tab — per-tool community reviews. */
+  reviews?: ReactNode;
   defaultTab?: ToolModalTab;
   /** True once the CALC surface (e.g. iframe) has finished mounting. */
   contentReady?: boolean;
@@ -67,6 +69,7 @@ export type ToolModalWrapperProps = {
     calc?: string;
     doc?: string;
     related?: string;
+    reviews?: string;
     close?: string;
     loading?: string;
     addFavorite?: string;
@@ -108,6 +111,7 @@ export function ToolModalWrapper({
   calc,
   docs,
   related,
+  reviews,
   defaultTab = "calc",
   contentReady = true,
   labels,
@@ -343,6 +347,7 @@ export function ToolModalWrapper({
   const calcLabel = labels?.calc ?? "CALC";
   const docLabel = labels?.doc ?? "DOC";
   const relatedLabel = labels?.related ?? "RELATED";
+  const reviewsLabel = labels?.reviews ?? "REVIEWS";
   const closeLabel = labels?.close ?? "Close";
   const loadingLabel = labels?.loading ?? "Loading tool…";
   const favoriteLabel = favorited
@@ -363,11 +368,21 @@ export function ToolModalWrapper({
     ? (labels?.unpin ?? "Unpin from dock")
     : (labels?.pin ?? "Pin to dock");
 
+  const tabLabels: Record<ToolModalTab, string> = {
+    calc: calcLabel,
+    doc: docLabel,
+    related: relatedLabel,
+    reviews: reviewsLabel,
+  };
+
   const panes: { id: ToolModalTab; content: ReactNode; scroll?: boolean }[] = [
     { id: "calc", content: calc },
     ...(docs != null ? [{ id: "doc" as const, content: docs, scroll: true }] : []),
     ...(related != null
       ? [{ id: "related" as const, content: related, scroll: true }]
+      : []),
+    ...(reviews != null
+      ? [{ id: "reviews" as const, content: reviews, scroll: true }]
       : []),
   ];
 
@@ -430,24 +445,20 @@ export function ToolModalWrapper({
                 />
 
                 <nav className="tool-modal__tabs" aria-label={labels?.viewsNav ?? "Tool views"}>
-                  {panes.map(({ id }) => {
-                    const label =
-                      id === "calc" ? calcLabel : id === "doc" ? docLabel : relatedLabel;
-                    return (
-                      <button
-                        key={id}
-                        type="button"
-                        className={clsx(
-                          "tool-modal__tab",
-                          tab === id && "tool-modal__tab--active",
-                        )}
-                        aria-pressed={tab === id}
-                        onClick={() => setTab(id)}
-                      >
-                        {label}
-                      </button>
-                    );
-                  })}
+                  {panes.map(({ id }) => (
+                    <button
+                      key={id}
+                      type="button"
+                      className={clsx(
+                        "tool-modal__tab",
+                        tab === id && "tool-modal__tab--active",
+                      )}
+                      aria-pressed={tab === id}
+                      onClick={() => setTab(id)}
+                    >
+                      {tabLabels[id]}
+                    </button>
+                  ))}
                 </nav>
 
                 <button

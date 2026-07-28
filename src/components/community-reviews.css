@@ -236,6 +236,70 @@
   line-height: 1.55;
 }
 
+.community-reviews__select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #a3a3a3 50%),
+    linear-gradient(135deg, #a3a3a3 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.1rem) calc(50% - 0.15rem),
+    calc(100% - 0.75rem) calc(50% - 0.15rem);
+  background-size: 0.35rem 0.35rem, 0.35rem 0.35rem;
+  background-repeat: no-repeat;
+  padding-inline-end: 2.25rem;
+}
+
+[dir="rtl"] .community-reviews__select {
+  background-position:
+    0.75rem calc(50% - 0.15rem),
+    1.1rem calc(50% - 0.15rem);
+}
+
+.community-reviews__source {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin: 0.15rem 0 0;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: #a3a3a3;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.community-reviews__source-label {
+  color: #737373;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.community-reviews__source-link {
+  color: #fafafa;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid #404040;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.community-reviews__source-link:hover,
+.community-reviews__source-link:focus-visible {
+  color: #ffffff;
+  border-bottom-color: #a3a3a3;
+  outline: none;
+}
+
+.community-reviews--tool-pane {
+  padding: 1rem 0 1.5rem;
+  max-width: 72rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
 .nav-drawer__panel-section--reviews {
   min-height: 100%;
 }
