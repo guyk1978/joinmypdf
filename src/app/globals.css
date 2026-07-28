@@ -11699,6 +11699,20 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
     clip: rect(0 0 0 0);
     white-space: nowrap;
   }
+
+  .site-header__reviews {
+    width: var(--site-header-control-height);
+    padding-inline: 0;
+  }
+
+  .site-header__reviews-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 }
 
 .site-header__utility-center {

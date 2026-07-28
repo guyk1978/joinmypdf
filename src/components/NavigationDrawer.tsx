@@ -2,11 +2,12 @@
 
 import { clsx } from "clsx";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Bookmark, FolderOpen, LayoutGrid, Play, Trash2, X } from "lucide-react";
+import { Bookmark, FolderOpen, LayoutGrid, MessageSquareText, Play, Trash2, X } from "lucide-react";
 import { Fragment, useEffect, useId, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { createPortal } from "react-dom";
 import { Link, usePathname } from "@/i18n/navigation";
+import { CommunityReviews } from "@/components/CommunityReviews";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useSavedProjects } from "@/hooks/useSavedProjects";
@@ -19,7 +20,7 @@ import {
   type HeaderCategoryId,
 } from "@/lib/tool-registry";
 
-export type NavigationDrawerTab = "all-tools" | "favorites" | "projects";
+export type NavigationDrawerTab = "all-tools" | "favorites" | "projects" | "reviews";
 
 export type NavigationDrawerProps = {
   open: boolean;
@@ -34,10 +35,14 @@ type ToolBlockColumn = ReturnType<typeof buildCategoryNav>[number]["columns"][nu
 
 const DEFAULT_VISIBLE_TOOLS = 7;
 
-const TABS: { id: NavigationDrawerTab; labelKey: "allTools" | "favorites" | "projects" }[] = [
+const TABS: {
+  id: NavigationDrawerTab;
+  labelKey: "allTools" | "favorites" | "projects" | "reviews";
+}[] = [
   { id: "all-tools", labelKey: "allTools" },
   { id: "favorites", labelKey: "favorites" },
   { id: "projects", labelKey: "projects" },
+  { id: "reviews", labelKey: "reviews" },
 ];
 
 function formatProjectDate(timestamp: number, locale: string) {
@@ -356,8 +361,16 @@ function ProjectsPanel({
   );
 }
 
+function ReviewsPanel() {
+  return (
+    <div className="nav-drawer__panel-section nav-drawer__panel-section--reviews">
+      <CommunityReviews compact />
+    </div>
+  );
+}
+
 /**
- * Unified site NavigationDrawer — All Tools / Favorites / Projects.
+ * Unified site NavigationDrawer — All Tools / Favorites / Projects / Reviews.
  * Industrial Matte side panel toggled from Header Library.
  */
 export function NavigationDrawer({
@@ -487,6 +500,9 @@ export function NavigationDrawer({
                   {tab.id === "projects" ? (
                     <FolderOpen size={14} strokeWidth={1.75} aria-hidden />
                   ) : null}
+                  {tab.id === "reviews" ? (
+                    <MessageSquareText size={14} strokeWidth={1.75} aria-hidden />
+                  ) : null}
                   <span>{tDrawer(tab.labelKey)}</span>
                 </button>
               );
@@ -513,6 +529,7 @@ export function NavigationDrawer({
           {activeTab === "projects" ? (
             <ProjectsPanel onNavigate={onNavigate} onClose={onClose} />
           ) : null}
+          {activeTab === "reviews" ? <ReviewsPanel /> : null}
         </div>
       </aside>
     </div>

@@ -261,12 +261,14 @@
     },
     "library": "ספרייה",
     "toolsHub": "כלים",
+    "reviews": "ביקורות",
     "drawer": {
       "title": "ספרייה",
       "tabsLabel": "מדורי ספרייה",
       "allTools": "כל הכלים",
       "favorites": "מועדפים",
-      "projects": "פרויקטים"
+      "projects": "פרויקטים",
+      "reviews": "ביקורות"
     }
   },
   "Search": {
@@ -3213,6 +3215,34 @@
     "removeFromList": "הסר מהמועדפים",
     "viewProjects": "הפרויקטים שלי"
   },
+  "Reviews": {
+    "metaTitle": "ביקורות קהילה — JoinMyPDF",
+    "metaDescription": "קראו ושתפו משוב על כלי JoinMyPDF. קידום אתר אופציונלי עם קישורי nofollow.",
+    "title": "ביקורות קהילה",
+    "description": "שתפו משוב על כלי JoinMyPDF. אפשר לקדם את האתר שלכם ליד הביקורת — הקישורים יוצאים עם rel=\"nofollow\".",
+    "formTitle": "השאירו ביקורת",
+    "formSubtitle": "ספרו לקהילה איך JoinMyPDF משתלב בזרימת העבודה שלכם.",
+    "nameLabel": "שם / כינוי",
+    "namePlaceholder": "השם או הכינוי שלכם",
+    "ratingLabel": "דירוג",
+    "commentLabel": "תגובה / ביקורת",
+    "commentPlaceholder": "מה עבד טוב? מה כדאי לשפר?",
+    "websiteLabel": "כתובת האתר שלכם",
+    "websitePlaceholder": "https://your-site.com",
+    "websiteHint": "אופציונלי. מתפרסם ליד הביקורת עם קישור יוצא nofollow.",
+    "optional": "אופציונלי",
+    "submit": "פרסמו ביקורת",
+    "thanks": "תודה — הביקורת שלכם מופיעה בפיד הקהילה במכשיר הזה.",
+    "feedTitle": "פיד קהילה",
+    "feedCount": "{count, plural, one {ביקורת #} other {# ביקורות}}",
+    "loading": "טוען ביקורות…",
+    "errors": {
+      "authorRequired": "נא להזין שם או כינוי.",
+      "ratingRequired": "נא לבחור דירוג כוכבים.",
+      "commentRequired": "נא לכתוב תגובת ביקורת קצרה.",
+      "websiteInvalid": "הזינו כתובת אתר תקינה (למשל https://example.com)."
+    }
+  },
   "Projects": {
     "metaTitle": "הפרויקטים שלי — JoinMyPDF",
     "metaDescription": "חזרו לסשנים שמורים של כלי PDF — נשמרים מקומית במכשיר, בלי חשבון.",
@@ -4245,6 +4275,7 @@
       "optimization": "אופטימיזציה",
       "securityTools": "כלי אבטחה",
       "about": "אודות",
+      "reviews": "ביקורות",
       "terms": "תנאי שימוש",
       "contact": "צור קשר",
       "blog": "בלוג",

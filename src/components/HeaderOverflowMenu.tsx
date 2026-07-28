@@ -6,6 +6,7 @@ import {
   MoreHorizontal,
   Share2,
   BookOpen,
+  MessageSquareText,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
@@ -73,6 +74,7 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
 
   const close = useCallback(() => setOpen(false), []);
   const blogActive = pathname.includes("/blog");
+  const reviewsActive = pathname.includes("/reviews");
   const aboutActive = pathname.includes("/about");
   const termsActive = pathname.includes("/terms");
   const privacyPolicyActive = pathname.includes("/privacy-policy");
@@ -235,6 +237,20 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
           >
             <BookOpen className="site-header__overflow-icon" aria-hidden />
             {t("blog")}
+          </Link>
+
+          <Link
+            href="/reviews/"
+            role="menuitem"
+            className={clsx(itemClass, reviewsActive && "is-active")}
+            prefetch={false}
+            onClick={() => {
+              onNavigate?.();
+              close();
+            }}
+          >
+            <MessageSquareText className="site-header__overflow-icon" aria-hidden />
+            {t("reviews")}
           </Link>
 
           <div className="site-header__overflow-divider" role="separator" />

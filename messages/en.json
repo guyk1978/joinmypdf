@@ -261,12 +261,14 @@
     },
     "library": "Library",
     "toolsHub": "Tools",
+    "reviews": "Reviews",
     "drawer": {
       "title": "Library",
       "tabsLabel": "Library sections",
       "allTools": "All Tools",
       "favorites": "Favorites",
-      "projects": "Projects"
+      "projects": "Projects",
+      "reviews": "Reviews"
     }
   },
   "Search": {
@@ -3213,6 +3215,34 @@
     "removeFromList": "Remove from favorites",
     "viewProjects": "My Projects"
   },
+  "Reviews": {
+    "metaTitle": "Community Reviews — JoinMyPDF",
+    "metaDescription": "Read and share community feedback on JoinMyPDF tools. Optional website promotion with nofollow outbound links.",
+    "title": "Community Reviews",
+    "description": "Share feedback on JoinMyPDF tools. Optionally promote your site alongside your review — outbound links use rel=\"nofollow\".",
+    "formTitle": "Leave a review",
+    "formSubtitle": "Tell the community how JoinMyPDF fits your workflow.",
+    "nameLabel": "Name / Handle",
+    "namePlaceholder": "Your name or handle",
+    "ratingLabel": "Rating",
+    "commentLabel": "Comment / Review",
+    "commentPlaceholder": "What worked well? What should we improve?",
+    "websiteLabel": "Your Website URL",
+    "websitePlaceholder": "https://your-site.com",
+    "websiteHint": "Optional. Published beside your review with a nofollow outbound link.",
+    "optional": "optional",
+    "submit": "Publish review",
+    "thanks": "Thanks — your review is live in the community feed on this device.",
+    "feedTitle": "Community feed",
+    "feedCount": "{count, plural, one {# review} other {# reviews}}",
+    "loading": "Loading reviews…",
+    "errors": {
+      "authorRequired": "Please enter a name or handle.",
+      "ratingRequired": "Please select a star rating.",
+      "commentRequired": "Please write a short review comment.",
+      "websiteInvalid": "Enter a valid website URL (e.g. https://example.com)."
+    }
+  },
   "Projects": {
     "metaTitle": "My Projects — JoinMyPDF",
     "metaDescription": "Resume saved PDF tool sessions locally. Your projects stay on this device — no account required.",
@@ -4034,6 +4064,7 @@
       "optimization": "Optimization",
       "securityTools": "Security tools",
       "about": "About",
+      "reviews": "Reviews",
       "terms": "Terms of Service",
       "contact": "Contact",
       "blog": "Blog",

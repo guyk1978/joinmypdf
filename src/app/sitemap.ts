@@ -38,6 +38,7 @@ const BASE_PATHS = [
   "/privacy/",
   "/compare/",
   "/contact/",
+  "/reviews/",
   "/guide/",
   "/all-tools/",
   "/privacy-first-pdf-tools/",

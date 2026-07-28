@@ -263,12 +263,14 @@
     },
     "library": "Library",
     "toolsHub": "Инструменты",
+    "reviews": "Отзывы",
     "drawer": {
       "title": "Library",
       "tabsLabel": "Library sections",
       "allTools": "All Tools",
       "favorites": "Favorites",
-      "projects": "Projects"
+      "projects": "Projects",
+      "reviews": "Reviews"
     }
   },
   "Search": {
@@ -3215,6 +3217,34 @@
     "removeFromList": "Remove from favorites",
     "viewProjects": "My Projects"
   },
+  "Reviews": {
+    "metaTitle": "Отзывы сообщества — JoinMyPDF",
+    "metaDescription": "Читайте и оставляйте отзывы о инструментах JoinMyPDF. Опциональное продвижение сайта со ссылками nofollow.",
+    "title": "Отзывы сообщества",
+    "description": "Поделитесь отзывом о инструментах JoinMyPDF. При желании укажите сайт рядом с отзывом — исходящие ссылки с rel=\"nofollow\".",
+    "formTitle": "Оставить отзыв",
+    "formSubtitle": "Расскажите сообществу, как JoinMyPDF вписывается в ваш процесс.",
+    "nameLabel": "Имя / Ник",
+    "namePlaceholder": "Ваше имя или ник",
+    "ratingLabel": "Оценка",
+    "commentLabel": "Комментарий / Отзыв",
+    "commentPlaceholder": "Что сработало хорошо? Что улучшить?",
+    "websiteLabel": "URL вашего сайта",
+    "websitePlaceholder": "https://your-site.com",
+    "websiteHint": "Необязательно. Публикуется рядом с отзывом со ссылкой nofollow.",
+    "optional": "необязательно",
+    "submit": "Опубликовать отзыв",
+    "thanks": "Спасибо — ваш отзыв уже в ленте сообщества на этом устройстве.",
+    "feedTitle": "Лента сообщества",
+    "feedCount": "{count, plural, one {# отзыв} few {# отзыва} other {# отзывов}}",
+    "loading": "Загрузка отзывов…",
+    "errors": {
+      "authorRequired": "Введите имя или ник.",
+      "ratingRequired": "Выберите оценку звёздами.",
+      "commentRequired": "Напишите короткий отзыв.",
+      "websiteInvalid": "Введите корректный URL сайта (например https://example.com)."
+    }
+  },
   "Projects": {
     "metaTitle": "My Projects — JoinMyPDF",
     "metaDescription": "Resume saved PDF tool sessions locally. Your projects stay on this device — no account required.",
@@ -4247,6 +4277,7 @@
       "optimization": "Оптимизация",
       "securityTools": "Инструменты безопасности",
       "about": "О нас",
+      "reviews": "Отзывы",
       "terms": "Условия использования",
       "contact": "Обратная связь",
       "blog": "Блог",
