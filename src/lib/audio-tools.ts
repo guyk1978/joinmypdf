@@ -1,5 +1,7 @@
 import { toolsList } from "@/data/tools";
+import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { MP3_TOOLS_HUB_PATH } from "@/lib/mp3-tools";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 import type { HomeAudioToolIconKey, ToolListEntry } from "@/lib/tool-module";
 
 export type HomeFeaturedAudioItem = {
@@ -18,17 +20,22 @@ type HomeTranslator = {
   has: (key: string) => boolean;
 };
 
+/** Accepts canonical English IDs or localized SEO slugs (e.g. RU). */
 export function getAudioToolById(id: string): ToolListEntry | undefined {
-  return toolsList.find((tool) => tool.id === id);
+  const canonical = resolveCanonicalToolSlug(id);
+  return toolsList.find((tool) => tool.id === canonical || tool.id === id);
 }
 
 export function isAudioToolId(id: string): boolean {
-  return toolsList.some((tool) => tool.id === id);
+  return Boolean(getAudioToolById(id));
 }
 
 export const AUDIO_TOOL_IDS = toolsList.map((tool) => tool.id);
 
-export function buildHomepageFeaturedAudioItems(tHome?: HomeTranslator): HomeFeaturedAudioItem[] {
+export function buildHomepageFeaturedAudioItems(
+  tHome?: HomeTranslator,
+  locale?: string,
+): HomeFeaturedAudioItem[] {
   const hubLabel = tHome?.has("mp3ToolsHubLabel") ? tHome("mp3ToolsHubLabel") : "MP3 Tools Hub";
 
   const hubItem: HomeFeaturedAudioItem = {
@@ -40,7 +47,7 @@ export function buildHomepageFeaturedAudioItems(tHome?: HomeTranslator): HomeFea
 
   const toolItems = toolsList.map((tool) => ({
     id: tool.id,
-    href: `/tools/${tool.id}/`,
+    href: resolveToolHref(tool.id, "mp3", locale),
     label: tool.name,
     iconKey: tool.iconKey,
   }));
@@ -48,10 +55,10 @@ export function buildHomepageFeaturedAudioItems(tHome?: HomeTranslator): HomeFea
   return [hubItem, ...toolItems];
 }
 
-export function buildHomeAudioToolItems(): HomeAudioToolItem[] {
+export function buildHomeAudioToolItems(locale?: string): HomeAudioToolItem[] {
   return toolsList.map((tool) => ({
     id: tool.id,
-    href: `/tools/${tool.id}/`,
+    href: resolveToolHref(tool.id, "mp3", locale),
     label: tool.name,
     description: tool.title,
     iconKey: tool.iconKey,

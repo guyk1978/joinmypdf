@@ -4801,17 +4801,42 @@ html[data-tool-intro="1"] .tool-modal__header {
 }
 
 .tools-directory-workflows {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(2rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 2.75rem);
 }
 
-@media (min-width: 900px) {
-  .tools-directory-workflows {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1.5rem, 3vw, 2rem);
-    align-items: start;
-  }
+/*
+ * Stack workflow sections full-width so Industrial Matte cards keep a
+ * readable footprint (side-by-side columns crushed tiles into vertical strips).
+ */
+.tools-directory-workflows .im-tool-card-grid,
+.tools-directory-category .im-tool-card-grid {
+  /* Inherit the global responsive card grid (2 → 3 → 4 cols). */
+  gap: 0.625rem;
+}
+
+/* Slightly tighter tiles on the tools directory for denser browsing */
+.tools-directory-workflows .im-tool-card,
+.tools-directory-category .im-tool-card {
+  min-height: 6.25rem;
+  padding: 0.85rem 0.75rem;
+}
+
+.tools-directory-workflows .im-tool-card__cover,
+.tools-directory-category .im-tool-card__cover {
+  padding: 0.85rem 0.7rem;
+}
+
+.tools-directory-workflows .im-tool-card__cover-title,
+.tools-directory-category .im-tool-card__cover-title {
+  font-size: clamp(0.9375rem, 1.6vw, 1.125rem);
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: auto;
 }
 
 .tools-directory-workflow {
@@ -7553,9 +7578,11 @@ a.blog-article-card:hover .blog-article-card__title,
   min-height: 0;
   width: 100%;
   padding: clamp(1.25rem, 2.5vw, 1.5rem);
-  border: 1px solid var(--im-border-strong);
-  border-radius: 0.5rem;
-  background-color: var(--im-surface-panel);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--category-accent, rgba(255, 255, 255, 0.22));
+  border-radius: 0;
+  background-color: #121212;
+  box-shadow: none;
 }
 
 @media (min-width: 768px) {
@@ -7590,9 +7617,9 @@ a.blog-article-card:hover .blog-article-card__title,
 }
 
 .all-tools-directory-card__header:focus-visible {
-  outline: 2px solid #525252;
+  outline: 2px solid rgba(255, 255, 255, 0.45);
   outline-offset: 3px;
-  border-radius: 0.25rem;
+  border-radius: 0;
 }
 
 .all-tools-directory-card__title {
@@ -7611,7 +7638,7 @@ a.blog-article-card:hover .blog-article-card__title,
   justify-content: center;
   width: 1.75rem;
   height: 1.75rem;
-  color: #71717a;
+  color: #a3a3a3;
 }
 
 .all-tools-directory-card__chevron {
@@ -7649,23 +7676,34 @@ a.blog-article-card:hover .blog-article-card__title,
 }
 
 .all-tools-directory-card__tool-link {
-  display: inline-block;
+  display: block;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--category-accent, rgba(255, 255, 255, 0.18));
+  background: #121212;
   font-size: 0.9375rem;
-  line-height: 1.5;
-  color: #cbd5e1;
+  line-height: 1.45;
+  font-weight: 600;
+  color: #ffffff;
   text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
 .all-tools-directory-card__tool-link:hover {
   color: #ffffff;
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+  text-decoration: none;
+  border-color: rgba(255, 255, 255, 0.16);
+  border-top-color: var(--category-accent, rgba(255, 255, 255, 0.35));
+  background: #0a0a0a;
+  box-shadow: 0 -1px 8px color-mix(in srgb, var(--category-accent, #ffffff) 22%, transparent);
 }
 
 .all-tools-directory-card__tool-link:focus-visible {
-  outline: 2px solid #525252;
+  outline: 2px solid rgba(255, 255, 255, 0.45);
   outline-offset: 2px;
-  border-radius: 0.125rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

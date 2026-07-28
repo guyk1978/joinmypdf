@@ -32,6 +32,7 @@ export const PDF_TOOL_SLUGS_RU = {
   "pdf-merge": "obiedinenie-pdf",
   "pdf-metadata-editor": "redaktor-metadannykh-pdf",
   "pdf-password-recovery": "vosstanovlenie-parolya-pdf",
+  "pdf-reader": "chitatel-pdf",
   "pdf-signature-validator": "proverka-podpisi-pdf",
   "pdf-split": "razdelenie-pdf",
   "pdf-text-editor": "redaktor-teksta-pdf",

@@ -74,7 +74,7 @@ const CATEGORY_SPECS: Record<CategoryDirectoryId, CategorySpec> = {
     id: "audio",
     layout: "flat-grid",
     featuredIds: ["mp3-converter", "audio-trimmer", "mp3-trimmer", "audio-compressor"],
-    buildItems: () => buildHomeAudioToolItems(),
+    buildItems: (_t, locale) => buildHomeAudioToolItems(locale),
     workflows: [
       {
         id: "convert",

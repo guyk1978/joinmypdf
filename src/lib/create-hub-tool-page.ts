@@ -34,13 +34,12 @@ function isRegistryTool(slug: string): boolean {
 }
 
 export function listHubToolStaticParams(categoryId: InventoryCategoryId): { slug: string }[] {
-  const base = getInventoryToolsByCategory(categoryId)
-    .filter((tool) => {
-      if (!hasDedicatedToolPage(tool.id)) return true;
-      // Dedicated + registered → catch-all can render the workspace.
-      return isRegistryTool(tool.id);
-    })
-    .map((tool) => tool.id);
+  const inventoryIds = getInventoryToolsByCategory(categoryId).map((tool) => tool.id);
+  const base = inventoryIds.filter((id) => {
+    if (!hasDedicatedToolPage(id)) return true;
+    // Dedicated + registered → catch-all can render the workspace.
+    return isRegistryTool(id);
+  });
 
   const slugs = new Set(base);
   // PDF / video hubs also emit full Russian SEO slug unions for static export.
@@ -54,10 +53,16 @@ export function listHubToolStaticParams(categoryId: InventoryCategoryId): { slug
       slugs.add(slug);
     }
   }
-  // Convert (and every hub): add RU aliases for tools already in this hub's param set.
-  for (const id of base) {
+  // Every hub: add RU aliases for all inventory tools in this category so
+  // localized nested URLs are generated even when a dedicated EN page exists.
+  // Catch-all rendering still requires registry / audio resolution.
+  for (const id of inventoryIds) {
     const localized = getLocalizedToolSlug(id, "ru");
     if (localized !== id) slugs.add(localized);
+    // Keep English ids for dedicated tools that can also render via catch-all.
+    if (isRegistryTool(id) || !hasDedicatedToolPage(id)) {
+      slugs.add(id);
+    }
   }
 
   return [...slugs].map((slug) => ({ slug }));

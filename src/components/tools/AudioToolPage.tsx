@@ -37,6 +37,7 @@ import {
 } from "@/lib/tool-breadcrumb-hub";
 import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import { buildToolAlternateLanguages } from "@/lib/tool-seo";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 import type { ToolListEntry } from "@/lib/tool-module";
 import type { ToolDefinition } from "@/lib/types";
 import { productPageMainClassName, toolPageDashboardStack } from "@/lib/tool-ui";
@@ -60,7 +61,7 @@ function toSchemaTool(tool: ToolListEntry, title: string, description: string): 
   };
 }
 
-export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) {
+export async function AudioToolPage({ tool, slug: _publicSlug, locale }: AudioToolPageProps) {
   const tPage = await getTranslations("ToolPage");
   const seoOverride = resolveAudioToolSeoOverride(tool, tPage);
   const pageHeadline = seoOverride?.h1 ?? tool.name;
@@ -72,10 +73,10 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
   const schemaDescription = seoOverride?.schemaDescription ?? tool.title;
   const faqs = buildLocalizedAudioToolFaqs(tPage, tool, pageHeadline);
   const paragraphs = buildLocalizedAudioGuideParagraphs(tPage, tool);
-  const pathname = `/tools/${slug}/`;
+  const pathname = resolveToolHref(tool.id, "mp3", locale);
 
   const crumbs = buildToolPageBreadcrumbs({
-    slug,
+    slug: tool.id,
     toolTitle: pageHeadline,
     toolPath: pathname,
     seoCategory: "optimize",
@@ -105,7 +106,7 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
             <ToolPageShellProvider
               headline={pageHeadline}
               subline={pageDescription ?? ""}
-              slug={slug}
+              slug={tool.id}
               stacked
             >
               <Mp4ToMp3IntroGate active={tool.id === "mp4-to-mp3"}>
@@ -133,7 +134,7 @@ export async function AudioToolPage({ tool, slug, locale }: AudioToolPageProps) 
                 feedbackTitle={pageHeadline}
                 breadcrumbs={
                   <ToolBreadcrumbs
-                    tool={{ slug, title: pageHeadline, category: "optimize" }}
+                    tool={{ slug: tool.id, title: pageHeadline, category: "optimize" }}
                     category="optimize"
                     items={breadcrumbItems}
                   />
@@ -190,11 +191,12 @@ export function buildAudioToolMetadata(
   const title = seoOverride?.h1 ?? tool.name;
   const description = seoOverride?.schemaDescription ?? tool.title;
 
+  const pathname = resolveToolHref(tool.id, "mp3", locale);
   return {
     title,
     description,
     alternates: {
-      canonical: `/${locale}/tools/${tool.id}/`,
+      canonical: `/${locale}${pathname}`,
       languages: buildToolAlternateLanguages(tool.id),
     },
   };

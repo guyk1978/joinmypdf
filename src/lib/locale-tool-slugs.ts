@@ -39,6 +39,7 @@ export const PDF_TOOL_SLUGS_RU: Record<string, string> = {
   "pdf-merge": "obiedinenie-pdf",
   "pdf-metadata-editor": "redaktor-metadannykh-pdf",
   "pdf-password-recovery": "vosstanovlenie-parolya-pdf",
+  "pdf-reader": "chitatel-pdf",
   "pdf-signature-validator": "proverka-podpisi-pdf",
   "pdf-split": "razdelenie-pdf",
   "pdf-text-editor": "redaktor-teksta-pdf",
@@ -537,6 +538,13 @@ export function listImageToolPublicSlugs(locale?: AppLocale | string): string[] 
 /** Every Russian SEO slug alias across all tool maps. */
 export function listAllRussianSeoToolSlugs(): string[] {
   return [...new Set(Object.values(TOOL_SLUGS_RU))];
+}
+
+/** Canonical inventory IDs that still lack a dedicated RU SEO alias. */
+export function listInventoryIdsMissingRussianSlug(
+  inventoryIds: readonly string[],
+): string[] {
+  return inventoryIds.filter((id) => !(id in TOOL_SLUGS_RU));
 }
 
 /**

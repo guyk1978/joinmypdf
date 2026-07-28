@@ -23,6 +23,9 @@
   margin-top: 0;
 }
 
+/* Featured strip is full-width — keep the normal responsive column count.
+   Nested workflow category grids are constrained separately in globals.css. */
+
 /* —— Open grids: no outer box around card collections —— */
 .tools-hub-panel,
 .tools-directory-featured,

@@ -381,15 +381,19 @@ export async function generateMetadata({
 }) {
   const { locale, slug } = await params;
   if (!slug) return {};
-  if (isSeoToolLandingSlug(slug)) {
-    return generateSeoToolLandingMetadata(slug, locale);
+  // Map RU (and future) SEO aliases → canonical English IDs before lookups.
+  const canonicalSlug = resolveCanonicalToolSlug(slug);
+  if (isSeoToolLandingSlug(slug) || isSeoToolLandingSlug(canonicalSlug)) {
+    return generateSeoToolLandingMetadata(
+      (isSeoToolLandingSlug(slug) ? slug : canonicalSlug) as SeoToolLandingSlug,
+      locale,
+    );
   }
-  const audioTool = getAudioToolById(slug);
+  const audioTool = getAudioToolById(canonicalSlug);
   if (audioTool) {
     const tPage = await getTranslations({ locale, namespace: "ToolPage" });
     return buildAudioToolMetadata(audioTool, locale, tPage);
   }
-  const canonicalSlug = resolveCanonicalToolSlug(slug);
   const resolved = resolveToolRoute(canonicalSlug, registry);
   if (!resolved) return {};
   const tTools = await getTranslations({ locale, namespace: "Tools" });
@@ -426,10 +430,17 @@ export default async function ToolPage({
   if (!slug) notFound();
   setRequestLocale(locale);
 
-  if (isSeoToolLandingSlug(slug)) {
+  // Localized public slugs (especially RU SEO aliases) must resolve to
+  // canonical inventory IDs before audio / registry lookups.
+  const canonicalSlug = resolveCanonicalToolSlug(slug);
+
+  if (isSeoToolLandingSlug(slug) || isSeoToolLandingSlug(canonicalSlug)) {
+    const landingSlug = (
+      isSeoToolLandingSlug(slug) ? slug : canonicalSlug
+    ) as SeoToolLandingSlug;
     return (
       <SeoToolLandingPage
-        slug={slug as SeoToolLandingSlug}
+        slug={landingSlug}
         params={Promise.resolve({ locale })}
       />
     );
@@ -438,12 +449,11 @@ export default async function ToolPage({
   const tPage = await getTranslations("ToolPage");
   const tTools = await getTranslations("Tools");
 
-  const audioTool = getAudioToolById(slug);
+  const audioTool = getAudioToolById(canonicalSlug);
   if (audioTool) {
-    return <AudioToolPage tool={audioTool} slug={slug} locale={locale} />;
+    return <AudioToolPage tool={audioTool} slug={audioTool.id} locale={locale} />;
   }
 
-  const canonicalSlug = resolveCanonicalToolSlug(slug);
   const resolved = resolveToolRoute(canonicalSlug, registry);
   if (!resolved) notFound();
   const { tool, variant } = resolved;

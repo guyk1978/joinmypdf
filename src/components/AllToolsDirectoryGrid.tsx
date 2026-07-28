@@ -2,8 +2,10 @@
 
 import { clsx } from "clsx";
 import { ChevronDown } from "lucide-react";
+import type { CSSProperties } from "react";
 import { useCallback, useMemo, useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { getCategoryAccentCssVar } from "@/lib/category-accent-colors";
 
 export type AllToolsDirectoryCategory = {
   id: string;
@@ -52,11 +54,14 @@ export function AllToolsDirectoryGrid({
   const renderCard = (category: CategoryWithIndex) => {
     const isOpen = openIds.has(category.id);
     const toggleLabel = isOpen ? collapseLabel : expandLabel;
+    const accentStyle = {
+      "--category-accent": getCategoryAccentCssVar(category.id),
+    } as CSSProperties;
 
     return (
       <article
         key={category.id}
-        style={{ order: category.index }}
+        style={{ order: category.index, ...accentStyle }}
         className={clsx("all-tools-directory-card", isOpen && "all-tools-directory-card--open")}
       >
         <button
