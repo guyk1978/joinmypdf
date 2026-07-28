@@ -20,6 +20,7 @@ export const SHARED_CLIENT_MESSAGE_NAMESPACES = [
   "Feedback",
   "Rating",
   "ToolSidebarBanners",
+  "Reviews",
 ] as const;
 
 export function pickMessageNamespaces(
