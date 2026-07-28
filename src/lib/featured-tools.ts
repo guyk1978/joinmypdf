@@ -1,4 +1,5 @@
 import { translateToolIntent, translateToolItem } from "@/lib/i18n-tool-labels";
+import { buildMegaMenuSections, flattenMegaMenuSections } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
