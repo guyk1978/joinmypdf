@@ -193,6 +193,50 @@ export function listDedicatedInventoryHubLinks(): InventoryHubLink[] {
   return links;
 }
 
+export type PrimaryInventoryDirectoryGroup = {
+  id: InventoryCategoryId;
+  titleFallback: string;
+  items: ToolGridItem[];
+};
+
+/**
+ * Every inventory tool exactly once, grouped by primaryCategory and ordered
+ * by INVENTORY_HUB_META. Used by the site-wide /tools directory.
+ */
+export function buildPrimaryInventoryDirectoryGroups(
+  t?: InventoryTranslator,
+  locale?: string,
+): PrimaryInventoryDirectoryGroup[] {
+  const hubOrder = Object.keys(INVENTORY_HUB_META) as InventoryCategoryId[];
+  const groups: PrimaryInventoryDirectoryGroup[] = [];
+
+  for (const id of hubOrder) {
+    const tools = getInventoryToolsByPrimaryCategory(id);
+    if (tools.length === 0) continue;
+
+    const items = tools
+      .map((entry) => ({
+        href: resolveToolHref(entry.id, id, locale),
+        label: resolveInventoryLabel(entry, t),
+        slugHint: entry.id,
+        description: getToolCardDescription(entry.id, entry.description, t),
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label, locale));
+
+    groups.push({
+      id,
+      titleFallback: INVENTORY_HUB_META[id].title,
+      items,
+    });
+  }
+
+  return groups;
+}
+
+export function getInventoryToolCount(): number {
+  return TOOLS_INVENTORY.length;
+}
+
 /** Every inventory id that is missing from a slug list (orphan detection). */
 export function findInventoryOrphans(listedSlugs: Iterable<string>): ToolsInventoryId[] {
   const listed = new Set(listedSlugs);

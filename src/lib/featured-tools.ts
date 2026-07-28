@@ -1,9 +1,9 @@
 import { translateToolIntent, translateToolItem } from "@/lib/i18n-tool-labels";
-import { buildMegaMenuSections, flattenMegaMenuSections } from "@/lib/mega-menu";
 import { registry } from "@/lib/registry";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
+import { getInventoryToolCount } from "@/lib/tools-inventory-query";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 function featuredToolHref(slug: string): string {
@@ -65,7 +65,7 @@ export const HOMEPAGE_GRID_TOOL_SLUGS = [
 ] as const;
 
 export function getTotalToolCount(): number {
-  return flattenMegaMenuSections(buildMegaMenuSections()).length;
+  return getInventoryToolCount();
 }
 
 export function buildFeaturedHomeToolItems(tTools: ToolsTranslator) {

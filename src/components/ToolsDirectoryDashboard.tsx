@@ -22,6 +22,8 @@ type ToolsDirectoryDashboardProps = {
   featuredTitle?: string;
   featuredDescription?: string;
   workflowColumns: DirectoryWorkflowColumn[];
+  /** Show every tool in each category (no "show more"). */
+  showAllTools?: boolean;
 };
 
 export function ToolsDirectoryDashboard({
@@ -30,6 +32,7 @@ export function ToolsDirectoryDashboard({
   featuredTitle,
   featuredDescription,
   workflowColumns,
+  showAllTools = false,
 }: ToolsDirectoryDashboardProps) {
   return (
     <div className="tools-directory-dashboard">
@@ -61,7 +64,8 @@ export function ToolsDirectoryDashboard({
                   id={`tools-directory-${category.id}`}
                   title={category.title}
                   items={category.items}
-                  categoryId={categoryId}
+                  categoryId={categoryId ?? (category.id as InventoryCategoryId)}
+                  showAll={showAllTools}
                 />
               ))}
             </div>

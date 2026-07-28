@@ -3467,12 +3467,12 @@
   },
   "ToolsDirectory": {
     "badge": "Tool directory",
-    "title": "All PDF Tools",
-    "description": "{count}+ workflows for merge, compress, convert, sign, and protect—every tool runs locally in your browser. No uploads to our servers.",
+    "title": "All Tools",
+    "description": "{count}+ local browser tools for PDF, images, video, audio, text, and more—every tool runs on your device. No uploads to our servers.",
     "clientSide": "Client-side processing",
     "privacyFirst": "Privacy First",
     "startHere": "Start here",
-    "startHereDescription": "Popular merge, compress, convert, sign, and protect workflows.",
+    "startHereDescription": "Popular merge, compress, and split workflows to get going fast.",
     "workflows": {
       "convert-create": {
         "title": "Convert & Create",
@@ -3487,8 +3487,8 @@
         "description": "Protect, clean metadata, compress, and prepare files for sharing."
       }
     },
-    "allToolsGridTitle": "Full tool dashboard",
-    "allToolsGridDescription": "Browse all {count} tools in one grid—click any tile to open the workflow.",
+    "allToolsGridTitle": "Browse by category",
+    "allToolsGridDescription": "Every tool on JoinMyPDF—{count} utilities grouped by interest. Click any card to open the workflow.",
     "toolCount": "{count} tool",
     "toolCountPlural": "{count} tools",
     "whyLocalTitle": "Why local processing matters",

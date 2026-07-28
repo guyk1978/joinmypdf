@@ -3679,13 +3679,13 @@
     "resultCount": "{count, plural, one {# result} other {# results}}"
   },
   "ToolsDirectory": {
-    "badge": "Tool directory",
-    "title": "All PDF Tools",
-    "description": "{count}+ workflows for merge, compress, convert, sign, and protect—every tool runs locally in your browser. No uploads to our servers.",
-    "clientSide": "Client-side processing",
-    "privacyFirst": "Privacy First",
-    "startHere": "Start here",
-    "startHereDescription": "Popular merge, compress, convert, sign, and protect workflows.",
+    "badge": "Каталог инструментов",
+    "title": "Все инструменты",
+    "description": "{count}+ локальных браузерных инструментов для PDF, изображений, видео, аудио, текста и не только — всё работает на вашем устройстве. Без загрузок на наши серверы.",
+    "clientSide": "Обработка на стороне клиента",
+    "privacyFirst": "Конфиденциальность прежде всего",
+    "startHere": "Начните здесь",
+    "startHereDescription": "Популярные сценарии объединения, сжатия и разделения для быстрого старта.",
     "workflows": {
       "convert-create": {
         "title": "Convert & Create",
@@ -3700,8 +3700,8 @@
         "description": "Protect, clean metadata, compress, and prepare files for sharing."
       }
     },
-    "allToolsGridTitle": "Full tool dashboard",
-    "allToolsGridDescription": "Browse all {count} tools in one grid—click any tile to open the workflow.",
+    "allToolsGridTitle": "Просмотр по категориям",
+    "allToolsGridDescription": "Все инструменты JoinMyPDF — {count} утилит, сгруппированных по темам. Нажмите любую карточку, чтобы открыть инструмент.",
     "toolCount": "{count} tool",
     "toolCountPlural": "{count} tools",
     "whyLocalTitle": "Why local processing matters",

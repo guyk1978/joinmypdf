@@ -3678,12 +3678,12 @@
   },
   "ToolsDirectory": {
     "badge": "מדריך כלים",
-    "title": "כל כלי ה-PDF",
-    "description": "{count}+ תהליכים למיזוג, דחיסה, המרה, חתימה והגנה — הכל רץ מקומית בדפדפן. בלי העלאות לשרתים שלנו.",
+    "title": "כל הכלים",
+    "description": "{count}+ כלים מקומיים בדפדפן ל-PDF, תמונות, וידאו, אודיו, טקסט ועוד — הכול רץ על המכשיר שלכם. בלי העלאות לשרתים שלנו.",
     "clientSide": "עיבוד בצד הלקוח",
     "privacyFirst": "פרטיות קודמת",
     "startHere": "התחל כאן",
-    "startHereDescription": "תהליכי מיזוג, דחיסה, המרה, חתימה והגנה פופולריים.",
+    "startHereDescription": "תהליכי מיזוג, דחיסה ופיצול פופולריים להתחלה מהירה.",
     "workflows": {
       "convert-create": {
         "title": "המרה ויצירה",
@@ -3698,8 +3698,8 @@
         "description": "הגנה, ניקוי מטא-דאטה, דחיסה והכנת קבצים לשיתוף."
       }
     },
-    "allToolsGridTitle": "לוח כלים מלא",
-    "allToolsGridDescription": "עיין בכל {count} הכלים ברשת אחת — לחץ על כל אריח לפתיחת התהליך.",
+    "allToolsGridTitle": "עיון לפי קטגוריה",
+    "allToolsGridDescription": "כל כלי JoinMyPDF — {count} כלים מקובצים לפי תחום עניין. לחצו על כל כרטיס לפתיחת התהליך.",
     "toolCount": "{count} כלי",
     "toolCountPlural": "{count} כלים",
     "whyLocalTitle": "למה עיבוד מקומי חשוב",

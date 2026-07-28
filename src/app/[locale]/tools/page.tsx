@@ -2,22 +2,33 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ToolsDirectoryDashboard } from "@/components/ToolsDirectoryDashboard";
-import { translateToolItem, translateToolSection } from "@/lib/i18n-tool-labels";
-import { buildMegaMenuSections } from "@/lib/mega-menu";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { getTotalToolCount } from "@/lib/featured-tools";
-import { registry } from "@/lib/registry";
-import { getToolDisplayLabel } from "@/lib/tool-labels";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 import type { ToolGridItem } from "@/lib/tool-grid";
-import { groupSectionsByWorkflow } from "@/lib/tools-directory-workflows";
+import {
+  buildPrimaryInventoryDirectoryGroups,
+  resolveInventoryToolLabel,
+} from "@/lib/tools-inventory-query";
 
 const FEATURED_SLUGS = ["pdf-merge", "pdf-compress", "pdf-split"] as const;
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+function resolveCategoryTitle(
+  id: InventoryCategoryId,
+  fallback: string,
+  t: Awaited<ReturnType<typeof getTranslations>>,
+): string {
+  const key = `categories.${id}`;
+  return t.has(key) ? t(key) : fallback;
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -43,44 +54,38 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function toGridItem(
-  tTools: Awaited<ReturnType<typeof getTranslations>>,
-  slug: string,
-  label: string,
-  href?: string,
-): ToolGridItem {
-  return {
-    href: href ?? `/tools/${slug}/`,
-    label: translateToolItem(tTools, slug, label),
-    slugHint: slug,
-  };
-}
-
 export default async function ToolsDirectoryPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
   const tTools = await getTranslations("Tools");
   const tPage = await getTranslations("ToolsDirectory");
-  const sections = buildMegaMenuSections();
+  const tCategories = await getTranslations("AllToolsPage");
   const toolCount = getTotalToolCount();
 
-  const featuredItems = FEATURED_SLUGS.map((slug) => {
-    const tool = registry.tools.find((t) => t.slug === slug);
-    if (!tool) return null;
-    return toGridItem(tTools, tool.slug, getToolDisplayLabel(tool.slug, tool.title));
+  const featuredItems = FEATURED_SLUGS.map((slug): ToolGridItem | null => {
+    const entry = getToolsInventoryEntry(slug);
+    if (!entry) return null;
+    return {
+      href: resolveToolHref(slug, entry.primaryCategory, locale),
+      label: resolveInventoryToolLabel(slug, tTools),
+      slugHint: slug,
+    };
   }).filter((item): item is ToolGridItem => Boolean(item));
 
-  const workflowColumns = groupSectionsByWorkflow(sections).map(({ workflow, sections: workflowSections }) => ({
-    id: workflow.id,
-    title: tPage(`workflows.${workflow.id}.title`),
-    description: tPage(`workflows.${workflow.id}.description`),
-    categories: workflowSections.map((section) => ({
-      id: section.id,
-      title: translateToolSection(tTools, section.id, section.label),
-      items: section.items.map((item) => toGridItem(tTools, item.slug, item.label, item.href)),
-    })),
-  }));
+  const inventoryGroups = buildPrimaryInventoryDirectoryGroups(tTools, locale);
+  const workflowColumns = [
+    {
+      id: "catalog",
+      title: tPage("allToolsGridTitle"),
+      description: tPage("allToolsGridDescription", { count: toolCount }),
+      categories: inventoryGroups.map((group) => ({
+        id: group.id,
+        title: resolveCategoryTitle(group.id, group.titleFallback, tCategories),
+        items: group.items,
+      })),
+    },
+  ];
 
   return (
     <>
@@ -107,6 +112,7 @@ export default async function ToolsDirectoryPage({ params }: Props) {
             featuredTitle={tPage("startHere")}
             featuredDescription={tPage("startHereDescription")}
             workflowColumns={workflowColumns}
+            showAllTools
           />
         </div>
       </AppPageShell>

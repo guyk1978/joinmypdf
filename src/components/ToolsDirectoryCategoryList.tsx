@@ -15,6 +15,8 @@ type ToolsDirectoryCategoryListProps = {
   title: string;
   items: ToolGridItem[];
   categoryId?: InventoryCategoryId;
+  /** When true, render every tool (no "show more" truncation). */
+  showAll?: boolean;
 };
 
 export function ToolsDirectoryCategoryList({
@@ -22,11 +24,15 @@ export function ToolsDirectoryCategoryList({
   title,
   items,
   categoryId,
+  showAll = false,
 }: ToolsDirectoryCategoryListProps) {
   const t = useTranslations("Home");
-  const [visibleCount, setVisibleCount] = useState(TOOLS_DIRECTORY_INITIAL_VISIBLE);
-  const visibleItems = items.slice(0, visibleCount);
-  const remainingCount = Math.max(0, items.length - visibleCount);
+  const [visibleCount, setVisibleCount] = useState(
+    showAll ? items.length : TOOLS_DIRECTORY_INITIAL_VISIBLE,
+  );
+  const effectiveVisible = showAll ? items.length : visibleCount;
+  const visibleItems = items.slice(0, effectiveVisible);
+  const remainingCount = showAll ? 0 : Math.max(0, items.length - visibleCount);
 
   return (
     <section className="tools-directory-category" aria-labelledby={title ? id : undefined}>
