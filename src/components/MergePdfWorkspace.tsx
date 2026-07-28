@@ -8,10 +8,10 @@ import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceActionRow } from "@/components/WorkspaceActionRow";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { useProjectResume } from "@/hooks/useProjectResume";
-import { usePendingFiles } from "@/context/PendingFilesContext";
 import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
@@ -96,7 +96,6 @@ export function MergePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: 
 function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const tProjects = useTranslations("Projects");
-  const { consumePendingFiles } = usePendingFiles();
   const [files, setFiles] = useState<File[]>([]);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
@@ -114,15 +113,10 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
 
-  useEffect(() => {
-    const pending = consumePendingFiles();
-    if (!pending?.length) return;
-    const accepted = pending.filter(acceptPdf);
-    if (accepted.length) {
-      setFiles(accepted);
-      capture(EVENTS.file_selected, { source: "home_pending", count: accepted.length });
-    }
-  }, [consumePendingFiles, acceptPdf]);
+  useConsumePendingFiles(acceptPdf, (accepted) => {
+    setFiles(accepted);
+    capture(EVENTS.file_selected, { source: "home_pending", count: accepted.length });
+  });
 
   const onRestoreProject = useCallback(
     (payload: { files: File[]; settings: Record<string, unknown>; projectName: string }) => {

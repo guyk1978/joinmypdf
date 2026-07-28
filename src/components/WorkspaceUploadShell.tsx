@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { usePendingDropzoneHandoff } from "@/hooks/usePendingFileInputHandoff";
 import {
   setToolHasUploadShell,
   setWorkspacePhase,
@@ -56,6 +57,7 @@ export function WorkspaceUploadShell({
   );
 
   const initialPhase = resolvePhase(active, requiresUpload, false);
+  usePendingDropzoneHandoff(rootRef);
 
   useLayoutEffect(() => {
     const root = rootRef.current;

@@ -7,6 +7,7 @@ import {
   formatSupportsLabel,
   IndustrialMatteDropzone,
 } from "@/components/IndustrialMatteDropzone";
+import { usePendingFileInputHandoff } from "@/hooks/usePendingFileInputHandoff";
 import { resolveUploadFormats } from "@/lib/upload-accept";
 
 export type MediaDropzoneLabels = {
@@ -71,6 +72,7 @@ export function MediaDropzone({
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
+  usePendingFileInputHandoff(inputRef);
 
   const resolvedAccept = accept || defaultAcceptForKind(mediaKind);
   const isDisabled = disabled || busy;

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { HomeHeroLaunch } from "@/components/homepage/HomeHeroLaunch";
 import { PopularTools } from "@/components/homepage/PopularTools";
 import { QuickActions } from "@/components/homepage/QuickActions";
 import { RecentTools } from "@/components/homepage/RecentTools";
@@ -48,10 +49,14 @@ export default async function HomeDashboardPage({ params }: Props) {
       <HomeStructuredData locale={locale} />
       <AppPageShell>
         <div className="home-minimal-layout home-minimal-layout--dashboard home-landing">
-          <header className="home-landing__intro">
-            <h1 className="home-landing__title">{t("landing.heroTitle")}</h1>
-            <p className="home-landing__tagline">{t("landing.heroSubtitle")}</p>
-          </header>
+          <div className="home-landing__hero">
+            <header className="home-landing__intro">
+              <h1 className="home-landing__title">{t("landing.heroTitle")}</h1>
+              <p className="home-landing__tagline">{t("landing.heroSubtitle")}</p>
+            </header>
+
+            <HomeHeroLaunch locale={locale} />
+          </div>
 
           <QuickActions locale={locale} />
 

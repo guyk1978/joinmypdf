@@ -266,3 +266,54 @@ export function resolveUploadFormats(options: {
   if (explicit.length) return explicit;
   return formatsFromAcceptAttr(options.accept);
 }
+
+/** True when a File matches an HTML `accept` attribute (MIME, ext, or wildcard). */
+export function fileMatchesAcceptAttr(file: File, accept?: string | null): boolean {
+  if (!accept?.trim()) return true;
+
+  const name = file.name.toLowerCase();
+  const type = (file.type || "").toLowerCase();
+  const dot = name.lastIndexOf(".");
+  const ext = dot >= 0 ? name.slice(dot) : "";
+
+  for (const part of accept.split(",")) {
+    const token = part.trim().toLowerCase();
+    if (!token) continue;
+
+    if (token === "*/*") return true;
+    if (token.endsWith("/*")) {
+      const prefix = token.slice(0, -1);
+      if (type.startsWith(prefix)) return true;
+      continue;
+    }
+    if (token.startsWith(".")) {
+      if (ext === token) return true;
+      continue;
+    }
+    if (token.includes("/")) {
+      if (type === token) return true;
+      continue;
+    }
+  }
+
+  return false;
+}
+
+/** Assign pending files onto a file input and fire `change` for React handlers. */
+export function assignFilesToInput(input: HTMLInputElement, files: File[]): boolean {
+  if (!files.length) return false;
+  try {
+    const transfer = new DataTransfer();
+    const selected = input.multiple ? files : files.slice(0, 1);
+    for (const file of selected) transfer.items.add(file);
+    if (!transfer.files.length) return false;
+    input.files = transfer.files;
+    // Bubble a native change event so React onChange listeners pick it up.
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+    // Some listeners also key off input events.
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    return true;
+  } catch {
+    return false;
+  }
+}

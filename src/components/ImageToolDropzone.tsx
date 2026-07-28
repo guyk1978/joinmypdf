@@ -12,6 +12,7 @@ import {
   formatSupportsLabel,
   IndustrialMatteDropzone,
 } from "@/components/IndustrialMatteDropzone";
+import { usePendingFileInputHandoff } from "@/hooks/usePendingFileInputHandoff";
 import { resolveUploadFormats } from "@/lib/upload-accept";
 
 export type ImageToolDropzoneProps = {
@@ -58,6 +59,7 @@ export function ImageToolDropzone({
 }: ImageToolDropzoneProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
+  usePendingFileInputHandoff(inputRef);
 
   const supportsLabel =
     localizedSupportsLabel ??

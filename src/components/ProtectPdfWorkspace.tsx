@@ -5,6 +5,7 @@ import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton"
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell"
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";;
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
@@ -86,6 +87,10 @@ export function ProtectPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     },
     [acceptPdf, tool.operation],
   );
+
+  useConsumePendingFiles(acceptPdf, (incoming) => {
+    addFile(incoming);
+  });
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();

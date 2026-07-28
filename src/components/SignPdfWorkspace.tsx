@@ -6,6 +6,7 @@ import { FileUploadZone } from "@/components/FileUploadZone"
 import { Magnifier } from "@/components/Magnifier";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
@@ -382,6 +383,10 @@ export function SignPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     },
     [acceptPdf, tool.operation],
   );
+
+  useConsumePendingFiles(acceptPdf, (incoming) => {
+    void addFile(incoming);
+  });
 
   const reloadWithPassword = useCallback(async () => {
     if (!fileBytes) return;

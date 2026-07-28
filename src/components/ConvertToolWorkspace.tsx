@@ -9,6 +9,7 @@ import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { formatsFromAcceptAttr } from "@/lib/upload-accept";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -145,6 +146,12 @@ export function ConvertToolWorkspace<TProgress>({
       setMetaLine("");
     }
   };
+
+  useConsumePendingFiles(config.accept, (incoming) => {
+    const next = incoming[0];
+    if (!next) return;
+    void pickFile(next);
+  });
 
   const onConvert = async () => {
     if (!file) return;

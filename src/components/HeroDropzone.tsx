@@ -19,10 +19,10 @@ export function HeroDropzone() {
   const [drag, setDrag] = useState(false);
 
   const goMerge = useCallback(
-    (files: FileList | File[]) => {
+    async (files: FileList | File[]) => {
       const arr = Array.from(files).filter((f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name));
       if (!arr.length) return;
-      setPendingFiles(arr);
+      await setPendingFiles(arr, { toolSlug: "pdf-merge" });
       capture(EVENTS.home_drop_files, { count: arr.length });
       router.push("/tools/pdf-merge/");
     },

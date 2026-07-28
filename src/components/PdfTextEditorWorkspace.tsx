@@ -9,6 +9,7 @@ import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
@@ -245,6 +246,13 @@ export function PdfTextEditorWorkspace({ tool, slug }: { tool: ToolDefinition; s
       capture(EVENTS.file_selected, { count: 1, operation: tool.operation });
     },
     [tool.operation, ws],
+  );
+
+  useConsumePendingFiles(
+    (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
+    (incoming) => {
+      void addFile(incoming);
+    },
   );
 
   const placeLayer = (nx: number, ny: number) => {

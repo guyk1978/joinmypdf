@@ -5,6 +5,7 @@ import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton"
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
@@ -199,6 +200,11 @@ export function AddWatermarkWorkspace({ tool, slug }: { tool: ToolDefinition; sl
       setBusy(false);
     }
   };
+
+  useConsumePendingFiles(acceptPdf, (incoming) => {
+    const next = incoming[0];
+    if (next) void pickFile(next);
+  });
 
   const patchOptions = (patch: Partial<WatermarkOptions>) => {
     setOptions((prev) => ({ ...prev, ...patch }));

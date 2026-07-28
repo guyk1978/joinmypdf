@@ -2490,13 +2490,9 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 
 .im-tool-card {
   --category-accent: var(--color-pdf, #2563EB);
-  /* Borderless dark gradient: absolute black at the top eases into a muted
-     category shade at the base. Shared by the card and its resting cover. */
-  --im-tool-card-gradient: linear-gradient(
-    to bottom,
-    var(--im-bg-page, #0a0a0a) 0%,
-    color-mix(in srgb, var(--category-accent) 16%, #0a0a0a) 100%
-  );
+  /* Solid header surface + thin top category accent (Industrial Matte Option 2). */
+  --im-tool-card-surface: #121212;
+  --im-tool-card-gradient: var(--im-tool-card-surface);
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -2507,17 +2503,21 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   min-height: 7.5rem;
   height: 100%;
   padding: 1rem;
-  background: var(--im-tool-card-gradient);
-  border: 0;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--category-accent);
   border-radius: 0;
+  box-shadow: none;
   color: inherit;
   text-align: start;
   text-decoration: none;
   overflow: hidden;
-  transition: background 0.16s ease;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
-/* Resting cover — borderless gradient plate carrying only the tool name */
+/* Resting cover — uniform matte plate carrying only the tool name */
 .im-tool-card__cover {
   position: absolute;
   inset: 0;
@@ -2526,7 +2526,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   align-items: center;
   justify-content: center;
   padding: 1.25rem 1rem;
-  background: var(--im-tool-card-gradient, #0a0a0a);
+  background: #121212;
   opacity: 1;
   transform: translateY(0);
   pointer-events: none;
@@ -2544,7 +2544,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   letter-spacing: -0.02em;
   text-align: center;
   text-wrap: balance;
-  color: #fafafa;
+  color: #ffffff;
 }
 
 /* Detail chrome is present but hidden until hover / keyboard focus */
@@ -2563,14 +2563,10 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 .im-tool-card:hover,
 .im-tool-card:has(.im-tool-card__overlay:focus-visible),
 .im-tool-card:focus-within {
-  --im-tool-card-gradient: linear-gradient(
-    to bottom,
-    var(--im-bg-page, #0a0a0a) 0%,
-    color-mix(in srgb, var(--category-accent) 24%, #0a0a0a) 100%
-  );
-  background: var(--im-tool-card-gradient);
-  border: 0;
-  box-shadow: none;
+  background: #121212;
+  border-color: rgba(255, 255, 255, 0.14);
+  border-top-color: var(--category-accent);
+  box-shadow: 0 -1px 10px color-mix(in srgb, var(--category-accent) 28%, transparent);
   outline: none;
 }
 
@@ -2605,18 +2601,14 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   pointer-events: auto;
 }
 
-/* Homepage cover-only — gradient name face stays put; click opens focus popup */
+/* Homepage cover-only — name face stays put; click opens focus popup */
 .im-tool-card--cover-only:hover,
 .im-tool-card--cover-only:has(.im-tool-card__overlay:focus-visible),
 .im-tool-card--cover-only:focus-within {
-  --im-tool-card-gradient: linear-gradient(
-    to bottom,
-    var(--im-bg-page, #0a0a0a) 0%,
-    color-mix(in srgb, var(--category-accent) 24%, #0a0a0a) 100%
-  );
-  background: var(--im-tool-card-gradient);
-  border: 0;
-  box-shadow: none;
+  background: #121212;
+  border-color: rgba(255, 255, 255, 0.14);
+  border-top-color: var(--category-accent);
+  box-shadow: 0 -1px 10px color-mix(in srgb, var(--category-accent) 28%, transparent);
 }
 
 .im-tool-card--cover-only:hover .im-tool-card__cover,
@@ -2778,9 +2770,9 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   width: 5rem;
   height: 5rem;
   padding: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--category-accent) 35%, #333);
-  background: color-mix(in srgb, var(--category-accent) 8%, #0a0a0a);
-  color: var(--category-accent);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #121212;
+  color: #ffffff;
   box-sizing: border-box;
 }
 
@@ -2800,7 +2792,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 .im-tool-card:hover .im-tool-card__icon,
 .im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__icon,
 .im-tool-card:focus-within .im-tool-card__icon {
-  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--category-accent) 55%, transparent));
+  filter: none;
 }
 
 .im-tool-card__icon svg,
@@ -2842,7 +2834,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   gap: 0.375rem;
   margin-top: auto;
   padding-top: 0.45rem;
-  border-top: 1px solid color-mix(in srgb, var(--category-accent, #2563EB) 18%, transparent);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -2994,7 +2986,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   height: 1.7rem;
   border: 1px solid transparent;
   background: transparent;
-  color: #6f6f6f;
+  color: #a3a3a3;
   cursor: pointer;
   transition:
     color 0.15s ease,
@@ -3003,13 +2995,13 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 }
 
 .tool-card-focus__expand:hover {
-  color: var(--category-accent, #2563EB);
-  border-color: color-mix(in srgb, var(--category-accent, #2563EB) 40%, transparent);
-  background: color-mix(in srgb, var(--category-accent, #2563EB) 8%, transparent);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.14);
+  background: #121212;
 }
 
 .tool-card-focus__expand:focus-visible {
-  outline: 1px solid var(--category-accent, #2563EB);
+  outline: 1px solid rgba(255, 255, 255, 0.45);
   outline-offset: 2px;
 }
 
@@ -3052,8 +3044,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   animation: tool-card-focus-fade-in 0.2s ease;
 }
 
-/* 2x card: sizes are doubled from the grid card (title 1.0625rem → 2.125rem,
-   description 0.85rem → 1.5rem) on the industrial-matte surface. */
+/* 2x card: solid header surface + thin top category accent (Minimal Border Accent). */
 .tool-card-focus__card {
   /* Inherits `--category-accent` from the dialog (set inline per tool). */
   position: relative;
@@ -3064,15 +3055,11 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   max-height: calc(100vh - 2.5rem);
   overflow-y: auto;
   padding: 2.1rem 2.2rem;
-  border: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--category-accent, #525252);
   border-radius: 0;
-  /* Seamless matte surface — matches page canvas, soft category wash at base. */
-  background: linear-gradient(
-    to bottom,
-    var(--im-bg-page, #0a0a0a) 0%,
-    color-mix(in srgb, var(--category-accent, #525252) 10%, #0a0a0a) 100%
-  );
-  color: #ededed;
+  background: #121212;
+  color: #ffffff;
   box-shadow: none;
   animation: tool-card-focus-zoom-in 0.28s cubic-bezier(0.2, 0.8, 0.25, 1);
 }
@@ -3086,23 +3073,24 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   justify-content: center;
   width: 2.4rem;
   height: 2.4rem;
-  border: 0;
-  border-bottom: 1px solid transparent;
+  border: 1px solid transparent;
   background: transparent;
   color: #a3a3a3;
   cursor: pointer;
   transition:
     color 0.15s ease,
-    border-bottom-color 0.15s ease;
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .tool-card-focus__close:hover {
-  color: #ededed;
-  border-bottom-color: rgb(255 255 255 / 0.55);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.14);
+  background: #0a0a0a;
 }
 
 .tool-card-focus__close:focus-visible {
-  outline: 1px solid rgb(255 255 255 / 0.45);
+  outline: 1px solid rgba(255, 255, 255, 0.45);
   outline-offset: 2px;
 }
 
@@ -3117,9 +3105,9 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   justify-content: center;
   width: 4.4rem;
   height: 4.4rem;
-  border: 0;
-  background: color-mix(in srgb, var(--category-accent, #525252) 14%, #0a0a0a);
-  color: var(--category-accent, #525252);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #121212;
+  color: #ffffff;
 }
 
 .tool-card-focus__icon svg {
@@ -3143,24 +3131,24 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   margin: 0;
   font-size: 1.5rem;
   line-height: 1.5;
-  color: #a0a0a0;
+  color: #d4d4d4;
 }
 
 /* Scale the shared Example disclosure up to match the 2x card.
-   Accent elements inherit the tool's category color (not PDF blue). */
+   Category color appears only as a thin leading accent edge. */
 .tool-card-focus__card .tool-card-example__toggle {
   font-size: 1.15rem;
   gap: 0.5rem;
-  color: var(--category-accent, #525252);
+  color: #ffffff;
 }
 
 .tool-card-focus__card .tool-card-example__toggle:hover,
 .tool-card-focus__card .tool-card-example--open .tool-card-example__toggle {
-  color: var(--category-accent, #525252);
+  color: #ffffff;
 }
 
 .tool-card-focus__card .tool-card-example__toggle:focus-visible {
-  outline-color: var(--category-accent, #525252);
+  outline-color: rgba(255, 255, 255, 0.45);
 }
 
 .tool-card-focus__card .tool-card-example__icon {
@@ -3179,13 +3167,14 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   margin-top: 0.8rem;
   padding: 0.9rem 1.1rem;
   font-size: 1.35rem;
-  border: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-inline-start: 2px solid var(--category-accent, #525252);
-  background: rgb(255 255 255 / 0.04);
+  background: #121212;
+  color: #e5e5e5;
 }
 
 .tool-card-focus__card .tool-card-example__label {
-  color: var(--category-accent, #525252);
+  color: #ffffff;
 }
 
 .tool-card-focus__footer {
@@ -3196,7 +3185,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   gap: 0.85rem;
   margin-top: 0.4rem;
   padding-top: 1.1rem;
-  border-top: 1px solid rgb(255 255 255 / 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Explicit size overrides (not zoom/transform) keep the interactive radio
@@ -3205,6 +3194,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   display: inline-flex;
   gap: 0.75rem;
   font-size: 1.05rem;
+  color: #e5e5e5;
 }
 
 .tool-card-focus__rating .star-rating {
@@ -3220,6 +3210,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 .tool-card-focus__rating .tool-rating-summary__thanks,
 .tool-card-focus__rating .tool-rating-summary__count {
   font-size: 1.05rem;
+  color: #e5e5e5;
 }
 
 .tool-card-focus__open {
@@ -3227,19 +3218,27 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   align-items: center;
   gap: 0.5rem;
   padding: 0.7rem 1.1rem;
-  border: 0;
-  background: var(--category-accent, #525252);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 2px solid var(--category-accent, #525252);
+  background: #121212;
   font-size: 1.05rem;
   font-weight: 650;
   letter-spacing: 0.02em;
   color: #ffffff;
   text-decoration: none;
-  transition: background 0.15s ease, filter 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
 .tool-card-focus__open:hover {
-  background: color-mix(in srgb, var(--category-accent, #525252) 82%, #ffffff);
+  background: #0a0a0a;
+  border-color: rgba(255, 255, 255, 0.2);
+  border-top-color: var(--category-accent, #525252);
+  box-shadow: 0 -1px 10px color-mix(in srgb, var(--category-accent, #525252) 28%, transparent);
   filter: none;
+  color: #ffffff;
 }
 
 .tool-card-focus__open-icon {
@@ -27398,11 +27397,9 @@ html[dir="rtl"] .favicon-preset-library__panel {
 
 .category-hub-card {
   --category-accent: #2563EB;
-  --category-hub-gradient: linear-gradient(
-    to bottom,
-    var(--im-bg-page, #0a0a0a) 0%,
-    color-mix(in srgb, var(--category-accent) 16%, #0a0a0a) 100%
-  );
+  /* Solid header surface + thin top category accent (Industrial Matte Option 2). */
+  --category-hub-surface: #121212;
+  --category-hub-gradient: var(--category-hub-surface);
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -27412,26 +27409,25 @@ html[dir="rtl"] .favicon-preset-library__panel {
   min-height: 5.5rem;
   height: 100%;
   padding: 0.875rem 1rem;
-  background: var(--category-hub-gradient);
-  border: 0;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--category-accent);
   border-radius: 0;
   box-shadow: none;
   color: inherit;
   text-align: start;
   text-decoration: none;
-  transition: background 0.16s ease;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
 .category-hub-card:hover,
 .category-hub-card:focus-visible {
-  --category-hub-gradient: linear-gradient(
-    to bottom,
-    var(--im-bg-page, #0a0a0a) 0%,
-    color-mix(in srgb, var(--category-accent) 24%, #0a0a0a) 100%
-  );
-  background: var(--category-hub-gradient);
-  border: 0;
-  box-shadow: none;
+  background: #121212;
+  border-color: rgba(255, 255, 255, 0.14);
+  border-top-color: var(--category-accent);
+  box-shadow: 0 -1px 10px color-mix(in srgb, var(--category-accent) 28%, transparent);
   outline: none;
 }
 
@@ -27442,8 +27438,8 @@ html[dir="rtl"] .favicon-preset-library__panel {
   justify-content: center;
   width: 1.75rem;
   height: 1.75rem;
-  color: color-mix(in srgb, var(--category-accent) 70%, #fafafa);
-  opacity: 0.9;
+  color: #ffffff;
+  opacity: 1;
   filter: none;
   transition: color 0.16s ease, opacity 0.16s ease;
 }
@@ -27459,7 +27455,7 @@ html[dir="rtl"] .favicon-preset-library__panel {
 .category-hub-card:hover .category-hub-card__icon,
 .category-hub-card:focus-visible .category-hub-card__icon {
   opacity: 1;
-  color: color-mix(in srgb, var(--category-accent) 55%, #ffffff);
+  color: #ffffff;
   filter: none;
 }
 
@@ -27529,21 +27525,18 @@ html[dir="rtl"] .favicon-preset-library__panel {
   min-height: 5.5rem;
   gap: 0.75rem;
   padding: 0.875rem 1rem;
-  background: var(--category-hub-gradient);
-  border: 0;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--category-accent);
   box-shadow: none;
 }
 
 .category-hubs--dense .category-hub-card:hover,
 .category-hubs--dense .category-hub-card:focus-visible {
-  --category-hub-gradient: linear-gradient(
-    to bottom,
-    var(--im-bg-page, #0a0a0a) 0%,
-    color-mix(in srgb, var(--category-accent) 24%, #0a0a0a) 100%
-  );
-  background: var(--category-hub-gradient);
-  border: 0;
-  box-shadow: none;
+  background: #121212;
+  border-color: rgba(255, 255, 255, 0.14);
+  border-top-color: var(--category-accent);
+  box-shadow: 0 -1px 10px color-mix(in srgb, var(--category-accent) 28%, transparent);
 }
 
 .category-hubs--dense .category-hub-card__icon {
@@ -27705,7 +27698,7 @@ html[dir="rtl"] .favicon-preset-library__panel {
   }
 }
 
-/* Borderless dark category gradient — matches sitewide Industrial Matte cards. */
+/* Solid matte category tiles — top accent line only (Industrial Matte Option 2). */
 .category-hub-overlay__grid .category-hub-card {
   box-sizing: border-box;
   width: 100%;
@@ -27713,29 +27706,28 @@ html[dir="rtl"] .favicon-preset-library__panel {
   min-height: 0;
   gap: 0.6rem;
   padding: 0.7rem 0.8rem;
-  border: 0;
-  background: var(--category-hub-gradient);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid var(--category-accent);
+  background: #121212;
   box-shadow: none;
   opacity: 1;
-  transition: background 0.16s ease;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
 }
 
 .category-hub-overlay__grid .category-hub-card:hover,
 .category-hub-overlay__grid .category-hub-card:focus-visible {
-  --category-hub-gradient: linear-gradient(
-    to bottom,
-    var(--im-bg-page, #0a0a0a) 0%,
-    color-mix(in srgb, var(--category-accent) 24%, #0a0a0a) 100%
-  );
-  border: 0;
-  background: var(--category-hub-gradient);
-  box-shadow: none;
+  border-color: rgba(255, 255, 255, 0.14);
+  border-top-color: var(--category-accent);
+  background: #121212;
+  box-shadow: 0 -1px 10px color-mix(in srgb, var(--category-accent) 28%, transparent);
   opacity: 1;
   transform: none;
 }
 
 .category-hub-overlay__grid .category-hub-card__icon {
-  color: color-mix(in srgb, var(--category-accent) 55%, #ffffff);
+  color: #ffffff;
   opacity: 1;
   filter: none;
 }
@@ -29529,15 +29521,15 @@ html.workspace-phase-clean .pinned-dock {
 .tool-pin-button--focus {
   width: 2.4rem;
   height: 2.4rem;
-  border: 0;
-  border-bottom: 1px solid transparent;
+  border: 1px solid transparent;
   background: transparent;
 }
 
 .tool-pin-button--focus:hover,
 .tool-pin-button--focus:focus-visible {
-  border-bottom-color: rgb(255 255 255 / 0.55);
-  background: transparent;
+  border-color: rgba(255, 255, 255, 0.14);
+  background: #0a0a0a;
+  color: #ffffff;
 }
 
 .tool-pin-button--focus .tool-pin-button__icon {

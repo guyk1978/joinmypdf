@@ -53,6 +53,8 @@ const INTERACTIVE_GENERATOR_SLUGS = new Set<string>([
   "storage-data-converter",
   "unit-converter",
   "sql-query-formatter",
+  "invoice-generator",
+  "timeline-gantt-generator",
   "hash-generator",
 ]);
 

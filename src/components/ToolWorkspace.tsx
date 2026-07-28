@@ -20,6 +20,7 @@ import {
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceActionRow } from "@/components/WorkspaceActionRow";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
+import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useProjectResume } from "@/hooks/useProjectResume";
 import {
@@ -192,6 +193,21 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
+
+  useConsumePendingFiles(
+    (file) => (config ? config.accept(file) : false),
+    (incoming) => {
+      if (!config) return;
+      setFiles((prev) => {
+        if (!config.multiple) return [incoming[0]!];
+        return [...prev, ...incoming];
+      });
+      setDone(false);
+      setRunError(null);
+      setStatus(ws.status("filesAdded", { count: incoming.length }));
+      capture(EVENTS.file_selected, { source: "home_pending", count: incoming.length });
+    },
+  );
 
   const onRestoreProject = useCallback(
     (payload: { files: File[]; settings: Record<string, unknown>; projectName: string }) => {
