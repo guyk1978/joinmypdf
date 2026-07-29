@@ -3,7 +3,11 @@
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { listHomeHeroTileTools } from "@/lib/home-hero-launch";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import {
+  listHomeHeroTileTools,
+  listHomeHeroTileToolsByCategory,
+} from "@/lib/home-hero-launch";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
@@ -15,26 +19,36 @@ type LaunchTile = {
 
 type HomeHeroLaunchProps = {
   locale: string;
+  /** When set, only list tools from this inventory category. */
+  categoryId?: InventoryCategoryId;
+  /** Override the framed list heading (defaults to Home.landing.heroLaunchTitle). */
+  toolsTitle?: string;
 };
 
 /**
- * Homepage hero — framed Tools list (plain text links in two columns).
- * Each link routes directly to that tool’s page.
+ * Framed Tools list (plain text links in two columns).
+ * Used on the homepage (all tools) and category hubs (filtered).
  */
-export function HomeHeroLaunch({ locale }: HomeHeroLaunchProps) {
+export function HomeHeroLaunch({ locale, categoryId, toolsTitle }: HomeHeroLaunchProps) {
   const t = useTranslations("Home.landing");
   const tTools = useTranslations("Tools");
-  const baseId = "home-hero-launch";
+  const baseId = categoryId ? `category-hero-launch-${categoryId}` : "home-hero-launch";
+  const heading = toolsTitle ?? t("heroLaunchTitle");
 
   const tiles = useMemo((): LaunchTile[] => {
-    return listHomeHeroTileTools()
+    const source = categoryId
+      ? listHomeHeroTileToolsByCategory(categoryId)
+      : listHomeHeroTileTools();
+    return source
       .map((tool) => ({
         slug: tool.slug,
         title: resolveInventoryToolLabel(tool.slug, tTools),
         href: resolveToolHref(tool.slug, tool.primaryCategory, locale),
       }))
       .sort((a, b) => a.title.localeCompare(b.title, locale));
-  }, [locale, tTools]);
+  }, [categoryId, locale, tTools]);
+
+  if (!tiles.length) return null;
 
   return (
     <section
@@ -42,7 +56,7 @@ export function HomeHeroLaunch({ locale }: HomeHeroLaunchProps) {
       aria-labelledby={`${baseId}-title`}
     >
       <h2 id={`${baseId}-title`} className="home-hero-launch__title">
-        {t("heroLaunchTitle")}
+        {heading}
       </h2>
 
       <div className="home-hero-launch__scroll">

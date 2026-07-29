@@ -69,8 +69,12 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <header className="tools-directory-page__head">
-            <div className="tools-directory-page__breadcrumbs">
+          <CategoryHubPageHeader
+            categoryId="mp4"
+            title={t("title", { count: getCategoryToolCount("mp4") })}
+            description={t("description")}
+            variant="directory"
+            breadcrumbs={
               <nav aria-label="Breadcrumb" className="tool-breadcrumbs">
                 <ol className="tool-breadcrumbs__list">
                   {breadcrumbItems.map((item, index) => {
@@ -96,16 +100,8 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
                   })}
                 </ol>
               </nav>
-            </div>
-          <CategoryHubPageHeader
-            categoryId="mp4"
-              title={t("title", { count: getCategoryToolCount("mp4") })}
-              description={t("description")}
-              variant="directory"
-              className="!mb-0 !max-w-none"
-              nested
-            />
-          </header>
+            }
+          />
 
           <section
             className="tools-hub-panel p-0"

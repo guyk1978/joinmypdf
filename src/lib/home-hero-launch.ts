@@ -28,6 +28,28 @@ export function listHomeHeroTileTools(): HomeHeroTileTool[] {
   return tools;
 }
 
+/** Tools belonging to a category hub (matches inventory tag membership). */
+export function listHomeHeroTileToolsByCategory(
+  categoryId: InventoryCategoryId,
+): HomeHeroTileTool[] {
+  const seen = new Set<string>();
+  const tools: HomeHeroTileTool[] = [];
+
+  for (const entry of TOOLS_INVENTORY) {
+    if (seen.has(entry.id)) continue;
+    if (!(entry.categories as readonly InventoryCategoryId[]).includes(categoryId)) {
+      continue;
+    }
+    seen.add(entry.id);
+    tools.push({
+      slug: entry.id,
+      primaryCategory: entry.primaryCategory,
+    });
+  }
+
+  return tools;
+}
+
 /** @deprecated Use listHomeHeroTileTools */
 export function listHomeHeroLaunchTools(): HomeHeroTileTool[] {
   return listHomeHeroTileTools();

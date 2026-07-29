@@ -292,8 +292,8 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .home-minimal-layout--directory {
-  /* Generous clearance under the sticky site header before the category intro. */
-  padding-top: clamp(3.75rem, 8vw, 5.75rem);
+  /* Match homepage hero top spacing — avoid a large empty gap under the header. */
+  padding-top: 1rem;
   /* Horizontal gutters come from the shared .page-container wrapper. */
   padding-inline: 0;
 }
@@ -303,11 +303,45 @@ html:has(.home-page-shell--minimal) body {
   margin-bottom: clamp(2rem, 4vw, 2.75rem);
 }
 
-/* Category hub page headers — live inventory tool count */
+/* Full-width category hero must never inherit the narrow directory head rail. */
+.tools-directory-page__head:has(.category-hub-hero),
+.tools-directory-page__head:has(.home-landing__hero) {
+  max-width: none;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
 .category-hub-page-header {
   margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #262626;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.category-hub-page-header--hero {
+  margin-bottom: 1rem;
+}
+
+.category-hub-hero__breadcrumbs {
+  margin-bottom: 0.5rem;
+}
+
+.category-hub-hero {
+  width: 100%;
+  max-width: none;
+}
+
+.category-hub-hero .home-landing__intro {
+  justify-content: center;
+}
+
+.category-hub-hero__title {
+  max-width: 16ch;
+}
+
+.category-hub-hero .category-hub-page-header__note {
+  margin: 0.15rem 0 0;
+  font-size: 0.8125rem;
+  color: #737373;
 }
 
 .category-hub-page-header__title-row {
@@ -334,33 +368,18 @@ html:has(.home-page-shell--minimal) body {
   text-wrap: balance;
 }
 
-.tools-directory-page .category-hub-page-header[data-category="convert"] .category-hub-page-header__title,
-.convert-tools-panel + .category-hub-page-header .category-hub-page-header__title {
-  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-  font-weight: 750;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #f5f5f5;
-}
-
-.tools-directory-page:has(.convert-tools-panel) .category-hub-page-header__title {
-  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-  font-weight: 750;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #f5f5f5;
-}
-
-.tools-directory-page:has(.convert-tools-panel) .category-hub-page-header__sep,
-.tools-directory-page:has(.convert-tools-panel) .category-hub-page-header__count,
-.tools-directory-page:has(.convert-tools-panel) .category-hub-page-header__desc {
-  display: none;
+.tools-directory-page:has(.convert-tools-panel) .category-hub-hero__title {
+  font-size: clamp(1.85rem, 3.6vw, 2.85rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: none;
+  color: #ffffff;
 }
 
 .tools-directory-page:has(.convert-tools-panel) .category-hub-page-header {
-  margin-bottom: 0.85rem;
-  padding-bottom: 0.65rem;
-  border-bottom-color: rgba(255, 255, 255, 0.06);
+  margin-bottom: 1rem;
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .convert-tools-panel {

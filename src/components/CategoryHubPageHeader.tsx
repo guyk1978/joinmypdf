@@ -1,38 +1,38 @@
 import type { ReactNode } from "react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getInventoryToolsByCategory } from "@/lib/tools-inventory-query";
+import { HomeHeroLaunch } from "@/components/homepage/HomeHeroLaunch";
 import { clsx } from "clsx";
+import "@/styles/home-landing.css";
 
 export type CategoryHubPageHeaderProps = {
-  /** Inventory category used to compute the live tool count. */
+  /** Inventory category id (used for data attributes / analytics). */
   categoryId: InventoryCategoryId;
   title: string;
   description?: string;
   /** Optional eyebrow line above the title (directory shells). */
   eyebrow?: ReactNode;
-  /** Optional breadcrumb trail above the title. */
+  /** Optional breadcrumb trail above the hero. */
   breadcrumbs?: ReactNode;
-  /** Optional eyebrow / privacy line rendered under the description. */
+  /** Optional privacy / note line under the description. */
   footerNote?: ReactNode;
-  /** Extra content under the description. */
+  /** Extra content under the hero. */
   children?: ReactNode;
   className?: string;
   /**
-   * `bordered` — industrial hub header with bottom border (pdf/convert).
-   * `directory` — tools-directory-page__head styles (mp3/png).
+   * Kept for call-site compatibility — hero layout is shared for all variants.
    */
   variant?: "bordered" | "directory";
   /**
-   * When true, render an inner block (div) without an outer `<header>` /
-   * directory head wrapper — for pages that already provide the shell.
+   * When true, render without an outer wrapper — for pages that already provide the shell.
    */
   nested?: boolean;
 };
 
 /**
- * Shared category hub page header with a live inventory tool-count badge.
- * Count matches CategoryHubsSection cards (getInventoryToolsByCategory).
+ * Category hub hero — identical to the homepage hero structure:
+ * left = this category’s title/description, right = full-site Tools list.
  */
 export async function CategoryHubPageHeader({
   categoryId,
@@ -43,80 +43,55 @@ export async function CategoryHubPageHeader({
   footerNote,
   children,
   className,
-  variant = "bordered",
   nested = false,
 }: CategoryHubPageHeaderProps) {
-  const tDir = await getTranslations("ToolsDirectory");
-  const toolCount = getInventoryToolsByCategory(categoryId).length;
-  const toolCountLabel =
-    toolCount === 1
-      ? tDir("toolCount", { count: toolCount })
-      : tDir("toolCountPlural", { count: toolCount });
+  const locale = await getLocale();
+  const tHome = await getTranslations("Home");
+  const toolsTitle = tHome.has("landing.heroLaunchTitle")
+    ? tHome("landing.heroLaunchTitle")
+    : "Tools";
 
-  const body = (
+  const hero = (
     <>
       {breadcrumbs ? (
-        <div className="tools-directory-page__breadcrumbs">{breadcrumbs}</div>
+        <div className="tools-directory-page__breadcrumbs category-hub-hero__breadcrumbs">
+          {breadcrumbs}
+        </div>
       ) : null}
-      {eyebrow ? <p className="tools-directory-page__eyebrow">{eyebrow}</p> : null}
-      <div className="category-hub-page-header__title-row">
-        <h1
-          className={
-            variant === "directory"
-              ? "tools-directory-page__title"
-              : "category-hub-page-header__title"
-          }
-        >
-          {title}
-        </h1>
-        {toolCount > 0 ? (
-          <>
-            <span className="category-hub-page-header__sep" aria-hidden="true">
-              ·
-            </span>
-            <span className="category-hub-page-header__count" aria-label={toolCountLabel}>
-              {toolCountLabel}
-            </span>
-          </>
-        ) : null}
+
+      <div
+        className={clsx("home-landing__hero category-hub-hero", className)}
+        data-category={categoryId}
+      >
+        <header className="home-landing__intro category-hub-hero__intro">
+          {eyebrow ? <p className="tools-directory-page__eyebrow">{eyebrow}</p> : null}
+          <h1 className="home-landing__title category-hub-hero__title">{title}</h1>
+          {description ? (
+            <p className="home-landing__tagline category-hub-hero__tagline">{description}</p>
+          ) : null}
+          {footerNote ? <p className="category-hub-page-header__note">{footerNote}</p> : null}
+        </header>
+
+        {/* Same full-catalog Tools pane as the homepage — category tools stay in the grid below. */}
+        <HomeHeroLaunch locale={locale} toolsTitle={toolsTitle} />
       </div>
-      {description ? (
-        <p
-          className={
-            variant === "directory"
-              ? "tools-directory-page__desc"
-              : "category-hub-page-header__desc"
-          }
-        >
-          {description}
-        </p>
-      ) : null}
-      {footerNote ? <p className="category-hub-page-header__note">{footerNote}</p> : null}
+
       {children}
     </>
   );
 
   if (nested) {
     return (
-      <div
-        className={clsx("category-hub-page-header__nested", className)}
-        data-category={categoryId}
-      >
-        {body}
+      <div className="category-hub-page-header__nested" data-category={categoryId}>
+        {hero}
       </div>
     );
   }
 
   return (
-    <header
-      className={clsx(
-        variant === "directory" ? "tools-directory-page__head" : "category-hub-page-header",
-        className,
-      )}
-      data-category={categoryId}
-    >
-      {body}
-    </header>
+    <div className="category-hub-page-header category-hub-page-header--hero" data-category={categoryId}>
+      {hero}
+    </div>
   );
 }
 
