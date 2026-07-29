@@ -6,6 +6,7 @@ import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { PdfToolsCardGrid } from "@/components/PdfToolsCardGrid";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentPdfBlogPosts } from "@/lib/blog-pdf-category";
@@ -80,7 +81,7 @@ export default async function PdfToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="pdf"
             title={t("title", { count: getCategoryToolCount("pdf") })}
@@ -89,69 +90,88 @@ export default async function PdfToolsHubPage({ params }: PageProps) {
             variant="bordered"
           />
 
-          {PDF_TOOL_GROUPS.map((group) => (
-            <section
-              key={group.id}
-              className="tools-hub-panel border-b border-[#262626] py-8 first:pt-0"
-              aria-labelledby={`pdf-group-${group.id}`}
-            >
-              <h2
-                id={`pdf-group-${group.id}`}
-                className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+          {/*
+            Shared hub layout: tool grids directly under the hero,
+            then About / FAQ / related content stacked below.
+          */}
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="pdf" />
+
+              <section
+                className="category-hub-split__related"
+                aria-labelledby="pdf-tools-related-hubs"
               >
-                {t(GROUP_TITLE_KEYS[group.id])}
-              </h2>
-              <PdfToolsCardGrid items={buildPdfToolGroupItems(group.id, tTools, locale)} />
-            </section>
-          ))}
-
-          <CategorySeoSection categoryId="pdf" />
-
-          <section
-            className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="pdf-tools-related-hubs"
-          >
-            <h2
-              id="pdf-tools-related-hubs"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("relatedHubsTitle")}
-            </h2>
-            <ul className="mt-4 flex flex-col gap-3">
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/convert-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
+                <h2
+                  id="pdf-tools-related-hubs"
+                  className="tools-hub-link-list__title"
                 >
-                  {t("exploreConvertTools")}
-                </Link>
-              </li>
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/compress-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreCompressTools")}
-                </Link>
-              </li>
-              <li className="pb-0">
-                <Link
-                  href="/tools/extract-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreExtractTools")}
-                </Link>
-              </li>
-            </ul>
-          </section>
+                  {t("relatedHubsTitle")}
+                </h2>
+                <ul className="tools-hub-link-list">
+                  <li className="tools-hub-link-list__item">
+                    <Link
+                      href="/tools/convert-tools/"
+                      className="tools-hub-link-list__link"
+                      prefetch={false}
+                    >
+                      <span className="tools-hub-link-list__label">
+                        {t("exploreConvertTools")}
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="tools-hub-link-list__item">
+                    <Link
+                      href="/tools/compress-tools/"
+                      className="tools-hub-link-list__link"
+                      prefetch={false}
+                    >
+                      <span className="tools-hub-link-list__label">
+                        {t("exploreCompressTools")}
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="tools-hub-link-list__item">
+                    <Link
+                      href="/tools/extract-tools/"
+                      className="tools-hub-link-list__link"
+                      prefetch={false}
+                    >
+                      <span className="tools-hub-link-list__label">
+                        {t("exploreExtractTools")}
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </section>
 
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="pdf-tools-related-guides"
+              <ToolsHubRelatedGuides
+                posts={relatedGuides}
+                title={t("relatedGuidesTitle")}
+                sectionId="pdf-tools-related-guides"
+              />
+            </>
+            }
+            tools={
+              <>
+              {PDF_TOOL_GROUPS.map((group) => (
+                <section
+                  key={group.id}
+                  className="tools-hub-panel category-hub-split__group"
+                  aria-labelledby={`pdf-group-${group.id}`}
+                >
+                  <h2
+                    id={`pdf-group-${group.id}`}
+                    className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                  >
+                    {t(GROUP_TITLE_KEYS[group.id])}
+                  </h2>
+                  <PdfToolsCardGrid items={buildPdfToolGroupItems(group.id, tTools, locale)} />
+                </section>
+              ))}
+            </>
+            }
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

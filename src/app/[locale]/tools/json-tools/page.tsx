@@ -6,6 +6,7 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentDeveloperJsonBlogPosts } from "@/lib/blog-json-category";
@@ -72,57 +73,65 @@ export default async function JsonToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="json"
             title={t("title", { count: getCategoryToolCount("json") })}
             description={t("description")}
             variant="bordered"
           />
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="json" />
 
-          <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} categoryId="json" />
-          </section>
+              <section
+                          className="category-hub-split__related"
+                          aria-labelledby="json-tools-related-formats"
+                        >
+                          <h2
+                            id="json-tools-related-formats"
+                            className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                          >
+                            {t("relatedFormatsTitle")}
+                          </h2>
+                          <ul className="mt-4 flex flex-col gap-3">
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/yaml-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreYamlTools")}
+                              </Link>
+                            </li>
+                            <li className="pb-0">
+                              <Link
+                                href="/tools/xml-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreXmlTools")}
+                              </Link>
+                            </li>
+                          </ul>
+                          <p className="mt-4 mb-0 text-sm leading-relaxed text-[#a3a3a3]">{t("relatedFormatsBlurb")}</p>
+                        </section>
 
-          <CategorySeoSection categoryId="json" />
-
-          <section
-            className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="json-tools-related-formats"
-          >
-            <h2
-              id="json-tools-related-formats"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("relatedFormatsTitle")}
-            </h2>
-            <ul className="mt-4 flex flex-col gap-3">
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/yaml-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreYamlTools")}
-                </Link>
-              </li>
-              <li className="pb-0">
-                <Link
-                  href="/tools/xml-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreXmlTools")}
-                </Link>
-              </li>
-            </ul>
-            <p className="mt-4 mb-0 text-sm leading-relaxed text-[#a3a3a3]">{t("relatedFormatsBlurb")}</p>
-          </section>
-
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="json-tools-related-guides"
+              <ToolsHubRelatedGuides
+                          posts={relatedGuides}
+                          title={t("relatedGuidesTitle")}
+                          sectionId="json-tools-related-guides"
+                        />
+              </>
+            }
+            tools={
+              <>
+              <section className="tools-hub-panel category-hub-split__group" aria-label={t("schemaName")}>
+                          <CategoryDirectoryFlatGrid items={gridItems} categoryId="json" />
+                        </section>
+              </>
+            }
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

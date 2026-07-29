@@ -6,6 +6,7 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentVideoMp4BlogPosts } from "@/lib/blog-video-category";
@@ -68,7 +69,7 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="mp4"
             title={t("title", { count: getCategoryToolCount("mp4") })}
@@ -103,19 +104,25 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
             }
           />
 
-          <section
-            className="tools-hub-panel p-0"
-            aria-label={t("schemaName")}
-          >
-            <CategoryDirectoryFlatGrid items={gridItems} categoryId="mp4" />
-          </section>
-
-          <CategorySeoSection categoryId="mp4" />
-
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="mp4-tools-related-guides"
+          <CategoryHubSplit
+            content={
+              <>
+                <CategorySeoSection categoryId="mp4" />
+                <ToolsHubRelatedGuides
+                  posts={relatedGuides}
+                  title={t("relatedGuidesTitle")}
+                  sectionId="mp4-tools-related-guides"
+                />
+              </>
+            }
+            tools={
+              <section
+                className="tools-hub-panel category-hub-split__group"
+                aria-label={t("schemaName")}
+              >
+                <CategoryDirectoryFlatGrid items={gridItems} categoryId="mp4" />
+              </section>
+            }
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

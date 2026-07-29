@@ -6,6 +6,7 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentVideoMp4BlogPosts } from "@/lib/blog-video-category";
@@ -79,80 +80,88 @@ export default async function VideoToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="video"
             title={t("title", { count: getCategoryToolCount("video") })}
             description={t("description")}
             variant="bordered"
           />
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="video" />
 
-          {VIDEO_TOOL_GROUPS.map((group) => (
-            <section
-              key={group.id}
-              className="tools-hub-panel border-b border-[#262626] py-8 first:pt-0"
-              aria-labelledby={`video-group-${group.id}`}
-            >
-              <h2
-                id={`video-group-${group.id}`}
-                className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-              >
-                {t(GROUP_TITLE_KEYS[group.id])}
-              </h2>
-              <CategoryDirectoryFlatGrid
-                items={buildVideoToolGroupItems(group.id, tTools, locale)}
-                categoryId="video"
-              />
-            </section>
-          ))}
+              <section
+                          className="category-hub-split__related"
+                          aria-labelledby="video-tools-related-hubs"
+                        >
+                          <h2
+                            id="video-tools-related-hubs"
+                            className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                          >
+                            {t("relatedHubsTitle")}
+                          </h2>
+                          <ul className="mt-4 flex flex-col gap-3">
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/compress-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreCompressTools")}
+                              </Link>
+                            </li>
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/mp4-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreMp4Tools")}
+                              </Link>
+                            </li>
+                            <li className="pb-0">
+                              <Link
+                                href="/tools/image-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreMediaTools")}
+                              </Link>
+                            </li>
+                          </ul>
+                        </section>
 
-          <CategorySeoSection categoryId="video" />
-
-          <section
-            className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="video-tools-related-hubs"
-          >
-            <h2
-              id="video-tools-related-hubs"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("relatedHubsTitle")}
-            </h2>
-            <ul className="mt-4 flex flex-col gap-3">
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/compress-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreCompressTools")}
-                </Link>
-              </li>
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/mp4-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreMp4Tools")}
-                </Link>
-              </li>
-              <li className="pb-0">
-                <Link
-                  href="/tools/image-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreMediaTools")}
-                </Link>
-              </li>
-            </ul>
-          </section>
-
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="video-tools-related-guides"
+              <ToolsHubRelatedGuides
+                          posts={relatedGuides}
+                          title={t("relatedGuidesTitle")}
+                          sectionId="video-tools-related-guides"
+                        />
+              </>
+            }
+            tools={
+              <>
+              {VIDEO_TOOL_GROUPS.map((group) => (
+                          <section
+                            key={group.id}
+                            className="tools-hub-panel category-hub-split__group"
+                            aria-labelledby={`video-group-${group.id}`}
+                          >
+                            <h2
+                              id={`video-group-${group.id}`}
+                              className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                            >
+                              {t(GROUP_TITLE_KEYS[group.id])}
+                            </h2>
+                            <CategoryDirectoryFlatGrid
+                              items={buildVideoToolGroupItems(group.id, tTools, locale)}
+                              categoryId="video"
+                            />
+                          </section>
+                        ))}
+              </>
+            }
           />
 
           <footer className="mt-10 flex flex-col gap-4 border-t border-[#262626] pt-6">

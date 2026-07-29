@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { Link } from "@/i18n/navigation";
@@ -85,7 +86,7 @@ export default async function DeveloperToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="developer"
             title={t("title", { count: getCategoryToolCount("developer") })}
@@ -93,73 +94,81 @@ export default async function DeveloperToolsHubPage({ params }: PageProps) {
             footerNote={t("zeroServerPolicy")}
             variant="bordered"
           />
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="developer" />
 
-          {DEVELOPER_HUB_TOOL_GROUPS.map((group) => (
-            <section
-              key={group.id}
-              className="tools-hub-panel border-b border-[#262626] py-8 first:pt-0"
-              aria-labelledby={`developer-group-${group.id}`}
-            >
-              <h2
-                id={`developer-group-${group.id}`}
-                className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-              >
-                {t(GROUP_TITLE_KEYS[group.id])}
-              </h2>
-              <CategoryDirectoryFlatGrid
-                items={buildDeveloperHubGroupItems(group.id, tTools, locale)}
-                categoryId="developer"
-              />
-            </section>
-          ))}
+              <section
+                          className="category-hub-split__related"
+                          aria-labelledby="developer-tools-related-hubs"
+                        >
+                          <h2
+                            id="developer-tools-related-hubs"
+                            className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                          >
+                            {t("relatedHubsTitle")}
+                          </h2>
+                          <ul className="mt-4 flex flex-col gap-3">
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/json-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreJsonTools")}
+                              </Link>
+                            </li>
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/text-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreTextTools")}
+                              </Link>
+                            </li>
+                            <li className="pb-0">
+                              <Link
+                                href="/tools/extract-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreExtractTools")}
+                              </Link>
+                            </li>
+                          </ul>
+                        </section>
 
-          <CategorySeoSection categoryId="developer" />
-
-          <section
-            className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="developer-tools-related-hubs"
-          >
-            <h2
-              id="developer-tools-related-hubs"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("relatedHubsTitle")}
-            </h2>
-            <ul className="mt-4 flex flex-col gap-3">
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/json-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreJsonTools")}
-                </Link>
-              </li>
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/text-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreTextTools")}
-                </Link>
-              </li>
-              <li className="pb-0">
-                <Link
-                  href="/tools/extract-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreExtractTools")}
-                </Link>
-              </li>
-            </ul>
-          </section>
-
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="developer-tools-related-guides"
+              <ToolsHubRelatedGuides
+                          posts={relatedGuides}
+                          title={t("relatedGuidesTitle")}
+                          sectionId="developer-tools-related-guides"
+                        />
+              </>
+            }
+            tools={
+              <>
+              {DEVELOPER_HUB_TOOL_GROUPS.map((group) => (
+                          <section
+                            key={group.id}
+                            className="tools-hub-panel category-hub-split__group"
+                            aria-labelledby={`developer-group-${group.id}`}
+                          >
+                            <h2
+                              id={`developer-group-${group.id}`}
+                              className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                            >
+                              {t(GROUP_TITLE_KEYS[group.id])}
+                            </h2>
+                            <CategoryDirectoryFlatGrid
+                              items={buildDeveloperHubGroupItems(group.id, tTools, locale)}
+                              categoryId="developer"
+                            />
+                          </section>
+                        ))}
+              </>
+            }
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

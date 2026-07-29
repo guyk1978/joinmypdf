@@ -6,6 +6,7 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentDesignFaviconBlogPosts } from "@/lib/blog-favicon-category";
@@ -72,24 +73,32 @@ export default async function FaviconToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="favicon"
             title={t("title", { count: getCategoryToolCount("favicon") })}
             description={t("description")}
             variant="bordered"
           />
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="favicon" />
 
-          <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} categoryId="favicon" />
-          </section>
-
-          <CategorySeoSection categoryId="favicon" />
-
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="favicon-tools-related-guides"
+              <ToolsHubRelatedGuides
+                          posts={relatedGuides}
+                          title={t("relatedGuidesTitle")}
+                          sectionId="favicon-tools-related-guides"
+                        />
+              </>
+            }
+            tools={
+              <>
+              <section className="tools-hub-panel category-hub-split__group" aria-label={t("schemaName")}>
+                          <CategoryDirectoryFlatGrid items={gridItems} categoryId="favicon" />
+                        </section>
+              </>
+            }
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

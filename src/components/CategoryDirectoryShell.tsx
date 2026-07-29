@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategoryHubPageHeader } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import {
   ToolsDirectoryDashboard,
@@ -9,6 +10,7 @@ import {
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { CategoryDirectoryId } from "@/lib/category-directory-config";
 import type { ToolGridItem } from "@/lib/tool-grid";
+import "@/styles/home-landing.css";
 
 type CategoryDirectoryShellProps = {
   title: string;
@@ -39,8 +41,22 @@ export async function CategoryDirectoryShell({
   flatGridItems,
   breadcrumbs,
 }: CategoryDirectoryShellProps) {
+  const tools = flatGridItems?.length ? (
+    <section className="tools-hub-panel category-hub-split__group" aria-label={title}>
+      <CategoryDirectoryFlatGrid items={flatGridItems} categoryId={categoryId} />
+    </section>
+  ) : (
+    <ToolsDirectoryDashboard
+      categoryId={categoryId}
+      featuredItems={featuredItems}
+      featuredTitle={featuredTitle}
+      featuredDescription={featuredDescription}
+      workflowColumns={workflowColumns}
+    />
+  );
+
   return (
-    <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+    <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
       {categoryId ? (
         <CategoryHubPageHeader
           categoryId={categoryId}
@@ -61,19 +77,10 @@ export async function CategoryDirectoryShell({
         </header>
       )}
 
-      {flatGridItems?.length ? (
-        <CategoryDirectoryFlatGrid items={flatGridItems} categoryId={categoryId} />
-      ) : (
-        <ToolsDirectoryDashboard
-          categoryId={categoryId}
-          featuredItems={featuredItems}
-          featuredTitle={featuredTitle}
-          featuredDescription={featuredDescription}
-          workflowColumns={workflowColumns}
-        />
-      )}
-
-      {seoId ? <CategorySeoSection categoryId={seoId} /> : null}
+      <CategoryHubSplit
+        content={seoId ? <CategorySeoSection categoryId={seoId} /> : null}
+        tools={tools}
+      />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentImagePngBlogPosts } from "@/lib/blog-image-category";
@@ -66,59 +67,67 @@ export default async function PngToolsPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="png"
             title={t("title", { count: getCategoryToolCount("png") })}
             description={t("description")}
             variant="directory"
           />
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="png" />
 
-          <section
-            className="tools-hub-panel p-0"
-            aria-label={t("schemaName")}
-          >
-            <CategoryDirectoryFlatGrid items={gridItems} categoryId="png" />
-          </section>
+              <section
+                          className="category-hub-split__related"
+                          aria-labelledby="png-tools-related-formats"
+                        >
+                          <h2
+                            id="png-tools-related-formats"
+                            className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                          >
+                            {t("relatedFormatsTitle")}
+                          </h2>
+                          <ul className="mt-4 flex flex-col gap-3">
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/jpg-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreJpgTools")}
+                              </Link>
+                            </li>
+                            <li className="pb-0">
+                              <Link
+                                href="/tools/image-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreImageTools")}
+                              </Link>
+                            </li>
+                          </ul>
+                        </section>
 
-          <CategorySeoSection categoryId="png" />
-
-          <section
-            className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="png-tools-related-formats"
-          >
-            <h2
-              id="png-tools-related-formats"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("relatedFormatsTitle")}
-            </h2>
-            <ul className="mt-4 flex flex-col gap-3">
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/jpg-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreJpgTools")}
-                </Link>
-              </li>
-              <li className="pb-0">
-                <Link
-                  href="/tools/image-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreImageTools")}
-                </Link>
-              </li>
-            </ul>
-          </section>
-
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="png-tools-related-guides"
+              <ToolsHubRelatedGuides
+                          posts={relatedGuides}
+                          title={t("relatedGuidesTitle")}
+                          sectionId="png-tools-related-guides"
+                        />
+              </>
+            }
+            tools={
+              <>
+              <section
+                          className="tools-hub-panel category-hub-split__group"
+                          aria-label={t("schemaName")}
+                        >
+                          <CategoryDirectoryFlatGrid items={gridItems} categoryId="png" />
+                        </section>
+              </>
+            }
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

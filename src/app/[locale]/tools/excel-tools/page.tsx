@@ -5,6 +5,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import {
@@ -69,19 +70,27 @@ export default async function ExcelToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="excel"
             title={t("title", { count: getCategoryToolCount("excel") })}
             description={t("description")}
             variant="bordered"
           />
-
-          <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} categoryId="excel" />
-          </section>
-
-          <CategorySeoSection categoryId="excel" />
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="excel" />
+              </>
+            }
+            tools={
+              <>
+              <section className="tools-hub-panel category-hub-split__group" aria-label={t("schemaName")}>
+                          <CategoryDirectoryFlatGrid items={gridItems} categoryId="excel" />
+                        </section>
+              </>
+            }
+          />
 
           <footer className="mt-8 flex flex-col gap-4 border-t border-[#262626] pt-6">
             <p className="m-0 text-xs uppercase tracking-widest text-[#737373]">{t("privacyBadge")}</p>

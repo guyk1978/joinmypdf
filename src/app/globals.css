@@ -27,13 +27,13 @@
   --surface-muted: 21 26 32;
   --ink: 255 255 255;
   --ink-muted: 163 163 163;
-  /* Site canvas ? uniform near-black */
-  --site-page-bg: #0a0a0a;
-  --site-canvas-bg: #0a0a0a;
+  /* Site canvas — premium charcoal (global page background) */
+  --site-page-bg: #121212;
+  --site-canvas-bg: #121212;
   --app-canvas-width: 80%;
   --app-canvas-max-width: 1400px;
-  --app-canvas-bg: #0a0a0a;
-  --app-canvas-border: #14141a;
+  --app-canvas-bg: #121212;
+  --app-canvas-border: #1a1a1a;
   --app-content-pad-x: 1rem;
   /* Category accent map — solid rich primaries for hubs + tool cards (no pastels) */
   --color-pdf: #2563EB;
@@ -74,7 +74,7 @@
   --tool-workspace-rail: 64rem; /* legacy page-layout max-width token */
   --tool-surface-bg: transparent;
   --tool-surface-width: 100%;
-  --nav-all-tools-bg: #0a0a0a;
+  --nav-all-tools-bg: #121212;
   --nav-all-tools-bg-hover: #171717;
   --nav-all-tools-border: #262626;
   --nav-all-tools-border-hover: #404040;
@@ -111,8 +111,32 @@ body {
   line-height: var(--site-line-height);
   letter-spacing: 0.01em;
   padding-top: 0;
+  color: #fafafa;
   background-color: var(--site-canvas-bg);
-  background-image: none;
+  /* Clean premium canvas: soft center lift + barely-there graphite grain. No geometric mesh. */
+  background-image:
+    radial-gradient(
+      ellipse 85% 70% at 50% 28%,
+      #1a1a1a 0%,
+      #161616 38%,
+      #121212 72%,
+      #101010 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.012) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.008) 0 1px,
+      transparent 1px 4px
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.55 0 0 0 0 0.55 0 0 0 0 0.55 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-blend-mode: normal, soft-light, soft-light, soft-light;
+  background-attachment: fixed;
+  background-repeat: no-repeat, repeat, repeat, repeat;
+  background-size: auto, auto, auto, 180px 180px;
   /* No overflow-x here: it would make <body> a scroll container and break
      the sticky header. Horizontal clipping is handled by the html rule. */
 }
@@ -125,7 +149,7 @@ html.viewport-recovering {
 /* Industrial Matte — global scrollbars (main window, panels, drawers, modals) */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #262626 #0a0a0a;
+  scrollbar-color: #2a2a2a #121212;
 }
 
 *::-webkit-scrollbar {
@@ -134,7 +158,7 @@ html.viewport-recovering {
 }
 
 *::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #121212;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -165,8 +189,8 @@ html:has(.home-page-shell--minimal) {
 
 html:has(.app-page-shell) body,
 html:has(.home-page-shell--minimal) body {
-  background-color: #0a0a0a;
-  background-image: none;
+  background-color: var(--site-canvas-bg);
+  /* Keep the global charcoal + grain canvas (do not flatten to solid black). */
   color: #fafafa;
 }
 
@@ -296,6 +320,37 @@ html:has(.home-page-shell--minimal) body {
   padding-top: 1rem;
   /* Horizontal gutters come from the shared .page-container wrapper. */
   padding-inline: 0;
+  text-align: start;
+}
+
+/*
+ * Category hubs: one centered content rail for hero → tool grid → About/FAQ/related.
+ * ~80% on typical desktops, capped at 1200px; full-width gutters on small screens.
+ */
+.tools-directory-page--hub-split.page-container,
+.tools-directory-page--pdf-split.page-container {
+  --category-hub-max-width: 1200px;
+  box-sizing: border-box;
+  width: 80%;
+  max-width: var(--category-hub-max-width);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 2.5vw, 1.5rem);
+  text-align: start;
+}
+
+@media (max-width: 767px) {
+  .tools-directory-page--hub-split.page-container,
+  .tools-directory-page--pdf-split.page-container {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tools-directory-page.page-container:not(.tools-directory-page--hub-split):not(.tools-directory-page--pdf-split) {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-inline: auto;
+  text-align: start;
 }
 
 .tools-directory-page__head {
@@ -331,11 +386,11 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .category-hub-hero .home-landing__intro {
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .category-hub-hero__title {
-  max-width: 16ch;
+  max-width: none;
 }
 
 .category-hub-hero .category-hub-page-header__note {
@@ -689,10 +744,18 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .home-minimal-layout--dashboard {
-  width: 100%;
-  max-width: min(100%, 80rem);
+  width: 80%;
+  max-width: 1200px;
   margin-inline: auto;
-  padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 1.5rem) clamp(2rem, 4vw, 2.5rem);
+  padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 2.5vw, 1.5rem) clamp(2rem, 4vw, 2.5rem);
+  text-align: start;
+}
+
+@media (max-width: 767px) {
+  .home-minimal-layout--dashboard {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 .home-minimal-tagline--dashboard {

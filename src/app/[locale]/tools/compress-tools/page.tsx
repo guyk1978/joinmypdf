@@ -6,6 +6,7 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentCompressionBlogPosts } from "@/lib/blog-compress-category";
@@ -86,111 +87,119 @@ export default async function CompressToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="compress"
             title={t("title", { count: getCategoryToolCount("compress") })}
             description={t("description")}
             variant="bordered"
           />
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="compress" />
 
-          {COMPRESS_TOOL_GROUPS.map((group) => (
-            <section
-              key={group.id}
-              className="tools-hub-panel border-b border-[#262626] py-8 first:pt-0"
-              aria-labelledby={`compress-group-${group.id}`}
-            >
-              <h2
-                id={`compress-group-${group.id}`}
-                className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-              >
-                {t(GROUP_TITLE_KEYS[group.id])}
-              </h2>
-              <CategoryDirectoryFlatGrid
-                items={buildCompressToolGroupItems(group.id, tTools, locale)}
-                categoryId="compress"
-              />
-            </section>
-          ))}
+              <section
+                          className="category-hub-split__related"
+                          aria-labelledby="compress-why-heading"
+                        >
+                          <h2
+                            id="compress-why-heading"
+                            className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                          >
+                            {t("whyCompress.title")}
+                          </h2>
+                          <p className="mt-3 mb-4 text-sm leading-relaxed text-[#a3a3a3]">{t("whyCompress.intro")}</p>
+                          <div className="overflow-x-auto">
+                            <table className="w-full min-w-[20rem] border-collapse text-left text-sm">
+                              <thead>
+                                <tr className="border-b border-[#262626]">
+                                  <th className="py-2 pr-4 font-medium text-white">{t("whyCompress.colFormat")}</th>
+                                  <th className="py-2 font-medium text-white">{t("whyCompress.colWhy")}</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {whyCompressRows.map((row) => (
+                                  <tr key={row.format} className="border-b border-[#1a1a1a] last:border-b-0">
+                                    <td className="py-3 pr-4 align-top font-medium text-white">{row.format}</td>
+                                    <td className="py-3 align-top text-[#a3a3a3]">{row.reason}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </section>
 
-          <CategorySeoSection categoryId="compress" />
+              <section
+                          className="category-hub-split__related"
+                          aria-labelledby="compress-tools-related-categories"
+                        >
+                          <h2
+                            id="compress-tools-related-categories"
+                            className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                          >
+                            {t("relatedCategoriesTitle")}
+                          </h2>
+                          <ul className="mt-4 flex flex-col gap-3">
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/image-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreImageTools")}
+                              </Link>
+                            </li>
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/mp4-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreVideoTools")}
+                              </Link>
+                            </li>
+                            <li className="pb-0">
+                              <Link
+                                href="/tools/pdf-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("explorePdfTools")}
+                              </Link>
+                            </li>
+                          </ul>
+                        </section>
 
-          <section
-            className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="compress-why-heading"
-          >
-            <h2
-              id="compress-why-heading"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("whyCompress.title")}
-            </h2>
-            <p className="mt-3 mb-4 text-sm leading-relaxed text-[#a3a3a3]">{t("whyCompress.intro")}</p>
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[20rem] border-collapse text-left text-sm">
-                <thead>
-                  <tr className="border-b border-[#262626]">
-                    <th className="py-2 pr-4 font-medium text-white">{t("whyCompress.colFormat")}</th>
-                    <th className="py-2 font-medium text-white">{t("whyCompress.colWhy")}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {whyCompressRows.map((row) => (
-                    <tr key={row.format} className="border-b border-[#1a1a1a] last:border-b-0">
-                      <td className="py-3 pr-4 align-top font-medium text-white">{row.format}</td>
-                      <td className="py-3 align-top text-[#a3a3a3]">{row.reason}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          <section
-            className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="compress-tools-related-categories"
-          >
-            <h2
-              id="compress-tools-related-categories"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("relatedCategoriesTitle")}
-            </h2>
-            <ul className="mt-4 flex flex-col gap-3">
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/image-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreImageTools")}
-                </Link>
-              </li>
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/mp4-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreVideoTools")}
-                </Link>
-              </li>
-              <li className="pb-0">
-                <Link
-                  href="/tools/pdf-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("explorePdfTools")}
-                </Link>
-              </li>
-            </ul>
-          </section>
-
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="compress-tools-related-guides"
+              <ToolsHubRelatedGuides
+                          posts={relatedGuides}
+                          title={t("relatedGuidesTitle")}
+                          sectionId="compress-tools-related-guides"
+                        />
+              </>
+            }
+            tools={
+              <>
+              {COMPRESS_TOOL_GROUPS.map((group) => (
+                          <section
+                            key={group.id}
+                            className="tools-hub-panel category-hub-split__group"
+                            aria-labelledby={`compress-group-${group.id}`}
+                          >
+                            <h2
+                              id={`compress-group-${group.id}`}
+                              className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                            >
+                              {t(GROUP_TITLE_KEYS[group.id])}
+                            </h2>
+                            <CategoryDirectoryFlatGrid
+                              items={buildCompressToolGroupItems(group.id, tTools, locale)}
+                              categoryId="compress"
+                            />
+                          </section>
+                        ))}
+              </>
+            }
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

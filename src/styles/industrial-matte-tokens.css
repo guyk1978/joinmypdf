@@ -3,7 +3,7 @@
  * Use var(--im-*) in CSS; Tailwind aliases in tailwind.config.ts
  *
  * Design contract:
- * - Canvas: single page black `#0a0a0a` (also `--site-page-bg` / `--app-canvas-bg`).
+ * - Canvas: premium charcoal `#121212` (also `--site-page-bg` / `--app-canvas-bg`).
  * - Radius: chrome/nav/cards stay sharp (`rounded-none`). Soft radius only on
  *   tool interiors via `--im-tool-radius` / `--im-tool-radius-control`.
  * - No new glow, pulse, or `rounded-full` pills on promo/partner surfaces.
@@ -15,11 +15,11 @@
   --im-accent: #a1a1aa;
   --im-accent-strong: #d4d4d8;
   --im-accent-surface: #252525;
-  --im-marketing-bg: #0a0a0a;
-  --im-marketing-border: #14141a;
+  --im-marketing-bg: #121212;
+  --im-marketing-border: #1a1a1a;
 
-  --im-bg-page: #0a0a0a; /* unified page canvas — matches globals --site-page-bg */
-  --im-bg-shell: #0a0a0a;
+  --im-bg-page: #121212; /* unified page canvas — matches globals --site-page-bg */
+  --im-bg-shell: #121212;
   --im-surface-card: transparent;
   --im-surface-card-hover: rgba(255, 255, 255, 0.03);
   --im-surface-panel: #141414;

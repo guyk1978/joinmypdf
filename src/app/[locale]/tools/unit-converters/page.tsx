@@ -5,6 +5,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import {
@@ -68,30 +69,38 @@ export default async function UnitConvertersHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="unit-math"
             title={t("title", { count: getCategoryToolCount("unit-math") })}
             description={t("description")}
             variant="bordered"
           />
+          <CategoryHubSplit
+            content={
+              <>
+              <article className="border-b border-[#262626] py-10" aria-labelledby="unit-converters-intro">
+                          <h2
+                            id="unit-converters-intro"
+                            className="mb-4 text-xl font-semibold tracking-tight text-white md:text-2xl"
+                          >
+                            {t("introHeading")}
+                          </h2>
+                          <p className="mb-4 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">{t("introP1")}</p>
+                          <p className="m-0 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">{t("introP2")}</p>
+                        </article>
 
-          <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
-            <CategoryDirectoryFlatGrid items={gridItems} categoryId="unit-math" />
-          </section>
-
-          <article className="border-b border-[#262626] py-10" aria-labelledby="unit-converters-intro">
-            <h2
-              id="unit-converters-intro"
-              className="mb-4 text-xl font-semibold tracking-tight text-white md:text-2xl"
-            >
-              {t("introHeading")}
-            </h2>
-            <p className="mb-4 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">{t("introP1")}</p>
-            <p className="m-0 max-w-3xl text-base leading-relaxed text-[#a3a3a3]">{t("introP2")}</p>
-          </article>
-
-          <CategorySeoSection categoryId="unit-converters" />
+              <CategorySeoSection categoryId="unit-converters" />
+              </>
+            }
+            tools={
+              <>
+              <section className="tools-hub-panel category-hub-split__group" aria-label={t("schemaName")}>
+                          <CategoryDirectoryFlatGrid items={gridItems} categoryId="unit-math" />
+                        </section>
+              </>
+            }
+          />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
             <Link

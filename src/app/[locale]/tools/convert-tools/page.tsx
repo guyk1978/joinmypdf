@@ -6,6 +6,7 @@ import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGri
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
 import { CategoryHubPageHeader } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentConversionBlogPosts } from "@/lib/blog-convert-category";
@@ -71,74 +72,82 @@ export default async function ConvertToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="convert"
             title={t("panelTitle")}
             description={t("description")}
             variant="bordered"
           />
+          <CategoryHubSplit
+            content={
+              <>
+              <CategorySeoSection categoryId="convert" />
 
-          <section
-            className="tools-hub-panel convert-tools-panel"
-            aria-labelledby="convert-tools-panel-title"
-          >
-            <h2 id="convert-tools-panel-title" className="sr-only">
-              {t("panelTitle")}
-            </h2>
-            <CategoryDirectoryFlatGrid
-              items={buildConvertToolGridItems(tTools, locale)}
-              categoryId="convert"
-            />
-          </section>
+              <section
+                          className="category-hub-split__related"
+                          aria-labelledby="convert-tools-related-categories"
+                        >
+                          <h2
+                            id="convert-tools-related-categories"
+                            className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
+                          >
+                            {t("relatedCategoriesTitle")}
+                          </h2>
+                          <ul className="mt-4 flex flex-col gap-3">
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/compress-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreCompressTools")}
+                              </Link>
+                            </li>
+                            <li className="border-b border-[#1a1a1a] pb-3">
+                              <Link
+                                href="/tools/extract-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("exploreExtractTools")}
+                              </Link>
+                            </li>
+                            <li className="pb-0">
+                              <Link
+                                href="/tools/pdf-tools/"
+                                className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
+                                prefetch={false}
+                              >
+                                {t("explorePdfTools")}
+                              </Link>
+                            </li>
+                          </ul>
+                        </section>
 
-          <CategorySeoSection categoryId="convert" />
-
-          <section
-            className="mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="convert-tools-related-categories"
-          >
-            <h2
-              id="convert-tools-related-categories"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("relatedCategoriesTitle")}
-            </h2>
-            <ul className="mt-4 flex flex-col gap-3">
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/compress-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreCompressTools")}
-                </Link>
-              </li>
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/extract-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreExtractTools")}
-                </Link>
-              </li>
-              <li className="pb-0">
-                <Link
-                  href="/tools/pdf-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("explorePdfTools")}
-                </Link>
-              </li>
-            </ul>
-          </section>
-
-          <ToolsHubRelatedGuides
-            posts={relatedGuides}
-            title={t("relatedGuidesTitle")}
-            sectionId="convert-tools-related-guides"
+              <ToolsHubRelatedGuides
+                          posts={relatedGuides}
+                          title={t("relatedGuidesTitle")}
+                          sectionId="convert-tools-related-guides"
+                        />
+              </>
+            }
+            tools={
+              <>
+              <section
+                          className="tools-hub-panel convert-tools-panel category-hub-split__group"
+                          aria-labelledby="convert-tools-panel-title"
+                        >
+                          <h2 id="convert-tools-panel-title" className="sr-only">
+                            {t("panelTitle")}
+                          </h2>
+                          <CategoryDirectoryFlatGrid
+                            items={buildConvertToolGridItems(tTools, locale)}
+                            categoryId="convert"
+                          />
+                        </section>
+              </>
+            }
           />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">

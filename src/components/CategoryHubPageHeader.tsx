@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
-import { getLocale, getTranslations } from "next-intl/server";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getInventoryToolsByCategory } from "@/lib/tools-inventory-query";
-import { HomeHeroLaunch } from "@/components/homepage/HomeHeroLaunch";
 import { clsx } from "clsx";
 import "@/styles/home-landing.css";
 
@@ -31,10 +29,9 @@ export type CategoryHubPageHeaderProps = {
 };
 
 /**
- * Category hub hero — identical to the homepage hero structure:
- * left = this category’s title/description, right = full-site Tools list.
+ * Category hub hero — title + description only (tool cards live in the grid below).
  */
-export async function CategoryHubPageHeader({
+export function CategoryHubPageHeader({
   categoryId,
   title,
   description,
@@ -45,12 +42,6 @@ export async function CategoryHubPageHeader({
   className,
   nested = false,
 }: CategoryHubPageHeaderProps) {
-  const locale = await getLocale();
-  const tHome = await getTranslations("Home");
-  const toolsTitle = tHome.has("landing.heroLaunchTitle")
-    ? tHome("landing.heroLaunchTitle")
-    : "Tools";
-
   const hero = (
     <>
       {breadcrumbs ? (
@@ -71,9 +62,6 @@ export async function CategoryHubPageHeader({
           ) : null}
           {footerNote ? <p className="category-hub-page-header__note">{footerNote}</p> : null}
         </header>
-
-        {/* Same full-catalog Tools pane as the homepage — category tools stay in the grid below. */}
-        <HomeHeroLaunch locale={locale} toolsTitle={toolsTitle} />
       </div>
 
       {children}

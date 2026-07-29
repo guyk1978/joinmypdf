@@ -1,71 +1,58 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Zap } from "lucide-react";
 import { IndustrialToolCard } from "@/components/IndustrialToolCard";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
-import { HomeSection } from "@/components/homepage/HomeSection";
-import { HOME_SECTION_MAX_ITEMS } from "@/components/homepage/home-section";
-import { readTopUsedToolIds } from "@/lib/recent-activity";
+import { HomeStaticPanel } from "@/components/homepage/HomeStaticPanel";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { useUnpinnedIds } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
-/** Shown until the visitor has personal usage history (up to 20). */
-const FALLBACK_QUICK_ACTION_IDS = [
+/**
+ * Curated Quick Actions — fixed 5×3 static grid (15 tools).
+ * Order matches the homepage layout (row-major).
+ */
+const QUICK_ACTION_TOOL_IDS = [
+  // Row 1
   "pdf-merge",
-  "pdf-compress",
-  "image-combiner",
-  "video-trimmer",
-  "jpg-to-pdf",
-  "word-to-pdf",
-  "unit-converter",
-  "compress-image",
-  "qr-code-generator",
-  "case-converter",
   "pdf-split",
-  "pdf-to-jpg",
-  "video-to-mp3",
-  "text-workspace",
-  "excel-to-pdf",
-  "rotate-pdf",
-  "unlock-pdf",
-  "protect-pdf",
-  "hash-generator",
-  "password-generator",
+  "jpg-to-pdf",
+  // Row 2
+  "pdf-to-word",
+  "pdf-compress",
+  "video-trimmer",
+  // Row 3
+  "pdf-to-excel",
+  "pdf-a-converter",
+  "word-to-pdf",
+  // Row 4
+  "html-to-pdf",
+  "base64-encoder-decoder",
+  "case-converter",
+  // Row 5
+  "color-palette-extractor",
+  "batch-rename-pdf",
+  "compare-pdf",
 ] as const;
+
+const QUICK_ACTIONS_GRID_SIZE = 15;
 
 type QuickActionsProps = {
   locale: string;
 };
 
 /**
- * Top homepage utility section — category-style tool cards in a carousel
- * (personal top tools when available, otherwise curated fallbacks).
+ * Top homepage utility section — static 5×3 Industrial Matte tool card grid.
  */
 export function QuickActions({ locale }: QuickActionsProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
-  const [toolIds, setToolIds] = useState<string[]>([...FALLBACK_QUICK_ACTION_IDS]);
-
-  useEffect(() => {
-    const personal = readTopUsedToolIds(HOME_SECTION_MAX_ITEMS * 2).filter((id) =>
-      getToolsInventoryEntry(id),
-    );
-    if (!personal.length) return;
-    const merged = [...personal];
-    for (const id of FALLBACK_QUICK_ACTION_IDS) {
-      if (merged.length >= HOME_SECTION_MAX_ITEMS) break;
-      if (!merged.includes(id)) merged.push(id);
-    }
-    setToolIds(merged.slice(0, HOME_SECTION_MAX_ITEMS));
-  }, []);
-
-  const visibleToolIds = useUnpinnedIds(toolIds);
+  const visibleToolIds = useUnpinnedIds([...QUICK_ACTION_TOOL_IDS]);
 
   const cards = useMemo(() => {
     const resolved = [];
@@ -79,7 +66,7 @@ export function QuickActions({ locale }: QuickActionsProps) {
         description: getToolCardDescription(id, entry.description, tTools) ?? "",
         categoryId: entry.primaryCategory,
       });
-      if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
+      if (resolved.length >= QUICK_ACTIONS_GRID_SIZE) break;
     }
     return resolved;
   }, [visibleToolIds, locale, tTools]);
@@ -88,11 +75,12 @@ export function QuickActions({ locale }: QuickActionsProps) {
 
   return (
     <HomeReveal className="w-full">
-      <HomeSection
+      <HomeStaticPanel
         id="quick-actions-title"
-        className="home-section--compact"
+        className="home-quick-actions"
         title={t("landing.quickActionsTitle")}
-        icon={<Zap size={16} strokeWidth={2} />}
+        icon={<Zap size={16} strokeWidth={2.25} aria-hidden />}
+        bodyClassName="home-tool-grid home-tool-grid--2x2 home-quick-actions__grid"
       >
         {cards.map(({ id, href, title, description, categoryId }) => (
           <IndustrialToolCard
@@ -102,10 +90,11 @@ export function QuickActions({ locale }: QuickActionsProps) {
             description={description}
             slug={id}
             categoryId={categoryId}
-            icon={<ToolListIcon slug={id} label={title} size="sm" />}
+            icon={<ToolListIcon slug={id} label={title} size="md" />}
+            className="home-tool-grid__card"
           />
         ))}
-      </HomeSection>
+      </HomeStaticPanel>
     </HomeReveal>
   );
 }

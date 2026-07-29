@@ -12,27 +12,42 @@
   overflow: visible;
 }
 
+/*
+ * Homepage dashboard: same centered ~80% / 1200px rail as category hubs.
+ * Internal copy stays left-aligned; the rail itself is centered.
+ */
+.home-minimal-layout--dashboard.home-landing.page-container,
 .home-minimal-layout--dashboard.home-landing {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  /* Match site-header__bar gutters exactly */
-  padding: 1rem var(--app-content-pad-x) 0;
+  --home-hub-max-width: 1200px;
+  box-sizing: border-box;
+  width: 80%;
+  max-width: var(--home-hub-max-width);
+  margin-inline: auto;
+  padding: 1rem clamp(1rem, 2.5vw, 1.5rem) 0;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   overflow: visible;
+  text-align: start;
 }
 
-/* Hero copy column — transparent; outer frame lives on .home-landing__hero */
+@media (max-width: 767px) {
+  .home-minimal-layout--dashboard.home-landing.page-container,
+  .home-minimal-layout--dashboard.home-landing {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Hero copy — transparent; single-column under the constrained rail */
 .home-landing__intro {
   position: relative;
   isolation: isolate;
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
-  height: 100%;
-  min-height: 100%;
+  height: auto;
+  min-height: 0;
   margin: 0;
   padding: clamp(0.35rem, 1vw, 0.75rem) clamp(0.25rem, 1.5vw, 1rem) clamp(0.35rem, 1vw, 0.75rem) 0;
   text-align: start;
@@ -42,7 +57,7 @@
   box-shadow: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1rem;
 }
 
@@ -54,13 +69,14 @@
 
 .home-landing__title {
   margin: 0;
-  max-width: 16ch;
+  max-width: none;
   font-size: clamp(1.85rem, 3.6vw, 2.85rem);
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: -0.04em;
   color: #ffffff;
   text-wrap: balance;
+  text-align: start;
 }
 
 .home-landing__tagline {
@@ -71,36 +87,94 @@
   font-weight: 450;
   color: #a3a3a3;
   text-wrap: pretty;
+  text-align: start;
 }
 
-/* Hero: copy left + framed Tools list right */
+/* Hero: title + description only (Tools side pane removed) */
 .home-landing__hero {
-  --home-hero-panel-height: 20rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  align-items: stretch;
+  position: relative;
+  z-index: 1;
+  display: block;
   width: 100%;
   margin: 0.35rem 0 0.25rem;
-  padding: 0;
+  padding: clamp(0.35rem, 1vw, 0.75rem) 0;
   border: 0;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  overflow: visible;
+  text-align: start;
 }
 
+.home-landing__hero::before,
+.home-landing__hero::after {
+  content: none;
+  display: none;
+}
+
+.home-landing__hero > .home-landing__intro {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  text-align: start;
+}
+
+@media (max-width: 959px) {
+  .home-landing__hero > .home-landing__intro {
+    max-width: 100%;
+  }
+}
+
+.home-landing__hero .home-landing__title {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+}
+
+.home-landing__hero .home-landing__tagline {
+  text-shadow: none;
+}
+
+/* Category hubs: single-column hero (no side Tools pane). */
 @media (min-width: 960px) {
-  .home-landing__hero {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 1.75rem;
-    grid-auto-rows: var(--home-hero-panel-height);
+  .tools-directory-page .home-landing__hero {
+    display: block;
+    grid-template-columns: none;
+    grid-auto-rows: auto;
+    gap: 0;
   }
 
-  .home-landing__intro,
-  .home-hero-launch {
-    height: 100%;
+  .tools-directory-page .home-landing__intro {
+    height: auto;
     min-height: 0;
   }
+}
+
+/*
+ * Hub/home pages sit on the global charcoal canvas — no extra geometric mesh.
+ * Keep stacking context for page children above the canvas.
+ */
+.home-landing,
+.tools-directory-page {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+}
+
+.home-landing::before,
+.home-landing::after,
+.tools-directory-page::before,
+.tools-directory-page::after {
+  content: none;
+  display: none;
+}
+
+.home-landing > *,
+.tools-directory-page > * {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 640px) {
@@ -113,7 +187,7 @@
   }
 }
 
-/* —— Hero tool list (framed, rounded, transparent fill) —— */
+/* —— Hero tool list (framed, rounded — sits on hero atmosphere) —— */
 .home-hero-launch {
   box-sizing: border-box;
   display: flex;
@@ -125,7 +199,8 @@
   padding: 0.95rem 1rem 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 16px;
-  background: transparent;
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(2px);
   box-shadow: none;
   overflow: hidden;
 }
@@ -134,6 +209,53 @@
 .home-hero-launch::after {
   content: none;
   display: none;
+}
+
+/*
+ * Category hubs: Tools pane fills the right 50% column, borderless / transparent
+ * so it aligns with the tool cards in the split below.
+ */
+.tools-directory-page .home-hero-launch {
+  display: none;
+}
+
+.tools-directory-page .home-hero-launch__title {
+  padding-inline: 0.1rem;
+}
+
+/* Category hub hero: ~70% width text block, left-aligned inside centered page. */
+.tools-directory-page .home-landing__hero.category-hub-hero,
+.tools-directory-page .category-hub-hero {
+  display: block;
+  width: 100%;
+  grid-template-columns: none;
+  grid-auto-rows: auto;
+  text-align: start;
+}
+
+.tools-directory-page .category-hub-hero__intro,
+.tools-directory-page .home-landing__hero.category-hub-hero > .home-landing__intro {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  text-align: start;
+}
+
+@media (max-width: 959px) {
+  .tools-directory-page .category-hub-hero__intro,
+  .tools-directory-page .home-landing__hero.category-hub-hero > .home-landing__intro {
+    max-width: 100%;
+  }
+}
+
+.tools-directory-page .category-hub-hero__title,
+.tools-directory-page .category-hub-hero__tagline,
+.tools-directory-page .category-hub-page-header__note {
+  text-align: start;
+  margin-inline: 0;
+  max-width: none;
 }
 
 .home-hero-launch__title {
@@ -221,7 +343,7 @@
   text-transform: none;
 }
 
-/* Body below Quick Actions — balanced 50/50 rows + strip */
+/* Body below Quick Actions — single-column vertical stack */
 .home-landing__body {
   display: flex;
   flex-direction: column;
@@ -229,21 +351,23 @@
   margin-top: var(--im-home-section-gap, 2.75rem);
   padding-top: 0.75rem;
   border-top: 1px solid var(--im-home-divider, #1a1a1a);
-}
-
-.home-landing__split {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  align-items: start;
   width: 100%;
+  text-align: start;
 }
 
-@media (min-width: 768px) {
-  .home-landing__split {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.75rem;
-  }
+.home-landing__body > * {
+  width: 100%;
+  max-width: none;
+  text-align: start;
+}
+
+/* Legacy split class: always stack (no side-by-side major sections). */
+.home-landing__split {
+  display: flex;
+  flex-direction: column;
+  gap: var(--im-home-section-gap, 2.75rem);
+  align-items: stretch;
+  width: 100%;
 }
 
 /* —— Static panels (non-carousel) —— */
@@ -268,6 +392,37 @@
   flex: 0 1 auto;
   min-height: 0;
   background: transparent;
+}
+
+/* Quick Actions — static 5×3 card grid (no carousel) */
+.home-quick-actions {
+  width: 100%;
+  text-align: start;
+}
+
+.home-quick-actions .home-section__heading-icon,
+.home-quick-actions .home-section__heading-icon svg {
+  color: #eab308;
+}
+
+.home-quick-actions__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+  align-content: start;
+}
+
+@media (max-width: 640px) {
+  .home-quick-actions__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 400px) {
+  .home-quick-actions__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .home-tool-grid {

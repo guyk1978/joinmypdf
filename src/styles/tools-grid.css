@@ -247,3 +247,115 @@
   text-transform: uppercase;
   color: #737373;
 }
+
+/*
+ * Category hub single-column flow — after the hero on every tools-directory page.
+ * Order: tool card grids → About / FAQ / related hubs / guides.
+ */
+.tools-directory-page--hub-split .category-hub-split,
+.tools-directory-page--pdf-split .pdf-tools-split,
+.tools-directory-page--pdf-split .category-hub-split {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  align-items: stretch;
+  margin-top: clamp(0.5rem, 1.5vw, 1rem);
+  min-width: 0;
+  width: 100%;
+  text-align: start;
+}
+
+.tools-directory-page--hub-split .category-hub-split__content,
+.tools-directory-page--hub-split .category-hub-split__tools,
+.tools-directory-page--pdf-split .pdf-tools-split__content,
+.tools-directory-page--pdf-split .pdf-tools-split__tools,
+.tools-directory-page--pdf-split .category-hub-split__content,
+.tools-directory-page--pdf-split .category-hub-split__tools {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  min-width: 0;
+  width: 100%;
+  position: static;
+  max-height: none;
+  overflow: visible;
+  text-align: start;
+}
+
+.tools-directory-page--hub-split .category-hub-split__content > .category-seo,
+.tools-directory-page--hub-split .category-hub-split__content > .tools-hub-related-guides,
+.tools-directory-page--hub-split .category-hub-split__content > .category-hub-split__related,
+.tools-directory-page--hub-split .category-hub-split__content > .pdf-tools-split__related-hubs,
+.tools-directory-page--hub-split .category-hub-split__content > section,
+.tools-directory-page--pdf-split .pdf-tools-split__content > .category-seo,
+.tools-directory-page--pdf-split .pdf-tools-split__content > .tools-hub-related-guides,
+.tools-directory-page--pdf-split .pdf-tools-split__content > .pdf-tools-split__related-hubs,
+.tools-directory-page--pdf-split .category-hub-split__content > .category-seo,
+.tools-directory-page--pdf-split .category-hub-split__content > .tools-hub-related-guides,
+.tools-directory-page--pdf-split .category-hub-split__content > section {
+  margin-top: 0 !important;
+  padding-top: clamp(1rem, 2vw, 1.35rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: transparent;
+  text-align: start;
+}
+
+.tools-directory-page--hub-split .category-hub-split__content > :first-child,
+.tools-directory-page--pdf-split .pdf-tools-split__content > :first-child,
+.tools-directory-page--pdf-split .category-hub-split__content > :first-child {
+  padding-top: clamp(0.35rem, 1vw, 0.75rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.tools-directory-page--hub-split .category-hub-split__related,
+.tools-directory-page--pdf-split .pdf-tools-split__related-hubs {
+  width: 100%;
+}
+
+.tools-directory-page--hub-split .category-hub-split__group,
+.tools-directory-page--hub-split .category-hub-split__tools > .tools-hub-panel,
+.tools-directory-page--pdf-split .pdf-tools-split__group,
+.tools-directory-page--pdf-split .category-hub-split__group {
+  margin-bottom: 0 !important;
+  padding-block: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.tools-directory-page--hub-split .category-hub-split__group + .category-hub-split__group,
+.tools-directory-page--hub-split .category-hub-split__tools > .tools-hub-panel + .tools-hub-panel,
+.tools-directory-page--pdf-split .pdf-tools-split__group + .pdf-tools-split__group,
+.tools-directory-page--pdf-split .category-hub-split__group + .category-hub-split__group {
+  padding-top: clamp(0.75rem, 1.5vw, 1.15rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Full-width tool grids: 1 → 2 → 3 columns (cap at 3 on desktop). */
+.tools-directory-page--hub-split .category-hub-split__tools .im-tool-card-grid,
+.tools-directory-page--pdf-split .pdf-tools-split__tools .im-tool-card-grid,
+.tools-directory-page--pdf-split .category-hub-split__tools .im-tool-card-grid,
+.tools-directory-page--hub-split .category-hub-split__tools .tools-directory-workflows .im-tool-card-grid,
+.tools-directory-page--hub-split .category-hub-split__tools .tools-directory-category .im-tool-card-grid {
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+@media (min-width: 640px) {
+  .tools-directory-page--hub-split .category-hub-split__tools .im-tool-card-grid,
+  .tools-directory-page--pdf-split .pdf-tools-split__tools .im-tool-card-grid,
+  .tools-directory-page--pdf-split .category-hub-split__tools .im-tool-card-grid,
+  .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-workflows .im-tool-card-grid,
+  .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-category .im-tool-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .tools-directory-page--hub-split .category-hub-split__tools .im-tool-card-grid,
+  .tools-directory-page--pdf-split .pdf-tools-split__tools .im-tool-card-grid,
+  .tools-directory-page--pdf-split .category-hub-split__tools .im-tool-card-grid,
+  .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-workflows .im-tool-card-grid,
+  .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-category .im-tool-card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

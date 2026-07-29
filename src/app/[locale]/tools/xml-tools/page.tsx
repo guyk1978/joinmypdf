@@ -2,10 +2,17 @@ import type { Metadata } from "next";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
+import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
+import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
-import { getXmlToolFeatureLabels, XML_TOOLS_HUB_PATH } from "@/lib/xml-tools";
+import {
+  buildXmlToolGridItems,
+  getXmlToolFeatureLabels,
+  XML_TOOLS_HUB_PATH,
+} from "@/lib/xml-tools";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 
@@ -37,7 +44,9 @@ export default async function XmlToolsHubPage({ params }: PageProps) {
 
   const t = await getTranslations("XmlToolsPage");
   const tPage = await getTranslations("ToolPage");
+  const tTools = await getTranslations("Tools");
   const pathname = `/${locale}${XML_TOOLS_HUB_PATH}`;
+  const gridItems = buildXmlToolGridItems(tTools);
   const featureList = getXmlToolFeatureLabels(t);
 
   const crumbs = [
@@ -60,7 +69,7 @@ export default async function XmlToolsHubPage({ params }: PageProps) {
       />
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split page-container">
           <CategoryHubPageHeader
             categoryId="xml"
             title={t("title", { count: getCategoryToolCount("xml") })}
@@ -68,38 +77,59 @@ export default async function XmlToolsHubPage({ params }: PageProps) {
             variant="bordered"
           />
 
-          <section
-            className="tools-hub-panel mt-10 border-t border-[#262626] pt-8"
-            aria-labelledby="xml-tools-related-formats"
-          >
-            <h2
-              id="xml-tools-related-formats"
-              className="text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-            >
-              {t("relatedFormatsTitle")}
-            </h2>
-            <ul className="mt-4 flex flex-col gap-3">
-              <li className="border-b border-[#1a1a1a] pb-3">
-                <Link
-                  href="/tools/json-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
+          <CategoryHubSplit
+            content={
+              <>
+                <CategorySeoSection categoryId="xml" />
+                <section
+                  className="category-hub-split__related"
+                  aria-labelledby="xml-tools-related-formats"
                 >
-                  {t("exploreJsonTools")}
-                </Link>
-              </li>
-              <li className="pb-0">
-                <Link
-                  href="/tools/yaml-tools/"
-                  className="text-base font-medium text-white transition-colors hover:text-[#d4d4d4]"
-                  prefetch={false}
-                >
-                  {t("exploreYamlTools")}
-                </Link>
-              </li>
-            </ul>
-            <p className="mt-4 mb-0 text-sm leading-relaxed text-[#a3a3a3]">{t("relatedFormatsBlurb")}</p>
-          </section>
+                  <h2
+                    id="xml-tools-related-formats"
+                    className="tools-hub-link-list__title"
+                  >
+                    {t("relatedFormatsTitle")}
+                  </h2>
+                  <ul className="tools-hub-link-list">
+                    <li className="tools-hub-link-list__item">
+                      <Link
+                        href="/tools/json-tools/"
+                        className="tools-hub-link-list__link"
+                        prefetch={false}
+                      >
+                        <span className="tools-hub-link-list__label">
+                          {t("exploreJsonTools")}
+                        </span>
+                      </Link>
+                    </li>
+                    <li className="tools-hub-link-list__item">
+                      <Link
+                        href="/tools/yaml-tools/"
+                        className="tools-hub-link-list__link"
+                        prefetch={false}
+                      >
+                        <span className="tools-hub-link-list__label">
+                          {t("exploreYamlTools")}
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
+                  <p className="mt-4 mb-0 text-sm leading-relaxed text-[#a3a3a3]">
+                    {t("relatedFormatsBlurb")}
+                  </p>
+                </section>
+              </>
+            }
+            tools={
+              <section
+                className="tools-hub-panel category-hub-split__group"
+                aria-label={t("schemaName")}
+              >
+                <CategoryDirectoryFlatGrid items={gridItems} categoryId="xml" />
+              </section>
+            }
+          />
 
           <footer className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#262626] pt-6">
             <Link
