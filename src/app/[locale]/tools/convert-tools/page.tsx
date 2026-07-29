@@ -5,29 +5,20 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
-import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
+import { CategoryHubPageHeader } from "@/components/CategoryHubPageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentConversionBlogPosts } from "@/lib/blog-convert-category";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import {
-  buildConvertToolGroupItems,
-  CONVERT_TOOL_GROUPS,
+  buildConvertToolGridItems,
   CONVERT_TOOLS_HUB_PATH,
   getConvertToolFeatureLabels,
-  type ConvertToolGroupId,
 } from "@/lib/convert-tools";
 import { breadcrumbLd, JsonLd, webApplicationLd } from "@/lib/schema";
 import { productPageMainClassName } from "@/lib/tool-ui";
 
 type PageProps = { params: Promise<{ locale: string }> };
-
-const GROUP_TITLE_KEYS: Record<ConvertToolGroupId, string> = {
-  document: "groupDocument",
-  image: "groupImage",
-  media: "groupMedia",
-  data: "groupData",
-};
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
@@ -83,29 +74,23 @@ export default async function ConvertToolsHubPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <CategoryHubPageHeader
             categoryId="convert"
-            title={t("title", { count: getCategoryToolCount("convert") })}
+            title={t("panelTitle")}
             description={t("description")}
             variant="bordered"
           />
 
-          {CONVERT_TOOL_GROUPS.map((group) => (
-            <section
-              key={group.id}
-              className="tools-hub-panel border-b border-[#262626] py-8"
-              aria-labelledby={`convert-group-${group.id}`}
-            >
-              <h2
-                id={`convert-group-${group.id}`}
-                className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#a3a3a3]"
-              >
-                {t(GROUP_TITLE_KEYS[group.id])}
-              </h2>
-              <CategoryDirectoryFlatGrid
-                items={buildConvertToolGroupItems(group.id, tTools, locale)}
-                categoryId="convert"
-              />
-            </section>
-          ))}
+          <section
+            className="tools-hub-panel convert-tools-panel"
+            aria-labelledby="convert-tools-panel-title"
+          >
+            <h2 id="convert-tools-panel-title" className="sr-only">
+              {t("panelTitle")}
+            </h2>
+            <CategoryDirectoryFlatGrid
+              items={buildConvertToolGridItems(tTools, locale)}
+              categoryId="convert"
+            />
+          </section>
 
           <CategorySeoSection categoryId="convert" />
 

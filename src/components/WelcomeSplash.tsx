@@ -13,7 +13,7 @@ import {
 type Gate = "checking" | "show" | "redirecting";
 
 /**
- * Immersive dark welcome screen for the locale root.
+ * Minimal dark welcome screen for the locale root.
  * First visit shows brand + Enter CTA; returning visitors (localStorage) go to /home.
  */
 export function WelcomeSplash() {
@@ -51,15 +51,13 @@ export function WelcomeSplash() {
         aria-live="polite"
       >
         <span className="sr-only">{t("redirecting")}</span>
+        <div className="welcome-splash__boot-ring" aria-hidden />
       </div>
     );
   }
 
   return (
     <div className="welcome-splash">
-      <div className="welcome-splash__atmosphere" aria-hidden />
-      <div className="welcome-splash__grid" aria-hidden />
-
       <div className="welcome-splash__content">
         <p className="welcome-splash__eyebrow">{t("eyebrow")}</p>
 
@@ -73,7 +71,7 @@ export function WelcomeSplash() {
         <div className="welcome-splash__actions">
           <button type="button" className="welcome-splash__enter" onClick={enter}>
             <span>{t("enter")}</span>
-            <ArrowRight className="welcome-splash__enter-icon" aria-hidden strokeWidth={2.25} />
+            <ArrowRight className="welcome-splash__enter-icon" aria-hidden strokeWidth={2.5} />
           </button>
           <p className="welcome-splash__hint">{t("hint")}</p>
         </div>

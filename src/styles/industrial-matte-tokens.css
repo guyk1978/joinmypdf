@@ -96,7 +96,7 @@
   --im-tool-card-icon-hover: #ffffff;
   --im-tool-card-padding: 0.35rem 0.45rem;
   /* Slim compact badge-height cards. */
-  --im-tool-card-min-height: 3.5rem;
+  --im-tool-card-min-height: 2.55rem;
   --im-tool-card-cover-bg: #0a0a0a;
   --im-tool-card-accent-fallback: #525252;
   --im-tool-card-gap: 0.35rem;

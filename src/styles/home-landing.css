@@ -24,7 +24,7 @@
   overflow: visible;
 }
 
-/* Hero copy column — solid header surface (#121212), no gradients */
+/* Hero copy column — transparent; outer frame lives on .home-landing__hero */
 .home-landing__intro {
   position: relative;
   isolation: isolate;
@@ -34,11 +34,11 @@
   height: 100%;
   min-height: 100%;
   margin: 0;
-  padding: clamp(1.75rem, 3.5vw, 2.75rem) clamp(1.35rem, 3vw, 2.5rem);
+  padding: clamp(0.35rem, 1vw, 0.75rem) clamp(0.25rem, 1.5vw, 1rem) clamp(0.35rem, 1vw, 0.75rem) 0;
   text-align: start;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 0;
   border-radius: 0;
-  background: #121212;
+  background: transparent;
   box-shadow: none;
   display: flex;
   flex-direction: column;
@@ -73,21 +73,26 @@
   text-wrap: pretty;
 }
 
-/* 50/50 hero: equal-height columns */
+/* Hero: copy left + framed Tools list right */
 .home-landing__hero {
-  --home-hero-panel-height: 22rem;
+  --home-hero-panel-height: 20rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
   align-items: stretch;
   width: 100%;
   margin: 0.35rem 0 0.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 @media (min-width: 960px) {
   .home-landing__hero {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 1.75rem;
     grid-auto-rows: var(--home-hero-panel-height);
   }
 
@@ -100,7 +105,7 @@
 
 @media (max-width: 640px) {
   .home-landing__intro {
-    padding: 1.5rem 1.15rem;
+    padding: 0.25rem 0 0.5rem;
   }
 
   .home-landing__title {
@@ -108,19 +113,19 @@
   }
 }
 
-/* —— Hero tool tile grid (fixed height + custom scrollbar) —— */
+/* —— Hero tool list (framed, rounded, transparent fill) —— */
 .home-hero-launch {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.65rem;
   width: 100%;
-  height: var(--home-hero-panel-height, 22rem);
+  height: var(--home-hero-panel-height, 20rem);
   margin: 0;
-  padding: 1rem 1rem 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0;
-  background: #121212;
+  padding: 0.95rem 1rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: transparent;
   box-shadow: none;
   overflow: hidden;
 }
@@ -134,10 +139,10 @@
 .home-hero-launch__title {
   margin: 0;
   flex-shrink: 0;
-  color: #fafafa;
+  color: #a3a3a3;
   font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   text-align: start;
 }
 
@@ -147,20 +152,20 @@
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #404040 #0a0a0a;
+  scrollbar-color: #404040 transparent;
 }
 
 .home-hero-launch__scroll::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 .home-hero-launch__scroll::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: transparent;
 }
 
 .home-hero-launch__scroll::-webkit-scrollbar-thumb {
-  background: #404040;
-  border: 1px solid #262626;
+  background: #333333;
+  border-radius: 999px;
 }
 
 .home-hero-launch__scroll::-webkit-scrollbar-thumb:hover {
@@ -170,9 +175,10 @@
 .home-hero-launch__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
+  column-gap: 1.25rem;
+  row-gap: 0.35rem;
   align-content: start;
-  padding-inline-end: 0.25rem;
+  padding-inline-end: 0.35rem;
 }
 
 .home-hero-launch__tile {
@@ -180,24 +186,21 @@
   align-items: center;
   justify-content: flex-start;
   min-width: 0;
-  min-height: 3.25rem;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 0;
+  padding: 0.2rem 0;
+  border: 0;
   border-radius: 0;
-  background: #0a0a0a;
-  color: #ffffff;
+  background: transparent;
+  color: #b3b3b3;
   text-decoration: none;
   text-align: start;
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .home-hero-launch__tile:hover,
 .home-hero-launch__tile:focus-visible {
-  background: #111111;
-  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+  border-color: transparent;
   color: #ffffff;
   outline: none;
 }
@@ -214,7 +217,7 @@
   letter-spacing: 0;
   line-height: 1.35;
   text-align: start;
-  color: #ffffff;
+  color: inherit;
   text-transform: none;
 }
 
@@ -232,7 +235,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  align-items: stretch;
+  align-items: start;
   width: 100%;
 }
 
@@ -262,20 +265,21 @@
 }
 
 .home-static-panel__body {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-height: 0;
   background: transparent;
 }
 
 .home-tool-grid {
   display: grid;
-  gap: 6px;
+  gap: 0.55rem;
   width: 100%;
+  align-content: start;
 }
 
 .home-tool-grid--2x2 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: minmax(3.5rem, 1fr);
+  grid-auto-rows: 2.55rem;
 }
 
 @media (max-width: 640px) {
@@ -292,17 +296,20 @@
 
 .home-tool-grid__card {
   width: 100%;
-  height: 100%;
-  min-height: 3.5rem;
+  height: 2.55rem;
+  min-height: 2.55rem;
+  max-height: 2.55rem;
   aspect-ratio: auto;
 }
 
 .home-tool-grid__card.im-tool-card {
-  min-height: 3.5rem;
+  min-height: 2.55rem;
+  height: 2.55rem;
+  max-height: 2.55rem;
 }
 
 .home-tool-grid__placeholder {
-  min-height: 3.5rem;
+  min-height: 2.55rem;
   border-radius: 6px;
   background: linear-gradient(
     180deg,

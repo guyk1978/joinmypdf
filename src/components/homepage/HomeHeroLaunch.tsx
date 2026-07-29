@@ -18,8 +18,8 @@ type HomeHeroLaunchProps = {
 };
 
 /**
- * Homepage hero — fixed-height Industrial Matte grid of dark tool tiles.
- * Each tile routes directly to that tool’s page.
+ * Homepage hero — framed Tools list (plain text links in two columns).
+ * Each link routes directly to that tool’s page.
  */
 export function HomeHeroLaunch({ locale }: HomeHeroLaunchProps) {
   const t = useTranslations("Home.landing");
@@ -45,18 +45,20 @@ export function HomeHeroLaunch({ locale }: HomeHeroLaunchProps) {
         {t("heroLaunchTitle")}
       </h2>
 
-      <div className="home-hero-launch__grid home-hero-launch__scroll" role="list">
-        {tiles.map((tool) => (
-          <Link
-            key={tool.slug}
-            href={tool.href}
-            className="home-hero-launch__tile"
-            role="listitem"
-            prefetch={false}
-          >
-            <span className="home-hero-launch__tile-label">{tool.title}</span>
-          </Link>
-        ))}
+      <div className="home-hero-launch__scroll">
+        <div className="home-hero-launch__grid" role="list">
+          {tiles.map((tool) => (
+            <Link
+              key={tool.slug}
+              href={tool.href}
+              className="home-hero-launch__tile"
+              role="listitem"
+              prefetch={false}
+            >
+              <span className="home-hero-launch__tile-label">{tool.title}</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );

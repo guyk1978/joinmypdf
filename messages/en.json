@@ -261,7 +261,7 @@
       "emlToPdf": "EML to PDF"
     },
     "library": "Library",
-    "toolsHub": "Tools",
+    "toolsHub": "Categories",
     "reviews": "Reviews",
     "drawer": {
       "title": "Library",
@@ -6335,6 +6335,7 @@
     "metaTitle": "Convert Tools | PDF, Image, Media & Document Converters | JoinMyPDF",
     "metaDescription": "Free browser-based conversion tools for PDF, images, media, and documents. 100% local, zero-upload processing — private and fast.",
     "title": "Use {count} Convert Tools Free Online",
+    "panelTitle": "CONVERSION",
     "description": "Professional-grade conversion utilities for PDF, image, media, and document formats — all running securely in your browser. Convert your files instantly without sending them to any server. Zero uploads. Maximum privacy and speed.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",

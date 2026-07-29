@@ -44,6 +44,7 @@ export function HomeGuideCard({
       data-category={categoryId}
       style={accentStyle}
     >
+      <span className="im-tool-card__dot" aria-hidden />
       <span className="im-tool-card__title">{label}</span>
 
       <div className="im-tool-card__actions" role="group" aria-label={label}>

@@ -125,6 +125,7 @@ export function IndustrialToolCard({
       data-category={accentCategoryId}
       style={accentStyle}
     >
+      <span className="im-tool-card__dot" aria-hidden />
       <span className="im-tool-card__title">{shortLabel}</span>
 
       <div className="im-tool-card__actions" role="group" aria-label={shortLabel}>
@@ -157,7 +158,7 @@ export function IndustrialToolCard({
           data-tool-modal-open={openViaModal ? "" : undefined}
           onClick={handleGoClick}
         >
-          <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
+          <ArrowRight size={14} strokeWidth={2.4} aria-hidden />
         </Link>
       </div>
     </div>

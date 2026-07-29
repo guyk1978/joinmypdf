@@ -27,16 +27,25 @@ const POPULAR_TOOL_IDS = [
   "delete-pdf-pages",
   "extract-pdf-pages",
   "compress-image",
+  "pdf-to-word",
+  "png-to-pdf",
+  "add-watermark",
+  "excel-to-pdf",
+  "add-page-numbers",
+  "protect-pdf",
+  "rotate-pdf",
+  "sign-pdf",
+  "unlock-pdf",
 ] as const;
 
-const POPULAR_GRID_SIZE = 12;
+const POPULAR_GRID_SIZE = 21;
 
 type PopularToolsProps = {
   locale: string;
 };
 
 /**
- * "Popular Tools of the Week" — compact 3-column Industrial Matte grid (max 12).
+ * "Popular Tools of the Week" — compact 3-column grid (7 rows × 3 = 21).
  */
 export function PopularTools({ locale }: PopularToolsProps) {
   const t = useTranslations("Home");
