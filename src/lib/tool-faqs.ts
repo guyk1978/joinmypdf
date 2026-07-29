@@ -127,6 +127,10 @@ export function buildLocalizedToolFaqs(
   }
 
   const specific = getFaqsForTool(tool, locale, t, toolTitle, overrides);
-  const merged = dedupeFaqs([...specific, ...universal]);
-  return merged;
+  // Tools with a full tailored FAQ set (e.g. EML to PDF) should not append
+  // generic universal questions that repeat the same topics with weaker copy.
+  if (specific.length >= MIN_TOOL_FAQ_COUNT) {
+    return dedupeFaqs(specific);
+  }
+  return dedupeFaqs([...specific, ...universal]);
 }

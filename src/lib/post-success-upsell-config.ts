@@ -39,6 +39,10 @@ export const POST_SUCCESS_UPSELL: Record<string, UpsellCard[]> = {
     { href: "/tools/markdown-to-pdf/", card: "convertingMarkdown" },
     { href: "/tools/pdf-compress/", card: "compressSharing" },
   ],
+  "eml-to-pdf": [
+    { href: "/tools/html-to-pdf/", card: "webLayoutExports" },
+    { href: "/tools/pdf-compress/", card: "compressEmail" },
+  ],
   "ebook-to-pdf": [
     { href: "/tools/pdf-compress/", card: "compressLongExports" },
     { href: "/tools/html-to-pdf/", card: "webLayoutExports" },

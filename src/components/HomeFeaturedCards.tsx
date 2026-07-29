@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { clsx } from "clsx";
 import { ArrowRight } from "lucide-react";
-import { ToolCard } from "@/components/ToolCard";
+import { IndustrialToolCard } from "@/components/IndustrialToolCard";
 import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { PaginatedToolCardGrid } from "@/components/PaginatedToolCardGrid";
 import { ToolListIcon } from "@/components/ToolListIcon";
@@ -17,7 +17,7 @@ type HomeFeaturedToolCardProps = {
 
 export function HomeFeaturedToolCard({ href, label, slugHint }: HomeFeaturedToolCardProps) {
   return (
-    <ToolCard
+    <IndustrialToolCard
       href={href}
       label={label}
       slug={slugHint}

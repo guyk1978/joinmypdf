@@ -60,6 +60,8 @@
     "pdfjs-dist": "^5.7.284",
     "piexifjs": "^1.0.6",
     "pkijs": "^3.4.0",
+    "playwright": "^1.49.1",
+    "postal-mime": "^2.7.5",
     "posthog-js": "^1.373.4",
     "pptxgenjs": "^4.0.1",
     "qrcode": "^1.5.4",

@@ -5,6 +5,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
+import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentVideoMp4BlogPosts } from "@/lib/blog-video-category";
@@ -96,8 +97,14 @@ export default async function Mp4ToolsPage({ params }: PageProps) {
                 </ol>
               </nav>
             </div>
-            <h1 className="tools-directory-page__title">{t("title")}</h1>
-            <p className="tools-directory-page__desc">{t("description")}</p>
+          <CategoryHubPageHeader
+            categoryId="mp4"
+              title={t("title", { count: getCategoryToolCount("mp4") })}
+              description={t("description")}
+              variant="directory"
+              className="!mb-0 !max-w-none"
+              nested
+            />
           </header>
 
           <section

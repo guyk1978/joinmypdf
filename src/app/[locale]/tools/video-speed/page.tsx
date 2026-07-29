@@ -4,7 +4,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { VideoSpeedWorkspace } from "@/components/tools/VideoSpeedWorkspace";
-import { VideoSpeedIntroGate } from "@/components/VideoSpeedIntroGate";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -80,14 +79,7 @@ export default async function VideoSpeedPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <VideoSpeedIntroGate
-                active={
-                  tool.operation === "video-speed" ||
-                  tool.operation === "video-speed-controller"
-                }
-              >
                 <VideoSpeedWorkspace tool={tool} slug={SLUG} />
-              </VideoSpeedIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

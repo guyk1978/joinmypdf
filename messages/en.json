@@ -257,7 +257,8 @@
       "timelineGanttGenerator": "Timeline & Gantt",
       "dataConverter": "Data Converter",
       "quickNote": "Multi-Note Manager",
-      "imageCombiner": "Image Combiner"
+      "imageCombiner": "Image Combiner",
+      "emlToPdf": "EML to PDF"
     },
     "library": "Library",
     "toolsHub": "Tools",
@@ -292,9 +293,12 @@
     "limitsBody": "Enjoy standard downloads without watermarks or forced signups."
   },
   "NUpPdfLanding": {
-    "brand": "N-Up PDF",
+    "brand": "N-Up PDF Online",
     "titleRest": "- Multiple Pages per Sheet",
-    "subtitle": "Combine multiple PDF pages onto a single sheet effortlessly.",
+    "subtitle": "Fit 2-up, 4-up, or custom grids onto each sheet—print handouts privately in your browser. Zero-Upload Promise.",
+    "pageLabel": "Page {n}",
+    "sourceLabel": "Source pages",
+    "resultLabel": "N-Up sheet",
     "docAnnualReport": "Annual Report",
     "docMarketAnalysis": "Market Analysis",
     "docFinancialOverview": "Financial Overview",
@@ -310,15 +314,16 @@
   "DeletePdfPagesLanding": {
     "brand": "Delete PDF Pages Online",
     "titleRest": "- Remove Unwanted Pages Effortlessly",
-    "subtitle": "Highlight, remove, and download a clean PDF — privately in your browser.",
+    "subtitle": "Remove pages from PDF online—delete specific pages, strip blank sheets or extra scans, and download a clean PDF. Zero-Upload Promise.",
     "pageLabel": "Page {n}",
+    "resultLabel": "Clean document",
     "getStarted": "Get Started",
     "getStartedHint": "Open the upload workspace to delete pages from your PDF."
   },
   "ExtractPdfPagesLanding": {
     "brand": "Extract PDF Pages Online",
     "titleRest": "- Pull Out Specific Pages Instantly",
-    "subtitle": "Select the pages you need and download a new PDF — privately in your browser.",
+    "subtitle": "Extract pages from PDF online—save specific pages or split by page range (e.g. 1, 3-5) and download a compact PDF. Zero-Upload Promise.",
     "pageLabel": "Page {n}",
     "sourceLabel": "Source PDF",
     "resultLabel": "Extracted PDF",
@@ -3429,7 +3434,8 @@
       "url-encoder-decoder": "URL Encoder / Decoder",
       "url-parameter-stripper": "URL Parameter Stripper",
       "word-character-counter": "Word & Character Counter",
-      "image-combiner": "Image Combiner"
+      "image-combiner": "Image Combiner",
+      "eml-to-pdf": "EML to PDF Converter Online"
     },
     "cardDescriptions": {
       "base64-encoder-decoder": "Encode or decode Base64 text and data instantly.",
@@ -6060,7 +6066,7 @@
   "Mp3ToolsPage": {
     "metaTitle": "MP3 Tools | Convert, Compress & Optimize Audio",
     "metaDescription": "Free browser-based MP3 tools for audio conversion and compression. 100% local processing with ffmpeg.wasm — no uploads.",
-    "title": "Use MP3 Tools Free Online",
+    "title": "Use {count} MP3 Tools Free Online",
     "description": "Convert and compress MP3 files entirely in your browser. These tools run locally with ffmpeg.wasm — your audio never leaves your device.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6076,7 +6082,7 @@
   "Mp4ToolsPage": {
     "metaTitle": "MP4 Tools | Video Optimizer, Converter & Editor",
     "metaDescription": "Free browser-based MP4 tools for video conversion, compression, and resizing. 100% local processing with ffmpeg.wasm — no slow cloud uploads.",
-    "title": "Use MP4 Tools Free Online",
+    "title": "Use {count} MP4 Tools Free Online",
     "description": "Optimize, convert, and edit MP4 video entirely in your browser with ffmpeg.wasm. Process your high-quality MP4 files locally without the need for slow cloud uploads — your footage never leaves your device.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6099,7 +6105,7 @@
   "PngToolsPage": {
     "metaTitle": "PNG Tools | Image Optimizer, Converter & Compressor",
     "metaDescription": "Free browser-based PNG tools for image conversion, compression, and optimization. 100% local processing — your images never leave your device.",
-    "title": "Use PNG Tools Free Online",
+    "title": "Use {count} PNG Tools Free Online",
     "description": "Convert, compress, and optimize PNG images entirely in your browser. These 100% local tools handle conversion, compression, and resizing without uploads — your files never leave your device.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6120,7 +6126,7 @@
   "JpgToolsPage": {
     "metaTitle": "JPG Tools | Convert, Compress & Optimize Images | JoinMyPDF",
     "metaDescription": "Free browser-based JPG tools for conversion, compression, and optimization. 100% local processing — your images never leave your device.",
-    "title": "Use JPG Tools Free Online",
+    "title": "Use {count} JPG Tools Free Online",
     "description": "Professional-grade JPG utilities for conversion, compression, and optimization — all running locally in your browser. No images are uploaded to a server, so your photos stay private on your device.",
     "backToAllTools": "Back to all tools",
     "backToImageTools": "Back to Image tools",
@@ -6146,7 +6152,7 @@
   "CropToolsPage": {
     "metaTitle": "Free Online Crop Tools | Crop & Resize Images | JoinMyPDF",
     "metaDescription": "Free online crop tools to crop, resize, and edit images in your browser. 100% local processing — your files never leave your device.",
-    "title": "Use Crop Tools Free Online",
+    "title": "Use {count} Crop Tools Free Online",
     "description": "Easily crop, resize, and edit your images online for free. Our professional-grade cropping tools run entirely in your browser, ensuring your files never leave your device. Fast, secure, and private.",
     "backToPdfTools": "Back to PDF Tools",
     "privacyBadge": "Free, local-first image editing.",
@@ -6161,7 +6167,7 @@
   "WordToolsPage": {
     "metaTitle": "Free Online Word Tools | Convert & Edit Documents | JoinMyPDF",
     "metaDescription": "Free online Word tools to convert, edit, and process Word documents in your browser. 100% local processing — your files never leave your device.",
-    "title": "Use Word Tools Free Online",
+    "title": "Use {count} Word Tools Free Online",
     "description": "Access a suite of professional Word document tools online. From converting to editing, our browser-based tools run locally on your machine, ensuring your documents remain private and secure without any file uploads.",
     "backToAllTools": "Back to all tools",
     "privacyBadge": "Free, secure, and local-first Word document processing.",
@@ -6176,7 +6182,7 @@
   "ExcelToolsPage": {
     "metaTitle": "Free Online Excel Tools | Convert Spreadsheets | JoinMyPDF",
     "metaDescription": "Free online Excel tools to convert and manage spreadsheets in your browser. 100% local processing — your files never leave your device.",
-    "title": "Use Excel Tools Free Online",
+    "title": "Use {count} Excel Tools Free Online",
     "description": "Manage and convert your Excel spreadsheets with ease. Our secure, browser-based Excel tools process your data locally, ensuring your sensitive business or personal files remain private. No uploads, no waiting—just fast, free results.",
     "backToAllTools": "Back to all tools",
     "privacyBadge": "Secure, local-first Excel processing.",
@@ -6257,7 +6263,7 @@
   "ExtractToolsPage": {
     "metaTitle": "Extract Tools | Pages, Tables, Images & Colors | JoinMyPDF",
     "metaDescription": "Free browser-based extraction tools for PDF pages, tables, images, and color palettes. 100% local, zero-upload processing — your files never leave your device.",
-    "title": "Use Extract Tools Free Online",
+    "title": "Use {count} Extract Tools Free Online",
     "description": "Professional-grade extraction utilities for pulling pages, tables, and images from PDFs — plus color palettes from photos — all running locally in your browser. Zero uploads. Maximum privacy.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6279,7 +6285,7 @@
   "CompressToolsPage": {
     "metaTitle": "Compress Tools | Optimize Images, Video, Audio & Files | JoinMyPDF",
     "metaDescription": "Free browser-based compression tools for images, video, audio, and PDFs. 100% local, zero-upload optimization — fast and private.",
-    "title": "Use Compress Tools Free Online",
+    "title": "Use {count} Compress Tools Free Online",
     "description": "Professional-grade compression utilities that optimize images, video, audio, and PDFs instantly in your browser — with zero server uploads. Shrink file size for speed and privacy without leaving your device.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6328,7 +6334,7 @@
   "ConvertToolsPage": {
     "metaTitle": "Convert Tools | PDF, Image, Media & Document Converters | JoinMyPDF",
     "metaDescription": "Free browser-based conversion tools for PDF, images, media, and documents. 100% local, zero-upload processing — private and fast.",
-    "title": "Use Convert Tools Free Online",
+    "title": "Use {count} Convert Tools Free Online",
     "description": "Professional-grade conversion utilities for PDF, image, media, and document formats — all running securely in your browser. Convert your files instantly without sending them to any server. Zero uploads. Maximum privacy and speed.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6374,7 +6380,7 @@
   "PdfToolsPage": {
     "metaTitle": "PDF Tools | Merge, Split, Convert & Optimize | JoinMyPDF",
     "metaDescription": "Free secure PDF tools for merge, split, convert, and optimize — 100% local in your browser. Zero uploads. Your files never leave your computer.",
-    "title": "Use PDF Tools Free Online",
+    "title": "Use {count} PDF Tools Free Online",
     "description": "JoinMyPDF is your privacy-first home for PDF work. Merge, split, convert, and optimize documents with 100% secure, local browser-based tools — a true Zero-Upload promise so your files stay on your computer, never on our servers.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6444,7 +6450,8 @@
       "pdfMetadataEditor": "PDF Metadata Editor",
       "pdfTextEditor": "PDF Text Editor",
       "batchRenamePdf": "Batch Rename PDF",
-      "customPaperMargin": "Paper & Margins"
+      "customPaperMargin": "Paper & Margins",
+      "emlToPdf": "EML to PDF"
     },
     "privacyBadge": "Zero-Upload promise. Your files are processed locally in your browser and never leave your device.",
     "groupMergeSplit": "Merge & Split",
@@ -6634,7 +6641,7 @@
   "VideoToolsPage": {
     "metaTitle": "Advanced Video Tools | Cut, Compress, Convert to GIF | JoinMyPDF",
     "metaDescription": "Free secure video tools for resize, rotate, compress, and convert — 100% local in your browser. No-upload processing keeps your videos private.",
-    "title": "Use Advanced Video Tools Free Online",
+    "title": "Use {count} Advanced Video Tools Free Online",
     "description": "Professional-grade video editing utilities that run 100% securely in your browser. Resize, rotate, compress, and convert video with No-Upload technology — your files never leave your device, so personal and professional content stays private.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6670,7 +6677,7 @@
   "DeveloperToolsHubPage": {
     "metaTitle": "Developer Tools | Security, Hash, UUID & Encryption | JoinMyPDF",
     "metaDescription": "Free secure developer tools for passwords, hashes, UUIDs, and encoding — 100% local in your browser. Sensitive data never leaves your device.",
-    "title": "Use Developer & Security Tools Free Online",
+    "title": "Use {count} Developer & Security Tools Free Online",
     "description": "Professional-grade developer and security utilities that run 100% securely in your browser. Passwords, private keys, hashes, and tokens are processed entirely in browser memory and never leave your device — Zero-Server by design.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6702,7 +6709,7 @@
   "TextToolsPage": {
     "metaTitle": "Text Tools | Case Converter, Word Counter & Analyzers | JoinMyPDF",
     "metaDescription": "Free browser-based text tools for case conversion, word counting, diffs, and encoding. 100% local processing — zero uploads, instant results.",
-    "title": "Use Text Tools Free Online",
+    "title": "Use {count} Text Tools Free Online",
     "description": "Professional-grade text utilities for processing, formatting, and analyzing strings — all running instantly in your browser with zero server communication. Convert case, count words, compare diffs, and encode data locally. Zero uploads. Maximum privacy.",
     "backToAllTools": "Back to all tools",
     "backToDeveloperTools": "Back to Developer tools",
@@ -6733,7 +6740,7 @@
   "FaviconToolsPage": {
     "metaTitle": "Favicon Tools | Generate, Convert & Optimize",
     "metaDescription": "Free browser-based favicon tools for generation, conversion, and optimization. 100% local processing — your icons never leave your device.",
-    "title": "Use Favicon Tools Free Online",
+    "title": "Use {count} Favicon Tools Free Online",
     "description": "Generate, convert, and optimize favicons entirely in your browser. These local tools create ICO/PNG packs, crop icons, and compress assets without uploads — your files never leave your device.",
     "backToAllTools": "Back to all tools",
     "backToHome": "Back to home",
@@ -6755,7 +6762,7 @@
   "JsonToolsPage": {
     "metaTitle": "JSON Tools | Format, Validate & Convert JSON | JoinMyPDF",
     "metaDescription": "Free browser-based JSON tools for formatting, validation, and conversion. 100% local processing — your data never leaves your device.",
-    "title": "Use JSON Tools Free Online",
+    "title": "Use {count} JSON Tools Free Online",
     "description": "Professional-grade JSON utilities, optimized for local browser execution. Format, validate, minify, and convert JSON to CSV or YAML without uploads — your data never leaves your device.",
     "backToAllTools": "Back to all tools",
     "backToDeveloperTools": "Back to Developer tools",
@@ -6778,7 +6785,7 @@
   "YamlToolsPage": {
     "metaTitle": "YAML Tools | Convert & Format YAML | JoinMyPDF",
     "metaDescription": "Free browser-based YAML tools for conversion and formatting. 100% local processing — your data never leaves your device.",
-    "title": "Use YAML Tools Free Online",
+    "title": "Use {count} YAML Tools Free Online",
     "description": "Convert and work with YAML entirely in your browser. These 100% local tools handle YAML ↔ JSON conversion without uploads — your data never leaves your device.",
     "backToAllTools": "Back to all tools",
     "backToDeveloperTools": "Back to Developer tools",
@@ -6794,7 +6801,7 @@
   "XmlToolsPage": {
     "metaTitle": "XML Tools | Convert & Work with XML | JoinMyPDF",
     "metaDescription": "Free browser-based XML tools for data conversion workflows. 100% local processing — your data never leaves your device.",
-    "title": "Use XML Tools Free Online",
+    "title": "Use {count} XML Tools Free Online",
     "description": "Work with XML data entirely in your browser. Convert related formats like JSON and YAML locally — your data never leaves your device.",
     "backToAllTools": "Back to all tools",
     "backToDeveloperTools": "Back to Developer tools",
@@ -9161,6 +9168,7 @@
     "example": "Example",
     "realWorldExample": "Real-world example:",
     "openTool": "Open tool",
+    "goAria": "Go to {label}",
     "focusMode": "Focus mode",
     "expandAria": "Expand {label}",
     "focusDialogAria": "{label} — focus mode",
@@ -9282,5 +9290,18 @@
     "needMoreFiles": "Add at least 2 images before combining.",
     "errorGeneric": "Could not combine these images. Try smaller files or different images.",
     "successHint": "Your combined PNG was created locally and is ready to download."
+  },
+  "EmlToPdfLanding": {
+    "brand": "EML to PDF Converter Online",
+    "titleRest": "- Convert Email .EML Files into Printable PDF Documents",
+    "subtitle": "Convert email to PDF privately—parse Outlook, Apple Mail, or Thunderbird .eml files locally, choose formatting, and download a clean PDF. Zero-Upload Promise.",
+    "emlBadge": "EML",
+    "pdfBadge": "PDF",
+    "fromSample": "From: alex@example.com",
+    "subjectSample": "Q3 contract signed",
+    "headerChip": "HEADERS",
+    "success": "Converted",
+    "getStarted": "Get Started",
+    "getStartedHint": "Open the workspace to convert EML emails to PDF."
   }
 }

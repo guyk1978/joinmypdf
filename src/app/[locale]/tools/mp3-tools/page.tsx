@@ -5,6 +5,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
+import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentAudioMp3BlogPosts } from "@/lib/blog-audio-category";
@@ -66,10 +67,12 @@ export default async function Mp3ToolsPage({ params }: PageProps) {
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <header className="tools-directory-page__head">
-            <h1 className="tools-directory-page__title">{t("title")}</h1>
-            <p className="tools-directory-page__desc">{t("description")}</p>
-          </header>
+          <CategoryHubPageHeader
+            categoryId="mp3"
+            title={t("title", { count: getCategoryToolCount("mp3") })}
+            description={t("description")}
+            variant="directory"
+          />
 
           <section
             className="tools-hub-panel p-0"

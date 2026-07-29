@@ -5,6 +5,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
+import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentCompressionBlogPosts } from "@/lib/blog-compress-category";
@@ -86,10 +87,12 @@ export default async function CompressToolsHubPage({ params }: PageProps) {
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-6 text-4xl font-bold text-white">{t("title")}</h1>
-            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
-          </header>
+          <CategoryHubPageHeader
+            categoryId="compress"
+            title={t("title", { count: getCategoryToolCount("compress") })}
+            description={t("description")}
+            variant="bordered"
+          />
 
           {COMPRESS_TOOL_GROUPS.map((group) => (
             <section

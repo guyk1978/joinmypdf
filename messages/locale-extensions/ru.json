@@ -155,11 +155,12 @@
         }
       },
       "pdfDeletePages": {
-        "h1": "Delete PDF Pages Online",
-        "introSectionTitle": "How to Remove Pages from PDF",
-        "whySectionTitle": "Why Use Our PDF Page Deleter?",
-        "whySectionSubheadline": "Delete pages from PDF with fast page removal—select and delete pages from scanned or multi-page documents with instant local processing in your browser.",
-        "schemaDescription": "Delete pages from PDF online for free—remove unwanted PDF pages with a visual PDF page remover in your browser. Fast page removal with instant local processing and download.",
+        "h1": "Удаление страниц PDF онлайн",
+        "heroTagline": "Удаляйте страницы из PDF онлайн в браузере—уберите конкретные страницы, пустые листы или лишние сканы и скачайте очищенный файл при Zero-Upload Promise.",
+        "introSectionTitle": "Как удалить страницы из PDF",
+        "whySectionTitle": "Почему выбрать наш инструмент удаления страниц PDF?",
+        "whySectionSubheadline": "Удаляйте конкретные страницы PDF с быстрой локальной обработкой—работайте с многостраничными документами, убирайте пустые листы или ненужные вложения и скачивайте сразу без облачной загрузки.",
+        "schemaDescription": "Бесплатное удаление страниц PDF онлайн—уберите страницы из PDF, удалите конкретные страницы, вырежьте страницы в браузере и извлеките или удалите листы PDF локально без загрузок.",
         "featuredGuide": {
           "slug": "manage-many-pdfs-locally",
           "label": "Check out our guide on how to manage your PDF documents with precision"
@@ -179,8 +180,8 @@
             "body": "Remaining pages keep original fonts, layout, and quality—only the pages you mark are removed."
           },
           "local": {
-            "title": "Local privacy",
-            "body": "Remove unwanted PDF pages in your browser—no uploads, no server queues, and sensitive documents never leave your device."
+            "title": "Zero-Upload Promise",
+            "body": "Многостраничные PDF остаются на устройстве, пока вы вырезаете страницы в браузере—без облачной загрузки и без тревоги из‑за лимитов сервера."
           }
         }
       },
@@ -216,12 +217,12 @@
         }
       },
       "pdfExtractPages": {
-        "h1": "Extract PDF Pages Online",
-        "heroTagline": "Enter page ranges like 1, 3-5, 8 to pull only the pages you need.",
-        "introSectionTitle": "How to Extract PDF Pages by Range",
-        "whySectionTitle": "Why Use Our PDF Extractor?",
-        "whySectionSubheadline": "Extract pages from PDF with flexible range selection—extract specific page ranges, create new PDF from selection, and get instant local extraction in your browser.",
-        "schemaDescription": "Extract pages from PDF online for free—save specific PDF pages with a PDF range extractor in your browser. Extract pages 1-5 or any custom selection with instant local extraction.",
+        "h1": "Извлечение страниц PDF онлайн",
+        "heroTagline": "Извлекайте страницы из PDF онлайн—сохраняйте нужные страницы или разделяйте PDF по диапазону (например 1, 3-5) и скачивайте компактный новый файл при Zero-Upload Promise.",
+        "introSectionTitle": "Как извлечь страницы из PDF",
+        "whySectionTitle": "Почему выбрать наш экстрактор PDF?",
+        "whySectionSubheadline": "Извлекайте страницы из PDF онлайн с гибкими диапазонами—сохраняйте конкретные страницы, разделяйте PDF по диапазону и создавайте компактный новый документ с мгновенным локальным извлечением в браузере.",
+        "schemaDescription": "Бесплатное извлечение страниц PDF онлайн—сохраняйте конкретные страницы PDF, разделяйте PDF по диапазону страниц и скачивайте новый PDF из выбора вроде 1, 3-5 в браузере без загрузок.",
         "featuredGuide": {
           "slug": "how-to-extract-specific-pages-from-long-pdf",
           "label": "Check out our guide on how to manage large PDF documents efficiently"
@@ -233,16 +234,16 @@
         },
         "whyBenefits": {
           "lossless": {
-            "title": "Flexible range selection",
-            "body": "Extract specific page ranges with comma-separated numbers and dashes—e.g. 1, 3-5, 12—for contracts, exhibits, and academic papers."
+            "title": "Гибкий выбор диапазона",
+            "body": "Извлекайте конкретные диапазоны страниц через числа и тире—например 1, 3-5, 12—для договоров, приложений, счетов и академических работ."
           },
           "quality": {
-            "title": "Instant output",
-            "body": "Create new PDF from selection in one step—pages are copied without re-compression so text and images stay sharp."
+            "title": "Копирование без потерь",
+            "body": "Создайте новый PDF из выбора без повторного сжатия—текст и изображения остаются такими же чёткими, как в исходнике."
           },
           "local": {
-            "title": "No upload privacy",
-            "body": "Instant local extraction in your browser—no uploads, no server queues, and sensitive documents never leave your device."
+            "title": "Zero-Upload Promise",
+            "body": "Мгновенное локальное извлечение в браузере—разделяйте PDF по диапазону страниц без облачных загрузок, очередей и аккаунтов."
           }
         }
       },
@@ -764,30 +765,30 @@
         }
       },
       "nUpPdf": {
-        "h1": "N-Up PDF (Multiple Pages per Sheet)",
-        "heroTagline": "Fit 2, 4, 6, or more pages on each sheet—save paper, cut printing costs, and prepare handouts locally in your browser.",
-        "introSectionTitle": "How to Create an N-Up PDF Layout",
-        "whySectionTitle": "Why N-Up Printing Saves Paper and Time",
-        "whySectionSubheadline": "N-Up imposition packs multiple document pages onto one physical sheet. Teams print fewer pages for drafts, handouts, and review packs—reducing cost and environmental impact without sending files to the cloud.",
-        "schemaDescription": "Create N-Up PDF layouts online for free—arrange 2-up, 4-up, 6-up, or custom grid pages per sheet with secure local-only processing in your browser. No uploads.",
+        "h1": "N-Up PDF (несколько страниц на листе)",
+        "heroTagline": "Размещайте 2, 4, 6 и более страниц на каждом листе—экономьте бумагу, снижайте затраты на печать и готовьте раздатки локально в браузере по Zero-Upload Promise.",
+        "introSectionTitle": "Как пользоваться N-Up PDF",
+        "whySectionTitle": "Почему N-Up экономит бумагу и время",
+        "whySectionSubheadline": "N-Up imposition размещает несколько страниц документа на одном физическом листе. Команды печатают меньше страниц для черновиков, раздаток и обзоров—снижая затраты и нагрузку на окружающую среду без загрузки в облако.",
+        "schemaDescription": "Создавайте N-Up PDF онлайн бесплатно—2-up, 4-up, 6-up или своя сетка с ориентацией и полями. Безопасная локальная обработка в браузере. Без загрузок.",
         "relatedWorkflowLinks": {
-          "prompt": "Related print workflows:",
-          "bookletLabel": "PDF to Booklet",
-          "compressLabel": "Compress PDF",
-          "pageNumbersLabel": "Add Page Numbers"
+          "prompt": "Смежные сценарии печати:",
+          "bookletLabel": "PDF в буклет",
+          "compressLabel": "Сжать PDF",
+          "pageNumbersLabel": "Номера страниц"
         },
         "whyBenefits": {
           "lossless": {
-            "title": "Less paper per document",
-            "body": "Four-up and six-up layouts turn long PDFs into compact handouts—ideal for training packets, syllabus prints, and design review thumbnails."
+            "title": "Меньше бумаги на документ",
+            "body": "Макеты 4-up и 6-up превращают длинные PDF в компактные раздатки—идеально для тренингов, силлабусов и обзоров дизайна."
           },
           "quality": {
-            "title": "Readable scaled pages",
-            "body": "Each source page scales proportionally inside its cell—text and graphics stay sharp without cropping or recompression."
+            "title": "Читаемые масштабированные страницы",
+            "body": "Каждая исходная страница масштабируется пропорционально в ячейке—текст и графика остаются чёткими без обрезки и пересжатия. Настройте поля ячеек для аккуратной печати."
           },
           "local": {
-            "title": "100% client-side privacy",
-            "body": "Your PDF is rearranged on your device. Confidential drafts and client materials never upload to JoinMyPDF."
+            "title": "100% клиентская конфиденциальность",
+            "body": "PDF перестраивается на вашем устройстве. Конфиденциальные черновики и материалы клиентов не загружаются на JoinMyPDF."
           }
         }
       },
@@ -3924,6 +3925,37 @@
             "body": "100% Local conversion. Your videos are processed in your browser, keeping your data private."
           }
         }
+      },
+      "emlToPdf": {
+        "h1": "Конвертер EML в PDF онлайн",
+        "heroTagline": "Конвертируйте письмо в PDF в браузере—загрузите .eml, просмотрите От/Кому/Тема/Дата и тело, выберите размер страницы и шрифт, затем скачайте готовый к печати PDF. Подходит для экспорта из Outlook, Apple Mail и Thunderbird.",
+        "introSectionTitle": "Как конвертировать EML в PDF",
+        "whySectionTitle": "Зачем конвертировать EML локально?",
+        "whySectionSubheadline": "Бесплатный разбор EML на устройстве, приватное извлечение заголовков и тела, мгновенная загрузка PDF—письма не покидают устройство благодаря Zero-Upload Promise.",
+        "schemaDescription": "Бесплатный онлайн-конвертер EML в PDF—конвертировать письмо в PDF, сохранить письмо Outlook как PDF, конвертер EML Thunderbird и читать файл EML онлайн как PDF в браузере без загрузок.",
+        "featuredGuide": {
+          "slug": "pdf-workflow-efficiency-tips",
+          "label": "Смотрите наше руководство по эффективным документным процессам"
+        },
+        "relatedWorkflowLinks": {
+          "prompt": "Связанные инструменты:",
+          "htmlToPdfLabel": "HTML в PDF",
+          "compressLabel": "Сжать PDF"
+        },
+        "whyBenefits": {
+          "lossless": {
+            "title": "100% клиентская конвертация",
+            "body": "Разбирайте .eml в браузере—без облачной загрузки чувствительной переписки. Zero-Upload Promise при каждой конвертации."
+          },
+          "quality": {
+            "title": "Чистая печатная вёрстка",
+            "body": "Включайте или скрывайте заголовки, перечисляйте вложения и выбирайте ориентацию, формат и шрифт."
+          },
+          "local": {
+            "title": "Архивирование с приоритетом приватности",
+            "body": "Сохраняйте письмо Outlook как PDF, конвертируйте архивы Thunderbird или читайте файл EML онлайн перед экспортом—договоры и квитанции остаются на устройстве."
+          }
+        }
       }
     },
     "schema": {
@@ -4068,7 +4100,8 @@
       "pdfToPowerpoint": "convert PDF to PowerPoint",
       "pdfToExcel": "convert PDF to Excel",
       "extractTablesPdf": "extract tables from a PDF to CSV or Excel",
-      "default": "work with your PDF"
+      "default": "work with your PDF",
+      "emlToPdf": "конвертировать письма EML в PDF"
     },
     "guide": {
       "useCasesJoin": "and",
@@ -4091,13 +4124,17 @@
           "p1": "Crop PDF online to remove unwanted margins and focus your content—use precise PDF cropping to trim PDF borders, adjust document margins, and adjust PDF page size with instant local processing in your browser. No uploads, no account, and no desktop software required."
         },
         "pdfDeletePages": {
-          "p1": "Delete PDF pages online to remove unwanted pages from scanned or multi-page documents—use fast page removal to select and delete pages from a thumbnail grid with instant local processing in your browser. No uploads, no account, and no desktop software required."
+          "p1": "Удаляйте страницы из PDF онлайн с JoinMyPDF—удаляйте конкретные страницы PDF из сетки миниатюр, вырезайте страницы в браузере или извлекайте и убирайте ненужные листы. Многостраничные документы остаются локально при Zero-Upload Promise, так что можно убрать пустые листы, лишние сканы или ненужные вложения без облачной загрузки и без тревоги из‑за размера. Без аккаунта и без установки ПО.",
+          "p2": "Как удалить страницы из PDF: (1) Загрузите или перетащите файл PDF. (2) Просмотрите документ и выберите ненужные страницы или диапазоны. (3) Нажмите обработку и сразу скачайте обновлённый PDF—обработка остаётся на вашем устройстве.",
+          "p3": "Подходит для очистки сканированных пакетов, клиентских отчётов и длинных договоров перед отправкой. Оставшиеся страницы сохраняют исходные шрифты и вёрстку — удаляются только отмеченные страницы."
         },
         "pdfReorderPages": {
           "p1": "Reorder PDF pages online with an intuitive drag-and-drop interface—drag page thumbnails to rearrange PDF pages instantly, sort PDF pages in the correct sequence, and download with local-only page sorting in your browser. No uploads, no account, and no desktop software required."
         },
         "pdfExtractPages": {
-          "p1": "Extract PDF pages online from long contracts or academic papers—extract specific page ranges like 1, 3-5, create new PDF from selection, and download with instant local extraction in your browser. No uploads, no account, and no desktop software required."
+          "p1": "Извлекайте страницы из PDF онлайн, когда полный пакет слишком велик для отправки. JoinMyPDF позволяет сохранить конкретные страницы PDF—или разделить PDF по диапазону страниц вида 1, 3-5, 12—в компактный новый файл при Zero-Upload Promise. Просмотрите выбор, сохраните исходные шрифты и изображения и скачайте сразу без аккаунтов, очередей и облачного хранения документа.",
+          "p2": "Как извлечь страницы из PDF: (1) Загрузите или перетащите файл PDF локально. (2) Выберите конкретные номера страниц или диапазоны (например 1, 3-5), которые нужно выделить. (3) Нажмите извлечение и сразу скачайте новый компактный PDF—обработка остаётся на вашем устройстве.",
+          "p3": "Типичные сценарии: вытащить страницы счёта из длинной банковской выписки для финансов, отправить только приложения или страницы подписи из договора, упаковать академические главы разделением большого PDF по диапазону и собрать небольшое вложение для email, пока полный исходник остаётся приватным на устройстве."
         },
         "pdfAddPageNumbers": {
           "p1": "Add page numbers to PDF online for professional document preparation—use customizable page numbering to position page numbers precisely on reports and submissions with secure local processing in your browser. No uploads, no account, and no desktop software required."
@@ -4140,9 +4177,9 @@
           "p3": "Fast Web View improves web accessibility and perceived performance: users on mobile networks and large manuals benefit when the first screen appears in seconds. Because processing is 100% client-side, confidential reports and customer-facing documentation never leave your machine."
         },
         "nUpPdf": {
-          "p1": "Create N-Up PDF layouts online—fit multiple pages per sheet for handouts, review packs, and sustainable printing with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
-          "p2": "How it works: (1) Upload your PDF. (2) Choose a layout—2-up, 4-up, 6-up, 9-up, or a custom grid with up to 4 columns and 4 rows. (3) Click Convert & Download. Each output sheet contains your chosen grid; pages keep reading order left-to-right, top-to-bottom.",
-          "p3": "N-Up printing reduces paper and toner for drafts, lecture notes, and internal reviews. Because imposition runs locally, sensitive contracts and unreleased designs stay on your machine."
+          "p1": "Создавайте N-Up PDF онлайн—размещайте несколько страниц на листе для раздаток, обзоров и экологичной печати с безопасной локальной обработкой в браузере. Выберите 2-up, 4-up, 6-up, 9-up или свою сетку, задайте ориентацию и поля ячеек, затем скачайте по Zero-Upload Promise. Без загрузок, без аккаунта и без десктопного ПО.",
+          "p2": "Как пользоваться N-Up PDF: (1) Загрузите PDF локально. (2) Выберите макет—2-up, 4-up, 6-up, 9-up или сетку до 4×4—затем задайте ориентацию листа и поля. (3) Нажмите Convert & Download. Каждый выходной лист содержит выбранную сетку; страницы идут слева направо, сверху вниз.",
+          "p3": "N-Up снижает расход бумаги и тонера для черновиков, конспектов и внутренних обзоров. Поскольку imposition выполняется локально, чувствительные договоры и неопубликованные дизайны остаются на вашем устройстве."
         },
         "grayscalePdf": {
           "p1": "Convert PDF to grayscale online—turn color documents into black-and-white PDFs for printing, archiving, and file size optimization with secure local-only processing in your browser. No uploads, no account, and no desktop software required.",
@@ -4197,6 +4234,11 @@
         },
         "autocadToPdf": {
           "p1": "Convert AutoCAD to PDF online with precise CAD rendering—export high-quality blueprints, scale-accurate vector output, and professional CAD document conversion with secure local-only processing in your browser. No uploads, no account, and no desktop software required."
+        },
+        "emlToPdf": {
+          "p1": "Конвертируйте письмо в PDF в браузере с конвертером EML в PDF от JoinMyPDF—загрузите сообщение .eml, просмотрите заголовки и тело, затем скачайте готовый PDF при Zero-Upload Promise. Сохраните письмо Outlook как PDF после экспорта, используйте этот конвертер EML Thunderbird для архивов или читайте файл EML онлайн перед отправкой. Без загрузок, без аккаунта и без установки ПО.",
+          "p2": "Как конвертировать EML в PDF: (1) Загрузите или перетащите файл .eml. (2) Проверьте разобранные заголовки и тело письма, при необходимости настройте формат страницы, ориентацию или шрифт. (3) Нажмите конвертацию и сразу скачайте PDF—обработка остаётся на вашем устройстве.",
+          "p3": "Поддерживаются файлы .eml, экспортированные из популярных почтовых клиентов: Microsoft Outlook, Apple Mail и Mozilla Thunderbird. Удобно для архивации договоров, квитанций и тикетов поддержки в фиксированный PDF без отправки данных почтового ящика в облако."
         },
         "pdfToJpg": {
           "p1": "Convert PDF to JPG online with high-resolution PDF to JPG export—extract images from PDF pages, fast PDF conversion to image, and secure local-only processing in your browser. No uploads, no account, and no desktop software required."
@@ -6186,6 +6228,10 @@
       "pdf-to-excel": {
         "title": "Перетащите PDF сюда или нажмите, чтобы выбрать",
         "description": "Выберите PDF для локальной конвертации в Excel (.xlsx)."
+      },
+      "eml-to-pdf": {
+        "title": "Перетащите файл EML сюда или нажмите для выбора",
+        "description": "Выберите письмо .eml из Outlook, Apple Mail или Thunderbird для локальной конвертации в PDF."
       }
     },
     "buttons": {
@@ -6863,6 +6909,13 @@
         "customRows": "Rows",
         "customGridHint": "{cols} columns × {rows} rows per sheet",
         "layoutHint": "Pages flow left-to-right, top-to-bottom. Use Booklet for fold-and-staple imposition.",
+        "orientationLabel": "Ориентация листа",
+        "orientation_auto": "Авто (как источник)",
+        "orientation_portrait": "Книжная",
+        "orientation_landscape": "Альбомная",
+        "marginLabel": "Поля ячейки",
+        "marginOption": "{pt} pt",
+        "orientationMarginHint": "Ориентация задаёт выходной лист. Поля сдвигают каждую страницу внутрь ячейки сетки.",
         "outputSheets": "{count} output sheet(s)",
         "passwordLabel": "PDF password",
         "passwordHint": "(only if the file is protected)",
@@ -8156,6 +8209,50 @@
     },
     "url-parameter-stripper": {
       "privacyNote": "Удаление параметров URL выполняется полностью в браузере."
+    },
+    "eml-to-pdf": {
+      "status": {
+        "invalidType": "Выберите файл письма .eml.",
+        "emptyFile": "Файл пуст. Выберите другое письмо.",
+        "parsing": "Разбор письма…",
+        "rendering": "Отрисовка макета письма…",
+        "fileReady": "{name} готов — настройте оформление и конвертируйте.",
+        "complete": "Конвертация завершена. Загрузка должна начаться автоматически."
+      },
+      "progress": {
+        "parsing": "Разбор EML…",
+        "rendering": "Отрисовка письма…",
+        "building": "Сборка PDF…"
+      },
+      "privacyNote": "Разбор EML и создание PDF выполняются в браузере. Письмо не покидает устройство.",
+      "convertLabel": "Конвертировать в PDF",
+      "downloadLabel": "Скачать PDF",
+      "stickyConvertLabel": "EML в PDF",
+      "stickyDownloadLabel": "Скачать PDF",
+      "outputHint": "Заголовки, тело и опциональный список вложений экспортируются в один PDF.",
+      "ui": {
+        "orientationLabel": "Ориентация",
+        "orientationPortrait": "Книжная",
+        "orientationLandscape": "Альбомная",
+        "pageSizeLabel": "Размер страницы",
+        "pageSizeA4": "A4",
+        "pageSizeLetter": "Letter",
+        "fontSizeLabel": "Размер шрифта",
+        "fontSizeSmall": "Малый",
+        "fontSizeMedium": "Средний",
+        "fontSizeLarge": "Крупный",
+        "includeHeaders": "Включить От / Кому / Тема / Дата",
+        "includeAttachments": "Список имен вложений",
+        "headersHeading": "Заголовки письма",
+        "previewHeading": "Предпросмотр PDF",
+        "previewIframeTitle": "Предпросмотр письма в PDF",
+        "fromLabel": "От",
+        "toLabel": "Кому",
+        "ccLabel": "Копия",
+        "subjectLabel": "Тема",
+        "dateLabel": "Дата",
+        "attachmentsCount": "Вложений: {count}"
+      }
     }
   },
   "Tools": {

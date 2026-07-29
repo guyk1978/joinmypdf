@@ -14,19 +14,19 @@ import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { useUnpinnedIds } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
-const RECENT_GRID_SIZE = 4;
+const RECENT_GRID_SIZE = 12;
 
 type RecentToolsProps = {
   locale: string;
 };
 
 /**
- * "Your Recent Tools" — compact static 2×2 grid (or empty state).
+ * "Your Recent Tools" — compact 3-column grid, max 12 (or empty state).
  */
 export function RecentTools({ locale }: RecentToolsProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
-  const { recentToolIds, hydrated } = useRecentTools(RECENT_GRID_SIZE * 2);
+  const { recentToolIds, hydrated } = useRecentTools(RECENT_GRID_SIZE * 3);
   const visibleToolIds = useUnpinnedIds(recentToolIds);
 
   const cards = useMemo(() => {
@@ -55,7 +55,7 @@ export function RecentTools({ locale }: RecentToolsProps) {
           icon={<History size={22} strokeWidth={1.75} />}
           bodyClassName="home-tool-grid home-tool-grid--2x2 home-tool-grid--skeleton"
         >
-          {Array.from({ length: 4 }, (_, index) => (
+          {Array.from({ length: RECENT_GRID_SIZE }, (_, index) => (
             <div key={index} className="home-tool-grid__placeholder" aria-hidden />
           ))}
         </HomeStaticPanel>

@@ -141,6 +141,10 @@ export function getToolErrorRecovery(
       { href: "/tools/markdown-to-pdf/", label: "Try Markdown to PDF", hint: "For README and note exports", variant: "primary" },
       { ...TOOLS.compress, hint: "Shrink large rendered PDFs", variant: "secondary" },
     ],
+    "eml-to-pdf": [
+      { href: "/tools/html-to-pdf/", label: "Try HTML to PDF", hint: "For webpage or markup exports", variant: "primary" },
+      { ...TOOLS.compress, hint: "Shrink large email PDFs", variant: "secondary" },
+    ],
     "ebook-to-pdf": [
       { href: "/tools/html-to-pdf/", label: "Try HTML to PDF", hint: "For chapter HTML exports", variant: "primary" },
       { ...TOOLS.compress, hint: "Reduce large book PDFs", variant: "secondary" },

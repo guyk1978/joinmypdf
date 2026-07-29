@@ -3,7 +3,6 @@ import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ImageBlurRedactWorkspace } from "@/components/ImageBlurRedactWorkspace";
-import { ImageBlurRedactIntroGate } from "@/components/ImageBlurRedactIntroGate";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
@@ -83,9 +82,7 @@ export default async function ImageBlurRedactPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <ImageBlurRedactIntroGate active={tool.operation === "image-blur-redact"}>
                 <ImageBlurRedactWorkspace tool={tool} slug={SLUG} />
-              </ImageBlurRedactIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

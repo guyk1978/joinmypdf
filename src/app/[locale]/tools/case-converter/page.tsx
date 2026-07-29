@@ -3,7 +3,6 @@ import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { CaseConverterWorkspace } from "@/components/tools/productivity/CaseConverterWorkspace";
-import { CaseConverterIntroGate } from "@/components/CaseConverterIntroGate";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -87,9 +86,7 @@ export default async function CaseConverterPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={pageTitle}>
             <h1 className="sr-only">{pageTitle}</h1>
-            <CaseConverterIntroGate>
               <CaseConverterWorkspace tool={tool} slug={SLUG} />
-            </CaseConverterIntroGate>
           </section>
         </div>
       </AppPageShell>

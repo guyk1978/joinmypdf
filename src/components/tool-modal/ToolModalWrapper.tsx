@@ -31,7 +31,6 @@ import {
   WORKSPACE_PHASE_MESSAGE,
   type WorkspacePhase,
 } from "@/lib/workspace-flow";
-import { TOOL_INTRO_MESSAGE } from "@/lib/tool-intro-chrome";
 import { DOC_FULLSCREEN_MESSAGE } from "@/lib/doc-fullscreen";
 import { getInitialWorkspacePhase } from "@/lib/tool-interaction-mode";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
@@ -95,9 +94,8 @@ export type ToolModalWrapperProps = {
 
 /**
  * Global JoinMyPDF tool modal shell (Industrial Matte).
- * Upload tools stay on the site header until a file is present; interactive
- * generators (`requiresUpload: false`) open directly with the tool action bar.
- * Cinematic intro splashes hide both headers for fullscreen isolation.
+ * Site header stays visible; a delicate full-width tool sub-header sits under it.
+ * Upload / workspace fills the remaining viewport below that bar.
  */
 export function ToolModalWrapper({
   open,
@@ -129,8 +127,6 @@ export function ToolModalWrapper({
   const [workspacePhase, setWorkspacePhase] = useState<WorkspacePhase>(initialPhase);
   /** True once the workspace is in active tool chrome (file uploaded or interactive generator). */
   const hasFileUploaded = workspacePhase === "active";
-  /** Cinematic intro splash active inside the CALC iframe. */
-  const [introActive, setIntroActive] = useState(false);
   /** True only while the active workspace has a mounted Magnifier preview. */
   const [magnifierAvailable, setMagnifierAvailable] = useState(false);
   /** Loupe follows the pointer — hide Search/size chips when hover is unavailable. */
@@ -201,7 +197,6 @@ export function ToolModalWrapper({
             : null,
       ),
     );
-    setIntroActive(false);
     setMagnifierAvailable(false);
     setDocFullscreenActive(false);
   }, [open, defaultTab, title, slug, requiresUpload]);
@@ -253,10 +248,6 @@ export function ToolModalWrapper({
         if (phase === "clean" || phase === "active") applyPhase(phase);
         return;
       }
-      if (type === TOOL_INTRO_MESSAGE) {
-        setIntroActive(Boolean((data as { active?: boolean }).active));
-        return;
-      }
       if (type === MAGNIFIER_CAPABILITY_MESSAGE) {
         setMagnifierAvailable(Boolean((data as { available?: boolean }).available));
         return;
@@ -269,10 +260,6 @@ export function ToolModalWrapper({
     const onCustomPhase = (event: Event) => {
       const phase = (event as CustomEvent<{ phase?: WorkspacePhase }>).detail?.phase;
       if (phase === "clean" || phase === "active") applyPhase(phase);
-    };
-
-    const onCustomIntro = (event: Event) => {
-      setIntroActive(Boolean((event as CustomEvent<{ active?: boolean }>).detail?.active));
     };
 
     const onCustomMagnifierCapability = (event: Event) => {
@@ -289,7 +276,6 @@ export function ToolModalWrapper({
 
     window.addEventListener("message", onMessage);
     window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
-    window.addEventListener(TOOL_INTRO_MESSAGE, onCustomIntro);
     window.addEventListener(MAGNIFIER_CAPABILITY_MESSAGE, onCustomMagnifierCapability);
     window.addEventListener(DOC_FULLSCREEN_MESSAGE, onCustomDocFullscreen);
 
@@ -306,7 +292,6 @@ export function ToolModalWrapper({
     return () => {
       window.removeEventListener("message", onMessage);
       window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
-      window.removeEventListener(TOOL_INTRO_MESSAGE, onCustomIntro);
       window.removeEventListener(MAGNIFIER_CAPABILITY_MESSAGE, onCustomMagnifierCapability);
       window.removeEventListener(DOC_FULLSCREEN_MESSAGE, onCustomDocFullscreen);
     };
@@ -322,25 +307,16 @@ export function ToolModalWrapper({
 
     document.documentElement.setAttribute("data-tool-modal-open", "1");
     document.documentElement.setAttribute("data-tool-modal-workspace", workspacePhase);
-    if (introActive) {
-      document.documentElement.setAttribute("data-tool-intro", "1");
-    } else {
-      document.documentElement.removeAttribute("data-tool-intro");
-    }
-    // Mutual exclusion: active = tool toolbar only; clean = site header only
-    // (unless cinematic intro owns the full viewport).
-    if (hasFileUploaded) {
-      document.documentElement.setAttribute("data-tool-modal-fullscreen", "1");
-    } else {
-      document.documentElement.removeAttribute("data-tool-modal-fullscreen");
-    }
+    document.documentElement.removeAttribute("data-tool-intro");
+    // Fullscreen = fill the viewport below the sticky site header (never cover it).
+    document.documentElement.setAttribute("data-tool-modal-fullscreen", "1");
 
     return () => {
       document.documentElement.removeAttribute("data-tool-modal-workspace");
       document.documentElement.removeAttribute("data-tool-modal-fullscreen");
       document.documentElement.removeAttribute("data-tool-intro");
     };
-  }, [open, workspacePhase, hasFileUploaded, introActive]);
+  }, [open, workspacePhase]);
 
   if (!mounted) return null;
 
@@ -426,7 +402,6 @@ export function ToolModalWrapper({
             exit={{ opacity: 0, y: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
           >
-            {hasFileUploaded && !introActive ? (
             <header className="tool-modal__header">
               <h2 id={titleId} className="tool-modal__title">
                 {title}
@@ -521,7 +496,7 @@ export function ToolModalWrapper({
                   </button>
                 ) : null}
 
-                {magnifierAvailable ? (
+                {hasFileUploaded && magnifierAvailable ? (
                   <div
                     className={clsx(
                       "tool-modal__loupe-cluster",
@@ -613,11 +588,6 @@ export function ToolModalWrapper({
                 </button>
               </div>
             </header>
-            ) : (
-              <h2 id={titleId} className="tool-modal__title-sr">
-                {title}
-              </h2>
-            )}
 
             <div className="tool-modal__body">
               {tab === "calc" && !contentReady ? (

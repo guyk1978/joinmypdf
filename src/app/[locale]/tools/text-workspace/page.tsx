@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { TextWorkspaceIntroGate } from "@/components/TextWorkspaceIntroGate";
 import { TextWorkspaceShell } from "@/components/tools/TextWorkspaceShell";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { routing } from "@/i18n/routing";
@@ -80,9 +79,7 @@ export default async function TextWorkspacePage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <TextWorkspaceIntroGate>
               <TextWorkspaceShell tool={tool} slug={SLUG} />
-            </TextWorkspaceIntroGate>
           </section>
 </div>
       </AppPageShell>

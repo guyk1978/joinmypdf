@@ -41,7 +41,7 @@ export function HeaderCategoryHub() {
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
-        <LayoutGrid className="site-header__nav-icon" aria-hidden size={16} strokeWidth={1.75} />
+        <LayoutGrid className="site-header__nav-icon" aria-hidden size={14} strokeWidth={2} />
         <span className="site-header__tools-hub-label">{tHeader("toolsHub")}</span>
       </button>
 

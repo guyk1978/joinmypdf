@@ -101,6 +101,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "ebook-to-pdf", labelKey: "ebookToPdf", categories: [c.pdfConvertIn] },
   { slug: "iwork-to-pdf", labelKey: "iworkToPdf", categories: [c.pdfConvertIn] },
   { slug: "autocad-to-pdf", labelKey: "autocadToPdf", categories: [c.pdfConvertIn] },
+  { slug: "eml-to-pdf", labelKey: "emlToPdf", categories: [c.pdfConvertIn] },
 
   // PDF — Export from PDF
   { slug: "pdf-to-jpg", labelKey: "pdfToJpg", categories: [c.pdfExport] },
@@ -335,6 +336,7 @@ export const TOOL_REGISTRY = {
     "autocad-to-pdf",
     "markdown-to-pdf",
     "html-to-pdf",
+    "eml-to-pdf",
     "jpg-to-pdf",
     "png-to-pdf",
     "heic-to-pdf",
@@ -454,6 +456,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
             "autocad-to-pdf",
             "markdown-to-pdf",
             "html-to-pdf",
+            "eml-to-pdf",
             "jpg-to-pdf",
             "png-to-pdf",
             "heic-to-pdf",

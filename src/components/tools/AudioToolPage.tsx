@@ -2,26 +2,6 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { RelatedAudioTools } from "@/components/tools/RelatedAudioTools";
 import { AudioToolMarketingSections } from "@/components/tools/AudioToolMarketingSections";
 import { AudioToolWorkspace } from "@/components/tools/AudioToolWorkspace";
-import { Mp4ToMp3IntroGate } from "@/components/Mp4ToMp3IntroGate";
-import { AudioCompressorIntroGate } from "@/components/AudioCompressorIntroGate";
-import { Mp3CompressorIntroGate } from "@/components/Mp3CompressorIntroGate";
-import { AudioMergerIntroGate } from "@/components/AudioMergerIntroGate";
-import { AudioNormalizerIntroGate } from "@/components/AudioNormalizerIntroGate";
-import { AudioTrimmerIntroGate } from "@/components/AudioTrimmerIntroGate";
-import { FadeInOutCreatorIntroGate } from "@/components/FadeInOutCreatorIntroGate";
-import { FlacConverterIntroGate } from "@/components/FlacConverterIntroGate";
-import { M4aConverterIntroGate } from "@/components/M4aConverterIntroGate";
-import { Mp3ConverterIntroGate } from "@/components/Mp3ConverterIntroGate";
-import { Mp3MetadataEditorIntroGate } from "@/components/Mp3MetadataEditorIntroGate";
-import { AudioSpeedChangerIntroGate } from "@/components/AudioSpeedChangerIntroGate";
-import { Mp3ToMp4IntroGate } from "@/components/Mp3ToMp4IntroGate";
-import { Mp3ToWavIntroGate } from "@/components/Mp3ToWavIntroGate";
-import { Mp3TrimmerIntroGate } from "@/components/Mp3TrimmerIntroGate";
-import { Mp3VolumeBoosterIntroGate } from "@/components/Mp3VolumeBoosterIntroGate";
-import { OggConverterIntroGate } from "@/components/OggConverterIntroGate";
-import { SilenceRemoverIntroGate } from "@/components/SilenceRemoverIntroGate";
-import { VoiceRemoverIntroGate } from "@/components/VoiceRemoverIntroGate";
-import { WavToMp3IntroGate } from "@/components/WavToMp3IntroGate";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
@@ -109,26 +89,6 @@ export async function AudioToolPage({ tool, slug: _publicSlug, locale }: AudioTo
               slug={tool.id}
               stacked
             >
-              <Mp4ToMp3IntroGate active={tool.id === "mp4-to-mp3"}>
-              <AudioCompressorIntroGate active={tool.id === "audio-compressor"}>
-              <Mp3CompressorIntroGate active={tool.id === "mp3-compressor"}>
-              <AudioMergerIntroGate active={tool.id === "audio-merger"}>
-              <AudioNormalizerIntroGate active={tool.id === "audio-normalizer"}>
-              <AudioTrimmerIntroGate active={tool.id === "audio-trimmer"}>
-              <FadeInOutCreatorIntroGate active={tool.id === "fade-in-out-creator"}>
-              <FlacConverterIntroGate active={tool.id === "flac-converter"}>
-              <M4aConverterIntroGate active={tool.id === "m4a-converter"}>
-              <Mp3ConverterIntroGate active={tool.id === "mp3-converter"}>
-              <Mp3MetadataEditorIntroGate active={tool.id === "mp3-metadata-editor"}>
-              <AudioSpeedChangerIntroGate active={tool.id === "mp3-speed-changer"}>
-              <Mp3ToMp4IntroGate active={tool.id === "mp3-to-mp4"}>
-              <Mp3ToWavIntroGate active={tool.id === "mp3-to-wav"}>
-              <Mp3TrimmerIntroGate active={tool.id === "mp3-trimmer"}>
-              <Mp3VolumeBoosterIntroGate active={tool.id === "mp3-volume-booster"}>
-              <OggConverterIntroGate active={tool.id === "ogg-converter"}>
-              <SilenceRemoverIntroGate active={tool.id === "silence-remover"}>
-              <VoiceRemoverIntroGate active={tool.id === "voice-remover"}>
-              <WavToMp3IntroGate active={tool.id === "wav-to-mp3"}>
               <ToolLayout
                 faqs={faqs}
                 feedbackTitle={pageHeadline}
@@ -154,26 +114,6 @@ export async function AudioToolPage({ tool, slug: _publicSlug, locale }: AudioTo
               >
                 <AudioToolWorkspace toolId={tool.id} />
               </ToolLayout>
-              </WavToMp3IntroGate>
-              </VoiceRemoverIntroGate>
-              </SilenceRemoverIntroGate>
-              </OggConverterIntroGate>
-              </Mp3VolumeBoosterIntroGate>
-              </Mp3TrimmerIntroGate>
-              </Mp3ToWavIntroGate>
-              </Mp3ToMp4IntroGate>
-              </AudioSpeedChangerIntroGate>
-              </Mp3MetadataEditorIntroGate>
-              </Mp3ConverterIntroGate>
-              </M4aConverterIntroGate>
-              </FlacConverterIntroGate>
-              </FadeInOutCreatorIntroGate>
-              </AudioTrimmerIntroGate>
-              </AudioNormalizerIntroGate>
-              </AudioMergerIntroGate>
-              </Mp3CompressorIntroGate>
-              </AudioCompressorIntroGate>
-              </Mp4ToMp3IntroGate>
             </ToolPageShellProvider>
           </ToolGlassProvider>
         </div>

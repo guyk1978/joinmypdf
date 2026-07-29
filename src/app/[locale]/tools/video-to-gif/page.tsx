@@ -3,7 +3,6 @@ import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
-import { VideoToGifIntroGate } from "@/components/VideoToGifIntroGate";
 import { VideoToGifWorkspace } from "@/components/tools/VideoToGifWorkspace";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
@@ -80,9 +79,7 @@ export default async function VideoToGifPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <VideoToGifIntroGate>
                 <VideoToGifWorkspace tool={tool} slug={SLUG} />
-              </VideoToGifIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

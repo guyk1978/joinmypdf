@@ -4,7 +4,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { VideoRotatorWorkspace } from "@/components/tools/VideoRotatorWorkspace";
-import { VideoRotatorIntroGate } from "@/components/VideoRotatorIntroGate";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -80,9 +79,7 @@ export default async function VideoRotatorPage({ params }: PageProps) {
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <VideoRotatorIntroGate active={tool.operation === "video-rotator"}>
                 <VideoRotatorWorkspace tool={tool} slug={SLUG} />
-              </VideoRotatorIntroGate>
             </ToolPageShellProvider>
           </section>
 </div>

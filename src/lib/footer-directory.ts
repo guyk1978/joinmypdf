@@ -71,6 +71,7 @@ export const FOOTER_TOOL_COLUMNS: FooterColumn[] = [
       toolLink("openoffice-to-pdf"),
       toolLink("markdown-to-pdf"),
       toolLink("html-to-pdf"),
+      toolLink("eml-to-pdf"),
       toolLink("ebook-to-pdf"),
       toolLink("iwork-to-pdf"),
       toolLink("autocad-to-pdf"),

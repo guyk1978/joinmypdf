@@ -90,8 +90,9 @@ export function QuickActions({ locale }: QuickActionsProps) {
     <HomeReveal className="w-full">
       <HomeSection
         id="quick-actions-title"
+        className="home-section--compact"
         title={t("landing.quickActionsTitle")}
-        icon={<Zap size={22} strokeWidth={1.75} />}
+        icon={<Zap size={16} strokeWidth={2} />}
       >
         {cards.map(({ id, href, title, description, categoryId }) => (
           <IndustrialToolCard
@@ -101,7 +102,7 @@ export function QuickActions({ locale }: QuickActionsProps) {
             description={description}
             slug={id}
             categoryId={categoryId}
-            icon={<ToolListIcon slug={id} label={title} size="md" />}
+            icon={<ToolListIcon slug={id} label={title} size="sm" />}
           />
         ))}
       </HomeSection>

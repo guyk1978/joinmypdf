@@ -4,7 +4,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { VideoMetadataCleanerWorkspace } from "@/components/tools/VideoMetadataCleanerWorkspace";
-import { VideoMetadataCleanerIntroGate } from "@/components/VideoMetadataCleanerIntroGate";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
 import { breadcrumbLd, JsonLd, webApplicationLd, faqLd } from "@/lib/schema";
@@ -78,9 +77,7 @@ export default async function VideoMetadataCleanerPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <VideoMetadataCleanerIntroGate>
               <VideoMetadataCleanerWorkspace tool={tool} slug={SLUG} />
-            </VideoMetadataCleanerIntroGate>
           </section>
         </div>
       </AppPageShell>

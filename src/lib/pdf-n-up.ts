@@ -8,11 +8,18 @@ export type NUpGrid = {
   rows: number;
 };
 
+/** Sheet orientation for the output N-Up PDF. */
+export type NUpOrientation = "auto" | "portrait" | "landscape";
+
 export type NUpOptions = {
   preset: NUpPreset;
   customCols?: number;
   customRows?: number;
   password?: string;
+  /** Output sheet orientation. `auto` keeps the first page's size. */
+  orientation?: NUpOrientation;
+  /** Inner margin inside each grid cell, in PDF points (1/72"). Clamped 0–36. */
+  marginPt?: number;
 };
 
 export type NUpProgress = {
@@ -37,6 +44,10 @@ export function resolveNUpGrid(options: NUpOptions): NUpGrid {
   return { cols, rows };
 }
 
+export function resolveNUpMarginPt(options: NUpOptions): number {
+  return Math.min(36, Math.max(0, Math.round(options.marginPt ?? 8)));
+}
+
 export function nUpPagesPerSheet(grid: NUpGrid): number {
   return grid.cols * grid.rows;
 }
@@ -44,6 +55,20 @@ export function nUpPagesPerSheet(grid: NUpGrid): number {
 export function nUpOutputSheetCount(sourcePageCount: number, grid: NUpGrid): number {
   if (sourcePageCount <= 0) return 0;
   return Math.ceil(sourcePageCount / nUpPagesPerSheet(grid));
+}
+
+function resolveSheetSize(
+  width: number,
+  height: number,
+  orientation: NUpOrientation = "auto",
+): { width: number; height: number } {
+  if (orientation === "landscape" && height > width) {
+    return { width: height, height: width };
+  }
+  if (orientation === "portrait" && width > height) {
+    return { width: height, height: width };
+  }
+  return { width, height };
 }
 
 function fitInBox(
@@ -91,11 +116,15 @@ function drawEmbeddedInCell(
   cellY: number,
   cellW: number,
   cellH: number,
+  marginPt: number,
 ) {
-  const fit = fitInBox(embedded.width, embedded.height, cellW, cellH);
+  const m = Math.max(0, Math.min(marginPt, Math.min(cellW, cellH) / 2 - 1));
+  const boxW = Math.max(1, cellW - 2 * m);
+  const boxH = Math.max(1, cellH - 2 * m);
+  const fit = fitInBox(embedded.width, embedded.height, boxW, boxH);
   page.drawPage(embedded, {
-    x: cellX + fit.x,
-    y: cellY + fit.y,
+    x: cellX + m + fit.x,
+    y: cellY + m + fit.y,
     width: fit.width,
     height: fit.height,
   });
@@ -109,6 +138,8 @@ export async function createNUpPdf(
   const password = options.password?.trim() || undefined;
   const grid = resolveNUpGrid(options);
   const perSheet = nUpPagesPerSheet(grid);
+  const marginPt = resolveNUpMarginPt(options);
+  const orientation = options.orientation ?? "auto";
 
   onProgress?.({ phase: "loading", currentSheet: 0, totalSheets: 0 });
 
@@ -121,7 +152,12 @@ export async function createNUpPdf(
   const sourcePageCount = source.getPageCount();
   const totalSheets = nUpOutputSheetCount(sourcePageCount, grid);
   const firstPage = source.getPage(0);
-  const { width: sheetW, height: sheetH } = firstPage.getSize();
+  const firstSize = firstPage.getSize();
+  const { width: sheetW, height: sheetH } = resolveSheetSize(
+    firstSize.width,
+    firstSize.height,
+    orientation,
+  );
   const cellW = sheetW / grid.cols;
   const cellH = sheetH / grid.rows;
 
@@ -160,7 +196,15 @@ export async function createNUpPdf(
         }
 
         if (slot < sourcePageCount) {
-          drawEmbeddedInCell(sheet, embeddedPages[slot], cellX, cellY, cellW, cellH);
+          drawEmbeddedInCell(
+            sheet,
+            embeddedPages[slot],
+            cellX,
+            cellY,
+            cellW,
+            cellH,
+            marginPt,
+          );
         } else {
           drawBlankCell(sheet, cellX, cellY, cellW, cellH);
         }

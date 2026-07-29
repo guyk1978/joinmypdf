@@ -43,6 +43,7 @@ const PDF_SECTIONS = {
     "heic-to-pdf",
     "markdown-to-pdf",
     "html-to-pdf",
+    "eml-to-pdf",
     "pdf-to-word",
     "pdf-to-excel",
     "pdf-to-powerpoint",

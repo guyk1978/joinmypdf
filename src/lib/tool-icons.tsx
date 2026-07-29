@@ -342,6 +342,18 @@ function HtmlIcon() {
   );
 }
 
+function EmlIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
+      <rect x="3" y="5" width="18" height="14" rx="2" fill={R} />
+      <path d="M4 7.5L12 13.5L20 7.5" stroke={W} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="12" y="16.5" textAnchor="middle" fill={W} fontSize="4.2" fontWeight="bold" fontFamily="ui-sans-serif,system-ui,sans-serif">
+        EML
+      </text>
+    </svg>
+  );
+}
+
 function MarkdownIcon() {
   return (
     <svg viewBox="0 0 24 24" className={ICON_CLASS} fill="none" aria-hidden>
@@ -487,6 +499,7 @@ const SLUG_RESOLVERS: { test: (s: string) => boolean; key: string }[] = [
   { test: (s) => s.includes("openoffice-to-pdf"), key: "openoffice-to-pdf" },
   { test: (s) => s.includes("markdown-to-pdf"), key: "markdown-to-pdf" },
   { test: (s) => s.includes("html-to-pdf"), key: "html-to-pdf" },
+  { test: (s) => s.includes("eml-to-pdf"), key: "eml-to-pdf" },
   { test: (s) => s.includes("ebook-to-pdf"), key: "ebook-to-pdf" },
   { test: (s) => s.includes("iwork-to-pdf"), key: "iwork-to-pdf" },
   { test: (s) => s.includes("heic-to-pdf"), key: "heic-to-pdf" },
@@ -711,6 +724,11 @@ const TOOL_ICON_MAP: Record<string, ToolIconVisual> = {
     icon: <HtmlIcon />,
     wrap: "bg-rose-100 ring-1 ring-rose-200",
     wrapHover: "group-hover:bg-rose-200 group-hover:ring-rose-300",
+  },
+  "eml-to-pdf": {
+    icon: <EmlIcon />,
+    wrap: "bg-sky-100 ring-1 ring-sky-200",
+    wrapHover: "group-hover:bg-sky-200 group-hover:ring-sky-300",
   },
   "markdown-to-pdf": {
     icon: <MarkdownIcon />,

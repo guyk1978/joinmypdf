@@ -22,8 +22,8 @@ type CategoryDirectoryFlatGridProps = {
 };
 
 /**
- * Global Industrial Matte tool card grid — 4-column dashboard used by every hub
- * (collapses to 3 / 2 / 1 columns on smaller screens).
+ * Global Industrial Matte tool card grid — 6-column dashboard on desktop
+ * (collapses to 4 / 3 / 2 / 1 columns on smaller screens).
  */
 export function CategoryDirectoryFlatGrid({
   items,

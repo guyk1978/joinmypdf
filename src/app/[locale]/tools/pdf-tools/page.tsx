@@ -5,6 +5,7 @@ import { AppPageShell } from "@/components/AppPageShell";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { PdfToolsCardGrid } from "@/components/PdfToolsCardGrid";
 import { ToolsHubRelatedGuides } from "@/components/ToolsHubRelatedGuides";
+import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getRecentPdfBlogPosts } from "@/lib/blog-pdf-category";
@@ -80,13 +81,13 @@ export default async function PdfToolsHubPage({ params }: PageProps) {
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-4 text-4xl font-bold text-white">{t("title")}</h1>
-            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
-            <p className="mt-4 m-0 text-xs uppercase tracking-widest text-[#737373]">
-              {t("privacyBadge")}
-            </p>
-          </header>
+          <CategoryHubPageHeader
+            categoryId="pdf"
+            title={t("title", { count: getCategoryToolCount("pdf") })}
+            description={t("description")}
+            footerNote={t("privacyBadge")}
+            variant="bordered"
+          />
 
           {PDF_TOOL_GROUPS.map((group) => (
             <section

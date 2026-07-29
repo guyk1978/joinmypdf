@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
 import { CategorySeoSection } from "@/components/CategorySeoSection";
+import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { breadcrumbLd, JsonLd } from "@/lib/schema";
@@ -69,10 +70,12 @@ export default async function WordToolsHubPage({ params }: PageProps) {
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-4 text-3xl font-bold text-white">{t("title")}</h1>
-            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
-          </header>
+          <CategoryHubPageHeader
+            categoryId="word"
+            title={t("title", { count: getCategoryToolCount("word") })}
+            description={t("description")}
+            variant="bordered"
+          />
 
           <section className="tools-hub-panel border-b border-[#262626] pb-8" aria-label={t("schemaName")}>
             <CategoryDirectoryFlatGrid items={gridItems} categoryId="word" />

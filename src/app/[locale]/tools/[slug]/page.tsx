@@ -16,6 +16,7 @@ import { PdfToXpsWorkspace } from "@/components/PdfToXpsWorkspace";
 import { ExtractTablesPdfWorkspace } from "@/components/ExtractTablesPdfWorkspace";
 import { ExtractImagesWorkspace } from "@/components/ExtractImagesWorkspace";
 import { WordToPdfWorkspace } from "@/components/WordToPdfWorkspace";
+import { EmlToPdfWorkspace } from "@/components/EmlToPdfWorkspace";
 import { ExcelToPdfWorkspace } from "@/components/ExcelToPdfWorkspace";
 import { PowerpointToPdfWorkspace } from "@/components/PowerpointToPdfWorkspace";
 import { PdfToPowerpointWorkspace } from "@/components/PdfToPowerpointWorkspace";
@@ -72,143 +73,6 @@ import { RepairPdfWorkspace } from "@/components/RepairPdfWorkspace";
 import { RemoveHiddenMetadataWorkspace } from "@/components/RemoveHiddenMetadataWorkspace";
 import { PdfMetadataEditorWorkspace } from "@/components/PdfMetadataEditorWorkspace";
 import { PdfLinearizationWorkspace } from "@/components/PdfLinearizationWorkspace";
-import { NUpPdfIntroGate } from "@/components/NUpPdfIntroGate";
-import { DeletePdfPagesIntroGate } from "@/components/DeletePdfPagesIntroGate";
-import { ExtractPdfPagesIntroGate } from "@/components/ExtractPdfPagesIntroGate";
-import { MergePdfIntroGate } from "@/components/MergePdfIntroGate";
-import { SplitPdfIntroGate } from "@/components/SplitPdfIntroGate";
-import { BookletPdfIntroGate } from "@/components/BookletPdfIntroGate";
-import { ReorderPdfPagesIntroGate } from "@/components/ReorderPdfPagesIntroGate";
-import { ResizeImageIntroGate } from "@/components/ResizeImageIntroGate";
-import { CropImageIntroGate } from "@/components/CropImageIntroGate";
-import { RotateAlignIntroGate } from "@/components/RotateAlignIntroGate";
-import { FlipImageIntroGate } from "@/components/FlipImageIntroGate";
-import { DrawOnImageIntroGate } from "@/components/DrawOnImageIntroGate";
-import { ImageBlurRedactIntroGate } from "@/components/ImageBlurRedactIntroGate";
-import { ImageWatermarkIntroGate } from "@/components/ImageWatermarkIntroGate";
-import { VideoTrimmerIntroGate } from "@/components/VideoTrimmerIntroGate";
-import { VideoMuterIntroGate } from "@/components/VideoMuterIntroGate";
-import { VideoMetadataCleanerIntroGate } from "@/components/VideoMetadataCleanerIntroGate";
-import { VideoSpeedIntroGate } from "@/components/VideoSpeedIntroGate";
-import { VideoCompressorIntroGate } from "@/components/VideoCompressorIntroGate";
-import { VideoConverterIntroGate } from "@/components/VideoConverterIntroGate";
-import { AutocadToPdfIntroGate } from "@/components/AutocadToPdfIntroGate";
-import { EbookToPdfIntroGate } from "@/components/EbookToPdfIntroGate";
-import { HtmlToPdfIntroGate } from "@/components/HtmlToPdfIntroGate";
-import { IworkToPdfIntroGate } from "@/components/IworkToPdfIntroGate";
-import { OpenofficeToPdfIntroGate } from "@/components/OpenofficeToPdfIntroGate";
-import { PdfAConverterIntroGate } from "@/components/PdfAConverterIntroGate";
-import { PdfToEpubIntroGate } from "@/components/PdfToEpubIntroGate";
-import { PdfToHtmlIntroGate } from "@/components/PdfToHtmlIntroGate";
-import { PdfToPowerpointIntroGate } from "@/components/PdfToPowerpointIntroGate";
-import { PowerpointToPdfIntroGate } from "@/components/PowerpointToPdfIntroGate";
-import { FlattenPdfIntroGate } from "@/components/FlattenPdfIntroGate";
-import { CompressPdfIntroGate } from "@/components/CompressPdfIntroGate";
-import { PdfLinearizationIntroGate } from "@/components/PdfLinearizationIntroGate";
-import { RepairPdfIntroGate } from "@/components/RepairPdfIntroGate";
-import { AddPageNumbersIntroGate } from "@/components/AddPageNumbersIntroGate";
-import { AddWatermarkIntroGate } from "@/components/AddWatermarkIntroGate";
-import { AnnotatePdfIntroGate } from "@/components/AnnotatePdfIntroGate";
-import { BatchRenamePdfIntroGate } from "@/components/BatchRenamePdfIntroGate";
-import { ComparePdfIntroGate } from "@/components/ComparePdfIntroGate";
-import { CustomPaperMarginIntroGate } from "@/components/CustomPaperMarginIntroGate";
-import { PdfEditorIntroGate } from "@/components/PdfEditorIntroGate";
-import { PdfMetadataEditorIntroGate } from "@/components/PdfMetadataEditorIntroGate";
-import { PdfTextEditorIntroGate } from "@/components/PdfTextEditorIntroGate";
-import { PdfToXpsIntroGate } from "@/components/PdfToXpsIntroGate";
-import { MarkdownToPdfIntroGate } from "@/components/MarkdownToPdfIntroGate";
-import { ExcelToPdfIntroGate } from "@/components/ExcelToPdfIntroGate";
-import { ExtractTablesPdfIntroGate } from "@/components/ExtractTablesPdfIntroGate";
-import { CompressImageIntroGate } from "@/components/CompressImageIntroGate";
-import { FaviconCompressorIntroGate } from "@/components/FaviconCompressorIntroGate";
-import { ExtractImagesIntroGate } from "@/components/ExtractImagesIntroGate";
-import { PdfToExcelIntroGate } from "@/components/PdfToExcelIntroGate";
-import { PdfToTextIntroGate } from "@/components/PdfToTextIntroGate";
-import { PdfToWordIntroGate } from "@/components/PdfToWordIntroGate";
-import { HeicToJpgIntroGate } from "@/components/HeicToJpgIntroGate";
-import { HeicToPdfIntroGate } from "@/components/HeicToPdfIntroGate";
-import { JpgToPdfIntroGate } from "@/components/JpgToPdfIntroGate";
-import { PngToPdfIntroGate } from "@/components/PngToPdfIntroGate";
-import { PdfToJpgIntroGate } from "@/components/PdfToJpgIntroGate";
-import { WebpToJpgIntroGate } from "@/components/WebpToJpgIntroGate";
-import { ConvertToPngIntroGate } from "@/components/ConvertToPngIntroGate";
-import { IcoToPngIntroGate } from "@/components/IcoToPngIntroGate";
-import { PngToIcoIntroGate } from "@/components/PngToIcoIntroGate";
-import { SvgToPngIntroGate } from "@/components/SvgToPngIntroGate";
-import { ImageGrayscaleIntroGate } from "@/components/ImageGrayscaleIntroGate";
-import { ImageMetadataEditorIntroGate } from "@/components/ImageMetadataEditorIntroGate";
-import { ImageDpiConverterIntroGate } from "@/components/ImageDpiConverterIntroGate";
-import { SvgOptimizerIntroGate } from "@/components/SvgOptimizerIntroGate";
-import { ImageOptimizerIntroGate } from "@/components/ImageOptimizerIntroGate";
-import { PdfToPngIntroGate } from "@/components/PdfToPngIntroGate";
-import { AppleTouchIconIntroGate } from "@/components/AppleTouchIconIntroGate";
-import { FaviconCodeGeneratorIntroGate } from "@/components/FaviconCodeGeneratorIntroGate";
-import { FaviconCropperIntroGate } from "@/components/FaviconCropperIntroGate";
-import { FaviconPackIntroGate } from "@/components/FaviconPackIntroGate";
-import { FaviconGeneratorIntroGate } from "@/components/FaviconGeneratorIntroGate";
-import { GenerateFaviconIntroGate } from "@/components/GenerateFaviconIntroGate";
-import { SvgToFaviconIntroGate } from "@/components/SvgToFaviconIntroGate";
-import { TransparentFaviconIntroGate } from "@/components/TransparentFaviconIntroGate";
-import { FaviconPreviewerIntroGate } from "@/components/FaviconPreviewerIntroGate";
-import { Base64EncoderDecoderIntroGate } from "@/components/Base64EncoderDecoderIntroGate";
-import { LoremIpsumGeneratorIntroGate } from "@/components/LoremIpsumGeneratorIntroGate";
-import { ReadingTimeCalculatorIntroGate } from "@/components/ReadingTimeCalculatorIntroGate";
-import { QuickNoteIntroGate } from "@/components/QuickNoteIntroGate";
-import { ReadabilityAnalyzerIntroGate } from "@/components/ReadabilityAnalyzerIntroGate";
-import { StringGeneratorIntroGate } from "@/components/StringGeneratorIntroGate";
-import { TextDiffIntroGate } from "@/components/TextDiffIntroGate";
-import { TextDiffCheckerIntroGate } from "@/components/TextDiffCheckerIntroGate";
-import { TextSanitizerIntroGate } from "@/components/TextSanitizerIntroGate";
-import { TextWorkspaceIntroGate } from "@/components/TextWorkspaceIntroGate";
-import { CaseConverterIntroGate } from "@/components/CaseConverterIntroGate";
-import { HtmlMarkdownConverterIntroGate } from "@/components/HtmlMarkdownConverterIntroGate";
-import { JsonCsvExplorerIntroGate } from "@/components/JsonCsvExplorerIntroGate";
-import { CsvToJsonIntroGate } from "@/components/CsvToJsonIntroGate";
-import { JsonFormatterIntroGate } from "@/components/JsonFormatterIntroGate";
-import { JsonMinifierIntroGate } from "@/components/JsonMinifierIntroGate";
-import { JsonToCsvIntroGate } from "@/components/JsonToCsvIntroGate";
-import { YamlJsonConverterIntroGate } from "@/components/YamlJsonConverterIntroGate";
-import { CsvMarkdownConverterIntroGate } from "@/components/CsvMarkdownConverterIntroGate";
-import { JwtDebuggerIntroGate } from "@/components/JwtDebuggerIntroGate";
-import { QrCodeGeneratorIntroGate } from "@/components/QrCodeGeneratorIntroGate";
-import { PasswordGeneratorIntroGate } from "@/components/PasswordGeneratorIntroGate";
-import { PasswordRecoveryIntroGate } from "@/components/PasswordRecoveryIntroGate";
-import { WordCharacterCounterIntroGate } from "@/components/WordCharacterCounterIntroGate";
-import { WordToPdfIntroGate } from "@/components/WordToPdfIntroGate";
-import { CropPdfIntroGate } from "@/components/CropPdfIntroGate";
-import { PdfReaderIntroGate } from "@/components/PdfReaderIntroGate";
-import { RotatePdfIntroGate } from "@/components/RotatePdfIntroGate";
-import { VideoRotatorIntroGate } from "@/components/VideoRotatorIntroGate";
-import { VideoResizerIntroGate } from "@/components/VideoResizerIntroGate";
-import { VideoToGifIntroGate } from "@/components/VideoToGifIntroGate";
-import { VideoToMp3IntroGate } from "@/components/VideoToMp3IntroGate";
-import { VideoToMp4IntroGate } from "@/components/VideoToMp4IntroGate";
-import { SqlQueryFormatterIntroGate } from "@/components/SqlQueryFormatterIntroGate";
-import { ColorPaletteExtractorIntroGate } from "@/components/ColorPaletteExtractorIntroGate";
-import { ImageGridSplitterIntroGate } from "@/components/ImageGridSplitterIntroGate";
-import { ImageCombinerIntroGate } from "@/components/ImageCombinerIntroGate";
-import { ImageConverterIntroGate } from "@/components/ImageConverterIntroGate";
-import { HashGeneratorIntroGate } from "@/components/HashGeneratorIntroGate";
-import { ImageMetadataWiperIntroGate } from "@/components/ImageMetadataWiperIntroGate";
-import { PdfSignatureValidatorIntroGate } from "@/components/PdfSignatureValidatorIntroGate";
-import { ProtectPdfIntroGate } from "@/components/ProtectPdfIntroGate";
-import { UnlockPdfIntroGate } from "@/components/UnlockPdfIntroGate";
-import { RedactPdfIntroGate } from "@/components/RedactPdfIntroGate";
-import { RemoveHiddenMetadataIntroGate } from "@/components/RemoveHiddenMetadataIntroGate";
-import { GrayscalePdfIntroGate } from "@/components/GrayscalePdfIntroGate";
-import { SafeShareAuditorIntroGate } from "@/components/SafeShareAuditorIntroGate";
-import { SignPdfIntroGate } from "@/components/SignPdfIntroGate";
-import { TimezoneConverterIntroGate } from "@/components/TimezoneConverterIntroGate";
-import { StorageDataConverterIntroGate } from "@/components/StorageDataConverterIntroGate";
-import { BaseConverterIntroGate } from "@/components/BaseConverterIntroGate";
-import { GlobalTimezoneConverterIntroGate } from "@/components/GlobalTimezoneConverterIntroGate";
-import { UnitConverterIntroGate } from "@/components/UnitConverterIntroGate";
-import { MyIpIntroGate } from "@/components/MyIpIntroGate";
-import { UserAgentParserIntroGate } from "@/components/UserAgentParserIntroGate";
-import { UrlEncoderDecoderIntroGate } from "@/components/UrlEncoderDecoderIntroGate";
-import { UrlParameterStripperIntroGate } from "@/components/UrlParameterStripperIntroGate";
-import { SslDecoderIntroGate } from "@/components/SslDecoderIntroGate";
-import { UuidGeneratorIntroGate } from "@/components/UuidGeneratorIntroGate";
 import { NUpPdfWorkspace } from "@/components/NUpPdfWorkspace";
 import { GrayscalePdfWorkspace } from "@/components/GrayscalePdfWorkspace";
 import { PdfPasswordRecoveryWorkspace } from "@/components/PdfPasswordRecoveryWorkspace";
@@ -266,11 +130,8 @@ import { ReadingTimeCalculatorWorkspace } from "@/components/tools/productivity/
 import { QuickNoteWorkspace } from "@/components/tools/productivity/QuickNoteWorkspace";
 import { CaseConverterWorkspace } from "@/components/tools/productivity/CaseConverterWorkspace";
 import { TextWorkspaceShell } from "@/components/tools/TextWorkspaceShell";
-import { InvoiceGeneratorIntroGate } from "@/components/InvoiceGeneratorIntroGate";
 import { InvoiceGeneratorWorkspace } from "@/components/InvoiceGeneratorWorkspace";
-import { TimelineGanttIntroGate } from "@/components/TimelineGanttIntroGate";
 import { TimelineGanttWorkspace } from "@/components/TimelineGanttWorkspace";
-import { DataConverterVisualizerIntroGate } from "@/components/DataConverterVisualizerIntroGate";
 import { DataConverterVisualizerWorkspace } from "@/components/DataConverterVisualizerWorkspace";
 import { FaviconCropperWorkspace } from "@/components/FaviconCropperWorkspace";
 import { TransparentFaviconWorkspace } from "@/components/TransparentFaviconWorkspace";
@@ -294,7 +155,7 @@ import {
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { registry } from "@/lib/registry";
 import { SeoToolLandingPage } from "@/components/SeoToolLandingPage";
-import { breadcrumbLd, faqLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
+import { breadcrumbLd, faqLd, howToLd, JsonLd, softwareApplicationLd } from "@/lib/schema";
 import {
   generateSeoToolLandingMetadata,
   isSeoToolLandingSlug,
@@ -507,156 +368,21 @@ export default async function ToolPage({
         })}
       />
       <JsonLd data={faqLd(faqs)} />
+      {tool.documentation?.howTo?.steps?.length ? (
+        <JsonLd
+          data={howToLd({
+            name: tool.documentation.howTo.name,
+            description: tool.documentation.howTo.description || schemaDescription,
+            pathname,
+            steps: tool.documentation.howTo.steps,
+          })}
+        />
+      ) : null}
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className={toolPageDashboardStack}>
         <ToolGlassProvider category={tool.category}>
         <ToolPageShellProvider headline={pageHeadline} subline={pageDescription ?? ""} slug={slug} stacked>
-        <NUpPdfIntroGate active={tool.operation === "n-up-pdf"}>
-        <DeletePdfPagesIntroGate active={tool.operation === "delete-pages"}>
-        <ExtractPdfPagesIntroGate active={tool.operation === "extract-pdf-pages"}>
-        <MergePdfIntroGate active={tool.operation === "merge"}>
-        <SplitPdfIntroGate active={tool.operation === "split"}>
-        <BookletPdfIntroGate active={tool.operation === "pdf-to-booklet"}>
-        <ReorderPdfPagesIntroGate active={tool.operation === "reorder-pdf-pages"}>
-        <ResizeImageIntroGate active={tool.operation === "resize-image"}>
-        <CropImageIntroGate active={tool.operation === "crop-image"}>
-        <RotateAlignIntroGate active={tool.operation === "rotate-image"}>
-        <FlipImageIntroGate active={tool.operation === "flip-image"}>
-        <DrawOnImageIntroGate active={tool.operation === "paint-on-image"}>
-        <ImageBlurRedactIntroGate active={tool.operation === "image-blur-redact"}>
-        <ImageWatermarkIntroGate active={tool.operation === "image-watermark"}>
-        <VideoTrimmerIntroGate active={tool.operation === "video-trimmer"}>
-        <VideoMuterIntroGate active={tool.operation === "video-muter"}>
-        <VideoMetadataCleanerIntroGate active={tool.operation === "video-metadata-cleaner"}>
-        <VideoSpeedIntroGate
-          active={
-            tool.operation === "video-speed" ||
-            tool.operation === "video-speed-controller"
-          }
-        >
-        <VideoCompressorIntroGate active={tool.operation === "video-compressor"}>
-        <VideoConverterIntroGate active={tool.operation === "video-converter"}>
-        <AutocadToPdfIntroGate active={tool.operation === "autocad-to-pdf"}>
-        <EbookToPdfIntroGate active={tool.operation === "ebook-to-pdf"}>
-        <HtmlToPdfIntroGate active={tool.operation === "html-to-pdf"}>
-        <IworkToPdfIntroGate active={tool.operation === "iwork-to-pdf"}>
-        <OpenofficeToPdfIntroGate active={tool.operation === "openoffice-to-pdf"}>
-        <PdfAConverterIntroGate active={tool.operation === "pdf-a-converter"}>
-        <PdfToEpubIntroGate active={tool.operation === "pdf-to-epub"}>
-        <PdfToHtmlIntroGate active={tool.operation === "pdf-to-html"}>
-        <PdfToPowerpointIntroGate active={tool.operation === "pdf-to-powerpoint"}>
-        <PowerpointToPdfIntroGate active={tool.operation === "powerpoint-to-pdf"}>
-        <FlattenPdfIntroGate active={tool.operation === "flatten-pdf"}>
-        <CompressPdfIntroGate active={tool.operation === "compress"}>
-        <PdfLinearizationIntroGate active={tool.operation === "pdf-linearization"}>
-        <RepairPdfIntroGate active={tool.operation === "repair-pdf"}>
-        <AddPageNumbersIntroGate active={tool.operation === "add-page-numbers"}>
-        <AddWatermarkIntroGate active={tool.operation === "add-watermark"}>
-        <AnnotatePdfIntroGate active={tool.operation === "annotate-pdf"}>
-        <BatchRenamePdfIntroGate active={tool.operation === "batch-rename-pdf"}>
-        <ComparePdfIntroGate active={tool.operation === "compare-pdf"}>
-        <CustomPaperMarginIntroGate active={tool.operation === "custom-paper-margin"}>
-        <PdfEditorIntroGate active={tool.operation === "pdf-editor"}>
-        <PdfMetadataEditorIntroGate active={tool.operation === "pdf-metadata-editor"}>
-        <PdfTextEditorIntroGate active={tool.operation === "pdf-text-editor"}>
-        <PdfToXpsIntroGate active={tool.operation === "pdf-to-xps"}>
-        <MarkdownToPdfIntroGate active={tool.operation === "markdown-to-pdf"}>
-        <ExcelToPdfIntroGate active={tool.operation === "excel-to-pdf"}>
-        <ExtractTablesPdfIntroGate active={tool.operation === "extract-tables-pdf"}>
-        <CompressImageIntroGate active={tool.operation === "compress-image"}>
-        <FaviconCompressorIntroGate active={tool.operation === "favicon-compressor"}>
-        <ExtractImagesIntroGate active={tool.operation === "extract-images"}>
-        <PdfToExcelIntroGate active={tool.operation === "pdf-to-excel"}>
-        <PdfToTextIntroGate active={tool.operation === "pdf-to-text"}>
-        <PdfToWordIntroGate active={tool.operation === "pdf-to-word"}>
-        <HeicToJpgIntroGate active={tool.operation === "heic-to-jpg"}>
-        <HeicToPdfIntroGate active={tool.operation === "heic-to-pdf"}>
-        <JpgToPdfIntroGate active={tool.operation === "jpg-to-pdf"}>
-        <PngToPdfIntroGate active={tool.operation === "png-to-pdf"}>
-        <PdfToJpgIntroGate active={tool.operation === "pdf-to-jpg"}>
-        <WebpToJpgIntroGate active={tool.operation === "webp-to-jpg"}>
-        <ConvertToPngIntroGate active={tool.operation === "convert-to-png"}>
-        <IcoToPngIntroGate active={tool.operation === "ico-to-png"}>
-        <PngToIcoIntroGate active={tool.operation === "png-to-ico"}>
-        <SvgToPngIntroGate active={tool.operation === "svg-to-png"}>
-        <ImageGrayscaleIntroGate active={tool.operation === "image-grayscale"}>
-        <ImageMetadataEditorIntroGate active={tool.operation === "image-metadata-editor"}>
-        <ImageDpiConverterIntroGate active={tool.operation === "image-dpi-converter"}>
-        <SvgOptimizerIntroGate active={tool.operation === "svg-optimizer"}>
-        <ImageOptimizerIntroGate active={tool.operation === "image-optimizer"}>
-        <PdfToPngIntroGate active={tool.operation === "pdf-to-png"}>
-        <AppleTouchIconIntroGate active={tool.operation === "apple-touch-icon"}>
-        <FaviconCodeGeneratorIntroGate active={tool.operation === "favicon-code-generator"}>
-        <FaviconCropperIntroGate active={tool.operation === "favicon-cropper"}>
-        <FaviconPackIntroGate active={tool.operation === "favicon-pack"}>
-        <FaviconGeneratorIntroGate active={tool.operation === "favicon-generator"}>
-        <GenerateFaviconIntroGate active={tool.operation === "generate-favicon"}>
-        <SvgToFaviconIntroGate active={tool.operation === "svg-to-favicon"}>
-        <TransparentFaviconIntroGate active={tool.operation === "transparent-favicon"}>
-        <FaviconPreviewerIntroGate active={tool.operation === "favicon-previewer"}>
-        <Base64EncoderDecoderIntroGate active={tool.operation === "base64-encoder-decoder"}>
-        <LoremIpsumGeneratorIntroGate active={tool.operation === "lorem-ipsum-generator"}>
-        <CaseConverterIntroGate active={tool.operation === "case-converter"}>
-        <HtmlMarkdownConverterIntroGate active={tool.operation === "html-markdown-converter"}>
-        <JsonCsvExplorerIntroGate active={tool.operation === "json-csv-explorer"}>
-        <CsvToJsonIntroGate active={tool.operation === "csv-to-json"}>
-        <JsonFormatterIntroGate active={tool.operation === "json-formatter"}>
-        <JsonMinifierIntroGate active={tool.operation === "json-minifier"}>
-        <JsonToCsvIntroGate active={tool.operation === "json-to-csv"}>
-        <YamlJsonConverterIntroGate active={tool.operation === "yaml-json-converter"}>
-        <CsvMarkdownConverterIntroGate active={tool.operation === "csv-to-markdown-table"}>
-        <JwtDebuggerIntroGate active={tool.operation === "jwt-debugger"}>
-        <QrCodeGeneratorIntroGate active={tool.operation === "qr-code-generator"}>
-        <PasswordGeneratorIntroGate active={tool.operation === "password-generator"}>
-        <PasswordRecoveryIntroGate active={tool.operation === "pdf-password-recovery"}>
-        <WordCharacterCounterIntroGate active={tool.operation === "word-character-counter"}>
-        <ReadingTimeCalculatorIntroGate active={tool.operation === "reading-time-calculator"}>
-        <QuickNoteIntroGate active={tool.operation === "quick-note"}>
-        <ReadabilityAnalyzerIntroGate active={tool.operation === "readability-analyzer"}>
-        <StringGeneratorIntroGate active={tool.operation === "string-generator"}>
-        <TextDiffIntroGate active={tool.operation === "text-diff"}>
-        <TextDiffCheckerIntroGate active={tool.operation === "text-diff-checker"}>
-        <TextSanitizerIntroGate active={tool.operation === "text-sanitizer"}>
-        <TextWorkspaceIntroGate active={tool.operation === "text-workspace"}>
-        <WordToPdfIntroGate active={tool.operation === "word-to-pdf"}>
-        <CropPdfIntroGate active={tool.operation === "crop-pdf"}>
-        <PdfReaderIntroGate active={tool.operation === "pdf-reader"}>
-        <RotatePdfIntroGate active={tool.operation === "rotate-pdf"}>
-        <VideoRotatorIntroGate active={tool.operation === "video-rotator"}>
-        <VideoResizerIntroGate active={tool.operation === "video-resizer"}>
-        <VideoToGifIntroGate active={tool.operation === "video-to-gif"}>
-        <VideoToMp3IntroGate active={tool.operation === "video-to-mp3"}>
-        <VideoToMp4IntroGate active={tool.operation === "video-to-mp4"}>
-        <SqlQueryFormatterIntroGate active={tool.operation === "sql-query-formatter"}>
-        <ColorPaletteExtractorIntroGate active={tool.operation === "color-palette-extractor"}>
-        <ImageGridSplitterIntroGate active={tool.operation === "image-grid-splitter"}>
-        <ImageCombinerIntroGate active={tool.operation === "image-combiner"}>
-        <ImageConverterIntroGate active={tool.operation === "image-converter"}>
-        <HashGeneratorIntroGate active={tool.operation === "hash-generator"}>
-        <ImageMetadataWiperIntroGate active={tool.operation === "image-metadata-wiper"}>
-        <PdfSignatureValidatorIntroGate active={tool.operation === "pdf-signature-validator"}>
-        <ProtectPdfIntroGate active={tool.operation === "protect" || tool.operation === "protect-pdf"}>
-        <UnlockPdfIntroGate active={tool.operation === "unlock" || tool.operation === "unlock-pdf"}>
-        <RedactPdfIntroGate active={tool.operation === "redact"}>
-        <RemoveHiddenMetadataIntroGate active={tool.operation === "remove-hidden-metadata"}>
-        <GrayscalePdfIntroGate active={tool.operation === "grayscale-pdf"}>
-        <SafeShareAuditorIntroGate active={tool.operation === "safe-to-share-auditor"}>
-        <SignPdfIntroGate active={tool.operation === "sign" || tool.operation === "sign-pdf"}>
-        <TimezoneConverterIntroGate active={tool.operation === "timezone-converter"}>
-        <StorageDataConverterIntroGate active={tool.operation === "storage-data-converter"}>
-        <BaseConverterIntroGate active={tool.operation === "base-converter"}>
-        <GlobalTimezoneConverterIntroGate active={tool.operation === "global-timezone-converter"}>
-        <UnitConverterIntroGate active={tool.operation === "unit-converter"}>
-        <MyIpIntroGate active={tool.operation === "my-ip"}>
-        <UserAgentParserIntroGate active={tool.operation === "user-agent-parser"}>
-        <UrlEncoderDecoderIntroGate active={tool.operation === "url-encoder-decoder"}>
-        <UrlParameterStripperIntroGate active={tool.operation === "url-parameter-stripper"}>
-        <SslDecoderIntroGate active={tool.operation === "ssl-decoder"}>
-        <UuidGeneratorIntroGate active={tool.operation === "uuid-generator"}>
-        <InvoiceGeneratorIntroGate active={tool.operation === "invoice-generator"}>
-        <TimelineGanttIntroGate active={tool.operation === "timeline-gantt-generator"}>
-        <DataConverterVisualizerIntroGate active={tool.operation === "data-converter-visualizer"}>
         <ToolLayout
           faqs={faqs}
           breadcrumbs={
@@ -746,6 +472,8 @@ export default async function ToolPage({
           <ExtractImagesWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "word-to-pdf" ? (
           <WordToPdfWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "eml-to-pdf" ? (
+          <EmlToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "excel-to-pdf" ? (
           <ExcelToPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "powerpoint-to-pdf" ? (
@@ -954,146 +682,6 @@ export default async function ToolPage({
           <ToolWorkspace tool={tool} slug={slug} />
         )}
         </ToolLayout>
-        </DataConverterVisualizerIntroGate>
-        </TimelineGanttIntroGate>
-        </InvoiceGeneratorIntroGate>
-        </UuidGeneratorIntroGate>
-        </SslDecoderIntroGate>
-        </UrlParameterStripperIntroGate>
-        </UrlEncoderDecoderIntroGate>
-        </UserAgentParserIntroGate>
-        </MyIpIntroGate>
-        </UnitConverterIntroGate>
-        </GlobalTimezoneConverterIntroGate>
-        </BaseConverterIntroGate>
-        </StorageDataConverterIntroGate>
-        </TimezoneConverterIntroGate>
-        </SignPdfIntroGate>
-        </SafeShareAuditorIntroGate>
-        </GrayscalePdfIntroGate>
-        </RemoveHiddenMetadataIntroGate>
-        </RedactPdfIntroGate>
-        </UnlockPdfIntroGate>
-        </ProtectPdfIntroGate>
-        </PdfSignatureValidatorIntroGate>
-        </ImageMetadataWiperIntroGate>
-        </HashGeneratorIntroGate>
-        </ImageConverterIntroGate>
-        </ImageCombinerIntroGate>
-        </ImageGridSplitterIntroGate>
-        </ColorPaletteExtractorIntroGate>
-        </SqlQueryFormatterIntroGate>
-        </VideoToMp4IntroGate>
-        </VideoToMp3IntroGate>
-        </VideoToGifIntroGate>
-        </VideoResizerIntroGate>
-        </VideoRotatorIntroGate>
-        </RotatePdfIntroGate>
-        </PdfReaderIntroGate>
-        </CropPdfIntroGate>
-        </WordToPdfIntroGate>
-        </TextWorkspaceIntroGate>
-        </TextSanitizerIntroGate>
-        </TextDiffCheckerIntroGate>
-        </TextDiffIntroGate>
-        </StringGeneratorIntroGate>
-        </ReadabilityAnalyzerIntroGate>
-        </QuickNoteIntroGate>
-        </ReadingTimeCalculatorIntroGate>
-        </WordCharacterCounterIntroGate>
-        </PasswordRecoveryIntroGate>
-        </PasswordGeneratorIntroGate>
-        </QrCodeGeneratorIntroGate>
-        </JwtDebuggerIntroGate>
-        </CsvMarkdownConverterIntroGate>
-        </YamlJsonConverterIntroGate>
-        </JsonToCsvIntroGate>
-        </JsonMinifierIntroGate>
-        </JsonFormatterIntroGate>
-        </CsvToJsonIntroGate>
-        </JsonCsvExplorerIntroGate>
-        </HtmlMarkdownConverterIntroGate>
-        </CaseConverterIntroGate>
-        </LoremIpsumGeneratorIntroGate>
-        </Base64EncoderDecoderIntroGate>
-        </FaviconPreviewerIntroGate>
-        </TransparentFaviconIntroGate>
-        </SvgToFaviconIntroGate>
-        </GenerateFaviconIntroGate>
-        </FaviconGeneratorIntroGate>
-        </FaviconPackIntroGate>
-        </FaviconCropperIntroGate>
-        </FaviconCodeGeneratorIntroGate>
-        </AppleTouchIconIntroGate>
-        </PdfToPngIntroGate>
-        </ImageOptimizerIntroGate>
-        </SvgOptimizerIntroGate>
-        </ImageDpiConverterIntroGate>
-        </ImageMetadataEditorIntroGate>
-        </ImageGrayscaleIntroGate>
-        </SvgToPngIntroGate>
-        </PngToIcoIntroGate>
-        </IcoToPngIntroGate>
-        </ConvertToPngIntroGate>
-        </WebpToJpgIntroGate>
-        </PdfToJpgIntroGate>
-        </PngToPdfIntroGate>
-        </JpgToPdfIntroGate>
-        </HeicToPdfIntroGate>
-        </HeicToJpgIntroGate>
-        </PdfToWordIntroGate>
-        </PdfToTextIntroGate>
-        </PdfToExcelIntroGate>
-        </ExtractImagesIntroGate>
-        </FaviconCompressorIntroGate>
-        </CompressImageIntroGate>
-        </ExtractTablesPdfIntroGate>
-        </ExcelToPdfIntroGate>
-        </MarkdownToPdfIntroGate>
-        </PdfToXpsIntroGate>
-        </PdfTextEditorIntroGate>
-        </PdfMetadataEditorIntroGate>
-        </PdfEditorIntroGate>
-        </CustomPaperMarginIntroGate>
-        </ComparePdfIntroGate>
-        </BatchRenamePdfIntroGate>
-        </AnnotatePdfIntroGate>
-        </AddWatermarkIntroGate>
-        </AddPageNumbersIntroGate>
-        </RepairPdfIntroGate>
-        </PdfLinearizationIntroGate>
-        </CompressPdfIntroGate>
-        </FlattenPdfIntroGate>
-        </PowerpointToPdfIntroGate>
-        </PdfToPowerpointIntroGate>
-        </PdfToHtmlIntroGate>
-        </PdfToEpubIntroGate>
-        </PdfAConverterIntroGate>
-        </OpenofficeToPdfIntroGate>
-        </IworkToPdfIntroGate>
-        </HtmlToPdfIntroGate>
-        </EbookToPdfIntroGate>
-        </AutocadToPdfIntroGate>
-        </VideoConverterIntroGate>
-        </VideoCompressorIntroGate>
-        </VideoSpeedIntroGate>
-        </VideoMetadataCleanerIntroGate>
-        </VideoMuterIntroGate>
-        </VideoTrimmerIntroGate>
-        </ImageWatermarkIntroGate>
-        </ImageBlurRedactIntroGate>
-        </DrawOnImageIntroGate>
-        </FlipImageIntroGate>
-        </RotateAlignIntroGate>
-        </CropImageIntroGate>
-        </ResizeImageIntroGate>
-        </ReorderPdfPagesIntroGate>
-        </BookletPdfIntroGate>
-        </SplitPdfIntroGate>
-        </MergePdfIntroGate>
-        </ExtractPdfPagesIntroGate>
-        </DeletePdfPagesIntroGate>
-        </NUpPdfIntroGate>
         </ToolPageShellProvider>
         </ToolGlassProvider>
         </div>

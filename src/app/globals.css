@@ -1,7 +1,5 @@
 @import "../styles/industrial-matte-tokens.css";
 @import "../styles/tools-grid.css";
-@import "../components/tool-intro-splash.css";
-/* intro splash matte header typography */
 
 @tailwind base;
 @tailwind components;
@@ -73,6 +71,7 @@
   --site-line-height-relaxed: 1.85;
   --site-block-gap: 1.125rem;
   --site-header-logo-bg: #000000;
+  --tool-workspace-rail: 64rem; /* legacy page-layout max-width token */
   --tool-surface-bg: transparent;
   --tool-surface-width: 100%;
   --nav-all-tools-bg: #0a0a0a;
@@ -302,6 +301,87 @@ html:has(.home-page-shell--minimal) body {
 .tools-directory-page__head {
   max-width: 42rem;
   margin-bottom: clamp(2rem, 4vw, 2.75rem);
+}
+
+/* Category hub page headers — live inventory tool count */
+.category-hub-page-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #262626;
+}
+
+.category-hub-page-header__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.65rem;
+}
+
+.category-hub-page-header__sep {
+  flex-shrink: 0;
+  color: #737373;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.category-hub-page-header__title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.8vw, 2.375rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: #fafafa;
+  text-wrap: balance;
+}
+
+.category-hub-page-header__count {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #a0a0a0;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.category-hub-page-header__desc {
+  margin: 1rem 0 0;
+  font-size: clamp(0.9375rem, 1.6vw, 1.0625rem);
+  line-height: 1.6;
+  color: #a3a3a3;
+  text-wrap: pretty;
+}
+
+.category-hub-page-header__note {
+  margin: 1rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #737373;
+}
+
+.tools-directory-page__head .category-hub-page-header__title-row {
+  margin: 0;
+}
+
+.tools-directory-page__head .category-hub-page-header__count {
+  margin-top: 0.15rem;
+}
+
+.category-hub-page-header__nested {
+  max-width: 42rem;
+}
+
+.category-hub-page-header__nested .category-hub-page-header__title-row {
+  margin: 0;
 }
 
 .tools-directory-page__breadcrumbs {
@@ -1176,17 +1256,19 @@ html:has(.home-page-shell--minimal) body {
 .tool-card {
   position: relative;
   display: flex;
-  min-height: var(--im-tool-card-min-height);
+  min-height: 3.5rem !important;
+  height: 3.5rem !important;
+  max-height: 3.5rem !important;
   min-width: 0;
   flex: 1 1 auto;
   flex-grow: 1;
   flex-direction: row;
   align-items: center;
-  gap: var(--im-tool-card-gap);
-  padding: var(--im-tool-card-padding);
+  gap: 0.35rem !important;
+  padding: 0.35rem 0.45rem !important;
   overflow: hidden;
-  border: none;
-  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 6px;
   background: var(--im-tool-card-bg);
   box-shadow: none;
   color: var(--im-tool-card-text);
@@ -1390,7 +1472,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   z-index: 2;
   display: flex;
   align-items: center;
-  padding: var(--im-tool-card-padding);
+  padding: 0.35rem 0.45rem !important;
   background: var(--tool-card-gradient, #0a0a0a);
   pointer-events: none;
   transition:
@@ -1408,14 +1490,18 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 .tool-card__cover-title {
   display: block;
   min-width: 0;
-  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  font-size: 0.85rem !important;
   font-weight: 800;
   letter-spacing: -0.015em;
-  line-height: 1.2;
+  line-height: 1.15;
   text-transform: none;
   color: #fafafa;
   overflow-wrap: anywhere;
   word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2451,7 +2537,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 .im-tool-card-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2476,6 +2562,12 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   }
 }
 
+@media (min-width: 1280px) {
+  .im-tool-card-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
 .im-tool-card-grid__item {
   margin: 0;
   min-width: 0;
@@ -2490,398 +2582,198 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 
 .im-tool-card {
   --category-accent: var(--color-pdf, #2563EB);
-  /* Solid header surface + thin top category accent (Industrial Matte Option 2). */
   --im-tool-card-surface: #121212;
-  --im-tool-card-gradient: var(--im-tool-card-surface);
   position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  gap: 0;
-  min-height: 7.5rem;
-  height: 100%;
-  padding: 1rem;
-  background: #121212;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 0.25rem;
+  min-height: 3.5rem !important;
+  height: 3.5rem !important;
+  max-height: 3.5rem !important;
+  padding: 0.35rem 0.5rem 0.28rem !important;
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-top: 2px solid var(--category-accent);
-  border-radius: 0;
+  border-radius: 6px;
   box-shadow: none;
   color: inherit;
   text-align: start;
   text-decoration: none;
   overflow: hidden;
   transition:
-    border-color 0.16s ease,
-    box-shadow 0.16s ease;
-}
-
-/* Resting cover — uniform matte plate carrying only the tool name */
-.im-tool-card__cover {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.25rem 1rem;
-  background: #121212;
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: none;
-  transition:
-    opacity 0.16s ease,
-    transform 0.16s ease;
-}
-
-.im-tool-card__cover-title {
-  max-width: 100%;
-  margin: 0;
-  font-size: clamp(1.125rem, 2.4vw, 1.625rem);
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  text-align: center;
-  text-wrap: balance;
-  color: #ffffff;
-}
-
-/* Detail chrome is present but hidden until hover / keyboard focus */
-.im-tool-card__detail,
-.im-tool-card__header-actions {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.16s ease;
-}
-
-.im-tool-card__header-actions .tool-card-focus__expand,
-.im-tool-card__header-actions .im-tool-card__pin {
-  pointer-events: none;
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
 }
 
 .im-tool-card:hover,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible),
 .im-tool-card:focus-within {
-  background: #121212;
-  border-color: rgba(255, 255, 255, 0.14);
+  background: #141414;
+  border-color: rgba(255, 255, 255, 0.10);
   border-top-color: var(--category-accent);
-  box-shadow: 0 -1px 10px color-mix(in srgb, var(--category-accent) 28%, transparent);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--category-accent) 14%, transparent);
   outline: none;
 }
 
-.im-tool-card:hover .im-tool-card__cover,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__cover,
-.im-tool-card:focus-within .im-tool-card__cover {
-  opacity: 0;
-  transform: translateY(-0.5rem);
-}
-
-.im-tool-card:hover .im-tool-card__detail,
-.im-tool-card:hover .im-tool-card__header-actions,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__detail,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__header-actions,
-.im-tool-card:focus-within .im-tool-card__detail,
-.im-tool-card:focus-within .im-tool-card__header-actions {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.im-tool-card:has(.im-tool-card__pin.tool-pin-button--active) .im-tool-card__header-actions {
-  opacity: 1;
-}
-
-.im-tool-card:hover .im-tool-card__header-actions .tool-card-focus__expand,
-.im-tool-card:hover .im-tool-card__header-actions .im-tool-card__pin,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__header-actions .tool-card-focus__expand,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__header-actions .im-tool-card__pin,
-.im-tool-card:focus-within .im-tool-card__header-actions .tool-card-focus__expand,
-.im-tool-card:focus-within .im-tool-card__header-actions .im-tool-card__pin,
-.im-tool-card:has(.im-tool-card__pin.tool-pin-button--active) .im-tool-card__header-actions .im-tool-card__pin {
-  pointer-events: auto;
-}
-
-/* Homepage cover-only — name face stays put; click opens focus popup */
-.im-tool-card--cover-only:hover,
-.im-tool-card--cover-only:has(.im-tool-card__overlay:focus-visible),
-.im-tool-card--cover-only:focus-within {
-  background: #121212;
-  border-color: rgba(255, 255, 255, 0.14);
-  border-top-color: var(--category-accent);
-  box-shadow: 0 -1px 10px color-mix(in srgb, var(--category-accent) 28%, transparent);
-}
-
-.im-tool-card--cover-only:hover .im-tool-card__cover,
-.im-tool-card--cover-only:has(.im-tool-card__overlay:focus-visible) .im-tool-card__cover,
-.im-tool-card--cover-only:focus-within .im-tool-card__cover {
-  opacity: 1;
-  transform: none;
-}
-
-.im-tool-card--cover-only .im-tool-card__detail,
-.im-tool-card--cover-only .im-tool-card__header-actions {
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.im-tool-card--cover-only .im-tool-card__cover-title {
-  font-size: clamp(1.2rem, 2.6vw, 1.75rem);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .im-tool-card,
-  .im-tool-card__cover,
-  .im-tool-card__detail,
-  .im-tool-card__header-actions {
-    transition: none;
-  }
-
-  .im-tool-card:hover .im-tool-card__cover,
-  .im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__cover,
-  .im-tool-card:focus-within .im-tool-card__cover {
-    transform: none;
-  }
-}
-
-.im-tool-card__header-actions {
-  position: absolute;
-  top: 0.4rem;
-  inset-inline-end: 0.4rem;
-  z-index: 6;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.15rem;
-}
-
-.im-tool-card__header-actions .tool-card-focus__expand,
-.im-tool-card__header-actions .im-tool-card__pin {
-  position: static;
-  top: auto;
-  inset-inline-start: auto;
-  inset-inline-end: auto;
-}
-
-.im-tool-card__detail {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: 1fr auto;
-  gap: 0;
-  align-items: stretch;
-}
-
-.im-tool-card__left {
-  grid-column: 1;
-  grid-row: 1;
+.im-tool-card__title {
+  margin: 0;
   min-width: 0;
-  padding-inline-end: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  color: #f5f5f5;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.im-tool-card__left .im-tool-card__content {
-  flex: 1;
-  margin-top: 0;
-}
-
-.im-tool-card__right {
-  grid-column: 2;
-  grid-row: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.65rem;
-  padding-inline-start: 0.25rem;
-}
-
-.im-tool-card__controls {
+.im-tool-card__actions {
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 0.25rem;
-  align-self: flex-start;
-  z-index: 6;
+  flex-wrap: nowrap;
+  gap: 0.2rem;
+  margin-top: 0 !important;
 }
 
-/* Ensure controls sit above the clickable overlay link. */
-.im-tool-card__controls,
-.im-tool-card__controls .tool-pin-button,
-.im-tool-card__controls .tool-card-focus__expand {
+.im-tool-card__action,
+.im-tool-card__actions .tool-card-focus__expand,
+.im-tool-card__actions .tool-pin-button--card,
+.im-tool-card__go {
   position: relative;
-  z-index: 6;
+  z-index: 2;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  background: transparent;
+  color: #a3a3a3;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.14s ease,
+    border-color 0.14s ease,
+    background-color 0.14s ease;
 }
 
-.im-tool-card__controls .tool-pin-button--card {
-  width: 2.15rem;
-  height: 2.15rem;
+.im-tool-card__action:hover,
+.im-tool-card__action:focus-visible,
+.im-tool-card__actions .tool-card-focus__expand:hover,
+.im-tool-card__actions .tool-card-focus__expand:focus-visible,
+.im-tool-card__actions .tool-pin-button--card:hover,
+.im-tool-card__actions .tool-pin-button--card:focus-visible,
+.im-tool-card__go:hover,
+.im-tool-card__go:focus-visible {
+  color: #ededed;
+  border-color: color-mix(in srgb, var(--category-accent) 35%, rgba(255, 255, 255, 0.12));
+  background: color-mix(in srgb, var(--category-accent) 8%, transparent);
+  outline: none;
 }
 
-.im-tool-card__controls .tool-pin-button--card .tool-pin-button__icon {
-  width: 1.05rem;
-  height: 1.05rem;
+.im-tool-card__actions .tool-pin-button--active,
+.im-tool-card__actions .tool-pin-button--card.tool-pin-button--active {
+  color: var(--category-accent);
+  border-color: color-mix(in srgb, var(--category-accent) 50%, transparent);
+  background: color-mix(in srgb, var(--category-accent) 12%, transparent);
 }
 
-.im-tool-card__controls .tool-card-focus__expand {
+.im-tool-card__actions .tool-card-focus__expand {
   position: static;
   inset: auto;
   top: auto;
   inset-inline-end: auto;
-  width: 2.15rem;
-  height: 2.15rem;
 }
 
-.im-tool-card__controls .tool-card-focus__expand-icon {
-  width: 1.05rem;
-  height: 1.05rem;
+.im-tool-card__actions .tool-card-focus__expand-icon,
+.im-tool-card__actions .tool-pin-button__icon {
+  width: 0.7rem;
+  height: 0.7rem;
 }
 
-.im-tool-card__footer {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding-top: 0.35rem;
-  gap: 0.25rem;
+.im-tool-card__go svg {
+  width: 0.7rem;
+  height: 0.7rem;
 }
 
-.im-tool-card__footer .tool-card-example {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Slightly roomier type below the 6-col breakpoint */
+@media (max-width: 1279px) {
+  .im-tool-card {
+    padding: 0.65rem 0.7rem 0.6rem;
+    gap: 0.5rem;
+  }
+
+  .im-tool-card__title {
+    font-size: 0.875rem;
+  }
+
+  .im-tool-card__action,
+  .im-tool-card__actions .tool-card-focus__expand,
+  .im-tool-card__actions .tool-pin-button--card,
+  .im-tool-card__go {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
 }
 
-.im-tool-card__footer .im-tool-card__rating {
-  width: 100%;
-  margin-top: 0;
-  justify-content: center;
+.im-tool-card__go {
+  color: var(--category-accent, #a3a3a3);
 }
 
-.im-tool-card__icon-box {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 5rem;
-  height: 5rem;
-  padding: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #121212;
-  color: #ffffff;
-  box-sizing: border-box;
-}
-
-.im-tool-card__icon {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  margin-top: 0;
-  color: inherit;
-  filter: none;
-  transition: filter 0.1s ease;
-}
-
-.im-tool-card:hover .im-tool-card__icon,
-.im-tool-card:has(.im-tool-card__overlay:focus-visible) .im-tool-card__icon,
-.im-tool-card:focus-within .im-tool-card__icon {
-  filter: none;
-}
-
-.im-tool-card__icon svg,
-.im-tool-card__icon .tool-list-icon {
-  width: 3.5rem;
-  height: 3.5rem;
-  color: inherit;
-  stroke: currentColor;
-  fill: none;
-}
-
-.im-tool-card__body {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  align-items: flex-start;
-  align-self: stretch;
-  padding-top: 0.125rem;
-  padding-inline-end: 3.75rem;
-}
-
-/* Matching auto top-margins center the content block while the rating
-   stays pinned to the bottom, so cards align regardless of copy length. */
-.im-tool-card__content {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-top: 0;
-}
-
-.im-tool-card__rating {
-  position: relative;
-  z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  margin-top: auto;
-  padding-top: 0.45rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #8a8a8a;
-  pointer-events: auto;
-}
-
-.im-tool-card__rating.tool-rating-summary {
-  width: 100%;
-}
-
-.im-tool-card__title {
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: #ffffff;
-  text-wrap: balance;
+/* Legacy / guide card pieces still referenced by HomeGuideCard */
+.im-tool-card__cover,
+.im-tool-card__detail,
+.im-tool-card__header-actions,
+.im-tool-card__overlay,
+.im-tool-card__icon-box,
+.im-tool-card__footer,
+.im-tool-card__left,
+.im-tool-card__right,
+.im-tool-card__controls {
+  display: none;
 }
 
 .im-tool-card__description {
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.45;
-  color: #a0a0a0;
+  display: none;
 }
 
-/* Overlay link — keeps the whole card clickable while the Example toggle
-   (z-index 5) and Focus expand button (z-index 6) sit above it, so those
-   controls are real sibling buttons instead of buttons nested in an anchor. */
-.im-tool-card__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
+.im-tool-card__icon {
+  display: none;
 }
 
-.im-tool-card__overlay:focus-visible {
-  outline: none;
+.im-tool-card__body,
+.im-tool-card__content {
+  display: contents;
+}
+
+.im-tool-card__rating {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .im-tool-card,
+  .im-tool-card__action,
+  .im-tool-card__go {
+    transition: none;
+  }
 }
 
 /*
  * Tool card "Usage Hint" (ported from WattQuick) — a subtle Example
  * disclosure that expands a small box inside the card. No hover tooltip:
- * same tap/click behavior on mobile and desktop. Sits above the card's
- * absolute overlay link (z-index) so the toggle never triggers navigation.
+ * same tap/click behavior on mobile and desktop.
  */
 .tool-card-example {
   position: relative;
@@ -3343,7 +3235,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   text-overflow: ellipsis;
 }
 
-/* Dialog label when the tool action bar is unmounted (clean / pre-upload). */
+/* Screen-reader-only dialog title (legacy; header title is preferred). */
 .tool-modal__title-sr {
   position: absolute;
   width: 1px;
@@ -3627,24 +3519,15 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 }
 
 /*
- * True immersive fullsize — expand the whole modal shell to the viewport.
- * Always on by default (no expand toggle). Clean phase leaves room for the
- * sticky site header; cinematic intro + active (uploaded) phases cover it.
+ * Fullsize tool shell fills the viewport below the sticky site header.
+ * Site chrome stays visible; the modal never covers the logo/nav bar.
  */
 .tool-modal--fullscreen {
   padding: 0 !important;
   align-items: stretch;
   justify-content: stretch;
   z-index: 9999;
-}
-
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .tool-modal.tool-modal--fullscreen {
   top: var(--site-header-height, 120px);
-}
-
-html[data-tool-modal-workspace="active"] .tool-modal.tool-modal--fullscreen,
-html[data-tool-intro="1"] .tool-modal.tool-modal--fullscreen {
-  top: 0;
 }
 
 .tool-modal--fullscreen .tool-modal__backdrop {
@@ -3673,21 +3556,152 @@ html[data-tool-intro="1"] .tool-modal.tool-modal--fullscreen {
   transform: none !important;
 }
 
+/* Full-bleed tool chrome: action bar + CALC/docs fill the modal content width */
+.tool-modal--fullscreen .tool-modal__header,
+.tool-modal--fullscreen .tool-modal__body {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
+.tool-modal--fullscreen .tool-modal__panel {
+  gap: 0;
+}
+
+.tool-modal--fullscreen .tool-modal__body {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/*
+ * Delicate full-width sub-header — sits under the global site chrome.
+ * Borderless / no heavy plate; title uses the tool category accent.
+ */
 .tool-modal--fullscreen .tool-modal__header {
-  padding-inline: 1rem 0.75rem;
-  background: #0a0a0a;
-  border-bottom-color: #2a2a2a;
+  min-height: 0;
+  padding: 0.3rem clamp(1rem, 2.5vw, 1.75rem) 0.15rem;
+  border-bottom: 0;
+  background: transparent;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tool-modal--fullscreen .tool-modal__header-end {
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.tool-modal--fullscreen .tool-modal__title {
+  flex: 1 1 auto;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.012em;
+  color: var(--category-accent, #ededed);
+}
+
+.tool-modal--fullscreen .tool-modal-rating {
+  gap: 0.3rem;
+  min-height: 0;
+}
+
+.tool-modal--fullscreen .tool-modal-rating .star-rating__icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  stroke-width: 2;
+}
+
+.tool-modal--fullscreen .tool-modal-rating__label {
+  gap: 0.3rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.tool-modal--fullscreen .tool-modal-rating__score {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.tool-modal--fullscreen .tool-modal-rating__count {
+  font-size: 0.625rem;
+  font-weight: 600;
+}
+
+.tool-modal--fullscreen .tool-modal-rating__thanks {
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.tool-modal--fullscreen .tool-modal__tabs {
+  gap: 0.125rem;
+  padding: 0.0625rem;
+  border-color: color-mix(in srgb, #fff 10%, transparent);
+  background: transparent;
+  border-radius: 4px;
+}
+
+.tool-modal--fullscreen .tool-modal__tab {
+  padding: 0.1875rem 0.4375rem;
+  font-size: 0.5625rem;
+  letter-spacing: 0.07em;
+  border-radius: 3px;
+}
+
+.tool-modal--fullscreen .tool-modal__action {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 4px;
+  border-color: color-mix(in srgb, #fff 12%, transparent);
+  background: transparent;
+  color: #a3a3a3;
+}
+
+.tool-modal--fullscreen .tool-modal__action svg {
+  width: 0.9375rem;
+  height: 0.9375rem;
+}
+
+.tool-modal--fullscreen .tool-modal__loupe-cluster {
+  gap: 0.2rem;
+}
+
+.tool-modal--fullscreen .tool-modal__loupe-sizes {
+  gap: 0.1rem;
+  padding: 0.1rem;
+}
+
+.tool-modal--fullscreen .tool-modal__loupe-size {
+  min-width: 1.65rem;
+  height: 1.65rem;
+  padding: 0.1rem 0.25rem;
+}
+
+.tool-modal--fullscreen .tool-modal__loupe-size-dot {
+  transform: scale(0.85);
+}
+
+.tool-modal--fullscreen .tool-modal__loupe-size-label {
+  font-size: 0.5rem;
+}
+
+.tool-modal--fullscreen .tool-modal__action:hover,
+.tool-modal--fullscreen .tool-modal__action:focus-visible {
+  border-color: color-mix(in srgb, #fff 22%, transparent);
+  background: color-mix(in srgb, #fff 4%, transparent);
+  color: #ededed;
 }
 
 .tool-modal--fullscreen .tool-modal__close {
-  color: #f5f5f5;
-  border-color: #404040;
-  background: #161616;
+  color: #d4d4d4;
+  border-color: color-mix(in srgb, #fff 14%, transparent);
+  background: transparent;
 }
 
 .tool-modal--fullscreen .tool-modal__close:hover {
-  border-color: #737373;
-  background: #1f1f1f;
+  border-color: color-mix(in srgb, #fff 28%, transparent);
+  background: color-mix(in srgb, #fff 5%, transparent);
+  color: #f5f5f5;
 }
 
 /* Loupe toggle — dimmed with a diagonal strike when the magnifier is hidden. */
@@ -3829,6 +3843,10 @@ html[data-tool-intro="1"] .tool-modal.tool-modal--fullscreen {
 
 /* Laptop + browser zoom: collapse secondary modal chrome before 640px */
 @media (max-width: 1100px) {
+  .tool-modal--fullscreen .tool-modal__header {
+    padding: 0.28rem 0.65rem 0.12rem 0.75rem;
+  }
+
   .tool-modal__header {
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -3849,6 +3867,11 @@ html[data-tool-intro="1"] .tool-modal.tool-modal--fullscreen {
 }
 
 @media (max-width: 900px) {
+  .tool-modal--fullscreen .tool-modal__title {
+    font-size: 0.8125rem;
+    max-width: min(48vw, 16rem);
+  }
+
   .tool-modal__tabs {
     order: 3;
     width: 100%;
@@ -4544,7 +4567,7 @@ html[data-tool-embed="1"] [data-email-popup] {
   display: none !important;
 }
 
-/* Soft-hide page chrome under the tool modal (isolated overlay ? no header/footer inside modal). */
+/* Soft-hide page chrome under the tool modal (isolated overlay — no page body inside modal). */
 html[data-tool-modal-open="1"] .app-page-canvas {
   visibility: hidden;
   pointer-events: none;
@@ -4556,70 +4579,47 @@ html[data-tool-modal-open="1"] .tool-modal {
   pointer-events: auto;
 }
 
-/* Active workspace: tool toolbar replaces sticky site chrome */
-html[data-tool-modal-fullscreen="1"] .site-header,
+/* Dock stays out of the way during tool sessions; site header remains. */
+html[data-tool-modal-open="1"] .pinned-dock,
 html[data-tool-modal-fullscreen="1"] .pinned-dock,
-html[data-tool-modal-workspace="active"] .site-header,
 html[data-tool-modal-workspace="active"] .pinned-dock {
   visibility: hidden !important;
   pointer-events: none !important;
 }
 
 /*
- * Cinematic intro splash: true fullscreen isolation — hide site header,
- * dock, and footer while the iframe splash owns 100vh.
+ * Global site header stays permanently visible above every tool session.
+ * Header controls and portaled overlays sit above the modal shell (z-index 9999).
  */
-html[data-tool-intro="1"] .site-header,
-html[data-tool-intro="1"] .pinned-dock,
-html[data-tool-intro="1"] .home-page-footer {
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
-/*
- * Clean / upload (pre-file, post-intro): site header owns the top chrome.
- * Tool modal sits fullsize below the header (z-index 9999). Header controls and
- * their portaled overlays must sit above that shell or clicks appear "blocked".
- */
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header {
+html[data-tool-modal-open="1"] .site-header {
   visibility: visible !important;
   pointer-events: auto !important;
   z-index: 10050 !important;
 }
 
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header__visual,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header__bar,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header a,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header button,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header input,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-search,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-search__field {
+html[data-tool-modal-open="1"] .site-header__visual,
+html[data-tool-modal-open="1"] .site-header__bar,
+html[data-tool-modal-open="1"] .site-header a,
+html[data-tool-modal-open="1"] .site-header button,
+html[data-tool-modal-open="1"] .site-header input,
+html[data-tool-modal-open="1"] .site-search,
+html[data-tool-modal-open="1"] .site-search__field {
   pointer-events: auto !important;
 }
 
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-search__dropdown,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header__overflow-panel,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .site-header__overflow-panel--floating,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .category-hub-overlay,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .nav-drawer,
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .category-modal {
+html[data-tool-modal-open="1"] .site-search__dropdown,
+html[data-tool-modal-open="1"] .site-header__overflow-panel,
+html[data-tool-modal-open="1"] .site-header__overflow-panel--floating,
+html[data-tool-modal-open="1"] .category-hub-overlay,
+html[data-tool-modal-open="1"] .nav-drawer,
+html[data-tool-modal-open="1"] .category-modal {
   z-index: 10060 !important;
   pointer-events: auto !important;
 }
 
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .nav-drawer:not(.is-open),
-html[data-tool-modal-open="1"]:not([data-tool-modal-workspace="active"]):not([data-tool-intro="1"]) .category-modal:not(.is-open) {
+html[data-tool-modal-open="1"] .nav-drawer:not(.is-open),
+html[data-tool-modal-open="1"] .category-modal:not(.is-open) {
   pointer-events: none !important;
-}
-
-.tool-modal[data-has-file="0"] .tool-modal__header,
-.tool-modal[data-workspace-phase="clean"] .tool-modal__header {
-  display: none !important;
-}
-
-/* Cinematic intro owns the viewport — hide tool chrome even when phase is already active */
-html[data-tool-intro="1"] .tool-modal__header {
-  display: none !important;
 }
 
 @media (max-width: 640px) {
@@ -4812,31 +4812,8 @@ html[data-tool-intro="1"] .tool-modal__header {
  */
 .tools-directory-workflows .im-tool-card-grid,
 .tools-directory-category .im-tool-card-grid {
-  /* Inherit the global responsive card grid (2 → 3 → 4 cols). */
-  gap: 0.625rem;
-}
-
-/* Slightly tighter tiles on the tools directory for denser browsing */
-.tools-directory-workflows .im-tool-card,
-.tools-directory-category .im-tool-card {
-  min-height: 6.25rem;
-  padding: 0.85rem 0.75rem;
-}
-
-.tools-directory-workflows .im-tool-card__cover,
-.tools-directory-category .im-tool-card__cover {
-  padding: 0.85rem 0.7rem;
-}
-
-.tools-directory-workflows .im-tool-card__cover-title,
-.tools-directory-category .im-tool-card__cover-title {
-  font-size: clamp(0.9375rem, 1.6vw, 1.125rem);
-  font-weight: 750;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  overflow-wrap: break-word;
-  word-break: normal;
-  hyphens: auto;
+  /* Inherit the global responsive card grid (2 → 3 → 4 → 6 cols). */
+  gap: 0.5rem;
 }
 
 .tools-directory-workflow {
@@ -10919,8 +10896,8 @@ body.site-search-open {
 }
 
 :root {
-  --site-header-expanded-height: 120px;
-  --site-header-compact-height: 60px;
+  --site-header-expanded-height: 80px;
+  --site-header-compact-height: 52px;
   --site-header-height: var(--site-header-expanded-height);
 }
 
@@ -10931,7 +10908,7 @@ html.site-header-is-compact {
 
 @media (max-width: 639px) {
   :root {
-    --site-header-expanded-height: 96px;
+    --site-header-expanded-height: 72px;
   }
 }
 
@@ -10943,18 +10920,18 @@ html.site-header-is-compact {
   --site-header-scale: 1;
   /* Layout occupancy stays expanded forever — no height reflow / jitter. */
   --site-header-height: var(--site-header-expanded-height);
-  --site-header-control-height: 72px;
-  --site-header-control-pad-y: 1rem;
-  --site-header-control-pad-x: 1.5rem;
-  --site-header-control-font: 1.5rem;
-  --site-header-logo-font: 2.25rem;
-  --site-header-logo-icon: 44px;
-  --site-header-nav-icon-size: 30px;
-  --site-header-search-font: 1.25rem;
-  --site-header-search-icon: 1.5rem;
-  --site-header-search-pad-y: 0.85rem;
-  --site-header-search-pad-x: 1.25rem;
-  --site-header-bar-gap: 1.5rem;
+  --site-header-control-height: 48px;
+  --site-header-control-pad-y: 0.4rem;
+  --site-header-control-pad-x: 0.75rem;
+  --site-header-control-font: 0.8125rem;
+  --site-header-logo-font: 1.5rem;
+  --site-header-logo-icon: 28px;
+  --site-header-nav-icon-size: 14px;
+  --site-header-search-font: 0.8125rem;
+  --site-header-search-icon: 0.9375rem;
+  --site-header-search-pad-y: 0.4rem;
+  --site-header-search-pad-x: 0.65rem;
+  --site-header-bar-gap: 0.65rem;
   position: sticky;
   top: 0;
   display: block;
@@ -11005,7 +10982,7 @@ html.site-header-is-compact {
 
 /* Scrolled: GPU scale to compact; layout shell height unchanged. */
 .site-header--matte.site-header--scrolled {
-  --site-header-scale: 0.5;
+  --site-header-scale: 0.65;
 }
 
 /* Scrolled surface: slightly darker + translucent so the sticky bar reads as
@@ -11464,7 +11441,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 
 .joinmypdf-logo-text {
-  gap: 0.5rem;
+  gap: 0.35rem;
   height: 100%;
 }
 
@@ -11578,8 +11555,8 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 }
 
 .site-header__install-icon {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 0.9375rem;
+  height: 0.9375rem;
   flex-shrink: 0;
 }
 
@@ -11588,7 +11565,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.3rem;
   margin: 0;
   min-height: var(--site-header-control-height);
   height: var(--site-header-control-height);
@@ -11596,9 +11573,9 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   border: 1px solid transparent;
   background: transparent;
   font-size: var(--site-header-control-font);
-  font-weight: 700;
+  font-weight: 650;
   line-height: 1;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
   color: #a3a3a3;
   text-decoration: none;
@@ -11629,6 +11606,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 .site-header--matte .site-search--header .site-search__field {
   min-height: var(--site-header-control-height);
   height: var(--site-header-control-height);
+  gap: 0.4rem;
   padding: var(--site-header-search-pad-y) var(--site-header-search-pad-x);
   border: 0;
   border-bottom: 1px solid #ffffff;
@@ -11650,11 +11628,13 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 .site-header--matte .site-search--header-bar .site-search__input,
 .site-header--matte .site-search--header .site-search__input {
   font-size: var(--site-header-search-font);
+  line-height: 1.25;
   color: #f5f5f5;
 }
 
 .site-header--matte .site-search--header-bar .site-search__input::placeholder,
 .site-header--matte .site-search--header .site-search__input::placeholder {
+  font-size: var(--site-header-search-font);
   color: #a3a3a3;
 }
 
@@ -11675,20 +11655,42 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   height: var(--site-header-control-height);
 }
 
+.site-header--matte .site-search--header-bar .site-search__kbd,
+.site-header--matte .site-search--header .site-search__kbd {
+  min-width: 1.2rem;
+  padding: 0.05rem 0.2rem;
+  font-size: 0.5625rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.site-header--matte .site-header__overflow-trigger svg,
+.site-header__overflow-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.site-header--matte .site-search--header .site-search__toggle {
+  width: var(--site-header-control-height);
+  height: var(--site-header-control-height);
+}
+
 @media (max-width: 639px) {
   .site-header--matte {
-    --site-header-expanded-height: 96px;
-    --site-header-control-height: 56px;
-    --site-header-control-font: 1rem;
-    --site-header-logo-font: 1.5rem;
-    --site-header-logo-icon: 32px;
-    --site-header-nav-icon-size: 22px;
-    --site-header-control-pad-x: 0.85rem;
+    --site-header-expanded-height: 72px;
+    --site-header-control-height: 42px;
+    --site-header-control-font: 0.75rem;
+    --site-header-logo-font: 1.25rem;
+    --site-header-logo-icon: 24px;
+    --site-header-nav-icon-size: 13px;
+    --site-header-search-font: 0.75rem;
+    --site-header-control-pad-x: 0.55rem;
   }
 
-  /* 60/96 — keep compact visual height at 60px on small screens. */
+  /* Keep compact visual height aligned with --site-header-compact-height. */
   .site-header--matte.site-header--scrolled {
-    --site-header-scale: 0.625;
+    --site-header-scale: 0.72;
   }
 }
 
@@ -11701,12 +11703,12 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   }
 
   .site-header--matte.site-header--scrolled {
-    --site-header-scale: 0.5;
+    --site-header-scale: 0.65;
   }
 
   @media (max-width: 639px) {
     .site-header--matte.site-header--scrolled {
-      --site-header-scale: 0.625;
+      --site-header-scale: 0.72;
     }
   }
 }
@@ -12508,11 +12510,11 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 }
 
 .site-search--header-bar .site-search__kbd {
-  font-size: 0.6875rem;
-  padding: 0.125rem 0.25rem;
+  font-size: 0.5625rem;
+  padding: 0.05rem 0.2rem;
   border-radius: 0;
   border: 0;
-  border-bottom: 1px solid rgb(255 255 255 / 0.45);
+  border-bottom: 1px solid rgb(255 255 255 / 0.4);
   background: transparent;
   color: #d4d4d4;
 }
@@ -15030,11 +15032,9 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
 }
 
 /*
- * Immersive dropzone — exact full-viewport stage with uniform 30px margins.
- * Fixed to the viewport so no nested max-width / collapsed flex parent can
- * shrink it back into a small card (the regression users saw).
- * Full page:  top below site header; height = 100dvh − header − 60px margins
- * Embed/modal: 30px from every edge of the iframe viewport
+ * Immersive dropzone — full content width with uniform gutters.
+ * Full page: below site header; edge-to-edge of the main content area.
+ * Embed/modal: fills the iframe with the same gutters on every edge.
  *
  * Specificity includes #tool-workspace / #workspace-upload ancestors so these
  * rules beat stale `#tool-workspace[data-workspace-phase=active] .im-dropzone`
@@ -15046,16 +15046,17 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
 .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact) {
+  --tool-dropzone-gutter: clamp(10px, 2vw, 30px);
   position: fixed !important;
-  top: calc(var(--site-header-height, 60px) + clamp(10px, 2vw, 30px)) !important;
-  left: max(clamp(10px, 2vw, 30px), env(safe-area-inset-left, 0px)) !important;
-  right: max(clamp(10px, 2vw, 30px), env(safe-area-inset-right, 0px)) !important;
+  top: calc(var(--site-header-height, 60px) + var(--tool-dropzone-gutter)) !important;
+  left: max(var(--tool-dropzone-gutter), env(safe-area-inset-left, 0px)) !important;
+  right: max(var(--tool-dropzone-gutter), env(safe-area-inset-right, 0px)) !important;
   bottom: auto !important;
   z-index: 40 !important;
   box-sizing: border-box !important;
   width: auto !important;
   max-width: none !important;
-  height: calc(100dvh - var(--site-header-height, 60px) - (2 * clamp(10px, 2vw, 30px))) !important;
+  height: calc(100dvh - var(--site-header-height, 60px) - (2 * var(--tool-dropzone-gutter))) !important;
   max-height: none !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -15069,7 +15070,7 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   justify-content: center !important;
 }
 
-/* Embed / tool-modal iframe: no site header — clamped margins from every edge */
+/* Embed / tool-modal iframe: tight to sub-header — minimal top gutter */
 html[data-tool-embed="1"] #tool-workspace .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 html[data-tool-embed="1"] #workspace-upload .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
@@ -15082,14 +15083,17 @@ body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone:
 body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact) {
-  top: clamp(10px, 2vw, 30px) !important;
-  left: clamp(10px, 2vw, 30px) !important;
-  right: clamp(10px, 2vw, 30px) !important;
-  bottom: clamp(10px, 2vw, 30px) !important;
+  --tool-dropzone-gutter: clamp(6px, 1.2vw, 14px);
+  top: 2px !important;
+  left: var(--tool-dropzone-gutter) !important;
+  right: var(--tool-dropzone-gutter) !important;
+  bottom: var(--tool-dropzone-gutter) !important;
   width: auto !important;
   max-width: none !important;
   height: auto !important;
   max-height: none !important;
+  padding: clamp(0.5rem, 1.5vw, 0.875rem) !important;
+  transform: none !important;
 }
 
 #tool-workspace[data-workspace-phase="active"] > :not(.tool-upload-float),
@@ -29865,4 +29869,19 @@ html[dir="rtl"] .welcome-splash__enter-icon {
   .welcome-splash__enter:hover .welcome-splash__enter-icon {
     transform: none;
   }
+}
+
+/* Force compact, low-profile tool cards globally (prevents tall box regressions). */
+:where(.im-tool-card, .tool-card, .home-feature-card) {
+  min-height: 3.5rem !important;
+  height: 3.5rem !important;
+  max-height: 3.5rem !important;
+  overflow: hidden !important;
+  border-radius: 6px !important;
+}
+
+:where(.home-feature-card__label, .tool-card__label) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

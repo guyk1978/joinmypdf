@@ -34,6 +34,8 @@ export function ToolMarketingSections({
   relatedGuidesTitle,
   tPage,
 }: ToolMarketingSectionsProps) {
+  const howTo = tool.documentation?.howTo;
+
   return (
     <>
       <ToolPageDashboardSection>
@@ -41,6 +43,25 @@ export function ToolMarketingSections({
           {paragraphs.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
+          {howTo?.steps?.length ? (
+            <div className="tool-howto mt-6">
+              <h3 className="mb-3 font-sans text-base font-semibold tracking-wide text-white">
+                {howTo.name}
+              </h3>
+              <ol className="tool-howto__list m-0 list-decimal space-y-3 ps-5 text-neutral-300">
+                {howTo.steps.map((step, index) => (
+                  <li
+                    key={`${step.name}-${index}`}
+                    id={`howto-step-${index + 1}`}
+                    className="tool-howto__step ps-1 leading-relaxed"
+                  >
+                    <span className="font-medium text-neutral-200">{step.name}.</span>{" "}
+                    {step.text}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
         </ToolBeforeYouStart>
       </ToolPageDashboardSection>
 

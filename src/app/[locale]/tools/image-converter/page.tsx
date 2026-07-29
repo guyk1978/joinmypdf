@@ -4,7 +4,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
 import { ImageConverterWorkspace } from "@/components/ImageConverterWorkspace";
-import { ImageConverterIntroGate } from "@/components/ImageConverterIntroGate";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -81,9 +80,7 @@ export default async function ImageConverterPage({ params }: PageProps) {
           <h1 className="sr-only">{t("title")}</h1>
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <ToolPageShellProvider headline={t("title")} subline={t("description")} slug={SLUG}>
-              <ImageConverterIntroGate active={tool.operation === "image-converter"}>
                 <ImageConverterWorkspace tool={tool} slug={SLUG} />
-              </ImageConverterIntroGate>
             </ToolPageShellProvider>
           </section>
         </div>

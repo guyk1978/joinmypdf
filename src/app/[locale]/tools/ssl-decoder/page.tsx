@@ -3,7 +3,6 @@ import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { buildToolPageBreadcrumbs } from "@/lib/tool-breadcrumb-hub";
-import { SslDecoderIntroGate } from "@/components/SslDecoderIntroGate";
 import { SslDecoderWorkspace } from "@/components/tools/security/SslDecoderWorkspace";
 import { routing } from "@/i18n/routing";
 import { registry } from "@/lib/registry";
@@ -79,9 +78,7 @@ export default async function SslDecoderPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
-            <SslDecoderIntroGate>
               <SslDecoderWorkspace tool={tool} slug={SLUG} />
-            </SslDecoderIntroGate>
           </section>
 </div>
       </AppPageShell>

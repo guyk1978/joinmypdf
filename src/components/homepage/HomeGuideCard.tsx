@@ -1,8 +1,8 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { clsx } from "clsx";
-import { BookOpen } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
@@ -20,8 +20,7 @@ type HomeGuideCardProps = {
 };
 
 /**
- * Category-parity card for homepage workflow guides:
- * solid cover → hover reveals detail chrome → Maximize2 opens focus popup.
+ * Compact homepage guide card — short title + expand / go actions.
  */
 export function HomeGuideCard({
   href,
@@ -45,43 +44,32 @@ export function HomeGuideCard({
       data-category={categoryId}
       style={accentStyle}
     >
-      <Link
-        href={href}
-        className="im-tool-card__overlay"
-        prefetch={false}
-        aria-label={label}
-      />
+      <span className="im-tool-card__title">{label}</span>
 
-      <span className="im-tool-card__cover" aria-hidden>
-        <span className="im-tool-card__cover-title">{label}</span>
-      </span>
+      <div className="im-tool-card__actions" role="group" aria-label={label}>
+        <ToolCardFocus
+          slug={`guide-${href}`}
+          href={href}
+          label={label}
+          description={metaLine || undefined}
+          icon={resolvedIcon}
+          categoryId={categoryId}
+          showExpandButton
+          showRating={false}
+          openLabel={openLabel}
+          className="im-tool-card__action im-tool-card__expand"
+        />
 
-      <ToolCardFocus
-        slug={`guide-${href}`}
-        href={href}
-        label={label}
-        description={metaLine || undefined}
-        icon={resolvedIcon}
-        categoryId={categoryId}
-        showExpandButton
-        showRating={false}
-        openLabel={openLabel}
-      />
-
-      <span className="im-tool-card__icon" aria-hidden>
-        {resolvedIcon}
-      </span>
-      <span className="im-tool-card__body">
-        <span className="im-tool-card__content">
-          <span className="im-tool-card__title">{label}</span>
-          {description ? <span className="im-tool-card__description">{description}</span> : null}
-          {readTime ? (
-            <span className="im-tool-card__description" style={{ opacity: 0.85 }}>
-              {readTime}
-            </span>
-          ) : null}
-        </span>
-      </span>
+        <Link
+          href={href}
+          className="im-tool-card__action im-tool-card__go"
+          prefetch={false}
+          aria-label={openLabel}
+          title={openLabel}
+        >
+          <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
+        </Link>
+      </div>
     </div>
   );
 }

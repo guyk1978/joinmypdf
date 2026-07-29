@@ -13,7 +13,7 @@ type Props = {
 };
 
 /**
- * Mobile-only sticky CTA. Hidden during clean-phase dropzone and intro splash
+ * Mobile-only sticky CTA. Hidden during clean-phase dropzone
  * so it does not stack with immersive chrome.
  */
 export function StickyMobileCta({ href, label, secondaryHref, secondaryLabel }: Props) {
@@ -23,13 +23,14 @@ export function StickyMobileCta({ href, label, secondaryHref, secondaryLabel }: 
     const sync = () => {
       const html = document.documentElement;
       const clean = html.classList.contains("workspace-phase-clean");
-      const intro = Boolean(document.querySelector(".tool-intro-fs"));
-      setVisible(!clean && !intro);
+      setVisible(!clean);
     };
     sync();
     const mo = new MutationObserver(sync);
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "data-workspace-phase"] });
-    mo.observe(document.body, { childList: true, subtree: true });
+    mo.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class", "data-workspace-phase"],
+    });
     return () => mo.disconnect();
   }, []);
 

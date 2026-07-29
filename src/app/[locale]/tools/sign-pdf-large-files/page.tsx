@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { SignPdfWorkspace } from "@/components/SignPdfWorkspace";
-import { SignPdfIntroGate } from "@/components/SignPdfIntroGate";
 import { routing } from "@/i18n/routing";
 import { PDF_TOOLS_HUB_PATH } from "@/lib/pdf-tools-hub";
 import { registry } from "@/lib/registry";
@@ -77,9 +76,7 @@ export default async function SignPdfLargeFilesPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <h1 className="sr-only">{t("title")}</h1>
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
-            <SignPdfIntroGate>
               <SignPdfWorkspace tool={tool} slug={WORKSPACE_SLUG} />
-            </SignPdfIntroGate>
           </section>
         </div>
       </AppPageShell>

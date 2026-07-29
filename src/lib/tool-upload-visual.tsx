@@ -37,6 +37,7 @@ const CONVERT_TOOL_PAIRS: Record<string, { from: string; to: string }> = {
   "excel-to-pdf": { from: "excel", to: "pdf" },
   "powerpoint-to-pdf": { from: "powerpoint", to: "pdf" },
   "html-to-pdf": { from: "html", to: "pdf" },
+  "eml-to-pdf": { from: "eml", to: "pdf" },
   "markdown-to-pdf": { from: "markdown", to: "pdf" },
   "ebook-to-pdf": { from: "ebook", to: "pdf" },
   "openoffice-to-pdf": { from: "openoffice", to: "pdf" },
@@ -165,6 +166,15 @@ function HtmlFormatIcon() {
   );
 }
 
+function EmlFormatIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
+      <rect x="3" y="5" width="18" height="14" rx="2" fill={R} />
+      <path d="M4 7L12 13L20 7" stroke={W} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function MarkdownFormatIcon() {
   return (
     <svg viewBox="0 0 24 24" className={HERO_ICON_CLASS} fill="none" aria-hidden>
@@ -196,6 +206,7 @@ const FORMAT_ICON_BUILDERS: Record<string, () => ReactNode> = {
   powerpoint: PowerPointFormatIcon,
   text: TextFormatIcon,
   html: HtmlFormatIcon,
+  eml: EmlFormatIcon,
   markdown: MarkdownFormatIcon,
   booklet: BookletFormatIcon,
   ebook: () => getToolIcon("ebook-to-pdf").icon,

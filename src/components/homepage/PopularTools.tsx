@@ -23,16 +23,20 @@ const POPULAR_TOOL_IDS = [
   "jpg-to-pdf",
   "word-to-pdf",
   "video-to-mp3",
+  "pdf-to-png",
+  "delete-pdf-pages",
+  "extract-pdf-pages",
+  "compress-image",
 ] as const;
 
-const POPULAR_GRID_SIZE = 4;
+const POPULAR_GRID_SIZE = 12;
 
 type PopularToolsProps = {
   locale: string;
 };
 
 /**
- * "Popular Tools of the Week" — static 2×2 Industrial Matte grid.
+ * "Popular Tools of the Week" — compact 3-column Industrial Matte grid (max 12).
  */
 export function PopularTools({ locale }: PopularToolsProps) {
   const t = useTranslations("Home");

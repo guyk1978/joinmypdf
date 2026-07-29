@@ -348,7 +348,7 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
         aria-controls={panelId}
         onClick={toggleOpen}
       >
-        <MoreHorizontal className="h-5 w-5" aria-hidden />
+        <MoreHorizontal className="site-header__overflow-icon" aria-hidden />
       </button>
 
       {mounted && panel ? createPortal(panel, document.body) : null}

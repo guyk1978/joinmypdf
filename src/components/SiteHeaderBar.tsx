@@ -34,7 +34,7 @@ function HeaderLibraryButton() {
         else nav.openDrawer("favorites");
       }}
     >
-      <Library className="site-header__nav-icon" aria-hidden size={16} strokeWidth={1.75} />
+      <Library className="site-header__nav-icon" aria-hidden size={14} strokeWidth={2} />
       <span>{t("library")}</span>
     </button>
   );
@@ -58,7 +58,7 @@ function HeaderReviewsButton() {
         else nav.openDrawer("reviews");
       }}
     >
-      <MessageSquareText className="site-header__nav-icon" aria-hidden size={16} strokeWidth={1.75} />
+      <MessageSquareText className="site-header__nav-icon" aria-hidden size={14} strokeWidth={2} />
       <span className="site-header__reviews-label">{t("reviews")}</span>
     </button>
   );

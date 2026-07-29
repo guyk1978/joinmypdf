@@ -1090,8 +1090,12 @@
       "title": "Delete PDF Pages",
       "primaryKeyword": "delete pages from pdf online",
       "intent": "Remove unwanted pages from a PDF in your browser—files stay on your device.",
-      "description": "Delete PDF pages locally in your browser. Pick thumbnails to remove and download a cleaned file—no upload to our servers.",
+      "description": "Remove pages from PDF online in your browser: delete specific PDF pages, cut pages from PDF browser-side, or extract or remove PDF sheets from multi-page documents—Zero-Upload Promise, no cloud storage or size anxiety.",
       "secondaryKeywords": [
+        "remove pages from PDF online",
+        "delete specific PDF pages",
+        "cut pages from PDF browser",
+        "extract or remove PDF sheets",
         "remove pdf pages",
         "delete page from pdf",
         "pdf page remover"
@@ -1099,7 +1103,8 @@
       "useCases": [
         "Drop blank or duplicate pages before sending a report",
         "Remove appendix pages from a client packet",
-        "Trim scanned PDFs to only the pages you need"
+        "Trim scanned PDFs to only the pages you need",
+        "Strip blank sheets, extra scans, or unneeded attachments from multi-page PDFs locally"
       ],
       "relatedTools": [
         "pdf-split",
@@ -1110,19 +1115,59 @@
       "faq": [
         {
           "q": "Is my PDF uploaded to JoinMyPDF servers?",
-          "a": "No. Page removal runs entirely in your browser. Your file never leaves your device."
+          "a": "No. Page removal runs entirely in your browser. That is our Zero-Upload Promise—your file never leaves your device."
         },
         {
           "q": "Can I delete multiple pages at once?",
-          "a": "Yes. Mark any combination of pages, then click Delete Pages once."
+          "a": "Yes. Mark any combination of pages or ranges from the thumbnail preview, then process once to remove them all."
         },
         {
           "q": "Can I delete every page?",
-          "a": "No. At least one page must remain in the output PDF."
+          "a": "No. At least one page must remain in the output PDF so you always download a valid document."
         },
         {
           "q": "Will fonts and layout stay intact on remaining pages?",
-          "a": "Yes. Remaining pages are preserved from the original file without re-compressing content."
+          "a": "Yes. Remaining pages are preserved from the original file without re-compressing content—only the pages you mark are stripped."
+        },
+        {
+          "q": "Is Delete PDF Pages free to use?",
+          "a": "Yes. Standard in-browser page removal is free—no payment, trial watermark, or account required for everyday use."
+        },
+        {
+          "q": "Do you add a watermark after deleting pages?",
+          "a": "No. JoinMyPDF does not stamp a watermark on PDFs downloaded from this tool."
+        },
+        {
+          "q": "Can I remove pages from PDF on mobile?",
+          "a": "Yes. The interface works in modern mobile browsers. For very large multi-page files, a desktop browser usually offers more memory headroom."
+        },
+        {
+          "q": "Are there file size or page limits?",
+          "a": "There is no fixed JoinMyPDF upload quota because nothing is uploaded. Very large PDFs can still hit browser memory limits—try closing other tabs, or split the file first and delete pages from smaller parts."
+        },
+        {
+          "q": "Does page deletion work offline?",
+          "a": "After the page loads once, you can keep working without a network connection because processing stays in your browser. You still need network access for the first visit."
+        },
+        {
+          "q": "Do I need an account to delete PDF pages?",
+          "a": "No account is required. Open the tool, add your PDF, select pages to remove, and download the cleaned file."
+        },
+        {
+          "q": "What happens to my PDF after I close the tab?",
+          "a": "The working copy lives only in your browser session. Closing or refreshing the tab clears it from memory—we do not retain your PDF on our servers."
+        },
+        {
+          "q": "What kinds of pages can I safely strip?",
+          "a": "Use it on multi-page documents to cut blank sheets, duplicate scans, cover sheets, appendix pages, or unneeded attachments from the page grid—all locally under the Zero-Upload Promise."
+        },
+        {
+          "q": "What should I do if deletion fails or freezes?",
+          "a": "Try a smaller PDF, disable heavy browser extensions, or unlock a password-protected file first. If the grid will not load, re-export the PDF from the source app and try again."
+        },
+        {
+          "q": "How does JoinMyPDF keep page removal private?",
+          "a": "Selection and deletion run locally in your browser tab. Combined with the Zero-Upload Promise, that keeps contracts, scans, and personal PDFs off JoinMyPDF infrastructure during editing."
         }
       ],
       "longTailPages": [],
@@ -1131,25 +1176,65 @@
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
-      "updatedAt": "2026-05-24",
+      "updatedAt": "2026-07-29",
       "documentation": {
-        "whyItMatters": "Remove unwanted pages from a PDF in your browser—files stay on your device.",
+        "whyItMatters": "Need to remove pages from PDF online without sending the file to the cloud? JoinMyPDF’s Delete PDF Pages tool lets you delete specific PDF pages in your browser—our Zero-Upload Promise means multi-page documents stay on your device. Cut pages from PDF browser workflows when you need to strip blank sheets, extra scans, or unneeded attachments.",
         "faq": [
           {
             "question": "Is my PDF uploaded to JoinMyPDF servers?",
-            "answer": "No. Page removal runs entirely in your browser. Your file never leaves your device."
+            "answer": "No. Page removal runs entirely in your browser. That is our Zero-Upload Promise—your file never leaves your device."
           },
           {
             "question": "Can I delete multiple pages at once?",
-            "answer": "Yes. Mark any combination of pages, then click Delete Pages once."
+            "answer": "Yes. Mark any combination of pages or ranges from the thumbnail preview, then process once to remove them all."
           },
           {
             "question": "Can I delete every page?",
-            "answer": "No. At least one page must remain in the output PDF."
+            "answer": "No. At least one page must remain in the output PDF so you always download a valid document."
           },
           {
             "question": "Will fonts and layout stay intact on remaining pages?",
-            "answer": "Yes. Remaining pages are preserved from the original file without re-compressing content."
+            "answer": "Yes. Remaining pages are preserved from the original file without re-compressing content—only the pages you mark are stripped."
+          },
+          {
+            "question": "Is Delete PDF Pages free to use?",
+            "answer": "Yes. Standard in-browser page removal is free—no payment, trial watermark, or account required for everyday use."
+          },
+          {
+            "question": "Do you add a watermark after deleting pages?",
+            "answer": "No. JoinMyPDF does not stamp a watermark on PDFs downloaded from this tool."
+          },
+          {
+            "question": "Can I remove pages from PDF on mobile?",
+            "answer": "Yes. The interface works in modern mobile browsers. For very large multi-page files, a desktop browser usually offers more memory headroom."
+          },
+          {
+            "question": "Are there file size or page limits?",
+            "answer": "There is no fixed JoinMyPDF upload quota because nothing is uploaded. Very large PDFs can still hit browser memory limits—try closing other tabs, or split the file first and delete pages from smaller parts."
+          },
+          {
+            "question": "Does page deletion work offline?",
+            "answer": "After the page loads once, you can keep working without a network connection because processing stays in your browser. You still need network access for the first visit."
+          },
+          {
+            "question": "Do I need an account to delete PDF pages?",
+            "answer": "No account is required. Open the tool, add your PDF, select pages to remove, and download the cleaned file."
+          },
+          {
+            "question": "What happens to my PDF after I close the tab?",
+            "answer": "The working copy lives only in your browser session. Closing or refreshing the tab clears it from memory—we do not retain your PDF on our servers."
+          },
+          {
+            "question": "What kinds of pages can I safely strip?",
+            "answer": "Use it on multi-page documents to cut blank sheets, duplicate scans, cover sheets, appendix pages, or unneeded attachments from the page grid—all locally under the Zero-Upload Promise."
+          },
+          {
+            "question": "What should I do if deletion fails or freezes?",
+            "answer": "Try a smaller PDF, disable heavy browser extensions, or unlock a password-protected file first. If the grid will not load, re-export the PDF from the source app and try again."
+          },
+          {
+            "question": "How does JoinMyPDF keep page removal private?",
+            "answer": "Selection and deletion run locally in your browser tab. Combined with the Zero-Upload Promise, that keeps contracts, scans, and personal PDFs off JoinMyPDF infrastructure during editing."
           }
         ]
       }
@@ -2878,6 +2963,161 @@
           {
             "question": "Can I convert large books?",
             "answer": "Yes. Processing happens locally; performance depends on your device memory and book size."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "eml-to-pdf",
+      "category": "convert",
+      "operation": "eml-to-pdf",
+      "title": "EML to PDF Converter",
+      "primaryKeyword": "eml to pdf converter online free",
+      "intent": "Convert .eml email files into clean, printable PDF documents entirely in your browser.",
+      "description": "Convert email to PDF in your browser: upload a .eml file, preview headers and body, choose formatting, then download a styled PDF locally—Zero-Upload Promise, no server storage. Works with Microsoft Outlook, Apple Mail, and Mozilla Thunderbird exports.",
+      "secondaryKeywords": [
+        "convert email to PDF",
+        "save Outlook email as PDF",
+        "Thunderbird EML converter",
+        "read EML file online",
+        "convert eml to pdf",
+        "email eml to pdf",
+        "save email as pdf browser"
+      ],
+      "useCases": [
+        "Archive important emails as fixed PDFs for records",
+        "Share message threads with teams that prefer PDF",
+        "Export support tickets and receipts from .eml dumps",
+        "Save Outlook or Thunderbird messages as printable PDFs without cloud upload"
+      ],
+      "relatedTools": [
+        "html-to-pdf",
+        "pdf-compress",
+        "add-page-numbers"
+      ],
+      "faq": [
+        {
+          "q": "Is my .eml file uploaded to JoinMyPDF?",
+          "a": "No. Parsing and PDF generation run entirely in your browser on your device. That is our Zero-Upload Promise—your email never reaches JoinMyPDF servers."
+        },
+        {
+          "q": "Which email headers are included?",
+          "a": "From, To, Cc (when present), Subject, and Date are extracted. You can hide headers before export if you only want the body."
+        },
+        {
+          "q": "Does it support HTML email bodies?",
+          "a": "Yes. HTML and plain-text bodies are rendered locally. Scripts and unsafe markup are stripped before preview and PDF capture."
+        },
+        {
+          "q": "Are attachments embedded in the PDF?",
+          "a": "Attachment binaries stay out of the PDF for safety. Optionally list attachment filenames in the document footer."
+        },
+        {
+          "q": "Is the EML to PDF Converter free to use?",
+          "a": "Yes. Standard in-browser conversion is free—no payment, trial watermark, or account required for everyday use."
+        },
+        {
+          "q": "Do you add a watermark to the PDF?",
+          "a": "No. JoinMyPDF does not stamp a watermark on EML to PDF downloads from this tool."
+        },
+        {
+          "q": "Can I convert EML to PDF on mobile?",
+          "a": "Yes. The converter works in modern mobile browsers on phones and tablets. For very large messages, a desktop browser usually offers more memory headroom."
+        },
+        {
+          "q": "Are there file size or page limits?",
+          "a": "There is no fixed JoinMyPDF upload quota because nothing is uploaded. Very large or image-heavy emails can still hit browser memory limits—try a smaller message, close other tabs, or convert one .eml at a time."
+        },
+        {
+          "q": "Does EML to PDF work offline?",
+          "a": "After the page loads once, conversion can continue without a network connection because processing stays in your browser. You still need network access for the first visit to load the app."
+        },
+        {
+          "q": "Do I need an account to convert EML to PDF?",
+          "a": "No account is required. Open the tool, add your .eml file, convert, and download the PDF when it is ready."
+        },
+        {
+          "q": "What happens to my email file after I close the tab?",
+          "a": "The working copy lives only in your browser session. Closing or refreshing the tab clears it from memory on your device—we do not retain your .eml or PDF on our servers."
+        },
+        {
+          "q": "What file types and email clients are supported?",
+          "a": "This tool accepts standard .eml (RFC 822) files. Export or save messages from Microsoft Outlook, Apple Mail, Mozilla Thunderbird, and similar clients that produce .eml, then convert them here to read EML file online as PDF."
+        },
+        {
+          "q": "What should I do if conversion fails or freezes?",
+          "a": "Confirm the file ends in .eml and opens in a mail client. Try a smaller message, disable heavy browser extensions, or re-export the email from Outlook, Apple Mail, or Thunderbird. If the preview is blank, the body may be empty or image-only—check the source message and try again."
+        },
+        {
+          "q": "How does JoinMyPDF keep my emails private?",
+          "a": "EML parsing and PDF rendering run locally in your browser tab. Combined with the Zero-Upload Promise, that keeps contracts, receipts, and personal threads off JoinMyPDF infrastructure during conversion."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.86,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": true,
+      "updatedAt": "2026-07-29",
+      "documentation": {
+        "whyItMatters": "Need to convert email to PDF without uploading your inbox? JoinMyPDF’s EML to PDF Converter turns RFC 822 .eml messages into clean, printable documents entirely in your browser—our Zero-Upload Promise means the file never leaves your device. Save Outlook email as PDF after exporting a message, use this Thunderbird EML converter for archived threads, or read EML file online in a familiar page layout before you export.",
+        "faq": [
+          {
+            "question": "Is my .eml file uploaded to JoinMyPDF?",
+            "answer": "No. Parsing and PDF generation run entirely in your browser on your device. That is our Zero-Upload Promise—your email never reaches JoinMyPDF servers."
+          },
+          {
+            "question": "Which email headers are included?",
+            "answer": "From, To, Cc (when present), Subject, and Date are extracted. You can hide headers before export if you only want the body."
+          },
+          {
+            "question": "Does it support HTML email bodies?",
+            "answer": "Yes. HTML and plain-text bodies are rendered locally. Scripts and unsafe markup are stripped before preview and PDF capture."
+          },
+          {
+            "question": "Are attachments embedded in the PDF?",
+            "answer": "Attachment binaries stay out of the PDF for safety. Optionally list attachment filenames in the document footer."
+          },
+          {
+            "question": "Is the EML to PDF Converter free to use?",
+            "answer": "Yes. Standard in-browser conversion is free—no payment, trial watermark, or account required for everyday use."
+          },
+          {
+            "question": "Do you add a watermark to the PDF?",
+            "answer": "No. JoinMyPDF does not stamp a watermark on EML to PDF downloads from this tool."
+          },
+          {
+            "question": "Can I convert EML to PDF on mobile?",
+            "answer": "Yes. The converter works in modern mobile browsers on phones and tablets. For very large messages, a desktop browser usually offers more memory headroom."
+          },
+          {
+            "question": "Are there file size or page limits?",
+            "answer": "There is no fixed JoinMyPDF upload quota because nothing is uploaded. Very large or image-heavy emails can still hit browser memory limits—try a smaller message, close other tabs, or convert one .eml at a time."
+          },
+          {
+            "question": "Does EML to PDF work offline?",
+            "answer": "After the page loads once, conversion can continue without a network connection because processing stays in your browser. You still need network access for the first visit to load the app."
+          },
+          {
+            "question": "Do I need an account to convert EML to PDF?",
+            "answer": "No account is required. Open the tool, add your .eml file, convert, and download the PDF when it is ready."
+          },
+          {
+            "question": "What happens to my email file after I close the tab?",
+            "answer": "The working copy lives only in your browser session. Closing or refreshing the tab clears it from memory on your device—we do not retain your .eml or PDF on our servers."
+          },
+          {
+            "question": "What file types and email clients are supported?",
+            "answer": "This tool accepts standard .eml (RFC 822) files. Export or save messages from Microsoft Outlook, Apple Mail, Mozilla Thunderbird, and similar clients that produce .eml, then convert them here to read EML file online as PDF."
+          },
+          {
+            "question": "What should I do if conversion fails or freezes?",
+            "answer": "Confirm the file ends in .eml and opens in a mail client. Try a smaller message, disable heavy browser extensions, or re-export the email from Outlook, Apple Mail, or Thunderbird. If the preview is blank, the body may be empty or image-only—check the source message and try again."
+          },
+          {
+            "question": "How does JoinMyPDF keep my emails private?",
+            "answer": "EML parsing and PDF rendering run locally in your browser tab. Combined with the Zero-Upload Promise, that keeps contracts, receipts, and personal threads off JoinMyPDF infrastructure during conversion."
           }
         ]
       }
@@ -5701,17 +5941,20 @@
       "title": "N-Up PDF (Multiple Pages per Sheet)",
       "primaryKeyword": "n-up pdf multiple pages per sheet online",
       "intent": "Arrange multiple PDF pages onto a single sheet with 2-up, 4-up, 6-up, or custom grid layouts—ideal for handouts, review packs, and eco-friendly printing.",
-      "description": "Create N-Up PDF layouts locally—fit 2, 4, 6, or more pages per sheet to save paper, cut printing costs, and prepare handouts. 100% client-side with no uploads.",
+      "description": "Create N-Up PDF layouts locally—fit 2, 4, 6, or more pages per sheet with orientation and margin controls to save paper and prepare handouts. 100% client-side with no uploads.",
       "secondaryKeywords": [
         "pdf 2 up printing online",
         "4 up pdf layout",
         "multiple pages per sheet pdf",
-        "pdf handout layout browser"
+        "pdf handout layout browser",
+        "n-up pdf zero upload"
       ],
       "useCases": [
         "Print lecture slides four-to-a-page for student handouts and study guides",
         "Reduce paper use for internal review drafts before final publication",
-        "Prepare compact proof packs for legal or design review meetings"
+        "Prepare compact proof packs for legal or design review meetings",
+        "Create 2-up readable drafts for markup without shipping full-size pages",
+        "Build 6-up or 9-up thumbnail sheets for storyboard and deck reviews"
       ],
       "relatedTools": [
         "pdf-to-booklet",
@@ -5725,8 +5968,20 @@
           "a": "N-Up imposition places multiple source pages on each output sheet in a grid—for example, four pages in a 2×2 layout. Each page is scaled to fit its cell while keeping aspect ratio, so you print more content per physical sheet."
         },
         {
+          "q": "Is N-Up PDF processed locally?",
+          "a": "Yes. Layout and rearrangement run entirely in your browser. That is our Zero-Upload Promise—your PDF never reaches JoinMyPDF servers."
+        },
+        {
+          "q": "What layout options are available?",
+          "a": "Use 2-up for readable drafts, 4-up for standard handouts, 6-up or 9-up for thumbnail review packs, or a custom grid with up to 4 columns and 4 rows. You can also set portrait/landscape orientation and cell margins."
+        },
+        {
           "q": "Does this preserve the original page order?",
           "a": "Yes. Pages are arranged left-to-right, top-to-bottom within each sheet, then continue on the next sheet in reading order. Page 1 stays first; only the number of pages per sheet changes."
+        },
+        {
+          "q": "What do orientation and margins control?",
+          "a": "Orientation sets the output sheet to auto (match the source), portrait, or landscape. Margins add inset padding inside each grid cell so content is not flush against cell borders when you print."
         },
         {
           "q": "Can I use this for double-sided printing?",
@@ -5737,8 +5992,16 @@
           "a": "No. Layout and rearrangement run entirely in your browser. Your document never leaves your device."
         },
         {
-          "q": "What layout should I choose?",
-          "a": "Use 2-up for readable drafts, 4-up for standard handouts, and 6-up or 9-up for thumbnail review packs. Custom grid lets you set columns and rows up to 4×4 when you need a specific imposition."
+          "q": "Is N-Up PDF free to use?",
+          "a": "Yes. Standard in-browser N-Up layout is free—no payment, trial watermark, or account required for everyday use."
+        },
+        {
+          "q": "Do you add a watermark to N-Up PDFs?",
+          "a": "No. JoinMyPDF does not stamp a watermark on PDFs downloaded from this tool."
+        },
+        {
+          "q": "Can I create multiple pages per sheet on mobile?",
+          "a": "Yes. The tool works in modern mobile browsers. For very large multi-page files, a desktop browser usually offers more memory headroom."
         }
       ],
       "longTailPages": [],
@@ -5747,29 +6010,83 @@
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
-      "updatedAt": "2026-07-08",
+      "updatedAt": "2026-07-29",
       "documentation": {
-        "whyItMatters": "Arrange multiple PDF pages onto a single sheet with 2-up, 4-up, 6-up, or custom grid layouts—ideal for handouts, review packs, and eco-friendly printing.",
+        "whyItMatters": "Printing every page full-size wastes paper, toner, and bag space for handouts. JoinMyPDF’s N-Up PDF tool lets you create an N-Up PDF layout online—fit 2-up, 4-up, 6-up, 9-up, or a custom grid of multiple pages per sheet—without uploading the file. Under our Zero-Upload Promise, imposition runs entirely in your browser: choose a layout, set portrait or landscape sheet orientation, dial cell margins, and download a compact print-ready PDF.",
+        "howTo": {
+          "name": "How to use N-Up PDF",
+          "description": "Arrange multiple PDF pages onto each output sheet in your browser with JoinMyPDF—local grid layouts, orientation and margin controls, and instant download under the Zero-Upload Promise.",
+          "steps": [
+            {
+              "name": "Upload your PDF locally",
+              "text": "Upload or drag and drop your PDF into the N-Up workspace. Processing stays on your device—nothing is sent to JoinMyPDF servers."
+            },
+            {
+              "name": "Choose layout, orientation, and margins",
+              "text": "Select 2-up, 4-up, 6-up, 9-up, or a custom columns×rows grid. Set sheet orientation (auto, portrait, or landscape) and cell margins so pages sit cleanly inside each cell."
+            },
+            {
+              "name": "Convert and download",
+              "text": "Click Convert & Download to build the N-Up PDF in your browser and save the multi-page-per-sheet file for printing or sharing."
+            }
+          ]
+        },
         "faq": [
           {
             "question": "How does N-Up printing work?",
             "answer": "N-Up imposition places multiple source pages on each output sheet in a grid—for example, four pages in a 2×2 layout. Each page is scaled to fit its cell while keeping aspect ratio, so you print more content per physical sheet."
           },
           {
+            "question": "Is N-Up PDF processed locally?",
+            "answer": "Yes. Layout and rearrangement run entirely in your browser. That is our Zero-Upload Promise—your PDF never reaches JoinMyPDF servers."
+          },
+          {
+            "question": "What layout options are available?",
+            "answer": "Use 2-up for readable drafts, 4-up for standard handouts, 6-up or 9-up for thumbnail review packs, or a custom grid with up to 4 columns and 4 rows. You can also set portrait/landscape orientation and cell margins."
+          },
+          {
             "question": "Does this preserve the original page order?",
             "answer": "Yes. Pages are arranged left-to-right, top-to-bottom within each sheet, then continue on the next sheet in reading order. Page 1 stays first; only the number of pages per sheet changes."
+          },
+          {
+            "question": "What do orientation and margins control?",
+            "answer": "Orientation sets the output sheet to auto (match the source), portrait, or landscape. Margins add inset padding inside each grid cell so content is not flush against cell borders when you print."
           },
           {
             "question": "Can I use this for double-sided printing?",
             "answer": "Yes. Download the N-Up PDF and print duplex from your OS or printer dialog. For saddle-stitch booklets with fold imposition, use our PDF to Booklet tool instead."
           },
           {
-            "question": "Is my file uploaded to a server?",
-            "answer": "No. Layout and rearrangement run entirely in your browser. Your document never leaves your device."
+            "question": "Is N-Up PDF free to use?",
+            "answer": "Yes. Standard in-browser N-Up layout is free—no payment, trial watermark, or account required for everyday use."
           },
           {
-            "question": "What layout should I choose?",
-            "answer": "Use 2-up for readable drafts, 4-up for standard handouts, and 6-up or 9-up for thumbnail review packs. Custom grid lets you set columns and rows up to 4×4 when you need a specific imposition."
+            "question": "Do you add a watermark to N-Up PDFs?",
+            "answer": "No. JoinMyPDF does not stamp a watermark on PDFs downloaded from this tool."
+          },
+          {
+            "question": "Can I create multiple pages per sheet on mobile?",
+            "answer": "Yes. The tool works in modern mobile browsers. For very large multi-page files, a desktop browser usually offers more memory headroom."
+          },
+          {
+            "question": "Are there file size or page limits?",
+            "answer": "There is no fixed JoinMyPDF upload quota because nothing is uploaded. Very large PDFs can still hit browser memory limits—try closing other tabs, or split the file first."
+          },
+          {
+            "question": "Does N-Up layout work offline?",
+            "answer": "After the page loads once, you can keep working without a network connection because processing stays in your browser. You still need network access for the first visit."
+          },
+          {
+            "question": "Do I need an account to create an N-Up PDF?",
+            "answer": "No account is required. Open the tool, add your PDF, choose a layout, convert, and download."
+          },
+          {
+            "question": "What happens to my PDF after I close the tab?",
+            "answer": "The working copy lives only in your browser session. Closing or refreshing the tab clears it from memory—we do not retain your PDF on our servers."
+          },
+          {
+            "question": "How does JoinMyPDF keep N-Up layouts private?",
+            "answer": "Grid placement, scaling, orientation, and margins all run locally in your browser tab. Combined with the Zero-Upload Promise, that keeps handouts, decks, and confidential drafts off JoinMyPDF infrastructure."
           }
         ]
       }
@@ -6362,16 +6679,20 @@
       "title": "Extract PDF Pages — Ranges & Selection",
       "primaryKeyword": "extract pages from pdf online",
       "intent": "Select specific pages or ranges like 1, 3-5 and download them as a new PDF in your browser.",
-      "description": "Extract PDF pages by number or range (e.g. 1, 3-5). Preview selections and download a new file—processed locally, nothing uploaded.",
+      "description": "Extract pages from PDF online in your browser: save specific PDF pages or split PDF by page range (e.g. 1, 3-5), preview the selection, and download a compact new file—Zero-Upload Promise, nothing sent to our servers.",
       "secondaryKeywords": [
-        "pdf page extractor browser",
+        "extract pages from pdf online",
         "save specific pdf pages",
-        "split pdf by page numbers"
+        "split pdf by page range",
+        "pdf page extractor browser",
+        "split pdf by page numbers",
+        "extract pdf page ranges"
       ],
       "useCases": [
-        "Pull only the invoice pages from a long statement PDF",
-        "Share appendix pages without sending the full report",
-        "Extract exhibits for a separate email attachment"
+        "Pull only the invoice or statement pages from a long bank or billing PDF before forwarding finance",
+        "Share appendix, exhibit, or signature pages without sending an entire contract or report",
+        "Package academic chapters or reading packs by splitting a textbook PDF by page range",
+        "Create a compact email attachment from selected sheets while the full source stays private on your device"
       ],
       "relatedTools": [
         "pdf-split",
@@ -6381,19 +6702,59 @@
       "faq": [
         {
           "q": "What page range format is supported?",
-          "a": "Use comma-separated pages and dashes for ranges, like 1, 3-5, 8."
+          "a": "Use comma-separated pages and dashes for ranges, like 1, 3-5, 8. That lets you extract pages from PDF online with precise control over every sheet that lands in the new file."
         },
         {
           "q": "Is extraction processed locally?",
-          "a": "Yes. Pages are copied into a new PDF entirely in your browser."
+          "a": "Yes. Pages are copied into a new PDF entirely in your browser. That is our Zero-Upload Promise—the source file never reaches JoinMyPDF servers."
         },
         {
           "q": "Will extracted pages lose quality?",
-          "a": "No. Pages are copied from the source file without re-encoding."
+          "a": "No. Pages are copied from the source file without re-encoding, so text, vector art, and images stay as sharp as the originals."
         },
         {
           "q": "Can I extract the same page twice?",
-          "a": "Yes. Repeat a page number in your spec if you need duplicates in the output."
+          "a": "Yes. Repeat a page number in your specification if you need duplicates in the output order."
+        },
+        {
+          "q": "Is Extract PDF Pages free to use?",
+          "a": "Yes. Standard in-browser extraction is free—no payment, trial watermark, or account required for everyday use."
+        },
+        {
+          "q": "Do you add a watermark to extracted PDFs?",
+          "a": "No. JoinMyPDF does not stamp a watermark on PDFs downloaded from this tool."
+        },
+        {
+          "q": "Can I save specific PDF pages on mobile?",
+          "a": "Yes. The extractor works in modern mobile browsers. For very large multi-page files, a desktop browser usually offers more memory headroom."
+        },
+        {
+          "q": "Are there file size or page limits?",
+          "a": "There is no fixed JoinMyPDF upload quota because nothing is uploaded. Very large PDFs can still hit browser memory limits—try closing other tabs, or extract a smaller range first."
+        },
+        {
+          "q": "Does page extraction work offline?",
+          "a": "After the page loads once, you can keep working without a network connection because processing stays in your browser. You still need network access for the first visit."
+        },
+        {
+          "q": "Do I need an account to extract PDF pages?",
+          "a": "No account is required. Open the tool, add your PDF, enter pages or ranges, extract, and download the new file."
+        },
+        {
+          "q": "What happens to my PDF after I close the tab?",
+          "a": "The working copy lives only in your browser session. Closing or refreshing the tab clears it from memory—we do not retain your PDF on our servers."
+        },
+        {
+          "q": "When should I extract pages instead of splitting the whole file?",
+          "a": "Use extraction when you want to save specific PDF pages or split PDF by page range into one compact deliverable—ideal for exhibits, invoice sections, and appendices—while leaving the original document untouched on your device."
+        },
+        {
+          "q": "What should I do if extraction fails or freezes?",
+          "a": "Confirm page numbers fall within the document length, try a smaller range, disable heavy browser extensions, or unlock a password-protected PDF first. Re-export from the source app if the file will not open."
+        },
+        {
+          "q": "How does JoinMyPDF keep page extraction private?",
+          "a": "Range parsing and page copying run locally in your browser tab. Combined with the Zero-Upload Promise, that keeps contracts, statements, and personal PDFs off JoinMyPDF infrastructure during extraction."
         }
       ],
       "longTailPages": [],
@@ -6402,25 +6763,65 @@
       "longTailPriority": null,
       "internalLinkWeight": null,
       "homepageFeatureEligible": true,
-      "updatedAt": "2026-06-02",
+      "updatedAt": "2026-07-29",
       "documentation": {
-        "whyItMatters": "Select specific pages or ranges like 1, 3-5 and download them as a new PDF in your browser.",
+        "whyItMatters": "Long PDFs rarely need to travel whole. JoinMyPDF’s Extract PDF Pages tool helps you extract pages from PDF online when you only need a chapter, invoice block, or exhibit set—without uploading the source file. Under our Zero-Upload Promise, you save specific PDF pages as a new compact document entirely in your browser: pick exact numbers or ranges such as 1, 3-5, 12, preview the selection, and download a clean subset while fonts and images stay sharp. Prefer to split PDF by page range instead of shipping a 40-page packet? Enter the ranges once, extract, and share only what the recipient should see.",
         "faq": [
           {
             "question": "What page range format is supported?",
-            "answer": "Use comma-separated pages and dashes for ranges, like 1, 3-5, 8."
+            "answer": "Use comma-separated pages and dashes for ranges, like 1, 3-5, 8. That lets you extract pages from PDF online with precise control over every sheet that lands in the new file."
           },
           {
             "question": "Is extraction processed locally?",
-            "answer": "Yes. Pages are copied into a new PDF entirely in your browser."
+            "answer": "Yes. Pages are copied into a new PDF entirely in your browser. That is our Zero-Upload Promise—the source file never reaches JoinMyPDF servers."
           },
           {
             "question": "Will extracted pages lose quality?",
-            "answer": "No. Pages are copied from the source file without re-encoding."
+            "answer": "No. Pages are copied from the source file without re-encoding, so text, vector art, and images stay as sharp as the originals."
           },
           {
             "question": "Can I extract the same page twice?",
-            "answer": "Yes. Repeat a page number in your spec if you need duplicates in the output."
+            "answer": "Yes. Repeat a page number in your specification if you need duplicates in the output order."
+          },
+          {
+            "question": "Is Extract PDF Pages free to use?",
+            "answer": "Yes. Standard in-browser extraction is free—no payment, trial watermark, or account required for everyday use."
+          },
+          {
+            "question": "Do you add a watermark to extracted PDFs?",
+            "answer": "No. JoinMyPDF does not stamp a watermark on PDFs downloaded from this tool."
+          },
+          {
+            "question": "Can I save specific PDF pages on mobile?",
+            "answer": "Yes. The extractor works in modern mobile browsers. For very large multi-page files, a desktop browser usually offers more memory headroom."
+          },
+          {
+            "question": "Are there file size or page limits?",
+            "answer": "There is no fixed JoinMyPDF upload quota because nothing is uploaded. Very large PDFs can still hit browser memory limits—try closing other tabs, or extract a smaller range first."
+          },
+          {
+            "question": "Does page extraction work offline?",
+            "answer": "After the page loads once, you can keep working without a network connection because processing stays in your browser. You still need network access for the first visit."
+          },
+          {
+            "question": "Do I need an account to extract PDF pages?",
+            "answer": "No account is required. Open the tool, add your PDF, enter pages or ranges, extract, and download the new file."
+          },
+          {
+            "question": "What happens to my PDF after I close the tab?",
+            "answer": "The working copy lives only in your browser session. Closing or refreshing the tab clears it from memory—we do not retain your PDF on our servers."
+          },
+          {
+            "question": "When should I extract pages instead of splitting the whole file?",
+            "answer": "Use extraction when you want to save specific PDF pages or split PDF by page range into one compact deliverable—ideal for exhibits, invoice sections, and appendices—while leaving the original document untouched on your device."
+          },
+          {
+            "question": "What should I do if extraction fails or freezes?",
+            "answer": "Confirm page numbers fall within the document length, try a smaller range, disable heavy browser extensions, or unlock a password-protected PDF first. Re-export from the source app if the file will not open."
+          },
+          {
+            "question": "How does JoinMyPDF keep page extraction private?",
+            "answer": "Range parsing and page copying run locally in your browser tab. Combined with the Zero-Upload Promise, that keeps contracts, statements, and personal PDFs off JoinMyPDF infrastructure during extraction."
           }
         ]
       }

@@ -54,6 +54,7 @@ export const TOOL_REAL_WORLD_EXAMPLES: Record<string, string> = {
   "heic-to-pdf": "Combine iPhone photos of receipts into one PDF for your expense report.",
   "html-markdown-converter": "Turn a formatted blog draft into Markdown for your static site generator.",
   "html-to-pdf": "Save an online order confirmation page as a PDF for your records.",
+  "eml-to-pdf": "Archive a signed contract email as a PDF so you can file it with your paperwork.",
   "ico-to-png": "Convert an old website's ICO favicon into a PNG you can edit in any image editor.",
   "image-blur-redact": "Blur license plates and faces in a street photo before posting it publicly.",
   "image-converter": "Convert a designer's TIFF files to JPG so they open on any device.",

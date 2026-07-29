@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { PdfReaderIntroGate } from "@/components/PdfReaderIntroGate";
 import { PdfReaderWorkspace } from "@/components/PdfReaderWorkspace";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
@@ -102,9 +101,7 @@ export default async function PdfReaderPage({ params }: PageProps) {
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
-            <PdfReaderIntroGate>
               <PdfReaderWorkspace tool={tool} slug={SLUG} />
-            </PdfReaderIntroGate>
           </section>
         </div>
       </AppPageShell>

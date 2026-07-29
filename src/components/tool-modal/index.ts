@@ -18,4 +18,3 @@ export {
 } from "@/components/tool-modal/ToolModalFaqAccordion";
 export { ToolEmbedModeMarker } from "@/components/tool-modal/ToolEmbedModeMarker";
 export { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-export { useToolIntroChrome } from "@/components/tool-modal/useToolIntroChrome";

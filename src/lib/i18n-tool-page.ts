@@ -84,6 +84,7 @@ const ACTION_KEYS: Record<string, string> = {
   "openoffice-to-pdf": "openoffice",
   "markdown-to-pdf": "markdown",
   "html-to-pdf": "html",
+  "eml-to-pdf": "emlToPdf",
   "ebook-to-pdf": "ebook",
   "iwork-to-pdf": "iwork",
   protect: "protect",

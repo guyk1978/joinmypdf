@@ -1,3 +1,15 @@
+/** Strip marketing suffixes so card labels stay short (no "Online", taglines, etc.). */
+export function stripToolLabelMarketing(label: string): string {
+  return label
+    .replace(/\s*\([^)]*\)\s*$/g, "")
+    .replace(/\s+[-–—]\s+.+$/u, "")
+    .replace(/\bFree\s+Online\b/gi, "")
+    .replace(/\bOnline\b/gi, "")
+    .replace(/^\s*Free\s+/i, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 /** Short display labels for tools in nav, grid, and mega menu. */
 export function getToolDisplayLabel(slug: string, fallbackTitle: string): string {
   const map: Record<string, string> = {
@@ -9,6 +21,7 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "annotate-pdf": "Annotate PDF",
     "reorder-pdf-pages": "Reorder PDF Pages",
     "extract-pdf-pages": "Extract PDF Pages",
+    "n-up-pdf": "N-Up PDF",
     "compare-pdf": "Compare PDF",
     "pdf-to-booklet": "PDF to Booklet",
     "safe-to-share-auditor": "Safe-to-Share Auditor",
@@ -44,11 +57,17 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "openoffice-to-pdf": "OpenOffice to PDF",
     "markdown-to-pdf": "Markdown to PDF",
     "html-to-pdf": "HTML to PDF",
+    "eml-to-pdf": "EML to PDF",
     "ebook-to-pdf": "eBook to PDF",
     "iwork-to-pdf": "iWork to PDF",
     "invoice-generator": "Invoice Generator",
     "timeline-gantt-generator": "Timeline & Gantt",
     "data-converter-visualizer": "Data Converter",
   };
-  return map[slug] || fallbackTitle;
+  return map[slug] || stripToolLabelMarketing(fallbackTitle);
+}
+
+/** Compact card title — mapped short name, then marketing stripped. */
+export function getToolCardShortLabel(slug: string, fallbackTitle: string): string {
+  return stripToolLabelMarketing(getToolDisplayLabel(slug, fallbackTitle));
 }

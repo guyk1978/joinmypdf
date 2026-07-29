@@ -5,11 +5,24 @@ export type ToolDocumentationFaq = {
   answer: string;
 };
 
+export type ToolDocumentationHowToStep = {
+  name: string;
+  text: string;
+};
+
+export type ToolDocumentationHowTo = {
+  name: string;
+  description?: string;
+  steps: ToolDocumentationHowToStep[];
+};
+
 /** Long-form educational copy owned by the tool definition, not the interaction UI. */
 export type ToolDocumentation = {
   /** Why this tool matters — editorial / SEO prose. */
   whyItMatters: string;
   faq: ToolDocumentationFaq[];
+  /** Optional HowTo steps for on-page guidance and HowTo JSON-LD rich results. */
+  howTo?: ToolDocumentationHowTo;
 };
 
 export type ToolVariant = {

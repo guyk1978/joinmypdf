@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
-import { ColorPaletteExtractorIntroGate } from "@/components/ColorPaletteExtractorIntroGate";
 import { ColorPaletteExtractorWorkspace } from "@/components/tools/design/ColorPaletteExtractorWorkspace";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
@@ -80,9 +79,7 @@ export default async function ColorPaletteExtractorPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
             <h1 className="sr-only">{t("title")}</h1>
 <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
-            <ColorPaletteExtractorIntroGate>
               <ColorPaletteExtractorWorkspace tool={tool} slug={SLUG} />
-            </ColorPaletteExtractorIntroGate>
           </section>
 </div>
       </AppPageShell>

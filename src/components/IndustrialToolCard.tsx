@@ -2,15 +2,14 @@
 
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
-import { ToolCardExample } from "@/components/ToolCardExample";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
 import { ToolPinButton } from "@/components/ToolPinButton";
-import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
   getCategoryAccentCssVar,
@@ -18,6 +17,7 @@ import {
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
+import { getToolCardShortLabel } from "@/lib/tool-labels";
 import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolRealWorldExampleByLocale } from "@/data/tool-real-world-examples-localized";
 
@@ -36,13 +36,12 @@ export type IndustrialToolCardProps = {
   /** When false, always navigate (skip modal). Default true. */
   openInModal?: boolean;
   /**
-   * `tool-modal` — card click opens the workspace modal (hub default).
-   * `focus` — card click opens the expanded focus popup (homepage sections).
+   * `tool-modal` — Go opens the workspace modal (hub default).
+   * `focus` — Go / Expand open the expanded focus popup (homepage sections).
    */
   interactionMode?: "tool-modal" | "focus";
   /**
-   * Keep the solid cover (name only) at all times — no hover detail chrome.
-   * Used with `interactionMode="focus"` on the homepage.
+   * @deprecated Compact cards always show the action row; kept for call-site compatibility.
    */
   coverOnly?: boolean;
 };
@@ -54,9 +53,8 @@ function slugFromHref(href: string): string {
 }
 
 /**
- * Industrial Matte tool card — two-state overlay:
- * default = matte black plate + centered title; hover = full detail chrome.
- * Homepage can lock cover-only + open the focus popup on click.
+ * Compact Industrial Matte tool card:
+ * category accent strip → short name → expand / pin / go icon row.
  */
 export function IndustrialToolCard({
   href,
@@ -69,7 +67,6 @@ export function IndustrialToolCard({
   returnHref: returnHrefProp,
   openInModal = true,
   interactionMode = "tool-modal",
-  coverOnly = false,
 }: IndustrialToolCardProps) {
   const modal = useOptionalToolModal();
   const embed = useToolEmbedMode();
@@ -77,9 +74,10 @@ export function IndustrialToolCard({
   const tCard = useTranslations("ToolCard");
   const [focusOpen, setFocusOpen] = useState(false);
   const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
+  const shortLabel = getToolCardShortLabel(toolSlug, label);
   /** Hub context for modal close / return navigation. */
   const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
-  /** Per-tool accent so cover fills stay distinct across a shared hub grid. */
+  /** Per-tool accent so covers stay distinct across a shared hub grid. */
   const accentCategoryId =
     resolveToolAccentCategoryId(toolSlug, categoryId) ?? categoryId ?? "pdf";
   const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId, locale) : href;
@@ -89,27 +87,31 @@ export function IndustrialToolCard({
     "--category-accent": getCategoryAccentCssVar(accentCategoryId),
   } as CSSProperties;
   const focusInteraction = interactionMode === "focus";
+  const openViaModal = !focusInteraction && openInModal && Boolean(modal) && !embed;
 
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    if (event.button !== 0) return;
-
+  const openTool = (event?: MouseEvent<HTMLAnchorElement>) => {
     if (focusInteraction) {
-      event.preventDefault();
+      event?.preventDefault();
       setFocusOpen(true);
       return;
     }
 
-    if (!openInModal || !modal || embed) return;
-    event.preventDefault();
+    if (!openViaModal || !modal) return;
+    event?.preventDefault();
     modal.openToolModal({
       slug: toolSlug,
       href: nestedHref,
-      title: label,
+      title: shortLabel,
       description,
       categoryId,
       returnHref,
     });
+  };
+
+  const handleGoClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (event.button !== 0) return;
+    openTool(event);
   };
 
   const exampleKey = `examples.${toolSlug}`;
@@ -119,76 +121,44 @@ export function IndustrialToolCard({
 
   return (
     <div
-      className={clsx(
-        "im-tool-card",
-        coverOnly && "im-tool-card--cover-only",
-        className,
-      )}
+      className={clsx("im-tool-card", className)}
       data-category={accentCategoryId}
       style={accentStyle}
     >
-      {/* Overlay link keeps the whole card clickable while the example toggle
-          and Focus expand button stay valid interactive siblings (never
-          buttons nested inside an anchor). */}
-      <Link
-        href={nestedHref}
-        className="im-tool-card__overlay"
-        prefetch={false}
-        aria-label={label}
-        aria-haspopup={focusInteraction ? "dialog" : undefined}
-        data-tool-modal-open={
-          !focusInteraction && openInModal && modal && !embed ? "" : undefined
-        }
-        onClick={handleClick}
-      />
+      <span className="im-tool-card__title">{shortLabel}</span>
 
-      <span className="im-tool-card__cover" aria-hidden>
-        <span className="im-tool-card__cover-title">{label}</span>
-      </span>
+      <div className="im-tool-card__actions" role="group" aria-label={shortLabel}>
+        <ToolCardFocus
+          slug={toolSlug}
+          href={nestedHref}
+          label={shortLabel}
+          description={description}
+          example={example}
+          icon={icon}
+          categoryId={accentCategoryId}
+          open={focusInteraction ? focusOpen : undefined}
+          onOpenChange={focusInteraction ? setFocusOpen : undefined}
+          showExpandButton
+          className="im-tool-card__action im-tool-card__expand"
+        />
 
-      <div className="im-tool-card__detail" aria-hidden={coverOnly ? true : undefined}>
-        {/* Two-column structure:
-            - left column: title + description (full-height)
-            - right column: pin + expand controls, then centered logo
-            - footer: example + rating centered across both columns */}
-        <div className="im-tool-card__left">
-          <div className="im-tool-card__content">
-            <span className="im-tool-card__title">{label}</span>
-            {description ? <span className="im-tool-card__description">{description}</span> : null}
-          </div>
-        </div>
+        <ToolPinButton
+          toolId={toolSlug}
+          variant="card"
+          className="im-tool-card__action im-tool-card__pin"
+        />
 
-        <div className="im-tool-card__right">
-          <div className="im-tool-card__controls">
-            <ToolPinButton toolId={toolSlug} variant="card" className="im-tool-card__pin" />
-            <ToolCardFocus
-              slug={toolSlug}
-              href={nestedHref}
-              label={label}
-              description={description}
-              example={example}
-              icon={icon}
-              categoryId={accentCategoryId}
-              open={focusInteraction ? focusOpen : undefined}
-              onOpenChange={focusInteraction ? setFocusOpen : undefined}
-              showExpandButton={!coverOnly}
-              className="im-tool-card__expand"
-            />
-          </div>
-
-          <div className="im-tool-card__icon-box" aria-hidden>
-            <span className="im-tool-card__icon">{icon}</span>
-          </div>
-        </div>
-
-        <div className="im-tool-card__footer">
-          {example ? <ToolCardExample example={example} /> : null}
-          <ToolRatingSummary
-            toolId={toolSlug}
-            categoryId={accentCategoryId}
-            className="im-tool-card__rating"
-          />
-        </div>
+        <Link
+          href={nestedHref}
+          className="im-tool-card__action im-tool-card__go"
+          prefetch={false}
+          aria-label={tCard("goAria", { label: shortLabel })}
+          title={tCard("goAria", { label: shortLabel })}
+          data-tool-modal-open={openViaModal ? "" : undefined}
+          onClick={handleGoClick}
+        >
+          <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
+        </Link>
       </div>
     </div>
   );

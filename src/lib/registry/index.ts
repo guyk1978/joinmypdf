@@ -4,6 +4,9 @@ import raw from "../../../assets/data/tools.json";
 import base_converterDocs from "./base-converter";
 import color_converterDocs from "./color-converter";
 import color_palette_extractorDocs from "./color-palette-extractor";
+import delete_pdf_pagesDocs from "./delete-pdf-pages";
+import eml_to_pdfDocs from "./eml-to-pdf";
+import extract_pdf_pagesDocs from "./extract-pdf-pages";
 import favicon_generatorDocs from "./favicon-generator";
 import global_timezone_converterDocs from "./global-timezone-converter";
 import image_blur_redactDocs from "./image-blur-redact";
@@ -15,6 +18,7 @@ import image_watermarkDocs from "./image-watermark";
 import json_csv_explorerDocs from "./json-csv-explorer";
 import lorem_ipsum_generatorDocs from "./lorem-ipsum-generator";
 import my_ipDocs from "./my-ip";
+import n_up_pdfDocs from "./n-up-pdf";
 import pdf_editorDocs from "./pdf-editor";
 import readability_analyzerDocs from "./readability-analyzer";
 import rotate_imageDocs from "./rotate-image";
@@ -42,6 +46,9 @@ export const DOCUMENTATION_BY_SLUG: Record<string, ToolDocumentation> = {
   "base-converter": base_converterDocs,
   "color-converter": color_converterDocs,
   "color-palette-extractor": color_palette_extractorDocs,
+  "delete-pdf-pages": delete_pdf_pagesDocs,
+  "eml-to-pdf": eml_to_pdfDocs,
+  "extract-pdf-pages": extract_pdf_pagesDocs,
   "favicon-generator": favicon_generatorDocs,
   "global-timezone-converter": global_timezone_converterDocs,
   "image-blur-redact": image_blur_redactDocs,
@@ -53,6 +60,7 @@ export const DOCUMENTATION_BY_SLUG: Record<string, ToolDocumentation> = {
   "json-csv-explorer": json_csv_explorerDocs,
   "lorem-ipsum-generator": lorem_ipsum_generatorDocs,
   "my-ip": my_ipDocs,
+  "n-up-pdf": n_up_pdfDocs,
   "pdf-editor": pdf_editorDocs,
   "readability-analyzer": readability_analyzerDocs,
   "rotate-image": rotate_imageDocs,

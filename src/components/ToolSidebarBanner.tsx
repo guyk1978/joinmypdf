@@ -26,7 +26,8 @@ export type ToolSidebarBannerProps = {
  * Cross-promo card for the empty side columns of a tool landing.
  * Full size is ~250×400; scales down on md/lg so laptop + browser zoom still fits.
  *
- * Rail contract (see ToolIntroSideBanners):
+ * Side banners used to accompany cinematic tool intro rails.
+ * Kept as a reusable promo card for related-tool discovery.
  * - Visible from md (768+) when viewport height > ~520px
  * - Progressive sizes: md 150×240 → lg 188×300 → xl 210×340 → 2xl 250×400
  * - Height capped at min(400px, 52vh)

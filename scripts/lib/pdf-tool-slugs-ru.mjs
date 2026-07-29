@@ -20,6 +20,7 @@ export const PDF_TOOL_SLUGS_RU = {
   "grayscale-pdf": "chernobelyi-pdf",
   "heic-to-pdf": "heic-v-pdf",
   "html-to-pdf": "html-v-pdf",
+  "eml-to-pdf": "eml-v-pdf",
   "iwork-to-pdf": "iwork-v-pdf",
   "jpg-to-pdf": "jpg-v-pdf",
   "markdown-to-pdf": "markdown-v-pdf",

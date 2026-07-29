@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
+import { CategoryHubPageHeader, getCategoryToolCount } from "@/components/CategoryHubPageHeader";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getXmlToolFeatureLabels, XML_TOOLS_HUB_PATH } from "@/lib/xml-tools";
@@ -60,10 +61,12 @@ export default async function XmlToolsHubPage({ params }: PageProps) {
       <JsonLd data={breadcrumbLd(crumbs)} />
       <AppPageShell mainClassName={productPageMainClassName}>
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
-          <header className="mb-6 border-b border-[#262626] pb-6">
-            <h1 className="mb-6 text-4xl font-bold text-white">{t("title")}</h1>
-            <p className="m-0 text-base leading-relaxed text-[#a3a3a3]">{t("description")}</p>
-          </header>
+          <CategoryHubPageHeader
+            categoryId="xml"
+            title={t("title", { count: getCategoryToolCount("xml") })}
+            description={t("description")}
+            variant="bordered"
+          />
 
           <section
             className="tools-hub-panel mt-10 border-t border-[#262626] pt-8"

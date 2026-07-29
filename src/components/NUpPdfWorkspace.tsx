@@ -18,6 +18,7 @@ import {
   nUpOutputSheetCount,
   nUpPdfOutputName,
   resolveNUpGrid,
+  type NUpOrientation,
   type NUpPreset,
   type NUpProgress,
 } from "@/lib/pdf-n-up";
@@ -37,6 +38,8 @@ import {
 } from "react";
 
 const PRESETS: NUpPreset[] = ["2-up", "4-up", "6-up", "9-up", "custom"];
+const ORIENTATIONS: NUpOrientation[] = ["auto", "portrait", "landscape"];
+const MARGIN_OPTIONS = [0, 4, 8, 12, 18, 24] as const;
 
 function downloadBlob(blob: Blob, name: string) {
   const a = document.createElement("a");
@@ -71,6 +74,8 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
   const [preset, setPreset] = useState<NUpPreset>("4-up");
   const [customCols, setCustomCols] = useState(2);
   const [customRows, setCustomRows] = useState(2);
+  const [orientation, setOrientation] = useState<NUpOrientation>("auto");
+  const [marginPt, setMarginPt] = useState<number>(8);
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
   const [progress, setProgress] = useState<NUpProgress | null>(null);
@@ -159,7 +164,14 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
     try {
       const bytes = await createNUpPdf(
         file,
-        { preset, customCols, customRows, password: password.trim() || undefined },
+        {
+          preset,
+          customCols,
+          customRows,
+          orientation,
+          marginPt,
+          password: password.trim() || undefined,
+        },
         (p) => {
           setProgress(p);
           setStatus(labelProgress(p));
@@ -326,6 +338,48 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
             ) : null}
             <p className="text-xs leading-relaxed text-ink-muted">{ws.wsUi("layoutHint")}</p>
           </fieldset>
+
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="protect-form__fields min-w-[9rem]">
+              <label className="protect-form__label" htmlFor={`${baseId}-orientation`}>
+                {ws.wsUi("orientationLabel")}
+              </label>
+              <select
+                id={`${baseId}-orientation`}
+                value={orientation}
+                disabled={busy}
+                onChange={(e) => setOrientation(e.target.value as NUpOrientation)}
+                className="protect-form__input"
+              >
+                {ORIENTATIONS.map((value) => (
+                  <option key={value} value={value}>
+                    {ws.wsUi(`orientation_${value}`)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="protect-form__fields min-w-[9rem]">
+              <label className="protect-form__label" htmlFor={`${baseId}-margin`}>
+                {ws.wsUi("marginLabel")}
+              </label>
+              <select
+                id={`${baseId}-margin`}
+                value={marginPt}
+                disabled={busy}
+                onChange={(e) => setMarginPt(Number(e.target.value))}
+                className="protect-form__input"
+              >
+                {MARGIN_OPTIONS.map((value) => (
+                  <option key={value} value={value}>
+                    {ws.wsUi("marginOption", { pt: value })}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <p className="text-xs leading-relaxed text-ink-muted pb-2 max-w-sm">
+              {ws.wsUi("orientationMarginHint")}
+            </p>
+          </div>
 
           <div className="protect-form__fields max-w-md">
             <label className="protect-form__label" htmlFor={`${baseId}-password`}>
