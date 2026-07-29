@@ -49,14 +49,14 @@ function resolveInventoryLabel(
 ): string {
   const labelKey = entry.labelKey ?? LABEL_KEY_BY_SLUG[entry.id];
   if (t) {
+    // Prefer Tools.items.<slug> so locale catalogs win over stale hub tools.* strings.
+    if (t.has(`items.${entry.id}`)) return t(`items.${entry.id}`);
     if (labelKey) {
+      if (t.has(`navItems.${labelKey}`)) return t(`navItems.${labelKey}`);
       const hubKey = hubNamespaceTools ? `tools.${labelKey}` : labelKey;
       if (t.has(hubKey)) return t(hubKey);
-      if (t.has(`navItems.${labelKey}`)) return t(`navItems.${labelKey}`);
       if (t.has(labelKey)) return t(labelKey);
     }
-    // Tools.items.<slug> (preferred for locale-specific tool titles)
-    if (t.has(`items.${entry.id}`)) return t(`items.${entry.id}`);
   }
 
   return (

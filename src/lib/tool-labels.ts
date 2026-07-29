@@ -6,12 +6,29 @@ export function stripToolLabelMarketing(label: string): string {
     .replace(/\bFree\s+Online\b/gi, "")
     .replace(/\bOnline\b/gi, "")
     .replace(/^\s*Free\s+/i, "")
+    // Hebrew marketing fluff
+    .replace(/\s*אונליין\s*/g, " ")
+    .replace(/\s*בחינם\s*/g, " ")
+    .replace(/^\s*חינם\s+/u, "")
+    // Russian marketing fluff
+    .replace(/\s*онлайн\s*/gi, " ")
+    .replace(/\s*бесплатно\s*/gi, " ")
+    .replace(/^\s*Бесплатн\S*\s+/u, "")
     .replace(/\s{2,}/g, " ")
     .trim();
 }
 
-/** Short display labels for tools in nav, grid, and mega menu. */
+/**
+ * Short English display labels for tools in nav / grids when no localized
+ * title is available. Prefer caller-provided (translated) titles instead.
+ */
 export function getToolDisplayLabel(slug: string, fallbackTitle: string): string {
+  const localized = stripToolLabelMarketing(fallbackTitle);
+  // If the caller already resolved a real title, keep it (supports he/ru).
+  if (localized && localized !== slug && !looksLikeRawSlug(localized)) {
+    return localized;
+  }
+
   const map: Record<string, string> = {
     "pdf-merge": "Merge PDF",
     "pdf-compress": "Compress PDF",
@@ -64,10 +81,14 @@ export function getToolDisplayLabel(slug: string, fallbackTitle: string): string
     "timeline-gantt-generator": "Timeline & Gantt",
     "data-converter-visualizer": "Data Converter",
   };
-  return map[slug] || stripToolLabelMarketing(fallbackTitle);
+  return map[slug] || localized || fallbackTitle;
 }
 
-/** Compact card title — mapped short name, then marketing stripped. */
+function looksLikeRawSlug(value: string): boolean {
+  return /^[a-z0-9]+(?:-[a-z0-9]+)+$/i.test(value.trim());
+}
+
+/** Compact card title — prefer localized fallback, then English short map. */
 export function getToolCardShortLabel(slug: string, fallbackTitle: string): string {
-  return stripToolLabelMarketing(getToolDisplayLabel(slug, fallbackTitle));
+  return getToolDisplayLabel(slug, fallbackTitle);
 }

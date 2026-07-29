@@ -1,12 +1,15 @@
 import { BRAND_NAME_EN, BRAND_NAME_HE } from "./brand";
 
-/** Hebrew spelling of “PDF” for user-facing copy on Hebrew pages. */
-export const HEBREW_PDF_TERM = "פי די אף";
+/**
+ * Keep the Latin “PDF” acronym in Hebrew UI (e.g. מיזוג PDF, פיצול PDF).
+ * Full transliteration (“פי די אף”) reads awkwardly on compact tool cards.
+ */
+export const HEBREW_PDF_TERM = "PDF";
 
 /** Standalone “PDF” only — skips JoinMyPDF and other letter-adjacent tokens. */
 const STANDALONE_PDF = /(?<![A-Za-z])PDF(?![A-Za-z])/g;
 
-/** Replace Latin “PDF” with פי די אף while keeping the JoinMyPDF brand intact. */
+/** Normalize standalone Latin “PDF” tokens while keeping the JoinMyPDF brand intact. */
 export function localizeHebrewPdfInText(text: string): string {
   if (!text.includes("PDF")) return text;
   return text.replace(STANDALONE_PDF, HEBREW_PDF_TERM);

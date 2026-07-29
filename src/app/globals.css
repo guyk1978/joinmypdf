@@ -2644,6 +2644,8 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   --im-tool-card-surface: #121212;
   position: relative;
   box-sizing: border-box;
+  /* Keep chrome LTR in all locales: accent dot left, actions far right. */
+  direction: ltr;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -2659,7 +2661,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   border-radius: 8px;
   box-shadow: none;
   color: inherit;
-  text-align: start;
+  text-align: left;
   text-decoration: none;
   overflow: hidden;
   transition:
@@ -2703,6 +2705,9 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   -webkit-box-orient: unset;
   text-wrap: nowrap;
   overflow-wrap: normal;
+  /* Allow Hebrew/Russian to shape correctly inside the LTR card chrome. */
+  unicode-bidi: plaintext;
+  text-align: left;
 }
 
 .im-tool-card__actions {
