@@ -208,7 +208,7 @@ export function WorkspaceProjectProvider({
       if (pending) {
         pendingRestoreBySlug.delete(slug);
         const restore = resolved.onRestore;
-        queue.resolve().then(() => {
+        Promise.resolve().then(() => {
           restore(pending);
         });
       }
