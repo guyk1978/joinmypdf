@@ -1,5 +1,6 @@
 "use client";
 
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { DELETE_PAGES_THUMB_SCALE, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
 import {
   DndContext,
@@ -23,6 +24,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { clsx } from "clsx";
 import { ChevronDown, ChevronUp, GripVertical } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -47,10 +49,12 @@ type SortableThumbProps = {
   password: string;
   loadingLabel: string;
   pageLabel: string;
+  previewAria: string;
   moveUpLabel: string;
   moveDownLabel: string;
   onMoveUp: () => void;
   onMoveDown: () => void;
+  onPreview: () => void;
   canMoveUp: boolean;
   canMoveDown: boolean;
   selected?: boolean;
@@ -125,10 +129,12 @@ function SortablePageThumb({
   password,
   loadingLabel,
   pageLabel,
+  previewAria,
   moveUpLabel,
   moveDownLabel,
   onMoveUp,
   onMoveDown,
+  onPreview,
   canMoveUp,
   canMoveDown,
   selected,
@@ -185,12 +191,20 @@ function SortablePageThumb({
           <ChevronDown className="h-4 w-4" aria-hidden />
         </button>
       </div>
-      <LazyThumbCanvas
-        fileBytes={fileBytes}
-        pageIndex={originalPageIndex}
-        password={password}
-        loadingLabel={loadingLabel}
-      />
+      <button
+        type="button"
+        className="page-manage-thumb__preview-btn"
+        data-pdf-page-preview=""
+        aria-label={previewAria}
+        onClick={onPreview}
+      >
+        <LazyThumbCanvas
+          fileBytes={fileBytes}
+          pageIndex={originalPageIndex}
+          password={password}
+          loadingLabel={loadingLabel}
+        />
+      </button>
       <p className="visual-reorder-card__name">{pageLabel}</p>
     </div>
   );
@@ -233,9 +247,11 @@ type VirtualGridCellProps = {
   password: string;
   loadingLabel: string;
   pageLabel: (page: number) => string;
+  previewAria: (page: number) => string;
   moveUpLabel: string;
   moveDownLabel: string;
   onMoveItem: (from: number, to: number) => void;
+  onPreview: (pageIndex: number) => void;
   selectedPages?: Set<number>;
 };
 
@@ -248,9 +264,11 @@ function VirtualGridCell({
   password,
   loadingLabel,
   pageLabel,
+  previewAria,
   moveUpLabel,
   moveDownLabel,
   onMoveItem,
+  onPreview,
   selectedPages,
 }: {
   ariaAttributes: { "aria-colindex": number; role: "gridcell" };
@@ -275,10 +293,12 @@ function VirtualGridCell({
         password={password}
         loadingLabel={loadingLabel}
         pageLabel={pageLabel(originalIndex + 1)}
+        previewAria={previewAria(originalIndex + 1)}
         moveUpLabel={moveUpLabel}
         moveDownLabel={moveDownLabel}
         onMoveUp={() => onMoveItem(displayIndex, displayIndex - 1)}
         onMoveDown={() => onMoveItem(displayIndex, displayIndex + 1)}
+        onPreview={() => onPreview(originalIndex)}
         canMoveUp={displayIndex > 0}
         canMoveDown={displayIndex < pageOrder.length - 1}
         selected={selectedPages?.has(originalIndex)}
@@ -299,7 +319,9 @@ export function PageManageSortableGrid({
   hint,
   selectedPages,
 }: PageManageSortableGridProps) {
+  const tCommon = useTranslations("Workspaces.common");
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [previewPageIndex, setPreviewPageIndex] = useState<number | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -310,6 +332,14 @@ export function PageManageSortableGrid({
   const sortableIds = useMemo(
     () => pageOrder.map((originalIndex) => `page-${originalIndex}`),
     [pageOrder],
+  );
+
+  const previewAria = useCallback(
+    (page: number) =>
+      tCommon.has("openPagePreview")
+        ? tCommon("openPagePreview", { page })
+        : `Open larger preview of page ${page}`,
+    [tCommon],
   );
 
   const moveItem = useCallback(
@@ -353,10 +383,12 @@ export function PageManageSortableGrid({
         password={password}
         loadingLabel={loadingLabel}
         pageLabel={pageLabel(originalIndex + 1)}
+        previewAria={previewAria(originalIndex + 1)}
         moveUpLabel={moveUpLabel}
         moveDownLabel={moveDownLabel}
         onMoveUp={() => moveItem(displayIndex, displayIndex - 1)}
         onMoveDown={() => moveItem(displayIndex, displayIndex + 1)}
+        onPreview={() => setPreviewPageIndex(originalIndex)}
         canMoveUp={displayIndex > 0}
         canMoveDown={displayIndex < pageOrder.length - 1}
         selected={selectedPages?.has(originalIndex)}
@@ -375,9 +407,11 @@ export function PageManageSortableGrid({
       password,
       loadingLabel,
       pageLabel,
+      previewAria,
       moveUpLabel,
       moveDownLabel,
       onMoveItem: moveItem,
+      onPreview: setPreviewPageIndex,
       selectedPages,
     }),
     [
@@ -386,12 +420,21 @@ export function PageManageSortableGrid({
       password,
       loadingLabel,
       pageLabel,
+      previewAria,
       moveUpLabel,
       moveDownLabel,
       moveItem,
       selectedPages,
     ],
   );
+
+  const pageCount = pageOrder.length;
+  const previewTitle =
+    previewPageIndex !== null
+      ? tCommon.has("pageOf")
+        ? tCommon("pageOf", { current: previewPageIndex + 1, total: pageCount })
+        : `Page ${previewPageIndex + 1} of ${pageCount}`
+      : "";
 
   return (
     <div className="visual-reorder-panel">
@@ -434,6 +477,21 @@ export function PageManageSortableGrid({
           ) : null}
         </DragOverlay>
       </DndContext>
+
+      <PdfPagePreviewModal
+        open={previewPageIndex !== null}
+        fileBytes={fileBytes}
+        pageIndex={previewPageIndex ?? 0}
+        password={password}
+        title={previewTitle}
+        closeLabel={
+          tCommon.has("closePagePreview") ? tCommon("closePagePreview") : "Close page preview"
+        }
+        loadingLabel={
+          tCommon.has("loadingPagePreview") ? tCommon("loadingPagePreview") : loadingLabel
+        }
+        onClose={() => setPreviewPageIndex(null)}
+      />
     </div>
   );
 }

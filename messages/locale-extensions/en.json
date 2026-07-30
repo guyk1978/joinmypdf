@@ -5920,7 +5920,11 @@
       "extractingLabel": "Extracting…",
       "extractAgain": "Extract again",
       "downloadExtractedFiles": "Download extracted files",
-      "choosePageRanges": "Choose page ranges"
+      "choosePageRanges": "Choose page ranges",
+      "pageOf": "Page {current} of {total}",
+      "closePagePreview": "Close page preview",
+      "loadingPagePreview": "Loading page preview…",
+      "openPagePreview": "Open larger preview of page {page}"
     },
     "upload": {
       "defaultPdf": {
@@ -6440,7 +6444,11 @@
           "xmp-title": "XMP title",
           "xmp-software": "XMP software"
         }
-      }
+      },
+      "pageOf": "Page {current} of {total}",
+      "closePagePreview": "Close page preview",
+      "loadingPagePreview": "Loading page preview…",
+      "openPagePreview": "Open larger preview of page {page}"
     },
     "word-to-pdf": {
       "status": {

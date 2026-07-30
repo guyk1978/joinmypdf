@@ -12,6 +12,7 @@ import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import * as pdf from "@/lib/pdf-engine";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { DELETE_PAGES_THUMB_SCALE, loadPdfPageCount, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
 import { extractPdfOutputName, parsePageRangeSpec } from "@/lib/pdf-pages";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
@@ -41,12 +42,16 @@ function ExtractPreviewThumb({
   password,
   loadingLabel,
   pageLabel,
+  previewAria,
+  onPreview,
 }: {
   pageIndex: number;
   fileBytes: Uint8Array;
   password: string;
   loadingLabel: string;
   pageLabel: string;
+  previewAria: string;
+  onPreview: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loading, setLoading] = useState(true);
@@ -73,10 +78,18 @@ function ExtractPreviewThumb({
   return (
     <div className="page-manage-thumb visual-reorder-card visual-reorder-card--page is-selected">
       <span className="visual-reorder-card__index">{pageLabel}</span>
-      <div className="page-manage-thumb__canvas-wrap">
-        {loading ? <p className="page-manage-thumb__loading">{loadingLabel}</p> : null}
-        <canvas ref={canvasRef} className="page-manage-thumb__canvas" />
-      </div>
+      <button
+        type="button"
+        className="page-manage-thumb__preview-btn"
+        data-pdf-page-preview=""
+        aria-label={previewAria}
+        onClick={onPreview}
+      >
+        <div className="page-manage-thumb__canvas-wrap">
+          {loading ? <p className="page-manage-thumb__loading">{loadingLabel}</p> : null}
+          <canvas ref={canvasRef} className="page-manage-thumb__canvas" />
+        </div>
+      </button>
     </div>
   );
 }
@@ -94,6 +107,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const [previewPageIndex, setPreviewPageIndex] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
@@ -303,9 +317,28 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
                       password={password}
                       loadingLabel={ws.wsUi("loadingThumb")}
                       pageLabel={ws.wsCommon("pageNumber", { page: pageIndex + 1 })}
+                      previewAria={ws.wsCommon("openPagePreview", { page: pageIndex + 1 })}
+                      onPreview={() => setPreviewPageIndex(pageIndex)}
                     />
                   ))}
                 </div>
+                <PdfPagePreviewModal
+                  open={previewPageIndex !== null}
+                  fileBytes={fileBytes}
+                  pageIndex={previewPageIndex ?? 0}
+                  password={password}
+                  title={
+                    previewPageIndex !== null
+                      ? ws.wsCommon("pageOf", {
+                          current: previewPageIndex + 1,
+                          total: pageCount,
+                        }) || `Page ${previewPageIndex + 1} of ${pageCount}`
+                      : ""
+                  }
+                  closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+                  loadingLabel={ws.wsCommon("loadingPagePreview") || ws.wsUi("loadingThumb")}
+                  onClose={() => setPreviewPageIndex(null)}
+                />
                 {selectedIndices.length > previewIndices.length ? (
                   <p className="text-xs text-ink-muted">
                     {ws.wsUi("previewMore", {

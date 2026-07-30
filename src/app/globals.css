@@ -34,7 +34,7 @@
   --app-canvas-max-width: 1400px;
   --app-canvas-bg: #121212;
   --app-canvas-border: #1a1a1a;
-  --app-content-pad-x: 1rem;
+  --app-content-pad-x: 1.25rem; /* min 20px side gutter — never flush to viewport edges */
   /* Category accent map — solid rich primaries for hubs + tool cards (no pastels) */
   --color-pdf: #2563EB;
   --color-video: #7C3AED;
@@ -177,8 +177,16 @@ html.viewport-recovering {
 
 /* Homepage ? premium tool grid dashboard */
 .home-tool-grid-page {
+  box-sizing: border-box;
   width: 100%;
   flex: 1 1 auto;
+  /* Global safety margin: never let page content sit flush to the viewport. */
+  padding-inline: var(--app-content-pad-x, 1.25rem);
+}
+
+/* Avoid stacking gutters when an inner page-container is present. */
+.home-tool-grid-page .page-container {
+  padding-inline: 0;
 }
 
 /* Homepage ? cold minimalist product-first layout */
@@ -334,7 +342,8 @@ html:has(.home-page-shell--minimal) body {
   width: 80%;
   max-width: var(--category-hub-max-width);
   margin-inline: auto;
-  padding-inline: clamp(1rem, 2.5vw, 1.5rem);
+  /* Edge gutter comes from .tool-page-main; keep a little inner air only. */
+  padding-inline: 0;
   text-align: start;
 }
 
@@ -530,7 +539,7 @@ html:has(.home-page-shell--minimal) body {
   /* Mirror the site header bar (--app-canvas-max-width / --app-content-pad-x)
      so page content and header content share the exact same edges. */
   --page-max-width: var(--app-canvas-max-width, 1400px);
-  --page-gutter: var(--app-content-pad-x, 1rem);
+  --page-gutter: var(--app-content-pad-x, 1.25rem);
 }
 
 .page-container {
@@ -538,7 +547,7 @@ html:has(.home-page-shell--minimal) body {
   width: 100%;
   max-width: var(--page-max-width);
   margin-inline: auto;
-  padding-inline: var(--page-gutter);
+  padding-inline: max(var(--page-gutter), 1.25rem);
 }
 
 /* Nested containers must not stack gutters — the outermost one wins. */
@@ -7989,14 +7998,14 @@ a.blog-article-card:hover .blog-article-card__title,
 .app-page-shell .product-page-dashboard.home-tool-grid-shell--homepage {
   margin-top: 0;
   padding-top: clamp(1rem, 2.5vw, 1.75rem);
-  padding-inline: clamp(0.75rem, 3vw, 1.5rem);
+  padding-inline: max(var(--app-content-pad-x, 1.25rem), clamp(0.75rem, 3vw, 1.5rem));
   border: none;
   background-color: var(--home-page-bg, inherit);
 }
 
 .app-page-shell .product-page-dashboard.home-tool-grid-shell--homepage {
   padding-top: 0;
-  padding-inline: 0;
+  padding-inline: 0; /* .tool-page-main already applies --app-content-pad-x */
   background-color: transparent;
 }
 
@@ -9241,6 +9250,24 @@ a.blog-article-card:hover .blog-article-card__title,
   display: block;
   width: 100%;
   height: auto;
+}
+
+.page-manage-thumb__preview-btn {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: start;
+  color: inherit;
+  border-radius: 8px;
+}
+
+.page-manage-thumb__preview-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 2px;
 }
 
 .page-manage-thumb__loading {
@@ -10759,6 +10786,23 @@ body.site-search-open {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.delete-page-thumb__preview-btn {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: start;
+  color: inherit;
+}
+
+.delete-page-thumb__preview-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 2px;
 }
 
 .delete-page-thumb__strike {
@@ -14070,12 +14114,21 @@ body.site-tools-grid-open {
   color: rgb(255 255 255);
 }
 
-/* Tool page ? clean solid backdrop */
+/* Tool page ? clean solid backdrop + guaranteed side gutters */
 .tool-page-main {
+  box-sizing: border-box;
   width: 100%;
   max-width: none;
+  padding-inline: var(--app-content-pad-x, 1.25rem);
   background-color: var(--site-canvas-bg);
   background-image: none;
+}
+
+/* Nested page-container already sits inside the padded main — don't double gutters. */
+.tool-page-main > .page-content-transition--main > .page-container,
+.tool-page-main .page-content-transition--main > .page-container,
+.home-tool-grid-page.tool-page-main .page-container {
+  padding-inline: 0;
 }
 
 /* Inner drop-zone ? professional card layout on tool pages */
@@ -14106,22 +14159,23 @@ body.site-tools-grid-open {
   margin-inline: auto;
 }
 
-/* Stacked / embed upload tools: edge-to-edge workspace (no side gutters) */
+/* Stacked / embed upload tools: keep the global edge gutter (never flush). */
 .tool-page-layout--stacked,
 .tool-page-layout--embed,
 #workspace-upload.tool-page-layout {
   max-width: none;
   width: 100%;
   margin-inline: 0;
-  padding-inline: 0;
+  padding-inline: 0; /* parent .tool-page-main / .tool-page-dashboard owns the gutter */
 }
 
 .tool-page-layout--stacked {
-  padding: 0;
+  padding-block: 0;
 }
 
 #workspace-upload.tool-page-layout--stacked[data-workspace-phase="clean"] {
-  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
 }
 
 /*
@@ -14498,7 +14552,15 @@ body.site-tools-grid-open {
 }
 
 .product-page-dashboard {
+  box-sizing: border-box;
   width: 100%;
+}
+
+.tool-page-dashboard {
+  box-sizing: border-box;
+  width: 100%;
+  /* Side breathing room when this is the outer content shell (non–tool-page-main hosts). */
+  max-width: 100%;
 }
 
 /* Legacy hero / non-stacked upload headers */
@@ -14929,18 +14991,21 @@ html.workspace-phase-clean .page-content-transition--main {
   margin-inline: 0 !important;
 }
 
-/* Drop stage padding/margins so the clean dropzone can fill the main canvas */
+/* Drop stage block padding so the clean dropzone can fill the main canvas —
+ * keep the global horizontal edge gutter so content never sits flush. */
 html.workspace-phase-clean:not([data-tool-embed="1"]) .home-tool-grid-page.tool-page-main,
 html.workspace-phase-clean:not([data-tool-embed="1"]) .tool-page-main,
 html.workspace-phase-clean body:not(.tool-embed-mode) .home-tool-grid-page.tool-page-main,
 html.workspace-phase-clean body:not(.tool-embed-mode) .tool-page-main {
-  padding: 0 !important;
+  padding-block: 0 !important;
+  padding-inline: var(--app-content-pad-x, 1.25rem) !important;
   margin: 0 !important;
   margin-inline: 0 !important;
   width: 100% !important;
   max-width: none !important;
   height: calc(100dvh - var(--site-header-height, 60px));
   max-height: calc(100dvh - var(--site-header-height, 60px));
+  box-sizing: border-box !important;
 }
 
 /* Embed / tool-modal iframe: no site header — fill the full iframe viewport */
@@ -14948,11 +15013,13 @@ html[data-tool-embed="1"].workspace-phase-clean .home-tool-grid-page.tool-page-m
 html[data-tool-embed="1"].workspace-phase-clean .tool-page-main,
 html.workspace-phase-clean body.tool-embed-mode .home-tool-grid-page.tool-page-main,
 html.workspace-phase-clean body.tool-embed-mode .tool-page-main {
-  padding: 0 !important;
+  padding-block: 0 !important;
+  padding-inline: var(--app-content-pad-x, 1.25rem) !important;
   margin: 0 !important;
   height: 100dvh;
   max-height: 100dvh;
   min-height: 100dvh;
+  box-sizing: border-box !important;
 }
 
 html[data-tool-embed="1"].workspace-phase-clean .app-page-canvas,
@@ -15043,9 +15110,8 @@ html.workspace-phase-clean .tools-directory-page {
   height: calc(100dvh - var(--site-header-height, 60px));
   min-height: 0;
   margin: 0;
-  padding: 0 !important;
-  padding-top: 0 !important;
-  padding-inline: 0 !important;
+  padding-block: 0 !important;
+  padding-inline: var(--app-content-pad-x, 1.25rem) !important;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -30099,3 +30165,324 @@ html[dir="rtl"] .welcome-splash__enter-icon {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* ===== PDF page preview lightbox (delete / reorder / extract thumbs) ===== */
+.pdf-page-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 12500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.75rem, 3vw, 1.75rem);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: pdf-page-preview-fade-in 0.18s ease-out;
+}
+
+.pdf-page-preview__card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 960px);
+  max-height: min(92vh, 980px);
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  background: #121212;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  animation: pdf-page-preview-scale-in 0.2s ease-out;
+}
+
+.pdf-page-preview__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  flex-shrink: 0;
+  padding: 0.65rem 0.75rem 0.65rem 1rem;
+  border-bottom: 1px solid #262626;
+  background: #1a1a1a;
+}
+
+.pdf-page-preview__title {
+  margin: 0;
+  min-width: 0;
+  flex: 1 1 auto;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  color: #f5f5f5;
+  text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pdf-page-preview__zoom {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 0 1 14rem;
+  min-width: 9.5rem;
+  max-width: 16rem;
+}
+
+.pdf-page-preview__zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.85rem;
+  height: 1.85rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #a3a3a3;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.pdf-page-preview__zoom-btn:hover:not(:disabled) {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pdf-page-preview__zoom-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pdf-page-preview__zoom-btn:focus-visible {
+  outline: 2px solid rgba(96, 165, 250, 0.55);
+  outline-offset: 2px;
+}
+
+.pdf-page-preview__zoom-icon {
+  display: block;
+}
+
+.pdf-page-preview__zoom-icon--out {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.pdf-page-preview__zoom-icon--in {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.pdf-page-preview__slider-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.pdf-page-preview__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.25rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pdf-page-preview__slider:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pdf-page-preview__slider:focus-visible {
+  outline: none;
+}
+
+.pdf-page-preview__slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.35);
+}
+
+.pdf-page-preview__slider::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #2563eb var(--pdf-preview-zoom-pct, 20%),
+    #333 var(--pdf-preview-zoom-pct, 20%),
+    #333 100%
+  );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.pdf-page-preview__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5.5px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  cursor: grab;
+}
+
+.pdf-page-preview__slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+.pdf-page-preview__slider::-moz-range-track {
+  height: 3px;
+  border: 0;
+  border-radius: 999px;
+  background: #2563eb;
+}
+
+.pdf-page-preview__slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  cursor: grab;
+}
+
+.pdf-page-preview__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  margin-inline-start: 0.15rem;
+  padding: 0;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1a1a1a;
+  color: #e5e5e5;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.pdf-page-preview__close:hover {
+  background: #242424;
+  border-color: #444;
+  color: #fff;
+}
+
+.pdf-page-preview__close:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 2px;
+}
+
+.pdf-page-preview__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
+  overflow: hidden;
+  background: #0a0a0a;
+  touch-action: none;
+  user-select: none;
+}
+
+.pdf-page-preview__stage--pannable {
+  cursor: grab;
+}
+
+.pdf-page-preview__stage--pannable:active {
+  cursor: grabbing;
+}
+
+.pdf-page-preview__viewport {
+  display: grid;
+  place-items: center;
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+.pdf-page-preview__viewport.is-hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pdf-page-preview__canvas {
+  display: block;
+  max-width: min(100%, 860px);
+  max-height: min(78vh, 820px);
+  width: auto;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  background: #ffffff;
+  pointer-events: none;
+}
+
+.pdf-page-preview__status {
+  margin: 0;
+  padding: 2rem 1rem;
+  font-size: 0.875rem;
+  color: #a3a3a3;
+  text-align: center;
+}
+
+.pdf-page-preview__card.is-loading .pdf-page-preview__stage {
+  min-height: 16rem;
+}
+
+@keyframes pdf-page-preview-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pdf-page-preview-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .pdf-page-preview__header {
+    flex-wrap: wrap;
+  }
+
+  .pdf-page-preview__title {
+    flex: 1 1 calc(100% - 3rem);
+    order: 1;
+  }
+
+  .pdf-page-preview__close {
+    order: 2;
+  }
+
+  .pdf-page-preview__zoom {
+    flex: 1 1 100%;
+    max-width: none;
+    order: 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdf-page-preview,
+  .pdf-page-preview__card,
+  .pdf-page-preview__viewport {
+    animation: none;
+    transition: none;
+  }
+}
+

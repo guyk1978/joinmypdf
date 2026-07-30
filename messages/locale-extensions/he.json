@@ -5942,7 +5942,11 @@
       "extractingLabel": "מחלץ…",
       "extractAgain": "חלץ שוב",
       "downloadExtractedFiles": "הורד קבצים שחולצו",
-      "choosePageRanges": "בחרו טווחי עמודים"
+      "choosePageRanges": "בחרו טווחי עמודים",
+      "pageOf": "עמוד {current} מתוך {total}",
+      "closePagePreview": "סגור תצוגת עמוד",
+      "loadingPagePreview": "טוען תצוגת עמוד…",
+      "openPagePreview": "פתח תצוגה מוגדלת של עמוד {page}"
     },
     "upload": {
       "defaultPdf": {
@@ -6462,7 +6466,11 @@
           "xmp-title": "כותרת XMP",
           "xmp-software": "תוכנה XMP"
         }
-      }
+      },
+      "pageOf": "עמוד {current} מתוך {total}",
+      "closePagePreview": "סגור תצוגת עמוד",
+      "loadingPagePreview": "טוען תצוגת עמוד…",
+      "openPagePreview": "פתח תצוגה מוגדלת של עמוד {page}"
     },
     "word-to-pdf": {
       "status": {

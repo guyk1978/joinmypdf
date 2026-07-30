@@ -36,7 +36,7 @@
 
   /* Shared width for the standard upload-tool column (dropzone + panels + action bar). */
   --tool-content-width: 64rem;
-  --density-pad: 1rem;
+  --density-pad: 1.25rem;
 
   /* Unified tool interior surfaces + form controls */
   --im-tool-panel-bg: #141414;

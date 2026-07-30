@@ -5942,7 +5942,11 @@
       "extractingLabel": "Извлечение…",
       "extractAgain": "Извлечь снова",
       "downloadExtractedFiles": "Скачать извлечённые файлы",
-      "choosePageRanges": "Выберите диапазоны страниц"
+      "choosePageRanges": "Выберите диапазоны страниц",
+      "pageOf": "Страница {current} из {total}",
+      "closePagePreview": "Закрыть просмотр страницы",
+      "loadingPagePreview": "Загрузка просмотра страницы…",
+      "openPagePreview": "Открыть увеличенный просмотр страницы {page}"
     },
     "upload": {
       "defaultPdf": {
@@ -6557,7 +6561,11 @@
           "xmp-title": "XMP title",
           "xmp-software": "XMP software"
         }
-      }
+      },
+      "pageOf": "Страница {current} из {total}",
+      "closePagePreview": "Закрыть просмотр страницы",
+      "loadingPagePreview": "Загрузка просмотра страницы…",
+      "openPagePreview": "Открыть увеличенный просмотр страницы {page}"
     },
     "word-to-pdf": {
       "status": {

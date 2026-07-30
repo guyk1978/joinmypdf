@@ -14,6 +14,7 @@ import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { DELETE_PAGES_THUMB_SCALE, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { moveArrayItem, useDragReorder } from "@/hooks/useDragReorder";
@@ -23,6 +24,7 @@ import {
   useId,
   useRef,
   useState,
+  type DragEvent as ReactDragEvent,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 
@@ -45,10 +47,12 @@ function PageThumbnail({
   fileBytes,
   marked,
   onToggle,
+  onPreview,
   dragProps,
   className,
   loadingLabel,
   pageLabel,
+  previewAria,
   undoLabel,
   restoreAria,
   markAria,
@@ -58,10 +62,12 @@ function PageThumbnail({
   fileBytes: Uint8Array;
   marked: boolean;
   onToggle: (pageIndex: number) => void;
+  onPreview: (pageIndex: number) => void;
   dragProps: ReturnType<ReturnType<typeof useDragReorder>["getCardProps"]>;
   className: string;
   loadingLabel: string;
   pageLabel: string;
+  previewAria: string;
   undoLabel: string;
   restoreAria: string;
   markAria: string;
@@ -86,15 +92,34 @@ function PageThumbnail({
     };
   }, [fileBytes, pageIndex]);
 
+  const safeDragProps = {
+    ...dragProps,
+    onDragStart: (event: ReactDragEvent<HTMLDivElement>) => {
+      if ((event.target as Element | null)?.closest?.("[data-pdf-page-preview]")) {
+        event.preventDefault();
+        return;
+      }
+      dragProps.onDragStart(event);
+    },
+  };
+
   return (
-    <div className={className} role="listitem" {...dragProps}>
+    <div className={className} role="listitem" {...safeDragProps}>
       <span className="visual-reorder-card__index">#{displayIndex + 1}</span>
       <div className={`delete-page-thumb${marked ? " is-marked" : ""}`}>
-        <div className="delete-page-thumb__canvas-wrap">
-          {loading ? <p className="delete-page-thumb__loading">{loadingLabel}</p> : null}
-          <canvas ref={canvasRef} className="delete-page-thumb__canvas" />
-          {marked ? <div className="delete-page-thumb__strike" aria-hidden="true" /> : null}
-        </div>
+        <button
+          type="button"
+          className="delete-page-thumb__preview-btn"
+          data-pdf-page-preview=""
+          aria-label={previewAria}
+          onClick={() => onPreview(pageIndex)}
+        >
+          <div className="delete-page-thumb__canvas-wrap">
+            {loading ? <p className="delete-page-thumb__loading">{loadingLabel}</p> : null}
+            <canvas ref={canvasRef} className="delete-page-thumb__canvas" />
+            {marked ? <div className="delete-page-thumb__strike" aria-hidden="true" /> : null}
+          </div>
+        </button>
         <div className="delete-page-thumb__footer">
           <span className="delete-page-thumb__label">{pageLabel}</span>
           <button
@@ -128,6 +153,7 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const [pageCount, setPageCount] = useState(0);
   const [pageOrder, setPageOrder] = useState<number[]>([]);
   const [marked, setMarked] = useState<Set<number>>(() => new Set());
+  const [previewPageIndex, setPreviewPageIndex] = useState<number | null>(null);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -336,16 +362,35 @@ export function DeletePdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition; 
                     fileBytes={fileBytes}
                     marked={marked.has(originalIndex)}
                     onToggle={togglePage}
+                    onPreview={setPreviewPageIndex}
                     dragProps={getCardProps(displayIndex, reorder)}
                     className={cardClassName(displayIndex, "visual-reorder-card visual-reorder-card--page")}
                     loadingLabel={ws.wsUi("loadingThumb")}
                     pageLabel={ws.wsCommon("pageNumber", { page: originalIndex + 1 })}
+                    previewAria={ws.wsCommon("openPagePreview", { page: originalIndex + 1 })}
                     undoLabel={ws.wsUi("undo")}
                     restoreAria={ws.wsUi("restorePage", { page: originalIndex + 1 })}
                     markAria={ws.wsUi("markPage", { page: originalIndex + 1 })}
                   />
                 ))}
               </div>
+
+              <PdfPagePreviewModal
+                open={previewPageIndex !== null}
+                fileBytes={fileBytes}
+                pageIndex={previewPageIndex ?? 0}
+                title={
+                  previewPageIndex !== null
+                    ? ws.wsCommon("pageOf", {
+                        current: previewPageIndex + 1,
+                        total: pageCount,
+                      }) || `Page ${previewPageIndex + 1} of ${pageCount}`
+                    : ""
+                }
+                closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+                loadingLabel={ws.wsCommon("loadingPagePreview") || ws.wsUi("loadingThumb")}
+                onClose={() => setPreviewPageIndex(null)}
+              />
             </div>
           ) : null}
 
