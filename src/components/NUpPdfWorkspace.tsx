@@ -11,6 +11,7 @@ import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
@@ -22,6 +23,10 @@ import {
   type NUpPreset,
   type NUpProgress,
 } from "@/lib/pdf-n-up";
+import {
+  DELETE_PAGES_THUMB_SCALE,
+  renderPdfPageThumbnail,
+} from "@/lib/pdf-delete-pages";
 import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
@@ -60,6 +65,64 @@ function progressPercent(progress: NUpProgress | null, busy: boolean): number {
   return Math.min(100, Math.round((phaseWeight * 0.25 + sheetRatio * 0.75) * 100));
 }
 
+function NUpSheetThumb({
+  pageIndex,
+  fileBytes,
+  loadingLabel,
+  sheetLabel,
+  previewAria,
+  onPreview,
+}: {
+  pageIndex: number;
+  fileBytes: Uint8Array;
+  loadingLabel: string;
+  sheetLabel: string;
+  previewAria: string;
+  onPreview: () => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    void renderPdfPageThumbnail(fileBytes, pageIndex, "", DELETE_PAGES_THUMB_SCALE).then(
+      (canvas) => {
+        if (cancelled || !canvasRef.current) return;
+        const node = canvasRef.current;
+        node.width = canvas.width;
+        node.height = canvas.height;
+        const ctx = node.getContext("2d");
+        if (ctx) ctx.drawImage(canvas, 0, 0);
+        setLoading(false);
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [fileBytes, pageIndex]);
+
+  return (
+    <div className="page-manage-thumb visual-reorder-card visual-reorder-card--page" role="listitem">
+      <span className="visual-reorder-card__index">{sheetLabel}</span>
+      <button
+        type="button"
+        className="page-manage-thumb__preview-btn"
+        data-pdf-page-preview=""
+        aria-label={previewAria}
+        onClick={onPreview}
+      >
+        <div className="page-manage-thumb__canvas-wrap delete-page-thumb__canvas-wrap">
+          {loading ? (
+            <p className="page-manage-thumb__loading delete-page-thumb__loading">{loadingLabel}</p>
+          ) : null}
+          <canvas ref={canvasRef} className="page-manage-thumb__canvas delete-page-thumb__canvas" />
+        </div>
+      </button>
+    </div>
+  );
+}
+
 export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const labelProgress = (p: NUpProgress | null) => {
@@ -76,7 +139,10 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
   const [customRows, setCustomRows] = useState(2);
   const [orientation, setOrientation] = useState<NUpOrientation>("auto");
   const [marginPt, setMarginPt] = useState<number>(8);
-  const [password, setPassword] = useState("");
+  const [resultBytes, setResultBytes] = useState<Uint8Array | null>(null);
+  const [resultSheetCount, setResultSheetCount] = useState(0);
+  const [resultName, setResultName] = useState("");
+  const [previewPageIndex, setPreviewPageIndex] = useState<number | null>(null);
   const [status, setStatus] = useState("");
   const [progress, setProgress] = useState<NUpProgress | null>(null);
   const [busy, setBusy] = useState(false);
@@ -96,6 +162,14 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
     [pageCount, grid],
   );
 
+  const clearResult = useCallback(() => {
+    setResultBytes(null);
+    setResultSheetCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
+    setDone(false);
+  }, []);
+
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
   useEffect(() => {
@@ -105,13 +179,12 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
   const reset = useCallback(() => {
     setFile(null);
     setPageCount(0);
-    setPassword("");
+    clearResult();
     setStatus("");
     setProgress(null);
-    setDone(false);
     setRunError(null);
     if (inputRef.current) inputRef.current.value = "";
-  }, []);
+  }, [clearResult]);
 
   const pickFile = async (next: File) => {
     if (!acceptPdf(next)) {
@@ -124,7 +197,7 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
     }
 
     setFile(next);
-    setDone(false);
+    clearResult();
     setRunError(null);
     setStatus(ws.wsCommon("readingPdf"));
 
@@ -155,7 +228,7 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
     if (!file || busy) return;
 
     setBusy(true);
-    setDone(false);
+    clearResult();
     setRunError(null);
     setProgress({ phase: "loading", currentSheet: 0, totalSheets: outputSheets });
     setStatus(ws.wsStatus("starting"));
@@ -170,7 +243,6 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
           customRows,
           orientation,
           marginPt,
-          password: password.trim() || undefined,
         },
         (p) => {
           setProgress(p);
@@ -178,11 +250,16 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
         },
       );
       const outName = nUpPdfOutputName(file);
-      downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
+      const sheets = outputSheets || nUpOutputSheetCount(pageCount, grid);
+      setResultBytes(bytes);
+      setResultSheetCount(sheets);
+      setResultName(outName);
       setDone(true);
-      setStatus(ws.wsStatus("downloaded", { name: outName, sheets: outputSheets }));
+      setStatus(
+        ws.wsStatus("readyPreview", { sheets }) ||
+          `N-Up layout ready — preview ${sheets} sheet(s), then download.`,
+      );
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug, preset });
-      capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
         dispatchToolComplete({ operation: tool.operation, slug });
       }, 400);
@@ -202,9 +279,23 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
     }
   };
 
+  const onDownload = () => {
+    if (!resultBytes || !resultName) return;
+    downloadBlob(new Blob([resultBytes as BlobPart], { type: "application/pdf" }), resultName);
+    setStatus(
+      ws.wsStatus("downloaded", { name: resultName, sheets: resultSheetCount }) ||
+        `N-Up PDF downloaded as ${resultName}.`,
+    );
+    capture(EVENTS.download_click, { operation: tool.operation, slug });
+  };
+
   const showWorkspace = Boolean(file);
   const canConvert = Boolean(file) && !busy;
+  const hasResult = Boolean(resultBytes && resultSheetCount > 0);
   const percent = progressPercent(progress, busy);
+  const sheetIndices = hasResult
+    ? Array.from({ length: resultSheetCount }, (_, index) => index)
+    : [];
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
@@ -270,6 +361,8 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
             </span>
           </div>
 
+          <p className="text-xs leading-relaxed text-ink-muted">{ws.wsText("privacyNote")}</p>
+
           <fieldset className="space-y-2 border-0 p-0">
             <legend className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
               {ws.wsUi("layoutLegend")}
@@ -286,7 +379,10 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
                     value={value}
                     checked={preset === value}
                     disabled={busy}
-                    onChange={() => setPreset(value)}
+                    onChange={() => {
+                      setPreset(value);
+                      clearResult();
+                    }}
                     className="accent-white"
                   />
                   <span>{ws.wsUi(`preset_${value.replace("-", "_")}`)}</span>
@@ -303,7 +399,10 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
                     id={`${baseId}-cols`}
                     value={customCols}
                     disabled={busy}
-                    onChange={(e) => setCustomCols(Number(e.target.value))}
+                    onChange={(e) => {
+                      setCustomCols(Number(e.target.value));
+                      clearResult();
+                    }}
                     className="protect-form__input"
                   >
                     {[1, 2, 3, 4].map((n) => (
@@ -321,7 +420,10 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
                     id={`${baseId}-rows`}
                     value={customRows}
                     disabled={busy}
-                    onChange={(e) => setCustomRows(Number(e.target.value))}
+                    onChange={(e) => {
+                      setCustomRows(Number(e.target.value));
+                      clearResult();
+                    }}
                     className="protect-form__input"
                   >
                     {[1, 2, 3, 4].map((n) => (
@@ -348,7 +450,10 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
                 id={`${baseId}-orientation`}
                 value={orientation}
                 disabled={busy}
-                onChange={(e) => setOrientation(e.target.value as NUpOrientation)}
+                onChange={(e) => {
+                  setOrientation(e.target.value as NUpOrientation);
+                  clearResult();
+                }}
                 className="protect-form__input"
               >
                 {ORIENTATIONS.map((value) => (
@@ -366,7 +471,10 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
                 id={`${baseId}-margin`}
                 value={marginPt}
                 disabled={busy}
-                onChange={(e) => setMarginPt(Number(e.target.value))}
+                onChange={(e) => {
+                  setMarginPt(Number(e.target.value));
+                  clearResult();
+                }}
                 className="protect-form__input"
               >
                 {MARGIN_OPTIONS.map((value) => (
@@ -381,23 +489,6 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
             </p>
           </div>
 
-          <div className="protect-form__fields max-w-md">
-            <label className="protect-form__label" htmlFor={`${baseId}-password`}>
-              {ws.wsUi("passwordLabel")}{" "}
-              <span className="font-normal text-black dark:text-neutral-200">{ws.wsUi("passwordHint")}</span>
-            </label>
-            <input
-              id={`${baseId}-password`}
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="protect-form__input"
-              placeholder={ws.wsUi("passwordPlaceholder")}
-              disabled={busy}
-            />
-          </div>
-
           {busy ? <WorkspaceProgressBar percent={percent} label={labelProgress(progress)} /> : null}
 
           <div className="flex flex-wrap gap-3">
@@ -407,8 +498,18 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
               onClick={() => void onConvert()}
               className={toolPrimaryBtn}
             >
-              {done ? ws.wsText("convertAgainLabel") : ws.wsText("convertLabel")}
+              {hasResult ? ws.wsText("convertAgainLabel") : ws.wsText("convertLabel")}
             </button>
+            {hasResult ? (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={onDownload}
+                className={toolPrimaryBtn}
+              >
+                {ws.wsText("downloadLabel") || "Download N-Up PDF"}
+              </button>
+            ) : null}
             <button type="button" disabled={busy} onClick={reset} className={toolSecondaryBtn}>
               {ws.chooseAnotherFile}
             </button>
@@ -418,6 +519,73 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
               onClick={() => startNewUpload(reset)}
             />
           </div>
+
+          {hasResult && resultBytes ? (
+            <div className="visual-reorder-panel">
+              <p className="visual-reorder-panel__hint">
+                {ws.wsUi("previewHint") ||
+                  "Preview N-Up output sheets below. Click a thumbnail to zoom, then download when ready."}
+              </p>
+              <div className="delete-pages-grid visual-reorder-grid page-manage-grid" role="list">
+                {sheetIndices.map((pageIndex) => (
+                  <NUpSheetThumb
+                    key={pageIndex}
+                    pageIndex={pageIndex}
+                    fileBytes={resultBytes}
+                    loadingLabel={ws.wsUi("loadingThumb") || ws.wsCommon("loading") || "Loading…"}
+                    sheetLabel={
+                      ws.wsUi("sheetLabel", { sheet: pageIndex + 1 }) ||
+                      `Sheet ${pageIndex + 1}`
+                    }
+                    previewAria={
+                      ws.wsUi("openSheetPreview", { sheet: pageIndex + 1 }) ||
+                      ws.wsCommon("openPagePreview", { page: pageIndex + 1 }) ||
+                      `Open larger preview of sheet ${pageIndex + 1}`
+                    }
+                    onPreview={() => setPreviewPageIndex(pageIndex)}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-3 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={onDownload}
+                  className={toolPrimaryBtn}
+                >
+                  {ws.wsText("downloadLabel") || "Download N-Up PDF"}
+                </button>
+              </div>
+
+              <PdfPagePreviewModal
+                open={previewPageIndex !== null}
+                fileBytes={resultBytes}
+                pageIndex={previewPageIndex ?? 0}
+                password=""
+                title={
+                  previewPageIndex !== null
+                    ? ws.wsUi("sheetOf", {
+                        current: previewPageIndex + 1,
+                        total: resultSheetCount,
+                      }) ||
+                      ws.wsCommon("pageOf", {
+                        current: previewPageIndex + 1,
+                        total: resultSheetCount,
+                      }) ||
+                      `Sheet ${previewPageIndex + 1} of ${resultSheetCount}`
+                    : ""
+                }
+                closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+                loadingLabel={
+                  ws.wsCommon("loadingPagePreview") ||
+                  ws.wsUi("loadingThumb") ||
+                  "Loading preview…"
+                }
+                onClose={() => setPreviewPageIndex(null)}
+              />
+            </div>
+          ) : null}
         </div>
       ) : null}
 
@@ -429,7 +597,7 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? ws.wsText("adjustPassword") : "");
+            setStatus(file ? ws.wsStatus("tryAgain") || "Try again or choose another file." : "");
           }}
         />
       ) : (
@@ -442,7 +610,11 @@ export function NUpPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: st
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={ws.wsText("convertLabel")}
+        label={
+          hasResult
+            ? ws.wsText("downloadLabel") || "Download N-Up PDF"
+            : ws.wsText("convertLabel")
+        }
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

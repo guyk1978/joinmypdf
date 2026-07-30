@@ -11,6 +11,7 @@ import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
@@ -18,6 +19,10 @@ import {
   grayscalePdfOutputName,
   type GrayscalePdfProgress,
 } from "@/lib/pdf-grayscale";
+import {
+  DELETE_PAGES_THUMB_SCALE,
+  renderPdfPageThumbnail,
+} from "@/lib/pdf-delete-pages";
 import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
@@ -51,6 +56,64 @@ function progressPercent(progress: GrayscalePdfProgress | null, busy: boolean): 
   return Math.min(100, Math.round((phaseWeight * 0.2 + pageRatio * 0.8) * 100));
 }
 
+function GrayscalePreviewThumb({
+  pageIndex,
+  fileBytes,
+  loadingLabel,
+  pageLabel,
+  previewAria,
+  onPreview,
+}: {
+  pageIndex: number;
+  fileBytes: Uint8Array;
+  loadingLabel: string;
+  pageLabel: string;
+  previewAria: string;
+  onPreview: () => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    void renderPdfPageThumbnail(fileBytes, pageIndex, "", DELETE_PAGES_THUMB_SCALE).then(
+      (canvas) => {
+        if (cancelled || !canvasRef.current) return;
+        const node = canvasRef.current;
+        node.width = canvas.width;
+        node.height = canvas.height;
+        const ctx = node.getContext("2d");
+        if (ctx) ctx.drawImage(canvas, 0, 0);
+        setLoading(false);
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [fileBytes, pageIndex]);
+
+  return (
+    <div className="page-manage-thumb visual-reorder-card visual-reorder-card--page" role="listitem">
+      <span className="visual-reorder-card__index">{pageLabel}</span>
+      <button
+        type="button"
+        className="page-manage-thumb__preview-btn"
+        data-pdf-page-preview=""
+        aria-label={previewAria}
+        onClick={onPreview}
+      >
+        <div className="page-manage-thumb__canvas-wrap delete-page-thumb__canvas-wrap">
+          {loading ? (
+            <p className="page-manage-thumb__loading delete-page-thumb__loading">{loadingLabel}</p>
+          ) : null}
+          <canvas ref={canvasRef} className="page-manage-thumb__canvas delete-page-thumb__canvas" />
+        </div>
+      </button>
+    </div>
+  );
+}
+
 export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const labelProgress = (p: GrayscalePdfProgress | null) => {
@@ -62,7 +125,10 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
   };
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
-  const [password, setPassword] = useState("");
+  const [resultBytes, setResultBytes] = useState<Uint8Array | null>(null);
+  const [resultPageCount, setResultPageCount] = useState(0);
+  const [resultName, setResultName] = useState("");
+  const [previewPageIndex, setPreviewPageIndex] = useState<number | null>(null);
   const [status, setStatus] = useState("");
   const [progress, setProgress] = useState<GrayscalePdfProgress | null>(null);
   const [busy, setBusy] = useState(false);
@@ -82,7 +148,10 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
   const reset = useCallback(() => {
     setFile(null);
     setPageCount(0);
-    setPassword("");
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     setStatus("");
     setProgress(null);
     setDone(false);
@@ -101,6 +170,10 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
     }
 
     setFile(next);
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     setDone(false);
     setRunError(null);
     setStatus(ws.wsCommon("readingPdf"));
@@ -134,24 +207,31 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
     setBusy(true);
     setDone(false);
     setRunError(null);
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     setProgress({ phase: "loading", currentPage: 0, totalPages: pageCount });
     setStatus(ws.wsStatus("starting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
       const bytes = await convertPdfToGrayscaleFromFile(file, {
-        password: password.trim() || undefined,
         onProgress: (p) => {
           setProgress(p);
           setStatus(labelProgress(p));
         },
       });
       const outName = grayscalePdfOutputName(file);
-      downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
+      setResultBytes(bytes);
+      setResultPageCount(pageCount);
+      setResultName(outName);
       setDone(true);
-      setStatus(ws.wsStatus("downloaded", { name: outName }));
+      setStatus(
+        ws.wsStatus("readyPreview", { count: pageCount }) ||
+          `Grayscale conversion ready — preview ${pageCount} page(s), then download.`,
+      );
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
-      capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
         dispatchToolComplete({ operation: tool.operation, slug });
       }, 400);
@@ -171,9 +251,20 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
     }
   };
 
+  const onDownload = () => {
+    if (!resultBytes || !resultName) return;
+    downloadBlob(new Blob([resultBytes as BlobPart], { type: "application/pdf" }), resultName);
+    setStatus(ws.wsStatus("downloaded", { name: resultName }));
+    capture(EVENTS.download_click, { operation: tool.operation, slug });
+  };
+
   const showWorkspace = Boolean(file);
   const canConvert = Boolean(file) && !busy;
+  const hasResult = Boolean(resultBytes && resultPageCount > 0);
   const percent = progressPercent(progress, busy);
+  const pageIndices = hasResult
+    ? Array.from({ length: resultPageCount }, (_, index) => index)
+    : [];
 
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
@@ -238,23 +329,6 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
           <p className="text-xs leading-relaxed text-ink-muted">{ws.wsText("privacyNote")}</p>
 
-          <div className="protect-form__fields max-w-md">
-            <label className="protect-form__label" htmlFor={`${baseId}-password`}>
-              {ws.wsUi("passwordLabel")}{" "}
-              <span className="font-normal text-black dark:text-neutral-200">{ws.wsUi("passwordHint")}</span>
-            </label>
-            <input
-              id={`${baseId}-password`}
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="protect-form__input"
-              placeholder={ws.wsUi("passwordPlaceholder")}
-              disabled={busy}
-            />
-          </div>
-
           {busy ? <WorkspaceProgressBar percent={percent} label={labelProgress(progress)} /> : null}
 
           <div className="flex flex-wrap gap-3">
@@ -264,8 +338,18 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               onClick={() => void onConvert()}
               className={toolPrimaryBtn}
             >
-              {done ? ws.wsText("convertAgainLabel") : ws.wsText("convertLabel")}
+              {hasResult ? ws.wsText("convertAgainLabel") : ws.wsText("convertLabel")}
             </button>
+            {hasResult ? (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={onDownload}
+                className={toolPrimaryBtn}
+              >
+                {ws.wsText("downloadLabel") || "Download Converted PDF"}
+              </button>
+            ) : null}
             <button type="button" disabled={busy} onClick={reset} className={toolSecondaryBtn}>
               {ws.chooseAnotherFile}
             </button>
@@ -275,6 +359,66 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
               onClick={() => startNewUpload(reset)}
             />
           </div>
+
+          {hasResult && resultBytes ? (
+            <div className="visual-reorder-panel">
+              <p className="visual-reorder-panel__hint">
+                {ws.wsUi("previewHint") ||
+                  "Preview grayscale pages below. Click a thumbnail to zoom, then download when ready."}
+              </p>
+              <div className="delete-pages-grid visual-reorder-grid page-manage-grid" role="list">
+                {pageIndices.map((pageIndex) => (
+                  <GrayscalePreviewThumb
+                    key={pageIndex}
+                    pageIndex={pageIndex}
+                    fileBytes={resultBytes}
+                    loadingLabel={ws.wsUi("loadingThumb") || ws.wsCommon("loading") || "Loading…"}
+                    pageLabel={
+                      ws.wsCommon("pageNumber", { page: pageIndex + 1 }) || `Page ${pageIndex + 1}`
+                    }
+                    previewAria={
+                      ws.wsCommon("openPagePreview", { page: pageIndex + 1 }) ||
+                      `Open larger preview of page ${pageIndex + 1}`
+                    }
+                    onPreview={() => setPreviewPageIndex(pageIndex)}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-3 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={onDownload}
+                  className={toolPrimaryBtn}
+                >
+                  {ws.wsText("downloadLabel") || "Download Converted PDF"}
+                </button>
+              </div>
+
+              <PdfPagePreviewModal
+                open={previewPageIndex !== null}
+                fileBytes={resultBytes}
+                pageIndex={previewPageIndex ?? 0}
+                password=""
+                title={
+                  previewPageIndex !== null
+                    ? ws.wsCommon("pageOf", {
+                        current: previewPageIndex + 1,
+                        total: resultPageCount,
+                      }) || `Page ${previewPageIndex + 1} of ${resultPageCount}`
+                    : ""
+                }
+                closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+                loadingLabel={
+                  ws.wsCommon("loadingPagePreview") ||
+                  ws.wsUi("loadingThumb") ||
+                  "Loading preview…"
+                }
+                onClose={() => setPreviewPageIndex(null)}
+              />
+            </div>
+          ) : null}
         </div>
       ) : null}
 
@@ -286,7 +430,7 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? ws.wsText("adjustPassword") : "");
+            setStatus(file ? ws.wsStatus("tryAgain") || "Try again or choose another file." : "");
           }}
         />
       ) : (
@@ -299,7 +443,11 @@ export function GrayscalePdfWorkspace({ tool, slug }: { tool: ToolDefinition; sl
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={ws.wsText("convertLabel")}
+        label={
+          hasResult
+            ? ws.wsText("downloadLabel") || "Download Converted PDF"
+            : ws.wsText("convertLabel")
+        }
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

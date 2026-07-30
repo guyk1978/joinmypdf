@@ -10,6 +10,7 @@ import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider"
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
 import { ToolPinButton } from "@/components/ToolPinButton";
+import { useToolsDirectorySelection } from "@/components/ToolsDirectorySelectionContext";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
   getCategoryAccentCssVar,
@@ -88,6 +89,8 @@ export function IndustrialToolCard({
   } as CSSProperties;
   const focusInteraction = interactionMode === "focus";
   const openViaModal = !focusInteraction && openInModal && Boolean(modal) && !embed;
+  const selection = useToolsDirectorySelection();
+  const selected = selection?.isSelected(toolSlug) ?? false;
 
   const openTool = (event?: MouseEvent<HTMLAnchorElement>) => {
     if (focusInteraction) {
@@ -121,10 +124,27 @@ export function IndustrialToolCard({
 
   return (
     <div
-      className={clsx("im-tool-card", className)}
+      className={clsx(
+        "im-tool-card",
+        selection && "im-tool-card--selectable",
+        selected && "im-tool-card--selected",
+        className,
+      )}
       data-category={accentCategoryId}
       style={accentStyle}
     >
+      {selection ? (
+        <label className="im-tool-card__select">
+          <input
+            type="checkbox"
+            className="im-tool-card__select-input"
+            checked={selected}
+            onChange={() => selection.toggle(toolSlug)}
+            aria-label={tCard("selectForPinAria", { label: shortLabel })}
+          />
+          <span className="im-tool-card__select-box" aria-hidden />
+        </label>
+      ) : null}
       <span className="im-tool-card__dot" aria-hidden />
       <span className="im-tool-card__title">{shortLabel}</span>
 

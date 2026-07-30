@@ -9,7 +9,6 @@ import { ToolListIcon } from "@/components/ToolListIcon";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import {
   getCategoryAccentColor,
-  getContrastingInk,
   resolveToolAccentCategoryId,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
@@ -41,7 +40,6 @@ export function PinnedCardsDock() {
         categoryId,
         accentCategoryId,
         accent,
-        ink: getContrastingInk(accent),
       });
     }
     return resolved;
@@ -73,7 +71,6 @@ export function PinnedCardsDock() {
             style={
               {
                 "--category-accent": chip.accent,
-                "--pinned-chip-ink": chip.ink,
               } as CSSProperties
             }
           >
@@ -83,6 +80,7 @@ export function PinnedCardsDock() {
               onClick={() => openTool(chip)}
               aria-label={t("openTool", { label: chip.label })}
             >
+              <span className="pinned-dock__chip-dot" aria-hidden />
               <span className="pinned-dock__chip-icon" aria-hidden>
                 <ToolListIcon slug={chip.id} label={chip.label} size="sm" />
               </span>
@@ -97,7 +95,7 @@ export function PinnedCardsDock() {
               }}
               aria-label={t("removeFromDock")}
             >
-              <X size={14} strokeWidth={2.25} aria-hidden />
+              <X size={16} strokeWidth={2.35} aria-hidden />
             </button>
           </div>
         ))}

@@ -24,7 +24,7 @@ export function HomePageFooter() {
           <Link href="/terms/" className="home-page-footer__link" prefetch={false}>
             {tFooter("links.terms")}
           </Link>
-          <Link href="/all-tools/" className="home-page-footer__link" prefetch={false}>
+          <Link href="/tools/" className="home-page-footer__link" prefetch={false}>
             {tFooter("links.toolsDirectory")}
           </Link>
           <Link href="/guide/" className="home-page-footer__link" prefetch={false}>

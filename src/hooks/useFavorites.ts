@@ -42,6 +42,27 @@ export function useFavorites() {
 
   const isFavorite = useCallback((id: string) => favoriteIds.includes(id), [favoriteIds]);
 
+  const addFavorite = useCallback((id: string) => {
+    if (!id) return;
+    const current = readFavoriteIds();
+    if (current.includes(id)) return;
+    const next = [...current, id];
+    writeFavoriteIds(next);
+    setFavoriteIds(next);
+  }, []);
+
+  const addFavorites = useCallback((ids: string[]) => {
+    if (!ids.length) return 0;
+    const current = readFavoriteIds();
+    const existing = new Set(current);
+    const toAdd = ids.filter((id) => id && !existing.has(id));
+    if (!toAdd.length) return 0;
+    const next = [...current, ...toAdd];
+    writeFavoriteIds(next);
+    setFavoriteIds(next);
+    return toAdd.length;
+  }, []);
+
   const toggleFavorite = useCallback((id: string) => {
     const current = readFavoriteIds();
     const next = current.includes(id) ? current.filter((item) => item !== id) : [...current, id];
@@ -55,5 +76,13 @@ export function useFavorites() {
     setFavoriteIds(next);
   }, []);
 
-  return { favoriteIds, isFavorite, toggleFavorite, removeFavorite, hydrated };
+  return {
+    favoriteIds,
+    isFavorite,
+    addFavorite,
+    addFavorites,
+    toggleFavorite,
+    removeFavorite,
+    hydrated,
+  };
 }

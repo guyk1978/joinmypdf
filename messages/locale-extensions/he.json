@@ -6252,8 +6252,8 @@
       "repair-pdf": "הורד PDF מתוקן",
       "pdf-a-converter": "הורד קובץ PDF/A",
       "pdf-linearization": "המר והורד PDF ליניארי",
-      "n-up-pdf": "המר והורד PDF בפריסת N-Up",
-      "grayscale-pdf": "המר לגווני אפור והורד",
+      "n-up-pdf": "צור פריסת N-Up",
+      "grayscale-pdf": "המר לגווני אפור",
       "pdf-signature-validator": "אמת חתימה",
       "pdf-metadata-editor": "שמור PDF עם מטא-דאטה"
     },
@@ -6808,7 +6808,9 @@
         "emptyFile": "הקובץ ריק. בחר PDF אחר.",
         "fileReady": "{name} מוכן — בחר פריסה והמר.",
         "starting": "מתחיל פריסת N-Up…",
-        "downloaded": "PDF בפריסת N-Up הורד כ-{name} ({sheets} גיליונות פלט)."
+        "readyPreview": "פריסת N-Up מוכנה — תצוגה מקדימה של {sheets} גיליונות, ואז הורדה.",
+        "downloaded": "PDF בפריסת N-Up הורד כ-{name} ({sheets} גיליונות פלט).",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
       },
       "progress": {
         "loading": "טוען PDF…",
@@ -6816,9 +6818,9 @@
         "finalizing": "מסיים PDF בפריסת N-Up…"
       },
       "privacyNote": "פריסת N-Up רצה לחלוטין בדפדפן. הקובץ לא עוזב את המכשיר.",
-      "convertLabel": "המר והורד",
+      "convertLabel": "צור פריסת N-Up",
       "convertAgainLabel": "המר שוב",
-      "adjustPassword": "התאם קובץ, פריסה או סיסמה ונסה שוב.",
+      "downloadLabel": "הורד PDF בפריסת N-Up",
       "ui": {
         "layoutLegend": "עמודים לגיליון",
         "preset_2_up": "2-up",
@@ -6838,9 +6840,11 @@
         "marginOption": "{pt} נק׳",
         "orientationMarginHint": "כיוון מגדיר את גיליון הפלט. שוליים מזיזים כל עמוד פנימה בתוך תא הרשת.",
         "outputSheets": "{count} גיליונות פלט",
-        "passwordLabel": "סיסמת PDF",
-        "passwordHint": "(רק אם הקובץ מוגן)",
-        "passwordPlaceholder": "אופציונלי"
+        "previewHint": "תצוגה מקדימה של גיליונות N-Up למטה. לחץ על תמונה ממוזערת לזום, ואז הורד כשמוכן.",
+        "loadingThumb": "טוען…",
+        "sheetLabel": "גיליון {sheet}",
+        "sheetOf": "גיליון {current} מתוך {total}",
+        "openSheetPreview": "פתח תצוגה מוגדלת של גיליון {sheet}"
       }
     },
     "grayscale-pdf": {
@@ -6849,7 +6853,9 @@
         "emptyFile": "הקובץ ריק. בחר PDF אחר.",
         "fileReady": "{name} מוכן — המר לגווני אפור כשאתה מוכן.",
         "starting": "מתחיל המרה לגווני אפור…",
-        "downloaded": "PDF בגווני אפור הורד כ-{name}."
+        "readyPreview": "ההמרה לגווני אפור מוכנה — תצוגה מקדימה של {count} עמודים, ואז הורדה.",
+        "downloaded": "PDF בגווני אפור הורד כ-{name}.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
       },
       "progress": {
         "loading": "טוען PDF…",
@@ -6859,11 +6865,10 @@
       "privacyNote": "המרה לגווני אפור רצה לחלוטין בדפדפן. הקובץ לא עוזב את המכשיר.",
       "convertLabel": "המר לגווני אפור",
       "convertAgainLabel": "המר שוב",
-      "adjustPassword": "התאם קובץ או סיסמה ונסה שוב.",
+      "downloadLabel": "הורד PDF מומר",
       "ui": {
-        "passwordLabel": "סיסמת PDF",
-        "passwordHint": "(רק אם הקובץ מוגן)",
-        "passwordPlaceholder": "אופציונלי"
+        "previewHint": "תצוגה מקדימה של עמודים בגווני אפור למטה. לחץ על תמונה ממוזערת לזום, ואז הורד כשמוכן.",
+        "loadingThumb": "טוען…"
       }
     },
     "pdf-metadata-editor": {

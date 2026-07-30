@@ -6260,8 +6260,8 @@
       "repair-pdf": "Download repaired PDF",
       "pdf-a-converter": "Download PDF/A file",
       "pdf-linearization": "Convert & download linearized PDF",
-      "n-up-pdf": "Convert & download N-Up PDF",
-      "grayscale-pdf": "Convert to grayscale & download",
+      "n-up-pdf": "Create N-Up layout",
+      "grayscale-pdf": "Convert to grayscale",
       "pdf-signature-validator": "Проверить подпись",
       "pdf-metadata-editor": "Save PDF with metadata"
     },
@@ -6907,7 +6907,9 @@
         "emptyFile": "That file is empty. Choose another PDF.",
         "fileReady": "{name} ready — choose a layout and convert.",
         "starting": "Starting N-Up layout…",
-        "downloaded": "N-Up PDF downloaded as {name} ({sheets} output sheet(s))."
+        "readyPreview": "N-Up layout ready — preview {sheets} sheet(s), then download.",
+        "downloaded": "N-Up PDF downloaded as {name} ({sheets} output sheet(s)).",
+        "tryAgain": "Try again or choose another file."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6915,9 +6917,9 @@
         "finalizing": "Finalizing N-Up PDF…"
       },
       "privacyNote": "N-Up layout runs entirely in your browser. Your PDF never leaves your device.",
-      "convertLabel": "Convert & Download",
+      "convertLabel": "Create N-Up Layout",
       "convertAgainLabel": "Convert again",
-      "adjustPassword": "Adjust your file, layout, or password and try again.",
+      "downloadLabel": "Download N-Up PDF",
       "ui": {
         "layoutLegend": "Pages per sheet",
         "preset_2_up": "2-up",
@@ -6937,9 +6939,11 @@
         "marginOption": "{pt} pt",
         "orientationMarginHint": "Ориентация задаёт выходной лист. Поля сдвигают каждую страницу внутрь ячейки сетки.",
         "outputSheets": "{count} output sheet(s)",
-        "passwordLabel": "PDF password",
-        "passwordHint": "(only if the file is protected)",
-        "passwordPlaceholder": "Optional"
+        "previewHint": "Preview N-Up output sheets below. Click a thumbnail to zoom, then download when ready.",
+        "loadingThumb": "Loading…",
+        "sheetLabel": "Sheet {sheet}",
+        "sheetOf": "Sheet {current} of {total}",
+        "openSheetPreview": "Open larger preview of sheet {sheet}"
       }
     },
     "grayscale-pdf": {
@@ -6948,7 +6952,9 @@
         "emptyFile": "That file is empty. Choose another PDF.",
         "fileReady": "{name} ready — convert to grayscale when you are.",
         "starting": "Starting grayscale conversion…",
-        "downloaded": "Grayscale PDF downloaded as {name}."
+        "readyPreview": "Grayscale conversion ready — preview {count} page(s), then download.",
+        "downloaded": "Grayscale PDF downloaded as {name}.",
+        "tryAgain": "Try again or choose another file."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6958,11 +6964,10 @@
       "privacyNote": "Grayscale conversion runs entirely in your browser. Your PDF never leaves your device.",
       "convertLabel": "Convert to Grayscale",
       "convertAgainLabel": "Convert again",
-      "adjustPassword": "Adjust your file or password and try again.",
+      "downloadLabel": "Download Converted PDF",
       "ui": {
-        "passwordLabel": "PDF password",
-        "passwordHint": "(only if the file is protected)",
-        "passwordPlaceholder": "Optional"
+        "previewHint": "Preview grayscale pages below. Click a thumbnail to zoom, then download when ready.",
+        "loadingThumb": "Loading…"
       }
     },
     "sign": {

@@ -19,6 +19,7 @@ import {
 } from "@/lib/pdf-compress-presets";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceActionRow } from "@/components/WorkspaceActionRow";
+import { ExtractedImagePreviewModal } from "@/components/ExtractedImagePreviewModal";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -48,12 +49,16 @@ function ImageFilePreview({
   pageLabel,
   previewLabel,
   loadingLabel,
+  previewAria,
+  onPreview,
 }: {
   file: File;
   pageNumber: number;
   pageLabel: string;
   previewLabel: string;
   loadingLabel: string;
+  previewAria: string;
+  onPreview: () => void;
 }) {
   const [url, setUrl] = useState<string | null>(null);
 
@@ -65,11 +70,19 @@ function ImageFilePreview({
 
   return (
     <figure className="image-preview-thumb">
-      {url ? (
-        <img src={url} alt={`${previewLabel} ${file.name}`} className="image-preview-thumb__img" />
-      ) : (
-        <div className="image-preview-thumb__placeholder">{loadingLabel}</div>
-      )}
+      <button
+        type="button"
+        className="image-preview-thumb__preview-btn"
+        aria-label={previewAria}
+        onClick={onPreview}
+      >
+        {url ? (
+          // eslint-disable-next-line @next/next/no-img-element -- local object URLs from user uploads
+          <img src={url} alt={`${previewLabel} ${file.name}`} className="image-preview-thumb__img" />
+        ) : (
+          <div className="image-preview-thumb__placeholder">{loadingLabel}</div>
+        )}
+      </button>
       <figcaption className="image-preview-thumb__caption">
         {pageLabel} {pageNumber}
       </figcaption>
@@ -185,6 +198,8 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const [compressionPreset, setCompressionPreset] = useState<PdfCompressionPreset>(
     DEFAULT_PDF_COMPRESSION_PRESET,
   );
@@ -196,6 +211,24 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
+
+  useEffect(() => {
+    if (previewIndex === null || !files[previewIndex]) {
+      setPreviewSrc(null);
+      return;
+    }
+    const objectUrl = URL.createObjectURL(files[previewIndex]!);
+    setPreviewSrc(objectUrl);
+    return () => {
+      URL.revokeObjectURL(objectUrl);
+    };
+  }, [previewIndex, files]);
+
+  useEffect(() => {
+    if (previewIndex !== null && previewIndex >= files.length) {
+      setPreviewIndex(null);
+    }
+  }, [files, previewIndex]);
 
   useConsumePendingFiles(
     (file) => (config ? config.accept(file) : false),
@@ -231,6 +264,7 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
 
   const reset = useCallback(() => {
     setFiles([]);
+    setPreviewIndex(null);
     setStatus("");
     setDone(false);
     setRunError(null);
@@ -337,7 +371,7 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
         : "application/pdf,.pdf";
 
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="tool-workspace--image-pdf space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={files.length > 0}>
             <FileUploadZone
         operation={tool.operation}
@@ -464,9 +498,38 @@ function ToolWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: string
                   pageLabel={ws.common("page")}
                   previewLabel={ws.common("previewOf")}
                   loadingLabel={ws.common("loading")}
+                  previewAria={
+                    ws.common("openPagePreview", { page: idx + 1 }) ||
+                    ws.common("openImagePreview", { index: idx + 1 }) ||
+                    `Open larger preview of page ${idx + 1}`
+                  }
+                  onPreview={() => setPreviewIndex(idx)}
                 />
               ))}
             </div>
+          ) : null}
+
+          {showImagePreview ? (
+            <ExtractedImagePreviewModal
+              open={previewIndex !== null}
+              imageSrc={previewSrc}
+              title={
+                previewIndex !== null
+                  ? ws.common("pageOf", {
+                      current: previewIndex + 1,
+                      total: files.length,
+                    }) || `Page ${previewIndex + 1} of ${files.length}`
+                  : ""
+              }
+              imageAlt={
+                previewIndex !== null
+                  ? `${ws.common("previewOf")} ${files[previewIndex]?.name ?? ""}`
+                  : ""
+              }
+              closeLabel={ws.common("closePagePreview") || ws.common("closeImagePreview") || "Close preview"}
+              loadingLabel={ws.common("loadingPagePreview") || ws.common("loading") || "Loading…"}
+              onClose={() => setPreviewIndex(null)}
+            />
           ) : null}
 
           <WorkspaceActionRow

@@ -65,6 +65,18 @@ export function usePinnedTools() {
     setPinnedIds(next);
   }, []);
 
+  const pinTools = useCallback((ids: string[]) => {
+    if (!ids.length) return 0;
+    const current = readPinnedToolIds();
+    const existing = new Set(current);
+    const toAdd = ids.filter((id) => id && !existing.has(id));
+    if (!toAdd.length) return 0;
+    const next = [...current, ...toAdd];
+    writePinnedToolIds(next);
+    setPinnedIds(next);
+    return toAdd.length;
+  }, []);
+
   const unpinTool = useCallback((id: string) => {
     const next = readPinnedToolIds().filter((item) => item !== id);
     writePinnedToolIds(next);
@@ -79,7 +91,7 @@ export function usePinnedTools() {
     return !current.includes(id);
   }, []);
 
-  return { pinnedIds, isPinned, pinTool, unpinTool, togglePin, hydrated };
+  return { pinnedIds, isPinned, pinTool, pinTools, unpinTool, togglePin, hydrated };
 }
 
 /** Filter a list of tool ids once pinned state has hydrated. */

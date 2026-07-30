@@ -1,7 +1,9 @@
 "use client";
 
 import { CategoryDirectoryFlatGrid } from "@/components/CategoryDirectoryFlatGrid";
+import { ToolsDirectoryBatchPinBar } from "@/components/ToolsDirectoryBatchPinBar";
 import { ToolsDirectoryCategoryList } from "@/components/ToolsDirectoryCategoryList";
+import { ToolsDirectorySelectionProvider } from "@/components/ToolsDirectorySelectionContext";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
@@ -26,7 +28,7 @@ type ToolsDirectoryDashboardProps = {
   showAllTools?: boolean;
 };
 
-export function ToolsDirectoryDashboard({
+function ToolsDirectoryDashboardBody({
   categoryId,
   featuredItems = [],
   featuredTitle,
@@ -72,6 +74,20 @@ export function ToolsDirectoryDashboard({
           </div>
         ))}
       </div>
+
+      {showAllTools ? <ToolsDirectoryBatchPinBar /> : null}
     </div>
   );
+}
+
+export function ToolsDirectoryDashboard(props: ToolsDirectoryDashboardProps) {
+  if (props.showAllTools) {
+    return (
+      <ToolsDirectorySelectionProvider>
+        <ToolsDirectoryDashboardBody {...props} />
+      </ToolsDirectorySelectionProvider>
+    );
+  }
+
+  return <ToolsDirectoryDashboardBody {...props} />;
 }

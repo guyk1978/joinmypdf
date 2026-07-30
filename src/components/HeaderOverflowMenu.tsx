@@ -3,6 +3,7 @@
 import {
   Check,
   Download,
+  LayoutGrid,
   MoreHorizontal,
   Share2,
   BookOpen,
@@ -79,6 +80,7 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
   const termsActive = pathname.includes("/terms");
   const privacyPolicyActive = pathname.includes("/privacy-policy");
   const contactActive = pathname.includes("/contact");
+  const toolsDirectoryActive = pathname === "/tools" || pathname === "/tools/";
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -256,6 +258,20 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
           <div className="site-header__overflow-divider" role="separator" />
 
           <p className="site-header__overflow-heading">{t("siteLabel")}</p>
+
+          <Link
+            href="/tools/"
+            role="menuitem"
+            className={clsx(itemClass, toolsDirectoryActive && "is-active")}
+            prefetch={false}
+            onClick={() => {
+              onNavigate?.();
+              close();
+            }}
+          >
+            <LayoutGrid className="site-header__overflow-icon" aria-hidden />
+            {t("allTools.button")}
+          </Link>
 
           <Link
             href="/about/"
