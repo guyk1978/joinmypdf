@@ -18,6 +18,8 @@ type WorkspaceProjectControlsProps = {
   settings?: Record<string, unknown>;
   disabled?: boolean;
   className?: string;
+  /** Keep save/resume logic mounted without rendering the inline button. */
+  hideButton?: boolean;
   /** Restore uploaded files / settings when opening a saved project from Library. */
   onRestore: (payload: WorkspaceProjectRestorePayload) => void;
   /** Optional status line after restore (defaults to Projects.restoredStatus). */
@@ -31,6 +33,7 @@ function WorkspaceProjectControlsInner({
   settings,
   disabled = false,
   className = "",
+  hideButton = false,
   onRestore,
   onRestoredStatus,
 }: WorkspaceProjectControlsProps) {
@@ -55,6 +58,7 @@ function WorkspaceProjectControlsInner({
       settings={settings}
       disabled={disabled}
       className={className}
+      hideButton={hideButton}
     />
   );
 }

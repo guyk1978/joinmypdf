@@ -1,5 +1,7 @@
 export const PROJECTS_CHANGE_EVENT = "joinmypdf-projects-change";
 
+import { broadcastProjectsChanged } from "@/lib/workspace-project-messages";
+
 const DB_NAME = "joinmypdf-projects";
 const DB_VERSION = 1;
 const PROJECTS_STORE = "projects";
@@ -35,9 +37,10 @@ function fileStoreKey(projectId: string, fileId: string) {
 }
 
 function notifyProjectsChanged() {
-  if (typeof window !== "undefined") {
-    window.dispatchEvent(new CustomEvent(PROJECTS_CHANGE_EVENT));
-  }
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new CustomEvent(PROJECTS_CHANGE_EVENT));
+  // Keep Library drawers in the parent window in sync when save runs inside a tool iframe.
+  broadcastProjectsChanged();
 }
 
 function openDb(): Promise<IDBDatabase> {

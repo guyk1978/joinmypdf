@@ -57,17 +57,15 @@ export const homePrimaryPillBtn =
 /** Shared max width for tool upload stack — full width within column */
 export const toolUploadStack = "w-full max-w-none";
 
-/** Tool page — full-bleed shell (no centered max-width column) */
-export const toolPageDashboardWidth = "tool-page-main flex w-full min-h-0 max-w-none flex-1 flex-col";
-
 /**
  * Shared main for tool / product pages.
- * Full width + height-ready flex column — no mx-auto / max-w-* so immersive
- * dropzones can span the entire workspace; vertical padding is cleared in
- * clean-phase CSS when an upload shell is active.
+ * Uses the global 90% centered content rail (see `.tool-page-main` in globals.css).
  */
 export const productPageMainClassName =
-  "tool-page-main flex w-full min-h-0 max-w-none flex-1 flex-col px-[30px] pb-0 pt-0";
+  "tool-page-main flex w-full min-h-0 flex-1 flex-col pb-0 pt-0";
+
+export const toolPageDashboardWidth =
+  "tool-page-main flex w-full min-h-0 flex-1 flex-col";
 
 export const toolPageInfoWidth = "mx-auto w-full max-w-2xl px-4";
 

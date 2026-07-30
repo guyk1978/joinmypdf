@@ -29,8 +29,8 @@ function PageTransitionCanvas({ children, mainClassName }: PageTransitionShellPr
       {embed ? null : <PinnedCardsDock />}
       <main
         className={clsx(
-          "home-tool-grid-page flex min-h-0 w-full flex-1 flex-col",
-          embed && "h-full max-w-none",
+          "home-tool-grid-page flex min-h-0 flex-1 flex-col",
+          embed ? "h-full w-full max-w-none" : null,
           mainClassName,
         )}
         data-tool-workspace={

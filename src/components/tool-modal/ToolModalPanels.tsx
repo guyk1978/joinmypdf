@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ToolDocBodySections } from "@/components/layout/ToolDocBodySections";
@@ -16,6 +16,7 @@ import type {
   ToolModalRelatedTool,
 } from "@/lib/tool-modal-catalog";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import { TOOL_EMBED_HEIGHT_MESSAGE } from "@/lib/workspace-project-messages";
 
 type DocsLabels = {
   overview?: string;
@@ -283,14 +284,36 @@ export function ToolModalCalcFrame({
   onReadyChange?: (ready: boolean) => void;
 }) {
   const [ready, setReady] = useState(false);
+  const [embedHeight, setEmbedHeight] = useState<number | null>(null);
 
   useEffect(() => {
     setReady(false);
+    setEmbedHeight(null);
     onReadyChange?.(false);
   }, [src, onReadyChange]);
 
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      const data = event.data;
+      if (!data || typeof data !== "object") return;
+      if ((data as { type?: string }).type !== TOOL_EMBED_HEIGHT_MESSAGE) return;
+      const height = Number((data as { height?: number }).height);
+      if (!Number.isFinite(height) || height < 1) return;
+      setEmbedHeight(Math.ceil(height));
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
+
   return (
-    <div className="tool-modal__calc-shell">
+    <div
+      className="tool-modal__calc-shell"
+      style={
+        embedHeight
+          ? ({ "--tool-embed-height": `${embedHeight}px` } as CSSProperties)
+          : undefined
+      }
+    >
       {!ready ? (
         <div className="tool-modal__calc-loading" aria-live="polite" aria-busy="true">
           <span className="tool-modal__calc-spinner" aria-hidden />
@@ -305,6 +328,7 @@ export function ToolModalCalcFrame({
         title={title}
         loading="eager"
         referrerPolicy="no-referrer"
+        style={embedHeight ? { height: embedHeight } : undefined}
         onLoad={() => {
           setReady(true);
           onReadyChange?.(true);

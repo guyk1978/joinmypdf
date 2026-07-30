@@ -6,14 +6,22 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
 import { createPortal } from "react-dom";
+import { Save } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   WorkspaceProjectControls,
   type WorkspaceProjectRestorePayload,
 } from "@/components/WorkspaceProjectControls";
+import { toolOutlineBtn } from "@/lib/tool-ui";
+import {
+  broadcastWorkspaceProjectState,
+  requestWorkspaceProjectSave,
+} from "@/lib/workspace-project-messages";
 
 type BridgeState = {
   files: File[];
@@ -57,9 +65,34 @@ function findActionsHost(): HTMLElement | null {
   return ops;
 }
 
+/** Always-mounted save/resume controller (header Save Project talks to this). */
+function WorkspaceProjectSaveController() {
+  const ctx = useContext(WorkspaceProjectRegistryContext);
+  if (!ctx?.state.onRestore) return null;
+
+  return (
+    <WorkspaceProjectControls
+      toolSlug={ctx.toolSlug}
+      operation={ctx.operation}
+      files={ctx.state.files}
+      settings={ctx.state.settings}
+      disabled={ctx.state.disabled}
+      hideButton
+      onRestore={ctx.state.onRestore}
+      onRestoredStatus={ctx.state.onRestoredStatus}
+    />
+  );
+}
+
+/** Visible Save Project in the workspace action row (triggers the controller). */
 function WorkspaceProjectSavePortal() {
   const ctx = useContext(WorkspaceProjectRegistryContext);
+  const t = useTranslations("Projects");
   const [host, setHost] = useState<HTMLElement | null>(null);
+
+  const canSave = Boolean(
+    ctx?.state.onRestore && !ctx.state.disabled && ctx.state.files.length > 0,
+  );
 
   useEffect(() => {
     if (!ctx?.state.onRestore) {
@@ -72,10 +105,7 @@ function WorkspaceProjectSavePortal() {
         "[data-workspace-save-project]:not([data-workspace-save-portal] [data-workspace-save-project])",
       );
       // Prefer workspace-owned Save buttons (ConvertToolWorkspace, WorkspaceActionRow).
-      if (
-        nativeSave &&
-        !nativeSave.closest("[data-workspace-save-portal]")
-      ) {
+      if (nativeSave && !nativeSave.closest("[data-workspace-save-portal]")) {
         const stale = document.querySelector("[data-workspace-save-portal]");
         stale?.remove();
         setHost(null);
@@ -104,18 +134,28 @@ function WorkspaceProjectSavePortal() {
     return () => mo.disconnect();
   }, [ctx?.state.onRestore, ctx?.state.files.length]);
 
+  useEffect(() => {
+    if (!ctx?.state.onRestore) return;
+    broadcastWorkspaceProjectState({
+      canSave,
+      fileCount: ctx.state.files.length,
+      toolSlug: ctx.toolSlug,
+    });
+  }, [canSave, ctx?.state.files.length, ctx?.state.onRestore, ctx?.toolSlug]);
+
   if (!ctx?.state.onRestore || !host) return null;
 
   return createPortal(
-    <WorkspaceProjectControls
-      toolSlug={ctx.toolSlug}
-      operation={ctx.operation}
-      files={ctx.state.files}
-      settings={ctx.state.settings}
-      disabled={ctx.state.disabled}
-      onRestore={ctx.state.onRestore}
-      onRestoredStatus={ctx.state.onRestoredStatus}
-    />,
+    <button
+      type="button"
+      data-workspace-save-project=""
+      className={toolOutlineBtn}
+      disabled={!canSave}
+      onClick={() => requestWorkspaceProjectSave()}
+    >
+      <Save className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
+      {t("saveProject")}
+    </button>,
     host,
   );
 }
@@ -143,6 +183,7 @@ export function WorkspaceProjectProvider({
   return (
     <WorkspaceProjectRegistryContext.Provider value={value}>
       {children}
+      <WorkspaceProjectSaveController />
       <WorkspaceProjectSavePortal />
     </WorkspaceProjectRegistryContext.Provider>
   );
@@ -161,16 +202,36 @@ export function useWorkspaceProjectBridge(options: {
 }) {
   const ctx = useContext(WorkspaceProjectRegistryContext);
   const { files, settings, disabled = false, onRestore, onRestoredStatus } = options;
+  const filesRef = useRef(files);
+  const settingsRef = useRef(settings);
+  filesRef.current = files;
+  settingsRef.current = settings;
 
+  const filesKey = files
+    .map((file) => `${file.name}:${file.size}:${file.lastModified}`)
+    .join("|");
+  let settingsKey = "";
+  try {
+    settingsKey = JSON.stringify(settings ?? {});
+  } catch {
+    settingsKey = String(files.length);
+  }
+
+  // Keep the latest files/settings on the registry without tearing down the
+  // save controller (clearing onRestore briefly disabled header Save).
   useEffect(() => {
     if (!ctx) return;
     ctx.setBridge({
-      files,
-      settings: settings ?? {},
+      files: filesRef.current,
+      settings: settingsRef.current ?? {},
       disabled,
       onRestore,
       onRestoredStatus,
     });
+  }, [ctx, filesKey, settingsKey, disabled, onRestore, onRestoredStatus]);
+
+  useEffect(() => {
+    if (!ctx) return;
     return () => ctx.setBridge(null);
-  }, [ctx, files, settings, disabled, onRestore, onRestoredStatus]);
+  }, [ctx]);
 }

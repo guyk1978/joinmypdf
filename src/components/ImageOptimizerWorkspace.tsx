@@ -8,6 +8,8 @@ import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+import type { WorkspaceProjectRestorePayload } from "@/components/WorkspaceProjectControls";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -125,6 +127,36 @@ export function ImageOptimizerWorkspace({ tool, slug }: { tool: ToolDefinition; 
     setStatus(ws.wsStatus("filesAdded", { count: accepted.length }));
     capture(EVENTS.file_selected, { operation: tool.operation, count: accepted.length });
   };
+
+  const onRestoreProject = useCallback(
+    (payload: WorkspaceProjectRestorePayload) => {
+      revokeItems(itemsRef.current);
+      const settings = payload.settings ?? {};
+      const format = settings.outputFormat;
+      if (format === "webp" || format === "jpg" || format === "png") {
+        setOutputFormat(format);
+      }
+      if (typeof settings.quality === "number") {
+        setQuality(clampOptimizerQuality(settings.quality));
+      }
+      if (typeof settings.stripMetadata === "boolean") {
+        setStripMetadata(settings.stripMetadata);
+      }
+      const accepted = payload.files.filter(isAcceptedImageFile);
+      setItems(accepted.map(makeQueueItem));
+      setDone(false);
+      setRunError(null);
+      setStatus(ws.wsStatus("filesAdded", { count: accepted.length }));
+    },
+    [revokeItems, ws],
+  );
+
+  useWorkspaceProjectBridge({
+    files: items.map((item) => item.file),
+    settings: { outputFormat, quality, stripMetadata },
+    disabled: items.length === 0 || busy || packaging,
+    onRestore: onRestoreProject,
+  });
 
   const removeItem = (id: string) => {
     setItems((prev) => {

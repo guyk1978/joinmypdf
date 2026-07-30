@@ -2,13 +2,24 @@
 
 import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Pin, ScanSearch, Share2, Star, X, ZoomIn } from "lucide-react";
+import { Pin, Save, ScanSearch, Share2, Star, X, ZoomIn } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 import { useFavorites } from "@/hooks/useFavorites";
 import { usePinnedTools } from "@/hooks/usePinnedTools";
 import { usePageShare } from "@/hooks/usePageShare";
 import { recordRecentTool } from "@/lib/recent-activity";
+import {
+  WORKSPACE_PROJECT_SNAPSHOT,
+  WORKSPACE_PROJECT_STATE_MESSAGE,
+  requestWorkspaceProjectSave,
+  requestWorkspaceProjectSnapshot,
+  type WorkspaceProjectSnapshotPayload,
+} from "@/lib/workspace-project-messages";
+import { saveProject } from "@/lib/project-storage";
+import { useProjectToast } from "@/context/ProjectToastContext";
+import { SaveProjectModal } from "@/components/SaveProjectModal";
 import {
   getMagnifierPreference,
   getMagnifierSizeTier,
@@ -89,6 +100,7 @@ export type ToolModalWrapperProps = {
     magnifierSizeHuge?: string;
     pin?: string;
     unpin?: string;
+    saveProject?: string;
   };
   className?: string;
 };
@@ -137,8 +149,16 @@ export function ToolModalWrapper({
   const [loupeEnabled, setLoupeEnabled] = useState(true);
   const [loupeSize, setLoupeSize] = useState<MagnifierSizeTier>("medium");
   const [mounted, setMounted] = useState(false);
+  const [canSaveProject, setCanSaveProject] = useState(false);
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [saveBusy, setSaveBusy] = useState(false);
+  const [saveSnapshot, setSaveSnapshot] = useState<WorkspaceProjectSnapshotPayload | null>(
+    null,
+  );
   const { isFavorite, toggleFavorite } = useFavorites();
   const { isPinned, pinTool, unpinTool } = usePinnedTools();
+  const { showToast } = useProjectToast();
+  const tProjects = useTranslations("Projects");
   const favorited = slug ? isFavorite(slug) : false;
   const pinned = slug ? isPinned(slug) : false;
   const sharePayload = useMemo(
@@ -200,6 +220,10 @@ export function ToolModalWrapper({
     );
     setMagnifierAvailable(false);
     setDocFullscreenActive(false);
+    setCanSaveProject(false);
+    setSaveModalOpen(false);
+    setSaveSnapshot(null);
+    setSaveBusy(false);
   }, [open, defaultTab, title, slug, requiresUpload]);
 
   useEffect(() => {
@@ -227,11 +251,12 @@ export function ToolModalWrapper({
       // Document fullscreen (esp. CSS fallback) owns Escape — closing the modal
       // here would discard the workspace session.
       if (docFullscreenActive || event.defaultPrevented) return;
+      if (saveModalOpen) return;
       onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose, docFullscreenActive]);
+  }, [open, onClose, docFullscreenActive, saveModalOpen]);
 
   useEffect(() => {
     if (!open) return;
@@ -255,6 +280,20 @@ export function ToolModalWrapper({
       }
       if (type === DOC_FULLSCREEN_MESSAGE) {
         setDocFullscreenActive(Boolean((data as { active?: boolean }).active));
+        return;
+      }
+      if (type === WORKSPACE_PROJECT_STATE_MESSAGE) {
+        setCanSaveProject(Boolean((data as { canSave?: boolean }).canSave));
+        return;
+      }
+      if (type === WORKSPACE_PROJECT_SNAPSHOT) {
+        const snapshot = data as WorkspaceProjectSnapshotPayload;
+        if (!snapshot.canSave || !Array.isArray(snapshot.files) || snapshot.files.length === 0) {
+          return;
+        }
+        setSaveSnapshot(snapshot);
+        setCanSaveProject(true);
+        setSaveModalOpen(true);
       }
     };
 
@@ -275,10 +314,28 @@ export function ToolModalWrapper({
       );
     };
 
+    const onCustomProjectState = (event: Event) => {
+      setCanSaveProject(
+        Boolean((event as CustomEvent<{ canSave?: boolean }>).detail?.canSave),
+      );
+    };
+
+    const onCustomSnapshot = (event: Event) => {
+      const snapshot = (event as CustomEvent<WorkspaceProjectSnapshotPayload>).detail;
+      if (!snapshot?.canSave || !Array.isArray(snapshot.files) || snapshot.files.length === 0) {
+        return;
+      }
+      setSaveSnapshot(snapshot);
+      setCanSaveProject(true);
+      setSaveModalOpen(true);
+    };
+
     window.addEventListener("message", onMessage);
     window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
     window.addEventListener(MAGNIFIER_CAPABILITY_MESSAGE, onCustomMagnifierCapability);
     window.addEventListener(DOC_FULLSCREEN_MESSAGE, onCustomDocFullscreen);
+    window.addEventListener(WORKSPACE_PROJECT_STATE_MESSAGE, onCustomProjectState);
+    window.addEventListener(WORKSPACE_PROJECT_SNAPSHOT, onCustomSnapshot);
 
     // A cached iframe can mount its Magnifier before this listener. Query all
     // tool frames once so the shared header recovers the current capability.
@@ -295,11 +352,14 @@ export function ToolModalWrapper({
       window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
       window.removeEventListener(MAGNIFIER_CAPABILITY_MESSAGE, onCustomMagnifierCapability);
       window.removeEventListener(DOC_FULLSCREEN_MESSAGE, onCustomDocFullscreen);
+      window.removeEventListener(WORKSPACE_PROJECT_STATE_MESSAGE, onCustomProjectState);
+      window.removeEventListener(WORKSPACE_PROJECT_SNAPSHOT, onCustomSnapshot);
     };
   }, [open]);
 
   useEffect(() => {
     if (!open) {
+      document.documentElement.removeAttribute("data-tool-modal-open");
       document.documentElement.removeAttribute("data-tool-modal-workspace");
       document.documentElement.removeAttribute("data-tool-modal-fullscreen");
       document.documentElement.removeAttribute("data-tool-intro");
@@ -313,6 +373,7 @@ export function ToolModalWrapper({
     document.documentElement.setAttribute("data-tool-modal-fullscreen", "1");
 
     return () => {
+      document.documentElement.removeAttribute("data-tool-modal-open");
       document.documentElement.removeAttribute("data-tool-modal-workspace");
       document.documentElement.removeAttribute("data-tool-modal-fullscreen");
       document.documentElement.removeAttribute("data-tool-intro");
@@ -320,6 +381,40 @@ export function ToolModalWrapper({
   }, [open, workspacePhase]);
 
   if (!mounted) return null;
+
+  const handleSaveProjectClick = () => {
+    // Prefer parent-owned modal via snapshot from the tool iframe.
+    requestWorkspaceProjectSnapshot();
+    // Fallback: open the in-frame Save Project UI if the snapshot never arrives
+    // (e.g. File transfer blocked, or bridge only handles SAVE_REQUEST).
+    window.setTimeout(() => {
+      setSaveModalOpen((open) => {
+        if (!open) requestWorkspaceProjectSave();
+        return open;
+      });
+    }, 120);
+  };
+
+  const handleHeaderProjectSave = async (name: string) => {
+    if (!saveSnapshot || saveSnapshot.files.length === 0) return;
+    setSaveBusy(true);
+    try {
+      await saveProject({
+        name,
+        toolSlug: saveSnapshot.toolSlug || slug || "tool",
+        operation: saveSnapshot.operation || slug || "tool",
+        files: saveSnapshot.files,
+        settings: saveSnapshot.settings,
+      });
+      setSaveModalOpen(false);
+      setSaveSnapshot(null);
+      showToast(tProjects("savedToast"));
+    } catch {
+      showToast(tProjects("saveFailed"));
+    } finally {
+      setSaveBusy(false);
+    }
+  };
 
   const calcLabel = labels?.calc ?? "CALC";
   const docLabel = labels?.doc ?? "DOC";
@@ -344,6 +439,7 @@ export function ToolModalWrapper({
   const pinLabel = pinned
     ? (labels?.unpin ?? "Unpin from dock")
     : (labels?.pin ?? "Pin to dock");
+  const saveProjectLabel = labels?.saveProject ?? tProjects("saveProject");
 
   const tabLabels: Record<ToolModalTab, string> = {
     calc: calcLabel,
@@ -403,7 +499,7 @@ export function ToolModalWrapper({
             exit={{ opacity: 0, y: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
           >
-            <div className="tool-modal__frame">
+            <div className="tool-modal__rail">
             <div className="tool-modal__workspace">
             <header className="tool-modal__header">
               <h2 id={titleId} className="tool-modal__title">
@@ -438,6 +534,21 @@ export function ToolModalWrapper({
                     </button>
                   ))}
                 </nav>
+
+                <button
+                  type="button"
+                  className={clsx(
+                    "tool-modal__save-project",
+                    !canSaveProject && "tool-modal__save-project--disabled",
+                  )}
+                  onClick={handleSaveProjectClick}
+                  disabled={!canSaveProject}
+                  aria-label={saveProjectLabel}
+                  title={saveProjectLabel}
+                >
+                  <Save size={16} strokeWidth={2.25} aria-hidden />
+                  <span className="tool-modal__save-project-label">{saveProjectLabel}</span>
+                </button>
 
                 <button
                   type="button"
@@ -627,6 +738,16 @@ export function ToolModalWrapper({
                 {linkCopiedLabel}
               </div>
             ) : null}
+
+            <SaveProjectModal
+              open={saveModalOpen}
+              busy={saveBusy}
+              defaultName=""
+              onClose={() => {
+                if (!saveBusy) setSaveModalOpen(false);
+              }}
+              onSave={handleHeaderProjectSave}
+            />
           </motion.div>
         </div>
       ) : null}

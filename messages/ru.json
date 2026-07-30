@@ -3294,7 +3294,7 @@
     "save": "Save",
     "saving": "Saving…",
     "cancel": "Cancel",
-    "savedToast": "Project saved locally",
+    "savedToast": "Проект успешно сохранён!",
     "saveFailed": "Could not save project",
     "restoredStatus": "Restored project “{name}”"
   },
@@ -9468,6 +9468,7 @@
     "magnifierSizeHuge": "Огромный",
     "pin": "Закрепить на панели",
     "unpin": "Открепить",
+    "saveProject": "Сохранить проект",
     "overview": "Обзор",
     "howItWorks": "Как это работает",
     "useCases": "Сценарии использования",

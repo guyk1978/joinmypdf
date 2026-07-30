@@ -477,6 +477,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
             magnifierSizeHuge: t.has("magnifierSizeHuge") ? t("magnifierSizeHuge") : "Huge",
             pin: t("pin"),
             unpin: t("unpin"),
+            saveProject: t.has("saveProject") ? t("saveProject") : "Save Project",
           }}
           calc={
             active.calc ?? (

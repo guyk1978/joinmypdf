@@ -30,14 +30,17 @@
   /* Site canvas — premium charcoal (global page background) */
   --site-page-bg: #121212;
   --site-canvas-bg: #121212;
-  --app-canvas-width: 80%;
-  --app-canvas-max-width: 1400px;
+  --app-canvas-width: 90%;
+  --app-canvas-max-width: 90vw;
+  --app-content-rail-width: 90%;
+  --app-content-rail-max: 90vw;
   --app-canvas-bg: #121212;
   --app-canvas-border: #1a1a1a;
-  --app-content-pad-x: 30px; /* consistent tool/workspace side gutter */
-  --tool-workspace-gutter: 30px;
+  --app-content-pad-x: 0; /* horizontal edges come from the 90% content rail */
+  --tool-workspace-gutter: 0;
   --tool-footer-gap: 30px;
   --home-page-footer-block: 3.25rem; /* compact footer bar height */
+  --im-dropzone-min-height: 400px; /* floor so upload boxes never collapse */
   /* Category accent map — solid rich primaries for hubs + tool cards (no pastels) */
   --color-pdf: #2563EB;
   --color-video: #7C3AED;
@@ -149,6 +152,19 @@ html.viewport-recovering {
   scroll-behavior: auto;
 }
 
+/*
+ * Global content rail — single centered 90% column shared by site header,
+ * page/tool mains, tool modal chrome, and the site footer.
+ */
+.app-content-rail,
+.tool-modal__rail {
+  box-sizing: border-box;
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
 /* Industrial Matte — global scrollbars (main window, panels, drawers, modals) */
 * {
   scrollbar-width: thin;
@@ -181,15 +197,18 @@ html.viewport-recovering {
 /* Homepage ? premium tool grid dashboard */
 .home-tool-grid-page {
   box-sizing: border-box;
-  width: 100%;
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
   flex: 1 1 auto;
-  /* Global safety margin: never let page content sit flush to the viewport. */
-  padding-inline: var(--app-content-pad-x, 30px);
+  margin-inline: auto;
+  padding-inline: 0;
 }
 
 /* Avoid stacking gutters when an inner page-container is present. */
 .home-tool-grid-page .page-container {
   padding-inline: 0;
+  max-width: none;
+  width: 100%;
 }
 
 /* Homepage ? cold minimalist product-first layout */
@@ -234,18 +253,21 @@ html:has(.home-page-shell--minimal) body {
   box-shadow: none;
 }
 
-/* Centered inner content column — limits marketing hubs, not tool workspaces */
+/* Centered inner content column — shares the global 90% rail */
 .app-page-canvas > .home-tool-grid-page {
-  width: 100%;
-  max-width: var(--app-canvas-max-width);
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
   margin-inline: auto;
 }
 
-/* Tool workspaces break out of the 1400px column for full-bleed dropzones */
-.app-page-canvas > .home-tool-grid-page.tool-page-main {
-  width: 100%;
-  max-width: none;
-  margin-inline: 0;
+/* Tool workspaces stay on the same 90% rail (no full-bleed breakout) */
+.app-page-canvas > .home-tool-grid-page.tool-page-main,
+.tool-page-main {
+  box-sizing: border-box;
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
+  margin-inline: auto;
+  padding-inline: 0 !important;
 }
 
 /* Client-side page transitions ? main content only (header/footer stay static) */
@@ -319,8 +341,10 @@ html:has(.home-page-shell--minimal) body {
 
 .app-page-canvas > .tool-page-main ~ .home-page-footer .home-page-footer__inner,
 .app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer .home-page-footer__inner {
-  max-width: none;
-  padding-inline: var(--app-content-pad-x, 30px);
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
+  margin-inline: auto;
+  padding-inline: 0;
 }
 
 .app-page-shell .home-page-footer__link,
@@ -560,18 +584,17 @@ html:has(.home-page-shell--minimal) body {
  * Declared after .home-minimal-layout so it wins same-element conflicts.
  */
 :root {
-  /* Mirror the site header bar (--app-canvas-max-width / --app-content-pad-x)
-     so page content and header content share the exact same edges. */
-  --page-max-width: var(--app-canvas-max-width, 1400px);
-  --page-gutter: var(--app-content-pad-x, 30px);
+  /* Shared with site header / footer / tool chrome — 90% centered rail. */
+  --page-max-width: var(--app-content-rail-max, 90vw);
+  --page-gutter: 0px;
 }
 
 .page-container {
   box-sizing: border-box;
-  width: 100%;
-  max-width: var(--page-max-width);
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
   margin-inline: auto;
-  padding-inline: max(var(--page-gutter), 1.25rem);
+  padding-inline: 0;
 }
 
 /* Nested containers must not stack gutters — the outermost one wins. */
@@ -2526,10 +2549,10 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
-  width: 100%;
-  max-width: var(--app-canvas-max-width);
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
   margin-inline: auto;
-  padding: 0.875rem var(--app-content-pad-x);
+  padding: 0.875rem 0;
 }
 
 .home-page-footer__copy {
@@ -3690,6 +3713,47 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   pointer-events: none;
 }
 
+.tool-modal__save-project {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2.25rem;
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--category-accent, #2563EB) 45%, #333);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--category-accent, #2563EB) 14%, #121212);
+  color: #ededed;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.tool-modal__save-project:hover,
+.tool-modal__save-project:focus-visible {
+  color: #fff;
+  border-color: var(--category-accent, #2563EB);
+  background: color-mix(in srgb, var(--category-accent, #2563EB) 22%, #121212);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--category-accent, #2563EB) 18%, transparent);
+  outline: none;
+}
+
+.tool-modal__save-project:disabled,
+.tool-modal__save-project--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .tool-modal__action--favorite {
   color: var(--category-accent, #2563EB);
   border-color: color-mix(in srgb, var(--category-accent, #2563EB) 45%, transparent);
@@ -3709,18 +3773,38 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 
 /*
  * Fullsize tool shell fills the viewport below the sticky site header.
- * Site chrome stays visible; the modal never covers the logo/nav bar.
+ * Uses the modal as the scroll surface (overflow-y: auto) so content is not
+ * pushed below the fold by the page shell, while avoiding nested max-width boxes.
  */
 .tool-modal--fullscreen {
+  position: fixed !important;
+  inset: auto !important;
+  top: var(--site-header-height, 120px) !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
   padding: 0 !important;
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
-  justify-content: stretch;
+  justify-content: flex-start;
   z-index: 9999;
-  top: var(--site-header-height, 120px);
+  width: 100%;
+  height: auto;
+  max-height: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .tool-modal--fullscreen .tool-modal__backdrop {
-  /* Match the site canvas — no darker plate behind the workspace */
+  /* Decorative veil only — must not consume flex space or push the panel. */
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
   background: var(--site-canvas-bg, #121212);
   cursor: default;
   pointer-events: none;
@@ -3735,19 +3819,23 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   bottom: auto !important;
   left: auto !important;
   z-index: 1;
+  flex: 1 0 auto;
+  align-self: stretch;
   width: 100% !important;
   max-width: none !important;
-  height: 100% !important;
+  height: auto !important;
+  min-height: calc(100dvh - var(--site-header-height, 120px));
   max-height: none !important;
   margin: 0 !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   transform: none !important;
-  background: transparent !important;
+  background: var(--site-canvas-bg, #121212) !important;
+  overflow: visible !important;
 }
 
-/* Fullscreen tool chrome — unified centered frame for header + upload + footer */
+/* Fullscreen tool chrome — header + body + footer share the 90% rail */
 .tool-modal--fullscreen .tool-modal__header,
 .tool-modal--fullscreen .tool-modal__body {
   box-sizing: border-box;
@@ -3757,30 +3845,26 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   gap: 0;
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  min-height: calc(100dvh - var(--site-header-height, 120px));
   align-items: stretch;
+  padding-inline: 0;
+  box-sizing: border-box;
 }
 
-/*
- * Single centered max-width shell — header, upload box, and footer share
- * the same outer left/right edges (92% width, capped like max-w-7xl).
- */
-.tool-modal--fullscreen .tool-modal__frame {
-  --tool-modal-frame-max: 80rem; /* ~max-w-7xl */
+.tool-modal--fullscreen .tool-modal__rail {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  min-height: 0;
-  width: 92%;
-  max-width: var(--tool-modal-frame-max);
+  min-height: calc(100dvh - var(--site-header-height, 120px));
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
   margin-inline: auto;
   padding-inline: 0;
   box-sizing: border-box;
 }
 
 /*
- * Inner workspace fills the frame; no extra side padding so header/upload
- * edges match the frame (and each other) exactly.
+ * Workspace fills the shared rail; header / upload / footer share edges.
  */
 .tool-modal--fullscreen .tool-modal__workspace {
   display: flex;
@@ -3801,8 +3885,8 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   width: 100%;
   max-width: none;
   flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
+  min-height: min(70vh, 36rem);
+  overflow: visible;
   background: transparent;
 }
 
@@ -3824,7 +3908,9 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__inner {
+  width: 100%;
   max-width: none;
+  margin-inline: 0;
   padding-inline: 0;
   padding-block: 0.75rem;
 }
@@ -3942,6 +4028,18 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   border-color: color-mix(in srgb, #fff 12%, transparent);
   background: transparent;
   color: #a3a3a3;
+}
+
+.tool-modal--fullscreen .tool-modal__save-project {
+  min-height: 1.75rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+}
+
+.tool-modal--fullscreen .tool-modal__save-project svg {
+  width: 0.875rem;
+  height: 0.875rem;
 }
 
 .tool-modal--fullscreen .tool-modal__action svg {
@@ -4128,11 +4226,15 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   }
 }
 
-/* Laptop + browser zoom: keep the shared centered frame */
+/* Laptop + browser zoom: keep the shared 90% rail */
 @media (max-width: 1100px) {
-  .tool-modal--fullscreen .tool-modal__frame {
-    width: min(92%, 100% - 1.5rem);
-    max-width: var(--tool-modal-frame-max, 80rem);
+  .tool-modal--fullscreen .tool-modal__panel {
+    padding-inline: 0;
+  }
+
+  .tool-modal--fullscreen .tool-modal__rail {
+    width: var(--app-content-rail-width, 90%);
+    max-width: var(--app-content-rail-max, 90vw);
   }
 
   .tool-modal--fullscreen .tool-modal__workspace {
@@ -4150,7 +4252,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   .tool-modal__header {
     flex-wrap: wrap;
     gap: 0.5rem;
-    padding: 0.55rem var(--tool-workspace-gutter, 30px);
+    padding: 0.55rem 0;
   }
 
   .tool-modal__header-end {
@@ -4245,13 +4347,15 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 
 .tool-modal__pane {
   display: none;
-  height: 100%;
+  height: auto;
   min-height: 0;
+  width: 100%;
 }
 
 .tool-modal__pane--active {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .tool-modal__pane--pending {
@@ -4266,10 +4370,10 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 
 .tool-modal__calc-shell {
   position: relative;
-  flex: 1;
-  min-height: 0;
+  flex: 1 1 auto;
+  min-height: min(70vh, 36rem);
   width: 100%;
-  height: 100%;
+  height: auto;
   background: transparent;
 }
 
@@ -4307,7 +4411,8 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 .tool-modal__iframe {
   display: block;
   width: 100%;
-  height: 100%;
+  height: var(--tool-embed-height, min(70vh, 36rem));
+  min-height: min(70vh, 36rem);
   border: 0;
   background: transparent;
   opacity: 0;
@@ -4864,6 +4969,8 @@ body.tool-embed-mode .tool-page-main,
 body.tool-embed-mode .home-tool-grid-page {
   padding-inline: 0 !important;
   margin-inline: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
 }
 
 .tool-page-layout--embed {
@@ -4890,7 +4997,7 @@ html[data-tool-embed="1"] [data-email-popup] {
   display: none !important;
 }
 
-/* Soft-hide page chrome under the tool modal (isolated overlay — no page body inside modal). */
+/* Soft-hide page chrome under the tool modal (overlay covers the page shell). */
 html[data-tool-modal-open="1"] .app-page-canvas {
   visibility: hidden;
   pointer-events: none;
@@ -4967,6 +5074,16 @@ html[data-tool-modal-open="1"] .category-modal:not(.is-open) {
 
   .tool-modal-rating__count {
     display: none;
+  }
+
+  .tool-modal__save-project-label {
+    display: none;
+  }
+
+  .tool-modal__save-project {
+    width: 1.75rem;
+    min-height: 1.75rem;
+    padding: 0;
   }
 }
 
@@ -8944,7 +9061,7 @@ a.blog-article-card:hover .blog-article-card__title,
 .save-project-modal {
   position: fixed;
   inset: 0;
-  z-index: 80;
+  z-index: 10080;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9029,7 +9146,7 @@ a.blog-article-card:hover .blog-article-card__title,
   position: fixed;
   bottom: 1.5rem;
   left: 50%;
-  z-index: 90;
+  z-index: 10070;
   transform: translateX(-50%);
   padding: 0.75rem 1.125rem;
   border-radius: 9999px;
@@ -11683,12 +11800,13 @@ html.site-header-is-compact {
   align-items: center;
   justify-content: flex-start;
   gap: var(--site-header-bar-gap);
-  width: 100%;
-  max-width: var(--app-canvas-max-width);
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
   margin-inline: auto;
-  padding-inline: var(--app-content-pad-x);
+  padding-inline: 0;
   height: 100%;
   min-height: var(--site-header-expanded-height);
+  box-sizing: border-box;
 }
 
 .site-header__bar--clean {
@@ -12536,22 +12654,14 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 }
 
 @media (min-width: 640px) {
-  :root {
-    --app-content-pad-x: 30px;
-  }
-
   .site-header--matte .site-header__bar {
-    padding-inline: var(--app-content-pad-x);
+    padding-inline: 0;
   }
 }
 
 @media (min-width: 1024px) {
-  :root {
-    --app-content-pad-x: 30px;
-  }
-
   .site-header--matte .site-header__bar {
-    padding-inline: var(--app-content-pad-x);
+    padding-inline: 0;
     gap: 1.5rem;
   }
 }
@@ -13523,28 +13633,30 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 
 .site-header__bar {
   display: flex;
-  width: 100%;
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
+  margin-inline: auto;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  padding-inline: 2rem;
+  padding-inline: 0;
 }
 
 @media (min-width: 640px) {
   .site-header__bar {
-    padding-inline: 3rem;
+    padding-inline: 0;
   }
 }
 
 @media (min-width: 1024px) {
   .site-header__bar {
-    padding-inline: 4rem;
+    padding-inline: 0;
   }
 }
 
 @media (min-width: 1280px) {
   .site-header__bar {
-    padding-inline: 60px;
+    padding-inline: 0;
   }
 }
 
@@ -14607,12 +14719,13 @@ body.site-tools-grid-open {
   color: rgb(255 255 255);
 }
 
-/* Tool page ? clean solid backdrop + guaranteed side gutters */
+/* Tool page — sits on the global 90% content rail */
 .tool-page-main {
   box-sizing: border-box;
-  width: 100%;
-  max-width: none;
-  padding-inline: var(--app-content-pad-x, 30px);
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
+  margin-inline: auto;
+  padding-inline: 0;
   background-color: var(--site-canvas-bg);
   background-image: none;
 }
@@ -15503,17 +15616,16 @@ html.workspace-phase-clean .page-content-transition--main {
   margin-inline: 0 !important;
 }
 
-/* Clean stage: 30px side gutters; flex-fill above in-flow footer (no fixed-height override) */
+/* Clean stage: stay on the 90% rail; flex-fill above in-flow footer */
 html.workspace-phase-clean:not([data-tool-embed="1"]) .home-tool-grid-page.tool-page-main,
 html.workspace-phase-clean:not([data-tool-embed="1"]) .tool-page-main,
 html.workspace-phase-clean body:not(.tool-embed-mode) .home-tool-grid-page.tool-page-main,
 html.workspace-phase-clean body:not(.tool-embed-mode) .tool-page-main {
   padding-block: 0 !important;
-  padding-inline: var(--app-content-pad-x, 30px) !important;
-  margin: 0 !important;
-  margin-inline: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
+  padding-inline: 0 !important;
+  margin-inline: auto !important;
+  width: var(--app-content-rail-width, 90%) !important;
+  max-width: var(--app-content-rail-max, 90vw) !important;
   flex: 1 1 auto !important;
   height: auto !important;
   max-height: none !important;
@@ -15521,8 +15633,8 @@ html.workspace-phase-clean body:not(.tool-embed-mode) .tool-page-main {
   box-sizing: border-box !important;
 }
 
-/* Embed / tool-modal iframe: fill the iframe edge-to-edge (no inner 30px gutters —
- * side margins come from the parent .tool-modal__frame only). */
+/* Embed / tool-modal iframe: fill the iframe edge-to-edge (parent already
+ * provides the 90% rail). */
 html[data-tool-embed="1"].workspace-phase-clean .home-tool-grid-page.tool-page-main,
 html[data-tool-embed="1"].workspace-phase-clean .tool-page-main,
 html.workspace-phase-clean body.tool-embed-mode .home-tool-grid-page.tool-page-main,
@@ -15602,10 +15714,12 @@ html.workspace-phase-clean .home-page-footer {
 }
 
 html.workspace-phase-clean .home-page-footer__inner {
-  max-width: none;
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
   min-height: 0;
+  margin-inline: auto;
   padding-block: 0.75rem;
-  padding-inline: var(--app-content-pad-x, 30px);
+  padding-inline: 0;
   box-sizing: border-box;
 }
 
@@ -15685,7 +15799,7 @@ html.workspace-phase-clean .tools-directory-page .im-dropzone-shell {
   flex: 1 1 auto;
   flex-direction: column;
   width: 100%;
-  min-height: 0;
+  min-height: var(--im-dropzone-min-height, 400px);
   height: 100%;
 }
 
@@ -15801,10 +15915,29 @@ body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] {
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  /* Fill the flex parent — do not force a viewport min-height here (that overflows
-   * when main/page chrome already offsets the stage below the site header). */
-  min-height: 0;
+  min-height: var(--im-dropzone-min-height, 400px);
   height: 100%;
+}
+
+/*
+ * Utility / combiner wrappers sit between the float and the dropzone.
+ * They must be flex columns too or the dropzone collapses to ~1 line.
+ */
+.tool-upload-float[data-workspace-phase="clean"] > .utility-tool-layout,
+.tool-upload-float[data-workspace-phase="clean"] .utility-tool-layout,
+.tool-upload-float[data-workspace-phase="clean"] .space-y-6:has(.im-dropzone),
+#tool-workspace[data-workspace-phase="clean"] .utility-tool-layout,
+#workspace-upload[data-workspace-phase="clean"] .utility-tool-layout {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: var(--im-dropzone-min-height, 400px) !important;
+  height: 100% !important;
+  margin: 0 !important;
 }
 
 /* Embed / modal iframe: fill the iframe viewport completely */
@@ -15826,7 +15959,7 @@ body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] .im-dropzone-
 body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"],
 body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .tool-upload-zone,
 body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell {
-  min-height: 0;
+  min-height: var(--im-dropzone-min-height, 400px);
   height: 100%;
 }
 
@@ -15881,7 +16014,7 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
 
 /*
  * Immersive dropzone — fills the tool shell / iframe edge-to-edge.
- * Outer side margins live on .tool-modal__frame (or full-page main), not here.
+ * Outer side margins live on the tool modal panel / full-page main, not here.
  */
 #tool-workspace .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 #workspace-upload .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
@@ -15902,9 +16035,9 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   height: auto !important;
   max-height: none !important;
   min-width: 0 !important;
-  min-height: 0 !important;
+  min-height: var(--im-dropzone-min-height, 400px) !important;
   margin: 0 !important;
-  padding: clamp(0.75rem, 2.5vw, 1.5rem) !important;
+  padding: clamp(1.25rem, 3vw, 2.5rem) !important;
   transform: none !important;
   flex: 1 1 auto !important;
   display: flex !important;
@@ -15913,7 +16046,7 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   justify-content: center !important;
 }
 
-/* Embed / tool-modal iframe: fill the iframe content box (no side inset) */
+/* Embed / tool-modal iframe: fill available height with a hard min floor */
 html[data-tool-embed="1"] #tool-workspace .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 html[data-tool-embed="1"] #workspace-upload .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 html[data-tool-embed="1"] #tool-workspace[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
@@ -15927,20 +16060,24 @@ body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzo
 body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact) {
   --tool-dropzone-gutter: 0px;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: auto !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
   max-width: none !important;
-  height: auto !important;
+  height: 100% !important;
   max-height: none !important;
-  min-height: 0 !important;
-  flex: none !important;
+  min-height: var(--im-dropzone-min-height, 400px) !important;
+  flex: 1 1 auto !important;
   margin: 0 !important;
-  padding: clamp(0.5rem, 1.5vw, 0.875rem) !important;
+  padding: clamp(1.25rem, 3vw, 2.5rem) !important;
   transform: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 #tool-workspace[data-workspace-phase="active"] > :not(.tool-upload-float),
@@ -15970,7 +16107,7 @@ body.tool-embed-mode .tool-upload-stack [data-workspace-phase="clean"] .im-dropz
   max-width: none !important;
   height: auto !important;
   max-height: none !important;
-  min-height: 280px;
+  min-height: var(--im-dropzone-min-height, 400px);
   flex: 0 0 auto;
 }
 
@@ -27942,7 +28079,7 @@ html[dir="rtl"] .favicon-preset-library__panel {
   align-items: stretch;
   gap: 0;
   width: 100%;
-  min-height: 0;
+  min-height: var(--im-dropzone-min-height, 400px);
 }
 
 @keyframes im-dropzone-pulse {
@@ -27968,7 +28105,7 @@ html[dir="rtl"] .favicon-preset-library__panel {
   --im-dropzone-radius: 0.75rem; /* 12px — Tailwind rounded-xl */
   width: 100%;
   flex: 1 1 auto;
-  min-height: min(32rem, calc(100dvh - var(--site-header-height, 60px) - 4rem));
+  min-height: var(--im-dropzone-min-height, 400px);
   cursor: pointer;
   box-sizing: border-box;
   border-radius: var(--im-dropzone-radius);
@@ -28002,9 +28139,12 @@ html[dir="rtl"] .favicon-preset-library__panel {
   box-shadow: none;
 }
 
-/* Default tool-page dropzone height — immersive clean phase overrides with workspace fill */
-.tool-upload-stack .im-dropzone {
-  min-height: min(32rem, calc(100dvh - var(--site-header-height, 60px) - 4rem));
+/* Default tool-page dropzone height — immersive clean phase keeps the same floor */
+.tool-upload-stack .im-dropzone:not(.im-dropzone--compact) {
+  min-height: max(
+    var(--im-dropzone-min-height, 400px),
+    min(32rem, calc(100dvh - var(--site-header-height, 60px) - 4rem))
+  );
 }
 
 .im-dropzone--compact {

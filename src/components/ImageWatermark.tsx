@@ -5,6 +5,8 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+import type { WorkspaceProjectRestorePayload } from "@/components/WorkspaceProjectControls";
 import { imBtnCta } from "@/lib/design-system";
 import {
   autoScaleLogoPercent,
@@ -238,6 +240,58 @@ export function ImageWatermark({ labels, className }: ImageWatermarkProps) {
     });
     setActiveId(next[0]!.id);
   };
+
+  const onRestoreProject = useCallback(
+    (payload: WorkspaceProjectRestorePayload) => {
+      const settings = payload.settings ?? {};
+      if (settings.type === "text" || settings.type === "logo") {
+        setType(settings.type);
+      }
+      if (typeof settings.text === "string") setText(settings.text);
+      if (
+        typeof settings.fontFamily === "string" &&
+        WATERMARK_FONTS.some((font) => font.id === settings.fontFamily)
+      ) {
+        setFontFamily(settings.fontFamily as WatermarkFont);
+      }
+      if (typeof settings.color === "string") setColor(settings.color);
+      if (typeof settings.opacity === "number") setOpacity(settings.opacity);
+      if (typeof settings.sizePercent === "number") setSizePercent(settings.sizePercent);
+      if (
+        typeof settings.position === "string" &&
+        WATERMARK_POSITIONS.includes(settings.position as WatermarkPosition)
+      ) {
+        setPosition(settings.position as WatermarkPosition);
+      }
+      if (typeof settings.offsetX === "number") setOffsetX(settings.offsetX);
+      if (typeof settings.offsetY === "number") setOffsetY(settings.offsetY);
+      if (typeof settings.logoScalePercent === "number") {
+        setLogoScalePercent(settings.logoScalePercent);
+      }
+      void loadFiles(payload.files);
+    },
+    // loadFiles is defined above and only depends on labels.invalidFile for errors
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [labels.invalidFile],
+  );
+
+  useWorkspaceProjectBridge({
+    files: items.map((item) => item.file),
+    settings: {
+      type,
+      text,
+      fontFamily,
+      color,
+      opacity,
+      sizePercent,
+      position,
+      offsetX,
+      offsetY,
+      logoScalePercent,
+    },
+    disabled: items.length === 0 || busy,
+    onRestore: onRestoreProject,
+  });
 
   const handleLogoFile = async (file: File | null) => {
     if (!file) return;

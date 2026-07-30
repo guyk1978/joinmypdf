@@ -3292,7 +3292,7 @@
     "save": "שמור",
     "saving": "שומר…",
     "cancel": "ביטול",
-    "savedToast": "הפרויקט נשמר מקומית",
+    "savedToast": "הפרויקט נשמר בהצלחה!",
     "saveFailed": "לא ניתן לשמור את הפרויקט",
     "restoredStatus": "הפרויקט \"{name}\" שוחזר"
   },
@@ -9352,6 +9352,7 @@
     "magnifierSizeHuge": "ענק",
     "pin": "נעיצה בסרגל",
     "unpin": "ביטול נעיצה",
+    "saveProject": "שמור פרויקט",
     "overview": "סקירה",
     "howItWorks": "איך זה עובד",
     "useCases": "שימושים",

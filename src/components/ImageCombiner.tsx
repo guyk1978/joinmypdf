@@ -15,6 +15,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+import type { WorkspaceProjectRestorePayload } from "@/components/WorkspaceProjectControls";
 import { downloadBlob } from "@/lib/crop-image";
 import {
   combineImages,
@@ -179,6 +181,37 @@ export function ImageCombiner({
     setError(null);
     clearResult();
   }, [clearResult]);
+
+  const onRestoreProject = useCallback(
+    ({ files, settings }: WorkspaceProjectRestorePayload) => {
+      objectUrlsRef.current.forEach((url) => URL.revokeObjectURL(url));
+      objectUrlsRef.current.clear();
+      clearResult();
+      setError(null);
+
+      const nextLayout = settings?.layout;
+      if (nextLayout === "horizontal" || nextLayout === "vertical") {
+        setLayout(nextLayout);
+      }
+
+      const accepted = files.filter(isImageCombinerFile).slice(0, MAX_FILES);
+      setImages(
+        accepted.map((file) => {
+          const url = URL.createObjectURL(file);
+          objectUrlsRef.current.add(url);
+          return { id: makeId(file), file, url };
+        }),
+      );
+    },
+    [clearResult],
+  );
+
+  useWorkspaceProjectBridge({
+    files: images.map((item) => item.file),
+    settings: { layout },
+    disabled: images.length === 0 || busy,
+    onRestore: onRestoreProject,
+  });
 
   const onCombine = async () => {
     if (images.length < MIN_FILES) {

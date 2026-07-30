@@ -3292,7 +3292,7 @@
     "save": "Save",
     "saving": "Saving…",
     "cancel": "Cancel",
-    "savedToast": "Project saved locally",
+    "savedToast": "Project saved successfully!",
     "saveFailed": "Could not save project",
     "restoredStatus": "Restored project “{name}”"
   },
@@ -9209,6 +9209,7 @@
     "magnifierSizeHuge": "Huge",
     "pin": "Pin to dock",
     "unpin": "Unpin from dock",
+    "saveProject": "Save Project",
     "overview": "Overview",
     "howItWorks": "How it works",
     "useCases": "Use cases",

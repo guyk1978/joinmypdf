@@ -52,12 +52,12 @@ export function IndustrialMatteDropzone({
 
   return (
     <div
-      className={clsx(
-        "im-dropzone-shell flex w-full flex-col",
-        !compact && "flex-1",
-        className,
-      )}
-    >
+        className={clsx(
+          "im-dropzone-shell flex w-full flex-col",
+          !compact && "min-h-[400px] flex-1",
+          className,
+        )}
+      >
       <div
         {...rest}
         aria-disabled={disabled || undefined}
@@ -65,7 +65,7 @@ export function IndustrialMatteDropzone({
           "im-dropzone group",
           compact && "im-dropzone--compact",
           "flex w-full flex-col items-center justify-center gap-4",
-          !compact && "flex-1",
+          !compact && "min-h-[400px] flex-1",
           "px-6 py-10 text-center",
           active && "im-dropzone--active",
           disabled && "pointer-events-none opacity-55",
