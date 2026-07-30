@@ -30,7 +30,7 @@ function cleanSupportsLabel(label: string): string {
 
 /**
  * Shared Industrial Matte upload surface — used by PDF, image, audio, and video tools.
- * Adobe-style immersive stage: matte default, accent border only on hover/drag.
+ * Rounded stage with a permanent subtle dashed border; accent solid border on hover/drag.
  */
 export function IndustrialMatteDropzone({
   dropTitle,

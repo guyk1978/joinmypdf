@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2, VolumeX } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -101,6 +103,19 @@ export function VideoMuter({ labels, className, onStart, onComplete }: VideoMute
   }, [busy, file, onStart, process, registerFile, slug]);
 
   const canMute = Boolean(file) && !busy && environment?.canRun !== false;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-muter-tool space-y-4", className)}>

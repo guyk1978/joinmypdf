@@ -1,6 +1,7 @@
 import { ToolGlassProvider } from "@/context/ToolGlassContext";
 import { ToolPageShellProvider } from "@/context/ToolPageShellContext";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { WorkspaceProjectProvider } from "@/components/WorkspaceProjectRegistry";
 import { ToolBreadcrumbs } from "@/components/layout/ToolBreadcrumbs";
 import { ToolMarketingSections } from "@/components/layout/ToolMarketingSections";
 import { RelatedTools } from "@/components/RelatedTools";
@@ -406,6 +407,7 @@ export default async function ToolPage({
           }
           related={<RelatedTools tool={tool} />}
         >
+        <WorkspaceProjectProvider toolSlug={slug} operation={tool.operation}>
         {tool.operation === "sign" ? (
           <SignPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "protect" ? (
@@ -687,6 +689,7 @@ export default async function ToolPage({
         ) : (
           <ToolWorkspace tool={tool} slug={slug} />
         )}
+        </WorkspaceProjectProvider>
         </ToolLayout>
         </ToolPageShellProvider>
         </ToolGlassProvider>

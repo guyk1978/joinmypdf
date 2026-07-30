@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { Download, Loader2, Lock, Shield } from "lucide-react";
@@ -350,6 +352,19 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
     </p>
   );
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, [loadFile]);
+
+  useWorkspaceProjectBridge({
+    files: sourceFile ? [sourceFile] : [],
+    disabled: !sourceFile || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div className={clsx("crop-image-tool favicon-compressor-tool", className)}>
       {!previewUrl ? (
@@ -492,7 +507,7 @@ export function FaviconCompressor({ labels, className, onDownload }: FaviconComp
 
           {busy ? <WorkspaceProgressBar percent={progress} label={labels.optimizingProgress} /> : null}
 
-          <div className="crop-image-tool__actions">
+          <div className="crop-image-tool__actions" data-workspace-actions="">
             <button
               type="button"
               className="crop-image-tool__secondary-btn"

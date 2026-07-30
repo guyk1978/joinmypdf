@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { HtmlContentPreviewModal } from "@/components/HtmlContentPreviewModal";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
@@ -212,6 +214,19 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
     }
     setPreviewOpen(true);
   };
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void pickFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div id="tool-workspace" className="markdown-pdf-workspace space-y-3 pb-12 md:pb-8">

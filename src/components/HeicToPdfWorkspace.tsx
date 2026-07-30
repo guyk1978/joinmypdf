@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
@@ -164,6 +166,17 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const hasOutput = Boolean(outputBlob);
   const percent = progressPercent(progress, busy);
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    if (payload.files.length) setFiles(payload.files);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files,
+    disabled: files.length === 0 || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={files.length > 0}>
@@ -258,7 +271,7 @@ export function HeicToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             <WorkspaceProgressBar percent={percent} label={heicProgressLabel(progress, ws)} />
           ) : null}
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3" data-workspace-actions="">
             <button
               type="button"
               disabled={!canConvert}

@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type DragEvent } from "react";
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
+import { useEffect, useId, useRef, useState, type DragEvent, useCallback } from "react";
 import { clsx } from "clsx";
 import {
   formatSupportsLabel,
@@ -169,6 +171,19 @@ export function HashGenerator({ labels, className, onHasInputChange }: HashGener
       />
     </div>
   ) : null;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div

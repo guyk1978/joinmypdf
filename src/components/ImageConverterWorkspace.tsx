@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
@@ -17,7 +19,7 @@ import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import type { ToolDefinition } from "@/lib/types";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, useCallback } from "react";
 
 const ACCEPT =
   "image/jpeg,image/png,image/webp,image/gif,image/bmp,image/heic,image/heif,.heic,.heif";
@@ -156,6 +158,19 @@ export function ImageConverterWorkspace({ tool, slug }: ImageConverterWorkspaceP
   const formats = imageConverterFormats();
   const showQuality = outputFormat === "webp" || outputFormat === "jpg" || outputFormat === "heic";
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <WorkspaceUploadShell showPrivacyBadge={false} active={Boolean(file)}>
       <div id={WORKSPACE_OPERATIONS_ID} className="image-converter-tool-page">
@@ -257,7 +272,7 @@ export function ImageConverterWorkspace({ tool, slug }: ImageConverterWorkspaceP
               )}
             </section>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3" data-workspace-actions="">
               <button
                 type="button"
                 onClick={onConvert}

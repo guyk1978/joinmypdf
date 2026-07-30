@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { Download, Shield } from "lucide-react";
@@ -225,6 +227,19 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
     }
   };
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, [loadFile]);
+
+  useWorkspaceProjectBridge({
+    files: sourceFile ? [sourceFile] : [],
+    disabled: !sourceFile || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div className={clsx("crop-image-tool apple-touch-icon-tool", className)}>
       {!imageSrc ? (
@@ -351,7 +366,7 @@ export function AppleTouchIcon({ labels, className, onDownload }: AppleTouchIcon
             />
           ) : null}
 
-          <div className="crop-image-tool__actions">
+          <div className="crop-image-tool__actions" data-workspace-actions="">
             <button
               type="button"
               className="crop-image-tool__secondary-btn"

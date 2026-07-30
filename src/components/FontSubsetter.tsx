@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { useCallback, useState, type ChangeEvent } from "react";
 import { formatFontSubsetError, subsetFontFile } from "@/lib/font-subset";
 
@@ -81,6 +83,19 @@ export function FontSubsetter() {
   };
 
   const busy = status === "loading";
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <section className="font-subsetter mx-auto max-w-3xl space-y-6 rounded-none border border-neutral-800 bg-[#0a0a0a] p-6">

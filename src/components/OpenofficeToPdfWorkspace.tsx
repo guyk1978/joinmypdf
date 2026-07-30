@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone";
@@ -275,6 +277,19 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
 
   const progressPct = Math.min(100, Math.max(5, progress));
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void pickFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div id="tool-workspace" className="openoffice-pdf-workspace space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={Boolean(file)}>
@@ -347,7 +362,7 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
             />
           ) : null}
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3" data-workspace-actions="">
             <button
               type="button"
               disabled={!canConvert}

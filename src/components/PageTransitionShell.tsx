@@ -33,6 +33,11 @@ function PageTransitionCanvas({ children, mainClassName }: PageTransitionShellPr
           embed && "h-full max-w-none",
           mainClassName,
         )}
+        data-tool-workspace={
+          typeof mainClassName === "string" && mainClassName.includes("tool-page-main")
+            ? "1"
+            : undefined
+        }
       >
         <PageContentTransition className="page-content-transition--main flex min-h-0 w-full flex-1 flex-col">
           {children}

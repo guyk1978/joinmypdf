@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2, Minimize2 } from "lucide-react";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
@@ -229,6 +231,19 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
 
   const preset = presetNearestCrf(crf);
   const displayError = error || blockingError;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-compressor-tool space-y-4", className)}>

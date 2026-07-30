@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2, Lock, ShieldCheck } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -187,6 +189,19 @@ export function VideoMetadataCleaner({
   }, [busy, file, onStart, preview?.fields.length, process, registerFile, slug]);
 
   const canClean = Boolean(file) && !isProcessing && environment?.canRun !== false;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-metadata-cleaner-tool space-y-4", className)}>

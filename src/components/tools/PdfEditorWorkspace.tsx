@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import dynamic from "next/dynamic";
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
@@ -651,6 +653,19 @@ export function PdfEditorWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     state === "ocr_running" ||
     exporting ||
     backgroundPage !== null;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    addFile([next]);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || exporting || state === "parsing" || state === "ocr_running",
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div id="tool-workspace" className="pdf-editor space-y-4 pb-12 md:pb-8">

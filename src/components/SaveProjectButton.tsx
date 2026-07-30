@@ -55,6 +55,7 @@ export function SaveProjectButton({
     <>
       <button
         type="button"
+        data-workspace-save-project=""
         className={`${toolOutlineBtn} ${className}`.trim()}
         disabled={!canSave}
         onClick={() => setOpen(true)}

@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Film, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -254,6 +256,19 @@ export function VideoToGif({ labels, className, onStart, onComplete }: VideoToGi
   const startMax = trackDuration > 0 ? trackDuration : 1;
   const durationMax =
     trackDuration > 0 ? Math.max(0.1, trackDuration - startSeconds) : Math.max(durationSeconds, 1);
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-to-gif-tool space-y-4", className)}>

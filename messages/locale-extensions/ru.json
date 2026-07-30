@@ -7896,7 +7896,7 @@
     },
     "pdf-to-png": {
       "status": {
-        "fileReady": "{name} готов — экспортируйте страницы в PNG.",
+        "fileReady": "{name} готов — просмотрите страницы, затем экспортируйте в PNG.",
         "rendering": "Рендеринг страниц: {count} при масштабе {scale}×…",
         "exported": "Экспортировано PNG-страниц: {count}.",
         "zipDownloaded": "Скачан ZIP с PNG-файлами: {count}.",
@@ -7909,6 +7909,11 @@
       "stickyExportLabel": "Экспорт PNG",
       "stickyDownloadLabel": "Скачать ZIP",
       "ui": {
+        "previewHeading": "Предпросмотр PDF",
+        "previewHint": "Просмотрите страницы PDF ниже. Нажмите миниатюру для увеличения, затем экспортируйте в PNG.",
+        "loadingThumb": "Загрузка…",
+        "zoomIn": "Увеличить",
+        "zoomOut": "Уменьшить",
         "downloadPng": "Скачать PNG",
         "gridLabel": "Экспортированные PNG-страницы"
       }

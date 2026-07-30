@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, ImagePlus, Loader2, Tags } from "lucide-react";
 import { useCallback, useEffect, useId, useMemo, useState } from "react";
@@ -210,6 +212,18 @@ export function Mp3MetadataEditor({ title, onComplete }: Mp3MetadataEditorProps)
   const updateField = (key: keyof Mp3MetadataFields, value: string) => {
     setFields((current) => ({ ...current, [key]: value }));
   };
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className="mp3-metadata-editor-tool space-y-4">

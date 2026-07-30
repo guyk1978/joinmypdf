@@ -8,6 +8,7 @@ import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
+import { WorkspaceProjectControls } from "@/components/WorkspaceProjectControls";
 import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { useConsumePendingFiles } from "@/hooks/useConsumePendingFiles";
@@ -257,6 +258,14 @@ export function ConvertToolWorkspace<TProgress>({
     }
   };
 
+  const pickFileRef = useRef(pickFile);
+  pickFileRef.current = pickFile;
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (next) void pickFileRef.current(next);
+  }, []);
+
   useConsumePendingFiles(config.accept, (incoming) => {
     const next = incoming[0];
     if (!next) return;
@@ -420,7 +429,7 @@ export function ConvertToolWorkspace<TProgress>({
 
           {busy ? <WorkspaceProgressBar percent={percent} label={labelProgress(progress)} /> : null}
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3" data-workspace-actions="">
             <button
               type="button"
               disabled={!canConvert}
@@ -456,6 +465,15 @@ export function ConvertToolWorkspace<TProgress>({
               disabled={busy}
               onClick={() => startNewUpload(reset)}
               className="convert-tool-btn convert-tool-btn--secondary"
+            />
+            <WorkspaceProjectControls
+              toolSlug={slug}
+              operation={tool.operation}
+              files={file ? [file] : []}
+              disabled={!file || busy}
+              className="convert-tool-btn convert-tool-btn--secondary"
+              onRestore={onRestoreProject}
+              onRestoredStatus={setStatus}
             />
           </div>
 

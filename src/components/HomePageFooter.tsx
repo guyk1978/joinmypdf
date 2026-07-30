@@ -11,7 +11,7 @@ export function HomePageFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="home-page-footer">
+    <footer className="home-page-footer" data-site-footer="1">
       <div className="home-page-footer__inner">
         <p className="home-page-footer__copy">
           {tFooter("copyrightLine", { year })}

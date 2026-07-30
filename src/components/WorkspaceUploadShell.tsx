@@ -6,6 +6,7 @@ import { usePendingDropzoneHandoff } from "@/hooks/usePendingFileInputHandoff";
 import {
   setToolHasUploadShell,
   setWorkspacePhase,
+  WORKSPACE_PHASE_CLEAN_CLASS,
   type WorkspacePhase,
 } from "@/lib/workspace-flow";
 
@@ -37,6 +38,20 @@ function resolvePhase(
   return hasDropzone ? "clean" : "active";
 }
 
+/**
+ * SSR / first-paint phase — must match post-hydration for upload tools so
+ * layout CSS (gutters, dropzone bounds, footer) does not flash then override.
+ * Assume a primary dropzone will mount when upload is required.
+ */
+function resolveInitialPhase(
+  active: boolean | undefined,
+  requiresUpload: boolean | undefined,
+): WorkspacePhase {
+  if (typeof active === "boolean") return active ? "active" : "clean";
+  if (requiresUpload === false) return "active";
+  return "clean";
+}
+
 function hasPrimaryDropzone(root: HTMLElement) {
   return Boolean(root.querySelector(".im-dropzone:not(.im-dropzone--compact)"));
 }
@@ -56,7 +71,7 @@ export function WorkspaceUploadShell({
     typeof active === "boolean" || requiresUpload !== false,
   );
 
-  const initialPhase = resolvePhase(active, requiresUpload, false);
+  const initialPhase = resolveInitialPhase(active, requiresUpload);
   usePendingDropzoneHandoff(rootRef);
 
   useLayoutEffect(() => {
@@ -64,8 +79,10 @@ export function WorkspaceUploadShell({
     if (!root) return;
 
     let frame = 0;
+    let alive = true;
 
     const sync = () => {
+      if (!alive) return;
       const dropzone = hasPrimaryDropzone(root);
       const phase = resolvePhase(active, requiresUpload, dropzone);
 
@@ -87,9 +104,19 @@ export function WorkspaceUploadShell({
     sync();
 
     const cleanup = () => {
+      alive = false;
       if (frame) window.cancelAnimationFrame(frame);
-      setWorkspacePhase("active", root);
-      setToolHasUploadShell(false);
+      // Defer until after unmount so we don't race Strict Mode remounts or
+      // leave html.workspace-phase-clean stuck after leaving a tool page.
+      window.requestAnimationFrame(() => {
+        const stillClean = document.querySelector(
+          '.tool-upload-float[data-workspace-phase="clean"]',
+        );
+        if (!stillClean) {
+          document.documentElement.classList.remove(WORKSPACE_PHASE_CLEAN_CLASS);
+          setToolHasUploadShell(false);
+        }
+      });
     };
 
     // Explicit phase drivers — no MutationObserver needed.

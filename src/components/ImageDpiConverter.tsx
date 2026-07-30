@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
@@ -179,6 +181,19 @@ export function ImageDpiConverter({ labels, className }: ImageDpiConverterProps)
       ? `${info.dpi} DPI${info.dpiApproximate ? " ≈" : ""}`
       : labels.currentDpiUnknown;
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div className={clsx("image-dpi-converter", className)}>
       {!file ? (
@@ -289,7 +304,7 @@ export function ImageDpiConverter({ labels, className }: ImageDpiConverterProps)
 
             {error ? <p className="image-dpi-converter__error">{error}</p> : null}
 
-            <div className="image-dpi-converter__actions">
+            <div className="image-dpi-converter__actions" data-workspace-actions="">
               <button
                 type="button"
                 className={clsx(imBtnCta, "image-dpi-converter__primary")}

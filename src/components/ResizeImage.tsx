@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { Magnifier } from "@/components/Magnifier";
@@ -205,6 +207,19 @@ export function ResizeImage({ labels, className, onDownload }: ResizeImageProps)
     }
   };
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, [loadFile]);
+
+  useWorkspaceProjectBridge({
+    files: sourceFile ? [sourceFile] : [],
+    disabled: !sourceFile || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div className={clsx("crop-image-tool", className)}>
       {!imageSrc ? (
@@ -287,7 +302,7 @@ export function ResizeImage({ labels, className, onDownload }: ResizeImageProps)
 
           {showFeedback ? <ToolSuccessEngagement pageTitle={headline} /> : null}
 
-          <div className="crop-image-tool__actions">
+          <div className="crop-image-tool__actions" data-workspace-actions="">
             <button
               type="button"
               className="crop-image-tool__secondary-btn"

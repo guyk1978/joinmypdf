@@ -7828,7 +7828,7 @@
     },
     "pdf-to-png": {
       "status": {
-        "fileReady": "{name} מוכן — ייצא עמודים כ-PNG.",
+        "fileReady": "{name} מוכן — תצוגה מקדימה של העמודים, ואז ייצוא ל-PNG.",
         "rendering": "מרנדר {count} עמוד/ים ב-{scale}×…",
         "exported": "יוצאו {count} עמוד/י PNG.",
         "zipDownloaded": "ZIP עם {count} קובצ/י PNG הורד.",
@@ -7841,6 +7841,11 @@
       "stickyExportLabel": "ייצא PNG",
       "stickyDownloadLabel": "הורד ZIP",
       "ui": {
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של עמודי ה-PDF למטה. לחצו על תמונה ממוזערת להגדלה, ואז ייצאו ל-PNG כשמוכנים.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן",
         "downloadPng": "הורד PNG",
         "gridLabel": "עמודי PNG שיוצאו"
       }

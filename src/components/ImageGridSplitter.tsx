@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Loader2 } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -232,6 +234,19 @@ export function ImageGridSplitter({ labels, className }: ImageGridSplitterProps)
     .replace("{cols}", String(grid.cols))
     .replace("{count}", String(grid.rows * grid.cols));
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div className={clsx("image-grid-splitter", className)}>
       {!file || !previewUrl ? (
@@ -345,7 +360,7 @@ export function ImageGridSplitter({ labels, className }: ImageGridSplitterProps)
             {error ? <p className="image-grid-splitter__error">{error}</p> : null}
             {progress ? <p className="image-grid-splitter__progress">{progress}</p> : null}
 
-            <div className="image-grid-splitter__actions">
+            <div className="image-grid-splitter__actions" data-workspace-actions="">
               <button
                 type="button"
                 className={clsx(imBtnCta, "image-grid-splitter__primary")}

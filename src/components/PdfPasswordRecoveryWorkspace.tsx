@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
@@ -248,6 +250,19 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
   const showWorkspace = Boolean(file);
   const canStart = Boolean(file) && encrypted && !busy;
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void pickFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={showWorkspace}>
@@ -397,7 +412,7 @@ export function PdfPasswordRecoveryWorkspace({ tool, slug }: { tool: ToolDefinit
 
           {formError ? <p className="text-sm text-black dark:text-neutral-200">{formError}</p> : null}
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3" data-workspace-actions="">
             {!busy ? (
               <button type="button" disabled={!canStart} onClick={onStart} className={toolPrimaryBtn}>
                 {ws.wsText("startLabel")}

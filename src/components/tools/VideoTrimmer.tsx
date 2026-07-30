@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2, Scissors } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -200,6 +202,19 @@ export function VideoTrimmer({ labels, className, onStart, onComplete }: VideoTr
 
   const selectionLength = Math.max(0, endSeconds - startSeconds);
   const maxAttr = duration > 0 ? duration : 1;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-trimmer-tool space-y-4", className)}>

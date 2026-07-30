@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2, RotateCw } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -183,6 +185,19 @@ export function VideoRotator({ labels, className, onStart, onComplete }: VideoRo
 
   const canRotate = Boolean(file) && !isProcessing && environment?.canRun !== false;
   const previewDegrees = cssRotateDegrees(angle);
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-rotator-tool space-y-4", className)}>

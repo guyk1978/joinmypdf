@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { Download, Lock, Maximize2, Shield } from "lucide-react";
@@ -250,6 +252,19 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
     </p>
   );
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, [loadFile]);
+
+  useWorkspaceProjectBridge({
+    files: sourceFile ? [sourceFile] : [],
+    disabled: !sourceFile || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div className={clsx("crop-image-tool favicon-pack-tool", className)}>
       {!imageSrc ? (
@@ -336,7 +351,7 @@ export function FaviconPack({ labels, className, onDownload }: FaviconPackProps)
             />
           ) : null}
 
-          <div className="crop-image-tool__actions">
+          <div className="crop-image-tool__actions" data-workspace-actions="">
             <button
               type="button"
               className="crop-image-tool__secondary-btn"

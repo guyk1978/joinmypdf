@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MediaDropzone } from "@/components/media/MediaDropzone";
@@ -136,6 +138,19 @@ export function VideoToMp4({ labels, className, onStart, onComplete }: VideoToMp
 
   const showDropzone = !file || phase === "idle";
   const showStatus = phase !== "idle";
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-to-mp4-tool space-y-4", className)}>

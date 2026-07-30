@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Gauge, Loader2 } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -110,6 +112,19 @@ export function VideoSpeed({ labels, className, onStart, onComplete }: VideoSpee
   }, [busy, file, onStart, process, registerFile, slug, speed]);
 
   const canApply = Boolean(file) && !isProcessing && environment?.canRun !== false;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-speed-tool space-y-4", className)}>

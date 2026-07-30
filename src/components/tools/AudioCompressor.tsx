@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useId, useState } from "react";
@@ -116,6 +118,19 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
   );
 
   const canCompress = Boolean(file) && !busy && environment?.canRun !== false;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className="audio-compressor-tool space-y-4">

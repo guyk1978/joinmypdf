@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone";
@@ -220,6 +222,19 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
   };
 
   const previewIndices = selectedIndices.slice(0, 12);
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    addFile([next]);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">

@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2 } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -79,6 +81,19 @@ export function Mp4ToMp3({ title, onComplete }: Mp4ToMp3Props) {
   }, [busy, convert, file]);
 
   const canConvert = Boolean(file) && !busy && environment?.canRun !== false;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className="mp4-to-mp3-tool space-y-4">

@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
@@ -15,7 +17,7 @@ import {
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import type { ToolDefinition } from "@/lib/types";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const ACCEPT = "image/svg+xml,.svg";
 
@@ -148,6 +150,19 @@ export function SvgOptimizerWorkspace({ tool, slug }: SvgOptimizerWorkspaceProps
     }
   };
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <WorkspaceUploadShell showPrivacyBadge={false} active={Boolean(file)}>
       <div id={WORKSPACE_OPERATIONS_ID} className="svg-optimizer-tool-page">
@@ -227,7 +242,7 @@ export function SvgOptimizerWorkspace({ tool, slug }: SvgOptimizerWorkspaceProps
               </label>
             </section>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3" data-workspace-actions="">
               <button
                 type="button"
                 onClick={onOptimize}

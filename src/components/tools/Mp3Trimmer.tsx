@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2, Scissors } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -131,6 +133,19 @@ export function Mp3Trimmer({ name, title: _title, onComplete }: Mp3TrimmerProps)
   }, [busy, duration, endTime, file, startTime, trim]);
 
   const canTrim = Boolean(file) && !busy && environment?.canRun !== false;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className="mp3-trimmer-tool space-y-4">

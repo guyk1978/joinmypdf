@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import {
   FlipHorizontal2,
@@ -245,6 +247,19 @@ export function RotateImage({
   ]
     .filter(Boolean)
     .join(" ");
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, [loadFile]);
+
+  useWorkspaceProjectBridge({
+    files: sourceFile ? [sourceFile] : [],
+    disabled: !sourceFile || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("rotate-align-suite", className)}>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Gauge, Loader2, Pause, Play } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -180,6 +182,19 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
     environment?.canRun !== false;
 
   const isDisabled = busy || Boolean(blockingError);
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className="audio-speed-changer-tool space-y-4">

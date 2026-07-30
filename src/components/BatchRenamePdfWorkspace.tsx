@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
@@ -132,6 +134,17 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
   const showWorkspace = files.length > 0;
   const canDownload = files.length > 0 && !busy;
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    if (payload.files.length) setFiles(payload.files);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files,
+    disabled: files.length === 0 || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={showWorkspace}>
@@ -189,7 +202,7 @@ export function BatchRenamePdfWorkspace({ tool, slug }: { tool: ToolDefinition; 
         }
       />
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3" data-workspace-actions="">
         <button
           type="button"
           className={toolSecondaryBtn}

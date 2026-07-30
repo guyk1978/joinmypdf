@@ -23,6 +23,7 @@ import {
 } from "@/lib/magnifier-preference";
 import { requestPreviewInspect } from "@/lib/preview-inspect";
 import { ToolModalRating } from "@/components/tool-modal/ToolModalRating";
+import { HomePageFooter } from "@/components/HomePageFooter";
 import {
   getCategoryAccentCssVar,
   resolveToolCategoryId,
@@ -402,6 +403,8 @@ export function ToolModalWrapper({
             exit={{ opacity: 0, y: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
           >
+            <div className="tool-modal__frame">
+            <div className="tool-modal__workspace">
             <header className="tool-modal__header">
               <h2 id={titleId} className="tool-modal__title">
                 {title}
@@ -611,6 +614,12 @@ export function ToolModalWrapper({
                   {content}
                 </div>
               ))}
+            </div>
+            </div>
+
+            <div className="tool-modal__site-footer">
+              <HomePageFooter />
+            </div>
             </div>
 
             {copied ? (

@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { useCallback, useId, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
@@ -145,6 +147,19 @@ export function ImageMetadataWiper({ labels, className }: ImageMetadataWiperProp
     }
   };
 
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div className={clsx("image-wiper-tool", className)}>
       {!file ? (
@@ -200,7 +215,7 @@ export function ImageMetadataWiper({ labels, className }: ImageMetadataWiperProp
             ) : null}
           </section>
 
-          <div className="image-wiper-tool__actions">
+          <div className="image-wiper-tool__actions" data-workspace-actions="">
             <button
               type="button"
               className="security-tool__action-btn"

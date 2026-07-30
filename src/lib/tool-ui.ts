@@ -67,7 +67,7 @@ export const toolPageDashboardWidth = "tool-page-main flex w-full min-h-0 max-w-
  * clean-phase CSS when an upload shell is active.
  */
 export const productPageMainClassName =
-  "tool-page-main flex w-full min-h-0 max-w-none flex-1 flex-col pb-8 pt-6 md:pb-10 md:pt-10";
+  "tool-page-main flex w-full min-h-0 max-w-none flex-1 flex-col px-[30px] pb-0 pt-0";
 
 export const toolPageInfoWidth = "mx-auto w-full max-w-2xl px-4";
 

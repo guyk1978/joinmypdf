@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Eraser, ScanFace, Undo2 } from "lucide-react";
 import {
@@ -323,6 +325,19 @@ export function ImageBlurRedact({ labels, className }: ImageBlurRedactProps) {
   };
 
   const draftRect = draft ? normalizeRect(draft.start, draft.current) : null;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, [loadFile]);
+
+  useWorkspaceProjectBridge({
+    files: sourceFile ? [sourceFile] : [],
+    disabled: !sourceFile || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("image-blur-redact", className)}>

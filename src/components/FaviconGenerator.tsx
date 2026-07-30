@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Check, Copy, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
@@ -228,6 +230,18 @@ export function FaviconGenerator({ labels, className }: FaviconGeneratorProps) {
 
   const displayTitle = siteTitle.trim() || labels.defaultSiteTitle;
 
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    void loadFile(next);
+  }, [loadFile]);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
+
   return (
     <div className={clsx("favicon-generator", className)}>
       {!file || !imageSrc ? (
@@ -335,7 +349,7 @@ export function FaviconGenerator({ labels, className }: FaviconGeneratorProps) {
 
             {error ? <p className="favicon-generator__error">{error}</p> : null}
 
-            <div className="favicon-generator__actions">
+            <div className="favicon-generator__actions" data-workspace-actions="">
               <button
                 type="button"
                 className={clsx(imBtnCta, "favicon-generator__primary")}

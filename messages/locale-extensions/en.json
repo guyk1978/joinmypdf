@@ -7775,7 +7775,7 @@
     },
     "pdf-to-png": {
       "status": {
-        "fileReady": "{name} ready — export pages as PNG.",
+        "fileReady": "{name} ready — preview pages, then export as PNG.",
         "rendering": "Rendering {count} page(s) at {scale}×…",
         "exported": "Exported {count} PNG page(s).",
         "zipDownloaded": "Downloaded ZIP with {count} PNG file(s).",
@@ -7788,6 +7788,11 @@
       "stickyExportLabel": "Export PNG",
       "stickyDownloadLabel": "Download ZIP",
       "ui": {
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then export as PNG when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
         "downloadPng": "Download PNG",
         "gridLabel": "Exported PNG pages"
       }

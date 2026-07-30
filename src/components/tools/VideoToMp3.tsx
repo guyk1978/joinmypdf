@@ -1,5 +1,7 @@
 "use client";
 
+import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+
 import { clsx } from "clsx";
 import { Download, Loader2, Music } from "lucide-react";
 import { useCallback, useId, useState } from "react";
@@ -125,6 +127,19 @@ export function VideoToMp3({ labels, className, onStart, onComplete }: VideoToMp
   }, [busy, convert, file, onStart, quality, registerFile, slug]);
 
   const canConvert = Boolean(file) && !busy && environment?.canRun !== false;
+
+
+  const onRestoreProject = useCallback((payload: { files: File[] }) => {
+    const next = payload.files[0];
+    if (!next) return;
+    setFile(next);
+  }, []);
+
+  useWorkspaceProjectBridge({
+    files: file ? [file] : [],
+    disabled: !file || busy,
+    onRestore: onRestoreProject,
+  });
 
   return (
     <div className={clsx("video-to-mp3-tool mt-6 space-y-4", className)}>
