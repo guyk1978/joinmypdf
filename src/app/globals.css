@@ -5093,13 +5093,15 @@ html[data-tool-modal-open="1"] .category-modal:not(.is-open) {
 
 /* Sticky batch pin bar */
 .tools-directory-batch-bar {
-  position: sticky;
+  position: fixed;
+  inset-inline: 0;
   bottom: max(1rem, env(safe-area-inset-bottom, 0px));
-  z-index: 40;
+  z-index: 60;
   display: flex;
   justify-content: center;
   pointer-events: none;
-  margin-top: 1.5rem;
+  margin: 0;
+  padding-inline: max(20px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   padding-block: 0.25rem;
   animation: tools-directory-batch-bar-in 0.22s ease;
 }
@@ -30798,6 +30800,284 @@ html[dir="rtl"] .welcome-splash__enter-icon {
 
 .pdf-page-preview__img {
   object-fit: contain;
+}
+
+.pdf-page-preview__html-sheet {
+  box-sizing: border-box;
+  width: min(794px, calc(100vw - 3rem));
+  max-width: 100%;
+  min-height: min(70vh, 640px);
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  overflow: visible;
+  user-select: text;
+  pointer-events: none;
+}
+
+.markdown-pdf-workspace {
+  --markdown-pdf-pane-height: 320px;
+}
+
+@media (min-width: 1024px) {
+  .markdown-pdf-workspace {
+    --markdown-pdf-pane-height: 420px;
+  }
+}
+
+.markdown-pdf-panes {
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .markdown-pdf-panes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.markdown-pdf-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.markdown-pdf-pane__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.markdown-pdf-pane__title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.markdown-pdf-pane__meta {
+  font-size: 0.75rem;
+  color: #a3a3a3;
+}
+
+.markdown-pdf-editor,
+.markdown-pdf-preview {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--markdown-pdf-pane-height);
+  min-height: var(--markdown-pdf-pane-height);
+  max-height: var(--markdown-pdf-pane-height);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+}
+
+.markdown-pdf-editor {
+  resize: vertical;
+  max-height: min(70vh, 640px);
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.3);
+  color: #f0f0f0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.625;
+}
+
+.markdown-pdf-editor::placeholder {
+  color: rgba(163, 163, 163, 0.6);
+}
+
+.markdown-pdf-editor:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.markdown-pdf-preview {
+  display: block;
+  text-align: start;
+  cursor: default;
+  font-size: 0.875rem;
+  line-height: 1.625;
+}
+
+.markdown-pdf-preview--ready {
+  cursor: zoom-in;
+}
+
+.markdown-pdf-preview--ready:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.markdown-pdf-tab {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #a3a3a3;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.markdown-pdf-tab--active {
+  background: #262626;
+  color: #f5f5f5;
+}
+
+.markdown-pdf-theme-select {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f0f0f0;
+  font-size: 0.875rem;
+}
+
+.markdown-pdf-theme-select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.markdown-pdf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.markdown-pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0;
+  font-size: 0.875rem;
+  font-weight: 650;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: none !important;
+  animation: none !important;
+}
+
+.markdown-pdf-btn--primary {
+  border: 1px solid #e5e5e5;
+  background: #f0f0f0;
+  color: #121212;
+  box-shadow: none;
+}
+
+.markdown-pdf-btn--primary.is-ready {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #0a0a0a;
+}
+
+.markdown-pdf-btn--primary:hover:not(:disabled),
+.markdown-pdf-btn--primary.is-ready:hover:not(:disabled) {
+  background: #ffffff;
+  color: #0a0a0a;
+}
+
+.markdown-pdf-btn--primary:disabled {
+  border-color: #3a3a3a;
+  background: #2a2a2a;
+  color: #8a8a8a;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.markdown-pdf-btn--secondary,
+.markdown-pdf-actions .markdown-pdf-btn--secondary,
+.markdown-pdf-actions button.markdown-pdf-btn--secondary {
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: #1a1a1a !important;
+  color: #f0f0f0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+.markdown-pdf-btn--secondary:hover:not(:disabled),
+.markdown-pdf-actions .markdown-pdf-btn--secondary:hover:not(:disabled) {
+  background: #242424 !important;
+  border-color: rgba(255, 255, 255, 0.32) !important;
+  color: #ffffff !important;
+}
+
+.markdown-pdf-btn--secondary:disabled,
+.markdown-pdf-actions .markdown-pdf-btn--secondary:disabled {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  background: #161616 !important;
+  color: #8a8a8a !important;
+  cursor: not-allowed;
+}
+
+.markdown-pdf-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 2px;
+}
+
+.openoffice-pdf-btn {
+  transition: none !important;
+  animation: none !important;
+}
+
+.openoffice-pdf-btn--primary.is-ready,
+.openoffice-pdf-workspace .openoffice-pdf-btn--primary.is-ready {
+  border: 1px solid #ffffff !important;
+  background: #ffffff !important;
+  color: #0a0a0a !important;
+  opacity: 1 !important;
+}
+
+.openoffice-pdf-btn--primary:disabled,
+.openoffice-pdf-workspace .openoffice-pdf-btn--primary:disabled {
+  border: 1px solid #3a3a3a !important;
+  background: #2a2a2a !important;
+  color: #8a8a8a !important;
+  opacity: 1 !important;
+  cursor: not-allowed;
+}
+
+.openoffice-pdf-btn--secondary,
+.openoffice-pdf-workspace .openoffice-pdf-btn--secondary {
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: #1a1a1a !important;
+  color: #f0f0f0 !important;
+  opacity: 1 !important;
+}
+
+.openoffice-pdf-preview {
+  margin-top: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.openoffice-pdf-preview__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.openoffice-pdf-preview__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f5f5f5;
+  letter-spacing: -0.01em;
 }
 
 .pdf-page-preview__status {

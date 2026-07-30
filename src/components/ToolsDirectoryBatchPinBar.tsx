@@ -1,20 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Heart } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/navigation";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useToolsDirectorySelection } from "@/components/ToolsDirectorySelectionContext";
+import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 
 /**
- * Sticky batch action bar — adds multi-selected tools to Library Favorites on /tools.
+ * Global floating batch bar — adds multi-selected tool cards to Library Favorites.
  */
 export function ToolsDirectoryBatchPinBar() {
   const selection = useToolsDirectorySelection();
   const { addFavorites } = useFavorites();
   const t = useTranslations("ToolsDirectory");
+  const pathname = usePathname();
+  const embed = useToolEmbedMode();
   const [feedback, setFeedback] = useState<string | null>(null);
   const [flash, setFlash] = useState(false);
+  const prevPathname = useRef(pathname);
+  const clearSelection = selection?.clear;
+
+  useEffect(() => {
+    if (!clearSelection) return;
+    if (prevPathname.current === pathname) return;
+    prevPathname.current = pathname;
+    clearSelection();
+    setFeedback(null);
+    setFlash(false);
+  }, [pathname, clearSelection]);
 
   useEffect(() => {
     if (!feedback) return;
@@ -25,7 +40,7 @@ export function ToolsDirectoryBatchPinBar() {
     return () => window.clearTimeout(timer);
   }, [feedback]);
 
-  if (!selection) return null;
+  if (embed || !selection) return null;
 
   const { selectedCount, getSelectedIds, clear } = selection;
   const visible = selectedCount > 0 || Boolean(feedback);

@@ -1,8 +1,9 @@
 "use client";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
+import { HtmlContentPreviewModal } from "@/components/HtmlContentPreviewModal";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
-import { FileUploadZone } from "@/components/FileUploadZone"
+import { FileUploadZone } from "@/components/FileUploadZone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -26,6 +27,7 @@ import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { wsProgressPhase } from "@/lib/workspace-progress-label";
+import { clsx } from "clsx";
 import {
   useCallback,
   useEffect,
@@ -34,6 +36,8 @@ import {
   useRef,
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 
 function downloadBlob(blob: Blob, name: string) {
@@ -62,8 +66,10 @@ function themeLabelFor(id: MarkdownTheme, ws: ReturnType<typeof useWorkspaceI18n
 
 export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
+  const previewUnavailable = ws.wsUi("previewUnavailable");
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN_SAMPLE);
   const [previewHtml, setPreviewHtml] = useState("");
+  const [previewParsed, setPreviewParsed] = useState(false);
   const [theme, setTheme] = useState<MarkdownTheme>("github");
   const [file, setFile] = useState<File | null>(null);
   const [inputMode, setInputMode] = useState<"editor" | "upload">("editor");
@@ -73,9 +79,14 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const previewPointerRef = useRef<{ x: number; y: number } | null>(null);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
+
+  const hasMarkdown = Boolean(markdown.trim());
+  const downloadReady = hasMarkdown && previewParsed && Boolean(previewHtml) && !busy;
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
@@ -83,21 +94,25 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
   useEffect(() => {
     let cancelled = false;
-    const unavailable = `<p class='text-black dark:text-neutral-200'>${ws.wsUi("previewUnavailable")}</p>`;
+    const unavailable = `<p class='text-black dark:text-neutral-200'>${previewUnavailable}</p>`;
     const timer = window.setTimeout(() => {
       void parseMarkdownToHtml(markdown)
         .then((html) => {
-          if (!cancelled) setPreviewHtml(html);
+          if (cancelled) return;
+          setPreviewHtml(html);
+          setPreviewParsed(Boolean(markdown.trim()));
         })
         .catch(() => {
-          if (!cancelled) setPreviewHtml(unavailable);
+          if (cancelled) return;
+          setPreviewHtml(unavailable);
+          setPreviewParsed(false);
         });
     }, 280);
     return () => {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [markdown, ws]);
+  }, [markdown, previewUnavailable]);
 
   const previewStyles = useMemo(() => {
     if (theme === "minimal-dark") {
@@ -109,6 +124,11 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
     return `[&_pre]:bg-[#f6f8fa] [&_table]:border-collapse [&_th]:border [&_td]:border [&_a]:text-[#0969da]`;
   }, [theme]);
 
+  const previewSurface = useMemo(
+    () => `${previewSurfaceClass(theme)} ${previewStyles}`,
+    [theme, previewStyles],
+  );
+
   const reset = useCallback(() => {
     setMarkdown(DEFAULT_MARKDOWN_SAMPLE);
     setFile(null);
@@ -116,6 +136,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
     setStatus("");
     setDone(false);
     setRunError(null);
+    setPreviewOpen(false);
     setInputMode("editor");
     if (inputRef.current) inputRef.current.value = "";
   }, []);
@@ -138,6 +159,7 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
   };
 
   const onConvert = async () => {
+    if (!hasMarkdown || busy) return;
     setBusy(true);
     setDone(false);
     setRunError(null);
@@ -173,91 +195,115 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
     }
   };
 
+  const onPreviewPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0) return;
+    previewPointerRef.current = { x: event.clientX, y: event.clientY };
+  };
+
+  const onPreviewClick = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (!previewHtml) return;
+    const start = previewPointerRef.current;
+    previewPointerRef.current = null;
+    if (start) {
+      const dx = Math.abs(event.clientX - start.x);
+      const dy = Math.abs(event.clientY - start.y);
+      // Treat drag/scroll gestures as non-clicks so vertical scrolling stays usable.
+      if (dx > 6 || dy > 6) return;
+    }
+    setPreviewOpen(true);
+  };
+
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="markdown-pdf-workspace space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={Boolean(file)}>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex rounded-none border border-white/10 p-1">
-          <button
-            type="button"
-            onClick={() => setInputMode("editor")}
-            className={`rounded-none px-4 py-2 text-sm font-medium transition ${ inputMode === "editor" ? "bg-neutral-200 dark:bg-neutral-800 text-surface" : "text-ink-muted hover:text-ink" }`}
-          >
-            {ws.wsUi("tabEditor")}
-          </button>
-          <button
-            type="button"
-            onClick={() => setInputMode("upload")}
-            className={`rounded-none px-4 py-2 text-sm font-medium transition ${ inputMode === "upload" ? "bg-neutral-200 dark:bg-neutral-800 text-surface" : "text-ink-muted hover:text-ink" }`}
-          >
-            {ws.wsUi("tabUpload")}
-          </button>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex rounded-none border border-white/10 p-1">
+            <button
+              type="button"
+              onClick={() => setInputMode("editor")}
+              className={clsx(
+                "markdown-pdf-tab",
+                inputMode === "editor" && "markdown-pdf-tab--active",
+              )}
+            >
+              {ws.wsUi("tabEditor")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setInputMode("upload")}
+              className={clsx(
+                "markdown-pdf-tab",
+                inputMode === "upload" && "markdown-pdf-tab--active",
+              )}
+            >
+              {ws.wsUi("tabUpload")}
+            </button>
+          </div>
+
+          <label className="flex items-center gap-2 text-sm text-ink-muted">
+            <span className="font-medium text-ink">{ws.wsUi("themeLabel")}</span>
+            <select
+              value={theme}
+              onChange={(e) => setTheme(e.target.value as MarkdownTheme)}
+              className="markdown-pdf-theme-select"
+            >
+              {MARKDOWN_THEMES.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {themeLabelFor(t.id, ws)}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
-        <label className="flex items-center gap-2 text-sm text-ink-muted">
-          <span className="font-medium text-ink">{ws.wsUi("themeLabel")}</span>
-          <select
-            value={theme}
-            onChange={(e) => setTheme(e.target.value as MarkdownTheme)}
-            className="rounded-none border border-white/15 bg-white/5 px-3 py-2 text-sm text-ink focus:border-neutral-300 dark:border-neutral-800 focus:outline-none"
-          >
-            {MARKDOWN_THEMES.map((t) => (
-              <option key={t.id} value={t.id}>
-                {themeLabelFor(t.id, ws)}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      {inputMode === "upload" ? (
-        <FileUploadZone
-          operation={tool.operation}
-          drag={drag}
-          role="button"
-          tabIndex={0}
-          aria-controls={`${baseId}-input`}
-          className="cursor-pointer"
-          title={ws.uploadTitle()}
-          description={ws.uploadDescription()}
-          onKeyDown={(e: ReactKeyboardEvent) => {
-            if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
-          }}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDrag(true);
-          }}
-          onDragLeave={() => setDrag(false)}
-          onDrop={(e) => {
-            e.preventDefault();
-            setDrag(false);
-            const picked = e.dataTransfer.files?.[0];
-            if (picked) void pickFile(picked);
-          }}
-          onClick={() => inputRef.current?.click()}
-          input={
-            <input
-              id={`${baseId}-input`}
-              ref={inputRef}
-              type="file"
-              className="sr-only"
-              accept=".md,text/markdown,text/x-markdown"
-              onChange={(e) => {
-                const picked = e.target.files?.[0];
-                if (picked) void pickFile(picked);
-                e.target.value = "";
-              }}
-            />
-          }
-        />
-      ) : null}
+        {inputMode === "upload" ? (
+          <FileUploadZone
+            operation={tool.operation}
+            drag={drag}
+            role="button"
+            tabIndex={0}
+            aria-controls={`${baseId}-input`}
+            className="cursor-pointer"
+            title={ws.uploadTitle()}
+            description={ws.uploadDescription()}
+            onKeyDown={(e: ReactKeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+            }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDrag(true);
+            }}
+            onDragLeave={() => setDrag(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDrag(false);
+              const picked = e.dataTransfer.files?.[0];
+              if (picked) void pickFile(picked);
+            }}
+            onClick={() => inputRef.current?.click()}
+            input={
+              <input
+                id={`${baseId}-input`}
+                ref={inputRef}
+                type="file"
+                className="sr-only"
+                accept=".md,text/markdown,text/x-markdown"
+                onChange={(e) => {
+                  const picked = e.target.files?.[0];
+                  if (picked) void pickFile(picked);
+                  e.target.value = "";
+                }}
+              />
+            }
+          />
+        ) : null}
       </WorkspaceUploadShell>
 
-      <div id={WORKSPACE_OPERATIONS_ID} className="grid gap-2 lg:grid-cols-2">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold text-ink">{ws.wsUi("sourceHeading")}</h2>
-            {file ? <span className="text-xs text-ink-muted">{file.name}</span> : null}
+      <div id={WORKSPACE_OPERATIONS_ID} className="markdown-pdf-panes">
+        <div className="markdown-pdf-pane">
+          <div className="markdown-pdf-pane__head">
+            <h2 className="markdown-pdf-pane__title">{ws.wsUi("sourceHeading")}</h2>
+            {file ? <span className="markdown-pdf-pane__meta">{file.name}</span> : null}
           </div>
           <textarea
             value={markdown}
@@ -266,16 +312,38 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
               setDone(false);
             }}
             spellCheck={false}
-            className="min-h-[320px] w-full resize-y rounded-none border border-white/10 bg-black/30 px-4 py-3 font-mono text-sm leading-relaxed text-ink placeholder:text-ink-muted/60 focus:border-neutral-300 dark:border-neutral-800 focus:outline-none lg:min-h-[420px]"
+            className="markdown-pdf-editor"
             placeholder={ws.wsUi("editorPlaceholder")}
             aria-label={ws.wsUi("editorAriaLabel")}
           />
         </div>
 
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold text-ink">{ws.wsUi("previewHeading")}</h2>
+        <div className="markdown-pdf-pane">
+          <div className="markdown-pdf-pane__head">
+            <h2 className="markdown-pdf-pane__title">{ws.wsUi("previewHeading")}</h2>
+            {previewHtml ? (
+              <span className="markdown-pdf-pane__meta">{ws.wsUi("previewClickHint")}</span>
+            ) : null}
+          </div>
           <div
-            className={`${previewSurfaceClass(theme)} min-h-[320px] overflow-auto text-sm leading-relaxed lg:min-h-[420px] ${previewStyles}`}
+            role="button"
+            tabIndex={previewHtml ? 0 : -1}
+            className={clsx(
+              "markdown-pdf-preview",
+              previewSurface,
+              previewHtml && "markdown-pdf-preview--ready",
+            )}
+            onPointerDown={onPreviewPointerDown}
+            onClick={onPreviewClick}
+            onKeyDown={(e) => {
+              if (!previewHtml) return;
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setPreviewOpen(true);
+              }
+            }}
+            aria-label={ws.wsUi("openPreviewAria")}
+            title={ws.wsUi("openPreviewAria")}
             dangerouslySetInnerHTML={{ __html: previewHtml }}
           />
         </div>
@@ -288,12 +356,15 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
         />
       ) : null}
 
-      <div className="flex flex-wrap gap-3">
+      <div className="markdown-pdf-actions">
         <button
           type="button"
-          disabled={busy || !markdown.trim()}
+          disabled={!downloadReady}
           onClick={() => void onConvert()}
-          className="rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-surface transition hover:bg-neutral-200 dark:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className={clsx(
+            "markdown-pdf-btn markdown-pdf-btn--primary",
+            downloadReady && "is-ready",
+          )}
         >
           {ws.wsText("downloadLabel")}
         </button>
@@ -301,15 +372,16 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
           type="button"
           disabled={busy}
           onClick={reset}
-          className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+          className="markdown-pdf-btn markdown-pdf-btn--secondary"
         >
           {ws.wsCommon("resetSample")}
         </button>
-            <WorkspaceNewUploadButton
-              label={ws.uploadNewFile}
-              disabled={busy}
-              onClick={() => startNewUpload(reset)}
-            />
+        <WorkspaceNewUploadButton
+          label={ws.uploadNewFile}
+          disabled={busy}
+          onClick={() => startNewUpload(reset)}
+          className="markdown-pdf-btn markdown-pdf-btn--secondary"
+        />
       </div>
 
       {runError ? (
@@ -336,6 +408,17 @@ export function MarkdownToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; s
         label={ws.wsText("downloadLabel")}
         secondaryHref="/"
         secondaryLabel={ws.home}
+      />
+
+      <HtmlContentPreviewModal
+        open={previewOpen}
+        html={previewHtml}
+        contentClassName={previewSurface}
+        title={ws.wsUi("previewModalTitle")}
+        closeLabel={ws.wsUi("closePreview")}
+        zoomInLabel={ws.wsUi("zoomIn")}
+        zoomOutLabel={ws.wsUi("zoomOut")}
+        onClose={() => setPreviewOpen(false)}
       />
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
-import { FileUploadZone } from "@/components/FileUploadZone"
+import { FileUploadZone } from "@/components/FileUploadZone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -11,6 +11,7 @@ import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import {
   convertOpenofficeToPdfBytes,
   detectOpenofficeFormat,
@@ -20,10 +21,17 @@ import {
   readOpenofficeMeta,
   type OpenofficeProgressPhase,
 } from "@/lib/openoffice-to-pdf";
+import {
+  DELETE_PAGES_THUMB_SCALE,
+  loadPdfPageCount,
+  renderPdfPageThumbnail,
+} from "@/lib/pdf-delete-pages";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
+import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import { wsProgressPhase } from "@/lib/workspace-progress-label";
+import { clsx } from "clsx";
 import {
   useCallback,
   useEffect,
@@ -41,10 +49,86 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
+function copyPdfBytes(bytes: Uint8Array): Uint8Array {
+  return bytes.slice();
+}
+
+function OpenOfficePreviewThumb({
+  pageIndex,
+  fileBytes,
+  loadingLabel,
+  pageLabel,
+  previewAria,
+  onPreview,
+}: {
+  pageIndex: number;
+  fileBytes: Uint8Array;
+  loadingLabel: string;
+  pageLabel: string;
+  previewAria: string;
+  onPreview: () => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setFailed(false);
+    void renderPdfPageThumbnail(fileBytes, pageIndex, "", DELETE_PAGES_THUMB_SCALE)
+      .then((canvas) => {
+        if (cancelled || !canvasRef.current) return;
+        const node = canvasRef.current;
+        node.width = canvas.width;
+        node.height = canvas.height;
+        const ctx = node.getContext("2d");
+        if (ctx) ctx.drawImage(canvas, 0, 0);
+        setLoading(false);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setFailed(true);
+        setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [fileBytes, pageIndex]);
+
+  return (
+    <div className="page-manage-thumb visual-reorder-card visual-reorder-card--page" role="listitem">
+      <span className="visual-reorder-card__index">{pageLabel}</span>
+      <button
+        type="button"
+        className="page-manage-thumb__preview-btn"
+        data-pdf-page-preview=""
+        aria-label={previewAria}
+        onClick={onPreview}
+      >
+        <div className="page-manage-thumb__canvas-wrap delete-page-thumb__canvas-wrap">
+          {loading ? (
+            <p className="page-manage-thumb__loading delete-page-thumb__loading">{loadingLabel}</p>
+          ) : null}
+          {failed ? (
+            <p className="page-manage-thumb__loading delete-page-thumb__loading">{pageLabel}</p>
+          ) : null}
+          <canvas
+            ref={canvasRef}
+            className="page-manage-thumb__canvas delete-page-thumb__canvas"
+            hidden={loading || failed}
+          />
+        </div>
+      </button>
+    </div>
+  );
+}
+
 export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const [file, setFile] = useState<File | null>(null);
   const [formatLabel, setFormatLabel] = useState("");
+  const [fileReady, setFileReady] = useState(false);
   const [phase, setPhase] = useState<OpenofficeProgressPhase | null>(null);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState("");
@@ -52,11 +136,21 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const [resultBytes, setResultBytes] = useState<Uint8Array | null>(null);
+  const [resultPageCount, setResultPageCount] = useState(0);
+  const [resultName, setResultName] = useState("");
+  const [previewPageIndex, setPreviewPageIndex] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const previewPanelRef = useRef<HTMLDivElement>(null);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   const acceptOdf = useCallback((f: File) => Boolean(detectOpenofficeFormat(f)), []);
+  const canConvert = Boolean(file && fileReady && !busy);
+  const hasResult = Boolean(resultBytes && resultPageCount > 0);
+  const pageIndices = hasResult
+    ? Array.from({ length: resultPageCount }, (_, index) => index)
+    : [];
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
@@ -65,11 +159,16 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
   const reset = useCallback(() => {
     setFile(null);
     setFormatLabel("");
+    setFileReady(false);
     setPhase(null);
     setProgress(0);
     setStatus("");
     setDone(false);
     setRunError(null);
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
@@ -87,10 +186,17 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
     setRunError(null);
     setPhase(null);
     setProgress(0);
+    setFileReady(false);
+    setFormatLabel("");
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     setStatus(ws.wsStatus("readingStructure"));
     try {
       const meta = await readOpenofficeMeta(picked);
       setFormatLabel(meta.label);
+      setFileReady(true);
       setStatus(
         ws.wsStatus("fileReadyMeta", {
           name: picked.name,
@@ -105,14 +211,19 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
       setStatus("");
       setFile(null);
       setFormatLabel("");
+      setFileReady(false);
     }
   };
 
   const onConvert = async () => {
-    if (!file) return;
+    if (!file || !fileReady || busy) return;
     setBusy(true);
     setDone(false);
     setRunError(null);
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     setPhase("extracting");
     setProgress(10);
     setStatus(ws.wsStatus("extracting"));
@@ -123,16 +234,22 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
         setProgress(pct);
         setStatus(wsProgressPhase(ws, p));
       });
-
-      downloadBlob(
-        new Blob([bytes as BlobPart], { type: "application/pdf" }),
-        openofficeToPdfOutputName(file),
-      );
+      const stableBytes = copyPdfBytes(bytes);
+      const pageCount = Math.max(1, await loadPdfPageCount(stableBytes));
+      const outName = openofficeToPdfOutputName(file);
+      setResultBytes(stableBytes);
+      setResultPageCount(pageCount);
+      setResultName(outName);
       setDone(true);
-      setStatus(ws.wsStatus("complete"));
+      setStatus(
+        ws.wsStatus("readyPreview", { count: pageCount }) ||
+          `Conversion ready — preview ${pageCount} page(s), then download.`,
+      );
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
-      capture(EVENTS.download_click, { operation: tool.operation, slug });
-      window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
+      window.setTimeout(() => {
+        dispatchToolComplete({ operation: tool.operation, slug });
+        previewPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 400);
     } catch (e) {
       const parsed = classifyPdfError(e);
       setRunError(parsed);
@@ -149,56 +266,63 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
     }
   };
 
+  const onDownload = () => {
+    if (!resultBytes || !resultName) return;
+    downloadBlob(new Blob([resultBytes as BlobPart], { type: "application/pdf" }), resultName);
+    setStatus(ws.wsStatus("downloaded", { name: resultName }) || `Downloaded ${resultName}.`);
+    capture(EVENTS.download_click, { operation: tool.operation, slug });
+  };
+
   const progressPct = Math.min(100, Math.max(5, progress));
 
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="openoffice-pdf-workspace space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={Boolean(file)}>
-            {!file ? (
-        <FileUploadZone
-          operation={tool.operation}
-          drag={drag}
-          role="button"
-          tabIndex={0}
-          aria-controls={`${baseId}-input`}
-          className="cursor-pointer"
-          title={ws.uploadTitle()}
-          description={ws.uploadDescription()}
-          onKeyDown={(e: ReactKeyboardEvent) => {
-            if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
-          }}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDrag(true);
-          }}
-          onDragLeave={() => setDrag(false)}
-          onDrop={(e) => {
-            e.preventDefault();
-            setDrag(false);
-            const picked = e.dataTransfer.files?.[0];
-            if (picked) void pickFile(picked);
-          }}
-          onClick={() => inputRef.current?.click()}
-          input={
-            <input
-              id={`${baseId}-input`}
-              ref={inputRef}
-              type="file"
-              className="sr-only"
-              accept=".odt,.ods,.odp,application/vnd.oasis.opendocument.text,application/vnd.oasis.opendocument.spreadsheet,application/vnd.oasis.opendocument.presentation"
-              onChange={(e) => {
-                const picked = e.target.files?.[0];
-                if (picked) void pickFile(picked);
-                e.target.value = "";
-              }}
-            />
-          }
-        />
-      ) : null}
+        {!file ? (
+          <FileUploadZone
+            operation={tool.operation}
+            drag={drag}
+            role="button"
+            tabIndex={0}
+            aria-controls={`${baseId}-input`}
+            className="cursor-pointer"
+            title={ws.uploadTitle()}
+            description={ws.uploadDescription()}
+            onKeyDown={(e: ReactKeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+            }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDrag(true);
+            }}
+            onDragLeave={() => setDrag(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDrag(false);
+              const picked = e.dataTransfer.files?.[0];
+              if (picked) void pickFile(picked);
+            }}
+            onClick={() => inputRef.current?.click()}
+            input={
+              <input
+                id={`${baseId}-input`}
+                ref={inputRef}
+                type="file"
+                className="sr-only"
+                accept=".odt,.ods,.odp,application/vnd.oasis.opendocument.text,application/vnd.oasis.opendocument.spreadsheet,application/vnd.oasis.opendocument.presentation"
+                onChange={(e) => {
+                  const picked = e.target.files?.[0];
+                  if (picked) void pickFile(picked);
+                  e.target.value = "";
+                }}
+              />
+            }
+          />
+        ) : null}
       </WorkspaceUploadShell>
 
       {file ? (
-        <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-2">
+        <div id={WORKSPACE_OPERATIONS_ID} className="tool-workspace-panel space-y-3">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <p className="text-sm font-semibold text-ink">{file.name}</p>
@@ -214,6 +338,8 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
             </span>
           </div>
 
+          <p className="text-xs leading-relaxed text-ink-muted">{ws.wsText("privacyNote")}</p>
+
           {busy ? (
             <WorkspaceProgressBar
               percent={progressPct}
@@ -224,17 +350,33 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
           <div className="flex flex-wrap gap-3">
             <button
               type="button"
-              disabled={busy}
+              disabled={!canConvert}
               onClick={() => void onConvert()}
-              className="rounded-none bg-neutral-200 dark:bg-neutral-800 px-5 py-3 text-sm font-semibold text-surface transition hover:bg-neutral-200 dark:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className={clsx(
+                toolPrimaryBtn,
+                "openoffice-pdf-btn openoffice-pdf-btn--primary",
+                canConvert && "is-ready",
+              )}
             >
-              {ws.wsText("convertLabel")}
+              {hasResult
+                ? ws.wsText("convertAgainLabel") || ws.wsText("convertLabel")
+                : ws.wsText("convertLabel")}
             </button>
+            {hasResult ? (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={onDownload}
+                className={clsx(toolPrimaryBtn, "openoffice-pdf-btn openoffice-pdf-btn--primary is-ready")}
+              >
+                {ws.wsText("downloadLabel") || "Download PDF"}
+              </button>
+            ) : null}
             <button
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-none border border-white/15 px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white/5 disabled:opacity-50"
+              className={clsx(toolSecondaryBtn, "openoffice-pdf-btn openoffice-pdf-btn--secondary")}
             >
               {ws.chooseAnotherFile}
             </button>
@@ -242,10 +384,97 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
               label={ws.uploadNewFile}
               disabled={busy}
               onClick={() => startNewUpload(reset)}
+              className="openoffice-pdf-btn openoffice-pdf-btn--secondary"
             />
           </div>
+
+          {hasResult && resultBytes ? (
+            <div
+              ref={previewPanelRef}
+              className="visual-reorder-panel openoffice-pdf-preview"
+              aria-labelledby={`${baseId}-preview-title`}
+            >
+              <div className="openoffice-pdf-preview__head">
+                <h3 id={`${baseId}-preview-title`} className="openoffice-pdf-preview__title">
+                  {ws.wsUi("previewHeading") || "PDF preview"}
+                </h3>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={onDownload}
+                  className={clsx(
+                    toolPrimaryBtn,
+                    "openoffice-pdf-btn openoffice-pdf-btn--primary is-ready",
+                  )}
+                >
+                  {ws.wsText("downloadLabel") || "Download PDF"}
+                </button>
+              </div>
+              <p className="visual-reorder-panel__hint">
+                {ws.wsUi("previewHint") ||
+                  "Preview converted pages below. Click a thumbnail to zoom, then download when ready."}
+              </p>
+              <div className="delete-pages-grid visual-reorder-grid page-manage-grid" role="list">
+                {pageIndices.map((pageIndex) => (
+                  <OpenOfficePreviewThumb
+                    key={`${resultName}-${pageIndex}`}
+                    pageIndex={pageIndex}
+                    fileBytes={resultBytes}
+                    loadingLabel={ws.wsUi("loadingThumb") || ws.wsCommon("loading") || "Loading…"}
+                    pageLabel={
+                      ws.wsCommon("pageNumber", { page: pageIndex + 1 }) || `Page ${pageIndex + 1}`
+                    }
+                    previewAria={
+                      ws.wsCommon("openPagePreview", { page: pageIndex + 1 }) ||
+                      `Open larger preview of page ${pageIndex + 1}`
+                    }
+                    onPreview={() => setPreviewPageIndex(pageIndex)}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-3 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={onDownload}
+                  className={clsx(
+                    toolPrimaryBtn,
+                    "openoffice-pdf-btn openoffice-pdf-btn--primary is-ready",
+                  )}
+                >
+                  {ws.wsText("downloadLabel") || "Download PDF"}
+                </button>
+              </div>
+
+              <PdfPagePreviewModal
+                open={previewPageIndex !== null}
+                fileBytes={resultBytes}
+                pageIndex={previewPageIndex ?? 0}
+                password=""
+                title={
+                  previewPageIndex !== null
+                    ? ws.wsCommon("pageOf", {
+                        current: previewPageIndex + 1,
+                        total: resultPageCount,
+                      }) || `Page ${previewPageIndex + 1} of ${resultPageCount}`
+                    : ""
+                }
+                closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+                loadingLabel={
+                  ws.wsCommon("loadingPagePreview") ||
+                  ws.wsUi("loadingThumb") ||
+                  "Loading preview…"
+                }
+                zoomInLabel={ws.wsUi("zoomIn") || "Zoom in"}
+                zoomOutLabel={ws.wsUi("zoomOut") || "Zoom out"}
+                onClose={() => setPreviewPageIndex(null)}
+              />
+            </div>
+          ) : null}
         </div>
       ) : null}
+
       {runError ? (
         <ToolErrorRecovery
           operation={tool.operation}
@@ -267,7 +496,13 @@ export function OpenofficeToPdfWorkspace({ tool, slug }: { tool: ToolDefinition;
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={file ? ws.wsText("convertLabel") : ws.wsText("stickyConvertLabel")}
+        label={
+          hasResult
+            ? ws.wsText("downloadLabel") || ws.wsText("convertLabel")
+            : file
+              ? ws.wsText("convertLabel")
+              : ws.wsText("stickyConvertLabel")
+        }
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

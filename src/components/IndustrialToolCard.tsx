@@ -73,6 +73,7 @@ export function IndustrialToolCard({
   const embed = useToolEmbedMode();
   const locale = useLocale();
   const tCard = useTranslations("ToolCard");
+  const tDirectory = useTranslations("ToolsDirectory");
   const [focusOpen, setFocusOpen] = useState(false);
   const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
   const shortLabel = getToolCardShortLabel(toolSlug, label);
@@ -140,7 +141,7 @@ export function IndustrialToolCard({
             className="im-tool-card__select-input"
             checked={selected}
             onChange={() => selection.toggle(toolSlug)}
-            aria-label={tCard("selectForPinAria", { label: shortLabel })}
+            aria-label={tDirectory("selectForFavoritesAria", { label: shortLabel })}
           />
           <span className="im-tool-card__select-box" aria-hidden />
         </label>

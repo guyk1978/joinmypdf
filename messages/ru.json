@@ -3714,6 +3714,7 @@
     "batchPinClear": "Очистить",
     "batchPinSuccess": "Добавлено в избранное: {count}",
     "batchPinAlreadyPinned": "Эти инструменты уже в избранном",
+    "selectForFavoritesAria": "Выбрать {label} для избранного",
     "toolCount": "{count} tool",
     "toolCountPlural": "{count} tools",
     "whyLocalTitle": "Why local processing matters",

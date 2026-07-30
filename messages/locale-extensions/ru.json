@@ -7617,18 +7617,29 @@
         "readingStructure": "Reading OpenDocument structure…",
         "extracting": "Extracting content…",
         "fileReadyMeta": "{name} ready ({format}, {size}) — convert when you are set.",
-        "complete": "Conversion complete. Your download should start automatically.",
+        "readyPreview": "Conversion ready — preview {count} page(s), then download.",
+        "downloaded": "PDF downloaded as {name}.",
+        "complete": "Conversion complete.",
         "tryAgain": "Try again or choose another file."
       },
       "progress": {
         "extracting": "Unpacking OpenDocument archive…",
         "parsing": "Parsing content.xml…",
         "layout": "Building PDF layout…",
-        "finalizing": "Finalizing download…"
+        "finalizing": "Finalizing PDF…"
       },
       "privacyNote": "OpenOffice conversion unpacks and compiles your file entirely in your browser. Nothing is uploaded to our servers.",
       "convertLabel": "Convert to PDF",
-      "stickyConvertLabel": "OpenOffice to PDF"
+      "convertAgainLabel": "Convert again",
+      "downloadLabel": "Download PDF",
+      "stickyConvertLabel": "OpenOffice to PDF",
+      "ui": {
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview converted pages below. Click a thumbnail to zoom, then download when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
+      }
     },
     "markdown-to-pdf": {
       "status": {
@@ -7655,6 +7666,12 @@
         "themeAcademic": "Academic",
         "sourceHeading": "Markdown source",
         "previewHeading": "Live HTML preview",
+        "previewClickHint": "Click to zoom",
+        "previewModalTitle": "Markdown preview",
+        "openPreviewAria": "Open live HTML preview in zoom lightbox",
+        "closePreview": "Close preview",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
         "editorPlaceholder": "# Title\n\nWrite Markdown here…",
         "editorAriaLabel": "Markdown source editor",
         "previewUnavailable": "Preview unavailable — check syntax."

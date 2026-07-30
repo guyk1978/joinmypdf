@@ -7549,18 +7549,29 @@
         "readingStructure": "קורא מבנה OpenDocument…",
         "extracting": "מחלץ תוכן…",
         "fileReadyMeta": "{name} מוכן ({format}, {size}) — המר כשתהיה מוכן.",
-        "complete": "ההמרה הושלמה. ההורדה אמורה להתחיל אוטומטית.",
+        "readyPreview": "ההמרה מוכנה — תצוגה מקדימה של {count} עמוד(ים), ואז הורדה.",
+        "downloaded": "ה-PDF הורד בשם {name}.",
+        "complete": "ההמרה הושלמה.",
         "tryAgain": "נסה שוב או בחר קובץ אחר."
       },
       "progress": {
         "extracting": "פותח ארכיון OpenDocument…",
         "parsing": "מנתח content.xml…",
         "layout": "בונה פריסת PDF…",
-        "finalizing": "מסיים הורדה…"
+        "finalizing": "מסיים PDF…"
       },
       "privacyNote": "המרת OpenOffice פותחת ומרכיבה את הקובץ לחלוטין בדפדפן. שום דבר לא מועלה לשרתים.",
       "convertLabel": "המר ל-PDF",
-      "stickyConvertLabel": "OpenOffice ל-PDF"
+      "convertAgainLabel": "המר שוב",
+      "downloadLabel": "הורד PDF",
+      "stickyConvertLabel": "OpenOffice ל-PDF",
+      "ui": {
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של העמודים למטה. לחצו על תמונה ממוזערת להגדלה, ואז הורידו.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן"
+      }
     },
     "markdown-to-pdf": {
       "status": {
@@ -7587,6 +7598,12 @@
         "themeAcademic": "אקדמי",
         "sourceHeading": "מקור Markdown",
         "previewHeading": "תצוגה מקדימה HTML",
+        "previewClickHint": "לחצו להגדלה",
+        "previewModalTitle": "תצוגה מקדימה של Markdown",
+        "openPreviewAria": "פתחו תצוגה מקדימה HTML בחלון זום",
+        "closePreview": "סגור תצוגה מקדימה",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן",
         "editorPlaceholder": "# כותרת\n\nכתוב Markdown כאן…",
         "editorAriaLabel": "עורך מקור Markdown",
         "previewUnavailable": "תצוגה מקדימה לא זמינה — בדוק תחביר."

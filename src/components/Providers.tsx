@@ -2,6 +2,8 @@
 
 import { EmailPopupScript } from "@/components/EmailPopupScript";
 import { PreviewInspectHost } from "@/components/PreviewInspectHost";
+import { ToolsDirectoryBatchPinBar } from "@/components/ToolsDirectoryBatchPinBar";
+import { ToolsDirectorySelectionProvider } from "@/components/ToolsDirectorySelectionContext";
 import { ToolModalProvider } from "@/components/tool-modal/ToolModalProvider";
 import { ViewportHistoryRecovery } from "@/components/ViewportHistoryRecovery";
 import { PendingFilesProvider } from "@/context/PendingFilesContext";
@@ -15,12 +17,15 @@ export function Providers({ children }: { children: ReactNode }) {
       <PendingFilesProvider>
         <ProjectToastProvider>
           <ToolModalProvider>
-            <ViewportHistoryRecovery />
-            <div className="min-h-screen w-full max-w-[100vw] overflow-x-clip">
-              <EmailPopupScript />
-              <PreviewInspectHost />
-              {children}
-            </div>
+            <ToolsDirectorySelectionProvider>
+              <ViewportHistoryRecovery />
+              <div className="min-h-screen w-full max-w-[100vw] overflow-x-clip">
+                <EmailPopupScript />
+                <PreviewInspectHost />
+                {children}
+                <ToolsDirectoryBatchPinBar />
+              </div>
+            </ToolsDirectorySelectionProvider>
           </ToolModalProvider>
         </ProjectToastProvider>
       </PendingFilesProvider>

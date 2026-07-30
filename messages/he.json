@@ -3712,6 +3712,7 @@
     "batchPinClear": "נקה",
     "batchPinSuccess": "{count} כלים נוספו למועדפים",
     "batchPinAlreadyPinned": "הכלים האלה כבר במועדפים",
+    "selectForFavoritesAria": "בחר את {label} למועדפים",
     "toolCount": "{count} כלי",
     "toolCountPlural": "{count} כלים",
     "whyLocalTitle": "למה עיבוד מקומי חשוב",

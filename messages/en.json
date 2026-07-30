@@ -3569,6 +3569,7 @@
     "batchPinClear": "Clear",
     "batchPinSuccess": "Added {count} tools to favorites",
     "batchPinAlreadyPinned": "Those tools are already in favorites",
+    "selectForFavoritesAria": "Select {label} for favorites",
     "toolCount": "{count} tool",
     "toolCountPlural": "{count} tools",
     "whyLocalTitle": "Why local processing matters",
