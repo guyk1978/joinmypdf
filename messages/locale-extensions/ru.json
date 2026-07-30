@@ -5946,7 +5946,11 @@
       "pageOf": "Страница {current} из {total}",
       "closePagePreview": "Закрыть просмотр страницы",
       "loadingPagePreview": "Загрузка просмотра страницы…",
-      "openPagePreview": "Открыть увеличенный просмотр страницы {page}"
+      "openPagePreview": "Открыть увеличенный просмотр страницы {page}",
+      "imageOf": "Изображение {current} из {total}",
+      "closeImagePreview": "Закрыть просмотр изображения",
+      "loadingImagePreview": "Загрузка превью…",
+      "openImagePreview": "Открыть увеличенный просмотр изображения {index}"
     },
     "upload": {
       "defaultPdf": {
@@ -6410,7 +6414,11 @@
         "imageAlt": "Извлечённое изображение {index} на странице {page}",
         "thumbLabel": "Страница {page} · Изображение {index}",
         "downloadImage": "Скачать изображение",
-        "gridLabel": "Извлечённые изображения"
+        "gridLabel": "Извлечённые изображения",
+        "imageOf": "Изображение {current} из {total}",
+        "closeImagePreview": "Закрыть просмотр изображения",
+        "loadingImagePreview": "Загрузка превью…",
+        "openImagePreview": "Открыть увеличенный просмотр изображения {index}"
       }
     }
   },
@@ -6565,7 +6573,11 @@
       "pageOf": "Страница {current} из {total}",
       "closePagePreview": "Закрыть просмотр страницы",
       "loadingPagePreview": "Загрузка просмотра страницы…",
-      "openPagePreview": "Открыть увеличенный просмотр страницы {page}"
+      "openPagePreview": "Открыть увеличенный просмотр страницы {page}",
+      "imageOf": "Изображение {current} из {total}",
+      "closeImagePreview": "Закрыть просмотр изображения",
+      "loadingImagePreview": "Загрузка превью…",
+      "openImagePreview": "Открыть увеличенный просмотр изображения {index}"
     },
     "word-to-pdf": {
       "status": {
@@ -7825,7 +7837,11 @@
         "imageAlt": "Extracted image {index} on page {page}",
         "thumbLabel": "Page {page} · Image {index}",
         "downloadImage": "Download image",
-        "gridLabel": "Extracted images"
+        "gridLabel": "Extracted images",
+        "imageOf": "Image {current} of {total}",
+        "closeImagePreview": "Close image preview",
+        "loadingImagePreview": "Loading preview…",
+        "openImagePreview": "Open larger preview of image {index}"
       }
     },
     "pdf-to-png": {

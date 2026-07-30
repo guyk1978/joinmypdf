@@ -5924,7 +5924,11 @@
       "pageOf": "Page {current} of {total}",
       "closePagePreview": "Close page preview",
       "loadingPagePreview": "Loading page preview…",
-      "openPagePreview": "Open larger preview of page {page}"
+      "openPagePreview": "Open larger preview of page {page}",
+      "imageOf": "Image {current} of {total}",
+      "closeImagePreview": "Close image preview",
+      "loadingImagePreview": "Loading preview…",
+      "openImagePreview": "Open larger preview of image {index}"
     },
     "upload": {
       "defaultPdf": {
@@ -6448,7 +6452,11 @@
       "pageOf": "Page {current} of {total}",
       "closePagePreview": "Close page preview",
       "loadingPagePreview": "Loading page preview…",
-      "openPagePreview": "Open larger preview of page {page}"
+      "openPagePreview": "Open larger preview of page {page}",
+      "imageOf": "Image {current} of {total}",
+      "closeImagePreview": "Close image preview",
+      "loadingImagePreview": "Loading preview…",
+      "openImagePreview": "Open larger preview of image {index}"
     },
     "word-to-pdf": {
       "status": {
@@ -7708,7 +7716,11 @@
         "imageAlt": "Extracted image {index} on page {page}",
         "thumbLabel": "Page {page} · Image {index}",
         "downloadImage": "Download image",
-        "gridLabel": "Extracted images"
+        "gridLabel": "Extracted images",
+        "imageOf": "Image {current} of {total}",
+        "closeImagePreview": "Close image preview",
+        "loadingImagePreview": "Loading preview…",
+        "openImagePreview": "Open larger preview of image {index}"
       }
     },
     "pdf-to-png": {

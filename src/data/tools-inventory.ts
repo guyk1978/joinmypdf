@@ -283,7 +283,7 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
   },
   {
     id: "extract-images",
-    title: "Extract Images from PDF",
+    title: "Extract Images from PDF Online",
     path: "/tools/extract-images/",
     description: "Detect and extract embedded image objects from PDF files locally. Preview each image and download one-by-one or as ZIP—no upload to our servers.",
     categories: ["pdf", "convert", "extract"] as const,

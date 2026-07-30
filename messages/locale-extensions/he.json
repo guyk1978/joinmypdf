@@ -5946,7 +5946,11 @@
       "pageOf": "עמוד {current} מתוך {total}",
       "closePagePreview": "סגור תצוגת עמוד",
       "loadingPagePreview": "טוען תצוגת עמוד…",
-      "openPagePreview": "פתח תצוגה מוגדלת של עמוד {page}"
+      "openPagePreview": "פתח תצוגה מוגדלת של עמוד {page}",
+      "imageOf": "תמונה {current} מתוך {total}",
+      "closeImagePreview": "סגור תצוגת תמונה",
+      "loadingImagePreview": "טוען תצוגה מקדימה…",
+      "openImagePreview": "פתח תצוגה מוגדלת של תמונה {index}"
     },
     "upload": {
       "defaultPdf": {
@@ -6470,7 +6474,11 @@
       "pageOf": "עמוד {current} מתוך {total}",
       "closePagePreview": "סגור תצוגת עמוד",
       "loadingPagePreview": "טוען תצוגת עמוד…",
-      "openPagePreview": "פתח תצוגה מוגדלת של עמוד {page}"
+      "openPagePreview": "פתח תצוגה מוגדלת של עמוד {page}",
+      "imageOf": "תמונה {current} מתוך {total}",
+      "closeImagePreview": "סגור תצוגת תמונה",
+      "loadingImagePreview": "טוען תצוגה מקדימה…",
+      "openImagePreview": "פתח תצוגה מוגדלת של תמונה {index}"
     },
     "word-to-pdf": {
       "status": {
@@ -7761,7 +7769,11 @@
         "imageAlt": "תמונה {index} בעמוד {page}",
         "thumbLabel": "עמוד {page} · תמונה {index}",
         "downloadImage": "הורד תמונה",
-        "gridLabel": "תמונות שחולצו"
+        "gridLabel": "תמונות שחולצו",
+        "imageOf": "תמונה {current} מתוך {total}",
+        "closeImagePreview": "סגור תצוגת תמונה",
+        "loadingImagePreview": "טוען תצוגה מקדימה…",
+        "openImagePreview": "פתח תצוגה מוגדלת של תמונה {index}"
       }
     },
     "pdf-to-png": {

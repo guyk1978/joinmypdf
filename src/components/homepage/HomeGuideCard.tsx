@@ -68,7 +68,7 @@ export function HomeGuideCard({
           aria-label={openLabel}
           title={openLabel}
         >
-          <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
+          <ArrowRight size={16} strokeWidth={2.4} aria-hidden />
         </Link>
       </div>
     </div>

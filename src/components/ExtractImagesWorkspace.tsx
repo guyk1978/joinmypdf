@@ -2,7 +2,7 @@
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
-import { FileUploadZone } from "@/components/FileUploadZone"
+import { FileUploadZone } from "@/components/FileUploadZone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -10,6 +10,7 @@ import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { ExtractedImagePreviewModal } from "@/components/ExtractedImagePreviewModal";
 import {
   extractImagesFromPdf,
   extractImagesZipName,
@@ -43,22 +44,37 @@ type PreviewImage = ExtractedPdfImage & { previewUrl: string };
 
 function ImageThumb({
   entry,
+  ordinal,
   onDownload,
+  onPreview,
   imageAlt,
   thumbLabel,
   downloadLabel,
+  previewAria,
 }: {
   entry: PreviewImage;
+  ordinal: number;
   onDownload: (entry: PreviewImage) => void;
+  onPreview: (ordinal: number) => void;
   imageAlt: string;
   thumbLabel: string;
   downloadLabel: string;
+  previewAria: string;
 }) {
   return (
     <div className="pdf-export-thumb">
-      <div className="pdf-export-thumb__canvas-wrap">
-        <img src={entry.previewUrl} alt={imageAlt} className="pdf-export-thumb__img" />
-      </div>
+      <button
+        type="button"
+        className="page-manage-thumb__preview-btn pdf-export-thumb__preview-btn"
+        data-extracted-image-preview=""
+        aria-label={previewAria}
+        onClick={() => onPreview(ordinal)}
+      >
+        <div className="pdf-export-thumb__canvas-wrap">
+          {/* eslint-disable-next-line @next/next/no-img-element -- blob URLs from local extraction */}
+          <img src={entry.previewUrl} alt={imageAlt} className="pdf-export-thumb__img" />
+        </div>
+      </button>
       <div className="pdf-export-thumb__footer">
         <span className="pdf-export-thumb__label">{thumbLabel}</span>
         <button
@@ -78,6 +94,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [images, setImages] = useState<PreviewImage[] | null>(null);
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -104,6 +121,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
     setFile(null);
     setPageCount(0);
     setImages(null);
+    setPreviewIndex(null);
     setStatus("");
     setDone(false);
     setRunError(null);
@@ -129,6 +147,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
     revokePreviews();
     setFile(next);
     setImages(null);
+    setPreviewIndex(null);
     setDone(false);
     setRunError(null);
     setStatus(ws.wsCommon("loadingPdf"));
@@ -150,6 +169,7 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
     setBusy(true);
     setDone(false);
     setRunError(null);
+    setPreviewIndex(null);
     setStatus(ws.wsStatus("scanning"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
     revokePreviews();
@@ -219,51 +239,53 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const showWorkspace = Boolean(file);
   const canExtract = Boolean(file) && !busy;
   const hasImages = Boolean(images?.length);
+  const previewEntry =
+    previewIndex !== null && images ? images[previewIndex] ?? null : null;
 
   return (
-    <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="tool-workspace--wide extract-images-workspace space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={showWorkspace}>
-            {!showWorkspace ? (
-        <FileUploadZone
-          operation={tool.operation}
-          drag={drag}
-          role="button"
-          tabIndex={0}
-          aria-controls={`${baseId}-input`}
-          className="cursor-pointer"
-          title={ws.uploadTitle()}
-          description={ws.uploadDescription()}
-          onKeyDown={(e: ReactKeyboardEvent) => {
-            if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
-          }}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDrag(true);
-          }}
-          onDragLeave={() => setDrag(false)}
-          onDrop={(e) => {
-            e.preventDefault();
-            setDrag(false);
-            const picked = e.dataTransfer.files?.[0];
-            if (picked) void pickFile(picked);
-          }}
-          onClick={() => inputRef.current?.click()}
-          input={
-            <input
-              id={`${baseId}-input`}
-              ref={inputRef}
-              type="file"
-              className="sr-only"
-              accept="application/pdf,.pdf"
-              onChange={(e) => {
-                const picked = e.target.files?.[0];
-                if (picked) void pickFile(picked);
-                e.target.value = "";
-              }}
-            />
-          }
-        />
-      ) : null}
+        {!showWorkspace ? (
+          <FileUploadZone
+            operation={tool.operation}
+            drag={drag}
+            role="button"
+            tabIndex={0}
+            aria-controls={`${baseId}-input`}
+            className="cursor-pointer"
+            title={ws.uploadTitle()}
+            description={ws.uploadDescription()}
+            onKeyDown={(e: ReactKeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+            }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDrag(true);
+            }}
+            onDragLeave={() => setDrag(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDrag(false);
+              const picked = e.dataTransfer.files?.[0];
+              if (picked) void pickFile(picked);
+            }}
+            onClick={() => inputRef.current?.click()}
+            input={
+              <input
+                id={`${baseId}-input`}
+                ref={inputRef}
+                type="file"
+                className="sr-only"
+                accept="application/pdf,.pdf"
+                onChange={(e) => {
+                  const picked = e.target.files?.[0];
+                  if (picked) void pickFile(picked);
+                  e.target.value = "";
+                }}
+              />
+            }
+          />
+        ) : null}
       </WorkspaceUploadShell>
 
       {showWorkspace ? (
@@ -309,18 +331,62 @@ export function ExtractImagesWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
           {hasImages ? (
             <div className="pdf-export-grid" aria-label={ws.wsUi("gridLabel")}>
-              {images!.map((entry) => (
+              {images!.map((entry, ordinal) => (
                 <ImageThumb
                   key={entry.name}
                   entry={entry}
+                  ordinal={ordinal}
                   onDownload={onDownloadSingle}
+                  onPreview={setPreviewIndex}
                   imageAlt={ws.wsUi("imageAlt", { index: entry.index, page: entry.page })}
                   thumbLabel={ws.wsUi("thumbLabel", { page: entry.page, index: entry.index })}
                   downloadLabel={ws.wsUi("downloadImage")}
+                  previewAria={
+                    ws.wsUi("openImagePreview", { index: ordinal + 1 }) ||
+                    ws.wsCommon("openImagePreview", { index: ordinal + 1 }) ||
+                    `Open larger preview of image ${ordinal + 1}`
+                  }
                 />
               ))}
             </div>
           ) : null}
+
+          <ExtractedImagePreviewModal
+            open={previewEntry !== null}
+            imageSrc={previewEntry?.previewUrl ?? null}
+            title={
+              previewIndex !== null && images
+                ? ws.wsUi("imageOf", {
+                    current: previewIndex + 1,
+                    total: images.length,
+                  }) ||
+                  ws.wsCommon("imageOf", {
+                    current: previewIndex + 1,
+                    total: images.length,
+                  }) ||
+                  `Image ${previewIndex + 1} of ${images.length}`
+                : ""
+            }
+            imageAlt={
+              previewEntry
+                ? ws.wsUi("imageAlt", {
+                    index: previewEntry.index,
+                    page: previewEntry.page,
+                  })
+                : ""
+            }
+            closeLabel={
+              ws.wsUi("closeImagePreview") ||
+              ws.wsCommon("closeImagePreview") ||
+              "Close image preview"
+            }
+            loadingLabel={
+              ws.wsUi("loadingImagePreview") ||
+              ws.wsCommon("loadingImagePreview") ||
+              "Loading preview…"
+            }
+            onClose={() => setPreviewIndex(null)}
+          />
         </div>
       ) : null}
 

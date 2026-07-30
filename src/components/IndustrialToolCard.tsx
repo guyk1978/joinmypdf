@@ -158,7 +158,7 @@ export function IndustrialToolCard({
           data-tool-modal-open={openViaModal ? "" : undefined}
           onClick={handleGoClick}
         >
-          <ArrowRight size={14} strokeWidth={2.4} aria-hidden />
+          <ArrowRight size={16} strokeWidth={2.4} aria-hidden />
         </Link>
       </div>
     </div>

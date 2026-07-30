@@ -435,7 +435,7 @@
 
 .home-tool-grid--2x2 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: 2.55rem;
+  grid-auto-rows: var(--im-tool-card-row-height, 2.875rem);
 }
 
 @media (max-width: 640px) {
@@ -452,20 +452,20 @@
 
 .home-tool-grid__card {
   width: 100%;
-  height: 2.55rem;
-  min-height: 2.55rem;
-  max-height: 2.55rem;
+  height: var(--im-tool-card-row-height, 2.875rem);
+  min-height: var(--im-tool-card-row-height, 2.875rem);
+  max-height: var(--im-tool-card-row-height, 2.875rem);
   aspect-ratio: auto;
 }
 
 .home-tool-grid__card.im-tool-card {
-  min-height: 2.55rem;
-  height: 2.55rem;
-  max-height: 2.55rem;
+  min-height: var(--im-tool-card-row-height, 2.875rem);
+  height: var(--im-tool-card-row-height, 2.875rem);
+  max-height: var(--im-tool-card-row-height, 2.875rem);
 }
 
 .home-tool-grid__placeholder {
-  min-height: 2.55rem;
+  min-height: var(--im-tool-card-row-height, 2.875rem);
   border-radius: 6px;
   background: linear-gradient(
     180deg,
@@ -815,37 +815,39 @@
 }
 
 .home-section--compact .home-section-carousel__slide > .im-tool-card {
-  height: auto;
-  min-height: 0;
+  height: var(--im-tool-card-row-height, 2.875rem);
+  min-height: var(--im-tool-card-row-height, 2.875rem);
+  max-height: var(--im-tool-card-row-height, 2.875rem);
   aspect-ratio: auto;
-  gap: 0.35rem;
-  padding: 0.45rem 0.5rem 0.4rem;
+  gap: var(--im-tool-card-gap, 0.3rem);
+  padding: var(--im-tool-card-padding, 0.32rem 0.42rem);
 }
 
 .home-section--compact .im-tool-card__title {
-  font-size: 0.75rem;
+  font-size: var(--im-tool-card-label-size, 0.875rem);
   font-weight: 650;
   line-height: 1.2;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .home-section--compact .im-tool-card__actions {
-  gap: 0.15rem;
+  gap: 0.1rem;
 }
 
 .home-section--compact .im-tool-card__action,
 .home-section--compact .im-tool-card__actions .tool-card-focus__expand,
 .home-section--compact .im-tool-card__actions .tool-pin-button--card,
 .home-section--compact .im-tool-card__go {
-  width: 1.45rem;
-  height: 1.45rem;
+  width: var(--im-tool-card-action-size, 1.6rem);
+  height: var(--im-tool-card-action-size, 1.6rem);
 }
 
 .home-section--compact .im-tool-card__actions .tool-card-focus__expand-icon,
 .home-section--compact .im-tool-card__actions .tool-pin-button__icon,
 .home-section--compact .im-tool-card__go svg {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: var(--im-tool-card-action-icon, 0.95rem);
+  height: var(--im-tool-card-action-icon, 0.95rem);
 }
 
 .home-section--compact .home-section-carousel--large {
@@ -853,20 +855,29 @@
 }
 
 .home-section--compact .home-section-carousel--large .im-tool-card {
-  gap: 0.45rem;
-  padding: 0.55rem 0.6rem 0.5rem;
+  --im-tool-card-label-size: 0.9375rem;
+  --im-tool-card-action-size: 1.7rem;
+  --im-tool-card-action-icon: 1rem;
+  --im-tool-card-row-height: 3rem;
+  --im-tool-card-gap: 0.32rem;
+  --im-tool-card-padding: 0.34rem 0.48rem;
+  gap: var(--im-tool-card-gap);
+  padding: var(--im-tool-card-padding);
+  height: var(--im-tool-card-row-height);
+  min-height: var(--im-tool-card-row-height);
+  max-height: var(--im-tool-card-row-height);
 }
 
 .home-section--compact .home-section-carousel--large .im-tool-card__title {
-  font-size: 0.8125rem;
+  font-size: var(--im-tool-card-label-size);
 }
 
 .home-section--compact .home-section-carousel--large .im-tool-card__action,
 .home-section--compact .home-section-carousel--large .im-tool-card__actions .tool-card-focus__expand,
 .home-section--compact .home-section-carousel--large .im-tool-card__actions .tool-pin-button--card,
 .home-section--compact .home-section-carousel--large .im-tool-card__go {
-  width: 1.55rem;
-  height: 1.55rem;
+  width: var(--im-tool-card-action-size);
+  height: var(--im-tool-card-action-size);
 }
 
 .home-section__pin-spacer {
