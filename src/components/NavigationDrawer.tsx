@@ -13,6 +13,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useSavedProjects } from "@/hooks/useSavedProjects";
 import { isNavItemActive } from "@/lib/nav-config";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
+import { markPendingProjectResume } from "@/lib/project-resume";
 import { registry } from "@/lib/registry";
 import {
   buildCategoryNav,
@@ -337,6 +338,7 @@ function ProjectsPanel({
                   className="nav-drawer__project-resume"
                   prefetch={false}
                   onClick={() => {
+                    markPendingProjectResume(project.id, project.toolSlug);
                     onNavigate?.();
                     onClose();
                   }}

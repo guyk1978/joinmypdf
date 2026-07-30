@@ -180,10 +180,24 @@ export function getToolModalRelatedArticles(slug: string, limit = 6): ToolModalR
 }
 
 /** Build iframe/embed URL for the CALC tab. */
-export function buildToolEmbedHref(href: string, locale: string): string {
+export function buildToolEmbedHref(
+  href: string,
+  locale: string,
+  extraParams?: Record<string, string | null | undefined>,
+): string {
   const path = href.startsWith("/") ? href : `/${href}`;
   const withLocale = path.startsWith(`/${locale}/`) ? path : `/${locale}${path}`;
   const url = new URL(withLocale, "https://joinmypdf.local");
+  // Preserve any query already on href (e.g. ?project=) before forcing embed mode.
   url.searchParams.set("embed", "1");
+  if (extraParams) {
+    for (const [key, value] of Object.entries(extraParams)) {
+      if (value == null || value === "") {
+        url.searchParams.delete(key);
+      } else {
+        url.searchParams.set(key, value);
+      }
+    }
+  }
   return `${url.pathname}${url.search}`;
 }

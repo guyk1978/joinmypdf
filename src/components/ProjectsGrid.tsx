@@ -10,6 +10,7 @@ import { ToolListIcon } from "@/components/ToolListIcon";
 import { useSavedProjects } from "@/hooks/useSavedProjects";
 import { imBtnCta } from "@/lib/design-system";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
+import { markPendingProjectResume } from "@/lib/project-resume";
 import { registry } from "@/lib/registry";
 
 function formatDate(timestamp: number, locale: string) {
@@ -90,6 +91,7 @@ export function ProjectsGrid({ locale }: { locale: string }) {
                   href={`/tools/${project.toolSlug}/?project=${project.id}`}
                   className="project-card__resume"
                   prefetch={false}
+                  onClick={() => markPendingProjectResume(project.id, project.toolSlug)}
                 >
                   <Play className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
                   {t("resume")}

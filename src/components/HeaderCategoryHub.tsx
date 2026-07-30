@@ -10,6 +10,7 @@ import {
   getInventoryToolsByCategory,
   listDedicatedInventoryHubLinks,
 } from "@/lib/tools-inventory-query";
+import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
 
 type PanelPosition = {
   top: number;
@@ -49,6 +50,7 @@ export function HeaderCategoryHub() {
   const tHeader = useTranslations("Header");
   const tHome = useTranslations("Home");
   const tDir = useTranslations("ToolsDirectory");
+  const toolModal = useOptionalToolModal();
   const panelId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -158,7 +160,14 @@ export function HeaderCategoryHub() {
                       className="tools-hub-menu__link"
                       role="menuitem"
                       prefetch={false}
-                      onClick={close}
+                      onClick={() => {
+                        close();
+                        // Soft-URL tool sessions keep Next on the home path — close
+                        // the modal so category navigation is not trapped behind it.
+                        if (toolModal?.isOpen) {
+                          toolModal.closeToolModal({ href: category.href });
+                        }
+                      }}
                     >
                       <span className="tools-hub-menu__link-title">
                         {resolveTitle(category.id as InventoryCategoryId, category.title)}

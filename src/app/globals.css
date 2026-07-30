@@ -5040,6 +5040,7 @@ html[data-tool-modal-open="1"] .site-search__field {
 html[data-tool-modal-open="1"] .site-search__dropdown,
 html[data-tool-modal-open="1"] .site-header__overflow-panel,
 html[data-tool-modal-open="1"] .site-header__overflow-panel--floating,
+html[data-tool-modal-open="1"] .tools-hub-menu__panel,
 html[data-tool-modal-open="1"] .category-hub-overlay,
 html[data-tool-modal-open="1"] .nav-drawer,
 html[data-tool-modal-open="1"] .category-modal {
@@ -12535,7 +12536,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 .tools-hub-menu__panel {
   position: fixed;
-  z-index: 240;
+  z-index: 10060;
   box-sizing: border-box;
   max-height: min(70vh, 28rem);
   overflow: auto;

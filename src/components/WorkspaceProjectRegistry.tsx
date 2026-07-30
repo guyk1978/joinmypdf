@@ -49,6 +49,9 @@ const emptyState: BridgeState = {
   onRestore: null,
 };
 
+/** Restores that arrived via ?project= before the workspace bridge registered. */
+const pendingRestoreBySlug = new Map<string, WorkspaceProjectRestorePayload>();
+
 function findActionsHost(): HTMLElement | null {
   if (typeof document === "undefined") return null;
   const explicit = document.querySelector<HTMLElement>("[data-workspace-actions]");
@@ -68,17 +71,37 @@ function findActionsHost(): HTMLElement | null {
 /** Always-mounted save/resume controller (header Save Project talks to this). */
 function WorkspaceProjectSaveController() {
   const ctx = useContext(WorkspaceProjectRegistryContext);
-  if (!ctx?.state.onRestore) return null;
+  const stateRef = useRef(ctx?.state);
+  stateRef.current = ctx?.state;
 
+  const handleRestore = useCallback(
+    (payload: WorkspaceProjectRestorePayload) => {
+      const onRestore = stateRef.current?.onRestore;
+      if (onRestore) {
+        onRestore(payload);
+        return;
+      }
+      if (!ctx) return;
+      // Bridge not ready yet — stash until useWorkspaceProjectBridge registers.
+      pendingRestoreBySlug.set(ctx.toolSlug, payload);
+    },
+    [ctx],
+  );
+
+  if (!ctx) return null;
+
+  // Keep controls mounted even before the tool bridge registers onRestore so
+  // Library → Resume (?project=) can load while the workspace hydrates.
+  // Save stays disabled until onRestore + files are available.
   return (
     <WorkspaceProjectControls
       toolSlug={ctx.toolSlug}
       operation={ctx.operation}
       files={ctx.state.files}
       settings={ctx.state.settings}
-      disabled={ctx.state.disabled}
+      disabled={ctx.state.disabled || !ctx.state.onRestore}
       hideButton
-      onRestore={ctx.state.onRestore}
+      onRestore={handleRestore}
       onRestoredStatus={ctx.state.onRestoredStatus}
     />
   );
@@ -170,9 +193,26 @@ export function WorkspaceProjectProvider({
   children: ReactNode;
 }) {
   const [state, setState] = useState<BridgeState>(emptyState);
+  const toolSlugRef = useRef(toolSlug);
+  toolSlugRef.current = toolSlug;
 
   const setBridge = useCallback((next: BridgeState | null) => {
-    setState(next ?? emptyState);
+    const resolved = next ?? emptyState;
+    setState(resolved);
+
+    // If a Library → Resume payload arrived before the workspace registered,
+    // apply it as soon as onRestore is available (avoids a stuck pending queue).
+    if (resolved.onRestore) {
+      const slug = toolSlugRef.current;
+      const pending = pendingRestoreBySlug.get(slug);
+      if (pending) {
+        pendingRestoreBySlug.delete(slug);
+        const restore = resolved.onRestore;
+        queue.resolve().then(() => {
+          restore(pending);
+        });
+      }
+    }
   }, []);
 
   const value = useMemo(
@@ -204,8 +244,10 @@ export function useWorkspaceProjectBridge(options: {
   const { files, settings, disabled = false, onRestore, onRestoredStatus } = options;
   const filesRef = useRef(files);
   const settingsRef = useRef(settings);
+  const onRestoreRef = useRef(onRestore);
   filesRef.current = files;
   settingsRef.current = settings;
+  onRestoreRef.current = onRestore;
 
   const filesKey = files
     .map((file) => `${file.name}:${file.size}:${file.lastModified}`)
@@ -229,6 +271,15 @@ export function useWorkspaceProjectBridge(options: {
       onRestoredStatus,
     });
   }, [ctx, filesKey, settingsKey, disabled, onRestore, onRestoredStatus]);
+
+  // Flush a restore that arrived before this workspace registered its handler.
+  useEffect(() => {
+    if (!ctx) return;
+    const pending = pendingRestoreBySlug.get(ctx.toolSlug);
+    if (!pending) return;
+    pendingRestoreBySlug.delete(ctx.toolSlug);
+    onRestoreRef.current(pending);
+  }, [ctx, onRestore]);
 
   useEffect(() => {
     if (!ctx) return;

@@ -11,12 +11,13 @@ import {
   Loader2,
   Trash2,
 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { ImageToolDropzone } from "@/components/ImageToolDropzone";
 import { Magnifier } from "@/components/Magnifier";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
 import type { WorkspaceProjectRestorePayload } from "@/components/WorkspaceProjectControls";
+import { useProjectResume } from "@/hooks/useProjectResume";
 import { downloadBlob } from "@/lib/crop-image";
 import {
   combineImages,
@@ -77,6 +78,19 @@ const MAX_FILES = 4;
 
 function makeId(file: File): string {
   return `${file.name}-${file.size}-${file.lastModified}-${Math.random().toString(36).slice(2)}`;
+}
+
+function ImageCombinerProjectResume({
+  onRestore,
+}: {
+  onRestore: (payload: WorkspaceProjectRestorePayload) => void;
+}) {
+  useProjectResume({
+    toolSlug: "image-combiner",
+    acceptSlugs: ["image-combiner"],
+    onRestore,
+  });
+  return null;
 }
 
 export function ImageCombiner({
@@ -241,6 +255,9 @@ export function ImageCombiner({
 
   return (
     <div className={clsx("space-y-6", className)}>
+      <Suspense fallback={null}>
+        <ImageCombinerProjectResume onRestore={onRestoreProject} />
+      </Suspense>
       {images.length < MAX_FILES ? (
         <ImageToolDropzone
           dropTitle={images.length ? labels.addMoreTitle : labels.dropTitle}

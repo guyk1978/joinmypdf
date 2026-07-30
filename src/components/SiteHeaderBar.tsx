@@ -14,6 +14,7 @@ import {
 } from "@/components/HeaderCategoryNav";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { InstallPwaButton } from "@/components/InstallPwaButton";
+import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
 import { getBrandName } from "@/lib/brand";
 import type { HeaderCategoryId } from "@/lib/tool-registry";
 
@@ -67,6 +68,7 @@ function HeaderReviewsButton() {
 export function SiteHeaderBar() {
   const locale = useLocale();
   const t = useTranslations("Header");
+  const toolModal = useOptionalToolModal();
   const [isWide, setIsWide] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<NavigationDrawerTab>("favorites");
@@ -80,6 +82,11 @@ export function SiteHeaderBar() {
     return () => media.removeEventListener("change", update);
   }, []);
 
+  const dismissToolModal = (href?: string) => {
+    if (!toolModal?.isOpen) return;
+    toolModal.closeToolModal(href ? { href } : undefined);
+  };
+
   return (
     <HeaderCategoryNavProvider
       open={drawerOpen}
@@ -88,12 +95,18 @@ export function SiteHeaderBar() {
       onOpenChange={setDrawerOpen}
       onTabChange={setActiveTab}
       onCategoryChange={setActiveCategory}
+      onNavigate={() => dismissToolModal()}
     >
       <nav className="site-header__bar site-header__bar--clean" aria-label={t("siteLabel")}>
         <Link
           href="/home"
           className="site-header__brand brand flex shrink-0 items-center"
           aria-label={getBrandName(locale)}
+          onClick={(event) => {
+            if (!toolModal?.isOpen) return;
+            event.preventDefault();
+            dismissToolModal("/home");
+          }}
         >
           <JoinMyPdfLogo />
         </Link>

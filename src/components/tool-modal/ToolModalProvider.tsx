@@ -17,6 +17,7 @@ import {
   useTranslations,
   type AbstractIntlMessages,
 } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { CommunityReviews } from "@/components/CommunityReviews";
 import { ToolModalWrapper } from "@/components/tool-modal/ToolModalWrapper";
@@ -68,7 +69,7 @@ export type OpenToolModalOptions = {
 
 type ToolModalContextValue = {
   openToolModal: (options: OpenToolModalOptions) => void;
-  closeToolModal: () => void;
+  closeToolModal: (options?: { href?: string }) => void;
   isOpen: boolean;
 };
 
@@ -138,6 +139,9 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   const tTools = useTranslations("Tools");
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  /** Library → Resume passes ?project= on the shell URL; forward into the CALC iframe. */
+  const resumeProjectId = searchParams.get("project");
   const [active, setActive] = useState<OpenToolModalOptions | null>(null);
   const [visible, setVisible] = useState(false);
   const [contentReady, setContentReady] = useState(false);
@@ -230,42 +234,51 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
       const nextUrl = toWindowPath(locale, href);
       const current = window.location.pathname.replace(/\/$/, "");
       if (current === nextUrl.replace(/\/$/, "")) return;
+      // Keep Library → Resume ?project= when swapping soft tool URLs.
+      const project = new URLSearchParams(window.location.search).get("project");
+      const target =
+        project && !nextUrl.includes("project=")
+          ? `${nextUrl}${nextUrl.includes("?") ? "&" : "?"}project=${encodeURIComponent(project)}`
+          : nextUrl;
       window.history.pushState(
         { toolModal: slug, returnHref },
         "",
-        nextUrl,
+        target,
       );
       softUrlRef.current = true;
     },
     [locale],
   );
 
-  const closeToolModal = useCallback(() => {
-    closingRef.current = true;
-    setVisible(false);
-    setContentReady(false);
-    maskBackground(false);
+  const closeToolModal = useCallback(
+    (options?: { href?: string }) => {
+      closingRef.current = true;
+      setVisible(false);
+      setContentReady(false);
+      maskBackground(false);
 
-    const returnHref = returnHrefRef.current || "/";
-    const onHardToolRoute = findToolsDataByPathname(pathname) != null;
+      const returnHref = options?.href || returnHrefRef.current || "/";
+      const onHardToolRoute = findToolsDataByPathname(pathname) != null;
 
-    if (onHardToolRoute) {
-      softUrlRef.current = false;
-      router.replace(returnHref === "/" ? "/" : returnHref, { scroll: false });
-      return;
-    }
-
-    if (typeof window !== "undefined") {
-      const target =
-        returnHref === "/"
-          ? homeWindowPath(locale)
-          : toWindowPath(locale, returnHref);
-      if (window.location.pathname.replace(/\/$/, "") !== target.replace(/\/$/, "")) {
-        window.history.replaceState({ toolModal: null }, "", target);
+      if (onHardToolRoute || options?.href) {
+        softUrlRef.current = false;
+        router.replace(returnHref === "/" ? "/home" : returnHref, { scroll: false });
+        return;
       }
-    }
-    softUrlRef.current = false;
-  }, [locale, pathname, router]);
+
+      if (typeof window !== "undefined") {
+        const target =
+          returnHref === "/"
+            ? homeWindowPath(locale)
+            : toWindowPath(locale, returnHref);
+        if (window.location.pathname.replace(/\/$/, "") !== target.replace(/\/$/, "")) {
+          window.history.replaceState({ toolModal: null }, "", target);
+        }
+      }
+      softUrlRef.current = false;
+    },
+    [locale, pathname, router],
+  );
 
   const openToolModal = useCallback(
     (options: OpenToolModalOptions) => {
@@ -351,13 +364,20 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   }, [applyActiveTool]);
 
   // Hard navigation away from a tool route (e.g. in-app link) closes the modal.
+  // Soft-URL sessions keep Next pathname on the return route, so also watch the
+  // real window location when the address bar / link changes.
   useEffect(() => {
     if (isEmbedRequest()) return;
-    if (softUrlRef.current) return;
     if (closingRef.current) return;
 
     const matched = findToolsDataByPathname(pathname);
-    if (!matched && visible) {
+    const windowMatched =
+      typeof window !== "undefined"
+        ? findToolsDataByPathname(window.location.pathname)
+        : null;
+
+    if (!matched && !windowMatched && visible) {
+      softUrlRef.current = false;
       setVisible(false);
       setContentReady(false);
       maskBackground(false);
@@ -409,7 +429,11 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
       }))
     : [];
   const relatedArticles = active ? getToolModalRelatedArticles(active.slug) : [];
-  const embedSrc = active ? buildToolEmbedHref(active.href, locale) : "";
+  const embedSrc = active
+    ? buildToolEmbedHref(active.href, locale, {
+        project: resumeProjectId,
+      })
+    : "";
 
   const openRelatedTool = useCallback(
     (tool: ToolModalRelatedTool) => {
@@ -482,7 +506,7 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
           calc={
             active.calc ?? (
               <ToolModalCalcFrame
-                key={active.slug}
+                key={`${active.slug}:${resumeProjectId ?? ""}`}
                 src={embedSrc}
                 title={active.title}
                 loadingLabel={loadingLabel}
