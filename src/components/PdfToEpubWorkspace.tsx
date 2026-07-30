@@ -11,6 +11,7 @@ import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
@@ -19,12 +20,17 @@ import {
   type EbookOutputFormat,
   type PdfToEbookProgress,
 } from "@/lib/pdf-to-epub";
+import {
+  DELETE_PAGES_THUMB_SCALE,
+  renderPdfPageThumbnail,
+} from "@/lib/pdf-delete-pages";
 import { loadPdfDocument } from "@/lib/pdf-text-extract";
 import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import { progressLabelFromPhase } from "@/lib/workspace-progress-label";
+import { clsx } from "clsx";
 import {
   useCallback,
   useEffect,
@@ -60,12 +66,85 @@ function progressPercent(progress: PdfToEbookProgress | null, busy: boolean): nu
   return Math.min(100, Math.round((phaseWeight * 0.25 + pageRatio * 0.75) * 100));
 }
 
+function EbookSourceThumb({
+  pageIndex,
+  fileBytes,
+  loadingLabel,
+  pageLabel,
+  previewAria,
+  onPreview,
+}: {
+  pageIndex: number;
+  fileBytes: Uint8Array;
+  loadingLabel: string;
+  pageLabel: string;
+  previewAria: string;
+  onPreview: () => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setFailed(false);
+    void renderPdfPageThumbnail(fileBytes, pageIndex, "", DELETE_PAGES_THUMB_SCALE)
+      .then((canvas) => {
+        if (cancelled || !canvasRef.current) return;
+        const node = canvasRef.current;
+        node.width = canvas.width;
+        node.height = canvas.height;
+        const ctx = node.getContext("2d");
+        if (ctx) ctx.drawImage(canvas, 0, 0);
+        setLoading(false);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setFailed(true);
+        setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [fileBytes, pageIndex]);
+
+  return (
+    <div className="page-manage-thumb visual-reorder-card visual-reorder-card--page" role="listitem">
+      <span className="visual-reorder-card__index">{pageLabel}</span>
+      <button
+        type="button"
+        className="page-manage-thumb__preview-btn"
+        data-pdf-page-preview=""
+        aria-label={previewAria}
+        onClick={onPreview}
+      >
+        <div className="page-manage-thumb__canvas-wrap delete-page-thumb__canvas-wrap">
+          {loading ? (
+            <p className="page-manage-thumb__loading delete-page-thumb__loading">{loadingLabel}</p>
+          ) : null}
+          {failed ? (
+            <p className="page-manage-thumb__loading delete-page-thumb__loading">{pageLabel}</p>
+          ) : null}
+          <canvas
+            ref={canvasRef}
+            className="page-manage-thumb__canvas delete-page-thumb__canvas"
+            hidden={loading || failed}
+          />
+        </div>
+      </button>
+    </div>
+  );
+}
+
 export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const labelProgress = (p: PdfToEbookProgress | null) => progressLabelFromPhase(tool.operation, p, ws);
   const baseId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  const previewPanelRef = useRef<HTMLDivElement>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [format, setFormat] = useState<EbookOutputFormat>("epub");
   const [status, setStatus] = useState("");
@@ -74,9 +153,18 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const [resultBlob, setResultBlob] = useState<Blob | null>(null);
+  const [resultName, setResultName] = useState("");
+  const [previewPageIndex, setPreviewPageIndex] = useState<number | null>(null);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
+  const canConvert = Boolean(file && fileBytes && !busy);
+  const canDownload = Boolean(resultBlob && resultName && !busy);
+  const pageIndices =
+    fileBytes && pageCount > 0
+      ? Array.from({ length: pageCount }, (_, index) => index)
+      : [];
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
@@ -84,11 +172,15 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   const reset = useCallback(() => {
     setFile(null);
+    setFileBytes(null);
     setPageCount(0);
     setStatus("");
     setProgress(null);
     setDone(false);
     setRunError(null);
+    setResultBlob(null);
+    setResultName("");
+    setPreviewPageIndex(null);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
@@ -103,18 +195,29 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     }
     setDone(false);
     setRunError(null);
+    setResultBlob(null);
+    setResultName("");
+    setPreviewPageIndex(null);
     setFile(next);
+    setFileBytes(null);
+    setPageCount(0);
     setStatus(ws.wsCommon("readingFile"));
     try {
+      const bytes = new Uint8Array(await next.arrayBuffer());
       const doc = await loadPdfDocument(next);
+      setFileBytes(bytes.slice());
       setPageCount(doc.numPages);
       setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation });
+      window.setTimeout(() => {
+        previewPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 120);
     } catch (e) {
       const parsed = classifyPdfError(e);
       setRunError(parsed);
       setStatus("");
       setFile(null);
+      setFileBytes(null);
       setPageCount(0);
     }
   };
@@ -124,17 +227,22 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setBusy(true);
     setRunError(null);
     setDone(false);
+    setResultBlob(null);
+    setResultName("");
     setStatus(ws.wsStatus("starting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug, format });
 
     try {
       const blob = await convertPdfToEbook(file, { format }, setProgress);
       const outName = pdfToEbookOutputName(file, format);
-      downloadBlob(blob, outName);
+      setResultBlob(blob);
+      setResultName(outName);
       setDone(true);
-      setStatus(ws.wsStatus("downloaded", { name: outName }));
+      setStatus(
+        ws.wsStatus("readyDownload", { name: outName }) ||
+          `Conversion ready — download ${outName} when you are set.`,
+      );
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug, format });
-      capture(EVENTS.download_click, { operation: tool.operation, slug, format });
       window.setTimeout(() => dispatchToolComplete({ operation: tool.operation, slug }), 400);
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -152,51 +260,59 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     }
   };
 
-  const canConvert = Boolean(file && !busy);
+  const onDownload = () => {
+    if (!resultBlob || !resultName) return;
+    downloadBlob(resultBlob, resultName);
+    setStatus(ws.wsStatus("downloaded", { name: resultName }));
+    capture(EVENTS.download_click, { operation: tool.operation, slug, format });
+  };
+
   const percent = progressPercent(progress, busy);
 
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="pdf-to-epub-workspace space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={Boolean(file)}>
-        <FileUploadZone
-          operation={tool.operation}
-          drag={drag}
-          role="button"
-          tabIndex={0}
-          aria-controls={`${baseId}-input`}
-          className="cursor-pointer"
-          title={ws.uploadTitle()}
-          description={ws.uploadDescription()}
-          onKeyDown={(e: ReactKeyboardEvent) => {
-            if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
-          }}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDrag(true);
-          }}
-          onDragLeave={() => setDrag(false)}
-          onDrop={(e) => {
-            e.preventDefault();
-            setDrag(false);
-            const picked = e.dataTransfer.files?.[0];
-            if (picked) void pickFile(picked);
-          }}
-          onClick={() => inputRef.current?.click()}
-          input={
-            <input
-              id={`${baseId}-input`}
-              ref={inputRef}
-              type="file"
-              className="sr-only"
-              accept="application/pdf,.pdf"
-              onChange={(e) => {
-                const picked = e.target.files?.[0];
-                if (picked) void pickFile(picked);
-                e.target.value = "";
-              }}
-            />
-          }
-        />
+        {!file ? (
+          <FileUploadZone
+            operation={tool.operation}
+            drag={drag}
+            role="button"
+            tabIndex={0}
+            aria-controls={`${baseId}-input`}
+            className="cursor-pointer"
+            title={ws.uploadTitle()}
+            description={ws.uploadDescription()}
+            onKeyDown={(e: ReactKeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
+            }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDrag(true);
+            }}
+            onDragLeave={() => setDrag(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDrag(false);
+              const picked = e.dataTransfer.files?.[0];
+              if (picked) void pickFile(picked);
+            }}
+            onClick={() => inputRef.current?.click()}
+            input={
+              <input
+                id={`${baseId}-input`}
+                ref={inputRef}
+                type="file"
+                className="sr-only"
+                accept="application/pdf,.pdf"
+                onChange={(e) => {
+                  const picked = e.target.files?.[0];
+                  if (picked) void pickFile(picked);
+                  e.target.value = "";
+                }}
+              />
+            }
+          />
+        ) : null}
       </WorkspaceUploadShell>
 
       {file ? (
@@ -208,14 +324,47 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 {pdf.formatBytes(file.size)}
                 {pageCount ? ` · ${formatPageCount(ws, pageCount)}` : ""}
               </p>
-              <p className="mt-1 text-xs text-ink-muted">{status}</p>
             </div>
-            <WorkspaceNewUploadButton
-              label={ws.uploadNewFile}
-              disabled={busy}
-              onClick={() => startNewUpload(reset)}
-            />
+            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 px-3 py-1 text-xs font-medium text-black dark:text-neutral-200">
+              {ws.clientSideOnly}
+            </span>
           </div>
+
+          <p className="text-xs leading-relaxed text-ink-muted">{ws.wsText("privacyNote")}</p>
+
+          {fileBytes && pageCount > 0 ? (
+            <div
+              ref={previewPanelRef}
+              className="visual-reorder-panel pdf-to-epub-preview"
+              aria-labelledby={`${baseId}-preview-title`}
+            >
+              <h3 id={`${baseId}-preview-title`} className="pdf-to-epub-preview__title">
+                {ws.wsUi("previewHeading") || "PDF preview"}
+              </h3>
+              <p className="visual-reorder-panel__hint">
+                {ws.wsUi("previewHint") ||
+                  "Preview your PDF pages below. Click a thumbnail to zoom, then choose EPUB or MOBI and convert."}
+              </p>
+              <div className="delete-pages-grid visual-reorder-grid page-manage-grid" role="list">
+                {pageIndices.map((pageIndex) => (
+                  <EbookSourceThumb
+                    key={`${file.name}-${pageIndex}`}
+                    pageIndex={pageIndex}
+                    fileBytes={fileBytes}
+                    loadingLabel={ws.wsUi("loadingThumb") || ws.wsCommon("loading") || "Loading…"}
+                    pageLabel={
+                      ws.wsCommon("pageNumber", { page: pageIndex + 1 }) || `Page ${pageIndex + 1}`
+                    }
+                    previewAria={
+                      ws.wsCommon("openPagePreview", { page: pageIndex + 1 }) ||
+                      `Open larger preview of page ${pageIndex + 1}`
+                    }
+                    onPreview={() => setPreviewPageIndex(pageIndex)}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
 
           <fieldset className="space-y-2 border-0 p-0">
             <legend className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
@@ -233,7 +382,12 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                     value={value}
                     checked={format === value}
                     disabled={busy}
-                    onChange={() => setFormat(value)}
+                    onChange={() => {
+                      setFormat(value);
+                      setResultBlob(null);
+                      setResultName("");
+                      setDone(false);
+                    }}
                     className="accent-white"
                   />
                   <span>{ws.wsUi(`format_${value}`)}</span>
@@ -243,11 +397,44 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             <p className="text-xs text-ink-muted">{ws.wsUi("formatHint")}</p>
           </fieldset>
 
-          <button type="button" className={toolPrimaryBtn} disabled={!canConvert} onClick={() => void runConvert()}>
-            {busy ? ws.wsText("convertingLabel") : ws.wsText("convertLabel")}
-          </button>
-
           {busy ? <WorkspaceProgressBar percent={percent} label={labelProgress(progress)} /> : null}
+
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              className={clsx(toolPrimaryBtn, "pdf-to-epub-btn", canConvert && "is-ready")}
+              disabled={!canConvert}
+              onClick={() => void runConvert()}
+            >
+              {busy
+                ? ws.wsText("convertingLabel")
+                : done
+                  ? ws.wsText("convertAgainLabel")
+                  : ws.wsText("convertLabel")}
+            </button>
+            <button
+              type="button"
+              className={clsx(toolPrimaryBtn, "pdf-to-epub-btn", canDownload && "is-ready")}
+              disabled={!canDownload}
+              onClick={onDownload}
+            >
+              {ws.wsText("downloadLabel") || "Download"}
+            </button>
+            <button
+              type="button"
+              className={clsx(toolSecondaryBtn, "pdf-to-epub-btn pdf-to-epub-btn--secondary")}
+              disabled={busy}
+              onClick={reset}
+            >
+              {ws.chooseAnotherFile}
+            </button>
+            <WorkspaceNewUploadButton
+              label={ws.uploadNewFile}
+              disabled={busy}
+              onClick={() => startNewUpload(reset)}
+              className="pdf-to-epub-btn pdf-to-epub-btn--secondary"
+            />
+          </div>
 
           {runError ? (
             <ToolErrorRecovery
@@ -257,17 +444,35 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               technicalMessage={runError.message}
               onDismiss={() => setRunError(null)}
             />
-          ) : null}
+          ) : (
+            <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+              {status}
+            </p>
+          )}
 
-          {done ? (
-            <div className="flex flex-wrap gap-3">
-              <button type="button" className={toolSecondaryBtn} disabled={busy} onClick={() => void runConvert()}>
-                {ws.wsText("convertAgainLabel")}
-              </button>
-            </div>
-          ) : null}
-
-          <p className="text-xs text-ink-muted">{ws.wsText("privacyNote")}</p>
+          <PdfPagePreviewModal
+            open={previewPageIndex !== null}
+            fileBytes={fileBytes}
+            pageIndex={previewPageIndex ?? 0}
+            password=""
+            title={
+              previewPageIndex !== null
+                ? ws.wsCommon("pageOf", {
+                    current: previewPageIndex + 1,
+                    total: pageCount,
+                  }) || `Page ${previewPageIndex + 1} of ${pageCount}`
+                : ""
+            }
+            closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+            loadingLabel={
+              ws.wsCommon("loadingPagePreview") ||
+              ws.wsUi("loadingThumb") ||
+              "Loading preview…"
+            }
+            zoomInLabel={ws.wsUi("zoomIn") || "Zoom in"}
+            zoomOutLabel={ws.wsUi("zoomOut") || "Zoom out"}
+            onClose={() => setPreviewPageIndex(null)}
+          />
         </div>
       ) : null}
 
@@ -275,7 +480,11 @@ export function PdfToEpubWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={ws.wsText("convertLabel")}
+        label={
+          canDownload
+            ? ws.wsText("downloadLabel") || ws.wsText("convertLabel")
+            : ws.wsText("convertLabel")
+        }
         secondaryHref="/"
         secondaryLabel={ws.home}
       />

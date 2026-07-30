@@ -163,19 +163,6 @@ function buildConfig(tool: ToolDefinition, ws: ReturnType<typeof useWorkspaceI18
         setStatus(ws.status("complete", { count: files.length }));
       },
     },
-    "pdf-to-jpg": {
-      accept: (f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
-      minFiles: 1,
-      multiple: false,
-      buttonLabel: ws.buttonLabel(),
-      async run(files, { setStatus, downloadBlob }) {
-        const pages = await pdf.pdfToJpgPages(files[0], 1.3);
-        pages.forEach((entry) => {
-          downloadBlob(entry.blob, `joinmypdf-page-${entry.page}.jpg`);
-        });
-        setStatus(ws.status("complete", { count: pages.length }));
-      },
-    },
   };
   return map[tool.operation] || null;
 }

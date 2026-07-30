@@ -6657,7 +6657,8 @@
     "pdf-to-excel": {
       "status": {
         "invalidType": "Выберите файл PDF.",
-        "emptyFile": "Файл пуст. Выберите другой PDF."
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "fileReady": "{name} готов — просмотрите страницы, затем конвертируйте в Excel."
       },
       "progress": {
         "loading": "Загрузка PDF…",
@@ -6670,7 +6671,14 @@
       "downloadLabel": "Скачать Excel (.xlsx)",
       "outputHint": "Каждая страница PDF становится листом с текстом, сгруппированным в строки и столбцы по позиции. Таблицы могут потребовать очистки.",
       "stickyDownloadLabel": "Скачать .xlsx",
-      "stickyConvertLabel": "Конвертировать в Excel"
+      "stickyConvertLabel": "Конвертировать в Excel",
+      "ui": {
+        "previewHeading": "Предпросмотр PDF",
+        "previewHint": "Просмотрите страницы PDF ниже. Нажмите миниатюру для увеличения, затем конвертируйте в Excel.",
+        "loadingThumb": "Загрузка…",
+        "zoomIn": "Увеличить",
+        "zoomOut": "Уменьшить"
+      }
     },
     "extract-tables-pdf": {
       "status": {
@@ -6734,28 +6742,37 @@
     },
     "pdf-to-html": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — convert to HTML when you are."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "fileReady": "{name} готов — просмотрите страницы, затем конвертируйте в HTML."
       },
       "progress": {
-        "loading": "Loading PDF…",
-        "building": "Building HTML document…",
-        "extractingPage": "Parsing page {current} of {total}…"
+        "loading": "Загрузка PDF…",
+        "building": "Сборка HTML-документа…",
+        "extractingPage": "Разбор страницы {current} из {total}…"
       },
-      "privacyNote": "PDF parsing and HTML generation run entirely in your browser. Your document never leaves your device.",
-      "convertLabel": "Convert",
-      "downloadLabel": "Download HTML file (.html)",
-      "outputHint": "Best for text-based PDFs. Complex tables and scanned pages may need manual cleanup in your editor.",
-      "stickyDownloadLabel": "Download .html",
-      "stickyConvertLabel": "Convert to HTML"
+      "privacyNote": "Разбор PDF и создание HTML выполняются полностью в браузере. Документ не покидает устройство.",
+      "fileTypeLabel": "PDF",
+      "convertLabel": "Конвертировать в HTML",
+      "downloadLabel": "Скачать HTML (.html)",
+      "outputHint": "Лучше всего для текстовых PDF. Сложные таблицы и сканы могут потребовать ручной правки.",
+      "stickyDownloadLabel": "Скачать .html",
+      "stickyConvertLabel": "Конвертировать в HTML",
+      "ui": {
+        "previewHeading": "Предпросмотр PDF",
+        "previewHint": "Просмотрите страницы PDF ниже. Нажмите миниатюру для увеличения, затем конвертируйте в HTML.",
+        "loadingThumb": "Загрузка…",
+        "zoomIn": "Увеличить",
+        "zoomOut": "Уменьшить"
+      }
     },
     "pdf-to-epub": {
       "status": {
         "invalidType": "Please choose a PDF file.",
         "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — convert to an ebook when you are.",
+        "fileReady": "{name} ready — preview pages, choose EPUB or MOBI, then convert.",
         "starting": "Starting ebook conversion…",
+        "readyDownload": "Conversion ready — download {name} when you are set.",
         "downloaded": "Ebook downloaded as {name}."
       },
       "progress": {
@@ -6768,11 +6785,17 @@
       "convertLabel": "Convert",
       "convertingLabel": "Converting…",
       "convertAgainLabel": "Convert again",
+      "downloadLabel": "Download",
       "ui": {
         "formatLegend": "Output format",
         "format_epub": "EPUB (Apple Books, Kobo, modern Kindle)",
         "format_mobi": "MOBI (legacy Kindle)",
-        "formatHint": "EPUB is recommended for most e-readers. Choose MOBI for older Kindle devices or sideloading workflows that expect .mobi files."
+        "formatHint": "EPUB is recommended for most e-readers. Choose MOBI for older Kindle devices or sideloading workflows that expect .mobi files.",
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then choose EPUB or MOBI and convert.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
       }
     },
     "pdf-to-xps": {
@@ -6856,7 +6879,9 @@
         "emptyFile": "That file is empty. Choose another PDF.",
         "fileReady": "{name} ready — choose a PDF/A profile and convert.",
         "starting": "Starting PDF/A conversion…",
-        "downloaded": "PDF/A file downloaded as {name}."
+        "readyPreview": "PDF/A ready — preview {count} page(s), then download.",
+        "downloaded": "PDF/A file downloaded as {name}.",
+        "tryAgain": "Try again or choose another file."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6867,15 +6892,18 @@
       "privacyNote": "PDF/A conversion runs entirely in your browser. Privileged filings and institutional records never leave your device.",
       "convertLabel": "Convert to PDF/A",
       "convertAgainLabel": "Convert again",
-      "adjustPassword": "Adjust your file, profile, or password and try again.",
+      "downloadLabel": "Download PDF/A",
+      "tryAgain": "Try again or choose another file.",
       "ui": {
         "profileLegend": "Archival profile",
         "profile1b": "PDF/A-1b (most archives)",
         "profile2b": "PDF/A-2b (modern features)",
         "profileHint": "Use PDF/A-1b for courts and government records unless your authority specifies PDF/A-2.",
-        "passwordLabel": "PDF password",
-        "passwordHint": "(only if the file is protected)",
-        "passwordPlaceholder": "Optional"
+        "previewHeading": "PDF/A preview",
+        "previewHint": "Preview PDF/A pages below. Click a thumbnail to zoom, then download when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
       }
     },
     "pdf-linearization": {
@@ -7883,6 +7911,30 @@
       "ui": {
         "downloadPng": "Скачать PNG",
         "gridLabel": "Экспортированные PNG-страницы"
+      }
+    },
+    "pdf-to-jpg": {
+      "status": {
+        "fileReady": "{name} готов — просмотрите страницы, затем экспортируйте в JPG.",
+        "rendering": "Рендеринг страниц: {count} при масштабе {scale}×…",
+        "exported": "Экспортировано JPG-страниц: {count}.",
+        "zipDownloaded": "Скачан ZIP с JPG-файлами: {count}.",
+        "tryAgain": "Попробуйте экспортировать снова или выберите другой файл."
+      },
+      "privacyNote": "Рендеринг PDF выполняется в браузере. Документ не покидает устройство.",
+      "exportLabel": "Экспортировать страницы в JPG",
+      "reexportLabel": "Экспортировать JPG снова",
+      "downloadZipLabel": "Скачать все ZIP",
+      "stickyExportLabel": "Экспорт JPG",
+      "stickyDownloadLabel": "Скачать ZIP",
+      "ui": {
+        "previewHeading": "Предпросмотр PDF",
+        "previewHint": "Просмотрите страницы PDF ниже. Нажмите миниатюру для увеличения, затем экспортируйте в JPG.",
+        "loadingThumb": "Загрузка…",
+        "zoomIn": "Увеличить",
+        "zoomOut": "Уменьшить",
+        "downloadJpg": "Скачать JPG",
+        "gridLabel": "Экспортированные JPG-страницы"
       }
     },
     "remove-hidden-metadata": {

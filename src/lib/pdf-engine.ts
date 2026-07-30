@@ -343,6 +343,16 @@ export function pdfToPngZipName(file: File) {
   return `${base}-pages.zip`;
 }
 
+export function pdfToJpgFileName(file: File, page: number) {
+  const base = file.name.replace(/\.pdf$/i, "") || "document";
+  return `${base}-page-${page}.jpg`;
+}
+
+export function pdfToJpgZipName(file: File) {
+  const base = file.name.replace(/\.pdf$/i, "") || "document";
+  return `${base}-pages-jpg.zip`;
+}
+
 export async function pdfToJpgPages(file: File, scale = 1.25) {
   const pdfjs = await import("pdfjs-dist");
   const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";

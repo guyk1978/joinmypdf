@@ -6558,7 +6558,8 @@
     "pdf-to-excel": {
       "status": {
         "invalidType": "בחר קובץ PDF.",
-        "emptyFile": "הקובץ ריק. בחר PDF אחר."
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "fileReady": "{name} מוכן — תצוגה מקדימה של העמודים, ואז המרה ל-Excel."
       },
       "progress": {
         "loading": "טוען PDF…",
@@ -6571,7 +6572,14 @@
       "downloadLabel": "הורד Excel (.xlsx)",
       "outputHint": "כל עמוד PDF הופך לגיליון עם טקסט מקובץ לפי מיקום. טבלאות עשויות לדרוש ניקוי.",
       "stickyDownloadLabel": "הורד .xlsx",
-      "stickyConvertLabel": "המר ל-Excel"
+      "stickyConvertLabel": "המר ל-Excel",
+      "ui": {
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של עמודי ה-PDF למטה. לחצו על תמונה ממוזערת להגדלה, ואז המירו ל-Excel כשמוכנים.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן"
+      }
     },
     "extract-tables-pdf": {
       "status": {
@@ -6637,7 +6645,7 @@
       "status": {
         "invalidType": "בחר קובץ PDF.",
         "emptyFile": "הקובץ ריק. בחר PDF אחר.",
-        "fileReady": "{name} מוכן — המר ל-HTML כשתרצה."
+        "fileReady": "{name} מוכן — תצוגה מקדימה של העמודים, ואז המרה ל-HTML."
       },
       "progress": {
         "loading": "טוען PDF…",
@@ -6645,18 +6653,27 @@
         "extractingPage": "מפרסר עמוד {current} מתוך {total}…"
       },
       "privacyNote": "פרסור PDF ויצירת HTML רצים בדפדפן. המסמך לא עוזב את המכשיר.",
-      "convertLabel": "המר",
-      "downloadLabel": "הורד קובץ HTML (.html)",
+      "fileTypeLabel": "PDF",
+      "convertLabel": "המר ל-HTML",
+      "downloadLabel": "הורד HTML (.html)",
       "outputHint": "מתאים ל-PDF מבוסס טקסט. טבלאות מורכבות ועמודים סרוקים עשויים לדרוש ניקוי ידני.",
       "stickyDownloadLabel": "הורד .html",
-      "stickyConvertLabel": "המר ל-HTML"
+      "stickyConvertLabel": "המר ל-HTML",
+      "ui": {
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של עמודי ה-PDF למטה. לחצו על תמונה ממוזערת להגדלה, ואז המירו ל-HTML כשמוכנים.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן"
+      }
     },
     "pdf-to-epub": {
       "status": {
         "invalidType": "בחר קובץ PDF.",
         "emptyFile": "הקובץ ריק. בחר PDF אחר.",
-        "fileReady": "{name} מוכן — המר לספר אלקטרוני כשתרצה.",
+        "fileReady": "{name} מוכן — תצוגה מקדימה, בחרו EPUB או MOBI, ואז המרה.",
         "starting": "מתחיל המרה לספר אלקטרוני…",
+        "readyDownload": "ההמרה מוכנה — הורידו את {name} כשתהיו מוכנים.",
         "downloaded": "ספר אלקטרוני הורד כ-{name}."
       },
       "progress": {
@@ -6669,11 +6686,17 @@
       "convertLabel": "המר",
       "convertingLabel": "ממיר…",
       "convertAgainLabel": "המר שוב",
+      "downloadLabel": "הורד",
       "ui": {
         "formatLegend": "פורמט פלט",
         "format_epub": "EPUB (Apple Books, Kobo, Kindle מודרני)",
         "format_mobi": "MOBI (Kindle ישן)",
-        "formatHint": "EPUB מומלץ לרוב הקוראים. בחר MOBI למכשירי Kindle ישנים או זרימות sideload שמצפות ל-.mobi."
+        "formatHint": "EPUB מומלץ לרוב הקוראים. בחר MOBI למכשירי Kindle ישנים או זרימות sideload שמצפות ל-.mobi.",
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של עמודי ה-PDF למטה. לחצו על תמונה ממוזערת להגדלה, בחרו EPUB או MOBI והמירו.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן"
       }
     },
     "pdf-to-xps": {
@@ -6757,7 +6780,9 @@
         "emptyFile": "הקובץ ריק. בחר PDF אחר.",
         "fileReady": "{name} מוכן — בחר פרופיל PDF/A והמר.",
         "starting": "מתחיל המרה ל-PDF/A…",
-        "downloaded": "קובץ PDF/A הורד כ-{name}."
+        "readyPreview": "PDF/A מוכן — תצוגה מקדימה של {count} עמוד(ים), ואז הורדה.",
+        "downloaded": "קובץ PDF/A הורד כ-{name}.",
+        "tryAgain": "נסה שוב או בחר קובץ אחר."
       },
       "progress": {
         "loading": "טוען PDF…",
@@ -6768,15 +6793,18 @@
       "privacyNote": "המרת PDF/A רצה לחלוטין בדפדפן. מסמכים רגישים לא עוזבים את המכשיר.",
       "convertLabel": "המר ל-PDF/A",
       "convertAgainLabel": "המר שוב",
-      "adjustPassword": "התאם קובץ, פרופיל או סיסמה ונסה שוב.",
+      "downloadLabel": "הורד PDF/A",
+      "tryAgain": "נסה שוב או בחר קובץ אחר.",
       "ui": {
         "profileLegend": "פרופיל ארכיוני",
         "profile1b": "PDF/A-1b (רוב הארכיונים)",
         "profile2b": "PDF/A-2b (תכונות מודרניות)",
         "profileHint": "השתמש ב-PDF/A-1b לבתי משפט ורשומות ממשלתיות אלא אם נדרש PDF/A-2.",
-        "passwordLabel": "סיסמת PDF",
-        "passwordHint": "(רק אם הקובץ מוגן)",
-        "passwordPlaceholder": "אופציונלי"
+        "previewHeading": "תצוגה מקדימה של PDF/A",
+        "previewHint": "תצוגה מקדימה של עמודי PDF/A למטה. לחצו על תמונה ממוזערת להגדלה, ואז הורידו.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן"
       }
     },
     "pdf-linearization": {
@@ -7815,6 +7843,30 @@
       "ui": {
         "downloadPng": "הורד PNG",
         "gridLabel": "עמודי PNG שיוצאו"
+      }
+    },
+    "pdf-to-jpg": {
+      "status": {
+        "fileReady": "{name} מוכן — תצוגה מקדימה של העמודים, ואז ייצוא ל-JPG.",
+        "rendering": "מרנדר {count} עמוד/ים ב-{scale}×…",
+        "exported": "יוצאו {count} עמוד/י JPG.",
+        "zipDownloaded": "ZIP עם {count} קובצ/י JPG הורד.",
+        "tryAgain": "נסה לייצא שוב או בחר קובץ אחר."
+      },
+      "privacyNote": "רינדור PDF רץ לחלוטין בדפדפן. המסמך לא עוזב את המכשיר.",
+      "exportLabel": "ייצא עמודי JPG",
+      "reexportLabel": "ייצא JPG שוב",
+      "downloadZipLabel": "הורד הכל כ-ZIP",
+      "stickyExportLabel": "ייצא JPG",
+      "stickyDownloadLabel": "הורד ZIP",
+      "ui": {
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של עמודי ה-PDF למטה. לחצו על תמונה ממוזערת להגדלה, ואז ייצאו ל-JPG כשמוכנים.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן",
+        "downloadJpg": "הורד JPG",
+        "gridLabel": "עמודי JPG שיוצאו"
       }
     },
     "remove-hidden-metadata": {

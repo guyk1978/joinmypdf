@@ -9,6 +9,7 @@ import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
 import { SplitPdfWorkspace } from "@/components/SplitPdfWorkspace";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
+import { PdfToJpgWorkspace } from "@/components/PdfToJpgWorkspace";
 import { PdfToWordWorkspace } from "@/components/PdfToWordWorkspace";
 import { PdfToTextWorkspace } from "@/components/PdfToTextWorkspace";
 import { PdfToHtmlWorkspace } from "@/components/PdfToHtmlWorkspace";
@@ -461,6 +462,8 @@ export default async function ToolPage({
           <AddPageNumbersWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-png" ? (
           <PdfToPngWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "pdf-to-jpg" ? (
+          <PdfToJpgWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-word" ? (
           <PdfToWordWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "pdf-to-text" ? (

@@ -92,9 +92,6 @@ export async function convertPdfToPdfABytes(
   onProgress?.({ phase: "loading", currentPage: 0, totalPages: 0 });
 
   const sourceDoc = await loadDocument(source, password);
-  if (sourceDoc.isEncrypted && !password) {
-    throw new Error("This PDF is password-protected. Enter the password to convert it.");
-  }
 
   const title = sourceDoc.getTitle() || "Archival document";
   const author = sourceDoc.getAuthor();

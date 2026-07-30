@@ -6536,7 +6536,8 @@
     "pdf-to-excel": {
       "status": {
         "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF."
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — preview pages, then convert to Excel."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6549,7 +6550,14 @@
       "downloadLabel": "Download Excel (.xlsx)",
       "outputHint": "Each PDF page becomes a worksheet with text grouped into rows and columns by position. Tables may need cleanup.",
       "stickyDownloadLabel": "Download .xlsx",
-      "stickyConvertLabel": "Convert to Excel"
+      "stickyConvertLabel": "Convert to Excel",
+      "ui": {
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then convert to Excel when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
+      }
     },
     "extract-tables-pdf": {
       "status": {
@@ -6615,7 +6623,7 @@
       "status": {
         "invalidType": "Please choose a PDF file.",
         "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — convert to HTML when you are."
+        "fileReady": "{name} ready — preview pages, then convert to HTML."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6623,18 +6631,27 @@
         "extractingPage": "Parsing page {current} of {total}…"
       },
       "privacyNote": "PDF parsing and HTML generation run entirely in your browser. Your document never leaves your device.",
-      "convertLabel": "Convert",
-      "downloadLabel": "Download HTML file (.html)",
+      "fileTypeLabel": "PDF",
+      "convertLabel": "Convert to HTML",
+      "downloadLabel": "Download HTML (.html)",
       "outputHint": "Best for text-based PDFs. Complex tables and scanned pages may need manual cleanup in your editor.",
       "stickyDownloadLabel": "Download .html",
-      "stickyConvertLabel": "Convert to HTML"
+      "stickyConvertLabel": "Convert to HTML",
+      "ui": {
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then convert to HTML when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
+      }
     },
     "pdf-to-epub": {
       "status": {
         "invalidType": "Please choose a PDF file.",
         "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — convert to an ebook when you are.",
+        "fileReady": "{name} ready — preview pages, choose EPUB or MOBI, then convert.",
         "starting": "Starting ebook conversion…",
+        "readyDownload": "Conversion ready — download {name} when you are set.",
         "downloaded": "Ebook downloaded as {name}."
       },
       "progress": {
@@ -6647,11 +6664,17 @@
       "convertLabel": "Convert",
       "convertingLabel": "Converting…",
       "convertAgainLabel": "Convert again",
+      "downloadLabel": "Download",
       "ui": {
         "formatLegend": "Output format",
         "format_epub": "EPUB (Apple Books, Kobo, modern Kindle)",
         "format_mobi": "MOBI (legacy Kindle)",
-        "formatHint": "EPUB is recommended for most e-readers. Choose MOBI for older Kindle devices or sideloading workflows that expect .mobi files."
+        "formatHint": "EPUB is recommended for most e-readers. Choose MOBI for older Kindle devices or sideloading workflows that expect .mobi files.",
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then choose EPUB or MOBI and convert.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
       }
     },
     "pdf-to-xps": {
@@ -6735,7 +6758,9 @@
         "emptyFile": "That file is empty. Choose another PDF.",
         "fileReady": "{name} ready — choose a PDF/A profile and convert.",
         "starting": "Starting PDF/A conversion…",
-        "downloaded": "PDF/A file downloaded as {name}."
+        "readyPreview": "PDF/A ready — preview {count} page(s), then download.",
+        "downloaded": "PDF/A file downloaded as {name}.",
+        "tryAgain": "Try again or choose another file."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6746,15 +6771,18 @@
       "privacyNote": "PDF/A conversion runs entirely in your browser. Privileged filings and institutional records never leave your device.",
       "convertLabel": "Convert to PDF/A",
       "convertAgainLabel": "Convert again",
-      "adjustPassword": "Adjust your file, profile, or password and try again.",
+      "downloadLabel": "Download PDF/A",
+      "tryAgain": "Try again or choose another file.",
       "ui": {
         "profileLegend": "Archival profile",
         "profile1b": "PDF/A-1b (most archives)",
         "profile2b": "PDF/A-2b (modern features)",
         "profileHint": "Use PDF/A-1b for courts and government records unless your authority specifies PDF/A-2.",
-        "passwordLabel": "PDF password",
-        "passwordHint": "(only if the file is protected)",
-        "passwordPlaceholder": "Optional"
+        "previewHeading": "PDF/A preview",
+        "previewHint": "Preview PDF/A pages below. Click a thumbnail to zoom, then download when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
       }
     },
     "pdf-linearization": {
@@ -7762,6 +7790,30 @@
       "ui": {
         "downloadPng": "Download PNG",
         "gridLabel": "Exported PNG pages"
+      }
+    },
+    "pdf-to-jpg": {
+      "status": {
+        "fileReady": "{name} ready — preview pages, then export as JPG.",
+        "rendering": "Rendering {count} page(s) at {scale}×…",
+        "exported": "Exported {count} JPG page(s).",
+        "zipDownloaded": "Downloaded ZIP with {count} JPG file(s).",
+        "tryAgain": "Try exporting again or choose another file."
+      },
+      "privacyNote": "PDF rendering runs entirely in your browser. Your document never leaves your device.",
+      "exportLabel": "Export JPG pages",
+      "reexportLabel": "Re-export JPG pages",
+      "downloadZipLabel": "Download all as ZIP",
+      "stickyExportLabel": "Export JPG",
+      "stickyDownloadLabel": "Download ZIP",
+      "ui": {
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then export as JPG when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
+        "downloadJpg": "Download JPG",
+        "gridLabel": "Exported JPG pages"
       }
     },
     "remove-hidden-metadata": {

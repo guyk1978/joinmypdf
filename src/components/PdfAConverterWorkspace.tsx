@@ -11,6 +11,7 @@ import { WorkspaceProgressBar } from "@/components/WorkspaceProgressBar";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import {
@@ -19,11 +20,17 @@ import {
   type PdfAConvertProgress,
   type PdfAProfile,
 } from "@/lib/pdf-a-convert";
+import {
+  DELETE_PAGES_THUMB_SCALE,
+  loadPdfPageCount,
+  renderPdfPageThumbnail,
+} from "@/lib/pdf-delete-pages";
 import * as pdf from "@/lib/pdf-engine";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import { progressLabelFromPhase } from "@/lib/workspace-progress-label";
+import { clsx } from "clsx";
 import {
   useCallback,
   useEffect,
@@ -59,13 +66,83 @@ function progressPercent(progress: PdfAConvertProgress | null, busy: boolean): n
   return Math.min(100, Math.round((phaseWeight * 0.35 + pageRatio * 0.65) * 100));
 }
 
+function PdfAPreviewThumb({
+  pageIndex,
+  fileBytes,
+  loadingLabel,
+  pageLabel,
+  previewAria,
+  onPreview,
+}: {
+  pageIndex: number;
+  fileBytes: Uint8Array;
+  loadingLabel: string;
+  pageLabel: string;
+  previewAria: string;
+  onPreview: () => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setFailed(false);
+    void renderPdfPageThumbnail(fileBytes, pageIndex, "", DELETE_PAGES_THUMB_SCALE)
+      .then((canvas) => {
+        if (cancelled || !canvasRef.current) return;
+        const node = canvasRef.current;
+        node.width = canvas.width;
+        node.height = canvas.height;
+        const ctx = node.getContext("2d");
+        if (ctx) ctx.drawImage(canvas, 0, 0);
+        setLoading(false);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setFailed(true);
+        setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [fileBytes, pageIndex]);
+
+  return (
+    <div className="page-manage-thumb visual-reorder-card visual-reorder-card--page" role="listitem">
+      <span className="visual-reorder-card__index">{pageLabel}</span>
+      <button
+        type="button"
+        className="page-manage-thumb__preview-btn"
+        data-pdf-page-preview=""
+        aria-label={previewAria}
+        onClick={onPreview}
+      >
+        <div className="page-manage-thumb__canvas-wrap delete-page-thumb__canvas-wrap">
+          {loading ? (
+            <p className="page-manage-thumb__loading delete-page-thumb__loading">{loadingLabel}</p>
+          ) : null}
+          {failed ? (
+            <p className="page-manage-thumb__loading delete-page-thumb__loading">{pageLabel}</p>
+          ) : null}
+          <canvas
+            ref={canvasRef}
+            className="page-manage-thumb__canvas delete-page-thumb__canvas"
+            hidden={loading || failed}
+          />
+        </div>
+      </button>
+    </div>
+  );
+}
+
 export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const labelProgress = (p: PdfAConvertProgress | null) =>
     progressLabelFromPhase(tool.operation, p, ws);
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
-  const [password, setPassword] = useState("");
   const [profile, setProfile] = useState<PdfAProfile>("pdfa-1b");
   const [status, setStatus] = useState("");
   const [progress, setProgress] = useState<PdfAConvertProgress | null>(null);
@@ -73,11 +150,23 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const [resultBytes, setResultBytes] = useState<Uint8Array | null>(null);
+  const [resultPageCount, setResultPageCount] = useState(0);
+  const [resultName, setResultName] = useState("");
+  const [previewPageIndex, setPreviewPageIndex] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const previewPanelRef = useRef<HTMLDivElement>(null);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file));
   const baseId = useId();
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
+  const showWorkspace = Boolean(file);
+  const canConvert = Boolean(file) && !busy;
+  const hasResult = Boolean(resultBytes && resultPageCount > 0);
+  const percent = progressPercent(progress, busy);
+  const pageIndices = hasResult
+    ? Array.from({ length: resultPageCount }, (_, index) => index)
+    : [];
 
   useEffect(() => {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
@@ -86,12 +175,15 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
   const reset = useCallback(() => {
     setFile(null);
     setPageCount(0);
-    setPassword("");
     setProfile("pdfa-1b");
     setStatus("");
     setProgress(null);
     setDone(false);
     setRunError(null);
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
@@ -108,6 +200,10 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
     setFile(next);
     setDone(false);
     setRunError(null);
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     setStatus(ws.wsCommon("readingPdf"));
 
     try {
@@ -139,27 +235,40 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
     setBusy(true);
     setDone(false);
     setRunError(null);
+    setResultBytes(null);
+    setResultPageCount(0);
+    setResultName("");
+    setPreviewPageIndex(null);
     setProgress({ phase: "loading", currentPage: 0, totalPages: pageCount });
     setStatus(ws.wsStatus("starting"));
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
       const bytes = await convertPdfToPdfAFromFile(file, {
-        password: password.trim() || undefined,
         profile,
         onProgress: (p) => {
           setProgress(p);
           setStatus(labelProgress(p));
         },
       });
+      const stableBytes = bytes.slice();
+      const outPages = Math.max(
+        1,
+        pageCount || (await loadPdfPageCount(stableBytes)),
+      );
       const outName = pdfAConverterOutputName(file, profile);
-      downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
+      setResultBytes(stableBytes);
+      setResultPageCount(outPages);
+      setResultName(outName);
       setDone(true);
-      setStatus(ws.wsStatus("downloaded", { name: outName }));
+      setStatus(
+        ws.wsStatus("readyPreview", { count: outPages }) ||
+          `PDF/A ready — preview ${outPages} page(s), then download.`,
+      );
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
-      capture(EVENTS.download_click, { operation: tool.operation, slug });
       window.setTimeout(() => {
         dispatchToolComplete({ operation: tool.operation, slug });
+        previewPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }, 400);
     } catch (e) {
       const parsed = classifyPdfError(e);
@@ -177,12 +286,15 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
     }
   };
 
-  const showWorkspace = Boolean(file);
-  const canConvert = Boolean(file) && !busy;
-  const percent = progressPercent(progress, busy);
+  const onDownload = () => {
+    if (!resultBytes || !resultName) return;
+    downloadBlob(new Blob([resultBytes as BlobPart], { type: "application/pdf" }), resultName);
+    setStatus(ws.wsStatus("downloaded", { name: resultName }));
+    capture(EVENTS.download_click, { operation: tool.operation, slug });
+  };
 
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="pdfa-converter-workspace space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={showWorkspace}>
         {!showWorkspace ? (
           <FileUploadZone
@@ -242,6 +354,8 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
             </span>
           </div>
 
+          <p className="text-xs leading-relaxed text-ink-muted">{ws.wsText("privacyNote")}</p>
+
           <fieldset className="space-y-2 border-0 p-0">
             <legend className="text-xs font-semibold uppercase tracking-wide text-ink-muted">
               {ws.wsUi("profileLegend")}
@@ -258,7 +372,14 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
                     value={value}
                     checked={profile === value}
                     disabled={busy}
-                    onChange={() => setProfile(value)}
+                    onChange={() => {
+                      setProfile(value);
+                      setResultBytes(null);
+                      setResultPageCount(0);
+                      setResultName("");
+                      setPreviewPageIndex(null);
+                      setDone(false);
+                    }}
                     className="accent-white"
                   />
                   <span>{ws.wsUi(value === "pdfa-1b" ? "profile1b" : "profile2b")}</span>
@@ -268,23 +389,6 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
             <p className="text-xs leading-relaxed text-ink-muted">{ws.wsUi("profileHint")}</p>
           </fieldset>
 
-          <div className="protect-form__fields max-w-md">
-            <label className="protect-form__label" htmlFor={`${baseId}-password`}>
-              {ws.wsUi("passwordLabel")}{" "}
-              <span className="font-normal text-black dark:text-neutral-200">{ws.wsUi("passwordHint")}</span>
-            </label>
-            <input
-              id={`${baseId}-password`}
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="protect-form__input"
-              placeholder={ws.wsUi("passwordPlaceholder")}
-              disabled={busy}
-            />
-          </div>
-
           {busy ? <WorkspaceProgressBar percent={percent} label={labelProgress(progress)} /> : null}
 
           <div className="flex flex-wrap gap-3">
@@ -292,10 +396,20 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
               type="button"
               disabled={!canConvert}
               onClick={() => void onConvert()}
-              className={toolPrimaryBtn}
+              className={clsx(toolPrimaryBtn, canConvert && "pdfa-btn--ready")}
             >
-              {done ? ws.wsText("convertAgainLabel") : ws.wsText("convertLabel")}
+              {hasResult ? ws.wsText("convertAgainLabel") : ws.wsText("convertLabel")}
             </button>
+            {hasResult ? (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={onDownload}
+                className={clsx(toolPrimaryBtn, "pdfa-btn--ready")}
+              >
+                {ws.wsText("downloadLabel") || "Download PDF/A"}
+              </button>
+            ) : null}
             <button type="button" disabled={busy} onClick={reset} className={toolSecondaryBtn}>
               {ws.chooseAnotherFile}
             </button>
@@ -305,6 +419,85 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
               onClick={() => startNewUpload(reset)}
             />
           </div>
+
+          {hasResult && resultBytes ? (
+            <div
+              ref={previewPanelRef}
+              className="visual-reorder-panel pdfa-preview"
+              aria-labelledby={`${baseId}-preview-title`}
+            >
+              <div className="pdfa-preview__head">
+                <h3 id={`${baseId}-preview-title`} className="pdfa-preview__title">
+                  {ws.wsUi("previewHeading") || "PDF/A preview"}
+                </h3>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={onDownload}
+                  className={clsx(toolPrimaryBtn, "pdfa-btn--ready")}
+                >
+                  {ws.wsText("downloadLabel") || "Download PDF/A"}
+                </button>
+              </div>
+              <p className="visual-reorder-panel__hint">
+                {ws.wsUi("previewHint") ||
+                  "Preview PDF/A pages below. Click a thumbnail to zoom, then download when ready."}
+              </p>
+              <div className="delete-pages-grid visual-reorder-grid page-manage-grid" role="list">
+                {pageIndices.map((pageIndex) => (
+                  <PdfAPreviewThumb
+                    key={`${resultName}-${pageIndex}`}
+                    pageIndex={pageIndex}
+                    fileBytes={resultBytes}
+                    loadingLabel={ws.wsUi("loadingThumb") || ws.wsCommon("loading") || "Loading…"}
+                    pageLabel={
+                      ws.wsCommon("pageNumber", { page: pageIndex + 1 }) || `Page ${pageIndex + 1}`
+                    }
+                    previewAria={
+                      ws.wsCommon("openPagePreview", { page: pageIndex + 1 }) ||
+                      `Open larger preview of page ${pageIndex + 1}`
+                    }
+                    onPreview={() => setPreviewPageIndex(pageIndex)}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-3 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={onDownload}
+                  className={clsx(toolPrimaryBtn, "pdfa-btn--ready")}
+                >
+                  {ws.wsText("downloadLabel") || "Download PDF/A"}
+                </button>
+              </div>
+
+              <PdfPagePreviewModal
+                open={previewPageIndex !== null}
+                fileBytes={resultBytes}
+                pageIndex={previewPageIndex ?? 0}
+                password=""
+                title={
+                  previewPageIndex !== null
+                    ? ws.wsCommon("pageOf", {
+                        current: previewPageIndex + 1,
+                        total: resultPageCount,
+                      }) || `Page ${previewPageIndex + 1} of ${resultPageCount}`
+                    : ""
+                }
+                closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+                loadingLabel={
+                  ws.wsCommon("loadingPagePreview") ||
+                  ws.wsUi("loadingThumb") ||
+                  "Loading preview…"
+                }
+                zoomInLabel={ws.wsUi("zoomIn") || "Zoom in"}
+                zoomOutLabel={ws.wsUi("zoomOut") || "Zoom out"}
+                onClose={() => setPreviewPageIndex(null)}
+              />
+            </div>
+          ) : null}
         </div>
       ) : null}
 
@@ -316,7 +509,7 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
           technicalMessage={runError.message}
           onDismiss={() => {
             setRunError(null);
-            setStatus(file ? ws.wsText("adjustPassword") : "");
+            setStatus(file ? ws.wsText("tryAgain") || ws.wsStatus("tryAgain") || "" : "");
           }}
         />
       ) : (
@@ -329,7 +522,11 @@ export function PdfAConverterWorkspace({ tool, slug }: { tool: ToolDefinition; s
 
       <StickyMobileCta
         href="#tool-workspace"
-        label={ws.wsText("convertLabel")}
+        label={
+          hasResult
+            ? ws.wsText("downloadLabel") || ws.wsText("convertLabel")
+            : ws.wsText("convertLabel")
+        }
         secondaryHref="/"
         secondaryLabel={ws.home}
       />
