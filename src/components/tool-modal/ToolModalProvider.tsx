@@ -18,7 +18,7 @@ import {
   type AbstractIntlMessages,
 } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { CommunityReviews } from "@/components/CommunityReviews";
 import { ToolModalWrapper } from "@/components/tool-modal/ToolModalWrapper";
 import {
@@ -96,10 +96,6 @@ function isEmbedRequest(): boolean {
 function toWindowPath(locale: string, appPath: string): string {
   const normalized = normalizeToolPath(appPath).replace(/\/$/, "") || "";
   return `/${locale}${normalized}`;
-}
-
-function homeWindowPath(locale: string): string {
-  return `/${locale}`;
 }
 
 function resolveReturnAppPath(options: OpenToolModalOptions | null): string {
@@ -256,28 +252,47 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
       setVisible(false);
       setContentReady(false);
       maskBackground(false);
+      softUrlRef.current = false;
 
-      const returnHref = options?.href || returnHrefRef.current || "/";
+      const returnHref = options?.href || returnHrefRef.current || "/home";
+      const destApp = returnHref === "/" ? "/home" : returnHref;
       const onHardToolRoute = findToolsDataByPathname(pathname) != null;
+      const hasProjectQuery =
+        typeof window !== "undefined" &&
+        new URLSearchParams(window.location.search).has("project");
 
-      if (onHardToolRoute || options?.href) {
-        softUrlRef.current = false;
-        router.replace(returnHref === "/" ? "/home" : returnHref, { scroll: false });
-        return;
-      }
+      if (typeof window === "undefined") return;
 
-      if (typeof window !== "undefined") {
-        const target =
-          returnHref === "/"
-            ? homeWindowPath(locale)
-            : toWindowPath(locale, returnHref);
-        if (window.location.pathname.replace(/\/$/, "") !== target.replace(/\/$/, "")) {
-          window.history.replaceState({ toolModal: null }, "", target);
+      const target =
+        destApp.startsWith(`/${locale}/`) || destApp === `/${locale}`
+          ? destApp
+          : destApp === "/home"
+            ? `/${locale}/home`
+            : toWindowPath(locale, destApp);
+      const normalizedTarget = target.includes("?")
+        ? target
+        : target.endsWith("/")
+          ? target
+          : `${target}/`;
+      const currentPath = window.location.pathname.replace(/\/$/, "");
+      const targetPath = normalizedTarget.split("?")[0]!.replace(/\/$/, "");
+
+      // Static Cloudflare export: next-intl router.replace often cannot leave
+      // /tools/...?project= — use a real navigation so the resume shell clears.
+      if (onHardToolRoute || hasProjectQuery || options?.href) {
+        if (currentPath !== targetPath || window.location.search.length > 0) {
+          window.location.assign(normalizedTarget);
+          return;
         }
       }
-      softUrlRef.current = false;
+
+      if (currentPath !== targetPath) {
+        window.history.replaceState({ toolModal: null }, "", normalizedTarget);
+      } else if (window.location.search) {
+        window.history.replaceState({ toolModal: null }, "", normalizedTarget);
+      }
     },
-    [locale, pathname, router],
+    [locale, pathname],
   );
 
   const openToolModal = useCallback(

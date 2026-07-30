@@ -160,11 +160,12 @@ export function HeaderCategoryHub() {
                       className="tools-hub-menu__link"
                       role="menuitem"
                       prefetch={false}
-                      onClick={() => {
+                      onClick={(event) => {
                         close();
-                        // Soft-URL tool sessions keep Next on the home path — close
-                        // the modal so category navigation is not trapped behind it.
+                        // Soft-URL / resume sessions can trap client routing — force
+                        // a full navigation out of the tool modal shell.
                         if (toolModal?.isOpen) {
+                          event.preventDefault();
                           toolModal.closeToolModal({ href: category.href });
                         }
                       }}
