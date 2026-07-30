@@ -80,3 +80,130 @@ export function extractPdfOutputName(fileName: string): string {
   const base = fileName.replace(/\.pdf$/i, "") || "document";
   return `${base}-extracted.pdf`;
 }
+
+/** Inclusive 0-based page range for a split segment. */
+export type PdfSplitSegment = { start: number; end: number };
+
+/** Derive split segments from “break after page index” markers. */
+export function segmentsFromBreaksAfter(
+  pageCount: number,
+  breaksAfter: Iterable<number>,
+): PdfSplitSegment[] {
+  if (pageCount <= 0) return [];
+  const breakSet = new Set(
+    [...breaksAfter].filter((index) => index >= 0 && index < pageCount - 1),
+  );
+  const segments: PdfSplitSegment[] = [];
+  let start = 0;
+  for (let i = 0; i < pageCount - 1; i += 1) {
+    if (breakSet.has(i)) {
+      segments.push({ start, end: i });
+      start = i + 1;
+    }
+  }
+  segments.push({ start, end: pageCount - 1 });
+  return segments;
+}
+
+export function breaksAfterFromSegments(segments: PdfSplitSegment[]): number[] {
+  const breaks: number[] = [];
+  for (let i = 0; i < segments.length - 1; i += 1) {
+    breaks.push(segments[i]!.end);
+  }
+  return breaks;
+}
+
+export function formatSplitSegmentsSpec(segments: PdfSplitSegment[]): string {
+  return segments
+    .map((segment) =>
+      segment.start === segment.end
+        ? String(segment.start + 1)
+        : `${segment.start + 1}-${segment.end + 1}`,
+    )
+    .join(", ");
+}
+
+/**
+ * Parse a full-document partition like "1-3, 4-7, 8".
+ * Ranges must cover pages 1..pageCount with no gaps or overlaps.
+ */
+export function parseSplitPartitionSpec(spec: string, pageCount: number): PdfSplitSegment[] {
+  const trimmed = spec.trim();
+  if (!trimmed) {
+    throw new Error("Enter at least one page range (e.g. 1-3, 4-8).");
+  }
+  if (pageCount <= 0) {
+    throw new Error("No pages to split.");
+  }
+
+  const segments: PdfSplitSegment[] = [];
+  const parts = trimmed.split(/[,;]+/);
+
+  for (const part of parts) {
+    const segment = part.trim();
+    if (!segment) continue;
+
+    if (segment.includes("-")) {
+      const [rawA, rawB] = segment.split("-").map((s) => s.trim());
+      const a = Number.parseInt(rawA, 10);
+      const b = Number.parseInt(rawB, 10);
+      if (!Number.isFinite(a) || !Number.isFinite(b)) {
+        throw new Error(`Invalid range "${segment}". Use formats like 3-5.`);
+      }
+      const start = Math.min(a, b);
+      const end = Math.max(a, b);
+      if (start < 1 || end > pageCount) {
+        throw new Error(`Page range ${start}–${end} is out of range (1–${pageCount}).`);
+      }
+      segments.push({ start: start - 1, end: end - 1 });
+    } else {
+      const page = Number.parseInt(segment, 10);
+      if (!Number.isFinite(page) || page < 1 || page > pageCount) {
+        throw new Error(`Invalid page "${segment}". Use numbers between 1 and ${pageCount}.`);
+      }
+      segments.push({ start: page - 1, end: page - 1 });
+    }
+  }
+
+  if (!segments.length) {
+    throw new Error("Enter at least one page range (e.g. 1-3, 4-8).");
+  }
+
+  segments.sort((a, b) => a.start - b.start);
+
+  if (segments[0]!.start !== 0) {
+    throw new Error("Ranges must start at page 1.");
+  }
+
+  for (let i = 0; i < segments.length; i += 1) {
+    const current = segments[i]!;
+    if (current.start > current.end) {
+      throw new Error("Each range must have a start less than or equal to its end.");
+    }
+    if (i > 0) {
+      const prev = segments[i - 1]!;
+      if (current.start !== prev.end + 1) {
+        throw new Error(
+          `Ranges must be contiguous with no gaps or overlaps (expected page ${prev.end + 2} next).`,
+        );
+      }
+    }
+  }
+
+  if (segments[segments.length - 1]!.end !== pageCount - 1) {
+    throw new Error(`Ranges must cover every page through ${pageCount}.`);
+  }
+
+  return segments;
+}
+
+export function splitPdfZipName(fileName: string): string {
+  const base = fileName.replace(/\.pdf$/i, "") || "document";
+  return `${base}-split.zip`;
+}
+
+export function splitPdfPartName(fileName: string, part: number, startPage: number, endPage: number): string {
+  const base = fileName.replace(/\.pdf$/i, "") || "document";
+  const pages = startPage === endPage ? `p${startPage}` : `p${startPage}-${endPage}`;
+  return `${base}-part-${part}-${pages}.pdf`;
+}

@@ -3,6 +3,7 @@
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { FileUploadZone } from "@/components/FileUploadZone";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -17,7 +18,7 @@ import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { moveArrayItem, useDragReorder } from "@/hooks/useDragReorder";
-import { renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
+import { loadPdfPageCount, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
 import {
   Suspense,
   useCallback,
@@ -25,6 +26,7 @@ import {
   useId,
   useRef,
   useState,
+  type DragEvent as ReactDragEvent,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 import { useTranslations } from "next-intl";
@@ -37,26 +39,46 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-function PdfFileThumbnail({ file, loadingLabel }: { file: File; loadingLabel: string }) {
+function PdfFileThumbnail({
+  file,
+  loadingLabel,
+  previewAria,
+  onPreview,
+}: {
+  file: File;
+  loadingLabel: string;
+  previewAria: string;
+  onPreview: (bytes: Uint8Array, pageCount: number) => void;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
+  const [previewPayload, setPreviewPayload] = useState<{
+    bytes: Uint8Array;
+    pageCount: number;
+  } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setFailed(false);
+    setPreviewPayload(null);
 
     void (async () => {
       try {
         const bytes = new Uint8Array(await file.arrayBuffer());
-        const canvas = await renderPdfPageThumbnail(bytes, 0, "", 0.28);
+        if (cancelled) return;
+        const [canvas, count] = await Promise.all([
+          renderPdfPageThumbnail(bytes, 0, "", 0.28),
+          loadPdfPageCount(bytes).catch(() => 1),
+        ]);
         if (cancelled || !canvasRef.current) return;
         const node = canvasRef.current;
         node.width = canvas.width;
         node.height = canvas.height;
         const ctx = node.getContext("2d");
         if (ctx) ctx.drawImage(canvas, 0, 0);
+        setPreviewPayload({ bytes, pageCount: Math.max(1, count) });
         setLoading(false);
       } catch {
         if (!cancelled) {
@@ -72,16 +94,28 @@ function PdfFileThumbnail({ file, loadingLabel }: { file: File; loadingLabel: st
   }, [file]);
 
   return (
-    <div className="visual-reorder-card__thumb">
-      {loading ? <p className="visual-reorder-card__loading">{loadingLabel}</p> : null}
-      {failed ? (
-        <div className="visual-reorder-card__pdf-icon" aria-hidden="true">
-          PDF
-        </div>
-      ) : (
-        <canvas ref={canvasRef} className="visual-reorder-card__canvas" />
-      )}
-    </div>
+    <button
+      type="button"
+      className="visual-reorder-card__preview-btn"
+      data-pdf-page-preview=""
+      aria-label={previewAria}
+      disabled={loading || failed || !previewPayload}
+      onClick={() => {
+        if (!previewPayload) return;
+        onPreview(previewPayload.bytes, previewPayload.pageCount);
+      }}
+    >
+      <div className="visual-reorder-card__thumb">
+        {loading ? <p className="visual-reorder-card__loading">{loadingLabel}</p> : null}
+        {failed ? (
+          <div className="visual-reorder-card__pdf-icon" aria-hidden="true">
+            PDF
+          </div>
+        ) : (
+          <canvas ref={canvasRef} className="visual-reorder-card__canvas" />
+        )}
+      </div>
+    </button>
   );
 }
 
@@ -102,6 +136,10 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const [preview, setPreview] = useState<{
+    bytes: Uint8Array;
+    pageCount: number;
+  } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, files.length);
   const baseId = useId();
@@ -135,6 +173,7 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
     setStatus("");
     setDone(false);
     setRunError(null);
+    setPreview(null);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
@@ -198,7 +237,7 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
   const mergeLabel = ws.buttonLabel();
 
   return (
-    <div id="tool-workspace" className="space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={files.length > 0}>
       <FileUploadZone
         operation={tool.operation}
@@ -243,31 +282,70 @@ function MergePdfWorkspaceInner({ tool, slug }: { tool: ToolDefinition; slug: st
           <div id={WORKSPACE_OPERATIONS_ID} className="visual-reorder-panel">
             <p className="visual-reorder-panel__hint">{ws.common("reorderHint")}</p>
             <div className="visual-reorder-grid" role="list">
-              {files.map((file, idx) => (
-                <article
-                  key={`${file.name}-${file.size}-${idx}`}
-                  role="listitem"
-                  className={cardClassName(idx, "visual-reorder-card")}
-                  {...getCardProps(idx, reorder)}
-                >
-                  <button
-                    type="button"
-                    className="visual-reorder-card__remove"
-                    aria-label={ws.common("removeFile", { name: file.name })}
-                    onClick={() => removeAt(idx)}
+              {files.map((file, idx) => {
+                const dragProps = getCardProps(idx, reorder);
+                const safeDragProps = {
+                  ...dragProps,
+                  onDragStart: (event: ReactDragEvent<HTMLElement>) => {
+                    if ((event.target as Element | null)?.closest?.("[data-pdf-page-preview]")) {
+                      event.preventDefault();
+                      return;
+                    }
+                    dragProps.onDragStart(event);
+                  },
+                };
+
+                return (
+                  <article
+                    key={`${file.name}-${file.size}-${idx}`}
+                    role="listitem"
+                    className={cardClassName(idx, "visual-reorder-card")}
+                    {...safeDragProps}
                   >
-                    ×
-                  </button>
-                  <span className="visual-reorder-card__index">#{idx + 1}</span>
-                  <PdfFileThumbnail file={file} loadingLabel={ws.common("loading")} />
-                  <p className="visual-reorder-card__name" title={file.name}>
-                    {file.name}
-                  </p>
-                  <p className="visual-reorder-card__meta">{pdf.formatBytes(file.size)}</p>
-                </article>
-              ))}
+                    <button
+                      type="button"
+                      className="visual-reorder-card__remove"
+                      aria-label={ws.common("removeFile", { name: file.name })}
+                      onClick={() => removeAt(idx)}
+                    >
+                      ×
+                    </button>
+                    <span className="visual-reorder-card__index">#{idx + 1}</span>
+                    <PdfFileThumbnail
+                      file={file}
+                      loadingLabel={ws.common("loading")}
+                      previewAria={
+                        ws.wsCommon("openPagePreview", { page: 1 }) ||
+                        `Open larger preview of ${file.name}`
+                      }
+                      onPreview={(bytes, pageCount) => setPreview({ bytes, pageCount })}
+                    />
+                    <p className="visual-reorder-card__name" title={file.name}>
+                      {file.name}
+                    </p>
+                    <p className="visual-reorder-card__meta">{pdf.formatBytes(file.size)}</p>
+                  </article>
+                );
+              })}
             </div>
           </div>
+
+          <PdfPagePreviewModal
+            open={preview !== null}
+            fileBytes={preview?.bytes ?? null}
+            pageIndex={0}
+            title={
+              preview
+                ? ws.wsCommon("pageOf", {
+                    current: 1,
+                    total: preview.pageCount,
+                  }) || `Page 1 of ${preview.pageCount}`
+                : ""
+            }
+            closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+            loadingLabel={ws.wsCommon("loadingPagePreview") || ws.common("loading")}
+            onClose={() => setPreview(null)}
+          />
 
           <WorkspaceActionRow
             primaryLabel={mergeLabel}

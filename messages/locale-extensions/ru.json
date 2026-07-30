@@ -5967,7 +5967,7 @@
       },
       "split": {
         "title": "Drop files here or click to browse",
-        "description": "Select one PDF. Each page exports as its own file."
+        "description": "Select one PDF, then mark split points between pages and download a ZIP when ready."
       },
       "jpg-to-pdf": {
         "title": "Перетащите файлы сюда или нажмите, чтобы выбрать",
@@ -6241,7 +6241,7 @@
     "buttons": {
       "merge": "Merge PDFs",
       "compress": "Compress PDF",
-      "split": "Split PDF",
+      "split": "Разделить и скачать",
       "jpg-to-pdf": "Создать PDF",
       "png-to-pdf": "Преобразовать в PDF",
       "pdf-to-jpg": "Экспортировать страницы в JPG",
@@ -6282,7 +6282,7 @@
         "complete": "Compressed to ~{percent}% of original size."
       },
       "split": {
-        "complete": "Split complete: {count} file(s)."
+        "complete": "Split complete: {count} file(s) packaged in a ZIP."
       },
       "jpg-to-pdf": {
         "complete": "PDF создан из изображений: {count}."
@@ -7537,6 +7537,38 @@
         "moveUp": "Move page up",
         "moveDown": "Move page down",
         "reorderHint": "Drag thumbnails to reorder pages. On mobile, use the up/down arrows."
+      }
+    },
+    "split": {
+      "status": {
+        "loaded": "Загружено страниц: {count}. Отметьте точки разделения между страницами, затем скачайте один ZIP.",
+        "everyPageReady": "Готово к экспорту {count} одностраничных файлов в одном ZIP.",
+        "markersCleared": "Метки разделения очищены. Добавьте метки между страницами, когда будете готовы.",
+        "rangesApplied": "Применено диапазонов: {count}. Проверьте сетку и скачайте.",
+        "invalidRanges": "Некорректные диапазоны страниц.",
+        "needMultiplePages": "В этом PDF только одна страница — разделять нечего.",
+        "needSplitMarker": "Нажмите между страницами, чтобы добавить хотя бы одно разделение, или используйте «Разделить каждую страницу».",
+        "splitting": "Разделение PDF и упаковка ZIP…",
+        "downloaded": "Скачан {name} с {count} PDF-файлами.",
+        "adjustFile": "Измените метки разделения и попробуйте снова."
+      },
+      "privacyNote": "Разделение выполняется локально в браузере. Файл не покидает ваше устройство.",
+      "splitDownloadLabel": "Разделить и скачать",
+      "splittingLabel": "Разделение…",
+      "ui": {
+        "pageCountLabel": "· страниц: {count}",
+        "splitHint": "Нажимайте ножницы между страницами, чтобы задать точки разделения. Можно также ввести диапазоны ниже. Когда будете готовы, скачайте всё одним ZIP — без повторных запросов сохранения.",
+        "splitEveryPage": "Разделить каждую страницу",
+        "clearSplits": "Очистить разделения",
+        "gridLabel": "Страницы PDF",
+        "loadingThumb": "Загрузка…",
+        "chunkBadge": "Файл {part}",
+        "addSplitAfter": "Добавить разделение после страницы {page}",
+        "removeSplitAfter": "Убрать разделение после страницы {page}",
+        "rangesLabel": "Свои диапазоны страниц",
+        "rangesPlaceholder": "напр. 1-3, 4-7, 8",
+        "rangesHint": "Диапазоны должны покрывать весь документ без пропусков (например 1-3, 4-7, 8). Enter или уход из поля — применить.",
+        "segmentSummary": "Файлов: {count}: {ranges}"
       }
     },
     "extract-pdf-pages": {

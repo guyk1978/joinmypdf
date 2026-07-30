@@ -5967,7 +5967,7 @@
       },
       "split": {
         "title": "גרור קבצים לכאן או לחץ לעיון",
-        "description": "בחר PDF אחד. כל עמוד יייצא כקובץ נפרד."
+        "description": "בחר PDF אחד, סמן נקודות פיצול בין העמודים והורד ZIP כשתהיה מוכן."
       },
       "jpg-to-pdf": {
         "title": "גרור קבצים לכאן או לחץ לעיון",
@@ -6233,7 +6233,7 @@
     "buttons": {
       "merge": "מיזוג PDF",
       "compress": "דחיסת PDF",
-      "split": "פיצול PDF",
+      "split": "פיצול והורדה",
       "jpg-to-pdf": "יצירת PDF",
       "png-to-pdf": "המרה ל-PDF",
       "pdf-to-jpg": "ייצוא עמודים כ-JPG",
@@ -6274,7 +6274,7 @@
         "complete": "דחוס לכ־{percent}% מגודל המקור."
       },
       "split": {
-        "complete": "פיצול הושלם: {count} קובץ/ים."
+        "complete": "פיצול הושלם: {count} קובץ/ים באריזת ZIP."
       },
       "jpg-to-pdf": {
         "complete": "נוצר PDF מ-{count} תמונה/ות."
@@ -7473,6 +7473,38 @@
         "moveUp": "הזז עמוד למעלה",
         "moveDown": "הזז עמוד למטה",
         "reorderHint": "גרור תמונות ממוזערות לסדר מחדש. במובייל השתמש בחצים למעלה/למטה."
+      }
+    },
+    "split": {
+      "status": {
+        "loaded": "נטענו {count} עמוד/ים. לחצו בין העמודים כדי לסמן פיצולים, ואז הורידו פעם אחת.",
+        "everyPageReady": "מוכן לייצוא {count} קבצי עמוד בודד ב-ZIP אחד.",
+        "markersCleared": "סימוני הפיצול נוקו. הוסיפו סימונים בין עמודים כשתהיו מוכנים.",
+        "rangesApplied": "הוחלו {count} טווחים. בדקו את הרשת והורידו.",
+        "invalidRanges": "טווחי עמודים לא תקינים.",
+        "needMultiplePages": "ל-PDF הזה יש עמוד אחד בלבד, אין מה לפצל.",
+        "needSplitMarker": "לחצו בין עמודים כדי להוסיף לפחות פיצול אחד, או השתמשו ב״פצל כל עמוד״.",
+        "splitting": "מפצל PDF ויוצר ZIP…",
+        "downloaded": "הורד {name} עם {count} קובצי PDF.",
+        "adjustFile": "התאימו את סימוני הפיצול ונסו שוב."
+      },
+      "privacyNote": "הפיצול מתבצע מקומית בדפדפן. הקובץ לא עוזב את המכשיר שלכם.",
+      "splitDownloadLabel": "פיצול והורדה",
+      "splittingLabel": "מפצל…",
+      "ui": {
+        "pageCountLabel": "· {count} עמוד/ים",
+        "splitHint": "לחצו על המספריים בין העמודים כדי לקבוע נקודות פיצול. אפשר גם להזין טווחים למטה. כשתהיו מוכנים, הורידו הכל ב-ZIP אחד—בלי אישורי שמירה חוזרים.",
+        "splitEveryPage": "פצל כל עמוד",
+        "clearSplits": "נקה פיצולים",
+        "gridLabel": "עמודי PDF",
+        "loadingThumb": "טוען…",
+        "chunkBadge": "קובץ {part}",
+        "addSplitAfter": "הוסף פיצול אחרי עמוד {page}",
+        "removeSplitAfter": "הסר פיצול אחרי עמוד {page}",
+        "rangesLabel": "טווחי עמודים מותאמים",
+        "rangesPlaceholder": "למשל 1-3, 4-7, 8",
+        "rangesHint": "הטווחים חייבים לכסות את כל המסמך בלי רווחים (למשל 1-3, 4-7, 8). Enter או יציאה מהשדה להחלה.",
+        "segmentSummary": "{count} קבצים: {ranges}"
       }
     },
     "extract-pdf-pages": {

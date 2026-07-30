@@ -896,7 +896,7 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     id: "pdf-split",
     title: "Split PDF",
     path: "/tools/pdf-split/",
-    description: "Split PDF documents into single-page files with local processing.",
+    description: "Split a PDF into custom page ranges and download a ZIP locally.",
     categories: ["pdf"] as const,
     primaryCategory: "pdf",
     pdfSection: "mergeSplit",

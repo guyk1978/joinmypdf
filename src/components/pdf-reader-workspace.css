@@ -9,6 +9,18 @@
   text-align: center;
 }
 
+/* Edge gutter: reinforce 20px when not already inside .tool-page-main */
+.pdf-reader-tool-page {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  padding-inline: max(1.25rem, var(--app-content-pad-x, 1.25rem));
+}
+
+.tool-page-main .pdf-reader-tool-page {
+  padding-inline: 0; /* .tool-page-main already applies --app-content-pad-x (≥20px) */
+}
+
 .pdf-reader-upload-head__title {
   margin: 0;
   font-size: clamp(1.75rem, 4vw, 2.35rem);
@@ -144,6 +156,181 @@
   color: #e5e5e5;
 }
 
+/* Zoom slider — matches PdfPagePreviewModal (icons + track) */
+.pdf-reader-zoom {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 1 14rem;
+  min-width: 9.5rem;
+  max-width: 16rem;
+}
+
+.pdf-reader-zoom__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.85rem;
+  height: 1.85rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #525252;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.pdf-reader-zoom__btn:hover:not(:disabled) {
+  color: #171717;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.pdf-reader-zoom__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pdf-reader-zoom__btn:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.45);
+  outline-offset: 2px;
+}
+
+.dark .pdf-reader-zoom__btn {
+  color: #a3a3a3;
+}
+
+.dark .pdf-reader-zoom__btn:hover:not(:disabled) {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pdf-reader-viewport--fullscreen .pdf-reader-zoom__btn,
+.pdf-reader-viewport:fullscreen .pdf-reader-zoom__btn,
+.pdf-reader-viewport:-webkit-full-screen .pdf-reader-zoom__btn {
+  color: #a3a3a3;
+}
+
+.pdf-reader-viewport--fullscreen .pdf-reader-zoom__btn:hover:not(:disabled),
+.pdf-reader-viewport:fullscreen .pdf-reader-zoom__btn:hover:not(:disabled),
+.pdf-reader-viewport:-webkit-full-screen .pdf-reader-zoom__btn:hover:not(:disabled) {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pdf-reader-zoom__icon {
+  display: block;
+}
+
+.pdf-reader-zoom__icon--out {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.pdf-reader-zoom__icon--in {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.pdf-reader-zoom__slider-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.pdf-reader-zoom__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.25rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pdf-reader-zoom__slider:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pdf-reader-zoom__slider:focus-visible {
+  outline: none;
+}
+
+.pdf-reader-zoom__slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+}
+
+.pdf-reader-zoom__slider::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #2563eb var(--pdf-reader-zoom-pct, 20%),
+    #d4d4d4 var(--pdf-reader-zoom-pct, 20%),
+    #d4d4d4 100%
+  );
+}
+
+.dark .pdf-reader-zoom__slider::-webkit-slider-runnable-track,
+.pdf-reader-viewport--fullscreen .pdf-reader-zoom__slider::-webkit-slider-runnable-track,
+.pdf-reader-viewport:fullscreen .pdf-reader-zoom__slider::-webkit-slider-runnable-track,
+.pdf-reader-viewport:-webkit-full-screen .pdf-reader-zoom__slider::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #2563eb var(--pdf-reader-zoom-pct, 20%),
+    #333 var(--pdf-reader-zoom-pct, 20%),
+    #333 100%
+  );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.pdf-reader-zoom__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5.5px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  cursor: grab;
+}
+
+.pdf-reader-zoom__slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+.pdf-reader-zoom__slider::-moz-range-track {
+  height: 3px;
+  border: 0;
+  border-radius: 999px;
+  background: #2563eb;
+}
+
+.pdf-reader-zoom__slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  cursor: grab;
+}
+
+.pdf-reader-viewport--fullscreen .pdf-reader-toolbar__zoom,
+.pdf-reader-viewport:fullscreen .pdf-reader-toolbar__zoom,
+.pdf-reader-viewport:-webkit-full-screen .pdf-reader-toolbar__zoom {
+  color: #e5e5e5;
+}
+
 .pdf-reader-toolbar__btn--icon {
   display: inline-flex;
   align-items: center;
@@ -169,10 +356,24 @@
   text-align: center;
 }
 
+.pdf-reader-viewport__stage {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+}
+
+.pdf-reader-viewport__fit {
+  display: block;
+  flex: 0 0 auto;
+  max-width: 100%;
+  line-height: 0;
+}
+
 /*
- * Fullscreen stage: force a column so the exit control never sits beside the
- * page (the base .pdf-reader-viewport is flex-direction:row). The document is
- * horizontally centered; the exit control is fixed above it, clear of the page.
+ * Fullscreen stage: toolbar is absolutely pinned; the stage fills the
+ * remaining viewport and centers the page both horizontally and vertically.
  */
 .pdf-reader-viewport--fullscreen,
 .pdf-reader-viewport:fullscreen,
@@ -183,8 +384,8 @@
   display: flex !important;
   flex-direction: column !important;
   flex-wrap: nowrap !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
+  align-items: stretch !important;
+  justify-content: center !important;
   width: 100vw;
   width: 100dvw;
   height: 100vh;
@@ -193,17 +394,31 @@
   margin: 0;
   border: 0;
   border-radius: 0;
-  /* Top padding clears the fixed exit button + browser fullscreen chrome */
   padding:
-    max(4.25rem, calc(env(safe-area-inset-top, 0px) + 3.5rem))
-    max(0.75rem, env(safe-area-inset-right, 0px))
+    max(0.75rem, env(safe-area-inset-top, 0px))
+    max(1.25rem, env(safe-area-inset-right, 0px))
     max(0.75rem, env(safe-area-inset-bottom, 0px))
-    max(0.75rem, env(safe-area-inset-left, 0px));
+    max(1.25rem, env(safe-area-inset-left, 0px));
   background: #0a0a0a;
-  overflow: auto;
+  overflow: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   text-align: center;
+}
+
+.pdf-reader-viewport--fullscreen .pdf-reader-viewport__stage,
+.pdf-reader-viewport:fullscreen .pdf-reader-viewport__stage,
+.pdf-reader-viewport:-webkit-full-screen .pdf-reader-viewport__stage {
+  flex: 1 1 auto;
+  align-items: safe center;
+  justify-content: safe center;
+  width: 100%;
+  min-height: 0;
+  overflow: auto;
+  /* Reserve space so absolute toolbar / hint don't cover the page */
+  padding-top: 3.75rem;
+  padding-bottom: 2.5rem;
+  box-sizing: border-box;
 }
 
 .pdf-reader-viewport--fullscreen .pdf-reader-page,
@@ -211,12 +426,11 @@
 .pdf-reader-viewport:-webkit-full-screen .pdf-reader-page {
   position: relative;
   display: block;
-  margin: 0 auto;
+  margin: auto;
   max-width: none;
   max-height: none;
   flex: 0 0 auto;
   align-self: center;
-  /* Fit scale applied via inline transform so canvas + text layer stay aligned */
 }
 
 .pdf-reader-viewport--fullscreen .pdf-reader-page__canvas,
@@ -230,8 +444,10 @@
 }
 
 .pdf-reader-viewport__fs-toolbar {
-  position: sticky;
+  position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100002;
   display: flex;
   flex-wrap: wrap;
@@ -240,9 +456,10 @@
   gap: 0.5rem;
   width: 100%;
   padding: max(0.65rem, env(safe-area-inset-top, 0px)) 0.75rem 0.65rem;
-  margin-bottom: 0.75rem;
+  margin: 0;
   border-bottom: 1px solid #404040;
   background: rgba(10, 10, 10, 0.92);
+  box-sizing: border-box;
 }
 
 .pdf-reader-viewport__fs-hint {
@@ -337,6 +554,8 @@
   text-align: left;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
   background: #ffffff;
+  /* Instant CSS zoom while PDF.js catches up — never animate the scale. */
+  transition: none;
 }
 
 .pdf-reader-page__canvas {

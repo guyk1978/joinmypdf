@@ -100,7 +100,7 @@ export const TOOL_CARD_DESCRIPTIONS: Record<string, string> = {
   "pdf-metadata-editor": "Update PDF title, author, keywords, and other metadata.",
   "pdf-password-recovery": "Recover simple PDF passwords with an on-device search.",
   "pdf-signature-validator": "Validate digital signatures and check if a PDF was altered.",
-  "pdf-split": "Split a PDF into separate files by page ranges.",
+  "pdf-split": "Split a PDF into custom page ranges and download a ZIP.",
   "pdf-text-editor": "Edit text inside PDF pages and download the result.",
   "pdf-to-booklet": "Create a print-ready booklet with correct page order.",
   "pdf-to-epub": "Convert PDFs into EPUB ebooks for Kindle and e-readers.",

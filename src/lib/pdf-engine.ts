@@ -40,16 +40,53 @@ export async function compressSimulation(file: File, quality: number) {
   return { bytes: result.bytes, estimatedRatio: result.sizeRatio };
 }
 
+/** Split a PDF into contiguous page segments (0-based inclusive ranges). */
+export async function splitPdfBySegments(
+  file: File,
+  segments: { start: number; end: number }[],
+): Promise<{ part: number; startPage: number; endPage: number; bytes: Uint8Array }[]> {
+  if (!file) throw new Error("No PDF file selected.");
+  if (!segments.length) throw new Error("Add at least one page range to split.");
+
+  const source = await loadPdfLibDocument(await file.arrayBuffer());
+  return splitLoadedPdfBySegments(source, segments);
+}
+
+/** Split every page into its own PDF (legacy helper). */
 export async function splitPdfFile(file: File) {
   if (!file) throw new Error("No PDF file selected.");
   const source = await loadPdfLibDocument(await file.arrayBuffer());
-  const result: { page: number; bytes: Uint8Array }[] = [];
-  for (const pageIndex of source.getPageIndices()) {
+  const segments = source.getPageIndices().map((pageIndex) => ({
+    start: pageIndex,
+    end: pageIndex,
+  }));
+  return splitLoadedPdfBySegments(source, segments);
+}
+
+async function splitLoadedPdfBySegments(
+  source: Awaited<ReturnType<typeof loadPdfLibDocument>>,
+  segments: { start: number; end: number }[],
+): Promise<{ part: number; startPage: number; endPage: number; bytes: Uint8Array }[]> {
+  const total = source.getPageCount();
+  const result: { part: number; startPage: number; endPage: number; bytes: Uint8Array }[] = [];
+
+  for (let i = 0; i < segments.length; i += 1) {
+    const { start, end } = segments[i]!;
+    if (start < 0 || end >= total || start > end) {
+      throw new Error(`Invalid page range ${start + 1}–${end + 1} (document has ${total} page(s)).`);
+    }
     const out = await PDFDocument.create();
-    const [copy] = await out.copyPages(source, [pageIndex]);
-    out.addPage(copy);
-    result.push({ page: pageIndex + 1, bytes: await out.save() });
+    const indices = Array.from({ length: end - start + 1 }, (_, offset) => start + offset);
+    const pages = await out.copyPages(source, indices);
+    pages.forEach((page) => out.addPage(page));
+    result.push({
+      part: i + 1,
+      startPage: start + 1,
+      endPage: end + 1,
+      bytes: await out.save(),
+    });
   }
+
   return result;
 }
 

@@ -116,12 +116,15 @@ function buildConfig(tool: ToolDefinition, ws: ReturnType<typeof useWorkspaceI18
       buttonLabel: ws.buttonLabel(),
       async run(files, { setStatus, downloadBlob }) {
         const parts = await pdf.splitPdfFile(files[0]);
-        parts.forEach((entry) => {
-          downloadBlob(
-            new Blob([entry.bytes as BlobPart], { type: "application/pdf" }),
-            `joinmypdf-page-${entry.page}.pdf`,
-          );
-        });
+        const { zipBlobs } = await import("@/lib/zip-blobs");
+        const { splitPdfPartName, splitPdfZipName } = await import("@/lib/pdf-pages");
+        const zip = await zipBlobs(
+          parts.map((entry) => ({
+            name: splitPdfPartName(files[0].name, entry.part, entry.startPage, entry.endPage),
+            blob: new Blob([entry.bytes as BlobPart], { type: "application/pdf" }),
+          })),
+        );
+        downloadBlob(zip, splitPdfZipName(files[0].name));
         setStatus(ws.status("complete", { count: parts.length }));
       },
     },

@@ -9400,6 +9400,29 @@ a.blog-article-card:hover .blog-article-card__title,
   border-color: #262626;
 }
 
+.visual-reorder-card__preview-btn {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  text-align: start;
+  color: inherit;
+  border-radius: 8px;
+}
+
+.visual-reorder-card__preview-btn:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.visual-reorder-card__preview-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.45);
+  outline-offset: 2px;
+}
+
 .visual-reorder-card__canvas {
   display: block;
   width: 100%;

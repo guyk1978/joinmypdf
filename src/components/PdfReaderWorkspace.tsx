@@ -26,12 +26,86 @@ import {
 import "./pdf-reader-workspace.css";
 
 const ZOOM_MIN = 0.5;
-const ZOOM_MAX = 2.5;
-const ZOOM_STEP = 0.1;
+const ZOOM_MAX = 5;
+const ZOOM_DEFAULT = 1.15;
+const ZOOM_SLIDER_STEP = 0.01;
+const ZOOM_BUTTON_STEP = 0.1;
+/** Debounce PDF.js re-renders while the slider drags; CSS scales instantly. */
+const ZOOM_RENDER_DEBOUNCE_MS = 90;
 
 type FullscreenCapableElement = HTMLElement & {
   webkitRequestFullscreen?: () => Promise<void> | void;
 };
+
+function clampZoom(value: number): number {
+  if (!Number.isFinite(value)) return ZOOM_DEFAULT;
+  return Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round(value * 100) / 100));
+}
+
+function PdfReaderZoomSlider({
+  zoom,
+  disabled,
+  zoomInLabel,
+  zoomOutLabel,
+  onZoomChange,
+}: {
+  zoom: number;
+  disabled?: boolean;
+  zoomInLabel: string;
+  zoomOutLabel: string;
+  onZoomChange: (next: number) => void;
+}) {
+  const zoomId = useId();
+  const pct = `${((zoom - ZOOM_MIN) / (ZOOM_MAX - ZOOM_MIN)) * 100}%`;
+
+  return (
+    <div className="pdf-reader-zoom" role="group" aria-label="Zoom">
+      <button
+        type="button"
+        className="pdf-reader-zoom__btn"
+        disabled={disabled || zoom <= ZOOM_MIN}
+        aria-label={zoomOutLabel}
+        title={zoomOutLabel}
+        onClick={() => onZoomChange(clampZoom(zoom - ZOOM_BUTTON_STEP))}
+      >
+        <ZoomOut className="pdf-reader-zoom__icon pdf-reader-zoom__icon--out" aria-hidden strokeWidth={2} />
+      </button>
+      <label className="pdf-reader-zoom__slider-wrap" htmlFor={zoomId}>
+        <span className="sr-only">{Math.round(zoom * 100)}%</span>
+        <input
+          id={zoomId}
+          type="range"
+          className="pdf-reader-zoom__slider"
+          min={ZOOM_MIN}
+          max={ZOOM_MAX}
+          step={ZOOM_SLIDER_STEP}
+          value={zoom}
+          disabled={disabled}
+          style={{ ["--pdf-reader-zoom-pct" as string]: pct }}
+          aria-valuemin={ZOOM_MIN}
+          aria-valuemax={ZOOM_MAX}
+          aria-valuenow={zoom}
+          aria-valuetext={`${Math.round(zoom * 100)}%`}
+          onInput={(event) => onZoomChange(clampZoom(Number((event.target as HTMLInputElement).value)))}
+          onChange={(event) => onZoomChange(clampZoom(Number(event.target.value)))}
+        />
+      </label>
+      <button
+        type="button"
+        className="pdf-reader-zoom__btn"
+        disabled={disabled || zoom >= ZOOM_MAX}
+        aria-label={zoomInLabel}
+        title={zoomInLabel}
+        onClick={() => onZoomChange(clampZoom(zoom + ZOOM_BUTTON_STEP))}
+      >
+        <ZoomIn className="pdf-reader-zoom__icon pdf-reader-zoom__icon--in" aria-hidden strokeWidth={2} />
+      </button>
+      <span className="pdf-reader-toolbar__zoom" aria-live="polite">
+        {Math.round(zoom * 100)}%
+      </span>
+    </div>
+  );
+}
 
 function getFullscreenElement(): Element | null {
   const doc = document as Document & { webkitFullscreenElement?: Element | null };
@@ -69,7 +143,7 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [zoom, setZoom] = useState(1.15);
+  const [zoom, setZoom] = useState(ZOOM_DEFAULT);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [rendering, setRendering] = useState(false);
@@ -88,7 +162,12 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const baseId = useId();
   fsModeRef.current = fsMode;
   const docFullscreen = fsMode !== "off";
-  const [fitScale, setFitScale] = useState(1);
+  /** Last scale successfully drawn by PDF.js — CSS bridges instantly to `zoom`. */
+  const [renderedZoom, setRenderedZoom] = useState(ZOOM_DEFAULT);
+  const [pageDisplaySize, setPageDisplaySize] = useState({ w: 0, h: 0 });
+  const zoomRef = useRef(zoom);
+  const lastRenderKeyRef = useRef("");
+  zoomRef.current = zoom;
 
   const acceptPdf = useCallback((f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name), []);
 
@@ -113,7 +192,9 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setFile(null);
     setPageCount(0);
     setPageNumber(1);
-    setZoom(1.15);
+    setZoom(ZOOM_DEFAULT);
+    setRenderedZoom(ZOOM_DEFAULT);
+    setPageDisplaySize({ w: 0, h: 0 });
     setStatus("");
     setRunError(null);
     setRendering(false);
@@ -144,7 +225,9 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       setFile(next);
       setPageCount(doc.numPages);
       setPageNumber(1);
-      setZoom(1.15);
+      setZoom(ZOOM_DEFAULT);
+      setRenderedZoom(ZOOM_DEFAULT);
+      setPageDisplaySize({ w: 0, h: 0 });
       setStatus(ws.wsStatus("fileReady", { name: next.name }));
       capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
       capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
@@ -172,31 +255,42 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     if (!file || !doc || !canvas) return;
 
     const token = ++renderTokenRef.current;
-    let cancelled = false;
-    setRendering(true);
+    const renderKey = `${file.name}:${file.size}:${file.lastModified}:${pageNumber}`;
+    const delay =
+      lastRenderKeyRef.current !== renderKey ? 0 : ZOOM_RENDER_DEBOUNCE_MS;
+    lastRenderKeyRef.current = renderKey;
 
-    void (async () => {
-      try {
-        await renderPdfReaderPage({
-          doc,
-          pageNumber,
-          scale: zoom,
-          canvas,
-          textLayerEl: textLayerRef.current,
-        });
-        if (!cancelled && token === renderTokenRef.current) {
+    let cancelled = false;
+
+    const timer = window.setTimeout(() => {
+      const scaleToRender = zoomRef.current;
+      setRendering(true);
+      void (async () => {
+        try {
+          const size = await renderPdfReaderPage({
+            doc,
+            pageNumber,
+            scale: scaleToRender,
+            canvas,
+            textLayerEl: textLayerRef.current,
+          });
+          if (!cancelled && token === renderTokenRef.current) {
+            setRenderedZoom(scaleToRender);
+            setPageDisplaySize({ w: size.width, h: size.height });
+            setRendering(false);
+          }
+        } catch (e) {
+          if (cancelled || token !== renderTokenRef.current) return;
+          const parsed = classifyPdfError(e);
+          setRunError(parsed);
           setRendering(false);
         }
-      } catch (e) {
-        if (cancelled || token !== renderTokenRef.current) return;
-        const parsed = classifyPdfError(e);
-        setRunError(parsed);
-        setRendering(false);
-      }
-    })();
+      })();
+    }, delay);
 
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
     };
   }, [file, pageNumber, zoom]);
 
@@ -241,36 +335,6 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setDocFullscreenActive(docFullscreen);
     return () => setDocFullscreenActive(false);
   }, [docFullscreen]);
-
-  useEffect(() => {
-    if (!docFullscreen) {
-      setFitScale(1);
-      return;
-    }
-    const viewport = viewportRef.current;
-    const page = pageRef.current;
-    if (!viewport || !page) return;
-
-    const updateFit = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      const naturalW = canvas.width || canvas.getBoundingClientRect().width;
-      const naturalH = canvas.height || canvas.getBoundingClientRect().height;
-      if (!naturalW || !naturalH) return;
-      const padX = 24;
-      const padY = 96; // room for fullscreen toolbar
-      const availW = Math.max(120, viewport.clientWidth - padX);
-      const availH = Math.max(120, viewport.clientHeight - padY);
-      const next = Math.min(1, availW / naturalW, availH / naturalH);
-      setFitScale(Number.isFinite(next) && next > 0 ? next : 1);
-    };
-
-    updateFit();
-    const ro = new ResizeObserver(updateFit);
-    ro.observe(viewport);
-    ro.observe(page);
-    return () => ro.disconnect();
-  }, [docFullscreen, pageNumber, zoom, rendering]);
 
   useEffect(() => {
     if (!docFullscreen) return;
@@ -323,10 +387,19 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   }, [fsMode]);
 
   const showWorkspace = Boolean(file && pageCount > 0);
-  const zoomPct = Math.round(zoom * 100);
   const showUploadHead = !showWorkspace && !pageShell.stacked;
   const enterFullscreenLabel = ws.wsUi("enterFullscreen");
   const exitFullscreenLabel = ws.wsUi("exitFullscreen");
+  const zoomOutLabel = ws.wsUi("zoomOut");
+  const zoomInLabel = ws.wsUi("zoomIn");
+  const setZoomClamped = useCallback((next: number) => {
+    setZoom(clampZoom(next));
+  }, []);
+
+  const visualRatio =
+    renderedZoom > 0 ? Math.min(ZOOM_MAX / ZOOM_MIN, Math.max(ZOOM_MIN / ZOOM_MAX, zoom / renderedZoom)) : 1;
+  const layoutW = pageDisplaySize.w > 0 ? pageDisplaySize.w * visualRatio : undefined;
+  const layoutH = pageDisplaySize.h > 0 ? pageDisplaySize.h * visualRatio : undefined;
 
   return (
     <div id="tool-workspace" className="pdf-reader-tool-page tool-workspace--wide space-y-3 pb-12 md:pb-8">
@@ -442,39 +515,13 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             </div>
 
             <div className="pdf-reader-toolbar__group">
-              <button
-                type="button"
-                className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
-                disabled={busy || rendering || zoom <= ZOOM_MIN}
-                onClick={() => setZoom((z) => Math.max(ZOOM_MIN, Number((z - ZOOM_STEP).toFixed(2))))}
-                aria-label={ws.wsUi("zoomOut")}
-                title={ws.wsUi("zoomOut")}
-              >
-                <ZoomOut className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
-                <span className="pdf-reader-toolbar__btn-label">{ws.wsUi("zoomOut")}</span>
-              </button>
-              <span className="pdf-reader-toolbar__zoom" aria-live="polite">
-                {zoomPct}%
-              </span>
-              <button
-                type="button"
-                className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
-                disabled={busy || rendering || zoom >= ZOOM_MAX}
-                onClick={() => setZoom((z) => Math.min(ZOOM_MAX, Number((z + ZOOM_STEP).toFixed(2))))}
-                aria-label={ws.wsUi("zoomIn")}
-                title={ws.wsUi("zoomIn")}
-              >
-                <ZoomIn className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
-                <span className="pdf-reader-toolbar__btn-label">{ws.wsUi("zoomIn")}</span>
-              </button>
-              <button
-                type="button"
-                className="pdf-reader-toolbar__btn"
-                disabled={busy || rendering}
-                onClick={() => setZoom(1.15)}
-              >
-                {ws.wsUi("zoomReset")}
-              </button>
+              <PdfReaderZoomSlider
+                zoom={zoom}
+                disabled={busy}
+                zoomInLabel={zoomInLabel}
+                zoomOutLabel={zoomOutLabel}
+                onZoomChange={setZoomClamped}
+              />
               <button
                 type="button"
                 className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
@@ -538,27 +585,13 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                   </button>
                 </div>
                 <div className="pdf-reader-toolbar__group">
-                  <button
-                    type="button"
-                    className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
-                    disabled={busy || rendering || zoom <= ZOOM_MIN}
-                    onClick={() => setZoom((z) => Math.max(ZOOM_MIN, Number((z - ZOOM_STEP).toFixed(2))))}
-                    aria-label={ws.wsUi("zoomOut")}
-                  >
-                    <ZoomOut className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
-                  </button>
-                  <span className="pdf-reader-toolbar__zoom" aria-live="polite">
-                    {zoomPct}%
-                  </span>
-                  <button
-                    type="button"
-                    className="pdf-reader-toolbar__btn pdf-reader-toolbar__btn--icon"
-                    disabled={busy || rendering || zoom >= ZOOM_MAX}
-                    onClick={() => setZoom((z) => Math.min(ZOOM_MAX, Number((z + ZOOM_STEP).toFixed(2))))}
-                    aria-label={ws.wsUi("zoomIn")}
-                  >
-                    <ZoomIn className="pdf-reader-toolbar__icon" aria-hidden strokeWidth={2} />
-                  </button>
+                  <PdfReaderZoomSlider
+                    zoom={zoom}
+                    disabled={busy}
+                    zoomInLabel={zoomInLabel}
+                    zoomOutLabel={zoomOutLabel}
+                    onZoomChange={setZoomClamped}
+                  />
                   <button
                     type="button"
                     className="pdf-reader-viewport__exit-fs"
@@ -571,19 +604,37 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 </div>
               </div>
             ) : null}
-            <div
-              ref={pageRef}
-              className="pdf-reader-page"
-              style={
-                docFullscreen && fitScale < 1
-                  ? { transform: `scale(${fitScale})`, transformOrigin: "top center" }
-                  : undefined
-              }
-            >
-              <canvas ref={canvasRef} className="pdf-reader-page__canvas" />
-              <div ref={textLayerRef} className="textLayer pdf-reader-page__text" />
+            <div className="pdf-reader-viewport__stage">
+              <div
+                className="pdf-reader-viewport__fit"
+                style={
+                  layoutW && layoutH
+                    ? {
+                        width: layoutW,
+                        height: layoutH,
+                      }
+                    : undefined
+                }
+              >
+                <div
+                  ref={pageRef}
+                  className="pdf-reader-page"
+                  style={
+                    visualRatio !== 1
+                      ? {
+                          transform: `scale(${visualRatio})`,
+                          transformOrigin: "top left",
+                          willChange: "transform",
+                        }
+                      : undefined
+                  }
+                >
+                  <canvas ref={canvasRef} className="pdf-reader-page__canvas" />
+                  <div ref={textLayerRef} className="textLayer pdf-reader-page__text" />
+                </div>
+              </div>
             </div>
-            {rendering ? (
+            {rendering && visualRatio === 1 ? (
               <div className="pdf-reader-viewport__loading" aria-live="polite">
                 {ws.wsCommon("loadingPreview") || ws.processing}
               </div>

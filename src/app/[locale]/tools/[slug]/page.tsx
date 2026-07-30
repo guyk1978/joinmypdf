@@ -7,6 +7,7 @@ import { RelatedTools } from "@/components/RelatedTools";
 import { AppPageShell } from "@/components/AppPageShell";
 import { AddPageNumbersWorkspace } from "@/components/AddPageNumbersWorkspace";
 import { DeletePdfPagesWorkspace } from "@/components/DeletePdfPagesWorkspace";
+import { SplitPdfWorkspace } from "@/components/SplitPdfWorkspace";
 import { PdfToPngWorkspace } from "@/components/PdfToPngWorkspace";
 import { PdfToWordWorkspace } from "@/components/PdfToWordWorkspace";
 import { PdfToTextWorkspace } from "@/components/PdfToTextWorkspace";
@@ -436,6 +437,8 @@ export default async function ToolPage({
           <GrayscalePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "delete-pages" ? (
           <DeletePdfPagesWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "split" ? (
+          <SplitPdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "merge" ? (
           <MergePdfWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "batch-rename-pdf" ? (

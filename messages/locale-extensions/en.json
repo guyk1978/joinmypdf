@@ -5945,7 +5945,7 @@
       },
       "split": {
         "title": "Drop files here or click to browse",
-        "description": "Select one PDF. Each page exports as its own file."
+        "description": "Select one PDF, then mark split points between pages and download a ZIP when ready."
       },
       "jpg-to-pdf": {
         "title": "Drop files here or click to browse",
@@ -6211,7 +6211,7 @@
     "buttons": {
       "merge": "Merge PDFs",
       "compress": "Compress PDF",
-      "split": "Split PDF",
+      "split": "Split & Download",
       "jpg-to-pdf": "Create PDF",
       "png-to-pdf": "Convert to PDF",
       "pdf-to-jpg": "Export JPG pages",
@@ -6252,7 +6252,7 @@
         "complete": "Compressed to ~{percent}% of original size."
       },
       "split": {
-        "complete": "Split complete: {count} file(s)."
+        "complete": "Split complete: {count} file(s) packaged in a ZIP."
       },
       "jpg-to-pdf": {
         "complete": "Created PDF from {count} image(s)."
@@ -7420,6 +7420,38 @@
         "moveUp": "Move page up",
         "moveDown": "Move page down",
         "reorderHint": "Drag thumbnails to reorder pages. On mobile, use the up/down arrows."
+      }
+    },
+    "split": {
+      "status": {
+        "loaded": "Loaded {count} page(s). Click between pages to mark splits, then download once.",
+        "everyPageReady": "Ready to export {count} single-page file(s) in one ZIP.",
+        "markersCleared": "Split markers cleared. Add markers between pages when you are ready.",
+        "rangesApplied": "Applied {count} range(s). Review the grid, then download.",
+        "invalidRanges": "Invalid page ranges.",
+        "needMultiplePages": "This PDF has only one page, so there is nothing to split.",
+        "needSplitMarker": "Click between pages to add at least one split, or use Split every page.",
+        "splitting": "Splitting PDF and packaging a ZIP…",
+        "downloaded": "Downloaded {name} with {count} PDF file(s).",
+        "adjustFile": "Adjust your split markers and try again."
+      },
+      "privacyNote": "Splitting runs locally in your browser. Your file never leaves your device.",
+      "splitDownloadLabel": "Split & Download",
+      "splittingLabel": "Splitting…",
+      "ui": {
+        "pageCountLabel": "· {count} page(s)",
+        "splitHint": "Click the scissors between pages to set split points. Use custom ranges below if you prefer. When ready, download everything in one ZIP—no repeated save prompts.",
+        "splitEveryPage": "Split every page",
+        "clearSplits": "Clear splits",
+        "gridLabel": "PDF pages",
+        "loadingThumb": "Loading…",
+        "chunkBadge": "File {part}",
+        "addSplitAfter": "Add split after page {page}",
+        "removeSplitAfter": "Remove split after page {page}",
+        "rangesLabel": "Custom page ranges",
+        "rangesPlaceholder": "e.g. 1-3, 4-7, 8",
+        "rangesHint": "Ranges must cover the whole document with no gaps (e.g. 1-3, 4-7, 8). Press Enter or leave the field to apply.",
+        "segmentSummary": "{count} file(s): {ranges}"
       }
     },
     "extract-pdf-pages": {
