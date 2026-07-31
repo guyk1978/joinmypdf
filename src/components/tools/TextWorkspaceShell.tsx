@@ -16,7 +16,7 @@ function TextWorkspaceInner({ tool, slug }: TextWorkspaceShellProps) {
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
 
-  // Always immersive — no file-gate; editor fills the viewport like upload clean phase.
+  // Immersive utility — document scroll on the global 90% rail (no nested stage).
   return (
     <UtilityWorkspaceShell immersive pageClassName="text-workspace-tool-page">
       <TextWorkspace />

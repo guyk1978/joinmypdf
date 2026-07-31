@@ -6358,7 +6358,7 @@
       "status": {
         "invalidType": "Выберите PDF-файл.",
         "emptyFile": "Файл пуст. Выберите другой PDF.",
-        "fileReady": "{name} готов — можно извлечь текст."
+        "fileReady": "{name} готов — просмотрите страницы, затем конвертируйте в текст."
       },
       "progress": {
         "loading": "Загрузка PDF…",
@@ -6366,11 +6366,19 @@
         "extractingPage": "Извлечение текста — страница {current} из {total}…"
       },
       "privacyNote": "Извлечение текста из PDF выполняется только в браузере. Документ не покидает устройство.",
+      "fileTypeLabel": "PDF",
       "convertLabel": "Извлечь текст",
       "downloadLabel": "Скачать текстовый файл (.txt)",
       "outputHint": "Лучше всего для PDF с выделяемым текстом. Сканы без текста могут потребовать OCR в другом приложении.",
       "stickyDownloadLabel": "Скачать .txt",
-      "stickyConvertLabel": "Извлечь текст"
+      "stickyConvertLabel": "Извлечь текст",
+      "ui": {
+        "previewHeading": "Предпросмотр PDF",
+        "previewHint": "Просмотрите страницы PDF ниже. Нажмите миниатюру для увеличения, затем конвертируйте в текст.",
+        "loadingThumb": "Загрузка…",
+        "zoomIn": "Увеличить",
+        "zoomOut": "Уменьшить"
+      }
     },
     "extract-pdf-pages": {
       "status": {
@@ -6640,7 +6648,7 @@
       "status": {
         "invalidType": "Выберите файл PDF.",
         "emptyFile": "Файл пуст. Выберите другой PDF.",
-        "fileReady": "{name} готов — конвертируйте в Word, когда будете готовы."
+        "fileReady": "{name} готов — просмотрите страницы, затем конвертируйте в Word."
       },
       "progress": {
         "loading": "Загрузка PDF…",
@@ -6648,11 +6656,19 @@
         "extractingPage": "Извлечение текста — страница {current} из {total}…"
       },
       "privacyNote": "Разбор PDF и экспорт Word выполняются полностью в браузере. Документ не покидает устройство.",
+      "fileTypeLabel": "PDF",
       "convertLabel": "Конвертировать в Word",
       "downloadLabel": "Скачать документ Word (.docx)",
       "outputHint": "Лучше всего подходит для PDF с выделяемым текстом. Отсканированные страницы без текста могут потребовать OCR в другом приложении.",
       "stickyDownloadLabel": "Скачать .docx",
-      "stickyConvertLabel": "Конвертировать в Word"
+      "stickyConvertLabel": "Конвертировать в Word",
+      "ui": {
+        "previewHeading": "Предпросмотр PDF",
+        "previewHint": "Просмотрите страницы PDF ниже. Нажмите миниатюру для увеличения, затем конвертируйте в Word.",
+        "loadingThumb": "Загрузка…",
+        "zoomIn": "Увеличить",
+        "zoomOut": "Уменьшить"
+      }
     },
     "pdf-to-excel": {
       "status": {
@@ -6707,38 +6723,55 @@
     },
     "pdf-to-powerpoint": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "fileReady": "{name} готов — просмотрите страницы, затем конвертируйте в PowerPoint."
       },
       "progress": {
-        "loading": "Loading PDF…",
-        "building": "Building PowerPoint file…",
-        "extractingPage": "Extracting text — page {current} of {total}…"
+        "loading": "Загрузка PDF…",
+        "building": "Сборка файла PowerPoint…",
+        "extractingPage": "Извлечение текста — страница {current} из {total}…"
       },
-      "privacyNote": "PDF parsing and PowerPoint generation run entirely in your browser. Your document never leaves your device.",
-      "convertLabel": "Convert to PowerPoint",
-      "downloadLabel": "Download PowerPoint (.pptx)",
-      "outputHint": "Each PDF page becomes one slide with extracted text. Scanned pages without selectable text may be blank.",
-      "stickyDownloadLabel": "Download .pptx",
-      "stickyConvertLabel": "Convert to PowerPoint"
+      "privacyNote": "Разбор PDF и создание PowerPoint выполняются полностью в браузере. Документ не покидает устройство.",
+      "fileTypeLabel": "PDF",
+      "convertLabel": "Конвертировать в PowerPoint",
+      "downloadLabel": "Скачать PowerPoint (.pptx)",
+      "outputHint": "Каждая страница PDF становится слайдом с извлечённым текстом. Сканы без выделяемого текста могут быть пустыми.",
+      "stickyDownloadLabel": "Скачать .pptx",
+      "stickyConvertLabel": "Конвертировать в PowerPoint",
+      "ui": {
+        "previewHeading": "Предпросмотр PDF",
+        "previewHint": "Просмотрите страницы PDF ниже. Нажмите миниатюру для увеличения, затем конвертируйте в PowerPoint.",
+        "loadingThumb": "Загрузка…",
+        "zoomIn": "Увеличить",
+        "zoomOut": "Уменьшить"
+      }
     },
     "pdf-to-text": {
       "status": {
-        "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — convert to text when you are."
+        "invalidType": "Выберите файл PDF.",
+        "emptyFile": "Файл пуст. Выберите другой PDF.",
+        "fileReady": "{name} готов — просмотрите страницы, затем конвертируйте в текст."
       },
       "progress": {
-        "loading": "Loading PDF…",
-        "building": "Building text file…",
-        "extractingPage": "Extracting text — page {current} of {total}…"
+        "loading": "Загрузка PDF…",
+        "building": "Создание текстового файла…",
+        "extractingPage": "Извлечение текста — страница {current} из {total}…"
       },
-      "privacyNote": "PDF text extraction runs entirely in your browser. Your document never leaves your device.",
-      "convertLabel": "Convert to Text",
-      "downloadLabel": "Download text file (.txt)",
-      "outputHint": "Best for PDFs with selectable text. Scanned image-only pages may need OCR in another app.",
-      "stickyDownloadLabel": "Download .txt",
-      "stickyConvertLabel": "Convert to Text"
+      "privacyNote": "Извлечение текста из PDF выполняется только в браузере. Документ не покидает устройство.",
+      "fileTypeLabel": "PDF",
+      "convertLabel": "Извлечь текст",
+      "downloadLabel": "Скачать текстовый файл (.txt)",
+      "outputHint": "Лучше всего для PDF с выделяемым текстом. Сканы без текста могут потребовать OCR в другом приложении.",
+      "stickyDownloadLabel": "Скачать .txt",
+      "stickyConvertLabel": "Извлечь текст",
+      "ui": {
+        "previewHeading": "Предпросмотр PDF",
+        "previewHint": "Просмотрите страницы PDF ниже. Нажмите миниатюру для увеличения, затем конвертируйте в текст.",
+        "loadingThumb": "Загрузка…",
+        "zoomIn": "Увеличить",
+        "zoomOut": "Уменьшить"
+      }
     },
     "pdf-to-html": {
       "status": {

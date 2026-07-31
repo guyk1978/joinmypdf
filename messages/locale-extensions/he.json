@@ -6541,7 +6541,7 @@
       "status": {
         "invalidType": "בחר קובץ PDF.",
         "emptyFile": "הקובץ ריק. בחר PDF אחר.",
-        "fileReady": "{name} מוכן — המר ל-Word כשתרצה."
+        "fileReady": "{name} מוכן — תצוגה מקדימה של העמודים, ואז המרה ל-Word."
       },
       "progress": {
         "loading": "טוען PDF…",
@@ -6549,11 +6549,19 @@
         "extractingPage": "מחלץ טקסט — עמוד {current} מתוך {total}…"
       },
       "privacyNote": "ניתוח PDF וייצוא Word רצים בדפדפן. המסמך לא עוזב את המכשיר.",
+      "fileTypeLabel": "PDF",
       "convertLabel": "המר ל-Word",
       "downloadLabel": "הורד מסמך Word (.docx)",
       "outputHint": "מתאים ל-PDF עם טקסט ניתן לבחירה. עמודים סרוקים בלבד עשויים לדרוש OCR.",
       "stickyDownloadLabel": "הורד .docx",
-      "stickyConvertLabel": "המר ל-Word"
+      "stickyConvertLabel": "המר ל-Word",
+      "ui": {
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של עמודי ה-PDF למטה. לחצו על תמונה ממוזערת להגדלה, ואז המירו ל-Word כשמוכנים.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן"
+      }
     },
     "pdf-to-excel": {
       "status": {
@@ -6609,7 +6617,8 @@
     "pdf-to-powerpoint": {
       "status": {
         "invalidType": "בחר קובץ PDF.",
-        "emptyFile": "הקובץ ריק. בחר PDF אחר."
+        "emptyFile": "הקובץ ריק. בחר PDF אחר.",
+        "fileReady": "{name} מוכן — תצוגה מקדימה של העמודים, ואז המרה ל-PowerPoint."
       },
       "progress": {
         "loading": "טוען PDF…",
@@ -6617,17 +6626,25 @@
         "extractingPage": "מחלץ טקסט — עמוד {current} מתוך {total}…"
       },
       "privacyNote": "ניתוח PDF ויצירת PowerPoint רצים בדפדפן. המסמך לא עוזב את המכשיר.",
+      "fileTypeLabel": "PDF",
       "convertLabel": "המר ל-PowerPoint",
       "downloadLabel": "הורד PowerPoint (.pptx)",
       "outputHint": "כל עמוד PDF הופך לשקף עם טקסט מחולץ. עמודים סרוקים ללא טקסט עלולים להיות ריקים.",
       "stickyDownloadLabel": "הורד .pptx",
-      "stickyConvertLabel": "המר ל-PowerPoint"
+      "stickyConvertLabel": "המר ל-PowerPoint",
+      "ui": {
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של עמודי ה-PDF למטה. לחצו על תמונה ממוזערת להגדלה, ואז המירו ל-PowerPoint כשמוכנים.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן"
+      }
     },
     "pdf-to-text": {
       "status": {
         "invalidType": "בחר קובץ PDF.",
         "emptyFile": "הקובץ ריק. בחר PDF אחר.",
-        "fileReady": "{name} מוכן — המר לטקסט כשתרצה."
+        "fileReady": "{name} מוכן — תצוגה מקדימה של העמודים, ואז המרה לטקסט."
       },
       "progress": {
         "loading": "טוען PDF…",
@@ -6635,11 +6652,19 @@
         "extractingPage": "מחלץ טקסט — עמוד {current} מתוך {total}…"
       },
       "privacyNote": "חילוץ טקסט מ-PDF רץ בדפדפן. המסמך לא עוזב את המכשיר.",
+      "fileTypeLabel": "PDF",
       "convertLabel": "המר לטקסט",
       "downloadLabel": "הורד קובץ טקסט (.txt)",
       "outputHint": "מתאים ל-PDF עם טקסט ניתן לבחירה. עמודים סרוקים בלבד עשויים לדרוש OCR.",
       "stickyDownloadLabel": "הורד .txt",
-      "stickyConvertLabel": "המר לטקסט"
+      "stickyConvertLabel": "המר לטקסט",
+      "ui": {
+        "previewHeading": "תצוגה מקדימה של PDF",
+        "previewHint": "תצוגה מקדימה של עמודי ה-PDF למטה. לחצו על תמונה ממוזערת להגדלה, ואז המירו לטקסט כשמוכנים.",
+        "loadingThumb": "טוען…",
+        "zoomIn": "הגדל",
+        "zoomOut": "הקטן"
+      }
     },
     "pdf-to-html": {
       "status": {

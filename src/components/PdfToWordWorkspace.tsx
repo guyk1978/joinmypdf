@@ -1,8 +1,6 @@
 "use client";
 
 import { ConvertToolWorkspace } from "@/components/ConvertToolWorkspace";
-import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
-import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import type { ToolDefinition } from "@/lib/types";
 import {
   convertPdfToDocx,
@@ -27,20 +25,20 @@ function progressPercent(progress: PdfToWordProgress | null, busy: boolean): num
 }
 
 export function PdfToWordWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
-  const ws = useWorkspaceI18n(tool.operation);
   const config = useMemo(
     () => ({
       accept: (f: File) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name),
       acceptAttr: "application/pdf,.pdf",
       progressPercent,
-      readMeta: async (file: File) => {
+      readPdfPreview: async (file: File) => {
+        const bytes = new Uint8Array(await file.arrayBuffer());
         const doc = await loadPdfDocument(file);
-        return formatPageCount(ws, doc.numPages);
+        return { bytes: bytes.slice(), pageCount: doc.numPages };
       },
       convert: convertPdfToDocx,
       outputName: pdfToWordOutputName,
     }),
-    [ws],
+    [],
   );
 
   return <ConvertToolWorkspace tool={tool} slug={slug} config={config} />;

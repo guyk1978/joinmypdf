@@ -20,7 +20,8 @@ type UtilityWorkspaceShellProps = {
    */
   requiresUpload?: boolean;
   /**
-   * Full-viewport utility/editor shell (30px margins, centered workspace).
+   * Non-upload utility/editor shell on the global 90% content rail.
+   * Document/window scrolls — no fixed inset panel or nested stage scrollbar.
    * Implies an interactive generator unless `requiresUpload` is set explicitly.
    */
   immersive?: boolean;

@@ -26,8 +26,8 @@ type ToolModalRatingProps = {
 };
 
 /**
- * Tool-modal header rating — shares the same once-per-tool localStorage map
- * and category-accent StarRating as the Industrial Matte cards / Focus mode.
+ * Tool header rating — interactive stars with live average/count updates.
+ * Shares the once-per-tool localStorage map with Industrial Matte cards.
  */
 export function ToolModalRating({
   slug,
@@ -52,8 +52,6 @@ export function ToolModalRating({
     );
   }
 
-  // Exact, fully granular count (e.g. `40,523 ratings`) kept in lockstep with
-  // the grid/cards — no lossy `40k` truncation and zero card/header drift.
   const exactCount = formatExactRatingCount(stats.count);
 
   const countLabel = labels?.ratings
@@ -89,18 +87,15 @@ export function ToolModalRating({
       />
 
       <span className="tool-modal-rating__label" aria-live="polite">
+        <span className="tool-modal-rating__score" dir="ltr">
+          {formatRatingAverage(stats.average)}
+        </span>
+        <span className="tool-modal-rating__count">{countLabel}</span>
         {userRating != null ? (
           <span className="tool-modal-rating__thanks">
             {labels?.thankYou ?? tCard("thanks")}
           </span>
-        ) : (
-          <>
-            <span className="tool-modal-rating__score" dir="ltr">
-              {formatRatingAverage(stats.average)}
-            </span>
-            <span className="tool-modal-rating__count">{countLabel}</span>
-          </>
-        )}
+        ) : null}
       </span>
     </div>
   );

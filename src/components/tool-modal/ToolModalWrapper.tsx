@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Pin, Save, ScanSearch, Share2, Star, X, ZoomIn } from "lucide-react";
+import { Calculator, FileText, Link2, MessageSquare, Pin, Save, ScanSearch, Share2, Star, X, ZoomIn } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
@@ -107,8 +107,8 @@ export type ToolModalWrapperProps = {
 
 /**
  * Global JoinMyPDF tool modal shell (Industrial Matte).
- * Site header stays visible; a delicate full-width tool sub-header sits under it.
- * Upload / workspace fills the remaining viewport below that bar.
+ * Site header stays visible; tool chrome lives in a floating left sidebar.
+ * Upload / workspace fills the remaining viewport beside that rail.
  */
 export function ToolModalWrapper({
   open,
@@ -500,44 +500,51 @@ export function ToolModalWrapper({
             transition={{ duration: 0.18, ease: "easeOut" }}
           >
             <div className="tool-modal__rail">
-            <div className="tool-modal__workspace">
-            <header className="tool-modal__header">
-              <h2 id={titleId} className="tool-modal__title">
-                {title}
-              </h2>
+            <div className="tool-modal__workspace tool-modal__workspace--with-sidebar">
+            <aside
+              className="tool-modal__sidebar"
+              aria-label={labels?.viewsNav ?? "Tool views"}
+            >
+              <nav className="tool-modal__sidebar-nav" aria-label={labels?.viewsNav ?? "Tool views"}>
+                {panes.map(({ id }) => {
+                  const TabIcon =
+                    id === "calc"
+                      ? Calculator
+                      : id === "doc"
+                        ? FileText
+                        : id === "related"
+                          ? Link2
+                          : MessageSquare;
+                  return (
+                    <div key={id} className="tool-modal__sidebar-item">
+                      <button
+                        type="button"
+                        className={clsx(
+                          "tool-modal__sidebar-trigger",
+                          "tool-modal__sidebar-cube",
+                          "tool-modal__tab",
+                          tab === id && "tool-modal__tab--active",
+                        )}
+                        aria-pressed={tab === id}
+                        aria-label={tabLabels[id]}
+                        onClick={() => setTab(id)}
+                      >
+                        <TabIcon size={18} strokeWidth={2} aria-hidden />
+                      </button>
+                      <span className="tool-modal__sidebar-flyout" aria-hidden>
+                        {tabLabels[id]}
+                      </span>
+                    </div>
+                  );
+                })}
+              </nav>
 
-              <div className="tool-modal__header-end">
-                <ToolModalRating
-                  slug={slug}
-                  categoryId={categoryId}
-                  labels={{
-                    ratings: labels?.ratings,
-                    thankYou: labels?.thankYou,
-                    rateAria: labels?.rateAria,
-                    yourRatingAria: labels?.yourRatingAria,
-                  }}
-                />
-
-                <nav className="tool-modal__tabs" aria-label={labels?.viewsNav ?? "Tool views"}>
-                  {panes.map(({ id }) => (
-                    <button
-                      key={id}
-                      type="button"
-                      className={clsx(
-                        "tool-modal__tab",
-                        tab === id && "tool-modal__tab--active",
-                      )}
-                      aria-pressed={tab === id}
-                      onClick={() => setTab(id)}
-                    >
-                      {tabLabels[id]}
-                    </button>
-                  ))}
-                </nav>
-
+              <div className="tool-modal__sidebar-item">
                 <button
                   type="button"
                   className={clsx(
+                    "tool-modal__sidebar-trigger",
+                    "tool-modal__sidebar-cube",
                     "tool-modal__save-project",
                     !canSaveProject && "tool-modal__save-project--disabled",
                   )}
@@ -547,12 +554,16 @@ export function ToolModalWrapper({
                   title={saveProjectLabel}
                 >
                   <Save size={16} strokeWidth={2.25} aria-hidden />
-                  <span className="tool-modal__save-project-label">{saveProjectLabel}</span>
                 </button>
+                <span className="tool-modal__sidebar-flyout" aria-hidden>
+                  {saveProjectLabel}
+                </span>
+              </div>
 
+              <div className="tool-modal__sidebar-item">
                 <button
                   type="button"
-                  className="tool-modal__action"
+                  className="tool-modal__sidebar-trigger tool-modal__sidebar-cube tool-modal__action"
                   onClick={() => {
                     void handleShare();
                   }}
@@ -561,11 +572,18 @@ export function ToolModalWrapper({
                 >
                   <Share2 size={18} strokeWidth={2} aria-hidden />
                 </button>
+                <span className="tool-modal__sidebar-flyout" aria-hidden>
+                  {shareAriaLabel}
+                </span>
+              </div>
 
-                {slug ? (
+              {slug ? (
+                <div className="tool-modal__sidebar-item">
                   <button
                     type="button"
                     className={clsx(
+                      "tool-modal__sidebar-trigger",
+                      "tool-modal__sidebar-cube",
                       "tool-modal__action",
                       pinned && "tool-modal__action--pinned",
                     )}
@@ -588,12 +606,19 @@ export function ToolModalWrapper({
                       aria-hidden
                     />
                   </button>
-                ) : null}
+                  <span className="tool-modal__sidebar-flyout" aria-hidden>
+                    {pinLabel}
+                  </span>
+                </div>
+              ) : null}
 
-                {slug ? (
+              {slug ? (
+                <div className="tool-modal__sidebar-item">
                   <button
                     type="button"
                     className={clsx(
+                      "tool-modal__sidebar-trigger",
+                      "tool-modal__sidebar-cube",
                       "tool-modal__action",
                       favorited && "tool-modal__action--favorite",
                     )}
@@ -608,100 +633,136 @@ export function ToolModalWrapper({
                       aria-hidden
                     />
                   </button>
-                ) : null}
+                  <span className="tool-modal__sidebar-flyout" aria-hidden>
+                    {favoriteLabel}
+                  </span>
+                </div>
+              ) : null}
 
-                {hasFileUploaded && magnifierAvailable ? (
-                  <div
-                    className={clsx(
-                      "tool-modal__loupe-cluster",
-                      !loupeEnabled && finePointerHover && "tool-modal__loupe-cluster--off",
-                    )}
-                  >
+              {hasFileUploaded && magnifierAvailable ? (
+                <>
                   {finePointerHover ? (
-                    <>
-                  <button
-                    type="button"
-                    className={clsx(
-                      "tool-modal__action tool-modal__loupe",
-                      !loupeEnabled && "tool-modal__loupe--off",
-                    )}
-                    onClick={() => setMagnifierPreference(!loupeEnabled)}
-                    aria-label={loupeLabel}
-                    aria-pressed={loupeEnabled}
-                    title={loupeLabel}
-                  >
-                    <ScanSearch size={18} strokeWidth={2} aria-hidden />
-                  </button>
-
-                  <div
-                    className="tool-modal__loupe-sizes"
-                    role="group"
-                    aria-label={loupeSizeGroupLabel}
-                  >
-                    <button
-                      type="button"
+                    <div
                       className={clsx(
-                        "tool-modal__loupe-size tool-modal__loupe-size--off",
-                        !loupeEnabled && "tool-modal__loupe-size--active",
+                        "tool-modal__sidebar-item",
+                        "tool-modal__loupe-cluster",
+                        !loupeEnabled && "tool-modal__loupe-cluster--off",
                       )}
-                      aria-label={loupeOffLabel}
-                      aria-pressed={!loupeEnabled}
-                      title={loupeOffLabel}
-                      onClick={() => setMagnifierPreference(false)}
                     >
-                      <span className="tool-modal__loupe-size-dot" aria-hidden />
-                      <span className="tool-modal__loupe-size-label">{loupeOffLabel}</span>
-                    </button>
-                    {MAGNIFIER_SIZE_TIERS.map((tier) => (
                       <button
-                        key={tier}
                         type="button"
                         className={clsx(
-                          "tool-modal__loupe-size",
-                          `tool-modal__loupe-size--${tier}`,
-                          loupeEnabled && loupeSize === tier && "tool-modal__loupe-size--active",
+                          "tool-modal__sidebar-trigger",
+                          "tool-modal__sidebar-cube",
+                          "tool-modal__action",
+                          "tool-modal__loupe",
+                          !loupeEnabled && "tool-modal__loupe--off",
                         )}
-                        aria-label={loupeSizeLabels[tier]}
-                        aria-pressed={loupeEnabled && loupeSize === tier}
-                        title={loupeSizeLabels[tier]}
-                        onClick={() => {
-                          setMagnifierPreference(true);
-                          setMagnifierSizeTier(tier);
-                          setLoupeSize(tier);
-                        }}
+                        onClick={() => setMagnifierPreference(!loupeEnabled)}
+                        aria-label={loupeLabel}
+                        aria-pressed={loupeEnabled}
+                        title={loupeLabel}
                       >
-                        <span className="tool-modal__loupe-size-dot" aria-hidden />
-                        <span className="tool-modal__loupe-size-label">
-                          {loupeSizeLabels[tier]}
-                        </span>
+                        <ScanSearch size={18} strokeWidth={2} aria-hidden />
                       </button>
-                    ))}
-                  </div>
-                    </>
+                      <div className="tool-modal__sidebar-flyout tool-modal__sidebar-flyout--panel">
+                        <span className="tool-modal__sidebar-flyout-label">{loupeLabel}</span>
+                        <div
+                          className="tool-modal__loupe-sizes"
+                          role="group"
+                          aria-label={loupeSizeGroupLabel}
+                        >
+                          <button
+                            type="button"
+                            className={clsx(
+                              "tool-modal__loupe-size tool-modal__loupe-size--off",
+                              !loupeEnabled && "tool-modal__loupe-size--active",
+                            )}
+                            aria-label={loupeOffLabel}
+                            aria-pressed={!loupeEnabled}
+                            title={loupeOffLabel}
+                            onClick={() => setMagnifierPreference(false)}
+                          >
+                            <span className="tool-modal__loupe-size-dot" aria-hidden />
+                            <span className="tool-modal__loupe-size-label">{loupeOffLabel}</span>
+                          </button>
+                          {MAGNIFIER_SIZE_TIERS.map((tier) => (
+                            <button
+                              key={tier}
+                              type="button"
+                              className={clsx(
+                                "tool-modal__loupe-size",
+                                `tool-modal__loupe-size--${tier}`,
+                                loupeEnabled && loupeSize === tier && "tool-modal__loupe-size--active",
+                              )}
+                              aria-label={loupeSizeLabels[tier]}
+                              aria-pressed={loupeEnabled && loupeSize === tier}
+                              title={loupeSizeLabels[tier]}
+                              onClick={() => {
+                                setMagnifierPreference(true);
+                                setMagnifierSizeTier(tier);
+                                setLoupeSize(tier);
+                              }}
+                            >
+                              <span className="tool-modal__loupe-size-dot" aria-hidden />
+                              <span className="tool-modal__loupe-size-label">
+                                {loupeSizeLabels[tier]}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   ) : null}
 
-                  <button
-                    type="button"
-                    className="tool-modal__action tool-modal__inspect"
-                    onClick={() => requestPreviewInspect()}
-                    aria-label={inspectLabel}
-                    title={inspectLabel}
-                  >
-                    <ZoomIn size={18} strokeWidth={2} aria-hidden />
-                  </button>
+                  <div className="tool-modal__sidebar-item">
+                    <button
+                      type="button"
+                      className="tool-modal__sidebar-trigger tool-modal__sidebar-cube tool-modal__action tool-modal__inspect"
+                      onClick={() => requestPreviewInspect()}
+                      aria-label={inspectLabel}
+                      title={inspectLabel}
+                    >
+                      <ZoomIn size={18} strokeWidth={2} aria-hidden />
+                    </button>
+                    <span className="tool-modal__sidebar-flyout" aria-hidden>
+                      {inspectLabel}
+                    </span>
                   </div>
-                ) : null}
+                </>
+              ) : null}
 
+              <div className="tool-modal__sidebar-item tool-modal__sidebar-item--close">
                 <button
                   type="button"
-                  className="tool-modal__action tool-modal__close"
+                  className="tool-modal__sidebar-trigger tool-modal__sidebar-cube tool-modal__action tool-modal__close"
                   onClick={onClose}
                   aria-label={closeLabel}
                 >
                   <X size={18} strokeWidth={2.25} aria-hidden />
                 </button>
+                <span className="tool-modal__sidebar-flyout" aria-hidden>
+                  {closeLabel}
+                </span>
               </div>
-            </header>
+            </aside>
+
+            <div className="tool-modal__main">
+              <div className="tool-modal__heading">
+                <h2 id={titleId} className="tool-modal__title">
+                  {title}
+                </h2>
+                <ToolModalRating
+                  slug={slug}
+                  categoryId={categoryId}
+                  labels={{
+                    ratings: labels?.ratings,
+                    thankYou: labels?.thankYou,
+                    rateAria: labels?.rateAria,
+                    yourRatingAria: labels?.yourRatingAria,
+                  }}
+                />
+              </div>
 
             <div className="tool-modal__body">
               {tab === "calc" && !contentReady ? (
@@ -725,6 +786,7 @@ export function ToolModalWrapper({
                   {content}
                 </div>
               ))}
+            </div>
             </div>
             </div>
 

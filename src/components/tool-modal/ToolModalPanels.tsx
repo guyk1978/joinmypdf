@@ -16,7 +16,23 @@ import type {
   ToolModalRelatedTool,
 } from "@/lib/tool-modal-catalog";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import { WORKSPACE_PHASE_MESSAGE, type WorkspacePhase } from "@/lib/workspace-flow";
 import { TOOL_EMBED_HEIGHT_MESSAGE } from "@/lib/workspace-project-messages";
+
+/** Viewport-based iframe height for clean-phase immersive dropzone (avoids scrollHeight feedback). */
+function measureToolEmbedFillHeight(): number {
+  const rootStyles = getComputedStyle(document.documentElement);
+  const siteHeader =
+    Number.parseFloat(rootStyles.getPropertyValue("--site-header-height")) || 120;
+  const modal = document.querySelector(".tool-modal--fullscreen, .tool-modal");
+  const title =
+    modal?.querySelector(".tool-modal__heading")?.getBoundingClientRect().height ?? 28;
+  const footer =
+    modal?.querySelector(".tool-modal__site-footer")?.getBoundingClientRect().height ?? 56;
+  // title + body padding + footer block margin
+  const chrome = siteHeader + title + footer + 8 + 30;
+  return Math.max(400, Math.round(window.innerHeight - chrome));
+}
 
 type DocsLabels = {
   overview?: string;
@@ -284,26 +300,67 @@ export function ToolModalCalcFrame({
   onReadyChange?: (ready: boolean) => void;
 }) {
   const [ready, setReady] = useState(false);
+  const [embedMode, setEmbedMode] = useState<"content" | "fill">("fill");
   const [embedHeight, setEmbedHeight] = useState<number | null>(null);
 
   useEffect(() => {
     setReady(false);
+    setEmbedMode("fill");
     setEmbedHeight(null);
     onReadyChange?.(false);
   }, [src, onReadyChange]);
 
   useEffect(() => {
+    const applyFill = () => {
+      setEmbedMode("fill");
+      setEmbedHeight(measureToolEmbedFillHeight());
+    };
+
     const onMessage = (event: MessageEvent) => {
       const data = event.data;
       if (!data || typeof data !== "object") return;
-      if ((data as { type?: string }).type !== TOOL_EMBED_HEIGHT_MESSAGE) return;
+      const type = (data as { type?: string }).type;
+
+      if (type === WORKSPACE_PHASE_MESSAGE) {
+        const phase = (data as { phase?: WorkspacePhase }).phase;
+        if (phase === "clean") applyFill();
+        return;
+      }
+
+      if (type !== TOOL_EMBED_HEIGHT_MESSAGE) return;
+
+      const mode = (data as { mode?: string }).mode;
+      const phase = (data as { phase?: string }).phase;
+      if (mode === "fill" || phase === "clean") {
+        applyFill();
+        return;
+      }
+
       const height = Number((data as { height?: number }).height);
       if (!Number.isFinite(height) || height < 1) return;
+      setEmbedMode("content");
       setEmbedHeight(Math.ceil(height));
     };
+
+    const onCustomPhase = (event: Event) => {
+      const phase = (event as CustomEvent<{ phase?: WorkspacePhase }>).detail?.phase;
+      if (phase === "clean") applyFill();
+    };
+
     window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
+    window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
+    return () => {
+      window.removeEventListener("message", onMessage);
+      window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
+    };
   }, []);
+
+  useEffect(() => {
+    if (embedMode !== "fill") return;
+    const onResize = () => setEmbedHeight(measureToolEmbedFillHeight());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [embedMode]);
 
   return (
     <div
@@ -328,7 +385,11 @@ export function ToolModalCalcFrame({
         title={title}
         loading="eager"
         referrerPolicy="no-referrer"
-        style={embedHeight ? { height: embedHeight } : undefined}
+        style={
+          embedHeight
+            ? { height: embedHeight, minHeight: embedHeight }
+            : undefined
+        }
         onLoad={() => {
           setReady(true);
           onReadyChange?.(true);

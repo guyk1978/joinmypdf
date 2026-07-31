@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { Star } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -36,7 +36,10 @@ export function StarRating({
   className,
   color,
 }: StarRatingProps) {
+  const [hoverValue, setHoverValue] = useState<number | null>(null);
   const normalized = clampRating(value);
+  const displayValue =
+    !readOnly && onChange != null && hoverValue != null ? hoverValue : normalized;
   const iconClass =
     size === "sm"
       ? "star-rating__icon star-rating__icon--sm"
@@ -50,7 +53,12 @@ export function StarRating({
 
   return (
     <div
-      className={clsx("star-rating", interactive && "star-rating--interactive", className)}
+      className={clsx(
+        "star-rating",
+        interactive && "star-rating--interactive",
+        hoverValue != null && "star-rating--previewing",
+        className,
+      )}
       style={style}
       role={interactive ? "radiogroup" : "img"}
       aria-label={
@@ -59,11 +67,16 @@ export function StarRating({
           ? "Rate this tool"
           : `${normalized.toFixed(1)} out of 5 stars`)
       }
+      onMouseLeave={interactive ? () => setHoverValue(null) : undefined}
     >
       {Array.from({ length: 5 }, (_, index) => {
         const starValue = index + 1;
-        const filled = normalized >= starValue;
-        const partial = !filled && normalized > index && normalized < starValue;
+        const filled = displayValue >= starValue;
+        const partial =
+          hoverValue == null &&
+          !filled &&
+          normalized > index &&
+          normalized < starValue;
 
         return (
           <span
@@ -77,6 +90,16 @@ export function StarRating({
             role={interactive ? "radio" : undefined}
             aria-checked={interactive ? normalized === starValue : undefined}
             aria-label={`${starValue} star${starValue === 1 ? "" : "s"}`}
+            onMouseEnter={interactive ? () => setHoverValue(starValue) : undefined}
+            onFocus={interactive ? () => setHoverValue(starValue) : undefined}
+            onBlur={
+              interactive
+                ? () => {
+                    // Keep preview only while pointer is over the group.
+                    setHoverValue(null);
+                  }
+                : undefined
+            }
             onClick={
               interactive
                 ? (event) => {
@@ -84,6 +107,7 @@ export function StarRating({
                     event.preventDefault();
                     event.stopPropagation();
                     onChange?.(starValue);
+                    setHoverValue(null);
                   }
                 : undefined
             }
@@ -94,6 +118,7 @@ export function StarRating({
                     event.preventDefault();
                     event.stopPropagation();
                     onChange?.(starValue);
+                    setHoverValue(null);
                   }
                 : undefined
             }

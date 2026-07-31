@@ -6519,7 +6519,7 @@
       "status": {
         "invalidType": "Please choose a PDF file.",
         "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — convert to Word when you are."
+        "fileReady": "{name} ready — preview pages, then convert to Word."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6527,11 +6527,19 @@
         "extractingPage": "Extracting text — page {current} of {total}…"
       },
       "privacyNote": "PDF parsing and Word export run entirely in your browser. Your document never leaves your device.",
+      "fileTypeLabel": "PDF",
       "convertLabel": "Convert to Word",
       "downloadLabel": "Download Word document (.docx)",
       "outputHint": "Best for PDFs with selectable text. Scanned image-only pages may need OCR in another app.",
       "stickyDownloadLabel": "Download .docx",
-      "stickyConvertLabel": "Convert to Word"
+      "stickyConvertLabel": "Convert to Word",
+      "ui": {
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then convert to Word when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
+      }
     },
     "pdf-to-excel": {
       "status": {
@@ -6587,7 +6595,8 @@
     "pdf-to-powerpoint": {
       "status": {
         "invalidType": "Please choose a PDF file.",
-        "emptyFile": "That file is empty. Choose another PDF."
+        "emptyFile": "That file is empty. Choose another PDF.",
+        "fileReady": "{name} ready — preview pages, then convert to PowerPoint."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6595,17 +6604,25 @@
         "extractingPage": "Extracting text — page {current} of {total}…"
       },
       "privacyNote": "PDF parsing and PowerPoint generation run entirely in your browser. Your document never leaves your device.",
+      "fileTypeLabel": "PDF",
       "convertLabel": "Convert to PowerPoint",
       "downloadLabel": "Download PowerPoint (.pptx)",
       "outputHint": "Each PDF page becomes one slide with extracted text. Scanned pages without selectable text may be blank.",
       "stickyDownloadLabel": "Download .pptx",
-      "stickyConvertLabel": "Convert to PowerPoint"
+      "stickyConvertLabel": "Convert to PowerPoint",
+      "ui": {
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then convert to PowerPoint when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
+      }
     },
     "pdf-to-text": {
       "status": {
         "invalidType": "Please choose a PDF file.",
         "emptyFile": "That file is empty. Choose another PDF.",
-        "fileReady": "{name} ready — convert to text when you are."
+        "fileReady": "{name} ready — preview pages, then convert to text."
       },
       "progress": {
         "loading": "Loading PDF…",
@@ -6613,11 +6630,19 @@
         "extractingPage": "Extracting text — page {current} of {total}…"
       },
       "privacyNote": "PDF text extraction runs entirely in your browser. Your document never leaves your device.",
+      "fileTypeLabel": "PDF",
       "convertLabel": "Convert to Text",
       "downloadLabel": "Download text file (.txt)",
       "outputHint": "Best for PDFs with selectable text. Scanned image-only pages may need OCR in another app.",
       "stickyDownloadLabel": "Download .txt",
-      "stickyConvertLabel": "Convert to Text"
+      "stickyConvertLabel": "Convert to Text",
+      "ui": {
+        "previewHeading": "PDF preview",
+        "previewHint": "Preview your PDF pages below. Click a thumbnail to zoom, then convert to text when ready.",
+        "loadingThumb": "Loading…",
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out"
+      }
     },
     "pdf-to-html": {
       "status": {
