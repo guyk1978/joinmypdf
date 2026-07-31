@@ -11891,11 +11891,6 @@ body.site-search-open {
   position: sticky;
   top: 0;
   z-index: 50;
-  transition:
-    background-color 0.3s ease-in-out,
-    border-color 0.3s ease-in-out,
-    color 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out;
 }
 
 .site-header--glass {
@@ -11905,30 +11900,15 @@ body.site-search-open {
   --site-header-nav-pad-x: 1.375rem;
   --site-header-nav-pad-y: 0.875rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(10, 12, 16, 0.78);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  background: #121212;
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.04) inset,
     0 8px 32px rgba(0, 0, 0, 0.24);
 }
 
-/* Animatable scale factor — width is compensated so the bar stays full-bleed. */
-@property --site-header-scale {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 1;
-}
-
 :root {
   --site-header-expanded-height: 80px;
-  --site-header-compact-height: 52px;
   --site-header-height: var(--site-header-expanded-height);
-}
-
-html.site-header-is-compact {
-  /* Sticky offsets track the scaled visual, not the fixed layout shell. */
-  --site-header-height: var(--site-header-compact-height);
 }
 
 @media (max-width: 639px) {
@@ -11937,13 +11917,9 @@ html.site-header-is-compact {
   }
 }
 
-/* Header — Black-Matte Utility dashboard
-   Layout height stays fixed (expanded). Visual layer shrinks via GPU scale —
-   no height/padding reflow mid-scroll. */
+/* Header — solid Black-Matte, fixed expanded height (no scroll shrink). */
 .site-header--matte {
   --site-header-logo-bg: #121212;
-  --site-header-scale: 1;
-  /* Layout occupancy stays expanded forever — no height reflow / jitter. */
   --site-header-height: var(--site-header-expanded-height);
   --site-header-control-height: 48px;
   --site-header-control-pad-y: 0.4rem;
@@ -11964,7 +11940,7 @@ html.site-header-is-compact {
   min-height: var(--site-header-expanded-height);
   border-bottom: none;
   border-radius: 0;
-  background: transparent;
+  background: #121212;
   color: rgb(250 250 250);
   box-shadow: none;
   backdrop-filter: none;
@@ -11974,7 +11950,7 @@ html.site-header-is-compact {
 }
 
 .site-header--clean {
-  background: transparent !important;
+  background: #121212 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
@@ -11989,35 +11965,13 @@ html.site-header-is-compact {
   display: flex;
   align-items: center;
   height: var(--site-header-expanded-height);
-  width: calc(100% / var(--site-header-scale));
-  margin-inline-start: calc(50% * (1 - (1 / var(--site-header-scale))));
+  width: 100%;
+  margin: 0;
   border-bottom: 1px solid #333;
   background: #121212;
   color: inherit;
-  transform: translateZ(0) scale(var(--site-header-scale));
-  transform-origin: top center;
-  transition:
-    --site-header-scale 0.3s ease-in-out,
-    background-color 0.3s ease-in-out,
-    border-color 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-/* Scrolled: GPU scale to compact; layout shell height unchanged. */
-.site-header--matte.site-header--scrolled {
-  --site-header-scale: 0.65;
-}
-
-/* Scrolled surface: slightly darker + translucent so the sticky bar reads as
-   a distinct layer above content sliding underneath it. */
-.site-header--clean.site-header--scrolled .site-header__visual {
-  background: rgb(10 10 10 / 0.94);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom-color: #3d3d3d;
-  box-shadow: 0 8px 24px rgb(0 0 0 / 0.45);
+  transform: none;
+  transition: none;
 }
 
 .site-header--matte .site-header__bar {
@@ -12051,6 +12005,11 @@ html.site-header-is-compact {
 
 /* Unified NavigationDrawer (Industrial Matte) */
 .nav-drawer {
+  --menu-surface: #1c1c1e;
+  --menu-surface-elevated: #242426;
+  --menu-text: #fafafa;
+  --menu-muted: #c4c4c4;
+  --menu-shadow: 0 16px 48px rgb(0 0 0 / 0.38), 0 4px 12px rgb(0 0 0 / 0.22);
   position: fixed;
   inset: 0;
   z-index: 200;
@@ -12070,7 +12029,7 @@ html.site-header-is-compact {
   padding: 0;
   margin: 0;
   cursor: pointer;
-  background: rgb(0 0 0 / 0.5);
+  background: rgb(0 0 0 / 0.45);
   opacity: 0;
   transition: opacity 0.28s ease;
 }
@@ -12094,16 +12053,16 @@ html.site-header-is-compact {
   min-height: 0;
   margin: 0;
   border: none;
-  border-left: 1px solid #333;
   border-radius: 0;
-  background: #0a0a0a;
-  box-shadow: -12px 0 32px rgb(0 0 0 / 0.35);
+  background: var(--menu-surface);
+  box-shadow: var(--menu-shadow);
   overflow: hidden;
   transform: translateX(100%);
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   box-sizing: border-box;
+  color: var(--menu-text);
 }
 
 .nav-drawer.is-open .nav-drawer__panel {
@@ -12113,9 +12072,8 @@ html.site-header-is-compact {
 html[dir="rtl"] .nav-drawer__panel {
   right: auto;
   left: 0;
-  border-left: none;
-  border-right: 1px solid #333;
-  box-shadow: 12px 0 32px rgb(0 0 0 / 0.35);
+  border: none;
+  box-shadow: var(--menu-shadow);
   transform: translateX(-100%);
 }
 
@@ -12130,8 +12088,8 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 .nav-drawer__header {
   flex-shrink: 0;
-  background: #0a0a0a;
-  border-bottom: 1px solid #333;
+  background: var(--menu-surface);
+  border-bottom: none;
 }
 
 .nav-drawer__header-row {
@@ -12148,7 +12106,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #ededed;
+  color: var(--menu-text);
   line-height: 1.2;
 }
 
@@ -12160,23 +12118,22 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   height: 2.5rem;
   margin: 0;
   padding: 0;
-  border: 1px solid #333;
-  border-radius: 0;
-  background: #121212;
-  color: #ededed;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--menu-surface-elevated);
+  color: var(--menu-text);
   cursor: pointer;
   flex-shrink: 0;
-  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 
 .nav-drawer__close:hover {
-  color: #3b82f6;
-  background: #0a0a0a;
-  border-color: #3b82f6;
+  color: var(--menu-text);
+  background: #2e2e30;
 }
 
 .nav-drawer__close:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid color-mix(in srgb, #fff 35%, transparent);
   outline-offset: 2px;
 }
 
@@ -12184,7 +12141,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   display: flex;
   align-items: stretch;
   gap: 0;
-  padding: 0 0.75rem;
+  padding: 0 0.75rem 0.35rem;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -12205,7 +12162,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   border: none;
   border-bottom: 2px solid transparent;
   background: transparent;
-  color: #737373;
+  color: var(--menu-muted);
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -12216,16 +12173,16 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 }
 
 .nav-drawer__tab:hover {
-  color: #ededed;
+  color: var(--menu-text);
 }
 
 .nav-drawer__tab.is-active {
-  color: #3b82f6;
-  border-bottom-color: #3b82f6;
+  color: var(--menu-text);
+  border-bottom-color: color-mix(in srgb, #fff 45%, transparent);
 }
 
 .nav-drawer__tab:focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid color-mix(in srgb, #fff 35%, transparent);
   outline-offset: -2px;
 }
 
@@ -12234,9 +12191,9 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
-  background: #0a0a0a;
+  background: var(--menu-surface);
   scrollbar-width: thin;
-  scrollbar-color: #262626 #0a0a0a;
+  scrollbar-color: #3a3a3c var(--menu-surface);
 }
 
 .nav-drawer__panel-body {
@@ -12248,7 +12205,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #737373;
+  color: var(--menu-muted);
 }
 
 .nav-drawer__grid {
@@ -12260,13 +12217,13 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 .nav-drawer__group-band {
   margin: 0.25rem 0 0;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid #333;
+  border-bottom: none;
   font-size: 0.75rem;
   font-weight: 400;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #525252;
+  color: var(--menu-muted, #c4c4c4);
 }
 
 .nav-drawer__block-title {
@@ -12276,7 +12233,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #525252;
+  color: var(--menu-muted, #c4c4c4);
 }
 
 .nav-drawer__list {
@@ -12298,7 +12255,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   gap: 0.625rem;
   min-width: 0;
   padding: 0.3rem 0;
-  color: #a3a3a3;
+  color: #e8e8e8;
   font-size: 0.9375rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   line-height: 1.4;
@@ -12308,7 +12265,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 .nav-drawer__tool-link:hover,
 .nav-drawer__tool-link.is-active {
-  color: #ededed;
+  color: #ffffff;
 }
 
 .nav-drawer__toggle {
@@ -12352,9 +12309,9 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 }
 
 .nav-drawer__icon-btn:hover {
-  color: #ededed;
-  border-color: #333;
-  background: #121212;
+  color: #fafafa;
+  border-color: transparent;
+  background: #2e2e30;
 }
 
 .nav-drawer__project-card {
@@ -12362,7 +12319,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   flex-direction: column;
   gap: 0.75rem;
   padding: 0.875rem 0;
-  border-bottom: 1px solid #262626;
+  border-bottom: none;
 }
 
 .nav-drawer__project-card:last-child {
@@ -12386,21 +12343,21 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #737373;
+  color: var(--menu-muted, #c4c4c4);
 }
 
 .nav-drawer__project-name {
   margin: 0.25rem 0 0;
   font-size: 0.9375rem;
   font-weight: 700;
-  color: #ededed;
+  color: #fafafa;
   line-height: 1.3;
 }
 
 .nav-drawer__project-meta {
   margin: 0.35rem 0 0;
   font-size: 0.75rem;
-  color: #737373;
+  color: var(--menu-muted, #c4c4c4);
 }
 
 .nav-drawer__project-actions {
@@ -12414,20 +12371,21 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   align-items: center;
   gap: 0.35rem;
   padding: 0.4rem 0.65rem;
-  border: 1px solid #333;
-  background: #121212;
-  color: #3b82f6;
+  border: none;
+  border-radius: 0.45rem;
+  background: #2a2a2c;
+  color: #fafafa;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .nav-drawer__project-resume:hover {
-  border-color: #3b82f6;
-  background: #0a0a0a;
+  background: #363638;
+  color: #ffffff;
 }
 
 .nav-drawer__empty {
@@ -12596,28 +12554,28 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   min-height: var(--site-header-control-height);
   height: var(--site-header-control-height);
   padding: var(--site-header-control-pad-y) var(--site-header-control-pad-x);
-  border: 1px solid transparent;
+  border: none;
+  border-radius: 0.4rem;
   background: transparent;
   font-size: var(--site-header-control-font);
   font-weight: 650;
   line-height: 1;
   letter-spacing: 0.055em;
   text-transform: uppercase;
-  color: #a3a3a3;
+  color: #d4d4d4;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
   transition:
     color 0.15s ease,
-    border-color 0.15s ease,
     background-color 0.15s ease;
 }
 
 .site-header__nav-link:hover,
 .site-header__nav-link:focus-visible {
-  color: #ededed;
-  border-color: #333;
-  background: #0a0a0a;
+  color: #ffffff;
+  border: none;
+  background: #2a2a2a;
   outline: none;
 }
 
@@ -12713,52 +12671,34 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
     --site-header-search-font: 0.75rem;
     --site-header-control-pad-x: 0.55rem;
   }
-
-  /* Keep compact visual height aligned with --site-header-compact-height. */
-  .site-header--matte.site-header--scrolled {
-    --site-header-scale: 0.72;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site-header__visual {
-    transition:
-      background-color 0.3s ease-in-out,
-      border-color 0.3s ease-in-out,
-      box-shadow 0.3s ease-in-out;
-  }
-
-  .site-header--matte.site-header--scrolled {
-    --site-header-scale: 0.65;
-  }
-
-  @media (max-width: 639px) {
-    .site-header--matte.site-header--scrolled {
-      --site-header-scale: 0.72;
-    }
-  }
 }
 
 /* Header "Tools" hub trigger — borderless like Library. */
 .site-header__tools-hub {
-  border-color: transparent;
+  border: none;
 }
 
 .site-header__tools-hub:hover,
 .site-header__tools-hub:focus-visible,
 .site-header__tools-hub[aria-expanded="true"] {
-  color: #ededed;
-  border-color: #333;
-  background: #0a0a0a;
+  color: #ffffff;
+  border: none;
+  background: #2a2a2a;
 }
 
-/* Simple Tools dropdown — black panel, 2 columns, no page dim. */
+/* Simple Tools dropdown — matte panel, soft shadow, no harsh border.
+   Panel is portaled to document.body, so tokens must live on __panel itself
+   (not only on .tools-hub-menu), or background falls through as transparent. */
 .tools-hub-menu {
   position: relative;
   display: inline-flex;
 }
 
 .tools-hub-menu__panel {
+  --menu-surface: #1a1a1a;
+  --menu-text: #ffffff;
+  --menu-muted: #d4d4d4;
+  --menu-shadow: 0 14px 40px rgb(0 0 0 / 0.36), 0 4px 12px rgb(0 0 0 / 0.2);
   position: fixed;
   z-index: 10060;
   box-sizing: border-box;
@@ -12766,11 +12706,15 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   overflow: auto;
   overscroll-behavior: contain;
   padding: 0.55rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  background: #0a0a0a;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.55);
-  color: #f5f5f5;
+  border: none;
+  border-radius: 0.75rem;
+  background-color: #1a1a1a;
+  background-image: none;
+  opacity: 1;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: var(--menu-shadow);
+  color: var(--menu-text);
 }
 
 .tools-hub-menu__list {
@@ -12794,9 +12738,13 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   gap: 0.5rem;
   min-width: 0;
   padding: 0.45rem 0.55rem;
-  border-radius: 4px;
-  color: #d4d4d4;
+  border: none;
+  border-radius: 0.45rem;
+  background: transparent;
+  color: var(--menu-text);
   text-decoration: none;
+  box-shadow: none;
+  outline: none;
   transition:
     background-color 0.12s ease,
     color 0.12s ease;
@@ -12804,7 +12752,9 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 .tools-hub-menu__link:hover,
 .tools-hub-menu__link:focus-visible {
-  background: rgba(255, 255, 255, 0.06);
+  background: #2a2a2a;
+  border: none;
+  box-shadow: none;
   color: #ffffff;
   outline: none;
 }
@@ -12825,12 +12775,12 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: #737373;
+  color: var(--menu-muted);
 }
 
 .tools-hub-menu__link:hover .tools-hub-menu__link-count,
 .tools-hub-menu__link:focus-visible .tools-hub-menu__link-count {
-  color: #a3a3a3;
+  color: #e5e5e5;
 }
 
 @media (max-width: 479px) {
@@ -13031,6 +12981,8 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 }
 
 .category-modal__panel {
+  --menu-surface: #1c1c1e;
+  --menu-shadow: 0 16px 48px rgb(0 0 0 / 0.38), 0 4px 12px rgb(0 0 0 / 0.22);
   position: fixed;
   top: 0;
   right: 0;
@@ -13045,16 +12997,16 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   min-height: 0;
   margin: 0;
   border: none;
-  border-left: 1px solid #333;
   border-radius: 0;
-  background: #0a0a0a;
-  box-shadow: -12px 0 32px rgb(0 0 0 / 0.35);
+  background: var(--menu-surface);
+  box-shadow: var(--menu-shadow);
   overflow: hidden;
   transform: translateX(100%);
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   box-sizing: border-box;
+  color: #fafafa;
 }
 
 .category-modal.is-open .category-modal__panel {
@@ -13064,9 +13016,8 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 html[dir="rtl"] .category-modal__panel {
   right: auto;
   left: 0;
-  border-left: none;
-  border-right: 1px solid #333;
-  box-shadow: 12px 0 32px rgb(0 0 0 / 0.35);
+  border: none;
+  box-shadow: var(--menu-shadow);
   transform: translateX(-100%);
 }
 
@@ -13085,9 +13036,9 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid #333;
+  border-bottom: none;
   flex-shrink: 0;
-  background: #0a0a0a;
+  background: #1c1c1e;
 }
 
 .category-modal__title {
@@ -13096,7 +13047,7 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #ededed;
+  color: #fafafa;
   line-height: 1.2;
 }
 
@@ -13110,16 +13061,16 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   min-height: 2.25rem;
   padding: 0;
   border: none;
-  border-radius: 0;
-  background: transparent;
-  color: #a3a3a3;
+  border-radius: 0.5rem;
+  background: #242426;
+  color: #fafafa;
   cursor: pointer;
   transition: color 0.18s ease, background-color 0.18s ease;
 }
 
 .category-modal__close:hover {
-  color: #ededed;
-  background: #121212;
+  color: #ffffff;
+  background: #2e2e30;
   border-color: transparent;
 }
 
@@ -13375,7 +13326,7 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 .site-header__overflow-heading {
   margin: 0;
   padding: 0.75rem 1rem 0.375rem;
-  color: #a3a3a3;
+  color: #e5e5e5;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -13391,7 +13342,7 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: rgb(212 212 212);
+  color: rgb(250 250 250);
   cursor: pointer;
   box-shadow: none;
   transition: background-color 0.15s ease, color 0.15s ease;
@@ -13403,6 +13354,9 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 }
 
 .site-header__overflow-panel {
+  --menu-surface: #1c1c1e;
+  --menu-text: #fafafa;
+  --menu-shadow: 0 14px 40px rgb(0 0 0 / 0.36), 0 4px 12px rgb(0 0 0 / 0.2);
   z-index: 70;
   box-sizing: border-box;
   width: 292px;
@@ -13410,10 +13364,11 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   height: auto;
   max-height: none;
   padding: 0.625rem;
-  border: 1px solid #333;
-  border-radius: 0;
-  background: #0a0a0a;
-  box-shadow: 0 16px 40px rgb(0 0 0 / 0.45);
+  border: none;
+  border-radius: 0.75rem;
+  background: var(--menu-surface);
+  box-shadow: var(--menu-shadow);
+  color: var(--menu-text);
   overflow: visible;
 }
 
@@ -13431,10 +13386,10 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  border: 1px solid transparent;
-  border-radius: 0;
+  border: none;
+  border-radius: 0.5rem;
   background: transparent;
-  color: #d4d4d4;
+  color: #fafafa;
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.3;
@@ -13444,21 +13399,18 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   cursor: pointer;
   transition:
     background-color 0.15s ease,
-    border-color 0.15s ease,
     color 0.15s ease;
 }
 
 .site-header__overflow-item:hover,
 .site-header__overflow-item:focus-visible {
-  background: #111827;
-  border-color: #3b82f6;
+  background: rgba(255, 255, 255, 0.07);
   color: #ffffff;
   outline: none;
 }
 
 .site-header__overflow-item.is-active {
-  background: rgba(59, 130, 246, 0.1);
-  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(255, 255, 255, 0.09);
   color: #ffffff;
 }
 
@@ -13466,40 +13418,39 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 .site-header__overflow-item--lang {
   gap: 0;
   padding-block: 0.5rem;
-  border-color: transparent;
+  border: none;
   background: transparent;
 }
 
 .site-header__overflow-item--lang:hover,
 .site-header__overflow-item--lang:focus-visible {
-  background: rgb(38 38 38);
-  border-color: transparent;
+  background: rgba(255, 255, 255, 0.07);
   color: #ffffff;
 }
 
 .site-header__overflow-item--lang.is-active {
   background: transparent;
-  border-color: transparent;
   color: #ffffff;
   font-weight: 700;
 }
 
 .site-header__overflow-item--privacy {
-  color: #d4d4d4;
+  color: #fafafa;
 }
 
 .site-header__overflow-icon {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .site-header__overflow-divider {
-  height: 1px;
-  margin: 0.5rem 0.75rem;
-  background: #333;
+  height: 0;
+  margin: 0.45rem 0.75rem;
+  background: transparent;
   border: 0;
+  opacity: 0;
 }
 
 .site-header--matte .nav-link,
@@ -14236,10 +14187,11 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   z-index: 50;
   min-width: 220px;
   padding: 0.45rem;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 0;
-  background: rgba(0, 0, 0, 0.95);
-  box-shadow: none;
+  border: none;
+  border-radius: 0.75rem;
+  background: #1c1c1e;
+  box-shadow: 0 14px 40px rgb(0 0 0 / 0.36), 0 4px 12px rgb(0 0 0 / 0.2);
+  color: #fafafa;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-6px);
@@ -14279,8 +14231,8 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.55rem 0.65rem;
-  border-radius: 8px;
-  color: #9ca3af;
+  border-radius: 0.5rem;
+  color: #fafafa;
   font-size: 0.9rem;
   text-decoration: none;
   transition: color 0.2s ease, background 0.2s ease;
@@ -14295,7 +14247,7 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 .nav-dropdown__section + .nav-dropdown__section {
   margin-top: 0.5rem;
   padding-top: 0.5rem;
-  border-top: 1px solid rgba(148, 163, 184, 0.14);
+  border-top: none;
 }
 
 .nav-dropdown__section-label {

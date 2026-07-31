@@ -1,4 +1,4 @@
-/* Community Reviews — Industrial Matte */
+/* Community Reviews — soft industrial matte */
 
 .community-reviews {
   display: grid;
@@ -7,20 +7,17 @@
 }
 
 .community-reviews--compact {
-  gap: 1.25rem;
-  padding: 0.75rem 0.85rem 1.25rem;
+  gap: 1.35rem;
+  padding: 0.5rem 0.35rem 1rem;
 }
 
+/* Form + feed sit flush on the parent surface (Library / page) — no card plate. */
 .community-reviews__submit,
 .community-reviews__feed {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #0a0a0a;
-  padding: 1.25rem 1.35rem;
-}
-
-.community-reviews--compact .community-reviews__submit,
-.community-reviews--compact .community-reviews__feed {
-  padding: 0.9rem 0.95rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
 }
 
 .community-reviews__submit-head,
@@ -28,34 +25,38 @@
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.15rem;
 }
 
 .community-reviews__feed-head {
   align-items: baseline;
   justify-content: space-between;
   gap: 0.75rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 0.85rem;
 }
 
 .community-reviews__submit-icon {
   flex-shrink: 0;
-  margin-top: 0.15rem;
-  color: #a3a3a3;
+  margin-top: 0.2rem;
+  color: #d4d4d4;
 }
 
 .community-reviews__submit-title,
 .community-reviews__feed-title {
   margin: 0;
-  color: #fafafa;
-  font-size: 0.9375rem;
+  color: #ffffff;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
   text-transform: uppercase;
 }
 
 .community-reviews--compact .community-reviews__submit-title,
 .community-reviews--compact .community-reviews__feed-title {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
 }
 
 .community-reviews__submit-subtitle,
@@ -63,7 +64,7 @@
 .community-reviews__hint,
 .community-reviews__loading,
 .community-reviews__date {
-  margin: 0.35rem 0 0;
+  margin: 0.4rem 0 0;
   color: #a3a3a3;
   font-size: 0.8125rem;
   line-height: 1.45;
@@ -76,27 +77,30 @@
 
 .community-reviews__form {
   display: grid;
-  gap: 0.9rem;
+  gap: 1.05rem;
 }
 
 .community-reviews__field {
   display: grid;
-  gap: 0.4rem;
+  gap: 0.45rem;
 }
 
 .community-reviews__label {
   display: inline-flex;
   align-items: baseline;
   gap: 0.5rem;
-  color: #e5e5e5;
+  color: #ffffff;
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
 }
 
 .community-reviews__optional {
-  color: #737373;
+  color: #8a8a8a;
   font-size: 0.75rem;
   font-weight: 500;
+  letter-spacing: 0;
   text-transform: lowercase;
 }
 
@@ -104,24 +108,32 @@
   box-sizing: border-box;
   width: 100%;
   margin: 0;
-  padding: 0.65rem 0.85rem;
-  border: 1px solid #262626;
-  border-radius: 0;
-  background: #050508;
-  color: #f5f5f5;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: #2a2a2a;
+  color: #ffffff;
   font: inherit;
   font-size: 0.9375rem;
+  line-height: 1.4;
   box-shadow: none;
-  transition: border-color 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .community-reviews__input::placeholder {
-  color: #737373;
+  color: #8a8a8a;
+}
+
+.community-reviews__input:hover {
+  background-color: #303030;
 }
 
 .community-reviews__input:focus {
   outline: none;
-  border-color: #525252;
+  border-color: #4a4a4a;
+  background-color: #2f2f2f;
 }
 
 .community-reviews__textarea {
@@ -135,7 +147,7 @@
 }
 
 .community-reviews__stars {
-  --star-rating-color: #fafafa;
+  --star-rating-color: #ffffff;
 }
 
 .community-reviews__error {
@@ -145,11 +157,12 @@
 }
 
 .community-reviews__thanks {
-  margin: 0 0 0.85rem;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
-  color: #e5e5e5;
+  margin: 0 0 0.95rem;
+  padding: 0.7rem 0.85rem;
+  border: none;
+  border-radius: 10px;
+  background: #2a2a2a;
+  color: #ffffff;
   font-size: 0.875rem;
 }
 
@@ -172,7 +185,7 @@
   display: grid;
   gap: 0.55rem;
   padding: 0.95rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .community-reviews__item:first-child {
@@ -238,6 +251,7 @@
 
 .community-reviews__select {
   appearance: none;
+  background-color: #2a2a2a;
   background-image: linear-gradient(45deg, transparent 50%, #a3a3a3 50%),
     linear-gradient(135deg, #a3a3a3 50%, transparent 50%);
   background-position:
@@ -248,7 +262,21 @@
   padding-inline-end: 2.25rem;
 }
 
-[dir="rtl"] .community-reviews__select {
+.community-reviews__select:hover,
+.community-reviews__select:focus {
+  background-color: #303030;
+  background-image: linear-gradient(45deg, transparent 50%, #a3a3a3 50%),
+    linear-gradient(135deg, #a3a3a3 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.1rem) calc(50% - 0.15rem),
+    calc(100% - 0.75rem) calc(50% - 0.15rem);
+  background-size: 0.35rem 0.35rem, 0.35rem 0.35rem;
+  background-repeat: no-repeat;
+}
+
+[dir="rtl"] .community-reviews__select,
+[dir="rtl"] .community-reviews__select:hover,
+[dir="rtl"] .community-reviews__select:focus {
   background-position:
     0.75rem calc(50% - 0.15rem),
     1.1rem calc(50% - 0.15rem);
@@ -260,9 +288,10 @@
   align-items: center;
   gap: 0.35rem 0.5rem;
   margin: 0.15rem 0 0;
-  padding: 0.35rem 0.55rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 0.35rem 0.6rem;
+  border: none;
+  border-radius: 8px;
+  background: #2a2a2a;
   color: #a3a3a3;
   font-size: 0.75rem;
   letter-spacing: 0.02em;

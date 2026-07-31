@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
-import { Library, MessageSquareText } from "lucide-react";
+import { Library } from "lucide-react";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { HeaderCategoryHub } from "@/components/HeaderCategoryHub";
 import { HeaderOverflowMenu } from "@/components/HeaderOverflowMenu";
@@ -21,7 +21,7 @@ import type { HeaderCategoryId } from "@/lib/tool-registry";
 function HeaderLibraryButton() {
   const t = useTranslations("Header");
   const nav = useHeaderCategoryNavOptional();
-  const isOpen = Boolean(nav?.open && nav.activeTab !== "reviews");
+  const isOpen = Boolean(nav?.open && nav.activeTab !== "all-tools");
 
   return (
     <button
@@ -31,36 +31,12 @@ function HeaderLibraryButton() {
       aria-expanded={isOpen}
       onClick={() => {
         if (!nav) return;
-        if (nav.open && nav.activeTab !== "reviews") nav.close();
+        if (nav.open && nav.activeTab !== "all-tools") nav.close();
         else nav.openDrawer("favorites");
       }}
     >
       <Library className="site-header__nav-icon" aria-hidden size={14} strokeWidth={2} />
       <span>{t("library")}</span>
-    </button>
-  );
-}
-
-function HeaderReviewsButton() {
-  const t = useTranslations("Header");
-  const nav = useHeaderCategoryNavOptional();
-  const isOpen = Boolean(nav?.open && nav.activeTab === "reviews");
-
-  return (
-    <button
-      type="button"
-      className="site-header__nav-link site-header__reviews"
-      aria-haspopup="dialog"
-      aria-expanded={isOpen}
-      aria-label={t("reviews")}
-      onClick={() => {
-        if (!nav) return;
-        if (nav.open && nav.activeTab === "reviews") nav.close();
-        else nav.openDrawer("reviews");
-      }}
-    >
-      <MessageSquareText className="site-header__nav-icon" aria-hidden size={14} strokeWidth={2} />
-      <span className="site-header__reviews-label">{t("reviews")}</span>
     </button>
   );
 }
@@ -127,7 +103,6 @@ export function SiteHeaderBar() {
         <div className="site-header__end">
           <HeaderCategoryHub />
           <HeaderLibraryButton />
-          <HeaderReviewsButton />
           {!isWide ? <HeaderSearch variant="toggle" /> : null}
           {!isWide ? <InstallPwaButton /> : null}
           <HeaderOverflowMenu />

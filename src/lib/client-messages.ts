@@ -19,6 +19,8 @@ export const SHARED_CLIENT_MESSAGE_NAMESPACES = [
   "Blog",
   "Feedback",
   "Rating",
+  "ToolCard",
+  "PinnedDock",
   "ToolSidebarBanners",
   "Reviews",
 ] as const;
