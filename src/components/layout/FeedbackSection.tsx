@@ -12,7 +12,7 @@ export function FeedbackSection({ pageTitle }: FeedbackSectionProps) {
   const t = useTranslations("Feedback");
 
   return (
-    <ToolPageDashboardSection aria-labelledby="tool-feedback-heading">
+    <ToolPageDashboardSection aria-labelledby="tool-feedback-heading" className="!p-0">
       <h2
         id="tool-feedback-heading"
         className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"

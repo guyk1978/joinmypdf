@@ -24,7 +24,7 @@ import {
 import { resolveLocalizedToolDocFields } from "@/lib/tool-doc-content";
 import { parseToolHierarchyPath } from "@/lib/tool-hierarchy";
 import type { ToolFaq } from "@/lib/types";
-import { toolPageInfoWidth } from "@/lib/tool-ui";
+import { toolPagePaneRailClassName } from "@/lib/tool-ui";
 import { WORKSPACE_UPLOAD_ID } from "@/lib/workspace-flow";
 import { usePathname } from "@/i18n/navigation";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
@@ -142,7 +142,7 @@ export function ToolLayout({
     Boolean(marketing) || Boolean(belowTool) || faqs.length > 0 || Boolean(docFields?.title || resolvedTitle);
 
   const docPane = hasDoc ? (
-    <ToolPageInfoBlock className={clsx(toolPageInfoWidth, "tool-modal-docs")}>
+    <ToolPageInfoBlock className={clsx(toolPagePaneRailClassName, "tool-modal-docs")}>
       {resolvedSlug && docFields ? (
         <ToolDocHeader
           slug={resolvedSlug}
@@ -175,8 +175,12 @@ export function ToolLayout({
     </ToolPageInfoBlock>
   ) : null;
 
+  const relatedPane = related ? (
+    <div className={clsx(toolPagePaneRailClassName, "tool-page-related-pane")}>{related}</div>
+  ) : null;
+
   const reviewsPane = resolvedSlug ? (
-    <div className={clsx("community-reviews--tool-pane", "mx-auto w-full max-w-5xl px-4")}>
+    <div className={toolPagePaneRailClassName}>
       <CommunityReviews
         mode="tool"
         toolSlug={resolvedSlug}
@@ -227,7 +231,7 @@ export function ToolLayout({
       <ToolPageViewShell
         calc={calcPane}
         doc={docPane}
-        related={related}
+        related={relatedPane}
         reviews={reviewsPane}
       />
     </div>

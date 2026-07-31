@@ -22,8 +22,8 @@ const DEFAULT_OPEN_COUNT = 4;
 
 /**
  * FAQ list for the tool modal DOC tab.
- * Uses semantic `<details>` / `<summary>` so answers stay in the DOM for crawlers,
- * with the first few items expanded by default.
+ * Uses the same grid-row / opacity accordion motion as `FaqAccordion`
+ * (category + home pages), with multi-open + expand/collapse all.
  */
 export function ToolModalFaqAccordion({
   items,
@@ -63,6 +63,12 @@ export function ToolModalFaqAccordion({
     setOpenFlags(items.map(() => false));
   };
 
+  const toggleIndex = (index: number) => {
+    setOpenFlags((current) =>
+      current.map((flag, i) => (i === index ? !flag : flag)),
+    );
+  };
+
   return (
     <div className={clsx("tool-modal-faq", className)}>
       <div className="tool-modal-faq__toolbar">
@@ -87,33 +93,30 @@ export function ToolModalFaqAccordion({
         </button>
       </div>
 
-      <div className="tool-modal-faq__scroll">
+      <div className="tool-modal-faq__list">
         {items.map((item, index) => {
           const isOpen = openFlags[index] === true;
           const panelId = `${baseId}-panel-${index}`;
-          const summaryId = `${baseId}-summary-${index}`;
+          const buttonId = `${baseId}-button-${index}`;
 
           return (
-            <details
+            <div
               key={`${item.question}-${index}`}
               className={clsx(
                 "tool-modal-faq__item",
                 isOpen && "tool-modal-faq__item--open",
               )}
-              open={isOpen}
-              onToggle={(event) => {
-                const nextOpen = event.currentTarget.open;
-                setOpenFlags((current) =>
-                  current.map((flag, i) => (i === index ? nextOpen : flag)),
-                );
-              }}
             >
-              <summary
-                id={summaryId}
+              <button
+                id={buttonId}
+                type="button"
                 className={clsx(
                   "tool-modal-faq__trigger",
                   isOpen && "tool-modal-faq__trigger--open",
                 )}
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                onClick={() => toggleIndex(index)}
               >
                 <span className="tool-modal-faq__question">{item.question}</span>
                 <span className="tool-modal-faq__icon" aria-hidden>
@@ -126,17 +129,22 @@ export function ToolModalFaqAccordion({
                     )}
                   />
                 </span>
-              </summary>
+              </button>
 
               <div
                 id={panelId}
-                className="tool-modal-faq__panel tool-modal-faq__panel--open"
                 role="region"
-                aria-labelledby={summaryId}
+                aria-labelledby={buttonId}
+                className={clsx(
+                  "tool-modal-faq__panel",
+                  isOpen && "tool-modal-faq__panel--open",
+                )}
               >
-                <p className="tool-modal-faq__answer">{item.answer}</p>
+                <div className="tool-modal-faq__panel-inner">
+                  <p className="tool-modal-faq__answer">{item.answer}</p>
+                </div>
               </div>
-            </details>
+            </div>
           );
         })}
       </div>

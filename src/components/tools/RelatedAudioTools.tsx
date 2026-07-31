@@ -18,7 +18,10 @@ export async function RelatedAudioTools({ toolId }: RelatedAudioToolsProps) {
   const tPage = await getTranslations("ToolPage");
 
   return (
-    <ToolPageDashboardSection aria-labelledby="related-audio-tools-heading">
+    <ToolPageDashboardSection
+      aria-labelledby="related-audio-tools-heading"
+      className="!p-0"
+    >
       <h2
         id="related-audio-tools-heading"
         className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"

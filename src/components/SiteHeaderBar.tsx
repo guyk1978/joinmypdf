@@ -2,10 +2,11 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Library } from "lucide-react";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { HeaderCategoryHub } from "@/components/HeaderCategoryHub";
+import { HeaderMobileMenu } from "@/components/HeaderMobileMenu";
 import { HeaderOverflowMenu } from "@/components/HeaderOverflowMenu";
 import {
   HeaderCategoryNavProvider,
@@ -45,18 +46,9 @@ export function SiteHeaderBar() {
   const locale = useLocale();
   const t = useTranslations("Header");
   const toolModal = useOptionalToolModal();
-  const [isWide, setIsWide] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<NavigationDrawerTab>("favorites");
   const [activeCategory, setActiveCategory] = useState<HeaderCategoryId>("all");
-
-  useEffect(() => {
-    const media = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsWide(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
 
   const dismissToolModal = (href?: string) => {
     if (!toolModal?.isOpen) return;
@@ -87,26 +79,24 @@ export function SiteHeaderBar() {
           <JoinMyPdfLogo />
         </Link>
 
-        <div className="site-header__search-center">
-          {isWide ? (
+        <div className="site-header__desktop-cluster">
+          <div className="site-header__search-center">
             <div className="site-header__search-cluster">
               <div className="site-header__search site-header__search--focus">
                 <HeaderSearch variant="inline" />
               </div>
               <InstallPwaButton />
             </div>
-          ) : (
-            <div className="site-header__spacer" aria-hidden />
-          )}
+          </div>
+
+          <div className="site-header__end site-header__end--desktop">
+            <HeaderCategoryHub />
+            <HeaderLibraryButton />
+            <HeaderOverflowMenu onNavigate={() => dismissToolModal()} />
+          </div>
         </div>
 
-        <div className="site-header__end">
-          <HeaderCategoryHub />
-          <HeaderLibraryButton />
-          {!isWide ? <HeaderSearch variant="toggle" /> : null}
-          {!isWide ? <InstallPwaButton /> : null}
-          <HeaderOverflowMenu />
-        </div>
+        <HeaderMobileMenu onNavigate={() => dismissToolModal()} />
       </nav>
     </HeaderCategoryNavProvider>
   );

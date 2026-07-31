@@ -47,7 +47,10 @@ export async function RelatedTools({ tool, slug }: RelatedToolsProps) {
   const tTools = await getTranslations("Tools");
 
   return (
-    <ToolPageDashboardSection aria-labelledby="related-tools-heading">
+    <ToolPageDashboardSection
+      aria-labelledby="related-tools-heading"
+      className="!p-0"
+    >
       <h2
         id="related-tools-heading"
         className="mb-4 text-lg font-semibold tracking-wide text-ink dark:text-white"

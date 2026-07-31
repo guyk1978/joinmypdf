@@ -38,7 +38,7 @@ export function ToolMarketingSections({
 
   return (
     <>
-      <ToolPageDashboardSection>
+      <ToolPageDashboardSection className="!p-0">
         <ToolBeforeYouStart title={beforeYouStartTitle}>
           {paragraphs.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
@@ -67,13 +67,14 @@ export function ToolMarketingSections({
 
       <LocalProcessingInfographic
         layout="dashboard"
+        className="!p-0"
         headline={whySectionTitle}
         subheadline={whySectionSubheadline}
         benefits={whyBenefits}
       />
 
       {articles.length ? (
-        <ToolPageDashboardSection aria-labelledby="related-guides-heading">
+        <ToolPageDashboardSection aria-labelledby="related-guides-heading" className="!p-0">
           <h2
             id="related-guides-heading"
             className="tools-hub-link-list__title mb-4"
@@ -96,7 +97,7 @@ export function ToolMarketingSections({
       ) : null}
 
       {seoOverride?.featuredGuide ? (
-        <ToolPageDashboardSection>
+        <ToolPageDashboardSection className="!p-0">
           <Link
             href={blogArticlePath(seoOverride.featuredGuide.slug)}
             className="text-base leading-relaxed text-neutral-300 hover:underline"
@@ -108,7 +109,7 @@ export function ToolMarketingSections({
       ) : null}
 
       {seoOverride?.relatedWorkflowLinks ? (
-        <ToolPageDashboardSection>
+        <ToolPageDashboardSection className="!p-0">
           <p className="mb-3 text-base leading-relaxed text-neutral-400">
             {seoOverride.relatedWorkflowLinks.prompt}
           </p>
@@ -128,7 +129,7 @@ export function ToolMarketingSections({
       ) : null}
 
       {seoOverride?.complementaryTool ? (
-        <ToolPageDashboardSection>
+        <ToolPageDashboardSection className="!p-0">
           <p className="text-base leading-relaxed text-neutral-400">
             {seoOverride.complementaryTool.prompt}{" "}
             <Link

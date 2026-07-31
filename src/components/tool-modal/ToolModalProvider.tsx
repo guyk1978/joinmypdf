@@ -40,6 +40,7 @@ import {
   getToolModalRelatedTools,
   type ToolModalRelatedTool,
 } from "@/lib/tool-modal-catalog";
+import { toolPagePaneRailClassName } from "@/lib/tool-ui";
 import { localizeToolPresentation } from "@/lib/localize-tool-presentation";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import {
@@ -530,40 +531,44 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
           }
           docs={
             active.docs ?? (
-              <ToolModalDocsPanel
-                model={docModel}
-                tPage={tPage}
-                categoryId={active.categoryId}
-                labels={{
-                  overview: t("overview"),
-                  howItWorks: t("howItWorks"),
-                  useCases: t("useCases"),
-                  faq: t("faq"),
-                  keyword: t("keyword"),
-                  loading: loadingLabel,
-                  expandAll: t("expandAll"),
-                  collapseAll: t("collapseAll"),
-                  comingSoon: t("comingSoon"),
-                }}
-              />
+              <div className={toolPagePaneRailClassName}>
+                <ToolModalDocsPanel
+                  model={docModel}
+                  tPage={tPage}
+                  categoryId={active.categoryId}
+                  labels={{
+                    overview: t("overview"),
+                    howItWorks: t("howItWorks"),
+                    useCases: t("useCases"),
+                    faq: t("faq"),
+                    keyword: t("keyword"),
+                    loading: loadingLabel,
+                    expandAll: t("expandAll"),
+                    collapseAll: t("collapseAll"),
+                    comingSoon: t("comingSoon"),
+                  }}
+                />
+              </div>
             )
           }
           related={
             active.related ?? (
-              <ToolModalRelatedPanel
-                tools={relatedTools}
-                articles={relatedArticles}
-                onOpenTool={openRelatedTool}
-                labels={{
-                  toolsHeading: t("alsoCheckOut"),
-                  articlesHeading: t("guidesArticles"),
-                  empty: t("relatedEmpty"),
-                }}
-              />
+              <div className={`${toolPagePaneRailClassName} tool-page-related-pane`}>
+                <ToolModalRelatedPanel
+                  tools={relatedTools}
+                  articles={relatedArticles}
+                  onOpenTool={openRelatedTool}
+                  labels={{
+                    toolsHeading: t("alsoCheckOut"),
+                    articlesHeading: t("guidesArticles"),
+                    empty: t("relatedEmpty"),
+                  }}
+                />
+              </div>
             )
           }
           reviews={
-            <div className="community-reviews--tool-pane px-3 py-3 sm:px-4">
+            <div className={toolPagePaneRailClassName}>
               <CommunityReviews
                 mode="tool"
                 compact

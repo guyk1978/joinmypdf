@@ -323,10 +323,12 @@
 }
 
 .community-reviews--tool-pane {
-  padding: 1rem 0 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
   max-width: 72rem;
   margin-inline: auto;
-  width: 100%;
+  padding-block: 1rem 1.5rem;
+  padding-inline: 1rem;
 }
 
 .nav-drawer__panel-section--reviews {

@@ -67,7 +67,14 @@ export const productPageMainClassName =
 export const toolPageDashboardWidth =
   "tool-page-main flex w-full min-h-0 flex-1 flex-col";
 
-export const toolPageInfoWidth = "mx-auto w-full max-w-2xl px-4";
+/**
+ * Shared DOC / RELATED / REVIEWS content rail — matches the REVIEWS pane
+ * (72rem centered column + horizontal gutter).
+ */
+export const toolPagePaneRailClassName = "tool-page-pane-rail mx-auto w-full";
+
+/** @deprecated Prefer toolPagePaneRailClassName — kept as DOC alias. */
+export const toolPageInfoWidth = toolPagePaneRailClassName;
 
 export const toolPageDashboardStack = "tool-page-dashboard flex w-full min-h-0 flex-1 flex-col gap-0";
 
