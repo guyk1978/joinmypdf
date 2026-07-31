@@ -133,7 +133,6 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   const locale = useLocale();
   const t = useTranslations("ToolModal");
   const tTools = useTranslations("Tools");
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   /** Library → Resume passes ?project= on the shell URL; forward into the CALC iframe. */
