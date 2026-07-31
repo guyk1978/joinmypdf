@@ -3,6 +3,7 @@ import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
 import { CropPdfWorkspace } from "@/components/CropPdfWorkspace";
+import { WorkspaceProjectProvider } from "@/components/WorkspaceProjectRegistry";
 import { routing } from "@/i18n/routing";
 import { getLocalizedToolFaqs } from "@/lib/i18n-tool-page";
 import { registry } from "@/lib/registry";
@@ -79,7 +80,9 @@ export default async function CropPdfPage({ params }: PageProps) {
         <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page page-container">
           <section className="border-b border-[#262626] pb-8" aria-label={t("title")}>
             <h1 className="sr-only">{t("title")}</h1>
+            <WorkspaceProjectProvider toolSlug={SLUG} operation={tool.operation}>
               <CropPdfWorkspace tool={tool} slug={SLUG} />
+            </WorkspaceProjectProvider>
           </section>
         </div>
       </AppPageShell>

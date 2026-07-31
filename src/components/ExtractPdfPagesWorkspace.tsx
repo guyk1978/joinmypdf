@@ -16,10 +16,16 @@ import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import * as pdf from "@/lib/pdf-engine";
 import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { DELETE_PAGES_THUMB_SCALE, loadPdfPageCount, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
-import { extractPdfOutputName, parsePageRangeSpec } from "@/lib/pdf-pages";
+import {
+  extractPdfOutputName,
+  formatPageRangeSpec,
+  parsePageRangeSpec,
+} from "@/lib/pdf-pages";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
-import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
+import { toolOutlineBtn, toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
+import { clsx } from "clsx";
+import { Check, ZoomIn } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -38,27 +44,52 @@ function downloadBlob(blob: Blob, name: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
 }
 
-function ExtractPreviewThumb({
+function ExtractPageThumb({
   pageIndex,
   fileBytes,
   password,
+  selected,
   loadingLabel,
   pageLabel,
+  selectAria,
   previewAria,
+  onToggle,
   onPreview,
 }: {
   pageIndex: number;
   fileBytes: Uint8Array;
   password: string;
+  selected: boolean;
   loadingLabel: string;
   pageLabel: string;
+  selectAria: string;
   previewAria: string;
+  onToggle: () => void;
   onPreview: () => void;
 }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "160px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
     let cancelled = false;
     setLoading(true);
     void renderPdfPageThumbnail(fileBytes, pageIndex, password, DELETE_PAGES_THUMB_SCALE).then(
@@ -75,22 +106,46 @@ function ExtractPreviewThumb({
     return () => {
       cancelled = true;
     };
-  }, [fileBytes, pageIndex, password]);
+  }, [fileBytes, pageIndex, password, visible]);
 
   return (
-    <div className="page-manage-thumb visual-reorder-card visual-reorder-card--page is-selected">
-      <span className="visual-reorder-card__index">{pageLabel}</span>
+    <div
+      className={clsx("extract-page-thumb", selected && "is-selected")}
+      role="listitem"
+      data-selected={selected ? "1" : "0"}
+    >
+      <span className="extract-page-thumb__index" aria-hidden>
+        {pageIndex + 1}
+      </span>
       <button
         type="button"
-        className="page-manage-thumb__preview-btn"
+        className="extract-page-thumb__select"
+        aria-pressed={selected}
+        aria-label={selectAria}
+        onClick={onToggle}
+      >
+        <div ref={wrapRef} className="extract-page-thumb__canvas-wrap">
+          {loading || !visible ? (
+            <p className="extract-page-thumb__loading">{loadingLabel}</p>
+          ) : null}
+          <canvas ref={canvasRef} className="extract-page-thumb__canvas" />
+          {selected ? (
+            <span className="extract-page-thumb__check" aria-hidden>
+              <Check size={14} strokeWidth={2.5} />
+            </span>
+          ) : null}
+        </div>
+        <span className="extract-page-thumb__label">{pageLabel}</span>
+      </button>
+      <button
+        type="button"
+        className="extract-page-thumb__zoom"
         data-pdf-page-preview=""
         aria-label={previewAria}
+        title={previewAria}
         onClick={onPreview}
       >
-        <div className="page-manage-thumb__canvas-wrap">
-          {loading ? <p className="page-manage-thumb__loading">{loadingLabel}</p> : null}
-          <canvas ref={canvasRef} className="page-manage-thumb__canvas" />
-        </div>
+        <ZoomIn size={16} strokeWidth={2} aria-hidden />
       </button>
     </div>
   );
@@ -102,6 +157,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
   const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [rangeSpec, setRangeSpec] = useState("");
+  const [selected, setSelected] = useState<Set<number>>(() => new Set());
   const [parseError, setParseError] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
@@ -118,43 +174,80 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
     capture(EVENTS.tool_view, { slug, operation: tool.operation });
   }, [slug, tool.operation]);
 
-  const selectedIndices = useMemo(() => {
-    if (!pageCount || !rangeSpec.trim()) return [];
-    try {
-      return parsePageRangeSpec(rangeSpec, pageCount);
-    } catch {
-      return [];
-    }
-  }, [pageCount, rangeSpec]);
+  const selectedIndices = useMemo(
+    () => [...selected].sort((a, b) => a - b),
+    [selected],
+  );
 
-  useEffect(() => {
-    if (!rangeSpec.trim()) {
-      setParseError("");
-      return;
-    }
-    try {
-      parsePageRangeSpec(rangeSpec, pageCount);
-      setParseError("");
-    } catch (e) {
-      setParseError(e instanceof Error ? e.message : ws.wsStatus("invalidRange"));
-    }
-  }, [rangeSpec, pageCount, ws]);
+  const applySelection = useCallback((next: Set<number>) => {
+    setSelected(next);
+    setRangeSpec(formatPageRangeSpec([...next]));
+    setParseError("");
+  }, []);
+
+  const onRangeChange = useCallback(
+    (value: string) => {
+      setRangeSpec(value);
+      if (!value.trim()) {
+        setSelected(new Set());
+        setParseError("");
+        return;
+      }
+      if (!pageCount) return;
+      try {
+        const indices = parsePageRangeSpec(value, pageCount);
+        setSelected(new Set(indices));
+        setParseError("");
+      } catch (e) {
+        setParseError(e instanceof Error ? e.message : ws.wsStatus("invalidRange"));
+      }
+    },
+    [pageCount, ws],
+  );
+
+  const togglePage = useCallback(
+    (pageIndex: number) => {
+      setSelected((prev) => {
+        const next = new Set(prev);
+        if (next.has(pageIndex)) next.delete(pageIndex);
+        else next.add(pageIndex);
+        setRangeSpec(formatPageRangeSpec([...next]));
+        setParseError("");
+        return next;
+      });
+    },
+    [],
+  );
+
+  const selectAll = useCallback(() => {
+    if (!pageCount) return;
+    applySelection(new Set(Array.from({ length: pageCount }, (_, i) => i)));
+  }, [applySelection, pageCount]);
+
+  const clearSelection = useCallback(() => {
+    applySelection(new Set());
+  }, [applySelection]);
 
   const reset = useCallback(() => {
     setFile(null);
     setFileBytes(null);
     setPageCount(0);
     setRangeSpec("");
+    setSelected(new Set());
     setParseError("");
     setPassword("");
     setStatus("");
     setDone(false);
     setRunError(null);
+    setPreviewPageIndex(null);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
   const addFile = useCallback(
-    async (incoming: FileList | File[]) => {
+    async (
+      incoming: FileList | File[],
+      options?: { rangeSpec?: string },
+    ) => {
       const list = Array.from(incoming || []).filter((f) => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name));
       if (!list.length) {
         setStatus(ws.status("chooseValidPdf"));
@@ -165,14 +258,28 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
       setFile(picked);
       setFileBytes(bytes);
       setRangeSpec("");
+      setSelected(new Set());
       setParseError("");
       setDone(false);
       setRunError(null);
       setPassword("");
+      setPreviewPageIndex(null);
 
       try {
         const count = await loadPdfPageCount(bytes, password);
         setPageCount(count);
+        const restored = options?.rangeSpec?.trim();
+        if (restored) {
+          try {
+            const indices = parsePageRangeSpec(restored, count);
+            setSelected(new Set(indices));
+            setRangeSpec(formatPageRangeSpec(indices));
+            setParseError("");
+          } catch (e) {
+            setRangeSpec(restored);
+            setParseError(e instanceof Error ? e.message : ws.wsStatus("invalidRange"));
+          }
+        }
         setStatus(ws.wsStatus("loaded", { count }));
       } catch {
         setPageCount(0);
@@ -186,7 +293,8 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
 
   const onDownload = async () => {
     if (!file || !fileBytes || busy) return;
-    if (!rangeSpec.trim()) {
+    const spec = rangeSpec.trim() || formatPageRangeSpec(selectedIndices);
+    if (!spec) {
       setStatus(ws.wsStatus("enterRange"));
       return;
     }
@@ -198,7 +306,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
     capture(EVENTS.tool_run_start, { operation: tool.operation, slug });
 
     try {
-      const bytes = await pdf.extractPdfPagesFile(file, rangeSpec, password);
+      const bytes = await pdf.extractPdfPagesFile(file, spec, password);
       const outName = extractPdfOutputName(file.name);
       downloadBlob(new Blob([bytes as BlobPart], { type: "application/pdf" }), outName);
       setDone(true);
@@ -221,23 +329,35 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
     }
   };
 
-  const previewIndices = selectedIndices.slice(0, 12);
-
-
-  const onRestoreProject = useCallback((payload: { files: File[] }) => {
-    const next = payload.files[0];
-    if (!next) return;
-    addFile([next]);
-  }, []);
+  const onRestoreProject = useCallback(
+    (payload: { files: File[]; settings?: Record<string, unknown> }) => {
+      const next = payload.files[0];
+      if (!next) return;
+      const saved = payload.settings?.rangeSpec;
+      void addFile([next], {
+        rangeSpec: typeof saved === "string" ? saved : undefined,
+      });
+    },
+    [addFile],
+  );
 
   useWorkspaceProjectBridge({
     files: file ? [file] : [],
+    settings: { rangeSpec },
     disabled: !file || busy,
     onRestore: onRestoreProject,
   });
 
+  const pageIndices = useMemo(
+    () => (pageCount > 0 ? Array.from({ length: pageCount }, (_, i) => i) : []),
+    [pageCount],
+  );
+
+  const canExtract =
+    Boolean(file) && selectedIndices.length > 0 && !busy && !parseError;
+
   return (
-    <div id="tool-workspace" className="tool-workspace--wide space-y-3 pb-12 md:pb-8">
+    <div id="tool-workspace" className="extract-pdf-pages-tool-page tool-workspace--wide space-y-3 pb-12 md:pb-8">
       <WorkspaceUploadShell active={Boolean(file)}>
         {!file ? (
           <FileUploadZone
@@ -281,62 +401,98 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
       </WorkspaceUploadShell>
 
       {file ? (
-          <>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="truncate text-sm text-ink-muted">
-                <span className="font-medium text-ink">{file.name}</span>
-                {pageCount ? (
-                  <span className="ms-2">{ws.wsUi("pageCountLabel", { count: pageCount })}</span>
-                ) : null}
-              </p>
+        <>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="truncate text-sm text-neutral-400">
+              <span className="font-medium text-neutral-100">{file.name}</span>
+              {pageCount ? (
+                <span className="ms-2">{ws.wsUi("pageCountLabel", { count: pageCount })}</span>
+              ) : null}
+            </p>
+            <div className="flex flex-wrap gap-2">
               <button type="button" onClick={reset} disabled={busy} className={toolSecondaryBtn}>
                 {ws.chooseAnotherFile}
               </button>
-            <WorkspaceNewUploadButton
-              label={ws.uploadNewFile}
-              disabled={busy}
-              onClick={() => startNewUpload(reset)}
-            />
+              <WorkspaceNewUploadButton
+                label={ws.uploadNewFile}
+                disabled={busy}
+                onClick={() => startNewUpload(reset)}
+              />
             </div>
+          </div>
 
-            <div className="grid gap-3 rounded-none border border-neutral-400/30 bg-neutral-500/[0.06] p-4 ring-1 ring-neutral-400/20 backdrop-blur-md dark:border-neutral-400/40 dark:bg-neutral-500/10">
-              <label className="block text-sm">
-                <span className="font-semibold text-ink">{ws.wsUi("rangeLabel")}</span>
-                <input
-                  type="text"
-                  value={rangeSpec}
-                  onChange={(e) => setRangeSpec(e.target.value)}
-                  placeholder={ws.wsUi("rangePlaceholder")}
-                  className="mt-1 w-full rounded-none border border-neutral-300 bg-white px-3 py-2 font-mono text-sm dark:border-neutral-700 dark:bg-neutral-900"
-                  disabled={busy}
-                />
-              </label>
-              <p className="text-xs text-ink-muted">{ws.wsUi("rangeHint")}</p>
-              {parseError ? <p className="text-xs text-neutral-600 dark:text-neutral-400">{parseError}</p> : null}
-              {!parseError && selectedIndices.length ? (
-                <p className="text-sm text-ink">
-                  {ws.wsUi("selectionSummary", { count: selectedIndices.length })}
-                </p>
-              ) : null}
-            </div>
+          <div className="tool-workspace-panel space-y-3" id={WORKSPACE_OPERATIONS_ID} data-embed-measure="">
+            <label className="block text-sm" htmlFor={`${baseId}-range`}>
+              <span className="font-semibold text-neutral-100">{ws.wsUi("rangeLabel")}</span>
+              <input
+                id={`${baseId}-range`}
+                type="text"
+                value={rangeSpec}
+                onChange={(e) => onRangeChange(e.target.value)}
+                placeholder={ws.wsUi("rangePlaceholder")}
+                className="extract-pages-range-input mt-1 w-full px-3 py-2 font-mono text-sm"
+                disabled={busy}
+              />
+            </label>
+            <p className="text-xs text-neutral-400">{ws.wsUi("rangeHint")}</p>
+            {parseError ? <p className="text-xs text-rose-300">{parseError}</p> : null}
+            {!parseError && selectedIndices.length ? (
+              <p className="text-sm text-neutral-200">
+                {ws.wsUi("selectionSummary", { count: selectedIndices.length })}
+              </p>
+            ) : null}
 
-            {fileBytes && previewIndices.length > 0 && !parseError ? (
-              <div id={WORKSPACE_OPERATIONS_ID} className="visual-reorder-panel">
-                <p className="visual-reorder-panel__hint">{ws.wsUi("previewHint")}</p>
-                <div className="delete-pages-grid visual-reorder-grid page-manage-grid" role="list">
-                  {previewIndices.map((pageIndex) => (
-                    <ExtractPreviewThumb
-                      key={`${pageIndex}-${rangeSpec}`}
+            {fileBytes && pageCount > 0 ? (
+              <div className="extract-pages-preview">
+                <div className="extract-pages-preview__toolbar">
+                  <p className="extract-pages-preview__hint">{ws.wsUi("previewHint")}</p>
+                  <div className="extract-pages-preview__actions">
+                    <button
+                      type="button"
+                      className={toolOutlineBtn}
+                      disabled={busy || selectedIndices.length === pageCount}
+                      onClick={selectAll}
+                    >
+                      {ws.wsUi("selectAll") || ws.wsCommon("selectAll") || "Select all"}
+                    </button>
+                    <button
+                      type="button"
+                      className={toolOutlineBtn}
+                      disabled={busy || selectedIndices.length === 0}
+                      onClick={clearSelection}
+                    >
+                      {ws.wsUi("clearSelection") || "Clear selection"}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="extract-pages-grid" role="list" aria-label={ws.wsUi("gridLabel") || "PDF pages"}>
+                  {pageIndices.map((pageIndex) => (
+                    <ExtractPageThumb
+                      key={pageIndex}
                       pageIndex={pageIndex}
                       fileBytes={fileBytes}
                       password={password}
+                      selected={selected.has(pageIndex)}
                       loadingLabel={ws.wsUi("loadingThumb")}
                       pageLabel={ws.wsCommon("pageNumber", { page: pageIndex + 1 })}
-                      previewAria={ws.wsCommon("openPagePreview", { page: pageIndex + 1 })}
+                      selectAria={
+                        selected.has(pageIndex)
+                          ? ws.wsUi("deselectPageAria", { page: pageIndex + 1 }) ||
+                            `Deselect page ${pageIndex + 1}`
+                          : ws.wsUi("selectPageAria", { page: pageIndex + 1 }) ||
+                            `Select page ${pageIndex + 1}`
+                      }
+                      previewAria={
+                        ws.wsCommon("openPagePreview", { page: pageIndex + 1 }) ||
+                        `Open larger preview of page ${pageIndex + 1}`
+                      }
+                      onToggle={() => togglePage(pageIndex)}
                       onPreview={() => setPreviewPageIndex(pageIndex)}
                     />
                   ))}
                 </div>
+
                 <PdfPagePreviewModal
                   open={previewPageIndex !== null}
                   fileBytes={fileBytes}
@@ -352,30 +508,26 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
                   }
                   closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
                   loadingLabel={ws.wsCommon("loadingPagePreview") || ws.wsUi("loadingThumb")}
+                  zoomInLabel={ws.wsCommon("zoomIn") || "Zoom in"}
+                  zoomOutLabel={ws.wsCommon("zoomOut") || "Zoom out"}
                   onClose={() => setPreviewPageIndex(null)}
                 />
-                {selectedIndices.length > previewIndices.length ? (
-                  <p className="text-xs text-ink-muted">
-                    {ws.wsUi("previewMore", {
-                      more: selectedIndices.length - previewIndices.length,
-                    })}
-                  </p>
-                ) : null}
               </div>
             ) : null}
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2" data-workspace-actions="">
               <button
                 type="button"
                 className={toolPrimaryBtn}
-                disabled={busy || !selectedIndices.length || Boolean(parseError)}
+                disabled={!canExtract}
                 onClick={() => void onDownload()}
               >
                 {busy ? ws.wsText("applyingLabel") : ws.buttonLabel()}
               </button>
             </div>
-          </>
-        ) : null}
+          </div>
+        </>
+      ) : null}
 
       {runError ? (
         <ToolErrorRecovery
@@ -389,7 +541,7 @@ export function ExtractPdfPagesWorkspace({ tool, slug }: { tool: ToolDefinition;
           }}
         />
       ) : status ? (
-        <p className="text-sm text-ink-muted" role="status" aria-live="polite">
+        <p className="text-sm text-neutral-400" role="status" aria-live="polite">
           {status}
         </p>
       ) : null}

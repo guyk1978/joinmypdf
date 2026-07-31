@@ -17,7 +17,7 @@ export function PdfEditStudio({
   return (
     <div
       className={clsx(
-        "overflow-hidden rounded-none border border-neutral-300 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-950",
+        "overflow-hidden rounded-none border border-neutral-300 bg-neutral-100 dark:border-neutral-600 dark:bg-neutral-700",
         className,
       )}
     >
@@ -43,7 +43,7 @@ export function PdfStudioPage({ children, className, magnifier = true }: PdfStud
   const sheet = (
     <div
       className={clsx(
-        "overflow-hidden rounded-none border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-950",
+        "overflow-hidden rounded-none border border-neutral-300 bg-white dark:border-neutral-500 dark:bg-white",
         className,
       )}
       data-preview-inspect=""

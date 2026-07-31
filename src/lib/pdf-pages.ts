@@ -32,6 +32,33 @@ export async function buildPdfFromPageSequence(
   return out.save({ useObjectStreams: false });
 }
 
+/**
+ * Compact 0-based page indices into a range spec like "1, 3-5, 8".
+ * Duplicates are removed; order is ascending by page number.
+ */
+export function formatPageRangeSpec(indices: number[]): string {
+  const sorted = [...new Set(indices)]
+    .filter((index) => Number.isInteger(index) && index >= 0)
+    .sort((a, b) => a - b);
+  if (!sorted.length) return "";
+
+  const parts: string[] = [];
+  let start = sorted[0]!;
+  let prev = sorted[0]!;
+
+  for (let i = 1; i < sorted.length; i += 1) {
+    const current = sorted[i]!;
+    if (current === prev + 1) {
+      prev = current;
+      continue;
+    }
+    parts.push(start === prev ? String(start + 1) : `${start + 1}-${prev + 1}`);
+    start = prev = current;
+  }
+  parts.push(start === prev ? String(start + 1) : `${start + 1}-${prev + 1}`);
+  return parts.join(", ");
+}
+
 /** Parse a page spec like "1, 3-5, 8" into 0-based indices (in order). */
 export function parsePageRangeSpec(spec: string, pageCount: number): number[] {
   const trimmed = spec.trim();

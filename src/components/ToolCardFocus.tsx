@@ -167,7 +167,13 @@ export function ToolCardFocus({
                   ) : (
                     <span />
                   )}
-                  <Link href={href} className="tool-card-focus__open" prefetch={false}>
+                  <Link
+                    href={href}
+                    className="tool-card-focus__open"
+                    prefetch={false}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {openLabel ?? t("openTool")}
                     <ArrowUpRight
                       className="tool-card-focus__open-icon"

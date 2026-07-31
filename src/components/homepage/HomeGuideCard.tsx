@@ -65,6 +65,8 @@ export function HomeGuideCard({
           href={href}
           className="im-tool-card__action im-tool-card__go"
           prefetch={false}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label={openLabel}
           title={openLabel}
         >

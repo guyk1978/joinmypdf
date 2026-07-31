@@ -1,13 +1,11 @@
 "use client";
 
-import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
-import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
 import { ToolPinButton } from "@/components/ToolPinButton";
 import { useToolsDirectorySelection } from "@/components/ToolsDirectorySelectionContext";
@@ -19,7 +17,7 @@ import {
 } from "@/lib/category-accent-colors";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { getToolCardShortLabel } from "@/lib/tool-labels";
-import { normalizeHubPath, resolveToolHref } from "@/lib/tool-hierarchy";
+import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolRealWorldExampleByLocale } from "@/data/tool-real-world-examples-localized";
 
 export type IndustrialToolCardProps = {
@@ -34,11 +32,14 @@ export type IndustrialToolCardProps = {
   categoryId?: InventoryCategoryId;
   /** Category hub to restore when the tool modal closes. */
   returnHref?: string;
-  /** When false, always navigate (skip modal). Default true. */
+  /**
+   * @deprecated Go always opens the tool page in a new tab.
+   * Kept for call-site compatibility.
+   */
   openInModal?: boolean;
   /**
-   * `tool-modal` — Go opens the workspace modal (hub default).
-   * `focus` — Go / Expand open the expanded focus popup (homepage sections).
+   * `tool-modal` — Expand opens focus popup; Go opens tool in a new tab.
+   * `focus` — Expand / programmatic focus popup (homepage sections).
    */
   interactionMode?: "tool-modal" | "focus";
   /**
@@ -65,12 +66,8 @@ export function IndustrialToolCard({
   className,
   slug,
   categoryId: categoryIdProp,
-  returnHref: returnHrefProp,
-  openInModal = true,
   interactionMode = "tool-modal",
 }: IndustrialToolCardProps) {
-  const modal = useOptionalToolModal();
-  const embed = useToolEmbedMode();
   const locale = useLocale();
   const tCard = useTranslations("ToolCard");
   const tDirectory = useTranslations("ToolsDirectory");
@@ -83,40 +80,12 @@ export function IndustrialToolCard({
   const accentCategoryId =
     resolveToolAccentCategoryId(toolSlug, categoryId) ?? categoryId ?? "pdf";
   const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId, locale) : href;
-  const returnHref =
-    returnHrefProp ?? (categoryId ? normalizeHubPath(categoryId) : undefined);
   const accentStyle = {
     "--category-accent": getCategoryAccentCssVar(accentCategoryId),
   } as CSSProperties;
   const focusInteraction = interactionMode === "focus";
-  const openViaModal = !focusInteraction && openInModal && Boolean(modal) && !embed;
   const selection = useToolsDirectorySelection();
   const selected = selection?.isSelected(toolSlug) ?? false;
-
-  const openTool = (event?: MouseEvent<HTMLAnchorElement>) => {
-    if (focusInteraction) {
-      event?.preventDefault();
-      setFocusOpen(true);
-      return;
-    }
-
-    if (!openViaModal || !modal) return;
-    event?.preventDefault();
-    modal.openToolModal({
-      slug: toolSlug,
-      href: nestedHref,
-      title: shortLabel,
-      description,
-      categoryId,
-      returnHref,
-    });
-  };
-
-  const handleGoClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    if (event.button !== 0) return;
-    openTool(event);
-  };
 
   const exampleKey = `examples.${toolSlug}`;
   const example = tCard.has(exampleKey)
@@ -174,10 +143,10 @@ export function IndustrialToolCard({
           href={nestedHref}
           className="im-tool-card__action im-tool-card__go"
           prefetch={false}
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label={tCard("goAria", { label: shortLabel })}
           title={tCard("goAria", { label: shortLabel })}
-          data-tool-modal-open={openViaModal ? "" : undefined}
-          onClick={handleGoClick}
         >
           <ArrowRight size={16} strokeWidth={2.4} aria-hidden />
         </Link>

@@ -112,6 +112,19 @@ function selectLabelForKind(
     : "Select file from device";
 }
 
+/** True when copy is dropzone instruction text, not a tool page title. */
+function isDropInstructionCopy(text: string): boolean {
+  const value = text.trim();
+  if (!value) return false;
+  if (/^drop\b/i.test(value)) return true;
+  if (/click to browse/i.test(value)) return true;
+  // Hebrew drop prompts (גרור / לחץ / שחרר…)
+  if (/גרור|לחץ|שחרר|העלה/.test(value) && /כאן|לעיון|לבחירה|לקובץ/.test(value)) {
+    return true;
+  }
+  return false;
+}
+
 export function FileUploadZone({
   operation,
   drag = false,
@@ -142,15 +155,10 @@ export function FileUploadZone({
   const isHero = variant === "hero";
 
   const slug = slugProp || pageShell.slug;
-  const isToolPage = pageShell.stacked && Boolean(slug) && !isHero;
-
-  const displayTitle =
-    pageShell.headline || titleProp || (operation ? ws.uploadTitle() : "");
-
-  const displayDescription =
-    pageShell.subline ||
-    descriptionProp ||
-    (operation && showDescription ? ws.uploadDescription() : undefined);
+  // Tool routes / modals already render title + rating + description in page chrome.
+  // Only the homepage hero still needs an upload-zone page header.
+  const suppressPageHeader =
+    !isHero && (pageShell.stacked || Boolean(pageShell.headline) || Boolean(slug));
 
   const acceptFromInput = extractAcceptFromInput(input);
   const acceptSource = acceptProp || acceptFromInput;
@@ -168,7 +176,11 @@ export function FileUploadZone({
     locale === "he" ? localizeHebrewPdfInText(format) : format;
 
   const dropTitle =
-    dropTitleProp || dropTitleForKind(kind, supportedFormats, common);
+    dropTitleProp ||
+    // Callers historically passed drop copy via `title={ws.uploadTitle()}` —
+    // prefer that for the dropzone itself when provided, not as a page H1.
+    (titleProp && isDropInstructionCopy(titleProp) ? titleProp : undefined) ||
+    dropTitleForKind(kind, supportedFormats, common);
 
   const selectLabel =
     selectLabelProp || selectLabelForKind(kind, supportedFormats, common);
@@ -183,14 +195,34 @@ export function FileUploadZone({
     ? formatSupportsLabel(supportedFormats.map(formatLabel))
     : "";
 
+  // Page H1 is the tool name only — never reuse dropzone instruction copy.
+  const shellHeadline = pageShell.headline?.trim() || "";
+  const propTitle = titleProp?.trim() || "";
+  const displayTitle =
+    shellHeadline ||
+    (propTitle && !isDropInstructionCopy(propTitle) ? propTitle : "");
+
+  const shellSubline = pageShell.subline?.trim() || "";
+  const propDescription = descriptionProp?.trim() || "";
+  const displayDescription =
+    shellSubline ||
+    (showDescription && propDescription && !isDropInstructionCopy(propDescription)
+      ? propDescription
+      : undefined) ||
+    (operation && showDescription ? ws.uploadDescription() : undefined);
+
   return (
     <div
       className={clsx(
         "tool-upload-zone flex w-full flex-1 flex-col",
-        isToolPage ? "tool-upload-zone--tool-page" : isHero ? "tool-upload-zone--hero" : "",
+        suppressPageHeader
+          ? "tool-upload-zone--tool-page"
+          : isHero
+            ? "tool-upload-zone--hero"
+            : "",
       )}
     >
-      {!isToolPage && (displayTitle || displayDescription) ? (
+      {!suppressPageHeader && (displayTitle || displayDescription) ? (
         <header className="tool-upload-zone__page-header">
           {displayTitle ? (
             <div className="tool-upload-zone__title-row">

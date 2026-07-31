@@ -29,8 +29,8 @@ function measureToolEmbedFillHeight(): number {
     modal?.querySelector(".tool-modal__heading")?.getBoundingClientRect().height ?? 28;
   const footer =
     modal?.querySelector(".tool-modal__site-footer")?.getBoundingClientRect().height ?? 56;
-  // title + body padding + footer block margin
-  const chrome = siteHeader + title + footer + 8 + 30;
+  // title + tight body gap + footer block margin
+  const chrome = siteHeader + title + footer + 4 + 30;
   return Math.max(400, Math.round(window.innerHeight - chrome));
 }
 

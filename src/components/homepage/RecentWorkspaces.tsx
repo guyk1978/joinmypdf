@@ -6,8 +6,7 @@ import { FileClock } from "lucide-react";
 import { IndustrialToolCard } from "@/components/IndustrialToolCard";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
-import { HomeSection } from "@/components/homepage/HomeSection";
-import { HOME_SECTION_MAX_ITEMS } from "@/components/homepage/home-section";
+import { HomeStaticPanel } from "@/components/homepage/HomeStaticPanel";
 import {
   RECENT_ACTIVITY_CHANGED_EVENT,
   readRecentWorkspaces,
@@ -18,6 +17,9 @@ import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { usePinnedTools } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
+
+/** Compact 3-column grid — up to 5 rows × 3 = 15. */
+const RECENT_WORKSPACES_GRID_SIZE = 15;
 
 type RecentWorkspacesProps = {
   locale: string;
@@ -34,7 +36,7 @@ function formatRelativeTime(at: number, locale: string): string {
 }
 
 /**
- * "Recent Workspaces" — up to 20 recent files as category-style cards.
+ * "Recent Workspaces" — static 3-column tool grid (no carousel).
  */
 export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
   const t = useTranslations("Home");
@@ -72,7 +74,7 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
         description: [entry.fileName, when, toolDescription].filter(Boolean).join(" · "),
         categoryId: inventory.primaryCategory,
       });
-      if (resolved.length >= HOME_SECTION_MAX_ITEMS) break;
+      if (resolved.length >= RECENT_WORKSPACES_GRID_SIZE) break;
     }
     return resolved;
   }, [entries, locale, tTools, pinnedIds, hydrated]);
@@ -80,12 +82,12 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
   if (!items.length) return null;
 
   return (
-    <HomeReveal className="w-full">
-      <HomeSection
+    <HomeReveal className="w-full h-full">
+      <HomeStaticPanel
         id="recent-workspaces-title"
         title={t("landing.recentTitle")}
         icon={<FileClock size={22} strokeWidth={1.75} />}
-        className="home-section--strip"
+        bodyClassName="home-tool-grid home-tool-grid--2x2"
       >
         {items.map(({ key, toolId, href, label, description, categoryId }) => (
           <IndustrialToolCard
@@ -96,9 +98,10 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
             slug={toolId}
             categoryId={categoryId}
             icon={<ToolListIcon slug={toolId} label={label} size="md" />}
+            className="home-tool-grid__card"
           />
         ))}
-      </HomeSection>
+      </HomeStaticPanel>
     </HomeReveal>
   );
 }

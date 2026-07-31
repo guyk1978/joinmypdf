@@ -1,6 +1,7 @@
 "use client";
 
 import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry";
+import type { WorkspaceProjectRestorePayload } from "@/components/WorkspaceProjectControls";
 
 import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
@@ -10,6 +11,7 @@ import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { PdfEditStudio, PdfStudioPage } from "@/components/PdfEditStudio";
+import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { StickyMobileCta } from "@/components/StickyMobileCta";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
@@ -22,15 +24,18 @@ import {
 } from "@/lib/crop-pdf";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
+import { registerPreviewInspectSource } from "@/lib/preview-inspect";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
-import { toolPrimaryBtn } from "@/lib/tool-ui";
+import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
+import { ZoomIn } from "lucide-react";
 import {
   useCallback,
   useEffect,
   useId,
   useRef,
   useState,
+  type CSSProperties,
   type KeyboardEvent as ReactKeyboardEvent,
   type PointerEvent as ReactPointerEvent,
 } from "react";
@@ -137,14 +142,19 @@ function CropPreview({
   onCropChange,
   cropInstructions,
   loadingPreviewLabel,
+  openPreviewLabel,
+  onOpenPreview,
 }: {
   fileBytes: Uint8Array;
   crop: NormalizedCropRect;
   onCropChange: (next: NormalizedCropRect) => void;
   cropInstructions: string;
   loadingPreviewLabel: string;
+  openPreviewLabel: string;
+  onOpenPreview: () => void;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const displayCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
   const [loading, setLoading] = useState(true);
   const dragRef = useRef<DragMode | null>(null);
@@ -161,6 +171,24 @@ function CropPreview({
       cancelled = true;
     };
   }, [fileBytes]);
+
+  useEffect(() => {
+    if (!canvasEl) return;
+    return registerPreviewInspectSource({
+      id: "crop-pdf-preview",
+      getPriority: () => 100,
+      isAvailable: () => Boolean(displayCanvasRef.current || canvasEl),
+      capture: () => {
+        const source = displayCanvasRef.current ?? canvasEl;
+        try {
+          return source.toDataURL("image/png");
+        } catch {
+          return null;
+        }
+      },
+      label: openPreviewLabel,
+    });
+  }, [canvasEl, openPreviewLabel]);
 
   const pointerPos = (event: ReactPointerEvent) => {
     const rect = wrapRef.current?.getBoundingClientRect();
@@ -193,18 +221,31 @@ function CropPreview({
     dragRef.current = null;
   };
 
-  const boxStyle = {
+  const boxStyle: CSSProperties = {
     left: `${crop.nx * 100}%`,
     top: `${crop.ny * 100}%`,
     width: `${crop.nw * 100}%`,
     height: `${crop.nh * 100}%`,
+    // Dim only outside the crop frame — keep the kept region fully bright.
+    boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.28)",
   };
 
   return (
     <div className="space-y-3">
-      <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{cropInstructions}</p>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-sm text-neutral-700 dark:text-neutral-200">{cropInstructions}</p>
+        <button
+          type="button"
+          className={toolOutlineBtn}
+          onClick={onOpenPreview}
+          disabled={loading || !canvasEl}
+        >
+          <ZoomIn className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
+          {openPreviewLabel}
+        </button>
+      </div>
       <PdfEditStudio minHeight={loading ? "min-h-[320px]" : undefined}>
-        <PdfStudioPage className="mx-auto max-w-full">
+        <PdfStudioPage className="mx-auto max-w-full" magnifier={false}>
           <div
             ref={wrapRef}
             className="relative touch-none select-none overflow-hidden"
@@ -214,13 +255,14 @@ function CropPreview({
             onPointerLeave={onPointerUp}
           >
             {loading ? (
-              <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+              <div className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-neutral-600 dark:text-neutral-300">
                 {loadingPreviewLabel}
               </div>
             ) : null}
             {canvasEl ? (
               <canvas
                 ref={(node) => {
+                  displayCanvasRef.current = node;
                   if (node && canvasEl) {
                     node.width = canvasEl.width;
                     node.height = canvasEl.height;
@@ -233,58 +275,57 @@ function CropPreview({
             ) : null}
             {!loading ? (
               <>
-                <div className="pointer-events-none absolute inset-0 bg-black/45" aria-hidden />
                 <div
-                  className="pointer-events-none absolute border-2 border-neutral-300 dark:border-neutral-800(0,0,0,0.45)] dark:border-neutral-300 dark:border-neutral-800"
+                  className="pointer-events-none absolute border-2 border-sky-400"
                   style={boxStyle}
                 />
                 {(["nw", "n", "ne", "e", "se", "s", "sw", "w"] as const).map((handle) => {
-              const style: React.CSSProperties = { cursor: HANDLE_CURSORS[handle] };
-              if (handle === "nw") Object.assign(style, { left: boxStyle.left, top: boxStyle.top });
-              if (handle === "n")
-                Object.assign(style, {
-                  left: `calc(${crop.nx * 100}% + ${(crop.nw * 100) / 2}% - 6px)`,
-                  top: boxStyle.top,
-                });
-              if (handle === "ne")
-                Object.assign(style, {
-                  left: `calc(${(crop.nx + crop.nw) * 100}% - 12px)`,
-                  top: boxStyle.top,
-                });
-              if (handle === "e")
-                Object.assign(style, {
-                  left: `calc(${(crop.nx + crop.nw) * 100}% - 12px)`,
-                  top: `calc(${crop.ny * 100}% + ${(crop.nh * 100) / 2}% - 6px)`,
-                });
-              if (handle === "se")
-                Object.assign(style, {
-                  left: `calc(${(crop.nx + crop.nw) * 100}% - 12px)`,
-                  top: `calc(${(crop.ny + crop.nh) * 100}% - 12px)`,
-                });
-              if (handle === "s")
-                Object.assign(style, {
-                  left: `calc(${crop.nx * 100}% + ${(crop.nw * 100) / 2}% - 6px)`,
-                  top: `calc(${(crop.ny + crop.nh) * 100}% - 12px)`,
-                });
-              if (handle === "sw")
-                Object.assign(style, {
-                  left: boxStyle.left,
-                  top: `calc(${(crop.ny + crop.nh) * 100}% - 12px)`,
-                });
-              if (handle === "w")
-                Object.assign(style, {
-                  left: boxStyle.left,
-                  top: `calc(${crop.ny * 100}% + ${(crop.nh * 100) / 2}% - 6px)`,
-                });
-              return (
-                <span
-                  key={handle}
-                  className="absolute z-10 h-3 w-3 rounded-none border-2 border-neutral-300 dark:border-neutral-800 bg-white dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900"
-                  style={style}
-                  aria-hidden
-                />
-              );
-            })}
+                  const style: CSSProperties = { cursor: HANDLE_CURSORS[handle] };
+                  if (handle === "nw") Object.assign(style, { left: boxStyle.left, top: boxStyle.top });
+                  if (handle === "n")
+                    Object.assign(style, {
+                      left: `calc(${crop.nx * 100}% + ${(crop.nw * 100) / 2}% - 6px)`,
+                      top: boxStyle.top,
+                    });
+                  if (handle === "ne")
+                    Object.assign(style, {
+                      left: `calc(${(crop.nx + crop.nw) * 100}% - 12px)`,
+                      top: boxStyle.top,
+                    });
+                  if (handle === "e")
+                    Object.assign(style, {
+                      left: `calc(${(crop.nx + crop.nw) * 100}% - 12px)`,
+                      top: `calc(${crop.ny * 100}% + ${(crop.nh * 100) / 2}% - 6px)`,
+                    });
+                  if (handle === "se")
+                    Object.assign(style, {
+                      left: `calc(${(crop.nx + crop.nw) * 100}% - 12px)`,
+                      top: `calc(${(crop.ny + crop.nh) * 100}% - 12px)`,
+                    });
+                  if (handle === "s")
+                    Object.assign(style, {
+                      left: `calc(${crop.nx * 100}% + ${(crop.nw * 100) / 2}% - 6px)`,
+                      top: `calc(${(crop.ny + crop.nh) * 100}% - 12px)`,
+                    });
+                  if (handle === "sw")
+                    Object.assign(style, {
+                      left: boxStyle.left,
+                      top: `calc(${(crop.ny + crop.nh) * 100}% - 12px)`,
+                    });
+                  if (handle === "w")
+                    Object.assign(style, {
+                      left: boxStyle.left,
+                      top: `calc(${crop.ny * 100}% + ${(crop.nh * 100) / 2}% - 6px)`,
+                    });
+                  return (
+                    <span
+                      key={handle}
+                      className="absolute z-10 h-3 w-3 rounded-none border-2 border-sky-400 bg-white"
+                      style={style}
+                      aria-hidden
+                    />
+                  );
+                })}
               </>
             ) : null}
           </div>
@@ -305,6 +346,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
   const [done, setDone] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
   const [drag, setDrag] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { startNewUpload } = useWorkspaceFileFlow(inputRef, Boolean(file && fileBytes));
   const baseId = useId();
@@ -323,41 +365,46 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
     setStatus("");
     setDone(false);
     setRunError(null);
+    setPreviewOpen(false);
     if (inputRef.current) inputRef.current.value = "";
   }, []);
 
-  const pickFile = async (next: File) => {
-    if (!acceptPdf(next)) {
-      setStatus(ws.wsStatus("invalidType"));
-      return;
-    }
-    if (next.size === 0) {
-      setStatus(ws.wsStatus("emptyFile"));
-      return;
-    }
-    setBusy(true);
-    setRunError(null);
-    setDone(false);
-    setStatus(ws.wsStatus("reading"));
-    try {
-      const bytes = new Uint8Array(await next.arrayBuffer());
-      const count = await loadPdfPageCount(bytes);
-      setFile(next);
-      setFileBytes(bytes);
-      setPageCount(count);
-      setCrop(DEFAULT_CROP_RECT);
-      setStatus(ws.wsStatus("fileReady", { name: next.name }));
-      capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
-    } catch (e) {
-      const parsed = classifyPdfError(e);
-      setRunError(parsed);
-      setStatus("");
-      setFile(null);
-      setFileBytes(null);
-    } finally {
-      setBusy(false);
-    }
-  };
+  const pickFile = useCallback(
+    async (next: File, restoreCrop?: NormalizedCropRect) => {
+      if (!acceptPdf(next)) {
+        setStatus(ws.wsStatus("invalidType"));
+        return;
+      }
+      if (next.size === 0) {
+        setStatus(ws.wsStatus("emptyFile"));
+        return;
+      }
+      setBusy(true);
+      setRunError(null);
+      setDone(false);
+      setPreviewOpen(false);
+      setStatus(ws.wsStatus("reading"));
+      try {
+        const bytes = new Uint8Array(await next.arrayBuffer());
+        const count = await loadPdfPageCount(bytes);
+        setFile(next);
+        setFileBytes(bytes);
+        setPageCount(count);
+        setCrop(restoreCrop ? clampCropRect(restoreCrop) : DEFAULT_CROP_RECT);
+        setStatus(ws.wsStatus("fileReady", { name: next.name }));
+        capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
+      } catch (e) {
+        const parsed = classifyPdfError(e);
+        setRunError(parsed);
+        setStatus("");
+        setFile(null);
+        setFileBytes(null);
+      } finally {
+        setBusy(false);
+      }
+    },
+    [acceptPdf, tool.operation, ws.wsStatus],
+  );
 
   const onApply = async () => {
     if (!file) return;
@@ -393,18 +440,34 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
 
   const showWorkspace = Boolean(file && fileBytes);
 
-
-  const onRestoreProject = useCallback((payload: { files: File[] }) => {
-    const next = payload.files[0];
-    if (!next) return;
-    void pickFile(next);
-  }, []);
+  const onRestoreProject = useCallback(
+    (payload: WorkspaceProjectRestorePayload) => {
+      const next = payload.files[0];
+      if (!next) return;
+      const saved = payload.settings?.crop;
+      const restoreCrop =
+        saved &&
+        typeof saved === "object" &&
+        saved !== null &&
+        "nx" in saved &&
+        "ny" in saved &&
+        "nw" in saved &&
+        "nh" in saved
+          ? clampCropRect(saved as NormalizedCropRect)
+          : undefined;
+      void pickFile(next, restoreCrop);
+    },
+    [pickFile],
+  );
 
   useWorkspaceProjectBridge({
     files: file ? [file] : [],
+    settings: { crop },
     disabled: !file || busy,
     onRestore: onRestoreProject,
   });
+
+  const openPreviewLabel = ws.wsUi("openPreview") || ws.wsCommon("openPreview") || "Zoom preview";
 
   return (
     <div id="tool-workspace" className="crop-pdf-tool-page tool-workspace--wide space-y-3 pb-12 md:pb-8">
@@ -453,15 +516,19 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
       </WorkspaceUploadShell>
 
       {showWorkspace && fileBytes ? (
-        <div id={WORKSPACE_OPERATIONS_ID} className="space-y-2 rounded-none border border-neutral-300 dark:border-neutral-800 bg-white p-3 md:p-4 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-200 dark:bg-neutral-900">
+        <div
+          id={WORKSPACE_OPERATIONS_ID}
+          className="tool-workspace-panel space-y-3"
+          data-embed-measure=""
+        >
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
-              <p className="text-sm font-semibold text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">{file?.name}</p>
-              <p className="mt-1 text-xs text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+              <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{file?.name}</p>
+              <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-300">
                 {ws.wsUi("pageSummary", { count: pageCount })}
               </p>
             </div>
-            <span className="rounded-none border border-neutral-300 dark:border-neutral-800 bg-neutral-900 dark:bg-neutral-200 px-3 py-1 text-xs font-semibold text-black dark:text-neutral-200 dark:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:bg-neutral-200/40 dark:text-black dark:text-neutral-200">
+            <span className="rounded-none border border-neutral-400 bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-800 dark:border-neutral-500 dark:bg-neutral-800 dark:text-neutral-100">
               {ws.clientSideOnly}
             </span>
           </div>
@@ -472,15 +539,32 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
             onCropChange={setCrop}
             cropInstructions={ws.wsUi("cropInstructions")}
             loadingPreviewLabel={ws.wsCommon("loadingPreview")}
+            openPreviewLabel={openPreviewLabel}
+            onOpenPreview={() => setPreviewOpen(true)}
+          />
+
+          <PdfPagePreviewModal
+            open={previewOpen}
+            fileBytes={fileBytes}
+            pageIndex={0}
+            title={
+              ws.wsCommon("pageOf", { current: 1, total: Math.max(pageCount, 1) }) ||
+              `Page 1 of ${Math.max(pageCount, 1)}`
+            }
+            closeLabel={ws.wsCommon("closePagePreview") || "Close page preview"}
+            loadingLabel={ws.wsCommon("loadingPagePreview") || ws.wsCommon("loadingPreview")}
+            zoomInLabel={ws.wsCommon("zoomIn") || "Zoom in"}
+            zoomOutLabel={ws.wsCommon("zoomOut") || "Zoom out"}
+            onClose={() => setPreviewOpen(false)}
           />
 
           {busy ? (
             <div className="space-y-2" aria-live="polite">
-              <div className="flex items-center justify-between text-xs text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200">
+              <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-300">
                 <span>{ws.processing}</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-none bg-neutral-100 dark:bg-neutral-900 dark:bg-neutral-200 dark:bg-neutral-900">
-                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-700 dark:bg-neutral-300" />
+              <div className="h-2 overflow-hidden rounded-none bg-neutral-200 dark:bg-neutral-800">
+                <div className="h-full w-2/3 animate-pulse rounded-none bg-neutral-600 dark:bg-neutral-300" />
               </div>
             </div>
           ) : null}
@@ -498,7 +582,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               type="button"
               disabled={busy}
               onClick={() => setCrop(DEFAULT_CROP_RECT)}
-              className="rounded-none border border-neutral-300 dark:border-neutral-800 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-100 dark:bg-neutral-950 disabled:opacity-50 dark:border-neutral-300 dark:border-neutral-800 dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-900"
+              className={toolOutlineBtn}
             >
               {ws.wsUi("resetFrame")}
             </button>
@@ -506,7 +590,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
               type="button"
               disabled={busy}
               onClick={reset}
-              className="rounded-none border border-neutral-300 dark:border-neutral-800 px-5 py-3 text-sm font-semibold text-black dark:text-neutral-200 transition hover:bg-neutral-100 dark:bg-neutral-950 disabled:opacity-50 dark:border-neutral-300 dark:border-neutral-800 dark:text-black dark:text-neutral-200 dark:hover:bg-neutral-200 dark:bg-neutral-900"
+              className={toolOutlineBtn}
             >
               {ws.chooseAnotherFile}
             </button>
@@ -531,7 +615,7 @@ export function CropPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: s
           }}
         />
       ) : (
-        <p className="text-sm text-black dark:text-neutral-200 dark:text-black dark:text-neutral-200" role="status" aria-live="polite">
+        <p className="text-sm text-neutral-700 dark:text-neutral-300" role="status" aria-live="polite">
           {status}
         </p>
       )}
