@@ -2,7 +2,6 @@ import { BlogMagazineIndex } from "@/components/BlogMagazineIndex";
 import { AppPageShell } from "@/components/AppPageShell";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { getBlogRegistry } from "@/lib/blog-registry";
-import { productPageMainClassName } from "@/lib/tool-ui";
 import type { Metadata } from "next";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -40,12 +39,14 @@ export default async function BlogIndexPage({ params }: Props) {
   );
 
   return (
-    <AppPageShell mainClassName={productPageMainClassName}>
-      <ProductPageLayout title={t("title")} description={t("description")} variant="magazine">
-        {posts.length > 0 ? (
-          <BlogMagazineIndex posts={posts} />
-        ) : null}
-      </ProductPageLayout>
+    <AppPageShell>
+      <div className="page-container app-hub-content-rail">
+        <ProductPageLayout title={t("title")} description={t("description")} variant="magazine">
+          {posts.length > 0 ? (
+            <BlogMagazineIndex posts={posts} />
+          ) : null}
+        </ProductPageLayout>
+      </div>
     </AppPageShell>
   );
 }

@@ -6,7 +6,7 @@ type BlogArticleTemplateProps = {
 };
 
 /**
- * Permanent full-page article shell — full-bleed hero + centered reading column.
+ * Permanent full-page article shell — fills the AppPageShell 90% content rail.
  * Renders inside AppPageShell (site header + footer); never a modal.
  */
 export function BlogArticleTemplate({ children }: BlogArticleTemplateProps) {

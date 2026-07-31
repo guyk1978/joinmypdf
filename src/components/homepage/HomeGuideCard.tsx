@@ -3,8 +3,8 @@
 import type { CSSProperties, ReactNode } from "react";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { clsx } from "clsx";
-import { Link } from "@/i18n/navigation";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
+import { ToolCardGoLink } from "@/components/ToolCardGoLink";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getCategoryAccentCssVar } from "@/lib/category-accent-colors";
 
@@ -61,17 +61,14 @@ export function HomeGuideCard({
           className="im-tool-card__action im-tool-card__expand"
         />
 
-        <Link
+        <ToolCardGoLink
           href={href}
           className="im-tool-card__action im-tool-card__go"
-          prefetch={false}
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label={openLabel}
           title={openLabel}
         >
           <ArrowRight size={16} strokeWidth={2.4} aria-hidden />
-        </Link>
+        </ToolCardGoLink>
       </div>
     </div>
   );

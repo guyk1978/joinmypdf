@@ -1,4 +1,3 @@
-import { clsx } from "clsx";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight, Clock } from "lucide-react";
@@ -33,7 +32,6 @@ import {
 } from "@/lib/schema";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { registry } from "@/lib/registry";
-import { imBtnCta } from "@/lib/design-system";
 import type { BlogPost } from "@/lib/types";
 
 type BlogArticleContentProps = {
@@ -277,7 +275,7 @@ export async function BlogArticleContent({
                 <div className="article-panel__body">
                   <CompactToolCardGrid
                     variant="glass"
-                    className="gap-4 md:grid-cols-2"
+                    className="blog-article-workflow-tools"
                     items={tools.map((tool) => ({
                       href: `/tools/${tool.slug}/`,
                       label: translateToolItem(tTools, tool.slug, tool.title),
@@ -313,12 +311,12 @@ export async function BlogArticleContent({
                 <h2 id="related-pages" className="article-panel__title">
                   {t("article.relatedPages")}
                 </h2>
-                <ul className="article-panel__body flex flex-wrap gap-3">
+                <ul className="article-panel__body flex flex-wrap gap-x-5 gap-y-2">
                   {internalLinks.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className={clsx(imBtnCta, "im-btn-cta--rounded inline-flex gap-2")}
+                        className="blog-article-inline-link"
                         prefetch={false}
                       >
                         {link.anchor}
@@ -331,10 +329,10 @@ export async function BlogArticleContent({
             ) : null}
 
             {tools[0] ? (
-              <div className="article-cta flex justify-center">
+              <div className="article-cta flex justify-start">
                 <Link
                   href={`/tools/${tools[0].slug}/`}
-                  className={clsx(imBtnCta, "im-btn-cta--rounded inline-flex gap-2")}
+                  className="blog-article-inline-link"
                   prefetch={false}
                 >
                   {bottomCtaLabel ||

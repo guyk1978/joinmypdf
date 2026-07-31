@@ -1,6 +1,6 @@
 import type { CSSProperties, MouseEvent, ReactNode } from "react";
-import { Link } from "@/i18n/navigation";
 import { clsx } from "clsx";
+import { ToolCardGoLink } from "@/components/ToolCardGoLink";
 import {
   getCategoryAccentCssVar,
   resolveToolAccentCategoryId,
@@ -64,15 +64,14 @@ export function ToolCard({
 
   if (href) {
     return (
-      <Link
+      <ToolCardGoLink
         href={href}
         className={cardClassName}
         style={accentStyle}
         data-category={categoryId || undefined}
-        prefetch={false}
       >
         {body}
-      </Link>
+      </ToolCardGoLink>
     );
   }
 

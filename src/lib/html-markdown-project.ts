@@ -192,7 +192,9 @@ export async function downloadBatchZip(results: BatchConvertResult[]): Promise<v
 }
 
 export function openGistEditor(): void {
-  window.open("https://gist.github.com/", "_blank", "noopener,noreferrer");
+  // Native new-tab open — never pass window features (that forces a popup window).
+  const opened = window.open("https://gist.github.com/", "_blank");
+  if (opened) opened.opener = null;
 }
 
 export function buildGistClipboardPayload(markdown: string, fileName = "draft.md"): string {

@@ -5,8 +5,8 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
+import { ToolCardGoLink } from "@/components/ToolCardGoLink";
 import { ToolPinButton } from "@/components/ToolPinButton";
 import { useToolsDirectorySelection } from "@/components/ToolsDirectorySelectionContext";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
@@ -139,17 +139,14 @@ export function IndustrialToolCard({
           className="im-tool-card__action im-tool-card__pin"
         />
 
-        <Link
+        <ToolCardGoLink
           href={nestedHref}
           className="im-tool-card__action im-tool-card__go"
-          prefetch={false}
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label={tCard("goAria", { label: shortLabel })}
           title={tCard("goAria", { label: shortLabel })}
         >
           <ArrowRight size={16} strokeWidth={2.4} aria-hidden />
-        </Link>
+        </ToolCardGoLink>
       </div>
     </div>
   );

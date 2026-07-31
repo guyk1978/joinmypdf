@@ -6,8 +6,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { ArrowUpRight, Maximize2, X } from "lucide-react";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { ToolCardExample } from "@/components/ToolCardExample";
+import { ToolCardGoLink } from "@/components/ToolCardGoLink";
 import { ToolPinButton } from "@/components/ToolPinButton";
 import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
@@ -167,20 +167,14 @@ export function ToolCardFocus({
                   ) : (
                     <span />
                   )}
-                  <Link
-                    href={href}
-                    className="tool-card-focus__open"
-                    prefetch={false}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <ToolCardGoLink href={href} className="tool-card-focus__open">
                     {openLabel ?? t("openTool")}
                     <ArrowUpRight
                       className="tool-card-focus__open-icon"
                       strokeWidth={2.25}
                       aria-hidden
                     />
-                  </Link>
+                  </ToolCardGoLink>
                 </div>
               </div>
             </div>,

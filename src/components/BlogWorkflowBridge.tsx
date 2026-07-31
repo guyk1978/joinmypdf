@@ -1,11 +1,9 @@
 import { ArrowUpRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { clsx } from "clsx";
 import { ToolIconBadge } from "@/lib/tool-icons";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { registry } from "@/lib/registry";
-import { imBtnCta } from "@/lib/design-system";
 import type { BlogPost } from "@/lib/types";
 
 type BlogWorkflowBridgeProps = {
@@ -42,7 +40,7 @@ export async function BlogWorkflowBridge({ post }: BlogWorkflowBridgeProps) {
 
         <Link
           href={`/tools/${tool.slug}/`}
-          className={clsx(imBtnCta, "im-btn-cta--rounded blog-workflow-bridge__cta group flex items-center gap-2")}
+          className="blog-article-inline-link blog-workflow-bridge__cta group"
           prefetch={false}
         >
           <ToolIconBadge slug={tool.slug} label={toolLabel} size="sm" className="blog-workflow-bridge__icon" />

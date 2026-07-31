@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Viewport } from "next";
 import { GoogleAdSense } from "@/components/GoogleAdSense";
+import { assistant, heebo } from "@/lib/fonts";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -13,7 +14,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`dark ${assistant.variable} ${heebo.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <GoogleAdSense />
       </head>

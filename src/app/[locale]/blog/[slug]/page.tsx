@@ -7,7 +7,6 @@ import {
   generateBlogArticleStaticParams,
   resolveBlogArticlePost,
 } from "@/lib/blog-article";
-import { productPageMainClassName } from "@/lib/tool-ui";
 import type { Metadata } from "next";
 
 export const dynamicParams = false;
@@ -34,8 +33,10 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <AppPageShell mainClassName={productPageMainClassName}>
-      <BlogArticleContent post={post} locale={locale} />
+    <AppPageShell>
+      <div className="page-container app-hub-content-rail">
+        <BlogArticleContent post={post} locale={locale} />
+      </div>
     </AppPageShell>
   );
 }
