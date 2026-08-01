@@ -10,6 +10,7 @@ import { FeedbackSection } from "@/components/layout/FeedbackSection";
 import { ToolDocBodySections } from "@/components/layout/ToolDocBodySections";
 import { ToolDocHeader } from "@/components/layout/ToolDocHeader";
 import { ToolPageViewShell } from "@/components/layout/ToolPageViewShell";
+import { ToolWorkspaceOverview } from "@/components/layout/ToolWorkspaceOverview";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { ToolLocalProcessingBar } from "@/components/ToolLocalProcessingBar";
 import { ToolPageHeader } from "@/components/ToolPageHeader";
@@ -128,12 +129,15 @@ export function ToolLayout({
     ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
     : undefined;
 
-  // CALC = interactive workspace only (no titles, crumbs, docs, or privacy chrome).
+  // CALC = interactive workspace + visible overview (SEO; DOC tab stays deeper).
+  // Overview also mounts inside WorkspaceUploadShell; CSS hides this fallback when
+  // the shell already rendered one to avoid duplicates.
   const calcPane = (
     <>
       <div className={clsx("tool-page-layout__content flex min-h-0 w-full flex-1 flex-col", contentClassName)}>
         <WorkerErrorBoundary>{children}</WorkerErrorBoundary>
       </div>
+      <ToolWorkspaceOverview className="tool-workspace-overview--layout-fallback" />
       {resolvedSlug ? <AdContainer /> : null}
     </>
   );

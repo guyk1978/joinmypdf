@@ -2,6 +2,7 @@
 
 import { clsx } from "clsx";
 import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { ToolWorkspaceOverview } from "@/components/layout/ToolWorkspaceOverview";
 import { usePendingDropzoneHandoff } from "@/hooks/usePendingFileInputHandoff";
 import {
   setToolHasUploadShell,
@@ -25,6 +26,11 @@ type WorkspaceUploadShellProps = {
   requiresUpload?: boolean;
   /** @deprecated Privacy badge is rendered by layout/ToolLayout on tool routes. */
   showPrivacyBadge?: boolean;
+  /**
+   * Render the DOC overview strip under the workspace (default true on tool pages).
+   * Disable for homepage hero and other non-tool shells.
+   */
+  showOverview?: boolean;
 };
 
 function resolvePhase(
@@ -65,6 +71,7 @@ export function WorkspaceUploadShell({
   className,
   active,
   requiresUpload,
+  showOverview = true,
 }: WorkspaceUploadShellProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const isUploadToolRef = useRef(
@@ -149,6 +156,7 @@ export function WorkspaceUploadShell({
       data-requires-upload={requiresUpload === false ? "0" : "1"}
     >
       {children}
+      {showOverview ? <ToolWorkspaceOverview /> : null}
     </div>
   );
 }

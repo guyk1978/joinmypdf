@@ -32,7 +32,7 @@ export function HeroDropzone() {
   return (
     <ToolGlassProvider category="edit">
       <ToolPageShellProvider headline={t("title")} subline={t("description")} slug="pdf-merge">
-        <WorkspaceUploadShell showPrivacyBadge={false}>
+        <WorkspaceUploadShell showPrivacyBadge={false} showOverview={false}>
           <FileUploadZone
             variant="hero"
             slug="pdf-merge"
