@@ -32,12 +32,12 @@ export type IndustrialToolCardProps = {
   /** Category hub to restore when the tool modal closes. */
   returnHref?: string;
   /**
-   * @deprecated Go always opens the tool page in a new tab.
+   * @deprecated Go always opens the tool page in the same tab.
    * Kept for call-site compatibility.
    */
   openInModal?: boolean;
   /**
-   * `tool-modal` — Expand opens focus popup; main card opens tool in a new tab.
+   * `tool-modal` — Expand opens focus popup; main card opens the tool in the same tab.
    * `focus` — Expand / programmatic focus popup (homepage sections).
    */
   interactionMode?: "tool-modal" | "focus";
@@ -55,7 +55,7 @@ function slugFromHref(href: string): string {
 
 /**
  * Compact Industrial Matte tool card:
- * selectable body (new tab) + separate expand / pin squares.
+ * selectable body (same tab) + separate expand / pin squares.
  */
 export function IndustrialToolCard({
   href,

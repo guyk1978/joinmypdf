@@ -2,7 +2,7 @@ import { routing } from "@/i18n/routing";
 
 /**
  * Prefix an internal app path with the active locale for use on native `<a>` tags
- * (e.g. tool-card go links that must open with target="_blank").
+ * (e.g. tool-card go links that navigate in the same tab).
  */
 export function localizeAppHref(href: string, locale: string): string {
   if (!href) return href;
