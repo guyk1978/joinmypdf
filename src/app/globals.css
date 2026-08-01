@@ -46,6 +46,7 @@
   --tool-workspace-gutter: 0;
   --tool-footer-gap: 30px;
   --home-page-footer-block: 3.25rem; /* compact footer bar height */
+  --home-page-footer-pad-inline: 1rem; /* px-4 — matches content gutters */
   --im-dropzone-min-height: 400px; /* floor so upload boxes never collapse */
   /* Category accent map — solid rich primaries for hubs + tool cards (no pastels) */
   --color-pdf: #2563EB;
@@ -451,7 +452,7 @@ html[data-tool-embed="1"] .app-page-canvas,
   width: var(--app-content-rail-width, 90%);
   max-width: var(--app-content-rail-max, 90vw);
   margin-inline: auto;
-  padding-inline: 0;
+  padding-inline: var(--home-page-footer-pad-inline, 1rem);
 }
 
 .app-page-shell .home-page-footer__link,
@@ -2692,10 +2693,12 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
+  /* Same centered rail as home / library / header content */
   width: var(--app-content-rail-width, 90%);
   max-width: var(--app-content-rail-max, 90vw);
   margin-inline: auto;
-  padding: 0.875rem 0;
+  padding-block: 0.875rem;
+  padding-inline: var(--home-page-footer-pad-inline, 1rem);
 }
 
 .home-page-footer__copy {
@@ -4168,10 +4171,11 @@ a.im-tool-card:focus-visible {
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__inner {
-  width: 100%;
-  max-width: none;
-  margin-inline: 0;
-  padding-inline: 0;
+  /* Keep footer copy/links on the shared 90% rail (not edge-to-edge) */
+  width: var(--app-content-rail-width, 90%);
+  max-width: var(--app-content-rail-max, 90vw);
+  margin-inline: auto;
+  padding-inline: var(--home-page-footer-pad-inline, 1rem);
   padding-block: 0.75rem;
 }
 
@@ -17291,7 +17295,7 @@ html.workspace-phase-clean .home-page-footer__inner {
   min-height: 0;
   margin-inline: auto;
   padding-block: 0.75rem;
-  padding-inline: 0;
+  padding-inline: var(--home-page-footer-pad-inline, 1rem);
   box-sizing: border-box;
 }
 

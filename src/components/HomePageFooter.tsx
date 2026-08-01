@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 
 /**
  * Minimal WattQuick-style footer — copyright left, text links right.
+ * Inner content uses the shared app content rail (centered 90% + gutters).
  */
 export function HomePageFooter() {
   const tFooter = useTranslations("Footer");
@@ -12,7 +13,7 @@ export function HomePageFooter() {
 
   return (
     <footer className="home-page-footer" data-site-footer="1">
-      <div className="home-page-footer__inner">
+      <div className="home-page-footer__inner app-content-rail">
         <p className="home-page-footer__copy">
           {tFooter("copyrightLine", { year })}
         </p>
