@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ToolDocBodySections } from "@/components/layout/ToolDocBodySections";
@@ -16,8 +16,11 @@ import type {
   ToolModalRelatedTool,
 } from "@/lib/tool-modal-catalog";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
-import { WORKSPACE_PHASE_MESSAGE, type WorkspacePhase } from "@/lib/workspace-flow";
-import { TOOL_EMBED_HEIGHT_MESSAGE } from "@/lib/workspace-project-messages";
+import { WORKSPACE_PHASE_MESSAGE } from "@/lib/workspace-flow";
+import {
+  TOOL_EMBED_HEIGHT_MESSAGE,
+  TOOL_EMBED_HEIGHT_REQUEST_MESSAGE,
+} from "@/lib/workspace-project-messages";
 
 /** Viewport-based iframe height for clean-phase immersive dropzone (avoids scrollHeight feedback). */
 function measureToolEmbedFillHeight(): number {
@@ -299,6 +302,7 @@ export function ToolModalCalcFrame({
   loadingLabel?: string;
   onReadyChange?: (ready: boolean) => void;
 }) {
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const [ready, setReady] = useState(false);
   const [embedMode, setEmbedMode] = useState<"content" | "fill">("fill");
   const [embedHeight, setEmbedHeight] = useState<number | null>(null);
@@ -309,6 +313,17 @@ export function ToolModalCalcFrame({
     setEmbedHeight(null);
     onReadyChange?.(false);
   }, [src, onReadyChange]);
+
+  const requestEmbedHeight = () => {
+    try {
+      iframeRef.current?.contentWindow?.postMessage(
+        { type: TOOL_EMBED_HEIGHT_REQUEST_MESSAGE },
+        window.location.origin,
+      );
+    } catch {
+      // ignore
+    }
+  };
 
   useEffect(() => {
     const applyFill = () => {
@@ -322,16 +337,15 @@ export function ToolModalCalcFrame({
       const type = (data as { type?: string }).type;
 
       if (type === WORKSPACE_PHASE_MESSAGE) {
-        const phase = (data as { phase?: WorkspacePhase }).phase;
-        if (phase === "clean") applyFill();
+        // Height is driven only by TOOL_EMBED_HEIGHT_MESSAGE from the iframe
+        // (fill vs content depending on whether Overview is present).
         return;
       }
 
       if (type !== TOOL_EMBED_HEIGHT_MESSAGE) return;
 
       const mode = (data as { mode?: string }).mode;
-      const phase = (data as { phase?: string }).phase;
-      if (mode === "fill" || phase === "clean") {
+      if (mode === "fill") {
         applyFill();
         return;
       }
@@ -342,9 +356,8 @@ export function ToolModalCalcFrame({
       setEmbedHeight(Math.ceil(height));
     };
 
-    const onCustomPhase = (event: Event) => {
-      const phase = (event as CustomEvent<{ phase?: WorkspacePhase }>).detail?.phase;
-      if (phase === "clean") applyFill();
+    const onCustomPhase = (_event: Event) => {
+      // Ignore — iframe reports fill/content explicitly.
     };
 
     window.addEventListener("message", onMessage);
@@ -378,6 +391,7 @@ export function ToolModalCalcFrame({
         </div>
       ) : null}
       <iframe
+        ref={iframeRef}
         className={
           ready ? "tool-modal__iframe tool-modal__iframe--ready" : "tool-modal__iframe"
         }
@@ -393,6 +407,10 @@ export function ToolModalCalcFrame({
         onLoad={() => {
           setReady(true);
           onReadyChange?.(true);
+          // Re-request height: early iframe posts can fire before this listener
+          // is attached, leaving the iframe at the CSS fallback height.
+          requestEmbedHeight();
+          window.setTimeout(requestEmbedHeight, 250);
         }}
       />
     </div>

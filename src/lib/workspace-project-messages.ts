@@ -155,3 +155,5 @@ export function broadcastProjectSaved(message: string) {
 }
 
 export const TOOL_EMBED_HEIGHT_MESSAGE = "joinmypdf:tool-embed-height";
+/** Parent asks the embed iframe to re-post its fill/content height. */
+export const TOOL_EMBED_HEIGHT_REQUEST_MESSAGE = "joinmypdf:tool-embed-height-request";

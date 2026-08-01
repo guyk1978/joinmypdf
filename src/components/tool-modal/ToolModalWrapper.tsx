@@ -36,7 +36,9 @@ import { requestPreviewInspect } from "@/lib/preview-inspect";
 import { ToolModalRating } from "@/components/tool-modal/ToolModalRating";
 import { HomePageFooter } from "@/components/HomePageFooter";
 import {
+  getCategoryAccentColor,
   getCategoryAccentCssVar,
+  getContrastingInk,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
 import {
@@ -172,7 +174,10 @@ export function ToolModalWrapper({
     usePageShare(sharePayload);
   const categoryId = categoryIdProp ?? resolveToolCategoryId(slug);
   const accentStyle = categoryId
-    ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
+    ? ({
+        "--category-accent": getCategoryAccentCssVar(categoryId),
+        "--category-accent-ink": getContrastingInk(getCategoryAccentColor(categoryId)),
+      } as CSSProperties)
     : undefined;
 
   useEffect(() => {

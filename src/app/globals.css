@@ -34,6 +34,9 @@
   --app-canvas-max-width: 90vw;
   --app-content-rail-width: 90%;
   --app-content-rail-max: 90vw;
+  /* Shared DOC / Overview / upload column (matches .tool-page-pane-rail) */
+  --tool-pane-rail-max: 72rem;
+  --tool-pane-rail-pad-inline: 1rem;
   /* Homepage / hubs / blog — centered content column inside the 90% shell */
   --app-hub-content-width: 80%;
   --app-hub-content-max: 1200px;
@@ -341,6 +344,13 @@ html:has(.home-page-shell--minimal) body {
   border-radius: 0;
   background-color: var(--app-canvas-bg);
   box-shadow: none;
+  /* Clearance for fixed site footer (mirrors header space above) */
+  padding-bottom: var(--home-page-footer-block, 3.25rem);
+}
+
+html[data-tool-embed="1"] .app-page-canvas,
+.app-page-canvas--tool-embed {
+  padding-bottom: 0;
 }
 
 /* Centered inner content column — shares the global 90% rail */
@@ -395,11 +405,22 @@ html:has(.home-page-shell--minimal) body {
 }
 
 .app-page-shell .home-tool-grid-page,
-.app-page-shell .home-page-footer,
-.home-page-shell--minimal .home-tool-grid-page,
-.home-page-shell--minimal .home-page-footer {
+.home-page-shell--minimal .home-tool-grid-page {
   position: relative;
   z-index: 1;
+}
+
+.app-page-shell .home-page-footer,
+.home-page-shell--minimal .home-page-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: #121212;
+  color: #d4d4d4;
 }
 
 .app-page-shell .home-trust-signals,
@@ -407,23 +428,19 @@ html:has(.home-page-shell--minimal) body {
   display: none;
 }
 
-.app-page-shell .home-page-footer,
-.home-page-shell--minimal .home-page-footer {
-  margin-block: var(--tool-footer-gap, 30px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: #0a0a0a;
-}
-
 /*
- * Tool workspace footer — permanently in the flex shell (SSR + hydrate).
+ * Tool workspace footer — pinned to the viewport bottom (always visible).
  * Sibling selector avoids html:has() and does not depend on workspace-phase JS.
  */
 .app-page-canvas > .tool-page-main ~ .home-page-footer,
 .app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
   flex-shrink: 0;
-  position: relative;
-  z-index: 2;
-  margin-block: var(--tool-footer-gap, 30px);
+  margin: 0;
   box-sizing: border-box;
   padding-inline: 0;
   width: 100%;
@@ -439,7 +456,7 @@ html:has(.home-page-shell--minimal) body {
 
 .app-page-shell .home-page-footer__link,
 .home-page-shell--minimal .home-page-footer__link {
-  color: #737373;
+  color: #d4d4d4;
 }
 
 .home-minimal-layout {
@@ -2652,10 +2669,19 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   text-underline-offset: 3px;
 }
 
-/* Site footer ? WattQuick minimal bar */
+/* Site footer — fixed bottom bar (always visible, mirrors sticky header) */
 .home-page-footer {
-  border-top: 1px solid #333;
-  background-color: #0a0a0a;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  width: 100%;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #121212;
+  color: #d4d4d4;
+  box-sizing: border-box;
 }
 
 .home-page-footer__inner {
@@ -2677,7 +2703,7 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: #737373;
+  color: #d4d4d4;
 }
 
 .home-page-footer__end {
@@ -2691,26 +2717,26 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 .home-page-footer__link {
   font-size: 0.75rem;
   font-weight: 500;
-  color: #737373;
+  color: #d4d4d4;
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .home-page-footer__link:hover,
 .home-page-footer__link:focus-visible {
-  color: #a3a3a3;
+  color: #ffffff;
   text-decoration: none;
   outline: none;
 }
 
 .app-page-shell .home-page-footer__link,
 .home-page-shell--minimal .home-page-footer__link {
-  color: #737373;
+  color: #d4d4d4;
 }
 
 .app-page-shell .home-page-footer__link:hover,
 .home-page-shell--minimal .home-page-footer__link:hover {
-  color: #a3a3a3;
+  color: #ffffff;
 }
 
 .home-trust-signals {
@@ -4050,6 +4076,8 @@ a.im-tool-card:focus-visible {
   transform: none !important;
   background: var(--site-canvas-bg, #121212) !important;
   overflow: visible !important;
+  /* Clearance for fixed modal site footer */
+  padding-bottom: var(--home-page-footer-block, 3.25rem) !important;
 }
 
 /* Fullscreen tool chrome — header + body + footer share the 90% rail */
@@ -4113,17 +4141,27 @@ a.im-tool-card:focus-visible {
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   flex-shrink: 0;
-  margin-block: var(--tool-footer-gap, 30px);
+  margin: 0;
   padding-inline: 0;
   box-sizing: border-box;
   width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  background: transparent;
-  z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: #121212;
+  z-index: 10040;
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer {
+  position: relative !important;
+  inset: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: auto !important;
   margin: 0;
   border-top: 0;
   background: transparent;
@@ -4139,12 +4177,12 @@ a.im-tool-card:focus-visible {
 
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__copy,
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__link {
-  color: #a3a3a3;
+  color: #d4d4d4;
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__link:hover,
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__link:focus-visible {
-  color: #ededed;
+  color: #ffffff;
 }
 
 .tool-modal--fullscreen[data-workspace-phase="active"] .tool-modal__body {
@@ -5024,15 +5062,15 @@ html[dir="rtl"] .tool-modal__sidebar-item:focus-within > .tool-modal__sidebar-fl
   color: var(--im-text, #fafafa);
 }
 
-/* Shared DOC / RELATED / REVIEWS rail — same edges as REVIEWS */
+/* Shared DOC / RELATED / REVIEWS / upload rail — same edges as REVIEWS */
 .tool-page-pane-rail,
 .community-reviews--tool-pane {
   box-sizing: border-box;
   width: 100%;
-  max-width: 72rem;
+  max-width: var(--tool-pane-rail-max, 72rem);
   margin-inline: auto;
   padding-block: 1rem 1.5rem;
-  padding-inline: 1rem;
+  padding-inline: var(--tool-pane-rail-pad-inline, 1rem);
 }
 
 .tool-page-pane-rail.tool-page-info-block {
@@ -5517,11 +5555,34 @@ html[data-tool-embed="1"] [data-email-popup] {
   display: none !important;
 }
 
+/*
+ * Tool modal is the only scroll surface while open. Lock the document and
+ * shell underneath so Windows does not show a second scrollbar beside the modal.
+ * High specificity so clean-phase Overview unlock cannot re-enable page scroll.
+ */
+html[data-tool-modal-open="1"],
+html[data-tool-modal-open="1"].workspace-phase-clean,
+html[data-tool-modal-open="1"] body,
+html[data-tool-modal-open="1"].workspace-phase-clean body {
+  overflow: hidden !important;
+  height: 100% !important;
+  max-height: 100dvh !important;
+  overscroll-behavior: none;
+}
+
+html[data-tool-modal-open="1"] .min-h-screen,
+html[data-tool-modal-open="1"] .app-page-shell {
+  height: 100% !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+}
+
 /* Soft-hide page chrome under the tool modal (overlay covers the page shell). */
 html[data-tool-modal-open="1"] .app-page-canvas {
   visibility: hidden;
   pointer-events: none;
   user-select: none;
+  overflow: hidden !important;
 }
 
 html[data-tool-modal-open="1"] .tool-modal {
@@ -16529,13 +16590,6 @@ body.site-tools-grid-open {
   display: none !important;
 }
 
-/* Modal / embed iframes: keep chrome focused on the tool controls */
-html[data-tool-embed="1"] .tool-workspace-overview,
-body.tool-embed-mode .tool-workspace-overview,
-.tool-page-layout--embed .tool-workspace-overview {
-  display: none !important;
-}
-
 .tool-page-layout__footer {
   display: flex;
   width: 100%;
@@ -17188,17 +17242,15 @@ html.workspace-phase-clean .tool-page-dashboard {
   overflow: hidden;
 }
 
-/* Clean-phase stage: kill content-column max-widths so the dropzone can use
- * the full padded tool shell (viewport − 30px gutters), not the 1400px rail. */
+/* Clean-phase stage: kill leftover content-column max-widths on page chrome.
+ * Upload float keeps its own pane-rail max-width (see below) so the dropzone
+ * aligns with Overview / breadcrumbs / DOC text — not edge-to-edge. */
 html.workspace-phase-clean #workspace-upload,
 html.workspace-phase-clean #workspace-upload .tool-page-view,
 html.workspace-phase-clean #workspace-upload .tool-page-view__body,
 html.workspace-phase-clean #workspace-upload .tool-page-view__pane--calc,
 html.workspace-phase-clean #workspace-upload .tool-page-layout__content,
 html.workspace-phase-clean #tool-workspace,
-html.workspace-phase-clean .tool-upload-float,
-html.workspace-phase-clean .tool-upload-zone,
-html.workspace-phase-clean .im-dropzone-shell,
 html.workspace-phase-clean .tools-directory-page,
 html.workspace-phase-clean .home-minimal-layout,
 html.workspace-phase-clean .page-container,
@@ -17216,20 +17268,21 @@ html.workspace-phase-clean .tool-page-dashboard,
   margin-inline: 0 !important;
 }
 
-/* Clean-phase footer stays in the flex shell (same rules as SSR — do not fixed-position) */
+/* Clean-phase footer — pinned to viewport bottom (always visible like the header) */
 html.workspace-phase-clean .home-page-footer {
   display: block;
-  position: relative;
-  left: auto;
-  right: auto;
-  bottom: auto;
-  z-index: 2;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 45;
   flex-shrink: 0;
-  margin-block: var(--tool-footer-gap, 30px);
+  margin: 0;
   box-sizing: border-box;
   padding-inline: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: #0a0a0a;
+  background: #121212;
+  color: #d4d4d4;
 }
 
 html.workspace-phase-clean .home-page-footer__inner {
@@ -17438,176 +17491,168 @@ body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] {
   height: 100%;
 }
 
-/* When DOC overview is present under the dropzone, share the clean-stage height */
+/*
+ * Clean phase + Overview: single document scrollbar (normal page flow).
+ * Opt out of the immersive 100dvh / overflow:hidden lock so the sticky site
+ * header works and Upload → Overview stack without nested scrollports.
+ * Keep overflow visible (not overflow-y: auto) so only the browser viewport
+ * scrolls — nested overflow:auto on html/body creates double scrollbars.
+ * !important beats the earlier clean-phase overflow:hidden / height:100% lock.
+ * Skip when the tool modal is open — the modal must remain the only scrollport.
+ */
+html.workspace-phase-clean:not([data-tool-modal-open="1"]):has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  ) {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 100% !important;
+}
+
+html.workspace-phase-clean:not([data-tool-modal-open="1"]):has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  body {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 100% !important;
+}
+
+.app-page-canvas:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  ),
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .app-page-canvas,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .app-page-canvas
+  > .home-tool-grid-page,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .page-content-transition--main,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .tool-page-dashboard,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .tools-directory-page,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .tools-directory-page
+  > section,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #workspace-upload[data-workspace-phase="clean"],
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #workspace-upload[data-workspace-phase="clean"]
+  .tool-page-view,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #workspace-upload[data-workspace-phase="clean"]
+  .tool-page-view__body,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #workspace-upload[data-workspace-phase="clean"]
+  .tool-page-view__pane--calc.tool-page-view__pane--active,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #workspace-upload[data-workspace-phase="clean"]
+  .tool-page-layout__content,
+html.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #tool-workspace[data-workspace-phase="clean"] {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* Stack Upload → Overview in normal flex column flow */
 .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview) {
-  height: 100%;
-  max-height: 100%;
-  min-height: 0;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch;
+  justify-content: flex-start !important;
+  flex: 0 1 auto !important;
+  row-gap: 0.5rem;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  /* Shorter stage when Overview sits under the box — pulls Overview up */
+  --im-dropzone-min-height: 220px;
 }
 
 .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
   > :not(.tool-workspace-overview) {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
+  flex: 0 0 auto !important;
+  min-height: var(--im-dropzone-min-height, 220px) !important;
   height: auto !important;
   max-height: none !important;
+  overflow: visible !important;
 }
 
-.tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview {
-  display: block !important;
+.tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  .im-dropzone-shell,
+.tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  .im-dropzone:not(.im-dropzone--compact) {
   flex: 0 0 auto !important;
+  min-height: var(--im-dropzone-min-height, 280px) !important;
   height: auto !important;
-  min-height: 0 !important;
-  max-height: min(30vh, 16rem) !important;
-  overflow: auto;
-  margin-top: 1.25rem;
-  padding-inline: 1rem;
-  padding-block: 1.25rem 1rem;
-  background: #121212;
-  border-top: 1px solid rgb(255 255 255 / 0.08);
-  z-index: 2;
+  max-height: none !important;
+  overflow: visible !important;
+  /* Keep CTA near the top so Overview doesn't feel far below empty stage space */
+  justify-content: center !important;
+  padding-block: 1.25rem !important;
 }
 
 /*
- * Mobile: do not squeeze the immersive dropzone into leftover viewport height
- * when Overview sits under it. Unlock scroll and stack Upload → Overview so the
- * full dashed upload box (icon + copy + border) stays visible without clipping.
+ * Overview under upload: fill the shared pane rail (parent float already has
+ * max-width + padding). Avoid double horizontal padding from .tool-page-pane-rail.
  */
+.tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview {
+  display: block !important;
+  flex: 0 0 auto !important;
+  position: relative;
+  z-index: auto;
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  margin-block: 0 !important;
+  margin-inline: 0 !important;
+  padding-inline: 0 !important;
+  padding-block: 0.5rem 0.85rem !important;
+  background: transparent;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+}
+
 @media (max-width: 767px) {
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    ),
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    body {
-    overflow: auto;
-    height: auto;
-    min-height: 100%;
-  }
-
-  .app-page-canvas:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    ),
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    .app-page-canvas {
-    height: auto;
-    max-height: none;
-    min-height: 100dvh;
-    overflow: visible;
-  }
-
-  .app-page-canvas:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    > .home-tool-grid-page,
-  .app-page-canvas:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    .page-content-transition--main,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    .app-page-canvas
-    > .home-tool-grid-page,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    .page-content-transition--main,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    .tool-page-dashboard,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    .tools-directory-page,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    .tools-directory-page
-    > section,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    #workspace-upload[data-workspace-phase="clean"],
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    #workspace-upload[data-workspace-phase="clean"]
-    .tool-page-view,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    #workspace-upload[data-workspace-phase="clean"]
-    .tool-page-view__body,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    #workspace-upload[data-workspace-phase="clean"]
-    .tool-page-view__pane--calc.tool-page-view__pane--active,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    #workspace-upload[data-workspace-phase="clean"]
-    .tool-page-layout__content,
-  html.workspace-phase-clean:has(
-      .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
-    )
-    #tool-workspace[data-workspace-phase="clean"] {
-    height: auto !important;
-    max-height: none !important;
-    min-height: 0 !important;
-    overflow: visible !important;
-  }
-
   .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview) {
-    flex-direction: column;
-    height: auto !important;
-    max-height: none !important;
-    min-height: 0 !important;
-    overflow: visible;
-  }
-
-  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
-    > :not(.tool-workspace-overview) {
-    flex: 0 1 auto !important;
-    min-height: var(--im-dropzone-min-height, 400px) !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-  }
-
-  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
-    .im-dropzone-shell {
-    flex: 0 1 auto !important;
-    min-height: var(--im-dropzone-min-height, 400px) !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-  }
-
-  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
-    .im-dropzone:not(.im-dropzone--compact) {
-    flex: 0 1 auto !important;
-    min-height: var(--im-dropzone-min-height, 400px) !important;
-    height: auto !important;
-    max-height: none !important;
+    row-gap: 0.5rem;
   }
 
   .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview {
-    flex: 0 0 auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-    z-index: auto;
-    margin-top: 1.5rem;
-    padding-inline: 0.75rem;
-    padding-block: 1.25rem 1.5rem;
+    padding-block: 0.5rem 0.85rem !important;
   }
 
-  /* Slightly shorter floor on narrow phones so Upload + Overview fit more cleanly */
   html.workspace-phase-clean:has(
       .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
     ) {
@@ -17636,19 +17681,17 @@ body.tool-embed-mode #tool-workspace[data-workspace-phase="clean"] {
   margin: 0 !important;
 }
 
-/* Mobile overview stack: keep utility wrappers from re-forcing height:100% */
-@media (max-width: 767px) {
-  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
-    > .utility-tool-layout,
-  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
-    .utility-tool-layout,
-  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
-    .space-y-6:has(.im-dropzone) {
-    flex: 0 1 auto !important;
-    height: auto !important;
-    max-height: none !important;
-    min-height: var(--im-dropzone-min-height, 400px) !important;
-  }
+/* Overview stack: keep utility wrappers from re-forcing height:100% */
+.tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  > .utility-tool-layout,
+.tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  .utility-tool-layout,
+.tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  .space-y-6:has(.im-dropzone) {
+  flex: 0 1 auto !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: var(--im-dropzone-min-height, 400px) !important;
 }
 
 /* Embed / modal iframe: fill the iframe viewport completely */
@@ -17672,6 +17715,74 @@ body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .tool-uplo
 body.tool-embed-mode .tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell {
   min-height: var(--im-dropzone-min-height, 400px);
   height: 100%;
+}
+
+/* Embed + Overview: no inner iframe scrollbar — parent modal scrolls once */
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  ),
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  body,
+body.tool-embed-mode.workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  ) {
+  overflow: visible !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .app-page-canvas,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .app-page-canvas--tool-embed,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .tool-page-main,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .home-tool-grid-page,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #tool-workspace[data-workspace-phase="clean"],
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #workspace-upload[data-workspace-phase="clean"] {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+html[data-tool-embed="1"]
+  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview),
+html[data-tool-embed="1"]
+  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  .tool-upload-zone,
+html[data-tool-embed="1"]
+  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  .im-dropzone-shell,
+body.tool-embed-mode
+  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview),
+body.tool-embed-mode
+  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  .tool-upload-zone,
+body.tool-embed-mode
+  .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
+  .im-dropzone-shell {
+  height: auto !important;
+  max-height: none !important;
+  min-height: var(--im-dropzone-min-height, 400px) !important;
 }
 
 /* Kill legacy padding that shrinks the stage (space-y / pb-12 on #tool-workspace, embed pad) */
@@ -17718,14 +17829,65 @@ html[data-tool-embed="1"].workspace-phase-clean #tool-workspace {
   min-height: 100dvh !important;
 }
 
+/* Exception: Overview under upload — content-sized iframe, no nested 100dvh lock */
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  ),
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  body,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .app-page-canvas,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .app-page-canvas--tool-embed,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .home-tool-grid-page,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .tool-page-main,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .page-content-transition--main,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  .tool-page-dashboard,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #workspace-upload,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #workspace-upload
+  .tool-page-layout__content,
+html[data-tool-embed="1"].workspace-phase-clean:has(
+    .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview
+  )
+  #tool-workspace {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
 html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   padding-block: 0;
   padding-inline: 0 !important;
 }
 
 /*
- * Immersive dropzone — fills the tool shell / iframe edge-to-edge.
- * Outer side margins live on the tool modal panel / full-page main, not here.
+ * Immersive dropzone — fill the upload float (which is constrained to the
+ * shared DOC/Overview pane rail). Do not break out edge-to-edge.
  */
 #tool-workspace .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
 #workspace-upload .tool-upload-float[data-workspace-phase="clean"] .im-dropzone:not(.im-dropzone--compact),
@@ -17755,6 +17917,33 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
+}
+
+/*
+ * Upload float = same column as Overview / breadcrumbs / DOC articles.
+ * Centers within the tool shell and mirrors the pane-rail horizontal inset.
+ */
+html.workspace-phase-clean .tool-upload-float[data-workspace-phase="clean"],
+html.workspace-phase-clean .tool-upload-float,
+.tool-upload-float[data-workspace-phase="clean"],
+.tool-upload-float[data-workspace-phase="active"] {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: var(--tool-pane-rail-max, 72rem) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-inline: auto !important;
+  padding-inline: var(--tool-pane-rail-pad-inline, 1rem) !important;
+}
+
+html.workspace-phase-clean .tool-upload-float .tool-upload-zone,
+html.workspace-phase-clean .tool-upload-float .im-dropzone-shell,
+.tool-upload-float[data-workspace-phase="clean"] .tool-upload-zone,
+.tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  box-sizing: border-box !important;
 }
 
 /* Embed / tool-modal iframe: fill available height with a hard min floor */
@@ -29712,6 +29901,7 @@ html[dir="rtl"] .favicon-preset-library__panel {
     border-color 0.28s ease,
     border-style 0.28s ease,
     background-color 0.28s ease,
+    box-shadow 0.28s ease,
     color 0.2s ease;
 }
 
@@ -29817,6 +30007,63 @@ html[dir="rtl"] .favicon-preset-library__panel {
 .im-dropzone:focus-visible .im-dropzone__select {
   color: var(--category-accent, #2563EB);
   filter: brightness(1.08);
+}
+
+/*
+ * Primary tool upload box — full solid category fill (orange/blue/green/…).
+ * Hover: brighten the fill only (same border width) so layout doesn't flicker.
+ */
+.im-dropzone:not(.im-dropzone--compact) {
+  --im-dropzone-border: 3px;
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--category-accent, #2563EB) 72%, #000000);
+  background-color: var(--category-accent, #2563EB);
+  background-image: none;
+  color: var(--category-accent-ink, #ffffff);
+  box-shadow: none;
+}
+
+.im-dropzone:not(.im-dropzone--compact) .im-dropzone__icon,
+.im-dropzone:not(.im-dropzone--compact) .im-dropzone__title,
+.im-dropzone:not(.im-dropzone--compact) .im-dropzone__select {
+  color: var(--category-accent-ink, #ffffff);
+}
+
+.im-dropzone:not(.im-dropzone--compact) .im-dropzone__privacy,
+.im-dropzone:not(.im-dropzone--compact) .im-dropzone__formats {
+  color: color-mix(in srgb, var(--category-accent-ink, #ffffff) 82%, transparent);
+}
+
+.im-dropzone:not(.im-dropzone--compact) .im-dropzone__pulse {
+  background-color: var(--category-accent-ink, #ffffff);
+}
+
+.im-dropzone:not(.im-dropzone--compact):hover,
+.im-dropzone:not(.im-dropzone--compact).im-dropzone--active,
+.im-dropzone:not(.im-dropzone--compact):focus-visible {
+  border-style: solid;
+  border-width: var(--im-dropzone-border, 3px);
+  border-color: color-mix(in srgb, var(--category-accent, #2563EB) 55%, #ffffff);
+  background-color: color-mix(
+    in srgb,
+    var(--category-accent, #2563EB) 78%,
+    #ffffff
+  );
+  box-shadow: none;
+  outline: none;
+}
+
+.im-dropzone:not(.im-dropzone--compact):hover .im-dropzone__icon,
+.im-dropzone:not(.im-dropzone--compact).im-dropzone--active .im-dropzone__icon,
+.im-dropzone:not(.im-dropzone--compact):focus-visible .im-dropzone__icon,
+.im-dropzone:not(.im-dropzone--compact):hover .im-dropzone__title,
+.im-dropzone:not(.im-dropzone--compact).im-dropzone--active .im-dropzone__title,
+.im-dropzone:not(.im-dropzone--compact):focus-visible .im-dropzone__title,
+.im-dropzone:not(.im-dropzone--compact):hover .im-dropzone__select,
+.im-dropzone:not(.im-dropzone--compact).im-dropzone--active .im-dropzone__select,
+.im-dropzone:not(.im-dropzone--compact):focus-visible .im-dropzone__select {
+  color: var(--category-accent-ink, #ffffff);
+  filter: none;
 }
 
 /* Privacy + formats sit inside the centered drop-zone composition */

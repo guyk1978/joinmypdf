@@ -19,7 +19,9 @@ import { WorkerErrorBoundary } from "@/components/workers/WorkerErrorBoundary";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { registry } from "@/lib/registry";
 import {
+  getCategoryAccentColor,
   getCategoryAccentCssVar,
+  getContrastingInk,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
 import { resolveLocalizedToolDocFields } from "@/lib/tool-doc-content";
@@ -126,7 +128,10 @@ export function ToolLayout({
     hierarchy?.categoryId ??
     resolveToolCategoryId(resolvedSlug);
   const accentStyle = categoryId
-    ? ({ "--category-accent": getCategoryAccentCssVar(categoryId) } as CSSProperties)
+    ? ({
+        "--category-accent": getCategoryAccentCssVar(categoryId),
+        "--category-accent-ink": getContrastingInk(getCategoryAccentColor(categoryId)),
+      } as CSSProperties)
     : undefined;
 
   // CALC = interactive workspace + visible overview (SEO; DOC tab stays deeper).

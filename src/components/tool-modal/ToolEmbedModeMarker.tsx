@@ -2,7 +2,10 @@
 
 import { useEffect } from "react";
 import { WORKSPACE_PHASE_CLEAN_CLASS } from "@/lib/workspace-flow";
-import { TOOL_EMBED_HEIGHT_MESSAGE } from "@/lib/workspace-project-messages";
+import {
+  TOOL_EMBED_HEIGHT_MESSAGE,
+  TOOL_EMBED_HEIGHT_REQUEST_MESSAGE,
+} from "@/lib/workspace-project-messages";
 
 function isCleanPhase(): boolean {
   if (document.documentElement.classList.contains(WORKSPACE_PHASE_CLEAN_CLASS)) {
@@ -42,6 +45,7 @@ function measureIntrinsicContentHeight(): number {
     .querySelectorAll(
       [
         ".tool-upload-float",
+        ".tool-workspace-overview",
         ".tool-workspace-panel",
         ".tool-page-view",
         ".utility-tool-layout",
@@ -59,6 +63,14 @@ function measureIntrinsicContentHeight(): number {
   // Last resort: never lock to an inflated iframe viewport.
   const viewport = Math.ceil(window.visualViewport?.height ?? window.innerHeight);
   return Math.max(400, viewport);
+}
+
+function hasCleanPhaseOverview(): boolean {
+  return Boolean(
+    document.querySelector(
+      '.tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview',
+    ),
+  );
 }
 
 /**
@@ -82,21 +94,22 @@ export function ToolEmbedModeMarker() {
       raf = requestAnimationFrame(() => {
         if (window.parent === window) return;
         try {
-          if (isCleanPhase()) {
-            // Immersive dropzone should fill the modal body — parent sizes from
-            // viewport chrome, not from this iframe's stretched scrollHeight.
+          if (isCleanPhase() && !hasCleanPhaseOverview()) {
+            // Immersive dropzone-only: parent sizes from viewport chrome.
             window.parent.postMessage(
               { type: TOOL_EMBED_HEIGHT_MESSAGE, mode: "fill", phase: "clean" },
               "*",
             );
             return;
           }
+          // Active tools, or clean phase with Overview under the upload box:
+          // size the iframe to the stacked content so Overview is not clipped.
           const height = measureIntrinsicContentHeight();
           window.parent.postMessage(
             {
               type: TOOL_EMBED_HEIGHT_MESSAGE,
               mode: "content",
-              phase: "active",
+              phase: isCleanPhase() ? "clean" : "active",
               height,
             },
             "*",
@@ -108,6 +121,21 @@ export function ToolEmbedModeMarker() {
     };
 
     reportHeight();
+    // Parent may miss early posts (listener not ready / layout not settled).
+    const retryTimers = [50, 150, 400, 800].map((ms) =>
+      window.setTimeout(reportHeight, ms),
+    );
+
+    const onParentRequest = (event: MessageEvent) => {
+      const data = event.data;
+      if (!data || typeof data !== "object") return;
+      if ((data as { type?: string }).type !== TOOL_EMBED_HEIGHT_REQUEST_MESSAGE) {
+        return;
+      }
+      reportHeight();
+    };
+    window.addEventListener("message", onParentRequest);
+
     const resizeObserver = new ResizeObserver(reportHeight);
     resizeObserver.observe(document.documentElement);
     if (document.body) resizeObserver.observe(document.body);
@@ -123,20 +151,33 @@ export function ToolEmbedModeMarker() {
         mutationObserver.observe(el, {
           attributes: true,
           attributeFilter: ["data-workspace-phase"],
+          childList: true,
+          subtree: true,
         });
         resizeObserver.observe(el);
       }
     }
+
+    const float = document.querySelector(".tool-upload-float");
+    if (float) {
+      mutationObserver.observe(float, { childList: true, subtree: true });
+      resizeObserver.observe(float);
+    }
+
+    const overview = document.querySelector(".tool-workspace-overview");
+    if (overview) resizeObserver.observe(overview);
 
     window.addEventListener("load", reportHeight);
     window.addEventListener("resize", reportHeight);
 
     return () => {
       cancelAnimationFrame(raf);
+      retryTimers.forEach((id) => window.clearTimeout(id));
       resizeObserver.disconnect();
       mutationObserver.disconnect();
       window.removeEventListener("load", reportHeight);
       window.removeEventListener("resize", reportHeight);
+      window.removeEventListener("message", onParentRequest);
       document.documentElement.removeAttribute("data-tool-embed");
       document.body.classList.remove("tool-embed-mode");
     };
