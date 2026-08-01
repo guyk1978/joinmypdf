@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppPageShell } from "@/components/AppPageShell";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
+import { CategorySeoSection } from "@/components/CategorySeoSection";
 import { ToolsDirectoryDashboard } from "@/components/ToolsDirectoryDashboard";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
@@ -14,6 +16,7 @@ import {
   buildPrimaryInventoryDirectoryGroups,
   resolveInventoryToolLabel,
 } from "@/lib/tools-inventory-query";
+import { productPageMainClassName } from "@/lib/tool-ui";
 
 const FEATURED_SLUGS = ["pdf-merge", "pdf-compress", "pdf-split"] as const;
 
@@ -99,20 +102,25 @@ export default async function ToolsDirectoryPage({ params }: Props) {
           numberOfItems: toolCount,
         }}
       />
-      <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--catalog page-container">
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split tools-directory-page--catalog page-container">
           <header className="tools-directory-page__head">
             <p className="tools-directory-page__eyebrow">{tPage("badge")}</p>
             <h1 className="tools-directory-page__title">{tPage("title")}</h1>
             <p className="tools-directory-page__desc">{tPage("description", { count: toolCount })}</p>
           </header>
 
-          <ToolsDirectoryDashboard
-            featuredItems={featuredItems}
-            featuredTitle={tPage("startHere")}
-            featuredDescription={tPage("startHereDescription")}
-            workflowColumns={workflowColumns}
-            showAllTools
+          <CategoryHubSplit
+            tools={
+              <ToolsDirectoryDashboard
+                featuredItems={featuredItems}
+                featuredTitle={tPage("startHere")}
+                featuredDescription={tPage("startHereDescription")}
+                workflowColumns={workflowColumns}
+                showAllTools
+              />
+            }
+            content={<CategorySeoSection categoryId="all-tools" />}
           />
         </div>
       </AppPageShell>

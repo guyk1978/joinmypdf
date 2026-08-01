@@ -5,6 +5,8 @@ import {
   AllToolsDirectoryGrid,
   type AllToolsDirectoryCategory,
 } from "@/components/AllToolsDirectoryGrid";
+import { CategoryHubSplit } from "@/components/CategoryHubSplit";
+import { CategorySeoSection } from "@/components/CategorySeoSection";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
@@ -12,6 +14,7 @@ import {
   buildInventoryGridItems,
   listDedicatedInventoryHubLinks,
 } from "@/lib/tools-inventory-query";
+import { productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type Props = {
@@ -72,19 +75,26 @@ export default async function AllToolsPage({ params }: Props) {
         }}
       />
 
-      <AppPageShell>
-        <div className="all-tools-directory-page page-container">
-          <header className="all-tools-directory-page__head">
-            <h1 className="all-tools-directory-page__title">{tPage("title")}</h1>
-            <p className="all-tools-directory-page__desc">
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <div className="home-minimal-layout home-minimal-layout--directory tools-directory-page tools-directory-page--hub-split all-tools-directory-page page-container">
+          <header className="all-tools-directory-page__head tools-directory-page__head">
+            <h1 className="all-tools-directory-page__title tools-directory-page__title">
+              {tPage("title")}
+            </h1>
+            <p className="all-tools-directory-page__desc tools-directory-page__desc">
               {tPage("description", { count: toolCount, categories: categories.length })}
             </p>
           </header>
 
-          <AllToolsDirectoryGrid
-            categories={categories}
-            expandLabel={tPage("expandCategory")}
-            collapseLabel={tPage("collapseCategory")}
+          <CategoryHubSplit
+            tools={
+              <AllToolsDirectoryGrid
+                categories={categories}
+                expandLabel={tPage("expandCategory")}
+                collapseLabel={tPage("collapseCategory")}
+              />
+            }
+            content={<CategorySeoSection categoryId="all-tools" />}
           />
         </div>
       </AppPageShell>

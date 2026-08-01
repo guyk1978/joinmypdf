@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 
-
 import { AppPageShell } from "@/components/AppPageShell";
 import { InfoProseDocument } from "@/components/InfoProseDocument";
 import { ProductPageLayout } from "@/components/ProductPageLayout";
@@ -14,7 +13,17 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const SECTION_KEYS = ["acceptance", "use", "disclaimer", "contact"] as const;
+const SECTION_KEYS = [
+  "acceptance",
+  "use",
+  "intellectualProperty",
+  "userContent",
+  "liability",
+  "modifications",
+  "contact",
+] as const;
+
+const MAX_SECTION_PARAGRAPHS = 4;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -37,13 +46,18 @@ export default async function TermsPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("Terms");
 
-  const sections = SECTION_KEYS.map((key) => ({
-    id: `terms-${key}`,
-    title: t(`sections.${key}.title`),
-    paragraphs: [t(`sections.${key}.p1`), t.has(`sections.${key}.p2`) ? t(`sections.${key}.p2`) : ""].filter(
-      Boolean,
-    ),
-  }));
+  const sections = SECTION_KEYS.map((key) => {
+    const paragraphs: string[] = [];
+    for (let i = 1; i <= MAX_SECTION_PARAGRAPHS; i += 1) {
+      const paragraphKey = `sections.${key}.p${i}`;
+      if (t.has(paragraphKey)) paragraphs.push(t(paragraphKey));
+    }
+    return {
+      id: `terms-${key}`,
+      title: t(`sections.${key}.title`),
+      paragraphs,
+    };
+  });
 
   return (
     <>

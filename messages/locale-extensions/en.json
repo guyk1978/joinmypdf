@@ -5459,6 +5459,7 @@
     "metaDescription": "Get in touch with the JoinMyPDF team — questions, feedback, and partnership inquiries.",
     "title": "Contact",
     "intro": "Questions, feedback, or partnership ideas? Send us a message.",
+    "supportNote": "We typically reply within 24–48 hours on business days. For tool-specific issues, include the tool name and what you were trying to do—that helps us respond faster.",
     "nameLabel": "Name",
     "emailLabel": "Email",
     "subjectLabel": "Subject",
@@ -5576,24 +5577,45 @@
   },
   "Terms": {
     "metaTitle": "Terms of Service — JoinMyPDF",
-    "metaDescription": "Terms of Service for using JoinMyPDF — acceptable use, disclaimers, and limitations.",
+    "metaDescription": "Terms of Service for JoinMyPDF — acceptable use, intellectual property, local processing, liability limits, and service modifications.",
     "title": "Terms of Service",
     "description": "Please read these terms before using JoinMyPDF.",
     "sections": {
       "acceptance": {
         "title": "Acceptance",
         "p1": "By accessing or using JoinMyPDF you agree to these Terms of Service. If you do not agree, do not use the site.",
-        "p2": "We may update these terms from time to time. Continued use after changes are posted constitutes acceptance."
+        "p2": "These terms form a binding agreement between you and the operators of JoinMyPDF regarding your use of the website, tools, and related content."
       },
       "use": {
         "title": "Acceptable use",
         "p1": "Use JoinMyPDF only for lawful purposes. Do not attempt to disrupt the service, probe systems without permission, or upload malware.",
-        "p2": "You are responsible for the content you process and for complying with laws that apply to your documents and jurisdiction."
+        "p2": "You are responsible for the content you process and for complying with laws that apply to your documents and jurisdiction. You must not use the tools to infringe others’ rights, evade legal obligations, or process material you are not authorized to handle."
       },
-      "disclaimer": {
-        "title": "Disclaimer",
-        "p1": "JoinMyPDF is provided “as is” without warranties of any kind. Results depend on your browser, device, and file characteristics.",
-        "p2": "We are not liable for indirect, incidental, or consequential damages arising from use of the service to the fullest extent permitted by law."
+      "intellectualProperty": {
+        "title": "Intellectual property",
+        "p1": "JoinMyPDF—including its name, branding, layout, design, text, graphics, software, and tool interfaces—is owned by us or our licensors and is protected by copyright, trademark, and other intellectual property laws.",
+        "p2": "You may use the site and tools for personal or internal business purposes under these terms. You may not copy, modify, distribute, sell, lease, reverse engineer, or create derivative works from our software, branding, or content except as allowed by applicable law or with our prior written consent.",
+        "p3": "“JoinMyPDF” and related marks are used to identify our service. Nothing in these terms grants you a license to use our trademarks for commercial purposes without permission."
+      },
+      "userContent": {
+        "title": "User content and local processing guarantee",
+        "p1": "You retain all rights to the files and other content you choose to process with JoinMyPDF. We do not claim ownership of your documents, images, media, or other inputs.",
+        "p2": "For supported core tools, processing is designed to run locally in your browser on your device. Your file bytes are not uploaded to or stored on our remote servers to perform those operations. You can typically verify this with your browser’s developer tools while a tool runs.",
+        "p3": "Optional site features such as favorites, recent tools, or projects may be stored in your browser’s local storage on your device—not in a JoinMyPDF account on our servers. Limited analytics or contact-form submissions (when you choose to send a message) are described in our Privacy Policy and are separate from document processing.",
+        "p4": "You are solely responsible for backing up important files and for verifying that outputs meet your needs before relying on them. Local processing depends on your browser, device memory, and file characteristics; very large or protected files may fail on some devices."
+      },
+      "liability": {
+        "title": "Limitation of liability",
+        "p1": "JoinMyPDF is provided “as is” and “as available,” without warranties of any kind, whether express, implied, or statutory—including merchantability, fitness for a particular purpose, non-infringement, accuracy, or uninterrupted availability—to the fullest extent permitted by law.",
+        "p2": "Results depend on your browser, device, operating system, and the characteristics of your files. We do not warrant that processing will always succeed, that outputs will be error-free, or that the service will meet every professional, legal, or regulatory requirement.",
+        "p3": "To the fullest extent permitted by law, we are not liable for any indirect, incidental, special, consequential, exemplary, or punitive damages, or for loss of profits, data, goodwill, or business opportunities, arising from or related to your use of (or inability to use) JoinMyPDF—even if we have been advised of the possibility of such damages.",
+        "p4": "Where liability cannot be excluded, our aggregate liability for claims arising out of these terms or the service is limited to the greater of (a) the amount you paid us for the service in the twelve months before the claim (if any) or (b) one hundred U.S. dollars (USD $100). Some jurisdictions do not allow certain limitations; in those places, our liability is limited to the maximum extent permitted by law."
+      },
+      "modifications": {
+        "title": "Modifications to the service",
+        "p1": "We may change, improve, suspend, or discontinue any part of JoinMyPDF—including tools, features, design, or availability—at any time, with or without notice, as needed to operate, secure, or improve the service.",
+        "p2": "We may also update these Terms of Service from time to time. The updated terms will be posted on this page with effect from the date of posting unless stated otherwise. Continued use of JoinMyPDF after changes are posted constitutes acceptance of the revised terms.",
+        "p3": "If you do not agree to a material change, you should stop using the site. We encourage you to review this page periodically."
       },
       "contact": {
         "title": "Contact",
@@ -5603,29 +5625,60 @@
   },
   "PrivacyPolicy": {
     "metaTitle": "Privacy Policy — JoinMyPDF",
-    "metaDescription": "Privacy Policy for JoinMyPDF — what we collect, how analytics works, and how local processing protects your files.",
+    "metaDescription": "Privacy Policy for JoinMyPDF — information we collect, cookies and AdSense, local file processing, third-party services, and your choices.",
     "title": "Privacy Policy",
     "description": "How we handle information when you use JoinMyPDF.",
     "sections": {
       "overview": {
         "title": "Overview",
-        "p1": "JoinMyPDF is designed so core document tools run in your browser. For supported workflows, your files are not sent to our servers to perform the operation.",
-        "p2": "This policy explains what limited data we may collect, how cookies and analytics work, and your choices."
+        "p1": "JoinMyPDF is designed so core document, image, video, and utility tools run in your browser. For supported workflows, your files are not sent to our servers to perform the operation.",
+        "p2": "This Privacy Policy explains what limited information we may collect about site visits, how cookies and advertising technologies work, how local processing protects your files, which third parties may be involved, and the choices available to you."
       },
-      "files": {
-        "title": "Files you process",
-        "p1": "Processing happens locally in your browser session for supported tools. We do not receive your document contents for those operations.",
-        "p2": "Saved favorites and projects are stored in your browser’s local storage on your device — not in a JoinMyPDF account."
+      "informationWeCollect": {
+        "title": "Information we collect",
+        "p1": "We do not collect the contents of files you process with supported tools. Document, image, and media bytes for those operations stay in your browser session on your device.",
+        "p2": "When you visit the site, we and our service providers may automatically collect technical and usage information such as IP address, approximate location derived from IP, browser type and version, device type, operating system, referring URL, pages viewed, timestamps, and similar diagnostic logs needed to operate and secure the website.",
+        "p3": "If you contact us (for example through the Contact form), we receive the information you choose to submit—such as name, email address, subject, and message—so we can respond.",
+        "p4": "Optional product features such as favorites, recent tools, or projects may be stored in your browser’s local storage on your device. That data remains on your device unless you clear site data; it is not stored in a JoinMyPDF account on our servers."
       },
-      "analytics": {
-        "title": "Analytics & cookies",
-        "p1": "We may use analytics (for example Google Analytics) to understand which tools are useful and to improve the product.",
-        "p2": "You can block analytics cookies through your browser or our cookie consent controls where shown."
+      "howWeUse": {
+        "title": "How we use information",
+        "p1": "We use automatically collected visit and usage data to operate the website, measure performance, understand which tools and pages are useful, fix errors, prevent abuse, and improve the product experience.",
+        "p2": "We use contact-form submissions only to respond to your inquiry and to administer related support or partnership conversations.",
+        "p3": "We may use aggregated or de-identified statistics that do not identify you personally to analyze trends and improve JoinMyPDF. We do not sell your personal information.",
+        "p4": "Where advertising is shown, limited technical and cookie data may be used by us or advertising partners to deliver and measure ads, as described in the cookies section below and in those partners’ policies."
+      },
+      "cookies": {
+        "title": "Cookies and tracking technologies",
+        "p1": "We and selected third parties use cookies, pixels, local storage, and similar technologies to remember preferences, understand site usage, measure performance, and—where enabled—support advertising.",
+        "p2": "Analytics cookies (for example Google Analytics or similar products) help us see which pages and tools are visited so we can improve JoinMyPDF. These technologies may collect device and usage information as described above.",
+        "p3": "Advertising cookies and related technologies—such as those used by Google AdSense or comparable ad networks—may be used to show ads, limit how often you see an ad, measure ad performance, and, depending on your settings and region, personalize ads based on interests inferred from browsing activity across sites that participate in the network.",
+        "p4": "You can control cookies through your browser settings, industry opt-out tools, and any cookie-consent controls we display. Blocking some cookies may affect site features or the relevance of ads. For Google advertising settings and opt-outs, see Google’s Ads Settings and related privacy documentation."
+      },
+      "dataSecurity": {
+        "title": "Data security and local processing",
+        "p1": "For supported core tools, processing is designed to run locally in your browser. Your file bytes are not uploaded to or stored on our remote servers to complete those operations. You can typically verify this in your browser’s developer tools (Network) while a tool runs.",
+        "p2": "Because local processing depends on your device, you remain responsible for physical access to your computer or phone, for keeping your browser up to date, and for clearing local storage if you share a device.",
+        "p3": "We apply reasonable administrative and technical measures appropriate to a static website and limited analytics/contact infrastructure. No method of transmission or storage is completely secure; we cannot guarantee absolute security of information that does travel over the internet (such as a contact message or standard web requests).",
+        "p4": "Downloads and tool outputs are generated on your device for supported workflows. Favorites and projects stored locally can be removed by clearing this site’s data in your browser."
+      },
+      "thirdParty": {
+        "title": "Third-party services",
+        "p1": "JoinMyPDF may load or rely on third-party services to host the site, deliver content, measure traffic, show advertisements, or receive contact messages. Examples may include content delivery / hosting providers, Google Analytics (or similar analytics), Google AdSense (or similar advertising networks), and form-delivery providers used for the Contact page.",
+        "p2": "Those providers process information under their own privacy policies and terms. We do not control their cookies or independent data practices. We encourage you to review the privacy policies of any third-party service whose technologies appear on our pages.",
+        "p3": "Links from JoinMyPDF to external websites are not covered by this policy. If you follow a third-party link, that site’s privacy practices apply."
+      },
+      "changes": {
+        "title": "Changes to this Privacy Policy",
+        "p1": "We may update this Privacy Policy from time to time to reflect product changes, legal requirements, or new tools and partners (including advertising or analytics providers).",
+        "p2": "The updated policy will be posted on this page and takes effect when posted unless a later effective date is stated. We encourage you to review this page periodically.",
+        "p3": "Continued use of JoinMyPDF after an update constitutes acknowledgment of the revised policy, to the extent permitted by applicable law."
       },
       "rights": {
-        "title": "Your choices",
-        "p1": "You may stop using the site at any time. Clear site data in your browser to remove locally stored favorites or projects.",
-        "p2": "For privacy questions, contact us via the Contact page."
+        "title": "Your choices and contact",
+        "p1": "You may stop using the site at any time. Clear site data in your browser to remove locally stored favorites, projects, or similar client-side data. Adjust cookie and tracking preferences through your browser, consent controls (where shown), and advertising opt-out tools offered by Google or industry programs.",
+        "p2": "Depending on where you live, you may have rights to access, correct, delete, or restrict certain personal information we hold about you, or to object to certain processing. Because most file processing never reaches our servers, requests typically relate to contact correspondence, limited logs, or third-party advertising/analytics identifiers rather than document contents.",
+        "p3": "For privacy questions or requests, contact us through the Contact page on this site. For related product terms, see our Terms of Service."
       }
     }
   },

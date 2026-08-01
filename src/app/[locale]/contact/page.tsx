@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
       canonical: canonicalPath,
-      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}/contact`])),
+      languages: Object.fromEntries(routing.locales.map((item) => [item, `/${item}/contact`])),
     },
   };
 }
@@ -50,6 +50,7 @@ export default async function ContactPage({ params }: Props) {
       />
       <AppPageShell mainClassName={productPageMainClassName}>
         <ProductPageLayout title={t("title")} description={t("intro")} variant="document">
+          <p className="contact-page__support-note">{t("supportNote")}</p>
           <ContactForm />
         </ProductPageLayout>
       </AppPageShell>

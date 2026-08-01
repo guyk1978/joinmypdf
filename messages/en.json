@@ -3617,6 +3617,21 @@
   },
   "CategorySeo": {
     "faqTitle": "Frequently asked questions",
+    "all-tools": {
+      "title": "About Our Tools",
+      "p1": "JoinMyPDF is a full directory of free, browser-based utilities for PDF, images, video, audio, text, and developer workflows. Every tool on this page runs locally in your browser—files are processed on your device with WebAssembly, Canvas, and similar client-side engines, so nothing is uploaded to our servers. That keeps contracts, photos, recordings, and drafts private while you work.",
+      "p2": "Because processing stays on your hardware, you avoid upload queues, artificial file-size caps, and account walls. Browse by category above, open any tool instantly, and use the same privacy-first approach whether you are merging PDFs, compressing video, converting images, or cleaning metadata.",
+      "faq": {
+        "q1": "Are my files uploaded when I use these tools?",
+        "a1": "No. JoinMyPDF tools process files in your browser. You can confirm in DevTools → Network that document and media bytes are not sent to our servers while a tool runs.",
+        "q2": "Is there a limit on how many tools or files I can use?",
+        "a2": "There are no artificial usage caps. Capacity depends on your device memory and browser, so typical documents and media process fine on a modern laptop or phone.",
+        "q3": "Do I need to create an account?",
+        "a3": "No account is required to browse or run tools. Open a category or tool, add your file or paste input, and download the result when processing finishes.",
+        "q4": "How is this different from upload-based converter sites?",
+        "a4": "Upload-based sites copy your file to a remote server. JoinMyPDF delivers the tool as JavaScript; your browser does the work, so your files stay on your device from start to finish."
+      }
+    },
     "image": {
       "title": "About Our Image Tools",
       "p1": "Every image tool on this page runs entirely in your browser. When you resize, crop, compress, or convert a photo, the file is processed locally on your device using WebAssembly and the Canvas API — nothing is uploaded to a server. That means your screenshots, ID scans, and personal photos never leave your computer, and there is no upload queue to wait for.",

@@ -88,24 +88,26 @@
   --home-card-text: var(--im-text);
   --home-page-bg: var(--im-bg-page);
 
-  /* Shared tool list cards — Minimalist Industrial (borderless, type-led) */
-  --im-tool-card-bg: transparent;
-  --im-tool-card-text: #737373;
+  /* Shared tool list cards — flat dark gray body + external square actions */
+  --im-tool-card-bg: #1a1a1a;
+  --im-tool-card-bg-hover: #141414;
+  --im-tool-card-text: #a3a3a3;
   --im-tool-card-text-hover: #ffffff;
-  --im-tool-card-icon: #737373;
+  --im-tool-card-icon: #a3a3a3;
   --im-tool-card-icon-hover: #ffffff;
-  --im-tool-card-padding: 0.32rem 0.42rem;
-  /* Single-line row height — room for larger type + action icons. */
+  --im-tool-card-padding: 0.4rem 0.75rem;
+  /* Single-line row height — matches external square action buttons. */
   --im-tool-card-row-height: 2.875rem;
   --im-tool-card-min-height: var(--im-tool-card-row-height);
   --im-tool-card-cover-bg: #0a0a0a;
   --im-tool-card-accent-fallback: #525252;
-  --im-tool-card-gap: 0.3rem;
+  --im-tool-card-gap: 0.45rem;
+  --im-tool-card-side-gap: 0.35rem;
   --im-tool-card-grid-gap: clamp(0.5rem, 1vw, 0.75rem);
-  --im-tool-card-label-size: 0.875rem;
+  --im-tool-card-label-size: 0.9375rem;
   --im-tool-card-label-tracking: 0.01em;
-  --im-tool-card-action-size: 1.6rem;
-  --im-tool-card-action-icon: 0.95rem;
+  --im-tool-card-action-size: var(--im-tool-card-row-height);
+  --im-tool-card-action-icon: 1.05rem;
   --im-tool-card-divider: rgba(255, 255, 255, 0.06);
 
   /* Homepage — premium SaaS minimal canvas */

@@ -2,7 +2,6 @@
 
 import type { CSSProperties, ReactNode } from "react";
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
@@ -38,7 +37,7 @@ export type IndustrialToolCardProps = {
    */
   openInModal?: boolean;
   /**
-   * `tool-modal` — Expand opens focus popup; Go opens tool in a new tab.
+   * `tool-modal` — Expand opens focus popup; main card opens tool in a new tab.
    * `focus` — Expand / programmatic focus popup (homepage sections).
    */
   interactionMode?: "tool-modal" | "focus";
@@ -56,7 +55,7 @@ function slugFromHref(href: string): string {
 
 /**
  * Compact Industrial Matte tool card:
- * category accent strip → short name → expand / pin / go icon row.
+ * selectable body (new tab) + separate expand / pin squares.
  */
 export function IndustrialToolCard({
   href,
@@ -92,33 +91,54 @@ export function IndustrialToolCard({
     ? tCard(exampleKey)
     : getToolRealWorldExampleByLocale(toolSlug, locale);
 
+  const goAria = tCard("goAria", { label: shortLabel });
+
   return (
     <div
       className={clsx(
-        "im-tool-card",
-        selection && "im-tool-card--selectable",
-        selected && "im-tool-card--selected",
+        "im-tool-card-row",
+        selection && "im-tool-card-row--selectable",
+        selected && "im-tool-card-row--selected",
         className,
       )}
       data-category={accentCategoryId}
       style={accentStyle}
     >
-      {selection ? (
-        <label className="im-tool-card__select">
-          <input
-            type="checkbox"
-            className="im-tool-card__select-input"
-            checked={selected}
-            onChange={() => selection.toggle(toolSlug)}
-            aria-label={tDirectory("selectForFavoritesAria", { label: shortLabel })}
-          />
-          <span className="im-tool-card__select-box" aria-hidden />
-        </label>
-      ) : null}
-      <span className="im-tool-card__dot" aria-hidden />
-      <span className="im-tool-card__title">{shortLabel}</span>
+      <div
+        className={clsx(
+          "im-tool-card",
+          selection && "im-tool-card--selectable",
+          selected && "im-tool-card--selected",
+        )}
+      >
+        {selection ? (
+          <label
+            className="im-tool-card__select"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <input
+              type="checkbox"
+              className="im-tool-card__select-input"
+              checked={selected}
+              onChange={() => selection.toggle(toolSlug)}
+              aria-label={tDirectory("selectForFavoritesAria", { label: shortLabel })}
+            />
+            <span className="im-tool-card__select-box" aria-hidden />
+          </label>
+        ) : null}
 
-      <div className="im-tool-card__actions" role="group" aria-label={shortLabel}>
+        <ToolCardGoLink
+          href={nestedHref}
+          className="im-tool-card__hit"
+          aria-label={goAria}
+          title={goAria}
+        >
+          <span className="im-tool-card__dot" aria-hidden />
+          <span className="im-tool-card__title">{shortLabel}</span>
+        </ToolCardGoLink>
+      </div>
+
+      <div className="im-tool-card__side-actions" role="group" aria-label={shortLabel}>
         <ToolCardFocus
           slug={toolSlug}
           href={nestedHref}
@@ -130,23 +150,14 @@ export function IndustrialToolCard({
           open={focusInteraction ? focusOpen : undefined}
           onOpenChange={focusInteraction ? setFocusOpen : undefined}
           showExpandButton
-          className="im-tool-card__action im-tool-card__expand"
+          className="im-tool-card__side-action im-tool-card__expand"
         />
 
         <ToolPinButton
           toolId={toolSlug}
           variant="card"
-          className="im-tool-card__action im-tool-card__pin"
+          className="im-tool-card__side-action im-tool-card__pin"
         />
-
-        <ToolCardGoLink
-          href={nestedHref}
-          className="im-tool-card__action im-tool-card__go"
-          aria-label={tCard("goAria", { label: shortLabel })}
-          title={tCard("goAria", { label: shortLabel })}
-        >
-          <ArrowRight size={16} strokeWidth={2.4} aria-hidden />
-        </ToolCardGoLink>
       </div>
     </div>
   );

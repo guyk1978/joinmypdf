@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { clsx } from "clsx";
 import { ToolCardFocus } from "@/components/ToolCardFocus";
 import { ToolCardGoLink } from "@/components/ToolCardGoLink";
@@ -20,7 +20,7 @@ type HomeGuideCardProps = {
 };
 
 /**
- * Compact homepage guide card — short title + expand / go actions.
+ * Compact homepage guide card — full-body link + separate expand square.
  */
 export function HomeGuideCard({
   href,
@@ -40,14 +40,21 @@ export function HomeGuideCard({
 
   return (
     <div
-      className={clsx("im-tool-card", className)}
+      className={clsx("im-tool-card-row", className)}
       data-category={categoryId}
       style={accentStyle}
     >
-      <span className="im-tool-card__dot" aria-hidden />
-      <span className="im-tool-card__title">{label}</span>
+      <ToolCardGoLink
+        href={href}
+        className="im-tool-card im-tool-card__hit im-tool-card__hit--solo"
+        aria-label={openLabel}
+        title={openLabel}
+      >
+        <span className="im-tool-card__dot" aria-hidden />
+        <span className="im-tool-card__title">{label}</span>
+      </ToolCardGoLink>
 
-      <div className="im-tool-card__actions" role="group" aria-label={label}>
+      <div className="im-tool-card__side-actions" role="group" aria-label={label}>
         <ToolCardFocus
           slug={`guide-${href}`}
           href={href}
@@ -58,17 +65,8 @@ export function HomeGuideCard({
           showExpandButton
           showRating={false}
           openLabel={openLabel}
-          className="im-tool-card__action im-tool-card__expand"
+          className="im-tool-card__side-action im-tool-card__expand"
         />
-
-        <ToolCardGoLink
-          href={href}
-          className="im-tool-card__action im-tool-card__go"
-          aria-label={openLabel}
-          title={openLabel}
-        >
-          <ArrowRight size={16} strokeWidth={2.4} aria-hidden />
-        </ToolCardGoLink>
       </div>
     </div>
   );
