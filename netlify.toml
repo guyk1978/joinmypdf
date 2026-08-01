@@ -1,12 +1,15 @@
 # Netlify headers — SharedArrayBuffer / FFmpeg.wasm require COOP + COEP.
 # worker-src allows the absolute /workers/ffmpeg-worker.js script and blob: cores.
+# frame-ancestors 'self' + X-Frame-Options SAMEORIGIN allow same-origin iframes
+# (Device Preview / tool embeds) while blocking third-party clickjacking.
 [[headers]]
   for = "/*"
   [headers.values]
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Embedder-Policy = "require-corp"
     Cross-Origin-Resource-Policy = "same-origin"
-    Content-Security-Policy = "worker-src 'self' blob:;"
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "worker-src 'self' blob:; frame-ancestors 'self';"
 
 [[headers]]
   for = "/workers/*"

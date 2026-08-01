@@ -1,12 +1,15 @@
 # Cloudflare Pages / static host headers.
 # Required for SharedArrayBuffer (ffmpeg) and for Workers/WASM under COEP.
 # worker-src 'self' blob: keeps FFmpeg class + core workers allowed under CSP.
+# frame-ancestors 'self' + X-Frame-Options SAMEORIGIN allow same-origin iframes
+# (Responsive Device Preview, tool modals) while blocking third-party embedding.
 
 /*
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
   Cross-Origin-Resource-Policy: same-origin
-  Content-Security-Policy: worker-src 'self' blob:;
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: worker-src 'self' blob:; frame-ancestors 'self';
 
 /workers/*
   Cross-Origin-Resource-Policy: same-origin

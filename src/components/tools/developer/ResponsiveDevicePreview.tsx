@@ -8,6 +8,7 @@ import {
   useState,
   type ChangeEvent,
   type DragEvent,
+  type IframeHTMLAttributes,
 } from "react";
 import { clsx } from "clsx";
 import {
@@ -731,6 +732,9 @@ export function ResponsiveDevicePreview({ labels, className }: ResponsiveDeviceP
                             showUrlBlocked && "is-blocked",
                           )}
                           src={urlActive}
+                          // Under JoinMyPDF COEP, cross-origin frames need credentialless
+                          // and/or the child to send CORP: cross-origin.
+                          {...({ credentialless: true } as IframeHTMLAttributes<HTMLIFrameElement>)}
                           sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
                           referrerPolicy="no-referrer"
                           onLoad={onUrlIframeLoad}

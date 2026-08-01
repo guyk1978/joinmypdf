@@ -71,8 +71,14 @@ const nextConfig: NextConfig = {
           { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
           { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
           { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+          // SAMEORIGIN / frame-ancestors 'self': allow Device Preview & tool modals
+          // to embed our own pages, while blocking third-party clickjacking.
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
           // Allow same-origin + blob Workers (FFmpeg classWorkerURL + toBlobURL cores).
-          { key: "Content-Security-Policy", value: "worker-src 'self' blob:;" },
+          {
+            key: "Content-Security-Policy",
+            value: "worker-src 'self' blob:; frame-ancestors 'self';",
+          },
         ],
       },
       {
