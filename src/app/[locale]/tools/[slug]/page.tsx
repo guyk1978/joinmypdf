@@ -122,6 +122,7 @@ import { UuidGeneratorWorkspace } from "@/components/tools/security/UuidGenerato
 import { SslDecoderWorkspace } from "@/components/tools/security/SslDecoderWorkspace";
 import { MyIpNetworkInfoWorkspace } from "@/components/tools/network/MyIpNetworkInfoWorkspace";
 import { ColorConverterWorkspace } from "@/components/tools/design/ColorConverterWorkspace";
+import { ResponsiveDevicePreviewWorkspace } from "@/components/tools/developer/ResponsiveDevicePreviewWorkspace";
 import { ColorPaletteExtractorWorkspace } from "@/components/tools/design/ColorPaletteExtractorWorkspace";
 import { ImageDpiConverterWorkspace } from "@/components/ImageDpiConverterWorkspace";
 import { UnitConverterWorkspace } from "@/components/tools/productivity/UnitConverterWorkspace";
@@ -642,6 +643,8 @@ export default async function ToolPage({
           <ColorPaletteExtractorWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "color-converter" ? (
           <ColorConverterWorkspace tool={tool} slug={slug} />
+        ) : tool.operation === "responsive-device-preview" ? (
+          <ResponsiveDevicePreviewWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "unit-converter" ? (
           <UnitConverterWorkspace tool={tool} slug={slug} />
         ) : tool.operation === "timezone-converter" ? (

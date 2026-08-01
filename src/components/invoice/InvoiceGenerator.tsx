@@ -53,7 +53,7 @@ export function InvoiceGenerator({
   }, [busy, document, t]);
 
   return (
-    <div className="invoice-generator-workspace space-y-2">
+    <div className="invoice-generator-workspace tool-split-workspace space-y-2">
       {templateSlug ? (
         <p className={matteWorkspaceBanner}>
           {t("invoiceTemplateLoaded", { slug: templateSlug.replace(/-/g, " ") })}
@@ -64,8 +64,8 @@ export function InvoiceGenerator({
           {status}
         </p>
       ) : null}
-      <div className="grid gap-2 lg:grid-cols-12 lg:items-start">
-        <section className={`${matteWorkspaceSection} lg:col-span-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto`}>
+      <div className="tool-split-workspace__layout invoice-generator-workspace__layout grid gap-2 lg:grid-cols-12">
+        <section className={`${matteWorkspaceSection} tool-split-workspace__pane tool-split-workspace__pane--form lg:col-span-4`}>
           <InvoiceFormPanel
             document={document}
             onChange={setDocument}
@@ -73,7 +73,7 @@ export function InvoiceGenerator({
             downloadBusy={busy}
           />
         </section>
-        <section className={`min-h-[420px] ${matteWorkspaceSection} lg:col-span-8 lg:min-h-[calc(100vh-6rem)]`}>
+        <section className={`tool-split-workspace__pane tool-split-workspace__pane--preview ${matteWorkspaceSection} lg:col-span-8`}>
           <InvoicePreviewPanel document={document} previewAlt={previewAlt} />
         </section>
       </div>

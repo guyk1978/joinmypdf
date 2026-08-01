@@ -172,6 +172,7 @@ const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
   "user-agent-parser": "globe",
   "my-ip": "globe",
   "qr-code-generator": "qr-code",
+  "responsive-device-preview": "smartphone",
   "jwt-debugger": "key-round",
   "yaml-json-converter": "arrow-left-right",
   "csv-to-markdown-table": "table",

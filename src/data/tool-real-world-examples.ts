@@ -125,6 +125,7 @@ export const TOOL_REAL_WORLD_EXAMPLES: Record<string, string> = {
   "reorder-pdf-pages": "Fix a scanned document whose pages came out in the wrong order.",
   "repair-pdf": "Rescue a corrupted invoice PDF that won't open after a failed download.",
   "resize-image": "Resize a photo to the exact 400x400 pixels a visa application portal demands.",
+  "responsive-device-preview": "Check how a PDF invoice looks on a phone before emailing it to a client who only reads on mobile.",
   "rotate-image": "Fix a sideways phone photo before adding it to a listing.",
   "rotate-pdf": "Turn a landscape-scanned contract upright so it's readable on screen.",
   "safe-to-share-auditor": "Scan a report for hidden emails and phone numbers before publishing it online.",

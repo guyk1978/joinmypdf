@@ -259,7 +259,8 @@
       "dataConverter": "ממיר נתונים",
       "quickNote": "מנהל הערות",
       "imageCombiner": "שילוב תמונות",
-      "emlToPdf": "EML ל-PDF"
+      "emlToPdf": "EML ל-PDF",
+      "responsiveDevicePreview": "תצוגת מכשיר רספונסיבית"
     },
     "library": "ספרייה",
     "toolsHub": "קטגוריות",
@@ -3120,6 +3121,10 @@
         "jwtDebugger": {
           "label": "מפענח JWT",
           "description": "פענוח טוקני JWT מקומית — צפייה ב-JSON של ה-payload, אלגוריתם ונוכחות חתימה בלי להעלות סודות."
+        },
+        "responsiveDevicePreview": {
+          "label": "תצוגת מכשיר רספונסיבית",
+          "description": "הציגו PDF, HTML או כתובות במסגרות טלפון, טאבלט ומחשב — הכל מקומית."
         }
       }
     },
@@ -3204,6 +3209,10 @@
         "colorConverter": {
           "label": "ממיר צבעים",
           "description": "המרת HEX, RGB ו-HSL בזמן אמת עם בוחר צבע וכפתורי העתקה."
+        },
+        "responsiveDevicePreview": {
+          "label": "תצוגת מכשיר רספונסיבית",
+          "description": "הציגו PDF, HTML או כתובות במסגרות טלפון, טאבלט ומחשב — הכל מקומית."
         }
       }
     },
@@ -3504,7 +3513,8 @@
       "color-converter": "ממיר צבעים",
       "color-palette-extractor": "חילוץ פלטת צבעים",
       "image-combiner": "שילוב תמונות",
-      "eml-to-pdf": "ממיר EML ל-PDF"
+      "eml-to-pdf": "ממיר EML ל-PDF",
+      "responsive-device-preview": "תצוגת מכשיר רספונסיבית"
     },
     "cardDescriptions": {
       "base64-encoder-decoder": "קודדו או פענחו טקסט ונתוני Base64 מיידית.",
@@ -3668,7 +3678,8 @@
       "word-to-pdf": "המירו מסמכי Word לקבצי PDF לשיתוף.",
       "yaml-json-converter": "המירו בין YAML ל-JSON עם עיצוב נקי.",
       "sql-query-formatter": "Format SQL queries for cleaner reading and review.",
-      "image-combiner": "שלבו 2–4 תמונות זו לצד זו או אנכית והורידו קובץ PNG אחד."
+      "image-combiner": "שלבו 2–4 תמונות זו לצד זו או אנכית והורידו קובץ PNG אחד.",
+      "responsive-device-preview": "הציגו PDF, HTML או כתובות במסגרות טלפון, טאבלט ומחשב עם עיבוד מקומי."
     }
   },
   "SearchPage": {
@@ -9540,5 +9551,77 @@
     "success": "הומר",
     "getStarted": "התחילו",
     "getStartedHint": "פתחו את סביבת העבודה להמרת EML ל-PDF."
+  },
+  "ResponsiveDevicePreview": {
+    "privacyLabel": "עיבוד מקומי. שום דבר לא מועלה.",
+    "sourceTitle": "מקור התצוגה",
+    "modePdf": "PDF",
+    "modeUrl": "כתובת",
+    "modeHtml": "HTML",
+    "pdfDropTitle": "גררו PDF לכאן",
+    "pdfDropHint": "מוצג מקומית עם pdf.js בתוך מסגרת המכשיר.",
+    "pdfBrowse": "בחרו PDF מהמכשיר",
+    "pdfClear": "נקו PDF",
+    "pdfLoading": "טוען PDF…",
+    "pdfError": "לא ניתן לפתוח את קובץ ה-PDF. נסו קובץ אחר.",
+    "pdfPageLabel": "עמוד {current} מתוך {total}",
+    "urlLabel": "כתובת העמוד",
+    "urlPlaceholder": "https://example.com",
+    "urlLoad": "טענו כתובת",
+    "urlHint": "העמוד נפתח במסגרת מבודדת במכשיר שלכם.",
+    "urlBlockedHint": "אם התצוגה נשארת ריקה, סביר שהאתר חוסם הטמעה (X-Frame-Options). השתמשו בלשונית HTML או PDF.",
+    "htmlLabel": "מסמך HTML",
+    "htmlPlaceholder": "הדביקו HTML לתצוגה מקדימה…",
+    "htmlApply": "עדכנו תצוגה",
+    "htmlResetSample": "טענו דוגמה",
+    "deviceTitle": "מסגרת מכשיר",
+    "phoneLabel": "טלפון",
+    "tabletLabel": "טאבלט",
+    "desktopLabel": "שולחני",
+    "orientationLabel": "כיוון",
+    "portraitLabel": "לאורך",
+    "landscapeLabel": "לרוחב",
+    "rotateLabel": "סובבו כיוון",
+    "zoomLabel": "זום",
+    "zoomOutLabel": "הקטנה",
+    "zoomInLabel": "הגדלה",
+    "zoomResetLabel": "איפוס זום",
+    "previewTitle": "תצוגת מכשיר",
+    "previewEmpty": "בחרו PDF, כתובת או HTML כדי להציג במסגרת המכשיר שנבחרה.",
+    "viewportSizeLabel": "חלון תצוגה",
+    "frameChromeLabel": "תצוגה מקומית",
+    "urlLoading": "טוען את העמוד למסגרת המכשיר…",
+    "urlBlockedTitle": "האתר חוסם הטמעה",
+    "urlBlockedBody": "העמוד המבוקש סירב להופיע בתוך מסגרת התצוגה. אתרים רבים ופורטים מקומיים חוסמים framing מסיבות אבטחה.",
+    "urlBlockedPolicy": "בדרך כלל מדובר ב־X-Frame-Options או ב־Content-Security-Policy frame-ancestors. הדביקו HTML או העלו PDF כדי לבדוק פריסה מקומית.",
+    "urlTryHtml": "עברו ללשונית HTML",
+    "urlTryPdf": "עברו ללשונית PDF",
+    "urlOpenExternal": "פתחו את הכתובת בכרטיסייה חדשה",
+    "overviewTitle": "סקירה והוראות שימוש",
+    "overviewIntro": "תצוגת מכשיר רספונסיבית מאפשרת לבדוק איך עמוד PDF, כתובת חיה או קטע HTML נראים בטלפון, בטאבלט ובמחשב — הכל בדפדפן שלכם.",
+    "overviewPdfTitle": "1. לשונית PDF",
+    "overviewPdfBody": "גררו או בחרו קובץ PDF. העמודים מוצגים מקומית עם pdf.js בתוך מסגרת המכשיר. השתמשו במחוון העמודים כשיש יותר מעמוד אחד.",
+    "overviewUrlTitle": "2. לשונית URL",
+    "overviewUrlBody": "הדביקו כתובת מלאה (או פורט מקומי) ולחצו טענו כתובת. אם האתר חוסם הטמעה, תופיע אזהרה במסגרת עם קיצורי דרך ל־HTML או PDF.",
+    "overviewHtmlTitle": "3. לשונית HTML",
+    "overviewHtmlBody": "הדביקו קוד או התחילו מדוגמה, ואז לחצו עדכנו תצוגה. HTML רץ תמיד מקומית במסגרת srcdoc מבודדת — האפשרות האמינה ביותר לבדיקת פריסה.",
+    "overviewDevicesTitle": "4. מסגרות מכשיר",
+    "overviewDevicesBody": "בחרו טלפון, טאבלט או שולחני כדי לשנות את חלון התצוגה. עיצוב המסגרת מתעדכן בהתאם תוך שמירה על רוחב וגובה CSS לוגיים.",
+    "overviewControlsTitle": "5. כיוון וזום",
+    "overviewControlsBody": "עברו בין לאורך/לרוחב או לחצו סובבו. השתמשו בהקטנה/הגדלה (50%–150%) או לחצו על האחוזים לאיפוס ל־100%. שום דבר לא מועלה."
+  },
+  "ResponsiveDevicePreviewPage": {
+    "metaTitle": "תצוגת מכשיר רספונסיבית | סימולטור PDF ועמודים | JoinMyPDF",
+    "metaDescription": "הציגו PDF, HTML וכתובות במסגרות טלפון, טאבלט ומחשב. סובבו, זומו, ושמרו הכל מקומית בדפדפן — בלי העלאות.",
+    "title": "תצוגת מכשיר רספונסיבית",
+    "description": "סימולציית חלונות תצוגה לטלפון, טאבלט ומחשב עבור PDF, HTML או כתובות. תצוגה מקומית עם בקרות כיוון וזום.",
+    "backToAllTools": "חזרה לכל הכלים",
+    "privacyBadge": "עיבוד מקומי. שום דבר לא מועלה.",
+    "schemaName": "תצוגת מכשיר רספונסיבית",
+    "schemaDescription": "סימולטור PDF ועמודים בצד הלקוח עם מסגרות טלפון, טאבלט ומחשב, בקרות כיוון וזום.",
+    "schemaFeatureDevices": "מסגרות טלפון, טאבלט ומחשב",
+    "schemaFeaturePdf": "רינדור מקומי של עמודי PDF עם pdf.js",
+    "schemaFeatureUrl": "תצוגת כתובת ו-HTML",
+    "schemaFeatureLocal": "עיבוד מקומי — שום דבר לא מועלה"
   }
 }

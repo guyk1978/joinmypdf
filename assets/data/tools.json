@@ -800,6 +800,79 @@
       }
     },
     {
+      "slug": "responsive-device-preview",
+      "category": "convert",
+      "operation": "responsive-device-preview",
+      "requiresUpload": false,
+      "title": "Responsive Device Preview",
+      "primaryKeyword": "responsive device preview online",
+      "intent": "Preview PDFs, HTML, or URLs inside phone, tablet, and desktop frames with local-first rendering.",
+      "description": "Test how PDFs, HTML pages, or URLs look on phone, tablet, and desktop viewports. Rotate orientation, zoom the frame, and keep everything local in your browser.",
+      "secondaryKeywords": [
+        "pdf page view simulator",
+        "responsive viewport preview",
+        "mobile tablet desktop mockup",
+        "local device frame preview"
+      ],
+      "useCases": [
+        "Check PDF page layout on phone and tablet widths",
+        "Preview HTML snippets across device frames before shipping",
+        "Spot overflow and scaling issues without a device lab"
+      ],
+      "relatedTools": [
+        "pdf-reader",
+        "html-to-pdf",
+        "favicon-previewer",
+        "user-agent-parser"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF or HTML uploaded?",
+          "a": "No. PDF rendering and HTML preview run entirely in your browser. Local processing — nothing is uploaded."
+        },
+        {
+          "q": "Can I preview live websites?",
+          "a": "You can enter a URL, but many sites block embedding with X-Frame-Options or CSP. HTML paste and PDF upload always work locally."
+        },
+        {
+          "q": "Which devices are simulated?",
+          "a": "Phone, tablet, and desktop presets with portrait/landscape rotation and zoom controls."
+        },
+        {
+          "q": "Is Responsive Device Preview free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.56,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-08-01",
+      "documentation": {
+        "whyItMatters": "Responsive design only works when you can see the same content under real viewport constraints. Designers and developers often bounce between browser DevTools, physical devices, and PDF readers just to confirm that a layout still reads cleanly on a phone. A local device-frame preview keeps that check in one place: load a PDF page, paste HTML, or try a URL, then flip between phone, tablet, and desktop frames without sending files to a third-party server. Orientation and zoom controls make it easy to catch clipped text, oversized images, and awkward breakpoints before they ship.",
+        "faq": [
+          {
+            "question": "Is my PDF or HTML uploaded?",
+            "answer": "No. PDF rendering and HTML preview run entirely in your browser. Local processing — nothing is uploaded."
+          },
+          {
+            "question": "Can I preview live websites?",
+            "answer": "You can enter a URL, but many sites block embedding with X-Frame-Options or CSP. HTML paste and PDF upload always work locally."
+          },
+          {
+            "question": "Which devices are simulated?",
+            "answer": "Phone, tablet, and desktop presets with portrait/landscape rotation and zoom controls."
+          },
+          {
+            "question": "Is Responsive Device Preview free?",
+            "answer": "Yes. It is free to use with no account required."
+          }
+        ]
+      }
+    },
+    {
       "slug": "unlock-pdf",
       "category": "security",
       "operation": "unlock",

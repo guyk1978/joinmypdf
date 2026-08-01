@@ -174,6 +174,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "jwt-debugger", labelKey: "jwtDebugger", categories: [c.developerTokens] },
   { slug: "my-ip", labelKey: "myIp", categories: [c.developerBrowser] },
   { slug: "qr-code-generator", labelKey: "qrCodeGenerator", categories: [c.developerGenerators] },
+  { slug: "responsive-device-preview", labelKey: "responsiveDevicePreview", categories: [c.developerGenerators, c.design] },
   { slug: "json-formatter", labelKey: "jsonFormatter", categories: [c.developerJson] },
   { slug: "json-csv-explorer", labelKey: "jsonCsvExplorer", categories: [c.developerJson] },
   { slug: "json-to-csv", labelKey: "jsonToCsv", categories: [c.developerJson] },
@@ -615,7 +616,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "design-tools",
         labelKey: "megaMenu.columns.designTools",
-        slugs: ["color-palette-extractor", "color-converter"],
+        slugs: ["color-palette-extractor", "color-converter", "responsive-device-preview"],
       },
       {
         id: "pdf-organize",
@@ -666,6 +667,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
           "user-agent-parser",
           "jwt-debugger",
           "qr-code-generator",
+          "responsive-device-preview",
           "json-formatter",
           "json-csv-explorer",
           "json-minifier",

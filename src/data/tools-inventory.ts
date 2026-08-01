@@ -1137,6 +1137,16 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "resizeImage",
   },
   {
+    id: "responsive-device-preview",
+    title: "Responsive Device Preview",
+    path: "/tools/responsive-device-preview/",
+    description:
+      "Preview PDFs, HTML, or URLs inside phone, tablet, and desktop frames. Rotate orientation, zoom the viewport, and keep every byte local in your browser.",
+    categories: ["developer", "design"] as const,
+    primaryCategory: "developer",
+    labelKey: "responsiveDevicePreview",
+  },
+  {
     id: "rotate-image",
     title: "Rotate & Align Suite",
     path: "/tools/rotate-image/",

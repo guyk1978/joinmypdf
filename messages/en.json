@@ -259,7 +259,8 @@
       "dataConverter": "Data Converter",
       "quickNote": "Multi-Note Manager",
       "imageCombiner": "Image Combiner",
-      "emlToPdf": "EML to PDF"
+      "emlToPdf": "EML to PDF",
+      "responsiveDevicePreview": "Responsive Device Preview"
     },
     "library": "Library",
     "toolsHub": "Categories",
@@ -3120,6 +3121,10 @@
         "jwtDebugger": {
           "label": "JWT Decoder",
           "description": "Decode JWT tokens locally — view payload JSON, algorithm, and signature presence without uploading secrets."
+        },
+        "responsiveDevicePreview": {
+          "label": "Responsive Device Preview",
+          "description": "Preview PDFs, HTML, or URLs in phone, tablet, and desktop frames — local-first."
         }
       }
     },
@@ -3204,6 +3209,10 @@
         "colorConverter": {
           "label": "Color Converter",
           "description": "Convert HEX, RGB, and HSL in real time with a live picker and copy buttons."
+        },
+        "responsiveDevicePreview": {
+          "label": "Responsive Device Preview",
+          "description": "Preview PDFs, HTML, or URLs in phone, tablet, and desktop frames — local-first."
         }
       }
     },
@@ -3504,7 +3513,8 @@
       "mp4-converter": "MP4 Converter",
       "hash-generator-sha": "SHA Hash Generator",
       "uuid-guid-generator": "UUID Generator",
-      "json-validator": "JSON Validator"
+      "json-validator": "JSON Validator",
+      "responsive-device-preview": "Responsive Device Preview"
     },
     "cardDescriptions": {
       "base64-encoder-decoder": "Encode or decode Base64 text and data instantly.",
@@ -3525,7 +3535,8 @@
       "url-encoder-decoder": "Encode or decode URL strings safely in your browser.",
       "url-parameter-stripper": "Remove tracking parameters from URLs locally.",
       "word-character-counter": "Count words, characters, sentences, and paragraphs.",
-      "image-combiner": "Combine 2–4 images side by side or vertically and download one PNG."
+      "image-combiner": "Combine 2–4 images side by side or vertically and download one PNG.",
+      "responsive-device-preview": "Preview PDFs, HTML, or URLs in phone, tablet, and desktop frames with local-first rendering."
     }
   },
   "SearchPage": {
@@ -9397,5 +9408,77 @@
     "success": "Converted",
     "getStarted": "Get Started",
     "getStartedHint": "Open the workspace to convert EML emails to PDF."
+  },
+  "ResponsiveDevicePreview": {
+    "privacyLabel": "Local Processing. Nothing is uploaded.",
+    "sourceTitle": "Preview source",
+    "modePdf": "PDF",
+    "modeUrl": "URL",
+    "modeHtml": "HTML",
+    "pdfDropTitle": "Drop a PDF here",
+    "pdfDropHint": "Rendered locally with pdf.js inside the device frame.",
+    "pdfBrowse": "Select PDF from device",
+    "pdfClear": "Clear PDF",
+    "pdfLoading": "Loading PDF…",
+    "pdfError": "Could not open that PDF. Try another file.",
+    "pdfPageLabel": "Page {current} of {total}",
+    "urlLabel": "Page URL",
+    "urlPlaceholder": "https://example.com",
+    "urlLoad": "Load URL",
+    "urlHint": "The page opens in a sandboxed frame on your device.",
+    "urlBlockedHint": "If the preview stays blank, the site likely blocks embedding (X-Frame-Options). Use the HTML or PDF tab instead.",
+    "htmlLabel": "HTML document",
+    "htmlPlaceholder": "Paste HTML to preview…",
+    "htmlApply": "Update preview",
+    "htmlResetSample": "Load sample page",
+    "deviceTitle": "Device frame",
+    "phoneLabel": "Phone",
+    "tabletLabel": "Tablet",
+    "desktopLabel": "Desktop",
+    "orientationLabel": "Orientation",
+    "portraitLabel": "Portrait",
+    "landscapeLabel": "Landscape",
+    "rotateLabel": "Rotate orientation",
+    "zoomLabel": "Zoom",
+    "zoomOutLabel": "Zoom out",
+    "zoomInLabel": "Zoom in",
+    "zoomResetLabel": "Reset zoom",
+    "previewTitle": "Device preview",
+    "previewEmpty": "Choose a PDF, URL, or HTML source to preview it in the selected device frame.",
+    "viewportSizeLabel": "Viewport",
+    "frameChromeLabel": "local preview",
+    "urlLoading": "Loading page into the device frame…",
+    "urlBlockedTitle": "This site blocks embedding",
+    "urlBlockedBody": "The target page refused to display inside this preview frame. Many websites and local ports block framing for security.",
+    "urlBlockedPolicy": "This is usually caused by an X-Frame-Options or Content-Security-Policy frame-ancestors header. Paste HTML or upload a PDF instead to preview layout locally.",
+    "urlTryHtml": "Use HTML tab",
+    "urlTryPdf": "Use PDF tab",
+    "urlOpenExternal": "Open URL in a new tab",
+    "overviewTitle": "Overview & How to Use",
+    "overviewIntro": "Responsive Device Preview helps you check how a PDF page, live URL, or HTML snippet looks on phone, tablet, and desktop viewports — entirely in your browser.",
+    "overviewPdfTitle": "1. PDF tab",
+    "overviewPdfBody": "Drop or browse for a PDF. Pages render locally with pdf.js inside the selected device frame. Use the page slider when the file has multiple pages.",
+    "overviewUrlTitle": "2. URL tab",
+    "overviewUrlBody": "Paste a full URL (or localhost port) and press Load URL. If the site blocks embedding, a warning appears in the frame with shortcuts to switch to HTML or PDF.",
+    "overviewHtmlTitle": "3. HTML tab",
+    "overviewHtmlBody": "Paste markup or start from the sample page, then click Update preview. HTML always runs locally via a sandboxed srcdoc frame, so it is the most reliable option for layout checks.",
+    "overviewDevicesTitle": "4. Device frames",
+    "overviewDevicesBody": "Choose Phone, Tablet, or Desktop to resize the preview viewport. The frame chrome updates to match the selected device while keeping the logical CSS width and height.",
+    "overviewControlsTitle": "5. Orientation & zoom",
+    "overviewControlsBody": "Switch Portrait/Landscape or tap Rotate to flip the viewport. Use Zoom out / Zoom in (50%–150%) or click the percentage to reset to 100%. Nothing is uploaded at any step."
+  },
+  "ResponsiveDevicePreviewPage": {
+    "metaTitle": "Responsive Device Preview | PDF & Page View Simulator | JoinMyPDF",
+    "metaDescription": "Preview PDFs, HTML, and URLs on phone, tablet, and desktop frames. Rotate, zoom, and keep every file local in your browser — nothing is uploaded.",
+    "title": "Responsive Device Preview",
+    "description": "Simulate phone, tablet, and desktop viewports for PDFs, HTML snippets, or URLs. Local-first preview with orientation and zoom controls.",
+    "backToAllTools": "Back to all tools",
+    "privacyBadge": "Local Processing. Nothing is uploaded.",
+    "schemaName": "Responsive Device Preview",
+    "schemaDescription": "Client-side PDF and page view simulator with phone, tablet, and desktop frames, orientation controls, and zoom.",
+    "schemaFeatureDevices": "Phone, tablet, and desktop device frames",
+    "schemaFeaturePdf": "Local PDF page rendering with pdf.js",
+    "schemaFeatureUrl": "URL and HTML viewport preview",
+    "schemaFeatureLocal": "Local processing — nothing is uploaded"
   }
 }

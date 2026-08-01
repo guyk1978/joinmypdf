@@ -41,6 +41,7 @@ const INTERACTIVE_GENERATOR_SLUGS = new Set<string>([
   "url-encoder-decoder",
   "url-parameter-stripper",
   "qr-code-generator",
+  "responsive-device-preview",
   "password-generator",
   "jwt-debugger",
   "user-agent-parser",

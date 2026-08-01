@@ -261,7 +261,8 @@
       "wavToMp3": "WAV в MP3",
       "audioCompressor": "Сжатие аудио",
       "imageCombiner": "Объединить изображения",
-      "emlToPdf": "EML в PDF"
+      "emlToPdf": "EML в PDF",
+      "responsiveDevicePreview": "Responsive Device Preview"
     },
     "library": "Library",
     "toolsHub": "Категории",
@@ -3122,6 +3123,10 @@
         "jwtDebugger": {
           "label": "Декодер JWT",
           "description": "Декодируйте JWT-токены локально — без загрузки на сервер."
+        },
+        "responsiveDevicePreview": {
+          "label": "Responsive Device Preview",
+          "description": "Просматривайте PDF, HTML или URL в рамках телефона, планшета и десктопа — локально."
         }
       }
     },
@@ -3206,6 +3211,10 @@
         "colorConverter": {
           "label": "Конвертер цветов",
           "description": "Конвертируйте HEX, RGB и HSL в реальном времени с живым пикером и кнопками копирования."
+        },
+        "responsiveDevicePreview": {
+          "label": "Responsive Device Preview",
+          "description": "Просматривайте PDF, HTML или URL в рамках телефона, планшета и десктопа — локально."
         }
       }
     },
@@ -3489,7 +3498,8 @@
       "uuid-generator": "Генератор UUID",
       "global-timezone-converter": "Глобальный конвертер часовых поясов",
       "image-combiner": "Объединить изображения",
-      "eml-to-pdf": "EML в PDF"
+      "eml-to-pdf": "EML в PDF",
+      "responsive-device-preview": "Responsive Device Preview"
     },
     "cardDescriptions": {
       "add-page-numbers": "Добавьте номера страниц в PDF с выбором расположения и формата.",
@@ -3653,7 +3663,8 @@
       "user-agent-parser": "Разберите User-Agent строку локально в браузере.",
       "uuid-generator": "Генерируйте UUID/GUID локально в браузере.",
       "global-timezone-converter": "Сравнивайте часовые пояса и копируйте расписание встреч локально.",
-      "image-combiner": "Объедините 2–4 изображения рядом или вертикально и скачайте один PNG."
+      "image-combiner": "Объедините 2–4 изображения рядом или вертикально и скачайте один PNG.",
+      "responsive-device-preview": "Просматривайте PDF, HTML или URL в рамках телефона, планшета и десктопа с локальной обработкой."
     },
     "navItems": {
       "pdfToWord": "PDF в Word",
@@ -9660,5 +9671,77 @@
     "success": "Готово",
     "getStarted": "Начать",
     "getStartedHint": "Откройте рабочую область для конвертации EML в PDF."
+  },
+  "ResponsiveDevicePreview": {
+    "privacyLabel": "Локальная обработка. Ничего не загружается.",
+    "sourceTitle": "Источник превью",
+    "modePdf": "PDF",
+    "modeUrl": "URL",
+    "modeHtml": "HTML",
+    "pdfDropTitle": "Перетащите PDF сюда",
+    "pdfDropHint": "Отображается локально через pdf.js в рамке устройства.",
+    "pdfBrowse": "Выбрать PDF с устройства",
+    "pdfClear": "Очистить PDF",
+    "pdfLoading": "Загрузка PDF…",
+    "pdfError": "Не удалось открыть PDF. Попробуйте другой файл.",
+    "pdfPageLabel": "Страница {current} из {total}",
+    "urlLabel": "URL страницы",
+    "urlPlaceholder": "https://example.com",
+    "urlLoad": "Загрузить URL",
+    "urlHint": "Страница открывается в изолированном фрейме на вашем устройстве.",
+    "urlBlockedHint": "Если превью пустое, сайт скорее всего блокирует embedding (X-Frame-Options). Используйте вкладку HTML или PDF.",
+    "htmlLabel": "HTML-документ",
+    "htmlPlaceholder": "Вставьте HTML для предпросмотра…",
+    "htmlApply": "Обновить превью",
+    "htmlResetSample": "Загрузить пример",
+    "deviceTitle": "Рамка устройства",
+    "phoneLabel": "Телефон",
+    "tabletLabel": "Планшет",
+    "desktopLabel": "Десктоп",
+    "orientationLabel": "Ориентация",
+    "portraitLabel": "Портрет",
+    "landscapeLabel": "Альбом",
+    "rotateLabel": "Повернуть ориентацию",
+    "zoomLabel": "Масштаб",
+    "zoomOutLabel": "Уменьшить",
+    "zoomInLabel": "Увеличить",
+    "zoomResetLabel": "Сбросить масштаб",
+    "previewTitle": "Превью устройства",
+    "previewEmpty": "Выберите PDF, URL или HTML, чтобы показать его в выбранной рамке устройства.",
+    "viewportSizeLabel": "Viewport",
+    "frameChromeLabel": "локальное превью",
+    "urlLoading": "Загрузка страницы в рамку устройства…",
+    "urlBlockedTitle": "Сайт блокирует встраивание",
+    "urlBlockedBody": "Целевая страница отказалась отображаться в этом фрейме. Многие сайты и локальные порты блокируют framing из соображений безопасности.",
+    "urlBlockedPolicy": "Обычно это связано с заголовком X-Frame-Options или Content-Security-Policy frame-ancestors. Вставьте HTML или загрузите PDF, чтобы проверить вёрстку локально.",
+    "urlTryHtml": "Открыть вкладку HTML",
+    "urlTryPdf": "Открыть вкладку PDF",
+    "urlOpenExternal": "Открыть URL в новой вкладке",
+    "overviewTitle": "Обзор и инструкция",
+    "overviewIntro": "Responsive Device Preview помогает проверить, как PDF-страница, URL или HTML-фрагмент выглядят на телефоне, планшете и десктопе — прямо в браузере.",
+    "overviewPdfTitle": "1. Вкладка PDF",
+    "overviewPdfBody": "Перетащите или выберите PDF. Страницы рендерятся локально через pdf.js в выбранной рамке. Для многостраничных файлов используйте слайдер страниц.",
+    "overviewUrlTitle": "2. Вкладка URL",
+    "overviewUrlBody": "Вставьте полный URL (или локальный порт) и нажмите Load URL. Если сайт блокирует embedding, в рамке появится предупреждение с переходами на HTML или PDF.",
+    "overviewHtmlTitle": "3. Вкладка HTML",
+    "overviewHtmlBody": "Вставьте разметку или начните с примера, затем нажмите Update preview. HTML всегда выполняется локально в sandbox srcdoc — самый надёжный вариант для проверки вёрстки.",
+    "overviewDevicesTitle": "4. Рамки устройств",
+    "overviewDevicesBody": "Выберите Phone, Tablet или Desktop, чтобы изменить viewport. Хром рамки обновляется под устройство, сохраняя логическую CSS-ширину и высоту.",
+    "overviewControlsTitle": "5. Ориентация и масштаб",
+    "overviewControlsBody": "Переключайте Portrait/Landscape или нажмите Rotate. Масштаб 50%–150%, клик по проценту сбрасывает на 100%. На любом шаге ничего не загружается на сервер."
+  },
+  "ResponsiveDevicePreviewPage": {
+    "metaTitle": "Responsive Device Preview | Симулятор PDF и страниц | JoinMyPDF",
+    "metaDescription": "Просматривайте PDF, HTML и URL в рамках телефона, планшета и десктопа. Поворачивайте, масштабируйте и держите всё локально в браузере — без загрузок.",
+    "title": "Responsive Device Preview",
+    "description": "Симуляция viewport телефона, планшета и десктопа для PDF, HTML или URL. Локальный предпросмотр с ориентацией и зумом.",
+    "backToAllTools": "Назад ко всем инструментам",
+    "privacyBadge": "Локальная обработка. Ничего не загружается.",
+    "schemaName": "Responsive Device Preview",
+    "schemaDescription": "Клиентский симулятор PDF и страниц с рамками телефона, планшета и десктопа, ориентацией и зумом.",
+    "schemaFeatureDevices": "Рамки телефона, планшета и десктопа",
+    "schemaFeaturePdf": "Локальный рендер страниц PDF через pdf.js",
+    "schemaFeatureUrl": "Превью URL и HTML",
+    "schemaFeatureLocal": "Локальная обработка — ничего не загружается"
   }
 }
