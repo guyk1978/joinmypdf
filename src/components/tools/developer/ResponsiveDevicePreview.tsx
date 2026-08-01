@@ -8,7 +8,6 @@ import {
   useState,
   type ChangeEvent,
   type DragEvent,
-  type IframeHTMLAttributes,
 } from "react";
 import { clsx } from "clsx";
 import {
@@ -725,16 +724,30 @@ export function ResponsiveDevicePreview({ labels, className }: ResponsiveDeviceP
                       <>
                         <iframe
                           key={urlFrameKey}
-                          ref={urlIframeRef}
+                          ref={(node) => {
+                            urlIframeRef.current = node;
+                            if (!node) return;
+                            // Under JoinMyPDF COEP, cross-origin URL frames need credentialless
+                            // set *before* navigation. React prop order alone is not reliable.
+                            try {
+                              (
+                                node as HTMLIFrameElement & {
+                                  credentialless?: boolean;
+                                }
+                              ).credentialless = true;
+                            } catch {
+                              /* older browsers */
+                            }
+                            node.setAttribute("credentialless", "");
+                            if (node.getAttribute("src") !== urlActive) {
+                              node.src = urlActive;
+                            }
+                          }}
                           title={labels.previewTitle}
                           className={clsx(
                             "responsive-device-preview-tool__iframe",
                             showUrlBlocked && "is-blocked",
                           )}
-                          src={urlActive}
-                          // Under JoinMyPDF COEP, cross-origin frames need credentialless
-                          // and/or the child to send CORP: cross-origin.
-                          {...({ credentialless: true } as IframeHTMLAttributes<HTMLIFrameElement>)}
                           sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
                           referrerPolicy="no-referrer"
                           onLoad={onUrlIframeLoad}
