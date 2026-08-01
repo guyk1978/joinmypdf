@@ -53,6 +53,12 @@ export function getCategoryAccentColor(id: InventoryCategoryId | string): string
   );
 }
 
+export function isInventoryCategoryId(
+  id: string | null | undefined,
+): id is InventoryCategoryId {
+  return Boolean(id && id in CATEGORY_ACCENT_COLORS);
+}
+
 /** Black or white ink that contrasts with a solid category fill. */
 export function getContrastingInk(hex: string): "#000000" | "#ffffff" {
   const raw = hex.replace("#", "").trim();

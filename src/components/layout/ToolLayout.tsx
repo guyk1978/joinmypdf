@@ -22,6 +22,7 @@ import {
   getCategoryAccentColor,
   getCategoryAccentCssVar,
   getContrastingInk,
+  resolveToolAccentCategoryId,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
 import { resolveLocalizedToolDocFields } from "@/lib/tool-doc-content";
@@ -127,10 +128,14 @@ export function ToolLayout({
     categoryIdProp ??
     hierarchy?.categoryId ??
     resolveToolCategoryId(resolvedSlug);
-  const accentStyle = categoryId
+  const accentCategoryId =
+    resolveToolAccentCategoryId(resolvedSlug, categoryId) ?? categoryId;
+  const accentStyle = accentCategoryId
     ? ({
-        "--category-accent": getCategoryAccentCssVar(categoryId),
-        "--category-accent-ink": getContrastingInk(getCategoryAccentColor(categoryId)),
+        "--category-accent": getCategoryAccentCssVar(accentCategoryId),
+        "--category-accent-ink": getContrastingInk(
+          getCategoryAccentColor(accentCategoryId),
+        ),
       } as CSSProperties)
     : undefined;
 
@@ -207,7 +212,7 @@ export function ToolLayout({
           "tool-page-layout--embed",
           className,
         )}
-        data-category={categoryId || undefined}
+        data-category={accentCategoryId || undefined}
         style={accentStyle}
       >
         <div className={clsx("tool-page-layout__content flex min-h-0 w-full flex-1 flex-col", contentClassName)}>
@@ -225,7 +230,7 @@ export function ToolLayout({
         shell.stacked && "tool-page-layout--stacked",
         className,
       )}
-      data-category={categoryId || undefined}
+      data-category={accentCategoryId || undefined}
       style={accentStyle}
     >
       {showHeader && resolvedTitle ? (

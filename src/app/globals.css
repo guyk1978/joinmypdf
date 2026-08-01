@@ -30011,16 +30011,25 @@ html[dir="rtl"] .favicon-preset-library__panel {
 
 /*
  * Primary tool upload box — full solid category fill (orange/blue/green/…).
- * Hover: brighten the fill only (same border width) so layout doesn't flicker.
+ * Always-on thick accent frame with a dark gap (not hover-dependent).
+ * Hover: brighten the fill only — same frame, no size change / flicker.
  */
 .im-dropzone:not(.im-dropzone--compact) {
-  --im-dropzone-border: 3px;
+  --im-dropzone-border: 0px;
+  --im-dropzone-frame-width: 5px;
+  --im-dropzone-frame-gap: 4px;
+  overflow: visible;
   border-style: solid;
-  border-color: color-mix(in srgb, var(--category-accent, #2563EB) 72%, #000000);
+  border-width: 0;
+  border-color: transparent;
   background-color: var(--category-accent, #2563EB);
   background-image: none;
   color: var(--category-accent-ink, #ffffff);
-  box-shadow: none;
+  /* Dark gap, then thick accent ring — matches title/rating color */
+  box-shadow:
+    0 0 0 var(--im-dropzone-frame-gap) var(--site-canvas-bg, #121212),
+    0 0 0 calc(var(--im-dropzone-frame-gap) + var(--im-dropzone-frame-width))
+      var(--category-accent, #2563EB);
 }
 
 .im-dropzone:not(.im-dropzone--compact) .im-dropzone__icon,
@@ -30041,15 +30050,18 @@ html[dir="rtl"] .favicon-preset-library__panel {
 .im-dropzone:not(.im-dropzone--compact):hover,
 .im-dropzone:not(.im-dropzone--compact).im-dropzone--active,
 .im-dropzone:not(.im-dropzone--compact):focus-visible {
-  border-style: solid;
-  border-width: var(--im-dropzone-border, 3px);
-  border-color: color-mix(in srgb, var(--category-accent, #2563EB) 55%, #ffffff);
+  border-width: 0;
+  border-color: transparent;
   background-color: color-mix(
     in srgb,
     var(--category-accent, #2563EB) 78%,
     #ffffff
   );
-  box-shadow: none;
+  /* Keep the always-on frame identical on hover */
+  box-shadow:
+    0 0 0 var(--im-dropzone-frame-gap, 4px) var(--site-canvas-bg, #121212),
+    0 0 0 calc(var(--im-dropzone-frame-gap, 4px) + var(--im-dropzone-frame-width, 5px))
+      var(--category-accent, #2563EB);
   outline: none;
 }
 
@@ -30064,6 +30076,14 @@ html[dir="rtl"] .favicon-preset-library__panel {
 .im-dropzone:not(.im-dropzone--compact):focus-visible .im-dropzone__select {
   color: var(--category-accent-ink, #ffffff);
   filter: none;
+}
+
+/* Room for the outer accent frame so parents don't clip it */
+.im-dropzone-shell:has(> .im-dropzone:not(.im-dropzone--compact)),
+.tool-upload-float[data-workspace-phase="clean"] .im-dropzone-shell:has(.im-dropzone:not(.im-dropzone--compact)) {
+  overflow: visible;
+  padding: calc(var(--im-dropzone-frame-gap, 4px) + var(--im-dropzone-frame-width, 5px));
+  box-sizing: border-box;
 }
 
 /* Privacy + formats sit inside the centered drop-zone composition */

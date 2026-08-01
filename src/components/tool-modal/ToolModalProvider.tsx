@@ -48,7 +48,7 @@ import {
   parseToolHierarchyPath,
   resolveToolHref,
 } from "@/lib/tool-hierarchy";
-import { resolveToolCategoryId } from "@/lib/category-accent-colors";
+import { resolveToolAccentCategoryId, resolveToolCategoryId } from "@/lib/category-accent-colors";
 import { toolRequiresUpload } from "@/lib/tool-interaction-mode";
 import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
 import { registry } from "@/lib/registry";
@@ -447,6 +447,9 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
   const embedSrc = active
     ? buildToolEmbedHref(active.href, locale, {
         project: resumeProjectId,
+        category:
+          resolveToolAccentCategoryId(active.slug, active.categoryId) ??
+          active.categoryId,
       })
     : "";
 

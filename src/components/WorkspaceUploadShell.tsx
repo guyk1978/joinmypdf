@@ -1,9 +1,20 @@
 "use client";
 
 import { clsx } from "clsx";
-import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode } from "react";
 import { ToolWorkspaceOverview } from "@/components/layout/ToolWorkspaceOverview";
 import { usePendingDropzoneHandoff } from "@/hooks/usePendingFileInputHandoff";
+import { usePathname } from "@/i18n/navigation";
+import {
+  getCategoryAccentColor,
+  getCategoryAccentCssVar,
+  getContrastingInk,
+  isInventoryCategoryId,
+  resolveToolAccentCategoryId,
+  resolveToolCategoryId,
+} from "@/lib/category-accent-colors";
+import { parseToolHierarchyPath } from "@/lib/tool-hierarchy";
+import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import {
   setToolHasUploadShell,
   setWorkspacePhase,
@@ -74,9 +85,35 @@ export function WorkspaceUploadShell({
   showOverview = true,
 }: WorkspaceUploadShellProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname() || "";
   const isUploadToolRef = useRef(
     typeof active === "boolean" || requiresUpload !== false,
   );
+
+  /** Match modal title/rating: same accent drives the solid dropzone fill. */
+  const accentStyle = useMemo(() => {
+    const fromQuery =
+      typeof window !== "undefined"
+        ? new URLSearchParams(window.location.search).get("category")
+        : null;
+    const hierarchy = parseToolHierarchyPath(pathname);
+    const slug = hierarchy?.slug
+      ? resolveCanonicalToolSlug(hierarchy.slug)
+      : undefined;
+    const categoryId =
+      (isInventoryCategoryId(fromQuery) ? fromQuery : undefined) ??
+      resolveToolAccentCategoryId(
+        slug,
+        hierarchy?.categoryId ?? resolveToolCategoryId(slug),
+      ) ??
+      hierarchy?.categoryId ??
+      resolveToolCategoryId(slug);
+    if (!categoryId) return undefined;
+    return {
+      "--category-accent": getCategoryAccentCssVar(categoryId),
+      "--category-accent-ink": getContrastingInk(getCategoryAccentColor(categoryId)),
+    } as CSSProperties;
+  }, [pathname]);
 
   const initialPhase = resolveInitialPhase(active, requiresUpload);
   usePendingDropzoneHandoff(rootRef);
@@ -154,6 +191,7 @@ export function WorkspaceUploadShell({
       )}
       data-workspace-phase={initialPhase}
       data-requires-upload={requiresUpload === false ? "0" : "1"}
+      style={accentStyle}
     >
       {children}
       {showOverview ? <ToolWorkspaceOverview /> : null}

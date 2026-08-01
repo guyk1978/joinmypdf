@@ -39,6 +39,7 @@ import {
   getCategoryAccentColor,
   getCategoryAccentCssVar,
   getContrastingInk,
+  resolveToolAccentCategoryId,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
 import {
@@ -173,10 +174,14 @@ export function ToolModalWrapper({
   const { handleShare, copied, busy: shareBusy, ariaLabel: shareAriaLabel, linkCopiedLabel } =
     usePageShare(sharePayload);
   const categoryId = categoryIdProp ?? resolveToolCategoryId(slug);
-  const accentStyle = categoryId
+  const accentCategoryId =
+    resolveToolAccentCategoryId(slug, categoryId) ?? categoryId;
+  const accentStyle = accentCategoryId
     ? ({
-        "--category-accent": getCategoryAccentCssVar(categoryId),
-        "--category-accent-ink": getContrastingInk(getCategoryAccentColor(categoryId)),
+        "--category-accent": getCategoryAccentCssVar(accentCategoryId),
+        "--category-accent-ink": getContrastingInk(
+          getCategoryAccentColor(accentCategoryId),
+        ),
       } as CSSProperties)
     : undefined;
 
@@ -497,7 +502,7 @@ export function ToolModalWrapper({
 
           <motion.div
             className="tool-modal__panel tool-modal__panel--fullscreen"
-            data-category={categoryId || undefined}
+            data-category={accentCategoryId || undefined}
             style={accentStyle}
             initial={false}
             animate={{ opacity: 1, y: 0 }}
@@ -759,7 +764,7 @@ export function ToolModalWrapper({
                 </h2>
                 <ToolModalRating
                   slug={slug}
-                  categoryId={categoryId}
+                  categoryId={accentCategoryId}
                   labels={{
                     ratings: labels?.ratings,
                     thankYou: labels?.thankYou,
