@@ -1,19 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
-import { CookieConsent } from "@/components/CookieConsent";
-import { DocumentLocaleAttributes } from "@/components/DocumentLocaleAttributes";
+import { hasLocale } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
-import { Providers } from "@/components/Providers";
 import { PwaServiceWorkerRegister } from "@/components/PwaServiceWorkerRegister";
-import { ScrollDepthTracker } from "@/components/ScrollDepthTracker";
 import { routing } from "@/i18n/routing";
 import { getBrandName } from "@/lib/brand";
-import {
-  pickMessageNamespaces,
-  SHARED_CLIENT_MESSAGE_NAMESPACES,
-} from "@/lib/client-messages";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import {
   PWA_BACKGROUND_COLOR,
@@ -94,6 +86,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/**
+ * Locale shell — analytics + lang bootstrap only.
+ * CSS, intl messages, and Providers live in (welcome) / (site) route groups.
+ */
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
@@ -102,23 +98,13 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   setRequestLocale(locale);
-  const messages = await getMessages();
-  const clientMessages = pickMessageNamespaces(
-    messages,
-    SHARED_CLIENT_MESSAGE_NAMESPACES,
-  );
 
   return (
-    <NextIntlClientProvider messages={clientMessages}>
+    <>
       <LocaleHtmlBootstrap locale={locale} />
-      <DocumentLocaleAttributes />
       <GoogleAnalytics />
       <PwaServiceWorkerRegister />
-      <Providers>
-        <ScrollDepthTracker />
-        {children}
-        <CookieConsent />
-      </Providers>
-    </NextIntlClientProvider>
+      {children}
+    </>
   );
 }

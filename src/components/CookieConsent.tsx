@@ -9,6 +9,7 @@ import {
   type CookieConsentChoice,
 } from "@/lib/cookie-consent";
 import { isGoogleAnalyticsConfigured, updateConsent } from "@/lib/google-analytics";
+import "./cookie-consent.css";
 
 type ConsentUiState = "checking" | "pending" | CookieConsentChoice;
 
@@ -62,41 +63,35 @@ export function CookieConsent() {
   return (
     <>
       {isOverlayActive && (
-        <div
-          className="pointer-events-auto fixed inset-0 z-[9999] bg-transparent backdrop-blur-[2px]"
-          aria-hidden="true"
-        />
+        <div className="cookie-consent__overlay" aria-hidden="true" />
       )}
       <div
-        className="pointer-events-none fixed inset-x-0 bottom-0 z-[10000] p-3"
+        className="cookie-consent__dock"
         role="dialog"
         aria-live="polite"
         aria-label={t("title")}
       >
-        <div className="pointer-events-auto mx-auto flex max-w-4xl flex-col gap-3 rounded-none border border-neutral-300 bg-white p-3 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800 dark:bg-neutral-900">
-          <p className="text-sm leading-relaxed text-black dark:text-neutral-200">
+        <div className="cookie-consent__card">
+          <p className="cookie-consent__message">
             {bannerMessage}{" "}
             {uiState !== "declined" && (
-              <Link
-                href="/privacy/"
-                className="font-medium text-black underline underline-offset-2 hover:text-black dark:text-neutral-200 dark:hover:text-neutral-100"
-              >
+              <Link href="/privacy/" className="cookie-consent__privacy">
                 {t("privacyLink")}
               </Link>
             )}
           </p>
-          <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
+          <div className="cookie-consent__actions">
             <button
               type="button"
               onClick={handleDecline}
-              className="inline-flex items-center justify-center rounded-none border border-neutral-300 bg-white px-3 py-1.5 text-sm font-semibold text-black transition hover:bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-200 dark:hover:bg-neutral-800"
+              className="cookie-consent__btn cookie-consent__btn--decline"
             >
               {t("decline")}
             </button>
             <button
               type="button"
               onClick={handleAccept}
-              className="inline-flex items-center justify-center rounded-none border border-neutral-800 bg-neutral-900 px-3 py-1.5 text-sm font-semibold text-neutral-100 transition hover:bg-neutral-800 dark:border-neutral-500 dark:bg-neutral-200 dark:text-neutral-950 dark:hover:bg-white"
+              className="cookie-consent__btn cookie-consent__btn--accept"
             >
               {t("accept")}
             </button>

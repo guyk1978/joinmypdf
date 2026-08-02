@@ -10,7 +10,7 @@ import {
   getInventoryToolsByCategory,
   listDedicatedInventoryHubLinks,
 } from "@/lib/tools-inventory-query";
-import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
+import { useOptionalToolModal } from "@/components/tool-modal/tool-modal-context";
 
 type PanelPosition = {
   top: number;

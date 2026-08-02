@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
-import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
+import { useOptionalToolModal } from "@/components/tool-modal/tool-modal-context";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { findToolsDataByPathname } from "@/data/tools-data";
 import { normalizeHubPath } from "@/lib/tool-hierarchy";

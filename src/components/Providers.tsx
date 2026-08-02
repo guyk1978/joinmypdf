@@ -1,15 +1,28 @@
 "use client";
 
 import { Suspense, type ReactNode } from "react";
+import dynamic from "next/dynamic";
 import { EmailPopupScript } from "@/components/EmailPopupScript";
-import { PreviewInspectHost } from "@/components/PreviewInspectHost";
-import { ToolsDirectoryBatchPinBar } from "@/components/ToolsDirectoryBatchPinBar";
 import { ToolsDirectorySelectionProvider } from "@/components/ToolsDirectorySelectionContext";
-import { ToolModalProvider } from "@/components/tool-modal/ToolModalProvider";
+import { DeferredToolModalProvider } from "@/components/tool-modal/DeferredToolModalProvider";
 import { ViewportHistoryRecovery } from "@/components/ViewportHistoryRecovery";
 import { PendingFilesProvider } from "@/context/PendingFilesContext";
 import { ProjectToastProvider } from "@/context/ProjectToastContext";
 import { PostHogProvider } from "@/components/PostHogProvider";
+
+const PreviewInspectHost = dynamic(
+  () =>
+    import("@/components/PreviewInspectHost").then((mod) => mod.PreviewInspectHost),
+  { ssr: false },
+);
+
+const ToolsDirectoryBatchPinBar = dynamic(
+  () =>
+    import("@/components/ToolsDirectoryBatchPinBar").then(
+      (mod) => mod.ToolsDirectoryBatchPinBar,
+    ),
+  { ssr: false },
+);
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
@@ -17,7 +30,7 @@ export function Providers({ children }: { children: ReactNode }) {
       <PendingFilesProvider>
         <ProjectToastProvider>
           <Suspense fallback={null}>
-            <ToolModalProvider>
+            <DeferredToolModalProvider>
               <ToolsDirectorySelectionProvider>
                 <ViewportHistoryRecovery />
                 <div className="min-h-screen w-full max-w-[100vw] overflow-x-clip">
@@ -27,7 +40,7 @@ export function Providers({ children }: { children: ReactNode }) {
                   <ToolsDirectoryBatchPinBar />
                 </div>
               </ToolsDirectorySelectionProvider>
-            </ToolModalProvider>
+            </DeferredToolModalProvider>
           </Suspense>
         </ProjectToastProvider>
       </PendingFilesProvider>

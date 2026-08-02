@@ -2,10 +2,13 @@ export { ToolModalWrapper } from "@/components/tool-modal/ToolModalWrapper";
 export type { ToolModalTab, ToolModalWrapperProps } from "@/components/tool-modal/ToolModalWrapper";
 export {
   ToolModalProvider,
-  useToolModal,
-  useOptionalToolModal,
   type OpenToolModalOptions,
 } from "@/components/tool-modal/ToolModalProvider";
+export {
+  useToolModal,
+  useOptionalToolModal,
+} from "@/components/tool-modal/tool-modal-context";
+export { DeferredToolModalProvider } from "@/components/tool-modal/DeferredToolModalProvider";
 export {
   ToolModalDocsPanel,
   ToolDocumentation,

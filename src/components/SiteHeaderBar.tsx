@@ -15,7 +15,7 @@ import {
 } from "@/components/HeaderCategoryNav";
 import { HeaderSearch } from "@/components/HeaderSearch";
 import { InstallPwaButton } from "@/components/InstallPwaButton";
-import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
+import { useOptionalToolModal } from "@/components/tool-modal/tool-modal-context";
 import { getBrandName } from "@/lib/brand";
 import type { HeaderCategoryId } from "@/lib/tool-registry";
 

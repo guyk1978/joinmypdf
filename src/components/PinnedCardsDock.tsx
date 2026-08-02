@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useOptionalToolModal } from "@/components/tool-modal/ToolModalProvider";
+import { useOptionalToolModal } from "@/components/tool-modal/tool-modal-context";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
 import { ToolListIcon } from "@/components/ToolListIcon";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";

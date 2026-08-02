@@ -1,0 +1,318 @@
+/**
+ * Minimal critical CSS for the locale welcome splash.
+ * Intentionally excludes the sitewide globals / Tailwind payload.
+ */
+
+html {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
+  background-color: #000000;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 100vw;
+  font-family: Arial, "Helvetica Neue", Helvetica, "Segoe UI", sans-serif;
+  color: #fafafa;
+  background-color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.header-pdf-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  color: #fafafa;
+  vertical-align: middle;
+}
+
+.header-pdf-mini svg {
+  overflow: visible;
+}
+
+.header-pdf-mini__back {
+  animation: doc-slide-back 2s infinite ease-in-out;
+}
+
+.header-pdf-mini__front {
+  animation: doc-slide-front 2s infinite ease-in-out;
+}
+
+@keyframes doc-slide-back {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(1px, -1px);
+    opacity: 1;
+  }
+}
+
+@keyframes doc-slide-front {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-1.5px, 1.5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-pdf-mini__back,
+  .header-pdf-mini__front {
+    animation: none;
+  }
+}
+
+.joinmypdf-logo-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fafafa;
+  line-height: 1;
+}
+
+.joinmypdf-logo-text__icon {
+  color: #fafafa;
+}
+
+.joinmypdf-logo-text__word {
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+  line-height: 1;
+  color: #fafafa;
+  -webkit-text-fill-color: #fafafa;
+}
+
+.joinmypdf-logo-text__word:dir(rtl) {
+  text-transform: none;
+}
+
+/* ── Welcome splash ─────────────────────────────────────────────────────── */
+.welcome-splash {
+  --welcome-ink: #fafafa;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  min-height: 100dvh;
+  width: 100%;
+  padding:
+    clamp(2rem, 6vh, 4.5rem)
+    clamp(1.5rem, 6vw, 5rem)
+    clamp(2rem, 6vh, 4.5rem)
+    clamp(1.75rem, 7vw, 6rem);
+  overflow: hidden;
+  background: #000000;
+  color: var(--welcome-ink);
+}
+
+.welcome-splash--boot {
+  background: #000000;
+}
+
+.welcome-splash__boot-ring {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.42);
+  border-radius: 50%;
+  animation: welcome-splash-spin 0.9s linear infinite;
+}
+
+.welcome-splash__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.05rem;
+  width: min(36rem, 100%);
+  animation: welcome-splash-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.welcome-splash__eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+}
+
+.welcome-splash__brand {
+  margin: 0.55rem 0 0.1rem;
+}
+
+.welcome-splash__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: clamp(1.65rem, 3.8vw, 2.15rem);
+  line-height: 1;
+}
+
+.welcome-splash__logo .joinmypdf-logo-text__icon,
+.welcome-splash__logo .header-pdf-mini,
+.welcome-splash__logo .header-pdf-mini svg {
+  width: clamp(1.55rem, 3.2vw, 1.95rem);
+  height: clamp(1.55rem, 3.2vw, 1.95rem);
+  color: #ffffff;
+}
+
+.welcome-splash__logo .joinmypdf-logo-text__word {
+  font-size: inherit;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+.welcome-splash__title {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(2.35rem, 6.2vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+
+.welcome-splash__tagline {
+  margin: 0.15rem 0 0;
+  max-width: 32rem;
+  font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+  line-height: 1.55;
+  color: #a3a3a3;
+  text-wrap: pretty;
+}
+
+.welcome-splash__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.welcome-splash__enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1.15rem;
+  border: 1px solid #ffffff;
+  border-radius: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.welcome-splash__enter:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.welcome-splash__enter:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.welcome-splash__enter-icon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.18s ease;
+}
+
+.welcome-splash__enter:hover .welcome-splash__enter-icon {
+  transform: translateX(2px);
+}
+
+html[dir="rtl"] .welcome-splash__enter:hover .welcome-splash__enter-icon {
+  transform: translateX(-2px);
+}
+
+html[dir="rtl"] .welcome-splash__enter-icon {
+  transform: scaleX(-1);
+}
+
+.welcome-splash__hint {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #737373;
+}
+
+@keyframes welcome-splash-rise {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes welcome-splash-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-splash__content {
+    animation: none;
+  }
+
+  .welcome-splash__boot-ring {
+    animation: none;
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+
+  .welcome-splash__enter:hover .welcome-splash__enter-icon {
+    transform: none;
+  }
+}

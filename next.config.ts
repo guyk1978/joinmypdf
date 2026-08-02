@@ -33,6 +33,9 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   reactStrictMode: true,
   transpilePackages: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
+  experimental: {
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
   // Redirects apply for `next start` / non-export hosts. Static Cloudflare builds
   // ignore next.config redirects — see root `_redirects` (copied into public/out/.vercel via scripts/copy-redirects.mjs).
   ...(!shouldExportStatic

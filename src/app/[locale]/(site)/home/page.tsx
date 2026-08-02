@@ -1,16 +1,27 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { PopularTools } from "@/components/homepage/PopularTools";
 import { QuickActions } from "@/components/homepage/QuickActions";
-import { RecentTools } from "@/components/homepage/RecentTools";
-import { RecentWorkspaces } from "@/components/homepage/RecentWorkspaces";
 import { LocalWorkflowPanel } from "@/components/homepage/LocalWorkflowPanel";
 import { WorkflowSpotlight } from "@/components/homepage/WorkflowSpotlight";
 import { HomeStructuredData } from "@/components/HomeStructuredData";
 import { AppPageShell } from "@/components/AppPageShell";
 import { routing } from "@/i18n/routing";
 import "@/styles/home-landing.css";
+
+/** Client-only grids — split out of the home dashboard critical JS. */
+const PopularTools = dynamic(() =>
+  import("@/components/homepage/PopularTools").then((mod) => mod.PopularTools),
+);
+const RecentTools = dynamic(() =>
+  import("@/components/homepage/RecentTools").then((mod) => mod.RecentTools),
+);
+const RecentWorkspaces = dynamic(() =>
+  import("@/components/homepage/RecentWorkspaces").then(
+    (mod) => mod.RecentWorkspaces,
+  ),
+);
 
 type Props = {
   params: Promise<{ locale: string }>;

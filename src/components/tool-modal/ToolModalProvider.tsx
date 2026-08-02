@@ -1,9 +1,7 @@
 "use client";
 
 import {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -11,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import dynamic from "next/dynamic";
 import {
   createTranslator,
   useLocale,
@@ -19,14 +18,16 @@ import {
 } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { usePathname } from "@/i18n/navigation";
-import { CommunityReviews } from "@/components/CommunityReviews";
 import { ToolModalWrapper } from "@/components/tool-modal/ToolModalWrapper";
 import {
   ToolModalCalcFrame,
   ToolModalDocsPanel,
   ToolModalRelatedPanel,
 } from "@/components/tool-modal/ToolModalPanels";
-import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import {
+  ToolModalContext,
+  type OpenToolModalOptions,
+} from "@/components/tool-modal/tool-modal-context";
 import {
   findToolsDataByPathname,
   getToolModalPath,
@@ -51,42 +52,18 @@ import {
 import { resolveToolAccentCategoryId, resolveToolCategoryId } from "@/lib/category-accent-colors";
 import { toolRequiresUpload } from "@/lib/tool-interaction-mode";
 import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
-import { registry } from "@/lib/registry";
 
-export type OpenToolModalOptions = {
-  slug: string;
-  href: string;
-  title: string;
-  description?: string;
-  /** Parent category that opened this tool — drives accent theming. */
-  categoryId?: InventoryCategoryId;
-  /** Category hub (or other) URL to restore when closing. */
-  returnHref?: string;
-  calc?: ReactNode;
-  docs?: ReactNode;
-  related?: ReactNode;
-  skipUrlSync?: boolean;
-};
+export type { OpenToolModalOptions } from "@/components/tool-modal/tool-modal-context";
+export {
+  useOptionalToolModal,
+  useToolModal,
+} from "@/components/tool-modal/tool-modal-context";
 
-type ToolModalContextValue = {
-  openToolModal: (options: OpenToolModalOptions) => void;
-  closeToolModal: (options?: { href?: string }) => void;
-  isOpen: boolean;
-};
-
-const ToolModalContext = createContext<ToolModalContextValue | null>(null);
-
-export function useToolModal(): ToolModalContextValue {
-  const ctx = useContext(ToolModalContext);
-  if (!ctx) {
-    throw new Error("useToolModal must be used within ToolModalProvider");
-  }
-  return ctx;
-}
-
-export function useOptionalToolModal(): ToolModalContextValue | null {
-  return useContext(ToolModalContext);
-}
+const CommunityReviews = dynamic(
+  () =>
+    import("@/components/CommunityReviews").then((mod) => mod.CommunityReviews),
+  { ssr: false },
+);
 
 function isEmbedRequest(): boolean {
   if (typeof window === "undefined") return false;
@@ -130,7 +107,14 @@ function maskBackground(on: boolean) {
   else document.documentElement.removeAttribute("data-tool-modal-open");
 }
 
-export function ToolModalProvider({ children }: { children: ReactNode }) {
+export function ToolModalProvider({
+  children,
+  pendingOpen = null,
+}: {
+  children: ReactNode;
+  /** Queued open from DeferredToolModalProvider stub before this chunk loaded. */
+  pendingOpen?: OpenToolModalOptions | null;
+}) {
   const locale = useLocale();
   const t = useTranslations("ToolModal");
   const tTools = useTranslations("Tools");
@@ -308,6 +292,14 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
     [applyActiveTool, localizeOptions, softPushToolUrl],
   );
 
+  // Handoff from deferred stub (user clicked a tool before the heavy chunk loaded).
+  useEffect(() => {
+    if (!pendingOpen) return;
+    openToolModal(pendingOpen);
+    // Intentional mount-only handoff.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleExitComplete = useCallback(() => {
     if (!visible) {
       setActive(null);
@@ -469,12 +461,10 @@ export function ToolModalProvider({ children }: { children: ReactNode }) {
 
   const loadingLabel = t("loading");
   const activeRequiresUpload = active
-    ? toolRequiresUpload(
-        registry.tools.find((entry) => entry.slug === active.slug) ?? {
-          slug: active.slug,
-          operation: active.slug,
-        },
-      )
+    ? toolRequiresUpload({
+        slug: active.slug,
+        operation: active.slug,
+      })
     : true;
 
   return (

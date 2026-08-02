@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import type { Viewport } from "next";
 import { GoogleAdSense } from "@/components/GoogleAdSense";
 import { assistant, heebo } from "@/lib/fonts";
-import "./globals.css";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -12,6 +11,10 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+/**
+ * Root shell — no sitewide CSS here.
+ * Welcome splash loads critical-splash.css; app routes load globals via (site) layout.
+ */
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html

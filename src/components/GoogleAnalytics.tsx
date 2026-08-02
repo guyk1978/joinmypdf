@@ -1,14 +1,18 @@
-import Script from "next/script";
 import { COOKIE_CONSENT_KEY } from "@/lib/cookie-consent";
 import { GA_MEASUREMENT_ID } from "@/lib/google-analytics";
+import Script from "next/script";
 
-/** GA4 + Consent Mode v2: tiny consent bootstrap early; gtag payload deferred off the critical path. */
+/**
+ * GA4 + Consent Mode v2.
+ * Consent bootstrap is a tiny inline afterInteractive script (not beforeInteractive)
+ * so it does not block first paint; gtag payload stays lazyOnload.
+ */
 export function GoogleAnalytics() {
   if (!GA_MEASUREMENT_ID) return null;
 
   return (
     <>
-      <Script id="gtag-consent-init" strategy="beforeInteractive">
+      <Script id="gtag-consent-init" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
