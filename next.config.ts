@@ -53,6 +53,16 @@ const nextConfig: NextConfig = {
               permanent: true,
             },
             {
+              source: "/blog",
+              destination: "/en/blog",
+              permanent: true,
+            },
+            {
+              source: "/blog/:path*",
+              destination: "/en/blog/:path*",
+              permanent: true,
+            },
+            {
               source: "/:locale(en|he|ru)/article/:slug/embed",
               destination: "/:locale/blog/:slug",
               permanent: true,

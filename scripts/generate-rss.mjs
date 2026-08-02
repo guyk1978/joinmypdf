@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { loadMergedBlogRegistry } from "./lib/merge-blog-registry.mjs";
 import { pingSearchEngines } from "./ping-search-engines.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -8,11 +9,11 @@ const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, "..");
 
 const toolsJsonPath = path.join(root, "assets", "data", "tools.json");
-const blogJsonPath = path.join(root, "assets", "data", "blog.json");
 const outputPath = path.join(root, "rss.xml");
 
 const toolsRegistry = JSON.parse(await readFile(toolsJsonPath, "utf8"));
-const blogRegistry = JSON.parse(await readFile(blogJsonPath, "utf8"));
+// Include editorial registry posts (e.g. crop-locally-privacy), not only blog.json.
+const blogRegistry = await loadMergedBlogRegistry({ root, readFile });
 const baseUrl = (toolsRegistry.site && toolsRegistry.site.baseUrl ? toolsRegistry.site.baseUrl : "https://joinmypdf.com").replace(/\/+$/, "");
 
 const blogItems = (blogRegistry.blog || [])
@@ -20,15 +21,19 @@ const blogItems = (blogRegistry.blog || [])
   .sort((a, b) => Date.parse(b.publishDate || "1970-01-01") - Date.parse(a.publishDate || "1970-01-01"))
   .slice(0, 40)
   .map((post) => ({
-    title: post.title,
-    link: baseUrl + "/blog/" + post.slug + "/",
+    title: post.seo?.metaTitle || post.title,
+    // Match localePrefix: "always" + trailingSlash: false canonical URLs.
+    link: baseUrl + "/en/blog/" + post.slug,
     pubDate: new Date(post.publishDate || Date.now()).toUTCString(),
-    description: post.description || ("Guide for " + post.keyword),
+    description:
+      post.seo?.metaDescription ||
+      post.description ||
+      ("Guide for " + (post.keyword || post.slug)),
   }));
 
 const toolItems = (toolsRegistry.tools || []).slice(0, 20).map((tool) => ({
   title: tool.title + " Tool Update",
-  link: baseUrl + "/tools/" + tool.slug + "/",
+  link: baseUrl + "/en/tools/" + tool.slug,
   pubDate: new Date(tool.updatedAt || Date.now()).toUTCString(),
   description: tool.description || tool.intent || tool.primaryKeyword || "PDF workflow tool update",
 }));

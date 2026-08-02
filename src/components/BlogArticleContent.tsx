@@ -11,7 +11,7 @@ import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { getLocalizedBlogCategoryLabel, getLocalizedBlogReadTime } from "@/lib/blog-card-i18n";
 import {
   blogArticleFaqItems,
-  blogArticlePath,
+  localizedBlogArticlePath,
 } from "@/lib/blog-article";
 import { getRelatedBlogPosts, getYouMightAlsoLikePosts } from "@/lib/blog-related";
 import { getBlogRegistry } from "@/lib/blog-registry";
@@ -50,7 +50,8 @@ export async function BlogArticleContent({
   const tTools = await getTranslations("Tools");
   const blogRegistry = getBlogRegistry(locale);
 
-  const pathname = blogArticlePath(post.slug);
+  // Schema / absolute URLs must match locale-prefixed canonicals (`localePrefix: "always"`).
+  const localizedPath = localizedBlogArticlePath(locale, post.slug);
   const description = post.seo?.metaDescription || post.description || "";
   const faqs = blogArticleFaqItems(post);
   const howTo = post.contentBlocks?.howTo;
@@ -92,7 +93,7 @@ export async function BlogArticleContent({
         data={blogPostingLd({
           title: displayTitle,
           description,
-          pathname,
+          pathname: localizedPath,
           datePublished: post.publishDate,
           dateModified: freshnessDate,
           authorName: author.name,
@@ -106,7 +107,7 @@ export async function BlogArticleContent({
           data={howToLd({
             name: howTo.name || displayTitle,
             description: howTo.description || description,
-            pathname,
+            pathname: localizedPath,
             steps: howTo.steps,
           })}
         />
@@ -166,7 +167,7 @@ export async function BlogArticleContent({
           data={comparisonArticleLd({
             headline: displayTitle,
             description,
-            pathname,
+            pathname: localizedPath,
             datePublished: post.publishDate,
             locale,
           })}
@@ -177,7 +178,7 @@ export async function BlogArticleContent({
           data={techArticleLd({
             headline: displayTitle,
             description,
-            pathname,
+            pathname: localizedPath,
             datePublished: post.publishDate,
             locale,
             about:
@@ -189,9 +190,9 @@ export async function BlogArticleContent({
       ) : null}
       <JsonLd
         data={breadcrumbLd([
-          { name: t("breadcrumbs.home"), path: "/" },
-          { name: t("breadcrumbs.guides"), path: "/blog/" },
-          { name: displayTitle, path: pathname },
+          { name: t("breadcrumbs.home"), path: `/${locale}` },
+          { name: t("breadcrumbs.guides"), path: `/${locale}/blog` },
+          { name: displayTitle, path: localizedPath },
         ])}
       />
 

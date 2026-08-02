@@ -4,6 +4,11 @@
 /tools/ /en/tools 301
 /tools/* /en/tools/:splat 301
 
+# Legacy unlocalized blog URLs → English locale (localePrefix: always).
+/blog /en/blog 301
+/blog/ /en/blog 301
+/blog/* /en/blog/:splat 301
+
 # Retired duplicate article routes → one canonical static `/blog/:slug` page.
 /en/article/:slug/embed /en/blog/:slug 301
 /he/article/:slug/embed /he/blog/:slug 301

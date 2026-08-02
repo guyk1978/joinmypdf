@@ -8,7 +8,7 @@ import { routing } from "@/i18n/routing";
 import type { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
 
-export { blogArticlePath } from "@/lib/blog-article-path";
+export { blogArticlePath, localizedBlogArticlePath } from "@/lib/blog-article-path";
 
 export function stripBlogNoise(text: string) {
   return text.replace(/\s*\[[^\]]+\]\s*$/, "").trim();
@@ -68,6 +68,9 @@ export async function generateBlogArticleMetadata({
   const articlePath = blogArticlePath(slug).replace(/\/+$/, "");
   // Match next.config trailingSlash: false — canonical without trailing slash.
   const canonicalPath = `/${locale}${articlePath}`;
+  const languageAlternates = Object.fromEntries(
+    routing.locales.map((item) => [item, `/${item}${articlePath}`]),
+  );
 
   return {
     title,
@@ -75,9 +78,10 @@ export async function generateBlogArticleMetadata({
     ...(keywords ? { keywords } : {}),
     alternates: {
       canonical: canonicalPath,
-      languages: Object.fromEntries(
-        routing.locales.map((item) => [item, `/${item}${articlePath}`]),
-      ),
+      languages: {
+        ...languageAlternates,
+        "x-default": `/${routing.defaultLocale}${articlePath}`,
+      },
     },
     robots: { index: true, follow: true },
     openGraph: {
