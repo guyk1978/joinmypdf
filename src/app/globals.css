@@ -32729,13 +32729,12 @@ html[dir="rtl"] .welcome-splash__enter-icon {
   color: #737373;
 }
 
+/* Transform-only rise — keep opacity at 1 so LCP can paint on first frame. */
 @keyframes welcome-splash-rise {
   from {
-    opacity: 0;
     transform: translateY(12px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }

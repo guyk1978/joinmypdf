@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { ArrowRight } from "lucide-react";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { useRouter } from "@/i18n/navigation";
 import {
@@ -10,28 +9,30 @@ import {
   WELCOME_ENTERED_VALUE,
 } from "@/lib/welcome-splash";
 
-type Gate = "checking" | "show" | "redirecting";
+type Gate = "show" | "redirecting";
 
 /**
  * Minimal dark welcome screen for the locale root.
  * First visit shows brand + Enter CTA; returning visitors (localStorage) go to /home.
+ *
+ * Default gate is "show" so SSR HTML includes the LCP hero immediately.
+ * Returning visitors are redirected by WelcomeSplashRedirectScript before paint,
+ * with this effect as a fallback after hydration.
  */
 export function WelcomeSplash() {
   const t = useTranslations("Home.splash");
   const router = useRouter();
-  const [gate, setGate] = useState<Gate>("checking");
+  const [gate, setGate] = useState<Gate>("show");
 
   useEffect(() => {
     try {
       if (window.localStorage.getItem(WELCOME_ENTERED_STORAGE_KEY) === WELCOME_ENTERED_VALUE) {
         setGate("redirecting");
         router.replace("/home");
-        return;
       }
     } catch {
-      /* private mode / blocked storage — still show splash */
+      /* private mode / blocked storage — keep splash */
     }
-    setGate("show");
   }, [router]);
 
   const enter = () => {
@@ -43,7 +44,7 @@ export function WelcomeSplash() {
     router.push("/home");
   };
 
-  if (gate !== "show") {
+  if (gate === "redirecting") {
     return (
       <div
         className="welcome-splash welcome-splash--boot"
@@ -71,7 +72,19 @@ export function WelcomeSplash() {
         <div className="welcome-splash__actions">
           <button type="button" className="welcome-splash__enter" onClick={enter}>
             <span>{t("enter")}</span>
-            <ArrowRight className="welcome-splash__enter-icon" aria-hidden strokeWidth={2.5} />
+            <svg
+              className="welcome-splash__enter-icon"
+              aria-hidden
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
           </button>
           <p className="welcome-splash__hint">{t("hint")}</p>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { buildPageSocialMetadata } from "@/lib/og-images";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { WelcomeSplash } from "@/components/WelcomeSplash";
+import { WelcomeSplashRedirectScript } from "@/components/WelcomeSplashRedirectScript";
 import { routing } from "@/i18n/routing";
 
 type Props = {
@@ -31,5 +32,10 @@ export default async function WelcomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <WelcomeSplash />;
+  return (
+    <>
+      <WelcomeSplashRedirectScript homePath={`/${locale}/home`} />
+      <WelcomeSplash />
+    </>
+  );
 }

@@ -2,7 +2,7 @@ import Script from "next/script";
 import { COOKIE_CONSENT_KEY } from "@/lib/cookie-consent";
 import { GA_MEASUREMENT_ID } from "@/lib/google-analytics";
 
-/** GA4 + Consent Mode v2: gtag loads in head with analytics denied until the banner grants consent. */
+/** GA4 + Consent Mode v2: tiny consent bootstrap early; gtag payload deferred off the critical path. */
 export function GoogleAnalytics() {
   if (!GA_MEASUREMENT_ID) return null;
 
@@ -12,6 +12,7 @@ export function GoogleAnalytics() {
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
           gtag('consent', 'default', {
             'ad_storage': 'denied',
             'ad_user_data': 'denied',
@@ -33,9 +34,9 @@ export function GoogleAnalytics() {
       </Script>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="gtag-config" strategy="afterInteractive">
+      <Script id="gtag-config" strategy="lazyOnload">
         {`
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}', {

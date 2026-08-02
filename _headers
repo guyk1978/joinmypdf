@@ -3,6 +3,7 @@
 # worker-src 'self' blob: keeps FFmpeg class + core workers allowed under CSP.
 # frame-ancestors 'self' + X-Frame-Options SAMEORIGIN allow same-origin iframes
 # (Responsive Device Preview, tool modals) while blocking third-party embedding.
+# Note: when paths overlap, the last matching rule wins (headers are not merged).
 
 /*
   Cross-Origin-Opener-Policy: same-origin
@@ -10,6 +11,22 @@
   Cross-Origin-Resource-Policy: same-origin
   X-Frame-Options: SAMEORIGIN
   Content-Security-Policy: worker-src 'self' blob:; frame-ancestors 'self';
+
+# Hashed Next.js build output — long-lived immutable cache
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/icons/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
 
 /workers/*
   Cross-Origin-Resource-Policy: same-origin
@@ -32,6 +49,10 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /assets/fonts/*
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=31536000, immutable
+
+/wasm/*
   Cross-Origin-Resource-Policy: same-origin
   Cache-Control: public, max-age=31536000, immutable
 

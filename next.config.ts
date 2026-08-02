@@ -82,6 +82,12 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/_next/static/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
         source: "/workers/:path*",
         headers: [
           { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
@@ -90,6 +96,37 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/static/ffmpeg/:path*",
+        headers: [
+          { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/assets/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/icons/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/images/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/img/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/wasm/:path*",
         headers: [
           { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
@@ -107,6 +144,14 @@ const nextConfig: NextConfig = {
         ...config.resolve.fallback,
         fs: false,
         path: false,
+      };
+      // Drop Next's unconditional legacy polyfill-module (~Lighthouse "Legacy JavaScript").
+      // Site targets modern browsers only (see package.json browserslist).
+      const emptyPolyfill = path.join(process.cwd(), "src/lib/empty-polyfill.js");
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "next/dist/build/polyfills/polyfill-module": emptyPolyfill,
+        "next/dist/build/polyfills/polyfill-module.js": emptyPolyfill,
       };
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(/^node:fs$/, nodeStub),

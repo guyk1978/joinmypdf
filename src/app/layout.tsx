@@ -19,10 +19,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`dark ${assistant.variable} ${heebo.variable}`}
       suppressHydrationWarning
     >
-      <head>
+      <body className="font-sans text-white antialiased">
         <GoogleAdSense />
-      </head>
-      <body className="font-sans text-white antialiased">{children}</body>
+        {children}
+      </body>
     </html>
   );
 }

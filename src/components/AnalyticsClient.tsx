@@ -1,13 +1,21 @@
 "use client";
 
-import posthog from "posthog-js";
 import { EVENTS, sanitizeProps, type EventName, type EventProps } from "@/lib/analytics";
 
+type PostHogLike = {
+  capture?: (event: string, props?: Record<string, unknown>) => void;
+};
+
+/**
+ * Fire-and-forget analytics. Uses window.posthog when PostHogProvider has
+ * finished its idle init — no static posthog-js import on the critical path.
+ */
 export function capture(event: EventName, props?: EventProps) {
   try {
     const p = sanitizeProps(props);
-    if (typeof posthog.capture === "function") {
-      posthog.capture(event, p);
+    const ph = (globalThis as { posthog?: PostHogLike }).posthog;
+    if (ph && typeof ph.capture === "function") {
+      ph.capture(event, p);
     }
   } catch {
     /* ignore */
