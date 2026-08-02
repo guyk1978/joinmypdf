@@ -20035,7 +20035,7 @@
       "cluster": "user-agent-parser",
       "intent": "informational",
       "intentType": "how-to",
-      "publishDate": "2026-10-10",
+      "publishDate": "2026-07-10",
       "readTime": "12 דק' קריאה",
       "coverImage": "/assets/images/blog/og-default.jpg",
       "tier1": true,
@@ -20324,7 +20324,8 @@
             "anchor": "JSON Formatter"
           }
         ]
-      }
+      },
+      "updatedDate": "2026-08-02"
     },
     {
       "slug": "jwt-security-risks-local-processing",
