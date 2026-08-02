@@ -75,7 +75,11 @@ export function CookieConsent() {
           <p className="cookie-consent__message">
             {bannerMessage}{" "}
             {uiState !== "declined" && (
-              <Link href="/privacy/" className="cookie-consent__privacy">
+              <Link
+                href="/privacy/"
+                className="cookie-consent__privacy"
+                prefetch={false}
+              >
                 {t("privacyLink")}
               </Link>
             )}

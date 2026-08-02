@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 
+/** Must allow zoom — do not set maximum-scale / user-scalable=no (a11y). */
 const VIEWPORT_CONTENT =
-  "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover";
+  "width=device-width, initial-scale=1, viewport-fit=cover";
 
 function ensureViewportMeta() {
   if (typeof document === "undefined") return;
@@ -18,7 +19,7 @@ function ensureViewportMeta() {
     // iOS / BFCache can keep a stale visual scale; briefly re-assert the meta.
     meta.setAttribute(
       "content",
-      "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
+      "width=device-width, initial-scale=1.0, viewport-fit=cover",
     );
   }
   meta.setAttribute("content", VIEWPORT_CONTENT);

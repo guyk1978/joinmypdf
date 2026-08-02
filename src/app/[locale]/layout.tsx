@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { PwaServiceWorkerRegister } from "@/components/PwaServiceWorkerRegister";
 import { routing } from "@/i18n/routing";
 import { getBrandName } from "@/lib/brand";
@@ -87,8 +86,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * Locale shell — analytics + lang bootstrap only.
- * CSS, intl messages, and Providers live in (welcome) / (site) route groups.
+ * Locale shell — lang bootstrap + PWA SW only.
+ * Ads / GA / CSS / intl / Providers live in (welcome) / (site) route groups.
  */
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
@@ -102,7 +101,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <>
       <LocaleHtmlBootstrap locale={locale} />
-      <GoogleAnalytics />
       <PwaServiceWorkerRegister />
       {children}
     </>

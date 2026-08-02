@@ -284,7 +284,8 @@ html[dir="rtl"] .welcome-splash__enter-icon {
   margin: 0;
   font-size: 0.78rem;
   line-height: 1.4;
-  color: #737373;
+  /* ≥4.5:1 on #000 (was #737373 ≈4.4:1 — Lighthouse contrast fail) */
+  color: #a3a3a3;
 }
 
 @keyframes welcome-splash-rise {
