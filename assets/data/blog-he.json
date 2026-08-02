@@ -29296,7 +29296,8 @@
         "ctr": 1.8,
         "impressions": 200,
         "crawlFrequency": 4
-      }
+      },
+      "updatedDate": "2026-08-02"
     },
     {
       "slug": "adobe-acrobat-alternatives-for-students",
@@ -30644,8 +30645,9 @@
       ],
       "publishDate": "2025-12-22",
       "seo": {
-        "metaTitle": "חלופות ל-Adobe Acrobat לצוותי משפט (השוואה כנה 2026)",
-        "metaDescription": "חלופות ל-Adobe Acrobat לצוותי משפט: תהליכי עבודה, מלכודות ומתי להשתמש בפיצול PDF באינטרנט. מבוסס דפדפן, ללא סימן מים בפלט סטנדרטי."
+        "metaTitle": "חלופות ל-Adobe Acrobat לצוותי משפט (מדריך 2026)",
+        "metaDescription": "השוואת חלופות ל-Adobe Acrobat לצוותי משפט: תהליכי סקירה ללא נייר, מלכודות פרטיות, ומתי Split PDF של JoinMyPDF מתאים להכנת מסמכים בדפדפן—בלי סימן מים בפלט הסטנדרטי.",
+        "keywords": "חלופות adobe acrobat למשפטנים, כלי pdf למשרדי עורכי דין, פיצול pdf משפטי, כלי pdf בדפדפן פרטיות"
       },
       "description": "חלופות ל-Adobe Acrobat לצוותי משפט: תהליכי עבודה, מלכודות ומתי להשתמש בפיצול PDF באינטרנט. מבוסס דפדפן, ללא סימן מים בפלט סטנדרטי.",
       "contentBlocks": {
@@ -30886,7 +30888,8 @@
         "ctr": 1.8,
         "impressions": 200,
         "crawlFrequency": 4
-      }
+      },
+      "updatedDate": "2026-08-02"
     },
     {
       "slug": "browser-pdf-tools-comparison-for-legal-teams",
@@ -34596,7 +34599,8 @@
         "ctr": 1.8,
         "impressions": 200,
         "crawlFrequency": 4
-      }
+      },
+      "updatedDate": "2026-08-02"
     },
     {
       "slug": "adobe-acrobat-alternatives-pricing-comparison",

@@ -4,6 +4,7 @@ import { blogArticlePath } from "@/lib/blog-article-path";
 import { getBlogRegistry } from "@/lib/blog-registry";
 import { resolveBlogOgImagePath } from "@/lib/og-images-blog";
 import { buildDefaultSocialImages } from "@/lib/og-images";
+import { routing } from "@/i18n/routing";
 import type { BlogPost } from "@/lib/types";
 import type { Metadata } from "next";
 
@@ -64,18 +65,25 @@ export async function generateBlogArticleMetadata({
   const keywords = post.seo?.keywords;
   const ogImagePath = resolveBlogOgImagePath(post, locale);
   const social = buildDefaultSocialImages(locale, { alt: title, imagePath: ogImagePath });
-  const pathname = blogArticlePath(slug);
+  const articlePath = blogArticlePath(slug).replace(/\/+$/, "");
+  // Match next.config trailingSlash: false — canonical without trailing slash.
+  const canonicalPath = `/${locale}${articlePath}`;
 
   return {
     title,
     description,
     ...(keywords ? { keywords } : {}),
-    alternates: { canonical: pathname },
+    alternates: {
+      canonical: canonicalPath,
+      languages: Object.fromEntries(
+        routing.locales.map((item) => [item, `/${item}${articlePath}`]),
+      ),
+    },
     robots: { index: true, follow: true },
     openGraph: {
       title,
       description,
-      url: pathname,
+      url: canonicalPath,
       type: "article",
       ...social.openGraph,
     },

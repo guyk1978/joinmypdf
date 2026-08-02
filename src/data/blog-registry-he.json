@@ -1729,7 +1729,8 @@
       },
       "seo": {
         "metaTitle": "המרת AutoCAD ל-PDF באינטרנט בחינם — דיוק וקטורי של תוכניות 100%",
-        "metaDescription": "הפכו עיצובי AutoCAD (מסגרות מבניות .dxf/.dwg) ל-PDFים חדים וניתנים להדפסה ישירות בדפדפן. 100% בצד הלקוח, דיוק קנה מידה, חינם."
+        "metaDescription": "הפכו עיצובי AutoCAD (מסגרות מבניות .dxf/.dwg) ל-PDFים חדים וניתנים להדפסה ישירות בדפדפן. 100% בצד הלקוח, דיוק קנה מידה, חינם.",
+        "keywords": "המרת autocad ל-pdf, dwg ל-pdf באינטרנט, dxf ל-pdf בדפדפן, המרת autocad חינם"
       },
       "description": "למדו איך להמיר מיד קבצי שרטוט AutoCAD (וקטורים .dxf ו-.dwg) ל-PDFים ברזולוציה גבוהה ומדויקים בקנה מידה לחלוטין בדפדפן — בלי דליפות נתונים.",
       "contentBlocks": {
@@ -1837,7 +1838,8 @@
             "anchor": "מרכז כלי PDF ממוקדי פרטיות"
           }
         ]
-      }
+      },
+      "updatedDate": "2026-08-02"
     },
     {
       "slug": "openoffice-to-pdf",
@@ -35180,7 +35182,7 @@
       "cluster": "apple-touch-icon",
       "intent": "informational",
       "intentType": "how-to",
-      "publishDate": "2027-07-28",
+      "publishDate": "2026-07-28",
       "readTime": "8 דק' קריאה",
       "coverImage": "/assets/images/blog/og-default.jpg",
       "tier1": true,
@@ -35357,7 +35359,8 @@
             "anchor": "מחולל Favicon Pack"
           }
         ]
-      }
+      },
+      "updatedDate": "2026-08-02"
     },
     {
       "slug": "apple-touch-icon-html-integration",
@@ -35368,7 +35371,7 @@
       "cluster": "apple-touch-icon",
       "intent": "informational",
       "intentType": "how-to",
-      "publishDate": "2027-07-29",
+      "publishDate": "2026-07-29",
       "readTime": "7 דק' קריאה",
       "coverImage": "/assets/images/blog/og-default.jpg",
       "tier1": true,
@@ -35533,7 +35536,8 @@
             "anchor": "מדריך deploy favicon pack"
           }
         ]
-      }
+      },
+      "updatedDate": "2026-08-02"
     },
     {
       "slug": "speed-matters-favicon-optimization",

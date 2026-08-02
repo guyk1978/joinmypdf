@@ -198,10 +198,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   for (const post of blogRegistry.blog || []) {
-    for (const urlPath of localizedPaths(`/blog/${post.slug}/`)) {
+    for (const urlPath of localizedPaths(`/blog/${post.slug}`)) {
+      const stamp = post.updatedDate || post.publishDate || now.toISOString().slice(0, 10);
       push({
         url: `${siteUrl}${urlPath}`,
-        lastModified: new Date(post.publishDate || now.toISOString().slice(0, 10)),
+        lastModified: new Date(stamp),
         changeFrequency: "weekly",
         priority: post.tier1 ? 0.82 : 0.65,
       });
