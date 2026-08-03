@@ -125,6 +125,8 @@ export type BlogPost = {
   coverImage?: string;
   author?: BlogAuthorMeta;
   tier1?: boolean;
+  /** Sitemap priority override (0–1). Null/omit falls back to tier1 heuristics. */
+  priority?: number | null;
   relatedTools?: string[];
   relatedBlogs?: string[];
   seo?: { metaTitle?: string; metaDescription?: string; keywords?: string };
