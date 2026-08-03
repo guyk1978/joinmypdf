@@ -237,7 +237,8 @@ for (const post of blogRegistry.blog || []) {
       : post.tier1
         ? "0.82"
         : "0.65";
-  for (const urlPath of localizedPaths(`/blog/${post.slug}/`)) {
+  // Match trailingSlash: false + blog canonicals (no trailing slash on article URLs).
+  for (const urlPath of localizedPaths(`/blog/${post.slug}`)) {
     pushEntry(urls, seen, {
       loc: baseUrl + urlPath,
       priority: blogPriority,

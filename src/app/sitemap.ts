@@ -200,11 +200,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const post of blogRegistry.blog || []) {
     for (const urlPath of localizedPaths(`/blog/${post.slug}`)) {
       const stamp = post.updatedDate || post.publishDate || now.toISOString().slice(0, 10);
+      const priority =
+        post.priority != null && Number.isFinite(Number(post.priority))
+          ? Number(post.priority)
+          : post.tier1
+            ? 0.82
+            : 0.65;
       push({
+        // Canonical blog URLs omit trailing slash (trailingSlash: false).
         url: `${siteUrl}${urlPath}`,
         lastModified: new Date(stamp),
         changeFrequency: "weekly",
-        priority: post.tier1 ? 0.82 : 0.65,
+        priority,
       });
     }
   }
