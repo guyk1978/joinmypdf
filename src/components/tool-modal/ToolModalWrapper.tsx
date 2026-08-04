@@ -479,13 +479,17 @@ export function ToolModalWrapper({
     [calcLabel, docLabel, relatedLabel, reviewsLabel],
   );
 
+  const hasDocs = docs != null;
+  const hasRelated = related != null;
+  const hasReviews = reviews != null;
+
   const availableTabs = useMemo<ToolModalTab[]>(() => {
     const tabs: ToolModalTab[] = ["calc"];
-    if (docs != null) tabs.push("doc");
-    if (related != null) tabs.push("related");
-    if (reviews != null) tabs.push("reviews");
+    if (hasDocs) tabs.push("doc");
+    if (hasRelated) tabs.push("related");
+    if (hasReviews) tabs.push("reviews");
     return tabs;
-  }, [docs, related, reviews]);
+  }, [hasDocs, hasRelated, hasReviews]);
 
   const handleSaveProjectClick = useCallback(() => {
     requestWorkspaceProjectSnapshot();
@@ -529,6 +533,7 @@ export function ToolModalWrapper({
       open,
       slug,
       tab,
+      setTab,
       availableTabs,
       tabLabels,
       canSaveProject,
