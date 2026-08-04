@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { blogRegistry } from "./blog-registry";
+import { routing } from "@/i18n/routing";
 
 export type PdfHub = {
   path: string;
@@ -9,6 +11,23 @@ export type PdfHub = {
   /** blog cluster filters for additional listings */
   clusters?: string[];
 };
+
+/** Locale-prefixed canonical matching `trailingSlash: false`. */
+export function buildPdfHubMetadata(hub: PdfHub, locale: string): Metadata {
+  const hubPath = hub.path.replace(/\/+$/, "") || hub.path;
+  const canonicalPath = `/${locale}${hubPath}`;
+  return {
+    title: hub.title,
+    description: hub.description,
+    robots: { index: true, follow: true },
+    alternates: {
+      canonical: canonicalPath,
+      languages: Object.fromEntries(
+        routing.locales.map((item) => [item, `/${item}${hubPath}`]),
+      ),
+    },
+  };
+}
 
 export const pdfHubs: PdfHub[] = [
   {

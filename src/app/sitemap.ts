@@ -6,10 +6,8 @@ import {
   readInventoryStatusMap,
 } from "@/lib/inventory-status";
 import { pdfHubs } from "@/lib/pdf-hubs";
-import { registry } from "@/lib/registry";
 import { INVOICE_TEMPLATE_PROFILES } from "@/lib/invoice/templates";
 import { TIMELINE_TEMPLATE_PROFILES } from "@/lib/timeline/templates";
-import { generateClusterVariants } from "@/lib/variants";
 import { siteUrl } from "@/lib/site";
 import { routing } from "@/i18n/routing";
 import { INVENTORY_HUB_META, type InventoryCategoryId } from "@/data/inventory-hubs";
@@ -24,38 +22,51 @@ export const dynamic = "force-static";
 
 function localizedPaths(path: string): string[] {
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  return routing.locales.map((locale) => `/${locale}${normalized === "/" ? "" : normalized}`);
+  // Match next.config trailingSlash: false — strip trailing slash except locale roots.
+  const bare =
+    normalized === "/"
+      ? ""
+      : normalized.replace(/\/+$/, "");
+  return routing.locales.map((locale) => `/${locale}${bare}`);
 }
 
 /** Marketing / legal / directory shells — hubs only (tools come from hierarchy). */
 const BASE_PATHS = [
   "/",
-  "/home/",
-  "/tools/",
-  "/premium-tools/",
-  "/blog/",
-  "/privacy-first/",
-  "/privacy/",
-  "/compare/",
-  "/contact/",
-  "/reviews/",
-  "/guide/",
-  "/all-tools/",
-  "/privacy-first-pdf-tools/",
-  "/utilities/",
-  "/text-json-tools/",
-  "/developer-tools/",
-  "/pdf-guides/",
-  "/pdf-comparison/",
-  "/pdf-privacy/",
-  "/pdf-workflows/",
+  "/home",
+  "/tools",
+  "/premium-tools",
+  "/blog",
+  "/privacy-first",
+  "/privacy",
+  "/privacy-policy",
+  "/compare",
+  "/contact",
+  "/reviews",
+  "/guide",
+  "/all-tools",
+  "/about",
+  "/terms",
+  "/favorites",
+  "/projects",
+  "/audio-tools",
+  "/privacy-first-pdf-tools",
+  "/utilities",
+  "/text-json-tools",
+  "/developer-tools",
+  "/pdf-guides",
+  "/pdf-comparison",
+  "/pdf-privacy",
+  "/pdf-workflows",
 ];
 
 function listCategoryHubPaths(): string[] {
   const paths = new Set<string>();
   for (const id of Object.keys(INVENTORY_HUB_META) as InventoryCategoryId[]) {
     const hub = normalizeHubPath(id);
-    if (hub && hub !== "/tools/") paths.add(hub);
+    if (hub && hub !== "/tools/" && hub !== "/tools") {
+      paths.add(hub.replace(/\/+$/, ""));
+    }
   }
   return [...paths].sort();
 }
@@ -66,7 +77,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const canonicalTools = getCanonicalTools().filter((tool) =>
     isSitemapIndexableStatus(statusMap[tool.slug]),
   );
-  const canonicalSlugSet = new Set(canonicalTools.map((tool) => tool.slug));
 
   const entries: MetadataRoute.Sitemap = [];
   const seen = new Set<string>();
@@ -89,7 +99,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   for (const profile of INVOICE_TEMPLATE_PROFILES) {
-    for (const urlPath of localizedPaths(`/templates/${profile.slug}/`)) {
+    for (const urlPath of localizedPaths(`/templates/${profile.slug}`)) {
       push({
         url: `${siteUrl}${urlPath}`,
         lastModified: now,
@@ -100,7 +110,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   for (const profile of TIMELINE_TEMPLATE_PROFILES) {
-    for (const urlPath of localizedPaths(`/templates/timeline/${profile.slug}/`)) {
+    for (const urlPath of localizedPaths(`/templates/timeline/${profile.slug}`)) {
       push({
         url: `${siteUrl}${urlPath}`,
         lastModified: now,
@@ -111,7 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   for (const hub of pdfHubs) {
-    for (const urlPath of localizedPaths(hub.path)) {
+    for (const urlPath of localizedPaths(hub.path.replace(/\/+$/, ""))) {
       push({
         url: `${siteUrl}${urlPath}`,
         lastModified: now,
@@ -146,7 +156,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       for (const nestedPath of paths) {
         nestedToolEntries.push({
           locale,
-          path: nestedPath,
+          path: nestedPath.replace(/\/+$/, ""),
           lastModified,
           priority: tool.priority,
         });
@@ -158,7 +168,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       for (const nestedPath of listNestedSitemapPathsForTool(entry, locale)) {
         nestedToolEntries.push({
           locale,
-          path: nestedPath,
+          path: nestedPath.replace(/\/+$/, ""),
           lastModified: now,
           priority: 0.9,
         });
@@ -175,27 +185,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // SEO cluster variants stay on flat long-tail landings under /tools/{variant}/
-  for (const tool of registry.tools) {
-    if (!canonicalSlugSet.has(tool.slug)) continue;
-    if (tool.skipClusterVariants) continue;
-    const lastModified = tool.updatedAt ? new Date(tool.updatedAt) : now;
-    const longTailPriority =
-      tool.longTailPriority != null && Number.isFinite(Number(tool.longTailPriority))
-        ? Number(tool.longTailPriority)
-        : 0.58;
-
-    for (const variant of generateClusterVariants(tool, registry)) {
-      for (const urlPath of localizedPaths(`/tools/${variant.slug}/`)) {
-        push({
-          url: `${siteUrl}${urlPath}`,
-          lastModified,
-          changeFrequency: "weekly",
-          priority: longTailPriority,
-        });
-      }
-    }
-  }
+  // Cluster / long-tail variants are intentionally noindex soft-duplicates of
+  // canonical tools — do not list them in the sitemap.
 
   for (const post of blogRegistry.blog || []) {
     for (const urlPath of localizedPaths(`/blog/${post.slug}`)) {

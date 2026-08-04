@@ -12,24 +12,26 @@ import { breadcrumbLd, faqLd, JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import { ctaSecondary } from "@/lib/cta-styles";
 
-type PageProps = { params: Promise<{ slug: string }> };
+type PageProps = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
   return INVOICE_TEMPLATE_PROFILES.map((profile) => ({ slug: profile.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const profile = getInvoiceTemplateBySlug(slug);
   if (!profile) return {};
 
-  const canonicalPath = `/templates/${profile.slug}/`;
+  // Match trailingSlash: false — locale-prefixed canonical without trailing slash.
+  const canonicalPath = `/${locale}/templates/${profile.slug}`;
   const pageUrl = absoluteUrl(canonicalPath);
 
   return {
     title: profile.metaTitle,
     description: profile.metaDescription,
     keywords: profile.keywords,
+    robots: { index: true, follow: true },
     alternates: { canonical: canonicalPath },
     openGraph: {
       title: profile.metaTitle,
@@ -47,17 +49,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function InvoiceTemplatePage({ params }: PageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const profile = getInvoiceTemplateBySlug(slug);
   if (!profile) notFound();
 
   const initialDocument = createInvoiceDocumentForTemplate(profile);
-  const pathname = `/templates/${profile.slug}/`;
+  const pathname = `/${locale}/templates/${profile.slug}`;
   const faqs = profile.faq ?? [];
 
   const crumbs = [
-    { name: "Home", path: "/" },
-    { name: "Invoice generator", path: "/tools/invoice-generator/" },
+    { name: "Home", path: `/${locale}` },
+    { name: "Invoice generator", path: `/${locale}/tools/invoice-generator` },
     { name: profile.h1, path: pathname },
   ];
 

@@ -135,6 +135,7 @@ export function buildAudioToolMetadata(
   return {
     title,
     description,
+    robots: { index: true, follow: true },
     alternates: {
       canonical: `/${locale}${pathname}`,
       languages: buildToolAlternateLanguages(tool.id),

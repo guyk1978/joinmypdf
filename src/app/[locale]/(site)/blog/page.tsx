@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
+    robots: { index: true, follow: true },
     ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
       canonical: canonicalPath,

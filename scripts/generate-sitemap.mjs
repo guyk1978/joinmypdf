@@ -23,70 +23,41 @@ const outputPath = path.join(root, "sitemap.xml");
 
 const LOCALES = ["en", "he", "ru"];
 
-const MODIFIER_LIBRARY = [
-  "fast",
-  "free",
-  "online",
-  "mobile",
-  "no-upload",
-  "high-quality",
-  "large-files",
-  "no-signup",
-  "secure",
-  "instant",
-];
-
 const BASE_PATHS = [
   "/",
-  "/tools/",
-  "/premium-tools/",
-  "/blog/",
-  "/privacy-first/",
-  "/privacy/",
-  "/compare/",
-  "/contact/",
-  "/privacy-first-pdf-tools/",
-  "/utilities/",
-  "/text-json-tools/",
-  "/developer-tools/",
-  "/pdf-guides/",
-  "/pdf-comparison/",
-  "/pdf-privacy/",
-  "/pdf-workflows/",
-  ...listCategoryHubPaths(),
+  "/home",
+  "/tools",
+  "/premium-tools",
+  "/blog",
+  "/privacy-first",
+  "/privacy",
+  "/privacy-policy",
+  "/compare",
+  "/contact",
+  "/reviews",
+  "/guide",
+  "/all-tools",
+  "/about",
+  "/terms",
+  "/favorites",
+  "/projects",
+  "/audio-tools",
+  "/privacy-first-pdf-tools",
+  "/utilities",
+  "/text-json-tools",
+  "/developer-tools",
+  "/pdf-guides",
+  "/pdf-comparison",
+  "/pdf-privacy",
+  "/pdf-workflows",
+  ...listCategoryHubPaths().map((p) => String(p).replace(/\/+$/, "")),
 ];
 
 function localizedPaths(routePath) {
   const normalized = routePath.startsWith("/") ? routePath : `/${routePath}`;
-  return LOCALES.map((locale) => {
-    if (normalized === "/") return `/${locale}/`;
-    return `/${locale}${normalized}`;
-  });
-}
-
-function generateClusterVariants(tool, config) {
-  const modifiers = config.modifiers || MODIFIER_LIBRARY;
-  const targetCount = Math.max(20, Math.min(100, Number(config.targetVariantCount || 24)));
-  const manual = (tool.longTailPages || []).map((entry) => ({ slug: entry.slug }));
-  const combos = [
-    ["online", "fast"],
-    ["free", "no-signup"],
-    ["mobile", "fast"],
-    ["high-quality", "online"],
-    ["large-files", "fast"],
-    ["secure", "no-upload"],
-    ["instant", "online"],
-    ["free", "mobile"],
-    ["large-files", "high-quality"],
-    ["no-upload", "mobile"],
-  ];
-  const generated = modifiers.map((modifier) => ({ slug: tool.slug + "-" + modifier }));
-  const generatedCombos = combos.map((pair) => ({ slug: tool.slug + "-" + pair.join("-") }));
-  const unique = new Map();
-  manual.concat(generated, generatedCombos).forEach((entry) => {
-    if (!unique.has(entry.slug)) unique.set(entry.slug, entry);
-  });
-  return Array.from(unique.values()).slice(0, targetCount);
+  // Match next.config trailingSlash: false.
+  const bare = normalized === "/" ? "" : normalized.replace(/\/+$/, "");
+  return LOCALES.map((locale) => `/${locale}${bare}`);
 }
 
 function pushEntry(urls, seen, entry) {
@@ -148,6 +119,41 @@ for (const routePath of BASE_PATHS) {
   }
 }
 
+function extractTemplateSlugs(source) {
+  return [...source.matchAll(/slug:\s*"([a-z0-9-]+)"/g)].map((m) => m[1]);
+}
+
+const invoiceTemplateSource = await readFile(
+  path.join(root, "src/lib/invoice/templates.ts"),
+  "utf8",
+);
+const timelineTemplateSource = await readFile(
+  path.join(root, "src/lib/timeline/templates.ts"),
+  "utf8",
+);
+
+for (const slug of extractTemplateSlugs(invoiceTemplateSource)) {
+  for (const urlPath of localizedPaths(`/templates/${slug}`)) {
+    pushEntry(urls, seen, {
+      loc: baseUrl + urlPath,
+      priority: "0.82",
+      changefreq: "weekly",
+      lastmod: today,
+    });
+  }
+}
+
+for (const slug of extractTemplateSlugs(timelineTemplateSource)) {
+  for (const urlPath of localizedPaths(`/templates/timeline/${slug}`)) {
+    pushEntry(urls, seen, {
+      loc: baseUrl + urlPath,
+      priority: "0.82",
+      changefreq: "weekly",
+      lastmod: today,
+    });
+  }
+}
+
 const canonicalSlugs = new Map();
 
 for (const tool of registry.tools || []) {
@@ -198,7 +204,7 @@ for (const locale of LOCALES) {
     }
     if (!canonicalSlug || !isActiveSlug(canonicalSlug)) continue;
     const meta = nestedPriorityByPath.get(canonicalSlug);
-    const urlPath = `/${locale}${nestedPath}`;
+    const urlPath = `/${locale}${String(nestedPath).replace(/\/+$/, "")}`;
     pushEntry(urls, seen, {
       loc: baseUrl + urlPath,
       priority: meta?.priority || "0.90",
@@ -208,27 +214,8 @@ for (const locale of LOCALES) {
   }
 }
 
-// SEO cluster variants remain flat long-tail landings
-for (const tool of registry.tools || []) {
-  if (!isActiveSlug(tool.slug)) continue;
-  const toolLastmod = tool.updatedAt || today;
-  const longTailPriority =
-    tool.longTailPriority != null && Number.isFinite(Number(tool.longTailPriority))
-      ? Number(tool.longTailPriority).toFixed(2)
-      : "0.60";
-
-  const variants = generateClusterVariants(tool, registry.clusterDefaults || {});
-  for (const variant of variants) {
-    for (const urlPath of localizedPaths(`/tools/${variant.slug}/`)) {
-      pushEntry(urls, seen, {
-        loc: baseUrl + urlPath,
-        priority: longTailPriority,
-        changefreq: "weekly",
-        lastmod: toolLastmod,
-      });
-    }
-  }
-}
+// Cluster / long-tail variants are intentionally noindex soft-duplicates of
+// canonical tools — do not list them in the sitemap.
 
 for (const post of blogRegistry.blog || []) {
   const blogPriority =
@@ -274,11 +261,11 @@ const xml =
 
 await writeFile(outputPath, xml, "utf8");
 console.log("Sitemap generated:", outputPath, `(${urls.length} URLs)`);
-const jpgCompress = [...seen].find((loc) => loc.includes("/tools/jpg-tools/compress-image/"));
+const jpgCompress = [...seen].find((loc) => loc.includes("/tools/jpg-tools/compress-image"));
 console.log("Sample compress-image under jpg-tools:", jpgCompress || "MISSING");
 console.log(
   "Sample heic-to-jpg primary nest:",
-  [...seen].find((loc) => loc.includes("/tools/image-tools/heic-to-jpg/")) || "MISSING",
+  [...seen].find((loc) => loc.includes("/tools/image-tools/heic-to-jpg")) || "MISSING",
 );
 
 const sitemapUrl = baseUrl + "/sitemap.xml";

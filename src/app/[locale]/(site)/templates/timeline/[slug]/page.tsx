@@ -24,7 +24,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const profile = getTimelineTemplateBySlug(slug);
   if (!profile) return {};
 
-  const canonicalPath = `/templates/timeline/${profile.slug}/`;
+  // Match trailingSlash: false — locale-prefixed canonical without trailing slash.
+  const canonicalPath = `/${locale}/templates/timeline/${profile.slug}`;
   const pageUrl = absoluteUrl(canonicalPath);
   const social = buildDefaultSocialImages(locale, { alt: profile.metaTitle });
 
@@ -32,6 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: profile.metaTitle,
     description: profile.metaDescription,
     keywords: profile.keywords,
+    robots: { index: true, follow: true },
     alternates: { canonical: canonicalPath },
     openGraph: {
       title: profile.metaTitle,
@@ -52,16 +54,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function TimelineTemplatePage({ params }: PageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const profile = getTimelineTemplateBySlug(slug);
   if (!profile) notFound();
 
   const initialProject = createTimelineProjectForTemplate(profile);
-  const pathname = `/templates/timeline/${profile.slug}/`;
+  const pathname = `/${locale}/templates/timeline/${profile.slug}`;
 
   const crumbs = [
-    { name: "Home", path: "/" },
-    { name: "Timeline & Gantt generator", path: "/tools/timeline-gantt-generator/" },
+    { name: "Home", path: `/${locale}` },
+    { name: "Timeline & Gantt generator", path: `/${locale}/tools/timeline-gantt-generator` },
     { name: profile.professionLabel, path: pathname },
   ];
 

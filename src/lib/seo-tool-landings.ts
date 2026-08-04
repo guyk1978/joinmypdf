@@ -137,6 +137,7 @@ export async function generateSeoToolLandingMetadata(slug: string, locale: strin
   return {
     title,
     description,
+    robots: { index: true, follow: true },
     ...buildPageSocialMetadata({ locale, title, description, canonicalPath }),
     alternates: {
       canonical: canonicalPath,
