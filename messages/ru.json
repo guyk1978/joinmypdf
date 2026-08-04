@@ -2145,7 +2145,10 @@
     "schemaFeatureRead": "Клиентский рендеринг PDF через PDF.js",
     "schemaFeatureNav": "Быстрая навигация и переход к странице",
     "schemaFeatureZoom": "Масштаб для точной проверки",
-    "schemaFeatureLocal": "100% локальная обработка в браузере — без загрузок"
+    "schemaFeatureLocal": "100% локальная обработка в браузере — без загрузок",
+    "dropTitle": "Перетащите PDF сюда",
+    "selectPdfFile": "Выбрать PDF-файл",
+    "privacyLocal": "Только локально — ничего не загружается"
   },
   "PdfReaderPromo": {
     "ariaLabel": "Новый инструмент: PDF Reader Online",

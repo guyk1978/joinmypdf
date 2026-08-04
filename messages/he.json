@@ -2143,7 +2143,10 @@
     "schemaFeatureRead": "רינדור PDF בצד הלקוח עם PDF.js",
     "schemaFeatureNav": "ניווט עמודים מהיר ומעבר לעמוד",
     "schemaFeatureZoom": "בקרי זום לבדיקה מדויקת",
-    "schemaFeatureLocal": "עיבוד מקומי 100% בדפדפן — בלי העלאות"
+    "schemaFeatureLocal": "עיבוד מקומי 100% בדפדפן — בלי העלאות",
+    "dropTitle": "גררו PDF לכאן",
+    "selectPdfFile": "בחרו קובץ PDF",
+    "privacyLocal": "מקומי בלבד — שום דבר לא מועלה"
   },
   "PdfReaderPromo": {
     "ariaLabel": "כלי חדש: קורא PDF אונליין",

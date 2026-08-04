@@ -15,6 +15,9 @@
   width: 100%;
   max-width: 100%;
   padding-inline: max(1.25rem, var(--app-content-pad-x, 1.25rem));
+  --pdf-reader-neon: #22d3ee;
+  --pdf-reader-neon-strong: #67e8f9;
+  --pdf-reader-neon-dim: rgba(34, 211, 238, 0.22);
 }
 
 .tool-page-main .pdf-reader-tool-page {
@@ -43,22 +46,119 @@
   display: none;
 }
 
+.pdf-reader-tool-page .im-dropzone-shell,
+.pdf-reader-tool-page .pdf-reader-dropzone {
+  width: 100%;
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.pdf-reader-tool-page .im-dropzone {
+  min-height: min(28rem, calc(100dvh - var(--site-header-height, 60px) - 10rem));
+  border-width: 2px;
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--pdf-reader-neon) 38%, transparent);
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 35%, var(--pdf-reader-neon-dim), transparent 70%),
+    color-mix(in srgb, #ffffff 3.5%, #0c0c0c);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--pdf-reader-neon) 12%, transparent),
+    0 0 28px color-mix(in srgb, var(--pdf-reader-neon) 10%, transparent);
+}
+
+.pdf-reader-tool-page .im-dropzone:hover,
+.pdf-reader-tool-page .im-dropzone--active,
+.pdf-reader-tool-page .im-dropzone:focus-visible {
+  border-style: solid;
+  border-color: var(--pdf-reader-neon);
+  background:
+    radial-gradient(ellipse 75% 60% at 50% 40%, rgba(34, 211, 238, 0.18), transparent 72%),
+    color-mix(in srgb, var(--pdf-reader-neon) 8%, #0c0c0c);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--pdf-reader-neon) 45%, transparent),
+    0 0 32px color-mix(in srgb, var(--pdf-reader-neon) 28%, transparent);
+}
+
 .pdf-reader-tool-page .im-dropzone__copy {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.85rem;
+}
+
+.pdf-reader-tool-page .im-dropzone__icon {
+  color: var(--pdf-reader-neon-strong);
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--pdf-reader-neon) 55%, transparent));
+}
+
+.pdf-reader-tool-page .im-dropzone__icon-svg {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+.pdf-reader-tool-page .im-dropzone:hover .im-dropzone__icon,
+.pdf-reader-tool-page .im-dropzone--active .im-dropzone__icon,
+.pdf-reader-tool-page .im-dropzone:focus-visible .im-dropzone__icon {
+  color: #ecfeff;
 }
 
 .pdf-reader-tool-page .im-dropzone__title {
   margin: 0;
-  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
   font-weight: 700;
   line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #f5f5f5;
 }
 
 .pdf-reader-tool-page .im-dropzone__select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  min-height: 3rem;
+  padding: 0.7rem 1.45rem;
+  border: 1px solid color-mix(in srgb, var(--pdf-reader-neon) 65%, transparent);
+  border-radius: var(--im-tool-radius-control, 0.5rem);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--pdf-reader-neon) 22%, #111),
+    color-mix(in srgb, var(--pdf-reader-neon) 10%, #0a0a0a)
+  );
+  color: #ecfeff;
+  font-size: 1rem;
+  font-weight: 750;
+  letter-spacing: 0.01em;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--pdf-reader-neon) 18%, transparent),
+    0 0 18px color-mix(in srgb, var(--pdf-reader-neon) 28%, transparent);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.pdf-reader-tool-page .im-dropzone:hover .im-dropzone__select,
+.pdf-reader-tool-page .im-dropzone--active .im-dropzone__select,
+.pdf-reader-tool-page .im-dropzone:focus-visible .im-dropzone__select {
+  border-color: var(--pdf-reader-neon-strong);
+  color: #ffffff;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--pdf-reader-neon-strong) 35%, transparent),
+    0 0 26px color-mix(in srgb, var(--pdf-reader-neon) 42%, transparent);
+  transform: translateY(-1px);
+}
+
+.pdf-reader-tool-page .im-dropzone__privacy {
+  color: #a3a3a3;
+  font-size: 0.875rem;
+}
+
+.pdf-reader-tool-page .im-dropzone__pulse {
+  background: var(--pdf-reader-neon);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--pdf-reader-neon) 70%, transparent);
 }
 
 .pdf-reader-toolbar {

@@ -207,49 +207,79 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     if (inputRef.current) inputRef.current.value = "";
   }, [destroyDoc]);
 
-  const pickFile = async (next: File) => {
-    if (!acceptPdf(next)) {
-      setStatus(ws.wsStatus("invalidType"));
-      return;
-    }
-    if (next.size === 0) {
-      setStatus(ws.wsStatus("emptyFile"));
-      return;
-    }
-    setBusy(true);
-    setRunError(null);
-    setStatus(ws.wsStatus("reading"));
-    try {
-      await destroyDoc();
-      const bytes = new Uint8Array(await next.arrayBuffer());
-      const doc = await openPdfDocument(bytes);
-      docRef.current = doc;
-      setFile(next);
-      setPageCount(doc.numPages);
-      setPageNumber(1);
-      setZoom(ZOOM_DEFAULT);
-      setRenderedZoom(ZOOM_DEFAULT);
-      setPageDisplaySize({ w: 0, h: 0 });
-      setStatus(ws.wsStatus("fileReady", { name: next.name }));
-      capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
-      capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
-    } catch (e) {
-      await destroyDoc();
-      const parsed = classifyPdfError(e);
-      setRunError(parsed);
-      setStatus("");
-      setFile(null);
-      setPageCount(0);
-      capture(EVENTS.tool_run_error, {
-        operation: tool.operation,
-        slug,
-        message: parsed.message,
-        kind: parsed.kind,
-      });
-    } finally {
-      setBusy(false);
-    }
-  };
+  const pickFile = useCallback(
+    async (next: File) => {
+      if (!acceptPdf(next)) {
+        setStatus(ws.wsStatus("invalidType"));
+        return;
+      }
+      if (next.size === 0) {
+        setStatus(ws.wsStatus("emptyFile"));
+        return;
+      }
+      setBusy(true);
+      setRunError(null);
+      setStatus(ws.wsStatus("reading"));
+      try {
+        await destroyDoc();
+        const bytes = new Uint8Array(await next.arrayBuffer());
+        const doc = await openPdfDocument(bytes);
+        docRef.current = doc;
+        setFile(next);
+        setPageCount(doc.numPages);
+        setPageNumber(1);
+        setZoom(ZOOM_DEFAULT);
+        setRenderedZoom(ZOOM_DEFAULT);
+        setPageDisplaySize({ w: 0, h: 0 });
+        setStatus(ws.wsStatus("fileReady", { name: next.name }));
+        capture(EVENTS.file_selected, { operation: tool.operation, count: 1 });
+        capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
+      } catch (e) {
+        await destroyDoc();
+        const parsed = classifyPdfError(e);
+        setRunError(parsed);
+        setStatus("");
+        setFile(null);
+        setPageCount(0);
+        capture(EVENTS.tool_run_error, {
+          operation: tool.operation,
+          slug,
+          message: parsed.message,
+          kind: parsed.kind,
+        });
+      } finally {
+        setBusy(false);
+      }
+    },
+    [acceptPdf, destroyDoc, slug, tool.operation, ws],
+  );
+
+  // PWA File Handling API — open OS-associated PDFs directly in this reader.
+  const pickFileRef = useRef(pickFile);
+  pickFileRef.current = pickFile;
+
+  useEffect(() => {
+    type LaunchQueueWindow = Window & {
+      launchQueue?: {
+        setConsumer: (
+          callback: (params: { files: FileSystemFileHandle[] }) => void | Promise<void>,
+        ) => void;
+      };
+    };
+    const launchQueue = (window as LaunchQueueWindow).launchQueue;
+    if (!launchQueue?.setConsumer) return;
+
+    launchQueue.setConsumer(async (launchParams) => {
+      const handles = launchParams.files;
+      if (!handles?.length) return;
+      try {
+        const file = await handles[0]!.getFile();
+        await pickFileRef.current(file);
+      } catch {
+        /* user cancelled permission or handle invalid */
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const doc = docRef.current;
@@ -404,17 +434,26 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const layoutH = pageDisplaySize.h > 0 ? pageDisplaySize.h * visualRatio : undefined;
 
 
-  const onRestoreProject = useCallback((payload: { files: File[] }) => {
-    const next = payload.files[0];
-    if (!next) return;
-    void pickFile(next);
-  }, []);
+  const onRestoreProject = useCallback(
+    (payload: { files: File[] }) => {
+      const next = payload.files[0];
+      if (!next) return;
+      void pickFile(next);
+    },
+    [pickFile],
+  );
 
   useWorkspaceProjectBridge({
     files: file ? [file] : [],
     disabled: !file || busy,
     onRestore: onRestoreProject,
   });
+
+  const dropTitle = tPage.has("dropTitle") ? tPage("dropTitle") : "Drop your PDF here";
+  const selectPdfFile = tPage.has("selectPdfFile") ? tPage("selectPdfFile") : "Select PDF File";
+  const privacyLocal = tPage.has("privacyLocal")
+    ? tPage("privacyLocal")
+    : "Local only — nothing is uploaded";
 
   return (
     <div id="tool-workspace" className="pdf-reader-tool-page tool-workspace--wide space-y-3 pb-12 md:pb-8">
@@ -441,7 +480,12 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             role="button"
             tabIndex={0}
             aria-controls={`${baseId}-input`}
-            className="cursor-pointer"
+            aria-label={selectPdfFile}
+            className="pdf-reader-dropzone cursor-pointer"
+            dropTitle={dropTitle}
+            selectLabel={selectPdfFile}
+            privacyLabel={privacyLocal}
+            supportedFormats={["PDF"]}
             onKeyDown={(e: ReactKeyboardEvent) => {
               if (e.key === "Enter" || e.key === " ") inputRef.current?.click();
             }}

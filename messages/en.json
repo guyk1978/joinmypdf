@@ -2143,7 +2143,10 @@
     "schemaFeatureRead": "Client-side PDF rendering with PDF.js",
     "schemaFeatureNav": "Fast page navigation and jump-to-page",
     "schemaFeatureZoom": "Zoom controls for close inspection",
-    "schemaFeatureLocal": "100% local browser processing — no uploads"
+    "schemaFeatureLocal": "100% local browser processing — no uploads",
+    "dropTitle": "Drop your PDF here",
+    "selectPdfFile": "Select PDF File",
+    "privacyLocal": "Local only — nothing is uploaded"
   },
   "PdfReaderPromo": {
     "ariaLabel": "New tool: PDF Reader Online",
