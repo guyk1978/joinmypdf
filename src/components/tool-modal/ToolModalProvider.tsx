@@ -127,7 +127,7 @@ export function ToolModalProvider({
   const resumeProjectId = searchParams.get("project");
   const [active, setActive] = useState<OpenToolModalOptions | null>(null);
   const [visible, setVisible] = useState(false);
-  const [session, setSession] = useState<ToolModalSessionValue | null>(null);
+  const [sessionEpoch, setSessionEpoch] = useState(0);
   const [activeTab, setActiveTab] = useState<ToolModalTab>("calc");
   const sessionRef = useRef<ToolModalSessionValue | null>(null);
   const actionsRef = useRef<ToolModalActions>(EMPTY_TOOL_MODAL_ACTIONS);
@@ -452,13 +452,11 @@ export function ToolModalProvider({
   }, []);
 
   const registerSession = useCallback((next: ToolModalSessionValue | null) => {
+    const prev = sessionRef.current;
     sessionRef.current = next;
     if (next) {
       actionsRef.current = {
-        setTab: (tab) => {
-          sessionRef.current?.setTab(tab);
-          setToolTab(tab);
-        },
+        setTab: setToolTab,
         saveProject: () => sessionRef.current?.saveProject(),
         share: () => sessionRef.current?.share(),
         toggleFavorite: () => sessionRef.current?.toggleFavorite(),
@@ -468,41 +466,27 @@ export function ToolModalProvider({
       actionsRef.current = EMPTY_TOOL_MODAL_ACTIONS;
     }
 
-    // Avoid setState when only function identities changed — that looped
-    // Provider → new docs elements → new sessionValue → registerSession → #185.
-    setSession((prev) => {
-      if (!prev && !next) return prev;
-      if (!next) return null;
-      if (
-        prev &&
-        prev.open === next.open &&
-        prev.slug === next.slug &&
-        prev.tab === next.tab &&
-        prev.canSaveProject === next.canSaveProject &&
-        prev.favorited === next.favorited &&
-        prev.shareBusy === next.shareBusy &&
-        prev.saveProjectLabel === next.saveProjectLabel &&
-        prev.shareLabel === next.shareLabel &&
-        prev.favoriteLabel === next.favoriteLabel &&
-        prev.closeLabel === next.closeLabel
-      ) {
-        return prev;
-      }
-      return next;
-    });
+    // Never store the Wrapper session object in React state — that caused
+    // Maximum update depth (#185) when docs elements were recreated each render.
+    // Only bump an epoch when display-relevant fields actually change.
+    const prevKey = prev
+      ? `${prev.open}|${prev.slug}|${prev.tab}|${prev.canSaveProject}|${prev.favorited}|${prev.shareBusy}|${prev.saveProjectLabel}|${prev.shareLabel}|${prev.favoriteLabel}|${prev.closeLabel}`
+      : "";
+    const nextKey = next
+      ? `${next.open}|${next.slug}|${next.tab}|${next.canSaveProject}|${next.favorited}|${next.shareBusy}|${next.saveProjectLabel}|${next.shareLabel}|${next.favoriteLabel}|${next.closeLabel}`
+      : "";
+    if (prevKey !== nextKey) {
+      setSessionEpoch((epoch) => epoch + 1);
+    }
   }, [setToolTab]);
 
   // Provider-owned window hook — OPERATION menu must not depend on Wrapper effects.
   useLayoutEffect(() => {
     if (!visible) return;
-    const onTab = (tab: ToolModalTab) => {
-      sessionRef.current?.setTab(tab);
-      setToolTab(tab);
-    };
     const previous = window.__joinmypdfSetToolModalTab;
-    window.__joinmypdfSetToolModalTab = onTab;
+    window.__joinmypdfSetToolModalTab = setToolTab;
     return () => {
-      if (window.__joinmypdfSetToolModalTab === onTab) {
+      if (window.__joinmypdfSetToolModalTab === setToolTab) {
         window.__joinmypdfSetToolModalTab = previous;
       }
     };
@@ -510,10 +494,7 @@ export function ToolModalProvider({
 
   const actions = useMemo<ToolModalActions>(
     () => ({
-      setTab: (tab) => {
-        sessionRef.current?.setTab(tab);
-        setToolTab(tab);
-      },
+      setTab: setToolTab,
       saveProject: () => actionsRef.current.saveProject(),
       share: () => actionsRef.current.share(),
       toggleFavorite: () => actionsRef.current.toggleFavorite(),
@@ -523,19 +504,30 @@ export function ToolModalProvider({
   );
 
   const bridgedSession = useMemo<ToolModalSessionValue | null>(() => {
-    if (!visible || !session) return null;
+    if (!visible) return null;
+    const live = sessionRef.current;
     return {
-      ...session,
-      setTab: (tab) => {
-        sessionRef.current?.setTab(tab);
-        setToolTab(tab);
-      },
+      open: true,
+      slug: active?.slug ?? live?.slug,
+      tab: activeTab,
+      setTab: setToolTab,
+      availableTabs: live?.availableTabs ?? ["calc", "doc", "related", "reviews"],
+      tabLabels: live?.tabLabels ?? {},
+      canSaveProject: live?.canSaveProject ?? false,
       saveProject: () => sessionRef.current?.saveProject(),
+      saveProjectLabel: live?.saveProjectLabel ?? "Save Project",
       share: () => sessionRef.current?.share(),
+      shareBusy: live?.shareBusy ?? false,
+      shareLabel: live?.shareLabel ?? "Share",
+      favorited: live?.favorited ?? false,
       toggleFavorite: () => sessionRef.current?.toggleFavorite(),
+      favoriteLabel: live?.favoriteLabel ?? "Add to favorites",
       close: () => sessionRef.current?.close() ?? closeToolModal(),
+      closeLabel: live?.closeLabel ?? "Close",
     };
-  }, [visible, session, setToolTab, closeToolModal]);
+    // sessionEpoch forces a refresh when registerSession reports real field changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, active?.slug, activeTab, setToolTab, closeToolModal, sessionEpoch]);
 
   const value = useMemo(
     () => ({
