@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/navigation";
+import { ToolPageStorySections } from "@/components/layout/ToolPageStorySections";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { registry } from "@/lib/registry";
 import {
@@ -143,10 +144,33 @@ export function ToolWorkspaceOverview({
     maxParagraphs,
   ]);
 
-  if (!isToolRoute || !slug || paragraphs.length === 0) return null;
+  if (!isToolRoute || !slug) return null;
 
   const headingId = "tool-workspace-overview-heading";
   const overviewHeading = tModal.has("overview") ? tModal("overview") : "Overview";
+  const story = (
+    <ToolPageStorySections
+      slug={slug}
+      headline={shell.headline}
+      tagline={shell.tagline}
+      subline={shell.subline}
+    />
+  );
+
+  if (paragraphs.length === 0) {
+    return (
+      <section
+        className={clsx(
+          "tool-workspace-overview",
+          toolPagePaneRailClassName,
+          className,
+        )}
+        data-tool-overview="1"
+      >
+        {story}
+      </section>
+    );
+  }
 
   return (
     <section
@@ -166,6 +190,7 @@ export function ToolWorkspaceOverview({
           {paragraph}
         </p>
       ))}
+      {story}
     </section>
   );
 }
