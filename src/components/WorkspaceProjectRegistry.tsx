@@ -119,7 +119,7 @@ function WorkspaceProjectSavePortal() {
 
   useEffect(() => {
     if (!ctx?.state.onRestore) {
-      setHost(null);
+      setHost((prev) => (prev === null ? prev : null));
       return;
     }
 
@@ -131,13 +131,13 @@ function WorkspaceProjectSavePortal() {
       if (nativeSave && !nativeSave.closest("[data-workspace-save-portal]")) {
         const stale = document.querySelector("[data-workspace-save-portal]");
         stale?.remove();
-        setHost(null);
+        setHost((prev) => (prev === null ? prev : null));
         return;
       }
 
       const next = findActionsHost();
       if (!next) {
-        setHost(null);
+        setHost((prev) => (prev === null ? prev : null));
         return;
       }
       let mount = next.querySelector<HTMLElement>("[data-workspace-save-portal]");
@@ -147,7 +147,7 @@ function WorkspaceProjectSavePortal() {
         mount.style.display = "contents";
         next.appendChild(mount);
       }
-      setHost(mount);
+      setHost((prev) => (prev === mount ? prev : mount));
     };
 
     sync();
@@ -198,7 +198,31 @@ export function WorkspaceProjectProvider({
 
   const setBridge = useCallback((next: BridgeState | null) => {
     const resolved = next ?? emptyState;
-    setState(resolved);
+    setState((prev) => {
+      const sameFiles =
+        prev.files.length === resolved.files.length &&
+        prev.files.every((file, index) => {
+          const other = resolved.files[index];
+          return (
+            other &&
+            file.name === other.name &&
+            file.size === other.size &&
+            file.lastModified === other.lastModified
+          );
+        });
+      const sameSettings =
+        JSON.stringify(prev.settings ?? {}) === JSON.stringify(resolved.settings ?? {});
+      if (
+        sameFiles &&
+        sameSettings &&
+        prev.disabled === resolved.disabled &&
+        prev.onRestore === resolved.onRestore &&
+        prev.onRestoredStatus === resolved.onRestoredStatus
+      ) {
+        return prev;
+      }
+      return resolved;
+    });
 
     // If a Library → Resume payload arrived before the workspace registered,
     // apply it as soon as onRestore is available (avoids a stuck pending queue).
@@ -245,9 +269,23 @@ export function useWorkspaceProjectBridge(options: {
   const filesRef = useRef(files);
   const settingsRef = useRef(settings);
   const onRestoreRef = useRef(onRestore);
+  const onRestoredStatusRef = useRef(onRestoredStatus);
   filesRef.current = files;
   settingsRef.current = settings;
   onRestoreRef.current = onRestore;
+  onRestoredStatusRef.current = onRestoredStatus;
+
+  // Stable callbacks so setBridge bailout can keep prev state when only the
+  // parent re-created inline onRestore/onRestoredStatus closures.
+  const stableOnRestore = useCallback((payload: WorkspaceProjectRestorePayload) => {
+    onRestoreRef.current(payload);
+  }, []);
+  const stableOnRestoredStatus = useCallback((message: string) => {
+    onRestoredStatusRef.current?.(message);
+  }, []);
+
+  const setBridge = ctx?.setBridge;
+  const toolSlug = ctx?.toolSlug;
 
   const filesKey = files
     .map((file) => `${file.name}:${file.size}:${file.lastModified}`)
@@ -259,30 +297,38 @@ export function useWorkspaceProjectBridge(options: {
     settingsKey = String(files.length);
   }
 
-  // Keep the latest files/settings on the registry without tearing down the
-  // save controller (clearing onRestore briefly disabled header Save).
+  // IMPORTANT: depend on setBridge (stable), never the whole ctx value —
+  // setBridge updates state → new ctx → effect would loop forever.
   useEffect(() => {
-    if (!ctx) return;
-    ctx.setBridge({
+    if (!setBridge) return;
+    setBridge({
       files: filesRef.current,
       settings: settingsRef.current ?? {},
       disabled,
-      onRestore,
-      onRestoredStatus,
+      onRestore: stableOnRestore,
+      onRestoredStatus: onRestoredStatus ? stableOnRestoredStatus : undefined,
     });
-  }, [ctx, filesKey, settingsKey, disabled, onRestore, onRestoredStatus]);
+  }, [
+    setBridge,
+    filesKey,
+    settingsKey,
+    disabled,
+    stableOnRestore,
+    stableOnRestoredStatus,
+    onRestoredStatus,
+  ]);
 
   // Flush a restore that arrived before this workspace registered its handler.
   useEffect(() => {
-    if (!ctx) return;
-    const pending = pendingRestoreBySlug.get(ctx.toolSlug);
+    if (!toolSlug) return;
+    const pending = pendingRestoreBySlug.get(toolSlug);
     if (!pending) return;
-    pendingRestoreBySlug.delete(ctx.toolSlug);
+    pendingRestoreBySlug.delete(toolSlug);
     onRestoreRef.current(pending);
-  }, [ctx, onRestore]);
+  }, [toolSlug]);
 
   useEffect(() => {
-    if (!ctx) return;
-    return () => ctx.setBridge(null);
-  }, [ctx]);
+    if (!setBridge) return;
+    return () => setBridge(null);
+  }, [setBridge]);
 }

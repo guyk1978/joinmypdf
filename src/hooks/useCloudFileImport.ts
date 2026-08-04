@@ -3,6 +3,8 @@
 import {
   createElement,
   useCallback,
+  useEffect,
+  useRef,
   useState,
   type RefObject,
   type ReactNode,
@@ -12,7 +14,12 @@ import {
   findFileInput,
   injectFilesIntoToolRoot,
 } from "@/lib/assign-files-to-input";
-import type { CloudProvider } from "@/lib/cloud-file-picker";
+import {
+  cloudProviderConfigured,
+  openCloudProviderPicker,
+  preloadGoogleDrivePicker,
+  type CloudProvider,
+} from "@/lib/cloud-file-picker";
 
 type UseCloudFileImportOptions = {
   /** Root that contains the hidden file input (dropzone shell). */
@@ -40,9 +47,14 @@ export function useCloudFileImport({
   cloudImportModal: ReactNode;
 } {
   const [provider, setProvider] = useState<CloudProvider | null>(null);
+  const launchingRef = useRef(false);
 
-  const openCloudImport = useCallback((next: CloudProvider) => {
-    setProvider(next);
+  // Warm Google scripts so the auth popup can open on click without a long await gap.
+  useEffect(() => {
+    if (!cloudProviderConfigured("Google Drive")) return;
+    void preloadGoogleDrivePicker().catch(() => {
+      /* logged inside preload */
+    });
   }, []);
 
   const closeCloudImport = useCallback(() => setProvider(null), []);
@@ -51,19 +63,15 @@ export function useCloudFileImport({
     (files: File[]) => {
       if (!files.length) return;
 
-      // 1) Direct sink (preferred when the tool owns an onFiles handler).
       if (onFiles) {
         onFiles(files);
         return;
       }
 
-      // 2) Same path as a local device upload: assign onto the hidden <input>
-      //    so the tool's existing onChange / addFile pipeline runs.
       if (injectFilesIntoToolRoot(rootRef.current, files)) {
         return;
       }
 
-      // 3) Last resort — open the native device picker.
       onPickDevice();
     },
     [onFiles, onPickDevice, rootRef],
@@ -72,6 +80,41 @@ export function useCloudFileImport({
   const resolvedMultiple =
     multiple || Boolean(findFileInput(rootRef.current)?.multiple);
   const resolvedAccept = accept || findFileInput(rootRef.current)?.accept || undefined;
+
+  const openCloudImport = useCallback(
+    (next: CloudProvider) => {
+      if (next === "Google Drive" && cloudProviderConfigured(next)) {
+        if (launchingRef.current) return;
+        launchingRef.current = true;
+        setProvider(null);
+        // Kick preload immediately within the click turn, then open picker.
+        void preloadGoogleDrivePicker().catch(() => undefined);
+        void (async () => {
+          try {
+            const result = await openCloudProviderPicker(next, {
+              multiselect: resolvedMultiple,
+            });
+            if (result.cancelled) return;
+            if (result.files.length) {
+              handleCloudFiles(result.files);
+              return;
+            }
+            // Auth popup closed / failed — show in-app retry UI (do not open
+            // the device file chooser without a fresh user gesture).
+            setProvider(next);
+          } catch {
+            setProvider(next);
+          } finally {
+            launchingRef.current = false;
+          }
+        })();
+        return;
+      }
+
+      setProvider(next);
+    },
+    [handleCloudFiles, resolvedMultiple],
+  );
 
   const cloudImportModal = createElement(CloudFileImportModal, {
     open: provider != null,

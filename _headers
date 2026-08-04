@@ -1,13 +1,16 @@
 # Cloudflare Pages / static host headers.
-# Required for SharedArrayBuffer (ffmpeg) and for Workers/WASM under COEP.
+# COOP must be same-origin-allow-popups so Google GIS OAuth popups can return
+# tokens (strict same-origin severs window.opener → popup_closed after account pick).
+# Do NOT set Cross-Origin-Embedder-Policy on HTML documents: require-corp blocks
+# Google Picker's docs.google.com iframe (blank gray dialog). Keep CORP on
+# Workers/WASM/ffmpeg assets below. FFmpeg uses single-thread when not isolated.
 # worker-src 'self' blob: keeps FFmpeg class + core workers allowed under CSP.
 # frame-ancestors 'self' + X-Frame-Options SAMEORIGIN allow same-origin iframes
 # (Responsive Device Preview, tool modals) while blocking third-party embedding.
 # Note: when paths overlap, the last matching rule wins (headers are not merged).
 
 /*
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
   Cross-Origin-Resource-Policy: same-origin
   X-Frame-Options: SAMEORIGIN
   Content-Security-Policy: worker-src 'self' blob:; frame-ancestors 'self';

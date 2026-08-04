@@ -13,6 +13,10 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import { createPortal } from "react-dom";
+import {
+  cloudProviderConfigured,
+  preloadGoogleDrivePicker,
+} from "@/lib/cloud-file-picker";
 
 export type ChooseFilesPickerLabels = {
   chooseFiles: string;
@@ -126,6 +130,9 @@ export function ChooseFilesPicker({
     // Position before first paint so the portaled menu never flashes at (0,0).
     setMenuPosition(getMenuPosition(buttonRef.current, 220));
     setOpen(true);
+    if (cloudProviderConfigured("Google Drive")) {
+      void preloadGoogleDrivePicker().catch(() => undefined);
+    }
   }, []);
 
   useEffect(() => {

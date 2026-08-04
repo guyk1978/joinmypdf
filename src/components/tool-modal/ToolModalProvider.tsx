@@ -163,7 +163,7 @@ export function ToolModalProvider({
   }, []);
 
   useEffect(() => {
-    if (!active || toolPageBundle?.locale === locale) return;
+    if (!active?.slug || toolPageBundle?.locale === locale) return;
     const controller = new AbortController();
 
     fetch(`/i18n/${locale}/tool-page.json`, { signal: controller.signal })
@@ -173,14 +173,19 @@ export function ToolModalProvider({
         }
         return response.json() as Promise<AbstractIntlMessages>;
       })
-      .then((messages) => setToolPageBundle({ locale, messages }))
+      .then((messages) => {
+        setToolPageBundle((prev) => {
+          if (prev?.locale === locale) return prev;
+          return { locale, messages };
+        });
+      })
       .catch((error: unknown) => {
         if (error instanceof DOMException && error.name === "AbortError") return;
         console.error("Unable to load ToolPage locale asset", error);
       });
 
     return () => controller.abort();
-  }, [active, locale, toolPageBundle?.locale]);
+  }, [active?.slug, locale, toolPageBundle?.locale]);
 
   const tPage = useMemo<ToolPageTranslator | undefined>(() => {
     if (!toolPageBundle || toolPageBundle.locale !== locale) return undefined;
@@ -556,39 +561,55 @@ export function ToolModalProvider({
             description: active.description,
           })
         : null,
-    [active, locale, tPage, tTools],
+    // Do not depend on tPage/tTools identities — next-intl translators are often
+    // new function references each render and were recreating docModel forever.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [active?.slug, active?.title, active?.description, locale],
   );
-  const relatedTools = active
-    ? getToolModalRelatedTools(active.slug, 8, {
-        locale,
-        localize: (peerSlug, title, description) => {
-          const localized = localizeToolPresentation(peerSlug, tTools, {
-            title,
-            description,
-          });
-          return {
-            title: localized.title,
-            description: localized.description || description,
-          };
-        },
-      }).map((tool) => ({
-        ...tool,
-        href: resolveToolHref(
-          tool.slug,
-          active.categoryId ?? resolveToolCategoryId(tool.slug),
-          locale,
-        ),
-      }))
-    : [];
-  const relatedArticles = active ? getToolModalRelatedArticles(active.slug) : [];
-  const embedSrc = active
-    ? buildToolEmbedHref(active.href, locale, {
-        project: resumeProjectId,
-        category:
-          resolveToolAccentCategoryId(active.slug, active.categoryId) ??
-          active.categoryId,
-      })
-    : "";
+  const relatedTools = useMemo(
+    () =>
+      active
+        ? getToolModalRelatedTools(active.slug, 8, {
+            locale,
+            localize: (peerSlug, title, description) => {
+              const localized = localizeToolPresentation(peerSlug, tTools, {
+                title,
+                description,
+              });
+              return {
+                title: localized.title,
+                description: localized.description || description,
+              };
+            },
+          }).map((tool) => ({
+            ...tool,
+            href: resolveToolHref(
+              tool.slug,
+              active.categoryId ?? resolveToolCategoryId(tool.slug),
+              locale,
+            ),
+          }))
+        : [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- active/tTools identities are unstable
+    [active?.slug, active?.categoryId, locale],
+  );
+  const relatedArticles = useMemo(
+    () => (active ? getToolModalRelatedArticles(active.slug) : []),
+    [active?.slug],
+  );
+  const embedSrc = useMemo(
+    () =>
+      active
+        ? buildToolEmbedHref(active.href, locale, {
+            project: resumeProjectId,
+            category:
+              resolveToolAccentCategoryId(active.slug, active.categoryId) ??
+              active.categoryId,
+          })
+        : "",
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [active?.slug, active?.href, active?.categoryId, locale, resumeProjectId],
+  );
 
   const openRelatedTool = useCallback(
     (tool: ToolModalRelatedTool) => {

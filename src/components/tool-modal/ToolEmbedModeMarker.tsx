@@ -88,32 +88,29 @@ export function ToolEmbedModeMarker() {
     document.documentElement.setAttribute("data-tool-embed", "1");
     document.body.classList.add("tool-embed-mode");
 
+    let lastPayload = "";
     let raf = 0;
     const reportHeight = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         if (window.parent === window) return;
         try {
+          let payload: Record<string, unknown>;
           if (isCleanPhase() && !hasCleanPhaseOverview()) {
-            // Immersive dropzone-only: parent sizes from viewport chrome.
-            window.parent.postMessage(
-              { type: TOOL_EMBED_HEIGHT_MESSAGE, mode: "fill", phase: "clean" },
-              "*",
-            );
-            return;
-          }
-          // Active tools, or clean phase with Overview under the upload box:
-          // size the iframe to the stacked content so Overview is not clipped.
-          const height = measureIntrinsicContentHeight();
-          window.parent.postMessage(
-            {
+            payload = { type: TOOL_EMBED_HEIGHT_MESSAGE, mode: "fill", phase: "clean" };
+          } else {
+            const height = measureIntrinsicContentHeight();
+            payload = {
               type: TOOL_EMBED_HEIGHT_MESSAGE,
               mode: "content",
               phase: isCleanPhase() ? "clean" : "active",
               height,
-            },
-            "*",
-          );
+            };
+          }
+          const serialized = JSON.stringify(payload);
+          if (serialized === lastPayload) return;
+          lastPayload = serialized;
+          window.parent.postMessage(payload, "*");
         } catch {
           // Cross-origin parent — ignore.
         }

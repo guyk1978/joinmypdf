@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useId, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -20,10 +20,14 @@ type ToolModalFaqAccordionProps = {
 
 const DEFAULT_OPEN_COUNT = 4;
 
+export function faqItemsKey(items: readonly ToolModalFaqItem[]): string {
+  return items.map((item) => item.question).join("\0");
+}
+
 /**
  * FAQ list for the tool modal DOC tab.
- * Uses the same grid-row / opacity accordion motion as `FaqAccordion`
- * (category + home pages), with multi-open + expand/collapse all.
+ * Remount via parent `key={faqItemsKey(items)}` when content changes —
+ * do not sync open flags in an effect (that caused max-update-depth loops).
  */
 export function ToolModalFaqAccordion({
   items,
@@ -34,21 +38,9 @@ export function ToolModalFaqAccordion({
 }: ToolModalFaqAccordionProps) {
   const baseId = useId();
 
-  const itemsKey = useMemo(
-    () => items.map((item) => item.question).join("\0"),
-    [items],
+  const [openFlags, setOpenFlags] = useState(() =>
+    items.map((_, index) => index < Math.max(0, defaultOpenCount)),
   );
-
-  const initialOpen = useMemo(
-    () => items.map((_, index) => index < Math.max(0, defaultOpenCount)),
-    [items, defaultOpenCount],
-  );
-
-  const [openFlags, setOpenFlags] = useState<boolean[]>(initialOpen);
-
-  useEffect(() => {
-    setOpenFlags(items.map((_, index) => index < Math.max(0, defaultOpenCount)));
-  }, [itemsKey, items, defaultOpenCount]);
 
   if (!items.length) return null;
 
@@ -80,9 +72,6 @@ export function ToolModalFaqAccordion({
         >
           {expandAllLabel}
         </button>
-        <span className="tool-modal-faq__toolbar-sep" aria-hidden>
-          /
-        </span>
         <button
           type="button"
           className="tool-modal-faq__bulk"
@@ -92,53 +81,36 @@ export function ToolModalFaqAccordion({
           {collapseAllLabel}
         </button>
       </div>
-
       <div className="tool-modal-faq__list">
         {items.map((item, index) => {
-          const isOpen = openFlags[index] === true;
+          const open = Boolean(openFlags[index]);
           const panelId = `${baseId}-panel-${index}`;
           const buttonId = `${baseId}-button-${index}`;
-
           return (
             <div
               key={`${item.question}-${index}`}
-              className={clsx(
-                "tool-modal-faq__item",
-                isOpen && "tool-modal-faq__item--open",
-              )}
+              className={clsx("tool-modal-faq__item", open && "is-open")}
             >
               <button
-                id={buttonId}
                 type="button"
-                className={clsx(
-                  "tool-modal-faq__trigger",
-                  isOpen && "tool-modal-faq__trigger--open",
-                )}
-                aria-expanded={isOpen}
+                id={buttonId}
+                className="tool-modal-faq__trigger"
+                aria-expanded={open}
                 aria-controls={panelId}
                 onClick={() => toggleIndex(index)}
               >
                 <span className="tool-modal-faq__question">{item.question}</span>
-                <span className="tool-modal-faq__icon" aria-hidden>
-                  <ChevronDown
-                    size={16}
-                    strokeWidth={2}
-                    className={clsx(
-                      "tool-modal-faq__chevron",
-                      isOpen && "tool-modal-faq__chevron--open",
-                    )}
-                  />
-                </span>
+                <ChevronDown className="tool-modal-faq__chevron" aria-hidden />
               </button>
-
               <div
                 id={panelId}
                 role="region"
                 aria-labelledby={buttonId}
-                className={clsx(
-                  "tool-modal-faq__panel",
-                  isOpen && "tool-modal-faq__panel--open",
-                )}
+                className="tool-modal-faq__panel"
+                style={{
+                  gridTemplateRows: open ? "1fr" : "0fr",
+                  opacity: open ? 1 : 0,
+                }}
               >
                 <div className="tool-modal-faq__panel-inner">
                   <p className="tool-modal-faq__answer">{item.answer}</p>

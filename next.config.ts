@@ -81,8 +81,13 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: [
-          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+          // same-origin-allow-popups is required for Google Identity Services
+          // OAuth popups (same-origin severs window.opener → popup_closed).
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
+          // Do NOT set Cross-Origin-Embedder-Policy on HTML: require-corp /
+          // credentialless both block Google Picker's docs.google.com iframe
+          // (blank gray dialog + broken-file icon). FFmpeg falls back to
+          // single-thread when crossOriginIsolated is false.
           { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
           // SAMEORIGIN / frame-ancestors 'self': allow Device Preview & tool modals
           // to embed our own pages, while blocking third-party clickjacking.

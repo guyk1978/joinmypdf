@@ -81,6 +81,14 @@ export function CloudFileImportModal({
     if (!provider) return;
     setBusy(true);
     setError("");
+
+    // Google Picker renders in-page; dismiss our overlay first so the picker
+    // receives clicks and can close cleanly after selection.
+    const dismissOverlayFirst = provider === "Google Drive";
+    if (dismissOverlayFirst) {
+      onClose();
+    }
+
     try {
       const result = await openCloudProviderPicker(provider, { multiselect: multiple });
       if (result.cancelled) {
@@ -88,48 +96,59 @@ export function CloudFileImportModal({
         return;
       }
       if (result.error && !result.files.length) {
-        setError(
-          safeT(
-            t,
-            "cloudPickerFailed",
-            result.error ||
-              `Could not open ${provider}. Choose the file from this device instead.`,
-            { provider },
-          ),
-        );
+        // Never call onPickDevice here — user activation is gone and it
+        // triggers "File chooser dialog can only be shown with a user activation".
+        if (!dismissOverlayFirst) {
+          setError(
+            safeT(
+              t,
+              "cloudPickerFailed",
+              result.error ||
+                `Could not open ${provider}. Choose the file from this device instead.`,
+              { provider },
+            ),
+          );
+        }
         setBusy(false);
         return;
       }
       if (!result.files.length) {
-        setError(
-          safeT(
-            t,
-            "cloudPickerEmpty",
-            `No files returned from ${provider}. Try choosing a file from this device.`,
-            { provider },
-          ),
-        );
+        if (!dismissOverlayFirst) {
+          setError(
+            safeT(
+              t,
+              "cloudPickerEmpty",
+              `No files returned from ${provider}. Try choosing a file from this device.`,
+              { provider },
+            ),
+          );
+        }
         setBusy(false);
         return;
       }
       deliverFiles(result.files);
     } catch {
-      setError(
-        safeT(
-          t,
-          "cloudPickerFailed",
-          `Could not open ${provider}. Choose the file from this device instead.`,
-          { provider },
-        ),
-      );
+      if (!dismissOverlayFirst) {
+        setError(
+          safeT(
+            t,
+            "cloudPickerFailed",
+            `Could not open ${provider}. Choose the file from this device instead.`,
+            { provider },
+          ),
+        );
+      }
     } finally {
       setBusy(false);
     }
-  }, [deliverFiles, multiple, provider, t]);
+  }, [deliverFiles, multiple, onClose, provider, t]);
 
   // Auto-open native chooser once when keys are configured.
+  // Google Drive is launched directly from useCloudFileImport (no overlay),
+  // so skip auto-open here to avoid re-opening a second picker.
   useEffect(() => {
     if (!open || !provider) return;
+    if (provider === "Google Drive") return;
     if (!cloudProviderConfigured(provider)) return;
     if (autoTriedRef.current === provider) return;
     autoTriedRef.current = provider;
@@ -137,6 +156,8 @@ export function CloudFileImportModal({
   }, [launchChooser, open, provider]);
 
   const configured = provider ? cloudProviderConfigured(provider) : false;
+  // Never deep-link to drive.google.com when native picker credentials exist.
+  const showExternalHomeLink = Boolean(provider) && !configured;
   const homeUrl = provider ? cloudProviderHomeUrl(provider) : "#";
   const title = provider
     ? safeT(t, "cloudImportTitle", `Import from ${provider}`, { provider })
@@ -218,7 +239,7 @@ export function CloudFileImportModal({
                       provider,
                     })}
               </button>
-            ) : (
+            ) : showExternalHomeLink ? (
               <a
                 className="app-overlay-modal__btn app-overlay-modal__btn--primary"
                 href={homeUrl}
@@ -230,7 +251,7 @@ export function CloudFileImportModal({
                   {safeT(t, "cloudImportOpenSite", `Open ${provider}`, { provider })}
                 </span>
               </a>
-            )}
+            ) : null}
 
             <button
               type="button"

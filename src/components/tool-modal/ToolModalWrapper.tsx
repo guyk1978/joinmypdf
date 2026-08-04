@@ -351,7 +351,10 @@ export function ToolModalWrapper({
         return;
       }
       if (type === WORKSPACE_PROJECT_STATE_MESSAGE) {
-        setCanSaveProject(Boolean((data as { canSave?: boolean }).canSave));
+        setCanSaveProject((prev) => {
+          const next = Boolean((data as { canSave?: boolean }).canSave);
+          return prev === next ? prev : next;
+        });
         return;
       }
       if (type === WORKSPACE_PROJECT_SNAPSHOT) {
@@ -390,9 +393,12 @@ export function ToolModalWrapper({
     };
 
     const onCustomProjectState = (event: Event) => {
-      setCanSaveProject(
-        Boolean((event as CustomEvent<{ canSave?: boolean }>).detail?.canSave),
-      );
+      setCanSaveProject((prev) => {
+        const next = Boolean(
+          (event as CustomEvent<{ canSave?: boolean }>).detail?.canSave,
+        );
+        return prev === next ? prev : next;
+      });
     };
 
     const onCustomSnapshot = (event: Event) => {

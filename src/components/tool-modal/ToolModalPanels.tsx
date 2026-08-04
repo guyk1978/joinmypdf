@@ -5,9 +5,8 @@ import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ToolDocBodySections } from "@/components/layout/ToolDocBodySections";
 import { ToolDocHeader } from "@/components/layout/ToolDocHeader";
-import { ToolModalFaqAccordion } from "@/components/tool-modal/ToolModalFaqAccordion";
+import { ToolModalFaqAccordion, faqItemsKey } from "@/components/tool-modal/ToolModalFaqAccordion";
 import { registry } from "@/lib/registry";
-import { faqLd, serializeJsonLd } from "@/lib/schema";
 import { buildLocalizedToolFaqs } from "@/lib/tool-faqs";
 import type { ToolPageTranslator } from "@/lib/i18n-tool-page";
 import type {
@@ -83,16 +82,18 @@ export function ToolModalDocsPanel({
   categoryId?: InventoryCategoryId;
 }) {
   const locale = useLocale();
+  const tPageRef = useRef(tPage);
+  tPageRef.current = tPage;
 
-  // Compute FAQs synchronously — never gate the whole DOC pane behind a
-  // loading skeleton. Parent re-creates `model.faqs` every render; an async
-  // rAF + isLoading flag was cancelled in a loop and stuck on "Loading tool…".
+  // Keep FAQ list stable across parent re-renders. `tPage` / `model.faqs`
+  // identities change often and previously fed update-depth loops.
   const faqItems = useMemo(() => {
+    const translate = tPageRef.current;
     try {
       const tool = registry.tools.find((entry) => entry.slug === model.slug);
       const faqs =
-        tool && tPage
-          ? buildLocalizedToolFaqs(tPage, tool, null, model.title, locale, {
+        tool && translate
+          ? buildLocalizedToolFaqs(translate, tool, null, model.title, locale, {
               intent: model.intent,
               primaryKeyword: model.primaryKeyword ?? model.title,
             })
@@ -107,38 +108,10 @@ export function ToolModalDocsPanel({
         answer: item.a,
       }));
     }
-  }, [
-    model.slug,
-    model.title,
-    model.intent,
-    model.primaryKeyword,
-    model.faqs,
-    locale,
-    tPage,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally ignore tPage / model.faqs identity
+  }, [model.slug, model.title, model.intent, model.primaryKeyword, locale]);
 
-  const faqSchemaItems = useMemo(
-    () => faqItems.map((item) => ({ q: item.question, a: item.answer })),
-    [faqItems],
-  );
-
-  useEffect(() => {
-    if (!faqSchemaItems.length) return;
-
-    const scriptId = `tool-faq-ld-${model.slug}`;
-    const existing = document.getElementById(scriptId);
-    if (existing) existing.remove();
-
-    const script = document.createElement("script");
-    script.id = scriptId;
-    script.type = "application/ld+json";
-    script.text = serializeJsonLd(faqLd(faqSchemaItems));
-    document.head.appendChild(script);
-
-    return () => {
-      document.getElementById(scriptId)?.remove();
-    };
-  }, [faqSchemaItems, model.slug]);
+  const faqKey = faqItemsKey(faqItems);
 
   const introDescription =
     normalizeProse(model.description) ||
@@ -182,7 +155,7 @@ export function ToolModalDocsPanel({
             <span className="tool-modal-docs__faq-count">{faqItems.length}</span>
           </h2>
           <ToolModalFaqAccordion
-            key={model.slug}
+            key={faqKey || model.slug}
             items={faqItems}
             defaultOpenCount={DEFAULT_OPEN_FAQ_COUNT}
             expandAllLabel={labels?.expandAll ?? "Expand all"}
@@ -320,9 +293,15 @@ export function ToolModalCalcFrame({
   };
 
   useEffect(() => {
+    const HEIGHT_EPS = 4;
+
     const applyFill = () => {
-      setEmbedMode("fill");
-      setEmbedHeight(measureToolEmbedFillHeight());
+      const next = measureToolEmbedFillHeight();
+      setEmbedMode((mode) => (mode === "fill" ? mode : "fill"));
+      setEmbedHeight((prev) => {
+        if (prev != null && Math.abs(prev - next) < HEIGHT_EPS) return prev;
+        return next;
+      });
     };
 
     const onMessage = (event: MessageEvent) => {
@@ -331,8 +310,6 @@ export function ToolModalCalcFrame({
       const type = (data as { type?: string }).type;
 
       if (type === WORKSPACE_PHASE_MESSAGE) {
-        // Height is driven only by TOOL_EMBED_HEIGHT_MESSAGE from the iframe
-        // (fill vs content depending on whether Overview is present).
         return;
       }
 
@@ -346,25 +323,29 @@ export function ToolModalCalcFrame({
 
       const height = Number((data as { height?: number }).height);
       if (!Number.isFinite(height) || height < 1) return;
-      setEmbedMode("content");
-      setEmbedHeight(Math.ceil(height));
-    };
-
-    const onCustomPhase = (_event: Event) => {
-      // Ignore — iframe reports fill/content explicitly.
+      const next = Math.ceil(height);
+      setEmbedMode((prev) => (prev === "content" ? prev : "content"));
+      setEmbedHeight((prev) => {
+        if (prev != null && Math.abs(prev - next) < HEIGHT_EPS) return prev;
+        return next;
+      });
     };
 
     window.addEventListener("message", onMessage);
-    window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
     return () => {
       window.removeEventListener("message", onMessage);
-      window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
     };
   }, []);
 
   useEffect(() => {
     if (embedMode !== "fill") return;
-    const onResize = () => setEmbedHeight(measureToolEmbedFillHeight());
+    const onResize = () => {
+      const next = measureToolEmbedFillHeight();
+      setEmbedHeight((prev) => {
+        if (prev != null && Math.abs(prev - next) < 4) return prev;
+        return next;
+      });
+    };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, [embedMode]);
