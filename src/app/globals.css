@@ -4922,6 +4922,11 @@ html[dir="rtl"] .tool-modal__sidebar-item:focus-within > .tool-modal__sidebar-fl
   letter-spacing: 0.04em;
 }
 
+/* Never leave the CALC boot veil covering DOC / RELATED / REVIEWS. */
+.tool-modal__body[data-active-tab]:not([data-active-tab="calc"]) > .tool-modal__boot {
+  display: none !important;
+}
+
 .tool-modal__pane {
   display: none;
   height: auto;

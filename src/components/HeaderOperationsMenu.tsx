@@ -85,32 +85,27 @@ export function HeaderOperationsMenu() {
     (next: ToolModalTab) => {
       setOpen(false);
 
-      // 1) Module bus — always reaches the live ToolModalWrapper setTab.
-      const busOk = requestToolModalTab(next);
-
-      // 2) Live session (when registration completed).
-      const sessionSetTab = toolModal?.session?.setTab;
-      if (typeof sessionSetTab === "function") {
-        sessionSetTab(next);
-      }
-
-      // 3) Actions bridge — only if it is not the empty noop target.
+      // Provider-owned setter first (authoritative for controlled tab + clears boot veil).
       const bridgeSetTab = toolModal?.actions?.setTab;
       if (
-        !busOk &&
         typeof bridgeSetTab === "function" &&
         bridgeSetTab !== EMPTY_TOOL_MODAL_ACTIONS.setTab
       ) {
         bridgeSetTab(next);
       }
 
-      // 4) Window event (full-page shells / late subscribers).
+      // Window hook + module bus (webpack-safe).
+      requestToolModalTab(next);
+
+      // Session mirror (labels / active item in this menu).
+      toolModal?.session?.setTab?.(next);
+
       window.dispatchEvent(
         new CustomEvent(WORKSPACE_SET_TAB_EVENT, { detail: { tab: next } }),
       );
       window.requestAnimationFrame(() => {
         requestToolModalTab(next);
-        toolModal?.session?.setTab?.(next);
+        toolModal?.actions?.setTab?.(next);
       });
 
       if (next === "calc") {

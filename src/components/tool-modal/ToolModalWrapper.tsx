@@ -646,7 +646,8 @@ export function ToolModalWrapper({
                 {title}
               </h2>
 
-            <div className="tool-modal__body">
+            <div className="tool-modal__body" data-active-tab={tab}>
+              {/* Boot only for CALC — never cover DOC / RELATED / REVIEWS. */}
               {tab === "calc" && !contentReady ? (
                 <div className="tool-modal__boot" aria-live="polite">
                   <span className="tool-modal__calc-spinner" aria-hidden />
@@ -662,9 +663,10 @@ export function ToolModalWrapper({
                     id === "calc" && "tool-modal__pane--calc",
                     scroll && "tool-modal__pane--scroll",
                     tab === id && "tool-modal__pane--active",
-                    id === "calc" && !contentReady && "tool-modal__pane--pending",
+                    id === "calc" && !contentReady && tab === "calc" && "tool-modal__pane--pending",
                   )}
                   aria-hidden={tab !== id}
+                  {...(tab !== id ? ({ inert: true } as { inert: boolean }) : {})}
                 >
                   {content}
                 </div>

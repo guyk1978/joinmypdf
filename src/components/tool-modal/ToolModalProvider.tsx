@@ -449,7 +449,11 @@ export function ToolModalProvider({
       return;
     }
     setActiveTab((prev) => (prev === tab ? prev : tab));
-  }, []);
+    // Leaving CALC must never keep the boot "Loading tool…" veil over DOC/RELATED.
+    if (tab !== "calc") {
+      setContentReady(true);
+    }
+  }, [setContentReady]);
 
   const registerSession = useCallback((next: ToolModalSessionValue | null) => {
     const prev = sessionRef.current;
