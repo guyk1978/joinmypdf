@@ -21,6 +21,7 @@ import {
   MAGNIFIER_LOUPE_SCALE,
   registerMagnifierCapability,
   resolveMagnifierLensSizePx,
+  setMagnifierPreference,
   subscribeMagnifierPreference,
   subscribeMagnifierSizeTier,
   type MagnifierSizeTier,
@@ -449,6 +450,30 @@ export function Magnifier({
 
       {canUseTouchToggle && !touchArmed ? (
         <p className="magnifier__touch-hint">Tap preview to magnify</p>
+      ) : null}
+
+      {!disabled ? (
+        <button
+          type="button"
+          className={
+            preferenceEnabled
+              ? "magnifier__pref-toggle"
+              : "magnifier__pref-toggle magnifier__pref-toggle--off"
+          }
+          aria-pressed={preferenceEnabled}
+          aria-label={preferenceEnabled ? "Disable magnifier" : "Enable magnifier"}
+          title={preferenceEnabled ? "Loupe: ON — click to disable" : "Loupe: OFF — click to enable"}
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setMagnifierPreference(!preferenceEnabled);
+          }}
+          onPointerDown={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          Loupe: {preferenceEnabled ? "ON" : "OFF"}
+        </button>
       ) : null}
     </div>
   );

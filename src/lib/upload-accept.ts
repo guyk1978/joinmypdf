@@ -305,14 +305,15 @@ export function assignFilesToInput(input: HTMLInputElement, files: File[]): bool
   try {
     const transfer = new DataTransfer();
     const selected = input.multiple ? files : files.slice(0, 1);
-    for (const file of selected) transfer.items.add(file);
+    for (const file of selected) {
+      if (file) transfer.items.add(file);
+    }
     if (!transfer.files.length) return false;
     input.files = transfer.files;
     // Bubble a native change event so React onChange listeners pick it up.
-    input.dispatchEvent(new Event("change", { bubbles: true }));
-    // Some listeners also key off input events.
-    input.dispatchEvent(new Event("input", { bubbles: true }));
-    return true;
+    input.dispatchEvent(new Event("input", { bubbles: true, composed: true }));
+    input.dispatchEvent(new Event("change", { bubbles: true, composed: true }));
+    return Boolean(input.files && input.files.length > 0);
   } catch {
     return false;
   }

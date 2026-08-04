@@ -124,6 +124,10 @@ export function ImageToolDropzone({
       onClick={() => {
         if (!disabled) inputRef.current?.click();
       }}
+      onCloudFiles={(files) => {
+        if (files.length) onFiles(files);
+      }}
+      cloudMultiple={multiple}
       input={
         <input
           ref={inputRef}

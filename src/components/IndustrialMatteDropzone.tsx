@@ -46,6 +46,13 @@ export type IndustrialMatteDropzoneProps = HTMLAttributes<HTMLDivElement> & {
   compact?: boolean;
   /** Override auto-resolved interior pattern (image / pdf / video / …). */
   patternKind?: DropzonePatternKind;
+  /**
+   * Optional direct sink for cloud-imported File objects. When omitted, files
+   * are assigned onto the hidden file input (same path as a device upload).
+   */
+  onCloudFiles?: (files: File[]) => void;
+  /** Allow multi-select in cloud pickers when the tool accepts multiple files. */
+  cloudMultiple?: boolean;
 };
 
 /** Strip redundant “processed/compressed locally…” clauses from Supports lines. */
@@ -77,6 +84,8 @@ export function IndustrialMatteDropzone({
   onClick,
   compact = false,
   patternKind: patternKindProp,
+  onCloudFiles,
+  cloudMultiple = false,
   style,
   ...rest
 }: IndustrialMatteDropzoneProps) {
@@ -123,6 +132,8 @@ export function IndustrialMatteDropzone({
   const { openCloudImport, cloudImportModal } = useCloudFileImport({
     rootRef: shellRef,
     onPickDevice: openDevicePicker,
+    onFiles: onCloudFiles,
+    multiple: cloudMultiple,
   });
 
   const onCloudOption = (provider: CloudProvider) => {

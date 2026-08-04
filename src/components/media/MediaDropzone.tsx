@@ -175,6 +175,7 @@ export function MediaDropzone({
       onClick={() => {
         if (!isDisabled) inputRef.current?.click();
       }}
+      onCloudFiles={(files) => handleFile(files[0])}
       input={
         <input
           id={inputId}

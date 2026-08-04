@@ -14349,7 +14349,8 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   max-width: none;
   margin-inline: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  /* Keep visible so CHOOSE FILES source menu is not clipped by the card. */
+  overflow: visible;
   border-radius: 0.2rem;
   background: transparent;
 }
@@ -14408,7 +14409,8 @@ html[dir="rtl"] .tool-title-banner__label {
   height: auto !important;
   min-height: 0 !important;
   background-color: #ffffff;
-  overflow: hidden;
+  /* Allow CHOOSE FILES source menu to float outside the stage. */
+  overflow: visible;
   border-radius: 0;
 }
 
@@ -31007,13 +31009,14 @@ html[dir="rtl"] .favicon-preset-library__panel {
 
 .choose-files-dropzone__stage {
   position: relative;
-  z-index: 1;
+  z-index: 5;
   display: flex;
   width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.65rem;
+  overflow: visible;
 }
 
 .choose-files-dropzone__hint {
@@ -31052,6 +31055,7 @@ html[dir="rtl"] .favicon-preset-library__panel {
   align-items: center !important;
   padding: 1.25rem 1rem !important;
   min-height: 0 !important;
+  overflow: visible !important;
   border: 0 !important;
   border-radius: var(--im-dropzone-radius) !important;
   background-color: #ffffff !important;
@@ -31072,12 +31076,17 @@ html[dir="rtl"] .favicon-preset-library__panel {
   display: inline-flex;
   flex-direction: column;
   align-items: stretch;
-  z-index: 2;
+  width: max-content;
+  max-width: 100%;
+  z-index: 5;
+  overflow: visible;
 }
 
 .choose-files-btn {
   display: inline-flex;
   align-items: stretch;
+  width: max-content;
+  max-width: 100%;
   min-height: 2.75rem;
   margin: 0;
   padding: 0;
@@ -31160,8 +31169,11 @@ html[dir="rtl"] .favicon-preset-library__panel {
   position: absolute;
   top: calc(100% + 0.35rem);
   left: 0;
-  right: 0;
-  min-width: 100%;
+  right: auto;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
   margin: 0;
   padding: 0.35rem 0;
   list-style: none;
@@ -31171,7 +31183,25 @@ html[dir="rtl"] .favicon-preset-library__panel {
   box-shadow:
     0 8px 24px color-mix(in srgb, #000 18%, transparent),
     0 1px 2px color-mix(in srgb, #000 8%, transparent);
-  z-index: 40;
+  z-index: 1000;
+}
+
+/* Portaled to document.body — fixed coords / exact button width from inline style. */
+.choose-files-menu--portal {
+  position: fixed;
+  top: auto;
+  left: auto;
+  right: auto;
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  z-index: 1000;
+}
+
+.choose-files-menu--up {
+  /* Orientation hint when flipped above the trigger; top is set inline. */
+  transform-origin: bottom center;
 }
 
 .choose-files-menu__item {
@@ -33140,6 +33170,63 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout,
   letter-spacing: 0.04em;
   text-transform: uppercase;
   pointer-events: none;
+}
+
+.magnifier__pref-toggle {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.35rem;
+  background: rgba(12, 12, 12, 0.78);
+  color: #f5f5f5;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: auto;
+}
+
+.magnifier__pref-toggle:hover,
+.magnifier__pref-toggle:focus-visible {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(20, 20, 20, 0.9);
+  outline: none;
+}
+
+.magnifier__pref-toggle--off {
+  color: #a3a3a3;
+  opacity: 0.92;
+}
+
+.site-header__magnifier-toggle {
+  gap: 0.35rem;
+}
+
+.site-header__magnifier-toggle--off {
+  opacity: 0.72;
+}
+
+.site-header__magnifier-toggle-label strong {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 720px) {
+  .site-header__magnifier-toggle-label {
+    font-size: 0;
+  }
+
+  .site-header__magnifier-toggle-label strong {
+    font-size: 0.6875rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

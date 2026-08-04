@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { ExternalLink, FolderOpen } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { AppOverlayModal } from "@/components/AppOverlayModal";
@@ -16,6 +16,8 @@ type CloudFileImportModalProps = {
   provider: CloudProvider | null;
   /** When true, picker may return multiple files. */
   multiple?: boolean;
+  /** Optional accept string mirrored from the tool file input. */
+  accept?: string;
   onClose: () => void;
   onFiles: (files: File[]) => void;
   onPickDevice: () => void;
@@ -39,17 +41,21 @@ function safeT(
 
 /**
  * Cloud import dialog — opens the provider chooser when configured, otherwise
- * guides the user to download then pick the file from their device.
+ * guides the user to download then pick the file. Selected files are always
+ * delivered through `onFiles` (never stranded in a parent-frame file dialog).
  */
 export function CloudFileImportModal({
   open,
   provider,
   multiple = false,
+  accept,
   onClose,
   onFiles,
   onPickDevice,
 }: CloudFileImportModalProps) {
   const t = useTranslations("Workspace.common");
+  const inputId = useId();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const autoTriedRef = useRef<CloudProvider | null>(null);
@@ -62,6 +68,15 @@ export function CloudFileImportModal({
     }
   }, [open]);
 
+  const deliverFiles = useCallback(
+    (files: File[]) => {
+      if (!files.length) return;
+      onFiles(files);
+      onClose();
+    },
+    [onClose, onFiles],
+  );
+
   const launchChooser = useCallback(async () => {
     if (!provider) return;
     setBusy(true);
@@ -69,6 +84,19 @@ export function CloudFileImportModal({
     try {
       const result = await openCloudProviderPicker(provider, { multiselect: multiple });
       if (result.cancelled) {
+        setBusy(false);
+        return;
+      }
+      if (result.error && !result.files.length) {
+        setError(
+          safeT(
+            t,
+            "cloudPickerFailed",
+            result.error ||
+              `Could not open ${provider}. Choose the file from this device instead.`,
+            { provider },
+          ),
+        );
         setBusy(false);
         return;
       }
@@ -84,8 +112,7 @@ export function CloudFileImportModal({
         setBusy(false);
         return;
       }
-      onFiles(result.files);
-      onClose();
+      deliverFiles(result.files);
     } catch {
       setError(
         safeT(
@@ -98,7 +125,7 @@ export function CloudFileImportModal({
     } finally {
       setBusy(false);
     }
-  }, [multiple, onClose, onFiles, provider, t]);
+  }, [deliverFiles, multiple, provider, t]);
 
   // Auto-open native chooser once when keys are configured.
   useEffect(() => {
@@ -121,7 +148,7 @@ export function CloudFileImportModal({
         ? safeT(
             t,
             "cloudImportConfiguredBody",
-            `Select files in the ${provider} window. They stay on your device after download — JoinMyPDF never stores them.`,
+            `Select files in the ${provider} window. They are downloaded into this browser session only — JoinMyPDF never stores them.`,
             { provider },
           )
         : safeT(
@@ -131,6 +158,18 @@ export function CloudFileImportModal({
             { provider },
           );
   const closeLabel = safeT(t, "cloudImportClose", "Close");
+
+  const openLocalFilePicker = () => {
+    // Prefer the modal-owned input so the selection stays in this React tree
+    // (overlay is portaled to the top frame; tool input.click() is unreliable).
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+      fileInputRef.current.click();
+      return;
+    }
+    onClose();
+    window.setTimeout(() => onPickDevice(), 40);
+  };
 
   return (
     <AppOverlayModal
@@ -147,6 +186,23 @@ export function CloudFileImportModal({
               {error}
             </p>
           ) : null}
+
+          <input
+            id={inputId}
+            ref={fileInputRef}
+            type="file"
+            className="sr-only"
+            accept={accept || undefined}
+            multiple={multiple}
+            tabIndex={-1}
+            aria-hidden
+            onChange={(event) => {
+              const list = event.target.files;
+              if (!list?.length) return;
+              deliverFiles(Array.from(list));
+              event.target.value = "";
+            }}
+          />
 
           <div className="app-overlay-modal__actions">
             {configured ? (
@@ -180,10 +236,7 @@ export function CloudFileImportModal({
               type="button"
               className="app-overlay-modal__btn app-overlay-modal__btn--secondary"
               disabled={busy}
-              onClick={() => {
-                onClose();
-                window.setTimeout(() => onPickDevice(), 40);
-              }}
+              onClick={openLocalFilePicker}
             >
               <FolderOpen size={16} strokeWidth={2.25} aria-hidden />
               <span>

@@ -5,11 +5,14 @@ import { ChevronUp, FilePlus2, Upload } from "lucide-react";
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
+  type CSSProperties,
   type KeyboardEvent,
   type MouseEvent as ReactMouseEvent,
 } from "react";
+import { createPortal } from "react-dom";
 
 export type ChooseFilesPickerLabels = {
   chooseFiles: string;
@@ -26,6 +29,15 @@ type ChooseFilesPickerProps = {
   onCloudOption: (provider: "Dropbox" | "Google Drive" | "OneDrive") => void;
   className?: string;
 };
+
+type MenuPosition = {
+  top: number;
+  left: number;
+  width: number;
+  openUp: boolean;
+};
+
+const VIEWPORT_MARGIN = 8;
 
 function GoogleDriveIcon() {
   return (
@@ -59,8 +71,33 @@ function OneDriveIcon() {
   );
 }
 
+function getMenuPosition(trigger: HTMLElement, menuHeight: number): MenuPosition {
+  const rect = trigger.getBoundingClientRect();
+  // Match the CHOOSE FILES button width exactly — never stretch wider.
+  const width = Math.max(1, Math.round(rect.width * 1000) / 1000);
+  const isRtl =
+    typeof document !== "undefined" &&
+    (document.documentElement.getAttribute("dir") === "rtl" ||
+      getComputedStyle(document.documentElement).direction === "rtl");
+  // Prefer flush alignment under the button; only nudge if it would clip the viewport.
+  let left = isRtl ? rect.right - width : rect.left;
+  left = Math.min(
+    Math.max(VIEWPORT_MARGIN, left),
+    Math.max(VIEWPORT_MARGIN, window.innerWidth - width - VIEWPORT_MARGIN),
+  );
+  const spaceBelow = window.innerHeight - rect.bottom - VIEWPORT_MARGIN;
+  const spaceAbove = rect.top - VIEWPORT_MARGIN;
+  const openUp = spaceBelow < menuHeight && spaceAbove > spaceBelow;
+  const top = openUp
+    ? Math.max(VIEWPORT_MARGIN, rect.top - menuHeight - 6)
+    : Math.min(rect.bottom + 6, window.innerHeight - menuHeight - VIEWPORT_MARGIN);
+
+  return { top, left, width, openUp };
+}
+
 /**
  * Shared CHOOSE FILES split-button + source menu used by all tool dropzones.
+ * Menu is portaled to document.body so overflow:hidden ancestors cannot clip it.
  */
 export function ChooseFilesPicker({
   labels,
@@ -70,14 +107,59 @@ export function ChooseFilesPicker({
   className,
 }: ChooseFilesPickerProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
-  const closeMenu = useCallback(() => setOpen(false), []);
+  const closeMenu = useCallback(() => {
+    setOpen(false);
+    setMenuPosition(null);
+  }, []);
+
+  const openMenu = useCallback(() => {
+    if (!buttonRef.current) {
+      setOpen(true);
+      return;
+    }
+    // Position before first paint so the portaled menu never flashes at (0,0).
+    setMenuPosition(getMenuPosition(buttonRef.current, 220));
+    setOpen(true);
+  }, []);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!open || !buttonRef.current) return;
+
+    const update = () => {
+      if (!buttonRef.current) return;
+      const estimatedHeight = menuRef.current?.offsetHeight || 220;
+      setMenuPosition(getMenuPosition(buttonRef.current, estimatedHeight));
+    };
+
+    update();
+    const raf = window.requestAnimationFrame(update);
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, true);
+    return () => {
+      window.cancelAnimationFrame(raf);
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update, true);
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
     const onPointerDown = (event: PointerEvent) => {
-      if (!rootRef.current?.contains(event.target as Node)) closeMenu();
+      const target = event.target as Node | null;
+      if (!target) return;
+      if (rootRef.current?.contains(target)) return;
+      if (menuRef.current?.contains(target)) return;
+      closeMenu();
     };
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.key === "Escape") closeMenu();
@@ -97,9 +179,98 @@ export function ChooseFilesPicker({
   const onButtonKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === "ArrowDown" && !open) {
       event.preventDefault();
-      setOpen(true);
+      openMenu();
     }
   };
+
+  const menuStyle: CSSProperties | undefined = menuPosition
+    ? {
+        position: "fixed",
+        top: menuPosition.top,
+        left: menuPosition.left,
+        width: menuPosition.width,
+        minWidth: menuPosition.width,
+        maxWidth: menuPosition.width,
+        right: "auto",
+        zIndex: 1000,
+        boxSizing: "border-box",
+      }
+    : undefined;
+
+  const menu =
+    mounted && open && menuPosition
+      ? createPortal(
+          <ul
+            ref={menuRef}
+            className={clsx(
+              "choose-files-menu",
+              "choose-files-menu--portal",
+              menuPosition?.openUp && "choose-files-menu--up",
+            )}
+            role="menu"
+            aria-label={labels.chooseFiles}
+            style={menuStyle}
+          >
+            <li role="none">
+              <button
+                type="button"
+                role="menuitem"
+                className="choose-files-menu__item"
+                onClick={() => {
+                  closeMenu();
+                  onPickDevice();
+                }}
+              >
+                <Upload className="choose-files-menu__icon" strokeWidth={1.75} aria-hidden />
+                <span>{labels.fromDevice}</span>
+              </button>
+            </li>
+            <li role="none">
+              <button
+                type="button"
+                role="menuitem"
+                className="choose-files-menu__item"
+                onClick={() => {
+                  closeMenu();
+                  onCloudOption("Dropbox");
+                }}
+              >
+                <DropboxIcon />
+                <span>{labels.fromDropbox}</span>
+              </button>
+            </li>
+            <li role="none">
+              <button
+                type="button"
+                role="menuitem"
+                className="choose-files-menu__item"
+                onClick={() => {
+                  closeMenu();
+                  onCloudOption("Google Drive");
+                }}
+              >
+                <GoogleDriveIcon />
+                <span>{labels.fromGoogleDrive}</span>
+              </button>
+            </li>
+            <li role="none">
+              <button
+                type="button"
+                role="menuitem"
+                className="choose-files-menu__item"
+                onClick={() => {
+                  closeMenu();
+                  onCloudOption("OneDrive");
+                }}
+              >
+                <OneDriveIcon />
+                <span>{labels.fromOneDrive}</span>
+              </button>
+            </li>
+          </ul>,
+          document.body,
+        )
+      : null;
 
   return (
     <div
@@ -109,12 +280,16 @@ export function ChooseFilesPicker({
       onKeyDown={(event) => event.stopPropagation()}
     >
       <button
+        ref={buttonRef}
         type="button"
         className="choose-files-btn"
         aria-haspopup="menu"
         aria-expanded={open}
         disabled={disabled}
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => {
+          if (open) closeMenu();
+          else openMenu();
+        }}
         onKeyDown={onButtonKeyDown}
       >
         <span className="choose-files-btn__main">
@@ -132,67 +307,7 @@ export function ChooseFilesPicker({
           />
         </span>
       </button>
-
-      {open ? (
-        <ul className="choose-files-menu" role="menu" aria-label={labels.chooseFiles}>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="choose-files-menu__item"
-              onClick={() => {
-                closeMenu();
-                onPickDevice();
-              }}
-            >
-              <Upload className="choose-files-menu__icon" strokeWidth={1.75} aria-hidden />
-              <span>{labels.fromDevice}</span>
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="choose-files-menu__item"
-              onClick={() => {
-                closeMenu();
-                onCloudOption("Dropbox");
-              }}
-            >
-              <DropboxIcon />
-              <span>{labels.fromDropbox}</span>
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="choose-files-menu__item"
-              onClick={() => {
-                closeMenu();
-                onCloudOption("Google Drive");
-              }}
-            >
-              <GoogleDriveIcon />
-              <span>{labels.fromGoogleDrive}</span>
-            </button>
-          </li>
-          <li role="none">
-            <button
-              type="button"
-              role="menuitem"
-              className="choose-files-menu__item"
-              onClick={() => {
-                closeMenu();
-                onCloudOption("OneDrive");
-              }}
-            >
-              <OneDriveIcon />
-              <span>{labels.fromOneDrive}</span>
-            </button>
-          </li>
-        </ul>
-      ) : null}
+      {menu}
     </div>
   );
 }
