@@ -109,10 +109,21 @@ declare global {
  * which previously forced the drive.google.com fallback.
  */
 export function getCloudPickerConfig() {
+  const googleApiKey = (process.env.NEXT_PUBLIC_GOOGLE_API_KEY ?? "").trim();
+  const googleClientId = (process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "").trim();
+  if (
+    typeof window !== "undefined" &&
+    process.env.NODE_ENV === "development" &&
+    (!googleApiKey || !googleClientId)
+  ) {
+    console.warn(
+      "[joinmypdf:gdrive] Missing NEXT_PUBLIC_GOOGLE_API_KEY / CLIENT_ID — in-app Picker disabled",
+    );
+  }
   return {
     dropboxAppKey: (process.env.NEXT_PUBLIC_DROPBOX_APP_KEY ?? "").trim(),
-    googleApiKey: (process.env.NEXT_PUBLIC_GOOGLE_API_KEY ?? "").trim(),
-    googleClientId: (process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "").trim(),
+    googleApiKey,
+    googleClientId,
     oneDriveClientId: (process.env.NEXT_PUBLIC_ONEDRIVE_CLIENT_ID ?? "").trim(),
   };
 }
@@ -462,8 +473,17 @@ function loadGooglePickerApi(win: Window): Promise<void> {
   });
 }
 
-/** Top-frame origin string required by Picker when the tool runs inside an iframe. */
+/** Top-frame origin for Picker — always live location, never a hardcoded host. */
 function googlePickerOrigin(win: Window): string {
+  try {
+    const topWin = win.top && win.top !== win ? win.top : win;
+    // Prefer standard origin (includes port when non-default).
+    if (topWin.location?.origin) return topWin.location.origin;
+    return `${topWin.location.protocol}//${topWin.location.host}`;
+  } catch {
+    /* cross-origin top — use the window that owns the picker scripts */
+  }
+  if (win.location?.origin) return win.location.origin;
   return `${win.location.protocol}//${win.location.host}`;
 }
 
@@ -501,10 +521,10 @@ function requestGoogleAccessToken(win: Window, clientId: string): Promise<string
       clientIdPrefix: clientId.slice(0, 20),
       origin: win.location.origin,
       scope,
-      coopHint:
-        "Page needs Cross-Origin-Opener-Policy: same-origin-allow-popups for GIS popups",
     });
 
+    // Token client always uses a popup (not a full-page redirect). Origin is
+    // taken from the page that loaded GSI — keep scripts on the top frame.
     const client = oauth.initTokenClient({
       client_id: clientId,
       scope,

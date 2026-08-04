@@ -156,8 +156,10 @@ export function CloudFileImportModal({
   }, [launchChooser, open, provider]);
 
   const configured = provider ? cloudProviderConfigured(provider) : false;
-  // Never deep-link to drive.google.com when native picker credentials exist.
-  const showExternalHomeLink = Boolean(provider) && !configured;
+  // Never deep-link to drive.google.com — that abandons the in-app flow.
+  // Dropbox/OneDrive may still offer a site link when SDK keys are missing.
+  const showExternalHomeLink =
+    Boolean(provider) && !configured && provider !== "Google Drive";
   const homeUrl = provider ? cloudProviderHomeUrl(provider) : "#";
   const title = provider
     ? safeT(t, "cloudImportTitle", `Import from ${provider}`, { provider })
@@ -165,19 +167,25 @@ export function CloudFileImportModal({
   const body =
     provider == null
       ? ""
-      : configured
+      : provider === "Google Drive" && !configured
         ? safeT(
             t,
-            "cloudImportConfiguredBody",
-            `Select files in the ${provider} window. They are downloaded into this browser session only — JoinMyPDF never stores them.`,
-            { provider },
+            "cloudImportGoogleUnavailableBody",
+            "Google Drive picker is unavailable in this build. Choose a file from this device instead — processing stays local in your browser.",
           )
-        : safeT(
-            t,
-            "cloudImportFallbackBody",
-            `Open ${provider}, download the file to this device, then choose it below. Processing stays local in your browser.`,
-            { provider },
-          );
+        : configured
+          ? safeT(
+              t,
+              "cloudImportConfiguredBody",
+              `Select files in the ${provider} window. They are downloaded into this browser session only — JoinMyPDF never stores them.`,
+              { provider },
+            )
+          : safeT(
+              t,
+              "cloudImportFallbackBody",
+              `Open ${provider}, download the file to this device, then choose it below. Processing stays local in your browser.`,
+              { provider },
+            );
   const closeLabel = safeT(t, "cloudImportClose", "Close");
 
   const openLocalFilePicker = () => {
