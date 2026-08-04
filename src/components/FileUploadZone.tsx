@@ -211,6 +211,9 @@ export function FileUploadZone({
       : undefined) ||
     (operation && showDescription ? ws.uploadDescription() : undefined);
 
+  // Tool pages only — homepage hero passes "" to suppress the name slot.
+  const dropzoneToolName = suppressPageHeader ? displayTitle || undefined : "";
+
   return (
     <div
       className={clsx(
@@ -239,6 +242,7 @@ export function FileUploadZone({
       <IndustrialMatteDropzone
         {...rest}
         className={className}
+        toolName={dropzoneToolName}
         dropTitle={dropTitle}
         selectLabel={selectLabel}
         supportsLabel={supportsLabel}

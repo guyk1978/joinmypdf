@@ -30052,6 +30052,18 @@ html[dir="rtl"] .favicon-preset-library__panel {
   pointer-events: auto;
 }
 
+.im-dropzone__tool-name {
+  margin: 0;
+  max-width: 40rem;
+  font-size: clamp(1.65rem, 4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  color: var(--category-accent, #2563EB);
+  transition: color 0.28s ease;
+}
+
 .im-dropzone__icon {
   display: flex;
   align-items: center;
@@ -30137,6 +30149,7 @@ html[dir="rtl"] .favicon-preset-library__panel {
       var(--category-accent, #2563EB);
 }
 
+.im-dropzone:not(.im-dropzone--compact) .im-dropzone__tool-name,
 .im-dropzone:not(.im-dropzone--compact) .im-dropzone__icon,
 .im-dropzone:not(.im-dropzone--compact) .im-dropzone__title,
 .im-dropzone:not(.im-dropzone--compact) .im-dropzone__select {
@@ -30170,6 +30183,9 @@ html[dir="rtl"] .favicon-preset-library__panel {
   outline: none;
 }
 
+.im-dropzone:not(.im-dropzone--compact):hover .im-dropzone__tool-name,
+.im-dropzone:not(.im-dropzone--compact).im-dropzone--active .im-dropzone__tool-name,
+.im-dropzone:not(.im-dropzone--compact):focus-visible .im-dropzone__tool-name,
 .im-dropzone:not(.im-dropzone--compact):hover .im-dropzone__icon,
 .im-dropzone:not(.im-dropzone--compact).im-dropzone--active .im-dropzone__icon,
 .im-dropzone:not(.im-dropzone--compact):focus-visible .im-dropzone__icon,

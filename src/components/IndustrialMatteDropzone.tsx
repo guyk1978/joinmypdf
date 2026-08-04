@@ -3,8 +3,11 @@
 import { clsx } from "clsx";
 import { Upload } from "lucide-react";
 import type { HTMLAttributes, ReactNode } from "react";
+import { useToolPageShell } from "@/context/ToolPageShellContext";
 
 export type IndustrialMatteDropzoneProps = HTMLAttributes<HTMLDivElement> & {
+  /** Tool display name shown above the upload icon (primary dropzones). */
+  toolName?: string;
   dropTitle: string;
   selectLabel: string;
   supportsLabel: string;
@@ -28,11 +31,20 @@ function cleanSupportsLabel(label: string): string {
     .trim();
 }
 
+function titleCaseSlug(slug: string): string {
+  return slug
+    .split(/[-_]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
 /**
  * Shared Industrial Matte upload surface — used by PDF, image, audio, and video tools.
  * Rounded stage with a permanent subtle dashed border; accent solid border on hover/drag.
  */
 export function IndustrialMatteDropzone({
+  toolName,
   dropTitle,
   selectLabel,
   supportsLabel,
@@ -48,7 +60,17 @@ export function IndustrialMatteDropzone({
   compact = false,
   ...rest
 }: IndustrialMatteDropzoneProps) {
+  const pageShell = useToolPageShell();
   const resolvedSupports = cleanSupportsLabel(supportsLabel);
+  // Prefer explicit prop (including "" to suppress on homepage hero),
+  // then tool page shell headline, then slug title-case.
+  // Compact “add more” zones stay instruction-only.
+  const resolvedToolName = compact
+    ? ""
+    : toolName !== undefined
+      ? toolName.trim()
+      : pageShell.headline?.trim() ||
+        (pageShell.slug ? titleCaseSlug(pageShell.slug) : "");
 
   return (
     <div
@@ -75,6 +97,10 @@ export function IndustrialMatteDropzone({
         {input}
 
         <div className="im-dropzone__stage flex max-w-xl flex-col items-center justify-center gap-4">
+          {resolvedToolName ? (
+            <p className="im-dropzone__tool-name m-0">{resolvedToolName}</p>
+          ) : null}
+
           <span className="im-dropzone__icon" aria-hidden>
             <Upload className="im-dropzone__icon-svg" strokeWidth={1.35} />
           </span>

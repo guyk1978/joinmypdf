@@ -30,7 +30,7 @@ function resolveToolName(slug: string, headline?: string | null): string {
   if (fromShell) return normalizeToolNameForDocH1(fromShell);
 
   const inventory = getToolsInventoryEntry(slug);
-  if (inventory?.name) return normalizeToolNameForDocH1(inventory.name);
+  if (inventory?.title) return normalizeToolNameForDocH1(inventory.title);
 
   const registryTool = registry.tools.find((entry) => entry.slug === slug);
   if (registryTool?.title) return normalizeToolNameForDocH1(registryTool.title);
