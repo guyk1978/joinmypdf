@@ -265,7 +265,7 @@
       "responsiveDevicePreview": "Responsive Device Preview"
     },
     "library": "Library",
-    "toolsHub": "Категории",
+    "toolsHub": "ИНСТРУМЕНТЫ",
     "reviews": "Отзывы",
     "drawer": {
       "title": "Library",
@@ -274,7 +274,11 @@
       "favorites": "Favorites",
       "projects": "Projects",
       "reviews": "Reviews"
-    }
+    },
+    "toolSession": "Этот инструмент",
+    "browseTools": "Обзор инструментов",
+    "operations": "ОПЕРАЦИЯ",
+    "returnToMainView": "Вернуться к загрузке"
   },
   "Search": {
     "label": "Search tools and guides",
@@ -8916,10 +8920,17 @@
     }
   },
   "VideoMuter": {
+    "chooseFiles": "ВЫБРАТЬ ФАЙЛЫ",
+    "fromDevice": "С устройства",
+    "fromDropbox": "Из Dropbox",
+    "fromGoogleDrive": "Из Google Drive",
+    "fromOneDrive": "Из OneDrive",
+    "orDropFilesHere": "или перетащите файлы сюда",
+    "cloudHint": "Сохраните файл из {provider} на устройство, затем выберите «С устройства».",
     "dropTitle": "Перетащите видео сюда",
     "dropTitleBusy": "Подготовка…",
     "dropDescription": "Перетащите файл или нажмите, чтобы выбрать. Обработка идёт локально — ничего не загружается на сервер.",
-    "privacyBadge": "Локальная обработка. Ничего не загружается.",
+    "privacyBadge": "Локальная обработка: видео отключается от звука на устройстве, без загрузки на сервер.",
     "formatsHint": "Поддерживается: MP4",
     "selectLabel": "Выбрать видео с устройства",
     "invalidFile": "Загрузите поддерживаемый видеофайл.",

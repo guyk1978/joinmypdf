@@ -72,3 +72,8 @@ export function useProjectToast() {
   }
   return ctx;
 }
+
+/** @deprecated Prefer useProjectToast — kept for hot-reload compatibility. */
+export function useOptionalProjectToast() {
+  return useContext(ProjectToastContext);
+}

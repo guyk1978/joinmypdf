@@ -29,7 +29,11 @@ function measureToolEmbedFillHeight(): number {
     Number.parseFloat(rootStyles.getPropertyValue("--site-header-height")) || 120;
   const modal = document.querySelector(".tool-modal--fullscreen, .tool-modal");
   const title =
-    modal?.querySelector(".tool-modal__heading")?.getBoundingClientRect().height ?? 28;
+    modal?.querySelector(".tool-upload-stage")?.getBoundingClientRect().height
+      ? 0
+      : (modal?.querySelector(".tool-modal__chrome")?.getBoundingClientRect().height ??
+        modal?.querySelector(".tool-modal__heading")?.getBoundingClientRect().height ??
+        8);
   const footer =
     modal?.querySelector(".tool-modal__site-footer")?.getBoundingClientRect().height ?? 56;
   // title + tight body gap + footer block margin
@@ -79,14 +83,12 @@ export function ToolModalDocsPanel({
   categoryId?: InventoryCategoryId;
 }) {
   const locale = useLocale();
-  const [isLoading, setIsLoading] = useState(true);
-  const [faqItems, setFaqItems] = useState<{ question: string; answer: string }[]>([]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    setFaqItems([]);
-
-    const frame = requestAnimationFrame(() => {
+  // Compute FAQs synchronously — never gate the whole DOC pane behind a
+  // loading skeleton. Parent re-creates `model.faqs` every render; an async
+  // rAF + isLoading flag was cancelled in a loop and stuck on "Loading tool…".
+  const faqItems = useMemo(() => {
+    try {
       const tool = registry.tools.find((entry) => entry.slug === model.slug);
       const faqs =
         tool && tPage
@@ -95,20 +97,26 @@ export function ToolModalDocsPanel({
               primaryKeyword: model.primaryKeyword ?? model.title,
             })
           : model.faqs;
+      return (faqs ?? []).map((item) => ({
+        question: item.q,
+        answer: item.a,
+      }));
+    } catch {
+      return (model.faqs ?? []).map((item) => ({
+        question: item.q,
+        answer: item.a,
+      }));
+    }
+  }, [
+    model.slug,
+    model.title,
+    model.intent,
+    model.primaryKeyword,
+    model.faqs,
+    locale,
+    tPage,
+  ]);
 
-      setFaqItems(
-        faqs.map((item) => ({
-          question: item.q,
-          answer: item.a,
-        })),
-      );
-      setIsLoading(false);
-    });
-
-    return () => cancelAnimationFrame(frame);
-  }, [model.slug, model.title, model.faqs, model.intent, model.primaryKeyword, locale, tPage]);
-
-  const loadingLabel = labels?.loading ?? "Loading…";
   const faqSchemaItems = useMemo(
     () => faqItems.map((item) => ({ q: item.question, a: item.answer })),
     [faqItems],
@@ -137,36 +145,14 @@ export function ToolModalDocsPanel({
     normalizeProse(model.intent) ||
     normalizeProse(model.whyItMatters);
 
-  const docsTitle = (
-    <ToolDocHeader
-      slug={model.slug}
-      title={model.title}
-      description={introDescription}
-      categoryId={categoryId}
-    />
-  );
-
-  if (isLoading) {
-    return (
-      <div className="tool-modal-docs tool-modal-docs--loading" aria-busy="true" aria-live="polite">
-        {docsTitle}
-        <div className="tool-modal-docs__skeleton">
-          <span className="tool-modal__calc-spinner" aria-hidden />
-          <span className="tool-modal-docs__loading-text">{loadingLabel}</span>
-        </div>
-        <div className="tool-modal-docs__skeleton-lines" aria-hidden>
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <article className="tool-modal-docs" aria-labelledby="tool-docs-title">
-      {docsTitle}
+      <ToolDocHeader
+        slug={model.slug}
+        title={model.title}
+        description={introDescription}
+        categoryId={categoryId}
+      />
 
       <ToolDocBodySections
         slug={model.slug}
@@ -312,7 +298,15 @@ export function ToolModalCalcFrame({
     setEmbedMode("fill");
     setEmbedHeight(null);
     onReadyChange?.(false);
-  }, [src, onReadyChange]);
+    // Failsafe: never leave the parent stuck on "Loading tool…" if onLoad is lost.
+    const failsafe = window.setTimeout(() => {
+      setReady(true);
+      onReadyChange?.(true);
+    }, 12_000);
+    return () => window.clearTimeout(failsafe);
+    // Only reset when the embed URL changes — not when the parent re-renders.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally omit onReadyChange
+  }, [src]);
 
   const requestEmbedHeight = () => {
     try {

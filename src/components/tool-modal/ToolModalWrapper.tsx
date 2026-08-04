@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Calculator, FileText, Link2, MessageSquare, Pin, Save, ScanSearch, Share2, Star, X, ZoomIn } from "lucide-react";
 import { clsx } from "clsx";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { useFavorites } from "@/hooks/useFavorites";
-import { usePinnedTools } from "@/hooks/usePinnedTools";
 import { usePageShare } from "@/hooks/usePageShare";
 import { recordRecentTool } from "@/lib/recent-activity";
 import {
@@ -25,15 +23,15 @@ import {
   getMagnifierSizeTier,
   MAGNIFIER_CAPABILITY_MESSAGE,
   MAGNIFIER_CAPABILITY_QUERY,
-  MAGNIFIER_SIZE_TIERS,
-  setMagnifierPreference,
-  setMagnifierSizeTier,
   subscribeMagnifierPreference,
   subscribeMagnifierSizeTier,
   type MagnifierSizeTier,
 } from "@/lib/magnifier-preference";
-import { requestPreviewInspect } from "@/lib/preview-inspect";
-import { ToolModalRating } from "@/components/tool-modal/ToolModalRating";
+import { useOptionalToolModal } from "@/components/tool-modal/tool-modal-context";
+import type {
+  ToolModalSessionValue,
+  ToolModalTab,
+} from "@/components/tool-modal/tool-modal-session-context";
 import { HomePageFooter } from "@/components/HomePageFooter";
 import {
   getCategoryAccentColor,
@@ -44,13 +42,16 @@ import {
 } from "@/lib/category-accent-colors";
 import {
   WORKSPACE_PHASE_MESSAGE,
+  WORKSPACE_SET_TAB_EVENT,
+  WORKSPACE_SET_TAB_MESSAGE,
   type WorkspacePhase,
 } from "@/lib/workspace-flow";
+import { subscribeToolModalTab } from "@/lib/tool-modal-tab-bus";
 import { DOC_FULLSCREEN_MESSAGE } from "@/lib/doc-fullscreen";
 import { getInitialWorkspacePhase } from "@/lib/tool-interaction-mode";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
-export type ToolModalTab = "calc" | "doc" | "related" | "reviews";
+export type { ToolModalTab } from "@/components/tool-modal/tool-modal-session-context";
 
 export type ToolModalWrapperProps = {
   open: boolean;
@@ -77,6 +78,9 @@ export type ToolModalWrapperProps = {
   /** REVIEWS tab — per-tool community reviews. */
   reviews?: ReactNode;
   defaultTab?: ToolModalTab;
+  /** Controlled tab from ToolModalProvider (OPERATION menu). */
+  tab?: ToolModalTab;
+  onTabChange?: (tab: ToolModalTab) => void;
   /** True once the CALC surface (e.g. iframe) has finished mounting. */
   contentReady?: boolean;
   labels?: {
@@ -85,6 +89,7 @@ export type ToolModalWrapperProps = {
     related?: string;
     reviews?: string;
     close?: string;
+    share?: string;
     loading?: string;
     addFavorite?: string;
     removeFavorite?: string;
@@ -110,8 +115,8 @@ export type ToolModalWrapperProps = {
 
 /**
  * Global JoinMyPDF tool modal shell (Industrial Matte).
- * Site header stays visible; tool chrome lives in a floating left sidebar.
- * Upload / workspace fills the remaining viewport beside that rail.
+ * Site header stays visible; TOOLS dropdown hosts tabs + session actions.
+ * Title banner + ratings live in the upload shell above/below the dropzone.
  */
 export function ToolModalWrapper({
   open,
@@ -127,6 +132,8 @@ export function ToolModalWrapper({
   related,
   reviews,
   defaultTab = "calc",
+  tab: tabProp,
+  onTabChange,
   contentReady = true,
   labels,
   className,
@@ -139,7 +146,18 @@ export function ToolModalWrapper({
         ? { slug: "", operation: "", requiresUpload: false }
         : null,
   );
-  const [tab, setTab] = useState<ToolModalTab>(defaultTab);
+  const [tabState, setTabState] = useState<ToolModalTab>(defaultTab);
+  const tab = tabProp ?? tabState;
+  const isTabControlled = tabProp != null;
+  const setTab = useCallback(
+    (next: ToolModalTab) => {
+      if (!isTabControlled) setTabState(next);
+      onTabChange?.(next);
+    },
+    [isTabControlled, onTabChange],
+  );
+  const wasOpenRef = useRef(false);
+  const prevSlugForTabRef = useRef<string | undefined>(undefined);
   const [workspacePhase, setWorkspacePhase] = useState<WorkspacePhase>(initialPhase);
   /** True once the workspace is in active tool chrome (file uploaded or interactive generator). */
   const hasFileUploaded = workspacePhase === "active";
@@ -159,11 +177,10 @@ export function ToolModalWrapper({
     null,
   );
   const { isFavorite, toggleFavorite } = useFavorites();
-  const { isPinned, pinTool, unpinTool } = usePinnedTools();
+  const toolModal = useOptionalToolModal();
   const { showToast } = useProjectToast();
   const tProjects = useTranslations("Projects");
   const favorited = slug ? isFavorite(slug) : false;
-  const pinned = slug ? isPinned(slug) : false;
   const sharePayload = useMemo(
     () => ({
       title,
@@ -218,23 +235,57 @@ export function ToolModalWrapper({
 
   useEffect(() => {
     if (!open) return;
-    setTab(defaultTab);
-    setWorkspacePhase(
-      getInitialWorkspacePhase(
-        slug
-          ? { slug, operation: slug, requiresUpload }
-          : requiresUpload === false
-            ? { slug: "", operation: "", requiresUpload: false }
-            : null,
-      ),
-    );
-    setMagnifierAvailable(false);
-    setDocFullscreenActive(false);
-    setCanSaveProject(false);
-    setSaveModalOpen(false);
-    setSaveSnapshot(null);
-    setSaveBusy(false);
-  }, [open, defaultTab, title, slug, requiresUpload]);
+    // Only reset chrome when the modal newly opens or the tool slug changes —
+    // never when parent re-renders with the same slug (that wiped DOC/RELATED).
+    const slugChanged = prevSlugForTabRef.current !== slug;
+    const justOpened = !wasOpenRef.current;
+    wasOpenRef.current = true;
+    prevSlugForTabRef.current = slug;
+    if (justOpened || slugChanged) {
+      // Provider owns tab when controlled — avoid feedback setState loops.
+      if (!isTabControlled) {
+        setTab(defaultTab);
+      }
+      setWorkspacePhase(
+        getInitialWorkspacePhase(
+          slug
+            ? { slug, operation: slug, requiresUpload }
+            : requiresUpload === false
+              ? { slug: "", operation: "", requiresUpload: false }
+              : null,
+        ),
+      );
+      setMagnifierAvailable(false);
+      setDocFullscreenActive(false);
+      setCanSaveProject(false);
+      setSaveModalOpen(false);
+      setSaveSnapshot(null);
+      setSaveBusy(false);
+    }
+  }, [open, defaultTab, slug, requiresUpload, isTabControlled, setTab]);
+
+  useEffect(() => {
+    if (!open) {
+      wasOpenRef.current = false;
+    }
+  }, [open]);
+
+  const setTabRef = useRef(setTab);
+
+  useLayoutEffect(() => {
+    setTabRef.current = setTab;
+  });
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    const onTab = (next: ToolModalTab) => {
+      setTabRef.current(next);
+    };
+    const unsubscribe = subscribeToolModalTab(onTab);
+    return () => {
+      unsubscribe();
+    };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -284,6 +335,13 @@ export function ToolModalWrapper({
         if (phase === "clean" || phase === "active") applyPhase(phase);
         return;
       }
+      if (type === WORKSPACE_SET_TAB_MESSAGE) {
+        const tab = (data as { tab?: string }).tab;
+        if (tab === "calc" || tab === "doc" || tab === "related" || tab === "reviews") {
+          setTab(tab);
+        }
+        return;
+      }
       if (type === MAGNIFIER_CAPABILITY_MESSAGE) {
         setMagnifierAvailable(Boolean((data as { available?: boolean }).available));
         return;
@@ -304,6 +362,13 @@ export function ToolModalWrapper({
         setSaveSnapshot(snapshot);
         setCanSaveProject(true);
         setSaveModalOpen(true);
+      }
+    };
+
+    const onCustomSetTab = (event: Event) => {
+      const next = (event as CustomEvent<{ tab?: string }>).detail?.tab;
+      if (next === "calc" || next === "doc" || next === "related" || next === "reviews") {
+        setTab(next);
       }
     };
 
@@ -341,6 +406,7 @@ export function ToolModalWrapper({
     };
 
     window.addEventListener("message", onMessage);
+    window.addEventListener(WORKSPACE_SET_TAB_EVENT, onCustomSetTab);
     window.addEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
     window.addEventListener(MAGNIFIER_CAPABILITY_MESSAGE, onCustomMagnifierCapability);
     window.addEventListener(DOC_FULLSCREEN_MESSAGE, onCustomDocFullscreen);
@@ -359,6 +425,7 @@ export function ToolModalWrapper({
 
     return () => {
       window.removeEventListener("message", onMessage);
+      window.removeEventListener(WORKSPACE_SET_TAB_EVENT, onCustomSetTab);
       window.removeEventListener(WORKSPACE_PHASE_MESSAGE, onCustomPhase);
       window.removeEventListener(MAGNIFIER_CAPABILITY_MESSAGE, onCustomMagnifierCapability);
       window.removeEventListener(DOC_FULLSCREEN_MESSAGE, onCustomDocFullscreen);
@@ -390,20 +457,110 @@ export function ToolModalWrapper({
     };
   }, [open, workspacePhase]);
 
-  if (!mounted) return null;
+  const calcLabel = labels?.calc ?? "CALC";
+  const docLabel = labels?.doc ?? "DOC";
+  const relatedLabel = labels?.related ?? "RELATED";
+  const reviewsLabel = labels?.reviews ?? "REVIEWS";
+  const closeLabel = labels?.close ?? "Close";
+  const loadingLabel = labels?.loading ?? "Loading tool…";
+  const favoriteLabel = favorited
+    ? (labels?.removeFavorite ?? "Remove from favorites")
+    : (labels?.addFavorite ?? "Add to favorites");
+  const saveProjectLabel = labels?.saveProject ?? tProjects("saveProject");
+  const shareMenuLabel = labels?.share ?? "Share";
 
-  const handleSaveProjectClick = () => {
-    // Prefer parent-owned modal via snapshot from the tool iframe.
+  const tabLabels = useMemo<Record<ToolModalTab, string>>(
+    () => ({
+      calc: calcLabel,
+      doc: docLabel,
+      related: relatedLabel,
+      reviews: reviewsLabel,
+    }),
+    [calcLabel, docLabel, relatedLabel, reviewsLabel],
+  );
+
+  const availableTabs = useMemo<ToolModalTab[]>(() => {
+    const tabs: ToolModalTab[] = ["calc"];
+    if (docs != null) tabs.push("doc");
+    if (related != null) tabs.push("related");
+    if (reviews != null) tabs.push("reviews");
+    return tabs;
+  }, [docs, related, reviews]);
+
+  const handleSaveProjectClick = useCallback(() => {
     requestWorkspaceProjectSnapshot();
-    // Fallback: open the in-frame Save Project UI if the snapshot never arrives
-    // (e.g. File transfer blocked, or bridge only handles SAVE_REQUEST).
     window.setTimeout(() => {
-      setSaveModalOpen((open) => {
-        if (!open) requestWorkspaceProjectSave();
-        return open;
+      setSaveModalOpen((isOpen) => {
+        if (!isOpen) requestWorkspaceProjectSave();
+        return isOpen;
       });
     }, 120);
-  };
+  }, []);
+
+  const handleShareClick = useCallback(() => {
+    void handleShare();
+  }, [handleShare]);
+
+  const handleFavoriteClick = useCallback(() => {
+    if (slug) toggleFavorite(slug);
+  }, [slug, toggleFavorite]);
+
+  const sessionValue = useMemo<ToolModalSessionValue>(
+    () => ({
+      open,
+      slug,
+      tab,
+      setTab,
+      availableTabs,
+      tabLabels,
+      canSaveProject,
+      saveProject: handleSaveProjectClick,
+      saveProjectLabel,
+      share: handleShareClick,
+      shareBusy,
+      shareLabel: shareMenuLabel,
+      favorited,
+      toggleFavorite: handleFavoriteClick,
+      favoriteLabel,
+      close: onClose,
+      closeLabel,
+    }),
+    [
+      open,
+      slug,
+      tab,
+      availableTabs,
+      tabLabels,
+      canSaveProject,
+      handleSaveProjectClick,
+      saveProjectLabel,
+      handleShareClick,
+      shareBusy,
+      shareMenuLabel,
+      favorited,
+      handleFavoriteClick,
+      favoriteLabel,
+      onClose,
+      closeLabel,
+    ],
+  );
+
+  useLayoutEffect(() => {
+    const register = toolModal?.registerSession;
+    if (!register) return;
+    if (!open) {
+      register(null);
+      return;
+    }
+    register(sessionValue);
+  }, [open, sessionValue, toolModal?.registerSession]);
+
+  useEffect(() => {
+    const register = toolModal?.registerSession;
+    return () => register?.(null);
+  }, [toolModal?.registerSession]);
+
+  if (!mounted) return null;
 
   const handleHeaderProjectSave = async (name: string) => {
     if (!saveSnapshot || saveSnapshot.files.length === 0) return;
@@ -424,38 +581,6 @@ export function ToolModalWrapper({
     } finally {
       setSaveBusy(false);
     }
-  };
-
-  const calcLabel = labels?.calc ?? "CALC";
-  const docLabel = labels?.doc ?? "DOC";
-  const relatedLabel = labels?.related ?? "RELATED";
-  const reviewsLabel = labels?.reviews ?? "REVIEWS";
-  const closeLabel = labels?.close ?? "Close";
-  const loadingLabel = labels?.loading ?? "Loading tool…";
-  const favoriteLabel = favorited
-    ? (labels?.removeFavorite ?? "Remove from favorites")
-    : (labels?.addFavorite ?? "Add to favorites");
-  const loupeLabel = loupeEnabled
-    ? (labels?.hideMagnifier ?? "Hide Magnifier")
-    : (labels?.showMagnifier ?? "Show Magnifier");
-  const inspectLabel = labels?.inspectPreview ?? "Inspect preview";
-  const loupeSizeGroupLabel = labels?.magnifierSizeGroup ?? "Magnifier size";
-  const loupeOffLabel = labels?.magnifierSizeOff ?? "Off";
-  const loupeSizeLabels: Record<MagnifierSizeTier, string> = {
-    small: labels?.magnifierSizeSmall ?? "Small",
-    medium: labels?.magnifierSizeMedium ?? "Medium",
-    huge: labels?.magnifierSizeHuge ?? "Huge",
-  };
-  const pinLabel = pinned
-    ? (labels?.unpin ?? "Unpin from dock")
-    : (labels?.pin ?? "Pin to dock");
-  const saveProjectLabel = labels?.saveProject ?? tProjects("saveProject");
-
-  const tabLabels: Record<ToolModalTab, string> = {
-    calc: calcLabel,
-    doc: docLabel,
-    related: relatedLabel,
-    reviews: reviewsLabel,
   };
 
   const panes: { id: ToolModalTab; content: ReactNode; scroll?: boolean }[] = [
@@ -510,269 +635,11 @@ export function ToolModalWrapper({
             transition={{ duration: 0.18, ease: "easeOut" }}
           >
             <div className="tool-modal__rail">
-            <div className="tool-modal__workspace tool-modal__workspace--with-sidebar">
-            <aside
-              className="tool-modal__sidebar"
-              aria-label={labels?.viewsNav ?? "Tool views"}
-            >
-              <nav className="tool-modal__sidebar-nav" aria-label={labels?.viewsNav ?? "Tool views"}>
-                {panes.map(({ id }) => {
-                  const TabIcon =
-                    id === "calc"
-                      ? Calculator
-                      : id === "doc"
-                        ? FileText
-                        : id === "related"
-                          ? Link2
-                          : MessageSquare;
-                  return (
-                    <div key={id} className="tool-modal__sidebar-item">
-                      <button
-                        type="button"
-                        className={clsx(
-                          "tool-modal__sidebar-trigger",
-                          "tool-modal__sidebar-cube",
-                          "tool-modal__tab",
-                          tab === id && "tool-modal__tab--active",
-                        )}
-                        aria-pressed={tab === id}
-                        aria-label={tabLabels[id]}
-                        onClick={() => setTab(id)}
-                      >
-                        <TabIcon size={18} strokeWidth={2} aria-hidden />
-                      </button>
-                      <span className="tool-modal__sidebar-flyout" aria-hidden>
-                        {tabLabels[id]}
-                      </span>
-                    </div>
-                  );
-                })}
-              </nav>
-
-              <div className="tool-modal__sidebar-item">
-                <button
-                  type="button"
-                  className={clsx(
-                    "tool-modal__sidebar-trigger",
-                    "tool-modal__sidebar-cube",
-                    "tool-modal__save-project",
-                    !canSaveProject && "tool-modal__save-project--disabled",
-                  )}
-                  onClick={handleSaveProjectClick}
-                  disabled={!canSaveProject}
-                  aria-label={saveProjectLabel}
-                  title={saveProjectLabel}
-                >
-                  <Save size={16} strokeWidth={2.25} aria-hidden />
-                </button>
-                <span className="tool-modal__sidebar-flyout" aria-hidden>
-                  {saveProjectLabel}
-                </span>
-              </div>
-
-              <div className="tool-modal__sidebar-item">
-                <button
-                  type="button"
-                  className="tool-modal__sidebar-trigger tool-modal__sidebar-cube tool-modal__action"
-                  onClick={() => {
-                    void handleShare();
-                  }}
-                  disabled={shareBusy}
-                  aria-label={shareAriaLabel}
-                >
-                  <Share2 size={18} strokeWidth={2} aria-hidden />
-                </button>
-                <span className="tool-modal__sidebar-flyout" aria-hidden>
-                  {shareAriaLabel}
-                </span>
-              </div>
-
-              {slug ? (
-                <div className="tool-modal__sidebar-item">
-                  <button
-                    type="button"
-                    className={clsx(
-                      "tool-modal__sidebar-trigger",
-                      "tool-modal__sidebar-cube",
-                      "tool-modal__action",
-                      pinned && "tool-modal__action--pinned",
-                    )}
-                    onClick={() => {
-                      if (pinned) {
-                        unpinTool(slug);
-                        return;
-                      }
-                      pinTool(slug);
-                      onClose();
-                    }}
-                    aria-label={pinLabel}
-                    aria-pressed={pinned}
-                    title={pinLabel}
-                  >
-                    <Pin
-                      size={18}
-                      strokeWidth={2}
-                      className={clsx(pinned && "fill-current")}
-                      aria-hidden
-                    />
-                  </button>
-                  <span className="tool-modal__sidebar-flyout" aria-hidden>
-                    {pinLabel}
-                  </span>
-                </div>
-              ) : null}
-
-              {slug ? (
-                <div className="tool-modal__sidebar-item">
-                  <button
-                    type="button"
-                    className={clsx(
-                      "tool-modal__sidebar-trigger",
-                      "tool-modal__sidebar-cube",
-                      "tool-modal__action",
-                      favorited && "tool-modal__action--favorite",
-                    )}
-                    onClick={() => toggleFavorite(slug)}
-                    aria-label={favoriteLabel}
-                    aria-pressed={favorited}
-                  >
-                    <Star
-                      size={18}
-                      strokeWidth={2}
-                      className={clsx(favorited && "fill-current")}
-                      aria-hidden
-                    />
-                  </button>
-                  <span className="tool-modal__sidebar-flyout" aria-hidden>
-                    {favoriteLabel}
-                  </span>
-                </div>
-              ) : null}
-
-              {hasFileUploaded && magnifierAvailable ? (
-                <>
-                  {finePointerHover ? (
-                    <div
-                      className={clsx(
-                        "tool-modal__sidebar-item",
-                        "tool-modal__loupe-cluster",
-                        !loupeEnabled && "tool-modal__loupe-cluster--off",
-                      )}
-                    >
-                      <button
-                        type="button"
-                        className={clsx(
-                          "tool-modal__sidebar-trigger",
-                          "tool-modal__sidebar-cube",
-                          "tool-modal__action",
-                          "tool-modal__loupe",
-                          !loupeEnabled && "tool-modal__loupe--off",
-                        )}
-                        onClick={() => setMagnifierPreference(!loupeEnabled)}
-                        aria-label={loupeLabel}
-                        aria-pressed={loupeEnabled}
-                        title={loupeLabel}
-                      >
-                        <ScanSearch size={18} strokeWidth={2} aria-hidden />
-                      </button>
-                      <div className="tool-modal__sidebar-flyout tool-modal__sidebar-flyout--panel">
-                        <span className="tool-modal__sidebar-flyout-label">{loupeLabel}</span>
-                        <div
-                          className="tool-modal__loupe-sizes"
-                          role="group"
-                          aria-label={loupeSizeGroupLabel}
-                        >
-                          <button
-                            type="button"
-                            className={clsx(
-                              "tool-modal__loupe-size tool-modal__loupe-size--off",
-                              !loupeEnabled && "tool-modal__loupe-size--active",
-                            )}
-                            aria-label={loupeOffLabel}
-                            aria-pressed={!loupeEnabled}
-                            title={loupeOffLabel}
-                            onClick={() => setMagnifierPreference(false)}
-                          >
-                            <span className="tool-modal__loupe-size-dot" aria-hidden />
-                            <span className="tool-modal__loupe-size-label">{loupeOffLabel}</span>
-                          </button>
-                          {MAGNIFIER_SIZE_TIERS.map((tier) => (
-                            <button
-                              key={tier}
-                              type="button"
-                              className={clsx(
-                                "tool-modal__loupe-size",
-                                `tool-modal__loupe-size--${tier}`,
-                                loupeEnabled && loupeSize === tier && "tool-modal__loupe-size--active",
-                              )}
-                              aria-label={loupeSizeLabels[tier]}
-                              aria-pressed={loupeEnabled && loupeSize === tier}
-                              title={loupeSizeLabels[tier]}
-                              onClick={() => {
-                                setMagnifierPreference(true);
-                                setMagnifierSizeTier(tier);
-                                setLoupeSize(tier);
-                              }}
-                            >
-                              <span className="tool-modal__loupe-size-dot" aria-hidden />
-                              <span className="tool-modal__loupe-size-label">
-                                {loupeSizeLabels[tier]}
-                              </span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
-
-                  <div className="tool-modal__sidebar-item">
-                    <button
-                      type="button"
-                      className="tool-modal__sidebar-trigger tool-modal__sidebar-cube tool-modal__action tool-modal__inspect"
-                      onClick={() => requestPreviewInspect()}
-                      aria-label={inspectLabel}
-                      title={inspectLabel}
-                    >
-                      <ZoomIn size={18} strokeWidth={2} aria-hidden />
-                    </button>
-                    <span className="tool-modal__sidebar-flyout" aria-hidden>
-                      {inspectLabel}
-                    </span>
-                  </div>
-                </>
-              ) : null}
-
-              <div className="tool-modal__sidebar-item tool-modal__sidebar-item--close">
-                <button
-                  type="button"
-                  className="tool-modal__sidebar-trigger tool-modal__sidebar-cube tool-modal__action tool-modal__close"
-                  onClick={onClose}
-                  aria-label={closeLabel}
-                >
-                  <X size={18} strokeWidth={2.25} aria-hidden />
-                </button>
-                <span className="tool-modal__sidebar-flyout" aria-hidden>
-                  {closeLabel}
-                </span>
-              </div>
-            </aside>
-
+            <div className="tool-modal__workspace">
             <div className="tool-modal__main">
-              <div className="tool-modal__heading">
-                <h2 id={titleId} className="tool-modal__title">
-                  {title}
-                </h2>
-                <ToolModalRating
-                  slug={slug}
-                  categoryId={accentCategoryId}
-                  labels={{
-                    ratings: labels?.ratings,
-                    thankYou: labels?.thankYou,
-                    rateAria: labels?.rateAria,
-                    yourRatingAria: labels?.yourRatingAria,
-                  }}
-                />
-              </div>
+              <h2 id={titleId} className="sr-only">
+                {title}
+              </h2>
 
             <div className="tool-modal__body">
               {tab === "calc" && !contentReady ? (
@@ -787,6 +654,7 @@ export function ToolModalWrapper({
                   key={id}
                   className={clsx(
                     "tool-modal__pane",
+                    id === "calc" && "tool-modal__pane--calc",
                     scroll && "tool-modal__pane--scroll",
                     tab === id && "tool-modal__pane--active",
                     id === "calc" && !contentReady && "tool-modal__pane--pending",

@@ -12,6 +12,7 @@ import {
 import { usePathname } from "@/i18n/navigation";
 import {
   ToolModalContext,
+  EMPTY_TOOL_MODAL_ACTIONS,
   type OpenToolModalOptions,
   type ToolModalContextValue,
 } from "@/components/tool-modal/tool-modal-context";
@@ -75,6 +76,9 @@ export function DeferredToolModalProvider({ children }: { children: ReactNode })
       },
       closeToolModal: () => {},
       isOpen: false,
+      session: null,
+      registerSession: () => {},
+      actions: EMPTY_TOOL_MODAL_ACTIONS,
     }),
     [ensureLoaded],
   );

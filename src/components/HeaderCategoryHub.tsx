@@ -1,14 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { createPortal } from "react-dom";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { LayoutGrid } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
+  buildInventoryGridItems,
   getInventoryToolsByCategory,
   listDedicatedInventoryHubLinks,
+  type InventoryTranslator,
 } from "@/lib/tools-inventory-query";
 import { useOptionalToolModal } from "@/components/tool-modal/tool-modal-context";
 
@@ -18,8 +20,9 @@ type PanelPosition = {
   width: number;
 };
 
-const PANEL_WIDTH = 420;
+const PANEL_WIDTH = 520;
 const VIEWPORT_MARGIN = 12;
+const TOOLS_PER_CATEGORY = 10;
 
 function getPanelPosition(trigger: HTMLElement): PanelPosition {
   const rect = trigger.getBoundingClientRect();
@@ -37,19 +40,19 @@ function getPanelPosition(trigger: HTMLElement): PanelPosition {
 
   const left = Math.max(
     VIEWPORT_MARGIN,
-    Math.min(rect.left, window.innerWidth - width - VIEWPORT_MARGIN),
+    Math.min(rect.right - width, window.innerWidth - width - VIEWPORT_MARGIN),
   );
   return { top, left, width };
 }
 
 /**
- * Header "Tools" button + simple black dropdown menu (2 columns of categories).
- * Does not dim or lock the page — just opens under the trigger.
+ * Header "TOOLS" button + dropdown listing categories and tools.
  */
 export function HeaderCategoryHub() {
   const tHeader = useTranslations("Header");
   const tHome = useTranslations("Home");
-  const tDir = useTranslations("ToolsDirectory");
+  const tTools = useTranslations("Tools");
+  const locale = useLocale();
   const toolModal = useOptionalToolModal();
   const panelId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -59,12 +62,21 @@ export function HeaderCategoryHub() {
   const [mounted, setMounted] = useState(false);
   const [panelPosition, setPanelPosition] = useState<PanelPosition | null>(null);
 
-  const categories = useMemo(() => {
-    return listDedicatedInventoryHubLinks().map((category) => ({
-      ...category,
-      toolCount: getInventoryToolsByCategory(category.id).length,
-    }));
-  }, []);
+  const groups = useMemo(() => {
+    const translate = tTools as InventoryTranslator;
+    return listDedicatedInventoryHubLinks().map((category) => {
+      const tools = buildInventoryGridItems(
+        category.id,
+        translate,
+        locale,
+      ).slice(0, TOOLS_PER_CATEGORY);
+      return {
+        ...category,
+        toolCount: getInventoryToolsByCategory(category.id).length,
+        tools,
+      };
+    });
+  }, [locale, tTools]);
 
   const close = useCallback(() => setOpen(false), []);
   const toggle = useCallback(() => setOpen((prev) => !prev), []);
@@ -100,7 +112,7 @@ export function HeaderCategoryHub() {
       if (event.key === "Escape") close();
     };
 
-    const onPointerDown = (event: MouseEvent | TouchEvent) => {
+    const onPointerDown = (event: Event) => {
       const target = event.target as Node | null;
       if (!target) return;
       if (rootRef.current?.contains(target)) return;
@@ -123,6 +135,14 @@ export function HeaderCategoryHub() {
     return tHome.has(key) ? tHome(key) : fallback;
   };
 
+  const navigateAway = (href: string, event: ReactMouseEvent) => {
+    close();
+    if (toolModal?.isOpen) {
+      event.preventDefault();
+      toolModal.closeToolModal({ href });
+    }
+  };
+
   return (
     <div className="tools-hub-menu" ref={rootRef}>
       <button
@@ -143,47 +163,50 @@ export function HeaderCategoryHub() {
             <div
               ref={panelRef}
               id={panelId}
-              className="tools-hub-menu__panel"
+              className="tools-hub-menu__panel tools-hub-menu__panel--tools"
               role="menu"
-              aria-label={tHome("landing.categoriesTitle")}
+              aria-label={tHeader("toolsHub")}
               style={{
                 top: panelPosition.top,
                 left: panelPosition.left,
                 width: panelPosition.width,
               }}
             >
-              <ul className="tools-hub-menu__list">
-                {categories.map((category) => (
-                  <li key={category.id} className="tools-hub-menu__item" role="none">
+              <div className="tools-hub-menu__groups">
+                {groups.map((category) => (
+                  <section key={category.id} className="tools-hub-menu__group">
                     <Link
                       href={category.href}
-                      className="tools-hub-menu__link"
+                      className="tools-hub-menu__group-title"
                       role="menuitem"
                       prefetch={false}
-                      onClick={(event) => {
-                        close();
-                        // Soft-URL / resume sessions can trap client routing — force
-                        // a full navigation out of the tool modal shell.
-                        if (toolModal?.isOpen) {
-                          event.preventDefault();
-                          toolModal.closeToolModal({ href: category.href });
-                        }
-                      }}
+                      onClick={(event) => navigateAway(category.href, event)}
                     >
-                      <span className="tools-hub-menu__link-title">
-                        {resolveTitle(category.id as InventoryCategoryId, category.title)}
-                      </span>
+                      {resolveTitle(category.id as InventoryCategoryId, category.title)}
                       {category.toolCount > 0 ? (
-                        <span className="tools-hub-menu__link-count">
-                          {category.toolCount === 1
-                            ? tDir("toolCount", { count: category.toolCount })
-                            : tDir("toolCountPlural", { count: category.toolCount })}
-                        </span>
+                        <span className="tools-hub-menu__group-count">{category.toolCount}</span>
                       ) : null}
                     </Link>
-                  </li>
+                    {category.tools.length > 0 ? (
+                      <ul className="tools-hub-menu__tool-list">
+                        {category.tools.map((tool) => (
+                          <li key={tool.slugHint ?? tool.href} role="none">
+                            <Link
+                              href={tool.href}
+                              className="tools-hub-menu__tool-link"
+                              role="menuitem"
+                              prefetch={false}
+                              onClick={(event) => navigateAway(tool.href, event)}
+                            >
+                              {tool.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </section>
                 ))}
-              </ul>
+              </div>
             </div>,
             document.body,
           )

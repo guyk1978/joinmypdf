@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { clsx } from "clsx";
 import { useTranslations } from "next-intl";
+import { WORKSPACE_SET_TAB_EVENT } from "@/lib/workspace-flow";
 
 export type ToolPageViewTab = "calc" | "doc" | "related" | "reviews";
 
@@ -32,6 +33,17 @@ export function ToolPageViewShell({
 }: ToolPageViewShellProps) {
   const t = useTranslations("ToolModal");
   const [tab, setTab] = useState<ToolPageViewTab>(defaultTab);
+
+  useEffect(() => {
+    const onSetTab = (event: Event) => {
+      const next = (event as CustomEvent<{ tab?: string }>).detail?.tab;
+      if (next === "calc" || next === "doc" || next === "related" || next === "reviews") {
+        setTab(next);
+      }
+    };
+    window.addEventListener(WORKSPACE_SET_TAB_EVENT, onSetTab);
+    return () => window.removeEventListener(WORKSPACE_SET_TAB_EVENT, onSetTab);
+  }, []);
 
   const labels: Record<ToolPageViewTab, string> = {
     calc: t.has("calc") ? t("calc") : "CALC",

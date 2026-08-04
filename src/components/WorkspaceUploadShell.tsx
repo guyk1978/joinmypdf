@@ -1,10 +1,14 @@
 "use client";
 
 import { clsx } from "clsx";
-import { useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
+import { ToolModalRating } from "@/components/tool-modal/ToolModalRating";
 import { ToolWorkspaceOverview } from "@/components/layout/ToolWorkspaceOverview";
+import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { usePendingDropzoneHandoff } from "@/hooks/usePendingFileInputHandoff";
 import { usePathname } from "@/i18n/navigation";
+import { getToolsDataEntry } from "@/data/tools-data";
 import {
   getCategoryAccentColor,
   getCategoryAccentCssVar,
@@ -13,14 +17,19 @@ import {
   resolveToolAccentCategoryId,
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
+import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { parseToolHierarchyPath } from "@/lib/tool-hierarchy";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
+import { getToolDisplayLabel } from "@/lib/tool-labels";
+import { registry } from "@/lib/registry";
 import {
+  scrollToWorkspaceUpload,
   setToolHasUploadShell,
   setWorkspacePhase,
   WORKSPACE_PHASE_CLEAN_CLASS,
   type WorkspacePhase,
 } from "@/lib/workspace-flow";
+import type { InventoryCategoryId } from "@/data/inventory-hubs";
 
 type WorkspaceUploadShellProps = {
   children: ReactNode;
@@ -42,6 +51,11 @@ type WorkspaceUploadShellProps = {
    * Disable for homepage hero and other non-tool shells.
    */
   showOverview?: boolean;
+  /**
+   * Title banner + rating chrome above the dropzone.
+   * Defaults to `showOverview` so the homepage hero stays clean.
+   */
+  showToolChrome?: boolean;
 };
 
 function resolvePhase(
@@ -83,15 +97,18 @@ export function WorkspaceUploadShell({
   active,
   requiresUpload,
   showOverview = true,
+  showToolChrome,
 }: WorkspaceUploadShellProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname() || "";
+  const { headline, slug: shellSlug } = useToolPageShell();
+  const tTools = useTranslations("Tools");
+  const chromeEnabled = showToolChrome ?? showOverview;
   const isUploadToolRef = useRef(
     typeof active === "boolean" || requiresUpload !== false,
   );
 
-  /** Match modal title/rating: same accent drives the solid dropzone fill. */
-  const accentStyle = useMemo(() => {
+  const { accentStyle, categoryId, resolvedSlug } = useMemo(() => {
     const fromQuery =
       typeof window !== "undefined"
         ? new URLSearchParams(window.location.search).get("category")
@@ -99,8 +116,10 @@ export function WorkspaceUploadShell({
     const hierarchy = parseToolHierarchyPath(pathname);
     const slug = hierarchy?.slug
       ? resolveCanonicalToolSlug(hierarchy.slug)
-      : undefined;
-    const categoryId =
+      : shellSlug
+        ? resolveCanonicalToolSlug(shellSlug)
+        : undefined;
+    const resolvedCategoryId =
       (isInventoryCategoryId(fromQuery) ? fromQuery : undefined) ??
       resolveToolAccentCategoryId(
         slug,
@@ -108,15 +127,36 @@ export function WorkspaceUploadShell({
       ) ??
       hierarchy?.categoryId ??
       resolveToolCategoryId(slug);
-    if (!categoryId) return undefined;
+    if (!resolvedCategoryId) {
+      return {
+        accentStyle: undefined as CSSProperties | undefined,
+        categoryId: undefined as InventoryCategoryId | undefined,
+        resolvedSlug: slug,
+      };
+    }
     return {
-      "--category-accent": getCategoryAccentCssVar(categoryId),
-      "--category-accent-ink": getContrastingInk(getCategoryAccentColor(categoryId)),
-    } as CSSProperties;
-  }, [pathname]);
+      categoryId: resolvedCategoryId as InventoryCategoryId,
+      accentStyle: {
+        "--category-accent": getCategoryAccentCssVar(resolvedCategoryId),
+        "--category-accent-ink": getContrastingInk(
+          getCategoryAccentColor(resolvedCategoryId),
+        ),
+      } as CSSProperties,
+      resolvedSlug: slug,
+    };
+  }, [pathname, shellSlug]);
 
   const initialPhase = resolveInitialPhase(active, requiresUpload);
   usePendingDropzoneHandoff(rootRef);
+
+  useEffect(() => {
+    const onFocusUpload = (event: MessageEvent) => {
+      if (event.data?.type !== "joinmypdf:focus-workspace-upload") return;
+      scrollToWorkspaceUpload();
+    };
+    window.addEventListener("message", onFocusUpload);
+    return () => window.removeEventListener("message", onFocusUpload);
+  }, []);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -133,7 +173,6 @@ export function WorkspaceUploadShell({
       if (typeof active === "boolean" || requiresUpload === false || dropzone) {
         isUploadToolRef.current = requiresUpload !== false || dropzone;
       }
-      // Interactive generators still use the upload shell chrome bridge.
       if (requiresUpload === false) {
         isUploadToolRef.current = true;
       }
@@ -150,8 +189,6 @@ export function WorkspaceUploadShell({
     const cleanup = () => {
       alive = false;
       if (frame) window.cancelAnimationFrame(frame);
-      // Defer until after unmount so we don't race Strict Mode remounts or
-      // leave html.workspace-phase-clean stuck after leaving a tool page.
       window.requestAnimationFrame(() => {
         const stillClean = document.querySelector(
           '.tool-upload-float[data-workspace-phase="clean"]',
@@ -163,7 +200,6 @@ export function WorkspaceUploadShell({
       });
     };
 
-    // Explicit phase drivers — no MutationObserver needed.
     if (typeof active === "boolean" || requiresUpload === false) {
       return cleanup;
     }
@@ -182,6 +218,18 @@ export function WorkspaceUploadShell({
     };
   }, [active, requiresUpload]);
 
+  const titleText = useMemo(() => {
+    const fromShell = headline?.trim() || "";
+    if (fromShell) return fromShell;
+    if (!resolvedSlug) return "";
+    const data = getToolsDataEntry(resolvedSlug);
+    const registryTool = registry.tools.find((tool) => tool.slug === resolvedSlug);
+    const english =
+      registryTool?.title || data?.title || getToolDisplayLabel(resolvedSlug, resolvedSlug);
+    return translateToolItem(tTools, resolvedSlug, english);
+  }, [headline, resolvedSlug, tTools]);
+  const ratingSlug = resolvedSlug || shellSlug || undefined;
+
   return (
     <div
       ref={rootRef}
@@ -193,7 +241,33 @@ export function WorkspaceUploadShell({
       data-requires-upload={requiresUpload === false ? "0" : "1"}
       style={accentStyle}
     >
-      {children}
+      {chromeEnabled ? (
+        <div className="tool-upload-stage">
+          <div className="tool-upload-stage__card">
+            {titleText || ratingSlug ? (
+              <div className="tool-title-banner">
+                {titleText ? (
+                  <p className="tool-title-banner__label">{titleText}</p>
+                ) : (
+                  <span className="tool-title-banner__label" aria-hidden />
+                )}
+                {ratingSlug ? (
+                  <ToolModalRating
+                    slug={ratingSlug}
+                    categoryId={categoryId}
+                    variant="banner"
+                  />
+                ) : null}
+              </div>
+            ) : null}
+
+            <div className="tool-upload-stage__body">{children}</div>
+          </div>
+        </div>
+      ) : (
+        children
+      )}
+
       {showOverview ? <ToolWorkspaceOverview /> : null}
     </div>
   );

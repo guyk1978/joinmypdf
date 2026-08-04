@@ -9,7 +9,6 @@ import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
-import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { openPdfDocument, renderPdfReaderPage, type PdfJsDocument } from "@/lib/pdf-reader";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
@@ -140,7 +139,6 @@ async function exitDocumentFullscreen() {
 
 export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
-  const pageShell = useToolPageShell();
   const tPage = useTranslations("PdfReaderPage");
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
@@ -419,7 +417,6 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   }, [fsMode]);
 
   const showWorkspace = Boolean(file && pageCount > 0);
-  const showUploadHead = !showWorkspace && !pageShell.stacked;
   const enterFullscreenLabel = ws.wsUi("enterFullscreen");
   const exitFullscreenLabel = ws.wsUi("exitFullscreen");
   const zoomOutLabel = ws.wsUi("zoomOut");
@@ -457,20 +454,6 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   return (
     <div id="tool-workspace" className="pdf-reader-tool-page tool-workspace--wide space-y-3 pb-12 md:pb-8">
-      {showUploadHead ? (
-        <header className="pdf-reader-upload-head">
-          <h1 className="pdf-reader-upload-head__title">
-            {tPage.has("title") ? tPage("title") : "PDF Reader Online"}
-          </h1>
-          <p className="pdf-reader-upload-head__subtitle">
-            {ws.uploadDescription() ||
-              (tPage.has("schemaDescription")
-                ? tPage("schemaDescription")
-                : "Read and inspect PDFs privately in your browser.")}
-          </p>
-        </header>
-      ) : null}
-
       <WorkspaceUploadShell active={showWorkspace}>
         {!showWorkspace ? (
           <FileUploadZone
@@ -516,10 +499,7 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               />
             }
           />
-        ) : null}
-      </WorkspaceUploadShell>
-
-      {showWorkspace ? (
+        ) : (
         <div
           id={WORKSPACE_OPERATIONS_ID}
           className="space-y-3 rounded-none border border-neutral-300 bg-white p-3 md:p-4 dark:border-neutral-800 dark:bg-neutral-900"
@@ -718,7 +698,8 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
           <p className="text-xs text-neutral-500 dark:text-neutral-500">{ws.wsText("privacyNote")}</p>
         </div>
-      ) : null}
+        )}
+      </WorkspaceUploadShell>
 
       <div className="tool-workspace-feedback space-y-3">
         {runError ? (

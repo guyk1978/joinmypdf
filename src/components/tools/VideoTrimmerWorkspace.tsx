@@ -45,7 +45,7 @@ export function VideoTrimmerWorkspace({ tool, slug }: VideoTrimmerWorkspaceProps
       processAnother: t("processAnother"),
       tryAgain: t("tryAgain"),
       downloadAgain: t("downloadAgain"),
-      successMessage: t("successMessage"),
+      successMessage: t("successMessage", { size: "{size}" }),
       rangeError: t("rangeError"),
     }),
     [t],

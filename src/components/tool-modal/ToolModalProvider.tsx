@@ -26,8 +26,11 @@ import {
 } from "@/components/tool-modal/ToolModalPanels";
 import {
   ToolModalContext,
+  EMPTY_TOOL_MODAL_ACTIONS,
   type OpenToolModalOptions,
+  type ToolModalActions,
 } from "@/components/tool-modal/tool-modal-context";
+import type { ToolModalSessionValue, ToolModalTab } from "@/components/tool-modal/tool-modal-session-context";
 import {
   findToolsDataByPathname,
   getToolModalPath,
@@ -124,7 +127,12 @@ export function ToolModalProvider({
   const resumeProjectId = searchParams.get("project");
   const [active, setActive] = useState<OpenToolModalOptions | null>(null);
   const [visible, setVisible] = useState(false);
-  const [contentReady, setContentReady] = useState(false);
+  const [session, setSession] = useState<ToolModalSessionValue | null>(null);
+  const [activeTab, setActiveTab] = useState<ToolModalTab>("calc");
+  const actionsRef = useRef<ToolModalActions>(EMPTY_TOOL_MODAL_ACTIONS);
+  const [contentReady, setContentReadyState] = useState(false);
+  /** Sticky ready for the current slug — ignore false flashes from iframe remounts. */
+  const contentReadyStickyRef = useRef(false);
   const [toolPageBundle, setToolPageBundle] = useState<{
     locale: string;
     messages: AbstractIntlMessages;
@@ -133,6 +141,25 @@ export function ToolModalProvider({
   /** Soft History URL ownership — true when we pushed tool URL without Next navigation. */
   const softUrlRef = useRef(false);
   const returnHrefRef = useRef<string>("/");
+  /** Avoid resetting CALC ready state when deep-link / localize re-applies the same tool. */
+  const activeSlugRef = useRef<string | null>(null);
+
+  const resetContentReady = useCallback((ready = false) => {
+    contentReadyStickyRef.current = ready;
+    setContentReadyState(ready);
+  }, []);
+
+  const setContentReady = useCallback((ready: boolean) => {
+    if (ready) {
+      contentReadyStickyRef.current = true;
+      setContentReadyState(true);
+      return;
+    }
+    // Once the current tool has painted, ignore transient "not ready" from
+    // CalcFrame src effects / visibility — prevents permanent "Loading tool…".
+    if (contentReadyStickyRef.current) return;
+    setContentReadyState(false);
+  }, []);
 
   useEffect(() => {
     if (!active || toolPageBundle?.locale === locale) return;
@@ -197,15 +224,35 @@ export function ToolModalProvider({
       const localized = localizeOptions(options);
       const returnHref = resolveReturnAppPath(localized);
       returnHrefRef.current = returnHref;
-      setActive({ ...localized, returnHref });
-      setContentReady(Boolean(localized.calc));
+      const slugChanged = activeSlugRef.current !== localized.slug;
+      activeSlugRef.current = localized.slug;
+      setActive((prev) => {
+        if (
+          prev &&
+          prev.slug === localized.slug &&
+          prev.title === localized.title &&
+          prev.href === localized.href &&
+          prev.description === localized.description &&
+          prev.returnHref === returnHref &&
+          prev.categoryId === localized.categoryId
+        ) {
+          return prev;
+        }
+        return { ...localized, returnHref };
+      });
+      // Only clear ready when opening a different tool — re-applying the same
+      // slug (pathname effect / localize refresh) must not flash "Loading tool…".
+      if (slugChanged) {
+        resetContentReady(Boolean(localized.calc));
+        setActiveTab("calc");
+      }
       setVisible(true);
       maskBackground(true);
       if (typeof document !== "undefined" && localized.title) {
         document.title = `${localized.title} | JoinMyPDF`;
       }
     },
-    [localizeOptions],
+    [localizeOptions, resetContentReady],
   );
 
   const softPushToolUrl = useCallback(
@@ -233,8 +280,9 @@ export function ToolModalProvider({
   const closeToolModal = useCallback(
     (options?: { href?: string }) => {
       closingRef.current = true;
+      activeSlugRef.current = null;
       setVisible(false);
-      setContentReady(false);
+      resetContentReady(false);
       maskBackground(false);
       softUrlRef.current = false;
 
@@ -276,7 +324,7 @@ export function ToolModalProvider({
         window.history.replaceState({ toolModal: null }, "", normalizedTarget);
       }
     },
-    [locale, pathname],
+    [locale, pathname, resetContentReady],
   );
 
   const openToolModal = useCallback(
@@ -362,13 +410,13 @@ export function ToolModalProvider({
       closingRef.current = true;
       softUrlRef.current = false;
       setVisible(false);
-      setContentReady(false);
+      resetContentReady(false);
       maskBackground(false);
     };
 
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
-  }, [applyActiveTool]);
+  }, [applyActiveTool, locale, resetContentReady]);
 
   // Hard navigation away from a tool route (e.g. in-app link) closes the modal.
   // Soft-URL sessions keep Next pathname on the return route, so also watch the
@@ -386,33 +434,85 @@ export function ToolModalProvider({
     if (!matched && !windowMatched && visible) {
       softUrlRef.current = false;
       setVisible(false);
-      setContentReady(false);
+      resetContentReady(false);
       maskBackground(false);
     }
-  }, [pathname, visible]);
+  }, [pathname, visible, resetContentReady]);
 
   useEffect(() => {
     if (!visible) maskBackground(false);
   }, [visible]);
+
+  const registerSession = useCallback((next: ToolModalSessionValue | null) => {
+    setSession(next);
+    if (next) {
+      actionsRef.current = {
+        setTab: next.setTab,
+        saveProject: next.saveProject,
+        share: next.share,
+        toggleFavorite: next.toggleFavorite,
+        close: next.close,
+      };
+    } else {
+      actionsRef.current = EMPTY_TOOL_MODAL_ACTIONS;
+    }
+  }, []);
+
+  const setToolTab = useCallback((tab: ToolModalTab) => {
+    if (tab !== "calc" && tab !== "doc" && tab !== "related" && tab !== "reviews") {
+      return;
+    }
+    setActiveTab((prev) => (prev === tab ? prev : tab));
+  }, []);
+
+  // Provider-owned window hook — OPERATION menu must not depend on Wrapper effects.
+  useLayoutEffect(() => {
+    if (!visible) return;
+    const previous = window.__joinmypdfSetToolModalTab;
+    window.__joinmypdfSetToolModalTab = setToolTab;
+    return () => {
+      if (window.__joinmypdfSetToolModalTab === setToolTab) {
+        window.__joinmypdfSetToolModalTab = previous;
+      }
+    };
+  }, [visible, setToolTab]);
+
+  const actions = useMemo<ToolModalActions>(
+    () => ({
+      setTab: setToolTab,
+      saveProject: () => actionsRef.current.saveProject(),
+      share: () => actionsRef.current.share(),
+      toggleFavorite: () => actionsRef.current.toggleFavorite(),
+      close: () => actionsRef.current.close(),
+    }),
+    [setToolTab],
+  );
 
   const value = useMemo(
     () => ({
       openToolModal,
       closeToolModal,
       isOpen: visible,
+      session: visible ? session : null,
+      registerSession,
+      actions,
     }),
-    [openToolModal, closeToolModal, visible],
+    [openToolModal, closeToolModal, visible, session, registerSession, actions],
   );
 
-  const docModel = active
-    ? getToolModalDocModel(active.slug, active.title, {
-        locale,
-        t: tPage,
-        tTools,
-        title: active.title,
-        description: active.description,
-      })
-    : null;
+  const docModel = useMemo(
+    () =>
+      active
+        ? getToolModalDocModel(active.slug, active.title, {
+            locale,
+            t: tPage,
+            tTools,
+            title: active.title,
+            description: active.description,
+          })
+        : null,
+    [active, locale, tPage, tTools],
+  );
   const relatedTools = active
     ? getToolModalRelatedTools(active.slug, 8, {
         locale,
@@ -481,12 +581,15 @@ export function ToolModalProvider({
           onClose={closeToolModal}
           onExitComplete={handleExitComplete}
           contentReady={contentReady || Boolean(active.calc)}
+          tab={activeTab}
+          onTabChange={setToolTab}
           labels={{
             calc: t("calc"),
             doc: t("doc"),
             related: t("related"),
             reviews: t.has("reviews") ? t("reviews") : "REVIEWS",
             close: t("close"),
+            share: t.has("share") ? t("share") : "Share",
             loading: loadingLabel,
             addFavorite: t("addFavorite"),
             removeFavorite: t("removeFavorite"),

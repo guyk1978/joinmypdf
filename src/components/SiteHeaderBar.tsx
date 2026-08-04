@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Library } from "lucide-react";
 import { JoinMyPdfLogo } from "@/components/JoinMyPdfLogo";
 import { HeaderCategoryHub } from "@/components/HeaderCategoryHub";
+import { HeaderOperationsMenu } from "@/components/HeaderOperationsMenu";
 import { HeaderMobileMenu } from "@/components/HeaderMobileMenu";
 import { HeaderOverflowMenu } from "@/components/HeaderOverflowMenu";
 import {
@@ -90,13 +91,17 @@ export function SiteHeaderBar() {
           </div>
 
           <div className="site-header__end site-header__end--desktop">
+            <HeaderOperationsMenu />
             <HeaderCategoryHub />
             <HeaderLibraryButton />
             <HeaderOverflowMenu onNavigate={() => dismissToolModal()} />
           </div>
         </div>
 
-        <HeaderMobileMenu onNavigate={() => dismissToolModal()} />
+        <div className="site-header__mobile-end">
+          <HeaderOperationsMenu />
+          <HeaderMobileMenu onNavigate={() => dismissToolModal()} />
+        </div>
       </nav>
     </HeaderCategoryNavProvider>
   );

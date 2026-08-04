@@ -23,18 +23,21 @@ export function VideoMuterWorkspace({ tool, slug }: VideoMuterWorkspaceProps) {
 
   const labels = useMemo<VideoMuterLabels>(
     () => ({
-      dropTitle: t("dropTitle"),
-      dropTitleBusy: t("dropTitleBusy"),
-      dropDescription: t("dropDescription"),
+      chooseFiles: t("chooseFiles"),
+      fromDevice: t("fromDevice"),
+      fromDropbox: t("fromDropbox"),
+      fromGoogleDrive: t("fromGoogleDrive"),
+      fromOneDrive: t("fromOneDrive"),
+      orDropFilesHere: t.has("orDropFilesHere") ? t("orDropFilesHere") : "or drop files here",
+      // Keep a literal `{provider}` token for ChooseFilesDropzone to fill in at toast time.
+      cloudHint: t("cloudHint", { provider: "{provider}" }),
       privacyBadge: t("privacyBadge"),
-      formatsHint: t("formatsHint"),
-      selectLabel: t("selectLabel"),
       invalidFile: t("invalidFile"),
       instructions: t("instructions"),
       muteAndDownload: t("muteAndDownload"),
       muting: t("muting"),
       statusProcessing: t("statusProcessing"),
-      statusSuccess: t("statusSuccess"),
+      statusSuccess: t("statusSuccess", { size: "{size}" }),
       downloadMuted: t("downloadMuted"),
       processAnother: t("processAnother"),
       tryAgain: t("tryAgain"),

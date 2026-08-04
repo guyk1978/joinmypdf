@@ -5,6 +5,10 @@ export const WORKSPACE_PHASE_CLEAN_CLASS = "workspace-phase-clean";
 export const TOOL_HAS_UPLOAD_SHELL_CLASS = "tool-has-upload-shell";
 /** Cross-frame + same-window bridge for tool-modal header chrome. */
 export const WORKSPACE_PHASE_MESSAGE = "joinmypdf:workspace-phase";
+/** Embed → parent: switch tool modal to a tab (e.g. reviews from banner rating). */
+export const WORKSPACE_SET_TAB_MESSAGE = "joinmypdf:workspace-set-tab";
+/** Same-window custom event for full-page ToolPageViewShell tab switches. */
+export const WORKSPACE_SET_TAB_EVENT = "joinmypdf:workspace-set-tab";
 
 export type WorkspacePhase = "clean" | "active";
 

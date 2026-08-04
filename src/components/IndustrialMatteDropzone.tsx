@@ -1,14 +1,38 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Upload } from "lucide-react";
-import type { HTMLAttributes, ReactNode } from "react";
+import { useTranslations } from "next-intl";
+import {
+  useMemo,
+  useRef,
+  type CSSProperties,
+  type HTMLAttributes,
+  type ReactNode,
+} from "react";
+import {
+  ChooseFilesPicker,
+  type ChooseFilesPickerLabels,
+} from "@/components/ChooseFilesPicker";
+import { useCloudFileImport } from "@/hooks/useCloudFileImport";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
+import {
+  getDropzonePatternBackgroundSize,
+  getDropzonePatternDataUrl,
+  resolveDropzonePatternKind,
+  type DropzonePatternKind,
+} from "@/lib/dropzone-patterns";
+import {
+  resolveToolAccentCategoryId,
+  resolveToolCategoryId,
+} from "@/lib/category-accent-colors";
+import type { CloudProvider } from "@/lib/cloud-file-picker";
 
 export type IndustrialMatteDropzoneProps = HTMLAttributes<HTMLDivElement> & {
-  /** Tool display name shown above the upload icon (primary dropzones). */
+  /** @deprecated Tool name is no longer shown inside the upload stage. */
   toolName?: string;
+  /** @deprecated Replaced by the global CHOOSE FILES stage copy. */
   dropTitle: string;
+  /** @deprecated Replaced by the global CHOOSE FILES stage copy. */
   selectLabel: string;
   supportsLabel: string;
   privacyLabel?: string;
@@ -20,6 +44,8 @@ export type IndustrialMatteDropzoneProps = HTMLAttributes<HTMLDivElement> & {
   className?: string;
   /** Secondary “add more” zone — excluded from immersive clean-phase detection. */
   compact?: boolean;
+  /** Override auto-resolved interior pattern (image / pdf / video / …). */
+  patternKind?: DropzonePatternKind;
 };
 
 /** Strip redundant “processed/compressed locally…” clauses from Supports lines. */
@@ -31,22 +57,14 @@ function cleanSupportsLabel(label: string): string {
     .trim();
 }
 
-function titleCaseSlug(slug: string): string {
-  return slug
-    .split(/[-_]+/)
-    .filter(Boolean)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
-
 /**
- * Shared Industrial Matte upload surface — used by PDF, image, audio, and video tools.
- * Rounded stage with a permanent subtle dashed border; accent solid border on hover/drag.
+ * Shared upload surface for PDF, image, audio, and video tools.
+ * White CHOOSE FILES stage — click/drop anywhere; source menu on the button.
  */
 export function IndustrialMatteDropzone({
-  toolName,
-  dropTitle,
-  selectLabel,
+  toolName: _toolName,
+  dropTitle: _dropTitle,
+  selectLabel: _selectLabel,
   supportsLabel,
   privacyLabel = "Local Processing. Nothing is uploaded.",
   active = false,
@@ -58,37 +76,81 @@ export function IndustrialMatteDropzone({
   children,
   onClick,
   compact = false,
+  patternKind: patternKindProp,
+  style,
   ...rest
 }: IndustrialMatteDropzoneProps) {
-  const pageShell = useToolPageShell();
+  const common = useTranslations("Workspace.common");
+  const { slug } = useToolPageShell();
+  const shellRef = useRef<HTMLDivElement>(null);
   const resolvedSupports = cleanSupportsLabel(supportsLabel);
-  // Prefer explicit prop (including "" to suppress on homepage hero),
-  // then tool page shell headline, then slug title-case.
-  // Compact “add more” zones stay instruction-only.
-  const resolvedToolName = compact
-    ? ""
-    : toolName !== undefined
-      ? toolName.trim()
-      : pageShell.headline?.trim() ||
-        (pageShell.slug ? titleCaseSlug(pageShell.slug) : "");
+
+  const patternKind = useMemo(() => {
+    if (patternKindProp) return patternKindProp;
+    const categoryId =
+      resolveToolAccentCategoryId(slug) ?? resolveToolCategoryId(slug);
+    return resolveDropzonePatternKind(slug, categoryId);
+  }, [patternKindProp, slug]);
+
+  const patternStyle = useMemo(() => {
+    return {
+      ...style,
+      "--dropzone-pattern": getDropzonePatternDataUrl(patternKind),
+      "--dropzone-pattern-size": getDropzonePatternBackgroundSize(patternKind),
+    } as CSSProperties;
+  }, [patternKind, style]);
+
+  const pickerLabels: ChooseFilesPickerLabels = {
+    chooseFiles: common.has("chooseFiles") ? common("chooseFiles") : "CHOOSE FILES",
+    fromDevice: common.has("fromDevice") ? common("fromDevice") : "From device",
+    fromDropbox: common.has("fromDropbox") ? common("fromDropbox") : "From Dropbox",
+    fromGoogleDrive: common.has("fromGoogleDrive")
+      ? common("fromGoogleDrive")
+      : "From Google Drive",
+    fromOneDrive: common.has("fromOneDrive") ? common("fromOneDrive") : "From OneDrive",
+  };
+
+  const dropHint = common.has("orDropFilesHere")
+    ? common("orDropFilesHere")
+    : "or drop files here";
+
+  const openDevicePicker = () => {
+    if (disabled || !onClick) return;
+    // Parents attach browse handlers as onClick (event is unused).
+    onClick({} as never);
+  };
+
+  const { openCloudImport, cloudImportModal } = useCloudFileImport({
+    rootRef: shellRef,
+    onPickDevice: openDevicePicker,
+  });
+
+  const onCloudOption = (provider: CloudProvider) => {
+    if (disabled) return;
+    openCloudImport(provider);
+  };
 
   return (
     <div
-        className={clsx(
-          "im-dropzone-shell flex w-full flex-col",
-          !compact && "min-h-[400px] flex-1",
-          className,
-        )}
-      >
+      ref={shellRef}
+      className={clsx(
+        "im-dropzone-shell choose-files-dropzone flex w-full flex-col",
+        !compact && "min-h-[400px] flex-1",
+        className,
+      )}
+      data-dropzone-pattern={patternKind}
+    >
+      {cloudImportModal}
       <div
         {...rest}
+        style={patternStyle}
         aria-disabled={disabled || undefined}
+        data-dropzone-pattern={patternKind}
         className={clsx(
-          "im-dropzone group",
+          "im-dropzone im-dropzone--choose-files group",
           compact && "im-dropzone--compact",
-          "flex w-full flex-col items-center justify-center gap-4",
+          "flex w-full flex-col items-center",
           !compact && "min-h-[400px] flex-1",
-          "px-6 py-10 text-center",
           active && "im-dropzone--active",
           disabled && "pointer-events-none opacity-55",
         )}
@@ -96,41 +158,32 @@ export function IndustrialMatteDropzone({
       >
         {input}
 
-        <div className="im-dropzone__stage flex max-w-xl flex-col items-center justify-center gap-4">
-          {resolvedToolName ? (
-            <p className="im-dropzone__tool-name m-0">{resolvedToolName}</p>
-          ) : null}
-
-          <span className="im-dropzone__icon" aria-hidden>
-            <Upload className="im-dropzone__icon-svg" strokeWidth={1.35} />
-          </span>
-
-          <div className="im-dropzone__copy flex flex-col items-center gap-2">
-            <p className="im-dropzone__title m-0">{dropTitle}</p>
-            <span className="im-dropzone__select m-0">{selectLabel}</span>
-          </div>
-
-          {showPrivacy || resolvedSupports ? (
-            <div className="im-dropzone__meta flex flex-col items-center gap-2">
-              {showPrivacy ? (
-                <p
-                  className="im-dropzone__privacy m-0 inline-flex items-center justify-center"
-                  role="note"
-                >
-                  <span className="im-dropzone__pulse" aria-hidden />
-                  <span>{privacyLabel}</span>
-                </p>
-              ) : null}
-              {resolvedSupports ? (
-                <p className="im-dropzone__formats m-0 text-center">{resolvedSupports}</p>
-              ) : null}
-            </div>
-          ) : null}
+        <div className="choose-files-dropzone__stage">
+          <ChooseFilesPicker
+            labels={pickerLabels}
+            disabled={disabled}
+            onPickDevice={openDevicePicker}
+            onCloudOption={onCloudOption}
+          />
+          <p className="choose-files-dropzone__hint">{dropHint}</p>
         </div>
 
         {footer ? <div className="im-dropzone__footer w-full">{footer}</div> : null}
         {children}
       </div>
+
+      {showPrivacy || resolvedSupports ? (
+        <div className="choose-files-dropzone__meta">
+          {showPrivacy ? (
+            <p className="choose-files-dropzone__privacy" role="note">
+              {privacyLabel}
+            </p>
+          ) : null}
+          {resolvedSupports ? (
+            <p className="choose-files-dropzone__formats">{resolvedSupports}</p>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }

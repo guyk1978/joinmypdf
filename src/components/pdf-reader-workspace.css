@@ -1,15 +1,3 @@
-.pdf-reader-upload-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.55rem;
-  width: 100%;
-  max-width: 40rem;
-  margin: 0 auto 1.35rem;
-  text-align: center;
-}
-
-/* Edge gutter: reinforce 20px when not already inside .tool-page-main */
 .pdf-reader-tool-page {
   box-sizing: border-box;
   width: 100%;
@@ -24,24 +12,7 @@
   padding-inline: 0; /* .tool-page-main already applies --app-content-pad-x (≥20px) */
 }
 
-.pdf-reader-upload-head__title {
-  margin: 0;
-  font-size: clamp(1.75rem, 4vw, 2.35rem);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-}
-
-.pdf-reader-upload-head__subtitle {
-  margin: 0;
-  max-width: 34rem;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: #a3a3a3;
-}
-
-/* Keep dropzone copy as the only in-zone text — no stacked page-header duplicate. */
+/* Keep dropzone copy as the only in-zone text — banner lives in WorkspaceUploadShell. */
 .pdf-reader-tool-page .tool-upload-zone__page-header {
   display: none;
 }

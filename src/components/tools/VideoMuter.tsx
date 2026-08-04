@@ -4,8 +4,11 @@ import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry
 
 import { clsx } from "clsx";
 import { Download, Loader2, VolumeX } from "lucide-react";
-import { useCallback, useState } from "react";
-import { MediaDropzone } from "@/components/media/MediaDropzone";
+import { useCallback, useMemo, useState } from "react";
+import {
+  ChooseFilesDropzone,
+  type ChooseFilesDropzoneLabels,
+} from "@/components/ChooseFilesDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
 import { ToolSuccessEngagement } from "@/components/ToolSuccessEngagement";
 import { FfmpegEnvironmentNotice } from "@/components/tools/FfmpegEnvironmentNotice";
@@ -24,12 +27,14 @@ import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
 const MP4_ACCEPT = "video/mp4,video/x-m4v,.mp4,.m4v";
 
 export type VideoMuterLabels = {
-  dropTitle: string;
-  dropTitleBusy: string;
-  dropDescription: string;
+  chooseFiles: string;
+  fromDevice: string;
+  fromDropbox: string;
+  fromGoogleDrive: string;
+  fromOneDrive: string;
+  orDropFilesHere: string;
+  cloudHint: string;
   privacyBadge: string;
-  formatsHint: string;
-  selectLabel: string;
   invalidFile: string;
   instructions: string;
   muteAndDownload: string;
@@ -104,6 +109,20 @@ export function VideoMuter({ labels, className, onStart, onComplete }: VideoMute
 
   const canMute = Boolean(file) && !busy && environment?.canRun !== false;
 
+  const chooseLabels = useMemo<ChooseFilesDropzoneLabels>(
+    () => ({
+      chooseFiles: labels.chooseFiles,
+      fromDevice: labels.fromDevice,
+      fromDropbox: labels.fromDropbox,
+      fromGoogleDrive: labels.fromGoogleDrive,
+      fromOneDrive: labels.fromOneDrive,
+      orDropFilesHere: labels.orDropFilesHere,
+      privacyLine: labels.privacyBadge,
+      cloudHint: labels.cloudHint,
+      ariaLabel: labels.fromDevice,
+    }),
+    [labels],
+  );
 
   const onRestoreProject = useCallback((payload: { files: File[] }) => {
     const next = payload.files[0];
@@ -126,22 +145,13 @@ export function VideoMuter({ labels, className, onStart, onComplete }: VideoMute
       ) : null}
 
       {!file ? (
-        <MediaDropzone
-          mediaKind="video"
+        <ChooseFilesDropzone
           accept={MP4_ACCEPT}
           busy={busy}
           disabled={busy || Boolean(blockingError)}
-          supportedFormats={["MP4"]}
+          labels={chooseLabels}
           onFile={pickFile}
           onError={(message) => setPickError(message)}
-          labels={{
-            title: labels.dropTitle,
-            titleBusy: labels.dropTitleBusy,
-            description: labels.dropDescription,
-            privacyBadge: labels.privacyBadge,
-            formatsHint: labels.formatsHint,
-            selectLabel: labels.selectLabel,
-          }}
         />
       ) : (
         <div className="tool-workspace-panel space-y-4">
