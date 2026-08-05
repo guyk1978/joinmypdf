@@ -15,22 +15,24 @@
   background: transparent;
 }
 
-/* —— Compact, centered Explore-by-Category containment —— */
+/* —— Fill outer content rail (no nested 72rem / extra gutters) —— */
 .home-more-tools__categories {
   display: flex;
   flex-direction: column;
   gap: clamp(1.5rem, 3vw, 2.25rem);
-  max-width: 72rem;
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 3vw, 2rem);
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
 }
 
 .home-im-section.home-pdf-powerhouse,
 .home-im-section.home-more-tools,
 .home-im-section.home-category-block {
-  max-width: 72rem;
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 3vw, 2rem);
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
 }
 
 /* Section bar (heading + View All link) */

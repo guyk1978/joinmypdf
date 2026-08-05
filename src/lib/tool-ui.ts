@@ -59,7 +59,7 @@ export const toolUploadStack = "w-full max-w-none";
 
 /**
  * Shared main for tool / product pages.
- * Uses the global 90% centered content rail (see `.tool-page-main` in globals.css).
+ * Uses the global 80% centered content rail (see `.tool-page-main` in globals.css).
  */
 export const productPageMainClassName =
   "tool-page-main flex w-full min-h-0 flex-1 flex-col pb-0 pt-0";
@@ -68,10 +68,9 @@ export const toolPageDashboardWidth =
   "tool-page-main flex w-full min-h-0 flex-1 flex-col";
 
 /**
- * Shared DOC / RELATED / REVIEWS content rail — matches the REVIEWS pane
- * (72rem centered column + horizontal gutter).
+ * Shared DOC / RELATED / REVIEWS content rail — fills the outer tool-page-main edges.
  */
-export const toolPagePaneRailClassName = "tool-page-pane-rail mx-auto w-full";
+export const toolPagePaneRailClassName = "tool-page-pane-rail w-full";
 
 /** @deprecated Prefer toolPagePaneRailClassName — kept as DOC alias. */
 export const toolPageInfoWidth = toolPagePaneRailClassName;

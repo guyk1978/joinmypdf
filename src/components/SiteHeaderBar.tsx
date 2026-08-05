@@ -67,7 +67,7 @@ export function SiteHeaderBar() {
       onCategoryChange={setActiveCategory}
       onNavigate={() => dismissToolModal()}
     >
-      <nav className="site-header__bar site-header__bar--clean" aria-label={t("siteLabel")}>
+      <nav className="site-header__bar site-header__bar--clean app-content-rail" aria-label={t("siteLabel")}>
         <Link
           href="/home"
           className="site-header__brand brand flex shrink-0 items-center"
@@ -83,15 +83,13 @@ export function SiteHeaderBar() {
 
         <div className="site-header__desktop-cluster">
           <div className="site-header__search-center">
-            <div className="site-header__search-cluster">
-              <div className="site-header__search site-header__search--focus">
-                <HeaderSearch variant="inline" />
-              </div>
+            <div className="site-header__search-cluster site-header__search-cluster--actions">
               <InstallPwaButton />
             </div>
           </div>
 
           <div className="site-header__end site-header__end--desktop">
+            <HeaderSearch variant="toggle" shortcutWhen="(min-width: 1024px)" />
             <HeaderMagnifierToggle />
             <HeaderOperationsMenu />
             <HeaderCategoryHub />
@@ -101,6 +99,7 @@ export function SiteHeaderBar() {
         </div>
 
         <div className="site-header__mobile-end">
+          <HeaderSearch variant="toggle" shortcutWhen="(max-width: 1023px)" />
           <HeaderMagnifierToggle />
           <HeaderOperationsMenu />
           <HeaderMobileMenu onNavigate={() => dismissToolModal()} />

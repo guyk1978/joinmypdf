@@ -13,7 +13,7 @@ export default function SubsetFontSpikePage() {
   const documentation = getToolDocumentation("subset-font-spike");
 
   return (
-    <AppPageShell mainClassName="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
+    <AppPageShell mainClassName="w-full max-w-none px-0 py-10 md:py-12">
       <FontSubsetter />
       {documentation ? (
         <section className="mx-auto mt-10 max-w-3xl space-y-6">

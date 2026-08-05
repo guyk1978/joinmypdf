@@ -1,7 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -12,7 +12,10 @@ import { normalizeHubPath } from "@/lib/tool-hierarchy";
 import { useSearch, type ScoredSearchResult } from "@/hooks/useSearch";
 
 type HeaderSearchProps = {
+  /** `inline` = always-visible field (mobile drawer). `toggle` = icon → expand in header. */
   variant: "inline" | "toggle";
+  /** Listen for Ctrl/Cmd+K and `/` when this media query matches (avoids dual mounts). */
+  shortcutWhen?: string;
 };
 
 function SearchResults({
@@ -75,7 +78,9 @@ function SearchResults({
             <span
               className={clsx(
                 "site-search__result-tag",
-                result.type === "Tool" ? "site-search__result-tag--tool" : "site-search__result-tag--article",
+                result.type === "Tool"
+                  ? "site-search__result-tag--tool"
+                  : "site-search__result-tag--article",
               )}
             >
               {result.type === "Tool" ? t("toolTag") : t("articleTag")}
@@ -119,6 +124,7 @@ function SearchField({
   onClose,
   className,
   autoFocus,
+  fieldClassName,
 }: {
   inputId: string;
   resultsId: string;
@@ -127,6 +133,7 @@ function SearchField({
   onClose: () => void;
   className?: string;
   autoFocus?: boolean;
+  fieldClassName?: string;
 }) {
   const t = useTranslations("Header.search");
   const router = useRouter();
@@ -134,14 +141,14 @@ function SearchField({
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [expanded, setExpanded] = useState(false);
+  const [resultsOpen, setResultsOpen] = useState(false);
   const { flat, hasQuery } = useSearch(query);
 
   const navigateTo = useCallback(
     (result: ScoredSearchResult) => {
       onQueryChange("");
       setActiveIndex(-1);
-      setExpanded(false);
+      setResultsOpen(false);
       onClose();
 
       if (result.type === "Tool" && toolModal) {
@@ -172,60 +179,34 @@ function SearchField({
 
     onQueryChange("");
     setActiveIndex(-1);
-    setExpanded(false);
+    setResultsOpen(false);
     onClose();
     router.push(`/search?q=${encodeURIComponent(trimmed)}`);
   }, [onClose, onQueryChange, query, router]);
 
   useEffect(() => {
-    if (autoFocus) inputRef.current?.focus();
+    if (!autoFocus) return;
+    const frame = window.requestAnimationFrame(() => inputRef.current?.focus());
+    return () => window.cancelAnimationFrame(frame);
   }, [autoFocus]);
 
   useEffect(() => {
-    if (!expanded) return;
+    if (!resultsOpen) return;
     const onPointerDown = (event: MouseEvent) => {
       if (!wrapRef.current?.contains(event.target as Node)) {
-        setExpanded(false);
+        setResultsOpen(false);
         setActiveIndex(-1);
       }
     };
     document.addEventListener("mousedown", onPointerDown);
     return () => document.removeEventListener("mousedown", onPointerDown);
-  }, [expanded]);
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement | null;
-      const inField =
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.tagName === "SELECT" ||
-          target.isContentEditable);
-
-      if ((event.key === "k" || event.key === "K") && (event.ctrlKey || event.metaKey)) {
-        event.preventDefault();
-        inputRef.current?.focus();
-        setExpanded(true);
-        return;
-      }
-
-      if (event.key === "/" && !event.ctrlKey && !event.metaKey && !event.altKey) {
-        if (inField) return;
-        event.preventDefault();
-        inputRef.current?.focus();
-        setExpanded(true);
-      }
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [resultsOpen]);
 
   const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Escape") {
       onQueryChange("");
       setActiveIndex(-1);
-      setExpanded(false);
+      setResultsOpen(false);
       inputRef.current?.blur();
       onClose();
       return;
@@ -241,9 +222,7 @@ function SearchField({
       return;
     }
 
-    if (!hasQuery || !flat.length) {
-      return;
-    }
+    if (!hasQuery || !flat.length) return;
 
     if (event.key === "ArrowDown") {
       event.preventDefault();
@@ -262,9 +241,9 @@ function SearchField({
       <label className="site-search__label" htmlFor={inputId}>
         {t("label")}
       </label>
-      <div className="site-search__field site-search__field--header-bar">
+      <div className={clsx("site-search__field", fieldClassName)}>
         <span className="site-search__icon" aria-hidden>
-          <Search className="site-search__icon-svg" />
+          <Search className="site-search__icon-svg" strokeWidth={2} />
         </span>
         <input
           ref={inputRef}
@@ -278,20 +257,17 @@ function SearchField({
           enterKeyHint="search"
           aria-autocomplete="list"
           aria-controls={resultsId}
-          aria-expanded={expanded && hasQuery}
+          aria-expanded={resultsOpen && hasQuery}
           onChange={(event) => {
             onQueryChange(event.target.value);
             setActiveIndex(-1);
-            setExpanded(true);
+            setResultsOpen(true);
           }}
-          onFocus={() => setExpanded(true)}
+          onFocus={() => setResultsOpen(true)}
           onKeyDown={onInputKeyDown}
         />
-        <kbd className="site-search__kbd" aria-hidden>
-          Ctrl+K
-        </kbd>
       </div>
-      {expanded ? (
+      {resultsOpen ? (
         <SearchResults
           id={resultsId}
           query={query}
@@ -304,75 +280,137 @@ function SearchField({
   );
 }
 
-export function HeaderSearch({ variant }: HeaderSearchProps) {
+/**
+ * Header search — toggle icon expands a clean inline field (no Ctrl+K chrome).
+ */
+export function HeaderSearch({ variant, shortcutWhen }: HeaderSearchProps) {
   const t = useTranslations("Header.search");
   const baseId = useId();
   const inputId = `${baseId}-input`;
   const resultsId = `${baseId}-results`;
+  const rootRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
-  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const close = useCallback(() => {
+    setOpen(false);
+    setQuery("");
+  }, []);
+
+  const toggle = useCallback(() => {
+    setOpen((prev) => {
+      if (prev) {
+        setQuery("");
+        return false;
+      }
+      return true;
+    });
+  }, []);
 
   useEffect(() => {
-    if (!paletteOpen) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.body.classList.add("site-search-open");
-    return () => {
-      document.body.style.overflow = previous;
-      document.body.classList.remove("site-search-open");
+    if (!open || variant !== "toggle") return;
+
+    const onPointerDown = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) close();
     };
-  }, [paletteOpen]);
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [close, open, variant]);
+
+  useEffect(() => {
+    if (!shortcutWhen || variant !== "toggle") return;
+
+    const media = window.matchMedia(shortcutWhen);
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!media.matches) return;
+
+      const target = event.target as HTMLElement | null;
+      const inField =
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable);
+
+      if ((event.key === "k" || event.key === "K") && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        setOpen(true);
+        return;
+      }
+
+      if (event.key === "/" && !event.ctrlKey && !event.metaKey && !event.altKey) {
+        if (inField) return;
+        event.preventDefault();
+        setOpen(true);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [shortcutWhen, variant]);
 
   if (variant === "inline") {
     return (
-      <div className="site-search site-search--header site-search--header-bar" data-react-search="true">
+      <div className="site-search site-search--header site-search--drawer" data-react-search="true">
         <SearchField
           inputId={inputId}
           resultsId={resultsId}
           query={query}
           onQueryChange={setQuery}
-          onClose={() => undefined}
+          onClose={() => setQuery("")}
+          fieldClassName="site-search__field--drawer"
         />
       </div>
     );
   }
 
   return (
-    <div className="site-search site-search--header" data-react-search="true">
+    <div
+      ref={rootRef}
+      className={clsx(
+        "site-search",
+        "site-search--header",
+        "site-search--icon-toggle",
+        open && "site-search--icon-toggle-open",
+      )}
+      data-react-search="true"
+    >
       <button
         type="button"
-        className={clsx("site-search__toggle", paletteOpen && "site-search__toggle--active")}
-        aria-label={t("open")}
-        aria-expanded={paletteOpen}
-        aria-controls={`${baseId}-palette`}
-        onClick={() => setPaletteOpen((open) => !open)}
+        className={clsx("site-search__toggle", open && "site-search__toggle--active")}
+        aria-label={open ? t("close") : t("open")}
+        aria-expanded={open}
+        aria-controls={open ? `${baseId}-panel` : undefined}
+        onClick={toggle}
       >
-        <Search className="site-search__toggle-icon" aria-hidden />
+        {open ? (
+          <X className="site-search__toggle-icon" aria-hidden strokeWidth={2} />
+        ) : (
+          <Search className="site-search__toggle-icon" aria-hidden strokeWidth={2} />
+        )}
       </button>
-      {paletteOpen ? (
-        <>
-          <button
-            type="button"
-            className="site-search__backdrop"
-            aria-label={t("close")}
-            onClick={() => {
-              setPaletteOpen(false);
-              setQuery("");
-            }}
+
+      {open ? (
+        <div id={`${baseId}-panel`} className="site-search__expand-panel">
+          <SearchField
+            inputId={inputId}
+            resultsId={resultsId}
+            query={query}
+            onQueryChange={setQuery}
+            onClose={close}
+            autoFocus
+            fieldClassName="site-search__field--expand"
           />
-          <div id={`${baseId}-palette`} className="site-search__palette site-search__palette--open" role="dialog" aria-modal="true">
-            <div className="site-search__palette-card">
-              <SearchField
-                inputId={inputId}
-                resultsId={resultsId}
-                query={query}
-                onQueryChange={setQuery}
-                onClose={() => setPaletteOpen(false)}
-                autoFocus
-              />
-            </div>
-          </div>
-        </>
+        </div>
       ) : null}
     </div>
   );

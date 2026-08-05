@@ -90,7 +90,7 @@ export async function LocalProcessingInfographic({
 
   return (
     <section
-      className={`mx-auto max-w-6xl px-4 py-12 text-center ${className}`.trim()}
+      className={`mx-auto w-full max-w-none px-0 py-12 text-center ${className}`.trim()}
       aria-labelledby="local-processing-heading"
     >
       {body}

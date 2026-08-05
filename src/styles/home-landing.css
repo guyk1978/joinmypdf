@@ -13,16 +13,16 @@
 }
 
 /*
- * Homepage dashboard: same centered ~80% / 1200px rail as category hubs + blog.
- * Internal copy stays left-aligned; the rail itself is centered.
+ * Homepage dashboard: fills the outer content rail (header / main / footer).
+ * Internal copy stays left-aligned; horizontal edges come from .home-tool-grid-page.
  */
 .home-minimal-layout--dashboard.home-landing.page-container,
 .home-minimal-layout--dashboard.home-landing {
-  --home-hub-max-width: var(--app-hub-content-max, 1200px);
+  --home-hub-max-width: none;
   box-sizing: border-box;
-  width: var(--app-hub-content-width, 80%);
-  max-width: var(--home-hub-max-width);
-  margin-inline: auto;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
   /* Horizontal edge gutter lives on .home-tool-grid-page / .tool-page-main. */
   padding: 1rem 0 0;
   display: flex;

@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 
 /**
  * Minimal WattQuick-style footer — copyright left, text links right.
- * Inner content uses the shared app content rail (centered 90% + gutters).
+ * Inner content uses the shared 80% content rail (matches header / main).
  */
 export function HomePageFooter() {
   const tFooter = useTranslations("Footer");

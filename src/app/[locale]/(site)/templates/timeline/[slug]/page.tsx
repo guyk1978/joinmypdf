@@ -85,7 +85,7 @@ export default async function TimelineTemplatePage({ params }: PageProps) {
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         }}
       />
-      <AppPageShell mainClassName="mx-auto max-w-7xl px-4 py-10 md:px-4 md:py-12">
+      <AppPageShell mainClassName="w-full max-w-none px-0 py-10 md:py-12">
         <header className="mb-4 max-w-3xl space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-black dark:text-neutral-200">
             {profile.professionLabel} template

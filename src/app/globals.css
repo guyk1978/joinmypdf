@@ -30,19 +30,19 @@
   /* Site canvas — premium charcoal (global page background) */
   --site-page-bg: #121212;
   --site-canvas-bg: #121212;
-  --app-canvas-width: 90%;
-  --app-canvas-max-width: 90vw;
-  --app-content-rail-width: 90%;
-  --app-content-rail-max: 90vw;
-  /* Shared DOC / Overview / upload column (matches .tool-page-pane-rail) */
-  --tool-pane-rail-max: 72rem;
-  --tool-pane-rail-pad-inline: 1rem;
-  /* Homepage / hubs / blog — centered content column inside the 90% shell */
-  --app-hub-content-width: 80%;
-  --app-hub-content-max: 1200px;
+  --app-canvas-width: 100%;
+  --app-canvas-max-width: none;
+  --app-content-rail-width: 100%;
+  --app-content-rail-max: none; /* mobile: full width; md+ → 80% via media query */
+  /* Nested panes fill the outer rail — do not re-apply a second max-width */
+  --tool-pane-rail-max: none;
+  --tool-pane-rail-pad-inline: 0;
+  /* Homepage / hubs / blog — fill outer rail (never nest a second 80%) */
+  --app-hub-content-width: 100%;
+  --app-hub-content-max: none;
   --app-canvas-bg: #121212;
   --app-canvas-border: #1a1a1a;
-  --app-content-pad-x: 0; /* horizontal edges come from the 90% content rail */
+  --app-content-pad-x: 1rem; /* px-4 — shared header / main / footer gutters */
   --tool-workspace-gutter: 0;
   --tool-footer-gap: 30px;
   --home-page-footer-block: 3.25rem; /* compact footer bar height */
@@ -247,16 +247,28 @@ html[dir="rtl"] :is(h1, .home-landing__title, .category-hub-hero__title, .tool-p
 }
 
 /*
- * Global content rail — single centered 90% column shared by site header,
+ * Global content rail — single centered column shared by site header,
  * page/tool mains, tool modal chrome, and the site footer.
+ * Mobile: full width + px-4. md+: 80% width, centered (header + content align).
  */
 .app-content-rail,
 .tool-modal__rail {
   box-sizing: border-box;
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
-  padding-inline: 0;
+  padding-inline: var(--app-content-pad-x, 1rem);
+}
+
+/* Tablet / desktop — 80% outer rail; nested sections fill it (no second shrink) */
+@media (min-width: 768px) {
+  :root {
+    --app-content-rail-width: 80%;
+    --app-content-rail-max: 80%;
+    --app-canvas-max-width: 80%;
+    --app-hub-content-width: 100%;
+    --app-hub-content-max: none;
+  }
 }
 
 /* Industrial Matte — global scrollbars (main window, panels, drawers, modals) */
@@ -291,18 +303,39 @@ html[dir="rtl"] :is(h1, .home-landing__title, .category-hub-hero__title, .tool-p
 /* Homepage ? premium tool grid dashboard */
 .home-tool-grid-page {
   box-sizing: border-box;
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   flex: 1 1 auto;
   margin-inline: auto;
+  padding-inline: var(--app-content-pad-x, 1rem);
+}
+
+/* Avoid stacking gutters / nested max-widths inside the outer rail. */
+.home-tool-grid-page .page-container,
+.home-tool-grid-page .app-hub-content-rail,
+.home-tool-grid-page .home-landing,
+.home-tool-grid-page .home-minimal-layout,
+.home-tool-grid-page .tools-directory-page,
+.tool-page-main .page-container,
+.tool-page-main .app-hub-content-rail,
+.tool-page-main .tool-page-pane-rail,
+.tool-page-main .community-reviews--tool-pane,
+.tool-page-main .tool-upload-float {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
   padding-inline: 0;
 }
 
-/* Avoid stacking gutters when an inner page-container is present. */
-.home-tool-grid-page .page-container {
-  padding-inline: 0;
-  max-width: none;
+/* Suite / utility tool shells — fill the outer rail (drop legacy 72rem caps) */
+.tool-page-main [class*="-tool-page"],
+.home-tool-grid-page [class*="-tool-page"],
+.tool-page-main .rotate-align-suite-page,
+.home-tool-grid-page .rotate-align-suite-page {
   width: 100%;
+  max-width: none;
+  margin-inline: 0;
 }
 
 /* Homepage ? cold minimalist product-first layout */
@@ -355,21 +388,23 @@ html[data-tool-embed="1"] .app-page-canvas,
   padding-bottom: 0;
 }
 
-/* Centered inner content column — shares the global 90% rail */
+/* Centered inner content column — shares the global 80% content rail */
 .app-page-canvas > .home-tool-grid-page {
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
+  padding-inline: var(--app-content-pad-x, 1rem);
+  box-sizing: border-box;
 }
 
-/* Tool workspaces stay on the same 90% rail (no full-bleed breakout) */
+/* Tool workspaces stay on the same rail (no full-bleed breakout) */
 .app-page-canvas > .home-tool-grid-page.tool-page-main,
 .tool-page-main {
   box-sizing: border-box;
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
-  padding-inline: 0 !important;
+  padding-inline: var(--app-content-pad-x, 1rem) !important;
 }
 
 /* Client-side page transitions ? main content only (header/footer stay static) */
@@ -450,10 +485,11 @@ html[data-tool-embed="1"] .app-page-canvas,
 
 .app-page-canvas > .tool-page-main ~ .home-page-footer .home-page-footer__inner,
 .app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer .home-page-footer__inner {
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
   padding-inline: var(--home-page-footer-pad-inline, 1rem);
+  box-sizing: border-box;
 }
 
 .app-page-shell .home-page-footer__link,
@@ -489,17 +525,16 @@ html[data-tool-embed="1"] .app-page-canvas,
 }
 
 /*
- * Category hubs: one centered content rail for hero → tool grid → About/FAQ/related.
- * Same ~80% / 1200px column as the homepage dashboard.
+ * Category hubs: fill the outer content rail (header / main / footer edges).
  */
 .tools-directory-page--hub-split.page-container,
 .tools-directory-page--pdf-split.page-container {
-  --category-hub-max-width: var(--app-hub-content-max, 1200px);
+  --category-hub-max-width: none;
   box-sizing: border-box;
-  width: var(--app-hub-content-width, 80%);
-  max-width: var(--category-hub-max-width);
-  margin-inline: auto;
-  /* Edge gutter comes from .tool-page-main; keep a little inner air only. */
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  /* Edge gutter comes from .tool-page-main / .home-tool-grid-page. */
   padding-inline: 0;
   text-align: start;
 }
@@ -514,16 +549,16 @@ html[data-tool-embed="1"] .app-page-canvas,
 
 /*
  * Shared hub content rail — homepage, blog index, and article/guide pages.
- * Nested inside the 90% header/main shell; beats `.home-tool-grid-page .page-container`.
+ * Fills the outer 80% shell (no nested narrower column).
  */
 .app-hub-content-rail.page-container,
 .home-tool-grid-page .page-content-transition--main > .app-hub-content-rail.page-container,
 .home-tool-grid-page.tool-page-main .page-content-transition--main > .app-hub-content-rail.page-container,
 .tool-page-main .page-content-transition--main > .app-hub-content-rail.page-container {
   box-sizing: border-box;
-  width: var(--app-hub-content-width, 80%);
-  max-width: var(--app-hub-content-max, 1200px);
-  margin-inline: auto;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
   padding-inline: 0;
   text-align: start;
 }
@@ -719,17 +754,17 @@ html[data-tool-embed="1"] .app-page-canvas,
  * Declared after .home-minimal-layout so it wins same-element conflicts.
  */
 :root {
-  /* Shared with site header / footer / tool chrome — 90% centered rail. */
-  --page-max-width: var(--app-content-rail-max, 90vw);
-  --page-gutter: 0px;
+  /* Shared with site header / footer / tool chrome — 80% centered rail on md+. */
+  --page-max-width: var(--app-content-rail-max, none);
+  --page-gutter: var(--app-content-pad-x, 1rem);
 }
 
 .page-container {
   box-sizing: border-box;
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
-  padding-inline: 0;
+  padding-inline: var(--app-content-pad-x, 1rem);
 }
 
 /* Nested containers must not stack gutters — the outermost one wins. */
@@ -935,10 +970,11 @@ html[data-tool-embed="1"] .app-page-canvas,
 }
 
 .home-minimal-layout--dashboard {
-  width: 80%;
-  max-width: 1200px;
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
-  padding: clamp(1rem, 2.5vw, 1.5rem) clamp(1rem, 2.5vw, 1.5rem) clamp(2rem, 4vw, 2.5rem);
+  padding: clamp(1rem, 2.5vw, 1.5rem) var(--app-content-pad-x, 1rem) clamp(2rem, 4vw, 2.5rem);
+  box-sizing: border-box;
   text-align: start;
 }
 
@@ -2518,9 +2554,9 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   text-align: center;
   box-sizing: border-box;
   width: 100%;
-  max-width: min(80rem, 100%);
-  margin-inline: auto;
-  padding-inline: clamp(1rem, 4vw, 2rem);
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
 }
 
 .home-hero-industrial--centered .home-hero-industrial__subtitle {
@@ -2745,9 +2781,9 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1.5rem;
-  /* Same centered rail as home / library / header content */
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  /* Same centered max-w-7xl rail as header / main content */
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
   padding-block: 0.875rem;
   padding-inline: var(--home-page-footer-pad-inline, 1rem);
@@ -4679,10 +4715,10 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   flex: 1 1 auto;
   flex-direction: column;
   min-height: calc(100dvh - var(--site-header-height, 120px));
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
-  padding-inline: 0;
+  padding-inline: var(--app-content-pad-x, 1rem);
   box-sizing: border-box;
 }
 
@@ -4876,12 +4912,13 @@ html[dir="rtl"] .tool-modal__chrome-flyout {
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__inner {
-  /* Keep footer copy/links on the shared 90% rail (not edge-to-edge) */
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  /* Keep footer copy/links on the shared max-w-7xl rail (not edge-to-edge) */
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
   padding-inline: var(--home-page-footer-pad-inline, 1rem);
   padding-block: 0.75rem;
+  box-sizing: border-box;
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__copy,
@@ -5385,8 +5422,8 @@ html[dir="rtl"] .tool-modal__sidebar-item:focus-within > .tool-modal__sidebar-fl
   }
 
   .tool-modal--fullscreen .tool-modal__rail {
-    width: var(--app-content-rail-width, 90%);
-    max-width: var(--app-content-rail-max, 90vw);
+    width: var(--app-content-rail-width, 100%);
+    max-width: var(--app-content-rail-max, none);
   }
 
   .tool-modal--fullscreen .tool-modal__workspace {
@@ -5783,15 +5820,15 @@ html[dir="rtl"] .tool-modal__sidebar-item:focus-within > .tool-modal__sidebar-fl
   color: var(--im-text, #fafafa);
 }
 
-/* Shared DOC / RELATED / REVIEWS / upload rail — same edges as REVIEWS */
+/* Shared DOC / RELATED / REVIEWS / upload rail — fill outer content edges */
 .tool-page-pane-rail,
 .community-reviews--tool-pane {
   box-sizing: border-box;
   width: 100%;
-  max-width: var(--tool-pane-rail-max, 72rem);
+  max-width: var(--tool-pane-rail-max, none);
   margin-inline: auto;
   padding-block: 1rem 1.5rem;
-  padding-inline: var(--tool-pane-rail-pad-inline, 1rem);
+  padding-inline: var(--tool-pane-rail-pad-inline, 0);
 }
 
 .tool-page-pane-rail.tool-page-info-block {
@@ -10796,9 +10833,10 @@ a.blog-article-card:hover .blog-article-card__title,
 }
 
 .site-footer__inner {
-  width: min(72rem, 100%);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin: 0 auto;
-  padding: clamp(1rem, 2.5vw, 1.25rem) clamp(1.5rem, 4vw, 4rem) clamp(1.25rem, 3vw, 1.75rem);
+  padding: clamp(1rem, 2.5vw, 1.25rem) var(--app-content-pad-x, 1rem) clamp(1.25rem, 3vw, 1.75rem);
   box-sizing: border-box;
 }
 
@@ -11641,9 +11679,11 @@ a.blog-article-card:hover .blog-article-card__title,
 
 .site-search__icon-svg,
 .site-search__toggle-icon {
-  width: 1.125rem;
-  height: 1.125rem;
+  display: block;
+  width: var(--site-header-search-icon, 1.1875rem);
+  height: var(--site-header-search-icon, 1.1875rem);
   flex-shrink: 0;
+  line-height: 0;
 }
 
 .site-search__input {
@@ -11843,23 +11883,31 @@ a.blog-article-card:hover .blog-article-card__title,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2.5rem;
-  height: 2.25rem;
-  margin-inline: 0.15rem;
-  padding: 0 0.65rem;
+  box-sizing: border-box;
+  width: var(--site-header-control-height, 2.25rem);
+  min-width: var(--site-header-control-height, 2.25rem);
+  height: var(--site-header-control-height, 2.25rem);
+  min-height: var(--site-header-control-height, 2.25rem);
+  margin: 0;
+  margin-inline: 0;
+  padding: 0;
   border: 0;
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
   background: transparent;
-  color: #a3a3a3;
+  color: #d4d4d4;
+  line-height: 0;
+  vertical-align: middle;
   cursor: pointer;
   transition:
     color 0.15s ease,
     background-color 0.15s ease;
 }
 
-.site-search__toggle:hover {
-  color: #fafafa;
-  background: rgba(255, 255, 255, 0.06);
+.site-search__toggle:hover,
+.site-search__toggle:focus-visible {
+  color: #ffffff;
+  background: #2a2a2a;
+  outline: none;
 }
 
 
@@ -11871,7 +11919,135 @@ a.blog-article-card:hover .blog-article-card__title,
   background: rgba(255, 255, 255, 0.08);
 }
 
+.site-search--icon-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
+  height: var(--site-header-control-height, 2.25rem);
+  z-index: 5;
+}
 
+.site-search--icon-toggle-open {
+  z-index: 70;
+}
+
+.site-search__expand-panel {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: calc(100% + 0.35rem);
+  transform: translateY(-50%);
+  width: min(20rem, calc(100vw - 5rem));
+  z-index: 70;
+}
+
+.site-search__field--expand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--site-header-control-height, 2.25rem);
+  height: var(--site-header-control-height, 2.25rem);
+  padding: 0 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0;
+  background: #1a1a1a;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.site-search__field--expand:focus-within {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: #1f1f1f;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.site-search__field--expand .site-search__input {
+  font-size: 0.875rem;
+  line-height: 1.25;
+  color: #f5f5f5;
+}
+
+.site-search__field--expand .site-search__input::placeholder {
+  color: #a3a3a3;
+}
+
+.site-search__field--expand .site-search__icon {
+  color: #e5e5e5;
+}
+
+.site-search__field--expand .site-search__icon-svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.site-search--icon-toggle .site-search__dropdown {
+  left: auto;
+  right: 0;
+  width: min(22rem, calc(100vw - 2rem));
+  min-width: 100%;
+}
+
+.site-search__field--drawer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0;
+  background: #171717;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.site-search__field--drawer:focus-within {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: none;
+}
+
+@media (max-width: 1023px) {
+  .site-search__expand-panel {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    inset-inline-end: 0;
+    transform: none;
+    width: min(18rem, calc(100vw - 1.5rem));
+  }
+}
+
+/* Override matte header underline styles for the expand field */
+.site-header--matte .site-search__field--expand,
+.site-header--matte .site-search--header .site-search__field--expand {
+  min-height: var(--site-header-control-height);
+  height: var(--site-header-control-height);
+  padding: 0 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0;
+  background: #1a1a1a;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.site-header--matte .site-search__field--expand:focus-within,
+.site-header--matte .site-search--header .site-search__field--expand:focus-within {
+  border-color: rgba(255, 255, 255, 0.35);
+  border-bottom-color: rgba(255, 255, 255, 0.35);
+  background: #1f1f1f;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
 
 /* Command palette overlay (header) */
 .site-search__backdrop {
@@ -13719,7 +13895,7 @@ body.site-search-open {
   --site-header-logo-icon: 28px;
   --site-header-nav-icon-size: 14px;
   --site-header-search-font: 0.8125rem;
-  --site-header-search-icon: 0.9375rem;
+  --site-header-search-icon: 1.1875rem;
   --site-header-search-pad-y: 0.4rem;
   --site-header-search-pad-x: 0.65rem;
   --site-header-bar-gap: 0.65rem;
@@ -13769,10 +13945,10 @@ body.site-search-open {
   align-items: center;
   justify-content: flex-start;
   gap: var(--site-header-bar-gap);
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
-  padding-inline: 0;
+  padding-inline: var(--app-content-pad-x, 1rem);
   height: 100%;
   min-height: var(--site-header-expanded-height);
   box-sizing: border-box;
@@ -13783,7 +13959,11 @@ body.site-search-open {
   align-items: center;
   justify-content: space-between;
   gap: var(--site-header-bar-gap, 1rem);
-  width: 100%;
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
+  margin-inline: auto;
+  padding-inline: var(--app-content-pad-x, 1rem);
+  box-sizing: border-box;
 }
 
 /* Mobile: logo + hamburger only; desktop keeps full cluster */
@@ -14541,6 +14721,13 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   margin-inline: auto;
 }
 
+.site-header__search-cluster--actions {
+  justify-content: flex-end;
+  max-width: none;
+  margin-inline: 0;
+  margin-inline-start: auto;
+}
+
 .site-header__search.site-header__search--focus {
   flex: 1 1 auto;
   width: min(100%, 28rem);
@@ -14702,9 +14889,12 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 .site-header--matte .site-search--header-bar .site-search__icon-svg,
 .site-header--matte .site-search--header .site-search__icon-svg,
-.site-header--matte .site-search--header .site-search__toggle-icon {
+.site-header--matte .site-search--header .site-search__toggle-icon,
+.site-header--matte .site-search__toggle-icon {
+  display: block;
   width: var(--site-header-search-icon);
   height: var(--site-header-search-icon);
+  line-height: 0;
 }
 
 .site-header--matte .site-header__overflow-trigger {
@@ -14729,8 +14919,13 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 }
 
 .site-header--matte .site-search--header .site-search__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: var(--site-header-control-height);
   height: var(--site-header-control-height);
+  min-height: var(--site-header-control-height);
+  line-height: 0;
 }
 
 @media (max-width: 639px) {
@@ -15413,13 +15608,13 @@ html[data-tool-modal-open="1"] .operations-menu__panel {
 
 @media (min-width: 640px) {
   .site-header--matte .site-header__bar {
-    padding-inline: 0;
+    padding-inline: var(--app-content-pad-x, 1rem);
   }
 }
 
 @media (min-width: 1024px) {
   .site-header--matte .site-header__bar {
-    padding-inline: 0;
+    padding-inline: var(--app-content-pad-x, 1rem);
     gap: 1.5rem;
   }
 }
@@ -16233,6 +16428,9 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 }
 
 .site-header--matte .site-search__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 0;
   border: 0;
   background: transparent;
@@ -16240,14 +16438,12 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
   width: var(--site-header-control-height, 36px);
   height: var(--site-header-control-height, 36px);
   min-width: var(--site-header-control-height, 36px);
+  min-height: var(--site-header-control-height, 36px);
   padding: 0;
+  margin: 0;
   margin-inline: 0;
+  line-height: 0;
   color: rgb(212 212 212);
-}
-
-.site-header--matte .site-search__toggle-icon {
-  width: 1.25rem;
-  height: 1.25rem;
 }
 
 .site-header--matte .site-search__toggle:hover,
@@ -16402,30 +16598,30 @@ html[dir="rtl"] .category-modal.is-open .category-modal__panel {
 
 .site-header__bar {
   display: flex;
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  padding-inline: 0;
+  padding-inline: var(--app-content-pad-x, 1rem);
 }
 
 @media (min-width: 640px) {
   .site-header__bar {
-    padding-inline: 0;
+    padding-inline: var(--app-content-pad-x, 1rem);
   }
 }
 
 @media (min-width: 1024px) {
   .site-header__bar {
-    padding-inline: 0;
+    padding-inline: var(--app-content-pad-x, 1rem);
   }
 }
 
 @media (min-width: 1280px) {
   .site-header__bar {
-    padding-inline: 0;
+    padding-inline: var(--app-content-pad-x, 1rem);
   }
 }
 
@@ -17497,13 +17693,13 @@ body.site-tools-grid-open {
   color: rgb(255 255 255);
 }
 
-/* Tool page — sits on the global 90% content rail */
+/* Tool page — sits on the global max-w-7xl content rail */
 .tool-page-main {
   box-sizing: border-box;
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
-  padding-inline: 0;
+  padding-inline: var(--app-content-pad-x, 1rem);
   background-color: var(--site-canvas-bg);
   background-image: none;
 }
@@ -17573,17 +17769,17 @@ body.site-tools-grid-open {
 /*
  * Secondary content shell — About, Guide, Terms, Privacy, Contact, etc.
  * Declared AFTER stacked resets so gutters/centering always win.
- * Blog index (magazine) fills the global 90% tool-page-main rail — see override below.
+ * Fills the outer tool-page-main rail (same edges as header).
  * Blog articles use a separate full-page template (see .blog-article-layout below).
  */
 .tool-page-layout.tool-page-layout--stacked.product-page-layout--document,
 .tool-page-layout.tool-page-layout--stacked.product-page-layout--wide {
-  --secondary-content-max: 64rem; /* max-w-5xl */
+  --secondary-content-max: none;
   box-sizing: border-box;
   width: 100%;
-  max-width: var(--secondary-content-max);
-  margin-inline: auto;
-  padding-inline: 1.5rem; /* px-6 */
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
   padding-top: 2rem; /* pt-8 */
   padding-bottom: 0;
 }
@@ -17591,12 +17787,12 @@ body.site-tools-grid-open {
 @media (min-width: 768px) {
   .tool-page-layout.tool-page-layout--stacked.product-page-layout--document,
   .tool-page-layout.tool-page-layout--stacked.product-page-layout--wide {
-    padding-inline: 3rem; /* md:px-12 */
+    padding-inline: 0;
     padding-top: 3rem; /* pt-12 */
   }
 }
 
-/* Blog index — fills the shared homepage hub rail (80% / 1200px) */
+/* Blog index — fills the shared homepage hub rail */
 .tool-page-layout.tool-page-layout--stacked.product-page-layout--magazine,
 .tool-page-layout.tool-page-layout--stacked.product-page-layout--wide.product-page-layout--magazine {
   --secondary-content-max: none;
@@ -18778,10 +18974,10 @@ html.workspace-phase-clean:not([data-tool-embed="1"]) .tool-page-main,
 html.workspace-phase-clean body:not(.tool-embed-mode) .home-tool-grid-page.tool-page-main,
 html.workspace-phase-clean body:not(.tool-embed-mode) .tool-page-main {
   padding-block: 0 !important;
-  padding-inline: 0 !important;
+  padding-inline: var(--app-content-pad-x, 1rem) !important;
   margin-inline: auto !important;
-  width: var(--app-content-rail-width, 90%) !important;
-  max-width: var(--app-content-rail-max, 90vw) !important;
+  width: var(--app-content-rail-width, 100%) !important;
+  max-width: var(--app-content-rail-max, none) !important;
   flex: 1 1 auto !important;
   height: auto !important;
   max-height: none !important;
@@ -18869,8 +19065,8 @@ html.workspace-phase-clean .home-page-footer {
 }
 
 html.workspace-phase-clean .home-page-footer__inner {
-  width: var(--app-content-rail-width, 90%);
-  max-width: var(--app-content-rail-max, 90vw);
+  width: var(--app-content-rail-width, 100%);
+  max-width: var(--app-content-rail-max, none);
   min-height: 0;
   margin-inline: auto;
   padding-block: 0.75rem;
@@ -19519,7 +19715,7 @@ html[data-tool-embed="1"] .app-page-canvas--tool-embed .home-tool-grid-page {
 
 /*
  * Upload float = same column as Overview / breadcrumbs / DOC articles.
- * Centers within the tool shell and mirrors the pane-rail horizontal inset.
+ * Fills the outer tool-page-main rail (header-aligned edges).
  */
 html.workspace-phase-clean .tool-upload-float[data-workspace-phase="clean"],
 html.workspace-phase-clean .tool-upload-float,
@@ -19527,11 +19723,11 @@ html.workspace-phase-clean .tool-upload-float,
 .tool-upload-float[data-workspace-phase="active"] {
   box-sizing: border-box !important;
   width: 100% !important;
-  max-width: var(--tool-pane-rail-max, 72rem) !important;
+  max-width: none !important;
   margin-left: auto !important;
   margin-right: auto !important;
   margin-inline: auto !important;
-  padding-inline: var(--tool-pane-rail-pad-inline, 1rem) !important;
+  padding-inline: 0 !important;
 }
 
 html.workspace-phase-clean .tool-upload-float .tool-upload-zone,

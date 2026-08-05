@@ -123,7 +123,7 @@ export function CaseConverter({
   };
 
   return (
-    <div className={clsx("mx-auto w-full max-w-7xl", className)}>
+    <div className={clsx("mx-auto w-full max-w-none", className)}>
       <div className="tool-workspace-panel">
         <label className="sr-only" htmlFor={inputId}>
           {t("inputLabel")}
