@@ -293,6 +293,7 @@ export const DEVELOPER_TOOL_SLUGS_RU: Record<string, string> = {
   "base64-encoder-decoder": "base64-kodirovshik",
   "color-converter": "konverter-cvetov",
   "color-palette-extractor": "extractor-palitry",
+  "color-palette-studio": "studiya-palitry",
   "csv-to-json": "csv-v-json",
   "data-converter-visualizer": "konverter-vizualizator-dannyh",
   "hash-generator": "generator-khesha",

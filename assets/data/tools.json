@@ -9148,6 +9148,7 @@
         "Copy CSS-ready color strings while prototyping"
       ],
       "relatedTools": [
+        "color-palette-studio",
         "color-palette-extractor",
         "favicon-pack",
         "generate-favicon",
@@ -9195,6 +9196,87 @@
           },
           {
             "question": "Is the Color Converter free?",
+            "answer": "Yes. It is free to use with no account required."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "color-palette-studio",
+      "category": "convert",
+      "operation": "color-palette-studio",
+      "title": "Color Palette Studio",
+      "primaryKeyword": "color palette generator",
+      "intent": "Generate color harmonies, extract palettes from images, and check WCAG contrast entirely in your browser.",
+      "description": "Generate 5-color harmony palettes with lockable swatches, extract dominant colors from photos, and verify text contrast against WCAG AA/AAA — local-first with HEX, RGB, and HSL copy.",
+      "secondaryKeywords": [
+        "color harmony generator",
+        "image color palette extractor",
+        "wcag contrast checker",
+        "hex rgb hsl palette"
+      ],
+      "useCases": [
+        "Build brand-ready 5-color palettes from harmony modes",
+        "Pull dominant colors from product photography",
+        "Validate text and background contrast before shipping UI"
+      ],
+      "relatedTools": [
+        "color-converter",
+        "color-palette-extractor",
+        "favicon-generator",
+        "image-optimizer"
+      ],
+      "requiresUpload": false,
+      "faq": [
+        {
+          "q": "Are my images or colors uploaded?",
+          "a": "No. Palette generation, image extraction, and contrast checks run entirely in your browser."
+        },
+        {
+          "q": "What harmony modes are available?",
+          "a": "Analogous, complementary, triadic, split-complementary, tetradic, and monochromatic."
+        },
+        {
+          "q": "How does image extraction work?",
+          "a": "Your image is analyzed on a canvas in the browser to find dominant colors you can copy or download."
+        },
+        {
+          "q": "What do the contrast ratings mean?",
+          "a": "Ratios follow WCAG 2.x for AA and AAA normal and large text."
+        },
+        {
+          "q": "Is Color Palette Studio free?",
+          "a": "Yes. It is free to use with no account required."
+        }
+      ],
+      "longTailPages": [],
+      "skipClusterVariants": true,
+      "priority": 0.62,
+      "longTailPriority": null,
+      "internalLinkWeight": null,
+      "homepageFeatureEligible": false,
+      "updatedAt": "2026-08-05",
+      "documentation": {
+        "whyItMatters": "Color systems power brand recognition, accessibility, and UI consistency. A studio that combines harmony generation, image-based extraction, and WCAG contrast checks lets designers and developers iterate on palettes locally—without uploading brand assets to a third-party server.",
+        "faq": [
+          {
+            "question": "Are my images or colors uploaded?",
+            "answer": "No. Palette generation, image extraction, and contrast checks run entirely in your browser. Nothing is sent to JoinMyPDF servers."
+          },
+          {
+            "question": "What harmony modes are available?",
+            "answer": "Analogous, complementary, triadic, split-complementary, tetradic, and monochromatic. Each mode builds a five-color palette you can lock, tweak, and copy."
+          },
+          {
+            "question": "How does image extraction work?",
+            "answer": "Your image is drawn to a canvas in the browser and quantized for dominant colors. You can copy HEX/RGB values or download the palette as JSON."
+          },
+          {
+            "question": "What do the contrast ratings mean?",
+            "answer": "Ratios follow WCAG 2.x. AA normal text needs 4.5:1, AA large text needs 3:1, AAA normal needs 7:1, and AAA large needs 4.5:1."
+          },
+          {
+            "question": "Is Color Palette Studio free?",
             "answer": "Yes. It is free to use with no account required."
           }
         ]

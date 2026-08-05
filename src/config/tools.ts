@@ -230,6 +230,7 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
   { slug: "lorem-ipsum-generator", labelKey: "loremIpsumGenerator", categories: [c.productivity] },
 
   // Design tools
+  { slug: "color-palette-studio", labelKey: "colorPaletteStudio", categories: [c.design] },
   { slug: "color-palette-extractor", labelKey: "colorPaletteExtractor", categories: [c.design] },
   { slug: "color-converter", labelKey: "colorConverter", categories: [c.design] },
 ];
@@ -616,7 +617,7 @@ export const ALL_TOOLS_REGISTRY: AllToolsGroupConfig[] = [
       {
         id: "design-tools",
         labelKey: "megaMenu.columns.designTools",
-        slugs: ["color-palette-extractor", "color-converter", "responsive-device-preview"],
+        slugs: ["color-palette-studio", "color-palette-extractor", "color-converter", "responsive-device-preview"],
       },
       {
         id: "pdf-organize",

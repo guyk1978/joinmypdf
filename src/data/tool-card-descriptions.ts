@@ -22,6 +22,7 @@ export const TOOL_CARD_DESCRIPTIONS: Record<string, string> = {
   "case-converter": "Convert text between upper, lower, title, and other cases.",
   "color-converter": "Convert colors between HEX, RGB, HSL, and more.",
   "color-palette-extractor": "Extract a clean color palette from any image.",
+  "color-palette-studio": "Generate harmonies, extract image palettes, and check WCAG contrast locally.",
   "compare-pdf": "Compare two PDFs side by side and spot text changes fast.",
   "compress-image": "Shrink image file size without a noticeable quality drop.",
   "convert-to-png": "Convert images to PNG for crisp, transparent graphics.",

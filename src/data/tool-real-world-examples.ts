@@ -21,6 +21,7 @@ export const TOOL_REAL_WORLD_EXAMPLES: Record<string, string> = {
   "case-converter": "Convert a shouty ALL-CAPS paragraph from an old document into normal sentence case.",
   "color-converter": "Turn the HEX color from your brand guide into the RGB values your video editor needs.",
   "color-palette-extractor": "Pull the exact colors from a product photo to match your landing page design.",
+  "color-palette-studio": "Generate a locked brand harmony, extract accents from a hero image, and confirm WCAG contrast before shipping.",
   "compare-pdf": "Spot what your lawyer changed between version 3 and version 4 of a contract.",
   "compress-image": "Shrink a 8 MB photo below a job portal's 2 MB upload limit without visible quality loss.",
   "convert-to-png": "Convert a logo to PNG so it keeps its transparent background in a presentation.",

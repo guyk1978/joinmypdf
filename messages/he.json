@@ -202,6 +202,7 @@
       "loremIpsumGenerator": "מחולל Lorem Ipsum",
       "colorConverter": "ממיר צבעים",
       "colorPaletteExtractor": "חילוץ פלטת צבעים",
+      "colorPaletteStudio": "סטודיו לוח צבעים",
       "mergePdf": "מיזוג PDF",
       "splitPdf": "פיצול PDF",
       "compressPdf": "דחיסת PDF",
@@ -3223,6 +3224,10 @@
           "label": "חילוץ פלטת צבעים",
           "description": "חילוץ צבעים דומיננטיים מתמונה — דגימות HEX/RGB, העתקה בלחיצה, ColorThief מקומי."
         },
+        "colorPaletteStudio": {
+          "label": "סטודיו לוח צבעים",
+          "description": "יצירת הרמוניות, חילוץ פלטות מתמונות ובדיקת ניגודיות WCAG — הכל מקומית."
+        },
         "colorConverter": {
           "label": "ממיר צבעים",
           "description": "המרת HEX, RGB ו-HSL בזמן אמת עם בוחר צבע וכפתורי העתקה."
@@ -3531,6 +3536,7 @@
       "favicon-generator": "מחולל Favicon",
       "color-converter": "ממיר צבעים",
       "color-palette-extractor": "חילוץ פלטת צבעים",
+      "color-palette-studio": "סטודיו לוח צבעים",
       "image-combiner": "שילוב תמונות",
       "eml-to-pdf": "ממיר EML ל-PDF",
       "responsive-device-preview": "תצוגת מכשיר רספונסיבית"
@@ -3567,6 +3573,7 @@
       "batch-rename-pdf": "שנו שמות לכמה קבצי PDF לפי תבניות ברורות ועקביות.",
       "color-converter": "המירו צבעים בין HEX, RGB, HSL ועוד.",
       "color-palette-extractor": "חלצו פלטת צבעים נקייה מכל תמונה.",
+      "color-palette-studio": "צרו הרמוניות, חלצו פלטות מתמונות ובדקו ניגודיות WCAG מקומית.",
       "compare-pdf": "השוו שני PDF זה לצד זה וזהו שינויי טקסט במהירות.",
       "compress-image": "הקטינו גודל קובץ תמונה בלי ירידת איכות מורגשת.",
       "convert-to-png": "המירו תמונות ל-PNG לגרפיקה חדה ושקופה.",
@@ -7313,6 +7320,66 @@
         "p4": "שילבו עם מוחק מטא־דאטה לתמונות אם גם צריך לנקות EXIF לפני שיתוף קבצי מקור."
       }
     }
+  },
+  "ColorPaletteStudio": {
+    "generatorTitle": "מחולל פלטות",
+    "generatorDesc": "בנו הרמוניה של 5 צבעים, נעלו דגימות שאהבתם והפיקו מחדש את השאר. העתיקו HEX, RGB או HSL בלחיצה.",
+    "extractorTitle": "חילוץ צבעים מתמונה",
+    "extractorDesc": "גררו תמונה לחילוץ צבעים דומיננטיים בניתוח קנבס במכשיר. שום דבר לא מועלה.",
+    "converterTitle": "ממיר מהיר ובודק ניגודיות",
+    "converterDesc": "בדקו צבע בפורמטים שונים ובדקו קריאות טקסט מול רקע לפי יחסי WCAG.",
+    "harmonyLabel": "הרמוניה",
+    "regenerate": "הפק מחדש",
+    "lock": "נעל צבע",
+    "unlock": "שחרר צבע",
+    "copyHex": "העתק HEX",
+    "copyRgb": "העתק RGB",
+    "copyHsl": "העתק HSL",
+    "copied": "הועתק",
+    "copyFailed": "לא ניתן להעתיק ללוח.",
+    "downloadCss": "הורדת משתני CSS",
+    "downloadJson": "הורדת JSON",
+    "dropHint": "גררו תמונה לכאן, או בחרו מהמכשיר.",
+    "browse": "בחירת תמונה",
+    "extracting": "מחלץ פלטה…",
+    "extractError": "לא ניתן לחלץ צבעים מהתמונה. נסו קובץ אחר.",
+    "invalidImage": "השתמשו ב-JPG, PNG, WebP או GIF.",
+    "clearImage": "נקה תמונה",
+    "privacyLabel": "100% מקומי — התמונות לא עוזבות את המכשיר",
+    "fgLabel": "צבע טקסט",
+    "bgLabel": "רקע",
+    "previewLabel": "תצוגת צבע",
+    "ratioLabel": "יחס ניגודיות",
+    "pass": "עובר",
+    "fail": "נכשל",
+    "aaNormal": "AA טקסט רגיל (4.5:1)",
+    "aaLarge": "AA טקסט גדול (3:1)",
+    "aaaNormal": "AAA טקסט רגיל (7:1)",
+    "aaaLarge": "AAA טקסט גדול (4.5:1)",
+    "sampleText": "השועל החום המהיר קופץ מעל הכלב העצלן.",
+    "hexLabel": "HEX",
+    "rgbLabel": "RGB",
+    "hslLabel": "HSL",
+    "harmonies": {
+      "analogous": "אנלוגית",
+      "complementary": "משלימה",
+      "triadic": "טריאדה",
+      "splitComplementary": "משלימה מפוצלת",
+      "tetradic": "טטראדה",
+      "monochromatic": "מונוכרומטית"
+    }
+  },
+  "ColorPaletteStudioPage": {
+    "metaTitle": "סטודיו לוח צבעים | הרמוניות, חילוץ מתמונה וניגודיות | JoinMyPDF",
+    "metaDescription": "סטודיו לוח צבעים חינמי: יצירת הרמוניות של 5 צבעים, חילוץ פלטות מתמונות ובדיקת ניגודיות WCAG. העתקת HEX/RGB/HSL — 100% מקומי בדפדפן.",
+    "title": "סטודיו לוח צבעים",
+    "faqTitle": "שאלות נפוצות",
+    "schemaName": "סטודיו לוח צבעים",
+    "schemaDescription": "יצירת הרמוניות צבע, חילוץ צבעים דומיננטיים מתמונות ובדיקת ניגודיות WCAG מקומית בדפדפן.",
+    "schemaFeatureHarmony": "מחולל פלטת הרמוניה עם 5 צבעים הניתנים לנעילה",
+    "schemaFeatureExtract": "חילוץ פלטה מתמונה עם העתקת HEX ו-RGB",
+    "schemaFeatureContrast": "בודק ניגודיות WCAG AA/AAA",
+    "schemaFeatureLocal": "עיבוד מקומי מיידי — ללא העלאות"
   },
   "ColorConverter": {
     "previewLabel": "תצוגה מקדימה",

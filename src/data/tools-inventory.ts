@@ -149,6 +149,15 @@ export const TOOLS_INVENTORY: readonly ToolsInventoryEntry[] = [
     labelKey: "colorConverter",
   },
   {
+    id: "color-palette-studio",
+    title: "Color Palette Studio",
+    path: "/tools/color-palette-studio/",
+    description: "Generate 5-color harmony palettes, extract dominant colors from images, and check WCAG contrast — all locally in your browser with one-click HEX/RGB/HSL copy.",
+    categories: ["design", "developer"] as const,
+    primaryCategory: "design",
+    labelKey: "colorPaletteStudio",
+  },
+  {
     id: "color-palette-extractor",
     title: "Color Palette Extractor",
     path: "/tools/color-palette-extractor/",

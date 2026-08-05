@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { clsx } from "clsx";
 
 export type FaqAccordionItem = {
   q: string;
@@ -20,14 +21,17 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
   if (!items.length) return null;
 
   return (
-    <div className={["faq-accordion", className].filter(Boolean).join(" ")}>
+    <div className={clsx("faq-accordion", className)}>
       {items.map((item, index) => {
         const isOpen = openIndex === index;
         const panelId = `${baseId}-panel-${index}`;
         const buttonId = `${baseId}-button-${index}`;
 
         return (
-          <div key={`${item.q}-${index}`} className="faq-accordion__item">
+          <div
+            key={`${item.q}-${index}`}
+            className={clsx("faq-accordion__item", isOpen && "is-open")}
+          >
             <button
               id={buttonId}
               type="button"
@@ -38,12 +42,10 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
             >
               <span className="faq-accordion__question">{item.q}</span>
               <ChevronDown
-                className={[
+                className={clsx(
                   "faq-accordion__chevron",
-                  isOpen ? "faq-accordion__chevron--open" : "",
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
+                  isOpen && "faq-accordion__chevron--open",
+                )}
                 aria-hidden
                 strokeWidth={2}
               />
@@ -53,12 +55,10 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
               id={panelId}
               role="region"
               aria-labelledby={buttonId}
-              className={[
+              className={clsx(
                 "faq-accordion__panel",
-                isOpen ? "faq-accordion__panel--open" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
+                isOpen && "faq-accordion__panel--open",
+              )}
             >
               <div className="faq-accordion__panel-inner">
                 <p className="faq-accordion__answer">{item.a}</p>

@@ -94,23 +94,28 @@ export function ToolModalFaqAccordion({
               <button
                 type="button"
                 id={buttonId}
-                className="tool-modal-faq__trigger"
+                className={clsx("tool-modal-faq__trigger", open && "tool-modal-faq__trigger--open")}
                 aria-expanded={open}
                 aria-controls={panelId}
                 onClick={() => toggleIndex(index)}
               >
                 <span className="tool-modal-faq__question">{item.question}</span>
-                <ChevronDown className="tool-modal-faq__chevron" aria-hidden />
+                <ChevronDown
+                  className={clsx(
+                    "tool-modal-faq__chevron",
+                    open && "tool-modal-faq__chevron--open",
+                  )}
+                  aria-hidden
+                />
               </button>
               <div
                 id={panelId}
                 role="region"
                 aria-labelledby={buttonId}
-                className="tool-modal-faq__panel"
-                style={{
-                  gridTemplateRows: open ? "1fr" : "0fr",
-                  opacity: open ? 1 : 0,
-                }}
+                className={clsx(
+                  "tool-modal-faq__panel",
+                  open && "tool-modal-faq__panel--open",
+                )}
               >
                 <div className="tool-modal-faq__panel-inner">
                   <p className="tool-modal-faq__answer">{item.answer}</p>

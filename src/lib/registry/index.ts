@@ -4,6 +4,7 @@ import raw from "../../../assets/data/tools.json";
 import base_converterDocs from "./base-converter";
 import color_converterDocs from "./color-converter";
 import color_palette_extractorDocs from "./color-palette-extractor";
+import color_palette_studioDocs from "./color-palette-studio";
 import delete_pdf_pagesDocs from "./delete-pdf-pages";
 import eml_to_pdfDocs from "./eml-to-pdf";
 import extract_pdf_pagesDocs from "./extract-pdf-pages";
@@ -46,6 +47,7 @@ export const DOCUMENTATION_BY_SLUG: Record<string, ToolDocumentation> = {
   "base-converter": base_converterDocs,
   "color-converter": color_converterDocs,
   "color-palette-extractor": color_palette_extractorDocs,
+  "color-palette-studio": color_palette_studioDocs,
   "delete-pdf-pages": delete_pdf_pagesDocs,
   "eml-to-pdf": eml_to_pdfDocs,
   "extract-pdf-pages": extract_pdf_pagesDocs,

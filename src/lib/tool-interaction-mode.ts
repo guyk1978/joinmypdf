@@ -48,6 +48,7 @@ const INTERACTIVE_GENERATOR_SLUGS = new Set<string>([
   "ssl-decoder",
   "my-ip",
   "color-converter",
+  "color-palette-studio",
   "base-converter",
   "timezone-converter",
   "global-timezone-converter",

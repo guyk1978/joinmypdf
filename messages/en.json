@@ -202,6 +202,7 @@
       "loremIpsumGenerator": "Lorem Ipsum Generator",
       "colorConverter": "Color Converter",
       "colorPaletteExtractor": "Color Palette Extractor",
+      "colorPaletteStudio": "Color Palette Studio",
       "mergePdf": "Merge PDF",
       "splitPdf": "Split PDF",
       "compressPdf": "Compress PDF",
@@ -3223,6 +3224,10 @@
           "label": "Color Palette Extractor",
           "description": "Extract dominant colors from any photo — HEX/RGB swatches, one-click copy, local ColorThief."
         },
+        "colorPaletteStudio": {
+          "label": "Color Palette Studio",
+          "description": "Generate harmonies, extract image palettes, and check WCAG contrast — all local-first."
+        },
         "colorConverter": {
           "label": "Color Converter",
           "description": "Convert HEX, RGB, and HSL in real time with a live picker and copy buttons."
@@ -3472,6 +3477,7 @@
       "base-converter": "Base",
       "color-converter": "Color",
       "color-palette-extractor": "Color Palette Extractor",
+      "color-palette-studio": "Color Palette Studio",
       "csv-to-markdown-table": "CSV to Markdown Table",
       "fade-in-out-creator": "Fade In/Out Creator",
       "favicon-generator": "Favicon Generator",
@@ -7170,6 +7176,66 @@
         "p4": "Combine with Image Metadata Wiper if you also need EXIF cleaned before sharing source files."
       }
     }
+  },
+  "ColorPaletteStudio": {
+    "generatorTitle": "Palette Generator",
+    "generatorDesc": "Build a 5-color harmony, lock swatches you like, then regenerate the rest. Copy HEX, RGB, or HSL in one click.",
+    "extractorTitle": "Image Color Extractor",
+    "extractorDesc": "Drop a photo to extract dominant colors with on-device canvas analysis. Nothing is uploaded.",
+    "converterTitle": "Quick Converter & Contrast Checker",
+    "converterDesc": "Inspect a color across formats and test text readability against a background using WCAG ratios.",
+    "harmonyLabel": "Harmony",
+    "regenerate": "Regenerate",
+    "lock": "Lock color",
+    "unlock": "Unlock color",
+    "copyHex": "Copy HEX",
+    "copyRgb": "Copy RGB",
+    "copyHsl": "Copy HSL",
+    "copied": "Copied",
+    "copyFailed": "Could not copy to the clipboard.",
+    "downloadCss": "Download CSS vars",
+    "downloadJson": "Download JSON",
+    "dropHint": "Drop an image here, or browse from your device.",
+    "browse": "Choose image",
+    "extracting": "Extracting palette…",
+    "extractError": "Could not extract colors from that image. Try another file.",
+    "invalidImage": "Use a JPG, PNG, WebP, or GIF image.",
+    "clearImage": "Clear image",
+    "privacyLabel": "100% local — images never leave your device",
+    "fgLabel": "Text color",
+    "bgLabel": "Background",
+    "previewLabel": "Color preview",
+    "ratioLabel": "Contrast ratio",
+    "pass": "Pass",
+    "fail": "Fail",
+    "aaNormal": "AA normal text (4.5:1)",
+    "aaLarge": "AA large text (3:1)",
+    "aaaNormal": "AAA normal text (7:1)",
+    "aaaLarge": "AAA large text (4.5:1)",
+    "sampleText": "The quick brown fox jumps over the lazy dog.",
+    "hexLabel": "HEX",
+    "rgbLabel": "RGB",
+    "hslLabel": "HSL",
+    "harmonies": {
+      "analogous": "Analogous",
+      "complementary": "Complementary",
+      "triadic": "Triadic",
+      "splitComplementary": "Split complementary",
+      "tetradic": "Tetradic",
+      "monochromatic": "Monochromatic"
+    }
+  },
+  "ColorPaletteStudioPage": {
+    "metaTitle": "Color Palette Studio | Harmonies, Image Extractor & Contrast | JoinMyPDF",
+    "metaDescription": "Free Color Palette Studio: generate 5-color harmonies, extract palettes from images, and check WCAG contrast. HEX, RGB, and HSL copy — 100% local in your browser.",
+    "title": "Color Palette Studio",
+    "faqTitle": "Frequently asked questions",
+    "schemaName": "Color Palette Studio",
+    "schemaDescription": "Generate color harmonies, extract dominant colors from images, and verify WCAG contrast locally in your browser.",
+    "schemaFeatureHarmony": "5-color harmony palette generator with lockable swatches",
+    "schemaFeatureExtract": "Image-to-palette extractor with HEX and RGB copy",
+    "schemaFeatureContrast": "WCAG AA/AAA contrast checker",
+    "schemaFeatureLocal": "Instant local-first processing — no uploads"
   },
   "ColorConverter": {
     "previewLabel": "Preview",

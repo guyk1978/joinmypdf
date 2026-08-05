@@ -182,6 +182,7 @@ const SLUG_ICON_KEYS: Record<string, keyof typeof LUCIDE_BY_KEY> = {
   "uuid-generator": "fingerprint",
   "ssl-decoder": "shield-check",
   "color-palette-extractor": "pipette",
+  "color-palette-studio": "palette",
   "color-converter": "palette",
   "unit-converter": "scale",
   "timezone-converter": "clock",
