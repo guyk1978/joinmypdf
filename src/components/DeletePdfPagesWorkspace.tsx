@@ -17,9 +17,11 @@ import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
-import { DELETE_PAGES_THUMB_SCALE, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
+import { PdfThumbCanvas } from "@/components/PdfThumbCanvas";
+import { DELETE_PAGES_THUMB_SCALE } from "@/lib/pdf-delete-pages";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { moveArrayItem, useDragReorder } from "@/hooks/useDragReorder";
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -74,25 +76,10 @@ function PageThumbnail({
   restoreAria: string;
   markAria: string;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageThumbnail(fileBytes, pageIndex, "", DELETE_PAGES_THUMB_SCALE).then((canvas) => {
-      if (cancelled || !canvasRef.current) return;
-      const node = canvasRef.current;
-      node.width = canvas.width;
-      node.height = canvas.height;
-      const ctx = node.getContext("2d");
-      if (ctx) ctx.drawImage(canvas, 0, 0);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex]);
+  const tCommon = useTranslations("Workspaces.common");
+  const failedLabel = tCommon.has("previewFailed")
+    ? tCommon("previewFailed")
+    : "Could not render this page.";
 
   const safeDragProps = {
     ...dragProps,
@@ -116,9 +103,17 @@ function PageThumbnail({
           aria-label={previewAria}
           onClick={() => onPreview(pageIndex)}
         >
-          <div className="delete-page-thumb__canvas-wrap">
-            {loading ? <p className="delete-page-thumb__loading">{loadingLabel}</p> : null}
-            <canvas ref={canvasRef} className="delete-page-thumb__canvas" />
+          <div className="relative">
+            <PdfThumbCanvas
+              fileBytes={fileBytes}
+              pageIndex={pageIndex}
+              scale={DELETE_PAGES_THUMB_SCALE}
+              loadingLabel={loadingLabel}
+              failedLabel={failedLabel}
+              wrapClassName="delete-page-thumb__canvas-wrap"
+              canvasClassName="delete-page-thumb__canvas"
+              loadingClassName="delete-page-thumb__loading"
+            />
             {marked ? <div className="delete-page-thumb__strike" aria-hidden="true" /> : null}
           </div>
         </button>

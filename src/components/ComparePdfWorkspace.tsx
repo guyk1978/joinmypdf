@@ -22,7 +22,8 @@ import {
   type CompareProgress,
   type PdfCompareResult,
 } from "@/lib/pdf-compare";
-import { REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
+import { REDACT_UI_SCALE } from "@/lib/pdf-redact";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import {
@@ -60,8 +61,6 @@ function ComparePagePanel({
   loadingLabel: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
-  const [loading, setLoading] = useState(true);
   const [bytes, setBytes] = useState<Uint8Array | null>(null);
 
   useEffect(() => {
@@ -74,19 +73,12 @@ function ComparePagePanel({
     };
   }, [file]);
 
-  useEffect(() => {
-    if (!bytes) return;
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageForUi(bytes, pageIndex, undefined, REDACT_UI_SCALE).then(({ canvas }) => {
-      if (cancelled) return;
-      setCanvasEl(canvas);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [bytes, pageIndex]);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes: bytes,
+    pageIndex,
+    scale: REDACT_UI_SCALE,
+    enabled: Boolean(bytes),
+  });
 
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-2">
@@ -101,11 +93,19 @@ function ComparePagePanel({
             {loadingLabel}
           </div>
         ) : null}
-        {canvasEl ? (
+        {failed ? (
+          <div
+            className="flex aspect-[3/4] max-h-[70vh] items-center justify-center px-4 text-center text-sm text-ink-muted"
+            role="alert"
+          >
+            {errorMessage}
+          </div>
+        ) : null}
+        {pageCanvas ? (
           <div className="relative mx-auto w-full max-w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={canvasEl.toDataURL("image/png")}
+              src={pageCanvas.toDataURL("image/png")}
               alt={`${label} page ${pageIndex + 1}`}
               className="block h-auto w-full"
             />

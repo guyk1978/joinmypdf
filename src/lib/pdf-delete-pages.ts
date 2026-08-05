@@ -1,37 +1,14 @@
 import { PDFDocument } from "pdf-lib-with-encrypt";
+import {
+  loadPdfPageCount as sharedLoadPdfPageCount,
+  PDF_THUMB_SCALE,
+  renderPdfPageThumbnail as sharedRenderPdfPageThumbnail,
+} from "@/lib/pdf-render";
 
-export const DELETE_PAGES_THUMB_SCALE = 0.35;
-
-async function setupPdfJs() {
-  const pdfjs = await import("pdfjs-dist");
-  const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
-  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-  return pdfjs;
-}
-
-async function renderPdfJsPage(
-  pdfDoc: Awaited<ReturnType<Awaited<ReturnType<typeof setupPdfJs>>["getDocument"]>["promise"]>,
-  pageNumber: number,
-  scale: number,
-): Promise<HTMLCanvasElement> {
-  const page = await pdfDoc.getPage(pageNumber);
-  const viewport = page.getViewport({ scale });
-  const canvas = document.createElement("canvas");
-  canvas.width = viewport.width;
-  canvas.height = viewport.height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas not supported.");
-  await page.render({ canvasContext: ctx, viewport, canvas } as never).promise;
-  return canvas;
-}
+export const DELETE_PAGES_THUMB_SCALE = PDF_THUMB_SCALE;
 
 export async function loadPdfPageCount(source: Uint8Array, password?: string): Promise<number> {
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({
-    data: source.slice(),
-    password: password?.trim() || undefined,
-  }).promise;
-  return doc.numPages;
+  return sharedLoadPdfPageCount(source, password);
 }
 
 export async function renderPdfPageThumbnail(
@@ -40,12 +17,7 @@ export async function renderPdfPageThumbnail(
   password?: string,
   scale = DELETE_PAGES_THUMB_SCALE,
 ): Promise<HTMLCanvasElement> {
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({
-    data: source.slice(),
-    password: password?.trim() || undefined,
-  }).promise;
-  return renderPdfJsPage(doc, pageIndex + 1, scale);
+  return sharedRenderPdfPageThumbnail(source, pageIndex, password, scale);
 }
 
 /** Remove pages by 0-based indices (deleted high → low). */
@@ -58,6 +30,9 @@ export async function deletePdfPagesBytes(
   }
 
   const doc = await PDFDocument.load(source, { ignoreEncryption: true });
+  if (doc.isEncrypted) {
+    throw new Error("This PDF is password-protected. Unlock it before deleting pages.");
+  }
   const total = doc.getPageCount();
   const unique = [...new Set(pageIndicesToRemove)].filter((i) => i >= 0 && i < total);
 

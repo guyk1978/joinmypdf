@@ -31,7 +31,8 @@ import {
   type TargetPaperPreset,
 } from "@/lib/pdf-paper-margin";
 import { marginSideLabel, paperPresetLabel } from "@/lib/workspace-preset-i18n";
-import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
+import { loadPdfPageCount, REDACT_UI_SCALE } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
@@ -71,21 +72,27 @@ function LivePaperPreview({
   sourceCrop: NormalizedCropRect;
   loadingPreviewLabel: string;
 }) {
-  const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
-  const [loading, setLoading] = useState(true);
+  const displayCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes,
+    pageIndex: 0,
+    scale: REDACT_UI_SCALE,
+  });
 
   useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageForUi(fileBytes, 0, undefined, REDACT_UI_SCALE).then(({ canvas }) => {
-      if (cancelled) return;
-      setCanvasEl(canvas);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes]);
+    const node = displayCanvasRef.current;
+    if (!pageCanvas || !node) return;
+    node.width = pageCanvas.width;
+    node.height = pageCanvas.height;
+    const ctx = node.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, node.width, node.height);
+    const sx = sourceCrop.nx * pageCanvas.width;
+    const sy = sourceCrop.ny * pageCanvas.height;
+    const sw = sourceCrop.nw * pageCanvas.width;
+    const sh = sourceCrop.nh * pageCanvas.height;
+    ctx.drawImage(pageCanvas, sx, sy, sw, sh, 0, 0, node.width, node.height);
+  }, [pageCanvas, sourceCrop]);
 
   const contentStyle = {
     left: `${fractions.left * 100}%`,
@@ -109,27 +116,18 @@ function LivePaperPreview({
             {loadingPreviewLabel}
           </div>
         ) : null}
-        {!loading && canvasEl ? (
+        {failed ? (
+          <div
+            className="flex h-full min-h-[280px] items-center justify-center text-sm text-black dark:text-neutral-200"
+            role="alert"
+          >
+            {errorMessage}
+          </div>
+        ) : null}
+        {!loading && !failed && pageCanvas ? (
           <div className="absolute inset-0" style={contentStyle}>
             <div className="relative h-full w-full overflow-hidden bg-neutral-100 dark:bg-neutral-950">
-              <canvas
-                ref={(node) => {
-                  if (node && canvasEl) {
-                    node.width = canvasEl.width;
-                    node.height = canvasEl.height;
-                    const ctx = node.getContext("2d");
-                    if (ctx) {
-                      ctx.clearRect(0, 0, node.width, node.height);
-                      const sx = sourceCrop.nx * canvasEl.width;
-                      const sy = sourceCrop.ny * canvasEl.height;
-                      const sw = sourceCrop.nw * canvasEl.width;
-                      const sh = sourceCrop.nh * canvasEl.height;
-                      ctx.drawImage(canvasEl, sx, sy, sw, sh, 0, 0, node.width, node.height);
-                    }
-                  }
-                }}
-                className="h-full w-full object-contain"
-              />
+              <canvas ref={displayCanvasRef} className="h-full w-full object-contain" />
             </div>
           </div>
         ) : null}

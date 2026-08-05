@@ -17,16 +17,15 @@ import { formatsFromAcceptAttr } from "@/lib/upload-accept";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import type { ToolDefinition } from "@/lib/types";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
-import {
-  DELETE_PAGES_THUMB_SCALE,
-  renderPdfPageThumbnail,
-} from "@/lib/pdf-delete-pages";
+import { PdfThumbCanvas } from "@/components/PdfThumbCanvas";
+import { DELETE_PAGES_THUMB_SCALE } from "@/lib/pdf-delete-pages";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { formatBytes } from "@/lib/pdf-to-word";
 import { formatPageCount } from "@/lib/workspace-meta-i18n";
 import { progressLabelFromPhase } from "@/lib/workspace-progress-label";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import { clsx } from "clsx";
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -59,33 +58,10 @@ function SourcePdfThumb({
   previewAria: string;
   onPreview: () => void;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [loading, setLoading] = useState(true);
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    setFailed(false);
-    void renderPdfPageThumbnail(fileBytes, pageIndex, "", DELETE_PAGES_THUMB_SCALE)
-      .then((canvas) => {
-        if (cancelled || !canvasRef.current) return;
-        const node = canvasRef.current;
-        node.width = canvas.width;
-        node.height = canvas.height;
-        const ctx = node.getContext("2d");
-        if (ctx) ctx.drawImage(canvas, 0, 0);
-        setLoading(false);
-      })
-      .catch(() => {
-        if (cancelled) return;
-        setFailed(true);
-        setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex]);
+  const tCommon = useTranslations("Workspaces.common");
+  const failedLabel = tCommon.has("previewFailed")
+    ? tCommon("previewFailed")
+    : "Could not render this page.";
 
   return (
     <div className="page-manage-thumb visual-reorder-card visual-reorder-card--page" role="listitem">
@@ -97,19 +73,16 @@ function SourcePdfThumb({
         aria-label={previewAria}
         onClick={onPreview}
       >
-        <div className="page-manage-thumb__canvas-wrap delete-page-thumb__canvas-wrap">
-          {loading ? (
-            <p className="page-manage-thumb__loading delete-page-thumb__loading">{loadingLabel}</p>
-          ) : null}
-          {failed ? (
-            <p className="page-manage-thumb__loading delete-page-thumb__loading">{pageLabel}</p>
-          ) : null}
-          <canvas
-            ref={canvasRef}
-            className="page-manage-thumb__canvas delete-page-thumb__canvas"
-            hidden={loading || failed}
-          />
-        </div>
+        <PdfThumbCanvas
+          fileBytes={fileBytes}
+          pageIndex={pageIndex}
+          scale={DELETE_PAGES_THUMB_SCALE}
+          loadingLabel={loadingLabel}
+          failedLabel={failedLabel}
+          wrapClassName="delete-page-thumb__canvas-wrap"
+          canvasClassName="delete-page-thumb__canvas"
+          loadingClassName="delete-page-thumb__loading"
+        />
       </button>
     </div>
   );

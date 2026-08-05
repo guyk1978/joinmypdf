@@ -26,7 +26,9 @@ import {
   renderPdfPageForOcr,
   runSinglePageOcrInWorker,
 } from "@/lib/pdf-ocr";
-import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
+import { loadPdfPageCount, REDACT_UI_SCALE } from "@/lib/pdf-redact";
+import { blitCanvas } from "@/lib/pdf-render";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
@@ -114,46 +116,38 @@ function ReferencePreview({
   pageIndex,
   password,
   loadingLabel,
+  failedLabel,
 }: {
   fileBytes: Uint8Array;
   pageIndex: number;
   password: string;
   loadingLabel: string;
+  failedLabel?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [loading, setLoading] = useState(true);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes,
+    pageIndex,
+    password,
+    scale: REDACT_UI_SCALE,
+  });
 
   useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void (async () => {
-      try {
-        const rendered = await renderPdfPageForUi(fileBytes, pageIndex, password, REDACT_UI_SCALE);
-        if (cancelled) return;
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        canvas.width = rendered.width;
-        canvas.height = rendered.height;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(rendered.canvas, 0, 0);
-      } catch {
-        // Password / corrupt page — leave blank until credentials change.
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex, password]);
+    if (!pageCanvas || !canvasRef.current) return;
+    blitCanvas(pageCanvas, canvasRef.current);
+  }, [pageCanvas]);
 
   return (
     <PdfEditStudio minHeight="min-h-[280px]">
       <PdfStudioPage className="relative inline-block max-w-full">
         {loading ? <p className="pdf-editor__hint">{loadingLabel}</p> : null}
-        <canvas ref={canvasRef} className="pdf-editor__reference-canvas max-w-full" />
+        {failed ? (
+          <p className="pdf-editor__hint" role="alert">
+            {failedLabel || errorMessage || "Could not render this page."}
+          </p>
+        ) : (
+          <canvas ref={canvasRef} className="pdf-editor__reference-canvas max-w-full" />
+        )}
       </PdfStudioPage>
     </PdfEditStudio>
   );
@@ -812,6 +806,7 @@ export function PdfEditorWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                       pageIndex={currentPage}
                       password={password}
                       loadingLabel={t("loadingPreview")}
+                      failedLabel={ws.wsCommon("previewFailed") || t("loadingPreview")}
                     />
                   ) : null}
                 </div>

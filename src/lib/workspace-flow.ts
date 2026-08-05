@@ -88,6 +88,37 @@ export function getWorkspacePhaseFromSignal(fileSignal: boolean | number): Works
   return hasFiles ? "active" : "clean";
 }
 
+/** Smooth-scroll every overflow ancestor (window + tool modal) so `el` can sit at top. */
+function scrollAncestorsToRevealTop(el: HTMLElement | null) {
+  if (typeof window === "undefined") return;
+
+  // Fullscreen tool pages scroll inside `.tool-modal--fullscreen`, not the window.
+  let node: HTMLElement | null = el;
+  while (node) {
+    const parent = node.parentElement;
+    if (!parent) break;
+    const style = window.getComputedStyle(parent);
+    const overflowY = style.overflowY;
+    const isScrollPort =
+      overflowY === "auto" || overflowY === "scroll" || overflowY === "overlay";
+    if (isScrollPort && parent.scrollHeight > parent.clientHeight + 1) {
+      parent.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    node = parent;
+  }
+
+  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+}
+
+function resolveWorkspaceUploadFocus(): HTMLElement | null {
+  if (typeof document === "undefined") return null;
+  return (
+    document.querySelector<HTMLElement>(
+      ".tool-upload-float .tool-upload-stage, .tool-upload-float .im-dropzone:not(.im-dropzone--compact), .tool-upload-float",
+    ) || document.getElementById(WORKSPACE_UPLOAD_ID)
+  );
+}
+
 export function scrollToWorkspaceOperations() {
   requestAnimationFrame(() => {
     document.getElementById(WORKSPACE_OPERATIONS_ID)?.scrollIntoView({
@@ -97,11 +128,24 @@ export function scrollToWorkspaceOperations() {
   });
 }
 
+/**
+ * Bring the upload dropzone into view after "Upload new file".
+ * `#workspace-upload` wraps the whole tool page, so scrollIntoView on that id
+ * alone is a no-op when the user is already scrolled inside it — scroll the
+ * modal/window to top and prefer the float/dropzone as the focus target.
+ */
 export function scrollToWorkspaceUpload() {
+  if (typeof window === "undefined") return;
+
+  const run = () => {
+    const focus = resolveWorkspaceUploadFocus();
+    scrollAncestorsToRevealTop(focus);
+    focus?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   requestAnimationFrame(() => {
-    document.getElementById(WORKSPACE_UPLOAD_ID)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    run();
+    // Second pass after React commits clean-phase layout (dropzone remount).
+    requestAnimationFrame(run);
   });
 }

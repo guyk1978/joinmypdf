@@ -15,13 +15,22 @@ async function loadPdfLibDocument(bytes: ArrayBuffer) {
 export async function mergePdfFiles(files: File[]): Promise<Uint8Array> {
   const valid = (files || []).filter(Boolean);
   if (valid.length < 2) throw new Error("Add at least 2 PDF files.");
-  const merged = await PDFDocument.create();
-  for (const f of valid) {
-    const source = await loadPdfLibDocument(await f.arrayBuffer());
-    const pages = await merged.copyPages(source, source.getPageIndices());
-    pages.forEach((p) => merged.addPage(p));
+  try {
+    const merged = await PDFDocument.create();
+    for (const f of valid) {
+      const source = await loadPdfLibDocument(await f.arrayBuffer());
+      if (source.isEncrypted) {
+        throw classifyPdfError(
+          new Error(`"${f.name}" is password-protected. Unlock it before merging.`),
+        );
+      }
+      const pages = await merged.copyPages(source, source.getPageIndices());
+      pages.forEach((p) => merged.addPage(p));
+    }
+    return merged.save();
+  } catch (error) {
+    throw classifyPdfError(error);
   }
-  return merged.save();
 }
 
 export async function compressPdfFile(file: File, preset: PdfCompressionPreset) {

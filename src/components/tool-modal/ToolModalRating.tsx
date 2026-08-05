@@ -157,6 +157,7 @@ export function ToolModalRating({
         <RateToolModal
           open={rateOpen}
           slug={slug}
+          categoryId={categoryId}
           onClose={() => setRateOpen(false)}
           onOpenReviews={openReviewsTab}
         />

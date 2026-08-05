@@ -22,9 +22,9 @@ import {
   type ExtractTablesPdfProgress,
   type TableOutputFormat,
 } from "@/lib/extract-tables-pdf";
+import { PdfThumbCanvas } from "@/components/PdfThumbCanvas";
 import {
   DELETE_PAGES_THUMB_SCALE,
-  renderPdfPageThumbnail,
 } from "@/lib/pdf-delete-pages";
 import { loadPdfDocument } from "@/lib/pdf-text-extract";
 import * as pdf from "@/lib/pdf-engine";
@@ -34,6 +34,7 @@ import { toolOutlineBtn, toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui"
 import { progressLabelFromPhase } from "@/lib/workspace-progress-label";
 import { clsx } from "clsx";
 import { ZoomIn } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -79,9 +80,11 @@ function TablesPageThumb({
   onPreview: () => void;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
+  const tCommon = useTranslations("Workspaces.common");
+  const failedLabel = tCommon.has("previewFailed")
+    ? tCommon("previewFailed")
+    : "Could not render this page.";
 
   useEffect(() => {
     const el = wrapRef.current;
@@ -99,26 +102,6 @@ function TablesPageThumb({
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!visible) return;
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageThumbnail(fileBytes, pageIndex, "", DELETE_PAGES_THUMB_SCALE).then(
-      (canvas) => {
-        if (cancelled || !canvasRef.current) return;
-        const node = canvasRef.current;
-        node.width = canvas.width;
-        node.height = canvas.height;
-        const ctx = node.getContext("2d");
-        if (ctx) ctx.drawImage(canvas, 0, 0);
-        setLoading(false);
-      },
-    );
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex, visible]);
-
   return (
     <div className="extract-tables-thumb" role="listitem">
       <span className="extract-tables-thumb__index" aria-hidden>
@@ -131,11 +114,24 @@ function TablesPageThumb({
         aria-label={previewAria}
         onClick={onPreview}
       >
-        <div ref={wrapRef} className="extract-tables-thumb__canvas-wrap">
-          {loading || !visible ? (
-            <p className="extract-tables-thumb__loading">{loadingLabel}</p>
-          ) : null}
-          <canvas ref={canvasRef} className="extract-tables-thumb__canvas" />
+        <div ref={wrapRef}>
+          {!visible ? (
+            <div className="extract-tables-thumb__canvas-wrap">
+              <p className="extract-tables-thumb__loading">{loadingLabel}</p>
+            </div>
+          ) : (
+            <PdfThumbCanvas
+              fileBytes={fileBytes}
+              pageIndex={pageIndex}
+              scale={DELETE_PAGES_THUMB_SCALE}
+              loadingLabel={loadingLabel}
+              failedLabel={failedLabel}
+              enabled={visible}
+              wrapClassName="extract-tables-thumb__canvas-wrap"
+              canvasClassName="extract-tables-thumb__canvas"
+              loadingClassName="extract-tables-thumb__loading"
+            />
+          )}
         </div>
         <span className="extract-tables-thumb__label">{pageLabel}</span>
       </button>

@@ -26,7 +26,9 @@ import {
 } from "@/lib/add-watermark";
 import { watermarkPositionLabel } from "@/lib/workspace-preset-i18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
-import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
+import { blitCanvas } from "@/lib/pdf-render";
+import { loadPdfPageCount, REDACT_UI_SCALE } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
@@ -57,26 +59,22 @@ function WatermarkPreview({
   loadingLabel: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [baseCanvas, setBaseCanvas] = useState<HTMLCanvasElement | null>(null);
+  const displayCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const overlayRef = useRef<HTMLCanvasElement>(null);
-  const [loading, setLoading] = useState(true);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes,
+    pageIndex: 0,
+    scale: REDACT_UI_SCALE,
+  });
 
   useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageForUi(fileBytes, 0, undefined, REDACT_UI_SCALE).then(({ canvas }) => {
-      if (cancelled) return;
-      setBaseCanvas(canvas);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes]);
+    if (!pageCanvas || !displayCanvasRef.current) return;
+    blitCanvas(pageCanvas, displayCanvasRef.current);
+  }, [pageCanvas]);
 
   useEffect(() => {
     const overlay = overlayRef.current;
-    const base = baseCanvas;
+    const base = pageCanvas;
     if (!overlay || !base) return;
     overlay.width = base.width;
     overlay.height = base.height;
@@ -102,7 +100,7 @@ function WatermarkPreview({
     ctx.rotate((options.rotation * Math.PI) / 180);
     ctx.fillText(text, 0, 0);
     ctx.restore();
-  }, [baseCanvas, options]);
+  }, [pageCanvas, options]);
 
   return (
     <PdfEditStudio minHeight={loading ? "min-h-[320px]" : undefined}>
@@ -113,19 +111,17 @@ function WatermarkPreview({
           {loadingLabel}
         </div>
       ) : null}
-      {baseCanvas ? (
+      {failed ? (
+        <div
+          className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-black dark:text-neutral-200"
+          role="alert"
+        >
+          {errorMessage}
+        </div>
+      ) : null}
+      {pageCanvas ? (
         <>
-          <canvas
-            ref={(node) => {
-              if (node && baseCanvas) {
-                node.width = baseCanvas.width;
-                node.height = baseCanvas.height;
-                const ctx = node.getContext("2d");
-                if (ctx) ctx.drawImage(baseCanvas, 0, 0);
-              }
-            }}
-            className="block h-auto max-w-full"
-          />
+          <canvas ref={displayCanvasRef} className="block h-auto max-w-full" />
           <canvas
             ref={overlayRef}
             className="pointer-events-none absolute left-0 top-0 h-full w-full"

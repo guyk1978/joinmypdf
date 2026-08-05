@@ -12643,8 +12643,236 @@ body.site-search-open {
 .sign-library__empty {
   margin: 0 0 0.75rem;
   font-size: 0.78rem;
-  color: rgb(var(--ink-muted, 115 115 115));
-  line-height: 1.45;
+  color: #a3a3a3;
+  line-height: 1.4;
+}
+
+.sign-library__saved {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.sign-library__saved-label {
+  margin: 0 0 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a3a3a3;
+}
+
+.sign-creator {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0.85rem 0 0;
+  padding: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 0;
+  background: rgba(2, 6, 23, 0.55);
+  box-sizing: border-box;
+}
+
+.sign-creator__title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #e5e7eb;
+}
+
+.sign-creator__error {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #f87171;
+}
+
+.sign-creator__save {
+  width: 100%;
+  min-height: 2.4rem;
+  border-radius: 0;
+  font-size: 0.85rem;
+  font-weight: 650;
+}
+
+.sign-creator .sign-tabs {
+  margin-bottom: 0;
+}
+
+.sign-creator .sign-tabs__btn {
+  border-radius: 0;
+  padding: 0.4rem 0.35rem;
+  font-size: 0.8rem;
+}
+
+.sign-creator .sign-pad--inline {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 1;
+  max-height: 7.5rem;
+}
+
+.sign-pad-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.sign-pad__enlarge {
+  position: absolute;
+  top: 0.4rem;
+  inset-inline-end: 0.4rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 1.75rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  border-radius: 0;
+  background: rgba(15, 23, 42, 0.88);
+  color: #f5f5f5;
+  font-size: 0.7rem;
+  font-weight: 650;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.sign-pad__enlarge:hover,
+.sign-pad__enlarge:focus-visible {
+  background: rgba(15, 23, 42, 0.96);
+  outline: none;
+}
+
+/* Large draw overlay — fixed to viewport, portaled; cannot drift with page scroll. */
+.sign-draw-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483000 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  pointer-events: auto !important;
+}
+
+.sign-draw-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.72);
+  cursor: pointer;
+}
+
+.sign-draw-overlay__panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: min(56rem, 100%);
+  max-height: min(90vh, 40rem);
+  overflow: auto;
+  padding: 1.15rem 1.2rem 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 0;
+  background: #0b1220;
+  color: #e5e7eb;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+}
+
+.sign-draw-overlay__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sign-draw-overlay__title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.sign-draw-overlay__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #a3a3a3;
+  cursor: pointer;
+}
+
+.sign-draw-overlay__close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.sign-draw-overlay__hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #a3a3a3;
+}
+
+.sign-pad--large {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(42vh, 20rem);
+  aspect-ratio: 3 / 1;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 0;
+  background: #ffffff;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.sign-draw-overlay__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem;
+}
+
+.sign-draw-overlay__actions .btn {
+  min-height: 2.4rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0;
+  font-size: 0.875rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.sign-draw-overlay__actions .btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  color: #e5e5e5;
+}
+
+.sign-draw-overlay__actions .btn--primary {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: #0a0a0a;
+}
+
+.sign-creator .sign-type-preview {
+  margin-top: 0.35rem;
+  font-size: 1.35rem;
+}
+
+.sign-creator .sign-pad__clear {
+  font-size: 0.78rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .sign-library__hint,
@@ -12829,75 +13057,135 @@ body.site-search-open {
 .sign-pages {
   display: grid;
   gap: 1.25rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .sign-page {
-  border: 1px solid #e5e5e5;
+  border: 1px solid #262626;
   border-radius: 0;
   padding: 0.75rem;
-  background: #ffffff;
-  box-shadow: none;
-}
-
-.sign-page {
-  border-color: #262626;
   background: #0a0a0a;
+  box-shadow: none;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .sign-page__label {
   margin: 0 0 0.5rem;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #262626;
-}
-
-.sign-page__label {
   color: #e5e5e5;
 }
 
 .sign-page__studio {
-  display: flex;
-  justify-content: center;
-  padding: 1.25rem 1rem;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid #171717;
   border-radius: 0;
-  border: 1px solid #e5e5e5;
-  background: linear-gradient(to bottom, #f5f5f5, #f5f5f5);
-}
-
-.sign-page__studio {
-  border-color: #171717;
   background: #020617;
+  overflow: hidden;
+  text-align: center;
+  box-sizing: border-box;
 }
 
+/* Do not stretch the loupe to full column width — that breaks fit-content page sizing. */
+.sign-page__studio .magnifier {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  min-width: 0;
+  vertical-align: top;
+}
+
+/*
+ * Grid stack: page image defines the box; overlay shares the same cell.
+ * Absolute plaques cannot grow the stage (the old infinite-height bug).
+ */
 .sign-page__stage {
   position: relative;
-  display: inline-block;
+  display: inline-grid;
+  grid-template: 1fr / 1fr;
+  justify-items: stretch;
+  align-items: stretch;
+  width: max-content;
   max-width: 100%;
+  max-height: min(70vh, 820px);
+  margin: 0 auto;
   line-height: 0;
   touch-action: none;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #262626;
   border-radius: 0;
   overflow: hidden;
   background: #ffffff;
   box-shadow: none;
-}
-
-.sign-page__stage {
-  border-color: #262626;
-  box-shadow: none;
+  box-sizing: border-box;
+  vertical-align: top;
 }
 
 .sign-page__canvas {
+  grid-area: 1 / 1;
   display: block;
-  max-width: 100%;
+  position: relative;
+  z-index: 0;
+  width: auto;
+  max-width: min(100%, 48rem);
   height: auto;
+  max-height: min(70vh, 820px);
+  object-fit: contain;
+  background: #ffffff;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.sign-page__loading,
-.sign-page__hint {
-  margin: 0.35rem 0 0;
-  font-size: 0.78rem;
+.sign-page__loading {
+  grid-area: 1 / 1;
+  margin: 0;
+  padding: 2.5rem 1.25rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
   color: #a3a3a3;
+  text-align: center;
+  min-width: min(100%, 18rem);
+  min-height: 8rem;
+  box-sizing: border-box;
+}
+
+.sign-page__stage--placing {
+  cursor: crosshair;
+  outline: 2px dashed rgba(148, 163, 184, 0.55);
+  outline-offset: 2px;
+}
+
+.sign-page__hint--placing {
+  color: #bae6fd;
+  font-weight: 600;
+}
+
+.sign-saved-item.is-pending .sign-saved-item__place {
+  border-color: rgba(125, 211, 252, 0.65);
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.sign-plaque-layer {
+  grid-area: 1 / 1;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  overflow: hidden;
+  align-self: stretch;
+  justify-self: stretch;
 }
 
 .sign-plaque {
@@ -12905,8 +13193,13 @@ body.site-search-open {
   z-index: 2;
   cursor: move;
   border: 2px dashed rgba(115, 115, 115, 0.75);
-  border-radius: 6px;
+  border-radius: 0;
   box-sizing: border-box;
+  pointer-events: auto;
+  touch-action: none;
+  max-width: 100%;
+  max-height: 100%;
+  will-change: left, top, width, height;
 }
 
 .sign-plaque__img {
@@ -12926,6 +13219,7 @@ body.site-search-open {
   background: #a3a3a3;
   border: 2px solid #0b1220;
   cursor: nwse-resize;
+  touch-action: none;
 }
 
 .sign-plaque__remove {
@@ -12943,6 +13237,32 @@ body.site-search-open {
   font-size: 14px;
   line-height: 1;
   cursor: pointer;
+}
+
+.sign-text-label {
+  position: absolute;
+  z-index: 1;
+  max-width: 40%;
+  margin: 0;
+  pointer-events: none;
+  font-size: 0.625rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #404040;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 640px) {
+  .sign-text-label {
+    font-size: 0.75rem;
+  }
+}
+
+.dark .sign-text-label,
+.sign-page .sign-text-label {
+  color: #d4d4d4;
 }
 
 .sign-modal {
@@ -12994,19 +13314,46 @@ body.site-search-open {
   color: #bae6fd;
 }
 
+.sign-tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sign-tab-panel__hint {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #a3a3a3;
+}
+
+.sign-tab-panel__label {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e5e5e5;
+}
+
 .sign-pad {
+  display: block;
   width: 100%;
+  max-width: 100%;
   border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 10px;
+  border-radius: 0;
   background: #fff;
   touch-action: none;
+  cursor: crosshair;
+}
+
+.sign-pad__clear {
+  align-self: flex-start;
 }
 
 .sign-type-input {
   width: 100%;
   padding: 0.65rem;
   border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 10px;
+  border-radius: 0;
   background: rgba(0, 0, 0, 0.65);
   color: #e5e7eb;
 }
@@ -13021,6 +13368,45 @@ body.site-search-open {
 
 .sign-tab-panel.is-hidden {
   display: none;
+}
+
+.sign-modal__error {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: #f87171;
+}
+
+.sign-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.15rem;
+}
+
+.sign-modal__actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+  font-size: 0.9rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.sign-modal__actions .btn--ghost {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.35);
+  color: #e5e5e5;
+}
+
+.sign-modal__actions .btn--primary {
+  background: #ffffff;
+  color: #0a0a0a;
 }
 
 .redact-page__hint,
@@ -34060,7 +34446,6 @@ html.workspace-phase-clean .tool-upload-float--immersive .utility-tool-layout,
 .magnifier:has(.image-grid-splitter__canvas-wrap),
 .magnifier:has(.ico-to-png-tool__preview-stage),
 .magnifier:has(.redact-page__stage),
-.magnifier:has(.sign-page__stage),
 .magnifier:has(> .magnifier__source > img) {
   display: block;
   width: 100%;
@@ -36216,13 +36601,22 @@ html.workspace-phase-clean .pinned-dock {
   background: rgb(0 0 0 / 0.55);
   cursor: pointer;
 }
-.cloud-import-modal__panel,
-.rate-tool-modal__panel {
+.cloud-import-modal__panel {
   position: relative;
   z-index: 1;
   width: min(26rem, 100%);
   padding: 1.15rem 1.2rem 1.25rem;
   border-radius: 0.75rem;
+  background: #fff;
+  color: #171717;
+  box-shadow: 0 18px 50px rgb(0 0 0 / 0.28);
+}
+.rate-tool-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: min(26rem, 100%);
+  padding: 1.15rem 1.2rem 1.25rem;
+  border-radius: 0;
   background: #fff;
   color: #171717;
   box-shadow: 0 18px 50px rgb(0 0 0 / 0.28);
@@ -36242,8 +36636,7 @@ html.workspace-phase-clean .pinned-dock {
   font-weight: 700;
   line-height: 1.3;
 }
-.cloud-import-modal__close,
-.rate-tool-modal__close {
+.cloud-import-modal__close {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
@@ -36252,6 +36645,19 @@ html.workspace-phase-clean .pinned-dock {
   height: 2rem;
   border: 0;
   border-radius: 0.4rem;
+  background: transparent;
+  color: #525252;
+  cursor: pointer;
+}
+.rate-tool-modal__close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 0;
   background: transparent;
   color: #525252;
   cursor: pointer;
@@ -36281,8 +36687,7 @@ html.workspace-phase-clean .pinned-dock {
   flex-direction: column;
   gap: 0.5rem;
 }
-.cloud-import-modal__btn,
-.rate-tool-modal__btn {
+.cloud-import-modal__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -36290,6 +36695,20 @@ html.workspace-phase-clean .pinned-dock {
   min-height: 2.5rem;
   padding: 0.55rem 0.9rem;
   border-radius: 0.5rem;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+}
+.rate-tool-modal__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0;
   border: 1px solid transparent;
   font-size: 0.9rem;
   font-weight: 650;
@@ -36355,9 +36774,9 @@ html.workspace-phase-clean .pinned-dock {
   max-height: min(90vh, 40rem);
   overflow: auto;
   padding: 1.15rem 1.2rem 1.25rem;
-  border-radius: 0.75rem;
-  background: #ffffff !important;
-  color: #171717 !important;
+  border-radius: var(--app-overlay-radius, 0.75rem);
+  background: var(--app-overlay-bg, #ffffff) !important;
+  color: var(--app-overlay-fg, #171717) !important;
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
   pointer-events: auto !important;
@@ -36375,7 +36794,7 @@ html.workspace-phase-clean .pinned-dock {
   font-size: 1.05rem;
   font-weight: 700;
   line-height: 1.3;
-  color: #171717 !important;
+  color: var(--app-overlay-fg, #171717) !important;
 }
 .app-overlay-modal__close {
   flex-shrink: 0;
@@ -36385,23 +36804,23 @@ html.workspace-phase-clean .pinned-dock {
   width: 2rem;
   height: 2rem;
   border: 0;
-  border-radius: 0.4rem;
+  border-radius: var(--app-overlay-control-radius, 0.4rem);
   background: transparent;
-  color: #525252;
+  color: var(--app-overlay-muted, #525252);
   cursor: pointer;
 }
 .app-overlay-modal__close:hover {
-  background: #f5f5f5;
-  color: #171717;
+  background: var(--app-overlay-close-hover-bg, #f5f5f5);
+  color: var(--app-overlay-fg, #171717);
 }
 .app-overlay-modal__body {
-  color: #171717;
+  color: var(--app-overlay-fg, #171717);
 }
 .app-overlay-modal__text {
   margin: 0 0 0.85rem;
   font-size: 0.9rem;
   line-height: 1.45;
-  color: #404040 !important;
+  color: var(--app-overlay-muted, #404040) !important;
 }
 .app-overlay-modal__error {
   margin: 0 0 0.85rem;
@@ -36428,7 +36847,7 @@ html.workspace-phase-clean .pinned-dock {
   gap: 0.45rem;
   min-height: 2.5rem;
   padding: 0.55rem 0.9rem;
-  border-radius: 0.5rem;
+  border-radius: var(--app-overlay-control-radius, 0.5rem);
   border: 1px solid transparent;
   font-size: 0.9rem;
   font-weight: 650;
@@ -36441,12 +36860,24 @@ html.workspace-phase-clean .pinned-dock {
   cursor: wait;
 }
 .app-overlay-modal__btn--primary {
-  background: #171717 !important;
-  color: #ffffff !important;
-  border-color: #171717;
+  background: var(--app-overlay-btn-primary-bg, #171717) !important;
+  color: var(--app-overlay-btn-primary-fg, #ffffff) !important;
+  border-color: var(--app-overlay-btn-primary-bg, #171717);
 }
 .app-overlay-modal__btn--secondary {
-  background: #f5f5f5 !important;
-  border-color: #e5e5e5;
-  color: #171717 !important;
+  background: var(--app-overlay-btn-secondary-bg, #f5f5f5) !important;
+  border-color: var(--app-overlay-btn-secondary-border, #e5e5e5);
+  color: var(--app-overlay-btn-secondary-fg, #171717) !important;
+}
+
+/* Rate-this-tool: sharp industrial corners on panel + controls */
+.app-overlay-modal--accent .app-overlay-modal__panel,
+.app-overlay-modal.rate-tool-modal .app-overlay-modal__panel {
+  border-radius: 0;
+}
+.app-overlay-modal--accent .app-overlay-modal__close,
+.app-overlay-modal--accent .app-overlay-modal__btn,
+.app-overlay-modal.rate-tool-modal .app-overlay-modal__close,
+.app-overlay-modal.rate-tool-modal .app-overlay-modal__btn {
+  border-radius: 0;
 }

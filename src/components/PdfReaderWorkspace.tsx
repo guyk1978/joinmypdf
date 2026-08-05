@@ -9,11 +9,14 @@ import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
+import { PdfThumbCanvas } from "@/components/PdfThumbCanvas";
 import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import { openPdfDocument, renderPdfReaderPage, type PdfJsDocument } from "@/lib/pdf-reader";
+import { canvasHasVisibleInk } from "@/lib/pdf-paint";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import { setDocFullscreenActive } from "@/lib/doc-fullscreen";
 import type { ToolDefinition } from "@/lib/types";
+import { clsx } from "clsx";
 import { Maximize2, Minimize2, ZoomIn, ZoomOut } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
@@ -33,6 +36,8 @@ const ZOOM_SLIDER_STEP = 0.01;
 const ZOOM_BUTTON_STEP = 0.1;
 /** Debounce PDF.js re-renders while the slider drags; CSS scales instantly. */
 const ZOOM_RENDER_DEBOUNCE_MS = 90;
+const PDF_READER_THUMB_SCALE = 0.18;
+const CANVAS_ATTACH_MAX_FRAMES = 12;
 
 type FullscreenCapableElement = HTMLElement & {
   webkitRequestFullscreen?: () => Promise<void> | void;
@@ -137,10 +142,93 @@ async function exitDocumentFullscreen() {
   }
 }
 
+function PdfReaderSidebarThumb({
+  pageIndex,
+  pageNumber,
+  active,
+  fileBytes,
+  password,
+  loadingLabel,
+  failedLabel,
+  pageLabel,
+  onSelect,
+}: {
+  pageIndex: number;
+  pageNumber: number;
+  active: boolean;
+  fileBytes: Uint8Array;
+  password: string;
+  loadingLabel: string;
+  failedLabel: string;
+  pageLabel: string;
+  onSelect: () => void;
+}) {
+  const wrapRef = useRef<HTMLLIElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "120px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!active) return;
+    wrapRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [active]);
+
+  return (
+    <li ref={wrapRef} className={clsx("pdf-reader-thumb", active && "is-active")}>
+      <button
+        type="button"
+        className="pdf-reader-thumb__btn"
+        aria-current={active ? "page" : undefined}
+        aria-label={pageLabel}
+        onClick={onSelect}
+      >
+        {visible ? (
+          <PdfThumbCanvas
+            fileBytes={fileBytes}
+            pageIndex={pageIndex}
+            password={password}
+            scale={PDF_READER_THUMB_SCALE}
+            loadingLabel={loadingLabel}
+            failedLabel={failedLabel}
+            enabled={visible}
+            wrapClassName="pdf-reader-thumb__canvas-wrap"
+            canvasClassName="pdf-reader-thumb__canvas"
+            loadingClassName="pdf-reader-thumb__loading"
+          />
+        ) : (
+          <div className="pdf-reader-thumb__canvas-wrap">
+            <p className="pdf-reader-thumb__loading">{loadingLabel}</p>
+          </div>
+        )}
+        <span className="pdf-reader-thumb__label" aria-hidden>
+          {pageNumber}
+        </span>
+      </button>
+    </li>
+  );
+}
+
 export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
   const ws = useWorkspaceI18n(tool.operation);
   const tPage = useTranslations("PdfReaderPage");
+  const tCommon = useTranslations("Workspaces.common");
   const [file, setFile] = useState<File | null>(null);
+  const [fileBytes, setFileBytes] = useState<Uint8Array | null>(null);
+  const [password, setPassword] = useState("");
   const [pageCount, setPageCount] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [zoom, setZoom] = useState(ZOOM_DEFAULT);
@@ -148,6 +236,8 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const [busy, setBusy] = useState(false);
   const [rendering, setRendering] = useState(false);
   const [runError, setRunError] = useState<PdfProcessingError | null>(null);
+  const [pageRenderError, setPageRenderError] = useState("");
+  const [renderNonce, setRenderNonce] = useState(0);
   const [drag, setDrag] = useState(false);
   const [fsMode, setFsMode] = useState<"off" | "native" | "css">("off");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -190,6 +280,8 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   const reset = useCallback(() => {
     void destroyDoc();
     setFile(null);
+    setFileBytes(null);
+    setPassword("");
     setPageCount(0);
     setPageNumber(1);
     setZoom(ZOOM_DEFAULT);
@@ -197,6 +289,8 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     setPageDisplaySize({ w: 0, h: 0 });
     setStatus("");
     setRunError(null);
+    setPageRenderError("");
+    setRenderNonce(0);
     setRendering(false);
     setFsMode("off");
     if (getFullscreenElement()) {
@@ -217,10 +311,13 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       }
       setBusy(true);
       setRunError(null);
+      setPageRenderError("");
       setStatus(ws.wsStatus("reading"));
+      const bytes = new Uint8Array(await next.arrayBuffer());
+      setFileBytes(bytes);
+      setPassword("");
       try {
         await destroyDoc();
-        const bytes = new Uint8Array(await next.arrayBuffer());
         const doc = await openPdfDocument(bytes);
         docRef.current = doc;
         setFile(next);
@@ -237,7 +334,12 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
         const parsed = classifyPdfError(e);
         setRunError(parsed);
         setStatus("");
-        setFile(null);
+        if (parsed.kind === "encrypted") {
+          setFile(next);
+        } else {
+          setFile(null);
+          setFileBytes(null);
+        }
         setPageCount(0);
         capture(EVENTS.tool_run_error, {
           operation: tool.operation,
@@ -251,6 +353,41 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
     },
     [acceptPdf, destroyDoc, slug, tool.operation, ws],
   );
+
+  const unlockWithPassword = useCallback(async () => {
+    if (!fileBytes) return;
+    setBusy(true);
+    setRunError(null);
+    setPageRenderError("");
+    setStatus(ws.wsStatus("reading"));
+    try {
+      await destroyDoc();
+      const doc = await openPdfDocument(fileBytes, password);
+      docRef.current = doc;
+      setPageCount(doc.numPages);
+      setPageNumber(1);
+      setZoom(ZOOM_DEFAULT);
+      setRenderedZoom(ZOOM_DEFAULT);
+      setPageDisplaySize({ w: 0, h: 0 });
+      const name = file?.name ?? "document.pdf";
+      setStatus(ws.wsStatus("fileReady", { name }));
+      capture(EVENTS.tool_run_success, { operation: tool.operation, slug });
+    } catch (e) {
+      await destroyDoc();
+      const parsed = classifyPdfError(e);
+      setRunError(parsed);
+      setStatus("");
+      setPageCount(0);
+      capture(EVENTS.tool_run_error, {
+        operation: tool.operation,
+        slug,
+        message: parsed.message,
+        kind: parsed.kind,
+      });
+    } finally {
+      setBusy(false);
+    }
+  }, [destroyDoc, file, fileBytes, password, slug, tool.operation, ws]);
 
   // PWA File Handling API — open OS-associated PDFs directly in this reader.
   const pickFileRef = useRef(pickFile);
@@ -281,22 +418,42 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   useEffect(() => {
     const doc = docRef.current;
-    const canvas = canvasRef.current;
-    if (!file || !doc || !canvas) return;
+    if (!file || !doc) return;
 
     const token = ++renderTokenRef.current;
-    const renderKey = `${file.name}:${file.size}:${file.lastModified}:${pageNumber}`;
+    const renderKey = `${file.name}:${file.size}:${file.lastModified}:${pageNumber}:${renderNonce}`;
     const delay =
       lastRenderKeyRef.current !== renderKey ? 0 : ZOOM_RENDER_DEBOUNCE_MS;
     lastRenderKeyRef.current = renderKey;
 
     let cancelled = false;
+    let rafHandle = 0;
+    let timer = 0;
 
-    const timer = window.setTimeout(() => {
-      const scaleToRender = zoomRef.current;
+    const finishRendering = () => {
+      if (!cancelled && token === renderTokenRef.current) {
+        setRendering(false);
+      }
+    };
+
+    const runRender = (canvas: HTMLCanvasElement) => {
+      const scaleToRender = Math.max(0.35, zoomRef.current);
       setRendering(true);
+      setPageRenderError("");
       void (async () => {
         try {
+          if (process.env.NODE_ENV === "development") {
+            const stage = viewportRef.current?.querySelector(
+              ".pdf-reader-viewport__stage",
+            ) as HTMLElement | null;
+            console.info("[pdf-reader] render start", {
+              pageNumber,
+              scaleToRender,
+              stageW: stage?.clientWidth ?? 0,
+              canvasAttached: Boolean(canvas.isConnected),
+            });
+          }
+
           const size = await renderPdfReaderPage({
             doc,
             pageNumber,
@@ -304,25 +461,75 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
             canvas,
             textLayerEl: textLayerRef.current,
           });
-          if (!cancelled && token === renderTokenRef.current) {
-            setRenderedZoom(scaleToRender);
-            setPageDisplaySize({ w: size.width, h: size.height });
-            setRendering(false);
+          if (cancelled || token !== renderTokenRef.current) return;
+          if (process.env.NODE_ENV === "development") {
+            console.info("[pdf-reader] render done", {
+              w: size.width,
+              h: size.height,
+              canvasW: canvas.width,
+              canvasH: canvas.height,
+              hasInk: canvasHasVisibleInk(canvas),
+            });
           }
+          setRenderedZoom(scaleToRender);
+          setPageDisplaySize({ w: size.width, h: size.height });
+          setPageRenderError("");
+          setRendering(false);
         } catch (e) {
           if (cancelled || token !== renderTokenRef.current) return;
+          const canvasNode = canvasRef.current;
+          if (canvasNode && canvasNode.width > 1 && canvasNode.height > 1 && canvasHasVisibleInk(canvasNode)) {
+            setPageDisplaySize({
+              w: Number.parseFloat(canvasNode.style.width) || canvasNode.width,
+              h: Number.parseFloat(canvasNode.style.height) || canvasNode.height,
+            });
+            setRenderedZoom(zoomRef.current);
+            setPageRenderError("");
+            setRendering(false);
+            return;
+          }
           const parsed = classifyPdfError(e);
-          setRunError(parsed);
+          setPageRenderError(parsed.message);
           setRendering(false);
         }
       })();
-    }, delay);
+    };
+
+    const tryStart = () => {
+      if (cancelled) return;
+      const canvas = canvasRef.current;
+      if (canvas) {
+        runRender(canvas);
+        return;
+      }
+      let attempts = 0;
+      const poll = () => {
+        if (cancelled) return;
+        const node = canvasRef.current;
+        if (node) {
+          runRender(node);
+          return;
+        }
+        attempts += 1;
+        if (attempts < CANVAS_ATTACH_MAX_FRAMES) {
+          rafHandle = requestAnimationFrame(poll);
+        } else {
+          setPageRenderError("Could not attach to the page canvas.");
+          finishRendering();
+        }
+      };
+      rafHandle = requestAnimationFrame(poll);
+    };
+
+    timer = window.setTimeout(tryStart, delay);
 
     return () => {
       cancelled = true;
       window.clearTimeout(timer);
+      if (rafHandle) cancelAnimationFrame(rafHandle);
+      finishRendering();
     };
-  }, [file, pageNumber, zoom]);
+  }, [file, pageNumber, zoom, renderNonce]);
 
   useEffect(() => {
     return () => {
@@ -417,6 +624,15 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
   }, [fsMode]);
 
   const showWorkspace = Boolean(file && pageCount > 0);
+  const showEncryptedUnlock = Boolean(fileBytes && runError?.kind === "encrypted" && !showWorkspace);
+  const thumbLoadingLabel = ws.wsCommon("loadingPreview") || ws.processing;
+  const thumbFailedLabel = tCommon.has("previewFailed")
+    ? tCommon("previewFailed")
+    : ws.wsUi("renderFailed");
+  const retryPageRender = useCallback(() => {
+    setPageRenderError("");
+    setRenderNonce((n) => n + 1);
+  }, []);
   const enterFullscreenLabel = ws.wsUi("enterFullscreen");
   const exitFullscreenLabel = ws.wsUi("exitFullscreen");
   const zoomOutLabel = ws.wsUi("zoomOut");
@@ -454,8 +670,53 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
   return (
     <div id="tool-workspace" className="pdf-reader-tool-page tool-workspace--wide space-y-3 pb-12 md:pb-8">
-      <WorkspaceUploadShell active={showWorkspace}>
-        {!showWorkspace ? (
+      <WorkspaceUploadShell active={showWorkspace || showEncryptedUnlock}>
+        {showEncryptedUnlock ? (
+          <div
+            id={WORKSPACE_OPERATIONS_ID}
+            className="pdf-reader-unlock space-y-3 rounded-none border border-neutral-300 bg-white p-4 md:p-5 dark:border-neutral-800 dark:bg-neutral-900"
+          >
+            {file?.name ? (
+              <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{file.name}</p>
+            ) : null}
+            <p className="text-sm text-neutral-600 dark:text-neutral-400" role="alert">
+              {runError?.message || ws.wsUi("passwordLabel")}
+            </p>
+            <label className="pdf-reader-unlock__label" htmlFor={`${baseId}-pdf-password`}>
+              {ws.wsUi("passwordLabel")}
+            </label>
+            <div className="pdf-reader-unlock__row">
+              <input
+                id={`${baseId}-pdf-password`}
+                type="password"
+                className="pdf-reader-unlock__input"
+                autoComplete="current-password"
+                value={password}
+                disabled={busy}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") void unlockWithPassword();
+                }}
+              />
+              <button
+                type="button"
+                className="pdf-reader-unlock__btn"
+                disabled={busy || !password.trim()}
+                onClick={() => void unlockWithPassword()}
+              >
+                {ws.wsUi("unlockPreview")}
+              </button>
+            </div>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={reset}
+              className="rounded-none border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-900 transition hover:bg-neutral-100 disabled:opacity-50 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800"
+            >
+              {ws.chooseAnotherFile}
+            </button>
+          </div>
+        ) : !showWorkspace ? (
           <FileUploadZone
             operation={tool.operation}
             slug={slug}
@@ -591,6 +852,36 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           <p className="text-xs text-neutral-600 dark:text-neutral-400">{ws.wsUi("selectHint")}</p>
 
           <div
+            className={clsx(
+              "pdf-reader-layout",
+              docFullscreen && "pdf-reader-layout--fullscreen",
+            )}
+          >
+            {showWorkspace && !docFullscreen && fileBytes ? (
+              <aside className="pdf-reader-thumbs" aria-label={ws.wsUi("thumbnailsLabel")}>
+                <ol className="pdf-reader-thumbs__list" role="list">
+                  {Array.from({ length: pageCount }, (_, pageIndex) => {
+                    const num = pageIndex + 1;
+                    return (
+                      <PdfReaderSidebarThumb
+                        key={num}
+                        pageIndex={pageIndex}
+                        pageNumber={num}
+                        active={pageNumber === num}
+                        fileBytes={fileBytes}
+                        password={password}
+                        loadingLabel={thumbLoadingLabel}
+                        failedLabel={thumbFailedLabel}
+                        pageLabel={ws.wsUi("jumpToPage") + ` ${num}`}
+                        onSelect={() => setPageNumber(num)}
+                      />
+                    );
+                  })}
+                </ol>
+              </aside>
+            ) : null}
+
+          <div
             ref={viewportRef}
             className={[
               "pdf-reader-viewport",
@@ -673,9 +964,23 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 </div>
               </div>
             </div>
-            {rendering && visualRatio === 1 ? (
+            {rendering ? (
               <div className="pdf-reader-viewport__loading" aria-live="polite">
                 {ws.wsCommon("loadingPreview") || ws.processing}
+              </div>
+            ) : null}
+            {pageRenderError ? (
+              <div className="pdf-reader-viewport__error" role="alert">
+                <p className="pdf-reader-viewport__error-title">{ws.wsUi("renderFailed")}</p>
+                <p className="pdf-reader-viewport__error-detail">{pageRenderError}</p>
+                <button
+                  type="button"
+                  className="pdf-reader-viewport__error-retry"
+                  disabled={busy}
+                  onClick={retryPageRender}
+                >
+                  {ws.wsUi("retryRender")}
+                </button>
               </div>
             ) : null}
             {docFullscreen ? (
@@ -683,6 +988,7 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 Esc · ← →
               </p>
             ) : null}
+          </div>
           </div>
 
           <div className="flex flex-wrap gap-3" data-workspace-actions="">
@@ -702,7 +1008,7 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
       </WorkspaceUploadShell>
 
       <div className="tool-workspace-feedback space-y-3">
-        {runError ? (
+        {runError && runError.kind !== "encrypted" ? (
           <ToolErrorRecovery
             operation={tool.operation}
             slug={slug}
@@ -714,13 +1020,13 @@ export function PdfReaderWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
               inputRef.current?.click();
             }}
           />
-        ) : status ? (
+        ) : status && !showEncryptedUnlock ? (
           <p className="text-sm text-neutral-700 dark:text-neutral-300" role="status" aria-live="polite">
             {status}
           </p>
         ) : null}
 
-        {!showWorkspace && busy ? (
+        {!showWorkspace && !showEncryptedUnlock && busy ? (
           <div className="workspace-progress-host space-y-2" aria-live="polite" role="status">
             <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
               <span>{ws.processing}</span>

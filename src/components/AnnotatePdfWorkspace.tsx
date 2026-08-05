@@ -32,7 +32,9 @@ import {
 } from "@/lib/pdf-annotate";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import * as pdf from "@/lib/pdf-engine";
-import { loadPdfPageCount, renderPdfPageForUi } from "@/lib/pdf-redact";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
+import { blitCanvas } from "@/lib/pdf-render";
+import { loadPdfPageCount } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
@@ -114,39 +116,25 @@ function AnnotationPageStage({
   const wrapRef = useRef<HTMLDivElement>(null);
   const baseRef = useRef<HTMLCanvasElement>(null);
   const overlayRef = useRef<HTMLCanvasElement>(null);
-  const [baseCanvas, setBaseCanvas] = useState<HTMLCanvasElement | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes,
+    pageIndex,
+    password,
+    scale: ANNOTATE_UI_SCALE,
+  });
   const drawingRef = useRef(false);
   const rafRef = useRef<number | null>(null);
   const pendingPointRef = useRef<PdfDrawPoint | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageForUi(fileBytes, pageIndex, password, ANNOTATE_UI_SCALE).then(({ canvas }) => {
-      if (cancelled) return;
-      setBaseCanvas(canvas);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex, password]);
-
-  useEffect(() => {
     const baseEl = baseRef.current;
-    if (!baseEl || !baseCanvas) return;
-    baseEl.width = baseCanvas.width;
-    baseEl.height = baseCanvas.height;
-    const ctx = baseEl.getContext("2d");
-    if (!ctx) return;
-    ctx.clearRect(0, 0, baseEl.width, baseEl.height);
-    ctx.drawImage(baseCanvas, 0, 0);
-  }, [baseCanvas]);
+    if (!baseEl || !pageCanvas) return;
+    blitCanvas(pageCanvas, baseEl);
+  }, [pageCanvas]);
 
   const redrawOverlay = useCallback(() => {
     const overlay = overlayRef.current;
-    const base = baseCanvas;
+    const base = pageCanvas;
     if (!overlay || !base) return;
     overlay.width = base.width;
     overlay.height = base.height;
@@ -178,7 +166,7 @@ function AnnotationPageStage({
       ctx.fillStyle = `${highlightColor}66`;
       ctx.fillRect(nx * overlay.width, ny * overlay.height, nw * overlay.width, nh * overlay.height);
     }
-  }, [activeStroke, baseCanvas, bundle, drawColor, drawWidth, highlightColor, highlightDraft, pageIndex]);
+  }, [activeStroke, pageCanvas, bundle, drawColor, drawWidth, highlightColor, highlightDraft, pageIndex]);
 
   useEffect(() => {
     redrawOverlay();
@@ -297,11 +285,18 @@ function AnnotationPageStage({
             onPointerLeave={onPointerUp}
             role="presentation"
           >
-            {loading || !baseCanvas ? (
+            {loading ? (
               <div className="flex min-h-[240px] min-w-[200px] items-center justify-center text-sm text-black dark:text-neutral-200">
                 {loadingLabel}
               </div>
-            ) : (
+            ) : failed ? (
+              <div
+                className="flex min-h-[240px] min-w-[200px] items-center justify-center text-sm text-black dark:text-neutral-200"
+                role="alert"
+              >
+                {errorMessage}
+              </div>
+            ) : pageCanvas ? (
               <>
                 <canvas ref={baseRef} className="block max-h-[480px] max-w-full" />
                 <canvas
@@ -309,7 +304,7 @@ function AnnotationPageStage({
                   className="pointer-events-none absolute inset-0 h-full w-full"
                 />
               </>
-            )}
+            ) : null}
           </div>
         </PdfStudioPage>
       </PdfEditStudio>

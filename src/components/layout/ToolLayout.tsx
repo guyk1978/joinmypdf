@@ -16,6 +16,7 @@ import { ToolLocalProcessingBar } from "@/components/ToolLocalProcessingBar";
 import { ToolPageHeader } from "@/components/ToolPageHeader";
 import { ToolPageInfoBlock } from "@/components/ToolPageInfoBlock";
 import { WorkerErrorBoundary } from "@/components/workers/WorkerErrorBoundary";
+import { PdfPreviewErrorBoundary } from "@/components/PdfPreviewErrorBoundary";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { registry } from "@/lib/registry";
 import {
@@ -145,7 +146,9 @@ export function ToolLayout({
   const calcPane = (
     <>
       <div className={clsx("tool-page-layout__content flex min-h-0 w-full flex-1 flex-col", contentClassName)}>
-        <WorkerErrorBoundary>{children}</WorkerErrorBoundary>
+        <WorkerErrorBoundary>
+          <PdfPreviewErrorBoundary>{children}</PdfPreviewErrorBoundary>
+        </WorkerErrorBoundary>
       </div>
       <ToolWorkspaceOverview className="tool-workspace-overview--layout-fallback" />
       {resolvedSlug ? <AdContainer /> : null}
@@ -216,7 +219,9 @@ export function ToolLayout({
         style={accentStyle}
       >
         <div className={clsx("tool-page-layout__content flex min-h-0 w-full flex-1 flex-col", contentClassName)}>
-          <WorkerErrorBoundary>{children}</WorkerErrorBoundary>
+          <WorkerErrorBoundary>
+          <PdfPreviewErrorBoundary>{children}</PdfPreviewErrorBoundary>
+        </WorkerErrorBoundary>
         </div>
       </div>
     );

@@ -1,7 +1,8 @@
 "use client";
 
 import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
-import { DELETE_PAGES_THUMB_SCALE, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
+import { PdfThumbCanvas } from "@/components/PdfThumbCanvas";
+import { DELETE_PAGES_THUMB_SCALE } from "@/lib/pdf-delete-pages";
 import {
   DndContext,
   DragOverlay,
@@ -73,9 +74,11 @@ function LazyThumbCanvas({
   loadingLabel: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
+  const tCommon = useTranslations("Workspaces.common");
+  const failedLabel = tCommon.has("previewFailed")
+    ? tCommon("previewFailed")
+    : "Could not render this page.";
 
   useEffect(() => {
     const el = wrapRef.current;
@@ -93,30 +96,23 @@ function LazyThumbCanvas({
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!visible) return;
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageThumbnail(fileBytes, pageIndex, password, DELETE_PAGES_THUMB_SCALE).then(
-      (canvas) => {
-        if (cancelled || !canvasRef.current) return;
-        const node = canvasRef.current;
-        node.width = canvas.width;
-        node.height = canvas.height;
-        const ctx = node.getContext("2d");
-        if (ctx) ctx.drawImage(canvas, 0, 0);
-        setLoading(false);
-      },
-    );
-    return () => {
-      cancelled = true;
-    };
-  }, [visible, fileBytes, pageIndex, password]);
-
   return (
-    <div ref={wrapRef} className="page-manage-thumb__canvas-wrap">
-      {loading ? <p className="page-manage-thumb__loading">{loadingLabel}</p> : null}
-      <canvas ref={canvasRef} className="page-manage-thumb__canvas" />
+    <div ref={wrapRef}>
+      {!visible ? (
+        <div className="page-manage-thumb__canvas-wrap">
+          <p className="page-manage-thumb__loading">{loadingLabel}</p>
+        </div>
+      ) : (
+        <PdfThumbCanvas
+          fileBytes={fileBytes}
+          pageIndex={pageIndex}
+          password={password}
+          scale={DELETE_PAGES_THUMB_SCALE}
+          loadingLabel={loadingLabel}
+          failedLabel={failedLabel}
+          enabled={visible}
+        />
+      )}
     </div>
   );
 }

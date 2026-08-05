@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { SaveProjectButton } from "@/components/SaveProjectButton";
+import { scrollToWorkspaceUpload } from "@/lib/workspace-flow";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 
 type WorkspaceActionRowProps = {
@@ -44,7 +45,14 @@ export function WorkspaceActionRow({
         {clearLabel}
       </button>
       {onNewUpload && newUploadLabel ? (
-        <button type="button" onClick={onNewUpload} className={toolSecondaryBtn}>
+        <button
+          type="button"
+          onClick={() => {
+            scrollToWorkspaceUpload();
+            onNewUpload();
+          }}
+          className={toolSecondaryBtn}
+        >
           {newUploadLabel}
         </button>
       ) : null}

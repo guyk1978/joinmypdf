@@ -23,7 +23,9 @@ import {
   type NormalizedCropRect,
 } from "@/lib/crop-pdf";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
-import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
+import { blitCanvas } from "@/lib/pdf-render";
+import { loadPdfPageCount, REDACT_UI_SCALE } from "@/lib/pdf-redact";
 import { registerPreviewInspectSource } from "@/lib/preview-inspect";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
@@ -155,31 +157,26 @@ function CropPreview({
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const displayCanvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes,
+    pageIndex: 0,
+    scale: REDACT_UI_SCALE,
+  });
   const dragRef = useRef<DragMode | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageForUi(fileBytes, 0, undefined, REDACT_UI_SCALE).then(({ canvas }) => {
-      if (cancelled) return;
-      setCanvasEl(canvas);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes]);
+    if (!pageCanvas || !displayCanvasRef.current) return;
+    blitCanvas(pageCanvas, displayCanvasRef.current);
+  }, [pageCanvas]);
 
   useEffect(() => {
-    if (!canvasEl) return;
+    if (!pageCanvas) return;
     return registerPreviewInspectSource({
       id: "crop-pdf-preview",
       getPriority: () => 100,
-      isAvailable: () => Boolean(displayCanvasRef.current || canvasEl),
+      isAvailable: () => Boolean(displayCanvasRef.current || pageCanvas),
       capture: () => {
-        const source = displayCanvasRef.current ?? canvasEl;
+        const source = displayCanvasRef.current ?? pageCanvas;
         try {
           return source.toDataURL("image/png");
         } catch {
@@ -188,7 +185,7 @@ function CropPreview({
       },
       label: openPreviewLabel,
     });
-  }, [canvasEl, openPreviewLabel]);
+  }, [pageCanvas, openPreviewLabel]);
 
   const pointerPos = (event: ReactPointerEvent) => {
     const rect = wrapRef.current?.getBoundingClientRect();
@@ -238,7 +235,7 @@ function CropPreview({
           type="button"
           className={toolOutlineBtn}
           onClick={onOpenPreview}
-          disabled={loading || !canvasEl}
+          disabled={loading || failed || !pageCanvas}
         >
           <ZoomIn className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
           {openPreviewLabel}
@@ -259,17 +256,17 @@ function CropPreview({
                 {loadingPreviewLabel}
               </div>
             ) : null}
-            {canvasEl ? (
+            {failed ? (
+              <div
+                className="flex min-h-[280px] min-w-[200px] items-center justify-center text-sm text-neutral-600 dark:text-neutral-300"
+                role="alert"
+              >
+                {errorMessage}
+              </div>
+            ) : null}
+            {pageCanvas ? (
               <canvas
-                ref={(node) => {
-                  displayCanvasRef.current = node;
-                  if (node && canvasEl) {
-                    node.width = canvasEl.width;
-                    node.height = canvasEl.height;
-                    const ctx = node.getContext("2d");
-                    if (ctx) ctx.drawImage(canvasEl, 0, 0);
-                  }
-                }}
+                ref={displayCanvasRef}
                 className="block h-auto max-w-full"
               />
             ) : null}

@@ -36,25 +36,30 @@ const STYLE_TAG_ID = "joinmypdf-app-overlay-modal-css";
 
 /** Ensure panel CSS exists even when portaling into a parent frame that hasn't hot-reloaded. */
 function ensureOverlayCss(doc: Document) {
-  if (doc.getElementById(STYLE_TAG_ID)) return;
-  const style = doc.createElement("style");
-  style.id = STYLE_TAG_ID;
+  let style = doc.getElementById(STYLE_TAG_ID) as HTMLStyleElement | null;
+  if (!style) {
+    style = doc.createElement("style");
+    style.id = STYLE_TAG_ID;
+    doc.head.appendChild(style);
+  }
   style.textContent = `
 .app-overlay-modal{position:fixed!important;inset:0!important;z-index:2147483000!important;display:flex!important;align-items:center;justify-content:center;padding:1rem;box-sizing:border-box}
 .app-overlay-modal__backdrop{position:absolute!important;inset:0!important;z-index:0!important;border:0;margin:0;padding:0;background:rgba(0,0,0,.58)!important;cursor:pointer}
-.app-overlay-modal__panel{position:relative!important;z-index:1!important;display:block!important;visibility:visible!important;opacity:1!important;width:min(26rem,100%);max-height:min(90vh,40rem);overflow:auto;padding:1.15rem 1.2rem 1.25rem;border-radius:.75rem;background:#fff!important;color:#171717!important;box-shadow:0 18px 50px rgba(0,0,0,.35);box-sizing:border-box}
+.app-overlay-modal__panel{position:relative!important;z-index:1!important;display:block!important;visibility:visible!important;opacity:1!important;width:min(26rem,100%);max-height:min(90vh,40rem);overflow:auto;padding:1.15rem 1.2rem 1.25rem;border-radius:var(--app-overlay-radius,.75rem);background:var(--app-overlay-bg,#fff)!important;color:var(--app-overlay-fg,#171717)!important;box-shadow:0 18px 50px rgba(0,0,0,.35);box-sizing:border-box}
 .app-overlay-modal__header{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.65rem}
-.app-overlay-modal__title{margin:0;font-size:1.05rem;font-weight:700;line-height:1.3;color:#171717!important}
-.app-overlay-modal__close{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border:0;border-radius:.4rem;background:transparent;color:#525252;cursor:pointer}
-.app-overlay-modal__text{margin:0 0 .85rem;font-size:.9rem;line-height:1.45;color:#404040!important}
+.app-overlay-modal__title{margin:0;font-size:1.05rem;font-weight:700;line-height:1.3;color:var(--app-overlay-fg,#171717)!important}
+.app-overlay-modal__close{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border:0;border-radius:var(--app-overlay-control-radius,.4rem);background:transparent;color:var(--app-overlay-muted,#525252);cursor:pointer}
+.app-overlay-modal__close:hover{background:var(--app-overlay-close-hover-bg,#f5f5f5);color:var(--app-overlay-fg,#171717)}
+.app-overlay-modal__text{margin:0 0 .85rem;font-size:.9rem;line-height:1.45;color:var(--app-overlay-muted,#404040)!important}
 .app-overlay-modal__error{margin:0 0 .85rem;font-size:.85rem;color:#b91c1c!important}
 .app-overlay-modal__stars{display:flex;justify-content:center;margin:.35rem 0 .85rem}
 .app-overlay-modal__actions{display:flex;flex-direction:column;gap:.5rem}
-.app-overlay-modal__btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:2.5rem;padding:.55rem .9rem;border-radius:.5rem;border:1px solid transparent;font-size:.9rem;font-weight:650;text-decoration:none;cursor:pointer;box-sizing:border-box}
-.app-overlay-modal__btn--primary{background:#171717!important;color:#fff!important}
-.app-overlay-modal__btn--secondary{background:#f5f5f5!important;border-color:#e5e5e5;color:#171717!important}
+.app-overlay-modal__btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:2.5rem;padding:.55rem .9rem;border-radius:var(--app-overlay-control-radius,.5rem);border:1px solid transparent;font-size:.9rem;font-weight:650;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.app-overlay-modal__btn--primary{background:var(--app-overlay-btn-primary-bg,#171717)!important;color:var(--app-overlay-btn-primary-fg,#fff)!important;border-color:var(--app-overlay-btn-primary-bg,#171717)}
+.app-overlay-modal__btn--secondary{background:var(--app-overlay-btn-secondary-bg,#f5f5f5)!important;border-color:var(--app-overlay-btn-secondary-border,#e5e5e5);color:var(--app-overlay-btn-secondary-fg,#171717)!important}
+.app-overlay-modal--accent .app-overlay-modal__panel,.app-overlay-modal.rate-tool-modal .app-overlay-modal__panel{border-radius:0}
+.app-overlay-modal--accent .app-overlay-modal__close,.app-overlay-modal--accent .app-overlay-modal__btn,.app-overlay-modal.rate-tool-modal .app-overlay-modal__close,.app-overlay-modal.rate-tool-modal .app-overlay-modal__btn{border-radius:0}
 `;
-  doc.head.appendChild(style);
 }
 
 const shellStyle: CSSProperties = {
@@ -79,18 +84,31 @@ const backdropStyle: CSSProperties = {
   zIndex: 0,
 };
 
-const panelStyle: CSSProperties = {
+const panelStyleBase: CSSProperties = {
   position: "relative",
   zIndex: 1,
   width: "min(26rem, 100%)",
   maxHeight: "min(90vh, 40rem)",
   overflow: "auto",
   padding: "1.15rem 1.2rem 1.25rem",
-  borderRadius: "0.75rem",
-  background: "#ffffff",
-  color: "#171717",
   boxShadow: "0 18px 50px rgba(0, 0, 0, 0.35)",
   boxSizing: "border-box",
+};
+
+export type AppOverlayModalTone = {
+  /** Solid panel fill (hex). */
+  background: string;
+  /** High-contrast ink for titles / primary text. */
+  foreground: string;
+  /** Secondary / hint text and close icon. */
+  muted: string;
+  /** Close button hover fill. */
+  closeHoverBackground: string;
+  primaryButtonBackground: string;
+  primaryButtonForeground: string;
+  secondaryButtonBackground: string;
+  secondaryButtonBorder: string;
+  secondaryButtonForeground: string;
 };
 
 type AppOverlayModalProps = {
@@ -101,6 +119,12 @@ type AppOverlayModalProps = {
   /** Optional footer actions below the body. */
   footer?: ReactNode;
   closeLabel?: string;
+  /**
+   * When set, panel uses this solid brand fill + contrasting ink
+   * (used by Rate this tool). Sharp corners are applied automatically.
+   */
+  tone?: AppOverlayModalTone;
+  className?: string;
 };
 
 /**
@@ -114,6 +138,8 @@ export function AppOverlayModal({
   children,
   footer,
   closeLabel = "Close",
+  tone,
+  className,
 }: AppOverlayModalProps) {
   const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
 
@@ -164,9 +190,30 @@ export function AppOverlayModal({
     event.stopPropagation();
   };
 
+  const toneVars = tone
+    ? ({
+        "--app-overlay-bg": tone.background,
+        "--app-overlay-fg": tone.foreground,
+        "--app-overlay-muted": tone.muted,
+        "--app-overlay-close-hover-bg": tone.closeHoverBackground,
+        "--app-overlay-radius": "0",
+        "--app-overlay-control-radius": "0",
+        "--app-overlay-btn-primary-bg": tone.primaryButtonBackground,
+        "--app-overlay-btn-primary-fg": tone.primaryButtonForeground,
+        "--app-overlay-btn-secondary-bg": tone.secondaryButtonBackground,
+        "--app-overlay-btn-secondary-border": tone.secondaryButtonBorder,
+        "--app-overlay-btn-secondary-fg": tone.secondaryButtonForeground,
+        "--star-rating-color": tone.foreground,
+      } as CSSProperties)
+    : undefined;
+
+  const shellClass = ["app-overlay-modal", tone ? "app-overlay-modal--accent" : null, className]
+    .filter(Boolean)
+    .join(" ");
+
   return createPortal(
     <div
-      className="app-overlay-modal"
+      className={shellClass}
       role="presentation"
       style={shellStyle}
       data-app-overlay="1"
@@ -180,7 +227,7 @@ export function AppOverlayModal({
       />
       <div
         className="app-overlay-modal__panel"
-        style={panelStyle}
+        style={{ ...panelStyleBase, ...toneVars }}
         role="dialog"
         aria-modal="true"
         aria-label={title}

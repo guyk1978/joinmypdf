@@ -95,8 +95,15 @@ const nextConfig: NextConfig = {
           // Allow same-origin + blob Workers (FFmpeg classWorkerURL + toBlobURL cores).
           {
             key: "Content-Security-Policy",
-            value: "worker-src 'self' blob:; frame-ancestors 'self';",
+            value: "worker-src 'self' blob:; frame-ancestors 'self'",
           },
+        ],
+      },
+      {
+        source: "/pdfjs/:path*",
+        headers: [
+          { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
       {

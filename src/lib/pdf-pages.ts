@@ -18,6 +18,9 @@ export async function buildPdfFromPageSequence(
   }
 
   const doc = await PDFDocument.load(source, { ignoreEncryption: true });
+  if (doc.isEncrypted) {
+    throw new Error("This PDF is password-protected. Unlock it before rearranging pages.");
+  }
   const total = doc.getPageCount();
 
   for (const index of pageIndices) {

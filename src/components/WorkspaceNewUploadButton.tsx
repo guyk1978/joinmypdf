@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { clsx } from "clsx";
+import { scrollToWorkspaceUpload } from "@/lib/workspace-flow";
 import { toolSecondaryBtn } from "@/lib/tool-ui";
 
 type WorkspaceNewUploadButtonProps = {
@@ -21,7 +22,10 @@ export function WorkspaceNewUploadButton({
     <button
       type="button"
       disabled={disabled}
-      onClick={onClick}
+      onClick={() => {
+        scrollToWorkspaceUpload();
+        onClick();
+      }}
       className={clsx(toolSecondaryBtn, className)}
     >
       {label}

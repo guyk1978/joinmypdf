@@ -18,6 +18,7 @@ import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import type { ToolDefinition } from "@/lib/types";
 import { rotatePdfBytes, rotatePdfOutputName, type PageRotationAdjustment } from "@/lib/rotate-pdf";
+import { renderPdfThumbnailDataUrls } from "@/lib/pdf-render";
 import {
   useCallback,
   useEffect,
@@ -45,34 +46,6 @@ function normalizeRightAngle(angle: number): 0 | 90 | 180 | 270 {
   const normalized = ((Math.round(angle / 90) * 90) % 360 + 360) % 360;
   if (normalized === 90 || normalized === 180 || normalized === 270) return normalized;
   return 0;
-}
-
-async function setupPdfJs() {
-  const pdfjs = await import("pdfjs-dist");
-  const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
-  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-  return pdfjs;
-}
-
-async function renderThumbnails(data: Uint8Array): Promise<Thumb[]> {
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({ data: data.slice() }).promise;
-  const thumbs: Thumb[] = [];
-  const scale = 0.26;
-
-  for (let i = 1; i <= doc.numPages; i += 1) {
-    const page = await doc.getPage(i);
-    const viewport = page.getViewport({ scale });
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.max(1, Math.floor(viewport.width));
-    canvas.height = Math.max(1, Math.floor(viewport.height));
-    const ctx = canvas.getContext("2d");
-    if (!ctx) throw new Error("Canvas rendering is not supported in this browser.");
-    await page.render({ canvasContext: ctx, viewport, canvas } as never).promise;
-    thumbs.push({ pageIndex: i - 1, dataUrl: canvas.toDataURL("image/jpeg", 0.9) });
-  }
-
-  return thumbs;
 }
 
 export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug: string }) {
@@ -142,7 +115,7 @@ export function RotatePdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
 
     try {
       const bytes = new Uint8Array(await next.arrayBuffer());
-      const rendered = await renderThumbnails(bytes);
+      const rendered = await renderPdfThumbnailDataUrls(bytes, { scale: 0.26, quality: 0.9 });
       setFile(next);
       setFileBytes(bytes);
       setThumbs(rendered);

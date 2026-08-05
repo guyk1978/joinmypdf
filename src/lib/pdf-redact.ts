@@ -1,4 +1,11 @@
 import { PDFDocument } from "pdf-lib-with-encrypt";
+import {
+  loadPdfPageCount as sharedLoadPdfPageCount,
+  PDF_STUDIO_SCALE,
+  renderPdfPageForUi as sharedRenderPdfPageForUi,
+  renderPageToOffscreenCanvas,
+  withPdfDocument,
+} from "@/lib/pdf-render";
 
 /** Redaction rectangle in normalized page coordinates (0–1, origin top-left). */
 export type NormalizedRedactionRect = {
@@ -9,31 +16,8 @@ export type NormalizedRedactionRect = {
   nh: number;
 };
 
-export const REDACT_UI_SCALE = 1.25;
+export const REDACT_UI_SCALE = PDF_STUDIO_SCALE;
 const FLATTEN_SCALE = 2;
-
-async function setupPdfJs() {
-  const pdfjs = await import("pdfjs-dist");
-  const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
-  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-  return pdfjs;
-}
-
-async function renderPdfJsPage(
-  pdfDoc: Awaited<ReturnType<Awaited<ReturnType<typeof setupPdfJs>>["getDocument"]>["promise"]>,
-  pageNumber: number,
-  scale: number,
-): Promise<HTMLCanvasElement> {
-  const page = await pdfDoc.getPage(pageNumber);
-  const viewport = page.getViewport({ scale });
-  const canvas = document.createElement("canvas");
-  canvas.width = viewport.width;
-  canvas.height = viewport.height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas not supported.");
-  await page.render({ canvasContext: ctx, viewport, canvas } as never).promise;
-  return canvas;
-}
 
 function canvasToJpeg(canvas: HTMLCanvasElement, quality = 0.92): Promise<Uint8Array> {
   return new Promise((resolve, reject) => {
@@ -69,12 +53,6 @@ export async function redactPdfBytes(
   if (!rects.length) throw new Error("Draw at least one redaction box.");
 
   const password = options?.password?.trim() || undefined;
-  const pdfjs = await setupPdfJs();
-
-  const pdfJsDoc = await pdfjs.getDocument({
-    data: source.slice(),
-    password,
-  }).promise;
 
   const loadOptions = password ? { password } : {};
   let libDoc: PDFDocument;
@@ -92,31 +70,28 @@ export async function redactPdfBytes(
   const pageCount = libDoc.getPageCount();
   const redactedPages = new Set(rects.map((r) => r.pageIndex));
 
-  for (let i = 0; i < pageCount; i += 1) {
-    if (redactedPages.has(i)) {
-      const { width, height } = libDoc.getPage(i).getSize();
-      const canvas = await renderPdfJsPage(pdfJsDoc, i + 1, FLATTEN_SCALE);
-      drawRedactionsOnCanvas(canvas, rects, i);
-      const jpegBytes = await canvasToJpeg(canvas);
-      const image = await outDoc.embedJpg(jpegBytes);
-      const page = outDoc.addPage([width, height]);
-      page.drawImage(image, { x: 0, y: 0, width, height });
-    } else {
-      const [copied] = await outDoc.copyPages(libDoc, [i]);
-      outDoc.addPage(copied);
+  await withPdfDocument(source, password, async (pdfJsDoc) => {
+    for (let i = 0; i < pageCount; i += 1) {
+      if (redactedPages.has(i)) {
+        const { width, height } = libDoc.getPage(i).getSize();
+        const canvas = await renderPageToOffscreenCanvas(pdfJsDoc, i + 1, FLATTEN_SCALE, "opaque-white");
+        drawRedactionsOnCanvas(canvas, rects, i);
+        const jpegBytes = await canvasToJpeg(canvas);
+        const image = await outDoc.embedJpg(jpegBytes);
+        const page = outDoc.addPage([width, height]);
+        page.drawImage(image, { x: 0, y: 0, width, height });
+      } else {
+        const [copied] = await outDoc.copyPages(libDoc, [i]);
+        outDoc.addPage(copied);
+      }
     }
-  }
+  });
 
   return outDoc.save({ useObjectStreams: false });
 }
 
 export async function loadPdfPageCount(source: Uint8Array, password?: string): Promise<number> {
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({
-    data: source.slice(),
-    password: password?.trim() || undefined,
-  }).promise;
-  return doc.numPages;
+  return sharedLoadPdfPageCount(source, password);
 }
 
 export async function renderPdfPageForUi(
@@ -125,13 +100,7 @@ export async function renderPdfPageForUi(
   password?: string,
   scale = REDACT_UI_SCALE,
 ): Promise<{ canvas: HTMLCanvasElement; width: number; height: number }> {
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({
-    data: source.slice(),
-    password: password?.trim() || undefined,
-  }).promise;
-  const canvas = await renderPdfJsPage(doc, pageIndex + 1, scale);
-  return { canvas, width: canvas.width, height: canvas.height };
+  return sharedRenderPdfPageForUi(source, pageIndex, password, scale);
 }
 
 /** Find keyword matches and return normalized redaction rectangles (top-left origin). */
@@ -145,50 +114,50 @@ export async function findKeywordRedactionRects(
 
   const password = options?.password?.trim() || undefined;
   const caseSensitive = options?.caseSensitive ?? false;
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({
-    data: source.slice(),
-    password,
-  }).promise;
 
-  const rects: NormalizedRedactionRect[] = [];
-  const needle = caseSensitive ? query : query.toLowerCase();
+  return withPdfDocument(source, password, async (doc) => {
+    const rects: NormalizedRedactionRect[] = [];
+    const needle = caseSensitive ? query : query.toLowerCase();
 
-  for (let pageIndex = 0; pageIndex < doc.numPages; pageIndex += 1) {
-    const page = await doc.getPage(pageIndex + 1);
-    const viewport = page.getViewport({ scale: 1 });
-    const pageWidth = viewport.width;
-    const pageHeight = viewport.height;
-    const content = await page.getTextContent();
+    for (let pageIndex = 0; pageIndex < doc.numPages; pageIndex += 1) {
+      const page = await doc.getPage(pageIndex + 1);
+      const viewport = page.getViewport({ scale: 1 });
+      const pageWidth = viewport.width;
+      const pageHeight = viewport.height;
+      const content = (await page.getTextContent()) as {
+        items: Array<{
+          str?: string;
+          transform?: number[];
+          width?: number;
+          height?: number;
+        }>;
+      };
 
-    for (const item of content.items) {
-      if (!("str" in item) || typeof item.str !== "string") continue;
-      const haystack = caseSensitive ? item.str : item.str.toLowerCase();
-      if (!haystack.includes(needle)) continue;
+      for (const item of content.items) {
+        if (typeof item.str !== "string") continue;
+        const haystack = caseSensitive ? item.str : item.str.toLowerCase();
+        if (!haystack.includes(needle)) continue;
 
-      const transform = item.transform;
-      const x = transform[4] ?? 0;
-      const y = transform[5] ?? 0;
-      const itemWidth =
-        typeof (item as { width?: number }).width === "number"
-          ? (item as { width: number }).width
-          : query.length * 6;
-      const itemHeight =
-        typeof (item as { height?: number }).height === "number"
-          ? (item as { height: number }).height
-          : Math.abs(transform[3] ?? 12) || 12;
+        const transform = item.transform ?? [];
+        const x = transform[4] ?? 0;
+        const y = transform[5] ?? 0;
+        const itemWidth = typeof item.width === "number" ? item.width : query.length * 6;
+        const itemHeight =
+          typeof item.height === "number" ? item.height : Math.abs(transform[3] ?? 12) || 12;
 
-      const pad = 2;
-      const nx = Math.max(0, (x - pad) / pageWidth);
-      const ny = Math.max(0, (pageHeight - y - itemHeight - pad) / pageHeight);
-      const nw = Math.min(1 - nx, (itemWidth + pad * 2) / pageWidth);
-      const nh = Math.min(1 - ny, (itemHeight + pad * 2) / pageHeight);
+        const pad = 2;
+        const nx = Math.max(0, (x - pad) / pageWidth);
+        const ny = Math.max(0, (pageHeight - y - itemHeight - pad) / pageHeight);
+        const nw = Math.min(1 - nx, (itemWidth + pad * 2) / pageWidth);
+        const nh = Math.min(1 - ny, (itemHeight + pad * 2) / pageHeight);
 
-      if (nw > 0 && nh > 0) {
-        rects.push({ pageIndex, nx, ny, nw, nh });
+        if (nw > 0 && nh > 0) {
+          rects.push({ pageIndex, nx, ny, nw, nh });
+        }
       }
     }
-  }
 
-  return rects;
+    return rects;
+  });
 }
+

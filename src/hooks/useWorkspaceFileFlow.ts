@@ -49,10 +49,13 @@ export function useWorkspaceFileFlow(
   const startNewUpload = useCallback(
     (reset: () => void) => {
       reset();
+      // Immediate scroll — user is often stuck at the bottom after a long tool run.
+      scrollToWorkspaceUpload();
       window.setTimeout(() => {
+        // Retry once layout has switched to the clean upload phase.
         scrollToWorkspaceUpload();
         inputRef.current?.click();
-      }, 150);
+      }, 180);
     },
     [inputRef],
   );

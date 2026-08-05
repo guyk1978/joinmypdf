@@ -15,7 +15,8 @@ import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import * as pdf from "@/lib/pdf-engine";
 import { PdfPagePreviewModal } from "@/components/PdfPagePreviewModal";
-import { DELETE_PAGES_THUMB_SCALE, loadPdfPageCount, renderPdfPageThumbnail } from "@/lib/pdf-delete-pages";
+import { PdfThumbCanvas } from "@/components/PdfThumbCanvas";
+import { DELETE_PAGES_THUMB_SCALE, loadPdfPageCount } from "@/lib/pdf-delete-pages";
 import {
   extractPdfOutputName,
   formatPageRangeSpec,
@@ -26,6 +27,7 @@ import type { ToolDefinition } from "@/lib/types";
 import { toolOutlineBtn, toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
 import { clsx } from "clsx";
 import { Check, ZoomIn } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
   useCallback,
   useEffect,
@@ -68,9 +70,11 @@ function ExtractPageThumb({
   onPreview: () => void;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
+  const tCommon = useTranslations("Workspaces.common");
+  const failedLabel = tCommon.has("previewFailed")
+    ? tCommon("previewFailed")
+    : "Could not render this page.";
 
   useEffect(() => {
     const el = wrapRef.current;
@@ -88,26 +92,6 @@ function ExtractPageThumb({
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!visible) return;
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageThumbnail(fileBytes, pageIndex, password, DELETE_PAGES_THUMB_SCALE).then(
-      (canvas) => {
-        if (cancelled || !canvasRef.current) return;
-        const node = canvasRef.current;
-        node.width = canvas.width;
-        node.height = canvas.height;
-        const ctx = node.getContext("2d");
-        if (ctx) ctx.drawImage(canvas, 0, 0);
-        setLoading(false);
-      },
-    );
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex, password, visible]);
-
   return (
     <div
       className={clsx("extract-page-thumb", selected && "is-selected")}
@@ -124,16 +108,32 @@ function ExtractPageThumb({
         aria-label={selectAria}
         onClick={onToggle}
       >
-        <div ref={wrapRef} className="extract-page-thumb__canvas-wrap">
-          {loading || !visible ? (
-            <p className="extract-page-thumb__loading">{loadingLabel}</p>
-          ) : null}
-          <canvas ref={canvasRef} className="extract-page-thumb__canvas" />
-          {selected ? (
-            <span className="extract-page-thumb__check" aria-hidden>
-              <Check size={14} strokeWidth={2.5} />
-            </span>
-          ) : null}
+        <div ref={wrapRef} className="relative">
+          {!visible ? (
+            <div className="extract-page-thumb__canvas-wrap">
+              <p className="extract-page-thumb__loading">{loadingLabel}</p>
+            </div>
+          ) : (
+            <>
+              <PdfThumbCanvas
+                fileBytes={fileBytes}
+                pageIndex={pageIndex}
+                password={password}
+                scale={DELETE_PAGES_THUMB_SCALE}
+                loadingLabel={loadingLabel}
+                failedLabel={failedLabel}
+                enabled={visible}
+                wrapClassName="extract-page-thumb__canvas-wrap"
+                canvasClassName="extract-page-thumb__canvas"
+                loadingClassName="extract-page-thumb__loading"
+              />
+              {selected ? (
+                <span className="extract-page-thumb__check" aria-hidden>
+                  <Check size={14} strokeWidth={2.5} />
+                </span>
+              ) : null}
+            </>
+          )}
         </div>
         <span className="extract-page-thumb__label">{pageLabel}</span>
       </button>

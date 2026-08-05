@@ -145,6 +145,25 @@ async function syncTesseractAssets() {
 
 await syncTesseractAssets();
 
+// pdf.js worker + image decoders (JBIG2 / JPEG2000 / OpenJPEG) + CMaps / fonts.
+// Scanned PDFs render blank without same-origin wasmUrl for the worker.
+async function syncPdfJsAssets() {
+  const destRoot = path.join(publicDir, "pdfjs");
+  await mkdir(destRoot, { recursive: true });
+  await copyFile(
+    path.join(root, "node_modules", "pdfjs-dist", "build", "pdf.worker.min.mjs"),
+    path.join(destRoot, "pdf.worker.min.mjs"),
+  );
+  for (const folder of ["wasm", "cmaps", "standard_fonts"]) {
+    await cp(path.join(root, "node_modules", "pdfjs-dist", folder), path.join(destRoot, folder), {
+      recursive: true,
+      force: true,
+    });
+  }
+}
+
+await syncPdfJsAssets();
+
 // @ffmpeg/core (+ core-mt) same-origin assets — preferred under COEP require-corp.
 // Cloudflare Pages rejects assets >25 MiB; ffmpeg-core.wasm is ~31 MiB, so skip WASM
 // there and let FfmpegWorkerClient fall back to unpkg (already CORP: cross-origin).
@@ -214,6 +233,7 @@ await copyFile(toolsHubSrc, toolsHubPublic);
 
 console.log("Synced assets → public/ after purging generated route artifacts.");
 console.log("Synced tesseract.js worker/core/lang-data → public/tesseract/ and public/assets/tesseract/");
+console.log("Synced pdf.js worker + wasm/cmaps/fonts → public/pdfjs/");
 console.log(
   skipLargeFfmpegWasm
     ? "Synced @ffmpeg/core JS/worker (skipped .wasm for Cloudflare Pages 25 MiB limit; CDN fallback)"

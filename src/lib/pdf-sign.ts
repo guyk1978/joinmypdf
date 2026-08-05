@@ -1,5 +1,10 @@
 import { PDFDocument, StandardFonts } from "pdf-lib-with-encrypt";
 import { hexToPdfRgb } from "./add-page-numbers";
+import {
+  loadPdfPageCount as sharedLoadPdfPageCount,
+  PDF_STUDIO_SCALE,
+  renderPdfPageCanvas,
+} from "@/lib/pdf-render";
 
 /** Signature box in normalized page coordinates (0–1, origin top-left). */
 export type NormalizedSignaturePlacement = {
@@ -71,38 +76,10 @@ export function instanceToPlacement(instance: SignatureInstance): NormalizedSign
   };
 }
 
-export const SIGN_UI_SCALE = 1.25;
-
-async function setupPdfJs() {
-  const pdfjs = await import("pdfjs-dist");
-  const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
-  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-  return pdfjs;
-}
-
-async function renderPdfJsPage(
-  pdfDoc: Awaited<ReturnType<Awaited<ReturnType<typeof setupPdfJs>>["getDocument"]>["promise"]>,
-  pageNumber: number,
-  scale: number,
-): Promise<HTMLCanvasElement> {
-  const page = await pdfDoc.getPage(pageNumber);
-  const viewport = page.getViewport({ scale });
-  const canvas = document.createElement("canvas");
-  canvas.width = viewport.width;
-  canvas.height = viewport.height;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas not supported.");
-  await page.render({ canvasContext: ctx, viewport, canvas } as never).promise;
-  return canvas;
-}
+export const SIGN_UI_SCALE = PDF_STUDIO_SCALE;
 
 export async function loadPdfPageCount(source: Uint8Array, password?: string): Promise<number> {
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({
-    data: source.slice(),
-    password: password?.trim() || undefined,
-  }).promise;
-  return doc.numPages;
+  return sharedLoadPdfPageCount(source, password);
 }
 
 export async function renderPdfPageForUi(
@@ -111,12 +88,7 @@ export async function renderPdfPageForUi(
   password?: string,
   scale = SIGN_UI_SCALE,
 ): Promise<HTMLCanvasElement> {
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({
-    data: source.slice(),
-    password: password?.trim() || undefined,
-  }).promise;
-  return renderPdfJsPage(doc, pageIndex + 1, scale);
+  return renderPdfPageCanvas(source, pageIndex, password, scale);
 }
 
 export function canvasToPngBytes(canvas: HTMLCanvasElement): Promise<Uint8Array> {

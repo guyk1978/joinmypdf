@@ -27,6 +27,7 @@ import {
   type BookletSheetSide,
   type CustomPaperUnit,
 } from "@/lib/pdf-booklet";
+import { renderPdfThumbnailDataUrls } from "@/lib/pdf-render";
 import { duplexFlipHintLabel, paperPresetLabel } from "@/lib/workspace-preset-i18n";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
@@ -49,32 +50,6 @@ function downloadBlob(blob: Blob, name: string) {
   a.download = name;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 1500);
-}
-
-async function setupPdfJs() {
-  const pdfjs = await import("pdfjs-dist");
-  const version = (pdfjs as unknown as { version?: string }).version || "5.7.284";
-  pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
-  return pdfjs;
-}
-
-async function renderThumbnails(data: Uint8Array): Promise<Thumb[]> {
-  const pdfjs = await setupPdfJs();
-  const doc = await pdfjs.getDocument({ data: data.slice() }).promise;
-  const thumbs: Thumb[] = [];
-  const scale = 0.22;
-  for (let i = 1; i <= doc.numPages; i += 1) {
-    const page = await doc.getPage(i);
-    const viewport = page.getViewport({ scale });
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.max(1, Math.floor(viewport.width));
-    canvas.height = Math.max(1, Math.floor(viewport.height));
-    const ctx = canvas.getContext("2d");
-    if (!ctx) throw new Error("Canvas rendering is not supported in this browser.");
-    await page.render({ canvasContext: ctx, viewport, canvas } as never).promise;
-    thumbs.push({ pageIndex: i - 1, dataUrl: canvas.toDataURL("image/jpeg", 0.88) });
-  }
-  return thumbs;
 }
 
 function pageLabel(n: number | null, sourceCount: number, blankLabel: string): string {
@@ -283,7 +258,7 @@ export function BookletPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug
     setLoadingThumbs(true);
     const bytes = new Uint8Array(await next.arrayBuffer());
     try {
-      const rendered = await renderThumbnails(bytes);
+      const rendered = await renderPdfThumbnailDataUrls(bytes, { scale: 0.22, quality: 0.88 });
       setFile(next);
       setThumbs(rendered);
       setPreviewSideIndex(0);

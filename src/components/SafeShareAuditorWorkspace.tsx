@@ -22,7 +22,8 @@ import {
   type AuditReport,
 } from "@/lib/pdf-safe-auditor";
 import { auditFindingLabel, auditKindLabel } from "@/lib/workspace-preset-i18n";
-import { redactPdfBytes, renderPdfPageForUi, REDACT_UI_SCALE } from "@/lib/pdf-redact";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
+import { redactPdfBytes, REDACT_UI_SCALE } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import type { ToolDefinition } from "@/lib/types";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
@@ -66,33 +67,31 @@ function AuditPageMap({
   mapAlt: string;
   mapLegend: string;
 }) {
-  const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes,
+    pageIndex,
+    scale: REDACT_UI_SCALE,
+  });
   const pageFindings = findings.filter((f) => f.pageIndex === pageIndex);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageForUi(fileBytes, pageIndex, undefined, REDACT_UI_SCALE).then(({ canvas }) => {
-      if (cancelled) return;
-      setCanvasEl(canvas);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex]);
 
   return (
     <div className="relative overflow-hidden rounded-none border border-white/15 bg-neutral-200 dark:bg-neutral-900">
       {loading ? (
         <div className="flex aspect-[3/4] items-center justify-center text-sm text-ink-muted">{loadingLabel}</div>
       ) : null}
-      {canvasEl ? (
+      {failed ? (
+        <div
+          className="flex aspect-[3/4] items-center justify-center px-4 text-center text-sm text-ink-muted"
+          role="alert"
+        >
+          {errorMessage}
+        </div>
+      ) : null}
+      {pageCanvas ? (
         <div className="relative mx-auto w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={canvasEl.toDataURL("image/png")}
+            src={pageCanvas.toDataURL("image/png")}
             alt={mapAlt}
             className="block h-auto w-full"
           />

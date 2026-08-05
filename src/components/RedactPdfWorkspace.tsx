@@ -6,6 +6,7 @@ import { capture, EVENTS } from "@/components/AnalyticsClient";
 import { WorkspaceNewUploadButton } from "@/components/WorkspaceNewUploadButton";
 import { FileUploadZone } from "@/components/FileUploadZone"
 import { Magnifier } from "@/components/Magnifier";
+import { PdfPreviewErrorBoundary } from "@/components/PdfPreviewErrorBoundary";
 import { WorkspaceUploadShell } from "@/components/WorkspaceUploadShell";
 import { useWorkspaceFileFlow } from "@/hooks/useWorkspaceFileFlow";
 import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
@@ -16,11 +17,12 @@ import { ToolErrorRecovery } from "@/components/ToolErrorRecovery";
 import type { ToolDefinition } from "@/lib/types";
 import * as pdf from "@/lib/pdf-engine";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
+import { blitCanvas } from "@/lib/pdf-render";
 import {
   REDACT_UI_SCALE,
   findKeywordRedactionRects,
   type NormalizedRedactionRect,
-  renderPdfPageForUi,
 } from "@/lib/pdf-redact";
 import { dispatchToolComplete } from "@/lib/subscription-modal";
 import { toolPrimaryBtn, toolSecondaryBtn } from "@/lib/tool-ui";
@@ -79,21 +81,18 @@ function PageCanvas({
   markHint: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [canvasEl, setCanvasEl] = useState<HTMLCanvasElement | null>(null);
-  const [loading, setLoading] = useState(true);
+  const displayCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes,
+    pageIndex,
+    password,
+    scale: REDACT_UI_SCALE,
+  });
 
   useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageForUi(fileBytes, pageIndex, password, REDACT_UI_SCALE).then(({ canvas }) => {
-      if (cancelled) return;
-      setCanvasEl(canvas);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex, password]);
+    if (!pageCanvas || !displayCanvasRef.current) return;
+    blitCanvas(pageCanvas, displayCanvasRef.current);
+  }, [pageCanvas]);
 
   const pageBoxes = boxes.filter((b) => b.pageIndex === pageIndex);
   const activeDraft = draft?.pageIndex === pageIndex ? draft : null;
@@ -168,19 +167,16 @@ function PageCanvas({
       >
         {loading ? (
           <p className="redact-page__loading">{loadingLabel}</p>
-        ) : canvasEl ? (
+        ) : failed ? (
+          <p className="redact-page__loading" role="alert">
+            {errorMessage}
+          </p>
+        ) : pageCanvas ? (
           <canvas
             className="redact-page__canvas"
-            ref={(node) => {
-              if (node && canvasEl) {
-                node.width = canvasEl.width;
-                node.height = canvasEl.height;
-                const ctx = node.getContext("2d");
-                if (ctx) ctx.drawImage(canvasEl, 0, 0);
-              }
-            }}
-            width={canvasEl.width}
-            height={canvasEl.height}
+            ref={displayCanvasRef}
+            width={pageCanvas.width}
+            height={pageCanvas.height}
           />
         ) : null}
         <div className="redact-page__overlay" aria-hidden="true">
@@ -529,6 +525,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
           ) : null}
 
           {fileBytes && pageCount > 0 ? (
+            <PdfPreviewErrorBoundary>
             <div className="redact-pages">
               {Array.from({ length: pageCount }, (_, i) => (
                 <PageCanvas
@@ -546,6 +543,7 @@ export function RedactPdfWorkspace({ tool, slug }: { tool: ToolDefinition; slug:
                 />
               ))}
             </div>
+            </PdfPreviewErrorBoundary>
           ) : null}
 
           <div className="redact-toolbar">

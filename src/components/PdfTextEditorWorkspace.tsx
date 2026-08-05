@@ -16,7 +16,9 @@ import { WORKSPACE_OPERATIONS_ID } from "@/lib/workspace-flow";
 import { useWorkspaceI18n } from "@/hooks/useWorkspaceI18n";
 import { classifyPdfError, type PdfProcessingError } from "@/lib/pdf-errors";
 import * as pdf from "@/lib/pdf-engine";
-import { loadPdfPageCount, REDACT_UI_SCALE, renderPdfPageForUi } from "@/lib/pdf-redact";
+import { usePdfStudioPage } from "@/hooks/usePdfStudioPage";
+import { blitCanvas } from "@/lib/pdf-render";
+import { loadPdfPageCount, REDACT_UI_SCALE } from "@/lib/pdf-redact";
 import {
   applyPdfTextLayers,
   pdfTextEditorOutputName,
@@ -71,36 +73,22 @@ function TextEditorPreview({
   const wrapRef = useRef<HTMLDivElement>(null);
   const baseRef = useRef<HTMLCanvasElement>(null);
   const overlayRef = useRef<HTMLCanvasElement>(null);
-  const [baseCanvas, setBaseCanvas] = useState<HTMLCanvasElement | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    void renderPdfPageForUi(fileBytes, pageIndex, password, REDACT_UI_SCALE).then(({ canvas }) => {
-      if (cancelled) return;
-      setBaseCanvas(canvas);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [fileBytes, pageIndex, password]);
+  const { canvas: pageCanvas, loading, errorMessage, failed } = usePdfStudioPage({
+    fileBytes,
+    pageIndex,
+    password,
+    scale: REDACT_UI_SCALE,
+  });
 
   useEffect(() => {
     const baseEl = baseRef.current;
-    if (!baseEl || !baseCanvas) return;
-    baseEl.width = baseCanvas.width;
-    baseEl.height = baseCanvas.height;
-    const ctx = baseEl.getContext("2d");
-    if (!ctx) return;
-    ctx.clearRect(0, 0, baseEl.width, baseEl.height);
-    ctx.drawImage(baseCanvas, 0, 0);
-  }, [baseCanvas]);
+    if (!baseEl || !pageCanvas) return;
+    blitCanvas(pageCanvas, baseEl);
+  }, [pageCanvas]);
 
   useEffect(() => {
     const overlay = overlayRef.current;
-    const base = baseCanvas;
+    const base = pageCanvas;
     if (!overlay || !base) return;
     overlay.width = base.width;
     overlay.height = base.height;
@@ -138,7 +126,7 @@ function TextEditorPreview({
         true,
       );
     }
-  }, [baseCanvas, layers, pageIndex, draftText, fontSize, colorHex, coverExisting]);
+  }, [pageCanvas, layers, pageIndex, draftText, fontSize, colorHex, coverExisting]);
 
   const onClick = (event: ReactMouseEvent) => {
     const rect = wrapRef.current?.getBoundingClientRect();
@@ -156,16 +144,23 @@ function TextEditorPreview({
           role="presentation"
           title={clickHint}
         >
-          {loading || !baseCanvas ? (
+          {loading ? (
             <div className="flex min-h-[240px] min-w-[200px] items-center justify-center text-sm text-black dark:text-neutral-200">
               {loadingLabel}
             </div>
-          ) : (
+          ) : failed ? (
+            <div
+              className="flex min-h-[240px] min-w-[200px] items-center justify-center text-sm text-black dark:text-neutral-200"
+              role="alert"
+            >
+              {errorMessage}
+            </div>
+          ) : pageCanvas ? (
             <>
               <canvas ref={baseRef} className="block max-h-[420px] max-w-full" />
               <canvas ref={overlayRef} className="pointer-events-none absolute inset-0 h-full w-full" />
             </>
-          )}
+          ) : null}
         </div>
       </PdfStudioPage>
     </PdfEditStudio>
