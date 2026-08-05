@@ -5,6 +5,7 @@ import {
   type AudioTrimFormat,
 } from "@/components/tools/ffmpeg/trim-audio";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type ChangeAudioSpeedOptions = {
   speed: number;
@@ -95,10 +96,20 @@ function buildEncodeTail(format: AudioTrimFormat, outputName: string): string[] 
       return ["-codec:a", "libvorbis", "-q:a", "5", outputName];
     case "aac":
     case "m4a":
-      return ["-codec:a", "aac", "-b:a", `${OUTPUT_BITRATE_KBPS}k`, outputName];
+      return ["-codec:a", "aac", "-b:a", `${OUTPUT_BITRATE_KBPS}k`, "-movflags", "+faststart", outputName];
     case "mp3":
     default:
-      return ["-codec:a", "libmp3lame", "-b:a", `${OUTPUT_BITRATE_KBPS}k`, outputName];
+      return [
+        "-codec:a",
+        "libmp3lame",
+        "-b:a",
+        `${OUTPUT_BITRATE_KBPS}k`,
+        "-write_xing",
+        "1",
+        "-id3v2_version",
+        "3",
+        outputName,
+      ];
   }
 }
 
@@ -197,9 +208,17 @@ export async function changeAudioSpeed(
         ),
       );
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: meta.mimeType });
+      return blobFromValidatedOutput(
+        outputBytes,
+        meta.mimeType,
+        meta.mimeType.includes("mpeg") || meta.mimeType.includes("mp3")
+          ? "mp3"
+          : meta.mimeType.includes("wav")
+            ? "wav"
+            : meta.mimeType.includes("mp4")
+              ? "mp4"
+              : "any",
+      );
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

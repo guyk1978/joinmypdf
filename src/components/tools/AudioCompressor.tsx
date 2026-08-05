@@ -4,12 +4,17 @@ import { useWorkspaceProjectBridge } from "@/components/WorkspaceProjectRegistry
 
 import { clsx } from "clsx";
 import { Download, Loader2 } from "lucide-react";
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useState } from "react";
 import { MediaDropzone } from "@/components/media/MediaDropzone";
 import { MediaProcessingStatus } from "@/components/media/MediaProcessingStatus";
 import { PostSuccessUpsell } from "@/components/PostSuccessUpsell";
 import { FfmpegEnvironmentNotice } from "@/components/tools/FfmpegEnvironmentNotice";
 import { estimateCompressedBytes } from "@/components/tools/ffmpeg/compress-audio";
+import {
+  detectMp3BitrateFromBytes,
+  estimateBitrateFromSize,
+  snapBitrateKbps,
+} from "@/components/tools/ffmpeg/mp3-bitrate";
 import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
 import {
   useFfmpegAudioCompress,
@@ -20,6 +25,7 @@ import { toolOutlineBtn, toolPrimaryBtn } from "@/lib/tool-ui";
 
 const MP3_ACCEPT = "audio/mpeg,audio/mp3,.mp3";
 const BITRATE_OPTIONS = [64, 96, 128, 192] as const;
+type BitrateOption = (typeof BITRATE_OPTIONS)[number];
 
 function formatBytes(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -41,6 +47,27 @@ function savingsPercent(originalBytes: number, estimatedBytes: number): number {
   return Math.max(0, Math.round((1 - estimatedBytes / originalBytes) * 100));
 }
 
+function pickDefaultTargetBitrate(originalKbps: number): BitrateOption {
+  const candidates = BITRATE_OPTIONS.filter((value) => value < originalKbps);
+  if (candidates.length) return candidates[candidates.length - 1];
+  return BITRATE_OPTIONS[0];
+}
+
+async function readMp3SourceBitrate(
+  file: File,
+  durationSeconds: number | null,
+): Promise<number | null> {
+  try {
+    const buffer = await file.slice(0, Math.min(file.size, 512 * 1024)).arrayBuffer();
+    const fromFrames = detectMp3BitrateFromBytes(new Uint8Array(buffer));
+    if (fromFrames) return fromFrames;
+  } catch {
+    // fall through
+  }
+  const estimated = estimateBitrateFromSize(file.size, durationSeconds);
+  return estimated ? snapBitrateKbps(estimated) : null;
+}
+
 export type AudioCompressorProps = ToolModuleProps & {
   onComplete?: (result: FfmpegAudioCompressResult) => void;
 };
@@ -49,7 +76,8 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
   const bitrateId = useId();
   const [file, setFile] = useState<File | null>(null);
   const [duration, setDuration] = useState<number | null>(null);
-  const [bitrateKbps, setBitrateKbps] = useState<(typeof BITRATE_OPTIONS)[number]>(128);
+  const [sourceBitrateKbps, setSourceBitrateKbps] = useState<number | null>(null);
+  const [bitrateKbps, setBitrateKbps] = useState<BitrateOption>(96);
   const [pickError, setPickError] = useState("");
 
   const {
@@ -68,33 +96,55 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
     environment && !environment.canRun ? environment.blockingMessage : undefined;
   const displayError = pickError || blockingError || error;
 
+  const targetInflates =
+    sourceBitrateKbps !== null && bitrateKbps >= sourceBitrateKbps;
+  const noLowerOption =
+    sourceBitrateKbps !== null &&
+    !BITRATE_OPTIONS.some((value) => value < sourceBitrateKbps);
+
   const estimatedBytes =
-    file && !result ? estimateCompressedBytes(duration, file.size, bitrateKbps) : null;
+    file && !result && !targetInflates
+      ? estimateCompressedBytes(duration, file.size, bitrateKbps)
+      : null;
   const estimatedSavings =
     file && estimatedBytes !== null ? savingsPercent(file.size, estimatedBytes) : 0;
 
   useEffect(() => {
     if (!file) {
       setDuration(null);
+      setSourceBitrateKbps(null);
       return;
     }
 
+    let cancelled = false;
     const url = URL.createObjectURL(file);
     const audio = new Audio();
     audio.preload = "metadata";
     audio.src = url;
 
-    const onMetadata = () => {
-      if (Number.isFinite(audio.duration) && audio.duration > 0) {
-        setDuration(audio.duration);
-      }
+    const finishBitrate = async (durationSeconds: number | null) => {
+      const detected = await readMp3SourceBitrate(file, durationSeconds);
+      if (cancelled) return;
+      setSourceBitrateKbps(detected);
+      if (detected) setBitrateKbps(pickDefaultTargetBitrate(detected));
     };
-    const onError = () => setDuration(null);
+
+    const onMetadata = () => {
+      const next =
+        Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : null;
+      setDuration(next);
+      void finishBitrate(next);
+    };
+    const onError = () => {
+      setDuration(null);
+      void finishBitrate(null);
+    };
 
     audio.addEventListener("loadedmetadata", onMetadata);
     audio.addEventListener("error", onError);
 
     return () => {
+      cancelled = true;
       audio.removeEventListener("loadedmetadata", onMetadata);
       audio.removeEventListener("error", onError);
       URL.revokeObjectURL(url);
@@ -112,13 +162,34 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
       setFile(next);
       setPickError("");
       setDuration(null);
+      setSourceBitrateKbps(null);
+      setBitrateKbps(96);
       reset();
     },
     [reset],
   );
 
-  const canCompress = Boolean(file) && !busy && environment?.canRun !== false;
+  const compressAndDownload = useCallback(async () => {
+    if (!file || busy) return;
+    if (sourceBitrateKbps !== null && bitrateKbps >= sourceBitrateKbps) {
+      setPickError(
+        `Target bitrate (${bitrateKbps} kbps) must be lower than the original (~${sourceBitrateKbps} kbps) to compress the file.`,
+      );
+      return;
+    }
+    const payload = await compress(file, bitrateKbps);
+    if (payload) downloadBlob(payload.blob, payload.fileName);
+  }, [bitrateKbps, busy, compress, file, sourceBitrateKbps]);
 
+  const canCompress = useMemo(
+    () =>
+      Boolean(file) &&
+      !busy &&
+      environment?.canRun !== false &&
+      !targetInflates &&
+      !noLowerOption,
+    [busy, environment?.canRun, file, noLowerOption, targetInflates],
+  );
 
   const onRestoreProject = useCallback((payload: { files: File[] }) => {
     const next = payload.files[0];
@@ -134,7 +205,6 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
 
   return (
     <div className="audio-compressor-tool space-y-4">
-
       <FfmpegEnvironmentNotice
         environment={environment}
         error={displayError && phase === "error" ? displayError : pickError || blockingError}
@@ -162,6 +232,9 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
           <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
             <p className="text-neutral-200">
               {file.name} · {formatBytes(file.size)}
+              {sourceBitrateKbps ? (
+                <span className="text-neutral-400"> · ~{sourceBitrateKbps} kbps</span>
+              ) : null}
             </p>
             <button
               type="button"
@@ -171,6 +244,7 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
                 setFile(null);
                 setPickError("");
                 setDuration(null);
+                setSourceBitrateKbps(null);
                 reset();
               }}
             >
@@ -186,17 +260,37 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
               id={bitrateId}
               value={bitrateKbps}
               disabled={busy}
-              onChange={(event) =>
-                setBitrateKbps(Number(event.target.value) as (typeof BITRATE_OPTIONS)[number])
-              }
-              className="w-full rounded-none border border-neutral-700 bg-neutral-950 px-3 py-2 text-sm text-neutral-100 outline-none focus:border-neutral-500"
+              onChange={(event) => {
+                setBitrateKbps(Number(event.target.value) as BitrateOption);
+                setPickError("");
+              }}
+              className={clsx(
+                "w-full rounded-none border bg-neutral-950 px-3 py-2 text-sm text-neutral-100 outline-none focus:border-neutral-500",
+                targetInflates ? "border-amber-500 ring-1 ring-amber-500/40" : "border-neutral-700",
+              )}
+              aria-invalid={targetInflates || undefined}
             >
               {BITRATE_OPTIONS.map((value) => (
                 <option key={value} value={value}>
                   {value} kbps
+                  {sourceBitrateKbps !== null && value >= sourceBitrateKbps
+                    ? " — larger / no savings"
+                    : ""}
                 </option>
               ))}
             </select>
+            {sourceBitrateKbps !== null && targetInflates ? (
+              <p className="text-sm text-amber-400" role="status">
+                Original bitrate is about {sourceBitrateKbps} kbps. Choose a lower target so the
+                file actually gets smaller — a higher target can inflate the file size.
+              </p>
+            ) : null}
+            {noLowerOption ? (
+              <p className="text-sm text-amber-400" role="status">
+                This file is already at or below {BITRATE_OPTIONS[0]} kbps, so further compression
+                is not available.
+              </p>
+            ) : null}
           </div>
 
           {estimatedBytes !== null ? (
@@ -225,7 +319,7 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
             type="button"
             className={clsx(toolPrimaryBtn, "w-full sm:w-auto")}
             disabled={!canCompress}
-            onClick={() => void compress(file, bitrateKbps)}
+            onClick={() => void compressAndDownload()}
           >
             {busy ? (
               <>

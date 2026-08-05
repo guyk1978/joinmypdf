@@ -1,3 +1,4 @@
+import { blobFromValidatedOutput, mediaKindFromMime } from "@/components/tools/ffmpeg/media-output-validate";
 import { FfmpegWorkerClient } from "../workers/FfmpegWorkerClient";
 import type { IMediaTool } from "../types/IMediaTool";
 import { MediaProcessingError, type MediaKind, type MediaProgress } from "../types/media.types";
@@ -98,9 +99,7 @@ export abstract class BaseMediaProcessor<TResult = Blob> implements IMediaTool<T
   }
 
   protected toBlob(data: Uint8Array, mimeType: string): Blob {
-    const copy = new Uint8Array(data.byteLength);
-    copy.set(data);
-    return new Blob([copy], { type: mimeType });
+    return blobFromValidatedOutput(data, mimeType, mediaKindFromMime(mimeType));
   }
 
   private bindFfmpegProgress(): void {

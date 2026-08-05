@@ -1,6 +1,7 @@
 import { fetchFile } from "@ffmpeg/util";
 import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type Mp3ToWavOptions = {
   onPhase?: (phase: "loading" | "processing") => void;
@@ -14,7 +15,7 @@ function toUint8Array(data: Uint8Array | ArrayBuffer): Uint8Array {
 
 /** FFmpeg args for MP3 → uncompressed WAV (PCM). */
 export function buildMp3ToWavArgs(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, outputName];
+  return ["-i", inputName, "-codec:a", "pcm_s16le", outputName];
 }
 
 /**
@@ -43,9 +44,7 @@ export async function convertMp3FileToWav(file: File, options: Mp3ToWavOptions =
     try {
       await ffmpeg.exec(buildMp3ToWavArgs(inputName, outputName));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/wav" });
+      return blobFromValidatedOutput(outputBytes, "audio/wav", "wav");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

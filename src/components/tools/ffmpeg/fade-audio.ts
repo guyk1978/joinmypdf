@@ -1,6 +1,7 @@
 import { fetchFile } from "@ffmpeg/util";
 import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type FadeDurations = {
   fadeInSeconds: number;
@@ -78,6 +79,10 @@ export function buildApplyFadeArgs(
     "libmp3lame",
     "-b:a",
     `${OUTPUT_BITRATE_KBPS}k`,
+    "-write_xing",
+    "1",
+    "-id3v2_version",
+    "3",
     outputName,
   ];
 }
@@ -123,9 +128,7 @@ export async function applyFadeInOut(file: File, options: ApplyFadeOptions): Pro
         ),
       );
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

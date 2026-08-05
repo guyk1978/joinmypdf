@@ -1,4 +1,5 @@
 import { fetchFile } from "@ffmpeg/util";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 import { secondsToFfmpegTimestamp } from "@/services/media/types";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
 import {
@@ -125,9 +126,7 @@ export async function convertVideoToGif(
       await ffmpeg.exec(buildPaletteUseArgs(inputName, PALETTE_NAME, OUTPUT_NAME, options));
 
       const outputBytes = await ffmpeg.readFile(OUTPUT_NAME);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "image/gif" });
+      return blobFromValidatedOutput(outputBytes, "image/gif", "gif");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(PALETTE_NAME).catch(() => undefined);

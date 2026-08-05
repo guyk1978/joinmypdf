@@ -1,5 +1,6 @@
 import { fetchFile } from "@ffmpeg/util";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type FlacOutputFormat = "mp3" | "wav" | "aac";
 
@@ -54,17 +55,30 @@ export async function validateFlacIntegrity(file: File): Promise<void> {
 
 /** FFmpeg args for FLAC → MP3 with highest VBR quality (libmp3lame -q:a 0). */
 export function buildFlacToMp3Args(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, "-q:a", "0", outputName];
+  return [
+    "-i",
+    inputName,
+    "-vn",
+    "-codec:a",
+    "libmp3lame",
+    "-q:a",
+    "0",
+    "-write_xing",
+    "1",
+    "-id3v2_version",
+    "3",
+    outputName,
+  ];
 }
 
 /** FFmpeg args for FLAC → uncompressed WAV (PCM). */
 export function buildFlacToWavArgs(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, outputName];
+  return ["-i", inputName, "-codec:a", "pcm_s16le", outputName];
 }
 
 /** FFmpeg args for FLAC → AAC in M4A container. */
 export function buildFlacToAacArgs(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, "-c:a", "aac", "-b:a", "256k", outputName];
+  return ["-i", inputName, "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", outputName];
 }
 
 export function buildFlacConvertArgs(
@@ -140,9 +154,11 @@ export async function convertFlacFile(
     try {
       await ffmpeg.exec(buildFlacConvertArgs(inputName, outputName, outputFormat));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: output.mimeType });
+      return blobFromValidatedOutput(
+        outputBytes,
+        output.mimeType,
+        outputFormat === "mp3" ? "mp3" : outputFormat === "wav" ? "wav" : "mp4",
+      );
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

@@ -1,5 +1,6 @@
 import { fetchFile } from "@ffmpeg/util";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type M4aOutputFormat = "mp3" | "wav";
 
@@ -79,12 +80,25 @@ export async function validateM4aIntegrity(file: File): Promise<void> {
 
 /** FFmpeg args for M4A/AAC → MP3 with highest VBR quality (libmp3lame -q:a 0). */
 export function buildM4aToMp3Args(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, "-q:a", "0", outputName];
+  return [
+    "-i",
+    inputName,
+    "-vn",
+    "-codec:a",
+    "libmp3lame",
+    "-q:a",
+    "0",
+    "-write_xing",
+    "1",
+    "-id3v2_version",
+    "3",
+    outputName,
+  ];
 }
 
 /** FFmpeg args for M4A/AAC → uncompressed WAV (PCM). */
 export function buildM4aToWavArgs(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, outputName];
+  return ["-i", inputName, "-codec:a", "pcm_s16le", outputName];
 }
 
 export function buildM4aConvertArgs(
@@ -162,9 +176,11 @@ export async function convertM4aFile(
     try {
       await ffmpeg.exec(buildM4aConvertArgs(inputName, outputName, outputFormat));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: output.mimeType });
+      return blobFromValidatedOutput(
+        outputBytes,
+        output.mimeType,
+        outputFormat === "mp3" ? "mp3" : "wav",
+      );
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

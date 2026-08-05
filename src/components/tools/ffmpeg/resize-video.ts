@@ -102,7 +102,25 @@ export function buildResizeVideoArgs(
 
   const vf = `crop=${crop.width}:${crop.height}:${crop.x}:${crop.y},scale=${outW}:${outH}:flags=lanczos`;
 
-  return ["-i", inputName, "-vf", vf, "-c:a", "copy", "-movflags", "+faststart", outputName];
+  return [
+    "-i",
+    inputName,
+    "-vf",
+    vf,
+    "-c:v",
+    "libx264",
+    "-crf",
+    "23",
+    "-preset",
+    "medium",
+    "-pix_fmt",
+    "yuv420p",
+    "-c:a",
+    "copy",
+    "-movflags",
+    "+faststart",
+    outputName,
+  ];
 }
 
 export function isValidResizeDimensions(width: number, height: number): boolean {

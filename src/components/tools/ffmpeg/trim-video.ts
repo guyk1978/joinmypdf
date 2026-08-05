@@ -35,6 +35,8 @@ export function buildTrimVideoArgs(
     secondsToFfmpegTimestamp(endSeconds),
     "-c",
     "copy",
+    "-movflags",
+    "+faststart",
     outputName,
   ];
 }

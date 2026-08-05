@@ -1,6 +1,7 @@
 import { fetchFile } from "@ffmpeg/util";
 import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type Mp3ToMp4Options = {
   onPhase?: (phase: "loading" | "processing" | "validating") => void;
@@ -77,6 +78,8 @@ export function buildMp3ToMp4Args(
     "-pix_fmt",
     "yuv420p",
     "-shortest",
+    "-movflags",
+    "+faststart",
     outputName,
   ];
 }
@@ -137,9 +140,7 @@ export async function createMp4FromMp3AndImage(
     try {
       await ffmpeg.exec(buildMp3ToMp4Args(imageName, audioName, outputName));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "video/mp4" });
+      return blobFromValidatedOutput(outputBytes, "video/mp4", "mp4");
     } finally {
       await ffmpeg.deleteFile(imageName).catch(() => undefined);
       await ffmpeg.deleteFile(audioName).catch(() => undefined);

@@ -195,6 +195,14 @@ export function VideoCompressor({ labels, className, onStart, onComplete }: Vide
 
     try {
       const blob = await video.compress(file, { crf: nextCrf });
+      if (!blob.size) {
+        throw new Error("Compression failed: FFmpeg produced an empty video file.");
+      }
+      if (blob.size >= file.size) {
+        throw new Error(
+          "Compressed file is not smaller than the original. Try a higher compression level (lower quality / higher CRF), or the source may already be heavily compressed.",
+        );
+      }
       const fileName = videoCompressorOutputName(file);
       setResult({ blob, fileName });
       setPhase("success");

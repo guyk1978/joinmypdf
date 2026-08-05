@@ -1,5 +1,7 @@
 import { fetchFile } from "@ffmpeg/util";
 import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
+import { mp3LameCbrTail } from "@/components/tools/ffmpeg/ffmpeg-encode-presets";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
 
 export type CompressAudioOptions = {
@@ -13,13 +15,16 @@ function toUint8Array(data: Uint8Array | ArrayBuffer): Uint8Array {
   return new Uint8Array(data);
 }
 
-/** FFmpeg args for MP3 re-encode at a lower target bitrate. */
+/**
+ * FFmpeg args for MP3 re-encode at a target bitrate.
+ * Explicit libmp3lame + Xing header so players (incl. Windows Media) accept the file.
+ */
 export function buildCompressAudioArgs(
   inputName: string,
   outputName: string,
   bitrateKbps: number,
 ): string[] {
-  return ["-i", inputName, "-b:a", `${bitrateKbps}k`, outputName];
+  return ["-i", inputName, "-vn", ...mp3LameCbrTail(bitrateKbps), outputName];
 }
 
 /**
@@ -48,9 +53,7 @@ export async function compressAudioFile(file: File, options: CompressAudioOption
     try {
       await ffmpeg.exec(buildCompressAudioArgs(inputName, outputName, options.bitrateKbps));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

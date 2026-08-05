@@ -62,7 +62,7 @@ export function formatFfmpegLoadError(error: unknown): string {
   }
 
   if (lower.includes("sharedarraybuffer") || lower.includes("cross-origin isolation")) {
-    return "FFmpeg could not start because this page is not cross-origin isolated. Ensure COOP/COEP headers are set, then reload.";
+    return "Multi-threaded FFmpeg is unavailable (isolation headers missing). Processing still works in single-thread mode — reload after COOP/COEP headers are active for faster runs.";
   }
 
   if (lower.includes("out of memory") || lower.includes("oom")) {

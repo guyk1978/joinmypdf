@@ -1,5 +1,6 @@
 import { fetchFile } from "@ffmpeg/util";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 const SUPPORTED_INPUT_EXTENSIONS = new Set(["wav", "ogg", "aac", "m4a", "mp3", "flac", "wma", "opus"]);
 
@@ -51,6 +52,10 @@ export function buildAudioToMp3Args(
     "libmp3lame",
     "-b:a",
     `${bitrateKbps}k`,
+    "-write_xing",
+    "1",
+    "-id3v2_version",
+    "3",
     outputName,
   ];
 }
@@ -88,9 +93,7 @@ export async function convertAudioFileToMp3(file: File, options: AudioToMp3Optio
     try {
       await ffmpeg.exec(buildAudioToMp3Args(inputName, outputName, options.bitrateKbps));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

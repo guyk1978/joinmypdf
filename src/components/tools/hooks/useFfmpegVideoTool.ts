@@ -94,6 +94,10 @@ export function useFfmpegVideoTool<TOptions>(options: UseFfmpegVideoToolOptions<
         },
       });
 
+      if (!blob?.size) {
+        throw new Error("Processing failed: FFmpeg produced an empty file.");
+      }
+
       const fileName = resolveFileNameRef.current(file, toolOptions);
       const payload = { blob, fileName };
       setResult(payload);

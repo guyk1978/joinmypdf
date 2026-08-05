@@ -1,4 +1,5 @@
 import { buildAtempoFilterChain } from "@/components/tools/ffmpeg/change-mp3-speed";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 import {
   formatVideoFfmpegError,
   inputNameForVideo,
@@ -59,6 +60,18 @@ export function buildChangeVideoSpeedArgs(
     "[v]",
     "-map",
     "[a]",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "23",
+    "-preset",
+    "medium",
+    "-pix_fmt",
+    "yuv420p",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "128k",
     "-movflags",
     "+faststart",
     outputName,
@@ -77,6 +90,14 @@ export function buildChangeVideoSpeedVideoOnlyArgs(
     inputName,
     "-filter:v",
     `setpts=${ptsFactor}*PTS`,
+    "-c:v",
+    "libx264",
+    "-crf",
+    "23",
+    "-preset",
+    "medium",
+    "-pix_fmt",
+    "yuv420p",
     "-an",
     "-movflags",
     "+faststart",
@@ -111,9 +132,7 @@ async function execVideoSpeed(
       }
 
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "video/mp4" });
+      return blobFromValidatedOutput(outputBytes, "video/mp4", "mp4");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

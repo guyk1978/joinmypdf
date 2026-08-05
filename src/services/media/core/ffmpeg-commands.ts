@@ -15,20 +15,65 @@ export function buildTrimArgs(
   startSeconds: number,
   endSeconds: number,
 ): string[] {
-  return [
+  const args = [
+    "-i",
+    inputName,
     "-ss",
     secondsToFfmpegTimestamp(startSeconds),
     "-to",
     secondsToFfmpegTimestamp(endSeconds),
-    "-i",
-    inputName,
     "-c",
     "copy",
-    outputName,
   ];
+  if (/\.(mp4|m4v|mov)$/i.test(outputName)) {
+    args.push("-movflags", "+faststart");
+  }
+  args.push(outputName);
+  return args;
 }
 
 export function buildConvertArgs(inputName: string, outputName: string): string[] {
+  const lower = outputName.toLowerCase();
+  if (lower.endsWith(".mp3")) {
+    return [
+      "-i",
+      inputName,
+      "-vn",
+      "-codec:a",
+      "libmp3lame",
+      "-q:a",
+      "2",
+      "-write_xing",
+      "1",
+      "-id3v2_version",
+      "3",
+      outputName,
+    ];
+  }
+  if (lower.endsWith(".mp4") || lower.endsWith(".m4v") || lower.endsWith(".mov")) {
+    return [
+      "-i",
+      inputName,
+      "-c:v",
+      "libx264",
+      "-crf",
+      "23",
+      "-preset",
+      "medium",
+      "-pix_fmt",
+      "yuv420p",
+      "-c:a",
+      "aac",
+      "-b:a",
+      "128k",
+      "-movflags",
+      "+faststart",
+      outputName,
+    ];
+  }
+  if (lower.endsWith(".wav")) {
+    return ["-i", inputName, "-codec:a", "pcm_s16le", outputName];
+  }
   return ["-i", inputName, outputName];
 }
 
@@ -52,6 +97,8 @@ export function buildVideoToMp4EncodeArgs(
     String(crf),
     "-preset",
     "medium",
+    "-pix_fmt",
+    "yuv420p",
     "-c:a",
     "aac",
     "-b:a",
@@ -67,9 +114,35 @@ export function buildAudioCompressArgs(
   outputName: string,
   bitrateKbps: number,
 ): string[] {
-  return ["-i", inputName, "-b:a", `${bitrateKbps}k`, outputName];
+  const kbps = Math.max(8, Math.round(bitrateKbps));
+  return [
+    "-i",
+    inputName,
+    "-vn",
+    "-codec:a",
+    "libmp3lame",
+    "-b:a",
+    `${kbps}k`,
+    "-write_xing",
+    "1",
+    "-id3v2_version",
+    "3",
+    outputName,
+  ];
 }
 
 export function buildExtractAudioArgs(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, "-vn", "-c:a", "copy", outputName];
+  // Re-encode to AAC so extract always yields a playable m4a (stream-copy often mismatches).
+  return [
+    "-i",
+    inputName,
+    "-vn",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "192k",
+    "-movflags",
+    "+faststart",
+    outputName,
+  ];
 }

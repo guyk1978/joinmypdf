@@ -82,6 +82,10 @@ export function useFfmpegAudioCompress(options: UseFfmpegAudioCompressOptions = 
         },
       });
 
+      if (!blob.size) {
+        throw new Error("Compression failed: the output file is empty.");
+      }
+
       const fileName = compressedOutputFileName(file.name);
       const payload: FfmpegAudioCompressResult = {
         blob,
@@ -96,11 +100,15 @@ export function useFfmpegAudioCompress(options: UseFfmpegAudioCompressOptions = 
       onCompleteRef.current?.(payload);
       return payload;
     } catch (cause) {
-      const message = formatFfmpegLoadError(cause);
+      const message =
+        cause instanceof Error && cause.message
+          ? cause.message
+          : formatFfmpegLoadError(cause);
       setPhase("error");
       setRatio(0);
       setStatusMessage(message);
       setError(message);
+      return undefined;
     } finally {
       setBusy(false);
     }

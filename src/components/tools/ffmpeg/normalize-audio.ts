@@ -1,6 +1,7 @@
 import { fetchFile } from "@ffmpeg/util";
 import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type NormalizeMode = "loudnorm" | "peak";
 
@@ -110,7 +111,17 @@ export function buildNormalizeAudioArgs(
   if (format === "wav") {
     args.push("-codec:a", "pcm_s16le", outputName);
   } else {
-    args.push("-codec:a", "libmp3lame", "-b:a", `${OUTPUT_BITRATE_KBPS}k`, outputName);
+    args.push(
+      "-codec:a",
+      "libmp3lame",
+      "-b:a",
+      `${OUTPUT_BITRATE_KBPS}k`,
+      "-write_xing",
+      "1",
+      "-id3v2_version",
+      "3",
+      outputName,
+    );
   }
 
   return args;
@@ -148,9 +159,17 @@ export async function normalizeAudioFile(
     try {
       await ffmpeg.exec(buildNormalizeAudioArgs(inputName, outputName, meta.format, options));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: meta.mimeType });
+      return blobFromValidatedOutput(
+        outputBytes,
+        meta.mimeType,
+        meta.mimeType.includes("mpeg") || meta.mimeType.includes("mp3")
+          ? "mp3"
+          : meta.mimeType.includes("wav")
+            ? "wav"
+            : meta.mimeType.includes("mp4")
+              ? "mp4"
+              : "any",
+      );
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

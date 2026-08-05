@@ -2,6 +2,7 @@ import { fetchFile } from "@ffmpeg/util";
 import { buildAfadeFilter } from "@/components/tools/ffmpeg/fade-audio";
 import { secondsToFfmpegTimestamp } from "@/services/media/types";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type AudioTrimFormat = "mp3" | "wav" | "ogg" | "aac" | "m4a";
 
@@ -92,7 +93,7 @@ export function buildEncodeArgs(
 
   switch (format) {
     case "mp3":
-      args.push("-codec:a", "libmp3lame", "-q:a", "2");
+      args.push("-codec:a", "libmp3lame", "-q:a", "2", "-write_xing", "1", "-id3v2_version", "3");
       break;
     case "wav":
       args.push("-codec:a", "pcm_s16le");
@@ -102,7 +103,7 @@ export function buildEncodeArgs(
       break;
     case "aac":
     case "m4a":
-      args.push("-codec:a", "aac", "-b:a", "192k");
+      args.push("-codec:a", "aac", "-b:a", "192k", "-movflags", "+faststart");
       break;
   }
 
@@ -158,9 +159,17 @@ export async function trimAudioFile(file: File, options: TrimAudioOptions): Prom
         ),
       );
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      const blob = new Blob([copy], { type: meta.mimeType });
+      const blob = blobFromValidatedOutput(
+        outputBytes,
+        meta.mimeType,
+        meta.extension === "mp3"
+          ? "mp3"
+          : meta.extension === "wav"
+            ? "wav"
+            : meta.extension === "m4a" || meta.extension === "aac"
+              ? "mp4"
+              : "any",
+      );
       return { blob, fileName: audioTrimOutputFileName(file.name, meta.extension) };
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);

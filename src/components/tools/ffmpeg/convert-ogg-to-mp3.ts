@@ -1,5 +1,6 @@
 import { fetchFile } from "@ffmpeg/util";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type OggToMp3Options = {
   onPhase?: (phase: "loading" | "processing") => void;
@@ -25,7 +26,20 @@ export function isOggFile(file: File): boolean {
 
 /** FFmpeg args for OGG (Vorbis/Opus) → MP3 with high VBR quality (-q:a 2). */
 export function buildOggToMp3Args(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, "-q:a", "2", outputName];
+  return [
+    "-i",
+    inputName,
+    "-vn",
+    "-codec:a",
+    "libmp3lame",
+    "-q:a",
+    "2",
+    "-write_xing",
+    "1",
+    "-id3v2_version",
+    "3",
+    outputName,
+  ];
 }
 
 /**
@@ -54,9 +68,7 @@ export async function convertOggFileToMp3(file: File, options: OggToMp3Options =
     try {
       await ffmpeg.exec(buildOggToMp3Args(inputName, outputName));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

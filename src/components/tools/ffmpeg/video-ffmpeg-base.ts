@@ -1,6 +1,10 @@
 import { fetchFile } from "@ffmpeg/util";
 import { extensionFromFile } from "@/services/media/types/media.types";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import {
+  blobFromValidatedOutput,
+  mediaKindFromFileName,
+} from "@/components/tools/ffmpeg/media-output-validate";
 
 export type VideoFfmpegOptions = {
   onPhase?: (phase: "loading" | "processing") => void;
@@ -44,9 +48,11 @@ export async function runVideoFfmpeg(
     try {
       await ffmpeg.exec(buildArgs(inputName, outputName));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: mimeType });
+      return blobFromValidatedOutput(
+        outputBytes,
+        mimeType,
+        mediaKindFromFileName(outputName),
+      );
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);
@@ -71,7 +77,7 @@ export function formatVideoFfmpegError(error: unknown): string {
   }
 
   if (lower.includes("sharedarraybuffer") || lower.includes("cross-origin")) {
-    return "Video processing needs cross-origin isolation (COOP/COEP). Reload after headers are active, or continue in slower single-thread mode.";
+    return "Multi-threaded FFmpeg is unavailable (isolation headers missing). Processing continues in single-thread mode — reload after COOP/COEP headers are active for faster runs.";
   }
 
   if (lower.includes("out of memory") || lower.includes("oom")) {
@@ -80,6 +86,14 @@ export function formatVideoFfmpegError(error: unknown): string {
 
   if (lower.includes("invalid data") || lower.includes("error while decoding")) {
     return "Could not decode this video. The file may be corrupted or use an unsupported codec—re-export and try again.";
+  }
+
+  if (
+    lower.includes("not a valid") ||
+    lower.includes("empty") ||
+    lower.includes("too small")
+  ) {
+    return raw;
   }
 
   if (lower.includes("network") || lower.includes("failed to fetch") || lower.includes("load failed")) {

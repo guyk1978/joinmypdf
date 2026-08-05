@@ -1,6 +1,9 @@
 import { fetchFile } from "@ffmpeg/util";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
 import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
+import { detectMp3BitrateFromBytes } from "@/components/tools/ffmpeg/mp3-bitrate";
+import { capAudioBitrateKbps, mp3LameCbrTail } from "@/components/tools/ffmpeg/ffmpeg-encode-presets";
 
 export type BoostMp3Options = {
   /** Linear gain from 1× (normalize only) to 3× (stronger boost). */
@@ -22,8 +25,19 @@ function clampBoostLevel(boostLevel: number): number {
   return Math.min(MAX_BOOST, Math.max(MIN_BOOST, boostLevel));
 }
 
-export function buildSimpleLoudnormArgs(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, "-filter:a", "loudnorm", outputName];
+export function buildSimpleLoudnormArgs(
+  inputName: string,
+  outputName: string,
+  bitrateKbps = OUTPUT_BITRATE_KBPS,
+): string[] {
+  return [
+    "-i",
+    inputName,
+    "-filter:a",
+    "loudnorm",
+    ...mp3LameCbrTail(bitrateKbps),
+    outputName,
+  ];
 }
 
 /**
@@ -44,11 +58,13 @@ export function buildMp3BoostArgs(
   inputName: string,
   outputName: string,
   boostLevel: number,
+  bitrateKbps = OUTPUT_BITRATE_KBPS,
 ): string[] {
   const level = clampBoostLevel(boostLevel);
+  const kbps = Math.max(8, Math.round(bitrateKbps));
 
   if (level <= 1.01) {
-    return buildSimpleLoudnormArgs(inputName, outputName);
+    return buildSimpleLoudnormArgs(inputName, outputName, kbps);
   }
 
   return [
@@ -56,10 +72,7 @@ export function buildMp3BoostArgs(
     inputName,
     "-filter:a",
     buildMp3BoostFilter(boostLevel),
-    "-codec:a",
-    "libmp3lame",
-    "-b:a",
-    `${OUTPUT_BITRATE_KBPS}k`,
+    ...mp3LameCbrTail(kbps),
     outputName,
   ];
 }
@@ -91,11 +104,11 @@ export async function boostMp3File(file: File, options: BoostMp3Options): Promis
     await ffmpeg.writeFile(inputName, inputBytes);
 
     try {
-      await ffmpeg.exec(buildMp3BoostArgs(inputName, outputName, boostLevel));
+      const sourceBr = detectMp3BitrateFromBytes(inputBytes);
+      const outBr = capAudioBitrateKbps(OUTPUT_BITRATE_KBPS, sourceBr);
+      await ffmpeg.exec(buildMp3BoostArgs(inputName, outputName, boostLevel, outBr));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

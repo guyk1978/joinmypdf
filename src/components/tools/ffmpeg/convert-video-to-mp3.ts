@@ -2,6 +2,7 @@ import { fetchFile } from "@ffmpeg/util";
 import { extensionFromFile } from "@/services/media/types/media.types";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
 import { isAcceptedVideoFile } from "@/lib/video-to-mp4";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type VideoToMp3Quality = "vbr2" | 128 | 192 | 320;
 
@@ -45,7 +46,7 @@ export function buildVideoToMp3Args(
     args.push("-b:a", `${quality}k`);
   }
 
-  args.push(outputName);
+  args.push("-write_xing", "1", "-id3v2_version", "3", outputName);
   return args;
 }
 
@@ -106,9 +107,7 @@ export async function extractMp3FromVideo(
     try {
       await ffmpeg.exec(buildVideoToMp3Args(inputName, outputName, quality));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

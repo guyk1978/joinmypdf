@@ -1,6 +1,7 @@
 import { fetchFile } from "@ffmpeg/util";
 import { secondsToFfmpegTimestamp } from "@/services/media/types";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type TrimMp3Options = {
   startSeconds: number;
@@ -72,9 +73,7 @@ export async function trimMp3File(file: File, options: TrimMp3Options): Promise<
         buildMp3TrimArgs(inputName, outputName, options.startSeconds, options.endSeconds),
       );
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

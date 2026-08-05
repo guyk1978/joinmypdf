@@ -1,5 +1,6 @@
 import { fetchFile } from "@ffmpeg/util";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type Mp4ToMp3Options = {
   onPhase?: (phase: "loading" | "processing" | "validating") => void;
@@ -49,7 +50,20 @@ export async function validateMp4Integrity(file: File): Promise<void> {
 
 /** FFmpeg args for MP4 → MP3 audio extraction with high VBR quality. */
 export function buildMp4ToMp3Args(inputName: string, outputName: string): string[] {
-  return ["-i", inputName, "-vn", "-acodec", "libmp3lame", "-q:a", "2", outputName];
+  return [
+    "-i",
+    inputName,
+    "-vn",
+    "-codec:a",
+    "libmp3lame",
+    "-q:a",
+    "2",
+    "-write_xing",
+    "1",
+    "-id3v2_version",
+    "3",
+    outputName,
+  ];
 }
 
 export function formatMp4ToMp3Error(error: unknown): string {
@@ -103,9 +117,7 @@ export async function extractMp3FromMp4(file: File, options: Mp4ToMp3Options = {
     try {
       await ffmpeg.exec(buildMp4ToMp3Args(inputName, outputName));
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

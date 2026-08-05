@@ -1,3 +1,4 @@
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 import {
   formatVideoFfmpegError,
   inputNameForVideo,
@@ -54,6 +55,14 @@ export function buildRotateVideoReencodeArgs(
     inputName,
     "-vf",
     buildRotateVideoFilter(angle),
+    "-c:v",
+    "libx264",
+    "-crf",
+    "23",
+    "-preset",
+    "medium",
+    "-pix_fmt",
+    "yuv420p",
     "-c:a",
     "copy",
     "-movflags",
@@ -124,9 +133,10 @@ async function execRotate(
       }
 
       const outputBytes = await ffmpeg.readFile(outputName);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return { blob: new Blob([copy], { type: "video/mp4" }), methodUsed };
+      return {
+        blob: blobFromValidatedOutput(outputBytes, "video/mp4", "mp4"),
+        methodUsed,
+      };
     } finally {
       await ffmpeg.deleteFile(inputName).catch(() => undefined);
       await ffmpeg.deleteFile(outputName).catch(() => undefined);

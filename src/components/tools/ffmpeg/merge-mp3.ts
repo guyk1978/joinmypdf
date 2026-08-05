@@ -1,6 +1,7 @@
 import { fetchFile } from "@ffmpeg/util";
 import { isMp3File } from "@/components/tools/ffmpeg/trim-mp3";
 import { FfmpegWorkerClient } from "@/services/media/workers/FfmpegWorkerClient";
+import { blobFromValidatedOutput } from "@/components/tools/ffmpeg/media-output-validate";
 
 export type MergeMp3Options = {
   onPhase?: (phase: "loading" | "processing") => void;
@@ -26,6 +27,27 @@ export function buildConcatListContent(inputNames: readonly string[]): string {
 
 export function buildConcatMergeArgs(listFileName: string, outputName: string): string[] {
   return ["-f", "concat", "-safe", "0", "-i", listFileName, "-c", "copy", outputName];
+}
+
+/** Fallback when stream-copy concat fails (mismatched sample rates / frames). */
+export function buildConcatReencodeArgs(listFileName: string, outputName: string): string[] {
+  return [
+    "-f",
+    "concat",
+    "-safe",
+    "0",
+    "-i",
+    listFileName,
+    "-codec:a",
+    "libmp3lame",
+    "-q:a",
+    "2",
+    "-write_xing",
+    "1",
+    "-id3v2_version",
+    "3",
+    outputName,
+  ];
 }
 
 export function validateMp3FilesForMerge(files: File[]): void {
@@ -67,11 +89,14 @@ export async function mergeMp3Files(files: File[], options: MergeMp3Options = {}
     await ffmpeg.writeFile(LIST_FILE_NAME, new TextEncoder().encode(listBody));
 
     try {
-      await ffmpeg.exec(buildConcatMergeArgs(LIST_FILE_NAME, OUTPUT_FILE_NAME));
+      try {
+        await ffmpeg.exec(buildConcatMergeArgs(LIST_FILE_NAME, OUTPUT_FILE_NAME));
+      } catch {
+        await ffmpeg.deleteFile(OUTPUT_FILE_NAME).catch(() => undefined);
+        await ffmpeg.exec(buildConcatReencodeArgs(LIST_FILE_NAME, OUTPUT_FILE_NAME));
+      }
       const outputBytes = await ffmpeg.readFile(OUTPUT_FILE_NAME);
-      const copy = new Uint8Array(outputBytes.byteLength);
-      copy.set(outputBytes);
-      return new Blob([copy], { type: "audio/mpeg" });
+      return blobFromValidatedOutput(outputBytes, "audio/mpeg", "mp3");
     } finally {
       for (const name of inputNames) {
         await ffmpeg.deleteFile(name).catch(() => undefined);
