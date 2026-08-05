@@ -42,6 +42,14 @@ export function ToolsDirectoryBatchPinBar() {
 
   if (embed || !selection) return null;
 
+  // Homepage sections render their own inline batch bar under the titles.
+  const onHome =
+    pathname === "/home" ||
+    pathname.endsWith("/home") ||
+    pathname === "/" ||
+    /^\/(en|he|ru)\/?$/.test(pathname);
+  if (onHome) return null;
+
   const { selectedCount, getSelectedIds, clear } = selection;
   const visible = selectedCount > 0 || Boolean(feedback);
 

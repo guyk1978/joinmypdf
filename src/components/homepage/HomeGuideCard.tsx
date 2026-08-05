@@ -20,7 +20,7 @@ type HomeGuideCardProps = {
 };
 
 /**
- * Compact homepage guide card — full-body link + separate expand square.
+ * Homepage guide card — ultra-minimal stripe + centered title + maximize.
  */
 export function HomeGuideCard({
   href,
@@ -35,26 +35,17 @@ export function HomeGuideCard({
   const accentStyle = {
     "--category-accent": getCategoryAccentCssVar(categoryId),
   } as CSSProperties;
-  const resolvedIcon = icon ?? <BookOpen size={20} strokeWidth={1.75} aria-hidden />;
+  const resolvedIcon = icon ?? <BookOpen size={18} strokeWidth={1.75} aria-hidden />;
   const metaLine = [description, readTime].filter(Boolean).join(" · ");
 
   return (
-    <div
-      className={clsx("im-tool-card-row", className)}
+    <article
+      className={clsx("im-tool-card", "im-tool-card--minimal", className)}
       data-category={categoryId}
       style={accentStyle}
     >
-      <ToolCardGoLink
-        href={href}
-        className="im-tool-card im-tool-card__hit im-tool-card__hit--solo"
-        aria-label={openLabel}
-        title={openLabel}
-      >
-        <span className="im-tool-card__dot" aria-hidden />
-        <span className="im-tool-card__title">{label}</span>
-      </ToolCardGoLink>
-
-      <div className="im-tool-card__side-actions" role="group" aria-label={label}>
+      <span className="im-tool-card__stripe" aria-hidden />
+      <div className="im-tool-card__minimal-actions">
         <ToolCardFocus
           slug={`guide-${href}`}
           href={href}
@@ -65,9 +56,12 @@ export function HomeGuideCard({
           showExpandButton
           showRating={false}
           openLabel={openLabel}
-          className="im-tool-card__side-action im-tool-card__expand"
+          className="im-tool-card__icon-btn im-tool-card__expand"
         />
       </div>
-    </div>
+      <ToolCardGoLink href={href} className="im-tool-card__hit" aria-label={openLabel}>
+        <h3 className="im-tool-card__title">{label}</h3>
+      </ToolCardGoLink>
+    </article>
   );
 }

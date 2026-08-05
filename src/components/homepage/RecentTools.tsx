@@ -53,10 +53,10 @@ export function RecentTools({ locale }: RecentToolsProps) {
           id="recent-tools-title"
           title={t("landing.recentToolsTitle")}
           icon={<History size={22} strokeWidth={1.75} />}
-          bodyClassName="home-tool-grid home-tool-grid--2x2 home-tool-grid--skeleton"
+          bodyClassName="im-tool-card-grid im-tool-card-grid--skeleton"
         >
           {Array.from({ length: RECENT_GRID_SIZE }, (_, index) => (
-            <div key={index} className="home-tool-grid__placeholder" aria-hidden />
+            <div key={index} className="im-tool-card-grid__placeholder" aria-hidden />
           ))}
         </HomeStaticPanel>
       </HomeReveal>
@@ -69,11 +69,7 @@ export function RecentTools({ locale }: RecentToolsProps) {
         id="recent-tools-title"
         title={t("landing.recentToolsTitle")}
         icon={<History size={22} strokeWidth={1.75} />}
-        bodyClassName={
-          cards.length
-            ? "home-tool-grid home-tool-grid--2x2"
-            : "home-recent-empty"
-        }
+        bodyClassName={cards.length ? "im-tool-card-grid" : "home-recent-empty"}
       >
         {cards.length ? (
           cards.map(({ id, href, title, description, categoryId }) => (
@@ -84,8 +80,7 @@ export function RecentTools({ locale }: RecentToolsProps) {
               description={description}
               slug={id}
               categoryId={categoryId}
-              icon={<ToolListIcon slug={id} label={title} size="md" />}
-              className="home-tool-grid__card"
+              icon={<ToolListIcon slug={id} label={title} size="sm" />}
             />
           ))
         ) : (

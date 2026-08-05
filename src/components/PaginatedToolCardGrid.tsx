@@ -1,7 +1,6 @@
 "use client";
 
 import { Children, useMemo, useState, type ReactNode } from "react";
-import { clsx } from "clsx";
 import { ToolCardGrid } from "@/components/ToolCardGrid";
 import { ToolGridShowMoreButton } from "@/components/ToolGridShowMoreButton";
 import {
@@ -34,7 +33,7 @@ export function PaginatedToolCardGrid({
 
   return (
     <>
-      <ToolCardGrid className={clsx("tool-card-grid--stretch", className)}>
+      <ToolCardGrid className={className}>
         {visibleItems}
       </ToolCardGrid>
       {remainingCount > 0 ? (

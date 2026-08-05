@@ -6,7 +6,7 @@ type ToolCardGridProps = {
   className?: string;
 };
 
-/** Responsive grid for ToolCard lists — matches homepage section layout. */
+/** Responsive grid for IndustrialToolCard lists — matches global im-tool-card-grid. */
 export function ToolCardGrid({ children, className }: ToolCardGridProps) {
-  return <div className={clsx("tool-card-grid", className)}>{children}</div>;
+  return <div className={clsx("im-tool-card-grid", className)}>{children}</div>;
 }

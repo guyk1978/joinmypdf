@@ -395,6 +395,136 @@
   background: transparent;
 }
 
+.home-static-panel__toolbar {
+  margin: 0 0 0.85rem;
+  min-height: 0;
+}
+
+/* Premium homepage grids alias the global tool-card grid */
+.home-premium-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+  margin-inline: auto;
+  align-content: start;
+  align-items: stretch;
+  justify-items: stretch;
+  grid-auto-rows: minmax(0, auto);
+}
+
+.home-premium-grid--compact {
+  gap: 14px;
+}
+
+@media (max-width: 1179px) {
+  .home-premium-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .home-premium-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .home-premium-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 400px) {
+  .home-premium-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-batch-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.65rem;
+  background: #161616;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  animation: home-batch-bar-in 0.2s ease;
+}
+
+@keyframes home-batch-bar-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-batch-bar__count {
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: #f5f5f5;
+  white-space: nowrap;
+}
+
+.home-batch-bar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-inline-start: auto;
+}
+
+.home-batch-bar__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #222;
+  color: #ececec;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.home-batch-bar__btn:hover,
+.home-batch-bar__btn:focus-visible {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.22);
+  outline: none;
+}
+
+.home-batch-bar__btn--primary {
+  background: #f0f0f0;
+  color: #111;
+  border-color: transparent;
+}
+
+.home-batch-bar__btn--primary:hover,
+.home-batch-bar__btn--primary:focus-visible {
+  background: #ffffff;
+  color: #111;
+}
+
+.home-batch-bar__feedback {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e5e5e5;
+}
+
 /* Quick Actions — static 5×3 card grid (no carousel) */
 .home-quick-actions {
   width: 100%;
@@ -408,66 +538,97 @@
 
 .home-quick-actions__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-columns: 1fr;
+  gap: 14px;
   width: 100%;
   align-content: start;
+  align-items: stretch;
+  grid-auto-rows: minmax(0, auto);
 }
 
-@media (max-width: 640px) {
+@media (min-width: 520px) {
   .home-quick-actions__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 400px) {
+@media (min-width: 760px) {
   .home-quick-actions__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-.home-tool-grid {
-  display: grid;
-  gap: 0.55rem;
-  width: 100%;
-  align-content: start;
+@media (min-width: 980px) {
+  .home-quick-actions__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
+@media (min-width: 1180px) {
+  .home-quick-actions__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+/* Legacy aliases — prefer .im-tool-card-grid everywhere */
+.home-tool-grid,
 .home-tool-grid--2x2 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: var(--im-tool-card-row-height, 2.875rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  width: 100%;
+  align-content: start;
+  align-items: stretch;
+  justify-items: stretch;
+  grid-auto-rows: minmax(0, auto);
 }
 
-@media (max-width: 640px) {
+@media (min-width: 520px) {
+  .home-tool-grid,
   .home-tool-grid--2x2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 400px) {
+@media (min-width: 760px) {
+  .home-tool-grid,
   .home-tool-grid--2x2 {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-.home-tool-grid__card,
-.home-tool-grid__card.im-tool-card-row {
+@media (min-width: 980px) {
+  .home-tool-grid,
+  .home-tool-grid--2x2 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1180px) {
+  .home-tool-grid,
+  .home-tool-grid--2x2 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.home-tool-grid__card {
   width: 100%;
-  height: var(--im-tool-card-row-height, 2.875rem);
-  min-height: var(--im-tool-card-row-height, 2.875rem);
-  max-height: var(--im-tool-card-row-height, 2.875rem);
+  height: auto;
+  min-height: 2.4rem;
+  max-height: none;
   aspect-ratio: auto;
 }
 
-.home-tool-grid__placeholder {
-  min-height: var(--im-tool-card-row-height, 2.875rem);
-  border-radius: 6px;
+.home-tool-grid__placeholder,
+.im-tool-card-grid__placeholder {
+  min-height: 2rem;
+  border-radius: 0;
   background: linear-gradient(
     180deg,
     color-mix(in srgb, #141414 92%, transparent),
     color-mix(in srgb, #0c0c0c 96%, transparent)
   );
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 0;
 }
 
 .home-recent-empty {
@@ -809,68 +970,23 @@
   aspect-ratio: auto;
 }
 
+.home-section--compact .home-section-carousel__slide > .im-tool-card,
 .home-section--compact .home-section-carousel__slide > .im-tool-card-row {
-  height: var(--im-tool-card-row-height, 2.875rem);
-  min-height: var(--im-tool-card-row-height, 2.875rem);
-  max-height: var(--im-tool-card-row-height, 2.875rem);
+  height: auto;
+  min-height: var(--im-tool-card-min-height, 8.75rem);
+  max-height: none;
   aspect-ratio: auto;
-  gap: var(--im-tool-card-side-gap, 0.35rem);
-}
-
-.home-section--compact .im-tool-card__title {
-  font-size: var(--im-tool-card-label-size, 0.9375rem);
-  font-weight: 650;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-}
-
-.home-section--compact .im-tool-card__side-actions {
-  gap: var(--im-tool-card-side-gap, 0.35rem);
-}
-
-.home-section--compact .im-tool-card__side-action,
-.home-section--compact .im-tool-card__side-actions .tool-card-focus__expand,
-.home-section--compact .im-tool-card__side-actions .tool-pin-button--card {
-  width: var(--im-tool-card-action-size, var(--im-tool-card-row-height, 2.875rem));
-  min-width: var(--im-tool-card-action-size, var(--im-tool-card-row-height, 2.875rem));
-  height: 100%;
-}
-
-.home-section--compact .im-tool-card__side-actions .tool-card-focus__expand-icon,
-.home-section--compact .im-tool-card__side-actions .tool-pin-button__icon {
-  width: var(--im-tool-card-action-icon, 1.05rem);
-  height: var(--im-tool-card-action-icon, 1.05rem);
 }
 
 .home-section--compact .home-section-carousel--large {
   --home-card-scale: 1.35;
 }
 
+.home-section--compact .home-section-carousel--large .im-tool-card,
 .home-section--compact .home-section-carousel--large .im-tool-card-row {
-  --im-tool-card-label-size: 1rem;
-  --im-tool-card-action-icon: 1.1rem;
-  --im-tool-card-row-height: 3rem;
-  --im-tool-card-gap: 0.45rem;
-  --im-tool-card-side-gap: 0.35rem;
-  --im-tool-card-padding: 0.4rem 0.75rem;
-  --im-tool-card-action-size: var(--im-tool-card-row-height);
-  gap: var(--im-tool-card-side-gap);
-  height: var(--im-tool-card-row-height);
-  min-height: var(--im-tool-card-row-height);
-  max-height: var(--im-tool-card-row-height);
-}
-
-.home-section--compact .home-section-carousel--large .im-tool-card__title {
-  font-size: var(--im-tool-card-label-size);
-}
-
-.home-section--compact .home-section-carousel--large .im-tool-card__side-action,
-.home-section--compact .home-section-carousel--large .im-tool-card__side-actions .tool-card-focus__expand,
-.home-section--compact .home-section-carousel--large .im-tool-card__side-actions .tool-pin-button--card {
-  width: var(--im-tool-card-action-size);
-  min-width: var(--im-tool-card-action-size);
-  height: 100%;
+  height: auto;
+  min-height: var(--im-tool-card-min-height, 8.75rem);
+  max-height: none;
 }
 
 .home-section__pin-spacer {

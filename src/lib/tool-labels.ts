@@ -92,3 +92,25 @@ function looksLikeRawSlug(value: string): boolean {
 export function getToolCardShortLabel(slug: string, fallbackTitle: string): string {
   return getToolDisplayLabel(slug, fallbackTitle);
 }
+
+/**
+ * Premium tool-card title — always English (matches bilingual card chrome).
+ */
+export function getToolCardEnglishLabel(slug: string, fallbackTitle?: string): string {
+  // Prefer the curated English short map (ignore localized fallback).
+  const fromMap = getToolDisplayLabel(slug, slug);
+  if (fromMap && fromMap !== slug && !looksLikeRawSlug(fromMap)) return fromMap;
+
+  if (fallbackTitle) {
+    const stripped = stripToolLabelMarketing(fallbackTitle);
+    if (stripped && /^[\x00-\x7F]+$/.test(stripped) && !looksLikeRawSlug(stripped)) {
+      return stripped;
+    }
+  }
+
+  // Last resort: title-case the slug.
+  return slug
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}

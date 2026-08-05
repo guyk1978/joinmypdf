@@ -4,6 +4,8 @@
  *
  * Style: 1–2 short sentences, active verbs, benefit-focused, no jargon.
  */
+import heMessages from "../../messages/he.json";
+
 export const TOOL_CARD_DESCRIPTIONS: Record<string, string> = {
   "add-page-numbers": "Add page numbers to your PDF with custom placement and formats.",
   "add-watermark": "Stamp text watermarks on PDFs with opacity, color, and rotation.",
@@ -170,6 +172,15 @@ export const TOOL_CARD_DESCRIPTIONS: Record<string, string> = {
   "yaml-json-converter": "Convert between YAML and JSON with clean formatting.",
 };
 
+type ToolsMessages = {
+  Tools?: {
+    cardDescriptions?: Record<string, string>;
+  };
+};
+
+const HEBREW_CARD_DESCRIPTIONS: Record<string, string> =
+  (heMessages as ToolsMessages).Tools?.cardDescriptions ?? {};
+
 export function getToolCardDescription(
   slug: string,
   fallback?: string,
@@ -177,4 +188,14 @@ export function getToolCardDescription(
 ): string | undefined {
   if (t?.has(`cardDescriptions.${slug}`)) return t(`cardDescriptions.${slug}`);
   return TOOL_CARD_DESCRIPTIONS[slug] || fallback || undefined;
+}
+
+/**
+ * Premium tool-card blurb — always Hebrew (bilingual card chrome with EN titles).
+ */
+export function getToolCardHebrewDescription(
+  slug: string,
+  fallback?: string,
+): string | undefined {
+  return HEBREW_CARD_DESCRIPTIONS[slug] || fallback || TOOL_CARD_DESCRIPTIONS[slug] || undefined;
 }

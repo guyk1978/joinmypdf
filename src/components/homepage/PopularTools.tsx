@@ -3,17 +3,15 @@
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Flame } from "lucide-react";
-import { IndustrialToolCard } from "@/components/IndustrialToolCard";
-import { ToolListIcon } from "@/components/ToolListIcon";
+import { MinimalToolCard } from "@/components/MinimalToolCard";
+import { HomeBatchActionsBar } from "@/components/homepage/HomeBatchActionsBar";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
 import { HomeStaticPanel } from "@/components/homepage/HomeStaticPanel";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
-import { getToolCardDescription } from "@/data/tool-card-descriptions";
 import { useUnpinnedIds } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
-/** Featured tools this week — resolved from the inventory registry. */
 const POPULAR_TOOL_IDS = [
   "image-combiner",
   "pdf-compress",
@@ -31,22 +29,14 @@ const POPULAR_TOOL_IDS = [
   "png-to-pdf",
   "add-watermark",
   "excel-to-pdf",
-  "add-page-numbers",
-  "protect-pdf",
-  "rotate-pdf",
-  "sign-pdf",
-  "unlock-pdf",
 ] as const;
 
-const POPULAR_GRID_SIZE = 21;
+const POPULAR_GRID_SIZE = 16;
 
 type PopularToolsProps = {
   locale: string;
 };
 
-/**
- * "Popular Tools of the Week" — compact 3-column grid (7 rows × 3 = 21).
- */
 export function PopularTools({ locale }: PopularToolsProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
@@ -61,7 +51,6 @@ export function PopularTools({ locale }: PopularToolsProps) {
         id,
         href: resolveToolHref(id, entry.primaryCategory, locale),
         title: resolveInventoryToolLabel(id, tTools),
-        description: getToolCardDescription(id, entry.description, tTools) ?? "",
         categoryId: entry.primaryCategory,
       });
       if (resolved.length >= POPULAR_GRID_SIZE) break;
@@ -75,20 +64,19 @@ export function PopularTools({ locale }: PopularToolsProps) {
     <HomeReveal className="w-full h-full">
       <HomeStaticPanel
         id="popular-tools-title"
+        className="home-popular-tools"
         title={t("landing.popularToolsTitle")}
         icon={<Flame size={22} strokeWidth={1.75} />}
-        bodyClassName="home-tool-grid home-tool-grid--2x2"
+        toolbar={<HomeBatchActionsBar scopeIds={POPULAR_TOOL_IDS} />}
+        bodyClassName="im-tool-card-grid"
       >
-        {cards.map(({ id, href, title, description, categoryId }) => (
-          <IndustrialToolCard
+        {cards.map(({ id, href, title, categoryId }) => (
+          <MinimalToolCard
             key={id}
             href={href}
             label={title}
-            description={description}
             slug={id}
             categoryId={categoryId}
-            icon={<ToolListIcon slug={id} label={title} size="md" />}
-            className="home-tool-grid__card"
           />
         ))}
       </HomeStaticPanel>

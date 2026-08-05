@@ -53,11 +53,10 @@ export function HomeFeaturedSection({
 }: HomeFeaturedSectionProps) {
   const isDashboard = variant === "dashboard";
   const usePagination = paginate !== false;
-  const gridClassName = isDashboard ? "tool-card-grid--dashboard" : undefined;
   const gridContent = usePagination ? (
-    <PaginatedToolCardGrid className={gridClassName}>{children}</PaginatedToolCardGrid>
+    <PaginatedToolCardGrid>{children}</PaginatedToolCardGrid>
   ) : (
-    <ToolCardGrid className={clsx("tool-card-grid--stretch", gridClassName)}>{children}</ToolCardGrid>
+    <ToolCardGrid>{children}</ToolCardGrid>
   );
 
   return (

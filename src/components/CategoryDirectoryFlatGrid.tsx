@@ -3,11 +3,9 @@
 import { useMemo } from "react";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { IndustrialToolCard } from "@/components/IndustrialToolCard";
+import { MinimalToolCard } from "@/components/MinimalToolCard";
 import { filterUnpinnedGridItems, usePinnedTools } from "@/hooks/usePinnedTools";
-import { ToolListIcon } from "@/components/ToolListIcon";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
-import { normalizeHubPath } from "@/lib/tool-hierarchy";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 type CategoryDirectoryFlatGridProps = {
@@ -22,8 +20,7 @@ type CategoryDirectoryFlatGridProps = {
 };
 
 /**
- * Global Industrial Matte tool card grid — 6-column dashboard on desktop
- * (collapses to 4 / 3 / 2 / 1 columns on smaller screens).
+ * Global ultra-minimal tool card grid — up to 4 columns on desktop.
  */
 export function CategoryDirectoryFlatGrid({
   items,
@@ -32,7 +29,6 @@ export function CategoryDirectoryFlatGrid({
   lead,
   leadClassName,
 }: CategoryDirectoryFlatGridProps) {
-  const returnHref = categoryId ? normalizeHubPath(categoryId) : undefined;
   const { pinnedIds, hydrated } = usePinnedTools();
   const visibleItems = useMemo(() => {
     if (!hydrated) return items;
@@ -46,14 +42,12 @@ export function CategoryDirectoryFlatGrid({
       ) : null}
       {visibleItems.map((item) => (
         <li key={item.slugHint} className="im-tool-card-grid__item">
-          <IndustrialToolCard
+          <MinimalToolCard
             href={item.href}
             label={item.label}
             description={item.description}
             slug={item.slugHint}
             categoryId={categoryId}
-            returnHref={returnHref}
-            icon={<ToolListIcon slug={item.slugHint} label={item.label} />}
           />
         </li>
       ))}

@@ -330,17 +330,17 @@
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Full-width tool grids: 1 → 2 → 3 columns (cap at 3 on desktop). */
+/* Full-width tool grids: same global 5-column card system. */
 .tools-directory-page--hub-split .category-hub-split__tools .im-tool-card-grid,
 .tools-directory-page--pdf-split .pdf-tools-split__tools .im-tool-card-grid,
 .tools-directory-page--pdf-split .category-hub-split__tools .im-tool-card-grid,
 .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-workflows .im-tool-card-grid,
 .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-category .im-tool-card-grid {
   grid-template-columns: 1fr;
-  gap: 6px;
+  gap: 14px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 520px) {
   .tools-directory-page--hub-split .category-hub-split__tools .im-tool-card-grid,
   .tools-directory-page--pdf-split .pdf-tools-split__tools .im-tool-card-grid,
   .tools-directory-page--pdf-split .category-hub-split__tools .im-tool-card-grid,
@@ -350,12 +350,32 @@
   }
 }
 
-@media (min-width: 960px) {
+@media (min-width: 760px) {
   .tools-directory-page--hub-split .category-hub-split__tools .im-tool-card-grid,
   .tools-directory-page--pdf-split .pdf-tools-split__tools .im-tool-card-grid,
   .tools-directory-page--pdf-split .category-hub-split__tools .im-tool-card-grid,
   .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-workflows .im-tool-card-grid,
   .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-category .im-tool-card-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 980px) {
+  .tools-directory-page--hub-split .category-hub-split__tools .im-tool-card-grid,
+  .tools-directory-page--pdf-split .pdf-tools-split__tools .im-tool-card-grid,
+  .tools-directory-page--pdf-split .category-hub-split__tools .im-tool-card-grid,
+  .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-workflows .im-tool-card-grid,
+  .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-category .im-tool-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1180px) {
+  .tools-directory-page--hub-split .category-hub-split__tools .im-tool-card-grid,
+  .tools-directory-page--pdf-split .pdf-tools-split__tools .im-tool-card-grid,
+  .tools-directory-page--pdf-split .category-hub-split__tools .im-tool-card-grid,
+  .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-workflows .im-tool-card-grid,
+  .tools-directory-page--hub-split .category-hub-split__tools .tools-directory-category .im-tool-card-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }

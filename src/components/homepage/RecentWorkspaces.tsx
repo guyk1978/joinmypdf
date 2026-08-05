@@ -87,7 +87,7 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
         id="recent-workspaces-title"
         title={t("landing.recentTitle")}
         icon={<FileClock size={22} strokeWidth={1.75} />}
-        bodyClassName="home-tool-grid home-tool-grid--2x2"
+        bodyClassName="im-tool-card-grid"
       >
         {items.map(({ key, toolId, href, label, description, categoryId }) => (
           <IndustrialToolCard
@@ -97,7 +97,7 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
             description={description}
             slug={toolId}
             categoryId={categoryId}
-            icon={<ToolListIcon slug={toolId} label={label} size="md" />}
+            icon={<ToolListIcon slug={toolId} label={label} size="sm" />}
             className="home-tool-grid__card"
           />
         ))}
