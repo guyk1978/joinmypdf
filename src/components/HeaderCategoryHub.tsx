@@ -1,11 +1,25 @@
 "use client";
 
-import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
 import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { LayoutGrid } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import {
+  getCategoryAccentColor,
+  getContrastingInk,
+} from "@/lib/category-accent-colors";
 import {
   buildInventoryGridItems,
   getInventoryToolsByCategory,
@@ -18,35 +32,52 @@ type PanelPosition = {
   top: number;
   left: number;
   width: number;
+  maxHeight: number;
 };
 
-const PANEL_WIDTH = 520;
-const VIEWPORT_MARGIN = 12;
-const TOOLS_PER_CATEGORY = 10;
+/** Wide mega-menu footprint — clamps to the viewport with side margins. */
+const PANEL_MAX_WIDTH = 1120;
+const VIEWPORT_MARGIN = 16;
+const TOOLS_PER_CATEGORY = 8;
 
 function getPanelPosition(trigger: HTMLElement): PanelPosition {
   const rect = trigger.getBoundingClientRect();
   const isRtl = document.documentElement.dir === "rtl";
-  const width = Math.min(PANEL_WIDTH, window.innerWidth - VIEWPORT_MARGIN * 2);
-  const top = rect.bottom + 8;
+  const width = Math.min(PANEL_MAX_WIDTH, window.innerWidth - VIEWPORT_MARGIN * 2);
+  const top = Math.min(rect.bottom + 10, window.innerHeight - 120);
+  const maxHeight = Math.max(240, window.innerHeight - top - VIEWPORT_MARGIN);
 
+  // Prefer aligning under the trigger; if the panel is wider, pin to the
+  // nearest viewport edge so the mega menu stays fully visible.
+  let left: number;
   if (isRtl) {
-    const left = Math.max(
+    left = Math.max(
       VIEWPORT_MARGIN,
       Math.min(rect.left, window.innerWidth - width - VIEWPORT_MARGIN),
     );
-    return { top, left, width };
+  } else {
+    // Start near the trigger's left, then clamp.
+    left = Math.max(
+      VIEWPORT_MARGIN,
+      Math.min(rect.left, window.innerWidth - width - VIEWPORT_MARGIN),
+    );
+    // If there's room, nudge toward header content center for a balanced mega menu.
+    const ideal = Math.max(
+      VIEWPORT_MARGIN,
+      Math.min(
+        (window.innerWidth - width) / 2,
+        window.innerWidth - width - VIEWPORT_MARGIN,
+      ),
+    );
+    // Prefer centering when the panel is much wider than the trigger cluster.
+    if (width > 640) left = ideal;
   }
 
-  const left = Math.max(
-    VIEWPORT_MARGIN,
-    Math.min(rect.right - width, window.innerWidth - width - VIEWPORT_MARGIN),
-  );
-  return { top, left, width };
+  return { top, left, width, maxHeight };
 }
 
 /**
- * Header "TOOLS" button + dropdown listing categories and tools.
+ * Header "TOOLS" button + wide multi-column mega menu of categories and tools.
  */
 export function HeaderCategoryHub() {
   const tHeader = useTranslations("Header");
@@ -70,10 +101,13 @@ export function HeaderCategoryHub() {
         translate,
         locale,
       ).slice(0, TOOLS_PER_CATEGORY);
+      const accent = getCategoryAccentColor(category.id);
       return {
         ...category,
         toolCount: getInventoryToolsByCategory(category.id).length,
         tools,
+        accent,
+        accentInk: getContrastingInk(accent),
       };
     });
   }, [locale, tTools]);
@@ -163,18 +197,28 @@ export function HeaderCategoryHub() {
             <div
               ref={panelRef}
               id={panelId}
-              className="tools-hub-menu__panel tools-hub-menu__panel--tools"
+              className="tools-hub-menu__panel tools-hub-menu__panel--tools tools-hub-menu__panel--mega"
               role="menu"
               aria-label={tHeader("toolsHub")}
               style={{
                 top: panelPosition.top,
                 left: panelPosition.left,
                 width: panelPosition.width,
+                maxHeight: panelPosition.maxHeight,
               }}
             >
               <div className="tools-hub-menu__groups">
                 {groups.map((category) => (
-                  <section key={category.id} className="tools-hub-menu__group">
+                  <section
+                    key={category.id}
+                    className="tools-hub-menu__group"
+                    style={
+                      {
+                        "--tools-hub-accent": category.accent,
+                        "--tools-hub-accent-ink": category.accentInk,
+                      } as CSSProperties
+                    }
+                  >
                     <Link
                       href={category.href}
                       className="tools-hub-menu__group-title"
@@ -182,7 +226,9 @@ export function HeaderCategoryHub() {
                       prefetch={false}
                       onClick={(event) => navigateAway(category.href, event)}
                     >
-                      {resolveTitle(category.id as InventoryCategoryId, category.title)}
+                      <span className="tools-hub-menu__group-title-text">
+                        {resolveTitle(category.id as InventoryCategoryId, category.title)}
+                      </span>
                       {category.toolCount > 0 ? (
                         <span className="tools-hub-menu__group-count">{category.toolCount}</span>
                       ) : null}

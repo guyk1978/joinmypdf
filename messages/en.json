@@ -6466,10 +6466,10 @@
     "exploreExtractTools": "Explore Extract Tools",
     "explorePdfTools": "Explore PDF Tools",
     "popularTitle": "Popular Conversions",
-    "groupDocument": "Document Conversion",
+    "groupDocument": "PDF Conversion",
     "groupImage": "Image Conversion",
-    "groupMedia": "Media Conversion",
-    "groupData": "Data Conversion",
+    "groupMedia": "Video & Audio Conversion",
+    "groupData": "Data & Document Conversion",
     "schemaName": "Convert Tools",
     "schemaDescription": "Free online conversion tools for PDF, images, media, and documents. A comprehensive directory of browser-based converters with a zero-upload privacy guarantee.",
     "tools": {

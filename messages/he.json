@@ -6609,10 +6609,10 @@
     "exploreExtractTools": "גלה כלי חילוץ",
     "explorePdfTools": "גלה כלי PDF",
     "popularTitle": "המרות פופולריות",
-    "groupDocument": "המרת מסמכים",
+    "groupDocument": "המרת PDF",
     "groupImage": "המרת תמונות",
-    "groupMedia": "המרת מדיה",
-    "groupData": "המרת נתונים",
+    "groupMedia": "המרת וידאו ואודיו",
+    "groupData": "המרת נתונים ומסמכים",
     "schemaName": "כלי המרה",
     "schemaDescription": "כלי המרה חינמיים אונליין ל-PDF, תמונות, מדיה ומסמכים. מדריך מקיף לממירים מבוססי דפדפן עם הבטחת אפס העלאות.",
     "tools": {
