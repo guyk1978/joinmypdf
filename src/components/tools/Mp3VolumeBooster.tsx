@@ -128,10 +128,6 @@ export function Mp3VolumeBooster({ name: _name, title, onComplete }: Mp3VolumeBo
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="audio"

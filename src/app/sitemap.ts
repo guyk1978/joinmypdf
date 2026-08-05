@@ -48,6 +48,7 @@ const BASE_PATHS = [
   "/about",
   "/terms",
   "/favorites",
+  "/pinned-tools",
   "/projects",
   "/audio-tools",
   "/privacy-first-pdf-tools",

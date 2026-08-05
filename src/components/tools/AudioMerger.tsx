@@ -228,10 +228,6 @@ export function AudioMerger({ title, onComplete }: AudioMergerProps) {
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       <IndustrialMatteDropzone
         role="button"
         tabIndex={isDisabled ? -1 : 0}

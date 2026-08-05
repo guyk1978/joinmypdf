@@ -93,10 +93,6 @@ export function WavToMp3({ name, onComplete }: WavToMp3Props) {
         error={displayError && phase === "error" ? displayError : pickError || blockingError}
       />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="audio"

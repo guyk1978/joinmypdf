@@ -140,10 +140,6 @@ export function VideoMuter({ labels, className, onStart, onComplete }: VideoMute
     <div className={clsx("video-muter-tool space-y-4", className)}>
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <ChooseFilesDropzone
           accept={MP4_ACCEPT}

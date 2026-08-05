@@ -145,10 +145,6 @@ export function VideoToMp3({ labels, className, onStart, onComplete }: VideoToMp
     <div className={clsx("video-to-mp3-tool mt-6 space-y-4", className)}>
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="video"

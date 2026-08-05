@@ -1,10 +1,8 @@
 "use client";
 
-import { useMemo } from "react";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
 import { MinimalToolCard } from "@/components/MinimalToolCard";
-import { filterUnpinnedGridItems, usePinnedTools } from "@/hooks/usePinnedTools";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
@@ -29,18 +27,12 @@ export function CategoryDirectoryFlatGrid({
   lead,
   leadClassName,
 }: CategoryDirectoryFlatGridProps) {
-  const { pinnedIds, hydrated } = usePinnedTools();
-  const visibleItems = useMemo(() => {
-    if (!hydrated) return items;
-    return filterUnpinnedGridItems(items, pinnedIds);
-  }, [items, pinnedIds, hydrated]);
-
   return (
     <ul className={clsx("im-tool-card-grid", className)}>
       {lead ? (
         <li className={clsx("im-tool-card-grid__lead", leadClassName)}>{lead}</li>
       ) : null}
-      {visibleItems.map((item) => (
+      {items.map((item) => (
         <li key={item.slugHint} className="im-tool-card-grid__item">
           <MinimalToolCard
             href={item.href}

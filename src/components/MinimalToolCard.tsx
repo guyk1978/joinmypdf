@@ -1,12 +1,14 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { ChevronRight } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
-import { ToolCardFocus } from "@/components/ToolCardFocus";
 import { ToolCardGoLink } from "@/components/ToolCardGoLink";
 import { ToolFavoriteBookmarkIcon } from "@/components/ToolFavoriteBookmarkIcon";
+import { ToolPinButton } from "@/components/ToolPinButton";
+import { ToolRatingSummary } from "@/components/ToolRatingSummary";
 import { useFavorites } from "@/hooks/useFavorites";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getToolCardDescription } from "@/data/tool-card-descriptions";
@@ -19,20 +21,27 @@ import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { getToolCardEnglishLabel } from "@/lib/tool-labels";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolRealWorldExampleByLocale } from "@/data/tool-real-world-examples-localized";
+import { renderTextWithLtrUnits } from "@/lib/text-direction";
 
 export type MinimalToolCardProps = {
   href: string;
   label: string;
-  /** Optional — used only in the focus overlay, not shown on the card. */
+  /** Shown in the inline expand panel. */
   description?: string;
-  /** Optional — used only in the focus overlay. */
+  /** Kept for call-site compatibility (not shown on the compact card). */
   icon?: ReactNode;
   className?: string;
   slug?: string;
   categoryId?: InventoryCategoryId;
+  /** @deprecated Modal focus mode removed — prop kept for call-site compatibility. */
   interactionMode?: "tool-modal" | "focus";
-  /** Favorites list: show remove control beside maximize. */
+  /** Favorites list: show remove control beside the nav arrow. */
   favoritesRemove?: boolean;
+  /**
+   * `filled` — solid category background (homepage tiles).
+   * `stripe` — dark card + left category accent stripe (related tools).
+   */
+  chrome?: "filled" | "stripe";
 };
 
 function slugFromHref(href: string): string {
@@ -42,34 +51,37 @@ function slugFromHref(href: string): string {
 }
 
 /**
- * Ultra-minimal tool card — accent stripe, English tool name,
- * and a subtle maximize control in the top-right corner.
+ * Ultra-minimal tool card — title toggles an overlay details panel;
+ * the right-side arrow navigates to the tool page.
  */
 export function MinimalToolCard({
   href,
   label,
   description,
-  icon,
   className,
   slug,
   categoryId: categoryIdProp,
-  interactionMode = "tool-modal",
   favoritesRemove = false,
+  chrome = "filled",
 }: MinimalToolCardProps) {
   const locale = useLocale();
   const tCard = useTranslations("ToolCard");
   const tFav = useTranslations("Favorites");
-  const [focusOpen, setFocusOpen] = useState(false);
-  const { isFavorite, removeFavorite } = useFavorites();
+  const panelId = useId();
+  const rootRef = useRef<HTMLElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const { isFavorite, removeFavorite, toggleFavorite } = useFavorites();
 
   const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
   const englishTitle = getToolCardEnglishLabel(toolSlug, label);
-  const englishDescription = getToolCardDescription(toolSlug, description) ?? description;
+  const englishDescription =
+    getToolCardDescription(toolSlug, description) ?? description;
   const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
   const accentCategoryId =
     resolveToolAccentCategoryId(toolSlug, categoryId) ?? categoryId ?? "pdf";
-  const nestedHref = categoryId ? resolveToolHref(toolSlug, categoryId, locale) : href;
-  const focusInteraction = interactionMode === "focus";
+  const nestedHref = categoryId
+    ? resolveToolHref(toolSlug, categoryId, locale)
+    : href;
   const favorited = isFavorite(toolSlug);
 
   const exampleKey = `examples.${toolSlug}`;
@@ -77,61 +89,164 @@ export function MinimalToolCard({
     ? tCard(exampleKey)
     : getToolRealWorldExampleByLocale(toolSlug, locale);
 
+  const panelCopy = englishDescription || example || null;
+
   const accentStyle = {
     "--category-accent": getCategoryAccentCssVar(accentCategoryId),
   } as CSSProperties;
 
-  const overlayIcon = icon ?? (
-    <span className="im-tool-card__focus-fallback" aria-hidden />
-  );
+  useEffect(() => {
+    if (!expanded) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      const root = rootRef.current;
+      if (!root) return;
+      if (event.target instanceof Node && !root.contains(event.target)) {
+        setExpanded(false);
+      }
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setExpanded(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [expanded]);
+
+  const toggleExpanded = () => setExpanded((open) => !open);
 
   return (
     <article
-      className={clsx("im-tool-card", "im-tool-card--minimal", className)}
+      ref={rootRef}
+      className={clsx(
+        "im-tool-card",
+        "im-tool-card--minimal",
+        chrome === "stripe" && "im-tool-card--stripe",
+        expanded && "im-tool-card--expanded",
+        className,
+      )}
       data-category={accentCategoryId}
+      data-chrome={chrome}
+      data-expanded={expanded ? "1" : "0"}
       style={accentStyle}
     >
       <span className="im-tool-card__stripe" aria-hidden />
 
-      <div className="im-tool-card__minimal-actions">
-        <ToolCardFocus
-          slug={toolSlug}
-          href={nestedHref}
-          label={englishTitle}
-          description={englishDescription}
-          example={example}
-          icon={overlayIcon}
-          categoryId={accentCategoryId}
-          open={focusInteraction ? focusOpen : undefined}
-          onOpenChange={focusInteraction ? setFocusOpen : undefined}
-          showExpandButton
-          className="im-tool-card__icon-btn im-tool-card__expand"
-        />
-        {favoritesRemove ? (
-          <button
-            type="button"
-            className="im-tool-card__icon-btn tool-card-bookmark tool-card-bookmark--visible tool-card-bookmark--remove"
-            aria-label={tFav("removeFromList")}
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-              removeFavorite(toolSlug);
-            }}
+      <div className="im-tool-card__minimal-row">
+        <button
+          type="button"
+          className="im-tool-card__hit"
+          aria-expanded={expanded}
+          aria-controls={panelId}
+          aria-label={
+            expanded
+              ? tCard("closeFocus")
+              : tCard("expandAria", { label: englishTitle })
+          }
+          onClick={toggleExpanded}
+        >
+          <h3 className="im-tool-card__title" lang="en">
+            {englishTitle}
+          </h3>
+        </button>
+
+        <div className="im-tool-card__minimal-actions">
+          {favoritesRemove ? (
+            <button
+              type="button"
+              className="im-tool-card__icon-btn tool-card-bookmark tool-card-bookmark--visible tool-card-bookmark--remove"
+              aria-label={tFav("removeFromList")}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                removeFavorite(toolSlug);
+              }}
+            >
+              <ToolFavoriteBookmarkIcon favorited={favorited} showRemove />
+            </button>
+          ) : null}
+
+          <ToolCardGoLink
+            href={nestedHref}
+            className="im-tool-card__nav-arrow"
+            aria-label={tCard("goAria", { label: englishTitle })}
+            title={tCard("openTool")}
+            onClick={(event) => event.stopPropagation()}
           >
-            <ToolFavoriteBookmarkIcon favorited={favorited} showRemove />
-          </button>
-        ) : null}
+            <ChevronRight
+              className="im-tool-card__nav-arrow-icon"
+              strokeWidth={2.25}
+              aria-hidden
+            />
+          </ToolCardGoLink>
+        </div>
       </div>
 
-      <ToolCardGoLink
-        href={nestedHref}
-        className="im-tool-card__hit"
-        aria-label={tCard("goAria", { label: englishTitle })}
-      >
-        <h3 className="im-tool-card__title" lang="en">
-          {englishTitle}
-        </h3>
-      </ToolCardGoLink>
+      {expanded ? (
+        <div
+          id={panelId}
+          className="im-tool-card__dropdown"
+          role="region"
+          aria-label={englishTitle}
+          onClick={(event) => event.stopPropagation()}
+        >
+          {panelCopy ? (
+            <p className="im-tool-card__dropdown-desc">
+              {renderTextWithLtrUnits(panelCopy)}
+            </p>
+          ) : (
+            <p className="im-tool-card__dropdown-desc im-tool-card__dropdown-desc--muted">
+              {tCard("openTool")}
+            </p>
+          )}
+
+          <div className="im-tool-card__dropdown-footer">
+            <ToolRatingSummary
+              toolId={toolSlug}
+              categoryId={accentCategoryId}
+              className="im-tool-card__dropdown-rating"
+              showCount={false}
+            />
+            <div className="im-tool-card__dropdown-actions">
+              <ToolPinButton
+                toolId={toolSlug}
+                variant="card"
+                className="im-tool-card__dropdown-pin"
+              />
+              <button
+                type="button"
+                className={clsx(
+                  "im-tool-card__dropdown-fav",
+                  favorited && "im-tool-card__dropdown-fav--active",
+                )}
+                data-tooltip={
+                  favorited
+                    ? tFav("removeFromFavorites")
+                    : tFav("addToFavorites")
+                }
+                aria-label={
+                  favorited
+                    ? tFav("removeFromFavorites")
+                    : tFav("addToFavorites")
+                }
+                aria-pressed={favorited}
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  toggleFavorite(toolSlug);
+                }}
+              >
+                <ToolFavoriteBookmarkIcon favorited={favorited} />
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </article>
   );
 }

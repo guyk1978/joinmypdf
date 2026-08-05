@@ -205,10 +205,6 @@ export function Mp3ToMp4({ title, onComplete }: Mp3ToMp4Props) {
     <div className="mp3-to-mp4-tool space-y-5">
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       <div className="mp3-to-mp4-tool__uploads">
         <UploadSlot
           panelLabel="Audio"

@@ -130,10 +130,6 @@ export function VideoSpeedController({
     <div className={clsx("video-speed-controller-tool space-y-4", className)}>
       <FfmpegEnvironmentNotice environment={environment} error={pickError || displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {showDropzone ? (
         <MediaDropzone
           mediaKind="video"

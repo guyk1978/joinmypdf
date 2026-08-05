@@ -9,7 +9,6 @@ import { HomeReveal } from "@/components/homepage/HomeReveal";
 import { HomeStaticPanel } from "@/components/homepage/HomeStaticPanel";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
-import { useUnpinnedIds } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
 /**
@@ -43,11 +42,10 @@ type QuickActionsProps = {
 export function QuickActions({ locale }: QuickActionsProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
-  const visibleToolIds = useUnpinnedIds([...QUICK_ACTION_TOOL_IDS]);
 
   const cards = useMemo(() => {
     const resolved = [];
-    for (const id of visibleToolIds) {
+    for (const id of QUICK_ACTION_TOOL_IDS) {
       const entry = getToolsInventoryEntry(id);
       if (!entry) continue;
       resolved.push({
@@ -59,7 +57,7 @@ export function QuickActions({ locale }: QuickActionsProps) {
       if (resolved.length >= QUICK_ACTIONS_GRID_SIZE) break;
     }
     return resolved;
-  }, [visibleToolIds, locale, tTools]);
+  }, [locale, tTools]);
 
   if (!cards.length) return null;
 

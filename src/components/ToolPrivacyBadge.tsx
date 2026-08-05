@@ -11,6 +11,11 @@ type ToolPrivacyBadgeProps = {
 /** Centered privacy notice below the main glass container — reference layout. */
 export function ToolPrivacyBadge({ className }: ToolPrivacyBadgeProps) {
   const t = useTranslations("Workspace.common");
+  const label = t.has("privacyBadge")
+    ? t("privacyBadge")
+    : t.has("privacyStatement")
+      ? t("privacyStatement")
+      : "Local Processing. Nothing is uploaded.";
 
   return (
     <p
@@ -21,7 +26,7 @@ export function ToolPrivacyBadge({ className }: ToolPrivacyBadgeProps) {
       role="note"
     >
       <Shield className="h-3.5 w-3.5 shrink-0 text-neutral-500" aria-hidden />
-      <span>{t.has("privacyBadge") ? t("privacyBadge") : t("privacyStatement")}</span>
+      <span>{label}</span>
     </p>
   );
 }

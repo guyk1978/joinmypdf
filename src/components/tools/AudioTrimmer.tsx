@@ -282,10 +282,6 @@ export function AudioTrimmer({ name, onComplete }: AudioTrimmerProps) {
         }
       />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="audio"

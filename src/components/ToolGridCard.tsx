@@ -2,7 +2,6 @@
 
 import { usePathname } from "@/i18n/navigation";
 import { MinimalToolCard } from "@/components/MinimalToolCard";
-import { usePinnedTools } from "@/hooks/usePinnedTools";
 import type { ToolGridItem } from "@/lib/tool-grid";
 
 type ToolGridCardAccordionProps = {
@@ -23,12 +22,8 @@ type ToolGridCardProps = {
  */
 export function ToolGridCard({ item, favoritesView, accordion }: ToolGridCardProps) {
   const pathname = usePathname() || "/";
-  const { isPinned, hydrated } = usePinnedTools();
   const slug = item.slugHint;
-  const pinned = hydrated && isPinned(slug);
   const showRemove = favoritesView ?? pathname.includes("/favorites");
-
-  if (pinned && !showRemove) return null;
 
   return (
     <MinimalToolCard

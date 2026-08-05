@@ -85,7 +85,6 @@ export function HeaderOperationsMenu() {
     (next: ToolModalTab) => {
       setOpen(false);
 
-      // Provider-owned setter first (authoritative for controlled tab + clears boot veil).
       const bridgeSetTab = toolModal?.actions?.setTab;
       if (
         typeof bridgeSetTab === "function" &&
@@ -94,10 +93,7 @@ export function HeaderOperationsMenu() {
         bridgeSetTab(next);
       }
 
-      // Window hook + module bus (webpack-safe).
       requestToolModalTab(next);
-
-      // Session mirror (labels / active item in this menu).
       toolModal?.session?.setTab?.(next);
 
       window.dispatchEvent(
@@ -125,14 +121,11 @@ export function HeaderOperationsMenu() {
     [toolModal],
   );
 
-  const invoke = useCallback(
-    (action?: (() => void) | null) => {
-      setOpen(false);
-      if (typeof action !== "function") return;
-      action();
-    },
-    [],
-  );
+  const invoke = useCallback((action?: (() => void) | null) => {
+    setOpen(false);
+    if (typeof action !== "function") return;
+    action();
+  }, []);
 
   useEffect(() => {
     setMounted(true);

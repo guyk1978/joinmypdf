@@ -160,10 +160,6 @@ export function Mp3Trimmer({ name, title: _title, onComplete }: Mp3TrimmerProps)
         }
       />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="audio"

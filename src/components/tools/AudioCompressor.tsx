@@ -140,10 +140,6 @@ export function AudioCompressor({ name, onComplete }: AudioCompressorProps) {
         error={displayError && phase === "error" ? displayError : pickError || blockingError}
       />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="audio"

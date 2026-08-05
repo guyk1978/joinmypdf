@@ -9,7 +9,6 @@ import { HomeReveal } from "@/components/homepage/HomeReveal";
 import { HomeStaticPanel } from "@/components/homepage/HomeStaticPanel";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
-import { useUnpinnedIds } from "@/hooks/usePinnedTools";
 import { resolveInventoryToolLabel } from "@/lib/tools-inventory-query";
 
 const POPULAR_TOOL_IDS = [
@@ -40,11 +39,10 @@ type PopularToolsProps = {
 export function PopularTools({ locale }: PopularToolsProps) {
   const t = useTranslations("Home");
   const tTools = useTranslations("Tools");
-  const visibleToolIds = useUnpinnedIds([...POPULAR_TOOL_IDS]);
 
   const cards = useMemo(() => {
     const resolved = [];
-    for (const id of visibleToolIds) {
+    for (const id of POPULAR_TOOL_IDS) {
       const entry = getToolsInventoryEntry(id);
       if (!entry) continue;
       resolved.push({
@@ -56,7 +54,7 @@ export function PopularTools({ locale }: PopularToolsProps) {
       if (resolved.length >= POPULAR_GRID_SIZE) break;
     }
     return resolved;
-  }, [visibleToolIds, locale, tTools]);
+  }, [locale, tTools]);
 
   if (!cards.length) return null;
 

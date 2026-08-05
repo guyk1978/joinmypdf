@@ -94,10 +94,6 @@ export function Mp3ToWav({ name, onComplete }: Mp3ToWavProps) {
         error={displayError && phase === "error" ? displayError : pickError || blockingError}
       />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="audio"

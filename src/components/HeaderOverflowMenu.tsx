@@ -5,6 +5,7 @@ import {
   Download,
   LayoutGrid,
   MoreHorizontal,
+  Pin,
   Share2,
   BookOpen,
   MessageSquareText,
@@ -81,6 +82,7 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
   const privacyPolicyActive = pathname.includes("/privacy-policy");
   const contactActive = pathname.includes("/contact");
   const toolsDirectoryActive = pathname === "/tools" || pathname === "/tools/";
+  const pinnedToolsActive = pathname.includes("/pinned-tools");
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -271,6 +273,20 @@ export function HeaderOverflowMenu({ onNavigate }: HeaderOverflowMenuProps) {
           >
             <LayoutGrid className="site-header__overflow-icon" aria-hidden />
             {t("allTools.button")}
+          </Link>
+
+          <Link
+            href="/pinned-tools/"
+            role="menuitem"
+            className={clsx(itemClass, pinnedToolsActive && "is-active")}
+            prefetch={false}
+            onClick={() => {
+              onNavigate?.();
+              close();
+            }}
+          >
+            <Pin className="site-header__overflow-icon" aria-hidden />
+            {t("pinnedTools")}
           </Link>
 
           <Link

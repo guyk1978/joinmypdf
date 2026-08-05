@@ -5,6 +5,7 @@ import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/navigation";
 import { ToolPageStorySections } from "@/components/layout/ToolPageStorySections";
+import { ToolRelatedToolsSection } from "@/components/ToolRelatedToolsSection";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { registry } from "@/lib/registry";
 import {
@@ -167,6 +168,10 @@ export function ToolWorkspaceOverview({
         )}
         data-tool-overview="1"
       >
+        <ToolRelatedToolsSection
+          slug={slug}
+          relatedSlugs={registryTool?.relatedTools ?? []}
+        />
         {story}
       </section>
     );
@@ -190,6 +195,10 @@ export function ToolWorkspaceOverview({
           {paragraph}
         </p>
       ))}
+      <ToolRelatedToolsSection
+        slug={slug}
+        relatedSlugs={registryTool?.relatedTools ?? []}
+      />
       {story}
     </section>
   );

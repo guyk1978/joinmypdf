@@ -207,10 +207,6 @@ export function VideoMetadataCleaner({
     <div className={clsx("video-metadata-cleaner-tool space-y-4", className)}>
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="video"

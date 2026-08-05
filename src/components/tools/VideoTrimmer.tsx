@@ -220,10 +220,6 @@ export function VideoTrimmer({ labels, className, onStart, onComplete }: VideoTr
     <div className={clsx("video-trimmer-tool space-y-4", className)}>
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="video"

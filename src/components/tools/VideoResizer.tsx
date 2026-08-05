@@ -290,10 +290,6 @@ export function VideoResizer({ labels, className, onStart, onComplete }: VideoRe
     <div className={clsx("video-resizer-tool space-y-4", className)}>
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="video"

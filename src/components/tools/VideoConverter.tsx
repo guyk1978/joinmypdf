@@ -140,10 +140,6 @@ export function VideoConverter({ labels, className, onStart, onComplete }: Video
     <div className={clsx("video-converter-tool space-y-4", className)}>
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="video"

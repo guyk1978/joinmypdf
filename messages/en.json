@@ -29,6 +29,7 @@
     "appAlreadyInstalled": "App is already installed",
     "installAppUnavailable": "Install app is not available in this browser session",
     "favorites": "Favorites",
+    "pinnedTools": "Pin Tools Page",
     "projects": "My Projects",
     "blog": "Blog",
     "about": "About",
@@ -3257,6 +3258,8 @@
     "savedCount": "{count, plural, one {# tool saved} other {# tools saved}}",
     "loading": "Loading favorites…",
     "removeFromList": "Remove from favorites",
+    "addToFavorites": "Add to Favorites",
+    "removeFromFavorites": "Remove from Favorites",
     "viewProjects": "My Projects"
   },
   "Reviews": {
@@ -9282,6 +9285,8 @@
     "docUseCaseShare": "Prepare a clean result with {toolName} before emailing, uploading, or publishing.",
     "keyword": "Focus",
     "alsoCheckOut": "Also check out",
+    "youMightAlsoNeed": "You Might Also Need",
+    "relatedTools": "Related tools",
     "guidesArticles": "Guides & articles",
     "relatedEmpty": "No related tools or articles yet.",
     "loading": "Loading tool…",
@@ -9291,10 +9296,30 @@
   },
   "PinnedDock": {
     "dockLabel": "Pinned tools",
-    "pin": "Pin to dock",
-    "unpin": "Unpin from dock",
+    "pin": "Pin tool",
+    "unpin": "Unpin tool",
     "openTool": "Open {label}",
-    "removeFromDock": "Remove from dock"
+    "removeFromDock": "Remove from pinned tools"
+  },
+  "PinnedTools": {
+    "metaTitle": "Pinned Tools — JoinMyPDF",
+    "metaDescription": "Your pinned utility shortcuts — stored locally in your browser for fast access, with no account required.",
+    "title": "Pin Tools Page",
+    "description": "A private shortcut shelf for the converters and editors you reach for most. Pin from any tool card, then open them here in one click.",
+    "guideTitle": "Your Quick-Access Hub",
+    "guideLead": "Manage and launch your most frequently used tools instantly without searching through categories.",
+    "howTitle": "How It Works",
+    "howText": "Click the pin icon on any tool card to save it here for fast retrieval.",
+    "tipsTitle": "Pro Tips",
+    "tipsText": "Keep your workspace clean by pinning only the utilities you rely on daily.",
+    "privacyTitle": "100% Private",
+    "privacyText": "Your pinned preferences are stored securely in your browser's local storage.",
+    "libraryTitle": "Pinned Tools Library",
+    "emptyTitle": "No pinned tools yet",
+    "emptyState": "Pin tools from any card’s details panel, then return here for a clean grid of your shortcuts.",
+    "exploreAllTools": "Explore All Tools",
+    "savedCount": "Showing {count} saved tools",
+    "loading": "Loading pinned tools…"
   },
   "ToolCard": {
     "example": "Example",

@@ -10,10 +10,13 @@ type ToolPinButtonProps = {
   toolId: string;
   className?: string;
   variant?: "card" | "modal" | "focus";
-  /** Called after the tool is pinned (e.g. close modal). */
+  /** Called after the tool is pinned (e.g. close an overlay). */
   onPin?: () => void;
 };
 
+/**
+ * Toggle a tool into local pinned-tools storage (does not move cards to a top dock).
+ */
 export function ToolPinButton({
   toolId,
   className,
@@ -21,18 +24,14 @@ export function ToolPinButton({
   onPin,
 }: ToolPinButtonProps) {
   const t = useTranslations("PinnedDock");
-  const { isPinned, pinTool, unpinTool } = usePinnedTools();
+  const { isPinned, togglePin } = usePinnedTools();
   const pinned = isPinned(toolId);
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    if (pinned) {
-      unpinTool(toolId);
-      return;
-    }
-    pinTool(toolId);
-    onPin?.();
+    const nowPinned = togglePin(toolId);
+    if (nowPinned) onPin?.();
   };
 
   return (

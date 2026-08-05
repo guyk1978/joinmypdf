@@ -96,10 +96,6 @@ export function OggConverter({ onComplete }: OggConverterProps) {
         error={displayError && phase === "error" ? displayError : pickError || blockingError}
       />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="audio"

@@ -97,10 +97,6 @@ export function Mp3Converter({ name, title: _title, onComplete }: Mp3ConverterPr
         error={displayError && phase === "error" ? displayError : pickError || blockingError}
       />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="audio"

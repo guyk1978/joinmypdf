@@ -100,10 +100,6 @@ export function Mp4ToMp3({ title, onComplete }: Mp4ToMp3Props) {
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <MediaDropzone
           mediaKind="video"

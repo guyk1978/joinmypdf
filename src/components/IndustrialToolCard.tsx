@@ -25,9 +25,9 @@ export type IndustrialToolCardProps = {
 };
 
 /**
- * Global tool card — ultra-minimal chrome (accent stripe + title + maximize).
- * Props kept for call-site compatibility; unused chrome (checkbox, START, icons,
- * descriptions) is intentionally omitted.
+ * Global tool card — ultra-minimal chrome (title + nav arrow + overlay details).
+ * Props kept for call-site compatibility; unused chrome (checkbox, START, icons)
+ * is intentionally omitted.
  */
 export function IndustrialToolCard({
   href,

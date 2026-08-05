@@ -7,6 +7,7 @@ import {
   LayoutGrid,
   Library,
   MessageSquareText,
+  Pin,
   Share2,
   X,
 } from "lucide-react";
@@ -148,6 +149,7 @@ export function HeaderMobileMenu({ onNavigate }: HeaderMobileMenuProps) {
   const privacyPolicyActive = pathname.includes("/privacy-policy");
   const contactActive = pathname.includes("/contact");
   const toolsDirectoryActive = pathname === "/tools" || pathname === "/tools/";
+  const pinnedToolsActive = pathname.includes("/pinned-tools");
 
   const drawer =
     mounted && open
@@ -240,6 +242,17 @@ export function HeaderMobileMenu({ onNavigate }: HeaderMobileMenuProps) {
                 <div className="site-mobile-nav__divider" role="separator" />
 
                 <p className="site-mobile-nav__heading">{t("siteLabel")}</p>
+                <Link
+                  href="/pinned-tools/"
+                  className={clsx("site-mobile-nav__link", pinnedToolsActive && "is-active")}
+                  prefetch={false}
+                  onClick={go}
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Pin size={14} strokeWidth={2} aria-hidden />
+                    {t("pinnedTools")}
+                  </span>
+                </Link>
                 <Link
                   href="/about/"
                   className={clsx("site-mobile-nav__link", aboutActive && "is-active")}

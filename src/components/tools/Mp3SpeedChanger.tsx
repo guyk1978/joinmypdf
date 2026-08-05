@@ -201,10 +201,6 @@ export function Mp3SpeedChanger({ title, onComplete }: Mp3SpeedChangerProps) {
 
       <FfmpegEnvironmentNotice environment={environment} error={displayError} />
 
-      {environment && !blockingError && environment.performanceNotice ? (
-        <FfmpegEnvironmentNotice environment={environment} />
-      ) : null}
-
       {!file ? (
         <IndustrialMatteDropzone
           role="button"

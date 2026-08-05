@@ -7,6 +7,8 @@ import type { AbstractIntlMessages } from "next-intl";
 export const SHARED_CLIENT_MESSAGE_NAMESPACES = [
   "Header",
   "Favorites",
+  "PinnedTools",
+  "PinnedDock",
   "Tools",
   "Projects",
   "LanguageSwitcher",
@@ -20,9 +22,9 @@ export const SHARED_CLIENT_MESSAGE_NAMESPACES = [
   "Feedback",
   "Rating",
   "ToolCard",
-  "PinnedDock",
   "ToolSidebarBanners",
   "Reviews",
+  "Workspace",
 ] as const;
 
 export function pickMessageNamespaces(
