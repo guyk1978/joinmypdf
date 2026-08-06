@@ -9646,6 +9646,7 @@
     "example": "Пример",
     "realWorldExample": "Пример из жизни:",
     "openTool": "Открыть инструмент",
+    "start": "Начать",
     "goAria": "Перейти к {label}",
     "selectForPinAria": "Выбрать {label} для избранного",
     "focusMode": "Режим фокуса",

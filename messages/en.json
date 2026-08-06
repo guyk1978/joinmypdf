@@ -9391,6 +9391,7 @@
     "example": "Example",
     "realWorldExample": "Real-world example:",
     "openTool": "Open tool",
+    "start": "Start",
     "goAria": "Go to {label}",
     "selectForPinAria": "Select {label} for favorites",
     "focusMode": "Focus mode",

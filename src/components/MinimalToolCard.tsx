@@ -206,14 +206,16 @@ export function MinimalToolCard({
             </p>
           )}
 
-          <div className="im-tool-card__dropdown-footer">
-            <ToolRatingSummary
-              toolId={toolSlug}
-              categoryId={accentCategoryId}
-              className="im-tool-card__dropdown-rating"
-              showCount={false}
-            />
-            <div className="im-tool-card__dropdown-actions">
+          <div className="im-tool-card__dropdown-footer mt-4 flex flex-col gap-3 border-t border-gray-100 pt-3">
+            <div className="im-tool-card__dropdown-rating-row flex items-center">
+              <ToolRatingSummary
+                toolId={toolSlug}
+                categoryId={accentCategoryId}
+                className="im-tool-card__dropdown-rating"
+                showCount={false}
+              />
+            </div>
+            <div className="im-tool-card__dropdown-actions flex items-center gap-2">
               <ToolPinButton
                 toolId={toolSlug}
                 variant="card"
@@ -244,6 +246,19 @@ export function MinimalToolCard({
               >
                 <ToolFavoriteBookmarkIcon favorited={favorited} />
               </button>
+              <ToolCardGoLink
+                href={nestedHref}
+                className="im-tool-card__dropdown-start flex shrink-0 items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-emerald-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                aria-label={tCard("goAria", { label: displayTitle })}
+                onClick={(event) => event.stopPropagation()}
+              >
+                {tCard("start")}
+                <ChevronRight
+                  className="im-tool-card__dropdown-start-icon size-4 shrink-0"
+                  strokeWidth={2.25}
+                  aria-hidden
+                />
+              </ToolCardGoLink>
             </div>
           </div>
         </div>
