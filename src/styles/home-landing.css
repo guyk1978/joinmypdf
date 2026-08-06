@@ -24,7 +24,7 @@
   max-width: none;
   margin-inline: 0;
   /* Horizontal edge gutter lives on .home-tool-grid-page / .tool-page-main. */
-  padding: 1rem 0 0;
+  padding: 1rem 0 4rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;

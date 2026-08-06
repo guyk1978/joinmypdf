@@ -78,7 +78,7 @@ export function RecentWorkspaces({ locale }: RecentWorkspacesProps) {
   if (!items.length) return null;
 
   return (
-    <HomeReveal className="w-full h-full">
+    <HomeReveal className="home-recent-workspaces w-full h-full pb-16 mb-4">
       <HomeStaticPanel
         id="recent-workspaces-title"
         title={t("landing.recentTitle")}

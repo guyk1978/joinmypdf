@@ -15858,8 +15858,15 @@ html[dir="rtl"] .tool-title-banner__label {
   }
 }
 
-.tool-upload-float[data-workspace-phase="active"] .tool-title-banner {
+/* Upload tools: hide title banner after files load (active workspace). */
+.tool-upload-float[data-workspace-phase="active"][data-requires-upload="1"] .tool-title-banner {
   display: none;
+}
+
+/* Interactive / non-upload utilities: keep the category accent title banner. */
+.tool-upload-float[data-requires-upload="0"] .tool-title-banner {
+  display: flex !important;
+  margin-bottom: 0.75rem;
 }
 
 .tool-upload-float[data-workspace-phase="active"] .tool-upload-stage__card {
@@ -31346,6 +31353,12 @@ html.workspace-phase-clean .tool-privacy-seal {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+}
+
+.quick-note-tool__btn--copied {
+  color: #86efac;
+  border-color: #166534;
+  background: rgba(22, 101, 52, 0.28);
 }
 
 .quick-note-tool__btn-label {

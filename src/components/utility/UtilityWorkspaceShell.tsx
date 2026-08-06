@@ -36,8 +36,10 @@ export function UtilityWorkspaceShell({
   requiresUpload,
   immersive = false,
 }: UtilityWorkspaceShellProps) {
-  // Immersive utilities have no primary dropzone — treat as interactive generators.
-  const resolvedRequiresUpload = requiresUpload ?? (immersive ? false : undefined);
+  // Interactive utilities (text/converters/calculators) never use an upload gate.
+  // Upload-gated utilities (e.g. image extractors) still pass requiresUpload / omit immersive.
+  const resolvedRequiresUpload =
+    typeof requiresUpload === "boolean" ? requiresUpload : immersive ? false : undefined;
   const resolvedActive =
     typeof active === "boolean"
       ? active

@@ -9286,6 +9286,8 @@
     "createNewButton": "Create New Note",
     "editButton": "Edit",
     "viewButton": "View",
+    "copyButton": "Copy",
+    "copiedButton": "Copied!",
     "deleteButton": "Delete",
     "closeViewerButton": "Back to editor",
     "listTitle": "Saved notes",

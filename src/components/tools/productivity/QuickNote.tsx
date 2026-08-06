@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { clsx } from "clsx";
-import { Eye } from "lucide-react";
+import { Check, Copy, Eye } from "lucide-react";
 
 const MAX_CONTENT_LENGTH = 3000;
 const MAX_TITLE_LENGTH = 120;
@@ -31,6 +31,8 @@ export type QuickNoteLabels = {
   createNewButton: string;
   editButton: string;
   viewButton: string;
+  copyButton: string;
+  copiedButton: string;
   deleteButton: string;
   closeViewerButton: string;
   listTitle: string;
@@ -141,10 +143,18 @@ export function QuickNote({ labels, className }: QuickNoteProps) {
   const [viewingId, setViewingId] = useState<string | null>(null);
   const [paneMode, setPaneMode] = useState<PaneMode>("edit");
   const [hydrated, setHydrated] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const copiedResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setNotes(readStoredNotes());
     setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (copiedResetRef.current) clearTimeout(copiedResetRef.current);
+    };
   }, []);
 
   const viewingNote = useMemo(
@@ -260,6 +270,22 @@ export function QuickNote({ labels, className }: QuickNoteProps) {
     if (viewingId === id) {
       setViewingId(null);
       setPaneMode("edit");
+    }
+  };
+
+  const handleCopy = async (note: NoteItem) => {
+    const payload = note.content.trim() || note.title.trim();
+    if (!payload) return;
+    try {
+      await navigator.clipboard.writeText(payload);
+      if (copiedResetRef.current) clearTimeout(copiedResetRef.current);
+      setCopiedId(note.id);
+      copiedResetRef.current = setTimeout(() => {
+        setCopiedId((current) => (current === note.id ? null : current));
+        copiedResetRef.current = null;
+      }, 1600);
+    } catch {
+      // Clipboard may be blocked — keep UI quiet.
     }
   };
 
@@ -438,6 +464,29 @@ export function QuickNote({ labels, className }: QuickNoteProps) {
                     >
                       <Eye size={16} strokeWidth={2} aria-hidden />
                       <span className="quick-note-tool__btn-label">{labels.viewButton}</span>
+                    </button>
+                    <button
+                      type="button"
+                      className={clsx(
+                        "quick-note-tool__btn quick-note-tool__btn--ghost quick-note-tool__btn--icon",
+                        copiedId === note.id && "quick-note-tool__btn--copied",
+                      )}
+                      onClick={() => void handleCopy(note)}
+                      aria-label={
+                        copiedId === note.id ? labels.copiedButton : labels.copyButton
+                      }
+                      title={
+                        copiedId === note.id ? labels.copiedButton : labels.copyButton
+                      }
+                    >
+                      {copiedId === note.id ? (
+                        <Check size={16} strokeWidth={2} aria-hidden />
+                      ) : (
+                        <Copy size={16} strokeWidth={2} aria-hidden />
+                      )}
+                      <span className="quick-note-tool__btn-label" aria-live="polite">
+                        {copiedId === note.id ? labels.copiedButton : labels.copyButton}
+                      </span>
                     </button>
                     <button
                       type="button"

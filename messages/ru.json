@@ -9546,6 +9546,8 @@
     "createNewButton": "Создать новую заметку",
     "editButton": "Редактировать",
     "viewButton": "Просмотр",
+    "copyButton": "Копировать",
+    "copiedButton": "Скопировано!",
     "deleteButton": "Удалить",
     "closeViewerButton": "Назад к редактору",
     "listTitle": "Сохранённые заметки",

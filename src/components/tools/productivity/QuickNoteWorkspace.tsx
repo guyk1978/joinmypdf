@@ -34,6 +34,8 @@ export function QuickNoteWorkspace({ tool, slug }: QuickNoteWorkspaceProps) {
       createNewButton: t("createNewButton"),
       editButton: t("editButton"),
       viewButton: t("viewButton"),
+      copyButton: t.has("copyButton") ? t("copyButton") : "Copy",
+      copiedButton: t.has("copiedButton") ? t("copiedButton") : "Copied!",
       deleteButton: t("deleteButton"),
       closeViewerButton: t("closeViewerButton"),
       listTitle: t("listTitle"),

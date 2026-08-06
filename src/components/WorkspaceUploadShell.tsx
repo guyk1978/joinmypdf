@@ -21,6 +21,7 @@ import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { parseToolHierarchyPath } from "@/lib/tool-hierarchy";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
 import { getToolDisplayLabel } from "@/lib/tool-labels";
+import { getToolInteractionMode } from "@/lib/tool-interaction-mode";
 import { registry } from "@/lib/registry";
 import {
   scrollToWorkspaceUpload,
@@ -108,7 +109,7 @@ export function WorkspaceUploadShell({
     typeof active === "boolean" || requiresUpload !== false,
   );
 
-  const { accentStyle, categoryId, resolvedSlug } = useMemo(() => {
+  const { accentStyle, categoryId, resolvedSlug, isInteractiveChrome } = useMemo(() => {
     const fromQuery =
       typeof window !== "undefined"
         ? new URLSearchParams(window.location.search).get("category")
@@ -127,11 +128,20 @@ export function WorkspaceUploadShell({
       ) ??
       hierarchy?.categoryId ??
       resolveToolCategoryId(slug);
+    const interactive =
+      getToolInteractionMode(
+        slug
+          ? { slug, operation: slug, requiresUpload }
+          : typeof requiresUpload === "boolean"
+            ? { slug: "", operation: "", requiresUpload }
+            : null,
+      ) === "interactive";
     if (!resolvedCategoryId) {
       return {
         accentStyle: undefined as CSSProperties | undefined,
         categoryId: undefined as InventoryCategoryId | undefined,
         resolvedSlug: slug,
+        isInteractiveChrome: interactive,
       };
     }
     return {
@@ -143,8 +153,9 @@ export function WorkspaceUploadShell({
         ),
       } as CSSProperties,
       resolvedSlug: slug,
+      isInteractiveChrome: interactive,
     };
-  }, [pathname, shellSlug]);
+  }, [pathname, shellSlug, requiresUpload]);
 
   const initialPhase = resolveInitialPhase(active, requiresUpload);
   usePendingDropzoneHandoff(rootRef);
@@ -238,7 +249,7 @@ export function WorkspaceUploadShell({
         className,
       )}
       data-workspace-phase={initialPhase}
-      data-requires-upload={requiresUpload === false ? "0" : "1"}
+      data-requires-upload={isInteractiveChrome ? "0" : "1"}
       style={accentStyle}
     >
       {chromeEnabled ? (

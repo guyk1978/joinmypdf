@@ -9430,6 +9430,8 @@
     "createNewButton": "יצירת הערה חדשה",
     "editButton": "עריכה",
     "viewButton": "צפייה",
+    "copyButton": "העתקה",
+    "copiedButton": "הועתק!",
     "deleteButton": "מחיקה",
     "closeViewerButton": "חזרה לעריכה",
     "listTitle": "הערות שמורות",
