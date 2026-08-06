@@ -7,7 +7,7 @@ import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { getToolsInventoryEntry } from "@/data/tools-inventory";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getRelatedInventoryToolIds } from "@/lib/tools-inventory-query";
-import { getToolCardEnglishLabel } from "@/lib/tool-labels";
+import { getToolCardShortLabel } from "@/lib/tool-labels";
 import { registry } from "@/lib/registry";
 import { getAudioToolById } from "@/lib/audio-tools";
 
@@ -31,6 +31,7 @@ export function ToolRelatedToolsSection({
   const locale = useLocale();
   const shell = useToolPageShell();
   const tPage = useTranslations("ToolPage");
+  const tTools = useTranslations("Tools");
   const headingId = useId();
   const toolSlug = slugProp || shell.slug;
 
@@ -49,11 +50,14 @@ export function ToolRelatedToolsSection({
         const inv = getToolsInventoryEntry(id);
         const reg = registry.tools.find((entry) => entry.slug === id);
         const audio = getAudioToolById(id);
-        const title = inv?.title ?? reg?.title ?? audio?.name;
-        if (!title) return null;
+        const fallbackTitle = inv?.title ?? reg?.title ?? audio?.name;
+        if (!fallbackTitle) return null;
+        const localized = tTools.has(`items.${id}`)
+          ? tTools(`items.${id}`)
+          : fallbackTitle;
         return {
           slug: id,
-          label: getToolCardEnglishLabel(id, title),
+          label: getToolCardShortLabel(id, localized),
           href: resolveToolHref(id, inv?.primaryCategory, locale),
           categoryId: inv?.primaryCategory,
         };
@@ -69,7 +73,7 @@ export function ToolRelatedToolsSection({
         } => Boolean(entry),
       )
       .slice(0, capped);
-  }, [toolSlug, relatedSlugs, locale, limit]);
+  }, [toolSlug, relatedSlugs, locale, limit, tTools]);
 
   if (!toolSlug || items.length < 1) return null;
 

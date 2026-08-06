@@ -1,6 +1,19 @@
 /** Strip marketing suffixes so card labels stay short (no "Online", taglines, etc.). */
 export function stripToolLabelMarketing(label: string): string {
-  return label
+  const trimmed = label.trim();
+  const parenMatch = trimmed.match(/^(.+?)\s*\(([^)]+)\)\s*$/u);
+  if (parenMatch) {
+    const outer = parenMatch[1].trim();
+    const inner = parenMatch[2].trim();
+    const outerIsLatin = /^[\x00-\x7F]+$/.test(outer);
+    const innerHasLocalScript = /[\u0590-\u05FF\u0400-\u04FF]/u.test(inner);
+    // "N-Up PDF (מספר עמודים בגיליון)" → keep the localized explanation
+    if (outerIsLatin && innerHasLocalScript) {
+      return inner.replace(/\s{2,}/g, " ").trim();
+    }
+  }
+
+  return trimmed
     .replace(/\s*\([^)]*\)\s*$/g, "")
     .replace(/\s+[-–—]\s+.+$/u, "")
     .replace(/\bFree\s+Online\b/gi, "")
@@ -94,7 +107,8 @@ export function getToolCardShortLabel(slug: string, fallbackTitle: string): stri
 }
 
 /**
- * Premium tool-card title — always English (matches bilingual card chrome).
+ * Premium tool-card title — prefers localized short labels from callers.
+ * Kept for English-only surfaces that still want the curated map.
  */
 export function getToolCardEnglishLabel(slug: string, fallbackTitle?: string): string {
   // Prefer the curated English short map (ignore localized fallback).

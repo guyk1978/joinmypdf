@@ -192,7 +192,7 @@ export function getToolCardDescription(
 }
 
 /**
- * Premium tool-card blurb — always Hebrew (bilingual card chrome with EN titles).
+ * Localized tool-card blurb helper for Hebrew catalogs.
  */
 export function getToolCardHebrewDescription(
   slug: string,

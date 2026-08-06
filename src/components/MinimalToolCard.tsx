@@ -18,7 +18,7 @@ import {
   resolveToolCategoryId,
 } from "@/lib/category-accent-colors";
 import { resolveCanonicalToolSlug } from "@/lib/locale-tool-slugs";
-import { getToolCardEnglishLabel } from "@/lib/tool-labels";
+import { getToolCardShortLabel } from "@/lib/tool-labels";
 import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolRealWorldExampleByLocale } from "@/data/tool-real-world-examples-localized";
 import { renderTextWithLtrUnits } from "@/lib/text-direction";
@@ -52,7 +52,7 @@ function slugFromHref(href: string): string {
 
 /**
  * Ultra-minimal tool card — title toggles an overlay details panel;
- * the right-side arrow navigates to the tool page.
+ * the nav arrow navigates to the tool page.
  */
 export function MinimalToolCard({
   href,
@@ -66,6 +66,7 @@ export function MinimalToolCard({
 }: MinimalToolCardProps) {
   const locale = useLocale();
   const tCard = useTranslations("ToolCard");
+  const tTools = useTranslations("Tools");
   const tFav = useTranslations("Favorites");
   const panelId = useId();
   const rootRef = useRef<HTMLElement>(null);
@@ -73,9 +74,9 @@ export function MinimalToolCard({
   const { isFavorite, removeFavorite, toggleFavorite } = useFavorites();
 
   const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
-  const englishTitle = getToolCardEnglishLabel(toolSlug, label);
-  const englishDescription =
-    getToolCardDescription(toolSlug, description) ?? description;
+  const displayTitle = getToolCardShortLabel(toolSlug, label);
+  const cardDescription =
+    getToolCardDescription(toolSlug, description, tTools) ?? description;
   const categoryId = resolveToolCategoryId(toolSlug, categoryIdProp);
   const accentCategoryId =
     resolveToolAccentCategoryId(toolSlug, categoryId) ?? categoryId ?? "pdf";
@@ -89,7 +90,7 @@ export function MinimalToolCard({
     ? tCard(exampleKey)
     : getToolRealWorldExampleByLocale(toolSlug, locale);
 
-  const panelCopy = englishDescription || example || null;
+  const panelCopy = cardDescription || example || null;
 
   const accentStyle = {
     "--category-accent": getCategoryAccentCssVar(accentCategoryId),
@@ -146,12 +147,12 @@ export function MinimalToolCard({
           aria-label={
             expanded
               ? tCard("closeFocus")
-              : tCard("expandAria", { label: englishTitle })
+              : tCard("expandAria", { label: displayTitle })
           }
           onClick={toggleExpanded}
         >
-          <h3 className="im-tool-card__title" lang="en">
-            {englishTitle}
+          <h3 className="im-tool-card__title" lang={locale}>
+            {displayTitle}
           </h3>
         </button>
 
@@ -174,7 +175,7 @@ export function MinimalToolCard({
           <ToolCardGoLink
             href={nestedHref}
             className="im-tool-card__nav-arrow"
-            aria-label={tCard("goAria", { label: englishTitle })}
+            aria-label={tCard("goAria", { label: displayTitle })}
             title={tCard("openTool")}
             onClick={(event) => event.stopPropagation()}
           >
@@ -192,7 +193,7 @@ export function MinimalToolCard({
           id={panelId}
           className="im-tool-card__dropdown"
           role="region"
-          aria-label={englishTitle}
+          aria-label={displayTitle}
           onClick={(event) => event.stopPropagation()}
         >
           {panelCopy ? (

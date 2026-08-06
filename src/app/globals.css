@@ -3213,7 +3213,8 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   min-height: 2rem;
   height: 2rem;
   width: 100%;
-  padding: 4px 0.35rem 4px 8px;
+  padding-block: 4px;
+  padding-inline: 8px 0.35rem;
   box-sizing: border-box;
 }
 
@@ -3256,10 +3257,14 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  direction: ltr;
   visibility: visible;
   opacity: 1;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
 .im-tool-card--minimal .im-tool-card__minimal-actions {
@@ -3506,7 +3511,8 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 
 [dir="rtl"] .im-tool-card--minimal .im-tool-card__title {
   text-align: start;
-  direction: ltr;
+  direction: rtl;
+  unicode-bidi: isolate;
 }
 
 .im-tool-card__stripe {
@@ -3818,16 +3824,18 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
 
 [dir="rtl"] .im-tool-card__title {
   text-align: start;
-  direction: ltr;
+  direction: rtl;
+  unicode-bidi: isolate;
 }
 
 [dir="rtl"] .im-tool-card__desc {
   text-align: start;
-  direction: ltr;
+  direction: rtl;
+  unicode-bidi: isolate;
 }
 
 [dir="rtl"] .im-tool-card__top-actions {
-  direction: ltr;
+  direction: rtl;
 }
 
 [dir="rtl"] .im-tool-card-grid {
