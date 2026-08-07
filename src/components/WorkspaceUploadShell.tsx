@@ -250,6 +250,7 @@ export function WorkspaceUploadShell({
       )}
       data-workspace-phase={initialPhase}
       data-requires-upload={isInteractiveChrome ? "0" : "1"}
+      data-page-scroll={showOverview ? "1" : undefined}
       style={accentStyle}
     >
       {chromeEnabled ? (
@@ -279,7 +280,10 @@ export function WorkspaceUploadShell({
         children
       )}
 
-      {showOverview ? <ToolWorkspaceOverview /> : null}
+      {/* Overview / FAQ / related: sibling of the stage card (not inside it). */}
+      {showOverview ? (
+        <ToolWorkspaceOverview className="tool-workspace-overview--page" />
+      ) : null}
     </div>
   );
 }

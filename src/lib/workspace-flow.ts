@@ -3,6 +3,11 @@ export const WORKSPACE_OPERATIONS_ID = "workspace-operations";
 export const WORKSPACE_PHASE_CLEAN_CLASS = "workspace-phase-clean";
 /** Marks dedicated tool pages that use an immersive upload shell (hide body H1). */
 export const TOOL_HAS_UPLOAD_SHELL_CLASS = "tool-has-upload-shell";
+/**
+ * Tool pages with Overview / FAQ under the workspace — use the browser
+ * document scrollbar only (no nested 100dvh overflow lock).
+ */
+export const TOOL_PAGE_DOCUMENT_SCROLL_CLASS = "tool-page-document-scroll";
 /** Cross-frame + same-window bridge for tool-modal header chrome. */
 export const WORKSPACE_PHASE_MESSAGE = "joinmypdf:workspace-phase";
 /** Embed → parent: switch tool modal to a tab (e.g. reviews from banner rating). */
@@ -36,6 +41,12 @@ function broadcastWorkspacePhase(phase: WorkspacePhase) {
 export function setToolHasUploadShell(enabled: boolean) {
   if (typeof document === "undefined") return;
   document.documentElement.classList.toggle(TOOL_HAS_UPLOAD_SHELL_CLASS, enabled);
+}
+
+/** Prefer document scroll when Overview/FAQ sit under the tool workspace. */
+export function setToolPageDocumentScroll(enabled: boolean) {
+  if (typeof document === "undefined") return;
+  document.documentElement.classList.toggle(TOOL_PAGE_DOCUMENT_SCROLL_CLASS, enabled);
 }
 
 /**

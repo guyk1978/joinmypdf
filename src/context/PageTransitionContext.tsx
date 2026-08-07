@@ -37,6 +37,22 @@ function stripLocalePrefix(pathname: string): string {
   return pathname;
 }
 
+/** Keep modal iframe embed mode when PageTransitionContext performs client navigations. */
+function preserveEmbedMode(target: string): string {
+  if (typeof window === "undefined") return target;
+  if (new URLSearchParams(window.location.search).get("embed") !== "1") return target;
+
+  try {
+    const url = new URL(target, window.location.origin);
+    url.searchParams.set("embed", "1");
+    const path = stripLocalePrefix(url.pathname);
+    const normalizedPath = path.endsWith("/") ? path : `${path}/`;
+    return `${normalizedPath}${url.search}${url.hash}`;
+  } catch {
+    return target;
+  }
+}
+
 function normalizeInternalPath(href: string): string | null {
   if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
     return null;
@@ -86,7 +102,8 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 
   const transitionNavigate = useCallback(
     (href: string) => {
-      const target = normalizeInternalPath(href);
+      const normalized = normalizeInternalPath(href);
+      const target = normalized ? preserveEmbedMode(normalized) : null;
       if (!target || pathsEqual(target, pathname)) return;
       if (phaseRef.current !== "idle") return;
 
@@ -128,9 +145,14 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 
       const anchor = (event.target as Element | null)?.closest("a");
       if (!anchor) return;
-      if (anchor.target === "_blank" || anchor.hasAttribute("download")) return;
+      if (anchor.target === "_blank" || anchor.target === "_top" || anchor.target === "_parent") {
+        return;
+      }
+      if (anchor.hasAttribute("download")) return;
       // Industrial tool cards open ToolModal — skip page transition navigation.
       if (anchor.hasAttribute("data-tool-modal-open")) return;
+      // Explicit full-document navigation (You Might Also Need → tool page).
+      if (anchor.hasAttribute("data-full-page-nav")) return;
 
       const href = anchor.getAttribute("href");
       if (!href) return;

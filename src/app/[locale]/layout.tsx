@@ -24,7 +24,7 @@ function LocaleHtmlBootstrap({ locale }: { locale: string }) {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `document.documentElement.lang="${locale}";document.documentElement.dir="${dir}";`,
+        __html: `document.documentElement.lang="${locale}";document.documentElement.dir="${dir}";try{if(new URLSearchParams(location.search).get("embed")==="1"){document.documentElement.setAttribute("data-tool-embed","1");document.documentElement.classList.add("tool-embed-boot")}}catch(e){}`,
       }}
     />
   );

@@ -7,6 +7,10 @@ import { PageContentTransition } from "@/components/PageContentTransition";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToolEmbedModeMarker } from "@/components/tool-modal/ToolEmbedModeMarker";
 import { useToolEmbedMode } from "@/components/tool-modal/useToolEmbedMode";
+import {
+  PageChromeActiveProvider,
+  usePageChromeActive,
+} from "@/context/PageChromeContext";
 import { PageTransitionProvider, usePageTransition } from "@/context/PageTransitionContext";
 
 type PageTransitionShellProps = {
@@ -48,9 +52,18 @@ function PageTransitionCanvas({ children, mainClassName }: PageTransitionShellPr
 
 /** Client shell: sequential exit → navigate → enter on main content only. */
 export function PageTransitionShell({ children, mainClassName }: PageTransitionShellProps) {
+  const chromeActive = usePageChromeActive();
+
+  // Nested AppPageShell (client-persisted shell + streamed next page) must not re-mount header/footer.
+  if (chromeActive) {
+    return <>{children}</>;
+  }
+
   return (
-    <PageTransitionProvider>
-      <PageTransitionCanvas mainClassName={mainClassName}>{children}</PageTransitionCanvas>
-    </PageTransitionProvider>
+    <PageChromeActiveProvider>
+      <PageTransitionProvider>
+        <PageTransitionCanvas mainClassName={mainClassName}>{children}</PageTransitionCanvas>
+      </PageTransitionProvider>
+    </PageChromeActiveProvider>
   );
 }

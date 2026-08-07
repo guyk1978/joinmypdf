@@ -556,6 +556,12 @@ export function ToolModalWrapper({
     ],
   );
 
+  const sessionValueRef = useRef(sessionValue);
+
+  useLayoutEffect(() => {
+    sessionValueRef.current = sessionValue;
+  });
+
   useLayoutEffect(() => {
     const register = toolModal?.registerSession;
     if (!register) return;
@@ -563,8 +569,21 @@ export function ToolModalWrapper({
       register(null);
       return;
     }
-    register(sessionValue);
-  }, [open, sessionValue, toolModal?.registerSession]);
+    register(sessionValueRef.current);
+  }, [
+    open,
+    slug,
+    tab,
+    canSaveProject,
+    favorited,
+    shareBusy,
+    saveProjectLabel,
+    shareMenuLabel,
+    favoriteLabel,
+    closeLabel,
+    availableTabs,
+    toolModal?.registerSession,
+  ]);
 
   useEffect(() => {
     const register = toolModal?.registerSession;

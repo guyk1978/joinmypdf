@@ -2,7 +2,8 @@
 
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useId, useRef, useState } from "react";
-import { ChevronRight } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { ToolCardGoLink } from "@/components/ToolCardGoLink";
@@ -23,6 +24,10 @@ import { resolveToolHref } from "@/lib/tool-hierarchy";
 import { getToolRealWorldExampleByLocale } from "@/data/tool-real-world-examples-localized";
 import { renderTextWithLtrUnits } from "@/lib/text-direction";
 
+/** Soft expand — easeOutExpo-ish for an app-like glide. */
+const PANEL_EASE = [0.22, 1, 0.36, 1] as const;
+const PANEL_TRANSITION = { duration: 0.28, ease: PANEL_EASE };
+
 export type MinimalToolCardProps = {
   href: string;
   label: string;
@@ -42,6 +47,11 @@ export type MinimalToolCardProps = {
    * `stripe` — dark card + left category accent stripe (related tools).
    */
   chrome?: "filled" | "stripe";
+  /**
+   * `navigate` — title expands; header arrow + Start link to the tool page (default).
+   * `expand` — title toggles inline accordion; Start in the footer still routes to the tool page.
+   */
+  interaction?: "navigate" | "expand";
 };
 
 function slugFromHref(href: string): string {
@@ -63,6 +73,7 @@ export function MinimalToolCard({
   categoryId: categoryIdProp,
   favoritesRemove = false,
   chrome = "filled",
+  interaction = "navigate",
 }: MinimalToolCardProps) {
   const locale = useLocale();
   const tCard = useTranslations("ToolCard");
@@ -71,7 +82,9 @@ export function MinimalToolCard({
   const panelId = useId();
   const rootRef = useRef<HTMLElement>(null);
   const [expanded, setExpanded] = useState(false);
+  const reduceMotion = useReducedMotion();
   const { isFavorite, removeFavorite, toggleFavorite } = useFavorites();
+  const expandOnly = interaction === "expand";
 
   const toolSlug = resolveCanonicalToolSlug(slug ?? slugFromHref(href));
   const displayTitle = getToolCardShortLabel(toolSlug, label);
@@ -154,6 +167,14 @@ export function MinimalToolCard({
           <h3 className="im-tool-card__title" lang={locale}>
             {displayTitle}
           </h3>
+          <ChevronDown
+            className={clsx(
+              "im-tool-card__expand-chevron",
+              expanded && "im-tool-card__expand-chevron--open",
+            )}
+            strokeWidth={2.25}
+            aria-hidden
+          />
         </button>
 
         <div className="im-tool-card__minimal-actions">
@@ -172,97 +193,123 @@ export function MinimalToolCard({
             </button>
           ) : null}
 
-          <ToolCardGoLink
-            href={nestedHref}
-            className="im-tool-card__nav-arrow"
-            aria-label={tCard("goAria", { label: displayTitle })}
-            title={tCard("openTool")}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <ChevronRight
-              className="im-tool-card__nav-arrow-icon"
-              strokeWidth={2.25}
-              aria-hidden
-            />
-          </ToolCardGoLink>
+          {expandOnly ? null : (
+            <ToolCardGoLink
+              href={nestedHref}
+              className="im-tool-card__nav-arrow"
+              aria-label={tCard("goAria", { label: displayTitle })}
+              title={tCard("openTool")}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <ChevronRight
+                className="im-tool-card__nav-arrow-icon"
+                strokeWidth={2.25}
+                aria-hidden
+              />
+            </ToolCardGoLink>
+          )}
         </div>
       </div>
 
-      {expanded ? (
-        <div
-          id={panelId}
-          className="im-tool-card__dropdown"
-          role="region"
-          aria-label={displayTitle}
-          onClick={(event) => event.stopPropagation()}
-        >
-          {panelCopy ? (
-            <p className="im-tool-card__dropdown-desc">
-              {renderTextWithLtrUnits(panelCopy)}
-            </p>
-          ) : (
-            <p className="im-tool-card__dropdown-desc im-tool-card__dropdown-desc--muted">
-              {tCard("openTool")}
-            </p>
-          )}
+      <AnimatePresence initial={false}>
+        {expanded ? (
+          <motion.div
+            key="im-tool-card-dropdown"
+            id={panelId}
+            className="im-tool-card__dropdown"
+            role="region"
+            aria-label={displayTitle}
+            onClick={(event) => event.stopPropagation()}
+            initial={
+              reduceMotion
+                ? false
+                : { height: 0, opacity: 0, y: -6, scale: 0.98 }
+            }
+            animate={
+              reduceMotion
+                ? undefined
+                : { height: "auto", opacity: 1, y: 0, scale: 1 }
+            }
+            exit={
+              reduceMotion
+                ? undefined
+                : { height: 0, opacity: 0, y: -4, scale: 0.98 }
+            }
+            transition={PANEL_TRANSITION}
+            style={{ overflow: "hidden", transformOrigin: "top center" }}
+          >
+            <div className="im-tool-card__dropdown-inner">
+              {panelCopy ? (
+                <p className="im-tool-card__dropdown-desc">
+                  {renderTextWithLtrUnits(panelCopy)}
+                </p>
+              ) : (
+                <p className="im-tool-card__dropdown-desc im-tool-card__dropdown-desc--muted">
+                  {tCard("openTool")}
+                </p>
+              )}
 
-          <div className="im-tool-card__dropdown-footer mt-4 flex flex-col gap-3 border-t border-gray-100 pt-3">
-            <div className="im-tool-card__dropdown-rating-row flex items-center">
-              <ToolRatingSummary
-                toolId={toolSlug}
-                categoryId={accentCategoryId}
-                className="im-tool-card__dropdown-rating"
-                showCount={false}
-              />
+              <div className="im-tool-card__dropdown-footer mt-4 flex flex-col gap-3 border-t border-gray-100 pt-3">
+                <div className="im-tool-card__dropdown-rating-row flex items-center">
+                  <ToolRatingSummary
+                    toolId={toolSlug}
+                    categoryId={accentCategoryId}
+                    className="im-tool-card__dropdown-rating"
+                    showCount={false}
+                  />
+                </div>
+                <div className="im-tool-card__dropdown-actions flex items-center gap-2">
+                  <ToolPinButton
+                    toolId={toolSlug}
+                    variant="card"
+                    className="im-tool-card__dropdown-pin"
+                  />
+                  <button
+                    type="button"
+                    className={clsx(
+                      "im-tool-card__dropdown-fav",
+                      favorited && "im-tool-card__dropdown-fav--active",
+                    )}
+                    data-tooltip={
+                      favorited
+                        ? tFav("removeFromFavorites")
+                        : tFav("addToFavorites")
+                    }
+                    aria-label={
+                      favorited
+                        ? tFav("removeFromFavorites")
+                        : tFav("addToFavorites")
+                    }
+                    aria-pressed={favorited}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      toggleFavorite(toolSlug);
+                    }}
+                  >
+                    <ToolFavoriteBookmarkIcon favorited={favorited} />
+                  </button>
+                  <ToolCardGoLink
+                    href={nestedHref}
+                    target={expandOnly ? "_top" : undefined}
+                    data-full-page-nav={expandOnly ? "1" : undefined}
+                    className="im-tool-card__dropdown-start flex shrink-0 items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-emerald-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                    aria-label={tCard("goAria", { label: displayTitle })}
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    {tCard("start")}
+                    <ChevronRight
+                      className="im-tool-card__dropdown-start-icon size-4 shrink-0"
+                      strokeWidth={2.25}
+                      aria-hidden
+                    />
+                  </ToolCardGoLink>
+                </div>
+              </div>
             </div>
-            <div className="im-tool-card__dropdown-actions flex items-center gap-2">
-              <ToolPinButton
-                toolId={toolSlug}
-                variant="card"
-                className="im-tool-card__dropdown-pin"
-              />
-              <button
-                type="button"
-                className={clsx(
-                  "im-tool-card__dropdown-fav",
-                  favorited && "im-tool-card__dropdown-fav--active",
-                )}
-                data-tooltip={
-                  favorited
-                    ? tFav("removeFromFavorites")
-                    : tFav("addToFavorites")
-                }
-                aria-label={
-                  favorited
-                    ? tFav("removeFromFavorites")
-                    : tFav("addToFavorites")
-                }
-                aria-pressed={favorited}
-                onClick={(event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  toggleFavorite(toolSlug);
-                }}
-              >
-                <ToolFavoriteBookmarkIcon favorited={favorited} />
-              </button>
-              <ToolCardGoLink
-                href={nestedHref}
-                className="im-tool-card__dropdown-start flex shrink-0 items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-emerald-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
-                aria-label={tCard("goAria", { label: displayTitle })}
-                onClick={(event) => event.stopPropagation()}
-              >
-                {tCard("start")}
-                <ChevronRight
-                  className="im-tool-card__dropdown-start-icon size-4 shrink-0"
-                  strokeWidth={2.25}
-                  aria-hidden
-                />
-              </ToolCardGoLink>
-            </div>
-          </div>
-        </div>
-      ) : null}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </article>
   );
 }

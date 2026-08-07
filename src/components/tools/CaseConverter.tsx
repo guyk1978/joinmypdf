@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { clsx } from "clsx";
+import { Check, Copy, Eraser } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { copyTextToClipboard } from "@/lib/favicon-code-generator";
 
@@ -21,8 +22,11 @@ const TRANSFORM_ACTIONS: TransformAction[] = [
   { id: "kebab", label: "kebab-case" },
 ];
 
-const BUTTON_CLASS =
+const TRANSFORM_CLASS =
   "text-xs uppercase tracking-widest text-[#a3a3a3] transition-colors hover:text-white";
+
+const ACTION_BTN_CLASS =
+  "inline-flex items-center justify-center gap-1.5 rounded-md border border-[#404040] bg-[#171717] px-3.5 py-2 text-xs font-semibold uppercase tracking-widest text-white shadow-sm transition-[color,background-color,border-color,opacity] duration-150 hover:border-white/45 hover:bg-[#262626] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 disabled:cursor-not-allowed disabled:opacity-40";
 
 function splitIntoWords(input: string): string[] {
   return input
@@ -148,24 +152,36 @@ export function CaseConverter({
               <button
                 key={action.id}
                 type="button"
-                className={BUTTON_CLASS}
+                className={TRANSFORM_CLASS}
                 onClick={() => onTransform(action.id)}
               >
                 {action.label}
               </button>
             ))}
+          </div>
 
-            <span
-              className="hidden h-4 w-px sm:inline-block"
-              style={{ background: "var(--im-tool-panel-border)" }}
-              aria-hidden
-            />
-
-            <button type="button" className={BUTTON_CLASS} onClick={() => void onCopy()} disabled={!text}>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              className={ACTION_BTN_CLASS}
+              onClick={() => void onCopy()}
+              disabled={!text}
+            >
+              {copied ? (
+                <Check className="size-3.5 shrink-0" strokeWidth={2.25} aria-hidden />
+              ) : (
+                <Copy className="size-3.5 shrink-0" strokeWidth={2.25} aria-hidden />
+              )}
               <span aria-live="polite">{copied ? t("copied") : t("copyButton")}</span>
             </button>
 
-            <button type="button" className={BUTTON_CLASS} onClick={onClear} disabled={!text}>
+            <button
+              type="button"
+              className={ACTION_BTN_CLASS}
+              onClick={onClear}
+              disabled={!text}
+            >
+              <Eraser className="size-3.5 shrink-0" strokeWidth={2.25} aria-hidden />
               {t("clearButton")}
             </button>
           </div>

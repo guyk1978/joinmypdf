@@ -386,6 +386,8 @@ export function ToolModalCalcFrame({
           // is attached, leaving the iframe at the CSS fallback height.
           requestEmbedHeight();
           window.setTimeout(requestEmbedHeight, 250);
+          window.setTimeout(requestEmbedHeight, 800);
+          window.setTimeout(requestEmbedHeight, 1600);
         }}
       />
     </div>
