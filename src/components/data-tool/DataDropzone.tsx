@@ -87,7 +87,7 @@ export function DataDropzone({ onLoad, onError }: DataDropzoneProps) {
             ? common("localProcessingNothingUploaded")
             : t.has("privacyBadge")
               ? t("privacyBadge")
-              : "Local Processing. Nothing is uploaded."
+              : "Processed 100% locally · Zero server uploads"
         }
         tabIndex={0}
         onDragOver={(e) => {

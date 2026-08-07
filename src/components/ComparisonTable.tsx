@@ -21,10 +21,10 @@ type ComparisonTableProps = {
 
 function TypicalCell({ children }: { children: ReactNode }) {
   return (
-    <td className="border-b border-neutral-300 px-4 py-3 align-top text-start text-black dark:border-neutral-800 dark:text-neutral-200">
+    <td className="border-b border-white/10 px-4 py-3 align-top text-start text-neutral-300">
       <span className="flex items-start justify-start gap-2 text-start">
         <X
-          className="mt-0.5 h-4 w-4 shrink-0 text-black dark:text-neutral-200"
+          className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500"
           strokeWidth={2.5}
           aria-hidden
         />
@@ -36,10 +36,10 @@ function TypicalCell({ children }: { children: ReactNode }) {
 
 function JoinCell({ children }: { children: ReactNode }) {
   return (
-    <td className="border-b border-neutral-300 bg-neutral-100 px-4 py-3 align-top text-start text-black dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200">
+    <td className="border-b border-white/10 bg-emerald-400/[0.06] px-4 py-3 align-top text-start text-neutral-100">
       <span className="flex items-start justify-start gap-2 text-start">
         <Check
-          className="mt-0.5 h-4 w-4 shrink-0 text-black dark:text-neutral-200"
+          className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400"
           strokeWidth={2.5}
           aria-hidden
         />
@@ -56,8 +56,8 @@ export function ComparisonTable({ locale, headers, rows, flush = false }: Compar
     <div
       className={
         flush
-          ? "w-full overflow-x-auto"
-          : "w-full overflow-x-auto rounded-none border border-neutral-300 bg-white dark:border-neutral-800 dark:bg-neutral-900"
+          ? "comparison-table w-full overflow-x-auto"
+          : "comparison-table w-full overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.035]"
       }
     >
       <table
@@ -69,7 +69,7 @@ export function ComparisonTable({ locale, headers, rows, flush = false }: Compar
           <col style={{ width: "33.333%" }} />
           <col style={{ width: "33.333%" }} />
         </colgroup>
-        <thead className="bg-neutral-100 text-xs uppercase tracking-wider text-black dark:bg-neutral-950 dark:text-neutral-200">
+        <thead className="bg-white/[0.04] text-xs uppercase tracking-wider text-neutral-300">
           <tr>
             <th scope="col" className="px-4 py-3 text-start font-semibold">
               {headers.topic}
@@ -77,7 +77,7 @@ export function ComparisonTable({ locale, headers, rows, flush = false }: Compar
             <th scope="col" className="px-4 py-3 text-start font-semibold">
               {headers.typical}
             </th>
-            <th scope="col" className="bg-neutral-200 px-4 py-3 text-start font-extrabold dark:bg-neutral-800">
+            <th scope="col" className="bg-emerald-400/10 px-4 py-3 text-start font-extrabold text-emerald-300">
               {headers.join}
             </th>
           </tr>
@@ -87,7 +87,7 @@ export function ComparisonTable({ locale, headers, rows, flush = false }: Compar
             <tr key={row.topic}>
               <th
                 scope="row"
-                className="border-b border-neutral-300 px-4 py-3 align-top text-start font-semibold text-black dark:border-neutral-800 dark:text-neutral-200"
+                className="border-b border-white/10 px-4 py-3 align-top text-start font-semibold text-neutral-100"
               >
                 {row.topic}
               </th>

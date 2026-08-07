@@ -141,7 +141,7 @@
   padding-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 
-.category-seo,
+.category-seo:not(.chm-seo),
 .tools-hub-related-guides,
 .tools-directory-page > footer,
 .related-audio-tools-hub {

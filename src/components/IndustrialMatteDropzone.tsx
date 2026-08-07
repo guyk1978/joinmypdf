@@ -1,6 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
+import { Shield } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
   useMemo,
@@ -73,7 +74,7 @@ export function IndustrialMatteDropzone({
   dropTitle: _dropTitle,
   selectLabel: _selectLabel,
   supportsLabel,
-  privacyLabel = "Local Processing. Nothing is uploaded.",
+  privacyLabel = "Processed 100% locally · Zero server uploads",
   active = false,
   disabled = false,
   input,
@@ -187,7 +188,12 @@ export function IndustrialMatteDropzone({
         <div className="choose-files-dropzone__meta">
           {showPrivacy ? (
             <p className="choose-files-dropzone__privacy" role="note">
-              {privacyLabel}
+              <Shield
+                className="choose-files-dropzone__privacy-icon"
+                aria-hidden
+                strokeWidth={1.75}
+              />
+              <span>{privacyLabel}</span>
             </p>
           ) : null}
           {resolvedSupports ? (

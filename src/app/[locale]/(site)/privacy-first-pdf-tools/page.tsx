@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { AppPageShell } from "@/components/AppPageShell";
 import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
+import { ProductPageLayout } from "@/components/ProductPageLayout";
+import { Link } from "@/i18n/navigation";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { registry } from "@/lib/registry";
 import { absoluteUrl } from "@/lib/site";
+import { productPageMainClassName } from "@/lib/tool-ui";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -51,16 +53,13 @@ export default async function PillarPage({ params }: Props) {
           url: absoluteUrl("/privacy-first-pdf-tools/"),
         }}
       />
-      <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory page-container">
-          <h1 className="home-minimal-tagline">Privacy-first PDF tools</h1>
-          <p className="home-minimal-section__title !mb-6 !text-center !normal-case !tracking-normal">
-            Merge, compress, and split PDFs on your device — without routing files through unknown servers.{" "}
-            <Link className="home-minimal-section__link" href="/privacy/">
-              Read our privacy policy
-            </Link>
-            .
-          </p>
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <ProductPageLayout
+          title="Privacy-first PDF tools"
+          description="Merge, compress, and split PDFs on your device — without routing files through unknown servers."
+          variant="dashboard"
+          showPrivacyBadge
+        >
           <HomeFeaturedSection
             id="privacy-first-featured"
             title="Featured tools"
@@ -77,12 +76,16 @@ export default async function PillarPage({ params }: Props) {
               />
             ))}
           </HomeFeaturedSection>
-          <p className="home-minimal-section__footer">
-            <Link href="/blog/" className="home-minimal-section__link">
+          <p className="mt-6 text-sm text-neutral-400">
+            <Link href="/privacy/" className="font-semibold text-emerald-400 hover:text-emerald-300 hover:underline">
+              Read our privacy policy
+            </Link>
+            {" · "}
+            <Link href="/blog/" className="font-semibold text-emerald-400 hover:text-emerald-300 hover:underline">
               Browse guides
             </Link>
           </p>
-        </div>
+        </ProductPageLayout>
       </AppPageShell>
     </>
   );

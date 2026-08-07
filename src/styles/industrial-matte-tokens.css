@@ -48,8 +48,8 @@
   --im-tool-control-option-bg: #141414;
   --im-tool-control-option-hover: #1f1f1f;
   /* Soft radius: tool interiors only — never chrome/nav */
-  --im-tool-radius: 0.5rem;
-  --im-tool-radius-control: 0.5rem;
+  --im-tool-radius: 1rem;
+  --im-tool-radius-control: 0.75rem;
 
   --im-radius: 0; /* chrome stays sharp; prefer --im-tool-radius inside tools */
   --im-radius-sm: 0;

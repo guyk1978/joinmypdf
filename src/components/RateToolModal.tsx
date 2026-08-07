@@ -7,19 +7,13 @@ import {
 } from "@/components/AppOverlayModal";
 import { useToolRating } from "@/hooks/useToolRating";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
-import {
-  getCategoryAccentColor,
-  getContrastingInk,
-  resolveToolAccentCategoryId,
-} from "@/lib/category-accent-colors";
 import { formatRatingAverage, formatExactRatingCount } from "@/lib/tool-rating";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
 
 type RateToolModalProps = {
   open: boolean;
   slug: string;
-  /** When known (banner rating), prefer this over slug resolution. */
+  /** Kept for call-site compatibility; no longer drives panel color. */
   categoryId?: InventoryCategoryId;
   onClose: () => void;
   onOpenReviews: () => void;
@@ -41,31 +35,33 @@ function safeT(
   return fallback;
 }
 
-/** Build a readable solid-fill tone from the tool category accent. */
-export function buildRateToolModalTone(accentHex: string): AppOverlayModalTone {
-  const foreground = getContrastingInk(accentHex);
-  const onLight = foreground === "#000000";
-  return {
-    background: accentHex,
-    foreground,
-    muted: onLight ? "rgba(0, 0, 0, 0.68)" : "rgba(255, 255, 255, 0.86)",
-    closeHoverBackground: onLight ? "rgba(0, 0, 0, 0.08)" : "rgba(255, 255, 255, 0.14)",
-    primaryButtonBackground: foreground,
-    primaryButtonForeground: accentHex,
-    secondaryButtonBackground: onLight ? "rgba(0, 0, 0, 0.08)" : "rgba(255, 255, 255, 0.14)",
-    secondaryButtonBorder: onLight ? "rgba(0, 0, 0, 0.22)" : "rgba(255, 255, 255, 0.35)",
-    secondaryButtonForeground: foreground,
-  };
+/** Sitewide industrial rating tone — dark surface + emerald actions (no category rainbow). */
+export const INDUSTRIAL_RATE_MODAL_TONE: AppOverlayModalTone = {
+  background: "#121212",
+  foreground: "#f5f5f5",
+  muted: "#a3a3a3",
+  closeHoverBackground: "rgba(255, 255, 255, 0.08)",
+  primaryButtonBackground: "#34d399",
+  primaryButtonForeground: "#04140e",
+  secondaryButtonBackground: "rgba(255, 255, 255, 0.05)",
+  secondaryButtonBorder: "rgba(255, 255, 255, 0.14)",
+  secondaryButtonForeground: "#f5f5f5",
+};
+
+/**
+ * @deprecated Category accent fills were retired — always returns industrial tone.
+ */
+export function buildRateToolModalTone(_accentHex?: string): AppOverlayModalTone {
+  return INDUSTRIAL_RATE_MODAL_TONE;
 }
 
 /**
  * Lightweight rating dialog opened from the title-banner score chip.
- * Panel fill matches the tool category accent; corners are square.
+ * Industrial dark panel + emerald primary — same chrome sitewide.
  */
 export function RateToolModal({
   open,
   slug,
-  categoryId,
   onClose,
   onOpenReviews,
 }: RateToolModalProps) {
@@ -73,11 +69,7 @@ export function RateToolModal({
   const tModal = useTranslations("ToolModal");
   const { userRating, stats, hydrated, rate } = useToolRating(slug);
 
-  const tone = useMemo(() => {
-    const resolved =
-      categoryId ?? resolveToolAccentCategoryId(slug) ?? ("pdf" as InventoryCategoryId);
-    return buildRateToolModalTone(getCategoryAccentColor(resolved));
-  }, [categoryId, slug]);
+  const tone = INDUSTRIAL_RATE_MODAL_TONE;
 
   const exactCount = formatExactRatingCount(stats.count);
   const countLabel =
@@ -134,7 +126,7 @@ export function RateToolModal({
               onChange={userRating == null ? rate : undefined}
               readOnly={userRating != null}
               size="lg"
-              color={tone.foreground}
+              color="#34d399"
               label={
                 userRating == null
                   ? safeT(tCard, "rateThisTool", "Rate this tool")

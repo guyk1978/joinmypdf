@@ -52,7 +52,7 @@ export const homeSecondaryPillBtn =
   "inline-flex items-center justify-center rounded-none bg-transparent px-8 py-3.5 text-sm font-bold tracking-wide text-black shadow-[var(--surface-separate)] transition-colors hover:shadow-[var(--surface-elevate)] dark:text-white";
 
 export const homePrimaryPillBtn =
-  "inline-flex items-center justify-center rounded-none bg-neutral-900 px-10 py-3.5 text-sm font-bold tracking-wide text-white shadow-[var(--surface-elevate)] transition-colors hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200";
+  "inline-flex items-center justify-center rounded-xl border border-emerald-400/40 bg-emerald-400 px-8 py-3 text-sm font-bold tracking-wide text-[#04140e] shadow-none transition-colors hover:bg-emerald-300";
 
 /** Shared max width for tool upload stack — full width within column */
 export const toolUploadStack = "w-full max-w-none";
@@ -81,19 +81,19 @@ export const toolPageDashboardStack = "tool-page-dashboard flex w-full min-h-0 f
 export const contentDashboardStack = "flex w-full flex-col gap-[3px]";
 
 export const contentDashboardPanel =
-  "w-full rounded-none bg-transparent p-6 shadow-[var(--surface-elevate)] dark:bg-transparent";
+  "im-content-panel w-full rounded-2xl border border-white/10 bg-white/[0.035] p-6 shadow-none";
 
 export const contentDashboardInset =
-  "rounded-none border border-neutral-200/80 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-950/50";
+  "rounded-2xl border border-white/10 bg-black/25 p-4";
 
 export const toolPageDashboardPanel = "tool-page-dashboard-panel w-full p-6";
 
 export const toolPageDashboardInset =
-  "rounded-none border border-neutral-200/80 bg-transparent p-4 dark:border-white/10";
+  "rounded-2xl border border-white/10 bg-transparent p-4";
 
 /** Invoice / timeline / data-tool split workspace panels */
 export const matteWorkspaceSection =
-  "rounded-[var(--im-tool-radius,0.5rem)] border border-white/10 bg-white/[0.03] p-2 ring-1 ring-white/5 dark:bg-black/25";
+  "rounded-[var(--im-tool-radius,1rem)] border border-white/10 bg-white/[0.03] p-2 ring-1 ring-white/5 dark:bg-black/25";
 
 export const matteWorkspaceBanner =
-  "rounded-[var(--im-tool-radius,0.5rem)] border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-ink-muted dark:bg-black/20";
+  "rounded-[var(--im-tool-radius,1rem)] border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-ink-muted dark:bg-black/20";

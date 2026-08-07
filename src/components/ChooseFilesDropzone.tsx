@@ -1,6 +1,7 @@
 "use client";
 
 import { clsx } from "clsx";
+import { Shield } from "lucide-react";
 import {
   useCallback,
   useId,
@@ -217,7 +218,12 @@ export function ChooseFilesDropzone({
 
       {showPrivacy ? (
         <p className="choose-files-dropzone__privacy" role="note">
-          {labels.privacyLine}
+          <Shield
+            className="choose-files-dropzone__privacy-icon"
+            aria-hidden
+            strokeWidth={1.75}
+          />
+          <span>{labels.privacyLine}</span>
         </p>
       ) : null}
     </div>

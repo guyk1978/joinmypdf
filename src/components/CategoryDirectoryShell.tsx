@@ -10,6 +10,7 @@ import {
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { CategoryDirectoryId } from "@/lib/category-directory-config";
 import type { ToolGridItem } from "@/lib/tool-grid";
+import "@/styles/category-hub-marketing.css";
 import "@/styles/home-landing.css";
 
 type CategoryDirectoryShellProps = {

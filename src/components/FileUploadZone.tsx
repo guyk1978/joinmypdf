@@ -189,7 +189,7 @@ export function FileUploadZone({
     privacyLabelProp ||
     (common.has("localProcessingNothingUploaded")
       ? common("localProcessingNothingUploaded")
-      : "Local Processing. Nothing is uploaded.");
+      : "Processed 100% locally · Zero server uploads");
 
   const supportsLabel = showFormatBadges
     ? formatSupportsLabel(supportedFormats.map(formatLabel))

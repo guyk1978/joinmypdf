@@ -41,7 +41,7 @@ export function HashGeneratorWorkspace({ tool, slug }: HashGeneratorWorkspacePro
       hashError: t("hashError"),
       privacyLabel: t.has("privacyLabel")
         ? t("privacyLabel")
-        : "Local Processing. Nothing is uploaded.",
+        : "Processed 100% locally · Zero server uploads",
     }),
     [t],
   );

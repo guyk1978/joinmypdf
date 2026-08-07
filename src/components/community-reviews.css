@@ -109,9 +109,9 @@
   width: 100%;
   margin: 0;
   padding: 0.7rem 0.9rem;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background-color: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.85rem;
+  background-color: rgba(0, 0, 0, 0.28);
   color: #ffffff;
   font: inherit;
   font-size: 0.9375rem;
@@ -127,13 +127,14 @@
 }
 
 .community-reviews__input:hover {
-  background-color: #303030;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .community-reviews__input:focus {
   outline: none;
-  border-color: #4a4a4a;
-  background-color: #2f2f2f;
+  border-color: rgba(52, 211, 153, 0.45);
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .community-reviews__textarea {
@@ -147,7 +148,7 @@
 }
 
 .community-reviews__stars {
-  --star-rating-color: #ffffff;
+  --star-rating-color: #34d399;
 }
 
 .community-reviews__error {
@@ -159,10 +160,10 @@
 .community-reviews__thanks {
   margin: 0 0 0.95rem;
   padding: 0.7rem 0.85rem;
-  border: none;
-  border-radius: 10px;
-  background: #2a2a2a;
-  color: #ffffff;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  border-radius: 0.85rem;
+  background: rgba(52, 211, 153, 0.08);
+  color: #ecfdf5;
   font-size: 0.875rem;
 }
 
@@ -233,13 +234,13 @@
 
 .community-reviews__website:hover,
 .community-reviews__website:focus-visible {
-  color: #fafafa;
-  border-bottom-color: #525252;
+  color: #34d399;
+  border-bottom-color: rgba(52, 211, 153, 0.45);
   outline: none;
 }
 
 .community-reviews__item-stars {
-  --star-rating-color: #fafafa;
+  --star-rating-color: #34d399;
 }
 
 .community-reviews__comment {

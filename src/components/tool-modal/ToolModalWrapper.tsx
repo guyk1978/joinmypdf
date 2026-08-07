@@ -699,10 +699,10 @@ export function ToolModalWrapper({
             </div>
             </div>
             </div>
+            </div>
 
             <div className="tool-modal__site-footer">
               <HomePageFooter />
-            </div>
             </div>
 
             {copied ? (

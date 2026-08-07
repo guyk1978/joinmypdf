@@ -3,13 +3,14 @@ import { clsx } from "clsx";
 import { CompactToolCardGrid } from "@/components/CompactToolCardGrid";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { AppPageShell } from "@/components/AppPageShell";
+import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { Link } from "@/i18n/navigation";
 import { translateToolItem } from "@/lib/i18n-tool-labels";
 import { getBrandName } from "@/lib/brand";
 import { JsonLd, faqLd } from "@/lib/schema";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { absoluteUrl } from "@/lib/site";
-import { contentDashboardPanel, homePrimaryPillBtn } from "@/lib/tool-ui";
+import { contentDashboardPanel, homePrimaryPillBtn, productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type Props = {
@@ -28,6 +29,8 @@ const PRIVACY_TOOL_SLUGS = [
 ] as const;
 const FAQ_KEYS = ["upload", "verify", "policy"] as const;
 const MANIFESTO_SECTIONS = ["device", "zeroUploads", "future"] as const;
+
+const proseLinkClass = "font-semibold text-emerald-400 hover:text-emerald-300 hover:underline";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -104,14 +107,9 @@ export default async function PrivacyFirstPage({ params }: Props) {
       />
       <JsonLd data={faqLd(faqs)} />
 
-      <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory page-container">
-          <h1 className="home-minimal-tagline">{t("title")}</h1>
-          <p className="privacy-section__prose mx-auto mt-4 max-w-3xl text-center text-base leading-relaxed md:text-lg">
-            {t("missionSummary")}
-          </p>
-
-          <div className="mt-10 flex flex-col gap-10 md:gap-12">
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <ProductPageLayout title={t("title")} description={t("missionSummary")} variant="document">
+          <div className="product-page-document-stack flex flex-col gap-6 md:gap-8">
             {MANIFESTO_SECTIONS.map((section) => {
               const benefitKeys = ["b1", "b2", "b3", "b4"] as const;
               return (
@@ -134,11 +132,7 @@ export default async function PrivacyFirstPage({ params }: Props) {
                   {section === "device" ? (
                     <p className="privacy-section__prose mt-6 mb-0">
                       {t("manifesto.device.comparePrefix")}{" "}
-                      <Link
-                        href="/compare/"
-                        className="font-semibold text-neutral-600 hover:underline dark:text-neutral-400"
-                        prefetch={false}
-                      >
+                      <Link href="/compare/" className={proseLinkClass} prefetch={false}>
                         {t("manifesto.device.compareLink")}
                       </Link>{" "}
                       {t("manifesto.device.compareSuffix")}
@@ -147,11 +141,7 @@ export default async function PrivacyFirstPage({ params }: Props) {
                   {section === "zeroUploads" ? (
                     <p className="privacy-section__prose mt-6 mb-0">
                       {t("manifesto.zeroUploads.policyPrefix")}{" "}
-                      <Link
-                        href="/privacy/"
-                        className="font-semibold text-neutral-600 hover:underline dark:text-neutral-400"
-                        prefetch={false}
-                      >
+                      <Link href="/privacy/" className={proseLinkClass} prefetch={false}>
                         {t("manifesto.zeroUploads.policyLink")}
                       </Link>{" "}
                       {t("manifesto.zeroUploads.policySuffix")}
@@ -238,17 +228,13 @@ export default async function PrivacyFirstPage({ params }: Props) {
                 <Link href="/tools/" className={homePrimaryPillBtn} prefetch={false}>
                   {t("ctaTools")}
                 </Link>
-                <Link
-                  href="/privacy/"
-                  className="font-semibold text-neutral-600 hover:underline dark:text-neutral-400"
-                  prefetch={false}
-                >
+                <Link href="/privacy/" className={proseLinkClass} prefetch={false}>
                   {t("privacyPolicy")}
                 </Link>
               </div>
             </nav>
           </div>
-        </div>
+        </ProductPageLayout>
       </AppPageShell>
     </>
   );

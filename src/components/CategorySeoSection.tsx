@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { faqLd, JsonLd } from "@/lib/schema";
+import "@/styles/category-hub-marketing.css";
 
 const MAX_FAQ_ITEMS = 6;
 
@@ -8,8 +9,7 @@ const MAX_FAQ_ITEMS = 6;
 export type CategorySeoId = string;
 
 /**
- * SEO prose + FAQ block for category hub pages — server-rendered from the
- * `CategorySeo` translation namespace, keyed by category id.
+ * SEO prose + FAQ block for category hub pages — marketing-styled accordion.
  * Renders nothing when a category has no copy for the active locale.
  */
 export async function CategorySeoSection({
@@ -35,9 +35,10 @@ export async function CategorySeoSection({
   }
 
   return (
-    <section className="category-seo" aria-labelledby="category-seo-title">
+    <section className="category-seo chm-seo" aria-labelledby="category-seo-title">
       {faqs.length > 0 ? <JsonLd data={faqLd(faqs)} /> : null}
 
+      <p className="chm-hero__eyebrow">Quick guide</p>
       <h2 id="category-seo-title" className="category-seo__title">
         {t(`${categoryId}.title`)}
       </h2>

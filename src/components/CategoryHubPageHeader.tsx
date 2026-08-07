@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
+import { getCategoryHubMarketing } from "@/data/category-hub-marketing";
 import { getInventoryToolsByCategory } from "@/lib/tools-inventory-query";
 import { clsx } from "clsx";
-import "@/styles/home-landing.css";
+import "@/styles/category-hub-marketing.css";
 
 export type CategoryHubPageHeaderProps = {
   /** Inventory category id (used for data attributes / analytics). */
@@ -26,10 +27,15 @@ export type CategoryHubPageHeaderProps = {
    * When true, render without an outer wrapper — for pages that already provide the shell.
    */
   nested?: boolean;
+  /**
+   * When false, keep the caller title/description instead of marketing copy.
+   * Default true — premium local-first hero for all hubs.
+   */
+  useMarketingCopy?: boolean;
 };
 
 /**
- * Category hub hero — title + description only (tool cards live in the grid below).
+ * Category hub hero — bold local-first marketing header (matches homepage tone).
  */
 export function CategoryHubPageHeader({
   categoryId,
@@ -41,28 +47,44 @@ export function CategoryHubPageHeader({
   children,
   className,
   nested = false,
+  useMarketingCopy = true,
 }: CategoryHubPageHeaderProps) {
+  const marketing = getCategoryHubMarketing(categoryId);
+  const toolCount = getInventoryToolsByCategory(categoryId).length;
+  const displayTitle = useMarketingCopy ? marketing.title : title;
+  const displaySub =
+    useMarketingCopy ? marketing.subtitle : description || marketing.subtitle;
+
   const hero = (
     <>
-      {breadcrumbs ? (
-        <div className="tools-directory-page__breadcrumbs category-hub-hero__breadcrumbs">
-          {breadcrumbs}
-        </div>
-      ) : null}
-
-      <div
-        className={clsx("home-landing__hero category-hub-hero", className)}
+      <section
+        className={clsx("chm-hero", className)}
         data-category={categoryId}
+        aria-labelledby={`chm-hero-title-${categoryId}`}
       >
-        <header className="home-landing__intro category-hub-hero__intro">
-          {eyebrow ? <p className="tools-directory-page__eyebrow">{eyebrow}</p> : null}
-          <h1 className="home-landing__title category-hub-hero__title">{title}</h1>
-          {description ? (
-            <p className="home-landing__tagline category-hub-hero__tagline">{description}</p>
+        <div className="chm-hero__glow" aria-hidden />
+        <div className="chm-hero__inner">
+          {breadcrumbs ? (
+            <div className="chm-hero__breadcrumbs category-hub-hero__breadcrumbs">
+              {breadcrumbs}
+            </div>
           ) : null}
-          {footerNote ? <p className="category-hub-page-header__note">{footerNote}</p> : null}
-        </header>
-      </div>
+          <p className="chm-hero__brand">JoinMyPDF</p>
+          {eyebrow ? <p className="chm-hero__eyebrow">{eyebrow}</p> : null}
+          <h1 id={`chm-hero-title-${categoryId}`} className="chm-hero__title">
+            {displayTitle}
+          </h1>
+          {displaySub ? <p className="chm-hero__sub">{displaySub}</p> : null}
+          <ul className="chm-hero__pills" aria-label="Category benefits">
+            <li>
+              {toolCount} {toolCount === 1 ? "tool" : "tools"}
+            </li>
+            <li>Zero uploads</li>
+            <li>Instant local processing</li>
+          </ul>
+          {footerNote ? <p className="chm-hero__note">{footerNote}</p> : null}
+        </div>
+      </section>
 
       {children}
     </>

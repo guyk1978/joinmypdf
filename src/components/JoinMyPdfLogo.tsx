@@ -16,7 +16,7 @@ export function JoinMyPdfLogo({ className }: JoinMyPdfLogoProps) {
 
   return (
     <span className={clsx("joinmypdf-logo-text", className)}>
-      <HeaderPdfMini className="header-pdf-mini--tight joinmypdf-logo-text__icon text-neutral-50" />
+      <HeaderPdfMini className="header-pdf-mini--tight joinmypdf-logo-text__icon" />
       <span
         className={clsx(
           "joinmypdf-logo-text__word font-extrabold",
@@ -26,7 +26,13 @@ export function JoinMyPdfLogo({ className }: JoinMyPdfLogoProps) {
         {isHebrew
           ? wordmark
           : wordmark.split(" ").map((word, index) => (
-              <span key={word} className="joinmypdf-logo-text__token">
+              <span
+                key={word}
+                className={clsx(
+                  "joinmypdf-logo-text__token",
+                  /pdf/i.test(word) && "joinmypdf-logo-text__accent",
+                )}
+              >
                 {index > 0 ? "\u00A0" : null}
                 {word}
               </span>

@@ -2,9 +2,10 @@
 
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
-import { MinimalToolCard } from "@/components/MinimalToolCard";
+import { CategoryMarketingToolCard } from "@/components/CategoryMarketingToolCard";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import type { ToolGridItem } from "@/lib/tool-grid";
+import "@/styles/category-hub-marketing.css";
 
 type CategoryDirectoryFlatGridProps = {
   items: ToolGridItem[];
@@ -18,7 +19,7 @@ type CategoryDirectoryFlatGridProps = {
 };
 
 /**
- * Global ultra-minimal tool card grid — up to 4 columns on desktop.
+ * Premium category tool grid — sleek marketing cards (rounded, icon + blurb + launch cue).
  */
 export function CategoryDirectoryFlatGrid({
   items,
@@ -28,13 +29,13 @@ export function CategoryDirectoryFlatGrid({
   leadClassName,
 }: CategoryDirectoryFlatGridProps) {
   return (
-    <ul className={clsx("im-tool-card-grid", className)}>
+    <ul className={clsx("chm-tool-grid", className)} role="list">
       {lead ? (
-        <li className={clsx("im-tool-card-grid__lead", leadClassName)}>{lead}</li>
+        <li className={clsx("chm-tool-grid__lead", leadClassName)}>{lead}</li>
       ) : null}
       {items.map((item) => (
-        <li key={item.slugHint} className="im-tool-card-grid__item">
-          <MinimalToolCard
+        <li key={item.slugHint} className="chm-tool-grid__item">
+          <CategoryMarketingToolCard
             href={item.href}
             label={item.label}
             description={item.description}

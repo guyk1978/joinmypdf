@@ -43,22 +43,23 @@ function ensureOverlayCss(doc: Document) {
     doc.head.appendChild(style);
   }
   style.textContent = `
-.app-overlay-modal{position:fixed!important;inset:0!important;z-index:2147483000!important;display:flex!important;align-items:center;justify-content:center;padding:1rem;box-sizing:border-box}
-.app-overlay-modal__backdrop{position:absolute!important;inset:0!important;z-index:0!important;border:0;margin:0;padding:0;background:rgba(0,0,0,.58)!important;cursor:pointer}
-.app-overlay-modal__panel{position:relative!important;z-index:1!important;display:block!important;visibility:visible!important;opacity:1!important;width:min(26rem,100%);max-height:min(90vh,40rem);overflow:auto;padding:1.15rem 1.2rem 1.25rem;border-radius:var(--app-overlay-radius,.75rem);background:var(--app-overlay-bg,#fff)!important;color:var(--app-overlay-fg,#171717)!important;box-shadow:0 18px 50px rgba(0,0,0,.35);box-sizing:border-box}
+.app-overlay-modal{position:fixed!important;inset:0!important;z-index:2147483000!important;display:flex!important;align-items:center!important;justify-content:center;padding:1rem;box-sizing:border-box}
+.app-overlay-modal__backdrop{position:absolute!important;inset:0!important;z-index:0!important;border:0;margin:0;padding:0;background:rgba(0,0,0,.68)!important;cursor:pointer}
+.app-overlay-modal__panel{position:relative!important;z-index:1!important;display:block!important;visibility:visible!important;opacity:1!important;width:min(26rem,100%);max-height:min(90vh,40rem);overflow:auto;padding:1.2rem 1.25rem 1.3rem;border:1px solid rgba(52,211,153,.2);border-radius:var(--app-overlay-radius,1.15rem);background:var(--app-overlay-bg,#141414)!important;color:var(--app-overlay-fg,#f5f5f5)!important;box-shadow:0 0 0 1px rgba(255,255,255,.04) inset,0 22px 56px rgba(0,0,0,.55);box-sizing:border-box}
 .app-overlay-modal__header{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.65rem}
-.app-overlay-modal__title{margin:0;font-size:1.05rem;font-weight:700;line-height:1.3;color:var(--app-overlay-fg,#171717)!important}
-.app-overlay-modal__close{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border:0;border-radius:var(--app-overlay-control-radius,.4rem);background:transparent;color:var(--app-overlay-muted,#525252);cursor:pointer}
-.app-overlay-modal__close:hover{background:var(--app-overlay-close-hover-bg,#f5f5f5);color:var(--app-overlay-fg,#171717)}
-.app-overlay-modal__text{margin:0 0 .85rem;font-size:.9rem;line-height:1.45;color:var(--app-overlay-muted,#404040)!important}
-.app-overlay-modal__error{margin:0 0 .85rem;font-size:.85rem;color:#b91c1c!important}
+.app-overlay-modal__title{margin:0;font-size:1.05rem;font-weight:700;line-height:1.3;letter-spacing:-.01em;color:var(--app-overlay-fg,#f5f5f5)!important}
+.app-overlay-modal__close{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;border:0;border-radius:var(--app-overlay-control-radius,.75rem);background:transparent;color:var(--app-overlay-muted,#a3a3a3);cursor:pointer}
+.app-overlay-modal__close:hover{background:var(--app-overlay-close-hover-bg,rgba(255,255,255,.08));color:var(--app-overlay-fg,#f5f5f5)}
+.app-overlay-modal__text{margin:0 0 .85rem;font-size:.9rem;line-height:1.45;color:var(--app-overlay-muted,#a3a3a3)!important}
+.app-overlay-modal__error{margin:0 0 .85rem;font-size:.85rem;color:#fca5a5!important}
 .app-overlay-modal__stars{display:flex;justify-content:center;margin:.35rem 0 .85rem}
-.app-overlay-modal__actions{display:flex;flex-direction:column;gap:.5rem}
-.app-overlay-modal__btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:2.5rem;padding:.55rem .9rem;border-radius:var(--app-overlay-control-radius,.5rem);border:1px solid transparent;font-size:.9rem;font-weight:650;text-decoration:none;cursor:pointer;box-sizing:border-box}
-.app-overlay-modal__btn--primary{background:var(--app-overlay-btn-primary-bg,#171717)!important;color:var(--app-overlay-btn-primary-fg,#fff)!important;border-color:var(--app-overlay-btn-primary-bg,#171717)}
-.app-overlay-modal__btn--secondary{background:var(--app-overlay-btn-secondary-bg,#f5f5f5)!important;border-color:var(--app-overlay-btn-secondary-border,#e5e5e5);color:var(--app-overlay-btn-secondary-fg,#171717)!important}
-.app-overlay-modal--accent .app-overlay-modal__panel,.app-overlay-modal.rate-tool-modal .app-overlay-modal__panel{border-radius:0}
-.app-overlay-modal--accent .app-overlay-modal__close,.app-overlay-modal--accent .app-overlay-modal__btn,.app-overlay-modal.rate-tool-modal .app-overlay-modal__close,.app-overlay-modal.rate-tool-modal .app-overlay-modal__btn{border-radius:0}
+.app-overlay-modal__stars .star-rating,.app-overlay-modal__stars [data-star-rating]{color:#34d399!important}
+.app-overlay-modal__actions{display:flex;flex-direction:column;gap:.55rem}
+.app-overlay-modal__btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:2.55rem;padding:.55rem .9rem;border-radius:var(--app-overlay-control-radius,.75rem);border:1px solid transparent;font-size:.9rem;font-weight:650;letter-spacing:.02em;text-decoration:none;cursor:pointer;box-sizing:border-box}
+.app-overlay-modal__btn--primary{background:var(--app-overlay-btn-primary-bg,#34d399)!important;color:var(--app-overlay-btn-primary-fg,#04140e)!important;border-color:rgba(52,211,153,.55);box-shadow:0 0 20px rgba(52,211,153,.22)}
+.app-overlay-modal__btn--secondary{background:var(--app-overlay-btn-secondary-bg,rgba(255,255,255,.05))!important;border-color:var(--app-overlay-btn-secondary-border,rgba(255,255,255,.14));color:var(--app-overlay-btn-secondary-fg,#f5f5f5)!important}
+.app-overlay-modal--accent .app-overlay-modal__panel,.app-overlay-modal.rate-tool-modal .app-overlay-modal__panel{border-radius:1.15rem}
+.app-overlay-modal--accent .app-overlay-modal__close,.app-overlay-modal--accent .app-overlay-modal__btn,.app-overlay-modal.rate-tool-modal .app-overlay-modal__close,.app-overlay-modal.rate-tool-modal .app-overlay-modal__btn{border-radius:.75rem}
 `;
 }
 
@@ -120,8 +121,8 @@ type AppOverlayModalProps = {
   footer?: ReactNode;
   closeLabel?: string;
   /**
-   * When set, panel uses this solid brand fill + contrasting ink
-   * (used by Rate this tool). Sharp corners are applied automatically.
+   * Optional panel tone via CSS variables.
+   * Rate-this-tool uses the sitewide industrial dark + emerald tone.
    */
   tone?: AppOverlayModalTone;
   className?: string;
@@ -196,14 +197,14 @@ export function AppOverlayModal({
         "--app-overlay-fg": tone.foreground,
         "--app-overlay-muted": tone.muted,
         "--app-overlay-close-hover-bg": tone.closeHoverBackground,
-        "--app-overlay-radius": "0",
-        "--app-overlay-control-radius": "0",
+        "--app-overlay-radius": "1.15rem",
+        "--app-overlay-control-radius": "0.75rem",
         "--app-overlay-btn-primary-bg": tone.primaryButtonBackground,
         "--app-overlay-btn-primary-fg": tone.primaryButtonForeground,
         "--app-overlay-btn-secondary-bg": tone.secondaryButtonBackground,
         "--app-overlay-btn-secondary-border": tone.secondaryButtonBorder,
         "--app-overlay-btn-secondary-fg": tone.secondaryButtonForeground,
-        "--star-rating-color": tone.foreground,
+        "--star-rating-color": "#34d399",
       } as CSSProperties)
     : undefined;
 

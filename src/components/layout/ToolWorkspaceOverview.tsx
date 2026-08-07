@@ -5,7 +5,6 @@ import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/navigation";
 import { ToolPageStorySections } from "@/components/layout/ToolPageStorySections";
-import { ToolRelatedToolsSection } from "@/components/ToolRelatedToolsSection";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { registry } from "@/lib/registry";
 import {
@@ -174,20 +173,12 @@ export function ToolWorkspaceOverview({
           </article>
         ) : null}
 
+        {/* Related tools live on the RELATED tab only — not under CALC overview. */}
         <ToolPageStorySections
           slug={slug}
           headline={shell.headline}
           tagline={shell.tagline}
           subline={shell.subline}
-          afterWhy={
-            <div className="tool-info-card tool-info-card--related">
-              <ToolRelatedToolsSection
-                slug={slug}
-                relatedSlugs={registryTool?.relatedTools ?? []}
-                limit={8}
-              />
-            </div>
-          }
         />
       </div>
     </section>

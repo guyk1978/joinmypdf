@@ -10,12 +10,21 @@ type ToolPageHeaderProps = {
   tagline?: string;
   slug?: string;
   trailing?: ReactNode;
+  /** Optional marketing eyebrow above the H1. */
+  eyebrow?: string;
 };
 
 /**
  * Page chrome: exactly one H1, optional unique tagline/description (no title echo).
  */
-export function ToolPageHeader({ title, description, tagline, slug, trailing }: ToolPageHeaderProps) {
+export function ToolPageHeader({
+  title,
+  description,
+  tagline,
+  slug,
+  trailing,
+  eyebrow,
+}: ToolPageHeaderProps) {
   const titleNorm = normalizeToolPageCopy(title);
   let resolvedTagline = tagline?.trim() || undefined;
   let resolvedDescription = description?.trim() || undefined;
@@ -37,6 +46,7 @@ export function ToolPageHeader({ title, description, tagline, slug, trailing }: 
 
   return (
     <header className="tool-page-layout__header">
+      {eyebrow ? <p className="tool-page-layout__eyebrow">{eyebrow}</p> : null}
       <div className="tool-page-layout__title-row">
         <h1 className="tool-page-layout__title">{title}</h1>
         {slug ? <ToolFavoriteButton slug={slug} className="tool-page-layout__favorite" /> : trailing}

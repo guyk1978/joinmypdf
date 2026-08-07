@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { AppPageShell } from "@/components/AppPageShell";
 import { HomeFeaturedSection, HomeFeaturedToolCard } from "@/components/HomeFeaturedCards";
-import { Link } from "@/i18n/navigation";
+import { ProductPageLayout } from "@/components/ProductPageLayout";
 import { buildPremiumToolItems } from "@/lib/premium-tools";
 import { buildDefaultSocialImages } from "@/lib/og-images";
 import { JsonLd } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
+import { productPageMainClassName } from "@/lib/tool-ui";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type Props = {
@@ -55,26 +56,32 @@ export default async function PremiumToolsPage({ params }: Props) {
           numberOfItems: items.length,
         }}
       />
-      <AppPageShell>
-        <div className="home-minimal-layout home-minimal-layout--directory page-container">
-          <h1 className="home-minimal-tagline">{tPage("title")}</h1>
-          <HomeFeaturedSection
-            id="premium-tools"
-            title={tPage("title")}
-            viewAllHref="/tools/"
-            viewAllLabel={tPage("browseAllTools")}
-            hideTitle
-          >
-            {items.map((item) => (
-              <HomeFeaturedToolCard
-                key={item.slugHint}
-                href={item.href}
-                label={item.label}
-                slugHint={item.slugHint}
-              />
-            ))}
-          </HomeFeaturedSection>
-        </div>
+      <AppPageShell mainClassName={productPageMainClassName}>
+        <ProductPageLayout
+          title={tPage("title")}
+          description={tPage("metaDescription")}
+          variant="dashboard"
+          showPrivacyBadge
+        >
+          <div className="premium-tools-page">
+            <HomeFeaturedSection
+              id="premium-tools"
+              title={tPage("title")}
+              viewAllHref="/tools/"
+              viewAllLabel={tPage("browseAllTools")}
+              hideTitle
+            >
+              {items.map((item) => (
+                <HomeFeaturedToolCard
+                  key={item.slugHint}
+                  href={item.href}
+                  label={item.label}
+                  slugHint={item.slugHint}
+                />
+              ))}
+            </HomeFeaturedSection>
+          </div>
+        </ProductPageLayout>
       </AppPageShell>
     </>
   );

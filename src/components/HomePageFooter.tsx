@@ -4,19 +4,21 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
 /**
- * Minimal WattQuick-style footer — copyright left, text links right.
- * Inner content uses the shared 80% content rail (matches header / main).
+ * Marketing footer — local-first chrome, emerald accent links.
  */
 export function HomePageFooter() {
   const tFooter = useTranslations("Footer");
   const year = new Date().getFullYear();
 
   return (
-    <footer className="home-page-footer" data-site-footer="1">
+    <footer className="home-page-footer" data-site-footer="1" data-chrome="industrial-v2">
       <div className="home-page-footer__inner app-content-rail">
-        <p className="home-page-footer__copy">
-          {tFooter("copyrightLine", { year })}
-        </p>
+        <div className="home-page-footer__brand">
+          <p className="home-page-footer__copy">
+            {tFooter("copyrightLine", { year })}
+          </p>
+          <p className="home-page-footer__badge">Local-first · Zero uploads</p>
+        </div>
 
         <nav className="home-page-footer__end" aria-label={tFooter("expandFooter")}>
           <Link href="/privacy-policy/" className="home-page-footer__link" prefetch={false}>

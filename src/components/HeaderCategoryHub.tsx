@@ -17,16 +17,18 @@ import { LayoutGrid } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
-  getCategoryAccentColor,
-  getContrastingInk,
-} from "@/lib/category-accent-colors";
-import {
   buildInventoryGridItems,
   getInventoryToolsByCategory,
   listDedicatedInventoryHubLinks,
   type InventoryTranslator,
 } from "@/lib/tools-inventory-query";
 import { useOptionalToolModal } from "@/components/tool-modal/tool-modal-context";
+
+/** Shared industrial accent for the Tools mega menu (no rainbow category fills). */
+const TOOLS_HUB_ACCENT = "#34d399";
+const TOOLS_HUB_PANEL_STYLE = {
+  ["--tools-hub-accent"]: TOOLS_HUB_ACCENT,
+} as CSSProperties;
 
 type PanelPosition = {
   top: number;
@@ -101,13 +103,10 @@ export function HeaderCategoryHub() {
         translate,
         locale,
       ).slice(0, TOOLS_PER_CATEGORY);
-      const accent = getCategoryAccentColor(category.id);
       return {
         ...category,
         toolCount: getInventoryToolsByCategory(category.id).length,
         tools,
-        accent,
-        accentInk: getContrastingInk(accent),
       };
     });
   }, [locale, tTools]);
@@ -205,20 +204,16 @@ export function HeaderCategoryHub() {
                 left: panelPosition.left,
                 width: panelPosition.width,
                 maxHeight: panelPosition.maxHeight,
+                ...TOOLS_HUB_PANEL_STYLE,
               }}
             >
+              <div className="tools-hub-menu__panel-head">
+                <p className="tools-hub-menu__eyebrow">{tHeader("browseTools")}</p>
+                <p className="tools-hub-menu__panel-meta">Local-first · Zero uploads</p>
+              </div>
               <div className="tools-hub-menu__groups">
                 {groups.map((category) => (
-                  <section
-                    key={category.id}
-                    className="tools-hub-menu__group"
-                    style={
-                      {
-                        "--tools-hub-accent": category.accent,
-                        "--tools-hub-accent-ink": category.accentInk,
-                      } as CSSProperties
-                    }
-                  >
+                  <section key={category.id} className="tools-hub-menu__group">
                     <Link
                       href={category.href}
                       className="tools-hub-menu__group-title"

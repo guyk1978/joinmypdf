@@ -72,7 +72,7 @@ export function MinimalToolCard({
   slug,
   categoryId: categoryIdProp,
   favoritesRemove = false,
-  chrome = "filled",
+  chrome = "stripe",
   interaction = "navigate",
 }: MinimalToolCardProps) {
   const locale = useLocale();

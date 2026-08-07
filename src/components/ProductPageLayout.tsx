@@ -5,6 +5,7 @@ import { clsx } from "clsx";
 import { ToolLocalProcessingBar } from "@/components/ToolLocalProcessingBar";
 import { ToolPageHeader } from "@/components/ToolPageHeader";
 import { toolPageDashboardStack } from "@/lib/tool-ui";
+import "@/styles/tool-page-marketing.css";
 
 export type ProductPageLayoutProps = {
   title: string;
@@ -13,10 +14,12 @@ export type ProductPageLayoutProps = {
   /** dashboard = favorites/projects; document = about/terms/privacy prose; magazine = full-width blog index */
   variant?: "dashboard" | "document" | "magazine";
   showPrivacyBadge?: boolean;
+  /** Optional eyebrow above the title (marketing pages). */
+  eyebrow?: string;
 };
 
 /**
- * Shared product shell for tool-adjacent pages — same width, header, and surface as tool pages.
+ * Shared product shell for tool-adjacent pages — marketing aesthetic matching tool hubs.
  */
 export function ProductPageLayout({
   title,
@@ -24,6 +27,7 @@ export function ProductPageLayout({
   children,
   variant = "dashboard",
   showPrivacyBadge = false,
+  eyebrow = "JoinMyPDF · Local-first",
 }: ProductPageLayoutProps) {
   return (
     <div className={toolPageDashboardStack}>
@@ -36,7 +40,7 @@ export function ProductPageLayout({
           variant === "magazine" && "product-page-layout--magazine",
         )}
       >
-        <ToolPageHeader title={title} description={description} />
+        <ToolPageHeader title={title} description={description} eyebrow={eyebrow} />
         <div className="tool-page-layout__content">{children}</div>
         {showPrivacyBadge ? (
           <footer className="tool-page-layout__footer">

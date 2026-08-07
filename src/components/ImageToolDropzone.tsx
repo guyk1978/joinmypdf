@@ -47,7 +47,7 @@ export function ImageToolDropzone({
   dropHint,
   supportsLabel: localizedSupportsLabel,
   supportedFormats = [],
-  privacyLabel = "Local Processing. Nothing is uploaded.",
+  privacyLabel = "Processed 100% locally · Zero server uploads",
   showPrivacy = true,
   accept,
   multiple = false,

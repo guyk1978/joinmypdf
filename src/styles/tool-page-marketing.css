@@ -1,0 +1,1089 @@
+/**
+ * Tool page marketing chrome — aligns workspace + info blocks with
+ * homepage / category local-first aesthetic. Does not alter WASM/file logic.
+ */
+
+.tool-page-main,
+.tool-upload-float,
+.tool-page-layout {
+  --tpm-surface: rgba(255, 255, 255, 0.035);
+  --tpm-surface-strong: rgba(255, 255, 255, 0.055);
+  --tpm-border: rgba(255, 255, 255, 0.1);
+  --tpm-text: #f5f5f5;
+  --tpm-muted: #a3a3a3;
+  --tpm-accent: #34d399;
+  --tpm-radius: 1rem; /* rounded-2xl */
+  --tpm-radius-lg: 1.5rem; /* rounded-3xl */
+}
+
+/* —— View tabs —— */
+.tool-page-view__tabs {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: stretch !important;
+  width: 100%;
+  gap: 0.35rem !important;
+  margin-bottom: 1.25rem !important;
+  padding: 0.35rem !important;
+  border: 1px solid var(--tpm-border) !important;
+  border-top: 1px solid var(--tpm-border) !important;
+  border-radius: var(--tpm-radius) !important;
+  background: var(--tpm-surface) !important;
+  box-sizing: border-box;
+}
+
+.tool-page-view__tab {
+  border-radius: calc(var(--tpm-radius) - 0.2rem) !important;
+  border: 0 !important;
+  border-bottom: 0 !important;
+  padding: 0.55rem 0.9rem !important;
+  font-size: 0.78rem !important;
+  font-weight: 650 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase;
+  color: #a3a3a3;
+  background: transparent !important;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+.tool-page-view__tab:hover,
+.tool-page-view__tab:focus-visible {
+  color: #f5f5f5 !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.tool-page-view__tab--active {
+  color: #04140e !important;
+  background: var(--tpm-accent) !important;
+  box-shadow: none !important;
+  border-bottom: 0 !important;
+  border-bottom-color: transparent !important;
+}
+
+/* —— Workspace stage card —— */
+.tool-upload-stage {
+  gap: 0;
+}
+
+.tool-upload-stage__card {
+  border-radius: var(--tpm-radius-lg) !important;
+  border: 1px solid var(--tpm-border) !important;
+  background:
+    radial-gradient(ellipse at top, rgba(52, 211, 153, 0.06), transparent 55%),
+    var(--tpm-surface) !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 18px 40px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* Keep source menu visible — portal handles overflow; clip only the painted stage */
+.tool-upload-float[data-workspace-phase="clean"] .tool-upload-stage__card {
+  overflow: hidden !important;
+}
+
+.tool-title-banner {
+  border-radius: 0;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--tpm-border);
+  background: rgba(0, 0, 0, 0.28) !important;
+}
+
+.tool-title-banner__label {
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  color: #fafafa !important;
+}
+
+.tool-modal-rating--banner {
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.tool-upload-stage__body {
+  background-color: transparent !important;
+  border-radius: 0;
+  padding: 0;
+}
+
+/* Active workspace: keep dark industrial panels, rounded shell */
+.tool-upload-float[data-workspace-phase="active"] .tool-upload-stage__card {
+  border-radius: var(--tpm-radius-lg) !important;
+  overflow: visible;
+  border: 1px solid var(--tpm-border);
+  background: var(--tpm-surface);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.tool-upload-float[data-workspace-phase="active"] .tool-upload-stage__body {
+  background: transparent !important;
+  border-radius: 0;
+}
+
+/* —— Dropzone (dark industrial) ——
+   Match/beat globals ID+!important white stage rules. */
+#workspace-upload
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+#tool-workspace
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+#workspace-upload[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+#tool-workspace[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+.tool-upload-stack
+  [data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+.tool-upload-float[data-workspace-phase="clean"]
+  .tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+.tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+.tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+.im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact) {
+  --im-dropzone-radius: 0 !important;
+  border-radius: 0 !important;
+  min-height: 13rem !important;
+  padding: 1.85rem 1.25rem !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: #f5f5f5 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease !important;
+}
+
+#workspace-upload
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact)::after,
+#tool-workspace
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact)::after,
+.tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact)::after,
+.tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact)::after {
+  content: "";
+  position: absolute;
+  inset: 0.85rem;
+  border-radius: var(--tpm-radius);
+  border: 1.5px dashed rgba(255, 255, 255, 0.16);
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    inset 0.2s ease;
+}
+
+#workspace-upload
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):hover::after,
+#tool-workspace
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):hover::after,
+#workspace-upload
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact).im-dropzone--active::after,
+#tool-workspace
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact).im-dropzone--active::after,
+.tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):hover::after,
+.tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact).im-dropzone--active::after,
+.tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):hover::after,
+.tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact).im-dropzone--active::after,
+.tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):focus-visible::after {
+  inset: 0.65rem;
+  border-color: rgba(52, 211, 153, 0.72);
+  background: rgba(52, 211, 153, 0.06);
+}
+
+#workspace-upload
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):hover,
+#tool-workspace
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):hover,
+#workspace-upload
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact).im-dropzone--active,
+#tool-workspace
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact).im-dropzone--active,
+#workspace-upload
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):focus-visible,
+#tool-workspace
+  .tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):focus-visible,
+.tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):hover,
+.tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact).im-dropzone--active,
+.tool-upload-float[data-workspace-phase="clean"]
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):focus-visible,
+.tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):hover,
+.tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact).im-dropzone--active,
+.tool-upload-stage__body
+  .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact):focus-visible {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  background-image: none !important;
+  color: #f5f5f5 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Compact secondary dropzones */
+.im-dropzone.im-dropzone--choose-files.im-dropzone--compact {
+  --im-dropzone-radius: 1rem !important;
+  border-radius: var(--tpm-radius) !important;
+  border: 1.5px dashed rgba(255, 255, 255, 0.14) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  color: #f5f5f5 !important;
+}
+
+.im-dropzone.im-dropzone--choose-files.im-dropzone--compact:hover,
+.im-dropzone.im-dropzone--choose-files.im-dropzone--compact.im-dropzone--active,
+.im-dropzone.im-dropzone--choose-files.im-dropzone--compact:focus-visible {
+  border-color: rgba(52, 211, 153, 0.55) !important;
+  background-color: rgba(52, 211, 153, 0.06) !important;
+  color: #f5f5f5 !important;
+}
+
+/* —— Choose Files CTA (emerald on dark) —— */
+.choose-files-btn {
+  min-height: 3rem;
+  border-radius: 0.85rem !important;
+  border: 1px solid rgba(52, 211, 153, 0.45) !important;
+  background: #34d399 !important;
+  color: #04140e !important;
+  box-shadow: 0 10px 28px rgba(52, 211, 153, 0.18) !important;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease !important;
+}
+
+.choose-files-btn:hover,
+.choose-files-btn:focus,
+.choose-files-btn:focus-visible,
+.choose-files-btn:active {
+  background: #6ee7b7 !important;
+  color: #04140e !important;
+  border-color: rgba(52, 211, 153, 0.7) !important;
+  box-shadow: 0 12px 30px rgba(52, 211, 153, 0.28) !important;
+  transform: translateY(-1px);
+  outline: none;
+  filter: none !important;
+}
+
+.choose-files-btn:focus-visible {
+  outline: 2px solid rgba(52, 211, 153, 0.55) !important;
+  outline-offset: 2px;
+}
+
+.choose-files-btn__glyph {
+  color: #04140e !important;
+}
+
+.choose-files-btn__label {
+  color: #04140e !important;
+}
+
+.choose-files-btn__divider {
+  background: rgba(4, 20, 14, 0.22) !important;
+}
+
+.choose-files-btn__chevron {
+  color: rgba(4, 20, 14, 0.72) !important;
+}
+
+.choose-files-dropzone__hint {
+  color: #a3a3a3 !important;
+  font-size: 0.9rem;
+  font-weight: 550;
+}
+
+/* —— Local-first trust badge under dropzone —— */
+.choose-files-dropzone__meta {
+  margin-top: 0;
+  padding: 0.85rem 1rem 1.15rem;
+  background: transparent;
+  border-top: 1px solid var(--tpm-border);
+}
+
+.choose-files-dropzone__privacy,
+.choose-files-dropzone__meta .choose-files-dropzone__privacy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  background: rgba(52, 211, 153, 0.1);
+  color: #a7f3d0 !important;
+  font-size: 0.78rem !important;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+.choose-files-dropzone__privacy-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex-shrink: 0;
+  color: var(--tpm-accent);
+}
+
+.choose-files-dropzone__formats {
+  color: #737373 !important;
+  font-size: 0.78rem !important;
+}
+
+/* Source picker menu — dark industrial to match the new stage */
+.choose-files-menu {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.85rem !important;
+  background: #171717 !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45) !important;
+  color: #f5f5f5 !important;
+}
+
+.choose-files-menu__item {
+  color: #e5e5e5 !important;
+  border-radius: 0.55rem !important;
+}
+
+.choose-files-menu__item:hover,
+.choose-files-menu__item:focus-visible {
+  background: rgba(52, 211, 153, 0.12) !important;
+  color: #ffffff !important;
+}
+
+.choose-files-menu__icon {
+  color: #a3a3a3 !important;
+}
+
+/* —— Info cards / overview grid —— */
+.tool-workspace-overview {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.tool-info-grid {
+  gap: 1rem;
+}
+
+.tool-info-card {
+  border-radius: var(--tpm-radius) !important;
+  border: 1px solid var(--tpm-border) !important;
+  background: var(--tpm-surface) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.tool-info-card:hover {
+  border-color: rgba(52, 211, 153, 0.22) !important;
+  background: var(--tpm-surface-strong) !important;
+}
+
+/* Related tools belong on the RELATED pane — never under CALC overview. */
+.tool-workspace-overview .tool-info-card--related,
+.tool-workspace-overview [data-tool-related="1"] {
+  display: none !important;
+}
+
+.tool-workspace-overview__text,
+.tool-info-card .tool-page-story__text {
+  color: var(--tpm-muted) !important;
+}
+
+.tool-info-card .faq-accordion__item {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.tool-info-card .faq-accordion__trigger {
+  color: #f5f5f5;
+}
+
+/* —— Privacy seal (DOC / layout footer) —— */
+.tool-privacy-seal__pill {
+  max-width: 36rem;
+  border-radius: 999px !important;
+  border: 1px solid rgba(52, 211, 153, 0.28) !important;
+  background: rgba(52, 211, 153, 0.08) !important;
+  color: #d1fae5 !important;
+  box-shadow: none !important;
+  padding: 0.55rem 1rem !important;
+  font-size: 0.8rem !important;
+  font-weight: 650;
+}
+
+.tool-privacy-seal__icon {
+  color: var(--tpm-accent) !important;
+}
+
+.tool-privacy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  background: rgba(52, 211, 153, 0.08);
+  color: #a7f3d0 !important;
+  font-weight: 650;
+}
+
+.tool-privacy-badge svg {
+  color: var(--tpm-accent);
+}
+
+/* —— Soften common tool control chrome —— */
+.tool-upload-float[data-workspace-phase="active"] .im-tool-panel,
+.tool-upload-float[data-workspace-phase="active"] [class*="workspace-panel"],
+.tool-upload-float[data-workspace-phase="active"] .workspace-action-row {
+  border-radius: var(--tpm-radius);
+}
+
+@media (max-width: 639px) {
+  .tool-upload-stage__card {
+    border-radius: 1.15rem !important;
+  }
+
+  .tool-page-view__tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tool-page-view__tab {
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  .choose-files-btn {
+    max-width: calc(100vw - 3rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choose-files-btn,
+  .tool-info-card,
+  .tool-page-view__tab,
+  .tool-upload-stage__body .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact),
+  .tool-upload-stage__body .im-dropzone.im-dropzone--choose-files:not(.im-dropzone--compact)::after {
+    transition: none !important;
+  }
+
+  .choose-files-btn:hover {
+    transform: none;
+  }
+}
+
+/* —— Header OPERATION menu —— */
+.operations-menu__panel {
+  padding: 0.5rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1rem !important;
+  background:
+    radial-gradient(ellipse at top, rgba(52, 211, 153, 0.08), transparent 55%),
+    rgba(18, 18, 18, 0.98) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 18px 40px rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.operations-menu__list {
+  gap: 0.2rem !important;
+}
+
+.operations-menu__item {
+  gap: 0.7rem !important;
+  padding: 0.7rem 0.8rem !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: #e5e5e5 !important;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease !important;
+}
+
+.operations-menu__item svg {
+  color: #a3a3a3 !important;
+}
+
+.operations-menu__item:hover,
+.operations-menu__item:focus-visible {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+}
+
+.operations-menu__item:hover svg,
+.operations-menu__item:focus-visible svg {
+  color: #34d399 !important;
+}
+
+.operations-menu__item--active {
+  background: rgba(52, 211, 153, 0.14) !important;
+  color: #ecfdf5 !important;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+}
+
+.operations-menu__item--active svg {
+  color: #34d399 !important;
+}
+
+.operations-menu__item--danger {
+  color: #fca5a5 !important;
+}
+
+.operations-menu__item--danger svg {
+  color: #fca5a5 !important;
+}
+
+.operations-menu__divider {
+  margin: 0.45rem 0.35rem !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* —— Internal product pages (favorites, projects, search, legal…) —— */
+.product-page-layout {
+  --tpm-surface: rgba(255, 255, 255, 0.035);
+  --tpm-surface-strong: rgba(255, 255, 255, 0.055);
+  --tpm-border: rgba(255, 255, 255, 0.1);
+  --tpm-text: #f5f5f5;
+  --tpm-muted: #a3a3a3;
+  --tpm-accent: #34d399;
+  --tpm-radius: 1rem;
+  --tpm-radius-lg: 1.5rem;
+  max-width: 72rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.product-page-layout > .tool-page-layout__header,
+.tool-page-layout.product-page-layout > .tool-page-layout__header {
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem) !important;
+  padding: clamp(1.35rem, 3vw, 1.85rem);
+  border: 1px solid var(--tpm-border);
+  border-radius: var(--tpm-radius-lg);
+  background:
+    radial-gradient(ellipse at top left, rgba(52, 211, 153, 0.1), transparent 55%),
+    var(--tpm-surface);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.product-page-layout .tool-page-layout__title-row {
+  align-items: center;
+}
+
+.product-page-layout .tool-page-layout__eyebrow {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tpm-accent);
+}
+
+.product-page-layout .tool-page-layout__title {
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem) !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.035em !important;
+  color: #fafafa !important;
+}
+
+.product-page-layout .tool-page-layout__description {
+  margin-top: 0.75rem !important;
+  max-width: 40rem;
+  font-size: clamp(0.98rem, 1.4vw, 1.08rem) !important;
+  line-height: 1.65 !important;
+  color: var(--tpm-muted) !important;
+}
+
+.product-page-layout .tool-page-layout__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.product-page-layout--document .tool-page-layout__content > * {
+  border-radius: var(--tpm-radius);
+  border: 1px solid var(--tpm-border);
+  background: var(--tpm-surface);
+  padding: clamp(1.15rem, 2.8vw, 1.65rem);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.product-page-layout--document .tool-page-layout__content {
+  max-width: 48rem;
+}
+
+.product-page-layout--document .tool-page-layout__content p,
+.product-page-layout--document .tool-page-layout__content li {
+  color: var(--tpm-muted);
+  line-height: 1.7;
+}
+
+.product-page-layout--document .tool-page-layout__content h2,
+.product-page-layout--document .tool-page-layout__content h3 {
+  color: #fafafa;
+  letter-spacing: -0.02em;
+}
+
+.product-page-layout .tool-page-layout__footer {
+  margin-top: 1.5rem;
+}
+
+/* Soften dashboard grids without double-boxing every child */
+.product-page-layout--wide .tool-page-layout__content .im-tool-card-grid,
+.product-page-layout--wide .tool-page-layout__content .favorites-tool-grid,
+.product-page-layout--wide .tool-page-layout__content .search-results__tool-grid {
+  gap: 0.85rem;
+}
+
+.product-page-layout--wide .tool-page-layout__content .im-tool-card,
+.product-page-layout--wide .tool-page-layout__content .im-tool-card--minimal {
+  border-radius: var(--tpm-radius) !important;
+  border: 1px solid var(--tpm-border) !important;
+  background: var(--tpm-surface) !important;
+}
+
+/* ============================================================
+   Tool interior panes — DOC / RELATED / REVIEWS
+   (page + fullscreen tool modal)
+   ============================================================ */
+
+.tool-page-main,
+.tool-modal,
+.tool-page-pane-rail,
+.tool-modal-docs,
+.tool-modal-related,
+.community-reviews--tool-pane {
+  --tpm-surface: rgba(255, 255, 255, 0.035);
+  --tpm-surface-strong: rgba(255, 255, 255, 0.055);
+  --tpm-border: rgba(255, 255, 255, 0.1);
+  --tpm-accent: #34d399;
+  --tpm-radius: 1rem;
+  --tpm-radius-lg: 1.5rem;
+}
+
+.tool-page-main .tool-modal-docs,
+.tool-modal .tool-modal-docs,
+.tool-page-pane-rail.tool-modal-docs {
+  gap: 0;
+  padding: clamp(1.15rem, 2.8vw, 1.75rem) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1.5rem !important;
+  background:
+    radial-gradient(ellipse at top left, rgba(52, 211, 153, 0.05), transparent 50%),
+    rgba(255, 255, 255, 0.035) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.tool-page-main .tool-modal-docs__header,
+.tool-modal .tool-modal-docs__header,
+.tool-page-pane-rail .tool-modal-docs__header {
+  margin-bottom: 1.5rem !important;
+  padding-bottom: 1.25rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tool-page-main .tool-modal-docs__crumbs .tool-breadcrumbs__link,
+.tool-modal .tool-modal-docs__crumbs .tool-breadcrumbs__link,
+.tool-page-pane-rail .tool-modal-docs__crumbs .tool-breadcrumbs__link {
+  color: #a3a3a3;
+  transition: color 0.15s ease;
+}
+
+.tool-page-main .tool-modal-docs__crumbs .tool-breadcrumbs__link:hover,
+.tool-modal .tool-modal-docs__crumbs .tool-breadcrumbs__link:hover,
+.tool-page-pane-rail .tool-modal-docs__crumbs .tool-breadcrumbs__link:hover {
+  color: #34d399 !important;
+}
+
+.tool-page-main .tool-modal-docs__crumbs .tool-breadcrumbs__current,
+.tool-modal .tool-modal-docs__crumbs .tool-breadcrumbs__current,
+.tool-page-pane-rail .tool-modal-docs__crumbs .tool-breadcrumbs__current {
+  color: #e5e5e5;
+}
+
+.tool-page-main .tool-modal-docs__title,
+.tool-modal .tool-modal-docs__title,
+.tool-page-pane-rail .tool-modal-docs__title {
+  color: #fafafa !important;
+  letter-spacing: -0.03em;
+}
+
+.tool-page-main .tool-modal-docs__lead,
+.tool-modal .tool-modal-docs__lead,
+.tool-page-pane-rail .tool-modal-docs__lead {
+  color: #a3a3a3 !important;
+  max-width: 42rem;
+}
+
+.tool-page-main .tool-modal-docs__rule,
+.tool-modal .tool-modal-docs__rule,
+.tool-page-pane-rail .tool-modal-docs__rule {
+  display: none !important;
+}
+
+.tool-page-main .tool-modal-docs__section + .tool-modal-docs__section,
+.tool-modal .tool-modal-docs__section + .tool-modal-docs__section,
+.tool-page-pane-rail .tool-modal-docs__section + .tool-modal-docs__section {
+  margin-top: 1.5rem !important;
+  padding-top: 1.35rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.tool-page-main .tool-modal-docs__heading,
+.tool-modal .tool-modal-docs__heading,
+.tool-page-pane-rail .tool-modal-docs__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #a3a3a3 !important;
+  letter-spacing: 0.1em !important;
+}
+
+.tool-page-main .tool-modal-docs__heading::before,
+.tool-modal .tool-modal-docs__heading::before,
+.tool-page-pane-rail .tool-modal-docs__heading::before {
+  content: "";
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 2px;
+  background: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+  flex-shrink: 0;
+}
+
+.tool-page-main .tool-modal-docs__text,
+.tool-modal .tool-modal-docs__text,
+.tool-page-pane-rail .tool-modal-docs__text {
+  color: #d4d4d4 !important;
+  line-height: 1.75 !important;
+}
+
+.tool-page-main .tool-modal-docs__meta,
+.tool-modal .tool-modal-docs__meta,
+.tool-page-pane-rail .tool-modal-docs__meta {
+  gap: 0.65rem 0.85rem !important;
+  margin-top: 1.15rem !important;
+  padding: 0.8rem 1rem !important;
+  border: 1px solid rgba(52, 211, 153, 0.28) !important;
+  border-radius: 1rem !important;
+  background: rgba(52, 211, 153, 0.07) !important;
+}
+
+.tool-page-main .tool-modal-docs__meta-label,
+.tool-modal .tool-modal-docs__meta-label,
+.tool-page-pane-rail .tool-modal-docs__meta-label {
+  color: #34d399 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.tool-page-main .tool-modal-docs__meta-value,
+.tool-modal .tool-modal-docs__meta-value,
+.tool-page-pane-rail .tool-modal-docs__meta-value {
+  color: #f5f5f5 !important;
+}
+
+.tool-page-main .tool-modal-docs__text--example,
+.tool-modal .tool-modal-docs__text--example,
+.tool-page-pane-rail .tool-modal-docs__text--example {
+  padding: 1rem 1.1rem 1rem 1.2rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1rem !important;
+  background: rgba(0, 0, 0, 0.28) !important;
+  box-shadow: inset 3px 0 0 #34d399;
+}
+
+.tool-page-main .tool-modal-docs__list li::marker,
+.tool-modal .tool-modal-docs__list li::marker,
+.tool-page-pane-rail .tool-modal-docs__list li::marker {
+  color: #34d399 !important;
+}
+
+.tool-page-main .tool-modal-docs__faq-count,
+.tool-modal .tool-modal-docs__faq-count,
+.tool-page-pane-rail .tool-modal-docs__faq-count {
+  border-color: rgba(52, 211, 153, 0.3) !important;
+  background: rgba(52, 211, 153, 0.08) !important;
+  color: #34d399 !important;
+}
+
+.tool-page-main .tool-modal-related,
+.tool-modal .tool-modal-related,
+.tool-page-pane-rail .tool-modal-related {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: clamp(1.15rem, 2.8vw, 1.75rem) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1.5rem !important;
+  background:
+    radial-gradient(ellipse at top right, rgba(52, 211, 153, 0.05), transparent 50%),
+    rgba(255, 255, 255, 0.035) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.tool-page-main .tool-modal-related__section + .tool-modal-related__section,
+.tool-modal .tool-modal-related__section + .tool-modal-related__section,
+.tool-page-pane-rail .tool-modal-related__section + .tool-modal-related__section {
+  margin-top: 0 !important;
+  padding-top: 1.35rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tool-page-main .tool-modal-related__heading,
+.tool-modal .tool-modal-related__heading,
+.tool-page-pane-rail .tool-modal-related__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.9rem !important;
+  color: #a3a3a3 !important;
+  letter-spacing: 0.1em !important;
+}
+
+.tool-page-main .tool-modal-related__heading::before,
+.tool-modal .tool-modal-related__heading::before,
+.tool-page-pane-rail .tool-modal-related__heading::before {
+  content: "";
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 2px;
+  background: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+  flex-shrink: 0;
+}
+
+.tool-page-main .tool-modal-related__list,
+.tool-modal .tool-modal-related__list,
+.tool-page-pane-rail .tool-modal-related__list {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 0.65rem !important;
+}
+
+@media (min-width: 720px) {
+  .tool-page-main .tool-modal-related__list,
+  .tool-modal .tool-modal-related__list,
+  .tool-page-pane-rail .tool-modal-related__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.tool-page-main .tool-modal-related__card,
+.tool-modal .tool-modal-related__card,
+.tool-page-pane-rail .tool-modal-related__card {
+  position: relative;
+  height: 100%;
+  gap: 0.45rem !important;
+  padding: 1rem 1.1rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1rem !important;
+  background: rgba(0, 0, 0, 0.22) !important;
+  transition: border-color 0.18s ease, background-color 0.18s ease !important;
+}
+
+.tool-page-main .tool-modal-related__card::after,
+.tool-modal .tool-modal-related__card::after,
+.tool-page-pane-rail .tool-modal-related__card::after {
+  content: "→";
+  position: absolute;
+  top: 1rem;
+  inset-inline-end: 1rem;
+  color: rgba(163, 163, 163, 0.7);
+  font-size: 0.85rem;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+html[dir="rtl"] .tool-page-main .tool-modal-related__card::after,
+html[dir="rtl"] .tool-modal .tool-modal-related__card::after,
+html[dir="rtl"] .tool-page-pane-rail .tool-modal-related__card::after {
+  content: "←";
+}
+
+.tool-page-main .tool-modal-related__card:hover,
+.tool-page-main .tool-modal-related__card:focus-visible,
+.tool-modal .tool-modal-related__card:hover,
+.tool-modal .tool-modal-related__card:focus-visible,
+.tool-page-pane-rail .tool-modal-related__card:hover,
+.tool-page-pane-rail .tool-modal-related__card:focus-visible {
+  border-color: rgba(52, 211, 153, 0.4) !important;
+  background: rgba(52, 211, 153, 0.08) !important;
+  outline: none;
+}
+
+.tool-page-main .tool-modal-related__card:hover::after,
+.tool-page-main .tool-modal-related__card:focus-visible::after,
+.tool-modal .tool-modal-related__card:hover::after,
+.tool-modal .tool-modal-related__card:focus-visible::after,
+.tool-page-pane-rail .tool-modal-related__card:hover::after,
+.tool-page-pane-rail .tool-modal-related__card:focus-visible::after {
+  color: #34d399;
+  transform: translateX(2px);
+}
+
+html[dir="rtl"] .tool-page-main .tool-modal-related__card:hover::after,
+html[dir="rtl"] .tool-page-main .tool-modal-related__card:focus-visible::after,
+html[dir="rtl"] .tool-modal .tool-modal-related__card:hover::after,
+html[dir="rtl"] .tool-modal .tool-modal-related__card:focus-visible::after,
+html[dir="rtl"] .tool-page-pane-rail .tool-modal-related__card:hover::after,
+html[dir="rtl"] .tool-page-pane-rail .tool-modal-related__card:focus-visible::after {
+  transform: translateX(-2px);
+}
+
+.tool-page-main .tool-modal-related__card-title,
+.tool-modal .tool-modal-related__card-title,
+.tool-page-pane-rail .tool-modal-related__card-title {
+  padding-inline-end: 1.5rem;
+  color: #f5f5f5 !important;
+  font-size: 0.9375rem !important;
+  font-weight: 700 !important;
+  line-height: 1.35;
+}
+
+.tool-page-main .tool-modal-related__card-desc,
+.tool-modal .tool-modal-related__card-desc,
+.tool-page-pane-rail .tool-modal-related__card-desc {
+  color: #a3a3a3 !important;
+  line-height: 1.5 !important;
+}
+
+.tool-page-related-pane .im-tool-card--minimal,
+.tool-page-related-pane .im-tool-card--minimal.im-tool-card--stripe {
+  border-radius: 1rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+}
+
+.tool-page-related-pane .im-tool-card--minimal:hover,
+.tool-page-related-pane .im-tool-card--minimal:focus-within {
+  border-color: rgba(52, 211, 153, 0.35) !important;
+  background: rgba(52, 211, 153, 0.08) !important;
+}
+
+.tool-page-main .community-reviews--tool-pane,
+.tool-modal .community-reviews--tool-pane,
+.tool-page-pane-rail .community-reviews--tool-pane {
+  padding: clamp(1.15rem, 2.8vw, 1.75rem) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 1.5rem !important;
+  background:
+    radial-gradient(ellipse at top left, rgba(52, 211, 153, 0.05), transparent 50%),
+    rgba(255, 255, 255, 0.035) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__submit,
+.tool-page-main .community-reviews--tool-pane .community-reviews__feed,
+.tool-modal .community-reviews--tool-pane .community-reviews__submit,
+.tool-modal .community-reviews--tool-pane .community-reviews__feed {
+  padding: 1.1rem 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__submit-icon,
+.tool-modal .community-reviews--tool-pane .community-reviews__submit-icon {
+  color: #34d399 !important;
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__input,
+.tool-modal .community-reviews--tool-pane .community-reviews__input {
+  border-radius: 0.85rem !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(0, 0, 0, 0.32) !important;
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__input:focus,
+.tool-modal .community-reviews--tool-pane .community-reviews__input:focus {
+  border-color: rgba(52, 211, 153, 0.5) !important;
+  box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.18);
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__stars,
+.tool-page-main .community-reviews--tool-pane .community-reviews__item-stars,
+.tool-modal .community-reviews--tool-pane .community-reviews__stars,
+.tool-modal .community-reviews--tool-pane .community-reviews__item-stars {
+  --star-rating-color: #34d399;
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__submit-btn.im-btn-cta,
+.tool-page-main .community-reviews--tool-pane .im-btn-cta.community-reviews__submit-btn,
+.tool-modal .community-reviews--tool-pane .community-reviews__submit-btn.im-btn-cta,
+.tool-modal .community-reviews--tool-pane .im-btn-cta.community-reviews__submit-btn {
+  min-width: auto;
+  border-radius: 0.85rem !important;
+  border: 1px solid rgba(52, 211, 153, 0.45) !important;
+  background: #34d399 !important;
+  color: #04140e !important;
+  font-weight: 700;
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__submit-btn.im-btn-cta:hover,
+.tool-page-main .community-reviews--tool-pane .im-btn-cta.community-reviews__submit-btn:hover,
+.tool-modal .community-reviews--tool-pane .community-reviews__submit-btn.im-btn-cta:hover,
+.tool-modal .community-reviews--tool-pane .im-btn-cta.community-reviews__submit-btn:hover {
+  background: #6ee7b7 !important;
+  color: #04140e !important;
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__website:hover,
+.tool-page-main .community-reviews--tool-pane .community-reviews__source-link:hover,
+.tool-modal .community-reviews--tool-pane .community-reviews__website:hover,
+.tool-modal .community-reviews--tool-pane .community-reviews__source-link:hover {
+  color: #34d399 !important;
+  border-bottom-color: rgba(52, 211, 153, 0.45) !important;
+}
+
+.tool-page-main .community-reviews--tool-pane .community-reviews__thanks,
+.tool-modal .community-reviews--tool-pane .community-reviews__thanks {
+  border-radius: 0.85rem;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  background: rgba(52, 211, 153, 0.08);
+  color: #ecfdf5;
+}
+
+@media (max-width: 639px) {
+  .tool-page-main .tool-modal-docs,
+  .tool-modal .tool-modal-docs,
+  .tool-page-main .tool-modal-related,
+  .tool-modal .tool-modal-related,
+  .tool-page-main .community-reviews--tool-pane,
+  .tool-modal .community-reviews--tool-pane,
+  .tool-page-pane-rail.tool-modal-docs {
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+  }
+}

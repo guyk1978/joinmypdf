@@ -100,6 +100,7 @@ export function ToolRelatedToolsSection({
               label={item.label}
               slug={item.slug}
               categoryId={item.categoryId}
+              chrome="stripe"
               interaction="expand"
             />
           </li>
