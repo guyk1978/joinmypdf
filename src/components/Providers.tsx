@@ -33,10 +33,11 @@ export function Providers({ children }: { children: ReactNode }) {
             <DeferredToolModalProvider>
               <ToolsDirectorySelectionProvider>
                 <ViewportHistoryRecovery />
-                <div className="min-h-screen w-full max-w-[100vw] overflow-x-clip">
+                {/* Root sticky-footer flex chain — one min-h-dvh floor only */}
+                <div className="flex min-h-dvh w-full max-w-[100vw] flex-col overflow-x-clip">
                   <EmailPopupScript />
                   <PreviewInspectHost />
-                  {children}
+                  <div className="flex min-h-0 w-full flex-1 flex-col">{children}</div>
                   <ToolsDirectoryBatchPinBar />
                 </div>
               </ToolsDirectorySelectionProvider>

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import { getCategoryHubMarketing } from "@/data/category-hub-marketing";
 import { getInventoryToolsByCategory } from "@/lib/tools-inventory-query";
@@ -28,8 +29,8 @@ export type CategoryHubPageHeaderProps = {
    */
   nested?: boolean;
   /**
-   * When false, keep the caller title/description instead of marketing copy.
-   * Default true — premium local-first hero for all hubs.
+   * When true on English, prefer marketing hero copy. Localized locales keep the
+   * page-provided title/description so Hebrew/Russian are not overwritten.
    */
   useMarketingCopy?: boolean;
 };
@@ -37,7 +38,7 @@ export type CategoryHubPageHeaderProps = {
 /**
  * Category hub hero — bold local-first marketing header (matches homepage tone).
  */
-export function CategoryHubPageHeader({
+export async function CategoryHubPageHeader({
   categoryId,
   title,
   description,
@@ -49,11 +50,19 @@ export function CategoryHubPageHeader({
   nested = false,
   useMarketingCopy = true,
 }: CategoryHubPageHeaderProps) {
+  const locale = await getLocale();
+  const tDir = await getTranslations("ToolsDirectory");
   const marketing = getCategoryHubMarketing(categoryId);
   const toolCount = getInventoryToolsByCategory(categoryId).length;
-  const displayTitle = useMarketingCopy ? marketing.title : title;
-  const displaySub =
-    useMarketingCopy ? marketing.subtitle : description || marketing.subtitle;
+  const preferMarketing = useMarketingCopy && locale === "en";
+  const displayTitle = preferMarketing ? marketing.title : title;
+  const displaySub = preferMarketing
+    ? marketing.subtitle
+    : description || marketing.subtitle;
+  const toolCountLabel =
+    toolCount === 1
+      ? tDir("toolCount", { count: toolCount })
+      : tDir("toolCountPlural", { count: toolCount });
 
   const hero = (
     <>
@@ -71,18 +80,29 @@ export function CategoryHubPageHeader({
           ) : null}
           <p className="chm-hero__brand">JoinMyPDF</p>
           {eyebrow ? <p className="chm-hero__eyebrow">{eyebrow}</p> : null}
-          <h1 id={`chm-hero-title-${categoryId}`} className="chm-hero__title">
+          <h1
+            id={`chm-hero-title-${categoryId}`}
+            className="chm-hero__title"
+            lang={locale}
+            dir="auto"
+          >
             {displayTitle}
           </h1>
-          {displaySub ? <p className="chm-hero__sub">{displaySub}</p> : null}
-          <ul className="chm-hero__pills" aria-label="Category benefits">
-            <li>
-              {toolCount} {toolCount === 1 ? "tool" : "tools"}
-            </li>
-            <li>Zero uploads</li>
-            <li>Instant local processing</li>
+          {displaySub ? (
+            <p className="chm-hero__sub" lang={locale} dir="auto">
+              {displaySub}
+            </p>
+          ) : null}
+          <ul className="chm-hero__pills" aria-label={tDir("benefitsLabel")}>
+            <li>{toolCountLabel}</li>
+            <li>{tDir("zeroUploads")}</li>
+            <li>{tDir("instantLocal")}</li>
           </ul>
-          {footerNote ? <p className="chm-hero__note">{footerNote}</p> : null}
+          {footerNote ? (
+            <p className="chm-hero__note" lang={locale} dir="auto">
+              {footerNote}
+            </p>
+          ) : null}
         </div>
       </section>
 

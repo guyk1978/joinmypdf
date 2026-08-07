@@ -588,10 +588,15 @@
 }
 
 .home-page-footer__end {
-  gap: 0.35rem !important;
-  padding: 0.32rem !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 0.25rem 0.2rem !important;
+  padding: 0.35rem !important;
+  max-width: min(100%, 40rem);
   border: 1px solid rgba(52, 211, 153, 0.16) !important;
-  border-radius: 999px !important;
+  border-radius: 1.15rem !important;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 55%),
     var(--chrome-surface) !important;
@@ -601,17 +606,47 @@
 }
 
 .home-page-footer__link {
-  padding: 0.45rem 0.85rem !important;
+  padding: 0.5rem 0.9rem !important;
   border-radius: 999px !important;
   color: var(--chrome-muted) !important;
   font-weight: 650 !important;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  font-size: 0.6875rem !important;
+  font-size: 0.75rem !important;
+  line-height: 1.25 !important;
+  white-space: nowrap;
   transition:
     color 0.15s ease,
     background-color 0.15s ease,
     box-shadow 0.15s ease !important;
+}
+
+/* Hebrew / RTL: longer labels need breathing room, not tracked uppercase */
+html[dir="rtl"] .home-page-footer__link,
+html[lang="he"] .home-page-footer__link {
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: 600 !important;
+  padding: 0.5rem 0.95rem !important;
+}
+
+html[dir="rtl"] .home-page-footer__badge,
+html[lang="he"] .home-page-footer__badge {
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__inner,
+.app-page-canvas > .tool-page-main ~ .home-page-footer .home-page-footer__inner,
+.app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer .home-page-footer__inner {
+  row-gap: 0.85rem !important;
+}
+
+.tool-modal--fullscreen .tool-modal__site-footer .home-page-footer__end,
+.app-page-canvas > .tool-page-main ~ .home-page-footer .home-page-footer__end,
+.app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer .home-page-footer__end {
+  flex: 1 1 16rem;
+  min-width: min(100%, 16rem);
 }
 
 .home-page-footer__link:hover,
@@ -641,9 +676,14 @@
 @media (max-width: 639px) {
   .home-page-footer__end {
     width: 100%;
+    max-width: none;
     justify-content: flex-start;
     border-radius: 1.1rem !important;
     flex-wrap: wrap;
+  }
+
+  html[dir="rtl"] .home-page-footer__end {
+    justify-content: flex-start;
   }
 
   .site-header__desktop-cluster {

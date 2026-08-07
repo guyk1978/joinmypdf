@@ -3,6 +3,7 @@ import { getRequestConfig } from "next-intl/server";
 import { localizeHebrewPdfDeep } from "@/lib/hebrew-pdf-term";
 import { routing } from "./routing";
 
+/** Deep-merge Tools (+ keep other extension namespaces shallow-overlaid). */
 function mergeTools(
   base: Record<string, unknown> | undefined,
   extra: Record<string, unknown> | undefined,

@@ -61,6 +61,7 @@ function getPanelPosition(trigger: HTMLElement): PanelPosition {
  */
 export function HeaderOperationsMenu() {
   const tHeader = useTranslations("Header");
+  const tModal = useTranslations("ToolModal");
   const toolModal = useOptionalToolModal();
   const isToolPage = Boolean(toolModal?.isOpen);
   const session = toolModal?.session ?? null;
@@ -191,8 +192,16 @@ export function HeaderOperationsMenu() {
     ? tHeader("returnToMainView")
     : "Return to Upload";
   const favoriteLabel = session?.favorited
-    ? session.favoriteLabel || "Remove from Favorites"
-    : "Add to Favorites";
+    ? session.favoriteLabel ||
+      (tModal.has("removeFavorite") ? tModal("removeFavorite") : "Remove from Favorites")
+    : session?.favoriteLabel ||
+      (tModal.has("addFavorite") ? tModal("addFavorite") : "Add to Favorites");
+  const docsLabel = tModal.has("doc") ? tModal("doc") : "Documents";
+  const relatedLabel = tModal.has("related") ? tModal("related") : "Related Tools";
+  const reviewsLabel = tModal.has("reviews") ? tModal("reviews") : "Reviews";
+  const saveLabel = tModal.has("saveProject") ? tModal("saveProject") : "Save Project";
+  const shareLabel = tModal.has("share") ? tModal("share") : "Share";
+  const closeLabel = tModal.has("close") ? tModal("close") : "Close Tool";
 
   const panel =
     mounted && open && panelPosition
@@ -237,7 +246,7 @@ export function HeaderOperationsMenu() {
                   onClick={() => goTab("doc")}
                 >
                   <FileText size={15} strokeWidth={2} aria-hidden />
-                  <span>File List / Documents</span>
+                  <span>{docsLabel}</span>
                 </button>
               </li>
               <li role="none">
@@ -252,7 +261,7 @@ export function HeaderOperationsMenu() {
                   onClick={() => goTab("related")}
                 >
                   <Link2 size={15} strokeWidth={2} aria-hidden />
-                  <span>Related Tools</span>
+                  <span>{relatedLabel}</span>
                 </button>
               </li>
               <li role="none">
@@ -267,7 +276,7 @@ export function HeaderOperationsMenu() {
                   onClick={() => goTab("reviews")}
                 >
                   <MessageSquare size={15} strokeWidth={2} aria-hidden />
-                  <span>Reviews</span>
+                  <span>{reviewsLabel}</span>
                 </button>
               </li>
             </ul>
@@ -310,7 +319,7 @@ export function HeaderOperationsMenu() {
                   }}
                 >
                   <Save size={15} strokeWidth={2.25} aria-hidden />
-                  <span>Save Project</span>
+                  <span>{saveLabel}</span>
                 </button>
               </li>
               <li role="none">
@@ -322,7 +331,7 @@ export function HeaderOperationsMenu() {
                   onClick={() => invoke(() => (session?.share ?? actions?.share)?.())}
                 >
                   <Share2 size={15} strokeWidth={2} aria-hidden />
-                  <span>Share</span>
+                  <span>{shareLabel}</span>
                 </button>
               </li>
               <li role="none">
@@ -339,7 +348,7 @@ export function HeaderOperationsMenu() {
                   }
                 >
                   <X size={15} strokeWidth={2.25} aria-hidden />
-                  <span>Close Tool</span>
+                  <span>{closeLabel}</span>
                 </button>
               </li>
             </ul>

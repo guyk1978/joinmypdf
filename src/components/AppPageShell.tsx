@@ -11,7 +11,7 @@ type AppPageShellProps = {
 /** Unified dark minimalist page shell — header, main, footer. */
 export function AppPageShell({ children, className, mainClassName }: AppPageShellProps) {
   return (
-    <div className={clsx("app-page-shell", className)}>
+    <div className={clsx("app-page-shell flex min-h-dvh w-full flex-1 flex-col", className)}>
       <PageTransitionShell mainClassName={mainClassName}>{children}</PageTransitionShell>
     </div>
   );

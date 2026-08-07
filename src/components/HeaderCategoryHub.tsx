@@ -85,6 +85,7 @@ export function HeaderCategoryHub() {
   const tHeader = useTranslations("Header");
   const tHome = useTranslations("Home");
   const tTools = useTranslations("Tools");
+  const tDir = useTranslations("ToolsDirectory");
   const locale = useLocale();
   const toolModal = useOptionalToolModal();
   const panelId = useId();
@@ -209,7 +210,11 @@ export function HeaderCategoryHub() {
             >
               <div className="tools-hub-menu__panel-head">
                 <p className="tools-hub-menu__eyebrow">{tHeader("browseTools")}</p>
-                <p className="tools-hub-menu__panel-meta">Local-first · Zero uploads</p>
+                <p className="tools-hub-menu__panel-meta">
+                  {tHeader.has("toolsHubMeta")
+                    ? tHeader("toolsHubMeta")
+                    : `${tDir("instantLocal")} · ${tDir("zeroUploads")}`}
+                </p>
               </div>
               <div className="tools-hub-menu__groups">
                 {groups.map((category) => (

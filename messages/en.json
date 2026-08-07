@@ -270,6 +270,7 @@
     "returnToMainView": "Return to Upload",
     "toolSession": "This tool",
     "browseTools": "Browse tools",
+    "toolsHubMeta": "Local-first · Zero uploads",
     "reviews": "Reviews",
     "drawer": {
       "title": "Library",
@@ -2824,6 +2825,81 @@
       "viewCategory": "View category",
       "showLess": "Show less"
     },
+    "marketingLanding": {
+      "heroTitle": "Local-first tools.",
+      "heroTitleEm": "Your files never leave this browser.",
+      "heroSubtitle": "A private toolkit for PDFs, images, text, and conversions — built for speed, security, and zero upload anxiety. Drag, drop, done.",
+      "getStarted": "Get Started",
+      "benefitsLabel": "Core benefits",
+      "pillLocal": "100% local",
+      "pillNoUploads": "No uploads",
+      "pillNoAds": "No ads in the workflow",
+      "whyEyebrow": "Why local-first?",
+      "whyTitle": "Security, speed, and privacy — without the cloud tradeoff",
+      "whyLead": "JoinMyPDF runs on your device so confidential work stays confidential, and results show up as soon as your browser finishes the job.",
+      "benefits": {
+        "security": {
+          "title": "Security without the server",
+          "body": "Your documents stay on your machine. No cloud inbox, no shared processor, no wondering who else can open the file after you close the tab.",
+          "visualLabel": "On-device only",
+          "visualDetail": "Browser sandbox · No remote copy"
+        },
+        "speed": {
+          "title": "Speed you can feel",
+          "body": "Skip upload queues and download round-trips. Open a tool, drop a file, and get the result as fast as your device can work.",
+          "visualLabel": "Zero upload lag",
+          "visualDetail": "WASM · Web Workers · Instant export"
+        },
+        "privacy": {
+          "title": "Privacy by default",
+          "body": "Local-first means confidential contracts, client photos, and drafts never hitch a ride to someone else’s infrastructure — not even briefly.",
+          "visualLabel": "Zero uploads",
+          "visualDetail": "No account · No tracking of file contents"
+        }
+      },
+      "categoriesEyebrow": "Drag, drop, done",
+      "categoriesTitle": "Everything you need, organized by job",
+      "categoriesLead": "Sleek category hubs instead of an endless grid — open a lane and start working in seconds.",
+      "categoryBodies": {
+        "pdf": "Merge, split, compress, sign, and organize pages.",
+        "image": "Convert, crop, watermark, and clean metadata.",
+        "text": "Format, transform, and prep copy in the browser.",
+        "convert": "Switch formats without shipping files to the cloud."
+      },
+      "socialEyebrow": "Social proof",
+      "socialTitle": "Built for people who hate waiting — and hate ads",
+      "starsAria": "{rating} out of 5 stars",
+      "creatorEyebrow": "A note from the creator",
+      "creatorTitle": "Why this exists",
+      "creatorP1": "I built JoinMyPDF because I kept running into the same frustration: I needed a fast, clean, reliable tool online, and almost every option was buried under ads, pop-ups, or unnecessary friction.",
+      "creatorP2": "I still develop this platform actively for my own work, and my family uses these tools regularly too — so every improvement has to hold up in real everyday use, not just look good on a landing page.",
+      "faqEyebrow": "FAQ",
+      "faqTitle": "Frequently asked questions",
+      "faq": {
+        "upload": {
+          "q": "Is my data uploaded to servers?",
+          "a": "No. Standard JoinMyPDF workflows process files locally in your browser. Your documents are not uploaded to our servers for typical tool use."
+        },
+        "free": {
+          "q": "Is it free to use?",
+          "a": "Yes. The tools are free to use with no account wall and no watermarks on everyday workflows."
+        },
+        "pro": {
+          "q": "Are these tools safe for professional work?",
+          "a": "Yes. Local processing keeps sensitive files on your device, which is why teams reach for JoinMyPDF for contracts, client assets, and deadline work."
+        },
+        "install": {
+          "q": "Do I need to install anything?",
+          "a": "No installs. Open a tool in a modern browser, drop your file, and download the result when you’re done."
+        },
+        "local": {
+          "q": "What does “local-first” actually mean?",
+          "a": "It means the heavy lifting runs on your device with browser APIs and WebAssembly — not on a remote converter that keeps a copy of your upload."
+        }
+      },
+      "finalTitle": "Ready to work local-first?",
+      "finalSub": "Open the toolkit, drop a file, and keep every byte on your device."
+    },
     "authorityOverviewTitle": "About JoinMyPDF",
     "seoOverview": "JoinMyPDF is a privacy-focused suite of browser-based tools for PDF, image, and developer workflows. Every task runs through local processing in your browser—files stay on your device with no mandatory uploads to our servers. Our enterprise-grade architecture supports offline-capable workflows where supported, so you can merge, compress, convert, and secure documents with maximum control. Built for professionals who need fast results without sacrificing security or compliance.",
     "faqTitle": "Frequently asked questions",
@@ -3609,6 +3685,20 @@
     "selectForFavoritesAria": "Select {label} for favorites",
     "toolCount": "{count} tool",
     "toolCountPlural": "{count} tools",
+    "zeroUploads": "Zero uploads",
+    "instantLocal": "Instant local processing",
+    "useNow": "Use Now",
+    "openHub": "Open hub",
+    "benefitsLabel": "Category benefits",
+    "localFirstBanner": {
+      "eyebrow": "Local-first guarantee",
+      "title": "Your files never leave this browser",
+      "body": "Every tool in this category processes data on your device. No upload queues, no remote copies, and nothing left behind when you close the tab.",
+      "privacy": "Absolute privacy",
+      "speed": "Instant local speed",
+      "zeroUploads": "Zero uploads",
+      "ariaLabel": "Local-first privacy guarantee"
+    },
     "whyLocalTitle": "Why local processing matters",
     "whyLocalBody": "Upload-based PDF sites copy your file to their servers. JoinMyPDF delivers JavaScript; your browser does the work. Open DevTools → Network and verify—your PDF never leaves your device.",
     "learnPrivacy": "Learn about Privacy First",
@@ -4233,6 +4323,7 @@
     },
     "copyright": "All rights reserved.",
     "copyrightLine": "© {year} JoinMyPDF",
+    "localFirstBadge": "Local-first · Zero uploads",
     "expandFooter": "Site links",
     "collapseFooter": "Hide site links",
     "partnerNavLabel": "Partner tools",
@@ -9360,7 +9451,32 @@
     "loading": "Loading tool…",
     "expandAll": "Expand all",
     "collapseAll": "Collapse all",
-    "comingSoon": "Documentation for this tool is coming soon."
+    "comingSoon": "Documentation for this tool is coming soon.",
+    "storyWhyHeading": "Why People Use {toolName}",
+    "storyWhyWithTask": "Most people open {toolName} when they need to {task} — for example, finishing a file before a meeting, cleaning something up for a client, or preparing an attachment without installing another desktop app.",
+    "storyWhyFallback": "Most people open {toolName} when a file needs a quick fix before a meeting, a client delivery, or a deadline — without installing another desktop app or fighting a cluttered converter site.",
+    "storyWhyBrand": "On JoinMyPDF, {toolName} is truly 100% free, processed locally in your browser, and built for the easiest, fastest, and most reliable experience we can ship. No account wall, no surprise paywall mid-task, and no waiting on a remote upload queue.",
+    "storyFaqHeading": "Frequently Asked Questions",
+    "storyFaqUseQ": "How do I use {toolName}?",
+    "storyFaqUseA": "Open {toolName}, add your file (or paste your input if the tool supports it), adjust any options you need, then run the action. When it finishes, download or copy the result and continue your workflow.",
+    "storyFaqPrepareQ": "What should I prepare before I start?",
+    "storyFaqPrepareA": "Have the source file ready on your device and a clear outcome in mind (for example: merge pages, compress for email, or export a specific format). That way you can set options once and avoid re-running the tool.",
+    "storyFaqMobileQ": "Can I use {toolName} on my phone or tablet?",
+    "storyFaqMobileA": "Yes. {toolName} works in modern mobile browsers. For larger files, a desktop or laptop browser is usually more comfortable, but the same steps apply on touch devices.",
+    "storyFaqLargeQ": "What if my file is large or takes a moment to process?",
+    "storyFaqLargeA": "Keep the tab open until the progress indicator finishes. Very large files can take longer depending on your device. If something stalls, refresh the page and try again with a smaller batch or a single file.",
+    "storyFaqUndoQ": "Can I undo a change or start over?",
+    "storyFaqUndoA": "Yes. Clear the current file or choose a new upload to reset the workspace. Your original file on disk is never overwritten — only the exported result is new.",
+    "storyFaqAccountQ": "Do I need an account to use {toolName}?",
+    "storyFaqAccountA": "No. You can use {toolName} without creating an account or signing in. Open the page, complete the task, and download your result.",
+    "storyFaqBrowsersQ": "Which browsers work best with {toolName}?",
+    "storyFaqBrowsersA": "Current versions of Chrome, Edge, Firefox, and Safari work well. For the smoothest experience, keep your browser updated and allow the page enough memory when working with bigger files.",
+    "storyCreatorHeading": "A Note From the Creator",
+    "storyCreatorP1": "I built JoinMyPDF because I kept running into the same frustration: I needed a fast, clean, reliable tool online, and almost every option was buried under ads, pop-ups, or unnecessary friction.",
+    "storyCreatorP2": "I still develop this platform actively for my own work, and my family uses these tools regularly too — so every improvement has to hold up in real everyday use, not just look good on a landing page.",
+    "storyReviewsHeading": "What People Say About {toolName}",
+    "storyReviewsIntro": "Short recommendations from people who use {toolName} for everyday work.",
+    "storyStarsAria": "{rating} out of 5 stars"
   },
   "PinnedDock": {
     "dockLabel": "Pinned tools",

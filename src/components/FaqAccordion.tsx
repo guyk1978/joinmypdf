@@ -40,7 +40,9 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
               aria-controls={panelId}
               onClick={() => setOpenIndex(isOpen ? null : index)}
             >
-              <span className="faq-accordion__question">{item.q}</span>
+              <span className="faq-accordion__question" dir="auto">
+                {item.q}
+              </span>
               <ChevronDown
                 className={clsx(
                   "faq-accordion__chevron",
@@ -61,7 +63,9 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
               )}
             >
               <div className="faq-accordion__panel-inner">
-                <p className="faq-accordion__answer">{item.a}</p>
+                <p className="faq-accordion__answer" dir="auto">
+                  {item.a}
+                </p>
               </div>
             </div>
           </div>

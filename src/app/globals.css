@@ -249,6 +249,35 @@ html[dir="rtl"] :is(h1, .home-landing__title, .category-hub-hero__title, .tool-p
   font-weight: 700;
 }
 
+/* Hebrew / RTL prose — isolate card blurbs only (avoid breaking titles / LTR pages) */
+html[dir="rtl"] :is(
+  .chm-tool-card__desc,
+  .chm-hero__note,
+  .chm-banner__text,
+  .im-tool-card__desc
+),
+html[lang="he"] :is(
+  .chm-tool-card__desc,
+  .chm-hero__note,
+  .chm-banner__text,
+  .im-tool-card__desc
+) {
+  unicode-bidi: isolate;
+  text-align: start;
+}
+
+html[dir="rtl"] :is(
+  .chm-tool-card__cta-icon,
+  .hm-btn__icon,
+  .hm-feature-card__cta svg,
+  .home-minimal-section__link-icon,
+  .home-section-bar__all-icon,
+  .im-tool-card--minimal .im-tool-card__nav-arrow-icon
+) {
+  transform: scaleX(-1);
+}
+
+
 /*
  * Global content rail — single centered column shared by site header,
  * page/tool mains, tool modal chrome, and the site footer.
@@ -352,13 +381,21 @@ html:has(.home-page-shell--minimal) body {
   background-color: var(--site-canvas-bg);
   /* Keep the global charcoal + grain canvas (do not flatten to solid black). */
   color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
-/* Full edge-to-edge application shell */
+/* Full edge-to-edge application shell — flex column root */
 .app-page-shell {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
   width: 100%;
   max-width: 100vw;
+  /* Single viewport floor for the sticky-footer chain */
   min-height: 100vh;
   min-height: 100dvh;
   padding: 0;
@@ -367,37 +404,58 @@ html:has(.home-page-shell--minimal) body {
   color: var(--home-feature-text);
 }
 
-/* Edge-to-edge canvas: no floating card, no border, no side gaps */
+/*
+ * Sticky footer (foolproof flex pattern):
+ *   shell:  min-height 100dvh + flex-col  (ONE floor — do not repeat on nested wrappers)
+ *   canvas: flex 1                       (fills the shell)
+ *   main:   flex-grow 1                  (pushes footer down)
+ *   footer: shrink-0 + mt-auto
+ */
 .app-page-canvas {
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   width: 100%;
   max-width: 100vw;
-  min-height: 100vh;
-  min-height: 100dvh;
-  flex-direction: column;
+  /* Fill shell; growing with content — a second 100dvh here caused endless stretch */
+  min-height: 0;
   margin-inline: auto;
   border: none;
   border-radius: 0;
   background-color: var(--app-canvas-bg);
   background-image: none;
   box-shadow: none;
-  /* Footer is in document flow — no fixed-bar clearance */
   padding-bottom: 0;
 }
 
-html[data-tool-embed="1"] .app-page-canvas,
-.app-page-canvas--tool-embed {
-  padding-bottom: 0;
+.app-page-canvas > .site-header {
+  flex-shrink: 0;
 }
 
-/* Centered inner content column — shares the global 80% content rail */
 .app-page-canvas > .home-tool-grid-page {
+  /* flex-1 equivalent — grow to fill leftover viewport height */
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
   width: var(--app-content-rail-width, 100%);
   max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
   padding-inline: var(--app-content-pad-x, 1rem);
   box-sizing: border-box;
+  min-height: 0;
+}
+
+.app-page-canvas > .home-page-footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+html[data-tool-embed="1"] .app-page-canvas,
+.app-page-canvas--tool-embed {
+  min-height: 100%;
+  padding-bottom: 0;
 }
 
 /* Tool workspaces stay on the same rail (no full-bleed breakout) */
@@ -455,7 +513,8 @@ html[data-tool-embed="1"] .app-page-canvas,
   position: relative;
   inset: auto;
   z-index: auto;
-  margin: 0;
+  margin-inline: 0;
+  margin-bottom: 0;
   margin-top: auto;
   width: 100%;
   flex-shrink: 0;
@@ -469,7 +528,7 @@ html[data-tool-embed="1"] .app-page-canvas,
 }
 
 /*
- * Tool workspace footer — document flow (end of page), not viewport-sticky.
+ * Tool workspace footer — keep sticky-footer margins.
  */
 .app-page-canvas > .tool-page-main ~ .home-page-footer,
 .app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer {
@@ -477,7 +536,8 @@ html[data-tool-embed="1"] .app-page-canvas,
   inset: auto;
   z-index: auto;
   flex-shrink: 0;
-  margin: 0;
+  margin-inline: 0;
+  margin-bottom: 0;
   margin-top: auto;
   box-sizing: border-box;
   padding-inline: 0;
@@ -2808,14 +2868,18 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   text-underline-offset: 3px;
 }
 
-/* Site footer — document-flow bar at end of page (not viewport-sticky).
+/* Site footer — pinned via flex sticky-footer chain (main flex-1 + footer mt-auto).
  * Colors / emerald industrial surface: site-chrome-marketing.css */
 .home-page-footer {
-  position: relative;
-  inset: auto;
-  z-index: auto;
+  position: relative !important;
+  inset: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: auto !important;
   width: 100%;
-  margin: 0;
+  margin-inline: 0;
+  margin-bottom: 0;
   margin-top: auto;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -4781,6 +4845,14 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   pointer-events: none;
 }
 
+.tool-modal--fullscreen > .tool-modal__panel {
+  /* Stretch to fill the fixed modal box (definite height from top/bottom) */
+  flex: 1 0 auto !important;
+  align-self: stretch;
+  width: 100%;
+  min-height: 100% !important;
+}
+
 .tool-modal__panel--fullscreen,
 .tool-modal--fullscreen .tool-modal__panel {
   position: relative !important;
@@ -4790,12 +4862,12 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   bottom: auto !important;
   left: auto !important;
   z-index: 1;
-  flex: 1 0 auto;
+  flex: 1 0 auto !important;
   align-self: stretch;
   width: 100% !important;
   max-width: none !important;
   height: auto !important;
-  min-height: calc(100dvh - var(--site-header-height, 120px));
+  min-height: 100% !important;
   max-height: none !important;
   margin: 0 !important;
   border: 0 !important;
@@ -4804,7 +4876,6 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   transform: none !important;
   background: var(--site-canvas-bg, #121212) !important;
   overflow: visible !important;
-  /* Footer is in document flow inside the modal — no fixed-bar clearance */
   padding-bottom: 0 !important;
 }
 
@@ -4814,21 +4885,31 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   box-sizing: border-box;
 }
 
+/*
+ * Tool-modal sticky footer — same flex pattern as AppPageShell:
+ *   panel: min-height 100% + flex-col
+ *   rail:  flex-1 (grows)
+ *   footer: shrink-0 + mt-auto (pinned to bottom when content is short)
+ */
 .tool-modal--fullscreen .tool-modal__panel {
   gap: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100dvh - var(--site-header-height, 120px));
+  display: flex !important;
+  flex-direction: column !important;
   align-items: stretch;
   padding-inline: 0;
   box-sizing: border-box;
+  /* Fill the fixed modal box; grow past it when content is taller */
+  flex: 1 0 auto !important;
+  min-height: 100% !important;
+  height: auto !important;
 }
 
 .tool-modal--fullscreen .tool-modal__rail {
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
-  min-height: calc(100dvh - var(--site-header-height, 120px));
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
   width: var(--app-content-rail-width, 100%);
   max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
@@ -4836,14 +4917,19 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   box-sizing: border-box;
 }
 
+.tool-modal--fullscreen .tool-modal__site-footer {
+  flex: 0 0 auto;
+  margin-top: auto;
+}
+
 /*
  * Workspace fills the shared rail; header / upload / footer share edges.
  */
 .tool-modal--fullscreen .tool-modal__workspace {
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 0 auto;
   flex-direction: column;
-  min-height: 0;
+  min-height: auto;
   width: 100%;
   max-width: none;
   margin: 0;
@@ -4992,7 +5078,7 @@ html[dir="rtl"] .tool-modal__chrome-flyout {
   box-sizing: border-box;
   width: 100%;
   max-width: none;
-  flex: 1 1 auto;
+  flex: 1 0 auto;
   min-height: min(70vh, 36rem);
   overflow: visible;
   background: transparent;
@@ -5001,17 +5087,17 @@ html[dir="rtl"] .tool-modal__chrome-flyout {
 .tool-modal--fullscreen .tool-modal__site-footer {
   position: relative;
   inset: auto;
-  flex-shrink: 0;
-  margin: 0;
-  margin-top: auto;
+  flex: 0 0 auto;
+  margin-top: auto !important;
+  margin-bottom: 0 !important;
   padding-inline: 0;
   box-sizing: border-box;
-  /* Full viewport bleed even if still nested under the 80% rail */
+  /* Full viewport bleed even if still nested under the content rail */
   width: 100vw !important;
   max-width: 100vw !important;
   margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
-  align-self: stretch !important;
+  align-self: stretch;
   border-top: 1px solid rgba(52, 211, 153, 0.22);
   background: transparent;
   z-index: auto;
@@ -5238,6 +5324,11 @@ html[dir="rtl"] .tool-modal__sidebar-item:focus-within > .tool-modal__sidebar-fl
   min-width: 0;
   min-height: 0;
   width: 100%;
+}
+
+.tool-modal--fullscreen .tool-modal__main {
+  flex: 1 0 auto;
+  min-height: auto;
 }
 
 /* Title + interactive rating — top aligned with first sidebar cube */
@@ -20050,7 +20141,7 @@ html.workspace-phase-clean.tool-page-document-scroll:not([data-tool-modal-open="
   overflow-y: auto !important;
   height: auto !important;
   max-height: none !important;
-  min-height: 100% !important;
+  min-height: 100dvh !important;
 }
 
 html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
@@ -20071,17 +20162,50 @@ html.workspace-phase-clean.tool-page-document-scroll:not([data-tool-modal-open="
   overflow-y: visible !important;
   height: auto !important;
   max-height: none !important;
-  min-height: 100% !important;
+  /* One viewport floor only — nested 100dvh + flex-grow caused endless page stretch */
+  min-height: 100dvh !important;
+}
+
+/*
+ * Sticky-footer shells under document-scroll:
+ * Keep a single min-height floor on the outer shell. Do NOT stack min-height:100dvh
+ * + flex-grow on shell AND canvas (that grew the scrollport without bound).
+ */
+html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
+    [data-tool-embed="1"]
+  )
+  .app-page-shell,
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-shell {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 100dvh !important;
+  overflow: visible !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
     [data-tool-embed="1"]
   )
-  .app-page-shell,
-html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
-    [data-tool-embed="1"]
-  )
   .app-page-canvas,
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-canvas {
+  height: auto !important;
+  max-height: none !important;
+  /* Fill the shell; grow with content — no second 100dvh floor */
+  min-height: 0 !important;
+  flex: 1 0 auto !important;
+  overflow: visible !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Nested workspace surfaces only — safe to collapse min-height for document flow */
 html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
     [data-tool-embed="1"]
   )
@@ -20145,10 +20269,6 @@ html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"
   )
   .tool-upload-float,
 html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
-  .app-page-shell,
-html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
-  .app-page-canvas,
-html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
   .app-page-canvas
   > .home-tool-grid-page,
 html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
@@ -20182,6 +20302,36 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
   overflow: visible !important;
   overflow-x: visible !important;
   overflow-y: visible !important;
+}
+
+/* Main fills leftover shell height so the site footer sits at the bottom when short */
+html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
+    [data-tool-embed="1"]
+  )
+  .app-page-canvas
+  > .home-tool-grid-page,
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-canvas
+  > .home-tool-grid-page {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  width: var(--app-content-rail-width, 100%) !important;
+  max-width: var(--app-content-rail-max, none) !important;
+  margin-inline: auto !important;
+}
+
+html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
+    [data-tool-embed="1"]
+  )
+  .app-page-canvas
+  > .home-page-footer,
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-canvas
+  > .home-page-footer {
+  flex-shrink: 0 !important;
+  margin-top: auto !important;
 }
 
 /* Stack Upload → Overview in normal flex column flow */

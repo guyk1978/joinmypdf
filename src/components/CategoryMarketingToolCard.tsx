@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { InventoryCategoryId } from "@/data/inventory-hubs";
 import {
@@ -41,6 +41,7 @@ export function CategoryMarketingToolCard({
   className,
 }: CategoryMarketingToolCardProps) {
   const locale = useLocale();
+  const tDir = useTranslations("ToolsDirectory");
   const rawSlug = (slug || slugFromHref(href)).trim();
   const canonicalSlug = resolveCanonicalToolSlug(rawSlug);
   const displayLabel = getToolCardShortLabel(canonicalSlug, label);
@@ -66,13 +67,15 @@ export function CategoryMarketingToolCard({
         <Icon strokeWidth={1.5} />
       </span>
       <span className="chm-tool-card__body">
-        <span className="chm-tool-card__title" lang={locale}>
+        <span className="chm-tool-card__title" lang={locale} dir="auto">
           {displayLabel}
         </span>
-        <span className="chm-tool-card__desc">{blurb}</span>
+        <span className="chm-tool-card__desc" lang={locale} dir="auto">
+          {blurb}
+        </span>
       </span>
       <span className="chm-tool-card__cta">
-        Use Now
+        {tDir("useNow")}
         <ArrowRight className="chm-tool-card__cta-icon" aria-hidden strokeWidth={2} />
       </span>
     </Link>

@@ -33,7 +33,7 @@ export default async function SiteLayout({ children, params }: Props) {
   );
 
   return (
-    <div className={`${assistant.variable} ${heebo.variable}`}>
+    <div className={`${assistant.variable} ${heebo.variable} flex min-h-0 w-full flex-1 flex-col`}>
       <NextIntlClientProvider locale={locale} messages={clientMessages}>
         <DocumentLocaleAttributes />
         <GoogleAnalytics />

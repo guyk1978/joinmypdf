@@ -502,3 +502,62 @@
 .tools-directory-workflow__desc {
   color: var(--chm-muted);
 }
+
+/* —— RTL / Hebrew text integrity —— */
+html[dir="rtl"] .chm-hero__title,
+html[dir="rtl"] .chm-hero__sub,
+html[dir="rtl"] .chm-hero__note,
+html[dir="rtl"] .chm-hero__eyebrow,
+html[dir="rtl"] .chm-banner__eyebrow,
+html[dir="rtl"] .chm-banner__title,
+html[dir="rtl"] .chm-banner__text,
+html[dir="rtl"] .chm-tool-card__title,
+html[dir="rtl"] .chm-tool-card__desc,
+html[lang="he"] .chm-hero__title,
+html[lang="he"] .chm-hero__sub,
+html[lang="he"] .chm-hero__note,
+html[lang="he"] .chm-tool-card__title,
+html[lang="he"] .chm-tool-card__desc {
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+html[dir="rtl"] .chm-tool-card__desc,
+html[lang="he"] .chm-tool-card__desc {
+  unicode-bidi: isolate;
+  text-align: start;
+}
+
+html[dir="rtl"] .chm-hero__eyebrow,
+html[dir="rtl"] .chm-banner__eyebrow,
+html[lang="he"] .chm-hero__eyebrow,
+html[lang="he"] .chm-banner__eyebrow {
+  letter-spacing: 0.04em;
+}
+
+html[dir="rtl"] .chm-tool-card__cta-icon,
+html[dir="rtl"] .hm-btn__icon,
+html[dir="rtl"] .hm-feature-card__cta svg {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] .chm-tool-card:hover .chm-tool-card__cta {
+  gap: 0.5rem;
+}
+
+html[dir="rtl"] .chm-banner {
+  background:
+    radial-gradient(ellipse at right top, rgba(52, 211, 153, 0.12), transparent 55%),
+    var(--chm-surface);
+}
+
+html[dir="rtl"] .category-hub-split__group h2,
+html[dir="rtl"] .tools-hub-panel > h2,
+html[dir="rtl"] .convert-tools-panel__group-title,
+html[lang="he"] .category-hub-split__group h2,
+html[lang="he"] .tools-hub-panel > h2,
+html[lang="he"] .convert-tools-panel__group-title {
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+

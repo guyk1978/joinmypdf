@@ -11,13 +11,21 @@ export function HomePageFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="home-page-footer" data-site-footer="1" data-chrome="industrial-v2">
+    <footer
+      className="home-page-footer mt-auto w-full shrink-0"
+      data-site-footer="1"
+      data-chrome="industrial-v2"
+    >
       <div className="home-page-footer__inner app-content-rail">
         <div className="home-page-footer__brand">
           <p className="home-page-footer__copy">
             {tFooter("copyrightLine", { year })}
           </p>
-          <p className="home-page-footer__badge">Local-first · Zero uploads</p>
+          <p className="home-page-footer__badge">
+            {tFooter.has("localFirstBadge")
+              ? tFooter("localFirstBadge")
+              : "Local-first · Zero uploads"}
+          </p>
         </div>
 
         <nav className="home-page-footer__end" aria-label={tFooter("expandFooter")}>

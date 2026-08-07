@@ -651,3 +651,49 @@
     width: 100%;
   }
 }
+
+/* —— RTL / Hebrew —— */
+html[dir="rtl"] .hm-hero__title,
+html[dir="rtl"] .hm-hero__sub,
+html[dir="rtl"] .hm-section__title,
+html[dir="rtl"] .hm-section__lead,
+html[dir="rtl"] .hm-zigzag__title,
+html[dir="rtl"] .hm-zigzag__body,
+html[dir="rtl"] .hm-feature-card__title,
+html[dir="rtl"] .hm-feature-card__body,
+html[dir="rtl"] .hm-visual-card__label,
+html[dir="rtl"] .hm-visual-card__detail,
+html[dir="rtl"] .hm-testimonial__quote,
+html[dir="rtl"] .hm-creator__text,
+html[dir="rtl"] .hm-final__title,
+html[dir="rtl"] .hm-final__sub,
+html[lang="he"] .hm-hero__title,
+html[lang="he"] .hm-hero__sub,
+html[lang="he"] .hm-section__title,
+html[lang="he"] .hm-section__lead,
+html[lang="he"] .hm-zigzag__title,
+html[lang="he"] .hm-zigzag__body,
+html[lang="he"] .hm-feature-card__title,
+html[lang="he"] .hm-feature-card__body,
+html[lang="he"] .hm-visual-card__label,
+html[lang="he"] .hm-visual-card__detail,
+html[lang="he"] .hm-testimonial__quote,
+html[lang="he"] .hm-creator__text,
+html[lang="he"] .hm-final__title,
+html[lang="he"] .hm-final__sub {
+  letter-spacing: normal;
+}
+
+html[dir="rtl"] .hm-eyebrow,
+html[lang="he"] .hm-eyebrow {
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* Zig-zag uses the same order rules in RTL; grid direction mirrors columns. */
+
+html[dir="rtl"] .hm-btn__icon,
+html[dir="rtl"] .hm-feature-card__cta svg {
+  transform: scaleX(-1);
+}
+
