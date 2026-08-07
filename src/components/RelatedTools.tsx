@@ -18,7 +18,7 @@ export function RelatedTools({ tool, slug }: RelatedToolsProps) {
     <ToolRelatedToolsSection
       slug={toolSlug}
       relatedSlugs={tool?.relatedTools ?? []}
-      limit={10}
+      limit={8}
       className="tool-related-tools--pane"
     />
   );

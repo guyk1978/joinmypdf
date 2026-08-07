@@ -18682,8 +18682,51 @@ body.site-tools-grid-open {
   }
 }
 
+/* Two-column informational card grid below the tool workspace */
+.tool-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+@media (max-width: 767px) {
+  .tool-info-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+  }
+}
+
+.tool-info-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1.25rem 1.35rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+@media (min-width: 640px) {
+  .tool-info-card {
+    padding: 1.45rem 1.55rem;
+    border-radius: 1.15rem;
+  }
+}
+
+.tool-info-card--related {
+  /* Related tools section already has its own heading */
+  gap: 0.85rem;
+}
+
 .tool-workspace-overview__title {
-  margin: 0 0 0.65rem;
+  margin: 0;
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -18692,7 +18735,7 @@ body.site-tools-grid-open {
 }
 
 .tool-workspace-overview__text {
-  margin: 0 0 0.75rem;
+  margin: 0;
   font-size: 0.975rem;
   font-weight: 400;
   line-height: 1.65;
@@ -18700,20 +18743,20 @@ body.site-tools-grid-open {
   text-wrap: pretty;
 }
 
-.tool-workspace-overview__text:last-child {
-  margin-bottom: 0;
+.tool-workspace-overview__text + .tool-workspace-overview__text {
+  margin-top: 0.15rem;
 }
 
-/* Related tools under Overview — same filled cards + 5-col grid as homepage */
+/* Related tools under Overview — compact grid inside a half-width card */
 .tool-related-tools {
-  margin-top: 1.75rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
   width: 100%;
 }
 
 .tool-related-tools__title {
-  margin: 0 0 1rem;
+  margin: 0 0 0.85rem;
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -18724,9 +18767,8 @@ body.site-tools-grid-open {
 .tool-related-tools__grid.im-tool-card-grid,
 .tool-related-tools__grid {
   display: grid;
-  /* Desktop: always 5 columns (match homepage / category hubs) */
-  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -18735,6 +18777,12 @@ body.site-tools-grid-open {
   align-items: stretch;
   justify-items: stretch;
   overflow: visible;
+}
+
+.tool-info-card--related .tool-related-tools__grid.im-tool-card-grid,
+.tool-info-card--related .tool-related-tools__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px;
 }
 
 .tool-related-tools__item {
@@ -18755,16 +18803,16 @@ body.site-tools-grid-open {
 @media (max-width: 900px) {
   .tool-related-tools__grid.im-tool-card-grid,
   .tool-related-tools__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
 
-/* Mobile: 2 columns — avoid full-width single cards */
+/* Mobile: keep 2 columns — avoid full-width single cards */
 @media (max-width: 640px) {
   .tool-related-tools__grid.im-tool-card-grid,
   .tool-related-tools__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px;
+    gap: 8px;
   }
 }
 
@@ -18774,14 +18822,9 @@ body.site-tools-grid-open {
   border-top: 0;
 }
 
-/* Standardized English story block directly under Overview */
+/* Standardized English story block — titles/body shared by info cards */
 .tool-page-story {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-top: 2rem;
-  padding-top: 1.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: contents;
 }
 
 .tool-page-story__section {
@@ -18817,26 +18860,23 @@ body.site-tools-grid-open {
 
 .tool-page-story__reviews {
   list-style: none;
-  margin: 0.35rem 0 0;
+  margin: 0.15rem 0 0;
   padding: 0;
   display: grid;
-  gap: 0.85rem;
-}
-
-@media (min-width: 768px) {
-  .tool-page-story__reviews {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+  gap: 0.75rem;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .tool-page-story__review {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
+  min-width: 0;
+  height: auto;
+  padding: 0.95rem 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.22);
 }
 
 .tool-page-story__review-head {
@@ -18870,38 +18910,50 @@ body.site-tools-grid-open {
   color: #d4d4d4;
 }
 
+.tool-info-card .tool-doc-faq,
+.tool-info-card .faq-accordion,
 .tool-page-story .tool-doc-faq,
 .tool-page-story .faq-accordion {
-  margin-top: 0.15rem;
+  margin-top: 0.1rem;
 }
 
-/* Open document FAQ — no enclosed card chrome on tool pages */
+/* FAQ items sit cleanly inside the FAQ card window */
+.tool-info-card .faq-accordion__item,
 .tool-workspace-overview .faq-accordion__item,
 .tool-page-story .faq-accordion__item {
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0;
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  background: rgba(0, 0, 0, 0.18);
   box-shadow: none;
+  overflow: hidden;
 }
 
+.tool-info-card .faq-accordion__item + .faq-accordion__item,
+.tool-workspace-overview .faq-accordion__item + .faq-accordion__item,
+.tool-page-story .faq-accordion__item + .faq-accordion__item {
+  margin-top: 0.55rem;
+}
+
+.tool-info-card .faq-accordion__item:hover,
+.tool-info-card .faq-accordion__item.is-open,
 .tool-workspace-overview .faq-accordion__item:hover,
 .tool-workspace-overview .faq-accordion__item.is-open,
 .tool-page-story .faq-accordion__item:hover,
 .tool-page-story .faq-accordion__item.is-open {
-  background: transparent;
-  border-color: transparent;
-  border-bottom-color: rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.28);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
+.tool-info-card .faq-accordion__trigger,
 .tool-workspace-overview .faq-accordion__trigger,
 .tool-page-story .faq-accordion__trigger {
-  padding-inline: 0;
+  padding-inline: 0.9rem;
 }
 
+.tool-info-card .faq-accordion__panel-inner,
 .tool-workspace-overview .faq-accordion__panel-inner,
 .tool-page-story .faq-accordion__panel-inner {
-  padding-inline: 0;
+  padding-inline: 0.9rem;
 }
 
 /* Page-canvas overview — open document flow (outside the stage card) */

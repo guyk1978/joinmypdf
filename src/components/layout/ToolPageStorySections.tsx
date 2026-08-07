@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, type ReactNode } from "react";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { buildToolPageStoryContent } from "@/lib/tool-page-story-sections";
 
@@ -9,6 +9,8 @@ type ToolPageStorySectionsProps = {
   headline?: string | null;
   tagline?: string | null;
   subline?: string | null;
+  /** Inserted after Why (Row 2 left: You Might Also Need). */
+  afterWhy?: ReactNode;
 };
 
 function StarRating({ rating }: { rating: number }) {
@@ -24,14 +26,17 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 /**
- * Standardized English sections below Overview on every tool page:
- * Why People Use, FAQ (usage-focused), Creator note, and Reviews.
+ * Grid children for tool-page info cards (paired with Overview in `.tool-info-grid`):
+ * Row1: Why | (Overview is sibling before this)
+ * Row2: afterWhy (Related) + Creator note
+ * Row3: FAQ + Reviews
  */
 export function ToolPageStorySections({
   slug,
   headline,
   tagline,
   subline,
+  afterWhy,
 }: ToolPageStorySectionsProps) {
   const content = useMemo(
     () => buildToolPageStoryContent(slug, { headline, tagline, subline }),
@@ -46,8 +51,8 @@ export function ToolPageStorySections({
   const reviewsId = "tool-story-reviews-heading";
 
   return (
-    <div className="tool-page-story" data-tool-story-sections="1">
-      <section className="tool-page-story__section" aria-labelledby={whyId}>
+    <>
+      <article className="tool-info-card tool-info-card--why" aria-labelledby={whyId}>
         <h2 id={whyId} className="tool-page-story__title">
           {content.whyHeading}
         </h2>
@@ -56,16 +61,11 @@ export function ToolPageStorySections({
             {paragraph}
           </p>
         ))}
-      </section>
+      </article>
 
-      <section className="tool-page-story__section" aria-labelledby={faqId}>
-        <h2 id={faqId} className="tool-page-story__title">
-          {content.faqHeading}
-        </h2>
-        <FaqAccordion items={content.faqs} />
-      </section>
+      {afterWhy}
 
-      <section className="tool-page-story__section tool-page-story__section--note" aria-labelledby={storyId}>
+      <article className="tool-info-card tool-info-card--note" aria-labelledby={storyId}>
         <h2 id={storyId} className="tool-page-story__title">
           {content.storyHeading}
         </h2>
@@ -74,9 +74,16 @@ export function ToolPageStorySections({
             {paragraph}
           </p>
         ))}
-      </section>
+      </article>
 
-      <section className="tool-page-story__section" aria-labelledby={reviewsId}>
+      <article className="tool-info-card tool-info-card--faq" aria-labelledby={faqId}>
+        <h2 id={faqId} className="tool-page-story__title">
+          {content.faqHeading}
+        </h2>
+        <FaqAccordion items={content.faqs} />
+      </article>
+
+      <article className="tool-info-card tool-info-card--reviews" aria-labelledby={reviewsId}>
         <h2 id={reviewsId} className="tool-page-story__title">
           {content.reviewsHeading}
         </h2>
@@ -94,7 +101,7 @@ export function ToolPageStorySections({
             ))}
           </ul>
         ) : null}
-      </section>
-    </div>
+      </article>
+    </>
   );
 }

@@ -149,33 +149,6 @@ export function ToolWorkspaceOverview({
 
   const headingId = "tool-workspace-overview-heading";
   const overviewHeading = tModal.has("overview") ? tModal("overview") : "Overview";
-  const story = (
-    <ToolPageStorySections
-      slug={slug}
-      headline={shell.headline}
-      tagline={shell.tagline}
-      subline={shell.subline}
-    />
-  );
-
-  if (paragraphs.length === 0) {
-    return (
-      <section
-        className={clsx(
-          "tool-workspace-overview",
-          toolPagePaneRailClassName,
-          className,
-        )}
-        data-tool-overview="1"
-      >
-        <ToolRelatedToolsSection
-          slug={slug}
-          relatedSlugs={registryTool?.relatedTools ?? []}
-        />
-        {story}
-      </section>
-    );
-  }
 
   return (
     <section
@@ -184,22 +157,39 @@ export function ToolWorkspaceOverview({
         toolPagePaneRailClassName,
         className,
       )}
-      aria-labelledby={headingId}
+      aria-labelledby={paragraphs.length ? headingId : undefined}
       data-tool-overview="1"
     >
-      <h2 id={headingId} className="tool-workspace-overview__title">
-        {overviewHeading}
-      </h2>
-      {paragraphs.map((paragraph) => (
-        <p key={paragraph.slice(0, 72)} className="tool-workspace-overview__text">
-          {paragraph}
-        </p>
-      ))}
-      <ToolRelatedToolsSection
-        slug={slug}
-        relatedSlugs={registryTool?.relatedTools ?? []}
-      />
-      {story}
+      <div className="tool-info-grid">
+        {paragraphs.length > 0 ? (
+          <article className="tool-info-card tool-info-card--overview">
+            <h2 id={headingId} className="tool-workspace-overview__title">
+              {overviewHeading}
+            </h2>
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph.slice(0, 72)} className="tool-workspace-overview__text">
+                {paragraph}
+              </p>
+            ))}
+          </article>
+        ) : null}
+
+        <ToolPageStorySections
+          slug={slug}
+          headline={shell.headline}
+          tagline={shell.tagline}
+          subline={shell.subline}
+          afterWhy={
+            <div className="tool-info-card tool-info-card--related">
+              <ToolRelatedToolsSection
+                slug={slug}
+                relatedSlugs={registryTool?.relatedTools ?? []}
+                limit={8}
+              />
+            </div>
+          }
+        />
+      </div>
     </section>
   );
 }

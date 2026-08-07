@@ -26,7 +26,7 @@ export function ToolRelatedToolsSection({
   slug: slugProp,
   relatedSlugs = [],
   className,
-  limit = 10,
+  limit = 8,
 }: ToolRelatedToolsSectionProps) {
   const locale = useLocale();
   const shell = useToolPageShell();
@@ -38,7 +38,7 @@ export function ToolRelatedToolsSection({
   const items = useMemo(() => {
     if (!toolSlug) return [];
 
-    const capped = Math.min(10, Math.max(5, limit));
+    const capped = Math.min(8, Math.max(1, limit));
     const fromInventory = getRelatedInventoryToolIds(toolSlug, { limit: capped });
     const ordered: string[] = [];
     for (const id of [...relatedSlugs, ...fromInventory]) {
@@ -72,7 +72,7 @@ export function ToolRelatedToolsSection({
           categoryId: NonNullable<typeof entry>["categoryId"];
         } => Boolean(entry),
       )
-      .slice(0, capped);
+      .slice(0, 8);
   }, [toolSlug, relatedSlugs, locale, limit, tTools]);
 
   if (!toolSlug || items.length < 1) return null;
