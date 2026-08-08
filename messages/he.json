@@ -7,6 +7,8 @@
   },
   "Header": {
     "siteLabel": "אתר",
+    "collapseChrome": "הסתר כותרת עליונה",
+    "expandChrome": "הצג כותרת עליונה",
     "primaryNav": "ראשי",
     "allTools": {
       "button": "כל הכלים",
@@ -4470,6 +4472,8 @@
     "localFirstBadge": "מקומי תחילה · אפס העלאות",
     "expandFooter": "קישורי האתר",
     "collapseFooter": "הסתר קישורי האתר",
+    "collapseChrome": "הסתר כותרת תחתונה",
+    "expandChrome": "הצג כותרת תחתונה",
     "partnerNavLabel": "כלי שותפים",
     "toolsPanel": {
       "label": "מדריך כל הכלים",

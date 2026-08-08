@@ -1,0 +1,269 @@
+/**
+ * Collapsible site header/footer chrome — frees vertical workspace for tools.
+ */
+
+:root {
+  --site-chrome-restore-size: 1.75rem;
+  --site-chrome-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --site-chrome-duration: 0.3s;
+}
+
+/* —— Toggle handles —— */
+.site-chrome-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(52, 211, 153, 0.14), rgba(12, 12, 12, 0.92));
+  color: #ecfdf5;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 20px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    transform var(--site-chrome-duration) var(--site-chrome-ease),
+    opacity var(--site-chrome-duration) var(--site-chrome-ease),
+    background-color var(--site-chrome-duration) var(--site-chrome-ease),
+    border-color var(--site-chrome-duration) var(--site-chrome-ease),
+    box-shadow var(--site-chrome-duration) var(--site-chrome-ease);
+}
+
+.site-chrome-toggle:hover,
+.site-chrome-toggle:focus-visible {
+  border-color: rgba(52, 211, 153, 0.55);
+  background:
+    linear-gradient(180deg, rgba(52, 211, 153, 0.22), rgba(12, 12, 12, 0.96));
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.site-chrome-toggle:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 3px rgba(52, 211, 153, 0.22);
+}
+
+.site-chrome-toggle__icon {
+  flex-shrink: 0;
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.site-chrome-toggle__label {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.site-chrome-toggle[hidden] {
+  display: none !important;
+}
+
+/* Header collapse control — sits on the bottom edge of the bar */
+.site-chrome-toggle--header-collapse {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 5;
+  width: 2.35rem;
+  height: 1.15rem;
+  transform: translate(-50%, 55%);
+  border-top-left-radius: 0.65rem;
+  border-top-right-radius: 0.65rem;
+  border-bottom-left-radius: 0.65rem;
+  border-bottom-right-radius: 0.65rem;
+}
+
+.site-chrome-toggle--header-collapse:hover,
+.site-chrome-toggle--header-collapse:focus-visible {
+  transform: translate(-50%, 55%) translateY(-1px);
+}
+
+/* Header restore strip when collapsed */
+.site-chrome-toggle--header-expand {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 6;
+  width: 100%;
+  height: var(--site-chrome-restore-size);
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  gap: 0.45rem;
+  background:
+    linear-gradient(90deg, rgba(52, 211, 153, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(18, 18, 18, 0.98), rgba(10, 10, 10, 0.96));
+  box-shadow: inset 0 -1px 0 rgba(52, 211, 153, 0.22);
+}
+
+.site-chrome-toggle--header-expand:hover,
+.site-chrome-toggle--header-expand:focus-visible {
+  transform: none;
+}
+
+/* Footer collapse control — sits on the top edge */
+.site-chrome-toggle--footer-collapse {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 5;
+  width: 2.35rem;
+  height: 1.15rem;
+  transform: translate(-50%, -55%);
+}
+
+.site-chrome-toggle--footer-collapse:hover,
+.site-chrome-toggle--footer-collapse:focus-visible {
+  transform: translate(-50%, -55%) translateY(-1px);
+}
+
+.site-chrome-toggle--footer-expand {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 6;
+  width: 100%;
+  height: var(--site-chrome-restore-size);
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  gap: 0.45rem;
+  background:
+    linear-gradient(90deg, rgba(52, 211, 153, 0.16), transparent 30%),
+    linear-gradient(0deg, rgba(18, 18, 18, 0.98), rgba(10, 10, 10, 0.96));
+  box-shadow: inset 0 1px 0 rgba(52, 211, 153, 0.22);
+}
+
+.site-chrome-toggle--footer-expand:hover,
+.site-chrome-toggle--footer-expand:focus-visible {
+  transform: none;
+}
+
+/* —— Header collapse motion —— */
+.site-header {
+  position: relative;
+  overflow: visible;
+}
+
+/* Collapse handle hangs below the bar — do not clip it */
+.site-header--matte .site-header__visual,
+.site-header--clean .site-header__visual,
+.site-header--glass .site-header__visual {
+  overflow: visible !important;
+}
+
+.site-header--matte {
+  transition:
+    height var(--site-chrome-duration) var(--site-chrome-ease),
+    min-height var(--site-chrome-duration) var(--site-chrome-ease) !important;
+}
+
+.site-header__visual {
+  transition:
+    transform var(--site-chrome-duration) var(--site-chrome-ease),
+    opacity var(--site-chrome-duration) var(--site-chrome-ease),
+    visibility var(--site-chrome-duration) var(--site-chrome-ease);
+  transform-origin: top center;
+}
+
+html[data-site-header-collapsed="1"] .site-header--matte,
+.site-header--collapsed.site-header--matte {
+  height: var(--site-chrome-restore-size) !important;
+  min-height: var(--site-chrome-restore-size) !important;
+}
+
+html[data-site-header-collapsed="1"] .site-header__visual,
+.site-header--collapsed .site-header__visual {
+  transform: translateY(calc(-100% - 0.35rem));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+html[data-site-header-collapsed="1"] .site-chrome-toggle--header-collapse,
+.site-header--collapsed .site-chrome-toggle--header-collapse {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* —— Footer collapse motion —— */
+.home-page-footer {
+  position: relative;
+  overflow: visible;
+  transition:
+    transform var(--site-chrome-duration) var(--site-chrome-ease),
+    opacity var(--site-chrome-duration) var(--site-chrome-ease),
+    max-height var(--site-chrome-duration) var(--site-chrome-ease),
+    padding var(--site-chrome-duration) var(--site-chrome-ease);
+}
+
+.home-page-footer__inner {
+  transition:
+    transform var(--site-chrome-duration) var(--site-chrome-ease),
+    opacity var(--site-chrome-duration) var(--site-chrome-ease),
+    visibility var(--site-chrome-duration) var(--site-chrome-ease);
+}
+
+html[data-site-footer-collapsed="1"] .home-page-footer--dock,
+.home-page-footer--collapsed.home-page-footer--dock,
+html[data-site-footer-collapsed="1"] .home-page-footer:not(.home-page-footer--dock),
+.home-page-footer--collapsed:not(.home-page-footer--dock) {
+  height: var(--site-chrome-restore-size) !important;
+  min-height: var(--site-chrome-restore-size) !important;
+  max-height: var(--site-chrome-restore-size) !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+html[data-site-footer-collapsed="1"] .home-page-footer__inner,
+.home-page-footer--collapsed .home-page-footer__inner {
+  transform: translateY(110%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+html[data-site-footer-collapsed="1"] .app-page-canvas--dock-footer {
+  padding-bottom: var(--site-chrome-restore-size) !important;
+  transition: padding-bottom var(--site-chrome-duration) var(--site-chrome-ease);
+}
+
+.app-page-canvas--dock-footer {
+  transition: padding-bottom var(--site-chrome-duration) var(--site-chrome-ease);
+}
+
+/* Tool modal sits under sticky header — keep filling freed height */
+html[data-tool-modal-open="1"] .tool-modal--fullscreen,
+html[data-tool-modal-fullscreen="1"] .tool-modal--fullscreen {
+  transition:
+    top var(--site-chrome-duration) var(--site-chrome-ease),
+    height var(--site-chrome-duration) var(--site-chrome-ease);
+}
+
+/* Hide chrome toggles inside tool embeds (iframe pages have no site chrome) */
+html[data-tool-embed="1"] .site-chrome-toggle,
+body.tool-embed-mode .site-chrome-toggle {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-chrome-toggle,
+  .site-header--matte,
+  .site-header__visual,
+  .home-page-footer,
+  .home-page-footer__inner,
+  .app-page-canvas--dock-footer {
+    transition: none !important;
+  }
+}

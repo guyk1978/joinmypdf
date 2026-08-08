@@ -7,6 +7,8 @@
   },
   "Header": {
     "siteLabel": "Site",
+    "collapseChrome": "Hide header",
+    "expandChrome": "Show header",
     "primaryNav": "Primary",
     "allTools": {
       "button": "All Tools",
@@ -4326,6 +4328,8 @@
     "localFirstBadge": "Local-first · Zero uploads",
     "expandFooter": "Site links",
     "collapseFooter": "Hide site links",
+    "collapseChrome": "Hide footer",
+    "expandChrome": "Show footer",
     "partnerNavLabel": "Partner tools",
     "toolsPanel": {
       "label": "All tools directory",

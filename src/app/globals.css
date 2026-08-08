@@ -3,6 +3,7 @@
 @import "../styles/tool-page-marketing.css";
 @import "../styles/site-marketing-cleanup.css";
 @import "../styles/site-chrome-marketing.css";
+@import "../styles/site-chrome-collapse.css";
 @import "../styles/active-workspace-experience.css";
 
 @tailwind base;
