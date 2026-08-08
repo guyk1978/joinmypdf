@@ -13,6 +13,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { HomeReveal } from "@/components/homepage/HomeReveal";
+import { ReviewerAvatar } from "@/components/ReviewerAvatar";
 import { getGlobalSeedReviews } from "@/data/community-reviews";
 import "@/styles/home-marketing.css";
 
@@ -198,7 +199,14 @@ export async function HomeMarketingLanding() {
                   label={t("starsAria", { rating: Math.round(review.rating) })}
                 />
                 <p className="hm-testimonial__quote">&ldquo;{review.comment}&rdquo;</p>
-                <p className="hm-testimonial__author">{review.author}</p>
+                <div className="hm-testimonial__identity">
+                  <ReviewerAvatar
+                    name={review.author}
+                    className="hm-testimonial__avatar"
+                    size={36}
+                  />
+                  <p className="hm-testimonial__author">{review.author}</p>
+                </div>
               </li>
             ))}
           </ul>

@@ -521,6 +521,17 @@
   text-wrap: pretty;
 }
 
+.hm-testimonial__identity {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.hm-testimonial__avatar {
+  flex-shrink: 0;
+}
+
 .hm-testimonial__author {
   margin: 0;
   font-size: 0.875rem;

@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ExternalLink, MessageSquarePlus, Send } from "lucide-react";
 import { clsx } from "clsx";
 import { Link } from "@/i18n/navigation";
+import { ReviewerAvatar } from "@/components/ReviewerAvatar";
 import { StarRating } from "@/components/StarRating";
 import {
   REVIEW_LIMITS,
@@ -301,19 +302,26 @@ export function CommunityReviews({
             {reviews.map((review) => (
               <li key={review.id} className="community-reviews__item">
                 <div className="community-reviews__item-top">
-                  <div className="community-reviews__author-block">
-                    <p className="community-reviews__author">{review.author}</p>
-                    {review.websiteUrl ? (
-                      <a
-                        href={review.websiteUrl}
-                        className="community-reviews__website"
-                        target="_blank"
-                        rel="nofollow noopener noreferrer"
-                      >
-                        <ExternalLink size={12} strokeWidth={2} aria-hidden />
-                        <span>{formatWebsiteDisplay(review.websiteUrl)}</span>
-                      </a>
-                    ) : null}
+                  <div className="community-reviews__identity">
+                    <ReviewerAvatar
+                      name={review.author}
+                      className="community-reviews__avatar"
+                      size={compact ? 34 : 40}
+                    />
+                    <div className="community-reviews__author-block">
+                      <p className="community-reviews__author">{review.author}</p>
+                      {review.websiteUrl ? (
+                        <a
+                          href={review.websiteUrl}
+                          className="community-reviews__website"
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                        >
+                          <ExternalLink size={12} strokeWidth={2} aria-hidden />
+                          <span>{formatWebsiteDisplay(review.websiteUrl)}</span>
+                        </a>
+                      ) : null}
+                    </div>
                   </div>
                   <time
                     className="community-reviews__date"

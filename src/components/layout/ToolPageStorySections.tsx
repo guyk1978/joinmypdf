@@ -3,6 +3,7 @@
 import { useMemo, type ReactNode } from "react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { ReviewerAvatar } from "@/components/ReviewerAvatar";
 import { ToolCreatorNote } from "@/components/layout/ToolCreatorNote";
 import { ToolWhyPeopleUse } from "@/components/layout/ToolWhyPeopleUse";
 import {
@@ -169,7 +170,16 @@ export function ToolPageStorySections({
                 return (
                   <li key={review.id} className="tool-page-story__review">
                     <div className="tool-page-story__review-head">
-                      <span className="tool-page-story__review-author">{review.author}</span>
+                      <div className="tool-page-story__review-identity">
+                        <ReviewerAvatar
+                          name={review.author}
+                          className="tool-page-story__review-avatar"
+                          size={40}
+                        />
+                        <span className="tool-page-story__review-author">
+                          {review.author}
+                        </span>
+                      </div>
                       <StarRating rating={review.rating} label={starsLabel} />
                     </div>
                     <p className="tool-page-story__review-comment" dir="auto">

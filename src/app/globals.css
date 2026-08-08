@@ -19478,6 +19478,17 @@ body.site-tools-grid-open {
   gap: 0.35rem 0.75rem;
 }
 
+.tool-page-story__review-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.tool-page-story__review-avatar {
+  flex-shrink: 0;
+}
+
 .tool-page-story__review-author {
   font-size: 0.875rem;
   font-weight: 650;

@@ -201,6 +201,18 @@
   gap: 0.75rem;
 }
 
+.community-reviews__identity {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.community-reviews__avatar {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
 .community-reviews__author-block {
   display: grid;
   gap: 0.25rem;
