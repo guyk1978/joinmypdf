@@ -33,7 +33,7 @@ export function ToolCreatorNote({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/creator-portrait.png"
-              alt="JoinMyPDF creator at his home-office desk"
+              alt="Illustration of a developer building JoinMyPDF tools"
               className="tool-creator-note__image"
               width={900}
               height={1200}

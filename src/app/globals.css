@@ -19135,7 +19135,7 @@ body.site-tools-grid-open {
   overflow: hidden;
   border-radius: 1.15rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.28);
+  background: #0a0a0a;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
 }
 
@@ -19144,8 +19144,8 @@ body.site-tools-grid-open {
   width: 100%;
   height: auto;
   aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: center 18%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .tool-creator-note__copy {
