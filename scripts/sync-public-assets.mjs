@@ -92,6 +92,13 @@ for (const filename of homepageMarketingImages) {
   );
 }
 
+// Creator note illustration (served at /images/creator-portrait.png)
+await mkdir(path.join(publicDir, "images"), { recursive: true });
+await copyFile(
+  path.join(root, "assets", "images", "creator-portrait.png"),
+  path.join(publicDir, "images", "creator-portrait.png"),
+);
+
 const pwaIconFiles = [
   "favicon-16x16.png",
   "favicon-32x32.png",
