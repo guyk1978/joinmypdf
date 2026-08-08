@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { clsx } from "clsx";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/navigation";
+import { ToolOverviewHeroIllustration } from "@/components/layout/ToolOverviewHeroIllustration";
 import { ToolPageStorySections } from "@/components/layout/ToolPageStorySections";
 import { useToolPageShell } from "@/context/ToolPageShellContext";
 import { registry } from "@/lib/registry";
@@ -148,6 +149,7 @@ export function ToolWorkspaceOverview({
 
   const headingId = "tool-workspace-overview-heading";
   const overviewHeading = tModal.has("overview") ? tModal("overview") : "Overview";
+  const showHero = paragraphs.length > 0;
 
   return (
     <section
@@ -156,31 +158,44 @@ export function ToolWorkspaceOverview({
         toolPagePaneRailClassName,
         className,
       )}
-      aria-labelledby={paragraphs.length ? headingId : undefined}
+      aria-labelledby={showHero ? headingId : undefined}
       data-tool-overview="1"
     >
-      <div className="tool-info-grid">
-        {paragraphs.length > 0 ? (
-          <article className="tool-info-card tool-info-card--overview">
-            <h2 id={headingId} className="tool-workspace-overview__title">
-              {overviewHeading}
-            </h2>
-            {paragraphs.map((paragraph) => (
-              <p key={paragraph.slice(0, 72)} className="tool-workspace-overview__text">
-                {paragraph}
-              </p>
-            ))}
-          </article>
-        ) : null}
+      {showHero ? (
+        <article className="tool-overview-hero" aria-labelledby={headingId}>
+          <div className="tool-overview-hero__grid">
+            <div className="tool-overview-hero__visual">
+              <ToolOverviewHeroIllustration slug={slug} />
+            </div>
+            <div className="tool-overview-hero__copy">
+              <h2 id={headingId} className="tool-workspace-overview__title">
+                {overviewHeading}
+              </h2>
+              {paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 72)}
+                  className="tool-workspace-overview__text"
+                  dir="auto"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+        </article>
+      ) : null}
 
-        {/* Related tools live on the RELATED tab only — not under CALC overview. */}
-        <ToolPageStorySections
-          slug={slug}
-          headline={shell.headline}
-          tagline={shell.tagline}
-          subline={shell.subline}
-        />
-      </div>
+      {/*
+        Story sections: Creator note is a full-width trust block (sibling of Overview).
+        FAQ + Reviews stay in the 2-col info grid.
+      */}
+      <ToolPageStorySections
+        slug={slug}
+        headline={shell.headline}
+        tagline={shell.tagline}
+        subline={shell.subline}
+        includeCreatorNote
+      />
     </section>
   );
 }

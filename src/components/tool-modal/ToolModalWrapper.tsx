@@ -664,45 +664,51 @@ export function ToolModalWrapper({
             exit={{ opacity: 0, y: 0 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
           >
+            {/* flex-1 content rail — grows so the site footer pins to the panel bottom */}
             <div className="tool-modal__rail">
-            <div className="tool-modal__workspace">
-            <div className="tool-modal__main">
-              <h2 id={titleId} className="sr-only">
-                {title}
-              </h2>
+              <div className="tool-modal__workspace">
+                <div className="tool-modal__main">
+                  <h2 id={titleId} className="sr-only">
+                    {title}
+                  </h2>
 
-            <div className="tool-modal__body" data-active-tab={tab}>
-              {/* Boot only for CALC — never cover DOC / RELATED / REVIEWS. */}
-              {tab === "calc" && !contentReady ? (
-                <div className="tool-modal__boot" aria-live="polite">
-                  <span className="tool-modal__calc-spinner" aria-hidden />
-                  <span>{loadingLabel}</span>
+                  <div className="tool-modal__body" data-active-tab={tab}>
+                    {/* Boot only for CALC — never cover DOC / RELATED / REVIEWS. */}
+                    {tab === "calc" && !contentReady ? (
+                      <div className="tool-modal__boot" aria-live="polite">
+                        <span className="tool-modal__calc-spinner" aria-hidden />
+                        <span>{loadingLabel}</span>
+                      </div>
+                    ) : null}
+
+                    {panes.map(({ id, content, scroll }) => (
+                      <div
+                        key={id}
+                        className={clsx(
+                          "tool-modal__pane",
+                          id === "calc" && "tool-modal__pane--calc",
+                          scroll && "tool-modal__pane--scroll",
+                          tab === id && "tool-modal__pane--active",
+                          id === "calc" &&
+                            !contentReady &&
+                            tab === "calc" &&
+                            "tool-modal__pane--pending",
+                        )}
+                        aria-hidden={tab !== id}
+                        {...(tab !== id ? ({ inert: true } as { inert: boolean }) : {})}
+                      >
+                        {content}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ) : null}
-
-              {panes.map(({ id, content, scroll }) => (
-                <div
-                  key={id}
-                  className={clsx(
-                    "tool-modal__pane",
-                    id === "calc" && "tool-modal__pane--calc",
-                    scroll && "tool-modal__pane--scroll",
-                    tab === id && "tool-modal__pane--active",
-                    id === "calc" && !contentReady && tab === "calc" && "tool-modal__pane--pending",
-                  )}
-                  aria-hidden={tab !== id}
-                  {...(tab !== id ? ({ inert: true } as { inert: boolean }) : {})}
-                >
-                  {content}
-                </div>
-              ))}
-            </div>
-            </div>
-            </div>
+              </div>
             </div>
 
-            <div className="tool-modal__site-footer">
-              <HomePageFooter />
+            {/* Direct panel child — must stay outside the rail for sticky-footer flex */}
+            <div className="tool-modal__site-footer" data-footer-host="panel">
+              {/* In-flow under the rail — panel flex pins it; do not fixed-dock over the tool */}
+              <HomePageFooter dock={false} />
             </div>
 
             {copied ? (

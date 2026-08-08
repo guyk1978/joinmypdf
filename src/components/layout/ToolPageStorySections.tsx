@@ -3,6 +3,8 @@
 import { useMemo, type ReactNode } from "react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { ToolCreatorNote } from "@/components/layout/ToolCreatorNote";
+import { ToolWhyPeopleUse } from "@/components/layout/ToolWhyPeopleUse";
 import {
   buildToolPageStoryContent,
   DEFAULT_TOOL_PAGE_STORY_TEMPLATES_EN,
@@ -14,8 +16,13 @@ type ToolPageStorySectionsProps = {
   headline?: string | null;
   tagline?: string | null;
   subline?: string | null;
-  /** Inserted after Why (Row 2 left: You Might Also Need). */
+  /** Optional related-tools slot before FAQ / Reviews. */
   afterWhy?: ReactNode;
+  /**
+   * When false, skip the full-width creator note (parent already rendered it).
+   * Default: true.
+   */
+  includeCreatorNote?: boolean;
 };
 
 function StarRating({
@@ -48,10 +55,8 @@ function readToolModalString(
 }
 
 /**
- * Grid children for tool-page info cards (paired with Overview in `.tool-info-grid`):
- * Row1: Why | (Overview is sibling before this)
- * Row2: afterWhy (Related) + Creator note
- * Row3: FAQ + Reviews
+ * Tool-page story blocks below Overview:
+ * Creator note → Why People Use (full-width) → FAQ | Reviews grid.
  */
 export function ToolPageStorySections({
   slug,
@@ -59,6 +64,7 @@ export function ToolPageStorySections({
   tagline,
   subline,
   afterWhy,
+  includeCreatorNote = true,
 }: ToolPageStorySectionsProps) {
   const locale = useLocale();
   const messages = useMessages();
@@ -113,78 +119,69 @@ export function ToolPageStorySections({
 
   if (!content) return null;
 
-  const whyId = "tool-story-why-heading";
   const faqId = "tool-story-faq-heading";
-  const storyId = "tool-story-creator-heading";
   const reviewsId = "tool-story-reviews-heading";
 
   return (
     <>
-      <article className="tool-info-card tool-info-card--why" aria-labelledby={whyId}>
-        <h2 id={whyId} className="tool-page-story__title">
-          {content.whyHeading}
-        </h2>
-        {content.whyParagraphs.map((paragraph) => (
-          <p key={paragraph.slice(0, 64)} className="tool-page-story__text" dir="auto">
-            {paragraph}
+      {includeCreatorNote ? (
+        <ToolCreatorNote
+          heading={content.storyHeading}
+          paragraphs={content.storyParagraphs}
+        />
+      ) : null}
+
+      <ToolWhyPeopleUse
+        slug={slug}
+        heading={content.whyHeading}
+        paragraphs={content.whyParagraphs}
+      />
+
+      <div className="tool-info-grid">
+        {afterWhy}
+
+        <article className="tool-info-card tool-info-card--faq" aria-labelledby={faqId}>
+          <h2 id={faqId} className="tool-page-story__title">
+            {content.faqHeading}
+          </h2>
+          <FaqAccordion items={content.faqs} />
+        </article>
+
+        <article className="tool-info-card tool-info-card--reviews" aria-labelledby={reviewsId}>
+          <h2 id={reviewsId} className="tool-page-story__title">
+            {content.reviewsHeading}
+          </h2>
+          <p className="tool-page-story__text" dir="auto">
+            {content.reviewsIntro}
           </p>
-        ))}
-      </article>
-
-      {afterWhy}
-
-      <article className="tool-info-card tool-info-card--note" aria-labelledby={storyId}>
-        <h2 id={storyId} className="tool-page-story__title">
-          {content.storyHeading}
-        </h2>
-        {content.storyParagraphs.map((paragraph) => (
-          <p key={paragraph.slice(0, 64)} className="tool-page-story__text" dir="auto">
-            {paragraph}
-          </p>
-        ))}
-      </article>
-
-      <article className="tool-info-card tool-info-card--faq" aria-labelledby={faqId}>
-        <h2 id={faqId} className="tool-page-story__title">
-          {content.faqHeading}
-        </h2>
-        <FaqAccordion items={content.faqs} />
-      </article>
-
-      <article className="tool-info-card tool-info-card--reviews" aria-labelledby={reviewsId}>
-        <h2 id={reviewsId} className="tool-page-story__title">
-          {content.reviewsHeading}
-        </h2>
-        <p className="tool-page-story__text" dir="auto">
-          {content.reviewsIntro}
-        </p>
-        {content.reviews.length ? (
-          <ul className="tool-page-story__reviews">
-            {content.reviews.map((review) => {
-              const rating = Math.round(review.rating);
-              let starsLabel = `${rating} out of 5 stars`;
-              try {
-                if (t.has("storyStarsAria")) {
-                  starsLabel = t("storyStarsAria", { rating });
+          {content.reviews.length ? (
+            <ul className="tool-page-story__reviews">
+              {content.reviews.map((review) => {
+                const rating = Math.round(review.rating);
+                let starsLabel = `${rating} out of 5 stars`;
+                try {
+                  if (t.has("storyStarsAria")) {
+                    starsLabel = t("storyStarsAria", { rating });
+                  }
+                } catch {
+                  // keep English aria fallback
                 }
-              } catch {
-                // keep English aria fallback
-              }
-              return (
-                <li key={review.id} className="tool-page-story__review">
-                  <div className="tool-page-story__review-head">
-                    <span className="tool-page-story__review-author">{review.author}</span>
-                    <StarRating rating={review.rating} label={starsLabel} />
-                  </div>
-                  <p className="tool-page-story__review-comment" dir="auto">
-                    {review.comment}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        ) : null}
-      </article>
+                return (
+                  <li key={review.id} className="tool-page-story__review">
+                    <div className="tool-page-story__review-head">
+                      <span className="tool-page-story__review-author">{review.author}</span>
+                      <StarRating rating={review.rating} label={starsLabel} />
+                    </div>
+                    <p className="tool-page-story__review-comment" dir="auto">
+                      {review.comment}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+        </article>
+      </div>
     </>
   );
 }

@@ -38,6 +38,7 @@
   --app-content-rail-width: 100%;
   --app-content-rail-max: none; /* mobile: full width; md+ → 80% via media query */
   /* Nested panes fill the outer rail — do not re-apply a second max-width */
+  --site-footer-reveal-height: 4.75rem; /* fallback until HomePageFooter measures */
   --tool-pane-rail-max: none;
   --tool-pane-rail-pad-inline: 0;
   /* Homepage / hubs / blog — fill outer rail (never nest a second 80%) */
@@ -383,8 +384,13 @@ html:has(.home-page-shell--minimal) body {
   color: #fafafa;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
+  /* Floor lives on .app-page-shell / .home-page-shell — not here */
+  min-height: 0;
+}
+
+/* Providers root — never a second viewport floor (stale chunks used min-h-screen) */
+.app-providers-root {
+  min-height: 0 !important;
 }
 
 /* Full edge-to-edge application shell — flex column root */
@@ -429,11 +435,13 @@ html:has(.home-page-shell--minimal) body {
   padding-bottom: 0;
 }
 
-.app-page-canvas > .site-header {
+.app-page-canvas > .site-header,
+.app-page-reveal-lid > .site-header {
   flex-shrink: 0;
 }
 
-.app-page-canvas > .home-tool-grid-page {
+.app-page-canvas > .home-tool-grid-page,
+.app-page-reveal-lid > .home-tool-grid-page {
   /* flex-1 equivalent — grow to fill leftover viewport height */
   flex: 1 1 0%;
   display: flex;
@@ -448,8 +456,185 @@ html:has(.home-page-shell--minimal) body {
 
 .app-page-canvas > .home-page-footer {
   flex-shrink: 0;
-  margin-top: auto;
   width: 100%;
+}
+
+/*
+ * Docked site footer — always visible at the viewport bottom (mirrors sticky header).
+ * Content gets padding-bottom via --site-footer-height so nothing hides under the bar.
+ */
+:root {
+  --site-footer-height: 4.75rem;
+}
+
+.home-page-footer.home-page-footer--dock,
+.app-page-canvas--dock-footer > .home-page-footer,
+.app-page-canvas--dock-footer > .home-page-footer.home-page-footer--dock {
+  position: fixed !important;
+  top: auto !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  inset: auto 0 0 0 !important;
+  z-index: 40 !important;
+  flex: none !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  pointer-events: auto;
+}
+
+.app-page-canvas--dock-footer {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  /* Clear the fixed footer so the last content isn't covered */
+  padding-bottom: var(--site-footer-height, 4.75rem);
+  box-sizing: border-box;
+}
+
+.app-page-canvas--dock-footer > .site-header {
+  flex-shrink: 0;
+}
+
+.app-page-canvas--dock-footer > .home-tool-grid-page,
+.app-page-canvas--dock-footer > .home-tool-grid-page.tool-page-main {
+  flex: 1 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/*
+ * Tool / product pages — classic sticky footer (no reveal lid).
+ * Prefer --dock-footer above; keep --sticky-footer aliases for older selectors.
+ */
+.app-page-canvas--sticky-footer {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-bottom: var(--site-footer-height, 4.75rem);
+  box-sizing: border-box;
+}
+
+.app-page-canvas--sticky-footer > .site-header {
+  flex-shrink: 0;
+}
+
+.app-page-canvas--sticky-footer > .home-tool-grid-page,
+.app-page-canvas--sticky-footer > .home-tool-grid-page.tool-page-main {
+  /* flex-grow fills leftover shell height when content is short */
+  flex: 1 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.app-page-canvas--sticky-footer > .home-page-footer,
+.app-page-canvas--sticky-footer > .home-page-footer:not(.home-page-footer--reveal),
+.app-page-canvas--sticky-footer > .home-page-footer.home-page-footer--dock {
+  position: fixed !important;
+  inset: auto 0 0 0 !important;
+  top: auto !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 40 !important;
+  flex: none !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+/*
+ * Reveal footer — fixed under an opaque content lid; shown only after scroll end.
+ * Lid margin creates the reveal window; footer stays out of the hit-testing path
+ * while covered (painted underneath, z-index 0).
+ * Marketing / home pages only — tool routes use --sticky-footer above.
+ */
+.app-page-canvas--reveal-footer {
+  position: relative;
+  isolation: isolate;
+}
+
+.app-page-reveal-lid {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  align-items: stretch;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin-bottom: var(--site-footer-reveal-height, 4.75rem);
+  box-sizing: border-box;
+  background-color: var(--site-canvas-bg, #121212);
+  background-image: none;
+  /* Soft leading edge while the footer slides into view */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.home-page-footer.home-page-footer--reveal,
+.app-page-canvas--reveal-footer > .home-page-footer.home-page-footer--reveal {
+  position: fixed !important;
+  top: auto !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  inset: auto 0 0 0 !important;
+  z-index: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  flex: none !important;
+  pointer-events: auto;
+  /* Sit under the lid; never cover header controls / modals (z ≥ header) */
+  transform: none !important;
+}
+
+/*
+ * Viewport-locked tool stages cannot scroll to reveal — fall back to in-flow footer.
+ */
+html.workspace-phase-clean:not(.tool-page-document-scroll) .app-page-reveal-lid,
+.app-page-canvas:has(
+    .tool-upload-float[data-workspace-phase="clean"]:not([data-page-scroll="1"])
+  )
+  > .app-page-reveal-lid,
+.app-page-canvas:has(.tool-split-workspace) > .app-page-reveal-lid {
+  margin-bottom: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 auto;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+html.workspace-phase-clean:not(.tool-page-document-scroll)
+  .home-page-footer.home-page-footer--reveal,
+.app-page-canvas:has(
+    .tool-upload-float[data-workspace-phase="clean"]:not([data-page-scroll="1"])
+  )
+  > .home-page-footer.home-page-footer--reveal,
+.app-page-canvas:has(.tool-split-workspace)
+  > .home-page-footer.home-page-footer--reveal {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: auto !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  margin-top: auto !important;
 }
 
 html[data-tool-embed="1"] .app-page-canvas,
@@ -460,6 +645,7 @@ html[data-tool-embed="1"] .app-page-canvas,
 
 /* Tool workspaces stay on the same rail (no full-bleed breakout) */
 .app-page-canvas > .home-tool-grid-page.tool-page-main,
+.app-page-reveal-lid > .home-tool-grid-page.tool-page-main,
 .tool-page-main {
   box-sizing: border-box;
   width: var(--app-content-rail-width, 100%);
@@ -508,8 +694,8 @@ html[data-tool-embed="1"] .app-page-canvas,
   z-index: 1;
 }
 
-.app-page-shell .home-page-footer,
-.home-page-shell--minimal .home-page-footer {
+.app-page-shell .home-page-footer:not(.home-page-footer--reveal):not(.home-page-footer--dock),
+.home-page-shell--minimal .home-page-footer:not(.home-page-footer--reveal):not(.home-page-footer--dock) {
   position: relative;
   inset: auto;
   z-index: auto;
@@ -528,10 +714,11 @@ html[data-tool-embed="1"] .app-page-canvas,
 }
 
 /*
- * Tool workspace footer — keep sticky-footer margins.
+ * Tool workspace footer — keep sticky-footer margins for in-flow hosts.
+ * Docked / reveal footers stay fixed (see .home-page-footer--dock).
  */
-.app-page-canvas > .tool-page-main ~ .home-page-footer,
-.app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer {
+.app-page-canvas > .tool-page-main ~ .home-page-footer:not(.home-page-footer--reveal):not(.home-page-footer--dock),
+.app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer:not(.home-page-footer--reveal):not(.home-page-footer--dock) {
   position: relative;
   inset: auto;
   z-index: auto;
@@ -545,7 +732,8 @@ html[data-tool-embed="1"] .app-page-canvas,
 }
 
 .app-page-canvas > .tool-page-main ~ .home-page-footer .home-page-footer__inner,
-.app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer .home-page-footer__inner {
+.app-page-canvas > [data-tool-workspace="1"] ~ .home-page-footer .home-page-footer__inner,
+.app-page-canvas--reveal-footer > .home-page-footer .home-page-footer__inner {
   width: var(--app-content-rail-width, 100%);
   max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
@@ -2868,9 +3056,9 @@ button.tool-card:is(:hover, :focus-within, .tool-card--selected),
   text-underline-offset: 3px;
 }
 
-/* Site footer — pinned via flex sticky-footer chain (main flex-1 + footer mt-auto).
+/* Site footer — in-flow by default; dock/reveal modes use fixed.
  * Colors / emerald industrial surface: site-chrome-marketing.css */
-.home-page-footer {
+.home-page-footer:not(.home-page-footer--reveal):not(.home-page-footer--dock) {
   position: relative !important;
   inset: auto !important;
   bottom: auto !important;
@@ -4797,8 +4985,8 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
 
 /*
  * Fullsize tool shell fills the viewport below the sticky site header.
- * Uses the modal as the scroll surface (overflow-y: auto) so content is not
- * pushed below the fold by the page shell, while avoiding nested max-width boxes.
+ * Panel is a fixed-height flex column: rail scrolls, site footer stays pinned
+ * at the bottom of the modal (always visible — same idea as the site header).
  */
 .tool-modal--fullscreen {
   position: fixed !important;
@@ -4816,14 +5004,19 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   width: 100%;
   height: auto;
   max-height: none;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   overscroll-behavior: contain;
 }
 
-/* Nested shells inside the fullscreen modal must not create a second scrollbar —
- * the modal itself is the only scrollport (iframe grows with content height). */
+/* Rail is the only scrollport — panel/footer stay put */
 .tool-modal--fullscreen .tool-modal__panel,
+.tool-modal--fullscreen .tool-modal__panel--fullscreen {
+  overflow: hidden !important;
+  max-height: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
 .tool-modal--fullscreen .tool-modal__body,
 .tool-modal--fullscreen .tool-modal__workspace,
 .tool-modal--fullscreen .tool-modal__calc-shell,
@@ -4846,11 +5039,13 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
 }
 
 .tool-modal--fullscreen > .tool-modal__panel {
-  /* Stretch to fill the fixed modal box (definite height from top/bottom) */
-  flex: 1 0 auto !important;
+  /* Fill the fixed modal box (definite height from top/bottom) */
+  flex: 1 1 auto !important;
   align-self: stretch;
   width: 100%;
-  min-height: 100% !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: 100% !important;
 }
 
 .tool-modal__panel--fullscreen,
@@ -4862,20 +5057,20 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   bottom: auto !important;
   left: auto !important;
   z-index: 1;
-  flex: 1 0 auto !important;
+  flex: 1 1 auto !important;
   align-self: stretch;
   width: 100% !important;
   max-width: none !important;
-  height: auto !important;
-  min-height: 100% !important;
-  max-height: none !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
   margin: 0 !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   transform: none !important;
   background: var(--site-canvas-bg, #121212) !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   padding-bottom: 0 !important;
 }
 
@@ -4886,10 +5081,9 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
 }
 
 /*
- * Tool-modal sticky footer — same flex pattern as AppPageShell:
- *   panel: min-height 100% + flex-col
- *   rail:  flex-1 (grows)
- *   footer: shrink-0 + mt-auto (pinned to bottom when content is short)
+ * Tool-modal docked footer — panel is flex-col filling the modal box:
+ *   rail:   flex-1 + overflow-y auto (only scrollport)
+ *   footer: shrink-0 (always visible at the bottom)
  */
 .tool-modal--fullscreen .tool-modal__panel {
   gap: 0;
@@ -4898,18 +5092,19 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   align-items: stretch;
   padding-inline: 0;
   box-sizing: border-box;
-  /* Fill the fixed modal box; grow past it when content is taller */
-  flex: 1 0 auto !important;
-  min-height: 100% !important;
-  height: auto !important;
 }
 
 .tool-modal--fullscreen .tool-modal__rail {
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
+  /* Definite flex measure so the iframe fill height stays bounded */
+  flex: 1 1 0%;
   min-width: 0;
   min-height: 0;
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden; /* iframe document scrolls; rail stays fixed height */
+  overscroll-behavior: contain;
   width: var(--app-content-rail-width, 100%);
   max-width: var(--app-content-rail-max, none);
   margin-inline: auto;
@@ -4917,25 +5112,48 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
   box-sizing: border-box;
 }
 
-.tool-modal--fullscreen .tool-modal__site-footer {
-  flex: 0 0 auto;
-  margin-top: auto;
-}
-
-/*
- * Workspace fills the shared rail; header / upload / footer share edges.
- */
-.tool-modal--fullscreen .tool-modal__workspace {
+.tool-modal--fullscreen .tool-modal__workspace,
+.tool-modal--fullscreen .tool-modal__main,
+.tool-modal--fullscreen .tool-modal__body,
+.tool-modal--fullscreen .tool-modal__pane--calc.tool-modal__pane--active,
+.tool-modal--fullscreen .tool-modal__calc-shell {
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 1 0%;
   flex-direction: column;
-  min-height: auto;
+  min-height: 0;
+  max-height: 100%;
+  height: 100%;
   width: 100%;
   max-width: none;
   margin: 0;
-  padding-inline: 0;
-  padding-top: 0.55rem;
   box-sizing: border-box;
+}
+
+.tool-modal--fullscreen .tool-modal__workspace {
+  padding-top: 0.55rem;
+}
+
+.tool-modal--fullscreen .tool-modal__calc-shell {
+  min-height: 0;
+}
+
+.tool-modal--fullscreen .tool-modal__iframe {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+}
+
+.tool-modal--fullscreen .tool-modal__panel > .tool-modal__site-footer,
+.tool-modal--fullscreen .tool-modal__rail > .tool-modal__site-footer,
+.tool-modal--fullscreen .tool-modal__site-footer {
+  flex: 0 0 auto !important;
+  margin-top: 0 !important;
+  width: 100%;
+  position: relative !important;
+  inset: auto !important;
+  z-index: 2;
 }
 
 .tool-modal--fullscreen .tool-modal__workspace--with-sidebar {
@@ -5078,17 +5296,22 @@ html[dir="rtl"] .tool-modal__chrome-flyout {
   box-sizing: border-box;
   width: 100%;
   max-width: none;
-  flex: 1 0 auto;
-  min-height: min(70vh, 36rem);
+  flex: 1 1 auto;
+  /* CALC keeps a tall stage; DOC/RELATED/REVIEWS grow naturally so the footer can pin */
+  min-height: 0;
   overflow: visible;
   background: transparent;
+}
+
+.tool-modal--fullscreen .tool-modal__body[data-active-tab="calc"] {
+  min-height: 0;
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer {
   position: relative;
   inset: auto;
   flex: 0 0 auto;
-  margin-top: auto !important;
+  margin-top: 0 !important;
   margin-bottom: 0 !important;
   padding-inline: 0;
   box-sizing: border-box;
@@ -5100,7 +5323,7 @@ html[dir="rtl"] .tool-modal__chrome-flyout {
   align-self: stretch;
   border-top: 1px solid rgba(52, 211, 153, 0.22);
   background: transparent;
-  z-index: auto;
+  z-index: 2;
 }
 
 .tool-modal--fullscreen .tool-modal__site-footer .home-page-footer {
@@ -18775,16 +18998,282 @@ body.site-tools-grid-open {
   margin-bottom: 0.5rem;
   padding-block: 1.5rem 1.25rem;
   color: var(--im-text, #fafafa);
+  display: flex;
+  flex-direction: column;
+  /* Uniform vertical rhythm between Overview / Creator / Why / FAQ+Reviews */
+  gap: 1.5rem; /* space-y-6 */
 }
 
 @media (min-width: 640px) {
   .tool-workspace-overview {
     margin-top: 2.5rem;
     padding-top: 1.75rem;
+    gap: 2rem; /* space-y-8 */
   }
 }
 
-/* Two-column informational card grid below the tool workspace */
+/* Full-width Overview hero — text + illustration */
+.tool-overview-hero {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border-radius: 1.5rem; /* rounded-3xl */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(94, 234, 212, 0.08), transparent 55%),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  overflow: hidden;
+}
+
+.tool-overview-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.35rem 1.5rem;
+  align-items: center;
+  padding: 1.35rem 1.25rem 1.45rem;
+}
+
+.tool-overview-hero__visual {
+  order: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0.25rem 0.5rem 0.5rem;
+}
+
+.tool-overview-hero__copy {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.15rem 0.15rem 0.25rem;
+}
+
+.tool-overview-hero__svg {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .tool-overview-hero__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.25rem 1.75rem;
+    padding: 1.75rem 1.85rem 1.85rem;
+  }
+
+  .tool-overview-hero__copy {
+    order: 1;
+    grid-column: span 3;
+    padding: 0.35rem 0.25rem 0.35rem 0.15rem;
+  }
+
+  .tool-overview-hero__visual {
+    order: 2;
+    grid-column: span 2;
+    padding: 0.15rem;
+  }
+
+  .tool-overview-hero__svg {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tool-overview-hero__grid {
+    padding: 2rem 2.15rem;
+    gap: 1.5rem 2rem;
+  }
+
+  .tool-workspace-overview__title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Full-width Creator note — personal trust block under Overview */
+.tool-creator-note {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border-radius: 1.5rem; /* rounded-3xl */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(110% 80% at 0% 0%, rgba(94, 234, 212, 0.06), transparent 50%),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  overflow: hidden;
+}
+
+.tool-creator-note__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem 1.5rem;
+  align-items: center;
+  padding: 1.35rem 1.25rem 1.45rem;
+  /* Keep portrait on physical left / text on right in RTL locales too */
+  direction: ltr;
+}
+
+.tool-creator-note__portrait {
+  order: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0.15rem 0.35rem 0.25rem;
+}
+
+.tool-creator-note__frame {
+  margin: 0;
+  width: 100%;
+  max-width: 280px;
+  overflow: hidden;
+  border-radius: 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+}
+
+.tool-creator-note__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.tool-creator-note__copy {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.15rem 0.15rem 0.25rem;
+  /* Restore reading direction for localized story copy */
+  direction: inherit;
+}
+
+@media (min-width: 768px) {
+  .tool-creator-note__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.25rem 1.75rem;
+    padding: 1.75rem 1.85rem 1.85rem;
+  }
+
+  /* Portrait left (2 cols), story copy right (3 cols) */
+  .tool-creator-note__portrait {
+    order: 1;
+    grid-column: span 2;
+    padding: 0.15rem;
+  }
+
+  .tool-creator-note__copy {
+    order: 2;
+    grid-column: span 3;
+    padding: 0.35rem 0.15rem 0.35rem 0.25rem;
+  }
+
+  .tool-creator-note__frame {
+    max-width: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tool-creator-note__grid {
+    padding: 2rem 2.15rem;
+    gap: 1.5rem 2rem;
+  }
+}
+
+/* Full-width Why People Use — text left, illustration right */
+.tool-why-hero {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border-radius: 1.5rem; /* rounded-3xl */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(110% 85% at 100% 10%, rgba(94, 234, 212, 0.07), transparent 52%),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  overflow: hidden;
+}
+
+.tool-why-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem 1.5rem;
+  align-items: center;
+  padding: 1.35rem 1.25rem 1.45rem;
+  direction: ltr;
+}
+
+.tool-why-hero__visual {
+  order: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0.15rem 0.35rem 0.35rem;
+}
+
+.tool-why-hero__copy {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.15rem 0.15rem 0.25rem;
+  direction: inherit;
+}
+
+.tool-why-hero__svg {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .tool-why-hero__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.25rem 1.75rem;
+    padding: 1.75rem 1.85rem 1.85rem;
+  }
+
+  /* Text left (3), illustration right (2) */
+  .tool-why-hero__copy {
+    order: 1;
+    grid-column: span 3;
+    padding: 0.35rem 0.25rem 0.35rem 0.15rem;
+  }
+
+  .tool-why-hero__visual {
+    order: 2;
+    grid-column: span 2;
+    padding: 0.15rem;
+  }
+
+  .tool-why-hero__svg {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tool-why-hero__grid {
+    padding: 2rem 2.15rem;
+    gap: 1.5rem 2rem;
+  }
+}
+
+/* Two-column informational card grid below full-width story heroes */
 .tool-info-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -19740,6 +20229,11 @@ body.site-tools-grid-open {
 .app-page-canvas:has(
     .tool-upload-float[data-workspace-phase="clean"]:not([data-page-scroll="1"])
   )
+  > .app-page-reveal-lid
+  > .home-tool-grid-page,
+.app-page-canvas:has(
+    .tool-upload-float[data-workspace-phase="clean"]:not([data-page-scroll="1"])
+  )
   .page-content-transition--main {
   display: flex;
   flex: 1 1 auto;
@@ -19764,6 +20258,9 @@ html.workspace-phase-clean:not(.tool-page-document-scroll) .app-page-canvas {
 
 html.workspace-phase-clean:not(.tool-page-document-scroll)
   .app-page-canvas
+  > .home-tool-grid-page,
+html.workspace-phase-clean:not(.tool-page-document-scroll)
+  .app-page-reveal-lid
   > .home-tool-grid-page,
 html.workspace-phase-clean:not(.tool-page-document-scroll)
   .page-content-transition--main {
@@ -19797,27 +20294,48 @@ html.workspace-phase-clean body:not(.tool-embed-mode) .tool-page-main {
 }
 
 /* Embed / tool-modal iframe: fill the iframe edge-to-edge (parent already
- * provides the 90% rail). */
-html[data-tool-embed="1"].workspace-phase-clean .home-tool-grid-page.tool-page-main,
-html[data-tool-embed="1"].workspace-phase-clean .tool-page-main,
-html.workspace-phase-clean body.tool-embed-mode .home-tool-grid-page.tool-page-main,
-html.workspace-phase-clean body.tool-embed-mode .tool-page-main {
+ * provides the 90% rail). Skip page-scroll embeds — those are content-sized
+ * via postMessage; a nested 100dvh floor feeds an endless iframe height loop. */
+html[data-tool-embed="1"].workspace-phase-clean:not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  ):not(.tool-page-document-scroll)
+  .home-tool-grid-page.tool-page-main,
+html[data-tool-embed="1"].workspace-phase-clean:not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  ):not(.tool-page-document-scroll)
+  .tool-page-main,
+html.workspace-phase-clean
+  body.tool-embed-mode:not(:has(.tool-upload-float[data-page-scroll="1"]))
+  .home-tool-grid-page.tool-page-main,
+html.workspace-phase-clean
+  body.tool-embed-mode:not(:has(.tool-upload-float[data-page-scroll="1"]))
+  .tool-page-main {
   padding-block: 0 !important;
   padding-inline: 0 !important;
   margin: 0 !important;
-  height: 100dvh;
-  max-height: 100dvh;
-  min-height: 100dvh;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
   box-sizing: border-box !important;
 }
 
-html[data-tool-embed="1"].workspace-phase-clean .app-page-canvas,
-html[data-tool-embed="1"].workspace-phase-clean .app-page-canvas--tool-embed,
-html.workspace-phase-clean body.tool-embed-mode .app-page-canvas,
-html.workspace-phase-clean body.tool-embed-mode .app-page-canvas--tool-embed {
-  height: 100dvh;
-  max-height: 100dvh;
-  min-height: 100dvh;
+html[data-tool-embed="1"].workspace-phase-clean:not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  ):not(.tool-page-document-scroll)
+  .app-page-canvas,
+html[data-tool-embed="1"].workspace-phase-clean:not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  ):not(.tool-page-document-scroll)
+  .app-page-canvas--tool-embed,
+html.workspace-phase-clean
+  body.tool-embed-mode:not(:has(.tool-upload-float[data-page-scroll="1"]))
+  .app-page-canvas,
+html.workspace-phase-clean
+  body.tool-embed-mode:not(:has(.tool-upload-float[data-page-scroll="1"]))
+  .app-page-canvas--tool-embed {
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
 }
 
 html.workspace-phase-clean:not(.tool-page-document-scroll) .tool-page-dashboard {
@@ -19858,8 +20376,8 @@ html.workspace-phase-clean .tool-page-dashboard,
   margin-inline: 0 !important;
 }
 
-/* Clean-phase footer — same document-flow footer as the rest of the site */
-html.workspace-phase-clean .home-page-footer {
+/* Clean-phase footer — in-flow for locked stages; dock/reveal stay fixed */
+html.workspace-phase-clean .home-page-footer:not(.home-page-footer--reveal):not(.home-page-footer--dock) {
   display: block;
   position: relative;
   inset: auto;
@@ -20141,7 +20659,8 @@ html.workspace-phase-clean.tool-page-document-scroll:not([data-tool-modal-open="
   overflow-y: auto !important;
   height: auto !important;
   max-height: none !important;
-  min-height: 100dvh !important;
+  /* Scrollport only — viewport floor lives on .app-page-shell */
+  min-height: 0 !important;
 }
 
 html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
@@ -20162,8 +20681,8 @@ html.workspace-phase-clean.tool-page-document-scroll:not([data-tool-modal-open="
   overflow-y: visible !important;
   height: auto !important;
   max-height: none !important;
-  /* One viewport floor only — nested 100dvh + flex-grow caused endless page stretch */
-  min-height: 100dvh !important;
+  /* Do NOT stack another 100dvh here — shell owns the floor */
+  min-height: 0 !important;
 }
 
 /*
@@ -20210,6 +20729,11 @@ html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"
     [data-tool-embed="1"]
   )
   .app-page-canvas
+  > .home-tool-grid-page,
+html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
+    [data-tool-embed="1"]
+  )
+  .app-page-reveal-lid
   > .home-tool-grid-page,
 html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
     [data-tool-embed="1"]
@@ -20272,6 +20796,9 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
   .app-page-canvas
   > .home-tool-grid-page,
 html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-reveal-lid
+  > .home-tool-grid-page,
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
   .page-content-transition--main,
 html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
   .tool-page-dashboard,
@@ -20304,14 +20831,22 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
   overflow-y: visible !important;
 }
 
-/* Main fills leftover shell height so the site footer sits at the bottom when short */
+/* Main fills leftover shell height (inside reveal lid or legacy canvas child) */
 html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
     [data-tool-embed="1"]
   )
   .app-page-canvas
   > .home-tool-grid-page,
+html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
+    [data-tool-embed="1"]
+  )
+  .app-page-reveal-lid
+  > .home-tool-grid-page,
 html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
   .app-page-canvas
+  > .home-tool-grid-page,
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-reveal-lid
   > .home-tool-grid-page {
   flex: 1 1 auto !important;
   display: flex !important;
@@ -20326,12 +20861,64 @@ html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"
     [data-tool-embed="1"]
   )
   .app-page-canvas
-  > .home-page-footer,
+  > .home-page-footer:not(.home-page-footer--reveal):not(.home-page-footer--dock),
 html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
   .app-page-canvas
-  > .home-page-footer {
+  > .home-page-footer:not(.home-page-footer--reveal):not(.home-page-footer--dock) {
   flex-shrink: 0 !important;
   margin-top: auto !important;
+  position: relative !important;
+  inset: auto !important;
+}
+
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-canvas--dock-footer
+  > .home-page-footer,
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-canvas--sticky-footer
+  > .home-page-footer.home-page-footer--dock,
+html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
+    [data-tool-embed="1"]
+  )
+  .app-page-canvas--dock-footer
+  > .home-page-footer {
+  position: fixed !important;
+  inset: auto 0 0 0 !important;
+  top: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 40 !important;
+  margin: 0 !important;
+}
+
+/* Sticky-footer tool canvas: main fills leftover height (no reveal lid) */
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-canvas--sticky-footer
+  > .home-tool-grid-page,
+html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
+    [data-tool-embed="1"]
+  )
+  .app-page-canvas--sticky-footer
+  > .home-tool-grid-page {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+html:has(.tool-upload-float[data-page-scroll="1"]):not([data-tool-modal-open="1"]):not(
+    [data-tool-embed="1"]
+  )
+  .app-page-reveal-lid,
+html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-embed="1"])
+  .app-page-reveal-lid {
+  min-height: 100dvh !important;
+  margin-bottom: var(--site-footer-reveal-height, 4.75rem) !important;
+  background-color: var(--site-canvas-bg, #121212) !important;
 }
 
 /* Stack Upload → Overview in normal flex column flow */
@@ -20402,7 +20989,9 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
  */
 .tool-upload-float[data-page-scroll="1"] > .tool-workspace-overview,
 .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview {
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5rem !important;
   flex: 0 0 auto !important;
   position: relative;
   z-index: auto;
@@ -20418,6 +21007,13 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
   padding-block: 0.5rem 0.85rem !important;
   background: transparent;
   border-top: 1px solid rgb(255 255 255 / 0.08);
+}
+
+@media (min-width: 640px) {
+  .tool-upload-float[data-page-scroll="1"] > .tool-workspace-overview,
+  .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview {
+    gap: 2rem !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -20517,11 +21113,12 @@ html[data-tool-embed="1"].workspace-phase-clean:has(
   body,
 body.tool-embed-mode.tool-page-document-scroll,
 body.tool-embed-mode.workspace-phase-clean.tool-page-document-scroll {
-  /* Lock iframe document scroll — height is content-sized by postMessage */
-  overflow: hidden !important;
-  height: auto !important;
+  /* Iframe is fill-locked to the modal rail — scroll Overview/FAQ inside */
+  overflow-x: clip !important;
+  overflow-y: auto !important;
+  height: 100% !important;
   min-height: 0 !important;
-  max-height: none !important;
+  max-height: 100% !important;
 }
 
 html[data-tool-embed="1"].tool-page-document-scroll .app-page-canvas,
@@ -20616,36 +21213,60 @@ html[data-tool-embed="1"]:not(.tool-page-document-scroll) #tool-workspace {
   min-height: 100%;
 }
 
-/* Clean-phase embed without Overview: pin canvas to the iframe viewport. */
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll),
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll) body,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+/* Clean-phase embed without Overview: pin canvas to the iframe viewport.
+ * Use 100% (iframe box), never 100dvh — dvh is the parent browser viewport and
+ * fights content-height postMessage. Skip page-scroll / Overview embeds. */
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  ),
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
+  body,
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   .app-page-canvas,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   .app-page-canvas--tool-embed,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   .home-tool-grid-page,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   .tool-page-main,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   .page-content-transition--main,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   .tool-page-dashboard,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   #workspace-upload,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   #workspace-upload
   .tool-page-layout__content,
-html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll)
+html[data-tool-embed="1"].workspace-phase-clean:not(.tool-page-document-scroll):not(
+    :has(.tool-upload-float[data-page-scroll="1"])
+  )
   #tool-workspace {
-  height: 100dvh !important;
-  max-height: 100dvh !important;
-  min-height: 100dvh !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 0 !important;
 }
 
-/* Exception: Overview / document-scroll — content-sized iframe, no nested 100dvh lock.
- * html/body stay overflow:hidden so the iframe never paints its own scrollbar
- * (parent .tool-modal--fullscreen is the only scrollport). Inner shells can be visible. */
+/* Exception: Overview / document-scroll embeds — fill-locked iframe box.
+ * html/body are the scrollport (overflow-y:auto) so Overview/FAQ stay reachable. */
 html[data-tool-embed="1"].tool-page-document-scroll,
 html[data-tool-embed="1"].tool-page-document-scroll body,
 html[data-tool-embed="1"].workspace-phase-clean:has(
@@ -20655,10 +21276,11 @@ html[data-tool-embed="1"].workspace-phase-clean:has(
     .tool-upload-float[data-page-scroll="1"]
   )
   body {
-  height: auto !important;
-  max-height: none !important;
+  height: 100% !important;
+  max-height: 100% !important;
   min-height: 0 !important;
-  overflow: hidden !important;
+  overflow-x: clip !important;
+  overflow-y: auto !important;
 }
 
 html[data-tool-embed="1"].tool-page-document-scroll .app-page-canvas,
@@ -21443,6 +22065,7 @@ html:has(.tool-split-workspace) body {
 }
 
 .app-page-canvas:has(.tool-split-workspace) > .home-tool-grid-page,
+.app-page-canvas:has(.tool-split-workspace) > .app-page-reveal-lid > .home-tool-grid-page,
 .app-page-canvas:has(.tool-split-workspace) .page-content-transition--main,
 .app-page-canvas:has(.tool-split-workspace) .tool-page-main,
 .app-page-canvas:has(.tool-split-workspace) .home-tool-grid-page.tool-page-main,
@@ -38018,14 +38641,18 @@ html.workspace-phase-clean .pinned-dock {
     #0c0c0c !important;
 }
 
-.home-page-footer,
-.app-page-canvas > .home-page-footer {
-  position: relative !important;
-  inset: auto !important;
-  bottom: auto !important;
-  left: 0 !important;
+.home-page-footer.home-page-footer--dock,
+.home-page-footer.home-page-footer--reveal,
+.app-page-canvas > .home-page-footer.home-page-footer--dock,
+.app-page-canvas--dock-footer > .home-page-footer,
+.app-page-canvas--sticky-footer > .home-page-footer {
+  position: fixed !important;
+  inset: auto 0 0 0 !important;
+  top: auto !important;
   right: 0 !important;
-  z-index: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 40 !important;
   width: 100% !important;
   max-width: none !important;
   margin-inline: 0 !important;
@@ -38036,6 +38663,29 @@ html.workspace-phase-clean .pinned-dock {
     linear-gradient(0deg, rgba(52, 211, 153, 0.09) 0%, transparent 55%),
     radial-gradient(ellipse 70% 120% at 0% 100%, rgba(52, 211, 153, 0.1), transparent 50%),
     #0c0c0c !important;
+}
+
+.tool-modal__site-footer .home-page-footer,
+.tool-modal__site-footer .home-page-footer.home-page-footer--dock {
+  position: relative !important;
+  inset: auto !important;
+  bottom: auto !important;
+  z-index: auto !important;
+}
+
+/* Keep reveal/dock footer fixed even when late chrome overrides run */
+.home-page-footer.home-page-footer--reveal,
+.home-page-footer.home-page-footer--dock,
+.app-page-canvas--reveal-footer > .home-page-footer.home-page-footer--reveal,
+.app-page-canvas--dock-footer > .home-page-footer {
+  position: fixed !important;
+  top: auto !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  inset: auto 0 0 0 !important;
+  z-index: 40 !important;
+  margin: 0 !important;
 }
 
 .home-page-footer__link:hover,

@@ -228,7 +228,7 @@ export function ToolLayout({
     <div
       id={WORKSPACE_UPLOAD_ID}
       className={clsx(
-        "tool-page-layout tool-upload-stack flex min-h-0 w-full max-w-none flex-col",
+        "tool-page-layout tool-upload-stack flex min-h-0 w-full max-w-none flex-1 flex-col",
         shell.stacked && "tool-page-layout--stacked",
         className,
       )}

@@ -29,71 +29,9 @@ function isCleanPhase(): boolean {
 }
 
 /**
- * Measure real tool content height without trusting document.scrollHeight.
- * Inside the modal iframe, html/body are stretched to the parent-assigned
- * iframe height, so scrollHeight never shrinks after a tall active layout
- * (feedback loop → stuck tall dropzone on "upload new file").
- */
-function measureIntrinsicContentHeight(): number {
-  const root =
-    document.getElementById("tool-workspace") ||
-    document.getElementById("workspace-upload") ||
-    (document.querySelector(".app-page-canvas--tool-embed") as HTMLElement | null) ||
-    document.body;
-
-  const rootTop = root.getBoundingClientRect().top;
-  let maxBottom = rootTop;
-
-  const consider = (node: Element | null) => {
-    if (!node) return;
-    const rect = (node as HTMLElement).getBoundingClientRect();
-    if (rect.height < 1) return;
-    maxBottom = Math.max(maxBottom, rect.bottom);
-  };
-
-  root
-    .querySelectorAll(
-      [
-        ".tool-upload-float",
-        ".tool-workspace-overview",
-        ".tool-workspace-panel",
-        ".tool-page-view",
-        ".utility-tool-layout",
-        ".im-utility-stage",
-        ".faq-accordion",
-        ".community-reviews",
-        "[data-embed-measure]",
-      ].join(","),
-    )
-    .forEach(consider);
-
-  Array.from(root.children).forEach(consider);
-
-  const measured = Math.ceil(maxBottom - rootTop + 12);
-  if (measured >= 120) return Math.max(measured, 200);
-
-  // Last resort: never lock to an inflated iframe viewport.
-  const viewport = Math.ceil(window.visualViewport?.height ?? window.innerHeight);
-  return Math.max(400, viewport);
-}
-
-function hasPageScrollContent(): boolean {
-  return Boolean(
-    document.querySelector(
-      [
-        '.tool-upload-float[data-page-scroll="1"]',
-        '.tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview',
-        ".tool-workspace-overview--page",
-      ].join(","),
-    ),
-  );
-}
-
-/**
  * Marks the document when a tool page is loaded inside the ToolModal iframe
  * so site chrome (header/footer) and marketing blocks can be suppressed via CSS/layout.
- * Also reports content height to the parent so the modal can use document scroll
- * instead of an inner iframe scrollbar.
+ * Reports fill-height to the parent so the iframe stays locked to the modal rail.
  */
 export function ToolEmbedModeMarker() {
   const searchParams = useSearchParams();
@@ -126,20 +64,13 @@ export function ToolEmbedModeMarker() {
       raf = requestAnimationFrame(() => {
         if (window.parent === window) return;
         try {
-          let payload: Record<string, unknown>;
-          // Page-scroll tools (Overview/FAQ) always report content height so the
-          // parent modal is the only scrollbar — never fill-lock the iframe.
-          if (isCleanPhase() && !hasPageScrollContent()) {
-            payload = { type: TOOL_EMBED_HEIGHT_MESSAGE, mode: "fill", phase: "clean" };
-          } else {
-            const height = measureIntrinsicContentHeight();
-            payload = {
-              type: TOOL_EMBED_HEIGHT_MESSAGE,
-              mode: "content",
-              phase: isCleanPhase() ? "clean" : "active",
-              height,
-            };
-          }
+          // Always fill the parent modal rail. Content-height postMessage caused
+          // an endless iframe growth loop; Overview/FAQ scroll inside the iframe.
+          const payload = {
+            type: TOOL_EMBED_HEIGHT_MESSAGE,
+            mode: "fill",
+            phase: isCleanPhase() ? "clean" : "active",
+          };
           const serialized = JSON.stringify(payload);
           if (serialized === lastPayload) return;
           lastPayload = serialized;

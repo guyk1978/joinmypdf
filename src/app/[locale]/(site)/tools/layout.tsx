@@ -17,7 +17,8 @@ export default async function ToolsLayout({ children, params }: Props) {
   return (
     <RouteIntlProvider locale={locale}>
       <ToolPageDocumentScrollMarker />
-      {children}
+      {/* Keep tool routes in the sticky-footer flex chain (main → content → footer) */}
+      <div className="flex min-h-0 w-full flex-1 flex-col">{children}</div>
     </RouteIntlProvider>
   );
 }

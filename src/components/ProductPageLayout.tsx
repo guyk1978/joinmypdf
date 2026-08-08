@@ -41,7 +41,9 @@ export function ProductPageLayout({
         )}
       >
         <ToolPageHeader title={title} description={description} eyebrow={eyebrow} />
-        <div className="tool-page-layout__content">{children}</div>
+        <div className="tool-page-layout__content flex min-h-0 w-full flex-1 flex-col">
+          {children}
+        </div>
         {showPrivacyBadge ? (
           <footer className="tool-page-layout__footer">
             <ToolLocalProcessingBar />

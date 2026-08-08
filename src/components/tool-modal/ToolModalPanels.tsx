@@ -21,23 +21,29 @@ import {
   TOOL_EMBED_HEIGHT_REQUEST_MESSAGE,
 } from "@/lib/workspace-project-messages";
 
-/** Viewport-based iframe height for clean-phase immersive dropzone (avoids scrollHeight feedback). */
+/** Fixed iframe height = visible modal rail (avoids content-height feedback loops). */
 function measureToolEmbedFillHeight(): number {
+  const modal = document.querySelector(".tool-modal--fullscreen, .tool-modal") as HTMLElement | null;
+  const footer =
+    modal?.querySelector(".tool-modal__site-footer")?.getBoundingClientRect().height ?? 56;
+  const modalBudget = Math.max(
+    280,
+    Math.round((modal?.clientHeight ?? window.innerHeight) - footer - 4),
+  );
+
+  const rail = document.querySelector(".tool-modal__rail") as HTMLElement | null;
+  if (rail) {
+    const railH = Math.round(rail.clientHeight);
+    if (railH >= 120) return Math.min(modalBudget, Math.max(280, railH));
+  }
+
   const rootStyles = getComputedStyle(document.documentElement);
   const siteHeader =
     Number.parseFloat(rootStyles.getPropertyValue("--site-header-height")) || 120;
-  const modal = document.querySelector(".tool-modal--fullscreen, .tool-modal");
-  const title =
-    modal?.querySelector(".tool-upload-stage")?.getBoundingClientRect().height
-      ? 0
-      : (modal?.querySelector(".tool-modal__chrome")?.getBoundingClientRect().height ??
-        modal?.querySelector(".tool-modal__heading")?.getBoundingClientRect().height ??
-        8);
-  const footer =
-    modal?.querySelector(".tool-modal__site-footer")?.getBoundingClientRect().height ?? 56;
-  // title + tight body gap + footer block margin
-  const chrome = siteHeader + title + footer + 4 + 30;
-  return Math.max(400, Math.round(window.innerHeight - chrome));
+  return Math.min(
+    modalBudget,
+    Math.max(280, Math.round(window.innerHeight - siteHeader - footer - 8)),
+  );
 }
 
 type DocsLabels = {
@@ -315,25 +321,18 @@ export function ToolModalCalcFrame({
 
       if (type !== TOOL_EMBED_HEIGHT_MESSAGE) return;
 
-      const mode = (data as { mode?: string }).mode;
-      if (mode === "fill") {
-        applyFill();
-        return;
-      }
-
-      const height = Number((data as { height?: number }).height);
-      if (!Number.isFinite(height) || height < 1) return;
-      const next = Math.ceil(height);
-      setEmbedMode((prev) => (prev === "content" ? prev : "content"));
-      setEmbedHeight((prev) => {
-        if (prev != null && Math.abs(prev - next) < HEIGHT_EPS) return prev;
-        return next;
-      });
+      // Always fill the modal rail. Content-height mode fed an endless iframe
+      // growth loop (Overview/FAQ + flex min-heights). The iframe document scrolls.
+      applyFill();
     };
 
     window.addEventListener("message", onMessage);
+    // Lock height immediately so the iframe never mounts at content-height.
+    applyFill();
+    const bootTimers = [50, 200, 500].map((ms) => window.setTimeout(applyFill, ms));
     return () => {
       window.removeEventListener("message", onMessage);
+      bootTimers.forEach((id) => window.clearTimeout(id));
     };
   }, []);
 
@@ -376,7 +375,7 @@ export function ToolModalCalcFrame({
         referrerPolicy="no-referrer"
         style={
           embedHeight
-            ? { height: embedHeight, minHeight: embedHeight }
+            ? { height: embedHeight, maxHeight: "100%" }
             : undefined
         }
         onLoad={() => {

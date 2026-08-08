@@ -21,34 +21,45 @@ type PageTransitionShellProps = {
 function PageTransitionCanvas({ children, mainClassName }: PageTransitionShellProps) {
   const { handleLinkClickCapture } = usePageTransition();
   const embed = useToolEmbedMode();
+  const isToolPage =
+    typeof mainClassName === "string" && mainClassName.includes("tool-page-main");
+  const toolWorkspace = isToolPage ? "1" : undefined;
+
+  const main = (
+    <main
+      className={clsx(
+        "home-tool-grid-page flex min-h-0 w-full flex-1 flex-col",
+        embed && "h-full max-w-none",
+        mainClassName,
+      )}
+      data-tool-workspace={toolWorkspace}
+    >
+      <PageContentTransition className="page-content-transition--main flex min-h-0 w-full flex-1 flex-col">
+        {children}
+      </PageContentTransition>
+    </main>
+  );
 
   return (
     <div
       className={clsx(
         "app-page-canvas flex min-h-0 w-full flex-1 flex-col",
         embed && "app-page-canvas--tool-embed",
+        !embed && "app-page-canvas--dock-footer",
       )}
       onClickCapture={handleLinkClickCapture}
     >
       <ToolEmbedModeMarker />
-      {embed ? null : <SiteHeader />}
-      <main
-        className={clsx(
-          "home-tool-grid-page flex min-h-0 w-full flex-1 flex-col",
-          embed ? "h-full max-w-none" : null,
-          mainClassName,
-        )}
-        data-tool-workspace={
-          typeof mainClassName === "string" && mainClassName.includes("tool-page-main")
-            ? "1"
-            : undefined
-        }
-      >
-        <PageContentTransition className="page-content-transition--main flex min-h-0 w-full flex-1 flex-col">
-          {children}
-        </PageContentTransition>
-      </main>
-      {embed ? null : <HomePageFooter />}
+      {embed ? (
+        main
+      ) : (
+        <>
+          {/* Header sticky top + footer fixed bottom (always visible chrome) */}
+          <SiteHeader />
+          {main}
+          <HomePageFooter dock />
+        </>
+      )}
     </div>
   );
 }
@@ -70,3 +81,5 @@ export function PageTransitionShell({ children, mainClassName }: PageTransitionS
     </PageChromeActiveProvider>
   );
 }
+
+

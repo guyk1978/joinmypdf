@@ -33,8 +33,12 @@ export function Providers({ children }: { children: ReactNode }) {
             <DeferredToolModalProvider>
               <ToolsDirectorySelectionProvider>
                 <ViewportHistoryRecovery />
-                {/* Root sticky-footer flex chain — one min-h-dvh floor only */}
-                <div className="flex min-h-dvh w-full max-w-[100vw] flex-col overflow-x-clip">
+                {/*
+                  Flex column only — do NOT put min-h-dvh / min-h-screen here.
+                  .app-page-shell owns the single viewport floor; a second nested
+                  min-height + flex-grow loop stretches tool pages endlessly.
+                */}
+                <div className="app-providers-root flex min-h-0 w-full max-w-[100vw] flex-1 flex-col overflow-x-clip">
                   <EmailPopupScript />
                   <PreviewInspectHost />
                   <div className="flex min-h-0 w-full flex-1 flex-col">{children}</div>
