@@ -27,14 +27,14 @@ function measureToolEmbedFillHeight(): number {
   const footer =
     modal?.querySelector(".tool-modal__site-footer")?.getBoundingClientRect().height ?? 56;
   const modalBudget = Math.max(
-    280,
+    360,
     Math.round((modal?.clientHeight ?? window.innerHeight) - footer - 4),
   );
 
   const rail = document.querySelector(".tool-modal__rail") as HTMLElement | null;
   if (rail) {
     const railH = Math.round(rail.clientHeight);
-    if (railH >= 120) return Math.min(modalBudget, Math.max(280, railH));
+    if (railH >= 200) return Math.min(modalBudget, Math.max(360, railH));
   }
 
   const rootStyles = getComputedStyle(document.documentElement);
@@ -42,7 +42,7 @@ function measureToolEmbedFillHeight(): number {
     Number.parseFloat(rootStyles.getPropertyValue("--site-header-height")) || 120;
   return Math.min(
     modalBudget,
-    Math.max(280, Math.round(window.innerHeight - siteHeader - footer - 8)),
+    Math.max(360, Math.round(window.innerHeight - siteHeader - footer - 8)),
   );
 }
 
@@ -315,7 +315,12 @@ export function ToolModalCalcFrame({
       if (!data || typeof data !== "object") return;
       const type = (data as { type?: string }).type;
 
+      // Phase changes (clean → active after upload) must re-measure the rail.
+      // Skipping this left the iframe on a collapsed height after upload.
       if (type === WORKSPACE_PHASE_MESSAGE) {
+        applyFill();
+        window.setTimeout(applyFill, 50);
+        window.setTimeout(applyFill, 200);
         return;
       }
 

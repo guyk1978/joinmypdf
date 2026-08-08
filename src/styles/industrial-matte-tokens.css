@@ -64,8 +64,8 @@
   --im-padding-cta: 0.5625rem 1.25rem;
   --im-min-height-card-row: 3.75rem;
 
-  --im-transition-fast: 0.15s ease;
-  --im-transition-panel: 0.25s ease;
+  --im-transition-fast: 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  --im-transition-panel: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 
   --im-font-card-label: 0.9375rem;
   --im-font-body-sm: 0.9375rem;

@@ -3,6 +3,7 @@
 @import "../styles/tool-page-marketing.css";
 @import "../styles/site-marketing-cleanup.css";
 @import "../styles/site-chrome-marketing.css";
+@import "../styles/active-workspace-experience.css";
 
 @tailwind base;
 @tailwind components;
@@ -5140,8 +5141,9 @@ html[lang="en"] .im-tool-card--minimal .im-tool-card__title {
 .tool-modal--fullscreen .tool-modal__iframe {
   flex: 1 1 auto;
   width: 100%;
-  height: 100% !important;
-  min-height: 0 !important;
+  /* Prefer measured rail height; fall back to fill parent (never content-height). */
+  height: var(--tool-embed-height, 100%) !important;
+  min-height: min(70vh, 36rem) !important;
   max-height: 100% !important;
 }
 
@@ -11590,55 +11592,220 @@ a.blog-article-card:hover .blog-article-card__title,
   }
 }
 
-/* Header brand mini merge icon ? keep in sync with assets/css/styles.css */
+/* Header brand cute mascot — keep in sync with critical-splash.css */
 .header-pdf-mini {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   margin-left: 0;
   position: relative;
   vertical-align: middle;
   flex-shrink: 0;
-  color: #fafafa;
+  overflow: visible;
+  color: #34d399;
 }
 
-.header-pdf-mini svg {
+.header-pdf-mini svg,
+.header-pdf-mascot__svg {
+  width: 100%;
+  height: 100%;
   overflow: visible;
 }
 
-.header-pdf-mini__back {
-  animation: doc-slide-back 2s infinite ease-in-out;
+.header-pdf-mascot__bob {
+  transform-box: view-box;
+  transform-origin: 20px 34px;
+  animation: mascot-bob 2.4s ease-in-out infinite;
 }
 
+.header-pdf-mascot__glow {
+  transform-box: view-box;
+  transform-origin: 20px 22px;
+  animation: mascot-glow 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__wing--left {
+  transform-box: view-box;
+  transform-origin: 12px 20px;
+  animation: mascot-wing-left 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__wing--right {
+  transform-box: view-box;
+  transform-origin: 28px 20px;
+  animation: mascot-wing-right 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__antenna-dot {
+  transform-box: view-box;
+  transform-origin: 20px 4.4px;
+  animation: mascot-antenna 1.8s ease-in-out infinite;
+}
+
+.header-pdf-mascot__eyes {
+  transform-box: view-box;
+  transform-origin: 20px 16px;
+  animation: mascot-blink 4.8s ease-in-out infinite;
+}
+
+.header-pdf-mascot__sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mascot-sparkle 2.2s ease-in-out infinite;
+}
+
+.header-pdf-mascot__smile {
+  transform-box: view-box;
+  transform-origin: 20px 19.5px;
+  animation: mascot-smile 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__page {
+  transform-box: view-box;
+  transform-origin: 27px 30px;
+  animation: mascot-page 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__stack {
+  transform-box: view-box;
+  transform-origin: 34px 19px;
+  animation: mascot-stack 2.4s ease-in-out infinite;
+}
+
+/* Legacy class hooks (kept so older CSS selectors stay harmless) */
+.header-pdf-mini__back,
 .header-pdf-mini__front {
-  animation: doc-slide-front 2s infinite ease-in-out;
+  animation: none;
 }
 
-@keyframes doc-slide-back {
+@keyframes mascot-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  40% {
+    transform: translateY(-1.4px) rotate(-1.2deg);
+  }
+  70% {
+    transform: translateY(-0.4px) rotate(1deg);
+  }
+}
+
+@keyframes mascot-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes mascot-wing-left {
+  0%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: rotate(-8deg) translateX(-0.6px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes mascot-wing-right {
+  0%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: rotate(8deg) translateX(0.6px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes mascot-antenna {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-0.7px) scale(1.18);
+  }
+}
+
+@keyframes mascot-blink {
+  0%,
+  42%,
+  48%,
+  100% {
+    transform: scaleY(1);
+  }
+  45% {
+    transform: scaleY(0.12);
+  }
+}
+
+@keyframes mascot-sparkle {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes mascot-smile {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.08);
+  }
+}
+
+@keyframes mascot-page {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(4deg);
+  }
+  50% {
+    transform: translate(0.4px, -0.8px) rotate(8deg);
+  }
+}
+
+@keyframes mascot-stack {
   0%,
   100% {
     transform: translate(0, 0);
-    opacity: 0.7;
+    opacity: 0.75;
   }
   50% {
-    transform: translate(1px, -1px);
+    transform: translate(0.5px, -0.8px);
     opacity: 1;
   }
 }
 
-@keyframes doc-slide-front {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-1.5px, 1.5px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
+  .header-pdf-mascot__bob,
+  .header-pdf-mascot__glow,
+  .header-pdf-mascot__wing--left,
+  .header-pdf-mascot__wing--right,
+  .header-pdf-mascot__antenna-dot,
+  .header-pdf-mascot__eyes,
+  .header-pdf-mascot__sparkle,
+  .header-pdf-mascot__smile,
+  .header-pdf-mascot__page,
+  .header-pdf-mascot__stack,
   .header-pdf-mini__back,
   .header-pdf-mini__front {
     animation: none;
@@ -14746,7 +14913,8 @@ body.site-search-open {
   --site-header-control-pad-x: 0.75rem;
   --site-header-control-font: 0.8125rem;
   --site-header-logo-font: 1.5rem;
-  --site-header-logo-icon: 28px;
+  --site-header-logo-icon: 40px;
+  --site-header-logo-mascot-scale: 1.42;
   --site-header-nav-icon-size: 14px;
   --site-header-search-font: 0.8125rem;
   --site-header-search-icon: 1.1875rem;
@@ -15536,7 +15704,7 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 
 .joinmypdf-logo-text {
-  gap: 0.35rem;
+  gap: 0.45rem;
   height: 100%;
 }
 
@@ -15552,14 +15720,20 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 .site-header--matte .header-pdf-mini,
 .site-header--matte .header-pdf-mini--tight {
-  width: var(--site-header-logo-icon, 22px);
-  height: var(--site-header-logo-icon, 22px);
+  width: var(--site-header-logo-icon, 40px);
+  height: var(--site-header-logo-icon, 40px);
+  flex: 0 0 var(--site-header-logo-icon, 40px);
+  overflow: visible;
 }
 
 .site-header--matte .header-pdf-mini svg,
 .site-header--matte .header-pdf-mini--tight svg {
   width: 100%;
   height: 100%;
+  max-width: none;
+  max-height: none;
+  transform: scale(var(--site-header-logo-mascot-scale, 1.42));
+  transform-origin: center center;
 }
 
 .site-header__search-center {
@@ -15795,7 +15969,8 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
     --site-header-control-height: 42px;
     --site-header-control-font: 0.75rem;
     --site-header-logo-font: 1.25rem;
-    --site-header-logo-icon: 24px;
+    --site-header-logo-icon: 34px;
+    --site-header-logo-mascot-scale: 1.32;
     --site-header-nav-icon-size: 13px;
     --site-header-search-font: 0.75rem;
     --site-header-control-pad-x: 0.55rem;
@@ -16253,6 +16428,7 @@ html[dir="rtl"] .tool-title-banner__label {
   max-width: none;
   border-radius: 0;
   overflow: visible;
+  min-height: min(60vh, 32rem) !important;
 }
 
 .tool-upload-float[data-workspace-phase="active"] .tool-upload-stage__body {
@@ -16261,10 +16437,83 @@ html[dir="rtl"] .tool-title-banner__label {
   padding: 0;
   background: transparent;
   border-radius: 0;
+  min-height: min(60vh, 32rem) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  flex: 1 1 auto !important;
+  height: auto !important;
 }
 
 .tool-upload-float[data-workspace-phase="active"] .tool-upload-stage__body::before {
   display: none;
+}
+
+/* Active editor stage — never collapse when leaving the upload prompt */
+.tool-upload-float[data-workspace-phase="active"] > .tool-upload-stage,
+.tool-upload-float[data-workspace-phase="active"][data-page-scroll="1"] > .tool-upload-stage {
+  flex: 1 1 auto !important;
+  min-height: min(60vh, 32rem) !important;
+  height: auto !important;
+  max-height: none !important;
+  align-items: stretch !important;
+}
+
+.tool-upload-float[data-workspace-phase="active"] #workspace-operations,
+.tool-upload-float[data-workspace-phase="active"] .tool-workspace-panel,
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool,
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool-page,
+.tool-upload-float[data-workspace-phase="active"] [class$="-tool-page"] {
+  flex: 1 1 auto !important;
+  min-height: min(50vh, 28rem) !important;
+  width: 100% !important;
+}
+
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool__stage,
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool__workspace {
+  min-height: min(50vh, 28rem) !important;
+}
+
+/*
+ * After upload, many tools empty the shell and render the editor as a sibling.
+ * Never leave an empty stage void or Overview between upload and the editor.
+ */
+.tool-upload-float[data-workspace-phase="active"] > .tool-workspace-overview {
+  display: none !important;
+}
+
+.tool-upload-float[data-workspace-phase="active"]:has(.tool-upload-stage__body:empty) > .tool-upload-stage,
+.tool-upload-float[data-workspace-phase="active"] .tool-upload-stage__body:empty {
+  display: none !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  flex: 0 0 0 !important;
+}
+
+/* Sibling editor (outside the float) needs a stable workspace height after upload */
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]),
+#tool-workspace.tool-workspace--wide:has(> .tool-upload-float[data-workspace-phase="active"]) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  min-height: min(60vh, 32rem) !important;
+}
+
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) #workspace-operations,
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) .visual-reorder-panel,
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) .tool-workspace-panel,
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) [class$="-tool-page"] {
+  flex: 1 1 auto !important;
+  min-height: min(50vh, 28rem) !important;
+  width: 100% !important;
+}
+
+/* Sticky mobile CTA duplicates the toolbar and reads as a collapsed strip in embeds */
+html[data-tool-embed="1"] .sticky-mobile-cta,
+body.tool-embed-mode .sticky-mobile-cta {
+  display: none !important;
 }
 
 /* Compact stage beats immersive clean-phase stretch */
@@ -20949,7 +21198,7 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
   --im-dropzone-min-height: 220px;
 }
 
-.tool-upload-float[data-page-scroll="1"] > :not(.tool-workspace-overview),
+.tool-upload-float[data-page-scroll="1"][data-workspace-phase="clean"] > :not(.tool-workspace-overview),
 .tool-upload-float[data-workspace-phase="clean"]:has(> .tool-workspace-overview)
   > :not(.tool-workspace-overview) {
   flex: 0 0 auto !important;
@@ -20959,7 +21208,7 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
   overflow: visible !important;
 }
 
-.tool-upload-float[data-page-scroll="1"] .tool-upload-stage__body .im-dropzone-shell,
+  .tool-upload-float[data-page-scroll="1"] .tool-upload-stage__body .im-dropzone-shell,
 .tool-upload-float[data-page-scroll="1"]
   .tool-upload-stage__body
   .im-dropzone:not(.im-dropzone--compact),
@@ -20997,8 +21246,9 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
 /*
  * Overview under upload: fill the shared pane rail (parent float already has
  * max-width + padding). Avoid double horizontal padding from .tool-page-pane-rail.
+ * Clean-phase only — never keep Overview visible after upload (active).
  */
-.tool-upload-float[data-page-scroll="1"] > .tool-workspace-overview,
+.tool-upload-float[data-page-scroll="1"][data-workspace-phase="clean"] > .tool-workspace-overview,
 .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview {
   display: flex !important;
   flex-direction: column !important;
@@ -21021,7 +21271,7 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
 }
 
 @media (min-width: 640px) {
-  .tool-upload-float[data-page-scroll="1"] > .tool-workspace-overview,
+  .tool-upload-float[data-page-scroll="1"][data-workspace-phase="clean"] > .tool-workspace-overview,
   .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview {
     gap: 2rem !important;
   }
@@ -21033,7 +21283,7 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
     row-gap: 0.5rem;
   }
 
-  .tool-upload-float[data-page-scroll="1"] > .tool-workspace-overview,
+  .tool-upload-float[data-page-scroll="1"][data-workspace-phase="clean"] > .tool-workspace-overview,
   .tool-upload-float[data-workspace-phase="clean"] > .tool-workspace-overview {
     padding-block: 0.5rem 0.85rem !important;
   }
@@ -21044,6 +21294,21 @@ html.tool-page-document-scroll:not([data-tool-modal-open="1"]):not([data-tool-em
     ) {
     --im-dropzone-min-height: 320px;
   }
+}
+
+/* Final override: Overview must never remain visible after file upload */
+.tool-upload-float[data-workspace-phase="active"] > .tool-workspace-overview,
+.tool-upload-float[data-page-scroll="1"][data-workspace-phase="active"] > .tool-workspace-overview {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
 }
 
 /*
@@ -22281,22 +22546,34 @@ html[data-tool-embed="1"]:not(.workspace-phase-clean) .home-tool-grid-page {
   overflow: visible !important;
   height: auto !important;
   max-height: none !important;
-  min-height: 0 !important;
+  /* Fill the parent iframe viewport — min-height:0 collapsed the active editor */
+  min-height: 100% !important;
 }
 
-/* Active fullscreen tools: grow with content; modal shell is the only scrollport */
+/* Active fullscreen tools: CALC iframe must keep a stable fill height after upload.
+ * flex:0 + height:auto previously collapsed the embed to a ~100–150px strip. */
 .tool-modal--fullscreen[data-workspace-phase="active"] .tool-modal__workspace--with-sidebar .tool-modal__body,
+.tool-modal--fullscreen[data-workspace-phase="active"] .tool-modal__pane--calc.tool-modal__pane--active,
 .tool-modal--fullscreen[data-workspace-phase="active"] .tool-modal__pane--active,
 .tool-modal--fullscreen[data-workspace-phase="active"] .tool-modal__calc-shell {
-  flex: 0 0 auto;
-  min-height: 0;
-  height: auto;
-  max-height: none;
-  overflow: visible;
+  display: flex !important;
+  flex: 1 1 0% !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  min-height: min(70vh, 36rem) !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
 }
 
 .tool-modal--fullscreen[data-workspace-phase="active"] .tool-modal__iframe {
-  overflow: hidden;
+  display: block !important;
+  overflow: hidden !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: var(--tool-embed-height, 100%) !important;
+  min-height: min(70vh, 36rem) !important;
+  max-height: 100% !important;
 }
 
 /* Video Metadata Cleaner — keep upload stage flush. */
@@ -22734,8 +23011,13 @@ body.tool-embed-mode .tool-upload-float.video-metadata-cleaner-tool-page[data-wo
 .image-blur-redact__note,
 .image-blur-redact__privacy {
   margin: 0;
+  padding-inline: 0.85rem;
   font-size: 0.8125rem;
   color: #a3a3a3;
+}
+
+.image-blur-redact__instructions {
+  text-align: center;
 }
 
 .image-blur-redact__privacy {
@@ -22884,7 +23166,7 @@ body.tool-embed-mode .tool-upload-float.video-metadata-cleaner-tool-page[data-wo
 /* ?? Image Watermark (Industrial Matte) ?? */
 .image-watermark-tool-page {
   width: 100%;
-  max-width: 72rem;
+  max-width: min(100%, 88rem);
   margin-inline: auto;
 }
 
@@ -22901,8 +23183,9 @@ body.tool-embed-mode .tool-upload-float.video-metadata-cleaner-tool-page[data-wo
 
 @media (min-width: 960px) {
   .image-watermark__layout {
-    grid-template-columns: minmax(16rem, 19rem) minmax(0, 1fr);
-    align-items: start;
+    grid-template-columns: minmax(15rem, 22rem) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 1.15rem;
   }
 }
 
@@ -23064,9 +23347,11 @@ body.tool-embed-mode .tool-upload-float.video-metadata-cleaner-tool-page[data-wo
 .image-watermark__stage {
   display: flex;
   justify-content: center;
-  padding: 0.75rem;
+  align-items: center;
+  min-height: min(72vh, 42rem);
+  padding: 1rem;
   border: 1px solid var(--im-tool-panel-border);
-  border-radius: 0.65rem;
+  border-radius: var(--im-tool-radius, 1rem);
   background:
     linear-gradient(160deg, rgba(15, 23, 42, 0.92), rgba(3, 7, 18, 0.96)),
     repeating-linear-gradient(
@@ -23076,6 +23361,10 @@ body.tool-embed-mode .tool-upload-float.video-metadata-cleaner-tool-page[data-wo
       transparent 8px,
       transparent 16px
     );
+  transition:
+    min-height var(--im-transition-panel),
+    border-color var(--im-transition-fast),
+    box-shadow var(--im-transition-panel);
 }
 
 .image-watermark__canvas {
@@ -24487,7 +24776,7 @@ body.tool-embed-mode #workspace-upload[data-workspace-phase="clean"] .favicon-ge
 
 .crop-image-tool-page {
   width: 100%;
-  max-width: 42rem;
+  max-width: min(100%, 88rem);
   margin-inline: auto;
 }
 
@@ -24578,6 +24867,8 @@ html.workspace-phase-clean .crop-image-tool,
 
 .crop-image-tool__instructions {
   margin: 0;
+  padding-inline: 0.85rem;
+  text-align: center;
   font-size: var(--im-font-body-sm);
   line-height: var(--im-leading-normal);
   color: var(--im-text-muted);
@@ -24586,11 +24877,17 @@ html.workspace-phase-clean .crop-image-tool,
 .crop-image-tool__stage {
   position: relative;
   width: 100%;
-  height: min(60vh, 28rem);
+  height: min(72vh, 42rem);
+  min-height: min(72vh, 36rem);
   overflow: hidden;
   border: var(--im-border-width) solid var(--im-border-strong);
-  border-radius: 0;
+  border-radius: var(--im-tool-radius, 1rem);
   background-color: #0f1114;
+  transition:
+    height var(--im-transition-panel),
+    min-height var(--im-transition-panel),
+    border-color var(--im-transition-fast),
+    box-shadow var(--im-transition-panel);
 }
 
 .crop-image-tool__img {

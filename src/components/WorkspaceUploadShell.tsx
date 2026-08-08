@@ -1,7 +1,16 @@
 "use client";
 
 import { clsx } from "clsx";
-import { useEffect, useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode } from "react";
+import {
+  Children,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
 import { useTranslations } from "next-intl";
 import { ToolModalRating } from "@/components/tool-modal/ToolModalRating";
 import { ToolWorkspaceOverview } from "@/components/layout/ToolWorkspaceOverview";
@@ -158,7 +167,19 @@ export function WorkspaceUploadShell({
   }, [pathname, shellSlug, requiresUpload]);
 
   const initialPhase = resolveInitialPhase(active, requiresUpload);
+  const [phase, setPhase] = useState<WorkspacePhase>(initialPhase);
+  // Controlled `active` must drive the first post-upload paint — stale useState
+  // otherwise keeps Overview + empty stage mounted for one frame (or longer).
+  const uiPhase: WorkspacePhase =
+    typeof active === "boolean" ? (active ? "active" : "clean") : phase;
   usePendingDropzoneHandoff(rootRef);
+
+  const hasStageChildren = Children.toArray(children).some((child) => child != null && child !== false);
+  // Many tools empty the shell on upload and render the editor as a sibling.
+  // Keep the stage only while uploading, or when the tool keeps UI inside it.
+  const showStage = chromeEnabled && (uiPhase === "clean" || hasStageChildren);
+  // Overview belongs under the dropzone — never between upload and the editor.
+  const showOverviewStrip = showOverview && uiPhase === "clean";
 
   useEffect(() => {
     const onFocusUpload = (event: MessageEvent) => {
@@ -179,7 +200,7 @@ export function WorkspaceUploadShell({
     const sync = () => {
       if (!alive) return;
       const dropzone = hasPrimaryDropzone(root);
-      const phase = resolvePhase(active, requiresUpload, dropzone);
+      const nextPhase = resolvePhase(active, requiresUpload, dropzone);
 
       if (typeof active === "boolean" || requiresUpload === false || dropzone) {
         isUploadToolRef.current = requiresUpload !== false || dropzone;
@@ -188,10 +209,11 @@ export function WorkspaceUploadShell({
         isUploadToolRef.current = true;
       }
 
-      if (root.dataset.workspacePhase !== phase) {
-        root.dataset.workspacePhase = phase;
+      if (root.dataset.workspacePhase !== nextPhase) {
+        root.dataset.workspacePhase = nextPhase;
       }
-      setWorkspacePhase(phase, root);
+      setPhase((prev) => (prev === nextPhase ? prev : nextPhase));
+      setWorkspacePhase(nextPhase, root);
       setToolHasUploadShell(isUploadToolRef.current);
     };
 
@@ -248,12 +270,12 @@ export function WorkspaceUploadShell({
         "tool-upload-float relative flex w-full min-h-0 flex-1 flex-col items-stretch",
         className,
       )}
-      data-workspace-phase={initialPhase}
+      data-workspace-phase={uiPhase}
       data-requires-upload={isInteractiveChrome ? "0" : "1"}
-      data-page-scroll={showOverview ? "1" : undefined}
+      data-page-scroll={showOverviewStrip ? "1" : undefined}
       style={accentStyle}
     >
-      {chromeEnabled ? (
+      {showStage ? (
         <div className="tool-upload-stage">
           <div className="tool-upload-stage__card">
             {titleText || ratingSlug ? (
@@ -276,12 +298,12 @@ export function WorkspaceUploadShell({
             <div className="tool-upload-stage__body">{children}</div>
           </div>
         </div>
-      ) : (
+      ) : chromeEnabled ? null : (
         children
       )}
 
-      {/* Overview / FAQ / related: sibling of the stage card (not inside it). */}
-      {showOverview ? (
+      {/* Overview / FAQ / related: only under the upload prompt (clean phase). */}
+      {showOverviewStrip ? (
         <ToolWorkspaceOverview className="tool-workspace-overview--page" />
       ) : null}
     </div>

@@ -45,48 +45,212 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
-  color: #fafafa;
+  overflow: visible;
+  color: #34d399;
   vertical-align: middle;
 }
 
-.header-pdf-mini svg {
+.header-pdf-mini svg,
+.header-pdf-mascot__svg {
+  width: 100%;
+  height: 100%;
   overflow: visible;
 }
 
-.header-pdf-mini__back {
-  animation: doc-slide-back 2s infinite ease-in-out;
+.header-pdf-mascot__bob {
+  transform-box: view-box;
+  transform-origin: 20px 34px;
+  animation: mascot-bob 2.4s ease-in-out infinite;
 }
 
+.header-pdf-mascot__glow {
+  transform-box: view-box;
+  transform-origin: 20px 22px;
+  animation: mascot-glow 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__wing--left {
+  transform-box: view-box;
+  transform-origin: 12px 20px;
+  animation: mascot-wing-left 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__wing--right {
+  transform-box: view-box;
+  transform-origin: 28px 20px;
+  animation: mascot-wing-right 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__antenna-dot {
+  transform-box: view-box;
+  transform-origin: 20px 4.4px;
+  animation: mascot-antenna 1.8s ease-in-out infinite;
+}
+
+.header-pdf-mascot__eyes {
+  transform-box: view-box;
+  transform-origin: 20px 16px;
+  animation: mascot-blink 4.8s ease-in-out infinite;
+}
+
+.header-pdf-mascot__sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mascot-sparkle 2.2s ease-in-out infinite;
+}
+
+.header-pdf-mascot__smile {
+  transform-box: view-box;
+  transform-origin: 20px 19.5px;
+  animation: mascot-smile 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__page {
+  transform-box: view-box;
+  transform-origin: 27px 30px;
+  animation: mascot-page 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mascot__stack {
+  transform-box: view-box;
+  transform-origin: 34px 19px;
+  animation: mascot-stack 2.4s ease-in-out infinite;
+}
+
+.header-pdf-mini__back,
 .header-pdf-mini__front {
-  animation: doc-slide-front 2s infinite ease-in-out;
+  animation: none;
 }
 
-@keyframes doc-slide-back {
+@keyframes mascot-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  40% {
+    transform: translateY(-1.4px) rotate(-1.2deg);
+  }
+  70% {
+    transform: translateY(-0.4px) rotate(1deg);
+  }
+}
+
+@keyframes mascot-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes mascot-wing-left {
+  0%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: rotate(-8deg) translateX(-0.6px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes mascot-wing-right {
+  0%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: rotate(8deg) translateX(0.6px);
+    opacity: 0.95;
+  }
+}
+
+@keyframes mascot-antenna {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-0.7px) scale(1.18);
+  }
+}
+
+@keyframes mascot-blink {
+  0%,
+  42%,
+  48%,
+  100% {
+    transform: scaleY(1);
+  }
+  45% {
+    transform: scaleY(0.12);
+  }
+}
+
+@keyframes mascot-sparkle {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes mascot-smile {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.08);
+  }
+}
+
+@keyframes mascot-page {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(4deg);
+  }
+  50% {
+    transform: translate(0.4px, -0.8px) rotate(8deg);
+  }
+}
+
+@keyframes mascot-stack {
   0%,
   100% {
     transform: translate(0, 0);
-    opacity: 0.7;
+    opacity: 0.75;
   }
   50% {
-    transform: translate(1px, -1px);
+    transform: translate(0.5px, -0.8px);
     opacity: 1;
   }
 }
 
-@keyframes doc-slide-front {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-1.5px, 1.5px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
+  .header-pdf-mascot__bob,
+  .header-pdf-mascot__glow,
+  .header-pdf-mascot__wing--left,
+  .header-pdf-mascot__wing--right,
+  .header-pdf-mascot__antenna-dot,
+  .header-pdf-mascot__eyes,
+  .header-pdf-mascot__sparkle,
+  .header-pdf-mascot__smile,
+  .header-pdf-mascot__page,
+  .header-pdf-mascot__stack,
   .header-pdf-mini__back,
   .header-pdf-mini__front {
     animation: none;
@@ -191,9 +355,9 @@ body {
 .welcome-splash__logo .joinmypdf-logo-text__icon,
 .welcome-splash__logo .header-pdf-mini,
 .welcome-splash__logo .header-pdf-mini svg {
-  width: clamp(1.55rem, 3.2vw, 1.95rem);
-  height: clamp(1.55rem, 3.2vw, 1.95rem);
-  color: #ffffff;
+  width: clamp(2.1rem, 4vw, 2.6rem);
+  height: clamp(2.1rem, 4vw, 2.6rem);
+  color: #34d399;
 }
 
 .welcome-splash__logo .joinmypdf-logo-text__word {

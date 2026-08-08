@@ -112,6 +112,14 @@
 .site-header--matte .joinmypdf-logo-text__icon {
   color: var(--chrome-accent) !important;
   filter: drop-shadow(0 0 12px rgba(52, 211, 153, 0.45));
+  overflow: visible !important;
+}
+
+.site-header--matte .header-pdf-mini svg,
+.site-header--matte .header-pdf-mini--tight svg,
+.site-header--matte .joinmypdf-logo-text__icon svg {
+  transform: scale(var(--site-header-logo-mascot-scale, 1.42));
+  transform-origin: center center;
 }
 
 .site-header--matte .joinmypdf-logo-text__word {

@@ -1,0 +1,483 @@
+/**
+ * Active tool workspace experience
+ * Immersive canvas sizing + industrial matte / dark-glass panels + fluid motion.
+ * Scoped to post-upload (active) states — clean upload chrome stays untouched.
+ */
+
+:root {
+  --awx-accent: #34d399;
+  --awx-accent-muted: rgba(52, 211, 153, 0.22);
+  --awx-accent-soft: rgba(52, 211, 153, 0.12);
+  --awx-glass-bg: color-mix(in srgb, #141414 88%, transparent);
+  --awx-glass-bg-strong: color-mix(in srgb, #1a1a1a 92%, transparent);
+  --awx-glass-border: rgba(255, 255, 255, 0.1);
+  --awx-glass-border-hover: rgba(255, 255, 255, 0.18);
+  --awx-glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --awx-glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  --awx-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --awx-duration: 0.3s;
+  --awx-duration-fast: 0.18s;
+  --awx-canvas-min-h: min(72vh, 42rem);
+  --awx-canvas-max-w: min(100%, 88rem);
+  --awx-preview-weight: 1.35fr;
+  --awx-controls-max: 22rem;
+}
+
+/* Modal / embed: fill nearly the entire rail instead of a short content strip */
+html[data-tool-embed="1"],
+html[data-tool-modal-open="1"],
+body.tool-embed-mode {
+  --awx-canvas-min-h: min(82dvh, 100%);
+  --awx-canvas-max-w: 100%;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 1. Larger immersive canvas after upload                                      */
+/* -------------------------------------------------------------------------- */
+
+.tool-upload-float[data-workspace-phase="active"],
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]),
+#tool-workspace[data-workspace-phase="active"] {
+  --tool-content-width: var(--awx-canvas-max-w);
+  width: 100%;
+  max-width: none;
+}
+
+.tool-upload-float[data-workspace-phase="active"] .tool-upload-stage__card,
+.tool-upload-float[data-workspace-phase="active"] .tool-upload-stage__body,
+.tool-upload-float[data-workspace-phase="active"] > .tool-upload-stage {
+  min-height: var(--awx-canvas-min-h) !important;
+}
+
+.tool-upload-float[data-workspace-phase="active"] #workspace-operations,
+.tool-upload-float[data-workspace-phase="active"] .tool-workspace-panel,
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool,
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool-page,
+.tool-upload-float[data-workspace-phase="active"] [class$="-tool-page"],
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) #workspace-operations,
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) .visual-reorder-panel,
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) .tool-workspace-panel,
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) [class$="-tool-page"] {
+  width: 100% !important;
+  max-width: var(--awx-canvas-max-w);
+  margin-inline: auto;
+  min-height: min(62vh, 36rem) !important;
+}
+
+/* Crop / image editors — was capped at 42rem / 28rem */
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool-page,
+#tool-workspace:has(.crop-image-tool) .crop-image-tool-page,
+.crop-image-tool-page:has(.crop-image-tool__workspace) {
+  max-width: var(--awx-canvas-max-w) !important;
+  width: 100% !important;
+  margin-inline: auto;
+}
+
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool__stage,
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool__workspace,
+#tool-workspace .crop-image-tool__stage,
+.crop-image-tool__workspace .crop-image-tool__stage {
+  height: var(--awx-canvas-min-h) !important;
+  min-height: var(--awx-canvas-min-h) !important;
+  flex: 1 1 auto;
+}
+
+html[data-tool-embed="1"] .crop-image-tool,
+html[data-tool-embed="1"] .crop-image-tool__workspace,
+html[data-tool-embed="1"] .image-watermark,
+html[data-tool-embed="1"] .image-watermark__main,
+body.tool-embed-mode .crop-image-tool,
+body.tool-embed-mode .crop-image-tool__workspace {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+html[data-tool-embed="1"] .crop-image-tool__stage,
+html[data-tool-embed="1"] .image-watermark__stage,
+body.tool-embed-mode .crop-image-tool__stage,
+body.tool-embed-mode .image-watermark__stage {
+  flex: 1 1 auto;
+  height: auto !important;
+  min-height: min(70dvh, 100%) !important;
+}
+
+.image-watermark-tool-page,
+.image-blur-redact-tool-page,
+.rotate-align-suite,
+.add-watermark-tool-page,
+[class*="watermark-tool-page"] {
+  max-width: var(--awx-canvas-max-w) !important;
+  width: 100%;
+  margin-inline: auto;
+}
+
+/* Split tools: more weight to the preview canvas */
+@media (min-width: 960px) {
+  .tool-split-workspace__layout {
+    grid-template-columns: minmax(15rem, var(--awx-controls-max)) minmax(0, var(--awx-preview-weight));
+    gap: 1rem;
+  }
+
+  .image-watermark__layout {
+    grid-template-columns: minmax(15rem, var(--awx-controls-max)) minmax(0, 1fr) !important;
+    gap: 1.15rem;
+    align-items: stretch !important;
+  }
+}
+
+.image-watermark__stage,
+.image-blur-redact__stage,
+.crop-image-tool__stage,
+.tool-split-workspace__pane--preview {
+  min-height: var(--awx-canvas-min-h);
+}
+
+.visual-reorder-panel,
+.visual-reorder-grid {
+  width: 100%;
+  max-width: var(--awx-canvas-max-w);
+  margin-inline: auto;
+}
+
+.visual-reorder-grid {
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .visual-reorder-grid {
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. Industrial matte / dark-glass panels & controls                           */
+/* -------------------------------------------------------------------------- */
+
+.tool-workspace-panel,
+#tool-workspace .tool-workspace-panel,
+.utility-tool-layout .tool-workspace-panel,
+.im-utility-stage .tool-workspace-panel,
+.tool-upload-float .tool-workspace-panel,
+.image-watermark__sidebar,
+.image-watermark__main,
+.tool-split-workspace__pane {
+  border: 1px solid var(--awx-glass-border) !important;
+  border-radius: var(--im-tool-radius, 1rem) !important;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.035), transparent 42%),
+    var(--awx-glass-bg) !important;
+  box-shadow: var(--awx-glass-highlight), var(--awx-glass-shadow) !important;
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  transition:
+    border-color var(--awx-duration) var(--awx-ease),
+    background-color var(--awx-duration) var(--awx-ease),
+    box-shadow var(--awx-duration) var(--awx-ease),
+    transform var(--awx-duration) var(--awx-ease);
+}
+
+.tool-workspace-panel:hover,
+.image-watermark__sidebar:hover,
+.tool-split-workspace__pane:hover {
+  border-color: var(--awx-glass-border-hover) !important;
+}
+
+.crop-image-tool__stage,
+.image-watermark__stage,
+.tool-split-workspace__pane--preview {
+  border: 1px solid var(--awx-glass-border) !important;
+  border-radius: var(--im-tool-radius, 1rem) !important;
+  background:
+    linear-gradient(160deg, rgba(20, 20, 20, 0.96), rgba(8, 8, 8, 0.98)),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.018) 0,
+      rgba(255, 255, 255, 0.018) 7px,
+      transparent 7px,
+      transparent 14px
+    ) !important;
+  box-shadow: var(--awx-glass-highlight), 0 18px 48px rgba(0, 0, 0, 0.4) !important;
+  overflow: hidden;
+}
+
+.image-watermark__section-title,
+.crop-image-tool__slider-label,
+.crop-image-tool__meta,
+.image-watermark__hint {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #8a8a8a;
+}
+
+.image-watermark__toggle-btn,
+.image-watermark__tool-btn,
+.image-watermark__grid-btn,
+.crop-image-tool__rotate-btn,
+.crop-image-tool__secondary-btn,
+.visual-reorder-card {
+  border-radius: var(--im-tool-radius-control, 0.75rem) !important;
+  border-color: var(--awx-glass-border) !important;
+  background: var(--awx-glass-bg-strong) !important;
+  box-shadow: var(--awx-glass-highlight);
+  transition:
+    border-color var(--awx-duration-fast) var(--awx-ease),
+    background-color var(--awx-duration-fast) var(--awx-ease),
+    color var(--awx-duration-fast) var(--awx-ease),
+    transform var(--awx-duration-fast) var(--awx-ease),
+    box-shadow var(--awx-duration-fast) var(--awx-ease);
+}
+
+.image-watermark__toggle-btn:hover,
+.image-watermark__tool-btn:hover,
+.image-watermark__grid-btn:hover,
+.crop-image-tool__rotate-btn:hover:not(:disabled),
+.crop-image-tool__secondary-btn:hover:not(:disabled),
+.visual-reorder-card:hover {
+  border-color: var(--awx-accent-muted) !important;
+  background: color-mix(in srgb, #1f1f1f 88%, var(--awx-accent) 12%) !important;
+  transform: translateY(-1px);
+}
+
+.image-watermark__toggle-btn--active,
+.image-watermark__tool-btn--accent,
+.image-watermark__grid-btn--active,
+.image-watermark__thumb--active {
+  border-color: color-mix(in srgb, var(--awx-accent) 55%, transparent) !important;
+  background: color-mix(in srgb, #16241f 80%, var(--awx-accent) 20%) !important;
+  color: #ecfdf5 !important;
+  box-shadow:
+    var(--awx-glass-highlight),
+    0 0 0 1px var(--awx-accent-soft);
+}
+
+.image-watermark__input,
+.image-watermark__color,
+.crop-image-tool__input,
+#tool-workspace input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):not([type="hidden"]):not([type="submit"]):not([type="button"]),
+#tool-workspace select,
+#tool-workspace textarea,
+.tool-upload-float input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="range"]):not([type="hidden"]):not([type="submit"]):not([type="button"]),
+.tool-upload-float select,
+.tool-upload-float textarea {
+  border-radius: var(--im-tool-radius-control, 0.75rem) !important;
+  background: #0b0b0b !important;
+  border-color: var(--awx-glass-border) !important;
+  transition:
+    border-color var(--awx-duration) var(--awx-ease),
+    background-color var(--awx-duration) var(--awx-ease),
+    box-shadow var(--awx-duration) var(--awx-ease);
+}
+
+.image-watermark__input:focus-visible,
+.crop-image-tool__input:focus-visible,
+#tool-workspace input:focus-visible,
+#tool-workspace select:focus-visible,
+#tool-workspace textarea:focus-visible,
+.tool-upload-float input:focus-visible,
+.tool-upload-float select:focus-visible,
+.tool-upload-float textarea:focus-visible {
+  border-color: color-mix(in srgb, var(--awx-accent) 50%, transparent) !important;
+  box-shadow: 0 0 0 3px var(--awx-accent-soft) !important;
+  outline: none;
+}
+
+.crop-image-tool__range,
+.image-watermark__field input[type="range"],
+#tool-workspace input[type="range"],
+.tool-upload-float input[type="range"] {
+  accent-color: var(--awx-accent);
+  height: 0.35rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--awx-accent-muted),
+    rgba(255, 255, 255, 0.12)
+  );
+  transition: filter var(--awx-duration-fast) var(--awx-ease);
+}
+
+.crop-image-tool__range:hover,
+.image-watermark__field input[type="range"]:hover,
+#tool-workspace input[type="range"]:hover {
+  filter: brightness(1.08);
+}
+
+.crop-image-tool__primary-btn,
+.image-watermark__primary-btn,
+.delete-pages-toolbar .btn-protect,
+.workspace-action-row .btn-protect,
+#tool-workspace .btn-protect {
+  border-radius: var(--im-tool-radius-control, 0.75rem) !important;
+  transition:
+    transform var(--awx-duration-fast) var(--awx-ease),
+    box-shadow var(--awx-duration-fast) var(--awx-ease),
+    filter var(--awx-duration-fast) var(--awx-ease),
+    background-color var(--awx-duration-fast) var(--awx-ease);
+}
+
+.crop-image-tool__actions,
+.image-watermark__actions,
+.delete-pages-toolbar,
+.workspace-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  padding-top: 0.35rem;
+}
+
+.crop-image-tool__secondary-btn,
+.crop-image-tool__primary-btn,
+.image-watermark__primary-btn,
+.delete-pages-toolbar > button,
+.workspace-action-row > button {
+  min-height: 2.65rem;
+  padding-inline: 1.05rem;
+  border-radius: var(--im-tool-radius-control, 0.75rem) !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.crop-image-tool__primary-btn:hover:not(:disabled),
+.image-watermark__primary-btn:hover:not(:disabled),
+#tool-workspace .btn-protect:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 8px 24px rgba(52, 211, 153, 0.18);
+}
+
+.visual-reorder-card {
+  min-height: 12rem;
+}
+
+.visual-reorder-card__thumb {
+  min-height: 9rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. Smooth transitions & micro-motion                                         */
+/* -------------------------------------------------------------------------- */
+
+#tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) > :not(.tool-upload-float):not(.sticky-mobile-cta),
+.tool-upload-float[data-workspace-phase="active"] .tool-workspace-panel,
+.tool-upload-float[data-workspace-phase="active"] .crop-image-tool__workspace,
+.tool-upload-float[data-workspace-phase="active"] .image-watermark,
+#tool-workspace[data-workspace-phase="active"] .tool-workspace-panel {
+  animation: awx-workspace-enter 0.42s var(--awx-ease) both;
+}
+
+@keyframes awx-workspace-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tool-modal__tabs-row button,
+.tool-modal__chrome-btn,
+.crop-image-tool__rotate-btn,
+.image-watermark__thumb,
+.visual-reorder-card,
+.visual-reorder-card__remove,
+.visual-reorder-card__preview-btn {
+  transition:
+    color var(--awx-duration) var(--awx-ease),
+    background-color var(--awx-duration) var(--awx-ease),
+    border-color var(--awx-duration) var(--awx-ease),
+    transform var(--awx-duration) var(--awx-ease),
+    box-shadow var(--awx-duration) var(--awx-ease),
+    opacity var(--awx-duration) var(--awx-ease);
+}
+
+.crop-image-tool__img,
+.image-watermark__canvas,
+.visual-reorder-card__canvas,
+.tool-split-workspace__pane--preview img,
+.tool-split-workspace__pane--preview canvas {
+  transition:
+    opacity var(--awx-duration) var(--awx-ease),
+    transform var(--awx-duration) var(--awx-ease),
+    filter var(--awx-duration) var(--awx-ease);
+}
+
+.crop-image-tool__frame,
+.crop-image-tool__overlay,
+.crop-image-tool__handle {
+  transition:
+    width var(--awx-duration) var(--awx-ease),
+    height var(--awx-duration) var(--awx-ease),
+    inset var(--awx-duration) var(--awx-ease),
+    border-color var(--awx-duration-fast) var(--awx-ease),
+    box-shadow var(--awx-duration-fast) var(--awx-ease);
+}
+
+.crop-image-tool__handle:hover {
+  border-color: var(--awx-accent);
+  box-shadow: 0 0 0 3px var(--awx-accent-soft);
+}
+
+.visual-reorder-card.is-dragging,
+.visual-reorder-card.is-neon-drag {
+  border-color: color-mix(in srgb, var(--awx-accent) 45%, transparent) !important;
+  box-shadow:
+    0 0 0 1px var(--awx-accent-soft),
+    0 16px 36px rgba(0, 0, 0, 0.45) !important;
+  transform: scale(1.02);
+}
+
+/* Soften the existing pop-in so active state feels less snappy */
+@keyframes workspace-controls-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-workspace-panel,
+  #tool-workspace .tool-workspace-panel,
+  .image-watermark__sidebar,
+  .image-watermark__main,
+  .tool-split-workspace__pane,
+  .crop-image-tool__stage,
+  .image-watermark__stage,
+  .image-watermark__toggle-btn,
+  .image-watermark__tool-btn,
+  .image-watermark__grid-btn,
+  .crop-image-tool__rotate-btn,
+  .crop-image-tool__secondary-btn,
+  .visual-reorder-card,
+  .crop-image-tool__img,
+  .image-watermark__canvas,
+  .crop-image-tool__frame,
+  .crop-image-tool__overlay,
+  .crop-image-tool__handle {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  #tool-workspace:has(> .tool-upload-float[data-workspace-phase="active"]) > :not(.tool-upload-float):not(.sticky-mobile-cta),
+  .tool-upload-float[data-workspace-phase="active"] .tool-workspace-panel,
+  .tool-upload-float[data-workspace-phase="active"] .crop-image-tool__workspace,
+  .tool-upload-float[data-workspace-phase="active"] .image-watermark {
+    animation: none !important;
+  }
+}

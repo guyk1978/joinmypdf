@@ -463,6 +463,21 @@ export function ToolModalWrapper({
     };
   }, [open, workspacePhase]);
 
+  // Active-phase CSS + iframe fill height depend on a fresh rail measure.
+  useEffect(() => {
+    if (!open) return;
+    const id = window.requestAnimationFrame(() => {
+      window.dispatchEvent(new Event("resize"));
+    });
+    const t1 = window.setTimeout(() => window.dispatchEvent(new Event("resize")), 50);
+    const t2 = window.setTimeout(() => window.dispatchEvent(new Event("resize")), 200);
+    return () => {
+      window.cancelAnimationFrame(id);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, [open, workspacePhase]);
+
   const calcLabel = labels?.calc ?? "CALC";
   const docLabel = labels?.doc ?? "DOC";
   const relatedLabel = labels?.related ?? "RELATED";
