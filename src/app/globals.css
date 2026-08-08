@@ -16106,15 +16106,23 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.15rem 1.35rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .tools-hub-menu__group {
+  --tools-hub-group-height: 22.5rem; /* 360px — uniform card height */
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  min-height: 0;
+  height: var(--tools-hub-group-height);
+  max-height: var(--tools-hub-group-height);
   padding: 0.15rem 0.1rem 0.35rem;
+  overflow: hidden;
 }
 
 .tools-hub-menu__group-title {
+  flex: 0 0 auto;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -16166,11 +16174,39 @@ html[dir="rtl"] .nav-drawer.is-open .nav-drawer__panel {
 
 .tools-hub-menu__tool-list {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: 0.15rem;
+  min-height: 0;
   margin: 0;
   padding: 0;
   list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--tools-hub-accent, #34d399) 45%, transparent) transparent;
+}
+
+.tools-hub-menu__tool-list::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.tools-hub-menu__tool-list::-webkit-scrollbar-track {
+  margin-block: 0.2rem;
+  background: transparent;
+}
+
+.tools-hub-menu__tool-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tools-hub-accent, #34d399) 40%, #404040);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.tools-hub-menu__tool-list::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--tools-hub-accent, #34d399) 65%, #525252);
+  background-clip: padding-box;
 }
 
 .tools-hub-menu__tool-link {

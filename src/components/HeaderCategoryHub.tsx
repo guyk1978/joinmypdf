@@ -40,7 +40,6 @@ type PanelPosition = {
 /** Wide mega-menu footprint — clamps to the viewport with side margins. */
 const PANEL_MAX_WIDTH = 1120;
 const VIEWPORT_MARGIN = 16;
-const TOOLS_PER_CATEGORY = 8;
 
 function getPanelPosition(trigger: HTMLElement): PanelPosition {
   const rect = trigger.getBoundingClientRect();
@@ -99,11 +98,7 @@ export function HeaderCategoryHub() {
   const groups = useMemo(() => {
     const translate = tTools as InventoryTranslator;
     return listDedicatedInventoryHubLinks().map((category) => {
-      const tools = buildInventoryGridItems(
-        category.id,
-        translate,
-        locale,
-      ).slice(0, TOOLS_PER_CATEGORY);
+      const tools = buildInventoryGridItems(category.id, translate, locale);
       return {
         ...category,
         toolCount: getInventoryToolsByCategory(category.id).length,

@@ -343,10 +343,17 @@
 
 .tools-hub-menu__groups {
   gap: 0.85rem 1rem !important;
+  align-items: stretch !important;
 }
 
 .tools-hub-menu__group {
+  --tools-hub-group-height: 22.5rem; /* 360px — uniform card height */
+  display: flex !important;
+  flex-direction: column !important;
   min-width: 0;
+  min-height: 0 !important;
+  height: var(--tools-hub-group-height) !important;
+  max-height: var(--tools-hub-group-height) !important;
   padding: 0.65rem 0.7rem 0.75rem !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
   border-radius: 0.95rem !important;
@@ -354,6 +361,7 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 55%),
     rgba(255, 255, 255, 0.02) !important;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  overflow: hidden !important;
   transition:
     border-color 0.15s ease,
     background-color 0.15s ease,
@@ -371,6 +379,7 @@
 }
 
 .tools-hub-menu__group-title {
+  flex: 0 0 auto !important;
   margin: 0 0 0.45rem !important;
   padding: 0.2rem 0 0.55rem !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -403,7 +412,36 @@
 }
 
 .tools-hub-menu__tool-list {
+  flex: 1 1 auto !important;
   gap: 0.12rem !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(52, 211, 153, 0.4) rgba(255, 255, 255, 0.04);
+}
+
+.tools-hub-menu__tool-list::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.tools-hub-menu__tool-list::-webkit-scrollbar-track {
+  margin-block: 0.15rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tools-hub-menu__tool-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(52, 211, 153, 0.4);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.tools-hub-menu__tool-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(52, 211, 153, 0.65);
+  background-clip: padding-box;
 }
 
 .tools-hub-menu__tool-link {
