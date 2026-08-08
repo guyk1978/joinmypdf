@@ -174,7 +174,8 @@ export function WorkspaceUploadShell({
     typeof active === "boolean" ? (active ? "active" : "clean") : phase;
   usePendingDropzoneHandoff(rootRef);
 
-  const hasStageChildren = Children.toArray(children).some((child) => child != null && child !== false);
+  // Children.toArray already drops null/undefined/booleans.
+  const hasStageChildren = Children.toArray(children).length > 0;
   // Many tools empty the shell on upload and render the editor as a sibling.
   // Keep the stage only while uploading, or when the tool keeps UI inside it.
   const showStage = chromeEnabled && (uiPhase === "clean" || hasStageChildren);
